@@ -154,8 +154,28 @@ impl MinecraftServer {
         level.tick_state.enabled_features = enabled_features;
         level.tick_state.biomes = Some(factory.biomes.clone());
         level.tick_state.biome_zoom_seed = BiomeManager::obfuscate_seed(seed);
-        level.chunk_tick_hooks.tick_chunk = Some(|level, pos, speed| level.tick_chunk(pos, speed));
+        level.tick_state.attributes = self.build_attribute_system(&dimension_type);
         level
+    }
+
+    /// `EnvironmentAttributeSystem.builder().addDefaultLayers(level)` for a dimension type: its constant attributes, its
+    /// timelines (the `timelines` holder set resolved against the timeline registry) and the weather layers.
+    fn build_attribute_system(&self, dimension_type: &DimensionType) -> crate::world::attribute::EnvironmentAttributeSystem {
+        use crate::registry::typed::HolderSetRef;
+        use crate::world::attribute::Timeline;
+        let access = self.registries.composite_access();
+        let timelines: Vec<Timeline> = match access.registry(keys::TIMELINE) {
+            None => Vec::new(),
+            Some(registry) => {
+                let ids: Vec<Identifier> = match &dimension_type.timelines {
+                    HolderSetRef::Elements(ids) => ids.clone(),
+                    HolderSetRef::Tag(tag) => registry.tag(tag).map(|ids| ids.iter().filter_map(|id| registry.name_of(*id)).collect()).unwrap_or_default(),
+                };
+                ids.iter().filter_map(|id| registry.entry_by_key(id)).filter_map(|entry| Timeline::from_json(&entry.json)).collect()
+            }
+        };
+        let can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
+        crate::world::attribute::EnvironmentAttributeSystem::build(&dimension_type.attributes, &timelines, can_have_weather)
     }
 
     /// `createLevels`.

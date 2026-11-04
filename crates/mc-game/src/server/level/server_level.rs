@@ -28,10 +28,11 @@ use std::time::Duration;
 /// spawners). `None` = not provided (that part of `ServerChunkCache.tickChunks` is skipped).
 #[derive(Default, Clone, Copy)]
 pub struct ChunkTickHooks {
-    /// `tickSpawningChunk` for every spawning chunk, after the shuffle (given in the cache's collection order).
-    pub tick_spawning_chunks: Option<fn(&mut ServerLevel, Vec<ChunkPos>)>,
-    /// `ServerLevel.tickChunk(chunk, tickSpeed)`.
-    pub tick_chunk: Option<fn(&mut ServerLevel, ChunkPos, i32)>,
+    /// `NaturalSpawner.createState(chunkCount, ..)` + `getFilteredSpawningCategories(state, spawnEnemies, spawnPersistent)`:
+    /// returns whether any category may spawn this tick (the spawn state itself stays inside the spawner).
+    pub begin_spawn_state: Option<fn(&mut ServerLevel, i32, bool, bool, bool) -> bool>,
+    /// `NaturalSpawner.spawnForChunk(level, chunk, state, categories)`.
+    pub spawn_for_chunk: Option<fn(&mut ServerLevel, ChunkPos)>,
     /// `ServerLevel.tickCustomSpawners(spawnEnemies)`.
     pub tick_custom_spawners: Option<fn(&mut ServerLevel, bool)>,
 }
@@ -358,12 +359,22 @@ impl ServerLevel {
 
     // ------------------------------------------------------------------ ticking
 
-    /// `ServerChunkCache.tick(haveTime, tickChunks)`.
+    /// `ServerChunkCache.tick(haveTime, tickChunks = false)` (levels that only run chunk loading).
     pub fn tick_chunk_source(&mut self, have_time: &dyn Fn() -> bool, tick_chunks: bool, runs_normally: bool) {
-        self.chunk_source.tick_pre(runs_normally, tick_chunks);
+        assert!(!tick_chunks, "tickChunks needs the tick environment: use tick_chunk_source_with_env");
+        self.tick_chunk_source_inner(None, have_time, runs_normally);
+    }
+
+    /// `ServerChunkCache.tick(haveTime, true)`.
+    pub fn tick_chunk_source_with_env(&mut self, env: &dyn super::level_tick::LevelTickEnv, have_time: &dyn Fn() -> bool, runs_normally: bool) {
+        self.tick_chunk_source_inner(Some(env), have_time, runs_normally);
+    }
+
+    fn tick_chunk_source_inner(&mut self, env: Option<&dyn super::level_tick::LevelTickEnv>, have_time: &dyn Fn() -> bool, runs_normally: bool) {
+        self.chunk_source.tick_pre(runs_normally, env.is_some());
         self.apply_chunk_events();
-        if tick_chunks {
-            self.tick_chunks(runs_normally);
+        if let Some(env) = env {
+            self.tick_chunks(runs_normally, env);
             self.tick_chunk_map();
         }
         self.chunk_source.tick_unload(have_time);
@@ -376,33 +387,64 @@ impl ServerLevel {
         for id in ids {
             self.chunk_source.chunk_map.update_chunk_tracking(id);
         }
-        self.tick_entity_tracker();
     }
 
-    /// `ServerChunkCache.tickChunks()` (ordering): spawning chunks, ticking chunks, custom spawners, then broadcasts.
-    fn tick_chunks(&mut self, runs_normally: bool) {
+    /// `ServerChunkCache.tickChunks()`.
+    fn tick_chunks(&mut self, runs_normally: bool, env: &dyn super::level_tick::LevelTickEnv) {
+        use mc_core::random::RandomSource;
         if self.is_debug {
             return;
         }
         if runs_normally {
-            let _ = self.chunk_source.chunk_map.distance_manager.get_natural_spawn_chunk_count();
-            let spawning: Vec<ChunkPos> = self.chunk_source.chunk_map.collect_spawning_chunks().into_iter().map(ChunkPos::unpack).collect();
-            if let Some(hook) = self.chunk_tick_hooks.tick_spawning_chunks {
-                hook(self, spawning);
+            // naturalSpawnCount + NaturalSpawner.createState + spawning categories
+            let chunk_count = self.chunk_source.chunk_map.distance_manager.get_natural_spawn_chunk_count();
+            let rules = env.rules();
+            let do_mob_spawning = rules.spawn_mobs;
+            let tick_speed = rules.random_tick_speed;
+            let spawn_enemies = self.chunk_source.spawn_enemies();
+            let spawn_persistent = self.game_time() % 400 == 0;
+            let spawning_categories_available = match self.chunk_tick_hooks.begin_spawn_state {
+                Some(begin) => begin(self, chunk_count as i32, spawn_enemies, spawn_persistent, do_mob_spawning) && do_mob_spawning,
+                None => false,
+            };
+
+            // collectSpawningChunks, Util.shuffle(spawningChunks, level.getRandom())
+            let mut spawning: Vec<ChunkPos> = self.chunk_source.chunk_map.collect_spawning_chunks().into_iter().map(ChunkPos::unpack).collect();
+            for i in (2..=spawning.len()).rev() {
+                let swap_to = self.tick_state.random.next_int_bounded(i as i32) as usize;
+                spawning.swap(i - 1, swap_to);
             }
+            for pos in spawning {
+                self.tick_spawning_chunk(pos, spawning_categories_available, env);
+            }
+
+            // tickTickingChunks
             let ticking: Vec<ChunkPos> = self.chunk_source.chunk_map.block_ticking_chunks().into_iter().map(ChunkPos::unpack).collect();
-            if let Some(hook) = self.chunk_tick_hooks.tick_chunk {
-                for pos in ticking {
-                    let tick_speed = self.tick_state.rules.random_tick_speed;
-                    hook(self, pos, tick_speed);
-                }
+            for pos in ticking {
+                self.tick_chunk(pos, tick_speed);
             }
-            if let Some(hook) = self.chunk_tick_hooks.tick_custom_spawners {
-                let spawn_enemies = self.chunk_source.spawn_enemies();
+            if do_mob_spawning && let Some(hook) = self.chunk_tick_hooks.tick_custom_spawners {
                 hook(self, spawn_enemies);
             }
         }
         self.chunk_source.broadcast_changed_chunks();
+    }
+
+    /// `ServerChunkCache.tickSpawningChunk(chunk, spawningCategories, spawnCookie)`.
+    fn tick_spawning_chunk(&mut self, pos: ChunkPos, categories_available: bool, env: &dyn super::level_tick::LevelTickEnv) {
+        let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else { return };
+        chunk.data.access.increment_inhabited_time();
+        if self.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(pos.pack()) {
+            self.tick_thunder(pos, env);
+        }
+        if categories_available && self.can_spawn_entities_in_chunk(pos, env) && let Some(spawn) = self.chunk_tick_hooks.spawn_for_chunk {
+            spawn(self, pos);
+        }
+    }
+
+    /// `canSpawnEntitiesInChunk(pos)`: `entityManager.canPositionTick(pos) && worldBorder.isWithinBounds(pos)`.
+    pub fn can_spawn_entities_in_chunk(&self, pos: ChunkPos, env: &dyn super::level_tick::LevelTickEnv) -> bool {
+        self.entity_manager.is_ticking(pos) && (env.world_border_contains(BlockPos::new(pos.get_min_block_x(), 0, pos.get_min_block_z())) && env.world_border_contains(BlockPos::new(pos.get_max_block_x(), 0, pos.get_max_block_z())))
     }
 
     // ------------------------------------------------------------------ saving / closing

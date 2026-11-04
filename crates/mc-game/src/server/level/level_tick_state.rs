@@ -79,6 +79,8 @@ pub struct LevelTickState {
     pub find_lightning_rod: Option<fn(&mut ServerLevel, BlockPos) -> Option<BlockPos>>,
     /// `dragonFight.tick()`.
     pub dragon_fight_tick: Option<fn(&mut ServerLevel)>,
+    /// `environmentAttributes`: dimension constants + timelines + weather layers (set at level creation).
+    pub attributes: crate::world::attribute::EnvironmentAttributeSystem,
     /// `oRainLevel` / `rainLevel` / `oThunderLevel` / `thunderLevel`.
     pub o_rain_level: f32,
     pub rain_level: f32,
@@ -110,6 +112,7 @@ impl LevelTickState {
             lightning_spawn: None,
             find_lightning_rod: None,
             dragon_fight_tick: None,
+            attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &[], false),
             handling_tick: false,
             empty_time: 0,
             o_rain_level: 0.0,

@@ -23,9 +23,6 @@ pub struct ServerTickEnv<'a> {
     pub dimension: DimensionKey,
 }
 
-/// `MoonPhase` brightness table (`DimensionType.MOON_BRIGHTNESS_PER_PHASE`).
-const MOON_BRIGHTNESS_PER_PHASE: [f32; 8] = [1.0, 0.75, 0.5, 0.25, 0.0, 0.25, 0.5, 0.75];
-
 impl LevelTickEnv for ServerTickEnv<'_> {
     fn runs_normally(&self) -> bool {
         self.server.tick_rate_manager.runs_normally()
@@ -73,8 +70,9 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.wake_up_from_sleep(&dimension);
     }
 
-    fn sky_light_level(&self) -> f32 {
-        self.server.sky_light_level(&self.dimension)
+    fn clock_total_ticks(&self, clock: &mc_core::ident::Identifier) -> i64 {
+        use crate::world::clock::ClockInstance as _;
+        self.server.clock_manager().get_instance(clock).total_ticks()
     }
 
     fn difficulty(&self) -> Difficulty {
@@ -85,14 +83,17 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.overworld_clock_time()
     }
 
-    fn moon_brightness(&self, _pos: BlockPos) -> f32 {
-        let day = self.server.overworld_clock_time().div_euclid(24000);
-        MOON_BRIGHTNESS_PER_PHASE[day.rem_euclid(8) as usize]
+    fn tick_scheduled_events(&mut self, game_time: i64) {
+        if let Some(hook) = self.server.tick_hooks.tick_scheduled_events {
+            hook(self.server, game_time);
+        }
     }
 
-    fn tick_scheduled_events(&mut self, _game_time: i64) {}
-
-    fn tick_raids(&mut self, _level: &mut ServerLevel) {}
+    fn tick_raids(&mut self, level: &mut ServerLevel) {
+        if let Some(hook) = self.server.tick_hooks.tick_raids {
+            hook(self.server, level);
+        }
+    }
 
     fn broadcast_game_event_to_all(&mut self, packet: &ClientboundGameEventPacket) {
         self.server.player_list.broadcast_all(packet);

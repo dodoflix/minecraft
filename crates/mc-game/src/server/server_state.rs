@@ -175,48 +175,6 @@ impl MinecraftServer {
         }
     }
 
-    /// `environmentAttributes().getDimensionValue(SKY_LIGHT_LEVEL)`: the dimension type's own value when it sets one
-    /// (nether: 4), else `15` multiplied by the clock timeline's `gameplay/sky_light_level` track. Only the constant
-    /// and linear easing of keyframes are sampled.
-    pub fn sky_light_level(&self, dimension: &DimensionKey) -> f32 {
-        const TRACK: &str = "minecraft:gameplay/sky_light_level";
-        if let Some(level) = self.dimension_attribute_f32(dimension, TRACK) {
-            return level;
-        }
-        let Some(clock) = self.default_clock_of(dimension) else { return 15.0 };
-        let ticks = self.clock_manager().get_instance(&clock).total_ticks();
-        let mut level = 15.0f32;
-        if let Some(timelines) = self.registries.composite_access().registry(keys::TIMELINE) {
-            for entry in timelines.entries() {
-                if entry.json.get("clock").and_then(Value::as_str) == Some(&clock.to_string())
-                    && let Some(track) = entry.json.get("tracks").and_then(|t| t.get(TRACK))
-                {
-                    let period = entry.json.get("period_ticks").and_then(Value::as_i64).map(|p| p as i32);
-                    if let Some(value) = sample_float_track(track, period, ticks) {
-                        level = match track.get("modifier").and_then(Value::as_str) {
-                            Some("multiply") => level * value,
-                            Some("add") => level + value,
-                            _ => value,
-                        };
-                    }
-                }
-            }
-        }
-        level.clamp(0.0, 15.0)
-    }
-
-    fn dimension_attribute_f32(&self, dimension: &DimensionKey, name: &str) -> Option<f32> {
-        use crate::registry::typed::dimension_type::DimensionType;
-        use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
-        let access = self.registries.composite_access();
-        let stem = access.get::<LevelStem>(keys::LEVEL_STEM, dimension)?;
-        let dimension_type = match &stem.dimension_type {
-            DimensionTypeSource::Inline(inline) => inline.as_ref(),
-            DimensionTypeSource::Reference(id) => access.get::<DimensionType>(keys::DIMENSION_TYPE, id)?,
-        };
-        dimension_type.attributes.override_value(name).and_then(Value::as_f64).map(|v| v as f32)
-    }
-
     // ------------------------------------------------------------------ tick rate manager host
 
     /// Run `f` with the tick rate manager and a [`TickRateHost`] over the rest of the server (vanilla's manager holds
@@ -291,66 +249,6 @@ impl TickRateHost for MinecraftServer {
                 player.send_system_message(&message, false);
             }
         }
-    }
-}
-
-/// `KeyframeTrackSampler.sample` for a float track `{keyframes: [{ticks, value}], ease?}` (`constant` / `linear`).
-fn sample_float_track(track: &Value, period_ticks: Option<i32>, ticks: i64) -> Option<f32> {
-    let keyframes: Vec<(i64, f32)> = track
-        .get("keyframes")?
-        .as_array()?
-        .iter()
-        .filter_map(|k| Some((k.get("ticks")?.as_i64()?, k.get("value")?.as_f64()? as f32)))
-        .collect();
-    let constant = track.get("ease").and_then(Value::as_str) == Some("constant");
-    let (first, last) = (*keyframes.first()?, *keyframes.last()?);
-    if keyframes.len() == 1 {
-        return Some(first.1);
-    }
-    let sample_ticks = match period_ticks {
-        Some(p) => ticks.rem_euclid(i64::from(p)),
-        None => ticks,
-    };
-    // segments: [(from_ticks, from, to_ticks, to)], with the wrap-around segments when the track is periodic
-    let mut segments: Vec<(i64, f32, i64, f32)> = Vec::new();
-    if let Some(p) = period_ticks {
-        segments.push((last.0 - i64::from(p), last.1, first.0, first.1));
-    }
-    for pair in keyframes.windows(2) {
-        segments.push((pair[0].0, pair[0].1, pair[1].0, pair[1].1));
-    }
-    if let Some(p) = period_ticks {
-        segments.push((last.0, last.1, first.0 + i64::from(p), first.1));
-    }
-    let segment = segments.iter().find(|s| sample_ticks < s.2).or(segments.last())?;
-    let (from_ticks, from, to_ticks, to) = *segment;
-    if sample_ticks <= from_ticks {
-        Some(from)
-    } else if sample_ticks >= to_ticks {
-        Some(to)
-    } else if constant {
-        Some(from)
-    } else {
-        let alpha = (sample_ticks - from_ticks) as f32 / (to_ticks - from_ticks) as f32;
-        Some(from + alpha * (to - from))
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use serde_json::json;
-
-    #[test]
-    fn day_track_interpolates_and_wraps() {
-        let track = json!({"keyframes": [{"ticks": 133, "value": 1.0}, {"ticks": 11867, "value": 1.0}, {"ticks": 13670, "value": 0.26666668}, {"ticks": 22330, "value": 0.26666668}], "modifier": "multiply"});
-        let at = |t: i64| sample_float_track(&track, Some(24000), t).unwrap();
-        assert_eq!(at(6000), 1.0);
-        assert_eq!(at(14000), 0.26666668);
-        assert_eq!(at(23000), 0.26666668 + (23000.0 - 22330.0) as f32 / (24133.0 - 22330.0) as f32 * (1.0 - 0.26666668));
-        assert_eq!(at(24000 + 6000), 1.0);
-        let mid = at(12768);
-        assert!(mid < 1.0 && mid > 0.26666668);
     }
 }
 

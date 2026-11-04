@@ -73,8 +73,20 @@ pub struct ServerInit {
     pub level_load_listener: Box<dyn LevelLoadListener>,
 }
 
+/// Per-tick work owned by slices that have not landed (scheduled events need the function manager, raids need the raid
+/// manager): they register a function here and `ServerLevel::tick` calls it at vanilla's position in the tick.
+#[derive(Default, Clone, Copy)]
+pub struct ServerTickHooks {
+    /// `server.getScheduledEvents().tick(server, gameTime)` (inside `ServerLevel.tickTime`).
+    pub tick_scheduled_events: Option<fn(&mut MinecraftServer, i64)>,
+    /// `raids.tick(level)`.
+    pub tick_raids: Option<fn(&mut MinecraftServer, &mut ServerLevel)>,
+}
+
 pub struct MinecraftServer {
     pub shared: Arc<ServerShared>,
+    /// Seams for per-tick work of unlanded slices, see [`ServerTickHooks`].
+    pub tick_hooks: ServerTickHooks,
     tasks: TaskQueue,
     /// `levels` in vanilla iteration order. A level is `None` only while it is taken out for its own tick
     /// (see [`MinecraftServer::with_level`]).
@@ -194,6 +206,7 @@ impl MinecraftServer {
             *init.dedicated.settings.get_properties().simulation_distance.get(),
         );
         let mut server = Self {
+            tick_hooks: ServerTickHooks::default(),
             shared,
             tasks: TaskQueue::new(tasks),
             levels: IndexMap::new(),
