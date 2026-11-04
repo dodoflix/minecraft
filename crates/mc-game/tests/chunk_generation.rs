@@ -183,3 +183,92 @@ fn new_biome_chunk(
     chunk.set_persisted_status(ChunkStatus::Biomes);
     chunk
 }
+
+/// Blocks placed by cave/underground features (not generated here): moss, vines, dripstone, geodes, clay pools, ...
+fn is_feature_block(debug: &str) -> bool {
+    ["moss", "vine", "lichen", "dripstone", "azalea", "clay", "amethyst", "calcite", "smooth_basalt", "budding", "glow_berries", "dripleaf", "spore", "hanging_roots", "rooted_dirt", "cave_vines", "sculk", "cave_air", "tuff", "ore", "glow", "froglight", "fern", "grass", "flower", "mushroom", "pointed"]
+        .iter()
+        .any(|w| debug.contains(w))
+}
+
+/// Below the surface, features cannot change whether a block is air: ours (terrain only) must agree with the real
+/// vanilla server's FULL chunks for the same seed (carvers, aquifers, noise fill, surface rules).
+#[test]
+fn generated_full_chunks_have_vanilla_solidity_below_the_surface() {
+    let world = root().join("run/servers/worldref/world");
+    let region = world.join("dimensions/minecraft/overworld/region");
+    if !region.is_dir() {
+        eprintln!("run/servers/worldref missing: skipped");
+        return;
+    }
+    let seed = mc_world::level_storage::SavedDataStorage::new(world.join("data"))
+        .get(&Identifier::parse("minecraft:world_gen_settings").unwrap())
+        .and_then(|t| t.as_compound().and_then(|c| c.get_long("seed")))
+        .unwrap();
+    let registries = Arc::new(WorldgenRegistries::new(Arc::new(FsDataSource::new(root().join("ref/src/data")))));
+    let biomes = Arc::new(BiomeRegistry::load(&registries).unwrap());
+    let factory = Arc::new(PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names())).unwrap());
+    let biome_source = biome_source_from_json(&serde_json::json!({"type": "minecraft:multi_noise", "preset": "minecraft:overworld"}), &registries, &biomes).unwrap();
+    let settings = registries.noise_settings(&Identifier::parse("minecraft:overworld").unwrap()).unwrap();
+    let generator = NoiseBasedChunkGenerator::new(biome_source, Arc::new(settings), registries.clone(), biomes.clone()).unwrap();
+    let random_state = Arc::new(RandomState::create(registries.clone(), seed, generator.settings()));
+    let backend = NoiseWorldGenerator::new(Arc::new(generator), random_state, seed, None);
+    let dir = std::env::temp_dir().join(format!("mc-chunk-gen-solid-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let (shared, _rx) = ServerShared::new();
+    let height = LevelHeight { min_y: -64, height: 384 };
+    let mut level = ServerLevel::new(ServerLevelParams {
+        shared, dimension: Identifier::parse("minecraft:overworld").unwrap(), level_id: "g".into(), dimension_dir: dir.clone(),
+        level_height: height, sea_level: 63, has_sky_light: true, factory: factory.clone(), generator: Arc::new(backend),
+        generate_structures: false, seed, is_known_structure: Arc::new(|_| false), view_distance: 10, simulation_distance: 10,
+        sync_writes: false, is_debug: false,
+        level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(mc_game::server::level::level_data::default_world_data())),
+    });
+    let fulls = read_status_chunks(&region, "minecraft:full");
+    assert!(!fulls.is_empty());
+    let (mut columns, mut mismatches, mut first) = (0, 0, None);
+    for (pos, tag) in fulls.iter().step_by((fulls.len() / 10).max(1)).take(10) {
+        let parsed = SerializableChunkData::parse(height, &factory, tag).unwrap().unwrap();
+        let mut vanilla = mc_world::chunk::ProtoChunk::new(*pos, mc_world::upgrade_data::UpgradeData::EMPTY, height, &factory, None);
+        for sd in &parsed.section_data {
+            if let Some(c) = &sd.chunk_section {
+                let i = height.section_index_from_section_y(sd.y) as usize;
+                vanilla.access.sections[i] = c.clone();
+            }
+        }
+        let ocean_floor = parsed.heightmaps.get(&mc_world::heightmap::HeightmapType::OceanFloor).cloned().expect("OCEAN_FLOOR persisted");
+        let mut hm = mc_world::heightmap::Heightmap::new(-64, 384, mc_world::heightmap::HeightmapType::OceanFloor);
+        hm.set_raw_data(&ocean_floor).unwrap();
+        let ours = level.chunk_blocking_mut(pos.x, pos.z);
+        for lx in 0..16 {
+            for lz in 0..16 {
+                columns += 1;
+                let floor = hm.get_first_available(lx, lz) - 1;
+                let mut bad = false;
+                for y in -64..=(floor - 12) {
+                    let bp = mc_core::pos::BlockPos::new(pos.x * 16 + lx, y, pos.z * 16 + lz);
+                    let (v, o) = (vanilla.get_block_state(bp), ours.data.get_block_state(bp));
+                    if v.is_air() != o.is_air() && !is_feature_block(&format!("{v:?}")) && !is_feature_block(&format!("{o:?}")) {
+                        bad = true;
+                        if first.is_none() {
+                            eprintln!("first diff chunk {pos} col ({lx},{lz}) floor {floor} y {y}: vanilla {v:?} ours {o:?}");
+                            for yy in (y - 3)..(y + 4) {
+                                let b = mc_core::pos::BlockPos::new(pos.x * 16 + lx, yy, pos.z * 16 + lz);
+                                eprintln!("  y={yy} v={:?} o={:?}", vanilla.get_block_state(b), ours.data.get_block_state(b));
+                            }
+                        }
+                        break;
+                    }
+                }
+                if bad {
+                    mismatches += 1;
+                    first.get_or_insert((*pos, lx, lz));
+                }
+            }
+        }
+    }
+    level.close();
+    let _ = std::fs::remove_dir_all(&dir);
+    // Features we do not generate (geode interiors, dungeons, structure interiors, ...) legitimately hollow out a few columns.
+    assert!(mismatches * 25 <= columns, "{mismatches}/{columns} columns differ in air/solid below the surface, first at {first:?}");
+}

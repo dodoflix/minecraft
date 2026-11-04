@@ -125,7 +125,7 @@ impl PrepareSpawnTask {
             Spawn::Adventure(pos) => {
                 let chunk = ChunkPos::new(pos.x() >> 4, pos.z() >> 4);
                 level.add_ticket_with_radius(TicketType::SPAWN_SEARCH, chunk, 0);
-                level.has_chunk(chunk.x, chunk.z).then(|| fixup_spawn_height(level, *pos))
+                level.chunk_now(chunk.x, chunk.z).is_some().then(|| fixup_spawn_height(level, *pos))
             }
             Spawn::Searching { finder, waiting } => loop {
                 let current = waiting.take().unwrap_or_else(|| match finder.next_candidate() {
@@ -137,7 +137,9 @@ impl PrepareSpawnTask {
                     Waiting::Fallback(pos) => ChunkPos::new(pos.x() >> 4, pos.z() >> 4),
                 };
                 level.add_ticket_with_radius(TicketType::SPAWN_SEARCH, chunk, 0);
-                if !level.has_chunk(chunk.x, chunk.z) {
+                // `getChunkFuture(...FULL)` is done: the chunk object exists (a holder with a low enough ticket level
+                // only says the chunk is wanted, not that it is generated).
+                if level.chunk_now(chunk.x, chunk.z).is_none() {
                     *waiting = Some(current);
                     return None;
                 }
@@ -155,7 +157,7 @@ impl PrepareSpawnTask {
 
     fn spawn_chunks_loaded(level: &ServerLevel, center: ChunkPos) -> bool {
         (-PREPARE_CHUNK_RADIUS..=PREPARE_CHUNK_RADIUS)
-            .all(|dx| (-PREPARE_CHUNK_RADIUS..=PREPARE_CHUNK_RADIUS).all(|dz| level.has_chunk(center.x + dx, center.z + dz)))
+            .all(|dx| (-PREPARE_CHUNK_RADIUS..=PREPARE_CHUNK_RADIUS).all(|dz| level.chunk_now(center.x + dx, center.z + dz).is_some()))
     }
 }
 
