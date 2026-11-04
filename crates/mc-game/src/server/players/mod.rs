@@ -12,6 +12,9 @@ pub mod player_files;
 pub mod old_users_converter;
 pub mod player_handle;
 pub mod player_list;
+pub mod player_ops;
+pub mod prepare_spawn;
+pub mod server_join_host;
 pub mod stored_user_list;
 pub mod user_lists;
 

@@ -111,3 +111,36 @@ impl CommandStorage {
         out
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use mc_world::level_storage::SavedDataStorage;
+
+    use super::*;
+
+    fn id(s: &str) -> Identifier {
+        Identifier::parse(s).unwrap()
+    }
+
+    #[test]
+    fn set_get_persist_and_empty_removes() {
+        let dir = tempfile::tempdir().unwrap();
+        let mut data = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
+        let mut cs = CommandStorage::new();
+        assert!(cs.get(&mut data, &id("ns:a")).is_empty(), "missing namespace reads as empty");
+        cs.set(&mut data, &id("ns:a"), CompoundTag::new().with("x", 1i32));
+        cs.set(&mut data, &id("ns:b/c"), CompoundTag::new().with("y", "s"));
+        assert_eq!(cs.get(&mut data, &id("ns:a")).get_int("x"), Some(1));
+        data.save_and_join();
+        assert!(dir.path().join("data/ns/command_storage.dat").is_file());
+        // a fresh manager reads the file back
+        let mut data2 = SavedDataManager::new(SavedDataStorage::new(dir.path().join("data")));
+        let mut cs2 = CommandStorage::new();
+        assert_eq!(cs2.get(&mut data2, &id("ns:b/c")).get_string("y"), Some("s"));
+        let mut keys: Vec<_> = cs2.keys(&mut data2).iter().map(ToString::to_string).collect();
+        keys.sort();
+        assert_eq!(keys, ["ns:a", "ns:b/c"]);
+        cs2.set(&mut data2, &id("ns:a"), CompoundTag::new());
+        assert_eq!(cs2.keys(&mut data2).len(), 1);
+    }
+}

@@ -176,11 +176,33 @@ impl ServerLevel {
             EntityLevelEvent::TrackingStart(id) => {
                 if self.entity_manager.get_any(id).is_some_and(|e| e.is_player()) && !self.players.contains(&id) {
                     self.players.push(id);
+                    // `ServerChunkCache.addEntity(player)` -> `ChunkMap.updatePlayerStatus(player, true)`
+                    let info = self
+                        .entity_manager
+                        .get_any(id)
+                        .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
+                        .and_then(|p| Some((p, p.connection.clone()?, p.listener.as_ref()?.chunk_sender.clone())))
+                        .map(|(p, connection, sink)| super::chunk_map::PlayerTrackingInfo {
+                            entity_id: id,
+                            uuid: p.uuid(),
+                            connection,
+                            sink: Box::new(sink),
+                            position: p.position(),
+                            requested_view_distance: p.requested_view_distance,
+                            spectator: p.is_spectator(),
+                            alive: p.is_alive(),
+                        });
+                    if let Some(info) = info {
+                        self.chunk_source.chunk_map.add_player(info);
+                    }
                 }
                 let players = super::tracker_players(&self.entity_manager, &self.players);
                 self.entity_tracker.add_entity(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, id);
             }
             EntityLevelEvent::TrackingEnd(id) => {
+                if self.players.contains(&id) {
+                    self.chunk_source.chunk_map.remove_player(id);
+                }
                 self.players.retain(|&p| p != id);
                 let player = self
                     .entity_manager
@@ -217,6 +239,18 @@ impl ServerLevel {
         if let Some(p) = players.iter().find(|p| p.id == id).cloned() {
             self.entity_tracker.move_player(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, &p);
         }
+    }
+
+    /// `ChunkMap.move(player)` entity half for a player that is currently taken out of the level (its packet or tick
+    /// is being handled): the tracker works from the explicit snapshot instead of looking the player up in storage.
+    pub fn entity_tracker_move_taken_out_player(&mut self, player: &crate::world::entity::ServerPlayer) {
+        let mut players = super::tracker_players(&self.entity_manager, &self.players);
+        let snapshot = super::entity_tracker::TrackerPlayer::of(player);
+        match players.iter_mut().find(|p| p.id == snapshot.id) {
+            Some(p) => *p = snapshot.clone(),
+            None => players.push(snapshot.clone()),
+        }
+        self.entity_tracker.move_player(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, &snapshot);
     }
 
     // ---- queries ----------------------------------------------------------------------------------------------

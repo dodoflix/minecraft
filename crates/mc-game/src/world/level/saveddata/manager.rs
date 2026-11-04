@@ -134,6 +134,13 @@ impl SavedDataManager {
         self.get(ty).expect("just inserted")
     }
 
+    /// Shared access to an instance that was already loaded (`get`/`compute_if_absent`/`set` ran before); `None` when it
+    /// was never loaded. For `&self` readers (level ticking) of data the server loaded at startup.
+    pub fn peek<T: SavedData>(&self, ty: &SavedDataType<T>) -> Option<&T> {
+        let entry = self.cache.get(&ty.id)?;
+        entry.data.as_ref().and_then(|d| (&**d as &dyn Any).downcast_ref::<T>())
+    }
+
     /// `get`: reads and caches on first access; `None` when absent or unreadable (logged).
     pub fn get<T: SavedData>(&mut self, ty: &SavedDataType<T>) -> Option<&mut T> {
         if !self.cache.contains_key(&ty.id) {

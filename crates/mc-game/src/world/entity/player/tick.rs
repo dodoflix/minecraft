@@ -139,6 +139,8 @@ impl ServerPlayer {
                 total_experience: self.player.total_experience,
             });
         }
+        // the player list's view of this player (tab list, broadcasts by range/dimension)
+        self.sync_handle();
     }
 }
 

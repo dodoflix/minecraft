@@ -6,14 +6,20 @@
 
 use super::common_listener::{CommonListenerCookie, ServerCommonListener};
 use super::player_chunk_sender::PlayerChunkSender;
-use super::ConnectionSender;
+pub use super::game_packets::{PlayCtx, process_queued_packets, send_next_chunks_all, tick_connection};
+use super::{ConnectionSender, InboundPacket};
 use crate::util::tick_throttler::TickThrottler;
 use crate::world::entity::EntityId;
 use mc_core::phys::Vec3;
 use crate::world::entity::{Entity, ServerPlayer};
 use mc_protocol::packet::Packet;
-use mc_protocol::packets::play::{ClientboundDisconnectPacket, ClientboundPlayerPositionPacket, PositionMoveRotation, Relatives};
+use mc_protocol::packets::play::{ClientboundPlayerPositionPacket, PositionMoveRotation, Relatives};
+use crate::server::chat::signed_message::{Decoder, UnsignedDecoder};
+use crate::server::chat::{OutgoingChatState, RemoteChatSession};
 use mc_text::Component;
+use parking_lot::Mutex;
+use std::sync::Arc;
+use std::sync::mpsc::Receiver;
 
 /// `ServerGamePacketListenerImpl.CLIENT_LOADED_TIMEOUT_TIME`.
 pub const CLIENT_LOADED_TIMEOUT_TIME: i32 = 60;
@@ -28,6 +34,8 @@ pub struct ServerGamePacketListenerImpl {
     pub(crate) common: ServerCommonListener,
     pub(crate) sender: ConnectionSender,
     pub chunk_sender: PlayerChunkSender,
+    /// The connection's reader task output (vanilla's `PacketProcessor` queue), drained at the start of every tick.
+    pub(crate) inbound: Receiver<InboundPacket>,
     pub(crate) tick_count: i32,
     pub(crate) ack_block_changes_up_to: i32,
     pub(crate) drop_spam_throttler: TickThrottler,
@@ -65,23 +73,46 @@ pub struct ServerGamePacketListenerImpl {
     /// Set once the connection's final `Disconnected` event was seen (`Connection.disconnectionHandled` source).
     pub(crate) pending_disconnect: Option<mc_text::Component>,
     pub(crate) disconnection_handled: bool,
+    /// `chatSession`, `signedMessageDecoder`.
+    pub(crate) chat_session: Option<RemoteChatSession>,
+    pub(crate) signed_message_decoder: Box<dyn Decoder>,
+    /// The player handle's outgoing chat state (`lastSeenMessages`, `messageSignatureCache`, `nextChatIndex`); vanilla
+    /// synchronizes on `lastSeenMessages`, the handle shares it with `PlayerList` broadcasts.
+    pub(crate) chat_out: Arc<Mutex<OutgoingChatState>>,
+    /// `ServerCommandSuggestionsProvider`: the latest unanswered request `(client id, command)` and the per-tick budget.
+    pub(crate) suggestion_request: Option<(i32, String)>,
+    pub(crate) suggestion_budget: bool,
+}
+
+/// What `new ServerGamePacketListenerImpl(server, connection, player, cookie)` reads from the server.
+pub struct ListenerSettings {
+    /// `server.getCommandSpamThresholdSeconds()` / `getChatSpamThresholdSeconds()`.
+    pub command_spam_threshold_seconds: i32,
+    pub chat_spam_threshold_seconds: i32,
+    /// `connection.isMemoryConnection()`.
+    pub memory_connection: bool,
+    /// `server::enforceSecureProfile`.
+    pub enforce_secure_profile: Arc<dyn Fn() -> bool + Send + Sync>,
 }
 
 impl ServerGamePacketListenerImpl {
-    /// `new ServerGamePacketListenerImpl(server, connection, player, cookie)`; `now_ms` = `Util.getMillis()`,
-    /// the spam thresholds are `MinecraftServer.getCommandSpamThresholdSeconds()`/`getChatSpamThresholdSeconds()`.
+    /// `new ServerGamePacketListenerImpl(server, connection, player, cookie)`; `now_ms` = `Util.getMillis()`;
+    /// `chat_out` is the player handle's `chat_out`.
     pub fn new(
         sender: ConnectionSender,
+        inbound: Receiver<InboundPacket>,
         cookie: &CommonListenerCookie,
+        chat_out: Arc<Mutex<OutgoingChatState>>,
+        settings: ListenerSettings,
         now_ms: i64,
-        command_spam_threshold_seconds: i32,
-        chat_spam_threshold_seconds: i32,
-        memory_connection: bool,
     ) -> Self {
+        let profile_id = cookie.profile.id;
+        let ListenerSettings { command_spam_threshold_seconds, chat_spam_threshold_seconds, memory_connection, enforce_secure_profile } = settings;
         Self {
             common: ServerCommonListener::new(cookie, now_ms),
             chunk_sender: PlayerChunkSender::new(sender.clone(), memory_connection),
             sender,
+            inbound,
             tick_count: 0,
             ack_block_changes_up_to: NO_BLOCK_UPDATES_TO_ACK,
             drop_spam_throttler: TickThrottler::new(20, 1480),
@@ -119,6 +150,11 @@ impl ServerGamePacketListenerImpl {
             vehicle_position_last_reset_at: 0,
             pending_disconnect: None,
             disconnection_handled: false,
+            chat_session: None,
+            signed_message_decoder: Box::new(UnsignedDecoder::new(profile_id, enforce_secure_profile)),
+            chat_out,
+            suggestion_request: None,
+            suggestion_budget: false,
         }
     }
 
@@ -132,15 +168,19 @@ impl ServerGamePacketListenerImpl {
     }
 
     /// `disconnect(reason)`: queue `ClientboundDisconnectPacket`, flush and close; the connection's final inbound
-    /// event then runs `onDisconnect` from [`tick_connection`].
+    /// event then runs `onDisconnect` from `tick_connection`.
     pub fn disconnect(&self, reason: Component) {
-        self.sender.send(&ClientboundDisconnectPacket { reason });
-        self.sender.close();
+        self.sender.disconnect(reason);
     }
 
     /// `latency()` (read by `PlayerList.tick` for `UPDATE_LATENCY`).
     pub fn latency(&self) -> i32 {
         self.common.latency()
+    }
+
+    /// `isAcceptingMessages()`.
+    pub fn is_accepting_messages(&self) -> bool {
+        self.sender.is_connected() && !self.waiting_for_switch_to_config
     }
 
     /// `ackBlockChangesUpTo(packetSequenceNr)`.

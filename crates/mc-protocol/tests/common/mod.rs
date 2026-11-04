@@ -6,6 +6,8 @@ use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use std::fmt::Debug;
 
+pub mod vanilla;
+
 use mc_protocol::codec::{read_varint, write_varint};
 use mc_protocol::Packet;
 

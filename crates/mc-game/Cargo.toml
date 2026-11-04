@@ -11,6 +11,7 @@ mc-text = { path = "../mc-text" }
 mc-brigadier = { path = "../mc-brigadier" }
 mc-data = { path = "../mc-data" }
 mc-protocol = { path = "../mc-protocol" }
+mc-dfu = { path = "../mc-dfu" }
 mc-worldgen = { path = "../mc-worldgen" }
 mc-light = { path = "../mc-light" }
 mc-world = { path = "../mc-world" }
@@ -40,3 +41,4 @@ sha2 = { version = "0.10", features = ["oid"] }
 
 [dev-dependencies]
 tempfile = "3"
+tokio = { version = "1", features = ["test-util"] }

@@ -15,7 +15,7 @@ pub enum Stage {
     LoadPlayerChunks,
 }
 
-pub trait LevelLoadListener {
+pub trait LevelLoadListener: Send {
     fn start(&mut self, stage: Stage, total_chunks: i32);
     fn update(&mut self, stage: Stage, current_chunks: i32, total_chunks: i32);
     fn finish(&mut self, stage: Stage);

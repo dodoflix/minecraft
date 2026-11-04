@@ -99,6 +99,10 @@ Every agent works in its own git worktree on its own branch:
 main under a lock: `flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft merge --ff-only <name>` (retry
 rebase if main moved). Never force-push/reset main; never discard others' work.
 
+**Backup:** remote `origin` = private GitHub repo `dodoflix/minecraft`. After merging to main run
+`flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft push -q origin main`; after WIP/checkpoint commits
+push your branch (`git push -q origin <name>`; branch force-push only after your own rebase, never main).
+
 **Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
 `feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
 (e.g. `feat(protocol): add play packets`, `fix(worldgen): aquifer lava level`, `test(world): region differential`).

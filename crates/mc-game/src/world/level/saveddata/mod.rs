@@ -6,5 +6,6 @@ pub mod random_sequences;
 pub mod stopwatches;
 pub mod wandering_trader_data;
 pub mod weather_data;
+pub mod world_border;
 
 pub use manager::{PendingSave, SavedData, SavedDataManager, SavedDataType};

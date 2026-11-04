@@ -79,9 +79,10 @@ fn absolute(path: &Path) -> String {
     std::env::current_dir().map(|d| d.join(path)).unwrap_or_else(|_| path.to_path_buf()).display().to_string()
 }
 
-/// The hand-over to the real server (`MinecraftServer.spin`): the single seam to `mc_game::server::dedicated::launch`.
+/// The hand-over to the real server (`MinecraftServer.spin`): `mc_game::server::dedicated::launch`.
 fn start_server(options: ServerOptions, settings: DedicatedServerSettings) -> ExitCode {
-    let _ = (options, settings);
-    log::error!("Failed to start the minecraft server\nmc_game::server::dedicated::launch is not available yet");
-    ExitCode::SUCCESS
+    match mc_game::server::dedicated::launch(options, settings) {
+        0 => ExitCode::SUCCESS,
+        code => ExitCode::from(code as u8),
+    }
 }
