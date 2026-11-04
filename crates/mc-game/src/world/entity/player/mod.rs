@@ -7,6 +7,7 @@ pub mod inventory;
 pub mod item_use;
 pub mod menu_ctx;
 pub mod tick;
+pub mod travel;
 pub mod server_player;
 
 pub use abilities::Abilities;

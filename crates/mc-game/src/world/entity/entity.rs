@@ -508,6 +508,11 @@ impl EntityData {
         self.dimensions.height
     }
 
+    /// `getFluidJumpThreshold()`.
+    pub fn get_fluid_jump_threshold(&self) -> f64 {
+        if f64::from(self.eye_height) < 0.4 { 0.0 } else { 0.4 }
+    }
+
     pub fn get_eye_y(&self) -> f64 {
         self.position.y + f64::from(self.eye_height)
     }

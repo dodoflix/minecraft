@@ -324,6 +324,13 @@ impl Entity for ServerPlayer {
     fn is_client_authoritative(&self) -> bool {
         true
     }
+    /// `LivingEntity.getDefaultGravity()`: the `GRAVITY` attribute.
+    fn get_default_gravity(&self) -> f64 {
+        self.player.living.get_attribute_value(mc_data::Attribute::GRAVITY)
+    }
+    fn get_effective_gravity(&self) -> f64 {
+        self.living_effective_gravity()
+    }
     fn move_simulation_type(&self) -> crate::world::entity::MoveSimulationType {
         crate::world::entity::MoveSimulationType::AuthoritativeSideAndServer
     }
@@ -542,6 +549,19 @@ mod tests {
     use mc_protocol::codec::read_varint;
     use mc_protocol::packet::Packet;
     use mc_protocol::packets::play::{ClientboundSetExperiencePacket, ClientboundSetHealthPacket};
+
+    #[test]
+    fn do_tick_applies_gravity_and_air_drag_like_vanilla() {
+        let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+        let mut p = ServerPlayer::new(1, Identifier::parse("minecraft:overworld").unwrap(), GameProfile { id: uuid::Uuid::from_u128(1), name: "A".into(), properties: vec![] }, Default::default());
+        p.set_pos(0.0, 100.0, 0.0);
+        p.do_tick(&mut level);
+        // dm.y = (0 - 0.08) * 0.98 (float 0.98 widened to double)
+        assert_eq!(p.base().delta_movement().y, -0.08 * f64::from(0.98f32));
+        assert_eq!(p.base().y(), 100.0);
+        p.do_tick(&mut level);
+        assert!(p.base().y() < 100.0);
+    }
 
     #[test]
     fn do_tick_sends_health_and_xp_once_then_only_changes() {

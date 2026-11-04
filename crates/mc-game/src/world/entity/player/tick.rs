@@ -88,6 +88,7 @@ impl ServerPlayer {
         }
         l.y_head_rot_o = l.y_head_rot;
         l.y_body_rot_o = l.y_body_rot;
+        self.ai_step_travel(level);
         // Player.tick tail
         let (x, z) = (self.base().x(), self.base().z());
         let (nx, nz) = (mth::clamp_f64(x, -2.9999999E7, 2.9999999E7), mth::clamp_f64(z, -2.9999999E7, 2.9999999E7));
