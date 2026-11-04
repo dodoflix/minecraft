@@ -243,8 +243,10 @@ pub(crate) mod test_support {
             let mut out = Vec::new();
             while let Ok(item) = self.0.try_recv() {
                 out.push(match item {
-                    Outbound::Payload(bytes) => Some(mc_protocol::codec::read_varint(&mut &bytes[..]).unwrap()),
-                    Outbound::Close => None,
+                    Outbound::Payload(bytes) | Outbound::Write(bytes) => Some(mc_protocol::codec::read_varint(&mut &bytes[..]).unwrap()),
+                    Outbound::Close | Outbound::Disconnect(_) => None,
+                    // protocol reconfiguration messages are not packets
+                    Outbound::Flush | Outbound::SetCompression(_) | Outbound::EnableEncryption(_) | Outbound::SetState(_) | Outbound::Raw(_) => continue,
                 });
             }
             out
