@@ -46,12 +46,16 @@ pub struct PlayerSharedState {
     pub chat_visibility: ChatVisibility,
     /// `ClientInformation.allowsListing` (server list player sample).
     pub allows_listing: bool,
+    /// `ClientInformation.textFilteringEnabled`.
+    pub text_filtering_enabled: bool,
 }
 
 pub struct PlayerHandle {
     pub id: EntityId,
     pub uuid: Uuid,
     pub profile: Arc<GameProfile>,
+    /// `ServerPlayer.getIpAddress()` (`InetAddresses.toAddrString`, `<unknown>` for non-IP peers).
+    pub ip_address: String,
     pub connection: ConnectionSender,
     pub chat_out: Arc<Mutex<OutgoingChatState>>,
     pub shared: Arc<Mutex<PlayerSharedState>>,
@@ -63,6 +67,7 @@ impl Clone for PlayerHandle {
             id: self.id,
             uuid: self.uuid,
             profile: self.profile.clone(),
+            ip_address: self.ip_address.clone(),
             connection: self.connection.clone(),
             chat_out: self.chat_out.clone(),
             shared: self.shared.clone(),
@@ -71,11 +76,12 @@ impl Clone for PlayerHandle {
 }
 
 impl PlayerHandle {
-    pub fn new(id: EntityId, profile: GameProfile, connection: ConnectionSender, dimension: DimensionKey) -> Self {
+    pub fn new(id: EntityId, profile: GameProfile, connection: ConnectionSender, ip_address: String, dimension: DimensionKey) -> Self {
         Self {
             id,
             uuid: profile.id,
             profile: Arc::new(profile),
+            ip_address,
             connection,
             chat_out: Arc::new(Mutex::new(OutgoingChatState::default())),
             shared: Arc::new(Mutex::new(PlayerSharedState {
@@ -89,8 +95,19 @@ impl PlayerHandle {
                 chat_session: None,
                 chat_visibility: ChatVisibility::Full,
                 allows_listing: false,
+                text_filtering_enabled: false,
             })),
         }
+    }
+
+    /// Identity (vanilla compares `ServerPlayer` references): two handles of the same connection share their mirror.
+    pub fn same_player(&self, other: &PlayerHandle) -> bool {
+        Arc::ptr_eq(&self.shared, &other.shared)
+    }
+
+    /// `ServerPlayer.shouldFilterMessageTo(receiver)`.
+    pub fn should_filter_message_to(&self, receiver: &PlayerHandle) -> bool {
+        !self.same_player(receiver) && (self.shared.lock().text_filtering_enabled || receiver.shared.lock().text_filtering_enabled)
     }
 
     pub fn name(&self) -> &str {
@@ -204,4 +221,44 @@ pub fn create_info_update<'a>(
 /// `Component.translatable("multiplayer.player.joined", name).withStyle(YELLOW)` helper.
 pub fn yellow(component: Component) -> Component {
     component.with_format(ChatFormatting::Yellow)
+}
+
+/// Test support: a handle whose connection is a channel the test can drain.
+#[cfg(test)]
+pub(crate) mod test_support {
+    use super::*;
+    use crate::server::network::Outbound;
+    use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
+
+    pub struct Wire(pub UnboundedReceiver<Outbound>);
+
+    impl Wire {
+        /// Packet ids (and `None` for a close) received so far.
+        pub fn ids(&mut self) -> Vec<Option<i32>> {
+            let mut out = Vec::new();
+            while let Ok(item) = self.0.try_recv() {
+                out.push(match item {
+                    Outbound::Payload(bytes) => Some(mc_protocol::codec::read_varint(&mut &bytes[..]).unwrap()),
+                    Outbound::Close => None,
+                });
+            }
+            out
+        }
+
+        pub fn payloads(&mut self) -> Vec<Arc<[u8]>> {
+            let mut out = Vec::new();
+            while let Ok(Outbound::Payload(bytes)) = self.0.try_recv() {
+                out.push(bytes);
+            }
+            out
+        }
+    }
+
+    pub fn handle(id: i32, name: &str, dimension: &str) -> (PlayerHandle, Wire) {
+        let (tx, rx) = unbounded_channel();
+        let uuid = mc_core::uuid_util::create_offline_player_uuid(name);
+        let profile = GameProfile { id: uuid, name: name.to_owned(), properties: vec![] };
+        let handle = PlayerHandle::new(id, profile, ConnectionSender::new(tx), "127.0.0.1".into(), DimensionKey::try_parse(dimension).unwrap());
+        (handle, Wire(rx))
+    }
 }
