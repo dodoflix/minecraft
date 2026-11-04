@@ -1063,10 +1063,8 @@ fn unknown_ids() {
     );
     let mut b = varint(Block::registry().len() as i32);
     b.extend([0, 0, 0]);
-    assert_eq!(
-        err::<DebugHiveInfo>(&b),
-        format!("No value with id {}", Block::registry().len())
-    );
+    // `ByteBufCodecs.registry(BLOCK)`: the defaulted block registry answers unknown ids with air.
+    assert_eq!(from_bytes::<DebugHiveInfo>(&b).unwrap().r#type, Block::AIR);
 }
 
 #[test]
