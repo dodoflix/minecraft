@@ -11,4 +11,5 @@ mc-world = { path = "../mc-world" }
 serde_json = { version = "1", features = ["float_roundtrip"] }
 
 [dev-dependencies]
+flate2 = "1"
 mc-nbt = { path = "../mc-nbt" }

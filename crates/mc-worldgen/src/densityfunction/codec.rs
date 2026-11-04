@@ -68,16 +68,22 @@ pub(crate) fn parse_noise_value(value: &Value) -> LoadResult<f32> {
     }
 }
 
-/// `Codec.INT` (a number's `intValue()`: integers wrap, fractions truncate).
+/// `Codec.INT` (a number's `intValue()`: integers wrap, fractions truncate, out-of-range doubles keep the
+/// low 32 bits of their integer part like `BigDecimal.intValue()`).
 pub(crate) fn parse_int(value: &Value) -> LoadResult<i32> {
     match value {
         Value::Number(n) => n
             .as_i64()
             .map(|v| v as i32)
-            .or_else(|| n.as_f64().map(|v| v as i32))
+            .or_else(|| n.as_f64().map(f64_int_value))
             .ok_or_else(|| LoadError::new("number out of range")),
         _ => Err(LoadError::new("expected number")),
     }
+}
+
+fn f64_int_value(v: f64) -> i32 {
+    // |v| >= 2^100 is a multiple of 2^48, so its low 32 bits are zero (also keeps `as i128` exact).
+    if v.abs() >= 2f64.powi(100) { 0 } else { v.trunc() as i128 as i32 }
 }
 
 /// `Codec.intRange(min, max)`.
