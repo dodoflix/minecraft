@@ -26,6 +26,7 @@ mod entity_tracker;
 pub use entity_tracker::{EntityTracker, TrackerPlayer, TrackingEnv, tracker_players};
 mod ticket;
 pub mod world_gen;
+pub mod worldgen_adapter;
 
 pub use chunk_map::{ChunkMap, ChunkMapEvent, ChunkMapParams, PlayerTrackingInfo, PlayerTrackingUpdate};
 pub use chunk_tracking_view::ChunkTrackingView;

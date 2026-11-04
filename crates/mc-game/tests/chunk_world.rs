@@ -100,6 +100,9 @@ impl mc_game::server::level::world_gen::ChunkGeneratorBackend for VoidGenerator 
     }
     fn create_biomes(&self, _chunk: &mut mc_world::chunk::ProtoChunk, _region: &mc_game::server::level::world_gen::WorldGenRegion) {}
     fn build_terrain(&self, _chunk: &mut mc_world::chunk::ProtoChunk, _region: &mc_game::server::level::world_gen::WorldGenRegion) {}
+    fn get_base_height(&self, _x: i32, _z: i32, _ty: mc_world::heightmap::HeightmapType, height: LevelHeight) -> i32 {
+        height.min_y
+    }
 }
 
 fn full_chunks(dir: &Path) -> Vec<(ChunkPos, CompoundTag)> {

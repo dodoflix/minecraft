@@ -126,6 +126,16 @@ pub trait ChunkGeneratorBackend: Send + Sync {
     /// `buildTerrain(chunk, blender, randomState, structureManager, biomeManager, region, possibleBiomes)`:
     /// noise fill, surface and carvers of the one chunk.
     fn build_terrain(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion);
+    /// `getOrigin(randomState)`.
+    fn get_origin(&self) -> ChunkPos {
+        ChunkPos::ZERO
+    }
+    /// `getSpawnHeight(heightAccessor)`.
+    fn get_spawn_height(&self, _height: LevelHeight) -> i32 {
+        64
+    }
+    /// `getBaseHeight(x, z, type, heightAccessor, randomState)`.
+    fn get_base_height(&self, x: i32, z: i32, ty: mc_world::heightmap::HeightmapType, height: LevelHeight) -> i32;
 }
 
 /// The generation stages that need block behaviours (structures, features, mob spawning). Implemented by the

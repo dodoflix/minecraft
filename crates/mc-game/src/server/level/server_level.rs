@@ -425,6 +425,9 @@ impl ChunkGeneratorBackend for VoidGenerator {
     }
     fn create_biomes(&self, _chunk: &mut ProtoChunk, _region: &WorldGenRegion) {}
     fn build_terrain(&self, _chunk: &mut ProtoChunk, _region: &WorldGenRegion) {}
+    fn get_base_height(&self, _x: i32, _z: i32, _ty: HeightmapType, height: LevelHeight) -> i32 {
+        height.min_y
+    }
 }
 
 // ---------------------------------------------------------------------- level access traits

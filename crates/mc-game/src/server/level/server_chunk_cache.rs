@@ -60,6 +60,11 @@ impl ServerChunkCache {
         Self { chunk_map, data_storage, spawn_enemies: true, chunk_holders_to_broadcast: indexmap::IndexSet::new() }
     }
 
+    /// `getGenerator()`.
+    pub fn generator(&self) -> &std::sync::Arc<dyn super::world_gen::ChunkGeneratorBackend> {
+        &self.chunk_map.gen_context.generator
+    }
+
     pub fn data_storage(&self) -> &SavedDataStorage {
         &self.data_storage
     }
