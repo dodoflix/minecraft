@@ -284,9 +284,24 @@ impl ServerLevel {
     /// `managedBlock(until)` on the chunk source: run chunk work until `until` holds (worker results arrive on their
     /// own threads, so idle iterations sleep briefly).
     pub fn block_on_chunks(&mut self, until: impl Fn(&ServerChunkCache) -> bool) {
+        let start = std::time::Instant::now();
+        let mut warned = false;
         while !until(&self.chunk_source) {
             if !self.poll_chunk_task() {
                 std::thread::sleep(Duration::from_micros(200));
+            }
+            if !warned && start.elapsed() > Duration::from_secs(30) {
+                warned = true;
+                let map = &self.chunk_source.chunk_map;
+                log::warn!(
+                    "Chunk source has been blocked for 30s: has_work={} main_tasks={} tasks={} worldgen_busy={} loading={} unload_queue={}",
+                    map.has_work(),
+                    map.main_tasks.len(),
+                    map.pending_task_count(),
+                    map.worldgen_busy(),
+                    map.loading_count(),
+                    map.unload_queue_len()
+                );
             }
         }
     }

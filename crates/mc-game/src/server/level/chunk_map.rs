@@ -363,6 +363,22 @@ impl ChunkMap {
             .collect()
     }
 
+    pub fn pending_task_count(&self) -> usize {
+        self.tasks.len()
+    }
+
+    pub fn worldgen_busy(&self) -> bool {
+        self.worldgen_busy
+    }
+
+    pub fn loading_count(&self) -> usize {
+        self.loading.len()
+    }
+
+    pub fn unload_queue_len(&self) -> usize {
+        self.unload_queue.len()
+    }
+
     /// `hasWork()`.
     pub fn has_work(&self) -> bool {
         self.light.has_pending_work()

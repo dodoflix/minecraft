@@ -271,9 +271,12 @@ impl ChunkMap {
                 Some(h) => h.future_state(status),
             };
             // A layer whose worldgen steps were not sent yet is "waiting" on that batch.
-            if matches!(state, FutureState::Pending | FutureState::Absent) {
+            // `Absent` for a scheduled future means it was failed and cleared (`failAndClearPendingFuture`, which
+            // completes it with UNLOADED_CHUNK): the task must see the failure, not wait for a future nobody completes.
+            if state == FutureState::Pending {
                 return Some(last);
             }
+            let state = if state == FutureState::Absent { FutureState::Unloaded } else { state };
             let t = self.tasks.get_mut(&id)?;
             t.scheduled_layer.pop();
             if state == FutureState::Unloaded {
