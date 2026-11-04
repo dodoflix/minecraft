@@ -17,6 +17,7 @@ pub mod shared;
 pub mod spawn_search;
 pub mod status;
 pub mod tick_pacing;
+pub mod tick_rate_manager;
 pub mod watchdog;
 
 pub use minecraft_server::MinecraftServer;
