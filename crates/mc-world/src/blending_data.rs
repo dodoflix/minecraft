@@ -1,5 +1,8 @@
-//! `net.minecraft.world.level.levelgen.blending.BlendingData`: the persisted shape only (`Packed` + `pack`/`unpack`);
-//! the runtime density/biome sampling of `Blender` is not ported here.
+//! `net.minecraft.world.level.levelgen.blending.BlendingData`: the persisted shape (`Packed` + `pack`/`unpack`) and
+//! the transient state (`densities`, `biomes`); the runtime logic (`calculateData`, iteration, `Blender`) lives in
+//! `mc-worldgen::blending`.
+
+use crate::palette::BiomeId;
 
 use mc_nbt::{CompoundTag, ListTag, Number, Tag};
 
@@ -79,6 +82,10 @@ pub struct BlendingData {
     area_height: i32,
     pub has_calculated_data: bool,
     pub heights: [f32; CELL_COLUMN_COUNT],
+    /// `densities` (transient): per column `cellCountPerColumn` values, set by `calculateData`.
+    pub densities: [Option<Vec<f32>>; CELL_COLUMN_COUNT],
+    /// `biomes`: per column one biome per quart of the old area, set by `calculateData`.
+    pub biomes: [Option<Vec<BiomeId>>; CELL_COLUMN_COUNT],
 }
 
 impl BlendingData {
@@ -97,6 +104,8 @@ impl BlendingData {
             area_height: packed.max_section.wrapping_shl(4).wrapping_sub(min_y),
             has_calculated_data: false,
             heights,
+            densities: std::array::from_fn(|_| None),
+            biomes: std::array::from_fn(|_| None),
         })
     }
 
