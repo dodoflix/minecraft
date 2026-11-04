@@ -136,7 +136,7 @@ def block_predicate():
     if rnd.random() < .25:
         bp["nbt"] = rnd.choice(NBTS)
     if rnd.random() < .2:
-        bp["components"] = rnd.choice([{}, {"minecraft:damage": 5}, {"minecraft:max_stack_size": 16}, {"minecraft:unbreakable": {}}, {"minecraft:damage": 1, "minecraft:max_damage": 20}])
+        bp["components"] = rnd.choice([{}, {"minecraft:damage": 5}, {"minecraft:max_stack_size": 16}, {"minecraft:unbreakable": {}}] )
     if rnd.random() < .3:
         t, v = rnd.choice(pred_values())
         bp["predicates"] = {t: v}
@@ -222,7 +222,7 @@ BP_CASES = [
     {"nbt": "{a:1}"}, {"nbt": {"a": 1}}, {"nbt": "{"}, {"nbt": "[1]"}, {"nbt": "1"}, {"nbt": 5}, {"nbt": []}, {"nbt": [1, 2]}, {"nbt": None}, {"nbt": ""},
     {"nbt": {"a": {"b": [1, 2, {"c": 1.5}]}}}, {"nbt": "{a:1b,b:\"x\",c:[B;1,2,3],d:[L;1L]}"}, {"nbt": {"a": 1.5e300}},
     {"components": {"minecraft:damage": 5}}, {"components": {"minecraft:damage": -1}}, {"components": {"minecraft:nope": 1}}, {"components": []}, {"components": {}},
-    {"components": {"minecraft:max_stack_size": 64, "minecraft:unbreakable": {}}}, {"components": {"minecraft:max_stack_size": 0}}, {"components": None},
+    {"components": {"minecraft:max_stack_size": 0}}, {"components": None},
     {"components": {"minecraft:custom_data": {"a": 1}}}, {"components": {"minecraft:custom_name": "x"}},
     {"predicates": {}}, {"predicates": []}, {"predicates": None}, {"predicates": {"minecraft:nope": {}}}, {"predicates": {"nope": {}}},
     {"predicates": {"minecraft:damage": {}}}, {"predicates": {"minecraft:damage": {"durability": {"min": 1}}}}, {"predicates": {"minecraft:damage": {"durability": {"min": 5, "max": 1}}}},
@@ -372,7 +372,7 @@ W.append(varint(1) + block_wire(nbt=b"\x08\x00\x01x"))  # not a compound
 W.append(varint(1) + block_wire(nbt=b"\x00"))
 W.append(varint(1) + block_wire(exact=varint(1) + varint(REG["minecraft:data_component_type"]["minecraft:damage"]) + varint(7)))
 W.append(varint(1) + block_wire(exact=varint(1) + varint(REG["minecraft:data_component_type"]["minecraft:unbreakable"])))
-W.append(varint(1) + block_wire(exact=varint(2) + varint(REG["minecraft:data_component_type"]["minecraft:damage"]) + varint(7) + varint(REG["minecraft:data_component_type"]["minecraft:max_damage"]) + varint(9)))
+# two exact components are not golden-testable: vanilla encodes them through a HashMap keyed by identity hashes
 W.append(varint(1) + block_wire(exact=varint(1) + varint(9999)))
 W.append(varint(1) + block_wire(partial=partial_single("minecraft:damage", tag_compound_empty())))
 W.append(varint(1) + block_wire(partial=partial_single("minecraft:damage", tag_compound_int("damage", 5))))

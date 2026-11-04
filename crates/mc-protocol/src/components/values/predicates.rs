@@ -13,6 +13,7 @@ mod block;
 mod bounds;
 mod collection;
 mod component_predicates;
+mod matching;
 mod matchers;
 mod state;
 

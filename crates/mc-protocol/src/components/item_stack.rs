@@ -357,6 +357,12 @@ impl Decode for ItemStack {
     }
 }
 
+impl super::map::DataComponentGetter for ItemStack {
+    fn get_value(&self, id: DataComponentType) -> Option<&Value> {
+        ItemStack::get_value(self, id)
+    }
+}
+
 /// `ItemStackTemplate`: item + count + patch, a non-empty stack blueprint (wire order: item, count, patch).
 #[derive(Clone, Debug, PartialEq)]
 pub struct ItemStackTemplate {

@@ -10,6 +10,7 @@ use super::matchers::DataComponentMatchers;
 use super::state::NbtPredicate;
 use crate::components::common::{component_codec, RegistrySet};
 use crate::components::values::decor::FireworkShape;
+use crate::components::values::effects::EquipmentSlotGroup;
 use crate::components::holder::{holder_fixed_codec, holder_set_codec, registry_by_name_codec, HolderSet, NoDirect};
 use crate::packets::play::AttributeModifierOperation;
 use mc_core::ident::Identifier;
@@ -307,14 +308,6 @@ impl WrittenBookPredicate {
 
 // ---- attribute modifiers ------------------------------------------------------------------------------------------
 
-crate::string_enum! {
-    /// `EquipmentSlotGroup`.
-    pub enum SlotGroup {
-        Any = "any", MainHand = "mainhand", OffHand = "offhand", Hand = "hand", Feet = "feet", Legs = "legs",
-        Chest = "chest", Head = "head", Armor = "armor", Body = "body", Saddle = "saddle",
-    }
-}
-
 static OPERATIONS: [(AttributeModifierOperation, &str); 3] = [
     (AttributeModifierOperation::AddValue, "add_value"),
     (AttributeModifierOperation::AddMultipliedBase, "add_multiplied_base"),
@@ -328,7 +321,7 @@ pub struct AttributeEntryPredicate {
     pub id: Option<Identifier>,
     pub amount: Doubles,
     pub operation: Option<AttributeModifierOperation>,
-    pub slot: Option<SlotGroup>,
+    pub slot: Option<EquipmentSlotGroup>,
 }
 
 impl AttributeEntryPredicate {
@@ -338,7 +331,7 @@ impl AttributeEntryPredicate {
             id: IDENTIFIER.optional_field_of("id"),
             amount: Doubles::codec().optional_field_of_default("amount", Doubles::any()),
             operation: string_enum_codec(&OPERATIONS).optional_field_of("operation"),
-            slot: SlotGroup::codec().optional_field_of("slot"),
+            slot: EquipmentSlotGroup::codec().optional_field_of("slot"),
         })
         .codec()
     }
