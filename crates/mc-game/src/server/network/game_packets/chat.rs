@@ -150,7 +150,8 @@ impl PlayCtx<'_> {
 
     /// `parseCommand(command)`.
     fn parse_command(&mut self, command: &str) -> Option<(Arc<Commands>, ParseResults<crate::commands::command_source_stack::CommandSourceStack>)> {
-        let commands = super::commands_host::commands()?;
+        let commands = self.server.commands.clone();
+        
         let source = self.create_command_source_stack()?;
         let parsed = crate::commands::server_access::enter_server(self.server, || commands.get_dispatcher().parse(command, source));
         Some((commands, parsed))
@@ -158,10 +159,7 @@ impl PlayCtx<'_> {
 
     /// `performUnsignedChatCommand`.
     fn perform_unsigned_chat_command(&mut self, command: &str) {
-        let Some((commands, parsed)) = self.parse_command(command) else {
-            log::warn!("Command '{command}' from {} ignored: the command tree is not installed", self.player.get_profile().name);
-            return;
-        };
+        let Some((commands, parsed)) = self.parse_command(command) else { return };
         if self.server.enforce_secure_profile() && !signable_arguments(&parsed).is_empty() {
             log::error!("Received unsigned command packet from {}, but the command requires signable arguments: {}", self.player.get_profile().name, command);
             self.player.send_system_message(invalid_command_signature());
@@ -181,10 +179,7 @@ impl PlayCtx<'_> {
 
     /// `performSignedChatCommand`.
     fn perform_signed_chat_command(&mut self, packet: &ServerboundChatCommandSignedPacket, last_seen: LastSeenMessages) {
-        let Some((commands, parsed)) = self.parse_command(&packet.command) else {
-            log::warn!("Command '{}' from {} ignored: the command tree is not installed", packet.command, self.player.get_profile().name);
-            return;
-        };
+        let Some((commands, parsed)) = self.parse_command(&packet.command) else { return };
         let arguments = signable_arguments(&parsed);
         let signed = match self.collect_signed_arguments(packet, &arguments, last_seen) {
             Ok(a) => a,
@@ -338,7 +333,7 @@ impl PlayCtx<'_> {
         let Some((client_id, command)) = lis.suggestion_request.take() else { return };
         lis.suggestion_budget = false;
         let command = command.strip_prefix('/').unwrap_or(&command).to_owned();
-        let Some(commands) = super::commands_host::commands() else { return };
+        let commands = self.server.commands.clone();
         let Some(source) = self.create_command_source_stack() else { return };
         let suggestions = crate::commands::server_access::enter_server(self.server, || {
             let dispatcher = commands.get_dispatcher();

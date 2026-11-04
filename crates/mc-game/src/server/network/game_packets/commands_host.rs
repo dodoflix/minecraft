@@ -1,29 +1,14 @@
-//! The listener's side of command execution: the player's `CommandSource`, `createCommandSourceStack()` and access
-//! to the server's `Commands`. `MinecraftServer` does not own the `Commands` tree yet, so whoever builds it
-//! (`ReloadableServerResources` / `/reload`) hands it over with [`install_commands`].
+//! The listener's side of command execution: the player's `CommandSource` and `createCommandSourceStack()`.
 
 use super::PlayCtx;
 use crate::commands::command_source::{CommandSource, CommandSourceKind};
 use crate::commands::command_source_stack::{CommandEntity, CommandSourceStack};
-use crate::commands::Commands;
 use crate::server::permissions::PermissionSet;
 use crate::server::players::PlayerHandle;
 use crate::world::entity::Entity;
 use mc_core::phys::Vec2;
 use mc_text::Component;
-use parking_lot::RwLock;
-use std::sync::{Arc, LazyLock};
-
-static COMMANDS: LazyLock<RwLock<Option<Arc<Commands>>>> = LazyLock::new(|| RwLock::new(None));
-
-/// Install (or replace, on reload) the command tree used for chat commands and suggestions.
-pub fn install_commands(commands: Arc<Commands>) {
-    *COMMANDS.write() = Some(commands);
-}
-
-pub(super) fn commands() -> Option<Arc<Commands>> {
-    COMMANDS.read().clone()
-}
+use std::sync::Arc;
 
 /// `ServerPlayer.commandSource()`.
 struct PlayerCommandSource {

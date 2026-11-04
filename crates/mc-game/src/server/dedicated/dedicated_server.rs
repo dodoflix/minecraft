@@ -523,6 +523,7 @@ impl MinecraftServer {
             Arc::new(configuration_data(self)),
         ));
         let mut connection = crate::server::network::ServerConnectionListener::new(hooks.clone())?;
+        connection.set_play_connection_ticker(crate::server::network::game_listener::tick_connection);
         connection.start_tcp_server_listener(local_address, self.port as u16)?;
         // the world side of the hooks: the player list's login checks come with `PlayerListHooks`, the spawn task and
         // the activity monitor (`new ServerActivityMonitor(notificationManager, 30)`) are installed here
