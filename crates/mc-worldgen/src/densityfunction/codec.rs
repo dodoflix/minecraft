@@ -23,14 +23,14 @@ use crate::data::{LoadError, WorldgenRegistries};
 use crate::noise_settings::{DIMENSION_MAX_Y, DIMENSION_MIN_Y};
 use crate::synth::BlendedNoise;
 
-pub(crate) type LoadResult<T> = Result<T, LoadError>;
+pub type LoadResult<T> = Result<T, LoadError>;
 
 /// `DensityFunctions.MAX_REASONABLE_NOISE_VALUE`.
 const MAX_REASONABLE_NOISE_VALUE: f32 = 1000000.0;
 
 // ---- primitive codecs -----------------------------------------------------------------------------
 
-pub(crate) fn parse_f64(value: &Value) -> LoadResult<f64> {
+pub fn parse_f64(value: &Value) -> LoadResult<f64> {
     match value {
         Value::Number(n) => n
             .as_f64()
@@ -40,12 +40,12 @@ pub(crate) fn parse_f64(value: &Value) -> LoadResult<f64> {
 }
 
 /// `Codec.FLOAT`.
-pub(crate) fn parse_f32(value: &Value) -> LoadResult<f32> {
+pub fn parse_f32(value: &Value) -> LoadResult<f32> {
     parse_f64(value).map(|v| v as f32)
 }
 
 /// `Codec.doubleRange(min, max)`.
-pub(crate) fn parse_double_range(value: &Value, min: f64, max: f64) -> LoadResult<f64> {
+pub fn parse_double_range(value: &Value, min: f64, max: f64) -> LoadResult<f64> {
     let v = parse_f64(value)?;
     if v >= min && v <= max {
         Ok(v)
@@ -57,7 +57,7 @@ pub(crate) fn parse_double_range(value: &Value, min: f64, max: f64) -> LoadResul
 }
 
 /// `DensityFunctions.NOISE_VALUE_CODEC`.
-pub(crate) fn parse_noise_value(value: &Value) -> LoadResult<f32> {
+pub fn parse_noise_value(value: &Value) -> LoadResult<f32> {
     let v = parse_f32(value)?;
     if (-MAX_REASONABLE_NOISE_VALUE..=MAX_REASONABLE_NOISE_VALUE).contains(&v) {
         Ok(v)
@@ -70,7 +70,7 @@ pub(crate) fn parse_noise_value(value: &Value) -> LoadResult<f32> {
 
 /// `Codec.INT` (a number's `intValue()`: integers wrap, fractions truncate, out-of-range doubles keep the
 /// low 32 bits of their integer part like `BigDecimal.intValue()`).
-pub(crate) fn parse_int(value: &Value) -> LoadResult<i32> {
+pub fn parse_int(value: &Value) -> LoadResult<i32> {
     match value {
         Value::Number(n) => n
             .as_i64()
@@ -87,7 +87,7 @@ fn f64_int_value(v: f64) -> i32 {
 }
 
 /// `Codec.intRange(min, max)`.
-pub(crate) fn parse_int_range(value: &Value, min: i32, max: i32) -> LoadResult<i32> {
+pub fn parse_int_range(value: &Value, min: i32, max: i32) -> LoadResult<i32> {
     let v = parse_int(value)?;
     if (min..=max).contains(&v) {
         Ok(v)
@@ -99,7 +99,7 @@ pub(crate) fn parse_int_range(value: &Value, min: i32, max: i32) -> LoadResult<i
 }
 
 /// `ExtraCodecs.POSITIVE_INT`.
-pub(crate) fn parse_positive_int(value: &Value) -> LoadResult<i32> {
+pub fn parse_positive_int(value: &Value) -> LoadResult<i32> {
     let v = parse_int(value)?;
     if v >= 1 {
         Ok(v)
@@ -108,24 +108,24 @@ pub(crate) fn parse_positive_int(value: &Value) -> LoadResult<i32> {
     }
 }
 
-pub(crate) fn parse_bool(value: &Value) -> LoadResult<bool> {
+pub fn parse_bool(value: &Value) -> LoadResult<bool> {
     value
         .as_bool()
         .ok_or_else(|| LoadError::new("expected boolean"))
 }
 
-pub(crate) fn parse_str(value: &Value) -> LoadResult<&str> {
+pub fn parse_str(value: &Value) -> LoadResult<&str> {
     value
         .as_str()
         .ok_or_else(|| LoadError::new("expected string"))
 }
 
-pub(crate) fn parse_identifier(value: &Value) -> LoadResult<Identifier> {
+pub fn parse_identifier(value: &Value) -> LoadResult<Identifier> {
     Identifier::read(parse_str(value)?).map_err(LoadError::new)
 }
 
 /// `Codec.listOf()`: parses every element with `parse`, tagging errors with `[index]`.
-pub(crate) fn parse_list<'a, T>(
+pub fn parse_list<'a, T>(
     value: &'a Value,
     mut parse: impl FnMut(&'a Value) -> LoadResult<T>,
 ) -> LoadResult<Vec<T>> {
@@ -142,12 +142,12 @@ pub(crate) fn parse_list<'a, T>(
 // ---- record fields -------------------------------------------------------------------------------
 
 /// A JSON object read through `fieldOf` / `optionalFieldOf`.
-pub(crate) struct Fields<'a> {
+pub struct Fields<'a> {
     map: &'a Map<String, Value>,
 }
 
 impl<'a> Fields<'a> {
-    pub(crate) fn new(value: &'a Value) -> LoadResult<Fields<'a>> {
+    pub fn new(value: &'a Value) -> LoadResult<Fields<'a>> {
         value
             .as_object()
             .map(|map| Fields { map })
@@ -155,12 +155,12 @@ impl<'a> Fields<'a> {
     }
 
     /// `JsonOps`' `MapLike.get`: a JSON `null` field counts as absent.
-    fn get(&self, name: &str) -> Option<&'a Value> {
+    pub fn get(&self, name: &str) -> Option<&'a Value> {
         self.map.get(name).filter(|value| !value.is_null())
     }
 
     /// `fieldOf(name)`.
-    pub(crate) fn required<T>(
+    pub fn required<T>(
         &self,
         name: &str,
         parse: impl FnOnce(&'a Value) -> LoadResult<T>,
@@ -172,7 +172,7 @@ impl<'a> Fields<'a> {
     }
 
     /// `optionalFieldOf(name)`: a present but malformed value is an error.
-    pub(crate) fn optional<T>(
+    pub fn optional<T>(
         &self,
         name: &str,
         parse: impl FnOnce(&'a Value) -> LoadResult<T>,

@@ -25,6 +25,7 @@ pub mod debug_level_source;
 pub mod densityfunction;
 pub mod flat;
 pub mod generator;
+pub mod json;
 pub mod material;
 pub mod noise_chunk;
 pub mod noise_router;

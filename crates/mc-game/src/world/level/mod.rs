@@ -8,6 +8,7 @@ pub mod flags;
 pub mod gameevent;
 pub mod gamerules;
 pub mod level_access;
+pub mod levelgen;
 pub mod material;
 pub mod precipitation;
 pub mod redstone;
