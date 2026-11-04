@@ -9,8 +9,9 @@ use mc_core::phys::vec3::Vec3;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::enums::Pose;
-use mc_data::{EntityType, ParticleType, SoundEvent};
-use mc_protocol::codec::{read_varint, to_bytes, Angle, GlobalPos, Holder, LpVec3};
+use mc_data::{DataComponentType, EntityType, Item, ParticleType, SoundEvent};
+use mc_protocol::components::{self as comp, DataComponentPatch, ItemStack, ItemStackTemplate};
+use mc_protocol::codec::{read_varint, to_bytes, Angle, Either, GameProfile, GlobalPos, Holder, LpVec3, Property};
 use mc_protocol::packets::common::HumanoidArm;
 use mc_protocol::packets::play::*;
 use mc_protocol::{Decode, Encode, Packet};
@@ -284,6 +285,71 @@ fn set_entity_data_structured(g: &Golden) {
     use DyeColor::*;
     for (i, c) in [White, Orange, Magenta, LightBlue, Yellow, Lime, Pink, Gray, LightGray, Cyan, Purple, Blue, Brown, Green, Red, Black].into_iter().enumerate() {
         sed(g, &format!("dye_color_{i}"), EntityDataValue::DyeColor(c));
+    }
+}
+
+fn template(item: Item, count: i32, components: DataComponentPatch) -> ItemStackTemplate {
+    ItemStackTemplate::new(item, count, components).unwrap()
+}
+
+fn items(g: &Golden) {
+    let mut named = ItemStack::new(Item::DIAMOND_SWORD);
+    named.set(comp::UNBREAKABLE, ());
+    named.set(comp::DAMAGE, 12);
+    named.set(comp::MAX_STACK_SIZE, 16);
+    let mut stripped = ItemStack::with_count(Item::DIAMOND_PICKAXE, 3);
+    stripped.remove(DataComponentType::MAX_DAMAGE);
+    sed(g, "item_stack_empty", EntityDataValue::ItemStack(ItemStack::empty()));
+    sed(g, "item_stack_diamond", EntityDataValue::ItemStack(ItemStack::new(Item::DIAMOND)));
+    sed(g, "item_stack_stone_64", EntityDataValue::ItemStack(ItemStack::with_count(Item::STONE, 64)));
+    sed(g, "item_stack_components", EntityDataValue::ItemStack(named));
+    sed(g, "item_stack_removed_component", EntityDataValue::ItemStack(stripped));
+    let last = Item::from_id(count(g, "items") - 1).unwrap();
+    sed(g, "item_stack_last_item", EntityDataValue::ItemStack(ItemStack::new(last)));
+
+    let item = |i| ParticleOptions::Item(ItemStackTemplate::of(i));
+    g.check_value("particle_item_diamond", &item(Item::DIAMOND));
+    let patch = DataComponentPatch::builder().set(comp::DAMAGE, 3).remove(DataComponentType::MAX_STACK_SIZE).build();
+    g.check_value("particle_item_count_components", &ParticleOptions::Item(template(Item::STONE, 5, patch)));
+    sed(g, "particle_item", EntityDataValue::Particle(item(Item::APPLE)));
+    sed(g, "particles_item", EntityDataValue::Particles(vec![item(Item::APPLE), ParticleOptions::Simple(ParticleType::FLAME)]));
+    g.check(
+        "level_particles_item",
+        &ClientboundLevelParticlesPacket {
+            particle: item(Item::EMERALD),
+            override_limiter: false,
+            always_show: true,
+            x: 1.0,
+            y: 2.0,
+            z: 3.0,
+            x_dist: 0.0,
+            y_dist: 0.0,
+            z_dist: 0.0,
+            x_max_speed: 0.0,
+            y_max_speed: 0.0,
+            z_max_speed: 0.0,
+            count: 1,
+            randomization_type: RandomizationType::Default,
+        },
+    );
+    let partial = |name: Option<&str>, id, properties| Either::Right(ResolvableProfilePartial { name: name.map(Into::into), id, properties });
+    let profile = |contents| EntityDataValue::ResolvableProfile(ResolvableProfile { contents, skin_patch: PlayerSkinPatch::default() });
+    sed(g, "resolvable_profile_name", profile(partial(Some("Steve"), None, vec![])));
+    sed(g, "resolvable_profile_id", profile(partial(None, Some(uuid(1, 2)), vec![])));
+    let prop = |n: &str, v: &str, s: Option<&str>| Property { name: n.into(), value: v.into(), signature: s.map(Into::into) };
+    let full = GameProfile {
+        id: uuid(0x0123456789abcdef, 0xfedcba9876543210u64 as i64),
+        name: "Alex".into(),
+        properties: vec![prop("textures", "base64value", Some("sig")), prop("other", "v", None)],
+    };
+    sed(g, "resolvable_profile_full", profile(Either::Left(full)));
+    sed(g, "resolvable_profile_full_no_props", profile(Either::Left(GameProfile { id: uuid(3, 4), name: "Bob".into(), properties: vec![] })));
+    sed(g, "resolvable_profile_static_empty", profile(partial(None, None, vec![])));
+    for l in ["profile_name_too_long", "profile_too_many_props", "profile_partial_both", "profile_skin_patch", "profile_skin_patch_wide", "profile_property_name_too_long"] {
+        redecode::<ClientboundSetEntityDataPacket>(g, &format!("redecode_sed_{l}"), true);
+    }
+    for l in ["item_stack_zero_count", "item_stack_bad_item", "item_stack_negative_count", "item_particle_bad_item", "item_particle_zero_count"] {
+        redecode::<ClientboundSetEntityDataPacket>(g, &format!("redecode_sed_{l}"), true);
     }
 }
 
@@ -612,6 +678,7 @@ fn entity_data_golden() {
     set_entity_data_scalars(&g);
     optional_block_state_air_reads_back_empty(&g);
     set_entity_data_structured(&g);
+    items(&g);
     particle_types(&g);
     level_particles_packets(&g);
     explode_packets(&g);

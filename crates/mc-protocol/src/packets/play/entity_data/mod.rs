@@ -8,9 +8,11 @@ use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
 
 mod particle;
+mod profile;
 mod serializers;
 
 pub use particle::*;
+pub use profile::*;
 pub use serializers::*;
 
 /// `ClientboundAddEntityPacket`. The three angles are vanilla's packed bytes (`Mth.packDegrees`, see `Angle`).
@@ -20,7 +22,6 @@ pub struct ClientboundAddEntityPacket {
     #[mc(var)]
     pub id: i32,
     pub uuid: Uuid,
-    #[mc(with = entity_type)]
     pub r#type: mc_data::EntityType,
     pub x: f64,
     pub y: f64,
@@ -45,23 +46,6 @@ pub struct ClientboundSetEntityDataPacket {
 
 impl ClientboundSetEntityDataPacket {
     pub const EOF_MARKER: u8 = 255;
-}
-
-/// `ByteBufCodecs.registry(ENTITY_TYPE)`: the registry is defaulted, unknown ids read as the default entry (`pig`).
-mod entity_type {
-    use mc_data::EntityType;
-
-    use super::*;
-
-    pub fn encode(t: &EntityType, out: &mut Vec<u8>) {
-        write_varint(out, t.id() as i32)
-    }
-    pub fn decode(input: &mut &[u8]) -> DecodeResult<EntityType> {
-        Ok(u32::try_from(read_varint(input)?)
-            .ok()
-            .and_then(EntityType::from_id)
-            .unwrap_or(EntityType::PIG))
-    }
 }
 
 mod packed_items {

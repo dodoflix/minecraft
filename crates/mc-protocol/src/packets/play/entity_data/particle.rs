@@ -5,6 +5,7 @@ use mc_core::pos::block_pos::BlockPos;
 use mc_data::ParticleType;
 use mc_data::block::BlockState;
 
+use crate::components::ItemStackTemplate;
 use crate::codec::{DecodeResult, read_registry_id, write_varint};
 use crate::{Decode, Encode};
 
@@ -77,6 +78,8 @@ pub enum ParticleOptions {
     SculkCharge { roll: f32 },
     /// `ShriekParticleOption` (`shriek`)
     Shriek { delay: i32 },
+    /// `ItemParticleOption` (`item`)
+    Item(ItemStackTemplate),
     /// `VibrationParticleOption` (`vibration`)
     Vibration {
         destination: PositionSource,
@@ -117,6 +120,7 @@ impl ParticleOptions {
             Self::DustColorTransition { .. } => ParticleType::DUST_COLOR_TRANSITION,
             Self::SculkCharge { .. } => ParticleType::SCULK_CHARGE,
             Self::Shriek { .. } => ParticleType::SHRIEK,
+            Self::Item(_) => ParticleType::ITEM,
             Self::Vibration { .. } => ParticleType::VIBRATION,
             Self::Trail { .. } => ParticleType::TRAIL,
         }
@@ -157,6 +161,7 @@ impl Encode for ParticleOptions {
                 to_color.encode(out);
                 clamp_scale(*scale).encode(out);
             }
+            Self::Item(item) => item.encode(out),
             Self::SculkCharge { roll } => roll.encode(out),
             Self::Shriek { delay } => write_varint(out, *delay),
             Self::Vibration {
@@ -239,12 +244,7 @@ impl Decode for ParticleOptions {
                 color: Decode::decode(input)?,
                 duration: crate::codec::read_varint(input)?,
             },
-            // ItemStackTemplate (ComponentsAgent): not decodable yet.
-            ParticleType::ITEM => {
-                return Err(crate::codec::DecodeError::msg(
-                    "item particles are not supported yet",
-                ));
-            }
+            ParticleType::ITEM => Self::Item(Decode::decode(input)?),
             _ => Self::Simple(t),
         })
     }

@@ -49,6 +49,15 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.properties.PropertyMap;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ResolvableProfile;
 
 public class GenEntityData {
    static RegistryFriendlyByteBuf buf() { return new RegistryFriendlyByteBuf(Unpooled.buffer(), PlayHarness.access); }
@@ -275,6 +284,47 @@ public class GenEntityData {
       particle("trail_a", new TrailParticleOption(new Vec3(1.5, 64.0, -3.25), 0xFF00FF, 40));
       particle("trail_b", new TrailParticleOption(new Vec3(-1e9, 0.0, 1e-9), -1, Integer.MAX_VALUE));
 
+      // ---- item dependent: ITEM_STACK serializer, RESOLVABLE_PROFILE serializer, `item` particle
+      ItemStack named = new ItemStack(Items.DIAMOND_SWORD);
+      named.set(DataComponents.UNBREAKABLE, net.minecraft.util.Unit.INSTANCE);
+      named.set(DataComponents.DAMAGE, 12);
+      named.set(DataComponents.MAX_STACK_SIZE, 16);
+      ItemStack stripped = new ItemStack(Items.DIAMOND_PICKAXE, 3);
+      stripped.remove(DataComponents.MAX_DAMAGE);
+      sed("item_stack_empty", EntityDataSerializers.ITEM_STACK, ItemStack.EMPTY);
+      sed("item_stack_diamond", EntityDataSerializers.ITEM_STACK, new ItemStack(Items.DIAMOND));
+      sed("item_stack_stone_64", EntityDataSerializers.ITEM_STACK, new ItemStack(Items.STONE, 64));
+      sed("item_stack_components", EntityDataSerializers.ITEM_STACK, named);
+      sed("item_stack_removed_component", EntityDataSerializers.ITEM_STACK, stripped);
+      PlayHarness.raw("count_items", b -> b.writeVarInt(BuiltInRegistries.ITEM.size()));
+      sed("item_stack_last_item", EntityDataSerializers.ITEM_STACK, new ItemStack(BuiltInRegistries.ITEM.byId(BuiltInRegistries.ITEM.size() - 1)));
+      GameProfile full = new GameProfile(uuid(0x0123456789abcdefL, 0xfedcba9876543210L), "Alex", new PropertyMap(
+         com.google.common.collect.ImmutableMultimap.of("textures", new Property("textures", "base64value", "sig"), "other", new Property("other", "v"))));
+      sed("resolvable_profile_name", EntityDataSerializers.RESOLVABLE_PROFILE, ResolvableProfile.createUnresolved("Steve"));
+      sed("resolvable_profile_id", EntityDataSerializers.RESOLVABLE_PROFILE, ResolvableProfile.createUnresolved(uuid(1, 2)));
+      sed("resolvable_profile_full", EntityDataSerializers.RESOLVABLE_PROFILE, ResolvableProfile.createResolved(full));
+      sed("resolvable_profile_full_no_props", EntityDataSerializers.RESOLVABLE_PROFILE, ResolvableProfile.createResolved(new GameProfile(uuid(3, 4), "Bob")));
+      sed("resolvable_profile_static_empty", EntityDataSerializers.RESOLVABLE_PROFILE, ResolvableProfile.Static.EMPTY);
+      particle("item_diamond", new ItemParticleOption(ParticleTypes.ITEM, Items.DIAMOND));
+      particle("item_count_components", new ItemParticleOption(ParticleTypes.ITEM, new ItemStackTemplate(Items.STONE.builtInRegistryHolder(), 5,
+         DataComponentPatch.builder().set(DataComponents.DAMAGE, 3).remove(DataComponents.MAX_STACK_SIZE).build())));
+      sed("particle_item", EntityDataSerializers.PARTICLE, new ItemParticleOption(ParticleTypes.ITEM, Items.APPLE));
+      sed("particles_item", EntityDataSerializers.PARTICLES, List.of(new ItemParticleOption(ParticleTypes.ITEM, Items.APPLE), ParticleTypes.FLAME));
+      PlayHarness.cb("level_particles_item", new ClientboundLevelParticlesPacket(new ItemParticleOption(ParticleTypes.ITEM, Items.EMERALD), false, true, 1, 2, 3, 0f, 0f, 0f, 0f, 1));
+      redecode("redecode_sed_item_stack_zero_count", sedBytes(7, b -> b.writeVarInt(0)));
+      redecode("redecode_sed_item_stack_bad_item", sedBytes(7, b -> { b.writeVarInt(1); b.writeVarInt(BuiltInRegistries.ITEM.size()); b.writeVarInt(0); b.writeVarInt(0); }));
+      redecode("redecode_sed_item_stack_negative_count", sedBytes(7, b -> { b.writeVarInt(-1); }));
+      redecode("redecode_sed_item_particle_bad_item", sedBytes(16, b -> { b.writeVarInt(ParticleTypeId.ITEM); b.writeVarInt(BuiltInRegistries.ITEM.size()); b.writeVarInt(1); b.writeVarInt(0); b.writeVarInt(0); }));
+      redecode("redecode_sed_item_particle_zero_count", sedBytes(16, b -> { b.writeVarInt(ParticleTypeId.ITEM); b.writeVarInt(1); b.writeVarInt(0); b.writeVarInt(0); b.writeVarInt(0); }));
+      redecode("redecode_sed_profile_name_too_long", sedBytes(41, b -> { b.writeBoolean(false); b.writeBoolean(true); b.writeUtf("a".repeat(17), 17); b.writeBoolean(false); b.writeVarInt(0); for (int i = 0; i < 4; i++) b.writeBoolean(false); }));
+      redecode("redecode_sed_profile_too_many_props", sedBytes(41, b -> { b.writeBoolean(false); b.writeBoolean(false); b.writeBoolean(false); b.writeVarInt(17); }));
+      redecode("redecode_sed_profile_skin_patch", sedBytes(41, b -> { b.writeBoolean(false); b.writeBoolean(false); b.writeBoolean(false); b.writeVarInt(0);
+         b.writeBoolean(true); b.writeUtf("mod:t"); b.writeBoolean(false); b.writeBoolean(true); b.writeUtf("mod:e"); b.writeBoolean(true); b.writeBoolean(true); }));
+      redecode("redecode_sed_profile_skin_patch_wide", sedBytes(41, b -> { b.writeBoolean(true); b.writeUUID(uuid(1, 1)); b.writeUtf("N", 16); b.writeVarInt(0);
+         for (int i = 0; i < 3; i++) b.writeBoolean(false); b.writeBoolean(true); b.writeBoolean(false); }));
+      redecode("redecode_sed_profile_property_name_too_long", sedBytes(41, b -> { b.writeBoolean(false); b.writeBoolean(false); b.writeBoolean(false); b.writeVarInt(1); b.writeUtf("n".repeat(65), 100); }));
+      redecode("redecode_sed_profile_partial_both", sedBytes(41, b -> { b.writeBoolean(false); b.writeBoolean(true); b.writeUtf("Zed", 16); b.writeBoolean(true); b.writeUUID(uuid(5, 6)); b.writeVarInt(0); for (int i = 0; i < 4; i++) b.writeBoolean(false); }));
+
       // ---- level_particles
       ParticleOptions[] pk = {ParticleTypes.FLAME, new DustParticleOptions(0xFF0000, 1.0f), new BlockParticleOption(ParticleTypes.BLOCK, stone),
          new VibrationParticleOption(new net.minecraft.world.level.gameevent.BlockPositionSource(new BlockPos(4, 5, 6)), 10), ParticleTypes.EXPLOSION};
@@ -386,7 +436,7 @@ public class GenEntityData {
 
    static final class ParticleTypeId {
       static final int FLAME = id(ParticleTypes.FLAME), VIBRATION = id(ParticleTypes.VIBRATION), SHRIEK = id(ParticleTypes.SHRIEK),
-         TRAIL = id(ParticleTypes.TRAIL), EXPLOSION = id(ParticleTypes.EXPLOSION);
+         TRAIL = id(ParticleTypes.TRAIL), ITEM = id(ParticleTypes.ITEM), EXPLOSION = id(ParticleTypes.EXPLOSION);
       static int id(ParticleType<?> t) { return BuiltInRegistries.PARTICLE_TYPE.getId(t); }
    }
 

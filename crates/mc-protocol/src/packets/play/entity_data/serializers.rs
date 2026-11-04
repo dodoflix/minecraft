@@ -7,7 +7,8 @@ use mc_data::enums::Pose;
 use mc_text::Component;
 use uuid::Uuid;
 
-use super::ParticleOptions;
+use super::{ParticleOptions, ResolvableProfile};
+use crate::components::ItemStack;
 use crate::codec::{
     DecodeError, DecodeResult, GlobalPos, Holder, OptionalVarInt, read_registry_id, read_varint,
     write_varint,
@@ -201,7 +202,7 @@ pub enum EntityDataValue {
     String(#[mc(max = 32767)] String),
     Component(Component),
     OptionalComponent(Option<Component>),
-    #[mc(id = 8)]
+    ItemStack(ItemStack),
     Boolean(bool),
     Rotations(Rotations),
     BlockPos(BlockPos),
@@ -238,7 +239,7 @@ pub enum EntityDataValue {
     Vector3([f32; 3]),
     /// `Quaternionfc`: x, y, z, w.
     Quaternion([f32; 4]),
-    #[mc(id = 42)]
+    ResolvableProfile(ResolvableProfile),
     HumanoidArm(HumanoidArm),
     DyeColor(DyeColor),
 }
