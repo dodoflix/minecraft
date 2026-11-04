@@ -1,0 +1,220 @@
+id		minecraft:	ok:minecraft:	true	true	72432627		minecraft.	minecraft_		pre.minecraft..suf
+id	:	minecraft:	ok:minecraft:	false	false	72432627		minecraft.	minecraft_		pre.minecraft..suf
+id	stone	minecraft:stone	ok:minecraft:stone	true	true	182203480	stone	minecraft.stone	minecraft_stone	stone	pre.minecraft.stone.suf
+id	minecraft:stone	minecraft:stone	ok:minecraft:stone	false	false	182203480	stone	minecraft.stone	minecraft_stone	stone	pre.minecraft.stone.suf
+id	minecraft:	minecraft:	ok:minecraft:	false	false	72432627		minecraft.	minecraft_		pre.minecraft..suf
+id	:stone	minecraft:stone	ok:minecraft:stone	false	false	182203480	stone	minecraft.stone	minecraft_stone	stone	pre.minecraft.stone.suf
+id	a:b:c	null	err:Non [a-z0-9/._-] character in path of location: a:b:c	false	false
+id	a:b/c/d	a:b/c/d	ok:a:b/c/d	false	false	92004938	a:b/c/d	a.b/c/d	a_b_c_d	a.b/c/d	pre.a.b/c/d.suf
+id	a/b:c	null	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:c	false	false
+id	Minecraft:stone	null	err:Non [a-z0-9_.-] character in namespace of identifier: Minecraft:stone	false	false
+id	minecraft:Stone	null	err:Non [a-z0-9/._-] character in path of location: minecraft:Stone	false	false
+id	my_mod:blocks/ore.iron-1	my_mod:blocks/ore.iron-1	ok:my_mod:blocks/ore.iron-1	false	false	1478770962	my_mod:blocks/ore.iron-1	my_mod.blocks/ore.iron-1	my_mod_blocks_ore.iron-1	my_mod.blocks/ore.iron-1	pre.my_mod.blocks/ore.iron-1.suf
+id	..:x	null	err:Non [a-z0-9_.-] character in namespace of identifier: ..:x	false	false
+id	.:x	.:x	ok:.:x	false	false	1546	.:x	..x	._x	..x	pre...x.suf
+id	a.b:c.d	a.b:c.d	ok:a.b:c.d	false	false	3033636	a.b:c.d	a.b.c.d	a.b_c.d	a.b.c.d	pre.a.b.c.d.suf
+id	a-b:c-d	a-b:c-d	ok:a-b:c-d	false	false	3032644	a-b:c-d	a-b.c-d	a-b_c-d	a-b.c-d	pre.a-b.c-d.suf
+id	a_b:c_d	a_b:c_d	ok:a_b:c_d	false	false	3082244	a_b:c_d	a_b.c_d	a_b_c_d	a_b.c_d	pre.a_b.c_d.suf
+id	-:-	-:-	ok:-:-	false	false	1440	-:-	-.-	-_-	-.-	pre.-.-.suf
+id	_:_	_:_	ok:_:_	false	false	3040	_:_	_._	___	_._	pre._._.suf
+id	9:9	9:9	ok:9:9	false	false	1824	9:9	9.9	9_9	9.9	pre.9.9.suf
+id	ns:	ns:	ok:ns:	false	false	109275	ns:	ns.	ns_	ns.	pre.ns..suf
+id	ns:/	ns:/	ok:ns:/	false	false	109322	ns:/	ns./	ns__	ns./	pre.ns./.suf
+id	ns:a//b	ns:a//b	ok:ns:a//b	false	false	3045724	ns:a//b	ns.a//b	ns_a__b	ns.a//b	pre.ns.a//b.suf
+id	ns:../x	ns:../x	ok:ns:../x	false	false	1525444	ns:../x	ns.../x	ns_.._x	ns.../x	pre.ns.../x.suf
+id	a b:c	null	err:Non [a-z0-9_.-] character in namespace of identifier: a b:c	false	false
+id	a:b c	null	err:Non [a-z0-9/._-] character in path of location: a:b c	false	false
+id	a:b\u0009c	null	err:Non [a-z0-9/._-] character in path of location: a:b\u005ctc	false	false
+id	a:b\u000ac	null	err:Non [a-z0-9/._-] character in path of location: a:b\u005cnc	false	false
+id	\u00e9:x	null	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:x	false	false
+id	x:\u00e9	null	err:Non [a-z0-9/._-] character in path of location: x:\u005cu00E9	false	false
+id	\u00e9	null	err:Non [a-z0-9/._-] character in path of location: minecraft:\u005cu00E9	false	false
+id	ns:\u4e2d\u6587	null	err:Non [a-z0-9/._-] character in path of location: ns:\u005cu4E2D\u005cu6587	false	false
+id	\ud83d\ude00:x	null	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cuD83D\u005cuDE00:x	false	false
+id	x:\ud83d\ude00	null	err:Non [a-z0-9/._-] character in path of location: x:\u005cuD83D\u005cuDE00	false	false
+id	a::b	null	err:Non [a-z0-9/._-] character in path of location: a::b	false	false
+id	::	null	err:Non [a-z0-9/._-] character in path of location: minecraft::	false	false
+id	a:b:	null	err:Non [a-z0-9/._-] character in path of location: a:b:	false	false
+id	namespace:path/with/many/segments/and_underscores-and-dashes.123	namespace:path/with/many/segments/and_underscores-and-dashes.123	ok:namespace:path/with/many/segments/and_underscores-and-dashes.123	false	false	-1327946407	namespace:path/with/many/segments/and_underscores-and-dashes.123	namespace.path/with/many/segments/and_underscores-and-dashes.123	namespace_path_with_many_segments_and_underscores-and-dashes.123	namespace.path/with/many/segments/and_underscores-and-dashes.123	pre.namespace.path/with/many/segments/and_underscores-and-dashes.123.suf
+id	UPPER	null	err:Non [a-z0-9/._-] character in path of location: minecraft:UPPER	false	false
+id	mixed:Case	null	err:Non [a-z0-9/._-] character in path of location: mixed:Case	false	false
+id	\u005c	null	err:Non [a-z0-9/._-] character in path of location: minecraft:\u005c\u005c	false	false
+id	a\u005cb	null	err:Non [a-z0-9/._-] character in path of location: minecraft:a\u005c\u005cb	false	false
+id	a:b\u005cc	null	err:Non [a-z0-9/._-] character in path of location: a:b\u005c\u005cc	false	false
+id	realms:thing	realms:thing	ok:realms:thing	false	false	1190987178	realms:thing	realms.thing	realms_thing	realms.thing	pre.realms.thing.suf
+id	 	null	err:Non [a-z0-9/._-] character in path of location: minecraft: 	false	false
+id	:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	minecraft:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	ok:minecraft:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	false	false	919726067	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	minecraft.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	minecraft_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	pre.minecraft.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.suf
+id	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy	ok:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy	false	false	-1538286912	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy	pre.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy.suf
+id	\u0000	null	err:Non [a-z0-9/._-] character in path of location: minecraft:\u005cu0000	false	false
+id	a:\u0000	null	err:Non [a-z0-9/._-] character in path of location: a:\u005cu0000	false	false
+pair	minecraft	stone	ok:minecraft:stone	minecraft:stone
+pair	minecraft		ok:minecraft:	minecraft:
+pair	minecraft	a/b	ok:minecraft:a/b	minecraft:a/b
+pair	minecraft	A	err:Non [a-z0-9/._-] character in path of location: minecraft:A	null
+pair	minecraft	a:b	err:Non [a-z0-9/._-] character in path of location: minecraft:a:b	null
+pair	minecraft	a b	err:Non [a-z0-9/._-] character in path of location: minecraft:a b	null
+pair	minecraft	../x	ok:minecraft:../x	minecraft:../x
+pair	minecraft	.	ok:minecraft:.	minecraft:.
+pair	minecraft	\u00e9	err:Non [a-z0-9/._-] character in path of location: minecraft:\u005cu00E9	null
+pair		stone	ok::stone	:stone
+pair			ok::	:
+pair		a/b	ok::a/b	:a/b
+pair		A	err:Non [a-z0-9/._-] character in path of location: :A	null
+pair		a:b	err:Non [a-z0-9/._-] character in path of location: :a:b	null
+pair		a b	err:Non [a-z0-9/._-] character in path of location: :a b	null
+pair		../x	ok::../x	:../x
+pair		.	ok::.	:.
+pair		\u00e9	err:Non [a-z0-9/._-] character in path of location: :\u005cu00E9	null
+pair	mod_a	stone	ok:mod_a:stone	mod_a:stone
+pair	mod_a		ok:mod_a:	mod_a:
+pair	mod_a	a/b	ok:mod_a:a/b	mod_a:a/b
+pair	mod_a	A	err:Non [a-z0-9/._-] character in path of location: mod_a:A	null
+pair	mod_a	a:b	err:Non [a-z0-9/._-] character in path of location: mod_a:a:b	null
+pair	mod_a	a b	err:Non [a-z0-9/._-] character in path of location: mod_a:a b	null
+pair	mod_a	../x	ok:mod_a:../x	mod_a:../x
+pair	mod_a	.	ok:mod_a:.	mod_a:.
+pair	mod_a	\u00e9	err:Non [a-z0-9/._-] character in path of location: mod_a:\u005cu00E9	null
+pair	Mod	stone	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:stone	null
+pair	Mod		err:Non [a-z0-9_.-] character in namespace of identifier: Mod:	null
+pair	Mod	a/b	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:a/b	null
+pair	Mod	A	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:A	null
+pair	Mod	a:b	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:a:b	null
+pair	Mod	a b	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:a b	null
+pair	Mod	../x	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:../x	null
+pair	Mod	.	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:.	null
+pair	Mod	\u00e9	err:Non [a-z0-9_.-] character in namespace of identifier: Mod:\u005cu00E9	null
+pair	..	stone	err:Non [a-z0-9_.-] character in namespace of identifier: ..:stone	null
+pair	..		err:Non [a-z0-9_.-] character in namespace of identifier: ..:	null
+pair	..	a/b	err:Non [a-z0-9_.-] character in namespace of identifier: ..:a/b	null
+pair	..	A	err:Non [a-z0-9_.-] character in namespace of identifier: ..:A	null
+pair	..	a:b	err:Non [a-z0-9_.-] character in namespace of identifier: ..:a:b	null
+pair	..	a b	err:Non [a-z0-9_.-] character in namespace of identifier: ..:a b	null
+pair	..	../x	err:Non [a-z0-9_.-] character in namespace of identifier: ..:../x	null
+pair	..	.	err:Non [a-z0-9_.-] character in namespace of identifier: ..:.	null
+pair	..	\u00e9	err:Non [a-z0-9_.-] character in namespace of identifier: ..:\u005cu00E9	null
+pair	.	stone	ok:.:stone	.:stone
+pair	.		ok:.:	.:
+pair	.	a/b	ok:.:a/b	.:a/b
+pair	.	A	err:Non [a-z0-9/._-] character in path of location: .:A	null
+pair	.	a:b	err:Non [a-z0-9/._-] character in path of location: .:a:b	null
+pair	.	a b	err:Non [a-z0-9/._-] character in path of location: .:a b	null
+pair	.	../x	ok:.:../x	.:../x
+pair	.	.	ok:.:.	.:.
+pair	.	\u00e9	err:Non [a-z0-9/._-] character in path of location: .:\u005cu00E9	null
+pair	a b	stone	err:Non [a-z0-9_.-] character in namespace of identifier: a b:stone	null
+pair	a b		err:Non [a-z0-9_.-] character in namespace of identifier: a b:	null
+pair	a b	a/b	err:Non [a-z0-9_.-] character in namespace of identifier: a b:a/b	null
+pair	a b	A	err:Non [a-z0-9_.-] character in namespace of identifier: a b:A	null
+pair	a b	a:b	err:Non [a-z0-9_.-] character in namespace of identifier: a b:a:b	null
+pair	a b	a b	err:Non [a-z0-9_.-] character in namespace of identifier: a b:a b	null
+pair	a b	../x	err:Non [a-z0-9_.-] character in namespace of identifier: a b:../x	null
+pair	a b	.	err:Non [a-z0-9_.-] character in namespace of identifier: a b:.	null
+pair	a b	\u00e9	err:Non [a-z0-9_.-] character in namespace of identifier: a b:\u005cu00E9	null
+pair	a/b	stone	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:stone	null
+pair	a/b		err:Non [a-z0-9_.-] character in namespace of identifier: a/b:	null
+pair	a/b	a/b	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:a/b	null
+pair	a/b	A	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:A	null
+pair	a/b	a:b	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:a:b	null
+pair	a/b	a b	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:a b	null
+pair	a/b	../x	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:../x	null
+pair	a/b	.	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:.	null
+pair	a/b	\u00e9	err:Non [a-z0-9_.-] character in namespace of identifier: a/b:\u005cu00E9	null
+pair	\u00e9	stone	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:stone	null
+pair	\u00e9		err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:	null
+pair	\u00e9	a/b	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:a/b	null
+pair	\u00e9	A	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:A	null
+pair	\u00e9	a:b	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:a:b	null
+pair	\u00e9	a b	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:a b	null
+pair	\u00e9	../x	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:../x	null
+pair	\u00e9	.	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:.	null
+pair	\u00e9	\u00e9	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:\u005cu00E9	null
+pair	a:b	stone	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:stone	null
+pair	a:b		err:Non [a-z0-9_.-] character in namespace of identifier: a:b:	null
+pair	a:b	a/b	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:a/b	null
+pair	a:b	A	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:A	null
+pair	a:b	a:b	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:a:b	null
+pair	a:b	a b	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:a b	null
+pair	a:b	../x	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:../x	null
+pair	a:b	.	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:.	null
+pair	a:b	\u00e9	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:\u005cu00E9	null
+sep	a/b	/	ok:a:b	a:b
+sep	a/b	#	ok:minecraft:a/b	minecraft:a/b
+sep	/b	/	ok:minecraft:b	minecraft:b
+sep	/b	#	ok:minecraft:/b	minecraft:/b
+sep	a/	/	ok:a:	a:
+sep	a/	#	ok:minecraft:a/	minecraft:a/
+sep	a:b/c	/	err:Non [a-z0-9_.-] character in namespace of identifier: a:b:c	null
+sep	a:b/c	#	err:Non [a-z0-9/._-] character in path of location: minecraft:a:b/c	null
+sep	a#b	/	err:Non [a-z0-9/._-] character in path of location: minecraft:a#b	null
+sep	a#b	#	ok:a:b	a:b
+sep	#b	/	err:Non [a-z0-9/._-] character in path of location: minecraft:#b	null
+sep	#b	#	ok:minecraft:b	minecraft:b
+sep	ab	/	ok:minecraft:ab	minecraft:ab
+sep	ab	#	ok:minecraft:ab	minecraft:ab
+sep	A/b	/	err:Non [a-z0-9_.-] character in namespace of identifier: A:b	null
+sep	A/b	#	err:Non [a-z0-9/._-] character in path of location: minecraft:A/b	null
+sep	a/B	/	err:Non [a-z0-9/._-] character in path of location: a:B	null
+sep	a/B	#	err:Non [a-z0-9/._-] character in path of location: minecraft:a/B	null
+sep	\u00e9/x	/	err:Non [a-z0-9_.-] character in namespace of identifier: \u005cu00E9:x	null
+sep	\u00e9/x	#	err:Non [a-z0-9/._-] character in path of location: minecraft:\u005cu00E9/x	null
+sep		/	ok:minecraft:	minecraft:
+sep		#	ok:minecraft:	minecraft:
+with		mod:	mod:base/x	mod:base/x
+with	p/	mod:p/	mod:p/base/x	mod:base/xp/
+with	Q	err:Non [a-z0-9/._-] character in path of location: mod:Q	err:Non [a-z0-9/._-] character in path of location: mod:Qbase/x	err:Non [a-z0-9/._-] character in path of location: mod:base/xQ
+with	a:b	err:Non [a-z0-9/._-] character in path of location: mod:a:b	err:Non [a-z0-9/._-] character in path of location: mod:a:bbase/x	err:Non [a-z0-9/._-] character in path of location: mod:base/xa:b
+with	\u00e9	err:Non [a-z0-9/._-] character in path of location: mod:\u005cu00E9	err:Non [a-z0-9/._-] character in path of location: mod:\u005cu00E9base/x	err:Non [a-z0-9/._-] character in path of location: mod:base/x\u005cu00E9
+with	-	mod:-	mod:-base/x	mod:base/x-
+read	ok:fine	ok:fine
+read	Bad:Id	err:Not a valid resource location: Bad:Id Non [a-z0-9_.-] character in namespace of identifier: Bad:Id
+read	a:b c	err:Not a valid resource location: a:b c Non [a-z0-9/._-] character in path of location: a:b c
+sorted	minecraft: minecraft: minecraft: ns: -:- ns:../x ns:/ 9:9 _:_ ns:a//b a:b/c/d my_mod:blocks/ore.iron-1 a-b:c-d a.b:c.d a_b:c_d namespace:path/with/many/segments/and_underscores-and-dashes.123 minecraft:stone minecraft:stone minecraft:stone realms:thing .:x minecraft:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+cmp	a:b	a:b	0	true
+cmp	a:b	b:a	1	false
+cmp	a:b	a:a	1	false
+cmp	a:b	b:b	-1	false
+cmp	a:b	a:b/c	-1	false
+cmp	a:b	a:b-c	-1	false
+cmp	a:b	a:b.c	-1	false
+cmp	b:a	a:b	-1	false
+cmp	b:a	b:a	0	true
+cmp	b:a	a:a	1	false
+cmp	b:a	b:b	-1	false
+cmp	b:a	a:b/c	-1	false
+cmp	b:a	a:b-c	-1	false
+cmp	b:a	a:b.c	-1	false
+cmp	a:a	a:b	-1	false
+cmp	a:a	b:a	-1	false
+cmp	a:a	a:a	0	true
+cmp	a:a	b:b	-1	false
+cmp	a:a	a:b/c	-1	false
+cmp	a:a	a:b-c	-1	false
+cmp	a:a	a:b.c	-1	false
+cmp	b:b	a:b	1	false
+cmp	b:b	b:a	1	false
+cmp	b:b	a:a	1	false
+cmp	b:b	b:b	0	true
+cmp	b:b	a:b/c	-1	false
+cmp	b:b	a:b-c	-1	false
+cmp	b:b	a:b.c	-1	false
+cmp	a:b/c	a:b	1	false
+cmp	a:b/c	b:a	1	false
+cmp	a:b/c	a:a	1	false
+cmp	a:b/c	b:b	1	false
+cmp	a:b/c	a:b/c	0	true
+cmp	a:b/c	a:b-c	1	false
+cmp	a:b/c	a:b.c	1	false
+cmp	a:b-c	a:b	1	false
+cmp	a:b-c	b:a	1	false
+cmp	a:b-c	a:a	1	false
+cmp	a:b-c	b:b	1	false
+cmp	a:b-c	a:b/c	-1	false
+cmp	a:b-c	a:b-c	0	true
+cmp	a:b-c	a:b.c	-1	false
+cmp	a:b.c	a:b	1	false
+cmp	a:b.c	b:a	1	false
+cmp	a:b.c	a:a	1	false
+cmp	a:b.c	b:b	1	false
+cmp	a:b.c	a:b/c	-1	false
+cmp	a:b.c	a:b-c	1	false
+cmp	a:b.c	a:b.c	0	true

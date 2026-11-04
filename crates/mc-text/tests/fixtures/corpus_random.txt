@@ -1,0 +1,1400 @@
+J{"selector": "@s", "extra": [{"type": "selector", "text": "line\nbreak"}, "ünïcode", {"text": "hello world", "strikethrough": true, "click_event": {"action": "open_url", "url": "http://a.b/c?d=e#f"}}], "insertion": ""}
+N{"selector":"@s","extra":[{"type":"selector","text":"line\nbreak"},"ünïcode",{"text":"hello world","strikethrough":1b,"click_event":{"action":"open_url","url":"http://a.b/c?d=e#f"}}],"insertion":""}
+J{"text": "ünïcode"}
+N{"text":"ünïcode"}
+J{"keybind": "", "extra": [{"type": "text", "text": "line\nbreak"}, {"text": "tab\there"}, "a"]}
+N{"keybind":"","extra":[{"type":"text","text":"line\nbreak"},{"text":"tab\there"},"a"]}
+J{"text": "line\nbreak", "color": "red", "shadow_color": -1, "bold": false}
+N{"text":"line\nbreak","color":"red","shadow_color":-1b,"bold":0b}
+J{"text": null, "bold": 5}
+N{"text":"","bold":5b}
+J{"score": {"name": "@a[tag=x]", "objective": "obj"}, "color": "", "shadow_color": -1, "underlined": false, "obfuscated": false, "click_event": {"action": "custom", "id": "x y"}}
+N{"score":{"name":"@a[tag=x]","objective":"obj"},"color":"","shadow_color":-1,"underlined":false,"obfuscated":false,"click_event":{"action":"custom","id":"x y"}}
+J{"score": {"name": "Steve", "objective": "obj"}, "extra": [{"selector": "@s", "color": "white"}], "color": "#-1"}
+N{"score":{"name":"Steve","objective":"obj"},"extra":[{"selector":"@s","color":"white"}],"color":"#-1"}
+J[{"nbt": "Items[0]", "entity": "@s", "click_event": {"action": "change_page", "page": 1}}, {"selector": "@s", "separator": {"translate": 5, "fallback": "a%sb%%c", "with": [], "color": "#GGGGGG", "shadow_color": 16711680, "strikethrough": true}, "color": "#-1", "bold": true, "underlined": true, "hover_event": {"action": null, "value": {"sprite": "minecraft:item/diamond", "atlas": "minecraft:blocks", "fallback": {"selector": "Steve", "separator": "%s", "shadow_color": 16711680}, "color": "gold", "italic": true, "click_event": {"action": "change_page", "page": "2"}}}}, {"entity": "@s", "plain": false, "shadow_color": 1.5, "underlined": false, "font": "a:b", "hover_event": {"action": "show_entity", "id": "minecraft:bad", "uuid": "123e4567-e89b-12d3-a456-426614174000", "name": {"type": "translatable", "sprite": "minecraft:item/diamond", "object": [1], "obfuscated": true, "click_event": {"action": null}}}}]
+N[{"nbt":"Items[0]","entity":"@s","click_event":{"action":"change_page","page":1}},{"selector":"@s","separator":{"translate":5,"fallback":"a%sb%%c","with":[],"color":"#GGGGGG","shadow_color":16711680,"strikethrough":1b},"color":"#-1","bold":1b,"underlined":true,"hover_event":{"action":"","value":{"sprite":"minecraft:item/diamond","atlas":"minecraft:blocks","fallback":{"selector":"Steve","separator":"%s","shadow_color":16711680},"color":"gold","italic":true,"click_event":{"action":"change_page","page":"2"}}}},{"entity":"@s","plain":0b,"shadow_color":1.5d,"underlined":false,"font":"a:b","hover_event":{"action":"show_entity","id":"minecraft:bad","uuid":"123e4567-e89b-12d3-a456-426614174000","name":{"type":"translatable","sprite":"minecraft:item/diamond","object":[1],"obfuscated":1b,"click_event":{"action":""}}}}]
+J{"text": "line\nbreak", "shadow_color": -1}
+N{"text":"line\nbreak","shadow_color":-1b}
+J{"translate": "chat.type.text", "with": [true, ["ünïcode", ""], true], "extra": [], "color": "#123456", "bold": false, "strikethrough": false}
+N{"translate":"chat.type.text","with":[1b,["ünïcode",""],true],"extra":[],"color":"#123456","bold":false,"strikethrough":false}
+J{"text": "line\nbreak", "color": "#1", "shadow_color": 16711680, "insertion": "a"}
+N{"text":"line\nbreak","color":"#1","shadow_color":16711680,"insertion":"a"}
+J{"selector": "@s", "color": "white", "underlined": true, "insertion": "a"}
+N{"selector":"@s","color":"white","underlined":true,"insertion":"a"}
+J{"translate": "death.attack.player", "fallback": "100%", "with": [], "color": "#FF5555", "italic": false, "strikethrough": true}
+N{"translate":"death.attack.player","fallback":"100%","with":[],"color":"#FF5555","italic":0b,"strikethrough":1b}
+J{"text": "§cred", "color": "#-1", "hover_event": {"action": "show_item", "id": "minecraft:stone", "count": 64, "components": {"!minecraft:custom_name": {}}}}
+N{"text":"§cred","color":"#-1","hover_event":{"action":"show_item","id":"minecraft:stone","count":64s,"components":{"!minecraft:custom_name":{}}}}
+J{"text": "%s", "shadow_color": [1.0, 0.5, 0.25, 0.75]}
+N{"text":"%s","shadow_color":[1.0,0.5,0.25d,0.75d]}
+J{"selector": "@s", "extra": [{"type": "score", "text": "tab\there", "extra": ["ünïcode", {"text": "ünïcode", "insertion": "", "click_event": {"action": "change_page", "page": 1}}], "bold": false, "hover_event": {"action": "show_item", "id": "minecraft:bad_item", "count": 99}}, {"selector": "@a", "separator": {"score": {"name": "@a[tag=x]", "objective": "kills"}, "strikethrough": false, "click_event": {"action": "open_file", "path": "x"}}, "underlined": true}, {"text": "a", "extra": [], "hover_event": {"action": "show_text", "value": {"type": "score", "keybind": "key.jump", "color": "red"}}}], "underlined": true}
+N{"selector":"@s","extra":[{"type":"score","text":"tab\there","extra":["ünïcode",{"text":"ünïcode","insertion":"","click_event":{"action":"change_page","page":1}}],"bold":false,"hover_event":{"action":"show_item","id":"minecraft:bad_item","count":99b}},{"selector":"@a","separator":{"score":{"name":"@a[tag=x]","objective":"kills"},"strikethrough":false,"click_event":{"action":"open_file","path":"x"}},"underlined":true},{"text":"a","extra":[],"hover_event":{"action":"show_text","value":{"type":"score","keybind":"key.jump","color":"red"}}}],"underlined":true}
+J{"text": "a", "shadow_color": [1.0, 0.5, 0.25, 0.75], "font": "mod:path/sub"}
+N{"text":"a","shadow_color":[1.0d,0.5f,0.25d,0.75f],"font":"mod:path/sub"}
+J{"type": "text", "text": "line\nbreak", "italic": true}
+N{"type":"text","text":"line\nbreak","italic":1b}
+J""
+N""
+J{}
+N{}
+J{"text": "tab\there"}
+N{"text":"tab\there"}
+J{"selector": "Steve", "separator": {"color": "red"}, "extra": [{"score": {"name": "@a[tag=x]", "objective": "obj"}, "color": "red", "italic": false}, {"storage": "a:b", "interpret": false, "separator": {"selector": "@s", "italic": false}, "color": "#GGGGGG", "click_event": {"action": "suggest_command", "command": {}}, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": "123e4567-e89b-12d3-a456-426614174000"}}], "color": "#1", "shadow_color": -1, "underlined": false, "insertion": "😀"}
+N{"selector":"Steve","separator":{"color":"red"},"extra":[{"score":{"name":"@a[tag=x]","objective":"obj"},"color":"red","italic":0b},{"storage":"a:b","interpret":0b,"separator":{"selector":"@s","italic":0b},"color":"#GGGGGG","click_event":{"action":"suggest_command","command":{}},"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":"123e4567-e89b-12d3-a456-426614174000"}}],"color":"#1","shadow_color":-1,"underlined":false,"insertion":"😀"}
+J{"text": "§cred", "color": [1], "italic": true, "insertion": "😀", "hover_event": {"action": {}, "id": "minecraft:bad", "uuid": "1-1-1-1-1", "name": {"selector": "@a", "color": "#FF5555", "shadow_color": [1, 2, 3, 4], "obfuscated": true}}}
+N{"text":"§cred","color":[1],"italic":true,"insertion":"😀","hover_event":{"action":{},"id":"minecraft:bad","uuid":"1-1-1-1-1","name":{"selector":"@a","color":"#FF5555","shadow_color":[1,2L,3L,4],"obfuscated":1b}}}
+J{"player": {"name": "Notch"}, "hat": false, "fallback": {"selector": "Steve", "separator": null, "color": "#GGGGGG", "insertion": "hello world"}, "strikethrough": true}
+N{"player":{"name":"Notch"},"hat":0b,"fallback":{"selector":"Steve","separator":"","color":"#GGGGGG","insertion":"hello world"},"strikethrough":1b}
+J{"player": "Steve", "fallback": "§cred", "italic": true}
+N{"player":"Steve","fallback":"§cred","italic":true}
+J{"text": "", "underlined": false}
+N{"text":"","underlined":false}
+J[]
+N[]
+J{"type": "nbt", "score": {"name": "Steve", "objective": "obj"}, "extra": [[{"nbt": "x", "block": "~ ~ ~", "extra": [{"nbt": "a.b", "storage": "minecraft:foo", "interpret": true, "plain": true, "separator": "a", "color": "#GGGGGG"}], "color": "#123456", "underlined": false}, {"text": "", "italic": false}], {"text": "tab\there", "extra": [{"player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "fallback": {"text": "%s", "color": ""}, "italic": true}, "line\nbreak", [{"text": "tab\there", "extra": ["tab\there", "hello world"], "color": "#GGGGGG"}]], "color": "#1", "obfuscated": false}], "shadow_color": 0, "strikethrough": true}
+N{"type":"nbt","score":{"name":"Steve","objective":"obj"},"extra":[[{"nbt":"x","block":"~ ~ ~","extra":[{"nbt":"a.b","storage":"minecraft:foo","interpret":1b,"plain":true,"separator":"a","color":"#GGGGGG"}],"color":"#123456","underlined":false},{"text":"","italic":false}],{"text":"tab\there","extra":[{"player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"fallback":{"text":"%s","color":""},"italic":true},"line\nbreak",[{"text":"tab\there","extra":["tab\there","hello world"],"color":"#GGGGGG"}]],"color":"#1","obfuscated":0b}],"shadow_color":0,"strikethrough":1b}
+J"hello world"
+N"hello world"
+J{"score": {"name": "@s", "objective": "obj"}, "extra": [{"nbt": "x", "storage": {}, "interpret": 1, "source": "entity", "color": "dark_aqua", "font": ""}, {"translate": "options.on", "extra": [], "italic": false}], "color": "s", "underlined": false, "hover_event": {"action": "show_entity", "id": "zombie", "uuid": "zz", "name": {"translate": "", "with": [true], "color": "gold", "shadow_color": [1.0, 0.5, 0.25, 0.75], "strikethrough": false}}}
+N{"score":{"name":"@s","objective":"obj"},"extra":[{"nbt":"x","storage":{},"interpret":1L,"source":"entity","color":"dark_aqua","font":""},{"translate":"options.on","extra":[],"italic":false}],"color":"s","underlined":false,"hover_event":{"action":"show_entity","id":"zombie","uuid":"zz","name":{"translate":"","with":[true],"color":"gold","shadow_color":[1.0f,0.5f,0.25d,0.75d],"strikethrough":0b}}}
+J{"text": "a", "bold": true, "hover_event": {"action": "show_text", "value": {"text": "ünïcode", "obfuscated": false}}}
+N{"text":"a","bold":1b,"hover_event":{"action":"show_text","value":{"text":"ünïcode","obfuscated":0b}}}
+J{"nbt": "x", "storage": "a:b", "interpret": true, "color": "#-1", "bold": true, "obfuscated": true, "click_event": {"action": "copy_to_clipboard", "value": "😀"}}
+N{"nbt":"x","storage":"a:b","interpret":1b,"color":"#-1","bold":1b,"obfuscated":1b,"click_event":{"action":"copy_to_clipboard","value":"😀"}}
+J"a"
+N"a"
+J{"selector": "@a", "extra": []}
+N{"selector":"@a","extra":[]}
+J{"score": {"name": "@s", "objective": "obj"}, "italic": true, "insertion": "%s"}
+N{"score":{"name":"@s","objective":"obj"},"italic":1b,"insertion":"%s"}
+J[[{"player": "Steve", "hat": false, "object": "player", "color": "#-1"}], {"text": "", "strikethrough": true, "obfuscated": false, "font": "A:b", "hover_event": {"action": "bogus"}}, {"text": "a", "obfuscated": false}]
+N[[{"player":"Steve","hat":0b,"object":"player","color":"#-1"}],{"text":"","strikethrough":true,"obfuscated":false,"font":"A:b","hover_event":{"action":"bogus"}},{"text":"a","obfuscated":0b}]
+J{"nbt": "a.b", "block": "~ ~ ~", "interpret": true, "shadow_color": -1}
+N{"nbt":"a.b","block":"~ ~ ~","interpret":true,"shadow_color":-1b}
+J"%s"
+N"%s"
+J""
+N""
+J{"keybind": "key.jump", "color": "gold", "click_event": {"action": "bogus", "path": "x"}}
+N{"keybind":"key.jump","color":"gold","click_event":{"action":"bogus","path":"x"}}
+J{"translate": "gui.done", "extra": [], "color": "#FF5555", "bold": false, "strikethrough": true, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": 5}}
+N{"translate":"gui.done","extra":[],"color":"#FF5555","bold":false,"strikethrough":1b,"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":5b}}
+J{"type": "object", "text": "line\nbreak", "extra": [{"keybind": "", "extra": [], "underlined": false}, {"keybind": "key.inventory", "color": "gold", "italic": true, "underlined": true}, "line\nbreak"], "color": "#GGGGGG", "italic": false}
+N{"type":"object","text":"line\nbreak","extra":[{"keybind":"","extra":[],"underlined":false},{"keybind":"key.inventory","color":"gold","italic":1b,"underlined":true},"line\nbreak"],"color":"#GGGGGG","italic":0b}
+J[{"keybind": "key.inventory", "color": "#FF5555"}, "%s"]
+N[{"keybind":"key.inventory","color":"#FF5555"},"%s"]
+J{"translate": "nope.key", "with": [["tab\there", "😀"]], "color": "dark_aqua"}
+N{"translate":"nope.key","with":[["tab\there","😀"]],"color":"dark_aqua"}
+J{"text": "line\nbreak", "obfuscated": false}
+N{"text":"line\nbreak","obfuscated":0b}
+J{"selector": "@s", "separator": {"type": "nbt", "text": "tab\there", "color": "dark_aqua", "strikethrough": false, "obfuscated": true, "click_event": {"action": "bogus", "path": "x"}}, "color": "#1", "underlined": true}
+N{"selector":"@s","separator":{"type":"nbt","text":"tab\there","color":"dark_aqua","strikethrough":0b,"obfuscated":1b,"click_event":{"action":"bogus","path":"x"}},"color":"#1","underlined":1b}
+J"tab\there"
+N"tab\there"
+J{"translate": "block.minecraft.stone", "with": [249, 1.0, true], "bold": false, "underlined": false}
+N{"translate":"block.minecraft.stone","with":[249s,1.0f,1b],"bold":0b,"underlined":false}
+J{"selector": "@a", "extra": [{"translate": "commands.teleport.success.entity.single", "with": [283, 1.5, 1.5, 123456789012], "extra": [{"translate": "commands.teleport.success.entity.single", "with": [["tab\there", "hello world"], 123456789012, 10000000000.0, true], "color": "", "shadow_color": 0, "italic": false, "insertion": ""}, {"text": "%s"}]}, "line\nbreak"], "color": "#GGGGGG", "shadow_color": 1.5, "font": "minecraft:foo"}
+N{"selector":"@a","extra":[{"translate":"commands.teleport.success.entity.single","with":[283s,1.5,1.5,123456789012L],"extra":[{"translate":"commands.teleport.success.entity.single","with":[["tab\there","hello world"],123456789012L,10000000000.0f,1b],"color":"","shadow_color":0L,"italic":0b,"insertion":""},{"text":"%s"}]},"line\nbreak"],"color":"#GGGGGG","shadow_color":1.5f,"font":"minecraft:foo"}
+J{"sprite": "stone", "color": "#-1", "bold": true, "italic": false, "obfuscated": true}
+N{"sprite":"stone","color":"#-1","bold":1b,"italic":0b,"obfuscated":1b}
+J{"sprite": "x:y", "atlas": "a:b", "extra": [{"type": "nbt", "text": "ünïcode"}], "underlined": true}
+N{"sprite":"x:y","atlas":"a:b","extra":[{"type":"nbt","text":"ünïcode"}],"underlined":true}
+J"§cred"
+N"§cred"
+J{"translate": "gui.done", "fallback": "%%", "with": [1.5, {"translate": "death.attack.player", "color": "#1", "strikethrough": true, "obfuscated": [], "font": "bar"}, 101], "color": "#-1", "strikethrough": true}
+N{"translate":"gui.done","fallback":"%%","with":[1.5d,{"translate":"death.attack.player","color":"#1","strikethrough":true,"obfuscated":[],"font":"bar"},101],"color":"#-1","strikethrough":true}
+J{"text": "hello world", "shadow_color": 0, "bold": true, "obfuscated": true}
+N{"text":"hello world","shadow_color":0,"bold":1b,"obfuscated":true}
+J[]
+N[]
+J"hello world"
+N"hello world"
+J{"selector": "@s", "separator": {"text": "ünïcode", "bold": false}, "insertion": "%s"}
+N{"selector":"@s","separator":{"text":"ünïcode","bold":0b},"insertion":"%s"}
+J"§cred"
+N"§cred"
+J{"type": "translatable", "score": {"name": "*", "objective": "kills"}}
+N{"type":"translatable","score":{"name":"*","objective":"kills"}}
+J{"translate": "block.minecraft.stone", "fallback": "%%", "with": [], "color": "bad", "bold": false, "strikethrough": true, "insertion": "%s"}
+N{"translate":"block.minecraft.stone","fallback":"%%","with":[],"color":"bad","bold":false,"strikethrough":1b,"insertion":"%s"}
+J{"keybind": "key.jump", "extra": [[]], "color": "gold", "obfuscated": true}
+N{"keybind":"key.jump","extra":[[]],"color":"gold","obfuscated":true}
+J{"nbt": "Items[0]", "storage": "a:b", "obfuscated": false}
+N{"nbt":"Items[0]","storage":"a:b","obfuscated":false}
+J{"player": "Steve", "hat": true, "fallback": "s", "bold": true, "insertion": "%s"}
+N{"player":"Steve","hat":1b,"fallback":"s","bold":true,"insertion":"%s"}
+J{"text": 1.5, "extra": [{"score": {"name": "Steve", "objective": "obj"}, "obfuscated": true}, {"text": "", "extra": [{"translate": "commands.give.success.single"}, {"text": "😀", "strikethrough": false}, {"score": {"name": "*", "objective": "obj"}, "color": "white", "underlined": false}], "color": "#GGGGGG", "insertion": "%s"}], "color": "#GGGGGG"}
+N{"text":1.5f,"extra":[{"score":{"name":"Steve","objective":"obj"},"obfuscated":true},{"text":"","extra":[{"translate":"commands.give.success.single"},{"text":"😀","strikethrough":false},{"score":{"name":"*","objective":"obj"},"color":"white","underlined":false}],"color":"#GGGGGG","insertion":"%s"}],"color":"#GGGGGG"}
+J"😀"
+N"😀"
+J{"player": "Steve", "fallback": {"score": {"name": "@a[tag=x]"}, "extra": [], "obfuscated": false}, "italic": true, "insertion": "ünïcode", "hover_event": {"action": "show_item", "id": "stone", "count": 64}}
+N{"player":"Steve","fallback":{"score":{"name":"@a[tag=x]"},"extra":[],"obfuscated":false},"italic":1b,"insertion":"ünïcode","hover_event":{"action":"show_item","id":"stone","count":64L}}
+J{"keybind": "", "extra": [], "unknown": 1}
+N{"keybind":"","extra":[],"unknown":1b}
+J{"type": "text", "text": "a", "color": "#FF5555", "bold": true, "underlined": false, "hover_event": {"action": "show_item", "id": "minecraft:stone", "components": {}}}
+N{"type":"text","text":"a","color":"#FF5555","bold":true,"underlined":0b,"hover_event":{"action":"show_item","id":"minecraft:stone","components":{}}}
+J{"type": "minecraft:text", "selector": "Steve", "separator": {"nbt": "Items[0]", "block": "~ ~ ~", "extra": [[], []], "color": "bad", "underlined": true}, "bold": true, "strikethrough": true}
+N{"type":"minecraft:text","selector":"Steve","separator":{"nbt":"Items[0]","block":"~ ~ ~","extra":[[],[]],"color":"bad","underlined":true},"bold":true,"strikethrough":1b}
+J"line\nbreak"
+N"line\nbreak"
+J{"text": "😀"}
+N{"text":"😀"}
+J{"keybind": "key.jump", "bold": false, "strikethrough": false}
+N{"keybind":"key.jump","bold":false,"strikethrough":false}
+J{"text": "tab\there", "extra": [], "color": "dark_aqua", "strikethrough": false, "font": "bar"}
+N{"text":"tab\there","extra":[],"color":"dark_aqua","strikethrough":0b,"font":"bar"}
+J{"fallback": "%5$s", "with": [84], "color": "red", "italic": true}
+N{"fallback":"%5$s","with":[84s],"color":"red","italic":1b}
+J{"selector": "@s"}
+N{"selector":"@s"}
+J{"text": "", "color": "gold", "italic": true}
+N{"text":"","color":"gold","italic":true}
+J{"translate": "commands.teleport.success.entity.single", "with": [], "color": "#FF5555", "italic": false, "insertion": "ünïcode"}
+N{"translate":"commands.teleport.success.entity.single","with":[],"color":"#FF5555","italic":0b,"insertion":"ünïcode"}
+J"§cred"
+N"§cred"
+J[]
+N[]
+J{"keybind": "key.jump", "color": "red", "bold": true, "obfuscated": true, "insertion": ""}
+N{"keybind":"key.jump","color":"red","bold":1b,"obfuscated":true,"insertion":""}
+J""
+N""
+J{"text": "a", "color": "#-1"}
+N{"text":"a","color":"#-1"}
+J{"nbt": "a.b", "block": "~ ~ ~", "extra": [{"selector": "@s", "separator": "", "insertion": "a"}, {"translate": "chat.type.text", "fallback": "%1$s%s", "extra": [], "color": "gold", "click_event": {"action": "copy_to_clipboard", "value": "😀"}}, "ünïcode"], "color": "#1", "click_event": {"action": "copy_to_clipboard", "value": ""}}
+N{"nbt":"a.b","block":"~ ~ ~","extra":[{"selector":"@s","separator":"","insertion":"a"},{"translate":"chat.type.text","fallback":"%1$s%s","extra":[],"color":"gold","click_event":{"action":"copy_to_clipboard","value":"😀"}},"ünïcode"],"color":"#1","click_event":{"action":"copy_to_clipboard","value":""}}
+J{"score": {"name": "Steve", "objective": "kills"}, "underlined": true}
+N{"score":{"name":"Steve","objective":"kills"},"underlined":1b}
+J{"nbt": "Items[0]", "entity": "@s", "source": "bad", "strikethrough": false}
+N{"nbt":"Items[0]","entity":"@s","source":"bad","strikethrough":0b}
+J{"translate": "block.minecraft.stone", "fallback": "%1$", "with": [], "extra": ["ünïcode", {"score": {"name": "*", "objective": "kills"}, "shadow_color": -1, "hover_event": {"action": "bogus"}}, {"type": "translatable", "nbt": "x", "entity": "@s", "interpret": false, "separator": {"selector": "Steve", "color": "#-1", "strikethrough": true}, "color": "#GGGGGG"}], "insertion": "a"}
+N{"translate":"block.minecraft.stone","fallback":"%1$","with":[],"extra":["ünïcode",{"score":{"name":"*","objective":"kills"},"shadow_color":-1b,"hover_event":{"action":"bogus"}},{"type":"translatable","nbt":"x","entity":"@s","interpret":0b,"separator":{"selector":"Steve","color":"#-1","strikethrough":1b},"color":"#GGGGGG"}],"insertion":"a"}
+J"hello world"
+N"hello world"
+J{"selector": "@s", "extra": [{"text": [1], "color": "#-1"}, {"keybind": "key.jump", "extra": [{"player": {"name": "N", "properties": [{"value": "v"}]}, "extra": [{"nbt": "Items[0]", "entity": "@s", "source": "block", "extra": ["", "a", ""], "color": "#1", "italic": true}, ["a", "hello world", "%s"]], "font": "x y", "hover_event": {"action": null, "value": {"nbt": "x", "block": "~ ~ ~", "interpret": 1, "extra": ["ünïcode", "a", "tab\there"], "click_event": {"action": "copy_to_clipboard", "value": "tab\there"}}}}], "shadow_color": [1, 2, 3, 4]}, {"text": "line\nbreak", "color": "#123456", "italic": false}], "color": "white", "bold": false, "strikethrough": false, "insertion": "tab\there"}
+N{"selector":"@s","extra":[{"text":[I;1],"color":"#-1"},{"keybind":"key.jump","extra":[{"player":{"name":"N","properties":[{"value":"v"}]},"extra":[{"nbt":"Items[0]","entity":"@s","source":"block","extra":["","a",""],"color":"#1","italic":1b},["a","hello world","%s"]],"font":"x y","hover_event":{"action":"","value":{"nbt":"x","block":"~ ~ ~","interpret":1,"extra":["ünïcode","a","tab\there"],"click_event":{"action":"copy_to_clipboard","value":"tab\there"}}}}],"shadow_color":[I;1,2,3,4]},{"text":"line\nbreak","color":"#123456","italic":0b}],"color":"white","bold":0b,"strikethrough":0b,"insertion":"tab\there"}
+J[]
+N[]
+J"line\nbreak"
+N"line\nbreak"
+J"§cred"
+N"§cred"
+J{"text": "%s"}
+N{"text":"%s"}
+J{"player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "fallback": {"selector": "@a", "extra": [{"type": "keybind", "translate": "multiplayer.player.joined", "fallback": "%5$s", "with": [113, {"player": "xxxxxxxxxxxxxxxxxxxx", "extra": ["%s", "§cred"]}, 298], "extra": [{"player": "xxxxxxxxxxxxxxxxxxxx"}], "shadow_color": 1.5, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": 5, "name": {"text": "", "extra": ["tab\there", "hello world"], "underlined": false}}}], "shadow_color": 1.5}, "extra": [], "underlined": false}
+N{"player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"fallback":{"selector":"@a","extra":[{"type":"keybind","translate":"multiplayer.player.joined","fallback":"%5$s","with":[113L,{"player":"xxxxxxxxxxxxxxxxxxxx","extra":["%s","§cred"]},298L],"extra":[{"player":"xxxxxxxxxxxxxxxxxxxx"}],"shadow_color":1.5f,"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":5b,"name":{"text":"","extra":["tab\there","hello world"],"underlined":0b}}}],"shadow_color":1.5},"extra":[],"underlined":0b}
+J""
+N""
+J{"text": "%s", "color": "#123456"}
+N{"text":"%s","color":"#123456"}
+J"%s"
+N"%s"
+J{"translate": "gui.done", "with": [1.5], "extra": [{"translate": "commands.give.success.single", "color": "#1", "underlined": true, "font": "a:b", "click_event": {"action": "copy_to_clipboard", "value": "tab\there"}, "hover_event": {"action": "show_text", "value": {"translate": "gui.done", "with": [261], "extra": [{"type": "selector", "text": "hello world", "extra": [], "color": ""}, {"text": "§cred", "extra": ["", "", "hello world"], "underlined": false, "strikethrough": true}, {"score": {"name": "@a[tag=x]", "objective": "obj"}, "extra": []}], "color": "bad", "underlined": false, "obfuscated": false}}}, {"translate": "block.minecraft.stone", "with": [], "extra": [{"nbt": "x", "block": "~ ~ ~", "separator": {"sprite": "x:y", "bold": false, "italic": false, "insertion": "tab\there"}, "source": "block", "extra": [""], "color": "dark_aqua", "bold": false}, [{"player": {"name": "Notch"}, "extra": ["ünïcode"], "color": "red"}, {"sprite": "stone", "atlas": "minecraft:blocks", "extra": [], "color": "dark_aqua", "bold": false}]], "bold": true}, {"player": "Steve", "hat": true, "color": "dark_aqua", "bold": true, "strikethrough": false}], "color": "gold", "strikethrough": false}
+N{"translate":"gui.done","with":[1.5d],"extra":[{"translate":"commands.give.success.single","color":"#1","underlined":1b,"font":"a:b","click_event":{"action":"copy_to_clipboard","value":"tab\there"},"hover_event":{"action":"show_text","value":{"translate":"gui.done","with":[261],"extra":[{"type":"selector","text":"hello world","extra":[],"color":""},{"text":"§cred","extra":["","","hello world"],"underlined":0b,"strikethrough":1b},{"score":{"name":"@a[tag=x]","objective":"obj"},"extra":[]}],"color":"bad","underlined":false,"obfuscated":0b}}},{"translate":"block.minecraft.stone","with":[],"extra":[{"nbt":"x","block":"~ ~ ~","separator":{"sprite":"x:y","bold":false,"italic":0b,"insertion":"tab\there"},"source":"block","extra":[""],"color":"dark_aqua","bold":0b},[{"player":{"name":"Notch"},"extra":["ünïcode"],"color":"red"},{"sprite":"stone","atlas":"minecraft:blocks","extra":[],"color":"dark_aqua","bold":0b}]],"bold":1b},{"player":"Steve","hat":1b,"color":"dark_aqua","bold":1b,"strikethrough":0b}],"color":"gold","strikethrough":0b}
+J{"nbt": "a.b", "entity": "@s", "color": "gold", "bold": true, "click_event": {"path": "x"}}
+N{"nbt":"a.b","entity":"@s","color":"gold","bold":1b,"click_event":{"path":"x"}}
+J{"translate": "commands.give.success.single", "with": [{"score": {"name": "*", "objective": "obj"}, "color": "#-1", "underlined": true, "strikethrough": true}, {"text": "", "bold": true}, 10000000000.0, ["hello world", "§cred"]], "extra": [{"keybind": "key.jump", "color": "#-1", "bold": false}, {"nbt": "Items[0]", "storage": "a:b", "extra": [], "color": "white", "italic": true, "obfuscated": false}], "color": "white"}
+N{"translate":"commands.give.success.single","with":[{"score":{"name":"*","objective":"obj"},"color":"#-1","underlined":1b,"strikethrough":true},{"text":"","bold":true},10000000000.0d,["hello world","§cred"]],"extra":[{"keybind":"key.jump","color":"#-1","bold":0b},{"nbt":"Items[0]","storage":"a:b","extra":[],"color":"white","italic":1b,"obfuscated":false}],"color":"white"}
+J{"text": "😀", "color": "#FF5555"}
+N{"text":"😀","color":"#FF5555"}
+J{"text": "%s", "extra": [{"score": {"name": "Steve", "objective": "kills"}, "extra": ["ünïcode"], "italic": true, "underlined": true, "strikethrough": true, "obfuscated": true}], "shadow_color": 16711680}
+N{"text":"%s","extra":[{"score":{"name":"Steve","objective":"kills"},"extra":["ünïcode"],"italic":true,"underlined":true,"strikethrough":true,"obfuscated":true}],"shadow_color":16711680L}
+J{"score": {"name": "Steve", "objective": "kills"}, "color": "bad", "bold": false, "italic": true}
+N{"score":{"name":"Steve","objective":"kills"},"color":"bad","bold":0b,"italic":1b}
+J[{"player": "a b", "hat": true, "fallback": {"score": {"name": "*", "objective": "obj"}, "extra": [{"nbt": "x", "entity": "@s", "interpret": false, "plain": false, "strikethrough": false}, {"keybind": "", "color": "red", "bold": false}]}, "extra": [], "bold": false, "obfuscated": true, "hover_event": {"action": "bogus"}}, {"score": {"name": "Steve", "objective": "kills"}, "underlined": true, "strikethrough": true, "click_event": {"action": "custom", "id": "minecraft:foo"}}, {"translate": "nope.key", "fallback": "%s", "with": [1.0, {"type": "nbt", "selector": "@a", "color": "gold"}], "extra": [{"score": {"name": "*", "objective": "obj"}, "color": "#-1", "italic": false, "strikethrough": true, "font": "minecraft:foo"}, {"selector": "@s", "separator": {"nbt": "Items[0]", "entity": "@s", "interpret": true, "plain": true, "separator": "line\nbreak", "extra": [], "color": "bad"}, "extra": [], "color": "#1", "font": "x y"}]}]
+N[{"player":"a b","hat":true,"fallback":{"score":{"name":"*","objective":"obj"},"extra":[{"nbt":"x","entity":"@s","interpret":0b,"plain":0b,"strikethrough":false},{"keybind":"","color":"red","bold":false}]},"extra":[],"bold":false,"obfuscated":true,"hover_event":{"action":"bogus"}},{"score":{"name":"Steve","objective":"kills"},"underlined":1b,"strikethrough":1b,"click_event":{"action":"custom","id":"minecraft:foo"}},{"translate":"nope.key","fallback":"%s","with":[1.0d,{"type":"nbt","selector":"@a","color":"gold"}],"extra":[{"score":{"name":"*","objective":"obj"},"color":"#-1","italic":0b,"strikethrough":1b,"font":"minecraft:foo"},{"selector":"@s","separator":{"nbt":"Items[0]","entity":"@s","interpret":1b,"plain":true,"separator":"line\nbreak","extra":[],"color":"bad"},"extra":[],"color":"#1","font":"x y"}]}]
+J[{"translate": "gui.done", "with": [["§cred", "line\nbreak"]], "color": "", "underlined": false}]
+N[{"translate":"gui.done","with":[["§cred","line\nbreak"]],"color":"","underlined":false}]
+J{"text": "§cred", "shadow_color": [1.0, 0.5, 0.25, 0.75], "font": ""}
+N{"text":"§cred","shadow_color":[1.0f,0.5,0.25f,0.75f],"font":""}
+J{"score": {"name": "@s", "objective": "kills"}, "extra": [{"text": "%s", "insertion": "line\nbreak", "unknown": 1}, {"text": "§cred", "extra": [{"sprite": "x:y", "extra": [{"sprite": "stone", "color": "#123456"}, {"type": "nbt", "text": "tab\there", "extra": [""], "color": "", "obfuscated": 1.5, "font": "A:b"}]}, "😀", {"nbt": "x", "storage": "a:b", "interpret": true, "separator": {}}]}, []], "color": "white", "obfuscated": false}
+N{"score":{"name":"@s","objective":"kills"},"extra":[{"text":"%s","insertion":"line\nbreak","unknown":1},{"text":"§cred","extra":[{"sprite":"x:y","extra":[{"sprite":"stone","color":"#123456"},{"type":"nbt","text":"tab\there","extra":[""],"color":"","obfuscated":1.5f,"font":"A:b"}]},"😀",{"nbt":"x","storage":"a:b","interpret":true,"separator":{}}]},[]],"color":"white","obfuscated":false}
+J{"selector": "Steve", "hover_event": {"action": "show_entity", "id": "minecraft:bad", "uuid": "zz", "name": {"translate": "death.attack.player", "fallback": "%1$s %2$s", "extra": [{"text": "😀", "extra": [{"score": {"name": "@a[tag=x]", "objective": "kills"}, "shadow_color": 1.5}], "color": "dark_aqua", "underlined": false, "obfuscated": true, "click_event": {"action": "open_url", "url": "example.com"}}, {"type": "selector", "selector": "@a", "separator": {"text": "%s", "insertion": "line\nbreak", "font": "bar"}, "bold": true}], "shadow_color": 0, "bold": true, "underlined": false, "strikethrough": false, "font": "mod:path/sub"}}}
+N{"selector":"Steve","hover_event":{"action":"show_entity","id":"minecraft:bad","uuid":"zz","name":{"translate":"death.attack.player","fallback":"%1$s %2$s","extra":[{"text":"😀","extra":[{"score":{"name":"@a[tag=x]","objective":"kills"},"shadow_color":1.5}],"color":"dark_aqua","underlined":0b,"obfuscated":true,"click_event":{"action":"open_url","url":"example.com"}},{"type":"selector","selector":"@a","separator":{"text":"%s","insertion":"line\nbreak","font":"bar"},"bold":1b}],"shadow_color":0,"bold":1b,"underlined":0b,"strikethrough":false,"font":"mod:path/sub"}}}
+J{"score": {"name": "Steve", "objective": "obj"}, "extra": [], "italic": true}
+N{"score":{"name":"Steve","objective":"obj"},"extra":[],"italic":1b}
+J{"score": {"name": "*", "objective": "obj"}, "italic": true, "obfuscated": true}
+N{"score":{"name":"*","objective":"obj"},"italic":true,"obfuscated":true}
+J{"nbt": "Items[0]", "entity": "@s", "plain": false, "extra": ["line\nbreak", {"translate": ""}, "%s"], "color": "", "obfuscated": true}
+N{"nbt":"Items[0]","entity":"@s","plain":false,"extra":["line\nbreak",{"translate":""},"%s"],"color":"","obfuscated":true}
+J{"text": "hello world"}
+N{"text":"hello world"}
+J{"type": "object", "nbt": "a.b", "block": "~ ~ ~", "plain": true, "underlined": false, "font": "x y"}
+N{"type":"object","nbt":"a.b","block":"~ ~ ~","plain":true,"underlined":0b,"font":"x y"}
+J{"text": ""}
+N{"text":""}
+J""
+N""
+J{"nbt": "Items[0]", "entity": "@s"}
+N{"nbt":"Items[0]","entity":"@s"}
+J[[{"translate": "chat.type.text", "fallback": "x %s y", "with": [true, ["line\nbreak", ""], []], "color": "dark_aqua", "shadow_color": [1.0, 0.5, 0.25, 0.75], "italic": true, "obfuscated": true}], "😀"]
+N[[{"translate":"chat.type.text","fallback":"x %s y","with":[true,["line\nbreak",""],[]],"color":"dark_aqua","shadow_color":[1.0d,0.5f,0.25d,0.75d],"italic":true,"obfuscated":1b}],"😀"]
+J{"keybind": "key.inventory", "strikethrough": false, "click_event": {"action": "custom", "id": "minecraft:foo", "payload": "s"}}
+N{"keybind":"key.inventory","strikethrough":false,"click_event":{"action":"custom","id":"minecraft:foo","payload":"s"}}
+J"ünïcode"
+N"ünïcode"
+J[]
+N[]
+J{"translate": "commands.teleport.success.entity.single", "with": [10000000000.0], "extra": [], "color": "#-1", "italic": true, "strikethrough": false, "insertion": "", "hover_event": {"action": "show_item", "id": "minecraft:stone"}}
+N{"translate":"commands.teleport.success.entity.single","with":[10000000000.0],"extra":[],"color":"#-1","italic":true,"strikethrough":false,"insertion":"","hover_event":{"action":"show_item","id":"minecraft:stone"}}
+J{"type": "translatable", "selector": "@s", "shadow_color": 0}
+N{"type":"translatable","selector":"@s","shadow_color":0s}
+J{"type": "minecraft:text", "score": {"name": "*", "objective": "kills"}, "color": "red", "bold": true, "italic": true, "obfuscated": true, "hover_event": {"action": "bogus"}}
+N{"type":"minecraft:text","score":{"name":"*","objective":"kills"},"color":"red","bold":1b,"italic":1b,"obfuscated":true,"hover_event":{"action":"bogus"}}
+J{"translate": "death.attack.player", "with": [], "color": "white"}
+N{"translate":"death.attack.player","with":[],"color":"white"}
+J{"nbt": "a.b", "entity": "@s", "plain": true, "extra": [{"text": "hello world", "color": "#123456"}, "tab\there"], "color": "gold", "italic": true}
+N{"nbt":"a.b","entity":"@s","plain":1b,"extra":[{"text":"hello world","color":"#123456"},"tab\there"],"color":"gold","italic":true}
+J{"text": "", "color": "dark_aqua"}
+N{"text":"","color":"dark_aqua"}
+J{"nbt": "Items[0]", "entity": "@s", "interpret": true, "separator": {"text": "tab\there", "color": "bad", "bold": false, "strikethrough": true}, "source": "block", "color": "bad"}
+N{"nbt":"Items[0]","entity":"@s","interpret":1b,"separator":{"text":"tab\there","color":"bad","bold":false,"strikethrough":1b},"source":"block","color":"bad"}
+J{"nbt": "Items[0]", "entity": "@s", "separator": {"text": "tab\there", "color": "dark_aqua", "shadow_color": -1, "bold": false, "underlined": false, "obfuscated": false}, "font": "mod:path/sub", "click_event": {"action": "open_url", "url": "example.com"}}
+N{"nbt":"Items[0]","entity":"@s","separator":{"text":"tab\there","color":"dark_aqua","shadow_color":-1s,"bold":0b,"underlined":0b,"obfuscated":0b},"font":"mod:path/sub","click_event":{"action":"open_url","url":"example.com"}}
+J{"text": "ünïcode", "color": "#FF5555"}
+N{"text":"ünïcode","color":"#FF5555"}
+J{"score": {"name": "*", "objective": "obj"}, "extra": [{"type": "text", "translate": "nope.key", "fallback": "%d", "with": [1.5, 123456789012], "extra": [{"text": "😀", "extra": [], "italic": false}, {"nbt": "Items[0]", "storage": "A:b", "interpret": true, "plain": true, "extra": [{"score": {"name": "Steve", "objective": "kills"}, "bold": true}, {"text": "😀", "extra": []}, {"nbt": "x", "block": {}, "plain": true, "source": "block", "underlined": false}], "underlined": true}], "color": "#1", "underlined": true, "strikethrough": true, "click_event": {"action": "copy_to_clipboard", "value": "tab\there"}}, "hello world"]}
+N{"score":{"name":"*","objective":"obj"},"extra":[{"type":"text","translate":"nope.key","fallback":"%d","with":[1.5d,123456789012L],"extra":[{"text":"😀","extra":[],"italic":0b},{"nbt":"Items[0]","storage":"A:b","interpret":true,"plain":1b,"extra":[{"score":{"name":"Steve","objective":"kills"},"bold":1b},{"text":"😀","extra":[]},{"nbt":"x","block":{},"plain":true,"source":"block","underlined":false}],"underlined":1b}],"color":"#1","underlined":1b,"strikethrough":1b,"click_event":{"action":"copy_to_clipboard","value":"tab\there"}},"hello world"]}
+J"%s"
+N"%s"
+J{"keybind": "key.jump", "extra": [{"text": "ünïcode", "shadow_color": 0, "underlined": false}, {"text": "line\nbreak", "bold": false}, {"type": "score", "score": {"name": "@s", "objective": "obj"}, "color": "#-1", "underlined": false, "strikethrough": true}]}
+N{"keybind":"key.jump","extra":[{"text":"ünïcode","shadow_color":0b,"underlined":false},{"text":"line\nbreak","bold":false},{"type":"score","score":{"name":"@s","objective":"obj"},"color":"#-1","underlined":0b,"strikethrough":true}]}
+J""
+N""
+J{"text": "line\nbreak", "extra": [[{"type": "nbt", "text": "a", "extra": [["line\nbreak", "hello world", "a"], {"translate": "chat.type.text", "fallback": "%", "with": ["hello world", true, 1.5], "insertion": "§cred", "font": "bar", "click_event": true}], "color": "red", "underlined": false, "strikethrough": false}, {"text": "😀", "color": "#GGGGGG", "bold": true, "underlined": false, "click_event": {"action": "open_file", "path": "x", "unknown": 1}}, "line\nbreak"], "line\nbreak", {"nbt": "a.b", "strikethrough": false}], "color": "bad", "shadow_color": -1}
+N{"text":"line\nbreak","extra":[[{"type":"nbt","text":"a","extra":[["line\nbreak","hello world","a"],{"translate":"chat.type.text","fallback":"%","with":["hello world",1b,1.5f],"insertion":"§cred","font":"bar","click_event":true}],"color":"red","underlined":false,"strikethrough":0b},{"text":"😀","color":"#GGGGGG","bold":true,"underlined":false,"click_event":{"action":"open_file","path":"x","unknown":1}},"line\nbreak"],"line\nbreak",{"nbt":"a.b","strikethrough":0b}],"color":"bad","shadow_color":-1}
+J"line\nbreak"
+N"line\nbreak"
+J{"text": "tab\there", "italic": true, "underlined": false, "insertion": "😀"}
+N{"text":"tab\there","italic":1b,"underlined":0b,"insertion":"😀"}
+J[{"selector": "Steve", "separator": "tab\there", "extra": [{"text": "%s", "extra": [{"type": "nbt", "text": "tab\there", "color": "#123456"}, ""], "strikethrough": true}], "color": "red", "shadow_color": 16711680, "click_event": {"action": "open_file", "path": "x"}}]
+N[{"selector":"Steve","separator":"tab\there","extra":[{"text":"%s","extra":[{"type":"nbt","text":"tab\there","color":"#123456"},""],"strikethrough":true}],"color":"red","shadow_color":16711680,"click_event":{"action":"open_file","path":"x"}}]
+J{"selector": "@s", "bold": true}
+N{"selector":"@s","bold":true}
+J{"player": "Alex", "hat": false, "extra": [{"sprite": "minecraft:item/diamond", "atlas": "minecraft:blocks", "extra": [{"text": "hello world", "color": "dark_aqua", "bold": false, "click_event": {"action": "bogus", "path": "x"}}, {"text": "hello world", "extra": [], "underlined": true, "obfuscated": false}, {"selector": "@s", "extra": [{"text": "tab\there", "extra": []}], "color": "", "underlined": false, "hover_event": {"action": "show_item", "id": "minecraft:diamond_sword", "count": 2}}], "color": "#1", "insertion": ""}], "color": "dark_aqua"}
+N{"player":"Alex","hat":false,"extra":[{"sprite":"minecraft:item/diamond","atlas":"minecraft:blocks","extra":[{"text":"hello world","color":"dark_aqua","bold":false,"click_event":{"action":"bogus","path":"x"}},{"text":"hello world","extra":[],"underlined":1b,"obfuscated":0b},{"selector":"@s","extra":[{"text":"tab\there","extra":[]}],"color":"","underlined":0b,"hover_event":{"action":"show_item","id":"minecraft:diamond_sword","count":2s}}],"color":"#1","insertion":""}],"color":"dark_aqua"}
+J{"sprite": "stone", "extra": ["tab\there", "tab\there", "§cred"], "click_event": {"action": "suggest_command", "command": ""}, "hover_event": {"action": "bogus"}}
+N{"sprite":"stone","extra":["tab\there","tab\there","§cred"],"click_event":{"action":"suggest_command","command":""},"hover_event":{"action":"bogus"}}
+J"ünïcode"
+N"ünïcode"
+J{"selector": "@s", "color": "red", "bold": false, "italic": true, "underlined": true, "strikethrough": false, "hover_event": {"action": "show_item", "id": "minecraft:stone"}}
+N{"selector":"@s","color":"red","bold":0b,"italic":true,"underlined":1b,"strikethrough":false,"hover_event":{"action":"show_item","id":"minecraft:stone"}}
+J{"text": "ünïcode", "underlined": false, "hover_event": {"action": "bogus"}}
+N{"text":"ünïcode","underlined":false,"hover_event":{"action":"bogus"}}
+J"hello world"
+N"hello world"
+J{"nbt": "x", "block": "~ ~ ~", "extra": [], "underlined": true, "obfuscated": true}
+N{"nbt":"x","block":"~ ~ ~","extra":[],"underlined":1b,"obfuscated":1b}
+J{"text": "hello world", "color": "dark_aqua", "shadow_color": 0, "bold": false}
+N{"text":"hello world","color":"dark_aqua","shadow_color":0b,"bold":0b}
+J{"type": "object", "text": "", "extra": [], "color": "white", "shadow_color": 16711680, "hover_event": {"action": "show_text", "value": "a"}}
+N{"type":"object","text":"","extra":[],"color":"white","shadow_color":16711680,"hover_event":{"action":"show_text","value":"a"}}
+J{"text": "§cred", "extra": ["hello world", {"player": {"name": 1.5}, "bold": false}], "color": "#123456"}
+N{"text":"§cred","extra":["hello world",{"player":{"name":1.5},"bold":0b}],"color":"#123456"}
+J{"player": "Alex", "color": "red", "obfuscated": false}
+N{"player":"Alex","color":"red","obfuscated":0b}
+J{"text": "", "color": "#1", "italic": true, "underlined": true}
+N{"text":"","color":"#1","italic":1b,"underlined":true}
+J{"keybind": "", "color": "red", "bold": true, "click_event": {"action": "custom", "id": "A:b", "payload": 1}}
+N{"keybind":"","color":"red","bold":true,"click_event":{"action":"custom","id":"A:b","payload":1}}
+J""
+N""
+J{"text": "😀", "color": "#1", "strikethrough": true, "font": "minecraft:foo"}
+N{"text":"😀","color":"#1","strikethrough":1b,"font":"minecraft:foo"}
+J"%s"
+N"%s"
+J{"text": "ünïcode", "insertion": "hello world"}
+N{"text":"ünïcode","insertion":"hello world"}
+J{"text": "tab\there", "color": "#FF5555"}
+N{"text":"tab\there","color":"#FF5555"}
+J[]
+N[]
+J{"text": "tab\there", "extra": [], "italic": false, "obfuscated": true, "click_event": {"action": "run_command", "command": ""}}
+N{"text":"tab\there","extra":[],"italic":false,"obfuscated":1b,"click_event":{"action":"run_command","command":""}}
+J{"type": "object", "translate": "commands.give.success.single", "with": [{"text": "tab\there", "bold": false}, {"player": "Steve", "extra": ["ünïcode"], "click_event": {"action": "run_command", "command": "say §"}}, 1.5], "extra": [{"keybind": "", "color": "#FF5555", "obfuscated": false}]}
+N{"type":"object","translate":"commands.give.success.single","with":[{"text":"tab\there","bold":0b},{"player":"Steve","extra":["ünïcode"],"click_event":{"action":"run_command","command":"say §"}},1.5f],"extra":[{"keybind":"","color":"#FF5555","obfuscated":0b}]}
+J"§cred"
+N"§cred"
+J{"score": {"name": "*", "objective": "obj"}, "extra": [], "hover_event": {"action": "show_item", "id": "minecraft:bad_item", "count": 99}}
+N{"score":{"name":"*","objective":"obj"},"extra":[],"hover_event":{"action":"show_item","id":"minecraft:bad_item","count":99L}}
+J{"hat": {}, "object": "player", "fallback": {"type": "translatable", "translate": "block.minecraft.stone", "with": []}}
+N{"hat":{},"object":"player","fallback":{"type":"translatable","translate":"block.minecraft.stone","with":[]}}
+J{"score": {"name": "@s", "objective": "kills"}, "extra": ["%s"], "color": "#123456", "bold": false}
+N{"score":{"name":"@s","objective":"kills"},"extra":["%s"],"color":"#123456","bold":0b}
+J{"text": "hello world", "color": "#GGGGGG", "italic": false, "obfuscated": true, "click_event": {"action": "copy_to_clipboard", "value": "a"}}
+N{"text":"hello world","color":"#GGGGGG","italic":0b,"obfuscated":1b,"click_event":{"action":"copy_to_clipboard","value":"a"}}
+J"tab\there"
+N"tab\there"
+J{"score": {"name": "*", "objective": "kills"}, "italic": false, "click_event": {"action": "open_url", "url": "https://example.com"}}
+N{"score":{"name":"*","objective":"kills"},"italic":0b,"click_event":{"action":"open_url","url":"https://example.com"}}
+J{"sprite": "minecraft:item/diamond", "obfuscated": true}
+N{"sprite":"minecraft:item/diamond","obfuscated":1b}
+J{"text": "a", "bold": true, "obfuscated": false}
+N{"text":"a","bold":1b,"obfuscated":0b}
+J{"player": "Alex", "fallback": [{"text": "§cred", "extra": [{"score": {"name": "*", "objective": "kills"}, "extra": [], "color": "#123456", "italic": false, "strikethrough": false}, "ünïcode", {"text": "tab\there", "extra": ["line\nbreak", "ünïcode", "hello world"], "click_event": {"action": "run_command", "command": "x\ny"}, "hover_event": {"action": "show_text", "value": "a"}}], "color": "#-1", "bold": false, "obfuscated": true, "hover_event": {"action": "show_item", "id": "x y"}}, {"type": "minecraft:text", "color": "#FF5555", "strikethrough": false, "hover_event": {"action": "bogus"}}, {"text": "%s"}], "extra": [{"selector": 1.5, "color": "", "obfuscated": true}, {"nbt": "Items[0]", "storage": "a:b", "plain": false, "source": "bad", "color": "dark_aqua", "shadow_color": [1, 2, 3, 4], "obfuscated": true, "hover_event": {"action": "bogus"}}], "color": "white", "shadow_color": [1.0, 0.5, 0.25, 0.75], "strikethrough": false, "click_event": {"action": "run_command", "command": "x\ny"}, "hover_event": {"action": "bogus"}}
+N{"player":"Alex","fallback":[{"text":"§cred","extra":[{"score":{"name":"*","objective":"kills"},"extra":[],"color":"#123456","italic":false,"strikethrough":0b},"ünïcode",{"text":"tab\there","extra":["line\nbreak","ünïcode","hello world"],"click_event":{"action":"run_command","command":"x\ny"},"hover_event":{"action":"show_text","value":"a"}}],"color":"#-1","bold":0b,"obfuscated":1b,"hover_event":{"action":"show_item","id":"x y"}},{"type":"minecraft:text","color":"#FF5555","strikethrough":0b,"hover_event":{"action":"bogus"}},{"text":"%s"}],"extra":[{"selector":1.5,"color":"","obfuscated":true},{"nbt":"Items[0]","storage":"a:b","plain":false,"source":"bad","color":"dark_aqua","shadow_color":[1b,2,3b,4],"obfuscated":1b,"hover_event":{"action":"bogus"}}],"color":"white","shadow_color":[1.0,0.5f,0.25f,0.75],"strikethrough":0b,"click_event":{"action":"run_command","command":"x\ny"},"hover_event":{"action":"bogus"}}
+J{"type": "object", "text": "😀"}
+N{"type":"object","text":"😀"}
+J{"player": "Steve", "hat": true, "color": "#GGGGGG"}
+N{"player":"Steve","hat":1b,"color":"#GGGGGG"}
+J"😀"
+N"😀"
+J{"nbt": "a.b", "storage": "A:b", "interpret": 1}
+N{"nbt":"a.b","storage":"A:b","interpret":1}
+J"§cred"
+N"§cred"
+J{"text": "a", "extra": []}
+N{"text":"a","extra":[]}
+J{"text": "", "extra": [{"score": {"name": "@a[tag=x]", "objective": "obj"}, "italic": true, "insertion": ""}, "%s"], "shadow_color": [1.0, 0.5, 0.25, 0.75], "strikethrough": false}
+N{"text":"","extra":[{"score":{"name":"@a[tag=x]","objective":"obj"},"italic":1b,"insertion":""},"%s"],"shadow_color":[1.0f,0.5,0.25f,0.75f],"strikethrough":0b}
+J{"selector": "Steve", "separator": {"translate": "commands.give.success.single", "fallback": "%%", "with": [1.5, 123456789012], "color": "red"}, "color": "bad", "italic": true}
+N{"selector":"Steve","separator":{"translate":"commands.give.success.single","fallback":"%%","with":[1.5,123456789012L],"color":"red"},"color":"bad","italic":1b}
+J{"text": "ünïcode", "italic": true, "font": "", "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": 5, "name": {"nbt": "Items[0]", "entity": "@s", "interpret": true, "italic": true, "underlined": false}}}
+N{"text":"ünïcode","italic":1b,"font":"","hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":5L,"name":{"nbt":"Items[0]","entity":"@s","interpret":true,"italic":true,"underlined":false}}}
+J{"nbt": "x", "storage": "A:b", "color": "#-1"}
+N{"nbt":"x","storage":"A:b","color":"#-1"}
+J{"nbt": "a.b", "storage": "A:b", "color": "#FF5555", "strikethrough": true}
+N{"nbt":"a.b","storage":"A:b","color":"#FF5555","strikethrough":true}
+J"tab\there"
+N"tab\there"
+J"%s"
+N"%s"
+J{"sprite": "stone", "color": "dark_aqua", "shadow_color": [1, 2, 3, 4], "strikethrough": false}
+N{"sprite":"stone","color":"dark_aqua","shadow_color":[I;1,2,3,4],"strikethrough":0b}
+J{"nbt": "a.b", "entity": "@s", "plain": false, "color": "white"}
+N{"nbt":"a.b","entity":"@s","plain":false,"color":"white"}
+J"§cred"
+N"§cred"
+J{"score": {"name": "Steve", "objective": "obj"}}
+N{"score":{"name":"Steve","objective":"obj"}}
+J{"selector": "@s", "separator": {"text": "😀", "extra": ["hello world", {"sprite": "x:y", "fallback": {"selector": "Steve", "extra": ["hello world", "tab\there"], "color": "#123456"}, "extra": [{"text": "ünïcode", "color": "dark_aqua", "hover_event": {"action": "show_item", "id": "stone", "count": 2}}], "color": "gold", "bold": false, "strikethrough": false, "font": "mod:path/sub", "click_event": {"action": "change_page", "page": -1}, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": 5, "name": {"nbt": "x", "block": "~ ~ ~", "italic": false}}}, [{"player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "hat": true, "color": "#123456"}, {"selector": "@a", "click_event": {"action": "custom", "id": "minecraft:foo", "payload": 1}}]]}, "extra": [{"text": "line\nbreak"}], "color": "white"}
+N{"selector":"@s","separator":{"text":"😀","extra":["hello world",{"sprite":"x:y","fallback":{"selector":"Steve","extra":["hello world","tab\there"],"color":"#123456"},"extra":[{"text":"ünïcode","color":"dark_aqua","hover_event":{"action":"show_item","id":"stone","count":2}}],"color":"gold","bold":0b,"strikethrough":false,"font":"mod:path/sub","click_event":{"action":"change_page","page":-1},"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":5,"name":{"nbt":"x","block":"~ ~ ~","italic":0b}}},[{"player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"hat":1b,"color":"#123456"},{"selector":"@a","click_event":{"action":"custom","id":"minecraft:foo","payload":1}}]]},"extra":[{"text":"line\nbreak"}],"color":"white"}
+J{"text": "😀", "extra": [{"type": "selector", "text": "hello world", "extra": [{"keybind": "key.inventory", "click_event": {"action": "custom", "id": "bar"}}, {"keybind": "key.jump", "color": "#GGGGGG", "strikethrough": true, "hover_event": {"action": "bogus"}}, {"translate": "commands.give.success.single", "fallback": "%d", "color": "#1", "bold": false, "click_event": {"action": "change_page", "page": 0}}], "color": "#-1"}, "§cred", {"selector": "@a", "separator": {"text": "%s", "color": "#-1"}, "color": "#123456", "insertion": "%s"}], "color": "", "font": "minecraft:foo"}
+N{"text":"😀","extra":[{"type":"selector","text":"hello world","extra":[{"keybind":"key.inventory","click_event":{"action":"custom","id":"bar"}},{"keybind":"key.jump","color":"#GGGGGG","strikethrough":true,"hover_event":{"action":"bogus"}},{"translate":"commands.give.success.single","fallback":"%d","color":"#1","bold":false,"click_event":{"action":"change_page","page":0b}}],"color":"#-1"},"§cred",{"selector":"@a","separator":{"text":"%s","color":"#-1"},"color":"#123456","insertion":"%s"}],"color":"","font":"minecraft:foo"}
+J{"nbt": "Items[0]", "entity": "@s", "interpret": false, "separator": {"score": {"name": "@s", "objective": "kills"}, "extra": [[["%s", "", "a"], {"player": {"name": "Notch"}, "hat": false, "fallback": "ünïcode", "color": "gold", "obfuscated": false, "click_event": {"action": "run_command", "command": "say §"}}], {"translate": "nope.key", "fallback": "100%", "obfuscated": false}], "color": "#FF5555", "bold": true, "italic": true, "click_event": {"action": "open_file", "path": "x"}, "hover_event": {"action": "bogus"}}, "extra": ["ünïcode", {"score": {"name": "Steve", "objective": "obj"}, "color": "#123456"}], "color": "#123456", "shadow_color": 0}
+N{"nbt":"Items[0]","entity":"@s","interpret":false,"separator":{"score":{"name":"@s","objective":"kills"},"extra":[[["%s","","a"],{"player":{"name":"Notch"},"hat":0b,"fallback":"ünïcode","color":"gold","obfuscated":0b,"click_event":{"action":"run_command","command":"say §"}}],{"translate":"nope.key","fallback":"100%","obfuscated":0b}],"color":"#FF5555","bold":true,"italic":true,"click_event":{"action":"open_file","path":"x"},"hover_event":{"action":"bogus"}},"extra":["ünïcode",{"score":{"name":"Steve","objective":"obj"},"color":"#123456"}],"color":"#123456","shadow_color":0L}
+J"tab\there"
+N"tab\there"
+J{"text": "hello world", "color": "white"}
+N{"text":"hello world","color":"white"}
+J{"keybind": "key.inventory", "color": "dark_aqua", "underlined": true}
+N{"keybind":"key.inventory","color":"dark_aqua","underlined":1b}
+J{"text": "%s", "color": "gold", "obfuscated": true, "insertion": "😀", "click_event": {"action": "open_file", "path": "x"}}
+N{"text":"%s","color":"gold","obfuscated":1b,"insertion":"😀","click_event":{"action":"open_file","path":"x"}}
+J"a"
+N"a"
+J"😀"
+N"😀"
+J{"text": "a", "color": "white", "underlined": true, "font": "mod:path/sub", "click_event": {"action": "open_file", "path": "x"}}
+N{"text":"a","color":"white","underlined":true,"font":"mod:path/sub","click_event":{"action":"open_file","path":"x"}}
+J"hello world"
+N"hello world"
+J{"selector": "@a"}
+N{"selector":"@a"}
+J{"text": "%s", "extra": [{"text": "hello world", "underlined": false}], "color": "white", "italic": false, "underlined": false, "insertion": "tab\there"}
+N{"text":"%s","extra":[{"text":"hello world","underlined":false}],"color":"white","italic":0b,"underlined":0b,"insertion":"tab\there"}
+J{"score": {"name": "*", "objective": "kills"}, "color": "#-1", "underlined": true, "obfuscated": false}
+N{"score":{"name":"*","objective":"kills"},"color":"#-1","underlined":1b,"obfuscated":false}
+J{"keybind": "", "bold": true}
+N{"keybind":"","bold":1b}
+J""
+N""
+J{"sprite": "x:y", "atlas": "minecraft:blocks", "extra": [{"selector": "Steve", "extra": [], "color": "#123456", "obfuscated": false, "click_event": {"action": "custom", "id": "mod:path/sub"}}, {"text": {}, "underlined": false, "strikethrough": true}], "underlined": true}
+N{"sprite":"x:y","atlas":"minecraft:blocks","extra":[{"selector":"Steve","extra":[],"color":"#123456","obfuscated":false,"click_event":{"action":"custom","id":"mod:path/sub"}},{"text":{},"underlined":false,"strikethrough":true}],"underlined":true}
+J"tab\there"
+N"tab\there"
+J{"text": "%s", "color": "dark_aqua"}
+N{"text":"%s","color":"dark_aqua"}
+J{"text": "a", "click_event": {"action": "bogus"}}
+N{"text":"a","click_event":{"action":"bogus"}}
+J{"score": {"name": "Steve", "objective": "kills"}, "shadow_color": 0, "click_event": {"action": null, "value": "a"}}
+N{"score":{"name":"Steve","objective":"kills"},"shadow_color":0L,"click_event":{"action":"","value":"a"}}
+J{"score": {"name": "@s", "objective": "kills"}, "extra": [{"selector": "@a", "separator": {"type": "nbt", "keybind": "key.inventory", "color": "bad"}, "font": "mod:path/sub"}], "click_event": {"action": "change_page", "page": 0}}
+N{"score":{"name":"@s","objective":"kills"},"extra":[{"selector":"@a","separator":{"type":"nbt","keybind":"key.inventory","color":"bad"},"font":"mod:path/sub"}],"click_event":{"action":"change_page","page":0}}
+J{"translate": "", "with": [152, ""], "extra": [{"selector": "Steve", "separator": {"text": "😀", "color": "gold", "bold": false, "obfuscated": true, "click_event": {"action": "suggest_command", "command": "/say hi"}}}, "tab\there", {"score": {"name": "Steve", "objective": "kills"}, "color": "bad"}], "color": "#-1", "underlined": true}
+N{"translate":"","with":[152,""],"extra":[{"selector":"Steve","separator":{"text":"😀","color":"gold","bold":0b,"obfuscated":true,"click_event":{"action":"suggest_command","command":"/say hi"}}},"tab\there",{"score":{"name":"Steve","objective":"kills"},"color":"bad"}],"color":"#-1","underlined":true}
+J{"type": "translatable", "nbt": "a.b", "entity": "@s", "bold": true, "obfuscated": false}
+N{"type":"translatable","nbt":"a.b","entity":"@s","bold":true,"obfuscated":0b}
+J{"text": ""}
+N{"text":""}
+J""
+N""
+J{"text": "line\nbreak", "extra": [{"text": "a", "color": "#123456", "bold": false, "insertion": "ünïcode"}, {"text": "%s"}, {"nbt": "a.b", "storage": "minecraft:foo", "shadow_color": [1, 2, 3, 4], "strikethrough": true, "click_event": {"action": "custom", "id": "a:b"}}], "color": "dark_aqua", "italic": true}
+N{"text":"line\nbreak","extra":[{"text":"a","color":"#123456","bold":false,"insertion":"ünïcode"},{"text":"%s"},{"nbt":"a.b","storage":"minecraft:foo","shadow_color":[1L,2,3L,4b],"strikethrough":1b,"click_event":{"action":"custom","id":"a:b"}}],"color":"dark_aqua","italic":true}
+J{"type": "selector", "nbt": "a.b", "block": "~ ~ ~", "extra": [], "bold": false, "strikethrough": false, "click_event": {"action": "copy_to_clipboard", "value": "ünïcode"}}
+N{"type":"selector","nbt":"a.b","block":"~ ~ ~","extra":[],"bold":0b,"strikethrough":false,"click_event":{"action":"copy_to_clipboard","value":"ünïcode"}}
+J[{"selector": "@s", "extra": [{"score": {"name": "@a[tag=x]", "objective": "kills"}, "color": "#-1", "strikethrough": true, "font": "A:b"}, {"text": "hello world", "extra": [["§cred", "line\nbreak"], {"selector": "Steve", "separator": "line\nbreak"}, "§cred"], "color": "#-1", "underlined": true, "font": "bar"}], "color": "dark_aqua", "underlined": true, "click_event": {"action": "run_command", "command": "say §"}}, "§cred", {"text": "😀", "bold": false, "underlined": true, "strikethrough": false}]
+N[{"selector":"@s","extra":[{"score":{"name":"@a[tag=x]","objective":"kills"},"color":"#-1","strikethrough":true,"font":"A:b"},{"text":"hello world","extra":[["§cred","line\nbreak"],{"selector":"Steve","separator":"line\nbreak"},"§cred"],"color":"#-1","underlined":1b,"font":"bar"}],"color":"dark_aqua","underlined":true,"click_event":{"action":"run_command","command":"say §"}},"§cred",{"text":"😀","bold":0b,"underlined":true,"strikethrough":0b}]
+J{"text": "line\nbreak", "extra": [], "obfuscated": false}
+N{"text":"line\nbreak","extra":[],"obfuscated":false}
+J{"text": "ünïcode", "insertion": "§cred"}
+N{"text":"ünïcode","insertion":"§cred"}
+J{"text": "", "extra": [{"text": "line\nbreak", "extra": [{"text": "hello world", "color": "bad"}], "italic": true}, {"type": "object", "text": "line\nbreak"}], "color": "red", "hover_event": {"action": "show_entity", "id": "zombie", "uuid": [1, 2, 3], "name": {"type": "object", "score": {"name": "@s", "objective": "obj"}, "extra": [{"selector": "@a"}], "color": "gold", "italic": true, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": [1, 2, 3, 4]}}}}
+N{"text":"","extra":[{"text":"line\nbreak","extra":[{"text":"hello world","color":"bad"}],"italic":1b},{"type":"object","text":"line\nbreak"}],"color":"red","hover_event":{"action":"show_entity","id":"zombie","uuid":[1s,2L,3b],"name":{"type":"object","score":{"name":"@s","objective":"obj"},"extra":[{"selector":"@a"}],"color":"gold","italic":1b,"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":[1b,2s,3b,4L]}}}}
+J[{"type": "minecraft:text", "keybind": "key.jump", "extra": [{"type": "minecraft:text", "text": "a", "color": "dark_aqua", "bold": true, "font": "A:b", "hover_event": {"action": "bogus"}}, {"keybind": "key.jump", "extra": [[]], "bold": true}], "underlined": false}, {"score": {"name": "*", "objective": "kills"}, "extra": [{"text": "a", "strikethrough": true}], "italic": true}, {"selector": "@a", "separator": {"keybind": "", "color": "bad", "strikethrough": false, "click_event": {"action": "run_command", "command": "say §"}}, "shadow_color": [1, 2, 3, 4]}]
+N[{"type":"minecraft:text","keybind":"key.jump","extra":[{"type":"minecraft:text","text":"a","color":"dark_aqua","bold":1b,"font":"A:b","hover_event":{"action":"bogus"}},{"keybind":"key.jump","extra":[[]],"bold":true}],"underlined":false},{"score":{"name":"*","objective":"kills"},"extra":[{"text":"a","strikethrough":true}],"italic":1b},{"selector":"@a","separator":{"keybind":"","color":"bad","strikethrough":0b,"click_event":{"action":"run_command","command":"say §"}},"shadow_color":[I;1,2,3,4]}]
+J[[{"nbt": "Items[0]", "entity": "@s", "plain": false}, "ünïcode", {"selector": "@s"}]]
+N[[{"nbt":"Items[0]","entity":"@s","plain":0b},"ünïcode",{"selector":"@s"}]]
+J{"nbt": "a.b", "block": "~ ~ ~", "interpret": 1, "plain": true, "color": "bad", "shadow_color": -1, "hover_event": {"action": "show_entity", "id": "zombie", "uuid": [1, 2, 3], "name": "line\nbreak"}}
+N{"nbt":"a.b","block":"~ ~ ~","interpret":1,"plain":1b,"color":"bad","shadow_color":-1,"hover_event":{"action":"show_entity","id":"zombie","uuid":[1b,2s,3s],"name":"line\nbreak"}}
+J{"score": {"name": "*", "objective": "kills"}, "extra": [{"text": "", "extra": ["§cred", {"text": "ünïcode", "insertion": "%s"}, {"type": "bogus", "text": "a", "click_event": {"action": "run_command", "command": "x\ny"}}]}], "color": "gold"}
+N{"score":{"name":"*","objective":"kills"},"extra":[{"text":"","extra":["§cred",{"text":"ünïcode","insertion":"%s"},{"type":"bogus","text":"a","click_event":{"action":"run_command","command":"x\ny"}}]}],"color":"gold"}
+J{"nbt": "x", "entity": "@s", "obfuscated": true, "insertion": "tab\there"}
+N{"nbt":"x","entity":"@s","obfuscated":true,"insertion":"tab\there"}
+J{"type": "object", "sprite": "minecraft:item/diamond", "atlas": "minecraft:blocks", "object": "atlas", "extra": [], "color": "gold", "italic": false}
+N{"type":"object","sprite":"minecraft:item/diamond","atlas":"minecraft:blocks","object":"atlas","extra":[],"color":"gold","italic":0b}
+J{"text": "", "extra": [{"text": "😀", "color": "#GGGGGG"}], "strikethrough": false}
+N{"text":"","extra":[{"text":"😀","color":"#GGGGGG"}],"strikethrough":false}
+J{"type": "nbt", "text": "line\nbreak", "italic": true, "click_event": {"action": "open_file", "path": "x"}}
+N{"type":"nbt","text":"line\nbreak","italic":1b,"click_event":{"action":"open_file","path":"x"}}
+J{"keybind": "key.inventory", "extra": [{"text": "hello world", "extra": [], "color": "", "strikethrough": []}], "strikethrough": true}
+N{"keybind":"key.inventory","extra":[{"text":"hello world","extra":[],"color":"","strikethrough":[]}],"strikethrough":true}
+J{"selector": "@a", "extra": [{"nbt": "Items[0]", "block": "~ ~ ~", "plain": true, "color": "#1", "italic": false, "hover_event": {"action": "show_text", "value": {"text": "😀", "color": "#1", "italic": true}}}], "color": "dark_aqua"}
+N{"selector":"@a","extra":[{"nbt":"Items[0]","block":"~ ~ ~","plain":true,"color":"#1","italic":false,"hover_event":{"action":"show_text","value":{"text":"😀","color":"#1","italic":true}}}],"color":"dark_aqua"}
+J{"nbt": "Items[0]", "storage": "minecraft:foo", "plain": true, "color": "#-1", "strikethrough": true}
+N{"nbt":"Items[0]","storage":"minecraft:foo","plain":true,"color":"#-1","strikethrough":true}
+J{"text": "ünïcode", "color": "gold", "bold": false, "font": "bar"}
+N{"text":"ünïcode","color":"gold","bold":false,"font":"bar"}
+J{"text": "tab\there", "obfuscated": false}
+N{"text":"tab\there","obfuscated":0b}
+J{"text": "tab\there", "extra": [{"translate": "death.attack.player", "fallback": "%d", "with": [{"sprite": "stone", "color": true, "click_event": {"action": "run_command", "command": ""}}, 1.5], "strikethrough": true, "click_event": {"action": "change_page", "page": "2"}, "hover_event": {"action": "bogus"}}, "hello world"], "obfuscated": false, "font": "a:b"}
+N{"text":"tab\there","extra":[{"translate":"death.attack.player","fallback":"%d","with":[{"sprite":"stone","color":1b,"click_event":{"action":"run_command","command":""}},1.5f],"strikethrough":true,"click_event":{"action":"change_page","page":"2"},"hover_event":{"action":"bogus"}},"hello world"],"obfuscated":0b,"font":"a:b"}
+J{"selector": "@s", "extra": [{"keybind": ""}, {"translate": "options.on", "with": [["tab\there", ""], 231, ["a", "%s"]], "extra": [], "color": "", "italic": true}, {"translate": "death.attack.player", "with": [123456789012, 10000000000.0, 123456789012, ""], "color": "#FF5555", "italic": true, "obfuscated": false}], "color": "#123456", "click_event": {"action": "open_url", "url": "example.com"}}
+N{"selector":"@s","extra":[{"keybind":""},{"translate":"options.on","with":[["tab\there",""],231,["a","%s"]],"extra":[],"color":"","italic":1b},{"translate":"death.attack.player","with":[123456789012L,10000000000.0f,123456789012L,""],"color":"#FF5555","italic":1b,"obfuscated":0b}],"color":"#123456","click_event":{"action":"open_url","url":"example.com"}}
+J{"text": "😀", "extra": [{"keybind": "key.jump", "extra": [{"score": {"name": "@a[tag=x]", "objective": "kills"}, "bold": true, "italic": true}, "§cred", "§cred"]}], "obfuscated": true}
+N{"text":"😀","extra":[{"keybind":"key.jump","extra":[{"score":{"name":"@a[tag=x]","objective":"kills"},"bold":1b,"italic":1b},"§cred","§cred"]}],"obfuscated":true}
+J{"text": "a", "extra": []}
+N{"text":"a","extra":[]}
+J"line\nbreak"
+N"line\nbreak"
+J{"nbt": "Items[0]", "storage": "minecraft:foo", "plain": false}
+N{"nbt":"Items[0]","storage":"minecraft:foo","plain":false}
+J"😀"
+N"😀"
+J"ünïcode"
+N"ünïcode"
+J"tab\there"
+N"tab\there"
+J[]
+N[]
+J"line\nbreak"
+N"line\nbreak"
+J{"translate": [], "extra": [{"text": "", "color": "#GGGGGG", "insertion": "tab\there"}, {"nbt": "Items[0]", "entity": "@s", "plain": true, "source": "bad", "color": "gold", "shadow_color": 1.5, "bold": 1.5, "insertion": "😀"}, "ünïcode"], "bold": true}
+N{"translate":[],"extra":[{"text":"","color":"#GGGGGG","insertion":"tab\there"},{"nbt":"Items[0]","entity":"@s","plain":true,"source":"bad","color":"gold","shadow_color":1.5f,"bold":1.5d,"insertion":"😀"},"ünïcode"],"bold":true}
+J{"nbt": "Items[0]", "block": "~ ~ ~", "source": "block", "color": "bad", "shadow_color": -1, "underlined": false, "strikethrough": true}
+N{"nbt":"Items[0]","block":"~ ~ ~","source":"block","color":"bad","shadow_color":-1s,"underlined":0b,"strikethrough":1b}
+J{"color": "#-1", "click_event": {"action": "change_page", "page": 0}}
+N{"color":"#-1","click_event":{"action":"change_page","page":0L}}
+J{"text": "", "insertion": "a"}
+N{"text":"","insertion":"a"}
+J{"text": "hello world", "color": "#-1", "shadow_color": [1, 2, 3, 4], "underlined": false}
+N{"text":"hello world","color":"#-1","shadow_color":[1b,2L,3,4L],"underlined":0b}
+J{"translate": "multiplayer.player.joined", "color": "red"}
+N{"translate":"multiplayer.player.joined","color":"red"}
+J{"shadow_color": 16711680, "italic": true, "insertion": "§cred"}
+N{"shadow_color":16711680L,"italic":true,"insertion":"§cred"}
+J{"selector": "Steve", "extra": []}
+N{"selector":"Steve","extra":[]}
+J{"selector": "Steve", "color": "gold", "bold": true}
+N{"selector":"Steve","color":"gold","bold":true}
+J"😀"
+N"😀"
+J{"score": {"name": "Steve", "objective": "kills"}, "color": "#FF5555", "italic": false}
+N{"score":{"name":"Steve","objective":"kills"},"color":"#FF5555","italic":0b}
+J{"text": "", "extra": [{"score": {"name": "@s", "objective": "obj"}}, {"nbt": "Items[0]", "entity": "@s", "separator": {"text": "hello world", "underlined": false}, "obfuscated": false}], "strikethrough": true, "obfuscated": false, "click_event": {"action": "bogus", "path": "x"}}
+N{"text":"","extra":[{"score":{"name":"@s","objective":"obj"}},{"nbt":"Items[0]","entity":"@s","separator":{"text":"hello world","underlined":0b},"obfuscated":0b}],"strikethrough":1b,"obfuscated":false,"click_event":{"action":"bogus","path":"x"}}
+J"a"
+N"a"
+J[{"text": "§cred", "extra": [], "color": "s", "bold": true, "italic": false}, {"text": "hello world"}, ["hello world", {"selector": "@s", "separator": 5, "color": "#-1"}, {"selector": "Steve", "color": "#FF5555", "click_event": {"action": "open_url", "url": "https://example.com"}}]]
+N[{"text":"§cred","extra":[],"color":"s","bold":true,"italic":0b},{"text":"hello world"},["hello world",{"selector":"@s","separator":5L,"color":"#-1"},{"selector":"Steve","color":"#FF5555","click_event":{"action":"open_url","url":"https://example.com"}}]]
+J{"keybind": "", "italic": false, "underlined": true}
+N{"keybind":"","italic":false,"underlined":1b}
+J{"nbt": "Items[0]", "storage": 5, "color": "#1"}
+N{"nbt":"Items[0]","storage":5,"color":"#1"}
+J{"type": "score", "selector": "@a", "color": "gold", "obfuscated": true, "hover_event": {"action": "bogus"}}
+N{"type":"score","selector":"@a","color":"gold","obfuscated":1b,"hover_event":{"action":"bogus"}}
+J{"text": "%s", "italic": true}
+N{"text":"%s","italic":1b}
+J"%s"
+N"%s"
+J{"text": "%s", "color": "#GGGGGG", "bold": false, "obfuscated": true}
+N{"text":"%s","color":"#GGGGGG","bold":false,"obfuscated":true}
+J[{"player": "xxxxxxxxxxxxxxxxxxxx", "fallback": {"text": "line\nbreak", "bold": true, "hover_event": {"action": "show_item", "id": "minecraft:stone"}}, "color": "", "insertion": "ünïcode"}]
+N[{"player":"xxxxxxxxxxxxxxxxxxxx","fallback":{"text":"line\nbreak","bold":true,"hover_event":{"action":"show_item","id":"minecraft:stone"}},"color":"","insertion":"ünïcode"}]
+J{"text": "😀", "extra": [], "color": "red", "insertion": "hello world"}
+N{"text":"😀","extra":[],"color":"red","insertion":"hello world"}
+J{"selector": "@a", "color": "#-1", "strikethrough": false, "obfuscated": false, "insertion": ""}
+N{"selector":"@a","color":"#-1","strikethrough":0b,"obfuscated":0b,"insertion":""}
+J"hello world"
+N"hello world"
+J{"keybind": "", "color": "#FF5555"}
+N{"keybind":"","color":"#FF5555"}
+J["§cred", {"keybind": "key.inventory", "extra": [{"type": "selector", "player": "a b", "shadow_color": [1.0, 0.5, 0.25, 0.75], "bold": false, "strikethrough": false}, {"translate": "options.on", "strikethrough": false}, [{"nbt": "Items[0]", "block": "~ ~ ~", "interpret": false}, {"text": "line\nbreak", "extra": [], "color": "#-1", "italic": true, "font": "A:b"}, {"type": "nbt", "nbt": "a.b", "storage": "minecraft:foo", "separator": "line\nbreak", "shadow_color": -1, "hover_event": {"action": "show_text", "value": "😀"}}]], "color": "bad", "font": "minecraft:foo", "hover_event": {"action": "bogus"}}, "ünïcode"]
+N["§cred",{"keybind":"key.inventory","extra":[{"type":"selector","player":"a b","shadow_color":[1.0f,0.5,0.25f,0.75],"bold":0b,"strikethrough":0b},{"translate":"options.on","strikethrough":false},[{"nbt":"Items[0]","block":"~ ~ ~","interpret":false},{"text":"line\nbreak","extra":[],"color":"#-1","italic":1b,"font":"A:b"},{"type":"nbt","nbt":"a.b","storage":"minecraft:foo","separator":"line\nbreak","shadow_color":-1b,"hover_event":{"action":"show_text","value":"😀"}}]],"color":"bad","font":"minecraft:foo","hover_event":{"action":"bogus"}},"ünïcode"]
+J{"text": "tab\there", "extra": [], "color": "white", "bold": false}
+N{"text":"tab\there","extra":[],"color":"white","bold":0b}
+J{"sprite": "minecraft:item/diamond", "atlas": "A", "extra": [], "font": "bar"}
+N{"sprite":"minecraft:item/diamond","atlas":"A","extra":[],"font":"bar"}
+J[{"type": "minecraft:text", "selector": "@a", "color": "#1", "shadow_color": 16711680}, {"text": "a", "font": "minecraft:foo"}, {"nbt": "Items[0]", "entity": "@s", "color": "gold"}]
+N[{"type":"minecraft:text","selector":"@a","color":"#1","shadow_color":16711680L},{"text":"a","font":"minecraft:foo"},{"nbt":"Items[0]","entity":"@s","color":"gold"}]
+J"%s"
+N"%s"
+J{"selector": "@a", "separator": {"text": "a", "underlined": false}, "color": "gold"}
+N{"selector":"@a","separator":{"text":"a","underlined":false},"color":"gold"}
+J{"text": "😀", "color": "dark_aqua", "font": "bar", "click_event": {"action": "change_page", "page": -1}}
+N{"text":"😀","color":"dark_aqua","font":"bar","click_event":{"action":"change_page","page":-1L}}
+J[]
+N[]
+J{"text": "ünïcode", "extra": ["line\nbreak"], "bold": false, "obfuscated": true, "hover_event": {"action": "bogus"}}
+N{"text":"ünïcode","extra":["line\nbreak"],"bold":false,"obfuscated":true,"hover_event":{"action":"bogus"}}
+J"ünïcode"
+N"ünïcode"
+J{"selector": "Steve", "separator": {"keybind": [1], "extra": [{"text": "%s", "strikethrough": false, "hover_event": {"action": "show_item", "id": "minecraft:diamond_sword", "components": {"!minecraft:custom_name": {}}}}, {"selector": "Steve", "extra": ["%s", {"text": "ünïcode", "color": "gold"}], "italic": false, "strikethrough": false, "obfuscated": "s"}], "insertion": "😀"}, "color": "#GGGGGG", "font": "x y"}
+N{"selector":"Steve","separator":{"keybind":[I;1],"extra":[{"text":"%s","strikethrough":0b,"hover_event":{"action":"show_item","id":"minecraft:diamond_sword","components":{"!minecraft:custom_name":{}}}},{"selector":"Steve","extra":["%s",{"text":"ünïcode","color":"gold"}],"italic":0b,"strikethrough":0b,"obfuscated":"s"}],"insertion":"😀"},"color":"#GGGGGG","font":"x y"}
+J{"text": "ünïcode", "underlined": false}
+N{"text":"ünïcode","underlined":false}
+J"§cred"
+N"§cred"
+J""
+N""
+J"line\nbreak"
+N"line\nbreak"
+J{"keybind": "key.jump", "bold": false}
+N{"keybind":"key.jump","bold":false}
+J{"keybind": "", "underlined": false, "strikethrough": true}
+N{"keybind":"","underlined":false,"strikethrough":true}
+J[{"text": "ünïcode", "color": true, "bold": false}]
+N[{"text":"ünïcode","color":1b,"bold":0b}]
+J{"translate": "commands.give.success.single", "with": [10000000000.0, 10000000000.0, {"text": "hello world", "extra": [], "color": "#1"}], "shadow_color": [1.0, 0.5, 0.25, 0.75], "font": "A:b"}
+N{"translate":"commands.give.success.single","with":[10000000000.0f,10000000000.0f,{"text":"hello world","extra":[],"color":"#1"}],"shadow_color":[1.0d,0.5f,0.25f,0.75],"font":"A:b"}
+J{"nbt": "x", "storage": "minecraft:foo", "plain": false, "color": "white"}
+N{"nbt":"x","storage":"minecraft:foo","plain":false,"color":"white"}
+J"%s"
+N"%s"
+J[[], {"bold": false}, ["a"]]
+N[[],{"bold":0b},["a"]]
+J{"text": "ünïcode", "color": "bad", "underlined": true, "strikethrough": false, "click_event": {"action": "open_url", "url": "HTTP://X"}}
+N{"text":"ünïcode","color":"bad","underlined":true,"strikethrough":false,"click_event":{"action":"open_url","url":"HTTP://X"}}
+J"tab\there"
+N"tab\there"
+J"tab\there"
+N"tab\there"
+J"😀"
+N"😀"
+J{"keybind": "key.jump", "extra": []}
+N{"keybind":"key.jump","extra":[]}
+J{"type": "text", "text": "😀"}
+N{"type":"text","text":"😀"}
+J{"type": "bogus", "selector": "@s", "color": "#-1", "italic": false, "hover_event": {"action": "show_entity", "id": "minecraft:bad", "uuid": "zz", "name": {"text": "hello world", "color": "#1", "bold": true, "obfuscated": true}}}
+N{"type":"bogus","selector":"@s","color":"#-1","italic":false,"hover_event":{"action":"show_entity","id":"minecraft:bad","uuid":"zz","name":{"text":"hello world","color":"#1","bold":true,"obfuscated":1b}}}
+J{"type": "minecraft:text", "translate": "death.attack.player", "color": "red"}
+N{"type":"minecraft:text","translate":"death.attack.player","color":"red"}
+J{"score": {"name": "Steve", "objective": "obj"}, "color": "#FF5555", "shadow_color": 0}
+N{"score":{"name":"Steve","objective":"obj"},"color":"#FF5555","shadow_color":0}
+J{"translate": "commands.give.success.single", "extra": [], "color": "#GGGGGG"}
+N{"translate":"commands.give.success.single","extra":[],"color":"#GGGGGG"}
+J{"sprite": "minecraft:item/diamond", "atlas": "a:b", "color": "dark_aqua", "italic": false, "obfuscated": false}
+N{"sprite":"minecraft:item/diamond","atlas":"a:b","color":"dark_aqua","italic":false,"obfuscated":0b}
+J{"player": "Alex", "hat": true, "fallback": {"selector": "@a", "separator": {"selector": "@s", "extra": ["line\nbreak", {"type": "bogus", "nbt": "a.b", "entity": "@s", "plain": false, "extra": ["hello world", "%s", "a"], "strikethrough": true}, "%s"], "strikethrough": false, "obfuscated": false}, "extra": [], "insertion": "😀"}, "extra": [{"nbt": "x", "block": "~ ~ ~", "extra": ["%s", {"text": "line\nbreak", "italic": true, "strikethrough": false}], "color": "#-1", "italic": true}, {"text": "😀", "extra": [{"text": "line\nbreak", "italic": true, "strikethrough": false, "insertion": "tab\there"}], "color": "white", "click_event": {"action": "run_command", "command": "say §"}}, {"nbt": "x", "block": "~ ~ ~", "interpret": true, "extra": [], "hover_event": {"action": "bogus"}}]}
+N{"player":"Alex","hat":1b,"fallback":{"selector":"@a","separator":{"selector":"@s","extra":["line\nbreak",{"type":"bogus","nbt":"a.b","entity":"@s","plain":false,"extra":["hello world","%s","a"],"strikethrough":1b},"%s"],"strikethrough":0b,"obfuscated":0b},"extra":[],"insertion":"😀"},"extra":[{"nbt":"x","block":"~ ~ ~","extra":["%s",{"text":"line\nbreak","italic":true,"strikethrough":0b}],"color":"#-1","italic":true},{"text":"😀","extra":[{"text":"line\nbreak","italic":1b,"strikethrough":false,"insertion":"tab\there"}],"color":"white","click_event":{"action":"run_command","command":"say §"}},{"nbt":"x","block":"~ ~ ~","interpret":1b,"extra":[],"hover_event":{"action":"bogus"}}]}
+J{"translate": "commands.teleport.success.entity.single", "fallback": "x %s y", "with": [{"selector": "@s", "separator": {"type": "selector", "selector": "@s", "separator": {"nbt": "x", "entity": "@s", "plain": false, "font": "mod:path/sub"}, "extra": ["ünïcode"], "color": "#123456", "bold": false, "italic": false, "click_event": {"action": "run_command", "command": "say §"}}, "color": "#FF5555", "insertion": "hello world", "click_event": {"action": "custom", "id": "minecraft:foo"}}], "color": "dark_aqua", "underlined": false, "obfuscated": false}
+N{"translate":"commands.teleport.success.entity.single","fallback":"x %s y","with":[{"selector":"@s","separator":{"type":"selector","selector":"@s","separator":{"nbt":"x","entity":"@s","plain":0b,"font":"mod:path/sub"},"extra":["ünïcode"],"color":"#123456","bold":0b,"italic":0b,"click_event":{"action":"run_command","command":"say §"}},"color":"#FF5555","insertion":"hello world","click_event":{"action":"custom","id":"minecraft:foo"}}],"color":"dark_aqua","underlined":0b,"obfuscated":false}
+J"hello world"
+N"hello world"
+J{"selector": "@a", "separator": {"text": "hello world", "bold": true, "unknown": 1}, "extra": ["%s"], "color": "#1"}
+N{"selector":"@a","separator":{"text":"hello world","bold":1b,"unknown":1b},"extra":["%s"],"color":"#1"}
+J[]
+N[]
+J"ünïcode"
+N"ünïcode"
+J{"text": "hello world", "bold": false}
+N{"text":"hello world","bold":false}
+J{"keybind": "key.inventory"}
+N{"keybind":"key.inventory"}
+J[]
+N[]
+J{"text": "a", "color": "#1", "bold": true}
+N{"text":"a","color":"#1","bold":true}
+J{"text": "line\nbreak", "extra": [[{"text": "§cred", "bold": true, "hover_event": {"action": "show_text", "value": {"translate": "options.on", "color": "white", "shadow_color": 1.5, "hover_event": {"action": "bogus"}}}}], {"type": "object", "text": "tab\there", "shadow_color": 1.5, "obfuscated": false, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": 5, "name": "a"}}], "color": "bad", "strikethrough": true}
+N{"text":"line\nbreak","extra":[[{"text":"§cred","bold":1b,"hover_event":{"action":"show_text","value":{"translate":"options.on","color":"white","shadow_color":1.5f,"hover_event":{"action":"bogus"}}}}],{"type":"object","text":"tab\there","shadow_color":1.5,"obfuscated":0b,"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":5b,"name":"a"}}],"color":"bad","strikethrough":true}
+J{"type": "text", "nbt": "x", "storage": "minecraft:foo", "separator": [{"translate": "chat.type.text", "with": [{"nbt": "x", "block": "~ ~ ~", "interpret": false, "shadow_color": [1, 2, 3, 4]}, ["", "ünïcode"]], "color": "#-1", "underlined": false}, {"translate": "", "fallback": "%", "extra": [], "bold": true}], "extra": [], "color": "#123456", "bold": true, "font": "A:b"}
+N{"type":"text","nbt":"x","storage":"minecraft:foo","separator":[{"translate":"chat.type.text","with":[{"nbt":"x","block":"~ ~ ~","interpret":false,"shadow_color":[I;1,2,3,4]},["","ünïcode"]],"color":"#-1","underlined":0b},{"translate":"","fallback":"%","extra":[],"bold":true}],"extra":[],"color":"#123456","bold":1b,"font":"A:b"}
+J"hello world"
+N"hello world"
+J{"score": {"name": "@s", "objective": "obj"}, "color": "bad", "bold": false}
+N{"score":{"name":"@s","objective":"obj"},"color":"bad","bold":0b}
+J"§cred"
+N"§cred"
+J{"text": "", "color": "bad", "shadow_color": -1}
+N{"text":"","color":"bad","shadow_color":-1}
+J{"player": "Steve", "fallback": [{"type": "selector", "text": "%s", "obfuscated": false}, {"color": "#FF5555"}], "insertion": "ünïcode"}
+N{"player":"Steve","fallback":[{"type":"selector","text":"%s","obfuscated":0b},{"color":"#FF5555"}],"insertion":"ünïcode"}
+J{"nbt": "Items[0]", "block": "~ ~ ~"}
+N{"nbt":"Items[0]","block":"~ ~ ~"}
+J[]
+N[]
+J{"selector": "Steve", "italic": true, "click_event": {"action": "suggest_command", "command": "say §"}}
+N{"selector":"Steve","italic":true,"click_event":{"action":"suggest_command","command":"say §"}}
+J{"text": "§cred", "extra": "s", "color": "#-1", "click_event": {"action": "suggest_command", "command": "say §"}, "unknown": 1}
+N{"text":"§cred","extra":"s","color":"#-1","click_event":{"action":"suggest_command","command":"say §"},"unknown":1L}
+J"§cred"
+N"§cred"
+J{"selector": "@a", "strikethrough": true, "font": "bar"}
+N{"selector":"@a","strikethrough":true,"font":"bar"}
+J[{"keybind": "", "color": "gold", "bold": false, "hover_event": {"action": "show_text", "value": {"text": "hello world", "extra": ["tab\there", {"nbt": "x", "entity": "@s", "plain": false, "color": "white", "bold": false}, {"text": "tab\there", "color": "dark_aqua", "underlined": false, "insertion": "hello world"}], "bold": false, "obfuscated": true}}}, ""]
+N[{"keybind":"","color":"gold","bold":false,"hover_event":{"action":"show_text","value":{"text":"hello world","extra":["tab\there",{"nbt":"x","entity":"@s","plain":false,"color":"white","bold":0b},{"text":"tab\there","color":"dark_aqua","underlined":false,"insertion":"hello world"}],"bold":false,"obfuscated":1b}}},""]
+J{"text": "ünïcode", "extra": [{"text": "ünïcode", "extra": [], "bold": false, "italic": false}, {"keybind": "key.jump", "extra": [{"nbt": "Items[0]", "block": "~ ~ ~", "color": "s", "obfuscated": false, "font": "a:b", "unknown": 1}], "color": "gold", "bold": true}]}
+N{"text":"ünïcode","extra":[{"text":"ünïcode","extra":[],"bold":false,"italic":false},{"keybind":"key.jump","extra":[{"nbt":"Items[0]","block":"~ ~ ~","color":"s","obfuscated":0b,"font":"a:b","unknown":1}],"color":"gold","bold":1b}]}
+J{"nbt": "x", "block": "~ ~ ~", "extra": [], "strikethrough": false, "click_event": {"action": "bogus", "path": "x"}}
+N{"nbt":"x","block":"~ ~ ~","extra":[],"strikethrough":false,"click_event":{"action":"bogus","path":"x"}}
+J{"score": {"name": "*", "objective": "kills"}, "extra": [], "font": "minecraft:foo"}
+N{"score":{"name":"*","objective":"kills"},"extra":[],"font":"minecraft:foo"}
+J[]
+N[]
+J"line\nbreak"
+N"line\nbreak"
+J{"translate": "gui.done", "fallback": "%d", "with": ["ünïcode", ["a", "tab\there"]], "color": "dark_aqua"}
+N{"translate":"gui.done","fallback":"%d","with":["ünïcode",["a","tab\there"]],"color":"dark_aqua"}
+J{"text": "%s", "color": "white"}
+N{"text":"%s","color":"white"}
+J{"type": "minecraft:text", "text": "a", "color": "", "underlined": true, "click_event": {"action": "suggest_command", "command": "say §"}}
+N{"type":"minecraft:text","text":"a","color":"","underlined":1b,"click_event":{"action":"suggest_command","command":"say §"}}
+J{"nbt": "a.b", "storage": "minecraft:foo", "plain": false, "extra": ["ünïcode", "§cred"], "color": "#FF5555", "bold": false, "insertion": "s"}
+N{"nbt":"a.b","storage":"minecraft:foo","plain":false,"extra":["ünïcode","§cred"],"color":"#FF5555","bold":false,"insertion":"s"}
+J[]
+N[]
+J{"keybind": "", "extra": [{"text": "line\nbreak", "strikethrough": false, "click_event": {"action": "run_command", "command": "say §"}}], "font": "mod:path/sub"}
+N{"keybind":"","extra":[{"text":"line\nbreak","strikethrough":0b,"click_event":{"action":"run_command","command":"say §"}}],"font":"mod:path/sub"}
+J{"translate": "options.on", "with": ["§cred", 123456789012, 1.0], "extra": [], "color": "#123456"}
+N{"translate":"options.on","with":["§cred",123456789012L,1.0],"extra":[],"color":"#123456"}
+J{"type": "bogus", "score": {"name": "@s", "objective": "obj"}, "color": "bad"}
+N{"type":"bogus","score":{"name":"@s","objective":"obj"},"color":"bad"}
+J[[{"keybind": "key.jump", "extra": [{"selector": "@s", "separator": "", "extra": ["😀", "§cred"], "color": "dark_aqua"}, {"text": "a"}]}]]
+N[[{"keybind":"key.jump","extra":[{"selector":"@s","separator":"","extra":["😀","§cred"],"color":"dark_aqua"},{"text":"a"}]}]]
+J{"text": "hello world", "color": "dark_aqua"}
+N{"text":"hello world","color":"dark_aqua"}
+J"tab\there"
+N"tab\there"
+J{"score": {"name": "Steve", "objective": "kills"}, "color": "dark_aqua", "underlined": false}
+N{"score":{"name":"Steve","objective":"kills"},"color":"dark_aqua","underlined":0b}
+J{"type": "nbt", "selector": "@a", "extra": [{"type": "object", "selector": "Steve", "separator": {"keybind": "", "color": ""}, "color": "#GGGGGG", "bold": false, "font": ""}, {"translate": "block.minecraft.stone", "fallback": "%s %s", "with": [["tab\there", "hello world"], 123456789012, 80, 148], "color": "red", "underlined": false, "font": "minecraft:foo"}, {"player": "xxxxxxxxxxxxxxxxxxxx", "hat": true, "shadow_color": 0, "strikethrough": false}], "strikethrough": false}
+N{"type":"nbt","selector":"@a","extra":[{"type":"object","selector":"Steve","separator":{"keybind":"","color":""},"color":"#GGGGGG","bold":0b,"font":""},{"translate":"block.minecraft.stone","fallback":"%s %s","with":[["tab\there","hello world"],123456789012L,80,148s],"color":"red","underlined":false,"font":"minecraft:foo"},{"player":"xxxxxxxxxxxxxxxxxxxx","hat":true,"shadow_color":0,"strikethrough":false}],"strikethrough":0b}
+J"§cred"
+N"§cred"
+J{"selector": "@s", "color": "#1"}
+N{"selector":"@s","color":"#1"}
+J{"nbt": "x", "entity": "@s", "interpret": 1, "extra": [[[["ünïcode", "line\nbreak"]], "😀", ""]], "color": "#1", "bold": false, "strikethrough": true, "obfuscated": false}
+N{"nbt":"x","entity":"@s","interpret":1s,"extra":[[[["ünïcode","line\nbreak"]],"😀",""]],"color":"#1","bold":false,"strikethrough":1b,"obfuscated":false}
+J{"text": "line\nbreak", "color": "#123456", "italic": true, "font": "bar"}
+N{"text":"line\nbreak","color":"#123456","italic":1b,"font":"bar"}
+J{"keybind": "key.jump", "italic": true, "underlined": true, "obfuscated": false, "font": "bar", "hover_event": {"action": "bogus"}}
+N{"keybind":"key.jump","italic":true,"underlined":true,"obfuscated":0b,"font":"bar","hover_event":{"action":"bogus"}}
+J{"nbt": "x", "entity": "@s", "color": "dark_aqua", "click_event": {"action": "open_url", "url": "example.com"}}
+N{"nbt":"x","entity":"@s","color":"dark_aqua","click_event":{"action":"open_url","url":"example.com"}}
+J{"player": "xxxxxxxxxxxxxxxxxxxx", "object": "player", "extra": ["a"], "color": "dark_aqua"}
+N{"player":"xxxxxxxxxxxxxxxxxxxx","object":"player","extra":["a"],"color":"dark_aqua"}
+J{"nbt": "x", "storage": "minecraft:foo", "color": "#FF5555", "italic": true}
+N{"nbt":"x","storage":"minecraft:foo","color":"#FF5555","italic":true}
+J{"text": "", "bold": false}
+N{"text":"","bold":0b}
+J{"text": "line\nbreak", "color": "bad", "shadow_color": 1.5, "italic": true, "strikethrough": true, "click_event": {"action": "custom", "id": "x y"}}
+N{"text":"line\nbreak","color":"bad","shadow_color":1.5d,"italic":true,"strikethrough":true,"click_event":{"action":"custom","id":"x y"}}
+J"line\nbreak"
+N"line\nbreak"
+J{"translate": "commands.give.success.single", "fallback": "x %s y"}
+N{"translate":"commands.give.success.single","fallback":"x %s y"}
+J"a"
+N"a"
+J"a"
+N"a"
+J{"score": {"name": "@a[tag=x]", "objective": "obj"}, "color": "", "strikethrough": false}
+N{"score":{"name":"@a[tag=x]","objective":"obj"},"color":"","strikethrough":false}
+J{"nbt": "x", "block": "~ ~ ~", "plain": true, "color": "", "hover_event": {"action": "bogus"}}
+N{"nbt":"x","block":"~ ~ ~","plain":true,"color":"","hover_event":{"action":"bogus"}}
+J{"translate": "block.minecraft.stone", "color": "dark_aqua", "shadow_color": 0, "italic": true, "hover_event": {"action": "show_item", "id": "stone"}}
+N{"translate":"block.minecraft.stone","color":"dark_aqua","shadow_color":0s,"italic":1b,"hover_event":{"action":"show_item","id":"stone"}}
+J{"score": {"name": "@a[tag=x]", "objective": "kills"}, "extra": [{"selector": "@s", "obfuscated": false, "click_event": {"action": "bogus", "path": "x"}}, {"translate": "multiplayer.player.joined", "fallback": "%d", "with": [1.0, 120, 246, []], "extra": [{"player": {"name": "Notch"}, "hat": true, "object": "player", "click_event": {"action": "change_page", "page": 5}}]}, {"sprite": "stone", "color": "#123456", "hover_event": {"action": "show_item", "id": "minecraft:bad_item", "components": {"minecraft:custom_name": "x"}}}]}
+N{"score":{"name":"@a[tag=x]","objective":"kills"},"extra":[{"selector":"@s","obfuscated":0b,"click_event":{"action":"bogus","path":"x"}},{"translate":"multiplayer.player.joined","fallback":"%d","with":[1.0,120,246,[]],"extra":[{"player":{"name":"Notch"},"hat":true,"object":"player","click_event":{"action":"change_page","page":5}}]},{"sprite":"stone","color":"#123456","hover_event":{"action":"show_item","id":"minecraft:bad_item","components":{"minecraft:custom_name":"x"}}}]}
+J{"player": "a b", "hat": true}
+N{"player":"a b","hat":true}
+J{"translate": "commands.give.success.single", "fallback": "%d", "with": [1.0, 123456789012, 1.5], "color": "#123456", "click_event": {"command": "/say hi"}}
+N{"translate":"commands.give.success.single","fallback":"%d","with":[1.0,123456789012L,1.5d],"color":"#123456","click_event":{"command":"/say hi"}}
+J{"score": {"name": "Steve", "objective": "obj"}, "extra": [{"selector": "@s", "separator": {"text": "ünïcode", "extra": [{"text": "%s", "underlined": false}], "color": "#GGGGGG", "obfuscated": true, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": [1, 2, 3], "name": "tab\there"}}, "color": "gold", "insertion": "line\nbreak"}], "bold": true, "font": "mod:path/sub"}
+N{"score":{"name":"Steve","objective":"obj"},"extra":[{"selector":"@s","separator":{"text":"ünïcode","extra":[{"text":"%s","underlined":0b}],"color":"#GGGGGG","obfuscated":true,"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":[I;1,2,3],"name":"tab\there"}},"color":"gold","insertion":"line\nbreak"}],"bold":true,"font":"mod:path/sub"}
+J{"keybind": "key.inventory", "extra": [{"translate": "chat.type.text", "fallback": "%1$s %2$s", "with": [["ünïcode", "%s"], 164], "extra": ["line\nbreak", {"text": "", "color": "#FF5555", "bold": false, "strikethrough": true}, {"text": "%s", "shadow_color": [1.0, 0.5, 0.25, 0.75], "strikethrough": false, "click_event": {"action": "open_file", "path": "x"}}], "italic": true, "insertion": "ünïcode", "hover_event": {"action": "bogus"}}, "%s"], "color": "red", "underlined": false, "font": "A:b", "click_event": {"action": "open_url", "url": "ftp://x"}}
+N{"keybind":"key.inventory","extra":[{"translate":"chat.type.text","fallback":"%1$s %2$s","with":[["ünïcode","%s"],164s],"extra":["line\nbreak",{"text":"","color":"#FF5555","bold":false,"strikethrough":1b},{"text":"%s","shadow_color":[1.0d,0.5,0.25d,0.75],"strikethrough":0b,"click_event":{"action":"open_file","path":"x"}}],"italic":1b,"insertion":"ünïcode","hover_event":{"action":"bogus"}},"%s"],"color":"red","underlined":0b,"font":"A:b","click_event":{"action":"open_url","url":"ftp://x"}}
+J{"translate": "", "with": ["", 226, 5, {"keybind": "key.inventory", "extra": [], "color": "#FF5555", "italic": true, "underlined": true}], "color": "#1", "strikethrough": true}
+N{"translate":"","with":["",226L,5L,{"keybind":"key.inventory","extra":[],"color":"#FF5555","italic":true,"underlined":true}],"color":"#1","strikethrough":1b}
+J"a"
+N"a"
+J[{"keybind": "key.inventory", "hover_event": {"action": {}, "id": "minecraft:bad_item"}}, {"selector": "Steve", "separator": {"text": "ünïcode", "color": "gold"}, "extra": ["§cred"], "bold": false, "strikethrough": false}, [{"selector": "@a", "color": "#123456"}, "§cred"]]
+N[{"keybind":"key.inventory","hover_event":{"action":{},"id":"minecraft:bad_item"}},{"selector":"Steve","separator":{"text":"ünïcode","color":"gold"},"extra":["§cred"],"bold":0b,"strikethrough":false},[{"selector":"@a","color":"#123456"},"§cred"]]
+J{"translate": "", "fallback": "%1$s %2$s", "with": [true], "extra": [{"nbt": "a.b", "storage": "minecraft:foo", "extra": [{"selector": "Steve", "separator": "§cred", "bold": false}, ["%s", "", {"nbt": [1], "block": "~ ~ ~", "plain": true, "source": "bad", "extra": [""], "italic": true, "click_event": {"action": "bogus", "path": "x"}}], {"text": [], "color": "red", "underlined": false}], "color": "dark_aqua", "shadow_color": 0}, {"selector": "@s", "underlined": true}, {"sprite": "x:y", "extra": [], "shadow_color": [1.0, 0.5, 0.25, 0.75]}], "color": "#-1"}
+N{"translate":"","fallback":"%1$s %2$s","with":[1b],"extra":[{"nbt":"a.b","storage":"minecraft:foo","extra":[{"selector":"Steve","separator":"§cred","bold":false},["%s","",{"nbt":[I;1],"block":"~ ~ ~","plain":true,"source":"bad","extra":[""],"italic":true,"click_event":{"action":"bogus","path":"x"}}],{"text":[],"color":"red","underlined":false}],"color":"dark_aqua","shadow_color":0},{"selector":"@s","underlined":1b},{"sprite":"x:y","extra":[],"shadow_color":[1.0f,0.5f,0.25f,0.75d]}],"color":"#-1"}
+J{"text": "", "color": "white", "strikethrough": true, "click_event": {"action": "change_page", "page": 5}, "hover_event": {"action": "show_text", "value": [[{"player": "xxxxxxxxxxxxxxxxxxxx", "extra": ["ünïcode"], "color": "bad"}, {"text": "hello world", "color": "", "italic": true}], "%s", {"selector": "Steve", "extra": [{"nbt": "Items[0]", "storage": "a:b", "plain": false, "strikethrough": false, "font": "x y"}, {"nbt": "Items[0]", "block": "~ ~ ~", "plain": true, "italic": false, "strikethrough": false}, {"sprite": "stone", "fallback": "😀", "extra": ["tab\there", "line\nbreak", "§cred"], "underlined": false, "strikethrough": true}], "click_event": {"action": "open_file", "path": "x"}}]}}
+N{"text":"","color":"white","strikethrough":1b,"click_event":{"action":"change_page","page":5b},"hover_event":{"action":"show_text","value":[[{"player":"xxxxxxxxxxxxxxxxxxxx","extra":["ünïcode"],"color":"bad"},{"text":"hello world","color":"","italic":1b}],"%s",{"selector":"Steve","extra":[{"nbt":"Items[0]","storage":"a:b","plain":0b,"strikethrough":0b,"font":"x y"},{"nbt":"Items[0]","block":"~ ~ ~","plain":true,"italic":false,"strikethrough":false},{"sprite":"stone","fallback":"😀","extra":["tab\there","line\nbreak","§cred"],"underlined":0b,"strikethrough":true}],"click_event":{"action":"open_file","path":"x"}}]}}
+J{"translate": "chat.type.text", "fallback": "%5$s", "extra": [{"selector": "@a"}, {"sprite": "stone", "color": "bad"}, "tab\there"]}
+N{"translate":"chat.type.text","fallback":"%5$s","extra":[{"selector":"@a"},{"sprite":"stone","color":"bad"},"tab\there"]}
+J{"translate": "gui.done", "color": "white", "shadow_color": [1.0, 0.5, 0.25, 0.75], "strikethrough": true}
+N{"translate":"gui.done","color":"white","shadow_color":[1.0d,0.5f,0.25f,0.75f],"strikethrough":true}
+J"a"
+N"a"
+J{"sprite": "stone", "fallback": {"text": "line\nbreak", "bold": true}, "color": "gold", "bold": false, "italic": true, "strikethrough": true, "font": "mod:path/sub"}
+N{"sprite":"stone","fallback":{"text":"line\nbreak","bold":1b},"color":"gold","bold":false,"italic":true,"strikethrough":true,"font":"mod:path/sub"}
+J{"type": "object", "text": "a", "extra": [], "color": "red"}
+N{"type":"object","text":"a","extra":[],"color":"red"}
+J"§cred"
+N"§cred"
+J[{"type": "object", "translate": "block.minecraft.stone", "fallback": "x %s y", "with": [true, 123456789012], "extra": ["hello world"], "bold": false, "unknown": 1}]
+N[{"type":"object","translate":"block.minecraft.stone","fallback":"x %s y","with":[true,123456789012L],"extra":["hello world"],"bold":0b,"unknown":1L}]
+J{"text": "ünïcode", "extra": [[{"text": "§cred"}, {"selector": "@s", "separator": {"text": "tab\there"}, "color": "white"}, {"text": "hello world", "italic": false}], {"sprite": "minecraft:item/diamond", "object": "atlas", "fallback": {"player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "color": "white", "bold": true, "italic": false, "click_event": {"action": "bogus", "path": "x"}}, "color": "dark_aqua", "bold": false}], "color": "#1", "bold": true, "strikethrough": true, "font": "mod:path/sub"}
+N{"text":"ünïcode","extra":[[{"text":"§cred"},{"selector":"@s","separator":{"text":"tab\there"},"color":"white"},{"text":"hello world","italic":false}],{"sprite":"minecraft:item/diamond","object":"atlas","fallback":{"player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"color":"white","bold":1b,"italic":false,"click_event":{"action":"bogus","path":"x"}},"color":"dark_aqua","bold":false}],"color":"#1","bold":1b,"strikethrough":1b,"font":"mod:path/sub"}
+J"hello world"
+N"hello world"
+J[{"text": "§cred", "extra": ["a", {"sprite": "stone", "object": "atlas", "strikethrough": true}, "§cred"], "color": ""}, {"text": "§cred", "color": "#GGGGGG", "underlined": false, "strikethrough": false, "obfuscated": true, "insertion": "%s", "font": ""}, {"text": "hello world", "underlined": false}]
+N[{"text":"§cred","extra":["a",{"sprite":"stone","object":"atlas","strikethrough":true},"§cred"],"color":""},{"text":"§cred","color":"#GGGGGG","underlined":0b,"strikethrough":0b,"obfuscated":true,"insertion":"%s","font":""},{"text":"hello world","underlined":false}]
+J{"type": "bogus", "nbt": "Items[0]", "storage": "minecraft:foo", "interpret": false, "source": "block", "color": "gold", "italic": true, "underlined": false, "strikethrough": true}
+N{"type":"bogus","nbt":"Items[0]","storage":"minecraft:foo","interpret":0b,"source":"block","color":"gold","italic":true,"underlined":0b,"strikethrough":true}
+J"hello world"
+N"hello world"
+J"tab\there"
+N"tab\there"
+J"😀"
+N"😀"
+J{"sprite": "x:y", "extra": [], "shadow_color": 1.5, "underlined": false, "strikethrough": true}
+N{"sprite":"x:y","extra":[],"shadow_color":1.5,"underlined":false,"strikethrough":true}
+J{"nbt": "a.b", "block": "~ ~ ~", "interpret": 1, "plain": false, "click_event": {"action": "run_command", "command": "/say hi"}}
+N{"nbt":"a.b","block":"~ ~ ~","interpret":1,"plain":0b,"click_event":{"action":"run_command","command":"/say hi"}}
+J{"keybind": "key.inventory", "color": "#GGGGGG"}
+N{"keybind":"key.inventory","color":"#GGGGGG"}
+J[]
+N[]
+J{"translate": "death.attack.player", "fallback": "%1$", "with": [true, 123456789012], "extra": [], "color": "red", "obfuscated": true, "click_event": {"action": "copy_to_clipboard", "value": "%s"}}
+N{"translate":"death.attack.player","fallback":"%1$","with":[true,123456789012L],"extra":[],"color":"red","obfuscated":1b,"click_event":{"action":"copy_to_clipboard","value":"%s"}}
+J"hello world"
+N"hello world"
+J[{"text": "ünïcode", "color": "", "strikethrough": true, "hover_event": {"action": "bogus"}}, {"score": {"name": "@a[tag=x]", "objective": "obj"}, "extra": [{"selector": "@s", "separator": {"score": {"name": "Steve", "objective": "kills"}, "color": "#1", "italic": true, "obfuscated": true}, "italic": false}, {"type": "translatable", "selector": "@s", "separator": {"type": "minecraft:text", "keybind": "", "underlined": true, "insertion": "%s"}, "italic": true, "click_event": {"action": "copy_to_clipboard", "value": "ünïcode"}, "hover_event": {"action": "show_item", "id": "minecraft:stone"}}], "italic": false, "hover_event": {"action": "show_item", "id": "minecraft:diamond_sword", "count": 100, "components": {}}}]
+N[{"text":"ünïcode","color":"","strikethrough":1b,"hover_event":{"action":"bogus"}},{"score":{"name":"@a[tag=x]","objective":"obj"},"extra":[{"selector":"@s","separator":{"score":{"name":"Steve","objective":"kills"},"color":"#1","italic":1b,"obfuscated":1b},"italic":0b},{"type":"translatable","selector":"@s","separator":{"type":"minecraft:text","keybind":"","underlined":1b,"insertion":"%s"},"italic":1b,"click_event":{"action":"copy_to_clipboard","value":"ünïcode"},"hover_event":{"action":"show_item","id":"minecraft:stone"}}],"italic":0b,"hover_event":{"action":"show_item","id":"minecraft:diamond_sword","count":100s,"components":{}}}]
+J{"translate": "nope.key", "with": [[], 10000000000.0], "extra": [{"keybind": "key.inventory", "color": "red", "italic": true}, {"text": "tab\there", "extra": [{"text": "", "extra": [{"selector": "@s", "separator": "a", "color": "gold", "underlined": true, "click_event": {"action": "change_page", "page": "2"}}, {"selector": "@s", "obfuscated": true}, {"text": "😀", "extra": ["%s", "%s", "a"], "obfuscated": true}]}], "color": "#FF5555"}]}
+N{"translate":"nope.key","with":[[],10000000000.0],"extra":[{"keybind":"key.inventory","color":"red","italic":true},{"text":"tab\there","extra":[{"text":"","extra":[{"selector":"@s","separator":"a","color":"gold","underlined":true,"click_event":{"action":"change_page","page":"2"}},{"selector":"@s","obfuscated":1b},{"text":"😀","extra":["%s","%s","a"],"obfuscated":1b}]}],"color":"#FF5555"}]}
+J{"score": {"name": "@s", "objective": "obj"}, "color": "#-1", "click_event": {"action": "open_file", "path": "x"}}
+N{"score":{"name":"@s","objective":"obj"},"color":"#-1","click_event":{"action":"open_file","path":"x"}}
+J{"score": {"name": "*", "objective": "kills"}, "hover_event": {"action": "show_entity", "id": "zombie", "uuid": [1, 2, 3, 4], "name": {"translate": "", "fallback": "%", "extra": [], "bold": true, "click_event": {"action": "copy_to_clipboard", "value": "line\nbreak"}}}}
+N{"score":{"name":"*","objective":"kills"},"hover_event":{"action":"show_entity","id":"zombie","uuid":[I;1,2,3,4],"name":{"translate":"","fallback":"%","extra":[],"bold":1b,"click_event":{"action":"copy_to_clipboard","value":"line\nbreak"}}}}
+J{"keybind": "", "color": "", "shadow_color": [1, 2, 3, 4], "strikethrough": true, "font": "minecraft:foo"}
+N{"keybind":"","color":"","shadow_color":[I;1,2,3,4],"strikethrough":true,"font":"minecraft:foo"}
+J{"text": "§cred", "color": "white", "italic": false, "insertion": "a"}
+N{"text":"§cred","color":"white","italic":false,"insertion":"a"}
+J{"score": {"name": "@a[tag=x]", "objective": "kills"}, "color": "white", "bold": true, "italic": false, "insertion": "hello world"}
+N{"score":{"name":"@a[tag=x]","objective":"kills"},"color":"white","bold":1b,"italic":false,"insertion":"hello world"}
+J{"keybind": "", "italic": true, "click_event": {"action": "open_url", "url": "https://example.com"}}
+N{"keybind":"","italic":true,"click_event":{"action":"open_url","url":"https://example.com"}}
+J""
+N""
+J[{"text": "", "extra": ["a"], "color": "dark_aqua", "underlined": true, "insertion": "ünïcode"}]
+N[{"text":"","extra":["a"],"color":"dark_aqua","underlined":true,"insertion":"ünïcode"}]
+J{"translate": "commands.give.success.single", "fallback": "%1$s %2$s", "with": [], "color": "#1", "hover_event": {"action": "show_item", "id": "minecraft:bad_item", "count": 2}}
+N{"translate":"commands.give.success.single","fallback":"%1$s %2$s","with":[],"color":"#1","hover_event":{"action":"show_item","id":"minecraft:bad_item","count":2b}}
+J{"sprite": "stone", "object": "atlas", "extra": [{"selector": "Steve", "color": "#-1", "underlined": false, "strikethrough": true}, "😀", {"keybind": "", "color": "#1", "shadow_color": 16711680}], "color": "#1", "italic": true, "obfuscated": false}
+N{"sprite":"stone","object":"atlas","extra":[{"selector":"Steve","color":"#-1","underlined":false,"strikethrough":true},"😀",{"keybind":"","color":"#1","shadow_color":16711680}],"color":"#1","italic":true,"obfuscated":0b}
+J{"selector": "@s", "color": "#-1", "shadow_color": [1, 2, 3, 4], "obfuscated": true, "click_event": {"action": "suggest_command", "command": ""}}
+N{"selector":"@s","color":"#-1","shadow_color":[I;1,2,3,4],"obfuscated":1b,"click_event":{"action":"suggest_command","command":""}}
+J{"selector": "@s", "separator": {"text": true, "color": "bad"}, "extra": [{"selector": "@s", "separator": {"score": {"name": "*", "objective": "kills"}, "underlined": false}, "extra": ["😀", [{"text": 1.5, "extra": ["ünïcode", "a"], "color": "s", "underlined": false, "click_event": {"action": "bogus", "path": null}}, {"selector": "@a", "separator": "§cred", "color": "#1", "obfuscated": true}]], "strikethrough": false}], "bold": true, "strikethrough": false, "hover_event": {"action": "show_item", "id": null, "count": 64}}
+N{"selector":"@s","separator":{"text":true,"color":"bad"},"extra":[{"selector":"@s","separator":{"score":{"name":"*","objective":"kills"},"underlined":false},"extra":["😀",[{"text":1.5,"extra":["ünïcode","a"],"color":"s","underlined":0b,"click_event":{"action":"bogus","path":""}},{"selector":"@a","separator":"§cred","color":"#1","obfuscated":1b}]],"strikethrough":false}],"bold":1b,"strikethrough":0b,"hover_event":{"action":"show_item","id":"","count":64}}
+J{"text": "%s", "extra": [["tab\there", {"text": "line\nbreak", "underlined": true}], {"score": {"name": "@a[tag=x]", "objective": "kills"}, "bold": true, "italic": false, "font": ""}]}
+N{"text":"%s","extra":[["tab\there",{"text":"line\nbreak","underlined":1b}],{"score":{"name":"@a[tag=x]","objective":"kills"},"bold":true,"italic":0b,"font":""}]}
+J{"translate": "commands.give.success.single", "fallback": "%s %s", "with": [7], "insertion": "a", "unknown": 1}
+N{"translate":"commands.give.success.single","fallback":"%s %s","with":[7b],"insertion":"a","unknown":1}
+J{"text": "a", "extra": [{"type": "text", "selector": "Steve", "color": ""}, {"score": {"name": "*", "objective": "kills"}, "underlined": false, "font": "a:b", "hover_event": {"action": "show_text", "value": {"text": "ünïcode", "extra": [{"nbt": "x", "entity": "@s", "strikethrough": false, "obfuscated": true}, {"translate": "death.attack.player", "with": []}], "underlined": true}}}], "color": "red", "italic": false}
+N{"text":"a","extra":[{"type":"text","selector":"Steve","color":""},{"score":{"name":"*","objective":"kills"},"underlined":false,"font":"a:b","hover_event":{"action":"show_text","value":{"text":"ünïcode","extra":[{"nbt":"x","entity":"@s","strikethrough":0b,"obfuscated":1b},{"translate":"death.attack.player","with":[]}],"underlined":true}}}],"color":"red","italic":0b}
+J{"nbt": "x", "storage": "A:b", "interpret": false, "plain": true, "color": "", "underlined": true, "obfuscated": false, "insertion": "tab\there", "click_event": {"action": "suggest_command", "command": ""}}
+N{"nbt":"x","storage":"A:b","interpret":0b,"plain":true,"color":"","underlined":1b,"obfuscated":false,"insertion":"tab\there","click_event":{"action":"suggest_command","command":""}}
+J""
+N""
+J{"keybind": "", "color": "bad"}
+N{"keybind":"","color":"bad"}
+J{"translate": "gui.done", "fallback": "100%", "with": ["a", 123456789012, "§cred", ["tab\there", "hello world"]]}
+N{"translate":"gui.done","fallback":"100%","with":["a",123456789012L,"§cred",["tab\there","hello world"]]}
+J{"text": "tab\there", "obfuscated": true, "font": "", "unknown": 1}
+N{"text":"tab\there","obfuscated":true,"font":"","unknown":1}
+J[{"text": "ünïcode", "color": "bad", "italic": true}, {"selector": "@a"}]
+N[{"text":"ünïcode","color":"bad","italic":1b},{"selector":"@a"}]
+J{"score": {"name": "Steve", "objective": "kills"}, "color": "dark_aqua", "obfuscated": true}
+N{"score":{"name":"Steve","objective":"kills"},"color":"dark_aqua","obfuscated":true}
+J"tab\there"
+N"tab\there"
+J"😀"
+N"😀"
+J{"score": {"name": "@s", "objective": 5}, "color": "gold"}
+N{"score":{"name":"@s","objective":5},"color":"gold"}
+J{"nbt": "x", "storage": "a:b", "source": "block", "bold": false, "strikethrough": true, "insertion": "line\nbreak"}
+N{"nbt":"x","storage":"a:b","source":"block","bold":false,"strikethrough":true,"insertion":"line\nbreak"}
+J{"text": "hello world", "obfuscated": false}
+N{"text":"hello world","obfuscated":0b}
+J{"text": "ünïcode", "extra": [{"sprite": "x:y", "atlas": 1.5, "color": "dark_aqua", "hover_event": {"action": "show_text", "value": {"score": {"objective": "kills"}, "bold": false}}}, {"type": 5, "text": "", "extra": [], "underlined": true}, [{"type": "text", "text": "a"}]], "color": "#FF5555", "obfuscated": false, "click_event": {"action": "bogus", "path": "x"}}
+N{"text":"ünïcode","extra":[{"sprite":"x:y","atlas":1.5f,"color":"dark_aqua","hover_event":{"action":"show_text","value":{"score":{"objective":"kills"},"bold":false}}},{"type":5,"text":"","extra":[],"underlined":1b},[{"type":"text","text":"a"}]],"color":"#FF5555","obfuscated":false,"click_event":{"action":"bogus","path":"x"}}
+J""
+N""
+J["hello world", {"translate": "options.on", "fallback": "%1$s%s", "with": [], "color": "dark_aqua"}]
+N["hello world",{"translate":"options.on","fallback":"%1$s%s","with":[],"color":"dark_aqua"}]
+J""
+N""
+J{"type": "nbt", "text": "a"}
+N{"type":"nbt","text":"a"}
+J{"translate": "", "obfuscated": false}
+N{"translate":"","obfuscated":0b}
+J""
+N""
+J[{"translate": "gui.done", "fallback": "%1$s%s", "with": [1.0], "color": "bad", "shadow_color": -1, "italic": false, "underlined": true}, "a"]
+N[{"translate":"gui.done","fallback":"%1$s%s","with":[1.0f],"color":"bad","shadow_color":-1,"italic":0b,"underlined":true},"a"]
+J{"score": {"name": "Steve", "objective": "kills"}, "extra": ["%s", {"selector": "Steve", "underlined": true, "strikethrough": false, "hover_event": {"action": "show_text", "value": {"selector": "@s", "separator": {"text": "tab\there", "bold": true, "strikethrough": false}, "extra": ["hello world"], "bold": true}}}], "color": "white", "bold": false}
+N{"score":{"name":"Steve","objective":"kills"},"extra":["%s",{"selector":"Steve","underlined":1b,"strikethrough":false,"hover_event":{"action":"show_text","value":{"selector":"@s","separator":{"text":"tab\there","bold":true,"strikethrough":0b},"extra":["hello world"],"bold":1b}}}],"color":"white","bold":0b}
+J{"sprite": "minecraft:item/diamond", "color": "gold"}
+N{"sprite":"minecraft:item/diamond","color":"gold"}
+J{"text": "", "extra": [[{"selector": "@s", "extra": [{"text": "%s", "extra": [], "strikethrough": false, "hover_event": {"action": "show_item", "id": "x y"}}], "shadow_color": -1}, {"type": "object", "selector": "Steve", "separator": {"sprite": "minecraft:item/diamond", "extra": ["tab\there"], "color": "bad", "hover_event": {"action": "bogus"}}, "color": "#1", "strikethrough": true}, {"selector": "Steve", "separator": "ünïcode", "extra": [{"type": "nbt", "text": ""}, ["§cred", "hello world"], {"selector": "@s"}], "color": "#-1", "italic": true, "strikethrough": false, "click_event": {"action": "suggest_command", "command": "say §"}}]]}
+N{"text":"","extra":[[{"selector":"@s","extra":[{"text":"%s","extra":[],"strikethrough":false,"hover_event":{"action":"show_item","id":"x y"}}],"shadow_color":-1s},{"type":"object","selector":"Steve","separator":{"sprite":"minecraft:item/diamond","extra":["tab\there"],"color":"bad","hover_event":{"action":"bogus"}},"color":"#1","strikethrough":1b},{"selector":"Steve","separator":"ünïcode","extra":[{"type":"nbt","text":""},["§cred","hello world"],{"selector":"@s"}],"color":"#-1","italic":true,"strikethrough":0b,"click_event":{"action":"suggest_command","command":"say §"}}]]}
+J{"text": "😀", "color": "white", "strikethrough": true}
+N{"text":"😀","color":"white","strikethrough":1b}
+J{"type": "score", "text": "%s", "bold": false, "underlined": true, "hover_event": {"action": "show_item", "id": "minecraft:bad_item", "count": 100}}
+N{"type":"score","text":"%s","bold":0b,"underlined":true,"hover_event":{"action":"show_item","id":"minecraft:bad_item","count":100b}}
+J{"text": "ünïcode", "insertion": "tab\there"}
+N{"text":"ünïcode","insertion":"tab\there"}
+J"%s"
+N"%s"
+J{"score": {"name": "*", "objective": "obj"}, "extra": ["tab\there", ""]}
+N{"score":{"name":"*","objective":"obj"},"extra":["tab\there",""]}
+J{"player": "a b", "fallback": "§cred", "color": "white", "bold": true}
+N{"player":"a b","fallback":"§cred","color":"white","bold":1b}
+J""
+N""
+J"§cred"
+N"§cred"
+J{"text": "a", "extra": [], "italic": false, "obfuscated": false}
+N{"text":"a","extra":[],"italic":0b,"obfuscated":0b}
+J{"keybind": "", "bold": false, "obfuscated": true}
+N{"keybind":"","bold":false,"obfuscated":true}
+J{"text": "a", "italic": false, "obfuscated": true}
+N{"text":"a","italic":false,"obfuscated":true}
+J"§cred"
+N"§cred"
+J{"selector": "@s", "extra": [{"text": "line\nbreak", "color": "gold", "click_event": {"action": "suggest_command", "command": "/say hi"}}, "line\nbreak", {"sprite": "stone", "extra": [], "color": "#123456"}], "color": "", "bold": true, "obfuscated": true, "font": "x y"}
+N{"selector":"@s","extra":[{"text":"line\nbreak","color":"gold","click_event":{"action":"suggest_command","command":"/say hi"}},"line\nbreak",{"sprite":"stone","extra":[],"color":"#123456"}],"color":"","bold":true,"obfuscated":true,"font":"x y"}
+J"hello world"
+N"hello world"
+J{"text": "a", "color": "", "strikethrough": false}
+N{"text":"a","color":"","strikethrough":0b}
+J{"translate": "chat.type.text", "with": [true, 123456789012, true, ["ünïcode", "ünïcode"]], "color": "", "underlined": true}
+N{"translate":"chat.type.text","with":[true,123456789012L,true,["ünïcode","ünïcode"]],"color":"","underlined":true}
+J[]
+N[]
+J{"type": "text", "keybind": "", "underlined": false, "click_event": {"action": "open_file", "path": "x"}}
+N{"type":"text","keybind":"","underlined":false,"click_event":{"action":"open_file","path":"x"}}
+J{"text": "tab\there", "italic": true, "underlined": true, "strikethrough": false, "insertion": "ünïcode"}
+N{"text":"tab\there","italic":1b,"underlined":true,"strikethrough":false,"insertion":"ünïcode"}
+J["😀"]
+N["😀"]
+J{"text": "tab\there", "extra": [{"text": "a", "extra": [{"keybind": "", "color": "#1", "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": [1, 2, 3, 4], "name": "%s"}, "unknown": 1}, {"text": "tab\there", "color": "red", "strikethrough": 5, "hover_event": {"action": "show_item", "id": "minecraft:bad_item", "count": 2}}, [{"type": "score", "text": "line\nbreak", "color": "red"}, ""]], "color": "white", "shadow_color": [1.0, 0.5, 0.25, 0.75], "italic": false, "unknown": 1}, ["line\nbreak"], {"text": "line\nbreak", "extra": ["§cred"]}], "color": "bad", "bold": false, "insertion": "ünïcode"}
+N{"text":"tab\there","extra":[{"text":"a","extra":[{"keybind":"","color":"#1","hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":[1,2L,3L,4],"name":"%s"},"unknown":1L},{"text":"tab\there","color":"red","strikethrough":5,"hover_event":{"action":"show_item","id":"minecraft:bad_item","count":2}},[{"type":"score","text":"line\nbreak","color":"red"},""]],"color":"white","shadow_color":[1.0f,0.5,0.25,0.75],"italic":0b,"unknown":1L},["line\nbreak"],{"text":"line\nbreak","extra":["§cred"]}],"color":"bad","bold":0b,"insertion":"ünïcode"}
+J{"score": {"name": "Steve", "objective": "kills"}, "color": "#GGGGGG", "underlined": false, "strikethrough": false}
+N{"score":{"name":"Steve","objective":"kills"},"color":"#GGGGGG","underlined":0b,"strikethrough":false}
+J{"keybind": "key.jump", "extra": [], "color": "#123456"}
+N{"keybind":"key.jump","extra":[],"color":"#123456"}
+J{"nbt": "Items[0]", "block": "~ ~ ~", "plain": true, "color": "#123456", "strikethrough": true}
+N{"nbt":"Items[0]","block":"~ ~ ~","plain":1b,"color":"#123456","strikethrough":1b}
+J{"text": "§cred", "extra": [["§cred"]]}
+N{"text":"§cred","extra":[["§cred"]]}
+J{"player": "Alex", "object": "player"}
+N{"player":"Alex","object":"player"}
+J{"score": {"name": {}, "objective": "kills"}, "italic": false, "strikethrough": false}
+N{"score":{"name":{},"objective":"kills"},"italic":0b,"strikethrough":0b}
+J{"keybind": "key.jump", "extra": [{"selector": "@s", "color": "", "strikethrough": null, "obfuscated": true}, "tab\there", [{"nbt": "Items[0]", "entity": "@s", "plain": false, "separator": {"text": "😀", "insertion": "hello world"}, "color": "#FF5555"}, "§cred"]], "color": "red", "font": "bar"}
+N{"keybind":"key.jump","extra":[{"selector":"@s","color":"","strikethrough":"","obfuscated":1b},"tab\there",[{"nbt":"Items[0]","entity":"@s","plain":0b,"separator":{"text":"😀","insertion":"hello world"},"color":"#FF5555"},"§cred"]],"color":"red","font":"bar"}
+J{"keybind": "key.jump", "color": "#1", "insertion": "a"}
+N{"keybind":"key.jump","color":"#1","insertion":"a"}
+J[]
+N[]
+J{"selector": "@a", "color": "#GGGGGG", "strikethrough": false, "hover_event": {"action": "show_text", "value": {"selector": "@s", "bold": false, "italic": false, "strikethrough": true}}}
+N{"selector":"@a","color":"#GGGGGG","strikethrough":0b,"hover_event":{"action":"show_text","value":{"selector":"@s","bold":false,"italic":false,"strikethrough":1b}}}
+J"😀"
+N"😀"
+J[{"player": "Alex", "extra": [], "italic": true, "obfuscated": false, "hover_event": {"action": "show_entity", "id": "zombie", "uuid": [1, 2, 3], "name": {"sprite": "minecraft:item/diamond", "atlas": "minecraft:items", "fallback": {"text": "😀", "click_event": {"action": "copy_to_clipboard", "value": "ünïcode"}}, "extra": [], "color": "#FF5555", "click_event": {"action": "open_file", "path": "x"}}}}, "a"]
+N[{"player":"Alex","extra":[],"italic":1b,"obfuscated":0b,"hover_event":{"action":"show_entity","id":"zombie","uuid":[1L,2L,3],"name":{"sprite":"minecraft:item/diamond","atlas":"minecraft:items","fallback":{"text":"😀","click_event":{"action":"copy_to_clipboard","value":"ünïcode"}},"extra":[],"color":"#FF5555","click_event":{"action":"open_file","path":"x"}}}},"a"]
+J{"text": "line\nbreak", "strikethrough": false, "click_event": {"action": "custom", "id": "minecraft:foo"}}
+N{"text":"line\nbreak","strikethrough":0b,"click_event":{"action":"custom","id":"minecraft:foo"}}
+J[{"translate": "commands.give.success.single", "with": [], "color": "bad"}, {"player": "a b", "hat": true, "color": "bad"}]
+N[{"translate":"commands.give.success.single","with":[],"color":"bad"},{"player":"a b","hat":true,"color":"bad"}]
+J{"type": "text", "nbt": "a.b", "block": "~ ~ ~", "color": "#FF5555", "click_event": {"action": "bogus", "path": "x"}, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": "1-1-1-1-1", "name": {"keybind": "key.jump", "extra": [{"score": {"name": "@a[tag=x]", "objective": "kills"}, "extra": ["§cred"], "color": "#123456", "insertion": "a"}], "italic": false, "underlined": true}}}
+N{"type":"text","nbt":"a.b","block":"~ ~ ~","color":"#FF5555","click_event":{"action":"bogus","path":"x"},"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":"1-1-1-1-1","name":{"keybind":"key.jump","extra":[{"score":{"name":"@a[tag=x]","objective":"kills"},"extra":["§cred"],"color":"#123456","insertion":"a"}],"italic":false,"underlined":1b}}}
+J"hello world"
+N"hello world"
+J""
+N""
+J{"nbt": "Items[0]", "storage": "a:b", "extra": [{"selector": "Steve", "separator": "§cred", "extra": [], "color": "bad", "shadow_color": -1}, {"player": "a b", "fallback": "", "extra": [], "color": "white"}], "italic": false, "insertion": "hello world"}
+N{"nbt":"Items[0]","storage":"a:b","extra":[{"selector":"Steve","separator":"§cred","extra":[],"color":"bad","shadow_color":-1},{"player":"a b","fallback":"","extra":[],"color":"white"}],"italic":false,"insertion":"hello world"}
+J{"score": {"name": "@a[tag=x]", "objective": "obj", "unknown": 1}, "click_event": {"action": "run_command", "command": "/say hi"}}
+N{"score":{"name":"@a[tag=x]","objective":"obj","unknown":1},"click_event":{"action":"run_command","command":"/say hi"}}
+J{"translate": "multiplayer.player.joined", "extra": [{"text": "§cred", "color": true, "italic": false}], "color": "red"}
+N{"translate":"multiplayer.player.joined","extra":[{"text":"§cred","color":1b,"italic":0b}],"color":"red"}
+J"tab\there"
+N"tab\there"
+J{"text": "😀", "extra": [{"text": "line\nbreak", "extra": [{"text": "tab\there", "bold": false}], "color": "dark_aqua", "italic": false, "strikethrough": false}], "strikethrough": false}
+N{"text":"😀","extra":[{"text":"line\nbreak","extra":[{"text":"tab\there","bold":false}],"color":"dark_aqua","italic":0b,"strikethrough":false}],"strikethrough":false}
+J{"text": "hello world"}
+N{"text":"hello world"}
+J{"selector": "@s", "separator": {"text": "tab\there"}, "bold": true, "insertion": "ünïcode"}
+N{"selector":"@s","separator":{"text":"tab\there"},"bold":1b,"insertion":"ünïcode"}
+J{"text": "line\nbreak", "bold": false, "click_event": {"action": "suggest_command", "command": "/say hi"}}
+N{"text":"line\nbreak","bold":false,"click_event":{"action":"suggest_command","command":"/say hi"}}
+J{"text": "hello world", "color": "gold"}
+N{"text":"hello world","color":"gold"}
+J{"translate": "commands.give.success.single", "with": [true, 1.5, ["ünïcode", "ünïcode"], 112], "underlined": false}
+N{"translate":"commands.give.success.single","with":[1b,1.5,["ünïcode","ünïcode"],112s],"underlined":false}
+J"tab\there"
+N"tab\there"
+J{"translate": "", "fallback": "plain", "with": [1.5, 10000000000.0, 123456789012], "color": "white", "italic": false}
+N{"translate":"","fallback":"plain","with":[1.5,10000000000.0,123456789012L],"color":"white","italic":false}
+J{"text": "a", "extra": [{"text": "tab\there", "color": "", "underlined": false}, {"selector": "@a", "separator": "line\nbreak", "extra": [{"nbt": "x", "block": "~ ~ ~", "extra": [["", "a", "a"]], "bold": false, "underlined": true, "obfuscated": true}], "color": "#1", "obfuscated": false}, {"sprite": "x:y", "color": "#FF5555", "italic": true}], "italic": true}
+N{"text":"a","extra":[{"text":"tab\there","color":"","underlined":false},{"selector":"@a","separator":"line\nbreak","extra":[{"nbt":"x","block":"~ ~ ~","extra":[["","a","a"]],"bold":0b,"underlined":1b,"obfuscated":1b}],"color":"#1","obfuscated":false},{"sprite":"x:y","color":"#FF5555","italic":1b}],"italic":1b}
+J"a"
+N"a"
+J{"player": "a b", "extra": [{"text": "line\nbreak", "font": "mod:path/sub"}, [], {"sprite": "stone", "object": "atlas", "fallback": {"storage": "a:b", "separator": {"score": {"name": "*", "objective": "obj"}, "insertion": "hello world"}, "color": "", "italic": true, "underlined": false, "click_event": {}}, "color": "red"}], "color": 1.5, "bold": true, "strikethrough": true}
+N{"player":"a b","extra":[{"text":"line\nbreak","font":"mod:path/sub"},[],{"sprite":"stone","object":"atlas","fallback":{"storage":"a:b","separator":{"score":{"name":"*","objective":"obj"},"insertion":"hello world"},"color":"","italic":true,"underlined":0b,"click_event":{}},"color":"red"}],"color":1.5d,"bold":1b,"strikethrough":true}
+J[]
+N[]
+J{"type": "translatable", "nbt": "Items[0]", "block": "~ ~ ~", "color": "#123456", "shadow_color": -1, "bold": false}
+N{"type":"translatable","nbt":"Items[0]","block":"~ ~ ~","color":"#123456","shadow_color":-1L,"bold":0b}
+J"a"
+N"a"
+J"tab\there"
+N"tab\there"
+J{"type": 5, "text": "a"}
+N{"type":5b,"text":"a"}
+J{"score": {"name": "@a[tag=x]", "objective": "kills"}}
+N{"score":{"name":"@a[tag=x]","objective":"kills"}}
+J{"text": "hello world", "color": "#-1", "underlined": true, "click_event": {"action": "change_page", "page": 1}}
+N{"text":"hello world","color":"#-1","underlined":1b,"click_event":{"action":"change_page","page":1}}
+J{"translate": "chat.type.text", "fallback": "%1$s%s", "with": [], "extra": [{"text": "%s", "italic": true}], "strikethrough": true, "obfuscated": false}
+N{"translate":"chat.type.text","fallback":"%1$s%s","with":[],"extra":[{"text":"%s","italic":1b}],"strikethrough":true,"obfuscated":false}
+J{"player": "Steve", "hat": true, "fallback": {"type": "text", "score": {"name": "@a[tag=x]", "objective": "kills"}, "color": "gold"}, "extra": []}
+N{"player":"Steve","hat":true,"fallback":{"type":"text","score":{"name":"@a[tag=x]","objective":"kills"},"color":"gold"},"extra":[]}
+J{"nbt": "x", "block": "~ ~ ~", "interpret": false, "plain": false, "color": "white"}
+N{"nbt":"x","block":"~ ~ ~","interpret":false,"plain":0b,"color":"white"}
+J{"text": "😀", "color": "gold", "strikethrough": []}
+N{"text":"😀","color":"gold","strikethrough":[]}
+J{"translate": "death.attack.player", "fallback": "%5$s", "bold": false, "underlined": false}
+N{"translate":"death.attack.player","fallback":"%5$s","bold":false,"underlined":0b}
+J"ünïcode"
+N"ünïcode"
+J[]
+N[]
+J[{"translate": "commands.give.success.single", "fallback": "%", "with": [181, 1.5, 1.5, 10000000000.0], "color": "#FF5555", "bold": true}, "tab\there"]
+N[{"translate":"commands.give.success.single","fallback":"%","with":[181,1.5d,1.5d,10000000000.0d],"color":"#FF5555","bold":true},"tab\there"]
+J{"translate": "commands.teleport.success.entity.single", "with": [["§cred", "tab\there"]], "shadow_color": [1.0, 0.5, 0.25, 0.75], "click_event": {"action": "bogus", "path": "x"}}
+N{"translate":"commands.teleport.success.entity.single","with":[["§cred","tab\there"]],"shadow_color":[1.0,0.5,0.25,0.75d],"click_event":{"action":"bogus","path":"x"}}
+J{}
+N{}
+J{"text": "ünïcode", "extra": [{"keybind": "key.inventory", "shadow_color": [1, 2, 3, 4]}, "%s"], "obfuscated": false}
+N{"text":"ünïcode","extra":[{"keybind":"key.inventory","shadow_color":[1s,2,3L,4]},"%s"],"obfuscated":false}
+J[{"keybind": "key.jump", "color": "#GGGGGG", "bold": true}, "§cred", {"selector": "Steve", "obfuscated": false}]
+N[{"keybind":"key.jump","color":"#GGGGGG","bold":1b},"§cred",{"selector":"Steve","obfuscated":false}]
+J{"translate": "death.attack.player", "extra": [{"type": "text", "translate": "nope.key", "fallback": "x %s y", "extra": [], "bold": false, "underlined": false}, [""], {"sprite": "minecraft:item/diamond", "bold": false, "italic": true, "insertion": "line\nbreak"}], "color": "#FF5555", "italic": true}
+N{"translate":"death.attack.player","extra":[{"type":"text","translate":"nope.key","fallback":"x %s y","extra":[],"bold":false,"underlined":0b},[""],{"sprite":"minecraft:item/diamond","bold":0b,"italic":1b,"insertion":"line\nbreak"}],"color":"#FF5555","italic":true}
+J[{"selector": "Steve", "color": [1], "underlined": true}, {"type": "object", "selector": "Steve", "separator": {"translate": "commands.teleport.success.entity.single", "with": [9, ["ünïcode", "%s", "%s"], {"selector": "Steve", "separator": "a", "hover_event": {"action": "bogus"}}, 1.0]}, "color": "#FF5555"}, {"text": "§cred", "extra": ["tab\there"], "underlined": false}]
+N[{"selector":"Steve","color":[I;1],"underlined":1b},{"type":"object","selector":"Steve","separator":{"translate":"commands.teleport.success.entity.single","with":[9L,["ünïcode","%s","%s"],{"selector":"Steve","separator":"a","hover_event":{"action":"bogus"}},1.0d]},"color":"#FF5555"},{"text":"§cred","extra":["tab\there"],"underlined":false}]
+J{"type": "score", "score": {"name": "@s", "objective": "obj"}, "shadow_color": 0, "italic": true, "underlined": false}
+N{"type":"score","score":{"name":"@s","objective":"obj"},"shadow_color":0L,"italic":true,"underlined":false}
+J"hello world"
+N"hello world"
+J{"selector": "@a", "separator": "", "obfuscated": false}
+N{"selector":"@a","separator":"","obfuscated":false}
+J{"nbt": "x", "storage": "a:b", "interpret": true, "color": "#GGGGGG", "obfuscated": "s", "click_event": {"action": "bogus", "path": "x"}}
+N{"nbt":"x","storage":"a:b","interpret":1b,"color":"#GGGGGG","obfuscated":"s","click_event":{"action":"bogus","path":"x"}}
+J{"text": "", "underlined": null, "obfuscated": {}}
+N{"text":"","underlined":"","obfuscated":{}}
+J[["ünïcode"], [], "line\nbreak"]
+N[["ünïcode"],[],"line\nbreak"]
+J"ünïcode"
+N"ünïcode"
+J{"type": "nbt", "translate": "block.minecraft.stone", "fallback": "%1$s%s", "with": [{"keybind": "key.jump", "extra": [{"text": "", "color": "#1", "bold": false}, {"nbt": "Items[0]", "color": "#1", "italic": false, "underlined": true, "strikethrough": false}, "line\nbreak"], "color": "", "shadow_color": 1.5, "italic": false, "click_event": {"path": "x"}}, 1.0, {"type": "selector", "sprite": "stone", "atlas": "minecraft:items", "extra": [{"translate": "", "with": [1], "italic": false, "hover_event": {"action": [1], "id": [1], "components": {"minecraft:custom_name": "x"}}}, {"text": "hello world"}, {"text": "§cred", "shadow_color": 0}], "color": "red", "font": "A:b"}], "color": "dark_aqua", "italic": false, "underlined": false, "obfuscated": true}
+N{"type":"nbt","translate":"block.minecraft.stone","fallback":"%1$s%s","with":[{"keybind":"key.jump","extra":[{"text":"","color":"#1","bold":false},{"nbt":"Items[0]","color":"#1","italic":false,"underlined":true,"strikethrough":false},"line\nbreak"],"color":"","shadow_color":1.5,"italic":0b,"click_event":{"path":"x"}},1.0d,{"type":"selector","sprite":"stone","atlas":"minecraft:items","extra":[{"translate":"","with":[1L],"italic":false,"hover_event":{"action":[1b],"id":[1],"components":{"minecraft:custom_name":"x"}}},{"text":"hello world"},{"text":"§cred","shadow_color":0b}],"color":"red","font":"A:b"}],"color":"dark_aqua","italic":false,"underlined":0b,"obfuscated":1b}
+J{"text": "tab\there"}
+N{"text":"tab\there"}
+J{"type": "keybind", "text": "line\nbreak", "color": "white"}
+N{"type":"keybind","text":"line\nbreak","color":"white"}
+J[{"selector": "@a", "extra": [], "color": "#GGGGGG"}, [{"type": "object", "selector": "@s", "color": "gold", "bold": true, "insertion": "ünïcode", "hover_event": {"action": "show_text", "value": {"text": "%s"}}}, {"text": "😀", "bold": true}, {"text": "line\nbreak", "extra": ["hello world"], "hover_event": {"action": "show_entity", "id": "zombie", "uuid": "zz", "name": []}}]]
+N[{"selector":"@a","extra":[],"color":"#GGGGGG"},[{"type":"object","selector":"@s","color":"gold","bold":true,"insertion":"ünïcode","hover_event":{"action":"show_text","value":{"text":"%s"}}},{"text":"😀","bold":true},{"text":"line\nbreak","extra":["hello world"],"hover_event":{"action":"show_entity","id":"zombie","uuid":"zz","name":[]}}]]
+J{"text": "%s", "extra": [{"translate": "commands.give.success.single", "fallback": "a%sb%%c", "with": [1.5, 10000000000.0, {"text": "😀", "extra": ["%s", {"text": "a", "underlined": false}], "italic": true}], "color": "#GGGGGG", "click_event": {"action": 1.5, "command": ""}}], "insertion": "tab\there"}
+N{"text":"%s","extra":[{"translate":"commands.give.success.single","fallback":"a%sb%%c","with":[1.5d,10000000000.0f,{"text":"😀","extra":["%s",{"text":"a","underlined":0b}],"italic":true}],"color":"#GGGGGG","click_event":{"action":1.5d,"command":""}}],"insertion":"tab\there"}
+J[{"text": "ünïcode", "shadow_color": 0}, {"text": "", "bold": false}]
+N[{"text":"ünïcode","shadow_color":0b},{"text":"","bold":false}]
+J{"text": "😀", "extra": [], "underlined": true}
+N{"text":"😀","extra":[],"underlined":1b}
+J{"nbt": "Items[0]", "entity": "@s", "plain": false, "separator": "😀", "color": "dark_aqua", "strikethrough": false}
+N{"nbt":"Items[0]","entity":"@s","plain":false,"separator":"😀","color":"dark_aqua","strikethrough":false}
+J{"nbt": "x", "entity": "@s", "obfuscated": true}
+N{"nbt":"x","entity":"@s","obfuscated":true}
+J""
+N""
+J{"translate": "nope.key", "with": [], "extra": [], "color": "#1", "insertion": "line\nbreak", "click_event": {"action": "bogus", "path": "x"}}
+N{"translate":"nope.key","with":[],"extra":[],"color":"#1","insertion":"line\nbreak","click_event":{"action":"bogus","path":"x"}}
+J{"player": {"name": "Notch"}, "hat": false, "color": "#FF5555", "shadow_color": -1}
+N{"player":{"name":"Notch"},"hat":0b,"color":"#FF5555","shadow_color":-1L}
+J"§cred"
+N"§cred"
+J{"nbt": "x", "block": "~ ~ ~", "strikethrough": false}
+N{"nbt":"x","block":"~ ~ ~","strikethrough":0b}
+J{"score": {"name": "@a[tag=x]", "objective": "obj"}, "color": "#1", "shadow_color": 16711680}
+N{"score":{"name":"@a[tag=x]","objective":"obj"},"color":"#1","shadow_color":16711680}
+J{"text": "line\nbreak", "color": ""}
+N{"text":"line\nbreak","color":""}
+J{"text": "line\nbreak", "underlined": true}
+N{"text":"line\nbreak","underlined":1b}
+J{"text": "", "extra": [], "color": "#GGGGGG"}
+N{"text":"","extra":[],"color":"#GGGGGG"}
+J"tab\there"
+N"tab\there"
+J{"nbt": "x", "entity": 5, "plain": true, "extra": ["", {"player": "xxxxxxxxxxxxxxxxxxxx", "hat": false, "shadow_color": 1.5, "unknown": 1}, {"score": {"name": "Steve", "objective": "kills"}, "extra": [], "strikethrough": false, "font": 5}], "color": "white", "bold": false, "underlined": true, "insertion": "😀"}
+N{"nbt":"x","entity":5s,"plain":true,"extra":["",{"player":"xxxxxxxxxxxxxxxxxxxx","hat":0b,"shadow_color":1.5,"unknown":1L},{"score":{"name":"Steve","objective":"kills"},"extra":[],"strikethrough":false,"font":5b}],"color":"white","bold":0b,"underlined":true,"insertion":"😀"}
+J{"keybind": "", "extra": ["hello world", "§cred", []], "color": "dark_aqua", "shadow_color": 0, "insertion": "%s"}
+N{"keybind":"","extra":["hello world","§cred",[]],"color":"dark_aqua","shadow_color":0b,"insertion":"%s"}
+J"tab\there"
+N"tab\there"
+J{"selector": "Steve", "color": "#123456", "shadow_color": 1.5, "underlined": false, "hover_event": {"action": "show_entity", "id": "minecraft:bad", "uuid": 5}}
+N{"selector":"Steve","color":"#123456","shadow_color":1.5d,"underlined":0b,"hover_event":{"action":"show_entity","id":"minecraft:bad","uuid":5}}
+J{"type": "bogus", "keybind": "key.inventory", "color": "#GGGGGG"}
+N{"type":"bogus","keybind":"key.inventory","color":"#GGGGGG"}
+J{"player": "a b", "hat": false, "color": "#FF5555"}
+N{"player":"a b","hat":0b,"color":"#FF5555"}
+J"%s"
+N"%s"
+J{"text": "line\nbreak", "extra": [], "color": "", "italic": false}
+N{"text":"line\nbreak","extra":[],"color":"","italic":0b}
+J"😀"
+N"😀"
+J{"score": {"name": "@s", "objective": "kills"}}
+N{"score":{"name":"@s","objective":"kills"}}
+J"hello world"
+N"hello world"
+J[{"translate": "chat.type.text", "with": [171, 251], "extra": [{"type": "selector", "text": "", "color": "#1", "shadow_color": 1.5}, "ünïcode", "ünïcode"], "color": "gold"}]
+N[{"translate":"chat.type.text","with":[171L,251],"extra":[{"type":"selector","text":"","color":"#1","shadow_color":1.5d},"ünïcode","ünïcode"],"color":"gold"}]
+J{"nbt": "a.b", "block": "~ ~ ~", "interpret": false, "extra": [{"translate": "multiplayer.player.joined", "fallback": 5, "with": [["tab\there", ""]], "extra": [{"translate": "death.attack.player", "fallback": "%s %s", "insertion": ""}, "😀", {"text": "line\nbreak", "extra": [{"sprite": "x:y", "fallback": "line\nbreak", "color": "#FF5555"}, {"keybind": "", "extra": ["hello world"]}, {"keybind": "key.jump", "extra": [], "shadow_color": -1, "italic": true}], "bold": true, "strikethrough": true, "obfuscated": false}], "color": "#FF5555", "bold": false, "italic": true, "strikethrough": true, "hover_event": 5}], "color": "white", "unknown": 1}
+N{"nbt":"a.b","block":"~ ~ ~","interpret":0b,"extra":[{"translate":"multiplayer.player.joined","fallback":5b,"with":[["tab\there",""]],"extra":[{"translate":"death.attack.player","fallback":"%s %s","insertion":""},"😀",{"text":"line\nbreak","extra":[{"sprite":"x:y","fallback":"line\nbreak","color":"#FF5555"},{"keybind":"","extra":["hello world"]},{"keybind":"key.jump","extra":[],"shadow_color":-1b,"italic":true}],"bold":1b,"strikethrough":true,"obfuscated":false}],"color":"#FF5555","bold":false,"italic":1b,"strikethrough":true,"hover_event":5b}],"color":"white","unknown":1}
+J{"color": "dark_aqua"}
+N{"color":"dark_aqua"}
+J{"type": "keybind", "sprite": "stone", "atlas": "a:b", "bold": false, "insertion": "§cred"}
+N{"type":"keybind","sprite":"stone","atlas":"a:b","bold":false,"insertion":"§cred"}
+J{"score": {"name": "Steve", "objective": "obj"}}
+N{"score":{"name":"Steve","objective":"obj"}}
+J{"nbt": "a.b", "block": "~ ~ ~", "color": "", "italic": false, "underlined": false}
+N{"nbt":"a.b","block":"~ ~ ~","color":"","italic":0b,"underlined":0b}
+J{"text": "§cred", "shadow_color": [1, 2, 3, 4], "insertion": "a", "hover_event": {"action": "show_text", "value": {"sprite": "x:y", "strikethrough": false, "hover_event": null}}}
+N{"text":"§cred","shadow_color":[1,2L,3b,4],"insertion":"a","hover_event":{"action":"show_text","value":{"sprite":"x:y","strikethrough":0b,"hover_event":""}}}
+J{"text": "a", "color": "white", "obfuscated": false}
+N{"text":"a","color":"white","obfuscated":0b}
+J{"translate": "", "with": [["%s", "hello world"], "ünïcode"], "underlined": null}
+N{"translate":"","with":[["%s","hello world"],"ünïcode"],"underlined":""}
+J{"type": "translatable", "text": "%s", "obfuscated": true}
+N{"type":"translatable","text":"%s","obfuscated":true}
+J{"sprite": "stone"}
+N{"sprite":"stone"}
+J{"sprite": "x:y", "bold": false, "italic": false, "strikethrough": true}
+N{"sprite":"x:y","bold":0b,"italic":0b,"strikethrough":true}
+J[]
+N[]
+J[{"type": "translatable", "text": "hello world", "extra": ["😀", {"translate": null, "with": [], "italic": true}, {"text": "😀", "color": ""}], "obfuscated": false}, "a", [{"text": "§cred", "extra": [{"text": "hello world", "extra": [], "color": "#123456", "obfuscated": false, "font": "a:b"}, {"nbt": "Items[0]", "entity": "@s", "italic": true, "click_event": {"action": {}, "path": "x"}}, {"translate": "nope.key", "with": [1.0], "color": "dark_aqua"}], "italic": true, "click_event": {}}]]
+N[{"type":"translatable","text":"hello world","extra":["😀",{"translate":"","with":[],"italic":true},{"text":"😀","color":""}],"obfuscated":false},"a",[{"text":"§cred","extra":[{"text":"hello world","extra":[],"color":"#123456","obfuscated":0b,"font":"a:b"},{"nbt":"Items[0]","entity":"@s","italic":1b,"click_event":{"action":{},"path":"x"}},{"translate":"nope.key","with":[1.0d],"color":"dark_aqua"}],"italic":1b,"click_event":{}}]]
+J"tab\there"
+N"tab\there"
+J["ünïcode"]
+N["ünïcode"]
+J"😀"
+N"😀"
+J{"keybind": "", "color": "#GGGGGG"}
+N{"keybind":"","color":"#GGGGGG"}
+J"line\nbreak"
+N"line\nbreak"
+J"hello world"
+N"hello world"
+J{"storage": "a:b", "interpret": true, "separator": [{"selector": "Steve", "extra": [{"keybind": "", "extra": []}, ["hello world", "ünïcode"], []], "shadow_color": [1, 2, 3, 4]}, "tab\there", "😀"], "extra": [], "hover_event": {"action": "show_text", "value": {"text": "hello world", "color": "red", "italic": true}}}
+N{"storage":"a:b","interpret":1b,"separator":[{"selector":"Steve","extra":[{"keybind":"","extra":[]},["hello world","ünïcode"],[]],"shadow_color":[1,2,3,4]},"tab\there","😀"],"extra":[],"hover_event":{"action":"show_text","value":{"text":"hello world","color":"red","italic":true}}}
+J"hello world"
+N"hello world"
+J{"type": "selector", "selector": "@s", "separator": {"nbt": "x", "block": true, "color": "red", "bold": true, "italic": false}, "click_event": {"action": "run_command", "command": "x\ny"}}
+N{"type":"selector","selector":"@s","separator":{"nbt":"x","block":1b,"color":"red","bold":1b,"italic":0b},"click_event":{"action":"run_command","command":"x\ny"}}
+J{"player": "xxxxxxxxxxxxxxxxxxxx", "extra": [], "shadow_color": 0, "hover_event": {"action": "show_text", "value": {"keybind": "key.jump", "strikethrough": true}}}
+N{"player":"xxxxxxxxxxxxxxxxxxxx","extra":[],"shadow_color":0b,"hover_event":{"action":"show_text","value":{"keybind":"key.jump","strikethrough":1b}}}
+J["ünïcode"]
+N["ünïcode"]
+J{"text": "hello world", "font": "mod:path/sub"}
+N{"text":"hello world","font":"mod:path/sub"}
+J"line\nbreak"
+N"line\nbreak"
+J"line\nbreak"
+N"line\nbreak"
+J{"score": {"name": "@a[tag=x]", "objective": "obj"}, "extra": [{"keybind": "", "extra": [{"score": {"name": "Steve", "objective": "obj"}}, {"keybind": "", "extra": [{"score": {"name": "Steve", "objective": "obj"}, "color": "#123456", "insertion": ""}, "line\nbreak"]}, {"nbt": "a.b", "storage": "A:b", "extra": [["§cred", "§cred", "hello world"], {"type": "object", "text": "hello world", "color": "#GGGGGG"}, ["a", "ünïcode", "%s"]]}], "obfuscated": false, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": 5, "name": [{"nbt": "x", "storage": "minecraft:foo", "separator": "ünïcode", "extra": ["§cred", "ünïcode", "%s"], "color": "dark_aqua"}]}}, {"type": "nbt", "nbt": "x", "entity": "@s", "plain": true, "separator": {"score": {"name": "@s", "objective": "obj"}, "extra": [{"type": "translatable", "translate": "death.attack.player", "fallback": "%5$s", "color": "red", "shadow_color": 16711680, "underlined": true}, {"type": "selector", "nbt": "Items[0]", "storage": "minecraft:foo", "color": "#1"}, {"text": "😀", "color": "bad", "shadow_color": 1.5, "obfuscated": false}], "strikethrough": true}, "extra": ["%s", "line\nbreak"], "color": "gold", "shadow_color": 16711680}, {"keybind": "", "color": "dark_aqua", "underlined": true, "hover_event": {"action": "show_text", "value": "line\nbreak"}}], "color": "white", "italic": false, "strikethrough": true, "hover_event": {"action": "show_entity", "id": "minecraft:bad", "uuid": "123e4567-e89b-12d3-a456-426614174000", "name": [{"text": "%s", "extra": ["line\nbreak", {"selector": "@a", "extra": ["line\nbreak"], "color": "white"}, "line\nbreak"], "bold": false}]}}
+N{"score":{"name":"@a[tag=x]","objective":"obj"},"extra":[{"keybind":"","extra":[{"score":{"name":"Steve","objective":"obj"}},{"keybind":"","extra":[{"score":{"name":"Steve","objective":"obj"},"color":"#123456","insertion":""},"line\nbreak"]},{"nbt":"a.b","storage":"A:b","extra":[["§cred","§cred","hello world"],{"type":"object","text":"hello world","color":"#GGGGGG"},["a","ünïcode","%s"]]}],"obfuscated":false,"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":5b,"name":[{"nbt":"x","storage":"minecraft:foo","separator":"ünïcode","extra":["§cred","ünïcode","%s"],"color":"dark_aqua"}]}},{"type":"nbt","nbt":"x","entity":"@s","plain":true,"separator":{"score":{"name":"@s","objective":"obj"},"extra":[{"type":"translatable","translate":"death.attack.player","fallback":"%5$s","color":"red","shadow_color":16711680,"underlined":true},{"type":"selector","nbt":"Items[0]","storage":"minecraft:foo","color":"#1"},{"text":"😀","color":"bad","shadow_color":1.5,"obfuscated":false}],"strikethrough":1b},"extra":["%s","line\nbreak"],"color":"gold","shadow_color":16711680},{"keybind":"","color":"dark_aqua","underlined":1b,"hover_event":{"action":"show_text","value":"line\nbreak"}}],"color":"white","italic":0b,"strikethrough":true,"hover_event":{"action":"show_entity","id":"minecraft:bad","uuid":"123e4567-e89b-12d3-a456-426614174000","name":[{"text":"%s","extra":["line\nbreak",{"selector":"@a","extra":["line\nbreak"],"color":"white"},"line\nbreak"],"bold":0b}]}}
+J{"keybind": "", "extra": [{"translate": "multiplayer.player.joined", "with": [{"selector": "@s", "color": "#FF5555", "italic": true, "strikethrough": false}], "bold": false}, {"player": "Alex", "hat": true, "fallback": "§cred", "color": "white", "italic": false}], "color": "#123456"}
+N{"keybind":"","extra":[{"translate":"multiplayer.player.joined","with":[{"selector":"@s","color":"#FF5555","italic":true,"strikethrough":false}],"bold":0b},{"player":"Alex","hat":1b,"fallback":"§cred","color":"white","italic":false}],"color":"#123456"}
+J{"translate": "options.on", "fallback": "%%", "with": [10000000000.0, 61], "extra": [{"keybind": "", "color": "gold", "bold": true}, {"type": "bogus", "keybind": ""}, {"text": "%s"}], "color": "dark_aqua", "hover_event": {"action": "show_text", "value": [{"translate": "", "fallback": "%1$s%s", "with": [["", "😀"], 1.5, 10000000000.0, 10000000000.0], "click_event": {"action": "change_page", "page": "2"}}, {"translate": "", "with": [277, 161, 10000000000.0, 10000000000.0], "strikethrough": false}]}}
+N{"translate":"options.on","fallback":"%%","with":[10000000000.0d,61s],"extra":[{"keybind":"","color":"gold","bold":1b},{"type":"bogus","keybind":""},{"text":"%s"}],"color":"dark_aqua","hover_event":{"action":"show_text","value":[{"translate":"","fallback":"%1$s%s","with":[["","😀"],1.5d,10000000000.0f,10000000000.0f],"click_event":{"action":"change_page","page":"2"}},{"translate":"","with":[277L,161,10000000000.0,10000000000.0d],"strikethrough":false}]}}
+J{"keybind": "key.jump", "color": "red", "bold": true}
+N{"keybind":"key.jump","color":"red","bold":1b}
+J{"text": "§cred", "color": "#FF5555", "bold": true, "italic": true, "font": "a:b"}
+N{"text":"§cred","color":"#FF5555","bold":1b,"italic":1b,"font":"a:b"}
+J"tab\there"
+N"tab\there"
+J{"player": "Steve", "object": "player", "fallback": {"text": "line\nbreak", "bold": false}, "color": "#1", "bold": false}
+N{"player":"Steve","object":"player","fallback":{"text":"line\nbreak","bold":false},"color":"#1","bold":0b}
+J[[{"nbt": "x", "entity": "@s", "interpret": true, "strikethrough": false, "obfuscated": true}, {"text": "§cred", "extra": [["hello world", "line\nbreak"]], "color": "gold", "shadow_color": 1.5}, "hello world"], {"keybind": "key.jump", "underlined": false, "obfuscated": true}]
+N[[{"nbt":"x","entity":"@s","interpret":1b,"strikethrough":0b,"obfuscated":true},{"text":"§cred","extra":[["hello world","line\nbreak"]],"color":"gold","shadow_color":1.5d},"hello world"],{"keybind":"key.jump","underlined":false,"obfuscated":true}]
+J{"player": "Steve", "extra": [{"type": "nbt", "player": "Steve", "hat": true, "object": "player"}, {"nbt": "a.b", "block": "~ ~ ~", "extra": [], "color": "gold", "bold": true, "italic": true, "click_event": {"action": "custom", "id": "minecraft:foo"}}], "strikethrough": false}
+N{"player":"Steve","extra":[{"type":"nbt","player":"Steve","hat":1b,"object":"player"},{"nbt":"a.b","block":"~ ~ ~","extra":[],"color":"gold","bold":1b,"italic":true,"click_event":{"action":"custom","id":"minecraft:foo"}}],"strikethrough":0b}
+J{"translate": "nope.key", "with": [[{"nbt": "Items[0]", "entity": "@s", "interpret": false, "extra": ["a", ["😀", "a"]], "color": "gold", "shadow_color": 16711680, "strikethrough": true, "font": "x y", "click_event": {"action": "copy_to_clipboard", "value": "line\nbreak"}}, "a"], true, "😀", true], "strikethrough": true}
+N{"translate":"nope.key","with":[[{"nbt":"Items[0]","entity":"@s","interpret":0b,"extra":["a",["😀","a"]],"color":"gold","shadow_color":16711680L,"strikethrough":1b,"font":"x y","click_event":{"action":"copy_to_clipboard","value":"line\nbreak"}},"a"],true,"😀",1b],"strikethrough":true}
+J{"text": "tab\there"}
+N{"text":"tab\there"}
+J{"keybind": "", "color": "bad", "shadow_color": -1}
+N{"keybind":"","color":"bad","shadow_color":-1L}
+J{"text": "%s", "extra": [], "color": "#GGGGGG"}
+N{"text":"%s","extra":[],"color":"#GGGGGG"}
+J{"nbt": "a.b", "storage": "a:b", "bold": true, "underlined": true, "strikethrough": true, "click_event": {"action": "change_page", "page": 0}}
+N{"nbt":"a.b","storage":"a:b","bold":1b,"underlined":1b,"strikethrough":true,"click_event":{"action":"change_page","page":0}}
+J[{"keybind": "key.inventory", "strikethrough": true, "click_event": {"action": "bogus", "path": "x"}}]
+N[{"keybind":"key.inventory","strikethrough":true,"click_event":{"action":"bogus","path":"x"}}]
+J""
+N""
+J{"text": "", "underlined": false}
+N{"text":"","underlined":0b}
+J{"text": "line\nbreak"}
+N{"text":"line\nbreak"}
+J{"selector": "@a", "extra": [], "shadow_color": 16711680, "insertion": "hello world"}
+N{"selector":"@a","extra":[],"shadow_color":16711680,"insertion":"hello world"}
+J{"nbt": "a.b", "storage": "a:b", "extra": [], "color": "#FF5555", "shadow_color": [1, 2, 3, 4], "italic": false, "strikethrough": true, "font": "x y"}
+N{"nbt":"a.b","storage":"a:b","extra":[],"color":"#FF5555","shadow_color":[1b,2s,3b,4b],"italic":0b,"strikethrough":1b,"font":"x y"}
+J[[{"nbt": "x", "storage": "a:b", "interpret": true, "separator": {"selector": "@a", "color": "gold", "strikethrough": false, "click_event": {"action": "custom", "id": "a:b", "payload": 1}}, "extra": [["ünïcode", "hello world", "%s"]], "shadow_color": 16711680, "bold": false}, {"text": "ünïcode", "color": "#-1", "bold": false, "italic": false, "strikethrough": true, "click_event": {"action": "run_command", "command": "say §"}}], [{"text": "line\nbreak", "extra": [{"translate": "multiplayer.player.joined", "fallback": "%1$s%s", "with": [], "color": "#123456", "bold": false, "obfuscated": true}, {"type": "minecraft:text", "keybind": "key.inventory", "color": "dark_aqua", "strikethrough": false, "font": "mod:path/sub", "click_event": {"action": "run_command", "command": "x\ny"}}, []], "color": "#GGGGGG", "bold": false, "underlined": true}], "line\nbreak"]
+N[[{"nbt":"x","storage":"a:b","interpret":true,"separator":{"selector":"@a","color":"gold","strikethrough":0b,"click_event":{"action":"custom","id":"a:b","payload":1s}},"extra":[["ünïcode","hello world","%s"]],"shadow_color":16711680,"bold":0b},{"text":"ünïcode","color":"#-1","bold":false,"italic":false,"strikethrough":true,"click_event":{"action":"run_command","command":"say §"}}],[{"text":"line\nbreak","extra":[{"translate":"multiplayer.player.joined","fallback":"%1$s%s","with":[],"color":"#123456","bold":0b,"obfuscated":true},{"type":"minecraft:text","keybind":"key.inventory","color":"dark_aqua","strikethrough":0b,"font":"mod:path/sub","click_event":{"action":"run_command","command":"x\ny"}},[]],"color":"#GGGGGG","bold":false,"underlined":true}],"line\nbreak"]
+J{"selector": "Steve", "color": "", "strikethrough": true}
+N{"selector":"Steve","color":"","strikethrough":1b}
+J{"translate": "commands.give.success.single", "fallback": "plain", "with": [["", "😀"], {"text": "", "color": "#123456", "bold": true}, "%s"], "underlined": false, "font": ""}
+N{"translate":"commands.give.success.single","fallback":"plain","with":[["","😀"],{"text":"","color":"#123456","bold":1b},"%s"],"underlined":0b,"font":""}
+J""
+N""
+J{"player": "a b", "hat": false, "object": "player", "extra": [], "color": "#GGGGGG"}
+N{"player":"a b","hat":false,"object":"player","extra":[],"color":"#GGGGGG"}
+J{"text": "a", "color": "#GGGGGG"}
+N{"text":"a","color":"#GGGGGG"}
+J{"nbt": "Items[0]", "storage": "a:b", "shadow_color": [1.0, 0.5, 0.25, 0.75], "strikethrough": true, "insertion": ""}
+N{"nbt":"Items[0]","storage":"a:b","shadow_color":[1.0,0.5d,0.25f,0.75f],"strikethrough":1b,"insertion":""}
+J{"player": "Alex", "hat": true, "object": "player", "bold": false, "obfuscated": false}
+N{"player":"Alex","hat":true,"object":"player","bold":false,"obfuscated":false}
+J{"translate": "gui.done", "with": [1.5]}
+N{"translate":"gui.done","with":[1.5f]}
+J{"text": "a", "color": "#1", "strikethrough": true}
+N{"text":"a","color":"#1","strikethrough":true}
+J{"type": [1], "keybind": ""}
+N{"type":[1],"keybind":""}
+J{"text": "", "bold": true}
+N{"text":"","bold":1b}
+J{"text": "tab\there", "color": "#1"}
+N{"text":"tab\there","color":"#1"}
+J"😀"
+N"😀"
+J{"translate": "block.minecraft.stone", "with": [123456789012, ["§cred", "😀"], "line\nbreak", 10000000000.0], "extra": [[{"text": "", "extra": [{"text": "hello world", "obfuscated": false, "hover_event": {"action": "bogus"}}, {"translate": "gui.done", "fallback": "%2$s%1$s", "with": ["ünïcode", 1.5], "color": "white", "shadow_color": -1, "strikethrough": true}, "hello world"], "bold": false, "strikethrough": true}, {"text": "a", "color": "#FF5555", "bold": true}], {"text": "tab\there", "extra": [{"text": "", "extra": [{"type": "translatable", "text": "ünïcode", "color": "", "bold": false, "italic": false, "strikethrough": false}, "ünïcode"], "color": "gold", "bold": true}], "shadow_color": [1, 2, 3, 4], "hover_event": {"action": "bogus"}}], "color": "#1", "obfuscated": false, "insertion": "line\nbreak"}
+N{"translate":"block.minecraft.stone","with":[123456789012L,["§cred","😀"],"line\nbreak",10000000000.0d],"extra":[[{"text":"","extra":[{"text":"hello world","obfuscated":false,"hover_event":{"action":"bogus"}},{"translate":"gui.done","fallback":"%2$s%1$s","with":["ünïcode",1.5d],"color":"white","shadow_color":-1,"strikethrough":1b},"hello world"],"bold":0b,"strikethrough":1b},{"text":"a","color":"#FF5555","bold":1b}],{"text":"tab\there","extra":[{"text":"","extra":[{"type":"translatable","text":"ünïcode","color":"","bold":false,"italic":0b,"strikethrough":false},"ünïcode"],"color":"gold","bold":1b}],"shadow_color":[1b,2b,3L,4L],"hover_event":{"action":"bogus"}}],"color":"#1","obfuscated":false,"insertion":"line\nbreak"}
+J{"player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "hat": true, "extra": ["§cred", "hello world", {"text": "line\nbreak"}]}
+N{"player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"hat":true,"extra":["§cred","hello world",{"text":"line\nbreak"}]}
+J{"score": {"name": "@s", "objective": true}, "color": "#GGGGGG", "insertion": "%s"}
+N{"score":{"name":"@s","objective":true},"color":"#GGGGGG","insertion":"%s"}
+J{"text": "tab\there", "extra": [{"text": "😀", "extra": [], "underlined": true, "strikethrough": false}, {"keybind": "", "obfuscated": true}], "shadow_color": [1, 2, 3, 4], "italic": true}
+N{"text":"tab\there","extra":[{"text":"😀","extra":[],"underlined":true,"strikethrough":false},{"keybind":"","obfuscated":1b}],"shadow_color":[I;1,2,3,4],"italic":true}
+J""
+N""
+J{"text": "%s", "extra": [[]], "color": "#GGGGGG", "obfuscated": false}
+N{"text":"%s","extra":[[]],"color":"#GGGGGG","obfuscated":false}
+J"a"
+N"a"
+J{"score": {"name": "@s", "objective": "obj"}, "color": "#-1", "obfuscated": true}
+N{"score":{"name":"@s","objective":"obj"},"color":"#-1","obfuscated":1b}
+J[{"text": "", "extra": [], "color": "#-1"}, {"type": "minecraft:text", "translate": "death.attack.player", "extra": [{"text": "ünïcode", "shadow_color": [1, 2, 3, 4], "bold": false, "obfuscated": true, "click_event": {"action": {}, "id": ""}}, {"score": {"name": "Steve", "objective": "kills"}, "extra": [{"translate": "options.on", "fallback": "%s %s", "with": ["😀", true], "color": "dark_aqua", "bold": true, "hover_event": {"action": null, "id": "stone", "components": {}}}], "color": "white", "bold": false}], "font": "", "hover_event": {"action": "bogus"}}, "hello world"]
+N[{"text":"","extra":[],"color":"#-1"},{"type":"minecraft:text","translate":"death.attack.player","extra":[{"text":"ünïcode","shadow_color":[I;1,2,3,4],"bold":false,"obfuscated":1b,"click_event":{"action":{},"id":""}},{"score":{"name":"Steve","objective":"kills"},"extra":[{"translate":"options.on","fallback":"%s %s","with":["😀",1b],"color":"dark_aqua","bold":true,"hover_event":{"action":"","id":"stone","components":{}}}],"color":"white","bold":0b}],"font":"","hover_event":{"action":"bogus"}},"hello world"]
+J{"text": "ünïcode", "color": "red", "strikethrough": true, "insertion": "ünïcode"}
+N{"text":"ünïcode","color":"red","strikethrough":true,"insertion":"ünïcode"}
+J{"keybind": "key.jump", "italic": true}
+N{"keybind":"key.jump","italic":true}
+J{"type": "keybind", "selector": "Steve", "extra": [[{"nbt": "a.b", "storage": "A:b"}]], "color": "#1"}
+N{"type":"keybind","selector":"Steve","extra":[[{"nbt":"a.b","storage":"A:b"}]],"color":"#1"}
+J{"type": "text", "player": "a b", "color": "#GGGGGG", "obfuscated": true}
+N{"type":"text","player":"a b","color":"#GGGGGG","obfuscated":true}
+J"a"
+N"a"
+J{"keybind": "key.jump", "font": "bar"}
+N{"keybind":"key.jump","font":"bar"}
+J{"nbt": "Items[0]", "block": "~ ~ ~", "interpret": true, "plain": true, "extra": [{"selector": "@a", "separator": {"translate": "gui.done", "with": [], "color": "", "strikethrough": false}, "strikethrough": true}, "hello world"], "color": "red"}
+N{"nbt":"Items[0]","block":"~ ~ ~","interpret":true,"plain":true,"extra":[{"selector":"@a","separator":{"translate":"gui.done","with":[],"color":"","strikethrough":0b},"strikethrough":true},"hello world"],"color":"red"}
+J{"nbt": "a.b", "storage": "minecraft:foo", "interpret": false, "extra": [{"text": "", "italic": true, "strikethrough": true}, "hello world"], "color": "#FF5555", "italic": true}
+N{"nbt":"a.b","storage":"minecraft:foo","interpret":0b,"extra":[{"text":"","italic":1b,"strikethrough":1b},"hello world"],"color":"#FF5555","italic":true}
+J[[{"selector": "@s", "extra": [{"nbt": "x", "entity": "@s", "underlined": true}, {"text": "", "extra": [1], "color": "#GGGGGG", "bold": true, "font": "A:b"}, {"text": "tab\there", "extra": [1], "color": "bad", "shadow_color": 1.5}], "color": "red", "underlined": false, "strikethrough": false}], {"player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "hat": false, "fallback": "line\nbreak", "underlined": false, "obfuscated": false}, {"type": "keybind", "score": {"name": "*", "objective": "obj"}, "color": "#123456", "bold": false, "strikethrough": false}]
+N[[{"selector":"@s","extra":[{"nbt":"x","entity":"@s","underlined":1b},{"text":"","extra":[1L],"color":"#GGGGGG","bold":1b,"font":"A:b"},{"text":"tab\there","extra":[1],"color":"bad","shadow_color":1.5}],"color":"red","underlined":0b,"strikethrough":0b}],{"player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"hat":false,"fallback":"line\nbreak","underlined":false,"obfuscated":false},{"type":"keybind","score":{"name":"*","objective":"obj"},"color":"#123456","bold":0b,"strikethrough":false}]
+J"a"
+N"a"
+J{"nbt": "Items[0]", "entity": "@s", "interpret": true, "strikethrough": true}
+N{"nbt":"Items[0]","entity":"@s","interpret":true,"strikethrough":true}
+J[]
+N[]
+J{"translate": "commands.give.success.single", "extra": ["%s", {"text": "tab\there", "color": "#-1", "italic": false, "strikethrough": true, "insertion": "line\nbreak"}], "color": "dark_aqua", "underlined": true}
+N{"translate":"commands.give.success.single","extra":["%s",{"text":"tab\there","color":"#-1","italic":0b,"strikethrough":1b,"insertion":"line\nbreak"}],"color":"dark_aqua","underlined":true}
+J{"keybind": "key.inventory", "font": "minecraft:foo"}
+N{"keybind":"key.inventory","font":"minecraft:foo"}
+J""
+N""
+J"ünïcode"
+N"ünïcode"
+J{"text": "line\nbreak", "extra": [[], {"text": "ünïcode", "shadow_color": 1.5}], "color": "gold", "bold": true}
+N{"text":"line\nbreak","extra":[[],{"text":"ünïcode","shadow_color":1.5d}],"color":"gold","bold":1b}
+J{"nbt": "x", "block": "~ ~ ~", "separator": "", "color": "#-1", "underlined": true, "insertion": "line\nbreak", "hover_event": {"action": "show_text", "value": {"score": {"name": "Steve", "objective": "obj"}}}}
+N{"nbt":"x","block":"~ ~ ~","separator":"","color":"#-1","underlined":true,"insertion":"line\nbreak","hover_event":{"action":"show_text","value":{"score":{"name":"Steve","objective":"obj"}}}}
+J[{"translate": "nope.key", "with": [1.5, [], 191], "click_event": {"action": "run_command", "command": "say §"}}, {"keybind": "key.jump", "color": "#123456"}, {"nbt": "a.b", "entity": "@s"}]
+N[{"translate":"nope.key","with":[1.5,[],191s],"click_event":{"action":"run_command","command":"say §"}},{"keybind":"key.jump","color":"#123456"},{"nbt":"a.b","entity":"@s"}]
+J"%s"
+N"%s"
+J{"text": "😀", "extra": [], "color": "#123456"}
+N{"text":"😀","extra":[],"color":"#123456"}
+J[{"keybind": "key.jump", "extra": [{"player": {"name": "N"}, "extra": [{"nbt": "a.b", "storage": "minecraft:foo", "extra": ["a"], "color": "bad", "shadow_color": 1.5, "font": ""}, {"keybind": "key.inventory", "extra": ["ünïcode", "", "tab\there"], "obfuscated": true}, {"translate": "", "with": ["tab\there", 1.5, 123456789012], "color": "white", "strikethrough": false, "hover_event": {"action": "show_entity", "id": "minecraft:pig", "uuid": "123e4567-e89b-12d3-a456-426614174000"}}], "underlined": true, "insertion": 1.5, "hover_event": {"action": "show_entity", "id": "minecraft:bad", "uuid": "zz"}}, {"text": "😀", "color": "dark_aqua"}, {"keybind": "key.inventory", "bold": false}], "click_event": {"action": "custom", "id": "minecraft:foo"}}, {"keybind": "key.inventory"}, "%s"]
+N[{"keybind":"key.jump","extra":[{"player":{"name":"N"},"extra":[{"nbt":"a.b","storage":"minecraft:foo","extra":["a"],"color":"bad","shadow_color":1.5f,"font":""},{"keybind":"key.inventory","extra":["ünïcode","","tab\there"],"obfuscated":1b},{"translate":"","with":["tab\there",1.5,123456789012L],"color":"white","strikethrough":false,"hover_event":{"action":"show_entity","id":"minecraft:pig","uuid":"123e4567-e89b-12d3-a456-426614174000"}}],"underlined":true,"insertion":1.5,"hover_event":{"action":"show_entity","id":"minecraft:bad","uuid":"zz"}},{"text":"😀","color":"dark_aqua"},{"keybind":"key.inventory","bold":0b}],"click_event":{"action":"custom","id":"minecraft:foo"}},{"keybind":"key.inventory"},"%s"]
+J"line\nbreak"
+N"line\nbreak"
+J{"text": "😀", "extra": ["a", [{"translate": "chat.type.text", "fallback": "x %s y", "with": [29, "tab\there", 290], "extra": [[], {"nbt": "x", "entity": "@s", "interpret": true, "extra": ["§cred"], "strikethrough": true}, {"translate": "nope.key", "fallback": "a%sb%%c", "bold": false, "insertion": "a"}], "color": "#GGGGGG", "italic": false}, {"score": {"name": "Steve", "objective": "obj"}, "extra": [], "hover_event": {"action": "bogus"}}], {"score": {"name": "@s", "objective": "obj"}, "color": "#FF5555", "bold": false, "font": "a:b"}], "bold": true, "obfuscated": true, "insertion": ""}
+N{"text":"😀","extra":["a",[{"translate":"chat.type.text","fallback":"x %s y","with":[29b,"tab\there",290s],"extra":[[],{"nbt":"x","entity":"@s","interpret":1b,"extra":["§cred"],"strikethrough":1b},{"translate":"nope.key","fallback":"a%sb%%c","bold":false,"insertion":"a"}],"color":"#GGGGGG","italic":0b},{"score":{"name":"Steve","objective":"obj"},"extra":[],"hover_event":{"action":"bogus"}}],{"score":{"name":"@s","objective":"obj"},"color":"#FF5555","bold":0b,"font":"a:b"}],"bold":1b,"obfuscated":1b,"insertion":""}
+J{"translate": "multiplayer.player.joined", "fallback": "100%", "with": [10000000000.0], "strikethrough": false}
+N{"translate":"multiplayer.player.joined","fallback":"100%","with":[10000000000.0d],"strikethrough":0b}
+J{"translate": "death.attack.player", "fallback": "%", "with": [["tab\there", ""]], "extra": [{"extra": [[], {"selector": "Steve", "separator": {"type": "text", "translate": "block.minecraft.stone", "fallback": "%1$s%s", "with": [], "extra": ["😀", "ünïcode", "tab\there"], "color": "red", "italic": null}, "extra": [], "font": "A:b"}, "a"], "color": "#1", "insertion": "😀"}, "a", []]}
+N{"translate":"death.attack.player","fallback":"%","with":[["tab\there",""]],"extra":[{"extra":[[],{"selector":"Steve","separator":{"type":"text","translate":"block.minecraft.stone","fallback":"%1$s%s","with":[],"extra":["😀","ünïcode","tab\there"],"color":"red","italic":""},"extra":[],"font":"A:b"},"a"],"color":"#1","insertion":"😀"},"a",[]]}
+J""
+N""
+J{"score": {"name": "Steve", "objective": "obj"}, "bold": true, "italic": false, "obfuscated": false, "click_event": {"action": "copy_to_clipboard", "value": "tab\there"}}
+N{"score":{"name":"Steve","objective":"obj"},"bold":true,"italic":0b,"obfuscated":0b,"click_event":{"action":"copy_to_clipboard","value":"tab\there"}}
+J{"score": {"name": "@s", "objective": "obj"}, "color": "#123456"}
+N{"score":{"name":"@s","objective":"obj"},"color":"#123456"}
+J{"selector": "@s", "strikethrough": true}
+N{"selector":"@s","strikethrough":true}
+J{"type": "score", "score": {"name": "@a[tag=x]", "objective": "kills"}, "color": "#123456", "shadow_color": 1.5}
+N{"type":"score","score":{"name":"@a[tag=x]","objective":"kills"},"color":"#123456","shadow_color":1.5d}
+J{"selector": "Steve", "separator": {"nbt": "Items[0]", "entity": "@s", "plain": true, "color": "#-1"}, "extra": [{"keybind": "", "color": "#123456", "underlined": false, "insertion": "a"}], "shadow_color": -1, "italic": false}
+N{"selector":"Steve","separator":{"nbt":"Items[0]","entity":"@s","plain":1b,"color":"#-1"},"extra":[{"keybind":"","color":"#123456","underlined":false,"insertion":"a"}],"shadow_color":-1,"italic":false}
+J"line\nbreak"
+N"line\nbreak"
+J"😀"
+N"😀"
+J{"translate": "commands.give.success.single", "with": [1.0, 222, 1.0, "a"], "extra": [], "color": "white", "underlined": false, "hover_event": {"action": "show_item", "id": "minecraft:stone", "count": 64}}
+N{"translate":"commands.give.success.single","with":[1.0d,222L,1.0d,"a"],"extra":[],"color":"white","underlined":false,"hover_event":{"action":"show_item","id":"minecraft:stone","count":64s}}
+J{"text": "a", "extra": [{"nbt": "Items[0]", "storage": "minecraft:foo", "plain": false, "color": "bad", "shadow_color": [1.0, 0.5, 0.25, 0.75], "strikethrough": true}, {"text": "ünïcode", "extra": [], "color": "bad"}]}
+N{"text":"a","extra":[{"nbt":"Items[0]","storage":"minecraft:foo","plain":false,"color":"bad","shadow_color":[1.0d,0.5,0.25d,0.75],"strikethrough":1b},{"text":"ünïcode","extra":[],"color":"bad"}]}
+J{"keybind": "", "extra": [], "color": "#-1", "click_event": {"action": "change_page", "page": 0}}
+N{"keybind":"","extra":[],"color":"#-1","click_event":{"action":"change_page","page":0}}
+J{"text": "", "extra": [], "italic": true, "underlined": false, "click_event": {"action": "change_page", "page": 5}}
+N{"text":"","extra":[],"italic":1b,"underlined":0b,"click_event":{"action":"change_page","page":5L}}
+J"ünïcode"
+N"ünïcode"
+J"%s"
+N"%s"
+J{"text": "😀"}
+N{"text":"😀"}
+J{"type": "object", "selector": "@s", "extra": [], "shadow_color": -1}
+N{"type":"object","selector":"@s","extra":[],"shadow_color":-1s}
+J{"text": ""}
+N{"text":""}
+J{"block": "~ ~ ~", "color": "", "shadow_color": 16711680, "click_event": {"command": "say §", "unknown": 1}}
+N{"block":"~ ~ ~","color":"","shadow_color":16711680,"click_event":{"command":"say §","unknown":1}}
+J{"keybind": "key.jump", "bold": true, "italic": false, "underlined": true, "strikethrough": false}
+N{"keybind":"key.jump","bold":true,"italic":0b,"underlined":1b,"strikethrough":0b}
+J{"selector": "Steve", "separator": "hello world", "italic": false, "insertion": "😀"}
+N{"selector":"Steve","separator":"hello world","italic":false,"insertion":"😀"}
+J{"keybind": "key.jump", "color": ""}
+N{"keybind":"key.jump","color":""}
+J[]
+N[]
+J{"nbt": "a.b", "storage": null, "plain": true, "separator": [[{"translate": "block.minecraft.stone", "with": 5, "extra": [], "underlined": false}], {"selector": "@a", "separator": {"player": "Alex", "hat": true, "color": "bad", "italic": true}}], "color": "#GGGGGG"}
+N{"nbt":"a.b","storage":"","plain":1b,"separator":[[{"translate":"block.minecraft.stone","with":5,"extra":[],"underlined":0b}],{"selector":"@a","separator":{"player":"Alex","hat":1b,"color":"bad","italic":1b}}],"color":"#GGGGGG"}
+J{"type": "translatable", "nbt": "Items[0]", "storage": "a:b", "separator": {"text": "tab\there", "color": "white", "insertion": "tab\there"}}
+N{"type":"translatable","nbt":"Items[0]","storage":"a:b","separator":{"text":"tab\there","color":"white","insertion":"tab\there"}}
+J[]
+N[]
+J"😀"
+N"😀"
+J{"text": "😀", "extra": [{"keybind": "key.inventory", "extra": [[], {"score": {"name": "*", "objective": "obj"}, "bold": true}, [{"selector": "@s", "underlined": false}, {"text": "line\nbreak", "underlined": false, "strikethrough": false}]], "color": "gold", "underlined": false}, [], ""], "color": "#-1", "underlined": false, "obfuscated": true}
+N{"text":"😀","extra":[{"keybind":"key.inventory","extra":[[],{"score":{"name":"*","objective":"obj"},"bold":true},[{"selector":"@s","underlined":false},{"text":"line\nbreak","underlined":false,"strikethrough":0b}]],"color":"gold","underlined":0b},[],""],"color":"#-1","underlined":false,"obfuscated":true}
+J"tab\there"
+N"tab\there"
+J{"score": {"name": "Steve", "objective": "obj"}, "strikethrough": false}
+N{"score":{"name":"Steve","objective":"obj"},"strikethrough":false}
+J{"nbt": "a.b", "storage": "a:b", "interpret": 1, "plain": true, "color": "#GGGGGG", "click_event": {"action": "run_command", "command": ""}}
+N{"nbt":"a.b","storage":"a:b","interpret":1b,"plain":1b,"color":"#GGGGGG","click_event":{"action":"run_command","command":""}}
+J{"translate": "options.on", "with": [10000000000.0], "color": "gold", "underlined": false}
+N{"translate":"options.on","with":[10000000000.0d],"color":"gold","underlined":0b}
+J{"text": "line\nbreak", "extra": [{"type": "nbt", "text": "line\nbreak", "color": "bad"}]}
+N{"text":"line\nbreak","extra":[{"type":"nbt","text":"line\nbreak","color":"bad"}]}
+J{"text": "tab\there"}
+N{"text":"tab\there"}
+J{"text": "§cred", "extra": [{"text": "tab\there", "bold": true, "font": true}, "§cred", {"player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "fallback": "😀"}], "color": "bad"}
+N{"text":"§cred","extra":[{"text":"tab\there","bold":1b,"font":true},"§cred",{"player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"fallback":"😀"}],"color":"bad"}
+J"a"
+N"a"
+J"😀"
+N"😀"
+J[{"score": {"name": "*", "objective": "obj"}}, {"text": "§cred"}, {"type": "object", "text": "line\nbreak", "color": "gold", "bold": true, "italic": false, "font": "A:b"}]
+N[{"score":{"name":"*","objective":"obj"}},{"text":"§cred"},{"type":"object","text":"line\nbreak","color":"gold","bold":true,"italic":false,"font":"A:b"}]
+J[{"text": "tab\there", "color": "#GGGGGG"}]
+N[{"text":"tab\there","color":"#GGGGGG"}]
+J{"nbt": "s", "entity": "@s", "separator": {"translate": "death.attack.player", "with": 5, "extra": [{"translate": "block.minecraft.stone", "with": null}, {"keybind": "", "color": "", "strikethrough": true}], "color": "red"}, "color": "red", "italic": true}
+N{"nbt":"s","entity":"@s","separator":{"translate":"death.attack.player","with":5s,"extra":[{"translate":"block.minecraft.stone","with":""},{"keybind":"","color":"","strikethrough":true}],"color":"red"},"color":"red","italic":1b}
+J{"player": "Steve", "fallback": "😀", "color": "#GGGGGG", "underlined": false, "insertion": "§cred"}
+N{"player":"Steve","fallback":"😀","color":"#GGGGGG","underlined":false,"insertion":"§cred"}
+J[{"keybind": "key.jump", "shadow_color": [1.0, 0.5, 0.25, 0.75]}, {"text": "", "extra": [{"player": "xxxxxxxxxxxxxxxxxxxx", "fallback": {"translate": "nope.key", "extra": [], "color": "#123456", "italic": true, "underlined": false, "font": "a:b", "hover_event": {"action": "show_entity", "id": "zombie", "uuid": "1-1-1-1-1", "name": ""}}, "extra": [], "underlined": true, "strikethrough": true, "obfuscated": false}], "color": "white", "strikethrough": true}, {"score": {"name": "@s", "objective": "kills"}}]
+N[{"keybind":"key.jump","shadow_color":[1.0f,0.5f,0.25f,0.75f]},{"text":"","extra":[{"player":"xxxxxxxxxxxxxxxxxxxx","fallback":{"translate":"nope.key","extra":[],"color":"#123456","italic":true,"underlined":0b,"font":"a:b","hover_event":{"action":"show_entity","id":"zombie","uuid":"1-1-1-1-1","name":""}},"extra":[],"underlined":true,"strikethrough":1b,"obfuscated":0b}],"color":"white","strikethrough":1b},{"score":{"name":"@s","objective":"kills"}}]
+J"😀"
+N"😀"
+J"a"
+N"a"
+J{"selector": "@a", "separator": {"nbt": "a.b", "storage": "A:b", "plain": true, "extra": [], "strikethrough": true}, "color": "white"}
+N{"selector":"@a","separator":{"nbt":"a.b","storage":"A:b","plain":1b,"extra":[],"strikethrough":true},"color":"white"}
+J{"type": "score", "player": {"name": "N", "properties": [{"name": "textures", "value": "v"}]}, "extra": [{"nbt": "x", "entity": "@s", "extra": [[{"nbt": "x", "storage": "minecraft:foo", "plain": false, "separator": "hello world"}, {"text": "line\nbreak", "extra": ["tab\there", "§cred", "line\nbreak"]}, {"type": "text", "text": "§cred", "color": "gold"}], [{"nbt": "x", "entity": "@s", "plain": false, "separator": "😀", "extra": [], "font": ""}, "😀"], {"score": {"name": "Steve", "objective": "kills"}, "color": "#123456", "italic": true}], "color": ""}, {"nbt": "a.b", "storage": "minecraft:foo", "hover_event": {"action": "bogus"}}]}
+N{"type":"score","player":{"name":"N","properties":[{"name":"textures","value":"v"}]},"extra":[{"nbt":"x","entity":"@s","extra":[[{"nbt":"x","storage":"minecraft:foo","plain":0b,"separator":"hello world"},{"text":"line\nbreak","extra":["tab\there","§cred","line\nbreak"]},{"type":"text","text":"§cred","color":"gold"}],[{"nbt":"x","entity":"@s","plain":false,"separator":"😀","extra":[],"font":""},"😀"],{"score":{"name":"Steve","objective":"kills"},"color":"#123456","italic":true}],"color":""},{"nbt":"a.b","storage":"minecraft:foo","hover_event":{"action":"bogus"}}]}
+J"hello world"
+N"hello world"
+J"line\nbreak"
+N"line\nbreak"
+J["tab\there"]
+N["tab\there"]
+J{"nbt": "Items[0]", "storage": "a:b", "interpret": false, "plain": false, "extra": ["a"], "italic": false}
+N{"nbt":"Items[0]","storage":"a:b","interpret":false,"plain":false,"extra":["a"],"italic":false}
+J"ünïcode"
+N"ünïcode"
+J"ünïcode"
+N"ünïcode"
+J[[{"score": {"name": "@s", "objective": "kills"}, "extra": [{"text": "line\nbreak", "color": "#1"}, "%s", {"keybind": "key.jump"}], "obfuscated": false, "click_event": {"action": "copy_to_clipboard", "value": "tab\there"}}, {"type": "keybind", "text": "%s", "extra": ["ünïcode", "hello world", {"translate": "multiplayer.player.joined", "fallback": "%1$s%s", "with": [], "color": "#-1"}], "color": "bad", "italic": true, "underlined": true, "insertion": "a"}], {"text": "", "extra": [[{"keybind": "key.inventory"}, {"text": "a", "extra": [""], "color": "", "strikethrough": true}, ["😀", "%s"]]], "shadow_color": -1, "underlined": true, "strikethrough": true, "hover_event": {"action": "show_text", "value": [{"text": "§cred", "color": "red"}]}}, "line\nbreak"]
+N[[{"score":{"name":"@s","objective":"kills"},"extra":[{"text":"line\nbreak","color":"#1"},"%s",{"keybind":"key.jump"}],"obfuscated":false,"click_event":{"action":"copy_to_clipboard","value":"tab\there"}},{"type":"keybind","text":"%s","extra":["ünïcode","hello world",{"translate":"multiplayer.player.joined","fallback":"%1$s%s","with":[],"color":"#-1"}],"color":"bad","italic":1b,"underlined":1b,"insertion":"a"}],{"text":"","extra":[[{"keybind":"key.inventory"},{"text":"a","extra":[""],"color":"","strikethrough":true},["😀","%s"]]],"shadow_color":-1s,"underlined":1b,"strikethrough":1b,"hover_event":{"action":"show_text","value":[{"text":"§cred","color":"red"}]}},"line\nbreak"]
+J{"keybind": "key.inventory", "color": "dark_aqua", "bold": true, "italic": true, "insertion": "a", "click_event": {"action": 5, "path": "x"}}
+N{"keybind":"key.inventory","color":"dark_aqua","bold":true,"italic":1b,"insertion":"a","click_event":{"action":5b,"path":"x"}}
+J{"type": "translatable", "nbt": "a.b", "block": "~ ~ ~", "interpret": true, "plain": false, "color": "bad", "strikethrough": true}
+N{"type":"translatable","nbt":"a.b","block":"~ ~ ~","interpret":true,"plain":0b,"color":"bad","strikethrough":1b}
+J{"translate": "death.attack.player", "obfuscated": false}
+N{"translate":"death.attack.player","obfuscated":false}
+J"ünïcode"
+N"ünïcode"
+J{"keybind": "key.inventory", "extra": ["%s", {"type": "bogus", "text": "tab\there", "color": "red", "shadow_color": [1.0, 0.5, 0.25, 0.75], "bold": false, "strikethrough": true, "obfuscated": false}, {"keybind": "", "color": "#123456", "italic": false, "insertion": "%s", "click_event": {"action": "suggest_command", "command": ""}}], "color": "#123456", "hover_event": {"action": "show_item", "id": "minecraft:diamond_sword", "count": 0, "components": {"minecraft:custom_name": "x"}}}
+N{"keybind":"key.inventory","extra":["%s",{"type":"bogus","text":"tab\there","color":"red","shadow_color":[1.0,0.5,0.25f,0.75f],"bold":false,"strikethrough":true,"obfuscated":false},{"keybind":"","color":"#123456","italic":false,"insertion":"%s","click_event":{"action":"suggest_command","command":""}}],"color":"#123456","hover_event":{"action":"show_item","id":"minecraft:diamond_sword","count":0,"components":{"minecraft:custom_name":"x"}}}
+J[{"text": "", "color": "", "underlined": true}]
+N[{"text":"","color":"","underlined":true}]
+J[]
+N[]
+J[{"translate": "commands.teleport.success.entity.single", "fallback": "%s %s", "extra": [{"text": "tab\there", "color": "#1"}], "hover_event": {"action": "bogus"}}, {"translate": "commands.give.success.single", "with": [1.5, 10000000000.0, "ünïcode"]}, {"keybind": "key.jump"}]
+N[{"translate":"commands.teleport.success.entity.single","fallback":"%s %s","extra":[{"text":"tab\there","color":"#1"}],"hover_event":{"action":"bogus"}},{"translate":"commands.give.success.single","with":[1.5f,10000000000.0d,"ünïcode"]},{"keybind":"key.jump"}]
+J[{"type": "keybind", "keybind": "key.inventory", "bold": true, "strikethrough": true, "obfuscated": true}]
+N[{"type":"keybind","keybind":"key.inventory","bold":1b,"strikethrough":true,"obfuscated":true}]
+J{"sprite": "x:y", "atlas": "minecraft:items", "underlined": true}
+N{"sprite":"x:y","atlas":"minecraft:items","underlined":1b}
+J[{"text": "tab\there", "bold": false, "click_event": {"action": "open_url", "url": "https://a b"}, "hover_event": {"action": 5, "value": ["line\nbreak", {"type": "text", "player": "a b", "fallback": "a", "extra": ["§cred", "", "ünïcode"], "hover_event": {"action": "show_text", "value": "a"}}, {"text": 5, "extra": ["§cred"]}], "unknown": 1}}, "§cred"]
+N[{"text":"tab\there","bold":0b,"click_event":{"action":"open_url","url":"https://a b"},"hover_event":{"action":5L,"value":["line\nbreak",{"type":"text","player":"a b","fallback":"a","extra":["§cred","","ünïcode"],"hover_event":{"action":"show_text","value":"a"}},{"text":5,"extra":["§cred"]}],"unknown":1L}},"§cred"]
+J{"type": "keybind", "text": "hello world", "underlined": false, "insertion": "", "font": ""}
+N{"type":"keybind","text":"hello world","underlined":0b,"insertion":"","font":""}

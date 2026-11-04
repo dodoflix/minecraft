@@ -1,0 +1,90 @@
+# Shape recipes + rotation queries interpreted by BOTH OctahedralOracle.java (vanilla) and tests/octahedral.rs.
+# Regenerate expected output: scripts/vanilla-java.sh crates/mc-core/tests/fixtures/octahedral/OctahedralOracle.java crates/mc-core/tests/fixtures/octahedral/octahedral.script > crates/mc-core/tests/fixtures/octahedral/octahedral.out
+empty E
+block B
+box slab 0 0 0 1 0.5 1
+box top_slab 0 0.5 0 1 1 1
+box step 0 0.5 0 1 1 0.5
+or stair slab step
+box post 0.375 0 0.375 0.625 1 0.625
+box arm_n 0.4375 0.375 0 0.5625 0.5625 0.375
+box arm_e 0.625 0.375 0.4375 1 0.5625 0.5625
+or fence post arm_n arm_e
+box third 0 0 0 0.3333333333333333 1 1
+box odd 0.1 0.1 0.1 0.9 0.9 0.9
+create above 0 0 0 1 1.5 1
+box fine 0.0625 0.0625 0.0625 0.9375 0.5 0.5
+box lop 0 0 0 0.5 0.25 1
+move moved slab 0.25 0 0
+slice sliced stair Y 1
+slice sliced2 fence X 3
+create col 0.25 0 0.25 0.75 1 0.75
+
+# every group, rotated about the block center (cube shapes stay cube shapes)
+rotall B
+rotall E
+rotall slab
+rotall stair
+rotall fence
+rotall third
+rotall odd
+rotall above
+rotall fine
+rotall lop
+rotall moved
+rotall sliced
+rotall sliced2
+rotall col
+# every group about off-center points (array path even for cubes)
+rotall B 0 0 0
+rotall slab 0 0 0
+rotall stair 0.25 0.5 0.75
+rotall fence 1 1 1
+rotall odd 0.5 0.5 0.5000001
+rotall moved 0.5 0 0.5
+rotall above 0.5 0.5 0.5
+rotall E 0.2 0.2 0.2
+rotall col 0.5 0.5 0.5
+
+disc B ROT_90_Y_NEG
+disc stair ROT_90_X_POS
+disc stair INVERSION
+disc fence ROT_120_NNP
+disc sliced SWAP_NEG_XZ
+disc stair IDENTITY
+
+rot stair IDENTITY
+rot stair IDENTITY 0 0 0
+rot B IDENTITY
+rot B ROT_90_Y_NEG 0.5 0.5 0.5
+rot B ROT_90_Y_NEG 0.5 0.5 0.4
+rot stair ROT_180_FACE_XZ 0.5 0.5 0.5
+rot stair ROT_180_FACE_XZ 0.5 0.5 0.0
+
+horizaxis slab
+horizaxis stair 0.25 0.5 0.75
+horizaxis B
+horizaxis B 0 0 0
+allaxis stair
+allaxis fence 0.5 0.5 0.5
+allaxis third 0 0 1
+horiz stair
+horiz stair ROT_90_X_NEG
+horiz stair ROT_90_X_NEG 0.25 0.5 0.75
+horiz fence IDENTITY 1 1 1
+horiz B INVERT_X
+horiz E
+horiz odd -
+all stair
+all fence - 0.5 0.5 0.5
+all fence - 0.25 0.25 0.75
+all stair ROT_90_Z_NEG
+all stair ROT_90_Z_NEG 0.5 0.5 0.5
+all stair SWAP_XY 0.1 0.2 0.3
+all B
+all lop
+attach stair
+attach stair ROT_90_Y_NEG
+attach fence ROT_90_REF_X_POS
+attach above
+attach B

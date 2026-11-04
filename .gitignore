@@ -1,0 +1,24 @@
+# Rust build output at any depth (workspace target/, per-agent target/<crate>/, stray crate-local target/)
+target/
+**/*.rs.bk
+
+# Vanilla reference material (decompiled source, jars, datagen/extractor output); recreate with scripts/setup-ref.sh
+/ref
+
+# Local server/client runs (vanilla oracle, real client cache, E2E scratch worlds)
+/run
+logs/
+*.log
+crash-reports/
+
+# Java tooling build output
+/tools/extractor/build
+*.class
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+*.swp
+*~
+.DS_Store

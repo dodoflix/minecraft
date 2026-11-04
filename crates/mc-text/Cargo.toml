@@ -1,0 +1,11 @@
+[package]
+name = "mc-text"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mc-core = { path = "../mc-core" }
+mc-nbt = { path = "../mc-nbt" }
+# preserve_order: JSON objects keep vanilla's field order (contents, extra, style fields)
+serde_json = { version = "1.0.154", features = ["preserve_order"] }
