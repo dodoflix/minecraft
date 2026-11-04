@@ -19,6 +19,7 @@ while (($#)); do
     *) echo "unknown option $1" >&2; exit 2;;
   esac
 done
+BIN="$(realpath "$BIN" 2>/dev/null || echo "$BIN")"
 [[ -x "$BIN" ]] || { echo "mc-server binary not found: $BIN (build it: CARGO_TARGET_DIR=target/gamelifecycle cargo build -p mc-server)" >&2; exit 2; }
 
 OURS="$ROOT/run/servers/lc-ours"
@@ -47,6 +48,9 @@ for _ in $(seq 600); do
 done
 grep -qF 'Done (' "$OURS/logs/latest.log" || { echo "timeout waiting for Done" >&2; kill "$pid"; exit 1; }
 printf 'stop\n' > "$OURS/stdin.fifo"
+# the `stop` command may not be registered yet in our server: fall back to SIGINT (vanilla's shutdown hook path)
+for _ in $(seq 25); do kill -0 "$pid" 2>/dev/null || break; sleep 0.2; done
+kill -0 "$pid" 2>/dev/null && kill -INT "$pid"
 for _ in $(seq 300); do kill -0 "$pid" 2>/dev/null || break; sleep 0.2; done
 kill -0 "$pid" 2>/dev/null && { echo "our server did not stop" >&2; kill -9 "$pid"; exit 1; }
 
