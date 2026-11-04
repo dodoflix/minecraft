@@ -109,6 +109,8 @@ pub struct ServerPlayer {
     pub shoulder_entity_right: CompoundTag,
     pub container_counter: i32,
     pub won_game: bool,
+    /// Stacks `Player.drop` produced; the item-entity slice turns them into entities.
+    pub pending_drops: Vec<(crate::world::item::ItemStack, bool)>,
     /// `Dimension` read from the saved tag (the level a player is placed in on login).
     pub saved_dimension: Option<Identifier>,
     /// `level().dimension()`: the dimension of the level this player is in (`Dimension` tag on save).
@@ -172,6 +174,7 @@ impl ServerPlayer {
             shoulder_entity_right: CompoundTag::new(),
             container_counter: 0,
             won_game: false,
+            pending_drops: Vec::new(),
             saved_dimension: None,
             dimension,
             saved_root_vehicle: None,
@@ -305,6 +308,25 @@ impl Entity for ServerPlayer {
     }
     fn is_always_ticking(&self) -> bool {
         true
+    }
+    /// `ServerPlayer.tick()`.
+    fn tick(&mut self, level: &mut crate::server::level::ServerLevel) {
+        self.tick_server_player(level);
+    }
+    /// `Player.isClientAuthoritative()`.
+    fn is_client_authoritative(&self) -> bool {
+        true
+    }
+    fn move_simulation_type(&self) -> crate::world::entity::MoveSimulationType {
+        crate::world::entity::MoveSimulationType::AuthoritativeSideAndServer
+    }
+    /// `Player.maybeBackOffFromEdge`: `!abilities.flying && isStayingOnGroundSurface()` (shift key).
+    fn stays_on_ground_surface_at_edges(&self) -> bool {
+        !self.player.abilities.flying && self.is_shift_key_down()
+    }
+    fn held_item_for_collision(&self) -> Option<mc_data::Item> {
+        let stack = self.player.inventory.get_selected_item();
+        (!stack.is_empty()).then(|| stack.item())
     }
     fn is_spectator(&self) -> bool {
         self.game_mode.game_mode_for_player == GameType::Spectator
@@ -503,4 +525,33 @@ impl ServerPlayer {
 /// Number of players among `e` and its indirect passengers (`countPlayerPassengers` + self).
 fn count_players(e: &dyn Entity, lookup: &EntityLookupFn<'_>) -> usize {
     usize::from(e.is_player()) + e.base().passengers.iter().filter_map(|&p| lookup(p)).map(|p| count_players(p, lookup)).sum::<usize>()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::server::level::ServerLevel;
+    use crate::server::network::Outbound;
+    use mc_protocol::codec::read_varint;
+    use mc_protocol::packet::Packet;
+    use mc_protocol::packets::play::{ClientboundSetExperiencePacket, ClientboundSetHealthPacket};
+
+    #[test]
+    fn do_tick_sends_health_and_xp_once_then_only_changes() {
+        let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+        let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
+        let mut p = ServerPlayer::new(1, Identifier::parse("minecraft:overworld").unwrap(), GameProfile { id: uuid::Uuid::from_u128(1), name: "A".into(), properties: vec![] }, Default::default());
+        p.connection = Some(crate::server::network::ConnectionSender::new(tx));
+        p.do_tick(&mut level);
+        let mut ids = vec![];
+        while let Ok(Outbound::Payload(b)) = rx.try_recv() {
+            ids.push(read_varint(&mut &b[..]).unwrap());
+        }
+        assert_eq!(ids, vec![ClientboundSetHealthPacket::ID, ClientboundSetExperiencePacket::ID]);
+        p.do_tick(&mut level);
+        assert!(rx.try_recv().is_err(), "nothing changed");
+        p.player.food_data.food_level = 10;
+        p.do_tick(&mut level);
+        assert!(matches!(rx.try_recv(), Ok(Outbound::Payload(_))));
+    }
 }

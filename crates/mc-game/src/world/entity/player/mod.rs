@@ -3,6 +3,8 @@ pub mod abilities;
 pub mod food_data;
 pub mod handle_sync;
 pub mod inventory;
+pub mod menu_ctx;
+pub mod tick;
 pub mod server_player;
 
 pub use abilities::Abilities;

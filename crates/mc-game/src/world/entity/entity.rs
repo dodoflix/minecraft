@@ -138,6 +138,9 @@ pub struct EntityData {
     pub remaining_fire_ticks: i32,
     pub was_touching_water: bool,
     pub was_eye_in_water: bool,
+    /// `EntityFluidInteraction` result: fluid height above the box bottom / eyes inside, for [water, lava] (currents not modelled).
+    pub fluid_height: [f64; 2],
+    pub eye_in_fluid: [bool; 2],
     pub invulnerable_time: i32,
     pub first_tick: bool,
     pub entity_data: SynchedEntityData,
@@ -229,6 +232,8 @@ impl EntityData {
             remaining_fire_ticks: 0,
             was_touching_water: false,
             was_eye_in_water: false,
+            fluid_height: [0.0; 2],
+            eye_in_fluid: [false; 2],
             invulnerable_time: 0,
             first_tick: true,
             entity_data: builder.build(),
@@ -986,6 +991,16 @@ pub trait Entity: Any {
         base_tick(self, level);
     }
 
+    /// The level-dependent part of `baseTick()` (fluid state, fire, lava, fall distance, shared fire flag).
+    fn base_tick_world(&mut self, level: &ServerLevel) {
+        super::movement::base_tick_world(self.as_dyn_mut(), level);
+    }
+
+    /// `getFluidInteractionBox()`.
+    fn fluid_interaction_box(&self) -> Option<AABB> {
+        Some(self.base().bounding_box().deflate_scalar(0.001))
+    }
+
     /// `updateDataBeforeSync()`.
     fn update_data_before_sync(&mut self) {}
 
@@ -1372,13 +1387,7 @@ pub fn base_tick<E: Entity + ?Sized>(entity: &mut E, level: &mut ServerLevel) {
             b.boarding_cooldown -= 1;
         }
     }
-    let _ = level;
-    if entity.base().remaining_fire_ticks <= 0 {
-        entity.clear_fire();
-    }
-    let burning = entity.base().remaining_fire_ticks > 0;
-    entity.set_shared_flag_on_fire(burning);
-    entity.base_mut().first_tick = false;
+    entity.base_tick_world(level);
 }
 
 /// `Entity.commonTick()`.

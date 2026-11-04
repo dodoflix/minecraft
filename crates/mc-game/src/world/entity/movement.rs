@@ -545,6 +545,80 @@ impl SignumJava for f64 {
     }
 }
 
+/// `EntityFluidInteraction.update` without currents: heights above the entity's feet and whether the eyes are inside
+/// water/lava. Returns whether the box touches any fluid.
+pub fn update_fluid_interaction<L: MovementLevel>(entity: &mut dyn Entity, level: &L) -> bool {
+    use crate::world::level::material::FluidStateExt;
+    let b = entity.base_mut();
+    b.fluid_height = [0.0; 2];
+    b.eye_in_fluid = [false; 2];
+    let Some(bx) = entity.fluid_interaction_box() else { return false };
+    let (x0, y0, z0) = (mth::floor_f64(bx.min_x), mth::floor_f64(bx.min_y), mth::floor_f64(bx.min_z));
+    let (x1, y1, z1) = (mth::ceil_f64(bx.max_x) - 1, mth::ceil_f64(bx.max_y) - 1, mth::ceil_f64(bx.max_z) - 1);
+    let b = entity.base();
+    let (entity_y, eye_x, eye_z, eye_y) = (b.bounding_box().min_y, b.get_block_x(), b.get_block_z(), b.get_eye_y());
+    let mut any = false;
+    let mut heights = [0.0f64; 2];
+    let mut eyes = [false; 2];
+    for x in x0..=x1 {
+        for y in y0..=y1 {
+            for z in z0..=z1 {
+                let pos = BlockPos::new(x, y, z);
+                let fluid = level.get_fluid_state(pos);
+                if fluid.is_empty() {
+                    continue;
+                }
+                let bottom = f64::from(y);
+                let top = bottom + f64::from(fluid.get_height(level, pos));
+                if top < bx.min_y {
+                    continue;
+                }
+                any = true;
+                let kind = if fluid.is_tag("water") { Some(0) } else if fluid.is_tag("lava") { Some(1) } else { None };
+                let Some(k) = kind else { continue };
+                if x == eye_x && z == eye_z && eye_y >= bottom && eye_y <= top {
+                    eyes[k] = true;
+                }
+                heights[k] = heights[k].max(top - entity_y);
+            }
+        }
+    }
+    let b = entity.base_mut();
+    b.fluid_height = heights;
+    b.eye_in_fluid = eyes;
+    any
+}
+
+/// Level-dependent part of `Entity.baseTick()`: fluid interaction, fire, lava, fall distance, shared fire flag.
+pub fn base_tick_world<L: MovementLevel>(entity: &mut dyn Entity, level: &L) {
+    entity.base_mut().was_eye_in_water = entity.base().eye_in_fluid[0];
+    update_fluid_interaction(entity, level);
+    let in_water = entity.base().fluid_height[0] > 0.0;
+    if in_water {
+        entity.base_mut().fall_distance = 0.0;
+    }
+    entity.base_mut().was_touching_water = in_water;
+    let in_lava = !entity.base().first_tick && entity.base().fluid_height[1] > 0.0;
+    if entity.base().remaining_fire_ticks > 0 {
+        if entity.fire_immune() {
+            entity.clear_fire();
+        } else {
+            let t = entity.base().remaining_fire_ticks;
+            // `hurtServer(onFire, 1.0)` every 20 ticks when not in lava is dispatched by the damage layer
+            let _ = in_lava;
+            entity.set_remaining_fire_ticks(t - 1);
+        }
+    } else {
+        entity.clear_fire();
+    }
+    if in_lava {
+        entity.base_mut().fall_distance *= 0.5;
+    }
+    let burning = entity.base().remaining_fire_ticks > 0;
+    entity.set_shared_flag_on_fire(burning);
+    entity.base_mut().first_tick = false;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -199,6 +199,12 @@ impl ServerLevel {
         }
     }
 
+    /// What `FoodData.tick` reads from the level (`getDifficulty()`, `NATURAL_HEALTH_REGENERATION`): vanilla defaults
+    /// until the level data / game rules are wired into `ServerLevel`.
+    pub fn player_food_rules(&self) -> crate::world::entity::player::food_data::FoodTickRules {
+        Default::default()
+    }
+
     /// `ChunkMap.tick()`'s entity half (`updateTrackedEntities` + `sendChanges`).
     pub fn tick_entity_tracker(&mut self) {
         let players = super::tracker_players(&self.entity_manager, &self.players);

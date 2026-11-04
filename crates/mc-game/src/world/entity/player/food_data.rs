@@ -58,3 +58,77 @@ impl FoodData {
         out.put_float("foodExhaustionLevel", self.exhaustion_level);
     }
 }
+
+/// `Difficulty`.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum Difficulty {
+    Peaceful,
+    Easy,
+    Normal,
+    Hard,
+}
+
+/// What `FoodData.tick` reads from the level (`getDifficulty()`, `GameRules.NATURAL_HEALTH_REGENERATION`).
+#[derive(Clone, Copy, Debug)]
+pub struct FoodTickRules {
+    pub difficulty: Difficulty,
+    pub natural_regeneration: bool,
+}
+
+impl Default for FoodTickRules {
+    /// Vanilla defaults (`NORMAL`, natural regeneration on); the level's data supplies the real values once it exists.
+    fn default() -> Self {
+        Self { difficulty: Difficulty::Normal, natural_regeneration: true }
+    }
+}
+
+/// Effects of a food tick the caller applies to the player.
+#[derive(Default, Debug, PartialEq)]
+pub struct FoodTickResult {
+    pub heal: f32,
+    /// `hurtServer(starve, 1.0)`.
+    pub starve: bool,
+}
+
+impl FoodData {
+    /// `tick(player)`.
+    pub fn tick(&mut self, rules: FoodTickRules, health: f32, max_health: f32) -> FoodTickResult {
+        let mut result = FoodTickResult::default();
+        let hurt = health > 0.0 && health < max_health;
+        if self.exhaustion_level > 4.0 {
+            self.exhaustion_level -= 4.0;
+            if self.saturation_level > 0.0 {
+                self.saturation_level = (self.saturation_level - 1.0).max(0.0);
+            } else if rules.difficulty != Difficulty::Peaceful {
+                self.food_level = (self.food_level - 1).max(0);
+            }
+        }
+        if rules.natural_regeneration && self.saturation_level > 0.0 && hurt && self.food_level >= 20 {
+            self.tick_timer += 1;
+            if self.tick_timer >= 10 {
+                let spent = self.saturation_level.min(6.0);
+                result.heal = spent / 6.0;
+                self.add_exhaustion(spent);
+                self.tick_timer = 0;
+            }
+        } else if rules.natural_regeneration && self.food_level >= 18 && hurt {
+            self.tick_timer += 1;
+            if self.tick_timer >= 80 {
+                result.heal = 1.0;
+                self.add_exhaustion(6.0);
+                self.tick_timer = 0;
+            }
+        } else if self.food_level <= 0 {
+            self.tick_timer += 1;
+            if self.tick_timer >= 80 {
+                if health > 10.0 || rules.difficulty == Difficulty::Hard || (health > 1.0 && rules.difficulty == Difficulty::Normal) {
+                    result.starve = true;
+                }
+                self.tick_timer = 0;
+            }
+        } else {
+            self.tick_timer = 0;
+        }
+        result
+    }
+}
