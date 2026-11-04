@@ -219,6 +219,18 @@ impl ServerLevel {
         }
     }
 
+    /// `ChunkMap.move(player)` entity half for a player that is currently taken out of the level (its packet or tick
+    /// is being handled): the tracker works from the explicit snapshot instead of looking the player up in storage.
+    pub fn entity_tracker_move_taken_out_player(&mut self, player: &crate::world::entity::ServerPlayer) {
+        let mut players = super::tracker_players(&self.entity_manager, &self.players);
+        let snapshot = super::entity_tracker::TrackerPlayer::of(player);
+        match players.iter_mut().find(|p| p.id == snapshot.id) {
+            Some(p) => *p = snapshot.clone(),
+            None => players.push(snapshot.clone()),
+        }
+        self.entity_tracker.move_player(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, &snapshot);
+    }
+
     // ---- queries ----------------------------------------------------------------------------------------------
 
     /// `getEntities(except, bb, selector)`: ids in vanilla iteration order (sections by key, insertion order inside).

@@ -337,6 +337,8 @@ impl MinecraftServer {
         self.tick_connection();
         self.player_list.tick();
         self.run_tickables();
+        // "send chunks"
+        crate::server::network::game_listener::send_next_chunks_all(self);
     }
 
     /// `forceGameTimeSynchronization`.

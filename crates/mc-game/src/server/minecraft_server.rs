@@ -580,7 +580,8 @@ impl MinecraftServer {
 
     /// `processPacketsAndTick`.
     fn process_packets_and_tick(&mut self, sprinting: bool) {
-        // `packetProcessor.processQueuedPackets()`: queued packets are handled by the network layer.
+        // `packetProcessor.processQueuedPackets()`
+        crate::server::network::game_listener::process_queued_packets(self);
         self.tick_server(sprinting);
     }
 

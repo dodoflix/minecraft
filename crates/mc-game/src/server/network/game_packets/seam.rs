@@ -217,6 +217,6 @@ impl PlayCtx<'_> {
             alive: self.player.is_alive(),
         };
         self.level.chunk_source.chunk_map.move_player(update);
-        self.level.entity_tracker_move_player(self.player.id());
+        self.level.entity_tracker_move_taken_out_player(&*self.player);
     }
 }

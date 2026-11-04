@@ -118,6 +118,18 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
     }
 }
 
+/// `MinecraftServer.tickChildren` "send chunks": every player's `chunkSender.sendNextChunks(player)`.
+pub fn send_next_chunks_all(server: &mut MinecraftServer) {
+    let uuids: Vec<Uuid> = server.player_list.players().iter().map(|p| p.uuid).collect();
+    for uuid in uuids {
+        with_player(server, uuid, |ctx| {
+            let pos = crate::world::entity::Entity::chunk_position(&*ctx.player);
+            let sender = ctx.lis().chunk_sender.clone();
+            sender.send_next_chunks(pos, &mut super::player_chunk_sender::LevelChunkSource { level: &*ctx.level });
+        });
+    }
+}
+
 /// `Connection.tick()` for one play connection (called by `ServerConnectionListener.tick`): the listener's tick,
 /// then `handleDisconnection` once the connection is closed.
 pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
