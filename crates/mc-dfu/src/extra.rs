@@ -207,3 +207,29 @@ pub static IDENTIFIER: LazyLock<Codec<mc_core::ident::Identifier>> = LazyLock::n
         |id| id.to_string(),
     )
 });
+
+/// `Util.fixedSize(list, size)`: a list of exactly `size` elements; longer lists are an error carrying the truncated list.
+pub fn fixed_size<T: Clone + Send + Sync + 'static>(mut list: Vec<T>, size: usize) -> DataResult<Vec<T>> {
+    if list.len() == size {
+        DataResult::success(list)
+    } else if list.len() > size {
+        list.truncate(size);
+        DataResult::error_partial(move || format!("Input is not a list of {size} elements"), list)
+    } else {
+        DataResult::error(move || format!("Input is not a list of {size} elements"))
+    }
+}
+
+/// `ExtraCodecs.VECTOR3F`: a list of three floats.
+pub static VECTOR3F: LazyLock<Codec<[f32; 3]>> = LazyLock::new(|| {
+    FLOAT.list_of().comap_flat_map(|l| fixed_size(l, 3).map(|v| [v[0], v[1], v[2]]), |v: &[f32; 3]| v.to_vec())
+});
+
+/// `ARGB.colorFromFloat(1.0F, r, g, b)` (channels `Mth.floor(v * 255.0F)`, masked to 8 bits).
+pub fn rgb_from_floats(v: [f32; 3]) -> i32 {
+    let ch = |f: f32| ((f * 255.0).floor() as i32) & 0xFF;
+    (0xFF << 24) | (ch(v[0]) << 16) | (ch(v[1]) << 8) | ch(v[2])
+}
+
+/// `ExtraCodecs.RGB_COLOR_CODEC`: an int or a `[r, g, b]` float vector.
+pub static RGB_COLOR_CODEC: LazyLock<Codec<i32>> = LazyLock::new(|| INT.with_alternative_conv(&VECTOR3F, rgb_from_floats));

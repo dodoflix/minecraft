@@ -320,10 +320,22 @@ pub(crate) fn hashed_tag_codec() -> Codec<Identifier> {
 
 // ---- compound tag codecs ----------------------------------------------------------------------------------------
 
+fn json_null_map_value(d: &Dyn) -> bool {
+    match d {
+        Dyn::Map(m) => m.iter().any(|(_, v)| matches!(v, Dyn::Empty) || json_null_map_value(v)),
+        Dyn::List(l) => l.iter().any(json_null_map_value),
+        _ => false,
+    }
+}
+
 /// `CompoundTag.CODEC`: any value that converts to an NBT compound.
 pub fn compound_tag_codec() -> Codec<mc_nbt::CompoundTag> {
     mc_dfu::PASSTHROUGH.flat_xmap(
         |d: mc_dfu::Dynamic| {
+            // JsonOps.getMapValues turns a JSON null value into Java null, which `convertTo` then dereferences (NPE)
+            if d.ops.kind() == OpsKind::Json && json_null_map_value(&d.value) {
+                return DataResult::error_str("Cannot convert a JSON null map value");
+            }
             let converted = d.ops.convert_to(&mc_dfu::NBT, &d.value);
             match converted.to_tag() {
                 Ok(Tag::Compound(c)) => DataResult::success(c),

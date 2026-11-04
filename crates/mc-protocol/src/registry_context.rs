@@ -130,6 +130,7 @@ pub const DATA_DRIVEN_REGISTRIES: &[&str] = &[
     "chat_type",
     "dimension_type",
     "worldgen/biome",
+    "block_transformer",
 ];
 
 fn vanilla_tag_exists(registry: &str, tag: &Identifier) -> bool {
