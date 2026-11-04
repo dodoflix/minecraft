@@ -9,8 +9,8 @@ use mc_core::ident::Identifier;
 use serde_json::Value;
 
 use super::dimension_type::DimensionType;
-use super::{get_str};
-use crate::registry::codec::{RegistryDecodeContext, Schema, default, opt, req};
+use super::get_str;
+use crate::registry::codec::{RegistryDecodeContext, Schema, default, req};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
 
@@ -130,5 +130,3 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]
 static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder { registry: keys::LEVEL_STEM, decode };
 
-#[allow(unused_imports)]
-use {default as _default, opt as _opt};

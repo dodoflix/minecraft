@@ -14,6 +14,7 @@ fn repo_root() -> std::path::PathBuf {
 
 #[test]
 fn default_world_loads_all_registries_and_tags() {
+    let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     common::init_logger();
     let dir = tempfile::tempdir().unwrap();
     let (config, stem) = common::load_world(dir.path(), WorldDataConfiguration::DEFAULT, true).expect("default world loads");

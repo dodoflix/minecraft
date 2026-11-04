@@ -409,6 +409,8 @@ fn convert_record(fields: &[Field], v: &Value, ctx: &RegistryDecodeContext) -> R
             },
         }
     }
+    // DFU's applicative `ap` lists the errors of later fields first
+    errors.reverse();
     if errors.is_empty() { Ok(out) } else { Err(errors.join("; ")) }
 }
 

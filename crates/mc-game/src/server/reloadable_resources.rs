@@ -9,8 +9,8 @@ use mc_world::level_storage::FeatureFlagSet;
 use super::registry_layer::RegistryLayer;
 use crate::registry::data_loader::{self, RegistryLoadFailure};
 use crate::registry::keys::RELOADABLE_REGISTRIES;
-use crate::registry::{LayeredRegistryAccess, PendingTags, RegistryAccess, build_updated_lookups};
-use crate::server::packs::ResourceManager;
+use crate::registry::{LayeredRegistryAccess, PendingTags, RegistryAccess, build_updated_lookups, load_tags_for_existing_registries};
+use crate::server::packs::{MultiPackResourceManager, PackRepository, PackType, ResourceManager};
 
 /// What a [`ReloadListener`] sees while reloading (`PreparableReloadListener.reload` context).
 pub struct ReloadContext<'a> {
@@ -150,5 +150,39 @@ impl ReloadableServerResources {
         let values: Vec<RegistryAccess> = RegistryLayer::VALUES.iter().map(|l| build_updated_lookups(self.layers.get_layer(*l), &pending)).collect();
         let layers = LayeredRegistryAccess::new(RegistryLayer::VALUES.to_vec()).replace_from(RegistryLayer::Static, values);
         self.layers = layers;
+    }
+}
+
+/// `MinecraftServer.ReloadableResources`: a resource manager with the resources loaded from it.
+pub struct ReloadedResources {
+    pub resource_manager: MultiPackResourceManager,
+    pub managers: ReloadableServerResources,
+}
+
+/// `MinecraftServer.reloadResources(packsToEnable)` up to the point where the server swaps the result in: open the given packs
+/// of `pack_repository`, reload the tags of every existing registry and the `RELOADABLE` registries / listeners.
+///
+/// On `Err` nothing was changed (the caller logs `Failed to execute reload` and keeps its old resources); on `Ok` the caller closes
+/// the old resources, calls `pack_repository.set_selected(packs_to_enable)`, stores
+/// `WorldDataConfiguration { data_packs: get_selected_packs(repo, true), enabled_features }` and replaces its registries by
+/// `managers.registry_layers()`.
+pub fn reload_resources(
+    pack_repository: &PackRepository,
+    packs_to_enable: &[String],
+    registries: &LayeredRegistryAccess<RegistryLayer>,
+    enabled_features: FeatureFlagSet,
+) -> Result<ReloadedResources, ReloadError> {
+    let packs: Vec<_> = packs_to_enable.iter().filter_map(|id| pack_repository.get_pack(id)).flat_map(|p| p.open()).collect();
+    let resource_manager = MultiPackResourceManager::new(PackType::ServerData, packs);
+    let postponed_tags = load_tags_for_existing_registries(&resource_manager, registries.composite_access());
+    match ReloadableServerResources::load_resources(&resource_manager, registries, postponed_tags, enabled_features) {
+        Ok(mut managers) => {
+            managers.update_components_and_static_registry_tags();
+            Ok(ReloadedResources { resource_manager, managers })
+        }
+        Err(e) => {
+            resource_manager.close();
+            Err(e)
+        }
     }
 }

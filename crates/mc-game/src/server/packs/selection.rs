@@ -108,7 +108,8 @@ fn enable_forced_feature_packs(pack_repository: &mut PackRepository, forced_feat
     pack_repository.set_selected(&selected);
 }
 
-fn get_selected_packs(pack_repository: &PackRepository, disable_inactive: bool) -> DataPackConfig {
+/// `getSelectedPacks(packRepository, disableInactive)`: the `DataPacks` value for the current selection.
+pub fn get_selected_packs(pack_repository: &PackRepository, disable_inactive: bool) -> DataPackConfig {
     let enabled = pack_repository.selected_ids();
     let selected: HashSet<&str> = enabled.iter().map(String::as_str).collect();
     let disabled = if disable_inactive { pack_repository.available_ids().filter(|id| !selected.contains(id)).map(str::to_owned).collect() } else { Vec::new() };

@@ -129,7 +129,8 @@ fn join_errors<A, B>(a: Result<A, String>, b: Result<B, String>) -> Result<(A, B
     match (a, b) {
         (Ok(a), Ok(b)) => Ok((a, b)),
         (Err(a), Ok(_)) | (Ok(_), Err(a)) => Err(a),
-        (Err(a), Err(b)) => Err(format!("{a}; {b}")),
+        // DFU's `ap` lists the errors of later fields first
+        (Err(a), Err(b)) => Err(format!("{b}; {a}")),
     }
 }
 

@@ -64,7 +64,7 @@ impl TagEntry {
                 match (id, required) {
                     (Ok((id, tag)), Ok(required)) => Ok(TagEntry { id, tag, required }),
                     (Err(a), Ok(_)) | (Ok(_), Err(a)) => Err(a),
-                    (Err(a), Err(b)) => Err(format!("{a}; {b}")),
+                    (Err(a), Err(b)) => Err(format!("{b}; {a}")),
                 }
             }
             other => Err(format!("Not a string: {}", compact(other))),
@@ -89,7 +89,7 @@ pub fn decode_tag_file(v: &Value) -> Result<(Vec<TagEntry>, bool), String> {
     match (entries, replace) {
         (Ok(e), Ok(r)) => Ok((e, r)),
         (Err(a), Ok(_)) | (Ok(_), Err(a)) => Err(a),
-        (Err(a), Err(b)) => Err(format!("{a}; {b}")),
+        (Err(a), Err(b)) => Err(format!("{b}; {a}")),
     }
 }
 

@@ -150,8 +150,8 @@ fn decode_checked(json: &Value, ctx: &RegistryDecodeContext, network: bool) -> R
         let attributes = match json.get("attributes") {
             Some(a) => {
                 let (map, attr_nbt) = EnvironmentAttributeMap::parse(a, ctx, false, network)?;
-                // `optionalFieldOf("attributes", EMPTY)` omits an empty map
-                if attr_nbt.len() > 0 {
+                // `optionalFieldOf("attributes", EMPTY)` compares the value before the network codec's syncable filter
+                if !map.is_empty() {
                     nbt.put("attributes", Tag::Compound(attr_nbt));
                 }
                 map

@@ -37,9 +37,7 @@ impl IntProvider {
         match self {
             IntProvider::Constant(v) => Some(*v),
             // `Mth.randomBetweenInclusive(random, min, max)` = `random.nextInt(max - min + 1) + min`
-            IntProvider::Uniform { min_inclusive, max_inclusive } => {
-                Some(random.next_int_bounded(max_inclusive.wrapping_sub(*min_inclusive).wrapping_add(1)).wrapping_add(*min_inclusive))
-            }
+            IntProvider::Uniform { min_inclusive, max_inclusive } => Some(random.next_int_between_inclusive(*min_inclusive, *max_inclusive)),
             IntProvider::Other { .. } => None,
         }
     }
@@ -88,7 +86,6 @@ fn bounds(o: &Map<String, Value>) -> Option<(i32, i32)> {
 
 fn provider_types(ty: &str) -> Option<Schema> {
     use crate::registry::codec::req;
-    let min_max = || vec![req("min_inclusive", Schema::Int), req("max_inclusive", Schema::Int)];
     Some(match ty.strip_prefix("minecraft:").unwrap_or(ty) {
         "constant" => Schema::Record(vec![req("value", Schema::Int)]),
         "uniform" | "biased_to_bottom" | "very_biased_to_bottom" => Schema::custom(|v, ctx| {
@@ -109,10 +106,7 @@ fn provider_types(ty: &str) -> Option<Schema> {
             "distribution",
             Schema::list_of(Schema::Record(vec![req("data", schema(i32::MIN, i32::MAX)), req("weight", Schema::IntRange(1, i32::MAX))])),
         )]),
-        _ => {
-            let _ = min_max;
-            return None;
-        }
+        _ => return None,
     })
 }
 
@@ -122,8 +116,8 @@ pub fn schema(min_value: i32, max_value: i32) -> Schema {
         let tag = if v.is_number() {
             Schema::Int.convert(v, ctx)?
         } else {
-            let (_, body) = match v {
-                Value::Object(_) => ((), Schema::Dispatch { key: "type", resolve: provider_types }.convert(v, ctx)?),
+            let body = match v {
+                Value::Object(_) => Schema::Dispatch { key: "type", resolve: provider_types }.convert(v, ctx)?,
                 _ => return Err(format!("Not a number: {v}")),
             };
             // a `constant` object re-encodes as the bare number

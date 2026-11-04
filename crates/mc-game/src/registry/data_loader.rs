@@ -239,13 +239,18 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
             ctx.entry = Some(element.id.clone());
             let decoded: Result<Option<DecodedEntry>, String> = match decoder {
                 Some(d) => (d.decode)(&element.json, &ctx).map(Some),
-                None => generic_validate(data.key, &element.json).map(|()| None),
+                None => generic_validate(data.key, &element.json).and_then(|()| match super::typed::network::network_schema(data.key) {
+                    // no typed value, but the network codec is modelled: validate and keep its NBT
+                    Some(schema) => schema.convert(&element.json, &ctx).map(|tag| Some(DecodedEntry { value: Arc::new(()), network: Some(tag) })),
+                    None => Ok(None),
+                }),
             };
             unbound_values.extend(ctx.unbound_values.take());
             unbound_tags.extend(ctx.unbound_tags.take());
             match decoded {
                 Ok(decoded) => {
                     let (value, network) = match decoded {
+                        Some(d) if d.value.is::<()>() => (None, d.network),
                         Some(d) => (Some(d.value), d.network),
                         None => (None, None),
                     };

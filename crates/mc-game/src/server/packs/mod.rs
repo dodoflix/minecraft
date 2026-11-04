@@ -16,7 +16,7 @@ pub use repository::{
 };
 pub use resource_manager::{FileToIdConverter, MultiPackResourceManager, Resource, ResourceManager};
 pub use resources::{IoSupplier, PackResources, ResourceMetadata};
-pub use selection::configure_pack_repository;
+pub use selection::{configure_pack_repository, get_selected_packs};
 
 /// `SharedConstants.getCurrentVersion().id()`.
 pub const GAME_VERSION: &str = "26.3";

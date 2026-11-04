@@ -121,8 +121,10 @@ fn convert(json: &Value, ctx: &RegistryDecodeContext, direct: bool) -> Result<Ta
     let Tag::Compound(mut nbt) = Schema::Record(fields).convert(json, ctx)? else { return Err("Not a map".to_owned()) };
     if let Some(attributes) = json.get("attributes") {
         // direct: positional attributes only; network: syncable only
-        let (_, attr_nbt) = EnvironmentAttributeMap::parse(attributes, ctx, direct, !direct)?;
-        if attr_nbt.len() > 0 {
+        let (map, attr_nbt) = EnvironmentAttributeMap::parse(attributes, ctx, direct, !direct)?;
+        // the `EMPTY` default is compared with the value *before* the network codec's syncable filter, so a map whose
+        // attributes are all filtered away is still written (as `{}`)
+        if !map.is_empty() {
             nbt.put("attributes", Tag::Compound(attr_nbt));
         }
     }

@@ -219,8 +219,7 @@ impl Pack {
     pub fn read_pack_metadata(location: &PackLocationInfo, resources: &dyn ResourcesSupplier, current: PackFormat, ty: PackType) -> Option<PackMetadata> {
         let pack = resources.open_metadata(location);
         let result = (|| -> Result<Option<PackMetadata>, MetadataError> {
-            let metadata = pack.metadata()?;
-            let meta = match metadata.get("pack", |v| PackMetadataSection::decode(v, ty)) {
+            let meta = match pack.metadata().and_then(|m| m.get("pack", |v| PackMetadataSection::decode(v, ty))) {
                 Ok(meta) => meta,
                 Err(MetadataError::Json(e)) => {
                     warn_with_throwable("Error reading pack metadata, attempting fallback type", "com.google.gson.JsonParseException", &e);

@@ -9,6 +9,7 @@ pub mod damage_type;
 pub mod dimension_type;
 pub mod int_provider;
 pub mod level_stem;
+pub mod network;
 pub mod worldgen;
 
 use serde_json::Value;
