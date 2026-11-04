@@ -48,6 +48,27 @@ pub mod spring_feature;
 pub mod stepped_column_cluster_feature;
 pub mod weighted_placed_feature;
 pub mod weighted_random_selector_feature;
+pub mod abstract_huge_mushroom_feature;
+pub mod bamboo_feature;
+pub mod block_column_feature;
+pub mod block_pile_feature;
+pub mod blue_ice_feature;
+pub mod coral_claw_feature;
+pub mod coral_tree_feature;
+pub mod delta_feature;
+pub mod huge_brown_mushroom_feature;
+pub mod huge_fungus_feature;
+pub mod huge_red_mushroom_feature;
+pub mod overlay_feature;
+pub mod projected_random_patchy_square;
+pub mod random_neighbor_spread_feature;
+pub mod root_system_feature;
+pub mod sequence_feature;
+pub mod snow_and_freeze_feature;
+pub mod underwater_magma_feature;
+pub mod vegetation_patch_feature;
+pub mod void_start_platform_feature;
+pub mod waterlogged_vegetation_patch_feature;
 
 /// `Feature`.
 pub trait Feature: Send + Sync {

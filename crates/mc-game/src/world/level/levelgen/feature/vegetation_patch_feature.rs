@@ -13,7 +13,6 @@ use crate::world::level::levelgen::placement::cave_surface::CaveSurface;
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::stateproviders::BlockStateProvider;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;

@@ -5,7 +5,6 @@ use crate::world::level::biome_ext::{should_freeze_checked, should_snow};
 use crate::world::level::levelgen::codec::TypeEntry;
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

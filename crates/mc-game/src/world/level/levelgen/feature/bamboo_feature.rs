@@ -6,7 +6,6 @@ use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

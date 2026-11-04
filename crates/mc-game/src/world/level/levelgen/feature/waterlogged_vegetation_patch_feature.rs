@@ -8,7 +8,7 @@ use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::java_util::JavaHashSet;
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use crate::world::level::{BlockGetter};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

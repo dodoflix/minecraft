@@ -11,7 +11,7 @@ use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::stateproviders::BlockStateProvider;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use crate::world::level::material::FluidStateExt;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::{LevelReader};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

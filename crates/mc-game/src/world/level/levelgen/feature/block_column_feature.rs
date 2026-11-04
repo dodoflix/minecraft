@@ -1,7 +1,6 @@
 //! `BlockColumnFeature`.
 
 use super::{FEATURE_TYPES, Feature};
-use crate::world::level::LevelAccessor;
 use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
 use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_bool, parse_direction, parse_list};
 use crate::world::level::levelgen::env::GenEnv;

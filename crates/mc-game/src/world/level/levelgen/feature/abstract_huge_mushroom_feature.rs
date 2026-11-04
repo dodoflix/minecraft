@@ -5,7 +5,7 @@ use crate::world::level::levelgen::blockpredicates::BlockPredicate;
 use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::stateproviders::BlockStateProvider;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use crate::world::level::{LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
