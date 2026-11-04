@@ -62,6 +62,9 @@ pub struct ServerPlayer {
     pub player: PlayerData,
     /// `None` for a player whose connection is gone / test players.
     pub connection: Option<ConnectionSender>,
+    /// `connection` in vanilla (`ServerGamePacketListenerImpl`): the play listener state; `connection` above is its
+    /// send handle. Set by `PlayerList.placeNewPlayer`.
+    pub listener: Option<crate::server::network::game_listener::ServerGamePacketListenerImpl>,
     /// The player list's view of this player (`None` until `placeNewPlayer` gives it a connection).
     pub handle: Option<crate::server::players::PlayerHandle>,
     pub game_mode: ServerPlayerGameMode,
@@ -152,6 +155,7 @@ impl ServerPlayer {
             recipe_book: None,
             levitation_start_pos: None,
             levitation_start_time: 0,
+            listener: None,
             disconnected: false,
             requested_view_distance: 2,
             language: "en_us".into(),
