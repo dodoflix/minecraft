@@ -287,7 +287,12 @@ impl<T: RegistryId> RegistrySet<T> {
     pub fn decode_stream(input: &mut &[u8]) -> DecodeResult<RegistrySet<T>> {
         let count = i64::from(read_varint(input)?) - 1;
         if count == -1 {
-            return Identifier::decode(input).map(RegistrySet::Tag);
+            // `registry.get(TagKey).orElseThrow()`
+            let tag = Identifier::decode(input)?;
+            if !crate::registry_context::get().tag_exists(T::registry().name(), &tag) {
+                return Err(DecodeError::msg("No value present"));
+            }
+            return Ok(RegistrySet::Tag(tag));
         }
         if count < -1 {
             return Err(DecodeError::Message(format!("Illegal Capacity: {count}")));

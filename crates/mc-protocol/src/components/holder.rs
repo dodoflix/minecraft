@@ -226,7 +226,12 @@ pub fn encode_holder_set<T>(registry: &str, set: &HolderSet<T>, out: &mut Vec<u8
 pub fn decode_holder_set<T>(registry: &str, input: &mut &[u8]) -> DecodeResult<HolderSet<T>> {
     let count = i64::from(read_varint(input)?) - 1;
     if count == -1 {
-        return Identifier::decode(input).map(HolderSet::Named);
+        // `registry.get(TagKey).orElseThrow()`
+        let tag = Identifier::decode(input)?;
+        if !ctx::get().tag_exists(registry, &tag) {
+            return Err(DecodeError::msg("No value present"));
+        }
+        return Ok(HolderSet::Named(tag));
     }
     if count < -1 {
         return Err(DecodeError::Message(format!("Illegal Capacity: {count}")));
