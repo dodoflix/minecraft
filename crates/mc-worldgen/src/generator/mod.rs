@@ -3,6 +3,7 @@
 
 use std::sync::Arc;
 
+use mc_core::pos::block_pos::BlockPos;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::pos::quart_pos;
 use mc_world::chunk::{LevelHeight, ProtoChunk};
@@ -15,8 +16,10 @@ use crate::blending::Blender;
 use crate::densityfunction::SamplerContext;
 use crate::random_state::RandomState;
 
+mod noise_based;
 mod noise_column;
 
+pub use noise_based::{NoiseBasedChunkGenerator, create_fluid_picker as noise_based_fluid_picker};
 pub use noise_column::{BlockColumn, NoiseColumn};
 
 /// `ChunkAccess.carverBiome(supplier)` as used by `NoiseBasedChunkGenerator.generateCarvers` with a
@@ -80,6 +83,9 @@ pub trait ChunkGenerator: Send + Sync {
         let height_for_generation = chunk.get_height_accessor_for_generation();
         chunk.access.fill_biomes_from_noise(height_for_generation, |x, y, z| decorated(x, y, z));
     }
+
+    /// `addDebugScreenInfo(result, randomState, feetPos, samplerContext)` (F3 screen lines).
+    fn add_debug_screen_info(&self, _result: &mut Vec<String>, _random_state: &Arc<RandomState>, _feet_pos: BlockPos, _sampler_context: SamplerContext) {}
 
     /// `buildTerrain(chunk, blender, randomState, structureManager, biomeManager, carverBiomeRegion, possibleBiomes)`:
     /// fills the terrain, builds the surface and carves.

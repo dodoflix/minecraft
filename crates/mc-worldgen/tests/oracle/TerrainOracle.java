@@ -33,6 +33,11 @@ import net.minecraft.world.level.chunk.ProtoChunk;
 import net.minecraft.world.level.chunk.UpgradeData;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.Aquifer;
+import net.minecraft.world.level.levelgen.Beardifier;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+import net.minecraft.world.level.levelgen.structure.pools.JigsawJunction;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseChunk;
@@ -64,6 +69,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
  *   A  setting seed cx cz count hash                    Aquifer.computeSubstance sequence digest (+ scheduled flag)
  *   H  setting seed x z type height                     getBaseHeight
  *   K  setting seed x z hash                            getBaseColumn
+ *   E  setting seed cx cz variant <hashes>             doFill with a synthetic Beardifier (variant = TerrainAdjustment ordinal)
+ *   X  setting seed x y z text...                       addDebugScreenInfo lines
  *   O  setting seed cx cz x z                           getOrigin (only per setting/seed, cx cz = 0)  chunkX chunkZ
  */
 public class TerrainOracle {
@@ -227,6 +234,7 @@ public class TerrainOracle {
                // biomes
                ProtoChunk biomeChunk = new ProtoChunk(pos, UpgradeData.EMPTY, height, factory, null);
                gen.createBiomes(rs, Blender.empty(), sm, biomeChunk).join();
+               biomeChunk.setPersistedStatus(ChunkStatus.BIOMES);
                out.println("B " + id + " " + hex(biomeHash(biomeChunk)));
 
                // doFill only
@@ -256,6 +264,38 @@ public class TerrainOracle {
                out.println("F " + id + sectionHashes(full));
                printHeightmaps(out, "FH", id, full);
                out.println("FP " + id + " " + hex(postProcessingHash(full)));
+            }
+
+            // synthetic beardifier through doFill
+            if (name.equals("overworld") || name.equals("nether")) {
+               java.lang.reflect.Field pickerField = NoiseBasedChunkGenerator.class.getDeclaredField("globalFluidPicker");
+               pickerField.setAccessible(true);
+               Aquifer.FluidPicker picker = ((java.util.function.Supplier<Aquifer.FluidPicker>)pickerField.get(gen)).get();
+               for (int[] c : new int[][]{{0, 0}, {3, 7}, {-15, 22}}) {
+                  for (int variant = 0; variant < 5; variant++) {
+                     ChunkPos pos = new ChunkPos(c[0], c[1]);
+                     int bx = pos.getMinBlockX(), bz = pos.getMinBlockZ();
+                     BoundingBox box = new BoundingBox(bx + 2, 60, bz + 3, bx + 11, 75, bz + 18);
+                     JigsawJunction junction = new JigsawJunction(bx + 8, 66, bz + 20, 0, StructureTemplatePool.Projection.RIGID);
+                     BoundingBox affected = BoundingBox.encapsulating(box, new BoundingBox(new BlockPos(bx + 8, 66, bz + 20))).inflatedBy(24);
+                     Beardifier beardifier = new Beardifier(List.of(new Beardifier.Rigid(box, TerrainAdjustment.values()[variant], variant - 2)), List.of(junction), affected);
+                     ProtoChunk chunk = new ProtoChunk(pos, UpgradeData.EMPTY, height, factory, null);
+                     chunk.setPersistedStatus(ChunkStatus.BIOMES);
+                     NoiseSettings ns = settings.noiseSettings().clampToHeightAccessor(chunk.getHeightAccessorForGeneration());
+                     DensityVolume volume = new DensityVolume(16, ns.height(), 16, bx, ns.minY(), bz);
+                     try (NoiseChunk nc = new NoiseChunk(rs, beardifier, settings, picker, Blender.empty(), volume)) {
+                        doFill.invoke(gen, nc, chunk);
+                     }
+                     out.println("E " + key + " " + c[0] + " " + c[1] + " " + variant + sectionHashes(chunk));
+                  }
+               }
+            }
+
+            // debug screen info
+            for (int[] p : new int[][]{{0, 70, 0}, {-123, 20, 456}, {1000, -30, -77}}) {
+               List<String> lines = new ArrayList<>();
+               gen.addDebugScreenInfo(lines, rs, new BlockPos(p[0], p[1], p[2]), net.minecraft.world.level.levelgen.densityfunction.SamplerContext.builder().enableCaches().build());
+               for (String l : lines) out.println("X " + key + " " + p[0] + " " + p[1] + " " + p[2] + " " + l);
             }
 
             // aquifer digest
