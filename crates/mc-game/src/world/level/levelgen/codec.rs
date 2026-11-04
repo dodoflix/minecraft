@@ -27,12 +27,22 @@ pub fn decode_dispatch<T: ?Sized + 'static>(
     ctx: &crate::world::level::levelgen::registries::DecodeCtx<'_>,
     table: &[TypeEntry<T>],
 ) -> LoadResult<Arc<T>> {
+    decode_dispatch_on("type", value, ctx, table)
+}
+
+/// `byNameCodec().dispatch(typeKey, ...)` with a custom type field name (`predicate_type`, `processor_type`, ...).
+pub fn decode_dispatch_on<T: ?Sized + 'static>(
+    type_key: &str,
+    value: &Value,
+    ctx: &crate::world::level::levelgen::registries::DecodeCtx<'_>,
+    table: &[TypeEntry<T>],
+) -> LoadResult<Arc<T>> {
     let fields = Fields::new(value)?;
-    let ty = fields.required("type", parse_identifier)?;
+    let ty = fields.required(type_key, parse_identifier)?;
     let entry = (ty.namespace() == "minecraft").then(|| table.iter().find(|e| e.name == ty.path())).flatten();
     match entry {
         Some(entry) => (entry.decode)(&fields, ctx),
-        None => Err(LoadError::new(format!("Unknown registry key in dispatch: {ty}")).at("type")),
+        None => Err(LoadError::new(format!("Unknown registry key in dispatch: {ty}")).at(type_key)),
     }
 }
 
