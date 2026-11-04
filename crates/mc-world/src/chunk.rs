@@ -12,6 +12,7 @@ use crate::blending_data::BlendingData;
 use crate::heightmap::{Heightmap, HeightmapChunk, HeightmapMap, HeightmapType};
 use crate::palette::{BiomeId, PalettedContainerFactory};
 use crate::section::LevelChunkSection;
+use crate::sky_light_sources::ChunkSkyLightSources;
 use crate::status::ChunkStatus;
 use crate::ticks::{LevelChunkTicks, PackedTicks, ProtoChunkTicks, SerializableTickContainer};
 use crate::upgrade_data::UpgradeData;
@@ -77,13 +78,11 @@ impl LevelHeight {
     }
 }
 
-/// Callbacks into the light engine / sky-light sources for [`ProtoChunk::set_block_state`]
-/// (vanilla calls `lightEngine.updateSectionStatus/checkBlock` and `skyLightSources.update`).
+/// Callbacks into the light engine for [`ProtoChunk::set_block_state`] (vanilla calls
+/// `lightEngine.updateSectionStatus/checkBlock`; `skyLightSources.update` is done by the chunk itself).
 pub trait LightEngineHook {
     /// `LevelLightEngine.updateSectionStatus(pos, sectionEmpty)`.
     fn update_section_status(&mut self, pos: BlockPos, section_empty: bool);
-    /// `ChunkSkyLightSources.update(chunk, localX, y, localZ)`.
-    fn update_sky_light_sources(&mut self, local_x: i32, y: i32, local_z: i32);
     /// `LevelLightEngine.checkBlock(pos)`.
     fn check_block(&mut self, pos: BlockPos);
 }
@@ -196,6 +195,8 @@ pub struct ChunkAccess {
     pub structures: StructureData,
     /// `pendingBlockEntities` (raw block entity NBT keyed by position). Live instances are `mc-game`'s.
     pub block_entities: HashMap<BlockPos, CompoundTag>,
+    /// `skyLightSources`.
+    pub sky_light_sources: ChunkSkyLightSources,
     inhabited_time: i64,
     unsaved: bool,
     light_correct: bool,
@@ -232,6 +233,7 @@ impl ChunkAccess {
             blending_data,
             structures: StructureData::default(),
             block_entities: HashMap::new(),
+            sky_light_sources: ChunkSkyLightSources::new(level_height.min_y, level_height.height),
             inhabited_time,
             unsaved: false,
             light_correct: false,
@@ -248,6 +250,11 @@ impl ChunkAccess {
 
     pub fn view(&self, void_air_outside: bool) -> SectionsView<'_> {
         SectionsView { level_height: self.level_height, sections: &self.sections, void_air_outside }
+    }
+
+    /// `initializeLightSources()`.
+    pub fn initialize_light_sources(&mut self) {
+        self.sky_light_sources.fill_from(self.level_height.min_section_y(), &self.sections);
     }
 
     pub fn get_highest_filled_section_index(&self) -> i32 {
@@ -610,17 +617,20 @@ impl ProtoChunk {
         let (local_x, local_y, local_z) = (SectionPos::section_relative(x), SectionPos::section_relative(y), SectionPos::section_relative(z));
         let section = &mut self.access.sections[section_index];
         let old_state = section.set_block_state(local_x, local_y, local_z, state);
-        if self.status.is_or_after(ChunkStatus::InitializeLight)
-            && self.light_engine_attached
-            && let Some(light) = light
-        {
+        if self.status.is_or_after(ChunkStatus::InitializeLight) && self.light_engine_attached {
             let is_empty = section.has_only_air();
-            if is_empty != was_empty {
+            let mut light = light;
+            if is_empty != was_empty
+                && let Some(light) = light.as_deref_mut()
+            {
                 light.update_section_status(pos, is_empty);
             }
             if has_different_light_properties(old_state, state) {
-                light.update_sky_light_sources(local_x, y, local_z);
-                light.check_block(pos);
+                let view = SectionsView { level_height: self.access.level_height, sections: &self.access.sections, void_air_outside: true };
+                self.access.sky_light_sources.update(&view, local_x, y, local_z);
+                if let Some(light) = light {
+                    light.check_block(pos);
+                }
             }
         }
 
@@ -759,6 +769,7 @@ impl LevelChunk {
                 chunk.access.set_heightmap(false, *ty, heightmap.get_raw_data());
             }
         }
+        chunk.access.sky_light_sources = p.sky_light_sources;
         chunk.access.set_light_correct(light_correct);
         chunk.access.mark_unsaved();
         chunk
@@ -819,11 +830,15 @@ impl LevelChunk {
                 h.update(local_x, y, local_z, state, &view);
             }
         }
+        let light_properties_changed = has_different_light_properties(old_state, state);
+        if light_properties_changed {
+            self.access.sky_light_sources.update(&view, local_x, y, local_z);
+        }
         Some(RawSetBlock {
             old_state,
             section_was_empty: was_empty,
             section_is_empty: self.access.sections[index].has_only_air(),
-            light_properties_changed: has_different_light_properties(old_state, state),
+            light_properties_changed,
         })
     }
 

@@ -5,3 +5,9 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+mc-core = { path = "../mc-core" }
+mc-data = { path = "../mc-data" }
+mc-world = { path = "../mc-world" }
+
+[dev-dependencies]
+mc-nbt = { path = "../mc-nbt" }

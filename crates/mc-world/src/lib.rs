@@ -17,3 +17,4 @@ pub mod section;
 pub mod chunk;
 pub mod chunk_packet;
 pub mod serial;
+pub mod sky_light_sources;

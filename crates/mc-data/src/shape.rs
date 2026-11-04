@@ -54,6 +54,10 @@ impl ShapeId {
         self.0 as u32
     }
 
+    pub fn from_id(id: u32) -> Option<ShapeId> {
+        ((id as usize) < SHAPES.len()).then_some(ShapeId(id as u16))
+    }
+
     pub fn data(self) -> &'static ShapeData {
         &SHAPES[self.0 as usize]
     }
