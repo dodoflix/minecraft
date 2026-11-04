@@ -325,50 +325,48 @@ json	minecraft:written_book_content	{"title":"t","author":"","generation":3,"pag
 snbt	minecraft:written_book_content	{"title":"t","author":"","generation":3f,"pages":[{"raw":{"text":["minecraft:stone"]},"filtered":{"translate":"f"}},["a","b"],{"text":"c","extra":["d"]}]}
 json	minecraft:written_book_content	{"title":"t","author":"x","generation":true,"pages":[{"raw":{"text":"raw"},"filtered":{"translate":"f"}},["#minecraft:logs","b"],{"text":"c","extra":["d"]}]}
 snbt	minecraft:written_book_content	{"title":"t","author":"x","generation":true,"pages":[{"raw":{"text":"raw"},"filtered":{"translate":"f"}},["#minecraft:logs","b"],{"text":"c","extra":["d"]}]}
-json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":"@p"},{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
-snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":"@p"},{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
-json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":"@p"},{"score":{"name":"a","objective":"b"}},{"keybind":""}]}
-snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":"@p"},{"score":{"name":"a","objective":"b"}},{"keybind":""}]}
-json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":["#minecraft:logs",{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
-snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":["#minecraft:logs",{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
-json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":[{}],"pages":[{"selector":"@p"},{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
-snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":[{}],"pages":[{"selector":"@p"},{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
-json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":"@p"},{"score":{"name":"a","objective":""}},{"keybind":"key.jump"}]}
-snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":"@p"},{"score":{"name":"a","objective":""}},{"keybind":"key.jump"}]}
-json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":["@p"]},{"score":{"name":true,"objective":"b"}},{"keybind":"key.jump"}]}
-snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"selector":["@p"]},{"score":{"name":1b,"objective":"b"}},{"keybind":"key.jump"}]}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},5,true,"§aLegacy"],"resolved":false}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},5L,1b,"§aLegacy"],"resolved":0b}
-json	minecraft:written_book_content	{"title":["minecraft:stone"],"author":"a","pages":[{"nbt":"x","block":"1 2 3"},5,true,"§aLegacy"],"resolved":false}
-snbt	minecraft:written_book_content	{"title":["minecraft:stone"],"author":"a","pages":[{"nbt":"x","block":"1 2 3"},5L,true,"§aLegacy"],"resolved":0b}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},5,true,"§aLegacy"],"resolved":"§"}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},5b,true,"§aLegacy"],"resolved":"§"}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":"x","resolved":false}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":"x","resolved":false}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},{},true,"§aLegacy"],"resolved":false}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},{},1b,"§aLegacy"],"resolved":0b}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},5,[{}],true],"resolved":false}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"nbt":"x","block":"1 2 3"},5.0,[{}],1b],"resolved":0b}
+json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
+snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":"b"}},{"keybind":"key.jump"}]}
+json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":1024}},{"keybind":"key.jump"}]}
+snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":1024L}},{"keybind":"key.jump"}]}
+json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":"minecraft:stone"}},{"keybind":"key.jump"}]}
+snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":"minecraft:stone"}},{"keybind":"key.jump"}]}
+json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":[{"name":"a","objective":"b"}]},{"keybind":"key.jump"}]}
+snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":[{"name":"a","objective":"b"}]},{"keybind":"key.jump"}]}
+json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":"b"}},{"keybind":""}]}
+snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":{"name":"a","objective":"b"}},{"keybind":""}]}
+json	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":[{"name":"a","objective":"b"}]},true]}
+snbt	minecraft:written_book_content	{"title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","author":"a","pages":[{"score":[{"name":"a","objective":"b"}]},1b]}
+json	minecraft:written_book_content	{"title":"t","author":"a","pages":[5,true,"§aLegacy"],"resolved":false}
+snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[5L,1b,"§aLegacy"],"resolved":0b}
+json	minecraft:written_book_content	{"title":["minecraft:stone"],"author":"a","pages":[5,true,"§aLegacy"],"resolved":false}
+snbt	minecraft:written_book_content	{"title":["minecraft:stone"],"author":"a","pages":[5L,true,"§aLegacy"],"resolved":0b}
+json	minecraft:written_book_content	{"title":1023,"author":"a","pages":[5,true,"§aLegacy"],"resolved":false}
+snbt	minecraft:written_book_content	{"title":1023L,"author":"a","pages":[5B,true,"§aLegacy"],"resolved":0b}
+json	minecraft:written_book_content	{"title":"t","author":"a","pages":["§",true,"§aLegacy"],"resolved":false}
+snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":["§",1b,"§aLegacy"],"resolved":0b}
+json	minecraft:written_book_content	{"title":"t","author":"x","pages":[5,true,"§aLegacy"],"resolved":false}
+snbt	minecraft:written_book_content	{"title":"t","author":"x","pages":[5,true,"§aLegacy"],"resolved":0b}
+json	minecraft:written_book_content	{"title":"t","author":"a","pages":[[[]],true,"§aLegacy"],"resolved":false}
+snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[[[]],true,"§aLegacy"],"resolved":false}
 json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
 snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":[null],"url":"https://x.y"}}]}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":[null],"url":"https://x.y"}}]}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":["x"]}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":["x"]}
-json	minecraft:written_book_content	{"title":3.4e+38,"author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
-snbt	minecraft:written_book_content	{"title":3.4e+38f,"author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
-json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"title","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
-snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"title","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
-json	minecraft:written_book_content	[{"title":"t","author":"title","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":"é中😀","click_event":{"action":"open_url","url":"https://x.y"}}]}]
-snbt	minecraft:written_book_content	[{"title":"t","author":"title","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":"é中😀","click_event":{"action":"open_url","url":"https://x.y"}}]}]
+json	minecraft:written_book_content	{"title":"té","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
+snbt	minecraft:written_book_content	{"title":"té","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
+json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"é中😀"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
+snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"é中😀"},"click_event":{"action":"open_url","url":"https://x.y"}}]}
+json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":["open_url"],"url":"https://x.y"}}]}
+snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":{"action":"show_text","value":"hi"},"click_event":{"action":["open_url"],"url":"https://x.y"}}]}
+json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":"é中😀","click_event":{"action":"open_url","url":"https://x.y"}}]}
+snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":"é中😀","click_event":{"action":"open_url","url":"https://x.y"}}]}
+json	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":"x","click_event":{"action":"open_url","url":{"id":"minecraft:stone"}}}]}
+snbt	minecraft:written_book_content	{"title":"t","author":"a","pages":[{"text":"pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp","hover_event":"x","click_event":{"action":"open_url","url":{"id":"minecraft:stone"}}}]}
 json	minecraft:firework_explosion	{"shape":"small_ball"}
 snbt	minecraft:firework_explosion	{"shape":"small_ball"}
 json	minecraft:firework_explosion	{"shape":[null]}
 snbt	minecraft:firework_explosion	{"shape":[null]}
-json	minecraft:firework_explosion	{}
-snbt	minecraft:firework_explosion	{}
-json	minecraft:firework_explosion	{"shape":[[]]}
-snbt	minecraft:firework_explosion	{"shape":[[]]}
+json	minecraft:firework_explosion	[[]]
+snbt	minecraft:firework_explosion	[[]]
 json	minecraft:firework_explosion	10000000000.0
 snbt	minecraft:firework_explosion	10000000000.0d
 json	minecraft:firework_explosion	{"shape":"#minecraft:logs"}

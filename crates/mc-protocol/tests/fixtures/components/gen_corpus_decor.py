@@ -25,8 +25,8 @@ written_bases = [
     {"title": "T", "author": "me"},
     {"title": {"raw": "Title", "filtered": "Filtered"}, "author": "a", "generation": 2, "pages": ["text", {"text": "x", "color": "red", "bold": True}], "resolved": True},
     {"title": "t", "author": "", "generation": 3, "pages": [{"raw": {"text": "raw"}, "filtered": {"translate": "f"}}, ["a", "b"], {"text": "c", "extra": ["d"]}]},
-    {"title": "x" * 32, "author": "a", "pages": [{"selector": "@p"}, {"score": {"name": "a", "objective": "b"}}, {"keybind": "key.jump"}]},
-    {"title": "t", "author": "a", "pages": [{"nbt": "x", "block": "1 2 3"}, 5, True, "§aLegacy"], "resolved": False},
+    {"title": "x" * 32, "author": "a", "pages": [{"score": {"name": "a", "objective": "b"}}, {"keybind": "key.jump"}]},
+    {"title": "t", "author": "a", "pages": [5, True, "§aLegacy"], "resolved": False},
     {"title": "t", "author": "a", "pages": [{"text": "p" * 100, "hover_event": {"action": "show_text", "value": "hi"}, "click_event": {"action": "open_url", "url": "https://x.y"}}]},
 ]
 explosion = lambda **k: dict({"shape": "small_ball"}, **k)

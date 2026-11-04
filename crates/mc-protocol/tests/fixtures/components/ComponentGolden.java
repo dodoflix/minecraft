@@ -208,6 +208,16 @@ public class ComponentGolden {
       }
    }
 
+   /** Modified UTF-8 (NBT strings) can decode to unpaired surrogates, which a Rust `String` cannot hold: such records are dropped. */
+   static boolean hasLoneSurrogate(String l) {
+      for (int i = 0; i < l.length(); i++) {
+         char c = l.charAt(i);
+         if (Character.isHighSurrogate(c) && i + 1 < l.length() && Character.isLowSurrogate(l.charAt(i + 1))) { i++; continue; }
+         if (Character.isSurrogate(c)) return true;
+      }
+      return false;
+   }
+
    public static void main(String[] args) throws Exception {
       access = extractor.Setup.bootstrap();
       jsonOps = access.createSerializationContext(JsonOps.INSTANCE);
@@ -234,7 +244,7 @@ public class ComponentGolden {
          if (f.length < 3) continue;
          mutations.clear();
          String r = process(f[0], f[1], f[2]);
-         out.append(f[0]).append('\t').append(f[1]).append('\t').append(f[2]).append('\t').append(r).append('\n');
+         if (!hasLoneSurrogate(r)) out.append(f[0]).append('\t').append(f[1]).append('\t').append(f[2]).append('\t').append(r).append('\n');
          if (!mutations.isEmpty()) {
             byte[] orig = unhex(mutations.get(0));
             List<byte[]> variants = new ArrayList<>();
@@ -256,7 +266,7 @@ public class ComponentGolden {
                } catch (Throwable t) {
                   rr = "ERR\t" + String.valueOf(t.getMessage()).replace('\t', ' ').replace('\n', ' ');
                }
-               out.append("wire\t").append(f[1]).append('\t').append(hv).append('\t').append(rr).append('\n');
+               if (!hasLoneSurrogate(rr)) out.append("wire\t").append(f[1]).append('\t').append(hv).append('\t').append(rr).append('\n');
             }
          }
       }
