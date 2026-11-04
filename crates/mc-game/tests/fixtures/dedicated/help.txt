@@ -1,0 +1,18 @@
+Option                 Description                                         
+------                 -----------                                         
+--bonusChest                                                               
+--demo                                                                     
+--eraseCache                                                               
+--forceUpgrade                                                             
+--help                                                                     
+--initSettings         Initializes 'server.properties' and 'eula.txt', then
+                         quits                                             
+--jfrProfile                                                               
+--nogui                                                                    
+--pidFile <Path>                                                           
+--port <Integer>       (default: -1)                                       
+--recreateRegionFiles                                                      
+--safeMode             Loads level with vanilla datapack only              
+--serverId <String>                                                        
+--universe <String>    (default: .)                                        
+--world <String>                                                           

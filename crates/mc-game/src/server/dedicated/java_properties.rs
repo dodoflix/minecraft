@@ -3,7 +3,7 @@
 
 use std::collections::HashMap;
 
-use chrono::{Datelike, Local, Timelike};
+use chrono::{Datelike, Local, Offset, Timelike};
 
 /// Platform `line.separator` as written by `BufferedWriter.newLine()`.
 const LINE_SEP: &str = if cfg!(windows) { "\r\n" } else { "\n" };
