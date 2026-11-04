@@ -132,3 +132,7 @@ Imperative, lowercase summary, no trailing period; body explains why when non-ob
 7. Keep `STATUS.md` updated with what your slice covers and what is known missing.
 8. **Pace (user constraint: usage limits).** Do not spawn sub-agents unless your task explicitly allows it. No
    polling loops. Read only the vanilla ranges you need; run targeted tests while iterating and the full suite once.
+9. **Java gotchas that leak into observable output:** `Math.round` is `floor(x + 0.5)` (Rust `round` differs at
+   .5); `Double/Float.toString` → `mc_core::math::java::{java_double_to_string, java_float_to_string}` (never `{}`);
+   `String.hashCode` → `mc_core::math::java`; `Mth.sin/cos` use the lookup table; Java `HashMap`/`HashSet`
+   iteration order can be observable (vanilla code that iterates them must be reproduced, `LinkedHashMap` = insertion order).
