@@ -130,8 +130,9 @@ Imperative, lowercase summary, no trailing period; body explains why when non-ob
    network/disk input — malformed input must produce the same outcome as vanilla (usually a
    disconnect with vanilla's message).
 7. Keep `STATUS.md` updated with what your slice covers and what is known missing.
-8. **Pace (user constraint: usage limits).** Do not spawn sub-agents unless your task explicitly allows it. No
-   polling loops. Read only the vanilla ranges you need; run targeted tests while iterating and the full suite once.
+8. **Pace (user constraint: usage limits).** At most 1–2 top-level scopes run at a time; helper sub-agents
+   inside a scope are fine. No polling loops. Read only the vanilla ranges you need; run targeted tests while
+   iterating and the full suite once. Paused scopes leave a committed `RESUME-<Name>.md` on their branch.
 9. **Java gotchas that leak into observable output:** `Math.round` is `floor(x + 0.5)` (Rust `round` differs at
    .5); `Double/Float.toString` → `mc_core::math::java::{java_double_to_string, java_float_to_string}` (never `{}`);
    `String.hashCode` → `mc_core::math::java`; `Mth.sin/cos` use the lookup table; Java `HashMap`/`HashSet`
