@@ -15,6 +15,7 @@ pub mod decoration;
 pub mod env;
 pub mod feature;
 pub mod gen_level;
+pub mod generation_step;
 pub mod holder;
 pub mod hooks;
 pub mod placement;

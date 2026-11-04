@@ -3,6 +3,7 @@
 //! `getBiomeSource()`), the `RandomState`, the registries and the seed. One per dimension, shared by all worldgen threads.
 
 use super::registries::GenRegistries;
+use super::structure::registries::{StartCache, StructureRegistries};
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_world::chunk::LevelHeight;
@@ -22,6 +23,10 @@ pub struct GenEnv {
     pub random_state: Arc<RandomState>,
     pub biomes: Arc<BiomeRegistry>,
     pub registries: Arc<GenRegistries>,
+    /// The `worldgen/structure` registry.
+    pub structures: Arc<StructureRegistries>,
+    /// Parsed structure starts of the level's chunks (see [`StartCache`]).
+    pub start_cache: StartCache,
     /// `WorldOptions.generateStructures()`.
     pub generate_structures: bool,
     pub level_height: LevelHeight,
