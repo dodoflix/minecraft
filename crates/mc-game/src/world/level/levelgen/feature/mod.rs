@@ -103,3 +103,5 @@ impl Feature for NoOpFeature {
 
 #[linkme::distributed_slice(FEATURE_TYPES)]
 static NO_OP: TypeEntry<dyn Feature> = TypeEntry { name: "no_op", decode: |_, _| Ok(Arc::new(NoOpFeature)) };
+
+pub mod tree;
