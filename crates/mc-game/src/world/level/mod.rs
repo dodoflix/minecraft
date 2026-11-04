@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level`.
 pub mod block;
+pub mod chunk;
 pub mod collision;
 pub mod entity;
 pub mod flags;
@@ -11,6 +12,7 @@ pub mod precipitation;
 pub mod redstone;
 pub mod saveddata;
 pub mod shapes;
+pub mod ticket_storage;
 
 pub use level_access::{BlockGetter, LevelAccessor, LevelReader};
 pub use mc_world::chunk::LevelHeight;

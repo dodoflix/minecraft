@@ -55,6 +55,10 @@ pub trait BlockEntity: Any {
     fn get_update_tag(&self) -> CompoundTag {
         CompoundTag::new()
     }
+    /// `getUpdatePacket()`: the `ClientboundBlockEntityDataPacket` for clients (`null` by default).
+    fn get_update_packet(&self) -> Option<mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket> {
+        None
+    }
     /// Whether this type has a server ticker (`getTicker`); the level calls [`BlockEntity::server_tick`] each tick if so.
     fn is_ticking(&self) -> bool {
         false

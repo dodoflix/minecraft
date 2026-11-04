@@ -101,7 +101,7 @@ mod tests {
 
     #[test]
     fn plain_entity_round_trips_nbt() {
-        let level = ServerLevel::new(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
+        let level = ServerLevel::detached(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
         let tag = pig_tag();
         let loaded = factory::load_entities_recursive(std::slice::from_ref(&tag), &level, mc_data::enums::EntitySpawnReason::Load);
         assert_eq!(loaded.len(), 1);
@@ -112,7 +112,7 @@ mod tests {
 
     #[test]
     fn unknown_id_and_player_are_skipped() {
-        let level = ServerLevel::new(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
+        let level = ServerLevel::detached(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
         let mut bad = pig_tag();
         bad.put_string("id", "minecraft:nope");
         let mut player = pig_tag();

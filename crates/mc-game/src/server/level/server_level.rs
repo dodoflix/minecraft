@@ -1,7 +1,65 @@
-//! `ServerLevel`. Skeleton: the LevelAgent slice grows this struct (chunk source, tickets, entity storage, ticks).
+//! `ServerLevel`: the structure of a dimension's level and its chunk handling (construction, chunk source, applying the
+//! chunk map's events, blocking chunk access, saving and closing). Other slices add fields (entity manager, tick state)
+//! and their own `impl ServerLevel` blocks in their modules.
+
+use super::chunk_light::{ChunkLightEngine, UnlitLightEngine};
+use super::chunk_map::{ChunkMapEvent, ChunkMapParams};
+use super::server_chunk_cache::{ChunkFuture, ServerChunkCache};
+use super::world_gen::{ChunkGeneratorBackend, WorldGenContext, WorldGenRegion};
+use super::{FullChunkStatus, Ticket, TicketType};
+use crate::server::shared::ServerShared;
+use crate::world::block_entity::BlockEntity;
 use crate::world::entity::EntityId;
-use crate::world::level::DimensionKey;
-use crate::world::level::entity::PersistentEntitySectionManager;
+use crate::world::level::chunk::LevelChunk;
+use crate::world::level::entity::{PersistentEntitySectionManager, Visibility};
+use crate::world::level::ticket_storage::TicketStorage;
+use crate::world::level::{BlockGetter, DimensionKey, LevelHeight, LevelReader, LightLayer};
+use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
+use mc_data::block::{Block, BlockState};
+use mc_data::fluid::FluidState;
+use mc_world::chunk::ProtoChunk;
+use mc_world::heightmap::HeightmapType;
+use mc_world::palette::PalettedContainerFactory;
+use mc_world::status::ChunkStatus;
+use std::path::PathBuf;
+use std::sync::Arc;
+use std::time::Duration;
+
+/// Hooks for the per-tick chunk work that belongs to other slices (`ServerLevel.tickChunk`, natural spawning, custom
+/// spawners). `None` = not provided (that part of `ServerChunkCache.tickChunks` is skipped).
+#[derive(Default, Clone, Copy)]
+pub struct ChunkTickHooks {
+    /// `tickSpawningChunk` for every spawning chunk, after the shuffle (given in the cache's collection order).
+    pub tick_spawning_chunks: Option<fn(&mut ServerLevel, Vec<ChunkPos>)>,
+    /// `ServerLevel.tickChunk(chunk, tickSpeed)`.
+    pub tick_chunk: Option<fn(&mut ServerLevel, ChunkPos, i32)>,
+    /// `ServerLevel.tickCustomSpawners(spawnEnemies)`.
+    pub tick_custom_spawners: Option<fn(&mut ServerLevel, bool)>,
+}
+
+/// Everything `ServerLevel` needs from the server when it is created (vanilla reads these from `MinecraftServer`,
+/// `LevelStem` and the storage access).
+pub struct ServerLevelParams {
+    pub shared: Arc<ServerShared>,
+    pub dimension: DimensionKey,
+    pub level_id: String,
+    /// `levelStorage.getDimensionPath(dimension)`.
+    pub dimension_dir: PathBuf,
+    pub level_height: LevelHeight,
+    pub sea_level: i32,
+    pub has_sky_light: bool,
+    pub factory: Arc<PalettedContainerFactory>,
+    pub generator: Arc<dyn ChunkGeneratorBackend>,
+    pub generate_structures: bool,
+    pub seed: i64,
+    pub is_known_structure: Arc<dyn Fn(&str) -> bool + Send + Sync>,
+    /// `None`: no light is computed ([`UnlitLightEngine`]) until the light engine is wired in.
+    pub light: Option<Box<dyn ChunkLightEngine>>,
+    pub view_distance: i32,
+    pub simulation_distance: i32,
+    pub sync_writes: bool,
+    pub is_debug: bool,
+}
 
 pub struct ServerLevel {
     pub dimension: DimensionKey,
@@ -9,10 +67,430 @@ pub struct ServerLevel {
     pub entity_manager: PersistentEntitySectionManager,
     /// `players`: ids of the players in this level, in join order.
     pub players: Vec<EntityId>,
+
+    /// `chunkSource`.
+    pub chunk_source: ServerChunkCache,
+    pub shared: Arc<ServerShared>,
+    /// `noSave`.
+    pub no_save: bool,
+    pub is_debug: bool,
+    sea_level: i32,
+    level_height: LevelHeight,
+    pub factory: Arc<PalettedContainerFactory>,
+    /// `Level.skyDarken` (maintained by the tick: `updateSkyBrightness`).
+    pub sky_darken: i32,
+    pub chunk_tick_hooks: ChunkTickHooks,
+    /// `Level.getGameTime()` mirror for saving chunks (set by the tick).
+    game_time: i64,
 }
 
 impl ServerLevel {
-    pub fn new(dimension: DimensionKey) -> Self {
-        Self { dimension, entity_manager: PersistentEntitySectionManager::new(None), players: Vec::new() }
+    /// `new ServerLevel(...)` for the chunk side: creates the chunk source over the dimension folder.
+    pub fn new(params: ServerLevelParams) -> Self {
+        let region_dir = params.dimension_dir.join("region");
+        let data_dir = params.dimension_dir.join("data");
+        let gen_context = Arc::new(WorldGenContext {
+            dimension: params.dimension.clone(),
+            level_height: params.level_height,
+            factory: params.factory.clone(),
+            generator: params.generator,
+            hooks: WorldGenContext::hooks_or_default(),
+            generate_structures: params.generate_structures,
+            seed: params.seed,
+        });
+        let chunk_params = ChunkMapParams {
+            dimension: params.dimension.clone(),
+            level_id: params.level_id,
+            region_dir,
+            level_height: params.level_height,
+            has_sky_light: params.has_sky_light,
+            factory: params.factory.clone(),
+            gen_context,
+            is_known_structure: params.is_known_structure,
+            light: params.light.unwrap_or_else(|| Box::new(UnlitLightEngine::default())),
+            sync_writes: params.sync_writes,
+            view_distance: params.view_distance,
+            tickets: TicketStorage::new(),
+        };
+        let chunk_source = ServerChunkCache::new(data_dir, chunk_params, params.simulation_distance);
+        Self {
+            dimension: params.dimension,
+            entity_manager: PersistentEntitySectionManager::new(None),
+            players: Vec::new(),
+            chunk_source,
+            shared: params.shared,
+            no_save: false,
+            is_debug: params.is_debug,
+            sea_level: params.sea_level,
+            level_height: params.level_height,
+            factory: params.factory,
+            sky_darken: 0,
+            chunk_tick_hooks: ChunkTickHooks::default(),
+            game_time: 0,
+        }
     }
+
+    /// A level over a fresh empty temporary directory with a void generator: for tests of code that needs a
+    /// `ServerLevel` but no real world.
+    pub fn detached(dimension: DimensionKey) -> Self {
+        static COUNTER: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
+        let dir = std::env::temp_dir().join(format!("mc-detached-level-{}-{}", std::process::id(), COUNTER.fetch_add(1, std::sync::atomic::Ordering::Relaxed)));
+        let (shared, _rx) = ServerShared::new();
+        let biomes = mc_world::palette::BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
+        Self::new(ServerLevelParams {
+            shared,
+            dimension,
+            level_id: "detached".to_string(),
+            dimension_dir: dir,
+            level_height: LevelHeight { min_y: -64, height: 384 },
+            sea_level: 63,
+            has_sky_light: true,
+            factory: Arc::new(PalettedContainerFactory::create(biomes).expect("plains registered")),
+            generator: Arc::new(VoidGenerator),
+            generate_structures: false,
+            seed: 0,
+            is_known_structure: Arc::new(|_| false),
+            light: None,
+            view_distance: 10,
+            simulation_distance: 10,
+            sync_writes: false,
+            is_debug: false,
+        })
+    }
+
+    pub fn chunk_source(&self) -> &ServerChunkCache {
+        &self.chunk_source
+    }
+
+    pub fn chunk_source_mut(&mut self) -> &mut ServerChunkCache {
+        &mut self.chunk_source
+    }
+
+    pub fn set_game_time(&mut self, game_time: i64) {
+        self.game_time = game_time;
+        self.chunk_source.chunk_map.game_time = game_time;
+    }
+
+    // ------------------------------------------------------------------ chunk events
+
+    /// Apply the chunk map's pending events (and everything they cascade into).
+    pub fn apply_chunk_events(&mut self) {
+        loop {
+            let events = self.chunk_source.take_events();
+            if events.is_empty() {
+                break;
+            }
+            for event in events {
+                self.apply_chunk_event(event);
+            }
+        }
+    }
+
+    fn apply_chunk_event(&mut self, event: ChunkMapEvent) {
+        match event {
+            ChunkMapEvent::FullStep(pos) => {
+                use super::chunk_holder::ChunkSlot;
+                let Some(slot) = self.chunk_source.chunk_map.take_chunk_for_full(pos) else { return };
+                let chunk = match slot {
+                    ChunkSlot::Proto(proto) => {
+                        // `postLoadProtoChunk`: legacy entity NBT of the proto chunk is loaded with the entity slice.
+                        Box::new(LevelChunk::from_proto(*proto, &self.factory))
+                    }
+                    ChunkSlot::Level(chunk) => chunk,
+                    other => {
+                        if let Some(h) = self.chunk_source.chunk_map.holders.holder_mut(pos.pack()) {
+                            h.slot = other;
+                        }
+                        return;
+                    }
+                };
+                let mut chunk = chunk;
+                chunk.data.set_loaded(true);
+                self.chunk_source.chunk_map.complete_full_step(pos, chunk);
+            }
+            ChunkMapEvent::StartTicking(pos) => {
+                // `postProcessGeneration(level)` and `startTickingChunk` belong to the LevelChunk/tick slice; the chunk
+                // map only needs to know the chunk is now ticking.
+                self.chunk_source.chunk_map.complete_ticking(pos);
+                self.chunk_source.after_chunk_ready_to_send();
+            }
+            ChunkMapEvent::FullStatusChanged(pos, status) => {
+                self.entity_manager.update_chunk_status(pos, Visibility::from_full_chunk_status(status));
+                self.process_entity_events();
+            }
+            ChunkMapEvent::Unload(chunk) => self.unload(chunk),
+            ChunkMapEvent::LegacyEntities(_pos, _tags) => {}
+            ChunkMapEvent::PlayerMovedSection(_id) => {}
+        }
+    }
+
+    /// `ServerLevel.unload(chunk)`.
+    fn unload(&mut self, mut chunk: Box<LevelChunk>) {
+        chunk.block_entities.clear();
+        drop(chunk);
+    }
+
+    // ------------------------------------------------------------------ polling / blocking access
+
+    /// `ServerChunkCache.pollTask()`: one unit of chunk work, with its events applied.
+    pub fn poll_chunk_task(&mut self) -> bool {
+        let did = self.chunk_source.poll_task();
+        self.apply_chunk_events();
+        did
+    }
+
+    /// `runDistanceManagerUpdates()` with events applied.
+    pub fn run_distance_manager_updates(&mut self) -> bool {
+        let updated = self.chunk_source.run_distance_manager_updates();
+        self.apply_chunk_events();
+        updated
+    }
+
+    /// `managedBlock(until)` on the chunk source: run chunk work until `until` holds (worker results arrive on their
+    /// own threads, so idle iterations sleep briefly).
+    pub fn block_on_chunks(&mut self, until: impl Fn(&ServerChunkCache) -> bool) {
+        while !until(&self.chunk_source) {
+            if !self.poll_chunk_task() {
+                std::thread::sleep(Duration::from_micros(200));
+            }
+        }
+    }
+
+    /// `getChunk(x, z, status, loadOrGenerate)` for `FULL`: loads/generates the chunk and waits for it.
+    pub fn chunk_blocking_mut(&mut self, x: i32, z: i32) -> &mut LevelChunk {
+        let future = self.chunk_source.get_chunk_future_main_thread(x, z, ChunkStatus::Full, true);
+        self.apply_chunk_events();
+        self.block_on_chunks(|cs| cs.future_result(future).is_some());
+        if self.chunk_source.future_result(future) != Some(true) {
+            panic!("Chunk not there when requested: {future:?}");
+        }
+        self.chunk_source.get_chunk_now_mut(x, z).expect("full chunk present")
+    }
+
+    /// `getChunk(x, z, targetStatus, loadOrGenerate)` for statuses below `FULL`: waits and returns the proto chunk.
+    pub fn proto_chunk_blocking(&mut self, x: i32, z: i32, status: ChunkStatus, load_or_generate: bool) -> Option<&ProtoChunk> {
+        assert!(status != ChunkStatus::Full, "use chunk_blocking_mut for FULL");
+        let future = self.chunk_source.get_chunk_future_main_thread(x, z, status, load_or_generate);
+        self.apply_chunk_events();
+        if future == ChunkFuture::Unloaded {
+            return None;
+        }
+        self.block_on_chunks(|cs| cs.future_result(future).is_some());
+        if self.chunk_source.future_result(future) != Some(true) {
+            return None;
+        }
+        self.chunk_source.proto_chunk(ChunkPos::pack_xz(x, z))
+    }
+
+    /// `getChunkNow(x, z)`.
+    pub fn chunk_now(&self, x: i32, z: i32) -> Option<&LevelChunk> {
+        self.chunk_source.get_chunk_now(x, z)
+    }
+
+    pub fn chunk_now_mut(&mut self, x: i32, z: i32) -> Option<&mut LevelChunk> {
+        self.chunk_source.get_chunk_now_mut(x, z)
+    }
+
+    /// `ServerChunkCache.blockChanged(pos)`.
+    pub fn block_changed(&mut self, pos: BlockPos) {
+        self.chunk_source.block_changed(pos);
+    }
+
+    /// `ChunkHolder.getFullStatus()` of the chunk, `Inaccessible` if there is no holder.
+    pub fn full_chunk_status(&self, cx: i32, cz: i32) -> FullChunkStatus {
+        self.chunk_source
+            .chunk_map
+            .get_visible_chunk_if_present(ChunkPos::pack_xz(cx, cz))
+            .map_or(FullChunkStatus::Inaccessible, |h| h.get_full_status())
+    }
+
+    /// The light engine (`getLightEngine()`).
+    pub fn light_engine(&self) -> &dyn ChunkLightEngine {
+        &*self.chunk_source.chunk_map.light
+    }
+
+    pub fn light_engine_mut(&mut self) -> &mut dyn ChunkLightEngine {
+        &mut *self.chunk_source.chunk_map.light
+    }
+
+    /// `addTicket`/`addRegionTicket` convenience used by commands, portals, pearls.
+    pub fn add_ticket(&mut self, ticket: Ticket, pos: ChunkPos) {
+        self.chunk_source.add_ticket(ticket, pos);
+    }
+
+    pub fn add_ticket_with_radius(&mut self, ty: TicketType, pos: ChunkPos, radius: i32) {
+        self.chunk_source.add_ticket_with_radius(ty, pos, radius);
+    }
+
+    // ------------------------------------------------------------------ ticking
+
+    /// `ServerChunkCache.tick(haveTime, tickChunks)`.
+    pub fn tick_chunk_source(&mut self, have_time: &dyn Fn() -> bool, tick_chunks: bool, runs_normally: bool) {
+        self.chunk_source.tick_pre(runs_normally, tick_chunks);
+        self.apply_chunk_events();
+        if tick_chunks {
+            self.tick_chunks(runs_normally);
+            self.tick_chunk_map();
+        }
+        self.chunk_source.tick_unload(have_time);
+        self.apply_chunk_events();
+    }
+
+    /// `ChunkMap.tick()`'s player tracking refresh (the entity tracking half is `entity_tracker`).
+    fn tick_chunk_map(&mut self) {
+        let ids: Vec<EntityId> = self.chunk_source.chunk_map.player_map.get_all_players().collect();
+        for id in ids {
+            self.chunk_source.chunk_map.update_chunk_tracking(id);
+        }
+    }
+
+    /// `ServerChunkCache.tickChunks()` (ordering): spawning chunks, ticking chunks, custom spawners, then broadcasts.
+    fn tick_chunks(&mut self, runs_normally: bool) {
+        if self.is_debug {
+            return;
+        }
+        if runs_normally {
+            let _ = self.chunk_source.chunk_map.distance_manager.get_natural_spawn_chunk_count();
+            let spawning: Vec<ChunkPos> = self.chunk_source.chunk_map.collect_spawning_chunks().into_iter().map(ChunkPos::unpack).collect();
+            if let Some(hook) = self.chunk_tick_hooks.tick_spawning_chunks {
+                hook(self, spawning);
+            }
+            let ticking: Vec<ChunkPos> = self.chunk_source.chunk_map.block_ticking_chunks().into_iter().map(ChunkPos::unpack).collect();
+            if let Some(hook) = self.chunk_tick_hooks.tick_chunk {
+                for pos in ticking {
+                    hook(self, pos, 3);
+                }
+            }
+            if let Some(hook) = self.chunk_tick_hooks.tick_custom_spawners {
+                let spawn_enemies = self.chunk_source.spawn_enemies();
+                hook(self, spawn_enemies);
+            }
+        }
+        self.chunk_source.broadcast_changed_chunks();
+    }
+
+    // ------------------------------------------------------------------ saving / closing
+
+    /// `ServerChunkCache.save(flushStorage)`.
+    pub fn save_chunks(&mut self, flush_storage: bool) {
+        self.run_distance_manager_updates();
+        if flush_storage {
+            let keys = self.chunk_source.chunk_map.collect_chunks_to_save();
+            loop {
+                let mut did_work = false;
+                for key in &keys {
+                    let key = *key;
+                    self.block_on_chunks(|cs| cs.chunk_map.is_ready_for_saving(key));
+                    if self.chunk_source.chunk_map.save_full_chunk_for_flush(key) {
+                        did_work = true;
+                    }
+                }
+                if !did_work {
+                    break;
+                }
+            }
+            self.chunk_source.chunk_map.process_unloads(&|| true);
+            self.apply_chunk_events();
+            self.chunk_source.chunk_map.synchronize(true);
+        } else {
+            self.chunk_source.chunk_map.save_all_chunks_periodic();
+        }
+        self.chunk_source.save_data_storage();
+    }
+
+    /// `ServerChunkCache.close()` / `ServerLevel.close()`.
+    pub fn close(&mut self) {
+        self.save_chunks(true);
+        self.chunk_source.chunk_map.close();
+    }
+}
+
+/// A generator that leaves chunks empty (void): used by [`ServerLevel::detached`].
+struct VoidGenerator;
+
+impl ChunkGeneratorBackend for VoidGenerator {
+    fn type_name_for_data_fixer(&self) -> Option<mc_core::ident::Identifier> {
+        None
+    }
+    fn create_biomes(&self, _chunk: &mut ProtoChunk, _region: &WorldGenRegion) {}
+    fn build_terrain(&self, _chunk: &mut ProtoChunk, _region: &WorldGenRegion) {}
+}
+
+// ---------------------------------------------------------------------- level access traits
+
+impl BlockGetter for ServerLevel {
+    fn get_block_state(&self, pos: BlockPos) -> BlockState {
+        if self.is_outside_build_height(pos.y()) {
+            return Block::VOID_AIR.default_state();
+        }
+        match self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
+            Some(chunk) => chunk.data.get_block_state(pos),
+            // Vanilla loads the chunk here; `&self` cannot, callers that need loading use `chunk_blocking_mut`.
+            None => Block::AIR.default_state(),
+        }
+    }
+
+    fn get_fluid_state(&self, pos: BlockPos) -> FluidState {
+        if self.is_outside_build_height(pos.y()) {
+            return FluidState::EMPTY;
+        }
+        match self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
+            Some(chunk) => chunk.data.get_fluid_state(pos.x(), pos.y(), pos.z()),
+            None => FluidState::EMPTY,
+        }
+    }
+
+    fn get_block_entity(&self, pos: BlockPos) -> Option<&dyn BlockEntity> {
+        self.chunk_now(pos.x() >> 4, pos.z() >> 4)?.block_entities.get(&pos).map(|b| &**b)
+    }
+
+    fn level_height(&self) -> LevelHeight {
+        self.level_height
+    }
+}
+
+impl LevelReader for ServerLevel {
+    fn has_chunk(&self, chunk_x: i32, chunk_z: i32) -> bool {
+        self.chunk_source.has_chunk(chunk_x, chunk_z)
+    }
+
+    fn get_height_at(&self, ty: HeightmapType, x: i32, z: i32) -> i32 {
+        if x >= -30_000_000 && z >= -30_000_000 && x < 30_000_000 && z < 30_000_000 {
+            if self.has_chunk(x >> 4, z >> 4) {
+                if let Some(chunk) = self.chunk_now(x >> 4, z >> 4) {
+                    if let Some(h) = chunk.data.access.heightmaps.get(&ty) {
+                        return h.get_first_available(x & 15, z & 15);
+                    }
+                }
+            }
+            self.get_min_y()
+        } else {
+            self.sea_level + 1
+        }
+    }
+
+    fn get_sea_level(&self) -> i32 {
+        self.sea_level
+    }
+
+    fn get_brightness(&self, layer: LightLayer, pos: BlockPos) -> i32 {
+        self.light_engine().get_light_value(layer == LightLayer::Sky, pos)
+    }
+
+    fn get_sky_darken(&self) -> i32 {
+        self.sky_darken
+    }
+
+    fn get_raw_brightness(&self, pos: BlockPos, sky_darkening: i32) -> i32 {
+        self.light_engine().get_raw_brightness(pos, sky_darkening)
+    }
+
+    fn can_see_sky(&self, pos: BlockPos) -> bool {
+        self.get_brightness(LightLayer::Sky, pos) >= 15
+    }
+}
+
+/// `SectionPos` helper for callers that hold a block position.
+pub fn section_of_block(pos: BlockPos) -> SectionPos {
+    SectionPos::of_block_pos(&pos)
 }
