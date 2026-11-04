@@ -6,7 +6,9 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{block_pos::BlockPos, chunk_pos::ChunkPos, vec3i::Vec3i};
 use mc_data::{Block, CustomStat, EntityType, Item};
 use mc_nbt::{CompoundTag, Tag};
-use mc_protocol::codec::{from_bytes, DecodeError, Either, RgbColor, VarInt, to_bytes};
+use mc_protocol::codec::{from_bytes, to_bytes, DecodeError, Either, Instant, RgbColor, VarInt};
+use mc_protocol::components::{values::{DAMAGE, MAX_STACK_SIZE}, DataComponentPatch, ItemStackTemplate};
+use mc_data::DataComponentType;
 use mc_protocol::{Decode, Encode, Packet};
 use mc_protocol::packets::play::*;
 use mc_text::{ChatFormatting, Component, FontDescription, Style, TranslatableArg};
@@ -452,6 +454,124 @@ fn waypoints(g: &Golden) {
     g.check("waypoint/named_azimuth", &named(WaypointOperation::Untrack, "n", &default, TrackedWaypointData::Azimuth(0.5)));
 }
 
+fn advancements(g: &Golden) {
+    let template = |n: &str, count| ItemStackTemplate::new(item(n), count, DataComponentPatch::empty()).unwrap();
+    let patch = DataComponentPatch::builder()
+        .set(MAX_STACK_SIZE, 16)
+        .set(DAMAGE, 7)
+        .remove(DataComponentType::by_name("max_damage").unwrap())
+        .build();
+    let tr = |key: &str| Component::translatable(key, vec![]);
+    let reqs = |r: &[&[&str]]| AdvancementRequirements {
+        requirements: r.iter().map(|c| c.iter().map(|s| s.to_string()).collect()).collect(),
+    };
+    let holder = |id_: &str, parent: Option<&str>, display, requirements, sends_telemetry_event| AdvancementHolder {
+        id: id(id_),
+        value: Advancement { parent: parent.map(id), display, requirements, sends_telemetry_event },
+    };
+    let root = holder(
+        "minecraft:story/root",
+        None,
+        Some(DisplayInfo {
+            icon: template("grass_block", 1),
+            title: tr("advancements.story.root.title"),
+            description: tr("advancements.story.root.description"),
+            background: Some(id("minecraft:gui/advancements/backgrounds/stone")),
+            advancement_type: AdvancementType::Task,
+            show_toast: true,
+            hidden: false,
+        }),
+        reqs(&[&["crafting_table"]]),
+        false,
+    );
+    let child_display = DisplayInfo {
+        icon: template("wooden_pickaxe", 1),
+        title: plain(),
+        description: styled(),
+        background: None,
+        advancement_type: AdvancementType::Challenge,
+        show_toast: false,
+        hidden: true,
+    };
+    let child = holder("minecraft:story/mine_stone", Some("minecraft:story/root"), Some(child_display.clone()), reqs(&[&["a", "b"], &["c"]]), true);
+    let hidden = holder("my_pack:x", Some("minecraft:story/root"), None, reqs(&[]), false);
+    let goal_icon = ItemStackTemplate::new(item("diamond"), 64, patch.clone()).unwrap();
+    let goal = holder(
+        "minecraft:story/goal",
+        Some("minecraft:story/root"),
+        Some(DisplayInfo {
+            icon: goal_icon.clone(),
+            title: styled(),
+            description: Component::empty(),
+            background: None,
+            advancement_type: AdvancementType::Goal,
+            show_toast: true,
+            hidden: false,
+        }),
+        reqs(&[&[]]),
+        true,
+    );
+    let all_flags = holder(
+        "minecraft:story/all_flags",
+        Some("minecraft:story/root"),
+        Some(DisplayInfo {
+            icon: template("stick", 2),
+            title: plain(),
+            description: plain(),
+            background: None,
+            advancement_type: AdvancementType::Task,
+            show_toast: true,
+            hidden: true,
+        }),
+        reqs(&[]),
+        false,
+    );
+    let pos = |advancement, x, y| PositionedAdvancement { advancement, x, y };
+    let packet = |should_reset, added, removed, progress, show_advancements| ClientboundUpdateAdvancementsPacket {
+        should_reset,
+        added,
+        removed,
+        progress,
+        show_advancements,
+    };
+    g.check("update_advancements/empty", &packet(false, vec![], vec![], vec![], false));
+    g.check("update_advancements/reset_show", &packet(true, vec![], vec![], vec![], true));
+    g.check("update_advancements/root", &packet(false, vec![pos(root.clone(), 0.0, 0.0)], vec![], vec![], true));
+    g.check("update_advancements/child", &packet(false, vec![pos(child.clone(), 1.5, -2.25)], vec![], vec![], false));
+    check_nan(g, "update_advancements/hidden", &packet(false, vec![pos(hidden, f32::NAN, f32::MAX)], vec![], vec![], false));
+    g.check(
+        "update_advancements/goal_all",
+        &packet(true, vec![pos(goal.clone(), 3.0, 4.0), pos(all_flags, -0.5, 1e-10)], vec![], vec![], true),
+    );
+    let removed = vec![id("minecraft:story/root"), id("my_pack:b/c"), id("minecraft:nether/x")];
+    let ts = Instant(1700000000123);
+    let crit = |name: &str, obtained| (name.to_string(), CriterionProgress { obtained });
+    let progress = vec![
+        (id("minecraft:story/root"), AdvancementProgress { criteria: vec![crit("crafting_table", Some(ts))] }),
+        (
+            id("minecraft:story/mine_stone"),
+            AdvancementProgress { criteria: vec![crit("a", Some(ts)), crit("b", None), crit("c", Some(Instant(-1)))] },
+        ),
+        (id("my_pack:empty"), AdvancementProgress::default()),
+        (
+            id("my_pack:big"),
+            AdvancementProgress { criteria: vec![crit(NON_BMP, Some(Instant(i64::MAX))), crit("z", Some(Instant(i64::MIN)))] },
+        ),
+    ];
+    g.check("update_advancements/removed", &packet(false, vec![], removed.clone(), vec![], false));
+    g.check("update_advancements/progress", &packet(false, vec![], vec![], progress.clone(), false));
+    g.check(
+        "update_advancements/everything",
+        &packet(true, vec![pos(root, 0.0, 0.0), pos(child, 1.0, 0.0), pos(goal, 2.0, 0.0)], removed, progress, true),
+    );
+    let many = (0..200)
+        .map(|j| pos(holder(&format!("big:adv{j}"), None, None, reqs(&[]), j % 2 == 0), j as f32, -j as f32))
+        .collect();
+    g.check("update_advancements/many", &packet(false, many, vec![], vec![], false));
+    g.check_value("display_info/standalone", &child_display);
+    g.check_value("item_stack_template/diamond_patch", &goal_icon);
+}
+
 #[test]
 fn golden() {
     let g = Golden::load("misc");
@@ -462,7 +582,7 @@ fn golden() {
     teams(&g);
     tag_queries(&g);
     waypoints(&g);
-    // update_advancements, display_info and item_stack_template are covered once ItemStackTemplate lands
+    advancements(&g);
     g.assert_all_used();
 }
 
@@ -545,8 +665,12 @@ fn enum_and_registry_ids() {
     assert_eq!(err::<ClientboundSetObjectivePacket>(&b), "No value with id 3");
     // stat type / value registry ids
     assert_eq!(err::<ClientboundAwardStatsPacket>(&[1, 9]), "No value with id 9");
-    assert_eq!(err::<ClientboundAwardStatsPacket>(&[1, 0, 0xff, 0x7f]), "No value with id 16383");
     assert_eq!(err::<ClientboundAwardStatsPacket>(&[1, 8, 0xff, 0x7f]), "No value with id 16383");
+    // defaulted registries (block, item, entity type) fall back to their default entry like `DefaultedRegistry.byId`
+    assert_eq!(
+        from_bytes::<ClientboundAwardStatsPacket>(&[1, 0, 0xff, 0x7f, 5]).unwrap().stats,
+        vec![(Stat::Mined(blk("air")), VarInt(5))]
+    );
     // waypoint type
     let mut b = to_bytes(&Either::<Uuid, String>::Left(u1()));
     b.extend(to_bytes(&WaypointIcon::null()));
