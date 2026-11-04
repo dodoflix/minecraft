@@ -390,7 +390,8 @@ impl ServerLevel {
             let ticking: Vec<ChunkPos> = self.chunk_source.chunk_map.block_ticking_chunks().into_iter().map(ChunkPos::unpack).collect();
             if let Some(hook) = self.chunk_tick_hooks.tick_chunk {
                 for pos in ticking {
-                    hook(self, pos, 3);
+                    let tick_speed = self.tick_state.rules.random_tick_speed;
+                    hook(self, pos, tick_speed);
                 }
             }
             if let Some(hook) = self.chunk_tick_hooks.tick_custom_spawners {

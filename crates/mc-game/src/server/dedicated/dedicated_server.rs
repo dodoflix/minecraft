@@ -529,15 +529,12 @@ impl MinecraftServer {
         Ok(())
     }
 
-    /// `handleConsoleInputs`: the console lines are executed as commands by the command system, which is not wired in
-    /// yet; until then they are consumed and reported.
+    /// `handleConsoleInputs`: every queued console line runs as a command of the server console source.
     pub fn handle_console_inputs(&mut self) {
         for line in self.dedicated.console_input.drain() {
-            if line.trim() == "stop" {
-                self.shared.halt();
-            } else {
-                log::warn!("Console command ignored (the command system is not available yet): {line}");
-            }
+            let source = self.create_command_source_stack();
+            let commands = self.commands.clone();
+            commands.perform_prefixed_command(self, source, &line);
         }
     }
 
@@ -547,6 +544,21 @@ impl MinecraftServer {
             connection.stop();
         }
     }
+    /// `createCommandSourceStack`: the console (`Server`, owner permissions, at the respawn position of the respawn
+    /// dimension).
+    pub fn create_command_source_stack(&self) -> crate::commands::CommandSourceStack {
+        let respawn = self.get_respawn_data();
+        let level = self.find_respawn_dimension();
+        crate::commands::CommandSourceStack::named(
+            Arc::new(crate::commands::console_command_source::ConsoleCommandSource),
+            mc_core::phys::Vec3::new(f64::from(respawn.pos.x()), f64::from(respawn.pos.y()), f64::from(respawn.pos.z())),
+            mc_core::phys::Vec2::ZERO,
+            level,
+            crate::server::permissions::LevelBasedPermissionSet::OWNER.into(),
+            mc_text::Component::literal("Server"),
+        )
+    }
+
 
     /// `onServerExit`.
     pub(in crate::server) fn on_server_exit(&mut self) {

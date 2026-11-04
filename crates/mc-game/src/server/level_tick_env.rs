@@ -45,6 +45,7 @@ impl LevelTickEnv for ServerTickEnv<'_> {
             advance_weather: rules.get(GameRules::ADVANCE_WEATHER),
             spawn_mobs: rules.get(GameRules::SPAWN_MOBS),
             max_snow_accumulation_height: rules.get(GameRules::MAX_SNOW_ACCUMULATION_HEIGHT),
+            random_tick_speed: rules.get(GameRules::RANDOM_TICK_SPEED),
         }
     }
 

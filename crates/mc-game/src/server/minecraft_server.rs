@@ -104,6 +104,8 @@ pub struct MinecraftServer {
     pub notification_manager: Arc<NotificationManager>,
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
     pub dedicated: DedicatedServer,
+    /// `getCommands()` (`resources.managers.getCommands()` in vanilla).
+    pub commands: Arc<crate::commands::Commands>,
     pub key_pair: Option<Arc<ServerKeyPair>>,
     /// `getConnection()`: the TCP listener and the live connections (`None` before `initServer` / after `stop`).
     pub connection: Option<super::network::ServerConnectionListener>,
@@ -201,6 +203,10 @@ impl MinecraftServer {
             notification_manager: init.notification_manager,
             name_to_id_cache: init.name_to_id_cache,
             dedicated: init.dedicated,
+            commands: Arc::new(crate::commands::Commands::new(
+                crate::commands::CommandSelection::Dedicated,
+                &crate::commands::CommandBuildContext::simple(Arc::new(crate::commands::command_build_context::StaticRegistries), mc_world::level_storage::FeatureFlagSet::VANILLA),
+            )),
             key_pair: None,
             connection: None,
             network_hooks: None,

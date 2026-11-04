@@ -41,6 +41,8 @@ pub struct LevelRules {
     pub spawn_mobs: bool,
     /// `MAX_SNOW_ACCUMULATION_HEIGHT`.
     pub max_snow_accumulation_height: i32,
+    /// `RANDOM_TICK_SPEED`.
+    pub random_tick_speed: i32,
 }
 
 /// `WeatherData` of the level (`rain_time`, `thunder_time`, ... as saved).
