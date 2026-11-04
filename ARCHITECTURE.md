@@ -92,11 +92,17 @@ Vanilla's gameplay code is one tightly coupled object graph, so it lives in one 
 
 ## Parallel workflow (from wave 2 on)
 
-Every agent works in its own git worktree on its own branch (`git worktree add ../mc-wt/<name> -b <name> main`),
-builds only there, then integrates: `git rebase main` (resolve conflicts, keep both sides' intent), build + test the
-crates it touched, and fast-forward main under a lock:
-`flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft merge --ff-only <name>` (retry rebase if main moved).
-Never force-push/reset main; never discard others' work.
+Every agent works in its own git worktree on its own branch:
+`git worktree add /home/dodo/Projects/mc-wt/<name> -b <name> main && ln -s ./ref /home/dodo/Projects/mc-wt/<name>/ref`
+(the `ref/` symlink is required: builds read `ref/extracted`, `ref/generated`, …), builds only there, then integrates:
+`git rebase main` (resolve conflicts, keep both sides' intent), build + test the crates it touched, and fast-forward
+main under a lock: `flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft merge --ff-only <name>` (retry
+rebase if main moved). Never force-push/reset main; never discard others' work.
+
+**Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
+`feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
+(e.g. `feat(protocol): add play packets`, `fix(worldgen): aquifer lava level`, `test(world): region differential`).
+Imperative, lowercase summary, no trailing period; body explains why when non-obvious.
 
 ## Conventions (all agents)
 
