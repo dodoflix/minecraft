@@ -6,6 +6,7 @@ use crate::commands::message::dynamic_translatable;
 use mc_brigadier::DynamicCommandExceptionType;
 use std::sync::LazyLock;
 
+pub mod blocks;
 pub mod coordinates;
 pub mod entity_anchor_argument;
 pub mod min_max_bounds;

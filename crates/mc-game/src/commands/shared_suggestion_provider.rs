@@ -108,6 +108,22 @@ pub fn filter_resources_prefixed<T>(
     }
 }
 
+/// `suggestResource(values, builder, prefix)` adding to a builder the caller keeps using.
+pub fn suggest_resource_prefixed_into(values: impl IntoIterator<Item = Identifier>, builder: &mut SuggestionsBuilder, prefix: &str) {
+    let contents = builder.get_remaining().to_lowercase();
+    filter_resources_prefixed(values, &contents, prefix, |t| t.clone(), |v| {
+        builder.suggest(format!("{prefix}{v}"));
+    });
+}
+
+/// `suggestResource(values, builder)` adding to a builder the caller keeps using.
+pub fn suggest_resource_into(values: impl IntoIterator<Item = Identifier>, builder: &mut SuggestionsBuilder) {
+    let contents = builder.get_remaining().to_lowercase();
+    filter_resources(values, &contents, |t| t.clone(), |v| {
+        builder.suggest(v.to_string());
+    });
+}
+
 /// `suggestResource(values, builder, prefix)`.
 pub fn suggest_resource_prefixed(values: impl IntoIterator<Item = Identifier>, mut builder: SuggestionsBuilder, prefix: &str) -> Suggestions {
     let contents = builder.get_remaining().to_lowercase();
