@@ -90,3 +90,5 @@ impl ArgumentType<CommandSourceStack> for EntityAnchorArgument {
         "EntityAnchorArgument".to_owned()
     }
 }
+
+crate::register_argument_type!(EntityAnchorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::EntityAnchor);

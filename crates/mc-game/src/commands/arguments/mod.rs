@@ -8,9 +8,19 @@ use std::sync::LazyLock;
 
 pub mod coordinates;
 pub mod entity_anchor_argument;
+pub mod min_max_bounds;
+pub mod nbt_arguments;
+pub mod nbt_path_argument;
+pub mod operation_argument;
+pub mod range_argument;
 mod simple_arguments;
 mod string_representable_argument;
+pub mod util;
 
+pub use nbt_arguments::{ComponentArgument, CompoundTagArgument, NbtTagArgument, StyleArgument};
+pub use nbt_path_argument::{NbtPath, NbtPathArgument};
+pub use operation_argument::{Operation, OperationArgument};
+pub use range_argument::{FloatRangeArgument, IntRangeArgument};
 pub use simple_arguments::*;
 
 /// `StringRepresentableArgument.ERROR_INVALID_VALUE`.

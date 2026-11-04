@@ -66,3 +66,5 @@ impl ArgumentType<CommandSourceStack> for Vec2Argument {
         "Vec2Argument".to_owned()
     }
 }
+
+crate::register_argument_type!(Vec2Argument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Vec2);

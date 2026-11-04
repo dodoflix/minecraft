@@ -309,6 +309,17 @@ impl CommandSourceStack {
         vec![TextCoordinates::default_global()]
     }
 
+    /// `customSuggestion(context)`: the server has nothing to add for `ask_server` nodes.
+    pub fn custom_suggestion(&self, _context: &mc_brigadier::CommandContext<CommandSourceStack>) -> mc_brigadier::Suggestions {
+        mc_brigadier::Suggestions::empty()
+    }
+
+    /// `enabledFeatures()` of the source's level.
+    pub fn enabled_features(&self) -> mc_world::level_storage::FeatureFlagSet {
+        let level = self.level.clone();
+        self.with_server(|server| super::host::level_enabled_features(server, &level))
+    }
+
     /// `levels()`: the keys of all levels.
     pub fn levels(&self) -> Vec<DimensionKey> {
         self.with_server(|server| server.level_keys())

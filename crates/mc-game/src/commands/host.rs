@@ -23,3 +23,9 @@ pub fn command_limits(server: &mut MinecraftServer) -> (i32, i32) {
     let _ = server;
     todo!("SEAM: MinecraftServer::game_rules")
 }
+
+/// `level.enabledFeatures()` (SEAM: ServerLevel).
+pub fn level_enabled_features(server: &mut MinecraftServer, level: &DimensionKey) -> mc_world::level_storage::FeatureFlagSet {
+    let _ = (server, level);
+    todo!("SEAM: ServerLevel::enabled_features")
+}

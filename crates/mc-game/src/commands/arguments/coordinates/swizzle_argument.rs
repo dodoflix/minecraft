@@ -51,3 +51,5 @@ impl ArgumentType<CommandSourceStack> for SwizzleArgument {
         "SwizzleArgument".to_owned()
     }
 }
+
+crate::register_argument_type!(SwizzleArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Swizzle);

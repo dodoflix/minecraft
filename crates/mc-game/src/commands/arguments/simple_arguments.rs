@@ -587,3 +587,16 @@ impl ArgumentType<CommandSourceStack> for UuidArgument {
 fn _unused() {
     let _ = ERROR_EXPECTED_DOUBLE.create();
 }
+
+crate::register_argument_type!(AngleArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Angle);
+crate::register_argument_type!(HexColorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::HexColor);
+crate::register_argument_type!(IdentifierArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::ResourceLocation);
+crate::register_argument_type!(DimensionArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Dimension);
+crate::register_argument_type!(GameModeArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Gamemode);
+crate::register_argument_type!(SwingAnimationArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::SwingAnimation);
+crate::register_argument_type!(TeamColorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::TeamColor);
+crate::register_argument_type!(HeightmapTypeArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Heightmap);
+crate::register_argument_type!(TemplateMirrorArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::TemplateMirror);
+crate::register_argument_type!(TemplateRotationArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::TemplateRotation);
+crate::register_argument_type!(TimeArgument, |a| mc_protocol::packets::play::ArgumentTypeTemplate::Time { min: a.minimum });
+crate::register_argument_type!(UuidArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Uuid);

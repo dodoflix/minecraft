@@ -42,3 +42,5 @@ impl ArgumentType<CommandSourceStack> for RotationArgument {
         "RotationArgument".to_owned()
     }
 }
+
+crate::register_argument_type!(RotationArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::Rotation);

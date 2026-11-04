@@ -8,6 +8,7 @@ pub mod command_result_callback;
 pub mod command_signing_context;
 pub mod command_source;
 pub mod command_source_stack;
+pub mod command_tree;
 pub mod commands;
 pub mod execution;
 pub mod functions;
@@ -15,6 +16,7 @@ pub mod host;
 pub mod message;
 pub mod server_access;
 pub mod shared_suggestion_provider;
+pub mod synchronization;
 
 pub use brigadier_exceptions::BrigadierExceptions;
 pub use command_build_context::{CommandBuildContext, HolderLookupProvider, RegistryView};

@@ -95,3 +95,5 @@ impl BlockPosArgument {
         }
     }
 }
+
+crate::register_argument_type!(BlockPosArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::BlockPos);

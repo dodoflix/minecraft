@@ -64,3 +64,5 @@ impl ArgumentType<CommandSourceStack> for ColumnPosArgument {
         "ColumnPosArgument".to_owned()
     }
 }
+
+crate::register_argument_type!(ColumnPosArgument, |_a| mc_protocol::packets::play::ArgumentTypeTemplate::ColumnPos);
