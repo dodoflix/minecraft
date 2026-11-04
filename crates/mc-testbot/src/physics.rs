@@ -260,29 +260,7 @@ pub fn contains_any_liquid<W: BlockView>(world: &W, bb: &AABB) -> bool {
 // ---------------------------------------------------------------------------------------------
 // Player body
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
-pub struct Input {
-    pub forward: bool,
-    pub backward: bool,
-    pub left: bool,
-    pub right: bool,
-    pub jump: bool,
-    pub shift: bool,
-    pub sprint: bool,
-}
-
-impl Input {
-    /// `Input.STREAM_CODEC` flag byte.
-    pub fn flags(&self) -> u8 {
-        (self.forward as u8)
-            | (self.backward as u8) << 1
-            | (self.left as u8) << 2
-            | (self.right as u8) << 3
-            | (self.jump as u8) << 4
-            | (self.shift as u8) << 5
-            | (self.sprint as u8) << 6
-    }
-}
+pub use mc_protocol::packets::play::Input;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Abilities {

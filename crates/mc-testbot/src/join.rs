@@ -144,9 +144,9 @@ pub struct Configured {
     pub cookies: HashMap<Identifier, Vec<u8>>,
 }
 
-/// Login phase through `login_finished`/`login_acknowledged`, then the configuration phase until
-/// `finish_configuration` was answered. On return the connection is in the play state.
-pub async fn login_and_configure(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
+/// Login phase through `login_finished`/`login_acknowledged` (+ the brand/client information the real client sends
+/// right after). On return the connection is in the configuration state.
+pub async fn login(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
     handshake(conn, opts, ClientIntent::Login).await?;
     conn.send(&ServerboundLoginPacket::Hello(ServerboundHelloPacket {
         name: opts.username.clone(),
@@ -207,7 +207,6 @@ pub async fn login_and_configure(conn: &mut Conn, opts: &BotOptions) -> Result<C
         }
     }
 
-    // Configuration: the client announces itself first.
     conn.send(&ServerboundConfigurationPacket::CustomPayload(ServerboundCustomPayloadPacket {
         payload: CustomPayload::brand(&opts.brand),
     }))
@@ -216,7 +215,19 @@ pub async fn login_and_configure(conn: &mut Conn, opts: &BotOptions) -> Result<C
         information: opts.client_information.clone(),
     }))
     .await?;
+    Ok(out)
+}
 
+/// Login + configuration; on return the connection is in the play state.
+pub async fn login_and_configure(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
+    let mut out = login(conn, opts).await?;
+    configure(conn, opts, &mut out).await?;
+    Ok(out)
+}
+
+/// The configuration phase until `finish_configuration` was answered (or the server asks for a transfer).
+/// Also used for server-initiated re-configuration from the play state.
+pub async fn configure(conn: &mut Conn, opts: &BotOptions, out: &mut Configured) -> Result<()> {
     let http = reqwest::Client::new();
     loop {
         use ClientboundConfigurationPacket as C;
@@ -240,7 +251,7 @@ pub async fn login_and_configure(conn: &mut Conn, opts: &BotOptions) -> Result<C
             C::Disconnect(d) => return Err(BotError::Disconnected(d.reason.get_string())),
             C::FinishConfiguration(_) => {
                 conn.send(&S::FinishConfiguration(ServerboundFinishConfigurationPacket)).await?;
-                return Ok(out);
+                return Ok(());
             }
             C::KeepAlive(k) => {
                 conn.send(&S::KeepAlive(ServerboundKeepAlivePacket { id: k.id })).await?;
@@ -282,7 +293,7 @@ pub async fn login_and_configure(conn: &mut Conn, opts: &BotOptions) -> Result<C
             }
             C::Transfer(t) => {
                 out.transfer = Some((t.host, t.port));
-                return Ok(out);
+                return Ok(());
             }
             C::UpdateEnabledFeatures(f) => out.enabled_features = f.features,
             C::UpdateTags(t) => {
