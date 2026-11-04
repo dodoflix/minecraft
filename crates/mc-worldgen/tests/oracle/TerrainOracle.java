@@ -45,7 +45,7 @@ import net.minecraft.world.level.levelgen.densityfunction.DensityVolume;
 import net.minecraft.world.level.levelgen.densityfunction.ScopedDensityBuffer;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
-import net.minecraft.world.level.synth.NormalNoise;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 /**
  * Golden generator for the mc-worldgen terrain pipeline (NoiseBasedChunkGenerator, Aquifer, NoiseChunk).
