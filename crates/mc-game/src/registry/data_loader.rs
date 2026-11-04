@@ -172,6 +172,13 @@ impl WorldgenDataSource for RegistryWorldgenSource {
         let reg = self.0.registry(&format!("minecraft:{registry}"))?;
         reg.entry_by_key(id).map(|e| (*e.json).clone())
     }
+
+    fn list(&self, registry: &str) -> Vec<Identifier> {
+        let Some(reg) = self.0.registry(&format!("minecraft:{registry}")) else { return Vec::new() };
+        let mut ids = reg.names();
+        ids.sort_by_key(|id| id.to_string());
+        ids
+    }
 }
 
 impl RegistryAccess {

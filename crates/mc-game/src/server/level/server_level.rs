@@ -76,6 +76,8 @@ pub struct ServerLevel {
     pub level_data: Box<dyn super::level_data::ServerLevelData>,
     /// `noSave`.
     pub no_save: bool,
+    /// `dimensionType().hasCeiling()` (set by the level factory).
+    pub has_ceiling: bool,
     pub is_debug: bool,
     sea_level: i32,
     level_height: LevelHeight,
@@ -128,6 +130,7 @@ impl ServerLevel {
             shared: params.shared,
             level_data: params.level_data,
             no_save: false,
+            has_ceiling: false,
             is_debug: params.is_debug,
             sea_level: params.sea_level,
             level_height: params.level_height,
