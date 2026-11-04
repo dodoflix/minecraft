@@ -7,11 +7,10 @@ use crate::components::holder::registry_by_name_codec;
 use crate::components::item_stack::{item_prototype, ItemStackTemplate};
 use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
-use crate::components::common::{compound_tag_codec, flattened_compound_codec};
+use super::entity::TypedEntityData;
 use mc_data::{Block, DataComponentType, EntityType, MapDecorationType};
-use mc_nbt::CompoundTag;
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{encode_nbt, int_range, parse_nbt, record, Codec, DataResult, BOOL, DOUBLE, FLOAT, INT, INT_STREAM, LONG, STRING};
+use mc_dfu::{int_range, record, Codec, DataResult, BOOL, DOUBLE, FLOAT, INT, INT_STREAM, LONG, STRING};
 
 pub const CONTAINER: ComponentKey<ItemContainerContents> = ComponentKey::new(DataComponentType::CONTAINER);
 pub const BUNDLE_CONTENTS: ComponentKey<BundleContents> = ComponentKey::new(DataComponentType::BUNDLE_CONTENTS);
@@ -668,65 +667,10 @@ impl MapDecorations {
 
 // ---- Bees ----------------------------------------------------------------------------------------------------------
 
-/// `TypedEntityData<EntityType<?>>` (the entity type plus its saved data without `id`).
-// shortcut: private copy; swap for CompEntity's `TypedEntityData` once it lands.
-#[derive(Clone, Debug, PartialEq)]
-pub struct BeeEntityData {
-    pub ty: EntityType,
-    pub tag: CompoundTag,
-}
-
-impl BeeEntityData {
-    /// `new TypedEntityData(type, data)`: strips `id`.
-    pub fn new(ty: EntityType, mut tag: CompoundTag) -> Self {
-        tag.remove("id");
-        BeeEntityData { ty, tag }
-    }
-
-    /// `TypedEntityData.codec(EntityType.CODEC)`.
-    pub fn codec() -> Codec<BeeEntityData> {
-        let compound = compound_tag_codec().with_alternative(&flattened_compound_codec());
-        let ty_codec = registry_by_name_codec::<EntityType>();
-        let (c1, c2) = (compound.clone(), compound);
-        let (t1, t2) = (ty_codec.clone(), ty_codec);
-        Codec::from_fns(
-            move |ops, input: &BeeEntityData, prefix| {
-                encode_nbt(&t1, &input.ty).flat_map(|ty_tag| {
-                    let mut tag = input.tag.copy();
-                    tag.put("id", ty_tag);
-                    c1.encode(ops, &tag, prefix)
-                })
-            },
-            move |ops, input| {
-                c2.decode(ops, input).flat_map(|(tag, rest)| {
-                    let mut without = tag.copy();
-                    match without.remove("id") {
-                        None => DataResult::error(move || "Expected 'id' field".to_string()),
-                        Some(ty_tag) => parse_nbt(&t2, &ty_tag).map(|ty| (BeeEntityData { ty, tag: without }, rest)),
-                    }
-                })
-            },
-        )
-    }
-}
-
-impl Encode for BeeEntityData {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.ty.encode(out);
-        self.tag.encode(out);
-    }
-}
-impl Decode for BeeEntityData {
-    fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        let ty = EntityType::decode(input)?;
-        Ok(BeeEntityData::new(ty, CompoundTag::decode(input)?))
-    }
-}
-
 /// `BeehiveBlockEntity.Occupant`.
 #[derive(Clone, Debug, PartialEq)]
 pub struct BeeOccupant {
-    pub entity_data: BeeEntityData,
+    pub entity_data: TypedEntityData<EntityType>,
     pub ticks_in_hive: i32,
     pub min_ticks_in_hive: i32,
 }
@@ -734,7 +678,7 @@ pub struct BeeOccupant {
 impl BeeOccupant {
     pub fn codec() -> Codec<BeeOccupant> {
         record!(BeeOccupant {
-            entity_data: BeeEntityData::codec().field_of("entity_data"),
+            entity_data: TypedEntityData::codec(&registry_by_name_codec::<EntityType>()).field_of("entity_data"),
             ticks_in_hive: INT.field_of("ticks_in_hive"),
             min_ticks_in_hive: INT.field_of("min_ticks_in_hive"),
         })
@@ -752,7 +696,7 @@ impl Encode for BeeOccupant {
 impl Decode for BeeOccupant {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         Ok(BeeOccupant {
-            entity_data: BeeEntityData::decode(input)?,
+            entity_data: TypedEntityData::decode(input)?,
             ticks_in_hive: crate::codec::read_varint(input)?,
             min_ticks_in_hive: crate::codec::read_varint(input)?,
         })
