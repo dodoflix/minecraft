@@ -8,6 +8,7 @@
 //! back afterwards: lookups during its own tick exclude it, exactly as vanilla's level queries exclude `this`.
 //! `put_back` applies what vanilla's `EntityInLevelCallback` does synchronously (section moves, removal).
 
+pub mod attributes;
 pub mod dimensions;
 pub mod entity;
 pub mod factory;

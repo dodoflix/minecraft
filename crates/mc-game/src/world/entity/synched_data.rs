@@ -71,7 +71,7 @@ serializers! {
     ChickenSoundVariant(i32) = "CHICKEN_SOUND_VARIANT";
     ZombieNautilusVariant(i32) = "ZOMBIE_NAUTILUS_VARIANT";
     OptionalGlobalPos(Option<mc_protocol::codec::GlobalPos>) = "OPTIONAL_GLOBAL_POS";
-    PaintingVariant(i32) = "PAINTING_VARIANT";
+    PaintingVariant(mc_protocol::codec::Holder<mc_protocol::packets::play::PaintingVariant>) = "PAINTING_VARIANT";
     SnifferState(mc_protocol::packets::play::SnifferState) = "SNIFFER_STATE";
     ArmadilloState(mc_protocol::packets::play::ArmadilloState) = "ARMADILLO_STATE";
     CopperGolemState(mc_protocol::packets::play::CopperGolemState) = "COPPER_GOLEM_STATE";

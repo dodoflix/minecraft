@@ -686,3 +686,88 @@ impl PersistentEntitySectionManager {
 fn describe(e: &dyn Entity) -> String {
     format!("{}['{}'/{}, x={:.2}, y={:.2}, z={:.2}]", e.get_type().data().name, e.get_type().data().name, e.id(), e.position().x, e.position().y, e.position().z)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::world::entity::plain::PlainEntity;
+    use mc_data::EntityType;
+
+    fn pig(id: EntityId, x: f64, y: f64, z: f64) -> Box<dyn Entity> {
+        let mut e = PlainEntity::new(EntityType::PIG, id);
+        e.set_pos(x, y, z);
+        e.base_mut().moved_since_sync = false;
+        Box::new(e)
+    }
+
+    fn collect(m: &PersistentEntitySectionManager, bb: &AABB) -> Vec<EntityId> {
+        let mut out = vec![];
+        m.for_each_in_aabb(bb, |id, _| {
+            out.push(id);
+            ControlFlow::Continue(())
+        });
+        out
+    }
+
+    #[test]
+    fn visibility_follows_chunk_status_and_queries_see_only_accessible_sections() {
+        let mut m = PersistentEntitySectionManager::new(None);
+        m.add_new_entity(pig(1, 1.0, 64.0, 1.0)).ok().unwrap();
+        m.add_new_entity(pig(2, 2.0, 64.0, 2.0)).ok().unwrap();
+        let bb = AABB::new(0.0, 60.0, 0.0, 10.0, 70.0, 10.0);
+        assert!(collect(&m, &bb).is_empty(), "hidden chunk");
+        assert!(m.get(1).is_none());
+        m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
+        let _ = m.take_loaded_chunks();
+        m.mark_chunk_entities_loaded(ChunkPos::new(0, 0));
+        assert_eq!(collect(&m, &bb), vec![1, 2]);
+        assert!(m.get(2).is_some());
+        assert!(m.tick_list.contains(1));
+        let events = m.take_events();
+        assert!(events.contains(&EntityLevelEvent::TrackingStart(1)) && events.contains(&EntityLevelEvent::TickingStart(2)));
+        m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Tracked);
+        assert!(!m.tick_list.contains(1) && m.get(1).is_some());
+    }
+
+    #[test]
+    fn take_out_hides_entity_and_put_back_moves_it_between_sections() {
+        let mut m = PersistentEntitySectionManager::new(None);
+        m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
+        m.update_chunk_status(ChunkPos::new(1, 0), Visibility::Tracked);
+        m.add_new_entity(pig(1, 1.0, 64.0, 1.0)).ok().unwrap();
+        m.take_events();
+        let mut e = m.take(1).unwrap();
+        assert!(m.get(1).is_none(), "own lookup excludes the taken-out entity");
+        e.set_pos(17.5, 64.0, 1.0);
+        m.put_back(1, e);
+        assert!(!m.tick_list.contains(1), "moved into a tracked-only chunk");
+        let ev = m.take_events();
+        assert!(ev.contains(&EntityLevelEvent::TickingEnd(1)) && ev.contains(&EntityLevelEvent::SectionChange(1)));
+        assert_eq!(collect(&m, &AABB::new(16.0, 60.0, 0.0, 20.0, 70.0, 4.0)), vec![1]);
+    }
+
+    #[test]
+    fn removal_is_applied_on_put_back_and_uuid_is_forgotten() {
+        let mut m = PersistentEntitySectionManager::new(None);
+        m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
+        m.add_new_entity(pig(1, 1.0, 64.0, 1.0)).ok().unwrap();
+        let uuid = m.get(1).unwrap().uuid();
+        let mut e = m.take(1).unwrap();
+        e.discard();
+        m.put_back(1, e);
+        assert!(!m.is_loaded(uuid) && m.get_any(1).is_none() && m.count() == 0);
+        let ev = m.take_events();
+        assert!(ev.contains(&EntityLevelEvent::Destroyed(1)) && ev.contains(&EntityLevelEvent::TrackingEnd(1)));
+        assert!(m.get_removed(1).is_some());
+    }
+
+    #[test]
+    fn duplicate_uuid_is_rejected() {
+        let mut m = PersistentEntitySectionManager::new(None);
+        let a = pig(1, 0.0, 0.0, 0.0);
+        let mut b = PlainEntity::new(EntityType::PIG, 2);
+        b.base_mut().uuid = a.uuid();
+        m.add_new_entity(a).ok().unwrap();
+        assert!(m.add_new_entity(Box::new(b)).is_err());
+    }
+}

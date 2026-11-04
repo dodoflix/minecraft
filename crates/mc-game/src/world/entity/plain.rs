@@ -61,3 +61,63 @@ impl Entity for PlainEntity {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::server::level::ServerLevel;
+    use crate::world::entity::factory;
+    use mc_nbt::{ListTag, Tag, compound};
+
+    fn pig_tag() -> CompoundTag {
+        let mut tag = CompoundTag::new();
+        tag.put_string("id", "minecraft:pig");
+        let mut pos = ListTag::new();
+        for v in [10.5, 64.0, -3.25] {
+            pos.push(Tag::double(v));
+        }
+        tag.put("Pos", pos);
+        let mut motion = ListTag::new();
+        for v in [0.0, -0.0784, 0.0] {
+            motion.push(Tag::double(v));
+        }
+        tag.put("Motion", motion);
+        let mut rot = ListTag::new();
+        rot.push(Tag::float(90.0));
+        rot.push(Tag::float(10.0));
+        tag.put("Rotation", rot);
+        tag.put_double("fall_distance", 0.0);
+        tag.put_short("Fire", -1);
+        tag.put_short("Air", 300);
+        tag.put_boolean("OnGround", true);
+        tag.put_boolean("Invulnerable", false);
+        tag.put_int("PortalCooldown", 0);
+        tag.put_int_array("UUID", vec![1, 2, 3, 4]);
+        tag.put_float("Health", 10.0);
+        tag.put("Tags", ListTag::from_iter([Tag::String("a".into()), Tag::String("b".into())]));
+        tag.put("attributes", Tag::Compound(compound! {}));
+        tag
+    }
+
+    #[test]
+    fn plain_entity_round_trips_nbt() {
+        let level = ServerLevel::new(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
+        let tag = pig_tag();
+        let loaded = factory::load_entities_recursive(std::slice::from_ref(&tag), &level, mc_data::enums::EntitySpawnReason::Load);
+        assert_eq!(loaded.len(), 1);
+        let none = |_| None;
+        let saved = crate::world::entity::entity::save(loaded[0].as_ref(), &none).unwrap();
+        assert_eq!(saved, tag);
+    }
+
+    #[test]
+    fn unknown_id_and_player_are_skipped() {
+        let level = ServerLevel::new(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
+        let mut bad = pig_tag();
+        bad.put_string("id", "minecraft:nope");
+        let mut player = pig_tag();
+        player.put_string("id", "minecraft:player");
+        let loaded = factory::load_entities_recursive(&[bad, player], &level, mc_data::enums::EntitySpawnReason::Load);
+        assert!(loaded.is_empty());
+    }
+}
