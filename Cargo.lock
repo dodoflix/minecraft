@@ -951,6 +951,12 @@ dependencies = [
 [[package]]
 name = "mc-light"
 version = "0.1.0"
+dependencies = [
+ "mc-core",
+ "mc-data",
+ "mc-nbt",
+ "mc-world",
+]
 
 [[package]]
 name = "mc-nbt"

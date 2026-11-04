@@ -148,12 +148,16 @@ fn relight_matches_saved_light() {
             };
             engine.initialize_light(access, false);
         }
+        while engine.pending_task_count() > 0 {
+            engine.run_update(&getter);
+        }
         for pos in &positions {
             engine.light_chunk(*pos, false);
         }
-        while engine.has_pending_work() {
+        while engine.pending_task_count() > 0 {
             engine.run_update(&getter);
         }
+        assert!(!engine.has_pending_work());
 
         let is_full = |p: ChunkPos| saved.get(&p).is_some_and(|(_, s, _)| *s == ChunkStatus::Full);
         let (mut compared_chunks, mut bad_chunks, mut sections, mut stale_in_opaque) = (0, 0, 0, 0);

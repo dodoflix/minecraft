@@ -259,3 +259,14 @@ impl LightReader {
         LightUpdatePacketData::new(&sky, &block, sky_changed_filter, block_changed_filter)
     }
 }
+
+/// `ProtoChunk::set_block_state` reports section emptiness changes and light-relevant block changes here.
+impl mc_world::chunk::LightEngineHook for LevelLightEngine {
+    fn update_section_status(&mut self, pos: BlockPos, section_empty: bool) {
+        self.update_section_status_at(pos, section_empty);
+    }
+
+    fn check_block(&mut self, pos: BlockPos) {
+        LevelLightEngine::check_block(self, pos);
+    }
+}

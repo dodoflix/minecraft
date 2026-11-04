@@ -52,6 +52,14 @@ pub enum LightCompletion {
     Barrier(u64),
 }
 
+/// Result of [`ThreadedLevelLightEngine::run_update`].
+#[derive(Debug)]
+pub struct UpdateResult {
+    /// What `runLightUpdates` returned (queue entries processed).
+    pub light_updates_run: i32,
+    pub completions: Vec<LightCompletion>,
+}
+
 pub struct ThreadedLevelLightEngine {
     engine: LevelLightEngine,
     tasks: Vec<Task>,
@@ -202,14 +210,14 @@ impl ThreadedLevelLightEngine {
 
     /// `runUpdate()`: up to a batch of tasks — PRE_UPDATE ones run, then the engine updates, then the POST_UPDATE
     /// ones of the batch run and the whole batch is dropped.
-    pub fn run_update(&mut self, chunks: &dyn LightChunkGetter) -> Vec<LightCompletion> {
+    pub fn run_update(&mut self, chunks: &dyn LightChunkGetter) -> UpdateResult {
         let total = self.tasks.len().min(DEFAULT_BATCH_SIZE);
         for task in self.tasks.iter_mut().take(total) {
             if !task.is_post_update() {
                 Self::run_pre(&mut self.engine, chunks, task);
             }
         }
-        self.engine.run_light_updates(chunks);
+        let light_updates_run = self.engine.run_light_updates(chunks);
         let mut completions = Vec::new();
         for task in self.tasks.drain(..total) {
             match task {
@@ -223,6 +231,17 @@ impl ThreadedLevelLightEngine {
                 _ => {}
             }
         }
-        completions
+        UpdateResult { light_updates_run, completions }
+    }
+}
+
+/// Same hook, but queued like `ThreadedLevelLightEngine.checkBlock`/`updateSectionStatus`.
+impl mc_world::chunk::LightEngineHook for ThreadedLevelLightEngine {
+    fn update_section_status(&mut self, pos: BlockPos, section_empty: bool) {
+        ThreadedLevelLightEngine::update_section_status(self, SectionPos::of_block_pos(&pos), section_empty);
+    }
+
+    fn check_block(&mut self, pos: BlockPos) {
+        ThreadedLevelLightEngine::check_block(self, pos);
     }
 }
