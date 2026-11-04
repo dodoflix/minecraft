@@ -117,11 +117,10 @@ impl RegistryView for AccessRegistryView {
 
 impl HolderLookupProvider for AccessRegistries {
     fn lookup(&self, registry_key: &str) -> Option<Arc<dyn RegistryView>> {
-        let key = registry_key.strip_prefix("minecraft:").unwrap_or(registry_key);
-        self.0.registry(key).map(|r| Arc::new(AccessRegistryView(r.clone())) as Arc<dyn RegistryView>)
+        self.0.registry(registry_key).map(|r| Arc::new(AccessRegistryView(r.clone())) as Arc<dyn RegistryView>)
     }
 
     fn list_registry_keys(&self) -> Vec<String> {
-        self.0.registries().map(|r| format!("minecraft:{}", r.key())).collect()
+        self.0.registries().map(|r| r.key().to_owned()).collect()
     }
 }

@@ -2,12 +2,11 @@
 
 use mc_brigadier::arguments::integer;
 use mc_brigadier::{CommandDispatcher, CommandSyntaxException, literal as lit};
+mod command_common;
 use mc_game::commands::arguments::coordinates::Vec3Argument;
 use mc_game::commands::{
     BrigadierExceptions, CommandResultCallback, CommandSource, CommandSourceStack, Commands, argument, literal,
 };
-use mc_game::server::MinecraftServer;
-use mc_game::server::ServerShared;
 use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionSet};
 use mc_brigadier::ArgumentBuilder;
 use mc_core::phys::{Vec2, Vec3};
@@ -45,11 +44,6 @@ fn stack(source: Arc<MockSource>, level: i32) -> CommandSourceStack {
     )
 }
 
-fn server() -> MinecraftServer {
-    let (shared, rx) = ServerShared::new();
-    MinecraftServer::new(shared, rx)
-}
-
 fn texts(source: &MockSource) -> Vec<String> {
     source.messages.lock().unwrap().iter().map(|c| c.get_string()).collect()
 }
@@ -84,9 +78,9 @@ fn commands(counter: Arc<Mutex<Vec<String>>>) -> Commands {
 fn executes_and_sends_feedback() {
     BrigadierExceptions::install();
     let log = Arc::new(Mutex::new(Vec::new()));
+    let (mut server, _world) = command_common::test_server();
     let commands = commands(log.clone());
     let source = Arc::new(MockSource::default());
-    let mut server = server();
     commands.perform_prefixed_command(&mut server, stack(source.clone(), 4), "/say 7");
     assert_eq!(*log.lock().unwrap(), vec!["say 7"]);
     assert_eq!(texts(&source), vec!["said 7"]);
@@ -96,9 +90,9 @@ fn executes_and_sends_feedback() {
 fn fork_runs_the_rest_per_source() {
     BrigadierExceptions::install();
     let log = Arc::new(Mutex::new(Vec::new()));
+    let (mut server, _world) = command_common::test_server();
     let commands = commands(log.clone());
     let source = Arc::new(MockSource::default());
-    let mut server = server();
     commands.perform_prefixed_command(&mut server, stack(source.clone(), 4), "fanout say 2");
     assert_eq!(*log.lock().unwrap(), vec!["say 2", "say 2"]);
 }
@@ -107,9 +101,9 @@ fn fork_runs_the_rest_per_source() {
 fn result_callback_receives_result() {
     BrigadierExceptions::install();
     let log = Arc::new(Mutex::new(Vec::new()));
+    let (mut server, _world) = command_common::test_server();
     let commands = commands(log);
     let source = Arc::new(MockSource::default());
-    let mut server = server();
     let results = Arc::new(Mutex::new(Vec::new()));
     let r = results.clone();
     let sender = stack(source, 4).with_callback(CommandResultCallback::new(move |ok, v| r.lock().unwrap().push((ok, v))));
@@ -121,9 +115,9 @@ fn result_callback_receives_result() {
 #[test]
 fn errors_render_like_vanilla() {
     BrigadierExceptions::install();
+    let (mut server, _world) = command_common::test_server();
     let commands = commands(Arc::default());
     let source = Arc::new(MockSource::default());
-    let mut server = server();
     commands.perform_prefixed_command(&mut server, stack(source.clone(), 4), "nope");
     commands.perform_prefixed_command(&mut server, stack(source.clone(), 4), "say");
     commands.perform_prefixed_command(&mut server, stack(source.clone(), 4), "say 1 extra");
@@ -135,16 +129,16 @@ fn errors_render_like_vanilla() {
     assert_eq!(t[2], "Unknown or incomplete command. See below for error");
     assert_eq!(t[3], "say<--[HERE]");
     assert_eq!(t[4], "Incorrect argument for command");
-    assert_eq!(t[5], "say 1 extra<--[HERE]"); // cross-checked against vanilla in the golden corpus test
+    assert_eq!(t[5], "say 1 extra<--[HERE]"); // brigadier: error at position 6 (`say 1 `); `Commands.performCommand` shows the rest (`extra`) before the marker
     assert_eq!(t[6], "Unknown or incomplete command. See below for error");
 }
 
 #[test]
 fn panicking_command_reports_command_failed() {
     BrigadierExceptions::install();
+    let (mut server, _world) = command_common::test_server();
     let commands = commands(Arc::default());
     let source = Arc::new(MockSource::default());
-    let mut server = server();
     commands.perform_prefixed_command(&mut server, stack(source.clone(), 4), "boom");
     assert_eq!(texts(&source), vec!["An unexpected error occurred while trying to execute that command"]);
 }
@@ -152,9 +146,9 @@ fn panicking_command_reports_command_failed() {
 #[test]
 fn coordinates_relative_to_source() {
     BrigadierExceptions::install();
+    let (mut server, _world) = command_common::test_server();
     let commands = commands(Arc::default());
     let source = Arc::new(MockSource::default());
-    let mut server = server();
     commands.perform_prefixed_command(&mut server, stack(source.clone(), 4), "pos ~1 ~ 0");
     assert_eq!(texts(&source), vec!["2 2 0.5"]);
     let _: Option<CommandSyntaxException> = None;

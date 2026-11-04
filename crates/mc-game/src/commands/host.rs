@@ -335,7 +335,7 @@ pub fn bind_chat_type(server: &MinecraftServer, chat_type: &str, name: Component
     }
     impl ChatTypeLookup for Lookup<'_> {
         fn chat_type(&self, key: &Identifier) -> Option<(i32, Arc<wire::ChatType>)> {
-            let registry = self.0.registry("chat_type")?;
+            let registry = self.0.registry(crate::registry::keys::CHAT_TYPE)?;
             let id = registry.id_of(key)?;
             let value = registry.get_by_id::<ChatType>(id)?;
             Some((id as i32, Arc::new(wire::ChatType { chat: decoration(&value.chat), narration: decoration(&value.narration) })))
@@ -469,7 +469,7 @@ pub fn default_clock(server: &MinecraftServer, dimension: &DimensionKey) -> Opti
 
 /// `(clock, periodTicks)` of the timeline `id`.
 pub fn timeline(server: &MinecraftServer, id: &Identifier) -> Option<(Identifier, Option<i32>)> {
-    let registry = server.registries.composite_access().registry("timeline")?;
+    let registry = server.registries.composite_access().registry(crate::registry::keys::TIMELINE)?;
     let entry = registry.entry_by_key(id)?;
     let clock = Identifier::try_parse(entry.json.get("clock")?.as_str()?)?;
     let period = entry.json.get("period_ticks").and_then(|p| p.as_i64()).map(|p| p as i32);
@@ -478,7 +478,7 @@ pub fn timeline(server: &MinecraftServer, id: &Identifier) -> Option<(Identifier
 
 /// Ids of the timelines whose clock is `clock`.
 pub fn timelines_of_clock(server: &MinecraftServer, clock: &Identifier) -> Vec<Identifier> {
-    let Some(registry) = server.registries.composite_access().registry("timeline") else { return Vec::new() };
+    let Some(registry) = server.registries.composite_access().registry(crate::registry::keys::TIMELINE) else { return Vec::new() };
     registry
         .entries()
         .iter()

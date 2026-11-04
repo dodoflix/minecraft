@@ -4,6 +4,9 @@
 use mc_protocol::codec::{Decode, Encode};
 use mc_protocol::packets::play::ClientboundCommandsPacket;
 
+mod command_common;
+use command_common::vanilla_commands;
+
 fn unhex(s: &str) -> Vec<u8> {
     (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap()).collect()
 }
@@ -31,48 +34,6 @@ fn vanilla_full_trees_roundtrip() {
 }
 
 
-/// The vanilla command tree: all features enabled like the golden generator (`createValidationContext`), built-in
-/// registries plus empty data-driven ones (the tree only needs registry existence).
-fn vanilla_commands() -> mc_game::commands::Commands {
-    use mc_game::commands::HolderLookupProvider as _;
-    use mc_game::commands::command_build_context::StaticRegistries;
-    use mc_game::commands::{CommandBuildContext, CommandSelection, Commands};
-    use std::sync::Arc;
-
-    struct WithEmptyDynamic;
-    struct Empty;
-    impl mc_game::commands::RegistryView for Empty {
-        fn contains(&self, _: &mc_core::ident::Identifier) -> bool {
-            false
-        }
-        fn element_ids(&self) -> Vec<mc_core::ident::Identifier> {
-            Vec::new()
-        }
-        fn tag_ids(&self) -> Vec<mc_core::ident::Identifier> {
-            Vec::new()
-        }
-        fn has_tag(&self, _: &mc_core::ident::Identifier) -> bool {
-            false
-        }
-        fn tag_elements(&self, _: &mc_core::ident::Identifier) -> Option<Vec<mc_core::ident::Identifier>> {
-            None
-        }
-    }
-    impl mc_game::commands::HolderLookupProvider for WithEmptyDynamic {
-        fn lookup(&self, key: &str) -> Option<Arc<dyn mc_game::commands::RegistryView>> {
-            StaticRegistries.lookup(key).or_else(|| Some(Arc::new(Empty) as Arc<dyn mc_game::commands::RegistryView>))
-        }
-        fn list_registry_keys(&self) -> Vec<String> {
-            StaticRegistries.list_registry_keys()
-        }
-    }
-    mc_game::commands::BrigadierExceptions::install();
-    let commands = Commands::new(
-        CommandSelection::Dedicated,
-        &CommandBuildContext::simple(Arc::new(WithEmptyDynamic), mc_world::level_storage::FeatureFlagSet::ALL),
-    );
-    commands
-}
 
 const SUBSET: &[&str] = &[
     "stop", "save-all", "save-on", "save-off", "say", "list", "op", "deop", "kick", "ban", "ban-ip", "pardon", "pardon-ip", "banlist",
