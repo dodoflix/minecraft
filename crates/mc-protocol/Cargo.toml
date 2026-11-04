@@ -10,6 +10,7 @@ mc-nbt = { path = "../mc-nbt" }
 mc-text = { path = "../mc-text" }
 mc-core = { path = "../mc-core" }
 mc-data = { path = "../mc-data" }
+mc-dfu = { path = "../mc-dfu" }
 mc-protocol-macros = { path = "../mc-protocol-macros" }
 aes = "0.9.4"
 cfb8 = "0.9.1"

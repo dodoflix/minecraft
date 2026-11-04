@@ -179,7 +179,8 @@ impl From<&Tag> for Dyn {
             Tag::ByteArray(v) => Dyn::Bytes(v.clone()),
             Tag::String(s) => Dyn::Str(s.clone()),
             Tag::List(l) => Dyn::List(l.iter().map(Dyn::from).collect()),
-            Tag::Compound(c) => Dyn::Map(c.iter().map(|(k, v)| (Dyn::Str(k.clone()), Dyn::from(v))).collect()),
+            // Java `HashMap` iteration order, which is what vanilla codecs observe
+            Tag::Compound(c) => Dyn::Map(c.iter_java_order().into_iter().map(|(k, v)| (Dyn::Str(k.clone()), Dyn::from(v))).collect()),
             Tag::IntArray(v) => Dyn::Ints(v.clone()),
             Tag::LongArray(v) => Dyn::Longs(v.clone()),
         }
@@ -236,7 +237,7 @@ impl Dyn {
         Ok(v)
     }
 
-    /// Compact JSON text like Gson's default (`HTML-safe` escapes). Floats print like `Float.toString`.
+    /// Compact JSON text like `JsonElement.toString()` (no HTML escaping). Floats print like `Float.toString`.
     pub fn to_json_string(&self) -> String {
         let mut out = String::new();
         self.write_json(&mut out);
@@ -309,7 +310,7 @@ fn write_json_string(out: &mut String, s: &str) {
             '\n' => out.push_str("\\n"),
             '\r' => out.push_str("\\r"),
             '\t' => out.push_str("\\t"),
-            '<' | '>' | '&' | '=' | '\'' | '\u{2028}' | '\u{2029}' => out.push_str(&format!("\\u{:04x}", c as u32)),
+            '\u{2028}' | '\u{2029}' => out.push_str(&format!("\\u{:04x}", c as u32)),
             c if (c as u32) < 0x20 => out.push_str(&format!("\\u{:04x}", c as u32)),
             c => out.push(c),
         }

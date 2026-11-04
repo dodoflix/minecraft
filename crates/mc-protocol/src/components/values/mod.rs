@@ -1,0 +1,41 @@
+//! Component value families. Each module exports the value types, the typed `ComponentKey` constants (named like
+//! vanilla's `DataComponents` constants) and `defs()`, which registers the component definitions.
+
+use super::component::ComponentDef;
+use super::item_stack::ItemStack;
+
+pub mod basic;
+pub mod combat;
+pub mod containers;
+pub mod effects;
+pub mod entity;
+pub mod predicates;
+pub mod profile;
+
+pub use basic::*;
+pub use combat::*;
+pub use containers::*;
+pub use effects::*;
+pub use entity::*;
+pub use predicates::*;
+pub use profile::*;
+
+pub(crate) fn collect_defs(out: &mut Vec<ComponentDef>) {
+    basic::defs(out);
+    combat::defs(out);
+    containers::defs(out);
+    effects::defs(out);
+    entity::defs(out);
+    predicates::defs(out);
+    profile::defs(out);
+}
+
+/// `ItemStack.validateComponents`.
+pub(crate) fn validate_components(stack: &ItemStack) -> Result<(), String> {
+    use super::map::DataComponentGetter;
+    let Some(components) = stack.components() else { return Ok(()) };
+    if components.has(MAX_DAMAGE.id()) && *components.get_or_default(&MAX_STACK_SIZE, &1) > 1 {
+        return Err("Item cannot be both damageable and stackable".into());
+    }
+    Ok(())
+}

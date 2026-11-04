@@ -5,6 +5,8 @@
 extern crate self as mc_protocol;
 
 pub mod codec;
+pub mod components;
+pub mod registry_context;
 pub mod packet;
 
 /// Packet id constants per `(state, flow)`, generated from vanilla's `packets.json`.

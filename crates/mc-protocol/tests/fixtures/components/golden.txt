@@ -1,0 +1,6 @@
+json	minecraft:max_stack_size	16	OK	json=16	snbt=16	wire=10	hash=1769065625
+json	minecraft:max_stack_size	0	ERR	Value must be within range [1;99]: 0
+json	minecraft:damage	5	OK	json=5	snbt=5	wire=05	hash=645064431
+snbt	minecraft:unbreakable	{}	OK	json={}	snbt={}	wire=	hash=-982207288
+stack-snbt	-	{id:"minecraft:stone",count:3}	OK	json={"id":"minecraft:stone","count":3}	snbt={count:3,id:"minecraft:stone"}	osnbt={count:3,id:"minecraft:stone"}	wire=03010000	wireu=03010000	patch=0000	hashed=0101030000	maxstack=64	valid	left=0
+stack-snbt	-	{id:"minecraft:diamond_pickaxe",count:1,components:{"minecraft:damage":5}}	OK	json={"id":"minecraft:diamond_pickaxe","count":1,"components":{"minecraft:damage":5}}	snbt={components:{"minecraft:damage":5},count:1,id:"minecraft:diamond_pickaxe"}	osnbt={components:{"minecraft:damage":5},count:1,id:"minecraft:diamond_pickaxe"}	wire=019c0801000305	wireu=019c080100030105	patch=01000305	hashed=019c080101032672e6ef00	maxstack=1	valid	left=0

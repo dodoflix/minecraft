@@ -223,3 +223,10 @@ impl<A> From<Result<A, String>> for DataResult<A> {
         }
     }
 }
+
+impl<A: Clone> DataResult<A> {
+    /// `DataResult.success(a.clone())` for use as a `flat_xmap` encode function over references.
+    pub fn success_ref(a: &A) -> DataResult<A> {
+        Success(a.clone())
+    }
+}

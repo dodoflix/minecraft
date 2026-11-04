@@ -914,6 +914,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "mc-dfu"
+version = "0.1.0"
+dependencies = [
+ "mc-core",
+ "mc-nbt",
+]
+
+[[package]]
 name = "mc-game"
 version = "0.1.0"
 dependencies = [
@@ -961,6 +969,7 @@ dependencies = [
  "flate2",
  "mc-core",
  "mc-data",
+ "mc-dfu",
  "mc-nbt",
  "mc-protocol-macros",
  "mc-text",

@@ -10,7 +10,7 @@
 /// field has a result or partial value.
 #[macro_export]
 macro_rules! record {
-    ($ty:path { $($field:ident : $codec:expr),+ $(,)? }) => {{
+    ($ty:ident { $($field:ident : $codec:expr),+ $(,)? }) => {{
         $( let $field = $codec; )+
         let enc = { $( let $field = $field.clone(); )+
             move |ops: &$crate::Ops, input: &$ty, b: &mut $crate::RecordBuilder| { $( $field.encode(ops, &input.$field, b); )+ } };

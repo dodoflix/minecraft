@@ -1,0 +1,6 @@
+json	minecraft:max_stack_size	16
+json	minecraft:max_stack_size	0
+json	minecraft:damage	5
+snbt	minecraft:unbreakable	{}
+stack-snbt	-	{id:"minecraft:stone",count:3}
+stack-snbt	-	{id:"minecraft:diamond_pickaxe",count:1,components:{"minecraft:damage":5}}
