@@ -45,6 +45,8 @@ pub trait BlockStateExt: Copy {
     fn is_pathfindable_by(self, ty: PathComputationType) -> bool;
     fn can_survive(self, level: &dyn LevelReader, pos: BlockPos) -> bool;
     fn can_be_replaced_by_fluid(self, fluid: Fluid) -> bool;
+    /// `canBeReplaced(context)`.
+    fn can_be_replaced_by(self, context: &crate::world::item::BlockPlaceContext) -> bool;
     fn should_changed_state_keep_block_entity(self, old_state: BlockState) -> bool;
     fn rotate(self, rotation: Rotation) -> BlockState;
     fn mirror(self, mirror: Mirror) -> BlockState;
@@ -130,6 +132,9 @@ impl BlockStateExt for BlockState {
     }
     fn can_be_replaced_by_fluid(self, fluid: Fluid) -> bool {
         behaviour(self.block()).can_be_replaced_by_fluid(self, fluid)
+    }
+    fn can_be_replaced_by(self, context: &crate::world::item::BlockPlaceContext) -> bool {
+        behaviour(self.block()).can_be_replaced(self, context)
     }
     fn should_changed_state_keep_block_entity(self, old_state: BlockState) -> bool {
         behaviour(self.block()).should_changed_state_keep_block_entity(old_state)

@@ -65,3 +65,8 @@ pub fn can_support_center(level: &dyn crate::world::level::BlockGetter, below_po
         state.is_face_sturdy_support(level, below_pos, direction, SupportType::Center)
     }
 }
+
+/// `Block.getStateForPlacement(context)` of `block`.
+pub fn get_state_for_placement(block: mc_data::block::Block, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    super::behaviour(block).get_state_for_placement(block, context)
+}

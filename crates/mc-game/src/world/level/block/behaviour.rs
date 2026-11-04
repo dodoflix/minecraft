@@ -15,6 +15,7 @@
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use crate::world::item::BlockPlaceContext;
 use crate::world::level::collision::CollisionContext;
 use crate::world::level::precipitation::Precipitation;
 use crate::world::level::redstone::Orientation;
@@ -105,6 +106,15 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     /// `canBeReplaced(state, fluid)`.
     fn can_be_replaced_by_fluid(&self, state: BlockState, _fluid: Fluid) -> bool {
         state.can_be_replaced() || !state.is_solid()
+    }
+    /// `canBeReplaced(state, context)`.
+    fn can_be_replaced(&self, state: BlockState, context: &BlockPlaceContext) -> bool {
+        let held = context.use_on.get_item_in_hand();
+        state.can_be_replaced() && (held.is_empty() || Some(held.item()) != state.block().item())
+    }
+    /// `Block.getStateForPlacement(context)` (`None` = cannot be placed here).
+    fn get_state_for_placement(&self, block: Block, _context: &BlockPlaceContext) -> Option<BlockState> {
+        Some(block.default_state())
     }
     /// `getSeed`.
     fn get_seed(&self, _state: BlockState, pos: BlockPos) -> i64 {
