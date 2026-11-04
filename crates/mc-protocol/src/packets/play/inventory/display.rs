@@ -3,7 +3,7 @@ use mc_core::ident::Identifier;
 use mc_text::Component;
 
 use super::recipe::RecipeDisplayId;
-use super::untrusted_text;
+use super::{strict_item, untrusted_text};
 use crate::codec::{read_count, read_varint, DecodeError, DecodeResult, Holder, HolderSet};
 use crate::components::ItemStackTemplate;
 use crate::{Decode, Encode, Packet};
@@ -85,7 +85,10 @@ pub enum SlotDisplay {
     /// `SlotDisplay.OnlyWithComponent`
     OnlyWithComponent { source: Box<SlotDisplay>, component: mc_data::DataComponentType },
     /// `SlotDisplay.ItemSlotDisplay`
-    Item { item: mc_data::Item },
+    Item {
+        #[mc(with = strict_item)]
+        item: mc_data::Item,
+    },
     /// `SlotDisplay.ItemStackSlotDisplay`
     ItemStack { stack: ItemStackTemplate },
     /// `SlotDisplay.TagSlotDisplay`
@@ -241,7 +244,7 @@ impl Encode for RecipePropertySet {
 }
 impl Decode for RecipePropertySet {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        let mut items = Vec::<mc_data::Item>::decode(input)?;
+        let mut items = strict_item::decode_list(input)?;
         let mut seen = std::collections::HashSet::new();
         items.retain(|i| seen.insert(*i));
         Ok(Self { items })

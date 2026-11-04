@@ -4,6 +4,7 @@ mod display;
 mod map;
 mod recipe;
 mod slots;
+mod strict_item;
 mod untrusted_text;
 
 pub use container::*;

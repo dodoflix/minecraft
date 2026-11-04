@@ -1,4 +1,5 @@
 //! `ClientboundMerchantOffersPacket` and its nested types.
+use super::strict_item;
 use crate::codec::DecodeResult;
 use crate::components::{DataComponentExactPredicate, ItemStack};
 use crate::{Decode, Encode, Packet};
@@ -6,6 +7,7 @@ use crate::{Decode, Encode, Packet};
 /// `ItemCost.STREAM_CODEC`: the item, how many, and the exact component values the offered stack must carry.
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 pub struct ItemCost {
+    #[mc(with = strict_item)]
     pub item: mc_data::Item,
     #[mc(var)]
     pub count: i32,
