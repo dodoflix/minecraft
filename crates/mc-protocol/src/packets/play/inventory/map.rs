@@ -65,7 +65,13 @@ mod map_patch {
             return Ok(None);
         }
         let [height, start_x, start_y] = crate::codec::take_array(input)?;
-        Ok(Some(MapItemSavedDataMapPatch { start_x, start_y, width, height, map_colors: Vec::decode(input)? }))
+        Ok(Some(MapItemSavedDataMapPatch {
+            start_x,
+            start_y,
+            width,
+            height,
+            map_colors: Vec::decode(input)?,
+        }))
     }
 }
 

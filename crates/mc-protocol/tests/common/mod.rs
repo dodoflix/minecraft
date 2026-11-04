@@ -6,8 +6,8 @@ use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use std::fmt::Debug;
 
-use mc_protocol::codec::{read_varint, write_varint};
 use mc_protocol::Packet;
+use mc_protocol::codec::{read_varint, write_varint};
 
 pub struct Golden {
     name: String,
@@ -21,22 +21,35 @@ pub fn hex(b: &[u8]) -> String {
 
 impl Golden {
     pub fn load(name: &str) -> Self {
-        let path = format!("{}/tests/fixtures/play/{name}.golden", env!("CARGO_MANIFEST_DIR"));
-        let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{path}: {e} (run fixtures/play/gen.sh)"));
+        let path = format!(
+            "{}/tests/fixtures/play/{name}.golden",
+            env!("CARGO_MANIFEST_DIR")
+        );
+        let text = std::fs::read_to_string(&path)
+            .unwrap_or_else(|e| panic!("{path}: {e} (run fixtures/play/gen.sh)"));
         let lines = text
             .lines()
             .map(|l| {
                 let (label, h) = l.split_once(':').expect("label:hex");
-                let bytes = (0..h.len()).step_by(2).map(|i| u8::from_str_radix(&h[i..i + 2], 16).unwrap()).collect();
+                let bytes = (0..h.len())
+                    .step_by(2)
+                    .map(|i| u8::from_str_radix(&h[i..i + 2], 16).unwrap())
+                    .collect();
                 (label.to_owned(), bytes)
             })
             .collect();
-        Self { name: name.into(), lines, used: RefCell::default() }
+        Self {
+            name: name.into(),
+            lines,
+            used: RefCell::default(),
+        }
     }
 
     pub fn bytes(&self, label: &str) -> &[u8] {
         self.used.borrow_mut().insert(label.to_owned());
-        self.lines.get(label).unwrap_or_else(|| panic!("no fixture {}/{label}", self.name))
+        self.lines
+            .get(label)
+            .unwrap_or_else(|| panic!("no fixture {}/{label}", self.name))
     }
 
     /// Our encoding of `p` (VarInt id + body) equals vanilla's, and vanilla's bytes decode back to `p`.
@@ -50,15 +63,32 @@ impl Golden {
         let id = read_varint(&mut input).unwrap();
         assert_eq!(id, P::ID, "id {label}");
         let decoded = P::decode(&mut input).unwrap_or_else(|e| panic!("decode {label}: {e}"));
-        assert!(input.is_empty(), "decode {label}: {} trailing bytes", input.len());
+        assert!(
+            input.is_empty(),
+            "decode {label}: {} trailing bytes",
+            input.len()
+        );
         assert_eq!(&decoded, p, "decode {label}");
     }
 
     /// Like [`check`](Self::check) for nested (non-packet) values: bytes without packet id.
-    pub fn check_value<T: mc_protocol::Encode + mc_protocol::Decode + PartialEq + Debug>(&self, label: &str, v: &T) {
+    pub fn check_value<T: mc_protocol::Encode + mc_protocol::Decode + PartialEq + Debug>(
+        &self,
+        label: &str,
+        v: &T,
+    ) {
         let expected = self.bytes(label);
-        assert_eq!(hex(&mc_protocol::codec::to_bytes(v)), hex(expected), "encode {label}");
-        assert_eq!(&mc_protocol::codec::from_bytes::<T>(expected).unwrap_or_else(|e| panic!("decode {label}: {e}")), v, "decode {label}");
+        assert_eq!(
+            hex(&mc_protocol::codec::to_bytes(v)),
+            hex(expected),
+            "encode {label}"
+        );
+        assert_eq!(
+            &mc_protocol::codec::from_bytes::<T>(expected)
+                .unwrap_or_else(|e| panic!("decode {label}: {e}")),
+            v,
+            "decode {label}"
+        );
     }
 
     /// Every fixture line was consumed by a check (no orphaned vanilla output).
@@ -66,6 +96,10 @@ impl Golden {
         let used = self.used.borrow();
         let mut unused: Vec<_> = self.lines.keys().filter(|k| !used.contains(*k)).collect();
         unused.sort();
-        assert!(unused.is_empty(), "{}: unused fixtures {unused:?}", self.name);
+        assert!(
+            unused.is_empty(),
+            "{}: unused fixtures {unused:?}",
+            self.name
+        );
     }
 }

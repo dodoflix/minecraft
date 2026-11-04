@@ -4,7 +4,7 @@ use mc_text::Component;
 
 use super::recipe::RecipeDisplayId;
 use super::{strict_item, untrusted_text};
-use crate::codec::{read_count, read_varint, DecodeError, DecodeResult, Holder, HolderSet};
+use crate::codec::{DecodeError, DecodeResult, Holder, HolderSet, read_count, read_varint};
 use crate::components::ItemStackTemplate;
 use crate::{Decode, Encode, Packet};
 
@@ -33,7 +33,12 @@ mod item_holder_set {
         // Vanilla resolves each id while reading; here the ids are checked after the whole set was read.
         let set = HolderSet::decode(input)?;
         if let HolderSet::Direct(ids) = &set {
-            if let Some(bad) = ids.iter().find(|id| u32::try_from(**id).ok().and_then(mc_data::Item::from_id).is_none()) {
+            if let Some(bad) = ids.iter().find(|id| {
+                u32::try_from(**id)
+                    .ok()
+                    .and_then(mc_data::Item::from_id)
+                    .is_none()
+            }) {
                 return Err(DecodeError::Message(format!("No value with id {bad}")));
             }
         }
@@ -83,7 +88,10 @@ pub enum SlotDisplay {
     /// `SlotDisplay.WithAnyPotion`
     WithAnyPotion { display: Box<SlotDisplay> },
     /// `SlotDisplay.OnlyWithComponent`
-    OnlyWithComponent { source: Box<SlotDisplay>, component: mc_data::DataComponentType },
+    OnlyWithComponent {
+        source: Box<SlotDisplay>,
+        component: mc_data::DataComponentType,
+    },
     /// `SlotDisplay.ItemSlotDisplay`
     Item {
         #[mc(with = strict_item)]
@@ -97,11 +105,21 @@ pub enum SlotDisplay {
         tag: HolderSet,
     },
     /// `SlotDisplay.DyedSlotDemo`
-    Dyed { dye: Box<SlotDisplay>, target: Box<SlotDisplay> },
+    Dyed {
+        dye: Box<SlotDisplay>,
+        target: Box<SlotDisplay>,
+    },
     /// `SlotDisplay.SmithingTrimDemoSlotDisplay`; `pattern` is a `Holder<TrimPattern>` (data-driven registry: raw id).
-    SmithingTrim { base: Box<SlotDisplay>, material: Box<SlotDisplay>, pattern: Holder<TrimPattern> },
+    SmithingTrim {
+        base: Box<SlotDisplay>,
+        material: Box<SlotDisplay>,
+        pattern: Holder<TrimPattern>,
+    },
     /// `SlotDisplay.WithRemainder`
-    WithRemainder { input: Box<SlotDisplay>, remainder: Box<SlotDisplay> },
+    WithRemainder {
+        input: Box<SlotDisplay>,
+        remainder: Box<SlotDisplay>,
+    },
     /// `SlotDisplay.Composite`
     Composite { contents: Vec<SlotDisplay> },
 }
@@ -136,7 +154,13 @@ impl Decode for ShapedCraftingRecipeDisplay {
         if i32::try_from(ingredients.len()) != Ok(width.wrapping_mul(height)) {
             return Err(DecodeError::msg("Invalid shaped recipe display contents"));
         }
-        Ok(Self { width, height, ingredients, result, crafting_station })
+        Ok(Self {
+            width,
+            height,
+            ingredients,
+            result,
+            crafting_station,
+        })
     }
 }
 
@@ -204,7 +228,10 @@ impl ClientboundRecipeBookAddEntry {
     pub const FLAG_HIGHLIGHT: i8 = 2;
 
     pub fn new(contents: RecipeDisplayEntry, notification: bool, highlight: bool) -> Self {
-        Self { contents, flags: i8::from(notification) | i8::from(highlight) << 1 }
+        Self {
+            contents,
+            flags: i8::from(notification) | i8::from(highlight) << 1,
+        }
     }
     pub fn notification(&self) -> bool {
         self.flags & Self::FLAG_NOTIFICATION != 0
@@ -290,7 +317,10 @@ mod item_sets {
         let count = read_count(input, i32::MAX as usize)?;
         let mut sets: Vec<(Identifier, RecipePropertySet)> = Vec::with_capacity(count.min(65536));
         for _ in 0..count {
-            let (key, set) = (Identifier::decode(input)?, RecipePropertySet::decode(input)?);
+            let (key, set) = (
+                Identifier::decode(input)?,
+                RecipePropertySet::decode(input)?,
+            );
             match sets.iter_mut().find(|(k, _)| *k == key) {
                 Some(e) => e.1 = set,
                 None => sets.push((key, set)),

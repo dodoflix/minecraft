@@ -1,5 +1,5 @@
 //! Packets that carry item stacks: container contents, cursor/inventory slots, clicks, creative slot.
-use crate::codec::{read_varint, DecodeError, DecodeResult};
+use crate::codec::{DecodeError, DecodeResult, read_varint};
 use crate::components::{HashedStack, ItemStack};
 use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
@@ -75,10 +75,14 @@ mod changed_slots {
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(i16, HashedStack)>> {
         let count = read_varint(input)?;
         if count > 128 {
-            return Err(DecodeError::Message(format!("{count} elements exceeded max size of: 128")));
+            return Err(DecodeError::Message(format!(
+                "{count} elements exceeded max size of: 128"
+            )));
         }
         if count < 0 {
-            return Err(DecodeError::msg("The expected number of elements must be nonnegative"));
+            return Err(DecodeError::msg(
+                "The expected number of elements must be nonnegative",
+            ));
         }
         let mut slots: Vec<(i16, HashedStack)> = Vec::with_capacity(count as usize);
         for _ in 0..count {

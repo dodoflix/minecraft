@@ -60,7 +60,17 @@ impl Decode for MerchantOffer {
         if out_of_stock {
             uses = max_uses;
         }
-        Ok(Self { base_cost_a, cost_b, result, uses, max_uses, xp, special_price_diff, price_multiplier, demand })
+        Ok(Self {
+            base_cost_a,
+            cost_b,
+            result,
+            uses,
+            max_uses,
+            xp,
+            special_price_diff,
+            price_multiplier,
+            demand,
+        })
     }
 }
 

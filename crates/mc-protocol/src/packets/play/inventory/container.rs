@@ -3,7 +3,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
 use mc_text::Component;
 
-use crate::codec::{read_count, read_utf, read_varint, write_varint, DecodeError, DecodeResult};
+use crate::codec::{DecodeError, DecodeResult, read_count, read_utf, read_varint, write_varint};
 use crate::packets::play::serverbound::SignTextSlot;
 use crate::packets::play::types::InteractionHand;
 use crate::{Decode, Encode, Packet};
@@ -88,9 +88,14 @@ impl Decode for ServerboundSelectBundleItemPacket {
         let slot_id = read_varint(input)?;
         let selected_item_index = read_varint(input)?;
         if selected_item_index < 0 && selected_item_index != -1 {
-            return Err(DecodeError::Message(format!("Invalid selectedItemIndex: {selected_item_index}")));
+            return Err(DecodeError::Message(format!(
+                "Invalid selectedItemIndex: {selected_item_index}"
+            )));
         }
-        Ok(Self { slot_id, selected_item_index })
+        Ok(Self {
+            slot_id,
+            selected_item_index,
+        })
     }
 }
 

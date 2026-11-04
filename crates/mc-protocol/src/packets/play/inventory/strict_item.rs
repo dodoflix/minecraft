@@ -2,8 +2,8 @@
 //! item registry is a defaulted one. For `#[mc(with = ..)]`.
 use mc_data::Item;
 
-use crate::codec::{read_count, read_registry_id, DecodeResult};
 use crate::Encode;
+use crate::codec::{DecodeResult, read_count, read_registry_id};
 
 pub fn encode(item: &Item, out: &mut Vec<u8>) {
     item.encode(out)
