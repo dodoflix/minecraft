@@ -570,3 +570,92 @@ impl PatchedDataComponentMap {
         b.build()
     }
 }
+
+/// `TypedDataComponent.STREAM_CODEC`: component type id + its network value.
+impl Encode for TypedDataComponent {
+    fn encode(&self, out: &mut Vec<u8>) {
+        self.id.encode(out);
+        def(self.id).encode_network(&self.value, out);
+    }
+}
+impl Decode for TypedDataComponent {
+    fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
+        let id = DataComponentType::decode(input)?;
+        let d = try_def(id).ok_or_else(|| DecodeError::Message(format!("data component {} is not implemented", id.name())))?;
+        Ok(TypedDataComponent { id, value: d.decode_network(input)? })
+    }
+}
+
+// ---- DataComponentExactPredicate ---------------------------------------------------------------------------------
+
+/// `DataComponentExactPredicate`: components that must be present with exactly these values.
+#[derive(Clone, Debug, PartialEq, Default)]
+pub struct DataComponentExactPredicate {
+    expected: Vec<TypedDataComponent>,
+}
+
+impl DataComponentExactPredicate {
+    pub fn empty() -> Self {
+        Self::default()
+    }
+    pub fn expect<T: super::ComponentValue>(key: ComponentKey<T>, value: T) -> Self {
+        DataComponentExactPredicate { expected: vec![TypedDataComponent { id: key.id(), value: Value::new(value) }] }
+    }
+    pub fn from_components(expected: Vec<TypedDataComponent>) -> Self {
+        DataComponentExactPredicate { expected }
+    }
+    /// `allOf(components)`.
+    pub fn all_of(components: &DataComponentMap) -> Self {
+        DataComponentExactPredicate {
+            expected: components.iter().map(|(id, v)| TypedDataComponent { id, value: v.clone() }).collect(),
+        }
+    }
+    /// `someOf(components, types...)`.
+    pub fn some_of(components: &DataComponentMap, types: &[DataComponentType]) -> Self {
+        DataComponentExactPredicate {
+            expected: types
+                .iter()
+                .filter_map(|t| components.get_value(*t).map(|v| TypedDataComponent { id: *t, value: v.clone() }))
+                .collect(),
+        }
+    }
+    pub fn is_empty(&self) -> bool {
+        self.expected.is_empty()
+    }
+    pub fn expected_components(&self) -> &[TypedDataComponent] {
+        &self.expected
+    }
+    pub fn test(&self, actual: &impl DataComponentGetter) -> bool {
+        self.expected.iter().all(|e| actual.get_value(e.id) == Some(&e.value))
+    }
+
+    /// `DataComponentExactPredicate.CODEC`: `{"minecraft:x": value}` (persistent components only).
+    pub fn codec() -> Codec<DataComponentExactPredicate> {
+        static C: LazyLock<Codec<DataComponentExactPredicate>> = LazyLock::new(|| {
+            mc_dfu::extra::dispatched_map(&persistent_type_codec(), |t| DataResult::success(def(*t).codec_or_throw().clone())).xmap(
+                |entries: Vec<(DataComponentType, Value)>| DataComponentExactPredicate {
+                    expected: entries.into_iter().map(|(id, value)| TypedDataComponent { id, value }).collect(),
+                },
+                |p: &DataComponentExactPredicate| {
+                    p.expected.iter().filter(|e| !def(e.id).is_transient()).map(|e| (e.id, e.value.clone())).collect()
+                },
+            )
+        });
+        C.clone()
+    }
+}
+
+/// `DataComponentExactPredicate.STREAM_CODEC`: a list of typed components.
+impl Encode for DataComponentExactPredicate {
+    fn encode(&self, out: &mut Vec<u8>) {
+        write_varint(out, self.expected.len() as i32);
+        for e in &self.expected {
+            e.encode(out);
+        }
+    }
+}
+impl Decode for DataComponentExactPredicate {
+    fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
+        Ok(DataComponentExactPredicate { expected: <TypedDataComponent as Decode>::decode_vec(input, i32::MAX as usize)? })
+    }
+}
