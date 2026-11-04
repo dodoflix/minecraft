@@ -6,7 +6,7 @@ use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
 use uuid::Uuid;
 
-use crate::codec::{decode_tag_with, encode_tag, DecodeError, DecodeResult, NbtLimit, VarInt};
+use crate::codec::{DecodeError, DecodeResult, NbtLimit, VarInt, decode_tag_with, encode_tag};
 use crate::{Decode, Encode, Packet};
 
 mod advancement;
@@ -50,10 +50,16 @@ impl Stat {
 
 impl Encode for Stat {
     fn encode(&self, out: &mut Vec<u8>) {
-        StatType::by_name(self.type_name()).expect("vanilla stat type").encode(out);
+        StatType::by_name(self.type_name())
+            .expect("vanilla stat type")
+            .encode(out);
         match self {
             Self::Mined(v) => v.encode(out),
-            Self::Crafted(v) | Self::Used(v) | Self::Broken(v) | Self::PickedUp(v) | Self::Dropped(v) => v.encode(out),
+            Self::Crafted(v)
+            | Self::Used(v)
+            | Self::Broken(v)
+            | Self::PickedUp(v)
+            | Self::Dropped(v) => v.encode(out),
             Self::Killed(v) | Self::KilledBy(v) => v.encode(out),
             Self::Custom(v) => v.encode(out),
         }
@@ -62,18 +68,24 @@ impl Encode for Stat {
 impl Decode for Stat {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let stat_type = StatType::decode(input)?;
-        Ok(match stat_type.name().strip_prefix("minecraft:").unwrap_or_default() {
-            "mined" => Self::Mined(Decode::decode(input)?),
-            "crafted" => Self::Crafted(Decode::decode(input)?),
-            "used" => Self::Used(Decode::decode(input)?),
-            "broken" => Self::Broken(Decode::decode(input)?),
-            "picked_up" => Self::PickedUp(Decode::decode(input)?),
-            "dropped" => Self::Dropped(Decode::decode(input)?),
-            "killed" => Self::Killed(Decode::decode(input)?),
-            "killed_by" => Self::KilledBy(Decode::decode(input)?),
-            "custom" => Self::Custom(Decode::decode(input)?),
-            other => return Err(DecodeError::Message(format!("Unknown stat type {other}"))),
-        })
+        Ok(
+            match stat_type
+                .name()
+                .strip_prefix("minecraft:")
+                .unwrap_or_default()
+            {
+                "mined" => Self::Mined(Decode::decode(input)?),
+                "crafted" => Self::Crafted(Decode::decode(input)?),
+                "used" => Self::Used(Decode::decode(input)?),
+                "broken" => Self::Broken(Decode::decode(input)?),
+                "picked_up" => Self::PickedUp(Decode::decode(input)?),
+                "dropped" => Self::Dropped(Decode::decode(input)?),
+                "killed" => Self::Killed(Decode::decode(input)?),
+                "killed_by" => Self::KilledBy(Decode::decode(input)?),
+                "custom" => Self::Custom(Decode::decode(input)?),
+                other => return Err(DecodeError::Message(format!("Unknown stat type {other}"))),
+            },
+        )
     }
 }
 
@@ -118,13 +130,21 @@ pub struct BossEventProperties {
 
 impl Encode for BossEventProperties {
     fn encode(&self, out: &mut Vec<u8>) {
-        out.push(self.darken_screen as u8 | (self.play_music as u8) << 1 | (self.create_world_fog as u8) << 2)
+        out.push(
+            self.darken_screen as u8
+                | (self.play_music as u8) << 1
+                | (self.create_world_fog as u8) << 2,
+        )
     }
 }
 impl Decode for BossEventProperties {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let flags = u8::decode(input)?;
-        Ok(Self { darken_screen: flags & 1 != 0, play_music: flags & 2 != 0, create_world_fog: flags & 4 != 0 })
+        Ok(Self {
+            darken_screen: flags & 1 != 0,
+            play_music: flags & 2 != 0,
+            create_world_fog: flags & 4 != 0,
+        })
     }
 }
 
@@ -132,12 +152,27 @@ impl Decode for BossEventProperties {
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 #[mc(error = "Index {} out of bounds for length 6")]
 pub enum BossEventOperation {
-    Add { name: Component, progress: f32, color: BossBarColor, overlay: BossBarOverlay, properties: BossEventProperties },
+    Add {
+        name: Component,
+        progress: f32,
+        color: BossBarColor,
+        overlay: BossBarOverlay,
+        properties: BossEventProperties,
+    },
     Remove,
-    UpdateProgress { progress: f32 },
-    UpdateName { name: Component },
-    UpdateStyle { color: BossBarColor, overlay: BossBarOverlay },
-    UpdateProperties { properties: BossEventProperties },
+    UpdateProgress {
+        progress: f32,
+    },
+    UpdateName {
+        name: Component,
+    },
+    UpdateStyle {
+        color: BossBarColor,
+        overlay: BossBarOverlay,
+    },
+    UpdateProperties {
+        properties: BossEventProperties,
+    },
 }
 
 /// `ClientboundBossEventPacket`

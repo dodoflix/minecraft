@@ -3,7 +3,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{chunk_pos::ChunkPos, vec3i::Vec3i};
 use uuid::Uuid;
 
-use crate::codec::{read_varint, write_varint, DecodeError, DecodeResult, Either, RgbColor};
+use crate::codec::{DecodeError, DecodeResult, Either, RgbColor, read_varint, write_varint};
 use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
 
@@ -22,7 +22,10 @@ pub struct WaypointIcon {
 impl WaypointIcon {
     /// `Waypoint.Icon.NULL`: the default style, no color.
     pub fn null() -> Self {
-        Self { style: Identifier::with_default_namespace("default").expect("valid"), color: None }
+        Self {
+            style: Identifier::with_default_namespace("default").expect("valid"),
+            color: None,
+        }
     }
 }
 
@@ -47,7 +50,11 @@ pub struct TrackedWaypoint {
 impl TrackedWaypoint {
     /// `TrackedWaypoint.empty`
     pub fn empty(identifier: Uuid) -> Self {
-        Self { identifier: Either::Left(identifier), icon: WaypointIcon::null(), data: TrackedWaypointData::Empty }
+        Self {
+            identifier: Either::Left(identifier),
+            icon: WaypointIcon::null(),
+            data: TrackedWaypointData::Empty,
+        }
     }
 }
 
@@ -80,11 +87,21 @@ impl Decode for TrackedWaypoint {
         let data = match read_varint(input)? {
             0 => TrackedWaypointData::Empty,
             1 => TrackedWaypointData::Vec3i(Vec3i::decode(input)?),
-            2 => TrackedWaypointData::Chunk(ChunkPos::new(read_varint(input)?, read_varint(input)?)),
+            2 => {
+                TrackedWaypointData::Chunk(ChunkPos::new(read_varint(input)?, read_varint(input)?))
+            }
             3 => TrackedWaypointData::Azimuth(f32::decode(input)?),
-            id => return Err(DecodeError::Message(format!("Index {id} out of bounds for length 4"))),
+            id => {
+                return Err(DecodeError::Message(format!(
+                    "Index {id} out of bounds for length 4"
+                )));
+            }
         };
-        Ok(Self { identifier, icon, data })
+        Ok(Self {
+            identifier,
+            icon,
+            data,
+        })
     }
 }
 

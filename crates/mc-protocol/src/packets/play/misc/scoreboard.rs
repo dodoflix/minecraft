@@ -1,7 +1,9 @@
 //! Scoreboard packets: objectives, scores, teams, display slots.
 use mc_text::{Component, Style};
 
-use crate::codec::{decode_tag_with, encode_tag, read_varint, write_varint, DecodeError, DecodeResult, NbtLimit};
+use crate::codec::{
+    DecodeError, DecodeResult, NbtLimit, decode_tag_with, encode_tag, read_varint, write_varint,
+};
 use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
 
@@ -181,18 +183,30 @@ pub struct TeamParameters {
 /// add/join/leave (`METHOD_ADD` = 0 .. `METHOD_LEAVE` = 4). Other method bytes decode to [`Self::Other`] (no payload).
 #[derive(Debug, Clone, PartialEq)]
 pub enum TeamMethod {
-    Add { parameters: TeamParameters, players: Vec<String> },
+    Add {
+        parameters: TeamParameters,
+        players: Vec<String>,
+    },
     Remove,
-    Change { parameters: TeamParameters },
-    Join { players: Vec<String> },
-    Leave { players: Vec<String> },
+    Change {
+        parameters: TeamParameters,
+    },
+    Join {
+        players: Vec<String>,
+    },
+    Leave {
+        players: Vec<String>,
+    },
     Other(i8),
 }
 
 impl Encode for TeamMethod {
     fn encode(&self, out: &mut Vec<u8>) {
         match self {
-            Self::Add { parameters, players } => {
+            Self::Add {
+                parameters,
+                players,
+            } => {
                 0i8.encode(out);
                 parameters.encode(out);
                 players.encode(out)
@@ -217,11 +231,20 @@ impl Encode for TeamMethod {
 impl Decode for TeamMethod {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         Ok(match i8::decode(input)? {
-            0 => Self::Add { parameters: Decode::decode(input)?, players: Decode::decode(input)? },
+            0 => Self::Add {
+                parameters: Decode::decode(input)?,
+                players: Decode::decode(input)?,
+            },
             1 => Self::Remove,
-            2 => Self::Change { parameters: Decode::decode(input)? },
-            3 => Self::Join { players: Decode::decode(input)? },
-            4 => Self::Leave { players: Decode::decode(input)? },
+            2 => Self::Change {
+                parameters: Decode::decode(input)?,
+            },
+            3 => Self::Join {
+                players: Decode::decode(input)?,
+            },
+            4 => Self::Leave {
+                players: Decode::decode(input)?,
+            },
             m => Self::Other(m),
         })
     }

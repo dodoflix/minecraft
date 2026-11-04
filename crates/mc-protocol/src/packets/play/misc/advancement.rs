@@ -3,11 +3,11 @@
 use mc_core::ident::Identifier;
 use mc_text::Component;
 
+use crate::codec::DecodeResult;
 use crate::codec::Instant;
 use crate::components::ItemStackTemplate;
 use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
-use crate::codec::DecodeResult;
 
 id_enum!(
     /// `AdvancementType` (`STREAM_CODEC`: VarInt id, unknown = `TASK`)
@@ -39,7 +39,9 @@ impl Encode for DisplayInfo {
         self.description.encode(out);
         self.icon.encode(out);
         self.advancement_type.encode(out);
-        let flags = self.background.is_some() as i32 | (self.show_toast as i32) << 1 | (self.hidden as i32) << 2;
+        let flags = self.background.is_some() as i32
+            | (self.show_toast as i32) << 1
+            | (self.hidden as i32) << 2;
         flags.encode(out);
         if let Some(background) = &self.background {
             background.encode(out);
@@ -53,8 +55,20 @@ impl Decode for DisplayInfo {
         let icon = ItemStackTemplate::decode(input)?;
         let advancement_type = AdvancementType::decode(input)?;
         let flags = i32::decode(input)?;
-        let background = if flags & 1 != 0 { Some(Identifier::decode(input)?) } else { None };
-        Ok(Self { icon, title, description, background, advancement_type, show_toast: flags & 2 != 0, hidden: flags & 4 != 0 })
+        let background = if flags & 1 != 0 {
+            Some(Identifier::decode(input)?)
+        } else {
+            None
+        };
+        Ok(Self {
+            icon,
+            title,
+            description,
+            background,
+            advancement_type,
+            show_toast: flags & 2 != 0,
+            hidden: flags & 4 != 0,
+        })
     }
 }
 
