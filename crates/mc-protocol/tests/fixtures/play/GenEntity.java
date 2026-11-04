@@ -3,7 +3,13 @@
 import com.google.common.collect.ImmutableList;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import com.mojang.datafixers.util.Pair;
 import java.util.*;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.Unit;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.commands.arguments.EntityAnchorArgument.Anchor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.PositionAndRotation;
@@ -286,6 +292,39 @@ public class GenEntity {
          a.setWalkingSpeed(FLOATS[(mask + 3) % FLOATS.length]);
          PlayHarness.cb("player_abilities/" + mask, new ClientboundPlayerAbilitiesPacket(a));
       }
+
+      // equipment: every slot ordinal, empty and non-empty stacks, long / reversed / duplicate lists
+      ItemStack[] stacks = new ItemStack[8];
+      stacks[0] = new ItemStack(Items.DIAMOND_SWORD, 1);
+      stacks[1] = new ItemStack(Items.STONE, 64);
+      stacks[2] = ItemStack.EMPTY;
+      stacks[3] = new ItemStack(Items.DIAMOND_PICKAXE, 1);
+      stacks[3].setDamageValue(100);
+      stacks[4] = new ItemStack(Items.STONE, 16);
+      stacks[4].set(DataComponents.MAX_STACK_SIZE, 16);
+      stacks[5] = new ItemStack(Items.IRON_HELMET, 1);
+      stacks[5].set(DataComponents.UNBREAKABLE, Unit.INSTANCE);
+      stacks[5].setDamageValue(3);
+      stacks[6] = new ItemStack(Items.APPLE, 2);
+      stacks[7] = new ItemStack(Items.DIAMOND_SWORD, 1);
+      stacks[7].set(DataComponents.MAX_DAMAGE, 2000);
+      stacks[7].setDamageValue(7);
+      EquipmentSlot[] slots = EquipmentSlot.values();
+      for (int i = 0; i < slots.length; i++) {
+         PlayHarness.cb("set_equipment/single" + i, new ClientboundSetEquipmentPacket(IDS[i], List.of(Pair.of(slots[i], stacks[i]))));
+         PlayHarness.cb("set_equipment/empty" + i, new ClientboundSetEquipmentPacket(IDS[i + 3], List.of(Pair.of(slots[i], ItemStack.EMPTY))));
+      }
+      List<Pair<EquipmentSlot, ItemStack>> all = new ArrayList<>();
+      for (int i = 0; i < slots.length; i++) {
+         all.add(Pair.of(slots[i], stacks[i]));
+      }
+      PlayHarness.cb("set_equipment/all", new ClientboundSetEquipmentPacket(77, all));
+      List<Pair<EquipmentSlot, ItemStack>> rev = new ArrayList<>(all);
+      Collections.reverse(rev);
+      PlayHarness.cb("set_equipment/reversed", new ClientboundSetEquipmentPacket(-77, rev));
+      PlayHarness.cb("set_equipment/two", new ClientboundSetEquipmentPacket(0, List.of(Pair.of(EquipmentSlot.HEAD, stacks[5]), Pair.of(EquipmentSlot.MAINHAND, stacks[0]))));
+      PlayHarness.cb("set_equipment/dup", new ClientboundSetEquipmentPacket(5, List.of(Pair.of(EquipmentSlot.SADDLE, stacks[1]), Pair.of(EquipmentSlot.SADDLE, stacks[2]), Pair.of(EquipmentSlot.SADDLE, stacks[3]))));
+      PlayHarness.cb("set_equipment/none", new ClientboundSetEquipmentPacket(5, List.of()));
       PlayHarness.close();
    }
 }

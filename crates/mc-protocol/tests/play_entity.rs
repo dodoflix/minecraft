@@ -3,7 +3,8 @@ mod common;
 use common::*;
 use mc_core::ident::Identifier;
 use mc_core::phys::vec3::Vec3;
-use mc_data::{Attribute, MobEffect};
+use mc_data::{Attribute, Item, MobEffect};
+use mc_protocol::components::{ItemStack, DAMAGE, MAX_DAMAGE, MAX_STACK_SIZE, UNBREAKABLE};
 use mc_protocol::{Decode, Packet};
 use mc_protocol::codec::*;
 use mc_protocol::packets::play::*;
@@ -842,6 +843,57 @@ fn look_at_and_abilities(g: &Golden) {
     assert!(p.invulnerable && !p.is_flying && p.can_fly && !p.instabuild);
 }
 
+fn equipment(g: &Golden) {
+    use EquipmentSlot::*;
+    // Java ordinal order
+    let slots = [MainHand, OffHand, Feet, Legs, Chest, Head, Body, Saddle];
+    let mut stacks: Vec<ItemStack> = vec![
+        ItemStack::with_count(Item::DIAMOND_SWORD, 1),
+        ItemStack::with_count(Item::STONE, 64),
+        ItemStack::empty(),
+        ItemStack::with_count(Item::DIAMOND_PICKAXE, 1),
+        ItemStack::with_count(Item::STONE, 16),
+        ItemStack::with_count(Item::IRON_HELMET, 1),
+        ItemStack::with_count(Item::APPLE, 2),
+        ItemStack::with_count(Item::DIAMOND_SWORD, 1),
+    ];
+    stacks[3].set(DAMAGE, 100);
+    stacks[4].set(MAX_STACK_SIZE, 16);
+    stacks[5].set(UNBREAKABLE, ());
+    stacks[5].set(DAMAGE, 3);
+    stacks[7].set(MAX_DAMAGE, 2000);
+    stacks[7].set(DAMAGE, 7);
+    for i in 0..8 {
+        g.check(&format!("set_equipment/single{i}"), &ClientboundSetEquipmentPacket { entity: IDS[i], slots: vec![(slots[i], stacks[i].clone())] });
+        g.check(&format!("set_equipment/empty{i}"), &ClientboundSetEquipmentPacket { entity: IDS[i + 3], slots: vec![(slots[i], ItemStack::empty())] });
+    }
+    let all: Vec<_> = slots.into_iter().zip(stacks.iter().cloned()).collect();
+    g.check("set_equipment/all", &ClientboundSetEquipmentPacket { entity: 77, slots: all.clone() });
+    g.check("set_equipment/reversed", &ClientboundSetEquipmentPacket { entity: -77, slots: all.iter().rev().cloned().collect() });
+    g.check("set_equipment/two", &ClientboundSetEquipmentPacket { entity: 0, slots: vec![(Head, stacks[5].clone()), (MainHand, stacks[0].clone())] });
+    g.check(
+        "set_equipment/dup",
+        &ClientboundSetEquipmentPacket { entity: 5, slots: vec![(Saddle, stacks[1].clone()), (Saddle, stacks[2].clone()), (Saddle, stacks[3].clone())] },
+    );
+    // An empty list writes only the entity id; vanilla's do/while cannot read it back: encode-only comparison.
+    let mut ours = Vec::new();
+    write_varint(&mut ours, ClientboundSetEquipmentPacket::ID);
+    mc_protocol::Encode::encode(&ClientboundSetEquipmentPacket { entity: 5, slots: vec![] }, &mut ours);
+    assert_eq!(hex(&ours), hex(g.bytes("set_equipment/none")));
+    assert!(matches!(ClientboundSetEquipmentPacket::decode(&mut &[5u8][..]), Err(DecodeError::Eof { .. })));
+    // slot ordinals 8..=127 index past `EquipmentSlot.VALUES`; bit 7 only means "continue"
+    assert_eq!(
+        ClientboundSetEquipmentPacket::decode(&mut &[1u8, 8, 0][..]),
+        Err(DecodeError::msg("Index 8 out of bounds for length 8"))
+    );
+    assert_eq!(
+        ClientboundSetEquipmentPacket::decode(&mut &[1u8, 0xff, 0][..]),
+        Err(DecodeError::msg("Index 127 out of bounds for length 8"))
+    );
+    let two = ClientboundSetEquipmentPacket::decode(&mut &[1u8, 0x80, 0, 0x01, 0][..]).unwrap();
+    assert_eq!(two.slots, vec![(MainHand, ItemStack::empty()), (OffHand, ItemStack::empty())]);
+}
+
 #[test]
 fn entity_packets_match_vanilla() {
     let g = Golden::load("entity");
@@ -854,5 +906,6 @@ fn entity_packets_match_vanilla() {
     mob_effects(&g);
     attributes(&g);
     look_at_and_abilities(&g);
+    equipment(&g);
     g.assert_all_used();
 }

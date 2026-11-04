@@ -2,10 +2,11 @@
 use mc_core::ident::Identifier;
 use mc_core::phys::vec3::Vec3;
 
-use super::types::{InteractionHand, PositionMoveRotation, Relatives};
+use super::types::{EquipmentSlot, InteractionHand, PositionMoveRotation, Relatives};
 use crate::codec::{
     Angle, DecodeError, DecodeResult, LpVec3, read_count, read_varint, write_varint,
 };
+use crate::components::ItemStack;
 use crate::packets::common::id_enum;
 use crate::{Decode, Encode, Packet};
 
@@ -626,5 +627,62 @@ impl Decode for ClientboundPlayerAbilitiesPacket {
             flying_speed: f32::decode(input)?,
             walking_speed: f32::decode(input)?,
         })
+    }
+}
+
+/// `EquipmentSlot.VALUES` order: the Java ordinal that `ClientboundSetEquipmentPacket` writes (not the slot id of `EquipmentSlot.STREAM_CODEC`).
+const EQUIPMENT_SLOT_ORDINALS: [EquipmentSlot; 8] = [
+    EquipmentSlot::MainHand,
+    EquipmentSlot::OffHand,
+    EquipmentSlot::Feet,
+    EquipmentSlot::Legs,
+    EquipmentSlot::Chest,
+    EquipmentSlot::Head,
+    EquipmentSlot::Body,
+    EquipmentSlot::Saddle,
+];
+
+/// `ClientboundSetEquipmentPacket`: each entry is a slot ordinal byte (bit 7 = "more entries follow") and an
+/// optional item stack. The list must be non-empty to be readable (vanilla reads at least one entry).
+#[derive(Debug, Clone, PartialEq, Packet)]
+#[packet(state = play, flow = clientbound, name = "set_equipment")]
+pub struct ClientboundSetEquipmentPacket {
+    pub entity: i32,
+    pub slots: Vec<(EquipmentSlot, ItemStack)>,
+}
+
+impl Encode for ClientboundSetEquipmentPacket {
+    fn encode(&self, out: &mut Vec<u8>) {
+        write_varint(out, self.entity);
+        for (i, (slot, stack)) in self.slots.iter().enumerate() {
+            let ordinal = EQUIPMENT_SLOT_ORDINALS
+                .iter()
+                .position(|s| s == slot)
+                .expect("every slot has an ordinal") as u8;
+            (if i + 1 < self.slots.len() {
+                ordinal | 0x80
+            } else {
+                ordinal
+            })
+            .encode(out);
+            stack.encode(out);
+        }
+    }
+}
+impl Decode for ClientboundSetEquipmentPacket {
+    fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
+        let entity = read_varint(input)?;
+        let mut slots = Vec::new();
+        loop {
+            let slot_id = i8::decode(input)?;
+            let ordinal = (slot_id & 127) as usize;
+            let slot = *EQUIPMENT_SLOT_ORDINALS.get(ordinal).ok_or_else(|| {
+                DecodeError::msg(format!("Index {ordinal} out of bounds for length 8"))
+            })?;
+            slots.push((slot, ItemStack::decode(input)?));
+            if slot_id >= 0 {
+                return Ok(Self { entity, slots });
+            }
+        }
     }
 }
