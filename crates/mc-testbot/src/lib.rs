@@ -2,12 +2,14 @@
 pub mod bot;
 pub mod conn;
 pub mod error;
+pub mod handlers;
 pub mod harness;
+pub mod inventory;
 pub mod join;
 pub mod log;
 pub mod physics;
-pub mod play_enum;
 pub mod state;
+pub mod tracking;
 pub mod world;
 
 pub use bot::Bot;

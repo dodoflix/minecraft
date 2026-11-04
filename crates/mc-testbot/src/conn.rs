@@ -45,6 +45,7 @@ macro_rules! wire_packet {
     };
 }
 
+use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
 use mc_protocol::packets::{configuration::*, handshake::*, login::*, status::*};
 wire_packet!(ServerboundHandshakePacket, Handshake, Serverbound);
 wire_packet!(ServerboundStatusPacket, Status, Serverbound);
@@ -127,3 +128,5 @@ impl Conn {
         }
     }
 }
+wire_packet!(ClientboundPlayPacket, Play, Clientbound);
+wire_packet!(ServerboundPlayPacket, Play, Serverbound);

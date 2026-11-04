@@ -12,7 +12,10 @@ use mc_protocol::packets::play::*;
 
 use crate::join::{Configured, SyncedRegistry};
 use crate::physics::{MoveOut, PlayerBody};
-use crate::play_enum::{ClientboundPlayPacket, ServerboundPlayPacket};
+use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
+use crate::inventory::{Menu, PLAYER_MENU};
+use crate::tracking::*;
+use mc_protocol::components::ItemStack;
 use crate::world::ClientWorld;
 
 pub type Out = Vec<ServerboundPlayPacket>;
@@ -73,6 +76,8 @@ pub struct ChatLine {
     pub text: String,
     /// True for system messages shown on the action bar.
     pub overlay: bool,
+    /// Sender display name for chat messages.
+    pub sender: Option<String>,
 }
 
 /// Walk target steered by the tick loop.
@@ -168,7 +173,18 @@ pub struct State {
     pub dig_delay: u32,
     /// Blocks whose breaking the client completed (STOP sent or creative break).
     pub dug: Vec<BlockPos>,
-    pub hand_tool: HandTool,
+    pub effects: Vec<(mc_data::MobEffect, i32)>,
+    /// Root literals of the command tree.
+    pub commands: Vec<String>,
+    pub entities: HashMap<i32, TrackedEntity>,
+    pub social: Social,
+    /// The player's own inventory menu (container id 0).
+    pub inventory: Menu,
+    /// The currently open container menu, if any.
+    pub open_menu: Option<Menu>,
+    pub selected_slot: usize,
+    /// Signed chat messages seen since the last `chat_ack`.
+    pub pending_chat_acks: i32,
     pub chat: Vec<ChatLine>,
     pub custom_payloads: Vec<(Identifier, Vec<u8>)>,
     pub transfer: Option<(String, i32)>,
@@ -242,7 +258,14 @@ impl State {
             digging: None,
             dig_delay: 0,
             dug: Vec::new(),
-            hand_tool: HandTool { speed: 1.0, correct_for_drops: false },
+            effects: Vec::new(),
+            commands: Vec::new(),
+            entities: HashMap::new(),
+            social: Social::default(),
+            inventory: Menu::player_inventory(),
+            open_menu: None,
+            selected_slot: 0,
+            pending_chat_acks: 0,
             chat: Vec::new(),
             custom_payloads: Vec::new(),
             transfer: None,
@@ -287,9 +310,6 @@ impl State {
         self.clocks.get(&(id as i32)).map(|c| c.total_ticks)
     }
 
-    pub fn push_chat(&mut self, kind: &'static str, text: String, overlay: bool) {
-        self.chat.push(ChatLine { tick: self.tick, kind, text, overlay });
-    }
 
     fn reset_level(&mut self, info: &CommonPlayerSpawnInfo) {
         let (min_y, height) = dimension_height(&self.configured.registries, info.dimension_type);
@@ -304,6 +324,7 @@ impl State {
         self.body.abilities.may_fly = matches!(info.game_type, GameType::Creative | GameType::Spectator);
         self.control.goal = None;
         self.control.input = Input::default();
+        self.entities.clear();
     }
 
     /// Update everything that follows from the packet; replies go to `out`.
@@ -380,7 +401,7 @@ impl State {
                     self.clocks.insert(id, c);
                 }
             }
-            _ => {}
+            _ => self.on_other(packet, out),
         }
     }
 
@@ -448,12 +469,13 @@ impl State {
     }
 
     /// `BlockBehaviour.getDestroyProgress` per tick for the block at `pos` with a bare hand (or `tool`).
-    pub fn destroy_progress(&self, pos: BlockPos, tool: HandTool) -> f32 {
+    pub fn destroy_progress(&self, pos: BlockPos) -> f32 {
         let Some(state) = self.world.block_state_at(pos) else { return 0.0 };
         let hardness = state.data().destroy_speed;
         if hardness == -1.0 {
             return 0.0;
         }
+        let tool = self.tool_for(state.block());
         let mut speed = tool.speed;
         if !self.body.on_ground {
             speed /= 5.0;
@@ -470,6 +492,25 @@ impl State {
         speed / hardness / if correct { 30.0 } else { 100.0 }
     }
 
+    /// Mining speed / drop correctness of the held stack against `block` (`Tool` rules, else bare hand).
+    pub fn tool_for(&self, block: mc_data::Block) -> HandTool {
+        use mc_protocol::components::{RegistrySet, TOOL};
+        let mut out = HandTool { speed: 1.0, correct_for_drops: false };
+        let Some(t) = self.held_item().get(&TOOL) else { return out };
+        out.speed = t.default_mining_speed;
+        let matches = |set: &RegistrySet<mc_data::Block>| match set {
+            RegistrySet::Tag(tag) => block.is_in_tag(&tag.to_string()),
+            RegistrySet::Entries(v) => v.contains(&block),
+        };
+        if let Some(rule) = t.rules.iter().find(|r| r.correct_for_drops.is_some() && matches(&r.blocks)) {
+            out.correct_for_drops = rule.correct_for_drops.unwrap_or(false);
+        }
+        if let Some(rule) = t.rules.iter().find(|r| r.speed.is_some() && matches(&r.blocks)) {
+            out.speed = rule.speed.unwrap_or(1.0);
+        }
+        out
+    }
+
     fn destroy_block_locally(&mut self, pos: BlockPos) {
         let air = mc_data::Block::AIR.default_state();
         self.world.set_block_state_id(pos.x(), pos.y(), pos.z(), air.id() as u16);
@@ -477,7 +518,7 @@ impl State {
     }
 
     /// `MultiPlayerGameMode.startDestroyBlock`; returns the packets.
-    pub fn start_dig(&mut self, pos: BlockPos, face: Direction, tool: HandTool, out: &mut Out) {
+    pub fn start_dig(&mut self, pos: BlockPos, face: Direction, out: &mut Out) {
         if self.body.abilities.instabuild {
             let sequence = self.next_sequence();
             out.push(ServerboundPlayPacket::PlayerAction(ServerboundPlayerActionPacket {
@@ -498,7 +539,7 @@ impl State {
             action: ServerboundPlayerActionAction::StartDestroyBlock, pos, direction: face, sequence,
         }));
         let solid = self.world.block_state_at(pos).is_some_and(|s| !s.block().is_air());
-        if solid && self.destroy_progress(pos, tool) >= 1.0 {
+        if solid && self.destroy_progress(pos) >= 1.0 {
             self.destroy_block_locally(pos);
         } else {
             self.digging = Some(Dig { pos, face, progress: 0.0 });
@@ -516,7 +557,7 @@ impl State {
     }
 
     /// `continueDestroyBlock` for one tick.
-    fn tick_digging(&mut self, tool: HandTool, out: &mut Out) {
+    fn tick_digging(&mut self, out: &mut Out) {
         if self.dig_delay > 0 {
             self.dig_delay -= 1;
             return;
@@ -526,7 +567,7 @@ impl State {
             self.digging = None;
             return;
         }
-        d.progress += self.destroy_progress(d.pos, tool);
+        d.progress += self.destroy_progress(d.pos);
         if d.progress >= 1.0 {
             self.digging = None;
             let sequence = self.next_sequence();
@@ -604,7 +645,7 @@ impl State {
                     data: 0,
                 }));
             }
-            self.tick_digging(self.hand_tool, out);
+            self.tick_digging(out);
             if let Some(m) = self.body.position_packet() {
                 out.push(match m {
                     MoveOut::PosRot { x, y, z, yaw, pitch, on_ground, h_collision } => {
@@ -625,5 +666,19 @@ impl State {
             }
         }
         out.push(ServerboundPlayPacket::ClientTickEnd(ServerboundClientTickEndPacket));
+    }
+}
+
+impl State {
+    /// After a click on the open menu: mirror its player-inventory tail into the inventory menu (and the cursor).
+    pub fn mirror_menu_after_click(&mut self) {
+        if let Some(open) = &self.open_menu {
+            for i in 0..36 {
+                if let (Some(a), Some(b)) = (self.inventory.slot_of_inventory(i), open.slot_of_inventory(i)) {
+                    self.inventory.slots[a] = open.slots[b].clone();
+                }
+            }
+            self.inventory.cursor = open.cursor.clone();
+        }
     }
 }
