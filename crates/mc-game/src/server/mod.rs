@@ -4,6 +4,7 @@ pub mod commands;
 pub mod dedicated;
 pub mod jsonrpc;
 pub mod level;
+pub mod management_api;
 pub mod minecraft_server;
 pub mod network;
 pub mod notifications;

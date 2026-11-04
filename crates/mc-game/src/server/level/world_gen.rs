@@ -186,7 +186,7 @@ pub struct WorldGenContext {
 impl WorldGenContext {
     pub fn hooks_or_default() -> Arc<dyn WorldGenHooks> {
         HOOKS.get().cloned().unwrap_or_else(|| {
-            log::warn!("No structure/feature world generation implementation registered: generating terrain only");
+            log::debug!("No structure/feature world generation implementation registered: generating terrain only");
             Arc::new(MissingWorldGenHooks)
         })
     }

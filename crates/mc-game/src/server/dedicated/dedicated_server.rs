@@ -28,12 +28,13 @@ pub struct DedicatedServer {
     pub code_of_conduct_texts: HashMap<String, String>,
     pub query_thread: Option<QueryThreadGs4>,
     pub rcon_thread: Option<RconThread>,
+    pub management_server: Option<crate::server::jsonrpc::ManagementServer>,
 }
 
 impl DedicatedServer {
     pub fn new(settings: DedicatedServerSettings, console_input: ConsoleInputQueue, stop_signal: ServerStopSignal) -> io::Result<Self> {
         let code_of_conduct_texts = if settings.get_properties().code_of_conduct { read_code_of_conducts()? } else { HashMap::new() };
-        Ok(Self { settings, console_input, stop_signal, code_of_conduct_texts, query_thread: None, rcon_thread: None })
+        Ok(Self { settings, console_input, stop_signal, code_of_conduct_texts, query_thread: None, rcon_thread: None, management_server: None })
     }
 }
 
@@ -92,6 +93,14 @@ impl MinecraftServer {
     pub(in crate::server) fn init_server(&mut self) -> io::Result<bool> {
         crate::commands::BrigadierExceptions::install();
         crate::commands::install_text_validators();
+        mc_protocol::components::install_text_hooks();
+        if properties_management_enabled(self.properties()) {
+            let api = Arc::new(crate::server::management_api::ServerManagementApi::new(self.shared.clone()));
+            match crate::server::jsonrpc::create(self.properties(), &self.notification_manager, api) {
+                Ok(server) => self.dedicated.management_server = server,
+                Err(e) => return Err(io::Error::other(e)),
+            }
+        }
         spawn_console_thread(self.dedicated.console_input.clone(), self.dedicated.stop_signal.clone())?;
         log::info!("Starting minecraft server version {}", mc_world::level_storage::WORLD_VERSION_NAME);
         log::info!("Loading properties");
@@ -158,7 +167,8 @@ impl MinecraftServer {
         }
         if properties.enable_rcon {
             log::info!("Starting remote control listener");
-            log::warn!("The rcon listener needs the command system, which is not available yet");
+            let runner = Arc::new(crate::server::management_api::ServerRconRunner::new(self.shared.clone(), properties.broadcast_rcon_to_ops));
+            self.dedicated.rcon_thread = RconThread::create(runner, &self.local_ip, properties.rcon_port, &properties.rcon_password);
         }
         if self.get_max_tick_length() > 0 {
             crate::server::watchdog::spawn(self.shared.clone(), self.watchdog_info.clone(), self.get_max_tick_length(), self.server_directory.clone())?;
@@ -586,6 +596,9 @@ impl MinecraftServer {
         if let Some(mut query) = self.dedicated.query_thread.take() {
             query.stop();
         }
+        if let Some(mut management) = self.dedicated.management_server.take() {
+            management.stop();
+        }
     }
 
     /// `onServerCrash` (nothing for the dedicated server).
@@ -655,4 +668,8 @@ impl QueryServerInfo for ServerHandle {
 /// `GameType.toString()` (the Java enum constant name).
 fn game_type_name(game_type: GameType) -> String {
     game_type.get_name().to_uppercase()
+}
+
+fn properties_management_enabled(properties: &DedicatedServerProperties) -> bool {
+    properties.management_server_enabled
 }
