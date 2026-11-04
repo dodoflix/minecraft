@@ -7,11 +7,15 @@ edition = "2024"
 version = "0.1.0"
 license = "MIT"
 
+# Many parallel worktrees each keep a target/: full debuginfo + incremental caches made them 25-47 GB apiece.
 [profile.dev]
 opt-level = 1
+debug = "line-tables-only"
+incremental = false
 
 [profile.dev.package."*"]
 opt-level = 3
+debug = false
 
 [profile.release]
 debug = 1

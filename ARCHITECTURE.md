@@ -103,6 +103,8 @@ rebase if main moved). Never force-push/reset main; never discard others' work.
 **Backup:** remote `origin` = private GitHub repo `dodoflix/minecraft`. After merging to main run
 `flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft push -q origin main`; after WIP/checkpoint commits
 push your branch (`git push -q origin <name>`; branch force-push only after your own rebase, never main).
+**Disk:** after your branch is merged and you're done, delete your worktree's build cache
+(`rm -rf /home/dodo/Projects/mc-wt/<name>/target`); `/home` filled up once with stale per-worktree targets.
 
 **Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
 `feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
