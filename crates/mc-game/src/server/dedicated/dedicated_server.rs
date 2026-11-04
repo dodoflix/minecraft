@@ -279,6 +279,16 @@ impl MinecraftServer {
         *self.properties().view_distance.get()
     }
 
+    pub fn set_view_distance(&mut self, view_distance: i32) {
+        self.dedicated.settings.update(|p| p.update(&p.view_distance, view_distance));
+        crate::server::players::player_ops::set_view_distance(self, view_distance);
+    }
+
+    pub fn set_simulation_distance(&mut self, simulation_distance: i32) {
+        self.dedicated.settings.update(|p| p.update(&p.simulation_distance, simulation_distance));
+        crate::server::players::player_ops::set_simulation_distance(self, simulation_distance);
+    }
+
     pub fn simulation_distance(&self) -> i32 {
         *self.properties().simulation_distance.get()
     }

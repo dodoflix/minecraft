@@ -393,6 +393,7 @@ impl MinecraftServer {
     pub fn save_everything(&mut self, silent: bool, flush: bool, force: bool) -> bool {
         self.shared.set_saving(true);
         let result = panic::catch_unwind(AssertUnwindSafe(|| {
+            crate::server::players::player_ops::save_all(self);
             let result = self.save_all_chunks(silent, flush, force);
             self.warn_on_low_disk_space();
             result
@@ -445,6 +446,7 @@ impl MinecraftServer {
         self.stop_connection();
         self.shared.set_saving(true);
         log::info!("Saving players");
+        crate::server::players::player_ops::save_all(self);
         self.player_list.remove_all();
 
         log::info!("Saving worlds");
