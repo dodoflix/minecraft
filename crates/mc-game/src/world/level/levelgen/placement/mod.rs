@@ -7,7 +7,6 @@ pub mod block_predicate_filter;
 pub mod cave_surface;
 pub mod count_on_every_layer_placement;
 pub mod count_placement;
-pub mod cuboid_placement;
 pub mod environment_scan_placement;
 pub mod fixed_placement;
 pub mod height_range_placement;
