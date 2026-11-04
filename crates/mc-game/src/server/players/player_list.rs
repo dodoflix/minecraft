@@ -91,7 +91,7 @@ pub struct PlayerList {
     pub(super) simulation_distance: i32,
     send_all_player_info_in: i32,
     pub settings: PlayerListSettings,
-    notifications: Arc<dyn NotificationService>,
+    pub(super) notifications: Arc<dyn NotificationService>,
 }
 
 impl PlayerList {
