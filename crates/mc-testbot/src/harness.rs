@@ -1,6 +1,6 @@
 //! Test harness: the real vanilla server through `scripts/vanilla-server.sh` (offline, fixed seed).
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 pub fn repo_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..").canonicalize().expect("repo root")
@@ -25,23 +25,24 @@ impl VanillaServer {
     /// Starts the server and blocks until `Done (`. `props` are extra `key=value` server.properties entries.
     pub fn start(name: &str, seed: i64, gamemode: &str, props: &[&str]) -> std::io::Result<Self> {
         let port = free_port();
-        let out = Command::new(script())
+        // No pipes: the script's detached java keeps inherited stdout/stderr pipes open until the server exits.
+        let status = Command::new(script())
             .args(["start", name, "--port", &port.to_string(), "--seed", &seed.to_string(), "--gamemode", gamemode])
             .args(["--view-distance", "4", "--simulation-distance", "4", "--xmx", "1G", "--reset"])
             .args(props)
-            .output()?;
-        if !out.status.success() {
-            return Err(std::io::Error::other(format!(
-                "vanilla-server.sh start failed: {}",
-                String::from_utf8_lossy(&out.stderr)
-            )));
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status()?;
+        if !status.success() {
+            let out = std::fs::read_to_string(repo_root().join("run/servers").join(name).join("server.out")).unwrap_or_default();
+            return Err(std::io::Error::other(format!("vanilla-server.sh start failed; server.out:\n{out}")));
         }
         Ok(Self { name: name.to_string(), port })
     }
 
     /// Console command, e.g. `op Bot`.
     pub fn cmd(&self, command: &str) {
-        let _ = Command::new(script()).args(["cmd", &self.name, command]).status();
+        let _ = Command::new(script()).args(["cmd", &self.name, command]).stdout(Stdio::null()).stderr(Stdio::null()).status();
     }
 
     /// Waits for an extended regex in the server log; returns the last matching line.
@@ -59,7 +60,7 @@ impl VanillaServer {
     }
 
     pub fn stop(&self) {
-        let _ = Command::new(script()).args(["stop", &self.name]).output();
+        let _ = Command::new(script()).args(["stop", &self.name]).stdout(Stdio::null()).stderr(Stdio::null()).status();
     }
 }
 
