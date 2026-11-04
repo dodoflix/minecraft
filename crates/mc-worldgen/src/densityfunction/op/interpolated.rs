@@ -210,6 +210,7 @@ impl Sampler {
                 let mut output_index =
                     output_volume.index_unchecked(output_x, cell_output_y + y0, output_z);
 
+                #[allow(clippy::explicit_counter_loop)]
                 for _ in y0..=y1 {
                     out.set(output_index, value);
                     output_index += 1;
@@ -296,13 +297,15 @@ mod tests {
         x as f32 * 0.37 + (y * y) as f32 * 0.011 - z as f32 * 0.21 + (x * z) as f32 * 0.003
     }
 
-    fn oracle_sampler() -> (Arc<FnSampler<fn(i32, i32, i32) -> f32>>, Sampler) {
+    type OracleInput = Arc<FnSampler<fn(i32, i32, i32) -> f32>>;
+
+    fn oracle_sampler() -> (OracleInput, Sampler) {
         let input = fn_sampler(oracle_f as fn(i32, i32, i32) -> f32);
         let sampler = Sampler::new(input.clone(), 4, 8);
         (input, sampler)
     }
 
-    fn fixture_bits<'a>(prefix: &'a str) -> impl Iterator<Item = Vec<&'a str>> {
+    fn fixture_bits(prefix: &str) -> impl Iterator<Item = Vec<&str>> {
         include_str!("../../../tests/fixtures/ops.txt")
             .lines()
             .filter(move |l| l.starts_with(prefix))

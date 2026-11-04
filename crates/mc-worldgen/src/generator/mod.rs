@@ -81,7 +81,7 @@ pub trait ChunkGenerator: Send + Sync {
         let resolver: BiomeFn<'_> = Box::new(move |x, y, z| biome_resolver.get_noise_biome(x, y, z));
         let decorated = self.decorate_biome_resolver(blender, chunk, resolver);
         let height_for_generation = chunk.get_height_accessor_for_generation();
-        chunk.access.fill_biomes_from_noise(height_for_generation, |x, y, z| decorated(x, y, z));
+        chunk.access.fill_biomes_from_noise(height_for_generation, decorated);
     }
 
     /// `addDebugScreenInfo(result, randomState, feetPos, samplerContext)` (F3 screen lines).

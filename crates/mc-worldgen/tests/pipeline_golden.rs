@@ -6,12 +6,46 @@ mod common;
 
 use mc_worldgen::biome::BiomeManager;
 use mc_worldgen::blending::Blender;
-use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator};
+use std::cell::{Cell, RefCell};
+use std::collections::HashMap;
+
+use mc_core::pos::chunk_pos::ChunkPos;
+use mc_world::palette::BiomeId;
+use mc_worldgen::generator::{BuildTerrainContext, CarverBiomeCache, ChunkGenerator};
 
 use common::*;
 
+/// `ChunkAccess.carverBiome(supplier)` stand-in: computed once per source chunk, remembered afterwards.
+#[derive(Default)]
+struct MapCache {
+    biomes: RefCell<HashMap<ChunkPos, BiomeId>>,
+    computed: Cell<usize>,
+}
+
+impl CarverBiomeCache for MapCache {
+    fn carver_biome(&self, chunk_pos: ChunkPos, compute: &mut dyn FnMut() -> BiomeId) -> BiomeId {
+        if let Some(&b) = self.biomes.borrow().get(&chunk_pos) {
+            return b;
+        }
+        self.computed.set(self.computed.get() + 1);
+        let b = compute();
+        self.biomes.borrow_mut().insert(chunk_pos, b);
+        b
+    }
+}
+
 #[test]
 fn build_terrain_matches_vanilla() {
+    run_pipeline(false);
+}
+
+/// Same fixture, with a `carverBiomeRegion`-style cache shared by neighbouring chunks of one seed.
+#[test]
+fn build_terrain_with_carver_biome_cache_matches_vanilla() {
+    run_pipeline(true);
+}
+
+fn run_pipeline(use_cache: bool) {
     let blocks = fixture("F", 4);
     let heightmaps = fixture("FH", 4);
     let post = fixture("FP", 4);
@@ -23,6 +57,7 @@ fn build_terrain_matches_vanilla() {
             let resolver = generator.biome_source().create_uncached_resolver(&rs);
             let biome_manager = BiomeManager::new(&*resolver, BiomeManager::obfuscate_seed(seed));
             let blender = Blender::empty();
+            let cache = MapCache::default();
             for (key, lines) in &blocks {
                 let (s, sd, cx, cz) = parse_key(key);
                 if s != setting || sd != seed {
@@ -50,7 +85,7 @@ fn build_terrain_matches_vanilla() {
                     structure_starts: &[],
                     biome_manager: &biome_manager,
                     possible_biomes: Some(&possible),
-                    carver_biome_cache: None,
+                    carver_biome_cache: if use_cache { Some(&cache) } else { None },
                 };
                 generator.build_terrain(&mut chunk, &ctx);
                 checked += 1;
@@ -67,6 +102,9 @@ fn build_terrain_matches_vanilla() {
                 if got_post != post[key][0] {
                     bad.push(format!("{key}: post-processing {got_post} != {}", post[key][0]));
                 }
+            }
+            if use_cache {
+                assert!(cache.computed.get() > 0, "carver biome cache never consulted");
             }
         }
     }

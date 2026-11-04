@@ -60,7 +60,7 @@ const HALF_ROUND_OFF: f64 = f64::from_bits(16777216.0f64.to_bits() - 1);
 /// `GradientNoise.wrap` (`SharedConstants.DEBUG_ENABLE_FARLANDS` is false).
 #[inline]
 pub(super) fn wrap(x: f64) -> f64 {
-    if x >= -HALF_ROUND_OFF && x < HALF_ROUND_OFF {
+    if (-HALF_ROUND_OFF..HALF_ROUND_OFF).contains(&x) {
         x
     } else {
         x - (x / 3.3554432E7 + 0.5).floor() * 3.3554432E7
@@ -123,6 +123,7 @@ pub(super) struct CachedCorners {
 }
 
 impl CachedCorners {
+    #[allow(clippy::too_many_arguments)]
     pub fn load(
         &mut self,
         noise: &GradientNoise,

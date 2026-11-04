@@ -80,12 +80,8 @@ fn check_fixture(file: &str, min_samples: usize) {
         data_root(),
     ))));
 
-    let mut state: Option<(
-        (String, i64),
-        RandomState,
-        BTreeMap<String, DensityFunction>,
-        SamplerContext,
-    )> = None;
+    type State = ((String, i64), RandomState, BTreeMap<String, DensityFunction>, SamplerContext);
+    let mut state: Option<State> = None;
     let (mut checked, mut mismatches) = (0usize, Vec::new());
 
     for line in fixture.lines() {

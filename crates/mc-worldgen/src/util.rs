@@ -208,6 +208,7 @@ impl PartialEq for Interval {
     }
 }
 
+#[allow(clippy::should_implement_trait)]
 impl Interval {
     pub const NAI: Interval = Interval {
         min: f32::NAN,
