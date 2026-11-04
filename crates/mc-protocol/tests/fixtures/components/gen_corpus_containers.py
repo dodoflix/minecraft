@@ -27,6 +27,8 @@ dmg = item("diamond_sword", 1, {P + "damage": 5})
 inner = [slot(0, item("stone", 2))]
 nested_container = item("shulker_box", 1, {P + "container": inner})
 nested_bundle = item("bundle", 1, {P + "bundle_contents": [item("stone", 8)]})
+rich = item("diamond_sword", 1, {P + "custom_name": {"text": "Blade", "color": "red"}, P + "lore": ["a", {"text": "b"}], P + "enchantments": {P + "sharpness": 3},
+                                  P + "custom_data": {"a": 1, "b": [1, 2], "c": {"d": "e"}}, P + "rarity": "epic", P + "repair_cost": 7, P + "dyed_color": 16711680})
 stack_override = lambda n: item("stone", 1, {P + "max_stack_size": n})
 
 container_bases = [
@@ -40,18 +42,19 @@ container_bases = [
     [slot(3, item("stone", 1, {P + "max_stack_size": 16, P + "unbreakable": {}}))],
     [slot(i, "minecraft:stone") for i in range(0, 256, 17)],
     [slot(i, "minecraft:dirt") for i in range(8)],
+    [slot(0, rich), slot(1, item("leather_helmet", 1, {P + "dyed_color": {"rgb": 255, "show_in_tooltip": False}}))],
 ]
 bundle_bases = [
     [], ["minecraft:stone"], [item("stone", 64), item("apple", 3)], [nested_bundle, "minecraft:apple"],
-    [item("diamond_sword", 1, {P + "damage": 1})], [stack_override(97), stack_override(89)],
+    [item("diamond_sword", 1, {P + "damage": 1})], [rich, rich], [item("stone", 1, {P + "custom_name": "x"}), "minecraft:apple"], [stack_override(97), stack_override(89)],
     [item("bundle", 1, {P + "bundle_contents": [item("bundle", 1, {P + "bundle_contents": ["minecraft:stone"]})]})],
 ]
-charged_bases = [[], ["minecraft:arrow"], [item("arrow", 3), item("firework_rocket", 1)], [item("arrow", 64, {})], ["minecraft:arrow"] * 5]
+charged_bases = [[item("arrow", 1, {P + "custom_data": {"x": 1}})], [], ["minecraft:arrow"], [item("arrow", 3), item("firework_rocket", 1)], [item("arrow", 64, {})], ["minecraft:arrow"] * 5]
 loot_bases = [{"loot_table": P + "chests/simple_dungeon"}, {"loot_table": P + "chests/end_city_treasure", "seed": 1234567890123},
               {"loot_table": "custom:a/b", "seed": 0}, {"loot_table": P + "x", "seed": -5}]
 state_bases = [{}, {"facing": "north"}, {"facing": "north", "lit": "true", "honey_level": "3"}, {"a": "", "": "b"},
                {f"prop{i}": f"value{i}" for i in range(12)}, {f"k{i * 7}": str(i) for i in range(30)}, {"é": "ü", "中": "文"}]
-sulfur_bases = ["minecraft:stone", item("stone", 4), item("oak_log", 1, {P + "max_stack_size": 2})]
+sulfur_bases = [item("stone", 1, {P + "lore": ["l"]}), "minecraft:stone", item("stone", 4), item("oak_log", 1, {P + "max_stack_size": 2})]
 debug_bases = [{}, {P + "oak_stairs": "facing"}, {P + "lever": "powered", P + "oak_stairs": "half"}, {P + "stone": "facing"},
                {P + "oak_fence": "north", P + "oak_door": "hinge", P + "repeater": "delay"}]
 recipes_bases = [[], [P + "stick"], [P + "stick", "custom:thing/x", P + "stick"]]

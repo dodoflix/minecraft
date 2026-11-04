@@ -17,6 +17,7 @@ material_direct = {"palette_id": "custom:pal", "description": {"text": "Mat", "c
 pattern_direct = {"asset_id": "custom:pat", "description": "Pat", "decal": True}
 banner_direct = {"asset_id": "custom:b", "translation_key": "block.custom.b"}
 brick = {"id": P + "brick", "count": 1}
+named_brick = {"id": P + "brick", "count": 2, "components": {P + "custom_name": "N", P + "enchantments": {P + "unbreaking": 1}, P + "custom_data": {"k": "v"}}}
 
 writable_bases = [{}, {"pages": []}, {"pages": ["hello", "wörld", "😀"]}, {"pages": [{"raw": "a", "filtered": "b"}, {"raw": "c"}, "d"]},
                   {"pages": ["x" * 1024]}, {"pages": ["😀" * 512]}]
@@ -38,7 +39,7 @@ fireworks_bases = [{}, {"flight_duration": 1}, {"flight_duration": 255, "explosi
 banner_bases = [[], [{"pattern": P + "base", "color": "red"}], [{"pattern": P + "stripe_top", "color": "light_blue"}, {"pattern": P + "creeper", "color": "black"}],
                 [{"pattern": banner_direct, "color": "white"}], [{"pattern": P + "border", "color": "lime"}] * 7]
 pot_bases = [{}, {"back": P + "brick"}, {"back": P + "brick", "left": {"id": P + "brick", "count": 3}, "right": P + "angler_pottery_sherd", "front": P + "skull_pottery_sherd"},
-             {"front": {"id": P + "brick", "components": {P + "damage": 0}}}]
+             {"front": {"id": P + "brick", "components": {P + "damage": 0}}}, {"back": named_brick, "left": named_brick}]
 msgs = lambda *m: list(m)
 sign_bases = [{"messages": ["", "", "", ""]}, {"messages": ["a", "b", "c", "d"], "color": "red", "has_glowing_text": True},
               {"messages": [txt("1"), txt("2"), {"text": "3", "color": "gold"}, {"translate": "x"}], "filtered_messages": ["w", "x", "y", "z"]},
