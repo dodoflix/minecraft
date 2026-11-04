@@ -2,7 +2,6 @@
 //! chunk map's events, blocking chunk access, saving and closing). Other slices add fields (entity manager, tick state)
 //! and their own `impl ServerLevel` blocks in their modules.
 
-use super::chunk_light::{ChunkLightEngine, UnlitLightEngine};
 use super::chunk_map::{ChunkMapEvent, ChunkMapParams};
 use super::server_chunk_cache::{ChunkFuture, ServerChunkCache};
 use super::world_gen::{ChunkGeneratorBackend, WorldGenContext, WorldGenRegion};
@@ -53,8 +52,6 @@ pub struct ServerLevelParams {
     pub generate_structures: bool,
     pub seed: i64,
     pub is_known_structure: Arc<dyn Fn(&str) -> bool + Send + Sync>,
-    /// `None`: no light is computed ([`UnlitLightEngine`]) until the light engine is wired in.
-    pub light: Option<Box<dyn ChunkLightEngine>>,
     pub view_distance: i32,
     pub simulation_distance: i32,
     pub sync_writes: bool,
@@ -109,7 +106,6 @@ impl ServerLevel {
             factory: params.factory.clone(),
             gen_context,
             is_known_structure: params.is_known_structure,
-            light: params.light.unwrap_or_else(|| Box::new(UnlitLightEngine::default())),
             sync_writes: params.sync_writes,
             view_distance: params.view_distance,
             tickets: TicketStorage::new(),
@@ -153,7 +149,6 @@ impl ServerLevel {
             generate_structures: false,
             seed: 0,
             is_known_structure: Arc::new(|_| false),
-            light: None,
             view_distance: 10,
             simulation_distance: 10,
             sync_writes: false,
@@ -320,12 +315,12 @@ impl ServerLevel {
     }
 
     /// The light engine (`getLightEngine()`).
-    pub fn light_engine(&self) -> &dyn ChunkLightEngine {
-        &*self.chunk_source.chunk_map.light
+    pub fn light_engine(&self) -> &mc_light::ThreadedLevelLightEngine {
+        &self.chunk_source.chunk_map.light
     }
 
-    pub fn light_engine_mut(&mut self) -> &mut dyn ChunkLightEngine {
-        &mut *self.chunk_source.chunk_map.light
+    pub fn light_engine_mut(&mut self) -> &mut mc_light::ThreadedLevelLightEngine {
+        &mut self.chunk_source.chunk_map.light
     }
 
     /// `addTicket`/`addRegionTicket` convenience used by commands, portals, pearls.
@@ -490,7 +485,8 @@ impl LevelReader for ServerLevel {
     }
 
     fn get_brightness(&self, layer: LightLayer, pos: BlockPos) -> i32 {
-        self.light_engine().get_light_value(layer == LightLayer::Sky, pos)
+        let layer = if layer == LightLayer::Sky { mc_light::LightLayer::Sky } else { mc_light::LightLayer::Block };
+        self.light_engine().engine().get_light_value(layer, pos)
     }
 
     fn get_sky_darken(&self) -> i32 {
@@ -498,7 +494,7 @@ impl LevelReader for ServerLevel {
     }
 
     fn get_raw_brightness(&self, pos: BlockPos, sky_darkening: i32) -> i32 {
-        self.light_engine().get_raw_brightness(pos, sky_darkening)
+        self.light_engine().engine().get_raw_brightness(pos, sky_darkening)
     }
 
     fn can_see_sky(&self, pos: BlockPos) -> bool {

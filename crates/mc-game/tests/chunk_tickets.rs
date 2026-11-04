@@ -37,7 +37,6 @@ fn open(dir: &Path) -> ServerLevel {
         generate_structures: false,
         seed: 0,
         is_known_structure: Arc::new(|_| false),
-        light: None,
         view_distance: 4,
         simulation_distance: 4,
         sync_writes: false,

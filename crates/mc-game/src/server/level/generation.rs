@@ -4,7 +4,7 @@
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, Waiter};
 use super::chunk_level;
-use super::chunk_light::LightEvent;
+use mc_light::LightCompletion;
 use super::chunk_map::{ChunkMap, MainTask};
 use super::chunk_status_tasks::{BatchResult, GenBatch, GenJob, runs_on_worldgen_thread};
 use super::world_gen::GenChunk;
@@ -326,11 +326,13 @@ impl ChunkMap {
                 let status = holder.get_persisted_status().unwrap_or(ChunkStatus::Empty);
                 match &mut holder.slot {
                     ChunkSlot::Proto(p) => {
+                        p.access.initialize_light_sources();
                         p.set_light_engine_attached(true);
                         let lighted = status.is_or_after(ChunkStatus::Light) && p.access.is_light_correct();
                         self.light.initialize_light(&p.access, lighted);
                     }
                     ChunkSlot::Level(l) => {
+                        l.data.access.initialize_light_sources();
                         let lighted = l.data.access.is_light_correct();
                         self.light.initialize_light(&l.data.access, lighted);
                     }
@@ -379,10 +381,10 @@ impl ChunkMap {
         self.wake(key, woken);
     }
 
-    pub(crate) fn on_light_event(&mut self, event: LightEvent) {
+    pub(crate) fn on_light_event(&mut self, event: LightCompletion) {
         match event {
-            LightEvent::Initialized(pos) => self.complete_step(pos.pack(), ChunkStatus::InitializeLight),
-            LightEvent::Lit(pos) => {
+            LightCompletion::Initialized(pos) => self.complete_step(pos.pack(), ChunkStatus::InitializeLight),
+            LightCompletion::Lit(pos) => {
                 if let Some(h) = self.holders.holder_mut(pos.pack()) {
                     match &mut h.slot {
                         ChunkSlot::Proto(p) => p.access.set_light_correct(true),
@@ -392,7 +394,7 @@ impl ChunkMap {
                 }
                 self.complete_step(pos.pack(), ChunkStatus::Light);
             }
-            LightEvent::Barrier(id) => {
+            LightCompletion::Barrier(id) => {
                 self.light_barrier_done.insert(id);
             }
         }

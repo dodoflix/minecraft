@@ -5,7 +5,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_game::server::level::{ChunkMap, ServerLevel, ServerLevelParams, Ticket, TicketType};
 use mc_game::server::shared::ServerShared;
-use mc_game::world::level::BlockGetter;
+use mc_game::world::level::{BlockGetter, LevelReader};
 use mc_nbt::CompoundTag;
 use mc_world::chunk::LevelHeight;
 use mc_world::palette::{BiomeRegistry, PalettedContainerFactory};
@@ -84,7 +84,6 @@ fn open_level(dir: &Path) -> ServerLevel {
         generate_structures: false,
         seed: 0,
         is_known_structure: Arc::new(|_| true),
-        light: None,
         view_distance: 10,
         simulation_distance: 10,
         sync_writes: false,
@@ -147,6 +146,18 @@ fn loads_vanilla_chunks_through_the_chunk_map() {
             .collect();
         assert_eq!(got, expected, "sections of chunk {pos}");
         assert!(level.chunk_source.has_chunk(pos.x, pos.z));
+        // The stored light layers were queued into the light engine when the chunk loaded.
+        for section in &parsed.section_data {
+            for (x, y, z) in [(0, 0, 0), (3, 7, 12), (15, 15, 15), (8, 2, 5)] {
+                let bp = BlockPos::new(pos.x * 16 + x, section.y * 16 + y, pos.z * 16 + z);
+                if let Some(layer) = &section.block_light {
+                    assert_eq!(level.get_brightness(mc_game::world::level::LightLayer::Block, bp), layer.get(x, y, z), "block light at {bp:?}");
+                }
+                if let Some(layer) = &section.sky_light {
+                    assert_eq!(level.get_brightness(mc_game::world::level::LightLayer::Sky, bp), layer.get(x, y, z), "sky light at {bp:?}");
+                }
+            }
+        }
     }
     // BlockGetter reads through the chunk source.
     let (pos, _) = sample[0];

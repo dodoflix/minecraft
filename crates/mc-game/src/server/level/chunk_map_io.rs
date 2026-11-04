@@ -313,8 +313,7 @@ impl ChunkMap {
             }
         }
         let game_time = self.game_time;
-        let light = &*self.light;
-        let light_fn = |section_y: i32| light.section_light(pos, section_y);
+        let light_fn = self.light.engine().chunk_light(pos);
         let data = match slot {
             ChunkSlot::Level(l) => {
                 let block_entities = l.block_entity_nbt_for_saving();

@@ -12,6 +12,7 @@ mc-brigadier = { path = "../mc-brigadier" }
 mc-data = { path = "../mc-data" }
 mc-protocol = { path = "../mc-protocol" }
 mc-worldgen = { path = "../mc-worldgen" }
+mc-light = { path = "../mc-light" }
 mc-world = { path = "../mc-world" }
 zip = { version = "2", default-features = false, features = ["deflate"] }
 regex = "1"

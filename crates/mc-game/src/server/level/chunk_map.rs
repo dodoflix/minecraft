@@ -9,7 +9,6 @@
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, PromotionFuture, PromotionKind, Waiter};
 use super::chunk_io::{RegionIo, WorkerMessage, WorkerPool, WorldgenThread};
 use super::chunk_level;
-use super::chunk_light::ChunkLightEngine;
 use super::chunk_task_queue::ChunkTaskPriorityQueue;
 use super::chunk_tracking_view::ChunkTrackingView;
 use super::distance_manager::{DistanceHost, DistanceManager, DistanceTask};
@@ -26,6 +25,7 @@ use crate::world::level::ticket_storage::TicketStorage;
 use indexmap::{IndexMap, IndexSet};
 use mc_core::phys::Vec3;
 use mc_core::pos::{ChunkPos, SectionPos};
+use mc_light::ThreadedLevelLightEngine;
 use mc_world::chunk::LevelHeight;
 use mc_world::palette::PalettedContainerFactory;
 use mc_world::region::RegionStorageInfo;
@@ -195,7 +195,6 @@ pub struct ChunkMapParams {
     pub factory: Arc<PalettedContainerFactory>,
     pub gen_context: Arc<WorldGenContext>,
     pub is_known_structure: Arc<dyn Fn(&str) -> bool + Send + Sync>,
-    pub light: Box<dyn ChunkLightEngine>,
     pub sync_writes: bool,
     pub view_distance: i32,
     pub tickets: TicketStorage,
@@ -211,7 +210,7 @@ pub struct ChunkMap {
     pub factory: Arc<PalettedContainerFactory>,
     pub gen_context: Arc<WorldGenContext>,
     pub(crate) is_known_structure: Arc<dyn Fn(&str) -> bool + Send + Sync>,
-    pub light: Box<dyn ChunkLightEngine>,
+    pub light: ThreadedLevelLightEngine,
     pub settings: ChunkMapSettings,
     /// `level.getGameTime()` for chunk saving (kept in sync by the level).
     pub game_time: i64,
@@ -261,7 +260,7 @@ pub struct ChunkMap {
 
 impl ChunkMap {
     pub fn new(params: ChunkMapParams) -> Self {
-        let ChunkMapParams { dimension, level_id, region_dir, level_height, has_sky_light, factory, gen_context, is_known_structure, light, sync_writes, view_distance, tickets } = params;
+        let ChunkMapParams { dimension, level_id, region_dir, level_height, has_sky_light, factory, gen_context, is_known_structure, sync_writes, view_distance, tickets } = params;
         let (result_tx, results) = channel();
         let storage_info = RegionStorageInfo::new(level_id, dimension.clone(), "chunk");
         let io = RegionIo::new(storage_info.clone(), region_dir, sync_writes, result_tx.clone());
@@ -285,7 +284,7 @@ impl ChunkMap {
             factory,
             gen_context,
             is_known_structure,
-            light,
+            light: ThreadedLevelLightEngine::new(level_height, has_sky_light),
             settings: ChunkMapSettings { spectators_generate_chunks: false, no_save: false },
             game_time: 0,
             io,
@@ -363,7 +362,7 @@ impl ChunkMap {
 
     /// `hasWork()`.
     pub fn has_work(&self) -> bool {
-        self.light.has_work()
+        self.light.has_pending_work()
             || !self.holders.pending_unloads.is_empty()
             || !self.holders.updating.is_empty()
             || !self.holders.to_drop.is_empty()
@@ -664,26 +663,12 @@ impl ChunkMap {
     }
 
     fn run_light_updates(&mut self) {
-        if !self.light.has_work() {
+        if !self.light.has_pending_work() {
             return;
         }
-        let events = {
-            let holders = &self.holders;
-            let getter = |x: i32, z: i32| -> Option<&mc_world::chunk::ChunkAccess> {
-                let h = holders.holder(ChunkPos::pack_xz(x, z))?;
-                if !h.has_chunk_unchecked(ChunkStatus::Features) {
-                    return None;
-                }
-                match &h.slot {
-                    ChunkSlot::Proto(p) => Some(&p.access),
-                    ChunkSlot::Level(l) => Some(&l.data.access),
-                    _ => None,
-                }
-            };
-            self.light.run_update(&getter)
-        };
-        for event in events {
-            self.on_light_event(event);
+        let result = self.light.run_update(&HolderLightChunks(&self.holders));
+        for completion in result.completions {
+            self.on_light_event(completion);
         }
     }
 
@@ -747,5 +732,22 @@ impl ChunkMap {
     /// `DistanceManager.addTicket` helper used by `ServerChunkCache`.
     pub fn add_ticket(&mut self, ticket: Ticket, pos: ChunkPos) {
         self.tickets.add_ticket(ticket, pos);
+    }
+}
+
+/// `getChunkForLighting(x, z)`: the chunk at the status before `INITIALIZE_LIGHT` (features done), if present.
+struct HolderLightChunks<'a>(&'a Holders);
+
+impl mc_light::LightChunkGetter for HolderLightChunks<'_> {
+    fn get_chunk_for_lighting(&self, x: i32, z: i32) -> Option<&dyn mc_light::LightChunk> {
+        let holder = self.0.holder(ChunkPos::pack_xz(x, z))?;
+        if !holder.has_chunk_unchecked(ChunkStatus::InitializeLight.parent()) {
+            return None;
+        }
+        match &holder.slot {
+            ChunkSlot::Proto(p) => Some(&**p),
+            ChunkSlot::Level(l) => Some(&l.data),
+            _ => None,
+        }
     }
 }

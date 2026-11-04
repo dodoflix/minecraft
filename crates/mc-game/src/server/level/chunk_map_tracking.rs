@@ -12,7 +12,7 @@ use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_protocol::packets::play::level::{
-    ClientboundBlockUpdatePacket, ClientboundLightUpdatePacket, ClientboundSectionBlocksUpdatePacket, ClientboundSetChunkCacheCenterPacket,
+    ClientboundBlockUpdatePacket, ClientboundLightUpdatePacket, ClientboundLightUpdatePacketData, ClientboundSectionBlocksUpdatePacket, ClientboundSetChunkCacheCenterPacket,
 };
 
 /// `SectionPos.of(entity)` for a player position.
@@ -317,8 +317,28 @@ impl ChunkMap {
         if !sky.is_empty() || !block.is_empty() {
             let border_players = self.get_players(pos, true);
             if !border_players.is_empty() {
-                if let Some(data) = self.light.light_update_packet_data(pos, &sky, &block) {
-                    let packet = ClientboundLightUpdatePacket { x: pos.x, z: pos.z, light_data: data };
+                {
+                    let to_protocol = |b: &mc_world::chunk_packet::BitSet| mc_protocol::codec::BitSet::from_bytes(&b.to_bytes());
+                    let to_bits = |set: &std::collections::HashSet<i32>| {
+                        let mut bits = mc_world::chunk_packet::BitSet::new();
+                        for i in set {
+                            bits.set(*i as usize);
+                        }
+                        bits
+                    };
+                    let data = self.light.engine().light_update_packet_data(pos, Some(&to_bits(&sky)), Some(&to_bits(&block)));
+                    let packet = ClientboundLightUpdatePacket {
+                        x: pos.x,
+                        z: pos.z,
+                        light_data: ClientboundLightUpdatePacketData {
+                            sky_y_mask: to_protocol(&data.sky_y_mask),
+                            block_y_mask: to_protocol(&data.block_y_mask),
+                            empty_sky_y_mask: to_protocol(&data.empty_sky_y_mask),
+                            empty_block_y_mask: to_protocol(&data.empty_block_y_mask),
+                            sky_updates: data.sky_updates,
+                            block_updates: data.block_updates,
+                        },
+                    };
                     for id in border_players {
                         if let Some(p) = self.players.get(&id) {
                             p.info.connection.send(&packet);

@@ -3,7 +3,6 @@ pub mod chunk_holder;
 pub mod chunk_io;
 pub mod chunk_load_counter;
 pub mod chunk_level;
-pub mod chunk_light;
 pub mod chunk_map;
 mod chunk_map_io;
 mod chunk_map_tracking;

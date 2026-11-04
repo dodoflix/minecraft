@@ -262,8 +262,9 @@ impl LightEngine {
         self.storage.set_light_enabled(SectionPos::get_zero_node_xz(pos.x, pos.z), enable);
         if self.layer == LightLayer::Sky && enable {
             let sources = chunks.get_chunk_for_lighting(pos.x, pos.z).map(|c| c.get_sky_light_sources()).unwrap_or(&self.empty_chunk_sources);
-            let highest_non_source_y = sources.get_highest_lowest_source_y() - 1;
-            let lowest_fully_source_section_y = SectionPos::block_to_section_coord_i32(highest_non_source_y) + 1;
+            // Java `int` arithmetic: an empty source set has `Integer.MIN_VALUE` here and wraps.
+            let highest_non_source_y = sources.get_highest_lowest_source_y().wrapping_sub(1);
+            let lowest_fully_source_section_y = SectionPos::block_to_section_coord_i32(highest_non_source_y).wrapping_add(1);
             let zero_node = SectionPos::get_zero_node_xz(pos.x, pos.z);
             let top_section_y = self.storage.get_top_section_y(zero_node);
             let bottom_section_y = self.storage.get_bottom_section_y().max(lowest_fully_source_section_y);
