@@ -20,6 +20,7 @@ pub mod living;
 pub mod movement;
 pub mod plain;
 pub mod player;
+pub mod swing;
 pub mod synched_data;
 pub mod tag_set;
 pub mod vec_delta_codec;

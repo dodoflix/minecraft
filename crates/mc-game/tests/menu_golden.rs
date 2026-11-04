@@ -16,13 +16,23 @@ fn st(s: &ItemStack) -> String {
         return "-".into();
     }
     let n = s.item().name().trim_start_matches("minecraft:");
-    format!("{n}x{}{}", s.count(), if s.is_damaged() { format!("d{}", s.get_damage_value()) } else { String::new() })
+    let mut out = format!("{n}x{}{}", s.count(), if s.is_damaged() { format!("d{}", s.get_damage_value()) } else { String::new() });
+    if let Some(bc) = s.get(&mc_protocol::components::BUNDLE_CONTENTS) {
+        out.push('{');
+        for t in bc.items() {
+            out += &format!("{}x{},", t.item.name().trim_start_matches("minecraft:"), t.count);
+        }
+        out += &format!(";{}}}", bc.selected_item_index());
+    }
+    out
 }
 
 struct TestPlayer {
     inv: Inventory,
     creative: bool,
     events: Vec<String>,
+    /// `level.getRandom()` of the Java fake level (`RandomSource.create(42 + scenario)`).
+    rng: mc_core::random::LegacyRandomSource,
 }
 
 impl MenuPlayer for TestPlayer {
@@ -53,6 +63,13 @@ impl MenuPlayer for TestPlayer {
     }
     fn is_within_block_interaction_range(&self, _pos: mc_core::pos::BlockPos, _buffer: f64) -> bool {
         false
+    }
+    fn play_player_sound(&mut self, sound: mc_data::SoundEvent, volume: f32, pitch: f32) {
+        self.events.push(format!("SOUND {} {} {}", sound.name().trim_start_matches("minecraft:"), volume.to_bits() as i32, pitch.to_bits() as i32));
+    }
+    fn level_random_next_float(&mut self) -> f32 {
+        use mc_core::random::RandomSource;
+        self.rng.next_float()
     }
     fn send_inventory_slot_update(&mut self, slot: usize, stack: ItemStack) {
         self.events.push(format!("PKT set_player_inventory {slot} {}", st(&stack)));
@@ -192,11 +209,10 @@ fn menu_click_golden() {
         match parts[0] {
             "scenario" => {
                 let creative = parts[2] == "creative=true";
-                let mut p = TestPlayer { inv: Inventory::new(), creative, events: Vec::new() };
-                let m = InventoryMenu::new(true);
+                let scenario: i64 = parts[1].parse().unwrap();
                 sync.borrow_mut().clear();
-                player = Some(std::mem::replace(&mut p, TestPlayer { inv: Inventory::new(), creative, events: Vec::new() }));
-                menu = Some(m);
+                player = Some(TestPlayer { inv: Inventory::new(), creative, events: Vec::new(), rng: mc_core::random::LegacyRandomSource::new(42 + scenario) });
+                menu = Some(InventoryMenu::new(true));
             }
             "inv" => {
                 let slot: usize = parts[1].parse().unwrap();
@@ -225,6 +241,12 @@ fn menu_click_golden() {
             "select" => {
                 let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
                 p.inv.set_selected_slot(parts[1].parse().unwrap()).unwrap();
+                m.base_mut().broadcast_changes(p);
+                actual = dump(m, p, &sync);
+            }
+            "bundlesel" => {
+                let (p, m) = (player.as_mut().unwrap(), menu.as_mut().unwrap());
+                m.set_selected_bundle_item_index(p, parts[1].parse().unwrap(), parts[2].parse().unwrap());
                 m.base_mut().broadcast_changes(p);
                 actual = dump(m, p, &sync);
             }

@@ -18,6 +18,18 @@ impl InteractionHand {
     pub fn by_id(id: i32) -> InteractionHand {
         if id == 1 { Self::OffHand } else { Self::MainHand }
     }
+    pub fn to_protocol(self) -> mc_protocol::packets::play::InteractionHand {
+        match self {
+            Self::MainHand => mc_protocol::packets::play::InteractionHand::MainHand,
+            Self::OffHand => mc_protocol::packets::play::InteractionHand::OffHand,
+        }
+    }
+    pub fn from_protocol(hand: mc_protocol::packets::play::InteractionHand) -> InteractionHand {
+        match hand {
+            mc_protocol::packets::play::InteractionHand::MainHand => Self::MainHand,
+            mc_protocol::packets::play::InteractionHand::OffHand => Self::OffHand,
+        }
+    }
     pub fn as_equipment_slot(self) -> EquipmentSlot {
         match self {
             Self::MainHand => EquipmentSlot::MainHand,

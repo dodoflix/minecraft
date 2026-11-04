@@ -63,6 +63,9 @@ pub struct LivingEntityData {
     pub speed: f32,
     pub no_jump_delay: i32,
     pub absorption_amount: f32,
+    /// `useItem` (a copy of the stack being used; vanilla aliases the hand stack).
+    pub use_item: crate::world::item::ItemStack,
+    pub swing_state: super::swing::SwingState,
     pub use_item_remaining: i32,
     pub fall_fly_ticks: i32,
     pub auto_spin_attack_ticks: i32,
@@ -129,6 +132,8 @@ impl LivingEntityData {
             speed: 0.0,
             no_jump_delay: 0,
             absorption_amount: 0.0,
+            use_item: crate::world::item::ItemStack::empty(),
+            swing_state: Default::default(),
             use_item_remaining: 0,
             fall_fly_ticks: 0,
             auto_spin_attack_ticks: 0,

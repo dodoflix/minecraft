@@ -90,6 +90,7 @@ pub struct MenuBase {
     quickcraft_type: i32,
     quickcraft_status: i32,
     quickcraft_slots: Vec<usize>,
+    slots_changed_requested: bool,
     container_listeners: Vec<Box<dyn ContainerListener>>,
     synchronizer: Option<Box<dyn ContainerSynchronizer>>,
     suppress_remote_updates: bool,
@@ -112,6 +113,7 @@ impl MenuBase {
             quickcraft_type: -1,
             quickcraft_status: 0,
             quickcraft_slots: Vec::new(),
+            slots_changed_requested: false,
             container_listeners: Vec::new(),
             synchronizer: None,
             suppress_remote_updates: false,
@@ -181,13 +183,13 @@ impl MenuBase {
     /// Slot `index` and an env over the menu's locals.
     pub fn with_slot<R>(&mut self, player: &mut dyn MenuPlayer, index: usize, f: impl FnOnce(&Slot, &mut SlotEnv<'_>) -> R) -> R {
         let slot = &self.slots[index];
-        let mut env = SlotEnv { player, locals: &mut self.locals };
+        let mut env = SlotEnv { player, locals: &mut self.locals, slots_changed_requested: &mut self.slots_changed_requested };
         f(slot, &mut env)
     }
 
     /// An env over the menu's locals (all slots readable through `self.slots`).
     pub fn env<'a>(&'a mut self, player: &'a mut dyn MenuPlayer) -> (&'a [Slot], SlotEnv<'a>) {
-        (&self.slots, SlotEnv { player, locals: &mut self.locals })
+        (&self.slots, SlotEnv { player, locals: &mut self.locals, slots_changed_requested: &mut self.slots_changed_requested })
     }
 
     pub fn get_carried(&self) -> &ItemStack {
@@ -403,6 +405,11 @@ impl MenuBase {
         self.slots.iter().position(|s| s.container.same_container(container) && slot_index == s.get_container_slot())
     }
 
+    /// Takes the pending `slotsChanged(inventory)` request raised by item hooks.
+    pub fn take_slots_changed_request(&mut self) -> bool {
+        std::mem::take(&mut self.slots_changed_requested)
+    }
+
     fn reset_quick_craft(&mut self) {
         self.quickcraft_status = 0;
         self.quickcraft_slots.clear();
@@ -420,6 +427,15 @@ pub trait AbstractContainerMenu: Any {
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool;
 
     // ---- overridable ----
+
+    /// `setSelectedBundleItemIndex(slotIndex, selectedItemIndex)`.
+    fn set_selected_bundle_item_index(&mut self, player: &mut dyn MenuPlayer, slot_index: i32, selected_item_index: i32) {
+        if slot_index >= 0 && (slot_index as usize) < self.base().slots.len() {
+            self.base_mut().with_slot(player, slot_index as usize, |slot, env| {
+                slot.with_item_mut(env, |stack| crate::world::item::toggle_bundle_selected_item(stack, selected_item_index));
+            });
+        }
+    }
 
     fn click_menu_button(&mut self, _player: &mut dyn MenuPlayer, _button_id: i32) -> bool {
         false
@@ -753,6 +769,12 @@ pub trait AbstractContainerMenu: Any {
         let clicked = self.base_mut().with_slot(player, idx, |s, e| s.get_item(e));
         let mut carried = self.base().carried.clone();
         let overridden = super::item_click::try_item_click_behaviour_override(self.base_mut(), player, action, idx, &clicked, &mut carried);
+        if self.base_mut().take_slots_changed_request() {
+            // `player.containerMenu.slotsChanged(player.getInventory())`: the carried stack is part of the state the
+            // broadcast must see
+            self.base_mut().set_carried(carried.clone());
+            self.slots_changed(player, &ContainerKey::PlayerInventory);
+        }
         if !overridden {
             if clicked.is_empty() {
                 if !carried.is_empty() {

@@ -72,6 +72,12 @@ pub trait MenuPlayer {
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
     /// Sends `ClientboundSetPlayerInventoryPacket(slot, stack)` (`Inventory.createInventoryUpdatePacket`).
     fn send_inventory_slot_update(&mut self, slot: usize, stack: ItemStack);
+    /// `Entity.playSound(sound, volume, pitch)` from the player (no-op for test players).
+    fn play_player_sound(&mut self, _sound: mc_data::SoundEvent, _volume: f32, _pitch: f32) {}
+    /// `level.getRandom().nextFloat()` (the level's random).
+    fn level_random_next_float(&mut self) -> f32 {
+        0.0
+    }
     /// The player's level (`None` for level-less test players).
     fn level(&mut self) -> Option<&mut ServerLevel> {
         None

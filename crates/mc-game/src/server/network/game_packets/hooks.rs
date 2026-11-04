@@ -38,37 +38,12 @@ pub trait PlayerSystems: Sync {
     }
     /// `ServerPlayer.checkMovementStatistics(dx, dy, dz)` (walk/swim/climb/fly distance stats + exhaustion).
     fn check_movement_statistics(&self, ctx: &mut PlayCtx, dx: f64, dy: f64, dz: f64) {}
-    /// `LivingEntity.stopUsingItem` / `releaseUsingItem` / `getUsedItemHand`.
-    fn stop_using_item(&self, ctx: &mut PlayCtx) {}
-    fn release_using_item(&self, ctx: &mut PlayCtx) {}
-    fn get_used_item_hand(&self, ctx: &mut PlayCtx) -> Option<InteractionHand> {
-        None
-    }
     /// `PlayerActionPacket` item actions: `STAB` (`PiercingWeapon.attack`), `SWAP_ITEM_WITH_OFFHAND`, `DROP_ITEM`/`DROP_ALL_ITEMS`.
     fn stab_with_piercing_weapon(&self, ctx: &mut PlayCtx) {}
-    fn swap_item_with_offhand(&self, ctx: &mut PlayCtx) {}
-    fn drop_selected_item(&self, ctx: &mut PlayCtx, all: bool) {}
     /// `Player.cannotAttackWithItem(stack, tolerance)` for the main hand.
     fn cannot_attack_with_main_hand(&self, ctx: &mut PlayCtx, tolerance_ticks: i32) -> bool {
         false
     }
-    /// `itemStack.isItemEnabled(level.enabledFeatures())` for the item in `hand`.
-    fn item_in_hand_enabled(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> bool {
-        true
-    }
-    fn item_in_hand_is_empty(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> bool {
-        false
-    }
-    /// `wasBlockPlacementAttempt(player, mainHandItem)`.
-    fn was_block_placement_attempt(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> bool {
-        false
-    }
-    /// `itemStack.getInteractAnimation()` / `getAttackAnimation()` (a `SwingAnimation`, opaque to the listener).
-    fn swing_animation(&self, ctx: &mut PlayCtx, hand: InteractionHand, attack: bool) -> SwingAnimationRef {
-        SwingAnimationRef::default()
-    }
-    fn swing(&self, ctx: &mut PlayCtx, hand: InteractionHand, animation: SwingAnimationRef, send_to_swinging_entity: bool) {}
-    fn swing_and_reset_attack_strength(&self, ctx: &mut PlayCtx, hand: InteractionHand, animation: SwingAnimationRef, send_to_swinging_entity: bool) {}
     fn reset_attack_strength_ticker(&self, ctx: &mut PlayCtx) {}
     /// `Player.isWithinAttackRange(mainHandItem, targetBounds, buffer)`.
     fn is_within_attack_range(&self, ctx: &mut PlayCtx, target: &mc_core::phys::AABB, buffer: f64) -> bool {
@@ -81,13 +56,6 @@ pub trait PlayerSystems: Sync {
     fn attack(&self, ctx: &mut PlayCtx, target: crate::world::entity::EntityId) {}
     /// `ServerPlayer.interactOn(target, hand, location)`.
     fn interact_on(&self, ctx: &mut PlayCtx, target: crate::world::entity::EntityId, hand: InteractionHand, location: mc_core::phys::Vec3) -> InteractionResult {
-        InteractionResult::PASS
-    }
-    /// `ServerPlayerGameMode.useItemOn(player, level, stack, hand, hit)` / `useItem(player, level, stack, hand)`.
-    fn use_item_on(&self, ctx: &mut PlayCtx, hand: InteractionHand, hit: &ServerboundBlockHitResult) -> InteractionResult {
-        InteractionResult::PASS
-    }
-    fn use_item(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> InteractionResult {
         InteractionResult::PASS
     }
     /// `ServerPlayerGameMode.handleBlockBreakAction(pos, action, direction, maxY, sequence)` (digging state machine;
@@ -126,6 +94,49 @@ pub trait PlayerSystems: Sync {
         None
     }
 }
+
+/// Item/hand related player systems the listener calls into (implemented by the item slice, `world::item::player_systems`).
+#[distributed_slice]
+pub static ITEM_SYSTEMS: [&'static dyn ItemSystems] = [..];
+
+#[allow(unused_variables)]
+pub trait ItemSystems: Sync {
+    /// `LivingEntity.stopUsingItem` / `releaseUsingItem` / `getUsedItemHand`.
+    fn stop_using_item(&self, ctx: &mut PlayCtx) {}
+    fn release_using_item(&self, ctx: &mut PlayCtx) {}
+    fn get_used_item_hand(&self, ctx: &mut PlayCtx) -> Option<InteractionHand> {
+        None
+    }
+    fn swap_item_with_offhand(&self, ctx: &mut PlayCtx) {}
+    fn drop_selected_item(&self, ctx: &mut PlayCtx, all: bool) {}
+    /// `itemStack.isItemEnabled(level.enabledFeatures())` for the item in `hand`.
+    fn item_in_hand_enabled(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> bool {
+        true
+    }
+    fn item_in_hand_is_empty(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> bool {
+        false
+    }
+    /// `wasBlockPlacementAttempt(player, mainHandItem)`.
+    fn was_block_placement_attempt(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> bool {
+        false
+    }
+    /// `itemStack.getInteractAnimation()` / `getAttackAnimation()` (a `SwingAnimation`, opaque to the listener).
+    fn swing_animation(&self, ctx: &mut PlayCtx, hand: InteractionHand, attack: bool) -> SwingAnimationRef {
+        SwingAnimationRef::default()
+    }
+    fn swing(&self, ctx: &mut PlayCtx, hand: InteractionHand, animation: SwingAnimationRef, send_to_swinging_entity: bool) {}
+    fn swing_and_reset_attack_strength(&self, ctx: &mut PlayCtx, hand: InteractionHand, animation: SwingAnimationRef, send_to_swinging_entity: bool) {}
+    /// `ServerPlayerGameMode.useItemOn(player, level, stack, hand, hit)` / `useItem(player, level, stack, hand)`.
+    fn use_item_on(&self, ctx: &mut PlayCtx, hand: InteractionHand, hit: &ServerboundBlockHitResult) -> InteractionResult {
+        InteractionResult::PASS
+    }
+    fn use_item(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> InteractionResult {
+        InteractionResult::PASS
+    }
+}
+
+struct NoItemSystems;
+impl ItemSystems for NoItemSystems {}
 
 /// Opaque `SwingAnimation` (item component) carried from the listener to `swing`.
 #[derive(Clone, Copy, Default, Debug)]
@@ -203,6 +214,11 @@ impl PlayCtx<'_> {
     /// The registered [`PlayerSystems`] (the first; slices register exactly one).
     pub(super) fn sys(&self) -> &'static dyn PlayerSystems {
         PLAYER_SYSTEMS.first().copied().unwrap_or(&NoPlayerSystems)
+    }
+
+    /// The registered [`ItemSystems`].
+    pub(super) fn item_sys(&self) -> &'static dyn ItemSystems {
+        ITEM_SYSTEMS.first().copied().unwrap_or(&NoItemSystems)
     }
 
     fn hooks(&mut self, f: impl Fn(&dyn PlayHandlers, &mut PlayCtx)) {

@@ -51,6 +51,9 @@ pub trait BlockEntity: Any {
     fn load_additional(&mut self, _tag: &CompoundTag) {}
     /// `saveAdditional(output)`: write the type-specific part (the common `id`/`x`/`y`/`z` part is added by the caller).
     fn save_additional(&self, _tag: &mut CompoundTag) {}
+    /// `applyComponentsFromItemStack(stack)`: block entities that read item components (custom name, container
+    /// contents, ...) override this; the default ignores them.
+    fn apply_components_from_item_stack(&mut self, _stack: &crate::world::item::ItemStack) {}
     /// `getUpdateTag`: the NBT sent to clients in chunk packets / block entity data packets (default empty).
     fn get_update_tag(&self) -> CompoundTag {
         CompoundTag::new()

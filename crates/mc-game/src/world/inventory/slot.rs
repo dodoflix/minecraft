@@ -41,6 +41,9 @@ impl ContainerKey {
 pub struct SlotEnv<'a> {
     pub player: &'a mut dyn MenuPlayer,
     pub locals: &'a mut Vec<Box<dyn Container>>,
+    /// Set by item code that calls `player.containerMenu.slotsChanged(player.getInventory())` while the menu is
+    /// running a click (bundles); the menu replays it right after the item hook returns.
+    pub slots_changed_requested: &'a mut bool,
 }
 
 impl SlotEnv<'_> {

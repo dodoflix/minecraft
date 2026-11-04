@@ -2,7 +2,9 @@
 pub mod abilities;
 pub mod food_data;
 pub mod handle_sync;
+pub mod drop;
 pub mod inventory;
+pub mod item_use;
 pub mod menu_ctx;
 pub mod tick;
 pub mod server_player;
@@ -64,6 +66,8 @@ pub struct PlayerData {
     /// `enderChestInventory` (27 slots).
     pub ender_chest: SimpleContainer,
     pub menus: PlayerMenus,
+    /// `cooldowns` (`ServerItemCooldowns`; see `ServerPlayer::flush_item_cooldown_packets`).
+    pub cooldowns: crate::world::item::ItemCooldowns,
     pub abilities: Abilities,
     pub food_data: FoodData,
     pub experience_level: i32,
@@ -99,6 +103,7 @@ impl PlayerData {
             inventory: Inventory::new(),
             ender_chest: SimpleContainer::new(27),
             menus: PlayerMenus::new(),
+            cooldowns: crate::world::item::ItemCooldowns::new(),
             abilities: Abilities::default(),
             food_data: FoodData::default(),
             experience_level: 0,

@@ -15,35 +15,87 @@
 //! are added by the item-behaviour wave together with the player/entity API they take; every method has a default so
 //! adding one never touches existing implementors.
 
-use super::{ClickAction, ConsumableExt, ItemStack, ItemStackExt, tool};
-use mc_protocol::components::{CONSUMABLE, ITEM_NAME, ItemUseAnimation};
+use super::{ClickAction, ConsumableExt, InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext, consumable, tool};
+use crate::server::level::ServerLevel;
+use crate::world::entity::equipment::EquipmentSlot;
+use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::inventory::{MenuPlayer, Slot, SlotEnv};
 use linkme::distributed_slice;
-use mc_data::{DataComponentType, Item};
+use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
+use mc_data::{DataComponentType, Item};
+use mc_protocol::components::{BLOCK_TRANSFORMER as BLOCK_TRANSFORMER_KEY, CONSUMABLE, ITEM_NAME, ItemUseAnimation, TOOL};
 use mc_text::Component;
 use std::sync::OnceLock;
 
 /// `APPROXIMATELY_INFINITE_USE_DURATION`.
 pub const APPROXIMATELY_INFINITE_USE_DURATION: i32 = 72000;
 
+/// `Item.useOn` for items with a `block_transformer` component (axes, hoes, shovels): the data-driven
+/// `BlockTransformers` evaluation, installed by the registry/block-state-provider slice. Without it: `PASS`.
+pub type BlockTransformerFn = fn(transformer: &mc_core::ident::Identifier, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult;
+
+static BLOCK_TRANSFORMER: OnceLock<BlockTransformerFn> = OnceLock::new();
+
+pub fn set_block_transformer_hook(f: BlockTransformerFn) {
+    let _ = BLOCK_TRANSFORMER.set(f);
+}
+
 pub trait ItemBehaviour: Send + Sync + 'static {
-    /// `Item.useOn(context)`: default `PASS`. The player's held stack in `context.item_stack` may be mutated.
-    fn use_on(&self, _context: &mut super::UseOnContext, _level: &mut crate::server::level::ServerLevel, _player: &mut crate::world::entity::ServerPlayer) -> super::InteractionResult {
-        super::InteractionResult::PASS
+    /// `Item.useOn(context)`: the `block_transformer` component, else `PASS`. The player's held stack in
+    /// `context.item_stack` may be mutated (the caller stores it back).
+    fn use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
+        match (context.item_stack.get(&BLOCK_TRANSFORMER_KEY).and_then(|h| h.name().cloned()), BLOCK_TRANSFORMER.get()) {
+            (Some(name), Some(f)) => f(&name, context, level, player),
+            _ => InteractionResult::PASS,
+        }
     }
 
-    /// `Item.use(level, player, hand)`: default `PASS` (the consumable/equippable component behavior is added by GameItems).
-    fn use_item(&self, _level: &mut crate::server::level::ServerLevel, _player: &mut crate::world::entity::ServerPlayer, _hand: super::InteractionHand) -> super::InteractionResult {
-        super::InteractionResult::PASS
+    /// `Item.use(level, player, hand)`: consumable / swappable equippable / blocks_attacks / kinetic_weapon.
+    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+        consumable::base_use(level, player, hand)
+    }
+
+    /// `Item.finishUsingItem(stack, level, entity)`.
+    fn finish_using_item(&self, stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity) -> ItemStack {
+        consumable::base_finish_using_item(stack, level, entity)
+    }
+
+    /// `Item.releaseUsing(stack, level, entity, remainingTime)`: whether the release counts as a use.
+    fn release_using(&self, _stack: &mut ItemStack, _level: &mut ServerLevel, _entity: &mut dyn Entity, _remaining_time: i32) -> bool {
+        false
+    }
+
+    /// `Item.onUseTick(level, entity, stack, ticksRemaining)`.
+    fn on_use_tick(&self, _level: &mut ServerLevel, _user: &mut dyn Entity, _stack: &mut ItemStack, _ticks_remaining: i32) {}
+
+    /// `Item.inventoryTick(stack, level, owner, slot)`: `slot` is `None` for non-equipment inventory slots.
+    fn inventory_tick(&self, _stack: &mut ItemStack, _level: &mut ServerLevel, _owner: &mut dyn Entity, _slot: Option<EquipmentSlot>) {}
+
+    /// `Item.mineBlock(stack, level, state, pos, owner)`: tool durability.
+    fn mine_block(&self, stack: &mut ItemStack, level: &mut ServerLevel, state: BlockState, pos: BlockPos, owner: &mut ServerPlayer) -> bool {
+        let Some(tool) = stack.get(&TOOL).cloned() else { return false };
+        let _ = pos;
+        if state.get_destroy_speed() != 0.0 && tool.damage_per_block > 0 {
+            super::hurt_and_break(stack, tool.damage_per_block, level, owner, EquipmentSlot::MainHand);
+        }
+        true
+    }
+
+    /// `Item.hurtEnemy(stack, mob, attacker)`.
+    fn hurt_enemy(&self, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
+
+    /// `Item.postHurtEnemy(stack, mob, attacker)`.
+    fn post_hurt_enemy(&self, _stack: &mut ItemStack, _mob: &mut dyn Entity, _attacker: &mut dyn Entity) {}
+
+    /// `Item.interactLivingEntity(stack, player, target, hand)`.
+    fn interact_living_entity(&self, _stack: &mut ItemStack, _player: &mut ServerPlayer, _target: &mut dyn Entity, _hand: InteractionHand) -> InteractionResult {
+        InteractionResult::PASS
     }
 
     /// `Item.canDestroyBlock(stack, state, level, pos, user)`.
     fn can_destroy_block(&self, stack: &ItemStack, _state: BlockState, user_is_creative: bool) -> bool {
-        match stack.get_json("minecraft:tool") {
-            Some(t) if !t.get("can_destroy_blocks_in_creative").and_then(|v| v.as_bool()).unwrap_or(true) => !user_is_creative,
-            _ => true,
-        }
+        super::tool_can_destroy_block(stack, user_is_creative)
     }
 
     /// `getDestroySpeed(stack, state)`.

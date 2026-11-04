@@ -72,8 +72,10 @@ impl ServerPlayer {
             }
         }
         self.player.was_underwater = self.base().eye_in_fluid[0];
+        self.player.living.swing_state.tick();
         // Entity.baseTick
         self.base_tick(level);
+        self.updating_using_item(level);
         // LivingEntity.baseTick counters
         let l = &mut self.player.living;
         if l.hurt_time > 0 {
@@ -95,7 +97,10 @@ impl ServerPlayer {
         }
         self.player.living.attack_strength_ticker += 1;
         self.player.living.item_swap_ticker += 1;
+        self.tick_inventory(level);
         self.touch_nearby_entities(level);
+        self.player.cooldowns.tick();
+        self.flush_item_cooldown_packets();
     }
 
     /// `Player.aiStep` pickup part: `playerTouch` for every entity around the player (experience orbs: a random one).

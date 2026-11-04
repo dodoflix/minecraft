@@ -161,9 +161,7 @@ pub(super) fn all_blocks_in_are_air(level: &ServerLevel, aabb: &AABB) -> bool {
 
 /// `itemStack.isItemEnabled(level.enabledFeatures())`.
 pub(super) fn item_enabled(level: &ServerLevel, stack: &mc_protocol::components::ItemStack) -> bool {
-    let required: Vec<mc_core::ident::Identifier> =
-        stack.item().data().required_features.iter().filter_map(|n| mc_core::ident::Identifier::try_parse(n)).collect();
-    mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(level.enabled_features())
+    crate::world::item::is_item_enabled(stack, level.enabled_features())
 }
 
 impl PlayCtx<'_> {

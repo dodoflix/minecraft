@@ -21,6 +21,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import com.mojang.serialization.Codec;
@@ -35,7 +36,14 @@ public class MenuGolden {
    static String st(ItemStack s) {
       if (s.isEmpty()) return "-";
       String n = BuiltInRegistries.ITEM.getKey(s.getItem()).getPath();
-      return n + "x" + s.getCount() + (s.isDamaged() ? "d" + s.getDamageValue() : "");
+      StringBuilder b = new StringBuilder(n + "x" + s.getCount() + (s.isDamaged() ? "d" + s.getDamageValue() : ""));
+      net.minecraft.world.item.component.BundleContents bc = s.get(net.minecraft.core.component.DataComponents.BUNDLE_CONTENTS);
+      if (bc != null) {
+         b.append('{');
+         for (net.minecraft.world.item.ItemStackTemplate t : bc.items()) b.append(BuiltInRegistries.ITEM.getKey(t.item().value()).getPath()).append('x').append(t.count()).append(',');
+         b.append(';').append(bc.getSelectedItemIndex()).append('}');
+      }
+      return b.toString();
    }
 
    static boolean creative = false;
@@ -50,6 +58,8 @@ public class MenuGolden {
 
    public static class FakeLevel extends ServerLevel {
       public FakeLevel() { super(null, null, null, null, null, null, false, 0L, null, false); }
+      public net.minecraft.util.RandomSource rnd;
+      @Override public net.minecraft.util.RandomSource getRandom() { return rnd; }
       @Override public net.minecraft.world.flag.FeatureFlagSet enabledFeatures() { return FeatureFlags.DEFAULT_FLAGS; }
    }
 
@@ -60,6 +70,9 @@ public class MenuGolden {
       @Override public boolean hasDisconnected() { return false; }
       @Override public ItemEntity drop(ItemStack s, boolean thrown, Prediction p) { events.add("DROP " + st(s) + " " + thrown + " " + p); return null; }
       @Override public void onEquipItem(EquipmentSlot slot, ItemStack o, ItemStack n) { events.add("EQUIP " + slot.getName() + " " + st(o) + " " + st(n)); }
+      @Override public void playSound(net.minecraft.sounds.SoundEvent sound, float volume, float pitch) {
+         events.add("SOUND " + BuiltInRegistries.SOUND_EVENT.getKey(sound).getPath() + " " + Float.floatToIntBits(volume) + " " + Float.floatToIntBits(pitch));
+      }
       public ServerLevel lvl;
       @Override public ServerLevel level() { return lvl; }
    }
@@ -70,7 +83,8 @@ public class MenuGolden {
    }
 
    static final String[] PALETTE = {"stone", "dirt", "cobblestone", "diamond_pickaxe", "ender_pearl", "snowball", "diamond_helmet",
-      "diamond_chestplate", "diamond_leggings", "diamond_boots", "shield", "apple", "bucket", "elytra", "carved_pumpkin", "iron_helmet"};
+      "diamond_chestplate", "diamond_leggings", "diamond_boots", "shield", "apple", "bucket", "elytra", "carved_pumpkin", "iron_helmet",
+      "bundle", "bundle", "red_bundle", "bundle", "stone", "dirt"};
 
    static ItemStack mk(String name, int count, int dmg) {
       ItemStack s = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(name)), count);
@@ -104,11 +118,12 @@ public class MenuGolden {
       extractor.Setup.bootstrap();
       Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe"); uf.setAccessible(true); U = (sun.misc.Unsafe) uf.get(null);
       long seed = 1;
-      for (int scenario = 0; scenario < 6; scenario++) {
+      for (int scenario = 0; scenario < 8; scenario++) {
          creative = scenario % 2 == 1;
          Random r = new Random(1000 + scenario);
          FakePlayer p = (FakePlayer) U.allocateInstance(FakePlayer.class);
          ServerLevel lvl = (ServerLevel) U.allocateInstance(FakeLevel.class);
+         ((FakeLevel) lvl).rnd = net.minecraft.util.RandomSource.create(42L + scenario);
          p.lvl = lvl;
          set(Entity.class, p, "type", EntityTypes.PLAYER);
          EntityEquipment eq = new PlayerEquipment(p);
@@ -118,10 +133,17 @@ public class MenuGolden {
          Abilities ab = new Abilities(); ab.instabuild = creative;
          set(Player.class, p, "abilities", ab);
          p.connection = (RecListener) U.allocateInstance(RecListener.class);
-         InventoryMenu menu = new InventoryMenu(inv, true, p);
+         final List<String> sync = new ArrayList<>();
+         InventoryMenu menu = new InventoryMenu(inv, true, p) {
+            // `CraftingMenu.slotChangedCraftingGrid` needs a server/recipe manager: emulate it with zero recipes
+            @Override public void slotsChanged(Container c) {
+               resultSlots.setItem(0, ItemStack.EMPTY);
+               setRemoteSlot(0, ItemStack.EMPTY);
+               sync.add("SYNC slot " + incrementStateId() + " 0 -");
+            }
+         };
          set(Player.class, p, "inventoryMenu", menu);
          set(Player.class, p, "containerMenu", menu);
-         final List<String> sync = new ArrayList<>();
          op("scenario " + scenario + " creative=" + creative);
          // initial contents: 12 random stacks in the main inventory/armor/offhand slots
          for (int k = 0; k < 14; k++) {
@@ -199,6 +221,11 @@ public class MenuGolden {
                int sel = r.nextInt(9);
                op("select " + sel);
                inv.setSelectedSlot(sel);
+            } else if (kind < 99) {
+               int bs = 5 + r.nextInt(41);
+               int bi = r.nextInt(5) - 1;
+               op("bundlesel " + bs + " " + bi);
+               menu.setSelectedBundleItemIndex(bs, bi);
             } else {
                // creative-mode slot set (handleSetCreativeModeSlot): only meaningful for infinite materials
                String name = PALETTE[r.nextInt(PALETTE.length)];

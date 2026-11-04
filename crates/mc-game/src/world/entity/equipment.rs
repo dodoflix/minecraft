@@ -58,6 +58,20 @@ impl EquipmentSlot {
         EquipmentSlot::Saddle,
     ];
 
+    pub fn to_protocol(self) -> mc_protocol::packets::play::EquipmentSlot {
+        use mc_protocol::packets::play::EquipmentSlot as P;
+        match self {
+            Self::MainHand => P::MainHand,
+            Self::OffHand => P::OffHand,
+            Self::Feet => P::Feet,
+            Self::Legs => P::Legs,
+            Self::Chest => P::Chest,
+            Self::Head => P::Head,
+            Self::Body => P::Body,
+            Self::Saddle => P::Saddle,
+        }
+    }
+
     pub fn get_type(self) -> EquipmentSlotType {
         match self {
             Self::MainHand | Self::OffHand => EquipmentSlotType::Hand,

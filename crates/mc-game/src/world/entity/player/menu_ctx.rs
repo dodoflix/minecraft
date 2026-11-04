@@ -7,6 +7,7 @@ use crate::world::entity::player::inventory::Inventory;
 use crate::world::inventory::{ConnectionContainerSynchronizer, ContainerListener, ContainerSynchronizer, MenuInit, MenuPlayer, Prediction, Slot};
 use crate::world::item::ItemStack;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_protocol::packets::play::ClientboundSetPlayerInventoryPacket;
 
 pub struct PlayerCtx<'a> {
@@ -41,21 +42,25 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn has_disconnected(&self) -> bool {
         self.player.disconnected
     }
-    /// `Player.drop(...)`: the item-entity class does not exist yet, so the stack is queued in
-    /// `ServerPlayer::pending_drops` for the item-entity slice to spawn (vanilla would `addFreshEntity` it now).
-    fn drop(&mut self, stack: ItemStack, thrown_from_hand: bool, _prediction: Prediction) {
-        if !stack.is_empty() {
-            self.player.pending_drops.push((stack, thrown_from_hand));
-        }
+    /// `Player.drop(...)`: spawns the item entity (`ServerPlayer.drop`).
+    fn drop(&mut self, stack: ItemStack, thrown_from_hand: bool, prediction: Prediction) {
+        self.player.drop(self.level, stack, thrown_from_hand, prediction);
     }
-    fn on_equip_item(&mut self, _slot: EquipmentSlot, _old: &ItemStack, _new: &ItemStack) {
-        // equip sound + `EQUIP` game event are dispatched by the sound/game-event layer
+    fn on_equip_item(&mut self, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
+        self.player.on_equip_item(self.level, slot, old, new);
     }
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool {
         self.player.is_within_block_interaction_range(pos, buffer)
     }
     fn send_inventory_slot_update(&mut self, slot: usize, stack: ItemStack) {
         self.player.send(&ClientboundSetPlayerInventoryPacket { slot: slot as i32, contents: stack });
+    }
+    fn play_player_sound(&mut self, sound: mc_data::SoundEvent, volume: f32, pitch: f32) {
+        crate::world::item::entity_play_sound(self.level, &*self.player, sound, volume, pitch);
+    }
+    fn level_random_next_float(&mut self) -> f32 {
+        use crate::world::level::LevelAccessor;
+        self.level.random().next_float()
     }
     fn level(&mut self) -> Option<&mut ServerLevel> {
         Some(self.level)

@@ -1,0 +1,401 @@
+//! `BlockItem` and its subclasses (`StandingAndWallBlockItem` incl. banners/heads/hanging signs, `DoubleHighBlockItem`,
+//! `GameMasterBlockItem`, `PlaceOnWaterBlockItem`, `ScaffoldingBlockItem`, `SolidBucketItem`): placing blocks.
+
+use super::{
+    BlockPlaceContext, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, PlainItem, UseOnContext, consumable, item_is_enabled,
+};
+use crate::register_item_class;
+use crate::server::level::ServerLevel;
+use crate::world::entity::{Entity, ServerPlayer};
+use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
+use crate::world::level::collision::{BlockGetterExt, ClipContext, CollisionContext, CollisionGetter};
+use crate::world::level::gameevent::GameEventContext;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_core::direction::Direction;
+use mc_core::phys::BlockHitResult;
+use mc_core::pos::BlockPos;
+use mc_data::block::{Block, BlockState};
+use mc_data::{DataComponentType, GameEvent, Item, SoundEvent};
+use mc_protocol::components::{BLOCK_ENTITY_DATA, BLOCK_STATE};
+use mc_protocol::packets::play::SoundSource;
+use mc_world::level_storage::FeatureFlagSet;
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum StandingKind {
+    Plain,
+    /// `HangingSignItem`: `WallHangingSignBlock.canPlace` must hold for wall states.
+    HangingSign,
+}
+
+/// (standing block, wall block, attachment direction, kind) of every `StandingAndWallBlockItem` (extracted from
+/// `Items.java`: torches, coral fans, signs, hanging signs, heads, banners).
+static STANDING_AND_WALL: &[(&str, &str, Direction, StandingKind)] = &[
+    ("torch", "wall_torch", Direction::Down, StandingKind::Plain),
+    ("soul_torch", "soul_wall_torch", Direction::Down, StandingKind::Plain),
+    ("copper_torch", "copper_wall_torch", Direction::Down, StandingKind::Plain),
+    ("tube_coral_fan", "tube_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("brain_coral_fan", "brain_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("bubble_coral_fan", "bubble_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("fire_coral_fan", "fire_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("horn_coral_fan", "horn_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("dead_tube_coral_fan", "dead_tube_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("dead_brain_coral_fan", "dead_brain_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("dead_bubble_coral_fan", "dead_bubble_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("dead_fire_coral_fan", "dead_fire_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("dead_horn_coral_fan", "dead_horn_coral_wall_fan", Direction::Down, StandingKind::Plain),
+    ("redstone_torch", "redstone_wall_torch", Direction::Down, StandingKind::Plain),
+    ("oak_sign", "oak_wall_sign", Direction::Down, StandingKind::Plain),
+    ("spruce_sign", "spruce_wall_sign", Direction::Down, StandingKind::Plain),
+    ("birch_sign", "birch_wall_sign", Direction::Down, StandingKind::Plain),
+    ("jungle_sign", "jungle_wall_sign", Direction::Down, StandingKind::Plain),
+    ("acacia_sign", "acacia_wall_sign", Direction::Down, StandingKind::Plain),
+    ("cherry_sign", "cherry_wall_sign", Direction::Down, StandingKind::Plain),
+    ("dark_oak_sign", "dark_oak_wall_sign", Direction::Down, StandingKind::Plain),
+    ("pale_oak_sign", "pale_oak_wall_sign", Direction::Down, StandingKind::Plain),
+    ("mangrove_sign", "mangrove_wall_sign", Direction::Down, StandingKind::Plain),
+    ("poplar_sign", "poplar_wall_sign", Direction::Down, StandingKind::Plain),
+    ("bamboo_sign", "bamboo_wall_sign", Direction::Down, StandingKind::Plain),
+    ("crimson_sign", "crimson_wall_sign", Direction::Down, StandingKind::Plain),
+    ("warped_sign", "warped_wall_sign", Direction::Down, StandingKind::Plain),
+    ("oak_hanging_sign", "oak_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("spruce_hanging_sign", "spruce_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("birch_hanging_sign", "birch_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("jungle_hanging_sign", "jungle_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("acacia_hanging_sign", "acacia_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("cherry_hanging_sign", "cherry_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("dark_oak_hanging_sign", "dark_oak_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("pale_oak_hanging_sign", "pale_oak_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("mangrove_hanging_sign", "mangrove_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("poplar_hanging_sign", "poplar_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("bamboo_hanging_sign", "bamboo_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("crimson_hanging_sign", "crimson_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("warped_hanging_sign", "warped_wall_hanging_sign", Direction::Up, StandingKind::HangingSign),
+    ("skeleton_skull", "skeleton_wall_skull", Direction::Down, StandingKind::Plain),
+    ("wither_skeleton_skull", "wither_skeleton_wall_skull", Direction::Down, StandingKind::Plain),
+    ("player_head", "player_wall_head", Direction::Down, StandingKind::Plain),
+    ("zombie_head", "zombie_wall_head", Direction::Down, StandingKind::Plain),
+    ("creeper_head", "creeper_wall_head", Direction::Down, StandingKind::Plain),
+    ("dragon_head", "dragon_wall_head", Direction::Down, StandingKind::Plain),
+    ("piglin_head", "piglin_wall_head", Direction::Down, StandingKind::Plain),
+    ("white_banner", "white_wall_banner", Direction::Down, StandingKind::Plain),
+    ("orange_banner", "orange_wall_banner", Direction::Down, StandingKind::Plain),
+    ("magenta_banner", "magenta_wall_banner", Direction::Down, StandingKind::Plain),
+    ("light_blue_banner", "light_blue_wall_banner", Direction::Down, StandingKind::Plain),
+    ("yellow_banner", "yellow_wall_banner", Direction::Down, StandingKind::Plain),
+    ("lime_banner", "lime_wall_banner", Direction::Down, StandingKind::Plain),
+    ("pink_banner", "pink_wall_banner", Direction::Down, StandingKind::Plain),
+    ("gray_banner", "gray_wall_banner", Direction::Down, StandingKind::Plain),
+    ("light_gray_banner", "light_gray_wall_banner", Direction::Down, StandingKind::Plain),
+    ("cyan_banner", "cyan_wall_banner", Direction::Down, StandingKind::Plain),
+    ("purple_banner", "purple_wall_banner", Direction::Down, StandingKind::Plain),
+    ("blue_banner", "blue_wall_banner", Direction::Down, StandingKind::Plain),
+    ("brown_banner", "brown_wall_banner", Direction::Down, StandingKind::Plain),
+    ("green_banner", "green_wall_banner", Direction::Down, StandingKind::Plain),
+    ("red_banner", "red_wall_banner", Direction::Down, StandingKind::Plain),
+    ("black_banner", "black_wall_banner", Direction::Down, StandingKind::Plain)
+];
+
+#[derive(Clone, Copy)]
+enum Kind {
+    Plain,
+    StandingAndWall { wall: Block, attachment: Direction, kind: StandingKind },
+    DoubleHigh,
+    GameMaster,
+    PlaceOnWater,
+    Scaffolding,
+    SolidBucket { sound: SoundEvent },
+}
+
+pub struct BlockItem {
+    block: Block,
+    kind: Kind,
+}
+
+/// `Block.isEnabled(enabledFeatures)`.
+pub fn block_is_enabled(block: Block, enabled: FeatureFlagSet) -> bool {
+    let required: Vec<mc_core::ident::Identifier> = block.data().required_features.iter().filter_map(|n| mc_core::ident::Identifier::try_parse(n)).collect();
+    FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(enabled)
+}
+
+impl BlockItem {
+    fn for_item(item: Item) -> Self {
+        let block = item.block().expect("BlockItem without block");
+        let name = block.data().name.trim_start_matches("minecraft:");
+        let kind = match STANDING_AND_WALL.iter().find(|(b, ..)| *b == name) {
+            Some((_, wall, attachment, kind)) => Kind::StandingAndWall {
+                wall: Block::by_name(&format!("minecraft:{wall}")).expect("wall block"),
+                attachment: *attachment,
+                kind: *kind,
+            },
+            None => Kind::Plain,
+        };
+        Self { block, kind }
+    }
+
+    fn with_kind(item: Item, kind: Kind) -> Self {
+        Self { block: item.block().expect("BlockItem without block"), kind }
+    }
+
+    pub fn get_block(&self) -> Block {
+        self.block
+    }
+
+    fn must_survive(&self) -> bool {
+        !matches!(self.kind, Kind::Scaffolding)
+    }
+
+    fn get_place_sound(&self, state: BlockState) -> SoundEvent {
+        match self.kind {
+            Kind::SolidBucket { sound } => sound,
+            _ => state.get_sound_type().place_sound,
+        }
+    }
+
+    /// `BlockItem.place(placeContext)`. `ctx.use_on.item_stack` is consumed in place.
+    pub fn place(&self, ctx: &mut BlockPlaceContext, level: &mut ServerLevel, mut player: Option<&mut ServerPlayer>) -> InteractionResult {
+        if !block_is_enabled(self.block, level.enabled_features()) {
+            return InteractionResult::FAIL;
+        }
+        if !ctx.can_place(|c| level.get_block_state(c.get_clicked_pos()).can_be_replaced_by(c)) {
+            return InteractionResult::FAIL;
+        }
+        let Some(mut updated) = self.update_placement_context(ctx, level, player.as_deref_mut()) else { return InteractionResult::FAIL };
+        let Some(placement_state) = self.get_placement_state(&updated, level, player.as_deref()) else { return InteractionResult::FAIL };
+        if !self.place_block(&updated, placement_state, level) {
+            return InteractionResult::FAIL;
+        }
+        let pos = updated.get_clicked_pos();
+        let mut placed_state = level.get_block_state(pos);
+        if placed_state.block() == placement_state.block() {
+            placed_state = update_block_state_from_tag(pos, level, &updated.use_on.item_stack, placed_state);
+            update_custom_block_entity_tag(level, player.as_deref(), pos, &updated.use_on.item_stack);
+            update_block_entity_components(level, pos, &updated.use_on.item_stack);
+            block_behaviour(placed_state.block()).set_placed_by(placed_state, level, pos, player.as_deref_mut(), &updated.use_on.item_stack);
+            // `CriteriaTriggers.PLACED_BLOCK` once advancements exist
+        }
+        let sound_type = placed_state.get_sound_type();
+        let player_id = player.as_deref().map(|p| p.base_id());
+        level.play_sound(player_id, pos, self.get_place_sound(placed_state), SoundSource::Blocks, (sound_type.volume + 1.0) / 2.0, sound_type.pitch * 0.8);
+        level.game_event(GameEvent::BLOCK_PLACE, mc_core::phys::Vec3::at_center_of(&pos), &GameEventContext::of(player_id, Some(placed_state)));
+        let infinite = player.as_deref().is_some_and(|p| p.player.abilities.instabuild);
+        updated.use_on.item_stack.consume(1, infinite);
+        ctx.use_on.item_stack = updated.use_on.item_stack;
+        InteractionResult::SUCCESS
+    }
+
+    /// `updatePlacementContext(context)`.
+    fn update_placement_context(&self, ctx: &BlockPlaceContext, level: &mut ServerLevel, player: Option<&mut ServerPlayer>) -> Option<BlockPlaceContext> {
+        match self.kind {
+            Kind::Scaffolding => {
+                // `ScaffoldingBlock.getDistance` (the scaffolding block's stability distance) is not ported yet:
+                // behaves like the non-scaffolding path for a freshly clicked position, which is the common case.
+                let _ = player;
+                let pos = ctx.get_clicked_pos();
+                let replaced = level.get_block_state(pos);
+                if replaced.block() != self.block { Some(ctx.clone()) } else { None }
+            }
+            _ => Some(ctx.clone()),
+        }
+    }
+
+    /// `getPlacementState(context)`.
+    fn get_placement_state(&self, ctx: &BlockPlaceContext, level: &ServerLevel, player: Option<&ServerPlayer>) -> Option<BlockState> {
+        match self.kind {
+            Kind::GameMaster => {
+                if player.is_some_and(|p| !p.can_use_game_master_blocks()) {
+                    return None;
+                }
+                self.base_placement_state(ctx, level, player)
+            }
+            Kind::StandingAndWall { wall, attachment, kind } => {
+                let wall_state = block_behaviour(wall).get_state_for_placement(wall, ctx);
+                let pos = ctx.get_clicked_pos();
+                let mut state_for_placement = None;
+                for direction in ctx.get_nearest_looking_directions() {
+                    if direction != attachment.get_opposite() {
+                        let possible = if direction == attachment { block_behaviour(self.block).get_state_for_placement(self.block, ctx) } else { wall_state };
+                        if let Some(possible) = possible {
+                            if self.standing_can_place(kind, level, possible, pos) {
+                                state_for_placement = Some(possible);
+                                break;
+                            }
+                        }
+                    }
+                }
+                state_for_placement.filter(|s| level.is_unobstructed_state(*s, pos, &CollisionContext::empty()))
+            }
+            _ => self.base_placement_state(ctx, level, player),
+        }
+    }
+
+    fn standing_can_place(&self, kind: StandingKind, level: &ServerLevel, possible: BlockState, pos: BlockPos) -> bool {
+        if kind == StandingKind::HangingSign && possible.block().data().name.contains("_wall_hanging_sign") {
+            // `WallHangingSignBlock.canPlace(state, level, pos)`: the sign must be able to attach sideways
+            // (not ported with the block yet: the block's own `can_survive` below is the vanilla fallback).
+        }
+        possible.can_survive(level, pos)
+    }
+
+    fn base_placement_state(&self, ctx: &BlockPlaceContext, level: &ServerLevel, player: Option<&ServerPlayer>) -> Option<BlockState> {
+        let state_for_placement = block_behaviour(self.block).get_state_for_placement(self.block, ctx);
+        state_for_placement.filter(|s| self.can_place(ctx, *s, level, player))
+    }
+
+    /// `canPlace(context, stateForPlacement)`.
+    fn can_place(&self, ctx: &BlockPlaceContext, state: BlockState, level: &ServerLevel, player: Option<&ServerPlayer>) -> bool {
+        let pos = ctx.get_clicked_pos();
+        let context = match player {
+            Some(p) => CollisionContext::with_position(p.base_id(), p.is_shift_key_down(), p.base().y(), p.held_item_for_collision(), p.can_stand_on_fluid_fn()),
+            None => CollisionContext::placement_without_entity(),
+        };
+        (!self.must_survive() || state.can_survive(level, pos)) && level.is_unobstructed_state(state, pos, &context)
+    }
+
+    /// `placeBlock(context, placementState)`.
+    fn place_block(&self, ctx: &BlockPlaceContext, state: BlockState, level: &mut ServerLevel) -> bool {
+        if let Kind::DoubleHigh = self.kind {
+            let above = ctx.get_clicked_pos().above();
+            let above_state = if crate::world::level::biome_ext::is_water_at(level, above) { Block::WATER.default_state() } else { Block::AIR.default_state() };
+            level.set_block_flags(above, above_state, 27);
+        }
+        level.set_block_flags(ctx.get_clicked_pos(), state, 11)
+    }
+
+    fn block_use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
+        let hit = context.hit_result;
+        let mut place_ctx = BlockPlaceContext::new(context.clone(), |c| level.get_block_state(hit.block_pos).can_be_replaced_by(c));
+        let place_result = self.place(&mut place_ctx, level, Some(player));
+        context.item_stack = place_ctx.use_on.item_stack;
+        if place_result.consumes_action() {
+            return place_result;
+        }
+        let result = PlainItem.use_on(context, level, player);
+        if result.consumes_action() {
+            return result;
+        }
+        if context.item_stack.has(DataComponentType::CONSUMABLE) { consumable::base_use(level, player, context.hand) } else { place_result }
+    }
+}
+
+/// `updateBlockStateFromTag(pos, level, stack, placedState)`.
+fn update_block_state_from_tag(pos: BlockPos, level: &mut ServerLevel, stack: &ItemStack, placed: BlockState) -> BlockState {
+    let Some(props) = stack.get(&BLOCK_STATE) else { return placed };
+    if props.properties.is_empty() {
+        return placed;
+    }
+    // `BlockItemStateProperties.apply(state)`: every named property that exists and parses
+    let mut modified = placed;
+    for (name, value) in &props.properties {
+        if let Some(s) = modified.with_property_str(name, value) {
+            modified = s;
+        }
+    }
+    if modified != placed {
+        level.set_block_flags(pos, modified, 2);
+    }
+    modified
+}
+
+/// `BlockItem.updateCustomBlockEntityTag(level, player, pos, stack)`.
+pub fn update_custom_block_entity_tag(level: &mut ServerLevel, player: Option<&ServerPlayer>, pos: BlockPos, stack: &ItemStack) -> bool {
+    let Some(data) = stack.get(&BLOCK_ENTITY_DATA).cloned() else { return false };
+    let can_set = !data.ty.data().only_op_can_set_nbt || player.is_some_and(|p| p.can_use_game_master_blocks());
+    let Some(be) = level.get_block_entity_immediate(pos) else { return false };
+    if be.get_type() != data.ty || !can_set {
+        return false;
+    }
+    // `TypedEntityData.loadInto(blockEntity)`: merge the saved custom data with the item's and reload when changed
+    let mut old = mc_nbt::CompoundTag::new();
+    be.save_additional(&mut old);
+    let original = old.clone();
+    old.merge(&data.tag);
+    if old == original {
+        return false;
+    }
+    be.load_additional(&old);
+    level.block_entity_changed(pos);
+    true
+}
+
+/// `updateBlockEntityComponents(level, pos, stack)`.
+fn update_block_entity_components(level: &mut ServerLevel, pos: BlockPos, stack: &ItemStack) {
+    if let Some(be) = level.get_block_entity_immediate(pos) {
+        be.apply_components_from_item_stack(stack);
+        level.block_entity_changed(pos);
+    }
+}
+
+impl ItemBehaviour for BlockItem {
+    fn use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
+        match self.kind {
+            Kind::PlaceOnWater => InteractionResult::PASS,
+            Kind::SolidBucket { .. } => {
+                let place_result = self.block_use_on(context, level, player);
+                if place_result.consumes_action() {
+                    // `BucketItem.getEmptySuccessItem(stack, player)`
+                    let hand = context.hand;
+                    let replacement = bucket_empty_success_item(&context.item_stack, player);
+                    player.set_item_in_hand_slot(level, hand, replacement);
+                }
+                place_result
+            }
+            _ => self.block_use_on(context, level, player),
+        }
+    }
+
+    fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
+        if let Kind::PlaceOnWater = self.kind {
+            let hit = player_pov_hit_result(level, player, true);
+            let above = BlockHitResult { block_pos: hit.block_pos.above(), ..hit };
+            let mut ctx = UseOnContext::new(Some(player.context_player()), hand, player.get_item_in_hand(hand), above);
+            // `super.useOn(context)` = BlockItem.useOn (not the overridden PASS)
+            let result = self.block_use_on(&mut ctx, level, player);
+            if ctx.item_stack != player.get_item_in_hand(hand) {
+                player.set_item_in_hand(hand, ctx.item_stack);
+            }
+            return result;
+        }
+        consumable::base_use(level, player, hand)
+    }
+
+    fn can_fit_inside_container_items(&self) -> bool {
+        !self.block.data().name.ends_with("shulker_box")
+    }
+}
+
+/// `BucketItem.getEmptySuccessItem(stack, player)`.
+fn bucket_empty_success_item(stack: &ItemStack, player: &ServerPlayer) -> ItemStack {
+    if !player.player.abilities.instabuild { ItemStack::new(Item::BUCKET) } else { stack.clone() }
+}
+
+/// `Item.getPlayerPOVHitResult(level, player, fluid)`.
+pub fn player_pov_hit_result(level: &ServerLevel, player: &ServerPlayer, source_only: bool) -> BlockHitResult {
+    let from = player.base().get_eye_position();
+    let (x_rot, y_rot) = (player.base().x_rot(), player.base().y_rot());
+    let view = calculate_view_vector(x_rot, y_rot);
+    let range = player.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE);
+    let to = from.add_xyz(view.x * range, view.y * range, view.z * range);
+    let fluid = if source_only { crate::world::level::collision::ClipFluid::SourceOnly } else { crate::world::level::collision::ClipFluid::None };
+    level.clip(&ClipContext::new(from, to, crate::world::level::collision::ClipBlock::Outline, fluid, crate::world::entity::movement::collision_context(player)))
+}
+
+/// `Entity.calculateViewVector(xRot, yRot)`.
+pub fn calculate_view_vector(x_rot: f32, y_rot: f32) -> mc_core::phys::Vec3 {
+    use mc_core::math::mth;
+    let deg = std::f32::consts::PI / 180.0;
+    let (xr, yr) = (x_rot * deg, -y_rot * deg);
+    let (cos_y, sin_y) = (mth::cos(f64::from(yr)), mth::sin(f64::from(yr)));
+    let (cos_x, sin_x) = (mth::cos(f64::from(xr)), mth::sin(f64::from(xr)));
+    mc_core::phys::Vec3::new(f64::from(sin_y * cos_x), f64::from(-sin_x), f64::from(cos_y * cos_x))
+}
+
+register_item_class!("BlockItem", |item| Box::new(BlockItem::for_item(item)));
+register_item_class!("StandingAndWallBlockItem", |item| Box::new(BlockItem::for_item(item)));
+register_item_class!("DoubleHighBlockItem", |item| Box::new(BlockItem::with_kind(item, Kind::DoubleHigh)));
+register_item_class!("GameMasterBlockItem", |item| Box::new(BlockItem::with_kind(item, Kind::GameMaster)));
+register_item_class!("PlaceOnWaterBlockItem", |item| Box::new(BlockItem::with_kind(item, Kind::PlaceOnWater)));
+register_item_class!("ScaffoldingBlockItem", |item| Box::new(BlockItem::with_kind(item, Kind::Scaffolding)));
+register_item_class!("SolidBucketItem", |item| {
+    // `Items.POWDER_SNOW_BUCKET`: `SoundEvents.BUCKET_EMPTY_POWDER_SNOW`
+    Box::new(BlockItem::with_kind(item, Kind::SolidBucket { sound: SoundEvent::ITEM_BUCKET_EMPTY_POWDER_SNOW }))
+});

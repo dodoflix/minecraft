@@ -239,6 +239,12 @@ impl ServerPlayer {
         }
         let destroyed_with = main.copy();
         let can_destroy = self.has_correct_tool_for_drops(adjusted);
+        // `destroyedWith.mineBlock(level, adjustedState, pos, player)`: tool durability (on the main hand stack)
+        let mut mined_with = self.get_item_in_hand(InteractionHand::MainHand);
+        if !mined_with.is_empty() {
+            crate::world::item::mine_block(&mut mined_with, level, adjusted, pos, self);
+            self.set_item_in_hand(InteractionHand::MainHand, mined_with);
+        }
         if changed && can_destroy {
             block_behaviour(block).player_destroy(level, self, pos, adjusted, &destroyed_with);
         }
@@ -271,7 +277,7 @@ impl ServerPlayer {
         }
     }
 
-    fn context_player(&self) -> ContextPlayer {
+    pub fn context_player(&self) -> ContextPlayer {
         ContextPlayer { entity_id: self.base_id(), y_rot: self.base().y_rot(), x_rot: self.base().x_rot(), secondary_use_active: self.is_shift_key_down() }
     }
 
@@ -285,7 +291,7 @@ impl ServerPlayer {
             return InteractionResult::PASS;
         }
         let (old_count, old_damage) = (stack.count(), stack.get_damage_value());
-        let result = crate::world::item::behaviour(stack.item()).use_item(level, self, hand);
+        let result = crate::world::item::item_stack_use(level, self, hand);
         let result_stack = match &result {
             InteractionResult::Success(s) => s.item_context.held_item_transformed_to.clone().unwrap_or_else(|| self.get_item_in_hand(hand)),
             _ => self.get_item_in_hand(hand),
@@ -325,7 +331,7 @@ impl ServerPlayer {
             let mut context = UseOnContext::new(Some(self.context_player()), hand, item_stack.clone(), *hit);
             let infinite = self.player.abilities.instabuild;
             let count = item_stack.count();
-            let result = crate::world::item::behaviour(item_stack.item()).use_on(&mut context, level, self);
+            let result = crate::world::item::item_stack_use_on(&mut context, level, self);
             let mut s = context.item_stack;
             if infinite {
                 s.set_count(count);

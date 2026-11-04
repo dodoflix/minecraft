@@ -207,6 +207,16 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     ) -> crate::world::item::InteractionResult {
         crate::world::item::InteractionResult::PASS
     }
+    /// `BlockBehaviour.getCloneItemStack(level, pos, state, includeData)` (pick block): default `new ItemStack(this)`;
+    /// blocks whose item differs (crops, fire, beds, ...) override.
+    fn get_clone_item_stack(&self, state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
+        match state.block().item() {
+            Some(item) => crate::world::item::ItemStack::new(item),
+            None => crate::world::item::ItemStack::empty(),
+        }
+    }
+    /// `Block.setPlacedBy(level, pos, state, placer, stack)`: called by `BlockItem.place` after the block was set.
+    fn set_placed_by(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {}
     /// `BlockBehaviour.attack(state, level, pos, player)` (start of digging).
     fn attack(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) {}
     /// `Block.playerWillDestroy`: the destroy particles/game event are done by the caller; returns the state to use.
