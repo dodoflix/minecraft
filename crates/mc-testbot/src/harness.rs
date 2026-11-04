@@ -73,3 +73,105 @@ impl Drop for VanillaServer {
 fn script() -> PathBuf {
     repo_root().join("scripts/vanilla-server.sh")
 }
+
+/// OUR server (`mc-server` binary) in a scratch dir, console over stdin, output captured for `wait_log`.
+pub struct OurServer {
+    pub port: u16,
+    dir: PathBuf,
+    child: std::process::Child,
+    stdin: std::sync::Mutex<Option<std::process::ChildStdin>>,
+    out: std::sync::Arc<std::sync::Mutex<String>>,
+}
+
+impl OurServer {
+    /// `MC_SERVER_BIN` or `target/*/debug/mc-server` of the repo. `None` when no binary is available.
+    pub fn binary() -> Option<PathBuf> {
+        if let Ok(b) = std::env::var("MC_SERVER_BIN") {
+            return Some(PathBuf::from(b));
+        }
+        let root = repo_root();
+        std::fs::read_dir(root.join("target"))
+            .ok()?
+            .flatten()
+            .map(|e| e.path().join("debug/mc-server"))
+            .find(|p| p.exists())
+    }
+
+    pub fn start(bin: &Path, seed: i64, gamemode: &str) -> std::io::Result<Self> {
+        use std::io::{BufRead, BufReader};
+        let port = free_port();
+        let dir = std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id()));
+        std::fs::create_dir_all(&dir)?;
+        std::fs::write(dir.join("eula.txt"), "eula=true\n")?;
+        std::fs::write(
+            dir.join("server.properties"),
+            format!(
+                "online-mode=false\nenforce-secure-profile=false\nwhite-list=false\nserver-port={port}\nserver-ip=127.0.0.1\n\
+                 generate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=4\nsimulation-distance=4\n\
+                 enable-rcon=false\nenable-query=false\nrate-limit=0\nlevel-seed={seed}\ngamemode={gamemode}\ndifficulty=peaceful\n"
+            ),
+        )?;
+        let mut child = Command::new(bin)
+            .arg("nogui")
+            .current_dir(&dir)
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::null())
+            .spawn()?;
+        let stdout = child.stdout.take().expect("piped");
+        let stdin = child.stdin.take();
+        let out = std::sync::Arc::new(std::sync::Mutex::new(String::new()));
+        let sink = out.clone();
+        std::thread::spawn(move || {
+            for line in BufReader::new(stdout).lines().map_while(Result::ok) {
+                if let Ok(mut s) = sink.lock() {
+                    s.push_str(&line);
+                    s.push('\n');
+                }
+            }
+        });
+        let server = Self { port, dir, child, stdin: std::sync::Mutex::new(stdin), out };
+        server.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not start:\n{}", server.log())))?;
+        std::thread::sleep(std::time::Duration::from_secs(1));
+        Ok(server)
+    }
+
+    pub fn cmd(&self, command: &str) {
+        use std::io::Write;
+        if let Ok(mut g) = self.stdin.lock()
+            && let Some(s) = g.as_mut()
+        {
+            let _ = writeln!(s, "{command}");
+            let _ = s.flush();
+        }
+    }
+
+    pub fn log(&self) -> String {
+        self.out.lock().map(|s| s.clone()).unwrap_or_default()
+    }
+
+    pub fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
+        let re = regex::Regex::new(regex).ok()?;
+        for _ in 0..timeout_s * 5 {
+            if let Some(l) = self.log().lines().rev().find(|l| re.is_match(l)) {
+                return Some(l.to_string());
+            }
+            std::thread::sleep(std::time::Duration::from_millis(200));
+        }
+        None
+    }
+}
+
+impl Drop for OurServer {
+    fn drop(&mut self) {
+        self.cmd("stop");
+        for _ in 0..100 {
+            if matches!(self.child.try_wait(), Ok(Some(_))) {
+                break;
+            }
+            std::thread::sleep(std::time::Duration::from_millis(100));
+        }
+        let _ = self.child.kill();
+        let _ = std::fs::remove_dir_all(&self.dir);
+    }
+}

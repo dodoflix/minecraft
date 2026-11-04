@@ -1242,6 +1242,7 @@ dependencies = [
  "mc-nbt",
  "mc-protocol",
  "mc-text",
+ "regex",
  "reqwest",
  "serde",
  "serde_json",

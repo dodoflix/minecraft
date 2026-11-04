@@ -27,13 +27,13 @@ impl Console for mc_testbot::harness::VanillaServer {
     }
 }
 
-pub async fn join(host: &str, port: u16, name: &str) -> Bot {
+pub async fn join(host: &str, port: u16, name: &str) -> std::sync::Arc<Bot> {
     let mut o = BotOptions::new(host, port, name);
     o.timeout = Duration::from_secs(120);
     let bot = Bot::connect(o).await.expect("connect");
     bot.wait_joined(Duration::from_secs(60)).await.expect("login packet");
     bot.wait_ready(Duration::from_secs(90)).await.expect("player loaded");
-    bot
+    std::sync::Arc::new(bot)
 }
 
 fn pos_of(bot: &Bot) -> (i32, i32, i32) {
@@ -136,4 +136,51 @@ pub async fn inventory_move(bot: &Bot, name: &str) {
     assert!(fb.contains("minecraft:stone"), "{fb}");
     bot.close_container();
     let _ = ContainerInput::Pickup;
+}
+
+/// Run one scenario on its own task so a failure does not hide the others; prints PASS/FAIL.
+pub async fn scenario<F, Fut>(name: &str, bot: &std::sync::Arc<Bot>, f: F) -> bool
+where
+    F: FnOnce(std::sync::Arc<Bot>) -> Fut,
+    Fut: std::future::Future<Output = ()> + Send + 'static,
+{
+    match tokio::spawn(f(bot.clone())).await {
+        Ok(()) => {
+            println!("SCENARIO PASS {name}");
+            true
+        }
+        Err(e) => {
+            println!("SCENARIO FAIL {name}: {e}");
+            false
+        }
+    }
+}
+
+/// The full acceptance suite: walk, chat/command, creative place/break, inventory, survival place/break.
+/// Returns the names of the failed scenarios.
+pub async fn run_suite(bot: &std::sync::Arc<Bot>, console: &(dyn Console + Sync)) -> Vec<&'static str> {
+    let mut failed = Vec::new();
+    macro_rules! sc {
+        ($name:literal, |$b:ident| $body:expr) => {
+            if !scenario($name, bot, |$b| async move { $body.await }).await {
+                failed.push($name);
+            }
+        };
+    }
+    sc!("walk_30s", |b| async move { walk_scenario(&b, 32).await });
+    sc!("chat_and_command", |b| async move { chat_and_command(&b).await });
+    sc!("creative_place_break", |b| async move { place_and_break(&b, true).await });
+    sc!("inventory_move", |b| async move { inventory_move(&b, "Bot").await });
+    console.cmd("gamemode survival Bot");
+    console.cmd("give Bot minecraft:dirt 16");
+    sc!("survival_place_break", |b| async move {
+        b.wait_for(Duration::from_secs(20), |s| (!s.body.abilities.instabuild && !s.held_item().is_empty()).then_some(())).await
+            .unwrap_or_else(|e| panic!("survival switch/give: {e}\n{}", b.log_tail(40)));
+        place_and_break(&b, false).await
+    });
+    if let Some(r) = bot.disconnect_reason() {
+        println!("SCENARIO FAIL still_connected: {r}");
+        failed.push("still_connected");
+    }
+    failed
 }

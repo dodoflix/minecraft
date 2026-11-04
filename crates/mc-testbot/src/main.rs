@@ -120,10 +120,10 @@ async fn join(args: &[String]) -> i32 {
         }
         println!("health {} food {} chunks {} entities {}", s.health, s.food, s.world.chunk_count(), s.entities.len());
     });
-    if let Some(f) = &log {
-        if let Err(e) = bot.write_log(f) {
-            eprintln!("cannot write log: {e}");
-        }
+    if let Some(f) = &log
+        && let Err(e) = bot.write_log(f)
+    {
+        eprintln!("cannot write log: {e}");
     }
     if text {
         print!("{}", bot.log_text());

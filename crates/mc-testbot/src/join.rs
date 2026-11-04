@@ -120,6 +120,9 @@ pub struct SyncedRegistry {
     pub entries: Vec<(Identifier, Option<Tag>)>,
 }
 
+/// `(tag name, registry ids)` of one registry in `update_tags`.
+pub type TagList = Vec<(Identifier, Vec<i32>)>;
+
 /// Everything learned during login + configuration.
 #[derive(Debug, Clone, Default)]
 pub struct Configured {
@@ -130,7 +133,7 @@ pub struct Configured {
     pub server_brand: Option<String>,
     pub enabled_features: Vec<Identifier>,
     pub registries: Vec<SyncedRegistry>,
-    pub tags: Vec<(Identifier, Vec<(Identifier, Vec<i32>)>)>,
+    pub tags: Vec<(Identifier, TagList)>,
     pub offered_known_packs: Vec<KnownPack>,
     /// Resource pack id → last status answered.
     pub resource_packs: Vec<(Uuid, ResourcePackAction)>,

@@ -13,9 +13,8 @@ use mc_protocol::packets::play::*;
 use crate::join::{Configured, SyncedRegistry};
 use crate::physics::{MoveOut, PlayerBody};
 use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
-use crate::inventory::{Menu, PLAYER_MENU};
+use crate::inventory::Menu;
 use crate::tracking::*;
-use mc_protocol::components::ItemStack;
 use crate::world::ClientWorld;
 
 pub type Out = Vec<ServerboundPlayPacket>;

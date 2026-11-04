@@ -173,3 +173,67 @@ impl Menu {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mc_data::Item;
+
+    fn stack(item: Item, n: i32) -> ItemStack {
+        ItemStack::with_count(item, n)
+    }
+
+    #[test]
+    fn pickup_place_split_merge_swap() {
+        let mut m = Menu::player_inventory();
+        m.slots[9] = stack(Item::STONE, 40);
+        // left click picks the whole stack, the packet reports slot 9 emptied and the carried stack
+        let p = m.click(9, 0, ContainerInput::Pickup);
+        assert_eq!(p.changed_slots, vec![(9, HashedStack::Empty)]);
+        assert!(matches!(p.carried_item, HashedStack::ActualItem { count: 40, .. }));
+        // right click on an empty slot puts one down
+        m.click(10, 1, ContainerInput::Pickup);
+        assert_eq!((m.slots[10].count(), m.cursor.count()), (1, 39));
+        // left click on the same item merges (limited by the max stack size 64)
+        m.slots[11] = stack(Item::STONE, 60);
+        m.click(11, 0, ContainerInput::Pickup);
+        assert_eq!((m.slots[11].count(), m.cursor.count()), (64, 35));
+        // different item swaps with the cursor
+        m.slots[12] = stack(Item::DIRT, 3);
+        m.click(12, 0, ContainerInput::Pickup);
+        assert!(m.slots[12].is(Item::STONE) && m.slots[12].count() == 35 && m.cursor.is(Item::DIRT));
+        // right click on a stack takes half (rounded up) only with an empty cursor
+        m.cursor = ItemStack::empty();
+        m.click(11, 1, ContainerInput::Pickup);
+        assert_eq!((m.slots[11].count(), m.cursor.count()), (32, 32));
+        // outside the window drops the cursor; the result slot is not clickable
+        m.click(OUTSIDE, 0, ContainerInput::Pickup);
+        assert!(m.cursor.is_empty());
+        m.slots[0] = stack(Item::STONE, 1);
+        let p = m.click(0, 0, ContainerInput::Pickup);
+        assert!(p.changed_slots.is_empty());
+    }
+
+    #[test]
+    fn swap_with_hotbar_and_throw() {
+        let mut m = Menu::player_inventory();
+        m.slots[9] = stack(Item::STONE, 5);
+        m.slots[36 + 2] = stack(Item::DIRT, 7);
+        let p = m.click(9, 2, ContainerInput::Swap);
+        assert_eq!(p.changed_slots.len(), 2);
+        assert!(m.slots[9].is(Item::DIRT) && m.slots[38].is(Item::STONE));
+        m.click(38, 0, ContainerInput::Throw);
+        assert_eq!(m.slots[38].count(), 4);
+        m.click(38, 1, ContainerInput::Throw);
+        assert!(m.slots[38].is_empty());
+    }
+
+    #[test]
+    fn inventory_index_mapping() {
+        let m = Menu::player_inventory();
+        assert_eq!([m.slot_of_inventory(0), m.slot_of_inventory(9), m.slot_of_inventory(36), m.slot_of_inventory(39), m.slot_of_inventory(40)],
+            [Some(36), Some(9), Some(8), Some(5), Some(45)]);
+        let chest = Menu::new(3, 27 + 36);
+        assert_eq!([chest.slot_of_inventory(0), chest.slot_of_inventory(9), chest.slot_of_inventory(40)], [Some(54), Some(27), None]);
+    }
+}
