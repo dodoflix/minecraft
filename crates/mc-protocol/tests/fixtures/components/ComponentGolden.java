@@ -94,6 +94,7 @@ public class ComponentGolden {
    }
 
    static final List<String> mutations = new ArrayList<>();
+   static String lastKind = "";
 
    static String component(String kind, String name, String payload, boolean mutate) throws Exception {
       DataComponentType<Object> type = (DataComponentType<Object>)BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Identifier.parse(name));
@@ -122,7 +123,10 @@ public class ComponentGolden {
          + "\thash=" + hash(codec, value) + (kind.equals("wire") ? "\tleft=" + left : "");
       if (mutate && kind.equals("wire")) {
          mutations.add(payload);
+      } else if (mutate && w.length() > 0 && !w.equals("ENCERR")) {
+         mutations.add(w); // json/snbt record: also exercise the wire decoder on its encoding
       }
+      lastKind = kind;
       return res;
    }
 
@@ -218,6 +222,7 @@ public class ComponentGolden {
          if (!mutations.isEmpty()) {
             byte[] orig = unhex(mutations.get(0));
             List<byte[]> variants = new ArrayList<>();
+            if (!f[0].equals("wire")) variants.add(orig);
             if (orig.length > 1) variants.add(Arrays.copyOf(orig, orig.length - 1));
             if (orig.length > 2) variants.add(Arrays.copyOf(orig, orig.length / 2));
             for (int i = 0; i < 4 && orig.length > 0; i++) {

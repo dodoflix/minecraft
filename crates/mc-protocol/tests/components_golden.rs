@@ -12,7 +12,6 @@ use mc_protocol::components::{ItemStack, Value};
 use mc_protocol::registry_context::{self, RegistryContext};
 use std::panic::{catch_unwind, AssertUnwindSafe};
 
-const GOLDEN: &str = include_str!("fixtures/components/golden.txt");
 const REGISTRIES: &str = include_str!("fixtures/components/registries.golden");
 
 fn hex(b: &[u8]) -> String {
@@ -186,20 +185,36 @@ fn run(kind: &str, name: &str, payload: &str) -> String {
     }
 }
 
+fn golden_files() -> Vec<std::path::PathBuf> {
+    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/components/golden");
+    let mut v: Vec<_> = std::fs::read_dir(dir).unwrap().map(|e| e.unwrap().path()).collect();
+    v.sort();
+    v
+}
+
+/// Compares every record of every `golden/*.txt` (vanilla output) with ours. `ERR` records only need to fail.
+/// Set `MC_GOLDEN_FILE=<name>` to run one file.
 #[test]
 fn components_golden() {
     install_registries();
+    let only = std::env::var("MC_GOLDEN_FILE").ok();
     let (mut total, mut failures) = (0, Vec::new());
-    for line in GOLDEN.lines() {
-        let f: Vec<&str> = line.splitn(4, '\t').collect();
-        if f.len() < 4 {
+    for path in golden_files() {
+        if only.as_deref().is_some_and(|o| path.file_name().unwrap().to_str() != Some(o)) {
             continue;
         }
-        total += 1;
-        let expected = if f[3].starts_with("ERR") { "ERR" } else { f[3] };
-        let got = run(f[0], f[1], f[2]);
-        if got != expected {
-            failures.push(format!("{}\t{}\t{}\n   expected {expected}\n   got      {got}", f[0], f[1], f[2]));
+        let text = std::fs::read_to_string(&path).unwrap();
+        for line in text.lines() {
+            let f: Vec<&str> = line.splitn(4, '\t').collect();
+            if f.len() < 4 {
+                continue;
+            }
+            total += 1;
+            let expected = if f[3].starts_with("ERR") { "ERR" } else { f[3] };
+            let got = run(f[0], f[1], f[2]);
+            if got != expected {
+                failures.push(format!("[{}] {}\t{}\t{}\n   expected {expected}\n   got      {got}", path.file_name().unwrap().to_str().unwrap(), f[0], f[1], f[2]));
+            }
         }
     }
     if !failures.is_empty() {
@@ -207,4 +222,21 @@ fn components_golden() {
         panic!("{} of {total} golden records differ:\n{}", failures.len(), shown.iter().map(|s| s.as_str()).collect::<Vec<_>>().join("\n"));
     }
     eprintln!("{total} golden records matched");
+}
+
+/// `RegistryContext::vanilla()` (the fallback when the server installs nothing) must equal the real server's
+/// data-driven registry order.
+#[test]
+fn vanilla_registry_context_matches_server() {
+    let vanilla = RegistryContext::vanilla();
+    let mut checked = 0;
+    for line in REGISTRIES.lines() {
+        let (key, names) = line.split_once('\t').unwrap_or((line, ""));
+        let Some(t) = vanilla.registry(key) else { continue };
+        let want: Vec<&str> = names.split(',').filter(|n| !n.is_empty()).collect();
+        let got: Vec<String> = t.names().iter().map(|n| n.to_string()).collect();
+        assert_eq!(got, want, "registry {key}");
+        checked += 1;
+    }
+    assert!(checked >= 20, "only {checked} registries compared");
 }
