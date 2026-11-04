@@ -730,3 +730,19 @@ impl crate::world::entity::ServerPlayer {
         self.player.living.active_effects.contains_key(&mc_data::MobEffect::LEVITATION)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn invalid_values_match_vanilla() {
+        assert!(contains_invalid_values(f64::NAN, 0.0, 0.0, 0.0, 0.0));
+        assert!(contains_invalid_values(0.0, 0.0, 0.0, f32::INFINITY, 0.0));
+        assert!(contains_invalid_values(0.0, 0.0, 0.0, 0.0, f32::NAN));
+        // infinite coordinates are not "invalid": they are clamped
+        assert!(!contains_invalid_values(f64::INFINITY, 0.0, 0.0, 0.0, 0.0));
+        assert_eq!(clamp_horizontal(f64::INFINITY), 3.0E7);
+        assert_eq!(clamp_vertical(-1.0E9), -2.0E7);
+    }
+}

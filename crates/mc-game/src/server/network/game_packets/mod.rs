@@ -21,6 +21,7 @@ mod commands_host;
 mod interaction;
 mod movement;
 pub(crate) mod seam;
+mod services_keys;
 mod session;
 
 pub mod hooks;
@@ -114,7 +115,15 @@ pub fn with_player<R>(server: &mut MinecraftServer, uuid: Uuid, f: impl FnOnce(&
 pub fn process_queued_packets(server: &mut MinecraftServer) {
     let uuids: Vec<Uuid> = server.player_list.players().iter().map(|p| p.uuid).collect();
     for uuid in uuids {
-        with_player(server, uuid, |ctx| ctx.drain_inbound());
+        let Some(handle) = server.player_list.get_player(&uuid).cloned() else { continue };
+        let pending = with_player(server, uuid, |ctx| {
+            ctx.drain_inbound();
+            ctx.lis().pending_respawn.take()
+        })
+        .flatten();
+        if let Some(won_game) = pending {
+            perform_respawn(server, &handle, won_game);
+        }
     }
 }
 
@@ -133,15 +142,24 @@ pub fn send_next_chunks_all(server: &mut MinecraftServer) {
 /// `Connection.tick()` for one play connection (called by `ServerConnectionListener.tick`): the listener's tick,
 /// then `handleDisconnection` once the connection is closed.
 pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
-    with_player(server, uuid, |ctx| {
+    let found = with_player(server, uuid, |ctx| {
         ctx.tick();
         ctx.handle_disconnection_if_closed();
     });
+    if found.is_none() {
+        log::warn!("play tick: player {uuid} not found (handle/level/entity lookup failed)");
+    }
 }
 
 impl PlayCtx<'_> {
     /// Drain this connection's inbound channel (see the module docs for the ordering).
     fn drain_inbound(&mut self) {
+        // A player placed by a server task between ticks has not run its first `tick()` yet: vanilla places it while
+        // processing packets and ticks the connection in the same server tick, so `firstGood`/`lastGood` already hold
+        // the spawn position when the client's first packets (accept-teleport) are handled.
+        if self.lis().tick_count == 0 {
+            self.reset_position();
+        }
         let mut batch = Vec::new();
         let lis = self.lis();
         while let Ok(event) = lis.inbound.try_recv() {
@@ -242,4 +260,29 @@ impl PlayCtx<'_> {
             self.on_packet_error(name, message);
         }
     }
+}
+
+/// Starts fetching the Mojang Services profile-key validators (idempotent; vanilla does it at server start).
+pub fn start_services_keys_fetch() {
+    services_keys::start_fetch();
+}
+
+/// `handleClientCommand` PERFORM_RESPAWN: `this.player = playerList.respawn(this.player, keepAll, reason)` followed by
+/// `resetPosition()`, `restartClientLoadTimerAfterRespawn()` and, for a normal respawn on a hardcore world, the switch
+/// to spectator mode.
+fn perform_respawn(server: &mut MinecraftServer, handle: &crate::server::players::PlayerHandle, won_game: bool) {
+    use crate::world::entity::{Entity, RemovalReason};
+    let reason = if won_game { RemovalReason::ChangedDimension } else { RemovalReason::Killed };
+    let hardcore = server.world_data.lock().settings.difficulty_settings.hardcore;
+    crate::server::players::respawn::respawn(server, &handle.dimension(), handle.id, won_game, reason, move |_server, player| {
+        let pos = player.position();
+        if let Some(lis) = player.listener.as_mut() {
+            lis.reset_position(pos);
+            lis.restart_client_load_timer_after_respawn();
+        }
+        if !won_game && hardcore {
+            player.change_game_mode_for_player(mc_data::enums::GameType::Spectator);
+            player.sync_handle();
+        }
+    });
 }

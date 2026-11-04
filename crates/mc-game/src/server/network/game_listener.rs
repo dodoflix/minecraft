@@ -73,6 +73,9 @@ pub struct ServerGamePacketListenerImpl {
     /// Set once the connection's final `Disconnected` event was seen (`Connection.disconnectionHandled` source).
     pub(crate) pending_disconnect: Option<mc_text::Component>,
     pub(crate) disconnection_handled: bool,
+    /// `PERFORM_RESPAWN` requested while the player was taken out of its level: `PlayerList.respawn(keepAll)` runs
+    /// right after the packet batch (`Some(won_game)`).
+    pub(crate) pending_respawn: Option<bool>,
     /// `chatSession`, `signedMessageDecoder`.
     pub(crate) chat_session: Option<RemoteChatSession>,
     pub(crate) signed_message_decoder: Box<dyn Decoder>,
@@ -107,6 +110,7 @@ impl ServerGamePacketListenerImpl {
         now_ms: i64,
     ) -> Self {
         let profile_id = cookie.profile.id;
+        super::game_packets::start_services_keys_fetch();
         let ListenerSettings { command_spam_threshold_seconds, chat_spam_threshold_seconds, memory_connection, enforce_secure_profile } = settings;
         Self {
             common: ServerCommonListener::new(cookie, now_ms),
@@ -150,6 +154,7 @@ impl ServerGamePacketListenerImpl {
             vehicle_position_last_reset_at: 0,
             pending_disconnect: None,
             disconnection_handled: false,
+            pending_respawn: None,
             chat_session: None,
             signed_message_decoder: Box::new(UnsignedDecoder::new(profile_id, enforce_secure_profile)),
             chat_out,

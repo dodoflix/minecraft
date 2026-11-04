@@ -38,6 +38,8 @@ p12-keystore = "0.1"
 rsa = "0.9.10"
 libc = "0.2"
 sha2 = { version = "0.10", features = ["oid"] }
+sha1 = { version = "0.10", features = ["oid"] }
+reqwest = { version = "0.13.5", default-features = false, features = ["rustls", "blocking"] }
 
 [dev-dependencies]
 tempfile = "3"

@@ -155,38 +155,11 @@ impl PlayCtx<'_> {
         }
     }
 
-    /// The `PERFORM_RESPAWN` arms: `this.player = playerList.respawn(player, keepAll, reason)` (the new player keeps
-    /// this listener: `resetPosition()`, `restartClientLoadTimerAfterRespawn()`, the end-credits `CHANGED_DIMENSION`
-    /// trigger or the hardcore spectator switch happen on it). `PlayerList.respawn` is implemented by the
-    /// player-list slice through [`PlayerSystems::respawn_player`].
+    /// The `PERFORM_RESPAWN` arms: `this.player = playerList.respawn(player, keepAll, reason)`. The respawn replaces the
+    /// player entity in its level, which is not possible while this player is taken out of it, so it is queued and run
+    /// by [`super::process_queued_packets`] right after the batch (the new player keeps this listener).
     fn respawn_player(&mut self, won_game: bool) {
-        use crate::world::entity::RemovalReason;
-        let hardcore = self.server.world_data.lock().settings.difficulty_settings.hardcore;
-        // the player is taken out of its level while this packet is handled: the respawn runs right after it
-        crate::server::players::respawn::queue_respawn(
-            &*self.server,
-            self.level.dimension.clone(),
-            self.player.base_id(),
-            won_game,
-            if won_game { RemovalReason::ChangedDimension } else { RemovalReason::Killed },
-            move |server, player| {
-                let position = player.position();
-                if let Some(listener) = player.listener.as_mut() {
-                    listener.reset_position(position);
-                    listener.restart_client_load_timer_after_respawn();
-                }
-                if !won_game && hardcore && player.change_game_mode_for_player(mc_data::enums::GameType::Spectator) {
-                    player.sync_handle();
-                    if let Some(handle) = player.handle.clone() {
-                        let packet = crate::server::players::player_handle::create_info_update(
-                            [mc_protocol::packets::play::ClientboundPlayerInfoUpdateAction::UpdateGameMode].into_iter().collect(),
-                            [&handle],
-                        );
-                        server.player_list.broadcast_all(&packet);
-                    }
-                }
-            },
-        );
+        self.lis().pending_respawn = Some(won_game);
     }
 
     /// `sendGameRuleValues`.

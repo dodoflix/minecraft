@@ -58,9 +58,6 @@ pub trait PlayerSystems: Sync {
     fn interact_on(&self, ctx: &mut PlayCtx, target: crate::world::entity::EntityId, hand: InteractionHand, location: mc_core::phys::Vec3) -> InteractionResult {
         InteractionResult::PASS
     }
-    /// `ServerPlayerGameMode.handleBlockBreakAction(pos, action, direction, maxY, sequence)` (digging state machine;
-    /// `ServerPlayer::handle_block_break_action` needs a `BlockBreakLevel`, which `ServerLevel` does not implement yet).
-    fn block_break_action(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, action: mc_protocol::packets::play::ServerboundPlayerActionAction, direction: mc_core::direction::Direction, max_y: i32, sequence: i32) {}
     /// `CriteriaTriggers.ANY_BLOCK_USE` / `PLAYER_INTERACTED_WITH_ENTITY` triggers.
     fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, hand: InteractionHand) {}
     fn trigger_player_interacted_with_entity(&self, ctx: &mut PlayCtx, item_interaction: bool, hand: InteractionHand, target: crate::world::entity::EntityId) {}
@@ -82,11 +79,6 @@ pub trait PlayerSystems: Sync {
     }
     fn stop_fall_flying(&self, ctx: &mut PlayCtx) {}
     fn stop_sleep_in_bed(&self, ctx: &mut PlayCtx, was_slept_long_enough: bool, update_level_list: bool) {}
-    /// `PlayerList.respawn(player, keepAll, reason)` for `PERFORM_RESPAWN` (`keep_all` = won the game) plus the
-    /// follow-ups on the new player (`resetPosition`, `restartClientLoadTimerAfterRespawn`, hardcore spectator).
-    fn respawn_player(&self, ctx: &mut PlayCtx, keep_all: bool) {
-        log::warn!("Respawn requested by {} but no respawn implementation is registered", ctx.player.get_plain_text_name());
-    }
     /// `ServerPlayer.teleportTo(level, x, y, z, relatives, yRot, xRot, setCamera)` across levels.
     fn teleport_to(&self, ctx: &mut PlayCtx, dimension: &crate::world::level::DimensionKey, x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32, set_camera: bool) {}
     /// `ServerPlayer.createCommandSourceStack()` permission level / `permissions().hasPermission(COMMANDS_GAMEMASTER)`.

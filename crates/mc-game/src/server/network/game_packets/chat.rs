@@ -9,14 +9,11 @@ use super::PlayCtx;
 use crate::commands::Commands;
 use crate::commands::arguments::message_argument::MessageArgument;
 use crate::commands::command_signing_context::CommandSigningContext;
-use crate::server::chat::chat_type::{self, ChatTypeLookup};
-use mc_protocol::packets::play::ChatType;
 use crate::server::chat::signed_message::DecodeException;
-use crate::server::chat::{ChatTypeBound, LastSeenMessages, PlayerChatMessage, SignedMessageBody};
+use crate::server::chat::{LastSeenMessages, PlayerChatMessage, SignedMessageBody};
 use mc_brigadier::ImmutableStringReader;
 use mc_brigadier::context::CommandContextBuilder;
 use mc_brigadier::dispatcher::ParseResults;
-use mc_core::ident::Identifier;
 use mc_protocol::packets::play::{
     ClientboundCommandSuggestionsEntry, ClientboundCommandSuggestionsPacket, ClientboundSystemChatPacket, LastSeenMessagesUpdate, ServerboundChatAckPacket,
     ServerboundChatCommandPacket, ServerboundChatCommandSignedPacket, ServerboundChatPacket, ServerboundChatSessionUpdatePacket,
@@ -74,17 +71,6 @@ fn signable_arguments(parse: &ParseResults<crate::commands::command_source_stack
         last = child;
     }
     out
-}
-
-/// `ChatType.bind(key, registryAccess, name)` over the vanilla chat types with the registry's protocol ids.
-struct ServerChatTypes(Arc<crate::registry::access::Registry>);
-
-impl ChatTypeLookup for ServerChatTypes {
-    fn chat_type(&self, key: &Identifier) -> Option<(i32, Arc<ChatType>)> {
-        let id = self.0.id_of(key)?;
-        let ty = chat_type::bootstrap().into_iter().find(|(k, _)| Identifier::try_parse(k).as_ref() == Some(key))?.1;
-        Some((id as i32, Arc::new(ty)))
-    }
 }
 
 impl PlayCtx<'_> {
@@ -252,12 +238,7 @@ impl PlayCtx<'_> {
     /// `broadcastChatMessage`: `playerList.broadcastChatMessage(message, player, ChatType.bind(ChatType.CHAT, player))`.
     fn broadcast_chat_message(&mut self, message: PlayerChatMessage) {
         let Some(handle) = self.player.handle.clone() else { return };
-        let registry = self.server.registries.composite_access().registry("chat_type").cloned();
-        let bound = registry.and_then(|r| ChatTypeBound::bind(&ServerChatTypes(r), "minecraft:chat", self.player.get_display_name()));
-        let Some(bound) = bound else {
-            log::error!("The chat_type registry has no minecraft:chat entry");
-            return;
-        };
+        let bound = crate::commands::host::bind_chat_type(self.server, "minecraft:chat", self.player.get_display_name());
         self.server.player_list.broadcast_chat_message_from_player(&message, &handle, &bound);
         self.detect_chat_rate_spam();
     }
@@ -291,11 +272,10 @@ impl PlayCtx<'_> {
         }
     }
 
-    /// `handleChatSessionUpdate`. Validating a profile key needs Mojang's services public keys
-    /// (`profileKeySignatureValidator`), which are only available for online-mode servers with a session service;
-    /// without them vanilla logs and ignores the session, which is what this does.
+    /// `handleChatSessionUpdate`.
     pub fn handle_chat_session_update(&mut self, packet: &ServerboundChatSessionUpdatePacket) {
-        let new_key = &packet.chat_session.profile_public_key;
+        let new_session = &packet.chat_session;
+        let new_key = &new_session.profile_public_key;
         let old_key = self.lis().chat_session.as_ref().map(|s| s.as_data().profile_public_key);
         if old_key.as_ref() == Some(new_key) {
             return;
@@ -306,7 +286,32 @@ impl PlayCtx<'_> {
             self.disconnect(crate::server::chat::remote_chat_session::expired_profile_public_key());
             return;
         }
-        log::warn!("Ignoring chat session from {} due to missing Services public key", self.player.get_profile().name);
+        let Some(validator) = super::services_keys::profile_key_signature_validator() else {
+            log::warn!("Ignoring chat session from {} due to missing Services public key", self.player.get_profile().name);
+            return;
+        };
+        let profile_id = self.player.get_profile().id;
+        match crate::server::chat::RemoteChatSession::validate(new_session, profile_id, &*validator) {
+            Ok(session) => self.reset_player_chat_state(session),
+            Err(e) => {
+                log::error!("Failed to validate profile key: {}", e.component().get_string());
+                self.disconnect(e.component().clone());
+            }
+        }
+    }
+
+    /// `resetPlayerChatState`: new decoder, then (through the chat message chain, here immediately) the player's chat
+    /// session is set and `INITIALIZE_CHAT` is broadcast.
+    fn reset_player_chat_state(&mut self, chat_session: crate::server::chat::RemoteChatSession) {
+        let uuid = crate::world::entity::Entity::uuid(&*self.player);
+        let lis = self.lis();
+        lis.signed_message_decoder = Box::new(chat_session.create_message_decoder(uuid));
+        lis.chat_session = Some(chat_session.clone());
+        let Some(handle) = self.player.handle.clone() else { return };
+        handle.set_chat_session(Some(&chat_session));
+        use mc_protocol::packets::play::ClientboundPlayerInfoUpdateAction;
+        let update = crate::server::players::player_handle::create_info_update([ClientboundPlayerInfoUpdateAction::InitializeChat].into_iter().collect(), [&handle]);
+        self.server.player_list.broadcast_all(&update);
     }
 
     /// `handleCustomCommandSuggestions` (`ServerCommandSuggestionsProvider.request`).
@@ -348,5 +353,18 @@ impl PlayCtx<'_> {
             .collect();
         // `limitSuggestionCount`: more than 1000 keep the first 1000 with the same range
         self.send(&ClientboundCommandSuggestionsPacket { id: client_id, start: range.get_start() as i32, length: range.get_length() as i32, suggestions: entries });
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn illegal_chat_characters() {
+        assert!(!is_chat_message_illegal("hello \u{e9}\u{1F600}"));
+        assert!(is_chat_message_illegal("a\u{a7}b"));
+        assert!(is_chat_message_illegal("a\u{7f}"));
+        assert!(is_chat_message_illegal("tab\there"));
     }
 }
