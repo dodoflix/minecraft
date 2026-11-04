@@ -39,7 +39,12 @@ motd=lifecycle check
 EOF
 echo "eula=true" > "$OURS/eula.txt"
 mkfifo "$OURS/stdin.fifo"
-(cd "$OURS" && exec 3<>stdin.fifo && "$BIN" nogui <&3 >server.out 2>&1 & echo $! > server.pid)
+(cd "$OURS" && setsid bash -c '
+    exec 3<>stdin.fifo
+    echo $$ > server.pid
+    exec "$1" nogui <&3 >server.out 2>&1
+  ' _ "$BIN" &)
+for _ in $(seq 100); do [[ -s "$OURS/server.pid" ]] && break; sleep 0.1; done
 pid="$(cat "$OURS/server.pid")"
 for _ in $(seq 600); do
   grep -qF 'Done (' "$OURS/logs/latest.log" 2>/dev/null && break
