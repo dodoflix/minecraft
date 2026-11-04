@@ -198,7 +198,7 @@ fn golden_files() -> Vec<std::path::PathBuf> {
 fn components_golden() {
     install_registries();
     let only = std::env::var("MC_GOLDEN_FILE").ok();
-    let (mut total, mut failures) = (0, Vec::new());
+    let (mut total, mut skipped, mut failures) = (0, 0, Vec::new());
     for path in golden_files() {
         if only.as_deref().is_some_and(|o| path.file_name().unwrap().to_str() != Some(o)) {
             continue;
@@ -208,6 +208,15 @@ fn components_golden() {
             let f: Vec<&str> = line.splitn(4, '\t').collect();
             if f.len() < 4 {
                 continue;
+            }
+            // Components of families that are not implemented yet are skipped (see `all_components_defined`).
+            if matches!(f[0], "json" | "snbt" | "wire") {
+                if let Some(id) = DataComponentType::by_name(f[1]) {
+                    if try_def(id).is_none() {
+                        skipped += 1;
+                        continue;
+                    }
+                }
             }
             total += 1;
             let expected = if f[3].starts_with("ERR") { "ERR" } else { f[3] };
@@ -221,7 +230,7 @@ fn components_golden() {
         let shown: Vec<&String> = failures.iter().take(40).collect();
         panic!("{} of {total} golden records differ:\n{}", failures.len(), shown.iter().map(|s| s.as_str()).collect::<Vec<_>>().join("\n"));
     }
-    eprintln!("{total} golden records matched");
+    eprintln!("{total} golden records matched, {skipped} skipped (component not implemented)");
 }
 
 /// `RegistryContext::vanilla()` (the fallback when the server installs nothing) must equal the real server's
@@ -239,4 +248,34 @@ fn vanilla_registry_context_matches_server() {
         checked += 1;
     }
     assert!(checked >= 20, "only {checked} registries compared");
+}
+
+/// Every vanilla data component type has a definition whose persistent/network flags equal the extracted vanilla ones.
+#[test]
+fn all_components_defined() {
+    let mut missing = Vec::new();
+    let mut flag_mismatch = Vec::new();
+    for id in DataComponentType::iter() {
+        match try_def(id) {
+            None => missing.push(id.name()),
+            Some(d) => {
+                if d.is_transient() == id.data().persistent {
+                    flag_mismatch.push(format!("{} persistent={}", id.name(), id.data().persistent));
+                }
+            }
+        }
+    }
+    assert!(missing.is_empty(), "components without a definition: {missing:?}");
+    assert!(flag_mismatch.is_empty(), "flag mismatches: {flag_mismatch:?}");
+}
+
+/// Default components of every item parse (typed) and re-encode to the extracted JSON.
+#[test]
+fn all_item_defaults_parse() {
+    install_registries();
+    for item in mc_data::Item::iter() {
+        let proto = mc_protocol::components::item_stack::item_prototype(item);
+        let _ = proto.len();
+    }
+    assert!(mc_protocol::components::item_stack::MISSING_PROTOTYPE_COMPONENTS.lock().unwrap().is_empty());
 }
