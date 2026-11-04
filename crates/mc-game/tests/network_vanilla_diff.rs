@@ -293,6 +293,22 @@ async fn registry_transcript(addr: SocketAddr) -> Vec<String> {
     }
 }
 
+fn normalized_tags(line: &str) -> Vec<(String, Vec<(String, Vec<i32>)>)> {
+    let bytes: Vec<u8> = (0..line.split(' ').nth(1).unwrap().len()).step_by(2).map(|i| u8::from_str_radix(&line.split(' ').nth(1).unwrap()[i..i + 2], 16).unwrap()).collect();
+    let ClientboundConfigurationPacket::UpdateTags(p) = ClientboundConfigurationPacket::decode_payload(&bytes).unwrap() else { panic!() };
+    let mut out: Vec<_> = p
+        .tags
+        .into_iter()
+        .map(|(k, v)| {
+            let mut tags: Vec<_> = v.tags.into_iter().map(|(id, ids)| (id.to_string(), ids)).collect();
+            tags.sort();
+            (k.to_string(), tags)
+        })
+        .collect();
+    out.sort();
+    out
+}
+
 /// Runs `MC_SERVER_BIN` (our `mc-server` binary) in a scratch directory with the same properties as the vanilla run.
 fn start_ours(bin: &str) -> Option<Vanilla> {
     let port = std::net::TcpListener::bind("127.0.0.1:0").ok()?.local_addr().ok()?.port();
@@ -338,7 +354,12 @@ async fn real_server_registry_and_tag_packets_equal_vanilla() {
     println!("vanilla: {} packets, ours: {} packets", theirs.len(), ours.len());
     for (i, (a, b)) in theirs.iter().zip(&ours).enumerate() {
         let name = a.split(' ').next().unwrap();
-        assert_eq!(a, b, "packet #{i} ({name}) differs: vanilla (left) vs ours (right)");
+        if name == "minecraft:update_tags" {
+            // Vanilla sends Java `HashMap` order (registries and tags); only the content is comparable.
+            assert_eq!(normalized_tags(a), normalized_tags(b), "update_tags content differs: vanilla (left) vs ours (right)");
+        } else {
+            assert_eq!(a, b, "packet #{i} ({name}) differs: vanilla (left) vs ours (right)");
+        }
     }
     assert_eq!(theirs.len(), ours.len());
 }
