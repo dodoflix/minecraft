@@ -159,15 +159,33 @@ pub(super) fn all_blocks_in_are_air(level: &ServerLevel, aabb: &AABB) -> bool {
     true
 }
 
+/// `itemStack.isItemEnabled(level.enabledFeatures())`.
+pub(super) fn item_enabled(level: &ServerLevel, stack: &mc_protocol::components::ItemStack) -> bool {
+    let required: Vec<mc_core::ident::Identifier> =
+        stack.item().data().required_features.iter().filter_map(|n| mc_core::ident::Identifier::try_parse(n)).collect();
+    mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(level.enabled_features())
+}
+
 impl PlayCtx<'_> {
+    /// `player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)`.
+    pub(super) fn has_gamemaster_permission(&mut self) -> bool {
+        let id = self.player.name_and_id();
+        self.server.player_list.get_profile_permissions(&id).has_permission(&crate::server::permissions::permissions::COMMANDS_GAMEMASTER)
+    }
+
+    /// `player.hasInfiniteMaterials()` (creative: `abilities.instabuild`).
+    pub(super) fn has_infinite_materials(&self) -> bool {
+        self.player.player.abilities.instabuild
+    }
+
     /// `server.allowFlight()`.
     pub(super) fn allow_flight(&self) -> bool {
-        self.server.dedicated.allow_flight()
+        self.server.allow_flight()
     }
 
     /// `server.playerIdleTimeout()` (minutes).
     pub(super) fn player_idle_timeout(&self) -> i32 {
-        self.server.dedicated.player_idle_timeout()
+        self.server.player_idle_timeout()
     }
 
     /// `level.getMaxY()` / `getMinY()`.

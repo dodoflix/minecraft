@@ -6,12 +6,25 @@
 //! configured, which passes every message through unchanged; `filterTextPacket` is therefore synchronous here.
 
 use super::PlayCtx;
-use crate::server::chat::{ChatType, ChatTypeBound, DecodeException, LastSeenMessages, PlayerChatMessage, SignedMessageBody};
+use crate::commands::Commands;
+use crate::commands::arguments::message_argument::MessageArgument;
+use crate::commands::command_signing_context::CommandSigningContext;
+use crate::server::chat::chat_type::{self, ChatTypeLookup};
+use mc_protocol::packets::play::ChatType;
+use crate::server::chat::signed_message::DecodeException;
+use crate::server::chat::{ChatTypeBound, LastSeenMessages, PlayerChatMessage, SignedMessageBody};
+use mc_brigadier::ImmutableStringReader;
+use mc_brigadier::context::CommandContextBuilder;
+use mc_brigadier::dispatcher::ParseResults;
+use mc_core::ident::Identifier;
 use mc_protocol::packets::play::{
-    ClientboundCommandSuggestionsPacket, ClientboundSystemChatPacket, ServerboundChatAckPacket, ServerboundChatCommandPacket,
-    ServerboundChatCommandSignedPacket, ServerboundChatPacket, ServerboundChatSessionUpdatePacket, ServerboundCommandSuggestionPacket,
+    ClientboundCommandSuggestionsEntry, ClientboundCommandSuggestionsPacket, ClientboundSystemChatPacket, LastSeenMessagesUpdate, ServerboundChatAckPacket,
+    ServerboundChatCommandPacket, ServerboundChatCommandSignedPacket, ServerboundChatPacket, ServerboundChatSessionUpdatePacket,
+    ServerboundCommandSuggestionPacket,
 };
 use mc_text::{ChatFormatting, Component};
+use std::collections::HashMap;
+use std::sync::Arc;
 
 /// `StringUtil.isAllowedChatCharacter`.
 fn is_allowed_chat_character(c: u16) -> bool {
@@ -32,14 +45,56 @@ fn invalid_command_signature() -> Component {
     Component::translatable("chat.disabled.invalid_command_signature", vec![]).with_format(ChatFormatting::Red)
 }
 
+/// `SignableCommand.Argument`: a signed-message argument of a parsed command.
+struct SignableArgument {
+    name: String,
+    value: String,
+}
+
+/// `SignableCommand.of(parse)`: the `MessageArgument`s of the parsed command chain.
+fn signable_arguments(parse: &ParseResults<crate::commands::command_source_stack::CommandSourceStack>) -> Vec<SignableArgument> {
+    fn collect(string: &str, context: &CommandContextBuilder<crate::commands::command_source_stack::CommandSourceStack>, out: &mut Vec<SignableArgument>) {
+        for parsed in context.get_nodes() {
+            let node = parsed.get_node();
+            if node.get_type().is_some_and(|t| t.downcast_ref::<MessageArgument>().is_some()) {
+                out.push(SignableArgument { name: node.get_name().to_owned(), value: parsed.get_range().get_str(string) });
+            }
+        }
+    }
+    let string = parse.get_reader().get_string();
+    let context = parse.get_context();
+    let mut out = Vec::new();
+    collect(string, context, &mut out);
+    let mut last = context;
+    while let Some(child) = last.get_child() {
+        if Arc::ptr_eq(child.get_root_node(), context.get_root_node()) {
+            break;
+        }
+        collect(string, child, &mut out);
+        last = child;
+    }
+    out
+}
+
+/// `ChatType.bind(key, registryAccess, name)` over the vanilla chat types with the registry's protocol ids.
+struct ServerChatTypes(Arc<crate::registry::access::Registry>);
+
+impl ChatTypeLookup for ServerChatTypes {
+    fn chat_type(&self, key: &Identifier) -> Option<(i32, Arc<ChatType>)> {
+        let id = self.0.id_of(key)?;
+        let ty = chat_type::bootstrap().into_iter().find(|(k, _)| Identifier::try_parse(k).as_ref() == Some(key))?.1;
+        Some((id as i32, Arc::new(ty)))
+    }
+}
+
 impl PlayCtx<'_> {
     /// `unpackAndApplyLastSeen`: `None` after disconnecting the player on a validation failure.
-    fn unpack_and_apply_last_seen(&mut self, update: &crate::server::chat::LastSeenMessagesUpdate) -> Option<LastSeenMessages> {
-        let result = self.lis().last_seen_messages.lock().apply_update(update);
+    fn unpack_and_apply_last_seen(&mut self, update: &LastSeenMessagesUpdate) -> Option<LastSeenMessages> {
+        let result = self.lis().chat_out.lock().last_seen_messages.apply_update(update);
         match result {
             Ok(last_seen) => Some(last_seen),
             Err(e) => {
-                log::error!("Failed to validate message acknowledgements from {}: {e}", self.player.get_plain_text_name());
+                log::error!("Failed to validate message acknowledgements from {}: {}", self.player.get_plain_text_name(), e.0);
                 self.disconnect(chat_validation_failed());
                 None
             }
@@ -78,8 +133,9 @@ impl PlayCtx<'_> {
                 log::debug!("Ignoring packet due to disconnection");
                 return;
             }
-            let decorated = ctx.server.chat_decorator().decorate(&*ctx.player, signed_message.decorated_content());
-            let filtered_message = signed_message.with_unsigned_content(decorated).filter_pass_through();
+            // `ChatDecorator.PLAIN`: the decorated content is the signed content itself
+            let decorated = signed_message.decorated_content();
+            let filtered_message = signed_message.with_unsigned_content(decorated);
             ctx.broadcast_chat_message(filtered_message);
         });
     }
@@ -92,14 +148,25 @@ impl PlayCtx<'_> {
         });
     }
 
+    /// `parseCommand(command)`.
+    fn parse_command(&mut self, command: &str) -> Option<(Arc<Commands>, ParseResults<crate::commands::command_source_stack::CommandSourceStack>)> {
+        let commands = super::commands_host::commands()?;
+        let source = self.create_command_source_stack()?;
+        let parsed = crate::commands::server_access::enter_server(self.server, || commands.get_dispatcher().parse(command, source));
+        Some((commands, parsed))
+    }
+
     /// `performUnsignedChatCommand`.
     fn perform_unsigned_chat_command(&mut self, command: &str) {
-        let parsed = self.server.commands().parse(command, self.player.create_command_source_stack(self.level));
-        if self.server.enforce_secure_profile() && parsed.has_signable_arguments() {
+        let Some((commands, parsed)) = self.parse_command(command) else {
+            log::warn!("Command '{command}' from {} ignored: the command tree is not installed", self.player.get_profile().name);
+            return;
+        };
+        if self.server.enforce_secure_profile() && !signable_arguments(&parsed).is_empty() {
             log::error!("Received unsigned command packet from {}, but the command requires signable arguments: {}", self.player.get_profile().name, command);
             self.player.send_system_message(invalid_command_signature());
         } else {
-            self.server.commands().perform_command(parsed, command);
+            commands.perform_command(self.server, parsed, command);
         }
     }
 
@@ -114,16 +181,21 @@ impl PlayCtx<'_> {
 
     /// `performSignedChatCommand`.
     fn perform_signed_chat_command(&mut self, packet: &ServerboundChatCommandSignedPacket, last_seen: LastSeenMessages) {
-        let mut command = self.server.commands().parse(&packet.command, self.player.create_command_source_stack(self.level));
-        let signed_arguments = match self.collect_signed_arguments(packet, &command.signable_arguments(), last_seen) {
+        let Some((commands, parsed)) = self.parse_command(&packet.command) else {
+            log::warn!("Command '{}' from {} ignored: the command tree is not installed", packet.command, self.player.get_profile().name);
+            return;
+        };
+        let arguments = signable_arguments(&parsed);
+        let signed = match self.collect_signed_arguments(packet, &arguments, last_seen) {
             Ok(a) => a,
             Err(e) => {
                 self.handle_message_decode_failure(&e);
                 return;
             }
         };
-        command.map_source_with_signing_context(signed_arguments);
-        self.server.commands().perform_command(command, &packet.command);
+        let context = CommandSigningContext::Signed(Arc::new(signed));
+        let parsed = Commands::map_source(parsed, |source| source.with_signing_context(context.clone()));
+        commands.perform_command(self.server, parsed, &packet.command);
     }
 
     /// `handleMessageDecodeFailure`.
@@ -136,14 +208,13 @@ impl PlayCtx<'_> {
     fn collect_signed_arguments(
         &mut self,
         packet: &ServerboundChatCommandSignedPacket,
-        parsed_arguments: &[crate::commands::SignableArgument],
+        parsed_arguments: &[SignableArgument],
         last_seen: LastSeenMessages,
-    ) -> Result<Vec<(String, PlayerChatMessage)>, DecodeException> {
+    ) -> Result<HashMap<String, PlayerChatMessage>, DecodeException> {
         let argument_signatures = &packet.argument_signatures.entries;
-        let mismatch = |this: &mut Self| {
+        let mismatch = || {
             let client_names = argument_signatures.iter().map(|e| e.name.as_str()).collect::<Vec<_>>().join(", ");
-            let expected_names = parsed_arguments.iter().map(|a| a.name()).collect::<Vec<_>>().join(", ");
-            let _ = this;
+            let expected_names = parsed_arguments.iter().map(|a| a.name.as_str()).collect::<Vec<_>>().join(", ");
             log::error!(
                 "Signed command mismatch between server and client ('{}'): got [{}] from client, but expected [{}]",
                 packet.command,
@@ -152,43 +223,47 @@ impl PlayCtx<'_> {
             );
             DecodeException::new(invalid_command_signature())
         };
+        let mut arguments = HashMap::new();
         if argument_signatures.is_empty() {
-            let mut arguments = Vec::new();
             for parsed in parsed_arguments {
-                let body = SignedMessageBody::unsigned(parsed.value());
-                arguments.push((parsed.name().to_owned(), self.lis().signed_message_decoder.unpack(None, body)?));
+                let body = SignedMessageBody::unsigned(parsed.value.clone());
+                arguments.insert(parsed.name.clone(), self.lis().signed_message_decoder.unpack(None, body)?);
             }
             return Ok(arguments);
         }
-        let mut signed_arguments: Vec<(String, PlayerChatMessage)> = Vec::new();
         for client_argument in argument_signatures {
-            let Some(expected) = parsed_arguments.iter().find(|a| a.name() == client_argument.name) else {
+            let Some(expected) = parsed_arguments.iter().find(|a| a.name == client_argument.name) else {
                 self.lis().signed_message_decoder.set_chain_broken();
-                return Err(mismatch(self));
+                return Err(mismatch());
             };
-            let body = SignedMessageBody::new(expected.value().to_owned(), packet.time_stamp, packet.salt, last_seen.clone());
+            let body = SignedMessageBody { content: expected.value.clone(), time_stamp: packet.time_stamp, salt: packet.salt, last_seen: last_seen.clone() };
             let message = self.lis().signed_message_decoder.unpack(Some(&client_argument.signature), body)?;
-            signed_arguments.retain(|(n, _)| n != expected.name());
-            signed_arguments.push((expected.name().to_owned(), message));
+            arguments.insert(expected.name.clone(), message);
         }
         for expected in parsed_arguments {
-            if !signed_arguments.iter().any(|(n, _)| n == expected.name()) {
-                return Err(mismatch(self));
+            if !arguments.contains_key(&expected.name) {
+                return Err(mismatch());
             }
         }
-        Ok(signed_arguments)
+        Ok(arguments)
     }
 
     /// `getSignedMessage`.
     fn get_signed_message(&mut self, packet: &ServerboundChatPacket, last_seen: LastSeenMessages) -> Result<PlayerChatMessage, DecodeException> {
-        let body = SignedMessageBody::new(packet.message.clone(), packet.timestamp, packet.salt, last_seen);
+        let body = SignedMessageBody { content: packet.message.clone(), time_stamp: packet.time_stamp, salt: packet.salt, last_seen };
         self.lis().signed_message_decoder.unpack(packet.signature.as_ref(), body)
     }
 
-    /// `broadcastChatMessage`.
+    /// `broadcastChatMessage`: `playerList.broadcastChatMessage(message, player, ChatType.bind(ChatType.CHAT, player))`.
     fn broadcast_chat_message(&mut self, message: PlayerChatMessage) {
-        let bound = ChatTypeBound::bind(ChatType::Chat, &*self.player);
-        crate::server::players::player_list::broadcast_chat_message(self.server, message, &*self.player, bound);
+        let Some(handle) = self.player.handle.clone() else { return };
+        let registry = self.server.registries.composite_access().registry("chat_type").cloned();
+        let bound = registry.and_then(|r| ChatTypeBound::bind(&ServerChatTypes(r), "minecraft:chat", self.player.get_display_name()));
+        let Some(bound) = bound else {
+            log::error!("The chat_type registry has no minecraft:chat entry");
+            return;
+        };
+        self.server.player_list.broadcast_chat_message_from_player(&message, &handle, &bound);
         self.detect_chat_rate_spam();
     }
 
@@ -198,7 +273,8 @@ impl PlayCtx<'_> {
         let throttler = if command { &mut lis.command_spam_throttler } else { &mut lis.chat_spam_throttler };
         throttler.increment();
         let under = throttler.is_under_threshold();
-        if !under && !self.server.player_list.is_op(&self.player.name_and_id()) && !self.server.is_singleplayer_owner(&self.player.name_and_id()) {
+        // `isSingleplayerOwner`: never true on a dedicated server
+        if !under && !self.player_is_op() {
             self.disconnect(Component::translatable("disconnect.spam", vec![]));
         }
     }
@@ -213,53 +289,29 @@ impl PlayCtx<'_> {
 
     /// `handleChatAck`.
     pub fn handle_chat_ack(&mut self, packet: &ServerboundChatAckPacket) {
-        let result = self.lis().last_seen_messages.lock().apply_offset(packet.offset);
+        let result = self.lis().chat_out.lock().last_seen_messages.apply_offset(packet.offset);
         if let Err(e) = result {
-            log::error!("Failed to validate message acknowledgement offset from {}: {e}", self.player.get_plain_text_name());
+            log::error!("Failed to validate message acknowledgement offset from {}: {}", self.player.get_plain_text_name(), e.0);
             self.disconnect(chat_validation_failed());
         }
     }
 
-    /// `handleChatSessionUpdate`.
+    /// `handleChatSessionUpdate`. Validating a profile key needs Mojang's services public keys
+    /// (`profileKeySignatureValidator`), which are only available for online-mode servers with a session service;
+    /// without them vanilla logs and ignores the session, which is what this does.
     pub fn handle_chat_session_update(&mut self, packet: &ServerboundChatSessionUpdatePacket) {
-        let new_session = &packet.chat_session;
-        let old_key = self.lis().chat_session.as_ref().map(|s| s.profile_public_key_data().clone());
-        let new_key = new_session.profile_public_key.clone();
-        if old_key.as_ref() == Some(&new_key) {
+        let new_key = &packet.chat_session.profile_public_key;
+        let old_key = self.lis().chat_session.as_ref().map(|s| s.as_data().profile_public_key);
+        if old_key.as_ref() == Some(new_key) {
             return;
         }
         if let Some(old) = &old_key
-            && new_key.expires_at() < old.expires_at()
+            && new_key.expires_at < old.expires_at
         {
-            self.disconnect(crate::server::chat::expired_profile_public_key());
+            self.disconnect(crate::server::chat::remote_chat_session::expired_profile_public_key());
             return;
         }
-        let Some(validator) = self.server.services().profile_key_signature_validator() else {
-            log::warn!("Ignoring chat session from {} due to missing Services public key", self.player.get_profile().name);
-            return;
-        };
-        match new_session.validate(self.player.get_profile(), validator) {
-            Ok(session) => self.reset_player_chat_state(session),
-            Err(e) => {
-                log::error!("Failed to validate profile key: {e}");
-                self.disconnect(e.component());
-            }
-        }
-    }
-
-    /// `resetPlayerChatState`.
-    fn reset_player_chat_state(&mut self, chat_session: crate::server::chat::RemoteChatSession) {
-        let uuid = self.player.uuid();
-        let lis = self.lis();
-        lis.signed_message_decoder = chat_session.create_message_decoder(uuid);
-        lis.chat_session = Some(chat_session.clone());
-        // `chatMessageChain.append(() -> { player.setChatSession(..); broadcastAll(INITIALIZE_CHAT) })`
-        self.player.set_chat_session(chat_session);
-        let packet = crate::server::players::player_info_update(
-            mc_protocol::packets::play::PlayerInfoAction::InitializeChat,
-            &*self.player,
-        );
-        crate::server::players::player_list::broadcast_all(self.server, &packet);
+        log::warn!("Ignoring chat session from {} due to missing Services public key", self.player.get_profile().name);
     }
 
     /// `handleCustomCommandSuggestions` (`ServerCommandSuggestionsProvider.request`).
@@ -285,9 +337,21 @@ impl PlayCtx<'_> {
         }
         let Some((client_id, command)) = lis.suggestion_request.take() else { return };
         lis.suggestion_budget = false;
-        let command = command.strip_prefix('/').unwrap_or(&command);
-        let suggestions = self.server.commands().get_completion_suggestions(command, self.player.create_command_source_stack(self.level));
-        let suggestions = suggestions.limited_to(1000);
-        self.send(&ClientboundCommandSuggestionsPacket::new(client_id, suggestions));
+        let command = command.strip_prefix('/').unwrap_or(&command).to_owned();
+        let Some(commands) = super::commands_host::commands() else { return };
+        let Some(source) = self.create_command_source_stack() else { return };
+        let suggestions = crate::commands::server_access::enter_server(self.server, || {
+            let dispatcher = commands.get_dispatcher();
+            let parse = dispatcher.parse(&command, source);
+            dispatcher.get_completion_suggestions(&parse)
+        });
+        let range = suggestions.get_range();
+        let limit = suggestions.get_list().len().min(1000);
+        let entries = suggestions.get_list()[..limit]
+            .iter()
+            .map(|s| ClientboundCommandSuggestionsEntry { text: s.get_text().to_owned(), tooltip: s.get_tooltip().map(|m| crate::commands::message::from_message(&**m)) })
+            .collect();
+        // `limitSuggestionCount`: more than 1000 keep the first 1000 with the same range
+        self.send(&ClientboundCommandSuggestionsPacket { id: client_id, start: range.get_start() as i32, length: range.get_length() as i32, suggestions: entries });
     }
 }

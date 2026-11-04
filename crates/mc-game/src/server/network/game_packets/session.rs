@@ -13,7 +13,9 @@ use mc_protocol::packets::play::{
     ServerboundResourcePackPacket,
 };
 use mc_protocol::packets::common::ResourcePackAction;
+use mc_core::ident::Identifier;
 use mc_text::{ChatFormatting, Component};
+use crate::world::entity::Entity;
 
 impl PlayCtx<'_> {
     /// `handleKeepAlive` (`ServerCommonPacketListenerImpl`); `received_at_ms` is `Util.getMillis()` at packet arrival.
@@ -31,12 +33,13 @@ impl PlayCtx<'_> {
 
     /// `handleCustomClickAction`.
     pub fn handle_custom_click_action(&mut self, packet: &ServerboundCustomClickActionPacket) {
-        self.server.handle_custom_click_action(&packet.id, &packet.payload);
+        // `server.handleCustomClickAction(id, payload)`: dialog click actions are not handled by any slice yet
+        log::debug!("Unhandled custom click action {} from {}", packet.id, self.player.get_plain_text_name());
     }
 
     /// `handleResourcePackResponse`.
     pub fn handle_resource_pack_response(&mut self, packet: &ServerboundResourcePackPacket) {
-        if packet.action == ResourcePackAction::Declined && self.server.is_resource_pack_required() {
+        if packet.action == ResourcePackAction::Declined && self.server.properties().server_resource_pack_info.as_ref().is_some_and(|p| p.is_required) {
             log::info!("Disconnecting {} due to resource pack {} rejection", self.player.get_profile().name, packet.id);
             self.disconnect(Component::translatable("multiplayer.requiredTexturePrompt.disconnect", vec![]));
         }
@@ -61,48 +64,73 @@ impl PlayCtx<'_> {
     pub fn handle_client_information(&mut self, packet: &ServerboundClientInformationPacket) {
         let was_hat_shown = self.player.is_model_part_shown_hat();
         let information: &ClientInformation = &packet.information;
-        self.player.update_options(information);
-        if self.player.is_model_part_shown_hat() != was_hat_shown {
-            let update = crate::server::players::player_info_update(mc_protocol::packets::play::PlayerInfoAction::UpdateHat, &*self.player);
-            crate::server::players::player_list::broadcast_all(self.server, &update);
+        self.player.update_options(information.clone());
+        self.player.sync_handle();
+        if self.player.is_model_part_shown_hat() != was_hat_shown
+            && let Some(handle) = self.player.handle.clone()
+        {
+            use mc_protocol::packets::play::ClientboundPlayerInfoUpdateAction;
+            let update = crate::server::players::player_handle::create_info_update([ClientboundPlayerInfoUpdateAction::UpdateHat].into_iter().collect(), [&handle]);
+            self.server.player_list.broadcast_all(&update);
         }
     }
 
     /// `handlePlayerAbilities`.
     pub fn handle_player_abilities(&mut self, packet: &ServerboundPlayerAbilitiesPacket) {
-        let abilities = self.player.get_abilities_mut();
+        let abilities = &mut self.player.player.abilities;
         abilities.flying = packet.is_flying && abilities.mayfly;
     }
 
     /// `handleChangeDifficulty`.
     pub fn handle_change_difficulty(&mut self, packet: &ServerboundChangeDifficultyPacket) {
-        if !self.player.has_gamemaster_permission() && !self.is_singleplayer_owner() {
+        use crate::util::game_modes::DifficultyExt;
+        let difficulty = mc_world::level_storage::Difficulty::by_id(packet.difficulty as i32);
+        if !self.has_gamemaster_permission() && !self.is_singleplayer_owner() {
             log::warn!(
                 "Player {} tried to change difficulty to {} without required permissions",
                 self.player.get_profile().name,
-                packet.difficulty.get_display_name().get_string()
+                difficulty.get_display_name().get_string()
             );
         } else {
-            self.server.set_difficulty(packet.difficulty, false);
+            self.server.set_difficulty(difficulty, false);
         }
     }
 
-    /// `handleChangeGameMode`.
+    /// `handleChangeGameMode`: `GameModeCommand.PERMISSION_CHECK` (gamemaster) then `GameModeCommand.setGameMode`.
     pub fn handle_change_game_mode(&mut self, packet: &ServerboundChangeGameModePacket) {
-        if !crate::server::commands::game_mode::permission_check(self.player) {
+        use crate::util::game_modes::GameTypeExt;
+        let mode = mc_world::level_storage::GameType::by_id(packet.mode as i32);
+        if !self.has_gamemaster_permission() {
             log::warn!(
                 "Player {} tried to change game mode to {} without required permissions",
                 self.player.get_profile().name,
-                packet.mode.get_short_display_name().get_string()
+                mode.get_short_display_name().get_string()
             );
-        } else {
-            crate::server::commands::game_mode::set_game_mode(self.server, self.level, self.player, packet.mode);
+            return;
+        }
+        if self.player.change_game_mode_for_player(match packet.mode {
+            mc_protocol::packets::play::GameType::Survival => mc_data::enums::GameType::Survival,
+            mc_protocol::packets::play::GameType::Creative => mc_data::enums::GameType::Creative,
+            mc_protocol::packets::play::GameType::Adventure => mc_data::enums::GameType::Adventure,
+            mc_protocol::packets::play::GameType::Spectator => mc_data::enums::GameType::Spectator,
+        }) {
+            self.player.sync_handle();
+            if let Some(handle) = self.player.handle.clone() {
+                use mc_protocol::packets::play::ClientboundPlayerInfoUpdateAction;
+                let update = crate::server::players::player_handle::create_info_update([ClientboundPlayerInfoUpdateAction::UpdateGameMode].into_iter().collect(), [&handle]);
+                self.server.player_list.broadcast_all(&update);
+            }
+            // `logGamemodeChange`: `source.sendSuccess(commands.gamemode.success.self)`
+            if self.server.game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK) {
+                let name = Component::translatable(format!("gameMode.{}", mode.get_name()), vec![]);
+                self.player.send_system_message(Component::translatable("commands.gamemode.success.self", vec![name.into()]));
+            }
         }
     }
 
     /// `handleLockDifficulty`.
     pub fn handle_lock_difficulty(&mut self, packet: &ServerboundLockDifficultyPacket) {
-        if self.player.has_gamemaster_permission() || self.is_singleplayer_owner() {
+        if self.has_gamemaster_permission() || self.is_singleplayer_owner() {
             self.server.set_difficulty_locked(packet.locked);
         }
     }
@@ -122,37 +150,28 @@ impl PlayCtx<'_> {
                     self.respawn_player(false);
                 }
             }
-            ServerboundClientCommandAction::RequestStats => self.player.send_stats(),
+            ServerboundClientCommandAction::RequestStats => self.sys().send_stats(self),
             ServerboundClientCommandAction::RequestGameruleValues => self.send_game_rule_values(),
         }
     }
 
-    /// The `PERFORM_RESPAWN` arms: `this.player = playerList.respawn(player, keepAll, reason)`, then
-    /// `resetPosition()`, `restartClientLoadTimerAfterRespawn()`, and either the end-credits `CHANGED_DIMENSION`
-    /// trigger or the hardcore spectator switch. `PlayerList.respawn` moves the listener to the new player.
+    /// The `PERFORM_RESPAWN` arms: `this.player = playerList.respawn(player, keepAll, reason)` (the new player keeps
+    /// this listener: `resetPosition()`, `restartClientLoadTimerAfterRespawn()`, the end-credits `CHANGED_DIMENSION`
+    /// trigger or the hardcore spectator switch happen on it). `PlayerList.respawn` is implemented by the
+    /// player-list slice through [`PlayerSystems::respawn_player`].
     fn respawn_player(&mut self, won_game: bool) {
-        let reason = if won_game { crate::world::entity::RemovalReason::ChangedDimension } else { crate::world::entity::RemovalReason::Killed };
-        let hardcore = self.server.is_hardcore();
-        crate::server::players::player_list::respawn(self.server, self.level, self.player, won_game, reason, move |server, new_player| {
-            let pos = new_player.position();
-            let lis = new_player.listener.as_mut().expect("respawned player keeps its listener");
-            lis.reset_position(pos);
-            lis.restart_client_load_timer_after_respawn();
-            if won_game {
-                new_player.trigger_changed_dimension(server, crate::world::level::DimensionKey::END, crate::world::level::DimensionKey::OVERWORLD);
-            } else if hardcore {
-                new_player.set_game_mode(server, mc_protocol::packets::play::GameType::Spectator);
-            }
-        });
+        self.sys().respawn_player(self, won_game);
     }
 
     /// `sendGameRuleValues`.
     fn send_game_rule_values(&mut self) {
-        if !self.player.has_gamemaster_permission() {
+        if !self.has_gamemaster_permission() {
             log::warn!("Player {} tried to request game rule values without required permissions", self.player.get_profile().name);
             return;
         }
-        let values = self.level.game_rules().serialized_available_rules();
+        let rules = self.server.game_rules();
+        let values: Vec<(Identifier, String)> =
+            crate::world::level::gamerules::AnyGameRule::all().map(|rule| (rule.get_identifier(), rules.get_as_string(rule))).collect();
         self.send(&mc_protocol::packets::play::ClientboundGameRuleValuesPacket { values });
     }
 
@@ -161,14 +180,14 @@ impl PlayCtx<'_> {
         if !self.lis().waiting_for_switch_to_config {
             panic!("Client acknowledged config, but none was requested");
         }
-        // Hand the connection over to a new `ServerConfigurationPacketListenerImpl` (GameNet owns that side).
         let cookie = crate::server::network::common_listener::CommonListenerCookie {
             profile: self.player.get_profile().clone(),
             latency: self.lis().latency(),
             client_information: self.player.client_information(),
             transferred: self.lis().common.transferred(),
         };
-        crate::server::network::pending_player::switch_to_configuration(self.server, self.player, cookie);
+        // hands the connection to a new configuration listener (GameNet's reader pump)
+        self.lis().sender.switch_to_configuration(cookie);
     }
 
     /// `switchToConfig()`.
@@ -176,7 +195,7 @@ impl PlayCtx<'_> {
         self.lis().waiting_for_switch_to_config = true;
         self.remove_player_from_world();
         self.send(&ClientboundStartConfigurationPacket);
-        self.lis().sender.setup_outbound_configuration();
+        self.lis().sender.set_outbound_state(mc_protocol::packet::ConnectionState::Configuration);
     }
 
     /// `onDisconnect(details)` / `Connection.handleDisconnection`: runs once the connection is closed.
@@ -197,12 +216,29 @@ impl PlayCtx<'_> {
         self.remove_player_from_world();
     }
 
-    /// `removePlayerFromWorld`.
+    /// `removePlayerFromWorld`: leave message, `player.disconnect()` and `PlayerList.remove(player)` (the level removal
+    /// is applied when the taken-out player is put back, see `ServerLevel::put_back_entity`).
     fn remove_player_from_world(&mut self) {
         self.server.invalidate_status();
         let message = Component::translatable("multiplayer.player.left", vec![self.player.get_display_name().into()]).with_format(ChatFormatting::Yellow);
-        crate::server::players::player_list::broadcast_system_message(self.server, message, false);
-        self.player.disconnect(self.level);
-        crate::server::players::player_list::remove(self.server, self.level, self.player);
+        self.server.player_list.broadcast_system_message(&message, false);
+        self.player.disconnected = true;
+        self.remove_from_player_list();
+    }
+
+    /// `PlayerList.remove(player)`.
+    fn remove_from_player_list(&mut self) {
+        let Some(handle) = self.player.handle.clone() else { return };
+        // `save(player)`: player data file, stats and advancements
+        {
+            let level = &*self.level;
+            let lookup = |id: crate::world::entity::EntityId| level.get_entity(id);
+            let data = self.player.save_player_data(&lookup);
+            self.server.player_list.save_player_data(&handle, data);
+        }
+        self.server.player_list.save_player_files(&handle);
+        self.player.remove(crate::world::entity::RemovalReason::UnloadedToChunk);
+        self.server.player_list.remove_player(&handle);
+        self.server.player_list.broadcast_player_info_remove(handle.uuid);
     }
 }

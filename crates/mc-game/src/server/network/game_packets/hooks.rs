@@ -90,6 +90,9 @@ pub trait PlayerSystems: Sync {
     fn use_item(&self, ctx: &mut PlayCtx, hand: InteractionHand) -> InteractionResult {
         InteractionResult::PASS
     }
+    /// `ServerPlayerGameMode.handleBlockBreakAction(pos, action, direction, maxY, sequence)` (digging state machine;
+    /// `ServerPlayer::handle_block_break_action` needs a `BlockBreakLevel`, which `ServerLevel` does not implement yet).
+    fn block_break_action(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, action: mc_protocol::packets::play::ServerboundPlayerActionAction, direction: mc_core::direction::Direction, max_y: i32, sequence: i32) {}
     /// `CriteriaTriggers.ANY_BLOCK_USE` / `PLAYER_INTERACTED_WITH_ENTITY` triggers.
     fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, hand: InteractionHand) {}
     fn trigger_player_interacted_with_entity(&self, ctx: &mut PlayCtx, item_interaction: bool, hand: InteractionHand, target: crate::world::entity::EntityId) {}
@@ -111,6 +114,11 @@ pub trait PlayerSystems: Sync {
     }
     fn stop_fall_flying(&self, ctx: &mut PlayCtx) {}
     fn stop_sleep_in_bed(&self, ctx: &mut PlayCtx, was_slept_long_enough: bool, update_level_list: bool) {}
+    /// `PlayerList.respawn(player, keepAll, reason)` for `PERFORM_RESPAWN` (`keep_all` = won the game) plus the
+    /// follow-ups on the new player (`resetPosition`, `restartClientLoadTimerAfterRespawn`, hardcore spectator).
+    fn respawn_player(&self, ctx: &mut PlayCtx, keep_all: bool) {
+        log::warn!("Respawn requested by {} but no respawn implementation is registered", ctx.player.get_plain_text_name());
+    }
     /// `ServerPlayer.teleportTo(level, x, y, z, relatives, yRot, xRot, setCamera)` across levels.
     fn teleport_to(&self, ctx: &mut PlayCtx, dimension: &crate::world::level::DimensionKey, x: f64, y: f64, z: f64, y_rot: f32, x_rot: f32, set_camera: bool) {}
     /// `ServerPlayer.createCommandSourceStack()` permission level / `permissions().hasPermission(COMMANDS_GAMEMASTER)`.
@@ -123,7 +131,7 @@ pub trait PlayerSystems: Sync {
 #[derive(Clone, Copy, Default, Debug)]
 pub struct SwingAnimationRef(pub u32);
 
-pub use crate::world::item::interaction::{InteractionHand, InteractionResult};
+pub use crate::world::item::{InteractionHand, InteractionResult};
 pub use mc_protocol::packets::play::BlockHitResult as ServerboundBlockHitResult;
 
 #[allow(unused_variables)]
@@ -236,7 +244,7 @@ impl PlayCtx<'_> {
                 }
             }
             P::SignUpdate(p) => {
-                let lines: Vec<String> = p.lines.iter().map(|l| mc_text::ChatFormatting::strip_formatting(l).unwrap_or_default()).collect();
+                let lines: Vec<String> = p.lines.iter().map(|l| mc_text::ChatFormatting::strip_formatting(l)).collect();
                 self.player.reset_last_action_time();
                 self.hooks(|h, c| h.update_sign_text(c, &p, &lines));
             }
@@ -250,19 +258,19 @@ impl PlayCtx<'_> {
             P::PickItemFromBlock(p) => self.hooks(|h, c| h.handle_pick_item_from_block(c, &p)),
             P::PickItemFromEntity(p) => self.hooks(|h, c| h.handle_pick_item_from_entity(c, &p)),
             P::EntityTagQuery(p) => {
-                if self.player.has_gamemaster_permission() {
+                if self.has_gamemaster_permission() {
                     self.hooks(|h, c| h.handle_entity_tag_query(c, &p));
                 }
             }
             P::BlockEntityTagQuery(p) => {
-                if self.player.has_gamemaster_permission() {
+                if self.has_gamemaster_permission() {
                     self.hooks(|h, c| h.handle_block_entity_tag_query(c, &p));
                 }
             }
             P::SetCreativeModeSlot(p) => self.handle_set_creative_mode_slot(&p),
             P::DebugSubscriptionRequest(p) => self.hooks(|h, c| h.handle_debug_subscription_request(c, &p)),
             P::SetGameRule(p) => {
-                if !self.player.has_gamemaster_permission() {
+                if !self.has_gamemaster_permission() {
                     log::warn!("Player {} tried to set game rule values without required permissions", self.player.get_profile().name);
                 } else {
                     self.hooks(|h, c| h.handle_set_game_rule(c, &p));
@@ -274,16 +282,16 @@ impl PlayCtx<'_> {
 
     /// `handleSetCreativeModeSlot` (listener part: infinite-materials check, slot/data validity, drop rate limit).
     fn handle_set_creative_mode_slot(&mut self, packet: &ServerboundSetCreativeModeSlotPacket) {
-        if !self.player.has_infinite_materials() {
+        if !self.has_infinite_materials() {
             return;
         }
         let drop = packet.slot_num < 0;
         let item_stack = &packet.item_stack;
-        if !item_stack.is_item_enabled(self.level.enabled_features()) {
+        if !crate::server::network::game_packets::seam::item_enabled(self.level, item_stack) {
             return;
         }
         let valid_slot = (1..=45).contains(&packet.slot_num);
-        let valid_data = item_stack.is_empty() || item_stack.count() <= item_stack.max_stack_size();
+        let valid_data = item_stack.is_empty() || item_stack.count() <= item_stack.get_max_stack_size();
         if valid_slot && valid_data {
             self.hooks(|h, c| h.handle_set_creative_mode_slot(c, packet));
         } else if drop && valid_data {

@@ -17,9 +17,10 @@
 //! level checks vanilla does itself.
 
 mod chat;
+mod commands_host;
 mod interaction;
 mod movement;
-mod seam;
+pub(crate) mod seam;
 mod session;
 
 pub mod hooks;
@@ -141,7 +142,7 @@ impl PlayCtx<'_> {
                 InboundPacket::Packet { packet, received_at_ms } if handled_on_netty_thread(&packet) => netty.push((*packet, received_at_ms)),
                 InboundPacket::Packet { packet, received_at_ms } => main.push((*packet, received_at_ms)),
                 InboundPacket::Disconnected(details) => {
-                    lis.pending_disconnect.get_or_insert(details.reason().clone());
+                    lis.pending_disconnect.get_or_insert(details.reason.clone());
                 }
             }
         }

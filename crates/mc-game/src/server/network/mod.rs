@@ -6,6 +6,7 @@ pub mod configuration_task;
 pub mod connection;
 mod connection_task;
 pub mod game_listener;
+pub mod game_packets;
 pub mod handshake_listener;
 pub mod hooks;
 pub mod legacy_query;
