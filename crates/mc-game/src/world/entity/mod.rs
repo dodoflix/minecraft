@@ -14,6 +14,7 @@ pub mod effect;
 pub mod entity;
 pub mod equipment;
 pub mod factory;
+pub mod interpolation;
 pub mod living;
 pub mod plain;
 pub mod player;
@@ -62,4 +63,14 @@ impl MoverType {
     pub fn is_server_and_client_simulated(self) -> bool {
         self != MoverType::SelfMover
     }
+}
+
+/// Entity classes `ServerEntity` treats specially.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum TrackingKind {
+    Normal,
+    /// `AbstractArrow`: always sends position + rotation.
+    Arrow,
+    /// `ItemEntity`: full-precision position sync on collisions.
+    ItemEntity,
 }

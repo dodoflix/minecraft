@@ -586,6 +586,11 @@ impl PersistentEntitySectionManager {
         self.entities.get_mut(&id).and_then(|s| s.entity.as_deref_mut())
     }
 
+    /// Mutable access ignoring visibility (hidden entities included); `None` while taken out.
+    pub fn get_any_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
+        self.entities.get_mut(&id).and_then(|s| s.entity.as_deref_mut())
+    }
+
     pub fn get_by_uuid(&self, uuid: Uuid) -> Option<&dyn Entity> {
         self.visible_by_uuid.get(&uuid).and_then(|&id| self.get_any(id))
     }

@@ -134,6 +134,8 @@ pub struct EntityData {
     pub first_tick: bool,
     pub entity_data: SynchedEntityData,
     pub packet_position_codec: VecDeltaCodec,
+    /// `getInterpolation().interpolationTracker()` (server side).
+    pub interpolation_tracker: super::interpolation::InterpolationTracker,
     pub needs_sync: bool,
     pub sync_position: bool,
     pub sync_velocity: bool,
@@ -223,6 +225,7 @@ impl EntityData {
             first_tick: true,
             entity_data: builder.build(),
             packet_position_codec: VecDeltaCodec::default(),
+            interpolation_tracker: Default::default(),
             needs_sync: false,
             sync_position: false,
             sync_velocity: false,
@@ -627,6 +630,54 @@ pub trait Entity: Any {
     fn should_be_saved_ignoring_riding(&self) -> bool {
         self.base().removal_reason().is_none_or(|r| r.should_save())
     }
+
+    // ---- tracking ------------------------------------------------------------------------------------------
+
+    /// `trackingPosition()`.
+    fn tracking_position(&self) -> Vec3 {
+        self.position()
+    }
+
+    /// Which `ServerEntity` special cases apply (`AbstractArrow`, `ItemEntity`).
+    fn tracking_kind(&self) -> super::TrackingKind {
+        super::TrackingKind::Normal
+    }
+
+    /// `AbstractHurtingProjectile.accelerationPower` (sent in a bundle with the motion packet).
+    fn hurting_projectile_power(&self) -> Option<f64> {
+        None
+    }
+
+    /// `getAddEntityPacket(serverEntity)`.
+    fn get_add_entity_packet(&self, server_entity: &crate::server::level::ServerEntity) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
+        server_entity.add_entity_packet(self.id(), self.uuid(), self.get_type(), 0)
+    }
+
+    /// The `ClientboundSetEquipmentPacket` of a pairing (`None` when nothing is equipped / not living).
+    fn equipment_packet(&self) -> Option<mc_protocol::packets::play::ClientboundSetEquipmentPacket> {
+        None
+    }
+
+    /// `broadcastToPlayer(player)`.
+    fn broadcast_to_player(&self, _player_id: EntityId) -> bool {
+        true
+    }
+
+    /// `instanceof EnderDragonPart` (never tracked individually).
+    fn is_ender_dragon_part(&self) -> bool {
+        false
+    }
+
+    /// `Leashable.getLeashHolder()` id when the entity is leashed.
+    fn leash_holder(&self) -> Option<EntityId> {
+        None
+    }
+
+    /// `startSeenByPlayer(player)`.
+    fn start_seen_by_player(&mut self, _player_id: EntityId) {}
+
+    /// `stopSeenByPlayer(player)`.
+    fn stop_seen_by_player(&mut self, _player_id: EntityId) {}
 
     // ---- synched data ----------------------------------------------------------------------------------------
 

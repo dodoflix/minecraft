@@ -123,6 +123,10 @@ pub struct ServerPlayer {
 }
 
 impl ServerPlayer {
+    pub fn base_id(&self) -> EntityId {
+        self.player.living.entity.id
+    }
+
     /// `ServerPlayer(server, level, gameProfile, clientInformation)`; `id` = `level.getNextEntityId()`.
     pub fn new(id: EntityId, dimension: Identifier, game_profile: GameProfile, client_information: ClientInformation) -> Self {
         let mut p = Self {

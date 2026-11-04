@@ -91,6 +91,7 @@ impl LivingEntityData {
             define_synched_data(b);
         });
         entity.blocks_building = true;
+        entity.interpolation_tracker = super::interpolation::InterpolationTracker::Stepped(Default::default());
         let attributes = AttributeMap::new(entity_type);
         let mut data = Self {
             entity,
