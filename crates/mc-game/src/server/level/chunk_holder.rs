@@ -103,7 +103,7 @@ pub struct ChunkHolder {
     ticket_level: i32,
     queue_level: i32,
     has_changed_sections: bool,
-    changed_blocks_per_section: Vec<Option<Vec<i16>>>,
+    changed_blocks_per_section: Vec<Option<super::fastutil::ShortOpenHashSet>>,
     pub(crate) block_changed_light_section_filter: HashSet<i32>,
     pub(crate) sky_changed_light_section_filter: HashSet<i32>,
     was_accessible_since_last_save: bool,
@@ -449,13 +449,10 @@ impl ChunkHolder {
         let changed = &mut self.changed_blocks_per_section[section_index];
         if changed.is_none() {
             self.has_changed_sections = true;
-            *changed = Some(Vec::new());
+            *changed = Some(super::fastutil::ShortOpenHashSet::new());
         }
         let rel = SectionPos::section_relative_pos(&pos);
-        let list = changed.as_mut().expect("just created");
-        if !list.contains(&rel) {
-            list.push(rel);
-        }
+        changed.as_mut().expect("just created").add(rel);
         !had_changed_sections
     }
 
@@ -495,7 +492,7 @@ impl ChunkHolder {
         let mut out = Vec::new();
         for (index, slot) in self.changed_blocks_per_section.iter_mut().enumerate() {
             if let Some(changed) = slot.take() {
-                out.push((index, changed));
+                out.push((index, changed.iter().collect()));
             }
         }
         self.has_changed_sections = false;

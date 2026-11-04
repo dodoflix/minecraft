@@ -350,3 +350,140 @@ impl LongOpenHashSet {
         self.0.drain_filter_in_order(|k, _| f(k));
     }
 }
+
+/// fastutil 8.5 `ShortOpenHashSet` (default constructor: 16 expected entries, load factor 0.75): insertion and the
+/// iteration order (`0` key first, then the table scanned backwards), which `ChunkHolder.broadcastChanges` exposes in
+/// `ClientboundSectionBlocksUpdatePacket`.
+#[derive(Clone, Debug)]
+pub struct ShortOpenHashSet {
+    key: Vec<i16>,
+    mask: usize,
+    n: usize,
+    max_fill: usize,
+    contains_null: bool,
+    size: usize,
+}
+
+fn mix_short(k: i16) -> usize {
+    let h = i32::from(k).wrapping_mul(0x9E37_79B9u32 as i32);
+    (h ^ ((h as u32) >> 16) as i32) as u32 as usize
+}
+
+impl Default for ShortOpenHashSet {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl ShortOpenHashSet {
+    pub fn new() -> Self {
+        let n = array_size(16);
+        Self { key: vec![0; n + 1], mask: n - 1, n, max_fill: max_fill(n), contains_null: false, size: 0 }
+    }
+
+    pub fn len(&self) -> usize {
+        self.size
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.size == 0
+    }
+
+    pub fn contains(&self, k: i16) -> bool {
+        if k == 0 {
+            return self.contains_null;
+        }
+        let mut pos = mix_short(k) & self.mask;
+        loop {
+            let curr = self.key[pos];
+            if curr == 0 {
+                return false;
+            }
+            if curr == k {
+                return true;
+            }
+            pos = (pos + 1) & self.mask;
+        }
+    }
+
+    /// `add(k)`: `false` if already present.
+    pub fn add(&mut self, k: i16) -> bool {
+        if k == 0 {
+            if self.contains_null {
+                return false;
+            }
+            self.contains_null = true;
+        } else {
+            let mut pos = mix_short(k) & self.mask;
+            while self.key[pos] != 0 {
+                if self.key[pos] == k {
+                    return false;
+                }
+                pos = (pos + 1) & self.mask;
+            }
+            self.key[pos] = k;
+        }
+        let was = self.size;
+        self.size += 1;
+        if was >= self.max_fill {
+            self.rehash(array_size(self.size + 1));
+        }
+        true
+    }
+
+    fn rehash(&mut self, new_n: usize) {
+        let mask = new_n - 1;
+        let mut new_key = vec![0i16; new_n + 1];
+        let mut i = self.n;
+        let mut j = if self.contains_null { self.size - 1 } else { self.size };
+        while j > 0 {
+            j -= 1;
+            loop {
+                i -= 1;
+                if self.key[i] != 0 {
+                    break;
+                }
+            }
+            let mut pos = mix_short(self.key[i]) & mask;
+            while new_key[pos] != 0 {
+                pos = (pos + 1) & mask;
+            }
+            new_key[pos] = self.key[i];
+        }
+        self.n = new_n;
+        self.mask = mask;
+        self.max_fill = max_fill(new_n);
+        self.key = new_key;
+    }
+
+    /// Iteration order of the fastutil iterator.
+    pub fn iter(&self) -> impl Iterator<Item = i16> + '_ {
+        self.contains_null.then_some(0i16).into_iter().chain((0..self.n).rev().map(|p| self.key[p]).filter(|k| *k != 0))
+    }
+}
+
+#[cfg(test)]
+mod short_set_tests {
+    use super::*;
+
+    #[test]
+    fn dedupes_and_iterates_zero_first() {
+        let mut s = ShortOpenHashSet::new();
+        assert!(s.add(5) && s.add(0) && s.add(9) && !s.add(5) && !s.add(0));
+        assert_eq!(s.len(), 3);
+        assert_eq!(s.iter().next(), Some(0));
+        assert!(s.contains(9) && !s.contains(10));
+    }
+
+    #[test]
+    fn survives_rehash() {
+        let mut s = ShortOpenHashSet::new();
+        for k in 0..200i16 {
+            assert!(s.add(k * 7));
+        }
+        assert_eq!(s.len(), 200);
+        let mut all: Vec<i16> = s.iter().collect();
+        all.sort_unstable();
+        assert_eq!(all, (0..200).map(|k| k * 7).collect::<Vec<i16>>());
+    }
+}
