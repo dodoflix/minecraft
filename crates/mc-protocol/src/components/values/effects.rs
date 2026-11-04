@@ -408,18 +408,26 @@ impl PotionContents {
         let full = mc_dfu::record!(PotionContents {
             potion: potion.optional_field_of("potion"),
             custom_color: INT.optional_field_of("custom_color"),
-            custom_effects: MobEffectInstance::codec().list_of().optional_field_of_default("custom_effects", Vec::new()),
+            custom_effects: MobEffectInstance::codec()
+                .list_of()
+                .optional_field_of_default("custom_effects", Vec::new())
+                .xmap(|v| v, |v: &Vec<MobEffectInstance>| without_hidden(v)),
             custom_name: STRING.optional_field_of("custom_name"),
         })
         .codec();
         full.with_alternative_conv(&potion, |p| PotionContents { potion: Some(p), custom_color: None, custom_effects: Vec::new(), custom_name: None })
     }
 }
+/// `PotionContents.customEffects()` hands out `new MobEffectInstance(copy)` copies, which drop the hidden effect.
+fn without_hidden(v: &[MobEffectInstance]) -> Vec<MobEffectInstance> {
+    v.iter().map(|e| MobEffectInstance { hidden_effect: None, ..e.clone() }).collect()
+}
+
 impl Encode for PotionContents {
     fn encode(&self, out: &mut Vec<u8>) {
         enc_opt(out, &self.potion, |p, o| write_varint(o, p.id() as i32));
         self.custom_color.encode(out);
-        self.custom_effects.encode(out);
+        without_hidden(&self.custom_effects).encode(out);
         self.custom_name.encode(out);
     }
 }
