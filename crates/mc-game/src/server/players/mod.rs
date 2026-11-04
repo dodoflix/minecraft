@@ -8,6 +8,7 @@ pub mod name_resolver;
 pub mod dedicated_player_list;
 pub mod player_data;
 pub mod player_files;
+pub mod old_users_converter;
 pub mod player_handle;
 pub mod player_list;
 pub mod stored_user_list;

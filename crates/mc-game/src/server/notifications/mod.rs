@@ -97,3 +97,77 @@ impl NotificationService for NotificationManager {
         status_heartbeat();
     }
 }
+
+/// `ServerActivityMonitor`: turns login activity into at most one `serverActivityOccured` per interval.
+pub struct ServerActivityMonitor {
+    notifications: Arc<dyn NotificationService>,
+    minimum_between_notifications: std::time::Duration,
+    start: std::time::Instant,
+    /// Milliseconds since `start` of the last notification (`i64::MIN` = never, i.e. `0` in vanilla's epoch millis).
+    last_notification_ms: std::sync::atomic::AtomicI64,
+    server_activity: std::sync::atomic::AtomicBool,
+}
+
+impl ServerActivityMonitor {
+    pub fn new(notifications: Arc<dyn NotificationService>, seconds_between_notifications: u64) -> Self {
+        ServerActivityMonitor {
+            notifications,
+            minimum_between_notifications: std::time::Duration::from_secs(seconds_between_notifications),
+            start: std::time::Instant::now(),
+            last_notification_ms: std::sync::atomic::AtomicI64::new(i64::MIN / 2),
+            server_activity: std::sync::atomic::AtomicBool::new(false),
+        }
+    }
+
+    fn now_ms(&self) -> i64 {
+        self.start.elapsed().as_millis() as i64
+    }
+
+    pub fn tick(&self) {
+        self.process_with_rate_limit();
+    }
+
+    pub fn report_login_activity(&self) {
+        self.server_activity.store(true, std::sync::atomic::Ordering::SeqCst);
+        self.process_with_rate_limit();
+    }
+
+    fn process_with_rate_limit(&self) {
+        use std::sync::atomic::Ordering::SeqCst;
+        let now = self.now_ms();
+        if self.server_activity.load(SeqCst) && now - self.last_notification_ms.load(SeqCst) >= self.minimum_between_notifications.as_millis() as i64 {
+            self.notifications.server_activity_occured();
+            self.last_notification_ms.store(self.now_ms(), SeqCst);
+        }
+        self.server_activity.store(false, SeqCst);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
+    #[derive(Default)]
+    struct Counter(AtomicUsize);
+    impl NotificationService for Counter {
+        fn server_activity_occured(&self) {
+            self.0.fetch_add(1, Ordering::SeqCst);
+        }
+    }
+
+    #[test]
+    fn activity_is_rate_limited_and_manager_fans_out() {
+        let counter = Arc::new(Counter::default());
+        let manager = Arc::new(NotificationManager::new());
+        manager.register_service(counter.clone());
+        manager.register_service(counter.clone());
+        let monitor = ServerActivityMonitor::new(manager, 30);
+        monitor.tick(); // no activity yet
+        assert_eq!(counter.0.load(Ordering::SeqCst), 0);
+        monitor.report_login_activity();
+        assert_eq!(counter.0.load(Ordering::SeqCst), 2); // two registered services
+        monitor.report_login_activity(); // inside the 30 s window
+        assert_eq!(counter.0.load(Ordering::SeqCst), 2);
+    }
+}
