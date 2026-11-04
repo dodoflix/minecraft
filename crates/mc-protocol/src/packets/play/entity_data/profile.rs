@@ -3,7 +3,9 @@
 use mc_core::ident::Identifier;
 use uuid::Uuid;
 
-use crate::codec::{read_count, write_varint, DecodeBounded, DecodeResult, Either, GameProfile, Property};
+use crate::codec::{
+    DecodeBounded, DecodeResult, Either, GameProfile, Property, read_count, write_varint,
+};
 use crate::{Decode, Encode};
 
 /// `PlayerModelType.STREAM_CODEC`: a bool, `true` = slim.

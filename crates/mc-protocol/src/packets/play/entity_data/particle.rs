@@ -5,8 +5,8 @@ use mc_core::pos::block_pos::BlockPos;
 use mc_data::ParticleType;
 use mc_data::block::BlockState;
 
-use crate::components::ItemStackTemplate;
 use crate::codec::{DecodeResult, read_registry_id, write_varint};
+use crate::components::ItemStackTemplate;
 use crate::{Decode, Encode};
 
 /// `PositionSource.STREAM_CODEC`: `PositionSourceType` registry id, then the source.

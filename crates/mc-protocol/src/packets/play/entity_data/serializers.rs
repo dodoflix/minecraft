@@ -8,11 +8,11 @@ use mc_text::Component;
 use uuid::Uuid;
 
 use super::{ParticleOptions, ResolvableProfile};
-use crate::components::ItemStack;
 use crate::codec::{
     DecodeError, DecodeResult, GlobalPos, Holder, OptionalVarInt, read_registry_id, read_varint,
     write_varint,
 };
+use crate::components::ItemStack;
 use crate::packets::common::{HumanoidArm, id_enum};
 use crate::{Decode, Encode};
 
