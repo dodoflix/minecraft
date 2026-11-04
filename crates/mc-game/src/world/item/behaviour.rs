@@ -75,6 +75,24 @@ impl ItemUseAnimation {
 pub const APPROXIMATELY_INFINITE_USE_DURATION: i32 = 72000;
 
 pub trait ItemBehaviour: Send + Sync + 'static {
+    /// `Item.useOn(context)`: default `PASS`. The player's held stack in `context.item_stack` may be mutated.
+    fn use_on(&self, _context: &mut super::UseOnContext, _level: &mut crate::server::level::ServerLevel, _player: &mut crate::world::entity::ServerPlayer) -> super::InteractionResult {
+        super::InteractionResult::PASS
+    }
+
+    /// `Item.use(level, player, hand)`: default `PASS` (the consumable/equippable component behavior is added by GameItems).
+    fn use_item(&self, _level: &mut crate::server::level::ServerLevel, _player: &mut crate::world::entity::ServerPlayer, _hand: super::InteractionHand) -> super::InteractionResult {
+        super::InteractionResult::PASS
+    }
+
+    /// `Item.canDestroyBlock(stack, state, level, pos, user)`.
+    fn can_destroy_block(&self, stack: &ItemStack, _state: BlockState, user_is_creative: bool) -> bool {
+        match stack.get_json("minecraft:tool") {
+            Some(t) if !t.get("can_destroy_blocks_in_creative").and_then(|v| v.as_bool()).unwrap_or(true) => !user_is_creative,
+            _ => true,
+        }
+    }
+
     /// `getDestroySpeed(stack, state)`.
     fn get_destroy_speed(&self, stack: &ItemStack, state: BlockState) -> f32 {
         tool::get_mining_speed(stack, state)

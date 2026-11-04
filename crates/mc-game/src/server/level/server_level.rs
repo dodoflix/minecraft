@@ -68,6 +68,8 @@ pub struct ServerLevel {
     pub players: Vec<EntityId>,
     /// `chunkMap.entityMap`: which players see which entity (see `entity_tracker.rs`).
     pub entity_tracker: super::EntityTracker,
+    /// `MinecraftServer.isUnderSpawnProtection(level, pos, player)` (installed by the dedicated server).
+    pub spawn_protection_hook: Option<fn(&ServerLevel, &crate::world::entity::ServerPlayer, BlockPos) -> bool>,
 
     /// `chunkSource`.
     pub chunk_source: ServerChunkCache,
@@ -126,6 +128,7 @@ impl ServerLevel {
             entity_manager: PersistentEntitySectionManager::new(None),
             players: Vec::new(),
             entity_tracker: Default::default(),
+            spawn_protection_hook: None,
             chunk_source,
             shared: params.shared,
             level_data: params.level_data,

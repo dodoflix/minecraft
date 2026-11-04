@@ -183,6 +183,47 @@ pub trait BlockBehaviour: Send + Sync + 'static {
 
     /// `Block.stepOn`.
     fn step_on(&self, _level: &mut ServerLevel, _pos: BlockPos, _on_state: BlockState, _entity: &mut dyn Entity) {}
+    /// `BlockBehaviour.useItemOn(stack, state, level, pos, player, hand, hitResult)`: default `TRY_WITH_EMPTY_HAND`.
+    fn use_item_on(
+        &self,
+        _stack: &crate::world::item::ItemStack,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _player: &mut crate::world::entity::ServerPlayer,
+        _hand: crate::world::item::InteractionHand,
+        _hit: &mc_core::phys::BlockHitResult,
+    ) -> crate::world::item::InteractionResult {
+        crate::world::item::InteractionResult::TRY_WITH_EMPTY_HAND
+    }
+    /// `BlockBehaviour.useWithoutItem(state, level, pos, player, hitResult)`: default `PASS`.
+    fn use_without_item(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _player: &mut crate::world::entity::ServerPlayer,
+        _hit: &mc_core::phys::BlockHitResult,
+    ) -> crate::world::item::InteractionResult {
+        crate::world::item::InteractionResult::PASS
+    }
+    /// `BlockBehaviour.attack(state, level, pos, player)` (start of digging).
+    fn attack(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) {}
+    /// `Block.playerWillDestroy`: the destroy particles/game event are done by the caller; returns the state to use.
+    fn player_will_destroy(&self, state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+        state
+    }
+    /// `Block.playerDestroy` (stats, exhaustion, drops). Loot drops are a later wave.
+    fn player_destroy(
+        &self,
+        _level: &mut ServerLevel,
+        _player: &mut crate::world::entity::ServerPlayer,
+        _pos: BlockPos,
+        _state: BlockState,
+        _destroyed_with: &crate::world::item::ItemStack,
+    ) {
+        _player.player.food_data.add_exhaustion(0.005);
+    }
     /// `Block.destroy` (called by `LevelChunk`-independent callers such as `ServerPlayerGameMode`).
     fn destroy(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) {}
     /// `Block.handlePrecipitation`.
