@@ -4,14 +4,9 @@ use mc_core::pos::block_pos::BlockPos;
 use mc_text::Component;
 
 use crate::codec::{read_count, read_utf, read_varint, write_varint, DecodeError, DecodeResult};
-use crate::packets::common::id_enum;
+use crate::packets::play::serverbound::SignTextSlot;
 use crate::packets::play::types::InteractionHand;
 use crate::{Decode, Encode, Packet};
-
-id_enum!(
-    /// `SignTextSlot.STREAM_CODEC`: VarInt id, unknown = back.
-    SignTextSlot { Back = 0, Front = 1 } out_of_bounds = ZERO
-);
 
 /// `ClientboundContainerClosePacket`
 #[derive(Debug, Clone, PartialEq, Eq, Encode, Decode, Packet)]
