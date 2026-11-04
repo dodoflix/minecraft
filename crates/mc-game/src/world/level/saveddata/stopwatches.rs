@@ -119,3 +119,40 @@ impl Stopwatches {
         SavedDataType::new(Identifier::parse("minecraft:stopwatches").expect("static id"), Stopwatches::default, Stopwatches::decode, Stopwatches::encode)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn id(s: &str) -> Identifier {
+        Identifier::parse(s).unwrap()
+    }
+
+    #[test]
+    fn stopwatch_math_and_dirty_rules() {
+        let s = Stopwatch { creation_time: 100, accumulated_elapsed_time: 50 };
+        assert_eq!(s.elapsed_milliseconds(160), 110);
+        assert_eq!(s.elapsed_seconds(1100), 1.05);
+        let mut sw = Stopwatches::default();
+        assert!(!sw.is_dirty());
+        assert!(sw.add(id("a:b"), Stopwatch::new(0)));
+        assert!(!sw.add(id("a:b"), Stopwatch::new(1)), "putIfAbsent");
+        sw.set_dirty_to(false);
+        assert!(sw.is_dirty(), "non-empty stopwatches are always dirty");
+        assert!(sw.update(&id("a:b"), |s| Stopwatch { accumulated_elapsed_time: 5, ..s }));
+        assert!(!sw.update(&id("x:y"), |s| s));
+        assert_eq!(sw.get(&id("a:b")).unwrap().accumulated_elapsed_time, 5);
+        assert!(sw.remove(&id("a:b")));
+        sw.set_dirty_to(false);
+        assert!(!sw.is_dirty());
+    }
+
+    #[test]
+    fn codec_unpacks_relative_to_now() {
+        let ty = Stopwatches::type_();
+        let sw = (ty.decode)(&mc_nbt::snbt::parse("{stopwatches:{\"a:b\":1500L}}").unwrap()).map_err(|e| e.error).unwrap();
+        let Tag::Compound(c) = (ty.encode)(&sw).unwrap() else { panic!() };
+        let elapsed = c.get_compound("stopwatches").unwrap().get_long("a:b").unwrap();
+        assert!((1500..2500).contains(&elapsed), "{elapsed}");
+    }
+}

@@ -1,6 +1,7 @@
 //! `net.minecraft.util` helpers shared by the game slices (`Util`, `TimeUtil`, DFU-style NBT codec readers,
 //! `TimerQueue`). Other slices add their own small helpers here.
 pub mod codec;
+pub mod game_modes;
 pub mod java_format;
 pub mod long_open_hash_set;
 pub mod tick_throttler;
