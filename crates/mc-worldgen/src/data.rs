@@ -3,6 +3,7 @@
 //! The data source is injectable ([`WorldgenDataSource`]); [`WorldgenRegistries`] memoizes the registries
 //! built on top of it so that every reference to an id shares one object, like vanilla's `Holder.Reference`s.
 
+use std::any::{Any, TypeId};
 use std::collections::{HashMap, HashSet};
 use std::fmt;
 use std::path::PathBuf;
@@ -89,6 +90,12 @@ impl std::error::Error for LoadError {}
 /// `None` means the entry does not exist (or could not be read/parsed).
 pub trait WorldgenDataSource: Send + Sync {
     fn get(&self, registry: &str, id: &Identifier) -> Option<Value>;
+
+    /// All entry ids of `registry`, sorted by `namespace:path` string. Sources that cannot enumerate
+    /// (e.g. [`ClosureDataSource`]) return an empty list.
+    fn list(&self, _registry: &str) -> Vec<Identifier> {
+        Vec::new()
+    }
 }
 
 /// Reads `<root>/<namespace>/<registry>/<path>.json` (`root` is a `data/` directory such as `ref/src/data`).
@@ -118,6 +125,61 @@ impl WorldgenDataSource for FsDataSource {
             .join(registry)
             .join(format!("{}.json", id.path()));
         serde_json::from_slice(&std::fs::read(file).ok()?).ok()
+    }
+
+    fn list(&self, registry: &str) -> Vec<Identifier> {
+        fn walk(dir: &std::path::Path, prefix: &str, namespace: &str, out: &mut Vec<Identifier>) {
+            let Ok(entries) = std::fs::read_dir(dir) else {
+                return;
+            };
+            for entry in entries.flatten() {
+                let name = entry.file_name().to_string_lossy().into_owned();
+                let path = entry.path();
+                if path.is_dir() {
+                    walk(&path, &format!("{prefix}{name}/"), namespace, out);
+                } else if let Some(stem) = name.strip_suffix(".json") {
+                    if let Ok(id) = Identifier::new(namespace, &format!("{prefix}{stem}")) {
+                        out.push(id);
+                    }
+                }
+            }
+        }
+        let mut out = Vec::new();
+        if let Ok(namespaces) = std::fs::read_dir(&self.root) {
+            for ns in namespaces.flatten() {
+                let namespace = ns.file_name().to_string_lossy().into_owned();
+                walk(&ns.path().join(registry), "", &namespace, &mut out);
+            }
+        }
+        out.sort_by_key(|id| id.to_string());
+        out
+    }
+}
+
+/// The vanilla built-in data pack embedded in `mc-data` (`data/<namespace>/<registry>/<path>.json`).
+pub struct McDataSource;
+
+impl WorldgenDataSource for McDataSource {
+    fn get(&self, registry: &str, id: &Identifier) -> Option<Value> {
+        let path = format!("data/{}/{registry}/{}.json", id.namespace(), id.path());
+        serde_json::from_slice(&mc_data::datapack::read(&path)?).ok()
+    }
+
+    fn list(&self, registry: &str) -> Vec<Identifier> {
+        let folder = format!("{registry}/");
+        let mut out = Vec::new();
+        for path in mc_data::datapack::paths() {
+            let Some((namespace, tail)) = path.strip_prefix("data/").and_then(|p| p.split_once('/')) else {
+                continue;
+            };
+            if let Some(stem) = tail.strip_prefix(&folder).and_then(|e| e.strip_suffix(".json")) {
+                if let Ok(id) = Identifier::new(namespace, stem) {
+                    out.push(id);
+                }
+            }
+        }
+        out.sort_by_key(|id| id.to_string());
+        out
     }
 }
 
@@ -151,6 +213,8 @@ pub struct WorldgenRegistries {
     density_functions: Mutex<HashMap<Identifier, DensityFunctionHolder>>,
     /// Density functions currently being decoded, per thread: a repeat is a reference cycle.
     loading: Mutex<HashSet<(ThreadId, Identifier)>>,
+    /// Memoized decoded entries of the other worldgen registries (see [`Self::memoized`]).
+    extra: Mutex<HashMap<(TypeId, Identifier), Arc<dyn Any + Send + Sync>>>,
 }
 
 impl WorldgenRegistries {
@@ -160,7 +224,50 @@ impl WorldgenRegistries {
             noises: Mutex::default(),
             density_functions: Mutex::default(),
             loading: Mutex::default(),
+            extra: Mutex::default(),
         }
+    }
+
+    /// The raw data source (for registries decoded outside this module).
+    pub fn source(&self) -> &Arc<dyn WorldgenDataSource> {
+        &self.source
+    }
+
+    /// Raw JSON of an entry (`None` if absent/unparseable).
+    pub fn raw(&self, registry: &str, id: &Identifier) -> Option<Value> {
+        self.source.get(registry, id)
+    }
+
+    /// All entry ids of a registry folder, sorted.
+    pub fn list(&self, registry: &str) -> Vec<Identifier> {
+        self.source.list(registry)
+    }
+
+    /// Loads `registry/id` once, decoding it with `decode` (which may itself call `memoized` for other entries,
+    /// e.g. a material rule referencing another rule), and shares the result like a `Holder.Reference`.
+    /// Decode errors are not cached. `T` identifies the registry in the cache, so use one `T` per registry.
+    pub fn memoized<T: Send + Sync + 'static>(
+        &self,
+        registry: &str,
+        id: &Identifier,
+        decode: impl FnOnce(&Value, &WorldgenRegistries) -> LoadResult<T>,
+    ) -> LoadResult<Arc<T>> {
+        let key = (TypeId::of::<T>(), id.clone());
+        if let Some(found) = lock(&self.extra).get(&key) {
+            return Ok(found
+                .clone()
+                .downcast::<T>()
+                .expect("memoized entry has the type it was stored under"));
+        }
+        let json = self.fetch(registry, id)?;
+        let value = Arc::new(decode(&json, self).map_err(|e| e.in_entry(registry, id))?);
+        let stored = lock(&self.extra)
+            .entry(key)
+            .or_insert_with(|| value.clone())
+            .clone();
+        Ok(stored
+            .downcast::<T>()
+            .expect("memoized entry has the type it was stored under"))
     }
 
     fn fetch(&self, registry: &str, id: &Identifier) -> LoadResult<Value> {

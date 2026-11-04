@@ -1032,6 +1032,8 @@ name = "mc-worldgen"
 version = "0.1.0"
 dependencies = [
  "mc-core",
+ "mc-data",
+ "mc-world",
  "serde_json",
 ]
 

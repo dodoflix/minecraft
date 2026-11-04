@@ -6,4 +6,6 @@ license.workspace = true
 
 [dependencies]
 mc-core = { path = "../mc-core" }
+mc-data = { path = "../mc-data" }
+mc-world = { path = "../mc-world" }
 serde_json = { version = "1", features = ["float_roundtrip"] }

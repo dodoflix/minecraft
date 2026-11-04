@@ -11,6 +11,7 @@ use crate::densityfunction::codec::{
     parse_int_range, parse_list, parse_str,
 };
 use crate::noise_router::NoiseRouter;
+use mc_data::block::{Block, BlockState};
 
 /// `DimensionType.Y_SIZE` (`(1 << BlockPos.PACKED_Y_LENGTH) - 32`, 12 packed Y bits).
 pub const DIMENSION_Y_SIZE: i32 = (1 << 12) - 32;
@@ -59,6 +60,19 @@ pub struct BlockStateSpec {
 }
 
 impl BlockStateSpec {
+    /// The block state this spec names (`BlockState.CODEC` decode): listed properties applied on the default state.
+    pub fn resolve(&self) -> LoadResult<BlockState> {
+        let block = Block::by_name(&self.name.to_string())
+            .ok_or_else(|| LoadError::new(format!("Unknown block: {}", self.name)))?;
+        let mut state = block.default_state();
+        for (name, value) in &self.properties {
+            state = state.with_property_str(name, value).ok_or_else(|| {
+                LoadError::new(format!("Unknown property {name}={value} on {}", self.name))
+            })?;
+        }
+        Ok(state)
+    }
+
     /// `BlockState.CODEC`: a bare block id (its default state) or `{Name, Properties?}`.
     fn from_json(value: &Value) -> LoadResult<BlockStateSpec> {
         if value.is_string() {

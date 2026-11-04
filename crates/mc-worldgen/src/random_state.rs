@@ -7,10 +7,12 @@ use std::sync::{Arc, Mutex};
 use mc_core::ident::Identifier;
 use mc_core::random::{Algorithm, LegacyRandomSource, PositionalRandomFactory, RandomSource};
 
+use mc_data::block::BlockState;
+
 use crate::data::{LoadError, WorldgenRegistries};
 use crate::densityfunction::{
-    CompileContext, DensityFunction, DensityFunctionCompiler, NoiseHolder, SamplerContext,
-    SharedSampler,
+    CompileContext, DensityBuffer, DensityFunction, DensityFunctionCompiler, DensityVolume,
+    NoiseHolder, SamplerContext, ScopedDensityBuffer, SharedSampler,
 };
 use crate::noise_router::NoiseRouter;
 use crate::noise_settings::NoiseGeneratorSettings;
@@ -88,6 +90,8 @@ pub struct RandomState {
     shared: Arc<Shared>,
     router: NoiseRouter,
     compiler: DensityFunctionCompiler,
+    default_block: BlockState,
+    sea_level: i32,
 }
 
 impl RandomState {
@@ -97,10 +101,16 @@ impl RandomState {
         seed: i64,
         settings: &NoiseGeneratorSettings,
     ) -> RandomState {
+        let default_block = settings
+            .default_block
+            .resolve()
+            .expect("noise settings default_block names a valid block state");
         Self::create_with(
             registries,
             seed,
             settings.legacy_random_source,
+            default_block,
+            settings.sea_level,
             settings.noise_router.clone(),
         )
     }
@@ -110,6 +120,8 @@ impl RandomState {
         registries: Arc<WorldgenRegistries>,
         seed: i64,
         use_legacy_random: bool,
+        default_block: BlockState,
+        sea_level: i32,
         router: NoiseRouter,
     ) -> RandomState {
         let algorithm = if use_legacy_random {
@@ -133,6 +145,26 @@ impl RandomState {
             shared,
             router,
             compiler,
+            default_block,
+            sea_level,
+        }
+    }
+
+    /// `NoiseGeneratorSettings.defaultBlock()` this state was created with.
+    pub fn default_block(&self) -> BlockState {
+        self.default_block
+    }
+
+    /// `NoiseGeneratorSettings.seaLevel()` this state was created with.
+    pub fn sea_level(&self) -> i32 {
+        self.sea_level
+    }
+
+    /// `samplersWithContext(context)`: samplers of any function bound to `context`.
+    pub fn samplers_with_context(self: &Arc<Self>, context: SamplerContext) -> DensitySamplerSet {
+        DensitySamplerSet {
+            random_state: self.clone(),
+            context,
         }
     }
 
@@ -189,5 +221,60 @@ impl RandomState {
                 )
             })
             .clone()
+    }
+}
+
+/// `DensitySamplerSet`: a [`SamplerContext`] (user fields, caches, buffer pool) together with the
+/// [`RandomState`] that compiles samplers for it (`RandomState.samplersWithContext`).
+pub struct DensitySamplerSet {
+    random_state: Arc<RandomState>,
+    context: SamplerContext,
+}
+
+impl DensitySamplerSet {
+    pub fn random_state(&self) -> &Arc<RandomState> {
+        &self.random_state
+    }
+
+    pub fn context(&self) -> &SamplerContext {
+        &self.context
+    }
+
+    /// `get(function)`: the compiled sampler of `function` bound to this set's context.
+    pub fn get(&self, function: &DensityFunction) -> BoundSampler<'_> {
+        BoundSampler {
+            sampler: self.random_state.get_sampler(function),
+            context: &self.context,
+        }
+    }
+
+    /// `sampleValue(function, x, y, z)`.
+    pub fn sample_value(&self, function: &DensityFunction, x: i32, y: i32, z: i32) -> f32 {
+        self.get(function).sample_value(x, y, z)
+    }
+}
+
+/// `DensitySampler.Bound`: a sampler together with the context it samples in.
+pub struct BoundSampler<'a> {
+    sampler: SharedSampler,
+    context: &'a SamplerContext,
+}
+
+impl BoundSampler<'_> {
+    /// `sampleVolume(out, volume)`.
+    pub fn sample_volume(&self, out: &mut DensityBuffer, volume: &DensityVolume) {
+        self.sampler.sample_volume(self.context, out, volume);
+    }
+
+    /// `sampleVolume(volume)`: samples into a buffer borrowed from the context's pool.
+    pub fn sample_volume_scoped(&self, volume: &DensityVolume) -> ScopedDensityBuffer<'_> {
+        let mut buffer = self.context.acquire_buffer(volume);
+        self.sampler.sample_volume(self.context, &mut buffer, volume);
+        buffer
+    }
+
+    /// `sampleValue(x, y, z)`.
+    pub fn sample_value(&self, x: i32, y: i32, z: i32) -> f32 {
+        self.sampler.sample_value(self.context, x, y, z)
     }
 }
