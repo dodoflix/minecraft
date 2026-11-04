@@ -1,0 +1,25 @@
+[
+  {
+    "uuid": "3587c6c4-e826-4a08-8cf8-3d34b26e91fe",
+    "name": "dave",
+    "created": "2026-11-04 17:45:11 +0300",
+    "source": "Server",
+    "expires": "forever"
+  },
+  {
+    "uuid": "20737a76-497a-4bac-bb93-4693d6ff152a",
+    "name": "Trent",
+    "created": "2026-11-04 17:45:11 +0300",
+    "source": "Server",
+    "expires": "forever",
+    "reason": "spam"
+  },
+  {
+    "uuid": "f0a8f4ba-99f5-412a-9189-db832c934913",
+    "name": "Alice",
+    "created": "2026-11-04 17:45:11 +0300",
+    "source": "Server",
+    "expires": "forever",
+    "reason": "griefing \u003cb\u003e\u0026x\u0027\u003dy"
+  }
+]

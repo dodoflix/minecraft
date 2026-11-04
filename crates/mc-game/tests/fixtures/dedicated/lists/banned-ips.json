@@ -1,0 +1,22 @@
+[
+  {
+    "ip": "192.168.1.77",
+    "created": "2026-11-04 17:45:11 +0300",
+    "source": "Server",
+    "expires": "forever",
+    "reason": "x"
+  },
+  {
+    "ip": "1.2.3.4",
+    "created": "2026-11-04 17:45:11 +0300",
+    "source": "Server",
+    "expires": "forever",
+    "reason": "ip reason"
+  },
+  {
+    "ip": "10.0.0.1",
+    "created": "2026-11-04 17:45:11 +0300",
+    "source": "Server",
+    "expires": "forever"
+  }
+]
