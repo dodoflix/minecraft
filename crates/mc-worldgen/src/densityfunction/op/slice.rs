@@ -17,18 +17,18 @@ pub struct SliceFunction {
 
 impl DfOp for SliceFunction {
     fn compile_sampler(&self, ctx: &dyn CompileContext) -> SharedSampler {
-        if let DfNode::Slice(inner) = self.input.node() {
-            if matches!(
+        if let DfNode::Slice(inner) = self.input.node()
+            && matches!(
                 (self.axis, inner.axis),
                 (Axis::X, Axis::Z) | (Axis::Z, Axis::X)
-            ) {
-                let (x, z) = if self.axis == Axis::X {
-                    (self.coordinate, inner.coordinate)
-                } else {
-                    (inner.coordinate, self.coordinate)
-                };
-                return Arc::new(XzSampler::new(inner.input.compile_sampler(ctx), x, z));
-            }
+            )
+        {
+            let (x, z) = if self.axis == Axis::X {
+                (self.coordinate, inner.coordinate)
+            } else {
+                (inner.coordinate, self.coordinate)
+            };
+            return Arc::new(XzSampler::new(inner.input.compile_sampler(ctx), x, z));
         }
         let input = self.input.compile_sampler(ctx);
         match self.axis {

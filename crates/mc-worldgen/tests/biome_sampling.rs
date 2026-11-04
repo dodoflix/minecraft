@@ -141,7 +141,7 @@ fn biome_sampling_matches_vanilla() {
                     let (min_qy, size_y) = (num(f[5]) as i32, num(f[6]) as i32);
                     let context = SamplerContext::builder().enable_caches().build();
                     let cs = rs.create_climate_sampler(context);
-                    let (min_qx, min_qz) = (cx * 16 >> 2, cz * 16 >> 2);
+                    let (min_qx, min_qz) = ((cx * 16) >> 2, (cz * 16) >> 2);
                     let cr = case.source.create_resolver_for_chunk(cs, min_qx, min_qy, min_qz, 4, size_y, 4);
                     let mut got = String::new();
                     for x in 0..4 {

@@ -137,10 +137,10 @@ impl WorldgenDataSource for FsDataSource {
                 let path = entry.path();
                 if path.is_dir() {
                     walk(&path, &format!("{prefix}{name}/"), namespace, out);
-                } else if let Some(stem) = name.strip_suffix(".json") {
-                    if let Ok(id) = Identifier::new(namespace, &format!("{prefix}{stem}")) {
-                        out.push(id);
-                    }
+                } else if let Some(stem) = name.strip_suffix(".json")
+                    && let Ok(id) = Identifier::new(namespace, &format!("{prefix}{stem}"))
+                {
+                    out.push(id);
                 }
             }
         }
@@ -172,10 +172,10 @@ impl WorldgenDataSource for McDataSource {
             let Some((namespace, tail)) = path.strip_prefix("data/").and_then(|p| p.split_once('/')) else {
                 continue;
             };
-            if let Some(stem) = tail.strip_prefix(&folder).and_then(|e| e.strip_suffix(".json")) {
-                if let Ok(id) = Identifier::new(namespace, stem) {
-                    out.push(id);
-                }
+            if let Some(stem) = tail.strip_prefix(&folder).and_then(|e| e.strip_suffix(".json"))
+                && let Ok(id) = Identifier::new(namespace, stem)
+            {
+                out.push(id);
             }
         }
         out.sort_by_key(|id| id.to_string());

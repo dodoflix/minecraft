@@ -149,5 +149,7 @@ fn preset_helpers() {
         .unwrap()
         .create_world_dimensions();
     assert_eq!(flat.special_world_property(), SpecialWorldProperty::Flat);
-    let _: &WorldPreset = &*world_presets::load(&registries, &biomes, &Identifier::parse("minecraft:amplified").unwrap()).unwrap();
+    let amplified: Arc<WorldPreset> =
+        world_presets::load(&registries, &biomes, &Identifier::parse("minecraft:amplified").unwrap()).unwrap();
+    assert!(amplified.overworld().is_some());
 }

@@ -77,7 +77,7 @@ pub fn level_generator_from_json(
     let ty = fields.required("type", parse_identifier)?;
     match ty.to_string().as_str() {
         "minecraft:noise" => {
-            let biome_source_json = fields.required("biome_source", |v| Ok(v))?;
+            let biome_source_json = fields.required("biome_source", Ok)?;
             let source_fields = Fields::new(biome_source_json).map_err(|e| e.at("biome_source"))?;
             let biome_source_type = source_fields.required("type", parse_identifier).map_err(|e| e.at("biome_source"))?;
             let biome_source: Arc<dyn BiomeSource> =

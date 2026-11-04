@@ -70,7 +70,7 @@ fn registry_order_and_preset_lists_match_vanilla() {
         }
     }
     assert_eq!(expected["overworld"].len(), 7594);
-    assert_eq!(Preset::Overworld.used_biomes().len() > 40, true);
+    assert!(Preset::Overworld.used_biomes().len() > 40);
 }
 
 fn synthetic_list(count: usize, children_per_node: usize) -> (ParameterList<usize>, LegacyRandomSource) {

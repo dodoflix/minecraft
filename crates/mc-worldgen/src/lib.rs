@@ -3,6 +3,17 @@
 //! carvers, flat/debug generators).
 // `DensityFunction` memoizes `range()`/`domain_axes()` in OnceLocks; neither participates in Eq/Hash.
 #![allow(clippy::mutable_key_type)]
+// Java numeric semantics: `!(a <= b)` is not `a > b` for NaN; vanilla signatures are kept (many parameters);
+// `add`/`sub`/`mul`/`div` on the `Interval`/`Vec`-like helpers mirror vanilla method names.
+#![allow(
+    clippy::neg_cmp_op_on_partial_ord,
+    clippy::too_many_arguments,
+    clippy::should_implement_trait,
+    clippy::manual_range_contains,
+    clippy::explicit_counter_loop,
+    clippy::type_complexity,
+    clippy::needless_lifetimes
+)]
 
 pub mod aquifer;
 pub mod beardifier;
