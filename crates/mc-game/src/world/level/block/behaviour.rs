@@ -15,32 +15,73 @@
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
-use crate::world::level::LevelAccessor;
-use crate::world::level::LevelReader;
+use crate::world::level::collision::CollisionContext;
+use crate::world::level::precipitation::Precipitation;
+use crate::world::level::redstone::Orientation;
+use crate::world::level::shapes::voxel_shape;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
+use mc_core::math::mth;
+use mc_core::mirror::Mirror;
+use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::{Block, BlockState};
+use mc_core::rotation::Rotation;
+use mc_data::block::{Block, BlockState, PathComputationType};
+use mc_data::fluid::Fluid;
 use std::sync::OnceLock;
 
+/// Overridable behavior of `BlockBehaviour` + `Block`. Every method's default is vanilla's base implementation (static
+/// per-state data such as light, flags and the default shapes comes from `mc_data`, which already reflects the Java
+/// overrides evaluated with an empty level).
+///
+/// Deviations from the Java signatures (forced by ownership, no observable effect):
+/// * `tick`/`randomTick`/`updateShape` take no `RandomSource`: vanilla always passes `level.getRandom()`, use
+///   `level.random()` (the same stream, so call interleaving is identical).
+/// * `Level` is `ServerLevel` (the dedicated server never runs client levels); `LevelAccessor`-taking methods get
+///   `&mut dyn LevelAccessor` (works for `ServerLevel` and world generation regions).
+/// * Purely client-side methods (`skipRendering`, `getRenderShape`, `animateTick`, `getShadeBrightness`, ...) are not
+///   part of the trait; the data they derive from is in `mc_data`.
 pub trait BlockBehaviour: Send + Sync + 'static {
+    // ------------------------------------------------------------------------------------------- BlockBehaviour
+
+    /// `updateIndirectNeighbourShapes`.
+    fn update_indirect_neighbour_shapes(
+        &self,
+        _state: BlockState,
+        _level: &mut dyn LevelAccessor,
+        _pos: BlockPos,
+        _update_flags: u32,
+        _update_limit: i32,
+    ) {
+    }
+    /// `isPathfindable`.
+    fn is_pathfindable(&self, state: BlockState, ty: PathComputationType) -> bool {
+        state.is_pathfindable(ty)
+    }
     /// `updateShape`: called when a neighbor's shape changes; returns the (possibly changed) state.
-    #[allow(clippy::too_many_arguments)]
     fn update_shape(
         &self,
         state: BlockState,
         _level: &mut dyn LevelAccessor,
         _pos: BlockPos,
-        _direction: Direction,
-        _neighbor_pos: BlockPos,
-        _neighbor_state: BlockState,
-        _random: &mut dyn RandomSource,
+        _direction_to_neighbour: Direction,
+        _neighbour_pos: BlockPos,
+        _neighbour_state: BlockState,
     ) -> BlockState {
         state
     }
-    /// `neighborChanged` (server side).
-    fn neighbor_changed(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _source_block: Block, _moved_by_piston: bool) {}
+    /// `neighborChanged`.
+    fn neighbor_changed(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _block: Block,
+        _orientation: Option<Orientation>,
+        _moved_by_piston: bool,
+    ) {
+    }
     /// `onPlace`.
     fn on_place(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {}
     /// `affectNeighborsAfterRemoval`.
@@ -49,30 +90,96 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn trigger_event(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _b0: i32, _b1: i32) -> bool {
         false
     }
+    /// `shouldChangedStateKeepBlockEntity`.
+    fn should_changed_state_keep_block_entity(&self, _old_state: BlockState) -> bool {
+        false
+    }
+    /// `rotate`.
+    fn rotate(&self, state: BlockState, _rotation: Rotation) -> BlockState {
+        state
+    }
+    /// `mirror`.
+    fn mirror(&self, state: BlockState, _mirror: Mirror) -> BlockState {
+        state
+    }
+    /// `canBeReplaced(state, fluid)`.
+    fn can_be_replaced_by_fluid(&self, state: BlockState, _fluid: Fluid) -> bool {
+        state.can_be_replaced() || !state.is_solid()
+    }
+    /// `getSeed`.
+    fn get_seed(&self, _state: BlockState, pos: BlockPos) -> i64 {
+        mth::get_seed(&pos)
+    }
+    /// `getBlockSupportShape`.
+    fn get_block_support_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
+        self.get_collision_shape(state, level, pos, &CollisionContext::empty())
+    }
+    /// `getInteractionShape`.
+    fn get_interaction_shape(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> VoxelShape {
+        Shapes::empty()
+    }
     /// `canSurvive`.
     fn can_survive(&self, _state: BlockState, _level: &dyn LevelReader, _pos: BlockPos) -> bool {
         true
-    }
-    /// `tick` (scheduled tick).
-    fn tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _random: &mut dyn RandomSource) {}
-    /// `randomTick`.
-    fn random_tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _random: &mut dyn RandomSource) {}
-    /// `entityInside` (the entity is not part of the level's entity slot while it is being ticked).
-    fn entity_inside(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity) {}
-    /// `getSignal` / `getDirectSignal` (redstone).
-    fn get_signal(&self, _state: BlockState, _level: &dyn LevelReader, _pos: BlockPos, _direction: Direction) -> i32 {
-        0
-    }
-    fn get_direct_signal(&self, _state: BlockState, _level: &dyn LevelReader, _pos: BlockPos, _direction: Direction) -> i32 {
-        0
     }
     /// `getAnalogOutputSignal`.
     fn get_analog_output_signal(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _direction: Direction) -> i32 {
         0
     }
-    /// `shouldChangedStateKeepBlockEntity`.
-    fn should_changed_state_keep_block_entity(&self, _old_state: BlockState) -> bool {
-        false
+    /// `getShape` (outline).
+    fn get_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _context: &CollisionContext) -> VoxelShape {
+        voxel_shape(state.shape())
+    }
+    /// `getCollisionShape`.
+    fn get_collision_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _context: &CollisionContext) -> VoxelShape {
+        voxel_shape(state.collision_shape())
+    }
+    /// `getEntityInsideCollisionShape`.
+    fn get_entity_inside_collision_shape(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _entity: &dyn Entity) -> VoxelShape {
+        Shapes::block()
+    }
+    /// `isCollisionShapeFullBlock`.
+    fn is_collision_shape_full_block(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> bool {
+        state.is_collision_shape_full_block()
+    }
+    /// `getVisualShape` (used by `ClipContext.Block.VISUAL`).
+    fn get_visual_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, context: &CollisionContext) -> VoxelShape {
+        self.get_collision_shape(state, level, pos, context)
+    }
+    /// `tick` (scheduled tick; the random is `level.random()`).
+    fn tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) {}
+    /// `randomTick` (the random is `level.random()`).
+    fn random_tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) {}
+    /// `entityInside` (the entity is not part of the level's entity slot while it is being ticked).
+    fn entity_inside(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity) {}
+    /// `shouldRedstoneWireConnectTo`.
+    fn should_redstone_wire_connect_to(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Option<Direction>) -> bool {
+        state.is_signal_source() && direction.is_some()
+    }
+    /// `getSignal`.
+    fn get_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, _direction: Direction) -> i32 {
+        self.own_signal(state, level, pos)
+    }
+    /// `ownSignal`.
+    fn own_signal(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
+        0
+    }
+    /// `getDirectSignal`.
+    fn get_direct_signal(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, _direction: Direction) -> i32 {
+        0
+    }
+
+    // ------------------------------------------------------------------------------------------------------ Block
+
+    /// `Block.stepOn`.
+    fn step_on(&self, _level: &mut ServerLevel, _pos: BlockPos, _on_state: BlockState, _entity: &mut dyn Entity) {}
+    /// `Block.destroy` (called by `LevelChunk`-independent callers such as `ServerPlayerGameMode`).
+    fn destroy(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) {}
+    /// `Block.handlePrecipitation`.
+    fn handle_precipitation(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _precipitation: Precipitation) {}
+    /// `Block.isPossibleToRespawnInThis`.
+    fn is_possible_to_respawn_in_this(&self, state: BlockState) -> bool {
+        !state.is_solid() && !state.liquid()
     }
 }
 

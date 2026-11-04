@@ -5,11 +5,18 @@
 
 use super::{LevelHeight, LightLayer};
 use crate::world::block_entity::BlockEntity;
+use crate::world::entity::EntityId;
+use crate::world::level::gameevent::GameEventContext;
+use crate::world::level::redstone::Orientation;
+use mc_core::direction::Direction;
+use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
+use mc_data::GameEvent;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::{Fluid, FluidState};
 use mc_world::heightmap::HeightmapType;
+use mc_world::level_storage::FeatureFlagSet;
 use mc_world::ticks::TickPriority;
 
 /// `BlockGetter` (+ `LevelHeightAccessor`).
@@ -57,6 +64,10 @@ pub trait LevelReader: BlockGetter {
     fn is_loaded(&self, pos: BlockPos) -> bool {
         !self.is_outside_build_height(pos.y()) && self.has_chunk(pos.x() >> 4, pos.z() >> 4)
     }
+    /// `enabledFeatures()`.
+    fn enabled_features(&self) -> FeatureFlagSet {
+        FeatureFlagSet::DEFAULT_FLAGS
+    }
 }
 
 /// `LevelAccessor` (+ `ScheduledTickAccess`): mutation entry points shared by `ServerLevel` and `WorldGenRegion`.
@@ -76,4 +87,34 @@ pub trait LevelAccessor: LevelReader {
     fn has_scheduled_fluid_tick(&self, pos: BlockPos, fluid: Fluid) -> bool;
     /// `updateNeighborsAt(pos, sourceBlock)`.
     fn update_neighbors_at(&mut self, pos: BlockPos, source_block: Block);
+    /// `updateNeighborsAt(pos, sourceBlock, orientation)`.
+    fn update_neighbors_at_with_orientation(&mut self, pos: BlockPos, source_block: Block, _orientation: Option<Orientation>) {
+        self.update_neighbors_at(pos, source_block);
+    }
+    /// `neighborShapeChanged(direction, pos, neighborPos, neighborState, flags, limit)` (no-op for levels without
+    /// neighbor updates, like world generation regions).
+    fn neighbor_shape_changed(
+        &mut self,
+        _direction: Direction,
+        _pos: BlockPos,
+        _neighbor_pos: BlockPos,
+        _neighbor_state: BlockState,
+        _update_flags: u32,
+        _update_limit: i32,
+    ) {
+    }
+    /// `setBlock(pos, state, flags)` (`updateLimit` 512).
+    fn set_block_flags(&mut self, pos: BlockPos, state: BlockState, flags: u32) -> bool {
+        self.set_block(pos, state, flags, 512)
+    }
+    /// `setBlockAndUpdate(pos, state)`.
+    fn set_block_and_update(&mut self, pos: BlockPos, state: BlockState) -> bool {
+        self.set_block(pos, state, 3, 512)
+    }
+    /// `gameEvent(event, position, context)` (no listeners outside server levels).
+    fn game_event(&mut self, _event: GameEvent, _position: Vec3, _context: &GameEventContext) {}
+    /// `levelEvent(source, type, pos, data)` (no-op outside server levels).
+    fn level_event(&mut self, _source: Option<EntityId>, _event_type: i32, _pos: BlockPos, _data: i32) {}
+    /// `blockUpdated(pos, block)`.
+    fn block_updated(&mut self, _pos: BlockPos, _block: Block) {}
 }
