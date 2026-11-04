@@ -43,3 +43,10 @@ impl From<&mc_protocol::codec::GameProfile> for NameAndId {
         NameAndId { id: profile.id, name: profile.name.clone() }
     }
 }
+
+impl std::fmt::Display for NameAndId {
+    /// Java's record `toString`, as vanilla prints profiles in the management server log.
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "NameAndId[id={}, name={}]", self.id, self.name)
+    }
+}

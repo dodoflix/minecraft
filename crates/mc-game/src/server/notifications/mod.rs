@@ -7,7 +7,7 @@ use parking_lot::RwLock;
 use super::players::{IpBanListEntry, NameAndId, ServerOpListEntry, UserBanListEntry};
 
 /// A typed game rule value (`GameRulesService.getTypedRule`).
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum GameRuleValue {
     Bool(bool),
     Int(i32),
