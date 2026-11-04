@@ -64,9 +64,13 @@ fn is_logs(state: BlockState) -> bool {
 /// `BlendingData.isGround(chunk, pos)`.
 fn is_ground(chunk: &dyn ChunkView, pos: BlockPos) -> bool {
     let state = chunk.get_block_state(pos);
-    if state.is_air() || is_leaves(state) || is_logs(state) {
-        false
-    } else if state.block() == Block::BROWN_MUSHROOM_BLOCK || state.block() == Block::RED_MUSHROOM_BLOCK {
+    let block = state.block();
+    if state.is_air()
+        || is_leaves(state)
+        || is_logs(state)
+        || block == Block::BROWN_MUSHROOM_BLOCK
+        || block == Block::RED_MUSHROOM_BLOCK
+    {
         false
     } else {
         !state.collision_shape().is_empty()

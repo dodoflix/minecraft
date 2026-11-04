@@ -35,6 +35,9 @@ static SHIFT_NOISE: LazyLock<Arc<dyn Noise>> = LazyLock::new(|| {
 /// `CarvingMask.Filter`, owning.
 pub type CarvingFilter = Arc<dyn Fn(i32, i32, i32) -> bool + Send + Sync>;
 
+/// An owned `CarvingMask.Filter`.
+pub type BoxedCarvingFilter = Box<dyn Fn(i32, i32, i32) -> bool + Send + Sync>;
+
 /// `Blender.BlendingOutput`.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct BlendingOutput {
@@ -256,7 +259,7 @@ impl Blender {
     }
 
     /// `getCarvingFilter()`.
-    pub fn get_carving_filter(&self) -> Option<Box<dyn Fn(i32, i32, i32) -> bool + Send + Sync>> {
+    pub fn get_carving_filter(&self) -> Option<BoxedCarvingFilter> {
         let filter = self.inner.as_ref()?.carving_filter.clone()?;
         Some(Box::new(move |x, y, z| filter(x, y, z)))
     }
@@ -292,6 +295,7 @@ impl Blender {
     }
 
     /// `blendOffsetAndFactor(blockX, blockZ)` (protected in vanilla).
+    #[allow(clippy::neg_cmp_op_on_partial_ord)] // `!(d > r)` keeps NaN distances like vanilla
     pub fn blend_offset_and_factor_at(&self, block_x: i32, block_z: i32) -> BlendingOutput {
         let Some(inner) = &self.inner else {
             return BlendingOutput { alpha: 1.0, blending_offset: 0.0 };
@@ -333,6 +337,7 @@ impl Blender {
     }
 
     /// `blendDensity(blockX, blockY, blockZ, noiseValue)`.
+    #[allow(clippy::neg_cmp_op_on_partial_ord)] // `!(d > r)` keeps NaN distances like vanilla
     pub fn blend_density(&self, block_x: i32, block_y: i32, block_z: i32, noise_value: f32) -> f32 {
         let Some(inner) = &self.inner else {
             return noise_value;
@@ -404,7 +409,7 @@ impl Blender {
                 quart_pos::from_section(ChunkPos::get_z(*chunk_pos)),
                 &mut |test_cell_x, test_cell_z, biome| {
                     let distance = mth::length_f32((quart_x - test_cell_x) as f32, (quart_z - test_cell_z) as f32);
-                    if !(distance > HEIGHT_BLENDING_RANGE_CELLS as f32) && distance < closest_distance {
+                    if distance <= HEIGHT_BLENDING_RANGE_CELLS as f32 && distance < closest_distance {
                         closest_biome = Some(biome);
                         closest_distance = distance;
                     }
