@@ -150,3 +150,41 @@ def build(out_path, seed, components, handwritten_raw, mutations_per_base=4, sta
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(uniq) + "\n")
     print(f"{out_path}: {len(uniq)} lines")
+
+
+# ---- wire (hex) building blocks ----------------------------------------------------------------------------------
+
+def vi(n):
+    """VarInt as hex."""
+    n &= 0xFFFFFFFF
+    out = b""
+    while True:
+        if n & ~0x7F == 0:
+            out += bytes([n])
+            break
+        out += bytes([(n & 0x7F) | 0x80])
+        n >>= 7
+    return out.hex()
+
+
+def utf(s):
+    b = s.encode("utf-8")
+    return vi(len(b)) + b.hex()
+
+
+def ident(s):
+    return utf(s)
+
+
+def nbt_str(s):
+    """Network NBT string tag (a text component of plain text)."""
+    b = s.encode("utf-8")
+    return "08" + len(b).to_bytes(2, "big").hex() + b.hex()
+
+
+def be32(n):
+    return (n & 0xFFFFFFFF).to_bytes(4, "big").hex()
+
+
+def wire_lines(component, hexes):
+    return [("wire", component, h) for h in hexes]

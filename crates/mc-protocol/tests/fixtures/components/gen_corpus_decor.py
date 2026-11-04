@@ -206,6 +206,42 @@ r("json", "provides_pottery_pattern", '"#minecraft:angler"')
 r("json", "provides_pottery_pattern", '{"asset_id":"a:b"}')
 r("snbt", "provides_pottery_pattern", '"minecraft:blade"')
 
+
+# ---- hand-built wire cases -------------------------------------------------------------------------------------------
+tmpl = lambda item_id, count, added=0, removed=0: L.vi(item_id) + L.vi(count) + L.vi(added) + L.vi(removed)
+four = L.nbt_str("a") * 4
+wire_cases = {
+    "writable_book_content": [L.vi(0), L.vi(1) + L.utf("page") + "00", L.vi(1) + L.utf("page") + "01" + L.utf("f"), L.vi(100) + (L.utf("x") + "00") * 100,
+                              L.vi(101) + (L.utf("x") + "00") * 101, L.vi(1) + L.vi(1025) + "61" * 1025 + "00", L.vi(1) + L.vi(1024) + "61" * 1024 + "00", L.vi(-1), L.vi(1) + "02"],
+    "written_book_content": [L.utf("t") + "00" + L.utf("a") + L.vi(0) + L.vi(0) + "00", L.utf("t") + "01" + L.utf("f") + L.utf("a") + L.vi(3) + L.vi(1) + L.nbt_str("p") + "00" + "01",
+                             L.utf("t") + "00" + L.utf("a") + L.vi(4) + L.vi(0) + "00", L.utf("t") + "00" + L.utf("a") + L.vi(-1) + L.vi(0) + "00",
+                             L.utf("x" * 32) + "00" + L.utf("a") + L.vi(0) + L.vi(0) + "00", L.utf("x" * 33) + "00" + L.utf("a") + L.vi(0) + L.vi(0) + "00",
+                             L.utf("t") + "00" + L.utf("a") + L.vi(0) + L.vi(1) + "0a00" + "00" + "00", L.utf("t") + "00" + L.utf("a") + L.vi(0) + L.vi(1) + L.nbt_str("p") + "02" + "00"],
+    "firework_explosion": [L.vi(0) + L.vi(0) + L.vi(0) + "0000", L.vi(2) + L.vi(1) + L.be32(16711680) + L.vi(2) + L.be32(1) + L.be32(-1) + "0101", L.vi(5) + L.vi(0) + L.vi(0) + "0000",
+                           L.vi(100) + L.vi(0) + L.vi(0) + "0000", L.vi(-1) + L.vi(0) + L.vi(0) + "0000", L.vi(1) + L.vi(1) + "00" + L.vi(0) + "0000", L.vi(1) + L.vi(0) + L.vi(0) + "0200",
+                           L.vi(1) + L.vi(-1) + L.vi(0) + "0000", L.vi(1) + L.vi(0) + L.vi(0) + "0000" + "99"],
+    "fireworks": [L.vi(0) + L.vi(0), L.vi(255) + L.vi(1) + L.vi(1) + L.vi(0) + L.vi(0) + "0000", L.vi(256) + L.vi(0), L.vi(-1) + L.vi(0), L.vi(1000000) + L.vi(0),
+                  L.vi(1) + L.vi(257) + (L.vi(0) * 2 + "0000") * 257, L.vi(1) + L.vi(256) + (L.vi(0) * 2 + "0000") * 256, L.vi(1) + L.vi(-1)],
+    "banner_patterns": [L.vi(0), L.vi(1) + L.vi(1) + L.vi(14), L.vi(1) + L.vi(0) + L.ident("a:b") + L.utf("k") + L.vi(3), L.vi(1) + L.vi(1000) + L.vi(1), L.vi(1) + L.vi(1) + L.vi(99),
+                       L.vi(1) + L.vi(0) + L.ident("a:b"), L.vi(-1), L.vi(2) + L.vi(1) + L.vi(0) + L.vi(2) + L.vi(15)],
+    "pot_decorations": ["00000000", "01" + tmpl(1, 1) + "000000", "01" + tmpl(1, 1) + "01" + tmpl(1, 2) + "01" + tmpl(2, 3) + "01" + tmpl(1, 1), "02" + "00000000", "01" + tmpl(0, 1) + "000000", "01" + tmpl(1, 0) + "000000", "00"],
+    "sign_text_front": [four + "00" + L.vi(0) + "00", four + "01" + four + L.vi(15) + "01", four + "01" + L.nbt_str("a") * 3, four + "00" + L.vi(16) + "00", four + "00" + L.vi(-1) + "00",
+                        L.nbt_str("a") * 3, four + "02" + L.vi(0) + "00", four + "00" + L.vi(0) + "05", four + "00" + L.vi(0) + "00" + "ff", "0a00" * 4 + "00" + L.vi(0) + "00"],
+    "instrument": [L.vi(1), L.vi(8), L.vi(200), L.vi(0) + L.vi(1) + "3f800000" + "3f800000" + L.vi(0) + L.nbt_str("d"),
+                   L.vi(0) + L.vi(0) + L.ident("a:b") + "00" + "3f800000" + "3f800000" + L.vi(2) + L.nbt_str("d"), L.vi(0) + L.vi(0) + L.ident("a:b") + "01" + "41200000" + "00000000" + "00000000" + L.vi(-1) + L.nbt_str("d"),
+                   L.vi(0) + L.vi(1) + "3f800000", L.vi(-1), L.vi(0) + L.vi(1) + "7fc00000" + "ff800000" + L.vi(0) + L.nbt_str("d")],
+    "jukebox_playable": [L.vi(1), L.vi(5), L.vi(300), L.vi(0) + L.vi(1) + L.nbt_str("d") + "41a00000" + L.vi(15), L.vi(0) + L.vi(1) + L.nbt_str("d") + "00000000" + L.vi(99), L.vi(0) + L.vi(0) + L.ident("a:b") + "00" + L.nbt_str("d") + "3f800000" + L.vi(0)],
+    "trim": [L.vi(1) + L.vi(1), L.vi(0) + L.ident("a:b") + L.nbt_str("m") + L.vi(1), L.vi(1) + L.vi(0) + L.ident("a:b") + L.nbt_str("p") + "01", L.vi(1) + L.vi(0) + L.ident("a:b") + L.nbt_str("p") + "02",
+             L.vi(1000) + L.vi(1), L.vi(1) + L.vi(1000), L.vi(1), L.vi(-1) + L.vi(1)],
+    "provides_trim_material": [L.vi(1), L.vi(0) + L.ident("a:b") + L.nbt_str("m"), L.vi(0) + L.ident("a:b") + "0a00", L.vi(1000), L.vi(-1)],
+    "provides_banner_patterns": [L.vi(0) + L.ident("minecraft:pattern_item/flower"), L.vi(0) + L.ident("minecraft:nope"), L.vi(1), L.vi(2) + L.vi(0) + L.vi(1), L.vi(2) + L.vi(0) + L.vi(1000),
+                                 L.vi(3) + L.vi(0) + L.vi(0), L.vi(-1), L.vi(-5), L.vi(0) + L.ident("bad id"), L.vi(0) + L.ident("a:b") + "ff"],
+    "provides_pottery_pattern": [L.vi(0), L.vi(1), L.vi(22), L.vi(23), L.vi(1000), L.vi(-1)],
+}
+for comp, hexes in wire_cases.items():
+    for h in hexes:
+        raw.append(("wire", P + comp, h))
+
 # stacks
 stack = []
 def s(snbt):
@@ -216,7 +252,9 @@ s('{id:"minecraft:firework_rocket",count:3,components:{"minecraft:fireworks":{fl
 s('{id:"minecraft:firework_star",count:1,components:{"minecraft:firework_explosion":{shape:"creeper",has_trail:1b}}}')
 s('{id:"minecraft:white_banner",count:1,components:{"minecraft:banner_patterns":[{pattern:"minecraft:base",color:"red"}]}}')
 s('{id:"minecraft:decorated_pot",count:1,components:{"minecraft:pot_decorations":{back:"minecraft:brick",front:{id:"minecraft:angler_pottery_sherd",count:1}}}}')
-s('{id:"minecraft:oak_sign",count:1,components:{"minecraft:sign_text_front":{messages:["a","b","c","d"],color:"red"},"minecraft:sign_text_back":{messages:["","","",""],has_glowing_text:1b}}}')
+# one component per stack: the order of a patch's components in `hashed=` is the identity-hash order of vanilla's map
+s('{id:"minecraft:oak_sign",count:1,components:{"minecraft:sign_text_front":{messages:["a","b","c","d"],color:"red"}}}')
+s('{id:"minecraft:oak_sign",count:1,components:{"minecraft:sign_text_back":{messages:["","","",""],has_glowing_text:1b}}}')
 s('{id:"minecraft:goat_horn",count:1,components:{"minecraft:instrument":"minecraft:ponder_goat_horn"}}')
 s('{id:"minecraft:music_disc_cat",count:1,components:{"minecraft:jukebox_playable":"minecraft:cat"}}')
 s('{id:"minecraft:iron_chestplate",count:1,components:{"minecraft:trim":{material:"minecraft:gold",pattern:"minecraft:coast"}}}')

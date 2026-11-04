@@ -183,6 +183,32 @@ r("json", "sulfur_cube_content", '"minecraft:air"')
 r("json", "sulfur_cube_content", '{"id":"minecraft:stone","count":0}')
 r("json", "sulfur_cube_content", '[]')
 
+
+# ---- hand-built wire cases (ItemStackTemplate = item id, count, patch(added, removed)) ----------------------------------
+tmpl = lambda item_id, count, added=0, removed=0: L.vi(item_id) + L.vi(count) + L.vi(added) + L.vi(removed)
+STONE, APPLE = 1, 2  # [INFERENCE] small ids are valid items; unknown ones just make both sides ERR
+wire_cases = {
+    "container": [
+        L.vi(0), L.vi(1) + "00", L.vi(1) + "01" + tmpl(STONE, 5), L.vi(256) + "00" * 256, L.vi(257) + "00" * 257, L.vi(-1), L.vi(2) + "0101",
+        L.vi(2) + "01" + tmpl(STONE, 0), L.vi(1) + "01" + tmpl(0, 1), L.vi(1) + "01" + tmpl(100000, 1), L.vi(1) + "01" + tmpl(STONE, -3),
+        L.vi(1) + "01" + tmpl(STONE, 1) + "ff", L.vi(1) + "02", L.vi(3) + "00" + "01" + tmpl(APPLE, 64) + "00",
+        L.vi(1) + "01" + tmpl(STONE, 1, 1) + L.vi(0), L.vi(1) + "01" + tmpl(STONE, 1, 0, 1) + L.vi(0),
+    ],
+    "bundle_contents": [
+        L.vi(0), L.vi(1) + tmpl(STONE, 1), L.vi(2) + tmpl(STONE, 99) + tmpl(APPLE, 100), L.vi(1) + tmpl(STONE, 0), L.vi(-1),
+        L.vi(1) + tmpl(STONE, -1), L.vi(300) + tmpl(STONE, 1) * 300, L.vi(2) + tmpl(STONE, 1),
+    ],
+    "charged_projectiles": [L.vi(0), L.vi(1) + tmpl(STONE, 1), L.vi(1024) + tmpl(STONE, 1) * 1024, L.vi(1025) + tmpl(STONE, 1) * 1025, L.vi(1) + tmpl(0, 1)],
+    "sulfur_cube_content": [tmpl(STONE, 1), tmpl(STONE, 0), tmpl(0, 1), "", tmpl(STONE, 1) + "00"],
+    "block_state": [L.vi(0), L.vi(1) + L.utf("a") + L.utf("b"), L.vi(2) + L.utf("a") + L.utf("b") + L.utf("a") + L.utf("c"), L.vi(1) + L.utf("a"),
+                    L.vi(-1), L.vi(2) + L.utf("") + L.utf("") + L.utf("z") + L.utf("é"), L.vi(1) + "ff01" + "61"],
+    "lodestone_tracker": ["00" + "01", "00" + "00", "01" + L.ident("minecraft:overworld") + (1 << 26 | 2).to_bytes(8, "big").hex() + "01", "01" + L.ident("bad id") + "00" * 8 + "01", "02" + "01", "00"],
+    "bees": [L.vi(0), L.vi(1) + L.vi(5) + "0a00" + L.vi(3) + L.vi(4), L.vi(1) + L.vi(5) + "0a00", L.vi(1) + L.vi(100000) + "0a00" + "00" + "00", L.vi(1) + L.vi(5) + "08" + "0001" + "61" + "00" + "00"],
+}
+for comp, hexes in wire_cases.items():
+    for h in hexes:
+        raw.append(("wire", P + comp, h))
+
 # stacks embedding the components (validity + max stack checks)
 stack = []
 def s(snbt):
