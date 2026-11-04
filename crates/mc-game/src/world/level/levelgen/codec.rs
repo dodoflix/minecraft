@@ -36,17 +36,6 @@ pub fn decode_dispatch<T: ?Sized + 'static>(
     }
 }
 
-/// `Codec.floatRange(min, max)`.
-pub fn parse_float_range(value: &Value, min: f32, max: f32) -> LoadResult<f32> {
-    let v = parse_f32(value)?;
-    if v >= min && v <= max {
-        Ok(v)
-    } else {
-        let s = mc_core::math::java::java_float_to_string;
-        Err(LoadError::new(format!("Value {} outside of range [{}:{}]", s(v), s(min), s(max))))
-    }
-}
-
 /// `BlockState.CODEC` (`{Name?id, properties}` / bare id) -> the state.
 pub fn parse_block_state(value: &Value) -> LoadResult<BlockState> {
     BlockStateSpec::from_json(value)?.resolve()
