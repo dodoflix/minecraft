@@ -1137,10 +1137,8 @@ fn bad_ids() {
     let mut b = to_bytes(&BlockPos::ZERO);
     b.extend_from_slice(&[0, 0]);
     b.extend(to_bytes(&mc_protocol::codec::VarInt(BLOCK_COUNT as i32)));
-    assert_eq!(
-        from_bytes::<ClientboundBlockEventPacket>(&b).map(|_| ()),
-        msg(format!("No value with id {BLOCK_COUNT}"))
-    );
+    // `ByteBufCodecs.registry(BLOCK)` on the defaulted block registry: unknown ids read as air
+    assert_eq!(from_bytes::<ClientboundBlockEventPacket>(&b).unwrap().block, mc_data::Block::AIR);
     let mut b = to_bytes(&BlockPos::ZERO);
     b.extend(to_bytes(&mc_protocol::codec::VarInt(STATE_COUNT as i32)));
     assert_eq!(
