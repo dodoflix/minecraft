@@ -143,7 +143,7 @@ impl ChunkPacketSource for LevelChunkSource<'_> {
 
 /// `new ClientboundLevelChunkWithLightPacket(chunk, lightEngine, null, null)`: all sections, all light.
 /// Block entities are the chunk's live instances (`getBlockEntities()`); the light is whatever the level's light engine
-/// holds (an unlit engine contributes none: empty masks).
+/// holds.
 pub fn level_chunk_with_light_packet(level: &crate::server::level::ServerLevel, chunk: &crate::world::level::chunk::LevelChunk) -> ClientboundLevelChunkWithLightPacket {
     use mc_protocol::packets::play::level::{BlockEntityInfo, ClientboundLevelChunkPacketData, ClientboundLightUpdatePacketData, HeightmapTypes};
     let pos = chunk.pos();
@@ -165,16 +165,17 @@ pub fn level_chunk_with_light_packet(level: &crate::server::level::ServerLevel, 
             .map(|b| BlockEntityInfo { packed_xz: b.packed_xz as i8, y: b.y, r#type: b.block_entity_type, tag: b.tag })
             .collect(),
     };
-    // light sections: one below the world, one above (`getLightSectionCount() = sectionsCount + 2`)
-    let all: std::collections::HashSet<i32> = (0..access.sections.len() as i32 + 2).collect();
-    let light_data = level.light_engine().light_update_packet_data(pos, &all, &all).unwrap_or_else(|| ClientboundLightUpdatePacketData {
-        sky_y_mask: Default::default(),
-        block_y_mask: Default::default(),
-        empty_sky_y_mask: Default::default(),
-        empty_block_y_mask: Default::default(),
-        sky_updates: vec![],
-        block_updates: vec![],
-    });
+    // `ClientboundLightUpdatePacketData(pos, lightEngine, null, null)`: every section
+    let data = level.light_engine().engine().light_update_packet_data(pos, None, None);
+    let to_protocol = |b: &mc_world::chunk_packet::BitSet| mc_protocol::codec::BitSet::from_bytes(&b.to_bytes());
+    let light_data = ClientboundLightUpdatePacketData {
+        sky_y_mask: to_protocol(&data.sky_y_mask),
+        block_y_mask: to_protocol(&data.block_y_mask),
+        empty_sky_y_mask: to_protocol(&data.empty_sky_y_mask),
+        empty_block_y_mask: to_protocol(&data.empty_block_y_mask),
+        sky_updates: data.sky_updates,
+        block_updates: data.block_updates,
+    };
     ClientboundLevelChunkWithLightPacket { x: pos.x, z: pos.z, chunk_data, light_data }
 }
 
