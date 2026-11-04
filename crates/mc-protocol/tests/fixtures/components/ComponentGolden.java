@@ -204,7 +204,7 @@ public class ComponentGolden {
          return component(kind, name, payload, true);
       } catch (Throwable t) {
          String m = String.valueOf(t.getMessage()).replace('\t', ' ').replace('\n', ' ');
-         return "ERR\t" + (m.length() > 200 ? m.substring(0, 200) : m);
+         return "ERR\t" + (m.length() > 200 ? m.substring(0, Character.isHighSurrogate(m.charAt(199)) ? 199 : 200) : m);
       }
    }
 
