@@ -15,61 +15,14 @@
 //! are added by the item-behaviour wave together with the player/entity API they take; every method has a default so
 //! adding one never touches existing implementors.
 
-use super::{ClickAction, ItemStack, tool};
-use super::ItemStackExt;
+use super::{ClickAction, ConsumableExt, ItemStack, ItemStackExt, tool};
+use mc_protocol::components::{CONSUMABLE, ITEM_NAME, ItemUseAnimation};
 use crate::world::inventory::{MenuPlayer, Slot, SlotEnv};
 use linkme::distributed_slice;
-use mc_data::Item;
+use mc_data::{DataComponentType, Item};
 use mc_data::block::BlockState;
 use mc_text::Component;
 use std::sync::OnceLock;
-
-/// `ItemUseAnimation` (wire id = discriminant).
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum ItemUseAnimation {
-    None = 0,
-    Eat = 1,
-    Drink = 2,
-    Block = 3,
-    Bow = 4,
-    Trident = 5,
-    Crossbow = 6,
-    Spyglass = 7,
-    TootHorn = 8,
-    Brush = 9,
-    Bundle = 10,
-    Spear = 11,
-}
-
-impl ItemUseAnimation {
-    pub fn get_id(self) -> i32 {
-        self as i32
-    }
-
-    /// `getSerializedName()`.
-    pub fn get_serialized_name(self) -> &'static str {
-        match self {
-            Self::None => "none",
-            Self::Eat => "eat",
-            Self::Drink => "drink",
-            Self::Block => "block",
-            Self::Bow => "bow",
-            Self::Trident => "trident",
-            Self::Crossbow => "crossbow",
-            Self::Spyglass => "spyglass",
-            Self::TootHorn => "toot_horn",
-            Self::Brush => "brush",
-            Self::Bundle => "bundle",
-            Self::Spear => "spear",
-        }
-    }
-
-    pub fn by_name(name: &str) -> Option<Self> {
-        [Self::None, Self::Eat, Self::Drink, Self::Block, Self::Bow, Self::Trident, Self::Crossbow, Self::Spyglass, Self::TootHorn, Self::Brush, Self::Bundle, Self::Spear]
-            .into_iter()
-            .find(|a| a.get_serialized_name() == name)
-    }
-}
 
 /// `APPROXIMATELY_INFINITE_USE_DURATION`.
 pub const APPROXIMATELY_INFINITE_USE_DURATION: i32 = 72000;
@@ -105,11 +58,11 @@ pub trait ItemBehaviour: Send + Sync + 'static {
 
     /// `getUseAnimation(stack)`.
     fn get_use_animation(&self, stack: &ItemStack) -> ItemUseAnimation {
-        if let Some(consumable) = stack.get_json("minecraft:consumable") {
-            consumable.get("animation").and_then(|a| a.as_str()).and_then(ItemUseAnimation::by_name).unwrap_or(ItemUseAnimation::Eat)
-        } else if stack.has_json("minecraft:blocks_attacks") {
+        if let Some(consumable) = stack.get(&CONSUMABLE) {
+            consumable.animation
+        } else if stack.has(DataComponentType::BLOCKS_ATTACKS) {
             ItemUseAnimation::Block
-        } else if stack.has_json("minecraft:kinetic_weapon") {
+        } else if stack.has(DataComponentType::KINETIC_WEAPON) {
             ItemUseAnimation::Spear
         } else {
             ItemUseAnimation::None
@@ -118,11 +71,9 @@ pub trait ItemBehaviour: Send + Sync + 'static {
 
     /// `getUseDuration(stack, user)`.
     fn get_use_duration(&self, stack: &ItemStack) -> i32 {
-        if let Some(consumable) = stack.get_json("minecraft:consumable") {
-            // `Consumable.consumeTicks()` = `(int)(consumeSeconds * 20.0F)`, default 1.6 seconds.
-            let seconds = consumable.get("consume_seconds").and_then(|s| s.as_f64()).map_or(1.6f32, |s| s as f32);
-            (seconds * 20.0f32) as i32
-        } else if !stack.has_json("minecraft:blocks_attacks") && !stack.has_json("minecraft:kinetic_weapon") {
+        if let Some(consumable) = stack.get(&CONSUMABLE) {
+            consumable.consume_ticks()
+        } else if !stack.has(DataComponentType::BLOCKS_ATTACKS) && !stack.has(DataComponentType::KINETIC_WEAPON) {
             0
         } else {
             APPROXIMATELY_INFINITE_USE_DURATION
@@ -150,7 +101,7 @@ pub trait ItemBehaviour: Send + Sync + 'static {
 
     /// `getName(stack)`: the `item_name` component.
     fn get_name(&self, stack: &ItemStack) -> Component {
-        stack.get_json("minecraft:item_name").and_then(|v| Component::from_json(v).ok()).unwrap_or_else(|| Component::literal(""))
+        stack.get(&ITEM_NAME).cloned().unwrap_or_else(|| Component::literal(""))
     }
 
     /// `isFoil(stack)`.

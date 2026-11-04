@@ -5,7 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::inventory::Inventory;
 use crate::world::item::ItemStack;
-use crate::world::item::ItemStackExt;
+use mc_protocol::components::EQUIPPABLE;
 use mc_core::pos::BlockPos;
 
 /// `net.minecraft.util.Prediction`.
@@ -17,7 +17,7 @@ pub enum Prediction {
 
 /// `Equippable.slot()` of `stack` (the `minecraft:equippable` component), if any.
 fn equippable_slot(stack: &ItemStack) -> Option<EquipmentSlot> {
-    stack.get_json("minecraft:equippable")?.get("slot")?.as_str().and_then(EquipmentSlot::by_name)
+    stack.get(&EQUIPPABLE).map(|e| EquipmentSlot::from_protocol(e.slot))
 }
 
 pub trait MenuPlayer {

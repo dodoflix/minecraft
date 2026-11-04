@@ -26,7 +26,7 @@ fn item_defaults_golden() {
                 continue;
             }
             assert_eq!(b.get_use_duration(&stack), p[2].parse::<i32>().unwrap(), "{line}");
-            assert_eq!(b.get_use_animation(&stack).get_serialized_name().to_uppercase(), p[3], "{line}");
+            assert_eq!(b.get_use_animation(&stack).name().to_uppercase(), p[3], "{line}");
             uses += 1;
         }
     }

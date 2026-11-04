@@ -12,6 +12,7 @@ use crate::world::entity::equipment::{EntityEquipment, EquipmentSlot};
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
 use crate::world::item::ItemStackExt;
+use mc_data::DataComponentType;
 use mc_nbt::ListTag;
 use std::any::Any;
 
@@ -47,7 +48,7 @@ pub fn is_hotbar_slot(slot: i32) -> bool {
 
 /// `Inventory.isUsableForCrafting`.
 pub fn is_usable_for_crafting(item: &ItemStack) -> bool {
-    !item.is_damaged() && !item.is_enchanted() && !item.has_json("minecraft:custom_name")
+    !item.is_damaged() && !item.is_enchanted() && !item.has(DataComponentType::CUSTOM_NAME)
 }
 
 #[derive(Clone, Debug)]

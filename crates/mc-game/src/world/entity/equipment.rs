@@ -31,6 +31,21 @@ pub enum EquipmentSlot {
 }
 
 impl EquipmentSlot {
+    /// From the packet-level slot enum used by the `equippable` component.
+    pub fn from_protocol(slot: mc_protocol::packets::play::EquipmentSlot) -> EquipmentSlot {
+        use mc_protocol::packets::play::EquipmentSlot as P;
+        match slot {
+            P::MainHand => Self::MainHand,
+            P::OffHand => Self::OffHand,
+            P::Feet => Self::Feet,
+            P::Legs => Self::Legs,
+            P::Chest => Self::Chest,
+            P::Head => Self::Head,
+            P::Body => Self::Body,
+            P::Saddle => Self::Saddle,
+        }
+    }
+
     /// `EquipmentSlot.VALUES`.
     pub const VALUES: [EquipmentSlot; 8] = [
         EquipmentSlot::MainHand,

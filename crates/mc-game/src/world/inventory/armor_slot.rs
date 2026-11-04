@@ -28,16 +28,8 @@ impl SlotBehavior for ArmorSlot {
     }
     fn may_pickup(&self, slot: &Slot, env: &mut SlotEnv) -> bool {
         let item = slot.get_item(env);
-        // `EnchantmentHelper.has(item, PREVENT_ARMOR_CHANGE)` (curse of binding): typed enchantment effect components
-        // land with ComponentsAgent; read straight from the enchantments data until then.
-        !(!item.is_empty() && !env.player.is_creative() && prevents_armor_change(&item))
+        !(!item.is_empty() && !env.player.is_creative() && item.has_enchantment_effect("minecraft:prevent_armor_change"))
     }
-}
-
-/// `EnchantmentHelper.has(stack, EnchantmentEffectComponents.PREVENT_ARMOR_CHANGE)`: the only vanilla enchantment with
-/// that effect is `minecraft:binding_curse`.
-fn prevents_armor_change(stack: &ItemStack) -> bool {
-    stack.get_json("minecraft:enchantments").is_some_and(|v| v.get("minecraft:binding_curse").is_some())
 }
 
 /// The offhand slot of `InventoryMenu` (`owner.onEquipItem(OFFHAND, previous, new)` before the store).

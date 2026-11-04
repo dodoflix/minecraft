@@ -1,48 +1,60 @@
-//! Helpers on top of `mc_protocol::components::ItemStack` that the menu/inventory/item code needs.
-//!
-//! Until ComponentsAgent has typed values for every component family (so far only `max_stack_size`, `max_damage`,
-//! `damage`, `unbreakable`), the others are read as JSON from the item's *prototype* (`mc_data` default components).
-//! That is exact for every stack that can exist today: a patch can only contain implemented components, so
-//! non-implemented ones always equal the prototype. Replace the `*_json` accessors with typed `get` calls as the
-//! component families land.
+//! Helpers on top of `mc_protocol::components::ItemStack` that the menu/inventory/item code needs
+//! (`ItemStack` methods that depend on game types, or that the value type does not carry).
 
-use mc_data::Item;
+use super::enchantment_helper;
 use mc_nbt::{CompoundTag, Tag};
-use mc_protocol::components::ItemStack;
-use serde_json::Value;
-use std::sync::OnceLock;
-
-fn prototype_json(item: Item) -> &'static Value {
-    static CACHE: OnceLock<Vec<OnceLock<Value>>> = OnceLock::new();
-    let cache = CACHE.get_or_init(|| (0..Item::registry().len()).map(|_| OnceLock::new()).collect());
-    cache[item.id() as usize].get_or_init(|| item.default_components())
-}
+use mc_protocol::components::{ENCHANTMENTS, ItemStack};
 
 pub trait ItemStackExt {
-    /// Prototype component `key` (`minecraft:tool`) as JSON; `None` for the empty stack.
-    fn get_json(&self, key: &str) -> Option<&'static Value>;
-    fn has_json(&self, key: &str) -> bool {
-        self.get_json(key).is_some()
-    }
     /// `isEnchanted()`.
     fn is_enchanted(&self) -> bool;
     /// `ItemStack.MAP_CODEC` fields (`id`, `count`, `components`) merged into `tag`.
     fn save_into(&self, tag: &mut CompoundTag);
+    /// `consume(amount, owner)`: shrink unless the owner has infinite materials.
+    fn consume(&mut self, amount: i32, owner_has_infinite_materials: bool);
+    /// `consumeAndReturn(amount, owner)`.
+    fn consume_and_return(&mut self, amount: i32, owner_has_infinite_materials: bool) -> ItemStack;
+    /// `isBroken()`.
+    fn is_broken(&self) -> bool;
+    /// `nextDamageWillBreak()`.
+    fn next_damage_will_break(&self) -> bool;
+    /// `EnchantmentHelper.has(stack, effectComponent)` (e.g. `minecraft:prevent_armor_change`).
+    fn has_enchantment_effect(&self, effect_component: &str) -> bool;
 }
 
 impl ItemStackExt for ItemStack {
-    fn get_json(&self, key: &str) -> Option<&'static Value> {
-        if self.is_empty() { None } else { prototype_json(self.item()).get(key) }
-    }
-
     fn is_enchanted(&self) -> bool {
-        self.get_json("minecraft:enchantments").is_some_and(|v| v.as_object().is_some_and(|o| !o.is_empty()))
+        self.get(&ENCHANTMENTS).is_some_and(|e| !e.is_empty())
     }
 
     fn save_into(&self, tag: &mut CompoundTag) {
         if let Ok(Tag::Compound(c)) = self.to_tag().into_result() {
             tag.merge(&c);
         }
+    }
+
+    fn consume(&mut self, amount: i32, owner_has_infinite_materials: bool) {
+        if !owner_has_infinite_materials {
+            self.shrink(amount);
+        }
+    }
+
+    fn consume_and_return(&mut self, amount: i32, owner_has_infinite_materials: bool) -> ItemStack {
+        let split = self.copy_with_count(amount);
+        self.consume(amount, owner_has_infinite_materials);
+        split
+    }
+
+    fn is_broken(&self) -> bool {
+        self.is_damageable_item() && self.get_damage_value() >= self.get_max_damage()
+    }
+
+    fn next_damage_will_break(&self) -> bool {
+        self.is_damageable_item() && self.get_damage_value() >= self.get_max_damage() - 1
+    }
+
+    fn has_enchantment_effect(&self, effect_component: &str) -> bool {
+        enchantment_helper::has(self, effect_component)
     }
 }
 
