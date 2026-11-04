@@ -181,6 +181,20 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn is_possible_to_respawn_in_this(&self, state: BlockState) -> bool {
         !state.is_solid() && !state.liquid()
     }
+    /// The block's part of `ServerPlayer.findRespawnAndUseSpawnBlock` (respawn anchors and beds override it): `None` when
+    /// the block is not a spawn block, else `Some(stand-up position)` (`Some(None)` = it is one but unusable). A usable
+    /// anchor consumes a charge when `consume_spawn_block && !forced`.
+    fn find_respawn_position(
+        &self,
+        _level: &mut ServerLevel,
+        _state: BlockState,
+        _pos: BlockPos,
+        _forced: bool,
+        _consume_spawn_block: bool,
+        _yaw: f32,
+    ) -> Option<Option<mc_core::phys::Vec3>> {
+        None
+    }
 }
 
 /// Vanilla's base behavior (every method default).

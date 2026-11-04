@@ -20,6 +20,7 @@ pub mod vec_delta_codec;
 
 pub use dimensions::{EntityAttachment, EntityAttachments, EntityDimensions};
 pub use entity::{Entity, EntityData, MovementEmission};
+pub mod respawn;
 pub use player::ServerPlayer;
 
 pub type EntityId = i32;

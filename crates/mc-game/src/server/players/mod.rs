@@ -1,10 +1,11 @@
-//! `net.minecraft.server.players` (persistent user lists + profile cache; `PlayerList` lives elsewhere).
+//! `net.minecraft.server.players`: persistent user lists + profile cache, the player handle and the player list.
 
 pub mod ban_list_entry;
 pub mod gson;
 pub mod java_hash_map;
 pub mod name_and_id;
 pub mod name_resolver;
+pub mod player_handle;
 pub mod stored_user_list;
 pub mod user_lists;
 
