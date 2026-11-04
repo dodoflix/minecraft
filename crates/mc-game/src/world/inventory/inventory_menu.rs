@@ -4,7 +4,6 @@ use super::{
     AbstractContainerMenu, ArmorSlot, ContainerKey, MenuBase, MenuPlayer, OffhandSlot, Prediction, ResultContainer, Slot, TransientCraftingContainer,
     craft_result_for_grid, result_slot,
 };
-use crate::world::container::Container;
 use crate::world::entity::equipment::{EquipmentSlot, EquipmentSlotType};
 use crate::world::item::ItemStack;
 use std::any::Any;

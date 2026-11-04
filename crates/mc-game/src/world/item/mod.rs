@@ -4,6 +4,7 @@ mod behaviour;
 mod context;
 mod interaction;
 mod item_utils;
+mod simple_items;
 mod stack_ext;
 pub mod tool;
 

@@ -5,8 +5,9 @@
 //! The player embeds a [`PlayerMenus`]; the menu in use is *taken out* while it runs so it can receive the player
 //! itself as `&mut dyn MenuPlayer`.
 
-use super::{AbstractContainerMenu, ContainerInput, ContainerListener, ContainerSynchronizer, InventoryMenu, MenuClickError, MenuPlayer};
-use crate::world::item::{HashedStack, ItemStack};
+use super::{AbstractContainerMenu, ContainerListener, ContainerSynchronizer, InventoryMenu, MenuClickError, MenuPlayer};
+use crate::world::item::ItemStack;
+use mc_protocol::packets::play::ServerboundContainerClickPacket;
 
 /// Creates the synchronizer/listener pair a freshly opened menu is initialised with (`initMenu`).
 pub trait MenuInit {
@@ -143,37 +144,27 @@ impl Default for PlayerMenus {
     }
 }
 
-/// Everything `handleContainerClick` reads from the packet.
-pub struct ContainerClick {
-    pub container_id: i32,
-    pub state_id: i32,
-    pub slot_num: i32,
-    pub button_num: i32,
-    pub input: ContainerInput,
-    pub changed_slots: Vec<(i32, HashedStack)>,
-    pub carried_item: HashedStack,
-}
-
 /// `handleContainerClick`'s menu part (the caller has already done `resetLastActionTime`). `is_dead_or_dying` =
 /// `player.isDeadOrDying()`. Returns `Err` for the index-out-of-bounds exception vanilla would throw from `clicked`.
-pub fn handle_container_click(menu: &mut dyn AbstractContainerMenu, player: &mut dyn MenuPlayer, click: ContainerClick, is_dead_or_dying: bool) -> Result<(), MenuClickError> {
-    if menu.base().container_id != click.container_id {
+pub fn handle_container_click(menu: &mut dyn AbstractContainerMenu, player: &mut dyn MenuPlayer, packet: &ServerboundContainerClickPacket, is_dead_or_dying: bool) -> Result<(), MenuClickError> {
+    if menu.base().container_id != packet.container_id {
         return Ok(());
     }
+    let slot_index = packet.slot_num as i32;
     if player.is_spectator() || is_dead_or_dying {
         menu.base_mut().send_all_data_to_remote(player);
     } else if !menu.still_valid(player) {
         log::debug!("Player {} interacted with invalid menu", player.entity_id());
-    } else if !menu.base().is_valid_slot_index(click.slot_num) {
-        log::debug!("Player {} clicked invalid slot index: {}, available slots: {}", player.entity_id(), click.slot_num, menu.base().slots.len());
+    } else if !menu.base().is_valid_slot_index(slot_index) {
+        log::debug!("Player {} clicked invalid slot index: {}, available slots: {}", player.entity_id(), slot_index, menu.base().slots.len());
     } else {
-        let full_resync_needed = click.state_id != menu.base().get_state_id();
+        let full_resync_needed = packet.state_id != menu.base().get_state_id();
         menu.base_mut().suppress_remote_updates();
-        let result = menu.clicked(click.slot_num, click.button_num, click.input, player);
-        for (slot, stack) in click.changed_slots {
-            menu.base_mut().set_remote_slot_unsafe(slot, stack);
+        let result = menu.clicked(slot_index, packet.button_num as i32, packet.container_input, player);
+        for (slot, stack) in &packet.changed_slots {
+            menu.base_mut().set_remote_slot_unsafe(*slot as i32, stack.clone());
         }
-        menu.base_mut().set_remote_carried(click.carried_item);
+        menu.base_mut().set_remote_carried(packet.carried_item.clone());
         menu.base_mut().resume_remote_updates();
         result?;
         if full_resync_needed {

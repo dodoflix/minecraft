@@ -17,6 +17,7 @@ mod menu_player;
 mod player_menus;
 mod remote_slot;
 mod slot;
+mod synchronizer;
 
 pub use armor_slot::*;
 pub use click::*;
@@ -29,3 +30,4 @@ pub use menu_player::*;
 pub use player_menus::*;
 pub use remote_slot::*;
 pub use slot::*;
+pub use synchronizer::*;

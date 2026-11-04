@@ -24,39 +24,50 @@ use mc_data::block::BlockState;
 use mc_text::Component;
 use std::sync::OnceLock;
 
-/// `ItemUseAnimation`.
+/// `ItemUseAnimation` (wire id = discriminant).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum ItemUseAnimation {
-    None,
-    Eat,
-    Drink,
-    Block,
-    Bow,
-    Spear,
-    Crossbow,
-    Spyglass,
-    TootHorn,
-    Brush,
-    Bundle,
+    None = 0,
+    Eat = 1,
+    Drink = 2,
+    Block = 3,
+    Bow = 4,
+    Trident = 5,
+    Crossbow = 6,
+    Spyglass = 7,
+    TootHorn = 8,
+    Brush = 9,
+    Bundle = 10,
+    Spear = 11,
 }
 
 impl ItemUseAnimation {
-    /// `StringRepresentable` names (the `consumable.animation` codec).
+    pub fn get_id(self) -> i32 {
+        self as i32
+    }
+
+    /// `getSerializedName()`.
+    pub fn get_serialized_name(self) -> &'static str {
+        match self {
+            Self::None => "none",
+            Self::Eat => "eat",
+            Self::Drink => "drink",
+            Self::Block => "block",
+            Self::Bow => "bow",
+            Self::Trident => "trident",
+            Self::Crossbow => "crossbow",
+            Self::Spyglass => "spyglass",
+            Self::TootHorn => "toot_horn",
+            Self::Brush => "brush",
+            Self::Bundle => "bundle",
+            Self::Spear => "spear",
+        }
+    }
+
     pub fn by_name(name: &str) -> Option<Self> {
-        Some(match name {
-            "none" => Self::None,
-            "eat" => Self::Eat,
-            "drink" => Self::Drink,
-            "block" => Self::Block,
-            "bow" => Self::Bow,
-            "spear" => Self::Spear,
-            "crossbow" => Self::Crossbow,
-            "spyglass" => Self::Spyglass,
-            "toot_horn" => Self::TootHorn,
-            "brush" => Self::Brush,
-            "bundle" => Self::Bundle,
-            _ => return None,
-        })
+        [Self::None, Self::Eat, Self::Drink, Self::Block, Self::Bow, Self::Trident, Self::Crossbow, Self::Spyglass, Self::TootHorn, Self::Brush, Self::Bundle, Self::Spear]
+            .into_iter()
+            .find(|a| a.get_serialized_name() == name)
     }
 }
 
