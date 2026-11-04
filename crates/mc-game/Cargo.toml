@@ -13,6 +13,8 @@ mc-data = { path = "../mc-data" }
 mc-protocol = { path = "../mc-protocol" }
 mc-worldgen = { path = "../mc-worldgen" }
 mc-world = { path = "../mc-world" }
+zip = { version = "2", default-features = false, features = ["deflate"] }
+regex = "1"
 linkme = "0.3"
 log = "0.4"
 serde = { version = "1", features = ["derive"] }

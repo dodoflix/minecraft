@@ -1,0 +1,154 @@
+//! `net.minecraft.server.ReloadableServerResources` + `ReloadableServerRegistries`: everything data-driven that `/reload`
+//! replaces — the `RELOADABLE` registries (loot tables, predicates, item modifiers, advancements, recipes, ...), the
+//! tags of every registry, and the [`ReloadListener`]s (function library, ... registered by their own modules).
+
+use std::any::Any;
+
+use mc_world::level_storage::FeatureFlagSet;
+
+use super::registry_layer::RegistryLayer;
+use crate::registry::data_loader::{self, RegistryLoadFailure};
+use crate::registry::keys::RELOADABLE_REGISTRIES;
+use crate::registry::{LayeredRegistryAccess, PendingTags, RegistryAccess, build_updated_lookups};
+use crate::server::packs::ResourceManager;
+
+/// What a [`ReloadListener`] sees while reloading (`PreparableReloadListener.reload` context).
+pub struct ReloadContext<'a> {
+    pub resource_manager: &'a dyn ResourceManager,
+    /// All registries (static ones with the new tags, the new `RELOADABLE` layer included).
+    pub registries: &'a RegistryAccess,
+    pub enabled_features: FeatureFlagSet,
+}
+
+/// A reloadable piece of server state that is rebuilt from the resource manager on every (re)load
+/// (`PreparableReloadListener` as used in `ReloadableServerResources.listeners()`).
+pub trait ReloadListener: Any + Send + Sync {
+    fn name(&self) -> &'static str;
+
+    /// Rebuild from `ctx`; an `Err` fails the whole reload (the old resources stay in place).
+    fn reload(&mut self, ctx: &ReloadContext) -> Result<(), String>;
+
+    fn as_any(&self) -> &dyn Any;
+    fn as_any_mut(&mut self) -> &mut dyn Any;
+}
+
+/// Registration of a listener type, from the module that implements it:
+///
+/// ```ignore
+/// #[linkme::distributed_slice(RELOAD_LISTENERS)]
+/// static FUNCTION_LIBRARY: ReloadListenerRegistration =
+///     ReloadListenerRegistration { name: "function_library", order: ORDER_FUNCTION_LIBRARY, create: || Box::new(ServerFunctionLibrary::new()) };
+/// ```
+pub struct ReloadListenerRegistration {
+    pub name: &'static str,
+    /// Position in `ReloadableServerResources.listeners()`; lower reloads first.
+    pub order: i32,
+    pub create: fn() -> Box<dyn ReloadListener>,
+}
+
+/// Position of vanilla's `ServerFunctionLibrary` (the only listener of `ReloadableServerResources.listeners()` in 26.3).
+pub const ORDER_FUNCTION_LIBRARY: i32 = 0;
+
+#[linkme::distributed_slice]
+pub static RELOAD_LISTENERS: [ReloadListenerRegistration];
+
+/// Failure of `ReloadableServerResources.loadResources`.
+#[derive(Debug)]
+pub enum ReloadError {
+    Registries(RegistryLoadFailure),
+    Listener { name: &'static str, message: String },
+}
+
+impl std::fmt::Display for ReloadError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ReloadError::Registries(e) => e.fmt(f),
+            ReloadError::Listener { name, message } => write!(f, "Failed to reload {name}: {message}"),
+        }
+    }
+}
+
+impl std::error::Error for ReloadError {}
+
+impl From<RegistryLoadFailure> for ReloadError {
+    fn from(e: RegistryLoadFailure) -> ReloadError {
+        ReloadError::Registries(e)
+    }
+}
+
+/// `ReloadableServerResources`.
+pub struct ReloadableServerResources {
+    layers: LayeredRegistryAccess<RegistryLayer>,
+    postponed_tags: Vec<PendingTags>,
+    enabled_features: FeatureFlagSet,
+    listeners: Vec<Box<dyn ReloadListener>>,
+}
+
+impl ReloadableServerResources {
+    /// `loadResources(resourceManager, contextLayers, updatedContextTags, enabledFeatures, ...)`: reload the `RELOADABLE`
+    /// registries against `context_layers`, then run every registered listener in order.
+    pub fn load_resources(
+        manager: &dyn ResourceManager,
+        context_layers: &LayeredRegistryAccess<RegistryLayer>,
+        updated_context_tags: Vec<PendingTags>,
+        enabled_features: FeatureFlagSet,
+    ) -> Result<ReloadableServerResources, ReloadError> {
+        // ReloadableServerRegistries.reload
+        let context = build_updated_lookups(&context_layers.get_access_for_loading(RegistryLayer::Reloadable), &updated_context_tags);
+        let reloadable = data_loader::load(manager, &context, RELOADABLE_REGISTRIES)?;
+        let layers = context_layers.replace_from(RegistryLayer::Reloadable, vec![reloadable]);
+
+        let full_with_tags = build_updated_lookups(layers.composite_access(), &updated_context_tags);
+        let mut registrations: Vec<&ReloadListenerRegistration> = RELOAD_LISTENERS.iter().collect();
+        registrations.sort_by_key(|r| r.order);
+        let mut listeners = Vec::with_capacity(registrations.len());
+        let ctx = ReloadContext { resource_manager: manager, registries: &full_with_tags, enabled_features };
+        for registration in registrations {
+            let mut listener = (registration.create)();
+            listener.reload(&ctx).map_err(|message| ReloadError::Listener { name: registration.name, message })?;
+            listeners.push(listener);
+        }
+        Ok(ReloadableServerResources { layers, postponed_tags: updated_context_tags, enabled_features, listeners })
+    }
+
+    /// `fullRegistries()`: every registry of every layer.
+    pub fn full_registries(&self) -> &RegistryAccess {
+        self.layers.composite_access()
+    }
+
+    /// The layers with the `RELOADABLE` registries of this load (static tags not applied until
+    /// [`update_components_and_static_registry_tags`](Self::update_components_and_static_registry_tags)).
+    pub fn registry_layers(&self) -> &LayeredRegistryAccess<RegistryLayer> {
+        &self.layers
+    }
+
+    pub fn enabled_features(&self) -> FeatureFlagSet {
+        self.enabled_features
+    }
+
+    /// `listeners()`.
+    pub fn listeners(&self) -> &[Box<dyn ReloadListener>] {
+        &self.listeners
+    }
+
+    /// The listener of type `T` (`getFunctionLibrary()`, `getRecipeManager()`, ... of vanilla).
+    pub fn listener<T: ReloadListener>(&self) -> Option<&T> {
+        self.listeners.iter().find_map(|l| l.as_any().downcast_ref::<T>())
+    }
+
+    pub fn listener_mut<T: ReloadListener>(&mut self) -> Option<&mut T> {
+        self.listeners.iter_mut().find_map(|l| l.as_any_mut().downcast_mut::<T>())
+    }
+
+    /// `updateComponentsAndStaticRegistryTags()`: bind the tags loaded for the already existing registries (static ones, and
+    /// on `/reload` the dynamic ones). Registries are immutable values here, so the layers are replaced.
+    pub fn update_components_and_static_registry_tags(&mut self) {
+        let pending = std::mem::take(&mut self.postponed_tags);
+        if pending.is_empty() {
+            return;
+        }
+        let values: Vec<RegistryAccess> = RegistryLayer::VALUES.iter().map(|l| build_updated_lookups(self.layers.get_layer(*l), &pending)).collect();
+        let layers = LayeredRegistryAccess::new(RegistryLayer::VALUES.to_vec()).replace_from(RegistryLayer::Static, values);
+        self.layers = layers;
+    }
+}
