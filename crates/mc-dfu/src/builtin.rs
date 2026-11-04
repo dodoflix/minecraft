@@ -159,3 +159,11 @@ pub fn string_resolver<E: 'static>(
         },
     )
 }
+
+/// `StringRepresentable.fromEnum(values)` codec: the serialized name, "Unknown element name:x" on failure.
+pub fn string_enum_codec<E: Copy + PartialEq + Send + Sync + 'static>(values: &'static [(E, &'static str)]) -> Codec<E> {
+    string_resolver(
+        move |e| values.iter().find(|(v, _)| v == e).map(|(_, n)| n.to_string()),
+        move |name| values.iter().find(|(_, n)| *n == name).map(|(v, _)| *v),
+    )
+}

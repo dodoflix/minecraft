@@ -123,19 +123,7 @@ pub fn holder_file_codec<T: Clone + 'static>(registry: &'static str, element: &C
     )
 }
 
-/// `TagKey.hashedCodec`: `#namespace:path`.
-fn hashed_tag_codec() -> Codec<Identifier> {
-    mc_dfu::STRING.comap_flat_map(
-        |s| match s.strip_prefix('#') {
-            None => DataResult::error(move || format!("Not a tag id: {s}")),
-            Some(rest) => match Identifier::read(rest) {
-                Ok(id) => DataResult::success(id),
-                Err(e) => DataResult::error(move || e.clone()),
-            },
-        },
-        |id: &Identifier| format!("#{id}"),
-    )
-}
+use super::common::hashed_tag_codec;
 
 /// `HolderSetCodec.create(key, elementCodec, alwaysUseList)`.
 pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(

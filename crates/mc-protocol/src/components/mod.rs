@@ -5,6 +5,7 @@
 //! defs); [`values`] holds one module per family of component value types, each exporting its typed keys (like
 //! `DataComponents.MAX_DAMAGE`) and a `defs()` function that [`registry`] collects.
 
+pub mod common;
 pub mod component;
 pub mod hashed;
 pub mod holder;
@@ -13,6 +14,7 @@ pub mod map;
 pub mod registry;
 pub mod values;
 
+pub use common::{component_codec, DyeColor, Rarity, RegistrySet, SoundEvent};
 pub use component::{ComponentDef, ComponentKey, ComponentValue, Value};
 pub use hashed::{HashedPatchMap, HashedStack};
 pub use holder::{Holder, HolderSet, NoDirect};
