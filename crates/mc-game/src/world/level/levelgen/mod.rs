@@ -10,6 +10,7 @@
 
 pub mod blockpredicates;
 pub mod codec;
+pub mod column;
 pub mod decoration;
 pub mod env;
 pub mod feature;
