@@ -1,33 +1,53 @@
 //! Container-like components: `container`, `bundle_contents`, `charged_projectiles`, `container_loot`, `block_state`,
 //! `sulfur_cube_content`, `debug_stick_state`, `recipes`, `lodestone_tracker`, `map_decorations`.
 
-use crate::codec::{read_count, read_utf, write_utf, write_varint, Decode, DecodeResult, Encode, GlobalPos, MAX_STRING_LENGTH};
+use super::entity::TypedEntityData;
+use super::predicates::ItemPredicate;
+use crate::codec::{
+    Decode, DecodeResult, Encode, GlobalPos, MAX_STRING_LENGTH, read_count, read_utf, write_utf,
+    write_varint,
+};
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::registry_by_name_codec;
-use crate::components::item_stack::{item_prototype, ItemStackTemplate};
+use crate::components::item_stack::{ItemStackTemplate, item_prototype};
 use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
-use super::entity::TypedEntityData;
 use mc_data::{Block, DataComponentType, EntityType, MapDecorationType};
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{int_range, record, Codec, DataResult, BOOL, DOUBLE, FLOAT, INT, INT_STREAM, LONG, STRING};
+use mc_dfu::{
+    BOOL, Codec, DOUBLE, DataResult, FLOAT, INT, INT_STREAM, LONG, STRING, int_range, record,
+};
 
-pub const CONTAINER: ComponentKey<ItemContainerContents> = ComponentKey::new(DataComponentType::CONTAINER);
-pub const BUNDLE_CONTENTS: ComponentKey<BundleContents> = ComponentKey::new(DataComponentType::BUNDLE_CONTENTS);
-pub const CHARGED_PROJECTILES: ComponentKey<ChargedProjectiles> = ComponentKey::new(DataComponentType::CHARGED_PROJECTILES);
-pub const CONTAINER_LOOT: ComponentKey<SeededContainerLoot> = ComponentKey::new(DataComponentType::CONTAINER_LOOT);
-pub const BLOCK_STATE: ComponentKey<BlockItemStateProperties> = ComponentKey::new(DataComponentType::BLOCK_STATE);
-pub const SULFUR_CUBE_CONTENT: ComponentKey<SulfurCubeContent> = ComponentKey::new(DataComponentType::SULFUR_CUBE_CONTENT);
-pub const DEBUG_STICK_STATE: ComponentKey<DebugStickState> = ComponentKey::new(DataComponentType::DEBUG_STICK_STATE);
+pub const CONTAINER: ComponentKey<ItemContainerContents> =
+    ComponentKey::new(DataComponentType::CONTAINER);
+pub const BUNDLE_CONTENTS: ComponentKey<BundleContents> =
+    ComponentKey::new(DataComponentType::BUNDLE_CONTENTS);
+pub const CHARGED_PROJECTILES: ComponentKey<ChargedProjectiles> =
+    ComponentKey::new(DataComponentType::CHARGED_PROJECTILES);
+pub const CONTAINER_LOOT: ComponentKey<SeededContainerLoot> =
+    ComponentKey::new(DataComponentType::CONTAINER_LOOT);
+pub const BLOCK_STATE: ComponentKey<BlockItemStateProperties> =
+    ComponentKey::new(DataComponentType::BLOCK_STATE);
+pub const SULFUR_CUBE_CONTENT: ComponentKey<SulfurCubeContent> =
+    ComponentKey::new(DataComponentType::SULFUR_CUBE_CONTENT);
+pub const DEBUG_STICK_STATE: ComponentKey<DebugStickState> =
+    ComponentKey::new(DataComponentType::DEBUG_STICK_STATE);
+pub const LOCK: ComponentKey<LockCode> = ComponentKey::new(DataComponentType::LOCK);
 pub const RECIPES: ComponentKey<Vec<Identifier>> = ComponentKey::new(DataComponentType::RECIPES);
-pub const LODESTONE_TRACKER: ComponentKey<LodestoneTracker> = ComponentKey::new(DataComponentType::LODESTONE_TRACKER);
+pub const LODESTONE_TRACKER: ComponentKey<LodestoneTracker> =
+    ComponentKey::new(DataComponentType::LODESTONE_TRACKER);
 pub const BEES: ComponentKey<Bees> = ComponentKey::new(DataComponentType::BEES);
-pub const MAP_DECORATIONS: ComponentKey<MapDecorations> = ComponentKey::new(DataComponentType::MAP_DECORATIONS);
+pub const MAP_DECORATIONS: ComponentKey<MapDecorations> =
+    ComponentKey::new(DataComponentType::MAP_DECORATIONS);
 
 // ---- stream helpers (`ByteBufCodecs.list/optional/stringUtf8`) -----------------------------------------------------
 
 /// `ByteBufCodecs.list(max)` / `collection` decode.
-pub(crate) fn read_list<T>(input: &mut &[u8], max: usize, mut f: impl FnMut(&mut &[u8]) -> DecodeResult<T>) -> DecodeResult<Vec<T>> {
+pub(crate) fn read_list<T>(
+    input: &mut &[u8],
+    max: usize,
+    mut f: impl FnMut(&mut &[u8]) -> DecodeResult<T>,
+) -> DecodeResult<Vec<T>> {
     let count = read_count(input, max)?;
     let mut v = Vec::with_capacity(count.min(65536));
     for _ in 0..count {
@@ -45,12 +65,23 @@ pub(crate) fn write_list<T>(out: &mut Vec<u8>, items: &[T], mut f: impl FnMut(&T
 }
 
 /// `ByteBufCodecs.optional(codec)` decode.
-pub(crate) fn read_optional<T>(input: &mut &[u8], f: impl FnOnce(&mut &[u8]) -> DecodeResult<T>) -> DecodeResult<Option<T>> {
-    if bool::decode(input)? { f(input).map(Some) } else { Ok(None) }
+pub(crate) fn read_optional<T>(
+    input: &mut &[u8],
+    f: impl FnOnce(&mut &[u8]) -> DecodeResult<T>,
+) -> DecodeResult<Option<T>> {
+    if bool::decode(input)? {
+        f(input).map(Some)
+    } else {
+        Ok(None)
+    }
 }
 
 /// `ByteBufCodecs.optional(codec)` encode.
-pub(crate) fn write_optional<T>(out: &mut Vec<u8>, v: &Option<T>, f: impl FnOnce(&T, &mut Vec<u8>)) {
+pub(crate) fn write_optional<T>(
+    out: &mut Vec<u8>,
+    v: &Option<T>,
+    f: impl FnOnce(&T, &mut Vec<u8>),
+) {
     match v {
         Some(v) => {
             out.push(1);
@@ -77,7 +108,11 @@ fn mul_and_check(x: i32, y: i32) -> Arith<i32> {
 fn mul_pos_and_check(x: i32, y: i32) -> Arith<i32> {
     // `m > Integer.MAX_VALUE` only
     let m = i64::from(x) * i64::from(y);
-    if m > i64::from(i32::MAX) { Err(()) } else { Ok(m as i32) }
+    if m > i64::from(i32::MAX) {
+        Err(())
+    } else {
+        Ok(m as i32)
+    }
 }
 fn add_and_check(x: i32, y: i32) -> Arith<i32> {
     i32::try_from(i64::from(x) + i64::from(y)).map_err(|_| ())
@@ -164,7 +199,10 @@ impl Fraction {
             den = -den;
         }
         let g = gcd(num, den)?;
-        Ok(Fraction { num: num / g, den: den / g })
+        Ok(Fraction {
+            num: num / g,
+            den: den / g,
+        })
     }
 
     /// `add`.
@@ -179,7 +217,10 @@ impl Fraction {
         if d1 == 1 {
             let uvp = mul_and_check(self.num, other.den)?;
             let upv = mul_and_check(other.num, self.den)?;
-            return Ok(Fraction { num: add_and_check(uvp, upv)?, den: mul_pos_and_check(self.den, other.den)? });
+            return Ok(Fraction {
+                num: add_and_check(uvp, upv)?,
+                den: mul_pos_and_check(self.den, other.den)?,
+            });
         }
         let uvp = i128::from(self.num) * i128::from(other.den / d1);
         let upv = i128::from(other.num) * i128::from(self.den / d1);
@@ -188,7 +229,10 @@ impl Fraction {
         let d2 = if tmodd1 == 0 { d1 } else { gcd(tmodd1, d1)? };
         let w = t / i128::from(d2);
         let num = i32::try_from(w).map_err(|_| ())?;
-        Ok(Fraction { num, den: mul_pos_and_check(self.den / d1, other.den / d2)? })
+        Ok(Fraction {
+            num,
+            den: mul_pos_and_check(self.den / d1, other.den / d2)?,
+        })
     }
 
     /// `multiplyBy`.
@@ -198,7 +242,10 @@ impl Fraction {
         }
         let d1 = gcd(self.num, other.den)?;
         let d2 = gcd(other.num, self.den)?;
-        Fraction::reduced(mul_and_check(self.num / d1, other.num / d2)?, mul_pos_and_check(self.den / d2, other.den / d1)?)
+        Fraction::reduced(
+            mul_and_check(self.num / d1, other.num / d2)?,
+            mul_pos_and_check(self.den / d2, other.den / d1)?,
+        )
     }
 }
 
@@ -206,15 +253,23 @@ impl Fraction {
 
 /// `ItemInstance.getMaxStackSize()` of a template: the patched `max_stack_size` (default 1).
 pub(crate) fn template_max_stack_size(t: &ItemStackTemplate) -> i32 {
-    t.components.get(item_prototype(t.item), &super::basic::MAX_STACK_SIZE).copied().unwrap_or(1)
+    t.components
+        .get(item_prototype(t.item), &super::basic::MAX_STACK_SIZE)
+        .copied()
+        .unwrap_or(1)
 }
 
 /// `ItemStack.validateContainedItemSizes`.
-pub(crate) fn validate_contained_item_sizes<'a>(items: impl IntoIterator<Item = &'a ItemStackTemplate>) -> Result<(), String> {
+pub(crate) fn validate_contained_item_sizes<'a>(
+    items: impl IntoIterator<Item = &'a ItemStackTemplate>,
+) -> Result<(), String> {
     for item in items {
         let max = template_max_stack_size(item);
         if item.count > max {
-            return Err(format!("Item stack with count of {} was larger than maximum: {max}", item.count));
+            return Err(format!(
+                "Item stack with count of {} was larger than maximum: {max}",
+                item.count
+            ));
         }
     }
     Ok(())
@@ -248,7 +303,9 @@ impl ItemContainerContents {
     }
 
     fn from_slots(slots: Vec<Slot>) -> ItemContainerContents {
-        let Some(max) = slots.iter().map(|s| s.slot).max() else { return ItemContainerContents::default() };
+        let Some(max) = slots.iter().map(|s| s.slot).max() else {
+            return ItemContainerContents::default();
+        };
         let mut items = vec![None; max as usize + 1];
         for s in slots {
             items[s.slot as usize] = Some(s.item);
@@ -257,7 +314,16 @@ impl ItemContainerContents {
     }
 
     fn as_slots(&self) -> Vec<Slot> {
-        self.items.iter().enumerate().filter_map(|(i, t)| t.clone().map(|item| Slot { slot: i as i32, item })).collect()
+        self.items
+            .iter()
+            .enumerate()
+            .filter_map(|(i, t)| {
+                t.clone().map(|item| Slot {
+                    slot: i as i32,
+                    item,
+                })
+            })
+            .collect()
     }
 
     /// `ItemContainerContents.CODEC`.
@@ -267,18 +333,24 @@ impl ItemContainerContents {
             item: ItemStackTemplate::codec().field_of("item"),
         })
         .codec();
-        slot.size_limited_list_of(256).xmap(ItemContainerContents::from_slots, |c: &ItemContainerContents| c.as_slots())
+        slot.size_limited_list_of(256).xmap(
+            ItemContainerContents::from_slots,
+            |c: &ItemContainerContents| c.as_slots(),
+        )
     }
 }
 
 impl Encode for ItemContainerContents {
     fn encode(&self, out: &mut Vec<u8>) {
-        write_list(out, &self.items, |t, o| write_optional(o, t, |t, o| t.encode(o)));
+        write_list(out, &self.items, |t, o| {
+            write_optional(o, t, |t, o| t.encode(o))
+        });
     }
 }
 impl Decode for ItemContainerContents {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        read_list(input, 256, |i| read_optional(i, ItemStackTemplate::decode)).map(|items| ItemContainerContents { items })
+        read_list(input, 256, |i| read_optional(i, ItemStackTemplate::decode))
+            .map(|items| ItemContainerContents { items })
     }
 }
 
@@ -313,7 +385,11 @@ impl BundleContents {
                 Err(e) => Ok(Err(e)),
             };
         }
-        if item.components.get(proto, &BEES).is_some_and(|b| !b.bees.is_empty()) {
+        if item
+            .components
+            .get(proto, &BEES)
+            .is_some_and(|b| !b.bees.is_empty())
+        {
             return Ok(Ok(Fraction::ONE));
         }
         Ok(Ok(Fraction::get(1, template_max_stack_size(item))?))
@@ -341,7 +417,9 @@ impl BundleContents {
 
     /// `BundleContents.CODEC`.
     pub fn codec() -> Codec<BundleContents> {
-        ItemStackTemplate::codec().list_of().xmap(BundleContents::new, |c: &BundleContents| c.items.clone())
+        ItemStackTemplate::codec()
+            .list_of()
+            .xmap(BundleContents::new, |c: &BundleContents| c.items.clone())
     }
 }
 
@@ -368,7 +446,10 @@ impl ChargedProjectiles {
     pub const MAX_SIZE: usize = 1024;
 
     pub fn codec() -> Codec<ChargedProjectiles> {
-        ItemStackTemplate::codec().size_limited_list_of(1024).xmap(|items| ChargedProjectiles { items }, |c: &ChargedProjectiles| c.items.clone())
+        ItemStackTemplate::codec().size_limited_list_of(1024).xmap(
+            |items| ChargedProjectiles { items },
+            |c: &ChargedProjectiles| c.items.clone(),
+        )
     }
 }
 
@@ -418,17 +499,23 @@ impl PartialEq for BlockItemStateProperties {
 
 /// `Map.equals` over insertion-ordered pairs with unique keys.
 fn map_eq<K: PartialEq, V: PartialEq>(a: &[(K, V)], b: &[(K, V)]) -> bool {
-    a.len() == b.len() && a.iter().all(|(k, v)| b.iter().any(|(k2, v2)| k == k2 && v == v2))
+    a.len() == b.len()
+        && a.iter()
+            .all(|(k, v)| b.iter().any(|(k2, v2)| k == k2 && v == v2))
 }
 
 impl BlockItemStateProperties {
     pub fn codec() -> Codec<BlockItemStateProperties> {
-        STRING.unbounded_map(&STRING).xmap(|properties| BlockItemStateProperties { properties }, |b: &BlockItemStateProperties| b.properties.clone())
+        STRING.unbounded_map(&STRING).xmap(
+            |properties| BlockItemStateProperties { properties },
+            |b: &BlockItemStateProperties| b.properties.clone(),
+        )
     }
 }
 
 fn java_string_hash(s: &str) -> i32 {
-    s.encode_utf16().fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(i32::from(c)))
+    s.encode_utf16()
+        .fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(i32::from(c)))
 }
 
 /// fastutil `Object2ObjectOpenHashMap<String, String>` (load factor 0.75): the iteration order of a map filled by
@@ -442,14 +529,21 @@ struct OpenHashMap {
 
 impl OpenHashMap {
     fn array_size(expected: usize) -> usize {
-        ((expected as f32 / 0.75f32).ceil() as u64).next_power_of_two().max(2) as usize
+        ((expected as f32 / 0.75f32).ceil() as u64)
+            .next_power_of_two()
+            .max(2) as usize
     }
     fn max_fill(n: usize) -> usize {
         ((n as f32 * 0.75f32).ceil() as usize).min(n - 1)
     }
     fn new(expected: usize) -> Self {
         let n = Self::array_size(expected);
-        OpenHashMap { key: vec![None; n], mask: n - 1, max_fill: Self::max_fill(n), size: 0 }
+        OpenHashMap {
+            key: vec![None; n],
+            mask: n - 1,
+            max_fill: Self::max_fill(n),
+            size: 0,
+        }
     }
     fn mix(key: &str) -> usize {
         let h = (java_string_hash(key) as u32).wrapping_mul(0x9E37_79B9);
@@ -508,7 +602,9 @@ impl Decode for BlockItemStateProperties {
             let v = read_utf(input, MAX_STRING_LENGTH)?;
             map.put(k, v);
         }
-        Ok(BlockItemStateProperties { properties: map.into_entries() })
+        Ok(BlockItemStateProperties {
+            properties: map.into_entries(),
+        })
     }
 }
 
@@ -521,7 +617,12 @@ pub struct SulfurCubeContent {
 
 impl SulfurCubeContent {
     pub fn codec() -> Codec<SulfurCubeContent> {
-        ItemStackTemplate::codec().xmap(|t| SulfurCubeContent { absorbed_block_item_stack: t }, |c: &SulfurCubeContent| c.absorbed_block_item_stack.clone())
+        ItemStackTemplate::codec().xmap(
+            |t| SulfurCubeContent {
+                absorbed_block_item_stack: t,
+            },
+            |c: &SulfurCubeContent| c.absorbed_block_item_stack.clone(),
+        )
     }
 }
 
@@ -532,7 +633,9 @@ impl Encode for SulfurCubeContent {
 }
 impl Decode for SulfurCubeContent {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        ItemStackTemplate::decode(input).map(|t| SulfurCubeContent { absorbed_block_item_stack: t })
+        ItemStackTemplate::decode(input).map(|t| SulfurCubeContent {
+            absorbed_block_item_stack: t,
+        })
     }
 }
 
@@ -566,7 +669,27 @@ impl DebugStickState {
                 |name: &String| name.clone(),
             ))
         })
-        .xmap(|properties| DebugStickState { properties }, |s: &DebugStickState| s.properties.clone())
+        .xmap(
+            |properties| DebugStickState { properties },
+            |s: &DebugStickState| s.properties.clone(),
+        )
+    }
+}
+
+// ---- LockCode ------------------------------------------------------------------------------------------------------
+
+/// `LockCode` (no explicit stream codec: NBT fallback).
+#[derive(Clone, Debug, PartialEq)]
+pub struct LockCode {
+    pub predicate: ItemPredicate,
+}
+
+impl LockCode {
+    pub fn codec() -> Codec<LockCode> {
+        ItemPredicate::codec().xmap(
+            |predicate| LockCode { predicate },
+            |c: &LockCode| c.predicate.clone(),
+        )
     }
 }
 
@@ -627,7 +750,10 @@ impl Encode for LodestoneTracker {
 impl Decode for LodestoneTracker {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let target = read_optional(input, GlobalPos::decode)?;
-        Ok(LodestoneTracker { target, tracked: bool::decode(input)? })
+        Ok(LodestoneTracker {
+            target,
+            tracked: bool::decode(input)?,
+        })
     }
 }
 
@@ -661,7 +787,10 @@ impl MapDecorations {
             rotation: FLOAT.field_of("rotation"),
         })
         .codec();
-        STRING.unbounded_map(&entry).xmap(|decorations| MapDecorations { decorations }, |m: &MapDecorations| m.decorations.clone())
+        STRING.unbounded_map(&entry).xmap(
+            |decorations| MapDecorations { decorations },
+            |m: &MapDecorations| m.decorations.clone(),
+        )
     }
 }
 
@@ -678,7 +807,8 @@ pub struct BeeOccupant {
 impl BeeOccupant {
     pub fn codec() -> Codec<BeeOccupant> {
         record!(BeeOccupant {
-            entity_data: TypedEntityData::codec(&registry_by_name_codec::<EntityType>()).field_of("entity_data"),
+            entity_data: TypedEntityData::codec(&registry_by_name_codec::<EntityType>())
+                .field_of("entity_data"),
             ticks_in_hive: INT.field_of("ticks_in_hive"),
             min_ticks_in_hive: INT.field_of("min_ticks_in_hive"),
         })
@@ -710,7 +840,9 @@ pub struct Bees {
 
 impl Bees {
     pub fn codec() -> Codec<Bees> {
-        BeeOccupant::codec().list_of().xmap(|bees| Bees { bees }, |b: &Bees| b.bees.clone())
+        BeeOccupant::codec()
+            .list_of()
+            .xmap(|bees| Bees { bees }, |b: &Bees| b.bees.clone())
     }
 }
 
@@ -728,15 +860,71 @@ impl Decode for Bees {
 // ---- definitions ---------------------------------------------------------------------------------------------------
 
 pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
-    out.push(ComponentDef::builder(CONTAINER).persistent(ItemContainerContents::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(BUNDLE_CONTENTS).persistent(BundleContents::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(CHARGED_PROJECTILES).persistent(ChargedProjectiles::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(CONTAINER_LOOT).persistent(SeededContainerLoot::codec()).build());
-    out.push(ComponentDef::builder(BLOCK_STATE).persistent(BlockItemStateProperties::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(SULFUR_CUBE_CONTENT).persistent(SulfurCubeContent::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(DEBUG_STICK_STATE).persistent(DebugStickState::codec()).build());
-    out.push(ComponentDef::builder(RECIPES).persistent(recipes_codec()).build());
-    out.push(ComponentDef::builder(LODESTONE_TRACKER).persistent(LodestoneTracker::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(BEES).persistent(Bees::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(MAP_DECORATIONS).persistent(MapDecorations::codec()).build());
+    out.push(
+        ComponentDef::builder(CONTAINER)
+            .persistent(ItemContainerContents::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(BUNDLE_CONTENTS)
+            .persistent(BundleContents::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(CHARGED_PROJECTILES)
+            .persistent(ChargedProjectiles::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(CONTAINER_LOOT)
+            .persistent(SeededContainerLoot::codec())
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(BLOCK_STATE)
+            .persistent(BlockItemStateProperties::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(SULFUR_CUBE_CONTENT)
+            .persistent(SulfurCubeContent::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(DEBUG_STICK_STATE)
+            .persistent(DebugStickState::codec())
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(LOCK)
+            .persistent(LockCode::codec())
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(RECIPES)
+            .persistent(recipes_codec())
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(LODESTONE_TRACKER)
+            .persistent(LodestoneTracker::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(BEES)
+            .persistent(Bees::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(MAP_DECORATIONS)
+            .persistent(MapDecorations::codec())
+            .build(),
+    );
 }

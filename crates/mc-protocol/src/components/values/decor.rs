@@ -2,32 +2,50 @@
 //! songs, armor trims, `provides_*`.
 
 use super::containers::{read_list, read_optional, write_list, write_optional};
-use crate::codec::{decode_tag_with, encode_tag, read_utf, read_varint, write_utf, write_varint, Decode, DecodeError, DecodeResult, Encode, NbtLimit, MAX_STRING_LENGTH};
-use crate::components::common::{component_codec, read_enum_zero, DyeColor, SoundEvent};
+use crate::codec::{
+    Decode, DecodeError, DecodeResult, Encode, MAX_STRING_LENGTH, NbtLimit, decode_tag_with,
+    encode_tag, read_utf, read_varint, write_utf, write_varint,
+};
+use crate::components::common::{DyeColor, SoundEvent, component_codec, read_enum_zero};
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::{self, Holder, HolderSet, NoDirect};
 use crate::components::item_stack::ItemStackTemplate;
 use crate::string_enum;
 use mc_core::ident::Identifier;
 use mc_data::DataComponentType;
-use mc_dfu::extra::{extra_int_range, optional_always_present_field_of, IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT, UNSIGNED_BYTE};
-use mc_dfu::{record, string_range, Codec, DataResult, BOOL, INT, STRING};
+use mc_dfu::extra::{
+    IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT, UNSIGNED_BYTE,
+    extra_int_range, optional_always_present_field_of,
+};
+use mc_dfu::{BOOL, Codec, DataResult, INT, STRING, record, string_range};
 use mc_text::Component;
 
-pub const WRITABLE_BOOK_CONTENT: ComponentKey<WritableBookContent> = ComponentKey::new(DataComponentType::WRITABLE_BOOK_CONTENT);
-pub const WRITTEN_BOOK_CONTENT: ComponentKey<WrittenBookContent> = ComponentKey::new(DataComponentType::WRITTEN_BOOK_CONTENT);
-pub const FIREWORK_EXPLOSION: ComponentKey<FireworkExplosion> = ComponentKey::new(DataComponentType::FIREWORK_EXPLOSION);
+pub const WRITABLE_BOOK_CONTENT: ComponentKey<WritableBookContent> =
+    ComponentKey::new(DataComponentType::WRITABLE_BOOK_CONTENT);
+pub const WRITTEN_BOOK_CONTENT: ComponentKey<WrittenBookContent> =
+    ComponentKey::new(DataComponentType::WRITTEN_BOOK_CONTENT);
+pub const FIREWORK_EXPLOSION: ComponentKey<FireworkExplosion> =
+    ComponentKey::new(DataComponentType::FIREWORK_EXPLOSION);
 pub const FIREWORKS: ComponentKey<Fireworks> = ComponentKey::new(DataComponentType::FIREWORKS);
-pub const BANNER_PATTERNS: ComponentKey<BannerPatternLayers> = ComponentKey::new(DataComponentType::BANNER_PATTERNS);
-pub const POT_DECORATIONS: ComponentKey<PotDecorations> = ComponentKey::new(DataComponentType::POT_DECORATIONS);
-pub const SIGN_TEXT_FRONT: ComponentKey<SignText> = ComponentKey::new(DataComponentType::SIGN_TEXT_FRONT);
-pub const SIGN_TEXT_BACK: ComponentKey<SignText> = ComponentKey::new(DataComponentType::SIGN_TEXT_BACK);
-pub const INSTRUMENT: ComponentKey<InstrumentComponent> = ComponentKey::new(DataComponentType::INSTRUMENT);
-pub const JUKEBOX_PLAYABLE: ComponentKey<JukeboxPlayable> = ComponentKey::new(DataComponentType::JUKEBOX_PLAYABLE);
+pub const BANNER_PATTERNS: ComponentKey<BannerPatternLayers> =
+    ComponentKey::new(DataComponentType::BANNER_PATTERNS);
+pub const POT_DECORATIONS: ComponentKey<PotDecorations> =
+    ComponentKey::new(DataComponentType::POT_DECORATIONS);
+pub const SIGN_TEXT_FRONT: ComponentKey<SignText> =
+    ComponentKey::new(DataComponentType::SIGN_TEXT_FRONT);
+pub const SIGN_TEXT_BACK: ComponentKey<SignText> =
+    ComponentKey::new(DataComponentType::SIGN_TEXT_BACK);
+pub const INSTRUMENT: ComponentKey<InstrumentComponent> =
+    ComponentKey::new(DataComponentType::INSTRUMENT);
+pub const JUKEBOX_PLAYABLE: ComponentKey<JukeboxPlayable> =
+    ComponentKey::new(DataComponentType::JUKEBOX_PLAYABLE);
 pub const TRIM: ComponentKey<ArmorTrim> = ComponentKey::new(DataComponentType::TRIM);
-pub const PROVIDES_TRIM_MATERIAL: ComponentKey<Holder<TrimMaterial>> = ComponentKey::new(DataComponentType::PROVIDES_TRIM_MATERIAL);
-pub const PROVIDES_BANNER_PATTERNS: ComponentKey<HolderSet<BannerPattern>> = ComponentKey::new(DataComponentType::PROVIDES_BANNER_PATTERNS);
-pub const PROVIDES_POTTERY_PATTERN: ComponentKey<Holder<DecoratedPotPattern>> = ComponentKey::new(DataComponentType::PROVIDES_POTTERY_PATTERN);
+pub const PROVIDES_TRIM_MATERIAL: ComponentKey<Holder<TrimMaterial>> =
+    ComponentKey::new(DataComponentType::PROVIDES_TRIM_MATERIAL);
+pub const PROVIDES_BANNER_PATTERNS: ComponentKey<HolderSet<BannerPattern>> =
+    ComponentKey::new(DataComponentType::PROVIDES_BANNER_PATTERNS);
+pub const PROVIDES_POTTERY_PATTERN: ComponentKey<Holder<DecoratedPotPattern>> =
+    ComponentKey::new(DataComponentType::PROVIDES_POTTERY_PATTERN);
 
 const BANNER_PATTERN: &str = "minecraft:banner_pattern";
 const TRIM_MATERIAL_REG: &str = "minecraft:trim_material";
@@ -46,8 +64,10 @@ fn encode_component(c: &Component, out: &mut Vec<u8>) {
     }
 }
 fn decode_component(input: &mut &[u8]) -> DecodeResult<Component> {
-    let tag = decode_tag_with(input, NbtLimit::DEFAULT)?.ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
-    Component::from_nbt(&tag).map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {tag}")))
+    let tag = decode_tag_with(input, NbtLimit::DEFAULT)?
+        .ok_or_else(|| DecodeError::msg("Expected non-null compound tag"))?;
+    Component::from_nbt(&tag)
+        .map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {tag}")))
 }
 
 fn encode_utf(s: &String, out: &mut Vec<u8>) {
@@ -61,8 +81,12 @@ fn flat_restricted_codec(max: usize) -> Codec<Component> {
         move |ops, input: &Component, _prefix| e.encode_start(ops, input),
         move |ops, input| {
             d.decode(ops, input).flat_map(|(c, rest)| {
-                if c.to_json().is_ok_and(|j| mc_text::util::encodes_longer_than(&j, max)) {
-                    DataResult::error(move || format!("Component was too large: greater than max size {max}"))
+                if c.to_json()
+                    .is_ok_and(|j| mc_text::util::encodes_longer_than(&j, max))
+                {
+                    DataResult::error(move || {
+                        format!("Component was too large: greater than max size {max}")
+                    })
                 } else {
                     DataResult::success((c, rest))
                 }
@@ -82,21 +106,32 @@ pub struct Filterable<T> {
 
 impl<T> Filterable<T> {
     pub fn pass_through(raw: T) -> Filterable<T> {
-        Filterable { raw, filtered: None }
+        Filterable {
+            raw,
+            filtered: None,
+        }
     }
     /// `get(filterEnabled)`.
     pub fn get(&self, filter_enabled: bool) -> &T {
-        if filter_enabled { self.filtered.as_ref().unwrap_or(&self.raw) } else { &self.raw }
+        if filter_enabled {
+            self.filtered.as_ref().unwrap_or(&self.raw)
+        } else {
+            &self.raw
+        }
     }
 }
 
 impl<T: Clone + Send + Sync + 'static> Filterable<T> {
     /// `Filterable.codec(valueCodec)`: `{raw, filtered?}` or the bare value.
     pub fn codec(value: &Codec<T>) -> Codec<Filterable<T>> {
-        let full = value.field_of("raw").pair(&value.optional_field_of("filtered")).codec().xmap(
-            |(raw, filtered)| Filterable { raw, filtered },
-            |f: &Filterable<T>| (f.raw.clone(), f.filtered.clone()),
-        );
+        let full = value
+            .field_of("raw")
+            .pair(&value.optional_field_of("filtered"))
+            .codec()
+            .xmap(
+                |(raw, filtered)| Filterable { raw, filtered },
+                |f: &Filterable<T>| (f.raw.clone(), f.filtered.clone()),
+            );
         let simple = value.xmap(Filterable::pass_through, |f: &Filterable<T>| f.raw.clone());
         full.with_alternative(&simple)
     }
@@ -108,9 +143,15 @@ impl<T> Filterable<T> {
         f(&self.raw, out);
         write_optional(out, &self.filtered, |v, o| f(v, o));
     }
-    pub fn decode_stream(input: &mut &[u8], f: impl Fn(&mut &[u8]) -> DecodeResult<T>) -> DecodeResult<Filterable<T>> {
+    pub fn decode_stream(
+        input: &mut &[u8],
+        f: impl Fn(&mut &[u8]) -> DecodeResult<T>,
+    ) -> DecodeResult<Filterable<T>> {
         let raw = f(input)?;
-        Ok(Filterable { raw, filtered: read_optional(input, &f)? })
+        Ok(Filterable {
+            raw,
+            filtered: read_optional(input, &f)?,
+        })
     }
 }
 
@@ -127,7 +168,12 @@ impl WritableBookContent {
 
     pub fn codec() -> Codec<WritableBookContent> {
         let page = Filterable::codec(&string_range(0, 1024));
-        record!(WritableBookContent { pages: page.size_limited_list_of(100).optional_field_of_default("pages", Vec::new()) }).codec()
+        record!(WritableBookContent {
+            pages: page
+                .size_limited_list_of(100)
+                .optional_field_of_default("pages", Vec::new())
+        })
+        .codec()
     }
 }
 
@@ -138,7 +184,10 @@ impl Encode for WritableBookContent {
 }
 impl Decode for WritableBookContent {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        read_list(input, 100, |i| Filterable::decode_stream(i, |i| read_utf(i, 1024))).map(|pages| WritableBookContent { pages })
+        read_list(input, 100, |i| {
+            Filterable::decode_stream(i, |i| read_utf(i, 1024))
+        })
+        .map(|pages| WritableBookContent { pages })
     }
 }
 
@@ -154,7 +203,13 @@ pub struct WrittenBookContent {
 impl Default for WrittenBookContent {
     /// `WrittenBookContent.EMPTY`.
     fn default() -> Self {
-        WrittenBookContent { title: Filterable::pass_through(String::new()), author: String::new(), generation: 0, pages: Vec::new(), resolved: true }
+        WrittenBookContent {
+            title: Filterable::pass_through(String::new()),
+            author: String::new(),
+            generation: 0,
+            pages: Vec::new(),
+            resolved: true,
+        }
     }
 }
 
@@ -181,7 +236,9 @@ impl Encode for WrittenBookContent {
         self.title.encode_stream(out, encode_utf);
         write_utf(out, &self.author);
         write_varint(out, self.generation);
-        write_list(out, &self.pages, |p, o| p.encode_stream(o, encode_component));
+        write_list(out, &self.pages, |p, o| {
+            p.encode_stream(o, encode_component)
+        });
         self.resolved.encode(out);
     }
 }
@@ -190,12 +247,22 @@ impl Decode for WrittenBookContent {
         let title = Filterable::decode_stream(input, |i| read_utf(i, 32))?;
         let author = read_utf(input, MAX_STRING_LENGTH)?;
         let generation = read_varint(input)?;
-        let pages = read_list(input, i32::MAX as usize, |i| Filterable::decode_stream(i, decode_component))?;
+        let pages = read_list(input, i32::MAX as usize, |i| {
+            Filterable::decode_stream(i, decode_component)
+        })?;
         let resolved = bool::decode(input)?;
         if !(0..=3).contains(&generation) {
-            return Err(DecodeError::Message(format!("Generation was {generation}, but must be between 0 and 3")));
+            return Err(DecodeError::Message(format!(
+                "Generation was {generation}, but must be between 0 and 3"
+            )));
         }
-        Ok(WrittenBookContent { title, author, generation, pages, resolved })
+        Ok(WrittenBookContent {
+            title,
+            author,
+            generation,
+            pages,
+            resolved,
+        })
     }
 }
 
@@ -218,7 +285,13 @@ pub struct FireworkExplosion {
 impl Default for FireworkExplosion {
     /// `FireworkExplosion.DEFAULT`.
     fn default() -> Self {
-        FireworkExplosion { shape: FireworkShape::SmallBall, colors: Vec::new(), fade_colors: Vec::new(), has_trail: false, has_twinkle: false }
+        FireworkExplosion {
+            shape: FireworkShape::SmallBall,
+            colors: Vec::new(),
+            fade_colors: Vec::new(),
+            has_trail: false,
+            has_twinkle: false,
+        }
     }
 }
 
@@ -276,7 +349,9 @@ impl Fireworks {
     pub fn codec() -> Codec<Fireworks> {
         record!(Fireworks {
             flight_duration: UNSIGNED_BYTE.optional_field_of_default("flight_duration", 0),
-            explosions: FireworkExplosion::codec().size_limited_list_of(256).optional_field_of_default("explosions", Vec::new()),
+            explosions: FireworkExplosion::codec()
+                .size_limited_list_of(256)
+                .optional_field_of_default("explosions", Vec::new()),
         })
         .codec()
     }
@@ -291,7 +366,10 @@ impl Encode for Fireworks {
 impl Decode for Fireworks {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let flight_duration = read_varint(input)?;
-        Ok(Fireworks { flight_duration, explosions: read_list(input, 256, FireworkExplosion::decode)? })
+        Ok(Fireworks {
+            flight_duration,
+            explosions: read_list(input, 256, FireworkExplosion::decode)?,
+        })
     }
 }
 
@@ -306,7 +384,11 @@ pub struct BannerPattern {
 
 impl BannerPattern {
     pub fn direct_codec() -> Codec<BannerPattern> {
-        record!(BannerPattern { asset_id: IDENTIFIER.field_of("asset_id"), translation_key: STRING.field_of("translation_key") }).codec()
+        record!(BannerPattern {
+            asset_id: IDENTIFIER.field_of("asset_id"),
+            translation_key: STRING.field_of("translation_key")
+        })
+        .codec()
     }
     /// `BannerPattern.CODEC`.
     pub fn codec() -> Codec<Holder<BannerPattern>> {
@@ -320,7 +402,10 @@ impl BannerPattern {
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<BannerPattern>> {
         holder::decode_holder(BANNER_PATTERN, input, |i| {
-            Ok(BannerPattern { asset_id: Identifier::decode(i)?, translation_key: read_utf(i, MAX_STRING_LENGTH)? })
+            Ok(BannerPattern {
+                asset_id: Identifier::decode(i)?,
+                translation_key: read_utf(i, MAX_STRING_LENGTH)?,
+            })
         })
     }
 }
@@ -338,10 +423,16 @@ pub struct BannerPatternLayers {
 
 impl BannerPatternLayers {
     pub fn codec() -> Codec<BannerPatternLayers> {
-        record!(BannerPatternLayer { pattern: BannerPattern::codec().field_of("pattern"), color: DyeColor::codec().field_of("color") })
-            .codec()
-            .list_of()
-            .xmap(|layers| BannerPatternLayers { layers }, |l: &BannerPatternLayers| l.layers.clone())
+        record!(BannerPatternLayer {
+            pattern: BannerPattern::codec().field_of("pattern"),
+            color: DyeColor::codec().field_of("color")
+        })
+        .codec()
+        .list_of()
+        .xmap(
+            |layers| BannerPatternLayers { layers },
+            |l: &BannerPatternLayers| l.layers.clone(),
+        )
     }
 }
 
@@ -356,7 +447,10 @@ impl Encode for BannerPatternLayers {
 impl Decode for BannerPatternLayers {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         read_list(input, i32::MAX as usize, |i| {
-            Ok(BannerPatternLayer { pattern: BannerPattern::decode_holder(i)?, color: DyeColor::decode(i)? })
+            Ok(BannerPatternLayer {
+                pattern: BannerPattern::decode_holder(i)?,
+                color: DyeColor::decode(i)?,
+            })
         })
         .map(|layers| BannerPatternLayers { layers })
     }
@@ -440,10 +534,19 @@ impl SignText {
         })
         .codec()
         .xmap(
-            |r: Raw| SignText { filtered_messages: r.filtered.unwrap_or_else(|| r.messages.clone()), messages: r.messages, color: r.color, has_glowing_text: r.has_glowing_text },
+            |r: Raw| SignText {
+                filtered_messages: r.filtered.unwrap_or_else(|| r.messages.clone()),
+                messages: r.messages,
+                color: r.color,
+                has_glowing_text: r.has_glowing_text,
+            },
             |s: &SignText| Raw {
                 messages: s.messages.clone(),
-                filtered: if s.filtered_messages == s.messages { None } else { Some(s.filtered_messages.clone()) },
+                filtered: if s.filtered_messages == s.messages {
+                    None
+                } else {
+                    Some(s.filtered_messages.clone())
+                },
                 color: s.color,
                 has_glowing_text: s.has_glowing_text,
             },
@@ -459,7 +562,12 @@ impl SignText {
 }
 
 fn write_lines(lines: &[Component], out: &mut Vec<u8>) {
-    assert_eq!(lines.len(), 4, "Invalid list size, expected 4, but got {}", lines.len());
+    assert_eq!(
+        lines.len(),
+        4,
+        "Invalid list size, expected 4, but got {}",
+        lines.len()
+    );
     for l in lines {
         encode_component(l, out);
     }
@@ -471,7 +579,15 @@ fn read_lines(input: &mut &[u8]) -> DecodeResult<Vec<Component>> {
 impl Encode for SignText {
     fn encode(&self, out: &mut Vec<u8>) {
         write_lines(&self.messages, out);
-        write_optional(out, &if self.filtered_messages == self.messages { None } else { Some(self.filtered_messages.clone()) }, |l, o| write_lines(l, o));
+        write_optional(
+            out,
+            &if self.filtered_messages == self.messages {
+                None
+            } else {
+                Some(self.filtered_messages.clone())
+            },
+            |l, o| write_lines(l, o),
+        );
         self.color.encode(out);
         self.has_glowing_text.encode(out);
     }
@@ -546,7 +662,10 @@ pub struct InstrumentComponent {
 
 impl InstrumentComponent {
     pub fn codec() -> Codec<InstrumentComponent> {
-        Instrument::codec().xmap(|instrument| InstrumentComponent { instrument }, |c: &InstrumentComponent| c.instrument.clone())
+        Instrument::codec().xmap(
+            |instrument| InstrumentComponent { instrument },
+            |c: &InstrumentComponent| c.instrument.clone(),
+        )
     }
 }
 
@@ -603,7 +722,10 @@ pub struct JukeboxPlayable {
 
 impl JukeboxPlayable {
     pub fn codec() -> Codec<JukeboxPlayable> {
-        JukeboxSong::codec().xmap(|song| JukeboxPlayable { song }, |c: &JukeboxPlayable| c.song.clone())
+        JukeboxSong::codec().xmap(
+            |song| JukeboxPlayable { song },
+            |c: &JukeboxPlayable| c.song.clone(),
+        )
     }
 }
 
@@ -628,7 +750,11 @@ pub struct TrimMaterial {
 
 impl TrimMaterial {
     pub fn direct_codec() -> Codec<TrimMaterial> {
-        record!(TrimMaterial { palette_id: IDENTIFIER.field_of("palette_id"), description: component_codec().field_of("description") }).codec()
+        record!(TrimMaterial {
+            palette_id: IDENTIFIER.field_of("palette_id"),
+            description: component_codec().field_of("description")
+        })
+        .codec()
     }
     /// `TrimMaterial.CODEC`.
     pub fn codec() -> Codec<Holder<TrimMaterial>> {
@@ -642,7 +768,10 @@ impl TrimMaterial {
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<TrimMaterial>> {
         holder::decode_holder(TRIM_MATERIAL_REG, input, |i| {
-            Ok(TrimMaterial { palette_id: Identifier::decode(i)?, description: decode_component(i)? })
+            Ok(TrimMaterial {
+                palette_id: Identifier::decode(i)?,
+                description: decode_component(i)?,
+            })
         })
     }
 }
@@ -676,7 +805,11 @@ impl TrimPattern {
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<TrimPattern>> {
         holder::decode_holder(TRIM_PATTERN_REG, input, |i| {
-            Ok(TrimPattern { asset_id: Identifier::decode(i)?, description: decode_component(i)?, decal: bool::decode(i)? })
+            Ok(TrimPattern {
+                asset_id: Identifier::decode(i)?,
+                description: decode_component(i)?,
+                decal: bool::decode(i)?,
+            })
         })
     }
 }
@@ -689,7 +822,11 @@ pub struct ArmorTrim {
 
 impl ArmorTrim {
     pub fn codec() -> Codec<ArmorTrim> {
-        record!(ArmorTrim { material: TrimMaterial::codec().field_of("material"), pattern: TrimPattern::codec().field_of("pattern") }).codec()
+        record!(ArmorTrim {
+            material: TrimMaterial::codec().field_of("material"),
+            pattern: TrimPattern::codec().field_of("pattern")
+        })
+        .codec()
     }
 }
 
@@ -701,24 +838,82 @@ impl Encode for ArmorTrim {
 }
 impl Decode for ArmorTrim {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        Ok(ArmorTrim { material: TrimMaterial::decode_holder(input)?, pattern: TrimPattern::decode_holder(input)? })
+        Ok(ArmorTrim {
+            material: TrimMaterial::decode_holder(input)?,
+            pattern: TrimPattern::decode_holder(input)?,
+        })
     }
 }
 
 // ---- definitions ---------------------------------------------------------------------------------------------------
 
 pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
-    out.push(ComponentDef::builder(WRITABLE_BOOK_CONTENT).persistent(WritableBookContent::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(WRITTEN_BOOK_CONTENT).persistent(WrittenBookContent::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(FIREWORK_EXPLOSION).persistent(FireworkExplosion::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(FIREWORKS).persistent(Fireworks::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(BANNER_PATTERNS).persistent(BannerPatternLayers::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(POT_DECORATIONS).persistent(PotDecorations::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(SIGN_TEXT_FRONT).persistent(SignText::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(SIGN_TEXT_BACK).persistent(SignText::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(INSTRUMENT).persistent(InstrumentComponent::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(JUKEBOX_PLAYABLE).persistent(JukeboxPlayable::codec()).network_synchronized().build());
-    out.push(ComponentDef::builder(TRIM).persistent(ArmorTrim::codec()).network_synchronized().build());
+    out.push(
+        ComponentDef::builder(WRITABLE_BOOK_CONTENT)
+            .persistent(WritableBookContent::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(WRITTEN_BOOK_CONTENT)
+            .persistent(WrittenBookContent::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(FIREWORK_EXPLOSION)
+            .persistent(FireworkExplosion::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(FIREWORKS)
+            .persistent(Fireworks::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(BANNER_PATTERNS)
+            .persistent(BannerPatternLayers::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(POT_DECORATIONS)
+            .persistent(PotDecorations::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(SIGN_TEXT_FRONT)
+            .persistent(SignText::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(SIGN_TEXT_BACK)
+            .persistent(SignText::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(INSTRUMENT)
+            .persistent(InstrumentComponent::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(JUKEBOX_PLAYABLE)
+            .persistent(JukeboxPlayable::codec())
+            .network_synchronized()
+            .build(),
+    );
+    out.push(
+        ComponentDef::builder(TRIM)
+            .persistent(ArmorTrim::codec())
+            .network_synchronized()
+            .build(),
+    );
     out.push(
         ComponentDef::builder(PROVIDES_TRIM_MATERIAL)
             .persistent(TrimMaterial::codec())
@@ -727,7 +922,11 @@ pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
     );
     out.push(
         ComponentDef::builder(PROVIDES_BANNER_PATTERNS)
-            .persistent(holder::holder_set_codec(BANNER_PATTERN, &holder::holder_fixed_codec::<BannerPattern>(BANNER_PATTERN), false))
+            .persistent(holder::holder_set_codec(
+                BANNER_PATTERN,
+                &holder::holder_fixed_codec::<BannerPattern>(BANNER_PATTERN),
+                false,
+            ))
             .network_with(
                 |s, out| holder::encode_holder_set(BANNER_PATTERN, s, out),
                 |i| holder::decode_holder_set(BANNER_PATTERN, i),
