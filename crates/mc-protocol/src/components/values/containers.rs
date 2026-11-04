@@ -95,12 +95,13 @@ pub(crate) fn write_optional<T>(
 
 /// `org.apache.commons.lang3.math.Fraction` (only what the bundle weight needs); `Err` = `ArithmeticException`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) struct Fraction {
+pub struct Fraction {
     num: i32,
     den: i32,
 }
 
-type Arith<T> = Result<T, ()>;
+/// `ArithmeticException` as `Err(())`.
+pub type Arith<T> = Result<T, ()>;
 
 fn mul_and_check(x: i32, y: i32) -> Arith<i32> {
     i32::try_from(i64::from(x) * i64::from(y)).map_err(|_| ())
@@ -162,11 +163,11 @@ fn gcd(mut u: i32, mut v: i32) -> Arith<i32> {
 }
 
 impl Fraction {
-    const ZERO: Fraction = Fraction { num: 0, den: 1 };
-    const ONE: Fraction = Fraction { num: 1, den: 1 };
+    pub const ZERO: Fraction = Fraction { num: 0, den: 1 };
+    pub const ONE: Fraction = Fraction { num: 1, den: 1 };
 
     /// `Fraction.getFraction(n, d)` (not reduced).
-    fn get(mut num: i32, mut den: i32) -> Arith<Fraction> {
+    pub fn get(mut num: i32, mut den: i32) -> Arith<Fraction> {
         if den == 0 {
             return Err(());
         }
@@ -178,6 +179,13 @@ impl Fraction {
             den = -den;
         }
         Ok(Fraction { num, den })
+    }
+
+    pub fn numerator(self) -> i32 {
+        self.num
+    }
+    pub fn denominator(self) -> i32 {
+        self.den
     }
 
     fn reduced(mut num: i32, mut den: i32) -> Arith<Fraction> {
@@ -199,16 +207,29 @@ impl Fraction {
             den = -den;
         }
         let g = gcd(num, den)?;
-        Ok(Fraction {
-            num: num / g,
-            den: den / g,
-        })
+        Ok(Fraction { num: num / g, den: den / g })
     }
 
-    /// `add`.
-    fn add(self, other: Fraction) -> Arith<Fraction> {
+    /// `negate`.
+    pub fn negate(self) -> Arith<Fraction> {
+        if self.num == i32::MIN {
+            return Err(());
+        }
+        Ok(Fraction { num: -self.num, den: self.den })
+    }
+
+    /// `invert`.
+    pub fn invert(self) -> Arith<Fraction> {
+        if self.num == 0 || self.num == i32::MIN {
+            return Err(());
+        }
+        Ok(if self.num < 0 { Fraction { num: -self.den, den: -self.num } } else { Fraction { num: self.den, den: self.num } })
+    }
+
+    /// `addSub(other, isAdd)`.
+    fn add_sub(self, other: Fraction, is_add: bool) -> Arith<Fraction> {
         if self.num == 0 {
-            return Ok(other);
+            return if is_add { Ok(other) } else { other.negate() };
         }
         if other.num == 0 {
             return Ok(self);
@@ -217,35 +238,58 @@ impl Fraction {
         if d1 == 1 {
             let uvp = mul_and_check(self.num, other.den)?;
             let upv = mul_and_check(other.num, self.den)?;
-            return Ok(Fraction {
-                num: add_and_check(uvp, upv)?,
-                den: mul_pos_and_check(self.den, other.den)?,
-            });
+            let n = if is_add { add_and_check(uvp, upv)? } else { i32::try_from(i64::from(uvp) - i64::from(upv)).map_err(|_| ())? };
+            return Ok(Fraction { num: n, den: mul_pos_and_check(self.den, other.den)? });
         }
         let uvp = i128::from(self.num) * i128::from(other.den / d1);
         let upv = i128::from(other.num) * i128::from(self.den / d1);
-        let t = uvp + upv;
+        let t = if is_add { uvp + upv } else { uvp - upv };
         let tmodd1 = t.rem_euclid(i128::from(d1)) as i32;
         let d2 = if tmodd1 == 0 { d1 } else { gcd(tmodd1, d1)? };
         let w = t / i128::from(d2);
         let num = i32::try_from(w).map_err(|_| ())?;
-        Ok(Fraction {
-            num,
-            den: mul_pos_and_check(self.den / d1, other.den / d2)?,
-        })
+        Ok(Fraction { num, den: mul_pos_and_check(self.den / d1, other.den / d2)? })
+    }
+
+    /// `add`.
+    pub fn add(self, other: Fraction) -> Arith<Fraction> {
+        self.add_sub(other, true)
+    }
+
+    /// `subtract`.
+    pub fn subtract(self, other: Fraction) -> Arith<Fraction> {
+        self.add_sub(other, false)
     }
 
     /// `multiplyBy`.
-    fn multiply_by(self, other: Fraction) -> Arith<Fraction> {
+    pub fn multiply_by(self, other: Fraction) -> Arith<Fraction> {
         if self.num == 0 || other.num == 0 {
             return Ok(Fraction::ZERO);
         }
         let d1 = gcd(self.num, other.den)?;
         let d2 = gcd(other.num, self.den)?;
-        Fraction::reduced(
-            mul_and_check(self.num / d1, other.num / d2)?,
-            mul_pos_and_check(self.den / d2, other.den / d1)?,
-        )
+        Fraction::reduced(mul_and_check(self.num / d1, other.num / d2)?, mul_pos_and_check(self.den / d2, other.den / d1)?)
+    }
+
+    /// `divideBy`.
+    pub fn divide_by(self, other: Fraction) -> Arith<Fraction> {
+        if other.num == 0 {
+            return Err(());
+        }
+        self.multiply_by(other.invert()?)
+    }
+
+    /// `intValue()` (truncating division).
+    pub fn int_value(self) -> i32 {
+        self.num / self.den
+    }
+
+    /// `compareTo`.
+    pub fn compare_to(self, other: Fraction) -> std::cmp::Ordering {
+        if self == other {
+            return std::cmp::Ordering::Equal;
+        }
+        (i64::from(self.num) * i64::from(other.den)).cmp(&(i64::from(other.num) * i64::from(self.den)))
     }
 }
 
@@ -357,14 +401,57 @@ impl Decode for ItemContainerContents {
 // ---- BundleContents ------------------------------------------------------------------------------------------------
 
 /// `BundleContents` (the persistent/network data only).
-#[derive(Clone, Debug, PartialEq, Default)]
+#[derive(Clone, Debug)]
 pub struct BundleContents {
     items: Vec<ItemStackTemplate>,
+    /// Runtime-only selected index (not part of the codecs or `equals`); `-1` = none.
+    selected_item: i32,
+}
+
+impl Default for BundleContents {
+    fn default() -> Self {
+        BundleContents::new(Vec::new())
+    }
+}
+
+/// `equals` compares the items only.
+impl PartialEq for BundleContents {
+    fn eq(&self, other: &Self) -> bool {
+        self.items == other.items
+    }
 }
 
 impl BundleContents {
+    pub const NO_SELECTED_ITEM_INDEX: i32 = -1;
+
     pub fn new(items: Vec<ItemStackTemplate>) -> BundleContents {
-        BundleContents { items }
+        BundleContents { items, selected_item: -1 }
+    }
+    /// The private `BundleContents(items, selectedItem)` constructor.
+    pub fn with_selected_item(items: Vec<ItemStackTemplate>, selected_item: i32) -> BundleContents {
+        BundleContents { items, selected_item }
+    }
+    /// `getSelectedItemIndex()`.
+    pub fn selected_item_index(&self) -> i32 {
+        self.selected_item
+    }
+    /// `getSelectedItem()`.
+    pub fn selected_item(&self) -> Option<&ItemStackTemplate> {
+        usize::try_from(self.selected_item).ok().and_then(|i| self.items.get(i))
+    }
+    /// `weight()` as the `Fraction` (`Err(message)`: nested error or "Excessive total bundle weight").
+    pub fn weight_fraction(&self) -> Result<Fraction, String> {
+        match self.weight_inner() {
+            Err(()) => Err("Excessive total bundle weight".into()),
+            Ok(r) => r,
+        }
+    }
+    /// `getWeight(item)` of a single contained item.
+    pub fn item_weight_fraction(item: &ItemStackTemplate) -> Result<Fraction, String> {
+        match Self::item_weight(item) {
+            Err(()) => Err("Excessive total bundle weight".into()),
+            Ok(r) => r,
+        }
     }
     pub fn items(&self) -> &[ItemStackTemplate] {
         &self.items
