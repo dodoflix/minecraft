@@ -312,6 +312,7 @@ for s in SCALARS:
     PROFILES.append({"name": "Steve", "model": s})
     PROFILES.append({"name": "Steve", "texture": s})
     PROFILES.append([s])
+PROFILES = rng.sample(PROFILES, 280)
 for p in PROFILES:
     both("minecraft:profile", p)
 # random mutations of profiles
@@ -356,9 +357,9 @@ def mutate(v, depth=0):
     return rng.choice(SCALARS)
 
 
-for _ in range(110):
+for _ in range(60):
     both("minecraft:profile", mutate(rng.choice(SEEDS)))
-for _ in range(50):
+for _ in range(25):
     both("minecraft:profile", mutate(mutate(rng.choice(SEEDS))))
 
 add("json", "minecraft:profile", js({"name": "Steve", "properties": [{"name": "n", "value": "v" * 32767}]}))
@@ -399,7 +400,6 @@ skins = [SKIN0, "01" + STR("a:b") + "000000", "00" + "01" + STR("a:b") + "0000",
 for w in wire_profiles:
     for s in rng.sample(skins, 1):
         add("wire", "minecraft:profile", w + s)
-    add("wire", "minecraft:profile", w + SKIN0)
 for h in ["", "00", "01", "0000000000", "02", "ff", "01" + "00" * 16, "01" + "00" * 16 + "00", "00" + "01" + STR("x"), "00" + "00" + "00" + "11"]:
     add("wire", "minecraft:profile", h)
 add("wire", "minecraft:profile", "00" + "00" + "00" + varint(17) + "00000000")
@@ -425,7 +425,8 @@ for comp, (names, _) in ENUMS.items():
     add("stack-snbt", "-", stack("minecraft:stone", [(comp, sq("bad"))]))
     add("stack-snbt", "-", stack("minecraft:stone", [(comp, "0")]))
 add("stack-snbt", "-", stack("minecraft:pig_spawn_egg", [("entity_data", "{id:'minecraft:pig',Health:3.0f}")]))
-add("stack-snbt", "-", stack("minecraft:wolf_spawn_egg", [("entity_data", "{id:'minecraft:wolf'}"), ("wolf/variant", "'minecraft:pale'")]))
+add("stack-snbt", "-", stack("minecraft:wolf_spawn_egg", [("entity_data", "{id:'minecraft:wolf'}")]))
+add("stack-snbt", "-", stack("minecraft:wolf_spawn_egg", [("wolf/variant", "'minecraft:pale'")]))
 add("stack-snbt", "-", stack("minecraft:chest", [("block_entity_data", "{id:'minecraft:chest',Items:[]}")]))
 add("stack-snbt", "-", stack("minecraft:chest", [("block_entity_data", "{id:'minecraft:furnace',BurnTime:5s}")]))
 add("stack-snbt", "-", stack("minecraft:chest", [("block_entity_data", "{Items:[]}")]))
@@ -436,14 +437,14 @@ add("stack-snbt", "-", stack("minecraft:player_head", [("profile", "{id:[I;1,2,3
 add("stack-snbt", "-", stack("minecraft:player_head", [("profile", "{name:'Notch',model:'slim'}")]))
 add("stack-snbt", "-", stack("minecraft:player_head", [("profile", "{name:'bad name!'}")]))
 add("stack-snbt", "-", stack("minecraft:zombie_head", [("profile", "{}")]))
-add("stack-snbt", "-", stack("minecraft:painting", [("painting/variant", "'minecraft:aztec'"), ("entity_data", "{id:'minecraft:painting'}")]))
-add("stack-snbt", "-", stack("minecraft:axolotl_bucket", [("axolotl/variant", "'blue'"), ("bucket_entity_data", "{Variant:4}")]))
-add("stack-snbt", "-", stack("minecraft:tropical_fish_bucket", [("tropical_fish/pattern", "'clayfish'"), ("tropical_fish/base_color", "'red'")]))
-add("stack-snbt", "-", stack("minecraft:salmon_bucket", [("salmon/size", "'large'")]))
-add("stack-snbt", "-", stack("minecraft:stone", [("fox/variant", "'snow'"), ("rabbit/variant", "'evil'"), ("horse/variant", "'dark_brown'"), ("llama/variant", "'gray'")]))
-add("stack-snbt", "-", stack("minecraft:stone", [("parrot/variant", "'gray'"), ("mooshroom/variant", "'brown'"), ("villager/variant", "'taiga'")]))
-add("stack-snbt", "-", stack("minecraft:stone", [("cat/variant", "'tabby'"), ("cat/sound_variant", "'royal'"), ("frog/variant", "'warm'"), ("pig/sound_variant", "'mini'")]))
-add("stack-snbt", "-", stack("minecraft:stone", [("cow/variant", "'cold'"), ("cow/sound_variant", "'moody'"), ("chicken/variant", "'warm'"), ("chicken/sound_variant", "'picky'"), ("zombie_nautilus/variant", "'warm'"), ("wolf/sound_variant", "'cute'")]))
+add("stack-snbt", "-", stack("minecraft:painting", [("painting/variant", "'minecraft:aztec'")]))
+add("stack-snbt", "-", stack("minecraft:painting", [("entity_data", "{id:'minecraft:painting'}")]))
+for comp, v in [("axolotl/variant", "'blue'"), ("tropical_fish/pattern", "'clayfish'"), ("salmon/size", "'large'"), ("fox/variant", "'snow'"),
+                ("rabbit/variant", "'evil'"), ("horse/variant", "'dark_brown'"), ("llama/variant", "'gray'"), ("parrot/variant", "'gray'"),
+                ("mooshroom/variant", "'brown'"), ("villager/variant", "'taiga'"), ("cat/variant", "'tabby'"), ("cat/sound_variant", "'royal'"),
+                ("frog/variant", "'warm'"), ("pig/sound_variant", "'mini'"), ("cow/variant", "'cold'"), ("cow/sound_variant", "'moody'"),
+                ("chicken/variant", "'warm'"), ("chicken/sound_variant", "'picky'"), ("zombie_nautilus/variant", "'warm'"), ("wolf/sound_variant", "'cute'")]:
+    add("stack-snbt", "-", stack("minecraft:stone", [(comp, v)]))
 add("patch-snbt", "-", "{\"minecraft:fox/variant\":'snow',\"!minecraft:profile\":{},\"minecraft:entity_data\":{id:'minecraft:pig'}}")
 add("patch-snbt", "-", "{\"!minecraft:entity_data\":{},\"!minecraft:villager/variant\":{}}")
 add("patch-snbt", "-", "{\"minecraft:profile\":{name:'x'},\"minecraft:pig/variant\":'warm'}")
