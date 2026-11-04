@@ -256,8 +256,8 @@ impl Biome {
         }
     }
 
-    /// `getHeightAdjustedTemperature(pos, seaLevel)`.
-    fn get_height_adjusted_temperature(&self, pos: BlockPos, sea_level: i32) -> f32 {
+    /// `getHeightAdjustedTemperature(pos, seaLevel)` (private in vanilla; public for the differential tests).
+    pub fn get_height_adjusted_temperature(&self, pos: BlockPos, sea_level: i32) -> f32 {
         let adjusted_temperature = self
             .climate
             .temperature_modifier
