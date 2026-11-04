@@ -1,13 +1,23 @@
 //! Registry ids of the built-in registries (`ByteBufCodecs.registry(..)` / `idMapper`): a VarInt
-//! protocol id, resolved against `mc_data`'s tables. Unknown ids fail like `IdMap.byIdOrThrow`.
+//! protocol id, resolved against `mc_data`'s tables. `Decode` follows `ByteBufCodecs.registry`; strict (holder) decoding is
+//! [`read_registry_id`].
 use mc_data::registry::RegistryId;
 
 use super::{read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode};
 
-/// Decode the VarInt protocol id of a built-in registry entry.
+/// Strict decode of a VarInt protocol id (`holderRegistry`/`IdMap.byIdOrThrow` on a holder map): unknown ids throw.
 pub fn read_registry_id<T: RegistryId>(input: &mut &[u8]) -> DecodeResult<T> {
     let id = read_varint(input)?;
     u32::try_from(id).ok().and_then(T::from_id).ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
+}
+
+/// `ByteBufCodecs.registry(key)` decode: `Registry.byId`, where a *defaulted* registry (block, item, entity_type, fluid,
+/// game_event, chunk_status, ...) answers unknown ids with its default entry instead of throwing.
+pub fn read_registry_value<T: RegistryId>(input: &mut &[u8]) -> DecodeResult<T> {
+    let id = read_varint(input)?;
+    let found = u32::try_from(id).ok().and_then(T::from_id);
+    let default = || T::registry().default_name().and_then(|n| T::registry().id_of(n)).and_then(T::from_id);
+    found.or_else(default).ok_or_else(|| DecodeError::Message(format!("No value with id {id}")))
 }
 
 macro_rules! registry_codecs {
@@ -16,7 +26,7 @@ macro_rules! registry_codecs {
             fn encode(&self, out: &mut Vec<u8>) { write_varint(out, self.id() as i32) }
         }
         impl Decode for mc_data::$ty {
-            fn decode(input: &mut &[u8]) -> DecodeResult<Self> { read_registry_id(input) }
+            fn decode(input: &mut &[u8]) -> DecodeResult<Self> { read_registry_value(input) }
         }
     )*};
 }

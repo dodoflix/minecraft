@@ -18,7 +18,7 @@ pub use bits::{BitSet, BitSetBytes, EnumSet, EnumValues, FixedBitSet};
 pub use misc::*;
 pub use nbt::{decode_tag, decode_tag_with, encode_tag, NbtLimit};
 pub use prim::{read_utf, utf16_len, write_utf, LongArray, MAX_STRING_LENGTH};
-pub use registry::read_registry_id;
+pub use registry::{read_registry_id, read_registry_value};
 pub use text::JsonComponent;
 pub use types::*;
 pub use varint::{read_varint, read_varlong, varint_size, varlong_size, write_varint, write_varlong, VarInt, VarLong};
