@@ -10,12 +10,12 @@
 /// field has a result or partial value.
 #[macro_export]
 macro_rules! record {
-    ($ty:ident { $($field:ident : $codec:expr),+ $(,)? }) => {{
+    ($ty:ident $(<$($g:ty),+>)? { $($field:ident : $codec:expr),+ $(,)? }) => {{
         $( let $field = $codec; )+
         let enc = { $( let $field = $field.clone(); )+
-            move |ops: &$crate::Ops, input: &$ty, b: &mut $crate::RecordBuilder| { $( $field.encode(ops, &input.$field, b); )+ } };
+            move |ops: &$crate::Ops, input: &$ty $(<$($g),+>)?, b: &mut $crate::RecordBuilder| { $( $field.encode(ops, &input.$field, b); )+ } };
         let dec = { $( let $field = $field.clone(); )+
-            move |ops: &$crate::Ops, m: &$crate::MapLike<'_>| -> $crate::DataResult<$ty> {
+            move |ops: &$crate::Ops, m: &$crate::MapLike<'_>| -> $crate::DataResult<$ty $(<$($g),+>)?> {
                 $( let $field = $field.decode(ops, m); )+
                 let mut errs: Vec<$crate::Msg> = Vec::new();
                 let mut all_partial = true;

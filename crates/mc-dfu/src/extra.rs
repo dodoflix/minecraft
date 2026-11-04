@@ -233,3 +233,23 @@ pub fn rgb_from_floats(v: [f32; 3]) -> i32 {
 
 /// `ExtraCodecs.RGB_COLOR_CODEC`: an int or a `[r, g, b]` float vector.
 pub static RGB_COLOR_CODEC: LazyLock<Codec<i32>> = LazyLock::new(|| INT.with_alternative_conv(&VECTOR3F, rgb_from_floats));
+
+/// Entries in the iteration order of a `java.util.HashMap<String, V>` filled by `put`ing them in this order
+/// (bucket index of the spread `String.hashCode`, insertion order within a bucket). Treeified bins (9+ colliding
+/// keys) are not modelled. Needed where vanilla encodes a `Collectors.toMap` result.
+pub fn java_hash_map_order<V>(entries: Vec<(String, V)>) -> Vec<(String, V)> {
+    let mut cap = 16usize;
+    while entries.len() > cap * 3 / 4 {
+        cap *= 2;
+    }
+    let bucket = |k: &str| {
+        let mut h: i32 = 0;
+        for u in k.encode_utf16() {
+            h = h.wrapping_mul(31).wrapping_add(i32::from(u));
+        }
+        ((h ^ ((h as u32) >> 16) as i32) as u32 as usize) & (cap - 1)
+    };
+    let mut keyed: Vec<(usize, (String, V))> = entries.into_iter().map(|e| (bucket(&e.0), e)).collect();
+    keyed.sort_by_key(|(b, _)| *b);
+    keyed.into_iter().map(|(_, e)| e).collect()
+}
