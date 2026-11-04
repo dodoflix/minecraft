@@ -1,0 +1,14 @@
+weather	{clear_weather_time:1,rain_time:2,raining:1b,thunder_time:3,thundering:0b}
+wandering_default	{}
+wandering_delay	{spawn_delay:1}
+wandering_chance	{spawn_chance:3}
+random_sequences_1	{salt:0,sequences:{"bar:baz/q":{source:[L;-7555878094016117412L,8422625654073488236L]},"minecraft:foo":{source:[L;-3610063743556596575L,5543235067718800254L]}}}
+random_sequences_2	{include_sequence_id:0b,include_world_seed:0b,salt:5,sequences:{"a:b":{source:[L;6303508680818792179L,3522365405855580063L]},"bar:baz/q":{source:[L;-7555878094016117412L,8422625654073488236L]},"c:d":{source:[L;1906637536492520902L,7732336355330658855L]},"minecraft:foo":{source:[L;-3610063743556596575L,5543235067718800254L]}}}
+clock_default	{total_ticks:7L}
+clock_all	{partial_tick:0.25f,paused:1b,rate:2.5f,total_ticks:7L}
+clock_neg_zero_partial	{partial_tick:0.0f,total_ticks:7L}
+clock_decode_rate_zero	true
+clock_decode_rate_neg	true
+clock_decode_lenient	ClockState[totalTicks=3, partialTick=1.0, rate=1.0, paused=true]
+random_sequences_partial	{salt:1,sequences:{"a:b":{source:[L;1L,2L]}}} | complete=false
+timer_queue	{events:[{callback:{id:"t:u",type:"minecraft:function_tag"},id:"y",trigger_time:3L},{callback:{id:"c:d",type:"minecraft:function"},id:"x",trigger_time:3L},{callback:{id:"a:b",type:"minecraft:function"},id:"x",trigger_time:7L}]}
