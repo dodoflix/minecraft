@@ -15,10 +15,8 @@ use crate::blending::Blender;
 use crate::densityfunction::SamplerContext;
 use crate::random_state::RandomState;
 
-mod noise_based;
 mod noise_column;
 
-pub use noise_based::NoiseBasedChunkGenerator;
 pub use noise_column::{BlockColumn, NoiseColumn};
 
 /// `ChunkAccess.carverBiome(supplier)` as used by `NoiseBasedChunkGenerator.generateCarvers` with a
