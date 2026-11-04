@@ -1,0 +1,2526 @@
+{
+ "codec": [
+  {
+   "name": "rs_min",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_full",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     16,
+     -16,
+     16
+    ],
+    "frequency_reduction_method": "legacy_type_3",
+    "frequency": 0.25,
+    "exclusion_zone": {
+     "other_set": "minecraft:villages",
+     "chunk_count": 16
+    },
+    "spread_type": "triangular"
+   }
+  },
+  {
+   "name": "rs_type_no_ns",
+   "kind": "placement",
+   "json": {
+    "type": "random_spread",
+    "spacing": 4,
+    "separation": 2,
+    "salt": 0
+   }
+  },
+  {
+   "name": "rs_type_other_ns",
+   "kind": "placement",
+   "json": {
+    "type": "foo:random_spread",
+    "spacing": 4,
+    "separation": 2,
+    "salt": 0
+   }
+  },
+  {
+   "name": "type_missing",
+   "kind": "placement",
+   "json": {
+    "spacing": 4,
+    "separation": 2,
+    "salt": 0
+   }
+  },
+  {
+   "name": "type_unknown",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:nothing"
+   }
+  },
+  {
+   "name": "type_number",
+   "kind": "placement",
+   "json": {
+    "type": 5
+   }
+  },
+  {
+   "name": "not_object",
+   "kind": "placement",
+   "json": [
+    1,
+    2
+   ]
+  },
+  {
+   "name": "not_object_str",
+   "kind": "placement",
+   "json": "minecraft:random_spread"
+  },
+  {
+   "name": "rs_extra_fields",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "foo": 1,
+    "bar": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "rs_null_optional",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": null,
+    "frequency": null,
+    "exclusion_zone": null,
+    "spread_type": null,
+    "frequency_reduction_method": null
+   }
+  },
+  {
+   "name": "rs_null_required",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": null
+   }
+  },
+  {
+   "name": "rs_method_default",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency_reduction_method": "default",
+    "frequency": 0.5
+   }
+  },
+  {
+   "name": "rs_method_legacy_type_1",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency_reduction_method": "legacy_type_1",
+    "frequency": 0.5
+   }
+  },
+  {
+   "name": "rs_method_legacy_type_2",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency_reduction_method": "legacy_type_2",
+    "frequency": 0.5
+   }
+  },
+  {
+   "name": "rs_method_legacy_type_3",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency_reduction_method": "legacy_type_3",
+    "frequency": 0.5
+   }
+  },
+  {
+   "name": "rs_method_bad",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency_reduction_method": "legacy_type_4"
+   }
+  },
+  {
+   "name": "rs_method_num",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency_reduction_method": 1
+   }
+  },
+  {
+   "name": "rs_method_case",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency_reduction_method": "Default"
+   }
+  },
+  {
+   "name": "rs_spread_bad",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "spread_type": "gaussian"
+   }
+  },
+  {
+   "name": "rs_spread_ns",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "spread_type": "minecraft:linear"
+   }
+  },
+  {
+   "name": "rs_offset_0",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_1",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     16,
+     16,
+     16
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_2",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     -16,
+     -16,
+     -16
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_3",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     17,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_4",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     0,
+     -17,
+     0
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_5",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     0,
+     0,
+     17
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_6",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     1,
+     2
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_7",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_8",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": []
+   }
+  },
+  {
+   "name": "rs_offset_9",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     1.5,
+     2.5,
+     -3.9
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_10",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     true,
+     false,
+     0
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_11",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     "1",
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_12",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     null,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_13",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": 5
+   }
+  },
+  {
+   "name": "rs_offset_14",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": "x"
+   }
+  },
+  {
+   "name": "rs_offset_15",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": {
+     "x": 1
+    }
+   }
+  },
+  {
+   "name": "rs_offset_16",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     2147483648,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "name": "rs_offset_17",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "locate_offset": [
+     0,
+     0,
+     -2147483648
+    ]
+   }
+  },
+  {
+   "name": "rs_freq_0",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 0
+   }
+  },
+  {
+   "name": "rs_freq_1",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 1
+   }
+  },
+  {
+   "name": "rs_freq_2",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 0.5
+   }
+  },
+  {
+   "name": "rs_freq_3",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": -0.0
+   }
+  },
+  {
+   "name": "rs_freq_4",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 1.0000001
+   }
+  },
+  {
+   "name": "rs_freq_5",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 1.1
+   }
+  },
+  {
+   "name": "rs_freq_6",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": -0.1
+   }
+  },
+  {
+   "name": "rs_freq_7",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": "0.5"
+   }
+  },
+  {
+   "name": "rs_freq_8",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": true
+   }
+  },
+  {
+   "name": "rs_freq_9",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": null
+   }
+  },
+  {
+   "name": "rs_freq_10",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 1e-45
+   }
+  },
+  {
+   "name": "rs_freq_11",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 0.99999994
+   }
+  },
+  {
+   "name": "rs_freq_12",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": 1.0
+   }
+  },
+  {
+   "name": "rs_freq_13",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "frequency": [
+     0.5
+    ]
+   }
+  },
+  {
+   "name": "rs_salt_0",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 0
+   }
+  },
+  {
+   "name": "rs_salt_1",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 1
+   }
+  },
+  {
+   "name": "rs_salt_2",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 2147483647
+   }
+  },
+  {
+   "name": "rs_salt_3",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": -1
+   }
+  },
+  {
+   "name": "rs_salt_4",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 2147483648
+   }
+  },
+  {
+   "name": "rs_salt_5",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": -2147483649
+   }
+  },
+  {
+   "name": "rs_salt_6",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 3.7
+   }
+  },
+  {
+   "name": "rs_salt_7",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": -0.5
+   }
+  },
+  {
+   "name": "rs_salt_8",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 10000000000.0
+   }
+  },
+  {
+   "name": "rs_salt_9",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": "5"
+   }
+  },
+  {
+   "name": "rs_salt_10",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": true
+   }
+  },
+  {
+   "name": "rs_salt_11",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": false
+   }
+  },
+  {
+   "name": "rs_salt_12",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "rs_salt_13",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": null
+   }
+  },
+  {
+   "name": "rs_salt_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3
+   }
+  },
+  {
+   "name": "rs_spacing_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "separation": 3,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_separation_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_0",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_1",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 2,
+    "separation": 1,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_2",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 4096,
+    "separation": 4095,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_3",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 4096,
+    "separation": 0,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_4",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 4097,
+    "separation": 1,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_5",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 5,
+    "separation": 5,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_6",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 5,
+    "separation": 6,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_7",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 0,
+    "separation": 0,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_8",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": -1,
+    "separation": -2,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_9",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": -1,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_10",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 4097,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_11",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 2.9,
+    "separation": 1.9,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_space_12",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 3,
+    "separation": 2.5,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_spacing_str",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": "10",
+    "separation": 3,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_spacing_bool",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": true,
+    "separation": 3,
+    "salt": 5
+   }
+  },
+  {
+   "name": "rs_excl_0",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "minecraft:villages",
+     "chunk_count": 1
+    }
+   }
+  },
+  {
+   "name": "rs_excl_1",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "minecraft:villages",
+     "chunk_count": 0
+    }
+   }
+  },
+  {
+   "name": "rs_excl_2",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "minecraft:villages",
+     "chunk_count": 17
+    }
+   }
+  },
+  {
+   "name": "rs_excl_3",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "minecraft:nope",
+     "chunk_count": 3
+    }
+   }
+  },
+  {
+   "name": "rs_excl_4",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "villages",
+     "chunk_count": 3
+    }
+   }
+  },
+  {
+   "name": "rs_excl_5",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": {
+      "structures": [
+       {
+        "structure": "minecraft:village_plains",
+        "weight": 1
+       }
+      ],
+      "placement": {
+       "type": "minecraft:random_spread",
+       "spacing": 10,
+       "separation": 3,
+       "salt": 5
+      }
+     },
+     "chunk_count": 3
+    }
+   }
+  },
+  {
+   "name": "rs_excl_6",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "minecraft:villages"
+    }
+   }
+  },
+  {
+   "name": "rs_excl_7",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "chunk_count": 3
+    }
+   }
+  },
+  {
+   "name": "rs_excl_8",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": 5,
+     "chunk_count": 3
+    }
+   }
+  },
+  {
+   "name": "rs_excl_9",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": "minecraft:villages"
+   }
+  },
+  {
+   "name": "rs_excl_10",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": []
+   }
+  },
+  {
+   "name": "rs_excl_11",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "minecraft:villages",
+     "chunk_count": 3,
+     "x": 1
+    }
+   }
+  },
+  {
+   "name": "rs_excl_12",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 5,
+    "exclusion_zone": {
+     "other_set": "minecraft:strongholds",
+     "chunk_count": 2
+    }
+   }
+  },
+  {
+   "name": "cr_min",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_list",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": [
+     "minecraft:plains",
+     "minecraft:desert"
+    ]
+   }
+  },
+  {
+   "name": "cr_single",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "minecraft:plains"
+   }
+  },
+  {
+   "name": "cr_empty_list",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": []
+   }
+  },
+  {
+   "name": "cr_tag_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:nope"
+   }
+  },
+  {
+   "name": "cr_biome_unknown",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": [
+     "minecraft:nope"
+    ]
+   }
+  },
+  {
+   "name": "cr_biome_unknown_single",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "minecraft:nope"
+   }
+  },
+  {
+   "name": "cr_biomes_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0
+   }
+  },
+  {
+   "name": "cr_biomes_inline",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": [
+     {
+      "temperature": 1
+     }
+    ]
+   }
+  },
+  {
+   "name": "cr_biomes_num",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": 5
+   }
+  },
+  {
+   "name": "cr_tag_in_list",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": [
+     "#minecraft:is_ocean"
+    ]
+   }
+  },
+  {
+   "name": "cr_tag_end",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:is_end"
+   }
+  },
+  {
+   "name": "cr_nums_0",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 0,
+    "spread": 0,
+    "count": 1,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_1",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 1023,
+    "spread": 1023,
+    "count": 4095,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_2",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 1024,
+    "spread": 3,
+    "count": 5,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_3",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 3,
+    "spread": 1024,
+    "count": 5,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_4",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 3,
+    "spread": 3,
+    "count": 0,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_5",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 3,
+    "spread": 3,
+    "count": 4096,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_6",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": -1,
+    "spread": 3,
+    "count": 5,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_7",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 3,
+    "spread": -1,
+    "count": 5,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_8",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 3,
+    "spread": 3,
+    "count": -1,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_9",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 10,
+    "spread": 2,
+    "count": 1,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_nums_10",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 1,
+    "spread": 1,
+    "count": 1,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_distance_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_spread_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_count_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_salt_missing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "preferred_biomes": "#minecraft:stronghold_biased_to"
+   }
+  },
+  {
+   "name": "cr_all_opts",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 9,
+    "preferred_biomes": "#minecraft:stronghold_biased_to",
+    "locate_offset": [
+     1,
+     2,
+     3
+    ],
+    "frequency": 0.5,
+    "frequency_reduction_method": "legacy_type_2",
+    "exclusion_zone": {
+     "other_set": "minecraft:villages",
+     "chunk_count": 4
+    }
+   }
+  },
+  {
+   "name": "cr_with_spacing",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:concentric_rings",
+    "distance": 32,
+    "spread": 3,
+    "count": 128,
+    "salt": 0,
+    "preferred_biomes": "#minecraft:stronghold_biased_to",
+    "spacing": 5,
+    "separation": 2
+   }
+  },
+  {
+   "name": "dimension_origin",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:dimension_origin"
+   }
+  },
+  {
+   "name": "dimension_origin_extra",
+   "kind": "placement",
+   "json": {
+    "type": "minecraft:dimension_origin",
+    "salt": -4,
+    "foo": []
+   }
+  },
+  {
+   "name": "set_ok",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     },
+     {
+      "structure": "minecraft:village_desert",
+      "weight": 5
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_empty_structures",
+   "kind": "set",
+   "json": {
+    "structures": [],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_ring",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 32,
+     "spread": 3,
+     "count": 128,
+     "salt": 0,
+     "preferred_biomes": "#minecraft:stronghold_biased_to"
+    }
+   }
+  },
+  {
+   "name": "set_weight_0",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 0
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_weight_neg",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": -3
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_weight_big",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 2147483647
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_weight_overflow",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 2147483648
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_weight_float",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 2.5
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_weight_missing",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains"
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structure_missing",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structure_unknown",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:nope",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structure_bad_id",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "Minecraft:Bad Id",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structure_no_ns",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structure_num",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": 5,
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structure_inline",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": {
+       "type": "minecraft:jigsaw"
+      },
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structures_missing",
+   "kind": "set",
+   "json": {
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_structures_not_list",
+   "kind": "set",
+   "json": {
+    "structures": {
+     "structure": "minecraft:village_plains",
+     "weight": 1
+    },
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_placement_missing",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ]
+   }
+  },
+  {
+   "name": "set_placement_bad",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 1,
+     "separation": 1,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_placement_str",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": "minecraft:random_spread"
+   }
+  },
+  {
+   "name": "set_entry_not_object",
+   "kind": "set",
+   "json": {
+    "structures": [
+     "minecraft:village_plains"
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  },
+  {
+   "name": "set_extra",
+   "kind": "set",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    },
+    "extra": 1
+   }
+  },
+  {
+   "name": "set_null_structures",
+   "kind": "set",
+   "json": {
+    "structures": null,
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 10,
+     "separation": 3,
+     "salt": 5
+    }
+   }
+  }
+ ],
+ "registry": [
+  {
+   "id": "test:freq_default_0_5",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "default",
+     "frequency": 0.5,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_default_0_0",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "default",
+     "frequency": 0.0,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_default_0_9999",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "default",
+     "frequency": 0.9999,
+     "spread_type": "triangular"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_1_0_2",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_1",
+     "frequency": 0.2,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_1_0_3",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_1",
+     "frequency": 0.3,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_1_0_0",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_1",
+     "frequency": 0.0,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_1_0_75",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_1",
+     "frequency": 0.75,
+     "spread_type": "triangular"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_2_0_3",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_2",
+     "frequency": 0.3,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_2_0_0",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_2",
+     "frequency": 0.0,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_3_0_7",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_3",
+     "frequency": 0.7,
+     "spread_type": "triangular"
+    }
+   }
+  },
+  {
+   "id": "test:freq_legacy_type_3_0_004",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 7,
+     "separation": 2,
+     "salt": 1234,
+     "frequency_reduction_method": "legacy_type_3",
+     "frequency": 0.004,
+     "spread_type": "linear"
+    }
+   }
+  },
+  {
+   "id": "test:freq_dense",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 1,
+     "separation": 0,
+     "salt": 0,
+     "frequency_reduction_method": "legacy_type_2",
+     "frequency": 0.01,
+     "locate_offset": [
+      9,
+      0,
+      9
+     ]
+    }
+   }
+  },
+  {
+   "id": "test:freq_dense3",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:mineshaft",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 1,
+     "separation": 0,
+     "salt": 0,
+     "frequency_reduction_method": "legacy_type_3",
+     "frequency": 0.04
+    }
+   }
+  },
+  {
+   "id": "test:excl_villages",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 3,
+     "separation": 1,
+     "salt": 99,
+     "exclusion_zone": {
+      "other_set": "minecraft:villages",
+      "chunk_count": 3
+     }
+    }
+   }
+  },
+  {
+   "id": "test:excl_outposts",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 2,
+     "separation": 1,
+     "salt": 98,
+     "frequency": 0.6,
+     "frequency_reduction_method": "legacy_type_1",
+     "exclusion_zone": {
+      "other_set": "minecraft:pillager_outposts",
+      "chunk_count": 16
+     }
+    }
+   }
+  },
+  {
+   "id": "test:excl_strongholds",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 1,
+     "separation": 0,
+     "salt": 97,
+     "exclusion_zone": {
+      "other_set": "minecraft:strongholds",
+      "chunk_count": 4
+     }
+    }
+   }
+  },
+  {
+   "id": "test:excl_fortress",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:fortress",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 2,
+     "separation": 1,
+     "salt": 96,
+     "exclusion_zone": {
+      "other_set": "minecraft:nether_complexes",
+      "chunk_count": 2
+     }
+    }
+   }
+  },
+  {
+   "id": "test:rings_a",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     },
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 5,
+     "spread": 2,
+     "count": 20,
+     "salt": 7,
+     "preferred_biomes": [
+      "minecraft:plains",
+      "minecraft:desert",
+      "minecraft:ocean"
+     ]
+    }
+   }
+  },
+  {
+   "id": "test:rings_b",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 12,
+     "spread": 7,
+     "count": 300,
+     "salt": 0,
+     "preferred_biomes": "#minecraft:is_forest",
+     "frequency": 0.5
+    }
+   }
+  },
+  {
+   "id": "test:rings_c",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 0,
+     "spread": 0,
+     "count": 5,
+     "salt": 0,
+     "preferred_biomes": "#minecraft:stronghold_biased_to"
+    }
+   }
+  },
+  {
+   "id": "test:rings_d",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 1,
+     "spread": 1,
+     "count": 10,
+     "salt": 0,
+     "preferred_biomes": [
+      "minecraft:river"
+     ]
+    }
+   }
+  },
+  {
+   "id": "test:rings_e",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 64,
+     "spread": 1023,
+     "count": 64,
+     "salt": 0,
+     "preferred_biomes": "#minecraft:stronghold_biased_to"
+    }
+   }
+  },
+  {
+   "id": "test:rings_f",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 3,
+     "spread": 2,
+     "count": 1,
+     "salt": 0,
+     "preferred_biomes": "minecraft:plains",
+     "exclusion_zone": {
+      "other_set": "minecraft:villages",
+      "chunk_count": 16
+     }
+    }
+   }
+  },
+  {
+   "id": "test:rings_nether",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:fortress",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 9,
+     "spread": 4,
+     "count": 40,
+     "salt": 0,
+     "preferred_biomes": [
+      "minecraft:basalt_deltas",
+      "minecraft:soul_sand_valley"
+     ]
+    }
+   }
+  },
+  {
+   "id": "test:rings_end",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:end_city",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:concentric_rings",
+     "distance": 7,
+     "spread": 3,
+     "count": 30,
+     "salt": 0,
+     "preferred_biomes": "#minecraft:is_end"
+    }
+   }
+  },
+  {
+   "id": "test:origin",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:stronghold",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:dimension_origin"
+    }
+   }
+  },
+  {
+   "id": "test:origin_nether",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:fortress",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:dimension_origin"
+    }
+   }
+  },
+  {
+   "id": "test:spread_linear_big",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 80,
+     "separation": 20,
+     "salt": 2147483647
+    }
+   }
+  },
+  {
+   "id": "test:spread_triangular_big",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 4096,
+     "separation": 0,
+     "salt": 5,
+     "spread_type": "triangular"
+    }
+   }
+  },
+  {
+   "id": "test:spread_sep0",
+   "json": {
+    "structures": [
+     {
+      "structure": "minecraft:village_plains",
+      "weight": 1
+     }
+    ],
+    "placement": {
+     "type": "minecraft:random_spread",
+     "spacing": 2,
+     "separation": 0,
+     "salt": 3
+    }
+   }
+  }
+ ]
+}

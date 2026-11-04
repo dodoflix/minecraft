@@ -33,6 +33,7 @@ pub mod noise_settings;
 pub mod noises;
 pub mod provider;
 pub mod random_state;
+pub mod structure_placement;
 pub mod synth;
 pub mod util;
 pub mod vertical_anchor;
