@@ -18,7 +18,7 @@ fn worldref_entities_round_trip() {
     let world = repo_root().join("run/servers/worldref/world/dimensions/minecraft");
     let mut checked = 0;
     let mut failures = Vec::new();
-    let level = ServerLevel::new(Identifier::parse("minecraft:overworld").unwrap());
+    let level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
     for dim in ["overworld", "the_nether", "the_end"] {
         let dir = world.join(dim).join("entities");
         if !dir.is_dir() {
