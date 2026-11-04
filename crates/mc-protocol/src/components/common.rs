@@ -363,3 +363,32 @@ pub fn flattened_compound_codec() -> Codec<mc_nbt::CompoundTag> {
 pub fn lenient_compound_codec() -> Codec<mc_nbt::CompoundTag> {
     flattened_compound_codec().with_alternative(&compound_tag_codec())
 }
+
+/// `CustomData.COMPOUND_TAG_CODEC`: `Codec.withAlternative(CompoundTag.CODEC, TagParser.FLATTENED_CODEC)`.
+pub fn custom_data_compound_tag_codec() -> Codec<mc_nbt::CompoundTag> {
+    compound_tag_codec().with_alternative(&flattened_compound_codec())
+}
+
+/// `UUIDUtil.CODEC`: an int array of exactly four ints.
+pub fn uuid_codec() -> Codec<uuid::Uuid> {
+    mc_dfu::INT_STREAM.comap_flat_map(
+        |ints: Vec<i32>| match <[i32; 4]>::try_from(&ints[..ints.len().min(4)]) {
+            Ok([a, b, c, d]) => {
+                let uuid = uuid::Uuid::from_u64_pair(
+                    ((a as u64) << 32) | (b as u32 as u64),
+                    ((c as u64) << 32) | (d as u32 as u64),
+                );
+                if ints.len() == 4 {
+                    DataResult::success(uuid)
+                } else {
+                    DataResult::error_partial(|| "Input is not a list of 4 ints".to_string(), uuid)
+                }
+            }
+            Err(_) => DataResult::error_str("Input is not a list of 4 ints"),
+        },
+        |u: &uuid::Uuid| {
+            let (most, least) = u.as_u64_pair();
+            vec![(most >> 32) as i32, most as i32, (least >> 32) as i32, least as i32]
+        },
+    )
+}

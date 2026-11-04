@@ -180,11 +180,32 @@ impl Encode for GameProfile {
         }
     }
 }
+/// `ByteBufCodecs.GAME_PROFILE_PROPERTIES` count: at most 16; a negative count (accepted by vanilla) reads no properties.
+pub(crate) fn read_property_count(input: &mut &[u8]) -> DecodeResult<usize> {
+    let count = read_varint(input)?;
+    if count > 16 {
+        return Err(DecodeError::Message(format!("{count} elements exceeded max size of: 16")));
+    }
+    Ok(usize::try_from(count).unwrap_or(0))
+}
+
+/// `ImmutableMultimap` iteration order of properties: keys by first insertion, values per key by insertion.
+pub(crate) fn group_properties_by_name(props: Vec<Property>) -> Vec<Property> {
+    let mut names: Vec<&str> = Vec::new();
+    for p in &props {
+        if !names.contains(&p.name.as_str()) {
+            names.push(&p.name);
+        }
+    }
+    let order: Vec<String> = names.into_iter().map(str::to_string).collect();
+    order.iter().flat_map(|n| props.iter().filter(move |p| &p.name == n).cloned().collect::<Vec<_>>()).collect()
+}
+
 impl Decode for GameProfile {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let id = Uuid::decode(input)?;
         let name = String::decode_bounded(input, 16)?;
-        let count = read_count(input, 16)?;
+        let count = read_property_count(input)?;
         let mut properties = Vec::with_capacity(count);
         for _ in 0..count {
             properties.push(Property {
@@ -193,7 +214,7 @@ impl Decode for GameProfile {
                 signature: Option::<String>::decode_bounded(input, 1024)?,
             });
         }
-        Ok(Self { id, name, properties })
+        Ok(Self { id, name, properties: group_properties_by_name(properties) })
     }
 }
 

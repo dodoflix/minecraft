@@ -260,6 +260,6 @@ public class ComponentGolden {
             }
          }
       }
-      Files.writeString(Path.of(args[1]), out.toString());
+      Files.write(Path.of(args[1]), out.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
    }
 }
