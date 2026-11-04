@@ -11,6 +11,7 @@
 pub mod attributes;
 pub mod dimensions;
 pub mod entity;
+pub mod equipment;
 pub mod factory;
 pub mod plain;
 pub mod player;

@@ -31,3 +31,4 @@ impl Entity for ServerPlayer {
         true
     }
 }
+pub mod inventory;
