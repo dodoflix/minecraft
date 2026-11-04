@@ -130,3 +130,5 @@ Imperative, lowercase summary, no trailing period; body explains why when non-ob
    network/disk input — malformed input must produce the same outcome as vanilla (usually a
    disconnect with vanilla's message).
 7. Keep `STATUS.md` updated with what your slice covers and what is known missing.
+8. **Pace (user constraint: usage limits).** Do not spawn sub-agents unless your task explicitly allows it. No
+   polling loops. Read only the vanilla ranges you need; run targeted tests while iterating and the full suite once.
