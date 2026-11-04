@@ -327,7 +327,7 @@ impl WorldgenRegistries {
 }
 
 /// `NormalNoise.Parameters.CODEC` (with its `validate`).
-fn parse_noise_parameters(value: &Value) -> LoadResult<NoiseParameters> {
+pub fn parse_noise_parameters(value: &Value) -> LoadResult<NoiseParameters> {
     let fields = Fields::new(value)?;
     let base_amplitude = fields
         .optional("base_amplitude", |v| {

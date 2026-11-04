@@ -1,5 +1,5 @@
-//! `net.minecraft.world.level.levelgen.feature.stateproviders`: `BlockStateProvider`, `SimpleStateProvider` and the type
-//! table. Each provider type lives in its own file and registers itself in [`BLOCK_STATE_PROVIDER_TYPES`].
+//! `net.minecraft.world.level.levelgen.feature.stateproviders`: `BlockStateProvider` and the type table. Each provider
+//! type lives in its own file and registers itself in [`BLOCK_STATE_PROVIDER_TYPES`].
 
 use super::codec::{Fields, LoadError, LoadResult, TypeEntry, decode_dispatch, parse_block_state};
 use super::registries::DecodeCtx;
@@ -9,6 +9,20 @@ use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
 use serde_json::Value;
 use std::sync::Arc;
+
+pub mod copy_properties_provider;
+pub mod dual_noise_provider;
+pub mod noise_based_state_provider;
+pub mod noise_provider;
+pub mod noise_threshold_provider;
+pub mod random_block_provider;
+pub mod randomized_int_state_provider;
+pub mod rotated_block_provider;
+pub mod rule_based_state_provider;
+pub mod simple_state_provider;
+pub mod weighted_state_provider;
+
+pub use simple_state_provider::SimpleStateProvider;
 
 pub trait BlockStateProvider: Send + Sync {
     /// `getState(level, random, pos)`.
@@ -20,38 +34,26 @@ pub trait BlockStateProvider: Send + Sync {
     }
 }
 
-/// `SimpleStateProvider`.
-pub struct SimpleStateProvider {
-    pub state: BlockState,
-}
-
-impl BlockStateProvider for SimpleStateProvider {
-    fn get_state(&self, _level: &dyn LevelAccessor, _random: &mut dyn RandomSource, _pos: BlockPos) -> BlockState {
-        self.state
-    }
-}
-
 #[linkme::distributed_slice]
 pub static BLOCK_STATE_PROVIDER_TYPES: [TypeEntry<dyn BlockStateProvider>];
 
-#[linkme::distributed_slice(BLOCK_STATE_PROVIDER_TYPES)]
-static SIMPLE_STATE_PROVIDER: TypeEntry<dyn BlockStateProvider> = TypeEntry {
-    name: "simple_state_provider",
-    decode: |fields, _| Ok(Arc::new(SimpleStateProvider { state: fields.required("state", parse_block_state)? })),
-};
-
-/// `BlockStateProvider.DIRECT_CODEC`: `Codec.xor(BlockState.FULL_CODEC, TYPED_CODEC)` (an object with `type` is a typed
-/// provider, an object with `id` a block state, i.e. a `SimpleStateProvider`).
+/// `BlockStateProvider.DIRECT_CODEC`: `Codec.xor(BlockState.FULL_CODEC, TYPED_CODEC)` mapped to a provider. `FULL_CODEC`
+/// reads a block state from an object with `id`, `TYPED_CODEC` a provider from an object with `type`; exactly one of
+/// them must succeed (a `SimpleStateProvider` results from the former).
 pub fn decode_direct(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn BlockStateProvider>> {
     let fields = Fields::new(value)?;
-    let typed = fields.get("type").is_some().then(|| decode_dispatch(value, ctx, &BLOCK_STATE_PROVIDER_TYPES));
-    let full = fields.get("id").is_some().then(|| parse_block_state(value));
-    match (typed, full) {
-        (Some(Ok(_)), Some(Ok(_))) => Err(LoadError::new("Both alternatives read successfully, can not pick the correct one")),
-        (Some(Ok(provider)), _) => Ok(provider),
-        (_, Some(Ok(state))) => Ok(Arc::new(SimpleStateProvider { state })),
-        (Some(Err(e)), _) => Err(e),
-        (None, Some(Err(e))) => Err(e),
-        (None, None) => Err(LoadError::new("No key id in MapLike")),
+    let full = match fields.get("id") {
+        Some(_) => parse_block_state(value),
+        None => Err(LoadError::new("No key id in MapLike")),
+    };
+    let typed = match fields.get("type") {
+        Some(_) => decode_dispatch(value, ctx, &BLOCK_STATE_PROVIDER_TYPES),
+        None => Err(LoadError::new("No key type in MapLike")),
+    };
+    match (full, typed) {
+        (Ok(_), Ok(_)) => Err(LoadError::new("Both alternatives read successfully, can not pick the correct one")),
+        (Ok(state), Err(_)) => Ok(Arc::new(SimpleStateProvider { state })),
+        (Err(_), Ok(provider)) => Ok(provider),
+        (Err(first), Err(second)) => Err(LoadError::new(format!("{first}; {second}"))),
     }
 }

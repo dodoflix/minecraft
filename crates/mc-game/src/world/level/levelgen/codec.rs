@@ -6,7 +6,7 @@ pub use mc_worldgen::json::*;
 
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
-use mc_core::pos::BlockPos;
+use mc_core::pos::{BlockPos, Vec3i};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::Fluid;
 use mc_worldgen::noise_settings::BlockStateSpec;
@@ -39,16 +39,6 @@ pub fn decode_dispatch<T: ?Sized + 'static>(
 /// `BlockState.CODEC` (`{Name?id, properties}` / bare id) -> the state.
 pub fn parse_block_state(value: &Value) -> LoadResult<BlockState> {
     BlockStateSpec::from_json(value)?.resolve()
-}
-
-/// `Codec.floatRange(min, max)`.
-pub fn parse_float_range(value: &Value, min: f32, max: f32) -> LoadResult<f32> {
-    let v = parse_f32(value)?;
-    if v >= min && v <= max {
-        Ok(v)
-    } else {
-        Err(LoadError::new(format!("Value {v:?} outside of range [{min:?}:{max:?}]")))
-    }
 }
 
 /// `BuiltInRegistries.BLOCK.byNameCodec()`.
@@ -106,6 +96,17 @@ impl BlockSet {
             BlockSet::Tag(_, set) => set.is_some_and(|s| s.contains(block)),
         }
     }
+
+    /// `HolderSet.contents()` in vanilla order (list order; tag file order with nested tags expanded in place):
+    /// what `getRandomElement` indexes into.
+    pub fn ordered_blocks(&self) -> Vec<Block> {
+        match self {
+            BlockSet::Blocks(blocks) => blocks.clone(),
+            BlockSet::Tag(tag, _) => mc_data::tags::names("block", &tag.to_string())
+                .map(|names| names.iter().filter_map(|n| Block::by_name(n)).collect())
+                .unwrap_or_default(),
+        }
+    }
 }
 
 /// `HolderSet<Fluid>`: same shape as [`BlockSet`].
@@ -134,5 +135,61 @@ impl FluidSet {
             FluidSet::Fluids(fluids) => fluids.contains(&fluid),
             FluidSet::Tag(_, set) => set.is_some_and(|s| s.contains(fluid)),
         }
+    }
+}
+
+/// `Codec.LONG` (a number's `longValue()`: integers wrap to 64 bits, fractions truncate).
+pub fn parse_long(value: &Value) -> LoadResult<i64> {
+    match value {
+        Value::Number(n) => n
+            .as_i64()
+            .or_else(|| n.as_u64().map(|v| v as i64))
+            .or_else(|| {
+                // beyond 2^116 an f64 integer is a multiple of 2^64 (BigDecimal.longValue keeps the low 64 bits: 0); `as i128` saturates at 2^127
+                n.as_f64().map(|v| if v.abs() >= 2f64.powi(116) { 0 } else { v.trunc() as i128 as i64 })
+            })
+            .ok_or_else(|| LoadError::new("number out of range")),
+        _ => Err(LoadError::new("expected number")),
+    }
+}
+
+/// `Codec.floatRange(min, max)`: `Float.compareTo` bounds (so `-0.0` is below `0.0`).
+pub fn parse_float_range(value: &Value, min: f32, max: f32) -> LoadResult<f32> {
+    let v = parse_f32(value)?;
+    if v.total_cmp(&min).is_ge() && v.total_cmp(&max).is_le() {
+        Ok(v)
+    } else {
+        Err(LoadError::new(format!(
+            "Value {} outside of range [{}:{}]",
+            mc_core::math::java::java_float_to_string(v),
+            mc_core::math::java::java_float_to_string(min),
+            mc_core::math::java::java_float_to_string(max)
+        )))
+    }
+}
+
+/// `ExtraCodecs.POSITIVE_FLOAT`.
+pub fn parse_positive_float(value: &Value) -> LoadResult<f32> {
+    let v = parse_f32(value)?;
+    if v.total_cmp(&0.0).is_gt() && v.total_cmp(&f32::MAX).is_le() {
+        Ok(v)
+    } else {
+        Err(LoadError::new(format!("Value must be positive: {}", mc_core::math::java::java_float_to_string(v))))
+    }
+}
+
+/// `Vec3i.CODEC`.
+pub fn parse_vec3i(value: &Value) -> LoadResult<Vec3i> {
+    parse_block_pos(value).map(Vec3i::from)
+}
+
+/// `Vec3i.offsetCodec(maxOffsetPerAxis)`.
+pub fn parse_vec3i_offset(value: &Value, max_offset_per_axis: i32) -> LoadResult<Vec3i> {
+    let v = parse_vec3i(value)?;
+    // `Math.abs(Integer.MIN_VALUE)` stays negative in Java and therefore passes the check.
+    if v.x.wrapping_abs() <= max_offset_per_axis && v.y.wrapping_abs() <= max_offset_per_axis && v.z.wrapping_abs() <= max_offset_per_axis {
+        Ok(v)
+    } else {
+        Err(LoadError::new(format!("Position out of range, expected at most {max_offset_per_axis}: Vec3i{{x={}, y={}, z={}}}", v.x, v.y, v.z)))
     }
 }

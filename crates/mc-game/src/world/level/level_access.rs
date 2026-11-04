@@ -72,6 +72,16 @@ pub trait LevelReader: BlockGetter {
 
 /// `LevelAccessor` (+ `ScheduledTickAccess`): mutation entry points shared by `ServerLevel` and `WorldGenRegion`.
 pub trait LevelAccessor: LevelReader {
+    /// `this instanceof WorldGenLevel`: the generation view of this level when it is one (`WorldGenerationContext.of`,
+    /// the biome lookup of block predicates). Implemented by the `WorldGenLevel` implementors.
+    fn as_world_gen_level(&self) -> Option<&dyn crate::world::level::levelgen::WorldGenLevel> {
+        None
+    }
+    /// `isUnobstructed(null, Shapes.block().move(pos))`: no entity blocks building in the block at `pos` (a
+    /// `WorldGenRegion` has no entities).
+    fn is_unobstructed_block(&self, _pos: BlockPos) -> bool {
+        true
+    }
     /// `setBlock(pos, state, flags, updateLimit)`; returns whether the block changed.
     fn set_block(&mut self, pos: BlockPos, state: BlockState, flags: u32, update_limit: i32) -> bool;
     fn remove_block(&mut self, pos: BlockPos, moved_by_piston: bool) -> bool;
