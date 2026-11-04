@@ -593,6 +593,21 @@ pub trait Entity: Any {
 
     // ---- identity / classification -------------------------------------------------------------------------
 
+    /// `LivingEntity` data (`asLivingEntity()`), `None` for non-living entities.
+    fn living(&self) -> Option<&super::living::LivingEntityData> {
+        None
+    }
+    fn living_mut(&mut self) -> Option<&mut super::living::LivingEntityData> {
+        None
+    }
+    /// `Player` data, `None` for non-players.
+    fn player(&self) -> Option<&super::player::PlayerData> {
+        None
+    }
+    fn player_mut(&mut self) -> Option<&mut super::player::PlayerData> {
+        None
+    }
+
     /// `instanceof Player`.
     fn is_player(&self) -> bool {
         false

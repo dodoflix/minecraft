@@ -10,9 +10,11 @@
 
 pub mod attributes;
 pub mod dimensions;
+pub mod effect;
 pub mod entity;
 pub mod equipment;
 pub mod factory;
+pub mod living;
 pub mod plain;
 pub mod player;
 pub mod synched_data;

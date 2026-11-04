@@ -127,6 +127,11 @@ impl ServerLevel {
         Some(result)
     }
 
+    /// `with_entity` for a player: `f` gets the `ServerPlayer` (taken out of the level while it runs).
+    pub fn with_player<R>(&mut self, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut crate::world::entity::ServerPlayer) -> R) -> Option<R> {
+        self.with_entity(id, |level, e| e.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>().map(|p| f(level, p))).flatten()
+    }
+
     /// `entityTickList.forEach(f)` with vanilla's snapshot semantics: every entity that was in the tick list when
     /// the walk started and still exists is taken out, passed to `f`, and put back.
     pub fn for_each_ticking(&mut self, mut f: impl FnMut(&mut ServerLevel, &mut dyn Entity)) {

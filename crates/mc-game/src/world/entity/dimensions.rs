@@ -31,6 +31,12 @@ impl EntityAttachments {
         }
     }
 
+    /// `Builder.attach(VEHICLE, point)` on top of the defaults.
+    pub fn with_vehicle(mut self, point: Vec3) -> Self {
+        self.attachments[EntityAttachment::Vehicle as usize] = vec![point];
+        self
+    }
+
     pub fn scale(&self, x: f32, y: f32, z: f32) -> Self {
         let f = |list: &Vec<Vec3>| list.iter().map(|v| v.multiply_xyz(f64::from(x), f64::from(y), f64::from(z))).collect::<Vec<_>>();
         Self { attachments: [f(&self.attachments[0]), f(&self.attachments[1]), f(&self.attachments[2]), f(&self.attachments[3])] }
