@@ -12,6 +12,7 @@ mc-brigadier = { path = "../mc-brigadier" }
 mc-data = { path = "../mc-data" }
 mc-protocol = { path = "../mc-protocol" }
 mc-worldgen = { path = "../mc-worldgen" }
+mc-world = { path = "../mc-world" }
 linkme = "0.3"
 log = "0.4"
 serde = { version = "1", features = ["derive"] }

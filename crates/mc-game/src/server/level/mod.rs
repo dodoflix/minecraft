@@ -1,1 +1,3 @@
-//! server::level
+//! `net.minecraft.server.level`: `ServerLevel`, chunk map, tickets, entity tracking, `ServerPlayer` glue.
+mod server_level;
+pub use server_level::ServerLevel;
