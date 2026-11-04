@@ -79,6 +79,10 @@ pub trait BlockStateExt: Copy {
     fn get_offset(self, pos: BlockPos) -> Vec3;
     /// `withPropertiesOf(source)`: copy every property both blocks have.
     fn with_properties_of(self, source: BlockState) -> BlockState;
+    /// `getPostProcessPos(level, pos)` (`BlockBehaviour.Properties.postProcess`): the position whose generation
+    /// post-processing `WorldGenRegion.setBlock` marks (only brown/red mushroom: the block itself; soul sand/magma block:
+    /// the block above), `None` for every other block.
+    fn get_post_process_pos(self, level: &dyn BlockGetter, pos: BlockPos) -> Option<BlockPos>;
 }
 
 impl BlockStateExt for BlockState {
@@ -260,6 +264,13 @@ impl BlockStateExt for BlockState {
             }
         }
         result
+    }
+    fn get_post_process_pos(self, _level: &dyn BlockGetter, pos: BlockPos) -> Option<BlockPos> {
+        match self.block() {
+            Block::BROWN_MUSHROOM | Block::RED_MUSHROOM => Some(pos),
+            Block::SOUL_SAND | Block::MAGMA_BLOCK => Some(pos.above()),
+            _ => None,
+        }
     }
 }
 

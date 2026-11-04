@@ -278,10 +278,10 @@ impl ChunkAccess {
         self.block_entities.keys().copied().collect()
     }
 
-    /// `setBlockEntityNbt(tag)`.
+    /// `setBlockEntityNbt(tag)`: `pendingBlockEntities.put` (an existing entry is replaced; live instances do not exist here).
     pub fn set_block_entity_nbt(&mut self, tag: CompoundTag) {
         let pos = block_entity_pos_from_tag(self.pos, &tag);
-        self.block_entities.entry(pos).or_insert(tag);
+        self.block_entities.insert(pos, tag);
     }
 
     pub fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<&CompoundTag> {

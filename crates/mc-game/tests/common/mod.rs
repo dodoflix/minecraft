@@ -127,3 +127,5 @@ pub fn write_broken_packs(world: &Path) {
     write(dp.join("broken/data/test/damage_type/bad_syntax.json"), "{\"message_id\": ");
     write(dp.join("broken/data/test/chat_type/missing_field.json"), r#"{"chat": {"translation_key": "x", "parameters": []}}"#);
 }
+
+pub mod feature_harness;

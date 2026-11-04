@@ -72,6 +72,11 @@ impl WorldGenRegion {
         self.center.get_chessboard_distance_xz(x, z) <= self.read_radius && self.chunks.contains_key(&ChunkPos::pack_xz(x, z))
     }
 
+    /// The region's entry for the chunk (lent or read-only snapshot), without any radius check.
+    pub fn gen_chunk(&self, x: i32, z: i32) -> Option<&GenChunk> {
+        self.chunks.get(&ChunkPos::pack_xz(x, z))
+    }
+
     pub fn get_chunk(&self, x: i32, z: i32) -> Option<&ProtoChunk> {
         self.chunks.get(&ChunkPos::pack_xz(x, z)).map(GenChunk::proto)
     }
