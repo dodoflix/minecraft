@@ -162,8 +162,7 @@ impl OverworldBiomeBuilder {
             0.0,
             "mushroom_fields",
         );
-        for temperature_index in 0..self.temperatures.len() {
-            let temperature = self.temperatures[temperature_index];
+        for (temperature_index, &temperature) in self.temperatures.iter().enumerate() {
             self.add_surface_biome(
                 biomes,
                 temperature,
@@ -804,10 +803,10 @@ impl OverworldBiomeBuilder {
     }
 
     fn pick_plateau_biome(&self, temperature_index: usize, humidity_index: usize, weirdness: Parameter) -> BiomeKey {
-        if weirdness.max >= 0 {
-            if let Some(variant) = PLATEAU_BIOMES_VARIANT[temperature_index][humidity_index] {
-                return variant;
-            }
+        if weirdness.max >= 0
+            && let Some(variant) = PLATEAU_BIOMES_VARIANT[temperature_index][humidity_index]
+        {
+            return variant;
         }
         PLATEAU_BIOMES[temperature_index][humidity_index]
     }

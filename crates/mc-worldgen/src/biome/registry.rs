@@ -311,7 +311,7 @@ impl BiomeRegistry {
     /// Loads every `worldgen/biome` entry of the data source (in sorted identifier order).
     pub fn load(registries: &WorldgenRegistries) -> LoadResult<BiomeRegistry> {
         let mut keys = registries.list(BIOME_REGISTRY);
-        keys.sort_by(|a, b| a.to_string().cmp(&b.to_string()));
+        keys.sort_by_key(|key| key.to_string());
         let mut biomes = Vec::with_capacity(keys.len());
         for key in &keys {
             let json = registries

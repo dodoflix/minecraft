@@ -455,8 +455,8 @@ impl RTree {
         assert!(!children.is_empty(), "SubTree needs at least one child");
         let mut bounds: [Option<Parameter>; PARAMETER_COUNT] = [None; PARAMETER_COUNT];
         for &child in children {
-            for d in 0..PARAMETER_COUNT {
-                bounds[d] = Some(nodes[child as usize].space[d].span_with(bounds[d]));
+            for (bound, parameter) in bounds.iter_mut().zip(&nodes[child as usize].space) {
+                *bound = Some(parameter.span_with(*bound));
             }
         }
         bounds.map(|b| b.expect("at least one child"))

@@ -128,7 +128,7 @@ fn noise_settings_shapes() {
     assert_eq!(overworld.default_fluid.name, id("minecraft:water"));
     assert!(overworld.default_block.properties.is_empty());
     assert_eq!(overworld.material_rule, json!("minecraft:overworld"));
-    assert_eq!(overworld.spawn_target.as_array().map(Vec::len), Some(2));
+    assert_eq!(overworld.spawn_target.len(), 2);
     let labels: Vec<&str> = overworld
         .debug_functions
         .iter()

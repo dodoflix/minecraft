@@ -70,6 +70,7 @@ pub trait BiomeSource: Send + Sync {
     }
 
     /// `findBiomeHorizontal(x, y, z, searchRadius, allowed, random, randomState)`.
+    #[allow(clippy::too_many_arguments)]
     fn find_biome_horizontal(
         &self,
         x: i32,
@@ -158,6 +159,7 @@ pub trait BiomeSource: Send + Sync {
 
     /// `findClosestBiome3d(origin, searchRadius, sampleResolutionHorizontal, sampleResolutionVertical, allowed,
     /// randomState, level)`; `level` supplies `getMinY()`/`getMaxY()`.
+    #[allow(clippy::too_many_arguments)]
     fn find_closest_biome_3d(
         &self,
         origin: BlockPos,
