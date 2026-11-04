@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level`.
 pub mod block;
 pub mod collision;
+pub mod entity;
 pub mod flags;
 pub mod gameevent;
 pub mod gamerules;

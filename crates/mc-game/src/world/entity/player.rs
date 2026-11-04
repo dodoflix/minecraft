@@ -24,4 +24,10 @@ impl Entity for ServerPlayer {
     fn as_any_mut(&mut self) -> &mut dyn Any {
         self
     }
+    fn is_player(&self) -> bool {
+        true
+    }
+    fn is_always_ticking(&self) -> bool {
+        true
+    }
 }
