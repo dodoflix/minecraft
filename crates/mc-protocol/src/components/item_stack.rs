@@ -50,7 +50,7 @@ pub struct ItemStack {
 impl PartialEq for ItemStack {
     /// Structural equality (vanilla `ItemStack` has identity equality; use [`ItemStack::matches`] for gameplay).
     fn eq(&self, other: &Self) -> bool {
-        self.item == other.item && self.count == other.count && self.components == other.components
+        self.item == other.item && self.count() == other.count() && self.components == other.components
     }
 }
 
@@ -86,20 +86,21 @@ impl ItemStack {
     pub fn is(&self, item: Item) -> bool {
         self.item() == item
     }
+    /// `getCount()`: 0 for an empty stack.
     pub fn count(&self) -> i32 {
-        self.count
+        if self.is_empty() { 0 } else { self.count }
     }
     pub fn set_count(&mut self, count: i32) {
         self.count = count;
     }
     pub fn grow(&mut self, amount: i32) {
-        self.set_count(self.count.wrapping_add(amount));
+        self.set_count(self.count().wrapping_add(amount));
     }
     pub fn shrink(&mut self, amount: i32) {
         self.grow(amount.wrapping_neg());
     }
     pub fn limit_size(&mut self, max: i32) {
-        if !self.is_empty() && self.count > max {
+        if !self.is_empty() && self.count() > max {
             self.count = max;
         }
     }
@@ -167,7 +168,7 @@ impl ItemStack {
     }
     /// `split(amount)`.
     pub fn split(&mut self, amount: i32) -> ItemStack {
-        let real = amount.min(self.count);
+        let real = amount.min(self.count());
         let result = self.copy_with_count(real);
         self.shrink(real);
         result
@@ -199,7 +200,7 @@ impl ItemStack {
 
     /// `ItemStack.matches(a, b)`: equal counts and `isSameItemSameComponents`.
     pub fn matches(a: &ItemStack, b: &ItemStack) -> bool {
-        a.count == b.count && Self::is_same_item_same_components(a, b)
+        a.count() == b.count() && Self::is_same_item_same_components(a, b)
     }
     pub fn is_same_item(a: &ItemStack, b: &ItemStack) -> bool {
         a.item() == b.item()
@@ -211,7 +212,7 @@ impl ItemStack {
         a.is_empty() && b.is_empty() || a.components == b.components
     }
     pub fn matches_ignoring_components(a: &ItemStack, b: &ItemStack, ignored: impl Fn(DataComponentType) -> bool) -> bool {
-        if a.count != b.count || a.item() != b.item() {
+        if a.count() != b.count() || a.item() != b.item() {
             return false;
         }
         if a.is_empty() && b.is_empty() {
@@ -340,7 +341,7 @@ fn build_codec() -> Codec<ItemStack> {
     .codec()
     .xmap(
         |r: Raw| ItemStack::with_patch(r.id, r.count, &r.components),
-        |s: &ItemStack| Raw { id: s.item(), count: s.count, components: s.get_components_patch() },
+        |s: &ItemStack| Raw { id: s.item(), count: s.count(), components: s.get_components_patch() },
     )
 }
 

@@ -204,8 +204,9 @@ impl Slot {
                 self.set_by_player(env, part);
             } else if ItemStack::is_same_item_same_components(&slot_stack, &input) {
                 input.shrink(transferable);
-                let mut grown = slot_stack;
-                grown.grow(transferable);
+                // Java grows the stored object in place, so `previous` seen by `setByPlayer` is already grown.
+                self.with_item_mut(env, |s| s.grow(transferable));
+                let grown = self.get_item(env);
                 self.set_by_player(env, grown);
             }
         }
