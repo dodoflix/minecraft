@@ -12,10 +12,10 @@ use std::hash::{Hash, Hasher};
 /// `Math.min(float, float)`: NaN-propagating, `-0.0 < 0.0`.
 #[inline]
 pub fn jmin(a: f32, b: f32) -> f32 {
-    if a != a {
+    if a.is_nan() {
         return a;
     }
-    if b != b {
+    if b.is_nan() {
         return b;
     }
     if a == 0.0 && b == 0.0 {
@@ -28,10 +28,10 @@ pub fn jmin(a: f32, b: f32) -> f32 {
 /// `Math.max(float, float)`: NaN-propagating, `-0.0 < 0.0`.
 #[inline]
 pub fn jmax(a: f32, b: f32) -> f32 {
-    if a != a {
+    if a.is_nan() {
         return a;
     }
-    if b != b {
+    if b.is_nan() {
         return b;
     }
     if a == 0.0 && b == 0.0 {
@@ -43,7 +43,7 @@ pub fn jmax(a: f32, b: f32) -> f32 {
 /// `Math.signum(float)`: NaN -> NaN, +-0.0 -> same zero.
 #[inline]
 pub fn signum(x: f32) -> f32 {
-    if x == 0.0 || x != x {
+    if x == 0.0 || x.is_nan() {
         x
     } else if x > 0.0 {
         1.0
@@ -208,6 +208,7 @@ impl PartialEq for Interval {
     }
 }
 
+#[allow(clippy::should_implement_trait)]
 impl Interval {
     pub const NAI: Interval = Interval {
         min: f32::NAN,

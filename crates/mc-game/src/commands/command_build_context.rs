@@ -86,3 +86,41 @@ impl HolderLookupProvider for StaticRegistries {
         mc_data::registry::registries::ALL.iter().map(|r| r.name().to_owned()).collect()
     }
 }
+
+/// The server's registries (`RegistryAccess`) as a lookup provider: what `CommandBuildContext.simple(registryAccess, ..)`
+/// wraps.
+pub struct AccessRegistries(pub crate::registry::access::RegistryAccess);
+
+struct AccessRegistryView(Arc<crate::registry::access::Registry>);
+
+impl RegistryView for AccessRegistryView {
+    fn contains(&self, id: &Identifier) -> bool {
+        self.0.contains(id)
+    }
+
+    fn element_ids(&self) -> Vec<Identifier> {
+        self.0.names()
+    }
+
+    fn tag_ids(&self) -> Vec<Identifier> {
+        self.0.tags().map(|(id, _)| id.clone()).collect()
+    }
+
+    fn has_tag(&self, tag: &Identifier) -> bool {
+        self.0.tag(tag).is_some()
+    }
+
+    fn tag_elements(&self, tag: &Identifier) -> Option<Vec<Identifier>> {
+        self.0.tag(tag).map(|ids| ids.iter().filter_map(|i| self.0.name_of(*i)).collect())
+    }
+}
+
+impl HolderLookupProvider for AccessRegistries {
+    fn lookup(&self, registry_key: &str) -> Option<Arc<dyn RegistryView>> {
+        self.0.registry(registry_key).map(|r| Arc::new(AccessRegistryView(r.clone())) as Arc<dyn RegistryView>)
+    }
+
+    fn list_registry_keys(&self) -> Vec<String> {
+        self.0.registries().map(|r| r.key().to_owned()).collect()
+    }
+}

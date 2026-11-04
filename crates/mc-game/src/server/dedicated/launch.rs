@@ -68,8 +68,26 @@ pub fn launch(options: ServerOptions, settings: DedicatedServerSettings) -> i32 
     }
 }
 
-fn start(options: ServerOptions, settings: DedicatedServerSettings) -> Result<i32, String> {
-    install_panic_hook();
+/// Everything `start` builds before the server thread is spawned.
+struct Prepared {
+    shared: Arc<ServerShared>,
+    tasks: std::sync::mpsc::Receiver<crate::server::shared::TickTask>,
+    init: ServerInit,
+    stop_signal: ServerStopSignal,
+}
+
+/// Builds the `MinecraftServer` of `options` on the calling thread without running it (tests, tooling): `None` when
+/// the launch stops early like `start` does (logged).
+pub fn create_server(options: ServerOptions, settings: DedicatedServerSettings) -> Result<Option<MinecraftServer>, String> {
+    let Some(Prepared { shared, tasks, init, .. }) = prepare(&options, settings)? else { return Ok(None) };
+    let mut server = MinecraftServer::new(shared, tasks, init)?;
+    server.port = options.port;
+    server.is_demo = options.demo;
+    server.server_id = options.server_id.clone();
+    Ok(Some(server))
+}
+
+fn prepare(options: &ServerOptions, settings: DedicatedServerSettings) -> Result<Option<Prepared>, String> {
     let universe = PathBuf::from(&options.universe);
     let name_to_id_cache = Arc::new(CachedUserNameToIdResolver::new(Arc::new(NoProfileLookup), universe.join("usercache.json")));
     let notification_manager = Arc::new(NotificationManager::new());
@@ -83,23 +101,23 @@ fn start(options: ServerOptions, settings: DedicatedServerSettings) -> Result<i3
             Ok(tag) => tag,
             Err(e) => {
                 log::error!("Failed to load world data. World files may be corrupted. Shutting down.\n{e}");
-                return Ok(0);
+                return Ok(None);
             }
         };
         let summary = match access.fix_and_get_summary_from_tag(&unfixed) {
             Ok(summary) => summary,
             Err(e) => {
                 log::error!("Failed to load world data. World files may be corrupted. Shutting down.\n{e}");
-                return Ok(0);
+                return Ok(None);
             }
         };
         if summary.requires_manual_conversion {
             log::info!("This world must be opened in an older version (like 1.6.4) to be safely converted");
-            return Ok(0);
+            return Ok(None);
         }
         if !summary.is_compatible() {
             log::info!("This world was created by an incompatible version.");
-            return Ok(0);
+            return Ok(None);
         }
         if requires_file_fixing(get_data_version(&unfixed)) {
             // `DataFixers.getFileFixer().fix(..)`: the file fixer steps are not ported.
@@ -125,14 +143,14 @@ fn start(options: ServerOptions, settings: DedicatedServerSettings) -> Result<i3
     let mut pack_config = PackConfig { pack_repository: &mut pack_repository, initial_data_config: data_config_to_use, safe_mode, init_mode };
     let loaded = load(
         &mut pack_config,
-        |context| world_data_supplier(context, &access, level_data_tag.as_ref(), &properties, &options),
+        |context| world_data_supplier(context, &access, level_data_tag.as_ref(), &properties, options),
         WorldStem::new,
     );
     let (_selected_config, world_stem) = match loaded {
         Ok(loaded) => loaded,
         Err(e) => {
             log_load_error(&e);
-            return Ok(0);
+            return Ok(None);
         }
     };
 
@@ -170,6 +188,12 @@ fn start(options: ServerOptions, settings: DedicatedServerSettings) -> Result<i3
         name_to_id_cache,
         level_load_listener: Box::new(LoggingLevelLoadListener::for_dedicated_server()),
     };
+    Ok(Some(Prepared { shared, tasks, init, stop_signal }))
+}
+
+fn start(options: ServerOptions, settings: DedicatedServerSettings) -> Result<i32, String> {
+    install_panic_hook();
+    let Some(Prepared { shared, tasks, init, stop_signal }) = prepare(&options, settings)? else { return Ok(0) };
     let (port, demo, server_id) = (options.port, options.demo, options.server_id.clone());
     let server_shared = shared.clone();
     let thread = std::thread::Builder::new()

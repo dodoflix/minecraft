@@ -226,3 +226,22 @@ pub fn handle_set_creative_mode_slot(inventory_menu: &mut dyn AbstractContainerM
         CreativeSlotResult::Ignored
     }
 }
+
+/// `ServerGamePacketListenerImpl.tryPickItem(stack)` (pick block/entity): selects or fetches `stack` in the hotbar and
+/// returns the new selected slot; the caller then sends `ClientboundSetHeldSlotPacket(slot)` and runs
+/// `inventoryMenu.broadcastChanges()`. The `isItemEnabled(enabledFeatures)` check is the caller's.
+pub fn try_pick_item(player: &mut dyn MenuPlayer, stack: ItemStack) -> i32 {
+    let infinite = player.has_infinite_materials();
+    let inventory = player.inventory_mut();
+    let existing = inventory.find_slot_matching_item(&stack);
+    if existing != -1 {
+        if crate::world::entity::player::inventory::is_hotbar_slot(existing) {
+            let _ = inventory.set_selected_slot(existing);
+        } else {
+            inventory.pick_slot(existing as usize);
+        }
+    } else if infinite {
+        inventory.add_and_pick_item(stack);
+    }
+    inventory.get_selected_slot()
+}

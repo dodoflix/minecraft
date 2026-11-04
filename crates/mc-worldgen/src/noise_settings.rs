@@ -86,7 +86,7 @@ impl BlockStateSpec {
     /// `BlockState.CODEC` (26.3): a bare block id (its default state) or `{id, properties?}` where
     /// `properties` is read leniently: a malformed `properties` value is ignored, and so is every property the
     /// block lacks or whose value is not a valid string for it (the state keeps the default value).
-    pub(crate) fn from_json(value: &Value) -> LoadResult<BlockStateSpec> {
+    pub fn from_json(value: &Value) -> LoadResult<BlockStateSpec> {
         if value.is_string() {
             return Ok(BlockStateSpec {
                 name: parse_identifier(value)?,

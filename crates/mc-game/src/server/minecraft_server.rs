@@ -168,6 +168,17 @@ impl MinecraftServer {
         let mut saved_data = SavedDataManager::new(mc_world::level_storage::SavedDataStorage::new(
             init.storage_source.get_level_path(mc_world::level_storage::LevelResource::DATA),
         ));
+        let registries = init.registries;
+        crate::server::players::server_join_host::set_send_commands(|server, player, permissions| {
+            crate::commands::send_commands(server, player, &permissions.into());
+        });
+        let commands = Arc::new(crate::commands::Commands::new(
+            crate::commands::CommandSelection::Dedicated,
+            &crate::commands::CommandBuildContext::simple(
+                Arc::new(crate::commands::command_build_context::AccessRegistries(registries.composite_access().clone())),
+                mc_world::level_storage::FeatureFlagSet::VANILLA,
+            ),
+        ));
         let game_rules_type = GameRules::type_(enabled_features);
         saved_data.compute_if_absent(&game_rules_type);
         let now = get_nanos();
@@ -194,19 +205,16 @@ impl MinecraftServer {
             saved_data,
             game_rules_type,
             saved_types: SavedDataTypes::new(),
-            registries: init.registries,
+            registries,
             resources: init.resources,
             pack_repository: init.pack_repository,
             level_load_listener: init.level_load_listener,
             tick_rate_manager: ServerTickRateManager::new(),
+            commands,
             player_list,
             notification_manager: init.notification_manager,
             name_to_id_cache: init.name_to_id_cache,
             dedicated: init.dedicated,
-            commands: Arc::new(crate::commands::Commands::new(
-                crate::commands::CommandSelection::Dedicated,
-                &crate::commands::CommandBuildContext::simple(Arc::new(crate::commands::command_build_context::StaticRegistries), mc_world::level_storage::FeatureFlagSet::VANILLA),
-            )),
             key_pair: None,
             connection: None,
             network_hooks: None,
@@ -300,6 +308,13 @@ impl MinecraftServer {
     /// `getGameRules().get(rule)`.
     pub fn game_rule<T: GameRuleValueType>(&mut self, rule: crate::world::level::gamerules::GameRule<T>) -> T {
         self.game_rules().get(rule)
+    }
+
+    /// [`Self::set_game_rule`] for a type-erased rule.
+    pub fn set_game_rule_value(&mut self, rule: crate::world::level::gamerules::AnyGameRule, value: crate::world::level::gamerules::GameRuleValue) {
+        if self.game_rules().try_set_value(rule, value) {
+            self.on_game_rule_changed(rule, value);
+        }
     }
 
     /// `getGameRules().set(rule, value, this)`: change a rule and run [`Self::on_game_rule_changed`].

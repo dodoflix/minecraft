@@ -1,5 +1,6 @@
 //! `net.minecraft.server.*`.
 pub mod chat;
+pub mod commands;
 pub mod dedicated;
 pub mod jsonrpc;
 pub mod level;

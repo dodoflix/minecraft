@@ -284,6 +284,8 @@ impl NoiseBasedAquifer {
                     let center_point = 3.0 + distance_from_barrier_edge_towards_middle;
                     if center_point > 0.0 { center_point / 3.0 } else { center_point / 10.0 }
                 };
+                // Negated comparisons keep Java's NaN behavior (NaN counts as inside the range).
+                #[allow(clippy::neg_cmp_op_on_partial_ord)]
                 let noise_value = if !(gradient < -2.0) && !(gradient > 2.0) {
                     let current_noise_value = *barrier_noise_value;
                     if current_noise_value.is_nan() {

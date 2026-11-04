@@ -478,10 +478,10 @@ impl SamplerContext {
             if cell.value_key == cache_key && !cell.value.is_nan() {
                 return cell.value;
             }
-            if let (Some(buffer), Some(volume)) = (&cell.buffer, &cell.volume) {
-                if let Some(index) = volume.index_of_block(block_x, block_y, block_z) {
-                    return buffer.get(index);
-                }
+            if let (Some(buffer), Some(volume)) = (&cell.buffer, &cell.volume)
+                && let Some(index) = volume.index_of_block(block_x, block_y, block_z)
+            {
+                return buffer.get(index);
             }
         }
         let value = input.sample_value(self, block_x, block_y, block_z);

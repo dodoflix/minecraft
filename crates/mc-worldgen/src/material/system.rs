@@ -208,10 +208,10 @@ impl MaterialSystem {
                         stone_above_depth += 1;
                         let stone_below_depth = y - next_ceiling_stone_y + 1;
                         context.update_y(stone_above_depth, stone_below_depth, water_height, y);
-                        if y >= min_y && y <= max_y {
-                            if let Some(state) = rule.try_apply(&mut context, block_x, y, block_z) {
-                                column.set_block(y, state);
-                            }
+                        if (min_y..=max_y).contains(&y)
+                            && let Some(state) = rule.try_apply(&mut context, block_x, y, block_z)
+                        {
+                            column.set_block(y, state);
                         }
                     }
                     y -= 1;
@@ -295,6 +295,8 @@ impl MaterialSystem {
             (f64::from(self.badlands_surface_noise.get3(x, 0.0, z)) * 8.25).abs(),
             f64::from(self.badlands_pillar_noise.get3(x * 0.2, 0.0, z * 0.2) * 15.0f32),
         );
+        // NaN-aware like Java: only a NaN or positive value gets here.
+        #[allow(clippy::neg_cmp_op_on_partial_ord)]
         if !(pillar_buffer <= 0.0) {
             let pillar_floor =
                 (f64::from(self.badlands_pillar_roof_noise.get3(x * 0.75, 0.0, z * 0.75)) * 1.5).abs();
@@ -340,6 +342,7 @@ impl MaterialSystem {
             (f64::from(self.iceberg_surface_noise.get3(x, 0.0, z)) * 8.25).abs(),
             f64::from(self.iceberg_pillar_noise.get3(x * 1.28, 0.0, z * 1.28) * 15.0f32),
         );
+        #[allow(clippy::neg_cmp_op_on_partial_ord)]
         if !(iceberg <= 1.8) {
             let iceberg_roof =
                 (f64::from(self.iceberg_pillar_roof_noise.get3(x * 1.17, 0.0, z * 1.17)) * 1.5).abs();
@@ -351,6 +354,7 @@ impl MaterialSystem {
                 top -= 2.0;
             }
 
+            #[allow(clippy::neg_cmp_op_on_partial_ord)]
             if !(top <= 2.0) {
                 let sea_level = f64::from(self.sea_level);
                 let extension_bottom = sea_level - top - 7.0;

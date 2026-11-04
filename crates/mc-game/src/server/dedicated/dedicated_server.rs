@@ -90,6 +90,8 @@ impl MinecraftServer {
     /// `DedicatedServer.initServer`: everything between the thread start and the first tick. `Ok(false)` = failed to
     /// initialize (vanilla: `IllegalStateException("Failed to initialize server")`).
     pub(in crate::server) fn init_server(&mut self) -> io::Result<bool> {
+        crate::commands::BrigadierExceptions::install();
+        crate::commands::install_text_validators();
         spawn_console_thread(self.dedicated.console_input.clone(), self.dedicated.stop_signal.clone())?;
         log::info!("Starting minecraft server version {}", mc_world::level_storage::WORLD_VERSION_NAME);
         log::info!("Loading properties");

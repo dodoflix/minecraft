@@ -225,7 +225,7 @@ impl AnyGameRule {
     }
 
     /// `IntegerArgumentType` bounds (`i32::MIN/MAX` for unbounded sides).
-    fn int_range(self) -> (i32, i32) {
+    pub fn int_range(self) -> (i32, i32) {
         (self.data().min.unwrap_or(i32::MIN), self.data().max.unwrap_or(i32::MAX))
     }
 

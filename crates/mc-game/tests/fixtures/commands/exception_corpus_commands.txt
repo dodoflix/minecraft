@@ -1,0 +1,53 @@
+stop extra
+gamemode
+gamemode foo
+gamemode creative @e[
+time
+time set
+time add
+time query
+time query foo
+tp ~ ~
+tp @a ~ ~ ~ foo
+tp 1 2 3 facing
+tp 1e100 0 0
+weather
+weather foo
+weather clear x
+difficulty x
+difficulty peaceful extra
+setblock
+setblock 1 2
+setblock ~ ~ ~ minecraft:nope
+setblock ~ ~ ~ stone[foo=bar]
+setblock ~ ~ ~ stone keep extra
+tellraw
+tellraw @a
+tellraw @a {bad
+tellraw @a "hi" extra
+ban
+kick
+op
+deop
+whitelist
+whitelist foo
+whitelist add
+pardon-ip
+seed extra
+msg
+msg @a
+me
+say
+list x y
+list uuids extra
+save-all foo
+gamerule
+gamerule nope
+gamerule doFireTick
+gamerule minecraft:fire_spread_radius_around_player x
+gamerule randomTickSpeed 99999999999
+foo
+foo bar
+@
+tellraw @a {"text":"a","click_event":{"action":"open_file","path":"/x"}}
+tellraw @a {"text":"a","color":"nope"}
