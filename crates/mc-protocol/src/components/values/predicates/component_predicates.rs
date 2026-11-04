@@ -9,6 +9,7 @@ use super::collection::CollectionPredicate;
 use super::matchers::DataComponentMatchers;
 use super::state::NbtPredicate;
 use crate::components::common::{component_codec, RegistrySet};
+use crate::components::values::decor::FireworkShape;
 use crate::components::holder::{holder_fixed_codec, holder_set_codec, registry_by_name_codec, HolderSet, NoDirect};
 use crate::packets::play::AttributeModifierOperation;
 use mc_core::ident::Identifier;
@@ -202,11 +203,6 @@ impl ItemPredicate {
 }
 
 // ---- fireworks ----------------------------------------------------------------------------------------------------
-
-crate::string_enum! {
-    /// `FireworkExplosion.Shape`.
-    pub enum FireworkShape { SmallBall = "small_ball", LargeBall = "large_ball", Star = "star", Creeper = "creeper", Burst = "burst" }
-}
 
 /// `FireworkExplosionPredicate.FireworkPredicate`.
 #[derive(Clone, Debug, PartialEq)]
