@@ -8,7 +8,7 @@ use mc_core::random::{
 };
 use mc_nbt::{CompoundTag, Tag};
 
-use super::{SavedData, SavedDataType};
+use super::SavedDataType;
 use crate::impl_saved_data;
 use crate::util::codec::{self, DataResult, DecodeResult, map_decoded};
 

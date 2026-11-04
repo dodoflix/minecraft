@@ -2,10 +2,9 @@
 
 use std::marker::PhantomData;
 
-use mc_brigadier::arguments::{ArgumentType, BoolArgumentType, IntegerArgumentType};
-use mc_brigadier::string_reader::StringReader;
+use mc_brigadier::arguments::{ArgumentType, BoolArgumentType, integer_range};
+use mc_brigadier::string_reader::{ImmutableStringReader, StringReader};
 use mc_core::ident::Identifier;
-use mc_data::RegistryId;
 use mc_data::misc::GAME_RULE_DATA;
 use mc_nbt::Tag;
 use mc_text::Component;
@@ -170,7 +169,7 @@ impl AnyGameRule {
 
     /// Every rule in registry order.
     pub fn all() -> impl Iterator<Item = AnyGameRule> {
-        (0..GAME_RULE_DATA.len() as u16).map(|i| AnyGameRule(mc_data::GameRule::from_id(i as u32)))
+        (0..GAME_RULE_DATA.len() as u32).map(|i| AnyGameRule(mc_data::GameRule::from_id(i).expect("in registry range")))
     }
 
     pub fn by_identifier(id: &Identifier) -> Option<AnyGameRule> {
@@ -236,7 +235,7 @@ impl AnyGameRule {
             GameRuleType::Bool => Box::new(BoolArgumentType::bool()),
             GameRuleType::Int => {
                 let (min, max) = self.int_range();
-                Box::new(IntegerArgumentType::integer_range(min, max))
+                Box::new(integer_range(min, max))
             }
         }
     }

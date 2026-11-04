@@ -98,14 +98,22 @@ impl GameRules {
     }
 
     pub fn set_value(&mut self, rule: AnyGameRule, value: GameRuleValue, server: Option<&mut dyn GameRuleListener>) {
+        if self.try_set_value(rule, value)
+            && let Some(server) = server
+        {
+            server.on_game_rule_changed(rule, value);
+        }
+    }
+
+    /// The mutation part of `set`, without the server notification (for callers that hold the rules inside the
+    /// object that would be notified): returns `false` (after logging) when the rule is not available.
+    pub fn try_set_value(&mut self, rule: AnyGameRule, value: GameRuleValue) -> bool {
         if !self.rules.has(rule) {
             log::warn!("Tried to set invalid game rule '{}' to value '{}'", rule.get_identifier(), rule.serialize(value));
-        } else {
-            self.rules.set_value(rule, value);
-            if let Some(server) = server {
-                server.on_game_rule_changed(rule, value);
-            }
+            return false;
         }
+        self.rules.set_value(rule, value);
+        true
     }
 
     /// `copy(enabledFeatures)`.
@@ -119,9 +127,14 @@ impl GameRules {
     }
 
     /// `setAll(GameRuleMap, server)`.
-    pub fn set_all_map(&mut self, map: &GameRuleMap, mut server: Option<&mut dyn GameRuleListener>) {
+    pub fn set_all_map(&mut self, map: &GameRuleMap, server: Option<&mut dyn GameRuleListener>) {
+        let mut server = server;
         for rule in map.key_set() {
-            self.set_value(rule, map.get_value(rule).expect("key of map"), server.as_deref_mut());
+            let value = map.get_value(rule).expect("key of map");
+            match &mut server {
+                Some(s) => self.set_value(rule, value, Some(&mut **s)),
+                None => self.set_value(rule, value, None),
+            }
         }
     }
 

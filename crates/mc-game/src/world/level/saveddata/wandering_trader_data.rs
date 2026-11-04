@@ -3,7 +3,7 @@
 use mc_core::ident::Identifier;
 use mc_nbt::{CompoundTag, Tag};
 
-use super::SavedDataType;
+use super::{SavedData, SavedDataType};
 use crate::impl_saved_data;
 use crate::util::codec::{self, DataResult, DecodeResult};
 

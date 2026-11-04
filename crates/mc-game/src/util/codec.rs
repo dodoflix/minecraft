@@ -91,7 +91,7 @@ pub fn list_tag(tag: &Tag) -> DataResult<&ListTag> {
 
 /// `fieldOf(name)`: the field must exist.
 pub fn field<'a>(map: &'a CompoundTag, name: &str) -> DataResult<&'a Tag> {
-    map.get(name).ok_or_else(|| format!("No key {name} in MapLike[{map}]"))
+    map.get(name).ok_or_else(|| format!("No key {name} in MapLike[{}]", Tag::Compound(map.clone())))
 }
 
 /// `optionalFieldOf(name)`: absent is `None`, present-but-invalid is an error.

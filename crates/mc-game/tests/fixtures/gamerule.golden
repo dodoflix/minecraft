@@ -1,0 +1,1500 @@
+RULE	advance_time	minecraft:advance_time	BOOL	true	minecraft:updates	gamerule.minecraft.advance_time	BoolArgumentType	[]	true/1	Boolean
+RULE	advance_weather	minecraft:advance_weather	BOOL	true	minecraft:updates	gamerule.minecraft.advance_weather	BoolArgumentType	[]	true/1	Boolean
+RULE	allow_entering_nether_using_portals	minecraft:allow_entering_nether_using_portals	BOOL	true	minecraft:misc	gamerule.minecraft.allow_entering_nether_using_portals	BoolArgumentType	[]	true/1	Boolean
+RULE	block_drops	minecraft:block_drops	BOOL	true	minecraft:drops	gamerule.minecraft.block_drops	BoolArgumentType	[]	true/1	Boolean
+RULE	block_explosion_drop_decay	minecraft:block_explosion_drop_decay	BOOL	true	minecraft:drops	gamerule.minecraft.block_explosion_drop_decay	BoolArgumentType	[]	true/1	Boolean
+RULE	command_blocks_work	minecraft:command_blocks_work	BOOL	true	minecraft:misc	gamerule.minecraft.command_blocks_work	BoolArgumentType	[]	true/1	Boolean
+RULE	command_block_output	minecraft:command_block_output	BOOL	true	minecraft:chat	gamerule.minecraft.command_block_output	BoolArgumentType	[]	true/1	Boolean
+RULE	drowning_damage	minecraft:drowning_damage	BOOL	true	minecraft:player	gamerule.minecraft.drowning_damage	BoolArgumentType	[]	true/1	Boolean
+RULE	elytra_movement_check	minecraft:elytra_movement_check	BOOL	true	minecraft:player	gamerule.minecraft.elytra_movement_check	BoolArgumentType	[]	true/1	Boolean
+RULE	ender_pearls_vanish_on_death	minecraft:ender_pearls_vanish_on_death	BOOL	true	minecraft:player	gamerule.minecraft.ender_pearls_vanish_on_death	BoolArgumentType	[]	true/1	Boolean
+RULE	entity_drops	minecraft:entity_drops	BOOL	true	minecraft:drops	gamerule.minecraft.entity_drops	BoolArgumentType	[]	true/1	Boolean
+RULE	fall_damage	minecraft:fall_damage	BOOL	true	minecraft:player	gamerule.minecraft.fall_damage	BoolArgumentType	[]	true/1	Boolean
+RULE	fire_damage	minecraft:fire_damage	BOOL	true	minecraft:player	gamerule.minecraft.fire_damage	BoolArgumentType	[]	true/1	Boolean
+RULE	fire_spread_radius_around_player	minecraft:fire_spread_radius_around_player	INT	128	minecraft:updates	gamerule.minecraft.fire_spread_radius_around_player	integer(-1,2147483647)	[]	128/128	Integer
+RULE	forgive_dead_players	minecraft:forgive_dead_players	BOOL	true	minecraft:mobs	gamerule.minecraft.forgive_dead_players	BoolArgumentType	[]	true/1	Boolean
+RULE	freeze_damage	minecraft:freeze_damage	BOOL	true	minecraft:player	gamerule.minecraft.freeze_damage	BoolArgumentType	[]	true/1	Boolean
+RULE	global_sound_events	minecraft:global_sound_events	BOOL	true	minecraft:misc	gamerule.minecraft.global_sound_events	BoolArgumentType	[]	true/1	Boolean
+RULE	immediate_respawn	minecraft:immediate_respawn	BOOL	false	minecraft:player	gamerule.minecraft.immediate_respawn	BoolArgumentType	[]	false/0	Boolean
+RULE	keep_inventory	minecraft:keep_inventory	BOOL	false	minecraft:player	gamerule.minecraft.keep_inventory	BoolArgumentType	[]	false/0	Boolean
+RULE	lava_source_conversion	minecraft:lava_source_conversion	BOOL	false	minecraft:updates	gamerule.minecraft.lava_source_conversion	BoolArgumentType	[]	false/0	Boolean
+RULE	limited_crafting	minecraft:limited_crafting	BOOL	false	minecraft:player	gamerule.minecraft.limited_crafting	BoolArgumentType	[]	false/0	Boolean
+RULE	locator_bar	minecraft:locator_bar	BOOL	true	minecraft:player	gamerule.minecraft.locator_bar	BoolArgumentType	[]	true/1	Boolean
+RULE	log_admin_commands	minecraft:log_admin_commands	BOOL	true	minecraft:chat	gamerule.minecraft.log_admin_commands	BoolArgumentType	[]	true/1	Boolean
+RULE	max_block_modifications	minecraft:max_block_modifications	INT	32768	minecraft:misc	gamerule.minecraft.max_block_modifications	integer(1,2147483647)	[]	32768/32768	Integer
+RULE	max_command_forks	minecraft:max_command_forks	INT	65536	minecraft:misc	gamerule.minecraft.max_command_forks	integer(0,2147483647)	[]	65536/65536	Integer
+RULE	max_command_sequence_length	minecraft:max_command_sequence_length	INT	65536	minecraft:misc	gamerule.minecraft.max_command_sequence_length	integer(0,2147483647)	[]	65536/65536	Integer
+RULE	max_entity_cramming	minecraft:max_entity_cramming	INT	24	minecraft:mobs	gamerule.minecraft.max_entity_cramming	integer(0,2147483647)	[]	24/24	Integer
+RULE	max_minecart_speed	minecraft:max_minecart_speed	INT	8	minecraft:misc	gamerule.minecraft.max_minecart_speed	integer(1,1000)	[minecraft:minecart_improvements]	8/8	Integer
+RULE	max_snow_accumulation_height	minecraft:max_snow_accumulation_height	INT	1	minecraft:updates	gamerule.minecraft.max_snow_accumulation_height	integer(0,8)	[]	1/1	Integer
+RULE	mob_drops	minecraft:mob_drops	BOOL	true	minecraft:drops	gamerule.minecraft.mob_drops	BoolArgumentType	[]	true/1	Boolean
+RULE	mob_explosion_drop_decay	minecraft:mob_explosion_drop_decay	BOOL	true	minecraft:drops	gamerule.minecraft.mob_explosion_drop_decay	BoolArgumentType	[]	true/1	Boolean
+RULE	mob_griefing	minecraft:mob_griefing	BOOL	true	minecraft:mobs	gamerule.minecraft.mob_griefing	BoolArgumentType	[]	true/1	Boolean
+RULE	natural_health_regeneration	minecraft:natural_health_regeneration	BOOL	true	minecraft:player	gamerule.minecraft.natural_health_regeneration	BoolArgumentType	[]	true/1	Boolean
+RULE	player_movement_check	minecraft:player_movement_check	BOOL	true	minecraft:player	gamerule.minecraft.player_movement_check	BoolArgumentType	[]	true/1	Boolean
+RULE	players_nether_portal_creative_delay	minecraft:players_nether_portal_creative_delay	INT	0	minecraft:player	gamerule.minecraft.players_nether_portal_creative_delay	integer(0,2147483647)	[]	0/0	Integer
+RULE	players_nether_portal_default_delay	minecraft:players_nether_portal_default_delay	INT	80	minecraft:player	gamerule.minecraft.players_nether_portal_default_delay	integer(0,2147483647)	[]	80/80	Integer
+RULE	players_sleeping_percentage	minecraft:players_sleeping_percentage	INT	100	minecraft:player	gamerule.minecraft.players_sleeping_percentage	integer(0,2147483647)	[]	100/100	Integer
+RULE	projectiles_can_break_blocks	minecraft:projectiles_can_break_blocks	BOOL	true	minecraft:drops	gamerule.minecraft.projectiles_can_break_blocks	BoolArgumentType	[]	true/1	Boolean
+RULE	pvp	minecraft:pvp	BOOL	true	minecraft:player	gamerule.minecraft.pvp	BoolArgumentType	[]	true/1	Boolean
+RULE	raids	minecraft:raids	BOOL	true	minecraft:mobs	gamerule.minecraft.raids	BoolArgumentType	[]	true/1	Boolean
+RULE	random_tick_speed	minecraft:random_tick_speed	INT	3	minecraft:updates	gamerule.minecraft.random_tick_speed	integer(0,2147483647)	[]	3/3	Integer
+RULE	reduced_debug_info	minecraft:reduced_debug_info	BOOL	false	minecraft:misc	gamerule.minecraft.reduced_debug_info	BoolArgumentType	[]	false/0	Boolean
+RULE	respawn_radius	minecraft:respawn_radius	INT	10	minecraft:player	gamerule.minecraft.respawn_radius	integer(0,2147483647)	[]	10/10	Integer
+RULE	send_command_feedback	minecraft:send_command_feedback	BOOL	true	minecraft:chat	gamerule.minecraft.send_command_feedback	BoolArgumentType	[]	true/1	Boolean
+RULE	show_advancement_messages	minecraft:show_advancement_messages	BOOL	true	minecraft:chat	gamerule.minecraft.show_advancement_messages	BoolArgumentType	[]	true/1	Boolean
+RULE	show_death_messages	minecraft:show_death_messages	BOOL	true	minecraft:chat	gamerule.minecraft.show_death_messages	BoolArgumentType	[]	true/1	Boolean
+RULE	spawner_blocks_work	minecraft:spawner_blocks_work	BOOL	true	minecraft:misc	gamerule.minecraft.spawner_blocks_work	BoolArgumentType	[]	true/1	Boolean
+RULE	spawn_mobs	minecraft:spawn_mobs	BOOL	true	minecraft:spawning	gamerule.minecraft.spawn_mobs	BoolArgumentType	[]	true/1	Boolean
+RULE	spawn_monsters	minecraft:spawn_monsters	BOOL	true	minecraft:spawning	gamerule.minecraft.spawn_monsters	BoolArgumentType	[]	true/1	Boolean
+RULE	spawn_patrols	minecraft:spawn_patrols	BOOL	true	minecraft:spawning	gamerule.minecraft.spawn_patrols	BoolArgumentType	[]	true/1	Boolean
+RULE	spawn_phantoms	minecraft:spawn_phantoms	BOOL	true	minecraft:spawning	gamerule.minecraft.spawn_phantoms	BoolArgumentType	[]	true/1	Boolean
+RULE	spawn_wandering_traders	minecraft:spawn_wandering_traders	BOOL	true	minecraft:spawning	gamerule.minecraft.spawn_wandering_traders	BoolArgumentType	[]	true/1	Boolean
+RULE	spawn_wardens	minecraft:spawn_wardens	BOOL	true	minecraft:spawning	gamerule.minecraft.spawn_wardens	BoolArgumentType	[]	true/1	Boolean
+RULE	spectators_generate_chunks	minecraft:spectators_generate_chunks	BOOL	true	minecraft:player	gamerule.minecraft.spectators_generate_chunks	BoolArgumentType	[]	true/1	Boolean
+RULE	spread_vines	minecraft:spread_vines	BOOL	true	minecraft:updates	gamerule.minecraft.spread_vines	BoolArgumentType	[]	true/1	Boolean
+RULE	tnt_explodes	minecraft:tnt_explodes	BOOL	true	minecraft:misc	gamerule.minecraft.tnt_explodes	BoolArgumentType	[]	true/1	Boolean
+RULE	tnt_explosion_drop_decay	minecraft:tnt_explosion_drop_decay	BOOL	false	minecraft:drops	gamerule.minecraft.tnt_explosion_drop_decay	BoolArgumentType	[]	false/0	Boolean
+RULE	universal_anger	minecraft:universal_anger	BOOL	false	minecraft:mobs	gamerule.minecraft.universal_anger	BoolArgumentType	[]	false/0	Boolean
+RULE	water_source_conversion	minecraft:water_source_conversion	BOOL	true	minecraft:updates	gamerule.minecraft.water_source_conversion	BoolArgumentType	[]	true/1	Boolean
+DESER	advance_time	[true]	result=true	partial=true	err=
+DESER	advance_time	[false]	result=false	partial=false	err=
+DESER	advance_time	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	advance_time	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_time	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[true]	result=true	partial=true	err=
+DESER	advance_weather	[false]	result=false	partial=false	err=
+DESER	advance_weather	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	advance_weather	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	advance_weather	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[true]	result=true	partial=true	err=
+DESER	allow_entering_nether_using_portals	[false]	result=false	partial=false	err=
+DESER	allow_entering_nether_using_portals	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	allow_entering_nether_using_portals	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	allow_entering_nether_using_portals	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[true]	result=true	partial=true	err=
+DESER	block_drops	[false]	result=false	partial=false	err=
+DESER	block_drops	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	block_drops	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	block_drops	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[true]	result=true	partial=true	err=
+DESER	block_explosion_drop_decay	[false]	result=false	partial=false	err=
+DESER	block_explosion_drop_decay	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	block_explosion_drop_decay	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	block_explosion_drop_decay	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[true]	result=true	partial=true	err=
+DESER	command_blocks_work	[false]	result=false	partial=false	err=
+DESER	command_blocks_work	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	command_blocks_work	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	command_blocks_work	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[true]	result=true	partial=true	err=
+DESER	command_block_output	[false]	result=false	partial=false	err=
+DESER	command_block_output	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	command_block_output	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	command_block_output	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[true]	result=true	partial=true	err=
+DESER	drowning_damage	[false]	result=false	partial=false	err=
+DESER	drowning_damage	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	drowning_damage	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	drowning_damage	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[true]	result=true	partial=true	err=
+DESER	elytra_movement_check	[false]	result=false	partial=false	err=
+DESER	elytra_movement_check	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	elytra_movement_check	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	elytra_movement_check	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[true]	result=true	partial=true	err=
+DESER	ender_pearls_vanish_on_death	[false]	result=false	partial=false	err=
+DESER	ender_pearls_vanish_on_death	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	ender_pearls_vanish_on_death	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	ender_pearls_vanish_on_death	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[true]	result=true	partial=true	err=
+DESER	entity_drops	[false]	result=false	partial=false	err=
+DESER	entity_drops	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	entity_drops	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	entity_drops	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[true]	result=true	partial=true	err=
+DESER	fall_damage	[false]	result=false	partial=false	err=
+DESER	fall_damage	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	fall_damage	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	fall_damage	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[true]	result=true	partial=true	err=
+DESER	fire_damage	[false]	result=false	partial=false	err=
+DESER	fire_damage	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	fire_damage	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_damage	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[1]	result=1	partial=1	err=
+DESER	fire_spread_radius_around_player	[-1]	result=-1	partial=-1	err=
+DESER	fire_spread_radius_around_player	[0]	result=0	partial=0	err=
+DESER	fire_spread_radius_around_player	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	fire_spread_radius_around_player	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	fire_spread_radius_around_player	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[-0]	result=0	partial=0	err=
+DESER	fire_spread_radius_around_player	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[100]	result=100	partial=100	err=
+DESER	fire_spread_radius_around_player	[8]	result=8	partial=8	err=
+DESER	fire_spread_radius_around_player	[9]	result=9	partial=9	err=
+DESER	fire_spread_radius_around_player	[1000]	result=1000	partial=1000	err=
+DESER	fire_spread_radius_around_player	[1001]	result=1001	partial=1001	err=
+DESER	fire_spread_radius_around_player	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[]	result=none	partial=none	err=Failed to deserialize
+DESER	fire_spread_radius_around_player	[00012]	result=12	partial=12	err=
+DESER	fire_spread_radius_around_player	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	forgive_dead_players	[true]	result=true	partial=true	err=
+DESER	forgive_dead_players	[false]	result=false	partial=false	err=
+DESER	forgive_dead_players	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	forgive_dead_players	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	forgive_dead_players	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[true]	result=true	partial=true	err=
+DESER	freeze_damage	[false]	result=false	partial=false	err=
+DESER	freeze_damage	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	freeze_damage	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	freeze_damage	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[true]	result=true	partial=true	err=
+DESER	global_sound_events	[false]	result=false	partial=false	err=
+DESER	global_sound_events	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	global_sound_events	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	global_sound_events	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[true]	result=true	partial=true	err=
+DESER	immediate_respawn	[false]	result=false	partial=false	err=
+DESER	immediate_respawn	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	immediate_respawn	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	immediate_respawn	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[true]	result=true	partial=true	err=
+DESER	keep_inventory	[false]	result=false	partial=false	err=
+DESER	keep_inventory	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	keep_inventory	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	keep_inventory	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[true]	result=true	partial=true	err=
+DESER	lava_source_conversion	[false]	result=false	partial=false	err=
+DESER	lava_source_conversion	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	lava_source_conversion	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	lava_source_conversion	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[true]	result=true	partial=true	err=
+DESER	limited_crafting	[false]	result=false	partial=false	err=
+DESER	limited_crafting	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	limited_crafting	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	limited_crafting	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[true]	result=true	partial=true	err=
+DESER	locator_bar	[false]	result=false	partial=false	err=
+DESER	locator_bar	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	locator_bar	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	locator_bar	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[true]	result=true	partial=true	err=
+DESER	log_admin_commands	[false]	result=false	partial=false	err=
+DESER	log_admin_commands	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	log_admin_commands	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	log_admin_commands	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[1]	result=1	partial=1	err=
+DESER	max_block_modifications	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	max_block_modifications	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_block_modifications	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[100]	result=100	partial=100	err=
+DESER	max_block_modifications	[8]	result=8	partial=8	err=
+DESER	max_block_modifications	[9]	result=9	partial=9	err=
+DESER	max_block_modifications	[1000]	result=1000	partial=1000	err=
+DESER	max_block_modifications	[1001]	result=1001	partial=1001	err=
+DESER	max_block_modifications	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[]	result=none	partial=none	err=Failed to deserialize
+DESER	max_block_modifications	[00012]	result=12	partial=12	err=
+DESER	max_block_modifications	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_command_forks	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[1]	result=1	partial=1	err=
+DESER	max_command_forks	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[0]	result=0	partial=0	err=
+DESER	max_command_forks	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	max_command_forks	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_command_forks	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[-0]	result=0	partial=0	err=
+DESER	max_command_forks	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[100]	result=100	partial=100	err=
+DESER	max_command_forks	[8]	result=8	partial=8	err=
+DESER	max_command_forks	[9]	result=9	partial=9	err=
+DESER	max_command_forks	[1000]	result=1000	partial=1000	err=
+DESER	max_command_forks	[1001]	result=1001	partial=1001	err=
+DESER	max_command_forks	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_forks	[00012]	result=12	partial=12	err=
+DESER	max_command_forks	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_command_sequence_length	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[1]	result=1	partial=1	err=
+DESER	max_command_sequence_length	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[0]	result=0	partial=0	err=
+DESER	max_command_sequence_length	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	max_command_sequence_length	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_command_sequence_length	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[-0]	result=0	partial=0	err=
+DESER	max_command_sequence_length	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[100]	result=100	partial=100	err=
+DESER	max_command_sequence_length	[8]	result=8	partial=8	err=
+DESER	max_command_sequence_length	[9]	result=9	partial=9	err=
+DESER	max_command_sequence_length	[1000]	result=1000	partial=1000	err=
+DESER	max_command_sequence_length	[1001]	result=1001	partial=1001	err=
+DESER	max_command_sequence_length	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[]	result=none	partial=none	err=Failed to deserialize
+DESER	max_command_sequence_length	[00012]	result=12	partial=12	err=
+DESER	max_command_sequence_length	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_entity_cramming	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[1]	result=1	partial=1	err=
+DESER	max_entity_cramming	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[0]	result=0	partial=0	err=
+DESER	max_entity_cramming	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	max_entity_cramming	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_entity_cramming	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[-0]	result=0	partial=0	err=
+DESER	max_entity_cramming	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[100]	result=100	partial=100	err=
+DESER	max_entity_cramming	[8]	result=8	partial=8	err=
+DESER	max_entity_cramming	[9]	result=9	partial=9	err=
+DESER	max_entity_cramming	[1000]	result=1000	partial=1000	err=
+DESER	max_entity_cramming	[1001]	result=1001	partial=1001	err=
+DESER	max_entity_cramming	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[]	result=none	partial=none	err=Failed to deserialize
+DESER	max_entity_cramming	[00012]	result=12	partial=12	err=
+DESER	max_entity_cramming	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_minecart_speed	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[1]	result=1	partial=1	err=
+DESER	max_minecart_speed	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_minecart_speed	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[100]	result=100	partial=100	err=
+DESER	max_minecart_speed	[8]	result=8	partial=8	err=
+DESER	max_minecart_speed	[9]	result=9	partial=9	err=
+DESER	max_minecart_speed	[1000]	result=1000	partial=1000	err=
+DESER	max_minecart_speed	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[]	result=none	partial=none	err=Failed to deserialize
+DESER	max_minecart_speed	[00012]	result=12	partial=12	err=
+DESER	max_minecart_speed	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_snow_accumulation_height	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[1]	result=1	partial=1	err=
+DESER	max_snow_accumulation_height	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[0]	result=0	partial=0	err=
+DESER	max_snow_accumulation_height	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	max_snow_accumulation_height	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[-0]	result=0	partial=0	err=
+DESER	max_snow_accumulation_height	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[8]	result=8	partial=8	err=
+DESER	max_snow_accumulation_height	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	max_snow_accumulation_height	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	mob_drops	[true]	result=true	partial=true	err=
+DESER	mob_drops	[false]	result=false	partial=false	err=
+DESER	mob_drops	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	mob_drops	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_drops	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[true]	result=true	partial=true	err=
+DESER	mob_explosion_drop_decay	[false]	result=false	partial=false	err=
+DESER	mob_explosion_drop_decay	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	mob_explosion_drop_decay	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_explosion_drop_decay	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[true]	result=true	partial=true	err=
+DESER	mob_griefing	[false]	result=false	partial=false	err=
+DESER	mob_griefing	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	mob_griefing	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	mob_griefing	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[true]	result=true	partial=true	err=
+DESER	natural_health_regeneration	[false]	result=false	partial=false	err=
+DESER	natural_health_regeneration	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	natural_health_regeneration	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	natural_health_regeneration	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[true]	result=true	partial=true	err=
+DESER	player_movement_check	[false]	result=false	partial=false	err=
+DESER	player_movement_check	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	player_movement_check	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	player_movement_check	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[1]	result=1	partial=1	err=
+DESER	players_nether_portal_creative_delay	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[0]	result=0	partial=0	err=
+DESER	players_nether_portal_creative_delay	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	players_nether_portal_creative_delay	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	players_nether_portal_creative_delay	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[-0]	result=0	partial=0	err=
+DESER	players_nether_portal_creative_delay	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[100]	result=100	partial=100	err=
+DESER	players_nether_portal_creative_delay	[8]	result=8	partial=8	err=
+DESER	players_nether_portal_creative_delay	[9]	result=9	partial=9	err=
+DESER	players_nether_portal_creative_delay	[1000]	result=1000	partial=1000	err=
+DESER	players_nether_portal_creative_delay	[1001]	result=1001	partial=1001	err=
+DESER	players_nether_portal_creative_delay	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_creative_delay	[00012]	result=12	partial=12	err=
+DESER	players_nether_portal_creative_delay	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	players_nether_portal_default_delay	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[1]	result=1	partial=1	err=
+DESER	players_nether_portal_default_delay	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[0]	result=0	partial=0	err=
+DESER	players_nether_portal_default_delay	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	players_nether_portal_default_delay	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	players_nether_portal_default_delay	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[-0]	result=0	partial=0	err=
+DESER	players_nether_portal_default_delay	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[100]	result=100	partial=100	err=
+DESER	players_nether_portal_default_delay	[8]	result=8	partial=8	err=
+DESER	players_nether_portal_default_delay	[9]	result=9	partial=9	err=
+DESER	players_nether_portal_default_delay	[1000]	result=1000	partial=1000	err=
+DESER	players_nether_portal_default_delay	[1001]	result=1001	partial=1001	err=
+DESER	players_nether_portal_default_delay	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[]	result=none	partial=none	err=Failed to deserialize
+DESER	players_nether_portal_default_delay	[00012]	result=12	partial=12	err=
+DESER	players_nether_portal_default_delay	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	players_sleeping_percentage	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[1]	result=1	partial=1	err=
+DESER	players_sleeping_percentage	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[0]	result=0	partial=0	err=
+DESER	players_sleeping_percentage	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	players_sleeping_percentage	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	players_sleeping_percentage	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[-0]	result=0	partial=0	err=
+DESER	players_sleeping_percentage	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[100]	result=100	partial=100	err=
+DESER	players_sleeping_percentage	[8]	result=8	partial=8	err=
+DESER	players_sleeping_percentage	[9]	result=9	partial=9	err=
+DESER	players_sleeping_percentage	[1000]	result=1000	partial=1000	err=
+DESER	players_sleeping_percentage	[1001]	result=1001	partial=1001	err=
+DESER	players_sleeping_percentage	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[]	result=none	partial=none	err=Failed to deserialize
+DESER	players_sleeping_percentage	[00012]	result=12	partial=12	err=
+DESER	players_sleeping_percentage	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	projectiles_can_break_blocks	[true]	result=true	partial=true	err=
+DESER	projectiles_can_break_blocks	[false]	result=false	partial=false	err=
+DESER	projectiles_can_break_blocks	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	projectiles_can_break_blocks	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	projectiles_can_break_blocks	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[true]	result=true	partial=true	err=
+DESER	pvp	[false]	result=false	partial=false	err=
+DESER	pvp	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	pvp	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	pvp	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[true]	result=true	partial=true	err=
+DESER	raids	[false]	result=false	partial=false	err=
+DESER	raids	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	raids	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	raids	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[1]	result=1	partial=1	err=
+DESER	random_tick_speed	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[0]	result=0	partial=0	err=
+DESER	random_tick_speed	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	random_tick_speed	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	random_tick_speed	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[-0]	result=0	partial=0	err=
+DESER	random_tick_speed	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[100]	result=100	partial=100	err=
+DESER	random_tick_speed	[8]	result=8	partial=8	err=
+DESER	random_tick_speed	[9]	result=9	partial=9	err=
+DESER	random_tick_speed	[1000]	result=1000	partial=1000	err=
+DESER	random_tick_speed	[1001]	result=1001	partial=1001	err=
+DESER	random_tick_speed	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[]	result=none	partial=none	err=Failed to deserialize
+DESER	random_tick_speed	[00012]	result=12	partial=12	err=
+DESER	random_tick_speed	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	reduced_debug_info	[true]	result=true	partial=true	err=
+DESER	reduced_debug_info	[false]	result=false	partial=false	err=
+DESER	reduced_debug_info	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	reduced_debug_info	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	reduced_debug_info	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[true]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[false]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[1]	result=1	partial=1	err=
+DESER	respawn_radius	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[0]	result=0	partial=0	err=
+DESER	respawn_radius	[2147483647]	result=2147483647	partial=2147483647	err=
+DESER	respawn_radius	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[1 ]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	respawn_radius	[true ]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[-0]	result=0	partial=0	err=
+DESER	respawn_radius	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[100]	result=100	partial=100	err=
+DESER	respawn_radius	[8]	result=8	partial=8	err=
+DESER	respawn_radius	[9]	result=9	partial=9	err=
+DESER	respawn_radius	[1000]	result=1000	partial=1000	err=
+DESER	respawn_radius	[1001]	result=1001	partial=1001	err=
+DESER	respawn_radius	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[]	result=none	partial=none	err=Failed to deserialize
+DESER	respawn_radius	[00012]	result=12	partial=12	err=
+DESER	respawn_radius	[1x]	result=none	partial=1	err=Failed to deserialize; trailing characters
+DESER	send_command_feedback	[true]	result=true	partial=true	err=
+DESER	send_command_feedback	[false]	result=false	partial=false	err=
+DESER	send_command_feedback	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	send_command_feedback	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	send_command_feedback	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[true]	result=true	partial=true	err=
+DESER	show_advancement_messages	[false]	result=false	partial=false	err=
+DESER	show_advancement_messages	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	show_advancement_messages	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	show_advancement_messages	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[true]	result=true	partial=true	err=
+DESER	show_death_messages	[false]	result=false	partial=false	err=
+DESER	show_death_messages	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	show_death_messages	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	show_death_messages	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[true]	result=true	partial=true	err=
+DESER	spawner_blocks_work	[false]	result=false	partial=false	err=
+DESER	spawner_blocks_work	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spawner_blocks_work	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spawner_blocks_work	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[true]	result=true	partial=true	err=
+DESER	spawn_mobs	[false]	result=false	partial=false	err=
+DESER	spawn_mobs	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spawn_mobs	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_mobs	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[true]	result=true	partial=true	err=
+DESER	spawn_monsters	[false]	result=false	partial=false	err=
+DESER	spawn_monsters	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spawn_monsters	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_monsters	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[true]	result=true	partial=true	err=
+DESER	spawn_patrols	[false]	result=false	partial=false	err=
+DESER	spawn_patrols	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spawn_patrols	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_patrols	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[true]	result=true	partial=true	err=
+DESER	spawn_phantoms	[false]	result=false	partial=false	err=
+DESER	spawn_phantoms	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spawn_phantoms	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_phantoms	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[true]	result=true	partial=true	err=
+DESER	spawn_wandering_traders	[false]	result=false	partial=false	err=
+DESER	spawn_wandering_traders	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spawn_wandering_traders	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wandering_traders	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[true]	result=true	partial=true	err=
+DESER	spawn_wardens	[false]	result=false	partial=false	err=
+DESER	spawn_wardens	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spawn_wardens	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spawn_wardens	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[true]	result=true	partial=true	err=
+DESER	spectators_generate_chunks	[false]	result=false	partial=false	err=
+DESER	spectators_generate_chunks	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spectators_generate_chunks	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spectators_generate_chunks	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[true]	result=true	partial=true	err=
+DESER	spread_vines	[false]	result=false	partial=false	err=
+DESER	spread_vines	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	spread_vines	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	spread_vines	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[true]	result=true	partial=true	err=
+DESER	tnt_explodes	[false]	result=false	partial=false	err=
+DESER	tnt_explodes	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	tnt_explodes	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explodes	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[true]	result=true	partial=true	err=
+DESER	tnt_explosion_drop_decay	[false]	result=false	partial=false	err=
+DESER	tnt_explosion_drop_decay	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	tnt_explosion_drop_decay	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	tnt_explosion_drop_decay	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[true]	result=true	partial=true	err=
+DESER	universal_anger	[false]	result=false	partial=false	err=
+DESER	universal_anger	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	universal_anger	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	universal_anger	[1x]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[true]	result=true	partial=true	err=
+DESER	water_source_conversion	[false]	result=false	partial=false	err=
+DESER	water_source_conversion	[1]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[-1]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[0]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[2147483647]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[2147483648]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[abc]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[1 ]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[true ]	result=none	partial=true	err=Failed to deserialize; trailing characters
+DESER	water_source_conversion	[ 1]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[1.0]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[-0]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[+1]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[100]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[8]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[9]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[1000]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[1001]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[tr]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[TRUE]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[00012]	result=none	partial=none	err=Failed to deserialize
+DESER	water_source_conversion	[1x]	result=none	partial=none	err=Failed to deserialize
+CODEC	{}	result={}	partial={}	err=
+CODEC	{"minecraft:pvp":0b,"minecraft:random_tick_speed":5}	result={pvp=false, random_tick_speed=5}	partial={pvp=false, random_tick_speed=5}	err=
+CODEC	{"minecraft:pvp":0b,"minecraft:nonexistent":5,"minecraft:random_tick_speed":5}	result=none	partial={pvp=false, random_tick_speed=5}	err=Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: minecraft:nonexistent; Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: minecraft:nonexistent missed input: {"minecraft:nonexistent":5}
+CODEC	{"pvp":0b}	result={pvp=false}	partial={pvp=false}	err=
+CODEC	{"minecraft:pvp":"x","minecraft:random_tick_speed":5}	result=none	partial={random_tick_speed=5}	err=Not a number missed input: {"minecraft:pvp":"x"}
+CODEC	{"minecraft:pvp":2,"minecraft:random_tick_speed":5.7d}	result={pvp=true, random_tick_speed=5}	partial={pvp=true, random_tick_speed=5}	err=
+CODEC	{"minecraft:random_tick_speed":-1}	result=none	partial={}	err=Value -1 outside of range [0:2147483647] missed input: {"minecraft:random_tick_speed":-1}
+CODEC	{"minecraft:random_tick_speed":-1,"minecraft:pvp":1b}	result=none	partial={pvp=true}	err=Value -1 outside of range [0:2147483647] missed input: {"minecraft:random_tick_speed":-1}
+CODEC	{"minecraft:max_snow_accumulation_height":9}	result=none	partial={}	err=Value 9 outside of range [0:8] missed input: {"minecraft:max_snow_accumulation_height":9}
+CODEC	{"minecraft:max_minecart_speed":1001}	result=none	partial={}	err=Value 1001 outside of range [1:1000] missed input: {"minecraft:max_minecart_speed":1001}
+CODEC	{"minecraft:fire_spread_radius_around_player":-1}	result={fire_spread_radius_around_player=-1}	partial={fire_spread_radius_around_player=-1}	err=
+CODEC	{"minecraft:fire_spread_radius_around_player":-2}	result=none	partial={}	err=Value -2 outside of range [-1:2147483647] missed input: {"minecraft:fire_spread_radius_around_player":-2}
+CODEC	{"minecraft:pvp":0.5d}	result={pvp=true}	partial={pvp=true}	err=
+CODEC	{"minecraft:pvp":0.0d}	result={pvp=false}	partial={pvp=false}	err=
+CODEC	{"minecraft:pvp":[1b]}	result=none	partial={}	err=Not a number missed input: {"minecraft:pvp":[1b]}
+CODEC	5	result=none	partial=none	err=Not a map: 5
+CODEC	[]	result=none	partial=none	err=Not a map: []
+CODEC	{"minecraft:random_tick_speed":3000000000L}	result=none	partial={}	err=Value -1294967296 outside of range [0:2147483647] missed input: {"minecraft:random_tick_speed":3000000000L}
+CODEC	{"minecraft:random_tick_speed":"4"}	result=none	partial={}	err=Not a number missed input: {"minecraft:random_tick_speed":"4"}
+ENCODE_DEFAULT	{"minecraft:advance_time":1b,"minecraft:advance_weather":1b,"minecraft:allow_entering_nether_using_portals":1b,"minecraft:block_drops":1b,"minecraft:block_explosion_drop_decay":1b,"minecraft:command_block_output":1b,"minecraft:command_blocks_work":1b,"minecraft:drowning_damage":1b,"minecraft:elytra_movement_check":1b,"minecraft:ender_pearls_vanish_on_death":1b,"minecraft:entity_drops":1b,"minecraft:fall_damage":1b,"minecraft:fire_damage":1b,"minecraft:fire_spread_radius_around_player":128,"minecraft:forgive_dead_players":1b,"minecraft:freeze_damage":1b,"minecraft:global_sound_events":1b,"minecraft:immediate_respawn":0b,"minecraft:keep_inventory":0b,"minecraft:lava_source_conversion":0b,"minecraft:limited_crafting":0b,"minecraft:locator_bar":1b,"minecraft:log_admin_commands":1b,"minecraft:max_block_modifications":32768,"minecraft:max_command_forks":65536,"minecraft:max_command_sequence_length":65536,"minecraft:max_entity_cramming":24,"minecraft:max_minecart_speed":8,"minecraft:max_snow_accumulation_height":1,"minecraft:mob_drops":1b,"minecraft:mob_explosion_drop_decay":1b,"minecraft:mob_griefing":1b,"minecraft:natural_health_regeneration":1b,"minecraft:player_movement_check":1b,"minecraft:players_nether_portal_creative_delay":0,"minecraft:players_nether_portal_default_delay":80,"minecraft:players_sleeping_percentage":100,"minecraft:projectiles_can_break_blocks":1b,"minecraft:pvp":1b,"minecraft:raids":1b,"minecraft:random_tick_speed":3,"minecraft:reduced_debug_info":0b,"minecraft:respawn_radius":10,"minecraft:send_command_feedback":1b,"minecraft:show_advancement_messages":1b,"minecraft:show_death_messages":1b,"minecraft:spawn_mobs":1b,"minecraft:spawn_monsters":1b,"minecraft:spawn_patrols":1b,"minecraft:spawn_phantoms":1b,"minecraft:spawn_wandering_traders":1b,"minecraft:spawn_wardens":1b,"minecraft:spawner_blocks_work":1b,"minecraft:spectators_generate_chunks":1b,"minecraft:spread_vines":1b,"minecraft:tnt_explodes":1b,"minecraft:tnt_explosion_drop_decay":0b,"minecraft:universal_anger":0b,"minecraft:water_source_conversion":1b}
+ENCODE_ALT	{"minecraft:advance_time":0b,"minecraft:advance_weather":0b,"minecraft:allow_entering_nether_using_portals":0b,"minecraft:block_drops":0b,"minecraft:block_explosion_drop_decay":0b,"minecraft:command_block_output":0b,"minecraft:command_blocks_work":0b,"minecraft:drowning_damage":0b,"minecraft:elytra_movement_check":0b,"minecraft:ender_pearls_vanish_on_death":0b,"minecraft:entity_drops":0b,"minecraft:fall_damage":0b,"minecraft:fire_damage":0b,"minecraft:fire_spread_radius_around_player":1,"minecraft:forgive_dead_players":0b,"minecraft:freeze_damage":0b,"minecraft:global_sound_events":0b,"minecraft:immediate_respawn":1b,"minecraft:keep_inventory":1b,"minecraft:lava_source_conversion":1b,"minecraft:limited_crafting":1b,"minecraft:locator_bar":0b,"minecraft:log_admin_commands":0b,"minecraft:max_block_modifications":1,"minecraft:max_command_forks":1,"minecraft:max_command_sequence_length":1,"minecraft:max_entity_cramming":1,"minecraft:max_minecart_speed":1,"minecraft:max_snow_accumulation_height":2,"minecraft:mob_drops":0b,"minecraft:mob_explosion_drop_decay":0b,"minecraft:mob_griefing":0b,"minecraft:natural_health_regeneration":0b,"minecraft:player_movement_check":0b,"minecraft:players_nether_portal_creative_delay":1,"minecraft:players_nether_portal_default_delay":1,"minecraft:players_sleeping_percentage":1,"minecraft:projectiles_can_break_blocks":0b,"minecraft:pvp":0b,"minecraft:raids":0b,"minecraft:random_tick_speed":1,"minecraft:reduced_debug_info":1b,"minecraft:respawn_radius":1,"minecraft:send_command_feedback":0b,"minecraft:show_advancement_messages":0b,"minecraft:show_death_messages":0b,"minecraft:spawn_mobs":0b,"minecraft:spawn_monsters":0b,"minecraft:spawn_patrols":0b,"minecraft:spawn_phantoms":0b,"minecraft:spawn_wandering_traders":0b,"minecraft:spawn_wardens":0b,"minecraft:spawner_blocks_work":0b,"minecraft:spectators_generate_chunks":0b,"minecraft:spread_vines":0b,"minecraft:tnt_explodes":0b,"minecraft:tnt_explosion_drop_decay":1b,"minecraft:universal_anger":1b,"minecraft:water_source_conversion":0b}
+RULES_VANILLA	58
+RULES_ALL	59
+RULES_MINECART_ONLY	59
+CATEGORIES	Player

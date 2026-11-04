@@ -154,7 +154,7 @@ impl<T> Default for TimerQueue<T> {
     }
 }
 
-impl<T> TimerQueue<T> {
+impl<T: 'static> TimerQueue<T> {
     pub fn new() -> Self {
         Self::default()
     }
@@ -281,9 +281,11 @@ mod tests {
         assert_eq!(names, ["f:n:b", "f:n:a1", "f:n:c"]);
         let mut ids: Vec<_> = q.get_events_ids().collect();
         ids.sort();
-        assert_eq!(ids, ["a"]);
+        // "b" fired late (5 < 10): its table cell at 5 is stale (vanilla removes the cell at the current tick)
+        assert_eq!(ids, ["a", "b"]);
         assert_eq!(q.remove("a"), 1);
         assert_eq!(q.remove("a"), 0);
+        assert_eq!(q.remove("b"), 1);
         assert_eq!(q.get_events_ids().count(), 0);
     }
 
@@ -339,7 +341,7 @@ mod tests {
         )
         .unwrap();
         assert_eq!(tag, expected);
-        let back = TimerQueue::decode(&tag, &cb).unwrap();
+        let back = TimerQueue::decode(&tag, &cb).map_err(|e| e.error).unwrap();
         assert_eq!(back.pack(&cb).unwrap(), tag);
         assert!(TimerQueue::decode(&mc_nbt::snbt::parse("{events:[{trigger_time:1L,id:\"x\",callback:{type:\"minecraft:nope\"}}]}").unwrap(), &cb).is_err());
     }

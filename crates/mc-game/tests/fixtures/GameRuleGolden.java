@@ -7,7 +7,7 @@ import net.minecraft.world.level.gamerules.*;
 import net.minecraft.world.flag.*;
 import java.util.*;
 
-/** Golden values for GameRules/GameRuleMap (run via scripts/vanilla-java.sh). Output: tab-separated lines. */
+/** Golden values for GameRules/GameRuleMap: `scripts/vanilla-java.sh GameRuleGolden.java gamerule.golden`. */
 public class GameRuleGolden {
   static String sorted(GameRuleMap m) {
     TreeMap<String, String> t = new TreeMap<>();
@@ -27,18 +27,25 @@ public class GameRuleGolden {
     DataResult<T> r = g.deserialize(s);
     return "result=" + r.result().map(String::valueOf).orElse("none") + "\tpartial=" + r.resultOrPartial(e -> {}).map(String::valueOf).orElse("none") + "\terr=" + r.error().map(e -> e.message()).orElse("");
   }
+  static String argDesc(GameRule<?> g) {
+    Object a = g.argument();
+    if (a instanceof com.mojang.brigadier.arguments.IntegerArgumentType i) return "integer(" + i.getMinimum() + "," + i.getMaximum() + ")";
+    return a.getClass().getSimpleName();
+  }
+  static java.io.PrintStream out;
   public static void main(String[] args) throws Exception {
     net.minecraft.SharedConstants.tryDetectVersion();
     net.minecraft.server.Bootstrap.bootStrap();
+    out = new java.io.PrintStream(new java.io.FileOutputStream(args[0]), false, "UTF-8");
     BuiltInRegistries.GAME_RULE.listElements().forEach(h -> {
       GameRule<?> g = h.value();
-      System.out.println("RULE\t" + g.id() + "\t" + g.getIdentifier() + "\t" + g.gameRuleType() + "\t" + g.defaultValue() + "\t" + g.category().id() + "\t" + g.getDescriptionId()
-        + "\t" + g.argument() + "\t" + FeatureFlags.REGISTRY.toNames(g.requiredFeatures()) + "\t" + cmd(g) + "\t" + g.valueClass().getSimpleName());
+      out.println("RULE\t" + g.id() + "\t" + g.getIdentifier() + "\t" + g.gameRuleType() + "\t" + g.defaultValue() + "\t" + g.category().id() + "\t" + g.getDescriptionId()
+        + "\t" + argDesc(g) + "\t" + FeatureFlags.REGISTRY.toNames(g.requiredFeatures()) + "\t" + cmd(g) + "\t" + g.valueClass().getSimpleName());
     });
     String[] inputs = {"true", "false", "1", "-1", "0", "2147483647", "2147483648", "abc", "1 ", "true ", " 1", "1.0", "-0", "+1", "100", "8", "9", "1000", "1001", "tr", "TRUE", "", "00012", "1x"};
     BuiltInRegistries.GAME_RULE.listElements().forEach(h -> {
       GameRule<?> g = h.value();
-      for (String s : inputs) System.out.println("DESER\t" + g.id() + "\t[" + s + "]\t" + deser(g, s));
+      for (String s : inputs) out.println("DESER\t" + g.id() + "\t[" + s + "]\t" + deser(g, s));
     });
     String[] cases = {
       "{}",
@@ -60,23 +67,24 @@ public class GameRuleGolden {
     };
     for (String c : cases) {
       Tag t = c.startsWith("{") ? TagParser.parseCompoundFully(c) : (c.equals("5") ? IntTag.valueOf(5) : new ListTag());
-      System.out.println("CODEC\t" + c + "\t" + show(GameRuleMap.CODEC.parse(NbtOps.INSTANCE, t)));
+      out.println("CODEC\t" + c + "\t" + show(GameRuleMap.CODEC.parse(NbtOps.INSTANCE, t)));
     }
     // encode: defaults, and every rule set to a non-default value
     GameRuleMap def = GameRuleMap.of(BuiltInRegistries.GAME_RULE.stream());
-    System.out.println("ENCODE_DEFAULT\t" + GameRuleMap.CODEC.encodeStart(NbtOps.INSTANCE, def).getOrThrow());
+    out.println("ENCODE_DEFAULT\t" + GameRuleMap.CODEC.encodeStart(NbtOps.INSTANCE, def).getOrThrow());
     GameRuleMap alt = GameRuleMap.of();
     BuiltInRegistries.GAME_RULE.stream().forEach(g -> {
       if (g.gameRuleType() == GameRuleType.BOOL) ((GameRuleMap) alt).set((GameRule<Boolean>) g, !((Boolean) g.defaultValue()));
       else ((GameRuleMap) alt).set((GameRule<Integer>) g, (Integer) g.defaultValue() == 1 ? 2 : 1);
     });
-    System.out.println("ENCODE_ALT\t" + GameRuleMap.CODEC.encodeStart(NbtOps.INSTANCE, alt).getOrThrow());
+    out.println("ENCODE_ALT\t" + GameRuleMap.CODEC.encodeStart(NbtOps.INSTANCE, alt).getOrThrow());
     // GameRules with feature flags
     GameRules none = new GameRules(FeatureFlagSet.of());
-    System.out.println("RULES_VANILLA\t" + none.availableRules().map(GameRule::id).sorted().toList().size());
+    out.println("RULES_VANILLA\t" + none.availableRules().map(GameRule::id).sorted().toList().size());
     GameRules exp = new GameRules(FeatureFlags.REGISTRY.allFlags());
-    System.out.println("RULES_ALL\t" + exp.availableRules().map(GameRule::id).sorted().toList().size());
-    System.out.println("RULES_MINECART_ONLY\t" + new GameRules(FeatureFlagSet.of(FeatureFlags.MINECART_IMPROVEMENTS)).availableRules().count());
-    System.out.println("CATEGORIES\t" + GameRuleCategory.PLAYER.label().getString());
+    out.println("RULES_ALL\t" + exp.availableRules().map(GameRule::id).sorted().toList().size());
+    out.println("RULES_MINECART_ONLY\t" + new GameRules(FeatureFlagSet.of(FeatureFlags.MINECART_IMPROVEMENTS)).availableRules().count());
+    out.println("CATEGORIES\t" + GameRuleCategory.PLAYER.label().getString());
+    out.close();
   }
 }
