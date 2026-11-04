@@ -25,4 +25,4 @@ pub mod synth;
 pub mod util;
 pub mod vertical_anchor;
 pub mod world_generation_context;
-pub mod world_preset;
+// pub mod world_preset; // enable once generator::NoiseBasedChunkGenerator lands (see RESUME-WorldgenFlatAgent.md)
