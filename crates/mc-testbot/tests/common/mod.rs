@@ -74,7 +74,9 @@ pub async fn walk_scenario(bot: &Bot, secs: u64) {
 /// Find a spot next to the bot with a solid block below and two blocks of air above.
 fn placement_target(bot: &Bot) -> BlockPos {
     let (bx, by, bz) = pos_of(bot);
-    for (dx, dz) in [(2, 0), (-2, 0), (0, 2), (0, -2), (3, 1), (-3, -1)] {
+    let mut spots: Vec<(i32, i32)> = (-4i32..=4).flat_map(|x| (-4i32..=4).map(move |z| (x, z))).filter(|(x, z)| (1..=4).contains(&(x * x + z * z).isqrt())).collect();
+    spots.sort_by_key(|(x, z)| (x - 2).abs() + z.abs());
+    for (dx, dz) in spots {
         let (x, z) = (bx + dx, bz + dz);
         for y in (by - 3)..=(by + 3) {
             let below = bot.block_at(BlockPos::new(x, y - 1, z));
