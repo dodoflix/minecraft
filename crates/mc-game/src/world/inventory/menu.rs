@@ -14,7 +14,7 @@ use super::{
     place_item_back_in_inventory,
 };
 use crate::world::container::Container;
-use crate::world::item::{HashedStack, ItemStack, stacks_match};
+use crate::world::item::{HashedStack, ItemStack};
 use mc_data::MenuType;
 use std::any::Any;
 
@@ -300,7 +300,7 @@ impl MenuBase {
     }
 
     fn trigger_slot_listeners(&mut self, i: usize, current: &ItemStack) {
-        if !stacks_match(&self.last_slots[i], current) {
+        if !ItemStack::matches(&self.last_slots[i], current) {
             let new_item = current.copy();
             self.last_slots[i] = new_item.clone();
             for l in &mut self.container_listeners {

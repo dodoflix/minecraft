@@ -50,8 +50,3 @@ impl ItemStackExt for ItemStack {
 pub fn load_item_stack(tag: &CompoundTag) -> Option<ItemStack> {
     ItemStack::from_tag(&Tag::Compound(tag.clone())).into_result().ok()
 }
-
-/// `ItemStack.matches(a, b)` with vanilla's `getCount()` semantics (empty stacks count as 0).
-pub fn stacks_match(a: &ItemStack, b: &ItemStack) -> bool {
-    a.count() == b.count() && ItemStack::is_same_item_same_components(a, b)
-}

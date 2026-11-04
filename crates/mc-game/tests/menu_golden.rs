@@ -144,7 +144,7 @@ fn menu_click_golden() {
 
     let mut finish = |op: &str, actual: &mut Vec<String>, expected: &mut Vec<&str>, history: &[String]| {
         for i in 0..actual.len().max(expected.len()) {
-            assert_eq!(actual.get(i).map(String::as_str), expected.get(i).copied(), "after op `{op}`, line {i}; recent ops {history:?}");
+            assert_eq!(actual.get(i).map(String::as_str), expected.get(i).copied(), "after op `{op}`, line {i}; recent ops {history:?} actual={actual:?}");
         }
         actual.clear();
         expected.clear();
