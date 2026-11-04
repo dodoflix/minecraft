@@ -3,7 +3,7 @@
 //! The fixture is produced by `tests/oracle/BlendingOracle.java` (scenario parameters + FNV-1a digests of every value stream;
 //! regenerate with `scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/BlendingOracle.java <out>` from the repo root).
 
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::collections::HashMap;
 use std::path::PathBuf;
 
@@ -70,14 +70,17 @@ impl Digest {
     }
 }
 
-const BIOME_NAMES: [&str; 8] = ["plains", "forest", "desert", "lush_caves", "dripstone_caves", "deep_dark", "ocean", "river"];
-
 fn factory() -> PalettedContainerFactory {
     PalettedContainerFactory::create(BiomeRegistry::new(BIOME_NAMES.iter().map(|n| format!("minecraft:{n}")).collect())).unwrap()
 }
 
+thread_local! {
+    /// Registry ids of the 8 oracle biomes (identity in the synthetic-registry tests, real ids in the terrain test).
+    static BIOME_TABLE: Cell<[u32; 8]> = const { Cell::new([0, 1, 2, 3, 4, 5, 6, 7]) };
+}
+
 fn biome_fn(seed: i64, qx: i32, qy: i32, qz: i32) -> BiomeId {
-    BiomeId(hmod(h(seed, qx as i64, qy as i64, qz as i64), 8) as u32)
+    BiomeId(BIOME_TABLE.with(|t| t.get())[hmod(h(seed, qx as i64, qy as i64, qz as i64), 8) as usize])
 }
 
 fn surf() -> [Block; 10] {
@@ -173,6 +176,7 @@ fn make_chunk(
     min_y: i32,
     height: i32,
     old: Option<&OldChunk>,
+    fill_blocks: bool,
 ) -> ProtoChunk {
     let blending = old.and_then(|o| {
         BlendingData::unpack(Some(&BlendingDataPacked { min_section: o.min_sec, max_section: o.max_sec, heights: o.heights.clone() }))
@@ -181,7 +185,7 @@ fn make_chunk(
     if let Some(o) = old {
         for x in 0..16 {
             for z in 0..16 {
-                if !o.full && !(SPARSE.contains(&x) && SPARSE.contains(&z)) {
+                if !fill_blocks || !o.full && !(SPARSE.contains(&x) && SPARSE.contains(&z)) {
                     continue;
                 }
                 for y in min_y..min_y + height {
@@ -226,7 +230,7 @@ impl BlendingRegion for Region<'_> {
         let mut chunks = self.chunks.borrow_mut();
         let chunk = chunks
             .entry(ChunkPos::pack_xz(chunk_x, chunk_z))
-            .or_insert_with(|| make_chunk(self.f, chunk_x, chunk_z, self.seed, self.min_y, self.height, None));
+            .or_insert_with(|| make_chunk(self.f, chunk_x, chunk_z, self.seed, self.min_y, self.height, None, true));
         f(chunk);
     }
 }
@@ -313,7 +317,7 @@ fn blending_matches_vanilla() {
         };
         for o in &sc.olds {
             let (ox, oz) = (o.x, o.z);
-            region.chunks.borrow_mut().insert(ChunkPos::pack_xz(ox, oz), make_chunk(&f, ox, oz, seed, sc.min_y, sc.height, Some(o)));
+            region.chunks.borrow_mut().insert(ChunkPos::pack_xz(ox, oz), make_chunk(&f, ox, oz, seed, sc.min_y, sc.height, Some(o), true));
         }
         let blender = Blender::of(Some(&region));
         assert_eq!(golden[&(id, "empty".to_string())], format!("{} 0", blender.is_empty() as i32), "scenario {id}: empty");
@@ -549,3 +553,201 @@ fn level_chunk_shares_the_chunk_view_semantics() {
     assert!(chunk.blending_data().is_none());
     chunk.update_blending_data(&mut |_, _| panic!("no blending data"));
 }
+
+// ------------------------------------------------------------------------------------------------------------------
+// Blended terrain: createBiomes / doFill / buildTerrain with a non-empty Blender (tests/oracle/BlendedTerrainOracle.java)
+// ------------------------------------------------------------------------------------------------------------------
+
+mod common;
+
+use mc_worldgen::biome::BiomeManager;
+use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator, NoiseBasedChunkGenerator};
+use mc_worldgen::random_state::RandomState;
+use std::sync::Arc;
+
+struct TerrainCase {
+    id: i32,
+    setting: String,
+    seed: i64,
+    cx: i32,
+    cz: i32,
+    kind: i32,
+    olds: Vec<OldChunk>,
+    target: String,
+    bits: Option<Vec<i64>>,
+}
+
+type Lines = HashMap<(String, i32), Vec<String>>;
+
+fn parse_terrain(text: &str) -> (Vec<TerrainCase>, Lines) {
+    let mut cases: Vec<TerrainCase> = Vec::new();
+    let mut lines = Lines::new();
+    for line in text.lines() {
+        let t: Vec<&str> = line.split(' ').collect();
+        match t[0] {
+            "CASE" => cases.push(TerrainCase {
+                id: t[1].parse().unwrap(),
+                setting: t[2].to_owned(),
+                seed: t[3].parse().unwrap(),
+                cx: t[4].parse().unwrap(),
+                cz: t[5].parse().unwrap(),
+                kind: t[6].parse().unwrap(),
+                olds: Vec::new(),
+                target: String::new(),
+                bits: None,
+            }),
+            "OLD" => cases.last_mut().unwrap().olds.push(OldChunk {
+                x: t[1].parse().unwrap(),
+                z: t[2].parse().unwrap(),
+                min_sec: t[3].parse().unwrap(),
+                max_sec: t[4].parse().unwrap(),
+                status: ChunkStatus::decode_str(t[5]).unwrap(),
+                primed: t[6] == "1",
+                full: false,
+                heights: (t[7] != "-")
+                    .then(|| t[7].split(',').map(|b| f32::from_bits(u32::from_str_radix(b, 16).unwrap())).collect()),
+            }),
+            "RETRO" => {
+                let c = cases.last_mut().unwrap();
+                c.target = t[2].to_owned();
+                c.bits = (t[3] != "-")
+                    .then(|| t[3].trim_matches(|ch| ch == '[' || ch == ']').split(',').map(|v| v.parse::<i64>().unwrap()).collect());
+            }
+            "END" => {}
+            tag => {
+                lines.entry((tag.to_owned(), t[1].parse().unwrap())).or_default().push(t[2..].join(" "));
+            }
+        }
+    }
+    (cases, lines)
+}
+
+/// Fresh region with the case's old chunks plus the target chunk (kind 0 new, 1 old, 2 below-zero retrogen).
+fn build_region<'f>(f: &'f PalettedContainerFactory, c: &TerrainCase, height: LevelHeight, target_status: ChunkStatus) -> Region<'f> {
+    let region = Region {
+        f,
+        seed: c.seed,
+        min_y: height.min_y,
+        height: height.height,
+        center: ChunkPos::new(c.cx, c.cz),
+        chunks: RefCell::new(HashMap::new()),
+    };
+    for o in &c.olds {
+        if (o.x, o.z) == (c.cx, c.cz) {
+            continue;
+        }
+        region.chunks.borrow_mut().insert(ChunkPos::pack_xz(o.x, o.z), make_chunk(f, o.x, o.z, c.seed, height.min_y, height.height, Some(o), true));
+    }
+    let target = if c.kind == 1 {
+        let o = c.olds.iter().find(|o| (o.x, o.z) == (c.cx, c.cz)).unwrap();
+        let mut chunk = make_chunk(f, c.cx, c.cz, c.seed, height.min_y, height.height, Some(o), false);
+        chunk.set_persisted_status(target_status);
+        chunk
+    } else {
+        let mut chunk = ProtoChunk::new(ChunkPos::new(c.cx, c.cz), UpgradeData::empty(), height, f, None);
+        if c.kind == 2 {
+            for x in 0..16 {
+                for z in 0..16 {
+                    for y in 0..8 {
+                        if hmod(h(c.seed, (c.cx * 16 + x) as i64, y as i64, (c.cz * 16 + z) as i64), 3) != 0 {
+                            chunk.set_block_state(BlockPos::new(x, y, z), Block::BEDROCK.default_state(), None);
+                        }
+                    }
+                }
+            }
+            let seed = c.seed;
+            chunk.access.fill_biomes_from_noise(LevelHeight::new(0, 16), |qx, qy, qz| biome_fn(seed ^ 12, qx, qy, qz));
+            let mut tag = CompoundTag::new();
+            tag.put_string("target_status", c.target.clone());
+            if let Some(bits) = &c.bits {
+                tag.put_long_array("missing_bedrock", bits.clone());
+            }
+            chunk.set_below_zero_retrogen(Some(BelowZeroRetrogen::parse(&Tag::Compound(tag)).expect("retrogen")));
+        }
+        chunk.set_persisted_status(target_status);
+        chunk
+    };
+    region.chunks.borrow_mut().insert(ChunkPos::pack_xz(c.cx, c.cz), target);
+    region
+}
+
+fn terrain_ctx<'a>(rs: &'a Arc<RandomState>, blender: &'a Blender, manager: &'a BiomeManager<'a>) -> BuildTerrainContext<'a> {
+    BuildTerrainContext {
+        random_state: rs,
+        blender,
+        structure_starts: &[],
+        biome_manager: manager,
+        possible_biomes: None,
+        carver_biome_cache: None,
+    }
+}
+
+fn check_lines(lines: &Lines, tag: &str, id: i32, got: &[String]) {
+    let expected = lines.get(&(tag.to_owned(), id)).unwrap_or_else(|| panic!("case {id}: no golden {tag}"));
+    assert_eq!(got, expected.as_slice(), "case {id}: {tag}");
+}
+
+#[test]
+fn blended_terrain_matches_vanilla() {
+    use common::{WORLD, biome_hash, generator, heightmap_lines, post_processing_hash, random_state, section_hashes};
+
+    let table: [u32; 8] = std::array::from_fn(|i| WORLD.biomes.id_of_name(BIOME_NAMES[i]).expect("biome").0);
+    BIOME_TABLE.with(|t| t.set(table));
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/blended_terrain_golden.txt");
+    let (cases, lines) = parse_terrain(&std::fs::read_to_string(path).unwrap());
+    assert!(cases.len() >= 12);
+    let f = &WORLD.factory;
+    let mut generators: HashMap<String, NoiseBasedChunkGenerator> = HashMap::new();
+    for c in &cases {
+        let id = c.id;
+        let generator = generators.entry(c.setting.clone()).or_insert_with(|| generator(&c.setting));
+        let rs = random_state(generator, c.seed);
+        let height = common::level_height(&c.setting);
+        let resolver = generator.biome_source().create_uncached_resolver(&rs);
+        let manager = BiomeManager::new(&*resolver, BiomeManager::obfuscate_seed(c.seed));
+        let target_key = ChunkPos::pack_xz(c.cx, c.cz);
+
+        // createBiomes
+        let region = build_region(f, c, height, ChunkStatus::Empty);
+        let blender = Blender::of(Some(&region));
+        let mut chunk = region.chunks.borrow_mut().remove(&target_key).unwrap();
+        generator.create_biomes(&rs, &blender, &mut chunk);
+        chunk.set_persisted_status(ChunkStatus::Biomes);
+        check_lines(&lines, "BE", id, &[format!("{}", blender.is_empty() as i32)]);
+        check_lines(&lines, "BB", id, &[format!("{:016x}", biome_hash(&chunk))]);
+
+        // doFill alone
+        let region = build_region(f, c, height, ChunkStatus::Biomes);
+        let blender = Blender::of(Some(&region));
+        let mut chunk = region.chunks.borrow_mut().remove(&target_key).unwrap();
+        {
+            let ctx = terrain_ctx(&rs, &blender, &manager);
+            let ns = generator.settings().noise.clamp_to_height_accessor(chunk.get_height_accessor_for_generation());
+            let mut nc = generator.create_noise_chunk(chunk.pos(), &ctx, ns);
+            generator.do_fill(&mut nc, &mut chunk);
+        }
+        check_lines(&lines, "BD", id, &[section_hashes(&chunk).trim_start().to_owned()]);
+
+        // buildTerrain
+        let region = build_region(f, c, height, ChunkStatus::Biomes);
+        let blender = Blender::of(Some(&region));
+        let mut chunk = region.chunks.borrow_mut().remove(&target_key).unwrap();
+        generator.build_terrain(&mut chunk, &terrain_ctx(&rs, &blender, &manager));
+        check_lines(&lines, "BF", id, &[section_hashes(&chunk).trim_start().to_owned()]);
+        let got: Vec<String> = heightmap_lines(&mut chunk);
+        check_lines(&lines, "BFH", id, &got);
+        check_lines(&lines, "BFP", id, &[format!("{:016x}", post_processing_hash(&chunk))]);
+        if let Some(retrogen) = chunk.get_below_zero_retrogen().cloned() {
+            blending::replace_old_bedrock(&mut chunk);
+            if retrogen.has_bedrock_holes() {
+                blending::apply_bedrock_mask(&retrogen, &mut chunk);
+            }
+            check_lines(&lines, "BR", id, &[section_hashes(&chunk).trim_start().to_owned()]);
+        } else {
+            assert!(!lines.contains_key(&("BR".to_owned(), id)), "case {id}: vanilla had a retrogen");
+        }
+    }
+    assert!(cases.iter().any(|c| c.kind == 2) && cases.iter().any(|c| c.kind == 1));
+}
+
+const BIOME_NAMES: [&str; 8] = ["plains", "forest", "desert", "lush_caves", "dripstone_caves", "deep_dark", "ocean", "river"];
