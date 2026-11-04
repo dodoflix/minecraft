@@ -18,7 +18,6 @@ use crate::server::world_dimensions::overworld_key;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::entity::Entity;
 use crate::world::level::gamerules::GameRules;
-use crate::world::level::saveddata::world_border::WorldBorder;
 use crate::world::level::{DimensionKey, LevelReader};
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -162,7 +161,7 @@ impl PrepareSpawnTask {
 
 /// `Mth.floor(worldBorder.getDistanceToBorder(x, z))` at the suggestion.
 fn distance_to_border(level: &mut ServerLevel, pos: BlockPos) -> i32 {
-    let border = level.get_data_storage().compute_if_absent(&WorldBorder::type_());
+    let border = level.get_world_border();
     mc_core::math::mth::floor_f64(border.get_distance_to_border(f64::from(pos.x()), f64::from(pos.z())))
 }
 

@@ -38,6 +38,16 @@ pub struct ServerJoinHost<'a> {
     pub level: &'a mut ServerLevel,
 }
 
+impl ServerLevel {
+    /// `getWorldBorder()`: the level's border saved data, its initial settings applied on first use.
+    pub fn get_world_border(&mut self) -> &mut WorldBorder {
+        let game_time = self.level_data.get_game_time();
+        let border = self.get_data_storage().compute_if_absent(&WorldBorder::type_());
+        border.apply_initial_settings(game_time);
+        border
+    }
+}
+
 impl MinecraftServer {
     /// `level.dimensionTypeRegistration()`'s protocol id (`0` for an inline dimension type, which has no registry id).
     pub fn dimension_type_id(&self, dimension: &DimensionKey) -> i32 {
@@ -69,15 +79,17 @@ pub fn initialize_border_packet(border: &WorldBorder) -> ClientboundInitializeBo
 /// The level facts every join/respawn packet needs, read from the server and the level.
 pub fn level_join_info(server: &mut MinecraftServer, level: &mut ServerLevel) -> LevelJoinInfo {
     let dimension = level.dimension.clone();
-    let (hardcore, difficulty, difficulty_locked, respawn, is_flat) = {
+    // (the level data of the overworld locks the same world data: read it before taking the lock here)
+    let respawn = level.level_data.get_respawn_data();
+    let (hardcore, difficulty, difficulty_locked, is_flat) = {
         let data = server.world_data.lock();
         let settings = &data.settings.difficulty_settings;
-        (settings.hardcore, settings.difficulty, settings.locked, level.level_data.get_respawn_data(), data.is_flat_world())
+        (settings.hardcore, settings.difficulty, settings.locked, data.is_flat_world())
     };
     let rules = server.game_rules_ref();
     let (immediate_respawn, reduced_debug_info, limited_crafting) =
         (rules.get(GameRules::IMMEDIATE_RESPAWN), rules.get(GameRules::REDUCED_DEBUG_INFO), rules.get(GameRules::LIMITED_CRAFTING));
-    let border = initialize_border_packet(level.get_data_storage().compute_if_absent(&WorldBorder::type_()));
+    let border = initialize_border_packet(level.get_world_border());
     let raining = level.is_raining().then(|| (level.get_rain_level(1.0), level.get_thunder_level(1.0)));
     LevelJoinInfo {
         hardcore,

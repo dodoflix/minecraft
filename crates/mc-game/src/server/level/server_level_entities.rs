@@ -176,11 +176,33 @@ impl ServerLevel {
             EntityLevelEvent::TrackingStart(id) => {
                 if self.entity_manager.get_any(id).is_some_and(|e| e.is_player()) && !self.players.contains(&id) {
                     self.players.push(id);
+                    // `ServerChunkCache.addEntity(player)` -> `ChunkMap.updatePlayerStatus(player, true)`
+                    let info = self
+                        .entity_manager
+                        .get_any(id)
+                        .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
+                        .and_then(|p| Some((p, p.connection.clone()?, p.listener.as_ref()?.chunk_sender.clone())))
+                        .map(|(p, connection, sink)| super::chunk_map::PlayerTrackingInfo {
+                            entity_id: id,
+                            uuid: p.uuid(),
+                            connection,
+                            sink: Box::new(sink),
+                            position: p.position(),
+                            requested_view_distance: p.requested_view_distance,
+                            spectator: p.is_spectator(),
+                            alive: p.is_alive(),
+                        });
+                    if let Some(info) = info {
+                        self.chunk_source.chunk_map.add_player(info);
+                    }
                 }
                 let players = super::tracker_players(&self.entity_manager, &self.players);
                 self.entity_tracker.add_entity(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, id);
             }
             EntityLevelEvent::TrackingEnd(id) => {
+                if self.players.contains(&id) {
+                    self.chunk_source.chunk_map.remove_player(id);
+                }
                 self.players.retain(|&p| p != id);
                 let player = self
                     .entity_manager

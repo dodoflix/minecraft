@@ -228,17 +228,6 @@ impl PlayCtx<'_> {
 
     /// `PlayerList.remove(player)`.
     fn remove_from_player_list(&mut self) {
-        let Some(handle) = self.player.handle.clone() else { return };
-        // `save(player)`: player data file, stats and advancements
-        {
-            let level = &*self.level;
-            let lookup = |id: crate::world::entity::EntityId| level.get_entity(id);
-            let data = self.player.save_player_data(&lookup);
-            self.server.player_list.save_player_data(&handle, data);
-        }
-        self.server.player_list.save_player_files(&handle);
-        self.player.remove(crate::world::entity::RemovalReason::UnloadedToChunk);
-        self.server.player_list.remove_player(&handle);
-        self.server.player_list.broadcast_player_info_remove(handle.uuid);
+        crate::server::players::player_ops::remove(&mut *self.server, &mut *self.level, &mut *self.player);
     }
 }
