@@ -249,6 +249,13 @@ impl Commands {
         Commands { dispatcher }
     }
 
+    /// A `Commands` over an already built dispatcher (tests, function compilation).
+    pub fn from_dispatcher(dispatcher: CommandDispatcher<CommandSourceStack>) -> Commands {
+        let mut dispatcher = dispatcher;
+        dispatcher.set_consumer(|context, success, result| context.get_source().callback().on_result(success, result));
+        Commands { dispatcher }
+    }
+
     pub fn get_dispatcher(&self) -> &CommandDispatcher<CommandSourceStack> {
         &self.dispatcher
     }

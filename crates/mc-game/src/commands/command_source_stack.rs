@@ -11,6 +11,7 @@ use super::server_access;
 use super::{CommandResultCallback, CommandSource, CommandSourceKind};
 use crate::server::MinecraftServer;
 use crate::server::permissions::{Permission, PermissionSet};
+use crate::server::players::player_handle::PlayerHandle;
 use crate::world::entity::EntityId;
 use crate::world::level::DimensionKey;
 use mc_brigadier::{CommandExceptionType, CommandSyntaxException, MessageRef, SimpleCommandExceptionType};
@@ -31,7 +32,7 @@ pub static ERROR_NOT_ENTITY: LazyLock<SimpleCommandExceptionType> =
 
 /// The entity a stack runs as: its id plus the facts the stack itself consults (vanilla reads them from the live
 /// `Entity`; entities are not reachable without the server here).
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone)]
 pub struct CommandEntity {
     pub id: EntityId,
     pub uuid: Uuid,
@@ -43,6 +44,20 @@ pub struct CommandEntity {
     pub plain_text_name: String,
     /// `Entity.getEyeHeight()` (for `anchored eyes`).
     pub eye_height: f32,
+    /// The connection handle when the entity is a player (`sendSystemMessage` goes to it).
+    pub player: Option<PlayerHandle>,
+}
+
+impl std::fmt::Debug for CommandEntity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("CommandEntity").field("id", &self.id).field("uuid", &self.uuid).field("is_player", &self.is_player).finish()
+    }
+}
+
+impl PartialEq for CommandEntity {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id && self.uuid == other.uuid
+    }
 }
 
 /// `CommandSourceStack.NamesProvider`.
@@ -323,6 +338,41 @@ impl CommandSourceStack {
     /// `levels()`: the keys of all levels.
     pub fn levels(&self) -> Vec<DimensionKey> {
         self.with_server(|server| server.level_keys())
+    }
+
+    pub fn send_system_message(&self, message: &Component) {
+        if !self.silent {
+            match self.get_player().and_then(|p| p.player.as_ref()) {
+                Some(player) => player.send_system_message(message, false),
+                None => self.source.send_system_message(message),
+            }
+        }
+    }
+
+    /// `sendSuccess(messageSupplier, broadcast)`.
+    pub fn send_success(&self, message_supplier: impl FnOnce() -> Component, broadcast: bool) {
+        let should_send_system_message = self.source.accepts_success() && !self.silent;
+        let should_broadcast = broadcast && self.source.should_inform_admins() && !self.silent;
+        if should_send_system_message || should_broadcast {
+            let message = message_supplier();
+            if should_send_system_message {
+                self.source.send_system_message(&message);
+            }
+            if should_broadcast {
+                self.broadcast_to_admins(&message);
+            }
+        }
+    }
+
+    fn broadcast_to_admins(&self, message: &Component) {
+        let broadcast = Component::translatable(
+            "chat.type.admin",
+            vec![self.get_display_name().into(), message.clone().into()],
+        )
+        .with_formats(&[ChatFormatting::Gray, ChatFormatting::Italic]);
+        let source_kind = self.source.kind();
+        let level = self.level.clone();
+        self.with_server(|server| super::host::broadcast_to_admins(server, source_kind, &level, &broadcast));
     }
 
     pub fn send_failure(&self, message: Component) {
