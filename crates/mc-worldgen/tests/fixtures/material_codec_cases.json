@@ -1,0 +1,2484 @@
+[
+{
+"kind": "condition",
+"name": "000_c_steep",
+"json": {
+"type": "minecraft:steep"
+}
+},
+{
+"kind": "condition",
+"name": "001_c_hole",
+"json": {
+"type": "minecraft:hole"
+}
+},
+{
+"kind": "condition",
+"name": "002_c_temperature",
+"json": {
+"type": "minecraft:temperature"
+}
+},
+{
+"kind": "condition",
+"name": "003_c_above_pre",
+"json": {
+"type": "minecraft:above_preliminary_surface"
+}
+},
+{
+"kind": "condition",
+"name": "004_c_steep_extra",
+"json": {
+"type": "minecraft:steep",
+"extra": 5
+}
+},
+{
+"kind": "condition",
+"name": "005_c_steep_noprefix",
+"json": {
+"type": "steep"
+}
+},
+{
+"kind": "condition",
+"name": "006_c_bad_ns",
+"json": {
+"type": "foo:steep"
+}
+},
+{
+"kind": "condition",
+"name": "007_c_unknown_type",
+"json": {
+"type": "minecraft:nope"
+}
+},
+{
+"kind": "condition",
+"name": "008_c_no_type",
+"json": {}
+},
+{
+"kind": "condition",
+"name": "009_c_type_num",
+"json": {
+"type": 5
+}
+},
+{
+"kind": "condition",
+"name": "010_c_type_bool",
+"json": {
+"type": true
+}
+},
+{
+"kind": "condition",
+"name": "011_c_type_null",
+"json": {
+"type": null
+}
+},
+{
+"kind": "condition",
+"name": "012_c_not_obj_array",
+"json": []
+},
+{
+"kind": "condition",
+"name": "013_c_num",
+"json": 5
+},
+{
+"kind": "condition",
+"name": "014_c_null",
+"json": null
+},
+{
+"kind": "condition",
+"name": "015_c_bool",
+"json": true
+},
+{
+"kind": "condition",
+"name": "016_c_str_bad_id",
+"json": "Bad Ref"
+},
+{
+"kind": "condition",
+"name": "017_c_str_ref_ok",
+"json": "minecraft:on_floor"
+},
+{
+"kind": "condition",
+"name": "018_c_str_ref_missing",
+"json": "minecraft:nope_cond"
+},
+{
+"kind": "condition",
+"name": "019_c_str_ref_noprefix",
+"json": "on_floor"
+},
+{
+"kind": "condition",
+"name": "020_c_str_ref_ns_missing",
+"json": "foo:on_floor"
+},
+{
+"kind": "condition",
+"name": "021_c_empty_str",
+"json": ""
+},
+{
+"kind": "condition",
+"name": "022_water_mult_-21",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": -21,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "023_y_mult_-21",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": -21,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "024_water_mult_-20",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": -20,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "025_y_mult_-20",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": -20,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "026_water_mult_0",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": 0,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "027_y_mult_0",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "028_water_mult_20",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": 20,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "029_y_mult_20",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": 20,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "030_water_mult_21",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": 21,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "031_y_mult_21",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": 21,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "032_water_mult_1.5",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": 1.5,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "033_y_mult_1.5",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": 1.5,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "034_water_mult_3",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": "3",
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "035_y_mult_3",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": "3",
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "036_water_mult_True",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": true,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "037_y_mult_True",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": true,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "038_water_mult_None",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": null,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "039_y_mult_None",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": null,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "040_water_mult_100000000000",
+"json": {
+"type": "minecraft:water",
+"offset": 3,
+"surface_depth_multiplier": 100000000000,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "041_y_mult_100000000000",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 5
+},
+"surface_depth_multiplier": 100000000000,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "042_water_off_0",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "043_water_off_-7",
+"json": {
+"type": "minecraft:water",
+"offset": -7,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "044_water_off_1.9",
+"json": {
+"type": "minecraft:water",
+"offset": 1.9,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "045_water_off_1000.0",
+"json": {
+"type": "minecraft:water",
+"offset": 1000.0,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "046_water_off_x",
+"json": {
+"type": "minecraft:water",
+"offset": "x",
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "047_water_off_True",
+"json": {
+"type": "minecraft:water",
+"offset": true,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "048_water_off_4294967297",
+"json": {
+"type": "minecraft:water",
+"offset": 4294967297,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "049_water_off_2147483648",
+"json": {
+"type": "minecraft:water",
+"offset": 2147483648,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "050_water_off_10000000000.0",
+"json": {
+"type": "minecraft:water",
+"offset": 10000000000.0,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "051_water_off_None",
+"json": {
+"type": "minecraft:water",
+"offset": null,
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "052_water_no_offset",
+"json": {
+"type": "minecraft:water",
+"surface_depth_multiplier": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "053_water_no_mult",
+"json": {
+"type": "minecraft:water",
+"offset": 1,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "054_water_no_asd",
+"json": {
+"type": "minecraft:water",
+"offset": 1,
+"surface_depth_multiplier": 1
+}
+},
+{
+"kind": "condition",
+"name": "055_water_asd_int",
+"json": {
+"type": "minecraft:water",
+"offset": 1,
+"surface_depth_multiplier": 1,
+"add_stone_depth": 1
+}
+},
+{
+"kind": "condition",
+"name": "056_water_asd_str",
+"json": {
+"type": "minecraft:water",
+"offset": 1,
+"surface_depth_multiplier": 1,
+"add_stone_depth": "true"
+}
+},
+{
+"kind": "condition",
+"name": "057_y_anchor_{\"absolute\":_10}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 10
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "058_y_anchor_{\"above_bottom\":_5}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"above_bottom": 5
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "059_y_anchor_{\"below_top\":_5}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"below_top": 5
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "060_y_anchor_{\"relative_to_sea_level\":_-3}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"relative_to_sea_level": -3
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "061_y_anchor_{\"absolute\":_2031}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 2031
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "062_y_anchor_{\"absolute\":_2032}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 2032
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "063_y_anchor_{\"absolute\":_-2032}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": -2032
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "064_y_anchor_{\"absolute\":_-2033}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": -2033
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "065_y_anchor_{\"absolute\":_1,_\"above_bottom\":_2}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 1,
+"above_bottom": 2
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "066_y_anchor_{}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "067_y_anchor_{\"absolute\":_\"1\"}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": "1"
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "068_y_anchor_{\"absolute\":_1.5}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": 1.5
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "069_y_anchor_{\"absolute\":_true}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"absolute": true
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "070_y_anchor_5",
+"json": {
+"type": "minecraft:y_above",
+"anchor": 5,
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "071_y_anchor_\"x\"",
+"json": {
+"type": "minecraft:y_above",
+"anchor": "x",
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "072_y_anchor_[]",
+"json": {
+"type": "minecraft:y_above",
+"anchor": [],
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "073_y_anchor_null",
+"json": {
+"type": "minecraft:y_above",
+"anchor": null,
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "074_y_anchor_{\"above_bottom\":_1,_\"below_top\":_2,_\"absolute\":_3}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"above_bottom": 1,
+"below_top": 2,
+"absolute": 3
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "075_y_anchor_{\"foo\":_1}",
+"json": {
+"type": "minecraft:y_above",
+"anchor": {
+"foo": 1
+},
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "076_y_no_anchor",
+"json": {
+"type": "minecraft:y_above",
+"surface_depth_multiplier": 0,
+"add_stone_depth": false
+}
+},
+{
+"kind": "condition",
+"name": "077_vg_random_minecraft:bedrock_floor",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": "minecraft:bedrock_floor",
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "078_vg_random_bad_name",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": "bad name",
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "079_vg_random_x:y",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": "x:y",
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "080_vg_random_",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": "",
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "081_vg_random_12",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": "12",
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "082_vg_random_5",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": 5,
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "083_vg_random_None",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": null,
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "084_vg_missing_true",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": "a",
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "085_vg_missing_false",
+"json": {
+"type": "minecraft:vertical_gradient",
+"random_name": "a",
+"true_at_and_below": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "086_vg_missing_name",
+"json": {
+"type": "minecraft:vertical_gradient",
+"true_at_and_below": {
+"above_bottom": 0
+},
+"false_at_and_above": {
+"above_bottom": 5
+}
+}
+},
+{
+"kind": "condition",
+"name": "087_nt_min_threshold_x",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": "x",
+"max_threshold": 1.0,
+"is_3d": false
+}
+},
+{
+"kind": "condition",
+"name": "088_nt_max_threshold_None",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": -1.0,
+"max_threshold": null,
+"is_3d": false
+}
+},
+{
+"kind": "condition",
+"name": "089_nt_is_3d_1",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": -1.0,
+"max_threshold": 1.0,
+"is_3d": 1
+}
+},
+{
+"kind": "condition",
+"name": "090_nt_is_3d_true",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": -1.0,
+"max_threshold": 1.0,
+"is_3d": "true"
+}
+},
+{
+"kind": "condition",
+"name": "091_nt_is_3d_True",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": -1.0,
+"max_threshold": 1.0,
+"is_3d": true
+}
+},
+{
+"kind": "condition",
+"name": "092_nt_is_3d_None",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": -1.0,
+"max_threshold": 1.0,
+"is_3d": null
+}
+},
+{
+"kind": "condition",
+"name": "093_nt_no_is3d",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": 1,
+"max_threshold": 2
+}
+},
+{
+"kind": "condition",
+"name": "094_nt_no_min",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"max_threshold": 2
+}
+},
+{
+"kind": "condition",
+"name": "095_nt_no_max",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": 2
+}
+},
+{
+"kind": "condition",
+"name": "096_nt_no_noise",
+"json": {
+"type": "minecraft:noise_threshold",
+"min_threshold": 2,
+"max_threshold": 3
+}
+},
+{
+"kind": "condition",
+"name": "097_nt_bad_noise_id",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "Bad Id",
+"min_threshold": 2,
+"max_threshold": 3
+}
+},
+{
+"kind": "condition",
+"name": "098_nt_noise_num",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": 3,
+"min_threshold": 2,
+"max_threshold": 3
+}
+},
+{
+"kind": "condition",
+"name": "099_nt_int_thresholds",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:surface",
+"min_threshold": 1,
+"max_threshold": 2
+}
+},
+{
+"kind": "condition",
+"name": "100_nt_unknown_noise",
+"json": {
+"type": "minecraft:noise_threshold",
+"noise": "minecraft:nonexistent_noise",
+"min_threshold": 1,
+"max_threshold": 2
+},
+"rust_differs": true
+},
+{
+"kind": "condition",
+"name": "101_biome_\"minecraft:plains\"",
+"json": {
+"type": "minecraft:biome",
+"biome_is": "minecraft:plains"
+}
+},
+{
+"kind": "condition",
+"name": "102_biome_[\"minecraft:plains\",_\"minecraft:desert\"]",
+"json": {
+"type": "minecraft:biome",
+"biome_is": [
+"minecraft:plains",
+"minecraft:desert"
+]
+}
+},
+{
+"kind": "condition",
+"name": "103_biome_\"#minecraft:is_ocean\"",
+"json": {
+"type": "minecraft:biome",
+"biome_is": "#minecraft:is_ocean"
+}
+},
+{
+"kind": "condition",
+"name": "104_biome_\"#minecraft:nope\"",
+"json": {
+"type": "minecraft:biome",
+"biome_is": "#minecraft:nope"
+}
+},
+{
+"kind": "condition",
+"name": "105_biome_[]",
+"json": {
+"type": "minecraft:biome",
+"biome_is": []
+}
+},
+{
+"kind": "condition",
+"name": "106_biome_\"minecraft:nope_biome\"",
+"json": {
+"type": "minecraft:biome",
+"biome_is": "minecraft:nope_biome"
+}
+},
+{
+"kind": "condition",
+"name": "107_biome_[\"minecraft:plains\",_\"minecraft:nope\"]",
+"json": {
+"type": "minecraft:biome",
+"biome_is": [
+"minecraft:plains",
+"minecraft:nope"
+]
+}
+},
+{
+"kind": "condition",
+"name": "108_biome_5",
+"json": {
+"type": "minecraft:biome",
+"biome_is": 5
+}
+},
+{
+"kind": "condition",
+"name": "109_biome_null",
+"json": {
+"type": "minecraft:biome",
+"biome_is": null
+}
+},
+{
+"kind": "condition",
+"name": "110_biome_{}",
+"json": {
+"type": "minecraft:biome",
+"biome_is": {}
+}
+},
+{
+"kind": "condition",
+"name": "111_biome_\"Bad_Id\"",
+"json": {
+"type": "minecraft:biome",
+"biome_is": "Bad Id"
+}
+},
+{
+"kind": "condition",
+"name": "112_biome_\"plains\"",
+"json": {
+"type": "minecraft:biome",
+"biome_is": "plains"
+}
+},
+{
+"kind": "condition",
+"name": "113_biome_[5]",
+"json": {
+"type": "minecraft:biome",
+"biome_is": [
+5
+]
+}
+},
+{
+"kind": "condition",
+"name": "114_biome_[\"#minecraft:is_ocean\"]",
+"json": {
+"type": "minecraft:biome",
+"biome_is": [
+"#minecraft:is_ocean"
+]
+}
+},
+{
+"kind": "condition",
+"name": "115_biome_\"#\"",
+"json": {
+"type": "minecraft:biome",
+"biome_is": "#"
+}
+},
+{
+"kind": "condition",
+"name": "116_biome_missing",
+"json": {
+"type": "minecraft:biome"
+}
+},
+{
+"kind": "condition",
+"name": "117_not_ok",
+"json": {
+"type": "minecraft:not",
+"invert": {
+"type": "minecraft:steep"
+}
+}
+},
+{
+"kind": "condition",
+"name": "118_not_ref",
+"json": {
+"type": "minecraft:not",
+"invert": "minecraft:on_floor"
+}
+},
+{
+"kind": "condition",
+"name": "119_not_missing",
+"json": {
+"type": "minecraft:not"
+}
+},
+{
+"kind": "condition",
+"name": "120_not_bad_inner",
+"json": {
+"type": "minecraft:not",
+"invert": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 99,
+"add_stone_depth": true
+}
+}
+},
+{
+"kind": "condition",
+"name": "121_not_deep",
+"json": {
+"type": "minecraft:not",
+"invert": {
+"type": "minecraft:not",
+"invert": {
+"type": "minecraft:not",
+"invert": {
+"type": "minecraft:hole"
+}
+}
+}
+}
+},
+{
+"kind": "condition",
+"name": "122_sd_floor",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": "floor"
+}
+},
+{
+"kind": "condition",
+"name": "123_sd_ceiling",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": "ceiling"
+}
+},
+{
+"kind": "condition",
+"name": "124_sd_FLOOR",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": "FLOOR"
+}
+},
+{
+"kind": "condition",
+"name": "125_sd_other",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": "other"
+}
+},
+{
+"kind": "condition",
+"name": "126_sd_5",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": 5
+}
+},
+{
+"kind": "condition",
+"name": "127_sd_None",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": null
+}
+},
+{
+"kind": "condition",
+"name": "128_sd_True",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": true
+}
+},
+{
+"kind": "condition",
+"name": "129_sd_no_sec",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"add_surface_depth": true,
+"surface_type": "floor"
+}
+},
+{
+"kind": "condition",
+"name": "130_sd_no_offset",
+"json": {
+"type": "minecraft:stone_depth",
+"add_surface_depth": true,
+"secondary_depth_range": 0,
+"surface_type": "floor"
+}
+},
+{
+"kind": "condition",
+"name": "131_sd_no_asd",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 0,
+"secondary_depth_range": 0,
+"surface_type": "floor"
+}
+},
+{
+"kind": "condition",
+"name": "132_sd_neg",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": -5,
+"add_surface_depth": false,
+"secondary_depth_range": -3,
+"surface_type": "ceiling"
+}
+},
+{
+"kind": "condition",
+"name": "133_sd_frac",
+"json": {
+"type": "minecraft:stone_depth",
+"offset": 1.5,
+"add_surface_depth": false,
+"secondary_depth_range": 2.7,
+"surface_type": "ceiling"
+}
+},
+{
+"kind": "rule",
+"name": "134_r_bandlands",
+"json": {
+"type": "minecraft:bandlands"
+}
+},
+{
+"kind": "rule",
+"name": "135_r_bandlands_extra",
+"json": {
+"type": "minecraft:bandlands",
+"x": 1
+}
+},
+{
+"kind": "rule",
+"name": "136_r_ref_ok",
+"json": "minecraft:bedrock_floor"
+},
+{
+"kind": "rule",
+"name": "137_r_ref_nested",
+"json": "minecraft:overworld/surface"
+},
+{
+"kind": "rule",
+"name": "138_r_ref_missing",
+"json": "minecraft:nope_rule"
+},
+{
+"kind": "rule",
+"name": "139_r_ref_bad",
+"json": "Bad Ref"
+},
+{
+"kind": "rule",
+"name": "140_r_num",
+"json": 3
+},
+{
+"kind": "rule",
+"name": "141_r_null",
+"json": null
+},
+{
+"kind": "rule",
+"name": "142_r_arr",
+"json": []
+},
+{
+"kind": "rule",
+"name": "143_r_empty_obj",
+"json": {}
+},
+{
+"kind": "rule",
+"name": "144_r_unknown",
+"json": {
+"type": "minecraft:nope"
+}
+},
+{
+"kind": "rule",
+"name": "145_r_bad_ns",
+"json": {
+"type": "x:block",
+"result_state": {
+"Name": "minecraft:stone"
+}
+}
+},
+{
+"kind": "rule",
+"name": "146_r_no_prefix",
+"json": {
+"type": "block",
+"result_state": {
+"Name": "minecraft:stone"
+}
+}
+},
+{
+"kind": "rule",
+"name": "147_r_block_{\"Name\":_\"minecraft:stone\"}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:stone"
+}
+}
+},
+{
+"kind": "rule",
+"name": "148_r_block_\"minecraft:stone\"",
+"json": {
+"type": "minecraft:block",
+"result_state": "minecraft:stone"
+}
+},
+{
+"kind": "rule",
+"name": "149_r_block_{\"Name\":_\"minecraft:nope\"}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:nope"
+}
+}
+},
+{
+"kind": "rule",
+"name": "150_r_block_{\"Name\":_\"stone\"}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "stone"
+}
+}
+},
+{
+"kind": "rule",
+"name": "151_r_block_{\"Name\":_\"minecraft:oak_log\",_\"Properties\":_{\"axis\":_\"x\"}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {
+"axis": "x"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "152_r_block_{\"Name\":_\"minecraft:oak_log\",_\"Properties\":_{\"axis\":_\"q\"}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {
+"axis": "q"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "153_r_block_{\"Name\":_\"minecraft:oak_log\",_\"Properties\":_{\"nope\":_\"x\"}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {
+"nope": "x"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "154_r_block_{\"Name\":_\"minecraft:oak_log\",_\"Properties\":_{\"axis\":_1}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {
+"axis": 1
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "155_r_block_{\"Name\":_\"minecraft:oak_log\",_\"Properties\":_{\"axis\":_true}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {
+"axis": true
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "156_r_block_{\"Name\":_\"minecraft:oak_log\",_\"Properties\":_[]}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": []
+}
+}
+},
+{
+"kind": "rule",
+"name": "157_r_block_{\"Name\":_\"minecraft:oak_log\",_\"Properties\":_{}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {}
+}
+}
+},
+{
+"kind": "rule",
+"name": "158_r_block_{\"Name\":_5}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": 5
+}
+}
+},
+{
+"kind": "rule",
+"name": "159_r_block_{\"Properties\":_{}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"properties": {}
+}
+}
+},
+{
+"kind": "rule",
+"name": "160_r_block_{}",
+"json": {
+"type": "minecraft:block",
+"result_state": {}
+}
+},
+{
+"kind": "rule",
+"name": "161_r_block_\"nope\"",
+"json": {
+"type": "minecraft:block",
+"result_state": "nope"
+}
+},
+{
+"kind": "rule",
+"name": "162_r_block_\"Bad_Name\"",
+"json": {
+"type": "minecraft:block",
+"result_state": "Bad Name"
+}
+},
+{
+"kind": "rule",
+"name": "163_r_block_5",
+"json": {
+"type": "minecraft:block",
+"result_state": 5
+}
+},
+{
+"kind": "rule",
+"name": "164_r_block_null",
+"json": {
+"type": "minecraft:block",
+"result_state": null
+}
+},
+{
+"kind": "rule",
+"name": "165_r_block_{\"Name\":_\"minecraft:water\",_\"Properties\":_{\"level\":_\"3\"}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:water",
+"properties": {
+"level": "3"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "166_r_block_{\"Name\":_\"minecraft:water\",_\"Properties\":_{\"level\":_3}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:water",
+"properties": {
+"level": 3
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "167_r_block_{\"Name\":_\"minecraft:snow\",_\"Properties\":_{\"layers\":_\"8\"}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:snow",
+"properties": {
+"layers": "8"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "168_r_block_{\"Name\":_\"minecraft:snow\",_\"Properties\":_{\"layers\":_\"9\"}}",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:snow",
+"properties": {
+"layers": "9"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "169_r_block_missing",
+"json": {
+"type": "minecraft:block"
+}
+},
+{
+"kind": "rule",
+"name": "170_r_seq_empty",
+"json": {
+"type": "minecraft:sequence",
+"sequence": []
+}
+},
+{
+"kind": "rule",
+"name": "171_r_seq_one",
+"json": {
+"type": "minecraft:sequence",
+"sequence": [
+{
+"type": "minecraft:bandlands"
+}
+]
+}
+},
+{
+"kind": "rule",
+"name": "172_r_seq_refs",
+"json": {
+"type": "minecraft:sequence",
+"sequence": [
+"minecraft:bedrock_floor",
+{
+"type": "minecraft:bandlands"
+},
+"minecraft:overworld/surface"
+]
+}
+},
+{
+"kind": "rule",
+"name": "173_r_seq_missing",
+"json": {
+"type": "minecraft:sequence"
+}
+},
+{
+"kind": "rule",
+"name": "174_r_seq_obj",
+"json": {
+"type": "minecraft:sequence",
+"sequence": {}
+}
+},
+{
+"kind": "rule",
+"name": "175_r_seq_bad_elem",
+"json": {
+"type": "minecraft:sequence",
+"sequence": [
+{
+"type": "minecraft:bandlands"
+},
+5
+]
+}
+},
+{
+"kind": "rule",
+"name": "176_r_seq_bad_ref",
+"json": {
+"type": "minecraft:sequence",
+"sequence": [
+{
+"type": "minecraft:bandlands"
+},
+"minecraft:nope_rule"
+]
+}
+},
+{
+"kind": "rule",
+"name": "177_r_seq_nested",
+"json": {
+"type": "minecraft:sequence",
+"sequence": [
+{
+"type": "minecraft:sequence",
+"sequence": [
+{
+"type": "minecraft:sequence",
+"sequence": []
+}
+]
+}
+]
+}
+},
+{
+"kind": "rule",
+"name": "178_r_cond_ok",
+"json": {
+"type": "minecraft:condition",
+"if_true": {
+"type": "minecraft:steep"
+},
+"then_run": {
+"type": "minecraft:bandlands"
+}
+}
+},
+{
+"kind": "rule",
+"name": "179_r_cond_refs",
+"json": {
+"type": "minecraft:condition",
+"if_true": "minecraft:on_floor",
+"then_run": "minecraft:bedrock_floor"
+}
+},
+{
+"kind": "rule",
+"name": "180_r_cond_no_if",
+"json": {
+"type": "minecraft:condition",
+"then_run": {
+"type": "minecraft:bandlands"
+}
+}
+},
+{
+"kind": "rule",
+"name": "181_r_cond_no_then",
+"json": {
+"type": "minecraft:condition",
+"if_true": {
+"type": "minecraft:steep"
+}
+}
+},
+{
+"kind": "rule",
+"name": "182_r_cond_bad_if",
+"json": {
+"type": "minecraft:condition",
+"if_true": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 21,
+"add_stone_depth": true
+},
+"then_run": {
+"type": "minecraft:bandlands"
+}
+}
+},
+{
+"kind": "rule",
+"name": "183_r_cond_bad_then",
+"json": {
+"type": "minecraft:condition",
+"if_true": {
+"type": "minecraft:steep"
+},
+"then_run": {}
+}
+},
+{
+"kind": "rule",
+"name": "184_r_ore_ok",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "185_r_ore_chance_0",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "186_r_ore_chance_1",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 1,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "187_r_ore_chance_0.5",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.5,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "188_r_ore_chance_-0.01",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": -0.01,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "189_r_ore_chance_1.01",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 1.01,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "190_r_ore_chance_0.5",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": "0.5",
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "191_r_ore_chance_True",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": true,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "192_r_ore_chance_None",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": null,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "193_r_ore_chance_2",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 2,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "194_r_ore_chance_1e-30",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 1e-30,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "195_r_ore_missing_ore_block",
+"json": {
+"type": "minecraft:ore_vein",
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "196_r_ore_missing_raw_ore_block",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "197_r_ore_missing_filler_block",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "198_r_ore_missing_raw_ore_chance",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "199_r_ore_missing_density",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "200_r_ore_missing_richness",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 1.0,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "201_r_ore_missing_filler_gap",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 1.0,
+"richness": 0.5
+}
+},
+{
+"kind": "rule",
+"name": "202_r_ore_df_inline",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": {
+"type": "minecraft:constant",
+"argument": 0.5
+},
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "203_r_ore_df_bad",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": {
+"type": "minecraft:nope"
+},
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "204_r_ore_df_ref_missing",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": "minecraft:nope_df",
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "205_r_ore_df_big",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 2000000,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "206_r_ore_df_neg",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": -1000000,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "rule",
+"name": "207_r_ore_bad_block",
+"json": {
+"type": "minecraft:ore_vein",
+"ore_block": {
+"id": "minecraft:nope"
+},
+"raw_ore_block": {
+"id": "minecraft:stone"
+},
+"filler_block": {
+"id": "minecraft:stone"
+},
+"raw_ore_chance": 0.02,
+"density": 1.0,
+"richness": 0.5,
+"filler_gap": "minecraft:overworld/sloped_cheese"
+}
+},
+{
+"kind": "condition",
+"name": "208_water_mult_big_4294967297.0",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 4294967297.0,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "209_water_mult_big_4294967297",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 4294967297,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "210_water_mult_big_10000000000.0",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 10000000000.0,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "211_water_mult_big_3.99",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 3.99,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "212_water_mult_big_-0.5",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": -0.5,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "213_water_mult_big_20.5",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 20.5,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "214_water_mult_big_21.0",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 21.0,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "215_water_mult_big_-20.9",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": -20.9,
+"add_stone_depth": true
+}
+},
+{
+"kind": "condition",
+"name": "216_water_mult_big_123456789012.0",
+"json": {
+"type": "minecraft:water",
+"offset": 0,
+"surface_depth_multiplier": 123456789012.0,
+"add_stone_depth": true
+}
+},
+{
+"kind": "rule",
+"name": "217_r_block_legacy_Name",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"Name": "minecraft:stone"
+}
+}
+},
+{
+"kind": "rule",
+"name": "218_r_block_legacy_Properties",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"Name": "minecraft:oak_log",
+"Properties": {
+"axis": "x"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "219_r_block_id_bad_props_lenient",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {
+"axis": "q"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "220_r_block_id_props_array_lenient",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": []
+}
+}
+},
+{
+"kind": "rule",
+"name": "221_r_block_id_props_unknown_prop",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": {
+"nope": "x",
+"axis": "z"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "222_r_block_id_props_on_singleton",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:stone",
+"properties": {
+"axis": "z"
+}
+}
+}
+},
+{
+"kind": "rule",
+"name": "223_r_block_id_props_not_obj",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "minecraft:oak_log",
+"properties": 5
+}
+}
+},
+{
+"kind": "rule",
+"name": "224_r_block_id_num",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": 5
+}
+}
+},
+{
+"kind": "rule",
+"name": "225_r_block_id_ns_missing",
+"json": {
+"type": "minecraft:block",
+"result_state": {
+"id": "nope:stone"
+}
+}
+}
+]

@@ -61,7 +61,7 @@ impl NoiseSettings {
     }
 }
 
-/// A `BlockState` as written in data: `Name` plus the explicitly listed `Properties` (unlisted properties
+/// A `BlockState` as written in data: `id` plus the explicitly listed `properties` (unlisted properties
 /// keep the block's default state values).
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct BlockStateSpec {
@@ -83,7 +83,9 @@ impl BlockStateSpec {
         Ok(state)
     }
 
-    /// `BlockState.CODEC`: a bare block id (its default state) or `{Name, Properties?}`.
+    /// `BlockState.CODEC` (26.3): a bare block id (its default state) or `{id, properties?}` where
+    /// `properties` is read leniently: a malformed `properties` value is ignored, and so is every property the
+    /// block lacks or whose value is not a valid string for it (the state keeps the default value).
     pub(crate) fn from_json(value: &Value) -> LoadResult<BlockStateSpec> {
         if value.is_string() {
             return Ok(BlockStateSpec {
@@ -92,21 +94,20 @@ impl BlockStateSpec {
             });
         }
         let fields = Fields::new(value)?;
-        let name = fields.required("Name", parse_identifier)?;
-        let properties = fields
-            .optional("Properties", |v| {
-                v.as_object()
-                    .ok_or_else(|| LoadError::new("expected object"))?
-                    .iter()
-                    .map(|(key, value)| {
-                        Ok((
-                            key.clone(),
-                            parse_str(value).map_err(|e| e.at(key))?.to_owned(),
-                        ))
-                    })
-                    .collect()
-            })?
-            .unwrap_or_default();
+        let name = fields.required("id", parse_identifier)?;
+        let block = Block::by_name(&name.to_string())
+            .ok_or_else(|| LoadError::new(format!("Unknown block: {name}")).at("id"))?;
+        let properties = match fields.optional("properties", |v| Ok(v.clone()))? {
+            Some(Value::Object(map)) => map
+                .iter()
+                .filter_map(|(key, value)| {
+                    let value = value.as_str()?;
+                    block.default_state().with_property_str(key, value)?;
+                    Some((key.clone(), value.to_owned()))
+                })
+                .collect(),
+            _ => Vec::new(),
+        };
         Ok(BlockStateSpec { name, properties })
     }
 }

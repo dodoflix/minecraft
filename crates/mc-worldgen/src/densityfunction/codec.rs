@@ -154,13 +154,18 @@ impl<'a> Fields<'a> {
             .ok_or_else(|| LoadError::new("expected object"))
     }
 
+    /// `JsonOps`' `MapLike.get`: a JSON `null` field counts as absent.
+    fn get(&self, name: &str) -> Option<&'a Value> {
+        self.map.get(name).filter(|value| !value.is_null())
+    }
+
     /// `fieldOf(name)`.
     pub(crate) fn required<T>(
         &self,
         name: &str,
         parse: impl FnOnce(&'a Value) -> LoadResult<T>,
     ) -> LoadResult<T> {
-        match self.map.get(name) {
+        match self.get(name) {
             Some(value) => parse(value).map_err(|e| e.at(name)),
             None => Err(LoadError::new("missing required field").at(name)),
         }
@@ -172,8 +177,7 @@ impl<'a> Fields<'a> {
         name: &str,
         parse: impl FnOnce(&'a Value) -> LoadResult<T>,
     ) -> LoadResult<Option<T>> {
-        self.map
-            .get(name)
+        self.get(name)
             .map(|value| parse(value).map_err(|e| e.at(name)))
             .transpose()
     }

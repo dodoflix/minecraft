@@ -29,7 +29,7 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
  * doFill output (input of the Rust side), the per-quart biomes the BiomeManager reads, and the result.
  *
  *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-worldgen/tests/oracle/MaterialSurfaceOracle.java \
- *        | gzip -9 > crates/mc-worldgen/tests/fixtures/material_surface.txt.gz
+ *        /tmp/material_surface.txt && gzip -9 -c /tmp/material_surface.txt > crates/mc-worldgen/tests/fixtures/material_surface.txt.gz
  *
  * Lines (tokens space separated):
  *   CASE name seed cx cz minY height        starts a chunk case
@@ -54,7 +54,7 @@ public class MaterialSurfaceOracle {
 
    public static void main(String[] args) throws Exception {
       full = Setup.bootstrap();
-      out = new PrintWriter(System.out);
+      out = new PrintWriter(new java.io.File(args[0])); // vanilla logging also goes to stdout
       List<Spec> specs = new ArrayList<>();
       // overworld: one chunk per overworld biome (scan over several seeds)
       specs.add(new Spec("overworld", "overworld", 12345L, -64, 384, null, 0));

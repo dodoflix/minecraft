@@ -37,24 +37,25 @@ impl VerticalAnchor {
         }
     }
 
-    /// `VerticalAnchor.CODEC`: an object with exactly one of `absolute`, `above_bottom`, `below_top`,
-    /// `relative_to_sea_level` (each an int in the dimension Y range).
+    /// `VerticalAnchor.CODEC`: `xor(absolute, xor(above_bottom, xor(below_top, relative_to_sea_level)))` over the
+    /// single-field alternatives (each an int in the dimension Y range). The nesting is observable: a failing
+    /// alternative never errors by itself, and `{absolute, above_bottom, below_top}` decodes as `absolute`.
     pub fn from_json(value: &Value) -> LoadResult<VerticalAnchor> {
         let fields = Fields::new(value)?;
         let range = |v: &Value| parse_int_range(v, DIMENSION_MIN_Y, DIMENSION_MAX_Y);
-        let candidates = [
-            fields.optional("absolute", range)?.map(VerticalAnchor::Absolute),
-            fields.optional("above_bottom", range)?.map(VerticalAnchor::AboveBottom),
-            fields.optional("below_top", range)?.map(VerticalAnchor::BelowTop),
-            fields
-                .optional("relative_to_sea_level", range)?
-                .map(VerticalAnchor::RelativeToSeaLevel),
-        ];
-        let mut found = candidates.into_iter().flatten();
-        match (found.next(), found.next()) {
-            (Some(anchor), None) => Ok(anchor),
-            (None, _) => Err(LoadError::new("Failed to parse vertical anchor: no matching alternative")),
-            (Some(_), Some(_)) => Err(LoadError::new("Both alternatives read successfully")),
-        }
+        let alternative = |name: &str, make: fn(i32) -> VerticalAnchor| {
+            fields.required(name, range).map(make)
+        };
+        let xor = |left: LoadResult<VerticalAnchor>, right: LoadResult<VerticalAnchor>| match (left, right) {
+            (Ok(_), Ok(_)) => Err(LoadError::new("Both alternatives read successfully")),
+            (Ok(anchor), Err(_)) | (Err(_), Ok(anchor)) => Ok(anchor),
+            (Err(e), Err(_)) => Err(e),
+        };
+        let inner = xor(
+            alternative("below_top", VerticalAnchor::BelowTop),
+            alternative("relative_to_sea_level", VerticalAnchor::RelativeToSeaLevel),
+        );
+        let inner = xor(alternative("above_bottom", VerticalAnchor::AboveBottom), inner);
+        xor(alternative("absolute", VerticalAnchor::Absolute), inner)
     }
 }
