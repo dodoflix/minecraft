@@ -44,12 +44,12 @@ pub fn apply_bedrock_mask(retrogen: &BelowZeroRetrogen, chunk: &mut ProtoChunk) 
 /// The chunk's `getNoiseBiome(quartX, 0, quartZ)` is read up front (vanilla reads it lazily, but the sections being
 /// filled lie below `y = 0`, so the values cannot change meanwhile).
 pub fn get_biome_resolver<'a>(
-    biome_resolver: &'a (dyn Fn(i32, i32, i32) -> BiomeId + 'a),
+    biome_resolver: Box<dyn Fn(i32, i32, i32) -> BiomeId + 'a>,
     proto_chunk: &ProtoChunk,
-    is_retained: &'a (dyn Fn(BiomeId) -> bool + 'a),
+    is_retained: Box<dyn Fn(BiomeId) -> bool + 'a>,
 ) -> Box<dyn Fn(i32, i32, i32) -> BiomeId + 'a> {
     if !proto_chunk.is_upgrading() {
-        return Box::new(move |x, y, z| biome_resolver(x, y, z));
+        return biome_resolver;
     }
     let chunk_biomes: [BiomeId; 16] =
         std::array::from_fn(|i| proto_chunk.access.get_noise_biome((i & 3) as i32, 0, (i >> 2) as i32));

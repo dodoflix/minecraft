@@ -382,10 +382,10 @@ impl Blender {
     /// `getBiomeResolver(biomeResolver)`: the blended biome where old chunks dictate one, else `biome_resolver`'s.
     pub fn get_biome_resolver<'a>(
         &'a self,
-        biome_resolver: &'a (dyn Fn(i32, i32, i32) -> BiomeId + 'a),
+        biome_resolver: Box<dyn Fn(i32, i32, i32) -> BiomeId + 'a>,
     ) -> Box<dyn Fn(i32, i32, i32) -> BiomeId + 'a> {
         if self.is_empty() {
-            return Box::new(move |x, y, z| biome_resolver(x, y, z));
+            return biome_resolver;
         }
         Box::new(move |quart_x, quart_y, quart_z| {
             self.blend_biome(quart_x, quart_y, quart_z).unwrap_or_else(|| biome_resolver(quart_x, quart_y, quart_z))
