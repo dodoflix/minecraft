@@ -1,8 +1,8 @@
 //! `WeatherCommand`.
 use crate::commands::arguments::TimeArgument;
 use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
-use mc_brigadier::IntegerArgumentType;
 
 const DEFAULT_TIME: i32 = -1;
 /// `ServerLevel.RAIN_DELAY` / `RAIN_DURATION` / `THUNDER_DURATION` (`UniformInt.of(min, max)`).
@@ -17,17 +17,17 @@ register_command!("WeatherCommand", |ctx| {
             .then(
                 literal("clear")
                     .executes(|c| Ok(set_clear(c.get_source(), DEFAULT_TIME)))
-                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_clear(c.get_source(), IntegerArgumentType::get_integer(c, "duration"))))),
+                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_clear(c.get_source(), *c.get_argument::<i32>("duration"))))),
             )
             .then(
                 literal("rain")
                     .executes(|c| Ok(set_rain(c.get_source(), DEFAULT_TIME)))
-                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_rain(c.get_source(), IntegerArgumentType::get_integer(c, "duration"))))),
+                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_rain(c.get_source(), *c.get_argument::<i32>("duration"))))),
             )
             .then(
                 literal("thunder")
                     .executes(|c| Ok(set_thunder(c.get_source(), DEFAULT_TIME)))
-                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_thunder(c.get_source(), IntegerArgumentType::get_integer(c, "duration"))))),
+                    .then(argument("duration", TimeArgument::time_min(1)).executes(|c| Ok(set_thunder(c.get_source(), *c.get_argument::<i32>("duration"))))),
             ),
     );
 });

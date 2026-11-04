@@ -1,5 +1,6 @@
 //! `SeedCommand`.
 use crate::commands::{LEVEL_ALL, LEVEL_GAMEMASTERS, CommandSelection, has_permission, literal};
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
 use mc_text::util::copy_on_click_text;
 

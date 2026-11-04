@@ -1,6 +1,7 @@
 //! `SaveAllCommand`.
 use crate::commands::message::simple_translatable;
 use crate::commands::{CommandSourceStack, LEVEL_OWNERS, has_permission, literal};
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use std::sync::LazyLock;

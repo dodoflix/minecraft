@@ -157,7 +157,7 @@ impl MinecraftServer {
     }
 
     /// `DimensionType.defaultClock()` of `dimension`.
-    fn default_clock_of(&self, dimension: &DimensionKey) -> Option<Identifier> {
+    pub(crate) fn default_clock_of(&self, dimension: &DimensionKey) -> Option<Identifier> {
         use crate::registry::typed::dimension_type::DimensionType;
         use crate::registry::typed::level_stem::{DimensionTypeSource, LevelStem};
         let access = self.registries.composite_access();

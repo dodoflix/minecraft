@@ -4,6 +4,7 @@ use crate::commands::message::simple_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
 use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, host, literal};
 use crate::server::players::{NameAndId, UserWhiteListEntry};
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use mc_text::Component;
@@ -78,7 +79,7 @@ fn remove_players(source: &CommandSourceStack, targets: Vec<NameAndId>) -> Resul
 }
 
 fn enable_whitelist(source: &CommandSourceStack) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|server| server.player_list.is_using_whitelist()) {
+    if source.with_server(|server| server.is_using_whitelist()) {
         return Err(ERROR_ALREADY_ENABLED.create());
     }
     source.with_server(|server| server.set_using_whitelist(true));
@@ -88,7 +89,7 @@ fn enable_whitelist(source: &CommandSourceStack) -> Result<i32, CommandSyntaxExc
 }
 
 fn disable_whitelist(source: &CommandSourceStack) -> Result<i32, CommandSyntaxException> {
-    if !source.with_server(|server| server.player_list.is_using_whitelist()) {
+    if !source.with_server(|server| server.is_using_whitelist()) {
         return Err(ERROR_ALREADY_DISABLED.create());
     }
     source.with_server(|server| server.set_using_whitelist(false));

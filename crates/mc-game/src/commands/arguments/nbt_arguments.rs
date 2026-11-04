@@ -112,6 +112,16 @@ impl ComponentArgument {
     pub fn get_raw_component(context: &CommandContext<CommandSourceStack>, name: &str) -> Component {
         context.get_argument::<Component>(name).clone()
     }
+
+    /// `getResolvedComponent(context, name, player)`: `ComponentUtils.resolve` with `player` as the default scoreboard entity.
+    pub fn get_resolved_component(
+        context: &CommandContext<CommandSourceStack>,
+        name: &str,
+        player: super::selector::EntityRef,
+    ) -> Result<Component, CommandSyntaxException> {
+        let resolution = crate::commands::component_utils::ResolutionContext::with_entity_override(context.get_source(), player);
+        crate::commands::component_utils::resolve(&resolution, context.get_argument::<Component>(name))
+    }
 }
 
 impl ArgumentType<CommandSourceStack> for ComponentArgument {

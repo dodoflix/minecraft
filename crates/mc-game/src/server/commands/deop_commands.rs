@@ -4,6 +4,7 @@ use crate::commands::message::simple_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
 use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, host, literal};
 use crate::server::players::NameAndId;
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use std::sync::LazyLock;
@@ -21,7 +22,13 @@ register_command!("DeOpCommands", |ctx| {
 fn deop_players(source: &CommandSourceStack, players: Vec<NameAndId>) -> Result<i32, CommandSyntaxException> {
     let mut count = 0;
     for player in players {
-        if source.with_server(|server| host::deop(server, &player)) {
+        if source.with_server(|server| {
+            let is_op = server.player_list.is_op(&player);
+            if is_op {
+                host::deop(server, player.clone());
+            }
+            is_op
+        }) {
             count += 1;
             source.send_success(|| translatable!("commands.deop.success", player.name.clone()), true);
         }

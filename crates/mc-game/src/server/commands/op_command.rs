@@ -4,6 +4,7 @@ use crate::commands::message::simple_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
 use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, host, literal};
 use crate::server::players::NameAndId;
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use std::sync::LazyLock;
@@ -27,7 +28,13 @@ register_command!("OpCommand", |ctx| {
 fn op_players(source: &CommandSourceStack, players: Vec<NameAndId>) -> Result<i32, CommandSyntaxException> {
     let mut count = 0;
     for player in players {
-        if source.with_server(|server| host::op(server, &player)) {
+        if source.with_server(|server| {
+            let was_op = server.player_list.is_op(&player);
+            if !was_op {
+                host::op(server, player.clone());
+            }
+            !was_op
+        }) {
             count += 1;
             source.send_success(|| translatable!("commands.op.success", player.name.clone()), true);
         }

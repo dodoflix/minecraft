@@ -3,6 +3,7 @@ use crate::commands::arguments::{GameProfileArgument, MessageArgument};
 use crate::commands::message::simple_translatable;
 use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, literal};
 use crate::server::players::{NameAndId, UserBanListEntry};
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use mc_text::Component;

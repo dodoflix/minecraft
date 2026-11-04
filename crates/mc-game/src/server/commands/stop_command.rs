@@ -1,5 +1,6 @@
 //! `StopCommand`.
 use crate::commands::{LEVEL_OWNERS, has_permission, literal};
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
 
 register_command!("StopCommand", |ctx| {

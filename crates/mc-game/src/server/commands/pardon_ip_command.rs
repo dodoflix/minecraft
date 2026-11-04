@@ -2,8 +2,10 @@
 use crate::commands::message::simple_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
 use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, literal};
+use mc_brigadier::ArgumentBuilder;
 use crate::{register_command, translatable};
-use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType, StringArgumentType};
+use mc_brigadier::arguments::StringArgumentType;
+use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use std::sync::LazyLock;
 
 static ERROR_INVALID: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.pardonip.invalid"));

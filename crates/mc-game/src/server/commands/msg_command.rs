@@ -1,10 +1,12 @@
 //! `MsgCommand` (`msg`, `tell`, `w`).
-use crate::commands::arguments::{EntityArgument, MessageArgument};
 use crate::commands::arguments::selector::EntityRef;
+use crate::commands::arguments::{EntityArgument, MessageArgument};
 use crate::commands::{CommandSourceStack, argument, host, literal};
 use crate::register_command;
 use crate::server::chat::chat_type;
 use crate::server::chat::{OutgoingChatMessage, PlayerChatMessage};
+use crate::server::players::PlayerHandle;
+use mc_brigadier::ArgumentBuilder;
 
 register_command!("MsgCommand", |ctx| {
     let msg = ctx.dispatcher.register(literal("msg").then(argument("targets", EntityArgument::players()).then(argument("message", MessageArgument::message()).executes(|c| {
@@ -18,12 +20,23 @@ register_command!("MsgCommand", |ctx| {
     ctx.dispatcher.register(literal("w").redirect(msg));
 });
 
+/// `CommandSourceStack.sendChatMessage(message, filtered, chatType)`.
+fn source_send_chat_message(source: &CommandSourceStack, message: &OutgoingChatMessage, filtered: bool, chat_type: &crate::server::chat::chat_type::Bound) {
+    if source.is_silent() {
+        return;
+    }
+    match source.get_player().and_then(|p| p.player.as_ref()) {
+        Some(player) => player.send_chat_message(message, filtered, chat_type),
+        None => source.source().send_system_message(&chat_type.decorate(&message.content())),
+    }
+}
+
 fn send_message(source: &CommandSourceStack, players: &[EntityRef], message: &PlayerChatMessage) {
     let source_name = source.get_display_name();
     let tracked = OutgoingChatMessage::create(message);
     let mut was_fully_filtered = false;
-    let sender_player = source.get_player().and_then(|p| p.player.clone());
-    let delivery = source.with_server(|server| {
+    let sender: Option<PlayerHandle> = source.get_player().and_then(|p| p.player.clone());
+    let (incoming, deliveries) = source.with_server(|server| {
         let incoming = host::bind_chat_type(server, chat_type::MSG_COMMAND_INCOMING, source_name.clone());
         let mut deliveries = Vec::new();
         for player in players {
@@ -34,13 +47,9 @@ fn send_message(source: &CommandSourceStack, players: &[EntityRef], message: &Pl
         }
         (incoming, deliveries)
     });
-    let (incoming, deliveries) = delivery;
     for (target, outgoing) in &deliveries {
-        source.send_chat_message(&tracked, false, outgoing);
-        let filtered = match &sender_player {
-            Some(sender) => !std::ptr::eq(sender, target) && (sender.text_filtering_enabled() || target.text_filtering_enabled()) && sender.uuid != target.uuid,
-            None => target.text_filtering_enabled(),
-        };
+        source_send_chat_message(source, &tracked, false, outgoing);
+        let filtered = sender.as_ref().is_some_and(|s| s.should_filter_message_to(target));
         target.send_chat_message(&tracked, filtered, &incoming);
         was_fully_filtered |= filtered && message.is_fully_filtered();
     }

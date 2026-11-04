@@ -16,6 +16,7 @@ pub mod execution;
 pub mod functions;
 pub mod host;
 pub mod message;
+pub mod player_commands;
 pub mod server_access;
 pub mod shared_suggestion_provider;
 pub mod synchronization;
@@ -29,6 +30,7 @@ pub use command_signing_context::CommandSigningContext;
 pub use console_command_source::{ConsoleCommandSource, RconConsoleSource};
 pub use command_source::{CommandSource, CommandSourceKind, NullCommandSource, null_source};
 pub use command_source_stack::{CommandEntity, CommandSourceStack};
+pub use player_commands::{PlayerCommandSource, ServerCommandSuggestionsProvider, create_player_command_source_stack, send_commands};
 pub use commands::{
     COMMANDS, COMMAND_PREFIX, CommandRegistration, CommandRegistrationContext, CommandSelection, Commands, LEVEL_ADMINS, LEVEL_ALL,
     LEVEL_GAMEMASTERS, LEVEL_MODERATORS, LEVEL_OWNERS, argument, has_permission, literal,

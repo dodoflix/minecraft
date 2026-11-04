@@ -1,6 +1,6 @@
 //! `net.minecraft.commands.arguments.coordinates`: `~`/`^` coordinate arguments.
 
-mod block_pos_argument;
+pub mod block_pos_argument;
 mod column_pos_argument;
 mod rotation_argument;
 mod swizzle_argument;
