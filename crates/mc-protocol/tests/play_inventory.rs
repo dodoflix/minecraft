@@ -8,7 +8,7 @@ use mc_core::pos::block_pos::BlockPos;
 use mc_data::{DataComponentType, Item, MapDecorationType, MenuType, RecipeBookCategory};
 use mc_protocol::codec::{from_bytes, Holder, HolderSet};
 use mc_protocol::components::{
-    DataComponentPatch, HashedPatchMap, HashedStack, ItemStack, ItemStackTemplate, DAMAGE, MAX_STACK_SIZE, UNBREAKABLE,
+    DataComponentExactPredicate, DataComponentPatch, HashedPatchMap, HashedStack, ItemStack, ItemStackTemplate, TypedDataComponent, Value, DAMAGE, MAX_STACK_SIZE, UNBREAKABLE,
 };
 use mc_protocol::codec::read_varint;
 use mc_protocol::packets::play::*;
@@ -250,6 +250,7 @@ fn inventory_packets() {
     limits(&g);
     items(&g);
     recipes(&g);
+    merchant(&g);
     item_limits(&g);
     g.assert_all_used();
 }
@@ -610,7 +611,56 @@ fn item_limits(g: &Golden) {
     for label in ["ingredient_empty", "ingredient_air", "ingredient_unknown_item", "ingredient_neg_count", "category_unknown"] {
         check_bad::<ClientboundRecipeBookAddPacket>(g, label);
     }
+    check_bad::<ClientboundMerchantOffersPacket>(g, "merchant_result_empty");
     check_bad::<ClientboundUpdateRecipesPacket>(g, "update_unknown_item_in_set");
     check_bad::<ClientboundUpdateRecipesPacket>(g, "update_bad_key");
     check_lenient::<ClientboundUpdateRecipesPacket>(g, "update_dup_items_in_set");
+}
+
+fn merchant(g: &Golden) {
+    let st = stacks();
+    let get = |n: &str| st.iter().find(|(k, _)| *k == n).unwrap().1.clone();
+    let cost = |item, count, components| ItemCost { item, count, components };
+    let none = DataComponentExactPredicate::empty();
+    let plain = cost(Item::EMERALD, 5, none.clone());
+    let comp = cost(
+        Item::PAPER,
+        2,
+        DataComponentExactPredicate::from_components(vec![
+            TypedDataComponent { id: DataComponentType::DAMAGE, value: Value::new(4i32) },
+            TypedDataComponent { id: DataComponentType::MAX_STACK_SIZE, value: Value::new(8i32) },
+        ]),
+    );
+    let offer = |a, b, result, uses, max_uses, xp, special_price_diff, price_multiplier, demand| MerchantOffer {
+        base_cost_a: a,
+        cost_b: b,
+        result,
+        uses,
+        max_uses,
+        xp,
+        special_price_diff,
+        price_multiplier,
+        demand,
+    };
+    let packet = |container_id, offers: &Vec<MerchantOffer>, villager_level, villager_xp, show_progress, can_restock| {
+        ClientboundMerchantOffersPacket { container_id, offers: offers.clone(), villager_level, villager_xp, show_progress, can_restock }
+    };
+    let mut offers = vec![];
+    g.check("cb_merchant_none", &packet(1, &offers, 1, 0, true, true));
+    offers.push(offer(plain.clone(), None, get("diamond"), 0, 12, 2, 0, 0.05, 0));
+    g.check("cb_merchant_one", &packet(2, &offers, 2, 10, true, false));
+    offers.push(offer(comp.clone(), Some(plain.clone()), get("named"), 3, 16, 7, -4, 0.2, 11));
+    offers.push(offer(cost(Item::STICK, 64, none.clone()), None, get("dirt64"), 0, 0, 0, 0, 0.0, -9));
+    offers.push(offer(plain.clone(), Some(cost(Item::DIAMOND, 1, none.clone())), get("set_and_removed"), 7, 7, 30, i32::MIN, -1.5, i32::MAX));
+    g.check("cb_merchant_four", &packet(3, &offers, 5, 250, false, false));
+    g.check("cb_merchant_levels", &packet(300, &offers, 200, 100000, true, true));
+    g.check("cb_merchant_neg", &packet(-1, &offers, -1, -1, false, true));
+    let many: Vec<MerchantOffer> = (0..20)
+        .map(|i| offer(cost(Item::EMERALD, 1 + i, none.clone()), None, ItemStack::with_count(Item::DIAMOND, 1 + i), 0, i + 1, i, 0, 0.05, 0))
+        .collect();
+    g.check("cb_merchant_20", &packet(9, &many, 3, 60, true, true));
+    g.check_value("item_cost_plain", &plain);
+    g.check_value("item_cost_components", &comp);
+    g.check_value("item_cost_optional_none", &None::<ItemCost>);
+    g.check_value("item_cost_optional_some", &Some(comp));
 }

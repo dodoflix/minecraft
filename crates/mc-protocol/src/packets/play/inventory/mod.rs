@@ -2,6 +2,7 @@
 mod container;
 mod display;
 mod map;
+mod merchant;
 mod recipe;
 mod slots;
 mod strict_item;
@@ -10,5 +11,6 @@ mod untrusted_text;
 pub use container::*;
 pub use display::*;
 pub use map::*;
+pub use merchant::*;
 pub use recipe::*;
 pub use slots::*;

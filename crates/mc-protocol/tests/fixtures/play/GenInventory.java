@@ -109,7 +109,7 @@ public class GenInventory {
       limits();
       items();
       recipes();
-      // merchant();
+      merchant();
       itemLimits();
       PlayHarness.close();
    }
@@ -568,7 +568,7 @@ public class GenInventory {
       lenient("update_dup_items_in_set", cb, upd, b -> { varint(b, 1); b.writeBytes(utf("minecraft:x")); varint(b, 3); varint(b, 5); varint(b, 5); varint(b, 5); varint(b, 0); });
       bad("update_bad_key", cb, upd, b -> { varint(b, 1); b.writeBytes(utf("Bad Key")); varint(b, 0); varint(b, 0); });
       byte[] offersId = cbId(new ClientboundMerchantOffersPacket(0, new MerchantOffers(), 0, 0, false, false));
-//      bad("merchant_result_empty", cb, offersId, b -> { varint(b, 0); varint(b, 1); varint(b, 1); varint(b, 1); varint(b, 0); varint(b, 0); varint(b, 0); });
+      bad("merchant_result_empty", cb, offersId, b -> { varint(b, 0); varint(b, 1); varint(b, 1); varint(b, 1); varint(b, 0); varint(b, 0); varint(b, 0); });
    }
 
    static void stonecutterEntryHead(ByteBuf b) {
