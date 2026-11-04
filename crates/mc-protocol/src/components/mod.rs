@@ -12,6 +12,7 @@ pub mod holder;
 pub mod item_stack;
 pub mod map;
 pub mod registry;
+pub mod text_hooks;
 pub mod values;
 
 pub use common::{component_codec, DyeColor, Rarity, RegistrySet, SoundEvent};
@@ -20,4 +21,5 @@ pub use hashed::{HashedPatchMap, HashedStack};
 pub use holder::{Holder, HolderSet, NoDirect};
 pub use item_stack::{ItemStack, ItemStackTemplate};
 pub use map::{DataComponentExactPredicate, DataComponentMap, DataComponentPatch, PatchedDataComponentMap, TypedDataComponent};
+pub use text_hooks::install_text_hooks;
 pub use values::*;

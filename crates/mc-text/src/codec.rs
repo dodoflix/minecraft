@@ -88,6 +88,48 @@ fn validators() -> Validators {
     (*VALIDATORS.read().unwrap_or_else(|e| e.into_inner())).unwrap_or_default()
 }
 
+/// Which typed payload a hook normalizes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PayloadKind {
+    /// `show_item` `components` (`DataComponentPatch.CODEC`).
+    ItemComponents,
+    /// `show_dialog` `dialog` (`Dialog.CODEC`, only the map form; id strings are handled by the caller).
+    Dialog,
+}
+
+/// Normalization of payloads whose vanilla codecs need the data component / dialog registries (owned by
+/// `mc-protocol` and above): the value is decoded with the typed codec of the *input* ops and re-encoded as NBT, so
+/// numbers get their canonical tag types (a JSON `damage:3` becomes an int, not a byte). `to_json` re-encodes the stored
+/// NBT through the typed codec with JsonOps. The default is the identity (opaque NBT), installed by
+/// `mc_protocol::components::install_text_hooks`.
+#[derive(Clone, Copy)]
+pub struct PayloadHooks {
+    pub from_json: fn(PayloadKind, &serde_json::Value) -> Result<Tag, String>,
+    pub from_nbt: fn(PayloadKind, &Tag) -> Result<Tag, String>,
+    pub to_json: fn(PayloadKind, &Tag) -> Result<serde_json::Value, String>,
+}
+
+impl Default for PayloadHooks {
+    fn default() -> Self {
+        PayloadHooks {
+            from_json: |_, v| Ok(<serde_json::Value as Ops>::to_tag(v)),
+            from_nbt: |_, t| Ok(t.clone()),
+            to_json: |_, t| Ok(<serde_json::Value as Ops>::from_tag(t)),
+        }
+    }
+}
+
+static PAYLOAD_HOOKS: RwLock<Option<PayloadHooks>> = RwLock::new(None);
+
+/// Installs the process-wide payload normalizers.
+pub fn set_payload_hooks(h: PayloadHooks) {
+    *PAYLOAD_HOOKS.write().unwrap_or_else(|e| e.into_inner()) = Some(h);
+}
+
+pub(crate) fn payload_hooks() -> PayloadHooks {
+    (*PAYLOAD_HOOKS.read().unwrap_or_else(|e| e.into_inner())).unwrap_or_default()
+}
+
 // ------------------------------------------------------------------------------------------
 // field helpers
 // ------------------------------------------------------------------------------------------
@@ -541,7 +583,7 @@ fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
             } else if d.get_map().is_none() {
                 return err("Not a map");
             }
-            ClickEvent::ShowDialog(d.to_tag())
+            ClickEvent::ShowDialog(if d.get_map().is_some() { d.normalize_payload(PayloadKind::Dialog).map_err(CodecError)? } else { d.to_tag() })
         }
         ClickAction::ChangePage => {
             let page = int(req(&map, "page")?)?;
@@ -574,7 +616,7 @@ fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
             validate_chat_string(s).map_err(CodecError)?;
             push(&mut f, "command", O::create_string(s));
         }
-        ClickEvent::ShowDialog(d) => push(&mut f, "dialog", O::from_tag(d)),
+        ClickEvent::ShowDialog(d) => push(&mut f, "dialog", if matches!(d, Tag::Compound(_)) { O::payload_from_tag(PayloadKind::Dialog, d)? } else { O::from_tag(d) }),
         ClickEvent::ChangePage(p) => {
             if *p < 1 {
                 return err(format!("Value must be positive: {p}"));
@@ -621,7 +663,7 @@ fn decode_hover_event<O: Ops>(v: &O) -> R<HoverEvent> {
                 if c.get_map().is_none() {
                     return err("Not a map");
                 }
-                Ok(c.to_tag())
+                c.normalize_payload(PayloadKind::ItemComponents).map_err(CodecError)
             })?
             .filter(|t| !matches!(t, Tag::Compound(c) if c.is_empty()));
             Ok(HoverEvent::ShowItem(ItemStackTemplate { id, count, components }))
@@ -652,7 +694,7 @@ fn encode_hover_event<O: Ops>(h: &HoverEvent) -> R<O> {
                 push(&mut f, "count", O::create_int(i.count));
             }
             if let Some(c) = &i.components {
-                push(&mut f, "components", O::from_tag(c));
+                push(&mut f, "components", O::payload_from_tag(PayloadKind::ItemComponents, c)?);
             }
         }
         HoverEvent::ShowEntity(e) => {

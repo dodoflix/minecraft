@@ -230,7 +230,13 @@ impl DataComponentPatch {
                 if k.removed {
                     DataResult::success(removed_codec())
                 } else {
-                    DataResult::success(def(k.ty).opt_codec.clone().expect("persistent"))
+                    match try_def(k.ty).and_then(|d| d.opt_codec.clone()) {
+                        Some(c) => DataResult::success(c),
+                        None => {
+                            let name = k.ty.name();
+                            DataResult::error(move || format!("data component {name} is not implemented"))
+                        }
+                    }
                 }
             })
             .xmap(
@@ -245,7 +251,8 @@ impl DataComponentPatch {
                     patch
                         .entries
                         .iter()
-                        .filter(|(k, _)| !def(*k).is_transient())
+                        
+                        .filter(|(k, _)| !try_def(*k).is_some_and(|d| d.is_transient()))
                         .map(|(k, v)| (PatchKey { ty: *k, removed: v.is_none() }, v.clone()))
                         .collect()
                 },

@@ -48,6 +48,11 @@ pub trait Ops: Clone + Sized {
     fn to_tag(&self) -> Tag;
     /// `NbtOps.convertTo(<this ops>, tag)` (`ExtraCodecs.NBT` encode direction).
     fn from_tag(tag: &Tag) -> Self;
+
+    /// Typed-codec normalization of a payload of this ops (see [`crate::codec::PayloadHooks`]) -> canonical NBT.
+    fn normalize_payload(&self, kind: crate::codec::PayloadKind) -> Result<Tag, String>;
+    /// The stored canonical NBT of a payload expressed in this ops.
+    fn payload_from_tag(kind: crate::codec::PayloadKind, tag: &Tag) -> crate::codec::R<Self>;
 }
 
 // ------------------------------------------------------------------------------------------
@@ -63,6 +68,14 @@ fn json_int(n: &Number) -> i32 {
 }
 
 impl Ops for Value {
+    fn normalize_payload(&self, kind: crate::codec::PayloadKind) -> Result<Tag, String> {
+        (crate::codec::payload_hooks().from_json)(kind, self)
+    }
+
+    fn payload_from_tag(kind: crate::codec::PayloadKind, tag: &Tag) -> crate::codec::R<Self> {
+        (crate::codec::payload_hooks().to_json)(kind, tag).map_err(crate::codec::CodecError)
+    }
+
     fn get_string(&self) -> Option<String> {
         self.as_str().map(str::to_owned)
     }
@@ -202,6 +215,14 @@ fn num_tag(n: &Num) -> Tag {
 }
 
 impl Ops for Tag {
+    fn normalize_payload(&self, kind: crate::codec::PayloadKind) -> Result<Tag, String> {
+        (crate::codec::payload_hooks().from_nbt)(kind, self)
+    }
+
+    fn payload_from_tag(_kind: crate::codec::PayloadKind, tag: &Tag) -> crate::codec::R<Self> {
+        Ok(tag.clone())
+    }
+
     fn get_string(&self) -> Option<String> {
         self.as_string().map(str::to_owned)
     }

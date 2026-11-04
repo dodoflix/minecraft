@@ -22,7 +22,7 @@ pub mod util;
 pub mod value;
 
 pub use chat_formatting::ChatFormatting;
-pub use codec::{set_validators, CodecError, Validators};
+pub use codec::{set_payload_hooks, set_validators, CodecError, PayloadHooks, PayloadKind, Validators};
 pub use component::{
     Component, ComponentContents, DataSource, NbtContents, ObjectContents, ObjectInfo, ScoreContents, ScoreName, SelectorContents,
     TranslatableArg, TranslatableContents,
