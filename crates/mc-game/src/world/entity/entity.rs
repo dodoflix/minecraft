@@ -8,7 +8,7 @@ use super::dimensions::{EntityAttachment, EntityAttachments, EntityDimensions};
 use super::synched_data::{EntityDataAccessor, SynchedEntityData, SynchedEntityDataBuilder, serializer};
 use super::tag_set::JavaStringSet;
 use super::vec_delta_codec::VecDeltaCodec;
-use super::{EntityId, RemovalReason};
+use super::{EntityId, MoverType, RemovalReason};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use mc_core::math::mth;
@@ -65,6 +65,14 @@ pub struct Movement {
     pub from: Vec3,
     pub to: Vec3,
     pub axis_dependent_original_movement: Option<Vec3>,
+}
+
+/// `MoveSimulationType`.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum MoveSimulationType {
+    ServerAndClient,
+    AuthoritativeSide,
+    AuthoritativeSideAndServer,
 }
 
 /// `Entity.MovementEmission`.
@@ -568,6 +576,8 @@ pub trait Entity: Any {
     fn base_mut(&mut self) -> &mut EntityData;
     fn as_any(&self) -> &dyn Any;
     fn as_any_mut(&mut self) -> &mut dyn Any;
+    fn as_dyn(&self) -> &dyn Entity;
+    fn as_dyn_mut(&mut self) -> &mut dyn Entity;
 
     fn id(&self) -> EntityId {
         self.base().id
@@ -629,6 +639,146 @@ pub trait Entity: Any {
     /// `Entity.shouldBeSaved()` without the passenger part (the section manager adds it).
     fn should_be_saved_ignoring_riding(&self) -> bool {
         self.base().removal_reason().is_none_or(|r| r.should_save())
+    }
+
+    // ---- movement hooks (used by `movement::move_entity`) ----------------------------------------------------
+
+    /// `maxUpStep()` (`LivingEntity`: the `STEP_HEIGHT` attribute).
+    fn max_up_step(&self) -> f32 {
+        self.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::STEP_HEIGHT) as f32)
+    }
+    /// `isDescending()` (= `isShiftKeyDown()`).
+    fn is_descending(&self) -> bool {
+        self.is_shift_key_down()
+    }
+    /// The main-hand item for `EntityCollisionContext.heldItem` (living entities only).
+    fn held_item_for_collision(&self) -> Option<mc_data::Item> {
+        None
+    }
+    /// `LivingEntity.canStandOnFluid(fluid)` for the collision context.
+    fn can_stand_on_fluid_fn(&self) -> Option<crate::world::level::collision::CanStandOnFluid> {
+        None
+    }
+    /// `isClientAuthoritative()`: the client simulates this entity's movement (players, entities they control).
+    fn is_client_authoritative(&self) -> bool {
+        false
+    }
+    /// `getMoveSimulationType()`.
+    fn move_simulation_type(&self) -> MoveSimulationType {
+        MoveSimulationType::AuthoritativeSide
+    }
+    fn move_simulation_type_is_server_and_client(&self) -> bool {
+        self.move_simulation_type() == MoveSimulationType::ServerAndClient
+    }
+    /// `isLocalInstanceAuthoritative()` on the server.
+    fn is_local_instance_authoritative(&self) -> bool {
+        !self.is_client_authoritative()
+    }
+    /// `canSimulateMovement()` on the server.
+    fn can_simulate_movement(&self) -> bool {
+        match self.move_simulation_type() {
+            MoveSimulationType::ServerAndClient | MoveSimulationType::AuthoritativeSideAndServer => true,
+            MoveSimulationType::AuthoritativeSide => self.is_local_instance_authoritative(),
+        }
+    }
+    /// `isHorizontalCollisionMinor(movement)`.
+    fn is_horizontal_collision_minor(&self, _movement: Vec3) -> bool {
+        false
+    }
+    /// `getMovementEmission()`.
+    fn get_movement_emission(&self) -> MovementEmission {
+        MovementEmission::All
+    }
+    /// `isStateClimbable(state)` (`BlockTags.CLIMBABLE`).
+    fn is_state_climbable(&self, state: mc_data::block::BlockState) -> bool {
+        state.block().is_in_tag("climbable")
+    }
+    /// `isSuppressingBounce()` (`isShiftKeyDown()` for living entities? see `LivingEntity`: false by default).
+    fn is_suppressing_bounce(&self) -> bool {
+        false
+    }
+    /// `getEntityBounciness()`.
+    fn get_entity_bounciness(&self) -> f64 {
+        0.0
+    }
+    /// `getEffectiveGravity()`.
+    fn get_effective_gravity(&self) -> f64 {
+        self.get_gravity()
+    }
+    /// `getGravity()` (`getDefaultGravity()` unless `noGravity`; living entities read the `GRAVITY` attribute).
+    fn get_gravity(&self) -> f64 {
+        if self.base().is_no_gravity() { 0.0 } else { self.get_default_gravity() }
+    }
+    fn get_default_gravity(&self) -> f64 {
+        0.0
+    }
+    /// `getAirDrag()`.
+    fn get_air_drag(&self) -> f32 {
+        0.98
+    }
+    /// Players do not walk off edges while sneaking (`Player.maybeBackOffFromEdge`: `!flying && isStayingOnGroundSurface`).
+    fn stays_on_ground_surface_at_edges(&self) -> bool {
+        false
+    }
+
+    /// `move(moverType, delta)`; returns the block hooks (`fallOn`, bounce) the level layer still has to dispatch.
+    fn r#move(&mut self, level: &ServerLevel, mover: MoverType, delta: Vec3) -> super::movement::MoveOutcome {
+        super::movement::move_entity(self.as_dyn_mut(), level, mover, delta)
+    }
+
+    /// `setOnGroundWithMovement(onGround, horizontalCollision, movement)`.
+    fn set_on_ground_with_movement(&mut self, level: &ServerLevel, on_ground: bool, horizontal_collision: bool, movement: Vec3) {
+        super::movement::set_on_ground_with_movement(self.as_dyn_mut(), level, on_ground, horizontal_collision, movement);
+    }
+
+    /// `doCheckFallDamage(xa, ya, za, onGround)`; returns the fall distance when the entity hit the ground (the
+    /// caller dispatches `Block.fallOn` for the block at `getOnPosLegacy`).
+    fn do_check_fall_damage(&mut self, level: &ServerLevel, xa: f64, ya: f64, za: f64, on_ground: bool) -> Option<(BlockPos, f64)> {
+        if super::movement::touching_unloaded_chunk(self.as_dyn(), level) {
+            return None;
+        }
+        super::movement::check_supporting_block(self.as_dyn_mut(), level, on_ground, Some(Vec3::new(xa, ya, za)));
+        let pos = super::movement::get_on_pos_legacy(self.as_dyn(), level);
+        super::movement::check_fall_damage(self.as_dyn_mut(), ya, on_ground).map(|d| (pos, d))
+    }
+
+    /// `resetFallDistance()`.
+    fn reset_fall_distance(&mut self) {
+        self.base_mut().fall_distance = 0.0;
+    }
+
+    /// `teleportSetPosition(destination, relatives)`.
+    fn teleport_set_position(&mut self, destination: mc_protocol::packets::play::PositionMoveRotation, relatives: mc_protocol::packets::play::Relatives) {
+        let current = mc_protocol::packets::play::PositionMoveRotation {
+            position: self.base().position(),
+            delta_movement: self.base().delta_movement(),
+            y_rot: self.base().y_rot(),
+            x_rot: self.base().x_rot(),
+        };
+        self.teleport_set_position_from(current, destination, relatives);
+    }
+
+    /// `teleportSetPosition(current, destination, relatives)` (`PositionMoveRotation.calculateAbsolute`).
+    fn teleport_set_position_from(
+        &mut self,
+        current: mc_protocol::packets::play::PositionMoveRotation,
+        destination: mc_protocol::packets::play::PositionMoveRotation,
+        relatives: mc_protocol::packets::play::Relatives,
+    ) {
+        use mc_protocol::packets::play::Relative as R;
+        let rel = |r: R, cur: f64, d: f64| if relatives.contains(r) { cur + d } else { d };
+        let x = rel(R::X, current.position.x, destination.position.x);
+        let y = rel(R::Y, current.position.y, destination.position.y);
+        let z = rel(R::Z, current.position.z, destination.position.z);
+        let y_rot = if relatives.contains(R::YRot) { current.y_rot + destination.y_rot } else { destination.y_rot };
+        let x_rot = if relatives.contains(R::XRot) { current.x_rot + destination.x_rot } else { destination.x_rot };
+        self.abs_snap_to(x, y, z, y_rot, x_rot);
+        let dm = Vec3::new(
+            rel(R::DeltaX, current.delta_movement.x, destination.delta_movement.x),
+            rel(R::DeltaY, current.delta_movement.y, destination.delta_movement.y),
+            rel(R::DeltaZ, current.delta_movement.z, destination.delta_movement.z),
+        );
+        self.base_mut().set_delta_movement(dm);
     }
 
     // ---- tracking ------------------------------------------------------------------------------------------

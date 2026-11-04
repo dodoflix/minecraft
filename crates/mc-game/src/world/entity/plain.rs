@@ -45,6 +45,12 @@ impl Entity for PlainEntity {
     fn as_any_mut(&mut self) -> &mut dyn Any {
         self
     }
+    fn as_dyn(&self) -> &dyn Entity {
+        self
+    }
+    fn as_dyn_mut(&mut self) -> &mut dyn Entity {
+        self
+    }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
         self.extra = CompoundTag::new();

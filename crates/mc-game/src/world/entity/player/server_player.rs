@@ -279,6 +279,12 @@ impl Entity for ServerPlayer {
     fn as_any_mut(&mut self) -> &mut dyn Any {
         self
     }
+    fn as_dyn(&self) -> &dyn Entity {
+        self
+    }
+    fn as_dyn_mut(&mut self) -> &mut dyn Entity {
+        self
+    }
     fn living(&self) -> Option<&LivingEntityData> {
         Some(&self.player.living)
     }

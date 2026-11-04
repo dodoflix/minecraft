@@ -153,12 +153,12 @@ impl LivingEntityData {
         data
     }
 
-    pub fn get_attribute_value(&mut self, attribute: Attribute) -> f64 {
+    pub fn get_attribute_value(&self, attribute: Attribute) -> f64 {
         self.attributes.get_value(attribute)
     }
 
     /// `getMaxHealth()`.
-    pub fn get_max_health(&mut self) -> f32 {
+    pub fn get_max_health(&self) -> f32 {
         self.attributes.get_value(Attribute::MAX_HEALTH) as f32
     }
 

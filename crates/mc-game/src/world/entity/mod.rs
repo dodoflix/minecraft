@@ -16,6 +16,7 @@ pub mod equipment;
 pub mod factory;
 pub mod interpolation;
 pub mod living;
+pub mod movement;
 pub mod plain;
 pub mod player;
 pub mod synched_data;
@@ -23,7 +24,7 @@ pub mod tag_set;
 pub mod vec_delta_codec;
 
 pub use dimensions::{EntityAttachment, EntityAttachments, EntityDimensions};
-pub use entity::{Entity, EntityData, MovementEmission};
+pub use entity::{Entity, EntityData, MoveSimulationType, MovementEmission};
 pub mod respawn;
 pub use player::ServerPlayer;
 

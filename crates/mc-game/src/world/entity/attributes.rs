@@ -3,6 +3,7 @@
 //! `AttributeInstance.Packed`.
 
 use indexmap::IndexMap;
+use std::cell::Cell;
 use mc_core::ident::Identifier;
 use mc_data::Attribute;
 use mc_data::EntityType;
@@ -31,8 +32,8 @@ pub struct AttributeInstance {
     modifier_by_id: IndexMap<Identifier, AttributeModifier>,
     permanent_modifiers: IndexMap<Identifier, AttributeModifier>,
     base_value: f64,
-    dirty: bool,
-    cached_value: f64,
+    dirty: Cell<bool>,
+    cached_value: Cell<f64>,
     /// Modified since the map last handed out `attributesToUpdate` / `attributesToSync`.
     pending_update: bool,
     pending_sync: bool,
@@ -45,8 +46,8 @@ impl AttributeInstance {
             modifier_by_id: IndexMap::new(),
             permanent_modifiers: IndexMap::new(),
             base_value: attribute.data().default_value,
-            dirty: true,
-            cached_value: 0.0,
+            dirty: Cell::new(true),
+            cached_value: Cell::new(0.0),
             pending_update: false,
             pending_sync: false,
         }
@@ -111,7 +112,7 @@ impl AttributeInstance {
     }
 
     fn set_dirty(&mut self) {
-        self.dirty = true;
+        self.dirty.set(true);
         self.pending_update = true;
         self.pending_sync = true;
     }
@@ -132,12 +133,12 @@ impl AttributeInstance {
         }
     }
 
-    pub fn get_value(&mut self) -> f64 {
-        if self.dirty {
-            self.cached_value = self.calculate_value();
-            self.dirty = false;
+    pub fn get_value(&self) -> f64 {
+        if self.dirty.get() {
+            self.cached_value.set(self.calculate_value());
+            self.dirty.set(false);
         }
-        self.cached_value
+        self.cached_value.get()
     }
 
     fn modifiers_of(&self, op: AttributeModifierOperation) -> impl Iterator<Item = &AttributeModifier> {
@@ -244,7 +245,6 @@ impl AttributeMap {
             let base = self.supplier_base(attribute)?;
             let mut instance = AttributeInstance::new(attribute);
             instance.base_value = base;
-            instance.dirty = true;
             self.attributes.insert(attribute, instance);
         }
         self.attributes.get_mut(&attribute)
@@ -259,9 +259,9 @@ impl AttributeMap {
     }
 
     /// `getValue(attribute)`; panics like vanilla when the type doesn't have the attribute.
-    pub fn get_value(&mut self, attribute: Attribute) -> f64 {
+    pub fn get_value(&self, attribute: Attribute) -> f64 {
         // does not create the instance (only `getInstance` does): the supplier's default is answered directly
-        match self.attributes.get_mut(&attribute) {
+        match self.attributes.get(&attribute) {
             Some(i) => i.get_value(),
             None => match self.supplier_base(attribute) {
                 Some(base) => sanitize_value(attribute, base),

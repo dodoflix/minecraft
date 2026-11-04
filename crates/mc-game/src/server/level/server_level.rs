@@ -166,6 +166,11 @@ impl ServerLevel {
         &mut self.chunk_source
     }
 
+    /// `getGameTime()`.
+    pub fn game_time(&self) -> i64 {
+        self.game_time
+    }
+
     pub fn set_game_time(&mut self, game_time: i64) {
         self.game_time = game_time;
         self.chunk_source.chunk_map.game_time = game_time;

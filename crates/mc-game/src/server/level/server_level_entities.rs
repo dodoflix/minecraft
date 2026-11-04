@@ -239,3 +239,61 @@ impl ServerLevel {
     }
 }
 
+
+// ---- collision / movement integration ----------------------------------------------------------------------------
+
+impl crate::world::level::collision::CollisionGetter for ServerLevel {
+    fn chunk_available_for_collisions(&self, chunk_x: i32, chunk_z: i32) -> bool {
+        self.chunk_now(chunk_x, chunk_z).is_some()
+    }
+
+    /// Id-based form (no live source): every entity that can be collided with.
+    fn get_entity_collisions(&self, _source: Option<EntityId>, test_area: &AABB) -> Vec<mc_core::phys::shapes::VoxelShape> {
+        crate::world::entity::movement::EntityCollisionQuery::entity_collisions(self, None, test_area)
+    }
+}
+
+impl crate::world::entity::movement::EntityCollisionQuery for ServerLevel {
+    /// `EntityGetter.getEntityCollisions(source, testArea)`.
+    fn entity_collisions(&self, source: Option<&dyn Entity>, test_area: &AABB) -> Vec<mc_core::phys::shapes::VoxelShape> {
+        if test_area.get_size() < 1.0E-7 {
+            return Vec::new();
+        }
+        let area = test_area.inflate_scalar(1.0E-7);
+        let ids = self.get_entities(source.map(|s| s.id()), &area, |e| {
+            !e.is_spectator()
+                && match source {
+                    None => e.can_be_collided_with(None),
+                    Some(s) => e.can_be_collided_with(Some(s)) && !self.is_passenger_of_same_vehicle(s, e),
+                }
+        });
+        ids.into_iter().filter_map(|id| self.entity_manager.get_any(id)).map(|e| mc_core::phys::shapes::Shapes::create(e.get_bounding_box())).collect()
+    }
+}
+
+impl crate::world::entity::movement::MovementLevel for ServerLevel {
+    fn game_time(&self) -> i64 {
+        ServerLevel::game_time(self)
+    }
+
+    fn has_chunks_at(&self, x0: i32, z0: i32, x1: i32, z1: i32) -> bool {
+        let (cx0, cx1, cz0, cz1) = (x0 >> 4, x1 >> 4, z0 >> 4, z1 >> 4);
+        (cx0..=cx1).all(|cx| (cz0..=cz1).all(|cz| crate::world::level::LevelReader::has_chunk(self, cx, cz)))
+    }
+}
+
+impl ServerLevel {
+    /// `Entity.isPassengerOfSameVehicle(other)`: same root vehicle.
+    pub fn is_passenger_of_same_vehicle(&self, a: &dyn Entity, b: &dyn Entity) -> bool {
+        let root = |e: &dyn Entity| {
+            let mut id = e.id();
+            let mut cur = e.base().vehicle;
+            while let Some(v) = cur {
+                id = v;
+                cur = self.entity_manager.get_any(v).and_then(|x| x.base().vehicle);
+            }
+            id
+        };
+        root(a) == root(b)
+    }
+}
