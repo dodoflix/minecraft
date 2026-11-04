@@ -427,7 +427,7 @@ def use_remainder_seeds(rng):
          {"id": "minecraft:glass_bottle", "components": {}}, {"id": "minecraft:glass_bottle", "components": {"minecraft:damage": 3}},
          {"id": "minecraft:glass_bottle", "components": {"minecraft:damage": -3}}, {"id": "minecraft:glass_bottle", "components": {"minecraft:nope": 3}},
          {"id": "minecraft:glass_bottle", "components": {"!minecraft:food": {}}}, {"id": "minecraft:glass_bottle", "components": []},
-         {"id": "minecraft:glass_bottle", "components": {"minecraft:custom_name": "x"}},
+         {"id": "minecraft:glass_bottle", "components": {"minecraft:max_damage": 7}},
          {"id": "minecraft:glass_bottle", "components": {"minecraft:use_remainder": "minecraft:stick"}},
          {"id": "minecraft:glass_bottle", "components": {"minecraft:max_stack_size": 16}},
          {"id": "minecraft:diamond_sword", "components": {"minecraft:max_stack_size": 16}},

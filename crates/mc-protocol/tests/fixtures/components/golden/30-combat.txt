@@ -8937,3 +8937,51 @@ wire	minecraft:weapon	014120ab00	OK	json={"disable_blocking_for_seconds":10.0417
 wire	minecraft:weapon	0165200000	OK	json={"disable_blocking_for_seconds":4.7223665E22}	snbt={disable_blocking_for_seconds:4.7223665E22f}	wire=0165200000	hash=2029165698	left=0
 wire	minecraft:weapon	0141730000	OK	json={"disable_blocking_for_seconds":15.1875}	snbt={disable_blocking_for_seconds:15.1875f}	wire=0141730000	hash=286930428	left=0
 wire	minecraft:weapon	7941200000	OK	json={"item_damage_per_attack":121,"disable_blocking_for_seconds":10.0}	snbt={disable_blocking_for_seconds:10.0f,item_damage_per_attack:121}	wire=7941200000	hash=1134657970	left=0
+wire	minecraft:equippable	6301000000000101010000010001	ERR	Non [a-z0-9/._-] character in path of location: minecraft:\u0000
+wire	minecraft:equippable	0001000000000101010000010001	ERR	Non [a-z0-9/._-] character in path of location: minecraft:\u0000
+wire	minecraft:attack_animation	6306	OK	json={"type":"none"}	snbt={type:"none"}	wire=0006	hash=-178357229	left=0
+wire	minecraft:attack_animation	63	ERR	readerIndex(1) + length(1) exceeds writerIndex(1): UnpooledHeapByteBuf(ridx: 1, widx: 1, cap: 1/1)
+wire	minecraft:attack_animation	2506	OK	json={"type":"none"}	snbt={type:"none"}	wire=0006	hash=-178357229	left=0
+wire	minecraft:attack_animation	63cc	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:attack_animation	1306	OK	json={"type":"none"}	snbt={type:"none"}	wire=0006	hash=-178357229	left=0
+wire	minecraft:attack_animation	da06	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:attack_animation	0206	OK	json={"type":"stab"}	snbt={type:"stab"}	wire=0206	hash=-1450690709	left=0
+wire	minecraft:attack_animation	02	ERR	readerIndex(1) + length(1) exceeds writerIndex(1): UnpooledHeapByteBuf(ridx: 1, widx: 1, cap: 1/1)
+wire	minecraft:attack_animation	7606	OK	json={"type":"none"}	snbt={type:"none"}	wire=0006	hash=-178357229	left=0
+wire	minecraft:attack_animation	2206	OK	json={"type":"none"}	snbt={type:"none"}	wire=0006	hash=-178357229	left=0
+wire	minecraft:attack_animation	0240	OK	json={"type":"stab","duration":64}	snbt={duration:64,type:"stab"}	wire=0240	hash=71957294	left=0
+wire	minecraft:attack_animation	02cf	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:attack_animation	0100	OK	json={"duration":0}	snbt={duration:0}	wire=0100	hash=-159825243	left=0
+wire	minecraft:attack_animation	01	ERR	readerIndex(1) + length(1) exceeds writerIndex(1): UnpooledHeapByteBuf(ridx: 1, widx: 1, cap: 1/1)
+wire	minecraft:attack_animation	3e00	OK	json={"type":"none","duration":0}	snbt={duration:0,type:"none"}	wire=0000	hash=-1368318980	left=0
+wire	minecraft:attack_animation	01e0	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:attack_animation	019d	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:attack_animation	0175	OK	json={"duration":117}	snbt={duration:117}	wire=0175	hash=-1839801550	left=0
+wire	minecraft:weapon	0200000000	OK	json={"item_damage_per_attack":2}	snbt={item_damage_per_attack:2}	wire=0200000000	hash=1985778652	left=0
+wire	minecraft:weapon	02000000	ERR	readerIndex(1) + length(4) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 1, widx: 4, cap: 4/4)
+wire	minecraft:weapon	0200	ERR	readerIndex(1) + length(4) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 1, widx: 2, cap: 2/2)
+wire	minecraft:weapon	02a7000000	OK	json=ENCERR	snbt=ENCERR	wire=02a7000000	hash=ENCERR	left=0
+wire	minecraft:weapon	e200000000	ERR	readerIndex(2) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 2, widx: 5, cap: 5/5)
+wire	minecraft:weapon	0200790000	OK	json={"item_damage_per_attack":2,"disable_blocking_for_seconds":1.1112095E-38}	snbt={disable_blocking_for_seconds:1.1112095E-38f,item_damage_per_attack:2}	wire=0200790000	hash=324514310	left=0
+wire	minecraft:weapon	02000000f4	OK	json={"item_damage_per_attack":2,"disable_blocking_for_seconds":3.42E-43}	snbt={disable_blocking_for_seconds:3.42E-43f,item_damage_per_attack:2}	wire=02000000f4	hash=-264892764	left=0
+wire	minecraft:weapon	02400000000	OK	json={"item_damage_per_attack":2,"disable_blocking_for_seconds":2.0}	snbt={disable_blocking_for_seconds:2.0f,item_damage_per_attack:2}	wire=0240000000	hash=833186762	left=0
+wire	minecraft:weapon	02400000	ERR	readerIndex(1) + length(4) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 1, widx: 4, cap: 4/4)
+wire	minecraft:weapon	0240	ERR	readerIndex(1) + length(4) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 1, widx: 2, cap: 2/2)
+wire	minecraft:weapon	024000fb00	OK	json={"item_damage_per_attack":2,"disable_blocking_for_seconds":2.0153198}	snbt={disable_blocking_for_seconds:2.0153198f,item_damage_per_attack:2}	wire=024000fb00	hash=2021112539	left=0
+wire	minecraft:weapon	d140000000	ERR	readerIndex(2) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 2, widx: 5, cap: 5/5)
+wire	minecraft:weapon	0211000000	OK	json={"item_damage_per_attack":2,"disable_blocking_for_seconds":1.009742E-28}	snbt={disable_blocking_for_seconds:1.009742E-28f,item_damage_per_attack:2}	wire=0211000000	hash=2060014716	left=0
+wire	minecraft:weapon	02a9000000	OK	json=ENCERR	snbt=ENCERR	wire=02a9000000	hash=ENCERR	left=0
+wire	minecraft:attack_range	000000000000000000000000000000000000000000000000	OK	json={"max_reach":0.0,"max_creative_reach":0.0,"hitbox_margin":0.0,"mob_factor":0.0}	snbt={hitbox_margin:0.0f,max_creative_reach:0.0f,max_reach:0.0f,mob_factor:0.0f}	wire=000000000000000000000000000000000000000000000000	hash=1122605329	left=0
+wire	minecraft:attack_range	0000000000000000000000000000000000000000000000	ERR	readerIndex(20) + length(4) exceeds writerIndex(23): UnpooledHeapByteBuf(ridx: 20, widx: 23, cap: 23/23)
+wire	minecraft:attack_range	000000000000000000000000	ERR	readerIndex(12) + length(4) exceeds writerIndex(12): UnpooledHeapByteBuf(ridx: 12, widx: 12, cap: 12/12)
+wire	minecraft:attack_range	00ea00000000000000000000000000000000000000000000	OK	json={"min_reach":2.1489506E-38,"max_reach":0.0,"max_creative_reach":0.0,"hitbox_margin":0.0,"mob_factor":0.0}	snbt={hitbox_margin:0.0f,max_creative_reach:0.0f,max_reach:0.0f,min_reach:2.1489506E-38f,mob_factor:0.0f}	wire=00ea00000000000000000000000000000000000000000000	hash=-341997182	left=0
+wire	minecraft:attack_range	000000000000380000000000000000000000000000000000	OK	json={"max_reach":2.0089E-41,"max_creative_reach":0.0,"hitbox_margin":0.0,"mob_factor":0.0}	snbt={hitbox_margin:0.0f,max_creative_reach:0.0f,max_reach:2.0089E-41f,mob_factor:0.0f}	wire=000000000000380000000000000000000000000000000000	hash=-751458388	left=0
+wire	minecraft:attack_range	000000003b00000000000000000000000000000000000000	OK	json={"max_reach":0.001953125,"max_creative_reach":0.0,"hitbox_margin":0.0,"mob_factor":0.0}	snbt={hitbox_margin:0.0f,max_creative_reach:0.0f,max_reach:0.001953125f,mob_factor:0.0f}	wire=000000003b00000000000000000000000000000000000000	hash=857143521	left=0
+wire	minecraft:attack_range	0000000000f7000000000000000000000000000000000000	OK	json={"max_reach":2.2683368E-38,"max_creative_reach":0.0,"hitbox_margin":0.0,"mob_factor":0.0}	snbt={hitbox_margin:0.0f,max_creative_reach:0.0f,max_reach:2.2683368E-38f,mob_factor:0.0f}	wire=0000000000f7000000000000000000000000000000000000	hash=1370895545	left=0
+wire	minecraft:tool	003f8000000101	OK	json={"rules":[]}	snbt={rules:[]}	wire=003f8000000101	hash=937295970	left=0
+wire	minecraft:tool	003f80000001	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:tool	003f80	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
+wire	minecraft:tool	00408000000101	OK	json={"rules":[],"default_mining_speed":4.0}	snbt={default_mining_speed:4.0f,rules:[]}	wire=00408000000101	hash=1884796334	left=0
+wire	minecraft:tool	003f80005c0101	OK	json={"rules":[],"default_mining_speed":1.000011}	snbt={default_mining_speed:1.000011f,rules:[]}	wire=003f80005c0101	hash=529643186	left=0
+wire	minecraft:tool	00e58000000101	OK	json={"rules":[],"default_mining_speed":-7.5557864E22}	snbt={default_mining_speed:-7.5557864E22f,rules:[]}	wire=00e58000000101	hash=-1267840869	left=0
+wire	minecraft:tool	00988000000101	OK	json={"rules":[],"default_mining_speed":-3.3087225E-24}	snbt={default_mining_speed:-3.3087225E-24f,rules:[]}	wire=00988000000101	hash=-1034849870	left=0

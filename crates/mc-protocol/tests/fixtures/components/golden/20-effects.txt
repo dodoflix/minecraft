@@ -7740,25 +7740,25 @@ snbt	minecraft:use_remainder	{'id':"minecraft:glass_bottle",'components':[]}	ERR
 snbt	minecraft:use_remainder	{'id':"",'components':1B}	ERR	Failed to parse either. First: Not a map: 1b; Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: minecraft:; Second: Not a string
 json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":[]}	ERR	Not a JSON object: []
 snbt	minecraft:use_remainder	"x"	ERR	Failed to parse either. First: Not a map: "x"; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: minecraft:x
-json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:custom_name":"x"}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:custom_name":"x"}}	snbt={components:{"minecraft:custom_name":"x"},id:"minecraft:glass_bottle"}	wire=f6090101000608000178	hash=403980348
-wire	minecraft:use_remainder	f6090101000608000178	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:custom_name":"x"}}	snbt={components:{"minecraft:custom_name":"x"},id:"minecraft:glass_bottle"}	wire=f6090101000608000178	hash=403980348	left=0
-wire	minecraft:use_remainder	f60901010006080001	ERR	Loading NBT data
-wire	minecraft:use_remainder	f609010100	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:use_remainder	f60901dd000608000178	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
-wire	minecraft:use_remainder	f6230101000608000178	ERR	No value with id 4598
-wire	minecraft:use_remainder	f6090101001708000178	ERR	readerIndex(7) + length(4) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 7, widx: 10, cap: 10/10)
-wire	minecraft:use_remainder	f60901014d0608000178	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
-snbt	minecraft:use_remainder	{"id":'minecraft:glass_bottle','components':{"minecraft:custom_name":"x"}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:custom_name":"x"}}	snbt={components:{"minecraft:custom_name":"x"},id:"minecraft:glass_bottle"}	wire=f6090101000608000178	hash=403980348
-wire	minecraft:use_remainder	f6090101000608000178	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:custom_name":"x"}}	snbt={components:{"minecraft:custom_name":"x"},id:"minecraft:glass_bottle"}	wire=f6090101000608000178	hash=403980348	left=0
-wire	minecraft:use_remainder	f60901010006080001	ERR	Loading NBT data
-wire	minecraft:use_remainder	f609010100	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:use_remainder	f609ab01000608000178	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
-wire	minecraft:use_remainder	f6099401000608000178	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
-wire	minecraft:use_remainder	f6090122000608000178	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
-wire	minecraft:use_remainder	f609012d000608000178	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
-json	minecraft:use_remainder	{"id":"minecraft:glass_bottle ","components":[{"minecraft:custom_name":"x"}]}	ERR	Failed to parse either. First: Not a JSON object: [{"minecraft:custom_name":"x"}]; Not a valid resource location: minecraft:glass_bottle  Non [a-z0-9/._-] character in path of location: minecraft:glas
-json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":":"}	ERR	Not a JSON object: ":"
-json	minecraft:use_remainder	[{"id":"minecraft:glass_bottle","components":{"minecraft:custom_name":"x"}}]	ERR	Failed to parse either. First: Not a JSON object: [{"id":"minecraft:glass_bottle","components":{"minecraft:custom_name":"x"}}]; Second: Not a string: [{"id":"minecraft:glass_bottle","components":{"min
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:max_damage":7}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_damage":7}}	snbt={components:{"minecraft:max_damage":7},id:"minecraft:glass_bottle"}	wire=f6090101000207	hash=-888359745
+wire	minecraft:use_remainder	f6090101000207	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_damage":7}}	snbt={components:{"minecraft:max_damage":7},id:"minecraft:glass_bottle"}	wire=f6090101000207	hash=-888359745	left=0
+wire	minecraft:use_remainder	f60901010002	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:use_remainder	f60901	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
+wire	minecraft:use_remainder	f60901dd000207	ERR	readerIndex(7) + length(4) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
+wire	minecraft:use_remainder	f6092301000207	OK	json={"id":"minecraft:glass_bottle","count":35,"components":{"minecraft:max_damage":7}}	snbt={components:{"minecraft:max_damage":7},count:35,id:"minecraft:glass_bottle"}	wire=f6092301000207	hash=-789980027	left=0
+wire	minecraft:use_remainder	17090101000207	ERR	Loading NBT data
+wire	minecraft:use_remainder	f64d0101000207	ERR	No value with id 9974
+snbt	minecraft:use_remainder	{"id":'minecraft:glass_bottle','components':{"minecraft:max_damage":7s}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_damage":7}}	snbt={components:{"minecraft:max_damage":7},id:"minecraft:glass_bottle"}	wire=f6090101000207	hash=-888359745
+wire	minecraft:use_remainder	f6090101000207	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_damage":7}}	snbt={components:{"minecraft:max_damage":7},id:"minecraft:glass_bottle"}	wire=f6090101000207	hash=-888359745	left=0
+wire	minecraft:use_remainder	f60901010002	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:use_remainder	f60901	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
+wire	minecraft:use_remainder	f60901ab000207	ERR	readerIndex(7) + length(4) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
+wire	minecraft:use_remainder	f6099401000207	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
+wire	minecraft:use_remainder	f6220101000207	ERR	No value with id 4470
+wire	minecraft:use_remainder	f62d0101000207	ERR	No value with id 5878
+snbt	minecraft:use_remainder	9007199254740992f	ERR	Failed to parse either. First: Not a map: 9.007199E15f; Second: Not a string
+json	minecraft:use_remainder	{"id":{"type":"minecraft:x"},"components":{"minecraft:max_damage":7}}	ERR	Failed to parse either. First: Not a string: {"type":"minecraft:x"}; Second: Not a string: {"id":{"type":"minecraft:x"},"components":{"minecraft:max_damage":7}}
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":2}	ERR	Not a JSON object: 2
 json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:use_remainder":"minecraft:stick"}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:use_remainder":{"id":"minecraft:stick"}}}	snbt={components:{"minecraft:use_remainder":{id:"minecraft:stick"}},id:"minecraft:glass_bottle"}	wire=f60901010019a408010000	hash=-2078852236
 wire	minecraft:use_remainder	f60901010019a408010000	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:use_remainder":{"id":"minecraft:stick"}}}	snbt={components:{"minecraft:use_remainder":{id:"minecraft:stick"}},id:"minecraft:glass_bottle"}	wire=f60901010019a408010000	hash=-2078852236	left=0
 wire	minecraft:use_remainder	f60901010019a4080100	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
@@ -7767,7 +7767,7 @@ wire	minecraft:use_remainder	f60901010019a408012e00	ERR	readerIndex(11) + length
 wire	minecraft:use_remainder	f60901010019a408011700	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
 wire	minecraft:use_remainder	f60a01010019a408010000	OK	json={"id":"minecraft:prismarine_shard","components":{"minecraft:use_remainder":{"id":"minecraft:stick"}}}	snbt={components:{"minecraft:use_remainder":{id:"minecraft:stick"}},id:"minecraft:prismarine_shard"}	wire=f60a01010019a408010000	hash=1322907019	left=0
 wire	minecraft:use_remainder	f60901010019a408019c00	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-snbt	minecraft:use_remainder	{id:"minecraft:glass_bottle","components":{"minecraft:use_remainder":'minecraft:stick'}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:use_remainder":{"id":"minecraft:stick"}}}	snbt={components:{"minecraft:use_remainder":{id:"minecraft:stick"}},id:"minecraft:glass_bottle"}	wire=f60901010019a408010000	hash=-2078852236
+snbt	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{'minecraft:use_remainder':"minecraft:stick"}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:use_remainder":{"id":"minecraft:stick"}}}	snbt={components:{"minecraft:use_remainder":{id:"minecraft:stick"}},id:"minecraft:glass_bottle"}	wire=f60901010019a408010000	hash=-2078852236
 wire	minecraft:use_remainder	f60901010019a408010000	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:use_remainder":{"id":"minecraft:stick"}}}	snbt={components:{"minecraft:use_remainder":{id:"minecraft:stick"}},id:"minecraft:glass_bottle"}	wire=f60901010019a408010000	hash=-2078852236	left=0
 wire	minecraft:use_remainder	f60901010019a4080100	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
 wire	minecraft:use_remainder	f609010100	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
@@ -7775,8 +7775,8 @@ wire	minecraft:use_remainder	f60901010019a408015400	ERR	readerIndex(11) + length
 wire	minecraft:use_remainder	f60901010019a408014e00	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
 wire	minecraft:use_remainder	f60901d90019a408010000	ERR	No value with id 1060
 wire	minecraft:use_remainder	f60901010019a40801ef00	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-snbt	minecraft:use_remainder	'minecraft:'	ERR	Failed to parse either. First: Not a map: "minecraft:"; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: minecraft:
-snbt	minecraft:use_remainder	{"id":'minecraft:glass_bottle',"components":{}}	OK	json={"id":"minecraft:glass_bottle"}	snbt={id:"minecraft:glass_bottle"}	wire=f609010000	hash=-1613294730
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:use_remainder":-1.5}}	ERR	Failed to parse either. First: Not a JSON object: -1.5; Second: Not a string: -1.5 missed input: {"minecraft:use_remainder":-1.5}
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{}}	OK	json={"id":"minecraft:glass_bottle"}	snbt={id:"minecraft:glass_bottle"}	wire=f609010000	hash=-1613294730
 wire	minecraft:use_remainder	f609010000	OK	json={"id":"minecraft:glass_bottle"}	snbt={id:"minecraft:glass_bottle"}	wire=f609010000	hash=-1613294730	left=0
 wire	minecraft:use_remainder	f6090100	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 wire	minecraft:use_remainder	f609	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
@@ -7784,7 +7784,7 @@ wire	minecraft:use_remainder	f6090100e3	ERR	readerIndex(5) + length(1) exceeds w
 wire	minecraft:use_remainder	f609010027	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:use_remainder	f601010000	OK	json={"id":"minecraft:short_dry_grass"}	snbt={id:"minecraft:short_dry_grass"}	wire=f601010000	hash=211249588	left=0
 wire	minecraft:use_remainder	fc09010000	OK	json={"id":"minecraft:brewing_stand"}	snbt={id:"minecraft:brewing_stand"}	wire=fc09010000	hash=743249793	left=0
-snbt	minecraft:use_remainder	{'id':"minecraft:glass_bottle","components":1.5f}	ERR	Not a map: 1.5f
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":[{"minecraft:use_remainder":"minecraft:stick"}]}	ERR	Not a JSON object: [{"minecraft:use_remainder":"minecraft:stick"}]
 json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":16}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:glass_bottle"}	wire=f6090101000110	hash=31008044
 wire	minecraft:use_remainder	f6090101000110	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:glass_bottle"}	wire=f6090101000110	hash=31008044	left=0
 wire	minecraft:use_remainder	f60901010001	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
@@ -7793,7 +7793,7 @@ wire	minecraft:use_remainder	f6410101000110	ERR	No value with id 8438
 wire	minecraft:use_remainder	f609010100012a	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":42}}	snbt={components:{"minecraft:max_stack_size":42},id:"minecraft:glass_bottle"}	wire=f609010100012a	hash=577559656	left=0
 wire	minecraft:use_remainder	b2090101000110	OK	json={"id":"minecraft:light_blue_dye","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:light_blue_dye"}	wire=b2090101000110	hash=-1911832296	left=0
 wire	minecraft:use_remainder	f60901bf000110	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-snbt	minecraft:use_remainder	{id:"minecraft:glass_bottle","components":{'minecraft:max_stack_size':16l}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:glass_bottle"}	wire=f6090101000110	hash=31008044
+snbt	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":16b}}	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:glass_bottle"}	wire=f6090101000110	hash=31008044
 wire	minecraft:use_remainder	f6090101000110	OK	json={"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:glass_bottle"}	wire=f6090101000110	hash=31008044	left=0
 wire	minecraft:use_remainder	f60901010001	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:use_remainder	f60901	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
@@ -7801,9 +7801,9 @@ wire	minecraft:use_remainder	f609010d000110	ERR	readerIndex(7) + length(1) excee
 wire	minecraft:use_remainder	ce090101000110	OK	json={"id":"minecraft:blue_bed","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:blue_bed"}	wire=ce090101000110	hash=-29135099	left=0
 wire	minecraft:use_remainder	91090101000110	OK	json={"id":"minecraft:black_bundle","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:black_bundle"}	wire=91090101000110	hash=-24043145	left=0
 wire	minecraft:use_remainder	f60901f0000110	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-json	minecraft:use_remainder	9223372036854775808	ERR	Failed to parse either. First: Not a JSON object: 9223372036854775808; Second: Not a string: 9223372036854775808
-json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":[-2147483648]}	ERR	Not a JSON object: [-2147483648]
-json	minecraft:use_remainder	2	ERR	Failed to parse either. First: Not a JSON object: 2; Second: Not a string: 2
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":[[]]}}	ERR	Not a number: [[]] missed input: {"minecraft:max_stack_size":[[]]}
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":null}}	ERR	Not a number: null missed input: {"minecraft:max_stack_size":null}
+json	minecraft:use_remainder	{"id":"minecraft:glass_bottle","components":{"minecraft:max_stack_size":[16]}}	ERR	Not a number: [16] missed input: {"minecraft:max_stack_size":[16]}
 json	minecraft:use_remainder	{"id":"minecraft:diamond_sword","components":{"minecraft:max_stack_size":16}}	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:diamond_sword"}	wire=9a080101000110	hash=-1944689090
 wire	minecraft:use_remainder	9a080101000110	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:diamond_sword"}	wire=9a080101000110	hash=-1944689090	left=0
 wire	minecraft:use_remainder	9a0801010001	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
@@ -7812,7 +7812,7 @@ wire	minecraft:use_remainder	9a6d0101000110	ERR	No value with id 13978
 wire	minecraft:use_remainder	9a080101005510	ERR	readerIndex(7) + length(4) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
 wire	minecraft:use_remainder	9a080101009410	ERR	No value with id 2068
 wire	minecraft:use_remainder	9a080101000179	OK	json=ENCERR	snbt=ENCERR	wire=9a080101000179	hash=ENCERR	left=0
-snbt	minecraft:use_remainder	{"id":'minecraft:diamond_sword','components':{'minecraft:max_stack_size':16}}	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:diamond_sword"}	wire=9a080101000110	hash=-1944689090
+snbt	minecraft:use_remainder	{'id':"minecraft:diamond_sword",'components':{"minecraft:max_stack_size":16B}}	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:diamond_sword"}	wire=9a080101000110	hash=-1944689090
 wire	minecraft:use_remainder	9a080101000110	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:max_stack_size":16}}	snbt={components:{"minecraft:max_stack_size":16},id:"minecraft:diamond_sword"}	wire=9a080101000110	hash=-1944689090	left=0
 wire	minecraft:use_remainder	9a0801010001	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:use_remainder	9a0801	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
@@ -7820,9 +7820,9 @@ wire	minecraft:use_remainder	9a080101f00110	ERR	readerIndex(7) + length(1) excee
 wire	minecraft:use_remainder	9a0801ad000110	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
 wire	minecraft:use_remainder	9a088501000110	OK	json=ENCERR	snbt=ENCERR	wire=9a088501000110	hash=ENCERR	left=0
 wire	minecraft:use_remainder	9a080101001610	ERR	Loading NBT data
-json	minecraft:use_remainder	{"id":null,"components":""}	ERR	Failed to parse either. First: Not a JSON object: ""; No key id in MapLike[{"id":null,"components":""}]; Second: Not a string: {"id":null,"components":""}
-json	minecraft:use_remainder	1.5	ERR	Failed to parse either. First: Not a JSON object: 1.5; Second: Not a string: 1.5
-snbt	minecraft:use_remainder	[1d]	ERR	Failed to parse either. First: Not a map: [1.0d]; Second: Not a string
+snbt	minecraft:use_remainder	1	ERR	Failed to parse either. First: Not a map: 1; Second: Not a string
+snbt	minecraft:use_remainder	{"id":{},components:{'minecraft:max_stack_size':16B}}	ERR	Failed to parse either. First: Not a string; Second: Not a string
+snbt	minecraft:use_remainder	9223372036854775808L	ERR	Failed to parse number: For input string: "9223372036854775808" at position 20: ...854775808L<--[HERE]
 json	minecraft:use_remainder	{"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":100}}	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":100}}	snbt={components:{"minecraft:damage":5,"minecraft:max_damage":100},id:"minecraft:diamond_sword"}	wire=9a0801020003050264	hash=-1224133644
 wire	minecraft:use_remainder	9a0801020003050264	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":100}}	snbt={components:{"minecraft:damage":5,"minecraft:max_damage":100},id:"minecraft:diamond_sword"}	wire=9a0801020003050264	hash=-1224133644	left=0
 wire	minecraft:use_remainder	9a08010200030502	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
@@ -7831,7 +7831,7 @@ wire	minecraft:use_remainder	9a0801020003e40264	ERR	readerIndex(9) + length(1) e
 wire	minecraft:use_remainder	9a08010200030502dd	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
 wire	minecraft:use_remainder	9a0801020003050b64	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
 wire	minecraft:use_remainder	9a0801020076050264	ERR	Loading NBT data
-snbt	minecraft:use_remainder	{'id':"minecraft:diamond_sword",components:{"minecraft:damage":5B,'minecraft:max_damage':100}}	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":100}}	snbt={components:{"minecraft:damage":5,"minecraft:max_damage":100},id:"minecraft:diamond_sword"}	wire=9a0801020003050264	hash=-1224133644
+snbt	minecraft:use_remainder	{"id":'minecraft:diamond_sword',"components":{'minecraft:damage':5B,"minecraft:max_damage":100B}}	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":100}}	snbt={components:{"minecraft:damage":5,"minecraft:max_damage":100},id:"minecraft:diamond_sword"}	wire=9a0801020003050264	hash=-1224133644
 wire	minecraft:use_remainder	9a0801020003050264	OK	json={"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":100}}	snbt={components:{"minecraft:damage":5,"minecraft:max_damage":100},id:"minecraft:diamond_sword"}	wire=9a0801020003050264	hash=-1224133644	left=0
 wire	minecraft:use_remainder	9a08010200030502	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 wire	minecraft:use_remainder	9a080102	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
@@ -7839,9 +7839,9 @@ wire	minecraft:use_remainder	9a08010200e7050264	ERR	No value with id 743
 wire	minecraft:use_remainder	9a080102000305fa64	ERR	No value with id 12922
 wire	minecraft:use_remainder	9a0801020003051764	ERR	readerIndex(9) + length(4) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
 wire	minecraft:use_remainder	5d0801020003050264	ERR	Loading NBT data
-json	minecraft:use_remainder	{"id":"minecraft:diamond_sword","components":0.0}	ERR	Not a JSON object: 0.0
-snbt	minecraft:use_remainder	{'id':false,"components":{"minecraft:damage":5s,'minecraft:max_damage':100l}}	ERR	Failed to parse either. First: Not a string; Second: Not a string
-snbt	minecraft:use_remainder	{'id':"minecraft:diamond_sword",'components':{"minecraft:damage":"minecraft:stone",'minecraft:max_damage':100d}}	ERR	Not a number missed input: {"minecraft:damage":"minecraft:stone"}
+json	minecraft:use_remainder	[{"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":""}}]	ERR	Failed to parse either. First: Not a JSON object: [{"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":""}}]; Second: Not a string: [{"id":"minecraft:diamond_swor
+json	minecraft:use_remainder	{"type":"minecraft:x"}	ERR	Failed to parse either. First: No key id in MapLike[{"type":"minecraft:x"}]; Second: Not a string: {"type":"minecraft:x"}
+json	minecraft:use_remainder	{"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":0}}	ERR	Value must be positive: 0 missed input: {"minecraft:max_damage":0}
 json	minecraft:use_remainder	{"id":"minecraft:stick","count":3,"components":{"minecraft:unbreakable":{}}}	OK	json={"id":"minecraft:stick","count":3,"components":{"minecraft:unbreakable":{}}}	snbt={components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:stick"}	wire=a40803010004	hash=-1191791437
 wire	minecraft:use_remainder	a40803010004	OK	json={"id":"minecraft:stick","count":3,"components":{"minecraft:unbreakable":{}}}	snbt={components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:stick"}	wire=a40803010004	hash=-1191791437	left=0
 wire	minecraft:use_remainder	a408030100	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
@@ -7850,7 +7850,7 @@ wire	minecraft:use_remainder	a4a703010004	ERR	No value with id 54180
 wire	minecraft:use_remainder	a40803010062	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:use_remainder	e80803010004	OK	json={"id":"minecraft:bucket","count":3,"components":{"minecraft:unbreakable":{}}}	snbt={components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:bucket"}	wire=e80803010004	hash=-2142227794	left=0
 wire	minecraft:use_remainder	a4bc03010004	ERR	No value with id 56868
-snbt	minecraft:use_remainder	{'id':'minecraft:stick','count':3B,'components':{"minecraft:unbreakable":{}}}	OK	json={"id":"minecraft:stick","count":3,"components":{"minecraft:unbreakable":{}}}	snbt={components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:stick"}	wire=a40803010004	hash=-1191791437
+snbt	minecraft:use_remainder	{'id':"minecraft:stick","count":3.0d,'components':{"minecraft:unbreakable":{}}}	OK	json={"id":"minecraft:stick","count":3,"components":{"minecraft:unbreakable":{}}}	snbt={components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:stick"}	wire=a40803010004	hash=-1191791437
 wire	minecraft:use_remainder	a40803010004	OK	json={"id":"minecraft:stick","count":3,"components":{"minecraft:unbreakable":{}}}	snbt={components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:stick"}	wire=a40803010004	hash=-1191791437	left=0
 wire	minecraft:use_remainder	a408030100	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:use_remainder	a40803	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
@@ -7858,55 +7858,49 @@ wire	minecraft:use_remainder	a4c303010004	ERR	No value with id 57764
 wire	minecraft:use_remainder	a408030100d8	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:use_remainder	a408d2010004	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:use_remainder	a40803017504	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
-snbt	minecraft:use_remainder	1e+300F	ERR	Unexpected trailing data at position 1: 1<--[HERE]
-json	minecraft:use_remainder	255	ERR	Failed to parse either. First: Not a JSON object: 255; Second: Not a string: 255
-snbt	minecraft:use_remainder	{'id':"minecraft:stick","count":3s,"components":{"minecraft:unbreakable":255.0d}}	ERR	Not a map: 255.0d missed input: {"minecraft:unbreakable":255.0d}
-wire	minecraft:use_remainder	5802020404040200043f04e40480013f80023f0400020101018004000201	OK	json={"id":"minecraft:sand","count":2,"components":{"!minecraft:unbreakable":{},"!minecraft:max_damage":{},"!minecraft:custom_data":{},"!minecraft:instrument":{}}}	snbt={components:{"!minecraft:custom_data":{},"!minecraft:instrument":{},"!minecraft:max_damage":{},"!minecraft:unbreakable":{}},count:2,id:"minecraft:sand"}	wire=580200040402003f	hash=1299327914	left=20
-wire	minecraft:use_remainder	5802020404040200043f04e40480013f80023f04000201010180040002	OK	json={"id":"minecraft:sand","count":2,"components":{"!minecraft:unbreakable":{},"!minecraft:max_damage":{},"!minecraft:custom_data":{},"!minecraft:instrument":{}}}	snbt={components:{"!minecraft:custom_data":{},"!minecraft:instrument":{},"!minecraft:max_damage":{},"!minecraft:unbreakable":{}},count:2,id:"minecraft:sand"}	wire=580200040402003f	hash=1299327914	left=19
-wire	minecraft:use_remainder	5802020404040200043f04e4048001	OK	json={"id":"minecraft:sand","count":2,"components":{"!minecraft:unbreakable":{},"!minecraft:max_damage":{},"!minecraft:custom_data":{},"!minecraft:instrument":{}}}	snbt={components:{"!minecraft:custom_data":{},"!minecraft:instrument":{},"!minecraft:max_damage":{},"!minecraft:unbreakable":{}},count:2,id:"minecraft:sand"}	wire=580200040402003f	hash=1299327914	left=5
-wire	minecraft:use_remainder	580202040404d800043f04e40480013f80023f0400020101018004000201	OK	json={"id":"minecraft:sand","count":2,"components":{"!minecraft:unbreakable":{},"!minecraft:villager/variant":{},"!minecraft:instrument":{}}}	snbt={components:{"!minecraft:instrument":{},"!minecraft:unbreakable":{},"!minecraft:villager/variant":{}},count:2,id:"minecraft:sand"}	wire=5802000304583f	hash=510092434	left=19
-wire	minecraft:use_remainder	5802020404040200043f04e40480013f81023f0400020101018004000201	OK	json={"id":"minecraft:sand","count":2,"components":{"!minecraft:unbreakable":{},"!minecraft:max_damage":{},"!minecraft:custom_data":{},"!minecraft:instrument":{}}}	snbt={components:{"!minecraft:custom_data":{},"!minecraft:instrument":{},"!minecraft:max_damage":{},"!minecraft:unbreakable":{}},count:2,id:"minecraft:sand"}	wire=580200040402003f	hash=1299327914	left=20
-wire	minecraft:use_remainder	5802020404040200043f04e40480013f80843f0400020101018004000201	OK	json={"id":"minecraft:sand","count":2,"components":{"!minecraft:unbreakable":{},"!minecraft:max_damage":{},"!minecraft:custom_data":{},"!minecraft:instrument":{}}}	snbt={components:{"!minecraft:custom_data":{},"!minecraft:instrument":{},"!minecraft:max_damage":{},"!minecraft:unbreakable":{}},count:2,id:"minecraft:sand"}	wire=580200040402003f	hash=1299327914	left=20
-wire	minecraft:use_remainder	5802020404040200043f04e40480013f80023f0400020101018c04000201	OK	json={"id":"minecraft:sand","count":2,"components":{"!minecraft:unbreakable":{},"!minecraft:max_damage":{},"!minecraft:custom_data":{},"!minecraft:instrument":{}}}	snbt={components:{"!minecraft:custom_data":{},"!minecraft:instrument":{},"!minecraft:max_damage":{},"!minecraft:unbreakable":{}},count:2,id:"minecraft:sand"}	wire=580200040402003f	hash=1299327914	left=20
-wire	minecraft:use_remainder	000200010102030200008000003f030201010001	ERR	Item must be non-empty
-wire	minecraft:use_remainder	8080030000030001	ERR	No value with id 49152
-wire	minecraft:use_remainder	013f650103043f8004ff01807b00013f34dd023f0001020000043f0101800200000040010380	ERR	No value with id 511
-wire	minecraft:use_remainder	02010002030101	OK	json={"id":"minecraft:granite","components":{"!minecraft:damage":{},"!minecraft:max_stack_size":{}}}	snbt={components:{"!minecraft:damage":{},"!minecraft:max_stack_size":{}},id:"minecraft:granite"}	wire=020100020301	hash=153988497	left=1
-wire	minecraft:use_remainder	020100020301	OK	json={"id":"minecraft:granite","components":{"!minecraft:damage":{},"!minecraft:max_stack_size":{}}}	snbt={components:{"!minecraft:damage":{},"!minecraft:max_stack_size":{}},id:"minecraft:granite"}	wire=020100020301	hash=153988497	left=0
-wire	minecraft:use_remainder	020100	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
-wire	minecraft:use_remainder	0201eb02030101	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-wire	minecraft:use_remainder	0201000203013e	OK	json={"id":"minecraft:granite","components":{"!minecraft:damage":{},"!minecraft:max_stack_size":{}}}	snbt={components:{"!minecraft:damage":{},"!minecraft:max_stack_size":{}},id:"minecraft:granite"}	wire=020100020301	hash=153988497	left=1
-wire	minecraft:use_remainder	020100027f0101	ERR	No value with id 127
-wire	minecraft:use_remainder	0201000203cf01	ERR	No value with id 207
-wire	minecraft:use_remainder	000380001700049e0103010004010403030300043f02020301033f9a01043f010101	ERR	No value with id 158
-wire	minecraft:use_remainder	3f800080033f3f0000043f003f3f00808302000402800104022c3f023f800100100304800102	ERR	Non [a-z0-9/._-] character in path of location: minecraft:?\u0000??
-wire	minecraft:use_remainder	3f0380030302000303000400030100000000543f0100000100018080	ERR	Failed to decode: Failed to parse either. First: Not a compound tag: 845524441759828L; Second: Not a string 845524441759828L
-wire	minecraft:use_remainder	00000001040300000001c1410100013f0104040000010080013f0003c838	ERR	Item must be non-empty
-wire	minecraft:use_remainder	01000100808002fe800001	ERR	No value with id 32768
-wire	minecraft:use_remainder	0f803f01ea0001038c3f033f3f00018080000380020702010080013f0200	ERR	No value with id 8076
-wire	minecraft:use_remainder	00a8013f00000111000204043f02026300030403	ERR	Failed to decode: Failed to parse either. First: Not a compound tag: 17b; Second: Not a string 17b
-wire	minecraft:use_remainder	020180000201018f	OK	json={"id":"minecraft:granite","components":{"!minecraft:max_stack_size":{}}}	snbt={components:{"!minecraft:max_stack_size":{}},id:"minecraft:granite"}	wire=0201000101	hash=1875751565	left=1
-wire	minecraft:use_remainder	02018000020101	OK	json={"id":"minecraft:granite","components":{"!minecraft:max_stack_size":{}}}	snbt={components:{"!minecraft:max_stack_size":{}},id:"minecraft:granite"}	wire=0201000101	hash=1875751565	left=0
-wire	minecraft:use_remainder	02018000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
-wire	minecraft:use_remainder	020180000201019f	OK	json={"id":"minecraft:granite","components":{"!minecraft:max_stack_size":{}}}	snbt={components:{"!minecraft:max_stack_size":{}},id:"minecraft:granite"}	wire=0201000101	hash=1875751565	left=1
-wire	minecraft:use_remainder	020180000201b18f	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
-wire	minecraft:use_remainder	020180fd0201018f	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
-wire	minecraft:use_remainder	02018000020101a7	OK	json={"id":"minecraft:granite","components":{"!minecraft:max_stack_size":{}}}	snbt={components:{"!minecraft:max_stack_size":{}},id:"minecraft:granite"}	wire=0201000101	hash=1875751565	left=1
-wire	minecraft:use_remainder	803f01eb01110004030180010000003f00	ERR	No value with id 8064
-stack-snbt	-	{id:"minecraft:honey_bottle",count:16,components:{"minecraft:use_remainder":'minecraft:nope'}}	ERR	Failed to parse either. First: Not a map: "minecraft:nope"; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: minecraft:nope missed input: {"minecraft:use_remainder":"minec
-stack-snbt	-	{id:"minecraft:honey_bottle",count:2,components:{"minecraft:use_remainder":5.0d}}	ERR	Failed to parse either. First: Not a map: 5.0d; Second: Not a string missed input: {"minecraft:use_remainder":5.0d}
-stack-snbt	-	{id:"minecraft:stick",count:1,components:{"minecraft:use_remainder":true}}	ERR	Failed to parse either. First: Not a map: 1b; Second: Not a string missed input: {"minecraft:use_remainder":1b}
-stack-snbt	-	{id:"minecraft:mushroom_stew",count:1,components:{"minecraft:use_remainder":""}}	ERR	Failed to parse either. First: Not a map: ""; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: minecraft: missed input: {"minecraft:use_remainder":""}
-stack-snbt	-	{id:"minecraft:mushroom_stew",count:2,components:{"minecraft:use_remainder":{"id":'minecraft:bowl',"count":-1}}}	ERR	Value must be within range [1;99]: -1 missed input: {"minecraft:use_remainder":{count:-1,id:"minecraft:bowl"}}
-stack-snbt	-	{id:"minecraft:mushroom_stew",count:1,components:{"minecraft:use_remainder":{"id":"minecraft:bowl","count":100B}}}	ERR	Value must be within range [1;99]: 100 missed input: {"minecraft:use_remainder":{count:100b,id:"minecraft:bowl"}}
-stack-snbt	-	{id:"minecraft:stick",count:1,components:{"minecraft:use_remainder":[]}}	ERR	Failed to parse either. First: Not a map: []; Second: Not a string missed input: {"minecraft:use_remainder":[]}
-stack-snbt	-	{id:"minecraft:honey_bottle",count:16,components:{"minecraft:use_remainder":{"id":5f}}}	ERR	Failed to parse either. First: Not a string; Second: Not a string missed input: {"minecraft:use_remainder":{id:5.0f}}
-stack-json	-	{"id":"minecraft:mushroom_stew","count":1,"components":{"minecraft:use_remainder":{"id":"minecraft:bowl","extra":1}}}	OK	json={"id":"minecraft:mushroom_stew","count":1}	snbt={count:1,id:"minecraft:mushroom_stew"}	osnbt={count:1,id:"minecraft:mushroom_stew"}	wire=01a5080000	wireu=01a5080000	patch=0000	hashed=01a508010000	maxstack=1	valid	left=0
-patch-json	-	{"minecraft:use_remainder":{"id":"minecraft:bowl","extra":1}}	OK	json={"minecraft:use_remainder":{"id":"minecraft:bowl"}}	snbt={"minecraft:use_remainder":{id:"minecraft:bowl"}}	wire=010019ee07010000	wiredelim=01001905ee07010000	left=0
-stack-json	-	{"id":"minecraft:stick","count":1,"components":{"minecraft:use_remainder":{"id":"minecraft:bowl","count":1.5}}}	OK	json={"id":"minecraft:stick","count":1,"components":{"minecraft:use_remainder":{"id":"minecraft:bowl"}}}	snbt={components:{"minecraft:use_remainder":{id:"minecraft:bowl"}},count:1,id:"minecraft:stick"}	osnbt={components:{"minecraft:use_remainder":{id:"minecraft:bowl"}},count:1,id:"minecraft:stick"}	wire=01a408010019ee07010000	wireu=01a40801001905ee07010000	patch=010019ee07010000	hashed=01a408010119a99bb42f00	maxstack=64	valid	left=0
-patch-json	-	{"minecraft:use_remainder":{"id":"minecraft:bowl","count":1.5}}	OK	json={"minecraft:use_remainder":{"id":"minecraft:bowl"}}	snbt={"minecraft:use_remainder":{id:"minecraft:bowl"}}	wire=010019ee07010000	wiredelim=01001905ee07010000	left=0
-stack-json	-	{"id":"minecraft:mushroom_stew","count":1,"components":{"minecraft:use_remainder":{}}}	ERR	Failed to parse either. First: No key id in MapLike[{}]; Second: Not a string: {} missed input: {"minecraft:use_remainder":{}}
-patch-json	-	{"minecraft:use_remainder":{}}	ERR	Failed to parse either. First: No key id in MapLike[{}]; Second: Not a string: {} missed input: {"minecraft:use_remainder":{}}
+snbt	minecraft:use_remainder	{'id':['minecraft:stick'],"count":3f,'components':{"minecraft:unbreakable":{}}}	ERR	Failed to parse either. First: Not a string; Second: Not a string
+snbt	minecraft:use_remainder	[""]	ERR	Failed to parse either. First: Not a map: [""]; Second: Not a string
+snbt	minecraft:use_remainder	{'id':'minecraft:stick','count':[3B],'components':{"minecraft:unbreakable":{}}}	ERR	Not a number
+wire	minecraft:use_remainder	0003900303803f01040003030001800300800002020404040200043f04e40480013f	ERR	No value with id 8064
+wire	minecraft:use_remainder	023f04000201010180040002019e00020001010203020000800000	ERR	No value with id 512
+wire	minecraft:use_remainder	0302010100	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
+wire	minecraft:use_remainder	800180030000030001013f65010304	OK	json=ENCERR	snbt=ENCERR	wire=800180030000	hash=ENCERR	left=9
+wire	minecraft:use_remainder	800180030000030001013f650103	OK	json=ENCERR	snbt=ENCERR	wire=800180030000	hash=ENCERR	left=8
+wire	minecraft:use_remainder	80018003000003	OK	json=ENCERR	snbt=ENCERR	wire=800180030000	hash=ENCERR	left=1
+wire	minecraft:use_remainder	800180030000d80001013f65010304	OK	json=ENCERR	snbt=ENCERR	wire=800180030000	hash=ENCERR	left=9
+wire	minecraft:use_remainder	808180030000030001013f65010304	ERR	No value with id 6291584
+wire	minecraft:use_remainder	800184030000030001013f65010304	OK	json=ENCERR	snbt=ENCERR	wire=800184030000	hash=ENCERR	left=9
+wire	minecraft:use_remainder	800180030000030001018c65010304	OK	json=ENCERR	snbt=ENCERR	wire=800180030000	hash=ENCERR	left=9
+wire	minecraft:use_remainder	3f8004ff01807b00013f34dd023f0001020000043f01018002000000400103800104023f02	ERR	Failed to decode: Failed to parse either. First: Not a compound tag: 63b; Second: Not a string 63b
+wire	minecraft:use_remainder	3f0101000380001700	OK	json={"id":"minecraft:oak_planks","components":{"minecraft:damage":0}}	snbt={components:{"minecraft:damage":0},id:"minecraft:oak_planks"}	wire=3f0101000300	hash=680375467	left=2
+wire	minecraft:use_remainder	3f01010003800017	OK	json={"id":"minecraft:oak_planks","components":{"minecraft:damage":0}}	snbt={components:{"minecraft:damage":0},id:"minecraft:oak_planks"}	wire=3f0101000300	hash=680375467	left=1
+wire	minecraft:use_remainder	3f010100	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:use_remainder	3f0101eb0380001700	ERR	Loading NBT data
+wire	minecraft:use_remainder	3f010100033e001700	OK	json={"id":"minecraft:oak_planks","components":{"minecraft:damage":62}}	snbt={components:{"minecraft:damage":62},id:"minecraft:oak_planks"}	wire=3f010100033e	hash=2122547662	left=3
+wire	minecraft:use_remainder	3f017f000380001700	ERR	readerIndex(9) + length(4) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
+wire	minecraft:use_remainder	3f010100038000cf00	OK	json={"id":"minecraft:oak_planks","components":{"minecraft:damage":0}}	snbt={components:{"minecraft:damage":0},id:"minecraft:oak_planks"}	wire=3f0101000300	hash=680375467	left=2
+wire	minecraft:use_remainder	010103010004010403030300043f02020301033f	ERR	Failed to decode: Failed to parse either. First: Not a compound tag: 73186805414888511L; Second: Not a string 73186805414888511L
+wire	minecraft:use_remainder	01043f0101013f800080033f3f0000043f003f3f	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
+wire	minecraft:use_remainder	02830200040280	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
+wire	minecraft:use_remainder	8d04022c3f02	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:use_remainder	800100100304	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:use_remainder	800102000380030302000303000400030100000000543f01000001000180800000	ERR	No value with id 384
+wire	minecraft:use_remainder	0001040300000001c141	ERR	Expected non-null compound tag
+wire	minecraft:use_remainder	0100013f0104040000010080013f0003c8385701000100808002fe80000100803f01ea00	ERR	No value with id 128
+stack-snbt	-	{id:"minecraft:mushroom_stew",count:16,components:{"minecraft:use_remainder":{"id":"minecraft:diamond_sword",'components':{"minecraft:damage":5L,'minecraft:max_damage':100}}}}	OK	json={"id":"minecraft:mushroom_stew","count":16,"components":{"minecraft:use_remainder":{"id":"minecraft:diamond_sword","components":{"minecraft:damage":5,"minecraft:max_damage":100}}}}	snbt={components:{"minecraft:use_remainder":{components:{"minecraft:damage":5,"minecraft:max_damage":100},id:"minecraft:diamond_sword"}},count:16,id:"minecraft:mushroom_stew"}	osnbt={components:{"minecraft:use_remainder":{components:{"minecraft:damage":5,"minecraft:max_damage":100},id:"minecraft:diamond_sword"}},count:16,id:"minecraft:mushroom_stew"}	wire=10a5080100199a0801020003050264	wireu=10a508010019099a0801020003050264	patch=0100199a0801020003050264	hashed=01a508100119b70933f400	maxstack=1	invalid	left=0
+stack-snbt	-	{id:"minecraft:mushroom_stew",count:1,components:{"minecraft:use_remainder":{id:'minecraft:bowl',"count":"2"}}}	ERR	Not a number missed input: {"minecraft:use_remainder":{count:"2",id:"minecraft:bowl"}}
+stack-snbt	-	{id:"minecraft:stick",count:1,components:{"minecraft:use_remainder":{"id":'minecraft:stick','count':3L,"components":{'minecraft:unbreakable':{}}}}}	OK	json={"id":"minecraft:stick","count":1,"components":{"minecraft:use_remainder":{"id":"minecraft:stick","count":3,"components":{"minecraft:unbreakable":{}}}}}	snbt={components:{"minecraft:use_remainder":{components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:stick"}},count:1,id:"minecraft:stick"}	osnbt={components:{"minecraft:use_remainder":{components:{"minecraft:unbreakable":{}},count:3,id:"minecraft:stick"}},count:1,id:"minecraft:stick"}	wire=01a408010019a40803010004	wireu=01a40801001906a40803010004	patch=010019a40803010004	hashed=01a408010119b8f6b4b300	maxstack=64	valid	left=0
+stack-snbt	-	{id:"minecraft:honey_bottle",count:2,components:{"minecraft:use_remainder":{"id":'minecraft:glass_bottle',"components":{'minecraft:damage':-3}}}}	ERR	Value must be non-negative: -3 missed input: {"minecraft:damage":-3} missed input: {"minecraft:use_remainder":{components:{"minecraft:damage":-3},id:"minecraft:glass_bottle"}}
+stack-snbt	-	{id:"minecraft:mushroom_stew",count:1,components:{"minecraft:use_remainder":{"id":"minecraft:glass_bottle",components:[]}}}	ERR	Not a map: [] missed input: {"minecraft:use_remainder":{components:[],id:"minecraft:glass_bottle"}}
+stack-snbt	-	{id:"minecraft:mushroom_stew",count:16,components:{"minecraft:use_remainder":{'id':"minecraft:glass_bottle","components":{"!minecraft:food":{}}}}}	OK	json={"id":"minecraft:mushroom_stew","count":16,"components":{"minecraft:use_remainder":{"id":"minecraft:glass_bottle","components":{"!minecraft:food":{}}}}}	snbt={components:{"minecraft:use_remainder":{components:{"!minecraft:food":{}},id:"minecraft:glass_bottle"}},count:16,id:"minecraft:mushroom_stew"}	osnbt={components:{"minecraft:use_remainder":{components:{"!minecraft:food":{}},id:"minecraft:glass_bottle"}},count:16,id:"minecraft:mushroom_stew"}	wire=10a508010019f60901000117	wireu=10a50801001906f60901000117	patch=010019f60901000117	hashed=01a508100119a508182b00	maxstack=1	invalid	left=0
+stack-snbt	-	{id:"minecraft:stick",count:2,components:{"minecraft:use_remainder":{"id":"minecraft:bowl",count:100s}}}	ERR	Value must be within range [1;99]: 100 missed input: {"minecraft:use_remainder":{count:100s,id:"minecraft:bowl"}}
+stack-snbt	-	{id:"minecraft:stick",count:16,components:{"minecraft:use_remainder":true}}	ERR	Failed to parse either. First: Not a map: 1b; Second: Not a string missed input: {"minecraft:use_remainder":1b}
+stack-json	-	{"id":"minecraft:stick","count":1,"components":{"minecraft:use_remainder":{"id":"minecraft:glass_bottle","components":{"minecraft:damage":3}}}}	OK	json={"id":"minecraft:stick","count":1,"components":{"minecraft:use_remainder":{"id":"minecraft:glass_bottle","components":{"minecraft:damage":3}}}}	snbt={components:{"minecraft:use_remainder":{components:{"minecraft:damage":3},id:"minecraft:glass_bottle"}},count:1,id:"minecraft:stick"}	osnbt={components:{"minecraft:use_remainder":{components:{"minecraft:damage":3},id:"minecraft:glass_bottle"}},count:1,id:"minecraft:stick"}	wire=01a408010019f6090101000303	wireu=01a40801001907f6090101000303	patch=010019f6090101000303	hashed=01a4080101199de87d4f00	maxstack=64	valid	left=0
+patch-json	-	{"minecraft:use_remainder":{"id":"minecraft:glass_bottle","components":{"minecraft:damage":3}}}	OK	json={"minecraft:use_remainder":{"id":"minecraft:glass_bottle","components":{"minecraft:damage":3}}}	snbt={"minecraft:use_remainder":{components:{"minecraft:damage":3},id:"minecraft:glass_bottle"}}	wire=010019f6090101000303	wiredelim=01001907f6090101000303	left=0
+stack-json	-	{"id":"minecraft:honey_bottle","count":1,"components":{"minecraft:use_remainder":[]}}	ERR	Failed to parse either. First: Not a JSON object: []; Second: Not a string: [] missed input: {"minecraft:use_remainder":[]}
+patch-json	-	{"minecraft:use_remainder":[]}	ERR	Failed to parse either. First: Not a JSON object: []; Second: Not a string: [] missed input: {"minecraft:use_remainder":[]}
+stack-json	-	{"id":"minecraft:honey_bottle","count":1,"components":{"minecraft:use_remainder":{"id":"minecraft:bowl","count":"2"}}}	ERR	Not a number: "2" missed input: {"minecraft:use_remainder":{"id":"minecraft:bowl","count":"2"}}
+patch-json	-	{"minecraft:use_remainder":{"id":"minecraft:bowl","count":"2"}}	ERR	Not a number: "2" missed input: {"minecraft:use_remainder":{"id":"minecraft:bowl","count":"2"}}
 stack-snbt	-	{id:"minecraft:honey_bottle",count:1,components:{"!minecraft:use_remainder":{}}}	OK	json={"id":"minecraft:honey_bottle","count":1,"components":{"!minecraft:use_remainder":{}}}	snbt={components:{"!minecraft:use_remainder":{}},count:1,id:"minecraft:honey_bottle"}	osnbt={components:{"!minecraft:use_remainder":{}},count:1,id:"minecraft:honey_bottle"}	wire=01fd0b000119	wireu=01fd0b000119	patch=000119	hashed=01fd0b01000119	maxstack=16	valid	left=0
 patch-json	-	{"!minecraft:use_remainder":{}}	OK	json={"!minecraft:use_remainder":{}}	snbt={"!minecraft:use_remainder":{}}	wire=000119	wiredelim=000119	left=0
 patch-json	-	{"!minecraft:use_remainder":1}	ERR	Not a JSON object: 1 missed input: {"!minecraft:use_remainder":1}
@@ -7914,11 +7908,19 @@ json	minecraft:food	{"nutrition":1,"nutrition":2,"saturation":1}	OK	json={"nutri
 wire	minecraft:food	023f80000000	OK	json={"nutrition":2,"saturation":1.0}	snbt={nutrition:2,saturation:1.0f}	wire=023f80000000	hash=1296307497	left=0
 wire	minecraft:food	023f800000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	023f80	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	a93f80000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
-wire	minecraft:food	025a80000000	OK	json={"nutrition":2,"saturation":1.8014399E16}	snbt={nutrition:2,saturation:1.8014399E16f}	wire=025a80000000	hash=-1687092191	left=0
-wire	minecraft:food	ab3f80000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
-wire	minecraft:food	023f80000090	OK	json={"nutrition":2,"saturation":1.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:2,saturation:1.0f}	wire=023f80000001	hash=-133012996	left=0
+wire	minecraft:food	023f80009f00	OK	json={"nutrition":2,"saturation":1.000019}	snbt={nutrition:2,saturation:1.000019f}	wire=023f80009f00	hash=-516636784	left=0
+wire	minecraft:food	023f800000b1	OK	json={"nutrition":2,"saturation":1.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:2,saturation:1.0f}	wire=023f80000001	hash=-133012996	left=0
+wire	minecraft:food	02fd80000000	OK	json={"nutrition":2,"saturation":-2.1267648E37}	snbt={nutrition:2,saturation:-2.1267648E37f}	wire=02fd80000000	hash=-2067506729	left=0
+wire	minecraft:food	02a780000000	OK	json={"nutrition":2,"saturation":-3.5527137E-15}	snbt={nutrition:2,saturation:-3.5527137E-15f}	wire=02a780000000	hash=-247035170	left=0
 json	minecraft:food	 { "nutrition" : 1 , "saturation" : 1.0e0 } 	OK	json={"nutrition":1,"saturation":1.0}	snbt={nutrition:1,saturation:1.0f}	wire=013f80000000	hash=-1385598520
+wire	minecraft:food	013f80000000	OK	json={"nutrition":1,"saturation":1.0}	snbt={nutrition:1,saturation:1.0f}	wire=013f80000000	hash=-1385598520	left=0
+wire	minecraft:food	013f800000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:food	013f80	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
+wire	minecraft:food	a93f80000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:food	015a80000000	OK	json={"nutrition":1,"saturation":1.8014399E16}	snbt={nutrition:1,saturation:1.8014399E16f}	wire=015a80000000	hash=2069651648	left=0
+wire	minecraft:food	ab3f80000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:food	013f80000090	OK	json={"nutrition":1,"saturation":1.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:1,saturation:1.0f}	wire=013f80000001	hash=406783261	left=0
+json	minecraft:food	{"nutrition":1e0,"saturation":1}	OK	json={"nutrition":1,"saturation":1.0}	snbt={nutrition:1,saturation:1.0f}	wire=013f80000000	hash=-1385598520
 wire	minecraft:food	013f80000000	OK	json={"nutrition":1,"saturation":1.0}	snbt={nutrition:1,saturation:1.0f}	wire=013f80000000	hash=-1385598520	left=0
 wire	minecraft:food	013f800000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	013f80	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
@@ -7926,14 +7928,6 @@ wire	minecraft:food	013f80006400	OK	json={"nutrition":1,"saturation":1.0000119}	
 wire	minecraft:food	013fad000000	OK	json={"nutrition":1,"saturation":1.3515625}	snbt={nutrition:1,saturation:1.3515625f}	wire=013fad000000	hash=335341119	left=0
 wire	minecraft:food	013f2f000000	OK	json={"nutrition":1,"saturation":0.68359375}	snbt={nutrition:1,saturation:0.68359375f}	wire=013f2f000000	hash=915714395	left=0
 wire	minecraft:food	013f80e90000	OK	json={"nutrition":1,"saturation":1.0071106}	snbt={nutrition:1,saturation:1.0071106f}	wire=013f80e90000	hash=-2056310534	left=0
-json	minecraft:food	{"nutrition":1e0,"saturation":1}	OK	json={"nutrition":1,"saturation":1.0}	snbt={nutrition:1,saturation:1.0f}	wire=013f80000000	hash=-1385598520
-wire	minecraft:food	013f80000000	OK	json={"nutrition":1,"saturation":1.0}	snbt={nutrition:1,saturation:1.0f}	wire=013f80000000	hash=-1385598520	left=0
-wire	minecraft:food	013f800000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:food	013f80	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	013f84000000	OK	json={"nutrition":1,"saturation":1.03125}	snbt={nutrition:1,saturation:1.03125f}	wire=013f84000000	hash=143242265	left=0
-wire	minecraft:food	013f8000008d	OK	json={"nutrition":1,"saturation":1.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:1,saturation:1.0f}	wire=013f80000001	hash=406783261	left=0
-wire	minecraft:food	018e80000000	OK	json={"nutrition":1,"saturation":-3.1554436E-30}	snbt={nutrition:1,saturation:-3.1554436E-30f}	wire=018e80000000	hash=464096180	left=0
-wire	minecraft:food	013f80004200	OK	json={"nutrition":1,"saturation":1.0000079}	snbt={nutrition:1,saturation:1.0000079f}	wire=013f80004200	hash=-1858432476	left=0
 json	minecraft:food	{"nutrition":01,"saturation":1}	ERR	com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 14 path $.nutrition See https://github.com/google/gson/blob/ma
 json	minecraft:food	{"nutrition":1,"saturation":1,}	ERR	com.google.gson.stream.MalformedJsonException: Expected name at line 1 column 32 path $.saturation See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
 json	minecraft:food	{"nutrition":1,"saturation":NaN}	ERR	com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 29 path $.saturation See https://github.com/google/gson/blob/m
@@ -7942,18 +7936,18 @@ json	minecraft:food	{"nutrition":-0,"saturation":-0}	OK	json={"nutrition":0,"sat
 wire	minecraft:food	008000000000	OK	json={"nutrition":0,"saturation":-0.0}	snbt={nutrition:0,saturation:0.0f}	wire=008000000000	hash=-1201875276	left=0
 wire	minecraft:food	0080000000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	008000	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	00800000003c	OK	json={"nutrition":0,"saturation":-0.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:0,saturation:0.0f}	wire=008000000001	hash=218800737	left=0
-wire	minecraft:food	aa8000000000	ERR	readerIndex(3) + length(4) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 3, widx: 6, cap: 6/6)
-wire	minecraft:food	008000000055	OK	json={"nutrition":0,"saturation":-0.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:0,saturation:0.0f}	wire=008000000001	hash=218800737	left=0
-wire	minecraft:food	008000000400	OK	json={"nutrition":0,"saturation":-5.6E-45}	snbt={nutrition:0,saturation:-5.6E-45f}	wire=008000000400	hash=1720915079	left=0
+wire	minecraft:food	008084000000	OK	json={"nutrition":0,"saturation":-1.2122285E-38}	snbt={nutrition:0,saturation:-1.2122285E-38f}	wire=008084000000	hash=-388883055	left=0
+wire	minecraft:food	00800000008d	OK	json={"nutrition":0,"saturation":-0.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:0,saturation:0.0f}	wire=008000000001	hash=218800737	left=0
+wire	minecraft:food	008e00000000	OK	json={"nutrition":0,"saturation":-1.5777218E-30}	snbt={nutrition:0,saturation:-1.5777218E-30f}	wire=008e00000000	hash=-1323083489	left=0
+wire	minecraft:food	008000004200	OK	json={"nutrition":0,"saturation":-9.2E-44}	snbt={nutrition:0,saturation:-9.2E-44f}	wire=008000004200	hash=-2079378088	left=0
 json	minecraft:food	{"nutrition":4,"saturation":1.0E+2}	OK	json={"nutrition":4,"saturation":100.0}	snbt={nutrition:4,saturation:100.0f}	wire=0442c8000000	hash=-900241126
 wire	minecraft:food	0442c8000000	OK	json={"nutrition":4,"saturation":100.0}	snbt={nutrition:4,saturation:100.0f}	wire=0442c8000000	hash=-900241126	left=0
 wire	minecraft:food	0442c80000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	0442c8	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	048dc8000000	OK	json={"nutrition":4,"saturation":-1.2325952E-30}	snbt={nutrition:4,saturation:-1.2325952E-30f}	wire=048dc8000000	hash=1041523093	left=0
-wire	minecraft:food	0442c8000079	OK	json={"nutrition":4,"saturation":100.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:100.0f}	wire=0442c8000001	hash=2130779599	left=0
-wire	minecraft:food	0442c8006e00	OK	json={"nutrition":4,"saturation":100.00084}	snbt={nutrition:4,saturation:100.00084f}	wire=0442c8006e00	hash=2058329580	left=0
-wire	minecraft:food	0442c8000032	OK	json={"nutrition":4,"saturation":100.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:100.0f}	wire=0442c8000001	hash=2130779599	left=0
+wire	minecraft:food	0442c800003c	OK	json={"nutrition":4,"saturation":100.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:100.0f}	wire=0442c8000001	hash=2130779599	left=0
+wire	minecraft:food	aa42c8000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:food	0442c8000055	OK	json={"nutrition":4,"saturation":100.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:100.0f}	wire=0442c8000001	hash=2130779599	left=0
+wire	minecraft:food	0442c8000400	OK	json={"nutrition":4,"saturation":100.00003}	snbt={nutrition:4,saturation:100.00003f}	wire=0442c8000400	hash=345549609	left=0
 json	minecraft:food		ERR	Not a JSON object: null
 json	minecraft:food	null	ERR	Not a JSON object: null
 json	minecraft:food	{"nutrition":4,"saturation":1} x	ERR	com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 33 path $ See https://github.com/google/gson/blob/main/Trouble
@@ -7961,45 +7955,53 @@ json	minecraft:potion_contents	"minecraft:\u0077ater"	OK	json={"potion":"minecra
 wire	minecraft:potion_contents	0100000000	OK	json={"potion":"minecraft:water"}	snbt={potion:"minecraft:water"}	wire=0100000000	hash=1311226275	left=0
 wire	minecraft:potion_contents	01000000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 wire	minecraft:potion_contents	0100	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:potion_contents	ac00000000	OK	json={"potion":"minecraft:water"}	snbt={potion:"minecraft:water"}	wire=0100000000	hash=1311226275	left=0
-wire	minecraft:potion_contents	e300000000	OK	json={"potion":"minecraft:water"}	snbt={potion:"minecraft:water"}	wire=0100000000	hash=1311226275	left=0
-wire	minecraft:potion_contents	0100000080	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	010000008e	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:potion_contents	0100008d00	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:potion_contents	7900000000	OK	json={"potion":"minecraft:water"}	snbt={potion:"minecraft:water"}	wire=0100000000	hash=1311226275	left=0
+wire	minecraft:potion_contents	0100006e00	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:potion_contents	0132000000	ERR	No value with id 50
 json	minecraft:potion_contents	'minecraft:water'	ERR	com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 2 path $ See https://github.com/google/gson/blob/main/Troubles
 json	minecraft:potion_contents	{"potion":"minecraft:water","potion":"minecraft:awkward"}	OK	json={"potion":"minecraft:awkward"}	snbt={potion:"minecraft:awkward"}	wire=0103000000	hash=-1005293012
 wire	minecraft:potion_contents	0103000000	OK	json={"potion":"minecraft:awkward"}	snbt={potion:"minecraft:awkward"}	wire=0103000000	hash=-1005293012	left=0
 wire	minecraft:potion_contents	01030000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 wire	minecraft:potion_contents	0103	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:potion_contents	01030000f2	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	01c5000000	ERR	No value with id 69
-wire	minecraft:potion_contents	01c9000000	ERR	No value with id 73
-wire	minecraft:potion_contents	01030000ac	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:potion_contents	ac03000000	OK	json={"potion":"minecraft:awkward"}	snbt={potion:"minecraft:awkward"}	wire=0103000000	hash=-1005293012	left=0
+wire	minecraft:potion_contents	e303000000	OK	json={"potion":"minecraft:awkward"}	snbt={potion:"minecraft:awkward"}	wire=0103000000	hash=-1005293012	left=0
+wire	minecraft:potion_contents	0103000080	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:potion_contents	010300008e	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 json	minecraft:use_effects	{"speed_multiplier":0.2,"speed_multiplier":0.4}	OK	json={"speed_multiplier":0.4}	snbt={speed_multiplier:0.4f}	wire=00013ecccccd	hash=-123817164
 wire	minecraft:use_effects	00013ecccccd	OK	json={"speed_multiplier":0.4}	snbt={speed_multiplier:0.4f}	wire=00013ecccccd	hash=-123817164	left=0
 wire	minecraft:use_effects	00013ecccc	ERR	readerIndex(2) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 2, widx: 5, cap: 5/5)
 wire	minecraft:use_effects	00013e	ERR	readerIndex(2) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 2, widx: 3, cap: 3/3)
-wire	minecraft:use_effects	00013ecc25cd	OK	json={"speed_multiplier":0.3987259}	snbt={speed_multiplier:0.3987259f}	wire=00013ecc25cd	hash=-795282938	left=0
-wire	minecraft:use_effects	00433ecccccd	OK	json={"speed_multiplier":0.4}	snbt={speed_multiplier:0.4f}	wire=00013ecccccd	hash=-123817164	left=0
-wire	minecraft:use_effects	00015bcccccd	OK	json=ENCERR	snbt=ENCERR	wire=00015bcccccd	hash=ENCERR	left=0
-wire	minecraft:use_effects	009b3ecccccd	OK	json={"speed_multiplier":0.4}	snbt={speed_multiplier:0.4f}	wire=00013ecccccd	hash=-123817164	left=0
+wire	minecraft:use_effects	0001f2cccccd	OK	json=ENCERR	snbt=ENCERR	wire=0001f2cccccd	hash=ENCERR	left=0
+wire	minecraft:use_effects	00c53ecccccd	OK	json={"speed_multiplier":0.4}	snbt={speed_multiplier:0.4f}	wire=00013ecccccd	hash=-123817164	left=0
+wire	minecraft:use_effects	00013ec9cccd	OK	json={"speed_multiplier":0.39414063}	snbt={speed_multiplier:0.39414063f}	wire=00013ec9cccd	hash=897407533	left=0
+wire	minecraft:use_effects	00013eaccccd	OK	json={"speed_multiplier":0.3375}	snbt={speed_multiplier:0.3375f}	wire=00013eaccccd	hash=-1083033613	left=0
 json	minecraft:use_effects	{"can_sprint":true,"can_sprint":false}	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288
 wire	minecraft:use_effects	00013e4ccccd	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288	left=0
 wire	minecraft:use_effects	00013e4ccc	ERR	readerIndex(2) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 2, widx: 5, cap: 5/5)
 wire	minecraft:use_effects	00013e	ERR	readerIndex(2) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 2, widx: 3, cap: 3/3)
-wire	minecraft:use_effects	00014c4ccccd	OK	json=ENCERR	snbt=ENCERR	wire=00014c4ccccd	hash=ENCERR	left=0
-wire	minecraft:use_effects	6f013e4ccccd	OK	json={"can_sprint":true}	snbt={can_sprint:1b}	wire=01013e4ccccd	hash=-1870047181	left=0
-wire	minecraft:use_effects	00dd3e4ccccd	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288	left=0
-wire	minecraft:use_effects	00ab3e4ccccd	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288	left=0
+wire	minecraft:use_effects	00013e4c25cd	OK	json={"speed_multiplier":0.19936295}	snbt={speed_multiplier:0.19936295f}	wire=00013e4c25cd	hash=636943602	left=0
+wire	minecraft:use_effects	00433e4ccccd	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288	left=0
+wire	minecraft:use_effects	00015b4ccccd	OK	json=ENCERR	snbt=ENCERR	wire=00015b4ccccd	hash=ENCERR	left=0
+wire	minecraft:use_effects	009b3e4ccccd	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288	left=0
 json	minecraft:consumable	{"animation":"eat","animation":"drink"}	OK	json={"animation":"drink"}	snbt={animation:"drink"}	wire=3fcccccd02bf050100	hash=-498191025
 wire	minecraft:consumable	3fcccccd02bf050100	OK	json={"animation":"drink"}	snbt={animation:"drink"}	wire=3fcccccd02bf050100	hash=-498191025	left=0
 wire	minecraft:consumable	3fcccccd02bf0501	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 wire	minecraft:consumable	3fcccccd	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
-wire	minecraft:consumable	3fcccccd02db050100	OK	json={"animation":"drink","sound":"minecraft:entity.glow_item_frame.add_item"}	snbt={animation:"drink",sound:"minecraft:entity.glow_item_frame.add_item"}	wire=3fcccccd02db050100	hash=311764101	left=0
-wire	minecraft:consumable	3ecccccd02bf050100	OK	json={"consume_seconds":0.4,"animation":"drink"}	snbt={animation:"drink",consume_seconds:0.4f}	wire=3ecccccd02bf050100	hash=-2105955189	left=0
-wire	minecraft:consumable	3fcccccde5bf050100	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
-wire	minecraft:consumable	3fcccccd0296050100	OK	json={"animation":"drink","sound":"minecraft:entity.fox.spit"}	snbt={animation:"drink",sound:"minecraft:entity.fox.spit"}	wire=3fcccccd0296050100	hash=-338159455	left=0
+wire	minecraft:consumable	3fcccccd02bf05014c	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
+wire	minecraft:consumable	3fcccccd02bf6f0100	ERR	No value with id 14270
+wire	minecraft:consumable	3fddcccd02bf050100	OK	json={"consume_seconds":1.7328125,"animation":"drink"}	snbt={animation:"drink",consume_seconds:1.7328125f}	wire=3fddcccd02bf050100	hash=-1726934532	left=0
+wire	minecraft:consumable	3fcccccd02bf05ab00	OK	json={"animation":"drink"}	snbt={animation:"drink"}	wire=3fcccccd02bf050100	hash=-498191025	left=0
 json	minecraft:use_cooldown	{"seconds":1,"seconds":0}	ERR	Value must be positive: 0.0
 snbt	minecraft:food	{nutrition:4,saturation:2.4f}	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630
+wire	minecraft:food	044019999a00	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630	left=0
+wire	minecraft:food	044019999a	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:food	044019	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
+wire	minecraft:food	0440db999a00	OK	json={"nutrition":4,"saturation":6.8625}	snbt={nutrition:4,saturation:6.8625f}	wire=0440db999a00	hash=141827784	left=0
+wire	minecraft:food	0440193e9a00	OK	json={"nutrition":4,"saturation":2.394446}	snbt={nutrition:4,saturation:2.394446f}	wire=0440193e9a00	hash=-1795966929	left=0
+wire	minecraft:food	04e519999a00	OK	json={"nutrition":4,"saturation":-4.533472E22}	snbt={nutrition:4,saturation:-4.533472E22f}	wire=04e519999a00	hash=-1819102237	left=0
+wire	minecraft:food	044096999a00	OK	json={"nutrition":4,"saturation":4.70625}	snbt={nutrition:4,saturation:4.70625f}	wire=044096999a00	hash=-250802696	left=0
+snbt	minecraft:food	{nutrition:4b,saturation:2.4}	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630
 wire	minecraft:food	044019999a00	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630	left=0
 wire	minecraft:food	044019999a	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	044019	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
@@ -8007,7 +8009,7 @@ wire	minecraft:food	044019996e00	OK	json={"nutrition":4,"saturation":2.3999896}	
 wire	minecraft:food	f54019999a00	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:food	044019999a56	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
 wire	minecraft:food	044019999a8e	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
-snbt	minecraft:food	{nutrition:4b,saturation:2.4}	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630
+snbt	minecraft:food	{nutrition:4L,saturation:2.4}	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630
 wire	minecraft:food	044019999a00	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630	left=0
 wire	minecraft:food	044019999a	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	044019	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
@@ -8015,22 +8017,14 @@ wire	minecraft:food	044019ce9a00	OK	json={"nutrition":4,"saturation":2.403235}	s
 wire	minecraft:food	164019999a00	OK	json={"nutrition":22,"saturation":2.4}	snbt={nutrition:22,saturation:2.4f}	wire=164019999a00	hash=74620589	left=0
 wire	minecraft:food	044019999a1d	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
 wire	minecraft:food	044019992800	OK	json={"nutrition":4,"saturation":2.399973}	snbt={nutrition:4,saturation:2.399973f}	wire=044019992800	hash=-2092030659	left=0
-snbt	minecraft:food	{nutrition:4L,saturation:2.4}	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630
-wire	minecraft:food	044019999a00	OK	json={"nutrition":4,"saturation":2.4}	snbt={nutrition:4,saturation:2.4f}	wire=044019999a00	hash=1470844630	left=0
-wire	minecraft:food	044019999a	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:food	044019	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	044019999ab9	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
-wire	minecraft:food	0440a4999a00	OK	json={"nutrition":4,"saturation":5.14375}	snbt={nutrition:4,saturation:5.14375f}	wire=0440a4999a00	hash=-2146751117	left=0
-wire	minecraft:food	044019999a3a	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
-wire	minecraft:food	04401999ee00	OK	json={"nutrition":4,"saturation":2.4000201}	snbt={nutrition:4,saturation:2.4000201f}	wire=04401999ee00	hash=-944111351	left=0
 snbt	minecraft:food	{nutrition:4,saturation:2.4,can_always_eat:true}	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021
 wire	minecraft:food	044019999a01	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
 wire	minecraft:food	044019999a	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	044019	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	354019999a01	OK	json={"nutrition":53,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:53,saturation:2.4f}	wire=354019999a01	hash=-1933235742	left=0
-wire	minecraft:food	041e19999a01	OK	json={"nutrition":4,"saturation":8.131517E-21,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:8.131517E-21f}	wire=041e19999a01	hash=629857917	left=0
-wire	minecraft:food	044019c49a01	OK	json={"nutrition":4,"saturation":2.4026246,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4026246f}	wire=044019c49a01	hash=1452344085	left=0
-wire	minecraft:food	044019999a01	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
+wire	minecraft:food	044019999ab9	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
+wire	minecraft:food	0440a4999a01	OK	json={"nutrition":4,"saturation":5.14375,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:5.14375f}	wire=0440a4999a01	hash=895310246	left=0
+wire	minecraft:food	044019999a3a	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
+wire	minecraft:food	04401999ee01	OK	json={"nutrition":4,"saturation":2.4000201,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4000201f}	wire=04401999ee01	hash=1928099292	left=0
 snbt	minecraft:food	{nutrition:4,saturation:NaNf}	ERR	Not a number
 snbt	minecraft:food	{nutrition:4,saturation:Infinityd}	ERR	Not a number
 snbt	minecraft:food	{nutrition:4,saturation:-Infinityf}	ERR	Expected literal ( at position 34: ...-Infinityf<--[HERE]
@@ -8038,109 +8032,118 @@ snbt	minecraft:food	{nutrition:4,saturation:2.4,can_always_eat:2b}	OK	json={"nut
 wire	minecraft:food	044019999a01	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
 wire	minecraft:food	044019999a	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	044019	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	324019999a01	OK	json={"nutrition":50,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:50,saturation:2.4f}	wire=324019999a01	hash=379013774	left=0
-wire	minecraft:food	04401999bb01	OK	json={"nutrition":4,"saturation":2.400008,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.400008f}	wire=04401999bb01	hash=-53163019	left=0
-wire	minecraft:food	046719999a01	OK	json={"nutrition":4,"saturation":7.253555E23,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:7.253555E23f}	wire=046719999a01	hash=-515846109	left=0
-wire	minecraft:food	044019bb9a01	OK	json={"nutrition":4,"saturation":2.4020753,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4020753f}	wire=044019bb9a01	hash=2105910740	left=0
+wire	minecraft:food	354019999a01	OK	json={"nutrition":53,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:53,saturation:2.4f}	wire=354019999a01	hash=-1933235742	left=0
+wire	minecraft:food	041e19999a01	OK	json={"nutrition":4,"saturation":8.131517E-21,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:8.131517E-21f}	wire=041e19999a01	hash=629857917	left=0
+wire	minecraft:food	044019c49a01	OK	json={"nutrition":4,"saturation":2.4026246,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4026246f}	wire=044019c49a01	hash=1452344085	left=0
+wire	minecraft:food	044019999a01	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
 snbt	minecraft:food	{nutrition:4,saturation:2.4,can_always_eat:0.5f}	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021
 wire	minecraft:food	044019999a01	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
 wire	minecraft:food	044019999a	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	044019	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	044019999a9d	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
-wire	minecraft:food	044019c09a01	OK	json={"nutrition":4,"saturation":2.4023805,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4023805f}	wire=044019c09a01	hash=2005696888	left=0
-wire	minecraft:food	b04019999a01	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
-wire	minecraft:food	044019999aa4	OK	json={"nutrition":4,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4f}	wire=044019999a01	hash=-486721021	left=0
+wire	minecraft:food	324019999a01	OK	json={"nutrition":50,"saturation":2.4,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:50,saturation:2.4f}	wire=324019999a01	hash=379013774	left=0
+wire	minecraft:food	04401999bb01	OK	json={"nutrition":4,"saturation":2.400008,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.400008f}	wire=04401999bb01	hash=-53163019	left=0
+wire	minecraft:food	046719999a01	OK	json={"nutrition":4,"saturation":7.253555E23,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:7.253555E23f}	wire=046719999a01	hash=-515846109	left=0
+wire	minecraft:food	044019bb9a01	OK	json={"nutrition":4,"saturation":2.4020753,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.4020753f}	wire=044019bb9a01	hash=2105910740	left=0
 snbt	minecraft:food	{nutrition:4s,saturation:2s}	OK	json={"nutrition":4,"saturation":2.0}	snbt={nutrition:4,saturation:2.0f}	wire=044000000000	hash=-802210556
 wire	minecraft:food	044000000000	OK	json={"nutrition":4,"saturation":2.0}	snbt={nutrition:4,saturation:2.0f}	wire=044000000000	hash=-802210556	left=0
 wire	minecraft:food	0440000000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	044000	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	044000dc0000	OK	json={"nutrition":4,"saturation":2.0134277}	snbt={nutrition:4,saturation:2.0134277f}	wire=044000dc0000	hash=427749201	left=0
-wire	minecraft:food	044000005900	OK	json={"nutrition":4,"saturation":2.0000212}	snbt={nutrition:4,saturation:2.0000212f}	wire=044000005900	hash=950776713	left=0
-wire	minecraft:food	044000260000	OK	json={"nutrition":4,"saturation":2.0023193}	snbt={nutrition:4,saturation:2.0023193f}	wire=044000260000	hash=1850351806	left=0
-wire	minecraft:food	0440001c0000	OK	json={"nutrition":4,"saturation":2.001709}	snbt={nutrition:4,saturation:2.001709f}	wire=0440001c0000	hash=931115527	left=0
+wire	minecraft:food	04400000009d	OK	json={"nutrition":4,"saturation":2.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.0f}	wire=044000000001	hash=1702447569	left=0
+wire	minecraft:food	044000c00000	OK	json={"nutrition":4,"saturation":2.0117188}	snbt={nutrition:4,saturation:2.0117188f}	wire=044000c00000	hash=-30515118	left=0
+wire	minecraft:food	b04000000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:food	0440000000a4	OK	json={"nutrition":4,"saturation":2.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:4,saturation:2.0f}	wire=044000000001	hash=1702447569	left=0
 snbt	minecraft:food	{nutrition:0x10,saturation:1}	OK	json={"nutrition":16,"saturation":1.0}	snbt={nutrition:16,saturation:1.0f}	wire=103f80000000	hash=513656146
 wire	minecraft:food	103f80000000	OK	json={"nutrition":16,"saturation":1.0}	snbt={nutrition:16,saturation:1.0f}	wire=103f80000000	hash=513656146	left=0
 wire	minecraft:food	103f800000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	103f80	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	103f8000006f	OK	json={"nutrition":16,"saturation":1.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:16,saturation:1.0f}	wire=103f80000001	hash=-1412714105	left=0
-wire	minecraft:food	103f80005400	OK	json={"nutrition":16,"saturation":1.00001}	snbt={nutrition:16,saturation:1.00001f}	wire=103f80005400	hash=1687924019	left=0
-wire	minecraft:food	103f805e0000	OK	json={"nutrition":16,"saturation":1.0028687}	snbt={nutrition:16,saturation:1.0028687f}	wire=103f805e0000	hash=1907718957	left=0
-wire	minecraft:food	923f80000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:food	103f80dc0000	OK	json={"nutrition":16,"saturation":1.0067139}	snbt={nutrition:16,saturation:1.0067139f}	wire=103f80dc0000	hash=-674490617	left=0
+wire	minecraft:food	103f80005900	OK	json={"nutrition":16,"saturation":1.0000106}	snbt={nutrition:16,saturation:1.0000106f}	wire=103f80005900	hash=-166114337	left=0
+wire	minecraft:food	103f80260000	OK	json={"nutrition":16,"saturation":1.0011597}	snbt={nutrition:16,saturation:1.0011597f}	wire=103f80260000	hash=-1594304280	left=0
+wire	minecraft:food	103f801c0000	OK	json={"nutrition":16,"saturation":1.0008545}	snbt={nutrition:16,saturation:1.0008545f}	wire=103f801c0000	hash=-103986607	left=0
 snbt	minecraft:food	{nutrition:1_0,saturation:1}	OK	json={"nutrition":10,"saturation":1.0}	snbt={nutrition:10,saturation:1.0f}	wire=0a3f80000000	hash=-1178985933
 wire	minecraft:food	0a3f80000000	OK	json={"nutrition":10,"saturation":1.0}	snbt={nutrition:10,saturation:1.0f}	wire=0a3f80000000	hash=-1178985933	left=0
 wire	minecraft:food	0a3f800000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:food	0a3f80	ERR	readerIndex(1) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 1, widx: 3, cap: 3/3)
-wire	minecraft:food	0a3f80120000	OK	json={"nutrition":10,"saturation":1.0005493}	snbt={nutrition:10,saturation:1.0005493f}	wire=0a3f80120000	hash=-1347098167	left=0
-wire	minecraft:food	0a3f80004700	OK	json={"nutrition":10,"saturation":1.0000085}	snbt={nutrition:10,saturation:1.0000085f}	wire=0a3f80004700	hash=-1357320796	left=0
-wire	minecraft:food	b43f80000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
-wire	minecraft:food	0a3f8000d200	OK	json={"nutrition":10,"saturation":1.000025}	snbt={nutrition:10,saturation:1.000025f}	wire=0a3f8000d200	hash=1451913195	left=0
+wire	minecraft:food	0a3f8000006f	OK	json={"nutrition":10,"saturation":1.0,"can_always_eat":true}	snbt={can_always_eat:1b,nutrition:10,saturation:1.0f}	wire=0a3f80000001	hash=216821478	left=0
+wire	minecraft:food	0a3f80005400	OK	json={"nutrition":10,"saturation":1.00001}	snbt={nutrition:10,saturation:1.00001f}	wire=0a3f80005400	hash=-1011060142	left=0
+wire	minecraft:food	0a3f805e0000	OK	json={"nutrition":10,"saturation":1.0028687}	snbt={nutrition:10,saturation:1.0028687f}	wire=0a3f805e0000	hash=-695032756	left=0
+wire	minecraft:food	923f80000000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 snbt	minecraft:food	{nutrition:4,saturation:'2.4'}	ERR	Not a number
 snbt	minecraft:use_effects	{speed_multiplier:0.5f,can_sprint:1b}	OK	json={"can_sprint":true,"speed_multiplier":0.5}	snbt={can_sprint:1b,speed_multiplier:0.5f}	wire=01013f000000	hash=-1226654547
 wire	minecraft:use_effects	01013f000000	OK	json={"can_sprint":true,"speed_multiplier":0.5}	snbt={can_sprint:1b,speed_multiplier:0.5f}	wire=01013f000000	hash=-1226654547	left=0
 wire	minecraft:use_effects	01013f0000	ERR	readerIndex(2) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 2, widx: 5, cap: 5/5)
 wire	minecraft:use_effects	01013f	ERR	readerIndex(2) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 2, widx: 3, cap: 3/3)
-wire	minecraft:use_effects	0101a8000000	OK	json=ENCERR	snbt=ENCERR	wire=0101a8000000	hash=ENCERR	left=0
-wire	minecraft:use_effects	01013f000400	OK	json={"can_sprint":true,"speed_multiplier":0.50006104}	snbt={can_sprint:1b,speed_multiplier:0.50006104f}	wire=01013f000400	hash=-1744879936	left=0
-wire	minecraft:use_effects	01b43f000000	OK	json={"can_sprint":true,"speed_multiplier":0.5}	snbt={can_sprint:1b,speed_multiplier:0.5f}	wire=01013f000000	hash=-1226654547	left=0
-wire	minecraft:use_effects	01015b000000	OK	json=ENCERR	snbt=ENCERR	wire=01015b000000	hash=ENCERR	left=0
+wire	minecraft:use_effects	01013f120000	OK	json={"can_sprint":true,"speed_multiplier":0.5703125}	snbt={can_sprint:1b,speed_multiplier:0.5703125f}	wire=01013f120000	hash=-88137829	left=0
+wire	minecraft:use_effects	01013f004700	OK	json={"can_sprint":true,"speed_multiplier":0.5010834}	snbt={can_sprint:1b,speed_multiplier:0.5010834f}	wire=01013f004700	hash=1455125147	left=0
+wire	minecraft:use_effects	b4013f000000	OK	json={"can_sprint":true,"speed_multiplier":0.5}	snbt={can_sprint:1b,speed_multiplier:0.5f}	wire=01013f000000	hash=-1226654547	left=0
+wire	minecraft:use_effects	01013f00d200	OK	json={"can_sprint":true,"speed_multiplier":0.50320435}	snbt={can_sprint:1b,speed_multiplier:0.50320435f}	wire=01013f00d200	hash=-1897065983	left=0
 snbt	minecraft:use_effects	{speed_multiplier:1,can_sprint:true}	OK	json={"can_sprint":true,"speed_multiplier":1.0}	snbt={can_sprint:1b,speed_multiplier:1.0f}	wire=01013f800000	hash=1133294169
 wire	minecraft:use_effects	01013f800000	OK	json={"can_sprint":true,"speed_multiplier":1.0}	snbt={can_sprint:1b,speed_multiplier:1.0f}	wire=01013f800000	hash=1133294169	left=0
 wire	minecraft:use_effects	01013f8000	ERR	readerIndex(2) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 2, widx: 5, cap: 5/5)
 wire	minecraft:use_effects	01013f	ERR	readerIndex(2) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 2, widx: 3, cap: 3/3)
-wire	minecraft:use_effects	f0013f800000	OK	json={"can_sprint":true,"speed_multiplier":1.0}	snbt={can_sprint:1b,speed_multiplier:1.0f}	wire=01013f800000	hash=1133294169	left=0
-wire	minecraft:use_effects	25013f800000	OK	json={"can_sprint":true,"speed_multiplier":1.0}	snbt={can_sprint:1b,speed_multiplier:1.0f}	wire=01013f800000	hash=1133294169	left=0
-wire	minecraft:use_effects	01013fc90000	OK	json=ENCERR	snbt=ENCERR	wire=01013fc90000	hash=ENCERR	left=0
-wire	minecraft:use_effects	09013f800000	OK	json={"can_sprint":true,"speed_multiplier":1.0}	snbt={can_sprint:1b,speed_multiplier:1.0f}	wire=01013f800000	hash=1133294169	left=0
+wire	minecraft:use_effects	0101a8800000	OK	json=ENCERR	snbt=ENCERR	wire=0101a8800000	hash=ENCERR	left=0
+wire	minecraft:use_effects	01013f800400	OK	json=ENCERR	snbt=ENCERR	wire=01013f800400	hash=ENCERR	left=0
+wire	minecraft:use_effects	01b43f800000	OK	json={"can_sprint":true,"speed_multiplier":1.0}	snbt={can_sprint:1b,speed_multiplier:1.0f}	wire=01013f800000	hash=1133294169	left=0
+wire	minecraft:use_effects	01015b800000	OK	json=ENCERR	snbt=ENCERR	wire=01015b800000	hash=ENCERR	left=0
 snbt	minecraft:potion_contents	"minecraft:water"	OK	json={"potion":"minecraft:water"}	snbt={potion:"minecraft:water"}	wire=0100000000	hash=1311226275
 wire	minecraft:potion_contents	0100000000	OK	json={"potion":"minecraft:water"}	snbt={potion:"minecraft:water"}	wire=0100000000	hash=1311226275	left=0
 wire	minecraft:potion_contents	01000000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 wire	minecraft:potion_contents	0100	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:potion_contents	01000000f5	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	0159000000	ERR	No value with id 89
-wire	minecraft:potion_contents	0100002100	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	0106000000	OK	json={"potion":"minecraft:invisibility"}	snbt={potion:"minecraft:invisibility"}	wire=0106000000	hash=-448395913	left=0
+wire	minecraft:potion_contents	010000f000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:potion_contents	0125000000	OK	json={"potion":"minecraft:weakness"}	snbt={potion:"minecraft:weakness"}	wire=0125000000	hash=1610645847	left=0
+wire	minecraft:potion_contents	010000c900	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:potion_contents	0100090000	ERR	readerIndex(3) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 3, widx: 5, cap: 5/5)
 snbt	minecraft:potion_contents	{potion:"minecraft:water",custom_color:255}	OK	json={"potion":"minecraft:water","custom_color":255}	snbt={custom_color:255,potion:"minecraft:water"}	wire=010001000000ff0000	hash=-1175615547
 wire	minecraft:potion_contents	010001000000ff0000	OK	json={"potion":"minecraft:water","custom_color":255}	snbt={custom_color:255,potion:"minecraft:water"}	wire=010001000000ff0000	hash=-1175615547	left=0
 wire	minecraft:potion_contents	010001000000ff00	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 wire	minecraft:potion_contents	01000100	ERR	readerIndex(3) + length(4) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 3, widx: 4, cap: 4/4)
-wire	minecraft:potion_contents	010001000000ff00f9	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
-wire	minecraft:potion_contents	010001000000ff007f	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
-wire	minecraft:potion_contents	017101000000ff0000	ERR	No value with id 113
-wire	minecraft:potion_contents	01e501000000ff0000	ERR	No value with id 229
+wire	minecraft:potion_contents	01000100f500ff0000	OK	json={"potion":"minecraft:water","custom_color":16056575}	snbt={custom_color:16056575,potion:"minecraft:water"}	wire=01000100f500ff0000	hash=1439405793	left=0
+wire	minecraft:potion_contents	010001590000ff0000	OK	json={"potion":"minecraft:water","custom_color":1493172479}	snbt={custom_color:1493172479,potion:"minecraft:water"}	wire=010001590000ff0000	hash=1500512161	left=0
+wire	minecraft:potion_contents	010021000000ff0000	OK	json={"potion":"minecraft:water","custom_color":255}	snbt={custom_color:255,potion:"minecraft:water"}	wire=010001000000ff0000	hash=-1175615547	left=0
+wire	minecraft:potion_contents	010001000000ff0006	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
 snbt	minecraft:potion_contents	{custom_color:1.9f}	OK	json={"custom_color":1}	snbt={custom_color:1}	wire=0001000000010000	hash=-136329960
 wire	minecraft:potion_contents	0001000000010000	OK	json={"custom_color":1}	snbt={custom_color:1}	wire=0001000000010000	hash=-136329960	left=0
 wire	minecraft:potion_contents	00010000000100	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
 wire	minecraft:potion_contents	00010000	ERR	readerIndex(2) + length(4) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 2, widx: 4, cap: 4/4)
-wire	minecraft:potion_contents	0001900000010000	OK	json={"custom_color":-1879048191}	snbt={custom_color:-1879048191}	wire=0001900000010000	hash=735789808	left=0
-wire	minecraft:potion_contents	0001000026010000	OK	json={"custom_color":9729}	snbt={custom_color:9729}	wire=0001000026010000	hash=1236981922	left=0
-wire	minecraft:potion_contents	9101000000010000	OK	json={"potion":"minecraft:mundane"}	snbt={potion:"minecraft:mundane"}	wire=0101000000	hash=-1696367798	left=3
-wire	minecraft:potion_contents	0001000000010055	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
+wire	minecraft:potion_contents	00010000f9010000	OK	json={"custom_color":63745}	snbt={custom_color:63745}	wire=00010000f9010000	hash=1538231710	left=0
+wire	minecraft:potion_contents	0001007f00010000	OK	json={"custom_color":8323073}	snbt={custom_color:8323073}	wire=0001007f00010000	hash=2141255331	left=0
+wire	minecraft:potion_contents	0071000000010000	OK	json={"custom_color":1}	snbt={custom_color:1}	wire=0001000000010000	hash=-136329960	left=0
+wire	minecraft:potion_contents	000100000001e500	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 snbt	minecraft:potion_contents	{custom_color:255L}	OK	json={"custom_color":255}	snbt={custom_color:255}	wire=0001000000ff0000	hash=-1807439910
 wire	minecraft:potion_contents	0001000000ff0000	OK	json={"custom_color":255}	snbt={custom_color:255}	wire=0001000000ff0000	hash=-1807439910	left=0
 wire	minecraft:potion_contents	0001000000ff00	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
 wire	minecraft:potion_contents	00010000	ERR	readerIndex(2) + length(4) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 2, widx: 4, cap: 4/4)
-wire	minecraft:potion_contents	8f01000000ff0000	OK	json={"potion":"minecraft:mundane"}	snbt={potion:"minecraft:mundane"}	wire=0101000000	hash=-1696367798	left=3
-wire	minecraft:potion_contents	0001000000ffdb00	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
-wire	minecraft:potion_contents	c501000000ff0000	OK	json={"potion":"minecraft:mundane"}	snbt={potion:"minecraft:mundane"}	wire=0101000000	hash=-1696367798	left=3
-wire	minecraft:potion_contents	0001000000ff002b	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
+wire	minecraft:potion_contents	0001900000ff0000	OK	json={"custom_color":-1879047937}	snbt={custom_color:-1879047937}	wire=0001900000ff0000	hash=1212162098	left=0
+wire	minecraft:potion_contents	0001000026ff0000	OK	json={"custom_color":9983}	snbt={custom_color:9983}	wire=0001000026ff0000	hash=706853472	left=0
+wire	minecraft:potion_contents	9101000000ff0000	OK	json={"potion":"minecraft:mundane"}	snbt={potion:"minecraft:mundane"}	wire=0101000000	hash=-1696367798	left=3
+wire	minecraft:potion_contents	0001000000ff0055	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 snbt	minecraft:potion_contents	{custom_color:-1b}	OK	json={"custom_color":-1}	snbt={custom_color:-1}	wire=0001ffffffff0000	hash=1207665676
 wire	minecraft:potion_contents	0001ffffffff0000	OK	json={"custom_color":-1}	snbt={custom_color:-1}	wire=0001ffffffff0000	hash=1207665676	left=0
 wire	minecraft:potion_contents	0001ffffffff00	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
 wire	minecraft:potion_contents	0001ffff	ERR	readerIndex(2) + length(4) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 2, widx: 4, cap: 4/4)
-wire	minecraft:potion_contents	0001ff77ffff0000	OK	json={"custom_color":-8912897}	snbt={custom_color:-8912897}	wire=0001ff77ffff0000	hash=-55019605	left=0
-wire	minecraft:potion_contents	0001f3ffffff0000	OK	json={"custom_color":-201326593}	snbt={custom_color:-201326593}	wire=0001f3ffffff0000	hash=-1794593948	left=0
-wire	minecraft:potion_contents	0001ffffffffe200	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
-wire	minecraft:potion_contents	0001ffffffcd0000	OK	json={"custom_color":-51}	snbt={custom_color:-51}	wire=0001ffffffcd0000	hash=896985612	left=0
+wire	minecraft:potion_contents	8f01ffffffff0000	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
+wire	minecraft:potion_contents	0001ffffffffdb00	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
+wire	minecraft:potion_contents	c501ffffffff0000	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
+wire	minecraft:potion_contents	0001ffffffff002b	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:300b}]}	ERR	Failed to parse number: Value out of range. Value:"300" Radix:10 at position 53: ...ifier:300b<--[HERE]
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:256}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","show_icon":true}]}	snbt={custom_effects:[{id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000001010000	hash=1689985785
 wire	minecraft:potion_contents	0000010000000001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","show_icon":true}]}	snbt={custom_effects:[{id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000001010000	hash=1689985785	left=0
 wire	minecraft:potion_contents	00000100000000010100	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
 wire	minecraft:potion_contents	0000010000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	000001000000000101eb00	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	000001000000c301010000	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000101010000	hash=-1642768277	left=0
-wire	minecraft:potion_contents	0000015b00000001010000	ERR	No value with id 91
-wire	minecraft:potion_contents	00d4010000000001010000	OK	json={"custom_color":16777216,"custom_name":"\u0000"}	snbt={custom_color:16777216,custom_name:"\x00"}	wire=00010100000000010100	hash=-463300098	left=1
+wire	minecraft:potion_contents	0000010000000077010000	OK	json={"custom_effects":[{"id":"minecraft:speed","show_icon":true}]}	snbt={custom_effects:[{id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000001010000	hash=1689985785	left=0
+wire	minecraft:potion_contents	000001000000f301010000	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000101010000	hash=-1642768277	left=0
+wire	minecraft:potion_contents	0000e20000000001010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	000001000000cd01010000	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000101010000	hash=-1642768277	left=0
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:-1b}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932
+wire	minecraft:potion_contents	00000100ff01000001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932	left=0
+wire	minecraft:potion_contents	00000100ff010000010100	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	00000100ff01	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
+wire	minecraft:potion_contents	eb000100ff01000001010000	OK	json={"potion":"minecraft:water","custom_color":16711936,"custom_name":"\u0000"}	snbt={custom_color:16711936,custom_name:"\x00",potion:"minecraft:water"}	wire=01000100ff010000010100	hash=-396580829	left=1
+wire	minecraft:potion_contents	0000c300ff01000001010000	ERR	No value with id 255
+wire	minecraft:potion_contents	5b000100ff01000001010000	OK	json={"potion":"minecraft:water","custom_color":16711936,"custom_name":"\u0000"}	snbt={custom_color:16711936,custom_name:"\x00",potion:"minecraft:water"}	wire=01000100ff010000010100	hash=-396580829	left=1
+wire	minecraft:potion_contents	00000100ff01d40001010000	ERR	readerIndex(12) + length(1) exceeds writerIndex(12): UnpooledHeapByteBuf(ridx: 12, widx: 12, cap: 12/12)
+snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:200b}]}	ERR	Failed to parse number: Value out of range. Value:"200" Radix:10 at position 53: ...ifier:200b<--[HERE]
+snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:255s}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932
 wire	minecraft:potion_contents	00000100ff01000001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932	left=0
 wire	minecraft:potion_contents	00000100ff010000010100	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
 wire	minecraft:potion_contents	00000100ff01	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
@@ -8148,121 +8151,120 @@ wire	minecraft:potion_contents	00000100ffee000001010000	ERR	readerIndex(12) + le
 wire	minecraft:potion_contents	00000100ff0100000e010000	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932	left=0
 wire	minecraft:potion_contents	00000100ff0100000101cd00	ERR	readerIndex(12) + length(1) exceeds writerIndex(12): UnpooledHeapByteBuf(ridx: 12, widx: 12, cap: 12/12)
 wire	minecraft:potion_contents	8e000100ff01000001010000	OK	json={"potion":"minecraft:water","custom_color":16711936,"custom_name":"\u0000"}	snbt={custom_color:16711936,custom_name:"\x00",potion:"minecraft:water"}	wire=01000100ff010000010100	hash=-396580829	left=1
-snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:200b}]}	ERR	Failed to parse number: Value out of range. Value:"200" Radix:10 at position 53: ...ifier:200b<--[HERE]
-snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:255s}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932
-wire	minecraft:potion_contents	00000100ff01000001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932	left=0
-wire	minecraft:potion_contents	00000100ff010000010100	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	00000100ff01	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
-wire	minecraft:potion_contents	000001a2ff01000001010000	ERR	No value with id 32674
-wire	minecraft:potion_contents	00000100ff50000001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","amplifier":-1,"show_icon":true}]}	snbt={custom_effects:[{amplifier:-1b,id:"minecraft:speed",show_icon:1b}]}	wire=00000100ff01000001010000	hash=-399012932	left=0
-wire	minecraft:potion_contents	00007300ff01000001010000	ERR	readerIndex(12) + length(1) exceeds writerIndex(12): UnpooledHeapByteBuf(ridx: 12, widx: 12, cap: 12/12)
-wire	minecraft:potion_contents	0000017aff01000001010000	ERR	No value with id 122
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",amplifier:128b}]}	ERR	Failed to parse number: Value out of range. Value:"128" Radix:10 at position 53: ...ifier:128b<--[HERE]
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",ambient:1b,show_particles:0b}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_particles":false,"show_icon":false}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:0b,show_particles:0b}]}	wire=0000010000000100000000	hash=-1716828889
 wire	minecraft:potion_contents	0000010000000100000000	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_particles":false,"show_icon":false}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:0b,show_particles:0b}]}	wire=0000010000000100000000	hash=-1716828889	left=0
 wire	minecraft:potion_contents	00000100000001000000	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
 wire	minecraft:potion_contents	0000010000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	5900010000000100000000	OK	json={"potion":"minecraft:water","custom_color":1}	snbt={custom_color:1,potion:"minecraft:water"}	wire=010001000000010000	hash=2114635434	left=2
-wire	minecraft:potion_contents	00f0010000000100000000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	0000790000000100000000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	0000010000000100002100	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	00000100000001a2000000	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_icon":false}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:0b}]}	wire=0000010000000101000000	hash=-1548515168	left=0
+wire	minecraft:potion_contents	5000010000000100000000	OK	json={"potion":"minecraft:water","custom_color":1}	snbt={custom_color:1,potion:"minecraft:water"}	wire=010001000000010000	hash=2114635434	left=2
+wire	minecraft:potion_contents	0000010000000173000000	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_icon":false}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:0b}]}	wire=0000010000000101000000	hash=-1548515168	left=0
+wire	minecraft:potion_contents	0000017a00000100000000	ERR	No value with id 122
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",ambient:2b}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000101010000	hash=-1642768277
 wire	minecraft:potion_contents	0000010000000101010000	OK	json={"custom_effects":[{"id":"minecraft:speed","ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000000101010000	hash=-1642768277	left=0
 wire	minecraft:potion_contents	00000100000001010100	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
 wire	minecraft:potion_contents	0000010000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	00fb010000000101010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	00d2010000000101010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	0000010000430101010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":67,"ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,duration:67,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000430101010000	hash=1091838922	left=0
-wire	minecraft:potion_contents	00000100d4000101010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	5900010000000101010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	00f0010000000101010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	0000790000000101010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	0000010000000101012100	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",duration:1.5f}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":1,"show_icon":true}]}	snbt={custom_effects:[{duration:1,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000010001010000	hash=-1079138717
 wire	minecraft:potion_contents	0000010000010001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":1,"show_icon":true}]}	snbt={custom_effects:[{duration:1,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000010001010000	hash=-1079138717	left=0
 wire	minecraft:potion_contents	00000100000100010100	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
 wire	minecraft:potion_contents	0000010000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	000001000001000101e100	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	00000100a7010001010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	0000010000011701010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":1,"ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,duration:1,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000010101010000	hash=1549742276	left=0
-wire	minecraft:potion_contents	0000010000010086010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":1,"show_icon":true}]}	snbt={custom_effects:[{duration:1,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000010001010000	hash=-1079138717	left=0
+wire	minecraft:potion_contents	00fb010000010001010000	OK	json={"custom_color":16777217,"custom_name":"\u0000"}	snbt={custom_color:16777217,custom_name:"\x00"}	wire=00010100000100010100	hash=-1148828255	left=1
+wire	minecraft:potion_contents	00d2010000010001010000	OK	json={"custom_color":16777217,"custom_name":"\u0000"}	snbt={custom_color:16777217,custom_name:"\x00"}	wire=00010100000100010100	hash=-1148828255	left=1
+wire	minecraft:potion_contents	0000010000430001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":67,"show_icon":true}]}	snbt={custom_effects:[{duration:67,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000430001010000	hash=-885652252	left=0
+wire	minecraft:potion_contents	00000100d4010001010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
 snbt	minecraft:potion_contents	{custom_effects:[{id:"minecraft:speed",duration:5L}]}	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":5,"show_icon":true}]}	snbt={custom_effects:[{duration:5,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000050001010000	hash=-1027892718
 wire	minecraft:potion_contents	0000010000050001010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":5,"show_icon":true}]}	snbt={custom_effects:[{duration:5,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000050001010000	hash=-1027892718	left=0
 wire	minecraft:potion_contents	00000100000500010100	ERR	readerIndex(10) + length(1) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 10, widx: 10, cap: 10/10)
 wire	minecraft:potion_contents	0000010000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:potion_contents	0000010000830001010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	00007e0000050001010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
-wire	minecraft:potion_contents	000001000005e201010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":5,"ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,duration:5,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000050101010000	hash=-616208312	left=0
-wire	minecraft:potion_contents	000001000005c701010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":5,"ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,duration:5,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000050101010000	hash=-616208312	left=0
+wire	minecraft:potion_contents	000001000005000101e100	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	00000100a7050001010000	ERR	readerIndex(11) + length(1) exceeds writerIndex(11): UnpooledHeapByteBuf(ridx: 11, widx: 11, cap: 11/11)
+wire	minecraft:potion_contents	0000010000051701010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":5,"ambient":true,"show_icon":true}]}	snbt={custom_effects:[{ambient:1b,duration:5,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000050101010000	hash=-616208312	left=0
+wire	minecraft:potion_contents	0000010000050086010000	OK	json={"custom_effects":[{"id":"minecraft:speed","duration":5,"show_icon":true}]}	snbt={custom_effects:[{duration:5,id:"minecraft:speed",show_icon:1b}]}	wire=0000010000050001010000	hash=-1027892718	left=0
 snbt	minecraft:suspicious_stew_effects	[{id:"minecraft:poison",duration:5b}]	OK	json=[{"id":"minecraft:poison","duration":5}]	snbt=[{duration:5,id:"minecraft:poison"}]	wire=011205	hash=1042212456
 wire	minecraft:suspicious_stew_effects	011205	OK	json=[{"id":"minecraft:poison","duration":5}]	snbt=[{duration:5,id:"minecraft:poison"}]	wire=011205	hash=1042212456	left=0
 wire	minecraft:suspicious_stew_effects	0112	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
 wire	minecraft:suspicious_stew_effects	01	ERR	readerIndex(1) + length(1) exceeds writerIndex(1): UnpooledHeapByteBuf(ridx: 1, widx: 1, cap: 1/1)
-wire	minecraft:suspicious_stew_effects	011279	OK	json=[{"id":"minecraft:poison","duration":121}]	snbt=[{duration:121,id:"minecraft:poison"}]	wire=011279	hash=-1845326686	left=0
-wire	minecraft:suspicious_stew_effects	015405	ERR	No value with id 84
-wire	minecraft:suspicious_stew_effects	011253	OK	json=[{"id":"minecraft:poison","duration":83}]	snbt=[{duration:83,id:"minecraft:poison"}]	wire=011253	hash=1655976851	left=0
-wire	minecraft:suspicious_stew_effects	012b05	ERR	No value with id 43
+wire	minecraft:suspicious_stew_effects	018305	ERR	No value with id 643
+wire	minecraft:suspicious_stew_effects	7e1205	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
+wire	minecraft:suspicious_stew_effects	e21205	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
+wire	minecraft:suspicious_stew_effects	01c705	ERR	No value with id 711
 snbt	minecraft:suspicious_stew_effects	[{id:"minecraft:poison",duration:"5"}]	OK	json=[{"id":"minecraft:poison"}]	snbt=[{id:"minecraft:poison"}]	wire=0112a001	hash=-353992386
 wire	minecraft:suspicious_stew_effects	0112a001	OK	json=[{"id":"minecraft:poison"}]	snbt=[{id:"minecraft:poison"}]	wire=0112a001	hash=-353992386	left=0
 wire	minecraft:suspicious_stew_effects	0112a0	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
 wire	minecraft:suspicious_stew_effects	0112	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:suspicious_stew_effects	01bda001	ERR	No value with id 20541
-wire	minecraft:suspicious_stew_effects	0151a001	ERR	No value with id 81
-wire	minecraft:suspicious_stew_effects	0112ac01	OK	json=[{"id":"minecraft:poison","duration":172}]	snbt=[{duration:172,id:"minecraft:poison"}]	wire=0112ac01	hash=-1360695541	left=0
-wire	minecraft:suspicious_stew_effects	0112a0b0	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:suspicious_stew_effects	0179a001	ERR	No value with id 121
+wire	minecraft:suspicious_stew_effects	01125401	OK	json=[{"id":"minecraft:poison","duration":84}]	snbt=[{duration:84,id:"minecraft:poison"}]	wire=011254	hash=-214840210	left=1
+wire	minecraft:suspicious_stew_effects	0112a053	OK	json=[{"id":"minecraft:poison","duration":10656}]	snbt=[{duration:10656,id:"minecraft:poison"}]	wire=0112a053	hash=-237804868	left=0
+wire	minecraft:suspicious_stew_effects	01122b01	OK	json=[{"id":"minecraft:poison","duration":43}]	snbt=[{duration:43,id:"minecraft:poison"}]	wire=01122b	hash=-1156344456	left=1
 snbt	minecraft:suspicious_stew_effects	[{id:"minecraft:poison",duration:5.9d}]	OK	json=[{"id":"minecraft:poison","duration":5}]	snbt=[{duration:5,id:"minecraft:poison"}]	wire=011205	hash=1042212456
 wire	minecraft:suspicious_stew_effects	011205	OK	json=[{"id":"minecraft:poison","duration":5}]	snbt=[{duration:5,id:"minecraft:poison"}]	wire=011205	hash=1042212456	left=0
 wire	minecraft:suspicious_stew_effects	0112	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
 wire	minecraft:suspicious_stew_effects	01	ERR	readerIndex(1) + length(1) exceeds writerIndex(1): UnpooledHeapByteBuf(ridx: 1, widx: 1, cap: 1/1)
-wire	minecraft:suspicious_stew_effects	012d05	ERR	No value with id 45
-wire	minecraft:suspicious_stew_effects	010805	OK	json=[{"id":"minecraft:nausea","duration":5}]	snbt=[{duration:5,id:"minecraft:nausea"}]	wire=010805	hash=1814494842	left=0
-wire	minecraft:suspicious_stew_effects	011271	OK	json=[{"id":"minecraft:poison","duration":113}]	snbt=[{duration:113,id:"minecraft:poison"}]	wire=011271	hash=2037716192	left=0
-wire	minecraft:suspicious_stew_effects	971205	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
+wire	minecraft:suspicious_stew_effects	01bd05	ERR	No value with id 701
+wire	minecraft:suspicious_stew_effects	511205	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
+wire	minecraft:suspicious_stew_effects	ac1205	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
+wire	minecraft:suspicious_stew_effects	b01205	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
 snbt	minecraft:suspicious_stew_effects	[{id:"minecraft:poison",duration:1e3}]	OK	json=[{"id":"minecraft:poison","duration":1000}]	snbt=[{duration:1000,id:"minecraft:poison"}]	wire=0112e807	hash=-1904629798
 wire	minecraft:suspicious_stew_effects	0112e807	OK	json=[{"id":"minecraft:poison","duration":1000}]	snbt=[{duration:1000,id:"minecraft:poison"}]	wire=0112e807	hash=-1904629798	left=0
 wire	minecraft:suspicious_stew_effects	0112e8	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
 wire	minecraft:suspicious_stew_effects	0112	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:suspicious_stew_effects	01d8e807	ERR	No value with id 128088
-wire	minecraft:suspicious_stew_effects	018ce807	ERR	No value with id 128012
-wire	minecraft:suspicious_stew_effects	0112e82d	OK	json=[{"id":"minecraft:poison","duration":5864}]	snbt=[{duration:5864,id:"minecraft:poison"}]	wire=0112e82d	hash=1744696147	left=0
-wire	minecraft:suspicious_stew_effects	0112e8fd	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:suspicious_stew_effects	01122d07	OK	json=[{"id":"minecraft:poison","duration":45}]	snbt=[{duration:45,id:"minecraft:poison"}]	wire=01122d	hash=1988330545	left=1
+wire	minecraft:suspicious_stew_effects	0812e807	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:suspicious_stew_effects	0171e807	ERR	No value with id 113
+wire	minecraft:suspicious_stew_effects	0112e897	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 snbt	minecraft:consumable	{consume_seconds:2,animation:"drink"}	OK	json={"consume_seconds":2.0,"animation":"drink"}	snbt={animation:"drink",consume_seconds:2.0f}	wire=4000000002bf050100	hash=216100383
 wire	minecraft:consumable	4000000002bf050100	OK	json={"consume_seconds":2.0,"animation":"drink"}	snbt={animation:"drink",consume_seconds:2.0f}	wire=4000000002bf050100	hash=216100383	left=0
 wire	minecraft:consumable	4000000002bf0501	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 wire	minecraft:consumable	40000000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
-wire	minecraft:consumable	400000d002bf050100	OK	json={"consume_seconds":2.0000496,"animation":"drink"}	snbt={animation:"drink",consume_seconds:2.0000496f}	wire=400000d002bf050100	hash=239124902	left=0
-wire	minecraft:consumable	4000008a02bf050100	OK	json={"consume_seconds":2.000033,"animation":"drink"}	snbt={animation:"drink",consume_seconds:2.000033f}	wire=4000008a02bf050100	hash=-9747710	left=0
-wire	minecraft:consumable	4000000002bf05015e	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
-wire	minecraft:consumable	4000000002bf05f000	OK	json={"consume_seconds":2.0,"animation":"drink"}	snbt={animation:"drink",consume_seconds:2.0f}	wire=4000000002bf050100	hash=216100383	left=0
+wire	minecraft:consumable	4000000002bfd80100	ERR	No value with id 27710
+wire	minecraft:consumable	4000000002bf058c00	OK	json={"consume_seconds":2.0,"animation":"drink"}	snbt={animation:"drink",consume_seconds:2.0f}	wire=4000000002bf050100	hash=216100383	left=0
+wire	minecraft:consumable	402d000002bf050100	OK	json={"consume_seconds":2.703125,"animation":"drink"}	snbt={animation:"drink",consume_seconds:2.703125f}	wire=402d000002bf050100	hash=-1300956696	left=0
+wire	minecraft:consumable	40000000fdbf050100	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
 snbt	minecraft:consumable	{consume_seconds:2b}	OK	json={"consume_seconds":2.0}	snbt={consume_seconds:2.0f}	wire=4000000001bf050100	hash=309918271
 wire	minecraft:consumable	4000000001bf050100	OK	json={"consume_seconds":2.0}	snbt={consume_seconds:2.0f}	wire=4000000001bf050100	hash=309918271	left=0
 wire	minecraft:consumable	4000000001bf0501	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 wire	minecraft:consumable	40000000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
-wire	minecraft:consumable	400000b201bf050100	OK	json={"consume_seconds":2.0000424}	snbt={consume_seconds:2.0000424f}	wire=400000b201bf050100	hash=-962752044	left=0
-wire	minecraft:consumable	4073000001bf050100	OK	json={"consume_seconds":3.796875}	snbt={consume_seconds:3.796875f}	wire=4073000001bf050100	hash=1909125382	left=0
-wire	minecraft:consumable	4000000001bf05e800	OK	json={"consume_seconds":2.0}	snbt={consume_seconds:2.0f}	wire=4000000001bf050100	hash=309918271	left=0
-wire	minecraft:consumable	4000002f01bf050100	OK	json={"consume_seconds":2.0000112}	snbt={consume_seconds:2.0000112f}	wire=4000002f01bf050100	hash=-2021859060	left=0
+wire	minecraft:consumable	400000d001bf050100	OK	json={"consume_seconds":2.0000496}	snbt={consume_seconds:2.0000496f}	wire=400000d001bf050100	hash=282678662	left=0
+wire	minecraft:consumable	4000008a01bf050100	OK	json={"consume_seconds":2.000033}	snbt={consume_seconds:2.000033f}	wire=4000008a01bf050100	hash=-504178910	left=0
+wire	minecraft:consumable	4000000001bf05015e	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
+wire	minecraft:consumable	4000000001bf05f000	OK	json={"consume_seconds":2.0}	snbt={consume_seconds:2.0f}	wire=4000000001bf050100	hash=309918271	left=0
 snbt	minecraft:consumable	{consume_seconds:-0.0f}	OK	json={"consume_seconds":0.0}	snbt={consume_seconds:0.0f}	wire=0000000001bf050100	hash=477929940
 wire	minecraft:consumable	0000000001bf050100	OK	json={"consume_seconds":0.0}	snbt={consume_seconds:0.0f}	wire=0000000001bf050100	hash=477929940	left=0
 wire	minecraft:consumable	0000000001bf0501	ERR	readerIndex(8) + length(1) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 8, widx: 8, cap: 8/8)
 wire	minecraft:consumable	00000000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
-wire	minecraft:consumable	0000000001bf05017a	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
-wire	minecraft:consumable	0000ce0001bf050100	OK	json={"consume_seconds":7.3899E-41}	snbt={consume_seconds:7.3899E-41f}	wire=0000ce0001bf050100	hash=-1021083525	left=0
-wire	minecraft:consumable	00000e0001bf050100	OK	json={"consume_seconds":5.022E-42}	snbt={consume_seconds:5.022E-42f}	wire=00000e0001bf050100	hash=-316482259	left=0
-wire	minecraft:consumable	0000a50001bf050100	OK	json={"consume_seconds":5.9191E-41}	snbt={consume_seconds:5.9191E-41f}	wire=0000a50001bf050100	hash=1297919331	left=0
+wire	minecraft:consumable	000000b201bf050100	OK	json={"consume_seconds":2.5E-43}	snbt={consume_seconds:2.5E-43f}	wire=000000b201bf050100	hash=-929445313	left=0
+wire	minecraft:consumable	0073000001bf050100	OK	json={"consume_seconds":1.0561082E-38}	snbt={consume_seconds:1.0561082E-38f}	wire=0073000001bf050100	hash=2144250605	left=0
+wire	minecraft:consumable	0000000001bf05e800	OK	json={"consume_seconds":0.0}	snbt={consume_seconds:0.0f}	wire=0000000001bf050100	hash=477929940	left=0
+wire	minecraft:consumable	0000002f01bf050100	OK	json={"consume_seconds":6.6E-44}	snbt={consume_seconds:6.6E-44f}	wire=0000002f01bf050100	hash=-1988576537	left=0
 snbt	minecraft:use_cooldown	{seconds:5}	OK	json={"seconds":5.0}	snbt={seconds:5.0f}	wire=40a0000000	hash=-1430548858
 wire	minecraft:use_cooldown	40a0000000	OK	json={"seconds":5.0}	snbt={seconds:5.0f}	wire=40a0000000	hash=-1430548858	left=0
 wire	minecraft:use_cooldown	40a00000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 wire	minecraft:use_cooldown	40a0	ERR	readerIndex(0) + length(4) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 0, widx: 2, cap: 2/2)
-wire	minecraft:use_cooldown	40a000af00	OK	json={"seconds":5.0000834}	snbt={seconds:5.0000834f}	wire=40a000af00	hash=-1713926050	left=0
-wire	minecraft:use_cooldown	40a0380000	OK	json={"seconds":5.006836}	snbt={seconds:5.006836f}	wire=40a0380000	hash=1643570801	left=0
-wire	minecraft:use_cooldown	4087000000	OK	json={"seconds":4.21875}	snbt={seconds:4.21875f}	wire=4087000000	hash=-1979335246	left=0
-wire	minecraft:use_cooldown	40a000d800	OK	json={"seconds":5.000103}	snbt={seconds:5.000103f}	wire=40a000d800	hash=275370920	left=0
+wire	minecraft:use_cooldown	40a07a0000	OK	json={"seconds":5.0148926}	snbt={seconds:5.0148926f}	wire=40a07a0000	hash=-376514803	left=0
+wire	minecraft:use_cooldown	40a000ce00	OK	json={"seconds":5.000098}	snbt={seconds:5.000098f}	wire=40a000ce00	hash=1446795301	left=0
+wire	minecraft:use_cooldown	40a00e0000	OK	json={"seconds":5.001709}	snbt={seconds:5.001709f}	wire=40a00e0000	hash=1541796479	left=0
+wire	minecraft:use_cooldown	40a0a50000	OK	json={"seconds":5.0201416}	snbt={seconds:5.0201416f}	wire=40a0a50000	hash=-73694671	left=0
 snbt	minecraft:use_cooldown	{seconds:5L,cooldown_group:"a:b"}	OK	json={"seconds":5.0,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:5.0f}	wire=40a000000103613a62	hash=-253087959
 wire	minecraft:use_cooldown	40a000000103613a62	OK	json={"seconds":5.0,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:5.0f}	wire=40a000000103613a62	hash=-253087959	left=0
 wire	minecraft:use_cooldown	40a000000103613a	ERR	Not enough bytes in buffer, expected 3, but got 2
 wire	minecraft:use_cooldown	40a00000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
-wire	minecraft:use_cooldown	40a067000103613a62	OK	json={"seconds":5.0125732,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:5.0125732f}	wire=40a067000103613a62	hash=498304134	left=0
-wire	minecraft:use_cooldown	40a0000001031e3a62	ERR	Non [a-z0-9_.-] character in namespace of identifier: \u001E:b
-wire	minecraft:use_cooldown	40a000ed0103613a62	OK	json={"seconds":5.000113,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:5.000113f}	wire=40a000ed0103613a62	hash=-2764259	left=0
-wire	minecraft:use_cooldown	40a00000e103613a62	OK	json={"seconds":5.0,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:5.0f}	wire=40a000000103613a62	hash=-253087959	left=0
+wire	minecraft:use_cooldown	40a000000103af3a62	ERR	Non [a-z0-9_.-] character in namespace of identifier: \uFFFD:b
+wire	minecraft:use_cooldown	40a000003803613a62	OK	json={"seconds":5.0,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:5.0f}	wire=40a000000103613a62	hash=-253087959	left=0
+wire	minecraft:use_cooldown	40a000000103613a87	ERR	Non [a-z0-9/._-] character in path of location: a:\uFFFD
+wire	minecraft:use_cooldown	40a000d80103613a62	OK	json={"seconds":5.000103,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:5.000103f}	wire=40a000d80103613a62	hash=1245213191	left=0
 snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:1b,operation:"add_value"}]	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289
+wire	minecraft:attribute_modifiers	011503613a623ff0000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289	left=0
+wire	minecraft:attribute_modifiers	011503613a623ff00000000000000000	ERR	readerIndex(16) + length(1) exceeds writerIndex(16): UnpooledHeapByteBuf(ridx: 16, widx: 16, cap: 16/16)
+wire	minecraft:attribute_modifiers	011503613a623ff0	ERR	readerIndex(6) + length(8) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 6, widx: 8, cap: 8/8)
+wire	minecraft:attribute_modifiers	011503613a623ff0006700000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0000982284545898,"operation":"add_value"}]	snbt=[{amount:1.0000982284545898d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0006700000000000000	hash=54663927	left=0
+wire	minecraft:attribute_modifiers	011503613a623ff0000000001e00000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0000000000017053,"operation":"add_value"}]	snbt=[{amount:1.0000000000017053d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000001e00000000	hash=435935539	left=0
+wire	minecraft:attribute_modifiers	011503613a623ff00000000000ed000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0000000000000526,"operation":"add_value"}]	snbt=[{amount:1.0000000000000526d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff00000000000ed000000	hash=1083942431	left=0
+wire	minecraft:attribute_modifiers	011503613ae13ff0000000000000000000	ERR	Non [a-z0-9/._-] character in path of location: a:\uFFFD
+snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:1L,operation:"add_value",slot:"any"}]	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289
 wire	minecraft:attribute_modifiers	011503613a623ff0000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289	left=0
 wire	minecraft:attribute_modifiers	011503613a623ff00000000000000000	ERR	readerIndex(16) + length(1) exceeds writerIndex(16): UnpooledHeapByteBuf(ridx: 16, widx: 16, cap: 16/16)
 wire	minecraft:attribute_modifiers	011503613a623ff0	ERR	readerIndex(6) + length(8) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 6, widx: 8, cap: 8/8)
@@ -8270,43 +8272,43 @@ wire	minecraft:attribute_modifiers	011523613a623ff0000000000000000000	ERR	Not en
 wire	minecraft:attribute_modifiers	014103613a623ff0000000000000000000	ERR	No value with id 65
 wire	minecraft:attribute_modifiers	011503613a623ff0000000000000440000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289	left=0
 wire	minecraft:attribute_modifiers	011503613a623ff0380000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.013671875,"operation":"add_value"}]	snbt=[{amount:1.013671875d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0380000000000000000	hash=-773183343	left=0
-snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:1L,operation:"add_value",slot:"any"}]	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289
-wire	minecraft:attribute_modifiers	011503613a623ff0000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289	left=0
-wire	minecraft:attribute_modifiers	011503613a623ff00000000000000000	ERR	readerIndex(16) + length(1) exceeds writerIndex(16): UnpooledHeapByteBuf(ridx: 16, widx: 16, cap: 16/16)
-wire	minecraft:attribute_modifiers	011503613a623ff0	ERR	readerIndex(6) + length(8) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 6, widx: 8, cap: 8/8)
-wire	minecraft:attribute_modifiers	251503613a623ff0000000000000000000	ERR	readerIndex(17) + length(1) exceeds writerIndex(17): UnpooledHeapByteBuf(ridx: 17, widx: 17, cap: 17/17)
-wire	minecraft:attribute_modifiers	011503613a624bf0000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":6.277101735386681E57,"operation":"add_value"}]	snbt=[{amount:6.277101735386681E57d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a624bf0000000000000000000	hash=161397351	left=0
-wire	minecraft:attribute_modifiers	011503613a623ff00000000000004c0000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289	left=0
-wire	minecraft:attribute_modifiers	011503613a623ff000000000000000009c	ERR	readerIndex(17) + length(1) exceeds writerIndex(17): UnpooledHeapByteBuf(ridx: 17, widx: 17, cap: 17/17)
 snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:NaNd,operation:"add_value"}]	ERR	Not a number
 snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:Infinityd,operation:"add_value"}]	ERR	Not a number
 snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:-0.0,operation:"add_value"}]	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":0.0,"operation":"add_value"}]	snbt=[{amount:0.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a620000000000000000000000	hash=-274521052
 wire	minecraft:attribute_modifiers	011503613a620000000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":0.0,"operation":"add_value"}]	snbt=[{amount:0.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a620000000000000000000000	hash=-274521052	left=0
 wire	minecraft:attribute_modifiers	011503613a6200000000000000000000	ERR	readerIndex(16) + length(1) exceeds writerIndex(16): UnpooledHeapByteBuf(ridx: 16, widx: 16, cap: 16/16)
 wire	minecraft:attribute_modifiers	011503613a620000	ERR	readerIndex(6) + length(8) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 6, widx: 8, cap: 8/8)
-wire	minecraft:attribute_modifiers	014703613a620000000000000000000000	ERR	No value with id 71
-wire	minecraft:attribute_modifiers	011503613a622000000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.4916681462400413E-154,"operation":"add_value"}]	snbt=[{amount:1.4916681462400413E-154d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a622000000000000000000000	hash=153509055	left=0
-wire	minecraft:attribute_modifiers	011503613a6200a3000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.3528449059723784E-305,"operation":"add_value"}]	snbt=[{amount:1.3528449059723784E-305d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a6200a3000000000000000000	hash=682185869	left=0
-wire	minecraft:attribute_modifiers	011589613a620000000000000000000000	ERR	Not enough bytes in buffer, expected 12425, but got 13
+wire	minecraft:attribute_modifiers	251503613a620000000000000000000000	ERR	readerIndex(17) + length(1) exceeds writerIndex(17): UnpooledHeapByteBuf(ridx: 17, widx: 17, cap: 17/17)
+wire	minecraft:attribute_modifiers	011503613a624b00000000000000000000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.915619426082361E53,"operation":"add_value"}]	snbt=[{amount:1.915619426082361E53d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a624b00000000000000000000	hash=1059744993	left=0
+wire	minecraft:attribute_modifiers	011503613a6200000000000000004c0000	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":0.0,"operation":"add_value"}]	snbt=[{amount:0.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a620000000000000000000000	hash=-274521052	left=0
+wire	minecraft:attribute_modifiers	011503613a62000000000000000000009c	ERR	readerIndex(17) + length(1) exceeds writerIndex(17): UnpooledHeapByteBuf(ridx: 17, widx: 17, cap: 17/17)
 snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:1.0f,operation:"add_value",display:{type:"override",value:{text:"x"}}}]	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value","display":{"value":"x","type":"override"}}]	snbt=[{amount:1.0d,display:{type:"override",value:"x"},id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff000000000000000000208000178	hash=850818537
 wire	minecraft:attribute_modifiers	011503613a623ff000000000000000000208000178	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value","display":{"value":"x","type":"override"}}]	snbt=[{amount:1.0d,display:{type:"override",value:"x"},id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff000000000000000000208000178	hash=850818537	left=0
 wire	minecraft:attribute_modifiers	011503613a623ff0000000000000000002080001	ERR	Loading NBT data
 wire	minecraft:attribute_modifiers	011503613a623ff00000	ERR	readerIndex(6) + length(8) exceeds writerIndex(10): UnpooledHeapByteBuf(ridx: 6, widx: 10, cap: 10/10)
-wire	minecraft:attribute_modifiers	011503613a623ff0000000002a0000000208000178	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0000000000023874,"operation":"add_value","display":{"value":"x","type":"override"}}]	snbt=[{amount:1.0000000000023874d,display:{type:"override",value:"x"},id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000002a0000000208000178	hash=984079958	left=0
-wire	minecraft:attribute_modifiers	011503613a623ff06b000000000000000208000178	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.026123046875,"operation":"add_value","display":{"value":"x","type":"override"}}]	snbt=[{amount:1.026123046875d,display:{type:"override",value:"x"},id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff06b000000000000000208000178	hash=912043867	left=0
-wire	minecraft:attribute_modifiers	011503f53a623ff000000000000000000208000178	ERR	Non [a-z0-9_.-] character in namespace of identifier: \uFFFD:b
-wire	minecraft:attribute_modifiers	011503613a623ff000000000660000000208000178	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.000000000005798,"operation":"add_value","display":{"value":"x","type":"override"}}]	snbt=[{amount:1.000000000005798d,display:{type:"override",value:"x"},id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff000000000660000000208000178	hash=1096426103	left=0
+wire	minecraft:attribute_modifiers	011503613a623ff000000000000000004708000178	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff0000000000000000000	hash=-1419772289	left=4
+wire	minecraft:attribute_modifiers	011503613a623ff000000000000000000208000120	OK	json=[{"type":"minecraft:luck","id":"a:b","amount":1.0,"operation":"add_value","display":{"value":" ","type":"override"}}]	snbt=[{amount:1.0d,display:{type:"override",value:" "},id:"a:b",operation:"add_value",type:"minecraft:luck"}]	wire=011503613a623ff000000000000000000208000120	hash=-1534023863	left=0
+wire	minecraft:attribute_modifiers	011503613a623ff00000000000000000020800a378	ERR	Loading NBT data
+wire	minecraft:attribute_modifiers	0115036189623ff000000000000000000208000178	ERR	Non [a-z0-9/._-] character in path of location: minecraft:a\uFFFDb
 snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:1.0f,operation:"add_value",display:{type:"override",value:[1b,2b]}}]	ERR	Failed to parse either. First: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 2b; Second: Not a ma
 snbt	minecraft:attribute_modifiers	[{type:"minecraft:luck",id:"a:b",amount:1.0f,operation:"add_value",display:{type:"override",value:{text:1b}}}]	ERR	Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {text:1b}; Second: No matching codec found
 snbt	minecraft:use_remainder	"minecraft:bucket"	OK	json={"id":"minecraft:bucket"}	snbt={id:"minecraft:bucket"}	wire=e808010000	hash=-943539315
 wire	minecraft:use_remainder	e808010000	OK	json={"id":"minecraft:bucket"}	snbt={id:"minecraft:bucket"}	wire=e808010000	hash=-943539315	left=0
 wire	minecraft:use_remainder	e8080100	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 wire	minecraft:use_remainder	e808	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:use_remainder	e807010000	OK	json={"id":"minecraft:test_instance_block"}	snbt={id:"minecraft:test_instance_block"}	wire=e807010000	hash=-1592501142	left=0
-wire	minecraft:use_remainder	e802010000	OK	json={"id":"minecraft:cobblestone_slab"}	snbt={id:"minecraft:cobblestone_slab"}	wire=e802010000	hash=-1265073479	left=0
-wire	minecraft:use_remainder	c008010000	OK	json={"id":"minecraft:golden_helmet"}	snbt={id:"minecraft:golden_helmet"}	wire=c008010000	hash=-527908876	left=0
-wire	minecraft:use_remainder	1d08010000	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
+wire	minecraft:use_remainder	2a08010000	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
+wire	minecraft:use_remainder	e808016b00	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:use_remainder	e80801f500	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:use_remainder	e808010066	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 snbt	minecraft:use_remainder	{id:"minecraft:bowl",count:2b}	OK	json={"id":"minecraft:bowl","count":2}	snbt={count:2,id:"minecraft:bowl"}	wire=ee07020000	hash=1255646104
+wire	minecraft:use_remainder	ee07020000	OK	json={"id":"minecraft:bowl","count":2}	snbt={count:2,id:"minecraft:bowl"}	wire=ee07020000	hash=1255646104	left=0
+wire	minecraft:use_remainder	ee070200	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:use_remainder	ee07	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:use_remainder	ee07020000	OK	json={"id":"minecraft:bowl","count":2}	snbt={count:2,id:"minecraft:bowl"}	wire=ee07020000	hash=1255646104	left=0
+wire	minecraft:use_remainder	ee02020000	OK	json={"id":"minecraft:red_sandstone_slab","count":2}	snbt={count:2,id:"minecraft:red_sandstone_slab"}	wire=ee02020000	hash=-237404363	left=0
+wire	minecraft:use_remainder	c007020000	OK	json={"id":"minecraft:purple_harness","count":2}	snbt={count:2,id:"minecraft:purple_harness"}	wire=c007020000	hash=593834339	left=0
+wire	minecraft:use_remainder	1d07020000	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
+snbt	minecraft:use_remainder	{id:"minecraft:bowl",count:2L}	OK	json={"id":"minecraft:bowl","count":2}	snbt={count:2,id:"minecraft:bowl"}	wire=ee07020000	hash=1255646104
 wire	minecraft:use_remainder	ee07020000	OK	json={"id":"minecraft:bowl","count":2}	snbt={count:2,id:"minecraft:bowl"}	wire=ee07020000	hash=1255646104	left=0
 wire	minecraft:use_remainder	ee070200	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
 wire	minecraft:use_remainder	ee07	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
@@ -8314,42 +8316,72 @@ wire	minecraft:use_remainder	ee07020034	ERR	readerIndex(5) + length(1) exceeds w
 wire	minecraft:use_remainder	ee0702e400	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
 wire	minecraft:use_remainder	6407020000	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
 wire	minecraft:use_remainder	ee07023d00	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-snbt	minecraft:use_remainder	{id:"minecraft:bowl",count:2L}	OK	json={"id":"minecraft:bowl","count":2}	snbt={count:2,id:"minecraft:bowl"}	wire=ee07020000	hash=1255646104
-wire	minecraft:use_remainder	ee07020000	OK	json={"id":"minecraft:bowl","count":2}	snbt={count:2,id:"minecraft:bowl"}	wire=ee07020000	hash=1255646104	left=0
-wire	minecraft:use_remainder	ee070200	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
-wire	minecraft:use_remainder	ee07	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:use_remainder	ee1d020000	ERR	No value with id 3822
-wire	minecraft:use_remainder	6607020000	ERR	java.io.EOFException: fieldSize is too long! Length is 1, but maximum is 0
-wire	minecraft:use_remainder	ee07d70000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
-wire	minecraft:use_remainder	eed2020000	ERR	No value with id 43374
 snbt	minecraft:use_remainder	{id:"minecraft:bowl",components:{"minecraft:damage":1b}}	OK	json={"id":"minecraft:bowl","components":{"minecraft:damage":1}}	snbt={components:{"minecraft:damage":1},id:"minecraft:bowl"}	wire=ee070101000301	hash=328140670
 wire	minecraft:use_remainder	ee070101000301	OK	json={"id":"minecraft:bowl","components":{"minecraft:damage":1}}	snbt={components:{"minecraft:damage":1},id:"minecraft:bowl"}	wire=ee070101000301	hash=328140670	left=0
 wire	minecraft:use_remainder	ee0701010003	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:use_remainder	ee0701	ERR	readerIndex(3) + length(1) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 3, widx: 3, cap: 3/3)
-wire	minecraft:use_remainder	ee070101160301	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-wire	minecraft:use_remainder	ee0701d9000301	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-wire	minecraft:use_remainder	ee070145000301	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-wire	minecraft:use_remainder	ee07010100030f	OK	json={"id":"minecraft:bowl","components":{"minecraft:damage":15}}	snbt={components:{"minecraft:damage":15},id:"minecraft:bowl"}	wire=ee07010100030f	hash=896044661	left=0
+wire	minecraft:use_remainder	ee07010100031d	OK	json={"id":"minecraft:bowl","components":{"minecraft:damage":29}}	snbt={components:{"minecraft:damage":29},id:"minecraft:bowl"}	wire=ee07010100031d	hash=1581258088	left=0
+wire	minecraft:use_remainder	ee070101006601	OK	json={"id":"minecraft:bowl","components":{"minecraft:cow/variant":"minecraft:temperate"}}	snbt={components:{"minecraft:cow/variant":"minecraft:temperate"},id:"minecraft:bowl"}	wire=ee070101006601	hash=1537031186	left=0
+wire	minecraft:use_remainder	ee07010100d701	ERR	No value with id 215
+wire	minecraft:use_remainder	ee070101d20301	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
 snbt	minecraft:death_protection	{death_effects:[{type:"minecraft:clear_all_effects"}]}	OK	json={"death_effects":[{"type":"minecraft:clear_all_effects"}]}	snbt={death_effects:[{type:"minecraft:clear_all_effects"}]}	wire=0102	hash=1103435691
 wire	minecraft:death_protection	0102	OK	json={"death_effects":[{"type":"minecraft:clear_all_effects"}]}	snbt={death_effects:[{type:"minecraft:clear_all_effects"}]}	wire=0102	hash=1103435691	left=0
 wire	minecraft:death_protection	01	ERR	readerIndex(1) + length(1) exceeds writerIndex(1): UnpooledHeapByteBuf(ridx: 1, widx: 1, cap: 1/1)
-wire	minecraft:death_protection	014d	ERR	No value with id 77
-wire	minecraft:death_protection	0149	ERR	No value with id 73
-wire	minecraft:death_protection	01c3	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
-wire	minecraft:death_protection	9a02	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:death_protection	1602	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:death_protection	01d9	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
+wire	minecraft:death_protection	0145	ERR	No value with id 69
+wire	minecraft:death_protection	0f02	ERR	readerIndex(2) + length(1) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 2, widx: 2, cap: 2/2)
 snbt	minecraft:death_protection	{death_effects:[{type:"minecraft:teleport_randomly",diameter:3}]}	OK	json={"death_effects":[{"diameter":3.0,"type":"minecraft:teleport_randomly"}]}	snbt={death_effects:[{diameter:3.0f,type:"minecraft:teleport_randomly"}]}	wire=01034040000001	hash=1656845380
 wire	minecraft:death_protection	01034040000001	OK	json={"death_effects":[{"diameter":3.0,"type":"minecraft:teleport_randomly"}]}	snbt={death_effects:[{diameter:3.0f,type:"minecraft:teleport_randomly"}]}	wire=01034040000001	hash=1656845380	left=0
 wire	minecraft:death_protection	010340400000	ERR	readerIndex(6) + length(1) exceeds writerIndex(6): UnpooledHeapByteBuf(ridx: 6, widx: 6, cap: 6/6)
 wire	minecraft:death_protection	010340	ERR	readerIndex(2) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 2, widx: 3, cap: 3/3)
-wire	minecraft:death_protection	d6034040000001	ERR	No value with id 64
-wire	minecraft:death_protection	0103403c000001	OK	json={"death_effects":[{"diameter":2.9375,"type":"minecraft:teleport_randomly"}]}	snbt={death_effects:[{diameter:2.9375f,type:"minecraft:teleport_randomly"}]}	wire=0103403c000001	hash=1676249962	left=0
-wire	minecraft:death_protection	3b034040000001	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-wire	minecraft:death_protection	bf034040000001	ERR	No value with id 64
+wire	minecraft:death_protection	01034040004d01	OK	json={"death_effects":[{"diameter":3.0000184,"type":"minecraft:teleport_randomly"}]}	snbt={death_effects:[{diameter:3.0000184f,type:"minecraft:teleport_randomly"}]}	wire=01034040004d01	hash=790579870	left=0
+wire	minecraft:death_protection	49034040000001	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
+wire	minecraft:death_protection	c3034040000001	ERR	No value with id 64
+wire	minecraft:death_protection	01039a40000001	OK	json=ENCERR	snbt=ENCERR	wire=01039a40000001	hash=ENCERR	left=0
 snbt	minecraft:death_protection	{death_effects:[{type:"minecraft:apply_effects",effects:[{id:"minecraft:speed"}],probability:0.5d}]}	OK	json={"death_effects":[{"effects":[{"id":"minecraft:speed","show_icon":true}],"probability":0.5,"type":"minecraft:apply_effects"}]}	snbt={death_effects:[{effects:[{id:"minecraft:speed",show_icon:1b}],probability:0.5f,type:"minecraft:apply_effects"}]}	wire=010001000000000101003f000000	hash=-1308461598
 wire	minecraft:death_protection	010001000000000101003f000000	OK	json={"death_effects":[{"effects":[{"id":"minecraft:speed","show_icon":true}],"probability":0.5,"type":"minecraft:apply_effects"}]}	snbt={death_effects:[{effects:[{id:"minecraft:speed",show_icon:1b}],probability:0.5f,type:"minecraft:apply_effects"}]}	wire=010001000000000101003f000000	hash=-1308461598	left=0
 wire	minecraft:death_protection	010001000000000101003f0000	ERR	readerIndex(10) + length(4) exceeds writerIndex(13): UnpooledHeapByteBuf(ridx: 10, widx: 13, cap: 13/13)
 wire	minecraft:death_protection	01000100000000	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
-wire	minecraft:death_protection	a80001000000000101003f000000	ERR	No value present
-wire	minecraft:death_protection	010001000000000101003f004300	OK	json={"death_effects":[{"effects":[{"id":"minecraft:speed","show_icon":true}],"probability":0.50102234,"type":"minecraft:apply_effects"}]}	snbt={death_effects:[{effects:[{id:"minecraft:speed",show_icon:1b}],probability:0.50102234f,type:"minecraft:apply_effects"}]}	wire=010001000000000101003f004300	hash=-1912088920	left=0
-wire	minecraft:death_protection	01008f000000000101003f000000	ERR	readerIndex(14) + length(1) exceeds writerIndex(14): UnpooledHeapByteBuf(ridx: 14, widx: 14, cap: 14/14)
-wire	minecraft:death_protection	010001000000000101003f000500	OK	json={"death_effects":[{"effects":[{"id":"minecraft:speed","show_icon":true}],"probability":0.5000763,"type":"minecraft:apply_effects"}]}	snbt={death_effects:[{effects:[{id:"minecraft:speed",show_icon:1b}],probability:0.5000763f,type:"minecraft:apply_effects"}]}	wire=010001000000000101003f000500	hash=689365457	left=0
+wire	minecraft:death_protection	d60001000000000101003f000000	ERR	No value present
+wire	minecraft:death_protection	0100013c0000000101003f000000	ERR	No value with id 60
+wire	minecraft:death_protection	3b0001000000000101003f000000	ERR	readerIndex(14) + length(1) exceeds writerIndex(14): UnpooledHeapByteBuf(ridx: 14, widx: 14, cap: 14/14)
+wire	minecraft:death_protection	01000100000000bf01003f000000	OK	json={"death_effects":[{"effects":[{"id":"minecraft:speed","show_icon":true}],"probability":0.5,"type":"minecraft:apply_effects"}]}	snbt={death_effects:[{effects:[{id:"minecraft:speed",show_icon:1b}],probability:0.5f,type:"minecraft:apply_effects"}]}	wire=010001000000000101003f000000	hash=-1308461598	left=0
+wire	minecraft:attribute_modifiers	010003613a623ff000000000000005634d	OK	json=[{"type":"minecraft:air_drag_modifier","id":"a:b","amount":1.0,"operation":"add_value"}]	snbt=[{amount:1.0d,id:"a:b",operation:"add_value",type:"minecraft:air_drag_modifier"}]	wire=010003613a623ff0000000000000000000	hash=1440092803	left=0
+wire	minecraft:attribute_modifiers	010003613a623ff00000000000000563	ERR	readerIndex(16) + length(1) exceeds writerIndex(16): UnpooledHeapByteBuf(ridx: 16, widx: 16, cap: 16/16)
+wire	minecraft:attribute_modifiers	010003613a623ff0	ERR	readerIndex(6) + length(8) exceeds writerIndex(8): UnpooledHeapByteBuf(ridx: 6, widx: 8, cap: 8/8)
+wire	minecraft:attribute_modifiers	010003613a623ff0000000a8000005634d	OK	json=[{"type":"minecraft:air_drag_modifier","id":"a:b","amount":1.0000000024447218,"operation":"add_value"}]	snbt=[{amount:1.0000000024447218d,id:"a:b",operation:"add_value",type:"minecraft:air_drag_modifier"}]	wire=010003613a623ff0000000a80000000000	hash=-1359597405	left=0
+wire	minecraft:attribute_modifiers	010003613a6243f000000000000005634d	OK	json=[{"type":"minecraft:air_drag_modifier","id":"a:b","amount":1.8446744073709552E19,"operation":"add_value"}]	snbt=[{amount:1.8446744073709552E19d,id:"a:b",operation:"add_value",type:"minecraft:air_drag_modifier"}]	wire=010003613a6243f0000000000000000000	hash=221982329	left=0
+wire	minecraft:attribute_modifiers	010003613a623f8f00000000000005634d	OK	json=[{"type":"minecraft:air_drag_modifier","id":"a:b","amount":0.01513671875,"operation":"add_value"}]	snbt=[{amount:0.01513671875d,id:"a:b",operation:"add_value",type:"minecraft:air_drag_modifier"}]	wire=010003613a623f8f000000000000000000	hash=785404767	left=0
+wire	minecraft:attribute_modifiers	010003613a623ff000000500000005634d	OK	json=[{"type":"minecraft:air_drag_modifier","id":"a:b","amount":1.0000000186264515,"operation":"add_value"}]	snbt=[{amount:1.0000000186264515d,id:"a:b",operation:"add_value",type:"minecraft:air_drag_modifier"}]	wire=010003613a623ff0000005000000000000	hash=-905935157	left=0
+wire	minecraft:consumable	3fcccccd63010100	OK	json={"animation":"none","sound":"minecraft:entity.allay.ambient_with_item"}	snbt={animation:"none",sound:"minecraft:entity.allay.ambient_with_item"}	wire=3fcccccd00010100	hash=1228481513	left=0
+wire	minecraft:consumable	3fcccccd630101	ERR	readerIndex(7) + length(1) exceeds writerIndex(7): UnpooledHeapByteBuf(ridx: 7, widx: 7, cap: 7/7)
+wire	minecraft:consumable	3fcccccd	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:consumable	35cccccd63010100	OK	json={"consume_seconds":1.5258789E-6,"animation":"none","sound":"minecraft:entity.allay.ambient_with_item"}	snbt={animation:"none",consume_seconds:1.5258789E-6f,sound:"minecraft:entity.allay.ambient_with_item"}	wire=35cccccd00010100	hash=-2131638036	left=0
+wire	minecraft:consumable	3fcccc0e63010100	OK	json={"consume_seconds":1.5999773,"animation":"none","sound":"minecraft:entity.allay.ambient_with_item"}	snbt={animation:"none",consume_seconds:1.5999773f,sound:"minecraft:entity.allay.ambient_with_item"}	wire=3fcccc0e00010100	hash=1434337407	left=0
+wire	minecraft:consumable	3f15cccd63010100	OK	json={"consume_seconds":0.58515626,"animation":"none","sound":"minecraft:entity.allay.ambient_with_item"}	snbt={animation:"none",consume_seconds:0.58515626f,sound:"minecraft:entity.allay.ambient_with_item"}	wire=3f15cccd00010100	hash=248992387	left=0
+wire	minecraft:consumable	3fccc5cd63010100	OK	json={"consume_seconds":1.5997864,"animation":"none","sound":"minecraft:entity.allay.ambient_with_item"}	snbt={animation:"none",consume_seconds:1.5997864f,sound:"minecraft:entity.allay.ambient_with_item"}	wire=3fccc5cd00010100	hash=813435341	left=0
+wire	minecraft:consumable	3fcccccd0001010101	ERR	readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9, widx: 9, cap: 9/9)
+wire	minecraft:attribute_modifiers	010003613a623ff0000000000000ff0000	ERR	readerIndex(17) + length(1) exceeds writerIndex(17): UnpooledHeapByteBuf(ridx: 17, widx: 17, cap: 17/17)
+wire	minecraft:food	0400000000	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:use_effects	00013e4ccccd	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288	left=0
+wire	minecraft:use_effects	00013e4ccc	ERR	readerIndex(2) + length(4) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 2, widx: 5, cap: 5/5)
+wire	minecraft:use_effects	00013e	ERR	readerIndex(2) + length(4) exceeds writerIndex(3): UnpooledHeapByteBuf(ridx: 2, widx: 3, cap: 3/3)
+wire	minecraft:use_effects	33013e4ccccd	OK	json={"can_sprint":true}	snbt={can_sprint:1b}	wire=01013e4ccccd	hash=-1870047181	left=0
+wire	minecraft:use_effects	001d3e4ccccd	OK	json={}	snbt={}	wire=00013e4ccccd	hash=-982207288	left=0
+wire	minecraft:use_effects	00016a4ccccd	OK	json=ENCERR	snbt=ENCERR	wire=00016a4ccccd	hash=ENCERR	left=0
+wire	minecraft:use_effects	00013e4ccc09	OK	json={"speed_multiplier":0.19999708}	snbt={speed_multiplier:0.19999708f}	wire=00013e4ccc09	hash=-1533721707	left=0
+wire	minecraft:use_cooldown	3f80000000	OK	json={"seconds":1.0}	snbt={seconds:1.0f}	wire=3f80000000	hash=978556113	left=0
+wire	minecraft:use_cooldown	3f800000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:use_cooldown	3f80	ERR	readerIndex(0) + length(4) exceeds writerIndex(2): UnpooledHeapByteBuf(ridx: 0, widx: 2, cap: 2/2)
+wire	minecraft:use_cooldown	3f80000009	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:use_cooldown	9980000000	OK	json=ENCERR	snbt=ENCERR	wire=9980000000	hash=ENCERR	left=0
+wire	minecraft:use_cooldown	3f800000de	ERR	readerIndex(5) + length(1) exceeds writerIndex(5): UnpooledHeapByteBuf(ridx: 5, widx: 5, cap: 5/5)
+wire	minecraft:use_cooldown	c080000000	OK	json=ENCERR	snbt=ENCERR	wire=c080000000	hash=ENCERR	left=0
+wire	minecraft:use_cooldown	3f8000000103613a62	OK	json={"seconds":1.0,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:1.0f}	wire=3f8000000103613a62	hash=1610757502	left=0
+wire	minecraft:use_cooldown	3f8000000103613a	ERR	Not enough bytes in buffer, expected 3, but got 2
+wire	minecraft:use_cooldown	3f800000	ERR	readerIndex(4) + length(1) exceeds writerIndex(4): UnpooledHeapByteBuf(ridx: 4, widx: 4, cap: 4/4)
+wire	minecraft:use_cooldown	3f8000005903613a62	OK	json={"seconds":1.0,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:1.0f}	wire=3f8000000103613a62	hash=1610757502	left=0
+wire	minecraft:use_cooldown	3f800000ee03613a62	OK	json={"seconds":1.0,"cooldown_group":"a:b"}	snbt={cooldown_group:"a:b",seconds:1.0f}	wire=3f8000000103613a62	hash=1610757502	left=0
+wire	minecraft:use_cooldown	3f8000000103613a88	ERR	Non [a-z0-9/._-] character in path of location: a:\uFFFD
+wire	minecraft:use_cooldown	878000000103613a62	OK	json=ENCERR	snbt=ENCERR	wire=878000000103613a62	hash=ENCERR	left=0
