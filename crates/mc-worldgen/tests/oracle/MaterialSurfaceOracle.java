@@ -64,8 +64,14 @@ public class MaterialSurfaceOracle {
          new String[] {"jagged_peaks", "stony_peaks", "frozen_peaks", "eroded_badlands", "snowy_slopes", "grove"}, 0));
       specs.add(new Spec("nether", "nether", 4242L, 0, 256, null, 0));
       specs.add(new Spec("end", "end", 99L, 0, 256, null, 0));
-      specs.add(new Spec("caves", "overworld", 2024L, -64, 384, new String[] {"lush_caves", "dripstone_caves", "plains"}, 0));
-      specs.add(new Spec("floating_islands", "overworld", 31337L, -64, 384, new String[] {"plains", "desert", "ocean"}, 0));
+      // caves / floating_islands: no regular surface, so a few fixed chunks (different biomes come with different seeds/positions)
+      specs.add(new Spec("caves", "overworld", 2024L, -64, 384, new String[] {}, 6));
+      specs.add(new Spec("floating_islands", "overworld", 31337L, -64, 384, new String[] {}, 6));
+      // biomes the first scan did not reach in the default overworld seeds
+      specs.add(new Spec("overworld", "overworld", 2024L, -64, 384, new String[] {"warm_ocean", "wooded_badlands", "sulfur_caves"}, 0));
+      specs.add(new Spec("overworld", "overworld", 99L, -64, 384, new String[] {"sulfur_caves", "deep_frozen_ocean", "mangrove_swamp", "swamp"}, 0));
+      specs.add(new Spec("overworld", "overworld", 777L, -64, 384, new String[] {"warm_ocean", "wooded_badlands"}, 0));
+      specs.add(new Spec("overworld", "overworld", 31337L, -64, 384, new String[] {"warm_ocean", "wooded_badlands"}, 0));
       for (Spec spec : specs) runSpec(spec);
       for (String s : SETTINGS_ALL) {
          for (long seed : new long[] {12345L, -4172144997902289642L}) bands(s, seed);
@@ -177,7 +183,14 @@ public class MaterialSurfaceOracle {
          }
       }
       if (!remaining.isEmpty()) System.err.println("NOT FOUND " + spec.settings + ": " + remaining);
-      // keep at least one chunk when no explicit target was reachable
+      if (spec.fallbackCount > 0) {
+         RandomState rs = RandomState.create(noises, spec.seed, settings);
+         NoiseBasedChunkGenerator gen = new NoiseBasedChunkGenerator(source, Holder.direct(settings));
+         Random pick = new Random(spec.seed);
+         for (int i = 0; i < spec.fallbackCount; i++) {
+            runChunk(spec, spec.seed, rs, source, settings, gen, "fixed" + i, pick.nextInt(400) - 200, pick.nextInt(400) - 200);
+         }
+      }
    }
 
    static void runChunk(Spec spec, long seed, RandomState rs, BiomeSource source, NoiseGeneratorSettings settings,
@@ -187,7 +200,6 @@ public class MaterialSurfaceOracle {
       PalettedContainerFactory factory = PalettedContainerFactory.create(full);
       ProtoChunk chunk = new ProtoChunk(pos, UpgradeData.EMPTY, acc, factory, null);
       BiomeResolver resolver = source.createUncachedResolver(rs);
-      BiomeManager biomeManager = new BiomeManager(resolver, BiomeManager.obfuscateSeed(seed));
       int minQ = spec.minY >> 2, maxQ = minQ + (spec.height >> 2) - 1;
 
       out.println("CASE " + spec.settings + " " + seed + " " + cx + " " + cz + " " + spec.minY + " " + spec.height + " " + label);
@@ -195,11 +207,14 @@ public class MaterialSurfaceOracle {
       Map<String, Integer> palette = new LinkedHashMap<>();
       int qx0 = 4 * cx - 1, qz0 = 4 * cz - 1, sx = 6, sz = 6, sy = maxQ - minQ + 1;
       StringBuilder q = new StringBuilder("Q " + qx0 + " " + minQ + " " + qz0 + " " + sx + " " + sy + " " + sz);
+      Map<String, Holder<Biome>> tableHolders = new HashMap<>();
       int prev = -1, count = 0;
       for (int qy = minQ; qy <= maxQ; qy++) {
          for (int qz = qz0; qz < qz0 + sz; qz++) {
             for (int qx = qx0; qx < qx0 + sx; qx++) {
-               String n = biomeName(resolver.getNoiseBiome(qx, qy, qz));
+               Holder<Biome> holder = resolver.getNoiseBiome(qx, qy, qz);
+               tableHolders.put(qx + "," + qy + "," + qz, holder);
+               String n = biomeName(holder);
                int idx = palette.computeIfAbsent(n, k -> palette.size());
                if (idx == prev) { count++; } else { if (count > 0) q.append(' ').append(prev).append(':').append(count); prev = idx; count = 1; }
             }
@@ -223,6 +238,16 @@ public class MaterialSurfaceOracle {
       StringBuilder ps = new StringBuilder("POSS " + poss.size());
       for (int i : poss) ps.append(' ').append(i);
       out.println(ps);
+      // The RTree search keeps a thread-local "last leaf" shortcut, so on tied parameter points a fresh lookup may
+      // differ from the one recorded in the table. Vanilla's own buildSurface reads through this table-backed resolver
+      // so that the Rust side can be fed exactly the same biomes.
+      final int tqx0 = qx0, tqz0 = qz0, tqx1 = qx0 + sx, tqz1 = qz0 + sz;
+      BiomeResolver tableResolver = (qx, qy, qz) -> {
+         if (qx < tqx0 || qx >= tqx1 || qz < tqz0 || qz >= tqz1) throw new IllegalStateException("biome read outside table " + qx + " " + qz);
+         int cy = Math.max(minQ, Math.min(maxQ, qy));
+         return tableHolders.get(qx + "," + cy + "," + qz);
+      };
+      BiomeManager biomeManager = new BiomeManager(tableResolver, BiomeManager.obfuscateSeed(seed));
       Set<Holder<Biome>> possible = new HashSet<>();
       HolderGetter<Biome> biomes = full.lookupOrThrow(Registries.BIOME);
       List<String> palNames = new ArrayList<>(palette.keySet());

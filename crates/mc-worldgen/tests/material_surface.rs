@@ -359,7 +359,6 @@ fn run_case(world: &mut World, case: &Case, possible_mode: bool) -> BTreeSet<u32
 }
 
 #[test]
-#[ignore = "WIP: 3 blocks differ in overworld seed 12345 chunk (-9,-18), see RESUME-WorldgenMaterialAgent.md"]
 fn build_surface_matches_vanilla() {
     let (cases, _) = parse(&fixture("material_surface.txt.gz"));
     assert!(cases.len() >= 40, "{} cases", cases.len());
@@ -376,6 +375,68 @@ fn build_surface_matches_vanilla() {
     }
     eprintln!("{} chunks, {} changed blocks, {} distinct produced states", cases.len(), total_diff, produced.len());
     assert!(total_diff > 10_000, "surface rules must have changed blocks");
+
+    // Coverage accounting: every block state a vanilla surface rule can place must appear in some chunk diff.
+    let mut reachable = BTreeSet::new();
+    for name in ["overworld", "large_biomes", "amplified", "nether", "end", "caves", "floating_islands"] {
+        let rule = world.settings(name).material_rule.clone();
+        collect_result_states(&rule, &world.registries, &mut reachable);
+    }
+    let missing: Vec<String> = reachable
+        .iter()
+        .filter(|id| !produced.contains(id))
+        .map(|&id| state(id).to_string())
+        .collect();
+    eprintln!("rule result states never produced by the fixture chunks: {missing:?}");
+    let unexpected: Vec<&String> = missing.iter().filter(|m| !UNCOVERED.contains(&m.as_str())).collect();
+    assert!(unexpected.is_empty(), "rule results not covered by any fixture chunk: {unexpected:?}");
+}
+
+/// Rule result states the fixture chunks do not show in a diff: placements onto an identical state (netherrack /
+/// end_stone / lava floors) change nothing, the others need rare spots (frozen-ocean holes, badlands ceilings,
+/// nether forest wart ceilings, 3d calcite bands).
+const UNCOVERED: [&str; 8] = [
+    "minecraft:air",
+    "minecraft:lava[level=0]",
+    "minecraft:netherrack",
+    "minecraft:end_stone",
+    "minecraft:red_sandstone",
+    "minecraft:nether_wart_block",
+    "minecraft:warped_wart_block",
+    "minecraft:calcite",
+];
+
+fn collect_result_states(rule: &serde_json::Value, registries: &WorldgenRegistries, out: &mut BTreeSet<u32>) {
+    use serde_json::Value;
+    match rule {
+        Value::String(name) => {
+            if let Some(json) = registries.raw("worldgen/material_rule", &Identifier::parse(name).unwrap()) {
+                collect_result_states(&json, registries, out);
+            }
+        }
+        Value::Object(map) => {
+            match map.get("type").and_then(Value::as_str) {
+                Some("minecraft:block") => {
+                    let spec = mc_worldgen::noise_settings::BlockStateSpec::from_json(&map["result_state"]).unwrap();
+                    out.insert(spec.resolve().unwrap().id());
+                }
+                Some("minecraft:ore_vein") => {
+                    for key in ["ore_block", "raw_ore_block", "filler_block"] {
+                        let spec = mc_worldgen::noise_settings::BlockStateSpec::from_json(&map[key]).unwrap();
+                        out.insert(spec.resolve().unwrap().id());
+                    }
+                }
+                Some("minecraft:sequence") => {
+                    for r in map["sequence"].as_array().unwrap() {
+                        collect_result_states(r, registries, out);
+                    }
+                }
+                Some("minecraft:condition") => collect_result_states(&map["then_run"], registries, out),
+                _ => {}
+            }
+        }
+        _ => {}
+    }
 }
 
 #[test]
