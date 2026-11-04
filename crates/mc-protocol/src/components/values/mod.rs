@@ -40,5 +40,15 @@ pub(crate) fn validate_components(stack: &ItemStack) -> Result<(), String> {
     if components.has(MAX_DAMAGE.id()) && *components.get_or_default(&MAX_STACK_SIZE, &1) > 1 {
         return Err("Item cannot be both damageable and stackable".into());
     }
+    if let Some(container) = components.get(&CONTAINER) {
+        containers::validate_contained_item_sizes(container.non_empty_items())?;
+    }
+    if let Some(bundle) = components.get(&BUNDLE_CONTENTS) {
+        containers::validate_contained_item_sizes(bundle.items())?;
+        bundle.weight()?;
+    }
+    if let Some(charged) = components.get(&CHARGED_PROJECTILES) {
+        containers::validate_contained_item_sizes(&charged.items)?;
+    }
     Ok(())
 }

@@ -181,7 +181,23 @@ public class ComponentGolden {
          + "\tmaxstack=" + (s.isEmpty() ? 0 : s.getMaxStackSize()) + "\t" + valid + "\tleft=" + left;
    }
 
+   /** `DataComponents.ENCODER_CACHE` returns the first encoding of an equal value (Map equality ignores order), so a record's output
+    *  would depend on earlier records; clear it before every record. */
+   static void clearEncoderCache() {
+      try {
+         java.lang.reflect.Field f = DataComponents.class.getDeclaredField("ENCODER_CACHE");
+         f.setAccessible(true);
+         Object ec = f.get(null);
+         java.lang.reflect.Field cf = ec.getClass().getDeclaredField("cache");
+         cf.setAccessible(true);
+         ((com.google.common.cache.Cache<?, ?>)cf.get(ec)).invalidateAll();
+      } catch (ReflectiveOperationException e) {
+         throw new IllegalStateException(e);
+      }
+   }
+
    static String process(String kind, String name, String payload) {
+      clearEncoderCache();
       try {
          if (kind.startsWith("stack") || kind.startsWith("ostack")) return stack(kind, payload);
          if (kind.startsWith("patch")) return patch(kind, payload);
@@ -234,6 +250,7 @@ public class ComponentGolden {
                String hv = hex(v);
                mutations.clear();
                String rr;
+               clearEncoderCache();
                try {
                   rr = component("wire", f[1], hv, false);
                } catch (Throwable t) {
