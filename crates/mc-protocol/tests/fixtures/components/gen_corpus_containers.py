@@ -67,7 +67,12 @@ bee_entity = {"id": P + "bee", "Age": 0, "HasNectar": 0, "Pos": [1.0, 2.0, 3.0]}
 bees_bases = [[], [{"entity_data": bee_entity, "ticks_in_hive": 5, "min_ticks_in_hive": 600}],
               [{"entity_data": {"id": P + "bee"}, "ticks_in_hive": 0, "min_ticks_in_hive": 2400}] * 2]
 
+lock_bases = [{}, {"items": P + "stone"}, {"items": [P + "stone", P + "dirt"]}, {"items": "#minecraft:logs"}, {"count": 5}, {"count": {"min": 1, "max": 3}},
+              {"components": {P + "damage": 0}}, {"predicates": {P + "damage": {"damage": {"min": 1}}}}, {"items": P + "tripwire_hook", "components": {P + "custom_name": "Key"}},
+              {"items": [], "count": {"max": 0}}]
+
 components = {
+    P + "lock": (lock_bases, ["#minecraft:nope", {"min": 1}]),
     P + "container": (container_bases, [slot(0, "minecraft:stone"), {"slot": 3}, {"item": "minecraft:stone"}]),
     P + "bundle_contents": (bundle_bases, [item("stone", 100), item("air")]),
     P + "charged_projectiles": (charged_bases, []),
@@ -165,6 +170,17 @@ r("json", "debug_stick_state", '{"stone":"facing","minecraft:stone":"facing"}')
 r("json", "debug_stick_state", '{"minecraft:oak_stairs":"facing","minecraft:oak_stairs":"half"}')
 r("json", "debug_stick_state", '{"minecraft:oak_stairs":1}')
 r("json", "debug_stick_state", '{"minecraft:nope":"facing"}')
+# lock
+r("json", "lock", '"minecraft:stone"')
+r("json", "lock", '[]')
+r("json", "lock", '{"items":"minecraft:nope"}')
+r("json", "lock", '{"count":-1}')
+r("json", "lock", '{"count":{"min":2,"max":1}}')
+r("json", "lock", '{"unknown":1}')
+r("snbt", "lock", '{items:"minecraft:stone",count:3b}')
+r("snbt", "lock", '{count:{min:1.5f}}')
+r("snbt", "lock", '{}')
+r("snbt", "lock", '{components:{"minecraft:custom_data":{a:1}}}')
 # recipes
 r("json", "recipes", '["minecraft:stick","minecraft:stick"]')
 r("json", "recipes", '"minecraft:stick"')
@@ -236,6 +252,7 @@ s('{id:"minecraft:compass",count:1,components:{"minecraft:lodestone_tracker":{ta
 s('{id:"minecraft:filled_map",count:1,components:{"minecraft:map_decorations":{a:{type:"minecraft:player",x:1.0d,z:2.0d,rotation:3.0f}}}}')
 s('{id:"minecraft:chest",count:1,components:{"minecraft:container_loot":{loot_table:"minecraft:chests/simple_dungeon",seed:12345L}}}')
 s('{id:"minecraft:debug_stick",count:1,components:{"minecraft:debug_stick_state":{"minecraft:oak_stairs":"facing"}}}')
+s('{id:"minecraft:chest",count:1,components:{"minecraft:lock":{items:"minecraft:tripwire_hook"}}}')
 s('{id:"minecraft:knowledge_book",count:1,components:{"minecraft:recipes":["minecraft:stick"]}}')
 s('{id:"minecraft:bee_nest",count:1,components:{"minecraft:bees":[{entity_data:{id:"minecraft:bee"},ticks_in_hive:0,min_ticks_in_hive:600}]}}')
 s('{id:"minecraft:sulfur_cube_spawn_egg",count:1,components:{"minecraft:sulfur_cube_content":{id:"minecraft:stone",count:2}}}')
