@@ -4,6 +4,7 @@
 //! `registry`). See `ARCHITECTURE.md` ("mc-game design") for the threading/ownership contract.
 
 pub mod commands;
+pub mod crash_report;
 pub mod registry;
 pub mod server;
 pub mod util;

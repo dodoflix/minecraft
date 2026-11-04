@@ -1,7 +1,7 @@
 //! `MinecraftServer`: owned by the game thread. Skeleton owned by the lifecycle slice (tick loop, task queue,
 //! level container). Other slices add their state as typed fields (each type lives in its own module).
 
-use super::shared::{ServerShared, ServerTask};
+use super::shared::{ServerShared, TickTask};
 use crate::server::level::ServerLevel;
 use crate::world::level::DimensionKey;
 use indexmap::IndexMap;
@@ -10,7 +10,7 @@ use std::sync::mpsc::Receiver;
 
 pub struct MinecraftServer {
     pub shared: Arc<ServerShared>,
-    tasks: Receiver<ServerTask>,
+    tasks: Receiver<TickTask>,
     /// `levels` in vanilla iteration order. A level is `None` only while it is taken out for its own tick
     /// (see [`MinecraftServer::with_level`]).
     levels: IndexMap<DimensionKey, Option<Box<ServerLevel>>>,
@@ -18,14 +18,14 @@ pub struct MinecraftServer {
 }
 
 impl MinecraftServer {
-    pub fn new(shared: Arc<ServerShared>, tasks: Receiver<ServerTask>) -> Self {
+    pub fn new(shared: Arc<ServerShared>, tasks: Receiver<TickTask>) -> Self {
         Self { shared, tasks, levels: IndexMap::new(), tick_count: 0 }
     }
 
     /// Run everything queued with `ServerShared::execute` (`runAllTasks`).
     pub fn run_all_tasks(&mut self) {
         while let Ok(task) = self.tasks.try_recv() {
-            task(self);
+            (task.run)(self);
         }
     }
 
