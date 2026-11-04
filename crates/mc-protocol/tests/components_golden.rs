@@ -247,7 +247,7 @@ fn vanilla_registry_context_matches_server() {
         assert_eq!(got, want, "registry {key}");
         checked += 1;
     }
-    assert!(checked >= 20, "only {checked} registries compared");
+    assert_eq!(checked, REGISTRIES.lines().count(), "every server registry must be known to RegistryContext::vanilla()");
 }
 
 /// Every vanilla data component type has a definition whose persistent/network flags equal the extracted vanilla ones.
