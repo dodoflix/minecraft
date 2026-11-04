@@ -9,11 +9,12 @@
 //! registrations), from the module that implements it. Items without a registration use [`PlainItem`] = vanilla's
 //! base `Item`.
 //!
-//! The defaults implement the data-component driven base behavior of `Item` (tool, consumable, blocks_attacks,
-//! kinetic_weapon, ...). Methods that need entity/level APIs that do not exist yet (`use`, `useOn`, `hurtEnemy`,
-//! `mineBlock`, `inventoryTick`, `interactLivingEntity`, `finishUsingItem`, `releaseUsing`, `onUseTick`, `onDestroyed`)
-//! are added by the item-behaviour wave together with the player/entity API they take; every method has a default so
-//! adding one never touches existing implementors.
+//! The defaults implement the data-component driven base behavior of `Item` (tool, consumable, equippable swap,
+//! blocks_attacks, kinetic_weapon, block_transformer hook, ...). `ItemStack`-level wrappers (`item_stack_use_on`,
+//! `item_stack_use`, `finish_using_item`, `hurt_and_break`, ...) live in `use_item.rs`.
+//!
+//! Mutable stacks: vanilla mutates the `ItemStack` object held by the player. Behaviour methods that act on "the held
+//! stack" take it as `&mut ItemStack` (a copy the caller writes back) or re-read it from the player's hand.
 
 use super::{ClickAction, ConsumableExt, InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext, consumable, tool};
 use crate::server::level::ServerLevel;
@@ -92,6 +93,10 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     fn interact_living_entity(&self, _stack: &mut ItemStack, _player: &mut ServerPlayer, _target: &mut dyn Entity, _hand: InteractionHand) -> InteractionResult {
         InteractionResult::PASS
     }
+
+    /// `Item.onDestroyed(itemEntity)`: the item entity holding `stack` was destroyed at `pos` (shulker boxes and
+    /// bundles drop their contents). The caller (ItemEntity damage) writes the changed stack back.
+    fn on_destroyed(&self, _level: &mut ServerLevel, _stack: &mut ItemStack, _pos: mc_core::phys::Vec3) {}
 
     /// `Item.canDestroyBlock(stack, state, level, pos, user)`.
     fn can_destroy_block(&self, stack: &ItemStack, _state: BlockState, user_is_creative: bool) -> bool {

@@ -26,3 +26,11 @@ pub fn create_filled_result(mut item_stack: ItemStack, player: &mut dyn MenuPlay
         }
     }
 }
+
+/// `ItemUtils.onContainerDestroyed(container, contents)`: spawns each stack as an item entity at `pos`.
+pub fn on_container_destroyed(level: &mut crate::server::level::ServerLevel, pos: mc_core::phys::Vec3, contents: Vec<ItemStack>) {
+    for stack in contents {
+        let entity = crate::world::entity::item::ItemEntity::with_stack(level, pos.x, pos.y, pos.z, stack);
+        level.add_fresh_entity(Box::new(entity));
+    }
+}

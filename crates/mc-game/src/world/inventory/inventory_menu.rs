@@ -114,8 +114,9 @@ impl AbstractContainerMenu for InventoryMenu {
         let mut clicked = ItemStack::empty();
         let has = self.base.with_slot(player, slot_index, |s, e| s.has_item(e));
         if has {
-            // Detach the slot's stack: `moveItemStackTo` mutates it (Java mutates the slot's own object).
-            let mut stack = self.base.with_slot(player, slot_index, |s, e| s.with_item_mut(e, std::mem::take));
+            // Work on a copy: Java mutates the slot's own object, but the branch checks below read the slot (e.g.
+            // `!slots.get(45).hasItem()`), which must still hold the stack; the remainder is written back afterwards.
+            let mut stack = self.base.with_slot(player, slot_index, |s, e| s.get_item(e));
             clicked = stack.copy();
             let eq_slot = player.get_equipment_slot_for_item(&clicked);
             let moved = if slot_index == 0 {
@@ -139,8 +140,7 @@ impl AbstractContainerMenu for InventoryMenu {
                 self.move_item_stack_to(player, &mut stack, 9, 45, false)
             };
             if !moved {
-                // Java mutated the slot's stack in place before returning EMPTY: put the (possibly changed) stack back.
-                self.base.with_slot(player, slot_index, |s, e| s.with_item_mut(e, |t| *t = stack));
+                // `moveItemStackTo` returned false: nothing was changed.
                 return ItemStack::empty();
             }
             if stack.is_empty() {

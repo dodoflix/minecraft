@@ -228,6 +228,13 @@ impl ItemBehaviour for BundleItem {
         }
     }
 
+    /// `BundleItem.onDestroyed(entity)`.
+    fn on_destroyed(&self, level: &mut ServerLevel, stack: &mut ItemStack, pos: mc_core::phys::Vec3) {
+        let Some(contents) = stack.get(&BUNDLE_CONTENTS).cloned() else { return };
+        stack.set(BUNDLE_CONTENTS, BundleContents::new(Vec::new()));
+        super::on_container_destroyed(level, pos, contents.items().iter().map(ItemStackTemplate::create).collect());
+    }
+
     fn get_use_duration(&self, _stack: &ItemStack) -> i32 {
         200
     }

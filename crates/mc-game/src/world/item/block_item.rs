@@ -16,7 +16,7 @@ use mc_core::phys::BlockHitResult;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::{DataComponentType, GameEvent, Item, SoundEvent};
-use mc_protocol::components::{BLOCK_ENTITY_DATA, BLOCK_STATE};
+use mc_protocol::components::{BLOCK_ENTITY_DATA, BLOCK_STATE, CONTAINER, ItemContainerContents};
 use mc_protocol::packets::play::SoundSource;
 use mc_world::level_storage::FeatureFlagSet;
 
@@ -360,6 +360,16 @@ impl ItemBehaviour for BlockItem {
 
     fn can_fit_inside_container_items(&self) -> bool {
         !self.block.data().name.ends_with("shulker_box")
+    }
+
+    /// `BlockItem.onDestroyed(entity)`: container contents drop out.
+    fn on_destroyed(&self, level: &mut ServerLevel, stack: &mut ItemStack, pos: mc_core::phys::Vec3) {
+        let contents: Vec<ItemStack> = match stack.get(&CONTAINER) {
+            Some(c) => c.non_empty_items().map(|t| t.create()).collect(),
+            None => return,
+        };
+        stack.set(CONTAINER, ItemContainerContents::default());
+        super::on_container_destroyed(level, pos, contents);
     }
 }
 

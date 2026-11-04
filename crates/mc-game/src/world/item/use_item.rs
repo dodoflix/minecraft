@@ -251,3 +251,19 @@ pub fn tool_can_destroy_block(stack: &ItemStack, user_is_creative: bool) -> bool
         _ => true,
     }
 }
+
+/// `ItemStack.onDestroyed(itemEntity)`.
+pub fn on_destroyed(stack: &mut ItemStack, level: &mut ServerLevel, pos: mc_core::phys::Vec3) {
+    behaviour(stack.item()).on_destroyed(level, stack, pos);
+}
+
+/// `ItemStack.interactLivingEntity(player, target, hand)` (the `equippable.equip_on_interact` part —
+/// saddles/armor put on a mob — needs the mob equipment API of the entity slice).
+pub fn interact_living_entity(stack: &mut ItemStack, player: &mut ServerPlayer, target: &mut dyn Entity, hand: InteractionHand) -> InteractionResult {
+    behaviour(stack.item()).interact_living_entity(stack, player, target, hand)
+}
+
+/// `ItemStack.inventoryTick(level, owner, slot)` for a non-player owner (players: `ServerPlayer::tick_inventory`).
+pub fn inventory_tick(stack: &mut ItemStack, level: &mut ServerLevel, owner: &mut dyn Entity, slot: Option<EquipmentSlot>) {
+    behaviour(stack.item()).inventory_tick(stack, level, owner, slot);
+}

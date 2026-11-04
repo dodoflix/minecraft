@@ -101,6 +101,7 @@ impl ServerPlayer {
         self.touch_nearby_entities(level);
         self.player.cooldowns.tick();
         self.flush_item_cooldown_packets();
+        self.flush_pending_drops(level);
     }
 
     /// `Player.aiStep` pickup part: `playerTouch` for every entity around the player (experience orbs: a random one).
