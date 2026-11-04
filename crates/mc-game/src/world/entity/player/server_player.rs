@@ -13,15 +13,8 @@ use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_protocol::codec::{GameProfile, GlobalPos};
 use mc_protocol::packets::common::{ChatVisibility, ClientInformation, ParticleStatus};
 use mc_protocol::packets::play::Input;
-use mc_world::level_storage::RespawnData;
+use crate::world::entity::respawn::RespawnConfig;
 use std::any::Any;
-
-/// `ServerPlayer.RespawnConfig`.
-#[derive(Clone, Debug, PartialEq)]
-pub struct RespawnConfig {
-    pub respawn_data: RespawnData,
-    pub forced: bool,
-}
 
 /// `WardenSpawnTracker` state (the tracker logic belongs to the warden slice).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -225,7 +218,7 @@ impl ServerPlayer {
     /// (`PlayerDataStorage.save`). `lookup` resolves the vehicle chain for `RootVehicle`.
     pub fn save_player_data(&self, lookup: &EntityLookupFn<'_>) -> CompoundTag {
         let mut tag = CompoundTag::new();
-        entity::save_without_id(self, &mut tag, lookup);
+        Entity::save_without_id(self, &mut tag, lookup);
         tag
     }
 }
@@ -316,9 +309,11 @@ impl Entity for ServerPlayer {
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         let p = &self.player;
-        living::add_additional_save_data(&p.living, p.get_absorption_amount(), out);
+        living::add_additional_save_data(&p.living, p.get_absorption_amount(), p.inventory.equipment(), out);
         // Player
         out.put_int("DataVersion", mc_world::region::entity_storage::CURRENT_DATA_VERSION);
+        out.put("Inventory", p.inventory.save());
+        out.put_int("SelectedItemSlot", p.inventory.get_selected_slot());
         out.put_short("SleepTimer", p.sleep_counter as i16);
         out.put_float("XpP", p.experience_progress);
         out.put_int("XpLevel", p.experience_level);
@@ -327,6 +322,7 @@ impl Entity for ServerPlayer {
         out.put_int("Score", p.get_score());
         p.food_data.add_additional_save_data(out);
         out.put("abilities", Tag::Compound(p.abilities.pack()));
+        out.put("EnderItems", crate::world::container::save_slots(p.ender_chest.get_items().iter().enumerate()));
         if let Some(pos) = &p.last_death_location {
             let mut g = CompoundTag::new();
             g.put_string("dimension", pos.dimension.to_string());
@@ -351,12 +347,7 @@ impl Entity for ServerPlayer {
             out.put("recipeBook", book.clone());
         }
         if let Some(r) = &self.respawn_config {
-            let mut t = match r.respawn_data.encode() {
-                Tag::Compound(c) => c,
-                _ => CompoundTag::new(),
-            };
-            t.put_boolean("forced", r.forced);
-            out.put("respawn", Tag::Compound(t));
+            out.put("respawn", r.encode());
         }
         out.put_boolean("spawn_extra_particles_on_fall", self.spawn_extra_particles_on_fall);
         if let Some(pos) = self.raid_omen_position {
@@ -383,8 +374,27 @@ impl Entity for ServerPlayer {
     }
 
     fn read_additional_save_data(&mut self, input: &CompoundTag) {
-        let absorption = living::read_additional_save_data(&mut self.player.living, input);
+        let (absorption, equipment) = living::read_additional_save_data(&mut self.player.living, input);
+        self.player.inventory.equipment_mut().set_all(&equipment);
         // Player
+        if let Some(list) = input.get_list("Inventory") {
+            self.player.inventory.load(list);
+        } else {
+            self.player.inventory.load(&ListTag::new());
+        }
+        let _ = self.player.inventory.set_selected_slot(input.get_int_or("SelectedItemSlot", 0));
+        {
+            use crate::world::container::Container;
+            let chest = &mut self.player.ender_chest;
+            chest.clear_content();
+            if let Some(list) = input.get_list("EnderItems") {
+                for (slot, stack) in crate::world::container::load_slots(list) {
+                    if slot < chest.get_container_size() {
+                        chest.set_item(slot, stack);
+                    }
+                }
+            }
+        }
         let uuid = self.player.game_profile.id;
         self.player.living.entity.uuid = uuid;
         self.player.sleep_counter = i32::from(input.get_short_or("SleepTimer", 0));
@@ -424,11 +434,7 @@ impl Entity for ServerPlayer {
         self.current_explosion_impact_pos = entity::read_vec3(input.get("last_explosion_impact_pos"));
         self.seen_credits = input.get_boolean_or("seenCredits", false);
         self.recipe_book = input.get("recipeBook").cloned();
-        self.respawn_config = input.get("respawn").and_then(|t| {
-            let data = RespawnData::decode(t).ok()?;
-            let forced = t.as_compound()?.get_boolean_or("forced", false);
-            Some(RespawnConfig { respawn_data: data, forced })
-        });
+        self.respawn_config = input.get("respawn").and_then(|t| RespawnConfig::decode(t).ok());
         self.spawn_extra_particles_on_fall = input.get_boolean_or("spawn_extra_particles_on_fall", false);
         self.raid_omen_position = living::read_block_pos(input.get("raid_omen_position"));
         let current = input.get("playerGameType").and_then(|t| t.as_number()).map(|n| game_type_by_id(n.int_value()));

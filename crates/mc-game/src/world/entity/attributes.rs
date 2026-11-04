@@ -260,9 +260,13 @@ impl AttributeMap {
 
     /// `getValue(attribute)`; panics like vanilla when the type doesn't have the attribute.
     pub fn get_value(&mut self, attribute: Attribute) -> f64 {
-        match self.get_instance(attribute) {
+        // does not create the instance (only `getInstance` does): the supplier's default is answered directly
+        match self.attributes.get_mut(&attribute) {
             Some(i) => i.get_value(),
-            None => panic!("Can't find attribute {}", attribute.identifier()),
+            None => match self.supplier_base(attribute) {
+                Some(base) => sanitize_value(attribute, base),
+                None => panic!("Can't find attribute {}", attribute.identifier()),
+            },
         }
     }
 

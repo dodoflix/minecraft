@@ -7,6 +7,9 @@ pub mod server_player;
 pub use abilities::Abilities;
 pub use food_data::FoodData;
 pub use server_player::ServerPlayer;
+use crate::world::container::SimpleContainer;
+use crate::world::inventory::PlayerMenus;
+use inventory::Inventory;
 
 use super::dimensions::{EntityAttachments, EntityDimensions};
 use super::living::LivingEntityData;
@@ -54,6 +57,10 @@ const AVATAR_POSES_KNOWN: [Pose; 7] = [Pose::Standing, Pose::Sleeping, Pose::Fal
 pub struct PlayerData {
     pub living: LivingEntityData,
     pub game_profile: GameProfile,
+    pub inventory: Inventory,
+    /// `enderChestInventory` (27 slots).
+    pub ender_chest: SimpleContainer,
+    pub menus: PlayerMenus,
     pub abilities: Abilities,
     pub food_data: FoodData,
     pub experience_level: i32,
@@ -86,6 +93,9 @@ impl PlayerData {
         Self {
             living,
             game_profile,
+            inventory: Inventory::new(),
+            ender_chest: SimpleContainer::new(27),
+            menus: PlayerMenus::new(),
             abilities: Abilities::default(),
             food_data: FoodData::default(),
             experience_level: 0,

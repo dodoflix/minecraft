@@ -653,9 +653,22 @@ pub trait Entity: Any {
         server_entity.add_entity_packet(self.id(), self.uuid(), self.get_type(), 0)
     }
 
+    /// `getItemBySlot(slot)` (empty for non-living entities).
+    fn get_item_by_slot(&self, slot: super::equipment::EquipmentSlot) -> crate::world::item::ItemStack {
+        self.living().map(|l| l.equipment.get(slot).clone()).unwrap_or_default()
+    }
+
     /// The `ClientboundSetEquipmentPacket` of a pairing (`None` when nothing is equipped / not living).
     fn equipment_packet(&self) -> Option<mc_protocol::packets::play::ClientboundSetEquipmentPacket> {
-        None
+        self.living()?;
+        let slots: Vec<_> = super::equipment::EquipmentSlot::VALUES
+            .into_iter()
+            .filter_map(|slot| {
+                let stack = self.get_item_by_slot(slot);
+                (!stack.is_empty()).then(|| (protocol_slot(slot), stack))
+            })
+            .collect();
+        (!slots.is_empty()).then(|| mc_protocol::packets::play::ClientboundSetEquipmentPacket { entity: self.id(), slots })
     }
 
     /// `broadcastToPlayer(player)`.
@@ -1231,3 +1244,19 @@ pub fn common_tick<E: Entity + ?Sized>(entity: &mut E) {
 /// Silence unused warnings for items used by sibling modules.
 #[allow(dead_code)]
 fn _uses(_: EntityAttachment) {}
+
+/// `EquipmentSlot` -> the wire enum (`STREAM_CODEC` writes the slot id).
+pub fn protocol_slot(slot: super::equipment::EquipmentSlot) -> mc_protocol::packets::play::EquipmentSlot {
+    use super::equipment::EquipmentSlot as S;
+    use mc_protocol::packets::play::EquipmentSlot as P;
+    match slot {
+        S::MainHand => P::MainHand,
+        S::OffHand => P::OffHand,
+        S::Feet => P::Feet,
+        S::Legs => P::Legs,
+        S::Chest => P::Chest,
+        S::Head => P::Head,
+        S::Body => P::Body,
+        S::Saddle => P::Saddle,
+    }
+}
