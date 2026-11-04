@@ -1,0 +1,144 @@
+@@ empty
+IN {}
+levelName=
+gameType=0
+difficulty=normal,false,false
+allowCommands=false
+dataPacks=[vanilla]|[]
+features=[minecraft:vanilla] experimental=false
+spawn=minecraft:overworld,0,0,0,0,0
+time=0
+singleplayer=null
+version=0 initialized=true wasModded=false
+brands=[]
+removed=[]
+levelVersion=0,0,,0,main,false
+OUT {DataVersion:5023,GameType:0,LastPlayed:0L,LevelName:"",ServerBrands:[],Time:0L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:0b,allowCommands:0b,difficulty_settings:{difficulty:"normal",hardcore:0b,locked:0b},initialized:1b,spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;0,0,0],yaw:0.0f},version:19133,version_history:[5023]}
+@@ vanilla_like
+IN {DataPacks:{Disabled:["minecart_improvements"],Enabled:["vanilla"]},DataVersion:5023,GameType:1,LastPlayed:1793788769420L,LevelName:"world",ServerBrands:["vanilla"],Time:1199L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:0b,allowCommands:0b,difficulty_settings:{difficulty:"normal",hardcore:0b,locked:0b},initialized:1b,spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;96,145,-32],yaw:0.0f},version:19133,version_history:[5023]}
+levelName=world
+gameType=1
+difficulty=normal,false,false
+allowCommands=false
+dataPacks=[vanilla]|[minecart_improvements]
+features=[minecraft:vanilla] experimental=false
+spawn=minecraft:overworld,96,145,-32,0,0
+time=1199
+singleplayer=null
+version=19133 initialized=true wasModded=false
+brands=[vanilla]
+removed=[]
+levelVersion=19133,1793788769420,26.3,5023,main,false
+OUT {DataPacks:{Disabled:["minecart_improvements"],Enabled:["vanilla"]},DataVersion:5023,GameType:1,LastPlayed:0L,LevelName:"world",ServerBrands:["vanilla"],Time:1199L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:0b,allowCommands:0b,difficulty_settings:{difficulty:"normal",hardcore:0b,locked:0b},initialized:1b,spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;96,145,-32],yaw:0.0f},version:19133,version_history:[5023]}
+@@ rich
+IN {DataPacks:{Disabled:["a","b"],Enabled:["vanilla","file/x"]},GameType:3,LastPlayed:5L,LevelName:"  Rich ☃ World ",Player:{Health:20.0f},ServerBrands:["vanilla","fabric","vanilla",5,"x"],Time:-77L,Version:{Id:4000,Name:"1.21.9",Series:"main",Snapshot:1b},WasModded:1b,WorldGenSettings:{seed:1L},allowCommands:1b,custom_unknown:[1,2,3],difficulty_settings:{difficulty:"hard",hardcore:1b,locked:1b},enabled_features:["minecraft:vanilla","minecraft:trade_rebalance","minecraft:redstone_experiments","minecraft:minecart_improvements"],initialized:0b,removed_features:["minecraft:a","b","minecraft:zz","q","abc","minecraft:redstone_experiments","u","minecraft:v","w","x","y","z","minecraft:aa","minecraft:bb","minecraft:cc"],singleplayer_uuid:[I;1,-2,3,-4],spawn:{dimension:"minecraft:the_nether",pitch:-90.0f,pos:[I;-1,2,3],yaw:-180.0f},version:19133,version_history:[3000,4000]}
+levelName=  Rich ☃ World 
+gameType=3
+difficulty=hard,true,true
+allowCommands=true
+dataPacks=[vanilla, file/x]|[a, b]
+features=[minecraft:minecart_improvements, minecraft:redstone_experiments, minecraft:trade_rebalance, minecraft:vanilla] experimental=true
+spawn=minecraft:the_nether,-1,2,3,c3340000,c2b40000
+time=-77
+singleplayer=00000001-ffff-fffe-0000-0003fffffffc
+version=19133 initialized=false wasModded=true
+brands=[vanilla, fabric, x]
+removed=[abc, b, minecraft:a, minecraft:aa, minecraft:bb, minecraft:cc, minecraft:redstone_experiments, minecraft:v, minecraft:zz, q, u, w, x, y, z]
+levelVersion=19133,5,1.21.9,4000,main,true
+OUT {DataPacks:{Disabled:["a","b"],Enabled:["vanilla","file/x"]},DataVersion:5023,GameType:3,LastPlayed:0L,LevelName:"  Rich ☃ World ",ServerBrands:["vanilla","fabric","x"],Time:-77L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:1b,allowCommands:1b,difficulty_settings:{difficulty:"hard",hardcore:1b,locked:1b},enabled_features:["minecraft:redstone_experiments","minecraft:vanilla","minecraft:trade_rebalance","minecraft:minecart_improvements"],initialized:0b,removed_features:["minecraft:a","b","abc","q","minecraft:redstone_experiments","u","w","x","y","z","minecraft:zz","minecraft:v","minecraft:aa","minecraft:bb","minecraft:cc"],singleplayer_uuid:[I;1,-2,3,-4],spawn:{dimension:"minecraft:the_nether",pitch:-90.0f,pos:[I;-1,2,3],yaw:-180.0f},version:19133,version_history:[3000,4000,5023]}
+@@ rich_features_pair
+IN {DataPacks:{Disabled:[],Enabled:["vanilla"]},enabled_features:["minecraft:minecart_improvements","minecraft:vanilla"]}
+levelName=
+gameType=0
+difficulty=normal,false,false
+allowCommands=false
+dataPacks=[vanilla]|[]
+features=[minecraft:minecart_improvements, minecraft:vanilla] experimental=true
+spawn=minecraft:overworld,0,0,0,0,0
+time=0
+singleplayer=null
+version=0 initialized=true wasModded=false
+brands=[]
+removed=[]
+levelVersion=0,0,,0,main,false
+OUT {DataPacks:{Disabled:[],Enabled:["vanilla"]},DataVersion:5023,GameType:0,LastPlayed:0L,LevelName:"",ServerBrands:[],Time:0L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:0b,allowCommands:0b,difficulty_settings:{difficulty:"normal",hardcore:0b,locked:0b},enabled_features:["minecraft:vanilla","minecraft:minecart_improvements"],initialized:1b,spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;0,0,0],yaw:0.0f},version:19133,version_history:[5023]}
+@@ bad_types
+IN {DataPacks:{Enabled:["x"]},GameType:7,LevelName:5,ServerBrands:"notalist",Time:"x",Version:"str",WasModded:3,allowCommands:2.5d,difficulty_settings:{difficulty:"insane",hardcore:1b,locked:0b},enabled_features:["minecraft:nope"],initialized:"x",singleplayer_uuid:[I;1,2,3],spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;1,2,3],yaw:200.0f},version:"v",version_history:[5,"x",2.7d,9L]}
+levelName=
+gameType=0
+difficulty=normal,false,false
+allowCommands=true
+dataPacks=[vanilla]|[]
+features=[minecraft:vanilla] experimental=false
+spawn=minecraft:overworld,0,0,0,0,0
+time=0
+singleplayer=null
+version=0 initialized=true wasModded=true
+brands=[]
+removed=[]
+levelVersion=0,0,26.3,5023,main,false
+OUT {DataVersion:5023,GameType:0,LastPlayed:0L,LevelName:"",ServerBrands:[],Time:0L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:1b,allowCommands:1b,difficulty_settings:{difficulty:"normal",hardcore:0b,locked:0b},initialized:1b,spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;0,0,0],yaw:0.0f},version:19133,version_history:[5,-1,2,9,5023]}
+@@ bad_types2
+IN {DataPacks:{Disabled:[],Enabled:["x",1]},GameType:-1,ServerBrands:[I;1],Version:{Id:"x",Name:3},allowCommands:0.0d,difficulty_settings:{difficulty:"easy",hardcore:2b,locked:0.5d},enabled_features:["minecraft:trade_rebalance"],removed_features:[],singleplayer_uuid:[1,2,3,4],spawn:{dimension:"Bad Dim",pitch:0.0f,pos:[I;1,2,3],yaw:1.0f},version:19132,version_history:[I;7,8]}
+levelName=
+gameType=0
+difficulty=easy,true,true
+allowCommands=false
+dataPacks=[vanilla]|[]
+features=[minecraft:trade_rebalance] experimental=true
+spawn=minecraft:overworld,0,0,0,0,0
+time=0
+singleplayer=00000001-0000-0002-0000-000300000004
+version=19132 initialized=true wasModded=false
+brands=[]
+removed=[]
+levelVersion=19132,0,26.3,5023,main,false
+OUT {DataVersion:5023,GameType:0,LastPlayed:0L,LevelName:"",ServerBrands:[],Time:0L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:0b,allowCommands:0b,difficulty_settings:{difficulty:"easy",hardcore:1b,locked:1b},enabled_features:["minecraft:trade_rebalance"],initialized:1b,singleplayer_uuid:[I;1,2,3,4],spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;0,0,0],yaw:0.0f},version:19133,version_history:[7,8,5023]}
+@@ spawn_list_pos
+IN {DataPacks:{Disabled:[],Enabled:[]},GameType:2,Version:{Id:5023},removed_features:["only"],spawn:{dimension:"minecraft:overworld",pitch:45.5f,pos:[1,2.9d,3L],yaw:-12.25f}}
+levelName=
+gameType=2
+difficulty=normal,false,false
+allowCommands=false
+dataPacks=[]|[]
+features=[minecraft:vanilla] experimental=false
+spawn=minecraft:overworld,1,2,3,c1440000,42360000
+time=0
+singleplayer=null
+version=0 initialized=true wasModded=false
+brands=[]
+removed=[only]
+levelVersion=0,0,26.3,5023,main,false
+OUT {DataPacks:{Disabled:[],Enabled:[]},DataVersion:5023,GameType:2,LastPlayed:0L,LevelName:"",ServerBrands:[],Time:0L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:0b,allowCommands:0b,difficulty_settings:{difficulty:"normal",hardcore:0b,locked:0b},initialized:1b,removed_features:["only"],spawn:{dimension:"minecraft:overworld",pitch:45.5f,pos:[I;1,2,3],yaw:-12.25f},version:19133,version_history:[5023]}
+@@ flags_0
+FLAGS []
+@@ flags_1
+FLAGS ["minecraft:vanilla"]
+@@ flags_2
+FLAGS ["minecraft:trade_rebalance"]
+@@ flags_3
+FLAGS ["minecraft:vanilla","minecraft:trade_rebalance"]
+@@ flags_4
+FLAGS ["minecraft:redstone_experiments"]
+@@ flags_5
+FLAGS ["minecraft:redstone_experiments","minecraft:vanilla"]
+@@ flags_6
+FLAGS ["minecraft:redstone_experiments","minecraft:trade_rebalance"]
+@@ flags_7
+FLAGS ["minecraft:redstone_experiments","minecraft:vanilla","minecraft:trade_rebalance"]
+@@ flags_8
+FLAGS ["minecraft:minecart_improvements"]
+@@ flags_9
+FLAGS ["minecraft:vanilla","minecraft:minecart_improvements"]
+@@ flags_10
+FLAGS ["minecraft:trade_rebalance","minecraft:minecart_improvements"]
+@@ flags_11
+FLAGS ["minecraft:vanilla","minecraft:trade_rebalance","minecraft:minecart_improvements"]
+@@ flags_12
+FLAGS ["minecraft:redstone_experiments","minecraft:minecart_improvements"]
+@@ flags_13
+FLAGS ["minecraft:redstone_experiments","minecraft:vanilla","minecraft:minecart_improvements"]
+@@ flags_14
+FLAGS ["minecraft:redstone_experiments","minecraft:trade_rebalance","minecraft:minecart_improvements"]
+@@ flags_15
+FLAGS ["minecraft:redstone_experiments","minecraft:vanilla","minecraft:trade_rebalance","minecraft:minecart_improvements"]

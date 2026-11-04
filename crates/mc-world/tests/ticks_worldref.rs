@@ -1,0 +1,93 @@
+//! Differential test against real chunks of the vanilla-generated world `run/servers/worldref`: every `block_ticks` /
+//! `fluid_ticks` list must decode without dropping an element and re-encode to an equal tag, and a `LevelChunkTicks`
+//! built from it must pack back to the same list. Passes (printing a note) when the world is absent.
+
+use mc_core::pos::chunk_pos::ChunkPos;
+use mc_data::block::Block;
+use mc_data::fluid::Fluid;
+use mc_nbt::{nbt_io, CompoundTag, NbtAccounter, Tag};
+use mc_world::ticks::{LevelChunkTicks, ProtoChunkTicks, SavedTick, SerializableTickContainer};
+use mc_world::upgrade_data::UpgradeData;
+use std::io::Read;
+use std::path::{Path, PathBuf};
+
+fn world_dir() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../run/servers/worldref/world")
+}
+
+fn read_region(path: &Path) -> Vec<CompoundTag> {
+    let data = std::fs::read(path).unwrap();
+    let mut out = Vec::new();
+    for i in 0..1024 {
+        let loc = u32::from_be_bytes(data[i * 4..i * 4 + 4].try_into().unwrap());
+        if loc == 0 {
+            continue;
+        }
+        let off = (loc >> 8) as usize * 4096;
+        let len = u32::from_be_bytes(data[off..off + 4].try_into().unwrap()) as usize;
+        let payload = &data[off + 5..off + 4 + len];
+        let mut raw = Vec::new();
+        match data[off + 4] {
+            1 => flate2::read::GzDecoder::new(payload).read_to_end(&mut raw).map(drop).unwrap(),
+            2 => flate2::read::ZlibDecoder::new(payload).read_to_end(&mut raw).map(drop).unwrap(),
+            3 => raw.extend_from_slice(payload),
+            4 => continue, // lz4 payloads are covered by the region tests
+            other => panic!("unsupported region compression {other} in {}", path.display()),
+        }
+        out.push(nbt_io::read(&mut raw.as_slice(), &mut NbtAccounter::unlimited_heap()).unwrap());
+    }
+    out
+}
+
+fn region_files(world: &Path) -> Vec<PathBuf> {
+    let mut files = Vec::new();
+    let Ok(dims) = std::fs::read_dir(world.join("dimensions/minecraft")) else { return files };
+    for dim in dims.flatten() {
+        if let Ok(rd) = std::fs::read_dir(dim.path().join("region")) {
+            files.extend(rd.flatten().map(|e| e.path()).filter(|p| p.extension().is_some_and(|e| e == "mca")));
+        }
+    }
+    files.sort();
+    files
+}
+
+#[test]
+fn worldref_tick_lists_roundtrip() {
+    let world = world_dir();
+    let files = region_files(&world);
+    if files.is_empty() {
+        println!("worldref absent at {}: skipping", world.display());
+        return;
+    }
+    let (mut chunks, mut block_ticks, mut fluid_ticks, mut upgrade) = (0, 0, 0, 0);
+    for file in files {
+        for chunk in read_region(&file) {
+            chunks += 1;
+            let pos = ChunkPos::new(chunk.get_int("xPos").unwrap(), chunk.get_int("zPos").unwrap());
+            for (key, is_block) in [("block_ticks", true), ("fluid_ticks", false)] {
+                let Some(Tag::List(list)) = chunk.get(key) else { continue };
+                let (written, n) = if is_block {
+                    let ticks = SavedTick::<Block>::read_list(&chunk, key);
+                    let own = SavedTick::filter_tick_list_for_chunk(&ticks, pos);
+                    assert_eq!(LevelChunkTicks::from_pending(own.clone()).pack(0), own);
+                    assert_eq!(ProtoChunkTicks::load(&ticks).pack(0), ticks, "vanilla never saves duplicate (type, pos) ticks");
+                    block_ticks += ticks.len();
+                    (SavedTick::write_list(&ticks), ticks.len())
+                } else {
+                    let ticks = SavedTick::<Fluid>::read_list(&chunk, key);
+                    fluid_ticks += ticks.len();
+                    (SavedTick::write_list(&ticks), ticks.len())
+                };
+                assert_eq!(n, list.len(), "{} {pos:?} {key}: an element was dropped", file.display());
+                assert_eq!(&written, list, "{} {pos:?} {key}", file.display());
+            }
+            if let Some(tag) = chunk.get_compound("UpgradeData") {
+                let data = UpgradeData::parse(tag, -4, 19);
+                assert_eq!(&data.write(), tag, "UpgradeData of {pos:?}");
+                upgrade += 1;
+            }
+        }
+    }
+    assert!(chunks > 0 && block_ticks > 0 && fluid_ticks > 0);
+    println!("worldref: {chunks} chunks, {block_ticks} block ticks, {fluid_ticks} fluid ticks, {upgrade} UpgradeData tags round-tripped");
+}

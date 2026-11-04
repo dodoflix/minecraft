@@ -1,0 +1,106 @@
+BLOCK	[]	[]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:stone",x:-17,y:-64,z:300,t:-4,p:-3},{i:"minecraft:dirt",x:5,y:6,z:7,t:0,p:3},{i:"minecraft:air",x:5,y:6,z:7,t:0,p:1}]	[{i:"minecraft:stone",p:-3,t:-4,x:-17,y:-64,z:300},{i:"minecraft:dirt",p:3,t:0,x:5,y:6,z:7},{i:"minecraft:air",p:1,t:0,x:5,y:6,z:7}]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:5}]	[{i:"minecraft:stone",p:3,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:-9}]	[{i:"minecraft:stone",p:-3,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:2147483647},{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:-2147483648}]	[{i:"minecraft:stone",p:3,t:4,x:1,y:2,z:3},{i:"minecraft:stone",p:-3,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:nope",x:1,y:2,z:3,t:4,p:0}]	[]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0},{i:"minecraft:nope",x:1,y:2,z:3,t:4,p:0},{i:"minecraft:dirt",x:9,y:9,z:9,t:9,p:1}]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:1,t:9,x:9,y:9,z:9}]
+BLOCK	[{i:"Bad Name!",x:1,y:2,z:3,t:4,p:0}]	[]
+BLOCK	[{i:"stone",x:1,y:2,z:3,t:4,p:0}]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4}]	[]
+BLOCK	[{x:1,y:2,z:3,t:4,p:0}]	[]
+BLOCK	[{i:"minecraft:stone",y:2,z:3,t:4,p:0}]	[]
+BLOCK	[{i:"minecraft:stone",x:1,z:3,t:4,p:0}]	[]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,t:4,p:0}]	[]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,p:0}]	[]
+BLOCK	[{i:5,x:1,y:2,z:3,t:4,p:0}]	[]
+BLOCK	[{i:"minecraft:stone",x:1b,y:2s,z:3L,t:4.9d,p:0.5f}]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:stone",x:-1.5f,y:-2.5d,z:1e20d,t:-7.5f,p:-0.5d}]	[{i:"minecraft:stone",p:0,t:-7,x:-1,y:-2,z:2147483647}]
+BLOCK	[{i:"minecraft:stone",x:"1",y:2,z:3,t:4,p:0}]	[]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0,extra:7}]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:"x"}]	[]
+BLOCK	[{i:"minecraft:stone",x:[1],y:2,z:3,t:4,p:0}]	[]
+BLOCK	[1,2]	[]
+BLOCK	["a"]	[]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}, 5]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[5, {i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[[I;1,2]]	[]
+BLOCK	[I;]	[]
+BLOCK	[B;]	[]
+BLOCK	[L;1L]	[]
+BLOCK	{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}	[]
+BLOCK	"abc"	[]
+BLOCK	7	[]
+BLOCK	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0},{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}]	[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:water",x:1,y:2,z:3,t:4,p:0}]	[{i:"minecraft:water",p:0,t:4,x:1,y:2,z:3}]
+BLOCK	[{i:"minecraft:oak_sign",x:0,y:0,z:0,t:0,p:0},{i:"minecraft:redstone_wire",x:15,y:15,z:15,t:1,p:-1}]	[{i:"minecraft:oak_sign",p:0,t:0,x:0,y:0,z:0},{i:"minecraft:redstone_wire",p:-1,t:1,x:15,y:15,z:15}]
+FLUID	[{i:"minecraft:water",x:1,y:2,z:3,t:4,p:0},{i:"minecraft:flowing_lava",x:1,y:2,z:3,t:4,p:0},{i:"minecraft:empty",x:1,y:2,z:3,t:4,p:0}]	[{i:"minecraft:water",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:flowing_lava",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]
+FLUID	[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0},{i:"minecraft:lava",x:1,y:2,z:3,t:4,p:2}]	[{i:"minecraft:lava",p:2,t:4,x:1,y:2,z:3}]
+FLUID	[]	[]
+UPGRADE	-64	384	{}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	-64	384	{Sides:0b}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	-64	384	{Sides:255}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	-64	384	{Sides:511}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	-64	384	{Sides:-1}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	-64	384	{Sides:5s}	{Sides:5b}	false	{Sides:5b}
+UPGRADE	-64	384	{Sides:3.7d}	{Sides:3b}	false	{Sides:3b}
+UPGRADE	-64	384	{Sides:"3"}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	-64	384	{Sides:-127b,Indices:{"0":[I;1,2,3],"3":[I;],"5":[I;4096]}}	{Indices:{"0":[I;1,2,3],"5":[I;4096]},Sides:-127b}	false	{Indices:{"0":[I;1,2,3],"5":[I;4096]},Sides:-127b}
+UPGRADE	-64	384	{Indices:{"0":[I;1],"1":[B;1b],"2":5,"23":[I;7],"24":[I;8],"-1":[I;9],"x":[I;1]}}	{Indices:{"0":[I;1],"23":[I;7]},Sides:0b}	false	{Indices:{"0":[I;1],"23":[I;7]},Sides:0b}
+UPGRADE	-64	384	{Indices:[I;1,2]}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	-64	384	{Indices:{}}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	-64	384	{Indices:{"0":[I;]}}	{Sides:0b}	false	{Sides:0b}
+UPGRADE	-64	384	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}],neighbor_fluid_ticks:[{i:"minecraft:water",x:1,y:2,z:3,t:4,p:1}]}	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:water",p:1,t:4,x:1,y:2,z:3}]}	false	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:water",p:1,t:4,x:1,y:2,z:3}]}
+UPGRADE	-64	384	{neighbor_block_ticks:[{i:"minecraft:nope",x:1,y:2,z:3,t:4,p:9},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:3,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:3,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	-64	384	{neighbor_block_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	-64	384	{neighbor_block_ticks:[{i:5,x:1,y:2,z:3,t:4,p:0},{x:1,y:2,z:3,t:4,p:0},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	-64	384	{neighbor_fluid_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	-64	384	{neighbor_block_ticks:[]}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	-64	384	{neighbor_block_ticks:7,neighbor_fluid_ticks:"x"}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	-64	384	{neighbor_block_ticks:[{i:"Bad Name",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	-64	384	{Sides:2b,Indices:{"0":[I;1,2,3]},neighbor_block_ticks:[{i:"minecraft:air",x:1,y:2,z:3,t:4,p:0}],neighbor_fluid_ticks:[{i:"minecraft:empty",x:1,y:2,z:3,t:4,p:0}]}	{Indices:{"0":[I;1,2,3]},Sides:2b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}	false	{Indices:{"0":[I;1,2,3]},Sides:2b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	256	{}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	256	{Sides:0b}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	256	{Sides:255}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	0	256	{Sides:511}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	0	256	{Sides:-1}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	0	256	{Sides:5s}	{Sides:5b}	false	{Sides:5b}
+UPGRADE	0	256	{Sides:3.7d}	{Sides:3b}	false	{Sides:3b}
+UPGRADE	0	256	{Sides:"3"}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	256	{Sides:-127b,Indices:{"0":[I;1,2,3],"3":[I;],"5":[I;4096]}}	{Indices:{"0":[I;1,2,3],"5":[I;4096]},Sides:-127b}	false	{Indices:{"0":[I;1,2,3],"5":[I;4096]},Sides:-127b}
+UPGRADE	0	256	{Indices:{"0":[I;1],"1":[B;1b],"2":5,"23":[I;7],"24":[I;8],"-1":[I;9],"x":[I;1]}}	{Indices:{"0":[I;1]},Sides:0b}	false	{Indices:{"0":[I;1]},Sides:0b}
+UPGRADE	0	256	{Indices:[I;1,2]}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	256	{Indices:{}}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	256	{Indices:{"0":[I;]}}	{Sides:0b}	false	{Sides:0b}
+UPGRADE	0	256	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}],neighbor_fluid_ticks:[{i:"minecraft:water",x:1,y:2,z:3,t:4,p:1}]}	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:water",p:1,t:4,x:1,y:2,z:3}]}	false	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:water",p:1,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	256	{neighbor_block_ticks:[{i:"minecraft:nope",x:1,y:2,z:3,t:4,p:9},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:3,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:3,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	256	{neighbor_block_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	256	{neighbor_block_ticks:[{i:5,x:1,y:2,z:3,t:4,p:0},{x:1,y:2,z:3,t:4,p:0},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	256	{neighbor_fluid_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	256	{neighbor_block_ticks:[]}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	256	{neighbor_block_ticks:7,neighbor_fluid_ticks:"x"}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	256	{neighbor_block_ticks:[{i:"Bad Name",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	256	{Sides:2b,Indices:{"0":[I;1,2,3]},neighbor_block_ticks:[{i:"minecraft:air",x:1,y:2,z:3,t:4,p:0}],neighbor_fluid_ticks:[{i:"minecraft:empty",x:1,y:2,z:3,t:4,p:0}]}	{Indices:{"0":[I;1,2,3]},Sides:2b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}	false	{Indices:{"0":[I;1,2,3]},Sides:2b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	16	{}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	16	{Sides:0b}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	16	{Sides:255}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	0	16	{Sides:511}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	0	16	{Sides:-1}	{Sides:-1b}	false	{Sides:-1b}
+UPGRADE	0	16	{Sides:5s}	{Sides:5b}	false	{Sides:5b}
+UPGRADE	0	16	{Sides:3.7d}	{Sides:3b}	false	{Sides:3b}
+UPGRADE	0	16	{Sides:"3"}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	16	{Sides:-127b,Indices:{"0":[I;1,2,3],"3":[I;],"5":[I;4096]}}	{Indices:{"0":[I;1,2,3]},Sides:-127b}	false	{Indices:{"0":[I;1,2,3]},Sides:-127b}
+UPGRADE	0	16	{Indices:{"0":[I;1],"1":[B;1b],"2":5,"23":[I;7],"24":[I;8],"-1":[I;9],"x":[I;1]}}	{Indices:{"0":[I;1]},Sides:0b}	false	{Indices:{"0":[I;1]},Sides:0b}
+UPGRADE	0	16	{Indices:[I;1,2]}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	16	{Indices:{}}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	16	{Indices:{"0":[I;]}}	{Sides:0b}	false	{Sides:0b}
+UPGRADE	0	16	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}],neighbor_fluid_ticks:[{i:"minecraft:water",x:1,y:2,z:3,t:4,p:1}]}	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:water",p:1,t:4,x:1,y:2,z:3}]}	false	{Sides:1b,neighbor_block_ticks:[{i:"minecraft:stone",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:water",p:1,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	16	{neighbor_block_ticks:[{i:"minecraft:nope",x:1,y:2,z:3,t:4,p:9},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:3,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:3,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	16	{neighbor_block_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	16	{neighbor_block_ticks:[{i:5,x:1,y:2,z:3,t:4,p:0},{x:1,y:2,z:3,t:4,p:0},{i:"minecraft:dirt",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3},{i:"minecraft:dirt",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	16	{neighbor_fluid_ticks:[{i:"minecraft:stone",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	16	{neighbor_block_ticks:[]}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	16	{neighbor_block_ticks:7,neighbor_fluid_ticks:"x"}	{Sides:0b}	true	{Sides:0b}
+UPGRADE	0	16	{neighbor_block_ticks:[{i:"Bad Name",x:1,y:2,z:3,t:4,p:0}]}	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}]}	true	{Sides:0b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}]}
+UPGRADE	0	16	{Sides:2b,Indices:{"0":[I;1,2,3]},neighbor_block_ticks:[{i:"minecraft:air",x:1,y:2,z:3,t:4,p:0}],neighbor_fluid_ticks:[{i:"minecraft:empty",x:1,y:2,z:3,t:4,p:0}]}	{Indices:{"0":[I;1,2,3]},Sides:2b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}	false	{Indices:{"0":[I;1,2,3]},Sides:2b,neighbor_block_ticks:[{i:"minecraft:air",p:0,t:4,x:1,y:2,z:3}],neighbor_fluid_ticks:[{i:"minecraft:empty",p:0,t:4,x:1,y:2,z:3}]}

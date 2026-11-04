@@ -821,6 +821,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "mc-game"
+version = "0.1.0"
+
+[[package]]
+name = "mc-light"
+version = "0.1.0"
+
+[[package]]
 name = "mc-nbt"
 version = "0.1.0"
 dependencies = [
@@ -858,6 +866,14 @@ dependencies = [
  "quote",
  "syn 2.0.119",
 ]
+
+[[package]]
+name = "mc-server"
+version = "0.1.0"
+
+[[package]]
+name = "mc-testbot"
+version = "0.1.0"
 
 [[package]]
 name = "mc-text"

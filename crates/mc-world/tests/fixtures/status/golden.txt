@@ -1,0 +1,73 @@
+LIST minecraft:empty,minecraft:structure_starts,minecraft:structure_references,minecraft:biomes,minecraft:terrain,minecraft:features,minecraft:initialize_light,minecraft:light,minecraft:spawn,minecraft:full
+STATUS minecraft:empty 0 minecraft:empty PROTOCHUNK 0 WORLD_SURFACE_WG,OCEAN_FLOOR_WG
+STATUS minecraft:structure_starts 1 minecraft:empty PROTOCHUNK 1 WORLD_SURFACE_WG,OCEAN_FLOOR_WG
+STATUS minecraft:structure_references 2 minecraft:structure_starts PROTOCHUNK 2 WORLD_SURFACE_WG,OCEAN_FLOOR_WG
+STATUS minecraft:biomes 3 minecraft:structure_references PROTOCHUNK 3 WORLD_SURFACE_WG,OCEAN_FLOOR_WG
+STATUS minecraft:terrain 4 minecraft:biomes PROTOCHUNK 4 WORLD_SURFACE,OCEAN_FLOOR,MOTION_BLOCKING,MOTION_BLOCKING_NO_LEAVES
+STATUS minecraft:features 5 minecraft:terrain PROTOCHUNK 5 WORLD_SURFACE,OCEAN_FLOOR,MOTION_BLOCKING,MOTION_BLOCKING_NO_LEAVES
+STATUS minecraft:initialize_light 6 minecraft:features PROTOCHUNK 6 WORLD_SURFACE,OCEAN_FLOOR,MOTION_BLOCKING,MOTION_BLOCKING_NO_LEAVES
+STATUS minecraft:light 7 minecraft:initialize_light PROTOCHUNK 7 WORLD_SURFACE,OCEAN_FLOOR,MOTION_BLOCKING,MOTION_BLOCKING_NO_LEAVES
+STATUS minecraft:spawn 8 minecraft:light PROTOCHUNK 8 WORLD_SURFACE,OCEAN_FLOOR,MOTION_BLOCKING,MOTION_BLOCKING_NO_LEAVES
+STATUS minecraft:full 9 minecraft:spawn LEVELCHUNK 9 WORLD_SURFACE,OCEAN_FLOOR,MOTION_BLOCKING,MOTION_BLOCKING_NO_LEAVES
+CMP minecraft:empty 10100 00111 00112 00113 00114 00115 00116 00117 00118 00119
+CMP minecraft:structure_starts 11001 10101 00112 00113 00114 00115 00116 00117 00118 00119
+CMP minecraft:structure_references 11002 11002 10102 00113 00114 00115 00116 00117 00118 00119
+CMP minecraft:biomes 11003 11003 11003 10103 00114 00115 00116 00117 00118 00119
+CMP minecraft:terrain 11004 11004 11004 11004 10104 00115 00116 00117 00118 00119
+CMP minecraft:features 11005 11005 11005 11005 11005 10105 00116 00117 00118 00119
+CMP minecraft:initialize_light 11006 11006 11006 11006 11006 11006 10106 00117 00118 00119
+CMP minecraft:light 11007 11007 11007 11007 11007 11007 11007 10107 00118 00119
+CMP minecraft:spawn 11008 11008 11008 11008 11008 11008 11008 11008 10108 00119
+CMP minecraft:full 11009 11009 11009 11009 11009 11009 11009 11009 11009 10109
+FINAL WORLD_SURFACE,OCEAN_FLOOR,MOTION_BLOCKING,MOTION_BLOCKING_NO_LEAVES
+MAXDIST 8
+IN	"minecraft:empty"	minecraft:empty	minecraft:empty
+IN	"minecraft:structure_starts"	minecraft:structure_starts	minecraft:structure_starts
+IN	"minecraft:structure_references"	minecraft:structure_references	minecraft:structure_references
+IN	"minecraft:biomes"	minecraft:biomes	minecraft:biomes
+IN	"minecraft:terrain"	minecraft:terrain	minecraft:terrain
+IN	"minecraft:features"	minecraft:features	minecraft:features
+IN	"minecraft:initialize_light"	minecraft:initialize_light	minecraft:initialize_light
+IN	"minecraft:light"	minecraft:light	minecraft:light
+IN	"minecraft:spawn"	minecraft:spawn	minecraft:spawn
+IN	"minecraft:full"	minecraft:full	minecraft:full
+IN	"full"	minecraft:full	minecraft:full
+IN	"empty"	minecraft:empty	minecraft:empty
+IN	"FULL"	minecraft:empty	ERR
+IN	"minecraft:FULL"	minecraft:empty	ERR
+IN	"Minecraft:full"	minecraft:empty	ERR
+IN	"minecraft:full "	minecraft:empty	ERR
+IN	" minecraft:full"	minecraft:empty	ERR
+IN	""	minecraft:empty	ERR
+IN	":"	minecraft:empty	ERR
+IN	":full"	minecraft:full	minecraft:full
+IN	"minecraft:"	minecraft:empty	ERR
+IN	"minecraft"	minecraft:empty	ERR
+IN	"foo:full"	minecraft:empty	ERR
+IN	"minecraft:unknown"	minecraft:empty	ERR
+IN	"minecraft:carvers"	minecraft:empty	ERR
+IN	"minecraft:liquid_carvers"	minecraft:empty	ERR
+IN	"minecraft:noise"	minecraft:empty	ERR
+IN	"minecraft:surface"	minecraft:empty	ERR
+IN	"minecraft:heightmaps"	minecraft:empty	ERR
+IN	"minecraft:structures"	minecraft:empty	ERR
+IN	"minecraft:Full"	minecraft:empty	ERR
+IN	"minecraft:fu ll"	minecraft:empty	ERR
+IN	"a:b:c"	minecraft:empty	ERR
+IN	"minecraft:full:"	minecraft:empty	ERR
+IN	"minecraft/full"	minecraft:empty	ERR
+IN	"minecraft:structure_starts/x"	minecraft:empty	ERR
+IN	"mine-craft_1.x:biomes"	minecraft:empty	ERR
+IN	1	n/a	ERR
+IN	1b	n/a	ERR
+IN	0b	n/a	ERR
+IN	2s	n/a	ERR
+IN	3.0f	n/a	ERR
+IN	0.0	n/a	ERR
+IN	1L	n/a	ERR
+IN	[B;1B]	n/a	ERR
+IN	[I;1]	n/a	ERR
+IN	[L;1L]	n/a	ERR
+IN	["minecraft:full"]	n/a	ERR
+IN	{}	n/a	ERR
+IN	{id:"minecraft:full"}	n/a	ERR
