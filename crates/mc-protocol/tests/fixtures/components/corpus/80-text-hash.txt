@@ -1,0 +1,11 @@
+json	minecraft:custom_name	{"translate":"x","with":[true,1,"a",1.5,false]}
+json	minecraft:custom_name	{"translate":"x","with":[1b]}
+snbt	minecraft:custom_name	{translate:"x",with:[true,1b,1,2L]}
+snbt	minecraft:custom_name	{translate:"x",with:[1.5f,"s",0b]}
+json	minecraft:custom_name	{"text":"a","bold":true,"italic":false,"extra":[{"text":"b","obfuscated":true}]}
+snbt	minecraft:custom_name	{text:"a",bold:1b,italic:0b,underlined:true,strikethrough:false}
+json	minecraft:custom_name	{"text":"a","interpret":true}
+json	minecraft:custom_name	{"nbt":"a","interpret":true,"entity":"@s"}
+json	minecraft:custom_name	{"score":{"name":"@s","objective":"o"},"shadow_color":[1.0,0.5,0.25,0.75]}
+json	minecraft:item_name	{"translate":"k","fallback":"f","with":[{"text":"x"},true,5]}
+json	minecraft:lore	[{"translate":"x","with":[true]},"b"]

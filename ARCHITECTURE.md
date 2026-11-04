@@ -37,6 +37,7 @@ crates/
   mc-nbt              NBT tags, binary IO (named + network/unnamed root), SNBT, compression helpers
   mc-text             Chat Component model + JSON and NBT codecs
   mc-brigadier        Port of com.mojang.brigadier
+  mc-dfu              Port of the DFU Codec/DataResult/DynamicOps framework (NBT, JSON, CRC32C-hash ops) for vanilla data codecs
   mc-data             Generated static data (blocks/states/items/entities/registries/packet ids) + vanilla data pack access
   mc-protocol         Wire codec primitives, framing, compression, encryption, packet structs (all states);
                       module `components`: all data component types + DataComponentMap/Patch + ItemStack value type,

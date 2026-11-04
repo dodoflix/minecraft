@@ -117,23 +117,27 @@ pub(crate) fn serde_to_dyn(v: &serde_json::Value) -> Dyn {
     }
 }
 
-/// Style/boolean keys: NBT booleans are bytes, but hash ops hash real booleans.
-fn mark_bools(d: Dyn) -> Dyn {
-    match d {
-        Dyn::Map(m) => Dyn::Map(
+/// NBT encodes booleans as bytes but the hash ops hash real booleans: walk the NBT tree together with the JSON
+/// encoding of the same component (where booleans are real) and turn the bytes that are JSON booleans back.
+fn mark_bools(nbt: Dyn, json: &Dyn) -> Dyn {
+    match (nbt, json) {
+        (Dyn::Byte(b), Dyn::Bool(_)) => Dyn::Bool(b != 0),
+        (Dyn::Map(m), Dyn::Map(jm)) => Dyn::Map(
             m.into_iter()
                 .map(|(k, v)| {
-                    let is_bool_key = matches!(k.as_str(), Some("bold" | "italic" | "underlined" | "strikethrough" | "obfuscated" | "interpret"));
-                    let v = match (is_bool_key, v) {
-                        (true, Dyn::Byte(b)) => Dyn::Bool(b != 0),
-                        (_, v) => mark_bools(v),
+                    let j = jm.iter().find(|(jk, _)| *jk == k).map(|(_, jv)| jv);
+                    let v = match j {
+                        Some(j) => mark_bools(v, j),
+                        None => v,
                     };
                     (k, v)
                 })
                 .collect(),
         ),
-        Dyn::List(l) => Dyn::List(l.into_iter().map(mark_bools).collect()),
-        other => other,
+        (Dyn::List(l), Dyn::List(jl)) if l.len() == jl.len() => {
+            Dyn::List(l.into_iter().zip(jl.iter()).map(|(v, j)| mark_bools(v, j)).collect())
+        }
+        (other, _) => other,
     }
 }
 
@@ -144,7 +148,13 @@ pub fn component_codec() -> Codec<Component> {
             let encoded: Result<Dyn, String> = match ops.kind() {
                 OpsKind::Json => input.to_json().map(|v| serde_to_dyn(&v)).map_err(|e| e.to_string()),
                 OpsKind::Nbt => input.to_nbt().map(|t| Dyn::from(&t)).map_err(|e| e.to_string()),
-                OpsKind::Hash => input.to_nbt().map(|t| mark_bools(Dyn::from(&t))).map_err(|e| e.to_string()),
+                OpsKind::Hash => input.to_nbt().map_err(|e| e.to_string()).map(|t| {
+                    let nbt = Dyn::from(&t);
+                    match input.to_json() {
+                        Ok(j) => mark_bools(nbt, &serde_to_dyn(&j)),
+                        Err(_) => nbt,
+                    }
+                }),
             };
             match encoded {
                 Ok(d) => ops.merge_to_primitive(&prefix, d),

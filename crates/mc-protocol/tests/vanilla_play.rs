@@ -110,7 +110,6 @@ async fn play_state_decodes_everything_vanilla_sends() {
 
     let mut counts: BTreeMap<&'static str, usize> = BTreeMap::new();
     let mut failures: Vec<String> = Vec::new();
-    let mut unimplemented_components: Vec<String> = Vec::new();
     let started = Instant::now();
     let mut next_command = 0;
     let mut next_at = Duration::from_secs(3);
@@ -126,12 +125,7 @@ async fn play_state_decodes_everything_vanilla_sends() {
             Err(e) => {
                 let id = mc_protocol::codec::read_varint(&mut &payload[..]).unwrap_or(-1);
                 let msg = format!("decode id {id} ({} bytes): {e}", payload.len());
-                // Data components are ComponentsAgent's slice and land incrementally; everything else must decode.
-                if msg.contains("data component") && msg.contains("is not implemented") {
-                    unimplemented_components.push(msg);
-                } else {
-                    failures.push(msg);
-                }
+                failures.push(msg);
                 continue;
             }
         };
@@ -166,11 +160,6 @@ async fn play_state_decodes_everything_vanilla_sends() {
     println!("{} packets, {} distinct types", counts.values().sum::<usize>(), counts.len());
     for (name, n) in &counts {
         println!("{n:6} {name}");
-    }
-    if !unimplemented_components.is_empty() {
-        println!("{} packets need data components that are not implemented yet:", unimplemented_components.len());
-        unimplemented_components.dedup();
-        unimplemented_components.iter().for_each(|m| println!("  {m}"));
     }
     assert!(failures.is_empty(), "{} packets failed:\n{}", failures.len(), failures.join("\n"));
     for expected in ["minecraft:login", "minecraft:level_chunk_with_light", "minecraft:commands", "minecraft:player_position", "minecraft:set_time"] {
