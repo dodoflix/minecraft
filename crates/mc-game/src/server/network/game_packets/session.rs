@@ -160,7 +160,33 @@ impl PlayCtx<'_> {
     /// trigger or the hardcore spectator switch happen on it). `PlayerList.respawn` is implemented by the
     /// player-list slice through [`PlayerSystems::respawn_player`].
     fn respawn_player(&mut self, won_game: bool) {
-        self.sys().respawn_player(self, won_game);
+        use crate::world::entity::RemovalReason;
+        let hardcore = self.server.world_data.lock().settings.difficulty_settings.hardcore;
+        // the player is taken out of its level while this packet is handled: the respawn runs right after it
+        crate::server::players::respawn::queue_respawn(
+            &*self.server,
+            self.level.dimension.clone(),
+            self.player.base_id(),
+            won_game,
+            if won_game { RemovalReason::ChangedDimension } else { RemovalReason::Killed },
+            move |server, player| {
+                let position = player.position();
+                if let Some(listener) = player.listener.as_mut() {
+                    listener.reset_position(position);
+                    listener.restart_client_load_timer_after_respawn();
+                }
+                if !won_game && hardcore && player.change_game_mode_for_player(mc_data::enums::GameType::Spectator) {
+                    player.sync_handle();
+                    if let Some(handle) = player.handle.clone() {
+                        let packet = crate::server::players::player_handle::create_info_update(
+                            [mc_protocol::packets::play::ClientboundPlayerInfoUpdateAction::UpdateGameMode].into_iter().collect(),
+                            [&handle],
+                        );
+                        server.player_list.broadcast_all(&packet);
+                    }
+                }
+            },
+        );
     }
 
     /// `sendGameRuleValues`.
