@@ -29,7 +29,7 @@ mod server_chunk_cache;
 mod server_level;
 pub mod player_spawn_finder;
 mod server_level_entities;
-mod server_entity;
+pub mod server_entity;
 pub use server_entity::{ServerEntity, UpdateInterval};
 mod entity_tracker;
 pub use entity_tracker::{EntityTracker, TrackerPlayer, TrackingEnv, tracker_players};

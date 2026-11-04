@@ -39,6 +39,8 @@ macro_rules! serializers {
 
 serializers! {
     Byte(i8) = "BYTE";
+    ItemStack(mc_protocol::components::ItemStack) = "ITEM_STACK";
+    ResolvableProfile(mc_protocol::packets::play::ResolvableProfile) = "RESOLVABLE_PROFILE";
     Int(i32) = "INT";
     Long(i64) = "LONG";
     Float(f32) = "FLOAT";

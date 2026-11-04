@@ -15,6 +15,7 @@ pub mod entity;
 pub mod equipment;
 pub mod factory;
 pub mod interpolation;
+pub mod item;
 pub mod living;
 pub mod movement;
 pub mod plain;

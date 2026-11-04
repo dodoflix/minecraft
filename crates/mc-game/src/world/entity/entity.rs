@@ -826,6 +826,14 @@ pub trait Entity: Any {
         (!slots.is_empty()).then(|| mc_protocol::packets::play::ClientboundSetEquipmentPacket { entity: self.id(), slots })
     }
 
+    /// `playerTouch(player)` (pickup). The entity is taken out of the level while it runs.
+    fn player_touch(&mut self, _level: &mut ServerLevel, _player: &mut super::ServerPlayer) {}
+
+    /// Offset of `getBlockPosBelowThatAffectsMyMovement()` (0.500001; items use 0.999999).
+    fn block_pos_below_offset(&self) -> f32 {
+        0.500001
+    }
+
     /// `broadcastToPlayer(player)`.
     fn broadcast_to_player(&self, _player_id: EntityId) -> bool {
         true
