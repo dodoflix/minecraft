@@ -312,3 +312,37 @@ pub(crate) fn hashed_tag_codec() -> Codec<Identifier> {
         |id: &Identifier| format!("#{id}"),
     )
 }
+
+// ---- compound tag codecs ----------------------------------------------------------------------------------------
+
+/// `CompoundTag.CODEC`: any value that converts to an NBT compound.
+pub fn compound_tag_codec() -> Codec<mc_nbt::CompoundTag> {
+    mc_dfu::PASSTHROUGH.flat_xmap(
+        |d: mc_dfu::Dynamic| {
+            let converted = d.ops.convert_to(&mc_dfu::NBT, &d.value);
+            match converted.to_tag() {
+                Ok(Tag::Compound(c)) => DataResult::success(c),
+                Ok(other) => DataResult::error(move || format!("Not a compound tag: {other}")),
+                Err(e) => DataResult::error(move || e.clone()),
+            }
+        },
+        |c: &mc_nbt::CompoundTag| DataResult::success(mc_dfu::Dynamic::new(mc_dfu::NBT, Dyn::from(&Tag::Compound(c.clone())))),
+    )
+}
+
+/// `TagParser.FLATTENED_CODEC`: a compound as an SNBT string.
+pub fn flattened_compound_codec() -> Codec<mc_nbt::CompoundTag> {
+    mc_dfu::STRING.comap_flat_map(
+        |s| match mc_nbt::snbt::parse(&s) {
+            Ok(Tag::Compound(c)) => DataResult::success(c),
+            Ok(other) => DataResult::error(move || format!("Expected compound tag, got {other}")),
+            Err(e) => DataResult::error(move || e.to_string()),
+        },
+        |c: &mc_nbt::CompoundTag| Tag::Compound(c.clone()).to_string(),
+    )
+}
+
+/// `TagParser.LENIENT_CODEC`: `Codec.withAlternative(FLATTENED_CODEC, CompoundTag.CODEC)`.
+pub fn lenient_compound_codec() -> Codec<mc_nbt::CompoundTag> {
+    flattened_compound_codec().with_alternative(&compound_tag_codec())
+}
