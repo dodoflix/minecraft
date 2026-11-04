@@ -225,3 +225,69 @@ pub fn player_name_and_id(entity: &dyn Entity) -> Option<crate::server::players:
         .downcast_ref::<crate::world::entity::ServerPlayer>()
         .map(|sp| crate::server::players::NameAndId::new(sp.player.game_profile.id, sp.player.game_profile.name.clone()))
 }
+
+// ---- scoreboard (SEAM: GameServerState scoreboard model) ----
+
+/// `scoreboard.getObjective(name) != null`.
+pub fn scoreboard_has_objective(server: &MinecraftServer, name: &str) -> bool {
+    let _ = (server, name);
+    todo!("SEAM: scoreboard")
+}
+
+/// `objective.getCriteria().isReadOnly()` of an existing objective.
+pub fn scoreboard_objective_read_only(server: &MinecraftServer, name: &str) -> bool {
+    let _ = (server, name);
+    todo!("SEAM: scoreboard")
+}
+
+/// `scoreboard.getObjectiveNames()`.
+pub fn scoreboard_objective_names(server: &MinecraftServer) -> Vec<String> {
+    let _ = server;
+    todo!("SEAM: scoreboard")
+}
+
+/// `scoreboard.getTeamNames()`.
+pub fn scoreboard_team_names(server: &MinecraftServer) -> Vec<String> {
+    let _ = server;
+    todo!("SEAM: scoreboard")
+}
+
+/// `scoreboard.getPlayerTeam(name) != null`.
+pub fn scoreboard_has_team(server: &MinecraftServer, name: &str) -> bool {
+    let _ = (server, name);
+    todo!("SEAM: scoreboard")
+}
+
+/// `scoreboard.getTrackedPlayers()` (score holder names).
+pub fn scoreboard_tracked_players(server: &MinecraftServer) -> Vec<String> {
+    let _ = server;
+    todo!("SEAM: scoreboard")
+}
+
+// ---- registries ----
+
+/// The registry `registry_key` (e.g. `minecraft:item`) as the command source sees it: the server's registries
+/// (static, data-driven and reloadable ones).
+/// SEAM(GameServerPacks/GameLifecycle): `MinecraftServer.registry_access()` + reloadable registries; until the server
+/// owns them only the built-in registries of `mc_data` (with vanilla tags) are available.
+pub fn registry_view(server: &MinecraftServer, registry_key: &str) -> Option<std::sync::Arc<dyn super::RegistryView>> {
+    let _ = server;
+    use super::command_build_context::{HolderLookupProvider, StaticRegistries};
+    StaticRegistries.lookup(registry_key)
+}
+
+// ---- functions ----
+
+/// `server.getFunctions().get(id)`.
+/// SEAM(function manager, nobody owns `ServerFunctionManager` yet).
+pub fn get_function(server: &MinecraftServer, id: &mc_core::ident::Identifier) -> Option<std::sync::Arc<dyn super::functions::CommandFunction>> {
+    let _ = (server, id);
+    todo!("SEAM: ServerFunctionManager")
+}
+
+/// `server.getFunctions().getTag(id)`.
+/// SEAM(function manager).
+pub fn get_function_tag(server: &MinecraftServer, id: &mc_core::ident::Identifier) -> Option<Vec<std::sync::Arc<dyn super::functions::CommandFunction>>> {
+    let _ = (server, id);
+    todo!("SEAM: ServerFunctionManager")
+}

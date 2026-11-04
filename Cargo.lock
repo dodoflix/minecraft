@@ -970,6 +970,7 @@ dependencies = [
  "mc-brigadier",
  "mc-core",
  "mc-data",
+ "mc-dfu",
  "mc-nbt",
  "mc-protocol",
  "mc-text",

@@ -340,6 +340,27 @@ impl CommandSourceStack {
         self.with_server(|server| super::host::online_player_names(server))
     }
 
+    /// `suggestRegistryElements(key, elements, builder, context, filter)`.
+    pub fn suggest_registry_elements(
+        &self,
+        registry_key: &str,
+        elements: super::shared_suggestion_provider::ElementSuggestionType,
+        mut builder: mc_brigadier::SuggestionsBuilder,
+        filter: Option<&dyn Fn(&mc_core::ident::Identifier) -> bool>,
+    ) -> mc_brigadier::Suggestions {
+        use super::shared_suggestion_provider::{suggest_resource_into, suggest_resource_prefixed_into};
+        let Some(view) = self.with_server(|server| super::host::registry_view(server, registry_key)) else {
+            return mc_brigadier::Suggestions::empty();
+        };
+        if elements.should_suggest_tags() {
+            suggest_resource_prefixed_into(view.tag_ids(), &mut builder, "#");
+        }
+        if elements.should_suggest_elements() {
+            suggest_resource_into(view.element_ids().into_iter().filter(|id| filter.is_none_or(|f| f(id))), &mut builder);
+        }
+        builder.build()
+    }
+
     /// `levels()`: the keys of all levels.
     pub fn levels(&self) -> Vec<DimensionKey> {
         self.with_server(|server| server.level_keys())
