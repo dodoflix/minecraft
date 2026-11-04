@@ -524,6 +524,10 @@ impl MinecraftServer {
         ));
         let mut connection = crate::server::network::ServerConnectionListener::new(hooks.clone())?;
         connection.start_tcp_server_listener(local_address, self.port as u16)?;
+        // the world side of the hooks: the player list's login checks come with `PlayerListHooks`, the spawn task and
+        // the activity monitor (`new ServerActivityMonitor(notificationManager, 30)`) are installed here
+        hooks.player_list_hooks().set_prepare_spawn(crate::server::players::prepare_spawn::factory());
+        hooks.player_list_hooks().set_activity_monitor(Arc::new(crate::server::notifications::ServerActivityMonitor::new(self.notification_manager.clone(), 30)));
         self.network_hooks = Some(hooks);
         self.connection = Some(connection);
         Ok(())
