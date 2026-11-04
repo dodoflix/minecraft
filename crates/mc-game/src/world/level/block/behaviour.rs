@@ -56,6 +56,11 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         _update_limit: i32,
     ) {
     }
+    /// `BlockStateBase.getPostProcessPos` (`BlockBehaviour.Properties.postProcess`): the position to post-process after
+    /// generation, `None` when the block needs none.
+    fn get_post_process_pos(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> Option<BlockPos> {
+        None
+    }
     /// `isPathfindable`.
     fn is_pathfindable(&self, state: BlockState, ty: PathComputationType) -> bool {
         state.is_pathfindable(ty)

@@ -107,3 +107,57 @@ pub fn push_entities_up(level: &mut crate::server::level::ServerLevel, state: Bl
     }
     new_state
 }
+
+/// `Blocks.AIR.defaultBlockState()`.
+pub fn air() -> BlockState {
+    mc_data::block::Block::AIR.default_state()
+}
+
+/// `state.getBlock() instanceof <java class>` for a Java class (not interface) simple name.
+pub fn is_instance_of(state: BlockState, class: &str) -> bool {
+    state.block().data().classes.contains(&class)
+}
+
+/// `Block.isExceptionForConnection(state)`.
+pub fn is_exception_for_connection(state: BlockState) -> bool {
+    use mc_data::block::Block;
+    is_instance_of(state, "LeavesBlock")
+        || state.is_block(Block::BARRIER)
+        || state.is_block(Block::CARVED_PUMPKIN)
+        || state.is_block(Block::JACK_O_LANTERN)
+        || state.is_block(Block::MELON)
+        || state.is_block(Block::PUMPKIN)
+        || state.is_tag("shulker_boxes")
+}
+
+/// `LevelReader.isWaterAt(pos)`.
+pub fn is_water_at(level: &dyn crate::world::level::LevelReader, pos: BlockPos) -> bool {
+    use crate::world::level::material::FluidStateExt;
+    level.get_fluid_state(pos).is_tag("water")
+}
+
+/// `ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level))`.
+pub fn schedule_water_tick(level: &mut dyn LevelAccessor, pos: BlockPos) {
+    schedule_fluid_tick(level, pos, mc_data::fluid::Fluid::WATER);
+}
+
+/// `ticks.scheduleTick(pos, fluid, fluid.getTickDelay(level))` (priority NORMAL).
+pub fn schedule_fluid_tick(level: &mut dyn LevelAccessor, pos: BlockPos, fluid: mc_data::fluid::Fluid) {
+    let delay = crate::world::level::material::fluid_behaviour(fluid).get_tick_delay(&*level);
+    level.schedule_fluid_tick(pos, fluid, delay, mc_world::ticks::TickPriority::Normal);
+}
+
+/// `ticks.scheduleTick(pos, block, delay)` (priority NORMAL).
+pub fn schedule_block_tick(level: &mut dyn LevelAccessor, pos: BlockPos, block: mc_data::block::Block, delay: i32) {
+    level.schedule_block_tick(pos, block, delay, mc_world::ticks::TickPriority::Normal);
+}
+
+/// `state.setValue(FACING, rotation.rotate(state.getValue(FACING)))`.
+pub fn rotate_facing(state: BlockState, facing: mc_data::props::EnumProperty<Direction>, rotation: mc_core::rotation::Rotation) -> BlockState {
+    state.set(facing, rotation.rotate(state.get(facing)))
+}
+
+/// `state.rotate(mirror.getRotation(state.getValue(FACING)))`.
+pub fn mirror_facing(state: BlockState, facing: mc_data::props::EnumProperty<Direction>, mirror: mc_core::mirror::Mirror) -> BlockState {
+    state.rotate(mirror.get_rotation(state.get(facing)))
+}

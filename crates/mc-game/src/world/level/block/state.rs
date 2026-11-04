@@ -51,6 +51,8 @@ pub trait BlockStateExt: Copy {
     fn rotate(self, rotation: Rotation) -> BlockState;
     fn mirror(self, mirror: Mirror) -> BlockState;
     fn get_seed(self, pos: BlockPos) -> i64;
+    /// `getPostProcessPos(level, pos)`.
+    fn get_post_process_pos(self, level: &dyn BlockGetter, pos: BlockPos) -> Option<BlockPos>;
 
     fn get_signal(self, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32;
     fn get_direct_signal(self, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32;
@@ -151,6 +153,9 @@ impl BlockStateExt for BlockState {
     }
     fn get_seed(self, pos: BlockPos) -> i64 {
         behaviour(self.block()).get_seed(self, pos)
+    }
+    fn get_post_process_pos(self, level: &dyn BlockGetter, pos: BlockPos) -> Option<BlockPos> {
+        behaviour(self.block()).get_post_process_pos(self, level, pos)
     }
 
     fn get_signal(self, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {

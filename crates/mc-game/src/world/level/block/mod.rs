@@ -2,6 +2,7 @@
 //! extension, `Block` helpers, concrete block classes.
 mod behaviour;
 pub mod helpers;
+pub mod impls;
 pub mod state;
 
 pub use behaviour::*;
