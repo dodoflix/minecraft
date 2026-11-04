@@ -81,7 +81,7 @@ pub fn level_generator_from_json(
             let source_fields = Fields::new(biome_source_json).map_err(|e| e.at("biome_source"))?;
             let biome_source_type = source_fields.required("type", parse_identifier).map_err(|e| e.at("biome_source"))?;
             let biome_source: Arc<dyn BiomeSource> =
-                BiomeSource::from_json(biome_source_json, registries, biomes).map_err(|e| e.at("biome_source"))?;
+                crate::biome::biome_source_from_json(biome_source_json, registries, biomes).map_err(|e| e.at("biome_source"))?;
             let (settings, settings_id) = fields.required("settings", |v| match v {
                 Value::String(_) => {
                     let id = parse_identifier(v)?;
