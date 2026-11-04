@@ -278,6 +278,17 @@ impl EntityTracker {
         }
     }
 
+    /// `ChunkMap.sendToTrackingPlayersFiltered(entity, packet, predicate on the player id)`.
+    pub fn send_to_tracking_players_filtered(&self, entity_id: EntityId, payload: &Payload, mut predicate: impl FnMut(EntityId) -> bool) {
+        if let Some(t) = self.entity_map.get(&entity_id) {
+            for (&pid, c) in &t.seen_by {
+                if predicate(pid) {
+                    send(c, payload);
+                }
+            }
+        }
+    }
+
     /// `ChunkMap.sendToTrackingPlayersAndSelf(entity, packet)`.
     pub fn send_to_tracking_players_and_self(&self, entity_id: EntityId, payload: &Payload) {
         if let Some(t) = self.entity_map.get(&entity_id) {

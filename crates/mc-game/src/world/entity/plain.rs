@@ -127,3 +127,24 @@ mod tests {
         assert!(loaded.is_empty());
     }
 }
+
+#[cfg(test)]
+mod teleport_tests {
+    use super::*;
+    use mc_core::phys::Vec3;
+    use mc_data::EntityType;
+    use mc_protocol::packets::play::{PositionMoveRotation, Relative, Relatives};
+
+    #[test]
+    fn teleport_set_position_applies_relatives_and_resets_old_pos() {
+        let mut e = PlainEntity::new(EntityType::PIG, 1);
+        e.set_pos(10.0, 64.0, 10.0);
+        e.base_mut().set_y_rot(90.0);
+        let dest = PositionMoveRotation { position: Vec3::new(1.0, 2.0, 3.0), delta_movement: Vec3::ZERO, y_rot: 45.0, x_rot: 100.0 };
+        e.teleport_set_position(dest, Relatives::NONE.with(Relative::X).with(Relative::YRot));
+        assert_eq!(e.base().position(), Vec3::new(11.0, 2.0, 3.0));
+        assert_eq!(e.base().y_rot(), 135.0);
+        assert_eq!(e.base().x_rot(), 90.0, "pitch is clamped");
+        assert_eq!(e.base().old_position(), Vec3::new(11.0, 2.0, 3.0));
+    }
+}

@@ -754,36 +754,28 @@ pub trait Entity: Any {
 
     /// `teleportSetPosition(destination, relatives)`.
     fn teleport_set_position(&mut self, destination: mc_protocol::packets::play::PositionMoveRotation, relatives: mc_protocol::packets::play::Relatives) {
-        let current = mc_protocol::packets::play::PositionMoveRotation {
-            position: self.base().position(),
-            delta_movement: self.base().delta_movement(),
-            y_rot: self.base().y_rot(),
-            x_rot: self.base().x_rot(),
-        };
+        let current = position_move_rotation_of(self.as_dyn());
         self.teleport_set_position_from(current, destination, relatives);
     }
 
-    /// `teleportSetPosition(current, destination, relatives)` (`PositionMoveRotation.calculateAbsolute`).
+    /// `teleportSetPosition(current, destination, relatives)`.
     fn teleport_set_position_from(
         &mut self,
         current: mc_protocol::packets::play::PositionMoveRotation,
         destination: mc_protocol::packets::play::PositionMoveRotation,
         relatives: mc_protocol::packets::play::Relatives,
     ) {
-        use mc_protocol::packets::play::Relative as R;
-        let rel = |r: R, cur: f64, d: f64| if relatives.contains(r) { cur + d } else { d };
-        let x = rel(R::X, current.position.x, destination.position.x);
-        let y = rel(R::Y, current.position.y, destination.position.y);
-        let z = rel(R::Z, current.position.z, destination.position.z);
-        let y_rot = if relatives.contains(R::YRot) { current.y_rot + destination.y_rot } else { destination.y_rot };
-        let x_rot = if relatives.contains(R::XRot) { current.x_rot + destination.x_rot } else { destination.x_rot };
-        self.abs_snap_to(x, y, z, y_rot, x_rot);
-        let dm = Vec3::new(
-            rel(R::DeltaX, current.delta_movement.x, destination.delta_movement.x),
-            rel(R::DeltaY, current.delta_movement.y, destination.delta_movement.y),
-            rel(R::DeltaZ, current.delta_movement.z, destination.delta_movement.z),
-        );
-        self.base_mut().set_delta_movement(dm);
+        let abs = calculate_absolute(current, destination, relatives);
+        let b = self.base_mut();
+        b.set_pos_raw(abs.position.x, abs.position.y, abs.position.z);
+        b.set_y_rot(abs.y_rot);
+        self.set_y_head_rot(abs.y_rot);
+        self.base_mut().set_x_rot(abs.x_rot);
+        self.reapply_position();
+        let b = self.base_mut();
+        b.set_old_pos_and_rot();
+        b.set_delta_movement(abs.delta_movement);
+        b.movement_this_tick.clear();
     }
 
     // ---- tracking ------------------------------------------------------------------------------------------
@@ -1439,4 +1431,33 @@ pub fn protocol_slot(slot: super::equipment::EquipmentSlot) -> mc_protocol::pack
         S::Body => P::Body,
         S::Saddle => P::Saddle,
     }
+}
+
+/// `PositionMoveRotation.of(entity)`.
+pub fn position_move_rotation_of(e: &dyn Entity) -> mc_protocol::packets::play::PositionMoveRotation {
+    let b = e.base();
+    mc_protocol::packets::play::PositionMoveRotation { position: b.position(), delta_movement: b.delta_movement(), y_rot: b.y_rot(), x_rot: b.x_rot() }
+}
+
+/// `PositionMoveRotation.calculateAbsolute(source, change, relatives)`.
+pub fn calculate_absolute(
+    source: mc_protocol::packets::play::PositionMoveRotation,
+    change: mc_protocol::packets::play::PositionMoveRotation,
+    relatives: mc_protocol::packets::play::Relatives,
+) -> mc_protocol::packets::play::PositionMoveRotation {
+    use mc_protocol::packets::play::Relative as R;
+    let off = |r: R, v: f64| if relatives.contains(r) { v } else { 0.0 };
+    let position = Vec3::new(off(R::X, source.position.x) + change.position.x, off(R::Y, source.position.y) + change.position.y, off(R::Z, source.position.z) + change.position.z);
+    let y_rot = (if relatives.contains(R::YRot) { source.y_rot } else { 0.0 }) + change.y_rot;
+    let x_rot = mth::clamp_f32((if relatives.contains(R::XRot) { source.x_rot } else { 0.0 }) + change.x_rot, -90.0, 90.0);
+    let mut rotated = source.delta_movement;
+    if relatives.contains(R::RotateDelta) {
+        let diff_y = source.y_rot - y_rot;
+        let diff_x = source.x_rot - x_rot;
+        rotated = rotated.x_rot(f64::from(diff_x).to_radians() as f32);
+        rotated = rotated.y_rot(f64::from(diff_y).to_radians() as f32);
+    }
+    let d = |cur: f64, ch: f64, r: R| if relatives.contains(r) { cur + ch } else { ch };
+    let delta_movement = Vec3::new(d(rotated.x, change.delta_movement.x, R::DeltaX), d(rotated.y, change.delta_movement.y, R::DeltaY), d(rotated.z, change.delta_movement.z, R::DeltaZ));
+    mc_protocol::packets::play::PositionMoveRotation { position, delta_movement, y_rot, x_rot }
 }

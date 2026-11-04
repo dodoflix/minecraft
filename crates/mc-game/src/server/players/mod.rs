@@ -6,6 +6,7 @@ pub mod java_hash_map;
 pub mod name_and_id;
 pub mod name_resolver;
 pub mod dedicated_player_list;
+pub mod dimension_change;
 pub mod join;
 pub mod player_data;
 pub mod player_files;
