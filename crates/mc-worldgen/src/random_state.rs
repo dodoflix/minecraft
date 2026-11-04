@@ -2,7 +2,7 @@
 //! seed's positional random and owns the density function compiler wired to them.
 
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, OnceLock};
 
 use mc_core::ident::Identifier;
 use mc_core::random::{Algorithm, LegacyRandomSource, PositionalRandomFactory, RandomSource};
@@ -14,6 +14,7 @@ use crate::densityfunction::{
     CompileContext, DensityBuffer, DensityFunction, DensityFunctionCompiler, DensityVolume,
     NoiseHolder, SamplerContext, ScopedDensityBuffer, SharedSampler,
 };
+use crate::material::MaterialSystem;
 use crate::noise_router::NoiseRouter;
 use crate::noise_settings::NoiseGeneratorSettings;
 use crate::noises::{self, names};
@@ -23,7 +24,7 @@ use crate::synth::Noise;
 struct Shared {
     seed: i64,
     use_legacy_random: bool,
-    random: Box<dyn PositionalRandomFactory>,
+    random: Arc<dyn PositionalRandomFactory>,
     registries: Arc<WorldgenRegistries>,
     noise_instances: Mutex<HashMap<Identifier, Arc<dyn Noise>>>,
     positional_randoms: Mutex<HashMap<Identifier, Arc<dyn PositionalRandomFactory>>>,
@@ -92,6 +93,7 @@ pub struct RandomState {
     compiler: DensityFunctionCompiler,
     default_block: BlockState,
     sea_level: i32,
+    surface_system: OnceLock<MaterialSystem>,
 }
 
 impl RandomState {
@@ -129,7 +131,8 @@ impl RandomState {
         } else {
             Algorithm::Xoroshiro
         };
-        let random = algorithm.new_instance(seed).fork_positional();
+        let random: Arc<dyn PositionalRandomFactory> =
+            Arc::from(algorithm.new_instance(seed).fork_positional());
         let shared = Arc::new(Shared {
             seed,
             use_legacy_random,
@@ -147,6 +150,7 @@ impl RandomState {
             compiler,
             default_block,
             sea_level,
+            surface_system: OnceLock::new(),
         }
     }
 
@@ -163,6 +167,25 @@ impl RandomState {
     /// `createClimateSampler(context)`.
     pub fn create_climate_sampler(self: &Arc<Self>, context: SamplerContext) -> crate::biome::climate::Sampler {
         self.router.create_climate_sampler(self.samplers_with_context(context))
+    }
+
+    /// `surfaceSystem()`: the `MaterialSystem` of this state (vanilla builds it in the constructor from the
+    /// default block, sea level, `router.chunkSurfaceLevel()` and the world's positional random; built on
+    /// first use here, which is unobservable as noise instances only depend on the seed).
+    ///
+    /// # Panics
+    /// If the noise registry lacks one of the noises the material system needs (`surface`, `clay_bands_offset`, …).
+    pub fn surface_system(&self) -> &MaterialSystem {
+        self.surface_system.get_or_init(|| {
+            MaterialSystem::new(
+                self,
+                self.default_block,
+                self.sea_level,
+                self.router.chunk_surface_level.clone(),
+                self.shared.random.clone(),
+            )
+            .expect("noise registry contains the noises of the material system")
+        })
     }
 
     /// `samplersWithContext(context)`: samplers of any function bound to `context`.

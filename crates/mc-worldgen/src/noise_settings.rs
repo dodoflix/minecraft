@@ -84,7 +84,7 @@ impl BlockStateSpec {
     }
 
     /// `BlockState.CODEC`: a bare block id (its default state) or `{Name, Properties?}`.
-    fn from_json(value: &Value) -> LoadResult<BlockStateSpec> {
+    pub(crate) fn from_json(value: &Value) -> LoadResult<BlockStateSpec> {
         if value.is_string() {
             return Ok(BlockStateSpec {
                 name: parse_identifier(value)?,
