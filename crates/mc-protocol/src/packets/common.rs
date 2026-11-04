@@ -38,11 +38,11 @@ macro_rules! id_enum {
                 id_enum!(@lookup $oob, id, n, Self::VALUES)
             }
         }
-        impl Encode for $name {
-            fn encode(&self, out: &mut Vec<u8>) { write_varint(out, self.id()) }
+        impl $crate::codec::Encode for $name {
+            fn encode(&self, out: &mut Vec<u8>) { $crate::codec::write_varint(out, self.id()) }
         }
-        impl Decode for $name {
-            fn decode(input: &mut &[u8]) -> DecodeResult<Self> { crate::codec::read_varint(input).map(Self::by_id) }
+        impl $crate::codec::Decode for $name {
+            fn decode(input: &mut &[u8]) -> $crate::codec::DecodeResult<Self> { $crate::codec::read_varint(input).map(Self::by_id) }
         }
     };
     (@lookup WRAP, $id:ident, $n:ident, $values:expr) => { $values[$id.rem_euclid($n) as usize] };
@@ -468,4 +468,4 @@ macro_rules! cookie_packets {
         }
     };
 }
-pub(crate) use {common_packets, cookie_packets};
+pub(crate) use {common_packets, cookie_packets, id_enum};

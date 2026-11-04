@@ -959,6 +959,7 @@ dependencies = [
  "cfb8",
  "flate2",
  "mc-core",
+ "mc-data",
  "mc-nbt",
  "mc-protocol-macros",
  "mc-text",

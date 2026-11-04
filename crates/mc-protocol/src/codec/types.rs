@@ -150,3 +150,15 @@ impl Decode for Vec3i {
         Ok(Vec3i { x: read_varint(input)?, y: read_varint(input)?, z: read_varint(input)? })
     }
 }
+
+/// `Direction.STREAM_CODEC`: VarInt 3D data value (`ByIdMap.continuous`, WRAP).
+impl Encode for mc_core::direction::Direction {
+    fn encode(&self, out: &mut Vec<u8>) {
+        write_varint(out, self.get_3d_data_value() as i32)
+    }
+}
+impl Decode for mc_core::direction::Direction {
+    fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
+        read_varint(input).map(mc_core::direction::Direction::by_id)
+    }
+}
