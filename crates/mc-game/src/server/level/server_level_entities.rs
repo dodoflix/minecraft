@@ -360,3 +360,15 @@ impl ServerLevel {
         root(a) == root(b)
     }
 }
+
+impl ServerLevel {
+    /// `MinecraftServer.isUnderSpawnProtection(level, pos, player)`.
+    pub fn is_under_spawn_protection(&self, player: &crate::world::entity::ServerPlayer, pos: mc_core::pos::BlockPos) -> bool {
+        self.spawn_protection_hook.is_some_and(|h| h(self, player, pos))
+    }
+
+    /// `Level.mayInteract(player, pos)`: border/spawn rules; no rule is modelled beyond the hook, so allowed.
+    pub fn may_interact(&self, _player: EntityId, _pos: mc_core::pos::BlockPos) -> bool {
+        true
+    }
+}

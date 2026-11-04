@@ -95,6 +95,27 @@ impl ServerPlayer {
         }
         self.player.living.attack_strength_ticker += 1;
         self.player.living.item_swap_ticker += 1;
+        self.touch_nearby_entities(level);
+    }
+
+    /// `Player.aiStep` pickup part: `playerTouch` for every entity around the player (experience orbs: a random one).
+    fn touch_nearby_entities(&mut self, level: &mut ServerLevel) {
+        if self.player.living.get_health() <= 0.0 || self.is_spectator() {
+            return;
+        }
+        let bb = self.base().bounding_box();
+        let area = match self.base().vehicle.and_then(|v| level.get_entity(v)) {
+            Some(vehicle) if !vehicle.is_removed() => bb.minmax(&vehicle.get_bounding_box()).inflate(1.0, 0.0, 1.0),
+            _ => bb.inflate(1.0, 0.5, 1.0),
+        };
+        let ids = level.get_entities(Some(self.base_id()), &area, |_| true);
+        for id in ids {
+            level.with_entity(id, |level, e| {
+                if !e.is_removed() {
+                    e.player_touch(level, self);
+                }
+            });
+        }
     }
 
     /// `ServerPlayer.doTick()`.

@@ -213,7 +213,7 @@ pub fn get_on_pos_legacy<L: MovementLevel>(entity: &dyn Entity, level: &L) -> Bl
 
 /// `getBlockPosBelowThatAffectsMyMovement()`.
 pub fn get_block_pos_below_that_affects_my_movement<L: MovementLevel>(entity: &dyn Entity, level: &L) -> BlockPos {
-    get_on_pos(entity, level, 0.500001)
+    get_on_pos(entity, level, entity.block_pos_below_offset())
 }
 
 /// `getBlockSpeedFactor()`.
@@ -590,14 +590,21 @@ pub fn update_fluid_interaction<L: MovementLevel>(entity: &mut dyn Entity, level
 }
 
 /// Level-dependent part of `Entity.baseTick()`: fluid interaction, fire, lava, fall distance, shared fire flag.
-pub fn base_tick_world<L: MovementLevel>(entity: &mut dyn Entity, level: &L) {
-    entity.base_mut().was_eye_in_water = entity.base().eye_in_fluid[0];
-    update_fluid_interaction(entity, level);
+/// `Entity.updateFluidInteraction()` (without currents/splash): refreshes heights, resets fall distance in water,
+/// sets `wasTouchingWater`. Returns whether the box touches any fluid.
+pub fn update_fluid_state<L: MovementLevel>(entity: &mut dyn Entity, level: &L) -> bool {
+    let any = update_fluid_interaction(entity, level);
     let in_water = entity.base().fluid_height[0] > 0.0;
     if in_water {
         entity.base_mut().fall_distance = 0.0;
     }
     entity.base_mut().was_touching_water = in_water;
+    any
+}
+
+pub fn base_tick_world<L: MovementLevel>(entity: &mut dyn Entity, level: &L) {
+    entity.base_mut().was_eye_in_water = entity.base().eye_in_fluid[0];
+    update_fluid_state(entity, level);
     let in_lava = !entity.base().first_tick && entity.base().fluid_height[1] > 0.0;
     if entity.base().remaining_fire_ticks > 0 {
         if entity.fire_immune() {

@@ -112,6 +112,8 @@ pub struct ServerPlayer {
     pub shoulder_entity_right: CompoundTag,
     pub container_counter: i32,
     pub won_game: bool,
+    /// Set when digging was refused by spawn protection (`sendSpawnProtectionMessage(pos)` is the listener's).
+    pub pending_spawn_protection_message: Option<mc_core::pos::BlockPos>,
     /// Stacks `Player.drop` produced; the item-entity slice turns them into entities.
     pub pending_drops: Vec<(crate::world::item::ItemStack, bool)>,
     /// `Dimension` read from the saved tag (the level a player is placed in on login).
@@ -178,6 +180,7 @@ impl ServerPlayer {
             shoulder_entity_right: CompoundTag::new(),
             container_counter: 0,
             won_game: false,
+            pending_spawn_protection_message: None,
             pending_drops: Vec::new(),
             saved_dimension: None,
             dimension,
