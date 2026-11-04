@@ -507,7 +507,7 @@ fn noise_settings_validation() {
     .collect::<serde_json::Map<_, _>>()
     .into();
     let settings = move |noise: Value| {
-        json!({"noise": noise, "default_block": {"Name": "minecraft:stone", "Properties": {"a": "b"}},
+        json!({"noise": noise, "default_block": {"id": "minecraft:oak_log", "properties": {"axis": "x", "bogus": "1"}},
                "default_fluid": "minecraft:water", "noise_router": router, "material_rule": "minecraft:overworld",
                "spawn_target": [], "sea_level": 5, "disable_mob_generation": true, "legacy_random_source": false})
     };
@@ -526,7 +526,7 @@ fn noise_settings_validation() {
     let ok = registries.noise_settings(&id("test:ok")).expect("ok");
     assert_eq!(
         ok.default_block.properties,
-        [("a".to_owned(), "b".to_owned())]
+        [("axis".to_owned(), "x".to_owned())]
     );
     assert!(ok.aquifers.is_none() && ok.debug_functions.is_empty());
     assert_eq!((ok.sea_level, ok.disable_mob_generation), (5, true));

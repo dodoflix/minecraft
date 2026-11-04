@@ -1000,6 +1000,20 @@ version = "0.1.0"
 [[package]]
 name = "mc-testbot"
 version = "0.1.0"
+dependencies = [
+ "mc-core",
+ "mc-data",
+ "mc-nbt",
+ "mc-protocol",
+ "mc-text",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sha1",
+ "thiserror",
+ "tokio",
+ "uuid",
+]
 
 [[package]]
 name = "mc-text"
