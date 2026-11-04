@@ -1,6 +1,6 @@
 //! `ServerConfigurationPacketListenerImpl`: the configuration phase. The listener object lives on the connection's
 //! task and is lent to the game thread for every packet and every 50 ms tick (`on_server`), because tasks, the
-//! player list and the spawn preparation need `&mut MinecraftServer` — exactly where vanilla runs them
+//! player list and the spawn preparation need `&mut dyn ServerHandle` — exactly where vanilla runs them
 //! (`ensureRunningOnSameThread` + `Connection.tick`).
 
 use super::common_listener::{
@@ -12,10 +12,9 @@ use super::config::{
 };
 use super::connection::{ConnectionSender, ReadError, get_millis};
 use super::connection_task::{ConnectionContext, Event, ListenerShared};
-use super::hooks::{ConfigurationData, NetworkHooks, on_server};
+use super::hooks::{ConfigurationData, GameThread, NetworkHooks, ServerHandle, on_server};
 use super::pending_player::{InboundPacket, PendingPlayer};
 use super::play_connection;
-use crate::server::MinecraftServer;
 use mc_protocol::codec::GameProfile;
 use mc_protocol::net::NetError;
 use mc_protocol::packet::ConnectionState;
@@ -109,7 +108,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `startConfiguration`.
-    pub(super) fn start_configuration(&mut self, server: &mut MinecraftServer) -> Result<(), String> {
+    pub(super) fn start_configuration(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
         let brand = self.hooks.settings().server_mod_name;
         self.send(ClientboundConfigurationPacket::CustomPayload(ClientboundCustomPayloadPacket { payload: CustomPayload::brand(&brand) }));
         let data = self.configuration.clone();
@@ -127,7 +126,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `returnToWorld`.
-    fn return_to_world(&mut self, server: &mut MinecraftServer) -> Result<(), String> {
+    fn return_to_world(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
         let task = PrepareSpawnTask::new(self.hooks.prepare_spawn(server, &self.game_profile));
         self.prepare_spawn_task = Some(task.clone());
         self.configuration_tasks.push_back(Box::new(task));
@@ -156,7 +155,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `startNextTask`.
-    fn start_next_task(&mut self, server: &mut MinecraftServer) -> Result<(), String> {
+    fn start_next_task(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
         if let Some(current) = &self.current_task {
             return Err(illegal_state(format!("Task {} has not finished yet", current.task_type().id())));
         }
@@ -178,7 +177,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `finishCurrentTask`.
-    fn finish_current_task(&mut self, server: &mut MinecraftServer, to_finish: TaskType) -> Result<(), String> {
+    fn finish_current_task(&mut self, server: &mut dyn ServerHandle, to_finish: TaskType) -> Result<(), String> {
         let current = self.current_task.as_ref().map(|t| t.task_type());
         if current != Some(to_finish) {
             let current = current.map_or_else(|| "null".to_owned(), |t| t.to_string());
@@ -189,7 +188,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `tick`.
-    pub(super) fn tick(&mut self, server: &mut MinecraftServer) -> Result<(), String> {
+    pub(super) fn tick(&mut self, server: &mut dyn ServerHandle) -> Result<(), String> {
         match self.common.poll_keep_alive(get_millis()) {
             KeepAliveAction::Nothing => {}
             KeepAliveAction::Send(id) => self.send(ClientboundConfigurationPacket::KeepAlive(ClientboundKeepAlivePacket { id })),
@@ -213,7 +212,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// Dispatch of the serverbound configuration packets. `Err` carries the Java exception text for `exceptionCaught`.
-    pub(super) fn handle_packet(&mut self, server: &mut MinecraftServer, packet: ServerboundConfigurationPacket) -> Result<Flow, String> {
+    pub(super) fn handle_packet(&mut self, server: &mut dyn ServerHandle, packet: ServerboundConfigurationPacket) -> Result<Flow, String> {
         match packet {
             ServerboundConfigurationPacket::ClientInformation(p) => {
                 *self.language.lock() = p.information.language.clone();
@@ -257,7 +256,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `handleConfigurationFinished`.
-    fn handle_configuration_finished(&mut self, server: &mut MinecraftServer) -> Result<Flow, String> {
+    fn handle_configuration_finished(&mut self, server: &mut dyn ServerHandle) -> Result<Flow, String> {
         self.finish_current_task(server, JoinWorldTask::TYPE)?;
         self.sender.set_outbound_state(ConnectionState::Play);
         let id = self.game_profile.id;
@@ -298,7 +297,7 @@ impl ServerConfigurationPacketListenerImpl {
     }
 
     /// `onDisconnect`.
-    fn on_disconnect(&mut self, server: &mut MinecraftServer, reason: &str) {
+    fn on_disconnect(&mut self, server: &mut dyn ServerHandle, reason: &str) {
         log::info!("{} ({}) lost connection: {}", self.game_profile.name, self.game_profile.id, reason);
         if let Some(task) = self.prepare_spawn_task.take() {
             task.close(server);
@@ -320,11 +319,11 @@ fn send_packet(sender: &ConnectionSender, common: &mut ServerCommonListener, pac
 /// reader turns into the play-protocol inbound pump).
 pub(super) async fn run(ctx: &mut ConnectionContext, cookie: CommonListenerCookie) -> Option<CommonListenerCookie> {
     let listener = ServerConfigurationPacketListenerImpl::new(ctx.sender.clone(), ctx.hooks.clone(), ctx.listener.clone(), cookie);
-    let shared = ctx.shared.clone();
+    let game = ctx.game.clone();
     let mut listener = Some(Box::new(listener));
 
     // `handleLoginAcknowledgement`: `startConfiguration()`.
-    let started = lend(&shared, &mut listener, |l, server| l.start_configuration(server)).await?;
+    let started = lend(&*game, &mut listener, |l, server| l.start_configuration(server)).await?;
     if let Err(cause) = started {
         ctx.fault_cause(&cause);
     }
@@ -339,12 +338,12 @@ pub(super) async fn run(ctx: &mut ConnectionContext, cookie: CommonListenerCooki
                     .map_or_else(|| Component::translatable("multiplayer.disconnect.generic", vec![]), |d| d.reason)
                     .get_string();
                 // The listener's logging + spawn-task cleanup happen on the server thread, like `handleDisconnection`.
-                let _ = lend(&shared, &mut listener, move |l, server| l.on_disconnect(server, &reason)).await;
+                let _ = lend(&*game, &mut listener, move |l, server| l.on_disconnect(server, &reason)).await;
                 return None;
             }
             Event::ReadError(e) => ctx.fault(e),
             Event::Tick => {
-                match lend(&shared, &mut listener, |l, server| l.tick(server)).await {
+                match lend(&*game, &mut listener, |l, server| l.tick(server)).await {
                     None => return None,
                     Some(Err(cause)) => ctx.fault_cause(&cause),
                     Some(Ok(())) => {}
@@ -353,7 +352,7 @@ pub(super) async fn run(ctx: &mut ConnectionContext, cookie: CommonListenerCooki
             Event::Payload(p) => match ServerboundConfigurationPacket::decode_payload(&p) {
                 Err(e) => ctx.fault(ReadError::Net(NetError::Decode(e))),
                 Ok(packet) => {
-                    let result = lend(&shared, &mut listener, move |l, server| l.handle_packet(server, packet)).await?;
+                    let result = lend(&*game, &mut listener, move |l, server| l.handle_packet(server, packet)).await?;
                     match result {
                         Err(cause) => ctx.fault_cause(&cause),
                         Ok(Flow::Continue) => {}
@@ -370,12 +369,12 @@ pub(super) async fn run(ctx: &mut ConnectionContext, cookie: CommonListenerCooki
 
 /// Moves the listener to the game thread for one call and back. `None` if the server is gone.
 async fn lend<R: Send + 'static>(
-    shared: &crate::server::ServerShared,
+    game: &dyn GameThread,
     slot: &mut Option<Box<ServerConfigurationPacketListenerImpl>>,
-    f: impl FnOnce(&mut ServerConfigurationPacketListenerImpl, &mut MinecraftServer) -> R + Send + 'static,
+    f: impl FnOnce(&mut ServerConfigurationPacketListenerImpl, &mut dyn ServerHandle) -> R + Send + 'static,
 ) -> Option<R> {
     let mut listener = slot.take()?;
-    let (listener, result) = on_server(shared, move |server| {
+    let (listener, result) = on_server(game, move |server| {
         let result = f(&mut listener, server);
         (listener, result)
     })

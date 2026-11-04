@@ -9,11 +9,10 @@ use super::connection::{
     ConnectionHandle, ConnectionSender, FrameReader, ReadError, generic_reason, internal_exception_text, run_writer,
 };
 use super::handshake_listener::{self, HandshakeOutcome};
-use super::hooks::NetworkHooks;
+use super::hooks::{GameThread, NetworkHooks};
 use super::legacy_query;
 use super::login_listener;
 use super::status_listener;
-use crate::server::ServerShared;
 use mc_core::math::java::java_float_to_string;
 use mc_protocol::net::NetError;
 use mc_protocol::packet::ConnectionState;
@@ -99,7 +98,7 @@ pub(super) struct ConnectionContext {
     pub sender: ConnectionSender,
     pub handle: Arc<ConnectionHandle>,
     pub hooks: Arc<dyn NetworkHooks>,
-    pub shared: Arc<ServerShared>,
+    pub game: Arc<dyn GameThread>,
     pub listener: Arc<ListenerShared>,
     tick: Interval,
     second: Interval,
@@ -183,7 +182,7 @@ impl ConnectionContext {
     /// Runs `f` on the game thread; vanilla logs from the server thread what is emitted from `tick` /
     /// `handleDisconnection` there.
     pub(super) fn log_on_server(&self, f: impl FnOnce() + Send + 'static) {
-        self.shared.execute(move |_| f());
+        self.game.execute(Box::new(move |_| f()));
     }
 
     /// Waits until the writer task has closed the socket (after a disconnect packet is flushed), at most 5 s.
@@ -193,7 +192,7 @@ impl ConnectionContext {
 }
 
 /// Creates the tasks of an accepted socket and runs the connection until it ends or the play protocol takes over.
-pub(super) async fn run_connection(socket: TcpStream, id: u64, hooks: Arc<dyn NetworkHooks>, shared: Arc<ServerShared>, listener: Arc<ListenerShared>) {
+pub(super) async fn run_connection(socket: TcpStream, id: u64, hooks: Arc<dyn NetworkHooks>, listener: Arc<ListenerShared>) {
     let _ = socket.set_nodelay(true);
     let remote = socket.peer_addr().ok();
     let (read, write) = socket.into_split();
@@ -212,8 +211,8 @@ pub(super) async fn run_connection(socket: TcpStream, id: u64, hooks: Arc<dyn Ne
         reader: FrameReader::new(read),
         sender,
         handle,
+        game: hooks.game_thread(),
         hooks,
-        shared,
         listener,
         tick,
         second,

@@ -7,9 +7,9 @@ use mc_core::ident::Identifier;
 use mc_game::server::network::config::PrepareSpawn;
 use mc_game::server::network::configuration_task::TaskError;
 use mc_game::server::network::PendingPlayer;
-use mc_game::server::network::hooks::{ConfigurationData, LegacyServerInfo, RegistrySynchronization};
+use mc_game::server::network::hooks::{ConfigurationData, GameTask, GameThread, LegacyServerInfo, RegistrySynchronization, ServerHandle};
 use mc_game::server::network::{NetworkHooks, NetworkSettings, ServerConnectionListener};
-use mc_game::server::{MinecraftServer, ServerShared};
+use mc_game::server::MinecraftServer;
 use mc_protocol::auth::{ServerKeyPair, SessionClient};
 use mc_protocol::codec::GameProfile;
 use mc_protocol::net::Connection;
@@ -25,6 +25,21 @@ use std::sync::Arc;
 use std::time::Duration;
 use tokio::net::TcpStream;
 use uuid::Uuid;
+
+/// The server without a world: what the network tests run the game-thread callbacks against.
+pub struct NullServer;
+impl ServerHandle for NullServer {
+    fn minecraft_server(&mut self) -> Option<&mut MinecraftServer> {
+        None
+    }
+}
+
+pub struct TestGameThread(Mutex<std::sync::mpsc::Sender<GameTask>>);
+impl GameThread for TestGameThread {
+    fn execute(&self, task: GameTask) {
+        let _ = self.0.lock().send(task);
+    }
+}
 
 pub struct NoRegistries;
 impl RegistrySynchronization for NoRegistries {
@@ -49,6 +64,8 @@ pub struct MockHooks {
     pub log: Mutex<Vec<String>>,
     /// Players handed to the (mock) play side.
     pub spawned: Arc<Mutex<Vec<PendingPlayer>>>,
+    pub game: Arc<TestGameThread>,
+    game_tasks: Mutex<Option<std::sync::mpsc::Receiver<GameTask>>>,
 }
 
 /// A `PrepareSpawn` that is ready at once and records the spawned player.
@@ -57,22 +74,24 @@ pub struct MockSpawn {
 }
 
 impl PrepareSpawn for MockSpawn {
-    fn start(&mut self, _server: &mut MinecraftServer) -> Result<(), TaskError> {
+    fn start(&mut self, _server: &mut dyn ServerHandle) -> Result<(), TaskError> {
         Ok(())
     }
-    fn tick(&mut self, _server: &mut MinecraftServer) -> Result<bool, TaskError> {
+    fn tick(&mut self, _server: &mut dyn ServerHandle) -> Result<bool, TaskError> {
         Ok(true)
     }
-    fn keep_alive(&mut self, _server: &mut MinecraftServer) {}
-    fn close(&mut self, _server: &mut MinecraftServer) {}
-    fn spawn_player(&mut self, _server: &mut MinecraftServer, pending: PendingPlayer) -> Result<(), TaskError> {
+    fn keep_alive(&mut self, _server: &mut dyn ServerHandle) {}
+    fn close(&mut self, _server: &mut dyn ServerHandle) {}
+    fn spawn_player(&mut self, _server: &mut dyn ServerHandle, pending: PendingPlayer) -> Result<(), TaskError> {
         self.spawned.lock().push(pending);
         Ok(())
     }
 }
 
 impl MockHooks {
+    /// `game_tasks` receives what the network layer queues for the game thread (see `TestServer::start`).
     pub fn new() -> Arc<Self> {
+        let (tx, rx) = std::sync::mpsc::channel();
         let status = ServerStatus {
             description: Component::literal("A Minecraft Server"),
             players: Some(Players { max: 20, online: 0, sample: Vec::new() }),
@@ -90,6 +109,8 @@ impl MockHooks {
             configuration: Mutex::new(Arc::new(default_configuration())),
             log: Mutex::new(Vec::new()),
             spawned: Arc::new(Mutex::new(Vec::new())),
+            game: Arc::new(TestGameThread(Mutex::new(tx))),
+            game_tasks: Mutex::new(Some(rx)),
         })
     }
 }
@@ -124,20 +145,23 @@ impl NetworkHooks for MockHooks {
     fn configuration(&self) -> Arc<ConfigurationData> {
         self.configuration.lock().clone()
     }
-    fn can_player_login(&self, _server: &mut MinecraftServer, _addr: SocketAddr, profile: &GameProfile) -> Option<Component> {
+    fn game_thread(&self) -> Arc<dyn GameThread> {
+        self.game.clone()
+    }
+    fn can_player_login(&self, _server: &mut dyn ServerHandle, _addr: SocketAddr, profile: &GameProfile) -> Option<Component> {
         self.log.lock().push(format!("can_player_login {}", profile.name));
         self.login_error.lock().clone()
     }
-    fn disconnect_all_players_with_profile(&self, _server: &mut MinecraftServer, id: Uuid) -> bool {
+    fn disconnect_all_players_with_profile(&self, _server: &mut dyn ServerHandle, id: Uuid) -> bool {
         self.online.lock().contains(&id)
     }
-    fn is_player_in_world(&self, _server: &mut MinecraftServer, id: Uuid) -> bool {
+    fn is_player_in_world(&self, _server: &mut dyn ServerHandle, id: Uuid) -> bool {
         self.online.lock().contains(&id)
     }
-    fn report_login_activity(&self, _server: &mut MinecraftServer) {
+    fn report_login_activity(&self, _server: &mut dyn ServerHandle) {
         self.log.lock().push("login_activity".into());
     }
-    fn prepare_spawn(&self, _server: &mut MinecraftServer, _profile: &GameProfile) -> Box<dyn PrepareSpawn> {
+    fn prepare_spawn(&self, _server: &mut dyn ServerHandle, _profile: &GameProfile) -> Box<dyn PrepareSpawn> {
         Box::new(MockSpawn { spawned: self.spawned.clone() })
     }
 }
@@ -145,36 +169,39 @@ impl NetworkHooks for MockHooks {
 /// A listening server on an ephemeral port with a game thread draining its task queue.
 pub struct TestServer {
     pub hooks: Arc<MockHooks>,
-    pub shared: Arc<ServerShared>,
     pub addr: SocketAddr,
     pub listener: ServerConnectionListener,
+    running: Arc<std::sync::atomic::AtomicBool>,
     game_thread: Option<std::thread::JoinHandle<()>>,
 }
 
 impl TestServer {
     pub fn start(hooks: Arc<MockHooks>) -> Self {
-        let (shared, rx) = ServerShared::new();
-        let game_shared = shared.clone();
+        let rx = hooks.game_tasks.lock().take().expect("one server per MockHooks");
+        let running = Arc::new(std::sync::atomic::AtomicBool::new(true));
+        let flag = running.clone();
         let game_thread = std::thread::Builder::new()
             .name("Server thread".into())
             .spawn(move || {
-                let mut server = MinecraftServer::new(game_shared.clone(), rx);
-                while game_shared.is_running() {
-                    server.run_all_tasks();
+                let mut server = NullServer;
+                while flag.load(std::sync::atomic::Ordering::Acquire) {
+                    while let Ok(task) = rx.try_recv() {
+                        task(&mut server);
+                    }
                     std::thread::sleep(Duration::from_millis(2));
                 }
             })
             .unwrap();
-        let mut listener = ServerConnectionListener::new(hooks.clone(), shared.clone()).unwrap();
+        let mut listener = ServerConnectionListener::new(hooks.clone()).unwrap();
         let addr = listener.start_tcp_server_listener(Some("127.0.0.1".parse().unwrap()), 0).unwrap();
-        Self { hooks, shared, addr, listener, game_thread: Some(game_thread) }
+        Self { hooks, addr, listener, running, game_thread: Some(game_thread) }
     }
 }
 
 impl Drop for TestServer {
     fn drop(&mut self) {
         self.listener.stop();
-        self.shared.halt();
+        self.running.store(false, std::sync::atomic::Ordering::Release);
         if let Some(t) = self.game_thread.take() {
             let _ = t.join();
         }

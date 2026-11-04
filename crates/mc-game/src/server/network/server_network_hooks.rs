@@ -2,7 +2,7 @@
 //! configuration snapshots the lifecycle installs, and forwards the world-side calls to the player list.
 
 use super::config::PrepareSpawn;
-use super::hooks::{ConfigurationData, LegacyServerInfo, NetworkHooks, NetworkSettings};
+use super::hooks::{ConfigurationData, GameThread, LegacyServerInfo, NetworkHooks, NetworkSettings, ServerHandle};
 use crate::server::{MinecraftServer, ServerShared};
 use mc_protocol::auth::{ServerKeyPair, SessionClient};
 use mc_protocol::codec::GameProfile;
@@ -87,19 +87,26 @@ impl NetworkHooks for ServerNetworkHooks {
     fn configuration(&self) -> Arc<ConfigurationData> {
         self.configuration.read().clone()
     }
-    fn can_player_login(&self, server: &mut MinecraftServer, addr: SocketAddr, profile: &GameProfile) -> Option<Component> {
-        self.players().can_player_login(server, addr, profile)
+    fn game_thread(&self) -> Arc<dyn GameThread> {
+        self.shared.clone()
     }
-    fn disconnect_all_players_with_profile(&self, server: &mut MinecraftServer, id: Uuid) -> bool {
-        self.players().disconnect_all_players_with_profile(server, id)
+    fn can_player_login(&self, server: &mut dyn ServerHandle, addr: SocketAddr, profile: &GameProfile) -> Option<Component> {
+        self.players().can_player_login(real(server), addr, profile)
     }
-    fn is_player_in_world(&self, server: &mut MinecraftServer, id: Uuid) -> bool {
-        self.players().is_player_in_world(server, id)
+    fn disconnect_all_players_with_profile(&self, server: &mut dyn ServerHandle, id: Uuid) -> bool {
+        self.players().disconnect_all_players_with_profile(real(server), id)
     }
-    fn report_login_activity(&self, server: &mut MinecraftServer) {
-        self.players().report_login_activity(server);
+    fn is_player_in_world(&self, server: &mut dyn ServerHandle, id: Uuid) -> bool {
+        self.players().is_player_in_world(real(server), id)
     }
-    fn prepare_spawn(&self, server: &mut MinecraftServer, profile: &GameProfile) -> Box<dyn PrepareSpawn> {
-        self.players().prepare_spawn(server, profile)
+    fn report_login_activity(&self, server: &mut dyn ServerHandle) {
+        self.players().report_login_activity(real(server));
     }
+    fn prepare_spawn(&self, server: &mut dyn ServerHandle, profile: &GameProfile) -> Box<dyn PrepareSpawn> {
+        self.players().prepare_spawn(real(server), profile)
+    }
+}
+
+fn real(server: &mut dyn ServerHandle) -> &mut MinecraftServer {
+    server.minecraft_server().expect("the real network hooks run against the real server")
 }

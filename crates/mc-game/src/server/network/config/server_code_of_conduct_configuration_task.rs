@@ -1,4 +1,4 @@
-use crate::server::MinecraftServer;
+use crate::server::network::hooks::ServerHandle;
 use crate::server::network::configuration_task::{ConfigurationTask, PacketSink, TaskError, TaskType};
 use mc_protocol::packets::configuration::{ClientboundCodeOfConductPacket, ClientboundConfigurationPacket};
 
@@ -17,7 +17,7 @@ impl ServerCodeOfConductConfigurationTask {
 }
 
 impl ConfigurationTask for ServerCodeOfConductConfigurationTask {
-    fn start(&mut self, _server: &mut MinecraftServer, connection: PacketSink) -> Result<(), TaskError> {
+    fn start(&mut self, _server: &mut dyn ServerHandle, connection: PacketSink) -> Result<(), TaskError> {
         connection(ClientboundConfigurationPacket::CodeOfConduct(ClientboundCodeOfConductPacket { code_of_conduct: (self.code_of_conduct)() }));
         Ok(())
     }

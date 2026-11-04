@@ -1,10 +1,9 @@
 //! What the network layer needs from the rest of the server. The tokio connection tasks read settings/snapshots
 //! through `&self` methods (callable from any thread) and run everything that needs the world on the game thread
-//! through the methods taking `&mut MinecraftServer` (`on_server` hops there and back). The real implementation is
+//! through the methods taking `&mut dyn ServerHandle` (`on_server` hops there and back). The real implementation is
 //! `ServerNetworkHooks`; tests use a mock.
 
-use crate::server::MinecraftServer;
-use crate::server::ServerShared;
+use crate::server::{MinecraftServer, ServerShared};
 use crate::server::network::config::PrepareSpawn;
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
@@ -128,26 +127,56 @@ pub trait NetworkHooks: Send + Sync + 'static {
     /// `services().sessionService()`.
     fn session_client(&self) -> SessionClient;
     fn configuration(&self) -> Arc<ConfigurationData>;
+    /// The game thread's task queue.
+    fn game_thread(&self) -> Arc<dyn GameThread>;
 
     // ---- game thread -----------------------------------------------------------------------------------------
 
     /// `PlayerList.canPlayerLogin(address, new NameAndId(profile))`: the disconnect reason, if the login must be refused.
-    fn can_player_login(&self, server: &mut MinecraftServer, addr: SocketAddr, profile: &GameProfile) -> Option<Component>;
+    fn can_player_login(&self, server: &mut dyn ServerHandle, addr: SocketAddr, profile: &GameProfile) -> Option<Component>;
     /// `PlayerList.disconnectAllPlayersWithProfile(id)`: `true` if a player had to be disconnected (wait for it).
-    fn disconnect_all_players_with_profile(&self, server: &mut MinecraftServer, id: Uuid) -> bool;
+    fn disconnect_all_players_with_profile(&self, server: &mut dyn ServerHandle, id: Uuid) -> bool;
     /// `PlayerList.getPlayer(id) != null`.
-    fn is_player_in_world(&self, server: &mut MinecraftServer, id: Uuid) -> bool;
+    fn is_player_in_world(&self, server: &mut dyn ServerHandle, id: Uuid) -> bool;
     /// `serverActivityMonitor.reportLoginActivity()`.
-    fn report_login_activity(&self, server: &mut MinecraftServer);
+    fn report_login_activity(&self, server: &mut dyn ServerHandle);
     /// `new PrepareSpawnTask(server, nameAndId)`.
-    fn prepare_spawn(&self, server: &mut MinecraftServer, profile: &GameProfile) -> Box<dyn PrepareSpawn>;
+    fn prepare_spawn(&self, server: &mut dyn ServerHandle, profile: &GameProfile) -> Box<dyn PrepareSpawn>;
 }
 
-/// Runs `f` on the game thread (`MinecraftServer.execute`) and returns its result; `None` if the server is gone.
-pub async fn on_server<R: Send + 'static>(shared: &ServerShared, f: impl FnOnce(&mut MinecraftServer) -> R + Send + 'static) -> Option<R> {
+/// The server as the network layer sees it on the game thread. The real server is a [`MinecraftServer`]; the network
+/// tests run the same code against a server without a world.
+pub trait ServerHandle {
+    /// `Some` for the real server.
+    fn minecraft_server(&mut self) -> Option<&mut MinecraftServer>;
+}
+
+impl ServerHandle for MinecraftServer {
+    fn minecraft_server(&mut self) -> Option<&mut MinecraftServer> {
+        Some(self)
+    }
+}
+
+/// A task for the game thread (`MinecraftServer.execute`).
+pub type GameTask = Box<dyn FnOnce(&mut dyn ServerHandle) + Send>;
+
+/// Where `GameTask`s run: the server's task queue.
+pub trait GameThread: Send + Sync {
+    /// Queue `task` for the game thread's next task drain. A server that is gone drops it.
+    fn execute(&self, task: GameTask);
+}
+
+impl GameThread for ServerShared {
+    fn execute(&self, task: GameTask) {
+        ServerShared::execute(self, move |server| task(server));
+    }
+}
+
+/// Runs `f` on the game thread and returns its result; `None` if the server is gone.
+pub async fn on_server<R: Send + 'static>(game: &dyn GameThread, f: impl FnOnce(&mut dyn ServerHandle) -> R + Send + 'static) -> Option<R> {
     let (tx, rx) = tokio::sync::oneshot::channel();
-    shared.execute(move |server| {
+    game.execute(Box::new(move |server| {
         let _ = tx.send(f(server));
-    });
+    }));
     rx.await.ok()
 }

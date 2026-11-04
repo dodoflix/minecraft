@@ -1,4 +1,4 @@
-use crate::server::MinecraftServer;
+use crate::server::network::hooks::ServerHandle;
 use crate::server::network::configuration_task::{ConfigurationTask, PacketSink, TaskError, TaskType};
 use crate::server::network::hooks::ServerResourcePackInfo;
 use mc_protocol::packets::configuration::{ClientboundConfigurationPacket, ClientboundResourcePackPushPacket};
@@ -18,7 +18,7 @@ impl ServerResourcePackConfigurationTask {
 }
 
 impl ConfigurationTask for ServerResourcePackConfigurationTask {
-    fn start(&mut self, _server: &mut MinecraftServer, connection: PacketSink) -> Result<(), TaskError> {
+    fn start(&mut self, _server: &mut dyn ServerHandle, connection: PacketSink) -> Result<(), TaskError> {
         connection(ClientboundConfigurationPacket::ResourcePackPush(ClientboundResourcePackPushPacket {
             id: self.info.id,
             url: self.info.url.clone(),

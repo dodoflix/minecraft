@@ -1,4 +1,4 @@
-use crate::server::MinecraftServer;
+use crate::server::network::hooks::ServerHandle;
 use crate::server::network::configuration_task::{ConfigurationTask, PacketSink, TaskError, TaskType};
 use crate::server::network::hooks::RegistrySynchronization;
 use mc_protocol::packets::configuration::{
@@ -40,7 +40,7 @@ impl SynchronizeRegistriesTask {
 }
 
 impl ConfigurationTask for SynchronizeRegistriesTask {
-    fn start(&mut self, _server: &mut MinecraftServer, connection: PacketSink) -> Result<(), TaskError> {
+    fn start(&mut self, _server: &mut dyn ServerHandle, connection: PacketSink) -> Result<(), TaskError> {
         connection(ClientboundConfigurationPacket::SelectKnownPacks(ClientboundSelectKnownPacks { known_packs: self.requested_packs.clone() }));
         Ok(())
     }

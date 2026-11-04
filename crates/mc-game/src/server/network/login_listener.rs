@@ -163,7 +163,7 @@ async fn tick(ctx: &mut ConnectionContext, login: &mut Login, log_ips: bool) -> 
     if login.state == State::WaitingForDupeDisconnect {
         let id = login.authenticated_profile.as_ref().expect("waiting without profile").id;
         let hooks = ctx.hooks.clone();
-        let in_world = on_server(&ctx.shared, move |server| hooks.is_player_in_world(server, id)).await?;
+        let in_world = on_server(&*ctx.game, move |server| hooks.is_player_in_world(server, id)).await?;
         if !in_world {
             let profile = login.authenticated_profile.clone().expect("waiting without profile");
             finish_login_and_wait_for_client(ctx, login, profile);
@@ -262,7 +262,7 @@ fn handle_key(ctx: &mut ConnectionContext, login: &mut Login, packet: Serverboun
 fn spawn_authenticator(ctx: &ConnectionContext, login: &Login, name: String, digest: String, ip: Option<String>, singleplayer: bool, log_ips: bool) {
     let session = ctx.hooks.session_client();
     let tx = login.auth_tx.clone();
-    let shared = ctx.shared.clone();
+    let game = ctx.game.clone();
     let hooks = ctx.hooks.clone();
     let runtime = tokio::runtime::Handle::current();
     let user_name = login.user_name(ctx, log_ips);
@@ -275,7 +275,7 @@ fn spawn_authenticator(ctx: &ConnectionContext, login: &Login, name: String, dig
         match runtime.block_on(session.has_joined(&name, &digest, ip.as_deref())) {
             Ok(Some(profile)) => {
                 log::info!("UUID of player {} is {}", profile.name, profile.id);
-                shared.execute(move |server| hooks.report_login_activity(server));
+                game.execute(Box::new(move |server| hooks.report_login_activity(server)));
                 let _ = tx.send(AuthResult::Verified(profile));
             }
             Ok(None) if singleplayer => {
@@ -312,7 +312,7 @@ async fn verify_login_and_finish_connection_setup(ctx: &mut ConnectionContext, l
     let check_profile = profile.clone();
     let (error, wait_for_disconnection) = {
         let id = profile.id;
-        on_server(&ctx.shared, move |server| {
+        on_server(&*ctx.game, move |server| {
             match hooks.can_player_login(server, addr, &check_profile) {
                 Some(error) => (Some(error), false),
                 // Vanilla sends the compression packet between the two calls; nothing can observe the difference.

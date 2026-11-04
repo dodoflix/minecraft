@@ -3,7 +3,7 @@
 
 use super::connection_task::{ListenerShared, run_connection};
 use super::hooks::NetworkHooks;
-use crate::server::{MinecraftServer, ServerShared};
+use crate::server::MinecraftServer;
 use std::io;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
 use std::sync::Arc;
@@ -15,7 +15,6 @@ use uuid::Uuid;
 
 pub struct ServerConnectionListener {
     hooks: Arc<dyn NetworkHooks>,
-    shared: Arc<ServerShared>,
     listener: Arc<ListenerShared>,
     runtime: Option<Runtime>,
     /// `ServerConnectionListener.channels` (TCP listeners only).
@@ -31,14 +30,14 @@ pub struct ServerConnectionListener {
 pub type PlayConnectionTicker = fn(&mut MinecraftServer, Uuid);
 
 impl ServerConnectionListener {
-    pub fn new(hooks: Arc<dyn NetworkHooks>, shared: Arc<ServerShared>) -> io::Result<Self> {
+    pub fn new(hooks: Arc<dyn NetworkHooks>) -> io::Result<Self> {
         let counter = AtomicUsize::new(0);
         let runtime = tokio::runtime::Builder::new_multi_thread()
             .worker_threads(std::thread::available_parallelism().map_or(2, |n| n.get().max(2)))
             .thread_name_fn(move || format!("Netty Epoll Server IO #{}", counter.fetch_add(1, Ordering::Relaxed) + 1))
             .enable_all()
             .build()?;
-        Ok(Self { hooks, shared, listener: ListenerShared::new(), runtime: Some(runtime), channels: Vec::new(), running: true, play_ticker: None })
+        Ok(Self { hooks, listener: ListenerShared::new(), runtime: Some(runtime), channels: Vec::new(), running: true, play_ticker: None })
     }
 
     /// `startTcpServerListener`: binds `address:port` (all interfaces when `None`). Returns the bound address.
@@ -55,7 +54,6 @@ impl ServerConnectionListener {
         };
         let local = socket.local_addr()?;
         let hooks = self.hooks.clone();
-        let shared = self.shared.clone();
         let listener = self.listener.clone();
         let next_id = Arc::new(AtomicU64::new(1));
         let task = runtime.spawn(async move {
@@ -63,7 +61,7 @@ impl ServerConnectionListener {
                 match socket.accept().await {
                     Ok((stream, _)) => {
                         let id = next_id.fetch_add(1, Ordering::Relaxed);
-                        tokio::spawn(run_connection(stream, id, hooks.clone(), shared.clone(), listener.clone()));
+                        tokio::spawn(run_connection(stream, id, hooks.clone(), listener.clone()));
                     }
                     // EMFILE and friends: back off like netty's accept backoff instead of spinning.
                     Err(_) => tokio::time::sleep(std::time::Duration::from_millis(100)).await,
