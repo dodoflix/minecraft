@@ -56,6 +56,8 @@ pub struct ServerLevelParams {
     pub simulation_distance: i32,
     pub sync_writes: bool,
     pub is_debug: bool,
+    /// `levelData` (`PrimaryLevelData` for the overworld, `DerivedLevelData` for the other dimensions).
+    pub level_data: Box<dyn super::level_data::ServerLevelData>,
 }
 
 pub struct ServerLevel {
@@ -70,6 +72,8 @@ pub struct ServerLevel {
     /// `chunkSource`.
     pub chunk_source: ServerChunkCache,
     pub shared: Arc<ServerShared>,
+    /// `serverLevelData`.
+    pub level_data: Box<dyn super::level_data::ServerLevelData>,
     /// `noSave`.
     pub no_save: bool,
     pub is_debug: bool,
@@ -118,6 +122,7 @@ impl ServerLevel {
             entity_tracker: Default::default(),
             chunk_source,
             shared: params.shared,
+            level_data: params.level_data,
             no_save: false,
             is_debug: params.is_debug,
             sea_level: params.sea_level,
@@ -153,6 +158,7 @@ impl ServerLevel {
             simulation_distance: 10,
             sync_writes: false,
             is_debug: false,
+            level_data: Box::new(super::level_data::PrimaryServerLevelData(super::level_data::default_world_data())),
         })
     }
 
@@ -166,10 +172,11 @@ impl ServerLevel {
 
     /// `getGameTime()`.
     pub fn game_time(&self) -> i64 {
-        self.game_time
+        self.level_data.get_game_time()
     }
 
     pub fn set_game_time(&mut self, game_time: i64) {
+        self.level_data.set_game_time(game_time);
         self.game_time = game_time;
         self.chunk_source.chunk_map.game_time = game_time;
     }
@@ -406,12 +413,18 @@ impl ServerLevel {
         } else {
             self.chunk_source.chunk_map.save_all_chunks_periodic();
         }
-        self.chunk_source.save_data_storage();
+        self.chunk_source.sync_tickets_to_data_storage();
+    }
+
+    /// `getDataStorage()`: the dimension's saved data storage (`<dimension>/data`).
+    pub fn get_data_storage(&mut self) -> &mut crate::world::level::saveddata::SavedDataManager {
+        &mut self.chunk_source.data_storage
     }
 
     /// `ServerChunkCache.close()` / `ServerLevel.close()`.
     pub fn close(&mut self) {
         self.save_chunks(true);
+        self.chunk_source.close_data_storage();
         self.chunk_source.chunk_map.close();
     }
 }

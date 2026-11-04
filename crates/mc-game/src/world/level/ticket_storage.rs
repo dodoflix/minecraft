@@ -388,3 +388,23 @@ impl TicketStorage {
 fn is_ticket_same_type_and_level(ticket: &Ticket, t: &Ticket) -> bool {
     t.get_type() == ticket.get_type() && t.get_ticket_level() == ticket.get_ticket_level()
 }
+
+crate::impl_saved_data!(TicketStorage);
+
+/// `TicketStorage.TYPE` (`chunk_tickets`).
+pub fn saved_data_type() -> crate::world::level::saveddata::SavedDataType<TicketStorage> {
+    use crate::util::codec::Partial;
+    crate::world::level::saveddata::SavedDataType::new(
+        mc_core::ident::Identifier::parse("minecraft:chunk_tickets").expect("valid id"),
+        TicketStorage::new,
+        |tag| TicketStorage::from_tag(tag).map_err(Partial::from),
+        |storage| Ok(storage.to_tag()),
+    )
+}
+
+impl TicketStorage {
+    /// A copy for the saved data storage (all tickets as deactivated ones, which is also how they are written).
+    pub fn snapshot_for_saving(&self) -> TicketStorage {
+        TicketStorage::from_tag(&self.to_tag()).expect("own encoding decodes")
+    }
+}

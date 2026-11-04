@@ -10,15 +10,11 @@ use super::{Ticket, TicketType};
 use crate::world::level::chunk::LevelChunk;
 use crate::world::level::ticket_storage::TicketStorage;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
+use crate::world::level::saveddata::SavedDataManager;
 use mc_world::level_storage::SavedDataStorage;
 use mc_world::status::ChunkStatus;
 use std::collections::HashSet;
 use std::path::PathBuf;
-
-/// `TicketStorage.TYPE` id.
-fn ticket_storage_id() -> mc_core::ident::Identifier {
-    mc_core::ident::Identifier::parse("minecraft:chunk_tickets").expect("valid id")
-}
 
 /// What `getChunkFutureMainThread` produced for the caller to wait on.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -31,7 +27,8 @@ pub enum ChunkFuture {
 
 pub struct ServerChunkCache {
     pub chunk_map: ChunkMap,
-    data_storage: SavedDataStorage,
+    /// `savedDataStorage` of the dimension (`getDataStorage()`).
+    pub data_storage: SavedDataManager,
     spawn_enemies: bool,
     /// `chunkHoldersToBroadcast`.
     chunk_holders_to_broadcast: indexmap::IndexSet<i64>,
@@ -43,18 +40,12 @@ impl ServerChunkCache {
         if let Err(e) = std::fs::create_dir_all(&data_folder) {
             log::error!("Failed to create dimension data storage directory: {e}");
         }
-        let data_storage = SavedDataStorage::new(data_folder);
-        let id = ticket_storage_id();
-        params.tickets = match data_storage.get(&id) {
-            Some(tag) => match TicketStorage::from_tag(&tag) {
-                Ok(t) => t,
-                Err(e) => {
-                    log::error!("Failed to parse saved data for 'SavedDataType[{id}]': {e}");
-                    TicketStorage::new()
-                }
-            },
-            None => TicketStorage::new(),
-        };
+        let mut data_storage = SavedDataManager::new(SavedDataStorage::new(data_folder));
+        // `computeIfAbsent(TicketStorage.TYPE)`: the chunk map owns the tickets while running; the manager's copy is
+        // refreshed when saving (`sync_tickets_to_data_storage`).
+        let ticket_type = crate::world::level::ticket_storage::saved_data_type();
+        params.tickets = std::mem::take(data_storage.compute_if_absent(&ticket_type));
+        params.tickets.set_dirty_to(false);
         let mut chunk_map = ChunkMap::new(params);
         chunk_map.distance_manager.update_simulation_distance(simulation_distance, &mut chunk_map.tickets);
         Self { chunk_map, data_storage, spawn_enemies: true, chunk_holders_to_broadcast: indexmap::IndexSet::new() }
@@ -63,10 +54,6 @@ impl ServerChunkCache {
     /// `getGenerator()`.
     pub fn generator(&self) -> &std::sync::Arc<dyn super::world_gen::ChunkGeneratorBackend> {
         &self.chunk_map.gen_context.generator
-    }
-
-    pub fn data_storage(&self) -> &SavedDataStorage {
-        &self.data_storage
     }
 
     // ------------------------------------------------------------------ access
@@ -295,16 +282,23 @@ impl ServerChunkCache {
 
     // ------------------------------------------------------------------ persistence
 
-    /// Persist the dirty `chunk_tickets` saved data (`SavedDataStorage` write of the dimension).
-    pub fn save_data_storage(&mut self) {
+    /// Copy changed tickets into the saved data storage (which persists them with the other dirty saved data).
+    pub fn sync_tickets_to_data_storage(&mut self) {
         let tickets = &mut self.chunk_map.tickets;
         if tickets.is_dirty() {
-            let id = ticket_storage_id();
-            match self.data_storage.save(&id, tickets.to_tag()) {
-                Ok(()) => tickets.set_dirty_to(false),
-                Err(e) => log::error!("Could not save data {id}: {e}"),
-            }
+            let snapshot = tickets.snapshot_for_saving();
+            let ty = crate::world::level::ticket_storage::saved_data_type();
+            let slot = self.data_storage.compute_if_absent(&ty);
+            *slot = snapshot;
+            crate::world::level::saveddata::SavedData::set_dirty(slot);
+            tickets.set_dirty_to(false);
         }
+    }
+
+    /// `savedDataStorage.close()` (saves everything dirty).
+    pub fn close_data_storage(&mut self) {
+        self.sync_tickets_to_data_storage();
+        self.data_storage.close();
     }
 
     /// The set of chunk keys this cache has holders for (visible), for diagnostics and tests.

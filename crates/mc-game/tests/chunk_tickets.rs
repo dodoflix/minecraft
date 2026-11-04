@@ -44,6 +44,7 @@ fn open(dir: &Path) -> ServerLevel {
         simulation_distance: 4,
         sync_writes: false,
         is_debug: false,
+        level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(mc_game::server::level::level_data::default_world_data())),
     })
 }
 

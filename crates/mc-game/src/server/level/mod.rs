@@ -13,6 +13,7 @@ pub mod chunk_tracking_view;
 pub mod distance_manager;
 pub mod dynamic_graph;
 pub mod fastutil;
+pub mod level_data;
 mod full_chunk_status;
 mod generation;
 pub mod player_map;
