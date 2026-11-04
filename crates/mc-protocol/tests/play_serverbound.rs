@@ -451,6 +451,18 @@ fn movement(g: &Golden) {
             assert_eq!(p.get_y_rot(7.0).to_bits(), p.y_rot.to_bits());
         }
     }
+    for i in 0..13 {
+        for og in [false, true] {
+            check_bits(
+                g,
+                &format!("move_vehicle_{i}_{og}"),
+                &ServerboundMoveVehiclePacket {
+                    moving_to: PositionAndRotation { position: Vec3::new(DOUBLES[i], DOUBLES[(i + 5) % 13], DOUBLES[(i + 8) % 13]), y_rot: FLOATS[i % 12], x_rot: FLOATS[(i + 7) % 12] },
+                    on_ground: og,
+                },
+            );
+        }
+    }
     // The flags byte is read as an unsigned byte: only bits 0 and 1 matter (crafted bytes, vanilla semantics).
     for flags in [0u8, 1, 2, 3, 4, 0xfc, 0xfd, 0xfe, 0xff] {
         let p = mc_protocol::codec::from_bytes::<ServerboundMovePlayerStatusOnlyPacket>(&[flags])

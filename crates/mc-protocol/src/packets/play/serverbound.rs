@@ -9,6 +9,7 @@ use mc_core::pos::vec3i::Vec3i;
 use mc_core::rotation::Rotation;
 use uuid::Uuid;
 
+use super::entity::PositionAndRotation;
 use super::types::{Difficulty, GameType, InteractionHand};
 use crate::codec::{
     DecodeError, DecodeResult, LpVec3, OptionalVarInt, read_utf, read_varint, write_utf,
@@ -203,6 +204,14 @@ pub struct ServerboundJigsawGeneratePacket {
 #[packet(state = play, flow = serverbound, name = "lock_difficulty")]
 pub struct ServerboundLockDifficultyPacket {
     pub locked: bool,
+}
+
+/// `ServerboundMoveVehiclePacket`
+#[derive(Debug, Clone, Copy, PartialEq, Encode, Decode, Packet)]
+#[packet(state = play, flow = serverbound, name = "move_vehicle")]
+pub struct ServerboundMoveVehiclePacket {
+    pub moving_to: PositionAndRotation,
+    pub on_ground: bool,
 }
 
 /// `ServerboundPaddleBoatPacket`
