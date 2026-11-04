@@ -9,6 +9,7 @@ pub mod command_signing_context;
 pub mod command_source;
 pub mod command_source_stack;
 pub mod command_tree;
+pub mod component_utils;
 pub mod commands;
 pub mod console_command_source;
 pub mod execution;
