@@ -8,17 +8,22 @@ use mc_game::server::permissions::PermissionSet;
 
 #[test]
 fn invalid_commands_fail_like_vanilla() {
-    let commands = command_common::vanilla_commands();
+    let (mut server, _world) = command_common::test_server();
+    let commands = server.commands.clone();
     let dispatcher = commands.get_dispatcher();
     let source = CommandSourceStack::compilation_context(PermissionSet::AllPermissions);
     let mut checked = 0;
+    mc_game::commands::BrigadierExceptions::install();
+    mc_game::commands::install_text_validators();
     for line in include_str!("fixtures/commands/exception_corpus.txt").lines() {
         let (command, expected) = line.split_once('\t').expect("tab separated");
-        let parse = dispatcher.parse(command, source.clone());
-        let ours = match dispatcher.execute_parsed(&parse) {
-            Ok(_) => "<no error>".to_owned(),
-            Err(e) => e.get_message().replace('\n', "\\n"),
-        };
+        let ours = mc_game::commands::server_access::enter_server(&mut server, || {
+            let parse = dispatcher.parse(command, source.clone());
+            match dispatcher.execute_parsed(&parse) {
+                Ok(_) => "<no error>".to_owned(),
+                Err(e) => e.get_message().replace('\n', "\\n"),
+            }
+        });
         assert_eq!(ours, expected, "command {command:?}");
         checked += 1;
     }

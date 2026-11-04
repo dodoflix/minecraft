@@ -49,3 +49,5 @@ gamerule randomTickSpeed 99999999999	Incorrect argument for command at position 
 foo	Unknown or incomplete command. See below for error at position 0: <--[HERE]
 foo bar	Unknown or incomplete command. See below for error at position 0: <--[HERE]
 @	Unknown or incomplete command. See below for error at position 0: <--[HERE]
+tellraw @a {"text":"a","click_event":{"action":"open_file","path":"/x"}}	Invalid chat component: Click event type not allowed: OPEN_FILE at position 11: ...ellraw @a <--[HERE]
+tellraw @a {"text":"a","color":"nope"}	Invalid chat component: Invalid color name: nope at position 11: ...ellraw @a <--[HERE]

@@ -370,29 +370,12 @@ pub fn player_display_name(server: &MinecraftServer, player: &PlayerHandle) -> C
 
 /// `PlayerList.op(nameAndId)`.
 pub fn op(server: &mut MinecraftServer, name_and_id: NameAndId) {
-    server.player_list.op_entry(name_and_id.clone(), None, None);
-    if let Some(player) = server.player_list.get_player(&name_and_id.id).cloned() {
-        send_player_permission_level(server, &player);
-    }
+    crate::server::players::player_ops::op(server, name_and_id, None, None);
 }
 
 /// `PlayerList.deop(nameAndId)`.
 pub fn deop(server: &mut MinecraftServer, name_and_id: NameAndId) {
-    if server.player_list.ops.remove(&name_and_id)
-        && let Some(player) = server.player_list.get_player(&name_and_id.id).cloned()
-    {
-        send_player_permission_level(server, &player);
-    }
-}
-
-/// `PlayerList.sendPlayerPermissionLevel(player)`.
-pub fn send_player_permission_level(server: &mut MinecraftServer, player: &PlayerHandle) {
-    let permissions = server.player_list.get_profile_permissions(&player.name_and_id());
-    player.connection.send(&mc_protocol::packets::play::ClientboundEntityEventPacket {
-        entity_id: player.id,
-        event_id: crate::server::players::player_list::permission_level_event_id(permissions),
-    });
-    super::send_commands(server, player, &permissions.into());
+    crate::server::players::player_ops::deop(server, &name_and_id);
 }
 
 /// `MinecraftServer.kickUnlistedPlayers()`.

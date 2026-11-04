@@ -49,3 +49,5 @@ gamerule randomTickSpeed 99999999999
 foo
 foo bar
 @
+tellraw @a {"text":"a","click_event":{"action":"open_file","path":"/x"}}
+tellraw @a {"text":"a","color":"nope"}

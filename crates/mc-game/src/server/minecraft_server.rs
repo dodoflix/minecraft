@@ -169,6 +169,9 @@ impl MinecraftServer {
             init.storage_source.get_level_path(mc_world::level_storage::LevelResource::DATA),
         ));
         let registries = init.registries;
+        crate::server::players::server_join_host::set_send_commands(|server, player, permissions| {
+            crate::commands::send_commands(server, player, &permissions.into());
+        });
         let commands = Arc::new(crate::commands::Commands::new(
             crate::commands::CommandSelection::Dedicated,
             &crate::commands::CommandBuildContext::simple(
