@@ -21,6 +21,20 @@ use serde_json::Value;
 use std::sync::Arc;
 
 pub mod fill_layer_feature;
+pub mod block_blob_feature;
+pub mod cuboid_placement;
+pub mod disk_feature;
+pub mod iceberg_feature;
+pub mod lake_feature;
+pub mod random_boolean_selector_feature;
+pub mod random_selector_feature;
+pub mod replace_blobs_feature;
+pub mod simple_random_selector_feature;
+pub mod single_block_pillar_feature;
+pub mod spring_feature;
+pub mod stepped_column_cluster_feature;
+pub mod weighted_placed_feature;
+pub mod weighted_random_selector_feature;
 
 /// `Feature`.
 pub trait Feature: Send + Sync {

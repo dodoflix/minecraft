@@ -8,7 +8,7 @@
 //! instances only exist after the chunk is promoted to a `LevelChunk`.
 
 use super::env::GenEnv;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use crate::world::level::LevelAccessor;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_nbt::CompoundTag;

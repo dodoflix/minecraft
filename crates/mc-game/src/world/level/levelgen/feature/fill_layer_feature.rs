@@ -1,7 +1,6 @@
 //! `FillLayerFeature`: fills the air of the chunk-wide layer `minY + height` (flat world layers).
 
 use super::Feature;
-use crate::world::level::BlockGetter;
 use crate::world::level::levelgen::codec::{TypeEntry, parse_block_state, parse_int_range};
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
