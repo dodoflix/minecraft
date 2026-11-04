@@ -437,14 +437,14 @@ impl ServerLevel {
         if self.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(pos.pack()) {
             self.tick_thunder(pos, env);
         }
-        if categories_available && self.can_spawn_entities_in_chunk(pos, env) && let Some(spawn) = self.chunk_tick_hooks.spawn_for_chunk {
+        if categories_available && self.can_spawn_entities_in_chunk(pos) && let Some(spawn) = self.chunk_tick_hooks.spawn_for_chunk {
             spawn(self, pos);
         }
     }
 
     /// `canSpawnEntitiesInChunk(pos)`: `entityManager.canPositionTick(pos) && worldBorder.isWithinBounds(pos)`.
-    pub fn can_spawn_entities_in_chunk(&self, pos: ChunkPos, env: &dyn super::level_tick::LevelTickEnv) -> bool {
-        self.entity_manager.is_ticking(pos) && (env.world_border_contains(BlockPos::new(pos.get_min_block_x(), 0, pos.get_min_block_z())) && env.world_border_contains(BlockPos::new(pos.get_max_block_x(), 0, pos.get_max_block_z())))
+    pub fn can_spawn_entities_in_chunk(&self, pos: ChunkPos) -> bool {
+        self.entity_manager.is_ticking(pos) && self.is_within_world_border_chunk(pos)
     }
 
     // ------------------------------------------------------------------ saving / closing
