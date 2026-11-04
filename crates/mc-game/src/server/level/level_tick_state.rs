@@ -62,6 +62,23 @@ pub struct LevelTickState {
     /// Called when a block state change swaps the point of interest type at a position (`updatePOIOnBlockStateChange`);
     /// arguments are the old and new `mc_data::misc::POI_TYPES` index. Set by the POI manager.
     pub poi_hook: Option<fn(&mut ServerLevel, BlockPos, Option<usize>, Option<usize>)>,
+    /// `canHaveWeather()` (`dimensionType.hasSkyLight && !hasCeiling && dimension != END`).
+    pub can_have_weather: bool,
+    /// `tickTime` constructor flag (only the overworld advances the game time).
+    pub tick_time: bool,
+    /// The game rules read by the random-tick code, refreshed at the start of every level tick.
+    pub rules: super::level_tick::LevelRules,
+    /// `sleepStatus`.
+    pub sleep_status: super::sleep_status::SleepStatus,
+    /// The biome registry and `BiomeManager` zoom seed (`BiomeManager.obfuscateSeed(seed)`), set by the world loader.
+    pub biomes: Option<Arc<mc_worldgen::biome::BiomeRegistry>>,
+    pub biome_zoom_seed: i64,
+    /// `tickThunder` spawn of the lightning bolt (and the skeleton horse of a trap): `(level, pos, is_trap)`.
+    pub lightning_spawn: Option<fn(&mut ServerLevel, BlockPos, bool)>,
+    /// `findLightningRod(center)` (point of interest lookup): the rod's block position.
+    pub find_lightning_rod: Option<fn(&mut ServerLevel, BlockPos) -> Option<BlockPos>>,
+    /// `dragonFight.tick()`.
+    pub dragon_fight_tick: Option<fn(&mut ServerLevel)>,
     /// `oRainLevel` / `rainLevel` / `oThunderLevel` / `thunderLevel`.
     pub o_rain_level: f32,
     pub rain_level: f32,
@@ -84,6 +101,15 @@ impl LevelTickState {
             sound_seed_generator: mc_core::random::create_thread_safe(),
             enabled_features: FeatureFlagSet::DEFAULT_FLAGS,
             poi_hook: None,
+            can_have_weather: false,
+            tick_time: false,
+            rules: super::level_tick::LevelRules { players_sleeping_percentage: 100, advance_time: true, advance_weather: true, spawn_mobs: true, max_snow_accumulation_height: 1 },
+            sleep_status: super::sleep_status::SleepStatus::default(),
+            biomes: None,
+            biome_zoom_seed: 0,
+            lightning_spawn: None,
+            find_lightning_rod: None,
+            dragon_fight_tick: None,
             handling_tick: false,
             empty_time: 0,
             o_rain_level: 0.0,

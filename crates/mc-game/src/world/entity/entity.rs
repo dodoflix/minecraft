@@ -1006,6 +1006,8 @@ pub trait Entity: Any {
 
     /// `checkDespawn()`.
     fn check_despawn(&mut self, _level: &mut ServerLevel) {}
+    /// `ServerPlayer.stopSleepInBed(forceWakeUp, updateLevelList)` (only players sleep; `ServerPlayer` overrides).
+    fn stop_sleep_in_bed(&mut self, _level: &mut ServerLevel, _force_wake_up: bool, _update_level_list: bool) {}
     /// The entity's `DynamicGameEventListener` target, if it listens to game events (vibration listeners).
     fn game_event_listener(&mut self) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
         None

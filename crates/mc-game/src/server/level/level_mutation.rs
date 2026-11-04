@@ -7,7 +7,6 @@ use super::FullChunkStatus;
 use crate::world::entity::EntityId;
 use crate::world::level::block::helpers::{drop_resources, update_or_destroy_limited};
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::collision::CollisionGetter;
 use crate::world::level::flags::*;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::material::FluidStateExt as _;
@@ -334,11 +333,5 @@ impl NeighborUpdateHost for ServerLevel {
 
     fn initial_orientation(&mut self, front: Option<Direction>, up: Option<Direction>) -> Option<Orientation> {
         ServerLevel::initial_orientation(self, front, up)
-    }
-}
-
-impl CollisionGetter for ServerLevel {
-    fn chunk_available_for_collisions(&self, chunk_x: i32, chunk_z: i32) -> bool {
-        self.chunk_now(chunk_x, chunk_z).is_some()
     }
 }

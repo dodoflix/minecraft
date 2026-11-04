@@ -88,3 +88,22 @@ pub fn drop_resources(level: &mut crate::server::level::ServerLevel, state: Bloc
         f(level, state, pos, breaker);
     }
 }
+
+/// `Block.pushEntitiesUp(state, newState, level, pos)`: entities in the way of a block that grows are lifted.
+pub fn push_entities_up(level: &mut crate::server::level::ServerLevel, state: BlockState, new_state: BlockState, pos: BlockPos) -> BlockState {
+    use mc_core::phys::Vec3;
+    use mc_core::phys::shapes::{BooleanOp, Shapes};
+    let offset_shape = Shapes::join_unoptimized(&state.get_collision_shape(level, pos), &new_state.get_collision_shape(level, pos), BooleanOp::ONLY_SECOND).move_vec3i(*pos);
+    if offset_shape.is_empty() {
+        return new_state;
+    }
+    for id in level.get_entities(None, &offset_shape.bounds(), |_| true) {
+        level.with_entity(id, |_, entity| {
+            let offset = Shapes::collide(mc_core::direction::Axis::Y, &entity.get_bounding_box().move_(0.0, 1.0, 0.0), [&offset_shape], -1.0);
+            // `teleportRelative(0, 1 + offset, 0)`
+            let target = entity.position().add(Vec3::new(0.0, 1.0 + offset, 0.0));
+            entity.set_pos_vec(target);
+        });
+    }
+    new_state
+}

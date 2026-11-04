@@ -4,6 +4,7 @@ pub mod game_event_dispatcher;
 pub mod level_chunk_ops;
 pub mod level_events;
 pub mod level_mutation;
+pub mod level_tick;
 pub mod chunk_holder;
 pub mod chunk_io;
 pub mod chunk_load_counter;
