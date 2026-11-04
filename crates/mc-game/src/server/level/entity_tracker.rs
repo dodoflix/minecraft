@@ -9,6 +9,23 @@ use indexmap::IndexMap;
 use mc_core::phys::Vec3;
 use mc_core::pos::SectionPos;
 
+impl TrackingEnv for super::chunk_map::ChunkMap {
+    fn player_view_distance(&self, _player_id: EntityId, requested_view_distance: i32) -> i32 {
+        mc_core::math::mth::clamp_i32(requested_view_distance, 2, self.server_view_distance())
+    }
+    fn is_chunk_tracked(&self, player_id: EntityId, chunk_x: i32, chunk_z: i32) -> bool {
+        // inherent `ChunkMap::is_chunk_tracked` takes precedence over this trait method
+        self.is_chunk_tracked(player_id, chunk_x, chunk_z)
+    }
+    /// `MinecraftServer.getScaledTrackingDistance` is the identity in 26.3.
+    fn scaled_tracking_distance(&self, range: i32) -> i32 {
+        range
+    }
+    fn in_entity_ticking_range(&self, chunk_key: i64) -> bool {
+        self.distance_manager.in_entity_ticking_range(chunk_key)
+    }
+}
+
 /// What the tracker needs from the chunk map / server (`ChunkMap.getPlayerViewDistance`, `isChunkTracked`,
 /// `MinecraftServer.getScaledTrackingDistance`, `DistanceManager.inEntityTickingRange`).
 pub trait TrackingEnv {

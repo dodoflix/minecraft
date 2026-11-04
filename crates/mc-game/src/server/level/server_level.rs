@@ -67,6 +67,8 @@ pub struct ServerLevel {
     pub entity_manager: PersistentEntitySectionManager,
     /// `players`: ids of the players in this level, in join order.
     pub players: Vec<EntityId>,
+    /// `chunkMap.entityMap`: which players see which entity (see `entity_tracker.rs`).
+    pub entity_tracker: super::EntityTracker,
 
     /// `chunkSource`.
     pub chunk_source: ServerChunkCache,
@@ -117,6 +119,7 @@ impl ServerLevel {
             dimension: params.dimension,
             entity_manager: PersistentEntitySectionManager::new(None),
             players: Vec::new(),
+            entity_tracker: Default::default(),
             chunk_source,
             shared: params.shared,
             no_save: false,
@@ -224,8 +227,12 @@ impl ServerLevel {
                 self.process_entity_events();
             }
             ChunkMapEvent::Unload(chunk) => self.unload(chunk),
-            ChunkMapEvent::LegacyEntities(_pos, _tags) => {}
-            ChunkMapEvent::PlayerMovedSection(_id) => {}
+            ChunkMapEvent::LegacyEntities(_pos, tags) => {
+                let entities = crate::world::entity::factory::load_entities_recursive(&tags, self, mc_data::enums::EntitySpawnReason::Load);
+                self.entity_manager.add_legacy_chunk_entities(entities);
+                self.process_entity_events();
+            }
+            ChunkMapEvent::PlayerMovedSection(id) => self.entity_tracker_move_player(id),
         }
     }
 
@@ -347,6 +354,7 @@ impl ServerLevel {
         for id in ids {
             self.chunk_source.chunk_map.update_chunk_tracking(id);
         }
+        self.tick_entity_tracker();
     }
 
     /// `ServerChunkCache.tickChunks()` (ordering): spawning chunks, ticking chunks, custom spawners, then broadcasts.

@@ -177,9 +177,18 @@ impl ServerLevel {
                 if self.entity_manager.get_any(id).is_some_and(|e| e.is_player()) && !self.players.contains(&id) {
                     self.players.push(id);
                 }
+                let players = super::tracker_players(&self.entity_manager, &self.players);
+                self.entity_tracker.add_entity(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, id);
             }
             EntityLevelEvent::TrackingEnd(id) => {
                 self.players.retain(|&p| p != id);
+                let player = self
+                    .entity_manager
+                    .get_removed(id)
+                    .or_else(|| self.entity_manager.get_any(id))
+                    .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
+                    .map(super::TrackerPlayer::of);
+                self.entity_tracker.remove_entity(id, player.as_ref());
             }
             // tick list is maintained by the manager; the other callbacks have no state of their own yet
             EntityLevelEvent::Created(_)
@@ -187,6 +196,20 @@ impl ServerLevel {
             | EntityLevelEvent::TickingStart(_)
             | EntityLevelEvent::TickingEnd(_)
             | EntityLevelEvent::SectionChange(_) => {}
+        }
+    }
+
+    /// `ChunkMap.tick()`'s entity half (`updateTrackedEntities` + `sendChanges`).
+    pub fn tick_entity_tracker(&mut self) {
+        let players = super::tracker_players(&self.entity_manager, &self.players);
+        self.entity_tracker.tick(&mut self.entity_manager, &self.chunk_source.chunk_map, &players);
+    }
+
+    /// `ChunkMap.move(player)` entity half (the player changed section).
+    pub fn entity_tracker_move_player(&mut self, id: EntityId) {
+        let players = super::tracker_players(&self.entity_manager, &self.players);
+        if let Some(p) = players.iter().find(|p| p.id == id).cloned() {
+            self.entity_tracker.move_player(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, &p);
         }
     }
 
