@@ -259,3 +259,86 @@ async fn transcripts_equal_the_real_vanilla_server() {
     assert_eq!(theirs.len(), ours.len());
     println!("{}", theirs.join("\n"));
 }
+
+// ---- our real server binary (registries, tags, packs) vs vanilla ------------------------------------------------------
+
+/// Offline login to the point where the registries and tags were sent (hex of every `registry_data`/`update_tags` and of
+/// the preceding packets).
+async fn registry_transcript(addr: SocketAddr) -> Vec<String> {
+    let mut t = Vec::new();
+    let mut c = connect(addr).await;
+    handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;
+    hello(&mut c, "Steve").await;
+    let _ = read(&mut c).await; // compression
+    c.set_compression(256, true);
+    let _ = read(&mut c).await; // login finished
+    write_payload(&mut c, &login_bytes(ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket))).await;
+    loop {
+        let p = read(&mut c).await;
+        let name = name_of(ConnectionState::Configuration, &p);
+        t.push(format!("{name} {}", hex(&p)));
+        match name.as_str() {
+            "minecraft:select_known_packs" => {
+                let ClientboundConfigurationPacket::SelectKnownPacks(k) = ClientboundConfigurationPacket::decode_payload(&p).unwrap() else { panic!() };
+                write_payload(
+                    &mut c,
+                    &config_bytes(ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket { information: ClientInformation::default() })),
+                )
+                .await;
+                write_payload(&mut c, &config_bytes(ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: k.known_packs }))).await;
+            }
+            "minecraft:update_tags" => return t,
+            _ => {}
+        }
+    }
+}
+
+/// Runs `MC_SERVER_BIN` (our `mc-server` binary) in a scratch directory with the same properties as the vanilla run.
+fn start_ours(bin: &str) -> Option<Vanilla> {
+    let port = std::net::TcpListener::bind("127.0.0.1:0").ok()?.local_addr().ok()?.port();
+    let dir = std::env::temp_dir().join(format!("mc-game-net-ours-{}-{port}", std::process::id()));
+    std::fs::create_dir_all(&dir).ok()?;
+    std::fs::write(dir.join("eula.txt"), "eula=true\n").ok()?;
+    std::fs::write(
+        dir.join("server.properties"),
+        format!("online-mode=false\nwhite-list=false\nenforce-whitelist=false\nserver-port={port}\nserver-ip=127.0.0.1\ngenerate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=2\nsimulation-distance=2\nenable-rcon=false\nenable-query=false\nrate-limit=0\n"),
+    )
+    .ok()?;
+    let mut child = Command::new(bin).arg("nogui").current_dir(&dir).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::null()).spawn().ok()?;
+    let stdout = child.stdout.take()?;
+    let (tx, rx) = std::sync::mpsc::channel();
+    std::thread::spawn(move || {
+        let mut tx = Some(tx);
+        for line in BufReader::new(stdout).lines().map_while(Result::ok) {
+            if line.contains("Done (") {
+                if let Some(tx) = tx.take() {
+                    let _ = tx.send(());
+                }
+            }
+        }
+    });
+    let ours = Vanilla { child, port, dir };
+    rx.recv_timeout(Duration::from_secs(180)).expect("our server did not finish starting");
+    std::thread::sleep(Duration::from_secs(1));
+    Some(ours)
+}
+
+/// `MC_SERVER_BIN=target/<dir>/debug/mc-server cargo test -p mc-game --test network_vanilla_diff real_server -- --nocapture`
+#[tokio::test(flavor = "multi_thread")]
+async fn real_server_registry_and_tag_packets_equal_vanilla() {
+    let Ok(bin) = std::env::var("MC_SERVER_BIN") else {
+        eprintln!("skipping: set MC_SERVER_BIN to our mc-server binary");
+        return;
+    };
+    let Some(vanilla) = start_vanilla() else { return };
+    let theirs = registry_transcript(SocketAddr::from(([127, 0, 0, 1], vanilla.port))).await;
+    drop(vanilla);
+    let ours_server = start_ours(&bin).expect("start our server");
+    let ours = registry_transcript(SocketAddr::from(([127, 0, 0, 1], ours_server.port))).await;
+    println!("vanilla: {} packets, ours: {} packets", theirs.len(), ours.len());
+    for (i, (a, b)) in theirs.iter().zip(&ours).enumerate() {
+        let name = a.split(' ').next().unwrap();
+        assert_eq!(a, b, "packet #{i} ({name}) differs: vanilla (left) vs ours (right)");
+    }
+    assert_eq!(theirs.len(), ours.len());
+}

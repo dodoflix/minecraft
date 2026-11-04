@@ -121,8 +121,7 @@ impl MinecraftServer {
 
         self.initialize_key_pair()?;
         log::info!("Starting Minecraft server on {}:{}", if self.local_ip.is_empty() { "*" } else { &self.local_ip }, self.port);
-        // `getConnection().startTcpServerListener(localAddress, port)`: the network listener is not wired in yet.
-        log::warn!("The network listener is not available: the server does not accept connections");
+        self.start_connection_listener(_local_address)?;
 
         if !self.uses_authentication() {
             log::warn!("**** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!");
@@ -348,6 +347,9 @@ impl MinecraftServer {
 
     pub fn set_accepts_transfers(&mut self, accept: bool) {
         self.dedicated.settings.update(|p| p.update(&p.accepts_transfers, accept));
+        if let Some(hooks) = &self.network_hooks {
+            hooks.update_settings(|s| s.accepts_transfers = accept);
+        }
     }
 
     /// `pauseWhenEmptySeconds`.
@@ -484,7 +486,47 @@ impl MinecraftServer {
 
     /// `tickConnection` (dedicated override): connection tick, then the console input.
     pub(in crate::server) fn tick_connection(&mut self) {
+        // The listener ticks the play connections with `&mut MinecraftServer`: take it out for the call.
+        if let Some(mut connection) = self.connection.take() {
+            connection.tick(self);
+            self.connection = Some(connection);
+        }
         self.handle_console_inputs();
+    }
+
+    /// The network layer's view of the server settings (`server.properties` + runtime changes).
+    fn network_settings(&self) -> crate::server::network::NetworkSettings {
+        let p = self.properties();
+        crate::server::network::NetworkSettings {
+            uses_authentication: self.uses_authentication(),
+            compression_threshold: p.network_compression_threshold,
+            rate_limit_packets_per_second: p.rate_limit_packets_per_second,
+            prevent_proxy_connections: p.prevent_proxy_connections,
+            accepts_transfers: *p.accepts_transfers.get(),
+            log_ips: p.log_ips,
+            replies_to_status: *p.enable_status.get(),
+            singleplayer_profile: None,
+            server_mod_name: VANILLA_BRAND.to_owned(),
+        }
+    }
+
+    /// `getConnection().startTcpServerListener(localAddress, port)`.
+    fn start_connection_listener(&mut self, local_address: Option<IpAddr>) -> io::Result<()> {
+        use crate::server::network::server_configuration_data::configuration_data;
+        use crate::server::network::server_network_hooks::ServerNetworkHooks;
+        let key_pair = self.key_pair.clone().ok_or_else(|| io::Error::other("the key pair is generated before the listener starts"))?;
+        let hooks = Arc::new(ServerNetworkHooks::new(
+            self.shared.clone(),
+            self.network_settings(),
+            key_pair,
+            mc_protocol::auth::SessionClient::default(),
+            Arc::new(configuration_data(self)),
+        ));
+        let mut connection = crate::server::network::ServerConnectionListener::new(hooks.clone())?;
+        connection.start_tcp_server_listener(local_address, self.port as u16)?;
+        self.network_hooks = Some(hooks);
+        self.connection = Some(connection);
+        Ok(())
     }
 
     /// `handleConsoleInputs`: the console lines are executed as commands by the command system, which is not wired in
@@ -499,8 +541,12 @@ impl MinecraftServer {
         }
     }
 
-    /// `stopServer`'s `getConnection().stop()`: no listener yet.
-    pub(in crate::server) fn stop_connection(&mut self) {}
+    /// `stopServer`'s `getConnection().stop()`.
+    pub(in crate::server) fn stop_connection(&mut self) {
+        if let Some(mut connection) = self.connection.take() {
+            connection.stop();
+        }
+    }
 
     /// `onServerExit`.
     pub(in crate::server) fn on_server_exit(&mut self) {

@@ -105,6 +105,10 @@ pub struct MinecraftServer {
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
     pub dedicated: DedicatedServer,
     pub key_pair: Option<Arc<ServerKeyPair>>,
+    /// `getConnection()`: the TCP listener and the live connections (`None` before `initServer` / after `stop`).
+    pub connection: Option<super::network::ServerConnectionListener>,
+    /// What the connection tasks read from the server (settings snapshot, configuration data, player-list side).
+    pub network_hooks: Option<Arc<super::network::server_network_hooks::ServerNetworkHooks>>,
     /// Published for the watchdog thread (it cannot read game-thread state).
     pub(super) watchdog_info: SharedWatchdogInfo,
 
@@ -198,6 +202,8 @@ impl MinecraftServer {
             name_to_id_cache: init.name_to_id_cache,
             dedicated: init.dedicated,
             key_pair: None,
+            connection: None,
+            network_hooks: None,
             watchdog_info: Arc::new(Mutex::new(WatchdogInfo::default())),
             next_tick_time_nanos: now,
             last_tick_nanos: now,

@@ -13,6 +13,7 @@ pub mod login_listener;
 pub mod pending_player;
 pub mod player_chunk_sender;
 mod play_connection;
+pub mod server_configuration_data;
 pub mod server_connection_listener;
 pub mod server_network_hooks;
 pub mod status_listener;
