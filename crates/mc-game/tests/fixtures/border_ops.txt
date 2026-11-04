@@ -1,0 +1,38 @@
+new
+size 100
+center 10 -20.5
+tick 1
+lerp 100 200 10 1000
+tick 1
+tick 3
+center 50 50
+safe 3.5
+damage 1.25
+wt 33
+wb 7
+tick 6
+tick 1
+lerp 200 20 5 2000
+tick 2
+absmax 60
+tick 3
+size 1000000
+absmax 100
+center -3.25 0.5
+size 7.5
+lerp 7.5 7.5 40 0
+lerp 7.5 1.0E7 100 0
+tick 50
+new 3.0 -4.0 0.5 2.0 9 11 500.0 0 0.0
+init 77
+new 1.0 2.0 0.3 4.0 6 20 100.0 20 40.0
+init 123
+tick 4
+tick 16
+tick 1
+new
+absmax 10
+size 1000
+size 5
+lerp 5 100 3 0
+tick 3
