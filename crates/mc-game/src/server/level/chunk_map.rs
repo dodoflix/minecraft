@@ -214,6 +214,8 @@ pub struct ChunkMap {
     pub settings: ChunkMapSettings,
     /// `level.getGameTime()` for chunk saving (kept in sync by the level).
     pub game_time: i64,
+    /// The level's scheduled tick containers (the pending ticks of loaded chunks live there, see `level_chunk_ops`).
+    pub tick_containers: Option<super::level_tick_state::SharedTickContainers>,
 
     // threads
     pub(crate) io: RegionIo,
@@ -287,6 +289,7 @@ impl ChunkMap {
             light: ThreadedLevelLightEngine::new(level_height, has_sky_light),
             settings: ChunkMapSettings { spectators_generate_chunks: false, no_save: false },
             game_time: 0,
+            tick_containers: None,
             io,
             pool,
             worldgen,

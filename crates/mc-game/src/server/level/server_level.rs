@@ -85,6 +85,8 @@ pub struct ServerLevel {
     pub chunk_tick_hooks: ChunkTickHooks,
     /// `Level.getGameTime()` mirror for saving chunks (set by the tick).
     game_time: i64,
+    /// Mutation/ticking state (neighbor updater, scheduled ticks, block events, ...): see `level_tick_state.rs`.
+    pub tick_state: super::level_tick_state::LevelTickState,
 }
 
 impl ServerLevel {
@@ -114,7 +116,9 @@ impl ServerLevel {
             view_distance: params.view_distance,
             tickets: TicketStorage::new(),
         };
-        let chunk_source = ServerChunkCache::new(data_dir, chunk_params, params.simulation_distance);
+        let mut chunk_source = ServerChunkCache::new(data_dir, chunk_params, params.simulation_distance);
+        let tick_state = super::level_tick_state::LevelTickState::default();
+        chunk_source.chunk_map.tick_containers = Some(tick_state.ticks.clone());
         Self {
             dimension: params.dimension,
             entity_manager: PersistentEntitySectionManager::new(None),
@@ -131,6 +135,7 @@ impl ServerLevel {
             sky_darken: 0,
             chunk_tick_hooks: ChunkTickHooks::default(),
             game_time: 0,
+            tick_state,
         }
     }
 
@@ -220,10 +225,14 @@ impl ServerLevel {
                 chunk.promote_pending_block_entities();
                 chunk.data.set_loaded(true);
                 self.chunk_source.chunk_map.complete_full_step(pos, chunk);
+                self.register_all_block_entities_after_level_load(pos);
+                self.register_tick_container_in_level(pos);
             }
             ChunkMapEvent::StartTicking(pos) => {
                 // `postProcessGeneration(level)` and `startTickingChunk` belong to the LevelChunk/tick slice; the chunk
                 // map only needs to know the chunk is now ticking.
+                self.post_process_generation(pos);
+                self.start_ticking_chunk(pos);
                 self.chunk_source.chunk_map.complete_ticking(pos);
                 self.chunk_source.after_chunk_ready_to_send();
             }
@@ -243,7 +252,9 @@ impl ServerLevel {
 
     /// `ServerLevel.unload(chunk)`.
     fn unload(&mut self, mut chunk: Box<LevelChunk>) {
-        chunk.block_entities.clear();
+        // `clearAllBlockEntities` + `unregisterTickContainerFromLevel`
+        self.clear_all_block_entities(&mut chunk);
+        ServerLevel::unregister_tick_container_from_level(&mut chunk, &self.tick_state.ticks);
         drop(chunk);
     }
 
@@ -494,6 +505,10 @@ impl LevelReader for ServerLevel {
         } else {
             self.sea_level + 1
         }
+    }
+
+    fn enabled_features(&self) -> mc_world::level_storage::FeatureFlagSet {
+        self.tick_state.enabled_features
     }
 
     fn get_sea_level(&self) -> i32 {

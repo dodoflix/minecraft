@@ -64,6 +64,25 @@ pub trait BlockEntity: Any {
         false
     }
     fn server_tick(&mut self, _level: &mut crate::server::level::ServerLevel) {}
+    /// `setBlockState(state)`.
+    fn set_block_state(&mut self, state: BlockState) {
+        self.base_mut().block_state = state;
+    }
+    /// `clearRemoved()`.
+    fn clear_removed(&mut self) {
+        self.base_mut().removed = false;
+    }
+    /// `isValidBlockState(state)`: `getType().isValid(state)`.
+    fn is_valid_block_state(&self, state: BlockState) -> bool {
+        self.get_type().data().valid_blocks.contains(&state.block())
+    }
+    /// `preRemoveSideEffects(pos, state)`: called (server side) before the block entity is removed because its block
+    /// was replaced (containers drop their contents here). The entity is out of the chunk while this runs.
+    fn pre_remove_side_effects(&mut self, _level: &mut crate::server::level::ServerLevel, _pos: BlockPos, _state: BlockState) {}
+    /// `EntityBlock.getListener(level, blockEntity)`: the game event listener of this block entity, if it has one.
+    fn game_event_listener(&mut self) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
+        None
+    }
 }
 
 /// A registered block entity type implementation.
@@ -79,4 +98,20 @@ pub static BLOCK_ENTITY_TYPES: [BlockEntityRegistration];
 /// `BlockEntityType.create(pos, state)`: `None` when no implementation is registered yet.
 pub fn create_block_entity(ty: BlockEntityType, pos: BlockPos, state: BlockState) -> Option<Box<dyn BlockEntity>> {
     BLOCK_ENTITY_TYPES.iter().find(|r| r.ty == ty).map(|r| (r.create)(pos, state))
+}
+
+/// `EntityBlock.newBlockEntity(pos, state)` for a block entity block: the registered implementation of the block entity
+/// type that is valid for the state's block (`None` while that type has no implementation).
+pub fn new_block_entity(pos: BlockPos, state: BlockState) -> Option<Box<dyn BlockEntity>> {
+    static BY_BLOCK: std::sync::OnceLock<std::collections::HashMap<mc_data::Block, BlockEntityType>> = std::sync::OnceLock::new();
+    let map = BY_BLOCK.get_or_init(|| {
+        let mut map = std::collections::HashMap::new();
+        for ty in BlockEntityType::iter() {
+            for block in ty.data().valid_blocks {
+                map.insert(*block, ty);
+            }
+        }
+        map
+    });
+    create_block_entity(*map.get(&state.block())?, pos, state)
 }

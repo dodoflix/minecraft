@@ -1,28 +1,41 @@
-//! Game-layer `LevelChunk`: the `mc_world` chunk data plus the live block entities. (Placeholder shape agreed with the
-//! LevelTick slice, which replaces this file with the full vanilla `LevelChunk` behaviour; the three public fields and
-//! `from_proto` are the contract.)
+//! Game-layer `LevelChunk`: the `mc_world` chunk data plus the live block entities, their tickers and the game event
+//! listener registries. The behaviour that needs the level (`setBlockState`, block entity creation/removal, tickers,
+//! post-processing) is `impl ServerLevel` in `server/level/level_chunk_ops.rs` (the chunk lives inside the level's chunk
+//! map, so those operations are level methods addressed by position).
 use crate::server::level::FullChunkStatus;
 use crate::world::block_entity::BlockEntity;
 use mc_core::pos::BlockPos;
 use mc_world::chunk::ProtoChunk;
 use mc_world::palette::PalettedContainerFactory;
+use crate::world::level::gameevent::EuclideanGameEventListenerRegistry;
+use std::cell::Cell;
 use std::collections::HashMap;
+use std::rc::Rc;
+
+/// One entry of the level's block entity ticker list (vanilla `RebindableTickingBlockEntityWrapper`): the position of
+/// the block entity it currently ticks, or `None` once it was rebound to `NULL_TICKER` (removed).
+#[derive(Debug, Default)]
+pub struct TickerCell(pub Cell<Option<BlockPos>>);
 
 pub struct LevelChunk {
     pub data: mc_world::chunk::LevelChunk,
     pub block_entities: HashMap<BlockPos, Box<dyn BlockEntity>>,
     pub full_status: FullChunkStatus,
+    /// `tickersInLevel`.
+    pub tickers_in_level: HashMap<BlockPos, Rc<TickerCell>>,
+    /// `gameEventListenerRegistrySections` keyed by section y.
+    pub game_event_registries: HashMap<i32, EuclideanGameEventListenerRegistry>,
 }
 
 impl LevelChunk {
     /// `new LevelChunk(level, protoChunk, postLoad)`: the data part (block entities stay pending raw NBT in
     /// `data.access.block_entities` until registered).
     pub fn from_proto(proto: ProtoChunk, factory: &PalettedContainerFactory) -> Self {
-        Self { data: mc_world::chunk::LevelChunk::from_proto(proto, factory), block_entities: HashMap::new(), full_status: FullChunkStatus::Inaccessible }
+        Self { data: mc_world::chunk::LevelChunk::from_proto(proto, factory), block_entities: HashMap::new(), full_status: FullChunkStatus::Inaccessible, tickers_in_level: HashMap::new(), game_event_registries: HashMap::new() }
     }
 
     pub fn from_data(data: mc_world::chunk::LevelChunk) -> Self {
-        Self { data, block_entities: HashMap::new(), full_status: FullChunkStatus::Inaccessible }
+        Self { data, block_entities: HashMap::new(), full_status: FullChunkStatus::Inaccessible, tickers_in_level: HashMap::new(), game_event_registries: HashMap::new() }
     }
 
     pub fn pos(&self) -> mc_core::pos::ChunkPos {

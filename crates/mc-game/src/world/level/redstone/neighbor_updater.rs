@@ -16,7 +16,7 @@ pub const UPDATE_ORDER: [Direction; 6] =
 /// What the updater needs from its level.
 pub trait NeighborUpdateHost {
     fn neighbor_updater(&mut self) -> &mut CollectingNeighborUpdater;
-    fn get_block_state(&self, pos: BlockPos) -> BlockState;
+    fn host_block_state(&self, pos: BlockPos) -> BlockState;
     /// `NeighborUpdater.executeShapeUpdate`.
     fn execute_shape_update(
         &mut self,
@@ -80,7 +80,7 @@ impl NeighborUpdates {
                 false
             }
             NeighborUpdates::Simple { pos, block, orientation } => {
-                let state = host.get_block_state(*pos);
+                let state = host.host_block_state(*pos);
                 host.execute_update(state, *pos, *block, *orientation, false);
                 false
             }
@@ -92,7 +92,7 @@ impl NeighborUpdates {
                 let direction = UPDATE_ORDER[*idx];
                 *idx += 1;
                 let neighbor_pos = source_pos.relative(direction);
-                let state = host.get_block_state(neighbor_pos);
+                let state = host.host_block_state(neighbor_pos);
                 let mut neighbor_orientation = None;
                 if host.redstone_experiments() {
                     if orientation.is_none() {
@@ -260,7 +260,7 @@ mod tests {
         fn neighbor_updater(&mut self) -> &mut CollectingNeighborUpdater {
             &mut self.updater
         }
-        fn get_block_state(&self, _pos: BlockPos) -> BlockState {
+        fn host_block_state(&self, _pos: BlockPos) -> BlockState {
             Block::STONE.default_state()
         }
         fn execute_shape_update(&mut self, direction: Direction, pos: BlockPos, _np: BlockPos, _ns: BlockState, _f: u32, _l: i32) {

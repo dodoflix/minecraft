@@ -1006,6 +1006,10 @@ pub trait Entity: Any {
 
     /// `checkDespawn()`.
     fn check_despawn(&mut self, _level: &mut ServerLevel) {}
+    /// The entity's `DynamicGameEventListener` target, if it listens to game events (vibration listeners).
+    fn game_event_listener(&mut self) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
+        None
+    }
 
     /// `onBelowWorld()`.
     fn on_below_world(&mut self) {

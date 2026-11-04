@@ -115,6 +115,4 @@ pub trait LevelAccessor: LevelReader {
     fn game_event(&mut self, _event: GameEvent, _position: Vec3, _context: &GameEventContext) {}
     /// `levelEvent(source, type, pos, data)` (no-op outside server levels).
     fn level_event(&mut self, _source: Option<EntityId>, _event_type: i32, _pos: BlockPos, _data: i32) {}
-    /// `blockUpdated(pos, block)`.
-    fn block_updated(&mut self, _pos: BlockPos, _block: Block) {}
 }

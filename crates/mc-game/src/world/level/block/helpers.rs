@@ -70,3 +70,21 @@ pub fn can_support_center(level: &dyn crate::world::level::BlockGetter, below_po
 pub fn get_state_for_placement(block: mc_data::block::Block, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
     super::behaviour(block).get_state_for_placement(block, context)
 }
+
+/// Implementation of `Block.dropResources(state, level, pos, blockEntity, breaker, tool)` supplied by the loot slice
+/// (loot tables, item entities). Until it registers itself nothing drops.
+pub type DropResourcesFn = fn(&mut crate::server::level::ServerLevel, BlockState, BlockPos, Option<crate::world::entity::EntityId>);
+
+static DROP_RESOURCES: std::sync::OnceLock<DropResourcesFn> = std::sync::OnceLock::new();
+
+/// Registers the drop implementation (once, at startup).
+pub fn set_drop_resources(f: DropResourcesFn) {
+    let _ = DROP_RESOURCES.set(f);
+}
+
+/// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)`.
+pub fn drop_resources(level: &mut crate::server::level::ServerLevel, state: BlockState, pos: BlockPos, breaker: Option<crate::world::entity::EntityId>) {
+    if let Some(f) = DROP_RESOURCES.get() {
+        f(level, state, pos, breaker);
+    }
+}

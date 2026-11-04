@@ -1,0 +1,173 @@
+//! Level-wide effect broadcasts of `ServerLevel` (sounds, level events, block events, block destruction progress): the
+//! packets go to the players of this level within range (`PlayerList.broadcast`, which iterates the level's players here).
+
+use super::ServerLevel;
+use crate::server::network::ConnectionSender;
+use crate::world::entity::EntityId;
+use crate::world::entity::player::ServerPlayer;
+use mc_core::phys::Vec3;
+use mc_core::pos::BlockPos;
+use mc_data::SoundEvent;
+use mc_protocol::codec::write_varint;
+use mc_protocol::packet::Packet;
+use mc_protocol::packets::play::{
+    ClientboundBlockDestructionPacket, ClientboundBlockEventPacket, ClientboundLevelEventPacket, ClientboundSoundEntityPacket,
+    ClientboundSoundPacket, SoundEventHolder, SoundSource,
+};
+use std::sync::Arc;
+
+/// Encode a packet once (`VarInt id + body`) for a broadcast.
+pub fn encode_packet<P: Packet>(packet: &P) -> Arc<[u8]> {
+    let mut buf = Vec::with_capacity(64);
+    write_varint(&mut buf, P::ID);
+    packet.encode(&mut buf);
+    buf.into()
+}
+
+/// `SoundEvent.getRange(volume)`.
+pub fn sound_range(sound: SoundEvent, volume: f32) -> f64 {
+    match sound.data().fixed_range {
+        Some(range) => f64::from(range),
+        None => {
+            if volume > 1.0 {
+                f64::from(16.0 * volume)
+            } else {
+                16.0
+            }
+        }
+    }
+}
+
+impl ServerLevel {
+    /// `PlayerList.broadcast(except, x, y, z, range, dimension, packet)`: every player of this level but `except`
+    /// within `range` blocks (squared distance below `range * range`) gets the packet.
+    pub fn broadcast_nearby<P: Packet>(&self, except: Option<EntityId>, x: f64, y: f64, z: f64, range: f64, packet: &P) {
+        let mut payload: Option<Arc<[u8]>> = None;
+        for &id in &self.players {
+            if Some(id) == except {
+                continue;
+            }
+            let Some(entity) = self.get_entity(id) else { continue };
+            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else { continue };
+            let Some(connection): Option<&ConnectionSender> = player.connection.as_ref() else { continue };
+            let position = entity.position();
+            let (dx, dy, dz) = (x - position.x, y - position.y, z - position.z);
+            if dx * dx + dy * dy + dz * dz < range * range {
+                connection.send_payload(payload.get_or_insert_with(|| encode_packet(packet)).clone());
+            }
+        }
+    }
+
+    /// `levelEvent(source, type, pos, data)`.
+    pub fn level_event_impl(&self, source: Option<EntityId>, event_type: i32, pos: BlockPos, data: i32) {
+        let except = source.filter(|id| self.is_player_id(*id));
+        self.broadcast_nearby(
+            except,
+            f64::from(pos.x()),
+            f64::from(pos.y()),
+            f64::from(pos.z()),
+            64.0,
+            &ClientboundLevelEventPacket { r#type: event_type, pos, data, global_event: false },
+        );
+    }
+
+    /// `globalLevelEvent(type, pos, data)`; `global_sound_events` is `GameRules.GLOBAL_SOUND_EVENTS`.
+    pub fn global_level_event(&self, global_sound_events: bool, event_type: i32, pos: BlockPos, data: i32, all_players: &[(EntityId, Option<ConnectionSender>, Vec3, bool)]) {
+        if !global_sound_events {
+            self.level_event_impl(None, event_type, pos, data);
+            return;
+        }
+        for (_, connection, player_pos, in_this_level) in all_players {
+            let Some(connection) = connection else { continue };
+            let sound_pos = if *in_this_level {
+                let center = Vec3::at_center_of(&pos);
+                if player_pos.distance_to_sqr(center) < 32.0 * 32.0 {
+                    center
+                } else {
+                    let direction = center.subtract(*player_pos).normalize();
+                    player_pos.add(direction.scale(32.0))
+                }
+            } else {
+                *player_pos
+            };
+            connection.send(&ClientboundLevelEventPacket { r#type: event_type, pos: BlockPos::containing_position(&sound_pos), data, global_event: true });
+        }
+    }
+
+    fn is_player_id(&self, id: EntityId) -> bool {
+        self.players.contains(&id)
+    }
+
+    /// `playSeededSound(except, x, y, z, sound, source, volume, pitch, seed)`.
+    #[allow(clippy::too_many_arguments)]
+    pub fn play_seeded_sound(&self, except: Option<EntityId>, x: f64, y: f64, z: f64, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32, seed: i64) {
+        let except = except.filter(|id| self.is_player_id(*id));
+        self.broadcast_nearby(
+            except,
+            x,
+            y,
+            z,
+            sound_range(sound, volume),
+            &ClientboundSoundPacket::new(SoundEventHolder::Reference(sound), source, x, y, z, volume, pitch, seed),
+        );
+    }
+
+    /// `playSound(except, x, y, z, sound, source, volume, pitch)`: draws the seed from `soundSeedGenerator`.
+    #[allow(clippy::too_many_arguments)]
+    pub fn play_sound_at(&mut self, except: Option<EntityId>, x: f64, y: f64, z: f64, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32) {
+        use mc_core::random::RandomSource;
+        let seed = self.tick_state.sound_seed_generator.next_long();
+        self.play_seeded_sound(except, x, y, z, sound, source, volume, pitch, seed);
+    }
+
+    /// `playSound(except, pos, sound, source, volume, pitch)` (block centre).
+    pub fn play_sound(&mut self, except: Option<EntityId>, pos: BlockPos, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32) {
+        self.play_sound_at(except, f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 0.5, f64::from(pos.z()) + 0.5, sound, source, volume, pitch);
+    }
+
+    /// `playSeededSound(except, sourceEntity, sound, source, volume, pitch, seed)` (`ClientboundSoundEntityPacket`).
+    #[allow(clippy::too_many_arguments)]
+    pub fn play_seeded_sound_from_entity(&self, except: Option<EntityId>, source_entity: EntityId, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32, seed: i64) {
+        let Some(entity) = self.get_entity(source_entity) else { return };
+        let p = entity.position();
+        let except = except.filter(|id| self.is_player_id(*id));
+        self.broadcast_nearby(
+            except,
+            p.x,
+            p.y,
+            p.z,
+            sound_range(sound, volume),
+            &ClientboundSoundEntityPacket { sound: SoundEventHolder::Reference(sound), source, id: source_entity, volume, pitch, seed },
+        );
+    }
+
+    /// `destroyBlockProgress(id, pos, progress)`.
+    pub fn destroy_block_progress(&self, id: i32, pos: BlockPos, progress: i32) {
+        for &player_id in &self.players {
+            if player_id == id {
+                continue;
+            }
+            let Some(entity) = self.get_entity(player_id) else { continue };
+            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else { continue };
+            let p = entity.position();
+            let (xd, yd, zd) = (f64::from(pos.x()) - p.x, f64::from(pos.y()) - p.y, f64::from(pos.z()) - p.z);
+            if xd * xd + yd * yd + zd * zd < 1024.0
+                && let Some(connection) = &player.connection
+            {
+                connection.send(&ClientboundBlockDestructionPacket { id, pos, progress: progress as u8 });
+            }
+        }
+    }
+
+    /// `ClientboundBlockEventPacket` to everyone within 64 blocks (the tail of `runBlockEvents`).
+    pub(super) fn broadcast_block_event(&self, event: &super::block_events::BlockEventData) {
+        self.broadcast_nearby(
+            None,
+            f64::from(event.pos.x()),
+            f64::from(event.pos.y()),
+            f64::from(event.pos.z()),
+            64.0,
+            &ClientboundBlockEventPacket { pos: event.pos, b0: event.param_a as u8, b1: event.param_b as u8, block: event.block },
+        );
+    }
+}

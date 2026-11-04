@@ -1,4 +1,9 @@
 //! `net.minecraft.server.level`: `ServerLevel`, chunk map, tickets, entity tracking, `ServerPlayer` glue.
+pub mod block_events;
+pub mod game_event_dispatcher;
+pub mod level_chunk_ops;
+pub mod level_events;
+pub mod level_mutation;
 pub mod chunk_holder;
 pub mod chunk_io;
 pub mod chunk_load_counter;
@@ -15,6 +20,8 @@ pub mod dynamic_graph;
 pub mod fastutil;
 pub mod level_data;
 mod full_chunk_status;
+pub mod level_tick_state;
+pub mod sleep_status;
 mod generation;
 pub mod player_map;
 mod server_chunk_cache;

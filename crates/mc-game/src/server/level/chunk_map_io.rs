@@ -317,7 +317,13 @@ impl ChunkMap {
         let data = match slot {
             ChunkSlot::Level(l) => {
                 let block_entities = l.block_entity_nbt_for_saving();
-                SerializableChunkData::from_level_chunk(&l.data, game_time, &light_fn, block_entities)
+                // The scheduled ticks of a loaded chunk live in the level's containers: bring them home for the copy.
+                let took_ticks = self.tick_containers.as_ref().is_some_and(|t| super::level_chunk_ops::take_ticks_back(l, t));
+                let data = SerializableChunkData::from_level_chunk(&l.data, game_time, &light_fn, block_entities);
+                if took_ticks && let Some(t) = &self.tick_containers {
+                    super::level_chunk_ops::give_ticks(l, t);
+                }
+                data
             }
             ChunkSlot::Proto(p) => {
                 let block_entities = p.access.block_entities.values().cloned().collect();
