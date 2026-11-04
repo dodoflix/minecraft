@@ -475,12 +475,8 @@ pub fn dimension_type_name(server: &MinecraftServer, dimension: &DimensionKey) -
     }
 }
 
-/// `Entity.teleportTo(level, x, y, z, relatives, yRot, xRot, true)` followed by `TeleportCommand`'s post steps
-/// (no vertical momentum unless fall flying). `destination` is the level to teleport into.
-///
-/// Only same-dimension teleports are implemented: a cross-dimension move needs `Entity.teleportCrossDimension` /
-/// `ServerPlayer.teleport(TeleportTransition)` (entity re-creation and the respawn packet sequence), which the entity
-/// slice has not landed; the call then fails like vanilla's `teleport` returning `null`.
+/// `Entity.teleportTo(level, x, y, z, relatives, yRot, xRot, true)` (`ServerPlayer` override: also the head rotation).
+/// Returns the teleported entity (a non-player changing dimension is re-created under a new id), `None` on failure.
 pub fn teleport_entity(
     server: &mut MinecraftServer,
     victim: &EntityRef,
@@ -489,30 +485,27 @@ pub fn teleport_entity(
     relatives: mc_protocol::packets::play::Relatives,
     y_rot: f32,
     x_rot: f32,
-) -> bool {
-    use mc_protocol::packets::play::PositionMoveRotation;
-    if &victim.dimension != destination {
-        return false;
+) -> Option<EntityRef> {
+    use crate::server::players::dimension_change::{TeleportTransition, teleport_entity, teleport_player};
+    let transition = TeleportTransition::new(destination.clone(), position, mc_core::phys::Vec3::ZERO, y_rot, x_rot).with_relatives(relatives);
+    let is_player = get_entity(server, victim)?.is_player();
+    let head = |entity: &mut dyn Entity| {
+        let head = if relatives.contains(mc_protocol::packets::play::Relative::YRot) { entity.get_y_head_rot() + y_rot } else { y_rot };
+        entity.set_y_head_rot(head);
+    };
+    let result = if is_player {
+        if !teleport_player(server, &victim.dimension, victim.id, &transition) {
+            return None;
+        }
+        EntityRef { dimension: destination.clone(), id: victim.id }
+    } else {
+        let id = teleport_entity(server, &victim.dimension, victim.id, &transition)?;
+        EntityRef { dimension: destination.clone(), id }
+    };
+    if let Some(entity) = server.level_mut(&result.dimension).and_then(|l| l.get_entity_mut(result.id)) {
+        head(entity);
     }
-    let pmr = PositionMoveRotation { position, delta_movement: mc_core::phys::Vec3::ZERO, y_rot, x_rot };
-    server
-        .level_mut(&victim.dimension)
-        .and_then(|level| {
-            level.with_entity(victim.id, |_, entity| {
-                if entity.is_removed() {
-                    return false;
-                }
-                if let Some(player) = entity.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
-                    player.connection_teleport_pmr(pmr, relatives);
-                } else {
-                    entity.teleport_set_position(pmr, relatives);
-                }
-                let head = if relatives.contains(mc_protocol::packets::play::Relative::YRot) { entity.get_y_head_rot() + y_rot } else { y_rot };
-                entity.set_y_head_rot(head);
-                true
-            })
-        })
-        .unwrap_or(false)
+    Some(result)
 }
 
 /// `TeleportCommand.performTeleport`'s tail for a successfully teleported `victim`: keeps only horizontal momentum and

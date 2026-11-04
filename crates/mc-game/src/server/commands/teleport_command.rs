@@ -269,11 +269,11 @@ fn perform_teleport(
     let new_y_rot = mth::wrap_degrees_f32(if relatives.contains(Relative::YRot) { y_rot - current_y_rot } else { y_rot });
     let new_x_rot = mth::wrap_degrees_f32(if relatives.contains(Relative::XRot) { x_rot - current_x_rot } else { x_rot });
     let teleported = source.with_server(|server| host::teleport_entity(server, victim, level, Vec3::new(rx, ry, rz), relatives, new_y_rot, new_x_rot));
-    if teleported {
+    if let Some(victim) = teleported {
         if let Some(look_at) = look_at {
-            look_at.perform(source, victim);
+            look_at.perform(source, &victim);
         }
-        source.with_server(|server| host::after_teleport(server, victim));
+        source.with_server(|server| host::after_teleport(server, &victim));
     }
     Ok(())
 }
