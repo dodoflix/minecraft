@@ -168,6 +168,7 @@ struct Scenario {
     olds: Vec<OldChunk>,
 }
 
+#[allow(clippy::too_many_arguments)]
 fn make_chunk(
     f: &PalettedContainerFactory,
     cx: i32,
