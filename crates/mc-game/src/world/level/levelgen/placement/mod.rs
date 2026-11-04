@@ -2,6 +2,27 @@
 //! `FeaturePlacer` that drives them. Every modifier type lives in its own file and registers itself in
 //! [`PLACEMENT_MODIFIER_TYPES`].
 
+pub mod biome_filter;
+pub mod block_predicate_filter;
+pub mod cave_surface;
+pub mod count_on_every_layer_placement;
+pub mod count_placement;
+pub mod cuboid_placement;
+pub mod environment_scan_placement;
+pub mod fixed_placement;
+pub mod height_range_placement;
+pub mod heightmap_placement;
+pub mod in_square_placement;
+pub mod noise_based_count_placement;
+pub mod noise_threshold_count_placement;
+pub mod offset_placement;
+pub mod random_chance_placement;
+pub mod randomly_selected_placement;
+pub mod rarity_filter;
+pub mod repeating_placement;
+pub mod surface_relative_threshold_filter;
+pub mod surface_water_depth_filter;
+
 use super::codec::{Fields, LoadError, LoadResult, TypeEntry, decode_dispatch, parse_list};
 use super::env::GenEnv;
 use super::feature::Feature;
