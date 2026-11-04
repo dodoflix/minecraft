@@ -4,6 +4,7 @@ use serde_json::Value;
 
 use mc_core::ident::Identifier;
 
+use crate::biome::SpawnTargetPoint;
 use crate::data::{LoadError, WorldgenRegistries};
 use crate::densityfunction::DensityFunction;
 use crate::densityfunction::codec::{
@@ -136,8 +137,8 @@ pub struct NoiseGeneratorSettings {
     pub noise_router: NoiseRouter,
     /// `MaterialRule.HOLDER_CODEC` (a rule reference or inline rule), decoded by the material rule loader.
     pub material_rule: Value,
-    /// `SpawnTargetPoint.CODEC.listOf()` as raw JSON.
-    pub spawn_target: Value,
+    /// `SpawnTargetPoint.CODEC.listOf()`.
+    pub spawn_target: Vec<SpawnTargetPoint>,
     pub sea_level: i32,
     pub disable_mob_generation: bool,
     pub aquifers: Option<AquiferConfig>,
@@ -161,11 +162,7 @@ impl NoiseGeneratorSettings {
                 .required("noise_router", |v| NoiseRouter::from_json(v, registries))?,
             material_rule: fields.required("material_rule", |v| Ok(v.clone()))?,
             spawn_target: fields.required("spawn_target", |v| {
-                if v.is_array() {
-                    Ok(v.clone())
-                } else {
-                    Err(LoadError::new("expected list"))
-                }
+                parse_list(v, |e| SpawnTargetPoint::from_json(e, registries))
             })?,
             sea_level: fields.required("sea_level", parse_int)?,
             disable_mob_generation: fields.required("disable_mob_generation", parse_bool)?,

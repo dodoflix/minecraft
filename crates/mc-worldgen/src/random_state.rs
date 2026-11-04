@@ -160,6 +160,11 @@ impl RandomState {
         self.sea_level
     }
 
+    /// `createClimateSampler(context)`.
+    pub fn create_climate_sampler(self: &Arc<Self>, context: SamplerContext) -> crate::biome::climate::Sampler {
+        self.router.create_climate_sampler(self.samplers_with_context(context))
+    }
+
     /// `samplersWithContext(context)`: samplers of any function bound to `context`.
     pub fn samplers_with_context(self: &Arc<Self>, context: SamplerContext) -> DensitySamplerSet {
         DensitySamplerSet {
@@ -260,7 +265,11 @@ pub struct BoundSampler<'a> {
     context: &'a SamplerContext,
 }
 
-impl BoundSampler<'_> {
+impl<'a> BoundSampler<'a> {
+    pub(crate) fn new(sampler: SharedSampler, context: &'a SamplerContext) -> BoundSampler<'a> {
+        BoundSampler { sampler, context }
+    }
+
     /// `sampleVolume(out, volume)`.
     pub fn sample_volume(&self, out: &mut DensityBuffer, volume: &DensityVolume) {
         self.sampler.sample_volume(self.context, out, volume);
