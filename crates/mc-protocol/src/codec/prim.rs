@@ -36,7 +36,7 @@ impl Decode for u8 {
         let max = if max == i32::MAX as usize { input.len() } else { max };
         let size = read_varint(input)?;
         if size < 0 {
-            return Err(DecodeError::msg("Negative array size"));
+            return Err(DecodeError::Message(size.to_string())); // NegativeArraySizeException
         }
         if size as usize > max {
             return Err(DecodeError::Message(format!("ByteArray with size {size} is bigger than allowed {max}")));
