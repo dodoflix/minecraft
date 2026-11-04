@@ -1033,6 +1033,7 @@ version = "0.1.0"
 dependencies = [
  "mc-core",
  "mc-data",
+ "mc-nbt",
  "mc-world",
  "serde_json",
 ]
