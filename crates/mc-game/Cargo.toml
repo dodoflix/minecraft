@@ -5,3 +5,25 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+mc-core = { path = "../mc-core" }
+mc-nbt = { path = "../mc-nbt" }
+mc-text = { path = "../mc-text" }
+mc-brigadier = { path = "../mc-brigadier" }
+mc-data = { path = "../mc-data" }
+mc-protocol = { path = "../mc-protocol" }
+mc-worldgen = { path = "../mc-worldgen" }
+linkme = "0.3"
+log = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "sync", "time", "io-util", "macros", "signal"] }
+indexmap = "2"
+parking_lot = "0.12"
+thiserror = "2"
+uuid = { version = "1", features = ["v4"] }
+rand = "0.9"
+base64 = "0.22"
+chrono = "0.4"
+
+[dev-dependencies]
+tempfile = "3"
