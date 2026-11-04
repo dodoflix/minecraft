@@ -62,6 +62,8 @@ pub struct ServerPlayer {
     pub player: PlayerData,
     /// `None` for a player whose connection is gone / test players.
     pub connection: Option<ConnectionSender>,
+    /// The player list's view of this player (`None` until `placeNewPlayer` gives it a connection).
+    pub handle: Option<crate::server::players::PlayerHandle>,
     pub game_mode: ServerPlayerGameMode,
     pub client_information: ClientInformation,
     pub last_recorded_health_and_absorption: f32,
@@ -125,6 +127,7 @@ impl ServerPlayer {
         let mut p = Self {
             player: PlayerData::new(id, game_profile),
             connection: None,
+            handle: None,
             game_mode: ServerPlayerGameMode::default(),
             client_information: ClientInformation::default(),
             last_recorded_health_and_absorption: f32::MIN_POSITIVE,

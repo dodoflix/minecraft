@@ -20,7 +20,7 @@ use mc_protocol::packets::play::{
     GameType as WireGameType,
 };
 use mc_text::{ChatFormatting, Component};
-use mc_world::level_storage::GameType;
+use mc_data::enums::GameType;
 use parking_lot::Mutex;
 use std::sync::Arc;
 use uuid::Uuid;
@@ -146,7 +146,12 @@ impl PlayerHandle {
             profile: Some((*self.profile).clone()),
             listed: true,
             latency: state.latency,
-            game_mode: WireGameType::by_id(state.game_mode.get_id()),
+            game_mode: WireGameType::by_id(match state.game_mode {
+                GameType::Survival => 0,
+                GameType::Creative => 1,
+                GameType::Adventure => 2,
+                GameType::Spectator => 3,
+            }),
             display_name: state.tab_list_display_name.clone(),
             show_hat: state.show_hat,
             list_order: state.tab_list_order,
