@@ -1032,6 +1032,7 @@ name = "mc-worldgen"
 version = "0.1.0"
 dependencies = [
  "flate2",
+ "log",
  "mc-core",
  "mc-data",
  "mc-nbt",
