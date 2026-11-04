@@ -335,6 +335,11 @@ impl CommandSourceStack {
         self.with_server(|server| super::host::level_enabled_features(server, &level))
     }
 
+    /// `getOnlinePlayerNames()`.
+    pub fn get_online_player_names(&self) -> Vec<String> {
+        self.with_server(|server| super::host::online_player_names(server))
+    }
+
     /// `levels()`: the keys of all levels.
     pub fn levels(&self) -> Vec<DimensionKey> {
         self.with_server(|server| server.level_keys())

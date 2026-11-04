@@ -964,6 +964,7 @@ dependencies = [
  "chrono",
  "flate2",
  "indexmap",
+ "libc",
  "linkme",
  "log",
  "mc-brigadier",
@@ -1043,6 +1044,11 @@ dependencies = [
 [[package]]
 name = "mc-server"
 version = "0.1.0"
+dependencies = [
+ "log",
+ "mc-game",
+ "mc-world",
+]
 
 [[package]]
 name = "mc-testbot"
