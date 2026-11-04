@@ -16,6 +16,7 @@
 //! adding one never touches existing implementors.
 
 use super::{ClickAction, ItemStack, tool};
+use super::ItemStackExt;
 use crate::world::inventory::{MenuPlayer, Slot, SlotEnv};
 use linkme::distributed_slice;
 use mc_data::Item;
@@ -77,9 +78,9 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     fn get_use_animation(&self, stack: &ItemStack) -> ItemUseAnimation {
         if let Some(consumable) = stack.get_json("minecraft:consumable") {
             consumable.get("animation").and_then(|a| a.as_str()).and_then(ItemUseAnimation::by_name).unwrap_or(ItemUseAnimation::Eat)
-        } else if stack.has("minecraft:blocks_attacks") {
+        } else if stack.has_json("minecraft:blocks_attacks") {
             ItemUseAnimation::Block
-        } else if stack.has("minecraft:kinetic_weapon") {
+        } else if stack.has_json("minecraft:kinetic_weapon") {
             ItemUseAnimation::Spear
         } else {
             ItemUseAnimation::None
@@ -92,7 +93,7 @@ pub trait ItemBehaviour: Send + Sync + 'static {
             // `Consumable.consumeTicks()` = `(int)(consumeSeconds * 20.0F)`, default 1.6 seconds.
             let seconds = consumable.get("consume_seconds").and_then(|s| s.as_f64()).map_or(1.6f32, |s| s as f32);
             (seconds * 20.0f32) as i32
-        } else if !stack.has("minecraft:blocks_attacks") && !stack.has("minecraft:kinetic_weapon") {
+        } else if !stack.has_json("minecraft:blocks_attacks") && !stack.has_json("minecraft:kinetic_weapon") {
             0
         } else {
             APPROXIMATELY_INFINITE_USE_DURATION
@@ -120,7 +121,7 @@ pub trait ItemBehaviour: Send + Sync + 'static {
 
     /// `getName(stack)`: the `item_name` component.
     fn get_name(&self, stack: &ItemStack) -> Component {
-        stack.get_json("minecraft:item_name").and_then(|v| Component::from_json(&v).ok()).unwrap_or_else(|| Component::literal(""))
+        stack.get_json("minecraft:item_name").and_then(|v| Component::from_json(v).ok()).unwrap_or_else(|| Component::literal(""))
     }
 
     /// `isFoil(stack)`.

@@ -112,7 +112,7 @@ impl AbstractContainerMenu for InventoryMenu {
     }
 
     fn quick_move_stack(&mut self, player: &mut dyn MenuPlayer, slot_index: usize) -> ItemStack {
-        let mut clicked = ItemStack::EMPTY;
+        let mut clicked = ItemStack::empty();
         let has = self.base.with_slot(player, slot_index, |s, e| s.has_item(e));
         if has {
             // Detach the slot's stack: `moveItemStackTo` mutates it (Java mutates the slot's own object).
@@ -142,10 +142,10 @@ impl AbstractContainerMenu for InventoryMenu {
             if !moved {
                 // Java mutated the slot's stack in place before returning EMPTY: put the (possibly changed) stack back.
                 self.base.with_slot(player, slot_index, |s, e| s.with_item_mut(e, |t| *t = stack));
-                return ItemStack::EMPTY;
+                return ItemStack::empty();
             }
             if stack.is_empty() {
-                self.base.with_slot(player, slot_index, |s, e| s.set_by_player_with(e, ItemStack::EMPTY, &clicked));
+                self.base.with_slot(player, slot_index, |s, e| s.set_by_player_with(e, ItemStack::empty(), &clicked));
             } else {
                 let rest = stack.clone();
                 self.base.with_slot(player, slot_index, |s, e| {
@@ -154,7 +154,7 @@ impl AbstractContainerMenu for InventoryMenu {
                 });
             }
             if stack.count() == clicked.count() {
-                return ItemStack::EMPTY;
+                return ItemStack::empty();
             }
             self.base.with_slot(player, slot_index, |s, e| s.on_take(e, &stack));
             self.flush_container_events(player);

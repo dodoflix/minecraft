@@ -11,6 +11,7 @@ use crate::world::container::{Container, empty_stack, helper, load_slots, save_s
 use crate::world::entity::equipment::{EntityEquipment, EquipmentSlot};
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
+use crate::world::item::ItemStackExt;
 use mc_nbt::ListTag;
 use std::any::Any;
 
@@ -46,7 +47,7 @@ pub fn is_hotbar_slot(slot: i32) -> bool {
 
 /// `Inventory.isUsableForCrafting`.
 pub fn is_usable_for_crafting(item: &ItemStack) -> bool {
-    !item.is_damaged() && !item.is_enchanted() && !item.has("minecraft:custom_name")
+    !item.is_damaged() && !item.is_enchanted() && !item.has_json("minecraft:custom_name")
 }
 
 #[derive(Clone, Debug)]
@@ -65,7 +66,7 @@ impl Default for Inventory {
 
 impl Inventory {
     pub fn new() -> Self {
-        Self { items: vec![ItemStack::EMPTY; INVENTORY_SIZE], selected: 0, equipment: EntityEquipment::new(), times_changed: 0 }
+        Self { items: vec![ItemStack::empty(); INVENTORY_SIZE], selected: 0, equipment: EntityEquipment::new(), times_changed: 0 }
     }
 
     pub fn get_selected_slot(&self) -> i32 {
@@ -200,7 +201,7 @@ impl Inventory {
         count += helper::clear_or_count_matching_items(craft_slots, predicate, amount_to_remove - count, counting_only);
         count += helper::clear_or_count_matching_items_stack(carried, predicate, amount_to_remove - count, counting_only);
         if !counting_only && carried.is_empty() {
-            *carried = ItemStack::EMPTY;
+            *carried = ItemStack::empty();
         }
         count
     }
@@ -288,7 +289,7 @@ impl Inventory {
     pub fn remove_from_selected(&mut self, all: bool) -> ItemStack {
         let count = self.get_selected_item().count();
         if self.get_selected_item().is_empty() {
-            ItemStack::EMPTY
+            ItemStack::empty()
         } else {
             let selected = self.selected;
             self.remove_item(selected, if all { count } else { 1 })
@@ -318,7 +319,7 @@ impl Inventory {
 
     /// `load(input)`: undecodable entries and slots outside `0..36` are skipped.
     pub fn load(&mut self, list: &ListTag) {
-        self.items.fill(ItemStack::EMPTY);
+        self.items.fill(ItemStack::empty());
         for (slot, stack) in load_slots(list) {
             if slot < self.items.len() {
                 self.set_item(slot, stack);
@@ -337,7 +338,7 @@ impl Inventory {
         let mut drops: Vec<ItemStack> = self.items.iter_mut().map(std::mem::take).filter(|s| !s.is_empty()).collect();
         for slot in EquipmentSlot::VALUES {
             if slot != EquipmentSlot::MainHand {
-                let stack = self.equipment.set(slot, ItemStack::EMPTY);
+                let stack = self.equipment.set(slot, ItemStack::empty());
                 if !stack.is_empty() {
                     drops.push(stack);
                 }
@@ -385,9 +386,9 @@ impl Container for Inventory {
             helper::remove_item(&mut self.items, slot, count)
         } else if let Some(s) = equipment_slot_for(slot) {
             let stack = self.equipment.get_mut(s);
-            if stack.is_empty() { ItemStack::EMPTY } else { stack.split(count) }
+            if stack.is_empty() { ItemStack::empty() } else { stack.split(count) }
         } else {
-            ItemStack::EMPTY
+            ItemStack::empty()
         }
     }
 
@@ -395,7 +396,7 @@ impl Container for Inventory {
         if slot < self.items.len() {
             std::mem::take(&mut self.items[slot])
         } else {
-            equipment_slot_for(slot).map_or(ItemStack::EMPTY, |s| self.equipment.set(s, ItemStack::EMPTY))
+            equipment_slot_for(slot).map_or(ItemStack::empty(), |s| self.equipment.set(s, ItemStack::empty()))
         }
     }
 
@@ -409,7 +410,7 @@ impl Container for Inventory {
     }
 
     fn clear_content(&mut self) {
-        self.items.fill(ItemStack::EMPTY);
+        self.items.fill(ItemStack::empty());
         self.equipment.clear();
     }
 

@@ -1,6 +1,7 @@
 //! `RemoteSlot`, `ContainerSynchronizer`, `ContainerListener`.
 use super::Slot;
-use crate::world::item::{HashedStack, ItemStack};
+use crate::world::item::{HashedStack, ItemStack, stacks_match};
+use mc_protocol::components::hashed::component_hash;
 
 /// What the client is believed to hold for one slot (or the cursor).
 #[derive(Clone, Debug)]
@@ -35,8 +36,8 @@ impl RemoteSlot {
             Self::Placeholder => true,
             Self::Synchronized { remote_stack, remote_hash } => {
                 if let Some(r) = remote_stack {
-                    ItemStack::matches(r, local)
-                } else if remote_hash.as_ref().is_some_and(|h| h.matches(local)) {
+                    stacks_match(r, local)
+                } else if remote_hash.as_ref().is_some_and(|h| h.matches(local, &component_hash)) {
                     *remote_stack = Some(local.copy());
                     true
                 } else {

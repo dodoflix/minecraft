@@ -7,6 +7,7 @@
 use crate::world::entity::EntityId;
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
+use crate::world::item::{ItemStackExt, load_item_stack};
 use mc_data::Item;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use std::any::Any;
@@ -80,13 +81,13 @@ pub mod helper {
     pub fn remove_item(stacks: &mut [ItemStack], slot: usize, count: i32) -> ItemStack {
         match stacks.get_mut(slot) {
             Some(s) if !s.is_empty() && count > 0 => s.split(count),
-            _ => ItemStack::EMPTY,
+            _ => ItemStack::empty(),
         }
     }
 
     /// `takeItem(list, slot)`.
     pub fn take_item(stacks: &mut [ItemStack], slot: usize) -> ItemStack {
-        stacks.get_mut(slot).map_or(ItemStack::EMPTY, std::mem::take)
+        stacks.get_mut(slot).map_or(ItemStack::empty(), std::mem::take)
     }
 
     /// `clearOrCountMatchingItems(stack, predicate, amountToRemove, countingOnly)`.
@@ -109,7 +110,7 @@ pub mod helper {
             let Some(stack) = container.get_item_mut(i) else { continue };
             let removed = clear_or_count_matching_items_stack(stack, predicate, amount_to_remove - count, counting_only);
             if removed > 0 && !counting_only && stack.is_empty() {
-                container.set_item(i, ItemStack::EMPTY);
+                container.set_item(i, ItemStack::empty());
             }
             count += removed;
         }
@@ -152,7 +153,7 @@ pub fn load_slots(list: &ListTag) -> Vec<(usize, ItemStack)> {
     list.compounds()
         .filter_map(|tag| {
             let slot = tag.get_byte_or("Slot", 0) as u8 as usize;
-            ItemStack::load_from(tag).map(|stack| (slot, stack))
+            load_item_stack(tag).map(|stack| (slot, stack))
         })
         .collect()
 }
@@ -165,7 +166,7 @@ pub struct SimpleContainer {
 
 impl SimpleContainer {
     pub fn new(size: usize) -> Self {
-        Self { items: vec![ItemStack::EMPTY; size] }
+        Self { items: vec![ItemStack::empty(); size] }
     }
 
     pub fn from_stacks(stacks: Vec<ItemStack>) -> Self {
@@ -185,7 +186,7 @@ impl SimpleContainer {
 
     /// `removeItemType(itemType, count)`.
     pub fn remove_item_type(&mut self, item: Item, count: i32) -> ItemStack {
-        let mut removed = ItemStack::new(item, 0);
+        let mut removed = ItemStack::with_count(item, 0);
         for slot in (0..self.items.len()).rev() {
             let current = &mut self.items[slot];
             if current.item() == item {
@@ -206,15 +207,15 @@ impl SimpleContainer {
     /// `addItem(stack)`: returns the part that did not fit.
     pub fn add_item(&mut self, stack: &ItemStack) -> ItemStack {
         if stack.is_empty() {
-            return ItemStack::EMPTY;
+            return ItemStack::empty();
         }
         let mut remaining = stack.copy();
         self.move_item_to_occupied_slots_with_same_type(&mut remaining);
         if remaining.is_empty() {
-            return ItemStack::EMPTY;
+            return ItemStack::empty();
         }
         self.move_item_to_empty_slots(&mut remaining);
-        if remaining.is_empty() { ItemStack::EMPTY } else { remaining }
+        if remaining.is_empty() { ItemStack::empty() } else { remaining }
     }
 
     /// `canAddItem(stack)`.
@@ -295,7 +296,7 @@ impl Container for SimpleContainer {
     }
     fn remove_item_no_update(&mut self, slot: usize) -> ItemStack {
         // Java's `items.get(slot)` throws for an out-of-range slot; every caller passes a valid index.
-        self.items.get_mut(slot).map_or(ItemStack::EMPTY, std::mem::take)
+        self.items.get_mut(slot).map_or(ItemStack::empty(), std::mem::take)
     }
     fn set_item(&mut self, slot: usize, mut stack: ItemStack) {
         let max = self.get_max_stack_size_for(&stack);
@@ -307,7 +308,7 @@ impl Container for SimpleContainer {
     }
     fn clear_content(&mut self) {
         // `NonNullList.clear()` with a default value resets every entry to EMPTY (size is kept).
-        self.items.fill(ItemStack::EMPTY);
+        self.items.fill(ItemStack::empty());
         self.set_changed();
     }
     fn set_changed(&mut self) {}

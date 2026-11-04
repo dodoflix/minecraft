@@ -133,7 +133,7 @@ impl Slot {
     pub fn with_item_mut<R>(&self, env: &mut SlotEnv, f: impl FnOnce(&mut ItemStack) -> R) -> R {
         env.with_container(&self.container, |c| match c.get_item_mut(self.slot) {
             Some(s) => f(s),
-            None => f(&mut ItemStack::EMPTY),
+            None => f(&mut ItemStack::empty()),
         })
     }
 
@@ -170,7 +170,7 @@ impl Slot {
                 None
             } else {
                 if self.get_item(env).is_empty() {
-                    self.set_by_player_with(env, ItemStack::EMPTY, &result);
+                    self.set_by_player_with(env, ItemStack::empty(), &result);
                 }
                 Some(result)
             }
@@ -183,7 +183,7 @@ impl Slot {
                 self.on_take(env, &item);
                 item
             }
-            None => ItemStack::EMPTY,
+            None => ItemStack::empty(),
         }
     }
 

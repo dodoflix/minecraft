@@ -87,7 +87,7 @@ pub struct TransientCraftingContainer {
 
 impl TransientCraftingContainer {
     pub fn new(width: usize, height: usize) -> Self {
-        Self { items: vec![ItemStack::EMPTY; width * height], width, height, pending: 0 }
+        Self { items: vec![ItemStack::empty(); width * height], width, height, pending: 0 }
     }
     pub fn get_width(&self) -> usize {
         self.width
@@ -140,7 +140,7 @@ impl Container for TransientCraftingContainer {
         self.pending += 1;
     }
     fn clear_content(&mut self) {
-        self.items.fill(ItemStack::EMPTY);
+        self.items.fill(ItemStack::empty());
     }
     fn set_changed(&mut self) {}
     fn still_valid(&self, _player: &dyn MenuPlayer) -> bool {
@@ -192,7 +192,7 @@ impl Container for ResultContainer {
         self.item = stack;
     }
     fn clear_content(&mut self) {
-        self.item = ItemStack::EMPTY;
+        self.item = ItemStack::empty();
     }
     fn set_changed(&mut self) {}
     fn still_valid(&self, _player: &dyn MenuPlayer) -> bool {
@@ -295,6 +295,6 @@ pub fn craft_result_for_grid(grid: &TransientCraftingContainer, player: &mut dyn
     let input = grid.as_positioned_craft_input().input;
     match RECIPES.get() {
         Some(r) => r.craft_result(&input, player),
-        None => ItemStack::EMPTY,
+        None => ItemStack::empty(),
     }
 }

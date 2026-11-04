@@ -14,7 +14,7 @@ use super::{
     place_item_back_in_inventory,
 };
 use crate::world::container::Container;
-use crate::world::item::{HashedStack, ItemStack};
+use crate::world::item::{HashedStack, ItemStack, stacks_match};
 use mc_data::MenuType;
 use std::any::Any;
 
@@ -102,7 +102,7 @@ impl MenuBase {
             slots: Vec::new(),
             locals: Vec::new(),
             data_slots: Vec::new(),
-            carried: ItemStack::EMPTY,
+            carried: ItemStack::empty(),
             remote_slots: Vec::new(),
             remote_data_slots: Vec::new(),
             remote_carried: RemoteSlot::Placeholder,
@@ -136,7 +136,7 @@ impl MenuBase {
     pub fn add_slot(&mut self, mut slot: Slot) -> usize {
         slot.index = self.slots.len();
         self.slots.push(slot);
-        self.last_slots.push(ItemStack::EMPTY);
+        self.last_slots.push(ItemStack::empty());
         let remote = self.synchronizer.as_ref().map_or(RemoteSlot::Placeholder, |s| s.create_slot());
         self.remote_slots.push(remote);
         self.slots.len() - 1
@@ -300,7 +300,7 @@ impl MenuBase {
     }
 
     fn trigger_slot_listeners(&mut self, i: usize, current: &ItemStack) {
-        if !ItemStack::matches(&self.last_slots[i], current) {
+        if !stacks_match(&self.last_slots[i], current) {
             let new_item = current.copy();
             self.last_slots[i] = new_item.clone();
             for l in &mut self.container_listeners {
@@ -446,7 +446,7 @@ pub trait AbstractContainerMenu: Any {
             let carried = self.base().get_carried().clone();
             if !carried.is_empty() {
                 drop_or_place_in_inventory(player, carried);
-                self.base_mut().set_carried(ItemStack::EMPTY);
+                self.base_mut().set_carried(ItemStack::empty());
             }
         }
     }
@@ -805,7 +805,7 @@ pub trait AbstractContainerMenu: Any {
                     player.inventory_mut().set_item(button, target_stack.clone());
                     self.base_mut().with_slot(player, idx, |s, e| {
                         s.on_swap_craft(target_stack.count());
-                        s.set_by_player(e, ItemStack::EMPTY);
+                        s.set_by_player(e, ItemStack::empty());
                         s.on_take(e, &target_stack);
                     });
                 }
@@ -816,7 +816,7 @@ pub trait AbstractContainerMenu: Any {
                         let part = player.inventory_mut().get_item_mut(button).map(|s| s.split(max)).unwrap_or_default();
                         self.base_mut().with_slot(player, idx, |s, e| s.set_by_player(e, part));
                     } else {
-                        player.inventory_mut().set_item(button, ItemStack::EMPTY);
+                        player.inventory_mut().set_item(button, ItemStack::empty());
                         self.base_mut().with_slot(player, idx, |s, e| s.set_by_player(e, source));
                     }
                 }

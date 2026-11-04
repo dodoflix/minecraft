@@ -5,6 +5,7 @@
 //! done by `Inventory::equipment_get/equipment_set` (the inventory owns the player's `EntityEquipment`).
 
 use crate::world::item::ItemStack;
+use crate::world::item::{ItemStackExt, load_item_stack};
 use mc_nbt::{CompoundTag, Tag};
 
 /// `EquipmentSlot.Type`.
@@ -161,7 +162,7 @@ impl EntityEquipment {
     }
 
     pub fn clear(&mut self) {
-        self.items.fill(ItemStack::EMPTY);
+        self.items.fill(ItemStack::empty());
     }
 
     /// `EntityEquipment.CODEC` (`unboundedMap(EquipmentSlot.CODEC, ItemStack.CODEC)` minus empty stacks), as the
@@ -183,7 +184,7 @@ impl EntityEquipment {
     pub fn load(tag: &CompoundTag) -> EntityEquipment {
         let mut eq = EntityEquipment::new();
         for (name, value) in tag.iter() {
-            if let (Some(slot), Some(item)) = (EquipmentSlot::by_name(name), value.as_compound().and_then(ItemStack::load_from)) {
+            if let (Some(slot), Some(item)) = (EquipmentSlot::by_name(name), value.as_compound().and_then(load_item_stack)) {
                 eq.set(slot, item);
             }
         }

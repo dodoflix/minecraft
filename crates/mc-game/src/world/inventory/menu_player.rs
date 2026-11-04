@@ -5,6 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::player::inventory::Inventory;
 use crate::world::item::ItemStack;
+use crate::world::item::ItemStackExt;
 use mc_core::pos::BlockPos;
 
 /// `net.minecraft.util.Prediction`.

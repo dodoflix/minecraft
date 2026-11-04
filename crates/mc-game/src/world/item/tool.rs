@@ -2,6 +2,7 @@
 //! Block lists are resolved against the vanilla data pack tags (`mc_data::tags`).
 
 use super::ItemStack;
+use super::ItemStackExt;
 use mc_data::block::{Block, BlockState};
 use serde_json::Value;
 
