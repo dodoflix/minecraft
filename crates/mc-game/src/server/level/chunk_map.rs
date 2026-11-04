@@ -249,6 +249,8 @@ pub struct ChunkMap {
     pub(crate) unload_queue: VecDeque<(i64, u64)>,
     pub(crate) unload_wanted: HashMap<i64, u64>,
     pub(crate) active_chunk_writes: Arc<AtomicI32>,
+    /// Save jobs (NBT encoding on the pool) not finished yet.
+    pub(crate) encoding_chunks: Arc<AtomicI32>,
     pub(crate) storage_info: RegionStorageInfo,
 
     // players
@@ -311,6 +313,7 @@ impl ChunkMap {
             unload_queue: VecDeque::new(),
             unload_wanted: HashMap::new(),
             active_chunk_writes: Arc::new(AtomicI32::new(0)),
+            encoding_chunks: Arc::new(AtomicI32::new(0)),
             storage_info,
             player_map: PlayerMap::new(),
             players: IndexMap::new(),

@@ -116,6 +116,11 @@ impl ChunkMap {
         Some(std::mem::replace(&mut holder.slot, ChunkSlot::Loaned))
     }
 
+    /// The `FULL` step could not run because the chunk is lent out: queue it again behind the current work.
+    pub fn requeue_full_step(&mut self, pos: ChunkPos) {
+        self.main_tasks.push_back(super::chunk_map::MainTask::FullStep(pos.pack()));
+    }
+
     /// Answer to [`ChunkMapEvent::FullStep`]: the live chunk is built and registered.
     pub fn complete_full_step(&mut self, pos: ChunkPos, mut chunk: Box<LevelChunk>) {
         let key = pos.pack();
@@ -325,6 +330,8 @@ impl ChunkMap {
         let factory = self.factory.clone();
         let io = self.io.handle();
         let active = self.active_chunk_writes.clone();
+        let encoding = self.encoding_chunks.clone();
+        encoding.fetch_add(1, Ordering::AcqRel);
         self.pool.submit(move || {
             match data.write(&factory) {
                 Ok(tag) => io.write(pos, Some(tag), Some(active)),
@@ -333,6 +340,7 @@ impl ChunkMap {
                     active.fetch_sub(1, Ordering::AcqRel);
                 }
             }
+            encoding.fetch_sub(1, Ordering::AcqRel);
             None
         });
         self.chunk_type_cache.insert(pos.pack(), if status.chunk_type() == ChunkType::ProtoChunk { CHUNK_TYPE_REPLACEABLE } else { CHUNK_TYPE_FULL });
@@ -407,6 +415,10 @@ impl ChunkMap {
 
     /// `synchronize(flush).join()`.
     pub fn synchronize(&self, flush: bool) {
+        // Queued saves are encoded on the pool first; wait until all of them reached the IO thread.
+        while self.encoding_chunks.load(Ordering::Acquire) > 0 {
+            std::thread::sleep(std::time::Duration::from_millis(1));
+        }
         if let Err(e) = self.io.synchronize(flush) {
             log::warn!("Failed to synchronize chunks: {e}");
         }

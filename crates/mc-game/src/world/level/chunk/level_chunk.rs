@@ -41,7 +41,7 @@ impl LevelChunk {
             }
             let mut tag = mc_nbt::CompoundTag::new();
             be.save_additional(&mut tag);
-            tag.put_string("id", format!("minecraft:{}", be.get_type().name()));
+            tag.put_string("id", be.get_type().name());
             tag.put_int("x", pos.x());
             tag.put_int("y", pos.y());
             tag.put_int("z", pos.z());
@@ -53,5 +53,28 @@ impl LevelChunk {
             }
         }
         out
+    }
+}
+
+impl LevelChunk {
+    /// `registerAllBlockEntitiesAfterLevelLoad` / `promotePendingBlockEntity`: instantiate the pending block entity NBT
+    /// of types that have an implementation (`BlockEntityType.create` + `loadAdditional`). Tags of types without an
+    /// implementation (or whose block state does not match) stay raw in `data.access.block_entities`, so nothing is
+    /// lost when the chunk is saved.
+    pub fn promote_pending_block_entities(&mut self) {
+        let positions: Vec<BlockPos> = self.data.access.block_entities.keys().copied().collect();
+        for pos in positions {
+            let Some(tag) = self.data.access.block_entities.get(&pos) else { continue };
+            let Some(ty) = tag.get_string("id").and_then(mc_data::BlockEntityType::by_name) else { continue };
+            let state = self.data.get_block_state(pos);
+            if !ty.data().valid_blocks.contains(&state.block()) {
+                continue;
+            }
+            if let Some(mut be) = crate::world::block_entity::create_block_entity(ty, pos, state) {
+                be.load_additional(tag);
+                self.data.access.block_entities.remove(&pos);
+                self.block_entities.insert(pos, be);
+            }
+        }
     }
 }

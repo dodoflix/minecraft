@@ -241,6 +241,11 @@ impl ServerChunkCache {
         self.chunk_map.tickets.get_force_loaded_chunks()
     }
 
+    /// `TicketStorage.activateAllDeactivatedTickets()` (server start: persisted tickets become active).
+    pub fn activate_all_deactivated_tickets(&mut self) {
+        self.chunk_map.tickets.activate_all_deactivated_tickets();
+    }
+
     /// `deactivateTicketsOnClosing()`.
     pub fn deactivate_tickets_on_closing(&mut self) {
         self.chunk_map.tickets.deactivate_tickets_on_closing();

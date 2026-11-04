@@ -88,7 +88,10 @@ impl TicketStorage {
             }
         }
         let mut root = CompoundTag::new();
-        root.put("tickets", list);
+        // `optionalFieldOf("tickets", List.of())`: the default is omitted.
+        if !list.is_empty() {
+            root.put("tickets", list);
+        }
         Tag::Compound(root)
     }
 

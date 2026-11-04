@@ -206,13 +206,16 @@ impl ServerLevel {
                     }
                     ChunkSlot::Level(chunk) => chunk,
                     other => {
+                        // The chunk is lent to the worldgen thread (a neighbour's step reads it): retry after the batch.
                         if let Some(h) = self.chunk_source.chunk_map.holders.holder_mut(pos.pack()) {
                             h.slot = other;
                         }
+                        self.chunk_source.chunk_map.requeue_full_step(pos);
                         return;
                     }
                 };
                 let mut chunk = chunk;
+                chunk.promote_pending_block_entities();
                 chunk.data.set_loaded(true);
                 self.chunk_source.chunk_map.complete_full_step(pos, chunk);
             }
