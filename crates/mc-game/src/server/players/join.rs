@@ -197,6 +197,10 @@ pub struct ListenerParams {
     pub memory_connection: bool,
     /// `connection.getLoggableAddress(logIPs)` source: the peer address (`None` for a local connection).
     pub remote_address: Option<std::net::SocketAddr>,
+    /// The connection's inbound packet queue (`PendingPlayer.inbound`), owned by the listener from here on.
+    pub inbound: std::sync::mpsc::Receiver<crate::server::network::InboundPacket>,
+    /// `server::enforceSecureProfile`.
+    pub enforce_secure_profile: std::sync::Arc<dyn Fn() -> bool + Send + Sync>,
 }
 
 /// `connection.getLoggableAddress(logIps)`.
@@ -258,11 +262,16 @@ pub fn place_new_player(
     player.connection = Some(sender.clone());
     player.listener = Some(ServerGamePacketListenerImpl::new(
         sender.clone(),
+        params.inbound,
         &params.cookie,
+        handle.chat_out.clone(),
+        crate::server::network::game_listener::ListenerSettings {
+            command_spam_threshold_seconds: params.command_spam_threshold_seconds,
+            chat_spam_threshold_seconds: params.chat_spam_threshold_seconds,
+            memory_connection: params.memory_connection,
+            enforce_secure_profile: params.enforce_secure_profile,
+        },
         params.now_ms,
-        params.command_spam_threshold_seconds,
-        params.chat_spam_threshold_seconds,
-        params.memory_connection,
     ));
     handle.shared.lock().latency = params.cookie.latency;
     player.handle = Some(handle.clone());
