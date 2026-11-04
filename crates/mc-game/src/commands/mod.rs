@@ -18,8 +18,10 @@ pub mod message;
 pub mod server_access;
 pub mod shared_suggestion_provider;
 pub mod synchronization;
+pub mod text_validators;
 
 pub use brigadier_exceptions::BrigadierExceptions;
+pub use text_validators::install_text_validators;
 pub use command_build_context::{CommandBuildContext, HolderLookupProvider, RegistryView};
 pub use command_result_callback::CommandResultCallback;
 pub use command_signing_context::CommandSigningContext;
