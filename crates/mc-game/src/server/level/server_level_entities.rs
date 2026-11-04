@@ -310,6 +310,13 @@ impl crate::world::level::collision::CollisionGetter for ServerLevel {
         self.chunk_now(chunk_x, chunk_z).is_some()
     }
 
+    /// `borderCollision(source, box)`.
+    fn border_collision(&self, source: EntityId, aabb: &AABB) -> Option<mc_core::phys::shapes::VoxelShape> {
+        let entity = self.entity_manager.get_any(source)?;
+        let border = self.world_border_ref()?;
+        border.is_inside_close_to_border(entity.base().x(), entity.base().z(), aabb).then(|| border.get_collision_shape())
+    }
+
     /// Id-based form (no live source): every entity that can be collided with.
     fn get_entity_collisions(&self, _source: Option<EntityId>, test_area: &AABB) -> Vec<mc_core::phys::shapes::VoxelShape> {
         crate::world::entity::movement::EntityCollisionQuery::entity_collisions(self, None, test_area)
@@ -337,6 +344,11 @@ impl crate::world::entity::movement::EntityCollisionQuery for ServerLevel {
 impl crate::world::entity::movement::MovementLevel for ServerLevel {
     fn game_time(&self) -> i64 {
         ServerLevel::game_time(self)
+    }
+
+    fn world_border_collision(&self, source: &dyn Entity, aabb: &AABB) -> Option<mc_core::phys::shapes::VoxelShape> {
+        let border = self.world_border_ref()?;
+        border.is_inside_close_to_border(source.base().x(), source.base().z(), aabb).then(|| border.get_collision_shape())
     }
 
     fn has_chunks_at(&self, x0: i32, z0: i32, x1: i32, z1: i32) -> bool {

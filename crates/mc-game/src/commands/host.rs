@@ -74,24 +74,21 @@ pub fn entity_plain_text_name(entity: &dyn Entity) -> String {
 }
 
 /// `Entity.getDisplayName()`: the name formatted for its team, with the hover/insertion vanilla adds.
-/// SEAM(GameServerState scoreboard): team formatting (`PlayerTeam.formatNameForTeam`) needs the scoreboard; without a
-/// team the name is used as is.
 pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Component {
-    let _ = server;
     let name = entity_name(entity);
+    let team = server.scoreboard.get_players_team(&entity.get_scoreboard_name());
+    let name = crate::world::scores::PlayerTeam::format_name_for_team(team, &name);
     let hover = mc_text::events::HoverEvent::ShowEntity(mc_text::events::EntityTooltipInfo {
         entity_type: entity.get_type().identifier(),
         uuid: entity.uuid().as_u128(),
-        name: Some(Box::new(name.clone())),
+        name: Some(Box::new(entity_name(entity))),
     });
     name.with_style_fn(|s| s.with_hover_event(Some(hover.clone())).with_insertion(Some(entity.uuid().to_string())))
 }
 
 /// `Entity.getTeam().getName()`.
-/// SEAM(GameServerState scoreboard).
 pub fn entity_team_name(server: &MinecraftServer, entity: &dyn Entity) -> Option<String> {
-    let _ = (server, entity);
-    None
+    server.scoreboard.get_players_team(&entity.get_scoreboard_name()).map(|t| t.get_name().to_owned())
 }
 
 /// `ServerPlayer.gameMode()`.
@@ -171,11 +168,12 @@ pub fn level_enabled_features_ref(server: &MinecraftServer, level: &DimensionKey
 // ---- selector option predicates that need other slices' state ----
 
 /// The `scores` option: every `(objective name, bounds)` matches the entity's score.
-/// The server has no scoreboard instance yet (`MinecraftServer.getScoreboard()`), i.e. no objectives exist: like
-/// vanilla for an unknown objective, nothing matches.
 pub fn entity_scores_match(server: &MinecraftServer, entity: &dyn Entity, expected: &[(String, crate::commands::arguments::min_max_bounds::Ints)]) -> bool {
-    let _ = (server, entity);
-    expected.is_empty()
+    let holder = crate::world::scores::score::for_name_only(&entity.get_scoreboard_name());
+    expected.iter().all(|(objective, bounds)| {
+        server.scoreboard.get_objective(objective).is_some()
+            && server.scoreboard.get_player_score_info(&holder, objective).is_some_and(|score| bounds.matches(score.value()))
+    })
 }
 
 /// The `advancements` option: for a player, every `(advancement, criteria)` expectation holds
@@ -234,46 +232,35 @@ pub fn player_name_and_id(entity: &dyn Entity) -> Option<crate::server::players:
 }
 
 // ---- scoreboard ----
-// `MinecraftServer` does not own a `ServerScoreboard` yet (the model is `world::scores::Scoreboard`): until it does the
-// scoreboard is the empty one (no objectives, teams or tracked players).
 
 /// `scoreboard.getObjective(name) != null`.
 pub fn scoreboard_has_objective(server: &MinecraftServer, name: &str) -> bool {
-    let _ = server;
-    let _ = name;
-    false
+    server.scoreboard.get_objective(name).is_some()
 }
 
 /// `objective.getCriteria().isReadOnly()` of an existing objective.
 pub fn scoreboard_objective_read_only(server: &MinecraftServer, name: &str) -> bool {
-    let _ = server;
-    let _ = name;
-    false
+    server.scoreboard.get_objective(name).is_some_and(|o| o.get_criteria().is_read_only())
 }
 
 /// `scoreboard.getObjectiveNames()`.
 pub fn scoreboard_objective_names(server: &MinecraftServer) -> Vec<String> {
-    let _ = server;
-    Vec::new()
+    server.scoreboard.get_objective_names().map(str::to_owned).collect()
 }
 
 /// `scoreboard.getTeamNames()`.
 pub fn scoreboard_team_names(server: &MinecraftServer) -> Vec<String> {
-    let _ = server;
-    Vec::new()
+    server.scoreboard.get_team_names().map(str::to_owned).collect()
 }
 
 /// `scoreboard.getPlayerTeam(name) != null`.
 pub fn scoreboard_has_team(server: &MinecraftServer, name: &str) -> bool {
-    let _ = server;
-    let _ = name;
-    false
+    server.scoreboard.get_player_team(name).is_some()
 }
 
 /// `scoreboard.getTrackedPlayers()` (score holder names).
 pub fn scoreboard_tracked_players(server: &MinecraftServer) -> Vec<String> {
-    let _ = server;
-    Vec::new()
+    server.scoreboard.get_tracked_players()
 }
 
 // ---- registries ----
@@ -436,10 +423,14 @@ pub fn score_holder_of(server: &MinecraftServer, entity: &EntityRef) -> Option<s
     Some(super::arguments::scores::ScoreHolder::for_name_only(&e.get_scoreboard_name()))
 }
 
-/// `ScoreContents.getScore`: the score of `holder` in `objective` formatted, `empty` when there is none. The server has
-/// no scoreboard instance yet (see above), so no objective exists.
+/// `ScoreContents.getScore`: the score of `holder` in `objective` formatted, `empty` when there is none.
 pub fn score_component(server: &MinecraftServer, holder: &super::arguments::scores::ScoreHolder, objective: &str) -> Component {
-    let _ = (server, holder, objective);
+    let scoreboard = &server.scoreboard;
+    if let Some(o) = scoreboard.get_objective(objective)
+        && let Some(info) = scoreboard.get_player_score_info(&crate::world::scores::score::for_name_only(&holder.scoreboard_name), objective)
+    {
+        return info.format_value(o.number_format_or_default(&crate::world::scores::NumberFormat::no_style()));
+    }
     Component::empty()
 }
 

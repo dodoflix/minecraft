@@ -18,11 +18,18 @@ use serde_json::Value;
 pub struct SavedDataTypes {
     pub weather: SavedDataType<WeatherData>,
     pub clocks: SavedDataType<ServerClockManager>,
+    pub scoreboard: SavedDataType<crate::world::scores::ScoreboardSaveData>,
+    pub custom_boss_events: SavedDataType<super::bossevents::CustomBossEvents>,
 }
 
 impl SavedDataTypes {
     pub fn new() -> Self {
-        Self { weather: WeatherData::type_(), clocks: ServerClockManager::type_() }
+        Self {
+            weather: WeatherData::type_(),
+            clocks: ServerClockManager::type_(),
+            scoreboard: crate::world::scores::ScoreboardSaveData::type_(),
+            custom_boss_events: super::bossevents::CustomBossEvents::type_(),
+        }
     }
 }
 

@@ -63,10 +63,9 @@ impl PlayCtx<'_> {
         self.level.get_entity(id).map(TargetInfo::of)
     }
 
-    /// `level.getWorldBorder().isWithinBounds(pos)`: the border is not wired into the level on main yet
-    /// (`LevelTickEnv::world_border_contains` is always true), so everything is inside.
-    fn within_world_border(&self, _pos: BlockPos) -> bool {
-        true
+    /// `level.getWorldBorder().isWithinBounds(pos)`.
+    fn within_world_border(&self, pos: BlockPos) -> bool {
+        self.level.is_within_world_border(pos)
     }
 
     /// `handlePlayerAction`.

@@ -1,8 +1,7 @@
 //! `LevelTickEnv` for the server: what `ServerLevel.tick` reads from `MinecraftServer` (tick rate manager, game rules,
 //! weather saved data, difficulty, clocks, player list).
 //!
-//! Not modelled yet (their owners have not landed): the world border (`tick_world_border` does nothing,
-//! `world_border_contains` is always true), raids, the scheduled-events timer queue (needs the function manager) and the
+//! Not modelled yet (their owners have not landed): raids, the scheduled-events timer queue (needs the function manager) and the
 //! environment attribute system behind `sky_light_level` / `moon_brightness` (the overworld day/night cycle is read from
 //! the overworld clock with the vanilla day length instead).
 
@@ -67,12 +66,6 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         data.set_rain_time(weather.rain_time);
         data.set_thundering(weather.thundering);
         data.set_raining(weather.raining);
-    }
-
-    fn tick_world_border(&mut self) {}
-
-    fn world_border_contains(&self, _pos: BlockPos) -> bool {
-        true
     }
 
     fn wake_up_from_sleep(&mut self) {

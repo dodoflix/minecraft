@@ -142,8 +142,8 @@ impl JoinHost for ServerJoinHost<'_> {
         }
     }
 
-    fn update_entire_scoreboard(&mut self, _player: &PlayerHandle) {
-        // The server does not hold a scoreboard yet; an empty one sends no team and no objective packets.
+    fn update_entire_scoreboard(&mut self, player: &PlayerHandle) {
+        self.server.update_entire_scoreboard(player);
     }
 
     fn invalidate_status(&mut self) {
@@ -177,8 +177,8 @@ impl JoinHost for ServerJoinHost<'_> {
         )
     }
 
-    fn custom_boss_events_on_player_connect(&mut self, _player: &PlayerHandle) {
-        // `CustomBossEvents.onPlayerConnect`: no custom boss events are modelled on the server yet.
+    fn custom_boss_events_on_player_connect(&mut self, player: &PlayerHandle) {
+        self.server.custom_boss_events().on_player_connect(player);
     }
 
     fn add_new_player(&mut self, player: ServerPlayer) {

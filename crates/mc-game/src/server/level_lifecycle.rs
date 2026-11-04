@@ -198,8 +198,9 @@ impl MinecraftServer {
             let level = self.create_level(&factory, key, stem, is_debug);
             self.add_level(level);
         }
-        // `level.getWorldBorder().setAbsoluteMaxSize(..)` and `playerList.addWorldborderListener(level)`: the world
-        // border model is not part of the level yet.
+        self.load_scoreboard();
+        // `level.getWorldBorder().setAbsoluteMaxSize(..)`; `addWorldborderListener` = `flush_world_border_events`.
+        self.init_world_borders();
     }
 
     /// `setupDebugLevel`.
@@ -320,6 +321,8 @@ impl MinecraftServer {
         }
 
         self.update_effective_respawn_data();
+        self.flush_scoreboard();
+        self.flush_world_border_events();
         for dimension in self.level_keys() {
             let result = self.with_level(&dimension, |server, level| {
                 let mut env = ServerTickEnv { server, dimension: dimension.clone() };
@@ -334,6 +337,8 @@ impl MinecraftServer {
             }
         }
 
+        self.flush_scoreboard();
+        self.flush_world_border_events();
         self.tick_connection();
         self.player_list.tick();
         self.run_tickables();
@@ -351,6 +356,8 @@ impl MinecraftServer {
 
     /// `saveAllChunks` (+ the notifications of `DedicatedServer.saveAllChunks`).
     pub fn save_all_chunks(&mut self, silent: bool, flush: bool, force: bool) -> bool {
+        self.flush_scoreboard();
+        self.store_scoreboard();
         self.notification_manager.server_save_started();
         let level_name = self.world_data.lock().settings.level_name.clone();
         let mut result = false;

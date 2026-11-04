@@ -66,10 +66,6 @@ pub trait LevelTickEnv {
     /// `getWeatherData()` read / write.
     fn weather(&self) -> WeatherState;
     fn set_weather(&mut self, weather: WeatherState);
-    /// `getWorldBorder().tick()`.
-    fn tick_world_border(&mut self);
-    /// `getWorldBorder().isWithinBounds(pos)`.
-    fn world_border_contains(&self, pos: BlockPos) -> bool;
     /// `server.clockManager().moveToTimeMarker(defaultClock, WAKE_UP_FROM_SLEEP)` when the dimension has a default clock.
     fn wake_up_from_sleep(&mut self);
     /// `environmentAttributes().getDimensionValue(SKY_LIGHT_LEVEL)`.
@@ -565,7 +561,7 @@ impl ServerLevel {
                 continue;
             }
             if tick_block_entities && self.should_tick_blocks_at_pos(pos) {
-                self.tick_one_block_entity(pos, env);
+                self.tick_one_block_entity(pos);
             }
             kept.push(ticker);
         }
@@ -577,9 +573,9 @@ impl ServerLevel {
     }
 
     /// `LevelChunk.BoundTickingBlockEntity.tick()`.
-    fn tick_one_block_entity(&mut self, pos: BlockPos, env: &dyn LevelTickEnv) {
+    fn tick_one_block_entity(&mut self, pos: BlockPos) {
         let (cx, cz) = (pos.x() >> 4, pos.z() >> 4);
-        if !env.world_border_contains(pos) {
+        if !self.is_within_world_border(pos) {
             return;
         }
         let ticking = self.full_chunk_status(cx, cz).is_or_after(super::FullChunkStatus::BlockTicking) && self.are_entities_loaded(ChunkPos::pack_xz(cx, cz));
@@ -626,7 +622,7 @@ impl ServerLevel {
         let rules = env.rules();
         self.tick_state.rules = rules;
         if runs {
-            env.tick_world_border();
+            self.get_world_border().tick();
             self.advance_weather_cycle(env);
         }
 

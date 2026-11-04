@@ -12,6 +12,9 @@ use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_text::util::wrap_in_square_brackets;
 use mc_text::{ChatFormatting, Component, HoverEvent};
 use uuid::Uuid;
+use mc_protocol::packets::play as wire;
+
+use crate::server::players::player_handle::PlayerHandle;
 
 use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::world::level::saveddata::{SavedData, SavedDataType};
@@ -150,24 +153,42 @@ impl PackedBossEvent {
     }
 }
 
-/// `CustomBossEvent`: the bar state of a `/bossbar` event (the network-side player set is the player list's).
-#[derive(Debug, Clone)]
+/// `CustomBossEvent` (`ServerBossEvent`): the bar state, the saved player UUIDs and the online players the bar is
+/// shown to. Every visible change is sent to the online players like vanilla's `ServerBossEvent.broadcast`.
+#[derive(Clone)]
 pub struct CustomBossEvent {
     id: Uuid,
     custom_id: Identifier,
     state: PackedBossEvent,
     progress: f32,
     dirty: bool,
+    /// `ServerBossEvent.players` (online players that see the bar).
+    online: Vec<PlayerHandle>,
+}
+
+fn wire_color(c: BossBarColor) -> wire::BossBarColor {
+    [wire::BossBarColor::Pink, wire::BossBarColor::Blue, wire::BossBarColor::Red, wire::BossBarColor::Green, wire::BossBarColor::Yellow, wire::BossBarColor::Purple, wire::BossBarColor::White][c as usize]
+}
+
+fn wire_overlay(o: BossBarOverlay) -> wire::BossBarOverlay {
+    [wire::BossBarOverlay::Progress, wire::BossBarOverlay::Notched6, wire::BossBarOverlay::Notched10, wire::BossBarOverlay::Notched12, wire::BossBarOverlay::Notched20][o as usize]
+}
+
+impl std::fmt::Debug for CustomBossEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("CustomBossEvent").field("custom_id", &self.custom_id).field("state", &self.state).field("online", &self.online.len()).finish()
+    }
 }
 
 impl CustomBossEvent {
     fn new(id: Uuid, custom_id: Identifier, name: Component) -> CustomBossEvent {
-        CustomBossEvent {
+        let mut e = CustomBossEvent {
             id,
             custom_id,
             state: PackedBossEvent {
                 name,
-                visible: false,
+                // `ServerBossEvent.visible = true`
+                visible: true,
                 value: 0,
                 max: 100,
                 color: BossBarColor::White,
@@ -179,20 +200,23 @@ impl CustomBossEvent {
             },
             progress: 0.0,
             dirty: false,
-        }
+            online: Vec::new(),
+        };
+        e.set_progress(0.0);
+        e
     }
 
     /// `CustomBossEvent.load`: setters run in vanilla's order (so the saved data is dirty afterwards).
     fn load(id: Uuid, custom_id: Identifier, packed: PackedBossEvent) -> CustomBossEvent {
         let mut e = CustomBossEvent::new(id, custom_id, packed.name.clone());
-        e.state.visible = packed.visible;
+        e.set_visible(packed.visible);
         e.set_value(packed.value);
         e.set_max(packed.max);
-        e.state.color = packed.color;
-        e.state.overlay = packed.overlay;
-        e.state.darken_screen = packed.darken_screen;
-        e.state.play_boss_music = packed.play_boss_music;
-        e.state.create_world_fog = packed.create_world_fog;
+        e.set_color(packed.color);
+        e.set_overlay(packed.overlay);
+        e.set_darken_screen(packed.darken_screen);
+        e.set_play_boss_music(packed.play_boss_music);
+        e.set_create_world_fog(packed.create_world_fog);
         e.state.players = packed.players;
         e
     }
@@ -224,62 +248,208 @@ impl CustomBossEvent {
     pub fn get_overlay(&self) -> BossBarOverlay {
         self.state.overlay
     }
+    pub fn should_darken_screen(&self) -> bool {
+        self.state.darken_screen
+    }
+    pub fn should_play_boss_music(&self) -> bool {
+        self.state.play_boss_music
+    }
+    pub fn should_create_world_fog(&self) -> bool {
+        self.state.create_world_fog
+    }
+    /// The saved player UUIDs (`CustomBossEvent.players`).
     pub fn players(&self) -> &BTreeSet<Uuid> {
         &self.state.players
+    }
+    /// `ServerBossEvent.getPlayers()`: the online players the bar is shown to.
+    pub fn online_players(&self) -> &[PlayerHandle] {
+        &self.online
+    }
+
+    fn properties(&self) -> wire::BossEventProperties {
+        wire::BossEventProperties { darken_screen: self.state.darken_screen, play_music: self.state.play_boss_music, create_world_fog: self.state.create_world_fog }
+    }
+
+    /// `ClientboundBossEventPacket.createAddPacket`.
+    pub fn create_add_packet(&self) -> wire::ClientboundBossEventPacket {
+        wire::ClientboundBossEventPacket {
+            id: self.id,
+            operation: wire::BossEventOperation::Add {
+                name: self.state.name.clone(),
+                progress: self.progress,
+                color: wire_color(self.state.color),
+                overlay: wire_overlay(self.state.overlay),
+                properties: self.properties(),
+            },
+        }
+    }
+
+    fn broadcast(&self, operation: wire::BossEventOperation) {
+        if self.state.visible {
+            let packet = wire::ClientboundBossEventPacket { id: self.id, operation };
+            for player in &self.online {
+                player.connection.send(&packet);
+            }
+        }
+    }
+
+    fn set_progress(&mut self, progress: f32) {
+        if progress != self.progress {
+            self.progress = progress;
+            self.dirty = true;
+            self.broadcast(wire::BossEventOperation::UpdateProgress { progress });
+        }
     }
 
     pub fn set_value(&mut self, value: i32) {
         self.state.value = value;
-        self.progress = clamp_f32(value as f32 / self.state.max as f32, 0.0, 1.0);
+        self.set_progress(clamp_f32(value as f32 / self.state.max as f32, 0.0, 1.0));
         self.dirty = true;
     }
 
     pub fn set_max(&mut self, max: i32) {
         self.state.max = max;
-        self.progress = clamp_f32(self.state.value as f32 / max as f32, 0.0, 1.0);
+        self.set_progress(clamp_f32(self.state.value as f32 / max as f32, 0.0, 1.0));
         self.dirty = true;
     }
 
     pub fn set_name(&mut self, name: Component) {
-        self.state.name = name;
+        if name != self.state.name {
+            self.state.name = name.clone();
+            self.dirty = true;
+            self.broadcast(wire::BossEventOperation::UpdateName { name });
+        }
     }
-    pub fn set_visible(&mut self, v: bool) {
-        self.state.visible = v;
+
+    pub fn set_color(&mut self, color: BossBarColor) {
+        if color != self.state.color {
+            self.state.color = color;
+            self.dirty = true;
+            self.broadcast(wire::BossEventOperation::UpdateStyle { color: wire_color(color), overlay: wire_overlay(self.state.overlay) });
+        }
     }
-    pub fn set_color(&mut self, c: BossBarColor) {
-        self.state.color = c;
+
+    pub fn set_overlay(&mut self, overlay: BossBarOverlay) {
+        if overlay != self.state.overlay {
+            self.state.overlay = overlay;
+            self.dirty = true;
+            self.broadcast(wire::BossEventOperation::UpdateStyle { color: wire_color(self.state.color), overlay: wire_overlay(overlay) });
+        }
     }
-    pub fn set_overlay(&mut self, o: BossBarOverlay) {
-        self.state.overlay = o;
-    }
+
     pub fn set_darken_screen(&mut self, v: bool) {
-        self.state.darken_screen = v;
+        if v != self.state.darken_screen {
+            self.state.darken_screen = v;
+            self.dirty = true;
+            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+        }
     }
+
     pub fn set_play_boss_music(&mut self, v: bool) {
-        self.state.play_boss_music = v;
+        if v != self.state.play_boss_music {
+            self.state.play_boss_music = v;
+            self.dirty = true;
+            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+        }
     }
+
     pub fn set_create_world_fog(&mut self, v: bool) {
-        self.state.create_world_fog = v;
+        if v != self.state.create_world_fog {
+            self.state.create_world_fog = v;
+            self.dirty = true;
+            self.broadcast(wire::BossEventOperation::UpdateProperties { properties: self.properties() });
+        }
     }
 
-    /// `addPlayer`'s bookkeeping: returns whether the UUID was new (the caller marks dirty through the event set).
-    pub fn add_player_uuid(&mut self, player: Uuid) -> bool {
-        let added = self.state.players.insert(player);
-        self.dirty |= added;
-        added
+    pub fn set_visible(&mut self, visible: bool) {
+        if visible != self.state.visible {
+            self.state.visible = visible;
+            self.dirty = true;
+            for player in &self.online {
+                if visible {
+                    player.connection.send(&self.create_add_packet());
+                } else {
+                    player.connection.send(&wire::ClientboundBossEventPacket { id: self.id, operation: wire::BossEventOperation::Remove });
+                }
+            }
+        }
     }
 
-    pub fn remove_player_uuid(&mut self, player: &Uuid) -> bool {
-        let removed = self.state.players.remove(player);
-        self.dirty |= removed;
-        removed
+    fn remove_online(&mut self, player: &PlayerHandle) -> bool {
+        match self.online.iter().position(|p| p.same_player(player)) {
+            Some(i) => {
+                self.online.remove(i);
+                if self.state.visible {
+                    player.connection.send(&wire::ClientboundBossEventPacket { id: self.id, operation: wire::BossEventOperation::Remove });
+                }
+                true
+            }
+            None => false,
+        }
     }
 
+    /// `addPlayer(player)`: shows the bar and saves the player's UUID.
+    pub fn add_player(&mut self, player: &PlayerHandle) {
+        if !self.online.iter().any(|p| p.same_player(player)) {
+            self.online.push(player.clone());
+            if self.state.visible {
+                player.connection.send(&self.create_add_packet());
+            }
+        }
+        if self.state.players.insert(player.uuid) {
+            self.dirty = true;
+        }
+    }
+
+    /// `removePlayer(player)`.
+    pub fn remove_player(&mut self, player: &PlayerHandle) {
+        self.remove_online(player);
+        if self.state.players.remove(&player.uuid) {
+            self.dirty = true;
+        }
+    }
+
+    /// `removeAllPlayers()`.
     pub fn remove_all_players(&mut self) {
+        for player in self.online.clone() {
+            self.remove_online(&player);
+        }
         if !self.state.players.is_empty() {
             self.state.players.clear();
             self.dirty = true;
         }
+    }
+
+    /// `setPlayers(players)`: the bar is shown to exactly `players`; returns whether the set changed.
+    pub fn set_players(&mut self, players: &[PlayerHandle]) -> bool {
+        let to_remove: Vec<Uuid> = self.state.players.iter().filter(|u| !players.iter().any(|p| p.uuid == **u)).copied().collect();
+        let to_add: Vec<&PlayerHandle> = players.iter().filter(|p| !self.state.players.contains(&p.uuid)).collect();
+        for uuid in &to_remove {
+            if let Some(p) = self.online.iter().find(|p| p.uuid == *uuid).cloned() {
+                self.remove_player(&p);
+            }
+            self.state.players.remove(uuid);
+        }
+        for p in &to_add {
+            self.add_player(p);
+        }
+        let changed = !to_remove.is_empty() || !to_add.is_empty();
+        if changed {
+            self.dirty = true;
+        }
+        changed
+    }
+
+    /// `onPlayerConnect(player)`: players saved on the bar see it again when they join.
+    pub fn on_player_connect(&mut self, player: &PlayerHandle) {
+        if self.state.players.contains(&player.uuid) {
+            self.add_player(player);
+        }
+    }
+
+    /// `onPlayerDisconnect(player)`: `ServerBossEvent.removePlayer` (the saved UUID stays).
+    pub fn on_player_disconnect(&mut self, player: &PlayerHandle) {
+        self.remove_online(player);
     }
 
     /// `getDisplayName`: `[name]` coloured by the bar colour, hover/insertion = the custom id.
@@ -322,6 +492,20 @@ impl CustomBossEvents {
     }
 
     /// Mutable access; changes through the event's setters mark this saved data dirty.
+    /// `onPlayerConnect(player)`.
+    pub fn on_player_connect(&mut self, player: &PlayerHandle) {
+        for e in self.events.values_mut() {
+            e.on_player_connect(player);
+        }
+    }
+
+    /// `onPlayerDisconnect(player)`.
+    pub fn on_player_disconnect(&mut self, player: &PlayerHandle) {
+        for e in self.events.values_mut() {
+            e.on_player_disconnect(player);
+        }
+    }
+
     pub fn get_mut(&mut self, id: &Identifier) -> Option<&mut CustomBossEvent> {
         self.events.get_mut(id)
     }

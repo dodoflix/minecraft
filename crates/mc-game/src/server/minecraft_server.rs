@@ -100,6 +100,8 @@ pub struct MinecraftServer {
     pub pack_repository: PackRepository,
     pub level_load_listener: Box<dyn LevelLoadListener>,
     pub tick_rate_manager: ServerTickRateManager,
+    /// `getScoreboard()` (`ServerScoreboard`): loaded from `scoreboard.dat` by `create_levels`, stored by `save_all_chunks`.
+    pub scoreboard: crate::world::scores::ServerScoreboard,
     pub player_list: PlayerList,
     pub notification_manager: Arc<NotificationManager>,
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
@@ -210,6 +212,7 @@ impl MinecraftServer {
             pack_repository: init.pack_repository,
             level_load_listener: init.level_load_listener,
             tick_rate_manager: ServerTickRateManager::new(),
+            scoreboard: crate::world::scores::Scoreboard::new_server(),
             commands,
             player_list,
             notification_manager: init.notification_manager,
@@ -241,6 +244,7 @@ impl MinecraftServer {
             effective_respawn_data: None,
         };
         server.weather_data();
+        server.saved_data.compute_if_absent(&server.saved_types.custom_boss_events);
         server.init_clock_manager();
         Ok(server)
     }
