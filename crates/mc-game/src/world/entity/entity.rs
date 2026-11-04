@@ -1151,6 +1151,13 @@ pub trait Entity: Any {
 
     // ---- save / load ------------------------------------------------------------------------------------------
 
+    /// `setPose(pose)`.
+    fn set_pose(&mut self, pose: mc_data::enums::Pose) {
+        if self.base_mut().entity_data.set(DATA_POSE, pose) {
+            self.on_synced_data_updated(DATA_POSE.id());
+        }
+    }
+
     /// `getEncodeId()`: the registry name, `None` if the type isn't serializable.
     fn get_encode_id(&self) -> Option<&'static str> {
         let ty = self.get_type();

@@ -677,6 +677,13 @@ impl ServerLevel {
                 }
                 entity.check_despawn(level);
                 if entity.is_player() || level.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(entity.chunk_position().pack()) {
+                    if let Some(vehicle_id) = entity.base().vehicle {
+                        let still_riding = level.entity_manager.get_any(vehicle_id).is_some_and(|v| !v.is_removed() && v.base().passengers.contains(&entity.id()));
+                        if still_riding {
+                            return;
+                        }
+                        level.stop_riding(entity);
+                    }
                     level.tick_non_passenger(entity);
                 }
             });
@@ -699,6 +706,9 @@ impl ServerLevel {
     pub fn tick_non_passenger(&mut self, entity: &mut dyn Entity) {
         crate::world::entity::entity::common_tick(entity);
         entity.tick(self);
+        for passenger in entity.base().passengers.clone() {
+            self.tick_passenger(entity, passenger);
+        }
     }
 
     /// `resetEmptyTime()`.

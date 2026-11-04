@@ -44,3 +44,5 @@ pub use server_chunk_cache::{ChunkFuture, ServerChunkCache};
 pub use server_level::{ChunkTickHooks, ServerLevel, ServerLevelParams};
 pub use ticket::{Ticket, TicketType};
 pub mod server_player_game_mode;
+mod server_level_riding;
+pub use server_level_riding::{get_passenger_riding_position, position_rider};
