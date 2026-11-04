@@ -226,7 +226,11 @@ impl ServerConfigurationPacketListenerImpl {
                 let payload = p.payload.0.as_ref().map_or_else(|| "null".to_owned(), |t| t.to_string());
                 log::debug!("Received custom click action {} with payload {payload}", p.id);
             }
-            ServerboundConfigurationPacket::KeepAlive(p) => self.common.handle_keep_alive(p.id, get_millis(), &self.sender),
+            ServerboundConfigurationPacket::KeepAlive(p) => {
+                if self.common.handle_keep_alive(p.id, get_millis()) {
+                    self.disconnect(timeout_disconnection_message());
+                }
+            }
             ServerboundConfigurationPacket::ResourcePack(p) => {
                 if p.action == ResourcePackAction::Declined && self.configuration.is_resource_pack_required() {
                     log::info!("Disconnecting {} due to resource pack {} rejection", self.game_profile.name, p.id);
