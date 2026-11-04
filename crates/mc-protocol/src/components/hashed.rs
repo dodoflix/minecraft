@@ -149,7 +149,7 @@ impl Decode for HashedStack {
         if !bool::decode(input)? {
             return Ok(HashedStack::Empty);
         }
-        let item = Item::decode(input)?;
+        let item = crate::codec::read_registry_id::<Item>(input)?;
         let count = read_varint(input)?;
         let components = HashedPatchMap::decode(input)?;
         Ok(HashedStack::ActualItem { item, count, components })

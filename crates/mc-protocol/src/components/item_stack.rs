@@ -286,7 +286,7 @@ impl ItemStack {
         if count <= 0 {
             return Ok(ItemStack::empty());
         }
-        let item = Item::decode(input)?;
+        let item = crate::codec::read_registry_id::<Item>(input)?;
         let patch = if delimited { DataComponentPatch::decode_delimited(input)? } else { DataComponentPatch::decode(input)? };
         Ok(ItemStack::with_patch(item, count, &patch))
     }
@@ -421,7 +421,7 @@ impl Encode for ItemStackTemplate {
 }
 impl Decode for ItemStackTemplate {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        let item = Item::decode(input)?;
+        let item = crate::codec::read_registry_id::<Item>(input)?;
         let count = read_varint(input)?;
         let components = DataComponentPatch::decode(input)?;
         ItemStackTemplate::new(item, count, components).map_err(DecodeError::Message)
