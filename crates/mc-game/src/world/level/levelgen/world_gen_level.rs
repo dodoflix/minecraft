@@ -8,8 +8,9 @@
 //! instances only exist after the chunk is promoted to a `LevelChunk`.
 
 use super::env::GenEnv;
-use crate::world::level::LevelAccessor;
+use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_core::pos::{BlockPos, ChunkPos};
+use mc_data::block::{Block, BlockState};
 use mc_nbt::CompoundTag;
 use mc_world::chunk::StructureData;
 use mc_world::palette::BiomeId;
@@ -46,6 +47,17 @@ pub trait WorldGenLevel: LevelAccessor {
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool;
     /// Structure starts/references of any chunk within reach (`StructureManager.startsForStructure` source).
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData>;
+    /// `BulkSectionAccess.getBlockState(pos)`: the block of the chunk section at `pos` read directly (AIR outside the build
+    /// height); no write-zone check and no "unsafe terrain read" warning. Default: [`BlockGetter::get_block_state`].
+    fn get_block_state_in_section(&self, pos: BlockPos) -> BlockState {
+        if self.is_outside_build_height(pos.y()) { Block::AIR.default_state() } else { self.get_block_state(pos) }
+    }
+    /// `BulkSectionAccess.getSection(pos).setBlockState(sectionRelative x/y/z, state, false)`: a raw section write (no
+    /// heightmap, light, block entity, neighbour or post-processing update; `pos` is inside the build height and the write
+    /// zone). Implementors over real chunks MUST override; the default is a plain flag-less `setBlock`.
+    fn set_block_state_in_section(&mut self, pos: BlockPos, state: BlockState) {
+        self.set_block(pos, state, 0, 0);
+    }
     /// `chunk.isUpgrading()` of the center chunk.
     fn is_upgrading(&self) -> bool {
         false

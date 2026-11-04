@@ -20,6 +20,8 @@ use mc_data::block::BlockState;
 use serde_json::Value;
 use std::sync::Arc;
 
+pub mod fill_layer_feature;
+
 /// `Feature`.
 pub trait Feature: Send + Sync {
     /// `place(level, chunkGenerator, random, origin)`.

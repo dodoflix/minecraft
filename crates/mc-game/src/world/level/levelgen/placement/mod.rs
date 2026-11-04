@@ -2,7 +2,7 @@
 //! `FeaturePlacer` that drives them. Every modifier type lives in its own file and registers itself in
 //! [`PLACEMENT_MODIFIER_TYPES`].
 
-use super::codec::{Fields, LoadResult, TypeEntry, decode_dispatch, parse_list};
+use super::codec::{Fields, LoadError, LoadResult, TypeEntry, decode_dispatch, parse_list};
 use super::env::GenEnv;
 use super::feature::Feature;
 use super::holder::Holder;
@@ -100,6 +100,26 @@ impl PlacedFeature {
         out.extend(self.feature.value().get_sub_features());
         out
     }
+}
+
+/// `PlacedFeature.LIST_CODEC` (`HolderSet<PlacedFeature>`): a single element or a list of elements (`ExtraCodecs.compactListCodec`),
+/// each a reference or an inline definition. `non_empty` is `ExtraCodecs.nonEmptyHolderSet`. A `#tag` set is an error: the
+/// data pack has no `placed_feature` tags (the tag registry is not loaded).
+pub fn decode_placed_feature_set(value: &Value, ctx: &DecodeCtx<'_>, non_empty: bool) -> LoadResult<Vec<Holder<PlacedFeature>>> {
+    if let Value::String(s) = value
+        && let Some(tag) = s.strip_prefix('#')
+    {
+        let id = mc_core::ident::Identifier::read(tag).map_err(LoadError::new)?;
+        return Err(LoadError::new(format!("Missing tag: '{id}' in 'minecraft:root / minecraft:worldgen/placed_feature'")));
+    }
+    let holders = match value {
+        Value::Array(_) => parse_list(value, |v| ctx.placed_feature(v))?,
+        single => vec![ctx.placed_feature(single)?],
+    };
+    if non_empty && holders.is_empty() {
+        return Err(LoadError::new("List must have contents"));
+    }
+    Ok(holders)
 }
 
 /// `FeaturePlacer`.
