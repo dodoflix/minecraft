@@ -25,7 +25,7 @@ impl SculkSensorBlockEntity {
     }
 
     /// The protected constructor taking the type (`CalibratedSculkSensorBlockEntity`).
-    pub(super) fn with_type(ty: BlockEntityType, pos: BlockPos, state: BlockState) -> Self {
+    pub fn with_type(ty: BlockEntityType, pos: BlockPos, state: BlockState) -> Self {
         Self { base: BlockEntityData::new(ty, pos, state), vibration_data: VibrationData::default(), last_vibration_frequency: 0 }
     }
 

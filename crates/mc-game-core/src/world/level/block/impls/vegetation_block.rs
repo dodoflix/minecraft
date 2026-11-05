@@ -24,6 +24,7 @@ pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos) -
 
 /// The `canSurvive` / `updateShape` methods of `VegetationBlock` for a subclass that only overrides `mayPlaceOn`
 /// (invoke inside the `impl BlockBehaviour`).
+#[macro_export]
 macro_rules! vegetation_behaviour_methods {
     () => {
         fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
@@ -42,9 +43,10 @@ macro_rules! vegetation_behaviour_methods {
         }
     };
 }
-pub(crate) use vegetation_behaviour_methods;
+pub use vegetation_behaviour_methods;
 
 /// `BlockBehaviour` for a `VegetationBlock` subclass that only overrides `mayPlaceOn`.
+#[macro_export]
 macro_rules! vegetation_behaviour {
     ($ty:ty) => {
         impl BlockBehaviour for $ty {
@@ -52,10 +54,11 @@ macro_rules! vegetation_behaviour {
         }
     };
 }
-pub(crate) use vegetation_behaviour;
+pub use vegetation_behaviour;
 
 /// The bonemeal of `BushBlock` / `FireflyBushBlock`: spread to a neighbouring free position that can hold the block
 /// (invoke inside the `impl BlockBehaviour`).
+#[macro_export]
 macro_rules! spreading_bonemeal_methods {
     () => {
         fn is_bonemealable(&self) -> bool {
@@ -83,7 +86,7 @@ macro_rules! spreading_bonemeal_methods {
         }
     };
 }
-pub(crate) use spreading_bonemeal_methods;
+pub use spreading_bonemeal_methods;
 
 pub struct VegetationBlock;
 impl MayPlaceOn for VegetationBlock {}

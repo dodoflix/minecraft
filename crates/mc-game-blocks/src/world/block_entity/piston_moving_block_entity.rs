@@ -423,15 +423,21 @@ impl BlockEntity for PistonMovingBlockEntity {
     }
 }
 
-impl ServerLevel {
+/// Seam of the crate split: these were inherent `ServerLevel` methods, which cannot be defined outside `mc-game-core`.
+pub trait MovingPistonLevelExt {
+    fn moving_piston_info(&self, pos: BlockPos) -> Option<MovingPistonInfo>;
+    fn final_tick_moving_piston(&mut self, pos: BlockPos);
+}
+
+impl MovingPistonLevelExt for ServerLevel {
     /// `level.getBlockEntity(pos) instanceof PistonMovingBlockEntity`: its `(extending, direction, progress(0), lastTicked)`.
-    pub fn moving_piston_info(&self, pos: BlockPos) -> Option<MovingPistonInfo> {
+    fn moving_piston_info(&self, pos: BlockPos) -> Option<MovingPistonInfo> {
         let be = self.get_block_entity(pos)?.as_any().downcast_ref::<PistonMovingBlockEntity>()?;
         Some(MovingPistonInfo { extending: be.extending, direction: be.direction, progress: be.get_progress(0.0), last_ticked: be.last_ticked })
     }
 
     /// `pistonMovingBlockEntity.finalTick()` for the entity at `pos` (if it is one).
-    pub fn final_tick_moving_piston(&mut self, pos: BlockPos) {
+    fn final_tick_moving_piston(&mut self, pos: BlockPos) {
         self.with_block_entity(pos, |level, be| {
             if let Some(piston) = be.as_any_mut().downcast_mut::<PistonMovingBlockEntity>() {
                 piston.final_tick(level);

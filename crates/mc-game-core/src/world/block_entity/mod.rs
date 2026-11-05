@@ -25,6 +25,7 @@ macro_rules! block_entity_base {
 /// `Container` for a block entity backed by `$items: Vec<ItemStack>` with `BaseContainerBlockEntity`'s semantics
 /// (`setChanged` is deferred: it sets the `changed` flag, the level side effects run in `container_accessed`). Extra
 /// trait items go in the trailing braces.
+#[macro_export]
 macro_rules! impl_items_container {
     ($ty:ty, $items:ident $({ $($extra:tt)* })?) => {
         impl crate::world::container::Container for $ty {
@@ -82,76 +83,36 @@ pub mod base_container;
 pub mod changed_log;
 pub mod deferred;
 pub mod container_openers;
-mod beacon_block_entity;
 mod beehive_block_entity;
-pub mod brewing_stand_block_entity;
-pub use brewing_stand_block_entity::{BrewingStandBlockEntity, BrewingStandMenuProvider};
 mod bell_block_entity;
-mod brushable_block_entity;
-pub mod container_menu_provider;
-mod banner_block_entity;
-mod calibrated_sculk_sensor_block_entity;
 pub mod barrel_block_entity;
 pub mod chest_block_entity;
 pub mod container_menus;
-pub mod chiseled_book_shelf_block_entity;
-pub mod decorated_pot_block_entity;
-pub mod jukebox_block_entity;
 pub mod shulker_box_block_entity;
-pub mod ender_chest_block_entity;
-mod comparator_block_entity;
 pub mod command_block_entity;
 pub mod jigsaw_block_entity;
-mod conduit_block_entity;
-mod daylight_detector_block_entity;
-mod dispenser_block_entity;
-pub mod lectern_block_entity;
-mod dropper_block_entity;
-pub mod hopper_block_entity;
-mod piston_moving_block_entity;
-mod potent_sulfur_block_entity;
+pub mod dispenser_block_entity;
 pub mod randomizable_container;
-mod sculk_catalyst_block_entity;
-mod sculk_sensor_block_entity;
+pub mod sculk_sensor_block_entity;
 mod sculk_shrieker_block_entity;
 pub mod sign_block_entity;
-mod skull_block_entity;
 pub mod test_block_entity;
 pub mod test_instance_block_entity;
 mod the_end_gateway_block_entity;
-pub mod loot_roll;
-pub mod spawner_block_entity;
-pub mod trial_spawner_block_entity;
-pub mod trialspawner;
-pub mod vault;
-pub mod vault_block_entity;
-mod the_end_portal_block_entity;
 pub mod structure_block_entity;
 pub mod vibration;
 
-pub use comparator_block_entity::ComparatorBlockEntity;
-pub use beacon_block_entity::BeaconBlockEntity;
 pub use beehive_block_entity::{BeeAccess, BeeReleaseStatus, BeehiveBlockEntity};
 pub use bell_block_entity::BellBlockEntity;
-pub use brushable_block_entity::BrushableBlockEntity;
-pub use banner_block_entity::BannerBlockEntity;
-pub use conduit_block_entity::ConduitBlockEntity;
-pub use daylight_detector_block_entity::DaylightDetectorBlockEntity;
 pub use command_block_entity::CommandBlockEntity;
 pub use jigsaw_block_entity::JigsawBlockEntity;
 pub use dispenser_block_entity::DispenserBlockEntity;
-pub use hopper_block_entity::{HopperBlockEntity, Hopper};
-pub use piston_moving_block_entity::{MovingPistonInfo, PistonMovingBlockEntity, moving_piston_collision_shape};
-pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
-pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
 pub use sculk_shrieker_block_entity::{SculkShriekerBlockEntity, apply_darkness_around};
 pub use sign_block_entity::SignBlockEntity;
-pub use skull_block_entity::SkullBlockEntity;
 pub use test_block_entity::TestBlockEntity;
 pub use test_instance_block_entity::TestInstanceBlockEntity;
 pub use the_end_gateway_block_entity::TheEndGatewayBlockEntity;
-pub use the_end_portal_block_entity::TheEndPortalBlockEntity;
 pub use structure_block_entity::StructureBlockEntity;
 
 use linkme::distributed_slice;
@@ -160,6 +121,14 @@ use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
 use mc_nbt::CompoundTag;
 use std::any::Any;
+
+/// `net.minecraft.world.level.Spawner`: block entities / entities whose spawned entity a spawn egg or `/data` can set.
+pub trait Spawner {
+    /// `setEntityId(type, random)` (the random is the level's).
+    fn set_entity_id(&mut self, level: &mut crate::server::level::ServerLevel, ty: mc_data::EntityType);
+    /// `setEntityData(data, random)`: `data.tag` is the compound without `id`.
+    fn set_entity_data(&mut self, level: &mut crate::server::level::ServerLevel, ty: mc_data::EntityType, data: &CompoundTag);
+}
 
 /// Fields every block entity has (vanilla `BlockEntity`).
 #[derive(Clone, Debug)]
@@ -380,7 +349,7 @@ pub trait BlockEntity: Any {
 
     // ==== [Blocks:Spawners] hooks ====
     /// This entity as a `Spawner` (`SpawnerBlockEntity`, `TrialSpawnerBlockEntity`) for spawn eggs / `/data`.
-    fn as_spawner_mut(&mut self) -> Option<&mut dyn spawner_block_entity::Spawner> {
+    fn as_spawner_mut(&mut self) -> Option<&mut dyn Spawner> {
         None
     }
 }

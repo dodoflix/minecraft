@@ -127,6 +127,7 @@ pub fn set_placed_by(level: &mut ServerLevel, pos: BlockPos, placer: Option<&mut
 
 /// `SignBlock.isPossibleToRespawnInThis` + `useItemOn` / `useWithoutItem` / `setPlacedBy`, expanded into the `BlockBehaviour`
 /// impl of every concrete sign class.
+#[macro_export]
 macro_rules! sign_block_common {
     () => {
         fn is_possible_to_respawn_in_this(&self, _state: BlockState) -> bool {
@@ -166,7 +167,7 @@ macro_rules! sign_block_common {
         }
     };
 }
-pub(super) use sign_block_common;
+pub use sign_block_common;
 
 /// The `HangingSignItem` check of `shouldTryToChainAnotherHangingSign`.
 fn is_hanging_sign_item(stack: &ItemStack) -> bool {

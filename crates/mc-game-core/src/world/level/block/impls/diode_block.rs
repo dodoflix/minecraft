@@ -152,6 +152,7 @@ pub fn get_state_for_placement(block: Block, context: &crate::world::item::Block
 
 /// The `BlockBehaviour` methods defined by `DiodeBlock` itself and inherited unchanged (`canSurvive`, `tick`,
 /// `neighborChanged`, `setPlacedBy`, `onPlace`, `affectNeighborsAfterRemoval`, `rotate`, `mirror`, the signal methods).
+#[macro_export]
 macro_rules! diode_behaviour {
     () => {
         fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
@@ -207,4 +208,4 @@ macro_rules! diode_behaviour {
         }
     };
 }
-pub(crate) use diode_behaviour;
+pub use diode_behaviour;

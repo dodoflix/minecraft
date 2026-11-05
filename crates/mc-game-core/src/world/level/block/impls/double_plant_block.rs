@@ -107,6 +107,7 @@ pub fn get_seed(state: BlockState, pos: BlockPos) -> i64 {
 }
 
 /// `BlockBehaviour` of every `DoublePlantBlock` subclass without own overrides of the methods below.
+#[macro_export]
 macro_rules! double_plant_behaviour_methods {
     () => {
         fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
@@ -153,7 +154,7 @@ macro_rules! double_plant_behaviour_methods {
         }
     };
 }
-pub(crate) use double_plant_behaviour_methods;
+pub use double_plant_behaviour_methods;
 
 impl BlockBehaviour for DoublePlantBlock {
     double_plant_behaviour_methods!();

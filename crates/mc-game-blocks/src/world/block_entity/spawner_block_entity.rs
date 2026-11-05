@@ -11,13 +11,7 @@ use mc_data::{BlockEntityType, EntityType};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 
-/// `net.minecraft.world.level.Spawner`: block entities / entities whose spawned entity a spawn egg or `/data` can set.
-pub trait Spawner {
-    /// `setEntityId(type, random)` (the random is the level's).
-    fn set_entity_id(&mut self, level: &mut ServerLevel, ty: EntityType);
-    /// `setEntityData(data, random)`: `data.tag` is the compound without `id`.
-    fn set_entity_data(&mut self, level: &mut ServerLevel, ty: EntityType, data: &CompoundTag);
-}
+pub use super::Spawner;
 
 /// The anonymous `BaseSpawner` subclass of `SpawnerBlockEntity`.
 struct SpawnerHost;

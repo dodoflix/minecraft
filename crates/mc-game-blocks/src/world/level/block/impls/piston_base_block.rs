@@ -11,6 +11,7 @@ use mc_data::SoundEvent;
 use mc_data::enums::{PistonType, PushReaction};
 use mc_protocol::packets::play::level::SoundSource;
 use crate::world::block_entity::PistonMovingBlockEntity;
+use crate::world::block_entity::piston_moving_block_entity::MovingPistonLevelExt;
 use mc_core::random::RandomSource;
 
 pub use crate::world::level::block::piston::is_pushable;

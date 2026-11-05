@@ -201,6 +201,7 @@ pub fn affect_neighbors_after_removal(state: BlockState, level: &mut ServerLevel
 /// `BlockBehaviour` of a rail class. `$update_state` is the class's `updateState(state, level, pos, block)`, `$on_place`
 /// its `onPlace`;
 /// `$extra` are further trait items.
+#[macro_export]
 macro_rules! rail_behaviour {
     ($ty:ty, $update_state:expr, $on_place:path $(, $($extra:tt)*)?) => {
         impl BlockBehaviour for $ty {
@@ -235,4 +236,4 @@ macro_rules! rail_behaviour {
         }
     };
 }
-pub(crate) use rail_behaviour;
+pub use rail_behaviour;
