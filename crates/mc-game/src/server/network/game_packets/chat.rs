@@ -150,7 +150,8 @@ impl PlayCtx<'_> {
             log::error!("Received unsigned command packet from {}, but the command requires signable arguments: {}", self.player.get_profile().name, command);
             self.player.send_system_message(invalid_command_signature());
         } else {
-            commands.perform_command(self.server, parsed, command);
+            let command = command.to_owned();
+            self.lis().deferred_tasks.push(Box::new(move |server| commands.perform_command(server, parsed, &command)));
         }
     }
 
@@ -176,7 +177,8 @@ impl PlayCtx<'_> {
         };
         let context = CommandSigningContext::Signed(Arc::new(signed));
         let parsed = Commands::map_source(parsed, |source| source.with_signing_context(context.clone()));
-        commands.perform_command(self.server, parsed, &packet.command);
+        let command = packet.command.clone();
+        self.lis().deferred_tasks.push(Box::new(move |server| commands.perform_command(server, parsed, &command)));
     }
 
     /// `handleMessageDecodeFailure`.

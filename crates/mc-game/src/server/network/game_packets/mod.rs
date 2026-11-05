@@ -116,11 +116,15 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
     let uuids: Vec<Uuid> = server.player_list.players().iter().map(|p| p.uuid).collect();
     for uuid in uuids {
         let Some(handle) = server.player_list.get_player(&uuid).cloned() else { continue };
-        let pending = with_player(server, uuid, |ctx| {
+        let Some((pending, deferred)) = with_player(server, uuid, |ctx| {
             ctx.drain_inbound();
-            ctx.lis().pending_respawn.take()
-        })
-        .flatten();
+            (ctx.lis().pending_respawn.take(), std::mem::take(&mut ctx.lis().deferred_tasks))
+        }) else {
+            continue;
+        };
+        for task in deferred {
+            task(server);
+        }
         if let Some(won_game) = pending {
             perform_respawn(server, &handle, won_game);
         }

@@ -76,6 +76,9 @@ pub struct ServerGamePacketListenerImpl {
     /// `PERFORM_RESPAWN` requested while the player was taken out of its level: `PlayerList.respawn(keepAll)` runs
     /// right after the packet batch (`Some(won_game)`).
     pub(crate) pending_respawn: Option<bool>,
+    /// `server.execute(..)` tasks queued by packet handlers while the player was taken out of its level (commands
+    /// must see the player in the level and every level in the server): run right after the packet batch.
+    pub(crate) deferred_tasks: Vec<Box<dyn FnOnce(&mut crate::server::MinecraftServer)>>,
     /// `chatSession`, `signedMessageDecoder`.
     pub(crate) chat_session: Option<RemoteChatSession>,
     pub(crate) signed_message_decoder: Box<dyn Decoder>,
@@ -155,6 +158,7 @@ impl ServerGamePacketListenerImpl {
             pending_disconnect: None,
             disconnection_handled: false,
             pending_respawn: None,
+            deferred_tasks: Vec::new(),
             chat_session: None,
             signed_message_decoder: Box::new(UnsignedDecoder::new(profile_id, enforce_secure_profile)),
             chat_out,

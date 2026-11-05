@@ -24,11 +24,17 @@ pub struct VanillaServer {
 impl VanillaServer {
     /// Starts the server and blocks until `Done (`. `props` are extra `key=value` server.properties entries.
     pub fn start(name: &str, seed: i64, gamemode: &str, props: &[&str]) -> std::io::Result<Self> {
+        Self::start_with(name, seed, gamemode, props, true)
+    }
+
+    /// `reset = false` keeps the scratch dir (an existing world) and only rewrites `server.properties`.
+    pub fn start_with(name: &str, seed: i64, gamemode: &str, props: &[&str], reset: bool) -> std::io::Result<Self> {
         let port = free_port();
         // No pipes: the script's detached java keeps inherited stdout/stderr pipes open until the server exits.
         let status = Command::new(script())
             .args(["start", name, "--port", &port.to_string(), "--seed", &seed.to_string(), "--gamemode", gamemode])
-            .args(["--view-distance", "4", "--simulation-distance", "4", "--xmx", "1G", "--reset"])
+            .args(["--view-distance", "4", "--simulation-distance", "4", "--xmx", "1G"])
+            .args(reset.then_some("--reset"))
             .args(props)
             .stdout(Stdio::null())
             .stderr(Stdio::null())
@@ -49,6 +55,10 @@ impl VanillaServer {
     pub fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
         let out = Command::new(script()).args(["wait", &self.name, regex, &timeout_s.to_string()]).output().ok()?;
         out.status.success().then(|| String::from_utf8_lossy(&out.stdout).trim().to_string())
+    }
+
+    pub fn dir(&self) -> PathBuf {
+        repo_root().join("run/servers").join(&self.name)
     }
 
     pub fn log_path(&self) -> PathBuf {
@@ -98,7 +108,6 @@ impl OurServer {
     }
 
     pub fn start(bin: &Path, seed: i64, gamemode: &str) -> std::io::Result<Self> {
-        use std::io::{BufRead, BufReader};
         let port = free_port();
         let dir = std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id()));
         std::fs::create_dir_all(&dir)?;
@@ -111,9 +120,18 @@ impl OurServer {
                  enable-rcon=false\nenable-query=false\nrate-limit=0\nlevel-seed={seed}\ngamemode={gamemode}\ndifficulty=peaceful\n"
             ),
         )?;
+        let (child, stdin, out) = Self::spawn(bin, &dir)?;
+        let server = Self { port, dir, child, stdin: std::sync::Mutex::new(stdin), out };
+        server.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not start:\n{}", server.log())))?;
+        std::thread::sleep(std::time::Duration::from_secs(1));
+        Ok(server)
+    }
+
+    fn spawn(bin: &Path, dir: &Path) -> std::io::Result<(std::process::Child, Option<std::process::ChildStdin>, std::sync::Arc<std::sync::Mutex<String>>)> {
+        use std::io::{BufRead, BufReader};
         let mut child = Command::new(bin)
             .arg("nogui")
-            .current_dir(&dir)
+            .current_dir(dir)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null())
@@ -130,10 +148,36 @@ impl OurServer {
                 }
             }
         });
-        let server = Self { port, dir, child, stdin: std::sync::Mutex::new(stdin), out };
-        server.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not start:\n{}", server.log())))?;
+        Ok((child, stdin, out))
+    }
+
+    /// The server's working directory (`world/` lives in it).
+    pub fn dir(&self) -> &Path {
+        &self.dir
+    }
+
+    /// Sends `stop` and waits for the process to exit; false when it had to be killed after `timeout_s`.
+    pub fn stop_and_wait(&mut self, timeout_s: u32) -> bool {
+        self.cmd("stop");
+        for _ in 0..timeout_s * 10 {
+            if matches!(self.child.try_wait(), Ok(Some(_))) {
+                return true;
+            }
+            std::thread::sleep(std::time::Duration::from_millis(100));
+        }
+        let _ = self.child.kill();
+        false
+    }
+
+    /// Starts the (stopped) server again in the same directory with the same port; waits for `Done (`.
+    pub fn restart(&mut self, bin: &Path) -> std::io::Result<()> {
+        let (child, stdin, out) = Self::spawn(bin, &self.dir)?;
+        self.child = child;
+        *self.stdin.lock().expect("stdin lock") = stdin;
+        self.out = out;
+        self.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not restart:\n{}", self.log())))?;
         std::thread::sleep(std::time::Duration::from_secs(1));
-        Ok(server)
+        Ok(())
     }
 
     pub fn cmd(&self, command: &str) {
