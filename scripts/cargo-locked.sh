@@ -73,7 +73,26 @@ with_slot_or_remote() { # cargo args...
 
 case "${1:-}" in
   test|bench)
-    # Compile under a slot (--no-run goes before any `--` test-binary args), then run without holding it.
+    # Prefer running the WHOLE test command (build + run) on a builder test lane (1..MC_REMOTE_TEST_LANES, default 4:
+    # tests start JVMs). Tests configured through MC_* env vars (e.g. MC_SERVER_BIN paths) stay local.
+    if ! env | grep -qE '^MC_(SERVER_BIN|RECORD|SEED|SCENARIO|GOLDEN|CMDDIFF|TEXT)'; then
+      for reg in /tmp/mc-builders/*.ip; do
+        [ -e "$reg" ] || continue
+        name=$(basename "$reg" .ip)
+        for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-4}"); do
+          exec {tfd}>"/tmp/mc-remote.$name.$lane"
+          if flock -n "$tfd"; then
+            touch "/tmp/mc-builders/$name.last"; rc=0
+            "$BUILDERS_DIR/remote-cargo.sh" "$(cat "$reg")" "$lane" "$@" 2>&1 | sed -u "s#/w/src/#$PWD/#g" || rc=${PIPESTATUS[0]}
+            touch "/tmp/mc-builders/$name.last"; exec {tfd}>&-
+            [ "$rc" = 255 ] || exit $rc
+            break 2
+          fi
+          exec {tfd}>&-
+        done
+      done
+    fi
+    # Local: compile under a slot (--no-run goes before any `--` test-binary args), then run without holding it.
     pre=(); post=(); seen=0
     for a in "$@"; do if [ $seen = 1 ]; then post+=("$a"); elif [ "$a" = "--" ]; then seen=1; post+=("$a"); else pre+=("$a"); fi; done
     with_slot cargo "${pre[@]}" --no-run
