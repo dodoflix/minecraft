@@ -3579,10 +3579,6 @@ pub trait Entity: Any {
     /// The part of `LivingEntity.setLastHurtByMob(hurtBy)` that subclasses add (villagers: reputation event + angry
     /// particles); called when a damage source with a living cause is resolved.
     fn on_set_last_hurt_by_mob(&mut self, _level: &mut ServerLevel, _hurt_by: uuid::Uuid, _hurt_by_is_player: bool) {}
-    /// `LivingEntity.isSleeping()`.
-    fn is_sleeping(&self) -> bool {
-        self.living().is_some_and(|l| l.is_sleeping())
-    }
     /// `getTypeName()` (villagers: the profession name).
     fn get_type_name(&self) -> mc_text::Component {
         mc_text::Component::translatable(self.get_type().data().description_id, Vec::new())
