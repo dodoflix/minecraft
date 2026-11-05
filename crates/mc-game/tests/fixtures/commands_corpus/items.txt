@@ -52,12 +52,12 @@ item replace entity Bot container.5 with minecraft:stick 100
 item replace entity Bot container.5 with minecraft:stick 0
 item replace entity Bot container.5 with minecraft:nope
 item modify entity Bot hotbar.0 minecraft:nope
-item modify entity Bot weapon.mainhand {"function":"minecraft:set_count","count":7}
-item modify entity Bot hotbar.* {"function":"minecraft:set_count","count":2,"add":true}
-item modify entity Bot hotbar.0 {"function":"minecraft:set_name","name":{"text":"Hi"},"target":"item_name"}
-item modify entity Bot container.20 {"function":"minecraft:set_count","count":2}
-item modify entity Bot hotbar.0 {"function":"minecraft:nope"}
-item modify entity Bot hotbar.0 {"function":"minecraft:set_count","count":"x"}
+item modify entity Bot weapon.mainhand {"type":"minecraft:set_count","count":7}
+item modify entity Bot hotbar.* {"type":"minecraft:set_count","count":2,"add":true}
+item modify entity Bot hotbar.0 {"type":"minecraft:set_name","name":{"text":"Hi"},"target":"item_name"}
+item modify entity Bot container.20 {"type":"minecraft:set_count","count":2}
+item modify entity Bot hotbar.0 {"type":"minecraft:nope"}
+item modify entity Bot hotbar.0 {"type":"minecraft:set_count","count":"x"}
 setblock 0 -60 3 minecraft:dropper
 setblock 0 -60 5 minecraft:stone
 item replace block 0 -60 3 container.0 with minecraft:diamond 5
@@ -65,8 +65,8 @@ item replace block 0 -60 3 container.1 from entity Bot hotbar.0
 item replace block 0 -60 3 container.8 with minecraft:emerald
 item replace block 0 -60 3 container.9 with minecraft:emerald
 item replace block 0 -60 3 container.* with minecraft:gold_ingot 2
-item modify block 0 -60 3 container.0 {"function":"minecraft:set_count","count":9}
-item modify block 0 -60 3 container.* {"function":"minecraft:set_count","count":3,"add":true}
+item modify block 0 -60 3 container.0 {"type":"minecraft:set_count","count":9}
+item modify block 0 -60 3 container.* {"type":"minecraft:set_count","count":3,"add":true}
 item replace block 0 -60 5 container.0 with minecraft:diamond
 item replace block 0 -60 5 container.0 from block 0 -60 3 container.0
 item replace entity Bot hotbar.2 from block 0 -60 3 container.0
@@ -74,7 +74,7 @@ item replace entity Bot hotbar.2 from block 0 -60 5 container.0
 item replace block 0 -60 3 container.0 from block 0 -60 3 container.4
 item replace block 500 -60 3 container.0 with minecraft:stick
 loot give Bot loot minecraft:chests/simple_dungeon
-loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:diamond","functions":[{"function":"minecraft:set_count","count":3}]}]}]}
+loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:diamond","functions":[{"type":"minecraft:set_count","count":3}]}]}]}
 loot give @a loot nope:table
 loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]},{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:stick"}]}]}
 loot give Bot loot {"pools":[]}
