@@ -20,6 +20,7 @@ pub fn is_dead(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for SeaPickleBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let state = level.get_block_state(context.get_clicked_pos());
         if state.is_block(block) {

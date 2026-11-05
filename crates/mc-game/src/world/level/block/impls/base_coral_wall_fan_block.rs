@@ -37,6 +37,7 @@ pub fn get_state_for_placement(block: Block, level: &mut ServerLevel, context: &
 }
 
 impl BlockBehaviour for BaseCoralWallFanBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         get_state_for_placement(block, level, context)
     }

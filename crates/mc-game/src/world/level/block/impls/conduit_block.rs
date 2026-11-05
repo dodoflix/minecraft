@@ -7,6 +7,7 @@ use mc_data::block::PathComputationType;
 pub struct ConduitBlock;
 
 impl BlockBehaviour for ConduitBlock {
+    crate::simple_waterlogged!();
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

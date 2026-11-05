@@ -23,6 +23,10 @@ pub trait GrowingPlantHead: GrowingPlant {
     fn update_body_after_converted_from_head(&self, _head_state: BlockState, body_state: BlockState) -> BlockState {
         body_state
     }
+    /// Subclass guard in front of `GrowingPlantBlock.getStateForPlacement` (kelp: only placeable in a full water block).
+    fn can_be_placed_in(&self, _fluid_state: mc_data::fluid::FluidState) -> bool {
+        true
+    }
 }
 
 /// The `GrowingPlantHeadBlock` implementor of a head block (`(GrowingPlantHeadBlock) block`).
@@ -42,12 +46,15 @@ pub fn get_state_for_placement(head_block: Block, random: &mut dyn RandomSource)
 }
 
 /// `GrowingPlantBlock.getStateForPlacement(context)` of a head block (kelp calls this as its `super`).
-pub fn get_state_for_placement_ctx(this: &dyn GrowingPlantHead, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> BlockState {
+pub fn get_state_for_placement_ctx(this: &dyn GrowingPlantHead, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    if !this.can_be_placed_in(level.get_fluid_state(context.get_clicked_pos())) {
+        return None;
+    }
     let growth_direction_state = level.get_block_state(context.get_clicked_pos().relative(this.growth_direction()));
     if !growth_direction_state.is_block(this.head_block()) && !growth_direction_state.is_block(this.body_block()) {
-        get_state_for_placement(block, level.random())
+        Some(get_state_for_placement(block, level.random()))
     } else {
-        this.body_block().default_state()
+        Some(this.body_block().default_state())
     }
 }
 
@@ -146,7 +153,7 @@ macro_rules! growing_plant_head_behaviour {
             true
         }
         fn get_state_for_placement(&self, block: Block, level: &mut $crate::server::level::ServerLevel, context: &$crate::world::item::BlockPlaceContext) -> Option<BlockState> {
-            Some($crate::world::level::block::impls::growing_plant_head_block::get_state_for_placement_ctx(self, block, level, context))
+            $crate::world::level::block::impls::growing_plant_head_block::get_state_for_placement_ctx(self, block, level, context)
         }
     };
 }

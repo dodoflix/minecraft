@@ -26,6 +26,10 @@ impl GrowingPlantBody for KelpPlantBlock {}
 
 impl BlockBehaviour for KelpPlantBlock {
     growing_plant_body_behaviour!();
+    // LiquidBlockContainer: canPlaceLiquid/placeLiquid are `false` (trait defaults).
+    fn is_liquid_block_container(&self) -> bool {
+        true
+    }
 }
 
 register_block_class!("KelpPlantBlock", |_| Box::new(KelpPlantBlock));

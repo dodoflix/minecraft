@@ -33,10 +33,17 @@ impl GrowingPlantHead for KelpBlock {
     fn can_grow_into(&self, state: BlockState) -> bool {
         state.is_block(Block::WATER)
     }
+    fn can_be_placed_in(&self, fluid_state: mc_data::fluid::FluidState) -> bool {
+        fluid_state.is_tag("water") && fluid_state.is_full()
+    }
 }
 
 impl BlockBehaviour for KelpBlock {
     growing_plant_head_behaviour!();
+    // LiquidBlockContainer: canPlaceLiquid/placeLiquid are `false` (trait defaults).
+    fn is_liquid_block_container(&self) -> bool {
+        true
+    }
 }
 
 register_block_class!("KelpBlock", |_| Box::new(KelpBlock));

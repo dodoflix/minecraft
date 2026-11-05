@@ -10,6 +10,7 @@ pub struct CoralWallFanBlock {
 }
 
 impl BlockBehaviour for CoralWallFanBlock {
+    crate::simple_waterlogged!();
     fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
         base::try_schedule_die_tick(state, level, pos);
     }

@@ -54,6 +54,7 @@ pub fn can_survive(level: &dyn LevelReader, pos: BlockPos) -> bool {
 }
 
 impl BlockBehaviour for BaseCoralPlantTypeBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         Some(get_state_for_placement(block, level, context))
     }

@@ -3,7 +3,7 @@ use super::prelude::*;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::item::{BlockPlaceContext, ItemStack};
-use crate::world::level::block::hatch_spawns;
+use crate::world::level::block::{hatch_spawns, simple_waterlogged};
 use crate::world::level::gameevent::GameEventContext;
 use mc_data::block::PathComputationType;
 use mc_data::fluid::{Fluid, FluidState};
@@ -28,6 +28,22 @@ fn spawn_ghastling(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
 }
 
 impl BlockBehaviour for DriedGhastBlock {
+    // SimpleWaterloggedBlock (placeLiquid is overridden below)
+    fn is_liquid_block_container(&self) -> bool {
+        true
+    }
+    fn can_place_liquid(&self, user: Option<&dyn crate::world::entity::Entity>, level: &dyn BlockGetter, pos: BlockPos, state: BlockState, fluid: Fluid) -> bool {
+        simple_waterlogged::can_place_liquid(user, level, pos, state, fluid)
+    }
+    fn is_bucket_pickup(&self) -> bool {
+        true
+    }
+    fn pickup_block(&self, user: Option<&dyn crate::world::entity::Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> ItemStack {
+        simple_waterlogged::pickup_block(user, level, pos, state)
+    }
+    fn get_pickup_sound(&self) -> Option<SoundEvent> {
+        simple_waterlogged::get_pickup_sound()
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

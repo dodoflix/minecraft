@@ -9,6 +9,7 @@ pub struct CoralPlantBlock {
 }
 
 impl BlockBehaviour for CoralPlantBlock {
+    crate::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         Some(base::get_state_for_placement(block, level, context))
     }
