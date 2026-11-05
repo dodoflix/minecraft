@@ -1,0 +1,249 @@
+# Entity commands: summon, kill, damage, effect, attribute, enchant, experience, ride, rotate, spectate, swing, teleport, gamemode.
+# Observation: data get entity, scoreboard, bot packets. Run: scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/entity_commands.txt
+!packets ^(update_mob_effect|remove_mob_effect|update_attributes|set_experience|set_passengers|set_camera|player_look_at|player_rotation|animate|swing|game_event|player_abilities)$
+gamerule send_command_feedback true
+tp Bot 0.5 -60 0.5
+# ---- summon
+summon minecraft:cow 5 -60 5
+summon minecraft:cow 7 -60 5 {CustomName:Bob,Rotation:[30.0f,10.0f],NoAI:1b}
+data get entity @e[type=minecraft:cow,limit=1,sort=nearest,x=7,y=-60,z=5] Pos
+data get entity @e[type=minecraft:cow,limit=1,sort=nearest,x=7,y=-60,z=5] Rotation
+summon minecraft:cow 9 -60 5 {UUID:[I;1,2,3,4],NoAI:1b}
+summon minecraft:cow 9 -60 5 {UUID:[I;1,2,3,4]}
+summon minecraft:player
+summon minecraft:nothing
+summon minecraft:cow 0 30000000 0
+summon minecraft:pig 3 -60 3 {NoAI:1b,Passengers:[{id:"minecraft:chicken",NoAI:1b}]}
+data get entity @e[type=minecraft:chicken,limit=1] Pos
+summon minecraft:armor_stand 11 -60 5 {NoGravity:1b,Invisible:1b}
+summon minecraft:zombie 13 -60 5 {NoAI:1b}
+data get entity @e[type=minecraft:zombie,limit=1] Health
+@bot0 summon minecraft:cow
+# ---- kill
+kill @e[type=minecraft:armor_stand]
+kill @e[type=minecraft:armor_stand]
+kill @e[type=minecraft:cow,name=Bob]
+kill @e[type=minecraft:zombie]
+kill @e[type=minecraft:pig]
+kill @e[type=minecraft:chicken]
+kill @e[type=minecraft:cow]
+@bot kill
+@bot0 kill @e[type=minecraft:cow]
+# ---- damage
+summon minecraft:zombie 5 -60 8 {NoAI:1b,PersistenceRequired:1b}
+damage @e[type=minecraft:zombie,limit=1] 5
+data get entity @e[type=minecraft:zombie,limit=1] Health
+damage @e[type=minecraft:zombie,limit=1] 1
+damage @e[type=minecraft:zombie,limit=1] 8 minecraft:magic
+damage @e[type=minecraft:zombie,limit=1] 1 minecraft:explosion at 5 -60 8
+damage @e[type=minecraft:zombie,limit=1] 20 minecraft:player_attack by Bot
+damage @e[type=minecraft:zombie,limit=1] 1 minecraft:arrow by Bot from Bot
+damage Bot -1
+damage @e[type=minecraft:zombie,limit=1] 1 minecraft:nothing
+summon minecraft:armor_stand 5 -60 10
+damage @e[type=minecraft:armor_stand,limit=1] 1
+kill @e[type=minecraft:armor_stand]
+kill @e[type=minecraft:zombie]
+@bot0 damage Bot0 1
+# ---- effect
+gamemode survival Bot
+effect give Bot minecraft:speed 10 1
+effect give Bot minecraft:speed 10 1
+effect give Bot minecraft:speed
+effect give Bot minecraft:slowness 5 2 true
+effect give Bot minecraft:glowing infinite
+effect give Bot minecraft:regeneration infinite 3 true
+effect give Bot minecraft:instant_health
+effect give Bot minecraft:speed 1 256
+effect give Bot minecraft:speed 0
+effect give Bot minecraft:nothing
+data get entity Bot active_effects
+effect clear Bot minecraft:speed
+effect clear Bot minecraft:speed
+effect clear Bot
+effect clear Bot
+effect give @e[type=minecraft:cow] minecraft:speed
+effect give @a minecraft:night_vision 30
+@bot effect clear
+@bot0 effect give Bot0 minecraft:speed
+# ---- attribute
+attribute Bot minecraft:max_health get
+attribute Bot minecraft:max_health get 2.5
+attribute Bot minecraft:max_health base get
+attribute Bot minecraft:max_health base set 30
+attribute Bot minecraft:max_health base get
+attribute Bot minecraft:max_health base reset
+attribute Bot minecraft:armor modifier add test:a 2 add_value
+attribute Bot minecraft:armor modifier add test:a 2 add_value
+attribute Bot minecraft:armor modifier add test:b 0.5 add_multiplied_total
+attribute Bot minecraft:armor modifier add test:c 0.25 add_multiplied_base
+attribute Bot minecraft:armor get
+attribute Bot minecraft:armor modifier value get test:b
+attribute Bot minecraft:armor modifier value get test:b 4
+attribute Bot minecraft:armor modifier value get test:zzz
+attribute Bot minecraft:armor modifier remove test:a
+attribute Bot minecraft:armor modifier remove test:a
+attribute Bot minecraft:flying_speed get
+attribute Bot minecraft:flying_speed base reset
+attribute Bot minecraft:armor base set 1.5
+data get entity Bot attributes
+summon minecraft:cow 5 -60 5 {NoAI:1b}
+attribute @e[type=minecraft:cow,limit=1] minecraft:max_health get
+attribute @e[type=minecraft:cow,limit=1] minecraft:max_health base set 3
+attribute @e[type=minecraft:cow,limit=1] minecraft:nothing get
+attribute @e[type=minecraft:cow,limit=1] minecraft:attack_damage get
+attribute @e[type=minecraft:cow,limit=1] minecraft:max_health modifier add test:x 1 add_value
+attribute @e[type=minecraft:cow,limit=1] minecraft:max_health modifier remove test:x
+kill @e[type=minecraft:cow]
+attribute @e[type=minecraft:cow] minecraft:max_health get
+@bot0 attribute Bot0 minecraft:max_health get
+# ---- enchant
+give Bot minecraft:diamond_sword
+item replace entity Bot weapon.mainhand with minecraft:diamond_sword
+enchant Bot minecraft:sharpness 3
+enchant Bot minecraft:sharpness
+enchant Bot minecraft:sharpness 6
+enchant Bot minecraft:smite
+enchant Bot minecraft:protection
+enchant Bot minecraft:unbreaking 0
+enchant Bot minecraft:nothing
+data get entity Bot SelectedItem
+item replace entity Bot weapon.mainhand with minecraft:stone
+enchant Bot minecraft:sharpness
+item replace entity Bot weapon.mainhand with minecraft:air
+enchant Bot minecraft:sharpness
+enchant @a minecraft:sharpness
+summon minecraft:cow 5 -60 5 {NoAI:1b}
+enchant @e[type=minecraft:cow,limit=1] minecraft:sharpness
+enchant @e[type=minecraft:cow] minecraft:sharpness
+kill @e[type=minecraft:cow]
+@bot0 enchant Bot0 minecraft:sharpness
+# ---- experience
+experience add Bot 10
+experience query Bot points
+experience query Bot levels
+xp add Bot 3 levels
+xp query Bot levels
+xp add @a -100 levels
+xp query Bot levels
+xp set Bot 5 levels
+xp set Bot 17 points
+xp set Bot 16 points
+xp set Bot 3 points
+xp set @a 0 levels
+xp set Bot -1 levels
+xp add Bot 2147483647 levels
+xp query @a points
+xp query Bot0 levels
+xp set Bot 0 points
+xp add Bot 0 points
+@bot0 xp query Bot0 levels
+# ---- ride
+summon minecraft:cow 5 -60 5 {NoAI:1b,CustomName:Cow1}
+summon minecraft:pig 7 -60 5 {NoAI:1b,CustomName:Pig1}
+ride @e[type=minecraft:pig,limit=1] mount @e[type=minecraft:cow,limit=1]
+ride @e[type=minecraft:pig,limit=1] mount @e[type=minecraft:cow,limit=1]
+data get entity @e[type=minecraft:cow,limit=1] Passengers
+ride @e[type=minecraft:cow,limit=1] mount @e[type=minecraft:pig,limit=1]
+ride @e[type=minecraft:cow,limit=1] mount @e[type=minecraft:cow,limit=1]
+ride @e[type=minecraft:cow,limit=1] mount Bot
+ride Bot mount @e[type=minecraft:cow,limit=1]
+ride Bot dismount
+ride Bot mount @e[type=minecraft:pig,limit=1]
+ride Bot dismount
+ride @e[type=minecraft:pig,limit=1] dismount
+ride @e[type=minecraft:pig,limit=1] dismount
+ride Bot dismount
+kill @e[type=minecraft:cow]
+kill @e[type=minecraft:pig]
+@bot0 ride Bot0 dismount
+# ---- rotate
+summon minecraft:cow 5 -60 5 {NoAI:1b}
+rotate @e[type=minecraft:cow,limit=1] 90 10
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+rotate @e[type=minecraft:cow,limit=1] ~10 ~-20
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+rotate @e[type=minecraft:cow,limit=1] 0 91
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+rotate @e[type=minecraft:cow,limit=1] facing 5 -55 10
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+rotate @e[type=minecraft:cow,limit=1] facing entity Bot
+rotate @e[type=minecraft:cow,limit=1] facing entity Bot eyes
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+rotate Bot 45 30
+rotate Bot ~ ~
+rotate Bot facing entity @e[type=minecraft:cow,limit=1] feet
+rotate Bot facing 10 -60 10
+rotate @e[type=minecraft:nothing] 1 1
+kill @e[type=minecraft:cow]
+@bot0 rotate Bot0 1 1
+# ---- spectate
+spectate
+spectate Bot
+@bot spectate
+@bot spectate Bot
+summon minecraft:cow 5 -60 5 {NoAI:1b}
+spectate @e[type=minecraft:cow,limit=1] Bot
+gamemode spectator Bot
+spectate @e[type=minecraft:cow,limit=1] Bot
+spectate Bot0 Bot
+spectate Bot Bot
+spectate
+spectate @e[type=minecraft:cow,limit=1] @a
+spectate @e[type=minecraft:cow,limit=1] Bot
+!ticks 2
+spectate
+!ticks 2
+summon minecraft:area_effect_cloud 5 -60 5
+spectate @e[type=minecraft:cow,limit=1] Bot
+spectate Bot
+kill @e[type=minecraft:area_effect_cloud]
+kill @e[type=minecraft:cow]
+gamemode creative Bot
+@bot0 spectate
+# ---- swing
+swing Bot
+swing Bot mainhand
+swing Bot offhand stab
+swing Bot offhand stab 10
+swing Bot mainhand whack 0
+swing @a
+swing @e[type=minecraft:cow]
+summon minecraft:cow 5 -60 5 {NoAI:1b}
+swing @e[type=minecraft:cow,limit=1] offhand none 4
+kill @e[type=minecraft:cow]
+@bot swing
+@bot0 swing Bot0
+# ---- teleport / tp
+tp Bot 10 -60 10
+tp Bot ~ ~1 ~
+tp Bot ~ ~ ~ 90 45
+tp Bot ~ ~ ~ ~10 ~-5
+tp Bot 0 -60 0 facing 5 -60 5
+summon minecraft:cow 5 -60 5 {NoAI:1b}
+tp Bot 0 -60 0 facing entity @e[type=minecraft:cow,limit=1]
+tp Bot 0 -60 0 facing entity @e[type=minecraft:cow,limit=1] eyes
+tp @e[type=minecraft:cow,limit=1] Bot
+data get entity @e[type=minecraft:cow,limit=1] Pos
+tp @e[type=minecraft:cow,limit=1] 20 -60 20 facing 0 -60 0
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp Bot @e[type=minecraft:cow,limit=1]
+tp Bot 0 30000000 0
+tp @e[type=minecraft:cow,limit=1] 1 -60 1 20 0
+tp @e[type=minecraft:nothing] 1 -60 1
+teleport @s 1 -60 1
+tp 1 -60 1
+tp @e[type=minecraft:cow,limit=1]
+kill @e[type=minecraft:cow]
+tp Bot 0.5 -60 0.5 0 0
+@bot0 tp Bot0 1 -60 1
+# ---- gamemode
+gamemode survival Bot
+gamemode survival Bot
+gamemode spectator Bot
+gamemode creative Bot
+gamemode adventure Bot
+gamemode survival @a
+gamemode nothing Bot
+gamemode creative Bot
+@bot0 gamemode creative Bot0
