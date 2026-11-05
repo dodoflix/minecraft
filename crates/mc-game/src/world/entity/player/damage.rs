@@ -64,7 +64,7 @@ pub fn is_invulnerable_to(player: &mut ServerPlayer, level: &mut ServerLevel, so
     };
     player_invulnerable
         || player.is_changing_dimension() && !source.is(DamageTypes::ENDER_PEARL)
-        || !player.listener.as_ref().is_some_and(|l| l.has_client_loaded())
+        || player.listener.as_ref().is_some_and(|l| !l.has_client_loaded())
 }
 
 /// `ServerPlayer.hurtServer(level, source, damage)`.
