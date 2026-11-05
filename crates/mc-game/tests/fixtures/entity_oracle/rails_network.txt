@@ -1,0 +1,291 @@
+# rails_network: placement order independence, curves, junctions, slopes
+# straight line order (0, 1, 2, 3)
+# straight line order (3, 2, 1, 0)
+# straight line order (2, 0, 3, 1)
+# straight line order (1, 3, 0, 2)
+# curve corner=((1, 0), (0, 1)) order=(0, 1, 2)
+# curve corner=((1, 0), (0, 1)) order=(0, 2, 1)
+# curve corner=((1, 0), (0, 1)) order=(1, 0, 2)
+# curve corner=((1, 0), (0, 1)) order=(1, 2, 0)
+# curve corner=((1, 0), (0, 1)) order=(2, 0, 1)
+# curve corner=((1, 0), (0, 1)) order=(2, 1, 0)
+# curve corner=((-1, 0), (0, 1)) order=(0, 1, 2)
+# curve corner=((-1, 0), (0, 1)) order=(0, 2, 1)
+# curve corner=((-1, 0), (0, 1)) order=(1, 0, 2)
+# curve corner=((-1, 0), (0, 1)) order=(1, 2, 0)
+# curve corner=((-1, 0), (0, 1)) order=(2, 0, 1)
+# curve corner=((-1, 0), (0, 1)) order=(2, 1, 0)
+# curve corner=((1, 0), (0, -1)) order=(0, 1, 2)
+# curve corner=((1, 0), (0, -1)) order=(0, 2, 1)
+# curve corner=((1, 0), (0, -1)) order=(1, 0, 2)
+# curve corner=((1, 0), (0, -1)) order=(1, 2, 0)
+# curve corner=((1, 0), (0, -1)) order=(2, 0, 1)
+# curve corner=((1, 0), (0, -1)) order=(2, 1, 0)
+# curve corner=((-1, 0), (0, -1)) order=(0, 1, 2)
+# curve corner=((-1, 0), (0, -1)) order=(0, 2, 1)
+# curve corner=((-1, 0), (0, -1)) order=(1, 0, 2)
+# curve corner=((-1, 0), (0, -1)) order=(1, 2, 0)
+# curve corner=((-1, 0), (0, -1)) order=(2, 0, 1)
+# curve corner=((-1, 0), (0, -1)) order=(2, 1, 0)
+# T arms=((-1, 0), (1, 0), (0, 1)) order=(0, 1, 2, 3)
+# T arms=((-1, 0), (1, 0), (0, 1)) order=(1, 2, 3, 0)
+# T arms=((-1, 0), (1, 0), (0, 1)) order=(3, 2, 1, 0)
+# T arms=((-1, 0), (1, 0), (0, 1)) order=(2, 0, 3, 1)
+# T arms=((-1, 0), (1, 0), (0, 1)) order=(1, 3, 0, 2)
+# T arms=((-1, 0), (1, 0), (0, -1)) order=(0, 1, 2, 3)
+# T arms=((-1, 0), (1, 0), (0, -1)) order=(1, 2, 3, 0)
+# T arms=((-1, 0), (1, 0), (0, -1)) order=(3, 2, 1, 0)
+# T arms=((-1, 0), (1, 0), (0, -1)) order=(2, 0, 3, 1)
+# T arms=((-1, 0), (1, 0), (0, -1)) order=(1, 3, 0, 2)
+# T arms=((0, -1), (0, 1), (1, 0)) order=(0, 1, 2, 3)
+# T arms=((0, -1), (0, 1), (1, 0)) order=(1, 2, 3, 0)
+# T arms=((0, -1), (0, 1), (1, 0)) order=(3, 2, 1, 0)
+# T arms=((0, -1), (0, 1), (1, 0)) order=(2, 0, 3, 1)
+# T arms=((0, -1), (0, 1), (1, 0)) order=(1, 3, 0, 2)
+# T arms=((0, -1), (0, 1), (-1, 0)) order=(0, 1, 2, 3)
+# T arms=((0, -1), (0, 1), (-1, 0)) order=(1, 2, 3, 0)
+# T arms=((0, -1), (0, 1), (-1, 0)) order=(3, 2, 1, 0)
+# T arms=((0, -1), (0, 1), (-1, 0)) order=(2, 0, 3, 1)
+# T arms=((0, -1), (0, 1), (-1, 0)) order=(1, 3, 0, 2)
+# four-way center last
+# T junction then redstone block next to it (signal changes junction preference)
+# T junction with signal present at placement
+# rail with signal source (redstone torch) placed next to T
+# slope east flat_first
+# slope east upper_first
+# slope west flat_first
+# slope west upper_first
+# slope south flat_first
+# slope south upper_first
+# slope north flat_first
+# slope north upper_first
+# hill: stone block, three rails over it
+# remove supporting block of a slope: both rails drop
+# remove support under flat rail
+# break rail line neighbor: rails stay, shapes update when neighbor removed
+# rail placed in water is waterlogged
+B 0 -60 0 minecraft:rail[shape=east_west,waterlogged=false]
+B 0 -60 3 minecraft:rail[shape=east_west,waterlogged=false]
+B 0 -60 6 minecraft:rail[shape=east_west,waterlogged=false]
+B 0 -60 9 minecraft:rail[shape=east_west,waterlogged=false]
+B 1 -60 0 minecraft:rail[shape=east_west,waterlogged=false]
+B 1 -60 3 minecraft:rail[shape=east_west,waterlogged=false]
+B 1 -60 6 minecraft:rail[shape=east_west,waterlogged=false]
+B 1 -60 9 minecraft:rail[shape=east_west,waterlogged=false]
+B 2 -60 0 minecraft:rail[shape=east_west,waterlogged=false]
+B 2 -60 3 minecraft:rail[shape=east_west,waterlogged=false]
+B 2 -60 6 minecraft:rail[shape=east_west,waterlogged=false]
+B 2 -60 9 minecraft:rail[shape=east_west,waterlogged=false]
+B 3 -60 0 minecraft:rail[shape=east_west,waterlogged=false]
+B 3 -60 3 minecraft:rail[shape=east_west,waterlogged=false]
+B 3 -60 6 minecraft:rail[shape=east_west,waterlogged=false]
+B 3 -60 9 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 44 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 48 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 52 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 56 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 60 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 64 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 92 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 96 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 100 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 104 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 108 minecraft:rail[shape=east_west,waterlogged=false]
+B 9 -60 112 minecraft:rail[shape=east_west,waterlogged=false]
+B 10 -60 20 minecraft:rail[shape=south_east,waterlogged=false]
+B 10 -60 21 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 24 minecraft:rail[shape=south_east,waterlogged=false]
+B 10 -60 25 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 28 minecraft:rail[shape=south_east,waterlogged=false]
+B 10 -60 29 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 32 minecraft:rail[shape=south_east,waterlogged=false]
+B 10 -60 33 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 36 minecraft:rail[shape=south_east,waterlogged=false]
+B 10 -60 37 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 40 minecraft:rail[shape=south_east,waterlogged=false]
+B 10 -60 41 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 44 minecraft:rail[shape=south_west,waterlogged=false]
+B 10 -60 45 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 48 minecraft:rail[shape=south_west,waterlogged=false]
+B 10 -60 49 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 52 minecraft:rail[shape=south_west,waterlogged=false]
+B 10 -60 53 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 56 minecraft:rail[shape=south_west,waterlogged=false]
+B 10 -60 57 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 60 minecraft:rail[shape=south_west,waterlogged=false]
+B 10 -60 61 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 64 minecraft:rail[shape=south_west,waterlogged=false]
+B 10 -60 65 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 67 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 68 minecraft:rail[shape=north_east,waterlogged=false]
+B 10 -60 71 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 72 minecraft:rail[shape=north_east,waterlogged=false]
+B 10 -60 75 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 76 minecraft:rail[shape=north_east,waterlogged=false]
+B 10 -60 79 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 80 minecraft:rail[shape=north_east,waterlogged=false]
+B 10 -60 83 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 84 minecraft:rail[shape=north_east,waterlogged=false]
+B 10 -60 87 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 88 minecraft:rail[shape=north_east,waterlogged=false]
+B 10 -60 91 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 92 minecraft:rail[shape=north_west,waterlogged=false]
+B 10 -60 95 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 96 minecraft:rail[shape=north_west,waterlogged=false]
+B 10 -60 99 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 100 minecraft:rail[shape=north_west,waterlogged=false]
+B 10 -60 103 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 104 minecraft:rail[shape=north_west,waterlogged=false]
+B 10 -60 107 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 108 minecraft:rail[shape=north_west,waterlogged=false]
+B 10 -60 111 minecraft:rail[shape=north_south,waterlogged=false]
+B 10 -60 112 minecraft:rail[shape=north_west,waterlogged=false]
+B 11 -60 20 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 24 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 28 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 32 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 36 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 40 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 68 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 72 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 76 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 80 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 84 minecraft:rail[shape=east_west,waterlogged=false]
+B 11 -60 88 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 140 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 144 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 148 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 152 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 156 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 160 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 164 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 168 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 172 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 176 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 200 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 204 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 208 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 212 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 216 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 250 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 254 minecraft:rail[shape=north_south,waterlogged=false]
+B 29 -60 259 minecraft:rail[shape=east_west,waterlogged=false]
+B 29 -60 263 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 140 minecraft:rail[shape=east_west,waterlogged=false]
+B 30 -60 141 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 144 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 145 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 148 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 149 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 152 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 153 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 156 minecraft:rail[shape=south_west,waterlogged=false]
+B 30 -60 157 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 159 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 160 minecraft:rail[shape=east_west,waterlogged=false]
+B 30 -60 163 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 164 minecraft:rail[shape=north_east,waterlogged=false]
+B 30 -60 167 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 168 minecraft:rail[shape=north_east,waterlogged=false]
+B 30 -60 171 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 172 minecraft:rail[shape=north_east,waterlogged=false]
+B 30 -60 175 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 176 minecraft:rail[shape=north_west,waterlogged=false]
+B 30 -60 179 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 180 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 181 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 183 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 184 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 185 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 187 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 188 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 189 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 191 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 192 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 193 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 195 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 196 minecraft:rail[shape=north_east,waterlogged=false]
+B 30 -60 197 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 199 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 200 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 201 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 203 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 204 minecraft:rail[shape=south_west,waterlogged=false]
+B 30 -60 205 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 207 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 208 minecraft:rail[shape=south_west,waterlogged=false]
+B 30 -60 209 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 211 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 212 minecraft:rail[shape=south_west,waterlogged=false]
+B 30 -60 213 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 215 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 216 minecraft:rail[shape=north_west,waterlogged=false]
+B 30 -60 217 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 249 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 250 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 251 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 254 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 255 minecraft:rail[shape=north_south,waterlogged=false]
+B 30 -60 259 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 263 minecraft:rail[shape=south_east,waterlogged=false]
+B 30 -60 264 minecraft:rail[shape=north_south,waterlogged=false]
+B 31 -60 140 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 144 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 148 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 152 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 156 minecraft:rail[shape=north_south,waterlogged=false]
+B 31 -60 160 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 164 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 168 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 172 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 176 minecraft:rail[shape=north_south,waterlogged=false]
+B 31 -60 180 minecraft:rail[shape=north_south,waterlogged=false]
+B 31 -60 184 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 188 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 192 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 196 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 250 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 254 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 259 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 263 minecraft:rail[shape=east_west,waterlogged=false]
+B 31 -60 264 minecraft:redstone_torch[lit=true]
+B 49 -60 0 minecraft:rail[shape=east_west,waterlogged=false]
+B 49 -60 6 minecraft:rail[shape=east_west,waterlogged=false]
+B 49 -60 12 minecraft:stone
+B 49 -60 18 minecraft:stone
+B 49 -59 12 minecraft:rail[shape=east_west,waterlogged=false]
+B 49 -59 18 minecraft:rail[shape=east_west,waterlogged=false]
+B 50 -60 0 minecraft:rail[shape=ascending_east,waterlogged=false]
+B 50 -60 6 minecraft:rail[shape=ascending_east,waterlogged=false]
+B 50 -60 12 minecraft:rail[shape=ascending_west,waterlogged=false]
+B 50 -60 18 minecraft:rail[shape=ascending_west,waterlogged=false]
+B 50 -60 23 minecraft:rail[shape=north_south,waterlogged=false]
+B 50 -60 24 minecraft:rail[shape=ascending_south,waterlogged=false]
+B 50 -60 25 minecraft:stone
+B 50 -60 29 minecraft:rail[shape=north_south,waterlogged=false]
+B 50 -60 30 minecraft:rail[shape=ascending_south,waterlogged=false]
+B 50 -60 31 minecraft:stone
+B 50 -60 35 minecraft:stone
+B 50 -60 36 minecraft:rail[shape=ascending_north,waterlogged=false]
+B 50 -60 37 minecraft:rail[shape=north_south,waterlogged=false]
+B 50 -60 41 minecraft:stone
+B 50 -60 42 minecraft:rail[shape=ascending_north,waterlogged=false]
+B 50 -60 43 minecraft:rail[shape=north_south,waterlogged=false]
+B 50 -59 25 minecraft:rail[shape=north_south,waterlogged=false]
+B 50 -59 31 minecraft:rail[shape=north_south,waterlogged=false]
+B 50 -59 35 minecraft:rail[shape=north_south,waterlogged=false]
+B 50 -59 41 minecraft:rail[shape=north_south,waterlogged=false]
+B 51 -60 0 minecraft:stone
+B 51 -60 6 minecraft:stone
+B 51 -60 12 minecraft:rail[shape=east_west,waterlogged=false]
+B 51 -60 18 minecraft:rail[shape=east_west,waterlogged=false]
+B 51 -59 0 minecraft:rail[shape=east_west,waterlogged=false]
+B 51 -59 6 minecraft:rail[shape=east_west,waterlogged=false]
+B 61 -60 50 minecraft:stone
+B 61 -59 50 minecraft:rail[shape=east_west,waterlogged=false]
+B 62 -60 50 minecraft:rail[shape=ascending_west,waterlogged=false]
+B 70 -60 57 minecraft:rail[shape=east_west,waterlogged=false]
+B 71 -60 57 minecraft:rail[shape=east_west,waterlogged=false]
+B 72 -60 57 minecraft:rail[shape=east_west,waterlogged=false]
+B 73 -60 57 minecraft:rail[shape=east_west,waterlogged=false]
+B 80 -60 60 minecraft:rail[shape=east_west,waterlogged=true]

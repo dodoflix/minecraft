@@ -1,0 +1,315 @@
+level flat
+seed 4242
+preload 4
+note rails_network: placement order independence, curves, junctions, slopes
+
+note straight line order (0, 1, 2, 3)
+block 0 -60 0 minecraft:rail
+block 1 -60 0 minecraft:rail
+block 2 -60 0 minecraft:rail
+block 3 -60 0 minecraft:rail
+note straight line order (3, 2, 1, 0)
+block 3 -60 3 minecraft:rail
+block 2 -60 3 minecraft:rail
+block 1 -60 3 minecraft:rail
+block 0 -60 3 minecraft:rail
+note straight line order (2, 0, 3, 1)
+block 2 -60 6 minecraft:rail
+block 0 -60 6 minecraft:rail
+block 3 -60 6 minecraft:rail
+block 1 -60 6 minecraft:rail
+note straight line order (1, 3, 0, 2)
+block 1 -60 9 minecraft:rail
+block 3 -60 9 minecraft:rail
+block 0 -60 9 minecraft:rail
+block 2 -60 9 minecraft:rail
+note curve corner=((1, 0), (0, 1)) order=(0, 1, 2)
+block 10 -60 20 minecraft:rail
+block 11 -60 20 minecraft:rail
+block 10 -60 21 minecraft:rail
+note curve corner=((1, 0), (0, 1)) order=(0, 2, 1)
+block 10 -60 24 minecraft:rail
+block 10 -60 25 minecraft:rail
+block 11 -60 24 minecraft:rail
+note curve corner=((1, 0), (0, 1)) order=(1, 0, 2)
+block 11 -60 28 minecraft:rail
+block 10 -60 28 minecraft:rail
+block 10 -60 29 minecraft:rail
+note curve corner=((1, 0), (0, 1)) order=(1, 2, 0)
+block 11 -60 32 minecraft:rail
+block 10 -60 33 minecraft:rail
+block 10 -60 32 minecraft:rail
+note curve corner=((1, 0), (0, 1)) order=(2, 0, 1)
+block 10 -60 37 minecraft:rail
+block 10 -60 36 minecraft:rail
+block 11 -60 36 minecraft:rail
+note curve corner=((1, 0), (0, 1)) order=(2, 1, 0)
+block 10 -60 41 minecraft:rail
+block 11 -60 40 minecraft:rail
+block 10 -60 40 minecraft:rail
+note curve corner=((-1, 0), (0, 1)) order=(0, 1, 2)
+block 10 -60 44 minecraft:rail
+block 9 -60 44 minecraft:rail
+block 10 -60 45 minecraft:rail
+note curve corner=((-1, 0), (0, 1)) order=(0, 2, 1)
+block 10 -60 48 minecraft:rail
+block 10 -60 49 minecraft:rail
+block 9 -60 48 minecraft:rail
+note curve corner=((-1, 0), (0, 1)) order=(1, 0, 2)
+block 9 -60 52 minecraft:rail
+block 10 -60 52 minecraft:rail
+block 10 -60 53 minecraft:rail
+note curve corner=((-1, 0), (0, 1)) order=(1, 2, 0)
+block 9 -60 56 minecraft:rail
+block 10 -60 57 minecraft:rail
+block 10 -60 56 minecraft:rail
+note curve corner=((-1, 0), (0, 1)) order=(2, 0, 1)
+block 10 -60 61 minecraft:rail
+block 10 -60 60 minecraft:rail
+block 9 -60 60 minecraft:rail
+note curve corner=((-1, 0), (0, 1)) order=(2, 1, 0)
+block 10 -60 65 minecraft:rail
+block 9 -60 64 minecraft:rail
+block 10 -60 64 minecraft:rail
+note curve corner=((1, 0), (0, -1)) order=(0, 1, 2)
+block 10 -60 68 minecraft:rail
+block 11 -60 68 minecraft:rail
+block 10 -60 67 minecraft:rail
+note curve corner=((1, 0), (0, -1)) order=(0, 2, 1)
+block 10 -60 72 minecraft:rail
+block 10 -60 71 minecraft:rail
+block 11 -60 72 minecraft:rail
+note curve corner=((1, 0), (0, -1)) order=(1, 0, 2)
+block 11 -60 76 minecraft:rail
+block 10 -60 76 minecraft:rail
+block 10 -60 75 minecraft:rail
+note curve corner=((1, 0), (0, -1)) order=(1, 2, 0)
+block 11 -60 80 minecraft:rail
+block 10 -60 79 minecraft:rail
+block 10 -60 80 minecraft:rail
+note curve corner=((1, 0), (0, -1)) order=(2, 0, 1)
+block 10 -60 83 minecraft:rail
+block 10 -60 84 minecraft:rail
+block 11 -60 84 minecraft:rail
+note curve corner=((1, 0), (0, -1)) order=(2, 1, 0)
+block 10 -60 87 minecraft:rail
+block 11 -60 88 minecraft:rail
+block 10 -60 88 minecraft:rail
+note curve corner=((-1, 0), (0, -1)) order=(0, 1, 2)
+block 10 -60 92 minecraft:rail
+block 9 -60 92 minecraft:rail
+block 10 -60 91 minecraft:rail
+note curve corner=((-1, 0), (0, -1)) order=(0, 2, 1)
+block 10 -60 96 minecraft:rail
+block 10 -60 95 minecraft:rail
+block 9 -60 96 minecraft:rail
+note curve corner=((-1, 0), (0, -1)) order=(1, 0, 2)
+block 9 -60 100 minecraft:rail
+block 10 -60 100 minecraft:rail
+block 10 -60 99 minecraft:rail
+note curve corner=((-1, 0), (0, -1)) order=(1, 2, 0)
+block 9 -60 104 minecraft:rail
+block 10 -60 103 minecraft:rail
+block 10 -60 104 minecraft:rail
+note curve corner=((-1, 0), (0, -1)) order=(2, 0, 1)
+block 10 -60 107 minecraft:rail
+block 10 -60 108 minecraft:rail
+block 9 -60 108 minecraft:rail
+note curve corner=((-1, 0), (0, -1)) order=(2, 1, 0)
+block 10 -60 111 minecraft:rail
+block 9 -60 112 minecraft:rail
+block 10 -60 112 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, 1)) order=(0, 1, 2, 3)
+block 30 -60 140 minecraft:rail
+block 29 -60 140 minecraft:rail
+block 31 -60 140 minecraft:rail
+block 30 -60 141 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, 1)) order=(1, 2, 3, 0)
+block 29 -60 144 minecraft:rail
+block 31 -60 144 minecraft:rail
+block 30 -60 145 minecraft:rail
+block 30 -60 144 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, 1)) order=(3, 2, 1, 0)
+block 30 -60 149 minecraft:rail
+block 31 -60 148 minecraft:rail
+block 29 -60 148 minecraft:rail
+block 30 -60 148 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, 1)) order=(2, 0, 3, 1)
+block 31 -60 152 minecraft:rail
+block 30 -60 152 minecraft:rail
+block 30 -60 153 minecraft:rail
+block 29 -60 152 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, 1)) order=(1, 3, 0, 2)
+block 29 -60 156 minecraft:rail
+block 30 -60 157 minecraft:rail
+block 30 -60 156 minecraft:rail
+block 31 -60 156 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, -1)) order=(0, 1, 2, 3)
+block 30 -60 160 minecraft:rail
+block 29 -60 160 minecraft:rail
+block 31 -60 160 minecraft:rail
+block 30 -60 159 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, -1)) order=(1, 2, 3, 0)
+block 29 -60 164 minecraft:rail
+block 31 -60 164 minecraft:rail
+block 30 -60 163 minecraft:rail
+block 30 -60 164 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, -1)) order=(3, 2, 1, 0)
+block 30 -60 167 minecraft:rail
+block 31 -60 168 minecraft:rail
+block 29 -60 168 minecraft:rail
+block 30 -60 168 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, -1)) order=(2, 0, 3, 1)
+block 31 -60 172 minecraft:rail
+block 30 -60 172 minecraft:rail
+block 30 -60 171 minecraft:rail
+block 29 -60 172 minecraft:rail
+note T arms=((-1, 0), (1, 0), (0, -1)) order=(1, 3, 0, 2)
+block 29 -60 176 minecraft:rail
+block 30 -60 175 minecraft:rail
+block 30 -60 176 minecraft:rail
+block 31 -60 176 minecraft:rail
+note T arms=((0, -1), (0, 1), (1, 0)) order=(0, 1, 2, 3)
+block 30 -60 180 minecraft:rail
+block 30 -60 179 minecraft:rail
+block 30 -60 181 minecraft:rail
+block 31 -60 180 minecraft:rail
+note T arms=((0, -1), (0, 1), (1, 0)) order=(1, 2, 3, 0)
+block 30 -60 183 minecraft:rail
+block 30 -60 185 minecraft:rail
+block 31 -60 184 minecraft:rail
+block 30 -60 184 minecraft:rail
+note T arms=((0, -1), (0, 1), (1, 0)) order=(3, 2, 1, 0)
+block 31 -60 188 minecraft:rail
+block 30 -60 189 minecraft:rail
+block 30 -60 187 minecraft:rail
+block 30 -60 188 minecraft:rail
+note T arms=((0, -1), (0, 1), (1, 0)) order=(2, 0, 3, 1)
+block 30 -60 193 minecraft:rail
+block 30 -60 192 minecraft:rail
+block 31 -60 192 minecraft:rail
+block 30 -60 191 minecraft:rail
+note T arms=((0, -1), (0, 1), (1, 0)) order=(1, 3, 0, 2)
+block 30 -60 195 minecraft:rail
+block 31 -60 196 minecraft:rail
+block 30 -60 196 minecraft:rail
+block 30 -60 197 minecraft:rail
+note T arms=((0, -1), (0, 1), (-1, 0)) order=(0, 1, 2, 3)
+block 30 -60 200 minecraft:rail
+block 30 -60 199 minecraft:rail
+block 30 -60 201 minecraft:rail
+block 29 -60 200 minecraft:rail
+note T arms=((0, -1), (0, 1), (-1, 0)) order=(1, 2, 3, 0)
+block 30 -60 203 minecraft:rail
+block 30 -60 205 minecraft:rail
+block 29 -60 204 minecraft:rail
+block 30 -60 204 minecraft:rail
+note T arms=((0, -1), (0, 1), (-1, 0)) order=(3, 2, 1, 0)
+block 29 -60 208 minecraft:rail
+block 30 -60 209 minecraft:rail
+block 30 -60 207 minecraft:rail
+block 30 -60 208 minecraft:rail
+note T arms=((0, -1), (0, 1), (-1, 0)) order=(2, 0, 3, 1)
+block 30 -60 213 minecraft:rail
+block 30 -60 212 minecraft:rail
+block 29 -60 212 minecraft:rail
+block 30 -60 211 minecraft:rail
+note T arms=((0, -1), (0, 1), (-1, 0)) order=(1, 3, 0, 2)
+block 30 -60 215 minecraft:rail
+block 29 -60 216 minecraft:rail
+block 30 -60 216 minecraft:rail
+block 30 -60 217 minecraft:rail
+note four-way center last
+block 29 -60 250 minecraft:rail
+block 31 -60 250 minecraft:rail
+block 30 -60 249 minecraft:rail
+block 30 -60 251 minecraft:rail
+block 30 -60 250 minecraft:rail
+note T junction then redstone block next to it (signal changes junction preference)
+block 29 -60 254 minecraft:rail
+block 31 -60 254 minecraft:rail
+block 30 -60 255 minecraft:rail
+block 30 -60 254 minecraft:rail
+block 30 -60 256 minecraft:redstone_block
+block 30 -60 256 minecraft:air
+note T junction with signal present at placement
+block 30 -60 260 minecraft:redstone_block
+block 29 -60 259 minecraft:rail
+block 31 -60 259 minecraft:rail
+block 30 -60 259 minecraft:rail
+block 30 -60 260 minecraft:rail
+block 30 -60 260 minecraft:air
+note rail with signal source (redstone torch) placed next to T
+block 29 -60 263 minecraft:rail
+block 31 -60 263 minecraft:rail
+block 30 -60 264 minecraft:rail
+block 30 -60 263 minecraft:rail
+block 31 -60 264 minecraft:redstone_torch
+note slope east flat_first
+block 51 -60 0 minecraft:stone
+block 50 -60 0 minecraft:rail
+block 51 -59 0 minecraft:rail
+block 49 -60 0 minecraft:rail
+note slope east upper_first
+block 51 -60 6 minecraft:stone
+block 51 -59 6 minecraft:rail
+block 50 -60 6 minecraft:rail
+block 49 -60 6 minecraft:rail
+note slope west flat_first
+block 49 -60 12 minecraft:stone
+block 50 -60 12 minecraft:rail
+block 49 -59 12 minecraft:rail
+block 51 -60 12 minecraft:rail
+note slope west upper_first
+block 49 -60 18 minecraft:stone
+block 49 -59 18 minecraft:rail
+block 50 -60 18 minecraft:rail
+block 51 -60 18 minecraft:rail
+note slope south flat_first
+block 50 -60 25 minecraft:stone
+block 50 -60 24 minecraft:rail
+block 50 -59 25 minecraft:rail
+block 50 -60 23 minecraft:rail
+note slope south upper_first
+block 50 -60 31 minecraft:stone
+block 50 -59 31 minecraft:rail
+block 50 -60 30 minecraft:rail
+block 50 -60 29 minecraft:rail
+note slope north flat_first
+block 50 -60 35 minecraft:stone
+block 50 -60 36 minecraft:rail
+block 50 -59 35 minecraft:rail
+block 50 -60 37 minecraft:rail
+note slope north upper_first
+block 50 -60 41 minecraft:stone
+block 50 -59 41 minecraft:rail
+block 50 -60 42 minecraft:rail
+block 50 -60 43 minecraft:rail
+note hill: stone block, three rails over it
+block 60 -60 50 minecraft:stone
+block 61 -60 50 minecraft:stone
+block 59 -60 50 minecraft:rail
+block 62 -60 50 minecraft:rail
+block 60 -59 50 minecraft:rail
+block 61 -59 50 minecraft:rail
+
+note remove supporting block of a slope: both rails drop
+block 60 -60 50 minecraft:air
+tick 2
+note remove support under flat rail
+block 70 -60 54 minecraft:rail
+block 70 -61 54 minecraft:air
+tick 1
+note break rail line neighbor: rails stay, shapes update when neighbor removed
+block 70 -60 57 minecraft:rail
+block 71 -60 57 minecraft:rail
+block 72 -60 57 minecraft:rail
+block 73 -60 57 minecraft:rail
+block 71 -60 57 minecraft:air
+block 71 -60 57 minecraft:rail
+tick 3
+note rail placed in water is waterlogged
+block 80 -60 60 minecraft:water[level=0]
+block 80 -60 60 minecraft:rail[shape=east_west,waterlogged=true]
+tick 5
+dump blocks:-5,-60,-5,100,-58,400

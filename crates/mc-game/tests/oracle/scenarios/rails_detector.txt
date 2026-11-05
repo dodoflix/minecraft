@@ -1,0 +1,64 @@
+level flat
+seed 4242
+preload 4
+note rails_detector: detector rail pressed by minecarts only, 20 tick re-check, power to neighbouring rails
+note --- a: minecart first, detector rail placed under it (onPlace check), powered rails next to it
+spawn m1 minecart 0.5 -59.9 0.5 {NoGravity:1b}
+block 1 -60 0 minecraft:powered_rail
+block 2 -60 0 minecraft:powered_rail
+block 3 -60 0 minecraft:powered_rail
+block 0 -60 0 minecraft:detector_rail
+dump blocks:-1,-60,-1,4,-59,1
+tick 10
+dump blocks:-1,-60,-1,4,-59,1
+tick 15
+dump blocks:-1,-60,-1,4,-59,1
+kill m1
+tick 5
+dump blocks:-1,-60,-1,4,-59,1
+tick 20
+dump blocks:-1,-60,-1,4,-59,1
+note --- b: item entity is not detected
+spawn_item i1 minecraft:stick 8.5 -59.9 0.5 0 0 0
+block 8 -60 0 minecraft:detector_rail
+tick 3
+dump blocks:7,-60,-1,10,-59,1
+note --- c: minecart killed, detector releases after the next scheduled check
+spawn a minecart 20.5 -59.9 0.5 {NoGravity:1b}
+block 20 -60 0 minecraft:detector_rail
+block 21 -60 0 minecraft:powered_rail
+tick 2
+dump blocks:19,-60,-1,22,-59,1
+kill a
+tick 21
+dump blocks:19,-60,-1,22,-59,1
+note --- d: search box is 0.2..0.8 horizontally: minecart bb overlapping it (z=1.2) is detected, z=1.35 is not
+spawn c minecart 30.5 -59.9 1.2 {NoGravity:1b}
+spawn g minecart 32.5 -59.9 1.35 {NoGravity:1b}
+block 30 -60 0 minecraft:detector_rail
+block 32 -60 0 minecraft:detector_rail
+tick 2
+dump blocks:29,-60,-1,33,-59,2
+note --- e: powered detector rail removed, neighbours update
+spawn d minecart 40.5 -59.9 0.5 {NoGravity:1b}
+block 41 -60 0 minecraft:powered_rail
+block 40 -60 0 minecraft:detector_rail
+tick 1
+dump blocks:39,-60,-1,42,-59,1
+block 40 -60 0 minecraft:air
+tick 1
+dump blocks:39,-60,-1,42,-59,1
+note --- f: detector rail on a slope, minecart on it
+block 51 -60 5 minecraft:stone
+spawn e minecart 50.5 -59.9 5.5 {NoGravity:1b}
+block 50 -60 5 minecraft:detector_rail
+block 51 -59 5 minecraft:rail
+tick 2
+dump blocks:49,-60,4,52,-58,6
+note --- g: support removed under a pressed detector rail
+spawn f minecart 60.5 -59.9 0.5 {NoGravity:1b}
+block 60 -60 0 minecraft:detector_rail
+tick 1
+block 60 -61 0 minecraft:air
+tick 2
+dump blocks:59,-61,-1,61,-59,1

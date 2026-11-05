@@ -1,0 +1,49 @@
+# rails_detector: detector rail pressed by minecarts only, 20 tick re-check, power to neighbouring rails
+# --- a: minecart first, detector rail placed under it (onPlace check), powered rails next to it
+B 0 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 1 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 2 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 3 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 0 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 1 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 2 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 3 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 0 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 1 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 2 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 3 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 0 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 1 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 2 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 3 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 0 -60 0 minecraft:detector_rail[powered=false,shape=east_west,waterlogged=false]
+B 1 -60 0 minecraft:powered_rail[powered=false,shape=east_west,waterlogged=false]
+B 2 -60 0 minecraft:powered_rail[powered=false,shape=east_west,waterlogged=false]
+B 3 -60 0 minecraft:powered_rail[powered=false,shape=east_west,waterlogged=false]
+# --- b: item entity is not detected
+B 8 -60 0 minecraft:detector_rail[powered=false,shape=north_south,waterlogged=false]
+# --- c: minecart killed, detector releases after the next scheduled check
+B 20 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 21 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 20 -60 0 minecraft:detector_rail[powered=false,shape=east_west,waterlogged=false]
+B 21 -60 0 minecraft:powered_rail[powered=false,shape=east_west,waterlogged=false]
+# --- d: search box is 0.2..0.8 horizontally: minecart bb overlapping it (z=1.2) is detected, z=1.35 is not
+B 30 -60 0 minecraft:detector_rail[powered=true,shape=north_south,waterlogged=false]
+B 32 -60 0 minecraft:detector_rail[powered=false,shape=north_south,waterlogged=false]
+# --- e: powered detector rail removed, neighbours update
+B 40 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
+B 41 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
+B 41 -60 0 minecraft:powered_rail[powered=false,shape=east_west,waterlogged=false]
+# --- f: detector rail on a slope, minecart on it
+B 50 -60 5 minecraft:detector_rail[powered=true,shape=ascending_east,waterlogged=false]
+B 51 -60 5 minecraft:stone
+B 51 -59 5 minecraft:rail[shape=east_west,waterlogged=false]
+# --- g: support removed under a pressed detector rail
+B 59 -61 -1 minecraft:grass_block[snowy=false]
+B 59 -61 0 minecraft:grass_block[snowy=false]
+B 59 -61 1 minecraft:grass_block[snowy=false]
+B 60 -61 -1 minecraft:grass_block[snowy=false]
+B 60 -61 1 minecraft:grass_block[snowy=false]
+B 61 -61 -1 minecraft:grass_block[snowy=false]
+B 61 -61 0 minecraft:grass_block[snowy=false]
+B 61 -61 1 minecraft:grass_block[snowy=false]
