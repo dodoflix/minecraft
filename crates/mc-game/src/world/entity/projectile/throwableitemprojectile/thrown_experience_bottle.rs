@@ -80,4 +80,4 @@ impl Entity for ThrownExperienceBottle {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static EXPERIENCE_BOTTLE_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::EXPERIENCE_BOTTLE, create: |ty, level| Box::new(ThrownExperienceBottle::new(ty, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::EXPERIENCE_BOTTLE, create: |ty, id, _| Box::new(ThrownExperienceBottle::new(ty, id)) };

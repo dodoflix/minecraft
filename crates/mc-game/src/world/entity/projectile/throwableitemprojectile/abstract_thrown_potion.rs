@@ -290,11 +290,11 @@ impl Entity for AbstractThrownPotion {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static SPLASH_POTION_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::SPLASH_POTION, create: |_, level| Box::new(AbstractThrownPotion::new(PotionThrowKind::Splash, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::SPLASH_POTION, create: |_, id, _| Box::new(AbstractThrownPotion::new(PotionThrowKind::Splash, id)) };
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static LINGERING_POTION_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::LINGERING_POTION, create: |_, level| Box::new(AbstractThrownPotion::new(PotionThrowKind::Lingering, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::LINGERING_POTION, create: |_, id, _| Box::new(AbstractThrownPotion::new(PotionThrowKind::Lingering, id)) };
 
 #[allow(dead_code)]
 fn _unused(_: Vec3, _: BlockState) {}

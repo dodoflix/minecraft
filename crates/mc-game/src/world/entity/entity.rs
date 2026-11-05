@@ -2774,11 +2774,6 @@ pub trait Entity: Any {
     // ==== [ImThrowables] additions ====
     /// `Axolotl.rehydrate()` (water bottles splashed on axolotls); a no-op for everything else. Overridden by the Axolotl.
     fn rehydrate(&mut self) {}
-    /// `dropAllLeashConnections(player)`: false while nothing is leashed to or by this entity (the Leashable mobs
-    /// override).
-    fn drop_all_leash_connections(&mut self, _level: &mut ServerLevel, _player: Option<EntityId>) -> bool {
-        false
-    }
     /// `(LightningBolt.getBlocksSetOnFire(), LightningBolt.getHitEntities())`; `None` when the entity is not a
     /// `LightningBolt`. SEAM(LightningBolt): implemented by the explosions/lightning slice.
     fn lightning_bolt_state(&self) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {

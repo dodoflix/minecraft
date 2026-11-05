@@ -73,4 +73,4 @@ impl Entity for Snowball {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SNOWBALL_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::SNOWBALL, create: |ty, level| Box::new(Snowball::new(ty, level.next_entity_id())) };
+static SNOWBALL_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::SNOWBALL, create: |ty, id, _| Box::new(Snowball::new(ty, id)) };

@@ -305,4 +305,4 @@ impl Entity for FireworkRocketEntity {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static FIREWORK_ROCKET_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::FIREWORK_ROCKET, create: |ty, level| Box::new(FireworkRocketEntity::new(ty, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::FIREWORK_ROCKET, create: |ty, id, _| Box::new(FireworkRocketEntity::new(ty, id)) };
