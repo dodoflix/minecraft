@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block`: `BlockBehaviour` trait, per-block implementor lookup, `BlockState` dispatch
 //! extension, `Block` helpers, concrete block classes.
 mod behaviour;
+pub mod block_set_type;
 pub mod bonemeal;
 pub mod hatch_spawns;
 pub mod helpers;
