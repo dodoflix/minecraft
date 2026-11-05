@@ -1138,6 +1138,7 @@ dependencies = [
 name = "mc-datafix"
 version = "0.1.0"
 dependencies = [
+ "log",
  "mc-core",
  "mc-dfu",
  "mc-nbt",
@@ -1251,7 +1252,9 @@ version = "0.1.0"
 dependencies = [
  "log",
  "mc-game",
+ "mc-nbt",
  "mc-world",
+ "tempfile",
 ]
 
 [[package]]
