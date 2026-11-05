@@ -1,0 +1,10 @@
+[package]
+name = "mc-datafix"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mc-core = { path = "../mc-core" }
+mc-nbt = { path = "../mc-nbt" }
+mc-dfu = { path = "../mc-dfu" }
