@@ -111,6 +111,7 @@ fn mob_command_arms_run() {
 #[ignore = "enable when the mob dump registrations are on main; owner: PathfinderCore"]
 fn mob_path_ground() {
     run_scenario_test("mob_path_ground");
+}
 
 /// Piglin barter / admire / hostility toward a player without gold armor.
 #[test]
