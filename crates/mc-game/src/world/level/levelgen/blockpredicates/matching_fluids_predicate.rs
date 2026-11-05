@@ -12,6 +12,12 @@ pub struct MatchingFluidsPredicate {
     fluids: FluidSet,
 }
 
+impl MatchingFluidsPredicate {
+    pub fn new(offset: Vec3i, fluids: FluidSet) -> MatchingFluidsPredicate {
+        MatchingFluidsPredicate { offset, fluids }
+    }
+}
+
 impl StateTestingPredicate for MatchingFluidsPredicate {
     fn offset(&self) -> &Vec3i {
         &self.offset

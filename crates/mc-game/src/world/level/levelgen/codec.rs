@@ -81,8 +81,10 @@ impl BlockSet {
         match value {
             Value::String(s) if s.starts_with('#') => {
                 let tag = Identifier::read(&s[1..]).map_err(LoadError::new)?;
-                let set = mc_data::tags::get::<Block>(&tag.to_string());
-                Ok(BlockSet::Tag(tag, set))
+                // a tag of an already built registry must exist (`HolderSetCodec`: "Missing tag")
+                let set = mc_data::tags::get::<Block>(&tag.to_string())
+                    .ok_or_else(|| LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:block'")))?;
+                Ok(BlockSet::Tag(tag, Some(set)))
             }
             Value::String(_) => Ok(BlockSet::Blocks(vec![parse_block(value)?])),
             Value::Array(_) => Ok(BlockSet::Blocks(parse_list(value, parse_block)?)),
@@ -121,8 +123,9 @@ impl FluidSet {
         match value {
             Value::String(s) if s.starts_with('#') => {
                 let tag = Identifier::read(&s[1..]).map_err(LoadError::new)?;
-                let set = mc_data::tags::get::<Fluid>(&tag.to_string());
-                Ok(FluidSet::Tag(tag, set))
+                let set = mc_data::tags::get::<Fluid>(&tag.to_string())
+                    .ok_or_else(|| LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:fluid'")))?;
+                Ok(FluidSet::Tag(tag, Some(set)))
             }
             Value::String(_) => Ok(FluidSet::Fluids(vec![parse_fluid(value)?])),
             Value::Array(_) => Ok(FluidSet::Fluids(parse_list(value, parse_fluid)?)),

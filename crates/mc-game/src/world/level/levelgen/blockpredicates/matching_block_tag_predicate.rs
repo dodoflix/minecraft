@@ -14,6 +14,13 @@ pub struct MatchingBlockTagPredicate {
     tag: Option<&'static TagSet<Block>>,
 }
 
+impl MatchingBlockTagPredicate {
+    /// `new MatchingBlockTagPredicate(offset, TagKey)`: `tag` is the tag id (`minecraft:air`).
+    pub fn new(offset: Vec3i, tag: &str) -> MatchingBlockTagPredicate {
+        MatchingBlockTagPredicate { offset, tag: mc_data::tags::get::<Block>(tag) }
+    }
+}
+
 impl StateTestingPredicate for MatchingBlockTagPredicate {
     fn offset(&self) -> &Vec3i {
         &self.offset

@@ -12,6 +12,12 @@ pub struct MatchingBlocksPredicate {
     blocks: BlockSet,
 }
 
+impl MatchingBlocksPredicate {
+    pub fn new(offset: Vec3i, blocks: BlockSet) -> MatchingBlocksPredicate {
+        MatchingBlocksPredicate { offset, blocks }
+    }
+}
+
 impl StateTestingPredicate for MatchingBlocksPredicate {
     fn offset(&self) -> &Vec3i {
         &self.offset

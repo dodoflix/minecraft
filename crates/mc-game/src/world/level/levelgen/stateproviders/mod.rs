@@ -24,6 +24,8 @@ pub mod weighted_state_provider;
 
 pub use simple_state_provider::SimpleStateProvider;
 
+use super::holder::Holder;
+
 pub trait BlockStateProvider: Send + Sync {
     /// `getState(level, random, pos)`.
     fn get_state(&self, level: &dyn LevelAccessor, random: &mut dyn RandomSource, pos: BlockPos) -> BlockState;
@@ -54,6 +56,16 @@ pub fn decode_direct(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn B
         (Ok(_), Ok(_)) => Err(LoadError::new("Both alternatives read successfully, can not pick the correct one")),
         (Ok(state), Err(_)) => Ok(Arc::new(SimpleStateProvider { state })),
         (Err(_), Ok(provider)) => Ok(provider),
-        (Err(first), Err(second)) => Err(LoadError::new(format!("{first}; {second}"))),
+        (Err(first), Err(second)) => Err(LoadError::new(format!("{second}; {first}"))),
     }
+}
+
+/// `BlockStateProvider.of(state)`.
+pub fn of(state: BlockState) -> Arc<SimpleStateProvider> {
+    Arc::new(SimpleStateProvider { state })
+}
+
+/// `BlockStateProvider.holderOf(state)`.
+pub fn holder_of(state: BlockState) -> Holder<dyn BlockStateProvider> {
+    Holder::direct(of(state))
 }
