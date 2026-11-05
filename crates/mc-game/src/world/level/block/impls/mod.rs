@@ -237,7 +237,6 @@ pub mod turtle_egg_block;
 pub mod tnt_block;
 pub mod trip_wire_block;
 pub mod trip_wire_hook_block;
-pub mod turtle_egg_block;
 pub mod twisting_vines_block;
 pub mod twisting_vines_plant_block;
 pub mod vault_block;

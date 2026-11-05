@@ -3,7 +3,8 @@
 use super::layered_cauldron_block::lower_fill_level;
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use crate::stats::{Stat, Stats};
+use crate::stats::stat::Stat;
+use crate::stats::stats::Stats;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};

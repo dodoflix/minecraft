@@ -33,7 +33,7 @@ pub fn get_bed_rule(level: &ServerLevel, state: BlockState, _pos: BlockPos) -> B
 
 /// `AbstractBedBlock.getSleptInBedStatType()`.
 pub fn get_slept_in_bed_stat_type(state: BlockState) -> Stat {
-    if is_straw_bed(state) { crate::stats::Stats::SLEEP_IN_STRAW_BED } else { crate::stats::Stats::SLEEP_IN_BED }
+    if is_straw_bed(state) { crate::stats::stats::Stats::SLEEP_IN_STRAW_BED } else { crate::stats::stats::Stats::SLEEP_IN_BED }
 }
 
 /// `AbstractBedBlock.getConnectedDirection(state)`.
@@ -175,7 +175,7 @@ impl BlockBehaviour for AbstractBedBlock {
                 let head_state = level.get_block_state(head_pos);
                 if head_state.is_block(state.block()) && head_state.get(props::BED_PART) == BedPart::Head {
                     level.set_block_flags(head_pos, air(), 35);
-                    level.level_event(Some(player.id()), 2001, head_pos, head_state.id() as i32);
+                    level.level_event(Some(player.base_id()), 2001, head_pos, head_state.id() as i32);
                 }
             }
         }

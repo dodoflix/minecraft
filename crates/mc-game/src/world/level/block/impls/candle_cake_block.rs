@@ -24,7 +24,7 @@ impl BlockBehaviour for CandleCakeBlock {
         if stack.is(Item::FLINT_AND_STEEL) || stack.is(Item::FIRE_CHARGE) {
             InteractionResult::PASS
         } else if hit.location.y - f64::from(hit.block_pos.y()) > 0.5 && stack.is_empty() && state.get(props::LIT) {
-            abstract_candle_block::extinguish(Some(player.id()), state, level, pos);
+            abstract_candle_block::extinguish(Some(player.base_id()), state, level, pos);
             InteractionResult::SUCCESS
         } else {
             InteractionResult::TRY_WITH_EMPTY_HAND

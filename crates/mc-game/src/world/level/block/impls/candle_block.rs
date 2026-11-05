@@ -17,7 +17,7 @@ pub fn can_light(state: BlockState) -> bool {
 impl BlockBehaviour for CandleBlock {
     fn use_item_on(&self, stack: &ItemStack, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, _hand: InteractionHand, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
         if stack.is_empty() && player.player.abilities.may_build && state.get(props::LIT) {
-            abstract_candle_block::extinguish(Some(player.id()), state, level, pos);
+            abstract_candle_block::extinguish(Some(player.base_id()), state, level, pos);
             InteractionResult::SUCCESS
         } else {
             InteractionResult::TRY_WITH_EMPTY_HAND

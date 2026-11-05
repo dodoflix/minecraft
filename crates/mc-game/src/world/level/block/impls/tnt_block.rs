@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.TntBlock`.
 use super::prelude::*;
+use crate::world::level::signal_getter::SignalGetter;
 use crate::server::level::ServerLevel;
-use crate::world::entity::item::PrimedTnt;
+use crate::world::entity::item::primed_tnt::PrimedTnt;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
 use crate::world::level::explosion::Explosion;
@@ -76,7 +77,7 @@ impl BlockBehaviour for TntBlock {
             return InteractionResult::TRY_WITH_EMPTY_HAND;
         }
         let blocked = player.game_mode.game_mode_for_player == GameType::Adventure && !crate::world::item::can_break_block_in_adventure_mode(stack, level, pos);
-        if prime_by(level, pos, Some((player.id(), player.uuid())), blocked) {
+        if prime_by(level, pos, Some((player.base_id(), player.uuid())), blocked) {
             level.set_block_flags(pos, air(), 11);
             let mut used = stack.clone();
             if used.is(Item::FLINT_AND_STEEL) {

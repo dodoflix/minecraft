@@ -60,7 +60,7 @@ impl BlockBehaviour for CampfireBlock {
         let douses = mc_data::tags::get::<mc_data::Item>("douses_campfires").is_some_and(|tag| tag.contains(stack.item()));
         if douses && state.get(props::LIT) {
             level.level_event(None, 1009, pos, 0);
-            douse(Some(player.id()), level, pos);
+            douse(Some(player.base_id()), level, pos);
             level.set_block_and_update(pos, state.set(props::LIT, false));
             let mut used = stack.clone();
             crate::world::item::hurt_and_break(&mut used, 1, level, player, hand.as_equipment_slot());

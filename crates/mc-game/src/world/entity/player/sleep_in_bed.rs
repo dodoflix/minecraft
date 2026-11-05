@@ -2,7 +2,7 @@
 
 use super::ServerPlayer;
 use crate::server::level::ServerLevel;
-use crate::stats::Stats;
+use crate::stats::stats::Stats;
 use crate::world::attribute::BedRule;
 use crate::world::entity::Entity;
 use crate::world::entity::living_entity::sleeping;

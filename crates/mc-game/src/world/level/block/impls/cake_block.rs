@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.CakeBlock`.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use crate::stats::{Stat, Stats};
+use crate::stats::stat::Stat;
+use crate::stats::stats::Stats;
 use crate::world::entity::ServerPlayer;
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
 use crate::world::level::gameevent::GameEventContext;
@@ -26,12 +27,12 @@ pub fn eat(level: &mut ServerLevel, pos: BlockPos, state: BlockState, player: &m
     player.award_stat_once(level, Stats::EAT_CAKE_SLICE);
     player.player.food_data.eat(2, 0.1);
     let bites = state.get(props::BITES);
-    level.game_event_at_block(GameEvent::EAT, pos, &GameEventContext::of_entity(Some(player.id())));
+    level.game_event_at_block(GameEvent::EAT, pos, &GameEventContext::of_entity(Some(player.base_id())));
     if bites < 6 {
         level.set_block_and_update(pos, state.set(props::BITES, bites + 1));
     } else {
         level.remove_block(pos, false);
-        level.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of_entity(Some(player.id())));
+        level.game_event_at_block(GameEvent::BLOCK_DESTROY, pos, &GameEventContext::of_entity(Some(player.base_id())));
     }
     InteractionResult::SUCCESS
 }
@@ -50,7 +51,7 @@ impl BlockBehaviour for CakeBlock {
                 if let Some(candle_cake) = super::candle_cake_block::by_candle(candle) {
                     level.set_block_and_update(pos, candle_cake);
                 }
-                level.game_event_at_block(GameEvent::BLOCK_CHANGE, pos, &GameEventContext::of_entity(Some(player.id())));
+                level.game_event_at_block(GameEvent::BLOCK_CHANGE, pos, &GameEventContext::of_entity(Some(player.base_id())));
                 player.award_stat_once(level, Stat::Used(item));
                 InteractionResult::SUCCESS
             }
