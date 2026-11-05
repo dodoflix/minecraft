@@ -123,6 +123,8 @@ impl SensorInstance {
 
 /// `Sensor.updateTargetingConditionRanges(body)`.
 pub(crate) fn update_targeting_condition_ranges(body: &dyn Entity) {
-    let follow_range = body.living().map_or(DEFAULT_TARGETING_RANGE, |l| l.get_attribute_value(mc_data::Attribute::FOLLOW_RANGE));
-    TARGETING_RANGE.with(|r| r.set(follow_range));
+    // vanilla throws for a body without `FOLLOW_RANGE`; only mobs own sensors, so this is the mob path (a plain living test body keeps the range)
+    if let Some(l) = body.living().filter(|l| l.attributes.has_attribute(mc_data::Attribute::FOLLOW_RANGE)) {
+        TARGETING_RANGE.with(|r| r.set(l.get_attribute_value(mc_data::Attribute::FOLLOW_RANGE)));
+    }
 }

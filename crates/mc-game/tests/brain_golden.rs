@@ -100,7 +100,7 @@ fn brain_matches_vanilla() {
     let mut next = |what: &str| -> String { expected.next().unwrap_or_else(|| panic!("fixture ended at {what}")).to_string() };
 
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
-    level.tick_state.random = LegacyRandomSource::new(424242);
+    level.tick_state.random = mc_game::server::level::level_tick_state::LevelRandom::new(LegacyRandomSource::new(424242));
     let profile = GameProfile { id: uuid::Uuid::from_u128(1), name: "brain".into(), properties: vec![] };
     let mut body = ServerPlayer::new(1, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
 
