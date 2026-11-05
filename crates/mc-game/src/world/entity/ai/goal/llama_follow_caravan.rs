@@ -137,7 +137,7 @@ impl Goal for LlamaFollowCaravanGoal {
         }
         let Some(follows) = llama.get_caravan_head().and_then(|h| level.get_entity(h)) else { return };
         let follows_pos = follows.base().position();
-        let distance_to = mob.base().distance_to(follows);
+        let distance_to = mob.base().distance_to_sqr_vec(follows_pos).sqrt() as f32;
         let delta = Vec3::new(follows_pos.x - mob.base().x(), follows_pos.y - mob.base().y(), follows_pos.z - mob.base().z()).normalize().scale((f64::from(distance_to) - 2.0).max(0.0));
         let (x, y, z) = (mob.base().x() + delta.x, mob.base().y() + delta.y, mob.base().z() + delta.z);
         navigation::move_to(mob, level, x, y, z, self.speed_modifier);

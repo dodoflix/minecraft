@@ -115,11 +115,11 @@ impl AbstractHorse for Horse {
     }
 
     fn get_eating_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_HORSE_EAT_BABY } else { SoundEvent::ENTITY_HORSE_EAT })
+        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_EAT } else { SoundEvent::ENTITY_HORSE_EAT })
     }
 
     fn get_angry_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_HORSE_ANGRY_BABY } else { SoundEvent::ENTITY_HORSE_ANGRY })
+        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_ANGRY } else { SoundEvent::ENTITY_HORSE_ANGRY })
     }
 
     fn randomize_attributes(&mut self, random: &mut dyn RandomSource) {
@@ -141,7 +141,7 @@ impl AbstractHorse for Horse {
     fn play_gallop_sound(&mut self, level: &mut ServerLevel, sound_type: &SoundType) {
         self.play_sound(level, SoundEvent::ENTITY_HORSE_GALLOP, sound_type.volume * 0.15, sound_type.pitch);
         if self.base_mut().random.next_int_bounded(10) == 0 {
-            let breathe = if self.is_baby() { SoundEvent::ENTITY_HORSE_BREATHE_BABY } else { SoundEvent::ENTITY_HORSE_BREATHE };
+            let breathe = if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_BREATHE } else { SoundEvent::ENTITY_HORSE_BREATHE };
             self.play_sound(level, breathe, sound_type.volume * 0.6, sound_type.pitch);
         }
     }
@@ -193,15 +193,15 @@ impl Entity for Horse {
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_HORSE_AMBIENT_BABY } else { SoundEvent::ENTITY_HORSE_AMBIENT })
+        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_AMBIENT } else { SoundEvent::ENTITY_HORSE_AMBIENT })
     }
 
     fn get_death_sound(&self) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_HORSE_DEATH_BABY } else { SoundEvent::ENTITY_HORSE_DEATH })
+        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_DEATH } else { SoundEvent::ENTITY_HORSE_DEATH })
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
-        Some(if self.is_baby() { SoundEvent::ENTITY_HORSE_HURT_BABY } else { SoundEvent::ENTITY_HORSE_HURT })
+        Some(if self.is_baby() { SoundEvent::ENTITY_BABY_HORSE_HURT } else { SoundEvent::ENTITY_HORSE_HURT })
     }
 
     fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
@@ -269,7 +269,7 @@ impl Entity for Horse {
     }
 
     fn hurt_armor(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
-        mob::equipment::do_hurt_equipment(self.as_dyn_mut(), level, source, damage, &[EquipmentSlot::Body]);
+        crate::world::entity::living_entity::damage::do_hurt_equipment(self.as_dyn_mut(), level, source, damage, &[EquipmentSlot::Body]);
     }
 
     fn finalize_spawn(

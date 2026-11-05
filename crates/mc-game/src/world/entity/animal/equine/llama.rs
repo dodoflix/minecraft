@@ -2,14 +2,14 @@
 
 use super::abstract_chested_horse::{self, AbstractChestedHorse, DATA_ID_CHEST};
 use super::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
-use super::llama_goals::{LlamaAttackWolfGoal, LlamaHurtByTargetGoal, TraderLlamaDefendWanderingTraderGoal};
+use super::llama_goals::{LlamaHurtByTargetGoal, TraderLlamaDefendWanderingTraderGoal, llama_attack_wolf_goal};
 use crate::define_accessor;
 use crate::registry::RegistryAccess;
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, LlamaFollowCaravanGoal, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, RangedAttackGoal, RunAroundLikeCrazyGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::goal::{NearestAttackableTargetGoal};
+use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
 use crate::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use crate::world::entity::equipment::EquipmentSlot;
@@ -96,8 +96,9 @@ impl Llama {
         llama.register_goals();
         llama.create_inventory();
         llama.horse.can_gallop = false;
-        if let Some(n) = llama.mob.navigation.as_deref_mut() {
-            n.set_required_path_length(40.0);
+        if let Some(mut n) = llama.mob.navigation.take() {
+            n.set_required_path_length(&llama, 40.0);
+            llama.mob.navigation = Some(n);
         }
         llama
     }
@@ -128,16 +129,23 @@ impl Llama {
         goals.add_goal(9, Box::new(RandomLookAroundGoal::new()));
         let targets = &mut self.mob.target_selector;
         targets.add_goal(1, Box::new(LlamaHurtByTargetGoal::new()));
-        targets.add_goal(2, Box::new(LlamaAttackWolfGoal::new()));
+        targets.add_goal(2, Box::new(llama_attack_wolf_goal()));
         if is_trader {
             self.mob.goal_selector.add_goal(1, Box::new(PanicGoal::new(2.0)));
             let targets = &mut self.mob.target_selector;
             targets.add_goal(1, Box::new(TraderLlamaDefendWanderingTraderGoal::new()));
             targets.add_goal(
                 2,
-                Box::new(NearestAttackableTargetGoal::new(Arc::new(|e: &dyn Entity| e.as_zombie().is_some() && e.get_type() != EntityType::ZOMBIFIED_PIGLIN), true)),
+                Box::new(NearestAttackableTargetGoal::with_selector(
+                    TargetType::Class(Arc::new(|e: &dyn Entity| e.as_zombie().is_some())),
+                    true,
+                    Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.get_type() != EntityType::ZOMBIFIED_PIGLIN),
+                )),
             );
-            targets.add_goal(2, Box::new(NearestAttackableTargetGoal::new(Arc::new(|e: &dyn Entity| matches!(e.get_type(), EntityType::PILLAGER | EntityType::VINDICATOR | EntityType::EVOKER | EntityType::ILLUSIONER)), true)));
+            targets.add_goal(2, Box::new(NearestAttackableTargetGoal::new(
+                    TargetType::Class(Arc::new(|e: &dyn Entity| matches!(e.get_type(), EntityType::PILLAGER | EntityType::VINDICATOR | EntityType::EVOKER | EntityType::ILLUSIONER))),
+                    true,
+                )));
         }
     }
 
@@ -226,7 +234,7 @@ impl Llama {
 
     /// `spit(target)`.
     fn spit(&mut self, level: &mut ServerLevel, target: EntityId) {
-        let Some((tx, ty, tz)) = level.get_entity(target).map(|t| (t.base().x(), t.base().get_y_scaled(0.3333333333333333), t.base().z())) else { return };
+        let Some((tx, ty, tz)) = level.get_entity(target).map(|t| (t.base().x(), t.base().y() + f64::from(t.base().get_bb_height()) * 0.3333333333333333, t.base().z())) else { return };
         let spit = crate::world::entity::projectile::llama_spit::LlamaSpit::from_llama(level, self.as_dyn());
         let (sx, sy, sz) = (self.base().x(), spit.base().y(), self.base().z());
         let _ = (sx, sz);
@@ -348,7 +356,7 @@ impl AbstractHorse for Llama {
                 mob::animal::set_in_love(self, level, Some(&*player));
             }
         }
-        if self.get_health() < self.get_max_health() && heal > 0.0 {
+        if self.get_health() < self.mob.living.get_max_health() && heal > 0.0 {
             self.heal(level, heal);
             item_used = true;
         }
@@ -468,7 +476,8 @@ impl Entity for Llama {
         let mut baby = self.make_new_llama(level)?;
         abstract_horse::set_offspring_attributes(self, level, partner, baby.as_mut());
         let (other_strength, other_variant) = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Llama>()).map(|p| (p.get_strength(), p.get_variant()))?;
-        let mut baby_strength = self.base_mut().random.next_int_bounded(self.get_strength().max(other_strength)) + 1;
+        let max_strength = self.get_strength().max(other_strength);
+        let mut baby_strength = self.base_mut().random.next_int_bounded(max_strength) + 1;
         if self.base_mut().random.next_float() < 0.03 {
             baby_strength += 1;
         }
@@ -494,14 +503,6 @@ impl Entity for Llama {
 
     fn ranged_attack_uncertainty(&self, _level: &ServerLevel) -> f32 {
         10.0
-    }
-
-    fn get_leash_offset(&self) -> Vec3 {
-        Vec3::new(0.0, 0.75 * f64::from(self.base().eye_height), f64::from(self.base().get_bb_width()) * 0.5)
-    }
-
-    fn llama_strength(&self) -> Option<i32> {
-        Some(self.get_strength())
     }
 
     fn finalize_spawn(

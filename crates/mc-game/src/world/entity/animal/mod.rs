@@ -8,6 +8,7 @@ pub mod cow;
 pub mod dolphin;
 pub mod feline;
 pub mod fish;
+pub mod equine;
 pub mod frog;
 pub mod nautilus;
 pub mod pig;

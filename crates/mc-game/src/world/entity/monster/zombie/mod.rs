@@ -12,7 +12,7 @@ pub mod husk;
 pub mod zombie_villager;
 pub mod zombified_piglin;
 
-pub use base::{ZombieGroupData, get_spawn_as_baby_odds};
+pub use base::{ZombieGroupData, get_spawn_as_baby_odds, start_riding_fresh_vehicle};
 
 use crate::define_accessor;
 use crate::registry::RegistryAccess;

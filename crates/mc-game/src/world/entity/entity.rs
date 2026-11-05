@@ -2815,6 +2815,10 @@ pub trait Entity: Any {
     }
     /// `LivingEntity.playAttackSound()` (`Rabbit`, `Dolphin`, `Panda`, `Axolotl` override; EC2Attack's `do_hurt_target` calls it).
     fn play_attack_sound(&mut self, _level: &mut ServerLevel) {}
+    /// `Animal.canMate(partner)` (`AbstractHorse`, `Llama`, ... override).
+    fn can_mate(&self, partner: &dyn Entity) -> bool {
+        super::mob::animal::can_mate(self.as_dyn(), partner)
+    }
     /// `LivingEntity.setJumping(jump)` (`JumpControl.tick`; `Rabbit` plays the jump sound).
     fn set_jumping(&mut self, _level: &mut ServerLevel, jump: bool) {
         if let Some(l) = self.living_mut() {

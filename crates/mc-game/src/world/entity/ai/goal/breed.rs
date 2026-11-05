@@ -66,7 +66,7 @@ impl BreedGoal {
         let mut partner = None;
         for id in animals {
             let Some(potential) = level.get_entity(id) else { continue };
-            if animal::can_mate(animal, potential) && !potential.is_panicking() && animal.base().distance_to_sqr_vec(potential.position()) < dist {
+            if animal.can_mate(potential) && !potential.is_panicking() && animal.base().distance_to_sqr_vec(potential.position()) < dist {
                 partner = Some(id);
                 dist = animal.base().distance_to_sqr_vec(potential.position());
             }

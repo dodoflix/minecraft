@@ -15,7 +15,7 @@ use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::living_entity::{self, util::{l, lm}};
 use crate::world::entity::mob::{self, ext, navigation};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
+use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -107,6 +107,8 @@ pub struct AbstractHorseData {
     /// `getFirstPassenger() instanceof Player` / `instanceof Mob` (kept by `add_passenger` / `on_passenger_removed`).
     pub first_passenger_is_player: bool,
     pub first_passenger_is_mob: bool,
+    /// Bumped by `createInventory()` (`MountInventory::inventory_epoch`).
+    pub inventory_epoch: u32,
 }
 
 impl AbstractHorseData {
@@ -133,6 +135,7 @@ impl AbstractHorseData {
             owner: None,
             first_passenger_is_player: false,
             first_passenger_is_mob: false,
+            inventory_epoch: 0,
         }
     }
 }
@@ -210,6 +213,37 @@ pub trait AbstractHorse: Entity {
     /// `createInventory()` (the chested horses and llamas resize it with their columns).
     fn create_inventory(&mut self) {
         create_inventory(self);
+    }
+}
+
+impl<T: AbstractHorse + ?Sized> crate::world::inventory::MountInventory for T {
+    fn get_inventory_columns(&self) -> i32 {
+        AbstractHorse::get_inventory_columns(self)
+    }
+    fn inventory_epoch(&self) -> u32 {
+        self.horse().inventory_epoch
+    }
+    fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
+        Entity::can_use_slot(self, slot)
+    }
+    fn is_equippable_in_slot(&self, stack: &ItemStack, slot: EquipmentSlot) -> bool {
+        Entity::is_equippable_in_slot(self, stack, slot)
+    }
+    fn get_equipment_slot_item(&self, slot: EquipmentSlot) -> ItemStack {
+        self.get_item_by_slot(slot)
+    }
+    fn set_equipment_slot_item(&mut self, slot: EquipmentSlot, stack: ItemStack) {
+        let empty = stack.is_empty();
+        mob::equipment::set_item_slot_spawn(self.as_dyn_mut(), slot, stack);
+        if !empty {
+            mob::equipment::set_guaranteed_drop(self.as_dyn_mut(), slot);
+            if let Some(m) = self.mob_mut() {
+                m.persistence_required = true;
+            }
+        }
+    }
+    fn is_llama(&self) -> bool {
+        self.get_type() == mc_data::EntityType::LLAMA || self.get_type() == mc_data::EntityType::TRADER_LLAMA
     }
 }
 
@@ -347,6 +381,7 @@ pub fn get_inventory_size(e: &(impl AbstractHorse + ?Sized)) -> i32 {
 /// `createInventory()`: a new container of the current size that keeps the old content.
 pub fn create_inventory(e: &mut (impl AbstractHorse + ?Sized)) {
     let size = get_inventory_size(e) as usize;
+    e.horse_mut().inventory_epoch += 1;
     let old = std::mem::replace(&mut e.horse_mut().inventory, SimpleContainer::new(size));
     let max = old.get_container_size().min(size);
     for slot in 0..max {
@@ -431,22 +466,17 @@ impl crate::world::entity::ai::goal::Goal for MountPanicGoal {
 /// `canUseSlot(slot)` of `AbstractHorse`.
 pub fn can_use_slot(e: &(impl AbstractHorse + ?Sized), slot: EquipmentSlot) -> bool {
     if slot != EquipmentSlot::Saddle {
-        mob::equipment::can_use_slot_default(e.as_dyn(), slot)
+        true
     } else {
         e.is_alive() && !e.is_baby() && is_tamed(e)
     }
-}
-
-/// `canDispenserEquipIntoSlot(slot)`.
-pub fn can_dispenser_equip_into_slot(e: &(impl AbstractHorse + ?Sized), slot: EquipmentSlot) -> bool {
-    ((slot == EquipmentSlot::Body || slot == EquipmentSlot::Saddle) && is_tamed(e)) || mob::equipment::can_dispenser_equip_into_slot_default(slot)
 }
 
 /// `equipBodyArmor(player, itemStack)`.
 pub fn equip_body_armor(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) {
     let stack = player.get_item_in_hand(hand);
     if e.is_equippable_in_slot(&stack, EquipmentSlot::Body) {
-        let one = mob::interact::with_hand_stack(player, hand, |s, p| s.consume_and_return(1, p));
+        let one = mob::interact::with_hand_stack(player, hand, |s, p| s.consume_and_return(1, p.has_infinite_materials()));
         mob::equipment::set_item_slot_and_drop_when_killed(e.as_dyn_mut(), level, EquipmentSlot::Body, one);
     }
 }
@@ -473,7 +503,7 @@ fn open_mouth(e: &mut (impl AbstractHorse + ?Sized)) {
 /// `causeFallDamage(fallDistance, damageModifier, damageSource)` of `AbstractHorse`.
 pub fn cause_fall_damage(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
     if fall_distance > 1.0 {
-        let sound = if e.is_baby() { SoundEvent::ENTITY_HORSE_LAND_BABY } else { SoundEvent::ENTITY_HORSE_LAND };
+        let sound = if e.is_baby() { SoundEvent::ENTITY_BABY_HORSE_LAND } else { SoundEvent::ENTITY_HORSE_LAND };
         e.play_sound(level, sound, 0.4, 1.0);
     }
     let dmg = living_entity::damage::calculate_fall_damage(e.as_dyn(), fall_distance, damage_modifier);
@@ -505,7 +535,7 @@ fn is_wood_sound_type(sound_type: &SoundType) -> bool {
 pub fn play_step_sound(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, pos: BlockPos, block_state: mc_data::block::BlockState) {
     use crate::world::level::block::state::BlockStateExt as _;
     use crate::world::level::level_access::BlockGetter as _;
-    if !block_state.is_liquid() {
+    if !block_state.liquid() {
         let above_state = level.get_block_state(pos.above());
         let mut sound_type = block_state.get_sound_type();
         if above_state.block() == Block::SNOW {
@@ -522,7 +552,7 @@ pub fn play_step_sound(e: &mut (impl AbstractHorse + ?Sized), level: &mut Server
         } else if is_wood_sound_type(sound_type) {
             e.play_sound(level, SoundEvent::ENTITY_HORSE_STEP_WOOD, sound_type.volume * 0.15, sound_type.pitch);
         } else {
-            let step = if e.is_baby() { SoundEvent::ENTITY_HORSE_STEP_BABY } else { SoundEvent::ENTITY_HORSE_STEP };
+            let step = if e.is_baby() { SoundEvent::ENTITY_BABY_HORSE_STEP } else { SoundEvent::ENTITY_HORSE_STEP };
             e.play_sound(level, step, sound_type.volume * 0.15, sound_type.pitch);
         }
     }
@@ -531,11 +561,7 @@ pub fn play_step_sound(e: &mut (impl AbstractHorse + ?Sized), level: &mut Server
 /// `openCustomInventoryScreen(player)`.
 pub fn open_custom_inventory_screen(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, player: &mut ServerPlayer) {
     if (!e.base().is_vehicle() || e.base().passengers.contains(&player.id())) && is_tamed(e) {
-        let horse_id = e.id();
-        let columns = e.get_inventory_columns();
-        player.open_mount_inventory(level, horse_id, columns, |container_id, ctx| {
-            Box::new(crate::world::inventory::horse_inventory_menu::HorseInventoryMenu::new(container_id, ctx, horse_id, columns))
-        });
+        player.open_horse_inventory(level, e.id());
     }
 }
 
@@ -544,7 +570,7 @@ pub fn fed_food(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, 
     let stack = player.get_item_in_hand(hand);
     let ate_food = e.handle_eating(level, player, &stack);
     if ate_food {
-        mob::interact::with_hand_stack(player, hand, |s, p| s.consume(1, p));
+        mob::interact::with_hand_stack(player, hand, |s, p| s.consume(1, p.has_infinite_materials()));
     }
     if !ate_food { InteractionResult::PASS } else { InteractionResult::SUCCESS_SERVER }
 }
@@ -595,7 +621,7 @@ pub fn handle_eating(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLe
             mob::animal::set_in_love(e.as_dyn_mut(), level, Some(&*player));
         }
     }
-    if e.get_health() < e.get_max_health() && heal > 0.0 {
+    if e.get_health() < l(e.as_dyn()).get_max_health() && heal > 0.0 {
         e.heal(level, heal);
         item_used = true;
     }
@@ -625,14 +651,13 @@ pub fn do_player_ride(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerL
 
 /// `isImmobile()` of `AbstractHorse`.
 pub fn is_immobile(e: &(impl AbstractHorse + ?Sized)) -> bool {
-    (living_entity::util::is_immobile_base(e.as_dyn()) && e.base().is_vehicle() && is_saddled(e)) || is_eating(e) || is_standing(e)
+    (e.is_dead_or_dying() && e.base().is_vehicle() && is_saddled(e)) || is_eating(e) || is_standing(e)
 }
 
 /// `dropEquipment(level)` of `AbstractHorse`.
 pub fn drop_equipment(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel) {
     use crate::world::item::enchantment::enchantment_effect_components::EffectComponent;
-    living_entity::death::drop_equipment_base(e.as_dyn_mut(), level);
-    let stacks: Vec<ItemStack> = (0..e.horse().inventory.get_container_size()).map(|i| e.horse().inventory.get_item(i)).collect();
+    let stacks: Vec<ItemStack> = (0..e.horse().inventory.get_container_size()).map(|i| e.horse().inventory.get_item(i).clone()).collect();
     for stack in stacks {
         if !stack.is_empty() && !crate::world::item::enchantment_helper::has(&level.registries, &stack, EffectComponent::prevent_equipment_drop) {
             crate::world::entity::item::spawn_at_location(level, e.as_dyn(), stack, Vec3::ZERO);
@@ -777,7 +802,7 @@ pub fn mob_interact(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLev
     }
     let item_stack = player.get_item_in_hand(hand);
     if !item_stack.is_empty() {
-        let result = mob::interact::with_hand_stack(player, hand, |s, p| crate::world::item::interact_living_entity(s, p, e.as_dyn_mut(), hand));
+        let result = mob::interact::with_hand_stack(player, hand, |s, p| crate::world::item::interact_living_entity(level, s, p, e.as_dyn_mut(), hand));
         if result.consumes_action() {
             return result;
         }
@@ -905,7 +930,7 @@ pub fn read_additional_save_data(e: &mut (impl AbstractHorse + ?Sized), input: &
 
 /// `canParent()`.
 pub fn can_parent(e: &(impl AbstractHorse + ?Sized)) -> bool {
-    !e.base().is_vehicle() && !e.base().is_passenger() && is_tamed(e) && !e.is_baby() && e.get_health() >= e.get_max_health() && mob::animal::is_in_love(e.as_dyn())
+    !e.base().is_vehicle() && !e.base().is_passenger() && is_tamed(e) && !e.is_baby() && e.get_health() >= l(e.as_dyn()).get_max_health() && mob::animal::is_in_love(e.as_dyn())
 }
 
 /// `setOffspringAttributes(partner, baby)`.
@@ -977,7 +1002,7 @@ pub fn get_controlling_passenger(e: &(impl AbstractHorse + ?Sized)) -> Option<En
     if is_saddled(e) && e.horse().first_passenger_is_player {
         Some(first)
     } else {
-        mob::mob_controlling_passenger(e.as_dyn(), e.horse().first_passenger_is_mob, first)
+        (e.horse().first_passenger_is_mob && !e.mob().is_some_and(|m| m.is_no_ai())).then_some(first)
     }
 }
 
@@ -1061,32 +1086,55 @@ pub fn is_holding(player: &ServerPlayer, item: Item) -> bool {
     player.get_item_in_hand(InteractionHand::MainHand).is(item) || player.get_item_in_hand(InteractionHand::OffHand).is(item)
 }
 
+/// `Entity.getCollisionHorizontalEscapeVector(vehicleWidth, passengerWidth, yRot)`.
+fn get_collision_horizontal_escape_vector(vehicle_width: f32, passenger_width: f32, y_rot: f32) -> Vec3 {
+    let span = f64::from(vehicle_width + passenger_width + 1.0E-5f32) / 2.0;
+    let rad = (std::f64::consts::PI / 180.0) as f32;
+    let x_dir = -mth::sin(f64::from(y_rot * rad));
+    let z_dir = mth::cos(f64::from(y_rot * rad));
+    let max = x_dir.abs().max(z_dir.abs());
+    Vec3::new(f64::from(x_dir) * span / f64::from(max), 0.0, f64::from(z_dir) * span / f64::from(max))
+}
+
+/// `LivingEntity.getMainArm() == HumanoidArm.RIGHT`.
+fn main_arm_is_right(e: &dyn Entity) -> bool {
+    match e.as_any().downcast_ref::<ServerPlayer>() {
+        Some(p) => p.player.get_main_arm() == mc_protocol::packets::common::HumanoidArm::Right,
+        None => !e.mob().is_some_and(|m| m.is_left_handed()),
+    }
+}
+
+/// `LivingEntity.getDismountPoses()`.
+fn get_dismount_poses(e: &dyn Entity) -> &'static [mc_data::enums::Pose] {
+    use mc_data::enums::Pose;
+    if e.is_player() { &[Pose::Standing, Pose::Crouching, Pose::Swimming] } else { &[Pose::Standing] }
+}
+
+/// `DismountHelper.canDismountTo(level, entity, box)`.
+fn can_dismount_to(level: &ServerLevel, bb: &mc_core::phys::AABB) -> bool {
+    use crate::world::level::collision::CollisionGetter as _;
+    level.get_block_collisions(None, bb).iter().all(|shape| shape.is_empty()) && level.world_border().is_within_bounds_aabb(bb)
+}
+
 /// `Entity.getDismountLocationForPassenger` of `AbstractHorse`.
 pub fn get_dismount_location_for_passenger(e: &(impl AbstractHorse + ?Sized), level: &ServerLevel, passenger: &dyn Entity) -> Vec3 {
-    use crate::world::entity::dismount_helper;
-    let main_hand_direction = dismount_helper::get_collision_horizontal_escape_vector(
-        e.base().get_bb_width(),
-        passenger.base().get_bb_width(),
-        e.base().y_rot() + if passenger.main_arm_is_right() { 90.0 } else { -90.0 },
-    );
+    let main_right = main_arm_is_right(passenger);
+    let main_hand_direction = get_collision_horizontal_escape_vector(e.base().get_bb_width(), passenger.base().get_bb_width(), e.base().y_rot() + if main_right { 90.0 } else { -90.0 });
     if let Some(location) = get_dismount_location_in_direction(e, level, main_hand_direction, passenger) {
         return location;
     }
-    let off_hand_direction = dismount_helper::get_collision_horizontal_escape_vector(
-        e.base().get_bb_width(),
-        passenger.base().get_bb_width(),
-        e.base().y_rot() + if passenger.main_arm_is_right() { -90.0 } else { 90.0 },
-    );
+    let off_hand_direction = get_collision_horizontal_escape_vector(e.base().get_bb_width(), passenger.base().get_bb_width(), e.base().y_rot() + if main_right { -90.0 } else { 90.0 });
     get_dismount_location_in_direction(e, level, off_hand_direction, passenger).unwrap_or_else(|| e.position())
 }
 
-/// `getDismountLocationInDirection(direction, passenger)`.
+/// `getDismountLocationInDirection(direction, passenger)` (the rider's pose is not changed here).
 fn get_dismount_location_in_direction(e: &(impl AbstractHorse + ?Sized), level: &ServerLevel, direction: Vec3, passenger: &dyn Entity) -> Option<Vec3> {
     use crate::world::entity::dismount_helper;
+    use crate::world::level::collision::{BlockGetterExt as _, CollisionGetter as _};
     let target_x = e.base().x() + direction.x;
     let target_y = e.base().bounding_box().min_y;
     let target_z = e.base().z() + direction.z;
-    for dismount_pose in passenger.get_dismount_poses() {
+    for &dismount_pose in get_dismount_poses(passenger) {
         let mut target_block_pos = BlockPos::containing(target_x, target_y, target_z);
         let dismount_jump_limit = e.base().bounding_box().max_y + 0.75;
         loop {
@@ -1095,13 +1143,10 @@ fn get_dismount_location_in_direction(e: &(impl AbstractHorse + ?Sized), level: 
                 break;
             }
             if dismount_helper::is_block_floor_valid(block_floor_height) {
-                let pose_collision_box = passenger.get_local_bounds_for_pose(dismount_pose);
+                let pose_collision_box = passenger.get_dimensions(dismount_pose).make_bounding_box_vec(Vec3::ZERO);
                 let location = Vec3::new(target_x, f64::from(target_block_pos.y()) + block_floor_height, target_z);
-                if dismount_helper::can_dismount_to(level, passenger, &pose_collision_box.move_vec(location)) {
-                    return Some(location).inspect(|_| {
-                        // `passenger.setPose(dismountPose)` is applied by the dismounting rider
-                        let _ = dismount_pose;
-                    });
+                if can_dismount_to(level, &pose_collision_box.move_vec(location)) {
+                    return Some(location);
                 }
             }
             target_block_pos = target_block_pos.above();
@@ -1112,7 +1157,6 @@ fn get_dismount_location_in_direction(e: &(impl AbstractHorse + ?Sized), level: 
     }
     None
 }
-
 /// Implements the `Entity` members every `AbstractHorse` subclass shares, forwarding to this module (the members some
 /// subclass overrides - `drop_equipment`, `ai_step`, `mob_interact`, `can_use_slot`, `is_food`, `is_immobile`, `cause_fall_damage`, `play_step_sound`,
 /// `finalize_spawn`, `get_passenger_attachment_point`, the save-data pair, `get_breed_offspring`, `can_mate` - are written per class).
@@ -1181,6 +1225,12 @@ macro_rules! abstract_horse_entity {
         }
         fn as_container_mut(&mut self) -> Option<&mut dyn $crate::world::container::Container> {
             Some(&mut self.horse_mut().inventory)
+        }
+        fn as_mount_inventory(&self) -> Option<&dyn $crate::world::inventory::MountInventory> {
+            Some(self)
+        }
+        fn as_mount_inventory_mut(&mut self) -> Option<&mut dyn $crate::world::inventory::MountInventory> {
+            Some(self)
         }
         fn has_custom_inventory_screen(&self) -> bool {
             true

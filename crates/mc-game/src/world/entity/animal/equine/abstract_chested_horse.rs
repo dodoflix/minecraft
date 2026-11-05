@@ -7,10 +7,9 @@ use crate::world::container::Container;
 use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
 use crate::world::entity::mob::{self, interact::with_hand_stack};
 use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
+use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
-use mc_data::block::Block;
 use mc_data::{Attribute, Item, SoundEvent};
 use mc_nbt::CompoundTag;
 
@@ -64,15 +63,8 @@ pub fn add_additional_save_data(e: &(impl AbstractChestedHorse + ?Sized), out: &
     abstract_horse::add_additional_save_data(e, out);
     out.put_boolean("ChestedHorse", has_chest(e));
     if has_chest(e) {
-        let mut items = mc_nbt::ListTag::new();
         let inventory = &e.horse().inventory;
-        for slot in 0..inventory.get_container_size() {
-            let stack = inventory.get_item(slot);
-            if !stack.is_empty() {
-                items.push(crate::world::container::save_item_with_slot(slot as u8, &stack));
-            }
-        }
-        out.put("Items", items);
+        out.put("Items", crate::world::container::save_slots((0..inventory.get_container_size()).map(|i| (i, inventory.get_item(i)))));
     }
 }
 
@@ -120,7 +112,7 @@ pub fn mob_interact(e: &mut (impl AbstractChestedHorse + ?Sized), level: &mut Se
 fn equip_chest(e: &mut (impl AbstractChestedHorse + ?Sized), level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) {
     set_chest(e, true);
     e.play_chest_equips_sound(level);
-    with_hand_stack(player, hand, |s, p| s.consume(1, p));
+    with_hand_stack(player, hand, |s, p| s.consume(1, p.has_infinite_materials()));
     e.create_inventory();
 }
 
@@ -156,9 +148,4 @@ pub fn chest_slot_set(e: &mut (impl AbstractChestedHorse + ?Sized), stack: &Item
     } else {
         false
     }
-}
-
-#[allow(dead_code)]
-fn _block_chest() -> Block {
-    Block::CHEST
 }
