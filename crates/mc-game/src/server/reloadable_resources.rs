@@ -99,6 +99,7 @@ impl ReloadableServerResources {
         let layers = context_layers.replace_from(RegistryLayer::Reloadable, vec![reloadable]);
 
         let full_with_tags = build_updated_lookups(layers.composite_access(), &updated_context_tags);
+        crate::world::level::storage::loot::loading::validate_loot_registries(&full_with_tags).map_err(|message| ReloadError::Listener { name: "loot tables", message })?;
         let mut registrations: Vec<&ReloadListenerRegistration> = RELOAD_LISTENERS.iter().collect();
         registrations.sort_by_key(|r| r.order);
         let mut listeners = Vec::with_capacity(registrations.len());
