@@ -297,4 +297,4 @@ impl Entity for ThrownTrident {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static TRIDENT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::TRIDENT, create: |ty, level| Box::new(ThrownTrident::new(ty, level.next_entity_id())) };
+static TRIDENT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::TRIDENT, create: |ty, id, _registries| Box::new(ThrownTrident::new(ty, id)) };

@@ -181,4 +181,4 @@ impl Entity for Arrow {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ARROW_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ARROW, create: |ty, level| Box::new(Arrow::new(ty, level.next_entity_id())) };
+static ARROW_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ARROW, create: |ty, id, _registries| Box::new(Arrow::new(ty, id)) };

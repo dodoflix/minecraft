@@ -127,4 +127,4 @@ impl Entity for SpectralArrow {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static SPECTRAL_ARROW_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::SPECTRAL_ARROW, create: |ty, level| Box::new(SpectralArrow::new(ty, level.next_entity_id())) };
+static SPECTRAL_ARROW_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::SPECTRAL_ARROW, create: |ty, id, _registries| Box::new(SpectralArrow::new(ty, id)) };

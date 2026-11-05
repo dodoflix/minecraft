@@ -333,8 +333,8 @@ impl Entity for BreezeWindCharge {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static WIND_CHARGE_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::WIND_CHARGE, create: |ty, level| Box::new(WindCharge::new(ty, level.next_entity_id())) };
+static WIND_CHARGE_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::WIND_CHARGE, create: |ty, id, _registries| Box::new(WindCharge::new(ty, id)) };
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static BREEZE_WIND_CHARGE_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::BREEZE_WIND_CHARGE, create: |ty, level| Box::new(BreezeWindCharge::new(ty, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::BREEZE_WIND_CHARGE, create: |ty, id, _registries| Box::new(BreezeWindCharge::new(ty, id)) };
