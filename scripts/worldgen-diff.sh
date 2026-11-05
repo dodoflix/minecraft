@@ -18,14 +18,13 @@
 #   --generator-settings S   server.properties generator-settings (flat presets etc.)
 #   --level-type T           server.properties level-type (default minecraft:normal)
 #   --difficulty D / --gamemode M   default normal / survival (difficulty changes which mobs spawn during worldgen)
-#   --ours-bin PATH          our mc-server binary (default $MC_SERVER_BIN, else target/worldgen-diff/debug/mc-server,
-#                            built with `CARGO_TARGET_DIR=target/worldgen-diff cargo build -p mc-server` if missing)
+#   --ours-bin PATH          our headless generator (default $WORLDGEN_AREA_BIN, else target/worldgen-diff/debug/examples/worldgen_area,
+#                            rebuilt incrementally with `CARGO_TARGET_DIR=target/worldgen-diff cargo build -p mc-game --example worldgen_area`)
 #   --order seq|batch        seq (default): one chunk at a time in raster order, each awaited; batch: all tiles at once (fast,
 #                            but vanilla's cross-chunk feature writes then depend on thread scheduling: vanilla-vs-vanilla
 #                            differs). Measured: seq + max.bg.threads=1, area away from the spawn => vanilla-vs-vanilla identical
 #   --vanilla-jvm-opts "..." JVM flags for the vanilla server (default "-Dmax.bg.threads=1" = single worldgen worker)
-#   (env MC_TESTBOT_BIN: mc-testbot binary for that fallback, built like mc-server if missing)
-#   --bot-seconds N          fallback generation (see below): seconds the bot stays connected (default 90)
+#   --no-cache               do not reuse/store the cached vanilla world (run/wgdiff-cache)
 #   --port N                 server port (default: a free one)
 #   --timeout S              per-wait timeout in seconds (default 1800)
 #   --compare-args "..."     extra args for worldcmp (it already gets --chunks <the area>: chunks around the area are full but
@@ -41,12 +40,14 @@
 #   server.properties: online-mode=false, generate-structures=true, max-players=0, pause-when-empty-seconds=-1
 #   (vanilla 26 otherwise stops ticking, and thus generating, 60 s after the last player left), view-distance=3.
 #
-#   Our server: the same commands are used when the server accepts `execute in .. run forceload query` (probed at
-#   start). As of writing crates/mc-game/src/server/commands has NO `forceload` and NO `execute` (only say, tp,
-#   setblock, save-all, stop, ... ), so the FALLBACK is used: pre-op a bot (ops.json), join it with `mc-testbot join
-#   --command "tp @s X 200 Z"`, view-distance=min(32,R+2), stay --bot-seconds, then `save-all flush`/`stop`. The
-#   fallback can only generate the overworld (`tp` cannot change dimension): nether/end are skipped with a warning on
-#   our side until `execute`/`forceload` exist (then the primary path is taken automatically).
+#   Our server: `worldgen_area` (crates/mc-game/examples/worldgen_area.rs), which runs the REAL server (`create_server` +
+#   `run_server`: initServer, tick loop, stopServer save) in the side dir with the same server.properties and queues one
+#   step per tick: `tick freeze`, random_tick_speed 0, then per dimension in the same order and per chunk in raster order a
+#   FORCED ticket (= `forceload add`), wait until the chunk is ENTITY_TICKING and the chunk map idle for 20 ticks (= the
+#   `if loaded` + `sleep 1` above), finally halt => every level is saved like `save-all flush` + `stop`. Chunk generation
+#   runs on the chunk map's one serial worldgen thread, like vanilla with -Dmax.bg.threads=1. `--order batch` only affects
+#   vanilla. Vanilla worlds are cached under run/wgdiff-cache/<key> (key = every input that changes the vanilla world), so
+#   reruns only regenerate ours; --no-cache forces regeneration.
 #
 # Results & comparison
 #   NOTE the spawn area (chunks around the world spawn, ~(0,0)) is generated and ticks BEFORE `tick freeze` can be sent, so
@@ -71,7 +72,7 @@ log() { echo "[worldgen-diff] $*" >&2; }
 ORIG_ARGS=("$@")
 export VANILLA_JVM_OPTS="${VANILLA_JVM_OPTS--Dmax.bg.threads=1}"
 SEED=12345 DIMS=overworld CENTER=0,0 RADIUS=8 OUT="" CASES="" ONLY="" SIDES=vanilla,ours GENSET="" LEVELTYPE=minecraft:normal
-ORDER=seq DIFFICULTY=normal GAMEMODE=survival BIN="${MC_SERVER_BIN:-}" BOTSEC=90 PORT="" TMO=1800 CMPARGS="" COMPARE=1
+ORDER=seq DIFFICULTY=normal GAMEMODE=survival BIN="${WORLDGEN_AREA_BIN:-}" CACHE=1 PORT="" TMO=1800 CMPARGS="" COMPARE=1
 if (($# >= 5)) && [[ "$1" != --* ]]; then SEED="$1" DIMS="$2" CENTER="$3,$4" RADIUS="$5"; shift 5; fi
 while (($#)); do
   case "$1" in
@@ -90,7 +91,7 @@ while (($#)); do
     --ours-bin) BIN="$2"; shift 2;;
     --order) ORDER="$2"; shift 2;;
     --vanilla-jvm-opts) export VANILLA_JVM_OPTS="$2"; shift 2;;
-    --bot-seconds) BOTSEC="$2"; shift 2;;
+    --no-cache) CACHE=0; shift;;
     --port) PORT="$2"; shift 2;;
     --timeout) TMO="$2"; shift 2;;
     --compare-args) CMPARGS="$2"; shift 2;;
@@ -137,14 +138,6 @@ wait_log() {
   done
   die "timeout (${t}s) waiting for /$re/ in $(logf "$d")"
 }
-stop_server() {   # stop_server DIR
-  local d="$1" pid; pid="$(cat "$d/server.pid")"
-  send "$d" stop
-  for _ in $(seq 1200); do kill -0 "$pid" 2>/dev/null || break; sleep 0.1; done
-  if kill -0 "$pid" 2>/dev/null; then log "stop timed out, SIGINT"; kill -INT "$pid"; sleep 20; kill -9 "$pid" 2>/dev/null || true; fi
-  rm -f "$d/server.pid"
-}
-
 write_props() {   # write_props DIR VIEW_DISTANCE MAX_PLAYERS
   cat > "$1/server.properties" <<EOF
 server-port=$PORT
@@ -165,15 +158,6 @@ pause-when-empty-seconds=-1
 motd=worldgen-diff
 EOF
   echo "eula=true" > "$1/eula.txt"
-}
-
-# start_generic DIR CMD...: runs CMD in DIR with a console fifo, waits for "Done ("
-start_generic() {
-  local d="$1"; shift
-  rm -f "$d/stdin.fifo" "$d/server.pid" "$d/logs/latest.log"; mkfifo "$d/stdin.fifo"
-  (cd "$d" && setsid bash -c 'exec 3<>stdin.fifo; echo $$ > server.pid; exec "$@" <&3 >server.out 2>&1' _ "$@" </dev/null >/dev/null 2>&1 &)
-  for _ in $(seq 100); do [[ -s "$d/server.pid" ]] && break; sleep 0.1; done
-  wait_log "$d" 'Done \(' 600
 }
 
 # --- generation by commands ---------------------------------------------------------------------------------------
@@ -232,38 +216,14 @@ gen_by_commands() {   # gen_by_commands DIR
   done
 }
 
-# does the server accept `execute in .. run forceload query`? (a supporting server answers with a "force loaded" message)
-supports_commands() {   # supports_commands DIR
-  local d="$1" tag="WGPROBE-$$"
-  send "$d" "execute in minecraft:overworld run forceload query"
-  send "$d" "say $tag"
-  for _ in $(seq 120); do grep -qF "[Server] $tag" "$(logf "$d")" 2>/dev/null && break; sleep 0.5; done
-  grep -qiE 'force loaded' "$(logf "$d")" && ! grep -qE 'Unknown (or incomplete )?command' "$(logf "$d")"
-}
-
-offline_uuid() { python3 - "$1" <<'EOF'
-import hashlib, sys, uuid
-b = bytearray(hashlib.md5(("OfflinePlayer:" + sys.argv[1]).encode()).digest())
-b[6] = (b[6] & 0x0F) | 0x30; b[8] = (b[8] & 0x3F) | 0x80
-print(uuid.UUID(bytes=bytes(b)))
-EOF
-}
-
-# fallback for servers without execute/forceload: a bot joins and teleports to the centre; chunks around it generate
-gen_by_bot() {   # gen_by_bot DIR
-  local d="$1" bot="${MC_TESTBOT_BIN:-$ROOT/target/worldgen-diff/debug/mc-testbot}"
-  [[ "$DIMS" == overworld ]] || log "WARNING: bot fallback generates only the overworld; skipping: ${DIMS//overworld/}"
-  [[ -x "$bot" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldgen-diff cargo build -q -p mc-testbot) || die "cannot build mc-testbot"
-  "$bot" join "127.0.0.1:$PORT" --name WgBot --seconds "$BOTSEC" --command "tp @s $((CX * 16 + 8)) 200 $((CZ * 16 + 8))" \
-    > "$d/bot.out" 2>&1 || log "mc-testbot exited non-zero (see $d/bot.out)"
-}
-
 run_side() {   # run_side LABEL KIND
   local label="$2" kind="$1" d="$OUT/$2"
   rm -rf "$d"; mkdir -p "$d"
   log "side $label: $kind"
   if [[ "$kind" == vanilla ]]; then
-    local name="wgdiff-$$-$label" vs="$ROOT/scripts/vanilla-server.sh" sd="$ROOT/run/servers/wgdiff-$$-$label"
+    local name="wgdiff-$$-$label" vs="$ROOT/scripts/vanilla-server.sh" sd="$ROOT/run/servers/wgdiff-$$-$label" cache
+    cache="$ROOT/run/wgdiff-cache/$SEED-${DIMS//,/+}-${X1}_${Z1}_${X2}_$Z2-$(printf '%s' "$LEVELTYPE|$GENSET|$DIFFICULTY|$GAMEMODE|$ORDER|$VANILLA_JVM_OPTS" | sha1sum | cut -c1-8)"
+    if [[ "$CACHE" == 1 && -d "$cache/world" ]]; then log "side $label: vanilla world from cache $cache"; cp -a "$cache/world" "$cache/server.properties" "$cache/logs" "$d/"; return; fi
     "$vs" start "$name" --port "$PORT" --seed "$SEED" --level-type "$LEVELTYPE" --view-distance 3 --simulation-distance 3 \
       --gamemode "$GAMEMODE" --difficulty "$DIFFICULTY" --reset -- generate-structures=true max-players=0 \
       pause-when-empty-seconds=-1 "generator-settings=$GENSET" </dev/null >"$d/start.out" 2>&1 || { cat "$d/start.out" >&2; die "vanilla start failed"; }
@@ -271,27 +231,19 @@ run_side() {   # run_side LABEL KIND
     send "$sd" "save-all flush"; wait_log "$sd" 'Saved the game' 300
     "$vs" stop "$name" >/dev/null </dev/null 2>&1
     cp -a "$sd/world" "$d/world"; cp -a "$sd/server.properties" "$sd/logs" "$d/"; rm -rf "$sd"
+    if [[ "$CACHE" == 1 ]]; then   # complete worlds only: built aside, then renamed
+      rm -rf "$cache.tmp"; mkdir -p "$cache.tmp"; cp -a "$d/world" "$d/server.properties" "$d/logs" "$cache.tmp/"; rm -rf "$cache"; mv "$cache.tmp" "$cache"
+    fi
   else
-    if [[ -z "$BIN" ]]; then
-      BIN="$ROOT/target/worldgen-diff/debug/mc-server"
-      [[ -x "$BIN" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldgen-diff cargo build -q -p mc-server) || die "cannot build mc-server"
+    if [[ -z "$BIN" ]]; then   # always: stays current (incremental)
+      (cd "$ROOT" && CARGO_TARGET_DIR=target/worldgen-diff cargo build -q -p mc-game --example worldgen_area -j"$(nproc)" 2>"$d/cargo.log") || { tail -30 "$d/cargo.log" >&2; die "cannot build worldgen_area"; }
+      BIN="$ROOT/target/worldgen-diff/debug/examples/worldgen_area"
     fi
-    BIN="$(realpath "$BIN")"; [[ -x "$BIN" ]] || die "mc-server binary not found: $BIN"
-    printf '[{"uuid":"%s","name":"WgBot","level":4,"bypassesPlayerLimit":true}]\n' "$(offline_uuid WgBot)" > "$d/ops.json"
+    BIN="$(realpath "$BIN")"; [[ -x "$BIN" ]] || die "worldgen_area binary not found: $BIN"
     write_props "$d" 3 0
-    start_generic "$d" "$BIN" nogui
-    if supports_commands "$d"; then
-      log "our server supports execute/forceload: command path"
-      gen_by_commands "$d"
-    else
-      log "our server lacks execute/forceload: bot fallback (restart with view-distance covering the area)"
-      stop_server "$d"
-      write_props "$d" $((RADIUS + 2 > 32 ? 32 : RADIUS + 2)) 2
-      start_generic "$d" "$BIN" nogui
-      gen_by_bot "$d"
-    fi
-    send "$d" "save-all flush"; wait_log "$d" 'Saved the game' 300 || true
-    stop_server "$d"
+    local dims=""; for dd in ${DIMS//,/ }; do dims+="${dims:+,}$(dim_id "$dd")"; done
+    (cd "$d" && timeout "$TMO" "$BIN" --dims "$dims" --area "$X1,$Z1,$X2,$Z2" </dev/null >server.out 2>&1) || { tail -30 "$d/server.out" >&2; die "our generator failed (see $d/server.out)"; }
+    log "$dims: generated by $(basename "$BIN")"
   fi
 }
 
