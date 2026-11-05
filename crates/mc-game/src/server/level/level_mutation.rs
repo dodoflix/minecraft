@@ -242,6 +242,11 @@ pub fn poi_type_for_state(state: BlockState) -> Option<usize> {
 }
 
 impl LevelAccessor for ServerLevel {
+    fn is_unobstructed_block(&self, pos: BlockPos) -> bool {
+        use crate::world::level::collision::CollisionGetter as _;
+        self.is_unobstructed(None, &mc_core::phys::shapes::Shapes::block().move_vec3i(*pos))
+    }
+
     fn set_block(&mut self, pos: BlockPos, state: BlockState, flags: u32, update_limit: i32) -> bool {
         self.set_block_impl(pos, state, flags, update_limit)
     }

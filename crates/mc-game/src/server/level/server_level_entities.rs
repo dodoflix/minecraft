@@ -317,6 +317,21 @@ impl crate::world::level::collision::CollisionGetter for ServerLevel {
         border.is_inside_close_to_border(entity.base().x(), entity.base().z(), aabb).then(|| border.get_collision_shape())
     }
 
+    /// `Level.isUnobstructed(source, shape)`: no entity that `blocksBuilding` intersects `shape`.
+    fn is_unobstructed(&self, source: Option<EntityId>, shape: &mc_core::phys::shapes::VoxelShape) -> bool {
+        use mc_core::phys::shapes::{BooleanOp, Shapes};
+        if shape.is_empty() {
+            return true;
+        }
+        let source = source.and_then(|id| self.entity_manager.get_any(id));
+        self.get_entities(None, &shape.bounds(), |_| true).into_iter().filter_map(|id| self.entity_manager.get_any(id)).all(|e| {
+            e.is_removed()
+                || !e.base().blocks_building
+                || source.is_some_and(|s| self.is_passenger_of_same_vehicle(s, e))
+                || !Shapes::join_is_not_empty(shape, &Shapes::create(e.get_bounding_box()), BooleanOp::AND)
+        })
+    }
+
     /// Id-based form (no live source): every entity that can be collided with.
     fn get_entity_collisions(&self, _source: Option<EntityId>, test_area: &AABB) -> Vec<mc_core::phys::shapes::VoxelShape> {
         crate::world::entity::movement::EntityCollisionQuery::entity_collisions(self, None, test_area)

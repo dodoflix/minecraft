@@ -225,8 +225,6 @@ fn block_behaviour_matches_vanilla() {
     for name in include_str!("fixtures/block_behaviour_pool.txt").lines().filter(|l| !l.trim().is_empty()) {
         global.extend(capped(Block::by_name(&format!("minecraft:{name}")).unwrap_or_else(|| panic!("pool block {name}")), POOL_CAP));
     }
-    // blocks whose classes are still being ported (shrinks to empty when the port is complete)
-    let pending: std::collections::HashSet<&str> = include_str!("fixtures/block_behaviour_pending.txt").split_whitespace().collect();
     let only = std::env::var("BLOCK_BEHAVIOUR_VERBOSE").ok();
     let mut stub = Stub {
         world_seed: 0,
@@ -240,9 +238,6 @@ fn block_behaviour_matches_vanilla() {
     let mut mismatches = Vec::new();
     for b in Block::iter() {
         let name = b.data().name.trim_start_matches("minecraft:");
-        if pending.contains(name) {
-            continue;
-        }
         if only.as_deref().is_some_and(|o| o != name) {
             continue;
         }

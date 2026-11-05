@@ -188,7 +188,7 @@ impl EndSpikeFeature {
         level.add_fresh_entity_nbt(end_crystal_tag(x, y, z, yaw, self.crystal_beam_target, self.crystal_invulnerable));
         let crystal_pos = BlockPos::new(mth::floor_f64(x), mth::floor_f64(y), mth::floor_f64(z));
         set_block(level, crystal_pos.below(), Block::BEDROCK.default_state());
-        let fire = fire_state(level, crystal_pos);
+        let fire = crate::world::level::block::impls::base_fire_block::get_state(&*level, crystal_pos);
         set_block(level, crystal_pos, fire);
     }
 }
@@ -225,31 +225,6 @@ fn end_crystal_tag(x: f64, y: f64, z: f64, yaw: f32, beam_target: Option<BlockPo
     }
     tag.put_boolean("ShowBottom", true);
     tag
-}
-
-/// `BaseFireBlock.getState(level, pos)`: soul fire on soul blocks, else `FireBlock.getStateForPlacement`.
-fn fire_state(level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
-    let below = pos.below();
-    let below_state = level.get_block_state(below);
-    if below_state.is_tag("soul_fire_base_blocks") {
-        return Block::SOUL_FIRE.default_state();
-    }
-    let can_burn = |state: BlockState| -> bool {
-        let waterlogged = state.has_property(props::WATERLOGGED) && state.get(props::WATERLOGGED);
-        !waterlogged && mc_data::misc::fire_odds(state.block()).is_some_and(|(ignite, _)| ignite > 0)
-    };
-    let fire = Block::FIRE.default_state();
-    if !can_burn(below_state) && !below_state.is_face_sturdy_at(level, below, mc_core::direction::Direction::Up) {
-        let neighbor = |direction| can_burn(level.get_block_state(pos.relative(direction)));
-        use mc_core::direction::Direction::*;
-        fire.set(props::NORTH, neighbor(North))
-            .set(props::EAST, neighbor(East))
-            .set(props::SOUTH, neighbor(South))
-            .set(props::WEST, neighbor(West))
-            .set(props::UP, neighbor(Up))
-    } else {
-        fire
-    }
 }
 
 impl Feature for EndSpikeFeature {
