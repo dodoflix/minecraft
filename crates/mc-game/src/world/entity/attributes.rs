@@ -2,12 +2,13 @@
 //! `AttributeSupplier` of an entity type, from `mc_data`'s `DefaultAttributes` table) and the NBT form of
 //! `AttributeInstance.Packed`.
 
+use super::object_open_hash_map::IdentifierOpenHashMap;
 use indexmap::IndexMap;
-use std::cell::Cell;
 use mc_core::ident::Identifier;
 use mc_data::Attribute;
 use mc_data::EntityType;
 use mc_nbt::{CompoundTag, ListTag, Tag};
+use std::cell::Cell;
 pub use mc_protocol::packets::play::{AttributeModifier, AttributeModifierOperation};
 
 /// `Attribute.sanitizeValue` (`RangedAttribute` clamps, NaN -> minimum).
@@ -29,6 +30,9 @@ pub fn sanitize_value(attribute: Attribute, value: f64) -> f64 {
 #[derive(Clone, Debug)]
 pub struct AttributeInstance {
     attribute: Attribute,
+    /// `modifiersByOperation` (per-operation open hash maps: `calculateValue` iterates them in table order).
+    modifiers_by_operation: [IdentifierOpenHashMap<AttributeModifier>; 3],
+    /// `modifierById` (`Object2ObjectArrayMap`: insertion order, removal shifts).
     modifier_by_id: IndexMap<Identifier, AttributeModifier>,
     permanent_modifiers: IndexMap<Identifier, AttributeModifier>,
     base_value: f64,
@@ -39,10 +43,19 @@ pub struct AttributeInstance {
     pending_sync: bool,
 }
 
+fn operation_index(op: AttributeModifierOperation) -> usize {
+    match op {
+        AttributeModifierOperation::AddValue => 0,
+        AttributeModifierOperation::AddMultipliedBase => 1,
+        AttributeModifierOperation::AddMultipliedTotal => 2,
+    }
+}
+
 impl AttributeInstance {
     pub fn new(attribute: Attribute) -> Self {
         Self {
             attribute,
+            modifiers_by_operation: Default::default(),
             modifier_by_id: IndexMap::new(),
             permanent_modifiers: IndexMap::new(),
             base_value: attribute.data().default_value,
@@ -86,13 +99,17 @@ impl AttributeInstance {
 
     fn add_modifier(&mut self, modifier: AttributeModifier) {
         assert!(!self.modifier_by_id.contains_key(&modifier.id), "Modifier is already applied on this attribute!");
-        self.modifier_by_id.insert(modifier.id.clone(), modifier);
+        self.modifier_by_id.insert(modifier.id.clone(), modifier.clone());
+        self.modifiers_by_operation[operation_index(modifier.operation)].insert(modifier.id.clone(), modifier);
         self.set_dirty();
     }
 
+    /// `addOrUpdateTransientModifier`. shortcut: vanilla compares by object identity (`modifier != oldModifier`),
+    /// here an equal value counts as the same object; all vanilla callers pass shared constants.
     pub fn add_or_update_transient_modifier(&mut self, modifier: AttributeModifier) {
         let old = self.modifier_by_id.insert(modifier.id.clone(), modifier.clone());
         if old.as_ref() != Some(&modifier) {
+            self.modifiers_by_operation[operation_index(modifier.operation)].insert(modifier.id.clone(), modifier);
             self.set_dirty();
         }
     }
@@ -111,6 +128,13 @@ impl AttributeInstance {
         self.permanent_modifiers.insert(modifier.id.clone(), modifier);
     }
 
+    /// `addPermanentModifiers`.
+    pub fn add_permanent_modifiers<'a>(&mut self, modifiers: impl IntoIterator<Item = &'a AttributeModifier>) {
+        for m in modifiers {
+            self.add_permanent_modifier(m.clone());
+        }
+    }
+
     fn set_dirty(&mut self) {
         self.dirty.set(true);
         self.pending_update = true;
@@ -118,9 +142,8 @@ impl AttributeInstance {
     }
 
     pub fn remove_modifier(&mut self, id: &Identifier) -> bool {
-        if self.modifier_by_id.shift_remove(id).is_none() {
-            return false;
-        }
+        let Some(modifier) = self.modifier_by_id.shift_remove(id) else { return false };
+        self.modifiers_by_operation[operation_index(modifier.operation)].remove(id);
         self.permanent_modifiers.shift_remove(id);
         self.set_dirty();
         true
@@ -141,20 +164,16 @@ impl AttributeInstance {
         self.cached_value.get()
     }
 
-    fn modifiers_of(&self, op: AttributeModifierOperation) -> impl Iterator<Item = &AttributeModifier> {
-        self.modifier_by_id.values().filter(move |m| m.operation == op)
-    }
-
     fn calculate_value(&self) -> f64 {
         let mut base = self.base_value;
-        for m in self.modifiers_of(AttributeModifierOperation::AddValue) {
+        for m in self.modifiers_by_operation[0].values() {
             base += m.amount;
         }
         let mut result = base;
-        for m in self.modifiers_of(AttributeModifierOperation::AddMultipliedBase) {
+        for m in self.modifiers_by_operation[1].values() {
             result += base * m.amount;
         }
-        for m in self.modifiers_of(AttributeModifierOperation::AddMultipliedTotal) {
+        for m in self.modifiers_by_operation[2].values() {
             result *= 1.0 + m.amount;
         }
         sanitize_value(self.attribute, result)
@@ -164,6 +183,13 @@ impl AttributeInstance {
         self.base_value = other.base_value;
         self.modifier_by_id = other.modifier_by_id.clone();
         self.permanent_modifiers = other.permanent_modifiers.clone();
+        // `getModifiers(operation).putAll(otherMap)`: re-inserted in the other map's iteration order
+        self.modifiers_by_operation = Default::default();
+        for (i, map) in other.modifiers_by_operation.iter().enumerate() {
+            for m in map.values() {
+                self.modifiers_by_operation[i].insert(m.id.clone(), m.clone());
+            }
+        }
         self.set_dirty();
     }
 
@@ -172,6 +198,7 @@ impl AttributeInstance {
         self.base_value = base_value;
         for m in modifiers {
             self.modifier_by_id.insert(m.id.clone(), m.clone());
+            self.modifiers_by_operation[operation_index(m.operation)].insert(m.id.clone(), m.clone());
             self.permanent_modifiers.insert(m.id.clone(), m);
         }
         self.set_dirty();
@@ -244,7 +271,10 @@ impl AttributeMap {
         if !self.attributes.contains_key(&attribute) {
             let base = self.supplier_base(attribute)?;
             let mut instance = AttributeInstance::new(attribute);
+            // `supplier.createInstance`: `result.replaceFrom(template)` ends in `setDirty()`, so a fresh instance
+            // is queued for `attributesToUpdate` / `attributesToSync`
             instance.base_value = base;
+            instance.set_dirty();
             self.attributes.insert(attribute, instance);
         }
         self.attributes.get_mut(&attribute)

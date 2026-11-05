@@ -86,6 +86,11 @@ pub struct LivingEntityData {
     // ==== [LivingCore] additions (LivingEntityData field) ====
     // ==== [Damage] additions (LivingEntityData field) ====
     // ==== [Effects] additions (LivingEntityData field) ====
+    /// `activeEffects.modCount`: bumped by every structural modification, `tickEffects` detects its own iterator being
+    /// invalidated (`ConcurrentModificationException`) with it.
+    pub effects_mod_count: u32,
+    /// `lastEquipmentItems` (indexed by `EquipmentSlot` ordinal).
+    pub last_equipment_items: [crate::world::item::ItemStack; 8],
     // ==== [Player] additions (LivingEntityData field) ====
 }
 
@@ -155,6 +160,8 @@ impl LivingEntityData {
             // ==== [LivingCore] additions (LivingEntityData::new initializer) ====
             // ==== [Damage] additions (LivingEntityData::new initializer) ====
             // ==== [Effects] additions (LivingEntityData::new initializer) ====
+            effects_mod_count: 0,
+            last_equipment_items: std::array::from_fn(|_| crate::world::item::ItemStack::empty()),
             // ==== [Player] additions (LivingEntityData::new initializer) ====
         };
         let max_health = data.get_max_health();

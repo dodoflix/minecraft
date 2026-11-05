@@ -21,6 +21,7 @@ pub mod item;
 pub mod living;
 pub mod living_entity;
 pub mod movement;
+pub mod object_open_hash_map;
 pub mod plain;
 pub mod portal;
 pub mod player;

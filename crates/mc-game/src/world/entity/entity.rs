@@ -1025,7 +1025,12 @@ pub trait Entity: Any {
     }
 
     /// `updateDataBeforeSync()`.
-    fn update_data_before_sync(&mut self) {}
+    fn update_data_before_sync(&mut self) {
+        // `LivingEntity.updateDataBeforeSync`: `updateDirtyEffects()`
+        if self.living().is_some() {
+            super::living_entity::effects::update_dirty_effects(self.as_dyn_mut());
+        }
+    }
 
     /// `checkDespawn()`.
     fn check_despawn(&mut self, _level: &mut ServerLevel) {}
@@ -2070,6 +2075,80 @@ pub trait Entity: Any {
         self.living().is_some_and(|l| l.get_health() <= 0.0 || l.dead)
     }
     // ==== [Effects] additions (Entity trait methods) ====
+    /// `LivingEntity.addEffect(newEffect, source)`.
+    fn add_effect(&mut self, level: &mut ServerLevel, effect: super::effect::MobEffectInstance, source: Option<EntityId>) -> bool {
+        super::living_entity::effects::add_effect(self.as_dyn_mut(), level, effect, source)
+    }
+    /// `LivingEntity.forceAddEffect(newEffect, source)`.
+    fn force_add_effect(&mut self, level: &mut ServerLevel, effect: super::effect::MobEffectInstance, source: Option<EntityId>) {
+        super::living_entity::effects::force_add_effect(self.as_dyn_mut(), level, effect, source)
+    }
+    /// `LivingEntity.removeEffect(effect)`.
+    fn remove_effect(&mut self, level: &mut ServerLevel, effect: mc_data::MobEffect) -> bool {
+        super::living_entity::effects::remove_effect(self.as_dyn_mut(), level, effect)
+    }
+    /// `LivingEntity.removeAllEffects()`.
+    fn remove_all_effects(&mut self, level: &mut ServerLevel) -> bool {
+        super::living_entity::effects::remove_all_effects(self.as_dyn_mut(), level)
+    }
+    /// `LivingEntity.hasEffect(effect)`.
+    fn has_effect(&self, effect: mc_data::MobEffect) -> bool {
+        self.living().is_some_and(|l| l.active_effects.contains_key(&effect))
+    }
+    /// `LivingEntity.getEffect(effect)`.
+    fn get_effect(&self, effect: mc_data::MobEffect) -> Option<&super::effect::MobEffectInstance> {
+        self.living()?.active_effects.get(&effect)
+    }
+    /// `LivingEntity.canBeAffected(newEffect)`.
+    fn can_be_affected(&self, level: &ServerLevel, effect: &super::effect::MobEffectInstance) -> bool {
+        super::living_entity::effects::can_be_affected(self.as_dyn(), level, effect)
+    }
+    /// `LivingEntity.isInvertedHealAndHarm()`.
+    fn is_inverted_heal_and_harm(&self, level: &ServerLevel) -> bool {
+        super::living_entity::effects::is_inverted_heal_and_harm(self.as_dyn(), level)
+    }
+    /// `LivingEntity.tickEffects()` (server side).
+    fn tick_effects(&mut self, level: &mut ServerLevel) {
+        super::living_entity::effects::tick_effects(self.as_dyn_mut(), level)
+    }
+    /// `LivingEntity.onEffectAdded(effect, source)`.
+    fn on_effect_added(&mut self, level: &mut ServerLevel, effect: &super::effect::MobEffectInstance, source: Option<EntityId>) {
+        super::living_entity::effects::on_effect_added(self.as_dyn_mut(), level, effect, source)
+    }
+    /// `LivingEntity.onEffectUpdated(effect, doRefreshAttributes, source)`.
+    fn on_effect_updated(&mut self, level: &mut ServerLevel, effect: &super::effect::MobEffectInstance, do_refresh_attributes: bool, source: Option<EntityId>) {
+        super::living_entity::effects::on_effect_updated(self.as_dyn_mut(), level, effect, do_refresh_attributes, source)
+    }
+    /// `LivingEntity.onEffectsRemoved(effects)`.
+    fn on_effects_removed(&mut self, level: &mut ServerLevel, effects: &[super::effect::MobEffectInstance]) {
+        super::living_entity::effects::on_effects_removed(self.as_dyn_mut(), level, effects)
+    }
+    /// `LivingEntity.onAttributeUpdated(attribute)`.
+    fn on_attribute_updated(&mut self, level: &mut ServerLevel, attribute: mc_data::Attribute) {
+        super::living_entity::effects::on_attribute_updated(self.as_dyn_mut(), level, attribute)
+    }
+    /// `LivingEntity.getAbsorptionAmount()` (players keep it in synched data).
+    fn get_absorption_amount(&self) -> f32 {
+        match (self.player(), self.living()) {
+            (Some(p), _) => p.get_absorption_amount(),
+            (None, Some(l)) => l.absorption_amount,
+            _ => 0.0,
+        }
+    }
+    /// `LivingEntity.getMaxAbsorption()`.
+    fn get_max_absorption(&self) -> f32 {
+        self.living().map_or(0.0, |l| l.attributes.get_value(mc_data::Attribute::MAX_ABSORPTION) as f32)
+    }
+    /// `LivingEntity.setAbsorptionAmount(amount)`: clamped to `0..=getMaxAbsorption()`.
+    fn set_absorption_amount(&mut self, amount: f32) {
+        let amount = mc_core::math::mth::clamp_f32(amount, 0.0, self.get_max_absorption());
+        // `internalSetAbsorptionAmount`
+        if let Some(p) = self.player_mut() {
+            p.internal_set_absorption_amount(amount);
+        } else if let Some(l) = self.living_mut() {
+            l.absorption_amount = amount;
+        }
+    }
     // ==== [Player] additions (Entity trait methods) ====
     // ==== [Level] additions (Entity trait methods) ====
     // ==== [Items] additions (Entity trait methods) ====

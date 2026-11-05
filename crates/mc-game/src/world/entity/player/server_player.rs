@@ -370,6 +370,16 @@ impl Entity for ServerPlayer {
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:player")
     }
+    // ==== [Effects] additions (Entity impl) ====
+    fn on_effect_added(&mut self, level: &mut crate::server::level::ServerLevel, effect: &crate::world::entity::effect::MobEffectInstance, source: Option<EntityId>) {
+        self.server_player_on_effect_added(level, effect, source);
+    }
+    fn on_effect_updated(&mut self, level: &mut crate::server::level::ServerLevel, effect: &crate::world::entity::effect::MobEffectInstance, do_refresh_attributes: bool, source: Option<EntityId>) {
+        self.server_player_on_effect_updated(level, effect, do_refresh_attributes, source);
+    }
+    fn on_effects_removed(&mut self, level: &mut crate::server::level::ServerLevel, effects: &[crate::world::entity::effect::MobEffectInstance]) {
+        self.server_player_on_effects_removed(level, effects);
+    }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         let p = &self.player;
