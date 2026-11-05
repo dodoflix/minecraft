@@ -55,7 +55,7 @@ pub fn render_operation(op: mc_game::commands::arguments::Operation) -> String {
     let mut out = String::new();
     for (a, b) in [(17, 5), (-7, 3), (5, 0), (i32::MAX, 1), (i32::MIN, -1), (0, 0)] {
         match op.apply(a, b) {
-            Ok((a, b)) => out.push_str(&format!("{a},{b}")),
+            Ok((na, nb)) => out.push_str(&format!("{na},{}", nb.unwrap_or(b))),
             Err(e) => out.push_str(&e.get_message()),
         }
         out.push(';');
