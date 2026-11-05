@@ -15,7 +15,7 @@ use crate::world::level::gameevent::GameEventContext;
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::fluid::Fluid;
-use mc_data::{GameEvent, Item, SoundEvent};
+use mc_data::{EntityType, GameEvent, Item, SoundEvent};
 use mc_protocol::packets::play::{ParticleOptions, RandomizationType, SoundSource, Stat};
 
 /// `DispensibleContainerItem`: `checkExtraContent` / `emptyContents` (dispensers call these with a null user).
@@ -42,9 +42,16 @@ pub fn check_extra_content(item: Item, user: Option<&dyn Entity>, level: &mut Se
     }
 }
 
+/// The entity side of a `MobBucketItem`.
+struct MobBucket {
+    entity_type: EntityType,
+    empty_sound: SoundEvent,
+}
+
 pub struct BucketItem {
     /// `Fluids.EMPTY`, `WATER` or `LAVA` (the source fluid).
     content: Fluid,
+    mob: Option<MobBucket>,
 }
 
 impl BucketItem {
@@ -54,17 +61,36 @@ impl BucketItem {
             "minecraft:lava_bucket" => Fluid::LAVA,
             _ => Fluid::EMPTY,
         };
-        BucketItem { content }
+        BucketItem { content, mob: None }
     }
 
-    /// `getFluidContext() == ClipContext.Fluid.SOURCE_ONLY`.
+    /// `Items.<NAME>_BUCKET` constructor arguments: (entity type, content fluid, empty sound).
+    fn mob(item: Item) -> Self {
+        let (entity_type, content, empty_sound) = match item.data().name {
+            "minecraft:pufferfish_bucket" => (EntityType::PUFFERFISH, Fluid::WATER, SoundEvent::ITEM_BUCKET_EMPTY_FISH),
+            "minecraft:salmon_bucket" => (EntityType::SALMON, Fluid::WATER, SoundEvent::ITEM_BUCKET_EMPTY_FISH),
+            "minecraft:cod_bucket" => (EntityType::COD, Fluid::WATER, SoundEvent::ITEM_BUCKET_EMPTY_FISH),
+            "minecraft:tropical_fish_bucket" => (EntityType::TROPICAL_FISH, Fluid::WATER, SoundEvent::ITEM_BUCKET_EMPTY_FISH),
+            "minecraft:axolotl_bucket" => (EntityType::AXOLOTL, Fluid::WATER, SoundEvent::ITEM_BUCKET_EMPTY_AXOLOTL),
+            "minecraft:sulfur_cube_bucket" => (EntityType::SULFUR_CUBE, Fluid::EMPTY, SoundEvent::ITEM_BUCKET_EMPTY_SULFUR_CUBE),
+            "minecraft:tadpole_bucket" => (EntityType::TADPOLE, Fluid::WATER, SoundEvent::ITEM_BUCKET_EMPTY_TADPOLE),
+            other => panic!("{other} is not a MobBucketItem"),
+        };
+        BucketItem { content, mob: Some(MobBucket { entity_type, empty_sound }) }
+    }
+
+    /// `getFluidContext() == ClipContext.Fluid.SOURCE_ONLY` (mob buckets never clip fluids).
     fn clip_source_only(&self) -> bool {
-        self.content == Fluid::EMPTY
+        self.mob.is_none() && self.content == Fluid::EMPTY
     }
 
     /// `playEmptySound(user, level, pos)`.
     fn play_empty_sound(&self, user: Option<&dyn Entity>, level: &mut ServerLevel, pos: BlockPos) {
         let user_id = user.map(|u| u.id());
+        if let Some(mob) = &self.mob {
+            level.play_sound(user_id, pos, mob.empty_sound, SoundSource::Neutral, 1.0, 1.0);
+            return;
+        }
         let sound = if self.content == Fluid::LAVA { SoundEvent::ITEM_BUCKET_EMPTY_LAVA } else { SoundEvent::ITEM_BUCKET_EMPTY };
         level.play_sound(user_id, pos, sound, SoundSource::Blocks, 1.0, 1.0);
         level.game_event(GameEvent::FLUID_PLACE, Vec3::at_center_of(&pos), &GameEventContext::of_entity(user_id));
@@ -130,11 +156,23 @@ impl BucketItem {
 
     /// The virtual `emptyContents(user, level, pos, hitResult)`.
     fn empty_contents_impl(&self, user: Option<&dyn Entity>, level: &mut ServerLevel, pos: BlockPos, hit: Option<&BlockHitResult>) -> bool {
+        if self.mob.is_some() && self.content == Fluid::EMPTY {
+            // `MobBucketItem.emptyContents` for the sulfur cube bucket
+            self.play_empty_sound(user, level, pos);
+            return true;
+        }
         self.empty_fluid(user, level, pos, hit)
     }
 }
 
 impl DispensibleContainerItem for BucketItem {
+    fn check_extra_content(&self, user: Option<&dyn Entity>, level: &mut ServerLevel, stack: &ItemStack, pos: BlockPos) {
+        if let Some(mob) = &self.mob {
+            super::mob_bucket::spawn_from_bucket(mob.entity_type, user, level, stack, pos);
+            level.game_event(GameEvent::ENTITY_PLACE, Vec3::at_center_of(&pos), &GameEventContext::of_entity(user.map(|u| u.id())));
+        }
+    }
+
     fn empty_contents(&self, user: Option<&dyn Entity>, level: &mut ServerLevel, pos: BlockPos, hit: Option<&BlockHitResult>) -> bool {
         self.empty_contents_impl(user, level, pos, hit)
     }
@@ -189,5 +227,4 @@ impl ItemBehaviour for BucketItem {
 }
 
 register_item_class!("BucketItem", |item| Box::new(BucketItem::plain(item)));
-// Mob buckets: `Bucketable` mobs are not implemented yet, so the bucket stays an inert item (never acts as an empty bucket).
-register_item_class!("MobBucketItem", |_| Box::new(super::PlainItem));
+register_item_class!("MobBucketItem", |item| Box::new(BucketItem::mob(item)));

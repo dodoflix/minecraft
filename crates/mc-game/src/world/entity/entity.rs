@@ -3003,6 +3003,13 @@ pub trait Entity: Any {
     fn set_item_slot(&mut self, level: &mut ServerLevel, slot: super::equipment::EquipmentSlot, stack: crate::world::item::ItemStack) {
         super::mob::equipment::set_item_slot(self.as_dyn_mut(), level, slot, stack);
     }
+    /// `this instanceof Bucketable` (fish, axolotls, tadpoles override).
+    fn as_bucketable(&self) -> Option<&dyn super::bucketable::Bucketable> {
+        None
+    }
+    fn as_bucketable_mut(&mut self) -> Option<&mut dyn super::bucketable::Bucketable> {
+        None
+    }
     /// `setPersistenceRequired()`.
     fn set_persistence_required(&mut self) {
         if let Some(m) = self.mob_mut() {

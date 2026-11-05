@@ -208,9 +208,14 @@ pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
 pub fn trigger_player_sheared_equipment(_level: &mut ServerLevel, _player: EntityId, _mob: EntityId) {}
 
 /// `SpawnEggItem.spawnOffspringFromSpawnEgg(...)` when `stack` is a spawn egg: `None` = not a spawn egg, `Some(None)` = no
-/// offspring was created. SEAM(ItemsMenusScope): the spawn egg item lives in the items slice.
-pub fn spawn_offspring_from_spawn_egg(_level: &mut ServerLevel, _player: &mut crate::world::entity::ServerPlayer, _mob: &mut dyn Entity, _stack: &crate::world::item::ItemStack) -> Option<Option<EntityId>> {
-    None
+/// offspring was created (`stack` is the hand stack: consumed on success).
+pub fn spawn_offspring_from_spawn_egg(level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer, mob: &mut dyn Entity, stack: &mut crate::world::item::ItemStack) -> Option<Option<EntityId>> {
+    if !stack.item().data().classes.contains(&"SpawnEggItem") {
+        return None;
+    }
+    let position = mob.position();
+    let ty = mob.get_type();
+    Some(crate::world::item::spawn_egg_item::spawn_offspring_from_spawn_egg(player, mob, ty, level, position, stack))
 }
 
 // ==== [GoalsA] additions ====

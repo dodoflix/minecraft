@@ -11,6 +11,7 @@
 pub mod ai;
 pub mod animal;
 pub mod attributes;
+pub mod bucketable;
 pub mod decoration;
 pub mod dimensions;
 pub mod area_effect_cloud;

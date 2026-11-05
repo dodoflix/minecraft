@@ -33,11 +33,11 @@ impl ServerPlayer {
         if !item_stack.is_empty() {
             let infinite = self.has_infinite_materials();
             let mut stack = if infinite { item_stack_clone } else { self.get_item_in_hand(hand) };
-            let result = level.with_entity(target, |_level, entity| {
+            let result = level.with_entity(target, |level, entity| {
                 if entity.living().is_none() {
                     return None;
                 }
-                Some((crate::world::item::interact_living_entity(&mut stack, self, entity, hand), entity.position()))
+                Some((crate::world::item::interact_living_entity(level, &mut stack, self, entity, hand), entity.position()))
             });
             if let Some(Some((result, position))) = result
                 && result.consumes_action()

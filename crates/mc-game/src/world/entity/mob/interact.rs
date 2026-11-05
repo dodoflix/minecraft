@@ -176,12 +176,12 @@ pub fn attempt_to_shear_equipment(e: &mut dyn Entity, level: &mut ServerLevel, p
 fn check_and_handle_important_interactions(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
     let item_stack = player.get_item_in_hand(hand);
     if item_stack.is(Item::NAME_TAG) {
-        let result = with_hand_stack(player, hand, |s, p| crate::world::item::interact_living_entity(s, p, e, hand));
+        let result = with_hand_stack(player, hand, |s, p| crate::world::item::interact_living_entity(level, s, p, e, hand));
         if result.consumes_action() {
             return result;
         }
     }
-    match ext::spawn_offspring_from_spawn_egg(level, player, e, &item_stack) {
+    match with_hand_stack(player, hand, |s, p| ext::spawn_offspring_from_spawn_egg(level, p, e, s)) {
         None => InteractionResult::PASS,
         Some(None) => InteractionResult::PASS,
         Some(Some(offspring)) => {

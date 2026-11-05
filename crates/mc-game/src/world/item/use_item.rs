@@ -265,10 +265,31 @@ pub fn on_destroyed(stack: &mut ItemStack, level: &mut ServerLevel, pos: mc_core
     behaviour(stack.item()).on_destroyed(level, stack, pos);
 }
 
-/// `ItemStack.interactLivingEntity(player, target, hand)` (the `equippable.equip_on_interact` part —
-/// saddles/armor put on a mob — needs the mob equipment API of the entity slice).
-pub fn interact_living_entity(stack: &mut ItemStack, player: &mut ServerPlayer, target: &mut dyn Entity, hand: InteractionHand) -> InteractionResult {
+/// `ItemStack.interactLivingEntity(player, target, hand)`.
+pub fn interact_living_entity(level: &mut ServerLevel, stack: &mut ItemStack, player: &mut ServerPlayer, target: &mut dyn Entity, hand: InteractionHand) -> InteractionResult {
+    if let Some(equippable) = stack.get(&mc_protocol::components::EQUIPPABLE).cloned() {
+        if equippable.equip_on_interact {
+            let result = equip_on_target(level, &equippable, target, stack);
+            if result != InteractionResult::PASS {
+                return result;
+            }
+        }
+    }
     behaviour(stack.item()).interact_living_entity(stack, player, target, hand)
+}
+
+/// `Equippable.equipOnTarget(player, target, itemStack)`.
+fn equip_on_target(level: &mut ServerLevel, equippable: &mc_protocol::components::Equippable, target: &mut dyn Entity, stack: &mut ItemStack) -> InteractionResult {
+    let slot = EquipmentSlot::from_protocol(equippable.slot);
+    if target.is_equippable_in_slot(stack, slot) && target.get_item_by_slot(slot).is_empty() && target.is_alive() {
+        target.set_item_slot(level, slot, stack.split(1));
+        if target.mob().is_some() {
+            target.set_drop_chance(slot, 2.0);
+        }
+        InteractionResult::SUCCESS
+    } else {
+        InteractionResult::PASS
+    }
 }
 
 /// `ItemStack.inventoryTick(level, owner, slot)` for a non-player owner (players: `ServerPlayer::tick_inventory`).
