@@ -6,6 +6,7 @@ pub mod block_attached;
 pub mod cushion;
 pub mod hanging;
 pub mod item_frame;
+pub mod mannequin;
 pub mod map_seam;
 pub mod painting;
 
