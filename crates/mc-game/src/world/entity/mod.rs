@@ -27,6 +27,7 @@ pub mod interpolation;
 pub mod fluid_interaction;
 pub mod inside_block_effects;
 pub mod item;
+pub mod item_based_steering;
 pub mod living;
 pub mod lightning_bolt;
 pub mod living_entity;

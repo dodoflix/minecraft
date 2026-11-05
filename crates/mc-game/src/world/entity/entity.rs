@@ -2806,6 +2806,10 @@ pub trait Entity: Any {
     fn wandering_trader_despawn_delay(&self) -> Option<i32> {
         None
     }
+    /// `ItemSteerable.boost()` (`Pig`, `Strider`: the carrot-on-a-stick boost).
+    fn boost(&mut self) -> bool {
+        false
+    }
     /// `LivingEntity.setJumping(jump)` (`JumpControl.tick`; `Rabbit` plays the jump sound).
     fn set_jumping(&mut self, _level: &mut ServerLevel, jump: bool) {
         if let Some(l) = self.living_mut() {
