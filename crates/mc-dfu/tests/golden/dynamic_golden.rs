@@ -5,7 +5,7 @@ use mc_core::math::java::{java_double_to_string, java_float_to_string};
 use mc_dfu::{DataResult, Dyn, Dynamic, JNum, Ops, JSON, NBT};
 use std::panic::{catch_unwind, AssertUnwindSafe};
 
-const GOLDEN: &str = include_str!("fixtures/dynamic/golden.txt");
+const GOLDEN: &str = include_str!("../fixtures/dynamic/golden.txt");
 
 fn dump(d: &Dyn) -> String {
     let arr = |it: &mut dyn Iterator<Item = String>| it.collect::<Vec<_>>().join(",");
