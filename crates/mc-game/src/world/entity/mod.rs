@@ -10,6 +10,7 @@
 
 pub mod attributes;
 pub mod dimensions;
+pub mod area_effect_cloud;
 pub mod effect;
 pub mod entity;
 pub mod experience_orb;
