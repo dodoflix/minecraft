@@ -434,6 +434,8 @@ pub fn player_not_wearing_disguise_item(entity: &dyn Entity) -> bool {
     } else {
         true
     }
+}
+
 // ==== [Raids] additions ====
 
 /// `Entity::can_attack` default (`LivingEntity.canAttack` + `Mob`: not a ghast, `TamableAnimal`: not its owner): the `super`

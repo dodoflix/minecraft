@@ -3562,6 +3562,42 @@ pub trait Entity: Any {
     /// `getBrain().setMemory(MemoryModuleType.HEARD_BELL_TIME, gameTime)` (`BellBlockEntity.updateEntities`): entities whose
     /// brain registers the memory (villagers, ...) override this; the memory write is a no-op for brains without it.
     fn set_heard_bell_time(&mut self, _game_time: i64) {}
+    // ==== [Raids] additions (Entity trait methods) ====
+    /// The `Raider` (`PatrollingMonster`) data of raiders (`this instanceof Raider`).
+    fn raider(&self) -> Option<&super::raid::raider::RaiderData> {
+        None
+    }
+    fn raider_mut(&mut self) -> Option<&mut super::raid::raider::RaiderData> {
+        None
+    }
+    /// `PatrollingMonster.canBeLeader()` (`Ravager`/`Witch`: false).
+    fn can_be_leader(&self) -> bool {
+        true
+    }
+    /// `PatrollingMonster.canJoinPatrol()` (`Raider`: no active raid).
+    fn can_join_patrol(&self, _level: &ServerLevel) -> bool {
+        true
+    }
+    /// `Raider.applyRaidBuffs(level, wave, isCaptain)`; `raid` is the raid the raider joins (vanilla reads `getCurrentRaid()`).
+    fn apply_raid_buffs(&mut self, _level: &mut ServerLevel, _wave: i32, _is_captain: bool, _raid: &super::raid::raid::Raid) {}
+    /// `Raider.getCelebrateSound()`.
+    fn get_celebrate_sound(&self) -> Option<mc_data::SoundEvent> {
+        None
+    }
+    /// The level-dependent part of `readAdditionalSaveData` for an entity that was just loaded into the level (`Raider` joins
+    /// its raid).
+    fn after_loaded_to_level(&mut self, _level: &mut ServerLevel) {}
+    /// `Entity.considersEntityAsAlly(other)` (team allies; tamed pets and illagers extend it).
+    fn considers_entity_as_ally(&self, level: &ServerLevel, other: &dyn Entity) -> bool {
+        super::mob::ext::considers_entity_as_ally_default(level, self.as_dyn(), other)
+    }
+    /// The `SpellcasterIllager` data of evokers and illusioners.
+    fn spellcaster(&self) -> Option<&super::monster::illager::spellcaster_illager::SpellcasterData> {
+        None
+    }
+    fn spellcaster_mut(&mut self) -> Option<&mut super::monster::illager::spellcaster_illager::SpellcasterData> {
+        None
+    }
     // ==== [Villagers] additions (Entity trait methods) ====
     /// `AgeableMob.canBreed()` (villagers: enough food, awake, age 0).
     fn can_breed(&self) -> bool {
@@ -3722,41 +3758,6 @@ pub fn push_entity_base<E: Entity + ?Sized>(this: &mut E, level: &ServerLevel, o
         if !other.base().is_vehicle() && other.is_pushable(level) {
             other.push_xyz(xa, 0.0, za);
         }
-    // ==== [Raids] additions (Entity trait methods) ====
-    /// The `Raider` (`PatrollingMonster`) data of raiders (`this instanceof Raider`).
-    fn raider(&self) -> Option<&super::raid::raider::RaiderData> {
-        None
-    }
-    fn raider_mut(&mut self) -> Option<&mut super::raid::raider::RaiderData> {
-        None
-    }
-    /// `PatrollingMonster.canBeLeader()` (`Ravager`/`Witch`: false).
-    fn can_be_leader(&self) -> bool {
-        true
-    }
-    /// `PatrollingMonster.canJoinPatrol()` (`Raider`: no active raid).
-    fn can_join_patrol(&self, _level: &ServerLevel) -> bool {
-        true
-    }
-    /// `Raider.applyRaidBuffs(level, wave, isCaptain)`; `raid` is the raid the raider joins (vanilla reads `getCurrentRaid()`).
-    fn apply_raid_buffs(&mut self, _level: &mut ServerLevel, _wave: i32, _is_captain: bool, _raid: &super::raid::raid::Raid) {}
-    /// `Raider.getCelebrateSound()`.
-    fn get_celebrate_sound(&self) -> Option<mc_data::SoundEvent> {
-        None
-    }
-    /// The level-dependent part of `readAdditionalSaveData` for an entity that was just loaded into the level (`Raider` joins
-    /// its raid).
-    fn after_loaded_to_level(&mut self, _level: &mut ServerLevel) {}
-    /// `Entity.considersEntityAsAlly(other)` (team allies; tamed pets and illagers extend it).
-    fn considers_entity_as_ally(&self, level: &ServerLevel, other: &dyn Entity) -> bool {
-        super::mob::ext::considers_entity_as_ally_default(level, self.as_dyn(), other)
-    }
-    /// The `SpellcasterIllager` data of evokers and illusioners.
-    fn spellcaster(&self) -> Option<&super::monster::illager::spellcaster_illager::SpellcasterData> {
-        None
-    }
-    fn spellcaster_mut(&mut self) -> Option<&mut super::monster::illager::spellcaster_illager::SpellcasterData> {
-        None
     }
 }
 

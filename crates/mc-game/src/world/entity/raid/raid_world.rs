@@ -1,43 +1,30 @@
-//! The narrow seam between raids and the village/POI storage (DimensionsScope.DimPoi): `ServerLevel::is_village`,
-//! `isVillage(SectionPos)`, `PoiManager.getInRange(village, ..)` and `PoiManager.getRandom(home, ..)`. DimPoi installs its
-//! implementation with [`set_raid_world`] once it is on main; until then no village is ever found.
+//! The village/POI queries of raids (`ServerLevel::isVillage`, `PoiManager.getInRange(village, ..)`,
+//! `PoiManager.getRandom(home, ..)`) over the level's POI manager.
 
 use crate::server::level::ServerLevel;
+use crate::world::entity::ai::village::poi::{Occupancy, PoiTypeHolder, PoiTypes};
+use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_core::random::RandomSource;
-use std::sync::OnceLock;
 
-pub trait RaidWorld: Send + Sync {
-    /// `level.isVillage(pos)`.
-    fn is_village(&self, level: &ServerLevel, pos: BlockPos) -> bool;
-    /// `level.isVillage(sectionPos)`.
-    fn is_village_section(&self, level: &ServerLevel, section: SectionPos) -> bool {
-        self.is_village(level, section.center())
-    }
-    /// Positions of `level.getPoiManager().getInRange(t -> t.is(PoiTypeTags.VILLAGE), center, radius, IS_OCCUPIED)` in vanilla order.
-    fn occupied_village_pois(&self, level: &ServerLevel, center: BlockPos, radius: i32) -> Vec<BlockPos>;
-    /// `getPoiManager().getRandom(t -> t.is(PoiTypes.HOME), filter, ANY, center, radius, random)`.
-    fn random_home_poi(&self, level: &ServerLevel, filter: &dyn Fn(BlockPos) -> bool, center: BlockPos, radius: i32, random: &mut dyn RandomSource) -> Option<BlockPos>;
-}
-
-static RAID_WORLD: OnceLock<&'static dyn RaidWorld> = OnceLock::new();
-
-pub fn set_raid_world(world: &'static dyn RaidWorld) {
-    let _ = RAID_WORLD.set(world);
-}
-
+/// `level.isVillage(pos)`.
 pub fn is_village(level: &ServerLevel, pos: BlockPos) -> bool {
-    RAID_WORLD.get().is_some_and(|w| w.is_village(level, pos))
+    level.is_village(pos)
 }
 
+/// `level.isVillage(sectionPos)`.
 pub fn is_village_section(level: &ServerLevel, section: SectionPos) -> bool {
-    RAID_WORLD.get().is_some_and(|w| w.is_village_section(level, section))
+    level.is_village_section(section)
 }
 
+/// Positions of `getPoiManager().getInRange(t -> t.is(PoiTypeTags.VILLAGE), center, radius, IS_OCCUPIED)` in vanilla order.
 pub fn occupied_village_pois(level: &ServerLevel, center: BlockPos, radius: i32) -> Vec<BlockPos> {
-    RAID_WORLD.get().map(|w| w.occupied_village_pois(level, center, radius)).unwrap_or_default()
+    let village = Identifier::parse("minecraft:village").expect("static id");
+    let in_village = |t: PoiTypeHolder| Identifier::parse(t.registered_name()).is_ok_and(|id| level.registries.is_in_tag("minecraft:point_of_interest_type", &id, &village));
+    level.poi_manager().get_in_range(&in_village, center, radius, Occupancy::IsOccupied).iter().map(|r| r.get_pos()).collect()
 }
 
+/// `getPoiManager().getRandom(t -> t.is(PoiTypes.HOME), filter, ANY, center, radius, random)`.
 pub fn random_home_poi(level: &ServerLevel, filter: &dyn Fn(BlockPos) -> bool, center: BlockPos, radius: i32, random: &mut dyn RandomSource) -> Option<BlockPos> {
-    RAID_WORLD.get().and_then(|w| w.random_home_poi(level, filter, center, radius, random))
+    level.poi_manager().get_random(&|t| t.is(PoiTypes::HOME), filter, Occupancy::Any, center, radius, random)
 }

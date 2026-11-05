@@ -71,7 +71,7 @@ impl Vex {
         goals.add_goal(8, Box::new(VexRandomMoveGoal));
         goals.add_goal(9, Box::new(look_player));
         goals.add_goal(10, Box::new(look_mob));
-        let raider: crate::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.raider_state().is_some());
+        let raider: crate::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.raider().is_some());
         let targets = &mut self.mob.target_selector;
         targets.add_goal(1, Box::new(HurtByTargetGoal::new(vec![raider]).set_alert_others(Vec::new())));
         targets.add_goal(2, Box::new(VexCopyOwnerTargetGoal::new()));
