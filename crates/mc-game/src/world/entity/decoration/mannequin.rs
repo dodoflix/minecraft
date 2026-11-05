@@ -183,4 +183,4 @@ impl Entity for Mannequin {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static MANNEQUIN_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::MANNEQUIN, create: |ty, level: &ServerLevel| Box::new(Mannequin::new(ty, level.next_entity_id())) };
+static MANNEQUIN_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::MANNEQUIN, create: |ty, id, _registries| Box::new(Mannequin::new(ty, id)) };
