@@ -79,7 +79,7 @@ case "${1:-}" in
       for reg in /tmp/mc-builders/*.ip; do
         [ -e "$reg" ] || continue
         name=$(basename "$reg" .ip)
-        for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-6}"); do
+        for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-4}"); do
           exec {tfd}>"/tmp/mc-remote.$name.$lane"
           if flock -n "$tfd"; then
             touch "/tmp/mc-builders/$name.last"; rc=0
