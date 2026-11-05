@@ -581,6 +581,9 @@ impl Entity for ServerPlayer {
     fn is_always_experience_dropper(&self) -> bool {
         true
     }
+    fn snapshot_for_damage(&self) -> Option<Box<dyn Entity>> {
+        Some(super::damage::snapshot_for_damage(self))
+    }
     fn killed_entity(&mut self, level: &mut crate::server::level::ServerLevel, victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) -> bool {
         super::damage::killed_entity(self, level, victim)
     }

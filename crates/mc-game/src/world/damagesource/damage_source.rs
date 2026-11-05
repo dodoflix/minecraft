@@ -4,6 +4,7 @@
 //! (an attacking player or mob) is taken out of the level, so a source keeps the ids *and* a [`DamageEntity`]
 //! snapshot of what vanilla reads from the references (position, name, main hand item, kind).
 
+use std::rc::Rc;
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
@@ -17,6 +18,18 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::{ItemStack, ItemStackExt as _};
+
+/// A copy of an entity taken when a [`DamageSource`] is built (`Entity::snapshot_for_damage`): the attacker that is
+/// running is taken out of the level, but loot/xp evaluation at the victim's death still reads its equipment,
+/// attributes and effects.
+#[derive(Clone)]
+pub struct EntitySnapshot(pub Rc<dyn Entity>);
+
+impl std::fmt::Debug for EntitySnapshot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "EntitySnapshot({} #{})", self.0.get_type().name(), self.0.id())
+    }
+}
 
 /// What a [`DamageSource`] needs to know about its direct/causing entity, captured when the source is built.
 #[derive(Clone, Debug)]
@@ -46,6 +59,8 @@ pub struct DamageEntity {
     pub projectile_hurt_knockback: Option<HurtKnockbackDirection>,
     /// A tamed wolf's `getOwnerReference()` (`Some(None)`: tamed without owner), `None` for everything else.
     pub tamed_wolf_owner: Option<Option<Uuid>>,
+    /// Full copy of the entity at the time the source was built (`None` for classes without `snapshot_for_damage`).
+    pub snapshot: Option<EntitySnapshot>,
 }
 
 /// `Projectile.calculateHorizontalHurtKnockbackDirection(hurtEntity, source)`.
@@ -58,6 +73,14 @@ pub enum HurtKnockbackDirection {
 }
 
 impl DamageEntity {
+    /// The entity as a damage source participant: description + full snapshot.
+    pub fn capture(entity: &dyn Entity) -> DamageEntity {
+        let mut info = DamageEntity::of(entity);
+        info.snapshot = entity.snapshot_for_damage().map(|b| EntitySnapshot(Rc::from(b)));
+        info
+    }
+
+    /// The description only (no snapshot).
     pub fn of(entity: &dyn Entity) -> DamageEntity {
         let is_living = entity.living().is_some();
         DamageEntity {
@@ -76,6 +99,7 @@ impl DamageEntity {
             pierce_level: entity.get_pierce_level(),
             projectile_hurt_knockback: entity.hurt_knockback_direction(),
             tamed_wolf_owner: entity.tamed_wolf_owner(),
+            snapshot: None,
         }
     }
 }
@@ -98,8 +122,8 @@ impl DamageSource {
     /// `new DamageSource(type, directEntity, causingEntity, position)`.
     pub fn new(damage_type: Identifier, data: Arc<DamageType>, direct: Option<&dyn Entity>, causing: Option<&dyn Entity>, source_position: Option<Vec3>) -> DamageSource {
         let same = matches!((direct, causing), (Some(d), Some(c)) if d.id() == c.id());
-        let direct_snapshot = direct.map(|e| Arc::new(DamageEntity::of(e)));
-        let causing_snapshot = if same { direct_snapshot.clone() } else { causing.map(|e| Arc::new(DamageEntity::of(e))) };
+        let direct_snapshot = direct.map(|e| Arc::new(DamageEntity::capture(e)));
+        let causing_snapshot = if same { direct_snapshot.clone() } else { causing.map(|e| Arc::new(DamageEntity::capture(e))) };
         DamageSource {
             damage_type,
             data,
@@ -144,6 +168,18 @@ impl DamageSource {
     /// `getEntity()` (id of the causing entity).
     pub fn get_entity(&self) -> Option<EntityId> {
         self.causing_entity
+    }
+
+    /// The causing entity for read access: the live one if it is in the level, else the snapshot taken with the source.
+    pub fn causing_entity_view<'a>(&'a self, level: &'a ServerLevel) -> Option<&'a dyn Entity> {
+        let info = self.causing.as_deref()?;
+        level.get_entity(info.id).or_else(|| info.snapshot.as_ref().map(|s| &*s.0))
+    }
+
+    /// The direct entity for read access (see [`DamageSource::causing_entity_view`]).
+    pub fn direct_entity_view<'a>(&'a self, level: &'a ServerLevel) -> Option<&'a dyn Entity> {
+        let info = self.direct.as_deref()?;
+        level.get_entity(info.id).or_else(|| info.snapshot.as_ref().map(|s| &*s.0))
     }
 
     /// Snapshot of the direct entity.

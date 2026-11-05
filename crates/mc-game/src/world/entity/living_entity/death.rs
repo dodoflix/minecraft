@@ -95,7 +95,7 @@ pub fn drop_all_death_loot(entity: &mut dyn Entity, level: &mut ServerLevel, sou
         entity.drop_custom_death_loot(level, source, player_killed);
     }
     entity.drop_equipment(level);
-    drop_experience(entity, level, source.get_entity());
+    drop_experience(entity, level, source);
 }
 
 /// `LivingEntity.getLootTable()` default: `EntityType.getDefaultLootTable()`.
@@ -113,13 +113,13 @@ fn drop_from_loot_table(entity: &mut dyn Entity, level: &mut ServerLevel, source
 }
 
 /// `LivingEntity.dropExperience(level, killer)`.
-pub fn drop_experience(entity: &mut dyn Entity, level: &mut ServerLevel, killer: Option<crate::world::entity::EntityId>) {
+pub fn drop_experience(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource) {
     let living = entity.living().expect("living");
     let eligible = !living.skip_drop_experience
         && (entity.is_always_experience_dropper() || living.last_hurt_by_player_memory_time > 0 && entity.should_drop_experience() && level.mob_drops());
     if eligible {
         let base = entity.get_base_experience_reward(level);
-        let killer_entity = killer.and_then(|id| level.get_entity(id));
+        let killer_entity = source.causing_entity_view(level);
         let amount = crate::world::item::enchantment::enchantment_helper::process_mob_experience(level, killer_entity, entity, base);
         let pos = entity.position();
         crate::world::entity::experience_orb::ExperienceOrb::award(level, &pos, amount);
