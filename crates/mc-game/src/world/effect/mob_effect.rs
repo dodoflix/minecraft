@@ -242,7 +242,7 @@ impl MobEffectExt for MobEffect {
             }
             "AbsorptionMobEffect" => mob.get_absorption_amount() > 0.0,
             "BadOmenMobEffect" => {
-                if mob.is_player() && !mob.is_spectator() && level.difficulty() != mc_data::enums::Difficulty::Peaceful {
+                if mob.is_player() && !mob.is_spectator() && level.difficulty() != mc_world::level_storage::Difficulty::Peaceful {
                     if let Some(hooks) = RAID_HOOKS.get() {
                         let pos = mob.block_position();
                         if hooks.is_village(level, pos) {

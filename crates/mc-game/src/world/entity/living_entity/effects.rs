@@ -230,11 +230,12 @@ pub fn on_effect_updated(entity: &mut dyn Entity, level: &mut ServerLevel, effec
 
 /// `LivingEntity.onEffectsRemoved(effects)`.
 pub fn on_effects_removed(entity: &mut dyn Entity, level: &mut ServerLevel, effects: &[MobEffectInstance]) {
+    let id = entity.id();
     let Some(living) = entity.living_mut() else { return };
     living.effects_dirty = true;
     for effect in effects {
         effect.effect.remove_attribute_modifiers(&mut living.attributes);
-        let packet = ClientboundRemoveMobEffectPacket { entity_id: entity.id(), effect: effect.effect };
+        let packet = ClientboundRemoveMobEffectPacket { entity_id: id, effect: effect.effect };
         for_each_player_passenger(entity, level, |player| player.send(&packet));
     }
     refresh_dirty_attributes(entity, level);

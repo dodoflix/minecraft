@@ -4,7 +4,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::level_access::LevelAccessor;
+use crate::world::level::level_access::{BlockGetter, LevelAccessor};
 use crate::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
@@ -21,7 +21,7 @@ pub fn weaving(level: &mut ServerLevel, mob: &mut dyn Entity) {
         return;
     }
     let pos = mob.block_position();
-    let random = &mut *mob.base_mut().random;
+    let random = &mut mob.base_mut().random;
     // `maxCobwebs = random -> Mth.randomBetweenInclusive(random, 2, 3)`
     let cobweb_count = random_between_inclusive(random, 2, 3) as usize;
     let mut positions = BlockPosHashSet::new();
@@ -44,7 +44,7 @@ pub fn weaving(level: &mut ServerLevel, mob: &mut dyn Entity) {
 /// The silverfish themselves are spawned by the mob classes (no `Silverfish` entity exists yet), only the draws from
 /// the mob's random are reproduced.
 pub fn infested(_level: &mut ServerLevel, mob: &mut dyn Entity) {
-    let random = &mut *mob.base_mut().random;
+    let random = &mut mob.base_mut().random;
     if random.next_float() <= 0.1 {
         let _count = random_between_inclusive(random, 1, 2);
     }
