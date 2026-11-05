@@ -3,6 +3,8 @@
 //! so that data component, data-pack and saved-data codecs can be written once and run over every ops.
 
 mod codec;
+pub mod dynamic_like;
+mod nbt_order;
 mod dynv;
 pub mod extra;
 mod hash;
@@ -17,6 +19,7 @@ pub use codec::{Codec, CodecImpl, Dynamic, Either, MapCodec, MapCodecImpl};
 pub use dynv::{Dyn, JNum};
 pub use hash::{crc32c, hash_dyn};
 pub use ops::{ListBuilder, MapLike, Ops, OpsKind, RecordBuilder, HASH, JSON, NBT};
+pub use dynamic_like::OptionalDynamic;
 pub use result::{DataResult, Msg};
 
 use mc_nbt::Tag;

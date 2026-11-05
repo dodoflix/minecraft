@@ -134,9 +134,14 @@ impl Ops {
         if self.is_hash() {
             return Dyn::Map(entries);
         }
+        for (k, _) in &entries {
+            assert!(matches!(k, Dyn::Str(_)), "Cannot create map with non-string key: {k}");
+        }
+        if self.is_nbt() {
+            return Dyn::Map(crate::nbt_order::organic(entries));
+        }
         let mut out: Vec<(Dyn, Dyn)> = Vec::with_capacity(entries.len());
         for (k, v) in entries {
-            assert!(matches!(k, Dyn::Str(_)), "Cannot create map with non-string key: {k}");
             Dyn::map_put(&mut out, k, v);
         }
         Dyn::Map(out)
@@ -166,7 +171,7 @@ impl Ops {
             Dyn::Double(v) => JNum::Double(*v),
             Dyn::JsonNum(t) if self.is_json() => JNum::Lazy(t.clone()),
             _ => {
-                let msg = if self.is_nbt() { "Not a number".to_string() } else { format!("Not a number: {input}") };
+                let msg = if self.is_nbt() { "Not a number".to_string() } else { format!("Not a number: {}", self.show(input)) };
                 return DataResult::error(move || msg.clone());
             }
         };
@@ -178,7 +183,7 @@ impl Ops {
             OpsKind::Json => match input {
                 Dyn::Bool(b) => DataResult::success(*b),
                 _ => {
-                    let i = input.clone();
+                    let i = self.show(input);
                     DataResult::error(move || format!("Not a boolean: {i}"))
                 }
             },
@@ -195,7 +200,7 @@ impl Ops {
                 if self.is_nbt() {
                     DataResult::error_str("Not a string")
                 } else {
-                    let i = input.clone();
+                    let i = self.show(input);
                     DataResult::error(move || format!("Not a string: {i}"))
                 }
             }
@@ -214,13 +219,21 @@ impl Ops {
             Dyn::Ints(v) if self.is_nbt() => DataResult::success(Cow::Owned(v.iter().map(|x| Dyn::Int(*x)).collect())),
             Dyn::Longs(v) if self.is_nbt() => DataResult::success(Cow::Owned(v.iter().map(|x| Dyn::Long(*x)).collect())),
             _ => {
-                let i = input.clone();
+                let i = self.show(input);
                 if self.is_nbt() {
                     DataResult::error(move || format!("Not a list: {i}"))
                 } else {
                     DataResult::error(move || format!("Not a json array: {i}"))
                 }
             }
+        }
+    }
+
+    /// `getStream`: as [`Self::get_list`] but NBT's error message is the bare `Not a list`.
+    pub fn get_stream<'a>(&self, input: &'a Dyn) -> DataResult<std::borrow::Cow<'a, [Dyn]>> {
+        match self.get_list(input) {
+            DataResult::Error { .. } if self.is_nbt() => DataResult::error_str("Not a list"),
+            r => r,
         }
     }
 
@@ -231,7 +244,7 @@ impl Ops {
         match input {
             Dyn::Map(m) => DataResult::success(MapLike { entries: m, kind: self.kind }),
             _ => {
-                let i = input.clone();
+                let i = self.show(input);
                 if self.is_nbt() {
                     DataResult::error(move || format!("Not a map: {i}"))
                 } else {
@@ -251,12 +264,12 @@ impl Ops {
         if let (true, Dyn::Bytes(b)) = (self.is_nbt(), input) {
             return DataResult::success(b.clone());
         }
-        self.get_list(input).flat_map(|list| {
+        self.get_stream(input).flat_map(|list| {
             let nums: Vec<DataResult<JNum>> = list.iter().map(|e| self.get_number_value(e)).collect();
             if nums.iter().all(|n| n.is_success()) {
                 DataResult::success(nums.into_iter().map(|n| n.result().unwrap().byte_value()).collect())
             } else {
-                let i = input.clone();
+                let i = self.show(input);
                 DataResult::error(move || format!("Some elements are not bytes: {i}"))
             }
         })
@@ -265,12 +278,12 @@ impl Ops {
         if let (true, Dyn::Ints(b)) = (self.is_nbt(), input) {
             return DataResult::success(b.clone());
         }
-        self.get_list(input).flat_map(|list| {
+        self.get_stream(input).flat_map(|list| {
             let nums: Vec<DataResult<JNum>> = list.iter().map(|e| self.get_number_value(e)).collect();
             if nums.iter().all(|n| n.is_success()) {
                 DataResult::success(nums.into_iter().map(|n| n.result().unwrap().int_value()).collect())
             } else {
-                let i = input.clone();
+                let i = self.show(input);
                 DataResult::error(move || format!("Some elements are not ints: {i}"))
             }
         })
@@ -279,12 +292,12 @@ impl Ops {
         if let (true, Dyn::Longs(b)) = (self.is_nbt(), input) {
             return DataResult::success(b.clone());
         }
-        self.get_list(input).flat_map(|list| {
+        self.get_stream(input).flat_map(|list| {
             let nums: Vec<DataResult<JNum>> = list.iter().map(|e| self.get_number_value(e)).collect();
             if nums.iter().all(|n| n.is_success()) {
                 DataResult::success(nums.into_iter().map(|n| n.result().unwrap().long_value()).collect())
             } else {
-                let i = input.clone();
+                let i = self.show(input);
                 DataResult::error(move || format!("Some elements are not longs: {i}"))
             }
         })
@@ -310,7 +323,7 @@ impl Ops {
                     DataResult::success(Dyn::List(out))
                 }
                 _ => {
-                    let p = prefix.clone();
+                    let p = self.show(prefix);
                     DataResult::error_partial(move || format!("mergeToList called with not a list: {p}"), prefix.clone())
                 }
             },
@@ -326,7 +339,7 @@ impl Ops {
                     Dyn::Ints(b) => Collector::Ints(b.clone()),
                     Dyn::Longs(b) => Collector::Longs(b.clone()),
                     _ => {
-                        let p = prefix.clone();
+                        let p = self.show(prefix);
                         return DataResult::error_partial(move || format!("mergeToList called with not a list: {p}"), prefix.clone());
                     }
                 };
@@ -350,19 +363,32 @@ impl Ops {
             }
             _ => {
                 if !matches!(map, Dyn::Map(_) | Dyn::Empty) {
-                    let m = map.clone();
+                    let m = self.show(map);
                     return DataResult::error_partial(move || format!("mergeToMap called with not a map: {m}"), map.clone());
                 }
                 if !matches!(key, Dyn::Str(_)) {
-                    let k = key.clone();
+                    let k = self.show(&key);
                     return DataResult::error_partial(move || format!("key is not a string: {k}"), map.clone());
                 }
-                let mut out = match map {
+                DataResult::success(Dyn::Map(self.put_all(map, [(key, value)])))
+            }
+        }
+    }
+
+    /// `shallowCopy()` + `put`s of `items` (NBT, in `HashMap` iteration order) or a copy + `JsonObject.add`s.
+    fn put_all(&self, base: &Dyn, items: impl IntoIterator<Item = (Dyn, Dyn)>) -> Vec<(Dyn, Dyn)> {
+        match (self.kind, base) {
+            (OpsKind::Nbt, Dyn::Map(m)) => crate::nbt_order::copy_put(m, items),
+            (OpsKind::Nbt, _) => crate::nbt_order::organic(items),
+            (_, base) => {
+                let mut out = match base {
                     Dyn::Map(m) => m.clone(),
                     _ => Vec::new(),
                 };
-                Dyn::map_put(&mut out, key, value);
-                DataResult::success(Dyn::Map(out))
+                for (k, v) in items {
+                    Dyn::map_put(&mut out, k, v);
+                }
+                out
             }
         }
     }
@@ -375,24 +401,24 @@ impl Ops {
             }
             _ => {
                 if !matches!(map, Dyn::Map(_) | Dyn::Empty) {
-                    let m = map.clone();
+                    let m = self.show(map);
                     return DataResult::error_partial(move || format!("mergeToMap called with not a map: {m}"), map.clone());
                 }
                 if entries.is_empty() {
                     return DataResult::success(if map.is_empty_value() { Dyn::Map(Vec::new()) } else { map.clone() });
                 }
-                let mut out = match map {
-                    Dyn::Map(m) => m.clone(),
-                    _ => Vec::new(),
-                };
                 let mut missed: Vec<Dyn> = Vec::new();
-                for (k, v) in entries {
-                    if matches!(k, Dyn::Str(_)) {
-                        Dyn::map_put(&mut out, k.clone(), v.clone());
-                    } else {
-                        missed.push(k.clone());
-                    }
-                }
+                let out = self.put_all(
+                    map,
+                    entries.iter().filter_map(|(k, v)| {
+                        if matches!(k, Dyn::Str(_)) {
+                            Some((k.clone(), v.clone()))
+                        } else {
+                            missed.push(k.clone());
+                            None
+                        }
+                    }),
+                );
                 if missed.is_empty() {
                     DataResult::success(Dyn::Map(out))
                 } else {
@@ -405,7 +431,7 @@ impl Ops {
     /// `mergeToPrimitive`.
     pub fn merge_to_primitive(&self, prefix: &Dyn, value: Dyn) -> DataResult<Dyn> {
         if !prefix.is_empty_value() {
-            let (p, v) = (prefix.clone(), value.clone());
+            let (p, v) = (self.show(prefix), self.show(&value));
             DataResult::error_partial(move || format!("Do not know how to append a primitive value {v} to {p}"), value)
         } else {
             DataResult::success(value)
@@ -416,9 +442,58 @@ impl Ops {
     pub fn remove(&self, input: &Dyn, key: &str) -> Dyn {
         match (self.kind, input) {
             (OpsKind::Hash, _) => input.clone(),
+            (OpsKind::Nbt, Dyn::Map(m)) => Dyn::Map(crate::nbt_order::copy_remove(m, key)),
             (_, Dyn::Map(m)) => Dyn::Map(m.iter().filter(|(k, _)| k.as_str() != Some(key)).cloned().collect()),
             _ => input.clone(),
         }
+    }
+
+    /// `DynamicOps.getGeneric(input, key)`: panics on non-string keys like `NbtOps`' `MapLike.get`.
+    pub fn get_generic(&self, input: &Dyn, key: &Dyn) -> DataResult<Dyn> {
+        self.get_map(input).flat_map(|map| {
+            let Dyn::Str(k) = key else { panic!("Cannot get map entry with non-string key: {key}") };
+            match map.get(k) {
+                Some(v) => DataResult::success(v.clone()),
+                None => {
+                    let (k, i) = (self.show(key), self.show(input));
+                    DataResult::error(move || format!("No element {k} in the map {i}"))
+                }
+            }
+        })
+    }
+
+    /// `DynamicOps.get(input, key)`.
+    pub fn get(&self, input: &Dyn, key: &str) -> DataResult<Dyn> {
+        self.get_generic(input, &Dyn::Str(key.to_string()))
+    }
+
+    /// `DynamicOps.set(input, key, value)`: `mergeToMap(..).result().orElse(input)`.
+    pub fn set(&self, input: &Dyn, key: &str, value: Dyn) -> Dyn {
+        self.merge_to_map_one(input, Dyn::Str(key.to_string()), value).result().unwrap_or_else(|| input.clone())
+    }
+
+    /// `DynamicOps.update(input, key, function)`.
+    pub fn update(&self, input: &Dyn, key: &str, function: impl FnOnce(Dyn) -> Dyn) -> Dyn {
+        match self.get(input, key).result() {
+            Some(v) => self.set(input, key, function(v)),
+            None => input.clone(),
+        }
+    }
+
+    /// `DynamicOps.updateGeneric(input, key, function)`.
+    pub fn update_generic(&self, input: &Dyn, key: &Dyn, function: impl FnOnce(Dyn) -> Dyn) -> Dyn {
+        self.get_generic(input, key)
+            .flat_map(|v| self.merge_to_map_one(input, key.clone(), function(v)))
+            .result()
+            .unwrap_or_else(|| input.clone())
+    }
+
+    /// `toString()` of a value of this ops' type (`Tag` SNBT, `JsonElement` text).
+    pub fn show(&self, value: &Dyn) -> String {
+        if self.is_nbt() && let Ok(tag) = value.to_tag() {
+            return tag.to_string();
+        }
+        value.to_json_string()
     }
 
     /// `Dynamic.convert`: re-express `input` (built by `self`) in `out`'s ops.
@@ -446,14 +521,20 @@ impl Ops {
                 Dyn::Empty => out.empty(),
                 Dyn::Str(s) => out.create_string(s.clone()),
                 Dyn::Bool(b) => out.create_boolean(*b),
-                Dyn::List(l) => out.create_list(l.iter().map(|e| self.convert_to(out, e)).collect()),
-                Dyn::Map(m) => out.create_map(m.iter().map(|(k, v)| (self.convert_to(out, k), self.convert_to(out, v))).collect()),
+                // `JsonOps.getStream/getMapValues` hand nested `JsonNull`s out as Java `null`, which `convertTo` dereferences
+                Dyn::List(l) => out.create_list(l.iter().map(|e| self.convert_nested(out, e)).collect()),
+                Dyn::Map(m) => out.create_map(m.iter().map(|(k, v)| (self.convert_to(out, k), self.convert_nested(out, v))).collect()),
                 Dyn::Bytes(v) => out.create_byte_list(v.clone()),
                 Dyn::Ints(v) => out.create_int_list(v.clone()),
                 Dyn::Longs(v) => out.create_long_list(v.clone()),
                 n => self.convert_json_number(out, n),
             },
         }
+    }
+
+    fn convert_nested(&self, out: &Ops, input: &Dyn) -> Dyn {
+        assert!(!(self.is_json() && input.is_empty_value()), "NullPointerException: JsonNull element in JsonOps.convertTo");
+        self.convert_to(out, input)
     }
 
     /// `JsonOps.convertTo` for numbers: narrowest of byte/short/int/long when the `BigDecimal` is an exact long,
@@ -704,7 +785,12 @@ impl RecordBuilder {
         entries.flat_map(|e| match ops.kind {
             OpsKind::Hash => DataResult::success(Dyn::Map(e)),
             _ => match prefix {
+                Dyn::Empty if ops.is_nbt() => DataResult::success(Dyn::Map(crate::nbt_order::organic(e))),
                 Dyn::Empty => DataResult::success(Dyn::Map(e)),
+                Dyn::Map(p) if ops.is_nbt() => {
+                    // the builder is a `CompoundTag`: its entries are merged in its own iteration order
+                    DataResult::success(Dyn::Map(crate::nbt_order::copy_put(p, crate::nbt_order::organic(e))))
+                }
                 Dyn::Map(p) => {
                     let mut out = p.clone();
                     for (k, v) in e {
@@ -713,7 +799,7 @@ impl RecordBuilder {
                     DataResult::success(Dyn::Map(out))
                 }
                 other => {
-                    let o = other.clone();
+                    let o = ops.show(other);
                     DataResult::error_partial(move || format!("mergeToMap called with not a map: {o}"), other.clone())
                 }
             },

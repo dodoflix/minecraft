@@ -32,7 +32,7 @@ impl<T> Either<T, T> {
 }
 
 /// `Dynamic<?>`: a value with the ops it was built by (`Codec.PASSTHROUGH`).
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct Dynamic {
     pub ops: Ops,
     pub value: Dyn,
@@ -42,8 +42,8 @@ impl Dynamic {
     pub fn new(ops: Ops, value: Dyn) -> Self {
         Dynamic { ops, value }
     }
-    /// `Dynamic.convert(outOps)`.
-    pub fn convert(&self, out: &Ops) -> Dyn {
+    /// `Dynamic.convert(outOps)` as the raw value (the `Dynamic`-returning form is `convert` in `dynamic_like.rs`).
+    pub fn convert_value(&self, out: &Ops) -> Dyn {
         if self.ops == *out { self.value.clone() } else { self.ops.convert_to(out, &self.value) }
     }
 }
