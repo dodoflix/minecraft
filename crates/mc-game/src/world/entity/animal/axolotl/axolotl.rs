@@ -24,7 +24,6 @@ use crate::world::entity::mob::{self, MobData, MobKind, ageable};
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
-use crate::world::level::BlockGetter;
 use crate::world::level::LevelReader;
 use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::pathfinder::PathType;
@@ -484,7 +483,7 @@ impl Entity for Axolotl {
         let current_health = self.get_health();
         if !self.mob.is_no_ai()
             && self.base_mut().random.next_int_bounded(3) == 0
-            && (self.base_mut().random.next_int_bounded(3) as f32 < damage || current_health / self.get_max_health() < 0.5)
+            && ((self.base_mut().random.next_int_bounded(3) as f32) < damage || current_health / self.mob.living.get_max_health() < 0.5)
             && damage < current_health
             && self.is_in_water()
             && (source.get_entity().is_some() || source.get_direct_entity().is_some())

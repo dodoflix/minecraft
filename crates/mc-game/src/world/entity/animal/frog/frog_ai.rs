@@ -20,7 +20,6 @@ use crate::world::entity::ai::navigation::get_path_type_static_for_mob as path_t
 use crate::world::entity::schedule::Activity;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::material::FluidStateExt;
 use crate::world::level::pathfinder::PathType;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

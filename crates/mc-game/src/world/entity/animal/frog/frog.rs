@@ -24,7 +24,7 @@ use crate::world::entity::spawn_predicates;
 use crate::world::entity::variant::{self, SpawnContext};
 use crate::world::entity::{Entity, EntityId, MoverType};
 use crate::world::item::ItemStack;
-use crate::world::level::BlockGetter;
+use crate::world::level::level_access::LevelAccessor;
 use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type, default_get_start};
 use crate::world::level::pathfinder::{NodeId, PathFinder, PathType};
@@ -234,7 +234,7 @@ impl Entity for Frog {
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
         let mut frog = factory::create(EntityType::FROG, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
-        frog_ai::init_memories(&mut *frog, level.random());
+        frog_ai::init_memories(&mut *frog, LevelAccessor::random(level));
         Some(frog)
     }
 
