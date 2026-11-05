@@ -7,13 +7,14 @@ use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemSt
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::effect::potion_contents;
+use crate::world::entity::area_effect_cloud::AreaEffectCloud;
 use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::gameevent::GameEventContext;
 use mc_core::direction::Direction;
-use mc_data::{GameEvent, Item, ParticleType, Potion, SoundEvent};
+use mc_data::{EntityType, GameEvent, Item, ParticleType, Potion, SoundEvent};
 use mc_protocol::components::{POTION_CONTENTS, PotionContents};
 use mc_protocol::packets::play::ParticleOptions;
 use mc_text::Component;
@@ -118,6 +119,29 @@ impl BottleItem {
 impl ItemBehaviour for BottleItem {
     fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
         let stack = player.get_item_in_hand(hand);
+        let (x, y, z) = (player.base().x(), player.base().y(), player.base().z());
+        // clouds of the ender dragon within 2 blocks: `getEntitiesOfClass(AreaEffectCloud, bb.inflate(2), alive && owner is EnderDragon)`
+        let area = player.get_bounding_box().inflate(2.0, 2.0, 2.0);
+        let dragon_clouds = {
+            let level_ref: &ServerLevel = level;
+            level.get_entities_of_class(
+                &area,
+                |e| e.as_any().is::<AreaEffectCloud>(),
+                |e| e.is_alive() && e.as_any().downcast_ref::<AreaEffectCloud>().and_then(|c| c.get_owner(level_ref)).is_some_and(|o| o.get_type() == EntityType::ENDER_DRAGON),
+            )
+        };
+        if let Some(&cloud) = dragon_clouds.first() {
+            level.with_entity(cloud, |_, e| {
+                if let Some(c) = e.as_any_mut().downcast_mut::<AreaEffectCloud>() {
+                    c.set_radius(c.get_radius() - 0.5);
+                }
+            });
+            level.play_sound_at(None, x, y, z, SoundEvent::ITEM_BOTTLE_FILL_DRAGONBREATH, SoundSource::Neutral, 1.0, 1.0);
+            level.game_event_from_entity(Some(player.id()), GameEvent::FLUID_PICKUP, player.position());
+            // SEAM(ImAdvancements): `CriteriaTriggers.PLAYER_INTERACTED_WITH_ENTITY.trigger(player, itemStack, cloud)`
+            let InteractionResult::Success(success) = InteractionResult::SUCCESS else { unreachable!() };
+            return InteractionResult::Success(success.held_item_transformed_to(self.turn_bottle_into_item(stack, level, player, ItemStack::new(Item::DRAGON_BREATH))));
+        }
         let hit = player_pov_hit_result(level, player, true);
         if hit.miss {
             return InteractionResult::PASS;
@@ -126,7 +150,6 @@ impl ItemBehaviour for BottleItem {
         if !may_interact(level, player, pos) || !BlockGetter::get_fluid_state(level, pos).is_tag("water") {
             return InteractionResult::PASS;
         }
-        let (x, y, z) = (player.base().x(), player.base().y(), player.base().z());
         level.play_sound_at(Some(player.id()), x, y, z, SoundEvent::ITEM_BOTTLE_FILL, SoundSource::Neutral, 1.0, 1.0);
         level.game_event_at_block(GameEvent::FLUID_PICKUP, pos, &GameEventContext::of_entity(Some(player.id())));
         let water = create_potion_item_stack(Item::POTION, Potion::WATER);
