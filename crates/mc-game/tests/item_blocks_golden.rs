@@ -13,7 +13,7 @@ use mc_data::block::{Block, BlockState};
 use mc_game::server::level::ServerLevel;
 use mc_game::world::entity::{Entity, ServerPlayer};
 use mc_game::world::item::block_transformer::BlockTransformer;
-use mc_game::world::item::{InteractionHand, ItemStack, UseOnContext, behaviour, item_stack_use_on};
+use mc_game::world::item::{InteractionHand, ItemStack, UseOnContext, item_stack_use_on};
 use mc_game::world::level::levelgen::registries::load_vanilla_data;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_protocol::codec::GameProfile;
@@ -101,6 +101,12 @@ fn block_transformers_and_honeycomb_match_vanilla() {
     let overworld = Identifier::parse("minecraft:overworld").unwrap();
     let mut failures = Vec::new();
     for (index, case) in cases().into_iter().enumerate() {
+        // doors, trapdoors and copper chests consume the use themselves (`Block.useItemOn`/`useWithoutItem` run before the
+        // item's `useOn` in `ServerPlayerGameMode.useItemOn`): the vanilla fixture shows the block's own interaction, which
+        // belongs to the block slice, not to the item behaviours replayed here.
+        if ["_door", "trapdoor", "copper_chest"].iter().any(|k| case.block.contains(k)) {
+            continue;
+        }
         let mut level = ServerLevel::detached(overworld.clone());
         let mut steve = ServerPlayer::new(1, overworld.clone(), GameProfile { id: uuid::Uuid::from_u128(1), name: "Steve".into(), properties: vec![] }, Default::default());
         steve.set_pos(0.5, -60.0, 0.5);
@@ -126,7 +132,6 @@ fn block_transformers_and_honeycomb_match_vanilla() {
         } else {
             item_stack_use_on(&mut ctx, &mut level, &mut steve);
         }
-        let _ = behaviour(item);
         steve.set_item_in_hand(InteractionHand::MainHand, ctx.item_stack);
         let mut actual = Vec::new();
         for p in [pos, pos.above()] {

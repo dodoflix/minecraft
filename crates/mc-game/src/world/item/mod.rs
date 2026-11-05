@@ -10,6 +10,7 @@ pub mod bone_meal_item;
 pub mod bucket_item;
 pub mod debug_stick_item;
 pub mod honeycomb_item;
+pub mod knowledge_book_item;
 mod item_use_helpers;
 pub mod shears_item;
 mod bundle;
