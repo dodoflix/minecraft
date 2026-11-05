@@ -66,13 +66,13 @@ struct GridMenu {
 }
 
 impl PlaceRecipeMenu for GridMenu {
-    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents) {
+    fn fill_craft_slots_stacked_contents(&self, _player: &mut dyn MenuPlayer, contents: &mut StackedItemContents) {
         self.grid.iter().for_each(|s| contents.account_simple_stack(s));
     }
     fn clear_crafting_content(&mut self, _player: &mut dyn MenuPlayer) {
         self.grid.iter_mut().for_each(|s| *s = ItemStack::empty());
     }
-    fn recipe_matches(&self, recipe: &RecipeHolder) -> bool {
+    fn recipe_matches(&self, _player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool {
         recipe.value.matches_crafting(&CraftingInput::of(2, 2, &self.grid), &self.level)
     }
     fn input_grid_len(&self) -> usize {

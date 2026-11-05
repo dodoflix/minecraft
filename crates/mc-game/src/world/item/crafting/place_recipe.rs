@@ -28,7 +28,7 @@ pub trait RecipeBookMenu {
     fn handle_placement(&mut self, player: &mut dyn MenuPlayer, use_max_items: bool, allow_dropping_items_to_clear: bool, recipe: &RecipeHolder) -> PostPlaceAction;
 
     /// `fillCraftSlotsStackedContents(stackedContents)`.
-    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents);
+    fn fill_craft_slots_stacked_contents(&self, player: &mut dyn MenuPlayer, contents: &mut StackedItemContents);
 
     /// `getRecipeBookType()`.
     fn get_recipe_book_type(&self) -> RecipeBookType;
@@ -37,11 +37,11 @@ pub trait RecipeBookMenu {
 /// `ServerPlaceRecipe.CraftingMenuAccess` + `Slot` access of the input grid / slots to clear.
 pub trait PlaceRecipeMenu {
     /// `fillCraftSlotsStackedContents(stackedContents)`.
-    fn fill_craft_slots_stacked_contents(&self, contents: &mut StackedItemContents);
+    fn fill_craft_slots_stacked_contents(&self, player: &mut dyn MenuPlayer, contents: &mut StackedItemContents);
     /// `clearCraftingContent()`.
     fn clear_crafting_content(&mut self, player: &mut dyn MenuPlayer);
     /// `recipeMatches(recipe)`.
-    fn recipe_matches(&self, recipe: &RecipeHolder) -> bool;
+    fn recipe_matches(&self, player: &mut dyn MenuPlayer, recipe: &RecipeHolder) -> bool;
 
     /// `inputGridSlots.size()`.
     fn input_grid_len(&self) -> usize;
@@ -122,7 +122,7 @@ pub fn place_recipe(
     for stack in placer.player.inventory().get_non_equipment_items() {
         available_items.account_simple_stack(stack);
     }
-    placer.menu.fill_craft_slots_stacked_contents(&mut available_items);
+    placer.menu.fill_craft_slots_stacked_contents(placer.player, &mut available_items);
     placer.try_place_recipe(recipe, &mut available_items)
 }
 
@@ -157,7 +157,7 @@ impl ServerPlaceRecipe<'_> {
     }
 
     fn place_recipe(&mut self, recipe: &RecipeHolder, available_items: &mut StackedItemContents) {
-        let recipe_matches_placed = self.menu.recipe_matches(recipe);
+        let recipe_matches_placed = self.menu.recipe_matches(self.player, recipe);
         let biggest_craftable_stack = available_items.get_biggest_craftable_stack(&recipe.value, i32::MAX, None);
         if recipe_matches_placed {
             for index in 0..self.menu.input_grid_len() {
