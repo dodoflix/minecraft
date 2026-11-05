@@ -4,7 +4,7 @@ use super::target_goal::TargetGoal;
 use super::TargetType;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use crate::world::entity::ai::targeting::{TargetSelector, TargetingConditions};
+use crate::world::entity::ai::targeting::{SourceTargetSelector, TargetSelector, TargetingConditions};
 use crate::world::entity::mob::ext;
 use crate::world::entity::{Entity, EntityId};
 use mc_core::phys::AABB;
@@ -53,6 +53,12 @@ impl NearestAttackableTargetGoal {
             target_conditions: TargetingConditions::for_combat().selector(selector),
             search_area: None,
         }
+    }
+
+    /// The selector lambda captures the mob (`Bee`): evaluated as `selector.test(target, level)` with the mob as receiver.
+    pub fn with_source_selector(mut self, selector: SourceTargetSelector) -> Self {
+        self.target_conditions = self.target_conditions.source_selector(Some(selector));
+        self
     }
 
     /// `setUnseenMemoryTicks(unseenMemoryTicks)`.

@@ -8,6 +8,9 @@ use std::sync::Arc;
 /// `TargetingConditions.Selector`: `test(target, level)`.
 pub type TargetSelector = Arc<dyn Fn(&dyn Entity, &ServerLevel) -> bool + Send + Sync>;
 
+/// A `Selector` lambda that reads the targeting mob (`(entity, level) -> bee.isAngryAt(entity, level)`): `test(source, target, level)`.
+pub type SourceTargetSelector = Arc<dyn Fn(&dyn Entity, &dyn Entity, &ServerLevel) -> bool + Send + Sync>;
+
 #[derive(Clone)]
 pub struct TargetingConditions {
     is_combat: bool,
@@ -15,11 +18,12 @@ pub struct TargetingConditions {
     check_line_of_sight: bool,
     test_invisible: bool,
     selector: Option<TargetSelector>,
+    source_selector: Option<SourceTargetSelector>,
 }
 
 impl TargetingConditions {
     fn new(is_combat: bool) -> Self {
-        Self { is_combat, range: -1.0, check_line_of_sight: true, test_invisible: true, selector: None }
+        Self { is_combat, range: -1.0, check_line_of_sight: true, test_invisible: true, selector: None, source_selector: None }
     }
 
     /// `forCombat()` (also `DEFAULT`).
@@ -51,6 +55,12 @@ impl TargetingConditions {
         self
     }
 
+    /// `selector(...)` for a lambda that captures the targeting mob (evaluated right after the plain selector).
+    pub fn source_selector(mut self, selector: Option<SourceTargetSelector>) -> Self {
+        self.source_selector = selector;
+        self
+    }
+
     /// `test(level, targeter, target)`: `targeter` is the mob doing the targeting (`None` = no source).
     pub fn test(&self, level: &ServerLevel, targeter: Option<&dyn Entity>, target: &dyn Entity) -> bool {
         if targeter.is_some_and(|t| t.id() == target.id()) {
@@ -61,6 +71,11 @@ impl TargetingConditions {
         }
         if self.selector.as_ref().is_some_and(|s| !s(target, level)) {
             return false;
+        }
+        if let (Some(s), Some(source)) = (self.source_selector.as_ref(), targeter) {
+            if !s(source, target, level) {
+                return false;
+            }
         }
         match targeter {
             None => {
