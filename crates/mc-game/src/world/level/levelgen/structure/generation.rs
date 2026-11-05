@@ -208,3 +208,65 @@ pub fn get_structure_spawn_override(env: &GenEnv, source: &dyn StructureDataSour
     }
     None
 }
+
+/// Expands a flat generator's `structure_overrides` (`HolderSet<StructureSet>`) to registry ids; a tag is resolved
+/// through `tags/worldgen/structure_set` (nested `#tag` entries followed, optional entries that do not exist skipped).
+fn expand_structure_set_holder_set(set: &mc_worldgen::flat::settings::StructureSetHolderSet, worldgen: &mc_worldgen::data::WorldgenRegistries) -> Vec<mc_core::ident::Identifier> {
+    use mc_worldgen::flat::settings::StructureSetHolderSet;
+    fn expand_tag(id: &mc_core::ident::Identifier, worldgen: &mc_worldgen::data::WorldgenRegistries, out: &mut Vec<mc_core::ident::Identifier>, depth: u32) {
+        if depth > 16 {
+            return;
+        }
+        let Some(json) = worldgen.raw("tags/worldgen/structure_set", id) else { return };
+        for entry in json.get("values").and_then(|v| v.as_array()).into_iter().flatten() {
+            let text = entry.as_str().or_else(|| entry.get("id").and_then(|v| v.as_str()));
+            let Some(text) = text else { continue };
+            if let Some(tag) = text.strip_prefix('#') {
+                if let Ok(tag) = mc_core::ident::Identifier::read(tag) {
+                    expand_tag(&tag, worldgen, out, depth + 1);
+                }
+            } else if let Ok(element) = mc_core::ident::Identifier::read(text)
+                && !out.contains(&element)
+            {
+                out.push(element);
+            }
+        }
+    }
+    match set {
+        StructureSetHolderSet::Direct(ids) => ids.clone(),
+        StructureSetHolderSet::Tag(tag) => {
+            let mut out = Vec::new();
+            expand_tag(tag, worldgen, &mut out, 0);
+            out
+        }
+    }
+}
+
+/// `ChunkGenerator.createState(structureSets, randomState, levelSeed)` / `FlatLevelSource.createState(..)`.
+/// `flat`: `None` for a normal (noise/debug) generator, `Some(overrides)` for a flat generator with its
+/// `structure_overrides` (`None` there = all sets).
+pub fn create_structure_state(
+    generator: &dyn mc_worldgen::generator::ChunkGenerator,
+    biome_source: std::sync::Arc<dyn mc_worldgen::biome::BiomeSource>,
+    flat: Option<Option<&mc_worldgen::flat::settings::StructureSetHolderSet>>,
+    random_state: std::sync::Arc<mc_worldgen::random_state::RandomState>,
+    seed: i64,
+    worldgen: &mc_worldgen::data::WorldgenRegistries,
+    biomes: &mc_worldgen::biome::BiomeRegistry,
+) -> crate::world::level::levelgen::codec::LoadResult<std::sync::Arc<ChunkGeneratorStructureState>> {
+    use mc_worldgen::structure_placement::StructureSetRegistry;
+    let registry = std::sync::Arc::new(StructureSetRegistry::load(worldgen, biomes)?);
+    let origin = generator.get_origin(&random_state);
+    let structure_biomes = |id: &mc_core::ident::Identifier| registry.structure_biomes(id).to_vec();
+    let state = match flat {
+        None => ChunkGeneratorStructureState::create_for_normal(random_state, seed, origin, biome_source, registry.clone(), &structure_biomes),
+        Some(overrides) => {
+            let holders: Vec<_> = match overrides {
+                Some(set) => expand_structure_set_holder_set(set, worldgen).iter().filter_map(|id| registry.get(id).cloned()).collect(),
+                None => registry.iter().cloned().collect(),
+            };
+            ChunkGeneratorStructureState::create_for_flat(random_state, seed, origin, biome_source, registry.clone(), holders, &structure_biomes)
+        }
+    };
+    Ok(std::sync::Arc::new(state))
+}

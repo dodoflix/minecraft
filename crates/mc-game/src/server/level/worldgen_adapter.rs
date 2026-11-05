@@ -10,19 +10,28 @@ use mc_worldgen::biome::{BiomeManager, BiomeResolver};
 use mc_worldgen::blending::Blender;
 use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator};
 use mc_worldgen::random_state::RandomState;
-use std::sync::Arc;
+use crate::world::level::levelgen::GenEnv;
+use crate::world::level::levelgen::structure::beardifier::{CenterAndRegion, structure_start_infos};
+use std::sync::{Arc, OnceLock};
 
 pub struct NoiseWorldGenerator {
     generator: Arc<dyn ChunkGenerator>,
     random_state: Arc<RandomState>,
     seed: i64,
     type_name: Option<Identifier>,
+    /// The level's generation environment (set once it is built; it owns the generator).
+    gen_env: OnceLock<Arc<GenEnv>>,
 }
 
 impl NoiseWorldGenerator {
     /// `type_name`: the generator's `type` id for the data fixer context (`getTypeNameForDataFixer`).
     pub fn new(generator: Arc<dyn ChunkGenerator>, random_state: Arc<RandomState>, seed: i64, type_name: Option<Identifier>) -> Self {
-        Self { generator, random_state, seed, type_name }
+        Self { generator, random_state, seed, type_name, gen_env: OnceLock::new() }
+    }
+
+    /// Gives the terrain step access to the structure starts (`Beardifier`).
+    pub fn set_gen_env(&self, env: Arc<GenEnv>) {
+        let _ = self.gen_env.set(env);
     }
 
     pub fn generator(&self) -> &Arc<dyn ChunkGenerator> {
@@ -94,10 +103,11 @@ impl ChunkGeneratorBackend for NoiseWorldGenerator {
         let snapshot = chunk.clone();
         let resolver = RegionBiomesWithCenter { region, center, center_chunk: &snapshot };
         let biome_manager = BiomeManager::new(&resolver, BiomeManager::obfuscate_seed(self.seed));
+        let structure_starts = self.gen_env.get().map(|env| structure_start_infos(env, &CenterAndRegion { center: &*chunk, region }, center)).unwrap_or_default();
         let ctx = BuildTerrainContext {
             random_state: &self.random_state,
             blender: &Blender::empty(),
-            structure_starts: &[],
+            structure_starts: &structure_starts,
             biome_manager: &biome_manager,
             possible_biomes: Some(&possible),
             carver_biome_cache: None,
