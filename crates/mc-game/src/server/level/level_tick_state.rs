@@ -105,7 +105,7 @@ impl LevelTickState {
             poi_hook: None,
             can_have_weather: false,
             tick_time: false,
-            rules: super::level_tick::LevelRules { players_sleeping_percentage: 100, advance_time: true, advance_weather: true, spawn_mobs: true, max_snow_accumulation_height: 1, random_tick_speed: 3 },
+            rules: super::level_rules::LevelRules::default(),
             sleep_status: super::sleep_status::SleepStatus::default(),
             biomes: None,
             biome_zoom_seed: 0,

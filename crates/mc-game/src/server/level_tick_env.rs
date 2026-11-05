@@ -34,15 +34,7 @@ impl LevelTickEnv for ServerTickEnv<'_> {
     }
 
     fn rules(&self) -> LevelRules {
-        let rules = self.server.game_rules_ref();
-        LevelRules {
-            players_sleeping_percentage: rules.get(GameRules::PLAYERS_SLEEPING_PERCENTAGE),
-            advance_time: rules.get(GameRules::ADVANCE_TIME),
-            advance_weather: rules.get(GameRules::ADVANCE_WEATHER),
-            spawn_mobs: rules.get(GameRules::SPAWN_MOBS),
-            max_snow_accumulation_height: rules.get(GameRules::MAX_SNOW_ACCUMULATION_HEIGHT),
-            random_tick_speed: rules.get(GameRules::RANDOM_TICK_SPEED),
-        }
+        LevelRules::from_game_rules(self.server.game_rules_ref())
     }
 
     fn weather(&self) -> WeatherState {
