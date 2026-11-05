@@ -1,7 +1,8 @@
 //! `ServerPlayer.tick` / `doTick` and the `Player.tick` bases (health/food/xp sync, menu broadcast, level-driven
 //! counters).
 
-use super::food_data::FoodTickRules;
+use crate::stats::stats::Stats;
+use crate::world::scores::ObjectiveCriteria;
 use super::menu_ctx::{PlayerCtx, ServerPlayerMenuInit};
 use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use mc_core::ident::Identifier;
@@ -47,7 +48,7 @@ impl ServerPlayer {
 
     /// `ServerPlayer.updatePlayerAttributes()`: creative interaction range bonuses and the crouching waypoint modifier.
     /// Calling `getAttribute` also instantiates the three attributes in the map (they are saved with the player).
-    fn update_player_attributes(&mut self) {
+    pub fn update_player_attributes(&mut self) {
         use mc_data::Attribute;
         use mc_data::enums::Pose;
         let creative = self.is_creative();
@@ -76,7 +77,9 @@ impl ServerPlayer {
         );
     }
 
-    /// `ServerPlayer.tick()`: game mode tick, damage cooldown, menu broadcast (camera/advancement parts omitted).
+    /// `ServerPlayer.tick()`: game mode tick, damage cooldown, menu broadcast + validity, falling/lava tracking, attributes,
+    /// post effects. The camera follow-up belongs to the level slice's spectator camera; the criteria triggers and
+    /// `advancements.flushDirty` are `// SEAM(advancements)`.
     pub fn tick_server_player(&mut self, level: &mut ServerLevel) {
         self.game_mode.game_ticks += 1;
         let ws = &mut self.warden_spawn_tracker;
@@ -85,7 +88,50 @@ impl ServerPlayer {
             self.player.living.damage_cooldown_time -= 1;
         }
         self.broadcast_menu_changes(level);
+        self.close_container_if_invalid(level);
+        // SEAM(advancements): CriteriaTriggers.TICK / LEVITATION
+        self.track_start_falling_position();
+        self.track_entered_or_exited_lava_on_vehicle(level);
         self.update_player_attributes();
+        // SEAM(advancements): advancements.flushDirty(this, true)
+        if self.post_effects_dirty {
+            crate::server::players::join::send_post_effects(self);
+        }
+    }
+
+    /// `if (!containerMenu.stillValid(this)) { closeContainer(); containerMenu = inventoryMenu; }` (`ServerPlayer.closeContainer`
+    /// = `ClientboundContainerClosePacket` + `doCloseContainer`).
+    fn close_container_if_invalid(&mut self, level: &mut ServerLevel) {
+        let mut ctx = PlayerCtx { player: self, level };
+        let valid = PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.still_valid(c));
+        if !valid {
+            let id = self.player.menus.current_container_id();
+            self.send(&mc_protocol::packets::play::ClientboundContainerClosePacket { container_id: id });
+            self.do_close_container(level);
+        }
+    }
+
+    /// `trackStartFallingPosition()`.
+    pub fn track_start_falling_position(&mut self) {
+        if self.base().fall_distance > 0.0 && self.starting_to_fall_position.is_none() {
+            let position = self.base().position();
+            self.starting_to_fall_position = Some(position);
+            // SEAM(advancements): FALL_AFTER_EXPLOSION when `currentExplosionImpactPos.y <= position.y`
+            self.current_explosion_impact_pos = None;
+        }
+    }
+
+    /// `trackEnteredOrExitedLavaOnVehicle()`.
+    pub fn track_entered_or_exited_lava_on_vehicle(&mut self, level: &ServerLevel) {
+        let in_lava = |id| level.get_entity(id).is_some_and(|v| !v.base().first_tick && v.base().fluid_height[1] > 0.0);
+        let vehicle = self.base().vehicle;
+        if vehicle.is_some_and(in_lava) && self.entered_lava_on_vehicle_position.is_none() {
+            self.entered_lava_on_vehicle_position = Some(self.base().position());
+        }
+        // SEAM(advancements): RIDE_ENTITY_IN_LAVA_TRIGGER while already entered
+        if self.entered_lava_on_vehicle_position.is_some() && !vehicle.is_some_and(in_lava) {
+            self.entered_lava_on_vehicle_position = None;
+        }
     }
 
     /// `Player.tick()`; `super.tick()` is the generic `LivingEntity.tick` (which runs `aiStep` = `Player.aiStep` below).
@@ -128,6 +174,7 @@ impl ServerPlayer {
         if self.player.jump_trigger_time > 0 {
             self.player.jump_trigger_time -= 1;
         }
+        self.tick_regeneration(level);
         self.tick_inventory_items(level);
         if self.player.abilities.flying && !self.base().is_passenger() {
             self.reset_fall_distance();
@@ -219,16 +266,19 @@ impl ServerPlayer {
     pub fn do_tick(&mut self, level: &mut ServerLevel) {
         if !self.is_spectator() || !movement::touching_unloaded_chunk(self, level) {
             self.player_tick(level);
-            let rules = level.player_food_rules();
-            let health = self.player.living.get_health();
-            let max = self.player.living.get_max_health();
-            let r = self.player.food_data.tick(rules, health, max);
-            if r.heal > 0.0 {
-                let h = self.player.living.get_health();
-                self.player.living.set_health(h + r.heal);
+            self.close_container_if_invalid(level);
+            self.tick_food(level);
+            self.award_stat_once(level, Stats::PLAY_TIME);
+            self.award_stat_once(level, Stats::TOTAL_WORLD_TIME);
+            if self.is_alive() {
+                self.award_stat_once(level, Stats::TIME_SINCE_DEATH);
             }
-            // `starve` damage goes through the damage layer (`hurtServer`), which does not exist yet.
-            let _ = r.starve;
+            if self.is_shift_key_down() {
+                self.award_stat_once(level, Stats::CROUCH_TIME);
+            }
+            if !self.player.living.is_sleeping() {
+                self.award_stat_once(level, Stats::TIME_SINCE_REST);
+            }
         }
         let health = self.player.living.get_health();
         let food = self.player.food_data.food_level;
@@ -239,26 +289,45 @@ impl ServerPlayer {
             self.last_sent_food = food;
             self.last_food_saturation_zero = saturation == 0.0;
         }
-        let hp_abs = health + self.player.get_absorption_amount();
-        if hp_abs != self.last_recorded_health_and_absorption {
-            self.last_recorded_health_and_absorption = hp_abs;
+        let health_and_absorption = health + self.player.get_absorption_amount();
+        if health_and_absorption != self.last_recorded_health_and_absorption {
+            self.last_recorded_health_and_absorption = health_and_absorption;
+            self.update_score_for_criteria(level, &ObjectiveCriteria::HEALTH, mth::ceil_f32(health_and_absorption));
         }
-        self.last_recorded_food_level = food;
-        self.last_recorded_air_level = self.base().get_air_supply();
-        self.last_recorded_level = self.player.experience_level;
-        if self.player.total_experience != self.last_recorded_experience {
-            self.last_recorded_experience = self.player.total_experience;
+        if food != self.last_recorded_food_level {
+            self.last_recorded_food_level = food;
+            self.update_score_for_criteria(level, &ObjectiveCriteria::FOOD, mth::ceil_f32(food as f32));
         }
-        if self.player.total_experience != self.last_sent_exp {
-            self.last_sent_exp = self.player.total_experience;
+        let air = self.base().get_air_supply();
+        if air != self.last_recorded_air_level {
+            self.last_recorded_air_level = air;
+            self.update_score_for_criteria(level, &ObjectiveCriteria::AIR, mth::ceil_f32(air as f32));
+        }
+        let armor = mth::floor_f64(self.player.living.get_attribute_value(mc_data::Attribute::ARMOR));
+        if armor != self.last_recorded_armor {
+            self.last_recorded_armor = armor;
+            self.update_score_for_criteria(level, &ObjectiveCriteria::ARMOR, mth::ceil_f32(armor as f32));
+        }
+        let total_experience = self.player.total_experience;
+        if total_experience != self.last_recorded_experience {
+            self.last_recorded_experience = total_experience;
+            self.update_score_for_criteria(level, &ObjectiveCriteria::EXPERIENCE, mth::ceil_f32(total_experience as f32));
+        }
+        let experience_level = self.player.experience_level;
+        if experience_level != self.last_recorded_level {
+            self.last_recorded_level = experience_level;
+            self.update_score_for_criteria(level, &ObjectiveCriteria::LEVEL, mth::ceil_f32(experience_level as f32));
+        }
+        if total_experience != self.last_sent_exp {
+            self.last_sent_exp = total_experience;
             self.send(&ClientboundSetExperiencePacket {
                 experience_progress: self.player.experience_progress,
-                experience_level: self.player.experience_level,
-                total_experience: self.player.total_experience,
+                experience_level,
+                total_experience,
             });
         }
+        // SEAM(advancements): `if (tickCount % 20 == 0) CriteriaTriggers.LOCATION.trigger(this)`
         // the player list's view of this player (tab list, broadcasts by range/dimension)
         self.sync_handle();
     }
 }
-

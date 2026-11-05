@@ -227,12 +227,6 @@ impl ServerLevel {
         }
     }
 
-    /// What `FoodData.tick` reads from the level (`getDifficulty()`, `NATURAL_HEALTH_REGENERATION`): vanilla defaults
-    /// until the level data / game rules are wired into `ServerLevel`.
-    pub fn player_food_rules(&self) -> crate::world::entity::player::food_data::FoodTickRules {
-        Default::default()
-    }
-
     /// `level.players()` as the tracker reads them: live players from storage, players that are currently taken out
     /// (their packet or tick is being handled) from the snapshot taken when they were taken out.
     pub fn tracker_players(&self) -> Vec<super::TrackerPlayer> {
