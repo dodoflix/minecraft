@@ -4,33 +4,34 @@ use super::fox_goals::{
     DefendTrustedTargetGoal, FaceplantGoal, FoxBreedGoal, FoxEatBerriesGoal, FoxFloatGoal, FoxFollowParentGoal, FoxLookAtPlayerGoal, FoxMeleeAttackGoal, FoxPanicGoal, FoxPounceGoal,
     FoxSearchForItemsGoal, FoxStrollThroughVillageGoal, PerchAndSearchGoal, SeekShelterGoal, SleepGoal, StalkPreyGoal,
 };
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
-use crate::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
-use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType, class_of};
-use crate::world::entity::ai::goal::{AvoidEntityGoal, ClimbOnTopOfPowderSnowGoal, LeapAtTargetGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType, class_of};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, ClimbOnTopOfPowderSnowGoal, LeapAtTargetGoal};
+use mc_game_core::world::entity::ai::goal::WaterAvoidingRandomStrollGoal;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::animal::turtle::turtle::Turtle;
 use crate::world::entity::animal::wolf::wolf::Wolf;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, ageable, ext, tamable};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::level_access::{BlockGetter, LevelAccessor as _};
-use crate::world::level::pathfinder::PathType;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, ext, tamable};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::level_access::{BlockGetter, LevelAccessor as _};
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -449,10 +450,10 @@ pub fn check_fox_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _
     level.get_block_state(pos.below()).is_tag("foxes_spawnable_on") && spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
-crate::register_spawn_placement!(EntityType::FOX, check_fox_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::FOX, check_fox_spawn_rules);
 
 impl Entity for Fox {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:fox")
@@ -469,7 +470,7 @@ impl Entity for Fox {
             if self.can_eat(level, &item_in_mouth) {
                 if self.ticks_since_eaten > MIN_TICKS_BEFORE_EAT {
                     let mut stack = item_in_mouth;
-                    let remaining = crate::world::item::finish_using_item(&mut stack, level, self);
+                    let remaining = mc_game_core::world::item::finish_using_item(&mut stack, level, self);
                     // vanilla shrinks the stack held in the slot in place; the remainder replaces it when non-empty
                     if remaining.is_empty() {
                         self.mob.living.equipment.set(EquipmentSlot::MainHand, stack);
@@ -583,7 +584,7 @@ impl Entity for Fox {
             }
             let in_mouth = self.get_item_by_slot(EquipmentSlot::MainHand);
             self.spit_out_item(level, in_mouth);
-            crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
+            mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
             let one = stack.split(1);
             self.set_item_slot(level, EquipmentSlot::MainHand, one);
             mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
@@ -596,17 +597,17 @@ impl Entity for Fox {
     fn drop_all_death_loot(&mut self, level: &mut ServerLevel, source: &DamageSource) {
         let stack = self.get_item_by_slot(EquipmentSlot::MainHand);
         if !stack.is_empty() {
-            crate::world::entity::item::spawn_at_location(level, &*self, stack, Vec3::ZERO);
+            mc_game_core::world::entity::item::spawn_at_location(level, &*self, stack, Vec3::ZERO);
             self.set_item_slot(level, EquipmentSlot::MainHand, ItemStack::empty());
         }
-        crate::world::entity::living_entity::death::drop_all_death_loot(self, level, source);
+        mc_game_core::world::entity::living_entity::death::drop_all_death_loot(self, level, source);
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
         is_fox_food(stack)
     }
 
-    fn on_offspring_spawned_from_egg(&mut self, level: &mut ServerLevel, spawner: &mut crate::world::entity::ServerPlayer, offspring: EntityId) {
+    fn on_offspring_spawned_from_egg(&mut self, level: &mut ServerLevel, spawner: &mut mc_game_core::world::entity::ServerPlayer, offspring: EntityId) {
         let uuid = spawner.uuid();
         level.with_entity(offspring, |_, e| {
             if let Some(fox) = e.as_any_mut().downcast_mut::<Fox>() {
@@ -620,7 +621,7 @@ impl Entity for Fox {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::FOX, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::FOX, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let partner_variant = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Fox>()).map(Fox::get_variant);
         let variant = match partner_variant {
             Some(partner_variant) if !self.base_mut().random.next_boolean() => partner_variant,
@@ -681,7 +682,7 @@ impl Entity for Fox {
         self.clear_trusted();
         if let Some(list) = input.get_list("Trusted") {
             for tag in list.iter() {
-                if let Some(uuid) = crate::world::entity::entity::read_uuid(Some(tag)) {
+                if let Some(uuid) = mc_game_core::world::entity::entity::read_uuid(Some(tag)) {
                     self.add_trusted_entity(uuid);
                 }
             }
@@ -734,7 +735,7 @@ impl Entity for Fox {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         DataComponentMap::builder().add_all(&base).set(FOX_VARIANT, self.get_variant()).build()
     }
 
@@ -742,7 +743,7 @@ impl Entity for Fox {
         if let Some(variant) = stack.get(&FOX_VARIANT) {
             self.set_variant(*variant);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
 

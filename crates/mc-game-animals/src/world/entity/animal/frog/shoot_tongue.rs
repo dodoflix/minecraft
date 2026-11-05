@@ -1,15 +1,15 @@
 //! `net.minecraft.world.entity.animal.frog.ShootTongue`: the frog walks up to its target, shoots its tongue and eats it.
 
 use super::frog::{erase_tongue_target, get_tongue_target, set_tongue_target};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase, behavior_utils};
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, IS_PANICKING, LOOK_TARGET, UNREACHABLE_TONGUE_TARGETS, WALK_TARGET};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::sensing::mob_sensors::frog_can_eat;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::mob::{combat, navigation};
-use crate::world::entity::{EntityId, RemovalReason};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, behavior_utils};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, IS_PANICKING, LOOK_TARGET, UNREACHABLE_TONGUE_TARGETS, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::sensing::mob_sensors::frog_can_eat;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::mob::{combat, navigation};
+use mc_game_core::world::entity::{EntityId, RemovalReason};
 use mc_data::enums::Pose;
 use mc_data::SoundEvent;
 use mc_protocol::packets::play::SoundSource;

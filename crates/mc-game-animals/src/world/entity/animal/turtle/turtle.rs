@@ -1,33 +1,33 @@
 //! `Turtle`: egg-laying amphibious animal with a home beach.
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::stats::stats::Stats;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::{MoveControl, MoveControlBase, Operation};
-use crate::world::entity::ai::goal::move_to_block;
-use crate::world::entity::ai::goal::{BreedGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, PanicGoal, RandomStrollGoal, TemptGoal};
-use crate::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use crate::world::entity::ai::util::default_random_pos;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::experience_orb::ExperienceOrb;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates;
-use crate::world::entity::{Entity, EntityId, MoverType};
-use crate::world::item::ItemStack;
-use crate::world::entity::movement::MovementLevel as _;
-use crate::world::level::LevelReader;
-use crate::world::level::level_access::LevelAccessor as _;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::block::impls::turtle_egg_block;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::material::FluidStateExt as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter as _, LevelReader as _};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::{MoveControl, MoveControlBase, Operation};
+use mc_game_core::world::entity::ai::goal::move_to_block;
+use mc_game_core::world::entity::ai::goal::{BreedGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, PanicGoal, RandomStrollGoal, TemptGoal};
+use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
+use mc_game_core::world::entity::ai::util::default_random_pos;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::experience_orb::ExperienceOrb;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::entity::movement::MovementLevel as _;
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::level_access::LevelAccessor as _;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::block::impls::turtle_egg_block;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -84,7 +84,7 @@ impl Turtle {
         let mut t = Turtle { mob, lay_egg_counter: 0, home_pos: BlockPos::ZERO, travel_pos: None, going_home: false };
         t.mob.set_navigation(Box::new(TurtleNavigation { data: NavigationData::new(&t, NavClass::Amphibious) }));
         t.register_goals();
-        use crate::world::level::pathfinder::PathType;
+        use mc_game_core::world::level::pathfinder::PathType;
         t.mob.set_pathfinding_malus(PathType::Water, 0.0);
         t.mob.set_pathfinding_malus(PathType::DoorIronClosed, -1.0);
         t.mob.set_pathfinding_malus(PathType::DoorWoodClosed, -1.0);
@@ -216,7 +216,7 @@ impl MoveControl for TurtleMoveControl {
     }
 }
 
-fn l_mut(e: &mut dyn Entity) -> &mut crate::world::entity::living::LivingEntityData {
+fn l_mut(e: &mut dyn Entity) -> &mut mc_game_core::world::entity::living::LivingEntityData {
     e.living_mut().expect("living mob")
 }
 
@@ -330,7 +330,7 @@ impl Goal for TurtleGoHomeGoal {
         if turtle(mob).has_egg() {
             return true;
         }
-        if mob.base_mut().random.next_int_bounded(crate::world::entity::ai::goal::reduced_tick_delay(700)) != 0 {
+        if mob.base_mut().random.next_int_bounded(mc_game_core::world::entity::ai::goal::reduced_tick_delay(700)) != 0 {
             return false;
         }
         !turtle(mob).home_pos.closer_to_center_than(&mob.position(), 64.0)
@@ -611,7 +611,7 @@ impl Goal for TurtleTravelGoal {
 }
 
 impl Entity for Turtle {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:turtle")
@@ -695,7 +695,7 @@ impl Entity for Turtle {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        crate::world::entity::factory::create(EntityType::TURTLE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+        mc_game_core::world::entity::factory::create(EntityType::TURTLE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
@@ -728,7 +728,7 @@ impl Entity for Turtle {
         ageable::age_boundary_reached(self, level);
         if !self.is_baby() && level.mob_drops() {
             ext::drop_from_gift_loot_table(level, self, &Identifier::parse("minecraft:gameplay/turtle_grow").expect("valid id"), |level, e, stack| {
-                crate::world::entity::item::spawn_at_location(level, e, stack, Vec3::ZERO);
+                mc_game_core::world::entity::item::spawn_at_location(level, e, stack, Vec3::ZERO);
             });
         }
     }
@@ -760,7 +760,7 @@ fn check_turtle_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _r
     pos.y() < level.get_sea_level() + 4 && turtle_egg_block::on_sand(level, pos) && spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
-crate::register_spawn_placement!(EntityType::TURTLE, check_turtle_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::TURTLE, check_turtle_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static TURTLE: EntityRegistration = EntityRegistration { entity_type: EntityType::TURTLE, create: |ty, id, registries| Box::new(Turtle::new(ty, id, registries)) };

@@ -1,26 +1,26 @@
 //! `net.minecraft.world.entity.animal.fish.TropicalFish`.
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
 use super::abstract_schooling_fish::{self, FollowFlockLeaderGoal, SchoolData, SchoolSpawnGroupData, SchoolingFish};
-use crate::define_accessor;
-use crate::impl_spawn_group_data;
-use crate::register_spawn_placement;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::LevelAccessor;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::impl_spawn_group_data;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -192,7 +192,7 @@ impl AbstractFish for TropicalFish {
         ItemStack::new(Item::TROPICAL_FISH_BUCKET)
     }
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
-        crate::world::entity::bucketable::save_default_data_to_bucket_tag(self, bucket);
+        mc_game_core::world::entity::bucketable::save_default_data_to_bucket_tag(self, bucket);
         bucket.set(TROPICAL_FISH_PATTERN, self.get_pattern());
         bucket.set(TROPICAL_FISH_BASE_COLOR, self.get_base_color());
         bucket.set(TROPICAL_FISH_PATTERN_COLOR, self.get_pattern_color());
@@ -247,7 +247,7 @@ impl Entity for TropicalFish {
         if let Some(color) = stack.get(&TROPICAL_FISH_PATTERN_COLOR) {
             self.set_pattern_color(*color);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {

@@ -1,26 +1,22 @@
 //! `net.minecraft.world.entity.animal.frog.FrogAi`: the brain of the frog.
 
 use super::shoot_tongue::ShootTongue;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::behavior::behaviors::{CountDownCooldownTicks, boxed};
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::{
-    BehaviorBuilder, BehaviorControl, GateBehavior, OrderPolicy, RunOne, RunningPolicy, animal_make_love::AnimalMakeLove, animal_panic::AnimalPanic, behavior_utils,
-    croak::Croak, follow_temptation::FollowTemptation, long_jump_mid_jump::LongJumpMidJump, long_jump_to_random_pos::{self, LongJumpToRandomPos}, move_to_target_sink::MoveToTargetSink,
-    random_stroll, set_entity_look_target_sometimes, set_walk_target_from_look_target, start_attacking, stop_attacking_if_target_invalid, try_find_land, try_find_land_near_liquid,
-    try_lay_spawn_on_fluid_near_land,
-};
-use crate::world::entity::ai::brain::ActivityData;
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_core::server::level::ServerLevel;
+use mc_game_ai::world::entity::ai::behavior::behaviors::{CountDownCooldownTicks, boxed};
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_ai::world::entity::ai::behavior::{animal_make_love::AnimalMakeLove, animal_panic::AnimalPanic, croak::Croak, follow_temptation::FollowTemptation, long_jump_mid_jump::LongJumpMidJump, long_jump_to_random_pos::{self, LongJumpToRandomPos}, random_stroll, set_entity_look_target_sometimes, start_attacking, stop_attacking_if_target_invalid, try_find_land, try_find_land_near_liquid, try_lay_spawn_on_fluid_near_land};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, BehaviorControl, GateBehavior, OrderPolicy, RunOne, RunningPolicy, behavior_utils, move_to_target_sink::MoveToTargetSink, set_walk_target_from_look_target};
+use mc_game_core::world::entity::ai::brain::ActivityData;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, BREED_TARGET, IS_IN_WATER, IS_PREGNANT, LONG_JUMP_COOLDOWN_TICKS, LONG_JUMP_MID_JUMP, NEAREST_ATTACKABLE, TEMPTATION_COOLDOWN_TICKS, TEMPTING_PLAYER, WALK_TARGET,
 };
-use crate::world::entity::ai::memory::MemoryStatus;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::ai::navigation::get_path_type_static_for_mob as path_type_static_for_mob;
-use crate::world::entity::schedule::Activity;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::pathfinder::PathType;
+use mc_game_core::world::entity::ai::memory::MemoryStatus;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::ai::navigation::get_path_type_static_for_mob as path_type_static_for_mob;
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::pathfinder::PathType;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::Block;

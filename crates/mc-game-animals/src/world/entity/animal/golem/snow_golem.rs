@@ -1,22 +1,22 @@
 //! `SnowGolem`: snowball thrower that leaves a snow trail, melts in warm biomes, sheared for its pumpkin.
 
 use super::abstract_golem::AMBIENT_SOUND_INTERVAL;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{LookAtPlayerGoal, RandomLookAroundGoal, RangedAttackGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::projectile::spawn::spawn_projectile;
-use crate::world::entity::projectile::throwableitemprojectile::snowball::Snowball;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{hurt_and_break, InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::block::BlockStateExt as _;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_core::world::entity::ai::goal::{LookAtPlayerGoal, RandomLookAroundGoal, RangedAttackGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::projectile::spawn::spawn_projectile;
+use mc_game_core::world::entity::projectile::throwableitemprojectile::snowball::Snowball;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{hurt_and_break, InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::block::BlockStateExt as _;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -82,7 +82,7 @@ impl SnowGolem {
 }
 
 impl Entity for SnowGolem {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:snow_golem")
@@ -105,7 +105,7 @@ impl Entity for SnowGolem {
     fn ai_step(&mut self, level: &mut ServerLevel) {
         mob::tick::ai_step(self, level);
         let pos = self.position();
-        if level.attribute_bool_vec(crate::world::attribute::attributes::SNOW_GOLEM_MELTS, &pos) {
+        if level.attribute_bool_vec(mc_game_core::world::attribute::attributes::SNOW_GOLEM_MELTS, &pos) {
             let source = level.damage_sources().on_fire();
             self.hurt_server(level, &source, 1.0);
         }
@@ -172,7 +172,7 @@ impl Entity for SnowGolem {
         let table = Identifier::parse("minecraft:shearing/snow_golem").expect("valid id");
         mob::ext::drop_from_shearing_loot_table(level, self, &table, tool, |level, e, drop| {
             let eye_height = e.base().eye_height;
-            crate::world::entity::item::spawn_at_location(level, e, drop, Vec3::new(0.0, f64::from(eye_height), 0.0));
+            mc_game_core::world::entity::item::spawn_at_location(level, e, drop, Vec3::new(0.0, f64::from(eye_height), 0.0));
         });
     }
 

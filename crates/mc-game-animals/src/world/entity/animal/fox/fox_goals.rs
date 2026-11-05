@@ -4,20 +4,18 @@
 //! embed it and call its `super` bodies; the struct names are the Java simple class names (the oracle prints them in `goals=`).
 
 use super::fox::Fox;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
-use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{
-    BreedGoal, FleeSunGoal, FloatGoal, FollowParentGoal, Flag, Goal, GoalFlags, JUMP_GOAL_FLAGS, LookAtPlayerGoal, MeleeAttackGoal, PanicGoal, StrollThroughVillageGoal,
-    reduced_tick_delay,
-};
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::mob::{self, MobKind, animal, ageable, combat, ext, navigation, tamable, tick};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::level_access::{BlockGetter, LevelAccessor as _};
-use crate::world::level::LevelReader;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::{FleeSunGoal, JUMP_GOAL_FLAGS, StrollThroughVillageGoal};
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, PanicGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::mob::{self, MobKind, animal, ageable, combat, ext, navigation, tamable, tick};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::level_access::{BlockGetter, LevelAccessor as _};
+use mc_game_core::world::level::LevelReader;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -111,7 +109,7 @@ pub struct DefendTrustedTargetGoal {
 impl DefendTrustedTargetGoal {
     pub fn new() -> Self {
         // `(target, level) -> TRUSTED_TARGET_SELECTOR.test(target) && !this.trusts(target)`
-        let selector: crate::world::entity::ai::targeting::TargetSelector =
+        let selector: mc_game_core::world::entity::ai::targeting::TargetSelector =
             Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.living().is_some_and(|l| l.last_hurt_mob.is_some() && l.last_hurt_mob_timestamp < target.base().tick_count.wrapping_add(600)));
         let inner = NearestAttackableTargetGoal::build(TargetType::Class(Arc::new(|e: &dyn Entity| e.living().is_some())), 10, false, false, Some(selector))
             .with_source_selector(Arc::new(|fox: &dyn Entity, target: &dyn Entity, _level: &ServerLevel| !fox.as_any().downcast_ref::<Fox>().is_some_and(|f| f.trusts(target))));
@@ -365,7 +363,7 @@ impl FoxEatBerriesGoal {
             if state.block() == Block::SWEET_BERRY_BUSH {
                 self.pick_sweet_berries(mob, level, state);
             } else if has_glow_berries(state) {
-                crate::world::level::block::impls::cave_vines::use_(mob, state, level, self.data.block_pos);
+                mc_game_core::world::level::block::impls::cave_vines::use_(mob, state, level, self.data.block_pos);
             }
         }
     }
@@ -375,12 +373,12 @@ impl FoxEatBerriesGoal {
         let block_pos = self.data.block_pos;
         let age = state.get(props::AGE_3);
         let mut count = 1 + level.random().next_int_bounded(2) + i32::from(age == 3);
-        if mob.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand).is_empty() {
-            mob.set_item_slot(level, crate::world::entity::equipment::EquipmentSlot::MainHand, crate::world::item::ItemStack::new(Item::SWEET_BERRIES));
+        if mob.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand).is_empty() {
+            mob.set_item_slot(level, mc_game_core::world::entity::equipment::EquipmentSlot::MainHand, mc_game_core::world::item::ItemStack::new(Item::SWEET_BERRIES));
             count -= 1;
         }
         if count > 0 {
-            crate::world::level::block::helpers::pop_resource(level, block_pos, crate::world::item::ItemStack::with_count(Item::SWEET_BERRIES, count));
+            mc_game_core::world::level::block::helpers::pop_resource(level, block_pos, mc_game_core::world::item::ItemStack::with_count(Item::SWEET_BERRIES, count));
         }
         mob.play_sound(level, SoundEvent::BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, 1.0, 1.0);
         let new_state = state.set(props::AGE_3, 1);
@@ -695,7 +693,7 @@ fn move_to_first_item(mob: &mut dyn Entity, level: &mut ServerLevel, items: &[En
 
 impl Goal for FoxSearchForItemsGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let mainhand = crate::world::entity::equipment::EquipmentSlot::MainHand;
+        let mainhand = mc_game_core::world::entity::equipment::EquipmentSlot::MainHand;
         if !mob.get_item_by_slot(mainhand).is_empty() {
             false
         } else if target_of(mob, level).is_some() || combat::get_last_hurt_by_mob(mob, level).is_some() {
@@ -716,7 +714,7 @@ impl Goal for FoxSearchForItemsGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let items = allowed_items_nearby(mob, level);
-        if mob.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::MainHand).is_empty() {
+        if mob.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::MainHand).is_empty() {
             move_to_first_item(mob, level, &items);
         }
     }

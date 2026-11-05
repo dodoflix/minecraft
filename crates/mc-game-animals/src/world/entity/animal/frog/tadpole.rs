@@ -4,25 +4,25 @@
 //! macro writes overrides - `aiStep`, `mobInteract`, `FromBucket` - that the tadpole replaces).
 
 use super::tadpole_ai;
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
 use crate::world::entity::animal::fish::abstract_fish;
 use crate::world::entity::animal::fish::water_animal::water_creature_entity;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
-use crate::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
-use crate::world::entity::ai::memory::BrainPacked;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::sensing::sensor_type::{FROG_TEMPTATIONS, HURT_BY, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
-use crate::world::entity::bucketable::{self, Bucketable};
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::convert::{self, ConversionParams};
-use crate::world::entity::mob::{self, MobData, MobKind, ageable};
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
+use mc_game_core::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
+use mc_game_core::world::entity::ai::memory::BrainPacked;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{FROG_TEMPTATIONS, HURT_BY, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
+use mc_game_core::world::entity::bucketable::{self, Bucketable};
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable};
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::phys::shapes::Shapes;
@@ -208,7 +208,7 @@ impl Bucketable for Tadpole {
 }
 
 impl Entity for Tadpole {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:tadpole")

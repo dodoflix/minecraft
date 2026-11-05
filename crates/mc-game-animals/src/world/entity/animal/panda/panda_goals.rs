@@ -3,16 +3,17 @@
 //! goal embed it and call its `super` bodies; the struct names are the Java simple class names (the oracle prints them in `goals=`).
 
 use super::panda::{Panda, TOTAL_UNHAPPY_TIME, can_pick_up_and_eat};
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageTypeTags;
-use crate::world::entity::ai::goal::target::HurtByTargetGoal;
-use crate::world::entity::ai::goal::{AvoidEntityGoal, BreedGoal, EntityTest, Flag, Goal, GoalFlags, LookAtPlayerGoal, LookAtType, MeleeAttackGoal, PanicGoal, reduced_tick_delay};
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::item::{self, ItemEntity};
-use crate::world::entity::mob::{ext, navigation};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::level_access::BlockGetter;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageTypeTags;
+use mc_game_core::world::entity::ai::goal::target::HurtByTargetGoal;
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, EntityTest};
+use mc_game_core::world::entity::ai::goal::{BreedGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, LookAtType, MeleeAttackGoal, PanicGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::item::{self, ItemEntity};
+use mc_game_core::world::entity::mob::{ext, navigation};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::level_access::BlockGetter;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
@@ -495,7 +496,7 @@ impl Goal for PandaSitGoal {
         let stack = mob.get_item_by_slot(EquipmentSlot::MainHand);
         if !stack.is_empty() {
             item::spawn_at_location(level, mob, stack, Vec3::ZERO);
-            mob.set_item_slot(level, EquipmentSlot::MainHand, crate::world::item::ItemStack::empty());
+            mob.set_item_slot(level, EquipmentSlot::MainHand, mc_game_core::world::item::ItemStack::empty());
             let wait_seconds = if panda(mob).is_lazy() { mob.base_mut().random.next_int_bounded(50) + 10 } else { mob.base_mut().random.next_int_bounded(150) + 10 };
             self.cooldown = mob.base().tick_count.wrapping_add(wait_seconds * 20);
         }

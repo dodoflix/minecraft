@@ -1,25 +1,26 @@
 //! `PolarBear`: neutral bear that defends its cubs and hunts foxes.
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::{DamageSource, DamageTypeTags};
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{FloatGoal, FollowParentGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, PanicGoal, RandomLookAroundGoal, RandomStrollGoal, ResetUniversalAngerTargetGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::neutral::{self, NeutralData};
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::BlockGetter as _;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
+use mc_game_core::world::entity::ai::goal::{FloatGoal, FollowParentGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, PanicGoal, RandomLookAroundGoal, RandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::neutral::{self, NeutralData};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::BlockGetter as _;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -226,14 +227,14 @@ impl PolarBear {
     /// `playWarningSound()`.
     fn play_warning_sound(&mut self, level: &mut ServerLevel) {
         if self.warning_sound_ticks <= 0 {
-            crate::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_POLAR_BEAR_WARNING);
+            mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_POLAR_BEAR_WARNING);
             self.warning_sound_ticks = 40;
         }
     }
 }
 
 impl Entity for PolarBear {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:polar_bear")
@@ -244,7 +245,7 @@ impl Entity for PolarBear {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        crate::world::entity::factory::create(EntityType::POLAR_BEAR, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+        mc_game_core::world::entity::factory::create(EntityType::POLAR_BEAR, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
     }
 
     fn is_food(&self, _stack: &ItemStack) -> bool {
@@ -315,7 +316,7 @@ fn check_polar_bear_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor,
     }
 }
 
-crate::register_spawn_placement!(EntityType::POLAR_BEAR, check_polar_bear_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::POLAR_BEAR, check_polar_bear_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static POLAR_BEAR: EntityRegistration = EntityRegistration { entity_type: EntityType::POLAR_BEAR, create: |ty, id, registries| Box::new(PolarBear::new(ty, id, registries)) };

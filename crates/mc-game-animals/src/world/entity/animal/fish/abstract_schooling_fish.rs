@@ -5,17 +5,17 @@
 //! entity (the leader may be taken out of the level or not yet added while `finalizeSpawn` runs).
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use super::abstract_fish::AbstractFish;
-use crate::impl_spawn_group_data;
-use crate::server::level::ServerLevel;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::{Goal, GoalFlags, reduced_tick_delay};
-use crate::world::entity::mob::{self, navigation};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::impl_spawn_group_data;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::world::entity::mob::{self, navigation};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_data::enums::EntitySpawnReason;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI32, Ordering};

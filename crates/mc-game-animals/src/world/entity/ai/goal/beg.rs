@@ -1,13 +1,13 @@
 //! `BegGoal` (wolves beg for bones and food).
 
-use super::{Flag, Goal, GoalFlags};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::animal::wolf::Wolf;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::mob::ext;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::mob::ext;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
 use mc_core::random::RandomSource;
 use mc_data::Item;
 

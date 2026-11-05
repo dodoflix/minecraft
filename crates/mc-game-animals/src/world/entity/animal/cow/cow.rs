@@ -2,23 +2,23 @@
 
 use super::cow_sound_variant::CowSoundVariant;
 use super::cow_variant::{self, CowVariant};
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::player::menu_ctx::PlayerCtx;
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::variant::{self, SpawnContext};
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::player::menu_ctx::PlayerCtx;
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::variant::{self, SpawnContext};
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -128,7 +128,7 @@ impl Cow {
 }
 
 impl Entity for Cow {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:cow")
@@ -168,7 +168,7 @@ impl Entity for Cow {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::COW, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::COW, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let own = self.get_variant();
         let partner_variant = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Cow>()).map(Cow::get_variant);
         if let (Some(partner_variant), Some(cow)) = (partner_variant, baby.as_any_mut().downcast_mut::<Cow>()) {
@@ -221,7 +221,7 @@ impl Entity for Cow {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         DataComponentMap::builder()
             .add_all(&base)
             .set(COW_VARIANT, Holder::Reference(self.variant_key.clone()))
@@ -240,7 +240,7 @@ impl Entity for Cow {
                 self.set_sound_variant(id);
             }
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
 

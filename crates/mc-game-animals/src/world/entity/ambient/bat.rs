@@ -1,17 +1,17 @@
 //! `Bat` (`AmbientCreature`).
 
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::util::lm;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::{Entity, EntityId, MovementEmission};
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter as _, LevelAccessor as _, LevelReader as _};
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::util::lm;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId, MovementEmission};
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter as _, LevelAccessor as _, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -69,7 +69,7 @@ impl Bat {
 }
 
 impl Entity for Bat {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:bat")
@@ -84,7 +84,7 @@ impl Entity for Bat {
     }
 
     fn get_voice_pitch(&mut self) -> f32 {
-        crate::world::entity::living_entity::damage::voice_pitch(self) * 0.95
+        mc_game_core::world::entity::living_entity::damage::voice_pitch(self) * 0.95
     }
 
     /// `getAmbientSound()`: the resting roll is made in [`Entity::play_ambient_sound`] (it needs the random).
@@ -96,7 +96,7 @@ impl Entity for Bat {
         if self.is_resting() && self.base_mut().random.next_int_bounded(4) != 0 {
             return;
         }
-        crate::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_BAT_AMBIENT);
+        mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_BAT_AMBIENT);
     }
 
     fn get_hurt_sound(&self, _source: &DamageSource) -> Option<SoundEvent> {
@@ -214,7 +214,7 @@ impl Entity for Bat {
         if self.is_resting() {
             self.set_resting(false);
         }
-        crate::world::entity::living_entity::damage::hurt_server(self, level, source, amount)
+        mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, amount)
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
@@ -239,11 +239,11 @@ pub fn check_bat_spawn_rules(ty: EntityType, level: &dyn ServerLevelAccessor, re
     } else if !level.get_block_state(pos.below()).is_tag("bats_spawnable_on") {
         false
     } else {
-        crate::world::entity::spawn_predicates::check_mob_spawn_rules(ty, level, reason, pos, random)
+        mc_game_core::world::entity::spawn_predicates::check_mob_spawn_rules(ty, level, reason, pos, random)
     }
 }
 
-crate::register_spawn_placement!(EntityType::BAT, check_bat_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::BAT, check_bat_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static BAT: EntityRegistration = EntityRegistration { entity_type: EntityType::BAT, create: |ty, id, _registries| Box::new(Bat::new(ty, id)) };

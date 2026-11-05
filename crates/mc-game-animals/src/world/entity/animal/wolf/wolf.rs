@@ -2,36 +2,34 @@
 
 use super::wolf_sound_variant::{WolfSoundSet, WolfSoundVariant};
 use super::wolf_variant::WolfVariant;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::{DamageSource, DamageTypeTags};
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::target::{
-    HurtByTargetGoal, NearestAttackableTargetGoal, NonTameRandomTargetGoal, OwnerHurtByTargetGoal, OwnerHurtTargetGoal, TargetType, class_of_types,
-};
-use crate::world::entity::ai::goal::{
-    AvoidEntityGoal, BegGoal, BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LeapAtTargetGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, ResetUniversalAngerTargetGoal,
-    SitWhenOrderedToGoal, TamableAnimalPanicGoal, WaterAvoidingRandomStrollGoal,
-};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_ai::world::entity::ai::goal::target::{NonTameRandomTargetGoal, OwnerHurtByTargetGoal, OwnerHurtTargetGoal};
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_types};
+use crate::world::entity::ai::goal::BegGoal;
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal, ResetUniversalAngerTargetGoal};
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, SitWhenOrderedToGoal, TamableAnimalPanicGoal, WaterAvoidingRandomStrollGoal};
 use crate::world::entity::animal::turtle;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::crackiness::Crackiness;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::living_entity::util::broadcast_entity_event;
-use crate::world::entity::mob::neutral::{self, NeutralData};
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, ext, interact, tamable};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::variant::{self, SpawnContext};
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::dye_color;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::pathfinder::PathType;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::crackiness::Crackiness;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
+use mc_game_core::world::entity::mob::neutral::{self, NeutralData};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ext, interact, tamable};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::variant::{self, SpawnContext};
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::dye_color;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -315,7 +313,7 @@ impl Wolf {
     fn try_to_tame(&mut self, level: &mut ServerLevel, player: &ServerPlayer) {
         if self.base_mut().random.next_int_bounded(3) == 0 {
             tamable::tame(self, level, player);
-            crate::world::entity::mob::navigation::stop(self, level);
+            mc_game_core::world::entity::mob::navigation::stop(self, level);
             mob::tick::set_target(self, level, None);
             tamable::set_ordered_to_sit(self, true);
             broadcast_entity_event(level, self.id(), 7);
@@ -335,7 +333,7 @@ fn is_wolf_food(stack: &ItemStack) -> bool {
 }
 
 impl Entity for Wolf {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:wolf")
@@ -509,12 +507,12 @@ impl Entity for Wolf {
             return false;
         }
         tamable::set_ordered_to_sit(self, false);
-        crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
+        mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
     }
 
     fn actually_hurt(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
         if !self.can_armor_absorb(level, source) {
-            crate::world::entity::living_entity::damage::actually_hurt(self, level, source, damage);
+            mc_game_core::world::entity::living_entity::damage::actually_hurt(self, level, source, damage);
         } else {
             let armor_before = self.body_armor();
             let damage_before = armor_before.get_damage_value();
@@ -541,7 +539,7 @@ impl Entity for Wolf {
     }
 
     fn hurt_armor(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
-        crate::world::entity::living_entity::damage::do_hurt_equipment(self, level, source, damage, &[EquipmentSlot::Body]);
+        mc_game_core::world::entity::living_entity::damage::do_hurt_equipment(self, level, source, damage, &[EquipmentSlot::Body]);
     }
 
     fn can_shear_equipment(&self, player: &ServerPlayer) -> bool {
@@ -664,7 +662,7 @@ impl Entity for Wolf {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::WOLF, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::WOLF, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let partner_info = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Wolf>()).map(|p| (p.get_variant(), p.get_collar_color()));
         if let (Some((partner_variant, partner_collar)), Some(wolf)) = (partner_info, baby.as_any_mut().downcast_mut::<Wolf>()) {
             let registries = level.registries.clone();
@@ -689,12 +687,12 @@ impl Entity for Wolf {
 
 /// `Wolf.checkWolfSpawnRules`.
 fn check_wolf_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    use crate::world::level::block::BlockStateExt as _;
-    use crate::world::level::BlockGetter as _;
-    level.get_block_state(pos.below()).is_tag("wolves_spawnable_on") && crate::world::entity::spawn_predicates::is_bright_enough_to_spawn(level, pos)
+    use mc_game_core::world::level::block::BlockStateExt as _;
+    use mc_game_core::world::level::BlockGetter as _;
+    level.get_block_state(pos.below()).is_tag("wolves_spawnable_on") && mc_game_core::world::entity::spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
-crate::register_spawn_placement!(EntityType::WOLF, check_wolf_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::WOLF, check_wolf_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static WOLF: EntityRegistration = EntityRegistration { entity_type: EntityType::WOLF, create: |ty, id, registries| Box::new(Wolf::new(ty, id, registries)) };

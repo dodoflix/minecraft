@@ -6,10 +6,10 @@ use mc_data::SoundEvent;
 use mc_dfu::{Codec, record};
 use serde_json::Value;
 
-use crate::registry::codec::RegistryDecodeContext;
-use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
-use crate::registry::keys;
-use crate::world::entity::variant::{decode_variant, sound_event_codec};
+use mc_game_core::registry::codec::RegistryDecodeContext;
+use mc_game_core::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
+use mc_game_core::registry::keys;
+use mc_game_core::world::entity::variant::{decode_variant, sound_event_codec};
 
 /// `WolfSoundVariant.WolfSoundSet`.
 #[derive(Clone, Copy, Debug, PartialEq)]

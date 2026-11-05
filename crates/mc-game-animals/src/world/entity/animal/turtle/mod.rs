@@ -3,8 +3,8 @@
 pub mod turtle;
 pub use turtle::Turtle;
 
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 
 /// `Turtle.BABY_ON_LAND_SELECTOR`: `target.isBaby() && !target.isInWater()`.
 pub fn baby_on_land_selector(target: &dyn Entity, _level: &ServerLevel) -> bool {

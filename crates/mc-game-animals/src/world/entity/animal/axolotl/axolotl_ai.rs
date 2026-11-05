@@ -3,23 +3,20 @@
 use super::axolotl::on_stop_attacking;
 use super::play_dead::PlayDead;
 use super::validate_play_dead;
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::entity::ai::behavior::behaviors::{CountDownCooldownTicks, boxed, erase_memory_if};
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::{
-    BehaviorBuilder, BehaviorControl, GateBehavior, OneShot, OrderPolicy, RunOne, RunningPolicy, animal_make_love::AnimalMakeLove, baby_follow_adult, behavior_utils,
-    follow_temptation::FollowTemptation, melee_attack, move_to_target_sink::MoveToTargetSink, random_stroll, set_entity_look_target_sometimes,
-    set_walk_target_from_attack_target_if_target_out_of_reach, start_attacking, stop_attacking_if_target_invalid, try_find_liquid,
-};
-use crate::world::entity::ai::brain::ActivityData;
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_ai::world::entity::ai::behavior::behaviors::{CountDownCooldownTicks, boxed, erase_memory_if};
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_ai::world::entity::ai::behavior::{animal_make_love::AnimalMakeLove, baby_follow_adult, follow_temptation::FollowTemptation, melee_attack, random_stroll, set_entity_look_target_sometimes, set_walk_target_from_attack_target_if_target_out_of_reach, start_attacking, stop_attacking_if_target_invalid, try_find_liquid};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, BehaviorControl, GateBehavior, OneShot, OrderPolicy, RunOne, RunningPolicy, behavior_utils, move_to_target_sink::MoveToTargetSink};
+use mc_game_core::world::entity::ai::brain::ActivityData;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, HAS_HUNTING_COOLDOWN, LOOK_TARGET, NEAREST_ATTACKABLE, NEAREST_VISIBLE_ADULT, PLAY_DEAD_TICKS, TEMPTATION_COOLDOWN_TICKS, WALK_TARGET,
 };
-use crate::world::entity::ai::memory::{MemoryStatus, WalkTarget};
-use crate::world::entity::entity::Entity;
-use crate::world::entity::schedule::Activity;
-use crate::world::level::biome_ext::is_water_at;
+use mc_game_core::world::entity::ai::memory::{MemoryStatus, WalkTarget};
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::level::biome_ext::is_water_at;
 use mc_data::EntityType;
 
 /// `ADULT_FOLLOW_RANGE` (`UniformInt.of(5, 16)`).

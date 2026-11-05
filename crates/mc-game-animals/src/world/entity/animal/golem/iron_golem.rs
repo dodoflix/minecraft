@@ -1,25 +1,25 @@
 //! `IronGolem`: village protector (neutral, anger timer), cracks as it is damaged, healed with iron ingots, offers poppies.
 
 use super::abstract_golem::AMBIENT_SOUND_INTERVAL;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::target::{DefendVillageTargetGoal, HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{
-    GolemRandomStrollInVillageGoal, LookAtPlayerGoal, MeleeAttackGoal, MoveBackToVillageGoal, MoveTowardsTargetGoal, OfferFlowerGoal, RandomLookAroundGoal, ResetUniversalAngerTargetGoal,
-};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::crackiness::{Crackiness, CrackinessLevel};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::util::broadcast_entity_event;
-use crate::world::entity::mob::neutral::{self, NeutralData};
-use crate::world::entity::mob::{self, MobData, MobKind, interact};
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::enchantment::actors::Actors;
-use crate::world::item::enchantment_helper;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStackExt};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_ai::world::entity::ai::goal::target::DefendVillageTargetGoal;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::{GolemRandomStrollInVillageGoal, MoveTowardsTargetGoal, OfferFlowerGoal, ResetUniversalAngerTargetGoal};
+use mc_game_core::world::entity::ai::goal::{LookAtPlayerGoal, MeleeAttackGoal, MoveBackToVillageGoal, RandomLookAroundGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::crackiness::{Crackiness, CrackinessLevel};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
+use mc_game_core::world::entity::mob::neutral::{self, NeutralData};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, interact};
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::enchantment::actors::Actors;
+use mc_game_core::world::item::enchantment_helper;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStackExt};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
@@ -132,7 +132,7 @@ fn offer_flower(golem: &mut dyn Entity, level: &mut ServerLevel, offer: bool) {
 }
 
 impl Entity for IronGolem {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:iron_golem")
@@ -146,7 +146,7 @@ impl Entity for IronGolem {
         if other.is_enemy() && other.get_type() != EntityType::CREEPER && self.base_mut().random.next_int_bounded(20) == 0 {
             self.set_target(level, Some(other.id()));
         }
-        crate::world::entity::living_entity::push::do_push(level, self, other);
+        mc_game_core::world::entity::living_entity::push::do_push(level, self, other);
     }
 
     fn ai_step(&mut self, level: &mut ServerLevel) {
@@ -216,7 +216,7 @@ impl Entity for IronGolem {
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
         let previous_crackiness = self.get_crackiness();
-        let was_hurt = crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
         if was_hurt && self.get_crackiness() != previous_crackiness {
             self.play_sound(level, SoundEvent::ENTITY_IRON_GOLEM_DAMAGE, 1.0, 1.0);
         }
@@ -261,11 +261,11 @@ impl Entity for IronGolem {
     }
 
     fn check_spawn_obstruction(&self, level: &dyn ServerLevelAccessor) -> bool {
-        use crate::world::level::spawner::natural_spawner::is_valid_empty_spawn_block;
+        use mc_game_core::world::level::spawner::natural_spawner::is_valid_empty_spawn_block;
         let pos = self.block_position();
         let below_pos = pos.below();
         let below = level.get_block_state(below_pos);
-        if !crate::world::entity::ai::navigation::entity_can_stand_on(below, level, below_pos, self) {
+        if !mc_game_core::world::entity::ai::navigation::entity_can_stand_on(below, level, below_pos, self) {
             return false;
         }
         for i in 1..3 {

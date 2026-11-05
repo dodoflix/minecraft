@@ -3,32 +3,32 @@
 
 use super::frog_ai;
 use super::frog_variant::FrogVariant;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
-use crate::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, IS_PREGNANT};
-use crate::world::entity::ai::memory::{BrainPacked, Unit};
-use crate::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use crate::world::entity::ai::sensing::mob_sensors::frog_can_eat;
-use crate::world::entity::ai::sensing::sensor_type::{FROG_ATTACKABLES, FROG_TEMPTATIONS, HURT_BY, IS_IN_WATER, NEAREST_LIVING_ENTITIES};
-use crate::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::{self, MobData, MobKind, animal};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates;
-use crate::world::entity::variant::{self, SpawnContext};
-use crate::world::entity::{Entity, EntityId, MoverType};
-use crate::world::item::ItemStack;
-use crate::world::level::level_access::LevelAccessor;
-use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type, default_get_start};
-use crate::world::level::pathfinder::{NodeId, PathFinder, PathType};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, IS_PREGNANT};
+use mc_game_core::world::entity::ai::memory::{BrainPacked, Unit};
+use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
+use mc_game_core::world::entity::ai::sensing::mob_sensors::frog_can_eat;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{FROG_ATTACKABLES, FROG_TEMPTATIONS, HURT_BY, IS_IN_WATER, NEAREST_LIVING_ENTITIES};
+use mc_game_core::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, animal};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::variant::{self, SpawnContext};
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::level_access::LevelAccessor;
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type, default_get_start};
+use mc_game_core::world::level::pathfinder::{NodeId, PathFinder, PathType};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -60,7 +60,7 @@ pub struct Frog {
 impl Frog {
     /// `new Frog(type, level)`.
     pub fn new(ty: EntityType, id: EntityId, registries: &RegistryAccess) -> Self {
-        let default_variant = variant::get_default_or_any(registries, keys::FROG_VARIANT, &Identifier::parse(crate::world::entity::animal::temperature_variants::TEMPERATE).expect("valid id"));
+        let default_variant = variant::get_default_or_any(registries, keys::FROG_VARIANT, &Identifier::parse(mc_game_core::world::entity::animal::temperature_variants::TEMPERATE).expect("valid id"));
         let mob = MobData::new(ty, id, MobKind::Animal, |b| {
             b.define(DATA_VARIANT_ID, default_variant as i32);
             b.define(DATA_TONGUE_TARGET_ID, None);
@@ -113,7 +113,7 @@ pub fn check_frog_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, 
     level.get_block_state(pos.below()).is_tag("frogs_spawnable_on") && spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
-crate::register_spawn_placement!(EntityType::FROG, check_frog_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::FROG, check_frog_spawn_rules);
 
 /// `Frog.FrogLookControl`: the head pitch is only reset while no tongue target is set.
 #[derive(Default)]
@@ -193,7 +193,7 @@ impl PathNavigation for FrogPathNavigation {
     }
 
     fn can_cut_corner(&self, path_type: PathType) -> bool {
-        path_type != PathType::WaterBorder && crate::world::entity::ai::navigation::default_can_cut_corner(self, path_type)
+        path_type != PathType::WaterBorder && mc_game_core::world::entity::ai::navigation::default_can_cut_corner(self, path_type)
     }
 }
 
@@ -203,7 +203,7 @@ fn is_frog_food(stack: &ItemStack) -> bool {
 }
 
 impl Entity for Frog {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:frog")
@@ -291,7 +291,7 @@ impl Entity for Frog {
     }
 
     fn calculate_fall_damage(&self, fall_distance: f64, damage_modifier: f32) -> i32 {
-        crate::world::entity::living_entity::damage::calculate_fall_damage(self, fall_distance, damage_modifier) - FROG_FALL_DAMAGE_REDUCTION
+        mc_game_core::world::entity::living_entity::damage::calculate_fall_damage(self, fall_distance, damage_modifier) - FROG_FALL_DAMAGE_REDUCTION
     }
 
     fn travel_in_water(&mut self, level: &mut ServerLevel, input: Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {

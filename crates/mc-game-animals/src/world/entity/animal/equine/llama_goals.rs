@@ -1,12 +1,12 @@
 //! The goals nested in `Llama` / `TraderLlama`.
 
 use super::llama::Llama;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetGoal, TargetType};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags};
-use crate::world::entity::ai::targeting;
-use crate::world::entity::mob::{combat, leashable, tamable};
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetGoal, TargetType};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::world::entity::ai::targeting;
+use mc_game_core::world::entity::mob::{combat, leashable, tamable};
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_data::EntityType;
 use std::sync::Arc;
 

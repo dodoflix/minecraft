@@ -15,7 +15,7 @@ pub use pufferfish::Pufferfish;
 pub use salmon::Salmon;
 pub use tropical_fish::TropicalFish;
 
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::Entity;
 
 /// `entity instanceof AbstractFish` (the concrete fish with `FishSwimGoal`).
 pub fn as_abstract_fish(e: &dyn Entity) -> Option<&dyn AbstractFish> {

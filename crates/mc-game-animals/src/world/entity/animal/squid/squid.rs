@@ -4,22 +4,22 @@
 //! through the free functions of this module; [`as_squid_data`] is the `instanceof Squid` of the goals.
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::{Goal, GoalFlags, reduced_tick_delay};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::living_entity::util::{broadcast_entity_event, l};
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, MoverType};
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::living_entity::util::{broadcast_entity_event, l};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -115,7 +115,7 @@ pub fn as_squid_data_ref(e: &dyn Entity) -> Option<&SquidData> {
 
 /// `Mob.<init>` tail shared by squids: ground navigation, goals, water malus (`AgeableWaterCreature.<init>`).
 pub fn init(mob: &mut MobData, navigation: StandardPathNavigation) {
-    mob.set_pathfinding_malus(crate::world::level::pathfinder::PathType::Water, 0.0);
+    mob.set_pathfinding_malus(mc_game_core::world::level::pathfinder::PathType::Water, 0.0);
     mob.set_navigation(Box::new(navigation));
     mob.goal_selector.add_goal(0, Box::new(SquidRandomMovementGoal));
     mob.goal_selector.add_goal(1, Box::new(SquidFleeGoal { flee_ticks: 0 }));
@@ -199,7 +199,7 @@ pub fn ai_step<E: SquidLike>(e: &mut E, level: &mut ServerLevel) {
         let s = e.squid_mut();
         s.tentacle_angle = mth::abs_f32(mth::sin(f64::from(s.tentacle_movement))) * PI_F * 0.25;
         let mut yd = e.base().delta_movement().y;
-        if let Some(amplifier) = crate::world::entity::living_entity::util::effect_amplifier(e, MobEffect::LEVITATION) {
+        if let Some(amplifier) = mc_game_core::world::entity::living_entity::util::effect_amplifier(e, MobEffect::LEVITATION) {
             yd = 0.05 * f64::from(amplifier + 1);
         } else {
             yd -= e.get_gravity();
@@ -220,7 +220,7 @@ pub fn get_last_hurt_by_mob(level: &ServerLevel, e: &dyn Entity) -> Option<Entit
 
 /// `Squid.hurtServer(level, source, damage)`.
 pub fn hurt_server<E: SquidLike>(e: &mut E, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-    if crate::world::entity::living_entity::damage::hurt_server(e, level, source, damage) && get_last_hurt_by_mob(level, e).is_some() {
+    if mc_game_core::world::entity::living_entity::damage::hurt_server(e, level, source, damage) && get_last_hurt_by_mob(level, e).is_some() {
         spawn_ink(e, level);
         true
     } else {
@@ -260,10 +260,10 @@ pub fn get_breed_offspring(ty: EntityType, level: &mut ServerLevel) -> Option<Bo
 macro_rules! squid_entity {
     () => {
         crate::world::entity::animal::squid::squid::squid_entity!(skip_ai_step_hurt);
-        fn ai_step(&mut self, level: &mut crate::server::level::ServerLevel) {
+        fn ai_step(&mut self, level: &mut mc_game_core::server::level::ServerLevel) {
             crate::world::entity::animal::squid::squid::ai_step(self, level);
         }
-        fn hurt_server(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) -> bool {
+        fn hurt_server(&mut self, level: &mut mc_game_core::server::level::ServerLevel, source: &mc_game_core::world::damagesource::DamageSource, damage: f32) -> bool {
             crate::world::entity::animal::squid::squid::hurt_server(self, level, source, damage)
         }
     };
@@ -274,25 +274,25 @@ macro_rules! squid_entity {
         fn get_sound_volume(&self) -> f32 {
             0.4
         }
-        fn get_movement_emission(&self) -> crate::world::entity::entity::MovementEmission {
-            crate::world::entity::entity::MovementEmission::Events
+        fn get_movement_emission(&self) -> mc_game_core::world::entity::entity::MovementEmission {
+            mc_game_core::world::entity::entity::MovementEmission::Events
         }
         fn get_default_gravity(&self) -> f64 {
             0.08
         }
-        fn travel(&mut self, level: &mut crate::server::level::ServerLevel, _input: mc_core::phys::Vec3) {
+        fn travel(&mut self, level: &mut mc_game_core::server::level::ServerLevel, _input: mc_core::phys::Vec3) {
             crate::world::entity::animal::squid::squid::travel(self, level);
         }
         fn finalize_spawn(
             &mut self,
-            level: &mut dyn crate::world::level::server_level_accessor::ServerLevelAccessor,
-            difficulty: crate::world::difficulty_instance::DifficultyInstance,
+            level: &mut dyn mc_game_core::world::level::server_level_accessor::ServerLevelAccessor,
+            difficulty: mc_game_core::world::difficulty_instance::DifficultyInstance,
             reason: mc_data::enums::EntitySpawnReason,
-            group_data: Option<Box<dyn crate::world::entity::spawn_group_data::SpawnGroupData>>,
-        ) -> Option<Box<dyn crate::world::entity::spawn_group_data::SpawnGroupData>> {
+            group_data: Option<Box<dyn mc_game_core::world::entity::spawn_group_data::SpawnGroupData>>,
+        ) -> Option<Box<dyn mc_game_core::world::entity::spawn_group_data::SpawnGroupData>> {
             crate::world::entity::animal::squid::squid::finalize_spawn(self, level, difficulty, reason, group_data)
         }
-        fn get_dimensions(&self, pose: mc_data::enums::Pose) -> crate::world::entity::dimensions::EntityDimensions {
+        fn get_dimensions(&self, pose: mc_data::enums::Pose) -> mc_game_core::world::entity::dimensions::EntityDimensions {
             crate::world::entity::animal::squid::squid::get_dimensions(self, pose)
         }
     };
@@ -327,7 +327,7 @@ impl SquidLike for Squid {
 }
 
 impl Entity for Squid {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
     crate::world::entity::animal::fish::water_animal::water_creature_entity!(no_leash);
     squid_entity!();
 

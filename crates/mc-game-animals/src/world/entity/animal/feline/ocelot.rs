@@ -1,26 +1,27 @@
 //! `Ocelot`: the wild cat that learns to trust players fed with raw fish.
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::OcelotAttackGoal;
-use crate::world::entity::ai::goal::{AvoidEntityGoal, BreedGoal, FloatGoal, Goal, GoalFlags, LeapAtTargetGoal, LookAtPlayerGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_ai::world::entity::ai::goal::OcelotAttackGoal;
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, Goal, GoalFlags, LookAtPlayerGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::animal::turtle;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::living_entity::util::broadcast_entity_event;
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, interact};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter as _, LevelReader as _};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, interact};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -187,7 +188,7 @@ impl Ocelot {
 }
 
 impl Entity for Ocelot {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:ocelot")
@@ -251,7 +252,7 @@ impl Entity for Ocelot {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        crate::world::entity::factory::create(EntityType::OCELOT, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+        mc_game_core::world::entity::factory::create(EntityType::OCELOT, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
@@ -297,7 +298,7 @@ fn check_ocelot_spawn_rules(_ty: EntityType, _level: &dyn ServerLevelAccessor, _
     random.next_int_bounded(3) != 0
 }
 
-crate::register_spawn_placement!(EntityType::OCELOT, check_ocelot_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::OCELOT, check_ocelot_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static OCELOT: EntityRegistration = EntityRegistration { entity_type: EntityType::OCELOT, create: |ty, id, registries| Box::new(Ocelot::new(ty, id, registries)) };

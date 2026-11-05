@@ -2,32 +2,32 @@
 //! hunts aquatic mobs and gives regeneration to the player that it helped to kill something.
 
 use super::axolotl_ai;
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::control::look_control::{LookControl, LookControlBase};
-use crate::world::entity::ai::control::move_control::{MoveControl, MoveControlBase};
-use crate::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
-use crate::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, HAS_HUNTING_COOLDOWN, PLAY_DEAD_TICKS};
-use crate::world::entity::ai::memory::BrainPacked;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::sensing::sensor_type::{AXOLOTL_ATTACKABLES, FOOD_TEMPTATIONS, HURT_BY, NEAREST_ADULT, NEAREST_LIVING_ENTITIES};
-use crate::world::entity::bucketable::{self, Bucketable};
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, ageable};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
-use crate::world::level::LevelReader;
-use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::pathfinder::PathType;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::control::look_control::{LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase};
+use mc_game_core::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
+use mc_game_core::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, HAS_HUNTING_COOLDOWN, PLAY_DEAD_TICKS};
+use mc_game_core::world::entity::ai::memory::BrainPacked;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{AXOLOTL_ATTACKABLES, FOOD_TEMPTATIONS, HURT_BY, NEAREST_ADULT, NEAREST_LIVING_ENTITIES};
+use mc_game_core::world::entity::bucketable::{self, Bucketable};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
+use mc_game_core::world::level::LevelReader;
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -216,7 +216,7 @@ pub fn on_stop_attacking(level: &mut ServerLevel, body: &mut dyn Entity, target:
     if !target.is_dead_or_dying() {
         return;
     }
-    let Some(last_damage_source) = crate::world::entity::ai::sensing::hurt_by_sensor::get_last_damage_source(level, target) else { return };
+    let Some(last_damage_source) = mc_game_core::world::entity::ai::sensing::hurt_by_sensor::get_last_damage_source(level, target) else { return };
     let Some(player) = last_damage_source.get_entity().filter(|&id| level.get_entity(id).is_some_and(|e| e.is_player())) else { return };
     let range = body.base().bounding_box().inflate_scalar(PLAYER_REGEN_DETECTION_RANGE);
     let players_in_range = level.get_entities_of_class(&range, |e| e.is_player(), |_| true);
@@ -232,7 +232,7 @@ pub fn check_axolotl_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccesso
     level.get_block_state(pos.below()).is_tag("axolotls_spawnable_on")
 }
 
-crate::register_spawn_placement!(EntityType::AXOLOTL, check_axolotl_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::AXOLOTL, check_axolotl_spawn_rules);
 
 /// `Axolotl.AxolotlMoveControl`: a `SmoothSwimmingMoveControl` that does nothing while playing dead.
 struct AxolotlMoveControl {
@@ -326,7 +326,7 @@ impl Bucketable for Axolotl {
 }
 
 impl Entity for Axolotl {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:axolotl")
@@ -430,7 +430,7 @@ impl Entity for Axolotl {
     }
 
     fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         mc_protocol::components::DataComponentMap::builder().add_all(&base).set(AXOLOTL_VARIANT, self.get_variant()).build()
     }
 
@@ -438,7 +438,7 @@ impl Entity for Axolotl {
         if let Some(variant) = stack.get(&AXOLOTL_VARIANT) {
             self.set_variant(*variant);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
@@ -491,7 +491,7 @@ impl Entity for Axolotl {
         {
             self.brain_mut().set_memory(&PLAY_DEAD_TICKS, TOTAL_PLAYDEAD_TIME);
         }
-        crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
+        mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
     }
 
     fn get_max_head_x_rot(&self) -> i32 {
@@ -549,7 +549,7 @@ impl Entity for Axolotl {
     fn use_player_item(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) {
         let item_stack = player.get_item_in_hand(hand);
         if item_stack.item() == Item::TROPICAL_FISH_BUCKET {
-            let filled = create_filled_result(item_stack, &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level }, ItemStack::new(Item::WATER_BUCKET), false);
+            let filled = create_filled_result(item_stack, &mut mc_game_core::world::entity::player::menu_ctx::PlayerCtx { player, level }, ItemStack::new(Item::WATER_BUCKET), false);
             player.set_item_in_hand(hand, filled);
         } else {
             mob::interact::use_player_item(level, player, hand);

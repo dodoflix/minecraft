@@ -1,20 +1,20 @@
 //! `MushroomCow` (mooshroom): red/brown variants, mushroom stew / suspicious stew, shearing into a cow.
 
 use super::cow::{abstract_cow_mob_interact, register_goals};
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::convert::{self, ConversionParams};
-use crate::world::entity::mob::{self, MobData, MobKind, ext};
-use crate::world::entity::player::menu_ctx::PlayerCtx;
-use crate::world::entity::spawn_predicates;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result, hurt_and_break};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{LevelReader, block::BlockStateExt as _};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ext};
+use mc_game_core::world::entity::player::menu_ctx::PlayerCtx;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result, hurt_and_break};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{LevelReader, block::BlockStateExt as _};
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -96,10 +96,10 @@ pub fn check_mushroom_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccess
     level.get_block_state(pos.below()).is_tag("mooshrooms_spawnable_on") && spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
-crate::register_spawn_placement!(EntityType::MOOSHROOM, check_mushroom_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::MOOSHROOM, check_mushroom_spawn_rules);
 
 impl Entity for MushroomCow {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:mooshroom")
@@ -117,7 +117,7 @@ impl Entity for MushroomCow {
         Some(SoundEvent::ENTITY_COW_AMBIENT)
     }
 
-    fn get_hurt_sound(&self, _source: &crate::world::damagesource::DamageSource) -> Option<SoundEvent> {
+    fn get_hurt_sound(&self, _source: &mc_game_core::world::damagesource::DamageSource) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_COW_HURT)
     }
 
@@ -173,7 +173,7 @@ impl Entity for MushroomCow {
             mob::interact::with_hand_stack(player, hand, |s, p| hurt_and_break(s, 1, level, p, hand.as_equipment_slot()));
             InteractionResult::SUCCESS
         } else if self.get_variant() == MushroomCowVariant::Brown && !self.is_baby() {
-            let effects = item_stack.item().block().and_then(|b| crate::world::level::block::behaviour(b).get_suspicious_effects());
+            let effects = item_stack.item().block().and_then(|b| mc_game_core::world::level::block::behaviour(b).get_suspicious_effects());
             match effects {
                 None => abstract_cow_mob_interact(self, level, player, hand),
                 Some(effects) => {
@@ -181,7 +181,7 @@ impl Entity for MushroomCow {
                     if self.stew_effects.is_some() {
                         level.send_particles_full(ParticleOptions::Simple(ParticleType::SMOKE), false, false, x, y, z, 2, 0.5, 0.0, 0.5, 0.0, 0.2, 0.0, RandomizationType::AlternativeWithSpeed);
                     } else {
-                        mob::interact::with_hand_stack(player, hand, |s, p| crate::world::item::ItemStackExt::consume(s, 1, p.has_infinite_materials()));
+                        mob::interact::with_hand_stack(player, hand, |s, p| mc_game_core::world::item::ItemStackExt::consume(s, 1, p.has_infinite_materials()));
                         let particle = ParticleOptions::Spell { particle_type: ParticleType::EFFECT, color: -1, power: 1.0 };
                         level.send_particles_full(particle, false, false, x, y, z, 4, 0.5, 0.0, 0.5, 0.0, 0.2, 0.0, RandomizationType::AlternativeWithSpeed);
                         self.stew_effects = Some(effects);
@@ -218,14 +218,14 @@ impl Entity for MushroomCow {
         convert::convert_to(self, level, EntityType::COW, &params, EntitySpawnReason::Conversion, |_, level| {
             level.send_particles(ParticleOptions::Simple(ParticleType::EXPLOSION), x, y_half, z, 1, 0.0, 0.0, 0.0, 0.0);
             for stack in drops {
-                let item = crate::world::entity::item::ItemEntity::with_stack(level, x, y + f64::from(1.0f32), z, stack);
+                let item = mc_game_core::world::entity::item::ItemEntity::with_stack(level, x, y + f64::from(1.0f32), z, stack);
                 level.add_fresh_entity(Box::new(item));
             }
         });
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::MOOSHROOM, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::MOOSHROOM, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let mate = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<MushroomCow>()).map(MushroomCow::get_variant)?;
         let variant = self.get_offspring_variant(mate);
         if let Some(cow) = baby.as_any_mut().downcast_mut::<MushroomCow>() {
@@ -251,7 +251,7 @@ impl Entity for MushroomCow {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         DataComponentMap::builder().add_all(&base).set(MOOSHROOM_VARIANT, self.get_variant()).build()
     }
 
@@ -259,7 +259,7 @@ impl Entity for MushroomCow {
         if let Some(variant) = stack.get(&MOOSHROOM_VARIANT) {
             self.set_variant(*variant);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
 

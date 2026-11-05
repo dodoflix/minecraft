@@ -1,18 +1,18 @@
 //! `net.minecraft.world.entity.animal.squid.GlowSquid`.
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use super::squid::{self, SquidData, SquidLike, squid_entity};
-use crate::define_accessor;
-use crate::register_spawn_placement;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -69,7 +69,7 @@ impl SquidLike for GlowSquid {
 }
 
 impl Entity for GlowSquid {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
     crate::world::entity::animal::fish::water_animal::water_creature_entity!(no_leash);
     // `Squid`'s overrides, except `aiStep` / `hurtServer` which `GlowSquid` extends below
     squid_entity!(skip_ai_step_hurt);

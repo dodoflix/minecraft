@@ -1,16 +1,14 @@
 //! `net.minecraft.world.entity.animal.frog.TadpoleAi`: the brain of the tadpole.
 
-use crate::world::entity::ai::behavior::behaviors::{CountDownCooldownTicks, boxed};
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::{
-    BehaviorBuilder, BehaviorControl, GateBehavior, OrderPolicy, RunningPolicy, animal_panic::AnimalPanic, follow_temptation::FollowTemptation, move_to_target_sink::MoveToTargetSink,
-    random_stroll, set_entity_look_target_sometimes, set_walk_target_from_look_target,
-};
-use crate::world::entity::ai::brain::ActivityData;
-use crate::world::entity::ai::memory::memory_module_type::{TEMPTATION_COOLDOWN_TICKS, WALK_TARGET};
-use crate::world::entity::ai::memory::MemoryStatus;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::schedule::Activity;
+use mc_game_ai::world::entity::ai::behavior::behaviors::{CountDownCooldownTicks, boxed};
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_ai::world::entity::ai::behavior::{animal_panic::AnimalPanic, follow_temptation::FollowTemptation, random_stroll, set_entity_look_target_sometimes};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, BehaviorControl, GateBehavior, OrderPolicy, RunningPolicy, move_to_target_sink::MoveToTargetSink, set_walk_target_from_look_target};
+use mc_game_core::world::entity::ai::brain::ActivityData;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{TEMPTATION_COOLDOWN_TICKS, WALK_TARGET};
+use mc_game_core::world::entity::ai::memory::MemoryStatus;
+use mc_game_core::world::entity::entity::Entity;
+use mc_game_core::world::entity::schedule::Activity;
 use mc_data::EntityType;
 
 /// `TadpoleAi.getActivities()`.

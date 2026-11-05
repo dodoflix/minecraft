@@ -1,20 +1,20 @@
 //! `Donkey`.
 
 use super::abstract_chested_horse::{self, AbstractChestedHorse, DATA_ID_CHEST};
-use super::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -74,8 +74,8 @@ impl AbstractHorse for Donkey {
 impl AbstractChestedHorse for Donkey {}
 
 impl Entity for Donkey {
-    crate::mob_entity_accessors!(mob);
-    crate::abstract_horse_entity!();
+    mc_game_core::mob_entity_accessors!(mob);
+    mc_game_core::abstract_horse_entity!();
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:donkey")
@@ -110,12 +110,12 @@ impl Entity for Donkey {
     }
 
     fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, scale: f32) -> Vec3 {
-        let base = crate::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments);
+        let base = mc_game_core::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments);
         abstract_horse::get_passenger_attachment_point(self, base, scale)
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
-        super::item_in_tag(stack, "horse_food")
+        mc_game_core::world::entity::animal::equine::item_in_tag(stack, "horse_food")
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
@@ -147,7 +147,7 @@ impl Entity for Donkey {
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
         let baby_type = if level.get_entity(partner).is_some_and(|p| p.get_type() == EntityType::HORSE) { EntityType::MULE } else { EntityType::DONKEY };
-        let mut baby = crate::world::entity::factory::create(baby_type, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(baby_type, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         abstract_horse::set_offspring_attributes(self, level, partner, baby.as_mut());
         Some(baby)
     }

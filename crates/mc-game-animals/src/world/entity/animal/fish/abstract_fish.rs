@@ -5,17 +5,18 @@
 //! `impl Entity` block (which expands to every override `AbstractFish` makes), adding its own overrides after it.
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
-use crate::world::entity::ai::goal::{AvoidEntityGoal, Flag, Goal, GoalFlags, PanicGoal, RandomSwimmingGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::mob::{self, MobData};
-use crate::world::entity::movement;
-use crate::world::entity::{Entity, MoverType};
-use crate::world::item::ItemStack;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, RandomSwimmingGoal};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, PanicGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::mob::{self, MobData};
+use mc_game_core::world::entity::movement;
+use mc_game_core::world::entity::{Entity, MoverType};
+use mc_game_core::world::item::ItemStack;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_data::{Attribute, SoundEvent};
@@ -38,12 +39,12 @@ pub trait AbstractFish: Entity {
     fn get_bucket_item_stack(&self) -> ItemStack;
     /// `saveToBucketTag(bucket)` (subclasses add their variant components).
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
-        crate::world::entity::bucketable::save_default_data_to_bucket_tag(self.as_dyn(), bucket);
+        mc_game_core::world::entity::bucketable::save_default_data_to_bucket_tag(self.as_dyn(), bucket);
     }
 }
 
 /// `AbstractFish.createAttributes()` is `Mob.createMobAttributes().add(MAX_HEALTH, 3.0)`: read from `mc_data`.
-pub fn define_synched_data(b: &mut crate::world::entity::synched_data::SynchedEntityDataBuilder) {
+pub fn define_synched_data(b: &mut mc_game_core::world::entity::synched_data::SynchedEntityDataBuilder) {
     b.define(FROM_BUCKET, false);
 }
 
@@ -60,7 +61,7 @@ pub fn set_from_bucket(e: &mut dyn Entity, from_bucket: bool) {
 /// `AbstractFish.<init>` (after `WaterAnimal.<init>`): the water-bound navigation and `FishMoveControl`; `WaterAnimal`
 /// sets the water malus. Called by the concrete constructor in `Mob.<init>` order (navigation before `registerGoals`).
 pub fn init_controls(mob: &mut MobData, navigation: StandardPathNavigation) {
-    mob.set_pathfinding_malus(crate::world::level::pathfinder::PathType::Water, 0.0);
+    mob.set_pathfinding_malus(mc_game_core::world::level::pathfinder::PathType::Water, 0.0);
     mob.move_control = Some(Box::<FishMoveControl>::default());
     mob.set_navigation(Box::new(navigation));
 }
@@ -119,7 +120,7 @@ pub fn ai_step(e: &mut dyn Entity, level: &mut ServerLevel, flop_sound: SoundEve
         e.base_mut().set_delta_movement(dm);
         movement::set_on_ground(e, &*level, false);
         e.base_mut().needs_sync = true;
-        crate::world::entity::living_entity::damage::make_sound(e, level, flop_sound);
+        mc_game_core::world::entity::living_entity::damage::make_sound(e, level, flop_sound);
     }
     mob::tick::ai_step(e, level);
 }
@@ -168,7 +169,7 @@ impl MoveControl for FishMoveControl {
     }
 }
 
-fn l_mut(e: &mut dyn Entity) -> &mut crate::world::entity::living::LivingEntityData {
+fn l_mut(e: &mut dyn Entity) -> &mut mc_game_core::world::entity::living::LivingEntityData {
     e.living_mut().expect("living mob")
 }
 
@@ -216,7 +217,7 @@ impl Goal for FishSwimGoal {
 /// receives `WaterAnimal`'s through [`water_creature_entity!`]). Requires `AbstractFish` implemented on `Self`.
 macro_rules! abstract_fish_entity {
     ($encode_id:literal) => {
-        crate::mob_entity_accessors!(mob);
+        mc_game_core::mob_entity_accessors!(mob);
         fn get_encode_id(&self) -> Option<&'static str> {
             Some($encode_id)
         }
@@ -227,10 +228,10 @@ macro_rules! abstract_fish_entity {
         fn remove_when_far_away(&self, _dist_sqr: f64) -> bool {
             crate::world::entity::animal::fish::abstract_fish::remove_when_far_away(self)
         }
-        fn travel_in_water(&mut self, level: &mut crate::server::level::ServerLevel, input: mc_core::phys::Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {
+        fn travel_in_water(&mut self, level: &mut mc_game_core::server::level::ServerLevel, input: mc_core::phys::Vec3, _base_gravity: f64, _is_falling: bool, _old_y: f64) {
             crate::world::entity::animal::fish::abstract_fish::travel_in_water(self, level, input);
         }
-        fn ai_step(&mut self, level: &mut crate::server::level::ServerLevel) {
+        fn ai_step(&mut self, level: &mut mc_game_core::server::level::ServerLevel) {
             let flop = crate::world::entity::animal::fish::abstract_fish::AbstractFish::get_flop_sound(self);
             crate::world::entity::animal::fish::abstract_fish::ai_step(self, level, flop);
             crate::world::entity::animal::fish::abstract_fish::AbstractFish::after_ai_step(self, level);
@@ -238,22 +239,22 @@ macro_rules! abstract_fish_entity {
         fn get_swim_sound(&self) -> mc_data::SoundEvent {
             mc_data::SoundEvent::ENTITY_FISH_SWIM
         }
-        fn play_step_sound(&mut self, _level: &mut crate::server::level::ServerLevel, _pos: mc_core::pos::BlockPos, _state: mc_data::block::BlockState) {}
-        fn as_bucketable(&self) -> Option<&dyn crate::world::entity::bucketable::Bucketable> {
+        fn play_step_sound(&mut self, _level: &mut mc_game_core::server::level::ServerLevel, _pos: mc_core::pos::BlockPos, _state: mc_data::block::BlockState) {}
+        fn as_bucketable(&self) -> Option<&dyn mc_game_core::world::entity::bucketable::Bucketable> {
             Some(self)
         }
-        fn as_bucketable_mut(&mut self) -> Option<&mut dyn crate::world::entity::bucketable::Bucketable> {
+        fn as_bucketable_mut(&mut self) -> Option<&mut dyn mc_game_core::world::entity::bucketable::Bucketable> {
             Some(self)
         }
         fn mob_interact(
             &mut self,
-            level: &mut crate::server::level::ServerLevel,
-            player: &mut crate::world::entity::ServerPlayer,
-            hand: crate::world::item::InteractionHand,
-        ) -> crate::world::item::InteractionResult {
-            match crate::world::entity::bucketable::bucket_mob_pickup_in_place(level, player, hand, self) {
+            level: &mut mc_game_core::server::level::ServerLevel,
+            player: &mut mc_game_core::world::entity::ServerPlayer,
+            hand: mc_game_core::world::item::InteractionHand,
+        ) -> mc_game_core::world::item::InteractionResult {
+            match mc_game_core::world::entity::bucketable::bucket_mob_pickup_in_place(level, player, hand, self) {
                 Some(result) => result,
-                None => crate::world::entity::mob::interact::mob_interact(self, level, player, hand),
+                None => mc_game_core::world::entity::mob::interact::mob_interact(self, level, player, hand),
             }
         }
     };
@@ -263,20 +264,20 @@ pub(crate) use abstract_fish_entity;
 /// `impl Bucketable for $ty` (`AbstractFish`'s part): flag, default bucket data, pickup sound.
 macro_rules! abstract_fish_bucketable {
     ($ty:ty) => {
-        impl crate::world::entity::bucketable::Bucketable for $ty {
+        impl mc_game_core::world::entity::bucketable::Bucketable for $ty {
             fn from_bucket(&self) -> bool {
                 crate::world::entity::animal::fish::abstract_fish::from_bucket(self)
             }
             fn set_from_bucket(&mut self, from_bucket: bool) {
                 crate::world::entity::animal::fish::abstract_fish::set_from_bucket(self, from_bucket);
             }
-            fn save_to_bucket_tag(&self, bucket: &mut crate::world::item::ItemStack) {
+            fn save_to_bucket_tag(&self, bucket: &mut mc_game_core::world::item::ItemStack) {
                 crate::world::entity::animal::fish::abstract_fish::AbstractFish::save_to_bucket_tag(self, bucket);
             }
             fn load_from_bucket_tag(&mut self, tag: &mc_nbt::CompoundTag) {
-                crate::world::entity::bucketable::load_default_data_from_bucket_tag(self, tag);
+                mc_game_core::world::entity::bucketable::load_default_data_from_bucket_tag(self, tag);
             }
-            fn get_bucket_item_stack(&self) -> crate::world::item::ItemStack {
+            fn get_bucket_item_stack(&self) -> mc_game_core::world::item::ItemStack {
                 crate::world::entity::animal::fish::abstract_fish::AbstractFish::get_bucket_item_stack(self)
             }
             fn get_pickup_sound(&self) -> mc_data::SoundEvent {

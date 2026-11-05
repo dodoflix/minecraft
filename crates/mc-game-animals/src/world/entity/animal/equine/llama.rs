@@ -1,25 +1,26 @@
 //! `Llama` and `TraderLlama` (one Rust type; `trader` is `Some` for the trader llama): strength, variants, caravans, spit.
 
 use super::abstract_chested_horse::{self, AbstractChestedHorse, DATA_ID_CHEST};
-use super::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
+use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, AbstractHorseData, DATA_ID_FLAGS};
 use super::llama_goals::{LlamaHurtByTargetGoal, TraderLlamaDefendWanderingTraderGoal, llama_attack_wolf_goal};
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, LlamaFollowCaravanGoal, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, RangedAttackGoal, RunAroundLikeCrazyGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, leashable};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use crate::world::entity::ai::goal::LlamaFollowCaravanGoal;
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, RangedAttackGoal, RunAroundLikeCrazyGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, leashable};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -122,7 +123,7 @@ impl Llama {
         goals.add_goal(3, Box::new(RangedAttackGoal::new(1.25, 40, 20.0)));
         goals.add_goal(3, Box::new(PanicGoal::new(1.2)));
         goals.add_goal(4, Box::new(breed));
-        goals.add_goal(5, Box::new(TemptGoal::new(1.25, Arc::new(|stack: &ItemStack| super::item_in_tag(stack, "llama_tempt_items")), false)));
+        goals.add_goal(5, Box::new(TemptGoal::new(1.25, Arc::new(|stack: &ItemStack| mc_game_core::world::entity::animal::equine::item_in_tag(stack, "llama_tempt_items")), false)));
         goals.add_goal(6, Box::new(follow_parent));
         goals.add_goal(7, Box::new(WaterAvoidingRandomStrollGoal::new(0.7)));
         goals.add_goal(8, Box::new(look_at));
@@ -235,7 +236,7 @@ impl Llama {
     /// `spit(target)`.
     fn spit(&mut self, level: &mut ServerLevel, target: EntityId) {
         let Some((tx, ty, tz)) = level.get_entity(target).map(|t| (t.base().x(), t.base().y() + f64::from(t.base().get_bb_height()) * 0.3333333333333333, t.base().z())) else { return };
-        let spit = crate::world::entity::projectile::llama_spit::LlamaSpit::from_llama(level, self.as_dyn());
+        let spit = mc_game_core::world::entity::projectile::llama_spit::LlamaSpit::from_llama(level, self.as_dyn());
         let (sx, sy, sz) = (self.base().x(), spit.base().y(), self.base().z());
         let _ = (sx, sz);
         let xd = tx - self.base().x();
@@ -243,7 +244,7 @@ impl Llama {
         let zd = tz - self.base().z();
         let yo = (xd * xd + zd * zd).sqrt() * f64::from(0.2f32);
         let uncertainty = self.ranged_attack_uncertainty(level);
-        crate::world::entity::projectile::spawn::spawn_projectile_using_shoot(level, Box::new(spit), &ItemStack::empty(), xd, yd + yo, zd, 1.5, uncertainty);
+        mc_game_core::world::entity::projectile::spawn::spawn_projectile_using_shoot(level, Box::new(spit), &ItemStack::empty(), xd, yd + yo, zd, 1.5, uncertainty);
         if !self.base().is_silent() {
             let pitch = 1.0 + (self.base_mut().random.next_float() - self.base_mut().random.next_float()) * 0.2;
             let p = self.position();
@@ -256,11 +257,11 @@ impl Llama {
     /// `makeNewLlama()`.
     fn make_new_llama(&mut self, level: &mut ServerLevel) -> Option<Box<dyn Entity>> {
         if self.is_trader_llama() {
-            let mut baby = crate::world::entity::factory::create(EntityType::TRADER_LLAMA, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+            let mut baby = mc_game_core::world::entity::factory::create(EntityType::TRADER_LLAMA, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
             baby.mob_mut()?.persistence_required = true;
             Some(baby)
         } else {
-            crate::world::entity::factory::create(EntityType::LLAMA, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+            mc_game_core::world::entity::factory::create(EntityType::LLAMA, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
         }
     }
 
@@ -399,8 +400,8 @@ impl AbstractChestedHorse for Llama {
 }
 
 impl Entity for Llama {
-    crate::mob_entity_accessors!(mob);
-    crate::abstract_horse_entity!();
+    mc_game_core::mob_entity_accessors!(mob);
+    mc_game_core::abstract_horse_entity!();
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some(if self.is_trader_llama() { "minecraft:trader_llama" } else { "minecraft:llama" })
@@ -428,15 +429,15 @@ impl Entity for Llama {
     }
 
     fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
-        let dmg = crate::world::entity::living_entity::damage::calculate_fall_damage(self, fall_distance, damage_modifier);
+        let dmg = mc_game_core::world::entity::living_entity::damage::calculate_fall_damage(self, fall_distance, damage_modifier);
         if dmg <= 0 {
             return false;
         }
         if fall_distance >= 6.0 {
             self.hurt_server(level, source, dmg as f32);
-            crate::world::entity::entity::propagate_fall_to_passengers(self, level, fall_distance, damage_modifier, source);
+            mc_game_core::world::entity::entity::propagate_fall_to_passengers(self, level, fall_distance, damage_modifier, source);
         }
-        crate::world::entity::living_entity::damage::play_block_fall_sound(self, level);
+        mc_game_core::world::entity::living_entity::damage::play_block_fall_sound(self, level);
         true
     }
 
@@ -445,11 +446,11 @@ impl Entity for Llama {
     }
 
     fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, _scale: f32) -> Vec3 {
-        crate::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments)
+        mc_game_core::world::entity::entity::default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments)
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
-        super::item_in_tag(stack, "llama_food")
+        mc_game_core::world::entity::animal::equine::item_in_tag(stack, "llama_food")
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
@@ -559,7 +560,7 @@ impl Entity for Llama {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         DataComponentMap::builder().add_all(&base).set(LLAMA_VARIANT, self.get_variant()).build()
     }
 
@@ -567,7 +568,7 @@ impl Entity for Llama {
         if let Some(variant) = stack.get(&LLAMA_VARIANT) {
             self.set_variant(*variant);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
 

@@ -1,13 +1,13 @@
 //! `AbstractChestedHorse` (donkeys, mules, llamas): the chest flag and its inventory.
 
-use super::abstract_horse::{self, AbstractHorse, add_behaviour_goals, is_tamed, make_mad};
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::container::Container;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::mob::{self, interact::with_hand_stack};
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
+use mc_game_core::world::entity::animal::equine::abstract_horse::{self, AbstractHorse, add_behaviour_goals, is_tamed, make_mad};
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::Container;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::mob::{self, interact::with_hand_stack};
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::{Attribute, Item, SoundEvent};
@@ -53,7 +53,7 @@ pub fn randomize_attributes(e: &mut (impl AbstractChestedHorse + ?Sized), random
 pub fn drop_equipment(e: &mut (impl AbstractChestedHorse + ?Sized), level: &mut ServerLevel) {
     abstract_horse::drop_equipment(e, level);
     if has_chest(e) {
-        crate::world::entity::item::spawn_at_location(level, e.as_dyn(), ItemStack::new(Item::CHEST), Vec3::ZERO);
+        mc_game_core::world::entity::item::spawn_at_location(level, e.as_dyn(), ItemStack::new(Item::CHEST), Vec3::ZERO);
         set_chest(e, false);
     }
 }
@@ -64,7 +64,7 @@ pub fn add_additional_save_data(e: &(impl AbstractChestedHorse + ?Sized), out: &
     out.put_boolean("ChestedHorse", has_chest(e));
     if has_chest(e) {
         let inventory = &e.horse().inventory;
-        out.put("Items", crate::world::container::save_slots((0..inventory.get_container_size()).map(|i| (i, inventory.get_item(i)))));
+        out.put("Items", mc_game_core::world::container::save_slots((0..inventory.get_container_size()).map(|i| (i, inventory.get_item(i)))));
     }
 }
 
@@ -76,7 +76,7 @@ pub fn read_additional_save_data(e: &mut (impl AbstractChestedHorse + ?Sized), i
     e.create_inventory();
     if has_chest(e) {
         let size = e.horse().inventory.get_container_size();
-        for (slot, stack) in crate::world::container::load_slots(input.get_list_or_empty("Items")) {
+        for (slot, stack) in mc_game_core::world::container::load_slots(input.get_list_or_empty("Items")) {
             if slot < size {
                 e.horse_mut().inventory.set_item(slot, stack);
             }

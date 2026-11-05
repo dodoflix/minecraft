@@ -5,11 +5,11 @@ use std::sync::LazyLock;
 use mc_dfu::{Codec, MapCodec, record};
 use serde_json::Value;
 
-use crate::registry::codec::RegistryDecodeContext;
-use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
-use crate::registry::keys;
-use crate::world::entity::variant::model_and_texture::ResourceTexture;
-use crate::world::entity::variant::{PriorityProvider, Selector, SpawnPrioritySelectors, decode_variant};
+use mc_game_core::registry::codec::RegistryDecodeContext;
+use mc_game_core::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
+use mc_game_core::registry::keys;
+use mc_game_core::world::entity::variant::model_and_texture::ResourceTexture;
+use mc_game_core::world::entity::variant::{PriorityProvider, Selector, SpawnPrioritySelectors, decode_variant};
 
 /// `CatVariant`.
 #[derive(Clone, Debug, PartialEq)]

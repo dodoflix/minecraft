@@ -1,14 +1,15 @@
 //! The goals nested in `Rabbit`: `RabbitAvoidEntityGoal`, `RabbitPanicGoal`, `RaidGardenGoal`.
 
 use super::rabbit::Rabbit;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
-use crate::world::entity::ai::goal::{AvoidEntityGoal, EntityTest, Flag, Goal, GoalFlags, PanicGoal};
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::block::helpers::is_instance_of;
-use crate::world::level::level_access::{BlockGetter, LevelAccessor as _};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, EntityTest};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, PanicGoal};
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::block::helpers::is_instance_of;
+use mc_game_core::world::level::level_access::{BlockGetter, LevelAccessor as _};
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::{GameEvent, props};

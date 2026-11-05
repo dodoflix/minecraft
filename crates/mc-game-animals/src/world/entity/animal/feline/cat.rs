@@ -2,36 +2,35 @@
 
 use super::cat_sound_variant::{CatSoundSet, CatSoundVariant};
 use super::cat_variant::CatVariant;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::OcelotAttackGoal;
-use crate::world::entity::ai::goal::move_to_block;
-use crate::world::entity::ai::goal::{
-    AvoidEntityGoal, BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LeapAtTargetGoal, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, SitWhenOrderedToGoal,
-    TamableAnimalPanicGoal, TemptGoal, WaterAvoidingRandomStrollGoal,
-};
-use crate::world::entity::ai::goal::Flag;
-use crate::world::entity::ai::goal::target::{NonTameRandomTargetGoal, TargetType};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_ai::world::entity::ai::goal::OcelotAttackGoal;
+use mc_game_core::world::entity::ai::goal::move_to_block;
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowOwnerGoal, Goal, GoalFlags, LookAtPlayerGoal, MoveToBlock, MoveToBlockData, SitWhenOrderedToGoal, TamableAnimalPanicGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::goal::Flag;
+use mc_game_ai::world::entity::ai::goal::target::NonTameRandomTargetGoal;
+use mc_game_core::world::entity::ai::goal::target::TargetType;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::animal::turtle;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::living_entity::util::broadcast_entity_event;
-use crate::world::entity::mob::{self, MobData, MobKind, ext, interact, leashable, tamable};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::variant::{self, SpawnContext};
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::dye_color;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::level_access::LevelAccessor as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter as _, LevelReader as _};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ext, interact, leashable, tamable};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::variant::{self, SpawnContext};
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::dye_color;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::level_access::LevelAccessor as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter as _, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -220,7 +219,7 @@ impl Goal for CatRelaxOnOwnerGoal {
         }
         let sleep_timer = self.owner_player.and_then(|p| level.get_entity(p)).and_then(|p| p.as_any().downcast_ref::<ServerPlayer>()).map_or(0, |p| p.player.sleep_counter);
         if sleep_timer >= 100 {
-            let chance = level.environment_value(crate::world::attribute::attributes::CAT_WAKING_UP_GIFT_CHANCE, &cat.position()).as_float();
+            let chance = level.environment_value(mc_game_core::world::attribute::attributes::CAT_WAKING_UP_GIFT_CHANCE, &cat.position()).as_float();
             if level.random().next_float() < chance {
                 self.give_morning_gift(cat, level);
             }
@@ -552,7 +551,7 @@ impl Cat {
     /// `hiss()`.
     pub fn hiss(&mut self, level: &mut ServerLevel) {
         let sound = self.get_sound_set().hiss_sound;
-        crate::world::entity::living_entity::damage::make_sound(self, level, sound);
+        mc_game_core::world::entity::living_entity::damage::make_sound(self, level, sound);
     }
 
     /// `handleLieDown()`.
@@ -616,7 +615,7 @@ impl Cat {
 }
 
 impl Entity for Cat {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:cat")
@@ -700,7 +699,7 @@ impl Entity for Cat {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::CAT, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::CAT, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let partner_info = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Cat>()).map(|p| (p.get_variant(), p.get_collar_color()));
         if let (Some((partner_variant, partner_collar)), Some(cat)) = (partner_info, baby.as_any_mut().downcast_mut::<Cat>()) {
             let registries = level.registries.clone();

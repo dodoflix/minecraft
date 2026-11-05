@@ -1,16 +1,16 @@
 //! `SkeletonTrapGoal`: the lightning trap of a skeleton horse (a skeleton rider plus three more skeleton horsemen).
 
 use super::skeleton_horse::SkeletonHorse;
-use crate::server::level::ServerLevel;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::{Goal, GoalFlags};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{self, EntitySpawnRequest};
-use crate::world::entity::lightning_bolt::LightningBolt;
-use crate::world::entity::mob::{self, ageable};
-use crate::world::entity::Entity;
-use crate::world::item::ItemStack;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game_core::world::entity::lightning_bolt::LightningBolt;
+use mc_game_core::world::entity::mob::{self, ageable};
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_core::random::RandomSource;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{EntityType, Item};
@@ -59,7 +59,7 @@ impl SkeletonTrapGoal {
         let mut stack = skeleton.get_item_by_slot(slot);
         stack.set(ENCHANTMENTS, Default::default());
         let registries = level.registries.clone();
-        crate::world::item::enchantment_helper::enchant_item_from_provider(
+        mc_game_core::world::item::enchantment_helper::enchant_item_from_provider(
             &mut stack,
             &registries,
             &mc_core::ident::Identifier::new("minecraft", "mob_spawn_equipment").expect("valid id"),

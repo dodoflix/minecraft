@@ -10,7 +10,7 @@ pub use cat_sound_variant::{CatSoundSet, CatSoundVariant};
 pub use cat_variant::CatVariant;
 pub use ocelot::Ocelot;
 
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::Entity;
 use mc_data::enums::Pose;
 
 pub const CROUCH_SPEED_MOD: f64 = 0.6;

@@ -1,20 +1,20 @@
 //! `net.minecraft.world.entity.animal.fish.Pufferfish`.
 
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::{Goal, GoalFlags};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::entity::DATA_POSE;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::ItemStack;
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::entity::DATA_POSE;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_data::enums::Pose;
 use mc_data::{EntityType, Item, MobEffect, SoundEvent};
@@ -73,7 +73,7 @@ impl Pufferfish {
 
     /// `touch(level, mob)`.
     fn touch(&mut self, level: &mut ServerLevel, target: EntityId) {
-        let allowed = level.get_entity(target).is_some_and(|m| crate::world::entity::team::do_teams_allow_damage(level, self, m));
+        let allowed = level.get_entity(target).is_some_and(|m| mc_game_core::world::entity::team::do_teams_allow_damage(level, self, m));
         if !allowed {
             return;
         }
@@ -161,7 +161,7 @@ impl Entity for Pufferfish {
     }
 
     fn player_touch(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {
-        if crate::world::entity::team::do_teams_allow_damage(level, self, player) {
+        if mc_game_core::world::entity::team::do_teams_allow_damage(level, self, player) {
             let puff_state = self.get_puff_state();
             let source = level.damage_sources().mob_attack(self);
             if puff_state > 0 && player.hurt_server(level, &source, (1 + puff_state) as f32) {

@@ -5,14 +5,14 @@ use std::sync::LazyLock;
 use mc_dfu::{Codec, MapCodec, record};
 use serde_json::Value;
 
-use crate::registry::codec::RegistryDecodeContext;
-use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
-use crate::registry::keys;
-use crate::world::entity::variant::{PriorityProvider, Selector, SpawnPrioritySelectors, decode_variant};
-use crate::world::entity::variant::model_and_texture::{ModelAndTexture, model_type};
+use mc_game_core::registry::codec::RegistryDecodeContext;
+use mc_game_core::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
+use mc_game_core::registry::keys;
+use mc_game_core::world::entity::variant::{PriorityProvider, Selector, SpawnPrioritySelectors, decode_variant};
+use mc_game_core::world::entity::variant::model_and_texture::{ModelAndTexture, model_type};
 
 /// `TemperatureVariants.TEMPERATE` (the default variant).
-pub const TEMPERATE: &str = crate::world::entity::animal::temperature_variants::TEMPERATE;
+pub const TEMPERATE: &str = mc_game_core::world::entity::animal::temperature_variants::TEMPERATE;
 
 model_type! {
     /// `ZombieNautilusVariant.ModelType`.

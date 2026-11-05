@@ -1,28 +1,29 @@
 //! `Rabbit`: hopping movement (`RabbitJumpControl`, `RabbitMoveControl`), variants incl. the killer bunny, carrot raiding.
 
 use super::rabbit_goals::{RabbitAvoidEntityGoal, RabbitPanicGoal, RaidGardenGoal};
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::{JumpControl, JumpControlBase, MoveControl, MoveControlBase, Operation, move_control};
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{BreedGoal, ClimbOnTopOfPowderSnowGoal, FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::living_entity::jump;
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, navigation};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::{JumpControl, JumpControlBase, MoveControl, MoveControlBase, Operation, move_control};
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::ClimbOnTopOfPowderSnowGoal;
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::living_entity::jump;
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, navigation};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -344,10 +345,10 @@ pub fn check_rabbit_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor
     level.get_block_state(pos.below()).is_tag("rabbits_spawnable_on") && spawn_predicates::is_bright_enough_to_spawn(level, pos)
 }
 
-crate::register_spawn_placement!(EntityType::RABBIT, check_rabbit_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::RABBIT, check_rabbit_spawn_rules);
 
 impl Entity for Rabbit {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:rabbit")
@@ -500,7 +501,7 @@ impl Entity for Rabbit {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut offspring = crate::world::entity::factory::create(EntityType::RABBIT, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut offspring = mc_game_core::world::entity::factory::create(EntityType::RABBIT, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let mut variant = Rabbit::get_random_rabbit_variant(level, self.block_position());
         if self.base_mut().random.next_int_bounded(20) != 0 {
             let partner_variant = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Rabbit>()).map(Rabbit::get_variant);
@@ -539,7 +540,7 @@ impl Entity for Rabbit {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         DataComponentMap::builder().add_all(&base).set(RABBIT_VARIANT, self.get_variant()).build()
     }
 
@@ -547,7 +548,7 @@ impl Entity for Rabbit {
         if let Some(variant) = stack.get(&RABBIT_VARIANT) {
             self.set_variant(*variant);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
 

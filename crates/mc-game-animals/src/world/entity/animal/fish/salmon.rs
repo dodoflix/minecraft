@@ -1,23 +1,23 @@
 //! `net.minecraft.world.entity.animal.fish.Salmon`.
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
 use super::abstract_fish::{self, AbstractFish, abstract_fish_bucketable, abstract_fish_entity};
 use super::abstract_schooling_fish::{self, FollowFlockLeaderGoal, SchoolData, SchoolingFish};
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::entity::DATA_POSE;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::entity::DATA_POSE;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{EntityType, Item, SoundEvent};
@@ -92,7 +92,7 @@ impl AbstractFish for Salmon {
         ItemStack::new(Item::SALMON_BUCKET)
     }
     fn save_to_bucket_tag(&self, bucket: &mut ItemStack) {
-        crate::world::entity::bucketable::save_default_data_to_bucket_tag(self, bucket);
+        mc_game_core::world::entity::bucketable::save_default_data_to_bucket_tag(self, bucket);
         bucket.set(SALMON_SIZE, self.get_variant());
     }
 }
@@ -156,7 +156,7 @@ impl Entity for Salmon {
         if let Some(variant) = stack.get(&SALMON_SIZE) {
             self.set_variant(*variant);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {

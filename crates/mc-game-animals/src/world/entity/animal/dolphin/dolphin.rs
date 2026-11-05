@@ -2,37 +2,35 @@
 //! `DolphinSwimWithPlayerGoal`, `MoveToItemGoal`, `PlayWithItemsGoal`).
 
 use mc_core::random::RandomSource as _;
-use crate::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
-use crate::world::level::material::FluidStateExt as _;
-use crate::define_accessor;
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
-use crate::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
-use crate::world::entity::ai::goal::{
-    AvoidEntityGoal, BreathAirGoal, DolphinJumpGoal, Flag, FollowPlayerRiddenEntityGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
-    RandomSwimmingGoal, TryFindLiquidGoal,
-};
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, class_of_type};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::ai::util::default_random_pos;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::living_entity::util::broadcast_entity_event;
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, ageable, navigation};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::LevelAccessor;
-use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::level_access::{BlockGetter as _, LevelAccessor as _};
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
+use mc_game_core::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, BreathAirGoal, DolphinJumpGoal, FollowPlayerRiddenEntityGoal, RandomSwimmingGoal, TryFindLiquidGoal};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal};
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, class_of_type};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::ai::util::default_random_pos;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, navigation};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -83,7 +81,7 @@ impl Dolphin {
         });
         let mut dolphin = Dolphin { mob, treasure_pos: None };
         let navigation = StandardPathNavigation::water_bound(&dolphin);
-        dolphin.mob.set_pathfinding_malus(crate::world::level::pathfinder::PathType::Water, 0.0);
+        dolphin.mob.set_pathfinding_malus(mc_game_core::world::level::pathfinder::PathType::Water, 0.0);
         dolphin.mob.set_navigation(Box::new(navigation));
         dolphin.register_goals();
         dolphin.mob.move_control = Some(Box::new(SmoothSwimmingMoveControl::new(85, 10, 0.02, 0.1, true)));
@@ -155,7 +153,7 @@ fn is_abstract_nautilus(e: &dyn Entity) -> bool {
 }
 
 impl Entity for Dolphin {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:dolphin")
@@ -231,13 +229,13 @@ impl Entity for Dolphin {
         }
         let Some(item_stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).map(|i| i.get_item()) else { return };
         if self.can_hold_item(&item_stack) {
-            crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
+            mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
             self.set_item_slot(level, EquipmentSlot::MainHand, item_stack.clone());
             mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
             // `take(entity, itemStack.getCount())`
             if level.get_entity(item_id).is_some_and(|e| !e.is_removed()) {
                 let packet = mc_protocol::packets::play::ClientboundTakeItemEntityPacket { item_id, player_id: self.id(), amount: item_stack.count() };
-                level.entity_tracker.send_to_tracking_players(item_id, &crate::server::level::server_entity::encode_payload(&packet));
+                level.entity_tracker.send_to_tracking_players(item_id, &mc_game_core::server::level::server_entity::encode_payload(&packet));
             }
             level.with_entity(item_id, |_, e| e.discard());
         }
@@ -255,7 +253,7 @@ impl Entity for Dolphin {
                 let moistness = self.get_moistness_level() - 1;
                 self.set_moistness_level(moistness);
                 if self.get_moistness_level() <= 0 {
-                    crate::world::entity::living_entity::util::hurt(level, self, |sources| sources.dry_out(), 1.0);
+                    mc_game_core::world::entity::living_entity::util::hurt(level, self, |sources| sources.dry_out(), 1.0);
                 }
                 if self.base().on_ground() {
                     let dx = (self.base_mut().random.next_float() * 2.0 - 1.0) * 0.2;
@@ -264,7 +262,7 @@ impl Entity for Dolphin {
                     self.base_mut().set_delta_movement(dm);
                     let y_rot = self.base_mut().random.next_float() * 360.0;
                     self.set_y_rot(y_rot);
-                    crate::world::entity::movement::set_on_ground(self, &*level, false);
+                    mc_game_core::world::entity::movement::set_on_ground(self, &*level, false);
                     self.base_mut().needs_sync = true;
                 }
             }

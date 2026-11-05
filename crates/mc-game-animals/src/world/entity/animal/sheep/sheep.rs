@@ -1,21 +1,22 @@
 //! `Sheep`: wool colours, shearing/regrowing (`EatBlockGoal`), colour mixing when breeding.
 
 use super::sheep_color_spawn_rules;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::{BreedGoal, EatBlockGoal, FloatGoal, FollowParentGoal, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, hurt_and_break};
-use crate::world::level::LevelAccessor as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_ai::world::entity::ai::goal::EatBlockGoal;
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FloatGoal, FollowParentGoal, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, hurt_and_break};
+use mc_game_core::world::level::LevelAccessor as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -143,7 +144,7 @@ pub fn get_mixed_color(level: &mut ServerLevel, color1: DyeColor, color2: DyeCol
 
 /// `DyeColor.findColorMixInRecipes(level, color1, color2)`: the first crafting recipe mixing a dye item of each colour.
 fn find_color_mix_in_recipes(level: &ServerLevel, color1: DyeColor, color2: DyeColor) -> Option<DyeColor> {
-    use crate::world::item::crafting::CraftingInput;
+    use mc_game_core::world::item::crafting::CraftingInput;
     use mc_data::RecipeType;
     use mc_protocol::components::DYE;
     let items_of = |color: DyeColor| Item::iter().filter(|item| ItemStack::new(*item).get(&DYE) == Some(&color)).collect::<Vec<_>>();
@@ -171,7 +172,7 @@ fn find_color_mix_in_recipes(level: &ServerLevel, color1: DyeColor, color2: DyeC
 }
 
 impl Entity for Sheep {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:sheep")
@@ -192,7 +193,7 @@ impl Entity for Sheep {
         is_sheep_food(stack)
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut mc_game_core::world::entity::ServerPlayer, hand: InteractionHand) -> InteractionResult {
         let item_stack = player.get_item_in_hand(hand);
         if item_stack.is(Item::SHEARS) {
             if self.ready_for_shearing() {
@@ -221,7 +222,7 @@ impl Entity for Sheep {
         let table = Identifier::parse("minecraft:shearing/sheep").expect("valid id");
         mob::ext::drop_from_shearing_loot_table(level, self, &table, tool, |level, e, drop| {
             for _ in 0..drop.count() {
-                let Some(item) = crate::world::entity::item::spawn_at_location(level, e, drop.copy_with_count(1), Vec3::new(0.0, 1.0, 0.0)) else { continue };
+                let Some(item) = mc_game_core::world::entity::item::spawn_at_location(level, e, drop.copy_with_count(1), Vec3::new(0.0, 1.0, 0.0)) else { continue };
                 let random = &mut e.base_mut().random;
                 let dx = f64::from((random.next_float() - random.next_float()) * 0.1);
                 let dy = f64::from(random.next_float() * 0.05);
@@ -269,7 +270,7 @@ impl Entity for Sheep {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::SHEEP, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::SHEEP, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let parent1 = self.get_color();
         let parent2 = level.get_entity(partner).and_then(|p| p.as_any().downcast_ref::<Sheep>()).map(|p| p.get_color())?;
         let mixed = get_mixed_color(level, parent1, parent2);
@@ -301,7 +302,7 @@ impl Entity for Sheep {
     }
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         DataComponentMap::builder().add_all(&base).set(SHEEP_COLOR, self.get_color()).build()
     }
 
@@ -309,13 +310,13 @@ impl Entity for Sheep {
         if let Some(color) = stack.get(&SHEEP_COLOR) {
             self.set_color(*color);
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
 
 impl Sheep {
     /// `gameEvent(event, player)` for `SHEAR`.
-    fn game_event_from(&self, level: &mut ServerLevel, player: &crate::world::entity::ServerPlayer) {
+    fn game_event_from(&self, level: &mut ServerLevel, player: &mc_game_core::world::entity::ServerPlayer) {
         level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
     }
 }

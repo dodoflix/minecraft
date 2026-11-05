@@ -1,7 +1,7 @@
 //! `SheepColorSpawnRules`: the biome-dependent weighted colour of naturally spawned sheep.
 
-use crate::registry::keys;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::registry::keys;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;

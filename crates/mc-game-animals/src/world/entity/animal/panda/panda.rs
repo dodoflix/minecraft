@@ -3,24 +3,24 @@
 use super::panda_goals::{
     PandaAttackGoal, PandaAvoidGoal, PandaBreedGoal, PandaHurtByTargetGoal, PandaLieOnBackGoal, PandaLookAtPlayerGoal, PandaPanicGoal, PandaRollGoal, PandaSitGoal, PandaSneezeGoal,
 };
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
-use crate::world::entity::ai::goal::{FloatGoal, FollowParentGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::item::{self, ItemEntity};
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
+use mc_game_core::world::entity::ai::goal::{FloatGoal, FollowParentGoal, RandomLookAroundGoal, TemptGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::item::{self, ItemEntity};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, animal, ext, navigation};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -465,7 +465,7 @@ impl Panda {
 }
 
 impl Entity for Panda {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:panda")
@@ -487,7 +487,7 @@ impl Entity for Panda {
         if !self.is_aggressive() {
             self.did_bite = true;
         }
-        crate::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
+        mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
     }
 
     fn play_attack_sound(&mut self, level: &mut ServerLevel) {
@@ -546,7 +546,7 @@ impl Entity for Panda {
             return;
         }
         let Some(stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).filter(|i| can_pick_up_and_eat(i)).map(ItemEntity::get_item) else { return };
-        crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
+        mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
         self.set_item_slot(level, EquipmentSlot::MainHand, stack.clone());
         mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
         ext::take(level, &*self, item_id, stack.count());
@@ -555,7 +555,7 @@ impl Entity for Panda {
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, amount: f32) -> bool {
         self.sit(false);
-        crate::world::entity::living_entity::damage::hurt_server(self, level, source, amount)
+        mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, amount)
     }
 
     fn finalize_spawn(
@@ -575,7 +575,7 @@ impl Entity for Panda {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::PANDA, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::PANDA, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         let partner_is_panda = level.get_entity(partner).is_some_and(|p| p.as_any().is::<Panda>());
         if partner_is_panda {
             // `setGeneFromParents(this, partner)`: `this.random` of the baby, `getOneOfGenesRandomly()` on each parent's random
@@ -645,7 +645,7 @@ impl Entity for Panda {
                 }
             }
             InteractionResult::SUCCESS_SERVER
-        } else if self.is_baby() && crate::world::entity::animal::equine::abstract_horse::is_holding(player, Item::GOLDEN_DANDELION) {
+        } else if self.is_baby() && mc_game_core::world::entity::animal::equine::abstract_horse::is_holding(player, Item::GOLDEN_DANDELION) {
             mob::interact::mob_interact(self, level, player, hand)
         } else {
             InteractionResult::PASS
