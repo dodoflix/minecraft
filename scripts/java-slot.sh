@@ -14,32 +14,6 @@ esac
 need=1
 case "$*" in *net.minecraft.client.main.Main*|*E2eMain*) need=2 ;; esac
 
-# Offload: oracle programs / generators run on a cloud builder (scripts/builders/remote-java.sh mirrors the worktree,
-# streams I/O and syncs written files back). Servers (they listen on local ports), the real client, custom JDKs
-# (MC_REAL_JAVA, e.g. old-version servers) and JVMs already on a builder stay local.
-REG=/tmp/mc-builders
-if [ -z "${MC_ON_BUILDER:-}" ] && [ -z "${MC_REAL_JAVA:-}" ] && [ "$need" = 1 ] && [ -n "${MC_JAVA_REMOTE:-}" ]; then
-  case "$*" in *server.jar*|*nogui*|*paper*.jar*) ;; *)
-    rj="$(dirname "$(readlink -f "$0")")/builders/remote-java.sh"
-    deadline=$(( $(date +%s) + ${MC_REMOTE_JVM_WAIT_S:-1800} ))
-    while ls "$REG"/*.ip >/dev/null 2>&1 && [ "$(date +%s)" -lt "$deadline" ]; do
-      for reg in "$REG"/*.ip; do
-        name=$(basename "$reg" .ip)
-        for s in $(seq 1 "${MC_REMOTE_JVM_SLOTS:-3}"); do
-          exec {rfd}>"/tmp/mc-remote.$name.jvm$s"
-          if flock -n "$rfd"; then
-            touch "$REG/$name.last"; "$rj" "$(cat "$reg")" "$s" "$@"; rc=$?; touch "$REG/$name.last"
-            [ "$rc" = 255 ] || exit $rc
-            exec {rfd}>&-; break 3   # transport failure: run locally below
-          fi
-          exec {rfd}>&-
-        done
-      done
-      sleep 3
-    done ;;
-  esac
-fi
-
 held=()
 while :; do
   held=()
