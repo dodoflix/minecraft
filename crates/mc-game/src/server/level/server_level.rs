@@ -51,6 +51,8 @@ pub struct ServerLevelParams {
     pub factory: Arc<PalettedContainerFactory>,
     pub generator: Arc<dyn ChunkGeneratorBackend>,
     pub generate_structures: bool,
+    /// The structure/feature/mob stages of this level's generation (`createStructures`, `applyBiomeDecoration`, ...).
+    pub hooks: Arc<dyn super::world_gen::WorldGenHooks>,
     pub seed: i64,
     pub is_known_structure: Arc<dyn Fn(&str) -> bool + Send + Sync>,
     pub view_distance: i32,
@@ -104,7 +106,7 @@ impl ServerLevel {
             level_height: params.level_height,
             factory: params.factory.clone(),
             generator: params.generator,
-            hooks: WorldGenContext::hooks_or_default(),
+            hooks: params.hooks,
             generate_structures: params.generate_structures,
             seed: params.seed,
         });
@@ -164,6 +166,7 @@ impl ServerLevel {
             factory: Arc::new(PalettedContainerFactory::create(biomes).expect("plains registered")),
             generator: Arc::new(VoidGenerator),
             generate_structures: false,
+            hooks: Arc::new(super::world_gen::NoWorldGenHooks),
             seed: 0,
             is_known_structure: Arc::new(|_| false),
             view_distance: 10,

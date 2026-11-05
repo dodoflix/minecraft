@@ -82,6 +82,7 @@ fn open_level(dir: &Path) -> ServerLevel {
         factory: factory(),
         generator: Arc::new(VoidGenerator),
         generate_structures: false,
+        hooks: Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks),
         seed: 0,
         is_known_structure: Arc::new(|_| true),
         view_distance: 10,

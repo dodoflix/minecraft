@@ -97,6 +97,7 @@ fn generated_chunks_match_vanilla_biomes_and_direct_terrain() {
         factory: factory.clone(),
         generator: Arc::new(backend),
         generate_structures: false,
+        hooks: Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks),
         seed,
         is_known_structure: Arc::new(|_| false),
         view_distance: 10,
@@ -220,7 +221,7 @@ fn generated_full_chunks_have_vanilla_solidity_below_the_surface() {
     let mut level = ServerLevel::new(ServerLevelParams {
         shared, dimension: Identifier::parse("minecraft:overworld").unwrap(), level_id: "g".into(), dimension_dir: dir.clone(),
         level_height: height, sea_level: 63, has_sky_light: true, factory: factory.clone(), generator: Arc::new(backend),
-        generate_structures: false, seed, is_known_structure: Arc::new(|_| false), view_distance: 10, simulation_distance: 10,
+        generate_structures: false, hooks: Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks), seed, is_known_structure: Arc::new(|_| false), view_distance: 10, simulation_distance: 10,
         sync_writes: false, is_debug: false,
         level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(mc_game::server::level::level_data::default_world_data())),
     });

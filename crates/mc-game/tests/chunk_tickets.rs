@@ -38,6 +38,7 @@ fn open(dir: &Path) -> ServerLevel {
         factory: Arc::new(PalettedContainerFactory::create(biomes).unwrap()),
         generator: Arc::new(VoidGenerator),
         generate_structures: false,
+        hooks: Arc::new(mc_game::server::level::world_gen::NoWorldGenHooks),
         seed: 0,
         is_known_structure: Arc::new(|_| false),
         view_distance: 4,

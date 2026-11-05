@@ -2,7 +2,7 @@
 //!
 //! The state-only generation stages (biomes, terrain) are `mc_worldgen`'s `ChunkGenerator`; the stages that need block
 //! behaviours (structure starts/references, feature decoration, mob spawning) are [`WorldGenHooks`], implemented by the
-//! structures/features slices and registered with [`register_worldgen_hooks`].
+//! structures/features slices (`levelgen::hooks::VanillaWorldGenHooks`), one per level (`ServerLevelParams::hooks`).
 
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
@@ -10,7 +10,7 @@ use mc_core::pos::ChunkPos;
 use mc_world::chunk::{LevelHeight, ProtoChunk, StructureData};
 use mc_world::palette::PalettedContainerFactory;
 use std::collections::HashMap;
-use std::sync::{Arc, OnceLock};
+use std::sync::Arc;
 
 /// A chunk of a [`WorldGenRegion`]: lent (writable) or a read-only snapshot of a chunk the game thread owns
 /// (vanilla's `ImposterProtoChunk(allowWrites = false)` over a full chunk).
@@ -158,18 +158,10 @@ pub trait WorldGenHooks: Send + Sync {
     fn on_structure_starts_available(&self, _chunk: &ProtoChunk) {}
 }
 
-static HOOKS: OnceLock<Arc<dyn WorldGenHooks>> = OnceLock::new();
+/// The hooks of a level without structure/feature/mob generation (terrain only).
+pub struct NoWorldGenHooks;
 
-/// Register the process-wide structure/feature generation implementation (first registration wins).
-pub fn register_worldgen_hooks(hooks: Arc<dyn WorldGenHooks>) {
-    let _ = HOOKS.set(hooks);
-}
-
-/// Used until the structures/features slices register [`WorldGenHooks`]: generation continues without structure
-/// starts, references, feature decoration and original mob spawns (logged once per generation context).
-struct MissingWorldGenHooks;
-
-impl WorldGenHooks for MissingWorldGenHooks {
+impl WorldGenHooks for NoWorldGenHooks {
     fn create_structures(&self, _ctx: &WorldGenContext, _chunk: &mut ProtoChunk) {}
     fn create_references(&self, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {}
     fn apply_biome_decoration(&self, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {}
@@ -188,11 +180,4 @@ pub struct WorldGenContext {
     pub seed: i64,
 }
 
-impl WorldGenContext {
-    pub fn hooks_or_default() -> Arc<dyn WorldGenHooks> {
-        HOOKS.get().cloned().unwrap_or_else(|| {
-            log::debug!("No structure/feature world generation implementation registered: generating terrain only");
-            Arc::new(MissingWorldGenHooks)
-        })
-    }
-}
+
