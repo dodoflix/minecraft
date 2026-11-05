@@ -438,3 +438,44 @@ impl Placer<'_> {
         self.env.generator.get_first_free_height(pos.x(), pos.z(), HeightmapType::WorldSurfaceWg, height_accessor, &self.env.random_state)
     }
 }
+
+/// `generateJigsaw(level, pool, target, maxDepth, position, keepJigsaws)` (`/place jigsaw`, jigsaw blocks): the pieces of the
+/// pool placed straight into the level. `random` is `level.getRandom()` (the caller owns it while the level is borrowed).
+pub fn generate_jigsaw(
+    level: &mut dyn crate::world::level::levelgen::WorldGenLevel,
+    random: &mut dyn RandomSource,
+    pool: &Holder<StructureTemplatePool>,
+    target: &Identifier,
+    max_depth: i32,
+    position: BlockPos,
+    keep_jigsaws: bool,
+) -> bool {
+    use crate::world::level::levelgen::structure::manager::StructureManager;
+    let env = level.env().clone();
+    let manager = StructureManager::new(&env);
+    let valid_biome = |_: mc_world::palette::BiomeId| true;
+    let mut context = GenerationContext::new(&env, level.get_seed(), mc_core::pos::ChunkPos::containing(&position), level.level_height(), &valid_biome);
+    let Some(stub) = add_pieces(
+        &mut context,
+        pool,
+        Some(target),
+        max_depth,
+        position,
+        false,
+        None,
+        MaxDistance::new(MAX_TOTAL_STRUCTURE_RANGE),
+        PoolAliasLookup::Empty,
+        DimensionPadding::ZERO,
+        crate::world::level::levelgen::structure::pool_element_structure_piece::DEFAULT_LIQUID_SETTINGS,
+    ) else {
+        return false;
+    };
+    let builder = stub.get_pieces_builder(&mut context);
+    for piece in &builder.build().pieces {
+        if let Some(pool_piece) = piece.downcast_ref::<PoolElementStructurePiece>() {
+            level.ensure_chunks_loaded_around(&crate::world::level::levelgen::structure::piece::StructurePiece::get_bounding_box(pool_piece));
+            pool_piece.place(level, &manager, &env, random, &BoundingBox::infinite(), position, keep_jigsaws);
+        }
+    }
+    true
+}

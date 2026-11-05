@@ -281,9 +281,8 @@ pub fn scoreboard_tracked_players(server: &MinecraftServer) -> Vec<String> {
 /// SEAM(GameServerPacks/GameLifecycle): `MinecraftServer.registry_access()` + reloadable registries; until the server
 /// owns them only the built-in registries of `mc_data` (with vanilla tags) are available.
 pub fn registry_view(server: &MinecraftServer, registry_key: &str) -> Option<std::sync::Arc<dyn super::RegistryView>> {
-    let _ = server;
-    use super::command_build_context::{HolderLookupProvider, StaticRegistries};
-    StaticRegistries.lookup(registry_key)
+    use super::command_build_context::{AccessRegistries, HolderLookupProvider, StaticRegistries};
+    AccessRegistries(server.registries.composite_access().clone()).lookup(registry_key).or_else(|| StaticRegistries.lookup(registry_key))
 }
 
 // ---- functions ----

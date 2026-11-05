@@ -29,6 +29,7 @@ mod op_command;
 mod pardon_command;
 mod pardon_ip_command;
 mod perf_command;
+mod place_command;
 mod random_command;
 mod recipe_command;
 mod save_all_command;
