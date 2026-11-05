@@ -30,7 +30,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::level_events::BroadcastRecord;
-use mc_game::server::level::level_tick::{LevelRules, LevelTickEnv, WeatherState};
+use mc_game::server::level::level_tick::{LevelTickEnv, WeatherState};
 use mc_game::server::level::world_gen::{ChunkGeneratorBackend, WorldGenRegion};
 use mc_game::server::level::{ServerLevel, ServerLevelParams};
 use mc_game::server::shared::ServerShared;
@@ -182,7 +182,7 @@ pub struct Env {
     pub game_rules: GameRules,
     pub weather: WeatherState,
     pub difficulty: Difficulty,
-    /// `time N`: the value every clock reads.
+    /// `time N`: `getOverworldClockTime()` (regional difficulty); the detached level has no timelines, so sky light ignores it.
     pub clock: i64,
 }
 
@@ -193,9 +193,6 @@ impl LevelTickEnv for Env {
     fn is_entity_frozen(&self, _entity: &dyn Entity) -> bool {
         false
     }
-    fn rules(&self) -> LevelRules {
-        LevelRules::from_game_rules(&self.game_rules)
-    }
     fn weather(&self) -> WeatherState {
         self.weather
     }
@@ -203,9 +200,6 @@ impl LevelTickEnv for Env {
         self.weather = weather;
     }
     fn wake_up_from_sleep(&mut self) {}
-    fn clock_total_ticks(&self, _clock: &Identifier) -> i64 {
-        self.clock
-    }
     fn difficulty(&self) -> Difficulty {
         self.difficulty
     }
@@ -296,7 +290,7 @@ impl Scenario {
         });
         level.tick_state.tick_time = true;
         level.tick_state.enabled_features = self.opts.features;
-        level.tick_state.rules = self.env.rules();
+        level.server_state.rules.refresh(&self.env.game_rules);
         level.tick_state.broadcast_log = Some(self.log.clone());
         self.env.difficulty = self.opts.difficulty;
         let r = self.opts.preload;
@@ -447,8 +441,7 @@ impl Scenario {
 
     fn gamerule(&mut self, name: &str, value: &str) {
         set_rule(&mut self.env.game_rules, name, value);
-        let rules = self.env.rules();
-        self.level().tick_state.rules = rules;
+        self.level.as_mut().expect("world").server_state.rules.refresh(&self.env.game_rules);
     }
 
     /// One real server tick; with `watch`es set the `T n` header and the dumps follow.

@@ -752,7 +752,7 @@ public final class EntityOracleDriver {
             case "beu" -> {
                String[] c = arg.split(",");
                net.minecraft.world.level.block.entity.BlockEntity be = v.level.getBlockEntity(new BlockPos(Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2])));
-               var pk = be == null ? null : be.getUpdatePacket();
+               var pk = be == null ? null : (net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket)be.getUpdatePacket();
                out.println("BEU " + c[0] + " " + c[1] + " " + c[2] + " " + (pk == null ? "-" : BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(pk.getType()) + " " + pk.getTag()));
             }
             case "ticks" -> {
