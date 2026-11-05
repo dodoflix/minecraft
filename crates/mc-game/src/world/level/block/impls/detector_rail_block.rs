@@ -107,7 +107,7 @@ rail_behaviour!(DetectorRailBlock, |_state, _level, _pos, _block| {}, on_place,
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
         if state.get(props::POWERED) { 15 } else { 0 }
     }
-    fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity) {
+    fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier, _is_precise: bool) {
         if !state.get(props::POWERED) {
             check_pressed(level, pos, state, Some(&*entity));
         }
