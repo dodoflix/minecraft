@@ -88,13 +88,17 @@ pub trait BlockEntity: Any {
     fn load_additional(&mut self, _tag: &CompoundTag) {}
     /// `saveAdditional(output)`: write the type-specific part (the common `id`/`x`/`y`/`z` part is added by the caller).
     fn save_additional(&self, _tag: &mut CompoundTag) {}
-    /// `saveWithFullMetadata(registries)`: `saveAdditional`, the `components` map, then `id`, `x`, `y`, `z`.
-    fn save_with_full_metadata(&self) -> CompoundTag {
-        let mut tag = CompoundTag::new();
-        self.save_additional(&mut tag);
+    /// `saveWithoutMetadata(output)`: `saveAdditional` and the `components` map.
+    fn save_without_metadata(&self, tag: &mut CompoundTag) {
+        self.save_additional(tag);
         if let Ok(components) = mc_dfu::encode_nbt(&mc_protocol::components::DataComponentMap::codec(), &self.base().components).into_result() {
             tag.put("components", components);
         }
+    }
+    /// `saveWithFullMetadata(registries)`: `saveAdditional`, the `components` map, then `id`, `x`, `y`, `z`.
+    fn save_with_full_metadata(&self) -> CompoundTag {
+        let mut tag = CompoundTag::new();
+        self.save_without_metadata(&mut tag);
         tag.put_string("id", self.get_type().name());
         let pos = self.get_block_pos();
         tag.put_int("x", pos.x());
@@ -106,6 +110,24 @@ pub trait BlockEntity: Any {
     fn load_with_components(&mut self, tag: &CompoundTag) {
         self.load_additional(tag);
         self.base_mut().components = read_codec(tag, "components", &mc_protocol::components::DataComponentMap::codec()).unwrap_or_default();
+    }
+    // ==== [Loot] additions (BlockEntity trait methods) ====
+    /// `collectImplicitComponents(builder)`: the components a block entity derives from its own state (container contents,
+    /// custom name, banner patterns, ...), written on top of `components` by `collectComponents`.
+    fn collect_implicit_components(&self, _builder: &mut mc_protocol::components::map::DataComponentMapBuilder) {}
+    /// `collectComponents()`: the stored `components` plus the implicit ones.
+    fn collect_components(&self) -> mc_protocol::components::DataComponentMap {
+        let mut builder = mc_protocol::components::DataComponentMap::builder().add_all(&self.base().components);
+        self.collect_implicit_components(&mut builder);
+        builder.build()
+    }
+    /// `Nameable.getCustomName()` (block entities that have one).
+    fn get_custom_name(&self) -> Option<mc_text::Component> {
+        None
+    }
+    /// `this instanceof SlotProvider` (containers readable through slot ranges).
+    fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
+        None
     }
     /// `applyComponentsFromItemStack(stack)`: block entities that read item components (custom name, container
     /// contents, ...) override this; the default ignores them.

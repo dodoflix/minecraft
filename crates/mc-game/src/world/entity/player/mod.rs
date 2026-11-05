@@ -1,11 +1,21 @@
 //! `net.minecraft.world.entity.player.*` + `ServerPlayer`: `Avatar`/`Player` data and save/load.
 pub mod abilities;
+pub mod experience;
+pub mod food;
+pub mod game_mode;
+pub mod shoulder;
+pub mod stats;
+pub mod damage;
 pub mod food_data;
 pub mod handle_sync;
 pub mod drop;
+pub mod effects;
 pub mod inventory;
 pub mod item_use;
+pub mod player_systems;
 pub mod menu_ctx;
+pub mod movement_stats;
+pub mod pickup;
 pub mod tick;
 pub mod travel;
 pub mod server_player;
@@ -84,6 +94,9 @@ pub struct PlayerData {
     pub last_death_location: Option<GlobalPos>,
     pub post_effects: Vec<Identifier>,
     pub hurt_dir: f32,
+    // ==== [Player] additions (PlayerData field) ====
+    // ==== [LivingCore] additions (PlayerData field) ====
+    // ==== [Damage] additions (PlayerData field) ====
 }
 
 impl PlayerData {
@@ -120,6 +133,9 @@ impl PlayerData {
             last_death_location: None,
             post_effects: Vec::new(),
             hurt_dir: 0.0,
+            // ==== [Player] additions (PlayerData::new initializer) ====
+            // ==== [LivingCore] additions (PlayerData::new initializer) ====
+            // ==== [Damage] additions (PlayerData::new initializer) ====
         }
     }
 

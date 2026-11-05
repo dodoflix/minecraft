@@ -1,0 +1,1 @@
+pickup taken_amount=3 ticks_until_take=~2±4 inventory=Item(minecraft:diamond)x3

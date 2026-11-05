@@ -93,6 +93,7 @@ impl MinecraftServer {
     pub(in crate::server) fn init_server(&mut self) -> io::Result<bool> {
         crate::commands::BrigadierExceptions::install();
         crate::commands::install_text_validators();
+        crate::world::scores::objective_criteria::set_stat_criteria_resolver(crate::stats::stat::criteria_exists);
         mc_protocol::components::install_text_hooks();
         if properties_management_enabled(self.properties()) {
             let api = Arc::new(crate::server::management_api::ServerManagementApi::new(self.shared.clone()));

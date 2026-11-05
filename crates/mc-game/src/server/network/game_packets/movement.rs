@@ -301,7 +301,7 @@ impl PlayCtx<'_> {
             vehicle.reset_fall_distance();
         }
 
-        vehicle.r#move(&*self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
+        vehicle.r#move(&mut *self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
         let now_pos = vehicle.position();
         x_dist = target_x - now_pos.x;
         y_dist = target_y - now_pos.y;
@@ -335,7 +335,7 @@ impl PlayCtx<'_> {
         self.handle_player_known_movement(client_delta_movement);
         let hc = vehicle.base().horizontal_collision;
         vehicle.set_on_ground_with_movement(&*self.level, packet.on_ground, hc, client_delta_movement);
-        vehicle.do_check_fall_damage(&*self.level, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z, packet.on_ground);
+        vehicle.do_check_fall_damage(&mut *self.level, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z, packet.on_ground);
         self.sys().check_movement_statistics(self, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z);
         let floating = y_dist >= -0.03125
             && !vehicle_rests_on_something
@@ -504,7 +504,7 @@ impl PlayCtx<'_> {
             self.force_send_player_support_blocks();
         }
 
-        self.player.r#move(&*self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
+        self.player.r#move(&mut *self.level, MoverType::Player, Vec3::new(x_dist, y_dist, z_dist));
         let now_pos = self.player.position();
         x_dist = target_x - now_pos.x;
         y_dist = target_y - now_pos.y;
@@ -545,7 +545,7 @@ impl PlayCtx<'_> {
             let p = self.player.position();
             let client_delta_movement = Vec3::new(p.x - start_x, p.y - start_y, p.z - start_z);
             self.player.set_on_ground_with_movement(&*self.level, is_on_ground, horizontal_collision, client_delta_movement);
-            self.player.do_check_fall_damage(&*self.level, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z, is_on_ground);
+            self.player.do_check_fall_damage(&mut *self.level, client_delta_movement.x, client_delta_movement.y, client_delta_movement.z, is_on_ground);
             self.handle_player_known_movement(client_delta_movement);
             if moved_upwards {
                 self.player.reset_fall_distance();
@@ -570,7 +570,7 @@ impl PlayCtx<'_> {
         } else {
             self.teleport(start_x, start_y, start_z, target_y_rot, target_x_rot);
             let p = self.player.position();
-            self.player.do_check_fall_damage(&*self.level, p.x - start_x, p.y - start_y, p.z - start_z, is_on_ground);
+            self.player.do_check_fall_damage(&mut *self.level, p.x - start_x, p.y - start_y, p.z - start_z, is_on_ground);
             self.player.player.living.entity.movement_this_tick.pop_back();
         }
     }

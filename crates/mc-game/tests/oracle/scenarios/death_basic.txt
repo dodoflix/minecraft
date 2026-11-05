@@ -1,0 +1,62 @@
+# Player deaths: keepInventory on/off (drops, xp), totem of undying, showDeathMessages false, death events/packets, respawn.
+level flat
+difficulty normal
+spawn_player P1 survival 0.5 -60 0.5 0 0
+spawn_player P2 survival 4.5 -60 0.5 0 0
+spawn_player P3 survival 8.5 -60 0.5 0 0
+spawn_player P4 survival 12.5 -60 0.5 0 0
+spawn_player P5 survival 16.5 -60 0.5 0 0
+spawn_player Obs survival 100.5 -60 0.5 0 0
+give P1 hotbar0 minecraft:cobblestone 64
+give P1 hotbar1 minecraft:diamond_sword[enchantments={"minecraft:vanishing_curse":1}]
+give P1 chest minecraft:iron_chestplate
+give P1 offhand minecraft:apple 3
+set P1 xp_level 12
+give P2 hotbar0 minecraft:cobblestone 64
+give P2 head minecraft:iron_helmet
+set P2 xp_level 40
+give P3 offhand minecraft:totem_of_undying
+give P3 mainhand minecraft:totem_of_undying 2
+give P4 hotbar0 minecraft:dirt 10
+give P5 hotbar0 minecraft:dirt 10
+tick 1
+dump packets:P1 packets:P2 packets:P3 packets:P4 packets:P5 packets:Obs
+# keepInventory off (default): everything drops
+hurt P1 generic 1000
+tick 1
+dump player:P1 inventory:P1 entities packets:P1 packets:Obs
+tick 40
+dump entities
+respawn P1
+tick 1
+dump player:P1 inventory:P1 packets:P1
+gamerule keep_inventory true
+hurt P2 generic 1000
+tick 1
+dump player:P2 inventory:P2 entities packets:P2 packets:Obs
+respawn P2
+tick 1
+dump player:P2 inventory:P2 packets:P2
+gamerule keep_inventory false
+# totem of undying: two totems, two lethal hits
+hurt P3 generic 1000
+tick 1
+dump player:P3 inventory:P3 packets:P3 packets:Obs
+tick 21
+hurt P3 generic 1000
+tick 1
+dump player:P3 inventory:P3 packets:P3 packets:Obs
+tick 21
+hurt P3 generic 1000
+tick 1
+dump player:P3 inventory:P3 packets:P3 packets:Obs
+# totem is bypassed by bypasses_invulnerability damage
+gamerule show_death_messages false
+hurt P4 out_of_world 1000
+tick 1
+dump player:P4 packets:P4 packets:Obs
+gamerule show_death_messages true
+gamerule forgive_dead_players true
+hurt P5 generic_kill 1000
+tick 30
+dump player:P5 packets:P5 packets:Obs entities

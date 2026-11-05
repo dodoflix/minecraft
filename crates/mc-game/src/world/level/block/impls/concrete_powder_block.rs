@@ -3,6 +3,7 @@ use super::prelude::*;
 use super::falling_block;
 use crate::server::level::ServerLevel;
 use crate::world::item::BlockPlaceContext;
+use crate::world::entity::falling_block_entity::FallingBlockEntity;
 
 pub struct ConcretePowderBlock;
 
@@ -34,11 +35,27 @@ fn touches_liquid(level: &dyn BlockGetter, pos: BlockPos) -> bool {
     touches
 }
 
+/// `ConcretePowderBlock.shouldSolidify`.
+fn should_solidify(level: &dyn BlockGetter, pos: BlockPos, replaced_block: BlockState) -> bool {
+    can_solidify(replaced_block) || touches_liquid(level, pos)
+}
+
 impl BlockBehaviour for ConcretePowderBlock {
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let replaced_block = level.get_block_state(pos);
         if should_solidify(&*level, pos, replaced_block) { Some(concrete_of(block).default_state()) } else { Some(block.default_state()) }
+    }
+    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
+        falling_block::on_place(state, level, pos, 2);
+    }
+    fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+        falling_block::tick(state, level, pos);
+    }
+    fn on_land(&self, level: &mut ServerLevel, pos: BlockPos, state: BlockState, replaced: BlockState, _entity: &FallingBlockEntity) {
+        if should_solidify(&*level, pos, replaced) {
+            level.set_block_and_update(pos, concrete_of(state.block()).default_state());
+        }
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if touches_liquid(&*level, pos) {

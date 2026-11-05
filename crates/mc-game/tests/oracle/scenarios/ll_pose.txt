@@ -1,0 +1,21 @@
+# Pose transitions (Player.updatePlayerPose): crouch in the open, crawl under a one-block ceiling (swimming pose on land), stand up again.
+level flat
+fill -2 -59 3 2 -59 12 minecraft:stone
+spawn_player Crawl survival 0.5 -60 5.5 0 0 sim
+spawn_player Sneak survival 10.5 -60 0.5 0 0 sim
+watch player:Crawl player:Sneak
+tick 3
+input Crawl forward
+input Sneak forward,sneak
+tick 30
+input Crawl forward,sprint
+input Sneak none
+tick 20
+input Crawl none
+input Sneak forward,sneak
+tick 10
+input Crawl back
+input Sneak none
+tick 40
+input Crawl none
+tick 10

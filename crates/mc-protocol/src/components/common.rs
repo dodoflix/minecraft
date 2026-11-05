@@ -75,7 +75,7 @@ impl Decode for Rarity {
 
 // ---- Dyn <-> serde_json (the text component codecs speak serde_json) -------------------------------------------
 
-pub(crate) fn dyn_to_serde(d: &Dyn) -> serde_json::Value {
+pub fn dyn_to_serde(d: &Dyn) -> serde_json::Value {
     use serde_json::{Number, Value};
     match d {
         Dyn::Empty => Value::Null,
@@ -101,7 +101,7 @@ pub(crate) fn dyn_to_serde(d: &Dyn) -> serde_json::Value {
     }
 }
 
-pub(crate) fn serde_to_dyn(v: &serde_json::Value) -> Dyn {
+pub fn serde_to_dyn(v: &serde_json::Value) -> Dyn {
     use serde_json::Value;
     match v {
         Value::Null => Dyn::Empty,

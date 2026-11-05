@@ -1,0 +1,82 @@
+P Steve minecraft:player pos=0.5,-40.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 1
+P Steve minecraft:player pos=0.5,-40.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 2
+P Steve minecraft:player pos=0.5,-40.07840000152588,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+P Steve minecraft:player pos=0.5,-40.23363200604248,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Steve minecraft:player pos=0.5,-40.46415937495544,0.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Steve minecraft:player pos=0.5,-40.768476202412984,0.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Steve minecraft:player pos=0.5,-41.14510670065164,0.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Steve minecraft:player pos=0.5,-41.59260459763506,0.5 delta=0.0,-0.5169479491049732,0.0 rot=0.0,0.0 og=0 fall=1.5926045775413513 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Steve minecraft:player pos=0.5,-42.109552546740034,0.5 delta=0.0,-0.5850090015087522,0.0 rot=0.0,0.0 og=0 fall=2.109552502632141 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+P Steve minecraft:player pos=0.5,-42.694561548248785,0.5 delta=0.0,-0.6517088341626173,0.0 rot=0.0,0.0 og=0 fall=2.69456148147583 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Steve minecraft:player pos=0.5,-43.346270382411404,0.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Steve minecraft:player pos=0.5,-44.06334505384701,0.5 delta=0.0,-0.7811331932098841,0.0 rot=0.0,0.0 og=0 fall=4.063345015048981 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Steve minecraft:player pos=0.5,-44.84447824705689,0.5 delta=0.0,-0.8439105457704985,0.0 rot=0.0,0.0 og=0 fall=4.844478189945221 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Steve minecraft:player pos=0.5,-45.68838879282739,0.5 delta=0.0,-0.9054323524772837,0.0 rot=0.0,0.0 og=0 fall=5.688388764858246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Steve minecraft:player pos=0.5,-46.59382114530467,0.5 delta=0.0,-0.9657237242233685,0.0 rot=0.0,0.0 og=0 fall=6.593821108341217 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+P Steve minecraft:player pos=0.5,-47.55954486952804,0.5 delta=0.0,-1.0248092696844984,0.0 rot=0.0,0.0 og=0 fall=7.559544861316681 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+P Steve minecraft:player pos=0.5,-48.584354139212536,0.5 delta=0.0,-1.082713105363373,0.0 rot=0.0,0.0 og=0 fall=8.584354102611542 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+P Steve minecraft:player pos=0.5,-49.66706724457591,0.5 delta=0.0,-1.1394588654330982,0.0 rot=0.0,0.0 og=0 fall=9.667067229747772 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+P Steve minecraft:player pos=0.5,-50.80652611000901,0.5 delta=0.0,-1.1950697113837683,0.0 rot=0.0,0.0 og=0 fall=10.806526124477386 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+P Steve minecraft:player pos=0.5,-52.001595821392776,0.5 delta=0.0,-1.2495683414761176,0.0 rot=0.0,0.0 og=0 fall=12.001595795154572 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+P Steve minecraft:player pos=0.5,-53.251164162868896,0.5 delta=0.0,-1.302977000006099,0.0 rot=0.0,0.0 og=0 fall=13.251164138317108 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+P Steve minecraft:player pos=0.5,-54.554141162875,0.5 delta=0.0,-1.35531748638417,0.0 rot=0.0,0.0 og=0 fall=14.554141104221344 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 22
+P Steve minecraft:player pos=0.5,-55.90945864925917,0.5 delta=0.0,-1.406611164032995,0.0 rot=0.0,0.0 og=0 fall=15.909458577632904 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+P Steve minecraft:player pos=0.5,-57.31606981329217,0.5 delta=0.0,-1.4568789691071928,0.0 rot=0.0,0.0 og=0 fall=17.316069781780243 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+P Steve minecraft:player pos=0.5,-58.77294878239936,0.5 delta=0.0,-1.506141419038689,0.0 rot=0.0,0.0 og=0 fall=18.772948801517487 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 25
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 26
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 27
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 28
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 30
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 31
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 33
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 34
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=0/10 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=0/9 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 37
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=0/8 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 38
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=0/7 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=0/5 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=3.8333333 abs=0.0 hurt=0/5 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty

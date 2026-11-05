@@ -165,49 +165,6 @@ impl ServerPlayer {
         self.on_equip_item(level, slot, &old, &stack);
     }
 
-    /// `LivingEntity.onEquipItem(slot, old, new)` (server side, `Player.doesEmitEquipEvent`: armor slots only).
-    pub fn on_equip_item(&mut self, level: &mut ServerLevel, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
-        if self.is_spectator() {
-            return;
-        }
-        if !ItemStack::is_same_item_same_components(old, new) && !self.base().first_tick {
-            let equippable = new.get(&EQUIPPABLE);
-            if !self.base().is_silent() {
-                if let Some(eq) = equippable {
-                    if slot == EquipmentSlot::from_protocol(eq.slot) {
-                        if let Some(sound) = eq.equip_sound.name().and_then(|n| SoundEvent::by_name(&n.to_string())) {
-                            use mc_core::random::RandomSource;
-                            let seed = self.base_mut().random.next_long();
-                            let p = self.base().position();
-                            level.play_seeded_sound(None, p.x, p.y, p.z, sound, SoundSource::Players, 1.0, 1.0, seed);
-                        }
-                    }
-                }
-            }
-            if slot.get_type() == EquipmentSlotType::HumanoidArmor {
-                let event = if equippable.is_some() { GameEvent::EQUIP } else { GameEvent::UNEQUIP };
-                level.game_event_from_entity(Some(self.base_id()), event, self.base().position());
-            }
-        }
-    }
-
-    /// `LivingEntity.onEquippedItemBroken(brokenItem, slot)`: the break event (`entityEventForEquipmentBreak`); the
-    /// eager attribute-modifier removal happens with the next equipment change detection.
-    pub fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, _broken: &ItemStack, slot: EquipmentSlot) {
-        let event_id: i8 = match slot {
-            EquipmentSlot::MainHand => 47,
-            EquipmentSlot::OffHand => 48,
-            EquipmentSlot::Head => 49,
-            EquipmentSlot::Chest => 50,
-            EquipmentSlot::Feet => 52,
-            EquipmentSlot::Legs => 51,
-            EquipmentSlot::Body => 65,
-            EquipmentSlot::Saddle => 68,
-        };
-        let packet = mc_protocol::packets::play::ClientboundEntityEventPacket { entity_id: self.base_id(), event_id };
-        level.entity_tracker.send_to_tracking_players_and_self(self.base_id(), &encode_packet(&packet));
-    }
-
     /// `doCloseContainer()`.
     pub fn do_close_container(&mut self, level: &mut ServerLevel) {
         use super::menu_ctx::PlayerCtx;
@@ -234,9 +191,9 @@ impl ServerPlayer {
         }
     }
 
-    /// `Inventory.tick()` + `EntityEquipment.tick(owner)`: `Item.inventoryTick` for every stack (taken out of its slot
-    /// while it runs; `popTime` is client-only state and not modelled).
-    pub fn tick_inventory(&mut self, level: &mut ServerLevel) {
+    /// `Inventory.tick()`: `Item.inventoryTick` for every inventory stack (taken out of its slot while it runs;
+    /// `popTime` is client-only state and not modelled).
+    pub fn tick_inventory_items(&mut self, level: &mut ServerLevel) {
         let selected = self.player.inventory.get_selected_slot() as usize;
         for i in 0..self.player.inventory.get_non_equipment_items().len() {
             let mut stack = std::mem::take(&mut self.player.inventory.get_non_equipment_items_mut()[i]);
@@ -246,6 +203,10 @@ impl ServerPlayer {
             }
             self.player.inventory.get_non_equipment_items_mut()[i] = stack;
         }
+    }
+
+    /// `EntityEquipment.tick(owner)`: `Item.inventoryTick` for the equipped stacks.
+    pub fn tick_equipment_items(&mut self, level: &mut ServerLevel) {
         for slot in EquipmentSlot::VALUES {
             if slot == EquipmentSlot::MainHand {
                 continue;

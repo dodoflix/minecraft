@@ -1,0 +1,14 @@
+# Survival digging: stone with an iron pickaxe (efficiency 2), dirt by hand; drops become item entities.
+level flat
+block 2 -60 0 minecraft:stone
+block 2 -61 2 minecraft:dirt
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve hotbar0 minecraft:iron_pickaxe[enchantments={"minecraft:efficiency":2}]
+dump player:Steve
+dig Steve 2 -60 0
+dump blocks:0,-61,0,4,-59,3
+select Steve 1
+dig Steve 2 -61 2
+dump entities blocks:2,-61,2,2,-61,2
+tick 5
+dump entities inventory:Steve

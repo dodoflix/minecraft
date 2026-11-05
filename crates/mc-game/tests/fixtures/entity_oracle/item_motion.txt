@@ -1,0 +1,548 @@
+T 1
+E air minecraft:item pos=0.5,-50.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=311.83893,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=1 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-55.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=282.72192,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=1 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=15.514,-59.44,0.5 delta=0.02772000026702881,-0.03920000076293945,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=1 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-56.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=103.27597,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=1 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=339.57098,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=1 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=331.61517,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=1 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=1.0635281,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=1 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-55.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=211.59409,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=1 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-55.99949999997625,0.5 delta=0.0,0.05929000117721967,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+T 2
+E air minecraft:item pos=0.5,-50.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=311.83893,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=2 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-55.61920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=282.72192,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=2 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=15.555302800662231,-59.47870000073919,0.5 delta=0.05447674543677523,-0.037926001462550846,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=2 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-56.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=103.27597,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=2 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-55.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=339.57098,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=2 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-55.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=331.61517,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=2 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-55.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=1.0635281,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=2 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-55.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=211.59409,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=2 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-55.939709998775285,0.5 delta=0.0,0.11739420346176196,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=0 health=5 owner=- thrower=-
+T 3
+E air minecraft:item pos=0.5,-50.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=311.83893,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-55.73681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=282.72192,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=15.623094779297684,-59.51612600217799,0.5 delta=0.08043614035577293,-0.036677482123870404,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=3 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-56.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=103.27597,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=3 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-55.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=339.57098,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=3 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-55.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=331.61517,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=3 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-55.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=1.0635281,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=3 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-55.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=211.59409,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-55.82231579531352,0.5 delta=0.0,0.17384632277605264,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=0 health=5 owner=- thrower=-
+T 4
+E air minecraft:item pos=0.5,-50.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=311.83893,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-55.89207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=282.72192,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=4 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=15.716586559150512,-59.55230348427811,0.5 delta=0.10562194603898603,-0.03545393314814996,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=4 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-56.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=103.27597,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=4 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-55.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=339.57098,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=4 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-55.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=331.61517,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=4 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-55.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=1.0635281,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=4 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-55.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=211.59409,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-55.64846947253747,0.5 delta=0.0,0.22916940078079623,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4 pickup=0 health=5 owner=- thrower=-
+T 5
+E air minecraft:item pos=0.5,-50.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=311.83893,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=5 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-56.08423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=282.72192,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=5 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=15.835012286869912,-59.58725741740251,0.5 delta=0.13005721542380347,-0.03425485512860657,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=5 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-56.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=103.27597,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=5 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=339.57098,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=5 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=331.61517,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=5 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=1.0635281,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=5 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-55.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=211.59409,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=5 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-55.41930007175667,0.5 delta=0.0,0.2833860182806489,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5 pickup=0 health=5 owner=- thrower=-
+T 6
+E air minecraft:item pos=0.5,-50.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=311.83893,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=6 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-56.312553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=6 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=15.977628931513314,-59.62101227250737,0.5 delta=0.15376431447073072,-0.033079758646583454,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=6 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-56.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=103.27597,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=6 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-55.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=339.57098,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=6 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-55.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=331.61517,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=6 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-55.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=1.0635281,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=6 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-55.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=211.59409,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=6 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-55.13591405347602,0.5 delta=0.0,0.39531830560901365,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=0 health=5 owner=- thrower=-
+T 7
+E air minecraft:item pos=0.5,-51.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=311.83893,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=7 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-56.535802298793776,0.5 delta=0.0,-0.21878397375673667,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=7 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=16.14371560443926,-59.65359203113021,0.5 delta=0.17676494263528153,-0.03192816407178761,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=7 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-57.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=103.27597,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=7 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-56.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=339.57098,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=7 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-56.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=331.61517,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=7 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-56.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=1.0635281,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=7 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-56.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=211.59409,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=7 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-54.740595747867005,0.5 delta=0.0,0.44621194818134086,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7 pickup=0 health=5 owner=- thrower=-
+T 8
+E air minecraft:item pos=0.5,-51.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=311.83893,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=8 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-56.75408627252676,0.5 delta=0.0,-0.21391829842176457,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=8 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=16.332572899467465,-59.68502019517825,0.5 delta=0.19908015272980795,-0.030799601366522766,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=8 pickup=0 health=5 owner=- thrower=-
+E lava minecraft:item pos=21.5,-57.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=103.27597,0.0 og=0 fall=1.3747762739658356 fire=300 air=300 alive=1 pose=standing item=minecraft:oak_log*1 age=8 pickup=0 health=1 owner=- thrower=-
+E web minecraft:item pos=26.5,-56.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=339.57098,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=8 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-56.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=331.61517,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=8 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-56.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=1.0635281,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=8 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-56.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=211.59409,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=8 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-54.29438379968566,0.5 delta=0.0,0.49608771887294073,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8 pickup=0 health=5 owner=- thrower=-
+T 9
+E air minecraft:item pos=0.5,-51.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=311.83893,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=9 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-56.96750457092478,0.5 delta=0.0,-0.20914993650068653,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=9 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=16.543522252702065,-59.71531979652102,0.5 delta=0.22073037019344818,-0.029693609893837593,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=9 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-56.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=339.57098,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=9 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-56.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=331.61517,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=9 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-56.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=1.0635281,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=9 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-56.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=211.59409,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=9 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.79829608081272,0.5 delta=0.0,0.5449659751020134,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9 pickup=0 health=5 owner=- thrower=-
+T 10
+E air minecraft:item pos=0.5,-52.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=311.83893,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=10 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-57.17615450740172,0.5 delta=0.0,-0.20447694172708075,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=10 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=16.77590532143214,-59.744513406391114,0.5 delta=0.24173541178783073,-0.02860973822951101,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=10 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-57.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=339.57098,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=10 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=331.61517,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=10 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-57.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=1.0635281,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=10 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-57.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=211.59409,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=10 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.2533301057107,0.5 delta=0.0,0.5928666671387833,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10 pickup=0 health=5 owner=- thrower=-
+T 11
+E air minecraft:item pos=0.5,-52.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=311.83893,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=11 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-57.38013144910505,0.5 delta=0.0,-0.1998974067598168,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=11 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.02908338154098,-59.77262314459688,0.5 delta=0.26211450373564693,-0.027547543977797746,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=11 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-57.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=339.57098,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=11 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=331.61517,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=11 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-57.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=1.0635281,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=11 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-57.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=211.59409,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=11 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-52.66046343857192,0.5 delta=0.0,0.6398093462484511,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+T 12
+E air minecraft:item pos=0.5,-52.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=311.83893,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=12 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-57.57952885584112,0.5 delta=0.0,-0.19540946240455043,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=12 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.3024367428725,-59.799670688550925,0.5 delta=0.28188629931869474,-0.026506593590859,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=12 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-57.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=339.57098,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=12 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=331.61517,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=12 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-57.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=1.0635281,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=12 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-57.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=211.59409,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=12 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-52.02065409232347,0.5 delta=0.0,0.6858131726712862,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12 pickup=0 health=5 owner=- thrower=-
+T 13
+E air minecraft:item pos=0.5,-53.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=311.83893,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=13 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-57.77443831822192,0.5 delta=0.0,-0.19101127685078864,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=13 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.5953641820198,-59.825677282118036,0.5 delta=0.301068895951501,-0.025486462191804476,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=13 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=13 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=331.61517,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=13 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-58.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=1.0635281,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=13 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-58.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=211.59409,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=13 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-51.33484091965218,0.5 delta=0.0,0.6720969222987087,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13 pickup=0 health=5 owner=- thrower=-
+T 14
+E air minecraft:item pos=0.5,-53.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=311.83893,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=14 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-57.96494959504896,0.5 delta=0.0,-0.18670105492421335,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=14 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.850663744286095,0.5 delta=0.014,-0.02448673340127358,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=14 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.38883020559272,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=14 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=331.61517,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=14 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-58.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=1.0635281,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=14 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-58.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=211.59409,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=14 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-50.66274399735347,0.5 delta=0.0,0.6586549966719659,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14 pickup=0 health=5 owner=- thrower=-
+T 15
+E air minecraft:item pos=0.5,-54.379772434764014,0.5 delta=0.0,-0.5124046348422492,0.0 rot=311.83893,0.0 og=0 fall=4.379772424697876 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=15 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-58.15115064994942,0.5 delta=0.0,-0.1824770373539586,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=15 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.87465047766362,0.5 delta=0.014,-0.02350699916748499,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=15 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.39083020562252,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=15 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.379772434764014,0.5 delta=0.0,-0.5124046348422492,0.0 rot=331.61517,0.0 og=0 fall=4.379772424697876 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=15 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=15 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.10000002384186,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=15 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-50.04408900068151,0.5 delta=0.0,0.6062819085384342,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15 pickup=0 health=5 owner=- thrower=-
+T 16
+E air minecraft:item pos=0.5,-54.93217706960626,0.5 delta=0.0,-0.5413565526816865,0.0 rot=311.83893,0.0 og=0 fall=4.9321770668029785 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=16 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-58.33312768727963,0.5 delta=0.0,-0.17833750005454221,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=16 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.89765747680736,0.5 delta=0.014,-0.02254685959968522,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=16 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.392830205652324,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=16 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.93217706960626,0.5 delta=0.0,-0.5413565526816865,0.0 rot=331.61517,0.0 og=0 fall=4.9321770668029785 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=16 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=16 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.16000002384186,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=16 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-49.477807092143074,0.5 delta=0.0,0.5549562811686357,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16 pickup=0 health=5 owner=- thrower=-
+T 17
+E air minecraft:item pos=0.5,-55.513533622287945,0.5 delta=0.0,-0.5697294327165491,0.0 rot=311.83893,0.0 og=0 fall=5.513533592224121 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=17 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-58.51096518731042,0.5 delta=0.0,-0.17428075342215874,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=17 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.9197043363833,0.5 delta=0.014,-0.02160592280492824,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=17 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.394830205682126,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=17 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.45837011288282964,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=17 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=17 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.22000002384186,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=17 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-48.96285081097444,0.5 delta=0.0,0.5046571653672746,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17 pickup=0 health=5 owner=- thrower=-
+T 18
+E air minecraft:item pos=0.5,-56.12326305500449,0.5 delta=0.0,-0.5975348556918841,0.0 rot=311.83893,0.0 og=0 fall=6.123263001441956 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=18 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-58.68474594070883,0.5 delta=0.0,-0.17030514164504662,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=18 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.94081025916448,0.5 delta=0.014,-0.020683804728119454,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=18 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.39683020571193,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=18 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.581629887117174,0.5 delta=0.0,0.4100027186049497,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=18 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=18 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.280000023841865,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=18 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-48.49819364560716,0.5 delta=0.0,0.45536403092256117,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18 pickup=0 health=5 owner=- thrower=-
+T 19
+E air minecraft:item pos=0.5,-56.760797910696375,0.5 delta=0.0,-0.6247841707380588,0.0 rot=311.83893,0.0 og=0 fall=6.76079785823822 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=19 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-58.854551082330126,0.5 delta=0.0,-0.16640904202764797,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=19 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.96099406386885,0.5 delta=0.014,-0.019780128995258838,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=19 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.39883020574173,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=19 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.21162716851222,0.5 delta=0.0,0.3626026712900925,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=19 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=19 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.34000002384187,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=19 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-48.0828296146846,0.5 delta=0.0,0.40705675822655013,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19 pickup=0 health=5 owner=- thrower=-
+T 20
+E air minecraft:item pos=0.5,-57.425582081434435,0.5 delta=0.0,-0.6514885000030495,0.0 rot=311.83893,0.0 og=0 fall=7.425582051277161 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=20 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.02046012433402,0.5 delta=0.0,-0.1625908643282851,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=20 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.98027419284036,0.5 delta=0.014,-0.018894526759819185,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=20 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.400830205771534,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=20 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.88902449722213,0.5 delta=0.0,0.3161506240174483,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=20 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=20 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.40000002384187,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=20 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-47.715772856458045,0.5 delta=0.0,0.3597156300630712,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20 pickup=0 health=5 owner=- thrower=-
+T 21
+E air minecraft:item pos=0.5,-58.11707058143748,0.5 delta=0.0,-0.677658743192085,0.0 rot=311.83893,0.0 og=0 fall=8.11707055568695 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=21 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.18255098863856,0.5 delta=0.0,-0.15884905011008352,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=21 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.99866871957643,0.5 delta=0.014,-0.018026636552196804,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=21 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.40283020580134,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=21 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.612873873204684,0.5 delta=0.0,0.2706276168042545,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=21 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=21 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.46000002384187,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=21 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-47.39605722639497,0.5 delta=0.0,0.3133213235599015,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21 pickup=0 health=5 owner=- thrower=-
+T 22
+E air minecraft:item pos=0.5,-58.83472932462956,0.5 delta=0.0,-0.7033055820164975,0.0 rot=311.83893,0.0 og=0 fall=8.834729313850403 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=22 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.3409000387249,0.5 delta=0.0,-0.15518207210487653,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=22 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-60.0,0.5 delta=0.014,0.0,0.0 rot=315.07852,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=22 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.40483020583114,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=22 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.38224625640043,0.5 delta=0.0,0.22601506886704212,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=22 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=22 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.520000023841874,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=22 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-47.122735902835075,0.5 delta=0.0,0.267854902301894,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22 pickup=0 health=5 owner=- thrower=-
+T 23
+E air minecraft:item pos=0.5,-59.57803490664606,0.5 delta=0.0,-0.7284394845535964,0.0 rot=311.83893,0.0 og=0 fall=9.5780348777771 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=23 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.495582110806026,0.5 delta=0.0,-0.15158843358983162,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=23 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.99949999997625,0.5 delta=0.014,4.900000328104948E-4,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=23 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.40683020586094,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=23 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.196231187533385,0.5 delta=0.0,0.18229477103765715,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=23 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=23 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.580000023841876,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=23 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.89488100053318,0.5 delta=0.0,0.22329780860184348,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23 pickup=0 health=5 owner=- thrower=-
+T 24
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=24 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.64667054437211,0.5 delta=0.0,-0.1480666677765444,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=24 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.99850999991969,0.5 delta=0.014,9.702000743107886E-4,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=24 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.408830205890744,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=24 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.05393641649573,0.5 delta=0.0,0.13944887833096137,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=24 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=24 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.64000002384188,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=24 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.71158319193134,0.5 delta=0.0,0.17963185592593484,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24 pickup=0 health=5 owner=- thrower=-
+T 25
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=25 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.794237212124905,0.5 delta=0.0,-0.14461533721235056,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=25 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.99703979982163,0.5 delta=0.014,0.0014407961241401654,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=25 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.41083020592055,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=25 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.95448753816477,0.5 delta=0.0,0.09745990266117896,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=25 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=25 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.70000002384188,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=25 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.571951336005405,0.5 delta=0.0,0.13683922147068242,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25 pickup=0 health=5 owner=- thrower=-
+T 26
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=26 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.93835254931351,0.5 delta=0.0,-0.14123303319361172,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=26 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.99509900367374,0.5 delta=0.014,0.001901980261948862,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=26 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.41283020595035,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=26 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.89702763550359,0.5 delta=0.0,0.056310705703916046,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=26 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=26 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.76000002384188,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=26 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.475112114534724,0.5 delta=0.0,0.09490243888833033,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26 pickup=0 health=5 owner=- thrower=-
+T 27
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=27 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=282.72192,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=27 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.99269702338804,0.5 delta=0.014,0.002353940725797774,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=27 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.41483020598015,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=27 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.880716929799675,0.5 delta=0.0,0.015984491900939746,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=27 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=27 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.820000023841885,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=27 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.4202096756464,0.5 delta=0.0,0.053804391157744644,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27 pickup=0 health=5 owner=- thrower=-
+T 28
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=28 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-60.0,0.5 delta=0.0,5.000000237487257E-4,0.0 rot=282.72192,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=28 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.989843082638494,0.5 delta=0.014,0.0027968619889901696,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=28 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.416830206009955,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=28 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.90473243789874,0.5 delta=0.0,-0.023535198395138516,0.0 rot=331.61517,0.0 og=0 fall=0.024015508592128754 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=28 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=28 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.88000002384189,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=28 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.406405284488656,0.5 delta=0.0,0.013528303597887616,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28 pickup=0 health=5 owner=- thrower=-
+T 29
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=29 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-60.0,0.5 delta=0.0,0.0010000000474974513,0.0 rot=282.72192,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=29 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.986546220625755,0.5 delta=0.014,0.0032309248353667697,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=29 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.41883020603976,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=29 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-57.968267636293874,0.5 delta=0.0,-0.062264495639073485,0.0 rot=331.61517,0.0 og=0 fall=0.08755070716142654 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=29 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=29 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-59.94000002384189,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=29 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.43287698089077,0.5 delta=0.0,-0.025942262978977677,0.0 rot=68.07227,0.0 og=0 fall=0.02647169679403305 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29 pickup=0 health=5 owner=- thrower=-
+T 30
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=30 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.998499999928754,0.5 delta=0.0,0.0014700000984314843,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=30 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.98281529576664,0.5 delta=0.014,0.00365630643309493,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=30 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.42083020606956,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=30 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.07053213193295,0.5 delta=0.0,-0.10021920767683247,0.0 rot=331.61517,0.0 og=0 fall=0.1898152008652687 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=30 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=30 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=30 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.49881924386975,0.5 delta=0.0,-0.06462341897714698,0.0 rot=68.07227,0.0 og=0 fall=0.09241396188735962 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30 pickup=0 health=5 owner=- thrower=-
+T 31
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=31 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.996529999806576,0.5 delta=0.0,0.0019306001573113761,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=31 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.9786589893098,0.5 delta=0.014,0.004073180406982037,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=31 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.42283020609936,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=31 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.210751339609786,0.5 delta=0.0,-0.13741482619776496,0.0 rot=331.61517,0.0 og=0 fall=0.33003441244363785 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=31 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=31 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=31 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.603442662846895,0.5 delta=0.0,-0.10253095259313738,0.0 rot=68.07227,0.0 og=0 fall=0.19703738391399384 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31 pickup=0 health=5 owner=- thrower=-
+T 32
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=32 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.99409939962552,0.5 delta=0.0,0.002381988223798919,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=32 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.97408580887907,0.5 delta=0.014,0.004481716909342641,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=32 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.424830206129165,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=32 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.38816616580755,0.5 delta=0.0,-0.17386653305772892,0.0 rot=331.61517,0.0 og=0 fall=0.5074492320418358 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=32 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=32 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=32 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.74597361544003,0.5 delta=0.0,-0.1396803362598368,0.0 rot=68.07227,0.0 og=0 fall=0.3395683318376541 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32 pickup=0 health=5 owner=- thrower=-
+T 33
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=33 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.991217411377974,0.5 delta=0.0,0.002824348537566255,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=33 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.96910409194598,0.5 delta=0.014,0.00488208268944825,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=33 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.42683020615897,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=33 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.60203269886527,0.5 delta=0.0,-0.20958920647575474,0.0 rot=331.61517,0.0 og=0 fall=0.7213157638907433 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=33 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=33 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=33 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-46.925653951699864,0.5 delta=0.0,-0.17608673296177052,0.0 rot=68.07227,0.0 og=0 fall=0.5192486643791199 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33 pickup=0 health=5 owner=- thrower=-
+T 34
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=34 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.98789306281666,0.5 delta=0.0,0.003257861653495598,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=34 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.96372200923278,0.5 delta=0.014,0.0052744411615881165,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=34 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.42883020618877,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=34 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-58.85162190534103,0.5 delta=0.0,-0.24459742710677598,0.0 rot=331.61517,0.0 og=0 fall=0.9709049686789513 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=34 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=34 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=34 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-47.141740684661634,0.5 delta=0.0,-0.21176500242406246,0.0 rot=68.07227,0.0 og=0 fall=0.7353353947401047 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34 pickup=0 health=5 owner=- thrower=-
+T 35
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=35 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.984135201139416,0.5 delta=0.0,0.0036827045153749603,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=35 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.957947568047445,0.5 delta=0.014,0.005658952471768831,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=35 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.43083020621857,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=35 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.1362193324478,0.5 delta=0.0,-0.2789054839929056,0.0 rot=331.61517,0.0 og=0 fall=1.2555023953318596 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=35 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=35 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=35 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-47.3935056870857,0.5 delta=0.0,-0.24672970717761755,0.0 rot=68.07227,0.0 og=0 fall=0.9871004074811935 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35 pickup=0 health=5 owner=- thrower=-
+T 36
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=36 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.97995249660029,0.5 delta=0.0,0.0040990505281199695,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=36 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.951788615551926,0.5 delta=0.014,0.006035773563079902,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=36 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.432830206248376,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=36 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.45512481644071,0.5 delta=0.0,-0.31252738039568684,0.0 rot=331.61517,0.0 og=0 fall=1.5744078680872917 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=36 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=36 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=36 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-47.68023539426332,0.5 delta=0.0,-0.28099511850300035,0.0 rot=68.07227,0.0 og=0 fall=1.2738301008939743 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36 pickup=0 health=5 owner=- thrower=-
+T 37
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=37 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.97535344604842,0.5 delta=0.0,0.004507069628551249,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=37 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.9452528419651,0.5 delta=0.014,0.006405058239752043,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=37 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.43483020627818,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=37 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.80765219683639,0.5 delta=0.0,-0.3454768395116993,0.0 rot=331.61517,0.0 og=0 fall=1.9269352480769157 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=37 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=37 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=37 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-48.00123051276632,0.5 delta=0.0,-0.3145752222554363,0.0 rot=68.07227,0.0 og=0 fall=1.5948252230882645 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37 pickup=0 health=5 owner=- thrower=-
+T 38
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=38 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.97034637639612,0.5 delta=0.0,0.00490692835475625,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=38 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.9383477837016,0.5 delta=0.014,0.006766957229934287,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=38 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.43683020630798,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=38 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.31468989924315494,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=38 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=38 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=38 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-48.355805735021754,0.5 delta=0.0,-0.3474837245733132,0.0 rot=68.07227,0.0 og=0 fall=1.9494004398584366 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38 pickup=0 health=5 owner=- thrower=-
+T 39
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=39 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.96493944801762,0.5 delta=0.0,0.005298789914063851,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=39 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.93108082644792,0.5 delta=0.014,0.007121618247215563,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=39 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.438830206337784,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=39 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.27468989924315496,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=39 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=39 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=39 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-48.74328945959507,0.5 delta=0.0,-0.3797340574725125,0.0 rot=68.07227,0.0 og=0 fall=2.336884155869484 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39 pickup=0 health=5 owner=- thrower=-
+T 40
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=40 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.959140658079804,0.5 delta=0.0,0.005682814249659465,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=40 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.92345920817695,0.5 delta=0.014,0.007469186050915835,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=40 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.440830206367586,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=40 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.23468989924315495,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=40 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=40 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=40 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-49.16302351706758,0.5 delta=0.0,-0.41133938432885403,0.0 rot=68.07227,0.0 og=0 fall=2.7566182166337967 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40 pickup=0 health=5 owner=- thrower=-
+T 41
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=41 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.952957843806395,0.5 delta=0.0,0.00605915810586785,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=41 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.91549002210228,0.5 delta=0.014,0.007809802505171431,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=41 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.44283020639739,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=41 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.19468989924315494,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=41 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=41 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=41 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-49.61436290139643,0.5 delta=0.0,-0.4423126052508925,0.0 rot=68.07227,0.0 og=0 fall=3.207957610487938 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41 pickup=0 health=5 owner=- thrower=-
+T 42
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=42 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.946398685676776,0.5 delta=0.0,0.006427975092130257,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=42 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.90718021957336,0.5 delta=0.014,0.008143606636838658,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=42 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.44483020642719,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=42 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.84531010075685,0.5 delta=0.0,0.1515961042087675,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=42 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=42 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=42 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-50.09667550664732,0.5 delta=0.0,-0.4726663623452575,0.0 rot=68.07227,0.0 og=0 fall=3.6902702301740646 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42 pickup=0 health=5 owner=- thrower=-
+T 43
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=43 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.9394707105609,0.5 delta=0.0,0.006789415745702042,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=43 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.89853661291278,0.5 delta=0.014,0.00847073469223935,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=43 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.446830206456994,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=43 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.73371399654808,0.5 delta=0.0,0.10936418425311892,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=43 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=43 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=43 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-50.60934186899258,0.5 delta=0.0,-0.5024130448766873,0.0 rot=68.07227,0.0 og=0 fall=4.202936574816704 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43 pickup=0 health=5 owner=- thrower=-
+T 44
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=44 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.93218129479145,0.5 delta=0.0,0.007143627593096324,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=44 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.88956587819679,0.5 delta=0.014,0.0087913201927715,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=44 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.4488302064868,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=44 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.664349812294965,0.5 delta=0.0,0.06797690189107335,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=44 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=44 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=44 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-51.15175491386927,0.5 delta=0.0,-0.5315647943248614,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44 pickup=0 health=5 owner=- thrower=-
+T 45
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=45 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.924537667174604,0.5 delta=0.0,0.007490755210298776,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=45 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.88027455798027,0.5 delta=0.014,0.00910549398940769,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=45 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.4508302065166,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=45 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.63637291040389,0.5 delta=0.0,0.027417364386868936,0.0 rot=331.61517,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=45 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=45 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=45 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-51.72331970819413,0.5 delta=0.0,-0.5601335093400974,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45 pickup=0 health=5 owner=- thrower=-
+T 46
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=46 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.91654691194056,0.5 delta=0.0,0.007830940281778113,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=46 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.870669063967114,0.5 delta=0.014,0.009413384316103546,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=46 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.4528302065464,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=46 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.64895554601702,0.5 delta=0.0,-0.012330983140863172,0.0 rot=331.61517,0.0 og=0 fall=0.012582635506987572 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=46 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=46 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=46 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-52.28295321751048,0.5 delta=0.0,-0.48964084865977464,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46 pickup=0 health=5 owner=- thrower=-
+T 47
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=47 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.90821597163503,0.5 delta=0.0,0.008164321658316378,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=47 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.86075567962726,0.5 delta=0.014,0.009715116842138027,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=47 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.454830206576204,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=47 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.70128652915788,0.5 delta=0.0,-0.0512843644761802,0.0 rot=331.61517,0.0 og=0 fall=0.06491361744701862 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=47 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=47 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=47 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-52.77209406614651,0.5 delta=0.0,-0.42055803984851753,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47 pickup=0 health=5 owner=- thrower=-
+T 48
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=48 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.89955164995297,0.5 delta=0.0,0.008491035413682622,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=48 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.850540562761374,0.5 delta=0.014,0.010010814723406909,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=48 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.45683020660601,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=48 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.792570893634064,0.5 delta=0.0,-0.08945867892776767,0.0 rot=331.61517,0.0 og=0 fall=0.15619798190891743 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=48 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=48 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=48 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.192152105971275,0.5 delta=0.0,-0.29405688475142633,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48 pickup=0 health=5 owner=- thrower=-
+T 49
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=49 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.890560614515536,0.5 delta=0.0,0.008811214900173113,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=49 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.84002974801422,0.5 delta=0.014,0.010300598652690403,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=49 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.45883020663581,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=49 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-59.92202957256183,0.5 delta=0.0,-0.12686950781844064,0.0 rot=331.61517,0.0 og=0 fall=0.28565666265785694 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=49 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=49 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=49 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.48570899069895,0.5 delta=0.0,-0.2288857514878681,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49 pickup=0 health=5 owner=- thrower=-
+T 50
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=50 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.88124939959162,0.5 delta=0.0,0.009124990803040732,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=50 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.82922914933778,0.5 delta=0.014,0.010584586908915417,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=50 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.46083020666561,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=50 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.14411927202089875,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=50 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=50 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=50 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.71409474216307,0.5 delta=0.0,-0.16501803964654033,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50 pickup=0 health=5 owner=- thrower=-
+T 51
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=51 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.87162440876483,0.5 delta=0.0,0.0094324911938358,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=51 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.81814456240512,0.5 delta=0.014,0.010862895405432577,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=51 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.462830206695415,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=51 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.10411927202089874,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=51 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=51 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=51 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.87861278178586,0.5 delta=0.0,-0.10242768082385917,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51 pickup=0 health=5 owner=- thrower=-
+T 52
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=52 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.86169191754725,0.5 delta=0.0,0.00973384158268007,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=52 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.80678166697594,0.5 delta=0.014,0.011135637737327708,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=52 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.46483020672522,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=52 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.06411927202089873,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=52 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=52 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=52 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.98054046258597,0.5 delta=0.0,-0.04108912798381528,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52 pickup=0 health=5 owner=- thrower=-
+T 53
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=53 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.85145807594082,0.5 delta=0.0,0.010029164969495257,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=53 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.79514602921486,0.5 delta=0.014,0.011402925227787082,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=53 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.46683020675502,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=53 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.02411927202089873,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=53 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=53 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=53 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-54.02112959054604,0.5 delta=0.0,0.07782265611377695,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53 pickup=0 health=5 owner=- thrower=-
+T 54
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=54 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.840928910947575,0.5 delta=0.0,0.010318581894206987,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=54 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.78324310396333,0.5 delta=0.014,0.011664866973535373,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=54 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.46883020678482,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=54 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=54 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=54 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=54 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.943306934432265,0.5 delta=0.0,0.13506620562025995,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54 pickup=0 health=5 owner=- thrower=-
+T 55
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=55 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.83011032902962,0.5 delta=0.0,0.010602210485944672,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=55 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.77107823696605,0.5 delta=0.014,0.011921569889364842,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=55 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.470830206814625,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=55 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=55 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=55 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=55 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.808240728812,0.5 delta=0.0,0.19116488522844735,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55 pickup=0 health=5 owner=- thrower=-
+T 56
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=56 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.81900811851993,0.5 delta=0.0,0.01088016651125739,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=56 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.75865666705293,0.5 delta=0.014,0.01217313875177394,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=56 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.47283020684443,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=56 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=56 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=56 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=56 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.61707584358356,0.5 delta=0.0,0.24614159231446844,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56 pickup=0 health=5 owner=- thrower=-
+T 57
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=57 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.80762795198493,0.5 delta=0.0,0.011152563421365445,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=57 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.74598352827741,0.5 delta=0.014,0.012419676241733152,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=57 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.47483020687423,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=57 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=57 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,0.0,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=57 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=57 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.37093425126909,0.5 delta=0.0,0.30001876630736657,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57 pickup=0 health=5 owner=- thrower=-
+T 58
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=58 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.795975388539816,0.5 delta=0.0,0.011419512398466896,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=58 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.733063852011924,0.5 delta=0.014,0.012661282986595508,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=58 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.47683020690403,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=58 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.12544000431060795,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=58 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.04,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=58 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=58 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-53.07091548496172,0.5 delta=0.0,0.4116183989924414,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58 pickup=0 health=5 owner=- thrower=-
+T 59
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=59 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.7840558761176,0.5 delta=0.0,0.011681122401117967,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=59 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.71990256900158,0.5 delta=0.014,0.0128980576011689,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=59 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.478830206933836,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=59 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.08544000431060794,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=59 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.08,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=59 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=59 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-52.659297085969285,0.5 delta=0.0,0.4621860400079997,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59 pickup=0 health=5 owner=- thrower=-
+T 60
+E air minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=311.83893,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=60 pickup=0 health=5 owner=- thrower=-
+E pool minecraft:item pos=6.5,-59.77187475369273,0.5 delta=0.0,0.01193750020870583,0.0 rot=282.72192,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=60 pickup=0 health=5 owner=- thrower=-
+E flow minecraft:item pos=17.875,-59.706504511376664,0.5 delta=0.014,0.013130096727966943,0.0 rot=315.07852,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=60 pickup=0 health=5 owner=- thrower=-
+E web minecraft:item pos=26.5,-58.48083020696364,0.5 delta=0.0,0.0,0.0 rot=339.57098,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=60 pickup=0 health=5 owner=- thrower=-
+E slime minecraft:item pos=29.5,-60.0,0.5 delta=0.0,0.04544000431060794,0.0 rot=331.61517,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=60 pickup=0 health=5 owner=- thrower=-
+E honey minecraft:item pos=32.5,-59.0625,0.5 delta=0.0,-0.12,0.0 rot=1.0635281,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:clay_ball*1 age=60 pickup=0 health=5 owner=- thrower=-
+E powder minecraft:item pos=35.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=211.59409,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=60 pickup=0 health=5 owner=- thrower=-
+E bubble minecraft:item pos=38.5,-52.197111045961286,0.5 delta=0.0,0.5117423291677479,0.0 rot=68.07227,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60 pickup=0 health=5 owner=- thrower=-

@@ -2,8 +2,11 @@
 pub mod attribute;
 pub mod block_entity;
 pub mod difficulty_instance;
+pub mod effect;
 pub mod clock;
+pub mod containers;
 pub mod container;
+pub mod damagesource;
 pub mod entity;
 pub mod inventory;
 pub mod item;

@@ -101,7 +101,8 @@ impl PlayCtx<'_> {
             A::ReleaseUseItem => self.item_sys().release_using_item(self),
             A::StartDestroyBlock | A::ChangeDestroyDirection | A::AbortDestroyBlock | A::StopDestroyBlock => {
                 let max_y = self.max_y();
-                self.player.handle_block_break_action(self.level, packet.pos, packet.action, packet.direction, max_y, packet.sequence);
+                let under_spawn_protection = A::StartDestroyBlock == packet.action && self.is_under_spawn_protection(packet.pos);
+                self.player.handle_block_break_action(self.level, packet.pos, packet.action, packet.direction, max_y, under_spawn_protection);
                 self.lis().ack_block_changes_up_to(packet.sequence);
             }
         }

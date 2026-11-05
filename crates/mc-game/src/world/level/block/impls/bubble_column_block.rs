@@ -72,6 +72,26 @@ impl BlockBehaviour for BubbleColumnBlock {
     fn get_pickup_sound(&self) -> Option<SoundEvent> {
         Fluid::WATER.data().pickup_sound
     }
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut crate::server::level::ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        is_precise: bool,
+    ) {
+        if is_precise {
+            let state_above = level.get_block_state(pos.above());
+            let nothing_above = state_above.get_collision_shape(&*level, pos).is_empty() && state_above.get_fluid_state().is_empty();
+            let drag_down = state.get(props::DRAG);
+            if nothing_above {
+                entity.on_above_bubble_column(level, drag_down, pos);
+            } else {
+                entity.on_inside_bubble_column(level, drag_down);
+            }
+        }
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
         below_state.is_block(state.block()) || below_state.is_tag("enables_bubble_column_push_up") || below_state.is_tag("enables_bubble_column_drag_down")

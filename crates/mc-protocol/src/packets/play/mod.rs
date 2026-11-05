@@ -55,11 +55,11 @@ pub struct ServerboundPingRequestPacket {
 }
 
 /// `ClientboundShowDialogPacket.STREAM_CODEC`: `Holder<Dialog>` — registry id + 1, or `0` + the dialog's NBT
-/// (`ByteBufCodecs.holder` with the trusted NBT codec; the dialog stays a raw tag).
+/// (`ByteBufCodecs.holder` with the trusted NBT codec). A reference is the raw registry id.
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
 #[packet(state = play, flow = clientbound, name = "show_dialog")]
 pub struct ClientboundShowDialogPacket {
-    pub dialog: Holder<Tag>,
+    pub dialog: Holder<crate::dialog::Dialog>,
 }
 
 packet_enum! {

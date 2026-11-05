@@ -22,6 +22,8 @@ fn equippable_slot(stack: &ItemStack) -> Option<EquipmentSlot> {
 
 pub trait MenuPlayer {
     fn entity_id(&self) -> i32;
+    /// `player.level().registryAccess()`.
+    fn registries(&self) -> crate::registry::RegistryAccess;
     fn inventory(&self) -> &Inventory;
     fn inventory_mut(&mut self) -> &mut Inventory;
     /// `hasInfiniteMaterials()` (`abilities.instabuild`).

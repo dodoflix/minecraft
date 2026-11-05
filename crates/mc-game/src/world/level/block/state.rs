@@ -41,7 +41,13 @@ pub trait BlockStateExt: Copy {
     fn tick(self, level: &mut ServerLevel, pos: BlockPos);
     fn random_tick(self, level: &mut ServerLevel, pos: BlockPos);
     fn trigger_event(self, level: &mut ServerLevel, pos: BlockPos, b0: i32, b1: i32) -> bool;
-    fn entity_inside(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity);
+    fn entity_inside(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier, is_precise: bool);
+    /// `getBlock().stepOn(level, pos, this, entity)`.
+    fn step_on(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity);
+    /// `getBlock().fallOn(level, this, pos, entity, fallDistance)`.
+    fn fall_on(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64);
+    /// `getBlock().bounceOn(level, this, pos, entity, fallDistance)`.
+    fn bounce_on(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64);
     fn is_pathfindable_by(self, ty: PathComputationType) -> bool;
     fn can_survive(self, level: &dyn LevelReader, pos: BlockPos) -> bool;
     fn can_be_replaced_by_fluid(self, fluid: Fluid) -> bool;
@@ -125,8 +131,17 @@ impl BlockStateExt for BlockState {
     fn trigger_event(self, level: &mut ServerLevel, pos: BlockPos, b0: i32, b1: i32) -> bool {
         behaviour(self.block()).trigger_event(self, level, pos, b0, b1)
     }
-    fn entity_inside(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity) {
-        behaviour(self.block()).entity_inside(self, level, pos, entity);
+    fn entity_inside(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier, is_precise: bool) {
+        behaviour(self.block()).entity_inside(self, level, pos, entity, effect_applier, is_precise);
+    }
+    fn step_on(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity) {
+        behaviour(self.block()).step_on(level, pos, self, entity);
+    }
+    fn fall_on(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+        behaviour(self.block()).fall_on(level, self, pos, entity, fall_distance);
+    }
+    fn bounce_on(self, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+        behaviour(self.block()).bounce_on(level, self, pos, entity, fall_distance);
     }
     fn is_pathfindable_by(self, ty: PathComputationType) -> bool {
         behaviour(self.block()).is_pathfindable(self, ty)

@@ -213,11 +213,19 @@ fn configuration_clientbound() {
         }
     );
     check!(g, "config/cb_clear_dialog", Cb, ClientboundClearDialogPacket);
-    // The dialog is an opaque NBT tag to us: take it from the vanilla bytes and require a byte-exact re-encode.
-    let vanilla = &g["config/cb_show_dialog"];
-    let dialog = ClientboundConfigurationPacket::decode_payload(vanilla).unwrap();
-    let ClientboundConfigurationPacket::ShowDialog(ClientboundShowDialogPacket { dialog }) = dialog else { panic!() };
-    assert!(dialog.as_compound().unwrap().get_string("type").is_some());
+    use mc_protocol::dialog::{CommonDialogData, Dialog, DialogAction, NoticeDialog};
+    let dialog = Dialog::Notice(NoticeDialog {
+        common: CommonDialogData {
+            title: Component::literal("Hello"),
+            external_title: None,
+            can_close_with_escape: true,
+            pause: true,
+            after_action: DialogAction::Close,
+            body: vec![],
+            inputs: vec![],
+        },
+        action: NoticeDialog::default_action(),
+    });
     check!(g, "config/cb_show_dialog", Cb, ClientboundShowDialogPacket { dialog });
     check!(g, "config/cb_code_of_conduct", Cb, ClientboundCodeOfConductPacket { code_of_conduct: "Be nice.".into() });
 }

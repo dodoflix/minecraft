@@ -113,7 +113,6 @@ pub struct ServerPlayer {
     pub container_counter: i32,
     pub won_game: bool,
     /// Set when digging was refused by spawn protection (`sendSpawnProtectionMessage(pos)` is the listener's).
-    pub pending_spawn_protection_message: Option<mc_core::pos::BlockPos>,
     /// Stacks `Player.drop` produced; the item-entity slice turns them into entities.
     pub pending_drops: Vec<(crate::world::item::ItemStack, bool)>,
     /// `Dimension` read from the saved tag (the level a player is placed in on login).
@@ -122,6 +121,17 @@ pub struct ServerPlayer {
     pub dimension: Identifier,
     /// `RootVehicle` tag read from the saved data (`loadAndSpawnParentVehicle` consumes it).
     pub saved_root_vehicle: Option<CompoundTag>,
+    // ==== [Player] additions (ServerPlayer field) ====
+    /// `stats`: the player's statistics (shared with `PlayerList.stats`).
+    pub stats: crate::stats::SharedStats,
+    /// `timeEntitySatOnShoulder` (game time).
+    pub time_entity_sat_on_shoulder: i64,
+    // ==== [Level] additions (ServerPlayer field) ====
+    // ==== [LivingCore] additions (ServerPlayer field) ====
+    /// The server simulates this player's physics like a locally controlled `LocalPlayer` from `last_client_input` (the
+    /// oracle/test mode; real vanilla players are client-authoritative and the server only validates their movement).
+    pub simulate_local_player: bool,
+    // ==== [Damage] additions (ServerPlayer field) ====
 }
 
 impl ServerPlayer {
@@ -180,11 +190,17 @@ impl ServerPlayer {
             shoulder_entity_right: CompoundTag::new(),
             container_counter: 0,
             won_game: false,
-            pending_spawn_protection_message: None,
             pending_drops: Vec::new(),
             saved_dimension: None,
             dimension,
             saved_root_vehicle: None,
+            // ==== [Player] additions (ServerPlayer::new initializer) ====
+            stats: crate::stats::SharedStats::new(crate::stats::ServerStatsCounter::detached()),
+            time_entity_sat_on_shoulder: 0,
+            // ==== [Level] additions (ServerPlayer::new initializer) ====
+            // ==== [LivingCore] additions (ServerPlayer::new initializer) ====
+            simulate_local_player: false,
+            // ==== [Damage] additions (ServerPlayer::new initializer) ====
         };
         p.update_options(client_information);
         p
@@ -208,6 +224,14 @@ impl ServerPlayer {
     pub fn send<P: mc_protocol::packet::Packet>(&self, packet: &P) {
         if let Some(c) = &self.connection {
             c.send(packet);
+        }
+    }
+
+    /// `ServerPlayer.openDialog(dialog)`: a registered dialog (by name) or an inline one.
+    pub fn open_dialog(&self, dialog: &mc_protocol::components::Holder<mc_protocol::dialog::Dialog>) {
+        match mc_protocol::dialog::Dialog::wire_holder(dialog) {
+            Some(dialog) => self.send(&mc_protocol::packets::play::ClientboundShowDialogPacket { dialog }),
+            None => log::error!("Can't open a dialog that is not in the dialog registry: {dialog:?}"),
         }
     }
 
@@ -279,6 +303,8 @@ fn game_type_by_id(id: i32) -> GameType {
     }
 }
 
+use crate::world::entity::living_entity::effects::remove_effect_particles as living_effects_remove_particles;
+
 impl Entity for ServerPlayer {
     fn base(&self) -> &EntityData {
         &self.player.living.entity
@@ -316,21 +342,172 @@ impl Entity for ServerPlayer {
     fn is_always_ticking(&self) -> bool {
         true
     }
+    /// `getItemBySlot(slot)`: a player's equipment lives in its inventory (`PlayerEquipment`).
+    fn get_item_by_slot(&self, slot: crate::world::entity::equipment::EquipmentSlot) -> crate::world::item::ItemStack {
+        self.player.inventory.equipment_get(slot).clone()
+    }
+    fn item_by_slot_mut(&mut self, slot: crate::world::entity::equipment::EquipmentSlot) -> Option<&mut crate::world::item::ItemStack> {
+        Some(self.player.inventory.equipment_get_mut(slot))
+    }
     /// `ServerPlayer.tick()`.
     fn tick(&mut self, level: &mut crate::server::level::ServerLevel) {
         self.tick_server_player(level);
     }
+    /// `ServerPlayer.removeVehicle()`: the effects of the old vehicle are removed client side, the passenger list resent.
+    fn on_vehicle_removed(&mut self, level: &mut crate::server::level::ServerLevel, old_vehicle: crate::world::entity::EntityId, held: Option<&dyn Entity>) {
+        let vehicle = held.or_else(|| level.entity_manager.get_any(old_vehicle));
+        let Some(vehicle) = vehicle else { return };
+        if let Some(living) = vehicle.living() {
+            for effect in living.active_effects.keys() {
+                self.send(&mc_protocol::packets::play::ClientboundRemoveMobEffectPacket { entity_id: old_vehicle, effect: *effect });
+            }
+        }
+        self.send(&mc_protocol::packets::play::ClientboundSetPassengersPacket { vehicle: old_vehicle, passengers: vehicle.base().passengers.clone() });
+    }
     /// `Player.isClientAuthoritative()`.
     fn is_client_authoritative(&self) -> bool {
-        true
+        !self.simulate_local_player
     }
-    /// `LivingEntity.getDefaultGravity()`: the `GRAVITY` attribute.
-    fn get_default_gravity(&self) -> f64 {
-        self.player.living.get_attribute_value(mc_data::Attribute::GRAVITY)
+    /// `LocalPlayer.applyInput()` for a simulated player (keyboard input -> movement vector, jump, sprint).
+    fn apply_input(&mut self) {
+        if !self.simulate_local_player {
+            let l = &mut self.player.living;
+            l.xxa *= 0.98;
+            l.zza *= 0.98;
+            return;
+        }
+        let input = self.last_client_input;
+        let mut forward = f32::from(u8::from(input.forward)) - f32::from(u8::from(input.backward));
+        let mut sideways = f32::from(u8::from(input.left)) - f32::from(u8::from(input.right));
+        self.set_shift_key_down(input.shift);
+        if input.shift && !self.player.abilities.flying {
+            let sneak = self.player.living.get_attribute_value(mc_data::Attribute::SNEAKING_SPEED) as f32;
+            forward *= sneak;
+            sideways *= sneak;
+        }
+        let l = &mut self.player.living;
+        l.zza = forward;
+        l.xxa = sideways;
+        l.jumping = input.jump;
+        self.set_sprinting(input.sprint && input.forward);
     }
-    fn get_effective_gravity(&self) -> f64 {
-        self.living_effective_gravity()
+    // ==== [LivingCore] additions (impl Entity for ServerPlayer) ====
+    /// `ServerPlayer.teleportTo(x, y, z)`: a client teleport (`Relative.DELTA | ROTATION`).
+    fn teleport_to(&mut self, level: &mut crate::server::level::ServerLevel, x: f64, y: f64, z: f64) {
+        use mc_protocol::packets::play::{PositionMoveRotation, Relatives};
+        if self.listener.is_none() {
+            let (yr, xr) = (self.base().y_rot(), self.base().x_rot());
+            self.snap_to(x, y, z, yr, xr);
+            return;
+        }
+        let _ = level;
+        self.connection_teleport_pmr(
+            PositionMoveRotation { position: Vec3::new(x, y, z), delta_movement: Vec3::ZERO, y_rot: 0.0, x_rot: 0.0 },
+            Relatives::DELTA.union(Relatives::ROTATION),
+        );
     }
+    /// `Player.updateSwimming()`.
+    fn update_swimming(&mut self, level: &crate::server::level::ServerLevel) {
+        if self.player.abilities.flying {
+            self.set_swimming(false);
+        } else {
+            // `Entity.updateSwimming`, which reads the raw flag through `isSwimming()`
+            let was_swimming = self.is_swimming();
+            let in_passenger = self.base().is_passenger();
+            let sprinting = self.is_sprinting();
+            let swimming = if was_swimming {
+                sprinting && self.is_in_water() && !in_passenger
+            } else {
+                sprinting
+                    && self.is_under_water()
+                    && !in_passenger
+                    && crate::world::level::material::FluidStateExt::is_tag(crate::world::level::BlockGetter::get_fluid_state(level, self.base().block_position()), "water")
+            };
+            self.set_swimming(swimming);
+        }
+    }
+    /// `Player.getMaxHeadRotationRelativeToBody()`.
+    fn get_max_head_rotation_relative_to_body(&self) -> f32 {
+        if self.is_blocking() { 15.0 } else { 50.0 }
+    }
+    /// `Player.doesEmitEquipEvent(slot)`.
+    fn does_emit_equip_event(&self, slot: crate::world::entity::equipment::EquipmentSlot) -> bool {
+        slot.get_type() == crate::world::entity::equipment::EquipmentSlotType::HumanoidArmor
+    }
+    /// `Player.aiStep()`.
+    fn ai_step(&mut self, level: &mut crate::server::level::ServerLevel) {
+        self.player_ai_step(level);
+    }
+    /// `Player.travel(input)`.
+    fn travel(&mut self, level: &mut crate::server::level::ServerLevel, input: Vec3) {
+        self.player_travel(level, input);
+    }
+    /// `Player.isImmobile()`: dead or sleeping.
+    fn is_immobile(&self) -> bool {
+        self.player.living.is_dead_or_dying() || self.player.living.is_sleeping()
+    }
+    /// `Player.isAffectedByFluids()`.
+    fn is_affected_by_fluids(&self) -> bool {
+        !self.player.abilities.flying
+    }
+    /// `Player.getSpeed()`: the `MOVEMENT_SPEED` attribute.
+    fn get_speed(&self) -> f32 {
+        self.player.living.get_attribute_value(mc_data::Attribute::MOVEMENT_SPEED) as f32
+    }
+    /// `Player.getFlyingSpeed()`.
+    fn get_flying_speed(&self, _level: &crate::server::level::ServerLevel) -> f32 {
+        let sprinting = self.base().get_shared_flag(entity::FLAG_SPRINTING);
+        if self.player.abilities.flying && !self.base().is_passenger() {
+            if sprinting { self.player.abilities.get_flying_speed() * 2.0 } else { self.player.abilities.get_flying_speed() }
+        } else if sprinting {
+            0.025999999
+        } else {
+            0.02
+        }
+    }
+    /// `Player.onClimbable()`.
+    fn on_climbable(&self, level: &crate::server::level::ServerLevel) -> bool {
+        !self.player.abilities.flying && crate::world::entity::living_entity::travel::on_climbable(self, level)
+    }
+    /// `Player.canGlide()`.
+    fn can_glide(&self) -> bool {
+        !self.player.abilities.flying && crate::world::entity::living_entity::fall_flying::can_glide(self)
+    }
+    /// `Player.getBlockSpeedFactor()`.
+    fn modify_block_speed_factor(&self, base: f32) -> f32 {
+        if !self.player.abilities.flying && !self.player.living.is_fall_flying() {
+            mc_core::math::mth::lerp_f32(self.player.living.get_attribute_value(mc_data::Attribute::MOVEMENT_EFFICIENCY) as f32, base, 1.0)
+        } else {
+            1.0
+        }
+    }
+    /// `Player.isPickable()`.
+    fn is_pickable(&self) -> bool {
+        !self.is_spectator() && !self.is_removed()
+    }
+    /// `Player.canBeSeenAsEnemy()`.
+    fn can_be_seen_as_enemy(&self) -> bool {
+        !self.player.abilities.invulnerable && !self.base().permanently_invulnerable && !self.is_spectator() && self.is_alive()
+    }
+    /// `EntityEquipment.tick(this)`.
+    fn tick_equipment(&mut self, level: &mut crate::server::level::ServerLevel) {
+        self.tick_equipment_items(level);
+    }
+    /// `updatingUsingItem()`.
+    fn updating_using_item(&mut self, level: &mut crate::server::level::ServerLevel) {
+        ServerPlayer::updating_using_item(self, level);
+    }
+    /// `Player.getFallSounds()`.
+    fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
+        (mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL, mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL)
+    }
+    /// `ItemStack.hurtAndBreak(amount, this, slot)` on a player's equipped item.
+    fn hurt_and_break_equipment(&mut self, level: &mut crate::server::level::ServerLevel, slot: crate::world::entity::equipment::EquipmentSlot, amount: i32) {
+        let mut stack = self.player.inventory.equipment_get(slot).clone();
+        crate::world::item::hurt_and_break(&mut stack, amount, level, self, slot);
+        self.player.inventory.equipment_set(slot, stack);
+    }
+    // ==== [LivingCore] end ====
     fn move_simulation_type(&self) -> crate::world::entity::MoveSimulationType {
         crate::world::entity::MoveSimulationType::AuthoritativeSideAndServer
     }
@@ -350,6 +527,113 @@ impl Entity for ServerPlayer {
     }
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:player")
+    }
+    /// `getStats().getValue(statType.get(stat))`.
+    fn get_stat_value(&self, stat_type: &mc_core::ident::Identifier, stat: &mc_core::ident::Identifier) -> i32 {
+        crate::stats::stat::by_names(stat_type, stat).map_or(0, |s| self.stats.lock().get_value(&s))
+    }
+    /// `Player.isSwimming()`.
+    fn is_swimming(&self) -> bool {
+        !self.player.abilities.flying && !self.is_spectator() && self.player.living.entity.get_shared_flag(crate::world::entity::entity::FLAG_SWIMMING)
+    }
+    /// `Player.getScoreboardName()`: the profile name.
+    fn get_scoreboard_name(&self) -> String {
+        self.player.game_profile.name.clone()
+    }
+    // ==== [Player] additions (Entity impl) ====
+    /// `ServerPlayer.jumpFromGround()`: the jump stat and the exhaustion after `LivingEntity.jumpFromGround`.
+    fn jump_from_ground(&mut self, level: &crate::server::level::ServerLevel) {
+        crate::world::entity::living_entity::jump::jump_from_ground(self, level);
+        self.after_jump_from_ground(level);
+    }
+    // ==== [Effects] additions (Entity impl) ====
+    /// `ServerPlayer.updateInvisibilityStatus()`: spectators are invisible and show no effect particles.
+    fn update_invisibility_status(&mut self) {
+        if self.is_spectator() {
+            living_effects_remove_particles(&mut self.player.living);
+            self.player.living.entity.set_shared_flag(crate::world::entity::entity::FLAG_INVISIBLE, true);
+        } else {
+            crate::world::entity::living_entity::effects::update_invisibility_status(self);
+        }
+    }
+    fn on_effect_added(&mut self, level: &mut crate::server::level::ServerLevel, effect: &crate::world::entity::effect::MobEffectInstance, source: Option<EntityId>) {
+        self.server_player_on_effect_added(level, effect, source);
+    }
+    fn on_effect_updated(&mut self, level: &mut crate::server::level::ServerLevel, effect: &crate::world::entity::effect::MobEffectInstance, do_refresh_attributes: bool, source: Option<EntityId>) {
+        self.server_player_on_effect_updated(level, effect, do_refresh_attributes, source);
+    }
+    fn on_effects_removed(&mut self, level: &mut crate::server::level::ServerLevel, effects: &[crate::world::entity::effect::MobEffectInstance]) {
+        self.server_player_on_effects_removed(level, effects);
+    }
+
+    // ==== [Damage] Entity overrides (Player / ServerPlayer damage behaviour, see player/damage.rs) ====
+    fn is_invulnerable_to(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+        super::damage::is_invulnerable_to(self, level, source)
+    }
+    fn hurt_server(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, amount: f32) -> bool {
+        super::damage::hurt_server(self, level, source, amount)
+    }
+    fn die(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) {
+        super::damage::die(self, level, source);
+    }
+    fn actually_hurt(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        super::damage::actually_hurt(self, level, source, damage);
+    }
+    fn hurt_armor(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        super::damage::hurt_armor(self, level, source, damage);
+    }
+    fn hurt_helmet(&mut self, level: &mut crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        super::damage::hurt_helmet(self, level, source, damage);
+    }
+    fn get_hurt_sound(&self, source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
+        Some(super::damage::get_hurt_sound(source))
+    }
+    fn get_death_sound(&self) -> Option<mc_data::SoundEvent> {
+        Some(mc_data::SoundEvent::ENTITY_PLAYER_DEATH)
+    }
+    /// `Player.getVoicePitch()`.
+    fn get_voice_pitch(&mut self) -> f32 {
+        1.0
+    }
+    fn indicate_damage(&mut self, _level: &mut crate::server::level::ServerLevel, xd: f64, zd: f64) {
+        super::damage::indicate_damage(self, xd, zd);
+    }
+    fn block_using_item(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        attacker: &crate::world::damagesource::DamageEntity,
+        source: &crate::world::damagesource::DamageSource,
+        damage: f32,
+        fully_blocked: bool,
+    ) {
+        super::damage::block_using_item(self, level, attacker, source, damage, fully_blocked);
+    }
+    fn cause_fall_damage(&mut self, level: &mut crate::server::level::ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) -> bool {
+        super::damage::cause_fall_damage(self, level, fall_distance, damage_modifier, source)
+    }
+    fn on_enter_combat(&mut self, _level: &mut crate::server::level::ServerLevel) {
+        super::damage::on_enter_combat(self);
+    }
+    fn on_leave_combat(&mut self, _level: &mut crate::server::level::ServerLevel) {
+        super::damage::on_leave_combat(self);
+    }
+    fn drop_equipment(&mut self, level: &mut crate::server::level::ServerLevel) {
+        super::damage::drop_equipment(self, level);
+    }
+    fn get_base_experience_reward(&self, level: &crate::server::level::ServerLevel) -> i32 {
+        super::damage::get_base_experience_reward(self, level)
+    }
+    fn is_always_experience_dropper(&self) -> bool {
+        true
+    }
+    fn snapshot_for_damage(&self) -> Option<Box<dyn Entity>> {
+        Some(super::damage::snapshot_for_damage(self))
+    }
+    fn killed_entity(&mut self, level: &mut crate::server::level::ServerLevel, victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) -> bool {
+        super::damage::killed_entity(self, level, victim)
+    }
+    fn award_kill_score(&mut self, level: &mut crate::server::level::ServerLevel, victim: &crate::world::damagesource::DamageEntity, source: &crate::world::damagesource::DamageSource) {
+        super::damage::award_kill_score(self, level, victim, source);
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

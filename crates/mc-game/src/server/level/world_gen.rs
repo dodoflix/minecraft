@@ -162,6 +162,16 @@ pub trait WorldGenHooks: Send + Sync {
     fn spawn_original_mobs(&self, ctx: &WorldGenContext, region: &mut WorldGenRegion);
     /// `level.onStructureStartsAvailable(chunk)` (structure check cache).
     fn on_structure_starts_available(&self, _chunk: &ProtoChunk) {}
+    /// `StructureManager.getStructureWithPieceAt(pos, structures).isValid()` for the structures `matcher` accepts
+    /// (`LocationPredicate`): levels without structure data have none.
+    fn has_structure_piece_at(
+        &self,
+        _source: &dyn crate::world::level::levelgen::structure::manager::StructureDataSource,
+        _pos: mc_core::pos::BlockPos,
+        _matcher: &dyn Fn(&Identifier) -> bool,
+    ) -> bool {
+        false
+    }
 }
 
 /// The hooks of a level without structure/feature/mob generation (terrain only).

@@ -1,0 +1,154 @@
+# Armor math: every armor material full set + turtle helmet; damage from several sources/amounts (damage_after_absorb, durability, hurt packets).
+level flat
+difficulty normal
+spawn_player A1 survival 4.5 -60 0.5 0 0
+give A1 head minecraft:leather_helmet
+give A1 chest minecraft:leather_chestplate
+give A1 legs minecraft:leather_leggings
+give A1 feet minecraft:leather_boots
+tick 1
+dump player:A1 inventory:A1 packets:A1
+hurt A1 generic 3
+tick 21
+hurt A1 generic 10
+tick 21
+set A1 health 20
+hurt A1 generic 16.5
+tick 21
+set A1 health 20
+hurt A1 out_of_world 7
+tick 21
+hurt A1 cactus 1
+tick 21
+hurt A1 explosion 5.5
+tick 21
+dump player:A1 inventory:A1 packets:A1
+spawn_player A2 survival 8.5 -60 0.5 0 0
+give A2 head minecraft:chainmail_helmet
+give A2 chest minecraft:chainmail_chestplate
+give A2 legs minecraft:chainmail_leggings
+give A2 feet minecraft:chainmail_boots
+tick 1
+dump player:A2 inventory:A2 packets:A2
+hurt A2 generic 3
+tick 21
+hurt A2 generic 10
+tick 21
+set A2 health 20
+hurt A2 generic 16.5
+tick 21
+set A2 health 20
+hurt A2 out_of_world 7
+tick 21
+hurt A2 cactus 1
+tick 21
+hurt A2 explosion 5.5
+tick 21
+dump player:A2 inventory:A2 packets:A2
+spawn_player A3 survival 12.5 -60 0.5 0 0
+give A3 head minecraft:iron_helmet
+give A3 chest minecraft:iron_chestplate
+give A3 legs minecraft:iron_leggings
+give A3 feet minecraft:iron_boots
+tick 1
+dump player:A3 inventory:A3 packets:A3
+hurt A3 generic 3
+tick 21
+hurt A3 generic 10
+tick 21
+set A3 health 20
+hurt A3 generic 16.5
+tick 21
+set A3 health 20
+hurt A3 out_of_world 7
+tick 21
+hurt A3 cactus 1
+tick 21
+hurt A3 explosion 5.5
+tick 21
+dump player:A3 inventory:A3 packets:A3
+spawn_player A4 survival 16.5 -60 0.5 0 0
+give A4 head minecraft:golden_helmet
+give A4 chest minecraft:golden_chestplate
+give A4 legs minecraft:golden_leggings
+give A4 feet minecraft:golden_boots
+tick 1
+dump player:A4 inventory:A4 packets:A4
+hurt A4 generic 3
+tick 21
+hurt A4 generic 10
+tick 21
+set A4 health 20
+hurt A4 generic 16.5
+tick 21
+set A4 health 20
+hurt A4 out_of_world 7
+tick 21
+hurt A4 cactus 1
+tick 21
+hurt A4 explosion 5.5
+tick 21
+dump player:A4 inventory:A4 packets:A4
+spawn_player A5 survival 20.5 -60 0.5 0 0
+give A5 head minecraft:diamond_helmet
+give A5 chest minecraft:diamond_chestplate
+give A5 legs minecraft:diamond_leggings
+give A5 feet minecraft:diamond_boots
+tick 1
+dump player:A5 inventory:A5 packets:A5
+hurt A5 generic 3
+tick 21
+hurt A5 generic 10
+tick 21
+set A5 health 20
+hurt A5 generic 16.5
+tick 21
+set A5 health 20
+hurt A5 out_of_world 7
+tick 21
+hurt A5 cactus 1
+tick 21
+hurt A5 explosion 5.5
+tick 21
+dump player:A5 inventory:A5 packets:A5
+spawn_player A6 survival 24.5 -60 0.5 0 0
+give A6 head minecraft:netherite_helmet
+give A6 chest minecraft:netherite_chestplate
+give A6 legs minecraft:netherite_leggings
+give A6 feet minecraft:netherite_boots
+tick 1
+dump player:A6 inventory:A6 packets:A6
+hurt A6 generic 3
+tick 21
+hurt A6 generic 10
+tick 21
+set A6 health 20
+hurt A6 generic 16.5
+tick 21
+set A6 health 20
+hurt A6 out_of_world 7
+tick 21
+hurt A6 cactus 1
+tick 21
+hurt A6 explosion 5.5
+tick 21
+dump player:A6 inventory:A6 packets:A6
+spawn_player A7 survival 28.5 -60 0.5 0 0
+give A7 head minecraft:turtle_helmet
+tick 1
+dump player:A7 packets:A7
+hurt A7 generic 3
+tick 21
+hurt A7 generic 10
+tick 21
+set A7 health 20
+hurt A7 generic 16.5
+tick 21
+set A7 health 20
+hurt A7 out_of_world 7
+tick 21
+hurt A7 cactus 1
+tick 21
+hurt A7 explosion 5.5
+tick 21
+dump player:A7 inventory:A7 packets:A7

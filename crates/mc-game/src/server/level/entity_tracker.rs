@@ -5,6 +5,7 @@ use super::server_entity::{Payload, ServerEntity, Synchronizer, UpdateInterval, 
 use crate::server::network::ConnectionSender;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::entity::PersistentEntitySectionManager;
+use super::fastutil::LongOpenHashMap;
 use indexmap::IndexMap;
 use mc_core::phys::Vec3;
 use mc_core::pos::SectionPos;
@@ -37,6 +38,44 @@ pub trait TrackingEnv {
     fn scaled_tracking_distance(&self, range: i32) -> i32;
     /// `DistanceManager.inEntityTickingRange(chunkKey)`.
     fn in_entity_ticking_range(&self, chunk_key: i64) -> bool;
+}
+
+/// The entity storage as the tracker sees it: the manager plus, optionally, one entity that is currently taken out of
+/// it (the player whose packet or tick is being handled), so that its own tracked entity can still be updated.
+pub struct Entities<'a> {
+    manager: &'a mut PersistentEntitySectionManager,
+    extra: Option<&'a mut dyn Entity>,
+}
+
+impl<'a> Entities<'a> {
+    pub fn new(manager: &'a mut PersistentEntitySectionManager) -> Self {
+        Self { manager, extra: None }
+    }
+
+    pub fn with_extra(manager: &'a mut PersistentEntitySectionManager, extra: &'a mut dyn Entity) -> Self {
+        Self { manager, extra: Some(extra) }
+    }
+
+    fn get_any(&self, id: EntityId) -> Option<&dyn Entity> {
+        match &self.extra {
+            Some(e) if e.id() == id => Some(&**e),
+            _ => self.manager.get_any(id),
+        }
+    }
+
+    fn get_any_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
+        match &mut self.extra {
+            Some(e) if e.id() == id => Some(&mut **e),
+            _ => self.manager.get_any_mut(id),
+        }
+    }
+
+    fn get_any_or_removed_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
+        match &mut self.extra {
+            Some(e) if e.id() == id => Some(&mut **e),
+            _ => self.manager.get_any_or_removed_mut(id),
+        }
+    }
 }
 
 /// The player data `updatePlayer` reads (the player may be taken out of the level while it is handled).
@@ -89,7 +128,7 @@ impl Synchronizer for SeenBySync<'_> {
 }
 
 impl TrackedEntity {
-    fn effective_range(&self, entities: &PersistentEntitySectionManager, env: &dyn TrackingEnv) -> i32 {
+    fn effective_range(&self, entities: &Entities<'_>, env: &dyn TrackingEnv) -> i32 {
         let mut effective = self.range;
         let mut stack: Vec<EntityId> = entities.get_any(self.entity_id).map(|e| e.base().passengers.clone()).unwrap_or_default();
         while let Some(id) = stack.pop() {
@@ -101,15 +140,31 @@ impl TrackedEntity {
         env.scaled_tracking_distance(effective)
     }
 
-    fn remove_player(&mut self, player_id: EntityId, player_conn: Option<&ConnectionSender>) {
-        if self.seen_by.shift_remove(&player_id).is_some() {
-            if let Some(c) = player_conn {
-                c.send_payload(ServerEntity::remove_pairing_packet(self.entity_id));
-            }
+    /// `ServerEntity.removePairing(player)`: `entity.stopSeenByPlayer(player)` then `ClientboundRemoveEntitiesPacket`.
+    fn remove_pairing(&self, entities: &mut Entities<'_>, player_id: EntityId, connection: Option<&ConnectionSender>) {
+        if let Some(e) = entities.get_any_or_removed_mut(self.entity_id) {
+            e.stop_seen_by_player(player_id);
+        }
+        if let Some(c) = connection {
+            c.send_payload(ServerEntity::remove_pairing_packet(self.entity_id));
         }
     }
 
-    fn update_player(&mut self, entities: &mut PersistentEntitySectionManager, env: &dyn TrackingEnv, player: &TrackerPlayer) {
+    /// `TrackedEntity.removePlayer(player)`.
+    fn remove_player(&mut self, entities: &mut Entities<'_>, player_id: EntityId, player_conn: Option<&ConnectionSender>) {
+        if self.seen_by.shift_remove(&player_id).is_some() {
+            self.remove_pairing(entities, player_id, player_conn);
+        }
+    }
+
+    /// `TrackedEntity.broadcastRemoved()`.
+    fn broadcast_removed(&self, entities: &mut Entities<'_>) {
+        for (&player_id, connection) in &self.seen_by {
+            self.remove_pairing(entities, player_id, connection.as_ref());
+        }
+    }
+
+    fn update_player(&mut self, entities: &mut Entities<'_>, env: &dyn TrackingEnv, player: &TrackerPlayer) {
         if player.id == self.entity_id {
             return;
         }
@@ -127,12 +182,12 @@ impl TrackedEntity {
                 self.add_pairing(entities, player);
             }
         } else {
-            self.remove_player(player.id, player.connection.as_ref());
+            self.remove_player(entities, player.id, player.connection.as_ref());
         }
     }
 
     /// `ServerEntity.addPairing(player)`.
-    fn add_pairing(&mut self, entities: &mut PersistentEntitySectionManager, player: &TrackerPlayer) {
+    fn add_pairing(&mut self, entities: &mut Entities<'_>, player: &TrackerPlayer) {
         let vehicle = entities
             .get_any(self.entity_id)
             .and_then(|e| e.base().vehicle)
@@ -150,31 +205,31 @@ impl TrackedEntity {
         }
     }
 
-    fn update_players(&mut self, entities: &mut PersistentEntitySectionManager, env: &dyn TrackingEnv, players: &[TrackerPlayer]) {
+    fn update_players(&mut self, entities: &mut Entities<'_>, env: &dyn TrackingEnv, players: &[TrackerPlayer]) {
         for p in players {
             self.update_player(entities, env, p);
         }
     }
 }
 
-/// `ChunkMap.entityMap`.
-#[derive(Default)]
+/// `ChunkMap.entityMap` (`Int2ObjectOpenHashMap`: the iteration order of `tick`/`move` is fastutil's).
 pub struct EntityTracker {
-    entity_map: IndexMap<EntityId, TrackedEntity>,
+    entity_map: LongOpenHashMap<TrackedEntity>,
 }
 
-/// Snapshot of the players of a level for tracker updates (all players must be present in storage).
-pub fn tracker_players(entities: &PersistentEntitySectionManager, player_ids: &[EntityId]) -> Vec<TrackerPlayer> {
-    player_ids.iter().filter_map(|&id| entities.get_any(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map(TrackerPlayer::of)).collect()
+impl Default for EntityTracker {
+    fn default() -> Self {
+        Self { entity_map: LongOpenHashMap::new_int() }
+    }
 }
 
 impl EntityTracker {
     pub fn has_entity_with_id(&self, id: EntityId) -> bool {
-        self.entity_map.contains_key(&id)
+        self.entity_map.contains_key(i64::from(id))
     }
 
     /// `ChunkMap.addEntity(entity)` (the `updatePlayerStatus` part belongs to the chunk map).
-    pub fn add_entity(&mut self, entities: &mut PersistentEntitySectionManager, env: &dyn TrackingEnv, players: &[TrackerPlayer], entity_id: EntityId) {
+    pub fn add_entity(&mut self, entities: &mut Entities<'_>, env: &dyn TrackingEnv, players: &[TrackerPlayer], entity_id: EntityId) {
         let Some(entity) = entities.get_any(entity_id) else { return };
         if entity.is_ender_dragon_part() {
             return;
@@ -184,7 +239,7 @@ impl EntityTracker {
         if range == 0 {
             return;
         }
-        assert!(!self.entity_map.contains_key(&entity_id), "Entity is already tracked!");
+        assert!(!self.entity_map.contains_key(i64::from(entity_id)), "Entity is already tracked!");
         let interval = if ty.data().update_interval != i32::MAX { UpdateInterval::Periodic(ty.data().update_interval) } else { UpdateInterval::Never };
         let player = entity.as_any().downcast_ref::<ServerPlayer>().map(TrackerPlayer::of);
         let mut tracked = TrackedEntity {
@@ -196,12 +251,16 @@ impl EntityTracker {
             seen_by: IndexMap::new(),
             self_connection: player.as_ref().and_then(|p| p.connection.clone()),
         };
+        // vanilla: `entityMap.put` first, then `updatePlayers`; the entity is not reachable through the map while we
+        // update it here, which only matters for re-entrant lookups (none).
         tracked.update_players(entities, env, players);
-        self.entity_map.insert(entity_id, tracked);
+        self.entity_map.insert(i64::from(entity_id), tracked);
         if let Some(player) = player {
-            let others: Vec<EntityId> = self.entity_map.keys().copied().filter(|&id| id != entity_id).collect();
-            for id in others {
-                if let Some(t) = self.entity_map.get_mut(&id) {
+            for id in self.entity_map.keys() {
+                let id = id as EntityId;
+                if id != entity_id
+                    && let Some(t) = self.entity_map.get_mut(i64::from(id))
+                {
                     t.update_player(entities, env, &player);
                 }
             }
@@ -209,25 +268,23 @@ impl EntityTracker {
     }
 
     /// `ChunkMap.removeEntity(entity)`; `player` is the removed entity if it was a player.
-    pub fn remove_entity(&mut self, entity_id: EntityId, player: Option<&TrackerPlayer>) {
+    pub fn remove_entity(&mut self, entities: &mut Entities<'_>, entity_id: EntityId, player: Option<&TrackerPlayer>) {
         if let Some(player) = player {
-            for t in self.entity_map.values_mut() {
-                t.remove_player(player.id, player.connection.as_ref());
+            for id in self.entity_map.keys() {
+                if let Some(t) = self.entity_map.get_mut(id) {
+                    t.remove_player(entities, player.id, player.connection.as_ref());
+                }
             }
         }
-        if let Some(t) = self.entity_map.shift_remove(&entity_id) {
-            // `broadcastRemoved`
-            for c in t.seen_by.values() {
-                send(c, &ServerEntity::remove_pairing_packet(entity_id));
-            }
+        if let Some(t) = self.entity_map.remove(i64::from(entity_id)) {
+            t.broadcast_removed(entities);
         }
     }
 
     /// `ChunkMap.move(player)` tracker part: `player` just moved.
-    pub fn move_player(&mut self, entities: &mut PersistentEntitySectionManager, env: &dyn TrackingEnv, all_players: &[TrackerPlayer], player: &TrackerPlayer) {
-        let ids: Vec<EntityId> = self.entity_map.keys().copied().collect();
-        for id in ids {
-            let Some(t) = self.entity_map.get_mut(&id) else { continue };
+    pub fn move_player(&mut self, entities: &mut Entities<'_>, env: &dyn TrackingEnv, all_players: &[TrackerPlayer], player: &TrackerPlayer) {
+        for id in self.entity_map.keys() {
+            let Some(t) = self.entity_map.get_mut(id) else { continue };
             if t.entity_id == player.id {
                 t.update_players(entities, env, all_players);
             } else {
@@ -237,41 +294,42 @@ impl EntityTracker {
     }
 
     /// `ChunkMap.tick()` entity part (without `updateChunkTracking`).
-    pub fn tick(&mut self, entities: &mut PersistentEntitySectionManager, env: &dyn TrackingEnv, players: &[TrackerPlayer]) {
+    pub fn tick(&mut self, entities: &mut Entities<'_>, env: &dyn TrackingEnv, players: &[TrackerPlayer]) {
         let mut moved_players: Vec<TrackerPlayer> = Vec::new();
-        let ids: Vec<EntityId> = self.entity_map.keys().copied().collect();
-        for id in ids {
-            let Some(t) = self.entity_map.get_mut(&id) else { continue };
-            let Some(entity) = entities.get_any(id) else { continue };
+        for id in self.entity_map.keys() {
+            let Some(t) = self.entity_map.get_mut(id) else { continue };
+            let Some(entity) = entities.get_any(t.entity_id) else { continue };
             let new_pos = SectionPos::of_block_pos(&entity.block_position());
             let section_changed = t.last_section_pos != new_pos;
             let needs_sync = entity.base().needs_sync;
             if section_changed {
                 t.update_players(entities, env, players);
                 if t.is_player {
-                    if let Some(p) = entities.get_any(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map(TrackerPlayer::of) {
+                    if let Some(p) = entities.get_any(t.entity_id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map(TrackerPlayer::of) {
                         moved_players.push(p);
                     }
                 }
                 t.last_section_pos = new_pos;
             }
             if section_changed || needs_sync || env.in_entity_ticking_range(new_pos.chunk().pack()) {
-                let Some(entity) = entities.get_any_mut(id) else { continue };
+                let Some(entity) = entities.get_any_mut(t.entity_id) else { continue };
                 let TrackedEntity { server_entity, seen_by, self_connection, .. } = t;
                 let mut sync = SeenBySync { seen_by, self_connection };
                 server_entity.send_changes(entity, &mut sync);
             }
         }
         if !moved_players.is_empty() {
-            for t in self.entity_map.values_mut() {
-                t.update_players(entities, env, &moved_players);
+            for id in self.entity_map.keys() {
+                if let Some(t) = self.entity_map.get_mut(id) {
+                    t.update_players(entities, env, &moved_players);
+                }
             }
         }
     }
 
     /// `ChunkMap.sendToTrackingPlayers(entity, packet)`.
     pub fn send_to_tracking_players(&self, entity_id: EntityId, payload: &Payload) {
-        if let Some(t) = self.entity_map.get(&entity_id) {
+        if let Some(t) = self.entity_map.get(i64::from(entity_id)) {
             for c in t.seen_by.values() {
                 send(c, payload);
             }
@@ -280,7 +338,7 @@ impl EntityTracker {
 
     /// `ChunkMap.sendToTrackingPlayersFiltered(entity, packet, predicate on the player id)`.
     pub fn send_to_tracking_players_filtered(&self, entity_id: EntityId, payload: &Payload, mut predicate: impl FnMut(EntityId) -> bool) {
-        if let Some(t) = self.entity_map.get(&entity_id) {
+        if let Some(t) = self.entity_map.get(i64::from(entity_id)) {
             for (&pid, c) in &t.seen_by {
                 if predicate(pid) {
                     send(c, payload);
@@ -291,7 +349,7 @@ impl EntityTracker {
 
     /// `ChunkMap.sendToTrackingPlayersAndSelf(entity, packet)`.
     pub fn send_to_tracking_players_and_self(&self, entity_id: EntityId, payload: &Payload) {
-        if let Some(t) = self.entity_map.get(&entity_id) {
+        if let Some(t) = self.entity_map.get(i64::from(entity_id)) {
             for c in t.seen_by.values() {
                 send(c, payload);
             }
@@ -301,10 +359,10 @@ impl EntityTracker {
 
     /// `ChunkMap.isTrackedByAnyPlayer(entity)`.
     pub fn is_tracked_by_any_player(&self, entity_id: EntityId) -> bool {
-        self.entity_map.get(&entity_id).is_some_and(|t| !t.seen_by.is_empty())
+        self.entity_map.get(i64::from(entity_id)).is_some_and(|t| !t.seen_by.is_empty())
     }
 
-    /// `ChunkMap.forEachEntityTrackedBy(player)`.
+    /// `ChunkMap.forEachEntityTrackedBy(player)` (in entity-map order).
     pub fn entities_tracked_by(&self, player_id: EntityId) -> Vec<EntityId> {
         self.entity_map.values().filter(|t| t.seen_by.contains_key(&player_id)).map(|t| t.entity_id).collect()
     }
@@ -368,7 +426,7 @@ mod tests {
         pig.set_pos(1.0, 64.0, 1.0);
         m.add_new_entity(Box::new(pig)).ok().unwrap();
         let mut tracker = EntityTracker::default();
-        tracker.add_entity(&mut m, &Env, std::slice::from_ref(&tp), 2);
+        tracker.add_entity(&mut Entities::new(&mut m), &Env, std::slice::from_ref(&tp), 2);
         assert!(tracker.is_tracked_by_any_player(2));
         // bundle delimiter, add_entity, bundle delimiter
         assert_eq!(ids(&mut rx), vec![ClientboundBundleDelimiterPacket::ID, ClientboundAddEntityPacket::ID, ClientboundBundleDelimiterPacket::ID]);
@@ -378,13 +436,13 @@ mod tests {
         e.set_pos(2.0, 64.0, 1.0);
         m.put_back(2, e);
         for _ in 0..3 {
-            tracker.tick(&mut m, &Env, std::slice::from_ref(&tp));
+            tracker.tick(&mut Entities::new(&mut m), &Env, std::slice::from_ref(&tp));
         }
         let got = ids(&mut rx);
         assert!(got.contains(&ClientboundMoveEntityPosPacket::ID), "{got:?}");
         assert!(!got.contains(&ClientboundTeleportEntityPacket::ID));
 
-        tracker.remove_entity(2, None);
+        tracker.remove_entity(&mut Entities::new(&mut m), 2, None);
         assert_eq!(ids(&mut rx), vec![ClientboundRemoveEntitiesPacket::ID]);
     }
 
@@ -396,7 +454,7 @@ mod tests {
         pig.set_pos(1.0, 64.0, 1.0);
         m.add_new_entity(Box::new(pig)).ok().unwrap();
         let mut tracker = EntityTracker::default();
-        tracker.add_entity(&mut m, &Env, std::slice::from_ref(&tp), 2);
+        tracker.add_entity(&mut Entities::new(&mut m), &Env, std::slice::from_ref(&tp), 2);
         assert!(!tracker.is_tracked_by_any_player(2));
         assert!(ids(&mut rx).is_empty());
     }

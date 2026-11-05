@@ -1,0 +1,22 @@
+# Friction of ice / blue ice / packed ice / slime: accelerate, release the keys and slide.
+level flat
+fill -3 -61 0 3 -61 24 minecraft:ice
+fill -3 -61 25 3 -61 49 minecraft:blue_ice
+fill -3 -61 50 3 -61 74 minecraft:slime_block
+spawn_player Ice survival 0.5 -60 0.5 0 0 sim
+spawn_player Blue survival -2.5 -60 25.5 0 0 sim
+spawn_player Slime survival 2.5 -60 50.5 0 0 sim
+watch player:Ice player:Blue player:Slime
+tick 3
+input Ice forward,sprint
+input Blue forward,sprint
+input Slime forward,sprint
+tick 15
+input Ice jump
+input Blue jump
+input Slime jump
+tick 10
+input Ice none
+input Blue none
+input Slime none
+tick 40

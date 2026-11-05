@@ -1,0 +1,339 @@
+T 1
+P Crawl minecraft:player pos=0.5,-60.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 2
+P Crawl minecraft:player pos=0.5,-60.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+P Crawl minecraft:player pos=0.5,-60.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Crawl minecraft:player pos=0.5,-60.0,5.600000001490116 delta=0.0,-0.0784000015258789,0.0546000071555377 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=6/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.5300000016391277 delta=0.0,-0.0784000015258789,0.016380002797544115 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Crawl minecraft:player pos=0.5,-60.0,5.7546000101357695 delta=0.0,-0.0784000015258789,0.08441161452515782 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.5763800060757996 delta=0.0,-0.0784000015258789,0.025323485363812206 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Crawl minecraft:player pos=0.5,-60.0,5.939011626151044 delta=0.0,-0.0784000015258789,0.10068875403960292 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.6317034930787396 delta=0.0,-0.0784000015258789,0.030206627412184363 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Crawl minecraft:player pos=0.5,-60.0,6.139700381680763 delta=0.0,-0.0784000015258789,0.10957607324677543 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=3/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.6919101221300518 delta=0.0,-0.0784000015258789,0.03287282328028122 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Crawl minecraft:player pos=0.5,-60.0,6.3492764564176545 delta=0.0,-0.0784000015258789,0.11442855009751955 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.7547829470494607 delta=0.0,-0.0784000015258789,0.03432856639335048 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+P Crawl minecraft:player pos=0.5,-60.0,6.56370500800529 delta=0.0,-0.0784000015258789,0.11707800276576674 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.0 abs=0.0 hurt=1/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.8191115150819389 delta=0.0,-0.0784000015258789,0.03512340222540857 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Crawl minecraft:player pos=0.5,-60.0,6.780783012261173 delta=0.0,-0.0784000015258789,0.11852460409065624 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.8842349189464752 delta=0.0,-0.0784000015258789,0.03555738264012026 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Crawl minecraft:player pos=0.5,-60.0,6.9993076178419456 delta=0.0,-0.0784000015258789,0.11931444850578841 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/10 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,0.9497923032257232 delta=0.0,-0.0784000015258789,0.03579433597407559 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Crawl minecraft:player pos=0.5,-60.0,7.21862206783785 delta=0.0,-0.0784000015258789,0.119745703606542 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/9 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.0155866408389265 delta=0.0,-0.0784000015258789,0.03592371250944262 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Crawl minecraft:player pos=0.5,-60.0,7.438367772934508 delta=0.0,-0.0784000015258789,0.11998116891890338 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/8 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.081510354987497 delta=0.0,-0.0784000015258789,0.035994352105958 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Crawl minecraft:player pos=0.5,-60.0,7.658348943343527 delta=0.0,-0.0784000015258789,0.12010973299438572 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/7 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.1475047087325827 delta=0.0,-0.0784000015258789,0.03603292133013531 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+P Crawl minecraft:player pos=0.5,-60.0,7.8784586778280286 delta=0.0,-0.0784000015258789,0.12017992898775254 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.2135376317018458 delta=0.0,-0.0784000015258789,0.03605398012898216 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+P Crawl minecraft:player pos=0.5,-60.0,8.098638608305897 delta=0.0,-0.0784000015258789,0.12021825600458261 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/5 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.2795916134699556 delta=0.0,-0.0784000015258789,0.03606547823448807 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+P Crawl minecraft:player pos=0.5,-60.0,8.318856865800596 delta=0.0,-0.0784000015258789,0.1202391825582025 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/4 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.3456570933435714 delta=0.0,-0.0784000015258789,0.03607175620082351 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+P Crawl minecraft:player pos=0.5,-60.0,8.539096049848915 delta=0.0,-0.0784000015258789,0.12025060845780611 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/3 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.4117288511835226 delta=0.0,-0.0784000015258789,0.03607518397084079 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+P Crawl minecraft:player pos=0.5,-60.0,8.759346659796837 delta=0.0,-0.0784000015258789,0.1202568469997143 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=19.833334 abs=0.0 hurt=0/2 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.4778040367934913 delta=0.0,-0.0784000015258789,0.03607705553348762 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+P Crawl minecraft:player pos=0.5,-60.0,8.979603508286667 delta=0.0,-0.0784000015258789,0.12026025324399181 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=4.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.5438810939661067 delta=0.0,-0.0784000015258789,0.03607807740681148 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+P Crawl minecraft:player pos=0.5,-60.0,9.199863763020774 delta=0.0,-0.0784000015258789,0.12026211305358336 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.609959173012046 delta=0.0,-0.0784000015258789,0.03607863534971112 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 22
+P Crawl minecraft:player pos=0.5,-60.0,9.420125877564473 delta=0.0,-0.0784000015258789,0.1202631285097383 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.6760378100008848 delta=0.0,-0.0784000015258789,0.036078939986569705 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+P Crawl minecraft:player pos=0.5,-60.0,9.640389007564327 delta=0.0,-0.0784000015258789,0.12026368294886329 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.7421167516265823 delta=0.0,-0.0784000015258789,0.03607910631831381 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+P Crawl minecraft:player pos=0.5,-60.0,9.860652692003306 delta=0.0,-0.0784000015258789,0.12026398567266071 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.808195859584024 delta=0.0,-0.0784000015258789,0.036079197135456646 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 25
+P Crawl minecraft:player pos=0.5,-60.0,10.080916679166084 delta=0.0,-0.0784000015258789,0.12026415095987329 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.8742750583586083 delta=0.0,-0.0784000015258789,0.03607924672162239 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 26
+P Crawl minecraft:player pos=0.5,-60.0,10.301180831616072 delta=0.0,-0.0784000015258789,0.12026424120670184 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,1.9403543067193585 delta=0.0,-0.0784000015258789,0.03607927379567202 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 27
+P Crawl minecraft:player pos=0.5,-60.0,10.52144507431289 delta=0.0,-0.0784000015258789,0.12026429048147595 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.006433582154158 delta=0.0,-0.0784000015258789,0.03607928857810485 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 28
+P Crawl minecraft:player pos=0.5,-60.0,10.741709366284482 delta=0.0,-0.0784000015258789,0.12026431738550575 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.072512872371391 delta=0.0,-0.0784000015258789,0.03607929664931411 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+P Crawl minecraft:player pos=0.5,-60.0,10.961973685160103 delta=0.0,-0.0784000015258789,0.12026433207510771 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.1385921706598325 delta=0.0,-0.0784000015258789,0.036079301056194876 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 30
+P Crawl minecraft:player pos=0.5,-60.0,11.182238018725327 delta=0.0,-0.0784000015258789,0.12026434009563133 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.2046714733551553 delta=0.0,-0.0784000015258789,0.03607930346235205 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 31
+P Crawl minecraft:player pos=0.5,-60.0,11.402502360311074 delta=0.0,-0.0784000015258789,0.12026434447483773 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.270750778456635 delta=0.0,-0.0784000015258789,0.03607930477611403 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+P Crawl minecraft:player pos=0.5,-60.0,11.622766706276028 delta=0.0,-0.0784000015258789,0.1202643468658847 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.336830084871877 delta=0.0,-0.0784000015258789,0.036079305493428145 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 33
+P Crawl minecraft:player pos=0.5,-60.0,11.843031054632029 delta=0.0,-0.0784000015258789,0.1202643481713965 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.402909392004433 delta=0.0,-0.0784000015258789,0.036079305885081694 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 34
+P Crawl minecraft:player pos=0.5,-60.0,12.093295412936214 delta=0.0,-0.0784000015258789,0.13664435550568657 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.438988697889515 delta=0.0,-0.0784000015258789,0.019699303301380446 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+P Crawl minecraft:player pos=0.5,-60.0,12.35993977857469 delta=0.0,-0.0784000015258789,0.14558784054901822 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4586880011908954 delta=0.0,-0.0784000015258789,0.010755820851870579 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+P Crawl minecraft:player pos=0.5,-60.0,12.635527629256497 delta=0.0,-0.0784000015258789,0.15047098394986722 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.469443822042766 delta=0.0,-0.0784000015258789,0.005872678867248417 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 37
+P Crawl minecraft:player pos=0.5,-60.0,12.915998623339155 delta=0.0,-0.0784000015258789,0.15313718055641654 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.475316500910014 delta=0.0,-0.0784000015258789,0.0032064830339590656 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 38
+P Crawl minecraft:player pos=0.5,-60.0,13.199135814028361 delta=0.0,-0.0784000015258789,0.1545929240726809 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.001750739939894694 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+P Crawl minecraft:player pos=0.5,-60.0,13.483728748233831 delta=0.0,-0.0784000015258789,0.15538776012488353 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+P Crawl minecraft:player pos=0.5,-60.0,13.769116518491504 delta=0.0,-0.0784000015258789,0.15582174065979415 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 41
+P Crawl minecraft:player pos=0.5,-60.0,14.054938269284088 delta=0.0,-0.0784000015258789,0.1560586940593781 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 42
+P Crawl minecraft:player pos=0.5,-60.0,14.340996973476257 delta=0.0,-0.0784000015258789,0.15618807063057838 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 43
+P Crawl minecraft:player pos=0.5,-60.0,14.627185054239625 delta=0.0,-0.0784000015258789,0.15625871024665872 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 44
+P Crawl minecraft:player pos=0.5,-60.0,14.913443774619074 delta=0.0,-0.0784000015258789,0.15629727948151848 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 45
+P Crawl minecraft:player pos=0.5,-60.0,15.199741064233383 delta=0.0,-0.0784000015258789,0.15631833828619796 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 46
+P Crawl minecraft:player pos=0.5,-60.0,15.48605941265237 delta=0.0,-0.0784000015258789,0.15632983639488848 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 47
+P Crawl minecraft:player pos=0.5,-60.0,15.772389259180049 delta=0.0,-0.0784000015258789,0.15633611436296274 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 48
+P Crawl minecraft:player pos=0.5,-60.0,16.0587253836758 delta=0.0,-0.0784000015258789,0.1563395421339294 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 49
+P Crawl minecraft:player pos=0.5,-60.0,16.345064935942517 delta=0.0,-0.0784000015258789,0.1563414136970946 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 50
+P Crawl minecraft:player pos=0.5,-60.0,16.631406359772402 delta=0.0,-0.0784000015258789,0.15634243557070146 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 51
+P Crawl minecraft:player pos=0.5,-60.0,16.91774880547589 delta=0.0,-0.0784000015258789,0.15634299351375563 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 52
+P Crawl minecraft:player pos=0.5,-60.0,17.20409180912244 delta=0.0,-0.0784000015258789,0.15634329815069858 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 53
+P Crawl minecraft:player pos=0.5,-60.0,17.490435117405926 delta=0.0,-0.0784000015258789,0.15634346448248876 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.4785229839439733 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 54
+P Crawl minecraft:player pos=0.5,-60.0,17.646778581888416 delta=0.0,-0.0784000015258789,0.08536354152263852 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.508522985583101 delta=0.0,-0.0784000015258789,0.016380002797544115 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 55
+P Crawl minecraft:player pos=0.5,-60.0,17.732142123411055 delta=0.0,-0.0784000015258789,0.04660849908506027 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.554902990019773 delta=0.0,-0.0784000015258789,0.025323485363812206 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 56
+P Crawl minecraft:player pos=0.5,-60.0,17.778750622496116 delta=0.0,-0.0784000015258789,0.025448243456323252 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.610226477022713 delta=0.0,-0.0784000015258789,0.030206627412184363 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 57
+P Crawl minecraft:player pos=0.5,-60.0,17.80419886595244 delta=0.0,-0.0784000015258789,0.013894742541063352 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.6704331060740247 delta=0.0,-0.0784000015258789,0.03287282328028122 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 58
+P Crawl minecraft:player pos=0.5,-60.0,17.818093608493502 delta=0.0,-0.0784000015258789,0.00758653030861602 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.7333059309934336 delta=0.0,-0.0784000015258789,0.03432856639335048 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 59
+P Crawl minecraft:player pos=0.5,-60.0,17.825680138802117 delta=0.0,-0.0784000015258789,0.0041422460296371075 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.7976344990259117 delta=0.0,-0.0784000015258789,0.03512340222540857 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 60
+P Crawl minecraft:player pos=0.5,-60.0,17.829822384831754 delta=0.0,-0.0784000015258789,0.0022616665948803783 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.862757902890448 delta=0.0,-0.0784000015258789,0.03555738264012026 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 61
+P Crawl minecraft:player pos=0.5,-60.0,17.829822384831754 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.928315287169696 delta=0.0,-0.0784000015258789,0.03579433597407559 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 62
+P Crawl minecraft:player pos=0.5,-60.0,17.829822384831754 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,2.9941096247828995 delta=0.0,-0.0784000015258789,0.03592371250944262 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 63
+P Crawl minecraft:player pos=0.5,-60.0,17.829822384831754 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.06003333893147 delta=0.0,-0.0784000015258789,0.035994352105958 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 64
+P Crawl minecraft:player pos=0.5,-60.0,17.729822383341638 delta=0.0,-0.0784000015258789,-0.0546000071555377 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.0960276910374276 delta=0.0,-0.0784000015258789,0.019652918532591195 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 65
+P Crawl minecraft:player pos=0.5,-60.0,17.575222374695983 delta=0.0,-0.0784000015258789,-0.08441161452515782 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1156806095700187 delta=0.0,-0.0784000015258789,0.010730494765169955 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 66
+P Crawl minecraft:player pos=0.5,-60.0,17.390810758680708 delta=0.0,-0.0784000015258789,-0.10068875403960292 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1264111043351885 delta=0.0,-0.0784000015258789,0.0058588508223037135 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 67
+P Crawl minecraft:player pos=0.5,-60.0,17.19012200315099 delta=0.0,-0.0784000015258789,-0.10957607324677543 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.132269955157492 delta=0.0,-0.0784000015258789,0.003198932920542292 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 68
+P Crawl minecraft:player pos=0.5,-60.0,16.9805459284141 delta=0.0,-0.0784000015258789,-0.11442855009751955 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0017466175774903125 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 69
+P Crawl minecraft:player pos=0.5,-60.0,16.766117376826465 delta=0.0,-0.0784000015258789,-0.11707800276576674 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 70
+P Crawl minecraft:player pos=0.5,-60.0,16.549039372570583 delta=0.0,-0.0784000015258789,-0.11852460409065624 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 71
+P Crawl minecraft:player pos=0.5,-60.0,16.33051476698981 delta=0.0,-0.0784000015258789,-0.11931444850578841 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 72
+P Crawl minecraft:player pos=0.5,-60.0,16.111200316993905 delta=0.0,-0.0784000015258789,-0.119745703606542 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 73
+P Crawl minecraft:player pos=0.5,-60.0,15.891454611897247 delta=0.0,-0.0784000015258789,-0.11998116891890338 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 74
+P Crawl minecraft:player pos=0.5,-60.0,15.671473441488228 delta=0.0,-0.0784000015258789,-0.12010973299438572 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 75
+P Crawl minecraft:player pos=0.5,-60.0,15.451363707003726 delta=0.0,-0.0784000015258789,-0.12017992898775254 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 76
+P Crawl minecraft:player pos=0.5,-60.0,15.231183776525857 delta=0.0,-0.0784000015258789,-0.12021825600458261 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 77
+P Crawl minecraft:player pos=0.5,-60.0,15.010965519031158 delta=0.0,-0.0784000015258789,-0.1202391825582025 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 78
+P Crawl minecraft:player pos=0.5,-60.0,14.790726334982839 delta=0.0,-0.0784000015258789,-0.12025060845780611 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 79
+P Crawl minecraft:player pos=0.5,-60.0,14.570475725034918 delta=0.0,-0.0784000015258789,-0.1202568469997143 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 80
+P Crawl minecraft:player pos=0.5,-60.0,14.350218876545087 delta=0.0,-0.0784000015258789,-0.12026025324399181 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 81
+P Crawl minecraft:player pos=0.5,-60.0,14.12995862181098 delta=0.0,-0.0784000015258789,-0.12026211305358336 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 82
+P Crawl minecraft:player pos=0.5,-60.0,13.909696507267281 delta=0.0,-0.0784000015258789,-0.1202631285097383 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 83
+P Crawl minecraft:player pos=0.5,-60.0,13.689433377267427 delta=0.0,-0.0784000015258789,-0.12026368294886329 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 84
+P Crawl minecraft:player pos=0.5,-60.0,13.469169692828448 delta=0.0,-0.0784000015258789,-0.12026398567266071 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 85
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 86
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 87
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 88
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 89
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 90
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 91
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 92
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 93
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 94
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 95
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 96
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 97
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 98
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 99
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 100
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 101
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 102
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 103
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 104
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 105
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 106
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 107
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 108
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 109
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 110
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 111
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 112
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 113
+P Crawl minecraft:player pos=0.5,-60.0,13.300000011920929 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+P Sneak minecraft:player pos=10.5,-60.0,3.1354688880780346 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

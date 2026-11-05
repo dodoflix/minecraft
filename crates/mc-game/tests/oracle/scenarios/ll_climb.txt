@@ -1,0 +1,31 @@
+# Ladders, vines, scaffolding: climb with forward/jump, hold with sneak, slide down; stone wall behind the climbables.
+level flat
+fill -6 -60 6 12 -30 6 minecraft:stone
+fill 0 -60 5 0 -30 5 minecraft:ladder[facing=north]
+fill 4 -60 5 4 -30 5 minecraft:vine[south=true]
+fill 8 -60 5 8 -30 5 minecraft:scaffolding[bottom=false]
+spawn_player Ladder survival 0.5 -60 4.5 0 0 sim
+spawn_player Vine survival 4.5 -60 4.5 0 0 sim
+spawn_player Scaffold survival 8.5 -60 4.5 0 0 sim
+watch player:Ladder player:Vine player:Scaffold
+tick 3
+input Ladder forward
+input Vine forward
+input Scaffold forward
+tick 20
+input Ladder forward,jump
+input Vine forward,jump
+input Scaffold forward,jump
+tick 30
+input Ladder forward,sneak
+input Vine forward,sneak
+input Scaffold forward,sneak
+tick 20
+input Ladder back
+input Vine back
+input Scaffold back
+tick 20
+input Ladder none
+input Vine none
+input Scaffold none
+tick 20

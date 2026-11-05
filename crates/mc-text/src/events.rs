@@ -57,7 +57,8 @@ pub enum ClickEvent {
     OpenFile(String),
     RunCommand(String),
     SuggestCommand(String),
-    /// `Holder<Dialog>`: either a registry id string or an inline dialog compound. Kept opaque.
+    /// `Holder<Dialog>` in its canonical NBT form: a registry id string or an inline dialog compound, normalised by the
+    /// `PayloadKind::Dialog` hook (identity until `mc_protocol::components::install_text_hooks` ran).
     ShowDialog(Tag),
     ChangePage(i32),
     CopyToClipboard(String),

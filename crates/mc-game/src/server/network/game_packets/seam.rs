@@ -92,11 +92,6 @@ impl ServerPlayer {
         self.player.living.entity.set_shared_flag(crate::world::entity::entity::FLAG_SHIFT_KEY_DOWN, shift);
     }
 
-    /// `setSprinting(sprinting)`.
-    pub fn set_sprinting(&mut self, sprinting: bool) {
-        self.player.living.entity.set_shared_flag(crate::world::entity::entity::FLAG_SPRINTING, sprinting);
-    }
-
     /// `setKnownMovement(movement)`.
     pub fn set_known_movement(&mut self, movement: Vec3) {
         self.last_known_client_movement = movement;
@@ -207,14 +202,6 @@ impl PlayCtx<'_> {
 
     /// `level.getChunkSource().move(player)` after the player's position changed.
     pub(super) fn chunk_source_move(&mut self) {
-        let update = crate::server::level::chunk_map::PlayerTrackingUpdate {
-            entity_id: self.player.id(),
-            position: self.player.position(),
-            requested_view_distance: self.player.requested_view_distance,
-            spectator: self.player.is_spectator(),
-            alive: self.player.is_alive(),
-        };
-        self.level.chunk_source.chunk_map.move_player(update);
-        self.level.entity_tracker_move_taken_out_player(&*self.player);
+        self.player.chunk_source_move(self.level);
     }
 }

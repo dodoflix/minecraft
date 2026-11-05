@@ -76,7 +76,8 @@ pub fn entity_plain_text_name(entity: &dyn Entity) -> String {
 /// `Entity.getDisplayName()`: the name formatted for its team, with the hover/insertion vanilla adds.
 pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Component {
     let name = entity_name(entity);
-    let team = server.scoreboard.get_players_team(&entity.get_scoreboard_name());
+    let scoreboard = server.scoreboard.read();
+    let team = scoreboard.get_players_team(&entity.get_scoreboard_name());
     let name = crate::world::scores::PlayerTeam::format_name_for_team(team, &name);
     let hover = mc_text::events::HoverEvent::ShowEntity(mc_text::events::EntityTooltipInfo {
         entity_type: entity.get_type().identifier(),
@@ -88,7 +89,7 @@ pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Com
 
 /// `Entity.getTeam().getName()`.
 pub fn entity_team_name(server: &MinecraftServer, entity: &dyn Entity) -> Option<String> {
-    server.scoreboard.get_players_team(&entity.get_scoreboard_name()).map(|t| t.get_name().to_owned())
+    server.scoreboard.read().get_players_team(&entity.get_scoreboard_name()).map(|t| t.get_name().to_owned())
 }
 
 /// `ServerPlayer.gameMode()`.
@@ -171,8 +172,8 @@ pub fn level_enabled_features_ref(server: &MinecraftServer, level: &DimensionKey
 pub fn entity_scores_match(server: &MinecraftServer, entity: &dyn Entity, expected: &[(String, crate::commands::arguments::min_max_bounds::Ints)]) -> bool {
     let holder = crate::world::scores::score::for_name_only(&entity.get_scoreboard_name());
     expected.iter().all(|(objective, bounds)| {
-        server.scoreboard.get_objective(objective).is_some()
-            && server.scoreboard.get_player_score_info(&holder, objective).is_some_and(|score| bounds.matches(score.value()))
+        server.scoreboard.read().get_objective(objective).is_some()
+            && server.scoreboard.read().get_player_score_info(&holder, objective).is_some_and(|score| bounds.matches(score.value()))
     })
 }
 
@@ -235,32 +236,32 @@ pub fn player_name_and_id(entity: &dyn Entity) -> Option<crate::server::players:
 
 /// `scoreboard.getObjective(name) != null`.
 pub fn scoreboard_has_objective(server: &MinecraftServer, name: &str) -> bool {
-    server.scoreboard.get_objective(name).is_some()
+    server.scoreboard.read().get_objective(name).is_some()
 }
 
 /// `objective.getCriteria().isReadOnly()` of an existing objective.
 pub fn scoreboard_objective_read_only(server: &MinecraftServer, name: &str) -> bool {
-    server.scoreboard.get_objective(name).is_some_and(|o| o.get_criteria().is_read_only())
+    server.scoreboard.read().get_objective(name).is_some_and(|o| o.get_criteria().is_read_only())
 }
 
 /// `scoreboard.getObjectiveNames()`.
 pub fn scoreboard_objective_names(server: &MinecraftServer) -> Vec<String> {
-    server.scoreboard.get_objective_names().map(str::to_owned).collect()
+    server.scoreboard.read().get_objective_names().map(str::to_owned).collect()
 }
 
 /// `scoreboard.getTeamNames()`.
 pub fn scoreboard_team_names(server: &MinecraftServer) -> Vec<String> {
-    server.scoreboard.get_team_names().map(str::to_owned).collect()
+    server.scoreboard.read().get_team_names().map(str::to_owned).collect()
 }
 
 /// `scoreboard.getPlayerTeam(name) != null`.
 pub fn scoreboard_has_team(server: &MinecraftServer, name: &str) -> bool {
-    server.scoreboard.get_player_team(name).is_some()
+    server.scoreboard.read().get_player_team(name).is_some()
 }
 
 /// `scoreboard.getTrackedPlayers()` (score holder names).
 pub fn scoreboard_tracked_players(server: &MinecraftServer) -> Vec<String> {
-    server.scoreboard.get_tracked_players()
+    server.scoreboard.read().get_tracked_players()
 }
 
 // ---- registries ----
@@ -418,7 +419,7 @@ pub fn score_holder_of(server: &MinecraftServer, entity: &EntityRef) -> Option<s
 
 /// `ScoreContents.getScore`: the score of `holder` in `objective` formatted, `empty` when there is none.
 pub fn score_component(server: &MinecraftServer, holder: &super::arguments::scores::ScoreHolder, objective: &str) -> Component {
-    let scoreboard = &server.scoreboard;
+    let scoreboard = server.scoreboard.read();
     if let Some(o) = scoreboard.get_objective(objective)
         && let Some(info) = scoreboard.get_player_score_info(&crate::world::scores::score::for_name_only(&holder.scoreboard_name), objective)
     {
@@ -532,9 +533,6 @@ pub fn look_at(server: &mut MinecraftServer, target: &EntityRef, anchor: super::
 }
 
 /// `ServerPlayer.setGameMode(mode)`: false when the player already has it.
-///
-/// Gaps (entity slice): the spectator side effects (`removeEntitiesOnShoulder`/`stopRiding`/`stopUsingItem`/location
-/// effects) and `updateEffectVisibility` have no counterpart yet; `isInRangeOfGround` is approximated by `onGround`.
 pub fn set_game_mode(server: &mut MinecraftServer, player: &EntityRef, game_mode: mc_world::level_storage::GameType) -> bool {
     use mc_data::enums::GameType;
     let mode = match game_mode {
@@ -543,44 +541,8 @@ pub fn set_game_mode(server: &mut MinecraftServer, player: &EntityRef, game_mode
         mc_world::level_storage::GameType::Adventure => GameType::Adventure,
         mc_world::level_storage::GameType::Spectator => GameType::Spectator,
     };
-    use mc_protocol::packets::play::{ClientboundGameEventPacket, ClientboundPlayerInfoUpdateAction, ClientboundPlayerInfoUpdatePacket};
-    let Some(handle) = player_handle(server, player) else { return false };
-    let changed = server.level_mut(&player.dimension).and_then(|l| l.get_entity_mut(player.id)).and_then(|entity| {
-        let sp = entity.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>()?;
-        let old = sp.game_mode.game_mode_for_player;
-        if old == mode {
-            return Some(false);
-        }
-        sp.set_game_mode_for_player(mode, Some(old));
-        if sp.player.abilities.flying && mode != GameType::Spectator && sp.base().on_ground() {
-            sp.player.abilities.flying = false;
-        }
-        sp.on_update_abilities();
-        if mode == GameType::Creative {
-            sp.player.living.current_impulse_impact_pos = None;
-            sp.player.living.current_impulse_context_reset_grace_time = 0;
-        }
-        Some(true)
-    });
-    if changed != Some(true) {
-        return false;
-    }
-    handle.shared.lock().game_mode = mode;
-    server.player_list.broadcast_all(&ClientboundPlayerInfoUpdatePacket {
-        actions: [ClientboundPlayerInfoUpdateAction::UpdateGameMode].into_iter().collect(),
-        entries: vec![handle.info_entry()],
-    });
-    let id = match mode {
-        GameType::Survival => 0,
-        GameType::Creative => 1,
-        GameType::Adventure => 2,
-        GameType::Spectator => 3,
-    };
-    handle.connection.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::CHANGE_GAME_MODE, param: id as f32 });
-    if let Some(sp) = server.level_mut(&player.dimension).and_then(|l| l.get_entity_mut(player.id)).and_then(|e| e.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>()) {
-        sp.on_update_abilities();
-    }
-    true
+    let Some(level) = server.level_mut(&player.dimension) else { return false };
+    level.with_player(player.id, |level, sp| sp.set_game_mode(level, mode)).unwrap_or(false)
 }
 
 /// Kicks `player` (`player.connection.disconnect(reason)`); the player's display name for the feedback.

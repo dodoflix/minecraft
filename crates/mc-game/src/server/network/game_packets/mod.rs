@@ -278,15 +278,14 @@ fn perform_respawn(server: &mut MinecraftServer, handle: &crate::server::players
     use crate::world::entity::{Entity, RemovalReason};
     let reason = if won_game { RemovalReason::ChangedDimension } else { RemovalReason::Killed };
     let hardcore = server.world_data.lock().settings.difficulty_settings.hardcore;
-    crate::server::players::respawn::respawn(server, &handle.dimension(), handle.id, won_game, reason, move |_server, player| {
+    crate::server::players::respawn::respawn(server, &handle.dimension(), handle.id, won_game, reason, move |_server, level, player| {
         let pos = player.position();
         if let Some(lis) = player.listener.as_mut() {
             lis.reset_position(pos);
             lis.restart_client_load_timer_after_respawn();
         }
         if !won_game && hardcore {
-            player.change_game_mode_for_player(mc_data::enums::GameType::Spectator);
-            player.sync_handle();
+            player.set_game_mode(level, mc_data::enums::GameType::Spectator);
         }
     });
 }

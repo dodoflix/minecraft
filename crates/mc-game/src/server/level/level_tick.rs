@@ -28,22 +28,7 @@ use mc_world::heightmap::HeightmapType;
 use mc_world::level_storage::Difficulty;
 use mc_world::ticks::LevelTickAccess;
 
-/// The game rules `ServerLevel` reads while ticking.
-#[derive(Clone, Copy, Debug)]
-pub struct LevelRules {
-    /// `PLAYERS_SLEEPING_PERCENTAGE`.
-    pub players_sleeping_percentage: i32,
-    /// `ADVANCE_TIME`.
-    pub advance_time: bool,
-    /// `ADVANCE_WEATHER`.
-    pub advance_weather: bool,
-    /// `SPAWN_MOBS`.
-    pub spawn_mobs: bool,
-    /// `MAX_SNOW_ACCUMULATION_HEIGHT`.
-    pub max_snow_accumulation_height: i32,
-    /// `RANDOM_TICK_SPEED`.
-    pub random_tick_speed: i32,
-}
+pub use super::level_rules::LevelRules;
 
 /// `WeatherData` of the level (`rain_time`, `thunder_time`, ... as saved).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -82,6 +67,9 @@ pub trait LevelTickEnv {
     fn broadcast_game_event_to_all(&mut self, packet: &ClientboundGameEventPacket);
     /// `setGameTime(time)` on the level data (`tickTime` levels only; also stores it for `getGameTime`).
     fn set_game_time(&mut self, game_time: i64);
+    /// The `PortalProcessor` of `entity` (which just ticked and is out of `level`) reached its transition time:
+    /// `getPortalDestination` + `Entity.teleportToPortalDestination`.
+    fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity);
 }
 
 /// `ServerLevel.THUNDER_DELAY` / `THUNDER_DURATION` / `RAIN_DELAY` / `RAIN_DURATION` (`UniformInt.of(min, max)`).
@@ -298,7 +286,13 @@ impl ServerLevel {
 
     /// `getBiome(pos)`: the fuzzy block-resolution biome (`BiomeManager.getBiome`) from the loaded chunks' noise biomes.
     pub fn get_biome(&self, pos: BlockPos) -> Option<&mc_worldgen::biome::Biome> {
-        let registry = self.tick_state.biomes.as_ref()?;
+        let id = self.get_biome_id(pos)?;
+        Some(self.tick_state.biomes.as_ref()?.get(id))
+    }
+
+    /// `getBiome(pos)` as the registry id of the biome (`None` while a needed chunk is missing).
+    pub fn get_biome_id(&self, pos: BlockPos) -> Option<mc_world::palette::BiomeId> {
+        self.tick_state.biomes.as_ref()?;
         let resolver = |qx: i32, qy: i32, qz: i32| {
             self.chunk_now(qx >> 2, qz >> 2).map(|c| c.data.access.get_noise_biome(qx, qy, qz))
         };
@@ -312,7 +306,7 @@ impl ServerLevel {
             }
         };
         let id = mc_worldgen::biome::BiomeManager::new(&total, self.tick_state.biome_zoom_seed).get_biome(pos);
-        if missing.get() { None } else { Some(registry.get(id)) }
+        if missing.get() { None } else { Some(id) }
     }
 
     // ----------------------------------------------------------------------------------------------- random ticks
@@ -699,22 +693,9 @@ impl ServerLevel {
             if runs && let Some(tick) = self.tick_state.dragon_fight_tick {
                 tick(self);
             }
-            self.for_each_ticking(|level, entity| {
-                if entity.is_removed() || env.is_entity_frozen(entity) {
-                    return;
-                }
-                entity.check_despawn(level);
-                if entity.is_player() || level.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(entity.chunk_position().pack()) {
-                    if let Some(vehicle_id) = entity.base().vehicle {
-                        let still_riding = level.entity_manager.get_any(vehicle_id).is_some_and(|v| !v.is_removed() && v.base().passengers.contains(&entity.id()));
-                        if still_riding {
-                            return;
-                        }
-                        level.stop_riding(entity);
-                    }
-                    level.tick_non_passenger(entity);
-                }
-            });
+            for id in self.entity_manager.tick_list.snapshot() {
+                self.tick_listed_entity(env, id);
+            }
             self.tick_block_entities(env);
         }
         self.tick_entity_management();
@@ -730,14 +711,7 @@ impl ServerLevel {
         }
     }
 
-    /// `tickNonPassenger(entity)` (passengers are ticked with the riding slice).
-    pub fn tick_non_passenger(&mut self, entity: &mut dyn Entity) {
-        crate::world::entity::entity::common_tick(entity);
-        entity.tick(self);
-        for passenger in entity.base().passengers.clone() {
-            self.tick_passenger(entity, passenger);
-        }
-    }
+    /// `tickNonPassenger(entity)` is [`ServerLevel::tick_listed_entity`] (in `server_level_riding.rs`).
 
     /// `resetEmptyTime()`.
     pub fn reset_empty_time(&mut self) {

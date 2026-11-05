@@ -1,0 +1,8 @@
+# Player drops from y=-40 onto the flat surface (y=-60): simulated player physics + fall damage.
+level flat
+spawn_player Steve survival 0.5 -40 0.5 0 0 sim
+dump player:Steve
+watch player:Steve
+tick 40
+watch off
+dump player:Steve

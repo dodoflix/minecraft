@@ -134,6 +134,8 @@ pub struct LevelTickState {
     pub rain_level: f32,
     pub o_thunder_level: f32,
     pub thunder_level: f32,
+    /// Entities whose `PortalProcessor` decided to teleport this tick (see `world::entity::portal`).
+    pub pending_portal_teleports: Vec<crate::world::entity::EntityId>,
 }
 
 impl LevelTickState {
@@ -153,11 +155,11 @@ impl LevelTickState {
             poi_hook: None,
             can_have_weather: false,
             tick_time: false,
-            rules: super::level_tick::LevelRules { players_sleeping_percentage: 100, advance_time: true, advance_weather: true, spawn_mobs: true, max_snow_accumulation_height: 1, random_tick_speed: 3 },
+            rules: super::level_rules::LevelRules::default(),
             sleep_status: super::sleep_status::SleepStatus::default(),
             biomes: None,
             biome_zoom_seed: 0,
-            lightning_spawn: None,
+            lightning_spawn: Some(crate::world::entity::lightning_bolt::spawn_from_thunder),
             find_lightning_rod: None,
             dragon_fight_tick: None,
             attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &[], false),
@@ -167,6 +169,7 @@ impl LevelTickState {
             rain_level: 0.0,
             o_thunder_level: 0.0,
             thunder_level: 0.0,
+            pending_portal_teleports: Vec::new(),
         }
     }
 }

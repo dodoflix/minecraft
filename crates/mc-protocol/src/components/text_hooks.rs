@@ -4,9 +4,16 @@
 
 use super::common::{dyn_to_serde, serde_to_dyn};
 use super::map::DataComponentPatch;
+use crate::dialog::Dialog;
 use mc_dfu::{Dyn, JSON, NBT};
 use mc_nbt::Tag;
 use mc_text::{PayloadHooks, PayloadKind};
+
+/// `Dialog.CODEC` parse with `ops`, stored as `Holder<Dialog>` in NBT form (a registry id string or the dialog compound).
+fn normalize_dialog(ops: &mc_dfu::Ops, d: &Dyn) -> Result<Tag, String> {
+    let holder = Dialog::codec().parse(ops, d).into_result()?;
+    mc_dfu::encode_nbt(&Dialog::codec(), &holder).into_result()
+}
 
 fn from_json(kind: PayloadKind, v: &serde_json::Value) -> Result<Tag, String> {
     let d = serde_to_dyn(v);
@@ -15,7 +22,7 @@ fn from_json(kind: PayloadKind, v: &serde_json::Value) -> Result<Tag, String> {
             let patch = DataComponentPatch::codec().parse(&JSON, &d).into_result()?;
             mc_dfu::encode_nbt(&DataComponentPatch::codec(), &patch).into_result()
         }
-        PayloadKind::Dialog => JSON.convert_to(&NBT, &d).to_tag(),
+        PayloadKind::Dialog => normalize_dialog(&JSON, &d),
     }
 }
 
@@ -25,7 +32,7 @@ fn from_nbt(kind: PayloadKind, t: &Tag) -> Result<Tag, String> {
             let patch = mc_dfu::parse_nbt(&DataComponentPatch::codec(), t).into_result()?;
             mc_dfu::encode_nbt(&DataComponentPatch::codec(), &patch).into_result()
         }
-        PayloadKind::Dialog => Ok(t.clone()),
+        PayloadKind::Dialog => normalize_dialog(&NBT, &Dyn::from(t)),
     }
 }
 
@@ -42,7 +49,12 @@ fn to_json(kind: PayloadKind, t: &Tag) -> Result<serde_json::Value, String> {
             let d: Dyn = DataComponentPatch::codec().encode_start(&JSON, &patch).into_result()?;
             Ok(dyn_to_serde(&d))
         }
-        PayloadKind::Dialog => Ok(dyn_to_serde(&NBT.convert_to(&JSON, &Dyn::from(t)))),
+        // a registry reference was validated when it was parsed
+        PayloadKind::Dialog if matches!(t, Tag::String(_)) => Ok(dyn_to_serde(&NBT.convert_to(&JSON, &Dyn::from(t)))),
+        PayloadKind::Dialog => {
+            let dialog = Dialog::direct_codec().parse(&NBT, &Dyn::from(t)).into_result()?;
+            Ok(dyn_to_serde(&Dialog::direct_codec().encode_start(&JSON, &dialog).into_result()?))
+        }
     }
 }
 

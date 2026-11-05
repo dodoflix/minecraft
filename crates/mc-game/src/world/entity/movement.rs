@@ -4,14 +4,20 @@
 //! The server needs this for `MoverType.PLAYER` movement validation and for every ticking entity. Sounds, game events
 //! and block `entityInside` effects of movement are not part of this module (see `STATUS.md` gaps).
 
-use super::entity::{Entity, Movement, MAX_MOVEMENTS_HANDLED_PER_TICK};
+use super::entity::{Entity, Movement, MovementEmission, MAX_MOVEMENTS_HANDLED_PER_TICK};
 use super::MoverType;
+use crate::server::level::ServerLevel;
+use crate::world::level::BlockGetter;
+use crate::world::level::block::BlockStateExt;
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext, CollisionGetter};
+use crate::world::level::gameevent::GameEventContext;
+use crate::world::level::material::FluidStateExt;
 use mc_core::direction::Axis;
 use mc_core::math::mth;
-use mc_core::phys::shapes::{Shapes, VoxelShape};
+use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 
 /// Entity-side collision shapes of a level (`EntityGetter.getEntityCollisions(source, area)`); the source is a live
@@ -34,7 +40,22 @@ pub trait MovementLevel: CollisionGetter + EntityCollisionQuery {
 
 /// `CollisionContext.of(entity)` (`EntityCollisionContext(entity, false, false)`).
 pub fn collision_context(entity: &dyn Entity) -> CollisionContext {
-    CollisionContext::of_entity(entity.id(), entity.is_descending(), entity.base().y(), entity.held_item_for_collision(), entity.can_stand_on_fluid_fn(), false)
+    CollisionContext::of_entity(entity.id(), entity.is_descending(), entity.base().y(), entity.held_item_for_collision(), entity.can_stand_on_fluid_fn(), false).with_entity_state(
+        entity.base().fall_distance,
+        entity.get_type() == mc_data::EntityType::FALLING_BLOCK,
+        can_entity_walk_on_powder_snow(entity),
+    )
+}
+
+/// `PowderSnowBlock.canEntityWalkOnPowderSnow(entity)`.
+pub fn can_entity_walk_on_powder_snow(entity: &dyn Entity) -> bool {
+    if mc_data::tags::get::<mc_data::EntityType>("powder_snow_walkable_mobs").is_some_and(|t| t.contains(entity.get_type())) {
+        return true;
+    }
+    entity.living().is_some() && {
+        let boots = entity.get_item_by_slot(super::equipment::EquipmentSlot::Feet);
+        !boots.is_empty() && boots.item() == mc_data::Item::LEATHER_BOOTS
+    }
 }
 
 fn collect_colliders_ignoring_world_border<L: MovementLevel>(
@@ -295,29 +316,8 @@ pub fn touching_unloaded_chunk<L: MovementLevel>(entity: &dyn Entity, level: &L)
     !level.has_chunks_at(x0, z0, x1, z1)
 }
 
-/// `Entity.checkFallDamage(ya, onGround, onState, pos)`; returns `true` when `fallOn` has to be dispatched
-/// (the block hook needs `&mut ServerLevel`, so the caller does it).
-pub fn check_fall_damage(entity: &mut dyn Entity, ya: f64, on_ground: bool) -> Option<f64> {
-    let b = entity.base_mut();
-    if !b.was_touching_water && ya < 0.0 {
-        b.fall_distance -= f64::from(ya as f32);
-    }
-    if on_ground {
-        let fall_distance = b.fall_distance;
-        b.fall_distance = 0.0;
-        if fall_distance > 0.0 {
-            return Some(fall_distance);
-        }
-    }
-    None
-}
-
 /// `Entity.move(moverType, delta)`.
-///
-/// Returns the block position/state/fall distance the caller must run `Block.fallOn` for (hit-ground) when the
-/// entity landed with a positive fall distance.
-pub fn move_entity<L: MovementLevel>(entity: &mut dyn Entity, level: &L, mover: MoverType, mut delta: Vec3) -> MoveOutcome {
-    let mut outcome = MoveOutcome::default();
+pub fn move_entity(entity: &mut dyn Entity, level: &mut ServerLevel, mover: MoverType, mut delta: Vec3) {
     if entity.base().no_physics {
         let p = entity.base().position();
         entity.set_pos(p.x + delta.x, p.y + delta.y, p.z + delta.z);
@@ -327,12 +327,12 @@ pub fn move_entity<L: MovementLevel>(entity: &mut dyn Entity, level: &L, mover: 
         b.vertical_collision = false;
         b.vertical_collision_below = false;
         b.minor_horizontal_collision = false;
-        return outcome;
+        return;
     }
     if mover == MoverType::Piston {
-        delta = limit_piston_movement(entity, level, delta);
+        delta = limit_piston_movement(entity, &*level, delta);
         if delta == Vec3::ZERO {
-            return outcome;
+            return;
         }
     }
     if entity.base().stuck_speed_multiplier.length_sqr() > 1.0E-7 {
@@ -342,8 +342,8 @@ pub fn move_entity<L: MovementLevel>(entity: &mut dyn Entity, level: &L, mover: 
         entity.base_mut().stuck_speed_multiplier = Vec3::ZERO;
         entity.base_mut().set_delta_movement(Vec3::ZERO);
     }
-    delta = maybe_back_off_from_edge(entity, level, delta, mover);
-    let movement = collide(entity, level, delta);
+    delta = maybe_back_off_from_edge(entity, &*level, delta, mover);
+    let movement = collide(entity, &*level, delta);
     let movement_length = movement.length_sqr();
     if movement_length > 1.0E-7 || delta.length_sqr() - movement_length < 1.0E-7 {
         if entity.base().fall_distance != 0.0 && movement_length >= 1.0 {
@@ -352,7 +352,7 @@ pub fn move_entity<L: MovementLevel>(entity: &mut dyn Entity, level: &L, mover: 
             let check_to = from.add(movement.normalize().scale(check_distance));
             let hit = level.clip(&ClipContext::new(from, check_to, ClipBlock::FalldamageResetting, ClipFluid::Water, collision_context(entity)));
             if !hit.miss {
-                entity.base_mut().fall_distance = 0.0;
+                entity.reset_fall_distance();
             }
         }
         let pos = entity.base().position();
@@ -371,68 +371,34 @@ pub fn move_entity<L: MovementLevel>(entity: &mut dyn Entity, level: &L, mover: 
         let below = vertical && delta.y < 0.0;
         entity.base_mut().vertical_collision = vertical;
         entity.base_mut().vertical_collision_below = below;
-        set_on_ground_with_movement(entity, level, below, horizontal_collision, movement);
+        set_on_ground_with_movement(entity, &*level, below, horizontal_collision, movement);
     }
     let minor = horizontal_collision && entity.is_horizontal_collision_minor(movement);
     entity.base_mut().minor_horizontal_collision = minor;
 
-    let effect_pos = get_on_pos_legacy(entity, level);
+    let effect_pos = get_on_pos_legacy(entity, &*level);
     let effect_state = level.get_block_state(effect_pos);
     if entity.is_local_instance_authoritative() {
         let on_ground = entity.base().on_ground();
-        if let Some(fall) = check_fall_damage(entity, movement.y, on_ground) {
-            outcome.fall_on = Some((effect_pos, effect_state, fall));
-        }
+        entity.check_fall_damage(level, movement.y, on_ground, effect_state, effect_pos);
     }
     if entity.is_removed() {
-        return outcome;
+        return;
     }
     if entity.can_simulate_movement() && ((moved_vertically && entity.base().vertical_collision) || horizontal_collision) {
-        restitute_movement_after_collisions(entity, level, effect_state, x_collision, z_collision, movement, &mut outcome);
+        restitute_movement_after_collisions(entity, level, effect_state, x_collision, z_collision, movement);
     }
-    // movement emission: distance bookkeeping only (sounds / game events are dispatched by the level layer)
     let emission = entity.get_movement_emission();
     if emission.emits_anything() && !entity.base().is_passenger() {
-        let moved_distance = (movement.length() * f64::from(0.6f32)) as f32;
-        let horizontal_moved = (movement.horizontal_distance() * f64::from(0.6f32)) as f32;
-        let supporting_pos = get_on_pos(entity, level, 1.0E-5);
-        let supporting_state = level.get_block_state(supporting_pos);
-        let climbing = entity.is_state_climbable(supporting_state);
-        let b = entity.base_mut();
-        b.move_dist += if climbing { moved_distance } else { horizontal_moved };
-        b.fly_dist += moved_distance;
-        if b.move_dist > b.next_step && !supporting_state.is_air() {
-            outcome.step_effect_pos = Some((effect_pos, effect_state, supporting_pos, supporting_state));
-            b.next_step = (b.move_dist as i32 + 1) as f32;
-        }
+        apply_movement_emission_and_play_sound(entity, level, emission, movement, effect_pos, effect_state);
     }
-    let factor = f64::from(get_block_speed_factor(entity, level));
+    let factor = f64::from(entity.modify_block_speed_factor(get_block_speed_factor(entity, &*level)));
     let dm = entity.base().delta_movement();
     entity.base_mut().set_delta_movement(dm.multiply_xyz(factor, 1.0, factor));
-    outcome
-}
-
-/// What `Entity.move` leaves for the level layer (block hooks that need `&mut ServerLevel`).
-#[derive(Default, Debug)]
-pub struct MoveOutcome {
-    /// `Block.fallOn(level, state, pos, entity, fallDistance)` + `GameEvent.HIT_GROUND`.
-    pub fall_on: Option<(BlockPos, BlockState, f64)>,
-    /// `Block.bounceOn(...)` was triggered on this block (`BOUNCE` game event, `syncPosition`).
-    pub bounced_on: Option<(BlockPos, BlockState)>,
-    /// Step sound/vibration candidates: effect pos+state, supporting pos+state.
-    pub step_effect_pos: Option<(BlockPos, BlockState, BlockPos, BlockState)>,
 }
 
 /// `restituteMovementAfterCollisions`.
-fn restitute_movement_after_collisions<L: MovementLevel>(
-    entity: &mut dyn Entity,
-    level: &L,
-    effect_state: BlockState,
-    x_collision: bool,
-    z_collision: bool,
-    movement: Vec3,
-    outcome: &mut MoveOutcome,
-) {
+fn restitute_movement_after_collisions(entity: &mut dyn Entity, level: &mut ServerLevel, effect_state: BlockState, x_collision: bool, z_collision: bool, movement: Vec3) {
     let suppressing = entity.is_suppressing_bounce();
     let mut restitution = if suppressing { 0.0 } else { entity.get_entity_bounciness() };
     let current = entity.base().delta_movement();
@@ -466,11 +432,128 @@ fn restitute_movement_after_collisions<L: MovementLevel>(
         after = after.with(Axis::Y, (gravity_compensation - current.y) * effective_drag * restitution);
     }
     if bounced {
-        let below = get_block_pos_below_that_affects_my_movement(entity, level);
-        outcome.bounced_on = Some((below, effect_state));
+        let below = get_block_pos_below_that_affects_my_movement(entity, &*level);
+        let fall_distance = entity.base().fall_distance;
+        effect_state.bounce_on(level, below, entity, fall_distance);
+        entity.game_event(level, mc_data::GameEvent::BOUNCE);
         entity.base_mut().sync_position = true;
     }
     entity.base_mut().set_delta_movement(after);
+}
+
+/// `Entity.applyMovementEmissionAndPlaySound(emission, clippedMovement, effectPos, effectState)`.
+fn apply_movement_emission_and_play_sound(entity: &mut dyn Entity, level: &mut ServerLevel, emission: MovementEmission, clipped_movement: Vec3, effect_pos: BlockPos, effect_state: BlockState) {
+    let moved_distance = (clipped_movement.length() * f64::from(0.6f32)) as f32;
+    let horizontal_moved_distance = (clipped_movement.horizontal_distance() * f64::from(0.6f32)) as f32;
+    let supporting_pos = get_on_pos(entity, &*level, 1.0E-5);
+    let supporting_state = level.get_block_state(supporting_pos);
+    let climbing = entity.is_state_climbable(supporting_state);
+    {
+        let b = entity.base_mut();
+        b.move_dist += if climbing { moved_distance } else { horizontal_moved_distance };
+        b.fly_dist += moved_distance;
+    }
+    if entity.base().move_dist > entity.base().next_step && !supporting_state.is_air() {
+        let only_effect_state_emissions = supporting_pos == effect_pos;
+        let mut produced_side_effects = vibration_and_sound_effects_from_block(entity, level, effect_pos, effect_state, emission.emits_sounds(), only_effect_state_emissions, clipped_movement);
+        if !only_effect_state_emissions {
+            produced_side_effects |= vibration_and_sound_effects_from_block(entity, level, supporting_pos, supporting_state, false, emission.emits_events(), clipped_movement);
+        }
+        if produced_side_effects {
+            entity.base_mut().next_step = entity.next_step();
+        } else if entity.is_in_water() {
+            entity.base_mut().next_step = entity.next_step();
+            if emission.emits_sounds() {
+                entity.water_swim_sound(level);
+            }
+            if emission.emits_events() {
+                entity.game_event(level, mc_data::GameEvent::SWIM);
+            }
+        }
+    } else if supporting_state.is_air() {
+        entity.process_flapping_movement(level);
+    }
+}
+
+/// `Entity.vibrationAndSoundEffectsFromBlock(pos, blockState, shouldSound, shouldVibrate, clippedMovement)`.
+fn vibration_and_sound_effects_from_block(entity: &mut dyn Entity, level: &mut ServerLevel, pos: BlockPos, block_state: BlockState, should_sound: bool, should_vibrate: bool, clipped_movement: Vec3) -> bool {
+    if block_state.is_air() {
+        return false;
+    }
+    let is_climbable = entity.is_state_climbable(block_state);
+    if (entity.base().on_ground() || is_climbable || (entity.is_crouching() && clipped_movement.y == 0.0) || entity.is_on_rails()) && !entity.is_swimming() {
+        if should_sound {
+            walking_step_sound(entity, level, pos, block_state);
+        }
+        if should_vibrate {
+            let position = entity.base().position();
+            level.post_game_event(mc_data::GameEvent::STEP, position, &GameEventContext::of(Some(entity.id()), Some(block_state)));
+        }
+        true
+    } else {
+        false
+    }
+}
+
+/// `Entity.walkingStepSound(onPos, onState)`.
+fn walking_step_sound(entity: &mut dyn Entity, level: &mut ServerLevel, on_pos: BlockPos, on_state: BlockState) {
+    entity.play_step_sound(level, on_pos, on_state);
+    let tick_count = entity.base().tick_count;
+    if on_state.block().is_in_tag("crystal_sound_blocks") && tick_count >= entity.base().last_crystal_sound_play_tick.wrapping_add(20) {
+        play_amethyst_step_sound(entity, level);
+    }
+}
+
+/// `Entity.playAmethystStepSound()`.
+fn play_amethyst_step_sound(entity: &mut dyn Entity, level: &mut ServerLevel) {
+    let tick_count = entity.base().tick_count;
+    let last = entity.base().last_crystal_sound_play_tick;
+    let mut intensity = entity.base().crystal_sound_intensity;
+    intensity *= 0.997f64.powf(f64::from(tick_count.wrapping_sub(last))) as f32;
+    intensity = 1.0f32.min(intensity + 0.07);
+    entity.base_mut().crystal_sound_intensity = intensity;
+    let pitch = 0.5 + intensity * entity.base_mut().random.next_float() * 1.2;
+    let volume = 0.1 + intensity * 1.2;
+    entity.play_sound(level, mc_data::SoundEvent::BLOCK_AMETHYST_BLOCK_CHIME, volume, pitch);
+    entity.base_mut().last_crystal_sound_play_tick = tick_count;
+}
+
+/// `getRenderShape() == RenderShape.INVISIBLE`.
+pub fn is_render_shape_invisible(state: BlockState) -> bool {
+    const INVISIBLE: [&str; 9] = ["AirBlock", "BarrierBlock", "BubbleColumnBlock", "EndGatewayBlock", "EndPortalBlock", "LightBlock", "LiquidBlock", "StructureVoidBlock", "MovingPistonBlock"];
+    state.block().data().classes.iter().any(|c| INVISIBLE.contains(c))
+}
+
+/// `Level.containsAnyLiquid(box)`.
+pub fn contains_any_liquid<L: BlockGetter + ?Sized>(level: &L, bx: &AABB) -> bool {
+    let (x0, x1) = (mth::floor_f64(bx.min_x), mth::ceil_f64(bx.max_x));
+    let (y0, y1) = (mth::floor_f64(bx.min_y), mth::ceil_f64(bx.max_y));
+    let (z0, z1) = (mth::floor_f64(bx.min_z), mth::ceil_f64(bx.max_z));
+    for x in x0..x1 {
+        for y in y0..y1 {
+            for z in z0..z1 {
+                if !level.get_block_state(BlockPos::new(x, y, z)).get_fluid_state().is_empty() {
+                    return true;
+                }
+            }
+        }
+    }
+    false
+}
+
+/// `Entity.isInWall()`.
+pub fn is_in_wall(entity: &dyn Entity, level: &dyn BlockGetter) -> bool {
+    if entity.base().no_physics {
+        return false;
+    }
+    let check_width = entity.base().dimensions.width * 0.8;
+    let eye_bb = AABB::of_size(entity.base().get_eye_position(), f64::from(check_width), 1.0E-6, f64::from(check_width));
+    BlockPos::between_closed_aabb(&eye_bb).any(|pos| {
+        let state = level.get_block_state(pos);
+        !state.is_air()
+            && state.is_suffocating_at(level, pos)
+            && Shapes::join_is_not_empty(&state.get_collision_shape(level, pos).move_vec(Vec3::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()))), &Shapes::create(eye_bb), BooleanOp::AND)
+    })
 }
 
 fn block_bounciness(entity: &dyn Entity, block: Block) -> f64 {
@@ -544,88 +627,6 @@ impl SignumJava for f64 {
         if self == 0.0 || self.is_nan() { self } else { self.signum() }
     }
 }
-
-/// `EntityFluidInteraction.update` without currents: heights above the entity's feet and whether the eyes are inside
-/// water/lava. Returns whether the box touches any fluid.
-pub fn update_fluid_interaction<L: MovementLevel>(entity: &mut dyn Entity, level: &L) -> bool {
-    use crate::world::level::material::FluidStateExt;
-    let b = entity.base_mut();
-    b.fluid_height = [0.0; 2];
-    b.eye_in_fluid = [false; 2];
-    let Some(bx) = entity.fluid_interaction_box() else { return false };
-    let (x0, y0, z0) = (mth::floor_f64(bx.min_x), mth::floor_f64(bx.min_y), mth::floor_f64(bx.min_z));
-    let (x1, y1, z1) = (mth::ceil_f64(bx.max_x) - 1, mth::ceil_f64(bx.max_y) - 1, mth::ceil_f64(bx.max_z) - 1);
-    let b = entity.base();
-    let (entity_y, eye_x, eye_z, eye_y) = (b.bounding_box().min_y, b.get_block_x(), b.get_block_z(), b.get_eye_y());
-    let mut any = false;
-    let mut heights = [0.0f64; 2];
-    let mut eyes = [false; 2];
-    for x in x0..=x1 {
-        for y in y0..=y1 {
-            for z in z0..=z1 {
-                let pos = BlockPos::new(x, y, z);
-                let fluid = level.get_fluid_state(pos);
-                if fluid.is_empty() {
-                    continue;
-                }
-                let bottom = f64::from(y);
-                let top = bottom + f64::from(fluid.get_height(level, pos));
-                if top < bx.min_y {
-                    continue;
-                }
-                any = true;
-                let kind = if fluid.is_tag("water") { Some(0) } else if fluid.is_tag("lava") { Some(1) } else { None };
-                let Some(k) = kind else { continue };
-                if x == eye_x && z == eye_z && eye_y >= bottom && eye_y <= top {
-                    eyes[k] = true;
-                }
-                heights[k] = heights[k].max(top - entity_y);
-            }
-        }
-    }
-    let b = entity.base_mut();
-    b.fluid_height = heights;
-    b.eye_in_fluid = eyes;
-    any
-}
-
-/// Level-dependent part of `Entity.baseTick()`: fluid interaction, fire, lava, fall distance, shared fire flag.
-/// `Entity.updateFluidInteraction()` (without currents/splash): refreshes heights, resets fall distance in water,
-/// sets `wasTouchingWater`. Returns whether the box touches any fluid.
-pub fn update_fluid_state<L: MovementLevel>(entity: &mut dyn Entity, level: &L) -> bool {
-    let any = update_fluid_interaction(entity, level);
-    let in_water = entity.base().fluid_height[0] > 0.0;
-    if in_water {
-        entity.base_mut().fall_distance = 0.0;
-    }
-    entity.base_mut().was_touching_water = in_water;
-    any
-}
-
-pub fn base_tick_world<L: MovementLevel>(entity: &mut dyn Entity, level: &L) {
-    entity.base_mut().was_eye_in_water = entity.base().eye_in_fluid[0];
-    update_fluid_state(entity, level);
-    let in_lava = !entity.base().first_tick && entity.base().fluid_height[1] > 0.0;
-    if entity.base().remaining_fire_ticks > 0 {
-        if entity.fire_immune() {
-            entity.clear_fire();
-        } else {
-            let t = entity.base().remaining_fire_ticks;
-            // `hurtServer(onFire, 1.0)` every 20 ticks when not in lava is dispatched by the damage layer
-            let _ = in_lava;
-            entity.set_remaining_fire_ticks(t - 1);
-        }
-    } else {
-        entity.clear_fire();
-    }
-    if in_lava {
-        entity.base_mut().fall_distance *= 0.5;
-    }
-    let burning = entity.base().remaining_fire_ticks > 0;
-    entity.set_shared_flag_on_fire(burning);
-    entity.base_mut().first_tick = false;
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

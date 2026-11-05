@@ -1,12 +1,15 @@
 //! `net.minecraft.world.entity.item.ItemEntity`.
 
-use super::entity::{self, Entity, EntityData, MovementEmission};
+pub mod primed_tnt;
+use super::entity::{self, Entity, EntityData, MoveSimulationType, MovementEmission};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::{EntityId, MoverType, movement};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
-use crate::world::level::BlockGetter;
+use crate::world::damagesource::DamageSource;
+use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_data::GameEvent;
 use crate::world::level::block::BlockStateExt;
 use crate::world::item::{ItemStack, ItemStackExt, load_item_stack};
 use linkme::distributed_slice;
@@ -25,6 +28,7 @@ pub const LIFETIME: i32 = 6000;
 pub const INFINITE_PICKUP_DELAY: i32 = 32767;
 pub const INFINITE_LIFETIME: i32 = -32768;
 pub const DEFAULT_HEALTH: i32 = 5;
+const FLOAT_HEIGHT: f32 = 0.1;
 
 define_accessor!(pub DATA_ITEM: ItemStack = ItemEntity);
 
@@ -36,6 +40,9 @@ pub struct ItemEntity {
     pub thrower: Option<Uuid>,
     pub target: Option<Uuid>,
     pub bob_offs: f32,
+    /// `!getItem().canBeHurtBy(damageSources().inFire())`, refreshed at the start of every tick: `Entity.fireImmune()`
+    /// has no level to resolve the damage type tags with.
+    fire_immune_item: bool,
 }
 
 impl ItemEntity {
@@ -47,7 +54,7 @@ impl ItemEntity {
         let bob_offs = base.random.next_float() * std::f32::consts::PI * 2.0;
         let yaw = base.random.next_float() * 360.0;
         base.set_y_rot(yaw);
-        Self { base, age: 0, pickup_delay: 0, health: DEFAULT_HEALTH, thrower: None, target: None, bob_offs }
+        Self { base, age: 0, pickup_delay: 0, health: DEFAULT_HEALTH, thrower: None, target: None, bob_offs, fire_immune_item: false }
     }
 
     /// `ItemEntity(level, x, y, z, itemStack)`: random horizontal motion.
@@ -74,8 +81,25 @@ impl ItemEntity {
         self.base.entity_data.get(DATA_ITEM)
     }
 
+    /// `setItem(stack)`: vanilla stores the caller's object, which never equals the previous one, so this always
+    /// marks the data dirty.
     pub fn set_item(&mut self, stack: ItemStack) {
-        self.base.entity_data.set(DATA_ITEM, stack);
+        self.base.entity_data.set_force(DATA_ITEM, stack, true);
+    }
+
+    /// Vanilla mutates the stored stack object in place (`merge`'s `fromStack.shrink`, `Inventory.add`): the new
+    /// value is stored without a dirty flag.
+    fn set_item_in_place(&mut self, stack: ItemStack) {
+        self.base.entity_data.set_untracked(DATA_ITEM, stack);
+    }
+
+    /// `getOwner()` (the `thrower` reference).
+    pub fn get_owner(&self, level: &ServerLevel) -> Option<EntityId> {
+        level.get_entity_by_uuid(self.thrower?).map(|e| e.id())
+    }
+
+    pub fn get_age(&self) -> i32 {
+        self.age
     }
 
     pub fn set_target(&mut self, target: Option<Uuid>) {
@@ -104,6 +128,17 @@ impl ItemEntity {
     pub fn has_pick_up_delay(&self) -> bool {
         self.pickup_delay > 0
     }
+    pub fn set_unlimited_lifetime(&mut self) {
+        self.age = INFINITE_LIFETIME;
+    }
+    pub fn set_extended_lifetime(&mut self) {
+        self.age = -LIFETIME;
+    }
+
+    /// `getSpin(ageInTicks, bobOffset)`.
+    pub fn get_spin(age_in_ticks: f32, bob_offset: f32) -> f32 {
+        age_in_ticks / 20.0 + bob_offset
+    }
 
     fn is_mergable(&self) -> bool {
         let item = self.get_item();
@@ -115,7 +150,8 @@ impl ItemEntity {
         self.base.set_delta_movement_xyz(m.x * multiplier, m.y + if m.y < f64::from(0.06f32) { f64::from(5.0E-4f32) } else { 0.0 }, m.z * multiplier);
     }
 
-    fn merge_with_neighbours(&mut self, level: &mut ServerLevel) {
+    /// `mergeWithNeighbours()`.
+    pub fn merge_with_neighbours(&mut self, level: &mut ServerLevel) {
         if !self.is_mergable() {
             return;
         }
@@ -146,29 +182,6 @@ impl ItemEntity {
             }
         }
     }
-
-    /// `playerTouch(player)` pickup (`Player.take` packet via the tracker is sent by the caller's level).
-    fn pickup(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {
-        let mut stack = self.get_item();
-        let org_count = stack.count();
-        let infinite = player.player.abilities.instabuild;
-        if self.pickup_delay == 0 && self.target.is_none_or(|t| t == player.uuid()) && player.player.inventory.add(&mut stack, infinite) {
-            // `player.take(this, orgCount)`
-            if !self.is_removed() {
-                let payload = crate::server::level::server_entity::encode_payload(&mc_protocol::packets::play::ClientboundTakeItemEntityPacket {
-                    item_id: self.base.id,
-                    player_id: player.base_id(),
-                    amount: org_count,
-                });
-                level.entity_tracker.send_to_tracking_players_and_self(self.base.id, &payload);
-            }
-            if stack.is_empty() {
-                self.discard();
-                stack.set_count(org_count);
-            }
-            self.set_item(stack);
-        }
-    }
 }
 
 /// `ItemEntity.areMergable`.
@@ -188,16 +201,30 @@ pub fn merge_stacks(to_stack: &ItemStack, from_stack: &mut ItemStack, max_count:
     new_to
 }
 
+/// `ItemEntity.merge(toItem, toStack, fromItem, fromStack)`.
 fn merge_entities(to: &mut ItemEntity, to_stack: ItemStack, from: &mut ItemEntity, mut from_stack: ItemStack) {
     let new_to = merge_stacks(&to_stack, &mut from_stack, 64);
     to.set_item(new_to);
     to.pickup_delay = to.pickup_delay.max(from.pickup_delay);
     to.age = to.age.min(from.age);
-    if from_stack.is_empty() {
+    let emptied = from_stack.is_empty();
+    from.set_item_in_place(from_stack);
+    if emptied {
         from.discard();
-    } else {
-        from.set_item(from_stack);
     }
+}
+
+/// `Entity.spawnAtLocation(level, itemStack, offset)`: a default-pickup-delay item entity at the entity's position.
+pub fn spawn_at_location(level: &mut ServerLevel, at: &dyn Entity, stack: ItemStack, offset: Vec3) -> Option<EntityId> {
+    if stack.is_empty() {
+        return None;
+    }
+    let p = at.base().position();
+    let mut entity = ItemEntity::with_stack(level, p.x + offset.x, p.y + offset.y, p.z + offset.z, stack);
+    entity.set_default_pick_up_delay();
+    let id = entity.base.id;
+    level.add_fresh_entity(Box::new(entity));
+    Some(id)
 }
 
 impl Entity for ItemEntity {
@@ -234,12 +261,32 @@ impl Entity for ItemEntity {
     fn block_pos_below_offset(&self) -> f32 {
         0.999999
     }
+    fn move_simulation_type(&self) -> MoveSimulationType {
+        MoveSimulationType::ServerAndClient
+    }
+
+    /// `ignoreExplosion(explosion)`: items only react to explosions that affect blocklike entities.
+    fn ignore_explosion(&self, explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+        !explosion.should_affect_blocklike_entities()
+    }
+
+    /// `shouldPlayLavaHurtSound()`.
+    fn should_play_lava_hurt_sound(&self) -> bool {
+        self.health <= 0 || self.base.tick_count % 10 == 0
+    }
+
+    /// `fireImmune()`: `!getItem().canBeHurtBy(inFire) || super.fireImmune()`.
+    fn fire_immune(&self) -> bool {
+        self.fire_immune_item || self.base.entity_type.data().fire_immune
+    }
 
     fn tick(&mut self, level: &mut ServerLevel) {
-        if self.get_item().is_empty() {
+        let item = self.get_item();
+        if item.is_empty() {
             self.discard();
             return;
         }
+        self.fire_immune_item = !item.can_be_hurt_by(level, &level.damage_sources().in_fire());
         self.base_tick(level);
         if self.pickup_delay > 0 && self.pickup_delay != INFINITE_PICKUP_DELAY {
             self.pickup_delay -= 1;
@@ -249,16 +296,12 @@ impl Entity for ItemEntity {
         self.base.yo = pos.y;
         self.base.zo = pos.z;
         let old_movement = self.base.delta_movement();
-        if self.base.was_touching_water && self.base.fluid_height[0] > f64::from(0.1f32) {
-            self.set_fluid_movement(0.99);
-        } else if !self.base.first_tick && self.base.fluid_height[1] > f64::from(0.1f32) {
-            self.set_fluid_movement(0.95);
+        if self.is_in_water() && self.get_fluid_height("water") > f64::from(FLOAT_HEIGHT) {
+            self.set_fluid_movement(f64::from(0.99f32));
+        } else if self.is_in_lava() && self.get_fluid_height("lava") > f64::from(FLOAT_HEIGHT) {
+            self.set_fluid_movement(f64::from(0.95f32));
         } else {
-            let g = self.get_gravity();
-            if g != 0.0 {
-                let m = self.base.delta_movement();
-                self.base.set_delta_movement(m.add(Vec3::new(0.0, -g, 0.0)));
-            }
+            self.apply_gravity();
         }
         let area = self.base.bounding_box().deflate_scalar(1.0E-7);
         self.base.no_physics = !crate::world::level::collision::CollisionGetter::no_collision(level, Some(self.base.id), Some(&movement::collision_context(self)), &area);
@@ -268,10 +311,11 @@ impl Entity for ItemEntity {
         }
         let hdist = self.base.delta_movement().horizontal_distance_sqr();
         if self.base.on_ground() && !(hdist > f64::from(1.0E-5f32)) && (self.base.tick_count.wrapping_add(self.base.id)) % 4 != 0 {
-            // `applyEffectsFromBlocksForLastMovements()`: block effects are not dispatched yet
+            self.apply_effects_from_blocks_for_last_movements(level);
         } else {
             let dm = self.base.delta_movement();
-            let _ = self.r#move(level, MoverType::SelfMover, dm);
+            self.r#move(level, MoverType::SelfMover, dm);
+            self.apply_effects_from_blocks(level);
             let air_drag = self.get_air_drag();
             let mut ground_friction = air_drag;
             if self.base.on_ground() {
@@ -296,7 +340,7 @@ impl Entity for ItemEntity {
         if self.age != INFINITE_LIFETIME {
             self.age += 1;
         }
-        let in_fluid = movement::update_fluid_state(self, level);
+        let in_fluid = self.update_fluid_interaction(level);
         self.base.needs_sync |= in_fluid;
         let diff = self.base.delta_movement().subtract(old_movement).length_sqr();
         if diff > 0.01 {
@@ -307,8 +351,47 @@ impl Entity for ItemEntity {
         }
     }
 
+    /// `hurtServer(level, source, damage)`: items have `health` 5; `damage_resistant` items are immune.
+    fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
+        if self.is_invulnerable_to_base(level, source) {
+            return false;
+        }
+        if !level.mob_griefing() && source.causing_info().is_some_and(|c| is_mob(c.entity_type, c.is_living, c.is_player)) {
+            return false;
+        }
+        let mut stack = self.get_item();
+        if !stack.can_be_hurt_by(level, source) {
+            return false;
+        }
+        self.base.sync_velocity = true;
+        self.health = (self.health as f32 - damage) as i32;
+        let position = self.base.position();
+        level.game_event_from_entity(source.get_entity(), GameEvent::ENTITY_DAMAGE, position);
+        if self.health <= 0 {
+            crate::world::item::on_destroyed(&mut stack, level, position);
+            self.set_item_in_place(stack);
+            self.discard();
+        }
+        true
+    }
+
+    /// `playerTouch(player)`: pickup.
     fn player_touch(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {
-        self.pickup(level, player);
+        let mut stack = self.get_item();
+        let item = stack.item();
+        let org_count = stack.count();
+        let infinite = player.player.abilities.instabuild;
+        if self.pickup_delay == 0 && self.target.is_none_or(|t| t == player.uuid()) && player.player.inventory.add(&mut stack, infinite) {
+            self.set_item_in_place(stack.clone());
+            player.take(level, self, org_count);
+            if stack.is_empty() {
+                self.discard();
+                stack.set_count(org_count);
+                self.set_item_in_place(stack);
+            }
+            player.award_stat(level, crate::stats::Stat::PickedUp(item), org_count);
+            // `player.onItemPickup(this)`: `THROWN_ITEM_PICKED_UP_BY_*` criteria triggers need advancements.
+        }
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
@@ -343,9 +426,16 @@ impl Entity for ItemEntity {
     }
 }
 
+/// `instanceof Mob` from what a damage source remembers about its entity: living, not a player, not an armor stand.
+fn is_mob(ty: EntityType, is_living: bool, is_player: bool) -> bool {
+    is_living && !is_player && ty != EntityType::ARMOR_STAND && ty != EntityType::MANNEQUIN
+}
+
 /// `Entity.moveTowardsClosestSpace(x, y, z)`.
 pub fn move_towards_closest_space(entity: &mut dyn Entity, level: &ServerLevel, x: f64, y: f64, z: f64) {
-    use crate::world::level::BlockGetter;
+    use crate::world::damagesource::DamageSource;
+use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_data::GameEvent;
     let pos = BlockPos::containing(x, y, z);
     let delta = Vec3::new(x - f64::from(pos.x()), y - f64::from(pos.y()), z - f64::from(pos.z()));
     let mut closest_direction = Direction::Up;
@@ -424,7 +514,7 @@ mod tests {
         let mut level = level();
         let mut player = ServerPlayer::new(1, mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(), mc_protocol::codec::GameProfile { id: Uuid::from_u128(1), name: "P".into(), properties: vec![] }, Default::default());
         let mut e = ItemEntity::with_stack(&level, 0.0, 70.0, 0.0, ItemStack::with_count(Item::DIAMOND, 4));
-        e.pickup(&mut level, &mut player);
+        e.player_touch(&mut level, &mut player);
         assert!(e.is_removed());
         assert_eq!(player.player.inventory.get_selected_item().count() + (1..9).map(|i| crate::world::container::Container::get_item(&player.player.inventory, i).count()).sum::<i32>(), 4);
     }

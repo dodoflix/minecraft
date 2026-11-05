@@ -73,4 +73,13 @@ impl WorldGenHooks for VanillaWorldGenHooks {
     fn on_structure_starts_available(&self, chunk: &ProtoChunk) {
         self.env.structure_check.on_structure_load_raw(chunk.access.pos, &chunk.access.structures);
     }
+
+    fn has_structure_piece_at(
+        &self,
+        source: &dyn super::structure::manager::StructureDataSource,
+        pos: mc_core::pos::BlockPos,
+        matcher: &dyn Fn(&mc_core::ident::Identifier) -> bool,
+    ) -> bool {
+        super::structure::manager::StructureManager::new(&self.env).get_structure_with_piece_at(source, pos, matcher).is_some()
+    }
 }

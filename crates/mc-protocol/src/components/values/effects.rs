@@ -102,6 +102,11 @@ static OPERATIONS: [(AttributeModifierOperation, &str); 3] = [
     (AttributeModifierOperation::AddMultipliedTotal, "add_multiplied_total"),
 ];
 
+/// `AttributeModifier.Operation.CODEC`.
+pub fn attribute_operation_codec() -> Codec<AttributeModifierOperation> {
+    string_enum_codec(&OPERATIONS)
+}
+
 /// `AttributeModifier.MAP_CODEC`.
 pub fn attribute_modifier_map_codec() -> MapCodec<AttributeModifier> {
     mc_dfu::record!(AttributeModifier {

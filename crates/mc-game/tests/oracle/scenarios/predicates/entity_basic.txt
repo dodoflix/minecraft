@@ -1,0 +1,244 @@
+# EntityPredicate sub predicates over players, living mobs and plain entities (no location tests: see location.txt)
+level void
+fill -16 0 -16 16 0 16 minecraft:stone
+spawn_player Steve survival 0.5 1 0.5 0 0
+spawn_player Alex creative 4.5 1 0.5 90 10
+spawn_player Pat adventure -3.5 1 6.5 180 0
+give Steve mainhand minecraft:diamond_sword[damage=5,enchantments={sharpness:3}]
+give Steve head minecraft:iron_helmet
+give Steve hotbar4 minecraft:stick 7
+give Alex offhand minecraft:shield
+give Alex chest minecraft:elytra
+effect Steve minecraft:speed 1 200
+effect Steve minecraft:glowing 0 100 hidden
+effect Pat minecraft:poison 2 30
+set Steve food 12
+set Steve saturation 2.5
+set Steve xp_level 7
+set Steve tag brave
+set Steve fall_distance 3.5
+set Alex food 20
+set Alex air 100
+spawn pig1 minecraft:pig 2.5 1 4.5 0 0 {Age:-24000,Tags:["baby","x"]}
+spawn pig2 minecraft:pig 3.5 1 4.5 0 0
+spawn sheep1 minecraft:sheep 5.5 1 4.5 0 0 {Sheared:1b}
+spawn sheep2 minecraft:sheep 6.5 1 4.5 0 0 {Sheared:0b,Fire:100s}
+spawn zombie1 minecraft:zombie 8.5 1 4.5 0 0 {IsBaby:1b}
+spawn slime1 minecraft:slime 10.5 1 4.5 0 0 {Size:3}
+spawn pillager1 minecraft:pillager 12.5 1 4.5 0 0 {PatrolLeader:1b}
+spawn pillager2 minecraft:pillager 13.5 1 4.5 0 0
+spawn_item item1 minecraft:diamond 1.5 1 8.5
+spawn boat1 minecraft:oak_boat 5.5 1 8.5 0 0
+spawn minecart1 minecraft:minecart 7.5 1 8.5 0 0 {Tags:["rail"]}
+give zombie1 head minecraft:golden_helmet
+give zombie1 mainhand minecraft:iron_axe
+give pig2 mainhand minecraft:carrot
+effect zombie1 minecraft:weakness 0 400
+effect zombie1 minecraft:slowness 3 20
+target zombie1 Steve
+target pillager1 Alex
+target pillager2 Steve
+ominous_banner pillager1
+ride Pat boat1
+ride pig2 minecart1
+onground Steve true
+onground Alex false
+onground pig1 true
+sprint Steve true
+sprint zombie1 true
+pose Steve crouching
+pose Alex swimming
+swimming Alex true
+fallflying Alex true
+flying Alex true
+tickcount Steve 40
+tickcount Alex 13
+tickcount zombie1 7
+team_join Steve red
+team_join pig1 red
+team_join Alex blue
+pinput Steve forward,jump
+pinput Alex sneak
+known_movement Steve 0.1 -0.5 0.2
+recipe Steve minecraft:oak_planks
+snap Steve 0.5 1 0.5
+# ---- entity type, nbt, tags ---------------------------------------------------------------------------------
+pred_entity t1 Steve none {"minecraft:entity_type":"minecraft:player"}
+pred_entity t2 Steve none {"entity_type":"minecraft:pig"}
+pred_entity t3 pig1 none {"entity_type":["minecraft:pig","minecraft:cow"]}
+pred_entity t4 pig1 none {"entity_type":"#minecraft:zombies"}
+pred_entity t5 zombie1 none {"entity_type":"#minecraft:zombies"}
+pred_entity t6 boat1 none {"entity_type":"#minecraft:boats"}
+pred_entity t7 item1 none {"entity_type":"minecraft:item"}
+pred_entity t8 Steve none {"entity_type":"#minecraft:nope"}
+pred_entity t9 Steve none {"minecraft:bogus":{}}
+pred_entity t10 Steve none {}
+pred_entity t11 pig1 none {"entity_tags":{"any_of":["baby"],"none_of":["y"]}}
+pred_entity t12 pig1 none {"entity_tags":{"all_of":["baby","x"]}}
+pred_entity t13 pig1 none {"entity_tags":{"all_of":["baby","z"]}}
+pred_entity t14 pig1 none {"entity_tags":{"any_of":["q","z"]}}
+pred_entity t15 Steve none {"entity_tags":{"none_of":["brave"]}}
+pred_entity t16 Steve none {"nbt":{"Health":20.0}}
+pred_entity t17 Steve none {"nbt":{"XpLevel":7}}
+pred_entity t18 Steve none {"nbt":{"XpLevel":8}}
+pred_entity t19 Steve none {"nbt":{"SelectedItem":{"id":"minecraft:diamond_sword"}}}
+pred_entity t20 Steve none {"nbt":{"SelectedItem":{"id":"minecraft:stick"}}}
+pred_entity t21 Alex none {"nbt":{"SelectedItem":{"id":"minecraft:stick"}}}
+pred_entity t22 pig1 none {"nbt":{"Tags":["baby"]}}
+pred_entity t23 sheep2 none {"nbt":{"Fire":100}}
+pred_entity t24 Steve none {"nbt":"{foodLevel:12}"}
+# ---- distance / movement / periodic tick ---------------------------------------------------------------------
+pred_entity d1 Alex @Steve {"distance":{"horizontal":{"min":3.9,"max":4.1}}}
+pred_entity d2 Alex @Steve {"distance":{"x":{"min":4.0},"y":{"max":0.0}}}
+pred_entity d3 Alex @Steve {"distance":{"absolute":{"min":4.0,"max":4.0}}}
+pred_entity d4 Alex @Steve {"distance":{"absolute":{"min":4.0000001}}}
+pred_entity d5 Alex 0.5,1,0.5 {"distance":{"horizontal":{"max":3.9}}}
+pred_entity d6 Alex none {"distance":{"horizontal":{"max":3.9}}}
+pred_entity d7 zombie1 @Steve {"distance":{"horizontal":{"min":7.0,"max":9.0},"y":{"min":3.0}}}
+pred_entity d8 pillager2 @Alex {"distance":{"z":{"min":4.0}}}
+pred_entity m1 Steve none {"movement":{"x":{"min":1.9,"max":2.1},"y":{"max":-9.9},"z":{"min":3.9}}}
+pred_entity m2 Steve none {"movement":{"speed":{"min":10.0}}}
+pred_entity m3 Steve none {"movement":{"horizontal_speed":{"min":4.4,"max":4.5}}}
+pred_entity m4 Steve none {"movement":{"vertical_speed":{"min":10.0,"max":10.0}}}
+pred_entity m5 Steve none {"movement":{"fall_distance":{"min":3.5}}}
+pred_entity m6 Steve none {"movement":{"fall_distance":{"min":3.6}}}
+pred_entity m7 pig1 none {"movement":{"speed":{"max":0.0}}}
+pred_entity m8 Pat none {"movement":{"speed":{"max":0.0}}}
+pred_entity p1 Steve none {"periodic_tick":20}
+pred_entity p2 Steve none {"periodic_tick":7}
+pred_entity p3 Alex none {"periodic_tick":13}
+pred_entity p4 Steve none {"periodic_tick":0}
+# ---- flags ---------------------------------------------------------------------------------------------------
+pred_entity f1 Steve none {"flags":{"is_on_ground":true,"is_sprinting":true,"is_sneaking":true}}
+pred_entity f2 Steve none {"flags":{"is_swimming":true}}
+pred_entity f3 Alex none {"flags":{"is_swimming":true,"is_flying":true,"is_fall_flying":true,"is_on_ground":false}}
+pred_entity f3a Alex none {"flags":{"is_swimming":true}}
+pred_entity f3b Alex none {"flags":{"is_flying":true}}
+pred_entity f3c Alex none {"flags":{"is_fall_flying":true}}
+pred_entity f3d Alex none {"flags":{"is_on_ground":false}}
+pred_entity f3e Alex none {"flags":{"is_sneaking":false,"is_sprinting":false}}
+pred_entity f4 Pat none {"flags":{"is_flying":true}}
+pred_entity f5 Alex none {"flags":{"is_flying":false}}
+pred_entity f6 pig1 none {"flags":{"is_baby":true}}
+pred_entity f7 pig2 none {"flags":{"is_baby":true}}
+pred_entity f8 pig2 none {"flags":{"is_baby":false}}
+pred_entity f9 zombie1 none {"flags":{"is_baby":true,"is_sprinting":true}}
+pred_entity f10 item1 none {"flags":{"is_baby":true}}
+pred_entity f11 item1 none {"flags":{"is_fall_flying":true}}
+pred_entity f12 item1 none {"flags":{"is_fall_flying":false,"is_flying":false}}
+pred_entity f13 sheep2 none {"flags":{"is_on_fire":true}}
+pred_entity f14 Steve none {"flags":{"is_on_fire":true}}
+pred_entity f15 Steve none {"flags":{"is_in_water":false}}
+pred_entity f16 Steve none {"flags":{"is_in_water":true}}
+pred_entity f17 pig1 none {"flags":{"is_on_ground":true}}
+# ---- effects -------------------------------------------------------------------------------------------------
+pred_entity e1 Steve none {"effects":{"minecraft:speed":{"amplifier":1}}}
+pred_entity e2 Steve none {"effects":{"minecraft:speed":{"amplifier":{"min":1,"max":1},"duration":{"min":150}}}}
+pred_entity e3 Steve none {"effects":{"minecraft:speed":{"amplifier":2}}}
+pred_entity e4 Steve none {"effects":{"minecraft:glowing":{"visible":false,"ambient":false}}}
+pred_entity e5 Steve none {"effects":{"minecraft:glowing":{"visible":true}}}
+pred_entity e6 Steve none {"effects":{"minecraft:speed":{},"minecraft:glowing":{}}}
+pred_entity e7 Steve none {"effects":{"minecraft:speed":{},"minecraft:poison":{}}}
+pred_entity e8 Pat none {"effects":{"minecraft:poison":{"amplifier":2,"duration":{"max":30}}}}
+pred_entity e9 item1 none {"effects":{}}
+pred_entity e10 item1 none {"effects":{"minecraft:speed":{}}}
+pred_entity e11 zombie1 none {"effects":{"minecraft:weakness":{},"minecraft:slowness":{"amplifier":3}}}
+pred_entity e12 Steve none {"effects":{"minecraft:nope":{}}}
+# ---- equipment / slots / components --------------------------------------------------------------------------
+pred_entity q1 Steve none {"equipment":{"mainhand":{"items":"minecraft:diamond_sword"}}}
+pred_entity q2 Steve none {"equipment":{"mainhand":{"items":"minecraft:diamond_sword","components":{"minecraft:damage":5}}}}
+pred_entity q3 Steve none {"equipment":{"mainhand":{"predicates":{"minecraft:enchantments":[{"enchantments":"minecraft:sharpness","levels":{"min":3}}]}}}}
+pred_entity q4 Steve none {"equipment":{"head":{"items":"minecraft:iron_helmet"},"offhand":{"items":"minecraft:shield"}}}
+pred_entity q5 Alex none {"equipment":{"offhand":{"items":"minecraft:shield"},"chest":{"items":"minecraft:elytra"}}}
+pred_entity q6 pig2 none {"equipment":{"mainhand":{"items":"minecraft:carrot"}}}
+pred_entity q7 zombie1 none {"equipment":{"head":{"items":"minecraft:golden_helmet"},"mainhand":{"items":"minecraft:iron_axe"}}}
+pred_entity q8 zombie1 none {"equipment":{"feet":{"items":"minecraft:golden_boots"}}}
+pred_entity q9 item1 none {"equipment":{}}
+pred_entity q10 boat1 none {"equipment":{"mainhand":{"items":"minecraft:stick"}}}
+pred_entity q11 Steve none {"slots":{"weapon.mainhand":{"items":"minecraft:diamond_sword"}}}
+pred_entity q12 Steve none {"slots":{"hotbar.4":{"items":"minecraft:stick","count":7}}}
+pred_entity q13 Steve none {"slots":{"hotbar.*":{"items":"minecraft:stick","count":{"min":8}}}}
+pred_entity q14 Steve none {"slots":{"hotbar.*":{"items":"minecraft:stick"},"armor.head":{"items":"minecraft:iron_helmet"}}}
+pred_entity q15 Alex none {"slots":{"weapon.*":{"items":"minecraft:shield"},"armor.chest":{"items":"minecraft:elytra"}}}
+pred_entity q16 Steve none {"slots":{"container.*":{"items":"minecraft:stick"}}}
+pred_entity q17 Steve none {"slots":{"inventory.*":{"items":"minecraft:stick"}}}
+pred_entity q18 zombie1 none {"slots":{"armor.head":{"items":"minecraft:golden_helmet"}}}
+pred_entity q19 zombie1 none {"slots":{"hotbar.0":{"items":"minecraft:golden_helmet"}}}
+pred_entity q20 item1 none {"slots":{"weapon.mainhand":{"items":"minecraft:air"}}}
+pred_entity q21 Steve none {"slots":{"nope.0":{}}}
+pred_entity q22 Steve none {"components":{"minecraft:custom_data":{}}}
+pred_entity q23 pig1 none {"predicates":{"minecraft:custom_data":{}}}
+# ---- team ----------------------------------------------------------------------------------------------------
+pred_entity r1 Steve none {"team":"red"}
+pred_entity r2 pig1 none {"team":"red"}
+pred_entity r3 Alex none {"team":"red"}
+pred_entity r4 Alex none {"team":"blue"}
+pred_entity r5 pig2 none {"team":"red"}
+# ---- vehicle / passenger / targeted entity -------------------------------------------------------------------
+pred_entity v1 Pat none {"vehicle":{"entity_type":"#minecraft:boats"}}
+pred_entity v2 Pat none {"vehicle":{"entity_type":"minecraft:minecart"}}
+pred_entity v3 Steve none {"vehicle":{}}
+pred_entity v4 pig2 none {"vehicle":{"entity_tags":{"any_of":["rail"]}}}
+pred_entity v5 boat1 none {"passenger":{"entity_type":"minecraft:player"}}
+pred_entity v6 boat1 none {"passenger":{"entity_type":"minecraft:pig"}}
+pred_entity v7 minecart1 none {"passenger":{"entity_type":"minecraft:pig","flags":{"is_baby":false}}}
+pred_entity v8 minecart1 none {"passenger":{"entity_type":"minecraft:pig","flags":{"is_baby":true}}}
+pred_entity v9 Steve none {"passenger":{}}
+pred_entity v10 zombie1 none {"targeted_entity":{"entity_type":"minecraft:player","team":"red"}}
+pred_entity v11 zombie1 none {"targeted_entity":{"entity_type":"minecraft:player","team":"blue"}}
+pred_entity v12 pillager1 none {"targeted_entity":{"entity_type":"minecraft:player","team":"blue"}}
+pred_entity v12b pillager2 none {"targeted_entity":{"entity_type":"minecraft:player","team":"red"}}
+pred_entity v13 pig1 none {"targeted_entity":{}}
+pred_entity v14 Pat none {"vehicle":{"passenger":{"entity_type":"minecraft:player"}}}
+pred_entity v15 Pat @Steve {"vehicle":{"distance":{"horizontal":{"min":6.0}}}}
+# ---- type specific -------------------------------------------------------------------------------------------
+pred_entity s1 sheep1 none {"type_specific/sheep":{"sheared":true}}
+pred_entity s2 sheep2 none {"type_specific/sheep":{"sheared":true}}
+pred_entity s3 sheep2 none {"type_specific/sheep":{}}
+pred_entity s4 pig1 none {"type_specific/sheep":{}}
+pred_entity s5 slime1 none {"type_specific/cube_mob":{"size":{"min":3}}}
+pred_entity s6 slime1 none {"type_specific/cube_mob":{"size":{"max":2}}}
+pred_entity s7 pig1 none {"type_specific/cube_mob":{}}
+pred_entity s8 pillager1 none {"type_specific/raider":{"is_captain":true}}
+pred_entity s9 pillager2 none {"type_specific/raider":{"is_captain":true}}
+pred_entity s10 pillager2 none {"type_specific/raider":{}}
+pred_entity s11 pillager1 none {"type_specific/raider":{"has_raid":true,"is_captain":true}}
+pred_entity s12 Steve none {"type_specific/raider":{}}
+pred_entity s13 pig1 none {"type_specific/fishing_hook":{}}
+pred_entity s14 pig1 none {"type_specific/fishing_hook":{"in_open_water":true}}
+pred_entity s15 pig1 none {"type_specific/lightning":{}}
+pred_entity s16 pig1 none {"type_specific/lightning":{"blocks_set_on_fire":{"min":0},"entity_struck":{}}}
+# ---- player ----------------------------------------------------------------------------------------------------
+pred_entity y1 Steve none {"type_specific/player":{"level":{"min":7,"max":7}}}
+pred_entity y2 Steve none {"type_specific/player":{"level":{"min":8}}}
+pred_entity y3 Steve none {"type_specific/player":{"food":{"level":12,"saturation":{"min":2.5,"max":2.5}}}}
+pred_entity y4 Steve none {"type_specific/player":{"food":{"level":{"min":13}}}}
+pred_entity y5 Steve none {"type_specific/player":{"gamemode":["survival","adventure"]}}
+pred_entity y6 Alex none {"type_specific/player":{"gamemode":["survival","adventure"]}}
+pred_entity y7 Alex none {"type_specific/player":{"gamemode":["creative"]}}
+pred_entity y8 Pat none {"type_specific/player":{"gamemode":["adventure","spectator"]}}
+pred_entity y9 Steve none {"type_specific/player":{"gamemode":["nope"]}}
+pred_entity y10 Steve none {"type_specific/player":{"recipes":{"minecraft:oak_planks":true}}}
+pred_entity y11 Steve none {"type_specific/player":{"recipes":{"minecraft:oak_planks":false}}}
+pred_entity y12 Alex none {"type_specific/player":{"recipes":{"minecraft:oak_planks":false,"minecraft:stick":false}}}
+pred_entity y13 Steve none {"type_specific/player":{"input":{"forward":true,"jump":true,"sneak":false}}}
+pred_entity y14 Steve none {"type_specific/player":{"input":{"left":true}}}
+pred_entity y15 Alex none {"type_specific/player":{"input":{"sneak":true,"sprint":false}}}
+pred_entity y16 pig1 none {"type_specific/player":{}}
+pred_entity y17 Steve none {"type_specific/player":{"advancements":{"minecraft:story/nope":true}}}
+pred_entity y18 Steve none {"type_specific/player":{"advancements":{"minecraft:story/nope":{"x":true}}}}
+pred_entity y19 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:custom","stat":"minecraft:jump","value":{"max":0}}]}}
+pred_entity y20 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:stone"}]}}
+pred_entity y21 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:mined","stat":"minecraft:nope"}]}}
+pred_entity y22 Steve none {"type_specific/player":{"stats":[{"type":"minecraft:nope","stat":"minecraft:stone"}]}}
+# ---- combined, ordering and errors ------------------------------------------------------------------------------
+pred_entity c1 Steve @Alex {"entity_type":"minecraft:player","distance":{"horizontal":{"min":4}},"flags":{"is_sneaking":true},"nbt":{"XpLevel":7},"vehicle":{}}
+pred_entity c2 Steve @Alex {"entity_type":"minecraft:player","distance":{"horizontal":{"min":4}},"flags":{"is_sneaking":true},"nbt":{"XpLevel":7},"team":"red"}
+pred_entity c3 zombie1 @Steve {"entity_type":"#minecraft:zombies","flags":{"is_baby":true},"equipment":{"head":{"items":"minecraft:golden_helmet"}},"effects":{"minecraft:weakness":{}},"targeted_entity":{"entity_type":"minecraft:player","type_specific/player":{"level":{"min":7}}}}
+pred_entity c4 Steve none {"flags":{"is_on_ground":"yes"}}
+pred_entity c5 Steve none {"periodic_tick":-3}
+pred_entity c6 Steve none {"distance":{"horizontal":{"min":5,"max":1}}}
+pred_entity c7 Steve none {"effects":{"minecraft:speed":{"amplifier":{"min":3,"max":1}}}}
+pred_entity c8 Steve none {"entity_type":"minecraft:nope"}
+pred_entity c9 Steve none {"team":5}
+pred_entity c10 Steve none []

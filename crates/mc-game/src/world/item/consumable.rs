@@ -1,9 +1,8 @@
 //! The data-component driven base of `Item.use` / `Item.finishUsingItem`: `consumable` (+ `food`, consume effects),
 //! swappable `equippable`, `blocks_attacks`, `kinetic_weapon`.
 //!
-//! Living-entity effect application (`addEffect`, `removeEffect`, `removeAllEffects`, `randomTeleport`) belongs to the
-//! mob-effect slice: it installs a [`LivingEffectHooks`] implementation; until then consume effects that change
-//! effects/position are skipped (food, sounds, stack consumption all run).
+//! The mob-effect parts (potion contents / stew / ominous bottle listeners, status-effect consume effects) are
+//! `world::effect::consume`.
 
 use super::{ConsumableExt, InteractionResult, ItemStack, ItemStackExt};
 use crate::server::level::ServerLevel;
@@ -11,26 +10,12 @@ use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::item::InteractionHand;
 use mc_core::random::RandomSource;
-use mc_data::{GameEvent, MobEffect, SoundEvent};
+use mc_data::{GameEvent, SoundEvent};
 use mc_protocol::components::{
-    CONSUMABLE, ConsumeEffect, Consumable, EQUIPPABLE, FOOD, Holder, ItemUseAnimation, KINETIC_WEAPON, MobEffectInstance, SoundEvent as ComponentSoundEvent,
+    CONSUMABLE, ConsumeEffect, Consumable, EQUIPPABLE, FOOD, Holder, ItemUseAnimation, KINETIC_WEAPON, SoundEvent as ComponentSoundEvent,
 };
 use mc_protocol::packets::play::SoundSource;
-use std::sync::OnceLock;
-
-/// The mob-effect slice's side of consume effects.
-pub trait LivingEffectHooks: Send + Sync {
-    fn add_effect(&self, level: &mut ServerLevel, entity: &mut dyn Entity, effect: &MobEffectInstance);
-    fn remove_effect(&self, level: &mut ServerLevel, entity: &mut dyn Entity, effect: MobEffect) -> bool;
-    fn remove_all_effects(&self, level: &mut ServerLevel, entity: &mut dyn Entity) -> bool;
-    fn random_teleport(&self, level: &mut ServerLevel, entity: &mut dyn Entity, diameter: f32, directional_particles: bool) -> bool;
-}
-
-static EFFECT_HOOKS: OnceLock<&'static dyn LivingEffectHooks> = OnceLock::new();
-
-pub fn set_living_effect_hooks(hooks: &'static dyn LivingEffectHooks) {
-    let _ = EFFECT_HOOKS.set(hooks);
-}
+use crate::world::effect as effects;
 
 /// `Holder<SoundEvent>` -> registered sound (inline `Direct` sound events are not expressible by `SoundEvent`).
 pub fn holder_sound(holder: &Holder<ComponentSoundEvent>) -> Option<SoundEvent> {
@@ -76,7 +61,7 @@ pub fn emit_particles_and_sounds(consumable: &Consumable, level: &mut ServerLeve
 }
 
 /// `ConsumeEffect.apply(level, stack, user)`.
-fn apply_consume_effect(effect: &ConsumeEffect, level: &mut ServerLevel, user: &mut dyn Entity) {
+pub fn apply_consume_effect(effect: &ConsumeEffect, level: &mut ServerLevel, user: &mut dyn Entity) {
     match effect {
         ConsumeEffect::PlaySound(p) => {
             if let Some(sound) = holder_sound(&p.sound) {
@@ -87,33 +72,16 @@ fn apply_consume_effect(effect: &ConsumeEffect, level: &mut ServerLevel, user: &
             }
         }
         ConsumeEffect::ApplyStatusEffects(a) => {
-            // `if (user.getRandom().nextFloat() < probability)` for every effect; the random is drawn once per apply
-            if user.base_mut().random.next_float() < a.probability {
-                if let Some(h) = EFFECT_HOOKS.get() {
-                    for e in &a.effects {
-                        h.add_effect(level, user, e);
-                    }
-                }
-            }
+            effects::consume::apply_status_effects(a, level, user);
         }
         ConsumeEffect::RemoveStatusEffects(r) => {
-            if let Some(h) = EFFECT_HOOKS.get() {
-                for e in MobEffect::iter() {
-                    if r.effects.contains(e) {
-                        h.remove_effect(level, user, e);
-                    }
-                }
-            }
+            effects::consume::remove_status_effects(r, level, user);
         }
         ConsumeEffect::ClearAllStatusEffects => {
-            if let Some(h) = EFFECT_HOOKS.get() {
-                h.remove_all_effects(level, user);
-            }
+            user.remove_all_effects(level);
         }
         ConsumeEffect::TeleportRandomly(t) => {
-            if let Some(h) = EFFECT_HOOKS.get() {
-                h.random_teleport(level, user, t.diameter, t.directional_particles);
-            }
+            crate::world::entity::living_entity::teleport::apply_teleport_randomly(t, level, user);
         }
     }
 }
@@ -122,8 +90,8 @@ fn apply_consume_effect(effect: &ConsumeEffect, level: &mut ServerLevel, user: &
 pub fn on_consume(consumable: &Consumable, level: &mut ServerLevel, user: &mut dyn Entity, stack: &mut ItemStack) -> ItemStack {
     emit_particles_and_sounds(consumable, level, user, stack, 16);
     // `serverPlayer.awardStat(ITEM_USED)` / `CriteriaTriggers.CONSUME_ITEM`: statistics/advancements are later waves.
-    // ConsumableListeners: `FoodProperties.onConsume` (the others — potion contents, ominous bottle, suspicious stew —
-    // apply mob effects through the effect hooks)
+    // ConsumableListeners: `FoodProperties.onConsume`, then the effect-applying ones (potion contents, suspicious
+    // stew, ominous bottle)
     if let Some(food) = stack.get(&FOOD).cloned() {
         let sound = holder_sound(&consumable.sound);
         let (x, y, z) = {
@@ -140,6 +108,7 @@ pub fn on_consume(consumable: &Consumable, level: &mut ServerLevel, user: &mut d
             level.play_sound_at(None, x, y, z, SoundEvent::ENTITY_PLAYER_BURP, SoundSource::Players, 0.5, burp_pitch);
         }
     }
+    effects::consume::on_consume_listeners(level, user, stack);
     for effect in &consumable.on_consume_effects {
         apply_consume_effect(effect, level, user);
     }
@@ -217,7 +186,7 @@ fn swap_with_equipment_slot(equippable: &mc_protocol::components::Equippable, le
     }
     let in_slot = player.player.inventory.equipment_get(slot).clone();
     let creative = player.is_creative();
-    if (in_slot.has_enchantment_effect("minecraft:prevent_armor_change") && !creative) || ItemStack::is_same_item_same_components(&in_hand, &in_slot) {
+    if (super::enchantment_helper::has(&level.registries, &in_slot, super::enchantment::enchantment_effect_components::EffectComponent::prevent_armor_change) && !creative) || ItemStack::is_same_item_same_components(&in_hand, &in_slot) {
         return InteractionResult::FAIL;
     }
     // `player.awardStat(ITEM_USED)`

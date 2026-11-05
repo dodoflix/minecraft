@@ -1,0 +1,15 @@
+# Cobweb (stuck speed multiplier through Block.entityInside) and a bubble column.
+level flat
+fill -3 -61 0 3 -60 20 minecraft:cobweb
+fill 10 -61 0 14 -61 0 minecraft:soul_sand
+fill 10 -60 0 14 -45 0 minecraft:bubble_column[drag=false]
+spawn_player Web survival 0.5 -60 -2.5 0 0 sim
+spawn_player Bubble survival 12.5 -60 0.5 0 0 sim
+watch player:Web player:Bubble
+tick 3
+input Web forward
+tick 30
+input Web forward,jump
+tick 20
+input Web none
+tick 20

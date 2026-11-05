@@ -1,5 +1,6 @@
-//! `net.minecraft.world.food.FoodData` (state + NBT; `tick` lives with the player tick).
-use mc_core::math::mth;
+//! `net.minecraft.world.food.FoodData` (state, NBT and the food tick; the player side effects are in `food.rs`).
+use mc_core::math::{java, mth};
+use mc_world::level_storage::Difficulty;
 use mc_nbt::CompoundTag;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -32,6 +33,22 @@ impl FoodData {
         self.add(nutrition, saturation);
     }
 
+    pub fn get_food_level(&self) -> i32 {
+        self.food_level
+    }
+
+    pub fn get_saturation_level(&self) -> f32 {
+        self.saturation_level
+    }
+
+    pub fn set_food_level(&mut self, food: i32) {
+        self.food_level = food;
+    }
+
+    pub fn set_saturation(&mut self, saturation: f32) {
+        self.saturation_level = saturation;
+    }
+
     pub fn has_enough_food(&self) -> bool {
         self.food_level as f32 > 6.0
     }
@@ -41,7 +58,7 @@ impl FoodData {
     }
 
     pub fn add_exhaustion(&mut self, amount: f32) {
-        self.exhaustion_level = (self.exhaustion_level + amount).min(40.0);
+        self.exhaustion_level = java::min_f32(self.exhaustion_level + amount, 40.0);
     }
 
     pub fn read_additional_save_data(&mut self, input: &CompoundTag) {
@@ -59,69 +76,48 @@ impl FoodData {
     }
 }
 
-/// `Difficulty`.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum Difficulty {
-    Peaceful,
-    Easy,
-    Normal,
-    Hard,
-}
-
-/// What `FoodData.tick` reads from the level (`getDifficulty()`, `GameRules.NATURAL_HEALTH_REGENERATION`).
-#[derive(Clone, Copy, Debug)]
-pub struct FoodTickRules {
-    pub difficulty: Difficulty,
-    pub natural_regeneration: bool,
-}
-
-impl Default for FoodTickRules {
-    /// Vanilla defaults (`NORMAL`, natural regeneration on); the level's data supplies the real values once it exists.
-    fn default() -> Self {
-        Self { difficulty: Difficulty::Normal, natural_regeneration: true }
-    }
-}
-
-/// Effects of a food tick the caller applies to the player.
+/// What a food tick asks the caller to do to the player (`player.heal(..)` / `player.hurtServer(starve, 1.0)`).
 #[derive(Default, Debug, PartialEq)]
 pub struct FoodTickResult {
-    pub heal: f32,
-    /// `hurtServer(starve, 1.0)`.
+    pub heal: Option<f32>,
+    /// `hurtServer(level, damageSources().starve(), 1.0F)`.
     pub starve: bool,
 }
 
 impl FoodData {
-    /// `tick(player)`.
-    pub fn tick(&mut self, rules: FoodTickRules, health: f32, max_health: f32) -> FoodTickResult {
+    /// `tick(player)` up to the player side effects: `health`/`max_health` are the player's (`isHurt()` =
+    /// `health > 0 && health < maxHealth`); `heal` is applied after the timer update exactly where vanilla calls it
+    /// (nothing in the rest of the tick reads the health).
+    pub fn tick(&mut self, difficulty: Difficulty, natural_regeneration: bool, health: f32, max_health: f32) -> FoodTickResult {
         let mut result = FoodTickResult::default();
         let hurt = health > 0.0 && health < max_health;
         if self.exhaustion_level > 4.0 {
             self.exhaustion_level -= 4.0;
             if self.saturation_level > 0.0 {
-                self.saturation_level = (self.saturation_level - 1.0).max(0.0);
-            } else if rules.difficulty != Difficulty::Peaceful {
-                self.food_level = (self.food_level - 1).max(0);
+                self.saturation_level = java::max_f32(self.saturation_level - 1.0, 0.0);
+            } else if difficulty != Difficulty::Peaceful {
+                self.food_level = self.food_level.saturating_sub(1).max(0);
             }
         }
-        if rules.natural_regeneration && self.saturation_level > 0.0 && hurt && self.food_level >= 20 {
+        if natural_regeneration && self.saturation_level > 0.0 && hurt && self.food_level >= 20 {
             self.tick_timer += 1;
             if self.tick_timer >= 10 {
-                let spent = self.saturation_level.min(6.0);
-                result.heal = spent / 6.0;
-                self.add_exhaustion(spent);
+                let saturation_spent = java::min_f32(self.saturation_level, 6.0);
+                result.heal = Some(saturation_spent / 6.0);
+                self.add_exhaustion(saturation_spent);
                 self.tick_timer = 0;
             }
-        } else if rules.natural_regeneration && self.food_level >= 18 && hurt {
+        } else if natural_regeneration && self.food_level >= 18 && hurt {
             self.tick_timer += 1;
             if self.tick_timer >= 80 {
-                result.heal = 1.0;
+                result.heal = Some(1.0);
                 self.add_exhaustion(6.0);
                 self.tick_timer = 0;
             }
         } else if self.food_level <= 0 {
             self.tick_timer += 1;
             if self.tick_timer >= 80 {
-                if health > 10.0 || rules.difficulty == Difficulty::Hard || (health > 1.0 && rules.difficulty == Difficulty::Normal) {
+                if health > 10.0 || difficulty == Difficulty::Hard || (health > 1.0 && difficulty == Difficulty::Normal) {
                     result.starve = true;
                 }
                 self.tick_timer = 0;

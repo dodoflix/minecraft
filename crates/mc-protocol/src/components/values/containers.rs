@@ -335,6 +335,10 @@ struct Slot {
 impl ItemContainerContents {
     pub const MAX_SIZE: usize = 256;
 
+    /// `ItemContainerContents.fromItems`-shaped constructor from already converted slots (no trailing empties expected).
+    pub fn from_items(items: Vec<Option<ItemStackTemplate>>) -> ItemContainerContents {
+        ItemContainerContents { items }
+    }
     pub fn size(&self) -> usize {
         self.items.len()
     }

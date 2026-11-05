@@ -33,8 +33,8 @@ impl PlayCtx<'_> {
 
     /// `handleCustomClickAction`.
     pub fn handle_custom_click_action(&mut self, packet: &ServerboundCustomClickActionPacket) {
-        // `server.handleCustomClickAction(id, payload)`: dialog click actions are not handled by any slice yet
-        log::debug!("Unhandled custom click action {} from {}", packet.id, self.player.get_plain_text_name());
+        // `MinecraftServer.handleCustomClickAction(id, payload)` only logs
+        log::debug!("Received custom click action {} with payload {:?}", packet.id, packet.payload);
     }
 
     /// `handleResourcePackResponse`.
@@ -108,18 +108,13 @@ impl PlayCtx<'_> {
             );
             return;
         }
-        if self.player.change_game_mode_for_player(match packet.mode {
+        let target = match packet.mode {
             mc_protocol::packets::play::GameType::Survival => mc_data::enums::GameType::Survival,
             mc_protocol::packets::play::GameType::Creative => mc_data::enums::GameType::Creative,
             mc_protocol::packets::play::GameType::Adventure => mc_data::enums::GameType::Adventure,
             mc_protocol::packets::play::GameType::Spectator => mc_data::enums::GameType::Spectator,
-        }) {
-            self.player.sync_handle();
-            if let Some(handle) = self.player.handle.clone() {
-                use mc_protocol::packets::play::ClientboundPlayerInfoUpdateAction;
-                let update = crate::server::players::player_handle::create_info_update([ClientboundPlayerInfoUpdateAction::UpdateGameMode].into_iter().collect(), [&handle]);
-                self.server.player_list.broadcast_all(&update);
-            }
+        };
+        if self.player.set_game_mode(self.level, target) {
             // `logGamemodeChange`: `source.sendSuccess(commands.gamemode.success.self)`
             if self.server.game_rule(crate::world::level::gamerules::GameRules::SEND_COMMAND_FEEDBACK) {
                 let name = Component::translatable(format!("gameMode.{}", mode.get_name()), vec![]);

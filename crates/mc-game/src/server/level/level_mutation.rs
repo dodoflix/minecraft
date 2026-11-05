@@ -34,7 +34,7 @@ impl ServerLevel {
     }
 
     /// Make sure the full chunk of `pos` is loaded (vanilla `getChunkAt(pos)` blocks until it is).
-    pub(super) fn ensure_chunk_loaded(&mut self, pos: BlockPos) {
+    pub fn ensure_chunk_loaded(&mut self, pos: BlockPos) {
         let (cx, cz) = (pos.x() >> 4, pos.z() >> 4);
         if self.chunk_now(cx, cz).is_none() {
             self.chunk_blocking_mut(cx, cz);

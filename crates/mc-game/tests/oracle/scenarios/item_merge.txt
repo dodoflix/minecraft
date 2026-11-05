@@ -1,0 +1,25 @@
+# ItemEntity merging (tickCount % 40 on the ground), pickup delay + age handling, despawn at age 6000, infinite lifetime.
+level flat
+spawn_item m1 minecraft:diamond 5.5 -60 2.5 0 0 0 20
+snap m1 5.5 -60 2.5 0 0
+spawn_item m2 minecraft:diamond 5.7 -60 2.5 0 0 0 30
+snap m2 5.7 -60 2.5 0 0
+spawn_item m3 minecraft:diamond 5.9 -60 2.5 0 0 0 5
+snap m3 5.9 -60 2.5 0 0
+spawn_item n1 minecraft:stone 8.5 -60 2.5 0 0 0 64
+snap n1 8.5 -60 2.5 0 0
+spawn_item n2 minecraft:stone 8.6 -60 2.5 0 0 0 3
+snap n2 8.6 -60 2.5 0 0
+spawn_item e1 minecraft:emerald 2.5 -60 2.5 0 0 0 10
+snap e1 2.5 -60 2.5 0 0
+spawn_item e2 minecraft:emerald 2.6 -60 2.5 0 0 0 10
+snap e2 2.6 -60 2.5 0 0
+nbt e2 {PickupDelay:20s,Age:100s}
+spawn_item d1 minecraft:dirt 12.5 -60 3.5 0 0 0
+snap d1 12.5 -60 3.5 0 0
+nbt d1 {Age:5990s}
+spawn_item u1 minecraft:dirt 12.5 -60 -3.5 0 0 0
+snap u1 12.5 -60 -3.5 0 0
+nbt u1 {Age:-32768s,PickupDelay:3s}
+watch entities
+tick 45

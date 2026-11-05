@@ -144,8 +144,6 @@ pub enum ChunkMapEvent {
     Unload(Box<LevelChunk>),
     /// Legacy entity tags found in a full chunk's NBT (`postLoad` entities).
     LegacyEntities(ChunkPos, Vec<mc_nbt::CompoundTag>),
-    /// A player moved to another section (`entity_tracker.on_player_moved_section`).
-    PlayerMovedSection(EntityId),
 }
 
 /// A player registered with the chunk map.

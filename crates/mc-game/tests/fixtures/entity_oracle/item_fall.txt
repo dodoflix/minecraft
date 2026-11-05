@@ -1,0 +1,500 @@
+T 1
+E a minecraft:item pos=0.5,-50.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=3.6,-57.84,0.45 delta=0.09800000190734864,0.1568000030517578,-0.04900000095367432 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=10.8,-60.0,0.5 delta=0.2881200134754181,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-52.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=0 health=5 owner=- thrower=-
+T 2
+E a minecraft:item pos=0.5,-50.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=3.698000001907349,-57.723199996948246,0.40099999904632566 delta=0.09604000373840337,0.11446400521850592,-0.04802000186920168 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=11.088120013475418,-60.0,0.5 delta=0.27671047388358366,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-52.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=0 health=5 owner=- thrower=-
+T 3
+E a minecraft:item pos=0.5,-50.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=3.794040005645752,-57.64873599172974,0.35297999717712397 delta=0.094119205495453,0.07297472653442398,-0.0470596027477265 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=11.364830487359002,-60.0,0.5 delta=0.2657527515470915,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-52.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=0 health=5 owner=- thrower=-
+T 4
+E a minecraft:item pos=0.5,-50.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=3.8881592111412053,-57.61576126519531,0.30592039442939745 delta=0.09223682318072532,0.0323152326326785,-0.04611841159036266 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=11.630583238906095,-60.0,0.5 delta=0.25522895452292477,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-52.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=4 pickup=0 health=5 owner=- thrower=-
+T 5
+E a minecraft:item pos=0.5,-50.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=3.9803960343219305,-57.62344603256263,0.2598019828390348 delta=0.0903920884763886,-0.0075310721665503766,-0.0451960442381943 rot=90.0,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=11.88581219342902,-60.0,0.5 delta=0.24512189938820653,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-52.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=5 pickup=0 health=5 owner=- thrower=-
+T 6
+E a minecraft:item pos=0.5,-50.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=0.0,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.070788122798319,-57.67097710472918,0.21460593860084048 delta=0.0885842484309531,-0.04658045162980263,-0.04429212421547655 rot=90.0,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.130934092817226,-60.0,0.5 delta=0.2354150831828338,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-52.812553350325814,0.5 delta=0.0,-0.22374894849170882,0.0 rot=0.0,0.0 og=0 fall=0.812553346157074 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=6 pickup=0 health=5 owner=- thrower=-
+T 7
+E a minecraft:item pos=0.5,-51.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=0.0,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.1593723712292725,-57.75755755635898,0.17031381438536394 delta=0.08681256515194449,-0.08484884424859764,-0.043406282575972246 rot=90.0,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.36634917600006,-60.0,0.5 delta=0.2260926564631825,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-53.076302298817524,0.5 delta=0.0,-0.2584739745524866,0.0 rot=0.0,0.0 og=0 fall=1.0763022899627686 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=7 pickup=0 health=5 owner=- thrower=-
+T 8
+E a minecraft:item pos=0.5,-51.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=0.0,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.246184936381217,-57.88240640060758,0.12690753180939168 delta=0.08507631550472387,-0.1223518697449284,-0.04253815775236194 rot=90.0,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.592441832463242,-60.0,0.5 delta=0.21713939742288405,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-53.37477627337001,0.5 delta=0.0,-0.2925045007543761,0.0 rot=0.0,0.0 og=0 fall=1.3747762739658356 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=8 pickup=0 health=5 owner=- thrower=-
+T 9
+E a minecraft:item pos=0.5,-51.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=0.0,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.331261251885941,-58.04475827035251,0.08436937405702974 delta=0.08337479081733133,-0.159104835446646,-0.041687395408665666 rot=90.0,0.0 og=0 fall=0.4289970137178898 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.809581229886126,-60.0,0.5 delta=0.20854068703841838,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-53.707280774124385,0.5 delta=0.0,-0.32585441708130863,0.0 rot=0.0,0.0 og=0 fall=1.7072807848453522 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=9 pickup=0 health=5 owner=- thrower=-
+T 10
+E a minecraft:item pos=0.5,-52.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=0.0,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.414636042703273,-58.24386310579916,0.04268197864836407 delta=0.08170729659123263,-0.19512274253533643,-0.040853648295616316 rot=90.0,0.0 og=0 fall=0.6281018443405628 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=-0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-54.073135191205694,0.5 delta=0.0,-0.35853733571780166,0.0 rot=0.0,0.0 og=0 fall=2.073135197162628 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=10 pickup=0 health=5 owner=- thrower=-
+T 11
+E a minecraft:item pos=0.5,-52.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=0.0,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.496343339294505,-58.478985848334496,0.0018283303527477576 delta=0.08007315221785098,-0.23042029216924012,-0.04003657610892549 rot=90.0,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-54.4716725269235,0.5 delta=0.0,-0.39056659660494203,0.0 rot=0.0,0.0 og=0 fall=2.471672534942627 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
+T 12
+E a minecraft:item pos=0.5,-52.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=0.0,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.576416491512356,-58.74940614050374,-0.03820824575617773 delta=0.07847169070076813,-0.26501189148371307,-0.03923584535038407 rot=90.0,0.0 og=0 fall=1.1336448676884174 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-54.90223912352844,0.5 delta=0.0,-0.42195527288524926,0.0 rot=0.0,0.0 og=0 fall=2.902239143848419 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=12 pickup=0 health=5 owner=- thrower=-
+T 13
+E a minecraft:item pos=0.5,-53.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=0.0,0.0 og=0 fall=3.3641944229602814 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.654888182213124,-59.05441803198745,-0.07744409110656181 delta=0.0769022583834815,-0.2989116594716789,-0.03845112919174075 rot=90.0,0.0 og=0 fall=1.4386567659676075 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-55.36419439641369,0.5 delta=0.0,-0.45271617623864185,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=13 pickup=0 health=5 owner=- thrower=-
+T 14
+E a minecraft:item pos=0.5,-53.85691057265233,0.5 delta=0.0,-0.48286186211168425,0.0 rot=0.0,0.0 og=0 fall=3.8569105863571167 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.731790440596606,-59.39332969145913,-0.11589522029830256 delta=0.07536421468260604,-0.3321334327464722,-0.03768210734130302 rot=90.0,0.0 og=0 fall=1.77756841853261 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-55.81641057262858,0.5 delta=0.0,-0.44317186131593433,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=14 pickup=0 health=5 owner=- thrower=-
+T 15
+E a minecraft:item pos=0.5,-54.379772434764014,0.5 delta=0.0,-0.5124046348422492,0.0 rot=0.0,0.0 og=0 fall=4.379772424697876 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.807154655279212,-59.7654631242056,-0.15357732763960558 delta=0.07385693182641223,-0.3646907711894247,-0.036928465913206115 rot=90.0,0.0 og=0 fall=2.149701852351427 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-56.25908243392076,0.5 delta=0.0,-0.4338184325096376,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=15 pickup=0 health=5 owner=- thrower=-
+T 16
+E a minecraft:item pos=0.5,-54.93217706960626,0.5 delta=0.0,-0.5413565526816865,0.0 rot=0.0,0.0 og=0 fall=4.9321770668029785 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.8810115871056245,-60.0,-0.1905057935528117 delta=0.043427880280928845,0.0,-0.021713940140464422 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-56.69240086640665,0.5 delta=0.0,-0.42465207210106426,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=16 pickup=0 health=5 owner=- thrower=-
+T 17
+E a minecraft:item pos=0.5,-55.513533622287945,0.5 delta=0.0,-0.5697294327165491,0.0 rot=0.0,0.0 og=0 fall=5.513533592224121 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.924439467386553,-60.0,-0.21221973369327612 delta=0.025535596172981512,0.0,-0.012767798086490756 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-57.11655293848396,0.5 delta=0.0,-0.41566903872582794,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=17 pickup=0 health=5 owner=- thrower=-
+T 18
+E a minecraft:item pos=0.5,-56.12326305500449,0.5 delta=0.0,-0.5975348556918841,0.0 rot=0.0,0.0 og=0 fall=6.123263001441956 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.949975063559535,-60.0,-0.22498753177976688 delta=0.015014932059576947,0.0,-0.007507466029788474 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-57.531721977186045,0.5 delta=0.0,-0.4068656658467586,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=18 pickup=0 health=5 owner=- thrower=-
+T 19
+E a minecraft:item pos=0.5,-56.760797910696375,0.5 delta=0.0,-0.6247841707380588,0.0 rot=0.0,0.0 og=0 fall=6.76079785823822 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.964989995619112,-60.0,-0.23249499780955535 delta=0.008828780938831259,0.0,-0.0044143904694156294 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-57.938087643009055,0.5 delta=0.0,-0.39823836025735965,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=19 pickup=0 health=5 owner=- thrower=-
+T 20
+E a minecraft:item pos=0.5,-57.425582081434435,0.5 delta=0.0,-0.6514885000030495,0.0 rot=0.0,0.0 og=0 fall=7.425582051277161 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.973818776557943,-60.0,-0.23690938827897098 delta=0.005191323714059241,0.0,-0.0025956618570296204 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-58.335826003242666,0.5 delta=0.0,-0.3897836006151959,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=20 pickup=0 health=5 owner=- thrower=-
+T 21
+E a minecraft:item pos=0.5,-58.11707058143748,0.5 delta=0.0,-0.677658743192085,0.0 rot=0.0,0.0 og=0 fall=8.11707055568695 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.979010100272002,-60.0,-0.2395050501360006 delta=0.0030524986508184233,0.0,-0.0015262493254092117 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-58.72510960383411,0.5 delta=0.0,-0.3814979360046137,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=21 pickup=0 health=5 owner=- thrower=-
+T 22
+E a minecraft:item pos=0.5,-58.83472932462956,0.5 delta=0.0,-0.7033055820164975,0.0 rot=0.0,0.0 og=0 fall=8.834729313850403 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,0.0,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.10610753981498,0.5 delta=0.0,-0.3733779845282066,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=22 pickup=0 health=5 owner=- thrower=-
+T 23
+E a minecraft:item pos=0.5,-59.57803490664606,0.5 delta=0.0,-0.7284394845535964,0.0 rot=0.0,0.0 og=0 fall=9.5780348777771 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,-0.04,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.478985524319434,0.5 delta=0.0,-0.36542043192645185,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=23 pickup=0 health=5 owner=- thrower=-
+T 24
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,-0.08,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.84390595622214,0.5 delta=0.0,-0.3576220302249539,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=24 pickup=0 health=5 owner=- thrower=-
+T 25
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.982062598922821,-60.0,-0.2410312994614098 delta=0.001794869387168786,-0.12,-8.97434693584393E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=25 pickup=0 health=5 owner=- thrower=-
+T 26
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,0.0,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-60.0,0.5 delta=0.0,5.000000237487257E-4,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=26 pickup=0 health=5 owner=- thrower=-
+T 27
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,-0.04,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-60.0,0.5 delta=0.0,0.0010000000474974513,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=27 pickup=0 health=5 owner=- thrower=-
+T 28
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,-0.08,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.998499999928754,0.5 delta=0.0,0.0014700000984314843,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=28 pickup=0 health=5 owner=- thrower=-
+T 29
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.983857468309989,-60.0,-0.2419287341549942 delta=0.001055383305781938,-0.12,-5.27691652890969E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.996529999806576,0.5 delta=0.0,0.0019306001573113761,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=29 pickup=0 health=5 owner=- thrower=-
+T 30
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,0.0,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.99409939962552,0.5 delta=0.0,0.002381988223798919,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=30 pickup=0 health=5 owner=- thrower=-
+T 31
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,-0.04,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.991217411377974,0.5 delta=0.0,0.002824348537566255,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=31 pickup=0 health=5 owner=- thrower=-
+T 32
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,-0.08,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.98789306281666,0.5 delta=0.0,0.003257861653495598,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=32 pickup=0 health=5 owner=- thrower=-
+T 33
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.984912851615771,-60.0,-0.24245642580788515 delta=6.205654462022806E-4,-0.12,-3.102827231011403E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.984135201139416,0.5 delta=0.0,0.0036827045153749603,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=33 pickup=0 health=5 owner=- thrower=-
+T 34
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,0.0,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.97995249660029,0.5 delta=0.0,0.0040990505281199695,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=34 pickup=0 health=5 owner=- thrower=-
+T 35
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,-0.04,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.97535344604842,0.5 delta=0.0,0.004507069628551249,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=35 pickup=0 health=5 owner=- thrower=-
+T 36
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,-0.08,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.97034637639612,0.5 delta=0.0,0.00490692835475625,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=36 pickup=0 health=5 owner=- thrower=-
+T 37
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985533417061974,-60.0,-0.24276670853098628 delta=3.6489251905961535E-4,-0.12,-1.8244625952980767E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.96493944801762,0.5 delta=0.0,0.005298789914063851,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=37 pickup=0 health=5 owner=- thrower=-
+T 38
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,0.0,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.959140658079804,0.5 delta=0.0,0.005682814249659465,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=38 pickup=0 health=5 owner=- thrower=-
+T 39
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,-0.04,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.952957843806395,0.5 delta=0.0,0.00605915810586785,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=39 pickup=0 health=5 owner=- thrower=-
+T 40
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,-0.08,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.946398685676776,0.5 delta=0.0,0.006427975092130257,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=40 pickup=0 health=5 owner=- thrower=-
+T 41
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.145568227823485E-4,-0.12,-1.0727841139117424E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.9394707105609,0.5 delta=0.0,0.006789415745702042,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=41 pickup=0 health=5 owner=- thrower=-
+T 42
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,0.0,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.93218129479145,0.5 delta=0.0,0.007143627593096324,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=42 pickup=0 health=5 owner=- thrower=-
+T 43
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,-0.04,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.924537667174604,0.5 delta=0.0,0.007490755210298776,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=43 pickup=0 health=5 owner=- thrower=-
+T 44
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,-0.08,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.91654691194056,0.5 delta=0.0,0.007830940281778113,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=44 pickup=0 health=5 owner=- thrower=-
+T 45
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2615942448229546E-4,-0.12,-6.307971224114773E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.90821597163503,0.5 delta=0.0,0.008164321658316378,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=45 pickup=0 health=5 owner=- thrower=-
+T 46
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,0.0,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.89955164995297,0.5 delta=0.0,0.008491035413682622,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=46 pickup=0 health=5 owner=- thrower=-
+T 47
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,-0.04,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.890560614515536,0.5 delta=0.0,0.008811214900173113,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=47 pickup=0 health=5 owner=- thrower=-
+T 48
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,-0.08,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.88124939959162,0.5 delta=0.0,0.009124990803040732,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=48 pickup=0 health=5 owner=- thrower=-
+T 49
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.41817490551199E-5,-0.12,-3.709087452755995E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.87162440876483,0.5 delta=0.0,0.0094324911938358,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=49 pickup=0 health=5 owner=- thrower=-
+T 50
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,0.0,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.86169191754725,0.5 delta=0.0,0.00973384158268007,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=50 pickup=0 health=5 owner=- thrower=-
+T 51
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,-0.04,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.85145807594082,0.5 delta=0.0,0.010029164969495257,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=51 pickup=0 health=5 owner=- thrower=-
+T 52
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,-0.08,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.840928910947575,0.5 delta=0.0,0.010318581894206987,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=52 pickup=0 health=5 owner=- thrower=-
+T 53
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=4.361887283061469E-5,-0.12,-2.1809436415307345E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.83011032902962,0.5 delta=0.0,0.010602210485944672,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=53 pickup=0 health=5 owner=- thrower=-
+T 54
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,0.0,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.81900811851993,0.5 delta=0.0,0.01088016651125739,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=54 pickup=0 health=5 owner=- thrower=-
+T 55
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,-0.04,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.80762795198493,0.5 delta=0.0,0.011152563421365445,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=55 pickup=0 health=5 owner=- thrower=-
+T 56
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,-0.08,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.795975388539816,0.5 delta=0.0,0.011419512398466896,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=56 pickup=0 health=5 owner=- thrower=-
+T 57
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.564789980348976E-5,-0.12,-1.282394990174488E-5 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.7840558761176,0.5 delta=0.0,0.011681122401117967,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=57 pickup=0 health=5 owner=- thrower=-
+T 58
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,0.0,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.77187475369273,0.5 delta=0.0,0.01193750020870583,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=58 pickup=0 health=5 owner=- thrower=-
+T 59
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,-0.04,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.75943725346028,0.5 delta=0.0,0.012188750465031956,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=59 pickup=0 health=5 owner=- thrower=-
+T 60
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,-0.08,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.7467485029715,0.5 delta=0.0,0.012434975721023776,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=60 pickup=0 health=5 owner=- thrower=-
+T 61
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.5080966600956065E-5,-0.12,-7.540483300478032E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.73381352722673,0.5 delta=0.0,0.012676276476592136,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=61 pickup=0 health=5 owner=- thrower=-
+T 62
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,0.0,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.72063725072639,0.5 delta=0.0,0.012912751221651574,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=62 pickup=0 health=5 owner=- thrower=-
+T 63
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,-0.04,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.70722449948099,0.5 delta=0.0,0.013144496476320221,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=63 pickup=0 health=5 owner=- thrower=-
+T 64
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,-0.08,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.69358000298092,0.5 delta=0.0,0.013371606830315685,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=64 pickup=0 health=5 owner=- thrower=-
+T 65
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=8.867609253066657E-6,-0.12,-4.433804626533329E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.679708396126856,0.5 delta=0.0,0.013594174981563026,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=65 pickup=0 health=5 owner=- thrower=-
+T 66
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,0.0,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.665614221121544,0.5 delta=0.0,0.013812291774030571,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=66 pickup=0 health=5 owner=- thrower=-
+T 67
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,-0.04,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.651301929323765,0.5 delta=0.0,0.014026046234809013,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=67 pickup=0 health=5 owner=- thrower=-
+T 68
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,-0.08,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.636775883065205,0.5 delta=0.0,0.014235525610448928,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=68 pickup=0 health=5 owner=- thrower=-
+T 69
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=5.214154765125488E-6,-0.12,-2.607077382562744E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.622040357431004,0.5 delta=0.0,0.014440815402571548,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=69 pickup=0 health=5 owner=- thrower=-
+T 70
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,0.0,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.60709954200468,0.5 delta=0.0,0.014641999402767307,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=70 pickup=0 health=5 owner=- thrower=-
+T 71
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,-0.04,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.591957542578164,0.5 delta=0.0,0.014839159726796431,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=71 pickup=0 health=5 owner=- thrower=-
+T 72
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,-0.08,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.57661838282762,0.5 delta=0.0,0.015032376848105508,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=72 pickup=0 health=5 owner=- thrower=-
+T 73
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.065923310195327E-6,-0.12,-1.5329616550976634E-6 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.561086005955765,0.5 delta=0.0,0.015221729630673727,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=73 pickup=0 health=5 owner=- thrower=-
+T 74
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,0.0,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.54536427630134,0.5 delta=0.0,0.015407295361202196,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=74 pickup=0 health=5 owner=- thrower=-
+T 75
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,-0.04,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.52945698091639,0.5 delta=0.0,0.015589149780659483,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=75 pickup=0 health=5 owner=- thrower=-
+T 76
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,-0.08,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.513367831111985,0.5 delta=0.0,0.015767367115196225,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=76 pickup=0 health=5 owner=- thrower=-
+T 77
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.8027630876761758E-6,-0.12,-9.013815438380879E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.49710046397304,0.5 delta=0.0,0.015942020106441458,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=77 pickup=0 health=5 owner=- thrower=-
+T 78
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,0.0,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.48065844384285,0.5 delta=0.0,0.016113180041193026,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=78 pickup=0 health=5 owner=- thrower=-
+T 79
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,-0.04,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.464045263777905,0.5 delta=0.0,0.01628091678051418,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=79 pickup=0 health=5 owner=- thrower=-
+T 80
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,-0.08,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.44726434697364,0.5 delta=0.0,0.016445298788248235,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=80 pickup=0 health=5 owner=- thrower=-
+T 81
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.0600248021470203E-6,-0.12,-5.300124010735102E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.43031904816164,0.5 delta=0.0,0.016606393158962948,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=81 pickup=0 health=5 owner=- thrower=-
+T 82
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,0.0,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.41321265497893,0.5 delta=0.0,0.016764265645335997,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=82 pickup=0 health=5 owner=- thrower=-
+T 83
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,-0.04,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.395948389309844,0.5 delta=0.0,0.016918980684992764,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=83 pickup=0 health=5 owner=- thrower=-
+T 84
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,-0.08,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.3785294086011,0.5 delta=0.0,0.01707060142680735,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=84 pickup=0 health=5 owner=- thrower=-
+T 85
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=6.232946463393905E-7,-0.12,-3.1164732316969526E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.360958807150546,0.5 delta=0.0,0.01721918975667758,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=85 pickup=0 health=5 owner=- thrower=-
+T 86
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,0.0,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.343239617370116,0.5 delta=0.0,0.017364806322784504,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=86 pickup=0 health=5 owner=- thrower=-
+T 87
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,-0.04,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.325374811023586,0.5 delta=0.0,0.017507510560346703,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=87 pickup=0 health=5 owner=- thrower=-
+T 88
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,-0.08,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.30736730043949,0.5 delta=0.0,0.017647360715879527,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=88 pickup=0 health=5 owner=- thrower=-
+T 89
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=3.6649728890160756E-7,-0.12,-1.8324864445080378E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.28921993969986,0.5 delta=0.0,0.017784413870969126,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=89 pickup=0 health=5 owner=- thrower=-
+T 90
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,0.0,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.27093552580514,0.5 delta=0.0,0.017918725965571012,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=90 pickup=0 health=5 owner=- thrower=-
+T 91
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,-0.04,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.25251679981582,0.5 delta=0.0,0.01805035182084266,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=91 pickup=0 health=5 owner=- thrower=-
+T 92
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,-0.08,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.233966447971234,0.5 delta=0.0,0.01817934516151944,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=92 pickup=0 health=5 owner=- thrower=-
+T 93
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=2.1550042754432643E-7,-0.12,-1.0775021377216322E-7 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.215287102785965,0.5 delta=0.0,0.018305758637843037,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=93 pickup=0 health=5 owner=- thrower=-
+T 94
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,0.0,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.19648134412437,0.5 delta=0.0,0.018429643847051307,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=94 pickup=0 health=5 owner=- thrower=-
+T 95
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,-0.04,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.177551700253574,0.5 delta=0.0,0.018551051354438335,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=95 pickup=0 health=5 owner=- thrower=-
+T 96
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,-0.08,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.15850064887539,0.5 delta=0.0,0.01867003071399329,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=96 pickup=0 health=5 owner=- thrower=-
+T 97
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=1.2671426413813176E-7,-0.12,-6.335713206906588E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.13933061813765,0.5 delta=0.0,0.018786630488626492,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=97 pickup=0 health=5 owner=- thrower=-
+T 98
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.450799480555811E-8,0.0,-3.7253997402779055E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.12004398762527,0.5 delta=0.0,0.018900898269990998,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=98 pickup=0 health=5 owner=- thrower=-
+T 99
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.450799480555811E-8,-0.04,-3.7253997402779055E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.100643089331534,0.5 delta=0.0,0.019012880697907696,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=99 pickup=0 health=5 owner=- thrower=-
+T 100
+E a minecraft:item pos=0.5,-60.0,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100 pickup=0 health=5 owner=- thrower=-
+E b minecraft:item pos=4.985898309581033,-60.0,-0.2429491547905161 delta=7.450799480555811E-8,-0.08,-3.7253997402779055E-8 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100 pickup=0 health=5 owner=- thrower=-
+E c minecraft:item pos=12.875,-60.0,0.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100 pickup=0 health=5 owner=- thrower=-
+E w minecraft:item pos=15.0,-59.08113020860988,0.5 delta=0.0,0.019122623479401957,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=100 pickup=0 health=5 owner=- thrower=-

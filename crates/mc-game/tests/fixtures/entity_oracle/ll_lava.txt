@@ -1,0 +1,211 @@
+EFFECT Lava minecraft:fire_resistance added=true
+T 1
+P Lava minecraft:player pos=0.5,-50.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99999 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 2
+P Lava minecraft:player pos=0.5,-50.07840000152588,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99998 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+P Lava minecraft:player pos=0.5,-50.23363200604248,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99997 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Lava minecraft:player pos=0.5,-50.46415937495544,0.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99996 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Lava minecraft:player pos=0.5,-50.768476202412984,0.5 delta=0.0,-0.37663049823865513,0.0 rot=0.0,0.0 og=0 fall=0.7684761881828308 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99995 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Lava minecraft:player pos=0.5,-51.14510670065164,0.5 delta=0.0,-0.44749789698341763,0.0 rot=0.0,0.0 og=0 fall=1.1451066732406616 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99994 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Lava minecraft:player pos=0.5,-51.59260459763506,0.5 delta=0.0,-0.2437489484917088,0.0 rot=0.0,0.0 og=0 fall=1.0200512409210205 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99993 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Lava minecraft:player pos=0.5,-51.836353546126766,0.5 delta=0.0,-0.1418744742458544,0.0 rot=0.0,0.0 og=0 fall=0.75377456843853 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99992 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+P Lava minecraft:player pos=0.5,-51.97822802037262,0.5 delta=0.0,-0.0909372371229272,0.0 rot=0.0,0.0 og=0 fall=0.5187617614865303 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99991 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Lava minecraft:player pos=0.5,-52.06916525749555,0.5 delta=0.0,-0.0654686185614636,0.0 rot=0.0,0.0 og=0 fall=0.3503181152045727 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99990 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Lava minecraft:player pos=0.5,-52.13463387605701,0.5 delta=0.0,-0.052734309280731806,0.0 rot=0.0,0.0 og=0 fall=0.24062767438590527 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99989 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Lava minecraft:player pos=0.5,-52.18736818533774,0.5 delta=0.0,-0.04636715464036591,0.0 rot=0.0,0.0 og=0 fall=0.17304814513772726 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99988 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Lava minecraft:player pos=0.5,-52.233735339978104,0.5 delta=0.0,-0.04318357732018295,0.0 rot=0.0,0.0 og=0 fall=0.1328912260942161 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99987 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Lava minecraft:player pos=0.5,-52.27691891729829,0.5 delta=0.0,-0.04159178866009147,0.0 rot=0.0,0.0 og=0 fall=0.10962918936274946 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99986 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+P Lava minecraft:player pos=0.5,-52.31851070595838,0.5 delta=0.0,-0.04079589433004574,0.0 rot=0.0,0.0 og=0 fall=0.09640638425480574 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99985 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+P Lava minecraft:player pos=0.5,-52.35930660028843,0.5199999995529652 delta=0.0,-0.040397947165022874,0.009999999776482582 rot=0.0,0.0 og=0 fall=0.0889990846044384 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99984 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+P Lava minecraft:player pos=0.5,-52.39970454745345,0.5499999988824129 delta=0.0,-0.04019897358251144,0.014999999664723873 rot=0.0,0.0 og=0 fall=0.08489748809370212 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99983 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+P Lava minecraft:player pos=0.5,-52.439903521035966,0.584999998100102 delta=0.0,-0.04009948679125572,0.01749999960884452 rot=0.0,0.0 og=0 fall=0.08264771835820284 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99982 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+P Lava minecraft:player pos=0.5,-52.48000300782722,0.6224999972619116 delta=0.0,-0.04004974339562786,0.01874999958090484 rot=0.0,0.0 og=0 fall=0.08142334588774247 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99981 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+P Lava minecraft:player pos=0.5,-52.52005275122285,0.6612499963957816 delta=0.0,-0.040024871697813935,0.019374999566935003 rot=0.0,0.0 og=0 fall=0.08076141585115693 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99980 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+P Lava minecraft:player pos=0.5,-52.560077622920666,0.7006249955156818 delta=0.0,-0.04001243584890697,0.019687499559950083 rot=0.0,0.0 og=0 fall=0.08040558079483162 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99979 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 22
+P Lava minecraft:player pos=0.5,-52.600090058769574,0.740312494628597 delta=0.0,-0.04000621792445348,0.019843749556457624 rot=0.0,0.0 og=0 fall=0.0802152245223624 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99978 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+P Lava minecraft:player pos=0.5,-52.640096276694024,0.7801562437380198 delta=0.0,-0.04000310896222674,0.019921874554711394 rot=0.0,0.0 og=0 fall=0.08011382887661966 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99977 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+P Lava minecraft:player pos=0.5,-52.68009938565625,0.8200781178456964 delta=0.0,-0.040001554481113366,0.01996093705383828 rot=0.0,0.0 og=0 fall=0.08006002416163938 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99976 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 25
+P Lava minecraft:player pos=0.5,-52.720100940137364,0.8600390544524998 delta=0.0,-0.04000077724055669,0.01998046830340172 rot=0.0,0.0 og=0 fall=0.08003156835809477 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99975 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 26
+P Lava minecraft:player pos=0.5,-52.76010171737792,0.9000195223088667 delta=0.0,-0.04000038862027834,0.019990233928183443 rot=0.0,0.0 og=0 fall=0.0800165618706501 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99974 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 27
+P Lava minecraft:player pos=0.5,-52.8001021059982,0.9400097557900153 delta=0.0,-0.04000019431013917,0.019995116740574304 rot=0.0,0.0 og=0 fall=0.08000867119673671 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99973 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 28
+P Lava minecraft:player pos=0.5,-52.84010230030834,0.9800048720835548 delta=0.0,-0.04000009715506958,0.019997558146769734 rot=0.0,0.0 og=0 fall=0.0800045284193942 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99972 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+P Lava minecraft:player pos=0.5,-52.88010239746341,1.0200024297832897 delta=0.0,-0.040000048577534794,0.01999877884986745 rot=0.0,0.0 og=0 fall=0.08000236017317519 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99971 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 30
+P Lava minecraft:player pos=0.5,-52.92010244604094,1.0600012081861223 delta=0.0,-0.040000024288767394,0.019999389201416307 rot=0.0,0.0 og=0 fall=0.0800012276212918 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99970 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 31
+P Lava minecraft:player pos=0.5,-52.96010247032971,1.1000005969405038 delta=0.0,-0.0400000121443837,0.019999694377190735 rot=0.0,0.0 og=0 fall=0.08000063899360832 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99969 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 32
+P Lava minecraft:player pos=0.5,-53.00010248247409,1.1400002908706597 delta=0.0,-0.040000006072191854,0.01999984696507795 rot=0.0,0.0 og=0 fall=0.08000032977860538 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99968 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 33
+P Lava minecraft:player pos=0.5,-53.04010248854628,1.1800001373887028 delta=0.0,-0.040000003036095924,0.019999923259021557 rot=0.0,0.0 og=0 fall=0.08000017144581362 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99967 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 34
+P Lava minecraft:player pos=0.5,-53.08010249158238,1.2200000602006895 delta=0.0,-0.04000000151804796,0.01999996140599336 rot=0.0,0.0 og=0 fall=0.08000008855412744 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99966 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 35
+P Lava minecraft:player pos=0.5,-53.120102493100426,1.260000021159648 delta=0.0,-0.040000000759023976,0.019999980479479262 rot=0.0,0.0 og=0 fall=0.08000004710828434 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99965 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 36
+P Lava minecraft:player pos=0.5,-53.12010249475352,1.3000000011920925 delta=0.0,-0.020000000826546824,0.019999990016222213 rot=0.0,0.0 og=0 fall=0.040000025207235834 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99964 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 37
+P Lava minecraft:player pos=0.5,-53.100102496474136,1.3399999907612798 delta=0.0,-0.010000000860308248,0.01999999478459369 rot=0.0,0.0 og=0 fall=0.020000012603617917 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99963 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 38
+P Lava minecraft:player pos=0.5,-53.070102498228515,1.3799999850988387 delta=0.0,-0.005000000877188961,0.019999997168779426 rot=0.0,0.0 og=0 fall=0.010000006301808959 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99962 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 39
+P Lava minecraft:player pos=0.5,-53.03510249999977,1.4199999818205833 delta=0.0,-0.0025000008856293186,0.019999998360872295 rot=0.0,0.0 og=0 fall=0.005000003150904479 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99961 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 40
+P Lava minecraft:player pos=0.5,-52.99510250089384,1.4599999797344207 delta=0.0,-4.470348362317633E-10,0.01999999895691873 rot=0.0,0.0 og=0 fall=0.0025000015754522396 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99960 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 41
+P Lava minecraft:player pos=0.5,-52.95510250178791,1.4999999782443045 delta=0.0,-4.470348362317633E-10,0.019999999254941947 rot=0.0,0.0 og=0 fall=0.0012500007877261198 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99959 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 42
+P Lava minecraft:player pos=0.5,-52.91510250268198,1.5399999770522117 delta=0.0,-4.470348362317633E-10,0.019999999403953556 rot=0.0,0.0 og=0 fall=6.250003938630599E-4 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99958 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 43
+P Lava minecraft:player pos=0.5,-52.87510250357605,1.5799999760091303 delta=0.0,-4.470348362317633E-10,0.01999999947845936 rot=0.0,0.0 og=0 fall=3.1250019693152995E-4 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99957 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 44
+P Lava minecraft:player pos=0.5,-52.83510250447012,1.619999975040555 delta=0.0,-4.470348362317633E-10,0.019999999515712262 rot=0.0,0.0 og=0 fall=1.5625009846576498E-4 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99956 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 45
+P Lava minecraft:player pos=0.5,-52.79510250536419,1.6599999741092324 delta=0.0,-4.470348362317633E-10,0.019999999534338713 rot=0.0,0.0 og=0 fall=7.812504923288249E-5 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99955 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 46
+P Lava minecraft:player pos=0.5,-52.75510250625826,1.6999999731965363 delta=0.0,-4.470348362317633E-10,0.01999999954365194 rot=0.0,0.0 og=0 fall=3.9062524616441244E-5 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99954 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 47
+P Lava minecraft:player pos=0.5,-52.71510250715233,1.7399999722931534 delta=0.0,-4.470348362317633E-10,0.019999999548308552 rot=0.0,0.0 og=0 fall=1.9531262308220622E-5 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99953 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 48
+P Lava minecraft:player pos=0.5,-52.6751025080464,1.7799999713944272 delta=0.0,-4.470348362317633E-10,0.01999999955063686 rot=0.0,0.0 og=0 fall=9.765631154110311E-6 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99952 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 49
+P Lava minecraft:player pos=0.5,-52.63510250894047,1.8199999704980292 delta=0.0,-4.470348362317633E-10,0.019999999551801012 rot=0.0,0.0 og=0 fall=4.8828155770551555E-6 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99951 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 50
+P Lava minecraft:player pos=0.5,-52.59510250983454,1.8599999696027953 delta=0.0,-4.470348362317633E-10,0.019999999552383088 rot=0.0,0.0 og=0 fall=2.4414077885275778E-6 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99950 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 51
+P Lava minecraft:player pos=0.5,-52.55510251072861,1.8999999687081437 delta=0.0,-4.470348362317633E-10,0.019999999552674126 rot=0.0,0.0 og=0 fall=1.2207038942637889E-6 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99949 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 52
+P Lava minecraft:player pos=0.5,-52.51510251162268,1.939999967813783 delta=0.0,-4.470348362317633E-10,0.019999999552819645 rot=0.0,0.0 og=0 fall=6.103519471318944E-7 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99948 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 53
+P Lava minecraft:player pos=0.5,-52.47510251251675,1.9799999669195678 delta=0.0,-4.470348362317633E-10,0.019999999552892403 rot=0.0,0.0 og=0 fall=3.051759735659472E-7 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99947 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 54
+P Lava minecraft:player pos=0.5,-52.43510251341082,2.0199999660254253 delta=0.0,-4.470348362317633E-10,0.019999999552928784 rot=0.0,0.0 og=0 fall=1.525879867829736E-7 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99946 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 55
+P Lava minecraft:player pos=0.5,-52.39510251430489,2.059999965131319 delta=0.0,-4.470348362317633E-10,0.019999999552946974 rot=0.0,0.0 og=0 fall=7.62939933914868E-8 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99945 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 56
+P Lava minecraft:player pos=0.5,-52.35510251519896,2.079999964684266 delta=0.0,-4.470348362317633E-10,0.009999999776473487 rot=0.0,0.0 og=0 fall=3.81469966957434E-8 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99944 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 57
+P Lava minecraft:player pos=0.5,-52.31510251609303,2.08999996446074 delta=0.0,-4.470348362317633E-10,0.0049999998882367435 rot=0.0,0.0 og=0 fall=1.90734983478717E-8 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99943 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 58
+P Lava minecraft:player pos=0.5,-52.2751025169871,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0024999999441183717 rot=0.0,0.0 og=0 fall=9.53674917393585E-9 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99942 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 59
+P Lava minecraft:player pos=0.5,-52.23510251788117,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=4.768374586967925E-9 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99941 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 60
+P Lava minecraft:player pos=0.5,-52.195102518775236,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=2.3841872934839627E-9 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99940 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 61
+P Lava minecraft:player pos=0.5,-52.155102519669306,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=1.1920936467419813E-9 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99939 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 62
+P Lava minecraft:player pos=0.5,-52.115102520563376,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=5.960468233709907E-10 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99938 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 63
+P Lava minecraft:player pos=0.5,-52.075102521457445,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=2.9802341168549533E-10 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99937 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 64
+P Lava minecraft:player pos=0.5,-52.035102522351515,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=1.4901170584274767E-10 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99936 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 65
+P Lava minecraft:player pos=0.5,-51.995102523245585,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=7.450585292137383E-11 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99935 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 66
+P Lava minecraft:player pos=0.5,-51.955102524139654,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=3.7252926460686917E-11 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99934 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 67
+P Lava minecraft:player pos=0.5,-51.915102525033724,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=1.8626463230343458E-11 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99933 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 68
+P Lava minecraft:player pos=0.5,-51.875102525927794,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=9.313231615171729E-12 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99932 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 69
+P Lava minecraft:player pos=0.5,-51.83510252682186,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=4.6566158075858646E-12 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99931 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 70
+P Lava minecraft:player pos=0.5,-51.79510252771593,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=2.3283079037929323E-12 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99930 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 71
+P Lava minecraft:player pos=0.5,-51.75510252861,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=1.1641539518964661E-12 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99929 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 72
+P Lava minecraft:player pos=0.5,-51.71510252950407,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=5.820769759482331E-13 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99928 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 73
+P Lava minecraft:player pos=0.5,-51.67510253039814,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=2.9103848797411654E-13 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99927 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 74
+P Lava minecraft:player pos=0.5,-51.63510253129221,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=1.4551924398705827E-13 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99926 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 75
+P Lava minecraft:player pos=0.5,-51.59510253218628,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=7.275962199352913E-14 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99925 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 76
+P Lava minecraft:player pos=0.5,-51.55510253308035,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=3.637981099676457E-14 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99924 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 77
+P Lava minecraft:player pos=0.5,-51.51510253397442,2.0949999643489767 delta=0.0,-4.470348362317633E-10,0.0 rot=0.0,0.0 og=0 fall=1.8189905498382284E-14 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99923 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 78
+P Lava minecraft:player pos=0.5,-51.47510253486849,2.0949999643489767 delta=0.0,0.006999999761581409,0.0 rot=0.0,0.0 og=0 fall=9.094952749191142E-15 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99922 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 79
+P Lava minecraft:player pos=0.5,-51.42810253600098,2.0949999643489767 delta=0.0,0.01259999965429304,0.0 rot=0.0,0.0 og=0 fall=4.547476374595571E-15 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99921 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 80
+P Lava minecraft:player pos=0.5,-51.375502537240756,2.0949999643489767 delta=0.0,0.017079999635219546,0.0 rot=0.0,0.0 og=0 fall=2.2737381872977854E-15 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99920 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 81
+P Lava minecraft:player pos=0.5,-51.318422538499604,2.0949999643489767 delta=0.0,0.020663999673366507,0.0 rot=0.0,0.0 og=0 fall=1.1368690936488927E-15 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99919 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 82
+P Lava minecraft:player pos=0.5,-51.25775853972031,2.0949999643489767 delta=0.0,0.02353119974660869,0.0 rot=0.0,0.0 og=0 fall=5.684345468244464E-16 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99918 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 83
+P Lava minecraft:player pos=0.5,-51.19422734086777,2.0949999643489767 delta=0.0,0.02582495983938213,0.0 rot=0.0,0.0 og=0 fall=2.842172734122232E-16 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99917 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 84
+P Lava minecraft:player pos=0.5,-51.128402381922456,2.0949999643489767 delta=0.0,0.027659967940944625,0.0 rot=0.0,0.0 og=0 fall=1.421086367061116E-16 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99916 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 85
+P Lava minecraft:player pos=0.5,-51.060742414875584,2.0949999643489767 delta=0.0,0.02912797444406962,0.0 rot=0.0,0.0 og=0 fall=7.10543183530558E-17 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99915 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 86
+P Lava minecraft:player pos=0.5,-51.03161444043151,2.0949999643489767 delta=0.0,-0.04985458601511866,0.0 rot=0.0,0.0 og=0 fall=7.10543183530558E-17 fire=299 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99914 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 87
+P Lava minecraft:player pos=0.5,-51.08146902644663,2.0949999643489767 delta=0.0,-0.12725749677159598,0.0 rot=0.0,0.0 og=0 fall=0.04985458776354797 fire=298 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99913 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 88
+P Lava minecraft:player pos=0.5,-51.208726523218225,2.0949999643489767 delta=0.0,-0.2031123507892871,0.0 rot=0.0,0.0 og=0 fall=0.17711208388209349 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99912 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 89
+P Lava minecraft:player pos=0.5,-51.411838874007515,2.0949999643489767 delta=0.0,-0.18748988305271758,0.0 rot=0.0,0.0 og=0 fall=0.29166839085519314 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99911 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 90
+P Lava minecraft:player pos=0.5,-51.599328757060235,2.0949999643489767 delta=0.0,-0.11374494152635879,0.0 rot=0.0,0.0 og=0 fall=0.33332407753914595 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99910 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 91
+P Lava minecraft:player pos=0.5,-51.71307369858659,2.0949999643489767 delta=0.0,-0.07687247076317939,0.0 rot=0.0,0.0 og=0 fall=0.2804069831036031 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99909 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 92
+P Lava minecraft:player pos=0.5,-51.78994616934977,2.0949999643489767 delta=0.0,-0.05843623538158969,0.0 rot=0.0,0.0 og=0 fall=0.2170759595464915 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99908 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 93
+P Lava minecraft:player pos=0.5,-51.84838240473136,2.0949999643489767 delta=0.0,-0.049218117690794844,0.0 rot=0.0,0.0 og=0 fall=0.1669742133235559 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99907 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 94
+P Lava minecraft:player pos=0.5,-51.89760052242215,2.0949999643489767 delta=0.0,-0.044609058845397426,0.0 rot=0.0,0.0 og=0 fall=0.13270522485254332 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99906 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 95
+P Lava minecraft:player pos=0.5,-51.94220958126755,2.0949999643489767 delta=0.0,-0.04230452942269872,0.0 rot=0.0,0.0 og=0 fall=0.11096167107461952 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99905 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 96
+P Lava minecraft:player pos=0.5,-51.98451411069025,2.0949999643489767 delta=0.0,-0.04115226471134936,0.0 rot=0.0,0.0 og=0 fall=0.097785366277094 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99904 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 97
+P Lava minecraft:player pos=0.5,-52.0256663754016,2.0949999643489767 delta=0.0,-0.040576132355674685,0.0 rot=0.0,0.0 og=0 fall=0.09004494806140428 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99903 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 98
+P Lava minecraft:player pos=0.5,-52.06624250775727,2.0949999643489767 delta=0.0,-0.04028806617783734,0.0 rot=0.0,0.0 og=0 fall=0.0855986079077411 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99902 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 99
+P Lava minecraft:player pos=0.5,-52.10653057393511,2.0949999643489767 delta=0.0,-0.040144033088918674,0.0 rot=0.0,0.0 og=0 fall=0.08308736858271004 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99901 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 100
+P Lava minecraft:player pos=0.5,-52.14667460702403,2.0949999643489767 delta=0.0,-0.04007201654445934,0.0 rot=0.0,0.0 og=0 fall=0.08168771802138508 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99900 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 101
+P Lava minecraft:player pos=0.5,-52.18674662356849,2.0949999643489767 delta=0.0,-0.04003600827222967,0.0 rot=0.0,0.0 og=0 fall=0.08091587542867273 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99899 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 102
+P Lava minecraft:player pos=0.5,-52.22678263184072,2.0949999643489767 delta=0.0,-0.04001800413611484,0.0 rot=0.0,0.0 og=0 fall=0.08049394547629163 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99898 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 103
+P Lava minecraft:player pos=0.5,-52.266800635976836,2.0949999643489767 delta=0.0,-0.04000900206805742,0.0 rot=0.0,0.0 og=0 fall=0.08026497617208861 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99897 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 104
+P Lava minecraft:player pos=0.5,-52.306809638044896,2.0949999643489767 delta=0.0,-0.04000450103402871,0.0 rot=0.0,0.0 og=0 fall=0.08014149121862602 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99896 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 105
+P Lava minecraft:player pos=0.5,-52.34681413907892,2.0949999643489767 delta=0.0,-0.04000225051701435,0.0 rot=0.0,0.0 og=0 fall=0.08007524486592388 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/99895 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

@@ -5,7 +5,8 @@
 //! `server.player_list` and `server` at once (ARCHITECTURE: tier 2).
 
 use super::name_and_id::NameAndId;
-use super::player_files::{PlayerAdvancementsFile, ServerStatsCounter, locate_stats_file};
+use super::player_files::{PlayerAdvancementsFile, locate_stats_file};
+use crate::stats::{ServerStatsCounter, SharedStats};
 use super::player_handle::PlayerHandle;
 use super::user_lists::{IpBanList, ServerOpList, ServerOpListEntry, UserBanList, UserWhiteList};
 use crate::server::chat::chat_type::Bound;
@@ -76,12 +77,14 @@ impl Default for PlayerListSettings {
 
 pub struct PlayerList {
     players: Vec<PlayerHandle>,
+    /// The same list shared with the levels (`ServerLevel::send_to_player`/`broadcast_to_all_players`).
+    pub roster: crate::server::level::PlayerRoster,
     players_by_uuid: HashMap<Uuid, PlayerHandle>,
     pub bans: UserBanList,
     pub ip_bans: IpBanList,
     pub ops: ServerOpList,
     pub whitelist: UserWhiteList,
-    stats: HashMap<Uuid, ServerStatsCounter>,
+    stats: HashMap<Uuid, SharedStats>,
     advancements: HashMap<Uuid, PlayerAdvancementsFile>,
     player_io: PlayerDataStorage,
     /// `getWorldPath(PLAYER_STATS_DIR)` / `PLAYER_ADVANCEMENTS_DIR`.
@@ -104,6 +107,7 @@ impl PlayerList {
     ) -> Self {
         Self {
             players: Vec::new(),
+            roster: Default::default(),
             players_by_uuid: HashMap::new(),
             whitelist: UserWhiteList::new(WHITELIST_FILE, notifications.clone()),
             ops: ServerOpList::new(OPLIST_FILE, notifications.clone()),
@@ -259,11 +263,13 @@ impl PlayerList {
     /// The list part of `placeNewPlayer`: `players.add` + `playersByUUID.put`.
     pub fn add_player(&mut self, handle: PlayerHandle) {
         self.players_by_uuid.insert(handle.uuid, handle.clone());
+        self.roster.add(handle.clone());
         self.players.push(handle);
     }
 
     /// The list part of `respawn`: `players.remove(serverPlayer)` (by identity).
     pub fn remove_from_players(&mut self, handle: &PlayerHandle) {
+        self.roster.remove(handle);
         self.players.retain(|p| !p.same_player(handle));
     }
 
@@ -297,7 +303,7 @@ impl PlayerList {
     /// `save(player)` minus the entity part: the stats and advancements files.
     pub fn save_player_files(&mut self, handle: &PlayerHandle) {
         if let Some(stats) = self.stats.get(&handle.uuid) {
-            stats.save();
+            stats.lock().save();
         }
         if let Some(advancements) = self.advancements.get(&handle.uuid) {
             advancements.save();
@@ -305,11 +311,12 @@ impl PlayerList {
     }
 
     /// `getPlayerStats(player)`.
-    pub fn get_player_stats(&mut self, handle: &PlayerHandle) -> &mut ServerStatsCounter {
+    pub fn get_player_stats(&mut self, handle: &PlayerHandle) -> SharedStats {
         let stats_dir = &self.stats_dir;
         self.stats
             .entry(handle.uuid)
-            .or_insert_with(|| ServerStatsCounter::new(locate_stats_file(stats_dir, handle.uuid, handle.name())))
+            .or_insert_with(|| SharedStats::new(ServerStatsCounter::new(locate_stats_file(stats_dir, handle.uuid, handle.name()))))
+            .clone()
     }
 
     /// `getPlayerAdvancements(player)`.
@@ -538,6 +545,7 @@ pub fn join_message(display_name: Component, old_name: Option<&str>) -> Componen
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::stats::stats::Stats;
     use crate::server::chat::chat_type;
     use crate::server::notifications::EmptyNotificationService;
     use crate::server::players::player_handle::test_support::handle;
@@ -720,7 +728,7 @@ mod tests {
         assert_eq!(wa.ids().len(), 2, "disconnect packet + close");
         assert!(!list.disconnect_all_players_with_profile(&Uuid::from_u128(1)));
 
-        list.get_player_stats(&a).increment("minecraft:custom", "minecraft:leave_game", 1);
+        list.get_player_stats(&a).lock().increment(Stats::LEAVE_GAME, 1);
         list.save_player_files(&a);
         assert!(dir.path().join("players/stats").join(format!("{}.json", a.uuid)).exists());
         list.remove_player(&a);

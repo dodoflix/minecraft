@@ -170,4 +170,21 @@ impl ServerLevel {
             &ClientboundBlockEventPacket { pos: event.pos, b0: event.param_a as u8, b1: event.param_b as u8, block: event.block },
         );
     }
+
+    /// `ServerChunkCache.sendToTrackingPlayers(entity, packet)`: the players tracking the entity.
+    pub fn send_to_tracking_players<P: Packet>(&self, entity: EntityId, packet: &P) {
+        self.entity_tracker.send_to_tracking_players(entity, &encode_packet(packet));
+    }
+
+    /// `ServerChunkCache.sendToTrackingPlayersAndSelf(entity, packet)`: the tracking
+    /// players and, for a player, itself.
+    pub fn send_to_tracking_players_and_self<P: Packet>(&self, entity: EntityId, packet: &P) {
+        self.entity_tracker.send_to_tracking_players_and_self(entity, &encode_packet(packet));
+    }
+
+    /// `Level.broadcastEntityEvent(entity, event)` (`ServerLevel`: `ClientboundEntityEventPacket` to everyone tracking
+    /// the entity, and to the entity itself if it is a player).
+    pub fn broadcast_entity_event(&self, entity: EntityId, event_id: i8) {
+        self.send_to_tracking_players_and_self(entity, &mc_protocol::packets::play::ClientboundEntityEventPacket { entity_id: entity, event_id });
+    }
 }

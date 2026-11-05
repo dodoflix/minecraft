@@ -1,0 +1,58 @@
+# Shield blocking (blocks_attacks): angle, block delay, projectile/explosion bypass, axe disabling, item damage, sounds/packets.
+level flat
+difficulty normal
+spawn Z minecraft:zombie 5.5 -60 0.5 90 0 {NoAI:1b,PersistenceRequired:1b}
+spawn Axe minecraft:zombie 5.5 -60 3.5 90 0 {NoAI:1b,PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:iron_axe",count:1}}}
+spawn_player S survival 0.5 -60 0.5 -90 0
+give S offhand minecraft:shield
+tick 1
+dump player:S packets:S
+# not blocking yet: damage lands fully
+hurt S mob_attack 6 by=Z direct=Z
+tick 21
+dump player:S packets:S
+use S off
+tick 2
+# block delay (5 ticks) has not elapsed
+hurt S mob_attack 6 by=Z direct=Z
+tick 21
+dump player:S packets:S
+tick 5
+# blocking in front
+hurt S mob_attack 6 by=Z direct=Z
+tick 21
+dump player:S inventory:S packets:S
+# blocking, attacker behind
+snap S 0.5 -60 0.5 90 0
+hurt S mob_attack 6 by=Z direct=Z
+tick 21
+dump player:S packets:S
+# 90 degree side hit
+snap S 0.5 -60 0.5 0 0
+hurt S mob_attack 6 by=Z direct=Z
+tick 21
+dump player:S packets:S
+snap S 0.5 -60 0.5 -90 0
+# projectile source at a position in front / explosion / fire / magic
+hurt S arrow 5 at=3.5,-59,0.5
+tick 21
+hurt S explosion 5 at=4.5,-60,0.5
+tick 21
+hurt S in_fire 4
+tick 21
+hurt S generic 3
+tick 21
+dump player:S inventory:S packets:S
+# strong hit: more than shield absorbs (shield blocks all damage by default: base 0 factor 1)
+hurt S mob_attack 30 by=Z direct=Z
+tick 21
+dump player:S inventory:S packets:S
+set S health 20
+# axe disables the shield for 5 seconds
+hurt S mob_attack 3 by=Axe direct=Axe
+tick 2
+dump player:S inventory:S packets:S
+tick 21
+use S off
+tick 10
+dump player:S packets:S

@@ -93,7 +93,7 @@ fn validators() -> Validators {
 pub enum PayloadKind {
     /// `show_item` `components` (`DataComponentPatch.CODEC`).
     ItemComponents,
-    /// `show_dialog` `dialog` (`Dialog.CODEC`, only the map form; id strings are handled by the caller).
+    /// `show_dialog` `dialog` (`Dialog.CODEC`: a registry id string or an inline dialog compound).
     Dialog,
 }
 
@@ -557,7 +557,7 @@ fn action_name<O: Ops>(map: &MapView<'_, O>) -> R<String> {
     string(req(map, "action")?)
 }
 
-fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
+pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
     let map = map_of(v)?;
     let name = action_name(&map)?;
     let action = ClickAction::ALL
@@ -576,15 +576,8 @@ fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
         ClickAction::OpenFile => unreachable!("rejected above"),
         ClickAction::RunCommand => ClickEvent::RunCommand(decode_chat_string(req(&map, "command")?)?),
         ClickAction::SuggestCommand => ClickEvent::SuggestCommand(decode_chat_string(req(&map, "command")?)?),
-        ClickAction::ShowDialog => {
-            let d = req(&map, "dialog")?;
-            if let Some(s) = d.get_string() {
-                Identifier::read(&s).map_err(CodecError)?;
-            } else if d.get_map().is_none() {
-                return err("Not a map");
-            }
-            ClickEvent::ShowDialog(if d.get_map().is_some() { d.normalize_payload(PayloadKind::Dialog).map_err(CodecError)? } else { d.to_tag() })
-        }
+        // `Dialog.CODEC` (a registry id or an inline dialog): validated and normalised by the installed `PayloadKind::Dialog` hook
+        ClickAction::ShowDialog => ClickEvent::ShowDialog(req(&map, "dialog")?.normalize_payload(PayloadKind::Dialog).map_err(CodecError)?),
         ClickAction::ChangePage => {
             let page = int(req(&map, "page")?)?;
             if page < 1 {
@@ -607,7 +600,7 @@ fn decode_chat_string<O: Ops>(v: &O) -> R<String> {
     Ok(s)
 }
 
-fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
+pub(crate) fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
     let mut f: Fields<O> = Vec::new();
     match c {
         ClickEvent::OpenUrl(u) => push(&mut f, "url", O::create_string(u)),
@@ -616,7 +609,7 @@ fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
             validate_chat_string(s).map_err(CodecError)?;
             push(&mut f, "command", O::create_string(s));
         }
-        ClickEvent::ShowDialog(d) => push(&mut f, "dialog", if matches!(d, Tag::Compound(_)) { O::payload_from_tag(PayloadKind::Dialog, d)? } else { O::from_tag(d) }),
+        ClickEvent::ShowDialog(d) => push(&mut f, "dialog", O::payload_from_tag(PayloadKind::Dialog, d)?),
         ClickEvent::ChangePage(p) => {
             if *p < 1 {
                 return err(format!("Value must be positive: {p}"));

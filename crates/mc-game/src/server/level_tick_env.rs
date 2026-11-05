@@ -34,15 +34,7 @@ impl LevelTickEnv for ServerTickEnv<'_> {
     }
 
     fn rules(&self) -> LevelRules {
-        let rules = self.server.game_rules_ref();
-        LevelRules {
-            players_sleeping_percentage: rules.get(GameRules::PLAYERS_SLEEPING_PERCENTAGE),
-            advance_time: rules.get(GameRules::ADVANCE_TIME),
-            advance_weather: rules.get(GameRules::ADVANCE_WEATHER),
-            spawn_mobs: rules.get(GameRules::SPAWN_MOBS),
-            max_snow_accumulation_height: rules.get(GameRules::MAX_SNOW_ACCUMULATION_HEIGHT),
-            random_tick_speed: rules.get(GameRules::RANDOM_TICK_SPEED),
-        }
+        LevelRules::from_game_rules(self.server.game_rules_ref())
     }
 
     fn weather(&self) -> WeatherState {
@@ -101,5 +93,21 @@ impl LevelTickEnv for ServerTickEnv<'_> {
 
     fn set_game_time(&mut self, game_time: i64) {
         self.server.world_data.lock().game_time = game_time;
+    }
+
+    fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity) {
+        use crate::server::players::dimension_change::teleport_same_dimension;
+        let Some(process) = entity.base().portal_process.clone() else { return };
+        let Some(transition) = process.get_portal_destination(self.server, level, entity) else { return };
+        if transition.level == self.dimension {
+            if !transition.as_passenger {
+                level.stop_riding(entity);
+            }
+            teleport_same_dimension(level, entity, &transition);
+        } else {
+            // cross-dimension hand-over of an entity that is out of its level while the level ticks is not wired:
+            // `dimension_change::teleport_entity/teleport_player` need the entity in storage (see STATUS gaps)
+            log::warn!("portal transition to {} of entity {} is not executed during the level tick", transition.level, entity.id());
+        }
     }
 }

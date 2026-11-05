@@ -1,0 +1,21 @@
+# LivingEntity ground movement: walk, sprint, sprint-jump, sneak, strafe, back-pedal, stop (simulated player physics, flat grass).
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0 sim
+watch player:Steve
+tick 5
+input Steve forward
+tick 20
+input Steve forward,sprint
+tick 20
+input Steve forward,sprint,jump
+tick 25
+input Steve forward,sneak
+tick 20
+input Steve forward,left
+tick 15
+input Steve back,right
+tick 15
+input Steve jump
+tick 15
+input Steve none
+tick 15

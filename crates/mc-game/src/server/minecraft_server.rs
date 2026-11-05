@@ -109,13 +109,15 @@ pub struct MinecraftServer {
     pub command_storage: crate::world::level::saveddata::command_storage::CommandStorage,
     pub(super) game_rules_type: SavedDataType<GameRules>,
     pub(super) saved_types: SavedDataTypes,
+    /// `randomSequences` shared with the levels' loot evaluation; copied into `saved_data` when saving.
+    pub(super) loot_random_sequences: Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>>,
     pub registries: LayeredRegistryAccess<RegistryLayer>,
     pub resources: ReloadableResources,
     pub pack_repository: PackRepository,
     pub level_load_listener: Box<dyn LevelLoadListener>,
     pub tick_rate_manager: ServerTickRateManager,
     /// `getScoreboard()` (`ServerScoreboard`): loaded from `scoreboard.dat` by `create_levels`, stored by `save_all_chunks`.
-    pub scoreboard: crate::world::scores::ServerScoreboard,
+    pub scoreboard: crate::server::level::SharedScoreboard,
     pub player_list: PlayerList,
     pub notification_manager: Arc<NotificationManager>,
     pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
@@ -179,6 +181,7 @@ impl MinecraftServer {
         if !init.registries.composite_access().registry_or_throw(crate::registry::keys::LEVEL_STEM).contains(&overworld) {
             return Err("Missing Overworld dimension data".to_owned());
         }
+        init.registries.composite_access().install_protocol_context();
         shared.bind_game_thread();
         let enabled_features = init.world_data.settings.data_configuration.enabled_features;
         let mut saved_data = SavedDataManager::new(mc_world::level_storage::SavedDataStorage::new(
@@ -223,12 +226,13 @@ impl MinecraftServer {
             command_storage: Default::default(),
             game_rules_type,
             saved_types: SavedDataTypes::new(),
+            loot_random_sequences: Default::default(),
             registries,
             resources: init.resources,
             pack_repository: init.pack_repository,
             level_load_listener: init.level_load_listener,
             tick_rate_manager: ServerTickRateManager::new(),
-            scoreboard: crate::world::scores::Scoreboard::new_server(),
+            scoreboard: crate::server::level::SharedScoreboard::default(),
             commands,
             player_list,
             notification_manager: init.notification_manager,
@@ -259,7 +263,7 @@ impl MinecraftServer {
             server_id: None,
             effective_respawn_data: None,
         };
-        server.saved_data.compute_if_absent(&server.saved_types.random_sequences);
+        *server.loot_random_sequences.lock() = server.saved_data.compute_if_absent(&server.saved_types.random_sequences).clone();
         server.weather_data();
         server.saved_data.compute_if_absent(&server.saved_types.custom_boss_events);
         server.init_clock_manager();

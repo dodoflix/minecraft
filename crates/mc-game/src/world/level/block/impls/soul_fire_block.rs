@@ -9,6 +9,17 @@ pub fn can_survive_on_block(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for SoulFireBlock {
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        _level: &mut crate::server::level::ServerLevel,
+        _pos: BlockPos,
+        _entity: &mut dyn crate::world::entity::Entity,
+        effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        super::base_fire_block::entity_inside(effect_applier, 2.0);
+    }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         can_survive_on_block(level.get_block_state(pos.below()))
     }

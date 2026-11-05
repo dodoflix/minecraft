@@ -162,8 +162,18 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) {}
     /// `randomTick` (the random is `level.random()`).
     fn random_tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) {}
-    /// `entityInside` (the entity is not part of the level's entity slot while it is being ticked).
-    fn entity_inside(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity) {}
+    /// `entityInside(state, level, pos, entity, effectApplier, isPrecise)` (the entity is not part of the level's entity
+    /// slot while it is being ticked).
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _entity: &mut dyn Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+    }
     /// `shouldRedstoneWireConnectTo`.
     fn should_redstone_wire_connect_to(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Option<Direction>) -> bool {
         state.is_signal_source() && direction.is_some()
@@ -185,6 +195,33 @@ pub trait BlockBehaviour: Send + Sync + 'static {
 
     /// `Block.stepOn`.
     fn step_on(&self, _level: &mut ServerLevel, _pos: BlockPos, _on_state: BlockState, _entity: &mut dyn Entity) {}
+    /// `Block.fallOn(level, state, pos, entity, fallDistance)`.
+    fn fall_on(&self, level: &mut ServerLevel, state: BlockState, _pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+        let reduced_fall_distance = fall_distance * f64::from(1.0f32 - state.block().data().fall_distance_reduction);
+        let source = level.damage_sources().fall();
+        entity.cause_fall_damage(level, reduced_fall_distance, 1.0, &source);
+    }
+    /// `Block.bounceOn(level, state, pos, entity, fallDistance)`.
+    fn bounce_on(&self, _level: &mut ServerLevel, _state: BlockState, _pos: BlockPos, _entity: &mut dyn Entity, _fall_distance: f64) {}
+    /// `BlockBehaviour.onExplosionHit(state, level, pos, explosion, onHit)`: default = [`default_on_explosion_hit`].
+    fn on_explosion_hit(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        explosion: &dyn crate::world::level::explosion::Explosion,
+        on_hit: &mut dyn FnMut(crate::world::item::ItemStack, BlockPos),
+    ) {
+        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+    }
+    /// `Block.wasExploded(level, pos, explosion)`.
+    fn was_exploded(&self, _level: &mut ServerLevel, _pos: BlockPos, _explosion: &dyn crate::world::level::explosion::Explosion) {}
+    /// `Block.dropFromExplosion(explosion)`.
+    fn drop_from_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+        true
+    }
+    /// `BlockBehaviour.onProjectileHit(level, state, blockHit, projectile)`.
+    fn on_projectile_hit(&self, _level: &mut ServerLevel, _state: BlockState, _hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {}
     /// `BlockBehaviour.useItemOn(stack, state, level, pos, player, hand, hitResult)`: default `TRY_WITH_EMPTY_HAND`.
     fn use_item_on(
         &self,
@@ -221,23 +258,27 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn set_placed_by(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {}
     /// `BlockBehaviour.attack(state, level, pos, player)` (start of digging).
     fn attack(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) {}
-    /// `Block.playerWillDestroy`: the destroy particles/game event are done by the caller; returns the state to use.
-    fn player_will_destroy(&self, state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) -> BlockState {
-        state
+    /// `Block.playerWillDestroy`: destroy particles, `BLOCK_DESTROY` game event; returns the state to use (overrides call
+    /// `server::level::block_break::player_will_destroy` as their `super`).
+    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+        crate::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
-    /// `Block.playerDestroy` (stats, exhaustion, drops). Loot drops are a later wave.
+    /// `Block.playerDestroy` (stats, exhaustion, drops); `block_entity` is the destroyed block's entity (a snapshot).
     fn player_destroy(
         &self,
-        _level: &mut ServerLevel,
-        _player: &mut crate::world::entity::ServerPlayer,
-        _pos: BlockPos,
-        _state: BlockState,
-        _destroyed_with: &crate::world::item::ItemStack,
+        level: &mut ServerLevel,
+        player: &mut crate::world::entity::ServerPlayer,
+        pos: BlockPos,
+        state: BlockState,
+        block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
+        destroyed_with: &crate::world::item::ItemStack,
     ) {
-        _player.player.food_data.add_exhaustion(0.005);
+        crate::server::level::block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
     }
     /// `Block.destroy` (called by `LevelChunk`-independent callers such as `ServerPlayerGameMode`).
     fn destroy(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) {}
+    /// `BlockBehaviour.spawnAfterBreak(state, level, pos, tool, dropExperience)` (experience from ores, spawners, ...).
+    fn spawn_after_break(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _tool: &crate::world::item::ItemStack, _drop_experience: bool) {}
     /// `Block.handlePrecipitation`.
     fn handle_precipitation(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _precipitation: Precipitation) {}
     /// `Block.isPossibleToRespawnInThis`.
@@ -257,6 +298,26 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         _yaw: f32,
     ) -> Option<Option<mc_core::phys::Vec3>> {
         None
+    }
+
+    // ==== [Items] additions: `Fallable` (FallingBlock, BrushableBlock, SpeleothemBlock) ====
+    /// `FallingBlock.falling(entity)`: configures the entity before it enters the level.
+    fn falling(&self, _entity: &mut crate::world::entity::falling_block_entity::FallingBlockEntity) {}
+    /// `Fallable.onLand(level, pos, state, replacedBlock, entity)`.
+    fn on_land(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+        _replaced: BlockState,
+        _entity: &crate::world::entity::falling_block_entity::FallingBlockEntity,
+    ) {
+    }
+    /// `Fallable.onBrokenAfterFall(level, pos, entity)`.
+    fn on_broken_after_fall(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &crate::world::entity::falling_block_entity::FallingBlockEntity) {}
+    /// `Fallable.getFallDamageSource(entity)`.
+    fn get_fall_damage_source(&self, level: &ServerLevel, entity: &crate::world::entity::falling_block_entity::FallingBlockEntity) -> crate::world::damagesource::DamageSource {
+        level.damage_sources().falling_block(entity)
     }
 
     // ============================================================ [Blocks] BonemealableBlock / liquid containers

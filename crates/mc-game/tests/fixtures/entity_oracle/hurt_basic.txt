@@ -1,0 +1,88 @@
+HURT Steve minecraft:generic 6 -> true
+T 1
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+HURT Steve minecraft:generic 6 -> false
+T 2
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=8/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 3
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=7/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=6/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=5/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=4/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=3/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=2/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.0 abs=0.0 hurt=1/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/10 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/9 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/8 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/7 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/6 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/5 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/4 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/3 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/2 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=0/1 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=5.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+EFFECT Steve minecraft:resistance added=true
+HURT Steve minecraft:mob_attack 8 -> true
+T 22
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.21840002862134353,0.2751840104494096,-5.938213053396341E-7 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.0056 abs=0.0 hurt=9/19 death=0 fx=minecraft:resistance/1/99 gm=survival food=20 sat=3.0 exh=1.1 xp=0/0/0.0 sel=0 main=empty
+E Zed minecraft:zombie pos=2.2677628448008846,-60.0,0.5000050717243051 delta=-0.05326435202573788,-0.0784000015258789,3.5371970293839115E-18 rot=90.00035,3.6808782 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT Steve minecraft:damage_event 190112000000
+PKT Steve minecraft:set_entity_data 6501090341600000ff
+PKT Steve minecraft:set_entity_motion 670100
+PKT Steve minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c2053746576652000080009696e73657274696f6e0005537465766508000474657874000553746576650a000b686f7665725f6576656e740800046e616d6500055374657665080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000045627dd98e6be3c21b8a8e923441836410000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c617465002b616476616e63656d656e74732e73746f72792e6f627461696e5f61726d6f722e6465736372697074696f6e000800097472616e736c6174650025616476616e63656d656e74732e73746f72792e6f627461696e5f61726d6f722e7469746c6500000800097472616e736c6174650025616476616e63656d656e74732e73746f72792e6f627461696e5f61726d6f722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT Steve minecraft:recipe_book_add 4b01840602061197089608980899089508aa0bb808b908ba08bb08ff0ab408b508b608b708cd0b0105b00b010000049703c8013dcccccd000601011197089608980899089508aa0bb808b908ba08bb08ff0ab408b508b608b708cd0b0300
+PKT Steve minecraft:recipe_book_add 4b01830602061197089608980899089508aa0bb808b908ba08bb08ff0acd0bb408b508b608b7080105b00b01000004e40bc8013dcccccd000801011197089608980899089508aa0bb808b908ba08bb08ff0acd0bb408b508b608b7080300
+PKT Steve minecraft:container_set_slot 140002000501b8080000
+PKT Steve minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c2053746576652000080009696e73657274696f6e0005537465766508000474657874000553746576650a000b686f7665725f6576656e740800046e616d6500055374657665080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000045627dd98e6be3c21b8a8e923441836410000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e7368696e795f676561722e6465736372697074696f6e000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT Steve minecraft:container_set_slot 140003000601bd080000
+PKT Steve minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT Steve minecraft:update_advancements -
+PKT Steve minecraft:set_health 6a416000001440a00000
+PKT Steve minecraft:set_experience 69000000000000
+PKT Steve minecraft:chunk_batch_start 0c
+PKT Steve minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=-1,0/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=-1,-1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=-1,1/len=7260
+PKT Steve minecraft:chunk_batch_finished 0b09
+PKT Steve minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/2.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value,minecraft:armor.helmet/0.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT Steve minecraft:set_health 6a416d55551440a00000
+PKT Steve minecraft:set_entity_data 65010903416d5555ff
+PKT Steve minecraft:set_time 73000000000000001300
+PKT Steve minecraft:set_health 6a417800001440800000
+PKT Steve minecraft:set_entity_data 6501090341780000ff
+PKT Steve minecraft:update_mob_effect 8701010a01640e
+PKT Steve minecraft:player_combat_enter 44
+PKT Steve minecraft:damage_event 19011c030300
+PKT Steve minecraft:hurt_animation 2b0139235534
+PKT Steve minecraft:set_entity_data 65010903414016f00a11011cff9146f0ff
+PKT Steve minecraft:set_entity_motion 670131337fff5c59
+PKT Steve minecraft:container_set_slot 140004000501b80801000302
+PKT Steve minecraft:container_set_slot 140005000601bd0801000302
+PKT Steve minecraft:set_health 6a414016f01440400000

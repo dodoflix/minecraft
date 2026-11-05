@@ -1,6 +1,7 @@
 //! The entity half of `ServerLevel`: id allocation, adding, lookups, queries, the take-out loop and the
 //! `ServerLevel.EntityCallbacks` (applied from the manager's event queue).
 
+use super::entity_tracker::{Entities, TrackerPlayer};
 use super::ServerLevel;
 use crate::world::entity::{Entity, EntityId, RemovalReason};
 use crate::world::level::entity::EntityLevelEvent;
@@ -104,13 +105,46 @@ impl ServerLevel {
 
     /// Take an entity out of its slot (lookups return `None` while it is out). Pair with [`ServerLevel::put_back_entity`].
     pub fn take_entity(&mut self, id: EntityId) -> Option<Box<dyn Entity>> {
-        self.entity_manager.take(id)
+        let entity = self.entity_manager.take(id)?;
+        if let Some(p) = entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>() {
+            self.taken_out_players.insert(id, super::TrackerPlayer::of(p));
+        }
+        Some(entity)
     }
 
     /// Put a taken-out entity back and apply removal / section moves (`EntityInLevelCallback`).
     pub fn put_back_entity(&mut self, id: EntityId, entity: Box<dyn Entity>) {
+        self.taken_out_players.remove(&id);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
+        if let Some(ops) = self.deferred_level_ops.remove(&id)
+            && let Some(mut entity) = self.take_entity(id)
+        {
+            for op in ops {
+                op(self, entity.as_mut());
+            }
+            self.put_back_entity(id, entity);
+        }
+    }
+
+    /// Run `f` on entity `id` now if it is in storage (returns its result); if the entity is taken out (it is the
+    /// one running, e.g. the attacker whose hit kills the victim) `f` runs when it is put back and `None` is returned.
+    pub fn with_entity_or_defer<R: 'static>(&mut self, id: EntityId, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R + 'static) -> Option<R> {
+        match self.take_entity(id) {
+            Some(mut entity) => {
+                let result = f(self, entity.as_mut());
+                self.put_back_entity(id, entity);
+                Some(result)
+            }
+            None => {
+                if self.entity_manager.has_entity_with_id(id) {
+                    self.deferred_level_ops.entry(id).or_default().push(Box::new(move |level, entity| {
+                        f(level, entity);
+                    }));
+                }
+                None
+            }
+        }
     }
 
     /// Apply pending removal / section changes of an entity that was mutated in place.
@@ -196,8 +230,8 @@ impl ServerLevel {
                         self.chunk_source.chunk_map.add_player(info);
                     }
                 }
-                let players = super::tracker_players(&self.entity_manager, &self.players);
-                self.entity_tracker.add_entity(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, id);
+                let players = self.tracker_players();
+                self.entity_tracker.add_entity(&mut Entities::new(&mut self.entity_manager), &self.chunk_source.chunk_map, &players, id);
             }
             EntityLevelEvent::TrackingEnd(id) => {
                 if self.players.contains(&id) {
@@ -210,7 +244,7 @@ impl ServerLevel {
                     .or_else(|| self.entity_manager.get_any(id))
                     .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
                     .map(super::TrackerPlayer::of);
-                self.entity_tracker.remove_entity(id, player.as_ref());
+                self.entity_tracker.remove_entity(&mut Entities::new(&mut self.entity_manager), id, player.as_ref());
             }
             // tick list is maintained by the manager; the other callbacks have no state of their own yet
             EntityLevelEvent::Created(_)
@@ -221,36 +255,39 @@ impl ServerLevel {
         }
     }
 
-    /// What `FoodData.tick` reads from the level (`getDifficulty()`, `NATURAL_HEALTH_REGENERATION`): vanilla defaults
-    /// until the level data / game rules are wired into `ServerLevel`.
-    pub fn player_food_rules(&self) -> crate::world::entity::player::food_data::FoodTickRules {
-        Default::default()
+    /// `level.players()` as the tracker reads them: live players from storage, players that are currently taken out
+    /// (their packet or tick is being handled) from the snapshot taken when they were taken out.
+    pub fn tracker_players(&self) -> Vec<super::TrackerPlayer> {
+        self.players
+            .iter()
+            .filter_map(|&id| {
+                match self.entity_manager.get_any(id).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>()) {
+                    Some(p) => Some(super::TrackerPlayer::of(p)),
+                    None => self.taken_out_players.get(&id).cloned(),
+                }
+            })
+            .collect()
     }
 
     /// `ChunkMap.tick()`'s entity half (`updateTrackedEntities` + `sendChanges`).
     pub fn tick_entity_tracker(&mut self) {
-        let players = super::tracker_players(&self.entity_manager, &self.players);
-        self.entity_tracker.tick(&mut self.entity_manager, &self.chunk_source.chunk_map, &players);
-    }
-
-    /// `ChunkMap.move(player)` entity half (the player changed section).
-    pub fn entity_tracker_move_player(&mut self, id: EntityId) {
-        let players = super::tracker_players(&self.entity_manager, &self.players);
-        if let Some(p) = players.iter().find(|p| p.id == id).cloned() {
-            self.entity_tracker.move_player(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, &p);
-        }
+        let players = self.tracker_players();
+        self.entity_tracker.tick(&mut Entities::new(&mut self.entity_manager), &self.chunk_source.chunk_map, &players);
     }
 
     /// `ChunkMap.move(player)` entity half for a player that is currently taken out of the level (its packet or tick
-    /// is being handled): the tracker works from the explicit snapshot instead of looking the player up in storage.
-    pub fn entity_tracker_move_taken_out_player(&mut self, player: &crate::world::entity::ServerPlayer) {
-        let mut players = super::tracker_players(&self.entity_manager, &self.players);
-        let snapshot = super::entity_tracker::TrackerPlayer::of(player);
+    /// is being handled): the player is passed explicitly. Call it BEFORE the chunk map's own `move_player` (vanilla
+    /// runs the tracker loop first, with the previous chunk tracking view).
+    pub fn entity_tracker_move_taken_out_player(&mut self, player: &mut crate::world::entity::ServerPlayer) {
+        let mut players = self.tracker_players();
+        let snapshot = TrackerPlayer::of(player);
         match players.iter_mut().find(|p| p.id == snapshot.id) {
             Some(p) => *p = snapshot.clone(),
             None => players.push(snapshot.clone()),
         }
-        self.entity_tracker.move_player(&mut self.entity_manager, &self.chunk_source.chunk_map, &players, &snapshot);
+        self.taken_out_players.insert(snapshot.id, snapshot.clone());
+        let mut entities = Entities::with_extra(&mut self.entity_manager, player);
+        self.entity_tracker.move_player(&mut entities, &self.chunk_source.chunk_map, &players, &snapshot);
     }
 
     // ---- queries ----------------------------------------------------------------------------------------------
@@ -385,17 +422,5 @@ impl ServerLevel {
             id
         };
         root(a) == root(b)
-    }
-}
-
-impl ServerLevel {
-    /// `MinecraftServer.isUnderSpawnProtection(level, pos, player)`.
-    pub fn is_under_spawn_protection(&self, player: &crate::world::entity::ServerPlayer, pos: mc_core::pos::BlockPos) -> bool {
-        self.spawn_protection_hook.is_some_and(|h| h(self, player, pos))
-    }
-
-    /// `Level.mayInteract(player, pos)`: border/spawn rules; no rule is modelled beyond the hook, so allowed.
-    pub fn may_interact(&self, _player: EntityId, _pos: mc_core::pos::BlockPos) -> bool {
-        true
     }
 }

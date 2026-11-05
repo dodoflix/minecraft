@@ -17,6 +17,8 @@ pub trait FluidBehaviour: Send + Sync + 'static {
     fn tick(&self, _level: &mut ServerLevel, _pos: BlockPos, _block_state: BlockState, _fluid_state: FluidState) {}
     /// `randomTick`.
     fn random_tick(&self, _level: &mut ServerLevel, _pos: BlockPos, _fluid_state: FluidState) {}
+    /// `entityInside(level, pos, entity, effectApplier)`.
+    fn entity_inside(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn crate::world::entity::Entity, _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier) {}
     /// `canBeReplacedWith(state, level, pos, other, direction)`.
     fn can_be_replaced_with(&self, _state: FluidState, _level: &dyn BlockGetter, _pos: BlockPos, _other: Fluid, _direction: Direction) -> bool {
         false
@@ -73,7 +75,10 @@ pub fn fluid_behaviour(fluid: Fluid) -> &'static dyn FluidBehaviour {
             Fluid::iter()
                 .map(|f| match FLUIDS.iter().find(|r| r.fluid == f.data().name) {
                     Some(r) => (r.create)(f),
-                    None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
+                    None => match super::flowing_fluid::flowing_fluid_for(f) {
+                        Some(flowing) => Box::new(flowing) as Box<dyn FluidBehaviour>,
+                        None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
+                    },
                 })
                 .collect()
         })[fluid.id() as usize]

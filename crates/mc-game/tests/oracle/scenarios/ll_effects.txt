@@ -1,0 +1,29 @@
+# Mob effects on movement: speed, slowness, jump boost, levitation, slow falling (set through addEffect on the vanilla side).
+level flat
+spawn_player Speed survival 0.5 -60 0.5 0 0 sim
+spawn_player Slow survival 4.5 -60 0.5 0 0 sim
+spawn_player Jump survival 8.5 -60 0.5 0 0 sim
+spawn_player Lev survival 12.5 -60 0.5 0 0 sim
+spawn_player Fall survival 16.5 -40 0.5 0 0 sim
+effect Speed minecraft:speed 1 100000
+effect Slow minecraft:slowness 2 100000
+effect Jump minecraft:jump_boost 2 100000
+effect Lev minecraft:levitation 0 100000
+effect Fall minecraft:slow_falling 0 100000
+watch player:Speed player:Slow player:Jump player:Lev player:Fall
+tick 3
+input Speed forward,sprint
+input Slow forward,sprint
+input Jump forward,jump
+input Lev forward
+tick 40
+input Speed forward,sprint,jump
+input Slow forward,sprint,jump
+input Jump jump
+input Lev forward,jump
+tick 40
+input Speed none
+input Slow none
+input Jump none
+input Lev none
+tick 30

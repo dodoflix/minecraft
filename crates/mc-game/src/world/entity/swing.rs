@@ -63,6 +63,11 @@ impl SwingState {
         }
     }
 
+    /// `animation` (the swing progress of the current tick).
+    pub fn animation(&self) -> f32 {
+        self.animation
+    }
+
     pub fn is_swinging(&self) -> bool {
         self.current_swing.is_some()
     }

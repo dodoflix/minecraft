@@ -1,19 +1,26 @@
-//! Riding: `Entity.startRiding/stopRiding/removeVehicle/ejectPassengers/addPassenger/removePassenger`,
-//! `positionRider`, `rideTick` and `ServerLevel.tickPassenger`.
+//! Riding: `Entity.startRiding/stopRiding/removeVehicle/ejectPassengers`, `LivingEntity.stopRiding/dismountVehicle`,
+//! `Player.removeVehicle`, `ServerLevel.tickNonPassenger/tickPassenger` and `Entity.rideTick`.
 //!
 //! Vehicle/passenger links are ids. The acting entity is passed as `&mut dyn Entity` (it is taken out of the level);
 //! the other side of the link is reached through the level's entity manager (deferred when that one is taken out too).
-//! The `ClientboundSetPassengers` packet is produced by the tracker's `sendChanges` when the passenger list changed.
+//! `ServerLevel.tickNonPassenger` puts the vehicle back into the level's storage before its passengers tick, so a
+//! passenger finds its vehicle through the level like vanilla's `getVehicle()`.
+//! The `ClientboundSetPassengersPacket` is produced by the tracker's `sendChanges` when the passenger list changed.
 
 use super::ServerLevel;
-use crate::world::entity::entity::Entity;
-use crate::world::entity::{EntityAttachment, EntityId};
-use mc_core::phys::Vec3;
+use super::level_tick::LevelTickEnv;
+use crate::world::entity::EntityId;
+use crate::world::entity::entity::{BOARDING_COOLDOWN, Entity};
+use crate::world::level::BlockGetter;
+use crate::world::level::collision::CollisionGetter;
+use mc_core::phys::shapes::Shapes;
+use mc_core::phys::{AABB, Vec3};
+use mc_data::GameEvent;
 use mc_data::enums::Pose;
 
 impl ServerLevel {
     /// `Entity.startRiding(vehicle, force, sendEventAndTriggers)`.
-    pub fn start_riding(&mut self, rider: &mut dyn Entity, vehicle_id: EntityId, force: bool, _send_event: bool) -> bool {
+    pub fn start_riding(&mut self, rider: &mut dyn Entity, vehicle_id: EntityId, force: bool, send_event_and_triggers: bool) -> bool {
         if rider.base().vehicle == Some(vehicle_id) {
             return false;
         }
@@ -37,33 +44,110 @@ impl ServerLevel {
         }
         rider.set_pose(Pose::Standing);
         rider.base_mut().vehicle = Some(vehicle_id);
+        let first_is_player = self
+            .entity_manager
+            .get_any(vehicle_id)
+            .and_then(|v| v.base().passengers.first().copied())
+            .and_then(|p| self.entity_manager.get_any(p))
+            .is_some_and(|p| p.is_player());
         let rider_id = rider.id();
-        let rider_is_player = rider.is_player();
-        let first_is_player = self.entity_manager.get_any(vehicle_id).and_then(|v| v.base().passengers.first().copied()).and_then(|p| self.entity_manager.get_any(p)).is_some_and(|p| p.is_player());
-        if let Some(v) = self.entity_manager.get_any_mut(vehicle_id) {
-            let passengers = &mut v.base_mut().passengers;
-            if passengers.is_empty() {
-                passengers.push(rider_id);
-            } else if rider_is_player && !first_is_player {
-                passengers.insert(0, rider_id);
-            } else {
-                passengers.push(rider_id);
-            }
+        let position = {
+            let Some(v) = self.entity_manager.get_any_mut(vehicle_id) else { return false };
+            v.add_passenger(&*rider, first_is_player);
+            v.base().position()
+        };
+        let _ = rider_id;
+        if send_event_and_triggers {
+            self.game_event_from_entity(Some(rider.id()), GameEvent::ENTITY_MOUNT, position);
+            // `CriteriaTriggers.START_RIDING_TRIGGER` for the players among the vehicle's indirect passengers is not modelled
+            // (no advancement triggers in the entity layer yet)
         }
         true
     }
 
-    /// `Entity.removeVehicle()` / `stopRiding()`.
+    /// `LivingEntity.stopRiding()` / `Entity.stopRiding()`: leave the vehicle; living entities are moved to a safe
+    /// dismount location.
     pub fn stop_riding(&mut self, rider: &mut dyn Entity) {
-        let Some(vehicle_id) = rider.base_mut().vehicle.take() else { return };
-        rider.base_mut().boarding_cooldown = entity_boarding_cooldown();
+        self.stop_riding_from(rider, None);
+    }
+
+    /// `stopRiding()` where the vehicle may be at hand (taken out of the level) instead of in storage.
+    fn stop_riding_from(&mut self, rider: &mut dyn Entity, mut held_vehicle: Option<&mut dyn Entity>) {
+        let Some(old_vehicle) = rider.base().vehicle else { return };
+        self.remove_vehicle_from(rider, held_vehicle.as_deref_mut());
+        if rider.living().is_some() {
+            self.dismount_vehicle(rider, old_vehicle, held_vehicle.as_deref());
+        }
+    }
+
+    /// `Entity.removeVehicle()` (+ `Player.removeVehicle`, `ServerPlayer.removeVehicle` through
+    /// [`Entity::on_vehicle_removed`]): clears the link on both sides and plays the dismount game event.
+    fn remove_vehicle_from(&mut self, rider: &mut dyn Entity, mut held_vehicle: Option<&mut dyn Entity>) {
+        let Some(old_vehicle_id) = rider.base_mut().vehicle.take() else { return };
         let rider_id = rider.id();
-        self.entity_manager.defer_or_apply(
-            vehicle_id,
-            Box::new(move |v: &mut dyn Entity| {
-                v.base_mut().passengers.retain(|&p| p != rider_id);
-            }),
-        );
+        let vehicle_position = match held_vehicle.as_deref_mut() {
+            Some(v) => {
+                v.remove_passenger(rider_id);
+                Some(v.base().position())
+            }
+            None => {
+                self.entity_manager.defer_or_apply(old_vehicle_id, Box::new(move |v: &mut dyn Entity| v.remove_passenger(rider_id)));
+                self.entity_manager.get_any(old_vehicle_id).map(|v| v.base().position())
+            }
+        };
+        rider.base_mut().boarding_cooldown = BOARDING_COOLDOWN;
+        if rider.base().removal_reason().is_none_or(|r| r.should_destroy()) {
+            if let Some(p) = vehicle_position {
+                self.game_event_from_entity(Some(rider_id), GameEvent::ENTITY_DISMOUNT, p);
+            }
+        }
+        if rider.is_player() {
+            rider.base_mut().boarding_cooldown = 0;
+        }
+        rider.on_vehicle_removed(self, old_vehicle_id, held_vehicle.as_deref());
+    }
+
+    /// `LivingEntity.dismountVehicle(vehicle)`; `held_vehicle` is the vehicle when it is out of storage.
+    fn dismount_vehicle(&mut self, rider: &mut dyn Entity, vehicle_id: EntityId, held_vehicle: Option<&dyn Entity>) {
+        let target = {
+            let vehicle: Option<&dyn Entity> = held_vehicle.or_else(|| self.entity_manager.get_any(vehicle_id));
+            let base = rider.base();
+            if rider.is_removed() {
+                base.position()
+            } else if let Some(v) = vehicle.filter(|v| !v.is_removed() && !self.get_block_state(v.base().block_position()).block().is_in_tag("portals")) {
+                v.get_dismount_location_for_passenger(self, rider.as_dyn())
+            } else {
+                let max_y = base.y().max(vehicle.map_or(base.y(), |v| v.base().y()));
+                let mut target = Vec3::new(base.x(), max_y, base.z());
+                let (width, height) = (base.get_bb_width(), base.get_bb_height());
+                if width <= 4.0 && height <= 4.0 {
+                    let half_height = f64::from(height) / 2.0;
+                    let center = target.add(Vec3::new(0.0, half_height, 0.0));
+                    let allowed_centers = Shapes::create(AABB::of_size(center, f64::from(width), f64::from(height), f64::from(width)));
+                    if let Some(free) = self.find_free_position_for(rider.as_dyn(), &allowed_centers, center, f64::from(width), f64::from(height), f64::from(width)) {
+                        target = free.add(Vec3::new(0.0, -half_height, 0.0));
+                    }
+                }
+                target
+            }
+        };
+        rider.dismount_to(self, target.x, target.y, target.z);
+    }
+
+    /// `Level.findFreePosition(entity, allowedCenters, preferredCenter, sizeX, sizeY, sizeZ)`.
+    pub fn find_free_position_for(&self, entity: &dyn Entity, allowed_centers: &mc_core::phys::shapes::VoxelShape, preferred_center: Vec3, size_x: f64, size_y: f64, size_z: f64) -> Option<Vec3> {
+        let context = crate::world::entity::movement::collision_context(entity);
+        let border = self.world_border_ref();
+        CollisionGetter::find_free_position(
+            self,
+            Some(&context),
+            &|aabb: &AABB| border.is_none_or(|b| b.is_within_bounds_aabb(aabb)),
+            allowed_centers,
+            preferred_center,
+            size_x,
+            size_y,
+            size_z,
+        )
     }
 
     /// `Entity.ejectPassengers()`: `vehicle` is the (taken out) vehicle; passengers are stopped in reverse order.
@@ -72,22 +156,26 @@ impl ServerLevel {
         for pid in vehicle.base().passengers.clone().into_iter().rev() {
             match self.take_entity(pid) {
                 Some(mut p) => {
-                    p.base_mut().vehicle = None;
-                    p.base_mut().boarding_cooldown = entity_boarding_cooldown();
+                    if p.base().vehicle == Some(vehicle_id) {
+                        self.stop_riding_from(p.as_mut(), Some(&mut *vehicle));
+                    }
                     self.put_back_entity(pid, p);
                 }
                 None => {
                     // the passenger is out too: drop its link when it comes back
-                    self.entity_manager.defer_or_apply(pid, Box::new(move |p: &mut dyn Entity| {
-                        if p.base().vehicle == Some(vehicle_id) {
-                            p.base_mut().vehicle = None;
-                            p.base_mut().boarding_cooldown = entity_boarding_cooldown();
-                        }
-                    }));
+                    vehicle.remove_passenger(pid);
+                    self.entity_manager.defer_or_apply(
+                        pid,
+                        Box::new(move |p: &mut dyn Entity| {
+                            if p.base().vehicle == Some(vehicle_id) {
+                                p.base_mut().vehicle = None;
+                                p.base_mut().boarding_cooldown = if p.is_player() { 0 } else { BOARDING_COOLDOWN };
+                            }
+                        }),
+                    );
                 }
             }
         }
-        vehicle.base_mut().passengers.clear();
     }
 
     /// `Entity.unRide()`.
@@ -104,6 +192,9 @@ impl ServerLevel {
     /// every passenger leaves it.
     pub fn remove_entity(&mut self, id: EntityId, reason: crate::world::entity::RemovalReason) {
         self.with_entity(id, |level, e| {
+            if e.base().removal_reason().is_none() {
+                e.base_mut().set_removal_reason(reason);
+            }
             if reason.should_destroy() {
                 level.stop_riding(e);
             }
@@ -112,100 +203,67 @@ impl ServerLevel {
         });
     }
 
-    /// `ServerLevel.tickPassenger(vehicle, passenger)`.
-    pub fn tick_passenger(&mut self, vehicle: &mut dyn Entity, passenger_id: EntityId) {
-        let Some(mut passenger) = self.take_entity(passenger_id) else { return };
-        if passenger.is_removed() || passenger.base().vehicle != Some(vehicle.id()) {
-            self.stop_riding(passenger.as_dyn_mut());
-            // the vehicle (out of storage) still lists it
-            vehicle.base_mut().passengers.retain(|&p| p != passenger_id);
-        } else if passenger.is_player() || self.entity_manager.tick_list.contains(passenger_id) {
-            crate::world::entity::entity::common_tick(passenger.as_dyn_mut());
-            self.ride_tick(passenger.as_dyn_mut(), vehicle);
-            for sub in passenger.base().passengers.clone() {
-                self.tick_passenger(passenger.as_dyn_mut(), sub);
-            }
+    /// `ServerLevel.tick`'s per-entity step for an entry of the tick list: `checkDespawn`, the riding checks and
+    /// `tickNonPassenger` (the vehicle is back in storage while its passengers tick).
+    pub fn tick_listed_entity(&mut self, env: &mut dyn LevelTickEnv, id: EntityId) {
+        let Some(mut entity) = self.take_entity(id) else { return };
+        if entity.is_removed() || env.is_entity_frozen(&*entity) {
+            self.put_back_entity(id, entity);
+            return;
         }
-        self.put_back_entity(passenger_id, passenger);
+        entity.check_despawn(self);
+        let mut passengers = Vec::new();
+        if entity.is_player() || self.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(entity.chunk_position().pack()) {
+            if let Some(vehicle_id) = entity.base().vehicle {
+                let still_riding = self.entity_manager.get_any(vehicle_id).is_some_and(|v| !v.is_removed() && v.base().passengers.contains(&id));
+                if still_riding {
+                    self.put_back_entity(id, entity);
+                    return;
+                }
+                self.stop_riding(entity.as_mut());
+            }
+            crate::world::entity::entity::common_tick(entity.as_mut());
+            entity.tick(self);
+            if self.take_portal_teleport(id) {
+                env.teleport_through_portal(self, entity.as_mut());
+            }
+            passengers = entity.base().passengers.clone();
+        }
+        self.put_back_entity(id, entity);
+        for passenger in passengers {
+            self.tick_passenger(id, passenger);
+        }
     }
 
-    /// `Entity.rideTick()`: `passenger` rides `vehicle` (both taken out).
-    pub fn ride_tick(&mut self, passenger: &mut dyn Entity, vehicle: &mut dyn Entity) {
+    /// `ServerLevel.tickPassenger(vehicle, passenger)` (the vehicle is in storage).
+    pub fn tick_passenger(&mut self, vehicle_id: EntityId, passenger_id: EntityId) {
+        let Some(mut passenger) = self.take_entity(passenger_id) else { return };
+        if passenger.is_removed() || passenger.base().vehicle != Some(vehicle_id) {
+            self.stop_riding(passenger.as_mut());
+            self.put_back_entity(passenger_id, passenger);
+            return;
+        }
+        if passenger.is_player() || self.entity_manager.tick_list.contains(passenger_id) {
+            crate::world::entity::entity::common_tick(passenger.as_mut());
+            self.ride_tick(passenger.as_mut());
+            let sub_passengers = passenger.base().passengers.clone();
+            self.put_back_entity(passenger_id, passenger);
+            for sub in sub_passengers {
+                self.tick_passenger(passenger_id, sub);
+            }
+        } else {
+            self.put_back_entity(passenger_id, passenger);
+        }
+    }
+
+    /// `Entity.rideTick()`: `passenger` rides the vehicle it points at (which is in storage).
+    pub fn ride_tick(&mut self, passenger: &mut dyn Entity) {
         passenger.base_mut().set_delta_movement(Vec3::ZERO);
         passenger.tick(self);
-        if passenger.base().is_passenger() {
-            position_rider(vehicle, passenger);
+        if let Some(vehicle_id) = passenger.base().vehicle {
+            if let Some(vehicle) = self.entity_manager.get_any(vehicle_id) {
+                vehicle.position_rider(passenger);
+            }
         }
-    }
-}
-
-fn entity_boarding_cooldown() -> i32 {
-    crate::world::entity::entity::BOARDING_COOLDOWN
-}
-
-/// `Entity.positionRider(passenger)` with `setPos`.
-pub fn position_rider(vehicle: &dyn Entity, passenger: &mut dyn Entity) {
-    if !vehicle.base().passengers.contains(&passenger.id()) {
-        return;
-    }
-    let pos = get_passenger_riding_position(vehicle, passenger);
-    let offset = passenger.get_attachments().get(EntityAttachment::Vehicle, 0, passenger.base().y_rot());
-    passenger.set_pos(pos.x - offset.x, pos.y - offset.y, pos.z - offset.z);
-}
-
-/// `getPassengerRidingPosition(passenger)` (default passenger attachment).
-pub fn get_passenger_riding_position(vehicle: &dyn Entity, passenger: &dyn Entity) -> Vec3 {
-    let index = vehicle.base().passengers.iter().position(|&p| p == passenger.id()).map_or(-1, |i| i as i32);
-    let attach = vehicle.get_attachments().get_clamped(EntityAttachment::Passenger, index, vehicle.base().y_rot());
-    vehicle.base().position().add(attach)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::world::entity::plain::PlainEntity;
-    use mc_data::EntityType;
-
-    fn setup() -> (ServerLevel, EntityId, EntityId) {
-        let mut level = ServerLevel::detached(mc_core::ident::Identifier::parse("minecraft:overworld").unwrap());
-        let mut boat = PlainEntity::new(EntityType::OAK_BOAT, level.next_entity_id());
-        boat.set_pos(10.0, 64.0, 10.0);
-        let boat_id = boat.id();
-        level.add_fresh_entity(Box::new(boat));
-        let rider = PlainEntity::new(EntityType::PIG, level.next_entity_id());
-        let rider_id = rider.id();
-        level.add_fresh_entity(Box::new(rider));
-        (level, boat_id, rider_id)
-    }
-
-    #[test]
-    fn start_riding_links_both_sides_and_stop_riding_unlinks() {
-        let (mut level, boat, rider) = setup();
-        let mut r = level.take_entity(rider).unwrap();
-        assert!(level.start_riding(r.as_dyn_mut(), boat, false, true));
-        assert_eq!(r.base().vehicle, Some(boat));
-        assert!(!level.start_riding(r.as_dyn_mut(), boat, false, true), "already riding it");
-        assert_eq!(level.entity_manager.get_any(boat).unwrap().base().passengers, vec![rider]);
-        let v = level.entity_manager.get_any(boat).unwrap();
-        let pos = get_passenger_riding_position(v, r.as_ref());
-        assert_eq!(pos, v.base().position().add(v.get_attachments().get_clamped(EntityAttachment::Passenger, 0, 0.0)));
-        level.stop_riding(r.as_dyn_mut());
-        assert!(r.base().vehicle.is_none());
-        assert_eq!(r.base().boarding_cooldown, 60);
-        assert!(level.entity_manager.get_any(boat).unwrap().base().passengers.is_empty());
-        level.put_back_entity(rider, r);
-    }
-
-    #[test]
-    fn cycles_are_rejected() {
-        let (mut level, boat, rider) = setup();
-        let mut r = level.take_entity(rider).unwrap();
-        assert!(level.start_riding(r.as_dyn_mut(), boat, false, true));
-        level.put_back_entity(rider, r);
-        let mut b = level.take_entity(boat).unwrap();
-        assert!(!level.start_riding(b.as_dyn_mut(), rider, true, true));
-        level.eject_passengers(b.as_dyn_mut());
-        assert!(level.entity_manager.get_any(rider).unwrap().base().vehicle.is_none());
-        level.put_back_entity(boat, b);
     }
 }

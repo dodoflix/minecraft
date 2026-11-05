@@ -71,8 +71,13 @@ pub struct ServerLevel {
     pub players: Vec<EntityId>,
     /// `chunkMap.entityMap`: which players see which entity (see `entity_tracker.rs`).
     pub entity_tracker: super::EntityTracker,
-    /// `MinecraftServer.isUnderSpawnProtection(level, pos, player)` (installed by the dedicated server).
-    pub spawn_protection_hook: Option<fn(&ServerLevel, &crate::world::entity::ServerPlayer, BlockPos) -> bool>,
+    /// Handles to the server-global state (scoreboard, player roster), installed by the server (see `level_server_state.rs`).
+    pub server_state: super::LevelServerState,
+    /// Snapshots of the players that are currently taken out of the entity storage (see `tracker_players`).
+    pub(super) taken_out_players: std::collections::HashMap<EntityId, super::TrackerPlayer>,
+    /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
+    /// factory installs them (`detached` levels stay empty).
+    pub registries: crate::registry::RegistryAccess,
 
     /// `chunkSource`.
     pub chunk_source: ServerChunkCache,
@@ -100,7 +105,14 @@ pub struct ServerLevel {
     /// Server clock inputs of `getCurrentDifficultyAt` while a command places worldgen content
     /// (see [`server_level_worldgen::with_worldgen_level`](super::server_level_worldgen::with_worldgen_level)).
     pub worldgen_clock: Option<super::server_level_worldgen::WorldGenClock>,
+    // ==== [Damage] additions (ServerLevel field) ====
+    /// Operations on entities that were taken out (running) when they were requested: run when put back
+    /// (`ServerLevel::with_entity_or_defer`).
+    pub deferred_level_ops: std::collections::HashMap<EntityId, Vec<DeferredLevelOp>>,
 }
+
+/// A change to an entity that needs the level (kill credit, stats) and runs once the entity is back in storage.
+pub type DeferredLevelOp = Box<dyn FnOnce(&mut ServerLevel, &mut dyn crate::world::entity::Entity)>;
 
 impl ServerLevel {
     /// `new ServerLevel(...)` for the chunk side: creates the chunk source over the dimension folder.
@@ -137,7 +149,9 @@ impl ServerLevel {
             entity_manager: PersistentEntitySectionManager::new(None),
             players: Vec::new(),
             entity_tracker: Default::default(),
-            spawn_protection_hook: None,
+            server_state: Default::default(),
+            taken_out_players: Default::default(),
+            registries: Default::default(),
             chunk_source,
             shared: params.shared,
             level_data: params.level_data,
@@ -153,6 +167,8 @@ impl ServerLevel {
             tick_state,
             gen_env: None,
             worldgen_clock: None,
+            // ==== [Damage] additions (ServerLevel::new initializer) ====
+            deferred_level_ops: Default::default(),
         }
     }
 
@@ -264,7 +280,6 @@ impl ServerLevel {
                 self.entity_manager.add_legacy_chunk_entities(entities);
                 self.process_entity_events();
             }
-            ChunkMapEvent::PlayerMovedSection(id) => self.entity_tracker_move_player(id),
         }
     }
 
@@ -413,6 +428,7 @@ impl ServerLevel {
         for id in ids {
             self.chunk_source.chunk_map.update_chunk_tracking(id);
         }
+        self.tick_entity_tracker();
     }
 
     /// `ServerChunkCache.tickChunks()`.

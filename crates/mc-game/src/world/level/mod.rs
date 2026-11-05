@@ -4,6 +4,7 @@ pub mod block;
 pub mod chunk;
 pub mod collision;
 pub mod entity;
+pub mod explosion;
 pub mod flags;
 pub mod gameevent;
 pub mod gamerules;
@@ -14,6 +15,7 @@ pub mod precipitation;
 pub mod redstone;
 pub mod saveddata;
 pub mod shapes;
+pub mod storage;
 pub mod ticket_storage;
 
 pub use level_access::{BlockGetter, LevelAccessor, LevelReader};

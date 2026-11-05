@@ -3,6 +3,7 @@
 use super::TREE_DECORATOR_TYPES;
 use super::shuffle;
 use super::tree_decorator::{Context, TreeDecorator};
+use crate::world::level::levelgen::block_entity_data::base_tag;
 use crate::world::level::levelgen::codec::{TypeEntry, parse_float_range};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
@@ -31,11 +32,7 @@ fn beehive_block_entity_nbt(pos: BlockPos, ticks_in_hive: &[i32]) -> CompoundTag
         bee.put_int("ticks_in_hive", ticks);
         bees.push(Tag::Compound(bee));
     }
-    let mut tag = CompoundTag::new();
-    tag.put_string("id", "minecraft:beehive");
-    tag.put_int("x", pos.x());
-    tag.put_int("y", pos.y());
-    tag.put_int("z", pos.z());
+    let mut tag = base_tag("minecraft:beehive", pos);
     tag.put("bees", Tag::List(bees));
     tag
 }

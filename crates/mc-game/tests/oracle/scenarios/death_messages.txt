@@ -1,0 +1,762 @@
+# Death messages: every damage type x (no attacker | mob attacker | named-weapon player attacker); the victim's player_combat_kill and the broadcast system_chat to an observer.
+level flat
+difficulty normal
+gamerule keep_inventory true
+spawn Z minecraft:zombie 40.5 -60 0.5 90 0 {NoAI:1b,PersistenceRequired:1b,CustomName:'"Bob"'}
+spawn_player Obs survival 100.5 -60 0.5 0 0
+spawn_player Killer survival 44.5 -60 0.5 0 0
+give Killer mainhand minecraft:diamond_sword[custom_name='"Excalibur"']
+give Killer offhand minecraft:stick
+spawn_player V survival 10.5 -60 10.5 0 0
+tick 1
+dump packets:Obs packets:Killer packets:V
+hurt V generic 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V generic 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V generic 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V in_fire 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V in_fire 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V in_fire 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V campfire 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V campfire 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V campfire 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V lightning_bolt 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V lightning_bolt 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V lightning_bolt 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V on_fire 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V on_fire 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V on_fire 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V lava 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V lava 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V lava 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V hot_floor 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V hot_floor 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V hot_floor 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V in_wall 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V in_wall 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V in_wall 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V cramming 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V cramming 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V cramming 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V drown 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V drown 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V drown 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V starve 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V starve 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V starve 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V cactus 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V cactus 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V cactus 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fall 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fall 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fall 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V ender_pearl 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V ender_pearl 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V ender_pearl 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fly_into_wall 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fly_into_wall 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fly_into_wall 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V out_of_world 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V out_of_world 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V out_of_world 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V magic 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V magic 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V magic 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wither 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wither 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wither 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V dragon_breath 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V dragon_breath 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V dragon_breath 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V dry_out 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V dry_out 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V dry_out 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sweet_berry_bush 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sweet_berry_bush 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sweet_berry_bush 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V freeze 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V freeze 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V freeze 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V stalagmite 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V stalagmite 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V stalagmite 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_block 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_block 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_block 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_anvil 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_anvil 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_anvil 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_stalactite 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_stalactite 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V falling_stalactite 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sting 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sting 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sting 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_attack 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_attack 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_attack 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_attack_no_aggro 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_attack_no_aggro 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_attack_no_aggro 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V player_attack 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V player_attack 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V player_attack 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V arrow 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V arrow 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V arrow 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V trident 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V trident 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V trident 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_projectile 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_projectile 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mob_projectile 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V spit 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V spit 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V spit 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wind_charge 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wind_charge 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wind_charge 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fireworks 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fireworks 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fireworks 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fireball 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fireball 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V fireball 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V unattributed_fireball 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V unattributed_fireball 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V unattributed_fireball 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wither_skull 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wither_skull 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V wither_skull 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V thrown 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V thrown 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V thrown 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V indirect_magic 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V indirect_magic 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V indirect_magic 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V thorns 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V thorns 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V thorns 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V explosion 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V explosion 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V explosion 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V player_explosion 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V player_explosion 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V player_explosion 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sonic_boom 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sonic_boom 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V sonic_boom 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V bad_respawn_point 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V bad_respawn_point 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V bad_respawn_point 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V outside_border 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V outside_border 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V outside_border 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V generic_kill 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V generic_kill 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V generic_kill 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mace_smash 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mace_smash 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V mace_smash 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V spear 1000
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V spear 1000 by=Z direct=Z
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs
+hurt V spear 1000 by=Killer direct=Killer
+dump packets:V packets:Obs
+respawn V
+tick 1
+dump packets:V packets:Obs

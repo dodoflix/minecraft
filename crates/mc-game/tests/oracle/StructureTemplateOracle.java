@@ -30,7 +30,7 @@ import net.minecraft.world.phys.Vec3;
  * Oracle of crates/mc-game/tests/structure_template_golden.rs: the real {@code StructureTemplate.placeInWorld} (with the
  * real processors) over the synthetic world of FeatureOracleBase for every template of the vanilla data pack, plus the
  * static transform math.
- * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/StructureTemplateOracle.java crates/mc-game/tests/fixtures/structure_template_place.txt [templateFilter] [fullDumpScenarioId]
+ * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/StructureTemplateOracle.java crates/mc-game/tests/fixtures/structure_template_place.txt [templateFilter] (then gzip -9 -f the fixture) [fullDumpScenarioId]
  *
  * Output lines:
  *   X <kind> ...                          static math (transform / zero position / bounding box)
@@ -68,7 +68,7 @@ public class StructureTemplateOracle {
     }
 
     static final String[] JSON_PROCESSORS = {
-        "{\"processor_type\":\"minecraft:block_ignore\",\"blocks\":[{\"Name\":\"minecraft:air\"},{\"Name\":\"minecraft:structure_block\"}]}",
+        "{\"processor_type\":\"minecraft:block_ignore\",\"blocks\":[{\"id\":\"minecraft:air\"},{\"id\":\"minecraft:structure_block\"}]}",
         "{\"processor_type\":\"minecraft:jigsaw_replacement\"}",
         "{\"processor_type\":\"minecraft:gravity\",\"heightmap\":\"WORLD_SURFACE_WG\",\"offset\":-1}",
         "{\"processor_type\":\"minecraft:gravity\",\"heightmap\":\"OCEAN_FLOOR\",\"offset\":2}",
@@ -81,8 +81,67 @@ public class StructureTemplateOracle {
         "{\"processor_type\":\"minecraft:nop\"}",
         "{\"processor_type\":\"minecraft:capped\",\"limit\":{\"type\":\"minecraft:uniform\",\"min_inclusive\":1,\"max_inclusive\":6},\"delegate\":{\"processor_type\":\"minecraft:block_rot\",\"integrity\":0.0}}",
         "{\"processor_type\":\"minecraft:capped\",\"limit\":5,\"delegate\":{\"processor_type\":\"minecraft:blackstone_replace\"}}",
-        "{\"processor_type\":\"minecraft:rule\",\"rules\":[{\"input_predicate\":{\"predicate_type\":\"minecraft:random_block_match\",\"block\":\"minecraft:stone_bricks\",\"probability\":0.5},\"location_predicate\":{\"predicate_type\":\"minecraft:always_true\"},\"position_predicate\":{\"predicate_type\":\"minecraft:linear_pos\",\"min_chance\":0.1,\"max_chance\":0.9,\"min_dist\":0,\"max_dist\":12},\"output_state\":{\"Name\":\"minecraft:mossy_stone_bricks\"}},{\"input_predicate\":{\"predicate_type\":\"minecraft:tag_match\",\"tag\":\"minecraft:logs\"},\"location_predicate\":{\"predicate_type\":\"minecraft:not\",\"rule\":{\"predicate_type\":\"minecraft:block_match\",\"block\":\"minecraft:stone\"}},\"position_predicate\":{\"predicate_type\":\"minecraft:axis_aligned_linear_pos\",\"axis\":\"y\",\"min_chance\":0.0,\"max_chance\":1.0,\"min_dist\":2,\"max_dist\":9},\"output_state\":{\"Name\":\"minecraft:oak_planks\"},\"block_entity_modifier\":{\"type\":\"minecraft:clear\"}},{\"input_predicate\":{\"predicate_type\":\"minecraft:any_of\",\"rules\":[{\"predicate_type\":\"minecraft:blockstate_match\",\"block_state\":{\"Name\":\"minecraft:chest\",\"Properties\":{\"facing\":\"north\",\"type\":\"single\",\"waterlogged\":\"false\"}}},{\"predicate_type\":\"minecraft:block_match\",\"block\":\"minecraft:barrel\"}]},\"location_predicate\":{\"predicate_type\":\"minecraft:height_match\",\"min_inclusive\":0,\"max_inclusive\":200},\"output_state\":{\"Name\":\"minecraft:barrel\",\"Properties\":{\"facing\":\"up\",\"open\":\"false\"}},\"block_entity_modifier\":{\"type\":\"minecraft:append_loot\",\"loot_table\":\"minecraft:chests/simple_dungeon\"}}]}",
+        "{\"processor_type\":\"minecraft:rule\",\"rules\":[{\"input_predicate\":{\"predicate_type\":\"minecraft:random_block_match\",\"block\":\"minecraft:stone_bricks\",\"probability\":0.5},\"location_predicate\":{\"predicate_type\":\"minecraft:always_true\"},\"position_predicate\":{\"predicate_type\":\"minecraft:linear_pos\",\"min_chance\":0.1,\"max_chance\":0.9,\"min_dist\":0,\"max_dist\":12},\"output_state\":{\"id\":\"minecraft:mossy_stone_bricks\"}},{\"input_predicate\":{\"predicate_type\":\"minecraft:tag_match\",\"tag\":\"minecraft:logs\"},\"location_predicate\":{\"predicate_type\":\"minecraft:not\",\"rule\":{\"predicate_type\":\"minecraft:block_match\",\"block\":\"minecraft:stone\"}},\"position_predicate\":{\"predicate_type\":\"minecraft:axis_aligned_linear_pos\",\"axis\":\"y\",\"min_chance\":0.0,\"max_chance\":1.0,\"min_dist\":2,\"max_dist\":9},\"output_state\":{\"id\":\"minecraft:oak_planks\"},\"block_entity_modifier\":{\"type\":\"minecraft:clear\"}},{\"input_predicate\":{\"predicate_type\":\"minecraft:any_of\",\"rules\":[{\"predicate_type\":\"minecraft:blockstate_match\",\"block_state\":{\"id\":\"minecraft:chest\",\"properties\":{\"facing\":\"north\",\"type\":\"single\",\"waterlogged\":\"false\"}}},{\"predicate_type\":\"minecraft:block_match\",\"block\":\"minecraft:barrel\"}]},\"location_predicate\":{\"predicate_type\":\"minecraft:height_match\",\"min_inclusive\":0,\"max_inclusive\":200},\"output_state\":{\"id\":\"minecraft:barrel\",\"properties\":{\"facing\":\"up\",\"open\":\"false\"}},\"block_entity_modifier\":{\"type\":\"minecraft:append_loot\",\"loot_table\":\"minecraft:chests/simple_dungeon\"}}]}",
     };
+
+
+    /** Stub for {@code getLevel()}: only {@code getSeed()} is used by the processors (CappedProcessor). */
+    static class FakeServerLevel extends net.minecraft.server.level.ServerLevel {
+        long fakeSeed;
+
+        FakeServerLevel() {
+            super(null, null, null, null, null, null, false, 0L, List.of(), false);
+        }
+
+        @Override
+        public long getSeed() {
+            return fakeSeed;
+        }
+    }
+
+    /** One region per seed (building the synthetic chunks dominates the run time): reset to the snapshot between scenarios. */
+    static final Map<Long, FeatureOracleBase.Region> REGIONS = new HashMap<>();
+    static final Map<Long, FeatureOracleBase.Snapshot> SNAPSHOTS = new HashMap<>();
+
+    static FeatureOracleBase.Region regionFor(long seed, int cx, int cz) throws Exception {
+        FeatureOracleBase.Region region = REGIONS.get(seed);
+        if (region == null) {
+            region = FeatureOracleBase.newRegion(seed, cx, cz, ChunkStatus.FEATURES, 2);
+            java.lang.reflect.Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
+            uf.setAccessible(true);
+            FakeServerLevel level = (FakeServerLevel) ((sun.misc.Unsafe) uf.get(null)).allocateInstance(FakeServerLevel.class);
+            level.fakeSeed = seed;
+            region.serverLevel = level;
+            // the static environment attribute layers (dimension + biomes) of the overworld: LiquidBlock.updateShape reads fast_lava
+            FeatureOracleBase.setField(region, "dimensionType", FeatureOracleBase.ACCESS.lookupOrThrow(Registries.DIMENSION_TYPE)
+                .getOrThrow(net.minecraft.world.level.dimension.BuiltinDimensionTypes.OVERWORLD).value());
+            FeatureOracleBase.setField(region, "environmentAttributes", net.minecraft.world.attribute.EnvironmentAttributeSystem.builder().addStaticLayers(region).build());
+            REGIONS.put(seed, region);
+            SNAPSHOTS.put(seed, FeatureOracleBase.snapshot(region));
+            return region;
+        }
+        FeatureOracleBase.Snapshot before = SNAPSHOTS.get(seed);
+        for (net.minecraft.world.level.chunk.ProtoChunk c : FeatureOracleBase.sortedChunks(region)) {
+            net.minecraft.world.level.block.state.BlockState[] was = before.blocks.get(c.getPos().pack());
+            net.minecraft.world.level.block.state.BlockState[] now = FeatureOracleBase.blocksOf(c);
+            BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+            for (int i = 0; i < now.length; i++)
+                if (now[i] != was[i]) c.setBlockState(p.set(c.getPos().getMinBlockX() + (i & 15), FeatureOracleBase.MIN_Y + (i >> 8), c.getPos().getMinBlockZ() + ((i >> 4) & 15)), was[i], 0);
+            for (BlockPos bp : new ArrayList<>(c.getBlockEntitiesPos())) c.removeBlockEntity(bp);
+            for (var sl : c.getPostProcessing()) if (sl != null) sl.clear();
+            c.getEntities().clear();
+            for (Object ticks : new Object[] {c.getBlockTicks(), c.getFluidTicks()}) {
+                for (String field : new String[] {"ticks", "ticksPerPosition"}) {
+                    java.lang.reflect.Field f = net.minecraft.world.ticks.ProtoChunkTicks.class.getDeclaredField(field);
+                    f.setAccessible(true);
+                    ((java.util.Collection<?>) f.get(ticks)).clear();
+                }
+            }
+        }
+        FeatureOracleBase.setField(region, "random", FeatureOracleBase.randomState(seed).getOrCreateRandomFactory(Identifier.withDefaultNamespace("worldgen_region_random")).at(new ChunkPos(cx, cz).getWorldPosition()));
+        FeatureOracleBase.setField(region, "subTickCount", new java.util.concurrent.atomic.AtomicLong());
+        return region;
+    }
 
     static String fnvLines(List<String> lines, char kind) {
         FeatureOracleBase.Fnv f = new FeatureOracleBase.Fnv();
@@ -144,6 +203,8 @@ public class StructureTemplateOracle {
 
     public static void main(String[] args) throws Exception {
         FeatureOracleBase.setup();
+        // what the server does after loading the data packs: bind the item/block default components (block entity items, vault)
+        BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(FeatureOracleBase.ACCESS).forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
         ops = RegistryOps.create(JsonOps.INSTANCE, FeatureOracleBase.ACCESS);
         String filter = args.length > 1 ? args[1] : null;
         int fullDumpId = args.length > 2 ? Integer.parseInt(args[2]) : -1;
@@ -177,9 +238,11 @@ public class StructureTemplateOracle {
                 Vec3i size = template.getSize();
                 int span = Math.max(size.getX(), size.getZ());
                 int px = r.nextInt(4) == 0 ? r.nextInt(Math.max(1, size.getX())) : 0, pz = r.nextInt(4) == 0 ? r.nextInt(Math.max(1, size.getZ())) : 0;
-                int x = cx * 16 + r.nextInt(Math.max(1, 28 - Math.min(span, 28))) - 14 + r.nextInt(8);
+                // the writable zone of the FEATURES step is the 3x3 chunks around the center: x in [cx*16-16, cx*16+31]; keep a one
+                // block margin so that neighbour reads stay inside the readable zone (larger templates stick out on purpose)
+                int x = cx * 16 - 15 + (span < 46 ? r.nextInt(46 - span) : -r.nextInt(8));
                 int y = 50 + r.nextInt(26);
-                int z = cz * 16 + r.nextInt(Math.max(1, 28 - Math.min(span, 28))) - 14 + r.nextInt(8);
+                int z = cz * 16 - 15 + (span < 46 ? r.nextInt(46 - span) : -r.nextInt(8));
                 boolean ignoreEntities = r.nextInt(3) == 0;
                 boolean knownShape = r.nextInt(4) == 0;
                 String liquid = liquids[r.nextInt(5) == 0 ? 1 : 0];
@@ -203,8 +266,8 @@ public class StructureTemplateOracle {
                 out.println("SC " + scenario + " " + name + " " + seed + " " + cx + " " + cz + " " + rot.name() + " " + mir.name() + " " + px + " " + pz + " " + x + " " + y + " " + z + " " + x + " " + y + " " + z + " "
                     + ignoreEntities + " " + knownShape + " " + liquid + " " + bb + " " + settingsRandom + " " + procSpec + " " + flags + " " + rngSeed + " " + 1);
                 out.flush();
-                FeatureOracleBase.Region region = FeatureOracleBase.newRegion(seed, cx, cz, ChunkStatus.FEATURES, 2);
-                FeatureOracleBase.Snapshot before = FeatureOracleBase.snapshot(region);
+                FeatureOracleBase.Region region = regionFor(seed, cx, cz);
+                FeatureOracleBase.Snapshot before = SNAPSHOTS.get(seed);
                 StructurePlaceSettings settings = new StructurePlaceSettings().setRotation(rot).setMirror(mir).setRotationPivot(new BlockPos(px, 0, pz))
                     .setIgnoreEntities(ignoreEntities).setKnownShape(knownShape).setLiquidSettings(LiquidSettings.valueOf(liquid));
                 if (!bb.equals("-")) {
@@ -220,6 +283,7 @@ public class StructureTemplateOracle {
                     result = "" + template.placeInWorld(region, pos, pos, settings, random, flags);
                 } catch (Throwable e) {
                     result = "EXC:" + e.getClass().getSimpleName();
+                    if (filter != null) e.printStackTrace(); // with a template filter: show why vanilla throws
                 }
                 out.println("R " + result);
                 StructurePlaceSettings q = new StructurePlaceSettings().setRotation(rot).setMirror(mir).setRotationPivot(new BlockPos(px, 0, pz));

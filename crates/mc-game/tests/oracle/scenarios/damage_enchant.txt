@@ -1,0 +1,206 @@
+# Enchantment protection (protection/fire/blast/projectile/feather falling, thorns excluded) x damage types; EnchantmentHelper.getDamageProtection pipeline.
+level flat
+difficulty normal
+spawn_player E1 survival 4.5 -60 0.5 0 0
+give E1 head minecraft:iron_helmet[enchantments={"minecraft:protection":4}]
+give E1 chest minecraft:iron_chestplate[enchantments={"minecraft:protection":4}]
+give E1 legs minecraft:iron_leggings[enchantments={"minecraft:protection":4}]
+give E1 feet minecraft:iron_boots[enchantments={"minecraft:protection":4}]
+tick 1
+dump player:E1 packets:E1
+hurt E1 generic 8
+tick 21
+set E1 health 20
+hurt E1 in_fire 6
+tick 21
+set E1 health 20
+hurt E1 explosion 9
+tick 21
+set E1 health 20
+hurt E1 arrow 7
+tick 21
+set E1 health 20
+hurt E1 fall 12
+tick 21
+set E1 health 20
+hurt E1 magic 5
+tick 21
+set E1 health 20
+hurt E1 out_of_world 4
+tick 21
+set E1 health 20
+dump player:E1 inventory:E1 packets:E1
+spawn_player E2 survival 8.5 -60 0.5 0 0
+give E2 head minecraft:iron_helmet[enchantments={"minecraft:fire_protection":4}]
+give E2 chest minecraft:iron_chestplate[enchantments={"minecraft:fire_protection":4}]
+give E2 legs minecraft:iron_leggings[enchantments={"minecraft:fire_protection":4}]
+give E2 feet minecraft:iron_boots[enchantments={"minecraft:fire_protection":4}]
+tick 1
+dump player:E2 packets:E2
+hurt E2 generic 8
+tick 21
+set E2 health 20
+hurt E2 in_fire 6
+tick 21
+set E2 health 20
+hurt E2 explosion 9
+tick 21
+set E2 health 20
+hurt E2 arrow 7
+tick 21
+set E2 health 20
+hurt E2 fall 12
+tick 21
+set E2 health 20
+hurt E2 magic 5
+tick 21
+set E2 health 20
+hurt E2 out_of_world 4
+tick 21
+set E2 health 20
+dump player:E2 inventory:E2 packets:E2
+spawn_player E3 survival 12.5 -60 0.5 0 0
+give E3 head minecraft:iron_helmet[enchantments={"minecraft:blast_protection":4}]
+give E3 chest minecraft:iron_chestplate[enchantments={"minecraft:blast_protection":4}]
+give E3 legs minecraft:iron_leggings[enchantments={"minecraft:blast_protection":4}]
+give E3 feet minecraft:iron_boots[enchantments={"minecraft:blast_protection":4}]
+tick 1
+dump player:E3 packets:E3
+hurt E3 generic 8
+tick 21
+set E3 health 20
+hurt E3 in_fire 6
+tick 21
+set E3 health 20
+hurt E3 explosion 9
+tick 21
+set E3 health 20
+hurt E3 arrow 7
+tick 21
+set E3 health 20
+hurt E3 fall 12
+tick 21
+set E3 health 20
+hurt E3 magic 5
+tick 21
+set E3 health 20
+hurt E3 out_of_world 4
+tick 21
+set E3 health 20
+dump player:E3 inventory:E3 packets:E3
+spawn_player E4 survival 16.5 -60 0.5 0 0
+give E4 head minecraft:iron_helmet[enchantments={"minecraft:projectile_protection":4}]
+give E4 chest minecraft:iron_chestplate[enchantments={"minecraft:projectile_protection":4}]
+give E4 legs minecraft:iron_leggings[enchantments={"minecraft:projectile_protection":4}]
+give E4 feet minecraft:iron_boots[enchantments={"minecraft:projectile_protection":4}]
+tick 1
+dump player:E4 packets:E4
+hurt E4 generic 8
+tick 21
+set E4 health 20
+hurt E4 in_fire 6
+tick 21
+set E4 health 20
+hurt E4 explosion 9
+tick 21
+set E4 health 20
+hurt E4 arrow 7
+tick 21
+set E4 health 20
+hurt E4 fall 12
+tick 21
+set E4 health 20
+hurt E4 magic 5
+tick 21
+set E4 health 20
+hurt E4 out_of_world 4
+tick 21
+set E4 health 20
+dump player:E4 inventory:E4 packets:E4
+spawn_player E5 survival 20.5 -60 0.5 0 0
+give E5 head minecraft:iron_helmet[enchantments={"minecraft:feather_falling":4}]
+give E5 chest minecraft:iron_chestplate[enchantments={"minecraft:feather_falling":4}]
+give E5 legs minecraft:iron_leggings[enchantments={"minecraft:feather_falling":4}]
+give E5 feet minecraft:iron_boots[enchantments={"minecraft:feather_falling":4}]
+tick 1
+dump player:E5 packets:E5
+hurt E5 generic 8
+tick 21
+set E5 health 20
+hurt E5 in_fire 6
+tick 21
+set E5 health 20
+hurt E5 explosion 9
+tick 21
+set E5 health 20
+hurt E5 arrow 7
+tick 21
+set E5 health 20
+hurt E5 fall 12
+tick 21
+set E5 health 20
+hurt E5 magic 5
+tick 21
+set E5 health 20
+hurt E5 out_of_world 4
+tick 21
+set E5 health 20
+dump player:E5 inventory:E5 packets:E5
+spawn_player E6 survival 24.5 -60 0.5 0 0
+give E6 head minecraft:iron_helmet[enchantments={"minecraft:protection":2}]
+give E6 chest minecraft:iron_chestplate[enchantments={"minecraft:protection":2}]
+give E6 legs minecraft:iron_leggings[enchantments={"minecraft:protection":2}]
+give E6 feet minecraft:iron_boots[enchantments={"minecraft:protection":2}]
+tick 1
+dump player:E6 packets:E6
+hurt E6 generic 8
+tick 21
+set E6 health 20
+hurt E6 in_fire 6
+tick 21
+set E6 health 20
+hurt E6 explosion 9
+tick 21
+set E6 health 20
+hurt E6 arrow 7
+tick 21
+set E6 health 20
+hurt E6 fall 12
+tick 21
+set E6 health 20
+hurt E6 magic 5
+tick 21
+set E6 health 20
+hurt E6 out_of_world 4
+tick 21
+set E6 health 20
+dump player:E6 inventory:E6 packets:E6
+spawn_player E7 survival 28.5 -60 0.5 0 0
+give E7 head minecraft:iron_helmet[enchantments={"minecraft:fire_protection":2}]
+give E7 chest minecraft:iron_chestplate[enchantments={"minecraft:fire_protection":2}]
+give E7 legs minecraft:iron_leggings[enchantments={"minecraft:fire_protection":2}]
+give E7 feet minecraft:iron_boots[enchantments={"minecraft:fire_protection":2}]
+tick 1
+dump player:E7 packets:E7
+hurt E7 generic 8
+tick 21
+set E7 health 20
+hurt E7 in_fire 6
+tick 21
+set E7 health 20
+hurt E7 explosion 9
+tick 21
+set E7 health 20
+hurt E7 arrow 7
+tick 21
+set E7 health 20
+hurt E7 fall 12
+tick 21
+set E7 health 20
+hurt E7 magic 5
+tick 21
+set E7 health 20
+hurt E7 out_of_world 4
+tick 21
+set E7 health 20
+dump player:E7 inventory:E7 packets:E7

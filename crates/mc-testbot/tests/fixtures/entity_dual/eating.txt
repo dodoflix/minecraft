@@ -1,0 +1,1 @@
+eat consumed=true ticks=~32±3 food_gain=5 saturation_gain=6 count_after=2 finish_event=true

@@ -140,7 +140,7 @@ pub struct Configured {
     pub server_links: usize,
     pub report_details: Vec<(String, String)>,
     pub code_of_conduct: Option<String>,
-    pub dialog: Option<Tag>,
+    pub dialog: Option<mc_protocol::dialog::Dialog>,
     /// Set when the server asked for a transfer (the connection is not finished).
     pub transfer: Option<(String, i32)>,
     /// Cookie jar (`store_cookie`), keyed by identifier.

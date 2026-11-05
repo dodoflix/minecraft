@@ -1,0 +1,10 @@
+# Player falls into a 6-deep water pool, then swims forward (sprinting) and sinks again (simulated player physics).
+level flat
+fill -6 -61 -6 6 -50 6 minecraft:water
+spawn_player Steve survival 0.5 -48 0.5 0 0 sim
+watch player:Steve
+tick 25
+input Steve forward,sprint
+tick 40
+input Steve none
+tick 20

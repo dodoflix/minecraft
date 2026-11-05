@@ -230,6 +230,13 @@ impl MinecraftServer {
             level_data,
         });
         level.gen_env = Some(gen_env);
+        level.registries = self.registries.composite_access().clone();
+        level.server_state = crate::server::level::LevelServerState {
+            scoreboard: self.scoreboard.clone(),
+            roster: self.player_list.roster.clone(),
+            loot: self.loot_services(),
+            spawn_protection: Default::default(),
+        };
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;
         level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
@@ -426,7 +433,14 @@ impl MinecraftServer {
         self.flush_scoreboard();
         self.flush_world_border_events();
         for dimension in self.level_keys() {
+            let spawn_protection = crate::server::level::SpawnProtection {
+                respawn: Some(self.get_respawn_data()),
+                radius: self.spawn_protection_radius(),
+                ops_empty: self.player_list.ops.is_empty(),
+                op_players: self.player_list.players().iter().filter(|p| self.player_list.is_op(&p.name_and_id())).map(|p| p.uuid).collect(),
+            };
             let result = self.with_level(&dimension, |server, level| {
+                level.server_state.spawn_protection = spawn_protection;
                 let mut env = ServerTickEnv { server, dimension: dimension.clone() };
                 panic::catch_unwind(AssertUnwindSafe(|| level.tick(&mut env, &mut *have_time))).map_err(|payload| {
                     let mut report = CrashReport::for_throwable(payload, "Exception ticking world");
@@ -456,10 +470,30 @@ impl MinecraftServer {
 
     // ------------------------------------------------------------------ saving
 
+    /// The server data loot reads, shared with a level when it is created.
+    pub(super) fn loot_services(&self) -> crate::world::level::storage::loot::server_access::LootServices {
+        crate::world::level::storage::loot::server_access::LootServices {
+            random_sequences: self.loot_random_sequences.clone(),
+            world_seed: self.world_gen_settings.options.seed,
+            ..Default::default()
+        }
+    }
+
+    /// Copies the live random sequences into the saved data entry so that the next save writes them.
+    fn sync_random_sequences_to_saved_data(&mut self) {
+        use crate::world::level::saveddata::SavedData;
+        let mut live = self.loot_random_sequences.lock();
+        if live.is_dirty() {
+            *self.saved_data.compute_if_absent(&self.saved_types.random_sequences) = live.clone();
+            live.set_dirty_to(false);
+        }
+    }
+
     /// `saveAllChunks` (+ the notifications of `DedicatedServer.saveAllChunks`).
     pub fn save_all_chunks(&mut self, silent: bool, flush: bool, force: bool) -> bool {
         self.flush_scoreboard();
         self.store_scoreboard();
+        self.sync_random_sequences_to_saved_data();
         self.notification_manager.server_save_started();
         let level_name = self.world_data.lock().settings.level_name.clone();
         let mut result = false;
@@ -581,6 +615,7 @@ impl MinecraftServer {
         }
 
         self.shared.set_saving(false);
+        self.sync_random_sequences_to_saved_data();
         self.saved_data.close();
         self.resources.resource_manager.close();
         if let Err(e) = self.storage_source.close() {

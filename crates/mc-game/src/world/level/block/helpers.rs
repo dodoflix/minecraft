@@ -71,22 +71,9 @@ pub fn get_state_for_placement(block: mc_data::block::Block, level: &mut crate::
     super::behaviour(block).get_state_for_placement(block, level, context)
 }
 
-/// Implementation of `Block.dropResources(state, level, pos, blockEntity, breaker, tool)` supplied by the loot slice
-/// (loot tables, item entities). Until it registers itself nothing drops.
-pub type DropResourcesFn = fn(&mut crate::server::level::ServerLevel, BlockState, BlockPos, Option<crate::world::entity::EntityId>);
-
-static DROP_RESOURCES: std::sync::OnceLock<DropResourcesFn> = std::sync::OnceLock::new();
-
-/// Registers the drop implementation (once, at startup).
-pub fn set_drop_resources(f: DropResourcesFn) {
-    let _ = DROP_RESOURCES.set(f);
-}
-
-/// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)`.
+/// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)` of a destroyed block (`Level.destroyBlock`).
 pub fn drop_resources(level: &mut crate::server::level::ServerLevel, state: BlockState, pos: BlockPos, breaker: Option<crate::world::entity::EntityId>) {
-    if let Some(f) = DROP_RESOURCES.get() {
-        f(level, state, pos, breaker);
-    }
+    super::super::storage::loot::block_drops::drop_resources_for_destroy(level, state, pos, breaker);
 }
 
 /// `Block.pushEntitiesUp(state, newState, level, pos)`: entities in the way of a block that grows are lifted.
@@ -204,4 +191,52 @@ pub fn mirror_sides<P: mc_data::props::Property>(state: BlockState, mirror: mc_c
 /// `BaseEntityBlock.triggerEvent`: forwards the block event to the block entity at `pos`.
 pub fn base_entity_trigger_event(level: &mut crate::server::level::ServerLevel, pos: BlockPos, b0: i32, b1: i32) -> bool {
     level.with_block_entity(pos, |level, be| be.trigger_event(level, b0, b1)).unwrap_or(false)
+}
+
+/// `Block.popResource(level, pos, itemStack)`.
+pub fn pop_resource(level: &mut crate::server::level::ServerLevel, pos: BlockPos, stack: crate::world::item::ItemStack) {
+    use crate::world::entity::item::ItemEntity;
+    let half_height = f64::from(mc_data::EntityType::ITEM.data().height) / 2.0;
+    let random = level.random();
+    let x = f64::from(pos.x()) + 0.5 + mc_core::math::mth::next_double(random, -0.25, 0.25);
+    let y = f64::from(pos.y()) + 0.5 + mc_core::math::mth::next_double(random, -0.25, 0.25) - half_height;
+    let z = f64::from(pos.z()) + 0.5 + mc_core::math::mth::next_double(random, -0.25, 0.25);
+    pop_resource_entity(level, stack, |level, stack| ItemEntity::with_stack(level, x, y, z, stack));
+}
+
+/// `Block.popResourceFromFace(level, pos, face, itemStack)`.
+pub fn pop_resource_from_face(level: &mut crate::server::level::ServerLevel, pos: BlockPos, face: Direction, stack: crate::world::item::ItemStack) {
+    use crate::world::entity::item::ItemEntity;
+    use mc_core::math::mth::next_double;
+    let (step_x, step_y, step_z) = (face.get_step_x(), face.get_step_y(), face.get_step_z());
+    let half_width = f64::from(mc_data::EntityType::ITEM.data().width) / 2.0;
+    let half_height = f64::from(mc_data::EntityType::ITEM.data().height) / 2.0;
+    let random = level.random();
+    let x = f64::from(pos.x()) + 0.5 + if step_x == 0 { next_double(random, -0.25, 0.25) } else { f64::from(step_x) * (0.5 + half_width) };
+    let y = f64::from(pos.y()) + 0.5 + if step_y == 0 { next_double(random, -0.25, 0.25) } else { f64::from(step_y) * (0.5 + half_height) } - half_height;
+    let z = f64::from(pos.z()) + 0.5 + if step_z == 0 { next_double(random, -0.25, 0.25) } else { f64::from(step_z) * (0.5 + half_width) };
+    let dx = if step_x == 0 { next_double(random, -0.1, 0.1) } else { f64::from(step_x) * 0.1 };
+    let dy = if step_y == 0 { next_double(random, 0.0, 0.1) } else { f64::from(step_y) * 0.1 + 0.1 };
+    let dz = if step_z == 0 { next_double(random, -0.1, 0.1) } else { f64::from(step_z) * 0.1 };
+    pop_resource_entity(level, stack, |level, stack| ItemEntity::with_stack_and_motion(level, x, y, z, stack, dx, dy, dz));
+}
+
+/// `Block.popResource(level, entityFactory, itemStack)`: `BLOCK_DROPS` gate, default pickup delay.
+fn pop_resource_entity(
+    level: &mut crate::server::level::ServerLevel,
+    stack: crate::world::item::ItemStack,
+    factory: impl FnOnce(&crate::server::level::ServerLevel, crate::world::item::ItemStack) -> crate::world::entity::item::ItemEntity,
+) {
+    if !stack.is_empty() && level.block_drops() {
+        let mut entity = factory(level, stack);
+        entity.set_default_pick_up_delay();
+        level.add_fresh_entity(Box::new(entity));
+    }
+}
+
+/// `Block.popExperience(level, pos, amount)`.
+pub fn pop_experience(level: &mut crate::server::level::ServerLevel, pos: BlockPos, amount: i32) {
+    if level.block_drops() {
+        crate::world::entity::experience_orb::ExperienceOrb::award(level, &mc_core::phys::Vec3::at_center_of(&pos), amount);
+    }
 }
