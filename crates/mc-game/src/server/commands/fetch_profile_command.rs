@@ -23,7 +23,7 @@ register_command!("FetchProfileCommand", |ctx| {
     ctx.dispatcher.register(
         literal("fetchprofile")
             .requires(has_permission(LEVEL_GAMEMASTERS))
-            .then(literal("name").then(argument("name", StringArgumentType::greedy_string()).executes(|c| Ok(resolve_name(c.get_source(), StringArgumentType::get_string(c, "name"))))))
+            .then(literal("name").then(argument("name", StringArgumentType::greedy_string()).executes(|c| Ok(resolve_name(c.get_source(), StringArgumentType::get_string(c, "name").to_owned())))))
             .then(literal("id").then(argument("id", UuidArgument::uuid()).executes(|c| Ok(resolve_id(c.get_source(), UuidArgument::get_uuid(c, "id"))))))
             .then(literal("entity").then(argument("entity", EntityArgument::entity()).executes(|c| print_for_entity(c.get_source(), EntityArgument::get_entity(c, "entity")?)))),
     );
