@@ -3,31 +3,31 @@ use super::arg_provider::ArgProvider;
 use super::data::DataAccessor;
 use super::data_commands::{Accessor, SOURCE_PROVIDERS, TARGET_PROVIDERS};
 use super::item::item_accessor::{ItemAccessor, slot_source_value};
-use crate::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED;
-use crate::commands::arguments::coordinates::{BlockPosArgument, RotationArgument, SwizzleArgument, Vec3Argument};
-use crate::commands::arguments::entity_anchor_argument::{Anchor, EntityAnchorArgument};
-use crate::commands::arguments::function_argument::FunctionArgument;
-use crate::commands::arguments::resource_arguments::{LootPredicateArgument, ResourceArgument, ResourceOrId, ResourceOrTagArgument};
-use crate::commands::arguments::scores::ScoreHolder;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED;
+use mc_game_core::commands::arguments::coordinates::{BlockPosArgument, RotationArgument, SwizzleArgument, Vec3Argument};
+use mc_game_core::commands::arguments::entity_anchor_argument::{Anchor, EntityAnchorArgument};
+use mc_game_core::commands::arguments::function_argument::FunctionArgument;
+use mc_game_core::commands::arguments::resource_arguments::{LootPredicateArgument, ResourceArgument, ResourceOrId, ResourceOrTagArgument};
+use mc_game_core::commands::arguments::scores::ScoreHolder;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{
     DimensionArgument, EntityArgument, FloatRangeArgument, HeightmapTypeArgument, IdentifierArgument, IntRangeArgument, NbtPath, NbtPathArgument,
     ObjectiveArgument, ScoreHolderArgument,
 };
-use crate::commands::arguments::blocks::BlockPredicateArgument;
-use crate::commands::arguments::item::ItemPredicateArgument;
-use crate::commands::arguments::slot_arguments::SlotSourceArgument;
-use crate::commands::execution::tasks::build_contexts::BuildContexts;
-use crate::commands::execution::tasks::call_function::CallFunction;
-use crate::commands::execution::tasks::fallthrough_task;
-use crate::commands::execution::tasks::isolated_call::isolated_call;
-use crate::commands::execution::{ChainModifiers, CustomModifierExecutor, EntryAction, ExecutionControl, bind, custom_modifier};
-use crate::commands::functions::{CommandFunction, FunctionInstantiationException, InstantiatedFunction};
-use crate::commands::host::{self, EntityRelation};
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::{CommandResultCallback, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::server::MinecraftServer;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::blocks::BlockPredicateArgument;
+use mc_game_core::commands::arguments::item::ItemPredicateArgument;
+use mc_game_core::commands::arguments::slot_arguments::SlotSourceArgument;
+use mc_game_core::commands::execution::tasks::build_contexts::BuildContexts;
+use mc_game_core::commands::execution::tasks::call_function::CallFunction;
+use mc_game_core::commands::execution::tasks::fallthrough_task;
+use mc_game_core::commands::execution::tasks::isolated_call::isolated_call;
+use mc_game_core::commands::execution::{ChainModifiers, CustomModifierExecutor, EntryAction, ExecutionControl, bind, custom_modifier};
+use mc_game_core::commands::functions::{CommandFunction, FunctionInstantiationException, InstantiatedFunction};
+use mc_game_core::commands::host::{self, EntityRelation};
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::{CommandResultCallback, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::server::MinecraftServer;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{DoubleArgumentType, double_arg};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandNode, CommandSyntaxException, ContextChain, Dynamic2CommandExceptionType, DynamicCommandExceptionType,
@@ -100,7 +100,7 @@ register_command!("ExecuteCommand", |ctx| {
                         let position = source.get_position();
                         let (x, z) = (position.x(), position.z());
                         let height = source.with_server(|server| {
-                            use crate::world::level::LevelReader;
+                            use mc_game_core::world::level::LevelReader;
                             let level = server.level(source.get_level())?;
                             if !level.has_chunk(mth::floor_f64(x) >> 4, mth::floor_f64(z) >> 4) {
                                 return Some(None);
@@ -152,7 +152,7 @@ register_command!("ExecuteCommand", |ctx| {
             .then(
                 literal("summon").then(
                     argument("entity", ResourceArgument::resource(ctx.build_context, "entity_type"))
-                        .suggests_provider(Some(crate::commands::synchronization::suggestion_providers::summonable_entities()))
+                        .suggests_provider(Some(mc_game_core::commands::synchronization::suggestion_providers::summonable_entities()))
                         .redirect_with(execute.clone(), |c| {
                             spawn_entity_and_redirect(c.get_source(), ResourceArgument::get_summonable_entity_type(c, "entity")?)
                         }),
@@ -177,10 +177,10 @@ fn wrap_stores(
     execute: &Arc<CommandNode<CommandSourceStack>>,
     literal_node: LiteralArgumentBuilder<CommandSourceStack>,
     store_result: bool,
-    _build_context: &crate::commands::CommandBuildContext,
+    _build_context: &mc_game_core::commands::CommandBuildContext,
 ) -> LiteralArgumentBuilder<CommandSourceStack> {
     let mut literal_node = literal_node.then(literal("score").then(
-        argument("targets", ScoreHolderArgument::score_holders()).suggests_provider(Some(crate::commands::arguments::scores::suggest_score_holders())).then(
+        argument("targets", ScoreHolderArgument::score_holders()).suggests_provider(Some(mc_game_core::commands::arguments::scores::suggest_score_holders())).then(
             argument("objective", ObjectiveArgument::objective()).redirect_with(execute.clone(), move |c| {
                 Ok(store_score(
                     c.get_source(),
@@ -303,7 +303,7 @@ fn add_conditionals(
     execute: &Arc<CommandNode<CommandSourceStack>>,
     parent: LiteralArgumentBuilder<CommandSourceStack>,
     expected: bool,
-    context: &crate::commands::CommandBuildContext,
+    context: &mc_game_core::commands::CommandBuildContext,
 ) -> LiteralArgumentBuilder<CommandSourceStack> {
     let mut parent = parent
         .then(literal("block").then(argument("pos", BlockPosArgument::block_pos()).then(add_conditional(
@@ -340,7 +340,7 @@ fn add_conditionals(
         })))
         .then(literal("score").then(
             argument("target", ScoreHolderArgument::score_holder())
-                .suggests_provider(Some(crate::commands::arguments::scores::suggest_score_holders()))
+                .suggests_provider(Some(mc_game_core::commands::arguments::scores::suggest_score_holders()))
                 .then(
                     argument("targetObjective", ObjectiveArgument::objective())
                         .then(score_comparison("=", execute, expected, |a, b| a == b))
@@ -431,7 +431,7 @@ fn score_comparison(
 ) -> LiteralArgumentBuilder<CommandSourceStack> {
     literal(operator).then(
         argument("source", ScoreHolderArgument::score_holder())
-            .suggests_provider(Some(crate::commands::arguments::scores::suggest_score_holders()))
+            .suggests_provider(Some(mc_game_core::commands::arguments::scores::suggest_score_holders()))
             .then(add_conditional(execute, argument("sourceObjective", ObjectiveArgument::objective()), expected, move |c| check_score(c, operation))),
     )
 }
@@ -504,7 +504,7 @@ fn check_score_range(c: &CommandContext<CommandSourceStack>) -> Result<bool, Com
 
 /// `checkStopwatch(context, range)`.
 fn check_stopwatch(c: &CommandContext<CommandSourceStack>) -> Result<bool, CommandSyntaxException> {
-    use crate::world::level::saveddata::stopwatches::Stopwatches;
+    use mc_game_core::world::level::saveddata::stopwatches::Stopwatches;
     let id = IdentifierArgument::get_id(c, "id");
     let range = FloatRangeArgument::get_range(c, "range");
     let elapsed_seconds = c.get_source().with_server(|server| {
@@ -595,14 +595,14 @@ fn check_regions_in_context(c: &CommandContext<CommandSourceStack>, skip_air: bo
 /// `checkRegions(level, start, end, destination, skipAir)`.
 pub fn check_regions(
     server: &MinecraftServer,
-    dimension: &crate::world::level::DimensionKey,
+    dimension: &mc_game_core::world::level::DimensionKey,
     start: BlockPos,
     end: BlockPos,
     destination: BlockPos,
     skip_air: bool,
 ) -> Result<Option<i32>, CommandSyntaxException> {
-    use crate::world::block_entity::BlockEntity;
-    use crate::world::level::BlockGetter;
+    use mc_game_core::world::block_entity::BlockEntity;
+    use mc_game_core::world::level::BlockGetter;
     let from = BoundingBox::from_corners(&start, &end);
     let destination_box = BoundingBox::from_corners(&destination, &destination.offset_vec(&from.get_length()));
     let offset = BlockPos::new(

@@ -1,15 +1,15 @@
 //! `TeleportCommand` (`teleport`, `tp`) with `LookAt`.
-use crate::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
-use crate::commands::arguments::coordinates::{Coordinates, RotationArgument, Vec3Argument};
-use crate::commands::arguments::entity_anchor_argument::Anchor;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::entity_anchor_argument::EntityAnchorArgument;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::level::DimensionKey;
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
+use mc_game_core::commands::arguments::coordinates::{Coordinates, RotationArgument, Vec3Argument};
+use mc_game_core::commands::arguments::entity_anchor_argument::Anchor;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::entity_anchor_argument::EntityAnchorArgument;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::level::DimensionKey;
 use mc_brigadier::ArgumentBuilder;
-use crate::{register_command, translatable};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::math::mth;
 use mc_core::phys::Vec3;

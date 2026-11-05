@@ -1,11 +1,11 @@
 //! `MsgCommand` (`msg`, `tell`, `w`).
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, MessageArgument};
-use crate::commands::{CommandSourceStack, argument, host, literal};
-use crate::register_command;
-use crate::server::chat::chat_type;
-use crate::server::chat::{OutgoingChatMessage, PlayerChatMessage};
-use crate::server::players::PlayerHandle;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, MessageArgument};
+use mc_game_core::commands::{CommandSourceStack, argument, host, literal};
+use mc_game_core::register_command;
+use mc_game_core::server::chat::chat_type;
+use mc_game_core::server::chat::{OutgoingChatMessage, PlayerChatMessage};
+use mc_game_core::server::players::PlayerHandle;
 use mc_brigadier::ArgumentBuilder;
 
 register_command!("MsgCommand", |ctx| {
@@ -21,7 +21,7 @@ register_command!("MsgCommand", |ctx| {
 });
 
 /// `CommandSourceStack.sendChatMessage(message, filtered, chatType)`.
-fn source_send_chat_message(source: &CommandSourceStack, message: &OutgoingChatMessage, filtered: bool, chat_type: &crate::server::chat::chat_type::Bound) {
+fn source_send_chat_message(source: &CommandSourceStack, message: &OutgoingChatMessage, filtered: bool, chat_type: &mc_game_core::server::chat::chat_type::Bound) {
     if source.is_silent() {
         return;
     }
@@ -54,6 +54,6 @@ fn send_message(source: &CommandSourceStack, players: &[EntityRef], message: &Pl
         was_fully_filtered |= filtered && message.is_fully_filtered();
     }
     if was_fully_filtered {
-        source.send_system_message(&crate::server::players::player_list::chat_filtered_full());
+        source.send_system_message(&mc_game_core::server::players::player_list::chat_filtered_full());
     }
 }

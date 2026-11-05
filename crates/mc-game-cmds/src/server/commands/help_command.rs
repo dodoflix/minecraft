@@ -1,7 +1,7 @@
 //! `HelpCommand`.
-use crate::commands::message::simple_translatable;
-use crate::commands::{argument, literal};
-use crate::register_command;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{argument, literal};
+use mc_game_core::register_command;
 use mc_brigadier::ArgumentBuilder;
 use mc_brigadier::arguments::StringArgumentType;
 use mc_brigadier::ImmutableStringReader;

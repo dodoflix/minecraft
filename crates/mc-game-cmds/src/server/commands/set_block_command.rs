@@ -1,12 +1,12 @@
 //! `SetBlockCommand`.
-use crate::commands::arguments::blocks::BlockStateArgument;
-use crate::commands::arguments::coordinates::BlockPosArgument;
-use crate::commands::arguments::blocks::BlockInput;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::commands::arguments::blocks::BlockStateArgument;
+use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
+use mc_game_core::commands::arguments::blocks::BlockInput;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_brigadier::ArgumentBuilder;
-use crate::{register_command, translatable};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::pos::BlockPos;
 use std::sync::LazyLock;

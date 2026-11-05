@@ -1,12 +1,12 @@
 //! `EntityDataAccessor`.
 use super::DataAccessor;
 use super::data_accessor::{format_scale, to_pretty_component};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, NbtPath};
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, argument, host};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, NbtPath};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, argument, host};
 use crate::server::commands::arg_provider::ArgProvider;
-use crate::translatable;
+use mc_game_core::translatable;
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;

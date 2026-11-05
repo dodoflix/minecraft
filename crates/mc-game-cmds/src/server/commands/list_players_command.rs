@@ -1,7 +1,7 @@
 //! `ListPlayersCommand`.
-use crate::commands::{CommandSourceStack, host, literal};
+use mc_game_core::commands::{CommandSourceStack, host, literal};
 use mc_brigadier::ArgumentBuilder;
-use crate::{register_command, translatable};
+use mc_game_core::{register_command, translatable};
 use mc_text::Component;
 use mc_text::util::{default_separator, format_list};
 
@@ -21,7 +21,7 @@ fn list_players_with_uuids(source: &CommandSourceStack) -> i32 {
     })
 }
 
-fn format(source: &CommandSourceStack, formatter: impl Fn(&crate::server::MinecraftServer, &crate::server::players::player_handle::PlayerHandle) -> Component) -> i32 {
+fn format(source: &CommandSourceStack, formatter: impl Fn(&mc_game_core::server::MinecraftServer, &mc_game_core::server::players::player_handle::PlayerHandle) -> Component) -> i32 {
     let (components, max_players) = source.with_server(|server| {
         let players = server.player_list.get_players();
         (players.iter().map(|p| formatter(server, p)).collect::<Vec<_>>(), server.player_list.get_max_players())

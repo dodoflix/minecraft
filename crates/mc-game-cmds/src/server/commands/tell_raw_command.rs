@@ -1,7 +1,7 @@
 //! `TellRawCommand`.
-use crate::commands::arguments::{ComponentArgument, EntityArgument};
-use crate::commands::{LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::register_command;
+use mc_game_core::commands::arguments::{ComponentArgument, EntityArgument};
+use mc_game_core::commands::{LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::register_command;
 use mc_brigadier::ArgumentBuilder;
 
 register_command!("TellRawCommand", |ctx| {

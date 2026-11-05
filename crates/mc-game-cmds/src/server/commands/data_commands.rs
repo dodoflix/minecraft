@@ -2,12 +2,12 @@
 use super::arg_provider::ArgProvider;
 use super::data::{DataAccessor, block_data_accessor, entity_data_accessor, storage_data_accessor};
 use super::loot_context_sources::add_context_sources;
-use crate::commands::arguments::nbt_path_argument::{ERROR_DATA_TOO_DEEP, NbtPath};
-use crate::commands::arguments::resource_arguments::{ContextFloatProviderArgument, ContextIntProviderArgument};
-use crate::commands::arguments::{CompoundTagArgument, NbtPathArgument, NbtTagArgument};
-use crate::commands::message::{dynamic_translatable, message, simple_translatable};
-use crate::commands::{CommandBuildContext, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::nbt_path_argument::{ERROR_DATA_TOO_DEEP, NbtPath};
+use mc_game_core::commands::arguments::resource_arguments::{ContextFloatProviderArgument, ContextIntProviderArgument};
+use mc_game_core::commands::arguments::{CompoundTagArgument, NbtPathArgument, NbtTagArgument};
+use mc_game_core::commands::message::{dynamic_translatable, message, simple_translatable};
+use mc_game_core::commands::{CommandBuildContext, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{DoubleArgumentType, IntegerArgumentType, double_arg, integer};
 use mc_brigadier::utf16::{len16, substring};
 use mc_brigadier::{

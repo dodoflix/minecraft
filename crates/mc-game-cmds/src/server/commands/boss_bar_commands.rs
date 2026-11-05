@@ -1,13 +1,13 @@
 //! `BossBarCommands`.
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{ComponentArgument, EntityArgument, IdentifierArgument};
-use crate::commands::component_utils::{ResolutionContext, resolve};
-use crate::commands::message::{dynamic_translatable, simple_translatable};
-use crate::commands::shared_suggestion_provider::suggest_resource;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::server::bossevents::{BossBarColor, BossBarOverlay, CustomBossEvent};
-use crate::server::players::PlayerHandle;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{ComponentArgument, EntityArgument, IdentifierArgument};
+use mc_game_core::commands::component_utils::{ResolutionContext, resolve};
+use mc_game_core::commands::message::{dynamic_translatable, simple_translatable};
+use mc_game_core::commands::shared_suggestion_provider::suggest_resource;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::server::bossevents::{BossBarColor, BossBarOverlay, CustomBossEvent};
+use mc_game_core::server::players::PlayerHandle;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{BoolArgumentType, IntegerArgumentType, integer_min};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, LiteralArgumentBuilder, SimpleCommandExceptionType, SuggestionProvider};
 use mc_core::ident::Identifier;

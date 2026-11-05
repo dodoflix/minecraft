@@ -1,11 +1,11 @@
 //! `ParticleCommand`.
-use crate::commands::arguments::coordinates::Vec3Argument;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, ParticleArgument};
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::ServerPlayer;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::coordinates::Vec3Argument;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, ParticleArgument};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{FloatArgumentType, IntegerArgumentType, float_arg_min, integer_min};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::phys::Vec3;

@@ -1,11 +1,11 @@
 //! `RandomCommand`.
-use crate::commands::arguments::IdentifierArgument;
-use crate::commands::arguments::min_max_bounds::Ints;
-use crate::commands::arguments::range_argument::IntRangeArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::IdentifierArgument;
+use mc_game_core::commands::arguments::min_max_bounds::Ints;
+use mc_game_core::commands::arguments::range_argument::IntRangeArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::shared_suggestion_provider::suggest;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{BoolArgumentType, IntegerArgumentType, integer};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, LiteralArgumentBuilder, SimpleCommandExceptionType, Suggestions, SuggestionsBuilder};
 use mc_core::ident::Identifier;
@@ -80,7 +80,7 @@ fn draw_random_value_tree(name: &'static str, announce: bool) -> LiteralArgument
 }
 
 /// The live `RandomSequences` (`MinecraftServer.getRandomSequences()`), shared with the levels' loot evaluation.
-fn live_sequences(server: &crate::server::MinecraftServer) -> std::sync::Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>> {
+fn live_sequences(server: &mc_game_core::server::MinecraftServer) -> std::sync::Arc<parking_lot::Mutex<mc_game_core::world::level::saveddata::random_sequences::RandomSequences>> {
     server.loot_random_sequences.clone()
 }
 

@@ -1,12 +1,12 @@
 //! `FillCommand`.
-use crate::commands::arguments::blocks::{BlockInput, BlockPredicate, BlockPredicateArgument, BlockStateArgument};
-use crate::commands::arguments::coordinates::BlockPosArgument;
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::server::level::ServerLevel;
-use crate::world::level::gamerules::GameRules;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::blocks::{BlockInput, BlockPredicate, BlockPredicateArgument, BlockStateArgument};
+use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::gamerules::GameRules;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, SimpleCommandExceptionType};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::BlockPos;

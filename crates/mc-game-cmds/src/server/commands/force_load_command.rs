@@ -1,10 +1,10 @@
 //! `ForceLoadCommand`.
-use crate::commands::arguments::coordinates::block_pos_argument::ERROR_OUT_OF_WORLD;
-use crate::commands::arguments::coordinates::{ColumnPos, ColumnPosArgument};
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::ERROR_OUT_OF_WORLD;
+use mc_game_core::commands::arguments::coordinates::{ColumnPos, ColumnPosArgument};
 use super::command_response_tracker::{CommandResponseTracker, ElementType};
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, Dynamic2CommandExceptionType, SimpleCommandExceptionType};
 use mc_core::pos::ChunkPos;
 use mc_text::Component;

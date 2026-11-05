@@ -1,10 +1,10 @@
 //! `StopwatchCommand`.
-use crate::commands::arguments::IdentifierArgument;
-use crate::commands::message::message;
-use crate::commands::shared_suggestion_provider::suggest_resource;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::world::level::saveddata::stopwatches::{Stopwatch, Stopwatches};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::IdentifierArgument;
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::shared_suggestion_provider::suggest_resource;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::world::level::saveddata::stopwatches::{Stopwatch, Stopwatches};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{DoubleArgumentType, double_arg};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, SuggestionProvider};
 use mc_core::ident::Identifier;

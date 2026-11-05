@@ -1,7 +1,7 @@
 //! `StopCommand`.
-use crate::commands::{LEVEL_OWNERS, has_permission, literal};
+use mc_game_core::commands::{LEVEL_OWNERS, has_permission, literal};
 use mc_brigadier::ArgumentBuilder;
-use crate::{register_command, translatable};
+use mc_game_core::{register_command, translatable};
 
 register_command!("StopCommand", |ctx| {
     ctx.dispatcher.register(literal("stop").requires(has_permission(LEVEL_OWNERS)).executes(|c| {

@@ -1,9 +1,9 @@
 //! `TransferCommand`.
-use crate::commands::message::simple_translatable;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, host, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, host, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{IntegerArgumentType, StringArgumentType, integer_range};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_protocol::packets::play::ClientboundTransferPacket;

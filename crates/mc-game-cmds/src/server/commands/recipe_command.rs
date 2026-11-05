@@ -1,12 +1,12 @@
 //! `RecipeCommand`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType, display_name};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::arguments::resource_arguments::ResourceKeyArgument;
-use crate::commands::host;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::arguments::resource_arguments::ResourceKeyArgument;
+use mc_game_core::commands::host;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::ident::Identifier;
 use std::sync::LazyLock;
@@ -44,7 +44,7 @@ register_command!("RecipeCommand", |ctx| {
 
 /// `LEARNABLE_RECIPE` (`!recipe.isSpecial()`) as the suggestion filter.
 fn host_learnable_filter(id: &Identifier) -> bool {
-    crate::commands::server_access::with_server(|server| host::learnable_recipe_exists(server, id))
+    mc_game_core::commands::server_access::with_server(|server| host::learnable_recipe_exists(server, id))
 }
 
 /// `giveRecipes`/`takeRecipes`.

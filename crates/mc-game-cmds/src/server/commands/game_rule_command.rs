@@ -1,12 +1,12 @@
 //! `GameRuleCommand`.
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::world::level::gamerules::{AnyGameRule, GameRuleType, GameRuleTypeVisitor, GameRuleValue, GameRules};
-use crate::{register_command, translatable};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::world::level::gamerules::{AnyGameRule, GameRuleType, GameRuleTypeVisitor, GameRuleValue, GameRules};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, LiteralArgumentBuilder};
 use std::sync::LazyLock;
 
 static ERROR_GAME_RULE_NOT_SET: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|rule: String, value: String| crate::commands::message::message(translatable!("commands.gamerule.not_set", rule, value)))
+    Dynamic2CommandExceptionType::new(|rule: String, value: String| mc_game_core::commands::message::message(translatable!("commands.gamerule.not_set", rule, value)))
 });
 
 register_command!("GameRuleCommand", |ctx| {

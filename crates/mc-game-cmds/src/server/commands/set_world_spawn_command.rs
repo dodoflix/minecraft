@@ -1,9 +1,9 @@
 //! `SetWorldSpawnCommand`.
 use mc_brigadier::ArgumentBuilder;
-use crate::commands::arguments::coordinates::{BlockPosArgument, Coordinates, RotationArgument, WorldCoordinates};
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::world::entity::respawn::respawn_data_of;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::coordinates::{BlockPosArgument, Coordinates, RotationArgument, WorldCoordinates};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::world::entity::respawn::respawn_data_of;
+use mc_game_core::{register_command, translatable};
 use mc_core::pos::BlockPos;
 
 register_command!("SetWorldSpawnCommand", |ctx| {

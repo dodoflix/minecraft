@@ -1,12 +1,12 @@
 //! `TickCommand`.
 use mc_brigadier::ArgumentBuilder;
-use crate::commands::arguments::TimeArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, literal};
-use crate::util::java_format::format_fixed;
-use crate::util::time_util::NANOSECONDS_PER_MILLISECOND;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::TimeArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::shared_suggestion_provider::suggest;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, literal};
+use mc_game_core::util::java_format::format_fixed;
+use mc_game_core::util::time_util::NANOSECONDS_PER_MILLISECOND;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::float_arg_range;
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use std::sync::LazyLock;

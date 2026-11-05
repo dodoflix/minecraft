@@ -1,10 +1,10 @@
 //! `EmoteCommands`.
-use crate::commands::arguments::MessageArgument;
-use crate::commands::host;
-use crate::commands::{argument, literal};
-use crate::register_command;
+use mc_game_core::commands::arguments::MessageArgument;
+use mc_game_core::commands::host;
+use mc_game_core::commands::{argument, literal};
+use mc_game_core::register_command;
 use mc_brigadier::ArgumentBuilder;
-use crate::server::chat::chat_type;
+use mc_game_core::server::chat::chat_type;
 
 register_command!("EmoteCommands", |ctx| {
     ctx.dispatcher.register(literal("me").then(argument("action", MessageArgument::message()).executes(|c| {

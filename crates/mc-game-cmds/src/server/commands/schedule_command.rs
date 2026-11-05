@@ -1,12 +1,12 @@
 //! `ScheduleCommand`: `/schedule function <function|#tag> <time> [append|replace]` and `/schedule clear <function>`.
-use crate::commands::arguments::function_argument::{FunctionArgument, FunctionOrTag};
-use crate::commands::arguments::{IdentifierArgument, TimeArgument};
-use crate::commands::message::{dynamic_translatable, simple_translatable};
-use crate::commands::shared_suggestion_provider::suggest_resource;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::commands::arguments::function_argument::{FunctionArgument, FunctionOrTag};
+use mc_game_core::commands::arguments::{IdentifierArgument, TimeArgument};
+use mc_game_core::commands::message::{dynamic_translatable, simple_translatable};
+use mc_game_core::commands::shared_suggestion_provider::suggest_resource;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
 use crate::server::commands::function_command::{suggest_function, translation_arg};
-use crate::util::timer_queue::{FunctionCallback, FunctionTagCallback};
-use crate::{register_command, translatable};
+use mc_game_core::util::timer_queue::{FunctionCallback, FunctionTagCallback};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, DynamicCommandExceptionType, SimpleCommandExceptionType};
 use mc_core::ident::Identifier;
 use std::sync::LazyLock;

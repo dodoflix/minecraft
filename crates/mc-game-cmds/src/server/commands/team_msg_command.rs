@@ -1,12 +1,12 @@
 //! `TeamMsgCommand` (`teammsg`, `tm`).
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::MessageArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, argument, host, literal};
-use crate::server::chat::chat_type;
-use crate::server::chat::{OutgoingChatMessage, PlayerChatMessage};
-use crate::server::players::PlayerHandle;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::MessageArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, argument, host, literal};
+use mc_game_core::server::chat::chat_type;
+use mc_game_core::server::chat::{OutgoingChatMessage, PlayerChatMessage};
+use mc_game_core::server::players::PlayerHandle;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_text::events::{ClickEvent, HoverEvent};
 use mc_text::Style;
@@ -61,6 +61,6 @@ fn send_message(source: &CommandSourceStack, entity: &EntityRef, team: &str, rec
         was_fully_filtered |= filtered && message.is_fully_filtered();
     }
     if was_fully_filtered {
-        source.send_system_message(&crate::server::players::player_list::chat_filtered_full());
+        source.send_system_message(&mc_game_core::server::players::player_list::chat_filtered_full());
     }
 }

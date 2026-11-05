@@ -1,11 +1,11 @@
 //! `RotateCommand`.
 use super::look_at::LookAt;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::arguments::coordinates::{Coordinates, RotationArgument, Vec3Argument};
-use crate::commands::arguments::entity_anchor_argument::{Anchor, EntityAnchorArgument};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::arguments::coordinates::{Coordinates, RotationArgument, Vec3Argument};
+use mc_game_core::commands::arguments::entity_anchor_argument::{Anchor, EntityAnchorArgument};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException};
 
 register_command!("RotateCommand", |ctx| {

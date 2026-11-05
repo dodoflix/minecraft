@@ -1,13 +1,13 @@
 //! `AttributeCommand`.
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, IdentifierArgument};
-use crate::commands::arguments::resource_arguments::ResourceArgument;
-use crate::commands::message::message;
-use crate::commands::shared_suggestion_provider::suggest_resource;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use crate::world::entity::living::LivingEntityData;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, IdentifierArgument};
+use mc_game_core::commands::arguments::resource_arguments::ResourceArgument;
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::shared_suggestion_provider::suggest_resource;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::living::LivingEntityData;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{DoubleArgumentType, double_arg};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, Dynamic3CommandExceptionType, DynamicCommandExceptionType,
@@ -190,7 +190,7 @@ fn with_instance<R>(
     source: &CommandSourceStack,
     target: &EntityRef,
     attribute: Attribute,
-    f: impl FnOnce(&mut crate::world::entity::attributes::AttributeInstance) -> R,
+    f: impl FnOnce(&mut mc_game_core::world::entity::attributes::AttributeInstance) -> R,
 ) -> Result<R, CommandSyntaxException> {
     let result = with_living(source, target, |living| living.attributes.get_instance(attribute).map(f))?;
     result.ok_or_else(|| ERROR_NO_SUCH_ATTRIBUTE.create(host::display_name_of(source, target), attribute_description(attribute)))

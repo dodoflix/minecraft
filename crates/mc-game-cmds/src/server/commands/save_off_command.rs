@@ -1,8 +1,8 @@
 //! `SaveOffCommand`.
-use crate::commands::message::simple_translatable;
-use crate::commands::{LEVEL_OWNERS, has_permission, literal};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{LEVEL_OWNERS, has_permission, literal};
 use mc_brigadier::ArgumentBuilder;
-use crate::{register_command, translatable};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::SimpleCommandExceptionType;
 use std::sync::LazyLock;
 

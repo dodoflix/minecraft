@@ -1,12 +1,12 @@
 //! `TimeCommand`.
-use crate::commands::arguments::resource_arguments::ResourceArgument;
-use crate::commands::arguments::{IdentifierArgument, TimeArgument};
-use crate::commands::message::message;
-use crate::commands::shared_suggestion_provider::suggest_resource;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::clock::MoveResult;
-use crate::world::clock::ClockInstance;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::resource_arguments::ResourceArgument;
+use mc_game_core::commands::arguments::{IdentifierArgument, TimeArgument};
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::shared_suggestion_provider::suggest_resource;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::clock::MoveResult;
+use mc_game_core::world::clock::ClockInstance;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::float_arg_range;
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, DynamicCommandExceptionType};
 use mc_core::ident::Identifier;
@@ -52,7 +52,7 @@ register_command!("TimeCommand", |ctx| {
     );
 });
 
-fn add_clock_nodes<A: ArgumentBuilder<CommandSourceStack>>(context: &crate::commands::CommandBuildContext, node: A, clock_getter: ClockGetter) -> A {
+fn add_clock_nodes<A: ArgumentBuilder<CommandSourceStack>>(context: &mc_game_core::commands::CommandBuildContext, node: A, clock_getter: ClockGetter) -> A {
     let g = clock_getter.clone();
     let set = literal("set")
         .then(argument("time", TimeArgument::time()).executes({

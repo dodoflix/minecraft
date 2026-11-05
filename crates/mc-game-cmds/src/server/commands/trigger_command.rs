@@ -1,13 +1,13 @@
 //! `TriggerCommand`.
 use super::scoreboard_command::{formatted_name, with_scoreboard};
-use crate::commands::arguments::scores::ScoreHolder;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::ObjectiveArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::{CommandSourceStack, argument, literal};
-use crate::world::scores::ObjectiveCriteria;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::scores::ScoreHolder;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::ObjectiveArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::shared_suggestion_provider::suggest;
+use mc_game_core::commands::{CommandSourceStack, argument, literal};
+use mc_game_core::world::scores::ObjectiveCriteria;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{IntegerArgumentType, integer};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType, Suggestions, SuggestionsBuilder};
 use std::sync::LazyLock;

@@ -1,11 +1,11 @@
 //! `SetSpawnCommand` (`/spawnpoint`).
 use mc_brigadier::ArgumentBuilder;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::arguments::coordinates::{BlockPosArgument, Coordinates, RotationArgument, WorldCoordinates};
-use crate::commands::arguments::selector::entity_selector::EntityRef;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::respawn::{RespawnConfig, respawn_data_of};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::arguments::coordinates::{BlockPosArgument, Coordinates, RotationArgument, WorldCoordinates};
+use mc_game_core::commands::arguments::selector::entity_selector::EntityRef;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::respawn::{RespawnConfig, respawn_data_of};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::CommandSyntaxException;
 use mc_core::pos::BlockPos;
 use mc_text::Component;

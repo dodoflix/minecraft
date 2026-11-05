@@ -1,10 +1,10 @@
 //! `FetchProfileCommand`.
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, UuidArgument};
-use crate::commands::server_access::enter_server;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::ServerPlayer;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, UuidArgument};
+use mc_game_core::commands::server_access::enter_server;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::StringArgumentType;
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, DynamicCommandExceptionType};
 use mc_protocol::codec::{Either, GameProfile};
@@ -17,7 +17,7 @@ use std::sync::LazyLock;
 use uuid::Uuid;
 
 static NO_PROFILE: LazyLock<DynamicCommandExceptionType<Component>> =
-    LazyLock::new(|| DynamicCommandExceptionType::new(|name: Component| crate::commands::message::message(translatable!("commands.fetchprofile.no_profile", name))));
+    LazyLock::new(|| DynamicCommandExceptionType::new(|name: Component| mc_game_core::commands::message::message(translatable!("commands.fetchprofile.no_profile", name))));
 
 register_command!("FetchProfileCommand", |ctx| {
     ctx.dispatcher.register(

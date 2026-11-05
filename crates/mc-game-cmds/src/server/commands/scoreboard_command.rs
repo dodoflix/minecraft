@@ -1,17 +1,17 @@
 //! `ScoreboardCommand`.
 use super::command_response_tracker::ElementType;
 use super::score_tracker::ScoreTracker as CommandResponseTracker;
-use crate::commands::arguments::scores::{ScoreHolder, suggest_score_holders};
-use crate::commands::arguments::{
+use mc_game_core::commands::arguments::scores::{ScoreHolder, suggest_score_holders};
+use mc_game_core::commands::arguments::{
     ComponentArgument, ObjectiveArgument, ObjectiveCriteriaArgument, OperationArgument, ScoreHolderArgument, ScoreboardSlotArgument, StyleArgument,
 };
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::server::MinecraftServer;
-use crate::world::scores::scoreboard::DetachedScoreAccess;
-use crate::world::scores::{DisplaySlot, NumberFormat, ObjectiveCriteria, RenderType, ScoreAccess, Scoreboard, ScoreboardError};
-use crate::{register_command, translatable};
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::shared_suggestion_provider::suggest;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::server::MinecraftServer;
+use mc_game_core::world::scores::scoreboard::DetachedScoreAccess;
+use mc_game_core::world::scores::{DisplaySlot, NumberFormat, ObjectiveCriteria, RenderType, ScoreAccess, Scoreboard, ScoreboardError};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{BoolArgumentType, IntegerArgumentType, StringArgumentType, integer, integer_min};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, SimpleCommandExceptionType};
 use mc_text::util::{default_separator, format_list};
@@ -271,7 +271,7 @@ fn perform_operation(
     source: &CommandSourceStack,
     targets: Vec<ScoreHolder>,
     target_objective: &str,
-    operation: crate::commands::arguments::Operation,
+    operation: mc_game_core::commands::arguments::Operation,
     sources: Vec<ScoreHolder>,
     source_objective: &str,
 ) -> Result<i32, CommandSyntaxException> {

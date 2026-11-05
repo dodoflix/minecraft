@@ -1,11 +1,11 @@
 //! `GiveCommand`.
-use crate::commands::arguments::item::{ItemArgument, ItemInput};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::message::message;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::item::ItemStackExt;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::item::{ItemArgument, ItemInput};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::item::ItemStackExt;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{IntegerArgumentType, integer_min};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType};
 use mc_text::Component;

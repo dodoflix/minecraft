@@ -1,6 +1,6 @@
 //! `net.minecraft.server.commands.ArgProvider`: one alternative of a "`<kind> <argument>`" command branch
 //! (`entity <target>`, `block <pos>`, `storage <id>`), as the argument builder to attach and the accessor to resolve it.
-use crate::commands::CommandSourceStack;
+use mc_game_core::commands::CommandSourceStack;
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, RequiredArgumentBuilder};
 use std::sync::Arc;
 
@@ -43,7 +43,7 @@ impl<T> ArgProvider<T> {
         parent: P,
         function: impl FnOnce(RequiredArgumentBuilder<CommandSourceStack>) -> C,
     ) -> P {
-        parent.then(crate::commands::literal(self.key).then(function((self.child)())))
+        parent.then(mc_game_core::commands::literal(self.key).then(function((self.child)())))
     }
 
     /// `ArgProvider.buildList(argName, factories)`.

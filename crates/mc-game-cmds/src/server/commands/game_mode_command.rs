@@ -1,10 +1,10 @@
 //! `GameModeCommand`.
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, GameModeArgument};
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::level::gamerules::GameRules;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, GameModeArgument};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::level::gamerules::GameRules;
 use mc_brigadier::ArgumentBuilder;
-use crate::{register_command, translatable};
+use mc_game_core::{register_command, translatable};
 use mc_text::Component;
 use mc_world::level_storage::GameType;
 

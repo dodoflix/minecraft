@@ -1,10 +1,10 @@
 //! `SayCommand`.
-use crate::commands::arguments::MessageArgument;
-use crate::commands::host;
-use crate::commands::{LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::register_command;
+use mc_game_core::commands::arguments::MessageArgument;
+use mc_game_core::commands::host;
+use mc_game_core::commands::{LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::register_command;
 use mc_brigadier::ArgumentBuilder;
-use crate::server::chat::chat_type;
+use mc_game_core::server::chat::chat_type;
 
 register_command!("SayCommand", |ctx| {
     ctx.dispatcher.register(literal("say").requires(has_permission(LEVEL_GAMEMASTERS)).then(argument("message", MessageArgument::message()).executes(|c| {

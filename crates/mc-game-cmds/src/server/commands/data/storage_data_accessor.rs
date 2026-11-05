@@ -1,11 +1,11 @@
 //! `StorageDataAccessor`.
 use super::DataAccessor;
 use super::data_accessor::{format_scale, to_pretty_component};
-use crate::commands::arguments::{IdentifierArgument, NbtPath};
-use crate::commands::shared_suggestion_provider::suggest_resource;
-use crate::commands::{CommandSourceStack, argument, host};
+use mc_game_core::commands::arguments::{IdentifierArgument, NbtPath};
+use mc_game_core::commands::shared_suggestion_provider::suggest_resource;
+use mc_game_core::commands::{CommandSourceStack, argument, host};
 use crate::server::commands::arg_provider::ArgProvider;
-use crate::translatable;
+use mc_game_core::translatable;
 use mc_brigadier::CommandSyntaxException;
 use mc_core::ident::Identifier;
 use mc_nbt::{CompoundTag, Tag};

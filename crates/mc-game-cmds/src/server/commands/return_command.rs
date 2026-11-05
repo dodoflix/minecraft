@@ -1,11 +1,11 @@
 //! `ReturnCommand`: `/return <value>`, `/return fail`, `/return run <command>`.
-use crate::commands::execution::tasks::build_contexts::BuildContexts;
-use crate::commands::execution::tasks::fallthrough_task;
-use crate::commands::execution::{
+use mc_game_core::commands::execution::tasks::build_contexts::BuildContexts;
+use mc_game_core::commands::execution::tasks::fallthrough_task;
+use mc_game_core::commands::execution::{
     ChainModifiers, CustomCommandExecutor, CustomModifierExecutor, ExecutionControl, custom_command, custom_modifier,
 };
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::register_command;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::register_command;
 use mc_brigadier::arguments::integer;
 use mc_brigadier::{ArgumentBuilder, ContextChain};
 

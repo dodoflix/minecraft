@@ -1,13 +1,13 @@
 //! `SwingCommand`.
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, SwingAnimationArgument, TimeArgument};
-use crate::commands::arguments::SwingAnimationType as ArgumentType;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, SwingAnimationArgument, TimeArgument};
+use mc_game_core::commands::arguments::SwingAnimationType as ArgumentType;
 use super::command_response_tracker::CommandResponseTracker;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::player::item_use::SWING_ANIMATION_DEFAULT;
-use crate::world::item::InteractionHand;
-use crate::{register_command, translatable};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::player::item_use::SWING_ANIMATION_DEFAULT;
+use mc_game_core::world::item::InteractionHand;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::IntegerArgumentType;
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, LiteralArgumentBuilder, SimpleCommandExceptionType};
 use mc_protocol::packets::play::{SwingAnimation, SwingAnimationType};
@@ -56,7 +56,7 @@ fn swing(source: &CommandSourceStack, targets: Vec<EntityRef>, hand: Interaction
             let level = server.level_mut(&entity.dimension)?;
             level.with_entity(entity.id, |level, e| {
                 e.living()?;
-                crate::world::entity::living_entity::swing::swing(e, level, hand, animation, true);
+                mc_game_core::world::entity::living_entity::swing::swing(e, level, hand, animation, true);
                 Some(())
             })?
         });

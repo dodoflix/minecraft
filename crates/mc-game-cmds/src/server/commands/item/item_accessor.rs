@@ -6,17 +6,17 @@
 //! setter in one call together with the level (loot contexts of `item modify` need it), and then applies the recorded
 //! writes to the targets. The observable effect equals vanilla's per-target interleaving except that a loot function
 //! evaluated for one target no longer sees the slot writes made to another target of the same command.
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::slot_arguments::SlotSourceResult;
-use crate::commands::arguments::resource_arguments::ResourceOrId;
-use crate::commands::message::message;
-use crate::commands::CommandSourceStack;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::slot_arguments::SlotSourceResult;
+use mc_game_core::commands::arguments::resource_arguments::ResourceOrId;
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::CommandSourceStack;
 use crate::server::commands::command_response_tracker::CommandResponseTracker;
-use crate::server::level::ServerLevel;
-use crate::translatable;
-use crate::world::item::slot::{RangeSlotSource, RangeSource, SlotCollection, SlotSourceRef, slot_source_codec};
-use crate::world::level::storage::loot::context::{LootContext, LootParams, VisitedEntry};
-use crate::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::translatable;
+use mc_game_core::world::item::slot::{RangeSlotSource, RangeSource, SlotCollection, SlotSourceRef, slot_source_codec};
+use mc_game_core::world::level::storage::loot::context::{LootContext, LootParams, VisitedEntry};
+use mc_game_core::registry::keys;
 use mc_brigadier::{CommandSyntaxException, DynamicCommandExceptionType};
 use mc_dfu::Codec;
 use mc_core::pos::BlockPos;

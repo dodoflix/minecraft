@@ -1,12 +1,12 @@
 //! `WorldBorderCommand`.
 use mc_brigadier::ArgumentBuilder;
-use crate::commands::arguments::TimeArgument;
-use crate::commands::arguments::coordinates::Vec2Argument;
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::util::java_format::format_fixed;
-use crate::world::level::saveddata::world_border::WorldBorder;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::TimeArgument;
+use mc_game_core::commands::arguments::coordinates::Vec2Argument;
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::util::java_format::format_fixed;
+use mc_game_core::world::level::saveddata::world_border::WorldBorder;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{double_arg_range, float_arg_min, integer_min};
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use std::sync::LazyLock;

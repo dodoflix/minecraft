@@ -1,12 +1,12 @@
 //! `ReloadCommand`: `/reload` (and `reloadPacks`, which `/datapack` shares).
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::ArgumentBuilder;
 
 /// `ReloadCommand.reloadPacks(selectedPacks, source)`.
 pub fn reload_packs(selected_packs: &[String], source: &CommandSourceStack) {
     if let Err(e) = source.with_server(|server| server.reload_resources(selected_packs)) {
-        log::warn!("Failed to execute reload\n{}", crate::server::packs::throwable("java.util.concurrent.CompletionException", &e.to_string()));
+        log::warn!("Failed to execute reload\n{}", mc_game_core::server::packs::throwable("java.util.concurrent.CompletionException", &e.to_string()));
         source.send_failure(translatable!("commands.reload.failure"));
     }
 }

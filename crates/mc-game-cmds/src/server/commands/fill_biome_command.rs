@@ -1,11 +1,11 @@
 //! `FillBiomeCommand`.
-use crate::commands::arguments::coordinates::BlockPosArgument;
-use crate::commands::arguments::resource_arguments::{ResourceArgument, ResourceOrTag, ResourceOrTagArgument};
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::server::level::ServerLevel;
-use crate::world::level::gamerules::GameRules;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
+use mc_game_core::commands::arguments::resource_arguments::{ResourceArgument, ResourceOrTag, ResourceOrTagArgument};
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::gamerules::GameRules;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, Dynamic2CommandExceptionType, SimpleCommandExceptionType};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::quart_pos;

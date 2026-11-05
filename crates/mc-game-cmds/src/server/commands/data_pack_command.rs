@@ -1,13 +1,13 @@
 //! `DataPackCommand`: `/datapack enable|disable|list|create`.
 use super::reload_command::reload_packs;
-use crate::commands::arguments::ComponentArgument;
-use crate::commands::component_utils::{ResolutionContext, resolve};
-use crate::commands::message::dynamic_translatable;
-use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, LEVEL_OWNERS, argument, has_permission, literal};
-use crate::registry::feature_flags::{FeatureFlagSetExt, print_missing_flags};
-use crate::server::packs::{DATA_PACK_FORMAT, Pack, PackSource};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::ComponentArgument;
+use mc_game_core::commands::component_utils::{ResolutionContext, resolve};
+use mc_game_core::commands::message::dynamic_translatable;
+use mc_game_core::commands::shared_suggestion_provider::suggest;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, LEVEL_OWNERS, argument, has_permission, literal};
+use mc_game_core::registry::feature_flags::{FeatureFlagSetExt, print_missing_flags};
+use mc_game_core::server::packs::{DATA_PACK_FORMAT, Pack, PackSource};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{StringArgumentType, escape_if_required};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, DynamicCommandExceptionType};
 use mc_text::Component;
@@ -19,7 +19,7 @@ static ERROR_PACK_ALREADY_DISABLED: LazyLock<DynamicCommandExceptionType<String>
 static ERROR_CANNOT_DISABLE_FEATURE: LazyLock<DynamicCommandExceptionType<String>> =
     LazyLock::new(|| dynamic_translatable("commands.datapack.disable.failed.feature"));
 static ERROR_PACK_FEATURES_NOT_ENABLED: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|id: String, flags: String| crate::commands::message::message(translatable!("commands.datapack.enable.failed.no_flags", id, flags)))
+    Dynamic2CommandExceptionType::new(|id: String, flags: String| mc_game_core::commands::message::message(translatable!("commands.datapack.enable.failed.no_flags", id, flags)))
 });
 static ERROR_PACK_INVALID_NAME: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("commands.datapack.create.invalid_name"));
 static ERROR_PACK_INVALID_FULL_NAME: LazyLock<DynamicCommandExceptionType<String>> =
@@ -27,7 +27,7 @@ static ERROR_PACK_INVALID_FULL_NAME: LazyLock<DynamicCommandExceptionType<String
 static ERROR_PACK_ALREADY_EXISTS: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("commands.datapack.create.already_exists"));
 static ERROR_PACK_METADATA_ENCODE_FAILURE: LazyLock<Dynamic2CommandExceptionType<String, String>> = LazyLock::new(|| {
     Dynamic2CommandExceptionType::new(|id: String, error: String| {
-        crate::commands::message::message(translatable!("commands.datapack.create.metadata_encode_failure", id, error))
+        mc_game_core::commands::message::message(translatable!("commands.datapack.create.metadata_encode_failure", id, error))
     })
 });
 static ERROR_PACK_IO_FAILURE: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("commands.datapack.create.io_failure"));
@@ -161,7 +161,7 @@ fn create_pack(source: &CommandSourceStack, id: &str, description: &Component) -
     })();
     if let Err(e) = written {
         let absolute = std::path::absolute(&datapack_dir).unwrap_or(datapack_dir);
-        log::warn!("Failed to create pack at {}\n{}", absolute.display(), crate::server::packs::throwable("java.io.IOException", &e.to_string()));
+        log::warn!("Failed to create pack at {}\n{}", absolute.display(), mc_game_core::server::packs::throwable("java.io.IOException", &e.to_string()));
         return Err(ERROR_PACK_IO_FAILURE.create(id.to_owned()));
     }
     source.send_success(|| translatable!("commands.datapack.create.success", id.to_owned()), true);

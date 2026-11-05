@@ -6,10 +6,10 @@
 //! `getFloatUnsafe(lootContext)`, `Err` = the `ArithmeticException` message) to fill once it exists; everything else
 //! (tree, `scale`, rounding, result messages and errors) is vanilla's.
 use super::loot_context_sources::{ContextDecorator, LootContext, add_context_sources};
-use crate::commands::arguments::resource_arguments::{ContextFloatProviderArgument, ContextIntProviderArgument, ResourceOrId};
-use crate::commands::message::message;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::resource_arguments::{ContextFloatProviderArgument, ContextIntProviderArgument, ResourceOrId};
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{FloatArgumentType, float_arg};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, DynamicCommandExceptionType, NodeBuilder};
 use mc_core::math::java::java_float_to_string;

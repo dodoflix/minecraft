@@ -1,14 +1,14 @@
 //! `SummonCommand` (also used by `/execute summon`).
-use crate::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
-use crate::commands::arguments::coordinates::Vec3Argument;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::CompoundTagArgument;
-use crate::commands::arguments::resource_arguments::ResourceArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::synchronization::suggestion_providers;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::factory::{self, EntitySpawnRequest};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::is_in_spawnable_bounds;
+use mc_game_core::commands::arguments::coordinates::Vec3Argument;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::CompoundTagArgument;
+use mc_game_core::commands::arguments::resource_arguments::ResourceArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::synchronization::suggestion_providers;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;

@@ -1,7 +1,7 @@
 //! `VersionCommand`.
-use crate::commands::{CommandSelection, LEVEL_ALL, LEVEL_GAMEMASTERS, has_permission, literal};
-use crate::server::packs::{DATA_PACK_FORMAT, RESOURCE_PACK_FORMAT};
-use crate::{register_command, translatable};
+use mc_game_core::commands::{CommandSelection, LEVEL_ALL, LEVEL_GAMEMASTERS, has_permission, literal};
+use mc_game_core::server::packs::{DATA_PACK_FORMAT, RESOURCE_PACK_FORMAT};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::ArgumentBuilder;
 use mc_text::Component;
 use mc_world::level_storage::{MAIN_SERIES, WORLD_VERSION, WORLD_VERSION_NAME, WORLD_VERSION_STABLE};
@@ -36,7 +36,7 @@ fn build_time_string() -> String {
 /// `VersionCommand.dumpVersion`.
 pub fn dump_version(mut output: impl FnMut(Component)) {
     let protocol = mc_protocol::PROTOCOL_VERSION;
-    output(translatable!("commands.version.id", crate::server::packs::GAME_VERSION));
+    output(translatable!("commands.version.id", mc_game_core::server::packs::GAME_VERSION));
     output(translatable!("commands.version.name", WORLD_VERSION_NAME));
     output(translatable!("commands.version.data", WORLD_VERSION));
     output(translatable!("commands.version.series", MAIN_SERIES));

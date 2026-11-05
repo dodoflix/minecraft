@@ -1,11 +1,11 @@
 //! `TagCommand`.
 use super::score_tracker::ScoreTracker as CommandResponseTracker;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::shared_suggestion_provider::suggest;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::StringArgumentType;
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_text::util::format_string_list;

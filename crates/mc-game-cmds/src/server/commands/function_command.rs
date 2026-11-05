@@ -1,19 +1,19 @@
 //! `FunctionCommand`: `/function <name> [<arguments> | with block|entity|storage ...]`, and the queueing of function calls
 //! that `execute if function` and `/debug function` share the engine pieces of.
-use crate::commands::arguments::function_argument::FunctionArgument;
-use crate::commands::arguments::{CompoundTagArgument, NbtPathArgument};
-use crate::commands::execution::tasks::call_function::CallFunction;
-use crate::commands::execution::tasks::fallthrough_task;
-use crate::commands::execution::{ChainModifiers, CustomCommandExecutor, ExecutionControl, bind, custom_command, run_with_error_handling};
-use crate::commands::functions::CommandFunction;
-use crate::commands::message::message;
-use crate::commands::shared_suggestion_provider::{suggest_resource, suggest_resource_prefixed_into};
-use crate::commands::{CommandResultCallback, CommandSourceStack, Commands, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::commands::arguments::function_argument::FunctionArgument;
+use mc_game_core::commands::arguments::{CompoundTagArgument, NbtPathArgument};
+use mc_game_core::commands::execution::tasks::call_function::CallFunction;
+use mc_game_core::commands::execution::tasks::fallthrough_task;
+use mc_game_core::commands::execution::{ChainModifiers, CustomCommandExecutor, ExecutionControl, bind, custom_command, run_with_error_handling};
+use mc_game_core::commands::functions::CommandFunction;
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::shared_suggestion_provider::{suggest_resource, suggest_resource_prefixed_into};
+use mc_game_core::commands::{CommandResultCallback, CommandSourceStack, Commands, LEVEL_GAMEMASTERS, argument, has_permission, literal};
 use crate::server::commands::arg_provider::ArgProvider;
 use crate::server::commands::data::DataAccessor;
 use crate::server::commands::data_commands::{Accessor, SOURCE_PROVIDERS, get_single_tag};
-use crate::server::permissions::LevelBasedPermissionSet;
-use crate::{register_command, translatable};
+use mc_game_core::server::permissions::LevelBasedPermissionSet;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandSyntaxException, ContextChain, Dynamic2CommandExceptionType, DynamicCommandExceptionType,
     Suggestions, SuggestionsBuilder,
@@ -55,7 +55,7 @@ pub fn modify_sender_for_execution(sender: &CommandSourceStack) -> CommandSource
 }
 
 /// `FunctionCommand.getArgumentTag`.
-fn get_argument_tag(path: &crate::commands::arguments::NbtPath, accessor: &dyn DataAccessor, source: &CommandSourceStack) -> Result<CompoundTag, CommandSyntaxException> {
+fn get_argument_tag(path: &mc_game_core::commands::arguments::NbtPath, accessor: &dyn DataAccessor, source: &CommandSourceStack) -> Result<CompoundTag, CommandSyntaxException> {
     match get_single_tag(path, accessor, source)? {
         Tag::Compound(compound) => Ok(compound),
         other => Err(ERROR_ARGUMENT_NOT_COMPOUND.create(Tag::type_name(other.id()))),

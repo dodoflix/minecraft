@@ -1,7 +1,7 @@
 //! By-value front end of [`CommandResponseTracker`] for the scoreboard/team/tag/trigger commands: elements are tracked by
 //! value, `on_zero` is an already created exception and `send_feedback` is the `NON_ZERO` form (vanilla's overloads).
 use super::command_response_tracker::{CommandResponseTracker, ElementType};
-use crate::commands::CommandSourceStack;
+use mc_game_core::commands::CommandSourceStack;
 use mc_brigadier::CommandSyntaxException;
 use mc_text::Component;
 

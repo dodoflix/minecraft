@@ -1,17 +1,17 @@
 //! `BlockItemAccessor`: `/item ... block <pos>`.
 use super::item_accessor::{ItemAccessor, ItemTarget, Setter, SlotSnapshot, provide_all};
-use super::slots::{ContainerSlots, apply_container_writes, container_at, slot_params};
-use crate::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
-use crate::commands::{CommandSourceStack, argument};
+use mc_game_core::server::commands::item::slots::{ContainerSlots, apply_container_writes, container_at, slot_params};
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
+use mc_game_core::commands::{CommandSourceStack, argument};
 use crate::server::commands::arg_provider::ArgProvider;
 use crate::server::commands::command_response_tracker::{CommandResponseTracker, ElementType};
 use crate::server::commands::item_commands::{
     ERROR_SOURCE_NOT_A_CONTAINER, ERROR_TARGET_NOT_A_CONTAINER, ERROR_TARGET_NO_CHANGES, ERROR_TARGET_NO_CHANGES_KNOWN_ITEM,
 };
-use crate::translatable;
-use crate::world::item::slot::{SlotCollection, SlotSourceRef};
-use crate::world::item::ItemStackExt;
-use crate::world::level::storage::loot::context::LootParams;
+use mc_game_core::translatable;
+use mc_game_core::world::item::slot::{SlotCollection, SlotSourceRef};
+use mc_game_core::world::item::ItemStackExt;
+use mc_game_core::world::level::storage::loot::context::LootParams;
 use mc_brigadier::{CommandSyntaxException, Dynamic3CommandExceptionType};
 use mc_core::pos::BlockPos;
 use mc_protocol::components::ItemStack;

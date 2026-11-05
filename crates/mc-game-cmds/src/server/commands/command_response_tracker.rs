@@ -1,8 +1,8 @@
 //! `CommandResponseTracker`: accumulates per-element command results and renders the single/multiple feedback message.
 //! Vanilla's `Messages`/`Dispatch*` records and the `…WithArg(s)` variants are closures capturing the extra arguments.
-use crate::commands::CommandSourceStack;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::host;
+use mc_game_core::commands::CommandSourceStack;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::host;
 use mc_brigadier::CommandSyntaxException;
 use mc_text::Component;
 

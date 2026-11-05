@@ -1,16 +1,16 @@
 //! `CloneCommands`.
-use crate::commands::arguments::DimensionArgument;
-use crate::commands::arguments::blocks::{BlockPredicate, BlockPredicateArgument};
-use crate::commands::arguments::coordinates::BlockPosArgument;
-use crate::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED;
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::{CommandBuildContext, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::server::level::ServerLevel;
-use crate::server::level::level_chunk_ops::EntityCreationType;
-use crate::world::level::gamerules::GameRules;
-use crate::world::level::{BlockGetter, DimensionKey, LevelAccessor};
-use crate::world::level::block::state::BlockStateExt;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::DimensionArgument;
+use mc_game_core::commands::arguments::blocks::{BlockPredicate, BlockPredicateArgument};
+use mc_game_core::commands::arguments::coordinates::BlockPosArgument;
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED;
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::{CommandBuildContext, CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::level::level_chunk_ops::EntityCreationType;
+use mc_game_core::world::level::gamerules::GameRules;
+use mc_game_core::world::level::{BlockGetter, DimensionKey, LevelAccessor};
+use mc_game_core::world::level::block::state::BlockStateExt;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, RequiredArgumentBuilder, SimpleCommandExceptionType};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::pos::BlockPos;
@@ -154,7 +154,7 @@ fn wrap_with_clone_mode<B: ArgumentBuilder<CommandSourceStack>>(
 
 /// `LevelReader.hasChunksAt(pos0, pos1)` (the corners are used as given, not sorted).
 fn has_chunks_at(level: &ServerLevel, p0: BlockPos, p1: BlockPos) -> bool {
-    use crate::world::level::LevelReader;
+    use mc_game_core::world::level::LevelReader;
     let height = level.level_height();
     if !(p1.y() >= height.min_y && p0.y() <= height.max_y()) {
         return false;

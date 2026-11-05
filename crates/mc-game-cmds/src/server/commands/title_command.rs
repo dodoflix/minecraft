@@ -1,9 +1,9 @@
 //! `TitleCommand`.
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{ComponentArgument, EntityArgument, TimeArgument};
-use crate::commands::component_utils::{ResolutionContext, resolve};
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{ComponentArgument, EntityArgument, TimeArgument};
+use mc_game_core::commands::component_utils::{ResolutionContext, resolve};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::IntegerArgumentType;
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException};
 use mc_protocol::Packet;
@@ -11,7 +11,7 @@ use mc_protocol::packets::play::{
     ClientboundClearTitlesPacket, ClientboundSetActionBarTextPacket, ClientboundSetSubtitleTextPacket, ClientboundSetTitleTextPacket,
     ClientboundSetTitlesAnimationPacket,
 };
-use crate::server::players::PlayerHandle;
+use mc_game_core::server::players::PlayerHandle;
 use mc_text::Component;
 
 type Ctx = CommandContext<CommandSourceStack>;

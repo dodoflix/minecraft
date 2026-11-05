@@ -1,11 +1,11 @@
 //! `DialogCommand`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType};
-use crate::commands::arguments::resource_arguments::{DialogArgument, ResourceOrId};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::ServerPlayer;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::resource_arguments::{DialogArgument, ResourceOrId};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException};
 use mc_protocol::components::Holder;
 use mc_protocol::dialog::Dialog;

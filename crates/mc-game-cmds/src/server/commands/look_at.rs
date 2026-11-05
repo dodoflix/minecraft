@@ -1,7 +1,7 @@
 //! `LookAt` (`LookAtEntity`, `LookAtPosition`): where `/teleport ... facing` and `/rotate ... facing` turn their targets.
-use crate::commands::arguments::entity_anchor_argument::Anchor;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::{CommandSourceStack, host};
+use mc_game_core::commands::arguments::entity_anchor_argument::Anchor;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::{CommandSourceStack, host};
 use mc_core::phys::Vec3;
 
 #[derive(Clone)]

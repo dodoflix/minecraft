@@ -1,13 +1,13 @@
 //! `DamageCommand`.
-use crate::commands::arguments::coordinates::Vec3Argument;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::arguments::resource_arguments::ResourceArgument;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::registry::typed::damage_type::DamageType;
-use crate::world::damagesource::DamageSource;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::coordinates::Vec3Argument;
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::arguments::resource_arguments::ResourceArgument;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::registry::typed::damage_type::DamageType;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{FloatArgumentType, float_arg_min};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::ident::Identifier;
@@ -61,7 +61,7 @@ register_command!("DamageCommand", |ctx| {
 });
 
 /// Builds the source against the target's level (the registries are the same in every level).
-fn build_source(server: &crate::server::MinecraftServer, target: &EntityRef, spec: &Spec) -> Option<DamageSource> {
+fn build_source(server: &mc_game_core::server::MinecraftServer, target: &EntityRef, spec: &Spec) -> Option<DamageSource> {
     let level = server.level(&target.dimension)?;
     let entity = |reference: &EntityRef| host::get_entity(server, reference);
     let (id, direct, causing, position) = match spec {
@@ -71,7 +71,7 @@ fn build_source(server: &crate::server::MinecraftServer, target: &EntityRef, spe
         Spec::By(id, by) => (id, entity(by), entity(by), None),
         Spec::From(id, by, cause) => (id, entity(by), entity(cause), None),
     };
-    let data = level.registries.get::<DamageType>(crate::registry::keys::DAMAGE_TYPE, id)?.clone();
+    let data = level.registries.get::<DamageType>(mc_game_core::registry::keys::DAMAGE_TYPE, id)?.clone();
     Some(DamageSource::new(id.clone(), Arc::new(data), direct, causing, position))
 }
 

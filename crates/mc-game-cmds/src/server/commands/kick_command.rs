@@ -1,10 +1,10 @@
 //! `KickCommand`.
-use crate::commands::arguments::{EntityArgument, MessageArgument};
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, host, literal};
-use crate::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, MessageArgument};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_ADMINS, argument, has_permission, host, literal};
+use mc_game_core::commands::arguments::selector::EntityRef;
 use mc_brigadier::ArgumentBuilder;
-use crate::{register_command, translatable};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use mc_text::Component;
 use std::sync::LazyLock;

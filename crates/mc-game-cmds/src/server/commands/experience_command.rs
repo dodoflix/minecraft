@@ -1,11 +1,11 @@
 //! `ExperienceCommand` (`experience`, `xp`).
-use crate::commands::arguments::EntityArgument;
-use crate::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::arguments::selector::EntityRef;
 use super::command_response_tracker::CommandResponseTracker;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::ServerPlayer;
-use crate::register_command;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::register_command;
 use mc_brigadier::arguments::{IntegerArgumentType, integer, integer_min};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::math::mth;
@@ -29,7 +29,7 @@ impl Type {
     }
 
     /// `add`: `Player::giveExperiencePoints` / `ServerPlayer::giveExperienceLevels`.
-    fn add(self, level: &mut crate::server::level::ServerLevel, player: &mut ServerPlayer, amount: i32) {
+    fn add(self, level: &mut mc_game_core::server::level::ServerLevel, player: &mut ServerPlayer, amount: i32) {
         match self {
             Type::Points => player.give_experience_points(level, amount),
             Type::Levels => player.give_experience_levels(level, amount),
@@ -108,7 +108,7 @@ fn query_experience(source: &CommandSourceStack, target: EntityRef, kind: Type) 
     let result = source.with_server(|server| {
         server.level(&target.dimension).and_then(|l| l.get_entity(target.id)).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map_or(0, |p| kind.query(p))
     });
-    source.send_success(|| crate::translatable!(format!("commands.experience.query.{}", kind.name()), host::display_name_of(source, &target), result), false);
+    source.send_success(|| mc_game_core::translatable!(format!("commands.experience.query.{}", kind.name()), host::display_name_of(source, &target), result), false);
     Ok(result)
 }
 
@@ -126,8 +126,8 @@ fn add_experience(source: &CommandSourceStack, players: Vec<EntityRef>, amount: 
         source,
         true,
         None,
-        |player, _| crate::translatable!(format!("commands.experience.add.{}.success.single", kind.name()), amount, host::display_name_of(source, player)),
-        |player_count, _| crate::translatable!(format!("commands.experience.add.{}.success.multiple", kind.name()), amount, player_count),
+        |player, _| mc_game_core::translatable!(format!("commands.experience.add.{}.success.single", kind.name()), amount, host::display_name_of(source, player)),
+        |player_count, _| mc_game_core::translatable!(format!("commands.experience.add.{}.success.multiple", kind.name()), amount, player_count),
     )
 }
 
@@ -143,7 +143,7 @@ fn set_experience(source: &CommandSourceStack, players: Vec<EntityRef>, amount: 
         source,
         true,
         Some(&|| ERROR_SET_POINTS_INVALID.create()),
-        |player, _| crate::translatable!(format!("commands.experience.set.{}.success.single", kind.name()), amount, host::display_name_of(source, player)),
-        |player_count, _| crate::translatable!(format!("commands.experience.set.{}.success.multiple", kind.name()), amount, player_count),
+        |player, _| mc_game_core::translatable!(format!("commands.experience.set.{}.success.single", kind.name()), amount, host::display_name_of(source, player)),
+        |player_count, _| mc_game_core::translatable!(format!("commands.experience.set.{}.success.multiple", kind.name()), amount, player_count),
     )
 }

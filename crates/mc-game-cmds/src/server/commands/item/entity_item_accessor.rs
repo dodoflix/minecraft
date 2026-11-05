@@ -1,17 +1,17 @@
 //! `EntityItemAccessor`: `/item ... entity <targets>`.
 use super::item_accessor::{ItemAccessor, ItemTarget, Setter, SlotSnapshot, provide_all};
-use super::slots::{EntitySlots, apply_entity_writes, entity_in, slot_params};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::{CommandSourceStack, argument, host};
+use mc_game_core::server::commands::item::slots::{EntitySlots, apply_entity_writes, entity_in, slot_params};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::{CommandSourceStack, argument, host};
 use crate::server::commands::arg_provider::ArgProvider;
 use crate::server::commands::command_response_tracker::{CommandResponseTracker, ElementType};
 use crate::server::commands::item_commands::{ERROR_TARGET_NO_CHANGES, ERROR_TARGET_NO_CHANGES_KNOWN_ITEM};
-use crate::translatable;
-use crate::world::entity::Entity;
-use crate::world::item::slot::{SlotCollection, SlotSourceRef};
-use crate::world::item::ItemStackExt;
-use crate::world::level::storage::loot::context::LootParams;
+use mc_game_core::translatable;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::slot::{SlotCollection, SlotSourceRef};
+use mc_game_core::world::item::ItemStackExt;
+use mc_game_core::world::level::storage::loot::context::LootParams;
 use mc_brigadier::CommandSyntaxException;
 use mc_protocol::components::ItemStack;
 use mc_text::Component;

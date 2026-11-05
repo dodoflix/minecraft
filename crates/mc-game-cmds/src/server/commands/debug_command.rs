@@ -1,17 +1,17 @@
 //! `DebugCommand`: `/debug start|stop|function <name>`.
 use super::function_command::translation_arg;
-use crate::commands::arguments::function_argument::FunctionArgument;
-use crate::commands::execution::tasks::call_function::CallFunction;
-use crate::commands::execution::{
+use mc_game_core::commands::arguments::function_argument::FunctionArgument;
+use mc_game_core::commands::execution::tasks::call_function::CallFunction;
+use mc_game_core::commands::execution::{
     ChainModifiers, CustomCommandExecutor, ExecutionContext, ExecutionControl, Frame, TraceCallbacks, UnboundEntryAction, bind, custom_command,
     run_with_error_handling,
 };
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandResultCallback, CommandSource, CommandSourceStack, LEVEL_ADMINS, argument, has_permission, literal};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandResultCallback, CommandSource, CommandSourceStack, LEVEL_ADMINS, argument, has_permission, literal};
 use crate::server::commands::function_command::suggest_function;
-use crate::server::permissions::LevelBasedPermissionSet;
-use crate::util::java_format::format_fixed;
-use crate::{register_command, translatable};
+use mc_game_core::server::permissions::LevelBasedPermissionSet;
+use mc_game_core::util::java_format::format_fixed;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, ContextChain, SimpleCommandExceptionType};
 use mc_core::ident::Identifier;
 use mc_text::Component;
@@ -188,7 +188,7 @@ impl CustomCommandExecutor for TraceCustomExecutor {
                 return Err(NO_RECURSIVE_TRACES.create());
             }
             let functions = FunctionArgument::get_functions(current_step.get_top_context(), "name")?;
-            let output_name = format!("debug-trace-{}.txt", crate::crash_report::filename_formatted_date_time());
+            let output_name = format!("debug-trace-{}.txt", mc_game_core::crash_report::filename_formatted_date_time());
             let (commands, debug_dir) = source.with_server(|server| (server.function_commands(), server.get_file("debug")));
             // `CommandResponseTracker.track`: element count, sum of the sizes, the element when there is exactly one.
             let (mut element_count, mut total_value, mut only_element) = (0, 0i32, None);
@@ -221,7 +221,7 @@ impl CustomCommandExecutor for TraceCustomExecutor {
                 Ok(())
             })();
             if let Err(e) = traced {
-                log::warn!("Tracing failed\n{}", crate::server::packs::throwable("java.io.UncheckedIOException", &e.to_string()));
+                log::warn!("Tracing failed\n{}", mc_game_core::server::packs::throwable("java.io.UncheckedIOException", &e.to_string()));
                 source.send_failure(translatable!("commands.debug.function.traceFailed"));
             }
             let source = source.clone();

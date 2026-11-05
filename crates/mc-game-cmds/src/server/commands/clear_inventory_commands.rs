@@ -1,12 +1,12 @@
 //! `ClearInventoryCommands`: `/clear [targets [item [maxCount]]]`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType};
-use super::item::slots::clear_or_count_matching_items;
-use crate::commands::arguments::item::{ItemPredicateArgument, ItemPredicateResult};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::message::message;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::{register_command, translatable};
+use mc_game_core::server::commands::item::slots::clear_or_count_matching_items;
+use mc_game_core::commands::arguments::item::{ItemPredicateArgument, ItemPredicateResult};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{IntegerArgumentType, integer_min};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, DynamicCommandExceptionType};
 use mc_protocol::components::ItemStack;

@@ -1,7 +1,7 @@
 //! `DifficultyCommand`.
-use crate::commands::message::message;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, DynamicCommandExceptionType};
 use mc_text::Component;
 use mc_world::level_storage::Difficulty;

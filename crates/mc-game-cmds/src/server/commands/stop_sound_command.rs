@@ -1,11 +1,11 @@
 //! `StopSoundCommand`.
 use super::play_sound_command::SOUND_SOURCES;
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, IdentifierArgument};
-use crate::commands::synchronization::suggestion_providers;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::entity::ServerPlayer;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, IdentifierArgument};
+use mc_game_core::commands::synchronization::suggestion_providers;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException};
 use mc_core::ident::Identifier;
 use mc_protocol::packets::play::{ClientboundStopSoundPacket, SoundSource};

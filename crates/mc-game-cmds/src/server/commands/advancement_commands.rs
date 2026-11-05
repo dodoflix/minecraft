@@ -1,13 +1,13 @@
 //! `AdvancementCommands`.
 use super::command_response_tracker::{CommandResponseTracker, ElementType, display_name};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::EntityArgument;
-use crate::commands::arguments::resource_arguments::ResourceKeyArgument;
-use crate::commands::host::{self, AdvancementRef};
-use crate::commands::message::message;
-use crate::commands::shared_suggestion_provider::suggest;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::commands::arguments::resource_arguments::ResourceKeyArgument;
+use mc_game_core::commands::host::{self, AdvancementRef};
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::shared_suggestion_provider::suggest;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::StringArgumentType;
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType, Dynamic3CommandExceptionType,
@@ -134,7 +134,7 @@ impl Action {
         })
     }
 
-    fn perform(self, server: &mut crate::server::MinecraftServer, player: &EntityRef, advancement: &AdvancementRef) -> bool {
+    fn perform(self, server: &mut mc_game_core::server::MinecraftServer, player: &EntityRef, advancement: &AdvancementRef) -> bool {
         let progress = host::player_advancement_progress(server, player, &advancement.id);
         match self {
             Self::Grant => {

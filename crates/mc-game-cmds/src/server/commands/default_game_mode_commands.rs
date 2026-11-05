@@ -1,8 +1,8 @@
 //! `DefaultGameModeCommands`.
-use crate::commands::arguments::GameModeArgument;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::util::game_modes::GameTypeExt;
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::GameModeArgument;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::util::game_modes::GameTypeExt;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::ArgumentBuilder;
 use mc_world::level_storage::GameType;
 

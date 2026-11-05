@@ -1,13 +1,13 @@
 //! `PerfCommand`.
-use crate::commands::message::simple_translatable;
-use crate::commands::server_access::enter_server;
-use crate::commands::{CommandSourceStack, LEVEL_OWNERS, has_permission, literal};
-use crate::crash_report::SystemReport;
-use crate::util::file_util::find_available_name;
-use crate::util::java_format::format_fixed;
-use crate::util::profiling::ProfileResults;
-use crate::util::profiling::metrics::PROFILING_RESULTS_DIR;
-use crate::{register_command, translatable};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::server_access::enter_server;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_OWNERS, has_permission, literal};
+use mc_game_core::crash_report::SystemReport;
+use mc_game_core::util::file_util::find_available_name;
+use mc_game_core::util::java_format::format_fixed;
+use mc_game_core::util::profiling::ProfileResults;
+use mc_game_core::util::profiling::metrics::PROFILING_RESULTS_DIR;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use std::io::Write as _;
 use std::path::Path;
@@ -52,11 +52,11 @@ fn stop_profiling_dedicated_server(source: &CommandSourceStack) -> Result<i32, C
 
 /// `saveResults(source, report, server)` on the IO thread: `<date>-<level>-<version>.zip` in `debug/profiling` holding
 /// `system.txt` and the report directory; feedback goes back to the game thread.
-fn save_results(source: CommandSourceStack, report: &Path, shared: &std::sync::Arc<crate::server::shared::ServerShared>, level_name: &str) {
+fn save_results(source: CommandSourceStack, report: &Path, shared: &std::sync::Arc<mc_game_core::server::shared::ServerShared>, level_name: &str) {
     let feedback = |run: Box<dyn FnOnce(&CommandSourceStack) + Send>| {
         shared.execute(move |server| enter_server(server, || run(&source)));
     };
-    let profiling_name = format!("{}-{}-{}", crate::crash_report::filename_formatted_date_time(), level_name, crate::server::packs::GAME_VERSION);
+    let profiling_name = format!("{}-{}-{}", mc_game_core::crash_report::filename_formatted_date_time(), level_name, mc_game_core::server::packs::GAME_VERSION);
     let results_dir = Path::new(PROFILING_RESULTS_DIR);
     let zip_file = match find_available_name(results_dir, &profiling_name, ".zip") {
         Ok(name) => name,

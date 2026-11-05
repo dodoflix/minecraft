@@ -1,13 +1,13 @@
 //! `TeamCommand`.
 use super::score_tracker::ScoreTracker as CommandResponseTracker;
 use super::scoreboard_command::with_scoreboard;
-use crate::commands::arguments::scores::{ScoreHolder, suggest_score_holders};
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{ComponentArgument, ScoreHolderArgument, TeamArgument, TeamColor, TeamColorArgument};
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
-use crate::world::scores::{CollisionRule, Visibility};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::scores::{ScoreHolder, suggest_score_holders};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{ComponentArgument, ScoreHolderArgument, TeamArgument, TeamColor, TeamColorArgument};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
+use mc_game_core::world::scores::{CollisionRule, Visibility};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{BoolArgumentType, StringArgumentType};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_text::util::{default_separator, format_list, format_string_list};

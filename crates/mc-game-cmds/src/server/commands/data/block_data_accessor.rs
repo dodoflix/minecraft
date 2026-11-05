@@ -1,13 +1,13 @@
 //! `BlockDataAccessor`.
 use super::DataAccessor;
 use super::data_accessor::{format_scale, to_pretty_component};
-use crate::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
-use crate::commands::arguments::NbtPath;
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, argument, host};
+use mc_game_core::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
+use mc_game_core::commands::arguments::NbtPath;
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, argument, host};
 use crate::server::commands::arg_provider::ArgProvider;
-use crate::translatable;
-use crate::world::level::DimensionKey;
+use mc_game_core::translatable;
+use mc_game_core::world::level::DimensionKey;
 use mc_brigadier::{CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::pos::BlockPos;
 use mc_nbt::{CompoundTag, Tag};

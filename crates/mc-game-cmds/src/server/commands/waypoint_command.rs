@@ -1,11 +1,11 @@
 //! `WaypointCommand` (+ `WaypointArgument`).
-use crate::commands::arguments::selector::EntityRef;
-use crate::commands::arguments::{EntityArgument, HexColorArgument, IdentifierArgument, TeamColorArgument};
-use crate::commands::message::simple_translatable;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::world::scores::TeamColor;
-use crate::world::waypoints::{Icon, default_style};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::selector::EntityRef;
+use mc_game_core::commands::arguments::{EntityArgument, HexColorArgument, IdentifierArgument, TeamColorArgument};
+use mc_game_core::commands::message::simple_translatable;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::world::scores::TeamColor;
+use mc_game_core::world::waypoints::{Icon, default_style};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandContext, CommandSyntaxException, SimpleCommandExceptionType};
 use mc_core::ident::Identifier;
 use mc_text::events::{ClickEvent, HoverEvent};
@@ -84,7 +84,7 @@ fn set_style(source: &CommandSourceStack, waypoint: &EntityRef, style: Identifie
     Ok(0)
 }
 
-fn set_team_color(source: &CommandSourceStack, waypoint: &EntityRef, color: crate::commands::arguments::TeamColor) -> Result<i32, CommandSyntaxException> {
+fn set_team_color(source: &CommandSourceStack, waypoint: &EntityRef, color: mc_game_core::commands::arguments::TeamColor) -> Result<i32, CommandSyntaxException> {
     let color = TeamColor::by_name(color.get_serialized_name()).expect("team colors have the same names");
     mutate_icon(source, waypoint, |icon| icon.color = Some(color.rgb()));
     source.send_success(

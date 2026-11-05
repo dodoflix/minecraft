@@ -2,8 +2,8 @@
 //!
 //! Vanilla's accessors hold the live object; here they hold a handle (entity ref / dimension + position / storage id)
 //! and reach the server through the command source stack, so every method takes the stack.
-use crate::commands::CommandSourceStack;
-use crate::commands::arguments::NbtPath;
+use mc_game_core::commands::CommandSourceStack;
+use mc_game_core::commands::arguments::NbtPath;
 use mc_brigadier::CommandSyntaxException;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
@@ -22,7 +22,7 @@ pub trait DataAccessor: Send + Sync {
 
 /// `String.format(Locale.ROOT, "%.2f", scale)`.
 pub(super) fn format_scale(scale: f64) -> String {
-    crate::util::java_format::format_fixed(scale, 2)
+    mc_game_core::util::java_format::format_fixed(scale, 2)
 }
 
 /// `NbtUtils.toPrettyComponent(tag)`.

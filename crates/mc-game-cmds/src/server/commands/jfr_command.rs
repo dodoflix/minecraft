@@ -1,8 +1,8 @@
 //! `JfrCommand`.
-use crate::commands::message::{message, simple_translatable};
-use crate::commands::{CommandSourceStack, LEVEL_OWNERS, has_permission, literal};
-use crate::util::profiling::jfr;
-use crate::{register_command, translatable};
+use mc_game_core::commands::message::{message, simple_translatable};
+use mc_game_core::commands::{CommandSourceStack, LEVEL_OWNERS, has_permission, literal};
+use mc_game_core::util::profiling::jfr;
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, DynamicCommandExceptionType, SimpleCommandExceptionType};
 use mc_text::{ChatFormatting, ClickEvent, Component, HoverEvent};
 use std::path::Path;

@@ -1,14 +1,14 @@
 //! `SpreadPlayersCommand`.
 use mc_brigadier::ArgumentBuilder;
-use crate::commands::arguments::coordinates::Vec2Argument;
-use crate::commands::arguments::selector::entity_selector::EntityRef;
-use crate::commands::message::message;
-use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
-use crate::commands::arguments::EntityArgument;
-use crate::server::level::ServerLevel;
-use crate::util::java_format::format_fixed;
-use crate::world::level::{BlockGetter, LevelReader};
-use crate::{register_command, translatable};
+use mc_game_core::commands::arguments::coordinates::Vec2Argument;
+use mc_game_core::commands::arguments::selector::entity_selector::EntityRef;
+use mc_game_core::commands::message::message;
+use mc_game_core::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use mc_game_core::commands::arguments::EntityArgument;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::util::java_format::format_fixed;
+use mc_game_core::world::level::{BlockGetter, LevelReader};
+use mc_game_core::{register_command, translatable};
 use mc_brigadier::arguments::{BoolArgumentType, IntegerArgumentType, float_arg_min, integer};
 use mc_brigadier::{CommandSyntaxException, Dynamic2CommandExceptionType, Dynamic4CommandExceptionType};
 use mc_core::math::mth;
