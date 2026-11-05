@@ -312,7 +312,7 @@ pub fn update_custom_block_entity_tag(level: &mut ServerLevel, player: Option<&S
     if old == original {
         return false;
     }
-    be.load_additional(&old);
+    level.load_block_entity_additional_in_level(pos, &old);
     level.block_entity_changed(pos);
     true
 }

@@ -59,6 +59,11 @@ pub trait LevelTickEnv {
     fn tick_scheduled_events(&mut self, game_time: i64);
     /// `raids.tick(level)`.
     fn tick_raids(&mut self, level: &mut ServerLevel);
+    /// `server.getCommands().performPrefixedCommand(source, command)` for a source located in `level` (the ticking level, lent
+    /// back to the server while the command runs).
+    fn perform_prefixed_command(&mut self, level: &mut ServerLevel, source: crate::commands::CommandSourceStack, command: &str);
+    /// The command block game rules, read live (`level.getGameRules()` inside command block code).
+    fn command_rules(&self) -> super::level_commands::CommandRules;
     /// `PlayerList.broadcastAll(packet)`: every player of every dimension.
     fn broadcast_game_event_to_all(&mut self, packet: &ClientboundGameEventPacket);
     /// `setGameTime(time)` on the level data (`tickTime` levels only; also stores it for `getGameTime`).
@@ -621,6 +626,7 @@ impl ServerLevel {
         self.tick_state.handling_tick = true;
         self.tick_state.attributes.invalidate_tick_cache();
         let runs = env.runs_normally();
+        self.tick_state.command_rules = env.command_rules();
         if runs {
             self.get_world_border().tick();
             self.advance_weather_cycle(env);
@@ -645,7 +651,7 @@ impl ServerLevel {
 
         if !self.is_debug && runs {
             let tick = self.game_time();
-            self.run_block_ticks(tick);
+            self.with_command_env(&mut *env, |level| level.run_block_ticks(tick));
             self.run_fluid_ticks(tick);
         }
 

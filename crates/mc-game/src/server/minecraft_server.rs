@@ -35,6 +35,7 @@ use mc_world::level_storage::{LevelStorageAccess, PlayerDataStorage, PrimaryLeve
 use parking_lot::Mutex;
 use std::panic::{self, AssertUnwindSafe};
 use std::path::{Path, PathBuf};
+use std::ptr::NonNull;
 use std::sync::Arc;
 use std::sync::mpsc::Receiver;
 use std::time::Duration;
@@ -83,6 +84,16 @@ pub struct ServerTickHooks {
     pub tick_raids: Option<fn(&mut MinecraftServer, &mut ServerLevel)>,
 }
 
+/// A level that is taken out of [`MinecraftServer::levels`] for its tick but reachable again through `level`/`level_mut`/
+/// `with_level` while it is lent. Only the game thread ever sets or reads it.
+struct LentLevel {
+    dimension: DimensionKey,
+    level: NonNull<ServerLevel>,
+}
+
+// SAFETY: set and read on the game thread only, and only for the duration of one `with_lent_level` call.
+unsafe impl Send for LentLevel {}
+
 pub struct MinecraftServer {
     pub shared: Arc<ServerShared>,
     /// Seams for per-tick work of unlanded slices, see [`ServerTickHooks`].
@@ -91,6 +102,9 @@ pub struct MinecraftServer {
     /// `levels` in vanilla iteration order. A level is `None` only while it is taken out for its own tick
     /// (see [`MinecraftServer::with_level`]).
     levels: IndexMap<DimensionKey, Option<Box<ServerLevel>>>,
+    /// The level whose own tick is currently running, lent back to the server while commands run inside it
+    /// (see [`MinecraftServer::with_lent_level`]).
+    lent_level: Option<LentLevel>,
     /// `tickCount` (mirrored into `shared`; only this struct writes it).
     pub tick_count: i32,
 
@@ -215,6 +229,7 @@ impl MinecraftServer {
             shared,
             tasks: TaskQueue::new(tasks),
             levels: IndexMap::new(),
+            lent_level: None,
             tick_count: 0,
             server_directory: init.server_directory,
             storage_source: init.storage_source,
@@ -277,11 +292,33 @@ impl MinecraftServer {
     }
 
     pub fn level(&self, dimension: &DimensionKey) -> Option<&ServerLevel> {
-        self.levels.get(dimension).and_then(|l| l.as_deref())
+        match self.levels.get(dimension)? {
+            Some(level) => Some(level),
+            // SAFETY: `lent_level` is only set by `with_lent_level`, whose caller does not touch the level meanwhile.
+            None => self.lent_level.as_ref().filter(|l| l.dimension == *dimension).map(|l| unsafe { l.level.as_ref() }),
+        }
     }
 
     pub fn level_mut(&mut self, dimension: &DimensionKey) -> Option<&mut ServerLevel> {
-        self.levels.get_mut(dimension).and_then(|l| l.as_deref_mut())
+        match self.levels.get_mut(dimension)? {
+            Some(level) => Some(level),
+            // SAFETY: see `level`; `&mut self` makes this the only access to the lent level.
+            None => self.lent_level.as_mut().filter(|l| l.dimension == *dimension).map(|l| unsafe { l.level.as_mut() }),
+        }
+    }
+
+    /// Runs `f` with `level` (which the caller took out of the server to tick it) reachable through
+    /// `level`/`level_mut`/`with_level` again. Vanilla's `ServerLevel.tickTime` runs scheduled functions that act on their own
+    /// level; the caller must not use `level` while `f` runs.
+    pub(super) fn with_lent_level<R>(&mut self, level: &mut ServerLevel, f: impl FnOnce(&mut MinecraftServer) -> R) -> R {
+        let lent = LentLevel { dimension: level.dimension.clone(), level: NonNull::from(&mut *level) };
+        let previous = self.lent_level.replace(lent);
+        let result = panic::catch_unwind(AssertUnwindSafe(|| f(self)));
+        self.lent_level = previous;
+        match result {
+            Ok(r) => r,
+            Err(payload) => panic::resume_unwind(payload),
+        }
     }
 
     /// Dimension keys in vanilla order (overworld first).
@@ -294,7 +331,17 @@ impl MinecraftServer {
     /// reach the server and the other levels. Returns `None` if the level doesn't exist or is already taken out.
     /// The level is put back even when `f` panics.
     pub fn with_level<R>(&mut self, dimension: &DimensionKey, f: impl FnOnce(&mut MinecraftServer, &mut ServerLevel) -> R) -> Option<R> {
-        let mut level = self.levels.get_mut(dimension)?.take()?;
+        let Some(mut level) = self.levels.get_mut(dimension)?.take() else {
+            // The level of the running tick: lent for the call, taken out of the server while `f` has it.
+            let lent = self.lent_level.take_if(|l| l.dimension == *dimension)?;
+            // SAFETY: see `level_mut`; the lent pointer was taken out, so nothing else can reach the level during `f`.
+            let result = panic::catch_unwind(AssertUnwindSafe(|| f(self, unsafe { &mut *lent.level.as_ptr() })));
+            self.lent_level = Some(lent);
+            return match result {
+                Ok(r) => Some(r),
+                Err(payload) => panic::resume_unwind(payload),
+            };
+        };
         let result = panic::catch_unwind(AssertUnwindSafe(|| f(self, &mut level)));
         if let Some(slot) = self.levels.get_mut(dimension) {
             *slot = Some(level);
@@ -307,11 +354,21 @@ impl MinecraftServer {
 
     /// All levels that are currently in place (`getAllLevels`).
     pub fn all_levels(&self) -> impl Iterator<Item = &ServerLevel> {
-        self.levels.values().filter_map(|l| l.as_deref())
+        let lent = self.lent_level.as_ref();
+        // SAFETY: see `level`.
+        self.levels.iter().filter_map(move |(key, l)| match l.as_deref() {
+            Some(level) => Some(level),
+            None => lent.filter(|l| l.dimension == *key).map(|l| unsafe { l.level.as_ref() }),
+        })
     }
 
     pub fn all_levels_mut(&mut self) -> impl Iterator<Item = &mut ServerLevel> {
-        self.levels.values_mut().filter_map(|l| l.as_deref_mut())
+        let lent = self.lent_level.as_ref().map(|l| (l.dimension.clone(), l.level));
+        self.levels.iter_mut().filter_map(move |(key, l)| match l.as_deref_mut() {
+            Some(level) => Some(level),
+            // SAFETY: see `level_mut`; no other access to the lent level exists while `&mut self` is borrowed.
+            None => lent.as_ref().filter(|(d, _)| d == key).map(|(_, p)| unsafe { &mut *p.as_ptr() }),
+        })
     }
 
     /// `overworld()`.

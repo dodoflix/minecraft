@@ -82,6 +82,21 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.player_list.broadcast_all(packet);
     }
 
+    fn perform_prefixed_command(&mut self, level: &mut ServerLevel, source: crate::commands::CommandSourceStack, command: &str) {
+        let commands = self.server.commands.clone();
+        self.server.with_lent_level(level, |server| commands.perform_prefixed_command(server, source, command));
+    }
+
+    fn command_rules(&self) -> crate::server::level::level_commands::CommandRules {
+        let rules = self.server.game_rules_ref();
+        crate::server::level::level_commands::CommandRules {
+            command_blocks_work: rules.get(GameRules::COMMAND_BLOCKS_WORK),
+            command_block_output: rules.get(GameRules::COMMAND_BLOCK_OUTPUT),
+            send_command_feedback: rules.get(GameRules::SEND_COMMAND_FEEDBACK),
+            max_command_sequence_length: rules.get(GameRules::MAX_COMMAND_SEQUENCE_LENGTH),
+        }
+    }
+
     fn set_game_time(&mut self, game_time: i64) {
         self.server.world_data.lock().game_time = game_time;
     }

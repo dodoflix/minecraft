@@ -1,4 +1,5 @@
 //! `net.minecraft.world.level`.
+pub mod base_command_block;
 pub mod biome_ext;
 pub mod blockscan;
 pub mod block;
@@ -18,6 +19,7 @@ pub mod saveddata;
 pub mod signal_getter;
 pub mod shapes;
 pub mod storage;
+pub mod signal_getter;
 pub mod ticket_storage;
 
 pub use level_access::{BlockGetter, LevelAccessor, LevelReader};

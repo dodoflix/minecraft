@@ -24,6 +24,8 @@ macro_rules! block_entity_base {
 pub mod base_container;
 mod calibrated_sculk_sensor_block_entity;
 mod comparator_block_entity;
+pub mod command_block_entity;
+pub mod jigsaw_block_entity;
 mod creaking_heart_block_entity;
 mod daylight_detector_block_entity;
 mod potent_sulfur_block_entity;
@@ -36,6 +38,8 @@ mod the_end_portal_block_entity;
 pub use comparator_block_entity::ComparatorBlockEntity;
 pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
 pub use daylight_detector_block_entity::DaylightDetectorBlockEntity;
+pub use command_block_entity::CommandBlockEntity;
+pub use jigsaw_block_entity::JigsawBlockEntity;
 pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
 pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
@@ -225,6 +229,16 @@ pub trait BlockEntity: Any {
     fn container_accessed(&mut self, _level: &mut crate::server::level::ServerLevel) {}
     fn start_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
     fn stop_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
+    // ==== [Blocks:TechnicalB] ====
+    /// `loadAdditional(input)` of a block entity that is attached to a level (vanilla's `this.level != null`): command blocks
+    /// schedule their tick when `auto` turns on, structure blocks update their block state. The entity is out of the chunk
+    /// while this runs (use [`crate::server::level::ServerLevel::load_block_entity_in_level`]), so a block state change must
+    /// not be made here: return it and the caller sets it (flags 2) once the entity is back. The default is `loadAdditional`,
+    /// which is all the types that ignore their level need.
+    fn load_additional_in_level(&mut self, _level: &mut crate::server::level::ServerLevel, tag: &CompoundTag) -> Option<BlockState> {
+        self.load_additional(tag);
+        None
+    }
 }
 
 /// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).

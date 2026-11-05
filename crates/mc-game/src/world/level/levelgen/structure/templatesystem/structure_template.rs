@@ -145,6 +145,13 @@ pub struct Palette {
     cached_jigsaws: OnceLock<Vec<JigsawBlockInfo>>,
 }
 
+impl Clone for Palette {
+    /// The caches are rebuilt on demand.
+    fn clone(&self) -> Palette {
+        Palette::new(self.blocks.clone())
+    }
+}
+
 impl Palette {
     fn new(blocks: Vec<StructureBlockInfo>) -> Palette {
         Palette { blocks, cache: Mutex::new(HashMap::new()), cached_jigsaws: OnceLock::new() }
@@ -263,7 +270,7 @@ fn double_list(values: &[f64]) -> ListTag {
     list
 }
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct StructureTemplate {
     palettes: Vec<Palette>,
     entity_info_list: Vec<StructureEntityInfo>,
@@ -718,6 +725,9 @@ impl StructureTemplate {
 fn save_with_id(block_entity: &dyn BlockEntity) -> CompoundTag {
     let mut tag = CompoundTag::new();
     block_entity.save_additional(&mut tag);
+    if let Ok(components) = mc_dfu::encode_nbt(&mc_protocol::components::DataComponentMap::codec(), &block_entity.base().components).into_result() {
+        tag.put("components", components);
+    }
     tag.put_string("id", block_entity.get_type().name());
     tag
 }

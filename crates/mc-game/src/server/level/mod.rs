@@ -1,10 +1,12 @@
 //! `net.minecraft.server.level`: `ServerLevel`, chunk map, tickets, entity tracking, `ServerPlayer` glue.
 pub mod block_events;
+pub mod block_entity_access;
 pub mod game_event_dispatcher;
 pub mod level_explode;
 pub mod level_chunk_ops;
 pub mod block_break;
 pub mod spectator_camera;
+pub mod level_commands;
 pub mod level_events;
 pub mod level_mutation;
 pub mod level_attributes;
