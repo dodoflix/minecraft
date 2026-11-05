@@ -176,6 +176,19 @@ impl MenuBase {
         }
     }
 
+    /// `addDataSlots(dataAccess)` for the `ContainerData` of the block entity at `pos` (`count` ints).
+    pub fn add_block_entity_data_slots(&mut self, pos: mc_core::pos::BlockPos, count: usize) {
+        for i in 0..count {
+            self.add_data_slot(DataSlot::for_block_entity(pos, i));
+        }
+    }
+
+    fn refresh_data_slots(&mut self, player: &dyn MenuPlayer) {
+        for d in &mut self.data_slots {
+            d.refresh(player);
+        }
+    }
+
     pub fn is_valid_slot_index(&self, slot_index: i32) -> bool {
         slot_index == -1 || slot_index == -999 || (slot_index as i64) < self.slots.len() as i64
     }
@@ -237,6 +250,7 @@ impl MenuBase {
     }
 
     pub fn send_all_data_to_remote(&mut self, player: &mut dyn MenuPlayer) {
+        self.refresh_data_slots(player);
         let mut items_to_send = Vec::with_capacity(self.slots.len());
         for i in 0..self.slots.len() {
             let contents = self.with_slot(player, i, |s, e| s.get_item(e));
@@ -266,6 +280,7 @@ impl MenuBase {
     }
 
     pub fn broadcast_changes(&mut self, player: &mut dyn MenuPlayer) {
+        self.refresh_data_slots(player);
         for i in 0..self.slots.len() {
             let current = self.with_slot(player, i, |s, e| s.get_item(e));
             self.trigger_slot_listeners(i, &current);
@@ -282,6 +297,7 @@ impl MenuBase {
     }
 
     pub fn broadcast_full_state(&mut self, player: &mut dyn MenuPlayer) {
+        self.refresh_data_slots(player);
         for i in 0..self.slots.len() {
             let current = self.with_slot(player, i, |s, e| s.get_item(e));
             self.trigger_slot_listeners(i, &current);

@@ -72,6 +72,17 @@ pub trait MenuPlayer {
     }
     /// `isWithinBlockInteractionRange(pos, buffer)`.
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
+    /// Read-only view of the player's level (`None` for level-less test players).
+    fn level_ref(&self) -> Option<&ServerLevel> {
+        None
+    }
+    /// `Player.getEnderChestInventory()` (`None` for test players).
+    fn ender_chest(&self) -> Option<&super::PlayerEnderChestContainer> {
+        None
+    }
+    fn ender_chest_mut(&mut self) -> Option<&mut super::PlayerEnderChestContainer> {
+        None
+    }
     /// Sends `ClientboundSetPlayerInventoryPacket(slot, stack)` (`Inventory.createInventoryUpdatePacket`).
     fn send_inventory_slot_update(&mut self, slot: usize, stack: ItemStack);
     /// `Entity.playSound(sound, volume, pitch)` from the player (no-op for test players).

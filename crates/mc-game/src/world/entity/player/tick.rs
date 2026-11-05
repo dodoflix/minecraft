@@ -100,18 +100,6 @@ impl ServerPlayer {
         }
     }
 
-    /// `if (!containerMenu.stillValid(this)) { closeContainer(); containerMenu = inventoryMenu; }` (`ServerPlayer.closeContainer`
-    /// = `ClientboundContainerClosePacket` + `doCloseContainer`).
-    fn close_container_if_invalid(&mut self, level: &mut ServerLevel) {
-        let mut ctx = PlayerCtx { player: self, level };
-        let valid = PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.still_valid(c));
-        if !valid {
-            let id = self.player.menus.current_container_id();
-            self.send(&mc_protocol::packets::play::ClientboundContainerClosePacket { container_id: id });
-            self.do_close_container(level);
-        }
-    }
-
     /// `trackStartFallingPosition()`.
     pub fn track_start_falling_position(&mut self) {
         if self.base().fall_distance > 0.0 && self.starting_to_fall_position.is_none() {

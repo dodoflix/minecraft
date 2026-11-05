@@ -68,6 +68,7 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
         player.base_mut().vehicle = None;
     }
     player.remove(RemovalReason::UnloadedWithPlayer);
+    player.close_menus_on_removal(level);
     server.player_list.remove_player(&handle);
     server.custom_boss_events().on_player_disconnect(&handle);
     server.player_list.broadcast_player_info_remove(handle.uuid);

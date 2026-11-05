@@ -186,6 +186,35 @@ pub trait BlockEntity: Any {
     fn get_note_block_sound(&self) -> Option<mc_core::ident::Identifier> {
         None
     }
+
+    /// The `Container` view of this block entity (vanilla `this instanceof Container`); menus reach block-entity
+    /// containers through `ContainerKey::BlockEntity(pos)`.
+    fn as_container(&self) -> Option<&dyn crate::world::container::Container> {
+        None
+    }
+    fn as_container_mut(&mut self) -> Option<&mut dyn crate::world::container::Container> {
+        None
+    }
+    /// The `ContainerData` this block entity hands its menu (`dataAccess`: furnace progress, brewing time, beacon
+    /// levels, lectern page, ...).
+    fn container_data(&self) -> Option<&dyn crate::world::inventory::ContainerData> {
+        None
+    }
+    fn container_data_mut(&mut self) -> Option<&mut dyn crate::world::inventory::ContainerData> {
+        None
+    }
+    /// `Container.startOpen(user)` / `stopOpen(user)` of a block-entity container (chest open counter, sounds, block
+    /// events); called by the menus, the block entity is out of its chunk while this runs.
+    /// Set by the block entity's `Container::set_item`/`set_changed`/`remove_item` when vanilla would touch the level
+    /// there (`this.level`: recipe lookup, `setChanged()` -> `blockEntityChanged` + comparator update); the menu
+    /// resolver then calls [`BlockEntity::container_accessed`] right after the container operation.
+    fn container_pending(&self) -> bool {
+        false
+    }
+    /// Does the level-dependent part of the container operation that just ran (see `container_pending`); clears the flag.
+    fn container_accessed(&mut self, _level: &mut crate::server::level::ServerLevel) {}
+    fn start_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: crate::world::entity::EntityId) {}
+    fn stop_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: crate::world::entity::EntityId) {}
 }
 
 /// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).

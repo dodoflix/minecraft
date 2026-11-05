@@ -16,6 +16,7 @@ pub mod player_systems;
 pub mod menu_ctx;
 pub mod movement_stats;
 pub mod pickup;
+pub mod menu_open;
 pub mod tick;
 pub mod travel;
 pub mod server_player;
@@ -75,7 +76,7 @@ pub struct PlayerData {
     pub game_profile: GameProfile,
     pub inventory: Inventory,
     /// `enderChestInventory` (27 slots).
-    pub ender_chest: SimpleContainer,
+    pub ender_chest: crate::world::inventory::PlayerEnderChestContainer,
     pub menus: PlayerMenus,
     /// `cooldowns` (`ServerItemCooldowns`; see `ServerPlayer::flush_item_cooldown_packets`).
     pub cooldowns: crate::world::item::ItemCooldowns,
@@ -115,7 +116,7 @@ impl PlayerData {
             living,
             game_profile,
             inventory: Inventory::new(),
-            ender_chest: SimpleContainer::new(27),
+            ender_chest: crate::world::inventory::PlayerEnderChestContainer::new(),
             menus: PlayerMenus::new(),
             cooldowns: crate::world::item::ItemCooldowns::new(),
             abilities: Abilities::default(),

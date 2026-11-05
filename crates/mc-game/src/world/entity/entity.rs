@@ -729,6 +729,15 @@ pub trait Entity: Any {
         None
     }
 
+    /// The `Container` an entity-backed menu reads (`ContainerKey::Entity(id)`): horse/nautilus inventory, chest
+    /// minecart/boat, ... (vanilla `entity instanceof Container` / `getInventory()`).
+    fn as_container(&self) -> Option<&dyn crate::world::container::Container> {
+        None
+    }
+    fn as_container_mut(&mut self) -> Option<&mut dyn crate::world::container::Container> {
+        None
+    }
+
     /// `instanceof Player`.
     fn is_player(&self) -> bool {
         false

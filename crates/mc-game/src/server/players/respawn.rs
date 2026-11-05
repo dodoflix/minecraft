@@ -146,7 +146,7 @@ fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool
         }
     }
     new.player.enchantment_seed = old.player.enchantment_seed;
-    new.player.ender_chest = std::mem::replace(&mut old.player.ender_chest, crate::world::container::SimpleContainer::new(27));
+    new.player.ender_chest = std::mem::replace(&mut old.player.ender_chest, crate::world::inventory::PlayerEnderChestContainer::new());
     let customisation = old.player.living.entity.entity_data.get(crate::world::entity::player::DATA_PLAYER_MODE_CUSTOMISATION);
     new.player.living.entity.entity_data.set(crate::world::entity::player::DATA_PLAYER_MODE_CUSTOMISATION, customisation);
     new.last_sent_exp = -1;
@@ -179,10 +179,12 @@ pub fn respawn(
             let profile = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map(|p| p.player.game_profile.clone())?;
             let config = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).and_then(|p| p.respawn_config.clone());
             let transition = find_respawn_transition(server, level, config.as_ref(), !keep_all_player_data);
-            let old = level.with_player(id, |_, player| {
+            let old = level.with_player(id, |level, player| {
                 let mut dummy = ServerPlayer::new(id, player.dimension.clone(), profile, Default::default());
                 dummy.remove(reason);
-                std::mem::replace(player, dummy)
+                let mut old = std::mem::replace(player, dummy);
+                old.close_menus_on_removal(level);
+                old
             })?;
             Some((old, transition))
         })

@@ -112,6 +112,11 @@ impl PlayerMenus {
         self.container_menu = Some(menu);
     }
 
+    /// `containerMenu = menu` without a connection to synchronise with (connection-less players).
+    pub fn put_container_menu(&mut self, menu: Box<dyn AbstractContainerMenu>) {
+        self.container_menu = Some(menu);
+    }
+
     /// `initInventoryMenu()`.
     pub fn init_inventory_menu(&mut self, init: &dyn MenuInit, player: &mut dyn MenuPlayer) {
         let base = self.inventory_menu_mut().base_mut();

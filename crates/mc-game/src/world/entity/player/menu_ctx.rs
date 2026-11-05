@@ -68,6 +68,15 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn level(&mut self) -> Option<&mut ServerLevel> {
         Some(self.level)
     }
+    fn level_ref(&self) -> Option<&ServerLevel> {
+        Some(&*self.level)
+    }
+    fn ender_chest(&self) -> Option<&crate::world::inventory::PlayerEnderChestContainer> {
+        Some(&self.player.player.ender_chest)
+    }
+    fn ender_chest_mut(&mut self) -> Option<&mut crate::world::inventory::PlayerEnderChestContainer> {
+        Some(&mut self.player.player.ender_chest)
+    }
 }
 
 /// `ServerPlayer.containerSynchronizer` + `containerListener`.

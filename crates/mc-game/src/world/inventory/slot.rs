@@ -5,8 +5,11 @@
 //! (use `Cell` for mutable slot state such as `ResultSlot.removeCount`).
 
 use super::MenuPlayer;
-use crate::world::container::Container;
+use crate::world::container::{Container, SimpleContainer};
+use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
+use crate::world::level::BlockGetter;
+use mc_core::pos::BlockPos;
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -21,6 +24,12 @@ pub enum ContainerKey {
     /// `MenuBase::locals[i]` (crafting grids, result containers, anvil inputs, ...).
     Local(usize),
     Shared(SharedContainer),
+    /// The `Container` view of the block entity at `pos`, resolved through the player's level on every access.
+    BlockEntity(BlockPos),
+    /// The `Container` of an entity (`Entity::as_container`): horse inventory, chest minecart, ...
+    Entity(EntityId),
+    /// The owner's `PlayerEnderChestContainer`.
+    PlayerEnderChest,
 }
 
 impl ContainerKey {
@@ -28,10 +37,27 @@ impl ContainerKey {
     /// within one menu.
     pub fn same_container(&self, other: &ContainerKey) -> bool {
         match (self, other) {
-            (Self::PlayerInventory, Self::PlayerInventory) => true,
+            (Self::PlayerInventory, Self::PlayerInventory) | (Self::PlayerEnderChest, Self::PlayerEnderChest) => true,
             (Self::Local(a), Self::Local(b)) => a == b,
             (Self::Shared(a), Self::Shared(b)) => Rc::ptr_eq(a, b),
+            (Self::BlockEntity(a), Self::BlockEntity(b)) => a == b,
+            (Self::Entity(a), Self::Entity(b)) => a == b,
             _ => false,
+        }
+    }
+
+    /// `container.stillValid(player)` for the container behind this key (a container that cannot be resolved any more
+    /// is not valid; `Local`/`PlayerInventory` containers are always valid like `SimpleContainer`/`Inventory`).
+    pub fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
+        match self {
+            Self::PlayerInventory | Self::Local(_) => true,
+            Self::Shared(c) => c.borrow().still_valid(player),
+            Self::BlockEntity(pos) => player
+                .level_ref()
+                .and_then(|l| l.get_block_entity(*pos))
+                .is_some_and(|be| be.as_container().is_some_and(|c| c.still_valid(player))),
+            Self::Entity(id) => player.level_ref().and_then(|l| l.get_entity(*id)).is_some_and(|e| e.as_container().is_some_and(|c| c.still_valid(player))),
+            Self::PlayerEnderChest => player.ender_chest().is_none_or(|c| c.still_valid(player)),
         }
     }
 }
@@ -49,9 +75,105 @@ pub struct SlotEnv<'a> {
 impl SlotEnv<'_> {
     pub fn with_container<R>(&mut self, key: &ContainerKey, f: impl FnOnce(&mut dyn Container) -> R) -> R {
         match key {
-            ContainerKey::PlayerInventory => f(self.player.inventory_mut()),
             ContainerKey::Local(i) => f(self.locals[*i].as_mut()),
-            ContainerKey::Shared(c) => f(&mut *c.borrow_mut()),
+            _ => with_player_container(self.player, key, f),
+        }
+    }
+}
+
+/// Resolves every `ContainerKey` except `Local` against the player. A container that no longer exists (block entity
+/// removed, entity gone) is replaced by a scratch container: reads are empty and writes are dropped; the menu closes
+/// itself on the next `still_valid` check.
+pub fn with_player_container<R>(player: &mut dyn MenuPlayer, key: &ContainerKey, f: impl FnOnce(&mut dyn Container) -> R) -> R {
+    match key {
+        ContainerKey::PlayerInventory => f(player.inventory_mut()),
+        ContainerKey::Local(_) => unreachable!("menu-local containers are resolved by the menu"),
+        ContainerKey::Shared(c) => f(&mut *c.borrow_mut()),
+        ContainerKey::BlockEntity(pos) => {
+            let mut f = Some(f);
+            let resolved = player.level().and_then(|level| {
+                let be = level.get_block_entity_immediate(*pos)?;
+                let result = (f.take().expect("called once"))(be.as_container_mut()?);
+                let pending = be.container_pending();
+                Some((result, pending))
+            });
+            match resolved {
+                Some((result, pending)) => {
+                    if pending && let Some(level) = player.level() {
+                        level.with_block_entity(*pos, |level, be| be.container_accessed(level));
+                    }
+                    result
+                }
+                None => (f.take().expect("not consumed"))(&mut SimpleContainer::new(0)),
+            }
+        }
+        ContainerKey::Entity(id) => {
+            let mut f = Some(f);
+            let resolved = player.level().and_then(|l| l.with_entity(*id, |_, e| e.as_container_mut().map(|c| (f.take().expect("called once"))(c)))).flatten();
+            match resolved {
+                Some(r) => r,
+                None => (f.take().expect("not consumed"))(&mut SimpleContainer::new(0)),
+            }
+        }
+        ContainerKey::PlayerEnderChest => match player.ender_chest_mut() {
+            Some(c) => f(c),
+            None => f(&mut SimpleContainer::new(27)),
+        },
+    }
+}
+
+impl ContainerKey {
+    /// `container.startOpen(player)`.
+    pub fn start_open(&self, player: &mut dyn MenuPlayer) {
+        self.open_or_close(player, true);
+    }
+
+    /// `container.stopOpen(player)`.
+    pub fn stop_open(&self, player: &mut dyn MenuPlayer) {
+        self.open_or_close(player, false);
+    }
+
+    fn open_or_close(&self, player: &mut dyn MenuPlayer, open: bool) {
+        let user = player.entity_id();
+        let notify_be = |player: &mut dyn MenuPlayer, pos: BlockPos| {
+            if let Some(level) = player.level() {
+                level.with_block_entity(pos, |level, be| if open { be.start_open(level, user) } else { be.stop_open(level, user) });
+            }
+        };
+        match self {
+            ContainerKey::PlayerInventory | ContainerKey::Local(_) => {}
+            ContainerKey::Shared(c) => {
+                if open {
+                    c.borrow_mut().start_open(user)
+                } else {
+                    c.borrow_mut().stop_open(user)
+                }
+            }
+            ContainerKey::BlockEntity(pos) => notify_be(player, *pos),
+            ContainerKey::Entity(id) => {
+                if let Some(level) = player.level() {
+                    level.with_entity(*id, |_, e| {
+                        if let Some(c) = e.as_container_mut() {
+                            if open {
+                                c.start_open(user)
+                            } else {
+                                c.stop_open(user)
+                            }
+                        }
+                    });
+                }
+            }
+            ContainerKey::PlayerEnderChest => {
+                let active = player.ender_chest().and_then(|c| c.active_chest());
+                if let Some(pos) = active {
+                    notify_be(player, pos);
+                }
+                if !open {
+                    if let Some(c) = player.ender_chest_mut() {
+                        c.clear_active_chest();
+                    }
+                }
+            }
         }
     }
 }
