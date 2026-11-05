@@ -241,9 +241,15 @@ impl ServerPlayer {
     /// `ServerPlayerGameMode.destroyBlock(pos)`.
     pub fn destroy_block(&mut self, level: &mut ServerLevel, pos: BlockPos) -> bool {
         let state = level.get_block_state(pos);
-        let main = self.get_item_in_hand(InteractionHand::MainHand);
-        if !main.is_empty() && !behaviour(main.item()).can_destroy_block(&main, state, self.player.abilities.instabuild) {
-            return false;
+        let mut main = self.get_item_in_hand(InteractionHand::MainHand);
+        if !main.is_empty() {
+            let can_destroy = behaviour(main.item()).can_destroy_block(&mut main, state, level, pos, self);
+            if main != self.get_item_in_hand(InteractionHand::MainHand) {
+                self.set_item_in_hand(InteractionHand::MainHand, main.clone());
+            }
+            if !can_destroy {
+                return false;
+            }
         }
         let block_entity = block_break::snapshot_block_entity(level, pos);
         let block = state.block();

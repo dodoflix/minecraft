@@ -374,7 +374,7 @@ impl ItemBehaviour for BlockItem {
 }
 
 /// `BucketItem.getEmptySuccessItem(stack, player)`.
-fn bucket_empty_success_item(stack: &ItemStack, player: &ServerPlayer) -> ItemStack {
+pub fn bucket_empty_success_item(stack: &ItemStack, player: &ServerPlayer) -> ItemStack {
     if !player.player.abilities.instabuild { ItemStack::new(Item::BUCKET) } else { stack.clone() }
 }
 

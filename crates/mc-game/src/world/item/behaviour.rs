@@ -44,6 +44,11 @@ pub trait ItemBehaviour: Send + Sync + 'static {
         consumable::base_use(level, player, hand)
     }
 
+    /// `item instanceof DispensibleContainerItem` (buckets).
+    fn as_dispensible_container(&self) -> Option<&dyn super::bucket_item::DispensibleContainerItem> {
+        None
+    }
+
     /// `Item.finishUsingItem(stack, level, entity)`.
     fn finish_using_item(&self, stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut dyn Entity) -> ItemStack {
         consumable::base_finish_using_item(stack, level, entity)
@@ -85,9 +90,9 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     /// bundles drop their contents). The caller (ItemEntity damage) writes the changed stack back.
     fn on_destroyed(&self, _level: &mut ServerLevel, _stack: &mut ItemStack, _pos: mc_core::phys::Vec3) {}
 
-    /// `Item.canDestroyBlock(stack, state, level, pos, user)`.
-    fn can_destroy_block(&self, stack: &ItemStack, _state: BlockState, user_is_creative: bool) -> bool {
-        super::tool_can_destroy_block(stack, user_is_creative)
+    /// `Item.canDestroyBlock(stack, state, level, pos, user)`; `stack` is the held stack (the caller stores it back).
+    fn can_destroy_block(&self, stack: &mut ItemStack, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, user: &mut ServerPlayer) -> bool {
+        super::tool_can_destroy_block(stack, user.player.abilities.instabuild)
     }
 
     /// `getDestroySpeed(stack, state)`.

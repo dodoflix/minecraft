@@ -215,7 +215,17 @@ pub fn transform_block(transformer: &BlockTransformer, context: &mut UseOnContex
         let Some(new_state) = new_state else { continue };
         let updated_shape = if data.update_from_neighbors { helpers::update_from_neighbour_shapes(new_state, level, pos) } else { new_state };
         let player_id = player.base_id();
+        // CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack) once ImAdvancements lands
         let old_state = level.get_block_state(pos);
+        if let Some(loot) = &data.loot {
+            let drops = drop_from_block_interact_loot_table(level, loot, pos, old_state, &context.item_stack, player);
+            for stack in drops {
+                match data.drop_strategy {
+                    DropStrategy::ClickedFace => helpers::pop_resource_from_face(level, pos, clicked_face, stack),
+                    DropStrategy::FromMiddle => helpers::pop_resource(level, pos, stack),
+                }
+            }
+        }
         let infinite = player.player.abilities.instabuild;
         if context.item_stack.is_stackable() {
             context.item_stack.consume(if data.consume_on_use { 1 } else { 0 }, infinite);
@@ -238,4 +248,25 @@ pub fn transform_block(transformer: &BlockTransformer, context: &mut UseOnContex
         return InteractionResult::SUCCESS;
     }
     InteractionResult::PASS
+}
+
+/// `Block.dropFromBlockInteractLootTable(level, key, pos, state, blockEntity, tool, interactingEntity, consumer)`: the
+/// rolled drops (the consumer pops them once the level is mutable again).
+fn drop_from_block_interact_loot_table(level: &ServerLevel, key: &Identifier, pos: mc_core::pos::BlockPos, state: mc_data::block::BlockState, tool: &ItemStack, player: &ServerPlayer) -> Vec<ItemStack> {
+    let mut drops = Vec::new();
+    crate::world::level::storage::loot::block_drops::drop_from_loot_table(
+        level,
+        key,
+        |params| {
+            params
+                .block_state(state)
+                .origin(Vec3::at_center_of(&pos))
+                .block_entity(level.get_block_entity(pos))
+                .interacting_entity(Some(player as &dyn Entity))
+                .tool(tool)
+                .create(&crate::world::level::storage::loot::parameters::LootContextParamSets::BLOCK_INTERACT)
+        },
+        &mut |stack| drops.push(stack),
+    );
+    drops
 }

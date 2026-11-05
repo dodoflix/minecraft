@@ -96,6 +96,14 @@ impl InteractionResult {
     pub const PASS: InteractionResult = InteractionResult::Pass;
     pub const TRY_WITH_EMPTY_HAND: InteractionResult = InteractionResult::TryEmptyHandInteraction;
 
+    /// `Success.heldItemTransformedTo(stack)` (a no-op for the other results).
+    pub fn held_item_transformed_to(self, stack: ItemStack) -> InteractionResult {
+        match self {
+            InteractionResult::Success(s) => InteractionResult::Success(s.held_item_transformed_to(stack)),
+            other => other,
+        }
+    }
+
     /// `consumesAction()`.
     pub fn consumes_action(&self) -> bool {
         matches!(self, Self::Success(_))

@@ -46,7 +46,7 @@ impl ServerPlayer {
     }
 
     /// `ItemStack.causeUseVibration(causer, event)`.
-    fn cause_use_vibration(&self, level: &mut ServerLevel, stack: &ItemStack, event: GameEvent) {
+    pub(crate) fn cause_use_vibration(&self, level: &mut ServerLevel, stack: &ItemStack, event: GameEvent) {
         if stack.get(&USE_EFFECTS).is_some_and(|e| e.interact_vibrations) {
             level.game_event_from_entity_ref(self, event, self.base().position());
         }
