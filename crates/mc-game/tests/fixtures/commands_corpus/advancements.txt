@@ -1,0 +1,69 @@
+# /advancement grant|revoke: every mode, criterion forms, errors, counts. Packets: update_advancements, select_advancement_tab.
+!packets ^(update_advancements|select_advancement_tab)$
+# permissions
+@bot0 advancement grant Bot only minecraft:story/root
+# argument errors
+advancement
+advancement grant
+advancement grant Nobody everything
+advancement grant Bot
+advancement grant Bot sideways
+advancement grant Bot only
+advancement grant Bot only minecraft:nope/nothing
+advancement grant Bot only story/root nonexistent_criterion
+advancement revoke Bot only story/root nonexistent_criterion
+advancement grant Bot only minecraft:story/root crafting_table extra
+# revoke before anything is granted (failures)
+advancement revoke Bot only minecraft:story/root
+advancement revoke Bot everything
+advancement revoke Bot from minecraft:story/root
+advancement revoke @a through minecraft:story/mine_stone
+advancement revoke Bot only minecraft:story/mine_stone get_stone
+# single advancement, one player
+advancement grant Bot only minecraft:story/root
+advancement grant Bot only minecraft:story/root
+advancement grant Bot only minecraft:story/mine_stone get_stone
+advancement grant Bot only minecraft:story/mine_stone get_stone
+advancement revoke Bot only minecraft:story/mine_stone get_stone
+advancement revoke Bot only minecraft:story/mine_stone get_stone
+# many players
+advancement grant @a only minecraft:story/root
+advancement grant @a only minecraft:story/root crafting_table
+advancement revoke @a only minecraft:story/root crafting_table
+advancement grant @a only minecraft:story/root crafting_table
+advancement revoke @a only minecraft:story/root
+advancement revoke @a only minecraft:story/root
+# modes on a chain: root -> mine_stone -> upgrade_tools -> smelt_iron -> iron_tools
+advancement grant Bot from minecraft:story/mine_stone
+advancement grant Bot from minecraft:story/mine_stone
+advancement revoke Bot until minecraft:story/upgrade_tools
+advancement revoke Bot until minecraft:story/upgrade_tools
+advancement grant Bot until minecraft:story/upgrade_tools
+advancement grant Bot through minecraft:story/smelt_iron
+advancement grant @a through minecraft:story/smelt_iron
+advancement revoke Bot through minecraft:story/upgrade_tools
+advancement revoke @a from minecraft:story/root
+advancement grant @a until minecraft:story/root
+advancement revoke @a only minecraft:story/root
+# the selector option
+execute if entity @a[advancements={minecraft:story/root=true}] run say yes root
+execute if entity @a[advancements={minecraft:story/root=false}] run say no root
+execute if entity @a[advancements={minecraft:story/root={crafting_table=true}}] run say crit
+execute if entity @a[advancements={minecraft:story/root=true,minecraft:story/mine_stone=false}] run say mixed
+execute if entity @a[advancements={minecraft:nope/nothing=true}] run say unknown
+# everything
+advancement grant Bot everything
+advancement grant Bot everything
+advancement grant @a everything
+advancement revoke Bot everything
+advancement revoke Bot everything
+advancement grant Bot everything
+advancement revoke @a everything
+# return values
+scoreboard objectives add adv_n dummy
+execute store result score Bot adv_n run advancement grant Bot only minecraft:story/root
+scoreboard players get Bot adv_n
+execute store result score Bot adv_n run advancement grant Bot from minecraft:story/root
+scoreboard players get Bot adv_n
+execute store result score Bot adv_n run advancement revoke @a everything
+scoreboard players get Bot adv_n

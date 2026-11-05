@@ -632,3 +632,104 @@ pub fn block_entity_load_data(server: &mut MinecraftServer, dimension: &Dimensio
     }
     level.send_block_updated(pos, state, state, 3);
 }
+
+// ==== AdvancementCommands / RecipeCommand seams ====
+
+/// An `AdvancementHolder` as the commands need it: `id`, `Advancement.name(holder)` and `advancement.criteria().keySet()`.
+#[derive(Clone, Debug)]
+pub struct AdvancementRef {
+    pub id: Identifier,
+    pub name: Component,
+    pub criteria: Vec<String>,
+}
+
+/// `AdvancementNode` of `server.getAdvancements().tree()`: `parent()` and `children()` holders.
+pub struct AdvancementNodeRef {
+    pub parent: Option<AdvancementRef>,
+    pub children: Vec<AdvancementRef>,
+}
+
+/// `AdvancementProgress` of a player's advancement (`getOrStartProgress`): `isDone`, `hasProgress`,
+/// `getRemainingCriteria`, `getCompletedCriteria`.
+pub struct AdvancementProgressRef {
+    pub done: bool,
+    pub has_progress: bool,
+    pub remaining: Vec<String>,
+    pub completed: Vec<String>,
+}
+
+/// `server.getAdvancements().get(id)`.
+/// SEAM(ItemsMenusScope.ImAdvancements): `ServerAdvancementManager` is not on main yet, so nothing is found.
+pub fn advancement_get(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementRef> {
+    let _ = (server, id);
+    None
+}
+
+/// `server.getAdvancements().getAllAdvancements()`.
+/// SEAM(ItemsMenusScope.ImAdvancements).
+pub fn advancement_all(server: &MinecraftServer) -> Vec<AdvancementRef> {
+    let _ = server;
+    Vec::new()
+}
+
+/// `server.getAdvancements().tree().get(holder)`.
+/// SEAM(ItemsMenusScope.ImAdvancements).
+pub fn advancement_node(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementNodeRef> {
+    let _ = (server, id);
+    None
+}
+
+/// `player.getAdvancements().getOrStartProgress(holder)`.
+/// SEAM(ItemsMenusScope.ImAdvancements).
+pub fn player_advancement_progress(server: &mut MinecraftServer, player: &EntityRef, id: &Identifier) -> AdvancementProgressRef {
+    let _ = (server, player, id);
+    AdvancementProgressRef { done: false, has_progress: false, remaining: Vec::new(), completed: Vec::new() }
+}
+
+/// `player.getAdvancements().award(holder, criterion)`.
+/// SEAM(ItemsMenusScope.ImAdvancements).
+pub fn player_advancement_award(server: &mut MinecraftServer, player: &EntityRef, id: &Identifier, criterion: &str) -> bool {
+    let _ = (server, player, id, criterion);
+    false
+}
+
+/// `player.getAdvancements().revoke(holder, criterion)`.
+/// SEAM(ItemsMenusScope.ImAdvancements).
+pub fn player_advancement_revoke(server: &mut MinecraftServer, player: &EntityRef, id: &Identifier, criterion: &str) -> bool {
+    let _ = (server, player, id, criterion);
+    false
+}
+
+/// `player.getAdvancements().flushDirty(player, showAdvancements)`.
+/// SEAM(ItemsMenusScope.ImAdvancements).
+pub fn player_advancements_flush_dirty(server: &mut MinecraftServer, player: &EntityRef, show_advancements: bool) {
+    let _ = (server, player, show_advancements);
+}
+
+/// `server.getRecipeManager().byKey(key)` filtered by `!recipe.isSpecial()`.
+/// SEAM(ItemsMenusScope.ImRecipes): `RecipeManager` is not on main yet.
+pub fn learnable_recipe_exists(server: &MinecraftServer, id: &Identifier) -> bool {
+    let _ = (server, id);
+    false
+}
+
+/// `server.getRecipeManager().getLearnableRecipes()` (ids, in manager order).
+/// SEAM(ItemsMenusScope.ImRecipes).
+pub fn learnable_recipes(server: &MinecraftServer) -> Vec<Identifier> {
+    let _ = server;
+    Vec::new()
+}
+
+/// `player.awardRecipes(recipes)`: the number of newly unlocked recipes.
+/// SEAM(ItemsMenusScope.ImRecipes).
+pub fn player_award_recipes(server: &mut MinecraftServer, player: &EntityRef, recipes: &[Identifier]) -> i32 {
+    let _ = (server, player, recipes);
+    0
+}
+
+/// `player.resetRecipes(recipes)`: the number of removed recipes.
+/// SEAM(ItemsMenusScope.ImRecipes).
+pub fn player_reset_recipes(server: &mut MinecraftServer, player: &EntityRef, recipes: &[Identifier]) -> i32 {
+    let _ = (server, player, recipes);
+    0
+}

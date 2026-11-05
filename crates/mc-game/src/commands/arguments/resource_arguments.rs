@@ -200,6 +200,25 @@ impl ResourceKeyArgument {
         if argument.is_for(&registry_id(registry)) { Ok(argument.clone()) } else { Err(exception_type.create(argument.id.to_string())) }
     }
 
+    /// `getAdvancement`.
+    pub fn get_advancement(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<crate::commands::host::AdvancementRef, CommandSyntaxException> {
+        let key = Self::get_registry_key(context, name, "advancement", &ERROR_INVALID_ADVANCEMENT)?;
+        context
+            .get_source()
+            .with_server(|server| crate::commands::host::advancement_get(server, &key.id))
+            .ok_or_else(|| ERROR_INVALID_ADVANCEMENT.create(key.id.to_string()))
+    }
+
+    /// `getRecipe`: the id of an existing learnable (`!isSpecial`) recipe.
+    pub fn get_recipe(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<Identifier, CommandSyntaxException> {
+        let key = Self::get_registry_key(context, name, "recipe", &ERROR_INVALID_RECIPE)?;
+        if context.get_source().with_server(|server| crate::commands::host::learnable_recipe_exists(server, &key.id)) {
+            Ok(key.id)
+        } else {
+            Err(ERROR_INVALID_RECIPE.create(key.id.to_string()))
+        }
+    }
+
     /// `getStructure`: the key of an existing structure.
     pub fn get_structure(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<ResourceKey, CommandSyntaxException> {
         Self::resolve_key(context, name, "worldgen/structure", &ERROR_INVALID_STRUCTURE)

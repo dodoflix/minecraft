@@ -1,8 +1,10 @@
 //! `net.minecraft.server.commands`: one module per vanilla command class, registered through `register_command!`.
+mod advancement_commands;
 pub mod arg_provider;
 mod ban_ip_commands;
 mod ban_list_commands;
 mod ban_player_commands;
+pub mod command_response_tracker;
 pub mod data;
 pub mod data_commands;
 mod deop_commands;
@@ -19,6 +21,7 @@ mod msg_command;
 mod op_command;
 mod pardon_command;
 mod pardon_ip_command;
+mod recipe_command;
 mod save_all_command;
 mod save_off_command;
 mod save_on_command;

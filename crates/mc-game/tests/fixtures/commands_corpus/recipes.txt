@@ -1,0 +1,36 @@
+# /recipe give|take: counts, special recipes, errors. Packets: recipe_book_add / recipe_book_remove.
+!packets ^(recipe_book_add|recipe_book_remove|recipe_book_settings)$
+@bot0 recipe give Bot minecraft:crafting_table
+recipe
+recipe give
+recipe give Nobody *
+recipe give Bot
+recipe give Bot minecraft:nope
+recipe give Bot minecraft:banner_duplicate
+recipe give Bot minecraft:black_banner_duplicate
+recipe take Bot minecraft:crafting_table
+recipe take Bot *
+recipe give Bot minecraft:crafting_table
+recipe give Bot minecraft:crafting_table
+recipe give @a minecraft:crafting_table
+recipe give @a minecraft:furnace
+recipe take Bot minecraft:crafting_table
+recipe take Bot minecraft:crafting_table
+recipe take @a minecraft:crafting_table
+recipe take @a minecraft:crafting_table
+recipe give Bot minecraft:bread
+recipe give @a *
+recipe give @a *
+recipe give Bot *
+recipe take Bot minecraft:bread
+recipe take @a *
+recipe take @a *
+recipe give Bot minecraft:crafting_table
+recipe take Bot *
+scoreboard objectives add rec_n dummy
+execute store result score Bot rec_n run recipe give Bot minecraft:crafting_table
+scoreboard players get Bot rec_n
+execute store result score Bot rec_n run recipe give Bot *
+scoreboard players get Bot rec_n
+execute store result score Bot rec_n run recipe take Bot *
+scoreboard players get Bot rec_n
