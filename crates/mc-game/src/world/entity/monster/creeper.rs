@@ -4,7 +4,8 @@ use crate::define_accessor;
 use crate::registry::RegistryAccess;
 use crate::server::level::ServerLevel;
 use crate::server::level::level_explode::Explode;
-use crate::world::damagesource::DamageSource;
+use crate::world::damagesource::{DamageEntity, DamageSource};
+use mc_core::ident::Identifier;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
 use crate::world::entity::ai::goal::{AvoidEntityGoal, FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, SwellGoal, WaterAvoidingRandomStrollGoal};
@@ -102,6 +103,7 @@ impl Creeper {
         self.mob.living.dead = true;
         let p = self.position();
         level.explode(Explode::new(Some(&*self), p.x, p.y, p.z, self.explosion_radius as f32 * explosion_multiplier, ExplosionInteraction::Mob), &mut []);
+        level.run_deferred_level_ops(self);
         self.spawn_lingering_cloud(level);
         crate::world::entity::living_entity::effects::trigger_on_death_mob_effects(self, level, crate::world::entity::RemovalReason::Killed);
         self.discard();
@@ -202,6 +204,24 @@ impl Entity for Creeper {
 
     fn get_death_sound(&self) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_CREEPER_DEATH)
+    }
+
+    fn killed_entity(&mut self, level: &mut ServerLevel, victim: &DamageEntity, source: &DamageSource) -> bool {
+        if self.should_drop_loot(level) && self.is_powered() && !self.dropped_skulls {
+            let Some(table) = Identifier::try_parse("charged_creeper/root") else { return true };
+            let dropped = level
+                .with_entity(victim.id, |level, entity| {
+                    let items = crate::world::entity::living_entity::death::loot_table_items(entity, level, source, false, &table);
+                    let any = !items.is_empty();
+                    for stack in items {
+                        crate::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
+                    }
+                    any
+                })
+                .unwrap_or(false);
+            self.dropped_skulls |= dropped;
+        }
+        true
     }
 
     fn do_hurt_target(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) -> bool {

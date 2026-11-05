@@ -107,9 +107,18 @@ pub fn default_loot_table(entity: &dyn Entity) -> Option<Identifier> {
 
 /// `LivingEntity.dropFromLootTable(level, source, playerKilled)`.
 fn drop_from_loot_table(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, player_killed: bool) {
-    use crate::world::level::storage::loot::{LootParams, LootContextParamSets, loading};
     let Some(table_id) = entity.get_loot_table() else { return };
-    let table = loading::get_loot_table(&level.registries, &table_id);
+    let items = loot_table_items(entity, level, source, player_killed, &table_id);
+    for stack in items {
+        crate::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
+    }
+}
+
+/// `LivingEntity.dropFromLootTable(level, source, playerKilled, lootTable, consumer)`: the items the table rolls for this
+/// entity (the caller is the consumer: it spawns / counts them).
+pub fn loot_table_items(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource, player_killed: bool, table_id: &Identifier) -> Vec<ItemStack> {
+    use crate::world::level::storage::loot::{LootParams, LootContextParamSets, loading};
+    let table = loading::get_loot_table(&level.registries, table_id);
     let seed = entity.get_loot_table_seed();
     let items = {
         let causing_guard = source.causing_snapshot(level);
@@ -141,9 +150,7 @@ fn drop_from_loot_table(entity: &mut dyn Entity, level: &mut ServerLevel, source
         let params = builder.create(&LootContextParamSets::ENTITY);
         table.get_random_items_with_seed(&params, seed)
     };
-    for stack in items {
-        crate::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
-    }
+    items
 }
 
 /// `LivingEntity.getExperienceReward(level, killer)` (the killer is the entity of `source`).

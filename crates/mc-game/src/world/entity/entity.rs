@@ -3539,6 +3539,10 @@ pub trait Entity: Any {
     fn can_randomly_teleport_to(&self, _level: &ServerLevel, _x: f64, _y: f64, _z: f64) -> bool {
         true
     }
+    /// `this instanceof AbstractThrownPotion potion` -> `potion.getItem()` potion contents `is(HURTS_WATER_SENSITIVE_ENTITIES)`.
+    fn thrown_potion_hurts_water_sensitive(&self) -> Option<bool> {
+        None
+    }
     // ==== [Blocks:TechnicalA] additions (Entity trait methods) ====
     /// `this instanceof Bee`: the `Bee` methods `BeehiveBlockEntity` / `BeehiveBlock` call (implemented by the bee entity).
     fn as_bee_access(&mut self) -> Option<&mut dyn crate::world::block_entity::BeeAccess> {

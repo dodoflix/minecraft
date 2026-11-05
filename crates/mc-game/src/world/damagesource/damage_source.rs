@@ -64,6 +64,8 @@ pub struct DamageEntity {
     pub projectile_hurt_knockback: Option<HurtKnockbackDirection>,
     /// A tamed wolf's `getOwnerReference()` (`Some(None)`: tamed without owner), `None` for everything else.
     pub tamed_wolf_owner: Option<Option<Uuid>>,
+    /// `this instanceof AbstractThrownPotion`: whether its potion `is(HURTS_WATER_SENSITIVE_ENTITIES)` (`EnderMan.hurtServer`).
+    pub thrown_potion_hurts_water_sensitive: Option<bool>,
     /// Full copy of the entity at the time the source was built (`None` for classes without `snapshot_for_damage`).
     pub snapshot: Option<EntitySnapshot>,
 }
@@ -107,6 +109,7 @@ impl DamageEntity {
             pierce_level: entity.get_pierce_level(),
             projectile_hurt_knockback: entity.hurt_knockback_direction(),
             tamed_wolf_owner: entity.tamed_wolf_owner(),
+            thrown_potion_hurts_water_sensitive: entity.thrown_potion_hurts_water_sensitive(),
             snapshot: None,
         }
     }

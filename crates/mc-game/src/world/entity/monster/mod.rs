@@ -5,6 +5,7 @@ pub mod blaze;
 pub mod creeper;
 pub mod crossbow_attack_mob;
 pub mod cubemob;
+pub mod enderman;
 pub mod endermite;
 pub mod ghast;
 pub mod giant;

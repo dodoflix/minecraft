@@ -277,6 +277,10 @@ impl Projectile for AbstractThrownPotion {
 }
 
 impl Entity for AbstractThrownPotion {
+    fn thrown_potion_hurts_water_sensitive(&self) -> Option<bool> {
+        Some(potion_is_tag(&self.contents(), "hurts_water_sensitive_entities"))
+    }
+
     impl_throwable_entity!(0.05, away);
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

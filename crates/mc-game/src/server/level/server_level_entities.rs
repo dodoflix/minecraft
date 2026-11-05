@@ -168,6 +168,16 @@ impl ServerLevel {
         }
     }
 
+    /// Runs now the ops other code deferred for `entity` while it was the running (taken-out) entity, for an entity that
+    /// removes itself before it is put back (`Creeper.explodeCreeper`: the `killedEntity` of its explosion kills).
+    pub fn run_deferred_level_ops(&mut self, entity: &mut dyn Entity) {
+        if let Some(ops) = self.deferred_level_ops.remove(&entity.id()) {
+            for op in ops {
+                op(self, entity);
+            }
+        }
+    }
+
     /// Apply pending removal / section changes of an entity that was mutated in place.
     pub fn sync_entity(&mut self, id: EntityId) {
         self.entity_manager.sync_entity(id);
