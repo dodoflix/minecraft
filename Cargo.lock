@@ -1188,6 +1188,7 @@ dependencies = [
 name = "mc-light"
 version = "0.1.0"
 dependencies = [
+ "indexmap",
  "mc-core",
  "mc-data",
  "mc-nbt",
