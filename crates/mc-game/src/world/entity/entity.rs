@@ -680,15 +680,6 @@ pub trait Entity: Any {
         true
     }
 
-    /// `pushFromExplosion(impulse)` = `push(impulse)`: ignored unless finite, then adds to the motion and flags a sync.
-    fn push_from_explosion(&mut self, impulse: Vec3) {
-        if impulse.is_finite() {
-            let b = self.base_mut();
-            b.set_delta_movement(b.delta_movement().add(impulse));
-            b.needs_sync = true;
-        }
-    }
-
     /// This entity as a `Projectile` (`instanceof Projectile`).
     fn as_projectile(&self) -> Option<&dyn super::projectile::Projectile> {
         None
@@ -714,22 +705,6 @@ pub trait Entity: Any {
     /// `canBePickedFromInside()`.
     fn can_be_picked_from_inside(&self) -> bool {
         true
-    }
-
-    /// `getHeadLookAngle()` = `calculateViewVector(getXRot(), getYHeadRot())`.
-    fn get_head_look_angle(&self) -> Vec3 {
-        Vec3::direction_from_rotation(self.base().x_rot(), self.get_y_head_rot())
-    }
-
-    /// `thunderHit(level, lightningBolt)`.
-    fn thunder_hit(&mut self, level: &mut ServerLevel, _lightning_bolt: &super::lightning_bolt::LightningBolt) {
-        let fire_ticks = self.get_remaining_fire_ticks() + 1;
-        self.set_remaining_fire_ticks(fire_ticks);
-        if self.get_remaining_fire_ticks() == 0 {
-            self.ignite_for_seconds(8.0);
-        }
-        let source = level.damage_sources().lightning_bolt();
-        self.hurt_server(level, &source, 5.0);
     }
 
     // ---- identity / classification -------------------------------------------------------------------------

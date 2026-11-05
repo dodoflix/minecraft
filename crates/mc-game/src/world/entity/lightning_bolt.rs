@@ -215,7 +215,7 @@ impl Entity for LightningBolt {
             let area = AABB::new(p.x - DAMAGE_RADIUS, p.y - DAMAGE_RADIUS, p.z - DAMAGE_RADIUS, p.x + DAMAGE_RADIUS, p.y + 6.0 + DAMAGE_RADIUS, p.z + DAMAGE_RADIUS);
             let entities = level.get_entities(Some(self.base.id), &area, |e| e.is_alive());
             for &id in &entities {
-                level.with_entity(id, |level, e| e.thunder_hit(level, self));
+                level.with_entity(id, |level, e| e.thunder_hit(level));
             }
             self.hit_entities.extend(entities);
             // `CriteriaTriggers.CHANNELED_LIGHTNING.trigger(cause, entities)`: advancements are not ported yet.
