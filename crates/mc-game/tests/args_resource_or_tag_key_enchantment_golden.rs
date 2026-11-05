@@ -13,7 +13,7 @@ fn resource_or_tag_key_enchantment_matches_vanilla() {
         |v, _| {
             let r = v.downcast_ref::<ResourceOrTagKey>().expect("result");
             let kind = match r {
-                ResourceOrTagKey::Resource(k) => format!("resource ResourceKey[minecraft:root / {}]", k.registry),
+                ResourceOrTagKey::Resource(k) => format!("resource {}", k.registry),
                 ResourceOrTagKey::Tag(k) => format!("tag ResourceKey[minecraft:root / {}]", k.registry),
             };
             format!("{}|{kind}", r.as_printable())

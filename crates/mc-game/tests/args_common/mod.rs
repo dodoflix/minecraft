@@ -92,7 +92,7 @@ pub fn render_id_list(ids: &[String]) -> String {
 }
 
 pub fn render_key(k: &mc_game::commands::arguments::resource_arguments::ResourceKey) -> String {
-    format!("ResourceKey[minecraft:root / {}]|{}", k.registry, k.id)
+    format!("{}|{}", k.registry, k.id)
 }
 
 /// `ArgsSpecs.canonJson`: compact JSON with sorted object keys.

@@ -471,19 +471,81 @@ pub struct ResourceSelectorArgument {
 
 registry_argument!(ResourceSelectorArgument);
 
-/// `FilenameUtils.wildcardMatch(name, pattern)` (case sensitive): `*` any run, `?` any single char.
+/// `FilenameUtils.wildcardMatch(name, pattern)` (case sensitive), including commons-io's quirks (a `?` after `*` does not
+/// backtrack: `*?` only matches names whose `*` part is empty).
 fn wildcard_match(name: &str, pattern: &str) -> bool {
     let name: Vec<char> = name.chars().collect();
-    let pattern: Vec<char> = pattern.chars().collect();
-    fn go(n: &[char], p: &[char]) -> bool {
-        match p.split_first() {
-            None => n.is_empty(),
-            Some(('*', rest)) => (0..=n.len()).any(|i| go(&n[i..], rest)),
-            Some(('?', rest)) => !n.is_empty() && go(&n[1..], rest),
-            Some((c, rest)) => n.first() == Some(c) && go(&n[1..], rest),
+    // `splitOnTokens`
+    let mut tokens: Vec<Vec<char>> = Vec::new();
+    let mut text: Vec<char> = Vec::new();
+    for c in pattern.chars() {
+        if c == '?' || c == '*' {
+            if !text.is_empty() {
+                tokens.push(std::mem::take(&mut text));
+            }
+            if c == '?' {
+                tokens.push(vec!['?']);
+            } else if tokens.last().is_none_or(|t| t != &['*']) {
+                tokens.push(vec!['*']);
+            }
+        } else {
+            text.push(c);
         }
     }
-    go(&name, &pattern)
+    if !text.is_empty() {
+        tokens.push(text);
+    }
+    let index_of = |from: usize, needle: &[char]| -> Option<usize> {
+        if from > name.len() {
+            return None;
+        }
+        (from..=name.len().saturating_sub(needle.len()))
+            .find(|&i| i + needle.len() <= name.len() && name[i..i + needle.len()] == *needle)
+    };
+    let mut any_chars = false;
+    let (mut text_idx, mut wcs_idx) = (0usize, 0usize);
+    let mut backtrack: Vec<(usize, usize)> = Vec::new();
+    loop {
+        if let Some((w, t)) = backtrack.pop() {
+            wcs_idx = w;
+            text_idx = t;
+            any_chars = true;
+        }
+        while wcs_idx < tokens.len() {
+            let token = &tokens[wcs_idx];
+            if token == &['?'] {
+                text_idx += 1;
+                if text_idx > name.len() {
+                    break;
+                }
+                any_chars = false;
+            } else if token == &['*'] {
+                any_chars = true;
+                if wcs_idx == tokens.len() - 1 {
+                    text_idx = name.len();
+                }
+            } else {
+                if any_chars {
+                    let Some(found) = index_of(text_idx, token) else { break };
+                    text_idx = found;
+                    if let Some(repeat) = index_of(text_idx + 1, token) {
+                        backtrack.push((wcs_idx, repeat));
+                    }
+                } else if !(text_idx + token.len() <= name.len() && name[text_idx..text_idx + token.len()] == **token) {
+                    break;
+                }
+                text_idx += token.len();
+                any_chars = false;
+            }
+            wcs_idx += 1;
+        }
+        if wcs_idx == tokens.len() && text_idx == name.len() {
+            return true;
+        }
+        if backtrack.is_empty() {
+            return false;
+        }
+    }
 }
 
 fn read_pattern(reader: &mut StringReader) -> String {

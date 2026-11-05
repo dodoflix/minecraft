@@ -13,7 +13,7 @@ fn resource_or_tag_entity_type_matches_vanilla() {
         |v, _| {
             let r = v.downcast_ref::<ResourceOrTag>().expect("result");
             let kind = match r {
-                ResourceOrTag::Resource(k) => format!("resource ResourceKey[minecraft:root / {}]", k.registry),
+                ResourceOrTag::Resource(k) => format!("resource {}", k.registry),
                 ResourceOrTag::Tag { key, members } => format!("tag ResourceKey[minecraft:root / {}] n={}", key.registry, members.len()),
             };
             format!("{}|{kind}", r.as_printable())
