@@ -5,6 +5,7 @@
 
 /// Defines `BlockBehaviour::update_shape` from a closure-like header:
 /// `update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| { .. })` (`level: &mut dyn LevelAccessor`).
+#[macro_export]
 macro_rules! update_shape {
     (|$this:ident, $state:ident, $level:ident, $pos:ident, $direction:ident, $neighbour_pos:ident, $neighbour_state:ident| $body:block) => {
         #[allow(unused_variables)]
@@ -19,11 +20,11 @@ macro_rules! update_shape {
         ) -> BlockState $body
     };
 }
-pub(crate) use update_shape;
+pub use update_shape;
 
 #[allow(unused_imports)]
-pub(crate) mod prelude {
-    pub(crate) use super::update_shape;
+pub mod prelude {
+    pub use super::update_shape;
     pub use crate::register_block;
     pub use crate::register_block_class;
     pub use crate::world::level::block::helpers::{self, air};
@@ -107,7 +108,6 @@ pub mod coral_fan_block;
 pub mod coral_plant_block;
 pub mod coral_wall_fan_block;
 pub mod crafter_block;
-pub mod creaking_heart_block;
 pub mod crop_block;
 pub mod cross_collision_block;
 pub mod daylight_detector_block;

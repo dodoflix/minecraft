@@ -4,6 +4,7 @@
 //! implementation are kept as raw NBT by mc-world so nothing is lost on save.
 
 /// The accessors every implementation of [`BlockEntity`] needs (the struct keeps its [`BlockEntityData`] in `base`).
+#[macro_export]
 macro_rules! block_entity_base {
     () => {
         fn base(&self) -> &BlockEntityData {
@@ -102,7 +103,6 @@ mod comparator_block_entity;
 pub mod command_block_entity;
 pub mod jigsaw_block_entity;
 mod conduit_block_entity;
-mod creaking_heart_block_entity;
 mod daylight_detector_block_entity;
 mod dispenser_block_entity;
 pub mod lectern_block_entity;
@@ -136,7 +136,6 @@ pub use bell_block_entity::BellBlockEntity;
 pub use brushable_block_entity::BrushableBlockEntity;
 pub use banner_block_entity::BannerBlockEntity;
 pub use conduit_block_entity::ConduitBlockEntity;
-pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
 pub use daylight_detector_block_entity::DaylightDetectorBlockEntity;
 pub use command_block_entity::CommandBlockEntity;
 pub use jigsaw_block_entity::JigsawBlockEntity;
@@ -387,7 +386,7 @@ pub trait BlockEntity: Any {
 }
 
 /// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).
-pub(crate) fn read_codec<A: 'static>(tag: &CompoundTag, key: &str, codec: &mc_dfu::Codec<A>) -> Option<A> {
+pub fn read_codec<A: 'static>(tag: &CompoundTag, key: &str, codec: &mc_dfu::Codec<A>) -> Option<A> {
     mc_dfu::parse_nbt(codec, tag.get(key)?).result_or_partial()
 }
 

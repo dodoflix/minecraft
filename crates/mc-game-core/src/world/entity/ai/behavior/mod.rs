@@ -174,7 +174,6 @@ pub mod villager_goal_packages;
 pub mod villager_make_love;
 pub mod villager_panic_trigger;
 pub mod wake_up;
-pub mod warden;
 pub mod work_at_composter;
 pub mod work_at_poi;
 pub mod yield_job_site;

@@ -5,6 +5,7 @@
 //! creaking entity itself is always found through the level (it may be out of its slot while it ticks, see
 //! [`ServerLevel::entity_id_by_uuid`]).
 
+use crate::block_entity_base;
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;

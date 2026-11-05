@@ -1,32 +1,11 @@
 //! `net.minecraft.world.entity.monster.*` (the Cubes slice: cube mobs, ravager, warden, creaking, breeze; the Piglins
 //! slice: piglin, hoglin, zoglin).
 
-pub mod blaze;
-pub mod creeper;
-pub mod crossbow_attack_mob;
 pub mod cubemob;
-pub mod enderman;
-pub mod endermite;
-pub mod ghast;
-pub mod giant;
 pub mod illager;
 pub mod patrolling_monster;
-pub mod guardian;
-pub mod phantom;
-pub mod shulker;
-pub mod silverfish;
-pub mod skeleton;
-pub mod spider;
-pub mod strider;
-pub mod vex;
 pub mod zombie;
-pub mod hoglin;
-pub mod piglin;
-pub mod zoglin;
 // [WardenMobs]
-pub mod breeze;
-pub mod creaking;
-pub mod warden;
 
 use crate::world::entity::Entity;
 

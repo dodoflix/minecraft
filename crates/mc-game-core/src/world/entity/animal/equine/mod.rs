@@ -10,7 +10,6 @@ pub mod markings;
 pub mod mule;
 pub mod skeleton_horse;
 pub mod skeleton_trap_goal;
-pub mod zombie_horse;
 
 pub use abstract_chested_horse::AbstractChestedHorse;
 pub use abstract_horse::{AbstractHorse, AbstractHorseData};
@@ -20,7 +19,6 @@ pub use llama::Llama;
 pub use markings::Markings;
 pub use mule::Mule;
 pub use skeleton_horse::SkeletonHorse;
-pub use zombie_horse::ZombieHorse;
 
 use crate::world::item::ItemStack;
 use mc_data::Item;
