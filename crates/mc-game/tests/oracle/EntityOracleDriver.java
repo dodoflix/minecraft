@@ -53,6 +53,7 @@ import net.minecraft.world.phys.Vec3;
  * -- options (only before the first world command) --
  * level flat|void|normal      world type (default flat)            seed N              world seed (default 4242)
  * difficulty peaceful|easy|normal|hard (default normal)            preload R           chunk radius kept loaded (6)
+ * features NAME[,NAME]       extra feature flags besides vanilla, e.g. redstone_experiments
  * -- world --
  * gamerule NAME VALUE         e.g. gamerule keep_inventory true    time N       (game clock stays frozen otherwise)
  * block X Y Z STATE           e.g. block 0 -60 0 minecraft:water[level=0]   (setBlock flags 3, like /setblock)
@@ -61,6 +62,10 @@ import net.minecraft.world.phys.Vec3;
  * note TEXT...                prints "# TEXT"
  * reseed N                    restart the entity random-seed sequence (entities created afterwards: see VanillaLevel header)
  * level_seed N                Level.random.setSeed(N) (explosion rays, drop spread, ... draw from it; LegacyRandomSource)
+ * rand_value N                Level.randValue = N (the LCG getBlockRandomPos draws from; set it before random ticks)
+ * tick_chunk CX CZ SPEED      ServerLevel.tickChunk(chunk, SPEED): random ticks of one chunk (use instead of gamerule random_tick_speed)
+ * random_tick X Y Z           randomTick of that block (+ its fluid) as tickChunk's inner loop does for one chosen position
+ * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
  * -- entities --
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
  * spawn_item REF STACK X Y Z [vx vy vz] [count]  ItemEntity (constructor random motion unless vx vy vz given)
@@ -94,6 +99,10 @@ import net.minecraft.world.phys.Vec3;
  * tick [N]                    N real server ticks (default 1); each prints the `watch` dumps after the tick
  * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF   (watch off clears)
  * dump WHAT...                same WHATs immediately, plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
+ *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
+ *                             ticks -> `TICK block|fluid x y z id delay=N prio=P` for every pending scheduled tick in execution order,
+ *                             events -> the `EV ...` lines of level events / sounds / block events broadcast since the last dump (see
+ *                             VanillaLevel.RecordingPlayerList; also valid in `watch`, printed after each tick)
  * </pre>
  *
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
@@ -253,6 +262,7 @@ public final class EntityOracleDriver {
          case "level" -> options.levelType = a.get(1);
          case "seed" -> options.seed = Long.parseLong(a.get(1));
          case "difficulty" -> options.difficulty = a.get(1);
+         case "features" -> options.features = a.get(1);
          case "preload" -> options.preloadRadiusChunks = Integer.parseInt(a.get(1));
          case "note" -> out.println("# " + line.substring(4).strip());
          case "gamerule" -> {
@@ -270,6 +280,40 @@ public final class EntityOracleDriver {
          case "level_seed" -> {
             world();
             v.level.getRandom().setSeed(Long.parseLong(a.get(1)));
+         }
+         case "rand_value" -> {
+            world();
+            priv(v.level, Level.class, "randValue", Integer.parseInt(a.get(1))); // Level.randValue: the LCG behind getBlockRandomPos (random ticks)
+         }
+         case "tick_chunk" -> {
+            world();
+            v.level.tickChunk(v.level.getChunk(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2))), Integer.parseInt(a.get(3)));
+         }
+         case "random_tick" -> {
+            world();
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            BlockState st = v.level.getBlockState(pos); // the body of ServerLevel.tickChunk's inner loop for one chosen position
+            if (st.isRandomlyTicking()) {
+               st.randomTick(v.level, pos, v.level.getRandom());
+            }
+            net.minecraft.world.level.material.FluidState fs = st.getFluidState();
+            if (fs.isRandomlyTicking()) {
+               fs.randomTick(v.level, pos, v.level.getRandom());
+            }
+         }
+         case "be_nbt" -> {
+            world();
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            net.minecraft.world.level.block.entity.BlockEntity be = v.level.getBlockEntity(pos);
+            if (be == null) {
+               throw new IllegalStateException("no block entity at " + pos);
+            }
+            try (ProblemReporter.ScopedCollector rep = new ProblemReporter.ScopedCollector(be.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"))) {
+               CompoundTag merged = be.saveWithFullMetadata(v.server.registryAccess()).merge(TagParser.parseCompoundFully(line.substring(line.indexOf(a.get(4)))));
+               be.loadWithComponents(TagValueInput.create(rep, v.server.registryAccess(), merged));
+            }
+            be.setChanged(); // /data merge block
+            v.level.sendBlockUpdated(pos, be.getBlockState(), be.getBlockState(), 3);
          }
          case "reseed" -> {
             world();
@@ -679,6 +723,35 @@ public final class EntityOracleDriver {
                VanillaLevel.FakePlayer p = v.player(arg);
                for (VanillaLevel.Sent s : p.drain()) {
                   out.println("PKT " + arg + " " + s.type() + " " + s.hex());
+               }
+            }
+            case "events" -> {
+               for (String e : VanillaLevel.EVENTS) {
+                  out.println(e);
+               }
+               VanillaLevel.EVENTS.clear();
+            }
+            case "be" -> {
+               String[] c = arg.split(",");
+               BlockPos pos = new BlockPos(Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]));
+               net.minecraft.world.level.block.entity.BlockEntity be = v.level.getBlockEntity(pos);
+               out.println("BE " + c[0] + " " + c[1] + " " + c[2] + " " + (be == null ? "-" : be.saveWithFullMetadata(v.server.registryAccess()).toString()));
+            }
+            case "ticks" -> {
+               // every pending scheduled tick of the loaded chunks in execution order (trigger tick, priority, sub tick order)
+               List<net.minecraft.world.ticks.ScheduledTick<?>> all = new ArrayList<>();
+               for (int cx = -options.preloadRadiusChunks; cx <= options.preloadRadiusChunks; cx++) {
+                  for (int cz = -options.preloadRadiusChunks; cz <= options.preloadRadiusChunks; cz++) {
+                     var chunk = v.level.getChunk(cx, cz);
+                     ((net.minecraft.world.ticks.LevelChunkTicks<?>)priv(chunk, net.minecraft.world.level.chunk.LevelChunk.class, "blockTicks")).getAll().forEach(all::add);
+                     ((net.minecraft.world.ticks.LevelChunkTicks<?>)priv(chunk, net.minecraft.world.level.chunk.LevelChunk.class, "fluidTicks")).getAll().forEach(all::add);
+                  }
+               }
+               all.sort(net.minecraft.world.ticks.ScheduledTick.DRAIN_ORDER);
+               for (var t : all) {
+                  String tk = t.type() instanceof net.minecraft.world.level.block.Block ? "block" : "fluid";
+                  String name = t.type() instanceof net.minecraft.world.level.block.Block b ? BuiltInRegistries.BLOCK.getKey(b).toString() : BuiltInRegistries.FLUID.getKey((net.minecraft.world.level.material.Fluid)t.type()).toString();
+                  out.println("TICK " + tk + " " + t.pos().getX() + " " + t.pos().getY() + " " + t.pos().getZ() + " " + name + " delay=" + (t.triggerTick() - v.level.getGameTime()) + " prio=" + t.priority().getValue());
                }
             }
             case "blocks" -> {

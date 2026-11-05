@@ -99,6 +99,7 @@ public final class VanillaLevel {
       public String levelType = "flat"; // flat | void | normal
       public long seed = 4242L;
       public String difficulty = "normal";
+      public String features = ""; // comma list of extra feature flags, e.g. redstone_experiments
       public GameType defaultGameType = GameType.SURVIVAL;
       public int preloadRadiusChunks = 6; // > view distance, so joining a player never waits for async chunk generation
       public int viewDistance = 4;
@@ -115,7 +116,7 @@ public final class VanillaLevel {
       void start() {
          this.setUsesAuthentication(false);
          this.worldData.setGameType(this.settingsGameType());
-         this.setPlayerList(new DedicatedPlayerList(this, this.registries(), this.playerDataStorage));
+         this.setPlayerList(new RecordingPlayerList(this, this.registries(), this.playerDataStorage));
          this.loadLevel();
       }
 
@@ -131,6 +132,38 @@ public final class VanillaLevel {
       @Override
       public boolean isDedicatedServer() {
          return true;
+      }
+   }
+
+   /** Event log (block-oracle): the `EV ...` lines of every PlayerList.broadcast the level made since the last `dump events`. */
+   public static final List<String> EVENTS = new ArrayList<>();
+
+   /**
+    * DedicatedPlayerList that records every {@code broadcast(except, x, y, z, range, dim, packet)} (ServerLevel.levelEvent,
+    * playSeededSound, runBlockEvents all go through it) whether or not a player is in range, then delegates. Sound seeds are not
+    * printed (they come from a nanoTime seeded generator). Format (the Rust twin is tests/common/block_scenario.rs):
+    * {@code EV sound at=x,y,z r=R ex=0|1 event=ID source=NAME vol=V pitch=P}, {@code EV level_event r=R ex= type=N pos=x,y,z data=N global=0|1},
+    * {@code EV block_event r=R ex= pos=x,y,z block=ID b0=N b1=N}, otherwise {@code EV packet at=x,y,z r=R ex= id=TYPE}.
+    */
+   public static final class RecordingPlayerList extends DedicatedPlayerList {
+      RecordingPlayerList(DedicatedServer server, net.minecraft.core.LayeredRegistryAccess<net.minecraft.server.RegistryLayer> registries,
+         net.minecraft.world.level.storage.PlayerDataStorage storage) {
+         super(server, registries, storage);
+      }
+
+      @Override
+      public void broadcast(Player except, double x, double y, double z, double range, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension, Packet<?> packet) {
+         String head = "r=" + range + " ex=" + (except != null ? 1 : 0);
+         if (packet instanceof ClientboundSoundPacket s) {
+            EVENTS.add("EV sound at=" + x + "," + y + "," + z + " " + head + " event=" + s.getSound().getRegisteredName() + " source=" + s.getSource().getName() + " vol=" + s.getVolume() + " pitch=" + s.getPitch());
+         } else if (packet instanceof ClientboundLevelEventPacket e) {
+            EVENTS.add("EV level_event " + head + " type=" + e.getType() + " pos=" + e.getPos().getX() + "," + e.getPos().getY() + "," + e.getPos().getZ() + " data=" + e.getData() + " global=" + (e.isGlobalEvent() ? 1 : 0));
+         } else if (packet instanceof ClientboundBlockEventPacket b) {
+            EVENTS.add("EV block_event " + head + " pos=" + b.getPos().getX() + "," + b.getPos().getY() + "," + b.getPos().getZ() + " block=" + net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(b.getBlock()) + " b0=" + (b.getB0() & 255) + " b1=" + (b.getB1() & 255));
+         } else {
+            EVENTS.add("EV packet at=" + x + "," + y + "," + z + " " + head + " id=" + packet.type().id());
+         }
+         super.broadcast(except, x, y, z, range, dimension, packet);
       }
    }
 
@@ -257,7 +290,7 @@ public final class VanillaLevel {
       LevelStorageSource.LevelStorageAccess access = source.validateAndCreateAccess("world");
       PackRepository packs = ServerPacksSource.createPackRepository(access);
       DedicatedServerProperties props = settings.getProperties();
-      WorldDataConfiguration dataConfig = new WorldDataConfiguration(props.initialDataPackConfiguration, FeatureFlags.DEFAULT_FLAGS);
+      WorldDataConfiguration dataConfig = new WorldDataConfiguration(props.initialDataPackConfiguration, featureSet(o.features));
       WorldLoader.InitConfig init = new WorldLoader.InitConfig(new WorldLoader.PackConfig(packs, dataConfig, false, true), Commands.CommandSelection.DEDICATED, props.functionPermissions);
       WorldStem stem = Util.<WorldStem>blockUntilDone(executor -> WorldLoader.load(init, context -> {
          Registry<LevelStem> dims = context.datapackDimensions().lookupOrThrow(Registries.LEVEL_STEM);
@@ -285,6 +318,16 @@ public final class VanillaLevel {
       v.server.getPlayerList().setViewDistance(o.viewDistance);
       RandomSupport.reseedUniquifier(8682522807148012L);
       return v;
+   }
+
+   private static net.minecraft.world.flag.FeatureFlagSet featureSet(String names) {
+      List<net.minecraft.resources.Identifier> ids = new ArrayList<>();
+      for (String n : names.split(",")) {
+         if (!n.isBlank()) {
+            ids.add(net.minecraft.resources.Identifier.withDefaultNamespace(n.strip()));
+         }
+      }
+      return FeatureFlags.DEFAULT_FLAGS.join(FeatureFlags.REGISTRY.fromNames(ids));
    }
 
    private static void deleteTree(Path p) {

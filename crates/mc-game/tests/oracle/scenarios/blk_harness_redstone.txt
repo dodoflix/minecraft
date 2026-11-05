@@ -1,0 +1,11 @@
+# Redstone dust propagation 15 ticks: a redstone block powers a dust line, a lamp lights; removing the block unpowers
+# (lamp turns off after its scheduled tick).
+level flat
+preload 2
+watch blocks:-1,-60,0,9,-60,0 ticks
+fill 0 -60 0 8 -60 0 minecraft:redstone_wire
+block 9 -60 0 minecraft:redstone_lamp
+block -1 -60 0 minecraft:redstone_block
+tick 8
+block -1 -60 0 minecraft:air
+tick 7

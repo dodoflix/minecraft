@@ -1,0 +1,9 @@
+B 2 -60 2 minecraft:oak_stairs[facing=north,half=bottom,shape=inner_right,waterlogged=false]
+B 2 -60 3 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+B 5 -60 5 minecraft:oak_fence[east=true,north=false,south=false,waterlogged=false,west=false]
+B 5 -60 6 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=none]
+B 6 -60 5 minecraft:oak_fence[east=false,north=false,south=false,waterlogged=false,west=true]
+B 8 -60 7 minecraft:stone
+B 8 -60 8 minecraft:torch
+B 8 -60 9 minecraft:wall_torch[facing=south]
+B 8 -60 7 minecraft:stone

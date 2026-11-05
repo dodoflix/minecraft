@@ -1,0 +1,3 @@
+BE 3 -60 3 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:0,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:3}
+BE 3 -60 3 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:7,listener:{event_delay:0,selector:{tick:-1L}},x:3,y:-60,z:3}
+BE 3 -60 3 {components:{},id:"minecraft:sculk_sensor",last_vibration_frequency:7,listener:{event_delay:5,selector:{tick:-1L}},x:3,y:-60,z:3}

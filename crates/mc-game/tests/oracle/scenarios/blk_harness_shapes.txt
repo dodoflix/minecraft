@@ -1,0 +1,17 @@
+# Harness self-check on blocks that already have Rust behaviour: stairs corner shapes, fence connections, torch support,
+# waterlogging; neighbour/shape update chains and pending ticks.
+level flat
+preload 2
+watch events
+block 2 -60 2 minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+block 2 -60 3 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]
+block 5 -60 5 minecraft:oak_fence
+block 6 -60 5 minecraft:oak_fence
+block 5 -60 6 minecraft:cobblestone_wall
+block 8 -60 8 minecraft:torch
+block 8 -60 9 minecraft:wall_torch[facing=south]
+block 8 -60 7 minecraft:stone
+dump blocks:0,-60,0,12,-59,12 ticks
+block 8 -61 8 minecraft:air
+block 8 -61 7 minecraft:air
+dump blocks:7,-60,6,9,-59,10 ticks

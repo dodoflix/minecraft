@@ -1,0 +1,9 @@
+# Block entity NBT: saveWithFullMetadata of a fresh sensor, merge via be_nbt (/data merge block), re-read.
+level flat
+preload 2
+block 3 -60 3 minecraft:sculk_sensor
+dump be:3,-60,3
+be_nbt 3 -60 3 {last_vibration_frequency:7}
+dump be:3,-60,3
+be_nbt 3 -60 3 {listener:{event_delay:5,event_distance:3}}
+dump be:3,-60,3 events

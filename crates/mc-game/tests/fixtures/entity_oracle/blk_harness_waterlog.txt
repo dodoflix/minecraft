@@ -1,0 +1,11 @@
+B 4 -60 4 minecraft:oak_stairs[facing=north,half=bottom,shape=inner_right,waterlogged=true]
+B 4 -60 5 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=true]
+TICK fluid 4 -60 4 minecraft:water delay=5 prio=0
+TICK fluid 4 -60 5 minecraft:water delay=5 prio=0
+T 1
+T 2
+T 3
+B 4 -60 4 minecraft:oak_stairs[facing=north,half=bottom,shape=inner_right,waterlogged=true]
+B 4 -60 5 minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=true]
+TICK fluid 4 -60 4 minecraft:water delay=2 prio=0
+TICK fluid 4 -60 5 minecraft:water delay=2 prio=0

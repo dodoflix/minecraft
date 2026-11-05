@@ -38,11 +38,28 @@ pub fn sound_range(sound: SoundEvent, volume: f32) -> f64 {
     }
 }
 
+/// One `PlayerList.broadcast(except, x, y, z, range, dimension, packet)` call, see `LevelTickState::broadcast_log`.
+#[derive(Clone, Debug)]
+pub struct BroadcastRecord {
+    /// A player (not a non-player entity) is excluded from the broadcast.
+    pub except: bool,
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
+    pub range: f64,
+    /// `VarInt packet id + body` as sent.
+    pub payload: Arc<[u8]>,
+}
+
 impl ServerLevel {
     /// `PlayerList.broadcast(except, x, y, z, range, dimension, packet)`: every player of this level but `except`
     /// within `range` blocks (squared distance below `range * range`) gets the packet.
     pub fn broadcast_nearby<P: Packet>(&self, except: Option<EntityId>, x: f64, y: f64, z: f64, range: f64, packet: &P) {
         let mut payload: Option<Arc<[u8]>> = None;
+        if let Some(log) = &self.tick_state.broadcast_log {
+            let bytes = payload.get_or_insert_with(|| encode_packet(packet)).clone();
+            log.lock().push(BroadcastRecord { except: except.is_some(), x, y, z, range, payload: bytes });
+        }
         for &id in &self.players {
             if Some(id) == except {
                 continue;
