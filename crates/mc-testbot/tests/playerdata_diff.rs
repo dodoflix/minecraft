@@ -16,6 +16,15 @@ fn read_dat(dir: &Path) -> CompoundTag {
     mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap()).expect("nbt")
 }
 
+impl Console for OurServer {
+    fn cmd(&self, command: &str) {
+        OurServer::cmd(self, command)
+    }
+    fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
+        OurServer::wait_log(self, regex, timeout_s)
+    }
+}
+
 fn kind(t: &Tag) -> &'static str {
     match t {
         Tag::End => "end",
