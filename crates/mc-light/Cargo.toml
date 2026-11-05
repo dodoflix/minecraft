@@ -16,6 +16,7 @@ indexmap = { workspace = true }
 
 [dev-dependencies]
 mc-nbt = { path = "../mc-nbt" }
+mc-testkit = { path = "../mc-testkit" }
 
 [lints]
 workspace = true

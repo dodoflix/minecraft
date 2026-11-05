@@ -3,4 +3,3 @@
 mod dispatcher;
 mod golden;
 mod long_set;
-mod worldref;
