@@ -3,6 +3,7 @@
 
 pub mod arguments;
 pub mod brigadier_exceptions;
+pub mod cacheable_function;
 pub mod command_build_context;
 pub mod command_result_callback;
 pub mod command_signing_context;
