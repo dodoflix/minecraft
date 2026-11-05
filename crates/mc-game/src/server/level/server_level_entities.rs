@@ -24,9 +24,10 @@ pub fn next_detached_entity_id() -> EntityId {
 impl ServerLevel {
     /// `getNextEntityId()`.
     pub fn next_entity_id(&self) -> EntityId {
+        let counter = self.entity_id_counter.as_ref().unwrap_or(&ENTITY_COUNTER);
         let mut id = 0;
         while id == 0 || self.entity_manager.has_entity_with_id(id) {
-            id = ENTITY_COUNTER.fetch_add(1, Ordering::Relaxed).wrapping_add(1);
+            id = counter.fetch_add(1, Ordering::Relaxed).wrapping_add(1);
         }
         id
     }

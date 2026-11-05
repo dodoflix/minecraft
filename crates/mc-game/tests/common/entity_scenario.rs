@@ -28,7 +28,11 @@
 //!   with the oracle's per-tick seed (`mc_core::random::reseed_uniquifier`, the Rust twin of the oracle's `RandomSupport` shadow), so
 //!   freshly created entities draw the same random seeds as in the oracle. Entity ids are assigned `1, 2, 3, ...` in creation order
 //!   (the oracle's `Entity` counter) for entities the scenario creates.
-//! * Commands implemented: see [`Harness::run`]. An unsupported command or dump kind PANICS with `scenario:line`; there is no
+//! * Commands implemented: see [`Harness::run`] plus the families in `entity_scenario/` (`mob_cmds.rs`: target love age breed tame leash interact;
+//!   `nav_cmds.rs`: nav path_query nav_stop; `dump_cmds.rs`: goals: brain: path: attrs: nbt:). Add a new family as a new file with
+//!   `pub(super) fn run(&mut Harness, &[String]) -> bool` (+ a `mod` line and one `||` in the fallback arm of `run`). Entity ids come from the
+//!   level's private counter (`ServerLevel::entity_id_counter`, starts at 1 like the oracle's `Entity.ENTITY_COUNTER`), so auto-created entities
+//!   (babies, arrows, orbs) get the oracle's ids; ids matter for `(tickCount + id) % n` throttles. An unsupported command or dump kind PANICS with `scenario:line`; there is no
 //!   silent skipping (`ignore_kinds` of [`Options`] only drops output lines at comparison time).
 //! * Output: `T n`, `P`/`E` lines for `dump`/`watch` (`player:`, `entity:`, `mob:`, `entities`, `mobs`, `all_players`), `HURT`, `EFFECT`,
 //!   `# note`. Base/living/player/item fields are written by this module, extra fields of the rich mob dumps by the
@@ -36,6 +40,12 @@
 #![allow(dead_code)]
 
 use super::entity_oracle::{Fixture, Options, scenario_dir};
+
+// Command families of the DSL (one file each, `pub(super) fn run(&mut Harness, &[String]) -> bool` = "handled"): mob state
+// (love/age/breed/target/tame/leash/interact), navigation (nav/path_query/nav_stop), extra dump kinds (goals/brain/path/attrs/nbt/difficulty).
+mod dump_cmds;
+mod mob_cmds;
+mod nav_cmds;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -218,7 +228,6 @@ pub struct Harness {
     watches: Vec<Vec<String>>,
     pub out: Vec<String>,
     pub ticks: u64,
-    next_id: EntityId,
     booted: bool,
     pub label: String,
     pub line_no: usize,
@@ -234,6 +243,7 @@ impl Harness {
         let world = mc_game::server::level::level_data::default_world_data();
         level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(world.clone()));
         mc_core::random::reseed_uniquifier(8682522807148012);
+        level.entity_id_counter = Some(std::sync::atomic::AtomicI32::new(0));
         Harness {
             level,
             world,
@@ -247,7 +257,6 @@ impl Harness {
             watches: Vec::new(),
             out: Vec::new(),
             ticks: 0,
-            next_id: 1,
             booted: false,
             label: String::new(),
             line_no: 0,
@@ -306,11 +315,9 @@ impl Harness {
         *self.refs.get(name).unwrap_or_else(|| self.fail(&format!("unknown ref {name}")))
     }
 
-    /// Register a created entity: pin its id (the oracle's creation counter), name it, add it to the level and the tick order.
-    fn add_entity(&mut self, name: &str, mut e: Box<dyn Entity>) -> EntityId {
-        let id = self.next_id;
-        self.next_id += 1;
-        e.base_mut().id = id;
+    /// Register a created entity (its id came from the level's private counter = the oracle's `Entity.ENTITY_COUNTER`), name it, add it to the level and the tick order.
+    fn add_entity(&mut self, name: &str, e: Box<dyn Entity>) -> EntityId {
+        let id = e.id();
         let uuid = e.uuid();
         self.level.add_fresh_entity(e);
         self.refs.insert(name.to_string(), id);
@@ -600,7 +607,11 @@ impl Harness {
                 let what: Vec<String> = if a.len() > 1 { a[1..].to_vec() } else { vec!["entities".into(), "all_players".into()] };
                 self.dump(&what);
             }
-            other => self.fail(&format!("unsupported scenario command `{other}` (see the Harness::run doc for the implemented subset)")),
+            other => {
+                if !(mob_cmds::run(self, &a) || nav_cmds::run(self, &a)) {
+                    self.fail(&format!("unsupported scenario command `{other}` (see the Harness::run doc and entity_scenario/*.rs for the implemented subset)"))
+                }
+            }
         }
         self.name_new_entities();
     }
@@ -650,7 +661,7 @@ impl Harness {
 
     fn spawn_player(&mut self, a: &[String]) {
         mc_core::random::reseed_uniquifier(java_hash(&a[1]));
-        let id = self.next_id;
+        let id = self.level.next_entity_id();
         let profile = GameProfile { id: uuid::Uuid::new_v3(&uuid::Uuid::NAMESPACE_OID, format!("OfflinePlayer:{}", a[1]).as_bytes()), name: a[1].clone(), properties: vec![] };
         let mut p = ServerPlayer::new(id, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
         let mode = match a[2].as_str() {
@@ -666,8 +677,6 @@ impl Harness {
         p.snap_to(self.num(&a[3]), self.num(&a[4]), self.num(&a[5]), yaw, pitch);
         p.base_mut().first_tick = true;
         p.simulate_local_player = sim;
-        self.next_id += 1;
-        p.base_mut().id = id;
         let uuid = p.uuid();
         self.level.add_player(Box::new(p));
         self.refs.insert(a[1].clone(), id);
@@ -852,7 +861,11 @@ impl Harness {
                         self.describe_ref(&n, rich);
                     }
                 }
-                _ => self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs)")),
+                _ => {
+                    if !dump_cmds::dump(self, kind, arg) {
+                        self.fail(&format!("unsupported dump kind `{w}` (replayed: player: entity: mob: all_players entities mobs, see entity_scenario/dump_cmds.rs)"))
+                    }
+                }
             }
         }
     }

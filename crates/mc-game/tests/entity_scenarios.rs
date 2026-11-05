@@ -71,3 +71,19 @@ fn plain_entities_and_notes_replay() {
 fn example_mob_golden_zombie_chase() {
     run_scenario_test("mob_zombie_chase");
 }
+
+/// Smoke test of the mob command arms (`mobspawn love age breed target nav path_query tame leash interact` + `goals:`/`path:`/`attrs:`/`nbt:`
+/// dumps): they must run without panicking on the real mobs of the server. Exactness is checked by the mob goldens (`mob_*` fixtures).
+#[test]
+fn mob_command_arms_run() {
+    let lines = run_scenario_text(
+        "inline",
+        "level flat\ndifficulty normal\nspawn_player Steve survival 0.5 -60 0.5 0 0\n\
+         mobspawn P1 minecraft:pig 4.5 -60 4.5 0 0 nofinalize\nmobspawn P2 minecraft:pig 5.5 -60 4.5 0 0 nofinalize\nmobspawn W minecraft:wolf 2.5 -60 0.5 0 0 nofinalize\n\
+         tick 2\nlove P1 Steve\nlove P2 Steve\nbreed P1 P2\ndump entities\nage P1 -100\ntarget W Steve\ntarget W -\n\
+         path_query P1 8.5 -60 4.5\nnav P2 8.5 -60 6.5 1.0 1\ntick 3\ndump goals:P1 path:P2 attrs:W nbt:W\ntame W Steve\nleash P1 Steve\nleash P1 -\ngive Steve mainhand minecraft:wheat 4\ninteract Steve P2\n",
+    );
+    assert!(lines.iter().any(|l| l.starts_with("E pig#1 ")), "the baby is named pig#1: {lines:?}");
+    assert!(lines.iter().any(|l| l.starts_with("PATHQ P1 ")) && lines.iter().any(|l| l.starts_with("NAV P2 ")));
+    assert!(lines.iter().any(|l| l.starts_with("G P1 goal ")) && lines.iter().any(|l| l.starts_with("ATTR W ")) && lines.iter().any(|l| l.starts_with("N W {")));
+}

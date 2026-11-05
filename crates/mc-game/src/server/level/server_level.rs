@@ -103,6 +103,10 @@ pub struct ServerLevel {
     /// Operations on entities that were taken out (running) when they were requested: run when put back
     /// (`ServerLevel::with_entity_or_defer`).
     pub deferred_level_ops: std::collections::HashMap<EntityId, Vec<DeferredLevelOp>>,
+    // ==== [MobOracle] additions (ServerLevel field) ====
+    /// A private `ENTITY_COUNTER` for this level (the scenario replay harness gives its level the oracle's id sequence 1, 2, 3, ...
+    /// regardless of other levels created by tests running in parallel); `None` = the process wide counter.
+    pub entity_id_counter: Option<std::sync::atomic::AtomicI32>,
     // ==== [PathfinderCore] additions (ServerLevel field) ====
     /// `pathTypesByPosCache` (`getPathTypeCache()`), invalidated by `send_block_updated`.
     pub path_type_cache: parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache>,
@@ -175,6 +179,8 @@ impl ServerLevel {
             waypoint_manager: Default::default(),
             // ==== [Damage] additions (ServerLevel::new initializer) ====
             deferred_level_ops: Default::default(),
+            // ==== [MobOracle] additions (ServerLevel::new initializer) ====
+            entity_id_counter: None,
             // ==== [PathfinderCore] additions (ServerLevel::new initializer) ====
             path_type_cache: Default::default(),
             // ==== [SpawnFramework] additions (ServerLevel::new initializer) ====
