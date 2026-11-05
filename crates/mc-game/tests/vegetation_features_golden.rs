@@ -15,7 +15,11 @@ use common::feature_harness::*;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_core::random::{LegacyRandomSource, RandomSource, XoroshiroRandomSource};
+use mc_game::world::level::levelgen::feature::{self, Feature};
 use mc_game::world::level::levelgen::gen_level::GenLevel;
+use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
+use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
+use std::sync::Arc;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_world::status::ChunkStatus;
 
@@ -45,7 +49,7 @@ fn heightmap_fold(level: &mut GenLevel<'_>, cx: i32, cz: i32, radius: i32) -> St
 fn vegetation_features_match_vanilla() {
     let fixture = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/vegetation_features.txt")).expect("fixture present");
     let filter = std::env::var("VEG_FILTER").ok();
-    assert!(WORLD.registries_loaded, "the vanilla feature registries must decode completely");
+    assert!(WORLD.features_loaded, "the vanilla feature registries must decode completely");
     let mut lines = fixture.lines();
     let (mut scenarios, mut placements, mut dump_lines, mut placed_true, mut crashed) = (0, 0, 0, 0, 0);
     let mut failures: Vec<String> = Vec::new();
@@ -54,10 +58,19 @@ fn vegetation_features_match_vanilla() {
         assert_eq!(h[0], "SCENARIO", "{header}");
         let (name, seed, cx, cz) = (h[2], h[3].parse::<i64>().unwrap(), int(h[4]), int(h[5]));
         let skip = filter.as_ref().is_some_and(|f| !name.contains(f.as_str()));
-        let feature = WORLD.registries.feature(&Identifier::parse(name).expect("feature id")).unwrap_or_else(|| panic!("feature {name} is not in the registry")).clone();
+        let body: Vec<&str> = lines.by_ref().take_while(|l| *l != "END").collect();
+        // `synthetic:<n>` scenarios carry their configuration (`J <json>`); the others are data-pack entries
+        let feature: Arc<dyn Feature> = match body.iter().find_map(|l| l.strip_prefix("J ")) {
+            Some(json) => {
+                let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data")));
+                let cells = Cells::new(source);
+                let ctx = DecodeCtx { worldgen: &WORLD.worldgen, biomes: &WORLD.biomes, cells: &cells };
+                feature::decode_direct(&serde_json::from_str(json).expect("json"), &ctx).unwrap_or_else(|e| panic!("{name}: {e}"))
+            }
+            None => WORLD.registries.feature(&Identifier::parse(name).expect("feature id")).unwrap_or_else(|| panic!("feature {name} is not in the registry")).value().clone(),
+        };
         let mut synth = SynthRegion::new(seed, cx, cz, ChunkStatus::Features, 2);
         let env = synth.env.clone();
-        let body: Vec<&str> = lines.by_ref().take_while(|l| *l != "END").collect();
         // the terrain preparation (`S` lines) runs first; the baseline of the dump's `B` lines is the prepared terrain
         {
             let mut level = synth.level();
@@ -76,7 +89,7 @@ fn vegetation_features_match_vanilla() {
             if skip {
                 continue;
             }
-            if line.starts_with("S ") {
+            if line.starts_with("S ") || line.starts_with("J ") {
                 continue;
             } else if let Some(p) = line.strip_prefix("> P ") {
                 let t: Vec<&str> = p.split(' ').collect();
@@ -92,7 +105,7 @@ fn vegetation_features_match_vanilla() {
                 }
                 let rs: i64 = t[4].parse().unwrap();
                 let mut random: Box<dyn RandomSource> = if t[3] == "L" { Box::new(LegacyRandomSource::new(rs)) } else { Box::new(XoroshiroRandomSource::new(rs)) };
-                let placed = feature.value().place(&mut level, &env, &mut *random, BlockPos::new(int(t[0]), int(t[1]), int(t[2])));
+                let placed = feature.place(&mut level, &env, &mut *random, BlockPos::new(int(t[0]), int(t[1]), int(t[2])));
                 let got = format!("{placed} {}", random.next_long());
                 placements += 1;
                 placed_true += usize::from(placed);

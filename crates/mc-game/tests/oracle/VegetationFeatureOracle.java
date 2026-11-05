@@ -53,6 +53,18 @@ public class VegetationFeatureOracle {
         "minecraft:dirt", "minecraft:deepslate[axis=y]", "minecraft:netherrack", "minecraft:sculk", "minecraft:crimson_stem[axis=y]", "minecraft:glass",
     };
 
+    /** Configurations that exercise the block-logic-heavy features directly (the data-pack uses them only inside sequences). */
+    static final String[] SYNTHETIC = {
+        "{\"type\":\"minecraft:sculk_patch\",\"charge_count\":10,\"amount_per_charge\":32,\"spread_attempts\":64,\"growth_rounds\":0,\"spread_rounds\":1}",
+        "{\"type\":\"minecraft:sculk_patch\",\"charge_count\":1,\"amount_per_charge\":500,\"spread_attempts\":32,\"growth_rounds\":2,\"spread_rounds\":2}",
+        "{\"type\":\"minecraft:sculk_patch\",\"charge_count\":32,\"amount_per_charge\":100,\"spread_attempts\":16,\"growth_rounds\":3,\"spread_rounds\":0}",
+        "{\"type\":\"minecraft:sculk_patch\",\"charge_count\":4,\"amount_per_charge\":7,\"spread_attempts\":64,\"growth_rounds\":0,\"spread_rounds\":8}",
+        "{\"type\":\"minecraft:multiface_growth\",\"block\":\"minecraft:glow_lichen\",\"can_be_placed_on\":\"#minecraft:base_stone_overworld\",\"can_place_on_floor\":true,\"can_place_on_ceiling\":true,\"can_place_on_wall\":true,\"chance_of_spreading\":1.0,\"search_range\":12}",
+        "{\"type\":\"minecraft:multiface_growth\",\"block\":\"minecraft:glow_lichen\",\"can_be_placed_on\":[\"minecraft:grass_block\",\"minecraft:dirt\",\"minecraft:sand\",\"minecraft:oak_log\",\"minecraft:stone\"],\"can_place_on_wall\":true}",
+        "{\"type\":\"minecraft:multiface_growth\",\"block\":\"minecraft:sculk_vein\",\"can_be_placed_on\":[\"minecraft:sculk\",\"minecraft:stone\",\"minecraft:deepslate\"],\"can_place_on_floor\":true,\"can_place_on_ceiling\":true,\"search_range\":64,\"chance_of_spreading\":0.25}",
+        "{\"type\":\"minecraft:multiface_growth\",\"block\":\"minecraft:glow_lichen\",\"can_be_placed_on\":[\"minecraft:netherrack\",\"minecraft:moss_block\",\"minecraft:water\"],\"can_place_on_ceiling\":true,\"chance_of_spreading\":0.9,\"search_range\":1}",
+    };
+
     static BlockState state(String s) throws Exception {
         return BlockStateParser.parseForBlock(BuiltInRegistries.BLOCK, s, false).blockState();
     }
@@ -70,14 +82,26 @@ public class VegetationFeatureOracle {
             if (CLASSES.contains(h.value().getClass().getSimpleName())) features.add(h);
         });
         features.sort(Comparator.comparing(h -> h.key().identifier().toString()));
+        // (id, feature, json): the data-pack entries, then the synthetic configurations (`SYNTHETIC`), which the Rust test decodes
+        // from the `J <json>` line that follows their SCENARIO line
+        List<Object[]> entries = new ArrayList<>();
+        for (var h : features) entries.add(new Object[] {h.key().identifier().toString(), h.value(), null});
+        var ops = net.minecraft.resources.RegistryOps.create(com.mojang.serialization.JsonOps.INSTANCE, FeatureOracleBase.ACCESS);
+        for (int i = 0; i < SYNTHETIC.length; i++) {
+            var json = com.google.gson.JsonParser.parseString(SYNTHETIC[i]);
+            Feature f = Feature.DIRECT_CODEC.parse(ops, json).getOrThrow();
+            entries.add(new Object[] {"synthetic:" + i, f, SYNTHETIC[i]});
+        }
         Random rnd = new Random(0x5E6E7A71L);
         int id = 0;
-        for (Holder.Reference<Feature> holder : features) {
+        for (Object[] entry : entries) {
             for (int round = 0; round < 3; round++) {
                 long seed = rnd.nextLong();
                 int cx = round == 0 ? rnd.nextInt(5) - 2 : rnd.nextInt(2000) - 1000, cz = round == 0 ? rnd.nextInt(5) - 2 : rnd.nextInt(2000) - 1000;
-                String name = holder.key().identifier().toString();
+                String name = (String) entry[0];
+                Feature feature = (Feature) entry[1];
                 out.println("SCENARIO " + id++ + " " + name + " " + seed + " " + cx + " " + cz);
+                if (entry[2] != null) out.println("J " + entry[2]);
                 FeatureOracleBase.Region region = FeatureOracleBase.newRegion(seed, cx, cz, ChunkStatus.FEATURES, 2);
                 Random r = new Random(seed ^ name.hashCode());
                 prepare(region, out, r, cx, cz);
@@ -93,7 +117,7 @@ public class VegetationFeatureOracle {
                     RandomSource random = legacy ? new LegacyRandomSource(rs) : new XoroshiroRandomSource(rs);
                     boolean placed;
                     try {
-                        placed = holder.value().place(region, FeatureOracleBase.generator(), random, new BlockPos(x, y, z));
+                        placed = feature.place(region, FeatureOracleBase.generator(), random, new BlockPos(x, y, z));
                     } catch (Throwable t) {
                         // e.g. features that need a ServerLevel (template); the Rust test skips the rest of the scenario
                         out.println("= EXC " + t);

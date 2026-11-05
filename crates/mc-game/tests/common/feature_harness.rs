@@ -177,6 +177,8 @@ pub struct FeatureWorld {
     pub factory: PalettedContainerFactory,
     /// Whether the vanilla feature registries decoded completely (`false`: empty registries are used).
     pub registries_loaded: bool,
+    /// Whether `GenRegistries` alone (features, placed features, block state providers) decoded completely.
+    pub features_loaded: bool,
 }
 
 pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
@@ -187,9 +189,11 @@ pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
     let biomes = Arc::new(BiomeRegistry::load(&worldgen).expect("vanilla biomes load"));
     // Registries of types that are not ported yet fail to decode: those tests then run with empty ones.
     let mut registries_loaded = true;
+    let mut features_loaded = true;
     let registries = GenRegistries::load(source.clone(), &worldgen, &biomes).unwrap_or_else(|e| {
         eprintln!("feature registries do not decode yet ({e}): using empty ones");
         registries_loaded = false;
+        features_loaded = false;
         GenRegistries::load(empty.clone(), &worldgen, &biomes).expect("empty registries")
     });
     let structures = StructureRegistries::load(source, &worldgen, &biomes).unwrap_or_else(|e| {
@@ -209,7 +213,7 @@ pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
     );
     let resources = Arc::new(MultiPackResourceManager::new(PackType::ServerData, vec![Arc::new(pack)]));
     let templates = Arc::new(StructureTemplateManager::new(resources, std::env::temp_dir().join("mc-feature-harness-generated")));
-    FeatureWorld { worldgen, biomes, registries: Arc::new(registries), structures: Arc::new(structures), templates, generator: Arc::new(generator), factory, registries_loaded }
+    FeatureWorld { worldgen, biomes, registries: Arc::new(registries), structures: Arc::new(structures), templates, generator: Arc::new(generator), factory, registries_loaded, features_loaded }
 });
 
 pub fn level_height() -> LevelHeight {

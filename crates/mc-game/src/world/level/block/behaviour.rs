@@ -120,9 +120,10 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn get_seed(&self, _state: BlockState, pos: BlockPos) -> i64 {
         mth::get_seed(&pos)
     }
-    /// `getBlockSupportShape`.
-    fn get_block_support_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos) -> VoxelShape {
-        self.get_collision_shape(state, level, pos, &CollisionContext::empty())
+    /// `getBlockSupportShape`: the per-state shape extracted from vanilla (`EmptyBlockGetter`), i.e. the base class's
+    /// collision shape or the override of `LeavesBlock`, `MudBlock`, `SoulSandBlock`, `SnowLayerBlock`, `FenceGateBlock`, ....
+    fn get_block_support_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> VoxelShape {
+        voxel_shape(state.block_support_shape())
     }
     /// `getInteractionShape`.
     fn get_interaction_shape(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> VoxelShape {
