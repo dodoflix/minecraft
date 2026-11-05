@@ -9,6 +9,23 @@ fn get_connected_direction(state: BlockState) -> Direction {
 }
 
 impl BlockBehaviour for LanternBlock {
+    crate::simple_waterlogged!();
+    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+        false
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let pos = context.get_clicked_pos();
+        let replaced_fluid_state = level.get_fluid_state(pos);
+        for direction in context.get_nearest_looking_directions() {
+            if direction.get_axis() == Axis::Y {
+                let state = block.default_state().set(props::HANGING, direction == Direction::Up);
+                if state.can_survive(&*level, pos) {
+                    return Some(state.set(props::WATERLOGGED, replaced_fluid_state.get_type() == mc_data::fluid::Fluid::WATER));
+                }
+            }
+        }
+        None
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let direction = get_connected_direction(state).get_opposite();
         helpers::can_support_center(level, pos.relative(direction), direction.get_opposite())

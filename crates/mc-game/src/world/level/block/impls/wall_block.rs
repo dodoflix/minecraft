@@ -112,6 +112,24 @@ fn side_update(level: &dyn LevelReader, pos: BlockPos, state: BlockState, neighb
 }
 
 impl BlockBehaviour for WallBlock {
+    crate::simple_waterlogged!();
+    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+        false
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let pos = context.get_clicked_pos();
+        let replaced_fluid_state = level.get_fluid_state(pos);
+        let mut connected = [false; 4];
+        for (slot, (direction, opposite)) in [(Direction::North, Direction::South), (Direction::East, Direction::West), (Direction::South, Direction::North), (Direction::West, Direction::East)].into_iter().enumerate() {
+            let neighbour_pos = pos.relative(direction);
+            let neighbour = level.get_block_state(neighbour_pos);
+            connected[slot] = connects_to(neighbour, neighbour.is_face_sturdy_at(&*level, neighbour_pos, opposite), opposite);
+        }
+        let top_pos = pos.above();
+        let top_state = level.get_block_state(top_pos);
+        let state = block.default_state().set(props::WATERLOGGED, replaced_fluid_state.get_type() == mc_data::fluid::Fluid::WATER);
+        Some(update_shape_full(&*level, state, top_pos, top_state, connected[0], connected[1], connected[2], connected[3]))
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

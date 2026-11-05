@@ -45,6 +45,22 @@ pub fn get_stairs_shape(state: BlockState, level: &dyn BlockGetter, pos: BlockPo
 }
 
 impl BlockBehaviour for StairBlock {
+    crate::simple_waterlogged!();
+    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+        false
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let clicked_face = context.get_clicked_face();
+        let pos = context.get_clicked_pos();
+        let replaced_fluid_state = level.get_fluid_state(pos);
+        let bottom = clicked_face != Direction::Down && (clicked_face == Direction::Up || context.use_on.get_click_location().y - pos.y() as f64 <= 0.5);
+        let state = block
+            .default_state()
+            .set(props::HORIZONTAL_FACING, context.get_horizontal_direction())
+            .set(props::HALF, if bottom { mc_data::enums::Half::Bottom } else { mc_data::enums::Half::Top })
+            .set(props::WATERLOGGED, replaced_fluid_state.get_type() == mc_data::fluid::Fluid::WATER);
+        Some(state.set(props::STAIRS_SHAPE, get_stairs_shape(state, &*level, pos)))
+    }
     fn update_shape(
         &self,
         state: BlockState,

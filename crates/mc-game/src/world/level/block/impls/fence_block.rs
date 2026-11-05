@@ -2,6 +2,11 @@
 use super::prelude::*;
 use super::cross_collision_block;
 use super::fence_gate_block;
+use crate::server::level::ServerLevel;
+use crate::world::item::BlockPlaceContext;
+use crate::world::level::collision::CollisionContext;
+use mc_core::phys::shapes::VoxelShape;
+use mc_data::block::PathComputationType;
 
 pub struct FenceBlock;
 
@@ -13,6 +18,25 @@ fn connects_to(this_state: BlockState, state: BlockState, face_solid: bool, dire
 }
 
 impl BlockBehaviour for FenceBlock {
+    crate::simple_waterlogged!();
+    fn get_visual_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, context: &CollisionContext) -> VoxelShape {
+        self.get_shape(state, level, pos, context)
+    }
+    fn is_pathfindable(&self, _state: BlockState, _ty: PathComputationType) -> bool {
+        false
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+        let pos = context.get_clicked_pos();
+        let replaced_fluid_state = level.get_fluid_state(pos);
+        let mut state = block.default_state();
+        for (direction, opposite) in [(Direction::North, Direction::South), (Direction::East, Direction::West), (Direction::South, Direction::North), (Direction::West, Direction::East)] {
+            let neighbour_pos = pos.relative(direction);
+            let neighbour = level.get_block_state(neighbour_pos);
+            let connects = connects_to(state, neighbour, neighbour.is_face_sturdy_at(&*level, neighbour_pos, opposite), opposite);
+            state = state.set(helpers::pipe_property(direction), connects);
+        }
+        Some(state.set(props::WATERLOGGED, replaced_fluid_state.get_type() == mc_data::fluid::Fluid::WATER))
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

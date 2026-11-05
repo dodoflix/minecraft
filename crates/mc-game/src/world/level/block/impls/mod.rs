@@ -132,6 +132,7 @@ pub mod flower_bed_block;
 pub mod flower_block;
 pub mod flower_pot_block;
 pub mod frogspawn_block;
+pub mod glazed_terracotta_block;
 pub mod glow_lichen_block;
 pub mod grass_block;
 pub mod grindstone_block;

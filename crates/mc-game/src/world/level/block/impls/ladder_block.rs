@@ -4,6 +4,27 @@ use super::prelude::*;
 pub struct LadderBlock;
 
 impl BlockBehaviour for LadderBlock {
+    crate::simple_waterlogged!();
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let pos = context.get_clicked_pos();
+        if !helpers::replacing_clicked_on_block(level, context) {
+            let state = level.get_block_state(pos.relative(context.get_clicked_face().get_opposite()));
+            if state.is_block(block) && state.get(props::HORIZONTAL_FACING) == context.get_clicked_face() {
+                return None;
+            }
+        }
+        let mut state = block.default_state();
+        let replaced_fluid_state = level.get_fluid_state(pos);
+        for direction in context.get_nearest_looking_directions() {
+            if direction.get_axis().is_horizontal() {
+                state = state.set(props::HORIZONTAL_FACING, direction.get_opposite());
+                if state.can_survive(&*level, pos) {
+                    return Some(state.set(props::WATERLOGGED, replaced_fluid_state.get_type() == mc_data::fluid::Fluid::WATER));
+                }
+            }
+        }
+        None
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let direction = state.get(props::HORIZONTAL_FACING);
         let attach = pos.relative(direction.get_opposite());

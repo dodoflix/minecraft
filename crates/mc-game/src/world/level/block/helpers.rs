@@ -2,7 +2,7 @@
 
 use super::BlockStateExt;
 use super::state::UPDATE_SHAPE_ORDER;
-use crate::world::level::LevelAccessor;
+use crate::world::level::{BlockGetter as _, LevelAccessor};
 use crate::world::level::flags::{UPDATE_SUPPRESS_DROPS};
 use crate::world::level::shapes::is_shape_full_block;
 use mc_core::direction::Direction;
@@ -69,6 +69,11 @@ pub fn can_support_center(level: &dyn crate::world::level::BlockGetter, below_po
 /// `Block.getStateForPlacement(context)` of `block`.
 pub fn get_state_for_placement(block: mc_data::block::Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
     super::behaviour(block).get_state_for_placement(block, level, context)
+}
+
+/// `context.replacingClickedOnBlock()` (the directional context answers with `canPlace()`, which needs the level).
+pub fn replacing_clicked_on_block(level: &crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> bool {
+    context.replacing_clicked_on_block(level.get_block_state(context.get_clicked_pos()).can_be_replaced_by(context))
 }
 
 /// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)` of a destroyed block (`Level.destroyBlock`).
