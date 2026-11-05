@@ -3,6 +3,8 @@
 //! piece types register themselves (`STRUCTURE_TYPES`, `STRUCTURE_PIECE_TYPES`); the area owners add their
 //! `pub mod` lines here.
 
+pub mod check;
+pub mod generation;
 pub mod manager;
 pub mod piece;
 pub mod pieces;

@@ -45,6 +45,11 @@ impl StructureRegistries {
         Ok(StructureRegistries { structures, structures_by_step })
     }
 
+    /// A registry without structures.
+    pub fn empty() -> StructureRegistries {
+        StructureRegistries { structures: TypedRegistry::new(STRUCTURE_REGISTRY, indexmap::IndexMap::new()), structures_by_step: vec![Vec::new(); Decoration::ALL.len()] }
+    }
+
     pub fn get(&self, id: &Identifier) -> Option<&Holder<dyn Structure>> {
         self.structures.get(id)
     }
