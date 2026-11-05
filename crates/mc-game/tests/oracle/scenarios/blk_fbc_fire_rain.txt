@@ -1,0 +1,24 @@
+# FireBlock in rain: random burn out chance 0.2 + age*0.03, no spreading into rained-on positions; rain only counts
+# with sky access.
+level flat
+preload 3
+difficulty normal
+watch events
+level_seed 777
+cmd weather rain
+fill 0 -60 0 4 -60 4 minecraft:oak_planks
+fill 0 -59 0 4 -59 0 minecraft:oak_planks
+block 2 -59 2 minecraft:fire[age=5]
+block 6 -60 0 minecraft:fire[age=10]
+block 8 -60 0 minecraft:oak_planks
+block 8 -59 0 minecraft:fire
+tick 20
+dump blocks:-1,-61,-1,10,-58,5 ticks
+tick 100
+dump blocks:-1,-61,-1,10,-58,5 ticks events
+# under a roof the rain does not reach
+fill 20 -57 20 26 -57 26 minecraft:stone
+fill 20 -60 20 25 -60 25 minecraft:oak_planks
+block 22 -59 22 minecraft:fire
+tick 120
+dump blocks:19,-61,19,27,-56,27 ticks events

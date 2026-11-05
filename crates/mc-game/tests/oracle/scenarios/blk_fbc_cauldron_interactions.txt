@@ -1,0 +1,455 @@
+# Every CauldronInteraction entry (EMPTY / WATER / LAVA / POWDER_SNOW dispatchers): each held item used on each cauldron
+# kind, block state + inventory + stats afterwards. Survival player with a stack of 2 (a stack of 1 for the bucket swap).
+level flat
+preload 2
+watch events
+spawn_player Alice survival 0.5 -60 0.5 0 0
+block 4 -61 4 minecraft:stone
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:water_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:lava_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:powder_snow_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:glass_bottle 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:leather_helmet[dyed_color={rgb:16711680}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:leather_helmet 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:wolf_armor[dyed_color={rgb:255}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"},{pattern:"minecraft:globe",color:"blue"}]] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:white_banner 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:red_shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+give Alice mainhand minecraft:stick 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:water_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:lava_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:powder_snow_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:glass_bottle 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:leather_helmet[dyed_color={rgb:16711680}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:leather_helmet 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:wolf_armor[dyed_color={rgb:255}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"},{pattern:"minecraft:globe",color:"blue"}]] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:white_banner 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:red_shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=1]
+give Alice mainhand minecraft:stick 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:water_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:lava_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:powder_snow_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:glass_bottle 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:leather_helmet[dyed_color={rgb:16711680}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:leather_helmet 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:wolf_armor[dyed_color={rgb:255}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"},{pattern:"minecraft:globe",color:"blue"}]] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:white_banner 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:red_shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=2]
+give Alice mainhand minecraft:stick 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:water_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:lava_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:powder_snow_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:glass_bottle 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:leather_helmet[dyed_color={rgb:16711680}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:leather_helmet 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:wolf_armor[dyed_color={rgb:255}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"},{pattern:"minecraft:globe",color:"blue"}]] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:white_banner 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:red_shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:water_cauldron[level=3]
+give Alice mainhand minecraft:stick 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:water_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:lava_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:powder_snow_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:glass_bottle 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:leather_helmet[dyed_color={rgb:16711680}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:leather_helmet 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:wolf_armor[dyed_color={rgb:255}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"},{pattern:"minecraft:globe",color:"blue"}]] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:white_banner 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:red_shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:lava_cauldron
+give Alice mainhand minecraft:stick 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:water_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:lava_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:powder_snow_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:glass_bottle 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:leather_helmet[dyed_color={rgb:16711680}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:leather_helmet 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:wolf_armor[dyed_color={rgb:255}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"},{pattern:"minecraft:globe",color:"blue"}]] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:white_banner 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:red_shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=1]
+give Alice mainhand minecraft:stick 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:water_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:lava_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:powder_snow_bucket 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:glass_bottle 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:water"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:potion[potion_contents={potion:"minecraft:strong_healing"}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:leather_helmet[dyed_color={rgb:16711680}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:leather_helmet 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:wolf_armor[dyed_color={rgb:255}] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:white_banner[banner_patterns=[{pattern:"minecraft:creeper",color:"red"},{pattern:"minecraft:globe",color:"blue"}]] 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:white_banner 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:red_shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:shulker_box 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:powder_snow_cauldron[level=3]
+give Alice mainhand minecraft:stick 2
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Alice events
+block 4 -60 4 minecraft:cauldron
+block 4 -59 4 minecraft:water
+give Alice mainhand minecraft:lava_bucket 1
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-59,4 inventory:Alice
+give Alice mainhand minecraft:powder_snow_bucket 1
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-59,4 inventory:Alice
+give Alice mainhand minecraft:water_bucket 1
+use_on Alice 4 -60 4 up
+dump blocks:4,-60,4,4,-59,4 inventory:Alice
+# creative
+block 4 -59 4 minecraft:air
+block 4 -60 4 minecraft:cauldron
+spawn_player Bob creative 8.5 -60 0.5 0 0
+give Bob mainhand minecraft:water_bucket 1
+use_on Bob 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Bob
+give Bob mainhand minecraft:glass_bottle 1
+use_on Bob 4 -60 4 up
+dump blocks:4,-60,4,4,-60,4 inventory:Bob
+# handlePrecipitation
+block 30 -60 30 minecraft:cauldron
+level_seed 17
+cmd weather rain
+tick 2
+tick_chunk 1 1 1
+dump blocks:30,-60,30,30,-60,30

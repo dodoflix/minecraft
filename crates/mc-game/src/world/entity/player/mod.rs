@@ -21,6 +21,7 @@ pub mod menu_open;
 pub mod tick;
 pub mod travel;
 pub mod server_player;
+pub mod sleep_in_bed;
 
 pub use abilities::Abilities;
 pub use food_data::FoodData;

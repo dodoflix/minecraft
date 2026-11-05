@@ -33,7 +33,84 @@ impl CampfireBlock {
     }
 }
 
+/// `CampfireBlock.douse(source, level, pos, state)`: the particles are client side, only the game event remains.
+pub fn douse(source: Option<crate::world::entity::EntityId>, level: &mut dyn LevelAccessor, pos: BlockPos) {
+    level.game_event(mc_data::GameEvent::BLOCK_CHANGE, mc_core::phys::Vec3::at_center_of(&pos), &crate::world::level::gameevent::GameEventContext::of_entity(source));
+}
+
+/// `CampfireBlock.canLight(state)`.
+pub fn can_light(state: BlockState) -> bool {
+    state.is_tag("campfires") && state.has_property(props::WATERLOGGED) && state.has_property(props::LIT) && !state.get(props::WATERLOGGED) && !state.get(props::LIT)
+}
+
 impl BlockBehaviour for CampfireBlock {
+    fn use_item_on(
+        &self,
+        stack: &crate::world::item::ItemStack,
+        state: BlockState,
+        level: &mut crate::server::level::ServerLevel,
+        pos: BlockPos,
+        player: &mut crate::world::entity::ServerPlayer,
+        hand: crate::world::item::InteractionHand,
+        _hit: &mc_core::phys::BlockHitResult,
+    ) -> crate::world::item::InteractionResult {
+        use crate::world::item::InteractionResult;
+        // SEAM(ImCraftMenus): `CampfireBlockEntity.placeFood` (the `CAMPFIRE_INPUT` recipe branch of vanilla's useItemOn) is
+        // wired here once the campfire block entity lands.
+        let douses = mc_data::tags::get::<mc_data::Item>("douses_campfires").is_some_and(|tag| tag.contains(stack.item()));
+        if douses && state.get(props::LIT) {
+            level.level_event(None, 1009, pos, 0);
+            douse(Some(player.id()), level, pos);
+            level.set_block_and_update(pos, state.set(props::LIT, false));
+            let mut used = stack.clone();
+            crate::world::item::hurt_and_break(&mut used, 1, level, player, hand.as_equipment_slot());
+            player.set_item_in_hand(hand, used);
+            InteractionResult::SUCCESS
+        } else {
+            InteractionResult::TRY_WITH_EMPTY_HAND
+        }
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let pos = context.get_clicked_pos();
+        let replaced_water = level.get_fluid_state(pos).get_type() == mc_data::fluid::Fluid::WATER;
+        Some(
+            block
+                .default_state()
+                .set(props::WATERLOGGED, replaced_water)
+                .set(props::SIGNAL_FIRE, level.get_block_state(pos.below()).is_block(Block::HAY_BLOCK))
+                .set(props::LIT, !replaced_water)
+                .set(props::HORIZONTAL_FACING, context.get_horizontal_direction()),
+        )
+    }
+    fn place_liquid(&self, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState, fluid_state: mc_data::fluid::FluidState) -> bool {
+        if !state.get(props::WATERLOGGED) && fluid_state.get_type() == mc_data::fluid::Fluid::WATER {
+            if state.get(props::LIT) {
+                level.play_sound(None, pos, mc_data::SoundEvent::ENTITY_GENERIC_EXTINGUISH_FIRE, mc_protocol::packets::play::level::SoundSource::Blocks, 1.0, 1.0);
+                douse(None, level, pos);
+            }
+            level.set_block_and_update(pos, state.set(props::WATERLOGGED, true).set(props::LIT, false));
+            let delay = crate::world::level::material::fluid_behaviour(fluid_state.get_type()).get_tick_delay(&*level);
+            level.schedule_fluid_tick(pos, fluid_state.get_type(), delay, mc_world::ticks::TickPriority::Normal);
+            true
+        } else {
+            false
+        }
+    }
+    fn on_projectile_hit(
+        &self,
+        level: &mut crate::server::level::ServerLevel,
+        state: BlockState,
+        hit: &mc_core::phys::BlockHitResult,
+        projectile: &mut dyn crate::world::entity::projectile::Projectile,
+    ) {
+        let pos = hit.block_pos;
+        if projectile.is_on_fire() && projectile.may_interact(level, pos) && !state.get(props::LIT) && !state.get(props::WATERLOGGED) {
+            level.set_block_flags(pos, state.set(props::LIT, true), 11);
+        }
+    }
+    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+        false
+    }
     fn entity_inside(
         &self,
         state: BlockState,

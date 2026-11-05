@@ -1,16 +1,28 @@
-//! `net.minecraft.world.level.block.LavaCauldronBlock` (`entityInside`).
+//! `net.minecraft.world.level.block.LavaCauldronBlock`.
+use super::abstract_cauldron_block;
+use super::cauldron_interactions::CauldronKind;
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
 use crate::world::entity::inside_block_effects::{InsideBlockEffectApplier, InsideBlockEffectType};
+use crate::world::entity::{Entity, ServerPlayer};
+use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 
 pub struct LavaCauldronBlock;
 
 impl BlockBehaviour for LavaCauldronBlock {
+    fn use_item_on(&self, stack: &ItemStack, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut ServerPlayer, hand: InteractionHand, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
+        abstract_cauldron_block::use_item_on(CauldronKind::Lava, stack, state, level, pos, player, hand)
+    }
     fn entity_inside(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity, effect_applier: &mut dyn InsideBlockEffectApplier, _is_precise: bool) {
         effect_applier.apply(InsideBlockEffectType::ClearFreeze);
         effect_applier.apply(InsideBlockEffectType::LavaIgnite);
         effect_applier.run_after(InsideBlockEffectType::LavaIgnite, Box::new(|entity, level| entity.lava_hurt(level)));
+    }
+    fn get_analog_output_signal(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _direction: Direction) -> i32 {
+        3
+    }
+    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+        false
     }
 }
 

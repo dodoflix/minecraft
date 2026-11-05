@@ -2816,6 +2816,12 @@ pub trait Entity: Any {
     fn is_rideable_minecart(&self) -> bool {
         false
     }
+    // ==== [Blocks:FireBedCauldron] additions (Entity trait methods) ====
+    /// `Monster.isPreventingPlayerRest(level, player)` (read for the monster entity types only; `true` is the `Monster`
+    /// default, `ZombifiedPiglin` overrides it with `isAngryAt(player)`).
+    fn is_preventing_player_rest(&self, _level: &ServerLevel, _player: &dyn Entity) -> bool {
+        true
+    }
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

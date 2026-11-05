@@ -1,0 +1,18 @@
+# RespawnAnchorBlock in the overworld: charging with glowstone (up to 4), setting the spawn does not work -> explosion.
+level flat
+preload 3
+level_seed 31
+spawn_player Alice survival 0.5 -60 0.5 0 0
+give Alice mainhand minecraft:glowstone 8
+block 3 -61 3 minecraft:stone
+block 3 -60 3 minecraft:respawn_anchor
+use_on Alice 3 -60 3 up
+dump blocks:2,-61,2,4,-59,4 inventory:Alice events
+use_on Alice 3 -60 3 up
+use_on Alice 3 -60 3 up
+use_on Alice 3 -60 3 up
+use_on Alice 3 -60 3 up
+dump blocks:2,-61,2,4,-59,4 inventory:Alice events
+give Alice mainhand minecraft:air
+use_on Alice 3 -60 3 up
+dump blocks:-3,-62,-3,9,-57,9 player:Alice entities events

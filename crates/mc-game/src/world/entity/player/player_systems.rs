@@ -85,6 +85,11 @@ impl PlayerSystems for ServerPlayerSystems {
         ctx.player.interact_on(ctx.level, target, hand, location)
     }
 
+    /// `ServerPlayer.stopSleepInBed(forcefulWakeUp, updateLevelList)`.
+    fn stop_sleep_in_bed(&self, ctx: &mut PlayCtx, forceful_wake_up: bool, update_level_list: bool) {
+        ctx.player.stop_sleep_in_bed_impl(ctx.level, forceful_wake_up, update_level_list);
+    }
+
     /// `getStats().sendStats(player)`.
     fn send_stats(&self, ctx: &mut PlayCtx) {
         let packet = ctx.player.stats.lock().stats_packet();

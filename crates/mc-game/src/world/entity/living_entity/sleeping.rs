@@ -1,8 +1,7 @@
 //! Sleeping: `startSleeping`, `stopSleeping`, `setPosToBed`, `checkBedExists`, `getBedOrientation` and the
 //! `AbstractBedBlock` helpers they call.
 //!
-//! `AbstractBedBlock` has no behaviour port yet; the helpers used by wake-up live here (`getSleepHeight`,
-//! `findStandUpPosition`). Bed rules (`destroyOnLeave`) need the `BedRule` environment attribute and are not applied.
+//! The `AbstractBedBlock` statics live in `block::impls::abstract_bed_block`; `findStandUpPosition` stays here.
 
 use super::util::{l, lm};
 use crate::server::level::ServerLevel;
@@ -11,6 +10,7 @@ use crate::world::entity::dismount_helper::find_safe_dismount_location;
 use crate::world::level::level_access::LevelAccessor;
 use crate::world::level::{BlockGetter, LevelReader};
 use crate::world::level::block::helpers;
+use crate::world::level::block::impls::abstract_bed_block;
 use crate::world::level::block::state::BlockStateExt;
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
@@ -26,11 +26,7 @@ fn is_bed(state: BlockState) -> bool {
 
 /// `AbstractBedBlock.getSleepHeight(state, level, pos)`.
 fn get_sleep_height(state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<f64> {
-    if !is_bed(state) {
-        return None;
-    }
-    let shape = state.get_shape(level, pos);
-    if shape.is_empty() { None } else { Some(shape.max(Axis::Y)) }
+    abstract_bed_block::get_sleep_height(state, level, pos)
 }
 
 /// `AbstractBedBlock.getBedOrientation(level, pos)`.
@@ -89,6 +85,7 @@ pub fn stop_sleeping(entity: &mut dyn Entity, level: &mut ServerLevel) {
         if is_bed(state) {
             let facing = state.get(props::HORIZONTAL_FACING);
             level.set_block_and_update(bed_position, state.set(props::OCCUPIED, false));
+            abstract_bed_block::on_stop_sleeping(level, bed_position);
             let stand_up = find_stand_up_position(entity.get_type(), level, bed_position, facing, entity.base().y_rot()).unwrap_or_else(|| {
                 let above = bed_position.above();
                 Vec3::new(f64::from(above.x()) + 0.5, f64::from(above.y()) + 0.1, f64::from(above.z()) + 0.5)

@@ -636,6 +636,21 @@ impl Entity for ServerPlayer {
         super::damage::award_kill_score(self, level, victim, source);
     }
 
+    fn start_sleeping(&mut self, level: &mut crate::server::level::ServerLevel, bed_position: BlockPos) -> bool {
+        if !super::super::living_entity::sleeping::start_sleeping(self, level, bed_position) {
+            return false;
+        }
+        self.after_start_sleeping(level);
+        true
+    }
+    /// `Player.stopSleeping()`: `stopSleepInBed(true, true)`.
+    fn stop_sleeping(&mut self, level: &mut crate::server::level::ServerLevel) {
+        self.stop_sleep_in_bed_impl(level, true, true);
+    }
+    fn stop_sleep_in_bed(&mut self, level: &mut crate::server::level::ServerLevel, force_wake_up: bool, update_level_list: bool) {
+        self.stop_sleep_in_bed_impl(level, force_wake_up, update_level_list);
+    }
+
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         let p = &self.player;
         living::add_additional_save_data(&p.living, p.get_absorption_amount(), p.inventory.equipment(), out);

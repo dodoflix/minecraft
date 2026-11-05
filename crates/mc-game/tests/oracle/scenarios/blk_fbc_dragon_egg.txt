@@ -1,0 +1,14 @@
+# DragonEggBlock: teleports on use / attack, falls with the 5 tick delay.
+level flat
+preload 3
+level_seed 8
+spawn_player Alice survival 0.5 -60 0.5 0 0
+block 4 -60 4 minecraft:dragon_egg
+use_on Alice 4 -60 4 up
+dump blocks:-12,-61,-12,20,-52,20
+block 6 -60 6 minecraft:dragon_egg
+dig Alice 6 -60 6
+dump blocks:-12,-61,-12,24,-52,24
+block 10 -55 10 minecraft:dragon_egg
+tick 7
+dump blocks:9,-61,9,11,-54,11 ticks entities

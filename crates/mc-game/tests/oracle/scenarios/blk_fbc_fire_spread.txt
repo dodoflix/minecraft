@@ -1,0 +1,37 @@
+# FireBlock: scheduled tick spreading over planks/leaves/wool/hay/logs, age growth, burn out of the neighbours, soul
+# fire, fire on netherrack (infiniburn), all with a fixed Level.random seed.
+level flat
+preload 3
+difficulty hard
+watch events
+level_seed 1234
+# a wooden wall, a leaf bush, a wool floor and a hay block row
+fill 0 -60 0 5 -58 0 minecraft:oak_planks
+fill 0 -60 1 5 -60 1 minecraft:white_wool
+fill 7 -60 0 9 -58 2 minecraft:oak_leaves[persistent=true]
+fill 11 -60 0 14 -60 0 minecraft:hay_block
+fill 11 -60 2 14 -60 4 minecraft:oak_log
+block 3 -60 3 minecraft:tnt
+block 3 -60 2 minecraft:tnt
+# fires: on grass beside the wall, on top of the hay, one without support
+block 3 -60 -1 minecraft:fire
+block 10 -60 0 minecraft:fire
+block 12 -59 0 minecraft:fire[age=3]
+dump blocks:-1,-61,-2,15,-57,5 ticks
+tick 40
+dump blocks:-1,-61,-2,15,-57,5 ticks events
+tick 60
+dump blocks:-1,-61,-2,15,-57,5 ticks entities
+tick 100
+dump blocks:-1,-61,-2,15,-57,5 ticks entities events
+# netherrack: fire on it never burns out (infiniburn_overworld), on grass without fuel it does
+block 20 -61 0 minecraft:netherrack
+block 20 -60 0 minecraft:fire
+block 22 -60 0 minecraft:fire
+block 24 -61 0 minecraft:soul_sand
+block 24 -60 0 minecraft:fire
+block 26 -61 0 minecraft:soul_soil
+block 26 -60 0 minecraft:soul_fire
+dump blocks:19,-61,-1,27,-60,1 ticks
+tick 80
+dump blocks:19,-61,-1,27,-60,1 ticks events

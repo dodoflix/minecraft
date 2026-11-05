@@ -40,6 +40,8 @@ pub(crate) mod prelude {
 
 // MODS
 pub mod abstract_bed_block;
+pub mod abstract_candle_block;
+pub mod abstract_cauldron_block;
 pub mod abstract_furnace_block;
 pub mod amethyst_cluster_block;
 pub mod anvil_block;
@@ -67,6 +69,8 @@ pub mod bush_block;
 pub mod cactus_block;
 pub mod cactus_flower_block;
 pub mod cake_block;
+pub mod cauldron_block;
+pub mod cauldron_interactions;
 pub mod calibrated_sculk_sensor_block;
 pub mod campfire_block;
 pub mod candle_block;
@@ -146,6 +150,7 @@ pub mod kelp_plant_block;
 pub mod ladder_block;
 pub mod lantern_block;
 pub mod lava_cauldron_block;
+pub mod layered_cauldron_block;
 pub mod leaf_litter_block;
 pub mod leaves_block;
 pub mod lectern_block;
@@ -228,6 +233,8 @@ pub mod tall_grass_block;
 pub mod tall_seagrass_block;
 pub mod target_block;
 pub mod trap_door_block;
+pub mod turtle_egg_block;
+pub mod tnt_block;
 pub mod trip_wire_block;
 pub mod trip_wire_hook_block;
 pub mod turtle_egg_block;
