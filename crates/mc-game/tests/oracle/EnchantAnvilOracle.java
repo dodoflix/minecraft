@@ -148,15 +148,14 @@ public final class EnchantAnvilOracle {
       BlockState bs = level.getBlockState(TABLE);
       state("B", "B " + bs.getBlock().builtInRegistryHolder().key().identifier().getPath() + (bs.hasProperty(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING) ? " " + bs.getValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING) : ""));
       List<ExperienceOrb> orbs = level.getEntitiesOfClass(ExperienceOrb.class, new AABB(TABLE).inflate(3.0));
-      StringBuilder o = new StringBuilder("ORBS");
-      List<String> vals = new ArrayList<>();
+      // orb merging depends on entity ids (not comparable across servers): compare the total experience
+      int total = 0;
       try {
          Field cf = ExperienceOrb.class.getDeclaredField("count");
          cf.setAccessible(true);
-         for (ExperienceOrb orb : orbs) vals.add(orb.getValue() + "x" + cf.getInt(orb));
+         for (ExperienceOrb orb : orbs) total += orb.getValue() * cf.getInt(orb);
       } catch (Exception e) { throw new RuntimeException(e); }
-      Collections.sort(vals);
-      for (String s : vals) o.append(' ').append(s);
+      StringBuilder o = new StringBuilder("ORBS " + total);
       state("ORBS", o.toString());
       for (String l : packetLines()) out(l);
    }
@@ -387,7 +386,7 @@ public final class EnchantAnvilOracle {
       "enchanted_book,s=efficiency@5;unbreaking@3", "enchanted_book,s=protection@4", "enchanted_book,s=fire_protection@4", "enchanted_book,s=silk_touch@1",
       "enchanted_book,s=fortune@3", "enchanted_book,s=looting@3,rc=1", "book", "bookx2", "iron_ingot", "iron_ingotx3", "iron_ingotx64", "diamond", "diamondx2",
       "leather,d=0", "iron_chestplate,d=100", "iron_chestplate,e=protection@4", "iron_chestplate,e=blast_protection@3", "iron_helmet,e=respiration@3",
-      "elytra,d=200", "phantom_membrane", "phantom_membranex4", "bow,d=100,e=power@5", "crossbow,e=piercing@4;multishot@1", "crossbow,e=quick_charge@3",
+      "elytra,d=200", "phantom_membrane", "phantom_membranex4", "bow,d=100,e=power@5", "crossbow,e=piercing@4", "crossbow,e=multishot@1", "crossbow,e=quick_charge@3",
       "trident,e=loyalty@3;channeling@1", "trident,e=riptide@3", "fishing_rod,e=luck_of_the_sea@3", "shears", "stone", "cobblestonex64", "oak_planks",
       "leather_helmet,d=30", "diamond_helmet,e=thorns@3;binding_curse@1", "diamond_boots,e=feather_falling@4;depth_strider@3",
       "diamond_boots,e=frost_walker@2", "netherite_ingot", "netherite_sword,e=sharpness@5;fire_aspect@2;sweeping_edge@3", "mace,e=density@5;wind_burst@3",

@@ -219,7 +219,9 @@ impl AbstractContainerMenu for EnchantmentMenu {
             let mut enchantment_item = item.clone();
             if item.is(Item::BOOK) {
                 enchantment_item = ItemStack::with_patch(Item::ENCHANTED_BOOK, item.count(), &item.get_components_patch());
-                self.base.locals[ENCHANT_LOCAL].set_item(0, enchantment_item.clone());
+                self.base.locals[ENCHANT_LOCAL].set_item(0, enchantment_item);
+                // `setItem` limits the stack to the book's max stack size (1): the live stack is what gets enchanted
+                enchantment_item = self.base.locals[ENCHANT_LOCAL].get_item(0).clone();
                 self.flush_container_events(player);
             }
             for enchantment in &new_enchantment {

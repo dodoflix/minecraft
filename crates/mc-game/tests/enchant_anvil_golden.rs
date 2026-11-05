@@ -298,19 +298,15 @@ impl Session {
             b += " north";
         }
         self.state(&mut out, "B", b);
-        let mut vals = Vec::new();
+        let mut total = 0;
         for id in self.orbs() {
             self.player.level.with_entity(id, |_, e| {
                 if let Some(o) = e.as_any().downcast_ref::<ExperienceOrb>() {
-                    vals.push(format!("{}x{}", o.get_value(), o.count));
+                    total += o.get_value() * o.count;
                 }
             });
         }
-        vals.sort();
-        let mut o = String::from("ORBS");
-        for v in vals {
-            o += &format!(" {v}");
-        }
+        let o = format!("ORBS {total}");
         self.state(&mut out, "ORBS", o);
         out.append(&mut self.packets.borrow_mut());
         out
