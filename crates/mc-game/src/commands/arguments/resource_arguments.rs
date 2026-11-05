@@ -131,6 +131,23 @@ impl ResourceArgument {
             _ => Err(ERROR_NOT_SUMMONABLE_ENTITY.create(key.id.to_string())),
         }
     }
+
+    /// `getAttribute`.
+    pub fn get_attribute(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<mc_data::Attribute, CommandSyntaxException> {
+        let key = Self::get_resource(context, name, "attribute")?;
+        mc_data::Attribute::by_name(&key.id.to_string()).ok_or_else(|| ERROR_UNKNOWN_RESOURCE.create(key.id.to_string(), key.registry.to_string()))
+    }
+
+    /// `getMobEffect`.
+    pub fn get_mob_effect(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<mc_data::MobEffect, CommandSyntaxException> {
+        let key = Self::get_resource(context, name, "mob_effect")?;
+        mc_data::MobEffect::by_name(&key.id.to_string()).ok_or_else(|| ERROR_UNKNOWN_RESOURCE.create(key.id.to_string(), key.registry.to_string()))
+    }
+
+    /// `getEnchantment`: the registry key (enchantments are data-driven).
+    pub fn get_enchantment(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<ResourceKey, CommandSyntaxException> {
+        Self::get_resource(context, name, "enchantment")
+    }
 }
 
 impl ArgumentType<CommandSourceStack> for ResourceArgument {

@@ -2163,6 +2163,9 @@ pub trait Entity: Any {
     /// What `ServerPlayer.removeVehicle()` adds after the base `removeVehicle`: `old_vehicle` (in storage, or `held`
     /// when it is the entity being processed) lost this entity as a passenger.
     fn on_vehicle_removed(&mut self, _level: &mut ServerLevel, _old_vehicle: EntityId, _held: Option<&dyn Entity>) {}
+    /// What `ServerPlayer.startRiding(...)` adds after the base `startRiding` succeeded: `vehicle` (in storage) gained this
+    /// entity as a passenger.
+    fn on_vehicle_started(&mut self, _level: &mut ServerLevel, _vehicle: EntityId) {}
     /// `isSteppingCarefully()`.
     fn is_stepping_carefully(&self) -> bool {
         self.is_shift_key_down()

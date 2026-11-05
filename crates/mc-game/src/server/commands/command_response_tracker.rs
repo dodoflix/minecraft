@@ -103,3 +103,22 @@ impl<E: Clone> CommandResponseTracker<E> {
 pub fn display_name(source: &CommandSourceStack, entity: &EntityRef) -> Component {
     source.with_server(|server| host::get_entity(server, entity).map_or_else(Component::empty, |e| host::entity_display_name(server, e)))
 }
+
+impl<E: Clone> CommandResponseTracker<E> {
+    /// `track(element)`: value 1.
+    pub fn track_one(&mut self, element: &E) {
+        self.track(element, 1);
+    }
+
+    /// `sendFeedback(source, broadcast, messages)`: the default overload, `ElementType.NON_ZERO`.
+    pub fn send_feedback_default(
+        &self,
+        source: &CommandSourceStack,
+        broadcast: bool,
+        on_zero: Option<&dyn Fn() -> CommandSyntaxException>,
+        on_single: impl FnOnce(&E, i32) -> Component,
+        on_multiple: impl FnOnce(i32, i32) -> Component,
+    ) -> Result<i32, CommandSyntaxException> {
+        self.send_feedback(source, broadcast, ElementType::NonZero, on_zero.map(|f| move || f()), on_single, on_multiple)
+    }
+}

@@ -17,36 +17,13 @@ use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::{Relative, Relatives};
 use mc_text::Component;
 use std::sync::LazyLock;
+use super::look_at::LookAt;
 
 static INVALID_POSITION: LazyLock<SimpleCommandExceptionType> = LazyLock::new(|| simple_translatable("commands.teleport.invalidPosition"));
 
-/// `LookAt`.
-#[derive(Clone)]
-enum LookAt {
-    Entity(EntityRef, Anchor),
-    Position(Vec3),
-}
-
-impl LookAt {
-    /// `perform(source, target)`.
-    fn perform(&self, source: &CommandSourceStack, target: &EntityRef) {
-        source.with_server(|server| {
-            let pos = match self {
-                LookAt::Entity(entity, anchor) => match host::get_entity(server, entity) {
-                    Some(e) => anchor.apply_entity(e.base().position(), e.base().eye_height),
-                    None => return,
-                },
-                LookAt::Position(pos) => *pos,
-            };
-            host::look_at(server, target, source.get_anchor(), pos);
-        });
-    }
-}
-
 register_command!("TeleportCommand", |ctx| {
     fn here(c: &CommandContext<CommandSourceStack>) -> Result<Vec<EntityRef>, CommandSyntaxException> {
-        let entity = c.get_source().get_entity_or_exception()?;
-        Ok(vec![EntityRef { dimension: c.get_source().get_level().clone(), id: entity.id }])
+        Ok(vec![host::source_entity_ref(c.get_source())?])
     }
     fn to_pos(c: &CommandContext<CommandSourceStack>, rotation: bool, look_at: Option<LookAt>) -> Result<i32, CommandSyntaxException> {
         let rot = if rotation { Some(RotationArgument::get_rotation(c, "rotation")) } else { None };

@@ -9,9 +9,9 @@ use crate::world::entity::Entity;
 use crate::world::entity::equipment::{EquipmentSlot, EquipmentSlotType};
 use crate::world::entity::living::{LIVING_ENTITY_FLAG_IS_USING, LIVING_ENTITY_FLAG_OFF_HAND};
 use crate::world::item::{InteractionHand, ItemStack, behaviour};
-use mc_data::{GameEvent, MobEffect, SoundEvent};
+use mc_data::{GameEvent, SoundEvent};
 use mc_protocol::components::{EQUIPPABLE, USE_EFFECTS};
-use mc_protocol::packets::play::{ClientboundCooldownPacket, ClientboundSetEquipmentPacket, ClientboundSwingAnimationPacket, SoundSource, SwingAnimation, SwingAnimationType};
+use mc_protocol::packets::play::{ClientboundCooldownPacket, ClientboundSetEquipmentPacket, SoundSource, SwingAnimation, SwingAnimationType};
 
 /// `SwingAnimation.DEFAULT`.
 pub const SWING_ANIMATION_DEFAULT: SwingAnimation = SwingAnimation { kind: SwingAnimationType::Whack, duration: 6 };
@@ -174,21 +174,9 @@ impl ServerPlayer {
         ctx.player.player.menus = menus;
     }
 
-    /// `swing(hand, animation, sendToSwingingEntity)`.
+    /// `swing(hand, animation, sendToSwingingEntity)` (`LivingEntity.swing`).
     pub fn swing(&mut self, level: &mut ServerLevel, hand: InteractionHand, animation: SwingAnimation, send_to_swinging_entity: bool) -> bool {
-        let duration = self.get_modified_swing_duration(&animation);
-        if self.player.living.swing_state.start_if_able(hand, animation, duration) {
-            let packet = ClientboundSwingAnimationPacket { entity_id: self.base_id(), hand: hand.to_protocol(), animation };
-            let payload = encode_packet(&packet);
-            if send_to_swinging_entity {
-                level.entity_tracker.send_to_tracking_players_and_self(self.base_id(), &payload);
-            } else {
-                level.entity_tracker.send_to_tracking_players(self.base_id(), &payload);
-            }
-            true
-        } else {
-            false
-        }
+        crate::world::entity::living_entity::swing::swing(self, level, hand, animation, send_to_swinging_entity)
     }
 
     /// `Inventory.tick()`: `Item.inventoryTick` for every inventory stack (taken out of its slot while it runs;
@@ -216,19 +204,6 @@ impl ServerPlayer {
                 behaviour(stack.item()).inventory_tick(&mut stack, level, self, Some(slot));
             }
             *self.player.inventory.equipment_mut().get_mut(slot) = stack;
-        }
-    }
-
-    /// `getModifiedSwingDuration(animation)`.
-    fn get_modified_swing_duration(&self, animation: &SwingAnimation) -> i32 {
-        let effects = &self.player.living.active_effects;
-        let dig = [MobEffect::HASTE, MobEffect::CONDUIT_POWER].iter().filter_map(|e| effects.get(e).map(|i| i.amplifier)).max();
-        match dig {
-            Some(amp) => animation.duration - (1 + amp),
-            None => match effects.get(&MobEffect::MINING_FATIGUE) {
-                Some(f) => animation.duration + (1 + f.amplifier) * 2,
-                None => animation.duration,
-            },
         }
     }
 

@@ -492,53 +492,93 @@ pub fn teleport_entity(
     use crate::server::players::dimension_change::{PostTeleportTransition, TeleportTransition, teleport_entity, teleport_player};
     let transition = TeleportTransition::new(destination.clone(), position, mc_core::phys::Vec3::ZERO, y_rot, x_rot, PostTeleportTransition::DO_NOTHING).with_relatives(relatives);
     let is_player = get_entity(server, victim)?.is_player();
-    let head = |entity: &mut dyn Entity| {
-        let head = if relatives.contains(mc_protocol::packets::play::Relative::YRot) { entity.get_y_head_rot() + y_rot } else { y_rot };
-        entity.set_y_head_rot(head);
-    };
     let result = if is_player {
+        // `ServerPlayer.teleportTo`: a sleeping player wakes up and the camera is reset first
+        server.level_mut(&victim.dimension)?.with_player(victim.id, |level, player| {
+            if player.player.living.is_sleeping() {
+                player.stop_sleep_in_bed(level, true, true);
+            }
+            player.set_camera(level, None);
+        });
         if !teleport_player(server, &victim.dimension, victim.id, &transition) {
             return None;
         }
-        EntityRef { dimension: destination.clone(), id: victim.id }
+        let result = EntityRef { dimension: destination.clone(), id: victim.id };
+        if let Some(player) = server.level_mut(&result.dimension).and_then(|l| l.get_entity_mut(result.id)) {
+            let head = if relatives.contains(mc_protocol::packets::play::Relative::YRot) { player.get_y_head_rot() + y_rot } else { y_rot };
+            player.set_y_head_rot(head);
+            if let Some(listener) = player.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>().and_then(|p| p.listener.as_mut()) {
+                listener.reset_flying_ticks();
+            }
+        }
+        result
     } else {
         let id = teleport_entity(server, &victim.dimension, victim.id, &transition)?;
         EntityRef { dimension: destination.clone(), id }
     };
-    if let Some(entity) = server.level_mut(&result.dimension).and_then(|l| l.get_entity_mut(result.id)) {
-        head(entity);
-    }
     Some(result)
 }
 
 /// `TeleportCommand.performTeleport`'s tail for a successfully teleported `victim`: keeps only horizontal momentum and
-/// sets it on the ground unless it is fall flying.
+/// `setOnGround(true)` (with the supporting-block check) unless it is fall flying.
+///
+/// SEAM(MobsScope): `if (victim instanceof PathfinderMob mob) mob.getNavigation().stop()` once `PathfinderMob` exists.
 pub fn after_teleport(server: &mut MinecraftServer, victim: &EntityRef) {
-    if let Some(entity) = server.level_mut(&victim.dimension).and_then(|l| l.get_entity_mut(victim.id)) {
-        let fall_flying = entity.living().is_some_and(|l| l.is_fall_flying());
-        if !fall_flying {
-            let dm = entity.base().delta_movement();
-            entity.base_mut().set_delta_movement(mc_core::phys::Vec3::new(dm.x, 0.0, dm.z));
-            entity.base_mut().set_on_ground_raw(true);
+    let Some(level) = server.level_mut(&victim.dimension) else { return };
+    level.with_entity(victim.id, |level, entity| {
+        if entity.living().is_some_and(|l| l.is_fall_flying()) {
+            return;
         }
-    }
+        let dm = entity.base().delta_movement();
+        entity.base_mut().set_delta_movement(mc_core::phys::Vec3::new(dm.x, 0.0, dm.z));
+        entity.base_mut().set_on_ground_raw(true);
+        crate::world::entity::movement::check_supporting_block(entity, &*level, true, None);
+    });
 }
 
 /// `Entity.lookAt(anchor, pos)`.
 pub fn look_at(server: &mut MinecraftServer, target: &EntityRef, anchor: super::arguments::entity_anchor_argument::Anchor, pos: mc_core::phys::Vec3) {
-    use mc_core::math::mth;
+    look_at_impl(server, target, anchor, pos, None);
+}
+
+/// `ServerPlayer.lookAt(fromAnchor, entity, toAnchor)` / `target.lookAt(fromAnchor, toAnchor.apply(entity))`: the player
+/// is told to look at the entity (the packet follows it), everything else looks at the entity's current anchor.
+pub fn look_at_entity(
+    server: &mut MinecraftServer,
+    target: &EntityRef,
+    from_anchor: super::arguments::entity_anchor_argument::Anchor,
+    entity: &EntityRef,
+    to_anchor: super::arguments::entity_anchor_argument::Anchor,
+) {
+    let Some(pos) = get_entity(server, entity).map(|e| to_anchor.apply_entity(e.base().position(), e.base().eye_height)) else { return };
+    look_at_impl(server, target, from_anchor, pos, Some((entity.id, to_anchor)));
+}
+
+fn look_at_impl(
+    server: &mut MinecraftServer,
+    target: &EntityRef,
+    anchor: super::arguments::entity_anchor_argument::Anchor,
+    pos: mc_core::phys::Vec3,
+    at_entity: Option<(EntityId, super::arguments::entity_anchor_argument::Anchor)>,
+) {
+    use super::arguments::entity_anchor_argument::Anchor;
+    use mc_protocol::packets::play::{Anchor as WireAnchor, ClientboundPlayerLookAtPacket, PlayerLookAtEntity};
     let Some(entity) = server.level_mut(&target.dimension).and_then(|l| l.get_entity_mut(target.id)) else { return };
-    let from = anchor.apply_entity(entity.base().position(), entity.base().eye_height);
-    let (xd, yd, zd) = (pos.x - from.x, pos.y - from.y, pos.z - from.z);
-    let sd = (xd * xd + zd * zd).sqrt();
-    let x_rot = mth::wrap_degrees_f32((-(mth::atan2(yd, sd) * 180.0 / std::f64::consts::PI as f32 as f64)) as f32);
-    let y_rot = mth::wrap_degrees_f32((mth::atan2(zd, xd) * 180.0 / std::f64::consts::PI as f32 as f64) as f32 - 90.0);
-    entity.set_x_rot(x_rot);
-    entity.set_y_rot(y_rot);
-    entity.set_y_head_rot(y_rot);
-    let base = entity.base_mut();
-    base.x_rot_o = base.x_rot();
-    base.y_rot_o = base.y_rot();
+    entity.look_at(anchor, pos);
+    let wire = |a: Anchor| match a {
+        Anchor::Feet => WireAnchor::Feet,
+        Anchor::Eyes => WireAnchor::Eyes,
+    };
+    // only a `ServerPlayer` overrides `lookAt` to tell its client; the entity variant is sent only for the player overload
+    if let Some(player) = entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>() {
+        player.send(&ClientboundPlayerLookAtPacket {
+            from_anchor: wire(anchor),
+            x: pos.x,
+            y: pos.y,
+            z: pos.z,
+            at_entity: at_entity.map(|(entity, to_anchor)| PlayerLookAtEntity { entity, to_anchor: wire(to_anchor) }),
+        });
+    }
 }
 
 /// `ServerPlayer.setGameMode(mode)`: false when the player already has it.
@@ -737,4 +777,84 @@ pub fn player_reset_recipes(server: &mut MinecraftServer, player: &EntityRef, re
     let manager = server.shared.recipe_manager();
     let holders: Vec<_> = recipes.iter().filter_map(|id| manager.by_key(id).cloned()).collect();
     server.level_mut(&player.dimension).and_then(|level| level.with_player(player.id, |level, p| p.reset_recipes(level, &holders))).unwrap_or(0)
+}
+
+// ==== Entity command seams (SummonCommand, KillCommand, RideCommand, RotateCommand, EnchantCommand, ...) ====
+
+/// `entity.getDisplayName()` of a live entity (empty when it is gone).
+pub fn display_name_of(source: &super::CommandSourceStack, entity: &EntityRef) -> Component {
+    source.with_server(|server| get_entity(server, entity).map_or_else(Component::empty, |e| entity_display_name(server, e)))
+}
+
+/// `source.getEntityOrException()` as the live entity: the source's entity is searched in the source's level first (an
+/// `execute in` can change the level without moving the entity), then in the other levels.
+pub fn source_entity_ref(source: &super::CommandSourceStack) -> Result<EntityRef, mc_brigadier::CommandSyntaxException> {
+    let entity = source.get_entity_or_exception()?;
+    Ok(source.with_server(|server| {
+        let first = source.get_level().clone();
+        std::iter::once(first.clone())
+            .chain(server.level_keys())
+            .find(|dimension| server.level(dimension).and_then(|l| l.get_entity(entity.id)).is_some_and(|e| e.uuid() == entity.uuid))
+            .map_or(EntityRef { dimension: first, id: entity.id }, |dimension| EntityRef { dimension, id: entity.id })
+    }))
+}
+
+/// `if (entity instanceof Mob mob) mob.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), EntitySpawnReason.COMMAND, null)`.
+pub fn finalize_mob_spawn(level: &mut crate::server::level::ServerLevel, entity: &mut dyn Entity) {
+    use crate::world::level::server_level_accessor::ServerLevelAccessor;
+    if entity.mob().is_none() {
+        return;
+    }
+    let difficulty = ServerLevelAccessor::get_current_difficulty_at(level, entity.block_position());
+    entity.finalize_spawn(level, difficulty, mc_data::enums::EntitySpawnReason::Command, None);
+}
+
+/// `entity.kill(level)` (`LivingEntity`: hurts itself with `genericKill`).
+pub fn kill_entity(server: &mut MinecraftServer, entity: &EntityRef) {
+    if let Some(level) = server.level_mut(&entity.dimension) {
+        level.with_entity(entity.id, |level, e| e.kill_in_level(level));
+    }
+}
+
+/// `Entity.forceSetRotation(yRot, relativeY, xRot, relativeX)` (`ServerPlayer` override: also the rotation packet).
+pub fn force_set_rotation(server: &mut MinecraftServer, target: &EntityRef, y_rot: f32, relative_y: bool, x_rot: f32, relative_x: bool) {
+    use crate::world::entity::entity::{calculate_absolute, position_move_rotation_of};
+    use mc_protocol::packets::play::{ClientboundPlayerRotationPacket, PositionMoveRotation, Relative, Relatives};
+    let Some(entity) = server.level_mut(&target.dimension).and_then(|l| l.get_entity_mut(target.id)) else { return };
+    let mut relatives = Relatives::NONE;
+    if relative_y {
+        relatives.insert(Relative::YRot);
+    }
+    if relative_x {
+        relatives.insert(Relative::XRot);
+    }
+    let destination = PositionMoveRotation { y_rot, x_rot, ..position_move_rotation_of(entity) };
+    let absolute = calculate_absolute(position_move_rotation_of(entity), destination, relatives);
+    entity.set_y_rot(absolute.y_rot);
+    entity.set_y_head_rot(absolute.y_rot);
+    entity.set_x_rot(absolute.x_rot);
+    let base = entity.base_mut();
+    base.set_old_rot_values(base.y_rot(), base.x_rot());
+    if let Some(player) = entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>() {
+        player.send(&ClientboundPlayerRotationPacket { y_rot, relative_y, x_rot, relative_x });
+    }
+}
+
+/// `Enchantment.getFullname(enchantment, level)`: the description coloured gray (red for curses) with the level appended
+/// unless it is a single-level enchantment at level 1.
+pub fn enchantment_full_name(level: &crate::server::level::ServerLevel, enchantment: &Identifier, enchantment_level: i32) -> Component {
+    use crate::world::item::enchantment_helper::definition;
+    use mc_text::{ChatFormatting, style::Style};
+    let Some(definition) = definition(&level.registries, enchantment) else { return Component::empty() };
+    let curse = Identifier::parse("minecraft:curse").expect("valid tag id");
+    let color = if level.registries.is_in_tag(crate::registry::keys::ENCHANTMENT, enchantment, &curse) { ChatFormatting::Red } else { ChatFormatting::Gray };
+    let style = Style::EMPTY.with_color_formatting(Some(color));
+    // `ComponentUtils.mergeStyles(description, style)`: the description's own style wins
+    let inner = definition.description.style().clone();
+    let merged = if inner.is_empty() { style } else if inner == style { inner } else { inner.apply_to(&style) };
+    let mut result = definition.description.clone().set_style(merged);
+    if enchantment_level != 1 || definition.get_max_level() != 1 {
+        result = result.append(mc_text::util::space()).append(Component::translatable(format!("enchantment.level.{enchantment_level}"), Vec::new()));
+    }
+    result
 }

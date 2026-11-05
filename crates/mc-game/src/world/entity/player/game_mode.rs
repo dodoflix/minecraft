@@ -80,15 +80,16 @@ impl ServerPlayer {
             return false;
         }
         self.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::CHANGE_GAME_MODE, param: game_type_id(mode) as f32 });
+        let id = self.base_id();
         if mode == GameType::Spectator {
             self.remove_entities_on_shoulder(level);
             level.stop_riding(self);
             self.stop_using_item(level);
-            // SEAM(enchant): `EnchantmentHelper.stopLocationBasedEffects(this)`
+            crate::world::item::enchantment_helper::stop_location_based_effects(level, &mut crate::world::item::enchantment::actors::Actors::of(self), id);
         } else {
-            // SEAM(level): `setCamera(this)` (spectator camera)
+            self.set_camera(level, None);
             if was_spectator {
-                // SEAM(enchant): `EnchantmentHelper.runLocationChangedEffects(level, this)`
+                crate::world::item::enchantment_helper::run_location_changed_effects(level, &mut crate::world::item::enchantment::actors::Actors::of(self), id);
             }
         }
         self.on_update_abilities();

@@ -89,6 +89,7 @@ impl ServerLevel {
         if rider.mob().is_some() && crate::world::entity::mob::leashable::is_leashed(rider) {
             crate::world::entity::mob::leashable::drop_leash(rider, self);
         }
+        rider.on_vehicle_started(self, vehicle_id);
         true
     }
 

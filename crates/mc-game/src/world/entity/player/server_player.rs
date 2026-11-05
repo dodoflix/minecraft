@@ -380,6 +380,36 @@ impl Entity for ServerPlayer {
         }
         self.send(&mc_protocol::packets::play::ClientboundSetPassengersPacket { vehicle: old_vehicle, passengers: vehicle.base().passengers.clone() });
     }
+    /// `ServerPlayer.startRiding(...)` after the base succeeded: the player is put on the vehicle, the client is told the
+    /// position (rotation kept), the vehicle's effects and its passengers.
+    fn on_vehicle_started(&mut self, level: &mut crate::server::level::ServerLevel, vehicle_id: crate::world::entity::EntityId) {
+        use mc_protocol::packets::play::{ClientboundSetPassengersPacket, PositionMoveRotation, Relatives};
+        let Some(vehicle) = level.entity_manager.get_any(vehicle_id) else { return };
+        vehicle.position_rider(self);
+        let position = self.position();
+        self.connection_teleport_pmr(PositionMoveRotation { position, delta_movement: mc_core::phys::Vec3::ZERO, y_rot: 0.0, x_rot: 0.0 }, Relatives::ROTATION);
+        if let Some(living) = vehicle.living() {
+            for effect in living.active_effects.values() {
+                self.send(&crate::server::players::join::mob_effect_packet(vehicle_id, effect, false));
+            }
+        }
+        self.send(&ClientboundSetPassengersPacket { vehicle: vehicle_id, passengers: vehicle.base().passengers.clone() });
+    }
+    /// `ServerPlayer.teleportRelative(dx, dy, dz)`.
+    fn teleport_relative(&mut self, _level: &mut crate::server::level::ServerLevel, dx: f64, dy: f64, dz: f64) {
+        use mc_protocol::packets::play::{PositionMoveRotation, Relatives};
+        let destination = PositionMoveRotation { position: mc_core::phys::Vec3::new(dx, dy, dz), delta_movement: mc_core::phys::Vec3::ZERO, y_rot: 0.0, x_rot: 0.0 };
+        self.connection_teleport_pmr(destination, Relatives::ALL);
+    }
+    /// `ServerPlayer.snapTo(x, y, z)`: also resets the movement-check position.
+    fn snap_to_pos(&mut self, x: f64, y: f64, z: f64) {
+        let (y_rot, x_rot) = (self.base().y_rot(), self.base().x_rot());
+        self.snap_to(x, y, z, y_rot, x_rot);
+        let position = self.position();
+        if let Some(listener) = self.listener.as_mut() {
+            listener.reset_position(position);
+        }
+    }
     /// `Player.isClientAuthoritative()`.
     fn is_client_authoritative(&self) -> bool {
         !self.simulate_local_player
