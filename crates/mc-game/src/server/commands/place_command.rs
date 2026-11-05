@@ -1,13 +1,15 @@
 //! `PlaceCommand`: `/place feature|jigsaw|structure|template`.
 use crate::commands::arguments::coordinates::BlockPosArgument;
-use crate::commands::arguments::resource_arguments::{FeatureArgument, ResourceKey, ResourceKeyArgument};
+use crate::commands::arguments::resource_arguments::{ERROR_FAILED_TO_PARSE, FeatureArgument, ResourceKey, ResourceKeyArgument, ResourceOrId};
+use crate::server::world_dimensions::nbt_to_json;
+use crate::world::level::levelgen::registries::GenRegistries;
+use crate::world::level::BlockGetter;
 use crate::commands::arguments::{IdentifierArgument, TemplateMirrorArgument, TemplateRotationArgument};
 use crate::commands::message::{message, simple_translatable};
 use crate::commands::shared_suggestion_provider::suggest_resource;
 use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal};
 use crate::server::level::ServerLevel;
 use crate::server::level::server_level_worldgen::with_worldgen_level;
-use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::structure::generation::generate_structure;
 use crate::world::level::levelgen::structure::manager::StructureManager;
 use crate::world::level::levelgen::structure::pools::jigsaw_placement::generate_jigsaw;
@@ -167,7 +169,7 @@ register_command!("PlaceCommand", |ctx| {
 /// `checkLoaded(level, chunkMin, chunkMax)`.
 fn check_loaded(level: &ServerLevel, chunk_min: ChunkPos, chunk_max: ChunkPos) -> Result<(), CommandSyntaxException> {
     if ChunkPos::range_closed_between(&chunk_min, &chunk_max).any(|c| !level.is_loaded(c.get_world_position())) {
-        return Err(crate::commands::arguments::coordinates::ERROR_NOT_LOADED.create());
+        return Err(crate::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED.create());
     }
     Ok(())
 }
@@ -178,17 +180,23 @@ fn with_level<R>(source: &CommandSourceStack, f: impl FnOnce(&mut ServerLevel) -
 }
 
 /// `PlaceCommand.placeFeature`.
-pub fn place_feature_command(source: &CommandSourceStack, feature: Holder<dyn crate::world::level::levelgen::feature::Feature>, pos: BlockPos) -> Result<i32, CommandSyntaxException> {
-    let placed = with_level(source, |level| {
+pub fn place_feature_command(source: &CommandSourceStack, feature: ResourceOrId, pos: BlockPos) -> Result<i32, CommandSyntaxException> {
+    let name = with_level(source, |level| {
+        let env = level.gen_env().clone();
+        let holder = match &feature {
+            ResourceOrId::Reference(key) => env.registries.feature(&key.id).expect("the argument checked that the feature exists").clone(),
+            ResourceOrId::Inline(tag) => GenRegistries::decode_inline_feature(&env.worldgen, &env.biomes, &nbt_to_json(tag))
+                .map_err(|e| ERROR_FAILED_TO_PARSE.create(e.to_string()))?,
+        };
         let chunk = ChunkPos::containing(&pos);
         check_loaded(level, ChunkPos::new(chunk.x - 1, chunk.z - 1), ChunkPos::new(chunk.x + 1, chunk.z + 1))?;
-        Ok(level.place_feature_value(feature.value().as_ref(), pos))
+        if !level.place_feature_value(holder.value().as_ref(), pos) {
+            return Err(ERROR_FEATURE_FAILED.create());
+        }
+        Ok(holder.id().map(ToString::to_string))
     })?;
-    if !placed {
-        return Err(ERROR_FEATURE_FAILED.create());
-    }
-    match feature.id() {
-        Some(id) => source.send_success(|| translatable!("commands.place.feature.success", id.to_string(), pos.x(), pos.y(), pos.z()), true),
+    match name {
+        Some(id) => source.send_success(|| translatable!("commands.place.feature.success", id, pos.x(), pos.y(), pos.z()), true),
         None => source.send_success(|| translatable!("commands.place.feature.success.inline", pos.x(), pos.y(), pos.z()), true),
     }
     Ok(1)
@@ -240,7 +248,7 @@ pub fn place_structure(source: &CommandSourceStack, structure: ResourceKey, pos:
 
 /// `StructureBlockEntity.createRandom(seed)`.
 fn create_random(seed: i64) -> Box<dyn RandomSource> {
-    Box::new(LegacyRandomSource::new(if seed == 0 { crate::util::get_millis() } else { seed }))
+    Box::new(LegacyRandomSource::new(if seed == 0 { crate::util::util::get_millis() } else { seed }))
 }
 
 /// `PlaceCommand.placeTemplate`.

@@ -198,6 +198,25 @@ impl GenRegistries {
         Ok(GenRegistries { features, placed_features, block_state_providers, block_transformers })
     }
 
+    /// `Feature.DIRECT_CODEC` of an inline definition (`/place feature {...}`): decoded with holders into the registries
+    /// decoded from `worldgen`'s source.
+    /// shortcut: re-decodes all three registries per call (holder cells are per decode), fine for a command; cache the
+    /// cells in `GenRegistries` if an inline definition is ever needed on a hot path.
+    pub fn decode_inline_feature(worldgen: &WorldgenRegistries, biomes: &BiomeRegistry, value: &Value) -> LoadResult<Holder<dyn Feature>> {
+        let cells = Cells::new(worldgen.source().clone());
+        let ctx = DecodeCtx { worldgen, biomes, cells: &cells };
+        load_processor_lists(&ctx)?;
+        load_registry(&ctx, BLOCK_STATE_PROVIDER_REGISTRY, |v, c| super::stateproviders::decode_direct(v, c))?;
+        load_registry(&ctx, FEATURE_REGISTRY, |v, c| super::feature::decode_direct(v, c))?;
+        load_registry(&ctx, PLACED_FEATURE_REGISTRY, |v, c| PlacedFeature::decode_direct(v, c).map(Arc::new))?;
+        let feature = Holder::direct(super::feature::decode_direct(value, &ctx)?);
+        cells.check_all_bound::<dyn Feature>(FEATURE_REGISTRY)?;
+        cells.check_all_bound::<PlacedFeature>(PLACED_FEATURE_REGISTRY)?;
+        cells.check_all_bound::<dyn BlockStateProvider>(BLOCK_STATE_PROVIDER_REGISTRY)?;
+        cells.check_all_bound::<StructureProcessorList>(PROCESSOR_LIST_REGISTRY)?;
+        Ok(feature)
+    }
+
     pub fn feature(&self, id: &Identifier) -> Option<&Holder<dyn Feature>> {
         self.features.get(id)
     }

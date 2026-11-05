@@ -186,6 +186,7 @@ impl MinecraftServer {
             random_state: random_state.clone(),
             biomes: factory.biomes.clone(),
             registries: registries.clone(),
+            worldgen: factory.worldgen.clone(),
             structure_template_manager: factory.template_manager.clone(),
             structures: structures.clone(),
             start_cache: StartCache::default(),
