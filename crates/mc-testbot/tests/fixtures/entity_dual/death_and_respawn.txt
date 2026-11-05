@@ -1,0 +1,6 @@
+death source=generic message=Bot_died dead_flag=true health_when_dead=20 respawned=true health_after=20 food_after=20 y_after=~-60±5
+death source=fall message=Bot_hit_the_ground_too_hard dead_flag=true health_when_dead=20 respawned=true health_after=20 food_after=20 y_after=~-60±5
+death source=in_fire message=Bot_went_up_in_flames dead_flag=true health_when_dead=20 respawned=true health_after=20 food_after=20 y_after=~-60±5
+death source=drown message=Bot_drowned dead_flag=true health_when_dead=20 respawned=true health_after=20 food_after=20 y_after=~-60±5
+death source=zombie message=Bot_was_slain_by_Zombie dead_flag=true health_when_dead=20 respawned=true health_after=20 food_after=20 y_after=~-60±5
+death source=kill_command message=Bot_was_killed dead_flag=true health_when_dead=20 respawned=true health_after=20 food_after=20 y_after=~-60±5

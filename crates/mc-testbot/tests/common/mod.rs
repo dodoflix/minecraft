@@ -2,6 +2,8 @@
 //! Scenario suite shared by the vanilla and (later) our-server integration tests.
 use std::time::Duration;
 
+pub mod dual;
+
 use mc_core::direction::Direction;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::{Block, Item};
