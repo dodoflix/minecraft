@@ -80,6 +80,7 @@ impl BlockBehaviour for LeavesBlock {
 }
 
 impl BlockBehaviour for MangroveLeavesBlock {
+    crate::simple_waterlogged!();
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| { update_shape(state, level, pos, neighbour_state) });
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         random_tick(state, level, pos);
