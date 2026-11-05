@@ -14,7 +14,7 @@ pub struct DaylightDetectorBlock;
 /// `DaylightDetectorBlock.updateSignalStrength`.
 pub fn update_signal_strength(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
     let mut target = (level.get_brightness(LightLayer::Sky, pos) - level.get_sky_darken()).max(0);
-    let mut sun_angle = level.environment_float("visual/sun_angle") * (std::f64::consts::PI / 180.0) as f32;
+    let mut sun_angle = level.attribute_float(crate::world::attribute::attributes::SUN_ANGLE, pos) * (std::f64::consts::PI / 180.0) as f32;
     if state.get(props::INVERTED) {
         target = 15 - target;
     } else if target > 0 {
