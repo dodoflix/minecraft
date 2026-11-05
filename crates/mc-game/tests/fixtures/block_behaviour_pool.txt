@@ -96,7 +96,7 @@ torch
 wall_torch
 lantern
 campfire
-chain
+iron_chain
 end_rod
 lightning_rod
 amethyst_block

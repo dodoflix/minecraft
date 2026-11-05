@@ -161,3 +161,41 @@ pub fn rotate_facing(state: BlockState, facing: mc_data::props::EnumProperty<Dir
 pub fn mirror_facing(state: BlockState, facing: mc_data::props::EnumProperty<Direction>, mirror: mc_core::mirror::Mirror) -> BlockState {
     state.rotate(mirror.get_rotation(state.get(facing)))
 }
+
+/// `PipeBlock.PROPERTY_BY_DIRECTION`: the boolean `north`/`east`/`south`/`west`/`up`/`down` property of a side.
+pub fn pipe_property(direction: Direction) -> mc_data::props::BooleanProperty {
+    use mc_data::props;
+    match direction {
+        Direction::North => props::NORTH,
+        Direction::East => props::EAST,
+        Direction::South => props::SOUTH,
+        Direction::West => props::WEST,
+        Direction::Up => props::UP,
+        Direction::Down => props::DOWN,
+    }
+}
+
+/// The `rotate` shared by `CrossCollisionBlock`, `WallBlock`, `RedStoneWireBlock`, `TripWireBlock`, `VineBlock`: the
+/// values of the four horizontal side properties `[north, east, south, west]` move around.
+pub fn rotate_sides<P: mc_data::props::Property>(state: BlockState, rotation: mc_core::rotation::Rotation, p: [P; 4]) -> BlockState {
+    use mc_core::rotation::Rotation;
+    let [n, e, s, w] = p;
+    let (vn, ve, vs, vw) = (state.get(n), state.get(e), state.get(s), state.get(w));
+    match rotation {
+        Rotation::Clockwise180 => state.set(n, vs).set(e, vw).set(s, vn).set(w, ve),
+        Rotation::Counterclockwise90 => state.set(n, ve).set(e, vs).set(s, vw).set(w, vn),
+        Rotation::Clockwise90 => state.set(n, vw).set(e, vn).set(s, ve).set(w, vs),
+        Rotation::None => state,
+    }
+}
+
+/// The `mirror` shared by the same classes (`default -> super.mirror` is the identity for them).
+pub fn mirror_sides<P: mc_data::props::Property>(state: BlockState, mirror: mc_core::mirror::Mirror, p: [P; 4]) -> BlockState {
+    use mc_core::mirror::Mirror;
+    let [n, e, s, w] = p;
+    match mirror {
+        Mirror::LeftRight => state.set(n, state.get(s)).set(s, state.get(n)),
+        Mirror::FrontBack => state.set(e, state.get(w)).set(w, state.get(e)),
+        Mirror::None => state,
+    }
+}
