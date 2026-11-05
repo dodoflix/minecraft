@@ -101,6 +101,11 @@ pub fn prevent_drop_from_bottom_part(level: &mut ServerLevel, pos: BlockPos, sta
     }
 }
 
+/// `((DoorBlock) state.getBlock()).setOpen(source, level, state, pos, open)`.
+pub fn set_open_at(source: Option<EntityId>, level: &mut ServerLevel, state: BlockState, pos: BlockPos, open: bool) {
+    DoorBlock::new(state.block()).set_open(source, level, state, pos, open);
+}
+
 /// `DoorBlock.isWoodenDoor(state)`.
 pub fn is_wooden_door(state: BlockState) -> bool {
     helpers::is_instance_of(state, "DoorBlock") && BlockSetType::for_block(state.block()).is_some_and(|t| t.can_open_by_hand)
