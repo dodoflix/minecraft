@@ -265,8 +265,8 @@ fn trades_equal_vanilla() {
         let key = profession_trade_set(&Identifier::parse(prof).unwrap(), lvl).unwrap();
         let offers = real(&level, &TestMerchant::villager(ty), &[key]);
         let (text, wire) = (offers_canon(&offers), wire_hex(&offers));
-        if sha1(&text) != r[3] || wire != r[4] {
-            failures.push(format!("R {prof} {lvl} {ty}: nbt equal {} wire equal {}\n  ours {text}", sha1(&text) == r[3], wire == r[4]));
+        if sha1(&text) != r[3] || !wire_equal(&wire, r[4]) {
+            failures.push(format!("R {prof} {lvl} {ty}: nbt equal {} wire equal {}\n  ours {text}", sha1(&text) == r[3], wire_equal(&wire, r[4])));
             continue;
         }
         // saved + wire round trips
@@ -303,15 +303,15 @@ fn trades_equal_vanilla() {
                 info.push_str(&format!("{}/{}/{ok}/{short_ok}/{took}/{}/{}/{}/{};", a.count(), b.count(), ta.count(), tb.count(), o.is_out_of_stock(), o.get_demand()));
             }
             let (text, wire) = (offers_canon(&offers), wire_hex(&offers));
-            if sha1(&text) != m[3] || wire != m[4] || info != m[5] {
-                failures.push(format!("M {prof} {lvl} {ty}: nbt {} wire {}\n  vanilla {}\n  ours    {info}", sha1(&text) == m[3], wire == m[4], m[5]));
+            if sha1(&text) != m[3] || !wire_equal(&wire, m[4]) || info != m[5] {
+                failures.push(format!("M {prof} {lvl} {ty}: nbt {} wire {}\n  vanilla {}\n  ours    {info}", sha1(&text) == m[3], wire_equal(&wire, m[4]), m[5]));
             }
         }
     }
     report(std::mem::take(&mut failures), rows.len());
     for r in fx.of('T') {
         let offers = real(&level, &TestMerchant::trader(), &wandering_keys());
-        if sha1(&offers_canon(&offers)) != r[2] || wire_hex(&offers) != r[3] {
+        if sha1(&offers_canon(&offers)) != r[2] || !wire_equal(&wire_hex(&offers), r[3]) {
             failures.push(format!("T {}\n  ours {}", r[1], offers_canon(&offers)));
         }
     }
@@ -323,6 +323,17 @@ fn trades_equal_vanilla() {
     packet.encode(&mut out);
     let got: String = out.iter().map(|b| format!("{b:02x}")).collect();
     assert_eq!(got, fx.of('K')[0][0], "offers packet");
+}
+
+/// Wire equality. Vanilla writes an `ItemEnchantments` in the iteration order of an `Object2IntOpenHashMap` keyed by holder identity
+/// hashes (JVM-run dependent), so items with several enchantments cannot be compared byte for byte: the bytes must be identical
+/// except for that order, i.e. both decode to the same offers and have the same length.
+fn wire_equal(ours: &str, vanilla: &str) -> bool {
+    if ours == vanilla {
+        return true;
+    }
+    let (a, b) = (hex(ours), hex(vanilla));
+    a.len() == b.len() && MerchantOffers::decode_stream(&mut &a[..]).ok() == MerchantOffers::decode_stream(&mut &b[..]).ok()
 }
 
 fn hex(s: &str) -> Vec<u8> {
