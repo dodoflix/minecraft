@@ -1,0 +1,10 @@
+# Creeper swell and explosion next to a player (fuse, ignite, Explosion with mob damage).
+level flat
+difficulty normal
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn C minecraft:creeper 3.5 -60 0.5 90 0 {PersistenceRequired:1b}
+tick 2
+watch mobs player:Steve
+tick 60
+watch off

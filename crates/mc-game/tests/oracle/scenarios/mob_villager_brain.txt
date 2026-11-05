@@ -1,0 +1,18 @@
+# Villager brain: activities/memories over a day with a bed and a workstation (POIs placed by blocks), schedule via /time.
+level flat
+difficulty normal
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -6 -61 -6 6 -61 6 minecraft:grass_block
+block 0 -60 -3 minecraft:red_bed[facing=south,part=foot,occupied=false]
+block 0 -60 -4 minecraft:red_bed[facing=south,part=head,occupied=false]
+block 3 -60 3 minecraft:composter
+block -3 -60 3 minecraft:bell
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+time 1000
+tick 5
+watch mob:V
+tick 40
+watch off
+time 13000
+tick 5
+dump brain:V mob:V

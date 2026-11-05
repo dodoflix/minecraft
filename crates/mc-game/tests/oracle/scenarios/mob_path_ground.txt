@@ -1,0 +1,100 @@
+# Ground navigation: PathNavigation.createPath (path_query, no movement) around/over terrain, per navigator type.
+# Each lane (z = 10*k) is one situation; the mob stands on the grass at x=0.5, the target is on x~10.5. PATH/PN lines = nodes with types/maluses.
+level flat
+difficulty normal
+fill -4 -60 -4 60 -40 140 minecraft:air
+note lane 0 open
+mobspawn M0 minecraft:zombie 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 1 wall
+fill 5 -60 6 5 -58 14 minecraft:stone
+mobspawn M1 minecraft:zombie 0.5 -60 10.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 2 fence
+fill 5 -60 16 5 -60 24 minecraft:oak_fence
+mobspawn M2 minecraft:zombie 0.5 -60 20.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 3 fence_cow
+fill 5 -60 26 5 -60 34 minecraft:oak_fence
+mobspawn M3 minecraft:cow 0.5 -60 30.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 4 step1
+fill 3 -60 36 13 -60 44 minecraft:stone
+mobspawn M4 minecraft:zombie 0.5 -60 40.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 5 cliff2
+fill 3 -60 46 13 -59 54 minecraft:stone
+mobspawn M5 minecraft:zombie 0.5 -60 50.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 6 river
+fill 4 -61 56 6 -61 64 minecraft:water[level=0]
+mobspawn M6 minecraft:zombie 0.5 -60 60.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 7 river_cow
+fill 4 -61 66 6 -61 74 minecraft:water[level=0]
+mobspawn M7 minecraft:cow 0.5 -60 70.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 8 lava
+fill 4 -61 76 6 -61 84 minecraft:lava[level=0]
+mobspawn M8 minecraft:zombie 0.5 -60 80.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 9 door_zombie
+fill 5 -60 86 5 -58 94 minecraft:stone
+block 5 -60 90 minecraft:oak_door[facing=east,half=lower,open=false,hinge=left]
+block 5 -59 90 minecraft:oak_door[facing=east,half=upper,open=false,hinge=left]
+mobspawn M9 minecraft:zombie 0.5 -60 90.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 10 door_villager
+fill 5 -60 96 5 -58 104 minecraft:stone
+block 5 -60 100 minecraft:oak_door[facing=east,half=lower,open=false,hinge=left]
+block 5 -59 100 minecraft:oak_door[facing=east,half=upper,open=false,hinge=left]
+mobspawn M10 minecraft:villager 0.5 -60 100.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 11 hazards
+fill 4 -60 106 6 -60 114 minecraft:cactus
+block 8 -60 110 minecraft:fire
+block 8 -60 108 minecraft:magma_block
+mobspawn M11 minecraft:zombie 0.5 -60 110.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 12 pit
+fill 4 -61 116 6 -61 124 minecraft:air
+fill 4 -62 116 6 -62 124 minecraft:air
+mobspawn M12 minecraft:zombie 0.5 -60 120.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+note lane 13 enclosed
+fill 9 -60 126 11 -58 128 minecraft:stone
+fill 10 -60 127 10 -59 127 minecraft:air
+mobspawn M13 minecraft:zombie 0.5 -60 130.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 4
+set M0 on_ground true
+set M1 on_ground true
+set M2 on_ground true
+set M3 on_ground true
+set M4 on_ground true
+set M5 on_ground true
+set M6 on_ground true
+set M7 on_ground true
+set M8 on_ground true
+set M9 on_ground true
+set M10 on_ground true
+set M11 on_ground true
+set M12 on_ground true
+set M13 on_ground true
+note lane 0 open
+path_query M0 10.5 -60 0.5
+note lane 1 wall
+path_query M1 10.5 -60 10.5
+note lane 2 fence
+path_query M2 10.5 -60 20.5
+note lane 3 fence_cow
+path_query M3 10.5 -60 30.5
+note lane 4 step1
+path_query M4 10.5 -59 40.5
+note lane 5 cliff2
+path_query M5 10.5 -58 50.5
+note lane 6 river
+path_query M6 10.5 -60 60.5
+note lane 7 river_cow
+path_query M7 10.5 -60 70.5
+note lane 8 lava
+path_query M8 10.5 -60 80.5
+note lane 9 door_zombie
+path_query M9 10.5 -60 90.5
+note lane 10 door_villager
+path_query M10 10.5 -60 100.5
+note lane 11 hazards
+path_query M11 10.5 -60 110.5
+note lane 12 pit
+path_query M12 10.5 -60 120.5
+note lane 13 enclosed
+path_query M13 10.5 -60 127.5
+note reach range 3 on the open lane
+path_query M0 10.5 -60 0.5 3
+dump mob:M0 mob:M5

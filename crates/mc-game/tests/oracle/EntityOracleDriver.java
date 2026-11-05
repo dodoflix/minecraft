@@ -118,7 +118,7 @@ import net.minecraft.util.RandomSource;
  * select PLAYER N             hotbar slot (ServerboundSetCarriedItemPacket)
  * effect REF EFFECT AMPLIFIER TICKS [hidden]      addEffect
  * attribute REF ATTRIBUTE BASEVALUE               setBaseValue
- * set REF health|food|saturation|exhaustion|air|fire|fall_distance|xp_level|absorption|invulnerable|no_gravity|tag VALUE
+ * set REF health|food|saturation|exhaustion|air|fire|fall_distance|xp_level|absorption|invulnerable|no_gravity|on_ground|tag VALUE
  * nbt REF SNBT                merge SNBT into the entity (Entity.load of the merged save data)
  * snap REF X Y Z [yaw pitch]  Entity.snapTo (no packets)          tp REF X Y Z [yaw pitch]   teleportTo
  * velocity REF X Y Z          setDeltaMovement
@@ -840,6 +840,7 @@ public final class EntityOracleDriver {
          case "absorption" -> ((LivingEntity)e).setAbsorptionAmount(Float.parseFloat(value));
          case "invulnerable" -> priv(e, Entity.class, "permanentlyInvulnerable", Boolean.parseBoolean(value));
          case "no_gravity" -> e.setNoGravity(Boolean.parseBoolean(value));
+         case "on_ground" -> e.setOnGround(Boolean.parseBoolean(value));
          case "tag" -> e.addTag(value);
          default -> throw new IllegalArgumentException("set " + what);
       }

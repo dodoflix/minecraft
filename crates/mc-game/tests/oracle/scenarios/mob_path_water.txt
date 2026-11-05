@@ -1,0 +1,27 @@
+# Water navigation: swimmers (cod, squid, dolphin, axolotl, drowned amphibious) path_query in a pool, plus a land mob next to it.
+level flat
+fill -4 -60 -4 40 -40 40 minecraft:air
+fill 4 -61 -6 24 -52 6 minecraft:stone
+fill 5 -60 -5 23 -53 5 minecraft:water[level=0]
+fill 12 -58 -5 12 -53 0 minecraft:stone
+mobspawn Cod minecraft:cod 6.5 -57 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Squid minecraft:squid 6.5 -57 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Dolphin minecraft:dolphin 6.5 -57 -2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Axolotl minecraft:axolotl 6.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Drowned minecraft:drowned 6.5 -58 -4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Turtle minecraft:turtle 1.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 4
+set Cod on_ground true
+set Squid on_ground true
+set Dolphin on_ground true
+set Axolotl on_ground true
+set Drowned on_ground true
+set Turtle on_ground true
+path_query Cod 21.5 -57 0.5
+path_query Squid 21.5 -57 0.5
+path_query Dolphin 21.5 -57 0.5
+path_query Axolotl 21.5 -57 0.5
+path_query Drowned 21.5 -57 0.5
+path_query Drowned 21.5 -57 -4.5 2
+path_query Turtle 8.5 -58 0.5
+dump mob:Cod mob:Turtle

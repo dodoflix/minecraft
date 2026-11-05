@@ -1,0 +1,21 @@
+# Breeding: two pigs in love breed (spawnChildFromBreeding), baby age, parents' 6000 tick cooldown, xp orb.
+level flat
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn P1 minecraft:pig 4.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn P2 minecraft:pig 5.5 -60 4.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 3
+love P1 Steve
+love P2 Steve
+dump mobs
+breed P1 P2
+dump mobs
+tick 3
+dump mobs
+mobspawn B minecraft:cow 8.5 -60 8.5 0 0 {Age:-24000,PersistenceRequired:1b}
+watch mob:B
+tick 10
+watch off
+age B -100
+tick 101
+dump mob:B

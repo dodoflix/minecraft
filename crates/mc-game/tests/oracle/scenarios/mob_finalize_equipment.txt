@@ -1,0 +1,422 @@
+# Mob.finalizeSpawn pipeline: attribute bonus, handedness, equipment/armor/enchant rolls (RNG of the entity), variants, baby chances.
+# One block per (type, difficulty, reason): rich E line + the saved NBT (UUID removed).
+level void
+time 30000
+difficulty easy
+mobspawn F1 minecraft:zombie 1.5 -60 -6.5 reason=natural
+dump mob:F1 nbt:F1
+mobspawn F2 minecraft:zombie 2.5 -60 -6.5 reason=spawner
+dump mob:F2 nbt:F2
+mobspawn F3 minecraft:husk 3.5 -60 -6.5 reason=natural
+dump mob:F3 nbt:F3
+mobspawn F4 minecraft:husk 4.5 -60 -6.5 reason=spawner
+dump mob:F4 nbt:F4
+mobspawn F5 minecraft:drowned 5.5 -60 -6.5 reason=natural
+dump mob:F5 nbt:F5
+mobspawn F6 minecraft:drowned 6.5 -60 -6.5 reason=spawner
+dump mob:F6 nbt:F6
+mobspawn F7 minecraft:zombie_villager 7.5 -60 -6.5 reason=natural
+dump mob:F7 nbt:F7
+mobspawn F8 minecraft:zombie_villager 8.5 -60 -6.5 reason=spawner
+dump mob:F8 nbt:F8
+mobspawn F9 minecraft:skeleton 9.5 -60 -6.5 reason=natural
+dump mob:F9 nbt:F9
+mobspawn F10 minecraft:skeleton 10.5 -60 -6.5 reason=spawner
+dump mob:F10 nbt:F10
+mobspawn F11 minecraft:stray 11.5 -60 -6.5 reason=natural
+dump mob:F11 nbt:F11
+mobspawn F12 minecraft:stray 12.5 -60 -6.5 reason=spawner
+dump mob:F12 nbt:F12
+mobspawn F13 minecraft:bogged 13.5 -60 -6.5 reason=natural
+dump mob:F13 nbt:F13
+mobspawn F14 minecraft:bogged 14.5 -60 -6.5 reason=spawner
+dump mob:F14 nbt:F14
+mobspawn F15 minecraft:wither_skeleton 15.5 -60 -6.5 reason=natural
+dump mob:F15 nbt:F15
+mobspawn F16 minecraft:wither_skeleton 16.5 -60 -6.5 reason=spawner
+dump mob:F16 nbt:F16
+mobspawn F17 minecraft:piglin 17.5 -60 -6.5 reason=natural
+dump mob:F17 nbt:F17
+mobspawn F18 minecraft:piglin 18.5 -60 -6.5 reason=spawner
+dump mob:F18 nbt:F18
+mobspawn F19 minecraft:piglin_brute 19.5 -60 -6.5 reason=natural
+dump mob:F19 nbt:F19
+mobspawn F20 minecraft:piglin_brute 20.5 -60 -6.5 reason=spawner
+dump mob:F20 nbt:F20
+mobspawn F21 minecraft:zombified_piglin 21.5 -60 -6.5 reason=natural
+dump mob:F21 nbt:F21
+mobspawn F22 minecraft:zombified_piglin 22.5 -60 -6.5 reason=spawner
+dump mob:F22 nbt:F22
+mobspawn F23 minecraft:pillager 23.5 -60 -6.5 reason=natural
+dump mob:F23 nbt:F23
+mobspawn F24 minecraft:pillager 24.5 -60 -6.5 reason=spawner
+dump mob:F24 nbt:F24
+mobspawn F25 minecraft:vindicator 25.5 -60 -6.5 reason=natural
+dump mob:F25 nbt:F25
+mobspawn F26 minecraft:vindicator 26.5 -60 -6.5 reason=spawner
+dump mob:F26 nbt:F26
+mobspawn F27 minecraft:evoker 27.5 -60 -6.5 reason=natural
+dump mob:F27 nbt:F27
+mobspawn F28 minecraft:evoker 28.5 -60 -6.5 reason=spawner
+dump mob:F28 nbt:F28
+mobspawn F29 minecraft:vex 29.5 -60 -6.5 reason=natural
+dump mob:F29 nbt:F29
+mobspawn F30 minecraft:vex 30.5 -60 -6.5 reason=spawner
+dump mob:F30 nbt:F30
+mobspawn F31 minecraft:witch 31.5 -60 -6.5 reason=natural
+dump mob:F31 nbt:F31
+mobspawn F32 minecraft:witch 32.5 -60 -6.5 reason=spawner
+dump mob:F32 nbt:F32
+mobspawn F33 minecraft:spider 33.5 -60 -6.5 reason=natural
+dump mob:F33 nbt:F33
+mobspawn F34 minecraft:spider 34.5 -60 -6.5 reason=spawner
+dump mob:F34 nbt:F34
+mobspawn F35 minecraft:cave_spider 35.5 -60 -6.5 reason=natural
+dump mob:F35 nbt:F35
+mobspawn F36 minecraft:cave_spider 36.5 -60 -6.5 reason=spawner
+dump mob:F36 nbt:F36
+mobspawn F37 minecraft:creeper 37.5 -60 -6.5 reason=natural
+dump mob:F37 nbt:F37
+mobspawn F38 minecraft:creeper 38.5 -60 -6.5 reason=spawner
+dump mob:F38 nbt:F38
+mobspawn F39 minecraft:slime 39.5 -60 -6.5 reason=natural
+dump mob:F39 nbt:F39
+mobspawn F40 minecraft:slime 0.5 -60 -3.5 reason=spawner
+dump mob:F40 nbt:F40
+mobspawn F41 minecraft:magma_cube 1.5 -60 -3.5 reason=natural
+dump mob:F41 nbt:F41
+mobspawn F42 minecraft:magma_cube 2.5 -60 -3.5 reason=spawner
+dump mob:F42 nbt:F42
+mobspawn F43 minecraft:enderman 3.5 -60 -3.5 reason=natural
+dump mob:F43 nbt:F43
+mobspawn F44 minecraft:enderman 4.5 -60 -3.5 reason=spawner
+dump mob:F44 nbt:F44
+mobspawn F45 minecraft:silverfish 5.5 -60 -3.5 reason=natural
+dump mob:F45 nbt:F45
+mobspawn F46 minecraft:silverfish 6.5 -60 -3.5 reason=spawner
+dump mob:F46 nbt:F46
+mobspawn F47 minecraft:blaze 7.5 -60 -3.5 reason=natural
+dump mob:F47 nbt:F47
+mobspawn F48 minecraft:blaze 8.5 -60 -3.5 reason=spawner
+dump mob:F48 nbt:F48
+mobspawn F49 minecraft:ghast 9.5 -60 -3.5 reason=natural
+dump mob:F49 nbt:F49
+mobspawn F50 minecraft:ghast 10.5 -60 -3.5 reason=spawner
+dump mob:F50 nbt:F50
+mobspawn F51 minecraft:phantom 11.5 -60 -3.5 reason=natural
+dump mob:F51 nbt:F51
+mobspawn F52 minecraft:phantom 12.5 -60 -3.5 reason=spawner
+dump mob:F52 nbt:F52
+mobspawn F53 minecraft:sheep 13.5 -60 -3.5 reason=natural
+dump mob:F53 nbt:F53
+mobspawn F54 minecraft:sheep 14.5 -60 -3.5 reason=spawner
+dump mob:F54 nbt:F54
+mobspawn F55 minecraft:pig 15.5 -60 -3.5 reason=natural
+dump mob:F55 nbt:F55
+mobspawn F56 minecraft:pig 16.5 -60 -3.5 reason=spawner
+dump mob:F56 nbt:F56
+mobspawn F57 minecraft:cow 17.5 -60 -3.5 reason=natural
+dump mob:F57 nbt:F57
+mobspawn F58 minecraft:cow 18.5 -60 -3.5 reason=spawner
+dump mob:F58 nbt:F58
+mobspawn F59 minecraft:chicken 19.5 -60 -3.5 reason=natural
+dump mob:F59 nbt:F59
+mobspawn F60 minecraft:chicken 20.5 -60 -3.5 reason=spawner
+dump mob:F60 nbt:F60
+mobspawn F61 minecraft:rabbit 21.5 -60 -3.5 reason=natural
+dump mob:F61 nbt:F61
+mobspawn F62 minecraft:rabbit 22.5 -60 -3.5 reason=spawner
+dump mob:F62 nbt:F62
+mobspawn F63 minecraft:horse 23.5 -60 -3.5 reason=natural
+dump mob:F63 nbt:F63
+mobspawn F64 minecraft:horse 24.5 -60 -3.5 reason=spawner
+dump mob:F64 nbt:F64
+mobspawn F65 minecraft:donkey 25.5 -60 -3.5 reason=natural
+dump mob:F65 nbt:F65
+mobspawn F66 minecraft:donkey 26.5 -60 -3.5 reason=spawner
+dump mob:F66 nbt:F66
+mobspawn F67 minecraft:mule 27.5 -60 -3.5 reason=natural
+dump mob:F67 nbt:F67
+mobspawn F68 minecraft:mule 28.5 -60 -3.5 reason=spawner
+dump mob:F68 nbt:F68
+mobspawn F69 minecraft:llama 29.5 -60 -3.5 reason=natural
+dump mob:F69 nbt:F69
+mobspawn F70 minecraft:llama 30.5 -60 -3.5 reason=spawner
+dump mob:F70 nbt:F70
+mobspawn F71 minecraft:wolf 31.5 -60 -3.5 reason=natural
+dump mob:F71 nbt:F71
+mobspawn F72 minecraft:wolf 32.5 -60 -3.5 reason=spawner
+dump mob:F72 nbt:F72
+mobspawn F73 minecraft:cat 33.5 -60 -3.5 reason=natural
+dump mob:F73 nbt:F73
+mobspawn F74 minecraft:cat 34.5 -60 -3.5 reason=spawner
+dump mob:F74 nbt:F74
+mobspawn F75 minecraft:fox 35.5 -60 -3.5 reason=natural
+dump mob:F75 nbt:F75
+mobspawn F76 minecraft:fox 36.5 -60 -3.5 reason=spawner
+dump mob:F76 nbt:F76
+mobspawn F77 minecraft:panda 37.5 -60 -3.5 reason=natural
+dump mob:F77 nbt:F77
+mobspawn F78 minecraft:panda 38.5 -60 -3.5 reason=spawner
+dump mob:F78 nbt:F78
+mobspawn F79 minecraft:villager 39.5 -60 -3.5 reason=natural
+dump mob:F79 nbt:F79
+mobspawn F80 minecraft:villager 0.5 -60 0.5 reason=spawner
+dump mob:F80 nbt:F80
+mobspawn F81 minecraft:iron_golem 1.5 -60 0.5 reason=natural
+dump mob:F81 nbt:F81
+mobspawn F82 minecraft:iron_golem 2.5 -60 0.5 reason=spawner
+dump mob:F82 nbt:F82
+mobspawn F83 minecraft:snow_golem 3.5 -60 0.5 reason=natural
+dump mob:F83 nbt:F83
+mobspawn F84 minecraft:snow_golem 4.5 -60 0.5 reason=spawner
+dump mob:F84 nbt:F84
+mobspawn F85 minecraft:turtle 5.5 -60 0.5 reason=natural
+dump mob:F85 nbt:F85
+mobspawn F86 minecraft:turtle 6.5 -60 0.5 reason=spawner
+dump mob:F86 nbt:F86
+mobspawn F87 minecraft:frog 7.5 -60 0.5 reason=natural
+dump mob:F87 nbt:F87
+mobspawn F88 minecraft:frog 8.5 -60 0.5 reason=spawner
+dump mob:F88 nbt:F88
+mobspawn F89 minecraft:axolotl 9.5 -60 0.5 reason=natural
+dump mob:F89 nbt:F89
+mobspawn F90 minecraft:axolotl 10.5 -60 0.5 reason=spawner
+dump mob:F90 nbt:F90
+mobspawn F91 minecraft:goat 11.5 -60 0.5 reason=natural
+dump mob:F91 nbt:F91
+mobspawn F92 minecraft:goat 12.5 -60 0.5 reason=spawner
+dump mob:F92 nbt:F92
+mobspawn F93 minecraft:bee 13.5 -60 0.5 reason=natural
+dump mob:F93 nbt:F93
+mobspawn F94 minecraft:bee 14.5 -60 0.5 reason=spawner
+dump mob:F94 nbt:F94
+mobspawn F95 minecraft:parrot 15.5 -60 0.5 reason=natural
+dump mob:F95 nbt:F95
+mobspawn F96 minecraft:parrot 16.5 -60 0.5 reason=spawner
+dump mob:F96 nbt:F96
+mobspawn F97 minecraft:ocelot 17.5 -60 0.5 reason=natural
+dump mob:F97 nbt:F97
+mobspawn F98 minecraft:ocelot 18.5 -60 0.5 reason=spawner
+dump mob:F98 nbt:F98
+mobspawn F99 minecraft:polar_bear 19.5 -60 0.5 reason=natural
+dump mob:F99 nbt:F99
+mobspawn F100 minecraft:polar_bear 20.5 -60 0.5 reason=spawner
+dump mob:F100 nbt:F100
+mobspawn F101 minecraft:camel 21.5 -60 0.5 reason=natural
+dump mob:F101 nbt:F101
+mobspawn F102 minecraft:camel 22.5 -60 0.5 reason=spawner
+dump mob:F102 nbt:F102
+mobspawn F103 minecraft:sniffer 23.5 -60 0.5 reason=natural
+dump mob:F103 nbt:F103
+mobspawn F104 minecraft:sniffer 24.5 -60 0.5 reason=spawner
+dump mob:F104 nbt:F104
+difficulty hard
+mobspawn F105 minecraft:zombie 25.5 -60 0.5 reason=natural
+dump mob:F105 nbt:F105
+mobspawn F106 minecraft:zombie 26.5 -60 0.5 reason=spawner
+dump mob:F106 nbt:F106
+mobspawn F107 minecraft:husk 27.5 -60 0.5 reason=natural
+dump mob:F107 nbt:F107
+mobspawn F108 minecraft:husk 28.5 -60 0.5 reason=spawner
+dump mob:F108 nbt:F108
+mobspawn F109 minecraft:drowned 29.5 -60 0.5 reason=natural
+dump mob:F109 nbt:F109
+mobspawn F110 minecraft:drowned 30.5 -60 0.5 reason=spawner
+dump mob:F110 nbt:F110
+mobspawn F111 minecraft:zombie_villager 31.5 -60 0.5 reason=natural
+dump mob:F111 nbt:F111
+mobspawn F112 minecraft:zombie_villager 32.5 -60 0.5 reason=spawner
+dump mob:F112 nbt:F112
+mobspawn F113 minecraft:skeleton 33.5 -60 0.5 reason=natural
+dump mob:F113 nbt:F113
+mobspawn F114 minecraft:skeleton 34.5 -60 0.5 reason=spawner
+dump mob:F114 nbt:F114
+mobspawn F115 minecraft:stray 35.5 -60 0.5 reason=natural
+dump mob:F115 nbt:F115
+mobspawn F116 minecraft:stray 36.5 -60 0.5 reason=spawner
+dump mob:F116 nbt:F116
+mobspawn F117 minecraft:bogged 37.5 -60 0.5 reason=natural
+dump mob:F117 nbt:F117
+mobspawn F118 minecraft:bogged 38.5 -60 0.5 reason=spawner
+dump mob:F118 nbt:F118
+mobspawn F119 minecraft:wither_skeleton 39.5 -60 0.5 reason=natural
+dump mob:F119 nbt:F119
+mobspawn F120 minecraft:wither_skeleton 0.5 -60 3.5 reason=spawner
+dump mob:F120 nbt:F120
+mobspawn F121 minecraft:piglin 1.5 -60 3.5 reason=natural
+dump mob:F121 nbt:F121
+mobspawn F122 minecraft:piglin 2.5 -60 3.5 reason=spawner
+dump mob:F122 nbt:F122
+mobspawn F123 minecraft:piglin_brute 3.5 -60 3.5 reason=natural
+dump mob:F123 nbt:F123
+mobspawn F124 minecraft:piglin_brute 4.5 -60 3.5 reason=spawner
+dump mob:F124 nbt:F124
+mobspawn F125 minecraft:zombified_piglin 5.5 -60 3.5 reason=natural
+dump mob:F125 nbt:F125
+mobspawn F126 minecraft:zombified_piglin 6.5 -60 3.5 reason=spawner
+dump mob:F126 nbt:F126
+mobspawn F127 minecraft:pillager 7.5 -60 3.5 reason=natural
+dump mob:F127 nbt:F127
+mobspawn F128 minecraft:pillager 8.5 -60 3.5 reason=spawner
+dump mob:F128 nbt:F128
+mobspawn F129 minecraft:vindicator 9.5 -60 3.5 reason=natural
+dump mob:F129 nbt:F129
+mobspawn F130 minecraft:vindicator 10.5 -60 3.5 reason=spawner
+dump mob:F130 nbt:F130
+mobspawn F131 minecraft:evoker 11.5 -60 3.5 reason=natural
+dump mob:F131 nbt:F131
+mobspawn F132 minecraft:evoker 12.5 -60 3.5 reason=spawner
+dump mob:F132 nbt:F132
+mobspawn F133 minecraft:vex 13.5 -60 3.5 reason=natural
+dump mob:F133 nbt:F133
+mobspawn F134 minecraft:vex 14.5 -60 3.5 reason=spawner
+dump mob:F134 nbt:F134
+mobspawn F135 minecraft:witch 15.5 -60 3.5 reason=natural
+dump mob:F135 nbt:F135
+mobspawn F136 minecraft:witch 16.5 -60 3.5 reason=spawner
+dump mob:F136 nbt:F136
+mobspawn F137 minecraft:spider 17.5 -60 3.5 reason=natural
+dump mob:F137 nbt:F137
+mobspawn F138 minecraft:spider 18.5 -60 3.5 reason=spawner
+dump mob:F138 nbt:F138
+mobspawn F139 minecraft:cave_spider 19.5 -60 3.5 reason=natural
+dump mob:F139 nbt:F139
+mobspawn F140 minecraft:cave_spider 20.5 -60 3.5 reason=spawner
+dump mob:F140 nbt:F140
+mobspawn F141 minecraft:creeper 21.5 -60 3.5 reason=natural
+dump mob:F141 nbt:F141
+mobspawn F142 minecraft:creeper 22.5 -60 3.5 reason=spawner
+dump mob:F142 nbt:F142
+mobspawn F143 minecraft:slime 23.5 -60 3.5 reason=natural
+dump mob:F143 nbt:F143
+mobspawn F144 minecraft:slime 24.5 -60 3.5 reason=spawner
+dump mob:F144 nbt:F144
+mobspawn F145 minecraft:magma_cube 25.5 -60 3.5 reason=natural
+dump mob:F145 nbt:F145
+mobspawn F146 minecraft:magma_cube 26.5 -60 3.5 reason=spawner
+dump mob:F146 nbt:F146
+mobspawn F147 minecraft:enderman 27.5 -60 3.5 reason=natural
+dump mob:F147 nbt:F147
+mobspawn F148 minecraft:enderman 28.5 -60 3.5 reason=spawner
+dump mob:F148 nbt:F148
+mobspawn F149 minecraft:silverfish 29.5 -60 3.5 reason=natural
+dump mob:F149 nbt:F149
+mobspawn F150 minecraft:silverfish 30.5 -60 3.5 reason=spawner
+dump mob:F150 nbt:F150
+mobspawn F151 minecraft:blaze 31.5 -60 3.5 reason=natural
+dump mob:F151 nbt:F151
+mobspawn F152 minecraft:blaze 32.5 -60 3.5 reason=spawner
+dump mob:F152 nbt:F152
+mobspawn F153 minecraft:ghast 33.5 -60 3.5 reason=natural
+dump mob:F153 nbt:F153
+mobspawn F154 minecraft:ghast 34.5 -60 3.5 reason=spawner
+dump mob:F154 nbt:F154
+mobspawn F155 minecraft:phantom 35.5 -60 3.5 reason=natural
+dump mob:F155 nbt:F155
+mobspawn F156 minecraft:phantom 36.5 -60 3.5 reason=spawner
+dump mob:F156 nbt:F156
+mobspawn F157 minecraft:sheep 37.5 -60 3.5 reason=natural
+dump mob:F157 nbt:F157
+mobspawn F158 minecraft:sheep 38.5 -60 3.5 reason=spawner
+dump mob:F158 nbt:F158
+mobspawn F159 minecraft:pig 39.5 -60 3.5 reason=natural
+dump mob:F159 nbt:F159
+mobspawn F160 minecraft:pig 0.5 -60 6.5 reason=spawner
+dump mob:F160 nbt:F160
+mobspawn F161 minecraft:cow 1.5 -60 6.5 reason=natural
+dump mob:F161 nbt:F161
+mobspawn F162 minecraft:cow 2.5 -60 6.5 reason=spawner
+dump mob:F162 nbt:F162
+mobspawn F163 minecraft:chicken 3.5 -60 6.5 reason=natural
+dump mob:F163 nbt:F163
+mobspawn F164 minecraft:chicken 4.5 -60 6.5 reason=spawner
+dump mob:F164 nbt:F164
+mobspawn F165 minecraft:rabbit 5.5 -60 6.5 reason=natural
+dump mob:F165 nbt:F165
+mobspawn F166 minecraft:rabbit 6.5 -60 6.5 reason=spawner
+dump mob:F166 nbt:F166
+mobspawn F167 minecraft:horse 7.5 -60 6.5 reason=natural
+dump mob:F167 nbt:F167
+mobspawn F168 minecraft:horse 8.5 -60 6.5 reason=spawner
+dump mob:F168 nbt:F168
+mobspawn F169 minecraft:donkey 9.5 -60 6.5 reason=natural
+dump mob:F169 nbt:F169
+mobspawn F170 minecraft:donkey 10.5 -60 6.5 reason=spawner
+dump mob:F170 nbt:F170
+mobspawn F171 minecraft:mule 11.5 -60 6.5 reason=natural
+dump mob:F171 nbt:F171
+mobspawn F172 minecraft:mule 12.5 -60 6.5 reason=spawner
+dump mob:F172 nbt:F172
+mobspawn F173 minecraft:llama 13.5 -60 6.5 reason=natural
+dump mob:F173 nbt:F173
+mobspawn F174 minecraft:llama 14.5 -60 6.5 reason=spawner
+dump mob:F174 nbt:F174
+mobspawn F175 minecraft:wolf 15.5 -60 6.5 reason=natural
+dump mob:F175 nbt:F175
+mobspawn F176 minecraft:wolf 16.5 -60 6.5 reason=spawner
+dump mob:F176 nbt:F176
+mobspawn F177 minecraft:cat 17.5 -60 6.5 reason=natural
+dump mob:F177 nbt:F177
+mobspawn F178 minecraft:cat 18.5 -60 6.5 reason=spawner
+dump mob:F178 nbt:F178
+mobspawn F179 minecraft:fox 19.5 -60 6.5 reason=natural
+dump mob:F179 nbt:F179
+mobspawn F180 minecraft:fox 20.5 -60 6.5 reason=spawner
+dump mob:F180 nbt:F180
+mobspawn F181 minecraft:panda 21.5 -60 6.5 reason=natural
+dump mob:F181 nbt:F181
+mobspawn F182 minecraft:panda 22.5 -60 6.5 reason=spawner
+dump mob:F182 nbt:F182
+mobspawn F183 minecraft:villager 23.5 -60 6.5 reason=natural
+dump mob:F183 nbt:F183
+mobspawn F184 minecraft:villager 24.5 -60 6.5 reason=spawner
+dump mob:F184 nbt:F184
+mobspawn F185 minecraft:iron_golem 25.5 -60 6.5 reason=natural
+dump mob:F185 nbt:F185
+mobspawn F186 minecraft:iron_golem 26.5 -60 6.5 reason=spawner
+dump mob:F186 nbt:F186
+mobspawn F187 minecraft:snow_golem 27.5 -60 6.5 reason=natural
+dump mob:F187 nbt:F187
+mobspawn F188 minecraft:snow_golem 28.5 -60 6.5 reason=spawner
+dump mob:F188 nbt:F188
+mobspawn F189 minecraft:turtle 29.5 -60 6.5 reason=natural
+dump mob:F189 nbt:F189
+mobspawn F190 minecraft:turtle 30.5 -60 6.5 reason=spawner
+dump mob:F190 nbt:F190
+mobspawn F191 minecraft:frog 31.5 -60 6.5 reason=natural
+dump mob:F191 nbt:F191
+mobspawn F192 minecraft:frog 32.5 -60 6.5 reason=spawner
+dump mob:F192 nbt:F192
+mobspawn F193 minecraft:axolotl 33.5 -60 6.5 reason=natural
+dump mob:F193 nbt:F193
+mobspawn F194 minecraft:axolotl 34.5 -60 6.5 reason=spawner
+dump mob:F194 nbt:F194
+mobspawn F195 minecraft:goat 35.5 -60 6.5 reason=natural
+dump mob:F195 nbt:F195
+mobspawn F196 minecraft:goat 36.5 -60 6.5 reason=spawner
+dump mob:F196 nbt:F196
+mobspawn F197 minecraft:bee 37.5 -60 6.5 reason=natural
+dump mob:F197 nbt:F197
+mobspawn F198 minecraft:bee 38.5 -60 6.5 reason=spawner
+dump mob:F198 nbt:F198
+mobspawn F199 minecraft:parrot 39.5 -60 6.5 reason=natural
+dump mob:F199 nbt:F199
+mobspawn F200 minecraft:parrot 0.5 -60 9.5 reason=spawner
+dump mob:F200 nbt:F200
+mobspawn F201 minecraft:ocelot 1.5 -60 9.5 reason=natural
+dump mob:F201 nbt:F201
+mobspawn F202 minecraft:ocelot 2.5 -60 9.5 reason=spawner
+dump mob:F202 nbt:F202
+mobspawn F203 minecraft:polar_bear 3.5 -60 9.5 reason=natural
+dump mob:F203 nbt:F203
+mobspawn F204 minecraft:polar_bear 4.5 -60 9.5 reason=spawner
+dump mob:F204 nbt:F204
+mobspawn F205 minecraft:camel 5.5 -60 9.5 reason=natural
+dump mob:F205 nbt:F205
+mobspawn F206 minecraft:camel 6.5 -60 9.5 reason=spawner
+dump mob:F206 nbt:F206
+mobspawn F207 minecraft:sniffer 7.5 -60 9.5 reason=natural
+dump mob:F207 nbt:F207
+mobspawn F208 minecraft:sniffer 8.5 -60 9.5 reason=spawner
+dump mob:F208 nbt:F208

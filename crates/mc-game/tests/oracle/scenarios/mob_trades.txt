@@ -1,0 +1,157 @@
+# Villager trade generation: profession x level x seed (Villager.updateTrades -> TradeSet loading, entity random seeded per line).
+# Dumps the generated MerchantOffers (OFFER lines: costs, result with canonical component SNBT, uses/max/xp/multiplier).
+level void
+trades V1 minecraft:armorer 1 1001 type=minecraft:desert
+trades V2 minecraft:armorer 1 77002 type=minecraft:jungle
+trades V3 minecraft:armorer 2 1003 type=minecraft:savanna
+trades V4 minecraft:armorer 2 77004 type=minecraft:snow
+trades V5 minecraft:armorer 3 1005 type=minecraft:swamp
+trades V6 minecraft:armorer 3 77006 type=minecraft:taiga
+trades V7 minecraft:armorer 4 1007 type=minecraft:plains
+trades V8 minecraft:armorer 4 77008 type=minecraft:desert
+trades V9 minecraft:armorer 5 1009 type=minecraft:jungle
+trades V10 minecraft:armorer 5 77010 type=minecraft:savanna
+trades V11 minecraft:butcher 1 1011 type=minecraft:snow
+trades V12 minecraft:butcher 1 77012 type=minecraft:swamp
+trades V13 minecraft:butcher 2 1013 type=minecraft:taiga
+trades V14 minecraft:butcher 2 77014 type=minecraft:plains
+trades V15 minecraft:butcher 3 1015 type=minecraft:desert
+trades V16 minecraft:butcher 3 77016 type=minecraft:jungle
+trades V17 minecraft:butcher 4 1017 type=minecraft:savanna
+trades V18 minecraft:butcher 4 77018 type=minecraft:snow
+trades V19 minecraft:butcher 5 1019 type=minecraft:swamp
+trades V20 minecraft:butcher 5 77020 type=minecraft:taiga
+trades V21 minecraft:cartographer 1 1021 type=minecraft:plains
+trades V22 minecraft:cartographer 1 77022 type=minecraft:desert
+trades V23 minecraft:cartographer 2 1023 type=minecraft:jungle
+trades V24 minecraft:cartographer 2 77024 type=minecraft:savanna
+trades V25 minecraft:cartographer 3 1025 type=minecraft:snow
+trades V26 minecraft:cartographer 3 77026 type=minecraft:swamp
+trades V27 minecraft:cartographer 4 1027 type=minecraft:taiga
+trades V28 minecraft:cartographer 4 77028 type=minecraft:plains
+trades V29 minecraft:cartographer 5 1029 type=minecraft:desert
+trades V30 minecraft:cartographer 5 77030 type=minecraft:jungle
+trades V31 minecraft:cleric 1 1031 type=minecraft:savanna
+trades V32 minecraft:cleric 1 77032 type=minecraft:snow
+trades V33 minecraft:cleric 2 1033 type=minecraft:swamp
+trades V34 minecraft:cleric 2 77034 type=minecraft:taiga
+trades V35 minecraft:cleric 3 1035 type=minecraft:plains
+trades V36 minecraft:cleric 3 77036 type=minecraft:desert
+trades V37 minecraft:cleric 4 1037 type=minecraft:jungle
+trades V38 minecraft:cleric 4 77038 type=minecraft:savanna
+trades V39 minecraft:cleric 5 1039 type=minecraft:snow
+trades V40 minecraft:cleric 5 77040 type=minecraft:swamp
+trades V41 minecraft:farmer 1 1041 type=minecraft:taiga
+trades V42 minecraft:farmer 1 77042 type=minecraft:plains
+trades V43 minecraft:farmer 2 1043 type=minecraft:desert
+trades V44 minecraft:farmer 2 77044 type=minecraft:jungle
+trades V45 minecraft:farmer 3 1045 type=minecraft:savanna
+trades V46 minecraft:farmer 3 77046 type=minecraft:snow
+trades V47 minecraft:farmer 4 1047 type=minecraft:swamp
+trades V48 minecraft:farmer 4 77048 type=minecraft:taiga
+trades V49 minecraft:farmer 5 1049 type=minecraft:plains
+trades V50 minecraft:farmer 5 77050 type=minecraft:desert
+trades V51 minecraft:fisherman 1 1051 type=minecraft:jungle
+trades V52 minecraft:fisherman 1 77052 type=minecraft:savanna
+trades V53 minecraft:fisherman 2 1053 type=minecraft:snow
+trades V54 minecraft:fisherman 2 77054 type=minecraft:swamp
+trades V55 minecraft:fisherman 3 1055 type=minecraft:taiga
+trades V56 minecraft:fisherman 3 77056 type=minecraft:plains
+trades V57 minecraft:fisherman 4 1057 type=minecraft:desert
+trades V58 minecraft:fisherman 4 77058 type=minecraft:jungle
+trades V59 minecraft:fisherman 5 1059 type=minecraft:savanna
+trades V60 minecraft:fisherman 5 77060 type=minecraft:snow
+trades V61 minecraft:fletcher 1 1061 type=minecraft:swamp
+trades V62 minecraft:fletcher 1 77062 type=minecraft:taiga
+trades V63 minecraft:fletcher 2 1063 type=minecraft:plains
+trades V64 minecraft:fletcher 2 77064 type=minecraft:desert
+trades V65 minecraft:fletcher 3 1065 type=minecraft:jungle
+trades V66 minecraft:fletcher 3 77066 type=minecraft:savanna
+trades V67 minecraft:fletcher 4 1067 type=minecraft:snow
+trades V68 minecraft:fletcher 4 77068 type=minecraft:swamp
+trades V69 minecraft:fletcher 5 1069 type=minecraft:taiga
+trades V70 minecraft:fletcher 5 77070 type=minecraft:plains
+trades V71 minecraft:leatherworker 1 1071 type=minecraft:desert
+trades V72 minecraft:leatherworker 1 77072 type=minecraft:jungle
+trades V73 minecraft:leatherworker 2 1073 type=minecraft:savanna
+trades V74 minecraft:leatherworker 2 77074 type=minecraft:snow
+trades V75 minecraft:leatherworker 3 1075 type=minecraft:swamp
+trades V76 minecraft:leatherworker 3 77076 type=minecraft:taiga
+trades V77 minecraft:leatherworker 4 1077 type=minecraft:plains
+trades V78 minecraft:leatherworker 4 77078 type=minecraft:desert
+trades V79 minecraft:leatherworker 5 1079 type=minecraft:jungle
+trades V80 minecraft:leatherworker 5 77080 type=minecraft:savanna
+trades V81 minecraft:librarian 1 1081 type=minecraft:snow
+trades V82 minecraft:librarian 1 77082 type=minecraft:swamp
+trades V83 minecraft:librarian 2 1083 type=minecraft:taiga
+trades V84 minecraft:librarian 2 77084 type=minecraft:plains
+trades V85 minecraft:librarian 3 1085 type=minecraft:desert
+trades V86 minecraft:librarian 3 77086 type=minecraft:jungle
+trades V87 minecraft:librarian 4 1087 type=minecraft:savanna
+trades V88 minecraft:librarian 4 77088 type=minecraft:snow
+trades V89 minecraft:librarian 5 1089 type=minecraft:swamp
+trades V90 minecraft:librarian 5 77090 type=minecraft:taiga
+trades V91 minecraft:mason 1 1091 type=minecraft:plains
+trades V92 minecraft:mason 1 77092 type=minecraft:desert
+trades V93 minecraft:mason 2 1093 type=minecraft:jungle
+trades V94 minecraft:mason 2 77094 type=minecraft:savanna
+trades V95 minecraft:mason 3 1095 type=minecraft:snow
+trades V96 minecraft:mason 3 77096 type=minecraft:swamp
+trades V97 minecraft:mason 4 1097 type=minecraft:taiga
+trades V98 minecraft:mason 4 77098 type=minecraft:plains
+trades V99 minecraft:mason 5 1099 type=minecraft:desert
+trades V100 minecraft:mason 5 77100 type=minecraft:jungle
+trades V101 minecraft:shepherd 1 1101 type=minecraft:savanna
+trades V102 minecraft:shepherd 1 77102 type=minecraft:snow
+trades V103 minecraft:shepherd 2 1103 type=minecraft:swamp
+trades V104 minecraft:shepherd 2 77104 type=minecraft:taiga
+trades V105 minecraft:shepherd 3 1105 type=minecraft:plains
+trades V106 minecraft:shepherd 3 77106 type=minecraft:desert
+trades V107 minecraft:shepherd 4 1107 type=minecraft:jungle
+trades V108 minecraft:shepherd 4 77108 type=minecraft:savanna
+trades V109 minecraft:shepherd 5 1109 type=minecraft:snow
+trades V110 minecraft:shepherd 5 77110 type=minecraft:swamp
+trades V111 minecraft:toolsmith 1 1111 type=minecraft:taiga
+trades V112 minecraft:toolsmith 1 77112 type=minecraft:plains
+trades V113 minecraft:toolsmith 2 1113 type=minecraft:desert
+trades V114 minecraft:toolsmith 2 77114 type=minecraft:jungle
+trades V115 minecraft:toolsmith 3 1115 type=minecraft:savanna
+trades V116 minecraft:toolsmith 3 77116 type=minecraft:snow
+trades V117 minecraft:toolsmith 4 1117 type=minecraft:swamp
+trades V118 minecraft:toolsmith 4 77118 type=minecraft:taiga
+trades V119 minecraft:toolsmith 5 1119 type=minecraft:plains
+trades V120 minecraft:toolsmith 5 77120 type=minecraft:desert
+trades V121 minecraft:weaponsmith 1 1121 type=minecraft:jungle
+trades V122 minecraft:weaponsmith 1 77122 type=minecraft:savanna
+trades V123 minecraft:weaponsmith 2 1123 type=minecraft:snow
+trades V124 minecraft:weaponsmith 2 77124 type=minecraft:swamp
+trades V125 minecraft:weaponsmith 3 1125 type=minecraft:taiga
+trades V126 minecraft:weaponsmith 3 77126 type=minecraft:plains
+trades V127 minecraft:weaponsmith 4 1127 type=minecraft:desert
+trades V128 minecraft:weaponsmith 4 77128 type=minecraft:jungle
+trades V129 minecraft:weaponsmith 5 1129 type=minecraft:savanna
+trades V130 minecraft:weaponsmith 5 77130 type=minecraft:snow
+mobspawn W1 minecraft:wandering_trader 1.5 -60 5.5
+entity_seed W1 7919
+dump offers:W1
+mobspawn W2 minecraft:wandering_trader 2.5 -60 5.5
+entity_seed W2 15838
+dump offers:W2
+mobspawn W3 minecraft:wandering_trader 3.5 -60 5.5
+entity_seed W3 23757
+dump offers:W3
+mobspawn W4 minecraft:wandering_trader 4.5 -60 5.5
+entity_seed W4 31676
+dump offers:W4
+mobspawn W5 minecraft:wandering_trader 5.5 -60 5.5
+entity_seed W5 39595
+dump offers:W5
+mobspawn W6 minecraft:wandering_trader 6.5 -60 5.5
+entity_seed W6 47514
+dump offers:W6
+mobspawn W7 minecraft:wandering_trader 7.5 -60 5.5
+entity_seed W7 55433
+dump offers:W7
+mobspawn W8 minecraft:wandering_trader 8.5 -60 5.5
+entity_seed W8 63352
+dump offers:W8

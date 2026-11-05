@@ -1,0 +1,19 @@
+# FlyingPathNavigation: bee/parrot/allay path_query through open air around a pillar and over a roof.
+level flat
+fill -4 -60 -4 40 -20 40 minecraft:air
+fill 8 -60 -3 8 -45 3 minecraft:stone
+fill 0 -52 -4 20 -52 4 minecraft:oak_leaves[persistent=true]
+mobspawn Bee minecraft:bee 2.5 -55 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Parrot minecraft:parrot 2.5 -55 3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn Allay minecraft:allay 2.5 -55 -3.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 4
+set Bee on_ground true
+set Parrot on_ground true
+set Allay on_ground true
+path_query Bee 14.5 -55 0.5
+path_query Bee 14.5 -48 0.5 2
+path_query Parrot 14.5 -55 0.5
+path_query Parrot 14.5 -48 0.5 2
+path_query Allay 14.5 -55 0.5
+path_query Allay 14.5 -48 0.5 2
+dump mob:Bee

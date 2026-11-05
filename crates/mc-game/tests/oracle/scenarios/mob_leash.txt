@@ -1,0 +1,16 @@
+# Leash: cow leashed to a player, player walks away (snap distance), lead item drop on break.
+level flat
+difficulty normal
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn Cow minecraft:cow 3.5 -60 0.5 0 0 {PersistenceRequired:1b}
+tick 3
+leash Cow Steve
+dump mob:Cow
+watch mob:Cow
+tick 10
+tp Steve 12.5 -60 0.5
+tick 20
+tp Steve 40.5 -60 0.5
+tick 10
+watch off
+dump mobs entities

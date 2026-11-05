@@ -1,0 +1,15 @@
+# WallClimberNavigation: spider/cave spider path_query up a wall and over a roof.
+level flat
+fill -4 -60 -4 40 -40 40 minecraft:air
+fill 6 -60 -2 6 -50 6 minecraft:stone
+fill 6 -50 -2 12 -50 6 minecraft:stone
+mobspawn S minecraft:spider 2.5 -60 2.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+mobspawn C minecraft:cave_spider 2.5 -60 8.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+tick 4
+set S on_ground true
+set C on_ground true
+path_query S 9.5 -49 2.5
+path_query S 8.5 -60 2.5
+path_query C 9.5 -49 2.5 2
+nav S 9.5 -49 2.5 1.0
+dump mob:S

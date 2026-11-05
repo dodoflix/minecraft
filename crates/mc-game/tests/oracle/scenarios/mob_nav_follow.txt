@@ -1,0 +1,16 @@
+# Navigation following: MoveControl/JumpControl/LookControl driven by a path (nav), no goals (NoAI keeps goals off, so the nav is ticked by us).
+# NoAI mobs do not tick their navigation: the zombie/cow below run their normal AI but the goals only idle, the wanted path is set by `nav`.
+level flat
+difficulty normal
+time 18000
+fill -4 -60 -4 40 -40 40 minecraft:air
+fill 4 -60 -2 4 -59 2 minecraft:stone
+mobspawn Z minecraft:zombie 0.5 -60 0.5 0 0 {PersistenceRequired:1b}
+mobspawn Cow minecraft:cow 0.5 -60 6.5 0 0 {PersistenceRequired:1b}
+tick 3
+nav Z 9.5 -60 0.5 1.0
+nav Cow 9.5 -60 6.5 1.0
+watch mob:Z mob:Cow
+tick 80
+watch off
+dump mobs

@@ -1,0 +1,27 @@
+# Taming a wolf with bones (random 1/3 chance per interaction with the entity seed pinned), sitting toggle, owner.
+level flat
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+give Steve mainhand minecraft:bone 16
+mobspawn W minecraft:wolf 2.5 -60 0.5 90 0 {PersistenceRequired:1b}
+mobspawn Cat minecraft:cat 2.5 -60 4.5 90 0 {PersistenceRequired:1b}
+tick 3
+entity_seed W 4711
+interact Steve W
+tick 2
+dump mob:W
+interact Steve W
+tick 2
+interact Steve W
+tick 2
+interact Steve W
+tick 2
+interact Steve W
+tick 2
+dump mob:W
+give Steve mainhand minecraft:air
+interact Steve W
+tick 2
+dump mob:W nbt:W
+tame Cat Steve
+dump mob:Cat

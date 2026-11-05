@@ -1,0 +1,103 @@
+# DifficultyInstance (local difficulty): base difficulty x world time x moon phase x chunk inhabited time (via /time and ticks).
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0
+difficulty peaceful
+time 0
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 6000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 13000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 18000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 24000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 210000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 498000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 1920000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+difficulty easy
+time 0
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 6000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 13000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 18000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 24000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 210000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 498000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 1920000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+difficulty normal
+time 0
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 6000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 13000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 18000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 24000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 210000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 498000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 1920000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+difficulty hard
+time 0
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 6000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 13000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 18000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 24000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 210000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 498000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200
+time 1920000
+tick 2
+dump difficulty:0,-60,0 difficulty:200,-60,200

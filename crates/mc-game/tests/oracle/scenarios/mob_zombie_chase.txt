@@ -1,0 +1,12 @@
+# Zombie AI vs a survival player (HurtByTarget/NearestAttackableTarget, ZombieAttackGoal, melee damage, knockback), watched every tick.
+level flat
+difficulty normal
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn Z minecraft:zombie 9.5 -60 0.5 90 0 {PersistenceRequired:1b}
+tick 2
+watch mob:Z player:Steve
+tick 140
+watch off
+dump mobs all_players

@@ -129,6 +129,7 @@ pub fn write_broken_packs(world: &Path) {
 }
 
 pub mod entity_oracle;
+pub mod entity_scenario;
 pub mod feature_harness;
 pub mod structure_golden;
 pub mod block_scenario;

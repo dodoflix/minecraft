@@ -1,0 +1,11 @@
+# Skeleton ranged attack AI at a player standing still (bow goal, arrow entities `arrow#n`).
+level flat
+difficulty hard
+time 18000
+gamerule mob_drops false
+spawn_player Steve creative 0.5 -60 0.5 0 0
+mobspawn K minecraft:skeleton 12.5 -60 0.5 90 0 {PersistenceRequired:1b}
+tick 2
+watch mobs
+tick 100
+watch off
