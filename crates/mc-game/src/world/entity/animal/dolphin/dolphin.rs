@@ -12,9 +12,10 @@ use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
 use crate::world::entity::ai::control::smooth_swimming_move_control::SmoothSwimmingMoveControl;
 use crate::world::entity::ai::goal::{
-    AvoidEntityGoal, BreathAirGoal, DolphinJumpGoal, Flag, FollowPlayerRiddenEntityGoal, Goal, GoalFlags, HurtByTargetGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
+    AvoidEntityGoal, BreathAirGoal, DolphinJumpGoal, Flag, FollowPlayerRiddenEntityGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal,
     RandomSwimmingGoal, TryFindLiquidGoal,
 };
+use crate::world::entity::ai::goal::target::{HurtByTargetGoal, class_of_type};
 use crate::world::entity::ai::navigation::StandardPathNavigation;
 use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::ai::util::default_random_pos;
@@ -112,7 +113,7 @@ impl Dolphin {
         goals.add_goal(8, Box::new(FollowPlayerRiddenEntityGoal::new(is_abstract_boat)));
         goals.add_goal(8, Box::new(FollowPlayerRiddenEntityGoal::new(is_abstract_nautilus)));
         goals.add_goal(9, Box::new(avoid_guardian));
-        self.mob.target_selector.add_goal(1, Box::new(HurtByTargetGoal::new(&[EntityType::GUARDIAN]).set_alert_others()));
+        self.mob.target_selector.add_goal(1, Box::new(HurtByTargetGoal::new(vec![class_of_type(EntityType::GUARDIAN)]).set_alert_others(vec![])));
     }
 
     /// `gotFish()`.
@@ -137,7 +138,7 @@ impl Dolphin {
 
     /// `closeToNextPos()`.
     fn close_to_next_pos(&self, level: &ServerLevel) -> bool {
-        match navigation::with_navigation_ref(self, level, |n| n.target_pos()).flatten() {
+        match navigation::with_navigation_ref(self, level, |n| n.get_target_pos()).flatten() {
             Some(target) => target.closer_to_center_than(&self.position(), 12.0),
             None => false,
         }
@@ -335,6 +336,14 @@ impl Entity for Dolphin {
     }
 }
 
+/// SEAM: `level.findNearestMapStructure(DOLPHIN_LOCATED, pos, 50, false)`. `ChunkGenerator.findNearestMapStructure` exists
+/// (`levelgen::structure::locate`), but its `LocateLevel` adapter for `ServerLevel` (CommandsScope.WorldEditCmds'
+/// `ServerLevel::find_nearest_map_structure`) is not on main yet; until it lands the dolphin finds nothing and gives up like
+/// vanilla's "no structure" branch. Replace the body with the `ServerLevel` call when it lands.
+fn find_nearest_map_structure(_level: &mut ServerLevel, _wanted: &[Identifier], _pos: BlockPos, _radius: i32) -> Option<BlockPos> {
+    None
+}
+
 /// `Dolphin.DolphinSwimToTreasureGoal`.
 struct DolphinSwimToTreasureGoal {
     stuck: bool,
@@ -382,7 +391,7 @@ impl Goal for DolphinSwimToTreasureGoal {
                 _ => Vec::new(),
             }
         };
-        let treasure_pos = level.find_nearest_map_structure(&wanted, dolphin_pos, 50, false).map(|(pos, _)| pos);
+        let treasure_pos = find_nearest_map_structure(level, &wanted, dolphin_pos, 50);
         match treasure_pos {
             Some(pos) => {
                 dolphin(mob).treasure_pos = Some(pos);
@@ -404,7 +413,7 @@ impl Goal for DolphinSwimToTreasureGoal {
         let Some(treasure_block) = dolphin(mob).treasure_pos else { return };
         let close = dolphin(mob).close_to_next_pos(level);
         if close || navigation::is_done(mob, level) {
-            let treasure_pos = Vec3::at_center_of(treasure_block);
+            let treasure_pos = Vec3::at_center_of(&treasure_block);
             let mut next_pos = default_random_pos::get_pos_towards(mob, level, 16, 1, treasure_pos, f64::from((std::f64::consts::PI / 8.0) as f32));
             if next_pos.is_none() {
                 next_pos = default_random_pos::get_pos_towards(mob, level, 8, 4, treasure_pos, f64::from((std::f64::consts::PI / 2.0) as f32));

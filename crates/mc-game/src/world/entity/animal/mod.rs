@@ -5,7 +5,7 @@
 
 pub mod chicken;
 pub mod cow;
-// pub mod dolphin; // needs GoalsB + locate
+pub mod dolphin;
 pub mod feline;
 pub mod fish;
 pub mod frog;
