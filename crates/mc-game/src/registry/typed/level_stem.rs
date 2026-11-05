@@ -14,6 +14,27 @@ use crate::registry::codec::{RegistryDecodeContext, Schema, default, req};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
 
+/// `Climate.ParameterPoint.CODEC` `parse` + `encodeStart`: values are quantized (`(long)(v * 10000)`) and encode back as
+/// floats; an interval with equal bounds encodes as its single number.
+fn parameter_point(v: &Value, _ctx: &RegistryDecodeContext) -> Result<Tag, String> {
+    use mc_worldgen::biome::climate::{ParameterPoint, unquantize_coord};
+    let point = ParameterPoint::from_json(v).map_err(|e| e.to_string())?;
+    let mut out = CompoundTag::new();
+    let names = ["temperature", "humidity", "continentalness", "erosion", "depth", "weirdness"];
+    let params = [point.temperature, point.humidity, point.continentalness, point.erosion, point.depth, point.weirdness];
+    for (name, p) in names.iter().zip(params) {
+        let (min, max) = (unquantize_coord(p.min), unquantize_coord(p.max));
+        let tag = if p.min == p.max {
+            Tag::Float(min)
+        } else {
+            Tag::List(vec![Tag::Float(min), Tag::Float(max)].into())
+        };
+        out.put(*name, tag);
+    }
+    out.put("offset", Tag::Float(unquantize_coord(point.offset)));
+    Ok(Tag::Compound(out))
+}
+
 fn biome_source_types(ty: &str) -> Option<Schema> {
     use Schema as S;
     Some(match ty {
@@ -25,7 +46,7 @@ fn biome_source_types(ty: &str) -> Option<Schema> {
             if v.get("preset").is_some() {
                 S::Record(vec![req("preset", S::Holder(keys::MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST))]).convert(v, ctx)
             } else {
-                S::Record(vec![req("biomes", S::list_of(S::Record(vec![req("biome", biome::holder_schema()), req("parameters", S::Raw)])))]).convert(v, ctx)
+                S::Record(vec![req("biomes", S::list_of(S::Record(vec![req("biome", biome::holder_schema()), req("parameters", S::custom(parameter_point))])))]).convert(v, ctx)
             }
         }),
         _ => return None,

@@ -108,9 +108,27 @@ pub fn parse_positive_int(value: &Value) -> LoadResult<i32> {
     }
 }
 
+thread_local! {
+    static NUMERIC_BOOLEANS: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
+}
+
+/// Runs `f` with numbers accepted as booleans (`NbtOps.getBooleanValue` reads any numeric tag as one): for JSON that
+/// was converted from NBT, where a boolean is a byte. `JsonOps` itself accepts booleans only.
+pub fn with_numeric_booleans<R>(f: impl FnOnce() -> R) -> R {
+    struct Restore(bool);
+    impl Drop for Restore {
+        fn drop(&mut self) {
+            NUMERIC_BOOLEANS.set(self.0);
+        }
+    }
+    let _restore = Restore(NUMERIC_BOOLEANS.replace(true));
+    f()
+}
+
 pub fn parse_bool(value: &Value) -> LoadResult<bool> {
     value
         .as_bool()
+        .or_else(|| NUMERIC_BOOLEANS.get().then(|| value.as_f64().map(|n| n != 0.0)).flatten())
         .ok_or_else(|| LoadError::new("expected boolean"))
 }
 

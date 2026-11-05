@@ -10,7 +10,7 @@ use mc_core::math::java::java_float_to_string;
 use mc_nbt::{CompoundTag, Tag};
 use serde_json::Value;
 
-use crate::registry::codec::{Schema, default, req, RegistryDecodeContext, opt};
+use crate::registry::codec::{Schema, default, default_always, req, RegistryDecodeContext, opt};
 use crate::registry::codec::lenient;
 
 /// `AttributeTypes` (the value type of an attribute).
@@ -286,7 +286,7 @@ fn mob_spawn_settings() -> Schema {
     let spawner = Schema::Record(vec![
         req("type", Schema::StaticRegistry(crate::registry::keys::ENTITY_TYPE)),
         req("count", super::int_provider::schema(i32::MIN, i32::MAX)),
-        default("weight", Schema::IntRange(1, i32::MAX), Value::from(1)),
+        default_always("weight", Schema::IntRange(1, i32::MAX), Value::from(1)),
     ]);
     Schema::Record(vec![
         req("spawns_by_category", Schema::map_of(Schema::Enum(MOB_CATEGORIES), Schema::list_of(spawner))),

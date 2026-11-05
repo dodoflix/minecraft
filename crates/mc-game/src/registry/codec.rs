@@ -37,13 +37,15 @@ pub struct RegistryDecodeContext<'a> {
     pub worldgen: Option<&'a mc_worldgen::data::WorldgenRegistries>,
     /// Id of the entry being decoded.
     pub entry: Option<Identifier>,
+    /// The JSON was converted from NBT: a number is a valid boolean (`NbtOps.getBooleanValue`).
+    pub numeric_booleans: bool,
     pub(crate) unbound_values: RefCell<Vec<(String, Identifier)>>,
     pub(crate) unbound_tags: RefCell<Vec<(String, Identifier)>>,
 }
 
 impl<'a> RegistryDecodeContext<'a> {
     pub fn new(lookup: &'a dyn RegistryLookup) -> RegistryDecodeContext<'a> {
-        RegistryDecodeContext { lookup, worldgen: None, entry: None, unbound_values: RefCell::new(Vec::new()), unbound_tags: RefCell::new(Vec::new()) }
+        RegistryDecodeContext { lookup, worldgen: None, entry: None, numeric_booleans: false, unbound_values: RefCell::new(Vec::new()), unbound_tags: RefCell::new(Vec::new()) }
     }
 
     /// `RegistryFileCodec` reference check: `Ok` if `id` exists in (or will be registered to) `registry`.
@@ -84,6 +86,9 @@ pub enum FieldKind {
     Lenient,
     /// `optionalFieldOf(name, default)`: absent decodes to the default (JSON), encoding omits values equal to it.
     Default(Value),
+    /// As [`FieldKind::Default`] but the value is always encoded (`ExtraCodecs.optionalAlwaysPresentFieldOf`, or a
+    /// required field the data format lets authors omit).
+    DefaultAlways(Value),
 }
 
 #[derive(Clone)]
@@ -107,6 +112,10 @@ pub fn lenient(name: &'static str, schema: Schema) -> Field {
 
 pub fn default(name: &'static str, schema: Schema, default: Value) -> Field {
     Field { name, schema, kind: FieldKind::Default(default) }
+}
+
+pub fn default_always(name: &'static str, schema: Schema, default: Value) -> Field {
+    Field { name, schema, kind: FieldKind::DefaultAlways(default) }
 }
 
 /// `parse` + `encodeStart` of a hand-written codec.
@@ -256,7 +265,8 @@ impl Schema {
         match self {
             Schema::Bool => match v {
                 Value::Bool(b) => Ok(Tag::Byte(*b as i8)),
-                Value::Number(n) => Ok(Tag::Byte((int_value(n) as i8 != 0) as i8)),
+                // `JsonOps` has no numeric booleans; `NbtOps` (stored data converted to JSON) does
+                Value::Number(n) if ctx.numeric_booleans => Ok(Tag::Byte((int_value(n) as i8 != 0) as i8)),
                 _ => Err(format!("Not a boolean: {}", compact(v))),
             },
             Schema::Byte => Ok(Tag::Byte(int_value(number(v)?) as i8)),
@@ -410,6 +420,12 @@ fn convert_record(fields: &[Field], v: &Value, ctx: &RegistryDecodeContext) -> R
         match (o.get(field.name), &field.kind) {
             (None, FieldKind::Required) => errors.push(format!("No key {} in MapLike[{}]", field.name, compact(v))),
             (None, FieldKind::Optional | FieldKind::Lenient | FieldKind::Default(_)) => {}
+            (None, FieldKind::DefaultAlways(d)) => match field.schema.convert(d, ctx) {
+                Ok(tag) => {
+                    out.put(field.name, tag);
+                }
+                Err(e) => errors.push(e),
+            },
             (Some(value), kind) => match field.schema.convert(value, ctx) {
                 Ok(tag) => {
                     let is_default = match kind {

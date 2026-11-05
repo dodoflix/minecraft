@@ -107,7 +107,8 @@ fn effects_schema() -> Schema {
 fn generation_fields() -> Vec<crate::registry::codec::Field> {
     vec![
         req("carvers", Schema::HolderSet { registry: keys::CARVER, always_list: false }),
-        req("features", Schema::list_of(Schema::HolderSet { registry: keys::PLACED_FEATURE, always_list: false })),
+        // `PlacedFeature.LIST_OF_LISTS_CODEC`: `RegistryCodecs.homogeneousList` always uses the list form
+        req("features", Schema::list_of(Schema::HolderSet { registry: keys::PLACED_FEATURE, always_list: true })),
     ]
 }
 

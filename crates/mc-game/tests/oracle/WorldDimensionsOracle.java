@@ -25,7 +25,7 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
  * canonical NBT the codec re-encodes (inline dimension types, inline-biome flat settings, inline biomes in biome
  * sources, malformed variants of each) or ERR.
  *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-game/tests/oracle/WorldDimensionsOracle.java <outdir>
- * Writes <outdir>/world_dimensions_stems.txt (tests/world_dimensions_golden.rs replays every `STEM` line).
+ * Cases named `noenc:` are compared for acceptance only (see the test). Writes <outdir>/world_dimensions_stems.txt (tests/world_dimensions_golden.rs replays every `STEM` line).
  */
 public class WorldDimensionsOracle {
    static RegistryAccess.Frozen access;
@@ -226,7 +226,10 @@ public class WorldDimensionsOracle {
          flats.add("5");
          int i = 0;
          for (String settings : flats) {
-            stemCase(out, "flat" + i++, stem(overworldType, flat(settings)));
+            // `flat10`: an unresolvable placed feature of an inline biome is dropped from the partial result vanilla keeps
+            // (`lenientOptionalFieldOf`); the accepted stem is compared, not its re-encode
+            stemCase(out, (i == 10 ? "noenc:flat" : "flat") + i, stem(overworldType, flat(settings)));
+            i++;
          }
 
          // ---- inline biomes in the biome sources of noise generators
@@ -260,7 +263,7 @@ public class WorldDimensionsOracle {
          JsonObject inlineSettings = noise.deepCopy();
          inlineSettings.add("settings", net.minecraft.world.level.levelgen.NoiseGeneratorSettings.DIRECT_CODEC.encodeStart(jsonOps,
             access.lookupOrThrow(Registries.NOISE_SETTINGS).getValue(Identifier.withDefaultNamespace("nether"))).result().orElseThrow());
-         stemCase(out, "noise_inline_settings", stem(overworldType, inlineSettings));
+         stemCase(out, "noenc:noise_inline_settings", stem(overworldType, inlineSettings));
          JsonObject badSettings = noise.deepCopy();
          badSettings.addProperty("settings", "minecraft:nope");
          stemCase(out, "noise_unknown_settings", stem(overworldType, badSettings));

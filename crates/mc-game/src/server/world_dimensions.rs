@@ -55,8 +55,11 @@ impl RegistryLookup for AccessLookup<'_> {
 }
 
 /// `RegistryOps.create(JsonOps, datapackWorldRegistries)` for level stems.
+#[derive(Clone)]
 pub struct DimensionDecoder<'a> {
     access: &'a RegistryAccess,
+    /// Decoding JSON converted from NBT (`world_gen_settings.dat`): numbers are valid booleans (`NbtOps`).
+    numeric_booleans: bool,
     pub worldgen: Arc<WorldgenRegistries>,
     pub biomes: Arc<BiomeRegistry>,
 }
@@ -65,12 +68,24 @@ impl<'a> DimensionDecoder<'a> {
     pub fn new(access: &'a RegistryAccess) -> Result<DimensionDecoder<'a>, String> {
         let worldgen = Arc::new(access.worldgen_registries());
         let biomes = Arc::new(BiomeRegistry::load(&worldgen).map_err(|e| format!("Failed to load the biome registry: {e}"))?);
-        Ok(DimensionDecoder { access, worldgen, biomes })
+        Ok(DimensionDecoder { access, numeric_booleans: false, worldgen, biomes })
     }
 
     fn with_ctx<R>(&self, f: impl FnOnce(&RegistryDecodeContext) -> R) -> R {
         let lookup = AccessLookup(self.access);
-        f(&RegistryDecodeContext::new(&lookup))
+        let mut ctx = RegistryDecodeContext::new(&lookup);
+        ctx.numeric_booleans = self.numeric_booleans;
+        f(&ctx)
+    }
+
+    /// The decoder of the same registries for JSON that came from NBT.
+    fn for_nbt(&self) -> DimensionDecoder<'a> {
+        DimensionDecoder { numeric_booleans: true, ..self.clone() }
+    }
+
+    /// Runs a typed (`mc_worldgen`) decode with this decoder's boolean rules.
+    fn typed<R>(&self, f: impl FnOnce() -> R) -> R {
+        if self.numeric_booleans { mc_worldgen::densityfunction::codec::with_numeric_booleans(f) } else { f() }
     }
 
     /// `new FlatLevelSource(settings)` for flat settings decoded from `settings_json` (the settings may have failed only
@@ -83,7 +98,7 @@ impl<'a> DimensionDecoder<'a> {
     /// `LevelStem.CODEC` parse + `encodeStart(NbtOps)`: the typed stem and its canonical NBT.
     pub fn stem(&self, json: &Value) -> Result<(Arc<LevelStem>, Tag), String> {
         let tag = self.with_ctx(|ctx| level_stem::encode(json, ctx))?;
-        let stem = LevelStem::from_json(json, &self.worldgen, &self.biomes, self).map_err(|e| e.to_string())?;
+        let stem = self.typed(|| LevelStem::from_json(json, &self.worldgen, &self.biomes, self)).map_err(|e| e.to_string())?;
         Ok((Arc::new(stem), tag))
     }
 }
@@ -142,12 +157,14 @@ impl WorldDimensions {
 
     /// `WorldGenSettings.dimensions` (the stored compound of stems).
     pub fn from_stored(decoder: &DimensionDecoder, dimensions: &CompoundTag) -> Result<WorldDimensions, String> {
+        let decoder = &decoder.for_nbt();
         let mut stems = Map::new();
         for key in dimensions.keys() {
             stems.insert(key.to_string(), nbt_to_json(dimensions.get(key).expect("key of the compound")));
         }
         let stems = Value::Object(stems);
-        let typed = TypedWorldDimensions::from_json(&serde_json::json!({ "dimensions": &stems }), &decoder.worldgen, &decoder.biomes, decoder)
+        let typed = decoder
+            .typed(|| TypedWorldDimensions::from_json(&serde_json::json!({ "dimensions": &stems }), &decoder.worldgen, &decoder.biomes, decoder))
             .map_err(|e| e.to_string())?;
         // keep the stored order: the typed object is in the (sorted) order of the JSON map
         let mut ordered = Vec::new();
