@@ -105,7 +105,7 @@ pub fn flush_open_item_gui(ctx: &mut PlayCtx) {
         let changed = enter_server(&mut *ctx.server, || resolve_for_item(&mut stack, &ResolutionContext::create(&source)));
         *hand_stack_mut(ctx.player, hand) = stack;
         if changed {
-            with_current_menu(ctx, |menu, p| menu.base_mut().broadcast_changes(p));
+            with_current_menu(ctx, |menu, p| menu.broadcast_changes(p));
         }
     }
     ctx.send(&ClientboundOpenBookPacket { hand: hand.to_protocol() });
