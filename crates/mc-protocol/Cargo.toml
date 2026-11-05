@@ -3,6 +3,10 @@ name = "mc-protocol"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "Minecraft Java 26.3 wire protocol: codecs, framing, encryption and packets"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 build = "build.rs"
 
 [dependencies]
@@ -27,3 +31,6 @@ uuid = "1.29.0"
 
 [build-dependencies]
 serde_json = { workspace = true }
+
+[lints]
+workspace = true

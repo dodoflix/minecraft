@@ -1,5 +1,7 @@
-# Rust build output at any depth (workspace target/, per-crate target/<crate>/, stray crate-local target/)
-target/
+# Rust build output (workspace target/, and stray crate-local target/ dirs)
+/target/
+/crates/*/target/
+/tools/*/target/
 **/*.rs.bk
 
 # Vanilla reference material (decompiled source, jars, datagen/extractor output); recreate with scripts/setup-ref.sh
@@ -10,6 +12,10 @@ target/
 logs/
 *.log
 crash-reports/
+
+# Python bytecode
+__pycache__/
+*.pyc
 
 # Java tooling build output
 /tools/extractor/build
@@ -22,6 +28,3 @@ crash-reports/
 *.swp
 *~
 .DS_Store
-
-# vanilla package net.minecraft.world.entity.ai.goal.target
-!crates/mc-game/src/world/entity/ai/goal/target/

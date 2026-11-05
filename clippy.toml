@@ -1,0 +1,10 @@
+# Vanilla methods that take many parameters are ported with the same signature; above this an `#[expect]` naming the
+# vanilla method is required.
+too-many-arguments-threshold = 12
+
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true
+allow-panic-in-tests = true
+allow-indexing-slicing-in-tests = true
+allow-print-in-tests = true
+allow-dbg-in-tests = true

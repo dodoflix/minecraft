@@ -3,6 +3,10 @@ name = "mc-light"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "Sky and block light engine over mc-world chunks"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 
 [dependencies]
 mc-core = { path = "../mc-core" }
@@ -12,3 +16,6 @@ indexmap = "2"
 
 [dev-dependencies]
 mc-nbt = { path = "../mc-nbt" }
+
+[lints]
+workspace = true

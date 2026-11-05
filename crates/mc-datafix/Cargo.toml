@@ -3,9 +3,16 @@ name = "mc-datafix"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "Port of Minecraft's data fixers (schemas and fixes up to the current data version)"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 
 [dependencies]
 mc-core = { path = "../mc-core" }
 mc-nbt = { path = "../mc-nbt" }
 mc-dfu = { path = "../mc-dfu" }
 log = "0.4"
+
+[lints]
+workspace = true

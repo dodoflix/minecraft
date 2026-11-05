@@ -3,5 +3,12 @@ name = "mc-brigadier"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "Port of Mojang's Brigadier command parsing and dispatch library"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 
 [dependencies]
+
+[lints]
+workspace = true

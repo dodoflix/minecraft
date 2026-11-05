@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Vanilla-generated fixtures: exact bytes matter, and they are not worth reviewing line by line.
+crates/*/tests/fixtures/** -text linguist-generated=true

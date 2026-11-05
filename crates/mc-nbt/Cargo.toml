@@ -3,7 +3,14 @@ name = "mc-nbt"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "NBT tags, binary and string (SNBT) IO"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 
 [dependencies]
 flate2 = "1"
 indexmap = "2"
+
+[lints]
+workspace = true

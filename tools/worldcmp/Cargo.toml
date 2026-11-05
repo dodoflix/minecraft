@@ -4,6 +4,9 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 description = "Differential comparison of two Minecraft world directories (vanilla vs ours), chunk by chunk"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 
 [dependencies]
 mc-core = { path = "../../crates/mc-core" }
@@ -12,3 +15,6 @@ mc-world = { path = "../../crates/mc-world" }
 
 [dev-dependencies]
 tempfile = "3"
+
+[lints]
+workspace = true

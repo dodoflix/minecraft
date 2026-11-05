@@ -3,6 +3,10 @@ name = "mc-game-levelgen"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "World generation features, structures, placement and template processors"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 
 [dependencies]
 parent = { package = "mc-game-core", path = "../mc-game-core" }
@@ -45,3 +49,6 @@ reqwest = { version = "0.13.5", default-features = false, features = ["rustls", 
 [dev-dependencies]
 tempfile = "3"
 tokio = { version = "1", features = ["test-util"] }
+
+[lints]
+workspace = true

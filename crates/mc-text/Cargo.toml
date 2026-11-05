@@ -3,9 +3,16 @@ name = "mc-text"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "Chat components with their JSON and NBT codecs, and vanilla language data"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 
 [dependencies]
 mc-core = { path = "../mc-core" }
 mc-nbt = { path = "../mc-nbt" }
 # preserve_order: JSON objects keep vanilla's field order (contents, extra, style fields)
 serde_json = { workspace = true }
+
+[lints]
+workspace = true

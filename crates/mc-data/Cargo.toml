@@ -3,6 +3,10 @@ name = "mc-data"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+description = "Static vanilla registries, blocks, items and other generated data for Minecraft 26.3"
+repository.workspace = true
+rust-version.workspace = true
+publish.workspace = true
 build = "build.rs"
 
 [dependencies]
@@ -13,3 +17,6 @@ serde_json = { workspace = true }
 [build-dependencies]
 flate2 = "1.1"
 serde_json = { workspace = true }
+
+[lints]
+workspace = true
