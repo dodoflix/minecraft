@@ -95,6 +95,28 @@ impl Component {
     }
 }
 
+impl ClickEvent {
+    /// `ClickEvent.CODEC.parse(JsonOps.INSTANCE, json)` (the `action` field selects the event type).
+    pub fn from_json(json: &Value) -> Result<ClickEvent, CodecError> {
+        codec::decode_click_event(json)
+    }
+
+    /// `ClickEvent.CODEC.encodeStart(JsonOps.INSTANCE, self)`.
+    pub fn to_json(&self) -> Result<Value, CodecError> {
+        codec::encode_click_event::<Value>(self)
+    }
+
+    /// `ClickEvent.CODEC.parse(NbtOps.INSTANCE, tag)`.
+    pub fn from_nbt(tag: &Tag) -> Result<ClickEvent, CodecError> {
+        codec::decode_click_event(tag)
+    }
+
+    /// `ClickEvent.CODEC.encodeStart(NbtOps.INSTANCE, self)`.
+    pub fn to_nbt(&self) -> Result<Tag, CodecError> {
+        codec::encode_click_event::<Tag>(self)
+    }
+}
+
 impl Style {
     /// `Style.Serializer.CODEC.parse(JsonOps.INSTANCE, json)`.
     pub fn from_json(json: &Value) -> Result<Style, CodecError> {

@@ -55,11 +55,11 @@ pub struct ClientboundSelectKnownPacks {
     pub known_packs: Vec<KnownPack>,
 }
 
-/// `ClientboundShowDialogPacket.CONTEXT_FREE_STREAM_CODEC`: the dialog's NBT (kept as a raw tag), no holder id.
+/// `ClientboundShowDialogPacket.CONTEXT_FREE_STREAM_CODEC`: the dialog's NBT, no holder id.
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
 #[packet(state = configuration, flow = clientbound, name = "show_dialog")]
 pub struct ClientboundShowDialogPacket {
-    pub dialog: Tag,
+    pub dialog: crate::dialog::Dialog,
 }
 
 /// `ClientboundUpdateEnabledFeaturesPacket` (a set on the wire: no duplicates expected).

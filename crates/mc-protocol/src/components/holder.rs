@@ -143,7 +143,7 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
         move |ops, input| {
             e2.decode(ops, input).flat_map(|(either, rest)| match either {
                 Either::Left(tag) => {
-                    if ctx::get().tag_exists(registry, &tag) {
+                    if ctx::tag_exists(registry, &tag) {
                         DataResult::success((HolderSet::Named(tag), rest))
                     } else {
                         DataResult::error(move || format!("Missing tag: '{tag}' in '{registry}'"))
