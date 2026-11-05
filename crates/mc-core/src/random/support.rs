@@ -54,7 +54,24 @@ pub fn seed_from_hash_of(input: &str) -> Seed128bit {
     Seed128bit::new(lo, hi)
 }
 
+thread_local! {
+    /// Oracle mode (see [`reseed_uniquifier`]): the calling thread's own uniquifier, no clock.
+    static ORACLE_UNIQUIFIER: std::cell::Cell<Option<i64>> = const { std::cell::Cell::new(None) };
+}
+
+/// Entity-oracle mode for the calling thread: `generate_unique_seed` becomes the reproducible sequence of the vanilla oracle's
+/// `RandomSupport` shadow (`tests/oracle/shadow`: a per-thread counter without `System.nanoTime()`), restarted at `value`.
+/// Used by the scenario replay harness to give freshly created entities the same random seeds as the oracle.
+pub fn reseed_uniquifier(value: i64) {
+    ORACLE_UNIQUIFIER.with(|c| c.set(Some(value)));
+}
+
 pub fn generate_unique_seed() -> i64 {
+    if let Some(current) = ORACLE_UNIQUIFIER.with(|c| c.get()) {
+        let updated = current.wrapping_mul(1181783497276652981);
+        ORACLE_UNIQUIFIER.with(|c| c.set(Some(updated)));
+        return updated ^ 0x2545F4914F6CDD1D;
+    }
     let prev = SEED_UNIQUIFIER
         .fetch_update(Ordering::SeqCst, Ordering::SeqCst, |c| Some(c.wrapping_mul(1181783497276652981)))
         .expect("closure always returns Some");

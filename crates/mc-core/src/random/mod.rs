@@ -19,7 +19,7 @@ pub use random_source::{
     create_thread_safe, PositionalRandomFactory, RandomSource, GAUSSIAN_SPREAD_FACTOR,
 };
 pub use support::{
-    generate_unique_seed, mix_stafford13, seed_from_hash_of, upgrade_seed_to_128bit,
+    generate_unique_seed, mix_stafford13, reseed_uniquifier, seed_from_hash_of, upgrade_seed_to_128bit,
     upgrade_seed_to_128bit_unmixed, Seed128bit, GOLDEN_RATIO_64, SILVER_RATIO_64,
 };
 pub use worldgen_random::{Algorithm, WorldgenRandom};
