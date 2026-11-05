@@ -27,6 +27,7 @@ pub mod movement;
 pub mod object_open_hash_map;
 pub mod plain;
 pub mod portal;
+pub mod projectile;
 pub mod player;
 pub mod swing;
 pub mod synched_data;

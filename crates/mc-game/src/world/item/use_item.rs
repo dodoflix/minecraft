@@ -74,7 +74,7 @@ pub fn can_break_block_in_adventure_mode(stack: &ItemStack, level: &ServerLevel,
 }
 
 /// `AdventureModePredicate.test(BlockInWorld)`: any predicate matches the block at `pos`.
-fn adventure_predicate_test(predicate: &AdventureModePredicate, level: &ServerLevel, pos: BlockPos) -> bool {
+pub fn adventure_predicate_test(predicate: &AdventureModePredicate, level: &ServerLevel, pos: BlockPos) -> bool {
     let state = level.get_block_state(pos);
     predicate.predicates.iter().any(|p| block_predicate_matches(p, state))
 }

@@ -202,6 +202,25 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     }
     /// `Block.bounceOn(level, state, pos, entity, fallDistance)`.
     fn bounce_on(&self, _level: &mut ServerLevel, _state: BlockState, _pos: BlockPos, _entity: &mut dyn Entity, _fall_distance: f64) {}
+    /// `BlockBehaviour.onExplosionHit(state, level, pos, explosion, onHit)`: default = [`default_on_explosion_hit`].
+    fn on_explosion_hit(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        explosion: &dyn crate::world::level::explosion::Explosion,
+        on_hit: &mut dyn FnMut(crate::world::item::ItemStack, BlockPos),
+    ) {
+        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+    }
+    /// `Block.wasExploded(level, pos, explosion)`.
+    fn was_exploded(&self, _level: &mut ServerLevel, _pos: BlockPos, _explosion: &dyn crate::world::level::explosion::Explosion) {}
+    /// `Block.dropFromExplosion(explosion)`.
+    fn drop_from_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+        true
+    }
+    /// `BlockBehaviour.onProjectileHit(level, state, blockHit, projectile)`.
+    fn on_projectile_hit(&self, _level: &mut ServerLevel, _state: BlockState, _hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {}
     /// `BlockBehaviour.useItemOn(stack, state, level, pos, player, hand, hitResult)`: default `TRY_WITH_EMPTY_HAND`.
     fn use_item_on(
         &self,

@@ -697,6 +697,30 @@ pub trait Entity: Any {
         None
     }
 
+    /// `deflection(projectile)`: `DEFLECTS_PROJECTILES` entities reverse projectiles.
+    fn deflection(&self, _projectile: &dyn super::projectile::Projectile) -> super::projectile::ProjectileDeflection {
+        if mc_data::tags::get::<EntityType>("deflects_projectiles").is_some_and(|t| t.contains(self.get_type())) {
+            super::projectile::ProjectileDeflection::Reverse
+        } else {
+            super::projectile::ProjectileDeflection::None
+        }
+    }
+
+    /// `getPickRadius()`.
+    fn get_pick_radius(&self) -> f32 {
+        0.0
+    }
+
+    /// `canBePickedFromInside()`.
+    fn can_be_picked_from_inside(&self) -> bool {
+        true
+    }
+
+    /// `getHeadLookAngle()` = `calculateViewVector(getXRot(), getYHeadRot())`.
+    fn get_head_look_angle(&self) -> Vec3 {
+        Vec3::direction_from_rotation(self.base().x_rot(), self.get_y_head_rot())
+    }
+
     // ---- identity / classification -------------------------------------------------------------------------
 
     /// `LivingEntity` data (`asLivingEntity()`), `None` for non-living entities.

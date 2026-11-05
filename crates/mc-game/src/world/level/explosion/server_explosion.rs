@@ -371,6 +371,9 @@ impl Explosion for ServerExplosion<'_> {
     fn get_direct_source_entity(&self) -> Option<EntityId> {
         self.source.map(|s| s.id())
     }
+    fn get_direct_source_entity_ref(&self) -> Option<&dyn Entity> {
+        self.source
+    }
     fn radius(&self) -> f32 {
         self.radius
     }

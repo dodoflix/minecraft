@@ -50,6 +50,8 @@ pub trait Explosion {
     fn get_indirect_source_entity(&self) -> Option<EntityId>;
     /// `getDirectSourceEntity()`.
     fn get_direct_source_entity(&self) -> Option<EntityId>;
+    /// `getDirectSourceEntity()` as the entity itself (it usually lives outside the level while it runs).
+    fn get_direct_source_entity_ref(&self) -> Option<&dyn Entity>;
     fn radius(&self) -> f32;
     fn center(&self) -> Vec3;
     fn can_trigger_blocks(&self) -> bool;
@@ -180,4 +182,33 @@ impl ExplosionDamageCalculator for SimpleExplosionDamageCalculator {
         let creative_flying = entity.player().is_some_and(|p| p.abilities.flying);
         if creative_flying { 0.0 } else { self.knockback_multiplier.unwrap_or(1.0) }
     }
+}
+
+/// `BlockBehaviour.onExplosionHit` (the base behavior overrides call as `super`): drops go to `on_hit`, the block is
+/// removed and `wasExploded` runs.
+pub fn default_on_explosion_hit(
+    state: BlockState,
+    level: &mut crate::server::level::ServerLevel,
+    pos: BlockPos,
+    explosion: &dyn Explosion,
+    on_hit: &mut dyn FnMut(crate::world::item::ItemStack, BlockPos),
+) {
+    use crate::world::level::block::behaviour;
+    if state.is_air() || explosion.get_block_interaction() == BlockInteraction::TriggerBlock {
+        return;
+    }
+    let block = state.block();
+    let do_drop_experience_hack = explosion.get_indirect_source_entity().is_some_and(|id| level.players.contains(&id));
+    if behaviour(block).drop_from_explosion(explosion) {
+        // `spawnAfterBreak` only pops experience: reading the block entity after it sees the same data as vanilla's params
+        behaviour(block).spawn_after_break(state, level, pos, &crate::world::item::ItemStack::empty(), do_drop_experience_hack);
+        let radius = (explosion.get_block_interaction() == BlockInteraction::DestroyWithDecay).then(|| explosion.radius());
+        let block_entity = if state.has_block_entity() { level.get_block_entity(pos) } else { None };
+        let drops = crate::world::level::storage::loot::block_drops::block_drops_explosion(level, state, pos, block_entity, explosion.get_direct_source_entity_ref(), radius);
+        for stack in drops {
+            on_hit(stack, pos);
+        }
+    }
+    level.set_block_and_update(pos, mc_data::block::Block::AIR.default_state());
+    behaviour(block).was_exploded(level, pos, explosion);
 }
