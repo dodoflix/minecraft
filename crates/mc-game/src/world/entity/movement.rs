@@ -392,7 +392,7 @@ pub fn move_entity(entity: &mut dyn Entity, level: &mut ServerLevel, mover: Move
     if emission.emits_anything() && !entity.base().is_passenger() {
         apply_movement_emission_and_play_sound(entity, level, emission, movement, effect_pos, effect_state);
     }
-    let factor = f64::from(get_block_speed_factor(entity, &*level));
+    let factor = f64::from(entity.modify_block_speed_factor(get_block_speed_factor(entity, &*level)));
     let dm = entity.base().delta_movement();
     entity.base_mut().set_delta_movement(dm.multiply_xyz(factor, 1.0, factor));
 }
