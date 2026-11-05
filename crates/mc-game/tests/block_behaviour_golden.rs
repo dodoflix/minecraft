@@ -11,31 +11,11 @@ use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_core::rotation::Rotation;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::Fluid;
-use mc_game::register_fluid;
 use mc_game::world::level::block::{BlockStateExt, UPDATE_SHAPE_ORDER};
-use mc_game::world::level::material::FluidBehaviour;
 use mc_game::world::level::{BlockGetter, LevelAccessor, LevelHeight, LevelReader, LightLayer};
 use mc_world::heightmap::HeightmapType;
 use mc_world::ticks::TickPriority;
 use std::collections::HashMap;
-
-/// `WaterFluid.getTickDelay`.
-struct Water;
-impl FluidBehaviour for Water {
-    fn get_tick_delay(&self, _level: &dyn LevelReader) -> i32 {
-        5
-    }
-}
-register_fluid!("minecraft:water", |_| Box::new(Water));
-
-/// `LavaFluid.getTickDelay` with the default (empty) environment attributes.
-struct Lava;
-impl FluidBehaviour for Lava {
-    fn get_tick_delay(&self, _level: &dyn LevelReader) -> i32 {
-        30
-    }
-}
-register_fluid!("minecraft:lava", |_| Box::new(Lava));
 
 const WORLDS: i64 = 16;
 const POOL_CAP: usize = 24;
