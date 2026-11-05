@@ -1,0 +1,72 @@
+T 1
+T 2
+B 0 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 0 -60 3 minecraft:oak_fence_gate[facing=east,in_wall=true,open=false,powered=false]
+B 0 -60 4 minecraft:cobblestone_wall[east=none,north=low,south=none,up=true,waterlogged=false,west=none]
+B 1 -60 0 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=low]
+B 3 -60 0 minecraft:crimson_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 3 -60 3 minecraft:crimson_fence_gate[facing=east,in_wall=true,open=false,powered=false]
+B 3 -60 4 minecraft:cobblestone_wall[east=none,north=low,south=none,up=true,waterlogged=false,west=none]
+B 4 -60 0 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=low]
+B 6 -60 0 minecraft:bamboo_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 6 -60 3 minecraft:bamboo_fence_gate[facing=east,in_wall=true,open=false,powered=false]
+B 6 -60 4 minecraft:cobblestone_wall[east=none,north=low,south=none,up=true,waterlogged=false,west=none]
+B 7 -60 0 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=low]
+B 9 -60 0 minecraft:cherry_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 9 -60 3 minecraft:cherry_fence_gate[facing=east,in_wall=true,open=false,powered=false]
+B 9 -60 4 minecraft:cobblestone_wall[east=none,north=low,south=none,up=true,waterlogged=false,west=none]
+B 10 -60 0 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=low]
+B 12 -60 0 minecraft:warped_fence_gate[facing=south,in_wall=true,open=false,powered=false]
+B 12 -60 3 minecraft:warped_fence_gate[facing=east,in_wall=true,open=false,powered=false]
+B 12 -60 4 minecraft:cobblestone_wall[east=none,north=low,south=none,up=true,waterlogged=false,west=none]
+B 13 -60 0 minecraft:cobblestone_wall[east=none,north=none,south=none,up=true,waterlogged=false,west=low]
+T 3
+B 0 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 0 -60 3 minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 3 -60 0 minecraft:crimson_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 3 -60 3 minecraft:crimson_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 6 -60 0 minecraft:bamboo_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 6 -60 3 minecraft:bamboo_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 9 -60 0 minecraft:cherry_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 9 -60 3 minecraft:cherry_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 12 -60 0 minecraft:warped_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 12 -60 3 minecraft:warped_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+T 4
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.fence_gate.open source=block vol=1.0 pitch=0.97305197
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_fence_gate.open source=block vol=1.0 pitch=0.9176602
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_fence_gate.open source=block vol=1.0 pitch=0.9088258
+EV sound at=9.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_fence_gate.open source=block vol=1.0 pitch=0.96118176
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_fence_gate.open source=block vol=1.0 pitch=0.94889045
+T 5
+B 0 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 0 -60 1 minecraft:redstone_block
+B 0 -60 3 minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 3 -60 0 minecraft:crimson_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 3 -60 1 minecraft:redstone_block
+B 3 -60 3 minecraft:crimson_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 6 -60 0 minecraft:bamboo_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 6 -60 1 minecraft:redstone_block
+B 6 -60 3 minecraft:bamboo_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 9 -60 0 minecraft:cherry_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 9 -60 1 minecraft:redstone_block
+B 9 -60 3 minecraft:cherry_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 12 -60 0 minecraft:warped_fence_gate[facing=south,in_wall=false,open=true,powered=true]
+B 12 -60 1 minecraft:redstone_block
+B 12 -60 3 minecraft:warped_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+T 6
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.fence_gate.close source=block vol=1.0 pitch=0.9944974
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_fence_gate.close source=block vol=1.0 pitch=0.9461837
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_fence_gate.close source=block vol=1.0 pitch=0.98263097
+EV sound at=9.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_fence_gate.close source=block vol=1.0 pitch=0.9448598
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_fence_gate.close source=block vol=1.0 pitch=0.94275594
+T 7
+B 0 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 0 -60 3 minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 3 -60 0 minecraft:crimson_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 3 -60 3 minecraft:crimson_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 6 -60 0 minecraft:bamboo_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 6 -60 3 minecraft:bamboo_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 9 -60 0 minecraft:cherry_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 9 -60 3 minecraft:cherry_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+B 12 -60 0 minecraft:warped_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+B 12 -60 3 minecraft:warped_fence_gate[facing=east,in_wall=false,open=false,powered=false]

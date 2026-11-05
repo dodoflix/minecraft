@@ -1,0 +1,129 @@
+# same with waterlogging
+level flat
+preload 2
+level_seed 9
+block 1 -60 4 minecraft:red_glazed_terracotta[facing=east]
+block 3 -60 5 minecraft:ladder[facing=north]
+block 3 -60 2 minecraft:copper_lantern
+block 3 -59 4 minecraft:oak_log[axis=z]
+block 1 -60 1 minecraft:iron_chain[axis=z,waterlogged=true]
+block 0 -60 5 minecraft:lantern[hanging=true]
+block 4 -60 0 minecraft:ladder[facing=north]
+block 2 -59 3 minecraft:copper_grate
+block 4 -60 3 minecraft:red_glazed_terracotta[facing=east]
+tick 1
+block 1 -60 3 minecraft:stone
+block 3 -60 5 minecraft:copper_grate
+block 3 -60 4 minecraft:copper_grate
+block 2 -60 5 minecraft:stone
+block 5 -60 5 minecraft:water
+block 4 -60 4 minecraft:copper_lantern
+block 4 -60 2 minecraft:iron_chain[axis=x]
+tick 1
+block 5 -60 3 minecraft:red_glazed_terracotta[facing=east]
+block 3 -60 1 minecraft:air
+block 3 -60 0 minecraft:ladder[facing=east]
+block 4 -60 2 minecraft:iron_chain[axis=z,waterlogged=true]
+tick 1
+block 0 -60 2 minecraft:iron_chain[axis=y]
+tick 1
+block 4 -60 0 minecraft:copper_grate
+block 2 -60 1 minecraft:water
+block 1 -59 3 minecraft:glass
+block 3 -60 5 minecraft:iron_chain[axis=z,waterlogged=true]
+block 5 -60 5 minecraft:air
+block 2 -60 4 minecraft:water
+tick 1
+block 3 -60 4 minecraft:ladder[facing=north]
+block 4 -60 5 minecraft:ladder[facing=east]
+block 2 -60 3 minecraft:red_glazed_terracotta[facing=east]
+block 2 -59 5 minecraft:ladder[facing=north]
+block 5 -60 0 minecraft:stone
+block 2 -60 4 minecraft:lantern[hanging=true]
+block 2 -60 2 minecraft:air
+block 0 -60 0 minecraft:air
+block 5 -60 2 minecraft:water
+tick 1
+block 3 -60 5 minecraft:iron_chain[axis=x]
+block 2 -60 5 minecraft:glass
+block 1 -60 0 minecraft:copper_lantern
+block 3 -60 2 minecraft:iron_chain[axis=x]
+tick 1
+block 1 -60 2 minecraft:stone
+block 5 -60 0 minecraft:lantern
+block 4 -59 2 minecraft:red_glazed_terracotta[facing=east]
+block 2 -59 3 minecraft:ladder[facing=east]
+block 1 -60 1 minecraft:ladder[facing=south,waterlogged=true]
+block 4 -59 4 minecraft:white_carpet
+tick 1
+block 3 -60 5 minecraft:water
+block 0 -60 4 minecraft:iron_chain[axis=x]
+block 0 -60 0 minecraft:copper_grate
+block 0 -60 3 minecraft:lantern[hanging=true]
+block 1 -60 5 minecraft:iron_chain[axis=z,waterlogged=true]
+block 0 -60 4 minecraft:water
+tick 1
+block 4 -60 3 minecraft:red_glazed_terracotta[facing=east]
+tick 1
+block 0 -60 4 minecraft:lantern[hanging=true]
+tick 1
+block 2 -60 1 minecraft:ladder[facing=south,waterlogged=true]
+block 3 -60 0 minecraft:white_carpet
+block 4 -59 4 minecraft:ladder[facing=east]
+block 0 -60 0 minecraft:ladder[facing=east]
+tick 1
+block 0 -60 3 minecraft:iron_chain[axis=y]
+block 3 -60 2 minecraft:water
+tick 1
+block 3 -59 5 minecraft:air
+block 1 -59 2 minecraft:iron_chain[axis=x]
+tick 1
+block 0 -59 5 minecraft:iron_chain[axis=y]
+block 0 -59 2 minecraft:oak_log[axis=z]
+block 0 -59 4 minecraft:ladder[facing=east]
+block 3 -60 5 minecraft:copper_grate
+block 3 -60 3 minecraft:white_carpet
+tick 1
+block 2 -60 5 minecraft:copper_grate
+tick 1
+block 1 -60 0 minecraft:red_glazed_terracotta[facing=east]
+block 4 -60 2 minecraft:glass
+block 5 -59 5 minecraft:iron_chain[axis=x]
+block 4 -60 4 minecraft:ladder[facing=north]
+block 1 -60 3 minecraft:iron_chain[axis=z,waterlogged=true]
+tick 1
+block 0 -59 5 minecraft:lantern[hanging=true]
+block 2 -60 0 minecraft:iron_chain[axis=x]
+block 5 -60 2 minecraft:iron_chain[axis=y]
+tick 1
+block 4 -60 4 minecraft:iron_chain[axis=x]
+block 0 -60 4 minecraft:water
+block 1 -60 0 minecraft:lantern[hanging=true]
+block 3 -59 4 minecraft:stone
+block 3 -59 2 minecraft:iron_chain[axis=y]
+block 1 -60 3 minecraft:copper_grate
+block 4 -59 5 minecraft:lantern
+block 1 -60 1 minecraft:ladder[facing=south,waterlogged=true]
+block 5 -59 4 minecraft:lantern[hanging=true]
+tick 1
+block 1 -60 1 minecraft:white_carpet
+block 4 -59 2 minecraft:stone
+block 2 -60 0 minecraft:ladder[facing=south,waterlogged=true]
+block 1 -60 1 minecraft:white_carpet
+block 1 -59 3 minecraft:copper_lantern
+block 5 -60 4 minecraft:ladder[facing=south,waterlogged=true]
+block 0 -60 3 minecraft:glass
+block 1 -60 5 minecraft:copper_lantern
+block 1 -60 1 minecraft:lantern
+tick 1
+block 5 -60 5 minecraft:stone
+tick 1
+block 0 -60 2 minecraft:copper_grate
+tick 1
+block 0 -60 0 minecraft:stone
+block 2 -60 0 minecraft:glass
+block 5 -60 2 minecraft:ladder[facing=north]
+block 3 -59 3 minecraft:iron_chain[axis=y]
+tick 1
+tick 5
+dump blocks:-1,-61,-1,6,-57,6

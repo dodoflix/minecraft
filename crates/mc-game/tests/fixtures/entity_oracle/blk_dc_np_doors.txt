@@ -1,0 +1,187 @@
+T 1
+B 0 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 0 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 3 -60 0 minecraft:iron_door[facing=west,half=lower,hinge=right,open=false,powered=false]
+B 3 -59 0 minecraft:iron_door[facing=west,half=upper,hinge=right,open=false,powered=false]
+B 6 -60 0 minecraft:copper_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+B 6 -59 0 minecraft:copper_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+B 9 -60 0 minecraft:crimson_door[facing=east,half=lower,hinge=right,open=false,powered=false]
+B 9 -59 0 minecraft:crimson_door[facing=east,half=upper,hinge=right,open=false,powered=false]
+B 12 -60 0 minecraft:bamboo_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 12 -59 0 minecraft:bamboo_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 15 -60 0 minecraft:waxed_oxidized_copper_door[facing=west,half=lower,hinge=right,open=false,powered=false]
+B 15 -59 0 minecraft:waxed_oxidized_copper_door[facing=west,half=upper,hinge=right,open=false,powered=false]
+B 18 -60 0 minecraft:warped_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+B 18 -59 0 minecraft:warped_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+B 21 -60 0 minecraft:cherry_door[facing=east,half=lower,hinge=right,open=false,powered=false]
+B 21 -59 0 minecraft:cherry_door[facing=east,half=upper,hinge=right,open=false,powered=false]
+T 2
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.9646582
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.iron_door.open source=block vol=1.0 pitch=0.92597896
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.open source=block vol=1.0 pitch=0.9951357
+EV sound at=9.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.open source=block vol=1.0 pitch=0.9237441
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_door.open source=block vol=1.0 pitch=0.98575884
+EV sound at=15.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.open source=block vol=1.0 pitch=0.9317146
+EV sound at=18.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.open source=block vol=1.0 pitch=0.9458233
+EV sound at=21.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_door.open source=block vol=1.0 pitch=0.9549721
+T 3
+B 0 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=true,powered=true]
+B 0 -60 1 minecraft:redstone_block
+B 0 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=true,powered=true]
+B 3 -60 0 minecraft:iron_door[facing=west,half=lower,hinge=right,open=true,powered=true]
+B 3 -60 1 minecraft:redstone_block
+B 3 -59 0 minecraft:iron_door[facing=west,half=upper,hinge=right,open=true,powered=true]
+B 6 -60 0 minecraft:copper_door[facing=north,half=lower,hinge=left,open=true,powered=true]
+B 6 -60 1 minecraft:redstone_block
+B 6 -59 0 minecraft:copper_door[facing=north,half=upper,hinge=left,open=true,powered=true]
+B 9 -60 0 minecraft:crimson_door[facing=east,half=lower,hinge=right,open=true,powered=true]
+B 9 -60 1 minecraft:redstone_block
+B 9 -59 0 minecraft:crimson_door[facing=east,half=upper,hinge=right,open=true,powered=true]
+B 12 -60 0 minecraft:bamboo_door[facing=south,half=lower,hinge=left,open=true,powered=true]
+B 12 -60 1 minecraft:redstone_block
+B 12 -59 0 minecraft:bamboo_door[facing=south,half=upper,hinge=left,open=true,powered=true]
+B 15 -60 0 minecraft:waxed_oxidized_copper_door[facing=west,half=lower,hinge=right,open=true,powered=true]
+B 15 -60 1 minecraft:redstone_block
+B 15 -59 0 minecraft:waxed_oxidized_copper_door[facing=west,half=upper,hinge=right,open=true,powered=true]
+B 18 -60 0 minecraft:warped_door[facing=north,half=lower,hinge=left,open=true,powered=true]
+B 18 -60 1 minecraft:redstone_block
+B 18 -59 0 minecraft:warped_door[facing=north,half=upper,hinge=left,open=true,powered=true]
+B 21 -60 0 minecraft:cherry_door[facing=east,half=lower,hinge=right,open=true,powered=true]
+B 21 -60 1 minecraft:redstone_block
+B 21 -59 0 minecraft:cherry_door[facing=east,half=upper,hinge=right,open=true,powered=true]
+T 4
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.93359524
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.iron_door.close source=block vol=1.0 pitch=0.9092643
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.close source=block vol=1.0 pitch=0.92038745
+EV sound at=9.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.close source=block vol=1.0 pitch=0.9015122
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_door.close source=block vol=1.0 pitch=0.9346907
+EV sound at=15.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.close source=block vol=1.0 pitch=0.94558805
+EV sound at=18.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.close source=block vol=1.0 pitch=0.9617314
+EV sound at=21.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_door.close source=block vol=1.0 pitch=0.9102953
+T 5
+B 0 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 0 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 3 -60 0 minecraft:iron_door[facing=west,half=lower,hinge=right,open=false,powered=false]
+B 3 -59 0 minecraft:iron_door[facing=west,half=upper,hinge=right,open=false,powered=false]
+B 6 -60 0 minecraft:copper_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+B 6 -59 0 minecraft:copper_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+B 9 -60 0 minecraft:crimson_door[facing=east,half=lower,hinge=right,open=false,powered=false]
+B 9 -59 0 minecraft:crimson_door[facing=east,half=upper,hinge=right,open=false,powered=false]
+B 12 -60 0 minecraft:bamboo_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 12 -59 0 minecraft:bamboo_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 15 -60 0 minecraft:waxed_oxidized_copper_door[facing=west,half=lower,hinge=right,open=false,powered=false]
+B 15 -59 0 minecraft:waxed_oxidized_copper_door[facing=west,half=upper,hinge=right,open=false,powered=false]
+B 18 -60 0 minecraft:warped_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+B 18 -59 0 minecraft:warped_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+B 21 -60 0 minecraft:cherry_door[facing=east,half=lower,hinge=right,open=false,powered=false]
+B 21 -59 0 minecraft:cherry_door[facing=east,half=upper,hinge=right,open=false,powered=false]
+T 6
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.99468595
+EV sound at=3.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.iron_door.open source=block vol=1.0 pitch=0.93953407
+EV sound at=6.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.open source=block vol=1.0 pitch=0.90159
+EV sound at=9.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.open source=block vol=1.0 pitch=0.92421365
+EV sound at=12.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_door.open source=block vol=1.0 pitch=0.9406536
+EV sound at=15.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.open source=block vol=1.0 pitch=0.94802773
+EV sound at=18.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.open source=block vol=1.0 pitch=0.90697753
+EV sound at=21.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_door.open source=block vol=1.0 pitch=0.98326665
+T 7
+B 0 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=true,powered=true]
+B 0 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=true,powered=true]
+B 0 -58 0 minecraft:redstone_block
+B 3 -60 0 minecraft:iron_door[facing=west,half=lower,hinge=right,open=true,powered=true]
+B 3 -59 0 minecraft:iron_door[facing=west,half=upper,hinge=right,open=true,powered=true]
+B 3 -58 0 minecraft:redstone_block
+B 6 -60 0 minecraft:copper_door[facing=north,half=lower,hinge=left,open=true,powered=true]
+B 6 -59 0 minecraft:copper_door[facing=north,half=upper,hinge=left,open=true,powered=true]
+B 6 -58 0 minecraft:redstone_block
+B 9 -60 0 minecraft:crimson_door[facing=east,half=lower,hinge=right,open=true,powered=true]
+B 9 -59 0 minecraft:crimson_door[facing=east,half=upper,hinge=right,open=true,powered=true]
+B 9 -58 0 minecraft:redstone_block
+B 12 -60 0 minecraft:bamboo_door[facing=south,half=lower,hinge=left,open=true,powered=true]
+B 12 -59 0 minecraft:bamboo_door[facing=south,half=upper,hinge=left,open=true,powered=true]
+B 12 -58 0 minecraft:redstone_block
+B 15 -60 0 minecraft:waxed_oxidized_copper_door[facing=west,half=lower,hinge=right,open=true,powered=true]
+B 15 -59 0 minecraft:waxed_oxidized_copper_door[facing=west,half=upper,hinge=right,open=true,powered=true]
+B 15 -58 0 minecraft:redstone_block
+B 18 -60 0 minecraft:warped_door[facing=north,half=lower,hinge=left,open=true,powered=true]
+B 18 -59 0 minecraft:warped_door[facing=north,half=upper,hinge=left,open=true,powered=true]
+B 18 -58 0 minecraft:redstone_block
+B 21 -60 0 minecraft:cherry_door[facing=east,half=lower,hinge=right,open=true,powered=true]
+B 21 -59 0 minecraft:cherry_door[facing=east,half=upper,hinge=right,open=true,powered=true]
+B 21 -58 0 minecraft:redstone_block
+T 8
+EV sound at=0.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9049571
+EV sound at=3.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.iron_door.close source=block vol=1.0 pitch=0.90309626
+EV sound at=6.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.close source=block vol=1.0 pitch=0.92404926
+EV sound at=9.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.close source=block vol=1.0 pitch=0.9019274
+EV sound at=12.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_door.close source=block vol=1.0 pitch=0.9758889
+EV sound at=15.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_door.close source=block vol=1.0 pitch=0.9302012
+EV sound at=18.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_door.close source=block vol=1.0 pitch=0.9262671
+EV sound at=21.5,-58.5,0.5 r=16.0 ex=0 event=minecraft:block.cherry_wood_door.close source=block vol=1.0 pitch=0.9783672
+T 9
+B 0 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 0 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 3 -60 0 minecraft:iron_door[facing=west,half=lower,hinge=right,open=false,powered=false]
+B 3 -59 0 minecraft:iron_door[facing=west,half=upper,hinge=right,open=false,powered=false]
+B 6 -60 0 minecraft:copper_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+B 6 -59 0 minecraft:copper_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+B 9 -60 0 minecraft:crimson_door[facing=east,half=lower,hinge=right,open=false,powered=false]
+B 9 -59 0 minecraft:crimson_door[facing=east,half=upper,hinge=right,open=false,powered=false]
+B 12 -60 0 minecraft:bamboo_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 12 -59 0 minecraft:bamboo_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 15 -60 0 minecraft:waxed_oxidized_copper_door[facing=west,half=lower,hinge=right,open=false,powered=false]
+B 15 -59 0 minecraft:waxed_oxidized_copper_door[facing=west,half=upper,hinge=right,open=false,powered=false]
+B 18 -60 0 minecraft:warped_door[facing=north,half=lower,hinge=left,open=false,powered=false]
+B 18 -59 0 minecraft:warped_door[facing=north,half=upper,hinge=left,open=false,powered=false]
+B 21 -60 0 minecraft:cherry_door[facing=east,half=lower,hinge=right,open=false,powered=false]
+B 21 -59 0 minecraft:cherry_door[facing=east,half=upper,hinge=right,open=false,powered=false]
+T 10
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9293196
+T 11
+T 12
+EV sound at=30.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_door.close source=block vol=1.0 pitch=0.9882016
+T 13
+B 30 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 30 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+T 14
+EV sound at=34.5,-59.5,4.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.93928295
+T 15
+B 34 -60 4 minecraft:oak_door[facing=south,half=lower,hinge=left,open=true,powered=true]
+B 34 -60 5 minecraft:redstone_block
+B 34 -59 4 minecraft:oak_door[facing=south,half=upper,hinge=left,open=true,powered=true]
+B 35 -60 4 minecraft:oak_door[facing=south,half=lower,hinge=right,open=false,powered=false]
+B 35 -59 4 minecraft:oak_door[facing=south,half=upper,hinge=right,open=false,powered=false]
+T 16
+EV level_event r=64.0 ex=0 type=2001 pos=40,-60,0 data=7270 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=40,-59,0 data=7262 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=42,-60,0 data=8492 global=0
+T 17
+B 39 -61 -1 minecraft:grass_block[snowy=false]
+B 39 -61 0 minecraft:grass_block[snowy=false]
+B 39 -61 1 minecraft:grass_block[snowy=false]
+B 40 -61 -1 minecraft:grass_block[snowy=false]
+B 40 -61 1 minecraft:grass_block[snowy=false]
+B 41 -61 -1 minecraft:grass_block[snowy=false]
+B 41 -61 0 minecraft:grass_block[snowy=false]
+B 41 -61 1 minecraft:grass_block[snowy=false]
+B 42 -61 -1 minecraft:grass_block[snowy=false]
+B 42 -61 0 minecraft:grass_block[snowy=false]
+B 42 -61 1 minecraft:grass_block[snowy=false]
+B 43 -61 -1 minecraft:grass_block[snowy=false]
+B 43 -61 0 minecraft:grass_block[snowy=false]
+B 43 -61 1 minecraft:grass_block[snowy=false]
+B 44 -61 -1 minecraft:grass_block[snowy=false]
+B 44 -61 0 minecraft:grass_block[snowy=false]
+B 44 -61 1 minecraft:grass_block[snowy=false]
+B 44 -60 0 minecraft:oak_door[facing=south,half=lower,hinge=left,open=false,powered=false]
+B 44 -59 0 minecraft:oak_door[facing=south,half=upper,hinge=left,open=false,powered=false]
+B 45 -61 -1 minecraft:grass_block[snowy=false]
+B 45 -61 0 minecraft:grass_block[snowy=false]
+B 45 -61 1 minecraft:grass_block[snowy=false]
+B 46 -61 -1 minecraft:grass_block[snowy=false]
+B 46 -61 0 minecraft:grass_block[snowy=false]
+B 46 -61 1 minecraft:grass_block[snowy=false]
+T 18
+EV level_event r=64.0 ex=0 type=2001 pos=44,-59,0 data=7262 global=0
+T 19
+B 44 -60 0 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]

@@ -1,0 +1,90 @@
+# DoorBlock without players: redstone open/close with sounds + game events, power through either half, support/upper removal (updateShape), types
+level flat
+preload 2
+level_seed 1234
+watch events
+block 0 -60 0 minecraft:oak_door[half=lower,facing=south,hinge=left,open=false,powered=false]
+block 0 -59 0 minecraft:oak_door[half=upper,facing=south,hinge=left,open=false,powered=false]
+block 3 -60 0 minecraft:iron_door[half=lower,facing=west,hinge=right,open=false,powered=false]
+block 3 -59 0 minecraft:iron_door[half=upper,facing=west,hinge=right,open=false,powered=false]
+block 6 -60 0 minecraft:copper_door[half=lower,facing=north,hinge=left,open=false,powered=false]
+block 6 -59 0 minecraft:copper_door[half=upper,facing=north,hinge=left,open=false,powered=false]
+block 9 -60 0 minecraft:crimson_door[half=lower,facing=east,hinge=right,open=false,powered=false]
+block 9 -59 0 minecraft:crimson_door[half=upper,facing=east,hinge=right,open=false,powered=false]
+block 12 -60 0 minecraft:bamboo_door[half=lower,facing=south,hinge=left,open=false,powered=false]
+block 12 -59 0 minecraft:bamboo_door[half=upper,facing=south,hinge=left,open=false,powered=false]
+block 15 -60 0 minecraft:waxed_oxidized_copper_door[half=lower,facing=west,hinge=right,open=false,powered=false]
+block 15 -59 0 minecraft:waxed_oxidized_copper_door[half=upper,facing=west,hinge=right,open=false,powered=false]
+block 18 -60 0 minecraft:warped_door[half=lower,facing=north,hinge=left,open=false,powered=false]
+block 18 -59 0 minecraft:warped_door[half=upper,facing=north,hinge=left,open=false,powered=false]
+block 21 -60 0 minecraft:cherry_door[half=lower,facing=east,hinge=right,open=false,powered=false]
+block 21 -59 0 minecraft:cherry_door[half=upper,facing=east,hinge=right,open=false,powered=false]
+tick 1
+dump blocks:-1,-60,-1,24,-59,2
+block 0 -60 1 minecraft:redstone_block
+block 3 -60 1 minecraft:redstone_block
+block 6 -60 1 minecraft:redstone_block
+block 9 -60 1 minecraft:redstone_block
+block 12 -60 1 minecraft:redstone_block
+block 15 -60 1 minecraft:redstone_block
+block 18 -60 1 minecraft:redstone_block
+block 21 -60 1 minecraft:redstone_block
+tick 2
+dump blocks:-1,-60,-1,24,-59,2
+block 0 -60 1 minecraft:air
+block 3 -60 1 minecraft:air
+block 6 -60 1 minecraft:air
+block 9 -60 1 minecraft:air
+block 12 -60 1 minecraft:air
+block 15 -60 1 minecraft:air
+block 18 -60 1 minecraft:air
+block 21 -60 1 minecraft:air
+tick 2
+dump blocks:-1,-60,-1,24,-59,2
+block 0 -58 0 minecraft:redstone_block
+block 3 -58 0 minecraft:redstone_block
+block 6 -58 0 minecraft:redstone_block
+block 9 -58 0 minecraft:redstone_block
+block 12 -58 0 minecraft:redstone_block
+block 15 -58 0 minecraft:redstone_block
+block 18 -58 0 minecraft:redstone_block
+block 21 -58 0 minecraft:redstone_block
+tick 2
+dump blocks:-1,-60,-1,24,-58,2
+block 0 -58 0 minecraft:air
+block 3 -58 0 minecraft:air
+block 6 -58 0 minecraft:air
+block 9 -58 0 minecraft:air
+block 12 -58 0 minecraft:air
+block 15 -58 0 minecraft:air
+block 18 -58 0 minecraft:air
+block 21 -58 0 minecraft:air
+tick 2
+dump blocks:-1,-60,-1,24,-58,2
+block 30 -60 0 minecraft:oak_door[half=lower,facing=south,hinge=left,open=true,powered=true]
+block 30 -59 0 minecraft:oak_door[half=upper,facing=south,hinge=left,open=true,powered=true]
+block 30 -60 1 minecraft:redstone_block
+tick 2
+block 30 -60 1 minecraft:air
+tick 2
+dump blocks:29,-60,-1,31,-59,2
+block 34 -60 4 minecraft:oak_door[half=lower,facing=south,hinge=left,open=false,powered=false]
+block 34 -59 4 minecraft:oak_door[half=upper,facing=south,hinge=left,open=false,powered=false]
+block 35 -60 4 minecraft:oak_door[half=lower,facing=south,hinge=right,open=false,powered=false]
+block 35 -59 4 minecraft:oak_door[half=upper,facing=south,hinge=right,open=false,powered=false]
+block 34 -60 5 minecraft:redstone_block
+tick 2
+dump blocks:33,-60,3,36,-59,5
+block 40 -60 0 minecraft:oak_door[half=lower,facing=south,hinge=left,open=false,powered=false]
+block 40 -59 0 minecraft:oak_door[half=upper,facing=south,hinge=left,open=false,powered=false]
+block 42 -60 0 minecraft:iron_door[half=lower,facing=south,hinge=left,open=false,powered=false]
+block 42 -59 0 minecraft:iron_door[half=upper,facing=south,hinge=left,open=false,powered=false]
+block 44 -60 0 minecraft:oak_door[half=lower,facing=south,hinge=left,open=false,powered=false]
+block 44 -59 0 minecraft:oak_door[half=upper,facing=south,hinge=left,open=false,powered=false]
+block 40 -61 0 minecraft:air
+block 42 -59 0 minecraft:air
+tick 2
+dump blocks:39,-61,-1,46,-59,1
+block 44 -60 0 minecraft:oak_trapdoor
+tick 2
+dump blocks:43,-60,-1,45,-59,1

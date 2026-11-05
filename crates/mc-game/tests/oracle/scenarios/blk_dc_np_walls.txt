@@ -1,0 +1,150 @@
+# WallBlock/bars/panes shape updates with tall/low sides, post override tags and covering shapes
+level flat
+preload 2
+level_seed 9
+block 1 -60 2 minecraft:oak_fence_gate[facing=east]
+block 0 -60 0 minecraft:oak_fence_gate[facing=east]
+block 2 -60 0 minecraft:oak_stairs[half=top]
+block 2 -60 1 minecraft:oak_slab[type=bottom]
+tick 1
+block 0 -60 5 minecraft:oak_slab[type=bottom]
+tick 1
+block 2 -60 2 minecraft:stone_brick_wall
+block 2 -59 5 minecraft:oak_stairs[half=top]
+tick 1
+block 1 -60 3 minecraft:stone_brick_wall
+block 4 -60 2 minecraft:oak_slab[type=top]
+block 2 -60 4 minecraft:oak_trapdoor[open=true,half=bottom]
+block 2 -59 3 minecraft:iron_bars
+tick 1
+block 2 -60 0 minecraft:cobblestone_wall
+block 2 -59 4 minecraft:lantern
+tick 1
+block 5 -60 1 minecraft:oak_trapdoor[open=true,half=bottom]
+block 5 -59 5 minecraft:oak_slab[type=bottom]
+tick 1
+block 3 -60 5 minecraft:oak_pressure_plate
+tick 1
+block 2 -60 0 minecraft:white_stained_glass_pane
+block 4 -60 4 minecraft:stone
+block 1 -59 2 minecraft:cobblestone_wall
+tick 1
+block 5 -60 0 minecraft:lantern
+tick 1
+block 2 -60 2 minecraft:oak_trapdoor[open=true,half=bottom]
+block 4 -60 5 minecraft:oak_slab[type=top]
+block 3 -60 2 minecraft:oak_slab[type=bottom]
+block 1 -60 2 minecraft:lantern[hanging=true]
+tick 1
+block 1 -60 2 minecraft:oak_slab[type=top]
+block 3 -59 1 minecraft:glass_pane
+tick 1
+block 0 -60 0 minecraft:heavy_core
+block 1 -60 4 minecraft:oak_pressure_plate
+block 1 -60 2 minecraft:stone
+block 2 -60 3 minecraft:copper_bars
+tick 1
+block 3 -59 3 minecraft:cobblestone_wall
+tick 1
+block 3 -59 1 minecraft:glass_pane
+block 0 -60 0 minecraft:oak_slab[type=bottom]
+tick 1
+block 1 -59 1 minecraft:oak_slab[type=bottom]
+tick 1
+block 0 -60 2 minecraft:iron_chain
+block 5 -60 5 minecraft:copper_bars
+block 3 -60 1 minecraft:lantern
+block 3 -60 5 minecraft:oak_trapdoor[open=true,half=bottom]
+block 5 -60 5 minecraft:lantern
+block 3 -60 0 minecraft:glass_pane
+tick 1
+block 4 -60 1 minecraft:cobblestone_wall
+block 5 -59 5 minecraft:iron_chain
+block 3 -60 3 minecraft:cobblestone_wall
+tick 1
+block 1 -60 0 minecraft:stone
+block 3 -60 1 minecraft:glass_pane
+tick 1
+block 4 -59 2 minecraft:oak_stairs[half=top]
+block 0 -60 0 minecraft:copper_bars
+block 2 -60 4 minecraft:cobblestone_wall
+block 4 -60 0 minecraft:lantern[hanging=true]
+block 0 -59 4 minecraft:oak_fence_gate[facing=east]
+tick 1
+block 2 -60 3 minecraft:copper_bars
+block 3 -60 0 minecraft:stone
+block 2 -59 4 minecraft:oak_trapdoor[open=true,half=bottom]
+block 3 -60 0 minecraft:oak_slab[type=top]
+block 3 -60 3 minecraft:oak_pressure_plate
+tick 1
+block 1 -60 1 minecraft:lantern
+block 2 -60 2 minecraft:iron_bars
+tick 1
+block 2 -60 0 minecraft:copper_bars
+block 4 -60 3 minecraft:oak_stairs[half=top]
+tick 1
+block 2 -60 2 minecraft:iron_bars
+block 5 -60 0 minecraft:heavy_core
+block 4 -60 3 minecraft:oak_stairs[half=top]
+block 4 -59 4 minecraft:oak_fence_gate[facing=east]
+tick 1
+block 4 -60 2 minecraft:oak_fence
+block 4 -60 1 minecraft:oak_slab[type=top]
+block 2 -60 1 minecraft:heavy_core
+block 0 -60 3 minecraft:lantern
+block 2 -60 1 minecraft:cobblestone_wall
+block 4 -60 0 minecraft:stone
+tick 1
+block 4 -60 3 minecraft:stone
+tick 1
+block 3 -60 5 minecraft:heavy_core
+block 5 -59 2 minecraft:heavy_core
+tick 1
+block 3 -60 5 minecraft:oak_slab[type=top]
+block 5 -59 2 minecraft:oak_fence_gate[facing=east]
+block 2 -59 2 minecraft:oak_trapdoor[open=true,half=bottom]
+block 2 -59 1 minecraft:oak_pressure_plate
+block 2 -59 3 minecraft:heavy_core
+tick 1
+block 4 -59 0 minecraft:lantern[hanging=true]
+block 2 -60 0 minecraft:copper_bars
+tick 1
+block 3 -60 4 minecraft:oak_fence
+block 0 -60 2 minecraft:cobblestone_wall
+tick 1
+block 4 -60 5 minecraft:cobblestone_wall
+block 1 -60 0 minecraft:cobblestone_wall
+block 0 -60 0 minecraft:cobblestone_wall
+block 5 -60 2 minecraft:oak_fence
+block 1 -60 5 minecraft:oak_pressure_plate
+block 0 -60 5 minecraft:oak_stairs[half=top]
+block 1 -59 2 minecraft:oak_stairs[half=top]
+tick 1
+block 1 -60 1 minecraft:oak_stairs[half=top]
+block 5 -59 2 minecraft:lantern
+tick 1
+block 0 -60 3 minecraft:oak_slab[type=bottom]
+block 0 -60 2 minecraft:stone_brick_wall
+tick 1
+block 4 -60 0 minecraft:white_stained_glass_pane
+block 3 -60 5 minecraft:air
+block 5 -59 5 minecraft:lantern
+block 4 -60 4 minecraft:stone
+block 2 -59 2 minecraft:heavy_core
+block 5 -60 1 minecraft:iron_chain
+block 5 -60 4 minecraft:copper_bars
+block 2 -60 0 minecraft:lantern
+block 5 -60 5 minecraft:heavy_core
+block 3 -60 2 minecraft:iron_bars
+block 3 -60 4 minecraft:cobblestone_wall
+tick 1
+block 0 -60 2 minecraft:oak_slab[type=top]
+tick 1
+block 4 -60 0 minecraft:white_stained_glass_pane
+block 4 -60 0 minecraft:cobblestone_wall
+block 1 -60 1 minecraft:white_stained_glass_pane
+block 5 -60 2 minecraft:oak_fence_gate[facing=east]
+block 3 -60 0 minecraft:oak_trapdoor[open=true,half=bottom]
+block 0 -60 4 minecraft:oak_pressure_plate
+tick 5
+dump blocks:-1,-61,-1,6,-57,6

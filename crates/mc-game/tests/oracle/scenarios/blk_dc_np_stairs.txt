@@ -1,0 +1,176 @@
+# StairBlock shape (inner/outer/straight) via updateShape from neighbours, slabs
+level flat
+preload 2
+level_seed 9
+block 0 -60 0 minecraft:oak_stairs[facing=east,half=top]
+block 5 -60 5 minecraft:oak_stairs[facing=north,half=top]
+block 4 -60 0 minecraft:oak_stairs[facing=south,half=top]
+block 5 -60 4 minecraft:stone_stairs[facing=north]
+block 4 -60 2 minecraft:oak_stairs[facing=north]
+block 2 -59 3 minecraft:stone_stairs[facing=north]
+tick 1
+block 1 -60 1 minecraft:oak_stairs[facing=north]
+tick 1
+block 1 -60 1 minecraft:stone_stairs[facing=north]
+block 1 -59 3 minecraft:oak_slab[type=top]
+block 2 -60 4 minecraft:oak_stairs[facing=east,half=top]
+block 3 -59 1 minecraft:oak_slab[type=top]
+block 5 -60 4 minecraft:oak_stairs[facing=west,half=top]
+block 3 -60 4 minecraft:oak_slab
+block 3 -59 2 minecraft:oak_stairs[facing=west,half=top]
+block 2 -60 5 minecraft:stone_stairs[facing=south,half=top]
+block 3 -60 2 minecraft:air
+block 4 -59 4 minecraft:oak_stairs[facing=north,half=top]
+block 3 -60 4 minecraft:oak_slab
+block 0 -60 2 minecraft:oak_stairs[facing=west]
+block 0 -60 0 minecraft:oak_stairs[facing=north,half=top]
+block 5 -60 0 minecraft:oak_stairs[facing=north,half=top]
+tick 1
+block 1 -59 0 minecraft:oak_slab[type=top]
+block 0 -60 2 minecraft:oak_stairs[facing=south]
+tick 1
+block 0 -60 0 minecraft:oak_stairs[facing=east]
+tick 1
+block 5 -60 0 minecraft:oak_stairs[facing=north,half=top]
+tick 1
+block 1 -60 5 minecraft:stone_stairs[facing=north]
+block 3 -60 4 minecraft:air
+block 1 -60 0 minecraft:oak_stairs[facing=east,half=top]
+block 5 -60 5 minecraft:oak_stairs[facing=north,half=top]
+block 0 -59 2 minecraft:stone_stairs[facing=north]
+block 5 -60 0 minecraft:air
+block 4 -60 5 minecraft:oak_stairs[facing=west,half=top]
+block 0 -60 5 minecraft:oak_stairs[facing=east]
+tick 1
+block 1 -59 4 minecraft:oak_stairs[facing=west,half=top]
+block 1 -60 2 minecraft:oak_stairs[facing=north,half=top]
+block 3 -60 5 minecraft:oak_slab[type=top]
+block 1 -60 5 minecraft:oak_stairs[facing=north,half=top]
+tick 1
+block 1 -60 1 minecraft:oak_stairs[facing=west,half=top]
+block 4 -60 5 minecraft:oak_stairs[facing=west]
+tick 1
+block 3 -60 0 minecraft:oak_stairs[facing=east]
+block 4 -60 4 minecraft:oak_stairs[facing=north,half=top]
+block 2 -60 4 minecraft:oak_stairs[facing=south]
+tick 1
+block 3 -60 1 minecraft:stone_stairs[facing=north]
+block 1 -60 0 minecraft:oak_stairs[facing=north]
+tick 1
+block 1 -60 0 minecraft:oak_stairs[facing=north]
+block 3 -60 3 minecraft:stone_stairs[facing=north]
+block 1 -60 5 minecraft:oak_slab[type=top]
+block 3 -60 4 minecraft:stone_stairs[facing=south,half=top]
+block 3 -60 4 minecraft:oak_stairs[facing=east]
+block 3 -60 2 minecraft:stone_stairs[facing=north]
+block 0 -60 4 minecraft:oak_stairs[facing=north,half=top]
+block 2 -60 2 minecraft:oak_slab
+block 0 -60 2 minecraft:air
+block 0 -60 3 minecraft:oak_stairs[facing=south,half=top]
+block 3 -60 1 minecraft:oak_stairs[facing=north]
+block 2 -60 2 minecraft:oak_stairs[facing=west]
+block 1 -60 0 minecraft:oak_stairs[facing=south,half=top]
+block 1 -59 2 minecraft:oak_stairs[facing=east]
+block 0 -60 0 minecraft:oak_slab
+block 1 -60 5 minecraft:oak_stairs[facing=north]
+block 3 -59 0 minecraft:oak_stairs[facing=north,half=top]
+block 3 -60 1 minecraft:oak_stairs[facing=north,half=top]
+block 3 -59 5 minecraft:oak_stairs[facing=west,half=top]
+block 2 -60 3 minecraft:oak_stairs[facing=south]
+block 2 -59 4 minecraft:oak_slab[type=top]
+block 0 -60 4 minecraft:oak_stairs[facing=east]
+block 4 -59 1 minecraft:oak_stairs[facing=east]
+block 5 -60 5 minecraft:oak_stairs[facing=south]
+block 3 -60 1 minecraft:oak_stairs[facing=west,half=top]
+tick 1
+block 2 -60 0 minecraft:stone_stairs[facing=north]
+block 3 -60 0 minecraft:stone_stairs[facing=north]
+tick 1
+block 4 -60 2 minecraft:oak_stairs[facing=south]
+block 5 -59 1 minecraft:oak_stairs[facing=east,half=top]
+block 4 -60 5 minecraft:oak_stairs[facing=west,half=top]
+block 0 -59 4 minecraft:oak_slab[type=top]
+tick 1
+block 4 -59 0 minecraft:oak_stairs[facing=north,half=top]
+block 5 -59 5 minecraft:oak_slab[type=top]
+block 2 -60 4 minecraft:oak_slab[type=top]
+block 5 -60 0 minecraft:stone_stairs[facing=north]
+block 3 -59 5 minecraft:oak_slab
+block 2 -59 3 minecraft:oak_slab
+tick 1
+block 0 -59 0 minecraft:oak_stairs[facing=west]
+block 4 -60 3 minecraft:oak_stairs[facing=east]
+block 4 -60 1 minecraft:oak_slab[type=top]
+block 4 -59 1 minecraft:air
+block 0 -59 4 minecraft:oak_stairs[facing=west,half=top]
+block 4 -59 1 minecraft:oak_slab[type=top]
+tick 1
+block 0 -60 2 minecraft:oak_stairs[facing=west,half=top]
+block 5 -60 5 minecraft:air
+block 5 -59 2 minecraft:oak_stairs[facing=north,half=top]
+block 3 -60 0 minecraft:stone_stairs[facing=south,half=top]
+block 1 -60 3 minecraft:oak_slab
+block 5 -60 1 minecraft:oak_stairs[facing=south]
+block 3 -60 5 minecraft:oak_stairs[facing=south]
+tick 1
+block 4 -60 3 minecraft:oak_stairs[facing=east,half=top]
+tick 1
+block 3 -59 4 minecraft:oak_stairs[facing=west]
+block 2 -60 3 minecraft:oak_stairs[facing=west,half=top]
+block 5 -60 2 minecraft:oak_stairs[facing=north,half=top]
+block 2 -60 2 minecraft:oak_slab
+block 4 -60 0 minecraft:oak_stairs[facing=south,half=top]
+block 1 -60 4 minecraft:oak_stairs[facing=north,half=top]
+tick 1
+block 3 -60 4 minecraft:stone_stairs[facing=north]
+block 0 -59 0 minecraft:oak_stairs[facing=east,half=top]
+tick 1
+block 2 -60 0 minecraft:oak_stairs[facing=west,half=top]
+block 3 -60 3 minecraft:oak_stairs[facing=west,half=top]
+block 5 -60 3 minecraft:oak_stairs[facing=north,half=top]
+block 0 -59 1 minecraft:oak_stairs[facing=west]
+block 2 -60 1 minecraft:oak_stairs[facing=south]
+block 1 -59 2 minecraft:oak_stairs[facing=south,half=top]
+block 5 -60 2 minecraft:oak_slab[type=top]
+block 4 -60 4 minecraft:oak_slab[type=top]
+block 5 -60 5 minecraft:stone_stairs[facing=north]
+block 5 -60 0 minecraft:oak_stairs[facing=north,half=top]
+block 1 -60 2 minecraft:oak_stairs[facing=west,half=top]
+block 1 -59 2 minecraft:oak_stairs[facing=south]
+block 0 -60 2 minecraft:oak_stairs[facing=east,half=top]
+tick 1
+block 5 -59 5 minecraft:oak_stairs[facing=north]
+block 1 -59 4 minecraft:stone_stairs[facing=north]
+block 5 -60 1 minecraft:oak_stairs[facing=east,half=top]
+tick 1
+block 3 -60 0 minecraft:air
+tick 1
+block 2 -59 1 minecraft:oak_stairs[facing=east,half=top]
+block 2 -60 1 minecraft:oak_slab[type=top]
+tick 1
+block 4 -60 0 minecraft:oak_stairs[facing=east,half=top]
+block 4 -60 0 minecraft:oak_stairs[facing=south]
+block 3 -60 3 minecraft:oak_stairs[facing=south]
+block 4 -60 0 minecraft:oak_slab
+block 4 -60 3 minecraft:oak_stairs[facing=north]
+block 3 -60 3 minecraft:stone_stairs[facing=north]
+block 4 -59 0 minecraft:oak_stairs[facing=south,half=top]
+block 3 -59 1 minecraft:oak_stairs[facing=south,half=top]
+block 0 -59 0 minecraft:stone_stairs[facing=south,half=top]
+tick 1
+block 5 -60 4 minecraft:oak_stairs[facing=east]
+block 3 -60 5 minecraft:oak_stairs[facing=north,half=top]
+tick 1
+block 2 -60 1 minecraft:oak_stairs[facing=north]
+tick 1
+block 5 -60 0 minecraft:oak_slab
+block 3 -60 1 minecraft:oak_stairs[facing=west,half=top]
+tick 1
+block 0 -60 1 minecraft:oak_stairs[facing=north]
+tick 1
+block 0 -60 4 minecraft:oak_slab
+block 1 -60 1 minecraft:oak_stairs[facing=west,half=top]
+tick 1
+block 4 -60 0 minecraft:oak_stairs[facing=east]
+tick 5
+dump blocks:-1,-61,-1,6,-57,6

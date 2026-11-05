@@ -1,0 +1,98 @@
+T 1
+B 0 -60 0 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 0 -60 3 minecraft:oak_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 3 -60 0 minecraft:iron_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 3 -60 3 minecraft:iron_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 6 -60 0 minecraft:copper_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 6 -60 3 minecraft:copper_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 9 -60 0 minecraft:crimson_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 9 -60 3 minecraft:crimson_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 12 -60 0 minecraft:bamboo_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 12 -60 3 minecraft:bamboo_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 15 -60 0 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 15 -60 3 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+T 2
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_trapdoor.open source=block vol=1.0 pitch=0.972407
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.wooden_trapdoor.open source=block vol=1.0 pitch=0.9546921
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.iron_trapdoor.open source=block vol=1.0 pitch=0.92954546
+EV sound at=3.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.iron_trapdoor.open source=block vol=1.0 pitch=0.9290628
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.open source=block vol=1.0 pitch=0.9550319
+EV sound at=6.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.open source=block vol=1.0 pitch=0.9302281
+EV sound at=9.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_trapdoor.open source=block vol=1.0 pitch=0.97859997
+EV sound at=9.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.nether_wood_trapdoor.open source=block vol=1.0 pitch=0.9840275
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_trapdoor.open source=block vol=1.0 pitch=0.9103763
+EV sound at=12.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_trapdoor.open source=block vol=1.0 pitch=0.9330319
+EV sound at=15.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.open source=block vol=1.0 pitch=0.91464245
+EV sound at=15.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.open source=block vol=1.0 pitch=0.9549698
+T 3
+T 4
+T 5
+T 6
+T 7
+B 0 -60 0 minecraft:oak_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
+B 0 -60 1 minecraft:redstone_block
+B 0 -60 3 minecraft:oak_trapdoor[facing=north,half=top,open=true,powered=true,waterlogged=false]
+B 0 -60 4 minecraft:redstone_block
+B 3 -60 0 minecraft:iron_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
+B 3 -60 1 minecraft:redstone_block
+B 3 -60 3 minecraft:iron_trapdoor[facing=north,half=top,open=true,powered=true,waterlogged=false]
+B 3 -60 4 minecraft:redstone_block
+B 6 -60 0 minecraft:copper_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
+B 6 -60 1 minecraft:redstone_block
+B 6 -60 3 minecraft:copper_trapdoor[facing=north,half=top,open=true,powered=true,waterlogged=false]
+B 6 -60 4 minecraft:redstone_block
+B 9 -60 0 minecraft:crimson_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
+B 9 -60 1 minecraft:redstone_block
+B 9 -60 3 minecraft:crimson_trapdoor[facing=north,half=top,open=true,powered=true,waterlogged=false]
+B 9 -60 4 minecraft:redstone_block
+B 12 -60 0 minecraft:bamboo_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
+B 12 -60 1 minecraft:redstone_block
+B 12 -60 3 minecraft:bamboo_trapdoor[facing=north,half=top,open=true,powered=true,waterlogged=false]
+B 12 -60 4 minecraft:redstone_block
+B 15 -60 0 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
+B 15 -60 1 minecraft:redstone_block
+B 15 -60 3 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=top,open=true,powered=true,waterlogged=false]
+B 15 -60 4 minecraft:redstone_block
+T 8
+EV sound at=0.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.wooden_trapdoor.close source=block vol=1.0 pitch=0.9930892
+EV sound at=0.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.wooden_trapdoor.close source=block vol=1.0 pitch=0.96967924
+EV sound at=3.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.iron_trapdoor.close source=block vol=1.0 pitch=0.9521678
+EV sound at=3.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.iron_trapdoor.close source=block vol=1.0 pitch=0.99692845
+EV sound at=6.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.close source=block vol=1.0 pitch=0.9116137
+EV sound at=6.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.close source=block vol=1.0 pitch=0.93889666
+EV sound at=9.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.nether_wood_trapdoor.close source=block vol=1.0 pitch=0.9620387
+EV sound at=9.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.nether_wood_trapdoor.close source=block vol=1.0 pitch=0.91314906
+EV sound at=12.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_trapdoor.close source=block vol=1.0 pitch=0.96859217
+EV sound at=12.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.bamboo_wood_trapdoor.close source=block vol=1.0 pitch=0.95920074
+EV sound at=15.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.close source=block vol=1.0 pitch=0.99627054
+EV sound at=15.5,-59.5,3.5 r=16.0 ex=0 event=minecraft:block.copper_trapdoor.close source=block vol=1.0 pitch=0.93029875
+T 9
+T 10
+T 11
+T 12
+T 13
+B 0 -60 0 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 0 -60 3 minecraft:oak_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 3 -60 0 minecraft:iron_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 3 -60 3 minecraft:iron_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 6 -60 0 minecraft:copper_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 6 -60 3 minecraft:copper_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 9 -60 0 minecraft:crimson_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 9 -60 3 minecraft:crimson_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 12 -60 0 minecraft:bamboo_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 12 -60 3 minecraft:bamboo_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+B 15 -60 0 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+B 15 -60 3 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]
+T 14
+T 15
+T 16
+EV sound at=0.5,-59.5,8.5 r=16.0 ex=0 event=minecraft:block.wooden_trapdoor.close source=block vol=1.0 pitch=0.95006657
+T 17
+T 18
+T 19
+T 20
+T 21
+B 0 -60 8 minecraft:oak_trapdoor[facing=east,half=top,open=false,powered=false,waterlogged=false]
+T 22
+T 23
+B 3 -60 8 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]

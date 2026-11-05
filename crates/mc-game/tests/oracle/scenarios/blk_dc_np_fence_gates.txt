@@ -1,0 +1,54 @@
+# FenceGateBlock without players: in_wall via updateShape from neighbouring walls, redstone open/close, wood types
+level flat
+preload 2
+level_seed 5
+watch events
+block 0 -60 0 minecraft:oak_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+block 0 -60 3 minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+block 3 -60 0 minecraft:crimson_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+block 3 -60 3 minecraft:crimson_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+block 6 -60 0 minecraft:bamboo_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+block 6 -60 3 minecraft:bamboo_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+block 9 -60 0 minecraft:cherry_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+block 9 -60 3 minecraft:cherry_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+block 12 -60 0 minecraft:warped_fence_gate[facing=south,in_wall=false,open=false,powered=false]
+block 12 -60 3 minecraft:warped_fence_gate[facing=east,in_wall=false,open=false,powered=false]
+tick 1
+block 1 -60 0 minecraft:cobblestone_wall
+block 0 -60 4 minecraft:cobblestone_wall
+block 4 -60 0 minecraft:cobblestone_wall
+block 3 -60 4 minecraft:cobblestone_wall
+block 7 -60 0 minecraft:cobblestone_wall
+block 6 -60 4 minecraft:cobblestone_wall
+block 10 -60 0 minecraft:cobblestone_wall
+block 9 -60 4 minecraft:cobblestone_wall
+block 13 -60 0 minecraft:cobblestone_wall
+block 12 -60 4 minecraft:cobblestone_wall
+tick 1
+dump blocks:-1,-60,-1,16,-60,5
+block 1 -60 0 minecraft:air
+block 0 -60 4 minecraft:air
+block 4 -60 0 minecraft:air
+block 3 -60 4 minecraft:air
+block 7 -60 0 minecraft:air
+block 6 -60 4 minecraft:air
+block 10 -60 0 minecraft:air
+block 9 -60 4 minecraft:air
+block 13 -60 0 minecraft:air
+block 12 -60 4 minecraft:air
+tick 1
+dump blocks:-1,-60,-1,16,-60,5
+block 0 -60 1 minecraft:redstone_block
+block 3 -60 1 minecraft:redstone_block
+block 6 -60 1 minecraft:redstone_block
+block 9 -60 1 minecraft:redstone_block
+block 12 -60 1 minecraft:redstone_block
+tick 2
+dump blocks:-1,-60,-1,16,-60,5
+block 0 -60 1 minecraft:air
+block 3 -60 1 minecraft:air
+block 6 -60 1 minecraft:air
+block 9 -60 1 minecraft:air
+block 12 -60 1 minecraft:air
+tick 2
+dump blocks:-1,-60,-1,16,-60,5

@@ -1,0 +1,58 @@
+# TrapDoorBlock without players: waterlogged states, water ticks on toggle
+level flat
+preload 2
+level_seed 77
+watch events
+block 0 -60 0 minecraft:oak_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+block 0 -60 3 minecraft:oak_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=true]
+block 3 -60 0 minecraft:iron_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+block 3 -60 3 minecraft:iron_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=true]
+block 6 -60 0 minecraft:copper_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+block 6 -60 3 minecraft:copper_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=true]
+block 9 -60 0 minecraft:crimson_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+block 9 -60 3 minecraft:crimson_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=true]
+block 12 -60 0 minecraft:bamboo_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+block 12 -60 3 minecraft:bamboo_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=true]
+block 15 -60 0 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=bottom,open=false,powered=false,waterlogged=false]
+block 15 -60 3 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=true]
+tick 1
+dump blocks:-1,-60,-1,18,-60,4
+block 0 -60 1 minecraft:redstone_block
+block 0 -60 4 minecraft:redstone_block
+block 3 -60 1 minecraft:redstone_block
+block 3 -60 4 minecraft:redstone_block
+block 6 -60 1 minecraft:redstone_block
+block 6 -60 4 minecraft:redstone_block
+block 9 -60 1 minecraft:redstone_block
+block 9 -60 4 minecraft:redstone_block
+block 12 -60 1 minecraft:redstone_block
+block 12 -60 4 minecraft:redstone_block
+block 15 -60 1 minecraft:redstone_block
+block 15 -60 4 minecraft:redstone_block
+tick 6
+dump blocks:-1,-60,-1,18,-60,4
+block 0 -60 1 minecraft:air
+block 0 -60 4 minecraft:air
+block 3 -60 1 minecraft:air
+block 3 -60 4 minecraft:air
+block 6 -60 1 minecraft:air
+block 6 -60 4 minecraft:air
+block 9 -60 1 minecraft:air
+block 9 -60 4 minecraft:air
+block 12 -60 1 minecraft:air
+block 12 -60 4 minecraft:air
+block 15 -60 1 minecraft:air
+block 15 -60 4 minecraft:air
+tick 6
+dump blocks:-1,-60,-1,18,-60,4
+block 0 -60 8 minecraft:oak_trapdoor[facing=east,half=top,open=true,powered=true,waterlogged=true]
+block 0 -60 9 minecraft:redstone_block
+tick 2
+block 0 -60 9 minecraft:air
+tick 6
+dump blocks:-1,-60,7,1,-60,10
+block 3 -60 8 minecraft:stone
+tick 1
+block 3 -60 8 minecraft:oak_trapdoor
+tick 1
+dump blocks:2,-60,7,4,-60,9
