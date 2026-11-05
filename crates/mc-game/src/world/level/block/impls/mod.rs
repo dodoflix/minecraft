@@ -148,6 +148,7 @@ pub mod hanging_roots_block;
 pub mod hay_block;
 pub mod heavy_core_block;
 pub mod honey_block;
+pub mod brewing_stand_block;
 pub mod hopper_block;
 pub mod horizontal_directional_block;
 pub mod huge_mushroom_block;

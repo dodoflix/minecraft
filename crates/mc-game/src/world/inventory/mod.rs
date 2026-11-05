@@ -7,6 +7,7 @@
 
 mod armor_slot;
 mod beacon_menu;
+mod brewing_stand_menu;
 mod click;
 mod container_data;
 mod container_menus;
@@ -30,6 +31,7 @@ mod synchronizer;
 
 pub use armor_slot::*;
 pub use beacon_menu::*;
+pub use brewing_stand_menu::BrewingStandMenu;
 pub use click::*;
 pub use container_data::*;
 pub use container_menus::*;

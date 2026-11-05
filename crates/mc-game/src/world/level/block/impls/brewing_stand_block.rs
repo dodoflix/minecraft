@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.BrewingStandBlock`: opens the brewing menu, drops/updates comparators.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
-use crate::stats::Stats;
+use crate::stats::stats::Stats;
 use crate::world::block_entity::BrewingStandBlockEntity;
 use crate::world::entity::ServerPlayer;
 use crate::world::item::InteractionResult;
@@ -26,7 +26,7 @@ impl BlockBehaviour for BrewingStandBlock {
 
     /// `getAnalogOutputSignal`: `AbstractContainerMenu.getRedstoneSignalFromBlockEntity`.
     fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        crate::world::inventory::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
+        crate::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
     }
 }
 

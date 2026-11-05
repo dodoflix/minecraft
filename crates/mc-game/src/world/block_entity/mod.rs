@@ -25,6 +25,8 @@ pub mod base_container;
 pub mod changed_log;
 mod beacon_block_entity;
 mod beehive_block_entity;
+pub mod brewing_stand_block_entity;
+pub use brewing_stand_block_entity::{BrewingStandBlockEntity, BrewingStandMenuProvider};
 mod bell_block_entity;
 mod brushable_block_entity;
 pub mod container_menu_provider;
