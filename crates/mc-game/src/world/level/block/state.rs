@@ -128,6 +128,10 @@ impl BlockStateExt for BlockState {
         behaviour(self.block()).tick(self, level, pos);
     }
     fn random_tick(self, level: &mut ServerLevel, pos: BlockPos) {
+        // `ChangeOverTimeBlock` (WeatheringCopper*Block classes) override `randomTick` of their parent classes.
+        if super::weathering_copper::random_tick(self, level, pos) {
+            return;
+        }
         behaviour(self.block()).random_tick(self, level, pos);
     }
     fn trigger_event(self, level: &mut ServerLevel, pos: BlockPos, b0: i32, b1: i32) -> bool {
