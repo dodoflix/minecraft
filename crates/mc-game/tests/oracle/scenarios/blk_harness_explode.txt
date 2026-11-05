@@ -1,0 +1,9 @@
+# Harness: Level.explode with block destruction, level random, drops and events.
+level flat
+preload 2
+fill 2 -60 2 6 -58 6 minecraft:dirt
+level_seed 99
+explode 4 -57 4 3 block
+dump blocks:2,-60,2,6,-56,6 events entities
+tick 2
+dump entities

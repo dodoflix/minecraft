@@ -236,6 +236,7 @@ impl Scenario {
             }
             "explode" => {
                 self.world();
+                self.load_registries();
                 self.explode(a);
             }
             _ => return false,
