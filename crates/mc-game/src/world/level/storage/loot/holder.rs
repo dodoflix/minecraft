@@ -256,3 +256,22 @@ pub fn lift<T: ?Sized + 'static, S: Clone + 'static>(
 ) -> MapCodec<Arc<T>> {
     codec.xmap(up, move |t: &Arc<T>| down(&**t).expect("type table entry matches the element").clone())
 }
+
+/// `RegistryFixedCodec.create(registry)` of an already loaded registry (`Enchantment.CODEC`, `WorldClock.CODEC`, ...): a
+/// reference by id that must exist. The id is kept; resolving it happens where it is used.
+pub fn registry_ref_codec(registry: &'static str) -> Codec<Identifier> {
+    IDENTIFIER.flat_xmap(
+        move |id: Identifier| {
+            let checked = match with_current(|ctx| ctx.check_holder(registry, &id)) {
+                Some(r) => r,
+                None if mc_protocol::registry_context::registry_contains(registry, &id) => Ok(()),
+                None => Err(format!("Failed to get element {id} from registry {registry}")),
+            };
+            match checked {
+                Ok(()) => DataResult::success(id),
+                Err(m) => DataResult::error(move || m.clone()),
+            }
+        },
+        |id: &Identifier| DataResult::success(id.clone()),
+    )
+}

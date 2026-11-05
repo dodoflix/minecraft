@@ -12,6 +12,7 @@ pub mod enchantment_helper;
 mod interaction;
 mod item_utils;
 mod simple_items;
+pub mod slot;
 mod player_systems;
 mod potion_item;
 mod stack_ext;

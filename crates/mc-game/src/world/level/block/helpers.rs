@@ -71,22 +71,9 @@ pub fn get_state_for_placement(block: mc_data::block::Block, context: &crate::wo
     super::behaviour(block).get_state_for_placement(block, context)
 }
 
-/// Implementation of `Block.dropResources(state, level, pos, blockEntity, breaker, tool)` supplied by the loot slice
-/// (loot tables, item entities). Until it registers itself nothing drops.
-pub type DropResourcesFn = fn(&mut crate::server::level::ServerLevel, BlockState, BlockPos, Option<crate::world::entity::EntityId>);
-
-static DROP_RESOURCES: std::sync::OnceLock<DropResourcesFn> = std::sync::OnceLock::new();
-
-/// Registers the drop implementation (once, at startup).
-pub fn set_drop_resources(f: DropResourcesFn) {
-    let _ = DROP_RESOURCES.set(f);
-}
-
-/// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)`.
+/// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)` of a destroyed block (`Level.destroyBlock`).
 pub fn drop_resources(level: &mut crate::server::level::ServerLevel, state: BlockState, pos: BlockPos, breaker: Option<crate::world::entity::EntityId>) {
-    if let Some(f) = DROP_RESOURCES.get() {
-        f(level, state, pos, breaker);
-    }
+    super::super::storage::loot::block_drops::drop_resources_for_destroy(level, state, pos, breaker);
 }
 
 /// `Block.pushEntitiesUp(state, newState, level, pos)`: entities in the way of a block that grows are lifted.

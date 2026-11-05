@@ -54,7 +54,7 @@ impl RandomSequence {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct RandomSequences {
     dirty: bool,
     salt: i32,

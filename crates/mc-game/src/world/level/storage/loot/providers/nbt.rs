@@ -74,10 +74,12 @@ impl NbtSource {
     }
 
     fn codec() -> Codec<NbtSource> {
-        let mut all: Vec<(NbtSource, &'static str)> = EntityTarget::ALL.iter().map(|t| (NbtSource::Entity(*t), t.name())).collect();
-        all.push((NbtSource::BlockEntity, "block_entity"));
-        let all: &'static [(NbtSource, &'static str)] = Box::leak(all.into_boxed_slice());
-        mc_dfu::string_enum_codec(all)
+        static ALL: LazyLock<Vec<(NbtSource, &'static str)>> = LazyLock::new(|| {
+            let mut all: Vec<(NbtSource, &'static str)> = EntityTarget::ALL.iter().map(|t| (NbtSource::Entity(*t), t.name())).collect();
+            all.push((NbtSource::BlockEntity, "block_entity"));
+            all
+        });
+        mc_dfu::string_enum_codec(LazyLock::force(&ALL).as_slice())
     }
 
     pub fn context_param(self) -> ContextKey {

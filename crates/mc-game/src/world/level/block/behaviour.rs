@@ -255,6 +255,8 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     }
     /// `Block.destroy` (called by `LevelChunk`-independent callers such as `ServerPlayerGameMode`).
     fn destroy(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) {}
+    /// `BlockBehaviour.spawnAfterBreak(state, level, pos, tool, dropExperience)` (experience from ores, spawners, ...).
+    fn spawn_after_break(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _tool: &crate::world::item::ItemStack, _drop_experience: bool) {}
     /// `Block.handlePrecipitation`.
     fn handle_precipitation(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _precipitation: Precipitation) {}
     /// `Block.isPossibleToRespawnInThis`.

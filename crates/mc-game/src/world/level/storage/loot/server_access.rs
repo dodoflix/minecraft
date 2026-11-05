@@ -130,7 +130,21 @@ pub fn environment_attribute_is_positional(id: &Identifier) -> bool {
     attribute_def(id).is_some_and(|d| d.positional)
 }
 
-/// `EnvironmentAttributes.CODEC` (restricted for `toInt` / `toFloat` convertible types).
+/// `EnvironmentAttributes.CODEC`: the id of an attribute.
+pub fn environment_attribute_id_codec() -> Codec<Identifier> {
+    IDENTIFIER.flat_xmap(
+        |id: Identifier| match attribute_def(&id) {
+            Some(_) => DataResult::success(id),
+            None => {
+                let m = format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:environment_attribute]: {id}");
+                DataResult::error(move || m.clone())
+            }
+        },
+        |id: &Identifier| DataResult::success(id.clone()),
+    )
+}
+
+/// `EnvironmentAttributes.CODEC` restricted to the attributes convertible with `toInt` / `toFloat`.
 pub fn environment_attribute_codec(as_float: bool) -> MapCodec<Identifier> {
     IDENTIFIER
         .flat_xmap(

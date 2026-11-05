@@ -109,6 +109,8 @@ pub struct MinecraftServer {
     pub command_storage: crate::world::level::saveddata::command_storage::CommandStorage,
     pub(super) game_rules_type: SavedDataType<GameRules>,
     pub(super) saved_types: SavedDataTypes,
+    /// `randomSequences` shared with the levels' loot evaluation; copied into `saved_data` when saving.
+    pub(super) loot_random_sequences: Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>>,
     pub registries: LayeredRegistryAccess<RegistryLayer>,
     pub resources: ReloadableResources,
     pub pack_repository: PackRepository,
@@ -223,6 +225,7 @@ impl MinecraftServer {
             command_storage: Default::default(),
             game_rules_type,
             saved_types: SavedDataTypes::new(),
+            loot_random_sequences: Default::default(),
             registries,
             resources: init.resources,
             pack_repository: init.pack_repository,
@@ -259,7 +262,7 @@ impl MinecraftServer {
             server_id: None,
             effective_respawn_data: None,
         };
-        server.saved_data.compute_if_absent(&server.saved_types.random_sequences);
+        *server.loot_random_sequences.lock() = server.saved_data.compute_if_absent(&server.saved_types.random_sequences).clone();
         server.weather_data();
         server.saved_data.compute_if_absent(&server.saved_types.custom_boss_events);
         server.init_clock_manager();

@@ -79,6 +79,24 @@ pub trait BlockEntity: Any {
             .and_then(|t| mc_dfu::parse_nbt(&mc_protocol::components::DataComponentMap::codec(), t).into_result().ok())
             .unwrap_or_default();
     }
+    // ==== [Loot] additions (BlockEntity trait methods) ====
+    /// `collectImplicitComponents(builder)`: the components a block entity derives from its own state (container contents,
+    /// custom name, banner patterns, ...), written on top of `components` by `collectComponents`.
+    fn collect_implicit_components(&self, _builder: &mut mc_protocol::components::map::DataComponentMapBuilder) {}
+    /// `collectComponents()`: the stored `components` plus the implicit ones.
+    fn collect_components(&self) -> mc_protocol::components::DataComponentMap {
+        let mut builder = mc_protocol::components::DataComponentMap::builder().add_all(&self.base().components);
+        self.collect_implicit_components(&mut builder);
+        builder.build()
+    }
+    /// `Nameable.getCustomName()` (block entities that have one).
+    fn get_custom_name(&self) -> Option<mc_text::Component> {
+        None
+    }
+    /// `this instanceof SlotProvider` (containers readable through slot ranges).
+    fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
+        None
+    }
     /// `applyComponentsFromItemStack(stack)`: block entities that read item components (custom name, container
     /// contents, ...) override this; the default ignores them.
     fn apply_components_from_item_stack(&mut self, _stack: &crate::world::item::ItemStack) {}

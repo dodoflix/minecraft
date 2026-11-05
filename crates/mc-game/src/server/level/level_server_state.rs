@@ -58,6 +58,8 @@ impl PlayerRoster {
 pub struct LevelServerState {
     pub scoreboard: SharedScoreboard,
     pub roster: PlayerRoster,
+    /// What loot evaluation reads from the server (random sequences, command storage, clocks).
+    pub loot: crate::world::level::storage::loot::server_access::LootServices,
 }
 
 static DEFAULT_BORDER: LazyLock<WorldBorder> = LazyLock::new(WorldBorder::default);

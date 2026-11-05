@@ -2469,6 +2469,11 @@ pub trait Entity: Any {
     fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, broken: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) {
         crate::world::item::enchantment::broken_item::on_equipped_item_broken(self.as_dyn_mut(), level, broken, slot);
     }
+    // ==== [Loot] additions (Entity trait methods) ====
+    /// `this instanceof SlotProvider` (entities whose slots `slot_range` loot sources read).
+    fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
+        None
+    }
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

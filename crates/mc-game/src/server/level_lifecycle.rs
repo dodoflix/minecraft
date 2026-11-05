@@ -241,7 +241,11 @@ impl MinecraftServer {
             level_data,
         });
         level.registries = self.registries.composite_access().clone();
-        level.server_state = crate::server::level::LevelServerState { scoreboard: self.scoreboard.clone(), roster: self.player_list.roster.clone() };
+        level.server_state = crate::server::level::LevelServerState {
+            scoreboard: self.scoreboard.clone(),
+            roster: self.player_list.roster.clone(),
+            loot: self.loot_services(),
+        };
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;
         level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
@@ -468,10 +472,30 @@ impl MinecraftServer {
 
     // ------------------------------------------------------------------ saving
 
+    /// The server data loot reads, shared with a level when it is created.
+    pub(super) fn loot_services(&self) -> crate::world::level::storage::loot::server_access::LootServices {
+        crate::world::level::storage::loot::server_access::LootServices {
+            random_sequences: self.loot_random_sequences.clone(),
+            world_seed: self.world_gen_settings.options.seed,
+            ..Default::default()
+        }
+    }
+
+    /// Copies the live random sequences into the saved data entry so that the next save writes them.
+    fn sync_random_sequences_to_saved_data(&mut self) {
+        use crate::world::level::saveddata::SavedData;
+        let mut live = self.loot_random_sequences.lock();
+        if live.is_dirty() {
+            *self.saved_data.compute_if_absent(&self.saved_types.random_sequences) = live.clone();
+            live.set_dirty_to(false);
+        }
+    }
+
     /// `saveAllChunks` (+ the notifications of `DedicatedServer.saveAllChunks`).
     pub fn save_all_chunks(&mut self, silent: bool, flush: bool, force: bool) -> bool {
         self.flush_scoreboard();
         self.store_scoreboard();
+        self.sync_random_sequences_to_saved_data();
         self.notification_manager.server_save_started();
         let level_name = self.world_data.lock().settings.level_name.clone();
         let mut result = false;
@@ -593,6 +617,7 @@ impl MinecraftServer {
         }
 
         self.shared.set_saving(false);
+        self.sync_random_sequences_to_saved_data();
         self.saved_data.close();
         self.resources.resource_manager.close();
         if let Err(e) = self.storage_source.close() {
