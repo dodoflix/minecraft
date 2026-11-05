@@ -477,6 +477,21 @@ impl ChunkMap {
                 holder.slot = ChunkSlot::Proto(chunk);
             }
         }
+        for (pos, structure, tag) in result.start_updates {
+            if let Some(holder) = self.holders.holder_mut(pos.pack()) {
+                let access = match &mut holder.slot {
+                    ChunkSlot::Proto(p) => Some(&mut p.access),
+                    ChunkSlot::Level(l) => Some(&mut l.data.access),
+                    _ => None,
+                };
+                if let Some(access) = access
+                    && let Some(start) = access.structures.starts.get_mut(&structure)
+                {
+                    *start = tag;
+                    access.mark_unsaved();
+                }
+            }
+        }
         for (key, status) in result.completed {
             self.complete_step(key, status);
         }

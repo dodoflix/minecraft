@@ -559,18 +559,7 @@ impl WorldGenLevel for GenLevel<'_> {
     }
 
     fn set_structure_start_tag(&mut self, pos: ChunkPos, structure_id: &str, tag: CompoundTag) -> bool {
-        if !self.region.gen_chunk(pos.x, pos.z).is_some_and(GenChunk::is_writable) {
-            return false;
-        }
-        let chunk = self.region.get_chunk_mut_unchecked(pos);
-        match chunk.access.structures.starts.get_mut(structure_id) {
-            Some(slot) => {
-                *slot = tag;
-                chunk.access.mark_unsaved();
-                true
-            }
-            None => false,
-        }
+        self.region.update_structure_start(pos, structure_id, tag)
     }
 
     fn is_upgrading(&self) -> bool {

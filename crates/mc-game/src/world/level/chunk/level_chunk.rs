@@ -44,20 +44,17 @@ impl LevelChunk {
 }
 
 impl LevelChunk {
-    /// The block entity NBT of `copyOf`: live block entities saved with `id`/`x`/`y`/`z` (`saveWithFullMetadata`) plus the
-    /// pending raw tags of types that have no implementation yet (kept so nothing is lost).
+    /// The block entity NBT of `copyOf` (`getBlockEntityNbtForSaving` per position): a live block entity is saved with
+    /// `saveWithFullMetadata` + `keepPacked: false`; pending raw tags (types without an implementation yet) are kept
+    /// as they are so nothing is lost.
     pub fn block_entity_nbt_for_saving(&self) -> Vec<mc_nbt::CompoundTag> {
         let mut out: Vec<mc_nbt::CompoundTag> = Vec::new();
-        for (pos, be) in &self.block_entities {
+        for be in self.block_entities.values() {
             if be.is_removed() {
                 continue;
             }
-            let mut tag = mc_nbt::CompoundTag::new();
-            be.save_additional(&mut tag);
-            tag.put_string("id", be.get_type().name());
-            tag.put_int("x", pos.x());
-            tag.put_int("y", pos.y());
-            tag.put_int("z", pos.z());
+            let mut tag = be.save_with_full_metadata();
+            tag.put_boolean("keepPacked", false);
             out.push(tag);
         }
         for (pos, tag) in &self.data.access.block_entities {

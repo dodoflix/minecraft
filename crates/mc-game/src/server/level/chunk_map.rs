@@ -420,7 +420,7 @@ impl ChunkMap {
         let updated = self.distance_manager.run_updates(&mut self.holders, &mut self.tickets);
         self.queue_distance_tasks();
         if !self.distance_manager.chunks_to_update_futures.is_empty() {
-            let keys = std::mem::take(&mut self.distance_manager.chunks_to_update_futures);
+            let keys = self.distance_manager.chunks_to_update_futures.drain();
             for key in &keys {
                 self.update_highest_allowed_status(*key);
             }

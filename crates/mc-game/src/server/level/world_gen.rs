@@ -8,6 +8,7 @@ use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
+use mc_nbt::CompoundTag;
 use mc_world::chunk::{LevelHeight, ProtoChunk, StructureData};
 use mc_world::palette::PalettedContainerFactory;
 use std::collections::HashMap;
@@ -52,6 +53,9 @@ pub struct WorldGenRegion {
     /// `level.updatePOIOnBlockStateChange(pos, old, new)` of every `setBlock` that changed the POI type at a position
     /// (old type, new type), in call order: the game thread applies them to the `PoiManager` when the batch is back.
     pub poi_changes: Vec<(mc_core::pos::BlockPos, Option<PoiTypeHolder>, Option<PoiTypeHolder>)>,
+    /// Structure start tags rewritten for chunks this region does not own (see [`Self::update_structure_start`]); the
+    /// game thread applies them to the real chunks when the batch is done.
+    pub start_updates: Vec<(ChunkPos, String, CompoundTag)>,
 }
 
 impl WorldGenRegion {
@@ -63,7 +67,7 @@ impl WorldGenRegion {
         structure_views: HashMap<i64, Arc<StructureData>>,
         level_height: LevelHeight,
     ) -> Self {
-        Self { center, read_radius, write_radius, chunks, structure_views, level_height, poi_changes: Vec::new() }
+        Self { center, read_radius, write_radius, chunks, structure_views, level_height, poi_changes: Vec::new(), start_updates: Vec::new() }
     }
 
     /// `getCenter()`.
@@ -115,6 +119,36 @@ impl WorldGenRegion {
         match self.chunks.get(&key) {
             Some(c) => Some(&c.proto().access.structures),
             None => self.structure_views.get(&key).map(|a| &**a),
+        }
+    }
+
+    /// A piece mutated itself while being placed (vanilla's chunk shares the `StructureStart` object and saves the new
+    /// state later): replaces the raw start `structure_id` of the chunk `pos`. A lent chunk keeps it; for any other chunk
+    /// the region's own view is updated (later reads in this batch see it) and the change is queued in
+    /// [`Self::start_updates`]. `false` when the chunk has no such start.
+    pub fn update_structure_start(&mut self, pos: ChunkPos, structure_id: &str, tag: CompoundTag) -> bool {
+        let key = pos.pack();
+        match self.chunks.get_mut(&key) {
+            Some(chunk) => {
+                let owned = chunk.is_writable();
+                let access = &mut chunk.proto_mut().access;
+                let Some(slot) = access.structures.starts.get_mut(structure_id) else { return false };
+                *slot = tag.clone();
+                access.mark_unsaved();
+                if !owned {
+                    self.start_updates.push((pos, structure_id.to_owned(), tag));
+                }
+                true
+            }
+            None => {
+                let Some(view) = self.structure_views.get_mut(&key) else { return false };
+                if !view.starts.contains_key(structure_id) {
+                    return false;
+                }
+                Arc::make_mut(view).starts.insert(structure_id.to_owned(), tag.clone());
+                self.start_updates.push((pos, structure_id.to_owned(), tag));
+                true
+            }
         }
     }
 

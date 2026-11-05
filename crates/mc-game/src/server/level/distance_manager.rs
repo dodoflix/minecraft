@@ -90,7 +90,7 @@ struct LoadingBehavior<'a, H: DistanceHost> {
     host: &'a mut H,
     tickets: &'a TicketStorage,
     /// `chunksToUpdateFutures` (insertion order, deduplicated).
-    chunks_to_update_futures: &'a mut Vec<i64>,
+    chunks_to_update_futures: &'a mut super::fastutil::ConstHashReferenceSet,
 }
 
 impl<H: DistanceHost> ChunkTrackerBehavior for LoadingBehavior<'_, H> {
@@ -106,8 +106,8 @@ impl<H: DistanceHost> ChunkTrackerBehavior for LoadingBehavior<'_, H> {
     fn set_level(&mut self, node: i64, level: i32) {
         let max = chunk_level::max_level() + 1;
         let old_level = self.host.holder_ticket_level(node).unwrap_or(max);
-        if old_level != level && self.host.update_chunk_scheduling(node, level, old_level) && !self.chunks_to_update_futures.contains(&node) {
-            self.chunks_to_update_futures.push(node);
+        if old_level != level && self.host.update_chunk_scheduling(node, level, old_level) {
+            self.chunks_to_update_futures.insert(node);
         }
     }
 
@@ -149,7 +149,7 @@ pub struct DistanceManager {
     player_ticket_to_update: LongOpenHashSet,
     player_ticket_view_distance: i32,
     /// `chunksToUpdateFutures`: holders (by chunk key) whose ticket level changed.
-    pub chunks_to_update_futures: Vec<i64>,
+    pub chunks_to_update_futures: super::fastutil::ConstHashReferenceSet,
     ticket_dispatcher: ChunkTaskDispatcher<DistanceTask, DistanceTask>,
     /// `ticketsToRelease`.
     pub tickets_to_release: LongOpenHashSet,
@@ -173,7 +173,7 @@ impl DistanceManager {
             player_ticket_manager: FixedPlayerDistance::new(32),
             player_ticket_to_update: LongOpenHashSet::new(),
             player_ticket_view_distance: 0,
-            chunks_to_update_futures: Vec::new(),
+            chunks_to_update_futures: Default::default(),
             ticket_dispatcher: ChunkTaskDispatcher::new(Some(4), 34),
             tickets_to_release: LongOpenHashSet::new(),
             simulation_distance: 10,

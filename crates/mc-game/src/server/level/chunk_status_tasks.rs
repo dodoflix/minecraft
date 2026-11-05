@@ -39,6 +39,8 @@ pub struct BatchResult {
     pub completed: Vec<(i64, ChunkStatus)>,
     /// `WorldGenRegion.setBlock` POI updates of the batch's steps (see `WorldGenRegion::poi_changes`).
     pub poi_changes: Vec<(mc_core::pos::BlockPos, Option<PoiTypeHolder>, Option<PoiTypeHolder>)>,
+    /// Structure start rewrites for chunks the batch did not lend (`WorldGenRegion::update_structure_start`).
+    pub start_updates: Vec<(ChunkPos, String, mc_nbt::CompoundTag)>,
 }
 
 /// Run the jobs of a batch one after another (the worldgen executor is serial). A panic in a step is vanilla's
@@ -48,6 +50,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
     let GenBatch { id, jobs, mut chunks, structure_views } = batch;
     let mut completed = Vec::with_capacity(jobs.len());
     let mut poi_changes = Vec::new();
+    let mut start_updates = Vec::new();
     for job in &jobs {
         let step = &job.step;
         let mut region = WorldGenRegion::new(
@@ -69,6 +72,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
             return Err(report);
         }
         poi_changes.append(&mut region.poi_changes);
+        start_updates.append(&mut region.start_updates);
         chunks = region.into_chunks();
         completed.push((job.pos.pack(), step.target_status));
     }
@@ -79,7 +83,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
             GenChunk::Snapshot(_) => None,
         })
         .collect();
-    Ok(BatchResult { id, chunks, completed, poi_changes })
+    Ok(BatchResult { id, chunks, completed, poi_changes, start_updates })
 }
 
 /// `ChunkStep.apply` for a chunk that is still before the target status.

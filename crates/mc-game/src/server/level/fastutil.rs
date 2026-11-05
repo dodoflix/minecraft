@@ -518,6 +518,100 @@ mod short_set_tests {
     }
 }
 
+/// fastutil 8.5 `ReferenceOpenHashSet` as vanilla's `DistanceManager.chunksToUpdateFutures` (`Set<ChunkHolder>`), with
+/// every key hashing to the same slot. Vanilla hashes by `System.identityHashCode`, so the iteration order of a real
+/// set is JVM-run dependent and cannot be reproduced; it decides in which order the holders of one distance update
+/// request their generation tasks, i.e. in which order neighbouring chunks are decorated. Under `-XX:hashCode=2`
+/// (every identity hash is 1) vanilla's order is deterministic, and this is that layout: the world differential runs
+/// the vanilla server that way, so both servers decorate neighbours in the same order. Table growth, linear probing,
+/// descending iteration and `clear` (keeps the table size) follow `ObjectOpenHashSet` exactly.
+pub struct ConstHashReferenceSet {
+    table: Vec<Option<i64>>,
+    size: usize,
+    max_fill: usize,
+}
+
+impl Default for ConstHashReferenceSet {
+    fn default() -> Self {
+        let n = array_size(DEFAULT_INITIAL_SIZE);
+        Self { table: vec![None; n], size: 0, max_fill: max_fill(n) }
+    }
+}
+
+impl ConstHashReferenceSet {
+    /// `HashCommon.mix(System.identityHashCode(key))` with `identityHashCode == 1`.
+    const SLOT_HASH: u32 = 0x9E37_79B9 ^ (0x9E37_79B9u32 >> 16);
+
+    pub fn is_empty(&self) -> bool {
+        self.size == 0
+    }
+
+    /// `add(key)`.
+    pub fn insert(&mut self, key: i64) -> bool {
+        let mask = self.table.len() - 1;
+        let mut pos = Self::SLOT_HASH as usize & mask;
+        while let Some(current) = self.table[pos] {
+            if current == key {
+                return false;
+            }
+            pos = (pos + 1) & mask;
+        }
+        self.table[pos] = Some(key);
+        let grow = self.size >= self.max_fill;
+        self.size += 1;
+        if grow {
+            self.rehash(array_size(self.size + 1));
+        }
+        true
+    }
+
+    fn rehash(&mut self, new_n: usize) {
+        let mask = new_n - 1;
+        let mut new_table: Vec<Option<i64>> = vec![None; new_n];
+        for key in self.table.iter().rev().flatten() {
+            let mut pos = Self::SLOT_HASH as usize & mask;
+            while new_table[pos].is_some() {
+                pos = (pos + 1) & mask;
+            }
+            new_table[pos] = Some(*key);
+        }
+        self.table = new_table;
+        self.max_fill = max_fill(new_n);
+    }
+
+    /// Iteration order (descending slots), then `clear()`.
+    pub fn drain(&mut self) -> Vec<i64> {
+        let keys = self.table.iter().rev().flatten().copied().collect();
+        self.table.fill(None);
+        self.size = 0;
+        keys
+    }
+}
+
+#[cfg(test)]
+mod reference_set_tests {
+    use super::*;
+
+    /// Iteration order of a real `ReferenceOpenHashSet` under `-XX:hashCode=2` (generator:
+    /// `tests/fixtures/ReferenceSetOrderGen.java`), several waves per set with `clear` in between.
+    #[test]
+    fn reference_set_order_matches_fastutil_with_constant_identity_hash() {
+        let golden = include_str!("../../../tests/fixtures/reference_set_order.txt");
+        assert_eq!(golden.lines().count(), 60);
+        for line in golden.lines() {
+            let (adds, orders) = line.split_once(" | ").expect("adds | orders");
+            let mut set = ConstHashReferenceSet::default();
+            for (wave, expected) in adds.split(" / ").zip(orders.split(" / ")) {
+                for id in wave.split(' ') {
+                    set.insert(id.parse().unwrap());
+                }
+                let got: Vec<String> = set.drain().iter().map(|k| k.to_string()).collect();
+                assert_eq!(got.join(" "), expected, "adds {wave}");
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod int_map_tests {
     use super::*;

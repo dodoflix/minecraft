@@ -70,7 +70,9 @@ die() { echo "worldgen-diff: $*" >&2; exit 2; }
 log() { echo "[worldgen-diff] $*" >&2; }
 
 ORIG_ARGS=("$@")
-export VANILLA_JVM_OPTS="${VANILLA_JVM_OPTS--Dmax.bg.threads=1}"
+# -XX:hashCode=2: every identity hash is 1, which makes vanilla's ReferenceOpenHashSet<ChunkHolder> iteration (the order in which
+# neighbouring chunks are decorated) deterministic and reproducible by us (ConstHashReferenceSet); see worldgen-diff docs.
+export VANILLA_JVM_OPTS="${VANILLA_JVM_OPTS--Dmax.bg.threads=1 -XX:+UnlockExperimentalVMOptions -XX:hashCode=2}"
 SEED=12345 DIMS=overworld CENTER=0,0 RADIUS=8 OUT="" CASES="" ONLY="" SIDES=vanilla,ours GENSET="" LEVELTYPE=minecraft:normal
 ORDER=seq DIFFICULTY=normal GAMEMODE=survival BIN="${WORLDGEN_AREA_BIN:-}" CACHE=1 PORT="" TMO=1800 CMPARGS="" COMPARE=1
 if (($# >= 5)) && [[ "$1" != --* ]]; then SEED="$1" DIMS="$2" CENTER="$3,$4" RADIUS="$5"; shift 5; fi
