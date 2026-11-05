@@ -1,0 +1,7 @@
+# hunger effect adds exhaustion every tick
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0
+watch player:Steve
+set Steve food 10
+effect Steve minecraft:hunger 1 600
+tick 120

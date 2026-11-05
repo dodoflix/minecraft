@@ -1,0 +1,18 @@
+# FoodData: exhaustion thresholds drain saturation then food
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0
+watch player:Steve
+set Steve exhaustion 3.9
+tick 1
+set Steve exhaustion 4.5
+tick 1
+set Steve exhaustion 4.5
+tick 1
+set Steve saturation 0
+set Steve exhaustion 4.5
+tick 2
+set Steve exhaustion 39
+tick 1
+tick 3
+set Steve exhaustion 4.1
+tick 2

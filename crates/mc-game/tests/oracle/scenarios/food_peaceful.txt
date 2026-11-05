@@ -1,0 +1,10 @@
+# peaceful: health, saturation and food regenerate on their own; food is not drained
+level flat
+difficulty peaceful
+spawn_player Steve survival 0.5 -60 0.5 0 0
+watch player:Steve
+set Steve health 5
+set Steve food 10
+set Steve saturation 0
+set Steve exhaustion 4.5
+tick 100

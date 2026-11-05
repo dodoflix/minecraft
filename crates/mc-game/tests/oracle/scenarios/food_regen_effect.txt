@@ -1,0 +1,8 @@
+# regeneration effect heals on its own timer
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0
+watch player:Steve
+set Steve health 10
+set Steve food 10
+effect Steve minecraft:regeneration 1 100
+tick 100
