@@ -1,7 +1,6 @@
 //! `SkullBlockEntity`: owner profile, note block sound, custom name and the dragon/piglin head animation counter.
 
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
-use crate::server::level::ServerLevel;
 use crate::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
@@ -52,20 +51,6 @@ impl SkullBlockEntity {
             self.is_animating = false;
         }
     }
-
-    /// `collectImplicitComponents(components)`.
-    pub fn collect_implicit_components(&self, mut builder: DataComponentMapBuilder) -> DataComponentMapBuilder {
-        if let Some(owner) = &self.owner {
-            builder = builder.set(PROFILE, owner.clone());
-        }
-        if let Some(sound) = &self.note_block_sound {
-            builder = builder.set(NOTE_BLOCK_SOUND, sound.clone());
-        }
-        if let Some(name) = &self.custom_name {
-            builder = builder.set(CUSTOM_NAME, name.clone());
-        }
-        builder
-    }
 }
 
 impl BlockEntity for SkullBlockEntity {
@@ -106,14 +91,31 @@ impl BlockEntity for SkullBlockEntity {
         Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
     }
 
+    /// `collectImplicitComponents(components)`.
+    fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
+        let mut b = std::mem::take(builder);
+        if let Some(owner) = &self.owner {
+            b = b.set(PROFILE, owner.clone());
+        }
+        if let Some(sound) = &self.note_block_sound {
+            b = b.set(NOTE_BLOCK_SOUND, sound.clone());
+        }
+        if let Some(name) = &self.custom_name {
+            b = b.set(CUSTOM_NAME, name.clone());
+        }
+        *builder = b;
+    }
+
+    fn get_custom_name(&self) -> Option<Component> {
+        self.custom_name.clone()
+    }
+
     /// `applyImplicitComponents`.
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
         self.owner = stack.get(&PROFILE).cloned();
         self.note_block_sound = stack.get(&NOTE_BLOCK_SOUND).cloned();
         self.custom_name = stack.get(&CUSTOM_NAME).cloned();
     }
-
-    fn server_tick(&mut self, _level: &mut ServerLevel) {}
 }
 
 #[distributed_slice(BLOCK_ENTITY_TYPES)]

@@ -170,10 +170,7 @@ impl SignBlockEntity {
     fn mark_updated(&self, level: &mut ServerLevel) {
         let pos = self.get_block_pos();
         let state = self.get_block_state();
-        level.block_entity_changed(pos);
-        if !state.is_air() {
-            level.update_neighbour_for_output_signal(pos, state.block());
-        }
+        super::set_changed(level, pos, state);
         level.send_block_updated(pos, state, state, 3);
     }
 
@@ -273,12 +270,6 @@ impl SignBlockEntity {
         has_any_click_command
     }
 
-    /// `collectImplicitComponents(components)`.
-    pub fn collect_implicit_components(&self, builder: DataComponentMapBuilder) -> DataComponentMapBuilder {
-        let builder = builder.set(SIGN_TEXT_FRONT, self.front_text.clone()).set(SIGN_TEXT_BACK, self.back_text.clone());
-        if self.is_waxed { builder.set(WAXED, ()) } else { builder }
-    }
-
     /// `applyImplicitComponents(components)`.
     fn apply_implicit_components(&mut self, stack: &crate::world::item::ItemStack) {
         self.front_text = stack.get(&SIGN_TEXT_FRONT).cloned().unwrap_or_else(empty_sign_text);
@@ -342,17 +333,13 @@ fn run_click_command(level: &mut ServerLevel, player: &ServerPlayer, pos: BlockP
     let _ = (source, command); // PENDING-BxTechnicalB: level.perform_prefixed_command(source, command)
 }
 
-/// `player.openDialog(holder)`: an inline dialog is sent as is, a registry id as the registry reference.
+/// `player.openDialog(holder)`: the click event's dialog (registry id or inline definition) as `ClientboundShowDialogPacket`.
 fn open_dialog(player: &ServerPlayer, dialog: &mc_nbt::Tag) {
-    use mc_protocol::codec::Holder;
-    let holder = match dialog {
-        mc_nbt::Tag::String(id) => match mc_data::registry::by_name("minecraft:dialog").and_then(|r| r.id_of(id)) {
-            Some(registry_id) => Holder::Reference(registry_id as i32),
-            None => return,
-        },
-        other => Holder::Direct(other.clone()),
-    };
-    player.send(&mc_protocol::packets::play::ClientboundShowDialogPacket { dialog: holder });
+    use mc_protocol::dialog::Dialog;
+    let Ok(holder) = mc_dfu::parse_nbt(&Dialog::codec(), dialog).into_result() else { return };
+    if let Some(wire) = Dialog::wire_holder(&holder) {
+        player.send(&mc_protocol::packets::play::ClientboundShowDialogPacket { dialog: wire });
+    }
 }
 
 impl BlockEntity for SignBlockEntity {
@@ -404,6 +391,15 @@ impl BlockEntity for SignBlockEntity {
 
     fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {
         self.apply_implicit_components(stack);
+    }
+
+    /// `collectImplicitComponents(components)`.
+    fn collect_implicit_components(&self, builder: &mut DataComponentMapBuilder) {
+        let mut b = std::mem::take(builder).set(SIGN_TEXT_FRONT, self.front_text.clone()).set(SIGN_TEXT_BACK, self.back_text.clone());
+        if self.is_waxed {
+            b = b.set(WAXED, ());
+        }
+        *builder = b;
     }
 }
 

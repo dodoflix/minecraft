@@ -52,25 +52,11 @@ impl BannerBlockEntity {
         self.base_color
     }
 
-    /// `collectImplicitComponents(components)`.
-    pub fn collect_implicit_components(&self, builder: mc_protocol::components::map::DataComponentMapBuilder) -> mc_protocol::components::map::DataComponentMapBuilder {
-        let builder = builder.set(BANNER_PATTERNS, self.patterns.clone());
-        match &self.name {
-            Some(name) => builder.set(CUSTOM_NAME, name.clone()),
-            None => builder,
-        }
-    }
-
-    /// `collectComponents()`.
-    pub fn collect_components(&self) -> DataComponentMap {
-        self.collect_implicit_components(DataComponentMap::builder().add_all(&self.base.components)).build()
-    }
-
     /// `getItem()`: the banner item carrying this block entity's components (pick block).
     pub fn get_item(&self) -> ItemStack {
         let mut stack = self.get_block_state().block().item().map_or_else(ItemStack::empty, ItemStack::new);
         if !stack.is_empty() {
-            for (id, value) in self.collect_components().iter() {
+            for (id, value) in BlockEntity::collect_components(self).iter() {
                 stack.set_value(id, Some(value.clone()));
             }
         }
@@ -111,6 +97,19 @@ impl BlockEntity for BannerBlockEntity {
 
     fn get_update_packet(&self) -> Option<ClientboundBlockEntityDataPacket> {
         Some(ClientboundBlockEntityDataPacket { pos: self.get_block_pos(), r#type: self.get_type(), tag: self.get_update_tag() })
+    }
+
+    /// `collectImplicitComponents(components)`.
+    fn collect_implicit_components(&self, builder: &mut mc_protocol::components::map::DataComponentMapBuilder) {
+        let mut b = std::mem::take(builder).set(BANNER_PATTERNS, self.patterns.clone());
+        if let Some(name) = &self.name {
+            b = b.set(CUSTOM_NAME, name.clone());
+        }
+        *builder = b;
+    }
+
+    fn get_custom_name(&self) -> Option<Component> {
+        self.name.clone()
     }
 
     /// `applyImplicitComponents`.
