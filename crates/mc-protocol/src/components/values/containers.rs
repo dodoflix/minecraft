@@ -351,7 +351,7 @@ impl ItemContainerContents {
     }
 
     /// `fromItems(itemStacks)`.
-    pub fn from_items(item_stacks: &[ItemStack]) -> ItemContainerContents {
+    pub fn from_item_stacks(item_stacks: &[ItemStack]) -> ItemContainerContents {
         let Some(last) = item_stacks.iter().rposition(|s| !s.is_empty()) else {
             return ItemContainerContents::default();
         };

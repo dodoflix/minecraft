@@ -92,14 +92,14 @@ impl BaseContainer {
         {
             components = components.set(LOCK, lock.clone());
         }
-        components.set(CONTAINER, ItemContainerContents::from_items(items))
+        components.set(CONTAINER, ItemContainerContents::from_item_stacks(items))
     }
 }
 
 /// `BaseContainerBlockEntity.sendChestLockedNotifications(pos, player, displayName)`.
 pub fn send_chest_locked_notifications(level: &mut ServerLevel, pos: Vec3, player: &mut ServerPlayer, display_name: &Component) {
-    player.send(&ClientboundSystemChatPacket { content: Component::translatable_with("container.isLocked", vec![display_name.clone()]), overlay: true });
-    level.play_sound_at(None, pos.x, pos.y, pos.z, mc_data::SoundEvent::CHEST_LOCKED, SoundSource::Blocks, 1.0, 1.0);
+    player.send(&ClientboundSystemChatPacket { content: Component::translatable("container.isLocked", vec![mc_text::component::TranslatableArg::Component(display_name.clone())]), overlay: true });
+    level.play_sound_at(None, pos.x, pos.y, pos.z, mc_data::SoundEvent::BLOCK_CHEST_LOCKED, SoundSource::Blocks, 1.0, 1.0);
 }
 
 /// `BlockEntity.setChanged(level, pos, state)`: `level.blockEntityChanged(pos)` and, for a non-air state,

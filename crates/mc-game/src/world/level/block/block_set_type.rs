@@ -88,8 +88,8 @@ pub static MANGROVE: BlockSetType = wood("mangrove");
 pub static BAMBOO: BlockSetType = set_type!("bamboo", true, true, true, Everything, [BLOCK_BAMBOO_WOOD_DOOR_CLOSE, BLOCK_BAMBOO_WOOD_DOOR_OPEN, BLOCK_BAMBOO_WOOD_TRAPDOOR_CLOSE, BLOCK_BAMBOO_WOOD_TRAPDOOR_OPEN, BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_OFF, BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_ON, BLOCK_BAMBOO_WOOD_BUTTON_CLICK_OFF, BLOCK_BAMBOO_WOOD_BUTTON_CLICK_ON]);
 
 /// Every registered `BlockSetType` (`BlockSetType.values()`, registration order).
-pub static ALL:  =
-    [&IRON, &COPPER, &GOLD, &STONE, &POLISHED_BLACKSTONE, &OAK, &SPRUCE, &BIRCH, &ACACIA, &CHERRY, &JUNGLE, &DARK_OAK, &PALE_OAK, &POPLAR, &CRIMSON, &WARPED, &MANGROVE, &BAMBOO, &BAMBOO];
+pub static ALL: [&BlockSetType; 18] =
+    [&IRON, &COPPER, &GOLD, &STONE, &POLISHED_BLACKSTONE, &OAK, &SPRUCE, &BIRCH, &ACACIA, &CHERRY, &JUNGLE, &DARK_OAK, &PALE_OAK, &POPLAR, &CRIMSON, &WARPED, &MANGROVE, &BAMBOO];
 
 impl BlockSetType {
     fn by_name(name: &str) -> Option<&'static BlockSetType> {
