@@ -67,6 +67,7 @@ pub mod huge_red_mushroom_feature;
 pub mod overlay_feature;
 pub mod projected_random_patchy_square;
 pub mod random_neighbor_spread_feature;
+pub mod replace_block_feature;
 pub mod root_system_feature;
 pub mod sequence_feature;
 pub mod snow_and_freeze_feature;
