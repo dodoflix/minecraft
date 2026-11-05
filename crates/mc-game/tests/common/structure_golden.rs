@@ -91,7 +91,7 @@ pub fn generate(structure: &Holder<dyn Structure>, seed: i64, cx: i32, cz: i32) 
 }
 
 /// Coverage of a fixture run: counters plus how often each piece id (`P` lines) and block entity / loot table id (`E` lines)
-/// occurs.
+/// occurs (and each entity id).
 #[derive(Default)]
 pub struct Stats {
     pub starts: usize,
@@ -101,12 +101,15 @@ pub struct Stats {
     pub piece_ids: BTreeMap<String, usize>,
     pub block_entity_ids: BTreeMap<String, usize>,
     pub loot_tables: BTreeMap<String, usize>,
+    /// Entity ids of the `N` lines (entities added while placing).
+    pub entity_ids: BTreeMap<String, usize>,
 }
 
-/// The first `key:"value"` string of an SNBT line.
-fn snbt_string<'a>(line: &'a str, key: &str) -> Option<&'a str> {
+/// The first (`last`: the last) `key:"value"` string of an SNBT line; the last `id` of a block entity line is its own (nested
+/// ones such as the spawn data's entity sort before it).
+fn snbt_string<'a>(line: &'a str, key: &str, last: bool) -> Option<&'a str> {
     let marker = format!("{key}:\"");
-    let from = line.find(&marker)? + marker.len();
+    let from = if last { line.rfind(&marker)? } else { line.find(&marker)? } + marker.len();
     Some(&line[from..from + line[from..].find('"')?])
 }
 
@@ -125,7 +128,7 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
         let mut want_pieces = Vec::new();
         for _ in 0..count {
             let line = lines.next().and_then(|l| l.strip_prefix("P ")).expect("piece line");
-            *stats.piece_ids.entry(snbt_string(line, "id").unwrap_or("?").to_owned()).or_default() += 1;
+            *stats.piece_ids.entry(snbt_string(line, "id", false).unwrap_or("?").to_owned()).or_default() += 1;
             want_pieces.push(line.to_owned());
         }
         let mut start = generate(structure_of(stats.starts), seed, cx, cz);
@@ -174,10 +177,13 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
             stats.placements += 1;
             stats.dump_lines += expected.len();
             for line in expected.iter().filter(|l| l.starts_with("E ")) {
-                *stats.block_entity_ids.entry(snbt_string(line, "id").unwrap_or("?").to_owned()).or_default() += 1;
-                if let Some(table) = snbt_string(line, "LootTable") {
+                *stats.block_entity_ids.entry(snbt_string(line, "id", true).unwrap_or("?").to_owned()).or_default() += 1;
+                if let Some(table) = snbt_string(line, "LootTable", false) {
                     *stats.loot_tables.entry(table.to_owned()).or_default() += 1;
                 }
+            }
+            for line in expected.iter().filter(|l| l.starts_with("N ")) {
+                *stats.entity_ids.entry(snbt_string(line, "id", true).unwrap_or("?").to_owned()).or_default() += 1;
             }
             if got != expected {
                 let diffs: Vec<String> = got
