@@ -4,11 +4,10 @@
 
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use crate::server::level::ServerLevel;
-use crate::world::effect::MobEffect;
 use crate::world::entity::Entity;
 use crate::world::entity::effect::MobEffectInstance;
-use crate::world::level::collision::{ClipBlock, ClipContext, ClipFluid, CollisionContext};
-use crate::world::level::{BlockGetter, BlockGetterExt, LevelAccessor};
+use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
 use linkme::distributed_slice;
@@ -16,7 +15,7 @@ use mc_core::direction::{Axis, Direction};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_core::random::{PositionalRandomFactory, RandomSource, XoroshiroRandomSource};
-use mc_data::BlockEntityType;
+use mc_data::{BlockEntityType, MobEffect};
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::PotentSulfurState;
 use mc_data::fluid::Fluid;
@@ -74,7 +73,7 @@ impl PotentSulfurBlockEntity {
 
 /// `geyserPositional`.
 pub fn geyser_positional(level: &ServerLevel, pos: BlockPos) -> Box<dyn RandomSource> {
-    XoroshiroRandomSource::from_seed(level.seed ^ GEYSER_SALT).fork_positional().at(pos.x(), pos.y(), pos.z())
+    XoroshiroRandomSource::new(level.chunk_source.chunk_map.gen_context.seed ^ GEYSER_SALT).fork_positional().at(pos.x(), pos.y(), pos.z())
 }
 
 /// `SERVER_NAUSEA_EFFECT_TICKER`.

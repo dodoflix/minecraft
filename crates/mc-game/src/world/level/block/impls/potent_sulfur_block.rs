@@ -49,7 +49,7 @@ impl BlockBehaviour for PotentSulfurBlock {
         let geyser_state = state.get(props::POTENT_SULFUR_STATE);
         if geyser_state == PotentSulfurState::Erupting || geyser_state == PotentSulfurState::Continuous {
             level.block_event(pos, state.block(), 0, 0);
-            let sound = if geyser_state == PotentSulfurState::Continuous { SoundEvent::GEYSER_CONTINUOUS_START } else { SoundEvent::GEYSER_ERUPTION_START };
+            let sound = if geyser_state == PotentSulfurState::Continuous { SoundEvent::BLOCK_POTENT_SULFUR_GEYSER_CONTINUOUS_ERUPTION } else { SoundEvent::BLOCK_POTENT_SULFUR_GEYSER_ERUPTION };
             level.play_sound(None, pos, sound, SoundSource::Blocks, 1.0, 1.0);
             level.game_event_at_block(GameEvent::BLOCK_ACTIVATE, pos, &GameEventContext::of_state(Some(state)));
         }

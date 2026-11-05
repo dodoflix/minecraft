@@ -280,10 +280,7 @@ impl LevelAccessor for ServerLevel {
     }
 
     fn get_block_entity_mut(&mut self, pos: BlockPos) -> Option<&mut dyn crate::world::block_entity::BlockEntity> {
-        if !self.is_in_valid_bounds(pos) || !self.get_block_entity_creating(pos, super::level_chunk_ops::EntityCreationType::Check) {
-            return None;
-        }
-        self.chunk_at_mut(pos)?.block_entities.get_mut(&pos).map(|b| &mut **b)
+        self.get_block_entity_check_mut(pos)
     }
 
     fn schedule_block_tick(&mut self, pos: BlockPos, block: Block, delay: i32, priority: TickPriority) {

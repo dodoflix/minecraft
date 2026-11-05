@@ -294,6 +294,9 @@ impl<C: SpeleothemClass> BlockBehaviour for Speleothem<C> {
     fn get_collision_shape(&self, state: BlockState, _level: &dyn BlockGetter, pos: BlockPos, _context: &CollisionContext) -> VoxelShape {
         speleothem_shape(state, pos)
     }
+    fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
+        false
+    }
     fn is_collision_shape_full_block(&self, _state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> bool {
         false
     }

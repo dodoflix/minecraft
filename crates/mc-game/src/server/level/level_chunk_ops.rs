@@ -196,6 +196,14 @@ impl ServerLevel {
         self.chunk_at_mut(pos)?.block_entities.get_mut(&pos).map(|b| &mut **b)
     }
 
+    /// `Level.getBlockEntity(pos)` (`EntityCreationType.CHECK`: pending NBT is promoted, nothing is created).
+    pub fn get_block_entity_check_mut(&mut self, pos: BlockPos) -> Option<&mut dyn BlockEntity> {
+        if !self.is_in_valid_bounds(pos) || !self.get_block_entity_creating(pos, EntityCreationType::Check) {
+            return None;
+        }
+        self.chunk_at_mut(pos)?.block_entities.get_mut(&pos).map(|b| &mut **b)
+    }
+
     /// `LevelChunk.promotePendingBlockEntity`: the pending NBT (or `DUMMY` stub) becomes a live block entity. Types
     /// without an implementation keep their raw NBT (returns `false` and leaves the tag pending) so nothing is lost on
     /// save.
