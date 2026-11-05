@@ -891,7 +891,7 @@ pub struct CastleSmallCorridorLeftTurn {
 
 #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
 pub static NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN: StructurePieceType = StructurePieceType {
-    id: "nescslt",
+    id: "nesclt",
     load: |_, tag| {
         Ok(Box::new(CastleSmallCorridorLeftTurn {
             base: PieceBase::load(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_LEFT_TURN, tag)?,
@@ -954,7 +954,7 @@ pub struct CastleSmallCorridorRightTurn {
 
 #[linkme::distributed_slice(STRUCTURE_PIECE_TYPES)]
 pub static NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN: StructurePieceType = StructurePieceType {
-    id: "nescsrt",
+    id: "nescrt",
     load: |_, tag| {
         Ok(Box::new(CastleSmallCorridorRightTurn {
             base: PieceBase::load(&NETHER_FORTRESS_CASTLE_SMALL_CORRIDOR_RIGHT_TURN, tag)?,

@@ -15,6 +15,7 @@
 
 use super::pieces::StructurePiecesBuilder;
 use crate::world::level::block::BlockStateExt;
+use crate::world::level::levelgen::block_entity_data::base_tag;
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::structure::manager::StructureManager;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
@@ -248,11 +249,17 @@ pub fn reorient(level: &dyn BlockGetter, block_pos: BlockPos, block_state: Block
     block_state.set(props::HORIZONTAL_FACING, lock_dir)
 }
 
-/// `RandomizableContainer.setLootTable(table, seed)` on the raw block entity NBT the level holds at `pos`
-/// (`LootTable`, and `LootTableSeed` only when non-zero: `trySaveLootTable`). Returns whether a block entity exists.
-pub fn set_loot_table(level: &mut dyn WorldGenLevel, pos: BlockPos, loot_table: &str, seed: i64) -> bool {
-    let Some(existing) = level.get_block_entity_nbt(pos) else { return false };
-    let mut tag = existing.clone();
+/// `if (level.getBlockEntity(pos) instanceof <be_id> container) container.setLootTable(lootTable, random.nextLong())` on
+/// the raw block entity NBT the level holds at `pos`: `WorldGenRegion.getBlockEntity` turns the `DUMMY` stub of `setBlock`
+/// into the real (empty) block entity of `be_id` first. `LootTable`, and `LootTableSeed` only when non-zero
+/// (`trySaveLootTable`); a container with a loot table saves no `Items`. Returns whether the block entity exists.
+pub fn set_loot_table(level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, pos: BlockPos, be_id: &str, loot_table: &str) -> bool {
+    let mut tag = match level.get_block_entity_nbt(pos) {
+        Some(existing) if existing.get_string("id") == Some("DUMMY") => base_tag(be_id, pos),
+        Some(existing) if existing.get_string("id") == Some(be_id) => existing.clone(),
+        _ => return false,
+    };
+    let seed = random.next_long();
     tag.remove("Items");
     tag.put_string("LootTable", loot_table);
     if seed != 0 {
@@ -638,8 +645,7 @@ pub trait StructurePiece: Any + Send + Sync {
         if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::CHEST {
             let state = block_state.unwrap_or_else(|| reorient(level, pos, Block::CHEST.default_state()));
             level.set_block_flags(pos, state, 2);
-            let seed = random.next_long();
-            set_loot_table(level, pos, loot_table, seed);
+            set_loot_table(level, random, pos, "minecraft:chest", loot_table);
             true
         } else {
             false
@@ -652,8 +658,7 @@ pub trait StructurePiece: Any + Send + Sync {
         let pos = self.get_world_pos(x, y, z);
         if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::DISPENSER {
             self.place_block(level, Block::DISPENSER.default_state().set(props::FACING, facing), x, y, z, chunk_bb);
-            let seed = random.next_long();
-            set_loot_table(level, pos, loot_table, seed);
+            set_loot_table(level, random, pos, "minecraft:dispenser", loot_table);
             true
         } else {
             false
