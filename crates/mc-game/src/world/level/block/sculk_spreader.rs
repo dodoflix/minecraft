@@ -150,7 +150,7 @@ impl SculkSpreader {
                 && let Some(faces) = faces
             {
                 let num_particles = (f64::from(charge).ln_1p() / f64::from(2.3f32)) as i32 + 1;
-                let data = (num_particles << 6) + multiface_block::pack(faces);
+                let data = (num_particles << 6) + i32::from(multiface_block::pack(faces));
                 level.level_event(None, 3006, pos, data);
             }
         }

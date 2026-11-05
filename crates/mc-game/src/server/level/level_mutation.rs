@@ -308,6 +308,18 @@ impl LevelAccessor for ServerLevel {
     fn level_event(&mut self, source: Option<EntityId>, event_type: i32, pos: BlockPos, data: i32) {
         self.level_event_impl(source, event_type, pos, data);
     }
+
+    fn play_sound(&mut self, except: Option<EntityId>, pos: BlockPos, sound: mc_data::SoundEvent, source: mc_protocol::packets::play::level::SoundSource, volume: f32, pitch: f32) {
+        ServerLevel::play_sound(self, except, pos, sound, source, volume, pitch);
+    }
+
+    fn should_tick_blocks_at_pos(&self, pos: BlockPos) -> bool {
+        ServerLevel::should_tick_blocks_at_pos(self, pos)
+    }
+
+    fn push_entities_up(&mut self, state: BlockState, new_state: BlockState, pos: BlockPos) {
+        crate::world::level::block::helpers::push_entities_up(self, state, new_state, pos);
+    }
 }
 
 impl NeighborUpdateHost for ServerLevel {

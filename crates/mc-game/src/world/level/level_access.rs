@@ -131,6 +131,9 @@ pub trait LevelAccessor: LevelReader {
     /// `playSound(except, pos, sound, source, volume, pitch)` (no-op outside server levels; a world generation region
     /// never plays sounds).
     fn play_sound(&mut self, _except: Option<EntityId>, _pos: BlockPos, _sound: mc_data::SoundEvent, _source: mc_protocol::packets::play::level::SoundSource, _volume: f32, _pitch: f32) {}
+    /// `Block.pushEntitiesUp(state, newState, level, pos)`: lifts the entities in the way of a growing block (a
+    /// `WorldGenRegion` has no entities).
+    fn push_entities_up(&mut self, _state: BlockState, _new_state: BlockState, _pos: BlockPos) {}
     /// `ServerLevel.shouldTickBlocksAt(pos)` (`false` for anything that is not a server level).
     fn should_tick_blocks_at_pos(&self, _pos: BlockPos) -> bool {
         false

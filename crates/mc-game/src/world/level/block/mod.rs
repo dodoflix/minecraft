@@ -3,6 +3,8 @@
 mod behaviour;
 pub mod helpers;
 pub mod impls;
+pub mod sculk_behaviour;
+pub mod sculk_spreader;
 pub mod state;
 
 pub use behaviour::*;
