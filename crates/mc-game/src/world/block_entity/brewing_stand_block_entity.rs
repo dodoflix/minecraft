@@ -7,7 +7,9 @@ use crate::server::level::ServerLevel;
 use crate::world::container::{Container, WorldlyContainer, empty_stack, helper};
 use crate::world::containers::drop_item_stack;
 use crate::world::inventory::{AbstractContainerMenu, BrewingStandMenu, ContainerData, MenuPlayer, MenuProvider};
-use crate::world::item::crafting::{BrewingInput, PotionIngredient, RecipeCheck, RecipePropertySet, RecipeType};
+use crate::world::item::crafting::{BrewingInput, PotionIngredient, RecipeCheck, RecipePropertySet};
+use crate::world::level::storage::loot::providers::number::{ResolvableFloat, ResolvableInt};
+use mc_protocol::components::{ResolvableFloat as ProtocolFloat, ResolvableInt as ProtocolInt};
 use crate::world::item::{ItemStack, ItemStackExt};
 use crate::world::level::storage::loot::{LootContext, LootContextParamSets, LootParams};
 use crate::world::level::{BlockGetter, LevelAccessor};
@@ -15,7 +17,7 @@ use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
-use mc_data::{BlockEntityType, Item, props};
+use mc_data::{BlockEntityType, Item, RecipeType, props};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::BREWING_FUEL;
 use mc_text::Component;
@@ -63,7 +65,7 @@ impl BrewingStandBlockEntity {
             fuel: 0,
             total_fuel: 0,
             speed_multiplier: 1.0,
-            quick_check: RecipeCheck::new(RecipeType::Brewing),
+            quick_check: RecipeCheck::new(RecipeType::BREWING),
         }
     }
 
@@ -95,12 +97,20 @@ impl BrewingStandBlockEntity {
 
     /// `getUses(level, brewingFuel)`.
     fn get_uses(&self, level: &ServerLevel, fuel: &mc_protocol::components::BrewingFuel) -> i32 {
-        self.with_loot_context(level, |context| fuel.uses.get(context, 0))
+        self.with_loot_context(level, |context| match &fuel.uses {
+            ProtocolInt::Constant(v) => ResolvableInt::Constant(*v),
+            ProtocolInt::Reference(k) => ResolvableInt::Reference(k.clone()),
+        }
+        .get(context, 0))
     }
 
     /// `getSpeedMultiplier(level, brewingFuel)`.
     fn get_speed_multiplier(&self, level: &ServerLevel, fuel: &mc_protocol::components::BrewingFuel) -> f32 {
-        self.with_loot_context(level, |context| fuel.speed_multiplier.get(context, 1.0))
+        self.with_loot_context(level, |context| match &fuel.speed_multiplier {
+            ProtocolFloat::Constant(v) => ResolvableFloat::Constant(*v),
+            ProtocolFloat::Reference(k) => ResolvableFloat::Reference(k.clone()),
+        }
+        .get(context, 1.0))
     }
 
     /// `BlockEntity.setChanged(level, pos, state)`.
@@ -178,7 +188,7 @@ impl BrewingStandBlockEntity {
 }
 
 impl BlockEntity for BrewingStandBlockEntity {
-    super::block_entity_base!();
+    block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
         self.container.load(tag);
