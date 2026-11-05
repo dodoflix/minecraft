@@ -343,9 +343,7 @@ public final class EntityOracleDriver {
       switch (cmd) {
          case "level" -> options.levelType = a.get(1);
          case "seed" -> options.seed = Long.parseLong(a.get(1));
-         case "difficulty" -> options.difficulty = a.get(1);
          case "features" -> options.features = a.get(1);
-
          case "difficulty" -> {
             if (v == null) {
                options.difficulty = a.get(1);
