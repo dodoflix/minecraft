@@ -14,6 +14,9 @@ with_slot() {
     return $rc
   fi
   while :; do
+    # Backpressure: don't start a new compile while RAM+swap headroom is low (oomd kills at 90% of both).
+    avail_kb=$(awk '/MemAvailable/{a=$2} /SwapFree/{s=$2} END{print a+s}' /proc/meminfo)
+    if [ "$avail_kb" -lt $(( ${MC_MIN_FREE_GB:-8} * 1048576 )) ]; then sleep 10; continue; fi
     for i in $(seq 1 "$SLOTS"); do
       exec {fd}>"/tmp/mc-build.lock.$i"
       if flock -n "$fd"; then
