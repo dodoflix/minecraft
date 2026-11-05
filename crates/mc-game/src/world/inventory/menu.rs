@@ -192,6 +192,11 @@ impl MenuBase {
         }
     }
 
+    /// The current value of every data slot, in registration order.
+    pub fn data_slot_values(&self) -> Vec<i32> {
+        self.data_slots.iter().map(DataSlot::get).collect()
+    }
+
     pub fn is_valid_slot_index(&self, slot_index: i32) -> bool {
         slot_index == -1 || slot_index == -999 || (slot_index as i64) < self.slots.len() as i64
     }

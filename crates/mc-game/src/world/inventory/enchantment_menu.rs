@@ -212,7 +212,7 @@ impl AbstractContainerMenu for EnchantmentMenu {
             return false;
         }
         let Some(pos) = self.access.pos() else { return true };
-        let Some(registries) = player.level_ref().map(|l| l.registries.clone()) else { return true };
+        let registries = player.registries();
         let new_enchantment = self.get_enchantment_list(&registries, &item, button_id, cost);
         if !new_enchantment.is_empty() {
             player.on_enchantment_performed(&item, enchantment_cost);

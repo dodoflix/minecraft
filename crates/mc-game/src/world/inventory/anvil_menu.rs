@@ -215,12 +215,7 @@ impl ItemCombinerMenu for AnvilMenu {
     }
 
     fn create_result(&mut self, player: &mut dyn MenuPlayer) {
-        let Some(registries) = player.level_ref().map(|l| l.registries.clone()) else {
-            // a menu without a level cannot evaluate enchantments (never happens on a server)
-            self.set_result(ItemStack::empty());
-            self.state.set_cost(0);
-            return;
-        };
+        let registries = player.registries();
         let infinite = player.has_infinite_materials();
         let input = self.input_stack(INPUT_SLOT);
         self.state.only_renaming.set(false);
@@ -397,3 +392,29 @@ impl AbstractContainerMenu for AnvilMenu {
         self.combiner_quick_move_stack(player, slot_index)
     }
 }
+
+/// `ServerGamePacketListenerImpl.handleRenameItem`.
+struct AnvilHandlers;
+
+impl crate::server::network::game_packets::hooks::PlayHandlers for AnvilHandlers {
+    fn handle_rename_item(&self, ctx: &mut crate::server::network::game_packets::PlayCtx, packet: &mc_protocol::packets::play::ServerboundRenameItemPacket) {
+        use crate::world::entity::player::menu_ctx::PlayerCtx;
+        let mut pctx = PlayerCtx { player: &mut *ctx.player, level: &mut *ctx.level };
+        super::PlayerMenus::with_current(
+            &mut pctx,
+            |c| &mut c.player.player.menus,
+            |menu, player| {
+                if let Some(anvil) = menu.as_any_mut().downcast_mut::<AnvilMenu>() {
+                    if !anvil.still_valid(player) {
+                        log::debug!("Player {} interacted with invalid menu", player.entity_id());
+                        return;
+                    }
+                    anvil.set_item_name(player, &packet.name);
+                }
+            },
+        );
+    }
+}
+
+#[linkme::distributed_slice(crate::server::network::game_packets::hooks::PLAY_HANDLERS)]
+static ANVIL_HANDLERS: &dyn crate::server::network::game_packets::hooks::PlayHandlers = &AnvilHandlers;

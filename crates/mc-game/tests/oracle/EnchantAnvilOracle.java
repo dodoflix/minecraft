@@ -121,20 +121,23 @@ public final class EnchantAnvilOracle {
    }
 
    static void dump() {
+      boolean closed = menu == p.inventoryMenu;
       StringBuilder b = new StringBuilder("S");
       for (int i = 0; i < menu.slots.size(); i++) {
          ItemStack s = menu.slots.get(i).getItem();
          if (!s.isEmpty()) b.append(' ').append(i).append('=').append(st(s));
       }
-      state("S", b.toString());
+      if (!closed) state("S", b.toString());
       StringBuilder d = new StringBuilder("D");
       try {
          Field f = AbstractContainerMenu.class.getDeclaredField("dataSlots");
          f.setAccessible(true);
          for (DataSlot ds : (List<DataSlot>) f.get(menu)) d.append(' ').append(ds.get());
       } catch (Exception e) { throw new RuntimeException(e); }
-      state("D", d.toString());
-      state("C", "C " + st(menu.getCarried()));
+      if (!closed) {
+         state("D", d.toString());
+         state("C", "C " + st(menu.getCarried()));
+      }
       StringBuilder inv = new StringBuilder("I");
       for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
          ItemStack s = p.getInventory().getItem(i);
@@ -408,7 +411,6 @@ public final class EnchantAnvilOracle {
                set(0, mk(ANVIL_ITEMS[li]));
                set(1, mk(ANVIL_ITEMS[ri]));
                if (nm != null) name(nm);
-               out("COST " + ((AnvilMenu) menu).getCost());
                if (menu.getSlot(2).hasItem()) {
                   click(2, 0, ContainerInput.PICKUP);
                   click(2, 0, ContainerInput.PICKUP);
@@ -432,7 +434,6 @@ public final class EnchantAnvilOracle {
             open("anvil", xp, 1, creative, 5, 7, 0, 0);
             set(0, mk("diamond_sword,e=sharpness@5;looting@3,rc=15"));
             set(1, mk("enchanted_book,s=sharpness@5;fire_aspect@2"));
-            out("COST " + ((AnvilMenu) menu).getCost());
             click(2, 0, ContainerInput.QUICK_MOVE);
             click(2, 0, ContainerInput.PICKUP);
             close();
@@ -444,7 +445,6 @@ public final class EnchantAnvilOracle {
             set(0, mk(it));
             name(nm);
             name(nm);
-            out("COST " + ((AnvilMenu) menu).getCost());
             click(2, 0, ContainerInput.QUICK_MOVE);
             name("Bar");
             close();

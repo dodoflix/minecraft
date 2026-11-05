@@ -116,7 +116,7 @@ impl GrindstoneMenu {
 
     /// `createResult()`.
     fn create_result(&mut self, player: &mut dyn MenuPlayer) {
-        let Some(registries) = player.level_ref().map(|l| l.registries.clone()) else { return };
+        let registries = player.registries();
         let result = self.compute_result(&registries, &self.repair_stack(0), &self.repair_stack(1));
         self.base.locals[RESULT_LOCAL].set_item(0, result);
         self.base.broadcast_changes(player);
