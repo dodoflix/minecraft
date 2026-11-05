@@ -7,7 +7,6 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::entity::ServerPlayer;
 use crate::world::damagesource::DamageSource;
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_data::GameEvent;
 use crate::world::level::block::BlockStateExt;
@@ -265,6 +264,11 @@ impl Entity for ItemEntity {
         MoveSimulationType::ServerAndClient
     }
 
+    /// `shouldPlayLavaHurtSound()`.
+    fn should_play_lava_hurt_sound(&self) -> bool {
+        self.health <= 0 || self.base.tick_count % 10 == 0
+    }
+
     /// `fireImmune()`: `!getItem().canBeHurtBy(inFire) || super.fireImmune()`.
     fn fire_immune(&self) -> bool {
         self.fire_immune_item || self.base.entity_type.data().fire_immune
@@ -286,16 +290,12 @@ impl Entity for ItemEntity {
         self.base.yo = pos.y;
         self.base.zo = pos.z;
         let old_movement = self.base.delta_movement();
-        if self.base.was_touching_water && self.base.fluid_height[0] > f64::from(FLOAT_HEIGHT) {
+        if self.is_in_water() && self.get_fluid_height("water") > f64::from(FLOAT_HEIGHT) {
             self.set_fluid_movement(f64::from(0.99f32));
-        } else if !self.base.first_tick && self.base.fluid_height[1] > f64::from(FLOAT_HEIGHT) {
+        } else if self.is_in_lava() && self.get_fluid_height("lava") > f64::from(FLOAT_HEIGHT) {
             self.set_fluid_movement(f64::from(0.95f32));
         } else {
-            let g = self.get_gravity();
-            if g != 0.0 {
-                let m = self.base.delta_movement();
-                self.base.set_delta_movement(m.add(Vec3::new(0.0, -g, 0.0)));
-            }
+            self.apply_gravity();
         }
         let area = self.base.bounding_box().deflate_scalar(1.0E-7);
         self.base.no_physics = !crate::world::level::collision::CollisionGetter::no_collision(level, Some(self.base.id), Some(&movement::collision_context(self)), &area);
@@ -305,10 +305,11 @@ impl Entity for ItemEntity {
         }
         let hdist = self.base.delta_movement().horizontal_distance_sqr();
         if self.base.on_ground() && !(hdist > f64::from(1.0E-5f32)) && (self.base.tick_count.wrapping_add(self.base.id)) % 4 != 0 {
-            // `applyEffectsFromBlocksForLastMovements()`: block effects are dispatched by the entity base (EcEntityBase)
+            self.apply_effects_from_blocks_for_last_movements(level);
         } else {
             let dm = self.base.delta_movement();
-            let _ = self.r#move(level, MoverType::SelfMover, dm);
+            self.r#move(level, MoverType::SelfMover, dm);
+            self.apply_effects_from_blocks(level);
             let air_drag = self.get_air_drag();
             let mut ground_friction = air_drag;
             if self.base.on_ground() {
@@ -359,7 +360,7 @@ impl Entity for ItemEntity {
         self.base.sync_velocity = true;
         self.health = (self.health as f32 - damage) as i32;
         let position = self.base.position();
-        level.game_event(GameEvent::ENTITY_DAMAGE, position, &GameEventContext::of_entity(source.get_entity()));
+        level.game_event_from_entity(source.get_entity(), GameEvent::ENTITY_DAMAGE, position);
         if self.health <= 0 {
             crate::world::item::on_destroyed(&mut stack, level, position);
             self.set_item_in_place(stack);
@@ -428,7 +429,6 @@ fn is_mob(ty: EntityType, is_living: bool, is_player: bool) -> bool {
 /// `Entity.moveTowardsClosestSpace(x, y, z)`.
 pub fn move_towards_closest_space(entity: &mut dyn Entity, level: &ServerLevel, x: f64, y: f64, z: f64) {
     use crate::world::damagesource::DamageSource;
-use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use mc_data::GameEvent;
     let pos = BlockPos::containing(x, y, z);

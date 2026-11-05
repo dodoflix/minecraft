@@ -177,7 +177,7 @@ impl Entity for FallingBlockEntity {
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, _damage: f32) -> bool {
         if !self.is_invulnerable_to_base(level, source) {
-            self.base.sync_velocity = true;
+            self.mark_hurt();
         }
         false
     }
@@ -189,14 +189,11 @@ impl Entity for FallingBlockEntity {
         }
         let block = self.block_state.block();
         self.time += 1;
-        let g = self.get_gravity();
-        if g != 0.0 {
-            let m = self.base.delta_movement();
-            self.base.set_delta_movement(m.add(Vec3::new(0.0, -g, 0.0)));
-        }
+        self.apply_gravity();
         let dm = self.base.delta_movement();
-        let _ = self.r#move(level, MoverType::SelfMover, dm);
-        // EC_BASE: applyEffectsFromBlocks(); handlePortal()  (EcEntityBase)
+        self.r#move(level, MoverType::SelfMover, dm);
+        self.apply_effects_from_blocks(level);
+        self.handle_portal(level);
         if self.is_alive() || self.force_tick_after_teleport_to_duplicate {
             let mut pos = self.base.block_position();
             let is_concrete = crate::world::level::block::helpers::is_instance_of(self.block_state, "ConcretePowderBlock");

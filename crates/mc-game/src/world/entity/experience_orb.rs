@@ -262,14 +262,10 @@ impl Entity for ExperienceOrb {
     fn tick(&mut self, level: &mut ServerLevel) {
         self.base_tick(level);
         let colliding = !level.no_collision(None, None, &self.base.bounding_box());
-        if self.base.eye_in_fluid[0] {
+        if self.is_eye_in_fluid("water") {
             self.set_underwater_movement();
         } else if !colliding {
-            let g = self.get_gravity();
-            if g != 0.0 {
-                let m = self.base.delta_movement();
-                self.base.set_delta_movement(m.add(Vec3::new(0.0, -g, 0.0)));
-            }
+            self.apply_gravity();
         }
         if level.get_fluid_state(self.base.block_position()).is_tag("lava") {
             let r = &mut self.base.random;
@@ -292,7 +288,8 @@ impl Entity for ExperienceOrb {
         }
         let fall_speed = self.base.delta_movement().y;
         let dm = self.base.delta_movement();
-        let _ = self.r#move(level, MoverType::SelfMover, dm);
+        self.r#move(level, MoverType::SelfMover, dm);
+        self.apply_effects_from_blocks(level);
         let mut friction = self.get_air_drag();
         if self.base.on_ground() {
             let below = movement::get_block_pos_below_that_affects_my_movement(self, level);

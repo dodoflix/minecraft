@@ -107,3 +107,65 @@ fn item_fall_matches_vanilla() {
     }
     Fixture::load("item_fall").assert_matches(&actual, &Options::default());
 }
+
+fn golden_lines(prefix: &str) -> Vec<Vec<String>> {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/item_entity_golden.txt");
+    let text = std::fs::read_to_string(path).unwrap();
+    text.lines().filter(|l| l.starts_with(prefix)).map(|l| l.split(' ').skip(1).map(str::to_string).collect()).collect()
+}
+
+#[test]
+fn experience_orb_split_and_value_match_vanilla() {
+    use mc_game::world::entity::experience_orb::ExperienceOrb;
+    let splits = golden_lines("orb_split ");
+    assert_eq!(splits.len(), 5000);
+    for line in &splits {
+        let n: i32 = line[0].parse().unwrap();
+        let mut amount = n;
+        let mut parts = Vec::new();
+        while amount > 0 {
+            let v = ExperienceOrb::get_experience_value(amount);
+            amount -= v;
+            parts.push(v.to_string());
+        }
+        assert_eq!(parts.join(","), line[1], "split of {n}");
+    }
+    for line in golden_lines("orb_value ") {
+        let v: i32 = line[0].parse().unwrap();
+        assert_eq!(ExperienceOrb::get_experience_value(v).to_string(), line[1], "value {v}");
+    }
+}
+
+#[test]
+fn item_merge_rules_match_vanilla() {
+    use mc_game::world::entity::item::{are_mergable, merge_stacks};
+    use mc_game::world::item::ItemStackExt as _;
+    let make = |kind: &str, count: i32| -> ItemStack {
+        let mut s = match kind {
+            "diamond" | "named_diamond" => ItemStack::new(Item::DIAMOND),
+            "stone" => ItemStack::new(Item::STONE),
+            "ender_pearl" => ItemStack::new(Item::ENDER_PEARL),
+            _ => ItemStack::new(Item::IRON_SWORD),
+        };
+        if kind == "named_diamond" {
+            s.set(mc_protocol::components::CUSTOM_NAME, mc_text::Component::literal("x"));
+        }
+        if kind == "damaged_sword" {
+            s.set_damage_value(5);
+        }
+        s.copy_with_count(count)
+    };
+    let lines = golden_lines("merge ");
+    assert!(lines.len() > 1000);
+    for l in &lines {
+        let (a, ca, b, cb) = (&l[0], l[1].parse::<i32>().unwrap(), &l[2], l[3].parse::<i32>().unwrap());
+        let (to, mut from) = (make(a, ca), make(b, cb));
+        let mergable = are_mergable(&to, &from);
+        let new_to = merge_stacks(&to, &mut from, 64);
+        assert_eq!(
+            format!("{mergable} {} {}", new_to.count(), from.count()),
+            format!("{} {} {}", l[4], l[5], l[6]),
+            "merge {a}*{ca} <- {b}*{cb}"
+        );
+    }
+}
