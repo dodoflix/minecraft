@@ -260,13 +260,12 @@ impl MinecraftServer {
     /// `EnvironmentAttributeSystem.builder().addDefaultLayers(level)` for a dimension type: its constant attributes, its
     /// timelines (the `timelines` holder set resolved against the timeline registry) and the weather layers.
     fn build_attribute_system(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry) -> crate::world::attribute::EnvironmentAttributeSystem {
-    fn build_attribute_system(&self, dimension_type: &DimensionType) -> crate::world::attribute::EnvironmentAttributeSystem {
-        self.build_attribute_system_with(dimension_type, &[])
+        self.build_attribute_system_with(dimension_type, biomes, &[])
     }
 
     /// `builder().addDefaultLayers(level)` followed by `addTimelineLayer(timeline, clockManager)` for each of `extra_timelines`
     /// (the `timeline_attributes` game test environment).
-    fn build_attribute_system_with(&self, dimension_type: &DimensionType, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
+    fn build_attribute_system_with(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
         use crate::registry::typed::HolderSetRef;
         use crate::world::attribute::Timeline;
         let access = self.registries.composite_access();
@@ -302,7 +301,8 @@ impl MinecraftServer {
                 access.get::<DimensionType>(keys::DIMENSION_TYPE, id).cloned().unwrap_or_else(|| panic!("Unknown dimension type {id} of dimension {dimension}")),
             ),
         };
-        self.build_attribute_system_with(&dimension_type, extra_timelines)
+        let biomes = self.level(dimension).and_then(|level| level.tick_state.biomes.clone()).unwrap_or_else(|| panic!("The level {dimension} has no biomes"));
+        self.build_attribute_system_with(&dimension_type, &biomes, extra_timelines)
     }
 
     /// `createLevels`.
