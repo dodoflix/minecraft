@@ -15,9 +15,9 @@
 //! * scheduled ticks land in the owning chunk's `ProtoChunkTicks` (delay is not stored), game events, level events,
 //!   sounds, particles and neighbor updates are no-ops, entity queries are empty and there are no live block entities.
 //!
-//! Known deviation: `get_height_at` on a heightmap type the chunk has not primed computes it on the fly instead of storing
-//! it in the chunk (the `&self` of `LevelReader`); for the heightmaps a status maintains incrementally the stored result is
-//! identical, and generation primes all of them before the feature step.
+//! `get_height_at` on a heightmap the chunk has not primed (vanilla `ChunkAccess.getHeight` primes and keeps it, so it is
+//! stale for types the chunk's status does not maintain) answers from a temporary priming and records the request; the
+//! chunk is primed before the next mutation, on [`GenLevel::region`] and on drop, which is the same chunk state.
 
 use super::env::GenEnv;
 use super::world_gen_level::WorldGenLevel;
@@ -39,6 +39,7 @@ use mc_world::palette::BiomeId;
 use mc_world::status::ChunkStatus;
 use mc_world::ticks::{ScheduledTick, TickAccess, TickPriority};
 use mc_worldgen::biome::{BiomeManager, BiomeResolver};
+use std::cell::RefCell;
 use std::sync::Arc;
 
 /// `WorldGenRegion` over the chunks of one generation step.
@@ -60,6 +61,8 @@ pub struct GenLevel<'a> {
     max_allowed: Option<Vec<ChunkStatus>>,
     /// `levelData.getGameTime()`.
     game_time: i64,
+    /// Heightmaps read while missing from their (writable) chunk: `(chunkX, chunkZ, type)`, primed lazily.
+    pending_heightmaps: RefCell<Vec<(i32, i32, HeightmapType)>>,
 }
 
 impl<'a> GenLevel<'a> {
@@ -80,6 +83,7 @@ impl<'a> GenLevel<'a> {
             target_status: ChunkStatus::Features,
             max_allowed: None,
             game_time: 0,
+            pending_heightmaps: RefCell::new(Vec::new()),
         }
     }
 
@@ -97,8 +101,21 @@ impl<'a> GenLevel<'a> {
     }
 
     /// The lent chunks again (e.g. to read back results).
-    pub fn region(&self) -> &WorldGenRegion {
+    pub fn region(&mut self) -> &WorldGenRegion {
+        self.flush_heightmaps();
         self.region
+    }
+
+    /// Primes the heightmaps `get_height_at` found missing (`ChunkAccess.getHeight` keeps what it primes).
+    fn flush_heightmaps(&mut self) {
+        for (chunk_x, chunk_z, ty) in self.pending_heightmaps.get_mut().drain(..) {
+            if self.region.gen_chunk(chunk_x, chunk_z).is_some_and(GenChunk::is_writable) {
+                let chunk = self.region.get_chunk_mut_unchecked(ChunkPos::new(chunk_x, chunk_z));
+                if !chunk.access.has_primed_heightmap(ty) {
+                    chunk.access.prime_heightmaps(true, &[ty]);
+                }
+            }
+        }
     }
 
     fn max_allowed_status(&self, distance: i32) -> Option<ChunkStatus> {
@@ -218,6 +235,12 @@ impl<'a> GenLevel<'a> {
     }
 }
 
+impl Drop for GenLevel<'_> {
+    fn drop(&mut self) {
+        self.flush_heightmaps();
+    }
+}
+
 struct RegionBiomes<'r, 'a>(&'r GenLevel<'a>);
 
 impl BiomeResolver for RegionBiomes<'_, '_> {
@@ -265,6 +288,12 @@ impl LevelReader for GenLevel<'_> {
         match chunk.access.heightmaps.get(&ty) {
             Some(heightmap) => heightmap.get_first_available(x & 15, z & 15),
             None => {
+                if self.region.gen_chunk(chunk_x, chunk_z).is_some_and(GenChunk::is_writable) {
+                    let mut pending = self.pending_heightmaps.borrow_mut();
+                    if !pending.contains(&(chunk_x, chunk_z, ty)) {
+                        pending.push((chunk_x, chunk_z, ty));
+                    }
+                }
                 let mut primed = HeightmapMap::new();
                 Heightmap::prime_heightmaps(&chunk.access.view(true), &mut primed, &[ty]);
                 primed[&ty].get_first_available(x & 15, z & 15)
@@ -299,6 +328,7 @@ impl LevelAccessor for GenLevel<'_> {
         if !self.ensure_can_write(pos) {
             return false;
         }
+        self.flush_heightmaps();
         if let Some(chunk) = self.chunk_for_write(pos) {
             // (`updatePOIOnBlockStateChange` has no effect on proto chunks' generation output)
             let old_state = chunk.set_block_state(pos, state, None);
@@ -320,6 +350,10 @@ impl LevelAccessor for GenLevel<'_> {
             self.mark_pos_for_post_processing(post_process_pos);
         }
         true
+    }
+
+    fn as_world_gen_level(&self) -> Option<&dyn WorldGenLevel> {
+        Some(self)
     }
 
     fn remove_block(&mut self, pos: BlockPos, _moved_by_piston: bool) -> bool {
@@ -459,6 +493,24 @@ impl WorldGenLevel for GenLevel<'_> {
             chunk.add_entity(tag);
         }
         true
+    }
+
+    /// `BulkSectionAccess.getBlockState`: the section's block (AIR outside the build height), no read-zone warning.
+    fn get_block_state_in_section(&self, pos: BlockPos) -> BlockState {
+        if self.is_outside_build_height(pos.y()) {
+            return Block::AIR.default_state();
+        }
+        let chunk = self.chunk(pos.x() >> 4, pos.z() >> 4);
+        let index = self.region.level_height.section_index(pos.y()) as usize;
+        chunk.access.get_section(index).get_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15)
+    }
+
+    /// `section.setBlockState(x, y, z, state, false)`: raw palette write (read-only snapshots drop it).
+    fn set_block_state_in_section(&mut self, pos: BlockPos, state: BlockState) {
+        let index = self.region.level_height.section_index(pos.y()) as usize;
+        if let Some(chunk) = self.chunk_for_write(pos) {
+            chunk.access.get_section_mut(index).set_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15, state);
+        }
     }
 
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData> {

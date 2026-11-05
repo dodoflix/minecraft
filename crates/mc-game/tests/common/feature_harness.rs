@@ -24,7 +24,6 @@ use std::sync::{Arc, LazyLock};
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::world_gen::{GenChunk, WorldGenRegion};
 use mc_game::world::level::chunk::status::{ChunkStep, GENERATION_PYRAMID};
@@ -33,7 +32,7 @@ use mc_game::world::level::levelgen::registries::{
     BLOCK_STATE_PROVIDER_REGISTRY, FEATURE_REGISTRY, GenRegistries, PLACED_FEATURE_REGISTRY, TypedRegistry, load_vanilla_data,
 };
 use mc_game::world::level::levelgen::GenEnv;
-use mc_game::world::level::{BlockGetter, LevelAccessor};
+use mc_game::world::level::LevelAccessor;
 use mc_world::chunk::{LevelHeight, ProtoChunk};
 use mc_world::heightmap::HeightmapType;
 use mc_world::palette::{BiomeId, PalettedContainerFactory};
@@ -218,8 +217,9 @@ fn biome_id(name: &str) -> BiomeId {
     WORLD.biomes.id_of_name(name).unwrap_or_else(|| panic!("biome {name}"))
 }
 
-/// A synthetic chunk with the final heightmaps primed and the given persisted status.
-pub fn make_chunk(seed: i64, cx: i32, cz: i32, status: ChunkStatus) -> ProtoChunk {
+/// A synthetic chunk with the final heightmaps (and, with `prime_wg`, the two worldgen ones) primed and the given persisted
+/// status.
+pub fn make_chunk(seed: i64, cx: i32, cz: i32, status: ChunkStatus, prime_wg: bool) -> ProtoChunk {
     let mut chunk = ProtoChunk::new(ChunkPos::new(cx, cz), UpgradeData::EMPTY, level_height(), &WORLD.factory, None);
     for si in 0..(HEIGHT / 16) {
         let base_y = MIN_Y + si * 16;
@@ -238,6 +238,9 @@ pub fn make_chunk(seed: i64, cx: i32, cz: i32, status: ChunkStatus) -> ProtoChun
     chunk.access.fill_biomes_from_noise(level_height(), |qx, qy, qz| biome_id(biome_name(seed, qx, qy, qz)));
     chunk.set_persisted_status(status);
     chunk.access.prime_heightmaps(true, FINAL_HEIGHTMAPS);
+    if prime_wg {
+        chunk.access.prime_heightmaps(true, &[HeightmapType::WorldSurfaceWg, HeightmapType::OceanFloorWg]);
+    }
     chunk
 }
 
@@ -256,11 +259,16 @@ pub struct SynthRegion {
 impl SynthRegion {
     /// `radius`: 1 = 3x3 chunks, 2 = 5x5.
     pub fn new(seed: i64, cx: i32, cz: i32, step_status: ChunkStatus, radius: i32) -> SynthRegion {
+        Self::with_wg_heightmaps(seed, cx, cz, step_status, radius, true)
+    }
+
+    /// `prime_wg = false`: the chunks lack the worldgen heightmaps (vanilla primes them on first read).
+    pub fn with_wg_heightmaps(seed: i64, cx: i32, cz: i32, step_status: ChunkStatus, radius: i32, prime_wg: bool) -> SynthRegion {
         let step = GENERATION_PYRAMID.get_step_to(step_status);
         let mut chunks = HashMap::new();
         for x in cx - radius..=cx + radius {
             for z in cz - radius..=cz + radius {
-                chunks.insert(ChunkPos::pack_xz(x, z), GenChunk::Loaned(Box::new(make_chunk(seed, x, z, ChunkStatus::Terrain))));
+                chunks.insert(ChunkPos::pack_xz(x, z), GenChunk::Loaned(Box::new(make_chunk(seed, x, z, ChunkStatus::Terrain, prime_wg))));
             }
         }
         let region = WorldGenRegion::new(

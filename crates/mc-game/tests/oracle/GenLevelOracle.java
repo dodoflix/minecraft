@@ -22,7 +22,7 @@ import net.minecraft.world.ticks.TickPriority;
  * on the real vanilla WorldGenRegion over the synthetic terrain of FeatureOracleBase, followed by FeatureOracleBase.dump.
  * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/GenLevelOracle.java crates/mc-game/tests/fixtures/gen_level.txt
  *
- * Output: {@code SCENARIO id seed cx cz step chunkRadius}, then per operation {@code > op} / {@code = result}, then the dump
+ * Output: {@code SCENARIO id seed cx cz step chunkRadius primeWg}, then per operation {@code > op} / {@code = result}, then the dump
  * lines as {@code D <line>}, then {@code END}. The Rust test replays every {@code >} line and compares.
  */
 public class GenLevelOracle {
@@ -185,8 +185,9 @@ public class GenLevelOracle {
                 if (round == 0) { cx = rnd.nextInt(5) - 2; cz = rnd.nextInt(5) - 2; }
                 ChunkStatus step = (ChunkStatus) cfg[0];
                 int radius = (Integer) cfg[1];
-                out.println("SCENARIO " + id++ + " " + seed + " " + cx + " " + cz + " " + step.getName() + " " + radius);
-                FeatureOracleBase.Region region = FeatureOracleBase.newRegion(seed, cx, cz, step, radius);
+                boolean wg = round < 2;
+                out.println("SCENARIO " + id++ + " " + seed + " " + cx + " " + cz + " " + step.getName() + " " + radius + " " + (wg ? 1 : 0));
+                FeatureOracleBase.Region region = FeatureOracleBase.newRegion(seed, cx, cz, step, radius, wg);
                 FeatureOracleBase.Snapshot before = FeatureOracleBase.snapshot(region);
                 for (String op : script(rnd, cx, cz, radius, 400)) {
                     out.println("> " + op); out.flush();

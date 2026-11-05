@@ -56,8 +56,8 @@ import net.minecraft.world.ticks.WorldGenTickAccess;
  *   List&lt;String&gt; lines = FeatureOracleBase.dump(r, before);       // compact text dump compared line by line by Rust
  * </pre>
  * The synthetic terrain ({@link #terrain}) is a pure integer formula of (seed, x, y, z) mirrored in the Rust harness and
- * checked by the {@code T}/{@code M} digest lines of {@link #dump}. Chunks have status TERRAIN and all four final heightmaps
- * primed (the state of the neighbourhood during the FEATURES step). The region is vanilla's {@code WorldGenRegion} allocated
+ * checked by the {@code T}/{@code M} digest lines of {@link #dump}. Chunks have status TERRAIN and all heightmaps
+ * primed (the state of the neighbourhood during the FEATURES step; the two WG ones optionally). The region is vanilla's {@code WorldGenRegion} allocated
  * with Unsafe (no ServerLevel); only methods that dereference the (null) level are overridden: {@code setBlock} (vanilla body
  * minus the POI hook), height, sea level, registry access, light (always 0) and enabled features.
  */
@@ -186,7 +186,8 @@ public class FeatureOracleBase {
         return BIOMES.getOrThrow(net.minecraft.resources.ResourceKey.create(Registries.BIOME, Identifier.withDefaultNamespace(name)));
     }
 
-    public static ProtoChunk makeChunk(long seed, int cx, int cz, ChunkStatus status) {
+    /** {@code primeWg}: also the two worldgen heightmaps (present after real terrain generation; vanilla primes them lazily otherwise). */
+    public static ProtoChunk makeChunk(long seed, int cx, int cz, ChunkStatus status, boolean primeWg) {
         ProtoChunk chunk = new ProtoChunk(new ChunkPos(cx, cz), UpgradeData.EMPTY, LevelHeightAccessor.create(MIN_Y, HEIGHT), FACTORY, null);
         for (int si = 0; si < chunk.getSectionsCount(); si++) {
             LevelChunkSection section = chunk.getSection(si);
@@ -201,6 +202,7 @@ public class FeatureOracleBase {
         chunk.fillBiomesFromNoise((qx, qy, qz) -> biomeHolder(biomeName(seed, qx, qy, qz)));
         chunk.setPersistedStatus(status);
         Heightmap.primeHeightmaps(chunk, ChunkStatus.FINAL_HEIGHTMAPS);
+        if (primeWg) Heightmap.primeHeightmaps(chunk, EnumSet.of(Heightmap.Types.WORLD_SURFACE_WG, Heightmap.Types.OCEAN_FLOOR_WG));
         return chunk;
     }
 
@@ -266,6 +268,10 @@ public class FeatureOracleBase {
      * 2 = 5x5). {@code region.random} is the real "worldgen_region_random" of the seed.
      */
     public static Region newRegion(long seed, int cx, int cz, ChunkStatus stepStatus, int chunkRadius) throws Exception {
+        return newRegion(seed, cx, cz, stepStatus, chunkRadius, true);
+    }
+
+    public static Region newRegion(long seed, int cx, int cz, ChunkStatus stepStatus, int chunkRadius, boolean primeWg) throws Exception {
         setup();
         Field uf = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
         uf.setAccessible(true);
@@ -274,7 +280,7 @@ public class FeatureOracleBase {
         region.seed = seed;
         region.chunks = new HashMap<>();
         for (int x = cx - chunkRadius; x <= cx + chunkRadius; x++)
-            for (int z = cz - chunkRadius; z <= cz + chunkRadius; z++) region.chunks.put(ChunkPos.pack(x, z), makeChunk(seed, x, z, ChunkStatus.TERRAIN));
+            for (int z = cz - chunkRadius; z <= cz + chunkRadius; z++) region.chunks.put(ChunkPos.pack(x, z), makeChunk(seed, x, z, ChunkStatus.TERRAIN, primeWg));
         ChunkStep step = ChunkPyramid.GENERATION_PYRAMID.getStepTo(stepStatus);
         StaticCache2D<ChunkAccess> cache = StaticCache2D.create(cx, cz, chunkRadius, (x, z) -> region.chunks.get(ChunkPos.pack(x, z)));
         RandomState randomState = randomState(seed);

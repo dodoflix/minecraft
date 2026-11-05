@@ -7,7 +7,6 @@ mod common;
 
 use common::feature_harness::*;
 use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
 use mc_data::block::Block;
 use mc_data::fluid::Fluid;
 use mc_game::world::level::levelgen::WorldGenLevel;
@@ -87,8 +86,9 @@ fn gen_level_matches_vanilla_region() {
         let h: Vec<&str> = header.split(' ').collect();
         assert_eq!(h[0], "SCENARIO", "{header}");
         let (seed, cx, cz, radius) = (h[2].parse::<i64>().unwrap(), int(h[3]), int(h[4]), int(h[6]));
+        let prime_wg = int(h[7]) == 1;
         let step = ChunkStatus::decode_str(h[5]).expect("step status");
-        let mut synth = SynthRegion::new(seed, cx, cz, step, radius);
+        let mut synth = SynthRegion::with_wg_heightmaps(seed, cx, cz, step, radius, prime_wg);
         let before = snapshot(&synth);
         let mut level = synth.level();
         let mut expected_dump = Vec::new();
