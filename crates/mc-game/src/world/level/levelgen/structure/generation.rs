@@ -177,9 +177,21 @@ pub fn place_structure(
     center: ChunkPos,
 ) {
     let manager = StructureManager::new(env);
+    let Some(id) = structure.id().map(ToString::to_string) else { return };
     let starts = manager.starts_for_structure(&LevelSource(&*level), center.x, center.z, structure);
-    for start in starts {
-        start.lock().place_in_chunk(level, &manager, env, random, writable_area, center);
+    for handle in starts {
+        let (origin, tag) = {
+            let mut start = handle.lock();
+            start.place_in_chunk(level, &manager, env, random, writable_area, center);
+            // Pieces mutate themselves while placing (vanilla's chunk shares the start object): persist the new state.
+            let origin = start.get_chunk_pos();
+            (origin, start.create_tag(&StructurePieceSerializationContext { env }, origin))
+        };
+        let changed = level.structure_data(origin).and_then(|d| d.starts.get(&id)).is_some_and(|raw| *raw != tag);
+        if changed && level.set_structure_start_tag(origin, &id, tag.clone()) {
+            // the live handle stays the cached one, keyed by the chunk's new raw tag
+            env.start_cache.put(origin, &id, tag, handle);
+        }
     }
 }
 

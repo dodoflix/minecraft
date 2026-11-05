@@ -47,6 +47,13 @@ pub trait WorldGenLevel: LevelAccessor {
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool;
     /// Structure starts/references of any chunk within reach (`StructureManager.startsForStructure` source).
     fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData>;
+    /// Replaces the raw start of `structure_id` in the chunk `pos` with `tag` (a piece mutated its state while being
+    /// placed, e.g. `ScatteredFeaturePiece.heightPosition`; vanilla shares the start object with the chunk, which saves it
+    /// later). Returns whether the chunk accepted the write (it is writable in this region); levels that cannot persist it
+    /// keep the default.
+    fn set_structure_start_tag(&mut self, _pos: ChunkPos, _structure_id: &str, _tag: CompoundTag) -> bool {
+        false
+    }
     /// `BulkSectionAccess.getBlockState(pos)`: the block of the chunk section at `pos` read directly (AIR outside the build
     /// height); no write-zone check and no "unsafe terrain read" warning. Default: [`BlockGetter::get_block_state`].
     fn get_block_state_in_section(&self, pos: BlockPos) -> BlockState {
