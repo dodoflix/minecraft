@@ -8,6 +8,7 @@
 //! * `decoration`: `applyBiomeDecoration` + `FeatureSorter`; `hooks`: the `WorldGenHooks` implementation.
 //! * [`structure`]: structure sets/starts/pieces/templates/jigsaw.
 
+pub mod block_entity_data;
 pub mod blockpredicates;
 pub mod codec;
 pub mod column;
@@ -16,6 +17,9 @@ pub mod env;
 pub mod feature;
 pub mod gen_level;
 pub mod generation_step;
+pub mod geode_block_settings;
+pub mod geode_crack_settings;
+pub mod geode_layer_settings;
 pub mod holder;
 pub mod hooks;
 pub mod placement;
