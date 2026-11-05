@@ -10,6 +10,6 @@ fn scoreboard_slot_matches_vanilla() {
         "scoreboard_slot",
         include_str!("fixtures/args/scoreboard_slot_golden.txt"),
         |_| Arc::new(ScoreboardSlotArgument::display_slot()),
-        |v, src| v.downcast_ref::<scores::DisplaySlot>().expect("slot").get_serialized_name(),
+        |v, src| v.downcast_ref::<scores::DisplaySlot>().expect("slot").get_serialized_name().to_owned(),
     );
 }
