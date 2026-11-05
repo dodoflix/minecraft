@@ -26,8 +26,6 @@ pub struct GenEnv {
     pub random_state: Arc<RandomState>,
     pub biomes: Arc<BiomeRegistry>,
     pub registries: Arc<GenRegistries>,
-    /// The worldgen data the registries were decoded from (inline `/place feature` definitions decode against it).
-    pub worldgen: Arc<mc_worldgen::data::WorldgenRegistries>,
     /// `server.getStructureTemplateManager()`.
     pub structure_template_manager: Arc<StructureTemplateManager>,
     /// The `worldgen/structure` registry.

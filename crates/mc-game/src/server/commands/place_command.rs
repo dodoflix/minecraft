@@ -185,7 +185,7 @@ pub fn place_feature_command(source: &CommandSourceStack, feature: ResourceOrId,
         let env = level.gen_env().clone();
         let holder = match &feature {
             ResourceOrId::Reference(key) => env.registries.feature(&key.id).expect("the argument checked that the feature exists").clone(),
-            ResourceOrId::Inline(tag) => GenRegistries::decode_inline_feature(&env.worldgen, &env.biomes, &nbt_to_json(tag))
+            ResourceOrId::Inline(tag) => GenRegistries::decode_inline_feature(level.worldgen_data.as_ref().expect("level has worldgen data"), &env.biomes, &nbt_to_json(tag))
                 .map_err(|e| ERROR_FAILED_TO_PARSE.create(e.to_string()))?,
         };
         let chunk = ChunkPos::containing(&pos);
@@ -232,6 +232,7 @@ pub fn place_structure(source: &CommandSourceStack, structure: ResourceKey, pos:
         let chunk_min = ChunkPos::new(bounding_box.min_x() >> 4, bounding_box.min_z() >> 4);
         let chunk_max = ChunkPos::new(bounding_box.max_x() >> 4, bounding_box.max_z() >> 4);
         check_loaded(level, chunk_min, chunk_max)?;
+        level.ensure_chunks_loaded(ChunkPos::new(chunk_min.x - 1, chunk_min.z - 1), ChunkPos::new(chunk_max.x + 1, chunk_max.z + 1));
         let manager = StructureManager::new(&env);
         let (min_y, max_y) = (level.get_min_y(), level.get_max_y());
         let mut random = level.tick_state.random.clone();
@@ -267,7 +268,9 @@ pub fn place_template(
         let Some(structure_template) = level.structure_template_manager().get(template) else {
             return Err(ERROR_TEMPLATE_INVALID.create(template.to_string()));
         };
-        check_loaded(level, ChunkPos::containing(&pos), ChunkPos::containing(&pos.offset_vec(&structure_template.get_size())))?;
+        let (chunk_min, chunk_max) = (ChunkPos::containing(&pos), ChunkPos::containing(&pos.offset_vec(&structure_template.get_size())));
+        check_loaded(level, chunk_min, chunk_max)?;
+        level.ensure_chunks_loaded(ChunkPos::new(chunk_min.x - 1, chunk_min.z - 1), ChunkPos::new(chunk_max.x + 1, chunk_max.z + 1));
         let mut settings = StructurePlaceSettings::new();
         settings.set_mirror(mirror).set_rotation(rotation).set_known_shape(strict);
         if integrity < 1.0 {

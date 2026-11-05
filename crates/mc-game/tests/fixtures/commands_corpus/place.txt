@@ -1,0 +1,81 @@
+# /place corpus (flat world, forceloaded area). Success + error cases of feature / jigsaw / structure / template.
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/place.txt --keep   (then compare the worlds with tools/worldcmp)
+# The level random is unseeded in vanilla, so only the messages are compared here for random-driven placements; the
+# `template` placements with an explicit seed (and integrity 1.0) are block-deterministic.
+gamerule advance_time false
+gamerule advance_weather false
+forceload add -48 -48 79 79
+!wait 3000
+
+# ---- syntax / permission errors
+place
+place feature
+place jigsaw
+place structure
+place template
+place bogus
+@bot0 place template minecraft:igloo/top 0 -60 0
+
+# ---- feature
+place feature minecraft:nope 0 -60 0
+place feature minecraft:oak 0 -60 0
+place feature oak 16 -60 16
+place feature minecraft:ore_coal 20 -50 20
+place feature minecraft:lake_lava 30 -60 30
+place feature minecraft:spring_water 24 -62 24
+place feature minecraft:forest_rock 40 -60 40
+place feature minecraft:oak 100000 -60 100000
+place feature minecraft:oak 0 -60
+place feature minecraft:oak 0 100000 0
+place feature minecraft:oak 400 -60 400
+place feature {type:"minecraft:simple_block",config:{to_place:{type:"minecraft:simple_state_provider",state:{Name:"minecraft:gold_block"}}}} 2 -60 2
+place feature {type:"minecraft:nope"} 2 -60 2
+place feature {} 2 -60 2
+place feature minecraft:desert_well 50 -60 50
+
+# ---- structure
+place structure minecraft:nope 0 -60 0
+place structure minecraft:desert_pyramid 0 -60 -40
+place structure minecraft:igloo 40 -60 -40
+place structure minecraft:ruined_portal 8 -60 8
+place structure minecraft:village_plains 0 -60 0
+place structure minecraft:village_plains 0 -60 100000
+place structure minecraft:monument 0 -60 0
+place structure minecraft:buried_treasure 0 -60 0
+place structure minecraft:swamp_hut 0 -60 0
+
+# ---- jigsaw
+place jigsaw minecraft:nope minecraft:bottom 5 0 -60 0
+place jigsaw minecraft:village/plains/town_centers minecraft:bottom 5 0 -60 0
+place jigsaw minecraft:village/plains/town_centers minecraft:bottom 0 0 -60 0
+place jigsaw minecraft:village/plains/town_centers minecraft:bottom 21 0 -60 0
+place jigsaw minecraft:village/plains/town_centers minecraft:bottom 5 100000 -60 0
+place jigsaw minecraft:village/plains/town_centers minecraft:nothing 5 0 -60 0
+place jigsaw minecraft:empty minecraft:bottom 5 0 -60 0
+
+# ---- template
+place template minecraft:nope 0 -60 0
+place template minecraft:empty 0 -60 0
+place template minecraft:igloo/top 0 -60 0
+place template minecraft:igloo/top 0 -60 0 clockwise_90
+place template minecraft:igloo/top 20 -60 0 counterclockwise_90 left_right
+place template minecraft:igloo/top 40 -60 0 clockwise_180 front_back 0.5 1234
+place template minecraft:igloo/top 60 -60 0 none none 0.0 77 strict
+place template minecraft:igloo/top 0 -60 20 none none 1.0 0 strict
+place template minecraft:ruined_portal/portal_1 0 -60 40 clockwise_90 none 0.25 99
+place template minecraft:fossil/skull_1 0 -60 60 none left_right 0.9 -5
+place template minecraft:shipwreck/with_mast 0 -50 80 clockwise_180
+place template minecraft:village/plains/houses/plains_small_house_1 40 -60 40 counterclockwise_90 front_back
+place template minecraft:igloo/top 0 -60 0 sideways
+place template minecraft:igloo/top 0 -60 0 none upside_down
+place template minecraft:igloo/top 0 -60 0 none none 1.5
+place template minecraft:igloo/top 0 -60 0 none none -0.5
+place template minecraft:igloo/top 0 -60 0 none none 0.5 2147483648
+place template minecraft:igloo/top 0 -60 0 none none 0.5 1 loose
+place template minecraft:igloo/top 1000000 -60 0
+place template minecraft:igloo/top 2000 -60 0
+place template minecraft:igloo/top 0 -60 0 none none 0.5 1 strict extra
+place template minecraft:igloo/top ~ ~ ~
+place template Minecraft:Igloo/Top 0 -60 0
+place template igloo/top 100 -60 100
+place template minecraft:igloo/top 0 -60 0 none none 1 5

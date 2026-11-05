@@ -89,6 +89,8 @@ pub struct ServerLevel {
     /// The level's generation environment (`getChunkSource().getGenerator()`, registries, template manager); `None` for
     /// levels without a generator ([`ServerLevel::detached`]).
     pub gen_env: Option<Arc<crate::world::level::levelgen::GenEnv>>,
+    /// The worldgen data the generation registries were decoded from (inline `/place feature` definitions decode against it).
+    pub worldgen_data: Option<Arc<mc_worldgen::data::WorldgenRegistries>>,
     /// Server clock inputs of `getCurrentDifficultyAt` while a command places worldgen content
     /// (see [`server_level_worldgen::with_worldgen_level`](super::server_level_worldgen::with_worldgen_level)).
     pub worldgen_clock: Option<super::server_level_worldgen::WorldGenClock>,
@@ -160,6 +162,7 @@ impl ServerLevel {
             game_time: 0,
             tick_state,
             gen_env: None,
+            worldgen_data: None,
             worldgen_clock: None,
             // ==== [Damage] additions (ServerLevel::new initializer) ====
             deferred_level_ops: Default::default(),

@@ -186,7 +186,6 @@ impl MinecraftServer {
             random_state: random_state.clone(),
             biomes: factory.biomes.clone(),
             registries: registries.clone(),
-            worldgen: factory.worldgen.clone(),
             structure_template_manager: factory.template_manager.clone(),
             structures: structures.clone(),
             start_cache: StartCache::default(),
@@ -231,6 +230,7 @@ impl MinecraftServer {
             level_data,
         });
         level.gen_env = Some(gen_env);
+        level.worldgen_data = Some(factory.worldgen.clone());
         level.registries = self.registries.composite_access().clone();
         level.server_state = crate::server::level::LevelServerState {
             scoreboard: self.scoreboard.clone(),
