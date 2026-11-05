@@ -1,6 +1,6 @@
 # /fill /fillbiome /clone /forceload /locate (flat world, seed 12345, no structures)
 !wait 8000
-!ignore Can.t keep up|standing on air|Can.t spawn entity
+!ignore Can.t keep up|standing on air|Can.t spawn entity|Locating element
 !ignore advancement
 # ---- fill ----
 fill 0 -60 0 3 -58 3 minecraft:stone
@@ -84,7 +84,7 @@ clone 0 -60 0 100 100 100 200 0 200
 clone 0 -60 0 300 -50 300 200 0 200
 clone 0 -60 0 31 -60 0 1000000 0 0
 clone 1000000 0 0 1000001 0 0 0 0 0
-clone 0 -64 0 40 300 40 100 -64 100
+clone 0 -64 0 40 300 40 50 -64 50
 clone 10 -60 10 12 -58 12 20 -60 20 from
 clone 10 -60 10 12 -58 12 20 -60 20 replace sideways
 clone from minecraft:overworld 10 -60 10 12 -58 12 to minecraft:overworld 50 -60 50

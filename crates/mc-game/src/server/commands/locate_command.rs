@@ -2,6 +2,7 @@
 use crate::commands::arguments::resource_arguments::{ResourceOrTag, ResourceOrTagArgument, ResourceOrTagKey, ResourceOrTagKeyArgument};
 use crate::commands::message::dynamic_translatable;
 use crate::commands::{CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal};
+use crate::world::entity::ai::village::poi::{Occupancy, PoiTypeHolder};
 use crate::{register_command, translatable};
 use mc_brigadier::{ArgumentBuilder, CommandSyntaxException, DynamicCommandExceptionType};
 use mc_core::ident::Identifier;
@@ -101,8 +102,16 @@ fn locate_biome(source: &CommandSourceStack, element_or_tag: ResourceOrTag) -> R
 }
 
 fn locate_poi(source: &CommandSourceStack, resource_or_tag: ResourceOrTag) -> Result<i32, CommandSyntaxException> {
-    let _ = (source, resource_or_tag, &ERROR_POI_NOT_FOUND, POI_SEARCH_RADIUS);
-    unimplemented!("PoiManager (DimensionsScope.DimPoi) has not landed")
+    let source_pos = source_block_pos(source);
+    let started = Instant::now();
+    let closest = source.with_server(|server| {
+        let level = server.level(source.get_level())?;
+        let matches = |holder: PoiTypeHolder| Identifier::try_parse(holder.registered_name()).is_some_and(|id| resource_or_tag.test(&id));
+        level.poi_manager().find_closest_with_type(&matches, source_pos, POI_SEARCH_RADIUS, Occupancy::Any)
+    });
+    let Some((holder, found_pos)) = closest else { return Err(ERROR_POI_NOT_FOUND.create(resource_or_tag.as_printable())) };
+    let name = found_name(&resource_or_tag, &Identifier::try_parse(holder.registered_name()).expect("registered poi type names are identifiers"));
+    Ok(show_locate_result(source, source_pos, found_pos, "commands.locate.poi.success", false, &name, started))
 }
 
 /// `showLocateResult(source, name: ResourceOrTagArgument.Result, ...)`'s `foundName`.
