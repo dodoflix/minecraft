@@ -1,0 +1,2367 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 165 824235108 armor.*	armor.body	armor.chest	armor.feet	armor.head	armor.legs	container.*	container.0
+@ all container.0
+R 11
+A 0-11 container.0|[0]
+E ok
+S -2--2 0 0 
+@ all container.5
+R 11
+A 0-11 container.5|[5]
+E ok
+S 0-11 4 -892354690 container.50	container.51	container.52	container.53
+@ all container.53
+R 12
+A 0-12 container.53|[53]
+E ok
+S -2--2 0 0 
+@ all container.54
+R 0
+A -
+X Unknown slot 'container.54' at position 14: ...ntainer.54<--[HERE]@12
+E Unknown slot 'container.54' at position 14: ...ntainer.54<--[HERE]@12
+S -2--2 0 0 
+@ all container.*
+R 11
+A 0-11 container.*|[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+E ok
+S -2--2 0 0 
+@ all weapon
+R 6
+A 0-6 weapon|[98]
+E ok
+S 0-6 3 962016957 weapon.*	weapon.mainhand	weapon.offhand
+@ all weapon.mainhand
+R 15
+A 0-15 weapon.mainhand|[98]
+E ok
+S -2--2 0 0 
+@ all weapon.offhand
+R 14
+A 0-14 weapon.offhand|[99]
+E ok
+S -2--2 0 0 
+@ all weapon.*
+R 8
+A 0-8 weapon.*|[98, 99]
+E ok
+S -2--2 0 0 
+@ all armor.head
+R 10
+A 0-10 armor.head|[103]
+E ok
+S -2--2 0 0 
+@ all armor.chest
+R 11
+A 0-11 armor.chest|[102]
+E ok
+S -2--2 0 0 
+@ all armor.legs
+R 10
+A 0-10 armor.legs|[101]
+E ok
+S -2--2 0 0 
+@ all armor.feet
+R 10
+A 0-10 armor.feet|[100]
+E ok
+S -2--2 0 0 
+@ all armor.body
+R 10
+A 0-10 armor.body|[105]
+E ok
+S -2--2 0 0 
+@ all armor.*
+R 7
+A 0-7 armor.*|[103, 102, 101, 100, 105]
+E ok
+S -2--2 0 0 
+@ all hotbar.0
+R 8
+A 0-8 hotbar.0|[0]
+E ok
+S -2--2 0 0 
+@ all hotbar.8
+R 8
+A 0-8 hotbar.8|[8]
+E ok
+S -2--2 0 0 
+@ all hotbar.9
+R 0
+A -
+X Unknown slot 'hotbar.9' at position 10: t hotbar.9<--[HERE]@8
+E Unknown slot 'hotbar.9' at position 10: t hotbar.9<--[HERE]@8
+S -2--2 0 0 
+@ all hotbar.*
+R 8
+A 0-8 hotbar.*|[0, 1, 2, 3, 4, 5, 6, 7, 8]
+E ok
+S -2--2 0 0 
+@ all inventory.0
+R 11
+A 0-11 inventory.0|[9]
+E ok
+S 0-11 1 -307712039 mob.inventory.0
+@ all inventory.26
+R 12
+A 0-12 inventory.26|[35]
+E ok
+S -2--2 0 0 
+@ all inventory.27
+R 0
+A -
+X Unknown slot 'inventory.27' at position 14: ...ventory.27<--[HERE]@12
+E Unknown slot 'inventory.27' at position 14: ...ventory.27<--[HERE]@12
+S -2--2 0 0 
+@ all inventory.*
+R 11
+A 0-11 inventory.*|[9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+E ok
+S 0-11 1 -307712225 mob.inventory.*
+@ all enderchest.5
+R 12
+A 0-12 enderchest.5|[205]
+E ok
+S -2--2 0 0 
+@ all enderchest.*
+R 12
+A 0-12 enderchest.*|[200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226]
+E ok
+S -2--2 0 0 
+@ all horse.chest.5
+R 0
+A -
+X Unknown slot 'horse.chest.5' at position 15: ...se.chest.5<--[HERE]@13
+E Unknown slot 'horse.chest.5' at position 15: ...se.chest.5<--[HERE]@13
+S -2--2 0 0 
+@ all horse.saddle
+R 0
+A -
+X Unknown slot 'horse.saddle' at position 14: ...rse.saddle<--[HERE]@12
+E Unknown slot 'horse.saddle' at position 14: ...rse.saddle<--[HERE]@12
+S -2--2 0 0 
+@ all horse.armor
+R 0
+A -
+X Unknown slot 'horse.armor' at position 13: ...orse.armor<--[HERE]@11
+E Unknown slot 'horse.armor' at position 13: ...orse.armor<--[HERE]@11
+S -2--2 0 0 
+@ all horse.*
+R 7
+A 0-7 horse.*|[500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514]
+E ok
+S -2--2 0 0 
+@ all villager.7
+R 0
+A -
+X Unknown slot 'villager.7' at position 12: ...villager.7<--[HERE]@10
+E Unknown slot 'villager.7' at position 12: ...villager.7<--[HERE]@10
+S -2--2 0 0 
+@ all villager.*
+R 0
+A -
+X Unknown slot 'villager.*' at position 12: ...villager.*<--[HERE]@10
+E Unknown slot 'villager.*' at position 12: ...villager.*<--[HERE]@10
+S -2--2 0 0 
+@ all player.crafting.2
+R 17
+A 0-17 player.crafting.2|[502]
+E ok
+S -2--2 0 0 
+@ all player.crafting.*
+R 17
+A 0-17 player.crafting.*|[500, 501, 502, 503]
+E ok
+S -2--2 0 0 
+@ all player.cursor
+R 13
+A 0-13 player.cursor|[499]
+E ok
+S -2--2 0 0 
+@ all contents
+R 8
+A 0-8 contents|[0]
+E ok
+S -2--2 0 0 
+@ all saddle
+R 6
+A 0-6 saddle|[106]
+E ok
+S -2--2 0 0 
+@ all mount.*
+R 0
+A -
+X Unknown slot 'mount.*' at position 9: t mount.*<--[HERE]@7
+E Unknown slot 'mount.*' at position 9: t mount.*<--[HERE]@7
+S -2--2 0 0 
+@ all container.-1
+R 0
+A -
+X Unknown slot 'container.-1' at position 14: ...ntainer.-1<--[HERE]@12
+E Unknown slot 'container.-1' at position 14: ...ntainer.-1<--[HERE]@12
+S -2--2 0 0 
+@ all container.01
+R 0
+A -
+X Unknown slot 'container.01' at position 14: ...ntainer.01<--[HERE]@12
+E Unknown slot 'container.01' at position 14: ...ntainer.01<--[HERE]@12
+S -2--2 0 0 
+@ all container.
+R 0
+A -
+X Unknown slot 'container.' at position 12: ...container.<--[HERE]@10
+E Unknown slot 'container.' at position 12: ...container.<--[HERE]@10
+S 0-10 55 1406253381 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all container
+R 0
+A -
+X Unknown slot 'container' at position 11: ... container<--[HERE]@9
+E Unknown slot 'container' at position 11: ... container<--[HERE]@9
+S 0-9 55 1406253381 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all foo
+R 0
+A -
+X Unknown slot 'foo' at position 5: t foo<--[HERE]@3
+E Unknown slot 'foo' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all weapon.mainhand 
+R 15
+A 0-15 weapon.mainhand|[98]
+E Incorrect argument for command at position 17: ...n.mainhand<--[HERE]@15
+S -2--2 0 0 
+@ all Weapon
+R 0
+A -
+X Unknown slot 'Weapon' at position 8: t Weapon<--[HERE]@6
+E Unknown slot 'Weapon' at position 8: t Weapon<--[HERE]@6
+S 0-6 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all é
+R 0
+A -
+X Unknown slot 'é' at position 3: t é<--[HERE]@1
+E Unknown slot 'é' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all armor.head.x
+R 0
+A -
+X Unknown slot 'armor.head.x' at position 14: ...mor.head.x<--[HERE]@12
+E Unknown slot 'armor.head.x' at position 14: ...mor.head.x<--[HERE]@12
+S -2--2 0 0 
+@ all container.5.6
+R 0
+A -
+X Unknown slot 'container.5.6' at position 15: ...tainer.5.6<--[HERE]@13
+E Unknown slot 'container.5.6' at position 15: ...tainer.5.6<--[HERE]@13
+S -2--2 0 0 
+@ all container. 5
+R 0
+A -
+X Unknown slot 'container.' at position 12: ...container.<--[HERE]@10
+E Unknown slot 'container.' at position 12: ...container.<--[HERE]@10
+S -2--2 0 0 
+@ all bundle.0
+R 0
+A -
+X Unknown slot 'bundle.0' at position 10: t bundle.0<--[HERE]@8
+E Unknown slot 'bundle.0' at position 10: t bundle.0<--[HERE]@8
+S -2--2 0 0 
+@ all bundle.*
+R 0
+A -
+X Unknown slot 'bundle.*' at position 10: t bundle.*<--[HERE]@8
+E Unknown slot 'bundle.*' at position 10: t bundle.*<--[HERE]@8
+S -2--2 0 0 
+@ all player.*
+R 0
+A -
+X Unknown slot 'player.*' at position 10: t player.*<--[HERE]@8
+E Unknown slot 'player.*' at position 10: t player.*<--[HERE]@8
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X Unknown slot 'c' at position 3: t c<--[HERE]@1
+E Unknown slot 'c' at position 3: t c<--[HERE]@1
+S 0-1 64 1389791690 armor.chest	container.*	container.0	container.1	container.10	container.11	container.12	container.13
+@ all co
+R 0
+A -
+X Unknown slot 'co' at position 4: t co<--[HERE]@2
+E Unknown slot 'co' at position 4: t co<--[HERE]@2
+S 0-2 56 966126730 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all con
+R 0
+A -
+X Unknown slot 'con' at position 5: t con<--[HERE]@3
+E Unknown slot 'con' at position 5: t con<--[HERE]@3
+S 0-3 56 966126730 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all cont
+R 0
+A -
+X Unknown slot 'cont' at position 6: t cont<--[HERE]@4
+E Unknown slot 'cont' at position 6: t cont<--[HERE]@4
+S 0-4 56 966126730 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all conta
+R 0
+A -
+X Unknown slot 'conta' at position 7: t conta<--[HERE]@5
+E Unknown slot 'conta' at position 7: t conta<--[HERE]@5
+S 0-5 55 1406253381 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all contai
+R 0
+A -
+X Unknown slot 'contai' at position 8: t contai<--[HERE]@6
+E Unknown slot 'contai' at position 8: t contai<--[HERE]@6
+S 0-6 55 1406253381 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all contain
+R 0
+A -
+X Unknown slot 'contain' at position 9: t contain<--[HERE]@7
+E Unknown slot 'contain' at position 9: t contain<--[HERE]@7
+S 0-7 55 1406253381 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all containe
+R 0
+A -
+X Unknown slot 'containe' at position 10: t containe<--[HERE]@8
+E Unknown slot 'containe' at position 10: t containe<--[HERE]@8
+S 0-8 55 1406253381 container.*	container.0	container.1	container.10	container.11	container.12	container.13	container.14
+@ all w
+R 0
+A -
+X Unknown slot 'w' at position 3: t w<--[HERE]@1
+E Unknown slot 'w' at position 3: t w<--[HERE]@1
+S 0-1 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all we
+R 0
+A -
+X Unknown slot 'we' at position 4: t we<--[HERE]@2
+E Unknown slot 'we' at position 4: t we<--[HERE]@2
+S 0-2 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all wea
+R 0
+A -
+X Unknown slot 'wea' at position 5: t wea<--[HERE]@3
+E Unknown slot 'wea' at position 5: t wea<--[HERE]@3
+S 0-3 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all weap
+R 0
+A -
+X Unknown slot 'weap' at position 6: t weap<--[HERE]@4
+E Unknown slot 'weap' at position 6: t weap<--[HERE]@4
+S 0-4 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all weapo
+R 0
+A -
+X Unknown slot 'weapo' at position 7: t weapo<--[HERE]@5
+E Unknown slot 'weapo' at position 7: t weapo<--[HERE]@5
+S 0-5 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all weapon.
+R 0
+A -
+X Unknown slot 'weapon.' at position 9: t weapon.<--[HERE]@7
+E Unknown slot 'weapon.' at position 9: t weapon.<--[HERE]@7
+S 0-7 3 962016957 weapon.*	weapon.mainhand	weapon.offhand
+@ all weapon.m
+R 0
+A -
+X Unknown slot 'weapon.m' at position 10: t weapon.m<--[HERE]@8
+E Unknown slot 'weapon.m' at position 10: t weapon.m<--[HERE]@8
+S 0-8 1 1673074191 weapon.mainhand
+@ all weapon.ma
+R 0
+A -
+X Unknown slot 'weapon.ma' at position 11: ... weapon.ma<--[HERE]@9
+E Unknown slot 'weapon.ma' at position 11: ... weapon.ma<--[HERE]@9
+S 0-9 1 1673074191 weapon.mainhand
+@ all weapon.mai
+R 0
+A -
+X Unknown slot 'weapon.mai' at position 12: ...weapon.mai<--[HERE]@10
+E Unknown slot 'weapon.mai' at position 12: ...weapon.mai<--[HERE]@10
+S 0-10 1 1673074191 weapon.mainhand
+@ all weapon.main
+R 0
+A -
+X Unknown slot 'weapon.main' at position 13: ...eapon.main<--[HERE]@11
+E Unknown slot 'weapon.main' at position 13: ...eapon.main<--[HERE]@11
+S 0-11 1 1673074191 weapon.mainhand
+@ all weapon.mainh
+R 0
+A -
+X Unknown slot 'weapon.mainh' at position 14: ...apon.mainh<--[HERE]@12
+E Unknown slot 'weapon.mainh' at position 14: ...apon.mainh<--[HERE]@12
+S 0-12 1 1673074191 weapon.mainhand
+@ all weapon.mainha
+R 0
+A -
+X Unknown slot 'weapon.mainha' at position 15: ...pon.mainha<--[HERE]@13
+E Unknown slot 'weapon.mainha' at position 15: ...pon.mainha<--[HERE]@13
+S 0-13 1 1673074191 weapon.mainhand
+@ all weapon.mainhan
+R 0
+A -
+X Unknown slot 'weapon.mainhan' at position 16: ...on.mainhan<--[HERE]@14
+E Unknown slot 'weapon.mainhan' at position 16: ...on.mainhan<--[HERE]@14
+S 0-14 1 1673074191 weapon.mainhand
+@ all weapon.o
+R 0
+A -
+X Unknown slot 'weapon.o' at position 10: t weapon.o<--[HERE]@8
+E Unknown slot 'weapon.o' at position 10: t weapon.o<--[HERE]@8
+S 0-8 1 -1674281731 weapon.offhand
+@ all weapon.of
+R 0
+A -
+X Unknown slot 'weapon.of' at position 11: ... weapon.of<--[HERE]@9
+E Unknown slot 'weapon.of' at position 11: ... weapon.of<--[HERE]@9
+S 0-9 1 -1674281731 weapon.offhand
+@ all weapon.off
+R 0
+A -
+X Unknown slot 'weapon.off' at position 12: ...weapon.off<--[HERE]@10
+E Unknown slot 'weapon.off' at position 12: ...weapon.off<--[HERE]@10
+S 0-10 1 -1674281731 weapon.offhand
+@ all weapon.offh
+R 0
+A -
+X Unknown slot 'weapon.offh' at position 13: ...eapon.offh<--[HERE]@11
+E Unknown slot 'weapon.offh' at position 13: ...eapon.offh<--[HERE]@11
+S 0-11 1 -1674281731 weapon.offhand
+@ all weapon.offha
+R 0
+A -
+X Unknown slot 'weapon.offha' at position 14: ...apon.offha<--[HERE]@12
+E Unknown slot 'weapon.offha' at position 14: ...apon.offha<--[HERE]@12
+S 0-12 1 -1674281731 weapon.offhand
+@ all weapon.offhan
+R 0
+A -
+X Unknown slot 'weapon.offhan' at position 15: ...pon.offhan<--[HERE]@13
+E Unknown slot 'weapon.offhan' at position 15: ...pon.offhan<--[HERE]@13
+S 0-13 1 -1674281731 weapon.offhand
+@ all a
+R 0
+A -
+X Unknown slot 'a' at position 3: t a<--[HERE]@1
+E Unknown slot 'a' at position 3: t a<--[HERE]@1
+S 0-1 6 473104870 armor.*	armor.body	armor.chest	armor.feet	armor.head	armor.legs
+@ all ar
+R 0
+A -
+X Unknown slot 'ar' at position 4: t ar<--[HERE]@2
+E Unknown slot 'ar' at position 4: t ar<--[HERE]@2
+S 0-2 6 473104870 armor.*	armor.body	armor.chest	armor.feet	armor.head	armor.legs
+@ all arm
+R 0
+A -
+X Unknown slot 'arm' at position 5: t arm<--[HERE]@3
+E Unknown slot 'arm' at position 5: t arm<--[HERE]@3
+S 0-3 6 473104870 armor.*	armor.body	armor.chest	armor.feet	armor.head	armor.legs
+@ all armo
+R 0
+A -
+X Unknown slot 'armo' at position 6: t armo<--[HERE]@4
+E Unknown slot 'armo' at position 6: t armo<--[HERE]@4
+S 0-4 6 473104870 armor.*	armor.body	armor.chest	armor.feet	armor.head	armor.legs
+@ all armor
+R 0
+A -
+X Unknown slot 'armor' at position 7: t armor<--[HERE]@5
+E Unknown slot 'armor' at position 7: t armor<--[HERE]@5
+S 0-5 6 473104870 armor.*	armor.body	armor.chest	armor.feet	armor.head	armor.legs
+@ all armor.
+R 0
+A -
+X Unknown slot 'armor.' at position 8: t armor.<--[HERE]@6
+E Unknown slot 'armor.' at position 8: t armor.<--[HERE]@6
+S 0-6 6 473104870 armor.*	armor.body	armor.chest	armor.feet	armor.head	armor.legs
+@ all armor.h
+R 0
+A -
+X Unknown slot 'armor.h' at position 9: t armor.h<--[HERE]@7
+E Unknown slot 'armor.h' at position 9: t armor.h<--[HERE]@7
+S 0-7 1 1108349114 armor.head
+@ all armor.he
+R 0
+A -
+X Unknown slot 'armor.he' at position 10: t armor.he<--[HERE]@8
+E Unknown slot 'armor.he' at position 10: t armor.he<--[HERE]@8
+S 0-8 1 1108349114 armor.head
+@ all armor.hea
+R 0
+A -
+X Unknown slot 'armor.hea' at position 11: ... armor.hea<--[HERE]@9
+E Unknown slot 'armor.hea' at position 11: ... armor.hea<--[HERE]@9
+S 0-9 1 1108349114 armor.head
+@ all armor.c
+R 0
+A -
+X Unknown slot 'armor.c' at position 9: t armor.c<--[HERE]@7
+E Unknown slot 'armor.c' at position 9: t armor.c<--[HERE]@7
+S 0-7 1 -141154121 armor.chest
+@ all armor.ch
+R 0
+A -
+X Unknown slot 'armor.ch' at position 10: t armor.ch<--[HERE]@8
+E Unknown slot 'armor.ch' at position 10: t armor.ch<--[HERE]@8
+S 0-8 1 -141154121 armor.chest
+@ all armor.che
+R 0
+A -
+X Unknown slot 'armor.che' at position 11: ... armor.che<--[HERE]@9
+E Unknown slot 'armor.che' at position 11: ... armor.che<--[HERE]@9
+S 0-9 1 -141154121 armor.chest
+@ all armor.ches
+R 0
+A -
+X Unknown slot 'armor.ches' at position 12: ...armor.ches<--[HERE]@10
+E Unknown slot 'armor.ches' at position 12: ...armor.ches<--[HERE]@10
+S 0-10 1 -141154121 armor.chest
+@ all armor.l
+R 0
+A -
+X Unknown slot 'armor.l' at position 9: t armor.l<--[HERE]@7
+E Unknown slot 'armor.l' at position 9: t armor.l<--[HERE]@7
+S 0-7 1 1112049429 armor.legs
+@ all armor.le
+R 0
+A -
+X Unknown slot 'armor.le' at position 10: t armor.le<--[HERE]@8
+E Unknown slot 'armor.le' at position 10: t armor.le<--[HERE]@8
+S 0-8 1 1112049429 armor.legs
+@ all armor.leg
+R 0
+A -
+X Unknown slot 'armor.leg' at position 11: ... armor.leg<--[HERE]@9
+E Unknown slot 'armor.leg' at position 11: ... armor.leg<--[HERE]@9
+S 0-9 1 1112049429 armor.legs
+@ all armor.f
+R 0
+A -
+X Unknown slot 'armor.f' at position 9: t armor.f<--[HERE]@7
+E Unknown slot 'armor.f' at position 9: t armor.f<--[HERE]@7
+S 0-7 1 1106506412 armor.feet
+@ all armor.fe
+R 0
+A -
+X Unknown slot 'armor.fe' at position 10: t armor.fe<--[HERE]@8
+E Unknown slot 'armor.fe' at position 10: t armor.fe<--[HERE]@8
+S 0-8 1 1106506412 armor.feet
+@ all armor.fee
+R 0
+A -
+X Unknown slot 'armor.fee' at position 11: ... armor.fee<--[HERE]@9
+E Unknown slot 'armor.fee' at position 11: ... armor.fee<--[HERE]@9
+S 0-9 1 1106506412 armor.feet
+@ all armor.b
+R 0
+A -
+X Unknown slot 'armor.b' at position 9: t armor.b<--[HERE]@7
+E Unknown slot 'armor.b' at position 9: t armor.b<--[HERE]@7
+S 0-7 1 1103109432 armor.body
+@ all armor.bo
+R 0
+A -
+X Unknown slot 'armor.bo' at position 10: t armor.bo<--[HERE]@8
+E Unknown slot 'armor.bo' at position 10: t armor.bo<--[HERE]@8
+S 0-8 1 1103109432 armor.body
+@ all armor.bod
+R 0
+A -
+X Unknown slot 'armor.bod' at position 11: ... armor.bod<--[HERE]@9
+E Unknown slot 'armor.bod' at position 11: ... armor.bod<--[HERE]@9
+S 0-9 1 1103109432 armor.body
+@ all h
+R 0
+A -
+X Unknown slot 'h' at position 3: t h<--[HERE]@1
+E Unknown slot 'h' at position 3: t h<--[HERE]@1
+S 0-1 28 2071788973 armor.head	horse.*	horse.0	horse.1	horse.10	horse.11	horse.12	horse.13	horse.14	horse.2	horse.3	horse.4	horse.5	horse.6	horse.7	horse.8	horse.9	horse.chest	hotbar.*	hotbar.0	hotbar.1	hotbar.2	hotbar.3	hotbar.4	hotbar.5	hotbar.6	hotbar.7	hotbar.8
+@ all ho
+R 0
+A -
+X Unknown slot 'ho' at position 4: t ho<--[HERE]@2
+E Unknown slot 'ho' at position 4: t ho<--[HERE]@2
+S 0-2 27 799280807 horse.*	horse.0	horse.1	horse.10	horse.11	horse.12	horse.13	horse.14	horse.2	horse.3	horse.4	horse.5	horse.6	horse.7	horse.8	horse.9	horse.chest	hotbar.*	hotbar.0	hotbar.1	hotbar.2	hotbar.3	hotbar.4	hotbar.5	hotbar.6	hotbar.7	hotbar.8
+@ all hot
+R 0
+A -
+X Unknown slot 'hot' at position 5: t hot<--[HERE]@3
+E Unknown slot 'hot' at position 5: t hot<--[HERE]@3
+S 0-3 10 1761927958 hotbar.*	hotbar.0	hotbar.1	hotbar.2	hotbar.3	hotbar.4	hotbar.5	hotbar.6	hotbar.7	hotbar.8
+@ all hotb
+R 0
+A -
+X Unknown slot 'hotb' at position 6: t hotb<--[HERE]@4
+E Unknown slot 'hotb' at position 6: t hotb<--[HERE]@4
+S 0-4 10 1761927958 hotbar.*	hotbar.0	hotbar.1	hotbar.2	hotbar.3	hotbar.4	hotbar.5	hotbar.6	hotbar.7	hotbar.8
+@ all hotba
+R 0
+A -
+X Unknown slot 'hotba' at position 7: t hotba<--[HERE]@5
+E Unknown slot 'hotba' at position 7: t hotba<--[HERE]@5
+S 0-5 10 1761927958 hotbar.*	hotbar.0	hotbar.1	hotbar.2	hotbar.3	hotbar.4	hotbar.5	hotbar.6	hotbar.7	hotbar.8
+@ all hotbar
+R 0
+A -
+X Unknown slot 'hotbar' at position 8: t hotbar<--[HERE]@6
+E Unknown slot 'hotbar' at position 8: t hotbar<--[HERE]@6
+S 0-6 10 1761927958 hotbar.*	hotbar.0	hotbar.1	hotbar.2	hotbar.3	hotbar.4	hotbar.5	hotbar.6	hotbar.7	hotbar.8
+@ all hotbar.
+R 0
+A -
+X Unknown slot 'hotbar.' at position 9: t hotbar.<--[HERE]@7
+E Unknown slot 'hotbar.' at position 9: t hotbar.<--[HERE]@7
+S 0-7 10 1761927958 hotbar.*	hotbar.0	hotbar.1	hotbar.2	hotbar.3	hotbar.4	hotbar.5	hotbar.6	hotbar.7	hotbar.8
+@ all i
+R 0
+A -
+X Unknown slot 'i' at position 3: t i<--[HERE]@1
+E Unknown slot 'i' at position 3: t i<--[HERE]@1
+S 0-1 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all in
+R 0
+A -
+X Unknown slot 'in' at position 4: t in<--[HERE]@2
+E Unknown slot 'in' at position 4: t in<--[HERE]@2
+S 0-2 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all inv
+R 0
+A -
+X Unknown slot 'inv' at position 5: t inv<--[HERE]@3
+E Unknown slot 'inv' at position 5: t inv<--[HERE]@3
+S 0-3 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all inve
+R 0
+A -
+X Unknown slot 'inve' at position 6: t inve<--[HERE]@4
+E Unknown slot 'inve' at position 6: t inve<--[HERE]@4
+S 0-4 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all inven
+R 0
+A -
+X Unknown slot 'inven' at position 7: t inven<--[HERE]@5
+E Unknown slot 'inven' at position 7: t inven<--[HERE]@5
+S 0-5 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all invent
+R 0
+A -
+X Unknown slot 'invent' at position 8: t invent<--[HERE]@6
+E Unknown slot 'invent' at position 8: t invent<--[HERE]@6
+S 0-6 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all invento
+R 0
+A -
+X Unknown slot 'invento' at position 9: t invento<--[HERE]@7
+E Unknown slot 'invento' at position 9: t invento<--[HERE]@7
+S 0-7 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all inventor
+R 0
+A -
+X Unknown slot 'inventor' at position 10: t inventor<--[HERE]@8
+E Unknown slot 'inventor' at position 10: t inventor<--[HERE]@8
+S 0-8 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all inventory
+R 0
+A -
+X Unknown slot 'inventory' at position 11: ... inventory<--[HERE]@9
+E Unknown slot 'inventory' at position 11: ... inventory<--[HERE]@9
+S 0-9 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all inventory.
+R 0
+A -
+X Unknown slot 'inventory.' at position 12: ...inventory.<--[HERE]@10
+E Unknown slot 'inventory.' at position 12: ...inventory.<--[HERE]@10
+S 0-10 37 2077854330 inventory.*	inventory.0	inventory.1	inventory.10	inventory.11	inventory.12	inventory.13	inventory.14	inventory.15	inventory.16	inventory.17	inventory.18	inventory.19	inventory.2	inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	inventory.3	inventory.4	inventory.5	inventory.6	inventory.7	inventory.8	inventory.9	mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all inventory.2
+R 11
+A 0-11 inventory.2|[11]
+E ok
+S 0-11 8 -1989405779 inventory.20	inventory.21	inventory.22	inventory.23	inventory.24	inventory.25	inventory.26	mob.inventory.2
+@ all e
+R 0
+A -
+X Unknown slot 'e' at position 3: t e<--[HERE]@1
+E Unknown slot 'e' at position 3: t e<--[HERE]@1
+S 0-1 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all en
+R 0
+A -
+X Unknown slot 'en' at position 4: t en<--[HERE]@2
+E Unknown slot 'en' at position 4: t en<--[HERE]@2
+S 0-2 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all end
+R 0
+A -
+X Unknown slot 'end' at position 5: t end<--[HERE]@3
+E Unknown slot 'end' at position 5: t end<--[HERE]@3
+S 0-3 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all ende
+R 0
+A -
+X Unknown slot 'ende' at position 6: t ende<--[HERE]@4
+E Unknown slot 'ende' at position 6: t ende<--[HERE]@4
+S 0-4 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all ender
+R 0
+A -
+X Unknown slot 'ender' at position 7: t ender<--[HERE]@5
+E Unknown slot 'ender' at position 7: t ender<--[HERE]@5
+S 0-5 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all enderc
+R 0
+A -
+X Unknown slot 'enderc' at position 8: t enderc<--[HERE]@6
+E Unknown slot 'enderc' at position 8: t enderc<--[HERE]@6
+S 0-6 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all enderch
+R 0
+A -
+X Unknown slot 'enderch' at position 9: t enderch<--[HERE]@7
+E Unknown slot 'enderch' at position 9: t enderch<--[HERE]@7
+S 0-7 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all enderche
+R 0
+A -
+X Unknown slot 'enderche' at position 10: t enderche<--[HERE]@8
+E Unknown slot 'enderche' at position 10: t enderche<--[HERE]@8
+S 0-8 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all enderches
+R 0
+A -
+X Unknown slot 'enderches' at position 11: ... enderches<--[HERE]@9
+E Unknown slot 'enderches' at position 11: ... enderches<--[HERE]@9
+S 0-9 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all enderchest
+R 0
+A -
+X Unknown slot 'enderchest' at position 12: ...enderchest<--[HERE]@10
+E Unknown slot 'enderchest' at position 12: ...enderchest<--[HERE]@10
+S 0-10 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all enderchest.
+R 0
+A -
+X Unknown slot 'enderchest.' at position 13: ...nderchest.<--[HERE]@11
+E Unknown slot 'enderchest.' at position 13: ...nderchest.<--[HERE]@11
+S 0-11 28 -1540890993 enderchest.*	enderchest.0	enderchest.1	enderchest.10	enderchest.11	enderchest.12	enderchest.13	enderchest.14	enderchest.15	enderchest.16	enderchest.17	enderchest.18	enderchest.19	enderchest.2	enderchest.20	enderchest.21	enderchest.22	enderchest.23	enderchest.24	enderchest.25	enderchest.26	enderchest.3	enderchest.4	enderchest.5	enderchest.6	enderchest.7	enderchest.8	enderchest.9
+@ all hor
+R 0
+A -
+X Unknown slot 'hor' at position 5: t hor<--[HERE]@3
+E Unknown slot 'hor' at position 5: t hor<--[HERE]@3
+S 0-3 17 -2114910511 horse.*	horse.0	horse.1	horse.10	horse.11	horse.12	horse.13	horse.14	horse.2	horse.3	horse.4	horse.5	horse.6	horse.7	horse.8	horse.9	horse.chest
+@ all hors
+R 0
+A -
+X Unknown slot 'hors' at position 6: t hors<--[HERE]@4
+E Unknown slot 'hors' at position 6: t hors<--[HERE]@4
+S 0-4 17 -2114910511 horse.*	horse.0	horse.1	horse.10	horse.11	horse.12	horse.13	horse.14	horse.2	horse.3	horse.4	horse.5	horse.6	horse.7	horse.8	horse.9	horse.chest
+@ all horse
+R 0
+A -
+X Unknown slot 'horse' at position 7: t horse<--[HERE]@5
+E Unknown slot 'horse' at position 7: t horse<--[HERE]@5
+S 0-5 17 -2114910511 horse.*	horse.0	horse.1	horse.10	horse.11	horse.12	horse.13	horse.14	horse.2	horse.3	horse.4	horse.5	horse.6	horse.7	horse.8	horse.9	horse.chest
+@ all horse.
+R 0
+A -
+X Unknown slot 'horse.' at position 8: t horse.<--[HERE]@6
+E Unknown slot 'horse.' at position 8: t horse.<--[HERE]@6
+S 0-6 17 -2114910511 horse.*	horse.0	horse.1	horse.10	horse.11	horse.12	horse.13	horse.14	horse.2	horse.3	horse.4	horse.5	horse.6	horse.7	horse.8	horse.9	horse.chest
+@ all horse.c
+R 0
+A -
+X Unknown slot 'horse.c' at position 9: t horse.c<--[HERE]@7
+E Unknown slot 'horse.c' at position 9: t horse.c<--[HERE]@7
+S 0-7 1 1054163033 horse.chest
+@ all horse.ch
+R 0
+A -
+X Unknown slot 'horse.ch' at position 10: t horse.ch<--[HERE]@8
+E Unknown slot 'horse.ch' at position 10: t horse.ch<--[HERE]@8
+S 0-8 1 1054163033 horse.chest
+@ all horse.che
+R 0
+A -
+X Unknown slot 'horse.che' at position 11: ... horse.che<--[HERE]@9
+E Unknown slot 'horse.che' at position 11: ... horse.che<--[HERE]@9
+S 0-9 1 1054163033 horse.chest
+@ all horse.ches
+R 0
+A -
+X Unknown slot 'horse.ches' at position 12: ...horse.ches<--[HERE]@10
+E Unknown slot 'horse.ches' at position 12: ...horse.ches<--[HERE]@10
+S 0-10 1 1054163033 horse.chest
+@ all horse.chest
+R 11
+A 0-11 horse.chest|[499]
+E ok
+S -2--2 0 0 
+@ all horse.chest.
+R 0
+A -
+X Unknown slot 'horse.chest.' at position 14: ...rse.chest.<--[HERE]@12
+E Unknown slot 'horse.chest.' at position 14: ...rse.chest.<--[HERE]@12
+S -2--2 0 0 
+@ all horse.s
+R 0
+A -
+X Unknown slot 'horse.s' at position 9: t horse.s<--[HERE]@7
+E Unknown slot 'horse.s' at position 9: t horse.s<--[HERE]@7
+S -2--2 0 0 
+@ all horse.sa
+R 0
+A -
+X Unknown slot 'horse.sa' at position 10: t horse.sa<--[HERE]@8
+E Unknown slot 'horse.sa' at position 10: t horse.sa<--[HERE]@8
+S -2--2 0 0 
+@ all horse.sad
+R 0
+A -
+X Unknown slot 'horse.sad' at position 11: ... horse.sad<--[HERE]@9
+E Unknown slot 'horse.sad' at position 11: ... horse.sad<--[HERE]@9
+S -2--2 0 0 
+@ all horse.sadd
+R 0
+A -
+X Unknown slot 'horse.sadd' at position 12: ...horse.sadd<--[HERE]@10
+E Unknown slot 'horse.sadd' at position 12: ...horse.sadd<--[HERE]@10
+S -2--2 0 0 
+@ all horse.saddl
+R 0
+A -
+X Unknown slot 'horse.saddl' at position 13: ...orse.saddl<--[HERE]@11
+E Unknown slot 'horse.saddl' at position 13: ...orse.saddl<--[HERE]@11
+S -2--2 0 0 
+@ all horse.a
+R 0
+A -
+X Unknown slot 'horse.a' at position 9: t horse.a<--[HERE]@7
+E Unknown slot 'horse.a' at position 9: t horse.a<--[HERE]@7
+S -2--2 0 0 
+@ all horse.ar
+R 0
+A -
+X Unknown slot 'horse.ar' at position 10: t horse.ar<--[HERE]@8
+E Unknown slot 'horse.ar' at position 10: t horse.ar<--[HERE]@8
+S -2--2 0 0 
+@ all horse.arm
+R 0
+A -
+X Unknown slot 'horse.arm' at position 11: ... horse.arm<--[HERE]@9
+E Unknown slot 'horse.arm' at position 11: ... horse.arm<--[HERE]@9
+S -2--2 0 0 
+@ all horse.armo
+R 0
+A -
+X Unknown slot 'horse.armo' at position 12: ...horse.armo<--[HERE]@10
+E Unknown slot 'horse.armo' at position 12: ...horse.armo<--[HERE]@10
+S -2--2 0 0 
+@ all v
+R 0
+A -
+X Unknown slot 'v' at position 3: t v<--[HERE]@1
+E Unknown slot 'v' at position 3: t v<--[HERE]@1
+S -2--2 0 0 
+@ all vi
+R 0
+A -
+X Unknown slot 'vi' at position 4: t vi<--[HERE]@2
+E Unknown slot 'vi' at position 4: t vi<--[HERE]@2
+S -2--2 0 0 
+@ all vil
+R 0
+A -
+X Unknown slot 'vil' at position 5: t vil<--[HERE]@3
+E Unknown slot 'vil' at position 5: t vil<--[HERE]@3
+S -2--2 0 0 
+@ all vill
+R 0
+A -
+X Unknown slot 'vill' at position 6: t vill<--[HERE]@4
+E Unknown slot 'vill' at position 6: t vill<--[HERE]@4
+S -2--2 0 0 
+@ all villa
+R 0
+A -
+X Unknown slot 'villa' at position 7: t villa<--[HERE]@5
+E Unknown slot 'villa' at position 7: t villa<--[HERE]@5
+S -2--2 0 0 
+@ all villag
+R 0
+A -
+X Unknown slot 'villag' at position 8: t villag<--[HERE]@6
+E Unknown slot 'villag' at position 8: t villag<--[HERE]@6
+S -2--2 0 0 
+@ all village
+R 0
+A -
+X Unknown slot 'village' at position 9: t village<--[HERE]@7
+E Unknown slot 'village' at position 9: t village<--[HERE]@7
+S -2--2 0 0 
+@ all villager
+R 0
+A -
+X Unknown slot 'villager' at position 10: t villager<--[HERE]@8
+E Unknown slot 'villager' at position 10: t villager<--[HERE]@8
+S -2--2 0 0 
+@ all villager.
+R 0
+A -
+X Unknown slot 'villager.' at position 11: ... villager.<--[HERE]@9
+E Unknown slot 'villager.' at position 11: ... villager.<--[HERE]@9
+S -2--2 0 0 
+@ all p
+R 0
+A -
+X Unknown slot 'p' at position 3: t p<--[HERE]@1
+E Unknown slot 'p' at position 3: t p<--[HERE]@1
+S 0-1 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all pl
+R 0
+A -
+X Unknown slot 'pl' at position 4: t pl<--[HERE]@2
+E Unknown slot 'pl' at position 4: t pl<--[HERE]@2
+S 0-2 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all pla
+R 0
+A -
+X Unknown slot 'pla' at position 5: t pla<--[HERE]@3
+E Unknown slot 'pla' at position 5: t pla<--[HERE]@3
+S 0-3 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all play
+R 0
+A -
+X Unknown slot 'play' at position 6: t play<--[HERE]@4
+E Unknown slot 'play' at position 6: t play<--[HERE]@4
+S 0-4 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all playe
+R 0
+A -
+X Unknown slot 'playe' at position 7: t playe<--[HERE]@5
+E Unknown slot 'playe' at position 7: t playe<--[HERE]@5
+S 0-5 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all player
+R 0
+A -
+X Unknown slot 'player' at position 8: t player<--[HERE]@6
+E Unknown slot 'player' at position 8: t player<--[HERE]@6
+S 0-6 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all player.
+R 0
+A -
+X Unknown slot 'player.' at position 9: t player.<--[HERE]@7
+E Unknown slot 'player.' at position 9: t player.<--[HERE]@7
+S 0-7 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all player.c
+R 0
+A -
+X Unknown slot 'player.c' at position 10: t player.c<--[HERE]@8
+E Unknown slot 'player.c' at position 10: t player.c<--[HERE]@8
+S 0-8 6 -1374154690 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3	player.cursor
+@ all player.cr
+R 0
+A -
+X Unknown slot 'player.cr' at position 11: ... player.cr<--[HERE]@9
+E Unknown slot 'player.cr' at position 11: ... player.cr<--[HERE]@9
+S 0-9 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.cra
+R 0
+A -
+X Unknown slot 'player.cra' at position 12: ...player.cra<--[HERE]@10
+E Unknown slot 'player.cra' at position 12: ...player.cra<--[HERE]@10
+S 0-10 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.craf
+R 0
+A -
+X Unknown slot 'player.craf' at position 13: ...layer.craf<--[HERE]@11
+E Unknown slot 'player.craf' at position 13: ...layer.craf<--[HERE]@11
+S 0-11 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.craft
+R 0
+A -
+X Unknown slot 'player.craft' at position 14: ...ayer.craft<--[HERE]@12
+E Unknown slot 'player.craft' at position 14: ...ayer.craft<--[HERE]@12
+S 0-12 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.crafti
+R 0
+A -
+X Unknown slot 'player.crafti' at position 15: ...yer.crafti<--[HERE]@13
+E Unknown slot 'player.crafti' at position 15: ...yer.crafti<--[HERE]@13
+S 0-13 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.craftin
+R 0
+A -
+X Unknown slot 'player.craftin' at position 16: ...er.craftin<--[HERE]@14
+E Unknown slot 'player.craftin' at position 16: ...er.craftin<--[HERE]@14
+S 0-14 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.crafting
+R 0
+A -
+X Unknown slot 'player.crafting' at position 17: ...r.crafting<--[HERE]@15
+E Unknown slot 'player.crafting' at position 17: ...r.crafting<--[HERE]@15
+S 0-15 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.crafting.
+R 0
+A -
+X Unknown slot 'player.crafting.' at position 18: ....crafting.<--[HERE]@16
+E Unknown slot 'player.crafting.' at position 18: ....crafting.<--[HERE]@16
+S 0-16 5 -1128015656 player.crafting.*	player.crafting.0	player.crafting.1	player.crafting.2	player.crafting.3
+@ all player.cu
+R 0
+A -
+X Unknown slot 'player.cu' at position 11: ... player.cu<--[HERE]@9
+E Unknown slot 'player.cu' at position 11: ... player.cu<--[HERE]@9
+S 0-9 1 265064806 player.cursor
+@ all player.cur
+R 0
+A -
+X Unknown slot 'player.cur' at position 12: ...player.cur<--[HERE]@10
+E Unknown slot 'player.cur' at position 12: ...player.cur<--[HERE]@10
+S 0-10 1 265064806 player.cursor
+@ all player.curs
+R 0
+A -
+X Unknown slot 'player.curs' at position 13: ...layer.curs<--[HERE]@11
+E Unknown slot 'player.curs' at position 13: ...layer.curs<--[HERE]@11
+S 0-11 1 265064806 player.cursor
+@ all player.curso
+R 0
+A -
+X Unknown slot 'player.curso' at position 14: ...ayer.curso<--[HERE]@12
+E Unknown slot 'player.curso' at position 14: ...ayer.curso<--[HERE]@12
+S 0-12 1 265064806 player.cursor
+@ all conte
+R 0
+A -
+X Unknown slot 'conte' at position 7: t conte<--[HERE]@5
+E Unknown slot 'conte' at position 7: t conte<--[HERE]@5
+S 0-5 1 -407107537 contents
+@ all conten
+R 0
+A -
+X Unknown slot 'conten' at position 8: t conten<--[HERE]@6
+E Unknown slot 'conten' at position 8: t conten<--[HERE]@6
+S 0-6 1 -407107537 contents
+@ all content
+R 0
+A -
+X Unknown slot 'content' at position 9: t content<--[HERE]@7
+E Unknown slot 'content' at position 9: t content<--[HERE]@7
+S 0-7 1 -407107537 contents
+@ all s
+R 0
+A -
+X Unknown slot 's' at position 3: t s<--[HERE]@1
+E Unknown slot 's' at position 3: t s<--[HERE]@1
+S 0-1 1 1856173986 saddle
+@ all sa
+R 0
+A -
+X Unknown slot 'sa' at position 4: t sa<--[HERE]@2
+E Unknown slot 'sa' at position 4: t sa<--[HERE]@2
+S 0-2 1 1856173986 saddle
+@ all sad
+R 0
+A -
+X Unknown slot 'sad' at position 5: t sad<--[HERE]@3
+E Unknown slot 'sad' at position 5: t sad<--[HERE]@3
+S 0-3 1 1856173986 saddle
+@ all sadd
+R 0
+A -
+X Unknown slot 'sadd' at position 6: t sadd<--[HERE]@4
+E Unknown slot 'sadd' at position 6: t sadd<--[HERE]@4
+S 0-4 1 1856173986 saddle
+@ all saddl
+R 0
+A -
+X Unknown slot 'saddl' at position 7: t saddl<--[HERE]@5
+E Unknown slot 'saddl' at position 7: t saddl<--[HERE]@5
+S 0-5 1 1856173986 saddle
+@ all m
+R 0
+A -
+X Unknown slot 'm' at position 3: t m<--[HERE]@1
+E Unknown slot 'm' at position 3: t m<--[HERE]@1
+S 0-1 10 -1952261798 mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7	weapon.mainhand
+@ all mo
+R 0
+A -
+X Unknown slot 'mo' at position 4: t mo<--[HERE]@2
+E Unknown slot 'mo' at position 4: t mo<--[HERE]@2
+S 0-2 9 314030411 mob.inventory.*	mob.inventory.0	mob.inventory.1	mob.inventory.2	mob.inventory.3	mob.inventory.4	mob.inventory.5	mob.inventory.6	mob.inventory.7
+@ all mou
+R 0
+A -
+X Unknown slot 'mou' at position 5: t mou<--[HERE]@3
+E Unknown slot 'mou' at position 5: t mou<--[HERE]@3
+S -2--2 0 0 
+@ all moun
+R 0
+A -
+X Unknown slot 'moun' at position 6: t moun<--[HERE]@4
+E Unknown slot 'moun' at position 6: t moun<--[HERE]@4
+S -2--2 0 0 
+@ all mount
+R 0
+A -
+X Unknown slot 'mount' at position 7: t mount<--[HERE]@5
+E Unknown slot 'mount' at position 7: t mount<--[HERE]@5
+S -2--2 0 0 
+@ all mount.
+R 0
+A -
+X Unknown slot 'mount.' at position 8: t mount.<--[HERE]@6
+E Unknown slot 'mount.' at position 8: t mount.<--[HERE]@6
+S -2--2 0 0 
+@ all container.-
+R 0
+A -
+X Unknown slot 'container.-' at position 13: ...ontainer.-<--[HERE]@11
+E Unknown slot 'container.-' at position 13: ...ontainer.-<--[HERE]@11
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Unknown slot 'f' at position 3: t f<--[HERE]@1
+E Unknown slot 'f' at position 3: t f<--[HERE]@1
+S 0-1 1 1106506412 armor.feet
+@ all fo
+R 0
+A -
+X Unknown slot 'fo' at position 4: t fo<--[HERE]@2
+E Unknown slot 'fo' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all W
+R 0
+A -
+X Unknown slot 'W' at position 3: t W<--[HERE]@1
+E Unknown slot 'W' at position 3: t W<--[HERE]@1
+S 0-1 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all We
+R 0
+A -
+X Unknown slot 'We' at position 4: t We<--[HERE]@2
+E Unknown slot 'We' at position 4: t We<--[HERE]@2
+S 0-2 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all Wea
+R 0
+A -
+X Unknown slot 'Wea' at position 5: t Wea<--[HERE]@3
+E Unknown slot 'Wea' at position 5: t Wea<--[HERE]@3
+S 0-3 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all Weap
+R 0
+A -
+X Unknown slot 'Weap' at position 6: t Weap<--[HERE]@4
+E Unknown slot 'Weap' at position 6: t Weap<--[HERE]@4
+S 0-4 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all Weapo
+R 0
+A -
+X Unknown slot 'Weapo' at position 7: t Weapo<--[HERE]@5
+E Unknown slot 'Weapo' at position 7: t Weapo<--[HERE]@5
+S 0-5 4 1713309482 weapon	weapon.*	weapon.mainhand	weapon.offhand
+@ all armor.head.
+R 0
+A -
+X Unknown slot 'armor.head.' at position 13: ...rmor.head.<--[HERE]@11
+E Unknown slot 'armor.head.' at position 13: ...rmor.head.<--[HERE]@11
+S -2--2 0 0 
+@ all container.5.
+R 0
+A -
+X Unknown slot 'container.5.' at position 14: ...ntainer.5.<--[HERE]@12
+E Unknown slot 'container.5.' at position 14: ...ntainer.5.<--[HERE]@12
+S -2--2 0 0 
+@ all container. 
+R 0
+A -
+X Unknown slot 'container.' at position 12: ...container.<--[HERE]@10
+E Unknown slot 'container.' at position 12: ...container.<--[HERE]@10
+S -2--2 0 0 
+@ all b
+R 0
+A -
+X Unknown slot 'b' at position 3: t b<--[HERE]@1
+E Unknown slot 'b' at position 3: t b<--[HERE]@1
+S 0-1 1 1103109432 armor.body
+@ all bu
+R 0
+A -
+X Unknown slot 'bu' at position 4: t bu<--[HERE]@2
+E Unknown slot 'bu' at position 4: t bu<--[HERE]@2
+S -2--2 0 0 
+@ all bun
+R 0
+A -
+X Unknown slot 'bun' at position 5: t bun<--[HERE]@3
+E Unknown slot 'bun' at position 5: t bun<--[HERE]@3
+S -2--2 0 0 
+@ all bund
+R 0
+A -
+X Unknown slot 'bund' at position 6: t bund<--[HERE]@4
+E Unknown slot 'bund' at position 6: t bund<--[HERE]@4
+S -2--2 0 0 
+@ all bundl
+R 0
+A -
+X Unknown slot 'bundl' at position 7: t bundl<--[HERE]@5
+E Unknown slot 'bundl' at position 7: t bundl<--[HERE]@5
+S -2--2 0 0 
+@ all bundle
+R 0
+A -
+X Unknown slot 'bundle' at position 8: t bundle<--[HERE]@6
+E Unknown slot 'bundle' at position 8: t bundle<--[HERE]@6
+S -2--2 0 0 
+@ all bundle.
+R 0
+A -
+X Unknown slot 'bundle.' at position 9: t bundle.<--[HERE]@7
+E Unknown slot 'bundle.' at position 9: t bundle.<--[HERE]@7
+S -2--2 0 0 
+@ all weapoZn.offhand
+R 0
+A -
+X Unknown slot 'weapoZn.offhand' at position 17: ...Zn.offhand<--[HERE]@15
+E Unknown slot 'weapoZn.offhand' at position 17: ...Zn.offhand<--[HERE]@15
+S -2--2 0 0 
+@ all addled
+R 0
+A -
+X Unknown slot 'addled' at position 8: t addled<--[HERE]@6
+E Unknown slot 'addled' at position 8: t addled<--[HERE]@6
+S -2--2 0 0 
+@ all y.0
+R 0
+A -
+X Unknown slot 'y.0' at position 5: t y.0<--[HERE]@3
+E Unknown slot 'y.0' at position 5: t y.0<--[HERE]@3
+S -2--2 0 0 
+@ all playe"r.
+R 0
+A -
+X Unknown slot 'playe"r.' at position 10: t playe"r.<--[HERE]@8
+E Unknown slot 'playe"r.' at position 10: t playe"r.<--[HERE]@8
+S -2--2 0 0 
+@ all armor.bdy
+R 0
+A -
+X Unknown slot 'armor.bdy' at position 11: ... armor.bdy<--[HERE]@9
+E Unknown slot 'armor.bdy' at position 11: ... armor.bdy<--[HERE]@9
+S -2--2 0 0 
+@ all aßrmor.legs
+R 0
+A -
+X Unknown slot 'aßrmor.legs' at position 13: ...ßrmor.legs<--[HERE]@11
+E Unknown slot 'aßrmor.legs' at position 13: ...ßrmor.legs<--[HERE]@11
+S -2--2 0 0 
+@ all -villger.7
+R 0
+A -
+X Unknown slot '-villger.7' at position 12: ...-villger.7<--[HERE]@10
+E Unknown slot '-villger.7' at position 12: ...-villger.7<--[HERE]@10
+S -2--2 0 0 
+@ all horse.saddlea
+R 0
+A -
+X Unknown slot 'horse.saddlea' at position 15: ...se.saddlea<--[HERE]@13
+E Unknown slot 'horse.saddlea' at position 15: ...se.saddlea<--[HERE]@13
+S -2--2 0 0 
+@ all moun}t.c*
+R 0
+A -
+X Unknown slot 'moun}t.c*' at position 11: ... moun}t.c*<--[HERE]@9
+E Unknown slot 'moun}t.c*' at position 11: ... moun}t.c*<--[HERE]@9
+S -2--2 0 0 
+@ all container.1c
+R 0
+A -
+X Unknown slot 'container.1c' at position 14: ...ntainer.1c<--[HERE]@12
+E Unknown slot 'container.1c' at position 14: ...ntainer.1c<--[HERE]@12
+S -2--2 0 0 
+@ all hotbaß.8
+R 0
+A -
+X Unknown slot 'hotbaß.8' at position 10: t hotbaß.8<--[HERE]@8
+E Unknown slot 'hotbaß.8' at position 10: t hotbaß.8<--[HERE]@8
+S -2--2 0 0 
+@ all .saddle
+R 0
+A -
+X Unknown slot '.saddle' at position 9: t .saddle<--[HERE]@7
+E Unknown slot '.saddle' at position 9: t .saddle<--[HERE]@7
+S -2--2 0 0 
+@ all con\u0000ainer.
+R 0
+A -
+X Unknown slot 'con\u0000ainer.' at position 12: ...con\u0000ainer.<--[HERE]@10
+E Unknown slot 'con\u0000ainer.' at position 12: ...con\u0000ainer.<--[HERE]@10
+S -2--2 0 0 
+@ all armor.legso
+R 0
+A -
+X Unknown slot 'armor.legso' at position 13: ...rmor.legso<--[HERE]@11
+E Unknown slot 'armor.legso' at position 13: ...rmor.legso<--[HERE]@11
+S -2--2 0 0 
+@ all vfllager.57
+R 0
+A -
+X Unknown slot 'vfllager.57' at position 13: ...fllager.57<--[HERE]@11
+E Unknown slot 'vfllager.57' at position 13: ...fllager.57<--[HERE]@11
+S -2--2 0 0 
+@ all moun中.*
+R 0
+A -
+X Unknown slot 'moun中.*' at position 9: t moun中.*<--[HERE]@7
+E Unknown slot 'moun中.*' at position 9: t moun中.*<--[HERE]@7
+S -2--2 0 0 
+@ all rchest.*
+R 0
+A -
+X Unknown slot 'rchest.*' at position 10: t rchest.*<--[HERE]@8
+E Unknown slot 'rchest.*' at position 10: t rchest.*<--[HERE]@8
+S -2--2 0 0 
+@ all mount.*m
+R 0
+A -
+X Unknown slot 'mount.*m' at position 10: t mount.*m<--[HERE]@8
+E Unknown slot 'mount.*m' at position 10: t mount.*m<--[HERE]@8
+S -2--2 0 0 
+@ all o
+R 0
+A -
+X Unknown slot 'o' at position 3: t o<--[HERE]@1
+E Unknown slot 'o' at position 3: t o<--[HERE]@1
+S 0-1 1 -1674281731 weapon.offhand
+@ all armod.feet
+R 0
+A -
+X Unknown slot 'armod.feet' at position 12: ...armod.feet<--[HERE]@10
+E Unknown slot 'armod.feet' at position 12: ...armod.feet<--[HERE]@10
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Unknown slot '*' at position 3: t *<--[HERE]@1
+E Unknown slot '*' at position 3: t *<--[HERE]@1
+S 0-1 9 1260530566 armor.*	container.*	enderchest.*	horse.*	hotbar.*	inventory.*	mob.inventory.*	player.crafting.*	weapon.*
+@ all bundle.0e
+R 0
+A -
+X Unknown slot 'bundle.0e' at position 11: ... bundle.0e<--[HERE]@9
+E Unknown slot 'bundle.0e' at position 11: ... bundle.0e<--[HERE]@9
+S -2--2 0 0 
+@ all hotbarb.0
+R 0
+A -
+X Unknown slot 'hotbarb.0' at position 11: ... hotbarb.0<--[HERE]@9
+E Unknown slot 'hotbarb.0' at position 11: ... hotbarb.0<--[HERE]@9
+S -2--2 0 0 
+@ all bundleß.0
+R 0
+A -
+X Unknown slot 'bundleß.0' at position 11: ... bundleß.0<--[HERE]@9
+E Unknown slot 'bundleß.0' at position 11: ... bundleß.0<--[HERE]@9
+S -2--2 0 0 
+@ all ntai]er.01
+R 0
+A -
+X Unknown slot 'ntai]er.01' at position 12: ...ntai]er.01<--[HERE]@10
+E Unknown slot 'ntai]er.01' at position 12: ...ntai]er.01<--[HERE]@10
+S -2--2 0 0 
+@ all 7
+R 0
+A -
+X Unknown slot '7' at position 3: t 7<--[HERE]@1
+E Unknown slot '7' at position 3: t 7<--[HERE]@1
+S 0-1 6 504887557 container.7	enderchest.7	horse.7	hotbar.7	inventory.7	mob.inventory.7
+@ all container..
+R 0
+A -
+X Unknown slot 'container..' at position 13: ...ontainer..<--[HERE]@11
+E Unknown slot 'container..' at position 13: ...ontainer..<--[HERE]@11
+S -2--2 0 0 
+@ all yr
+R 0
+A -
+X Unknown slot 'yr' at position 4: t yr<--[HERE]@2
+E Unknown slot 'yr' at position 4: t yr<--[HERE]@2
+S -2--2 0 0 
+@ all er.!*
+R 0
+A -
+X Unknown slot 'er.!*' at position 7: t er.!*<--[HERE]@5
+E Unknown slot 'er.!*' at position 7: t er.!*<--[HERE]@5
+S -2--2 0 0 
+@ all tory.26
+R 0
+A -
+X Unknown slot 'tory.26' at position 9: t tory.26<--[HERE]@7
+E Unknown slot 'tory.26' at position 9: t tory.26<--[HERE]@7
+S -2--2 0 0 
+@ all weapon.*w*
+R 0
+A -
+X Unknown slot 'weapon.*w*' at position 12: ...weapon.*w*<--[HERE]@10
+E Unknown slot 'weapon.*w*' at position 12: ...weapon.*w*<--[HERE]@10
+S -2--2 0 0 
+@ all 53
+R 0
+A -
+X Unknown slot '53' at position 4: t 53<--[HERE]@2
+E Unknown slot '53' at position 4: t 53<--[HERE]@2
+S 0-2 1 1965742654 container.53
+@ all armor.body.m
+R 0
+A -
+X Unknown slot 'armor.body.m' at position 14: ...mor.body.m<--[HERE]@12
+E Unknown slot 'armor.body.m' at position 14: ...mor.body.m<--[HERE]@12
+S -2--2 0 0 
+@ all apon.mainand 
+R 0
+A -
+X Unknown slot 'apon.mainand' at position 14: ...on.mainand<--[HERE]@12
+E Unknown slot 'apon.mainand' at position 14: ...on.mainand<--[HERE]@12
+S -2--2 0 0 
+@ all htbar.0
+R 0
+A -
+X Unknown slot 'htbar.0' at position 9: t htbar.0<--[HERE]@7
+E Unknown slot 'htbar.0' at position 9: t htbar.0<--[HERE]@7
+S -2--2 0 0 
+@ all armor.head.x#
+R 0
+A -
+X Unknown slot 'armor.head.x#' at position 15: ...or.head.x#<--[HERE]@13
+E Unknown slot 'armor.head.x#' at position 15: ...or.head.x#<--[HERE]@13
+S -2--2 0 0 
+@ all 5y.0
+R 0
+A -
+X Unknown slot '5y.0' at position 6: t 5y.0<--[HERE]@4
+E Unknown slot '5y.0' at position 6: t 5y.0<--[HERE]@4
+S -2--2 0 0 
+@ all ntainer.5
+R 0
+A -
+X Unknown slot 'ntainer.5' at position 11: ... ntainer.5<--[HERE]@9
+E Unknown slot 'ntainer.5' at position 11: ... ntainer.5<--[HERE]@9
+S -2--2 0 0 
+@ all bundZle.*
+R 0
+A -
+X Unknown slot 'bundZle.*' at position 11: ... bundZle.*<--[HERE]@9
+E Unknown slot 'bundZle.*' at position 11: ... bundZle.*<--[HERE]@9
+S -2--2 0 0 
+@ all villag^^er.7
+R 0
+A -
+X Unknown slot 'villag^^er.7' at position 14: ...llag^^er.7<--[HERE]@12
+E Unknown slot 'villag^^er.7' at position 14: ...llag^^er.7<--[HERE]@12
+S -2--2 0 0 
+@ all co'taine.r
+R 0
+A -
+X Unknown slot 'co'taine.r' at position 12: ...co'taine.r<--[HERE]@10
+E Unknown slot 'co'taine.r' at position 12: ...co'taine.r<--[HERE]@10
+S -2--2 0 0 
+@ all ainer.53
+R 0
+A -
+X Unknown slot 'ainer.53' at position 10: t ainer.53<--[HERE]@8
+E Unknown slot 'ainer.53' at position 10: t ainer.53<--[HERE]@8
+S -2--2 0 0 
+@ all bunle.*
+R 0
+A -
+X Unknown slot 'bunle.*' at position 9: t bunle.*<--[HERE]@7
+E Unknown slot 'bunle.*' at position 9: t bunle.*<--[HERE]@7
+S -2--2 0 0 
+@ all wea[on.*
+R 0
+A -
+X Unknown slot 'wea[on.*' at position 10: t wea[on.*<--[HERE]@8
+E Unknown slot 'wea[on.*' at position 10: t wea[on.*<--[HERE]@8
+S -2--2 0 0 
+@ all contaYiner.-1
+R 0
+A -
+X Unknown slot 'contaYiner.-1' at position 15: ...taYiner.-1<--[HERE]@13
+E Unknown slot 'contaYiner.-1' at position 15: ...taYiner.-1<--[HERE]@13
+S -2--2 0 0 
+@ all horse.sad>le
+R 0
+A -
+X Unknown slot 'horse.sad>le' at position 14: ...rse.sad>le<--[HERE]@12
+E Unknown slot 'horse.sad>le' at position 14: ...rse.sad>le<--[HERE]@12
+S -2--2 0 0 
+@ all ar.8é
+R 0
+A -
+X Unknown slot 'ar.8é' at position 7: t ar.8é<--[HERE]@5
+E Unknown slot 'ar.8é' at position 7: t ar.8é<--[HERE]@5
+S -2--2 0 0 
+@ all en6derchest*
+R 0
+A -
+X Unknown slot 'en6derchest*' at position 14: ...6derchest*<--[HERE]@12
+E Unknown slot 'en6derchest*' at position 14: ...6derchest*<--[HERE]@12
+S -2--2 0 0 
+@ all iner.0
+R 0
+A -
+X Unknown slot 'iner.0' at position 8: t iner.0<--[HERE]@6
+E Unknown slot 'iner.0' at position 8: t iner.0<--[HERE]@6
+S -2--2 0 0 
+@ all hotbr.9
+R 0
+A -
+X Unknown slot 'hotbr.9' at position 9: t hotbr.9<--[HERE]@7
+E Unknown slot 'hotbr.9' at position 9: t hotbr.9<--[HERE]@7
+S -2--2 0 0 
+@ all armor.legsa
+R 0
+A -
+X Unknown slot 'armor.legsa' at position 13: ...rmor.legsa<--[HERE]@11
+E Unknown slot 'armor.legsa' at position 13: ...rmor.legsa<--[HERE]@11
+S -2--2 0 0 
+@ all inve'tory.26
+R 0
+A -
+X Unknown slot 'inve'tory.26' at position 14: ...ve'tory.26<--[HERE]@12
+E Unknown slot 'inve'tory.26' at position 14: ...ve'tory.26<--[HERE]@12
+S -2--2 0 0 
+@ all addlee
+R 0
+A -
+X Unknown slot 'addlee' at position 8: t addlee<--[HERE]@6
+E Unknown slot 'addlee' at position 8: t addlee<--[HERE]@6
+S -2--2 0 0 
+@ all weapon.offhando
+R 0
+A -
+X Unknown slot 'weapon.offhando' at position 17: ...n.offhando<--[HERE]@15
+E Unknown slot 'weapon.offhando' at position 17: ...n.offhando<--[HERE]@15
+S -2--2 0 0 
+@ all weapon.ffhand
+R 0
+A -
+X Unknown slot 'weapon.ffhand' at position 15: ...pon.ffhand<--[HERE]@13
+E Unknown slot 'weapon.ffhand' at position 15: ...pon.ffhand<--[HERE]@13
+S -2--2 0 0 
+@ all player\u000a*
+R 0
+A -
+X Unknown slot 'player\u000a*' at position 10: t player\u000a*<--[HERE]@8
+E Unknown slot 'player\u000a*' at position 10: t player\u000a*<--[HERE]@8
+S -2--2 0 0 
+@ all nventory.27
+R 0
+A -
+X Unknown slot 'nventory.27' at position 13: ...ventory.27<--[HERE]@11
+E Unknown slot 'nventory.27' at position 13: ...ventory.27<--[HERE]@11
+S -2--2 0 0 
+@ all ederchest.5
+R 0
+A -
+X Unknown slot 'ederchest.5' at position 13: ...derchest.5<--[HERE]@11
+E Unknown slot 'ederchest.5' at position 13: ...derchest.5<--[HERE]@11
+S -2--2 0 0 
+@ all plaer.crafing.2
+R 0
+A -
+X Unknown slot 'plaer.crafing.2' at position 17: ....crafing.2<--[HERE]@15
+E Unknown slot 'plaer.crafing.2' at position 17: ....crafing.2<--[HERE]@15
+S -2--2 0 0 
+@ all .*
+R 0
+A -
+X Unknown slot '.*' at position 4: t .*<--[HERE]@2
+E Unknown slot '.*' at position 4: t .*<--[HERE]@2
+S -2--2 0 0 
+@ all contaner
+R 0
+A -
+X Unknown slot 'contaner' at position 10: t contaner<--[HERE]@8
+E Unknown slot 'contaner' at position 10: t contaner<--[HERE]@8
+S -2--2 0 0 
+@ all weap.on.*
+R 0
+A -
+X Unknown slot 'weap.on.*' at position 11: ... weap.on.*<--[HERE]@9
+E Unknown slot 'weap.on.*' at position 11: ... weap.on.*<--[HERE]@9
+S -2--2 0 0 
+@ all rse.armorh
+R 0
+A -
+X Unknown slot 'rse.armorh' at position 12: ...rse.armorh<--[HERE]@10
+E Unknown slot 'rse.armorh' at position 12: ...rse.armorh<--[HERE]@10
+S -2--2 0 0 
+@ all rchst.*
+R 0
+A -
+X Unknown slot 'rchst.*' at position 9: t rchst.*<--[HERE]@7
+E Unknown slot 'rchst.*' at position 9: t rchst.*<--[HERE]@7
+S -2--2 0 0 
+@ all container-1
+R 0
+A -
+X Unknown slot 'container-1' at position 13: ...ontainer-1<--[HERE]@11
+E Unknown slot 'container-1' at position 13: ...ontainer-1<--[HERE]@11
+S -2--2 0 0 
+@ all payer.*
+R 0
+A -
+X Unknown slot 'payer.*' at position 9: t payer.*<--[HERE]@7
+E Unknown slot 'payer.*' at position 9: t payer.*<--[HERE]@7
+S -2--2 0 0 
+@ all continer.0
+R 0
+A -
+X Unknown slot 'continer.0' at position 12: ...continer.0<--[HERE]@10
+E Unknown slot 'continer.0' at position 12: ...continer.0<--[HERE]@10
+S -2--2 0 0 
+@ all weaponZ
+R 0
+A -
+X Unknown slot 'weaponZ' at position 9: t weaponZ<--[HERE]@7
+E Unknown slot 'weaponZ' at position 9: t weaponZ<--[HERE]@7
+S -2--2 0 0 
+@ all armor.head,,
+R 0
+A -
+X Unknown slot 'armor.head,,' at position 14: ...mor.head,,<--[HERE]@12
+E Unknown slot 'armor.head,,' at position 14: ...mor.head,,<--[HERE]@12
+S -2--2 0 0 
+@ all mou#t.*
+R 0
+A -
+X Unknown slot 'mou#t.*' at position 9: t mou#t.*<--[HERE]@7
+E Unknown slot 'mou#t.*' at position 9: t mou#t.*<--[HERE]@7
+S -2--2 0 0 
+@ all end]erchest.5\u000a
+R 0
+A -
+X Unknown slot 'end]erchest.5\u000a' at position 16: ...erchest.5\u000a<--[HERE]@14
+E Unknown slot 'end]erchest.5\u000a' at position 16: ...erchest.5\u000a<--[HERE]@14
+S -2--2 0 0 
+@ all .27
+R 0
+A -
+X Unknown slot '.27' at position 5: t .27<--[HERE]@3
+E Unknown slot '.27' at position 5: t .27<--[HERE]@3
+S -2--2 0 0 
+@ all contain4er.*
+R 0
+A -
+X Unknown slot 'contain4er.*' at position 14: ...ntain4er.*<--[HERE]@12
+E Unknown slot 'contain4er.*' at position 14: ...ntain4er.*<--[HERE]@12
+S -2--2 0 0 
+@ all htbar.9
+R 0
+A -
+X Unknown slot 'htbar.9' at position 9: t htbar.9<--[HERE]@7
+E Unknown slot 'htbar.9' at position 9: t htbar.9<--[HERE]@7
+S -2--2 0 0 
+@ all invantoy.0
+R 0
+A -
+X Unknown slot 'invantoy.0' at position 12: ...invantoy.0<--[HERE]@10
+E Unknown slot 'invantoy.0' at position 12: ...invantoy.0<--[HERE]@10
+S -2--2 0 0 
+@ all weapn.z
+R 0
+A -
+X Unknown slot 'weapn.z' at position 9: t weapn.z<--[HERE]@7
+E Unknown slot 'weapn.z' at position 9: t weapn.z<--[HERE]@7
+S -2--2 0 0 
+@ all h!otbar.**
+R 0
+A -
+X Unknown slot 'h!otbar.**' at position 12: ...h!otbar.**<--[HERE]@10
+E Unknown slot 'h!otbar.**' at position 12: ...h!otbar.**<--[HERE]@10
+S -2--2 0 0 
+@ all arm]r.legs
+R 0
+A -
+X Unknown slot 'arm]r.legs' at position 12: ...arm]r.legs<--[HERE]@10
+E Unknown slot 'arm]r.legs' at position 12: ...arm]r.legs<--[HERE]@10
+S -2--2 0 0 
+@ all bar.0
+R 0
+A -
+X Unknown slot 'bar.0' at position 7: t bar.0<--[HERE]@5
+E Unknown slot 'bar.0' at position 7: t bar.0<--[HERE]@5
+S -2--2 0 0 
+@ all i'llager.*
+R 0
+A -
+X Unknown slot 'i'llager.*' at position 12: ...i'llager.*<--[HERE]@10
+E Unknown slot 'i'llager.*' at position 12: ...i'llager.*<--[HERE]@10
+S -2--2 0 0 
+@ all contetst
+R 0
+A -
+X Unknown slot 'contetst' at position 10: t contetst<--[HERE]@8
+E Unknown slot 'contetst' at position 10: t contetst<--[HERE]@8
+S -2--2 0 0 
+@ all vllag@r.*
+R 0
+A -
+X Unknown slot 'vllag@r.*' at position 11: ... vllag@r.*<--[HERE]@9
+E Unknown slot 'vllag@r.*' at position 11: ... vllag@r.*<--[HERE]@9
+S -2--2 0 0 
+@ all playe.crafting.2
+R 0
+A -
+X Unknown slot 'playe.crafting.2' at position 18: ...crafting.2<--[HERE]@16
+E Unknown slot 'playe.crafting.2' at position 18: ...crafting.2<--[HERE]@16
+S -2--2 0 0 
+@ all )Weapona
+R 0
+A -
+X Unknown slot ')Weapona' at position 10: t )Weapona<--[HERE]@8
+E Unknown slot ')Weapona' at position 10: t )Weapona<--[HERE]@8
+S -2--2 0 0 
+@ all container.0n
+R 0
+A -
+X Unknown slot 'container.0n' at position 14: ...ntainer.0n<--[HERE]@12
+E Unknown slot 'container.0n' at position 14: ...ntainer.0n<--[HERE]@12
+S -2--2 0 0 
+@ all armor.fet
+R 0
+A -
+X Unknown slot 'armor.fet' at position 11: ... armor.fet<--[HERE]@9
+E Unknown slot 'armor.fet' at position 11: ... armor.fet<--[HERE]@9
+S -2--2 0 0 
+@ all chest
+R 0
+A -
+X Unknown slot 'chest' at position 7: t chest<--[HERE]@5
+E Unknown slot 'chest' at position 7: t chest<--[HERE]@5
+S 0-5 2 2115571344 armor.chest	horse.chest
+@ all hotba.*
+R 0
+A -
+X Unknown slot 'hotba.*' at position 9: t hotba.*<--[HERE]@7
+E Unknown slot 'hotba.*' at position 9: t hotba.*<--[HERE]@7
+S -2--2 0 0 
+@ all hotba7r.9
+R 0
+A -
+X Unknown slot 'hotba7r.9' at position 11: ... hotba7r.9<--[HERE]@9
+E Unknown slot 'hotba7r.9' at position 11: ... hotba7r.9<--[HERE]@9
+S -2--2 0 0 
+@ all ory.*
+R 0
+A -
+X Unknown slot 'ory.*' at position 7: t ory.*<--[HERE]@5
+E Unknown slot 'ory.*' at position 7: t ory.*<--[HERE]@5
+S -2--2 0 0 
+@ all dle.0e
+R 0
+A -
+X Unknown slot 'dle.0e' at position 8: t dle.0e<--[HERE]@6
+E Unknown slot 'dle.0e' at position 8: t dle.0e<--[HERE]@6
+S -2--2 0 0 
+@ all contaier.(5
+R 0
+A -
+X Unknown slot 'contaier.(5' at position 13: ...ontaier.(5<--[HERE]@11
+E Unknown slot 'contaier.(5' at position 13: ...ontaier.(5<--[HERE]@11
+S -2--2 0 0 
+@ all cotainer.*
+R 0
+A -
+X Unknown slot 'cotainer.*' at position 12: ...cotainer.*<--[HERE]@10
+E Unknown slot 'cotainer.*' at position 12: ...cotainer.*<--[HERE]@10
+S -2--2 0 0 
+@ all w-apon.mainhand e
+R 0
+A -
+X Unknown slot 'w-apon.mainhand' at position 17: ...n.mainhand<--[HERE]@15
+E Unknown slot 'w-apon.mainhand' at position 17: ...n.mainhand<--[HERE]@15
+S -2--2 0 0 
+@ all armor.head.xm
+R 0
+A -
+X Unknown slot 'armor.head.xm' at position 15: ...or.head.xm<--[HERE]@13
+E Unknown slot 'armor.head.xm' at position 15: ...or.head.xm<--[HERE]@13
+S -2--2 0 0 
+@ all munt.
+R 0
+A -
+X Unknown slot 'munt.' at position 7: t munt.<--[HERE]@5
+E Unknown slot 'munt.' at position 7: t munt.<--[HERE]@5
+S -2--2 0 0 
+@ all armorbod
+R 0
+A -
+X Unknown slot 'armorbod' at position 10: t armorbod<--[HERE]@8
+E Unknown slot 'armorbod' at position 10: t armorbod<--[HERE]@8
+S -2--2 0 0 
+@ all eanderchest.
+R 0
+A -
+X Unknown slot 'eanderchest.' at position 14: ...nderchest.<--[HERE]@12
+E Unknown slot 'eanderchest.' at position 14: ...nderchest.<--[HERE]@12
+S -2--2 0 0 
+@ all horse.*h
+R 0
+A -
+X Unknown slot 'horse.*h' at position 10: t horse.*h<--[HERE]@8
+E Unknown slot 'horse.*h' at position 10: t horse.*h<--[HERE]@8
+S -2--2 0 0 
+@ all weapon.mainhandC
+R 0
+A -
+X Unknown slot 'weapon.mainhandC' at position 18: ....mainhandC<--[HERE]@16
+E Unknown slot 'weapon.mainhandC' at position 18: ....mainhandC<--[HERE]@16
+S -2--2 0 0 
+@ all inventory.26eo
+R 0
+A -
+X Unknown slot 'inventory.26eo' at position 16: ...ntory.26eo<--[HERE]@14
+E Unknown slot 'inventory.26eo' at position 16: ...ntory.26eo<--[HERE]@14
+S -2--2 0 0 
+@ all weazon.*
+R 0
+A -
+X Unknown slot 'weazon.*' at position 10: t weazon.*<--[HERE]@8
+E Unknown slot 'weazon.*' at position 10: t weazon.*<--[HERE]@8
+S -2--2 0 0 
+@ all invİentory.26+
+R 0
+A -
+X Unknown slot 'invİentory.26+' at position 16: ...entory.26+<--[HERE]@14
+E Unknown slot 'invİentory.26+' at position 16: ...entory.26+<--[HERE]@14
+S -2--2 0 0 
+@ all r.leg
+R 0
+A -
+X Unknown slot 'r.leg' at position 7: t r.leg<--[HERE]@5
+E Unknown slot 'r.leg' at position 7: t r.leg<--[HERE]@5
+S -2--2 0 0 
+@ all rafting.2
+R 0
+A -
+X Unknown slot 'rafting.2' at position 11: ... rafting.2<--[HERE]@9
+E Unknown slot 'rafting.2' at position 11: ... rafting.2<--[HERE]@9
+S -2--2 0 0 
+@ all player.curs9or
+R 0
+A -
+X Unknown slot 'player.curs9or' at position 16: ...er.curs9or<--[HERE]@14
+E Unknown slot 'player.curs9or' at position 16: ...er.curs9or<--[HERE]@14
+S -2--2 0 0 
+@ all Weaonn
+R 0
+A -
+X Unknown slot 'Weaonn' at position 8: t Weaonn<--[HERE]@6
+E Unknown slot 'Weaonn' at position 8: t Weaonn<--[HERE]@6
+S -2--2 0 0 
+@ all horse.chet.5
+R 0
+A -
+X Unknown slot 'horse.chet.5' at position 14: ...rse.chet.5<--[HERE]@12
+E Unknown slot 'horse.chet.5' at position 14: ...rse.chet.5<--[HERE]@12
+S -2--2 0 0 
+@ all weapon.X
+R 0
+A -
+X Unknown slot 'weapon.X' at position 10: t weapon.X<--[HERE]@8
+E Unknown slot 'weapon.X' at position 10: t weapon.X<--[HERE]@8
+S -2--2 0 0 
+@ all armorbodyo
+R 0
+A -
+X Unknown slot 'armorbodyo' at position 12: ...armorbodyo<--[HERE]@10
+E Unknown slot 'armorbodyo' at position 12: ...armorbodyo<--[HERE]@10
+S -2--2 0 0 
+@ all eB.0
+R 0
+A -
+X Unknown slot 'eB.0' at position 6: t eB.0<--[HERE]@4
+E Unknown slot 'eB.0' at position 6: t eB.0<--[HERE]@4
+S -2--2 0 0 
+@ all co1tainer.01
+R 0
+A -
+X Unknown slot 'co1tainer.01' at position 14: ...1tainer.01<--[HERE]@12
+E Unknown slot 'co1tainer.01' at position 14: ...1tainer.01<--[HERE]@12
+S -2--2 0 0 
+@ all munt.*
+R 0
+A -
+X Unknown slot 'munt.*' at position 8: t munt.*<--[HERE]@6
+E Unknown slot 'munt.*' at position 8: t munt.*<--[HERE]@6
+S -2--2 0 0 
+@ all weapo.mainhand 
+R 0
+A -
+X Unknown slot 'weapo.mainhand' at position 16: ...o.mainhand<--[HERE]@14
+E Unknown slot 'weapo.mainhand' at position 16: ...o.mainhand<--[HERE]@14
+S -2--2 0 0 
+@ all r.2head
+R 0
+A -
+X Unknown slot 'r.2head' at position 9: t r.2head<--[HERE]@7
+E Unknown slot 'r.2head' at position 9: t r.2head<--[HERE]@7
+S -2--2 0 0 
+@ all rmor.head
+R 0
+A -
+X Unknown slot 'rmor.head' at position 11: ... rmor.head<--[HERE]@9
+E Unknown slot 'rmor.head' at position 11: ... rmor.head<--[HERE]@9
+S -2--2 0 0 
+@ all or.heado
+R 0
+A -
+X Unknown slot 'or.heado' at position 10: t or.heado<--[HERE]@8
+E Unknown slot 'or.heado' at position 10: t or.heado<--[HERE]@8
+S -2--2 0 0 
+@ all player.crafting.22
+R 0
+A -
+X Unknown slot 'player.crafting.22' at position 20: ...rafting.22<--[HERE]@18
+E Unknown slot 'player.crafting.22' at position 20: ...rafting.22<--[HERE]@18
+S -2--2 0 0 
+@ all ar:or.chest
+R 0
+A -
+X Unknown slot 'ar:or.chest' at position 13: ...r:or.chest<--[HERE]@11
+E Unknown slot 'ar:or.chest' at position 13: ...r:or.chest<--[HERE]@11
+S -2--2 0 0 
+@ all player.*l
+R 0
+A -
+X Unknown slot 'player.*l' at position 11: ... player.*l<--[HERE]@9
+E Unknown slot 'player.*l' at position 11: ... player.*l<--[HERE]@9
+S -2--2 0 0 
+@ all apo%
+R 0
+A -
+X Unknown slot 'apo%' at position 6: t apo%<--[HERE]@4
+E Unknown slot 'apo%' at position 6: t apo%<--[HERE]@4
+S -2--2 0 0 
+@ all 1layer.craft:ng.2
+R 0
+A -
+X Unknown slot '1layer.craft:ng.2' at position 19: ...craft:ng.2<--[HERE]@17
+E Unknown slot '1layer.craft:ng.2' at position 19: ...craft:ng.2<--[HERE]@17
+S -2--2 0 0 
+@ all container}}5
+R 0
+A -
+X Unknown slot 'container}}5' at position 14: ...ntainer}}5<--[HERE]@12
+E Unknown slot 'container}}5' at position 14: ...ntainer}}5<--[HERE]@12
+S -2--2 0 0 
+@ all .armor
+R 0
+A -
+X Unknown slot '.armor' at position 8: t .armor<--[HERE]@6
+E Unknown slot '.armor' at position 8: t .armor<--[HERE]@6
+S -2--2 0 0 
+@ all r.53
+R 0
+A -
+X Unknown slot 'r.53' at position 6: t r.53<--[HERE]@4
+E Unknown slot 'r.53' at position 6: t r.53<--[HERE]@4
+S -2--2 0 0 
+@ all r.body
+R 0
+A -
+X Unknown slot 'r.body' at position 8: t r.body<--[HERE]@6
+E Unknown slot 'r.body' at position 8: t r.body<--[HERE]@6
+S -2--2 0 0 
+@ all saddl0
+R 0
+A -
+X Unknown slot 'saddl0' at position 8: t saddl0<--[HERE]@6
+E Unknown slot 'saddl0' at position 8: t saddl0<--[HERE]@6
+S -2--2 0 0 
+@ all villag0er.7
+R 0
+A -
+X Unknown slot 'villag0er.7' at position 13: ...illag0er.7<--[HERE]@11
+E Unknown slot 'villag0er.7' at position 13: ...illag0er.7<--[HERE]@11
+S -2--2 0 0 
+@ all a+rmor*
+R 0
+A -
+X Unknown slot 'a+rmor*' at position 9: t a+rmor*<--[HERE]@7
+E Unknown slot 'a+rmor*' at position 9: t a+rmor*<--[HERE]@7
+S -2--2 0 0 
+@ all dmount.*n
+R 0
+A -
+X Unknown slot 'dmount.*n' at position 11: ... dmount.*n<--[HERE]@9
+E Unknown slot 'dmount.*n' at position 11: ... dmount.*n<--[HERE]@9
+S -2--2 0 0 
+@ all hors.chestß.5
+R 0
+A -
+X Unknown slot 'hors.chestß.5' at position 15: ...s.chestß.5<--[HERE]@13
+E Unknown slot 'hors.chestß.5' at position 15: ...s.chestß.5<--[HERE]@13
+S -2--2 0 0 
+@ all weapon.mainhan\\
+R 0
+A -
+X Unknown slot 'weapon.mainhan\\' at position 17: ...n.mainhan\\<--[HERE]@15
+E Unknown slot 'weapon.mainhan\\' at position 17: ...n.mainhan\\<--[HERE]@15
+S -2--2 0 0 
+@ all we'pon.mainhand p
+R 0
+A -
+X Unknown slot 'we'pon.mainhand' at position 17: ...n.mainhand<--[HERE]@15
+E Unknown slot 'we'pon.mainhand' at position 17: ...n.mainhand<--[HERE]@15
+S -2--2 0 0 
+@ all containBr.5
+R 0
+A -
+X Unknown slot 'containBr.5' at position 13: ...ontainBr.5<--[HERE]@11
+E Unknown slot 'containBr.5' at position 13: ...ontainBr.5<--[HERE]@11
+S -2--2 0 0 
+@ all rse.sadde
+R 0
+A -
+X Unknown slot 'rse.sadde' at position 11: ... rse.sadde<--[HERE]@9
+E Unknown slot 'rse.sadde' at position 11: ... rse.sadde<--[HERE]@9
+S -2--2 0 0 
+@ all oo
+R 0
+A -
+X Unknown slot 'oo' at position 4: t oo<--[HERE]@2
+E Unknown slot 'oo' at position 4: t oo<--[HERE]@2
+S -2--2 0 0 
+@ all h5otbar.**
+R 0
+A -
+X Unknown slot 'h5otbar.**' at position 12: ...h5otbar.**<--[HERE]@10
+E Unknown slot 'h5otbar.**' at position 12: ...h5otbar.**<--[HERE]@10
+S -2--2 0 0 
+@ all hotbr.0b
+R 0
+A -
+X Unknown slot 'hotbr.0b' at position 10: t hotbr.0b<--[HERE]@8
+E Unknown slot 'hotbr.0b' at position 10: t hotbr.0b<--[HERE]@8
+S -2--2 0 0 
+@ all .f
+R 0
+A -
+X Unknown slot '.f' at position 4: t .f<--[HERE]@2
+E Unknown slot '.f' at position 4: t .f<--[HERE]@2
+S -2--2 0 0 
+@ all container.*r
+R 0
+A -
+X Unknown slot 'container.*r' at position 14: ...ntainer.*r<--[HERE]@12
+E Unknown slot 'container.*r' at position 14: ...ntainer.*r<--[HERE]@12
+S -2--2 0 0 
+@ all ayer.**
+R 0
+A -
+X Unknown slot 'ayer.**' at position 9: t ayer.**<--[HERE]@7
+E Unknown slot 'ayer.**' at position 9: t ayer.**<--[HERE]@7
+S -2--2 0 0 
+@ all cntainer.544
+R 0
+A -
+X Unknown slot 'cntainer.544' at position 14: ...tainer.544<--[HERE]@12
+E Unknown slot 'cntainer.544' at position 14: ...tainer.544<--[HERE]@12
+S -2--2 0 0 
+@ all hcotbar.9
+R 0
+A -
+X Unknown slot 'hcotbar.9' at position 11: ... hcotbar.9<--[HERE]@9
+E Unknown slot 'hcotbar.9' at position 11: ... hcotbar.9<--[HERE]@9
+S -2--2 0 0 
+@ all weapon.offhand5d
+R 0
+A -
+X Unknown slot 'weapon.offhand5d' at position 18: ....offhand5d<--[HERE]@16
+E Unknown slot 'weapon.offhand5d' at position 18: ....offhand5d<--[HERE]@16
+S -2--2 0 0 
+@ all a]rmor.head
+R 0
+A -
+X Unknown slot 'a]rmor.head' at position 13: ...]rmor.head<--[HERE]@11
+E Unknown slot 'a]rmor.head' at position 13: ...]rmor.head<--[HERE]@11
+S -2--2 0 0 
+@ all horse.saddl)e
+R 0
+A -
+X Unknown slot 'horse.saddl)e' at position 15: ...se.saddl)e<--[HERE]@13
+E Unknown slot 'horse.saddl)e' at position 15: ...se.saddl)e<--[HERE]@13
+S -2--2 0 0 
+@ all weapon.m-inhand 
+R 0
+A -
+X Unknown slot 'weapon.m-inhand' at position 17: ...n.m-inhand<--[HERE]@15
+E Unknown slot 'weapon.m-inhand' at position 17: ...n.m-inhand<--[HERE]@15
+S -2--2 0 0 
+@ all rmor.*
+R 0
+A -
+X Unknown slot 'rmor.*' at position 8: t rmor.*<--[HERE]@6
+E Unknown slot 'rmor.*' at position 8: t rmor.*<--[HERE]@6
+S -2--2 0 0 
+@ all endercest.5
+R 0
+A -
+X Unknown slot 'endercest.5' at position 13: ...ndercest.5<--[HERE]@11
+E Unknown slot 'endercest.5' at position 13: ...ndercest.5<--[HERE]@11
+S -2--2 0 0 
+@ all hotber.0
+R 0
+A -
+X Unknown slot 'hotber.0' at position 10: t hotber.0<--[HERE]@8
+E Unknown slot 'hotber.0' at position 10: t hotber.0<--[HERE]@8
+S -2--2 0 0 
+@ all 55
+R 0
+A -
+X Unknown slot '55' at position 4: t 55<--[HERE]@2
+E Unknown slot '55' at position 4: t 55<--[HERE]@2
+S -2--2 0 0 
+@ all invetory.0
+R 0
+A -
+X Unknown slot 'invetory.0' at position 12: ...invetory.0<--[HERE]@10
+E Unknown slot 'invetory.0' at position 12: ...invetory.0<--[HERE]@10
+S -2--2 0 0 
+@ all ntain"er. 5
+R 0
+A -
+X Unknown slot 'ntain"er.' at position 11: ... ntain"er.<--[HERE]@9
+E Unknown slot 'ntain"er.' at position 11: ... ntain"er.<--[HERE]@9
+S -2--2 0 0 
+@ all armor.ch9esté
+R 0
+A -
+X Unknown slot 'armor.ch9esté' at position 15: ...or.ch9esté<--[HERE]@13
+E Unknown slot 'armor.ch9esté' at position 15: ...or.ch9esté<--[HERE]@13
+S -2--2 0 0 
+@ all i​nventory.*n
+R 0
+A -
+X Unknown slot 'i​nventory.*n' at position 15: ...ventory.*n<--[HERE]@13
+E Unknown slot 'i​nventory.*n' at position 15: ...ventory.*n<--[HERE]@13
+S -2--2 0 0 
+@ all plzayer.crafting.*
+R 0
+A -
+X Unknown slot 'plzayer.crafting.*' at position 20: ...crafting.*<--[HERE]@18
+E Unknown slot 'plzayer.crafting.*' at position 20: ...crafting.*<--[HERE]@18
+S -2--2 0 0 
+@ all ai*ner.-1
+R 0
+A -
+X Unknown slot 'ai*ner.-1' at position 11: ... ai*ner.-1<--[HERE]@9
+E Unknown slot 'ai*ner.-1' at position 11: ... ai*ner.-1<--[HERE]@9
+S -2--2 0 0 
+@ all er.
+R 0
+A -
+X Unknown slot 'er.' at position 5: t er.<--[HERE]@3
+E Unknown slot 'er.' at position 5: t er.<--[HERE]@3
+S -2--2 0 0 
+@ all 01
+R 0
+A -
+X Unknown slot '01' at position 4: t 01<--[HERE]@2
+E Unknown slot '01' at position 4: t 01<--[HERE]@2
+S -2--2 0 0 
+@ all c%ontainer.5
+R 0
+A -
+X Unknown slot 'c%ontainer.5' at position 14: ...ontainer.5<--[HERE]@12
+E Unknown slot 'c%ontainer.5' at position 14: ...ontainer.5<--[HERE]@12
+S -2--2 0 0 
+@ all amor.legs
+R 0
+A -
+X Unknown slot 'amor.legs' at position 11: ... amor.legs<--[HERE]@9
+E Unknown slot 'amor.legs' at position 11: ... amor.legs<--[HERE]@9
+S -2--2 0 0 
+@ all containe6r.54
+R 0
+A -
+X Unknown slot 'containe6r.54' at position 15: ...taine6r.54<--[HERE]@13
+E Unknown slot 'containe6r.54' at position 15: ...taine6r.54<--[HERE]@13
+S -2--2 0 0 
+@ all ventor.*
+R 0
+A -
+X Unknown slot 'ventor.*' at position 10: t ventor.*<--[HERE]@8
+E Unknown slot 'ventor.*' at position 10: t ventor.*<--[HERE]@8
+S -2--2 0 0 
+@ all co>tainer.*i
+R 0
+A -
+X Unknown slot 'co>tainer.*i' at position 14: ...>tainer.*i<--[HERE]@12
+E Unknown slot 'co>tainer.*i' at position 14: ...>tainer.*i<--[HERE]@12
+S -2--2 0 0 
+@ all ontents
+R 0
+A -
+X Unknown slot 'ontents' at position 9: t ontents<--[HERE]@7
+E Unknown slot 'ontents' at position 9: t ontents<--[HERE]@7
+S -2--2 0 0 
+@ all h=tbar.
+R 0
+A -
+X Unknown slot 'h=tbar.' at position 9: t h=tbar.<--[HERE]@7
+E Unknown slot 'h=tbar.' at position 9: t h=tbar.<--[HERE]@7
+S -2--2 0 0 
+@ all horse@.ar]mor
+R 0
+A -
+X Unknown slot 'horse@.ar]mor' at position 15: ...se@.ar]mor<--[HERE]@13
+E Unknown slot 'horse@.ar]mor' at position 15: ...se@.ar]mor<--[HERE]@13
+S -2--2 0 0 
+@ all invent8or).0
+R 0
+A -
+X Unknown slot 'invent8or).0' at position 14: ...vent8or).0<--[HERE]@12
+E Unknown slot 'invent8or).0' at position 14: ...vent8or).0<--[HERE]@12
+S -2--2 0 0 
+@ all 1y.27
+R 0
+A -
+X Unknown slot '1y.27' at position 7: t 1y.27<--[HERE]@5
+E Unknown slot '1y.27' at position 7: t 1y.27<--[HERE]@5
+S -2--2 0 0 
+@ all armor.legsmr
+R 0
+A -
+X Unknown slot 'armor.legsmr' at position 14: ...mor.legsmr<--[HERE]@12
+E Unknown slot 'armor.legsmr' at position 14: ...mor.legsmr<--[HERE]@12
+S -2--2 0 0 
+@ all r.
+R 0
+A -
+X Unknown slot 'r.' at position 4: t r.<--[HERE]@2
+E Unknown slot 'r.' at position 4: t r.<--[HERE]@2
+S -2--2 0 0 
+@ all inventory.0r
+R 0
+A -
+X Unknown slot 'inventory.0r' at position 14: ...ventory.0r<--[HERE]@12
+E Unknown slot 'inventory.0r' at position 14: ...ventory.0r<--[HERE]@12
+S -2--2 0 0 
+@ all weapon.mainhand a 
+R 16
+A 0-15 weapon.mainhand|[98]
+E Incorrect argument for command at position 18: ....mainhand <--[HERE]@16
+S -2--2 0 0 
+@ all weapon.offhand:
+R 0
+A -
+X Unknown slot 'weapon.offhand:' at position 17: ...n.offhand:<--[HERE]@15
+E Unknown slot 'weapon.offhand:' at position 17: ...n.offhand:<--[HERE]@15
+S -2--2 0 0 
+@ all contene
+R 0
+A -
+X Unknown slot 'contene' at position 9: t contene<--[HERE]@7
+E Unknown slot 'contene' at position 9: t contene<--[HERE]@7
+S -2--2 0 0 
+@ all c7ntainber.5
+R 0
+A -
+X Unknown slot 'c7ntainber.5' at position 14: ...ntainber.5<--[HERE]@12
+E Unknown slot 'c7ntainber.5' at position 14: ...ntainber.5<--[HERE]@12
+S -2--2 0 0 
+@ all c\\ntainer. 5f
+R 0
+A -
+X Unknown slot 'c\\ntainer.' at position 12: ...c\\ntainer.<--[HERE]@10
+E Unknown slot 'c\\ntainer.' at position 12: ...c\\ntainer.<--[HERE]@10
+S -2--2 0 0 
+@ all horse.4chest.5
+R 0
+A -
+X Unknown slot 'horse.4chest.5' at position 16: ...e.4chest.5<--[HERE]@14
+E Unknown slot 'horse.4chest.5' at position 16: ...e.4chest.5<--[HERE]@14
+S -2--2 0 0 
+@ all bundl<.​
+R 0
+A -
+X Unknown slot 'bundl<.​' at position 10: t bundl<.​<--[HERE]@8
+E Unknown slot 'bundl<.​' at position 10: t bundl<.​<--[HERE]@8
+S -2--2 0 0 
+@ all orse.'addle
+R 0
+A -
+X Unknown slot 'orse.'addle' at position 13: ...rse.'addle<--[HERE]@11
+E Unknown slot 'orse.'addle' at position 13: ...rse.'addle<--[HERE]@11
+S -2--2 0 0 
+@ all hAotbar.*o
+R 0
+A -
+X Unknown slot 'hAotbar.*o' at position 12: ...hAotbar.*o<--[HERE]@10
+E Unknown slot 'hAotbar.*o' at position 12: ...hAotbar.*o<--[HERE]@10
+S -2--2 0 0 
+@ all ayer.
+R 0
+A -
+X Unknown slot 'ayer.' at position 7: t ayer.<--[HERE]@5
+E Unknown slot 'ayer.' at position 7: t ayer.<--[HERE]@5
+S -2--2 0 0 
+@ all tainer. 
+R 0
+A -
+X Unknown slot 'tainer.' at position 9: t tainer.<--[HERE]@7
+E Unknown slot 'tainer.' at position 9: t tainer.<--[HERE]@7
+S -2--2 0 0 
+@ all armr.head
+R 0
+A -
+X Unknown slot 'armr.head' at position 11: ... armr.head<--[HERE]@9
+E Unknown slot 'armr.head' at position 11: ... armr.head<--[HERE]@9
+S -2--2 0 0 
+@ all cursor
+R 0
+A -
+X Unknown slot 'cursor' at position 8: t cursor<--[HERE]@6
+E Unknown slot 'cursor' at position 8: t cursor<--[HERE]@6
+S 0-6 1 265064806 player.cursor
+@ all y
+R 0
+A -
+X Unknown slot 'y' at position 3: t y<--[HERE]@1
+E Unknown slot 'y' at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all hotb+ar.9
+R 0
+A -
+X Unknown slot 'hotb+ar.9' at position 11: ... hotb+ar.9<--[HERE]@9
+E Unknown slot 'hotb+ar.9' at position 11: ... hotb+ar.9<--[HERE]@9
+S -2--2 0 0 
+@ all hotbar.9t
+R 0
+A -
+X Unknown slot 'hotbar.9t' at position 11: ... hotbar.9t<--[HERE]@9
+E Unknown slot 'hotbar.9t' at position 11: ... hotbar.9t<--[HERE]@9
+S -2--2 0 0 
+@ all weapon.mainha\u0000nd
+R 0
+A -
+X Unknown slot 'weapon.mainha\u0000nd' at position 18: ....mainha\u0000nd<--[HERE]@16
+E Unknown slot 'weapon.mainha\u0000nd' at position 18: ....mainha\u0000nd<--[HERE]@16
+S -2--2 0 0 
+@ all player.crafti3g.2
+R 0
+A -
+X Unknown slot 'player.crafti3g.2' at position 19: ...crafti3g.2<--[HERE]@17
+E Unknown slot 'player.crafti3g.2' at position 19: ...crafti3g.2<--[HERE]@17
+S -2--2 0 0 

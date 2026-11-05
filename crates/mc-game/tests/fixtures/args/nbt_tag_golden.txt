@@ -1,0 +1,2710 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 0
+E ok
+S 1-1 19 667481105 .	b	B	d	D	e	E	f	F	i	I	l	L	S	s	U	u	X	x
+@ all 0b
+R 2
+A 0-2 0b
+E ok
+S -2--2 0 0 
+@ all 0B
+R 2
+A 0-2 0b
+E ok
+S -2--2 0 0 
+@ all 0s
+R 2
+A 0-2 0s
+E ok
+S 2-2 8 -1793998988 b	B	i	I	l	L	s	S
+@ all 0l
+R 2
+A 0-2 0L
+E ok
+S -2--2 0 0 
+@ all 0L
+R 2
+A 0-2 0L
+E ok
+S -2--2 0 0 
+@ all 0.0
+R 3
+A 0-3 0.0d
+E ok
+S 3-3 6 -1514971912 d	D	e	E	f	F
+@ all 0f
+R 2
+A 0-2 0.0f
+E ok
+S -2--2 0 0 
+@ all 0d
+R 2
+A 0-2 0.0d
+E ok
+S -2--2 0 0 
+@ all 1.5e3
+R 5
+A 0-5 1500.0d
+E ok
+S 5-5 4 -456883632 d	D	f	F
+@ all -1
+R 2
+A 0-2 -1
+E ok
+S 2-2 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all +1
+R 2
+A 0-2 1
+E ok
+S 2-2 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 1e5
+R 3
+A 0-3 100000.0d
+E ok
+S 3-3 4 -456883632 d	D	f	F
+@ all .5
+R 2
+A 0-2 0.5d
+E ok
+S 2-2 6 -1514971912 d	D	e	E	f	F
+@ all 5.
+R 2
+A 0-2 5.0d
+E ok
+S 2-2 6 -1514971912 d	D	e	E	f	F
+@ all 0x10
+R 4
+A 0-4 16
+E ok
+S 4-4 10 783433980 b	B	i	I	l	L	s	S	u	U
+@ all 0b101
+R 5
+A 0-5 5
+E ok
+S 5-5 10 783433980 b	B	i	I	l	L	s	S	u	U
+@ all 1_000
+R 5
+A 0-5 1000
+E ok
+S 5-5 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 128b
+R 0
+A -
+X Failed to parse number: Value out of range. Value:"128" Radix:10 at position 6: t 128b<--[HERE]@4
+E Failed to parse number: Value out of range. Value:"128" Radix:10 at position 6: t 128b<--[HERE]@4
+S -2--2 0 0 
+@ all -129b
+R 0
+A -
+X Failed to parse number: Value out of range. Value:"-129" Radix:10 at position 7: t -129b<--[HERE]@5
+E Failed to parse number: Value out of range. Value:"-129" Radix:10 at position 7: t -129b<--[HERE]@5
+S -2--2 0 0 
+@ all true
+R 4
+A 0-4 1b
+E ok
+S 4-4 1 1249 (
+@ all false
+R 5
+A 0-5 0b
+E ok
+S 5-5 1 1249 (
+@ all True
+R 4
+A 0-4 1b
+E ok
+S 4-4 1 1249 (
+@ all "foo"
+R 5
+A 0-5 "foo"
+E ok
+S -2--2 0 0 
+@ all 'foo'
+R 5
+A 0-5 "foo"
+E ok
+S -2--2 0 0 
+@ all foo
+R 3
+A 0-3 "foo"
+E ok
+S 3-3 1 1249 (
+@ all "a\\"b"
+R 6
+A 0-6 'a"b'
+E ok
+S -2--2 0 0 
+@ all 'a\\'b'
+R 6
+A 0-6 "a'b"
+E ok
+S -2--2 0 0 
+@ all "\\u00e9"
+R 8
+A 0-8 "é"
+E ok
+S -2--2 0 0 
+@ all "\\n"
+R 4
+A 0-4 "\\n"
+E ok
+S -2--2 0 0 
+@ all "\\x41"
+R 6
+A 0-6 "A"
+E ok
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETTER A}"
+R 26
+A 0-26 "a"
+E ok
+S -2--2 0 0 
+@ all "\\q"
+R 0
+A -
+X Expected literal b at position 4: t "\\<--[HERE]@2
+E Expected literal b at position 4: t "\\<--[HERE]@2
+S -2--2 0 0 
+@ all {}
+R 2
+A 0-2 {}
+E ok
+S -2--2 0 0 
+@ all {foo=bar}
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo:bar}
+R 9
+A 0-9 {foo:"bar"}
+E ok
+S -2--2 0 0 
+@ all {foo:1b,bar:[1,2]}
+R 18
+A 0-18 {bar:[1,2],foo:1b}
+E ok
+S -2--2 0 0 
+@ all {"a b":1}
+R 9
+A 0-9 {"a b":1}
+E ok
+S -2--2 0 0 
+@ all {a:{b:{c:1}}}
+R 13
+A 0-13 {a:{b:{c:1}}}
+E ok
+S -2--2 0 0 
+@ all {a:1,}
+R 6
+A 0-6 {a:1}
+E ok
+S -2--2 0 0 
+@ all {,}
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a:1,a:2}
+R 9
+A 0-9 {a:2}
+E ok
+S -2--2 0 0 
+@ all {a:}
+R 0
+A -
+X Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+E Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+S -2--2 0 0 
+@ all {:1}
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a 1}
+R 0
+A -
+X Expected literal : at position 5: t {a <--[HERE]@3
+E Expected literal : at position 5: t {a <--[HERE]@3
+S -2--2 0 0 
+@ all {a:1 b:2}
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S -2--2 0 0 
+@ all { a : 1 }
+R 9
+A 0-9 {a:1}
+E ok
+S -2--2 0 0 
+@ all []
+R 2
+A 0-2 []
+E ok
+S -2--2 0 0 
+@ all [0]
+R 3
+A 0-3 [0]
+E ok
+S -2--2 0 0 
+@ all [B;]
+R 4
+A 0-4 [B;]
+E ok
+S -2--2 0 0 
+@ all [B;1b,2b]
+R 9
+A 0-9 [B;1B,2B]
+E ok
+S -2--2 0 0 
+@ all [I;1,2,3]
+R 9
+A 0-9 [I;1,2,3]
+E ok
+S -2--2 0 0 
+@ all [L;1l]
+R 6
+A 0-6 [L;1L]
+E ok
+S -2--2 0 0 
+@ all [B;1]
+R 5
+A 0-5 [B;1B]
+E ok
+S -2--2 0 0 
+@ all [I;1b]
+R 6
+A 0-6 [I;1]
+E ok
+S -2--2 0 0 
+@ all [1,2,3]
+R 7
+A 0-7 [1,2,3]
+E ok
+S -2--2 0 0 
+@ all [1,"a"]
+R 7
+A 0-7 [1,"a"]
+E ok
+S -2--2 0 0 
+@ all [[1],[2]]
+R 9
+A 0-9 [[1],[2]]
+E ok
+S -2--2 0 0 
+@ all [{a:1},{b:2}]
+R 13
+A 0-13 [{a:1},{b:2}]
+E ok
+S -2--2 0 0 
+@ all [1,]
+R 4
+A 0-4 [1]
+E ok
+S -2--2 0 0 
+@ all [,]
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all [I;,]
+R 0
+A -
+X Expected literal + at position 5: t [I;<--[HERE]@3
+E Expected literal + at position 5: t [I;<--[HERE]@3
+S -2--2 0 0 
+@ all [X;1]
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S -2--2 0 0 
+@ all [B;
+R 0
+A -
+X Expected literal + at position 5: t [B;<--[HERE]@3
+E Expected literal + at position 5: t [B;<--[HERE]@3
+S 3-3 4 -1672903393 +	-	0	]
+@ all [0
+R 0
+A -
+X Expected literal . at position 4: t [0<--[HERE]@2
+E Expected literal . at position 4: t [0<--[HERE]@2
+S 2-2 21 671345402 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	x	X
+@ all {a:1
+R 0
+A -
+X Expected literal . at position 6: t {a:1<--[HERE]@4
+E Expected literal . at position 6: t {a:1<--[HERE]@4
+S 4-4 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all "abc
+R 0
+A -
+X Invalid string contents at position 6: t "abc<--[HERE]@4
+E Invalid string contents at position 6: t "abc<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all 'abc
+R 0
+A -
+X Invalid string contents at position 6: t 'abc<--[HERE]@4
+E Invalid string contents at position 6: t 'abc<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all 0 
+R 1
+A 0-1 0
+E Incorrect argument for command at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all  0
+R 2
+A 0-2 0
+E ok
+S 2-2 19 1516801041 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	x	X
+@ all 0 1
+R 0
+A -
+X Decimal numbers can't start with 0 at position 5: t 0 1<--[HERE]@3
+E Decimal numbers can't start with 0 at position 5: t 0 1<--[HERE]@3
+S -2--2 0 0 
+@ all 1.0f
+R 4
+A 0-4 1.0f
+E ok
+S -2--2 0 0 
+@ all 1.0F
+R 4
+A 0-4 1.0f
+E ok
+S -2--2 0 0 
+@ all Infinity
+R 8
+A 0-8 "Infinity"
+E ok
+S 8-8 1 1249 (
+@ all NaN
+R 3
+A 0-3 "NaN"
+E ok
+S 3-3 1 1249 (
+@ all -Infinity
+R 0
+A -
+X Expected literal ( at position 11: ... -Infinity<--[HERE]@9
+E Expected literal ( at position 11: ... -Infinity<--[HERE]@9
+S 9-9 5 1256449591 (	bool	false	true	uuid
+@ all 1e400
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S 5-5 4 -456883632 d	D	f	F
+@ all 1e-400
+R 6
+A 0-6 0.0d
+E ok
+S 6-6 4 -456883632 d	D	f	F
+@ all 99999999999
+R 0
+A -
+X Expected literal . at position 13: ...9999999999<--[HERE]@11
+E Expected literal . at position 13: ...9999999999<--[HERE]@11
+S 11-11 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223372036854775807L
+R 20
+A 0-20 9223372036854775807L
+E ok
+S -2--2 0 0 
+@ all 9223372036854775808L
+R 0
+A -
+X Failed to parse number: For input string: "9223372036854775808" at position 22: ...854775808L<--[HERE]@20
+E Failed to parse number: For input string: "9223372036854775808" at position 22: ...854775808L<--[HERE]@20
+S -2--2 0 0 
+@ all -0
+R 2
+A 0-2 0
+E ok
+S 2-2 19 1516801041 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	x	X
+@ all -0.0
+R 4
+A 0-4 0.0d
+E ok
+S 4-4 6 -1514971912 d	D	e	E	f	F
+@ all 0.1f
+R 4
+A 0-4 0.1f
+E ok
+S -2--2 0 0 
+@ all 1d
+R 2
+A 0-2 1.0d
+E ok
+S -2--2 0 0 
+@ all 1D
+R 2
+A 0-2 1.0d
+E ok
+S -2--2 0 0 
+@ all 1s
+R 2
+A 0-2 1s
+E ok
+S 2-2 8 -1793998988 b	B	i	I	l	L	s	S
+@ all 32768s
+R 0
+A -
+X Expected literal b|B at position 8: t 32768s<--[HERE]@6
+E Expected literal b|B at position 8: t 32768s<--[HERE]@6
+S 6-6 8 -1793998988 b	B	i	I	l	L	s	S
+@ all é
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude00"}
+R 18
+A 0-18 {a:"😀"}
+E ok
+S -2--2 0 0 
+@ all [;]
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all I;1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t I<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t I<--[HERE]@1
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {a:[B;1b,2b,3b]}
+R 16
+A 0-16 {a:[B;1B,2B,3B]}
+E ok
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1l,2l]}
+R 23
+A 0-23 {a:[I;1,2],b:[L;1L,2L]}
+E ok
+S -2--2 0 0 
+@ all {a:true,b:false}
+R 16
+A 0-16 {a:1b,b:0b}
+E ok
+S -2--2 0 0 
+@ all {a:1.5f,b:2.5d}
+R 15
+A 0-15 {a:1.5f,b:2.5d}
+E ok
+S -2--2 0 0 
+@ all {a:"x",b:'y'}
+R 13
+A 0-13 {a:"x",b:"y"}
+E ok
+S -2--2 0 0 
+@ all {a:{}}
+R 6
+A 0-6 {a:{}}
+E ok
+S -2--2 0 0 
+@ all {a:[]}
+R 6
+A 0-6 {a:[]}
+E ok
+S -2--2 0 0 
+@ all [[]]
+R 4
+A 0-4 [[]]
+E ok
+S -2--2 0 0 
+@ all [{}]
+R 4
+A 0-4 [{}]
+E ok
+S -2--2 0 0 
+@ all {1:2}
+R 5
+A 0-5 {"1":2}
+E ok
+S -2--2 0 0 
+@ all {1.5:2}
+R 7
+A 0-7 {"1.5":2}
+E ok
+S -2--2 0 0 
+@ all {true:1}
+R 8
+A 0-8 {"true":1}
+E ok
+S -2--2 0 0 
+@ all {a.b:1}
+R 7
+A 0-7 {a.b:1}
+E ok
+S -2--2 0 0 
+@ all {a-b:1}
+R 7
+A 0-7 {a-b:1}
+E ok
+S -2--2 0 0 
+@ all {a+b:1}
+R 7
+A 0-7 {a+b:1}
+E ok
+S -2--2 0 0 
+@ all {a_b:1}
+R 7
+A 0-7 {a_b:1}
+E ok
+S -2--2 0 0 
+@ all 0.
+R 2
+A 0-2 0.0d
+E ok
+S 2-2 6 -1514971912 d	D	e	E	f	F
+@ all 1
+R 1
+A 0-1 1
+E ok
+S 1-1 17 -169696625 .	b	B	d	D	e	E	f	F	i	I	l	L	S	s	U	u
+@ all 1.
+R 2
+A 0-2 1.0d
+E ok
+S 2-2 6 -1514971912 d	D	e	E	f	F
+@ all 1.5
+R 3
+A 0-3 1.5d
+E ok
+S 3-3 6 -1514971912 d	D	e	E	f	F
+@ all 1.5e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+S 4-4 2 1291066 +	-
+@ all -
+R 0
+A -
+X Expected a decimal number at position 3: t -<--[HERE]@1
+E Expected a decimal number at position 3: t -<--[HERE]@1
+S 1-1 7 1048254083 (	.	0	bool	false	true	uuid
+@ all +
+R 0
+A -
+X Expected a decimal number at position 3: t +<--[HERE]@1
+E Expected a decimal number at position 3: t +<--[HERE]@1
+S 1-1 7 1048254083 (	.	0	bool	false	true	uuid
+@ all 1e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S 2-2 2 1291066 +	-
+@ all .
+R 0
+A -
+X Expected a decimal number at position 3: t .<--[HERE]@1
+E Expected a decimal number at position 3: t .<--[HERE]@1
+S 1-1 5 1256449591 (	bool	false	true	uuid
+@ all 5
+R 1
+A 0-1 5
+E ok
+S 1-1 17 -169696625 .	b	B	d	D	e	E	f	F	i	I	l	L	S	s	U	u
+@ all 0x
+R 0
+A -
+X Expected a hexadecimal number at position 4: t 0x<--[HERE]@2
+E Expected a hexadecimal number at position 4: t 0x<--[HERE]@2
+S 2-2 5 1256449591 (	bool	false	true	uuid
+@ all 0x1
+R 3
+A 0-3 1
+E ok
+S 3-3 10 783433980 b	B	i	I	l	L	s	S	u	U
+@ all 0b1
+R 3
+A 0-3 1
+E ok
+S 3-3 10 783433980 b	B	i	I	l	L	s	S	u	U
+@ all 0b10
+R 4
+A 0-4 2
+E ok
+S 4-4 10 783433980 b	B	i	I	l	L	s	S	u	U
+@ all 1_
+R 0
+A -
+X Expected literal ( at position 4: t 1_<--[HERE]@2
+E Expected literal ( at position 4: t 1_<--[HERE]@2
+S 2-2 5 1256449591 (	bool	false	true	uuid
+@ all 1_0
+R 3
+A 0-3 10
+E ok
+S 3-3 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 1_00
+R 4
+A 0-4 100
+E ok
+S 4-4 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 12
+R 2
+A 0-2 12
+E ok
+S 2-2 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 128
+R 3
+A 0-3 128
+E ok
+S 3-3 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all -12
+R 3
+A 0-3 -12
+E ok
+S 3-3 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all -129
+R 4
+A 0-4 -129
+E ok
+S 4-4 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all t
+R 1
+A 0-1 "t"
+E ok
+S 1-1 1 1249 (
+@ all tr
+R 2
+A 0-2 "tr"
+E ok
+S 2-2 1 1249 (
+@ all tru
+R 3
+A 0-3 "tru"
+E ok
+S 3-3 1 1249 (
+@ all f
+R 1
+A 0-1 "f"
+E ok
+S 1-1 1 1249 (
+@ all fa
+R 2
+A 0-2 "fa"
+E ok
+S 2-2 1 1249 (
+@ all fal
+R 3
+A 0-3 "fal"
+E ok
+S 3-3 1 1249 (
+@ all fals
+R 4
+A 0-4 "fals"
+E ok
+S 4-4 1 1249 (
+@ all T
+R 1
+A 0-1 "T"
+E ok
+S 1-1 1 1249 (
+@ all Tr
+R 2
+A 0-2 "Tr"
+E ok
+S 2-2 1 1249 (
+@ all Tru
+R 3
+A 0-3 "Tru"
+E ok
+S 3-3 1 1249 (
+@ all "
+R 0
+A -
+X Invalid string contents at position 3: t "<--[HERE]@1
+E Invalid string contents at position 3: t "<--[HERE]@1
+S 1-1 3 404393152 "	'	\\
+@ all "f
+R 0
+A -
+X Invalid string contents at position 4: t "f<--[HERE]@2
+E Invalid string contents at position 4: t "f<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all "fo
+R 0
+A -
+X Invalid string contents at position 5: t "fo<--[HERE]@3
+E Invalid string contents at position 5: t "fo<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all "foo
+R 0
+A -
+X Invalid string contents at position 6: t "foo<--[HERE]@4
+E Invalid string contents at position 6: t "foo<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all '
+R 0
+A -
+X Invalid string contents at position 3: t '<--[HERE]@1
+E Invalid string contents at position 3: t '<--[HERE]@1
+S 1-1 3 404393152 "	'	\\
+@ all 'f
+R 0
+A -
+X Invalid string contents at position 4: t 'f<--[HERE]@2
+E Invalid string contents at position 4: t 'f<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all 'fo
+R 0
+A -
+X Invalid string contents at position 5: t 'fo<--[HERE]@3
+E Invalid string contents at position 5: t 'fo<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all 'foo
+R 0
+A -
+X Invalid string contents at position 6: t 'foo<--[HERE]@4
+E Invalid string contents at position 6: t 'foo<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all fo
+R 2
+A 0-2 "fo"
+E ok
+S 2-2 1 1249 (
+@ all "a
+R 0
+A -
+X Invalid string contents at position 4: t "a<--[HERE]@2
+E Invalid string contents at position 4: t "a<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all "a\\
+R 0
+A -
+X Expected literal b at position 5: t "a\\<--[HERE]@3
+E Expected literal b at position 5: t "a\\<--[HERE]@3
+S 3-3 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all "a\\"
+R 0
+A -
+X Invalid string contents at position 6: t "a\\"<--[HERE]@4
+E Invalid string contents at position 6: t "a\\"<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all "a\\"b
+R 0
+A -
+X Invalid string contents at position 7: t "a\\"b<--[HERE]@5
+E Invalid string contents at position 7: t "a\\"b<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all 'a
+R 0
+A -
+X Invalid string contents at position 4: t 'a<--[HERE]@2
+E Invalid string contents at position 4: t 'a<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all 'a\\
+R 0
+A -
+X Expected literal b at position 5: t 'a\\<--[HERE]@3
+E Expected literal b at position 5: t 'a\\<--[HERE]@3
+S 3-3 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all 'a\\'
+R 0
+A -
+X Invalid string contents at position 6: t 'a\\'<--[HERE]@4
+E Invalid string contents at position 6: t 'a\\'<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all 'a\\'b
+R 0
+A -
+X Invalid string contents at position 7: t 'a\\'b<--[HERE]@5
+E Invalid string contents at position 7: t 'a\\'b<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all "\\
+R 0
+A -
+X Expected literal b at position 4: t "\\<--[HERE]@2
+E Expected literal b at position 4: t "\\<--[HERE]@2
+S 2-2 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all "\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u0
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00e
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00e9
+R 0
+A -
+X Invalid string contents at position 9: t "\\u00e9<--[HERE]@7
+E Invalid string contents at position 9: t "\\u00e9<--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all "\\n
+R 0
+A -
+X Invalid string contents at position 5: t "\\n<--[HERE]@3
+E Invalid string contents at position 5: t "\\n<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all "\\x
+R 0
+A -
+X Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+E Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+S -2--2 0 0 
+@ all "\\x4
+R 0
+A -
+X Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+E Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+S -2--2 0 0 
+@ all "\\x41
+R 0
+A -
+X Invalid string contents at position 7: t "\\x41<--[HERE]@5
+E Invalid string contents at position 7: t "\\x41<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all "\\N
+R 0
+A -
+X Expected literal { at position 5: t "\\N<--[HERE]@3
+E Expected literal { at position 5: t "\\N<--[HERE]@3
+S 3-3 1 3822 {
+@ all "\\N{
+R 0
+A -
+X Invalid Unicode character name at position 6: t "\\N{<--[HERE]@4
+E Invalid Unicode character name at position 6: t "\\N{<--[HERE]@4
+S -2--2 0 0 
+@ all "\\N{L
+R 0
+A -
+X Expected literal } at position 7: t "\\N{L<--[HERE]@5
+E Expected literal } at position 7: t "\\N{L<--[HERE]@5
+S 5-5 1 3884 }
+@ all "\\N{LA
+R 0
+A -
+X Expected literal } at position 8: t "\\N{LA<--[HERE]@6
+E Expected literal } at position 8: t "\\N{LA<--[HERE]@6
+S 6-6 1 3884 }
+@ all "\\N{LAT
+R 0
+A -
+X Expected literal } at position 9: t "\\N{LAT<--[HERE]@7
+E Expected literal } at position 9: t "\\N{LAT<--[HERE]@7
+S 7-7 1 3884 }
+@ all "\\N{LATI
+R 0
+A -
+X Expected literal } at position 10: t "\\N{LATI<--[HERE]@8
+E Expected literal } at position 10: t "\\N{LATI<--[HERE]@8
+S 8-8 1 3884 }
+@ all "\\N{LATIN
+R 0
+A -
+X Expected literal } at position 11: ... "\\N{LATIN<--[HERE]@9
+E Expected literal } at position 11: ... "\\N{LATIN<--[HERE]@9
+S 9-9 1 3884 }
+@ all "\\N{LATIN 
+R 0
+A -
+X Expected literal } at position 12: ..."\\N{LATIN <--[HERE]@10
+E Expected literal } at position 12: ..."\\N{LATIN <--[HERE]@10
+S 10-10 1 3884 }
+@ all "\\N{LATIN S
+R 0
+A -
+X Expected literal } at position 13: ...\\N{LATIN S<--[HERE]@11
+E Expected literal } at position 13: ...\\N{LATIN S<--[HERE]@11
+S 11-11 1 3884 }
+@ all "\\N{LATIN SM
+R 0
+A -
+X Expected literal } at position 14: ...N{LATIN SM<--[HERE]@12
+E Expected literal } at position 14: ...N{LATIN SM<--[HERE]@12
+S 12-12 1 3884 }
+@ all "\\N{LATIN SMA
+R 0
+A -
+X Expected literal } at position 15: ...{LATIN SMA<--[HERE]@13
+E Expected literal } at position 15: ...{LATIN SMA<--[HERE]@13
+S 13-13 1 3884 }
+@ all "\\N{LATIN SMAL
+R 0
+A -
+X Expected literal } at position 16: ...LATIN SMAL<--[HERE]@14
+E Expected literal } at position 16: ...LATIN SMAL<--[HERE]@14
+S 14-14 1 3884 }
+@ all "\\N{LATIN SMALL
+R 0
+A -
+X Expected literal } at position 17: ...ATIN SMALL<--[HERE]@15
+E Expected literal } at position 17: ...ATIN SMALL<--[HERE]@15
+S 15-15 1 3884 }
+@ all "\\N{LATIN SMALL 
+R 0
+A -
+X Expected literal } at position 18: ...TIN SMALL <--[HERE]@16
+E Expected literal } at position 18: ...TIN SMALL <--[HERE]@16
+S 16-16 1 3884 }
+@ all "\\N{LATIN SMALL L
+R 0
+A -
+X Expected literal } at position 19: ...IN SMALL L<--[HERE]@17
+E Expected literal } at position 19: ...IN SMALL L<--[HERE]@17
+S 17-17 1 3884 }
+@ all "\\N{LATIN SMALL LE
+R 0
+A -
+X Expected literal } at position 20: ...N SMALL LE<--[HERE]@18
+E Expected literal } at position 20: ...N SMALL LE<--[HERE]@18
+S 18-18 1 3884 }
+@ all "\\N{LATIN SMALL LET
+R 0
+A -
+X Expected literal } at position 21: ... SMALL LET<--[HERE]@19
+E Expected literal } at position 21: ... SMALL LET<--[HERE]@19
+S 19-19 1 3884 }
+@ all "\\N{LATIN SMALL LETT
+R 0
+A -
+X Expected literal } at position 22: ...SMALL LETT<--[HERE]@20
+E Expected literal } at position 22: ...SMALL LETT<--[HERE]@20
+S 20-20 1 3884 }
+@ all "\\N{LATIN SMALL LETTE
+R 0
+A -
+X Expected literal } at position 23: ...MALL LETTE<--[HERE]@21
+E Expected literal } at position 23: ...MALL LETTE<--[HERE]@21
+S 21-21 1 3884 }
+@ all "\\N{LATIN SMALL LETTER
+R 0
+A -
+X Expected literal } at position 24: ...ALL LETTER<--[HERE]@22
+E Expected literal } at position 24: ...ALL LETTER<--[HERE]@22
+S 22-22 1 3884 }
+@ all "\\N{LATIN SMALL LETTER 
+R 0
+A -
+X Expected literal } at position 25: ...LL LETTER <--[HERE]@23
+E Expected literal } at position 25: ...LL LETTER <--[HERE]@23
+S 23-23 1 3884 }
+@ all "\\N{LATIN SMALL LETTER A
+R 0
+A -
+X Expected literal } at position 26: ...L LETTER A<--[HERE]@24
+E Expected literal } at position 26: ...L LETTER A<--[HERE]@24
+S 24-24 1 3884 }
+@ all "\\N{LATIN SMALL LETTER A}
+R 0
+A -
+X Invalid string contents at position 27: ... LETTER A}<--[HERE]@25
+E Invalid string contents at position 27: ... LETTER A}<--[HERE]@25
+S 25-25 3 404393152 "	'	\\
+@ all "\\q
+R 0
+A -
+X Expected literal b at position 4: t "\\<--[HERE]@2
+E Expected literal b at position 4: t "\\<--[HERE]@2
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S 1-1 3 982877205 "	'	}
+@ all {f
+R 0
+A -
+X Expected literal : at position 4: t {f<--[HERE]@2
+E Expected literal : at position 4: t {f<--[HERE]@2
+S 2-2 1 1807 :
+@ all {fo
+R 0
+A -
+X Expected literal : at position 5: t {fo<--[HERE]@3
+E Expected literal : at position 5: t {fo<--[HERE]@3
+S 3-3 1 1807 :
+@ all {foo
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S 4-4 1 1807 :
+@ all {foo=
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo=b
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo=ba
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo=bar
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+S -2--2 0 0 
+@ all {foo:b
+R 0
+A -
+X Expected literal ( at position 8: t {foo:b<--[HERE]@6
+E Expected literal ( at position 8: t {foo:b<--[HERE]@6
+S 6-6 3 1154801066 (	,	}
+@ all {foo:ba
+R 0
+A -
+X Expected literal ( at position 9: t {foo:ba<--[HERE]@7
+E Expected literal ( at position 9: t {foo:ba<--[HERE]@7
+S 7-7 3 1154801066 (	,	}
+@ all {foo:bar
+R 0
+A -
+X Expected literal ( at position 10: t {foo:bar<--[HERE]@8
+E Expected literal ( at position 10: t {foo:bar<--[HERE]@8
+S 8-8 3 1154801066 (	,	}
+@ all {foo:1
+R 0
+A -
+X Expected literal . at position 8: t {foo:1<--[HERE]@6
+E Expected literal . at position 8: t {foo:1<--[HERE]@6
+S 6-6 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {foo:1b
+R 0
+A -
+X Expected literal , at position 9: t {foo:1b<--[HERE]@7
+E Expected literal , at position 9: t {foo:1b<--[HERE]@7
+S 7-7 2 1323337 ,	}
+@ all {foo:1b,
+R 0
+A -
+X Expected literal " at position 10: t {foo:1b,<--[HERE]@8
+E Expected literal " at position 10: t {foo:1b,<--[HERE]@8
+S 8-8 3 982877205 "	'	}
+@ all {foo:1b,b
+R 0
+A -
+X Expected literal : at position 11: ... {foo:1b,b<--[HERE]@9
+E Expected literal : at position 11: ... {foo:1b,b<--[HERE]@9
+S 9-9 1 1807 :
+@ all {foo:1b,ba
+R 0
+A -
+X Expected literal : at position 12: ...{foo:1b,ba<--[HERE]@10
+E Expected literal : at position 12: ...{foo:1b,ba<--[HERE]@10
+S 10-10 1 1807 :
+@ all {foo:1b,bar
+R 0
+A -
+X Expected literal : at position 13: ...foo:1b,bar<--[HERE]@11
+E Expected literal : at position 13: ...foo:1b,bar<--[HERE]@11
+S 11-11 1 1807 :
+@ all {foo:1b,bar:
+R 0
+A -
+X Expected a valid unquoted string at position 14: ...oo:1b,bar:<--[HERE]@12
+E Expected a valid unquoted string at position 14: ...oo:1b,bar:<--[HERE]@12
+S -2--2 0 0 
+@ all {foo:1b,bar:[
+R 0
+A -
+X Expected literal B at position 15: ...o:1b,bar:[<--[HERE]@13
+E Expected literal B at position 15: ...o:1b,bar:[<--[HERE]@13
+S 13-13 4 170223856 ]	B	I	L
+@ all {foo:1b,bar:[1
+R 0
+A -
+X Expected literal . at position 16: ...:1b,bar:[1<--[HERE]@14
+E Expected literal . at position 16: ...:1b,bar:[1<--[HERE]@14
+S 14-14 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all {foo:1b,bar:[1,
+R 0
+A -
+X Expected a valid unquoted string at position 17: ...1b,bar:[1,<--[HERE]@15
+E Expected a valid unquoted string at position 17: ...1b,bar:[1,<--[HERE]@15
+S 15-15 1 2892 ]
+@ all {foo:1b,bar:[1,2
+R 0
+A -
+X Expected literal . at position 18: ...b,bar:[1,2<--[HERE]@16
+E Expected literal . at position 18: ...b,bar:[1,2<--[HERE]@16
+S 16-16 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all {foo:1b,bar:[1,2]
+R 0
+A -
+X Expected literal , at position 19: ...,bar:[1,2]<--[HERE]@17
+E Expected literal , at position 19: ...,bar:[1,2]<--[HERE]@17
+S 17-17 2 1323337 ,	}
+@ all {"
+R 0
+A -
+X Invalid string contents at position 4: t {"<--[HERE]@2
+E Invalid string contents at position 4: t {"<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all {"a
+R 0
+A -
+X Invalid string contents at position 5: t {"a<--[HERE]@3
+E Invalid string contents at position 5: t {"a<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all {"a 
+R 0
+A -
+X Invalid string contents at position 6: t {"a <--[HERE]@4
+E Invalid string contents at position 6: t {"a <--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all {"a b
+R 0
+A -
+X Invalid string contents at position 7: t {"a b<--[HERE]@5
+E Invalid string contents at position 7: t {"a b<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all {"a b"
+R 0
+A -
+X Expected literal : at position 8: t {"a b"<--[HERE]@6
+E Expected literal : at position 8: t {"a b"<--[HERE]@6
+S 6-6 1 1807 :
+@ all {"a b":
+R 0
+A -
+X Expected a valid unquoted string at position 9: t {"a b":<--[HERE]@7
+E Expected a valid unquoted string at position 9: t {"a b":<--[HERE]@7
+S -2--2 0 0 
+@ all {"a b":1
+R 0
+A -
+X Expected literal . at position 10: t {"a b":1<--[HERE]@8
+E Expected literal . at position 10: t {"a b":1<--[HERE]@8
+S 8-8 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a
+R 0
+A -
+X Expected literal : at position 4: t {a<--[HERE]@2
+E Expected literal : at position 4: t {a<--[HERE]@2
+S 2-2 1 1807 :
+@ all {a:
+R 0
+A -
+X Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+E Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+S -2--2 0 0 
+@ all {a:{
+R 0
+A -
+X Expected literal " at position 6: t {a:{<--[HERE]@4
+E Expected literal " at position 6: t {a:{<--[HERE]@4
+S 4-4 3 982877205 "	'	}
+@ all {a:{b
+R 0
+A -
+X Expected literal : at position 7: t {a:{b<--[HERE]@5
+E Expected literal : at position 7: t {a:{b<--[HERE]@5
+S 5-5 1 1807 :
+@ all {a:{b:
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {a:{b:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {a:{b:<--[HERE]@6
+S -2--2 0 0 
+@ all {a:{b:{
+R 0
+A -
+X Expected literal " at position 9: t {a:{b:{<--[HERE]@7
+E Expected literal " at position 9: t {a:{b:{<--[HERE]@7
+S 7-7 3 982877205 "	'	}
+@ all {a:{b:{c
+R 0
+A -
+X Expected literal : at position 10: t {a:{b:{c<--[HERE]@8
+E Expected literal : at position 10: t {a:{b:{c<--[HERE]@8
+S 8-8 1 1807 :
+@ all {a:{b:{c:
+R 0
+A -
+X Expected a valid unquoted string at position 11: ... {a:{b:{c:<--[HERE]@9
+E Expected a valid unquoted string at position 11: ... {a:{b:{c:<--[HERE]@9
+S -2--2 0 0 
+@ all {a:{b:{c:1
+R 0
+A -
+X Expected literal . at position 12: ...{a:{b:{c:1<--[HERE]@10
+E Expected literal . at position 12: ...{a:{b:{c:1<--[HERE]@10
+S 10-10 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a:{b:{c:1}
+R 0
+A -
+X Expected literal , at position 13: ...a:{b:{c:1}<--[HERE]@11
+E Expected literal , at position 13: ...a:{b:{c:1}<--[HERE]@11
+S 11-11 2 1323337 ,	}
+@ all {a:{b:{c:1}}
+R 0
+A -
+X Expected literal , at position 14: ...:{b:{c:1}}<--[HERE]@12
+E Expected literal , at position 14: ...:{b:{c:1}}<--[HERE]@12
+S 12-12 2 1323337 ,	}
+@ all {a:1,
+R 0
+A -
+X Expected literal " at position 7: t {a:1,<--[HERE]@5
+E Expected literal " at position 7: t {a:1,<--[HERE]@5
+S 5-5 3 982877205 "	'	}
+@ all {,
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a:1,a
+R 0
+A -
+X Expected literal : at position 8: t {a:1,a<--[HERE]@6
+E Expected literal : at position 8: t {a:1,a<--[HERE]@6
+S 6-6 1 1807 :
+@ all {a:1,a:
+R 0
+A -
+X Expected a valid unquoted string at position 9: t {a:1,a:<--[HERE]@7
+E Expected a valid unquoted string at position 9: t {a:1,a:<--[HERE]@7
+S -2--2 0 0 
+@ all {a:1,a:2
+R 0
+A -
+X Expected literal . at position 10: t {a:1,a:2<--[HERE]@8
+E Expected literal . at position 10: t {a:1,a:2<--[HERE]@8
+S 8-8 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {:
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {:1
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a 
+R 0
+A -
+X Expected literal : at position 5: t {a <--[HERE]@3
+E Expected literal : at position 5: t {a <--[HERE]@3
+S 3-3 1 1807 :
+@ all {a 1
+R 0
+A -
+X Expected literal : at position 5: t {a <--[HERE]@3
+E Expected literal : at position 5: t {a <--[HERE]@3
+S -2--2 0 0 
+@ all {a:1 
+R 0
+A -
+X Expected literal . at position 7: t {a:1 <--[HERE]@5
+E Expected literal . at position 7: t {a:1 <--[HERE]@5
+S 5-5 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a:1 b
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S 6-6 2 1323337 ,	}
+@ all {a:1 b:
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S -2--2 0 0 
+@ all {a:1 b:2
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S -2--2 0 0 
+@ all { 
+R 0
+A -
+X Expected literal " at position 4: t { <--[HERE]@2
+E Expected literal " at position 4: t { <--[HERE]@2
+S 2-2 3 982877205 "	'	}
+@ all { a
+R 0
+A -
+X Expected literal : at position 5: t { a<--[HERE]@3
+E Expected literal : at position 5: t { a<--[HERE]@3
+S 3-3 1 1807 :
+@ all { a 
+R 0
+A -
+X Expected literal : at position 6: t { a <--[HERE]@4
+E Expected literal : at position 6: t { a <--[HERE]@4
+S 4-4 1 1807 :
+@ all { a :
+R 0
+A -
+X Expected a valid unquoted string at position 7: t { a :<--[HERE]@5
+E Expected a valid unquoted string at position 7: t { a :<--[HERE]@5
+S -2--2 0 0 
+@ all { a : 
+R 0
+A -
+X Expected a valid unquoted string at position 8: t { a : <--[HERE]@6
+E Expected a valid unquoted string at position 8: t { a : <--[HERE]@6
+S -2--2 0 0 
+@ all { a : 1
+R 0
+A -
+X Expected literal . at position 9: t { a : 1<--[HERE]@7
+E Expected literal . at position 9: t { a : 1<--[HERE]@7
+S 7-7 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all { a : 1 
+R 0
+A -
+X Expected literal . at position 10: t { a : 1 <--[HERE]@8
+E Expected literal . at position 10: t { a : 1 <--[HERE]@8
+S 8-8 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all [
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S 1-1 4 170223856 ]	B	I	L
+@ all [B
+R 0
+A -
+X Expected literal ; at position 4: t [B<--[HERE]@2
+E Expected literal ; at position 4: t [B<--[HERE]@2
+S 2-2 4 1660298744 (	,	;	]
+@ all [B;1
+R 0
+A -
+X Expected literal u|U at position 6: t [B;1<--[HERE]@4
+E Expected literal u|U at position 6: t [B;1<--[HERE]@4
+S 4-4 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all [B;1b
+R 0
+A -
+X Expected literal , at position 7: t [B;1b<--[HERE]@5
+E Expected literal , at position 7: t [B;1b<--[HERE]@5
+S 5-5 2 1322345 ,	]
+@ all [B;1b,
+R 0
+A -
+X Expected literal + at position 8: t [B;1b,<--[HERE]@6
+E Expected literal + at position 8: t [B;1b,<--[HERE]@6
+S 6-6 4 -1672903393 +	-	0	]
+@ all [B;1b,2
+R 0
+A -
+X Expected literal u|U at position 9: t [B;1b,2<--[HERE]@7
+E Expected literal u|U at position 9: t [B;1b,2<--[HERE]@7
+S 7-7 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all [B;1b,2b
+R 0
+A -
+X Expected literal , at position 10: t [B;1b,2b<--[HERE]@8
+E Expected literal , at position 10: t [B;1b,2b<--[HERE]@8
+S 8-8 2 1322345 ,	]
+@ all [I
+R 0
+A -
+X Expected literal ; at position 4: t [I<--[HERE]@2
+E Expected literal ; at position 4: t [I<--[HERE]@2
+S 2-2 4 1660298744 (	,	;	]
+@ all [I;
+R 0
+A -
+X Expected literal + at position 5: t [I;<--[HERE]@3
+E Expected literal + at position 5: t [I;<--[HERE]@3
+S 3-3 4 -1672903393 +	-	0	]
+@ all [I;1
+R 0
+A -
+X Expected literal u|U at position 6: t [I;1<--[HERE]@4
+E Expected literal u|U at position 6: t [I;1<--[HERE]@4
+S 4-4 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all [I;1,
+R 0
+A -
+X Expected literal + at position 7: t [I;1,<--[HERE]@5
+E Expected literal + at position 7: t [I;1,<--[HERE]@5
+S 5-5 4 -1672903393 +	-	0	]
+@ all [I;1,2
+R 0
+A -
+X Expected literal u|U at position 8: t [I;1,2<--[HERE]@6
+E Expected literal u|U at position 8: t [I;1,2<--[HERE]@6
+S 6-6 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all [I;1,2,
+R 0
+A -
+X Expected literal + at position 9: t [I;1,2,<--[HERE]@7
+E Expected literal + at position 9: t [I;1,2,<--[HERE]@7
+S 7-7 4 -1672903393 +	-	0	]
+@ all [I;1,2,3
+R 0
+A -
+X Expected literal u|U at position 10: t [I;1,2,3<--[HERE]@8
+E Expected literal u|U at position 10: t [I;1,2,3<--[HERE]@8
+S 8-8 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all [L
+R 0
+A -
+X Expected literal ; at position 4: t [L<--[HERE]@2
+E Expected literal ; at position 4: t [L<--[HERE]@2
+S 2-2 4 1660298744 (	,	;	]
+@ all [L;
+R 0
+A -
+X Expected literal + at position 5: t [L;<--[HERE]@3
+E Expected literal + at position 5: t [L;<--[HERE]@3
+S 3-3 4 -1672903393 +	-	0	]
+@ all [L;1
+R 0
+A -
+X Expected literal u|U at position 6: t [L;1<--[HERE]@4
+E Expected literal u|U at position 6: t [L;1<--[HERE]@4
+S 4-4 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all [L;1l
+R 0
+A -
+X Expected literal , at position 7: t [L;1l<--[HERE]@5
+E Expected literal , at position 7: t [L;1l<--[HERE]@5
+S 5-5 2 1322345 ,	]
+@ all [I;1b
+R 0
+A -
+X Expected literal , at position 7: t [I;1b<--[HERE]@5
+E Expected literal , at position 7: t [I;1b<--[HERE]@5
+S 5-5 2 1322345 ,	]
+@ all [1
+R 0
+A -
+X Expected literal . at position 4: t [1<--[HERE]@2
+E Expected literal . at position 4: t [1<--[HERE]@2
+S 2-2 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all [1,
+R 0
+A -
+X Expected a valid unquoted string at position 5: t [1,<--[HERE]@3
+E Expected a valid unquoted string at position 5: t [1,<--[HERE]@3
+S 3-3 1 2892 ]
+@ all [1,2
+R 0
+A -
+X Expected literal . at position 6: t [1,2<--[HERE]@4
+E Expected literal . at position 6: t [1,2<--[HERE]@4
+S 4-4 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all [1,2,
+R 0
+A -
+X Expected a valid unquoted string at position 7: t [1,2,<--[HERE]@5
+E Expected a valid unquoted string at position 7: t [1,2,<--[HERE]@5
+S 5-5 1 2892 ]
+@ all [1,2,3
+R 0
+A -
+X Expected literal . at position 8: t [1,2,3<--[HERE]@6
+E Expected literal . at position 8: t [1,2,3<--[HERE]@6
+S 6-6 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all [1,"
+R 0
+A -
+X Invalid string contents at position 6: t [1,"<--[HERE]@4
+E Invalid string contents at position 6: t [1,"<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all [1,"a
+R 0
+A -
+X Invalid string contents at position 7: t [1,"a<--[HERE]@5
+E Invalid string contents at position 7: t [1,"a<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all [1,"a"
+R 0
+A -
+X Expected literal , at position 8: t [1,"a"<--[HERE]@6
+E Expected literal , at position 8: t [1,"a"<--[HERE]@6
+S 6-6 2 1322345 ,	]
+@ all [[
+R 0
+A -
+X Expected literal B at position 4: t [[<--[HERE]@2
+E Expected literal B at position 4: t [[<--[HERE]@2
+S 2-2 4 170223856 ]	B	I	L
+@ all [[1
+R 0
+A -
+X Expected literal . at position 5: t [[1<--[HERE]@3
+E Expected literal . at position 5: t [[1<--[HERE]@3
+S 3-3 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all [[1]
+R 0
+A -
+X Expected literal , at position 6: t [[1]<--[HERE]@4
+E Expected literal , at position 6: t [[1]<--[HERE]@4
+S 4-4 2 1322345 ,	]
+@ all [[1],
+R 0
+A -
+X Expected a valid unquoted string at position 7: t [[1],<--[HERE]@5
+E Expected a valid unquoted string at position 7: t [[1],<--[HERE]@5
+S 5-5 1 2892 ]
+@ all [[1],[
+R 0
+A -
+X Expected literal B at position 8: t [[1],[<--[HERE]@6
+E Expected literal B at position 8: t [[1],[<--[HERE]@6
+S 6-6 4 170223856 ]	B	I	L
+@ all [[1],[2
+R 0
+A -
+X Expected literal . at position 9: t [[1],[2<--[HERE]@7
+E Expected literal . at position 9: t [[1],[2<--[HERE]@7
+S 7-7 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all [[1],[2]
+R 0
+A -
+X Expected literal , at position 10: t [[1],[2]<--[HERE]@8
+E Expected literal , at position 10: t [[1],[2]<--[HERE]@8
+S 8-8 2 1322345 ,	]
+@ all [{
+R 0
+A -
+X Expected literal " at position 4: t [{<--[HERE]@2
+E Expected literal " at position 4: t [{<--[HERE]@2
+S 2-2 3 982877205 "	'	}
+@ all [{a
+R 0
+A -
+X Expected literal : at position 5: t [{a<--[HERE]@3
+E Expected literal : at position 5: t [{a<--[HERE]@3
+S 3-3 1 1807 :
+@ all [{a:
+R 0
+A -
+X Expected a valid unquoted string at position 6: t [{a:<--[HERE]@4
+E Expected a valid unquoted string at position 6: t [{a:<--[HERE]@4
+S -2--2 0 0 
+@ all [{a:1
+R 0
+A -
+X Expected literal . at position 7: t [{a:1<--[HERE]@5
+E Expected literal . at position 7: t [{a:1<--[HERE]@5
+S 5-5 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all [{a:1}
+R 0
+A -
+X Expected literal , at position 8: t [{a:1}<--[HERE]@6
+E Expected literal , at position 8: t [{a:1}<--[HERE]@6
+S 6-6 2 1322345 ,	]
+@ all [{a:1},
+R 0
+A -
+X Expected a valid unquoted string at position 9: t [{a:1},<--[HERE]@7
+E Expected a valid unquoted string at position 9: t [{a:1},<--[HERE]@7
+S 7-7 1 2892 ]
+@ all [{a:1},{
+R 0
+A -
+X Expected literal " at position 10: t [{a:1},{<--[HERE]@8
+E Expected literal " at position 10: t [{a:1},{<--[HERE]@8
+S 8-8 3 982877205 "	'	}
+@ all [{a:1},{b
+R 0
+A -
+X Expected literal : at position 11: ... [{a:1},{b<--[HERE]@9
+E Expected literal : at position 11: ... [{a:1},{b<--[HERE]@9
+S 9-9 1 1807 :
+@ all [{a:1},{b:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...[{a:1},{b:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...[{a:1},{b:<--[HERE]@10
+S -2--2 0 0 
+@ all [{a:1},{b:2
+R 0
+A -
+X Expected literal . at position 13: ...{a:1},{b:2<--[HERE]@11
+E Expected literal . at position 13: ...{a:1},{b:2<--[HERE]@11
+S 11-11 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all [{a:1},{b:2}
+R 0
+A -
+X Expected literal , at position 14: ...a:1},{b:2}<--[HERE]@12
+E Expected literal , at position 14: ...a:1},{b:2}<--[HERE]@12
+S 12-12 2 1322345 ,	]
+@ all [,
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all [I;,
+R 0
+A -
+X Expected literal + at position 5: t [I;<--[HERE]@3
+E Expected literal + at position 5: t [I;<--[HERE]@3
+S -2--2 0 0 
+@ all [X
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S 2-2 3 1154800074 (	,	]
+@ all [X;
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S -2--2 0 0 
+@ all [X;1
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S -2--2 0 0 
+@ all "ab
+R 0
+A -
+X Invalid string contents at position 5: t "ab<--[HERE]@3
+E Invalid string contents at position 5: t "ab<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all 'ab
+R 0
+A -
+X Invalid string contents at position 5: t 'ab<--[HERE]@3
+E Invalid string contents at position 5: t 'ab<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all  
+R 0
+A -
+X Expected a valid unquoted string at position 3: t  <--[HERE]@1
+E Expected a valid unquoted string at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all 1.0
+R 3
+A 0-3 1.0d
+E ok
+S 3-3 6 -1514971912 d	D	e	E	f	F
+@ all I
+R 1
+A 0-1 "I"
+E ok
+S 1-1 1 1249 (
+@ all In
+R 2
+A 0-2 "In"
+E ok
+S 2-2 1 1249 (
+@ all Inf
+R 3
+A 0-3 "Inf"
+E ok
+S 3-3 1 1249 (
+@ all Infi
+R 4
+A 0-4 "Infi"
+E ok
+S 4-4 1 1249 (
+@ all Infin
+R 5
+A 0-5 "Infin"
+E ok
+S 5-5 1 1249 (
+@ all Infini
+R 6
+A 0-6 "Infini"
+E ok
+S 6-6 1 1249 (
+@ all Infinit
+R 7
+A 0-7 "Infinit"
+E ok
+S 7-7 1 1249 (
+@ all N
+R 1
+A 0-1 "N"
+E ok
+S 1-1 1 1249 (
+@ all Na
+R 2
+A 0-2 "Na"
+E ok
+S 2-2 1 1249 (
+@ all -I
+R 0
+A -
+X Expected literal ( at position 4: t -I<--[HERE]@2
+E Expected literal ( at position 4: t -I<--[HERE]@2
+S 2-2 5 1256449591 (	bool	false	true	uuid
+@ all -In
+R 0
+A -
+X Expected literal ( at position 5: t -In<--[HERE]@3
+E Expected literal ( at position 5: t -In<--[HERE]@3
+S 3-3 5 1256449591 (	bool	false	true	uuid
+@ all -Inf
+R 0
+A -
+X Expected literal ( at position 6: t -Inf<--[HERE]@4
+E Expected literal ( at position 6: t -Inf<--[HERE]@4
+S 4-4 5 1256449591 (	bool	false	true	uuid
+@ all -Infi
+R 0
+A -
+X Expected literal ( at position 7: t -Infi<--[HERE]@5
+E Expected literal ( at position 7: t -Infi<--[HERE]@5
+S 5-5 5 1256449591 (	bool	false	true	uuid
+@ all -Infin
+R 0
+A -
+X Expected literal ( at position 8: t -Infin<--[HERE]@6
+E Expected literal ( at position 8: t -Infin<--[HERE]@6
+S 6-6 5 1256449591 (	bool	false	true	uuid
+@ all -Infini
+R 0
+A -
+X Expected literal ( at position 9: t -Infini<--[HERE]@7
+E Expected literal ( at position 9: t -Infini<--[HERE]@7
+S 7-7 5 1256449591 (	bool	false	true	uuid
+@ all -Infinit
+R 0
+A -
+X Expected literal ( at position 10: t -Infinit<--[HERE]@8
+E Expected literal ( at position 10: t -Infinit<--[HERE]@8
+S 8-8 5 1256449591 (	bool	false	true	uuid
+@ all 1e4
+R 3
+A 0-3 10000.0d
+E ok
+S 3-3 4 -456883632 d	D	f	F
+@ all 1e40
+R 4
+A 0-4 1.0E40d
+E ok
+S 4-4 4 -456883632 d	D	f	F
+@ all 1e-
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1e-4
+R 4
+A 0-4 1.0E-4d
+E ok
+S 4-4 4 -456883632 d	D	f	F
+@ all 1e-40
+R 5
+A 0-5 1.0E-40d
+E ok
+S 5-5 4 -456883632 d	D	f	F
+@ all 9
+R 1
+A 0-1 9
+E ok
+S 1-1 17 -169696625 .	b	B	d	D	e	E	f	F	i	I	l	L	S	s	U	u
+@ all 99
+R 2
+A 0-2 99
+E ok
+S 2-2 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 999
+R 3
+A 0-3 999
+E ok
+S 3-3 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9999
+R 4
+A 0-4 9999
+E ok
+S 4-4 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 99999
+R 5
+A 0-5 99999
+E ok
+S 5-5 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 999999
+R 6
+A 0-6 999999
+E ok
+S 6-6 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9999999
+R 7
+A 0-7 9999999
+E ok
+S 7-7 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 99999999
+R 8
+A 0-8 99999999
+E ok
+S 8-8 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 999999999
+R 9
+A 0-9 999999999
+E ok
+S 9-9 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9999999999
+R 0
+A -
+X Expected literal . at position 12: ...9999999999<--[HERE]@10
+E Expected literal . at position 12: ...9999999999<--[HERE]@10
+S 10-10 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 92
+R 2
+A 0-2 92
+E ok
+S 2-2 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 922
+R 3
+A 0-3 922
+E ok
+S 3-3 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223
+R 4
+A 0-4 9223
+E ok
+S 4-4 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 92233
+R 5
+A 0-5 92233
+E ok
+S 5-5 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 922337
+R 6
+A 0-6 922337
+E ok
+S 6-6 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223372
+R 7
+A 0-7 9223372
+E ok
+S 7-7 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 92233720
+R 8
+A 0-8 92233720
+E ok
+S 8-8 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 922337203
+R 9
+A 0-9 922337203
+E ok
+S 9-9 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223372036
+R 0
+A -
+X Expected literal . at position 12: ...9223372036<--[HERE]@10
+E Expected literal . at position 12: ...9223372036<--[HERE]@10
+S 10-10 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 92233720368
+R 0
+A -
+X Expected literal . at position 13: ...2233720368<--[HERE]@11
+E Expected literal . at position 13: ...2233720368<--[HERE]@11
+S 11-11 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 922337203685
+R 0
+A -
+X Expected literal . at position 14: ...2337203685<--[HERE]@12
+E Expected literal . at position 14: ...2337203685<--[HERE]@12
+S 12-12 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223372036854
+R 0
+A -
+X Expected literal . at position 15: ...3372036854<--[HERE]@13
+E Expected literal . at position 15: ...3372036854<--[HERE]@13
+S 13-13 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 92233720368547
+R 0
+A -
+X Expected literal . at position 16: ...3720368547<--[HERE]@14
+E Expected literal . at position 16: ...3720368547<--[HERE]@14
+S 14-14 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 922337203685477
+R 0
+A -
+X Expected literal . at position 17: ...7203685477<--[HERE]@15
+E Expected literal . at position 17: ...7203685477<--[HERE]@15
+S 15-15 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223372036854775
+R 0
+A -
+X Expected literal . at position 18: ...2036854775<--[HERE]@16
+E Expected literal . at position 18: ...2036854775<--[HERE]@16
+S 16-16 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 92233720368547758
+R 0
+A -
+X Expected literal . at position 19: ...0368547758<--[HERE]@17
+E Expected literal . at position 19: ...0368547758<--[HERE]@17
+S 17-17 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 922337203685477580
+R 0
+A -
+X Expected literal . at position 20: ...3685477580<--[HERE]@18
+E Expected literal . at position 20: ...3685477580<--[HERE]@18
+S 18-18 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223372036854775807
+R 0
+A -
+X Expected literal . at position 21: ...6854775807<--[HERE]@19
+E Expected literal . at position 21: ...6854775807<--[HERE]@19
+S 19-19 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 9223372036854775808
+R 0
+A -
+X Expected literal . at position 21: ...6854775808<--[HERE]@19
+E Expected literal . at position 21: ...6854775808<--[HERE]@19
+S 19-19 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all -0.
+R 3
+A 0-3 0.0d
+E ok
+S 3-3 6 -1514971912 d	D	e	E	f	F
+@ all 0.1
+R 3
+A 0-3 0.1d
+E ok
+S 3-3 6 -1514971912 d	D	e	E	f	F
+@ all 3
+R 1
+A 0-1 3
+E ok
+S 1-1 17 -169696625 .	b	B	d	D	e	E	f	F	i	I	l	L	S	s	U	u
+@ all 32
+R 2
+A 0-2 32
+E ok
+S 2-2 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 327
+R 3
+A 0-3 327
+E ok
+S 3-3 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 3276
+R 4
+A 0-4 3276
+E ok
+S 4-4 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all 32768
+R 5
+A 0-5 32768
+E ok
+S 5-5 17 -1149521265 .	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all {a:"
+R 0
+A -
+X Invalid string contents at position 6: t {a:"<--[HERE]@4
+E Invalid string contents at position 6: t {a:"<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all {a:"\\
+R 0
+A -
+X Expected literal b at position 7: t {a:"\\<--[HERE]@5
+E Expected literal b at position 7: t {a:"\\<--[HERE]@5
+S 5-5 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all {a:"\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud8
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud83
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud83d
+R 0
+A -
+X Invalid string contents at position 12: ...{a:"\\ud83d<--[HERE]@10
+E Invalid string contents at position 12: ...{a:"\\ud83d<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {a:"\\ud83d\\
+R 0
+A -
+X Expected literal b at position 13: ...a:"\\ud83d\\<--[HERE]@11
+E Expected literal b at position 13: ...a:"\\ud83d\\<--[HERE]@11
+S 11-11 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all {a:"\\ud83d\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ud
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude0
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude00
+R 0
+A -
+X Invalid string contents at position 18: ...d83d\\ude00<--[HERE]@16
+E Invalid string contents at position 18: ...d83d\\ude00<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {a:"\\ud83d\\ude00"
+R 0
+A -
+X Expected literal , at position 19: ...83d\\ude00"<--[HERE]@17
+E Expected literal , at position 19: ...83d\\ude00"<--[HERE]@17
+S 17-17 2 1323337 ,	}
+@ all [;
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all I;
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t I<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t I<--[HERE]@1
+S -2--2 0 0 
+@ all {a:[
+R 0
+A -
+X Expected literal B at position 6: t {a:[<--[HERE]@4
+E Expected literal B at position 6: t {a:[<--[HERE]@4
+S 4-4 4 170223856 ]	B	I	L
+@ all {a:[B
+R 0
+A -
+X Expected literal ; at position 7: t {a:[B<--[HERE]@5
+E Expected literal ; at position 7: t {a:[B<--[HERE]@5
+S 5-5 4 1660298744 (	,	;	]
+@ all {a:[B;
+R 0
+A -
+X Expected literal + at position 8: t {a:[B;<--[HERE]@6
+E Expected literal + at position 8: t {a:[B;<--[HERE]@6
+S 6-6 4 -1672903393 +	-	0	]
+@ all {a:[B;1
+R 0
+A -
+X Expected literal u|U at position 9: t {a:[B;1<--[HERE]@7
+E Expected literal u|U at position 9: t {a:[B;1<--[HERE]@7
+S 7-7 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all {a:[B;1b
+R 0
+A -
+X Expected literal , at position 10: t {a:[B;1b<--[HERE]@8
+E Expected literal , at position 10: t {a:[B;1b<--[HERE]@8
+S 8-8 2 1322345 ,	]
+@ all {a:[B;1b,
+R 0
+A -
+X Expected literal + at position 11: ... {a:[B;1b,<--[HERE]@9
+E Expected literal + at position 11: ... {a:[B;1b,<--[HERE]@9
+S 9-9 4 -1672903393 +	-	0	]
+@ all {a:[B;1b,2
+R 0
+A -
+X Expected literal u|U at position 12: ...{a:[B;1b,2<--[HERE]@10
+E Expected literal u|U at position 12: ...{a:[B;1b,2<--[HERE]@10
+S 10-10 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all {a:[B;1b,2b
+R 0
+A -
+X Expected literal , at position 13: ...a:[B;1b,2b<--[HERE]@11
+E Expected literal , at position 13: ...a:[B;1b,2b<--[HERE]@11
+S 11-11 2 1322345 ,	]
+@ all {a:[B;1b,2b,
+R 0
+A -
+X Expected literal + at position 14: ...:[B;1b,2b,<--[HERE]@12
+E Expected literal + at position 14: ...:[B;1b,2b,<--[HERE]@12
+S 12-12 4 -1672903393 +	-	0	]
+@ all {a:[B;1b,2b,3
+R 0
+A -
+X Expected literal u|U at position 15: ...[B;1b,2b,3<--[HERE]@13
+E Expected literal u|U at position 15: ...[B;1b,2b,3<--[HERE]@13
+S 13-13 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all {a:[B;1b,2b,3b
+R 0
+A -
+X Expected literal , at position 16: ...B;1b,2b,3b<--[HERE]@14
+E Expected literal , at position 16: ...B;1b,2b,3b<--[HERE]@14
+S 14-14 2 1322345 ,	]
+@ all {a:[B;1b,2b,3b]
+R 0
+A -
+X Expected literal , at position 17: ...;1b,2b,3b]<--[HERE]@15
+E Expected literal , at position 17: ...;1b,2b,3b]<--[HERE]@15
+S 15-15 2 1323337 ,	}
+@ all {a:[I
+R 0
+A -
+X Expected literal ; at position 7: t {a:[I<--[HERE]@5
+E Expected literal ; at position 7: t {a:[I<--[HERE]@5
+S 5-5 4 1660298744 (	,	;	]
+@ all {a:[I;
+R 0
+A -
+X Expected literal + at position 8: t {a:[I;<--[HERE]@6
+E Expected literal + at position 8: t {a:[I;<--[HERE]@6
+S 6-6 4 -1672903393 +	-	0	]
+@ all {a:[I;1
+R 0
+A -
+X Expected literal u|U at position 9: t {a:[I;1<--[HERE]@7
+E Expected literal u|U at position 9: t {a:[I;1<--[HERE]@7
+S 7-7 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all {a:[I;1,
+R 0
+A -
+X Expected literal + at position 10: t {a:[I;1,<--[HERE]@8
+E Expected literal + at position 10: t {a:[I;1,<--[HERE]@8
+S 8-8 4 -1672903393 +	-	0	]
+@ all {a:[I;1,2
+R 0
+A -
+X Expected literal u|U at position 11: ... {a:[I;1,2<--[HERE]@9
+E Expected literal u|U at position 11: ... {a:[I;1,2<--[HERE]@9
+S 9-9 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all {a:[I;1,2]
+R 0
+A -
+X Expected literal , at position 12: ...{a:[I;1,2]<--[HERE]@10
+E Expected literal , at position 12: ...{a:[I;1,2]<--[HERE]@10
+S 10-10 2 1323337 ,	}
+@ all {a:[I;1,2],
+R 0
+A -
+X Expected literal " at position 13: ...a:[I;1,2],<--[HERE]@11
+E Expected literal " at position 13: ...a:[I;1,2],<--[HERE]@11
+S 11-11 3 982877205 "	'	}
+@ all {a:[I;1,2],b
+R 0
+A -
+X Expected literal : at position 14: ...:[I;1,2],b<--[HERE]@12
+E Expected literal : at position 14: ...:[I;1,2],b<--[HERE]@12
+S 12-12 1 1807 :
+@ all {a:[I;1,2],b:
+R 0
+A -
+X Expected a valid unquoted string at position 15: ...[I;1,2],b:<--[HERE]@13
+E Expected a valid unquoted string at position 15: ...[I;1,2],b:<--[HERE]@13
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[
+R 0
+A -
+X Expected literal B at position 16: ...I;1,2],b:[<--[HERE]@14
+E Expected literal B at position 16: ...I;1,2],b:[<--[HERE]@14
+S 14-14 4 170223856 ]	B	I	L
+@ all {a:[I;1,2],b:[L
+R 0
+A -
+X Expected literal ; at position 17: ...;1,2],b:[L<--[HERE]@15
+E Expected literal ; at position 17: ...;1,2],b:[L<--[HERE]@15
+S 15-15 4 1660298744 (	,	;	]
+@ all {a:[I;1,2],b:[L;
+R 0
+A -
+X Expected literal + at position 18: ...1,2],b:[L;<--[HERE]@16
+E Expected literal + at position 18: ...1,2],b:[L;<--[HERE]@16
+S 16-16 4 -1672903393 +	-	0	]
+@ all {a:[I;1,2],b:[L;1
+R 0
+A -
+X Expected literal u|U at position 19: ...,2],b:[L;1<--[HERE]@17
+E Expected literal u|U at position 19: ...,2],b:[L;1<--[HERE]@17
+S 17-17 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all {a:[I;1,2],b:[L;1l
+R 0
+A -
+X Expected literal , at position 20: ...2],b:[L;1l<--[HERE]@18
+E Expected literal , at position 20: ...2],b:[L;1l<--[HERE]@18
+S 18-18 2 1322345 ,	]
+@ all {a:[I;1,2],b:[L;1l,
+R 0
+A -
+X Expected literal + at position 21: ...],b:[L;1l,<--[HERE]@19
+E Expected literal + at position 21: ...],b:[L;1l,<--[HERE]@19
+S 19-19 4 -1672903393 +	-	0	]
+@ all {a:[I;1,2],b:[L;1l,2
+R 0
+A -
+X Expected literal u|U at position 22: ...,b:[L;1l,2<--[HERE]@20
+E Expected literal u|U at position 22: ...,b:[L;1l,2<--[HERE]@20
+S 20-20 12 1789566949 ,	]	b	B	i	I	l	L	s	S	u	U
+@ all {a:[I;1,2],b:[L;1l,2l
+R 0
+A -
+X Expected literal , at position 23: ...b:[L;1l,2l<--[HERE]@21
+E Expected literal , at position 23: ...b:[L;1l,2l<--[HERE]@21
+S 21-21 2 1322345 ,	]
+@ all {a:[I;1,2],b:[L;1l,2l]
+R 0
+A -
+X Expected literal , at position 24: ...:[L;1l,2l]<--[HERE]@22
+E Expected literal , at position 24: ...:[L;1l,2l]<--[HERE]@22
+S 22-22 2 1323337 ,	}
+@ all {a:t
+R 0
+A -
+X Expected literal ( at position 6: t {a:t<--[HERE]@4
+E Expected literal ( at position 6: t {a:t<--[HERE]@4
+S 4-4 3 1154801066 (	,	}
+@ all {a:tr
+R 0
+A -
+X Expected literal ( at position 7: t {a:tr<--[HERE]@5
+E Expected literal ( at position 7: t {a:tr<--[HERE]@5
+S 5-5 3 1154801066 (	,	}
+@ all {a:tru
+R 0
+A -
+X Expected literal ( at position 8: t {a:tru<--[HERE]@6
+E Expected literal ( at position 8: t {a:tru<--[HERE]@6
+S 6-6 3 1154801066 (	,	}
+@ all {a:true
+R 0
+A -
+X Expected literal ( at position 9: t {a:true<--[HERE]@7
+E Expected literal ( at position 9: t {a:true<--[HERE]@7
+S 7-7 3 1154801066 (	,	}
+@ all {a:true,
+R 0
+A -
+X Expected literal " at position 10: t {a:true,<--[HERE]@8
+E Expected literal " at position 10: t {a:true,<--[HERE]@8
+S 8-8 3 982877205 "	'	}
+@ all {a:true,b
+R 0
+A -
+X Expected literal : at position 11: ... {a:true,b<--[HERE]@9
+E Expected literal : at position 11: ... {a:true,b<--[HERE]@9
+S 9-9 1 1807 :
+@ all {a:true,b:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...{a:true,b:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...{a:true,b:<--[HERE]@10
+S -2--2 0 0 
+@ all {a:true,b:f
+R 0
+A -
+X Expected literal ( at position 13: ...a:true,b:f<--[HERE]@11
+E Expected literal ( at position 13: ...a:true,b:f<--[HERE]@11
+S 11-11 3 1154801066 (	,	}
+@ all {a:true,b:fa
+R 0
+A -
+X Expected literal ( at position 14: ...:true,b:fa<--[HERE]@12
+E Expected literal ( at position 14: ...:true,b:fa<--[HERE]@12
+S 12-12 3 1154801066 (	,	}
+@ all {a:true,b:fal
+R 0
+A -
+X Expected literal ( at position 15: ...true,b:fal<--[HERE]@13
+E Expected literal ( at position 15: ...true,b:fal<--[HERE]@13
+S 13-13 3 1154801066 (	,	}
+@ all {a:true,b:fals
+R 0
+A -
+X Expected literal ( at position 16: ...rue,b:fals<--[HERE]@14
+E Expected literal ( at position 16: ...rue,b:fals<--[HERE]@14
+S 14-14 3 1154801066 (	,	}
+@ all {a:true,b:false
+R 0
+A -
+X Expected literal ( at position 17: ...ue,b:false<--[HERE]@15
+E Expected literal ( at position 17: ...ue,b:false<--[HERE]@15
+S 15-15 3 1154801066 (	,	}
+@ all {a:1.
+R 0
+A -
+X Expected a decimal number at position 7: t {a:1.<--[HERE]@5
+E Expected a decimal number at position 7: t {a:1.<--[HERE]@5
+S 5-5 8 -199693119 ,	d	D	e	E	f	F	}
+@ all {a:1.5
+R 0
+A -
+X Expected literal e|E at position 8: t {a:1.5<--[HERE]@6
+E Expected literal e|E at position 8: t {a:1.5<--[HERE]@6
+S 6-6 8 -199693119 ,	d	D	e	E	f	F	}
+@ all {a:1.5f
+R 0
+A -
+X Expected literal , at position 9: t {a:1.5f<--[HERE]@7
+E Expected literal , at position 9: t {a:1.5f<--[HERE]@7
+S 7-7 2 1323337 ,	}
+@ all {a:1.5f,
+R 0
+A -
+X Expected literal " at position 10: t {a:1.5f,<--[HERE]@8
+E Expected literal " at position 10: t {a:1.5f,<--[HERE]@8
+S 8-8 3 982877205 "	'	}
+@ all {a:1.5f,b
+R 0
+A -
+X Expected literal : at position 11: ... {a:1.5f,b<--[HERE]@9
+E Expected literal : at position 11: ... {a:1.5f,b<--[HERE]@9
+S 9-9 1 1807 :
+@ all {a:1.5f,b:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...{a:1.5f,b:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...{a:1.5f,b:<--[HERE]@10
+S -2--2 0 0 
+@ all {a:1.5f,b:2
+R 0
+A -
+X Expected literal . at position 13: ...a:1.5f,b:2<--[HERE]@11
+E Expected literal . at position 13: ...a:1.5f,b:2<--[HERE]@11
+S 11-11 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a:1.5f,b:2.
+R 0
+A -
+X Expected a decimal number at position 14: ...:1.5f,b:2.<--[HERE]@12
+E Expected a decimal number at position 14: ...:1.5f,b:2.<--[HERE]@12
+S 12-12 8 -199693119 ,	d	D	e	E	f	F	}
+@ all {a:1.5f,b:2.5
+R 0
+A -
+X Expected literal e|E at position 15: ...1.5f,b:2.5<--[HERE]@13
+E Expected literal e|E at position 15: ...1.5f,b:2.5<--[HERE]@13
+S 13-13 8 -199693119 ,	d	D	e	E	f	F	}
+@ all {a:1.5f,b:2.5d
+R 0
+A -
+X Expected literal , at position 16: ....5f,b:2.5d<--[HERE]@14
+E Expected literal , at position 16: ....5f,b:2.5d<--[HERE]@14
+S 14-14 2 1323337 ,	}
+@ all {a:"x
+R 0
+A -
+X Invalid string contents at position 7: t {a:"x<--[HERE]@5
+E Invalid string contents at position 7: t {a:"x<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all {a:"x"
+R 0
+A -
+X Expected literal , at position 8: t {a:"x"<--[HERE]@6
+E Expected literal , at position 8: t {a:"x"<--[HERE]@6
+S 6-6 2 1323337 ,	}
+@ all {a:"x",
+R 0
+A -
+X Expected literal " at position 9: t {a:"x",<--[HERE]@7
+E Expected literal " at position 9: t {a:"x",<--[HERE]@7
+S 7-7 3 982877205 "	'	}
+@ all {a:"x",b
+R 0
+A -
+X Expected literal : at position 10: t {a:"x",b<--[HERE]@8
+E Expected literal : at position 10: t {a:"x",b<--[HERE]@8
+S 8-8 1 1807 :
+@ all {a:"x",b:
+R 0
+A -
+X Expected a valid unquoted string at position 11: ... {a:"x",b:<--[HERE]@9
+E Expected a valid unquoted string at position 11: ... {a:"x",b:<--[HERE]@9
+S -2--2 0 0 
+@ all {a:"x",b:'
+R 0
+A -
+X Invalid string contents at position 12: ...{a:"x",b:'<--[HERE]@10
+E Invalid string contents at position 12: ...{a:"x",b:'<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {a:"x",b:'y
+R 0
+A -
+X Invalid string contents at position 13: ...a:"x",b:'y<--[HERE]@11
+E Invalid string contents at position 13: ...a:"x",b:'y<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {a:"x",b:'y'
+R 0
+A -
+X Expected literal , at position 14: ...:"x",b:'y'<--[HERE]@12
+E Expected literal , at position 14: ...:"x",b:'y'<--[HERE]@12
+S 12-12 2 1323337 ,	}
+@ all {a:{}
+R 0
+A -
+X Expected literal , at position 7: t {a:{}<--[HERE]@5
+E Expected literal , at position 7: t {a:{}<--[HERE]@5
+S 5-5 2 1323337 ,	}
+@ all {a:[]
+R 0
+A -
+X Expected literal , at position 7: t {a:[]<--[HERE]@5
+E Expected literal , at position 7: t {a:[]<--[HERE]@5
+S 5-5 2 1323337 ,	}
+@ all [[]
+R 0
+A -
+X Expected literal , at position 5: t [[]<--[HERE]@3
+E Expected literal , at position 5: t [[]<--[HERE]@3
+S 3-3 2 1322345 ,	]
+@ all [{}
+R 0
+A -
+X Expected literal , at position 5: t [{}<--[HERE]@3
+E Expected literal , at position 5: t [{}<--[HERE]@3
+S 3-3 2 1322345 ,	]
+@ all {1
+R 0
+A -
+X Expected literal : at position 4: t {1<--[HERE]@2
+E Expected literal : at position 4: t {1<--[HERE]@2
+S 2-2 1 1807 :
+@ all {1:
+R 0
+A -
+X Expected a valid unquoted string at position 5: t {1:<--[HERE]@3
+E Expected a valid unquoted string at position 5: t {1:<--[HERE]@3
+S -2--2 0 0 
+@ all {1:2
+R 0
+A -
+X Expected literal . at position 6: t {1:2<--[HERE]@4
+E Expected literal . at position 6: t {1:2<--[HERE]@4
+S 4-4 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {1.
+R 0
+A -
+X Expected literal : at position 5: t {1.<--[HERE]@3
+E Expected literal : at position 5: t {1.<--[HERE]@3
+S 3-3 1 1807 :
+@ all {1.5
+R 0
+A -
+X Expected literal : at position 6: t {1.5<--[HERE]@4
+E Expected literal : at position 6: t {1.5<--[HERE]@4
+S 4-4 1 1807 :
+@ all {1.5:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {1.5:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {1.5:<--[HERE]@5
+S -2--2 0 0 
+@ all {1.5:2
+R 0
+A -
+X Expected literal . at position 8: t {1.5:2<--[HERE]@6
+E Expected literal . at position 8: t {1.5:2<--[HERE]@6
+S 6-6 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {t
+R 0
+A -
+X Expected literal : at position 4: t {t<--[HERE]@2
+E Expected literal : at position 4: t {t<--[HERE]@2
+S 2-2 1 1807 :
+@ all {tr
+R 0
+A -
+X Expected literal : at position 5: t {tr<--[HERE]@3
+E Expected literal : at position 5: t {tr<--[HERE]@3
+S 3-3 1 1807 :
+@ all {tru
+R 0
+A -
+X Expected literal : at position 6: t {tru<--[HERE]@4
+E Expected literal : at position 6: t {tru<--[HERE]@4
+S 4-4 1 1807 :
+@ all {true
+R 0
+A -
+X Expected literal : at position 7: t {true<--[HERE]@5
+E Expected literal : at position 7: t {true<--[HERE]@5
+S 5-5 1 1807 :
+@ all {true:
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {true:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {true:<--[HERE]@6
+S -2--2 0 0 
+@ all {true:1
+R 0
+A -
+X Expected literal . at position 9: t {true:1<--[HERE]@7
+E Expected literal . at position 9: t {true:1<--[HERE]@7
+S 7-7 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a.
+R 0
+A -
+X Expected literal : at position 5: t {a.<--[HERE]@3
+E Expected literal : at position 5: t {a.<--[HERE]@3
+S 3-3 1 1807 :
+@ all {a.b
+R 0
+A -
+X Expected literal : at position 6: t {a.b<--[HERE]@4
+E Expected literal : at position 6: t {a.b<--[HERE]@4
+S 4-4 1 1807 :
+@ all {a.b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a.b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a.b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a.b:1
+R 0
+A -
+X Expected literal . at position 8: t {a.b:1<--[HERE]@6
+E Expected literal . at position 8: t {a.b:1<--[HERE]@6
+S 6-6 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a-
+R 0
+A -
+X Expected literal : at position 5: t {a-<--[HERE]@3
+E Expected literal : at position 5: t {a-<--[HERE]@3
+S 3-3 1 1807 :
+@ all {a-b
+R 0
+A -
+X Expected literal : at position 6: t {a-b<--[HERE]@4
+E Expected literal : at position 6: t {a-b<--[HERE]@4
+S 4-4 1 1807 :
+@ all {a-b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a-b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a-b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a-b:1
+R 0
+A -
+X Expected literal . at position 8: t {a-b:1<--[HERE]@6
+E Expected literal . at position 8: t {a-b:1<--[HERE]@6
+S 6-6 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a+
+R 0
+A -
+X Expected literal : at position 5: t {a+<--[HERE]@3
+E Expected literal : at position 5: t {a+<--[HERE]@3
+S 3-3 1 1807 :
+@ all {a+b
+R 0
+A -
+X Expected literal : at position 6: t {a+b<--[HERE]@4
+E Expected literal : at position 6: t {a+b<--[HERE]@4
+S 4-4 1 1807 :
+@ all {a+b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a+b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a+b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a+b:1
+R 0
+A -
+X Expected literal . at position 8: t {a+b:1<--[HERE]@6
+E Expected literal . at position 8: t {a+b:1<--[HERE]@6
+S 6-6 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {a_
+R 0
+A -
+X Expected literal : at position 5: t {a_<--[HERE]@3
+E Expected literal : at position 5: t {a_<--[HERE]@3
+S 3-3 1 1807 :
+@ all {a_b
+R 0
+A -
+X Expected literal : at position 6: t {a_b<--[HERE]@4
+E Expected literal : at position 6: t {a_b<--[HERE]@4
+S 4-4 1 1807 :
+@ all {a_b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a_b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a_b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a_b:1
+R 0
+A -
+X Expected literal . at position 8: t {a_b:1<--[HERE]@6
+E Expected literal . at position 8: t {a_b:1<--[HERE]@6
+S 6-6 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}

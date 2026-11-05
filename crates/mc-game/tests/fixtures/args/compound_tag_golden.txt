@@ -1,0 +1,2832 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all 0
+R 0
+A -
+X Expected compound tag at position 3: t 0<--[HERE]@1
+E Expected compound tag at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 0b
+R 0
+A -
+X Expected compound tag at position 4: t 0b<--[HERE]@2
+E Expected compound tag at position 4: t 0b<--[HERE]@2
+S -2--2 0 0 
+@ all 0B
+R 0
+A -
+X Expected compound tag at position 4: t 0B<--[HERE]@2
+E Expected compound tag at position 4: t 0B<--[HERE]@2
+S -2--2 0 0 
+@ all 0s
+R 0
+A -
+X Expected compound tag at position 4: t 0s<--[HERE]@2
+E Expected compound tag at position 4: t 0s<--[HERE]@2
+S -2--2 0 0 
+@ all 0l
+R 0
+A -
+X Expected compound tag at position 4: t 0l<--[HERE]@2
+E Expected compound tag at position 4: t 0l<--[HERE]@2
+S -2--2 0 0 
+@ all 0L
+R 0
+A -
+X Expected compound tag at position 4: t 0L<--[HERE]@2
+E Expected compound tag at position 4: t 0L<--[HERE]@2
+S -2--2 0 0 
+@ all 0.0
+R 0
+A -
+X Expected compound tag at position 5: t 0.0<--[HERE]@3
+E Expected compound tag at position 5: t 0.0<--[HERE]@3
+S -2--2 0 0 
+@ all 0f
+R 0
+A -
+X Expected compound tag at position 4: t 0f<--[HERE]@2
+E Expected compound tag at position 4: t 0f<--[HERE]@2
+S -2--2 0 0 
+@ all 0d
+R 0
+A -
+X Expected compound tag at position 4: t 0d<--[HERE]@2
+E Expected compound tag at position 4: t 0d<--[HERE]@2
+S -2--2 0 0 
+@ all 1.5e3
+R 0
+A -
+X Expected compound tag at position 7: t 1.5e3<--[HERE]@5
+E Expected compound tag at position 7: t 1.5e3<--[HERE]@5
+S -2--2 0 0 
+@ all -1
+R 0
+A -
+X Expected compound tag at position 4: t -1<--[HERE]@2
+E Expected compound tag at position 4: t -1<--[HERE]@2
+S -2--2 0 0 
+@ all +1
+R 0
+A -
+X Expected compound tag at position 4: t +1<--[HERE]@2
+E Expected compound tag at position 4: t +1<--[HERE]@2
+S -2--2 0 0 
+@ all 1e5
+R 0
+A -
+X Expected compound tag at position 5: t 1e5<--[HERE]@3
+E Expected compound tag at position 5: t 1e5<--[HERE]@3
+S -2--2 0 0 
+@ all .5
+R 0
+A -
+X Expected compound tag at position 4: t .5<--[HERE]@2
+E Expected compound tag at position 4: t .5<--[HERE]@2
+S -2--2 0 0 
+@ all 5.
+R 0
+A -
+X Expected compound tag at position 4: t 5.<--[HERE]@2
+E Expected compound tag at position 4: t 5.<--[HERE]@2
+S -2--2 0 0 
+@ all 0x10
+R 0
+A -
+X Expected compound tag at position 6: t 0x10<--[HERE]@4
+E Expected compound tag at position 6: t 0x10<--[HERE]@4
+S -2--2 0 0 
+@ all 0b101
+R 0
+A -
+X Expected compound tag at position 7: t 0b101<--[HERE]@5
+E Expected compound tag at position 7: t 0b101<--[HERE]@5
+S -2--2 0 0 
+@ all 1_000
+R 0
+A -
+X Expected compound tag at position 7: t 1_000<--[HERE]@5
+E Expected compound tag at position 7: t 1_000<--[HERE]@5
+S -2--2 0 0 
+@ all 128b
+R 0
+A -
+X Failed to parse number: Value out of range. Value:"128" Radix:10 at position 6: t 128b<--[HERE]@4
+E Failed to parse number: Value out of range. Value:"128" Radix:10 at position 6: t 128b<--[HERE]@4
+S -2--2 0 0 
+@ all -129b
+R 0
+A -
+X Failed to parse number: Value out of range. Value:"-129" Radix:10 at position 7: t -129b<--[HERE]@5
+E Failed to parse number: Value out of range. Value:"-129" Radix:10 at position 7: t -129b<--[HERE]@5
+S -2--2 0 0 
+@ all true
+R 0
+A -
+X Expected compound tag at position 6: t true<--[HERE]@4
+E Expected compound tag at position 6: t true<--[HERE]@4
+S -2--2 0 0 
+@ all false
+R 0
+A -
+X Expected compound tag at position 7: t false<--[HERE]@5
+E Expected compound tag at position 7: t false<--[HERE]@5
+S -2--2 0 0 
+@ all True
+R 0
+A -
+X Expected compound tag at position 6: t True<--[HERE]@4
+E Expected compound tag at position 6: t True<--[HERE]@4
+S -2--2 0 0 
+@ all "foo"
+R 0
+A -
+X Expected compound tag at position 7: t "foo"<--[HERE]@5
+E Expected compound tag at position 7: t "foo"<--[HERE]@5
+S -2--2 0 0 
+@ all 'foo'
+R 0
+A -
+X Expected compound tag at position 7: t 'foo'<--[HERE]@5
+E Expected compound tag at position 7: t 'foo'<--[HERE]@5
+S -2--2 0 0 
+@ all foo
+R 0
+A -
+X Expected compound tag at position 5: t foo<--[HERE]@3
+E Expected compound tag at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all "a\\"b"
+R 0
+A -
+X Expected compound tag at position 8: t "a\\"b"<--[HERE]@6
+E Expected compound tag at position 8: t "a\\"b"<--[HERE]@6
+S -2--2 0 0 
+@ all 'a\\'b'
+R 0
+A -
+X Expected compound tag at position 8: t 'a\\'b'<--[HERE]@6
+E Expected compound tag at position 8: t 'a\\'b'<--[HERE]@6
+S -2--2 0 0 
+@ all "\\u00e9"
+R 0
+A -
+X Expected compound tag at position 10: t "\\u00e9"<--[HERE]@8
+E Expected compound tag at position 10: t "\\u00e9"<--[HERE]@8
+S -2--2 0 0 
+@ all "\\n"
+R 0
+A -
+X Expected compound tag at position 6: t "\\n"<--[HERE]@4
+E Expected compound tag at position 6: t "\\n"<--[HERE]@4
+S -2--2 0 0 
+@ all "\\x41"
+R 0
+A -
+X Expected compound tag at position 8: t "\\x41"<--[HERE]@6
+E Expected compound tag at position 8: t "\\x41"<--[HERE]@6
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETTER A}"
+R 0
+A -
+X Expected compound tag at position 28: ...LETTER A}"<--[HERE]@26
+E Expected compound tag at position 28: ...LETTER A}"<--[HERE]@26
+S -2--2 0 0 
+@ all "\\q"
+R 0
+A -
+X Expected literal b at position 4: t "\\<--[HERE]@2
+E Expected literal b at position 4: t "\\<--[HERE]@2
+S -2--2 0 0 
+@ all {}
+R 2
+A 0-2 {}
+E ok
+S -2--2 0 0 
+@ all {foo=bar}
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo:bar}
+R 9
+A 0-9 {foo:"bar"}
+E ok
+S -2--2 0 0 
+@ all {foo:1b,bar:[1,2]}
+R 18
+A 0-18 {bar:[1,2],foo:1b}
+E ok
+S -2--2 0 0 
+@ all {"a b":1}
+R 9
+A 0-9 {"a b":1}
+E ok
+S -2--2 0 0 
+@ all {a:{b:{c:1}}}
+R 13
+A 0-13 {a:{b:{c:1}}}
+E ok
+S -2--2 0 0 
+@ all {a:1,}
+R 6
+A 0-6 {a:1}
+E ok
+S -2--2 0 0 
+@ all {,}
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a:1,a:2}
+R 9
+A 0-9 {a:2}
+E ok
+S -2--2 0 0 
+@ all {a:}
+R 0
+A -
+X Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+E Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+S -2--2 0 0 
+@ all {:1}
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a 1}
+R 0
+A -
+X Expected literal : at position 5: t {a <--[HERE]@3
+E Expected literal : at position 5: t {a <--[HERE]@3
+S -2--2 0 0 
+@ all {a:1 b:2}
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S -2--2 0 0 
+@ all { a : 1 }
+R 9
+A 0-9 {a:1}
+E ok
+S -2--2 0 0 
+@ all []
+R 0
+A -
+X Expected compound tag at position 4: t []<--[HERE]@2
+E Expected compound tag at position 4: t []<--[HERE]@2
+S -2--2 0 0 
+@ all [0]
+R 0
+A -
+X Expected compound tag at position 5: t [0]<--[HERE]@3
+E Expected compound tag at position 5: t [0]<--[HERE]@3
+S -2--2 0 0 
+@ all [B;]
+R 0
+A -
+X Expected compound tag at position 6: t [B;]<--[HERE]@4
+E Expected compound tag at position 6: t [B;]<--[HERE]@4
+S -2--2 0 0 
+@ all [B;1b,2b]
+R 0
+A -
+X Expected compound tag at position 11: ... [B;1b,2b]<--[HERE]@9
+E Expected compound tag at position 11: ... [B;1b,2b]<--[HERE]@9
+S -2--2 0 0 
+@ all [I;1,2,3]
+R 0
+A -
+X Expected compound tag at position 11: ... [I;1,2,3]<--[HERE]@9
+E Expected compound tag at position 11: ... [I;1,2,3]<--[HERE]@9
+S -2--2 0 0 
+@ all [L;1l]
+R 0
+A -
+X Expected compound tag at position 8: t [L;1l]<--[HERE]@6
+E Expected compound tag at position 8: t [L;1l]<--[HERE]@6
+S -2--2 0 0 
+@ all [B;1]
+R 0
+A -
+X Expected compound tag at position 7: t [B;1]<--[HERE]@5
+E Expected compound tag at position 7: t [B;1]<--[HERE]@5
+S -2--2 0 0 
+@ all [I;1b]
+R 0
+A -
+X Expected compound tag at position 8: t [I;1b]<--[HERE]@6
+E Expected compound tag at position 8: t [I;1b]<--[HERE]@6
+S -2--2 0 0 
+@ all [1,2,3]
+R 0
+A -
+X Expected compound tag at position 9: t [1,2,3]<--[HERE]@7
+E Expected compound tag at position 9: t [1,2,3]<--[HERE]@7
+S -2--2 0 0 
+@ all [1,"a"]
+R 0
+A -
+X Expected compound tag at position 9: t [1,"a"]<--[HERE]@7
+E Expected compound tag at position 9: t [1,"a"]<--[HERE]@7
+S -2--2 0 0 
+@ all [[1],[2]]
+R 0
+A -
+X Expected compound tag at position 11: ... [[1],[2]]<--[HERE]@9
+E Expected compound tag at position 11: ... [[1],[2]]<--[HERE]@9
+S -2--2 0 0 
+@ all [{a:1},{b:2}]
+R 0
+A -
+X Expected compound tag at position 15: ...:1},{b:2}]<--[HERE]@13
+E Expected compound tag at position 15: ...:1},{b:2}]<--[HERE]@13
+S -2--2 0 0 
+@ all [1,]
+R 0
+A -
+X Expected compound tag at position 6: t [1,]<--[HERE]@4
+E Expected compound tag at position 6: t [1,]<--[HERE]@4
+S -2--2 0 0 
+@ all [,]
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all [I;,]
+R 0
+A -
+X Expected literal + at position 5: t [I;<--[HERE]@3
+E Expected literal + at position 5: t [I;<--[HERE]@3
+S -2--2 0 0 
+@ all [X;1]
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S -2--2 0 0 
+@ all [B;
+R 0
+A -
+X Expected literal + at position 5: t [B;<--[HERE]@3
+E Expected literal + at position 5: t [B;<--[HERE]@3
+S -2--2 0 0 
+@ all [0
+R 0
+A -
+X Expected literal . at position 4: t [0<--[HERE]@2
+E Expected literal . at position 4: t [0<--[HERE]@2
+S -2--2 0 0 
+@ all {a:1
+R 0
+A -
+X Expected literal . at position 6: t {a:1<--[HERE]@4
+E Expected literal . at position 6: t {a:1<--[HERE]@4
+S -2--2 0 0 
+@ all "abc
+R 0
+A -
+X Invalid string contents at position 6: t "abc<--[HERE]@4
+E Invalid string contents at position 6: t "abc<--[HERE]@4
+S -2--2 0 0 
+@ all 'abc
+R 0
+A -
+X Invalid string contents at position 6: t 'abc<--[HERE]@4
+E Invalid string contents at position 6: t 'abc<--[HERE]@4
+S -2--2 0 0 
+@ all 0 
+R 0
+A -
+X Expected compound tag at position 3: t 0<--[HERE]@1
+E Expected compound tag at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all  0
+R 0
+A -
+X Expected compound tag at position 4: t  0<--[HERE]@2
+E Expected compound tag at position 4: t  0<--[HERE]@2
+S -2--2 0 0 
+@ all 0 1
+R 0
+A -
+X Decimal numbers can't start with 0 at position 5: t 0 1<--[HERE]@3
+E Decimal numbers can't start with 0 at position 5: t 0 1<--[HERE]@3
+S -2--2 0 0 
+@ all 1.0f
+R 0
+A -
+X Expected compound tag at position 6: t 1.0f<--[HERE]@4
+E Expected compound tag at position 6: t 1.0f<--[HERE]@4
+S -2--2 0 0 
+@ all 1.0F
+R 0
+A -
+X Expected compound tag at position 6: t 1.0F<--[HERE]@4
+E Expected compound tag at position 6: t 1.0F<--[HERE]@4
+S -2--2 0 0 
+@ all Infinity
+R 0
+A -
+X Expected compound tag at position 10: t Infinity<--[HERE]@8
+E Expected compound tag at position 10: t Infinity<--[HERE]@8
+S -2--2 0 0 
+@ all NaN
+R 0
+A -
+X Expected compound tag at position 5: t NaN<--[HERE]@3
+E Expected compound tag at position 5: t NaN<--[HERE]@3
+S -2--2 0 0 
+@ all -Infinity
+R 0
+A -
+X Expected literal ( at position 11: ... -Infinity<--[HERE]@9
+E Expected literal ( at position 11: ... -Infinity<--[HERE]@9
+S -2--2 0 0 
+@ all 1e400
+R 0
+A -
+X Expected compound tag at position 3: t 1<--[HERE]@1
+E Expected compound tag at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1e-400
+R 0
+A -
+X Expected compound tag at position 8: t 1e-400<--[HERE]@6
+E Expected compound tag at position 8: t 1e-400<--[HERE]@6
+S -2--2 0 0 
+@ all 99999999999
+R 0
+A -
+X Expected literal . at position 13: ...9999999999<--[HERE]@11
+E Expected literal . at position 13: ...9999999999<--[HERE]@11
+S -2--2 0 0 
+@ all 9223372036854775807L
+R 0
+A -
+X Expected compound tag at position 22: ...854775807L<--[HERE]@20
+E Expected compound tag at position 22: ...854775807L<--[HERE]@20
+S -2--2 0 0 
+@ all 9223372036854775808L
+R 0
+A -
+X Failed to parse number: For input string: "9223372036854775808" at position 22: ...854775808L<--[HERE]@20
+E Failed to parse number: For input string: "9223372036854775808" at position 22: ...854775808L<--[HERE]@20
+S -2--2 0 0 
+@ all -0
+R 0
+A -
+X Expected compound tag at position 4: t -0<--[HERE]@2
+E Expected compound tag at position 4: t -0<--[HERE]@2
+S -2--2 0 0 
+@ all -0.0
+R 0
+A -
+X Expected compound tag at position 6: t -0.0<--[HERE]@4
+E Expected compound tag at position 6: t -0.0<--[HERE]@4
+S -2--2 0 0 
+@ all 0.1f
+R 0
+A -
+X Expected compound tag at position 6: t 0.1f<--[HERE]@4
+E Expected compound tag at position 6: t 0.1f<--[HERE]@4
+S -2--2 0 0 
+@ all 1d
+R 0
+A -
+X Expected compound tag at position 4: t 1d<--[HERE]@2
+E Expected compound tag at position 4: t 1d<--[HERE]@2
+S -2--2 0 0 
+@ all 1D
+R 0
+A -
+X Expected compound tag at position 4: t 1D<--[HERE]@2
+E Expected compound tag at position 4: t 1D<--[HERE]@2
+S -2--2 0 0 
+@ all 1s
+R 0
+A -
+X Expected compound tag at position 4: t 1s<--[HERE]@2
+E Expected compound tag at position 4: t 1s<--[HERE]@2
+S -2--2 0 0 
+@ all 32768s
+R 0
+A -
+X Expected literal b|B at position 8: t 32768s<--[HERE]@6
+E Expected literal b|B at position 8: t 32768s<--[HERE]@6
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude00"}
+R 18
+A 0-18 {a:"😀"}
+E ok
+S -2--2 0 0 
+@ all [;]
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all I;1
+R 0
+A -
+X Expected compound tag at position 3: t I<--[HERE]@1
+E Expected compound tag at position 3: t I<--[HERE]@1
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {a:[B;1b,2b,3b]}
+R 16
+A 0-16 {a:[B;1B,2B,3B]}
+E ok
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1l,2l]}
+R 23
+A 0-23 {a:[I;1,2],b:[L;1L,2L]}
+E ok
+S -2--2 0 0 
+@ all {a:true,b:false}
+R 16
+A 0-16 {a:1b,b:0b}
+E ok
+S -2--2 0 0 
+@ all {a:1.5f,b:2.5d}
+R 15
+A 0-15 {a:1.5f,b:2.5d}
+E ok
+S -2--2 0 0 
+@ all {a:"x",b:'y'}
+R 13
+A 0-13 {a:"x",b:"y"}
+E ok
+S -2--2 0 0 
+@ all {a:{}}
+R 6
+A 0-6 {a:{}}
+E ok
+S -2--2 0 0 
+@ all {a:[]}
+R 6
+A 0-6 {a:[]}
+E ok
+S -2--2 0 0 
+@ all [[]]
+R 0
+A -
+X Expected compound tag at position 6: t [[]]<--[HERE]@4
+E Expected compound tag at position 6: t [[]]<--[HERE]@4
+S -2--2 0 0 
+@ all [{}]
+R 0
+A -
+X Expected compound tag at position 6: t [{}]<--[HERE]@4
+E Expected compound tag at position 6: t [{}]<--[HERE]@4
+S -2--2 0 0 
+@ all {1:2}
+R 5
+A 0-5 {"1":2}
+E ok
+S -2--2 0 0 
+@ all {1.5:2}
+R 7
+A 0-7 {"1.5":2}
+E ok
+S -2--2 0 0 
+@ all {true:1}
+R 8
+A 0-8 {"true":1}
+E ok
+S -2--2 0 0 
+@ all {a.b:1}
+R 7
+A 0-7 {a.b:1}
+E ok
+S -2--2 0 0 
+@ all {a-b:1}
+R 7
+A 0-7 {a-b:1}
+E ok
+S -2--2 0 0 
+@ all {a+b:1}
+R 7
+A 0-7 {a+b:1}
+E ok
+S -2--2 0 0 
+@ all {a_b:1}
+R 7
+A 0-7 {a_b:1}
+E ok
+S -2--2 0 0 
+@ all 0.
+R 0
+A -
+X Expected compound tag at position 4: t 0.<--[HERE]@2
+E Expected compound tag at position 4: t 0.<--[HERE]@2
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Expected compound tag at position 3: t 1<--[HERE]@1
+E Expected compound tag at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1.
+R 0
+A -
+X Expected compound tag at position 4: t 1.<--[HERE]@2
+E Expected compound tag at position 4: t 1.<--[HERE]@2
+S -2--2 0 0 
+@ all 1.5
+R 0
+A -
+X Expected compound tag at position 5: t 1.5<--[HERE]@3
+E Expected compound tag at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all 1.5e
+R 0
+A -
+X Expected compound tag at position 5: t 1.5<--[HERE]@3
+E Expected compound tag at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Expected a decimal number at position 3: t -<--[HERE]@1
+E Expected a decimal number at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all +
+R 0
+A -
+X Expected a decimal number at position 3: t +<--[HERE]@1
+E Expected a decimal number at position 3: t +<--[HERE]@1
+S -2--2 0 0 
+@ all 1e
+R 0
+A -
+X Expected compound tag at position 3: t 1<--[HERE]@1
+E Expected compound tag at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Expected a decimal number at position 3: t .<--[HERE]@1
+E Expected a decimal number at position 3: t .<--[HERE]@1
+S -2--2 0 0 
+@ all 5
+R 0
+A -
+X Expected compound tag at position 3: t 5<--[HERE]@1
+E Expected compound tag at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all 0x
+R 0
+A -
+X Expected a hexadecimal number at position 4: t 0x<--[HERE]@2
+E Expected a hexadecimal number at position 4: t 0x<--[HERE]@2
+S -2--2 0 0 
+@ all 0x1
+R 0
+A -
+X Expected compound tag at position 5: t 0x1<--[HERE]@3
+E Expected compound tag at position 5: t 0x1<--[HERE]@3
+S -2--2 0 0 
+@ all 0b1
+R 0
+A -
+X Expected compound tag at position 5: t 0b1<--[HERE]@3
+E Expected compound tag at position 5: t 0b1<--[HERE]@3
+S -2--2 0 0 
+@ all 0b10
+R 0
+A -
+X Expected compound tag at position 6: t 0b10<--[HERE]@4
+E Expected compound tag at position 6: t 0b10<--[HERE]@4
+S -2--2 0 0 
+@ all 1_
+R 0
+A -
+X Expected literal ( at position 4: t 1_<--[HERE]@2
+E Expected literal ( at position 4: t 1_<--[HERE]@2
+S -2--2 0 0 
+@ all 1_0
+R 0
+A -
+X Expected compound tag at position 5: t 1_0<--[HERE]@3
+E Expected compound tag at position 5: t 1_0<--[HERE]@3
+S -2--2 0 0 
+@ all 1_00
+R 0
+A -
+X Expected compound tag at position 6: t 1_00<--[HERE]@4
+E Expected compound tag at position 6: t 1_00<--[HERE]@4
+S -2--2 0 0 
+@ all 12
+R 0
+A -
+X Expected compound tag at position 4: t 12<--[HERE]@2
+E Expected compound tag at position 4: t 12<--[HERE]@2
+S -2--2 0 0 
+@ all 128
+R 0
+A -
+X Expected compound tag at position 5: t 128<--[HERE]@3
+E Expected compound tag at position 5: t 128<--[HERE]@3
+S -2--2 0 0 
+@ all -12
+R 0
+A -
+X Expected compound tag at position 5: t -12<--[HERE]@3
+E Expected compound tag at position 5: t -12<--[HERE]@3
+S -2--2 0 0 
+@ all -129
+R 0
+A -
+X Expected compound tag at position 6: t -129<--[HERE]@4
+E Expected compound tag at position 6: t -129<--[HERE]@4
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X Expected compound tag at position 3: t t<--[HERE]@1
+E Expected compound tag at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all tr
+R 0
+A -
+X Expected compound tag at position 4: t tr<--[HERE]@2
+E Expected compound tag at position 4: t tr<--[HERE]@2
+S -2--2 0 0 
+@ all tru
+R 0
+A -
+X Expected compound tag at position 5: t tru<--[HERE]@3
+E Expected compound tag at position 5: t tru<--[HERE]@3
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Expected compound tag at position 3: t f<--[HERE]@1
+E Expected compound tag at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all fa
+R 0
+A -
+X Expected compound tag at position 4: t fa<--[HERE]@2
+E Expected compound tag at position 4: t fa<--[HERE]@2
+S -2--2 0 0 
+@ all fal
+R 0
+A -
+X Expected compound tag at position 5: t fal<--[HERE]@3
+E Expected compound tag at position 5: t fal<--[HERE]@3
+S -2--2 0 0 
+@ all fals
+R 0
+A -
+X Expected compound tag at position 6: t fals<--[HERE]@4
+E Expected compound tag at position 6: t fals<--[HERE]@4
+S -2--2 0 0 
+@ all T
+R 0
+A -
+X Expected compound tag at position 3: t T<--[HERE]@1
+E Expected compound tag at position 3: t T<--[HERE]@1
+S -2--2 0 0 
+@ all Tr
+R 0
+A -
+X Expected compound tag at position 4: t Tr<--[HERE]@2
+E Expected compound tag at position 4: t Tr<--[HERE]@2
+S -2--2 0 0 
+@ all Tru
+R 0
+A -
+X Expected compound tag at position 5: t Tru<--[HERE]@3
+E Expected compound tag at position 5: t Tru<--[HERE]@3
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Invalid string contents at position 3: t "<--[HERE]@1
+E Invalid string contents at position 3: t "<--[HERE]@1
+S -2--2 0 0 
+@ all "f
+R 0
+A -
+X Invalid string contents at position 4: t "f<--[HERE]@2
+E Invalid string contents at position 4: t "f<--[HERE]@2
+S -2--2 0 0 
+@ all "fo
+R 0
+A -
+X Invalid string contents at position 5: t "fo<--[HERE]@3
+E Invalid string contents at position 5: t "fo<--[HERE]@3
+S -2--2 0 0 
+@ all "foo
+R 0
+A -
+X Invalid string contents at position 6: t "foo<--[HERE]@4
+E Invalid string contents at position 6: t "foo<--[HERE]@4
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Invalid string contents at position 3: t '<--[HERE]@1
+E Invalid string contents at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ all 'f
+R 0
+A -
+X Invalid string contents at position 4: t 'f<--[HERE]@2
+E Invalid string contents at position 4: t 'f<--[HERE]@2
+S -2--2 0 0 
+@ all 'fo
+R 0
+A -
+X Invalid string contents at position 5: t 'fo<--[HERE]@3
+E Invalid string contents at position 5: t 'fo<--[HERE]@3
+S -2--2 0 0 
+@ all 'foo
+R 0
+A -
+X Invalid string contents at position 6: t 'foo<--[HERE]@4
+E Invalid string contents at position 6: t 'foo<--[HERE]@4
+S -2--2 0 0 
+@ all fo
+R 0
+A -
+X Expected compound tag at position 4: t fo<--[HERE]@2
+E Expected compound tag at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all "a
+R 0
+A -
+X Invalid string contents at position 4: t "a<--[HERE]@2
+E Invalid string contents at position 4: t "a<--[HERE]@2
+S -2--2 0 0 
+@ all "a\\
+R 0
+A -
+X Expected literal b at position 5: t "a\\<--[HERE]@3
+E Expected literal b at position 5: t "a\\<--[HERE]@3
+S -2--2 0 0 
+@ all "a\\"
+R 0
+A -
+X Invalid string contents at position 6: t "a\\"<--[HERE]@4
+E Invalid string contents at position 6: t "a\\"<--[HERE]@4
+S -2--2 0 0 
+@ all "a\\"b
+R 0
+A -
+X Invalid string contents at position 7: t "a\\"b<--[HERE]@5
+E Invalid string contents at position 7: t "a\\"b<--[HERE]@5
+S -2--2 0 0 
+@ all 'a
+R 0
+A -
+X Invalid string contents at position 4: t 'a<--[HERE]@2
+E Invalid string contents at position 4: t 'a<--[HERE]@2
+S -2--2 0 0 
+@ all 'a\\
+R 0
+A -
+X Expected literal b at position 5: t 'a\\<--[HERE]@3
+E Expected literal b at position 5: t 'a\\<--[HERE]@3
+S -2--2 0 0 
+@ all 'a\\'
+R 0
+A -
+X Invalid string contents at position 6: t 'a\\'<--[HERE]@4
+E Invalid string contents at position 6: t 'a\\'<--[HERE]@4
+S -2--2 0 0 
+@ all 'a\\'b
+R 0
+A -
+X Invalid string contents at position 7: t 'a\\'b<--[HERE]@5
+E Invalid string contents at position 7: t 'a\\'b<--[HERE]@5
+S -2--2 0 0 
+@ all "\\
+R 0
+A -
+X Expected literal b at position 4: t "\\<--[HERE]@2
+E Expected literal b at position 4: t "\\<--[HERE]@2
+S -2--2 0 0 
+@ all "\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u0
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00e
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00e9
+R 0
+A -
+X Invalid string contents at position 9: t "\\u00e9<--[HERE]@7
+E Invalid string contents at position 9: t "\\u00e9<--[HERE]@7
+S -2--2 0 0 
+@ all "\\n
+R 0
+A -
+X Invalid string contents at position 5: t "\\n<--[HERE]@3
+E Invalid string contents at position 5: t "\\n<--[HERE]@3
+S -2--2 0 0 
+@ all "\\x
+R 0
+A -
+X Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+E Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+S -2--2 0 0 
+@ all "\\x4
+R 0
+A -
+X Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+E Expected a character literal of length 2 at position 5: t "\\x<--[HERE]@3
+S -2--2 0 0 
+@ all "\\x41
+R 0
+A -
+X Invalid string contents at position 7: t "\\x41<--[HERE]@5
+E Invalid string contents at position 7: t "\\x41<--[HERE]@5
+S -2--2 0 0 
+@ all "\\N
+R 0
+A -
+X Expected literal { at position 5: t "\\N<--[HERE]@3
+E Expected literal { at position 5: t "\\N<--[HERE]@3
+S -2--2 0 0 
+@ all "\\N{
+R 0
+A -
+X Invalid Unicode character name at position 6: t "\\N{<--[HERE]@4
+E Invalid Unicode character name at position 6: t "\\N{<--[HERE]@4
+S -2--2 0 0 
+@ all "\\N{L
+R 0
+A -
+X Expected literal } at position 7: t "\\N{L<--[HERE]@5
+E Expected literal } at position 7: t "\\N{L<--[HERE]@5
+S -2--2 0 0 
+@ all "\\N{LA
+R 0
+A -
+X Expected literal } at position 8: t "\\N{LA<--[HERE]@6
+E Expected literal } at position 8: t "\\N{LA<--[HERE]@6
+S -2--2 0 0 
+@ all "\\N{LAT
+R 0
+A -
+X Expected literal } at position 9: t "\\N{LAT<--[HERE]@7
+E Expected literal } at position 9: t "\\N{LAT<--[HERE]@7
+S -2--2 0 0 
+@ all "\\N{LATI
+R 0
+A -
+X Expected literal } at position 10: t "\\N{LATI<--[HERE]@8
+E Expected literal } at position 10: t "\\N{LATI<--[HERE]@8
+S -2--2 0 0 
+@ all "\\N{LATIN
+R 0
+A -
+X Expected literal } at position 11: ... "\\N{LATIN<--[HERE]@9
+E Expected literal } at position 11: ... "\\N{LATIN<--[HERE]@9
+S -2--2 0 0 
+@ all "\\N{LATIN 
+R 0
+A -
+X Expected literal } at position 12: ..."\\N{LATIN <--[HERE]@10
+E Expected literal } at position 12: ..."\\N{LATIN <--[HERE]@10
+S -2--2 0 0 
+@ all "\\N{LATIN S
+R 0
+A -
+X Expected literal } at position 13: ...\\N{LATIN S<--[HERE]@11
+E Expected literal } at position 13: ...\\N{LATIN S<--[HERE]@11
+S -2--2 0 0 
+@ all "\\N{LATIN SM
+R 0
+A -
+X Expected literal } at position 14: ...N{LATIN SM<--[HERE]@12
+E Expected literal } at position 14: ...N{LATIN SM<--[HERE]@12
+S -2--2 0 0 
+@ all "\\N{LATIN SMA
+R 0
+A -
+X Expected literal } at position 15: ...{LATIN SMA<--[HERE]@13
+E Expected literal } at position 15: ...{LATIN SMA<--[HERE]@13
+S -2--2 0 0 
+@ all "\\N{LATIN SMAL
+R 0
+A -
+X Expected literal } at position 16: ...LATIN SMAL<--[HERE]@14
+E Expected literal } at position 16: ...LATIN SMAL<--[HERE]@14
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL
+R 0
+A -
+X Expected literal } at position 17: ...ATIN SMALL<--[HERE]@15
+E Expected literal } at position 17: ...ATIN SMALL<--[HERE]@15
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL 
+R 0
+A -
+X Expected literal } at position 18: ...TIN SMALL <--[HERE]@16
+E Expected literal } at position 18: ...TIN SMALL <--[HERE]@16
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL L
+R 0
+A -
+X Expected literal } at position 19: ...IN SMALL L<--[HERE]@17
+E Expected literal } at position 19: ...IN SMALL L<--[HERE]@17
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LE
+R 0
+A -
+X Expected literal } at position 20: ...N SMALL LE<--[HERE]@18
+E Expected literal } at position 20: ...N SMALL LE<--[HERE]@18
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LET
+R 0
+A -
+X Expected literal } at position 21: ... SMALL LET<--[HERE]@19
+E Expected literal } at position 21: ... SMALL LET<--[HERE]@19
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETT
+R 0
+A -
+X Expected literal } at position 22: ...SMALL LETT<--[HERE]@20
+E Expected literal } at position 22: ...SMALL LETT<--[HERE]@20
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETTE
+R 0
+A -
+X Expected literal } at position 23: ...MALL LETTE<--[HERE]@21
+E Expected literal } at position 23: ...MALL LETTE<--[HERE]@21
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETTER
+R 0
+A -
+X Expected literal } at position 24: ...ALL LETTER<--[HERE]@22
+E Expected literal } at position 24: ...ALL LETTER<--[HERE]@22
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETTER 
+R 0
+A -
+X Expected literal } at position 25: ...LL LETTER <--[HERE]@23
+E Expected literal } at position 25: ...LL LETTER <--[HERE]@23
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETTER A
+R 0
+A -
+X Expected literal } at position 26: ...L LETTER A<--[HERE]@24
+E Expected literal } at position 26: ...L LETTER A<--[HERE]@24
+S -2--2 0 0 
+@ all "\\N{LATIN SMALL LETTER A}
+R 0
+A -
+X Invalid string contents at position 27: ... LETTER A}<--[HERE]@25
+E Invalid string contents at position 27: ... LETTER A}<--[HERE]@25
+S -2--2 0 0 
+@ all "\\q
+R 0
+A -
+X Expected literal b at position 4: t "\\<--[HERE]@2
+E Expected literal b at position 4: t "\\<--[HERE]@2
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {f
+R 0
+A -
+X Expected literal : at position 4: t {f<--[HERE]@2
+E Expected literal : at position 4: t {f<--[HERE]@2
+S -2--2 0 0 
+@ all {fo
+R 0
+A -
+X Expected literal : at position 5: t {fo<--[HERE]@3
+E Expected literal : at position 5: t {fo<--[HERE]@3
+S -2--2 0 0 
+@ all {foo
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo=
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo=b
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo=ba
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo=bar
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+S -2--2 0 0 
+@ all {foo:b
+R 0
+A -
+X Expected literal ( at position 8: t {foo:b<--[HERE]@6
+E Expected literal ( at position 8: t {foo:b<--[HERE]@6
+S -2--2 0 0 
+@ all {foo:ba
+R 0
+A -
+X Expected literal ( at position 9: t {foo:ba<--[HERE]@7
+E Expected literal ( at position 9: t {foo:ba<--[HERE]@7
+S -2--2 0 0 
+@ all {foo:bar
+R 0
+A -
+X Expected literal ( at position 10: t {foo:bar<--[HERE]@8
+E Expected literal ( at position 10: t {foo:bar<--[HERE]@8
+S -2--2 0 0 
+@ all {foo:1
+R 0
+A -
+X Expected literal . at position 8: t {foo:1<--[HERE]@6
+E Expected literal . at position 8: t {foo:1<--[HERE]@6
+S -2--2 0 0 
+@ all {foo:1b
+R 0
+A -
+X Expected literal , at position 9: t {foo:1b<--[HERE]@7
+E Expected literal , at position 9: t {foo:1b<--[HERE]@7
+S -2--2 0 0 
+@ all {foo:1b,
+R 0
+A -
+X Expected literal " at position 10: t {foo:1b,<--[HERE]@8
+E Expected literal " at position 10: t {foo:1b,<--[HERE]@8
+S -2--2 0 0 
+@ all {foo:1b,b
+R 0
+A -
+X Expected literal : at position 11: ... {foo:1b,b<--[HERE]@9
+E Expected literal : at position 11: ... {foo:1b,b<--[HERE]@9
+S -2--2 0 0 
+@ all {foo:1b,ba
+R 0
+A -
+X Expected literal : at position 12: ...{foo:1b,ba<--[HERE]@10
+E Expected literal : at position 12: ...{foo:1b,ba<--[HERE]@10
+S -2--2 0 0 
+@ all {foo:1b,bar
+R 0
+A -
+X Expected literal : at position 13: ...foo:1b,bar<--[HERE]@11
+E Expected literal : at position 13: ...foo:1b,bar<--[HERE]@11
+S -2--2 0 0 
+@ all {foo:1b,bar:
+R 0
+A -
+X Expected a valid unquoted string at position 14: ...oo:1b,bar:<--[HERE]@12
+E Expected a valid unquoted string at position 14: ...oo:1b,bar:<--[HERE]@12
+S -2--2 0 0 
+@ all {foo:1b,bar:[
+R 0
+A -
+X Expected literal B at position 15: ...o:1b,bar:[<--[HERE]@13
+E Expected literal B at position 15: ...o:1b,bar:[<--[HERE]@13
+S -2--2 0 0 
+@ all {foo:1b,bar:[1
+R 0
+A -
+X Expected literal . at position 16: ...:1b,bar:[1<--[HERE]@14
+E Expected literal . at position 16: ...:1b,bar:[1<--[HERE]@14
+S -2--2 0 0 
+@ all {foo:1b,bar:[1,
+R 0
+A -
+X Expected a valid unquoted string at position 17: ...1b,bar:[1,<--[HERE]@15
+E Expected a valid unquoted string at position 17: ...1b,bar:[1,<--[HERE]@15
+S -2--2 0 0 
+@ all {foo:1b,bar:[1,2
+R 0
+A -
+X Expected literal . at position 18: ...b,bar:[1,2<--[HERE]@16
+E Expected literal . at position 18: ...b,bar:[1,2<--[HERE]@16
+S -2--2 0 0 
+@ all {foo:1b,bar:[1,2]
+R 0
+A -
+X Expected literal , at position 19: ...,bar:[1,2]<--[HERE]@17
+E Expected literal , at position 19: ...,bar:[1,2]<--[HERE]@17
+S -2--2 0 0 
+@ all {"
+R 0
+A -
+X Invalid string contents at position 4: t {"<--[HERE]@2
+E Invalid string contents at position 4: t {"<--[HERE]@2
+S -2--2 0 0 
+@ all {"a
+R 0
+A -
+X Invalid string contents at position 5: t {"a<--[HERE]@3
+E Invalid string contents at position 5: t {"a<--[HERE]@3
+S -2--2 0 0 
+@ all {"a 
+R 0
+A -
+X Invalid string contents at position 6: t {"a <--[HERE]@4
+E Invalid string contents at position 6: t {"a <--[HERE]@4
+S -2--2 0 0 
+@ all {"a b
+R 0
+A -
+X Invalid string contents at position 7: t {"a b<--[HERE]@5
+E Invalid string contents at position 7: t {"a b<--[HERE]@5
+S -2--2 0 0 
+@ all {"a b"
+R 0
+A -
+X Expected literal : at position 8: t {"a b"<--[HERE]@6
+E Expected literal : at position 8: t {"a b"<--[HERE]@6
+S -2--2 0 0 
+@ all {"a b":
+R 0
+A -
+X Expected a valid unquoted string at position 9: t {"a b":<--[HERE]@7
+E Expected a valid unquoted string at position 9: t {"a b":<--[HERE]@7
+S -2--2 0 0 
+@ all {"a b":1
+R 0
+A -
+X Expected literal . at position 10: t {"a b":1<--[HERE]@8
+E Expected literal . at position 10: t {"a b":1<--[HERE]@8
+S -2--2 0 0 
+@ all {a
+R 0
+A -
+X Expected literal : at position 4: t {a<--[HERE]@2
+E Expected literal : at position 4: t {a<--[HERE]@2
+S -2--2 0 0 
+@ all {a:
+R 0
+A -
+X Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+E Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+S -2--2 0 0 
+@ all {a:{
+R 0
+A -
+X Expected literal " at position 6: t {a:{<--[HERE]@4
+E Expected literal " at position 6: t {a:{<--[HERE]@4
+S -2--2 0 0 
+@ all {a:{b
+R 0
+A -
+X Expected literal : at position 7: t {a:{b<--[HERE]@5
+E Expected literal : at position 7: t {a:{b<--[HERE]@5
+S -2--2 0 0 
+@ all {a:{b:
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {a:{b:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {a:{b:<--[HERE]@6
+S -2--2 0 0 
+@ all {a:{b:{
+R 0
+A -
+X Expected literal " at position 9: t {a:{b:{<--[HERE]@7
+E Expected literal " at position 9: t {a:{b:{<--[HERE]@7
+S -2--2 0 0 
+@ all {a:{b:{c
+R 0
+A -
+X Expected literal : at position 10: t {a:{b:{c<--[HERE]@8
+E Expected literal : at position 10: t {a:{b:{c<--[HERE]@8
+S -2--2 0 0 
+@ all {a:{b:{c:
+R 0
+A -
+X Expected a valid unquoted string at position 11: ... {a:{b:{c:<--[HERE]@9
+E Expected a valid unquoted string at position 11: ... {a:{b:{c:<--[HERE]@9
+S -2--2 0 0 
+@ all {a:{b:{c:1
+R 0
+A -
+X Expected literal . at position 12: ...{a:{b:{c:1<--[HERE]@10
+E Expected literal . at position 12: ...{a:{b:{c:1<--[HERE]@10
+S -2--2 0 0 
+@ all {a:{b:{c:1}
+R 0
+A -
+X Expected literal , at position 13: ...a:{b:{c:1}<--[HERE]@11
+E Expected literal , at position 13: ...a:{b:{c:1}<--[HERE]@11
+S -2--2 0 0 
+@ all {a:{b:{c:1}}
+R 0
+A -
+X Expected literal , at position 14: ...:{b:{c:1}}<--[HERE]@12
+E Expected literal , at position 14: ...:{b:{c:1}}<--[HERE]@12
+S -2--2 0 0 
+@ all {a:1,
+R 0
+A -
+X Expected literal " at position 7: t {a:1,<--[HERE]@5
+E Expected literal " at position 7: t {a:1,<--[HERE]@5
+S -2--2 0 0 
+@ all {,
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a:1,a
+R 0
+A -
+X Expected literal : at position 8: t {a:1,a<--[HERE]@6
+E Expected literal : at position 8: t {a:1,a<--[HERE]@6
+S -2--2 0 0 
+@ all {a:1,a:
+R 0
+A -
+X Expected a valid unquoted string at position 9: t {a:1,a:<--[HERE]@7
+E Expected a valid unquoted string at position 9: t {a:1,a:<--[HERE]@7
+S -2--2 0 0 
+@ all {a:1,a:2
+R 0
+A -
+X Expected literal . at position 10: t {a:1,a:2<--[HERE]@8
+E Expected literal . at position 10: t {a:1,a:2<--[HERE]@8
+S -2--2 0 0 
+@ all {:
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {:1
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a 
+R 0
+A -
+X Expected literal : at position 5: t {a <--[HERE]@3
+E Expected literal : at position 5: t {a <--[HERE]@3
+S -2--2 0 0 
+@ all {a 1
+R 0
+A -
+X Expected literal : at position 5: t {a <--[HERE]@3
+E Expected literal : at position 5: t {a <--[HERE]@3
+S -2--2 0 0 
+@ all {a:1 
+R 0
+A -
+X Expected literal . at position 7: t {a:1 <--[HERE]@5
+E Expected literal . at position 7: t {a:1 <--[HERE]@5
+S -2--2 0 0 
+@ all {a:1 b
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S -2--2 0 0 
+@ all {a:1 b:
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S -2--2 0 0 
+@ all {a:1 b:2
+R 0
+A -
+X Expected literal , at position 8: t {a:1 b<--[HERE]@6
+E Expected literal , at position 8: t {a:1 b<--[HERE]@6
+S -2--2 0 0 
+@ all { 
+R 0
+A -
+X Expected literal " at position 4: t { <--[HERE]@2
+E Expected literal " at position 4: t { <--[HERE]@2
+S -2--2 0 0 
+@ all { a
+R 0
+A -
+X Expected literal : at position 5: t { a<--[HERE]@3
+E Expected literal : at position 5: t { a<--[HERE]@3
+S -2--2 0 0 
+@ all { a 
+R 0
+A -
+X Expected literal : at position 6: t { a <--[HERE]@4
+E Expected literal : at position 6: t { a <--[HERE]@4
+S -2--2 0 0 
+@ all { a :
+R 0
+A -
+X Expected a valid unquoted string at position 7: t { a :<--[HERE]@5
+E Expected a valid unquoted string at position 7: t { a :<--[HERE]@5
+S -2--2 0 0 
+@ all { a : 
+R 0
+A -
+X Expected a valid unquoted string at position 8: t { a : <--[HERE]@6
+E Expected a valid unquoted string at position 8: t { a : <--[HERE]@6
+S -2--2 0 0 
+@ all { a : 1
+R 0
+A -
+X Expected literal . at position 9: t { a : 1<--[HERE]@7
+E Expected literal . at position 9: t { a : 1<--[HERE]@7
+S -2--2 0 0 
+@ all { a : 1 
+R 0
+A -
+X Expected literal . at position 10: t { a : 1 <--[HERE]@8
+E Expected literal . at position 10: t { a : 1 <--[HERE]@8
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all [B
+R 0
+A -
+X Expected literal ; at position 4: t [B<--[HERE]@2
+E Expected literal ; at position 4: t [B<--[HERE]@2
+S -2--2 0 0 
+@ all [B;1
+R 0
+A -
+X Expected literal u|U at position 6: t [B;1<--[HERE]@4
+E Expected literal u|U at position 6: t [B;1<--[HERE]@4
+S -2--2 0 0 
+@ all [B;1b
+R 0
+A -
+X Expected literal , at position 7: t [B;1b<--[HERE]@5
+E Expected literal , at position 7: t [B;1b<--[HERE]@5
+S -2--2 0 0 
+@ all [B;1b,
+R 0
+A -
+X Expected literal + at position 8: t [B;1b,<--[HERE]@6
+E Expected literal + at position 8: t [B;1b,<--[HERE]@6
+S -2--2 0 0 
+@ all [B;1b,2
+R 0
+A -
+X Expected literal u|U at position 9: t [B;1b,2<--[HERE]@7
+E Expected literal u|U at position 9: t [B;1b,2<--[HERE]@7
+S -2--2 0 0 
+@ all [B;1b,2b
+R 0
+A -
+X Expected literal , at position 10: t [B;1b,2b<--[HERE]@8
+E Expected literal , at position 10: t [B;1b,2b<--[HERE]@8
+S -2--2 0 0 
+@ all [I
+R 0
+A -
+X Expected literal ; at position 4: t [I<--[HERE]@2
+E Expected literal ; at position 4: t [I<--[HERE]@2
+S -2--2 0 0 
+@ all [I;
+R 0
+A -
+X Expected literal + at position 5: t [I;<--[HERE]@3
+E Expected literal + at position 5: t [I;<--[HERE]@3
+S -2--2 0 0 
+@ all [I;1
+R 0
+A -
+X Expected literal u|U at position 6: t [I;1<--[HERE]@4
+E Expected literal u|U at position 6: t [I;1<--[HERE]@4
+S -2--2 0 0 
+@ all [I;1,
+R 0
+A -
+X Expected literal + at position 7: t [I;1,<--[HERE]@5
+E Expected literal + at position 7: t [I;1,<--[HERE]@5
+S -2--2 0 0 
+@ all [I;1,2
+R 0
+A -
+X Expected literal u|U at position 8: t [I;1,2<--[HERE]@6
+E Expected literal u|U at position 8: t [I;1,2<--[HERE]@6
+S -2--2 0 0 
+@ all [I;1,2,
+R 0
+A -
+X Expected literal + at position 9: t [I;1,2,<--[HERE]@7
+E Expected literal + at position 9: t [I;1,2,<--[HERE]@7
+S -2--2 0 0 
+@ all [I;1,2,3
+R 0
+A -
+X Expected literal u|U at position 10: t [I;1,2,3<--[HERE]@8
+E Expected literal u|U at position 10: t [I;1,2,3<--[HERE]@8
+S -2--2 0 0 
+@ all [L
+R 0
+A -
+X Expected literal ; at position 4: t [L<--[HERE]@2
+E Expected literal ; at position 4: t [L<--[HERE]@2
+S -2--2 0 0 
+@ all [L;
+R 0
+A -
+X Expected literal + at position 5: t [L;<--[HERE]@3
+E Expected literal + at position 5: t [L;<--[HERE]@3
+S -2--2 0 0 
+@ all [L;1
+R 0
+A -
+X Expected literal u|U at position 6: t [L;1<--[HERE]@4
+E Expected literal u|U at position 6: t [L;1<--[HERE]@4
+S -2--2 0 0 
+@ all [L;1l
+R 0
+A -
+X Expected literal , at position 7: t [L;1l<--[HERE]@5
+E Expected literal , at position 7: t [L;1l<--[HERE]@5
+S -2--2 0 0 
+@ all [I;1b
+R 0
+A -
+X Expected literal , at position 7: t [I;1b<--[HERE]@5
+E Expected literal , at position 7: t [I;1b<--[HERE]@5
+S -2--2 0 0 
+@ all [1
+R 0
+A -
+X Expected literal . at position 4: t [1<--[HERE]@2
+E Expected literal . at position 4: t [1<--[HERE]@2
+S -2--2 0 0 
+@ all [1,
+R 0
+A -
+X Expected a valid unquoted string at position 5: t [1,<--[HERE]@3
+E Expected a valid unquoted string at position 5: t [1,<--[HERE]@3
+S -2--2 0 0 
+@ all [1,2
+R 0
+A -
+X Expected literal . at position 6: t [1,2<--[HERE]@4
+E Expected literal . at position 6: t [1,2<--[HERE]@4
+S -2--2 0 0 
+@ all [1,2,
+R 0
+A -
+X Expected a valid unquoted string at position 7: t [1,2,<--[HERE]@5
+E Expected a valid unquoted string at position 7: t [1,2,<--[HERE]@5
+S -2--2 0 0 
+@ all [1,2,3
+R 0
+A -
+X Expected literal . at position 8: t [1,2,3<--[HERE]@6
+E Expected literal . at position 8: t [1,2,3<--[HERE]@6
+S -2--2 0 0 
+@ all [1,"
+R 0
+A -
+X Invalid string contents at position 6: t [1,"<--[HERE]@4
+E Invalid string contents at position 6: t [1,"<--[HERE]@4
+S -2--2 0 0 
+@ all [1,"a
+R 0
+A -
+X Invalid string contents at position 7: t [1,"a<--[HERE]@5
+E Invalid string contents at position 7: t [1,"a<--[HERE]@5
+S -2--2 0 0 
+@ all [1,"a"
+R 0
+A -
+X Expected literal , at position 8: t [1,"a"<--[HERE]@6
+E Expected literal , at position 8: t [1,"a"<--[HERE]@6
+S -2--2 0 0 
+@ all [[
+R 0
+A -
+X Expected literal B at position 4: t [[<--[HERE]@2
+E Expected literal B at position 4: t [[<--[HERE]@2
+S -2--2 0 0 
+@ all [[1
+R 0
+A -
+X Expected literal . at position 5: t [[1<--[HERE]@3
+E Expected literal . at position 5: t [[1<--[HERE]@3
+S -2--2 0 0 
+@ all [[1]
+R 0
+A -
+X Expected literal , at position 6: t [[1]<--[HERE]@4
+E Expected literal , at position 6: t [[1]<--[HERE]@4
+S -2--2 0 0 
+@ all [[1],
+R 0
+A -
+X Expected a valid unquoted string at position 7: t [[1],<--[HERE]@5
+E Expected a valid unquoted string at position 7: t [[1],<--[HERE]@5
+S -2--2 0 0 
+@ all [[1],[
+R 0
+A -
+X Expected literal B at position 8: t [[1],[<--[HERE]@6
+E Expected literal B at position 8: t [[1],[<--[HERE]@6
+S -2--2 0 0 
+@ all [[1],[2
+R 0
+A -
+X Expected literal . at position 9: t [[1],[2<--[HERE]@7
+E Expected literal . at position 9: t [[1],[2<--[HERE]@7
+S -2--2 0 0 
+@ all [[1],[2]
+R 0
+A -
+X Expected literal , at position 10: t [[1],[2]<--[HERE]@8
+E Expected literal , at position 10: t [[1],[2]<--[HERE]@8
+S -2--2 0 0 
+@ all [{
+R 0
+A -
+X Expected literal " at position 4: t [{<--[HERE]@2
+E Expected literal " at position 4: t [{<--[HERE]@2
+S -2--2 0 0 
+@ all [{a
+R 0
+A -
+X Expected literal : at position 5: t [{a<--[HERE]@3
+E Expected literal : at position 5: t [{a<--[HERE]@3
+S -2--2 0 0 
+@ all [{a:
+R 0
+A -
+X Expected a valid unquoted string at position 6: t [{a:<--[HERE]@4
+E Expected a valid unquoted string at position 6: t [{a:<--[HERE]@4
+S -2--2 0 0 
+@ all [{a:1
+R 0
+A -
+X Expected literal . at position 7: t [{a:1<--[HERE]@5
+E Expected literal . at position 7: t [{a:1<--[HERE]@5
+S -2--2 0 0 
+@ all [{a:1}
+R 0
+A -
+X Expected literal , at position 8: t [{a:1}<--[HERE]@6
+E Expected literal , at position 8: t [{a:1}<--[HERE]@6
+S -2--2 0 0 
+@ all [{a:1},
+R 0
+A -
+X Expected a valid unquoted string at position 9: t [{a:1},<--[HERE]@7
+E Expected a valid unquoted string at position 9: t [{a:1},<--[HERE]@7
+S -2--2 0 0 
+@ all [{a:1},{
+R 0
+A -
+X Expected literal " at position 10: t [{a:1},{<--[HERE]@8
+E Expected literal " at position 10: t [{a:1},{<--[HERE]@8
+S -2--2 0 0 
+@ all [{a:1},{b
+R 0
+A -
+X Expected literal : at position 11: ... [{a:1},{b<--[HERE]@9
+E Expected literal : at position 11: ... [{a:1},{b<--[HERE]@9
+S -2--2 0 0 
+@ all [{a:1},{b:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...[{a:1},{b:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...[{a:1},{b:<--[HERE]@10
+S -2--2 0 0 
+@ all [{a:1},{b:2
+R 0
+A -
+X Expected literal . at position 13: ...{a:1},{b:2<--[HERE]@11
+E Expected literal . at position 13: ...{a:1},{b:2<--[HERE]@11
+S -2--2 0 0 
+@ all [{a:1},{b:2}
+R 0
+A -
+X Expected literal , at position 14: ...a:1},{b:2}<--[HERE]@12
+E Expected literal , at position 14: ...a:1},{b:2}<--[HERE]@12
+S -2--2 0 0 
+@ all [,
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all [I;,
+R 0
+A -
+X Expected literal + at position 5: t [I;<--[HERE]@3
+E Expected literal + at position 5: t [I;<--[HERE]@3
+S -2--2 0 0 
+@ all [X
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S -2--2 0 0 
+@ all [X;
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S -2--2 0 0 
+@ all [X;1
+R 0
+A -
+X Expected literal ( at position 4: t [X<--[HERE]@2
+E Expected literal ( at position 4: t [X<--[HERE]@2
+S -2--2 0 0 
+@ all "ab
+R 0
+A -
+X Invalid string contents at position 5: t "ab<--[HERE]@3
+E Invalid string contents at position 5: t "ab<--[HERE]@3
+S -2--2 0 0 
+@ all 'ab
+R 0
+A -
+X Invalid string contents at position 5: t 'ab<--[HERE]@3
+E Invalid string contents at position 5: t 'ab<--[HERE]@3
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Expected a valid unquoted string at position 3: t  <--[HERE]@1
+E Expected a valid unquoted string at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all 1.0
+R 0
+A -
+X Expected compound tag at position 5: t 1.0<--[HERE]@3
+E Expected compound tag at position 5: t 1.0<--[HERE]@3
+S -2--2 0 0 
+@ all I
+R 0
+A -
+X Expected compound tag at position 3: t I<--[HERE]@1
+E Expected compound tag at position 3: t I<--[HERE]@1
+S -2--2 0 0 
+@ all In
+R 0
+A -
+X Expected compound tag at position 4: t In<--[HERE]@2
+E Expected compound tag at position 4: t In<--[HERE]@2
+S -2--2 0 0 
+@ all Inf
+R 0
+A -
+X Expected compound tag at position 5: t Inf<--[HERE]@3
+E Expected compound tag at position 5: t Inf<--[HERE]@3
+S -2--2 0 0 
+@ all Infi
+R 0
+A -
+X Expected compound tag at position 6: t Infi<--[HERE]@4
+E Expected compound tag at position 6: t Infi<--[HERE]@4
+S -2--2 0 0 
+@ all Infin
+R 0
+A -
+X Expected compound tag at position 7: t Infin<--[HERE]@5
+E Expected compound tag at position 7: t Infin<--[HERE]@5
+S -2--2 0 0 
+@ all Infini
+R 0
+A -
+X Expected compound tag at position 8: t Infini<--[HERE]@6
+E Expected compound tag at position 8: t Infini<--[HERE]@6
+S -2--2 0 0 
+@ all Infinit
+R 0
+A -
+X Expected compound tag at position 9: t Infinit<--[HERE]@7
+E Expected compound tag at position 9: t Infinit<--[HERE]@7
+S -2--2 0 0 
+@ all N
+R 0
+A -
+X Expected compound tag at position 3: t N<--[HERE]@1
+E Expected compound tag at position 3: t N<--[HERE]@1
+S -2--2 0 0 
+@ all Na
+R 0
+A -
+X Expected compound tag at position 4: t Na<--[HERE]@2
+E Expected compound tag at position 4: t Na<--[HERE]@2
+S -2--2 0 0 
+@ all -I
+R 0
+A -
+X Expected literal ( at position 4: t -I<--[HERE]@2
+E Expected literal ( at position 4: t -I<--[HERE]@2
+S -2--2 0 0 
+@ all -In
+R 0
+A -
+X Expected literal ( at position 5: t -In<--[HERE]@3
+E Expected literal ( at position 5: t -In<--[HERE]@3
+S -2--2 0 0 
+@ all -Inf
+R 0
+A -
+X Expected literal ( at position 6: t -Inf<--[HERE]@4
+E Expected literal ( at position 6: t -Inf<--[HERE]@4
+S -2--2 0 0 
+@ all -Infi
+R 0
+A -
+X Expected literal ( at position 7: t -Infi<--[HERE]@5
+E Expected literal ( at position 7: t -Infi<--[HERE]@5
+S -2--2 0 0 
+@ all -Infin
+R 0
+A -
+X Expected literal ( at position 8: t -Infin<--[HERE]@6
+E Expected literal ( at position 8: t -Infin<--[HERE]@6
+S -2--2 0 0 
+@ all -Infini
+R 0
+A -
+X Expected literal ( at position 9: t -Infini<--[HERE]@7
+E Expected literal ( at position 9: t -Infini<--[HERE]@7
+S -2--2 0 0 
+@ all -Infinit
+R 0
+A -
+X Expected literal ( at position 10: t -Infinit<--[HERE]@8
+E Expected literal ( at position 10: t -Infinit<--[HERE]@8
+S -2--2 0 0 
+@ all 1e4
+R 0
+A -
+X Expected compound tag at position 5: t 1e4<--[HERE]@3
+E Expected compound tag at position 5: t 1e4<--[HERE]@3
+S -2--2 0 0 
+@ all 1e40
+R 0
+A -
+X Expected compound tag at position 6: t 1e40<--[HERE]@4
+E Expected compound tag at position 6: t 1e40<--[HERE]@4
+S -2--2 0 0 
+@ all 1e-
+R 0
+A -
+X Expected compound tag at position 3: t 1<--[HERE]@1
+E Expected compound tag at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1e-4
+R 0
+A -
+X Expected compound tag at position 6: t 1e-4<--[HERE]@4
+E Expected compound tag at position 6: t 1e-4<--[HERE]@4
+S -2--2 0 0 
+@ all 1e-40
+R 0
+A -
+X Expected compound tag at position 7: t 1e-40<--[HERE]@5
+E Expected compound tag at position 7: t 1e-40<--[HERE]@5
+S -2--2 0 0 
+@ all 9
+R 0
+A -
+X Expected compound tag at position 3: t 9<--[HERE]@1
+E Expected compound tag at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all 99
+R 0
+A -
+X Expected compound tag at position 4: t 99<--[HERE]@2
+E Expected compound tag at position 4: t 99<--[HERE]@2
+S -2--2 0 0 
+@ all 999
+R 0
+A -
+X Expected compound tag at position 5: t 999<--[HERE]@3
+E Expected compound tag at position 5: t 999<--[HERE]@3
+S -2--2 0 0 
+@ all 9999
+R 0
+A -
+X Expected compound tag at position 6: t 9999<--[HERE]@4
+E Expected compound tag at position 6: t 9999<--[HERE]@4
+S -2--2 0 0 
+@ all 99999
+R 0
+A -
+X Expected compound tag at position 7: t 99999<--[HERE]@5
+E Expected compound tag at position 7: t 99999<--[HERE]@5
+S -2--2 0 0 
+@ all 999999
+R 0
+A -
+X Expected compound tag at position 8: t 999999<--[HERE]@6
+E Expected compound tag at position 8: t 999999<--[HERE]@6
+S -2--2 0 0 
+@ all 9999999
+R 0
+A -
+X Expected compound tag at position 9: t 9999999<--[HERE]@7
+E Expected compound tag at position 9: t 9999999<--[HERE]@7
+S -2--2 0 0 
+@ all 99999999
+R 0
+A -
+X Expected compound tag at position 10: t 99999999<--[HERE]@8
+E Expected compound tag at position 10: t 99999999<--[HERE]@8
+S -2--2 0 0 
+@ all 999999999
+R 0
+A -
+X Expected compound tag at position 11: ... 999999999<--[HERE]@9
+E Expected compound tag at position 11: ... 999999999<--[HERE]@9
+S -2--2 0 0 
+@ all 9999999999
+R 0
+A -
+X Expected literal . at position 12: ...9999999999<--[HERE]@10
+E Expected literal . at position 12: ...9999999999<--[HERE]@10
+S -2--2 0 0 
+@ all 92
+R 0
+A -
+X Expected compound tag at position 4: t 92<--[HERE]@2
+E Expected compound tag at position 4: t 92<--[HERE]@2
+S -2--2 0 0 
+@ all 922
+R 0
+A -
+X Expected compound tag at position 5: t 922<--[HERE]@3
+E Expected compound tag at position 5: t 922<--[HERE]@3
+S -2--2 0 0 
+@ all 9223
+R 0
+A -
+X Expected compound tag at position 6: t 9223<--[HERE]@4
+E Expected compound tag at position 6: t 9223<--[HERE]@4
+S -2--2 0 0 
+@ all 92233
+R 0
+A -
+X Expected compound tag at position 7: t 92233<--[HERE]@5
+E Expected compound tag at position 7: t 92233<--[HERE]@5
+S -2--2 0 0 
+@ all 922337
+R 0
+A -
+X Expected compound tag at position 8: t 922337<--[HERE]@6
+E Expected compound tag at position 8: t 922337<--[HERE]@6
+S -2--2 0 0 
+@ all 9223372
+R 0
+A -
+X Expected compound tag at position 9: t 9223372<--[HERE]@7
+E Expected compound tag at position 9: t 9223372<--[HERE]@7
+S -2--2 0 0 
+@ all 92233720
+R 0
+A -
+X Expected compound tag at position 10: t 92233720<--[HERE]@8
+E Expected compound tag at position 10: t 92233720<--[HERE]@8
+S -2--2 0 0 
+@ all 922337203
+R 0
+A -
+X Expected compound tag at position 11: ... 922337203<--[HERE]@9
+E Expected compound tag at position 11: ... 922337203<--[HERE]@9
+S -2--2 0 0 
+@ all 9223372036
+R 0
+A -
+X Expected literal . at position 12: ...9223372036<--[HERE]@10
+E Expected literal . at position 12: ...9223372036<--[HERE]@10
+S -2--2 0 0 
+@ all 92233720368
+R 0
+A -
+X Expected literal . at position 13: ...2233720368<--[HERE]@11
+E Expected literal . at position 13: ...2233720368<--[HERE]@11
+S -2--2 0 0 
+@ all 922337203685
+R 0
+A -
+X Expected literal . at position 14: ...2337203685<--[HERE]@12
+E Expected literal . at position 14: ...2337203685<--[HERE]@12
+S -2--2 0 0 
+@ all 9223372036854
+R 0
+A -
+X Expected literal . at position 15: ...3372036854<--[HERE]@13
+E Expected literal . at position 15: ...3372036854<--[HERE]@13
+S -2--2 0 0 
+@ all 92233720368547
+R 0
+A -
+X Expected literal . at position 16: ...3720368547<--[HERE]@14
+E Expected literal . at position 16: ...3720368547<--[HERE]@14
+S -2--2 0 0 
+@ all 922337203685477
+R 0
+A -
+X Expected literal . at position 17: ...7203685477<--[HERE]@15
+E Expected literal . at position 17: ...7203685477<--[HERE]@15
+S -2--2 0 0 
+@ all 9223372036854775
+R 0
+A -
+X Expected literal . at position 18: ...2036854775<--[HERE]@16
+E Expected literal . at position 18: ...2036854775<--[HERE]@16
+S -2--2 0 0 
+@ all 92233720368547758
+R 0
+A -
+X Expected literal . at position 19: ...0368547758<--[HERE]@17
+E Expected literal . at position 19: ...0368547758<--[HERE]@17
+S -2--2 0 0 
+@ all 922337203685477580
+R 0
+A -
+X Expected literal . at position 20: ...3685477580<--[HERE]@18
+E Expected literal . at position 20: ...3685477580<--[HERE]@18
+S -2--2 0 0 
+@ all 9223372036854775807
+R 0
+A -
+X Expected literal . at position 21: ...6854775807<--[HERE]@19
+E Expected literal . at position 21: ...6854775807<--[HERE]@19
+S -2--2 0 0 
+@ all 9223372036854775808
+R 0
+A -
+X Expected literal . at position 21: ...6854775808<--[HERE]@19
+E Expected literal . at position 21: ...6854775808<--[HERE]@19
+S -2--2 0 0 
+@ all -0.
+R 0
+A -
+X Expected compound tag at position 5: t -0.<--[HERE]@3
+E Expected compound tag at position 5: t -0.<--[HERE]@3
+S -2--2 0 0 
+@ all 0.1
+R 0
+A -
+X Expected compound tag at position 5: t 0.1<--[HERE]@3
+E Expected compound tag at position 5: t 0.1<--[HERE]@3
+S -2--2 0 0 
+@ all 3
+R 0
+A -
+X Expected compound tag at position 3: t 3<--[HERE]@1
+E Expected compound tag at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all 32
+R 0
+A -
+X Expected compound tag at position 4: t 32<--[HERE]@2
+E Expected compound tag at position 4: t 32<--[HERE]@2
+S -2--2 0 0 
+@ all 327
+R 0
+A -
+X Expected compound tag at position 5: t 327<--[HERE]@3
+E Expected compound tag at position 5: t 327<--[HERE]@3
+S -2--2 0 0 
+@ all 3276
+R 0
+A -
+X Expected compound tag at position 6: t 3276<--[HERE]@4
+E Expected compound tag at position 6: t 3276<--[HERE]@4
+S -2--2 0 0 
+@ all 32768
+R 0
+A -
+X Expected compound tag at position 7: t 32768<--[HERE]@5
+E Expected compound tag at position 7: t 32768<--[HERE]@5
+S -2--2 0 0 
+@ all {a:"
+R 0
+A -
+X Invalid string contents at position 6: t {a:"<--[HERE]@4
+E Invalid string contents at position 6: t {a:"<--[HERE]@4
+S -2--2 0 0 
+@ all {a:"\\
+R 0
+A -
+X Expected literal b at position 7: t {a:"\\<--[HERE]@5
+E Expected literal b at position 7: t {a:"\\<--[HERE]@5
+S -2--2 0 0 
+@ all {a:"\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud8
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud83
+R 0
+A -
+X Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+E Expected a character literal of length 4 at position 8: t {a:"\\u<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"\\ud83d
+R 0
+A -
+X Invalid string contents at position 12: ...{a:"\\ud83d<--[HERE]@10
+E Invalid string contents at position 12: ...{a:"\\ud83d<--[HERE]@10
+S -2--2 0 0 
+@ all {a:"\\ud83d\\
+R 0
+A -
+X Expected literal b at position 13: ...a:"\\ud83d\\<--[HERE]@11
+E Expected literal b at position 13: ...a:"\\ud83d\\<--[HERE]@11
+S -2--2 0 0 
+@ all {a:"\\ud83d\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ud
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude0
+R 0
+A -
+X Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+E Expected a character literal of length 4 at position 14: ...:"\\ud83d\\u<--[HERE]@12
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude00
+R 0
+A -
+X Invalid string contents at position 18: ...d83d\\ude00<--[HERE]@16
+E Invalid string contents at position 18: ...d83d\\ude00<--[HERE]@16
+S -2--2 0 0 
+@ all {a:"\\ud83d\\ude00"
+R 0
+A -
+X Expected literal , at position 19: ...83d\\ude00"<--[HERE]@17
+E Expected literal , at position 19: ...83d\\ude00"<--[HERE]@17
+S -2--2 0 0 
+@ all [;
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all I;
+R 0
+A -
+X Expected compound tag at position 3: t I<--[HERE]@1
+E Expected compound tag at position 3: t I<--[HERE]@1
+S -2--2 0 0 
+@ all {a:[
+R 0
+A -
+X Expected literal B at position 6: t {a:[<--[HERE]@4
+E Expected literal B at position 6: t {a:[<--[HERE]@4
+S -2--2 0 0 
+@ all {a:[B
+R 0
+A -
+X Expected literal ; at position 7: t {a:[B<--[HERE]@5
+E Expected literal ; at position 7: t {a:[B<--[HERE]@5
+S -2--2 0 0 
+@ all {a:[B;
+R 0
+A -
+X Expected literal + at position 8: t {a:[B;<--[HERE]@6
+E Expected literal + at position 8: t {a:[B;<--[HERE]@6
+S -2--2 0 0 
+@ all {a:[B;1
+R 0
+A -
+X Expected literal u|U at position 9: t {a:[B;1<--[HERE]@7
+E Expected literal u|U at position 9: t {a:[B;1<--[HERE]@7
+S -2--2 0 0 
+@ all {a:[B;1b
+R 0
+A -
+X Expected literal , at position 10: t {a:[B;1b<--[HERE]@8
+E Expected literal , at position 10: t {a:[B;1b<--[HERE]@8
+S -2--2 0 0 
+@ all {a:[B;1b,
+R 0
+A -
+X Expected literal + at position 11: ... {a:[B;1b,<--[HERE]@9
+E Expected literal + at position 11: ... {a:[B;1b,<--[HERE]@9
+S -2--2 0 0 
+@ all {a:[B;1b,2
+R 0
+A -
+X Expected literal u|U at position 12: ...{a:[B;1b,2<--[HERE]@10
+E Expected literal u|U at position 12: ...{a:[B;1b,2<--[HERE]@10
+S -2--2 0 0 
+@ all {a:[B;1b,2b
+R 0
+A -
+X Expected literal , at position 13: ...a:[B;1b,2b<--[HERE]@11
+E Expected literal , at position 13: ...a:[B;1b,2b<--[HERE]@11
+S -2--2 0 0 
+@ all {a:[B;1b,2b,
+R 0
+A -
+X Expected literal + at position 14: ...:[B;1b,2b,<--[HERE]@12
+E Expected literal + at position 14: ...:[B;1b,2b,<--[HERE]@12
+S -2--2 0 0 
+@ all {a:[B;1b,2b,3
+R 0
+A -
+X Expected literal u|U at position 15: ...[B;1b,2b,3<--[HERE]@13
+E Expected literal u|U at position 15: ...[B;1b,2b,3<--[HERE]@13
+S -2--2 0 0 
+@ all {a:[B;1b,2b,3b
+R 0
+A -
+X Expected literal , at position 16: ...B;1b,2b,3b<--[HERE]@14
+E Expected literal , at position 16: ...B;1b,2b,3b<--[HERE]@14
+S -2--2 0 0 
+@ all {a:[B;1b,2b,3b]
+R 0
+A -
+X Expected literal , at position 17: ...;1b,2b,3b]<--[HERE]@15
+E Expected literal , at position 17: ...;1b,2b,3b]<--[HERE]@15
+S -2--2 0 0 
+@ all {a:[I
+R 0
+A -
+X Expected literal ; at position 7: t {a:[I<--[HERE]@5
+E Expected literal ; at position 7: t {a:[I<--[HERE]@5
+S -2--2 0 0 
+@ all {a:[I;
+R 0
+A -
+X Expected literal + at position 8: t {a:[I;<--[HERE]@6
+E Expected literal + at position 8: t {a:[I;<--[HERE]@6
+S -2--2 0 0 
+@ all {a:[I;1
+R 0
+A -
+X Expected literal u|U at position 9: t {a:[I;1<--[HERE]@7
+E Expected literal u|U at position 9: t {a:[I;1<--[HERE]@7
+S -2--2 0 0 
+@ all {a:[I;1,
+R 0
+A -
+X Expected literal + at position 10: t {a:[I;1,<--[HERE]@8
+E Expected literal + at position 10: t {a:[I;1,<--[HERE]@8
+S -2--2 0 0 
+@ all {a:[I;1,2
+R 0
+A -
+X Expected literal u|U at position 11: ... {a:[I;1,2<--[HERE]@9
+E Expected literal u|U at position 11: ... {a:[I;1,2<--[HERE]@9
+S -2--2 0 0 
+@ all {a:[I;1,2]
+R 0
+A -
+X Expected literal , at position 12: ...{a:[I;1,2]<--[HERE]@10
+E Expected literal , at position 12: ...{a:[I;1,2]<--[HERE]@10
+S -2--2 0 0 
+@ all {a:[I;1,2],
+R 0
+A -
+X Expected literal " at position 13: ...a:[I;1,2],<--[HERE]@11
+E Expected literal " at position 13: ...a:[I;1,2],<--[HERE]@11
+S -2--2 0 0 
+@ all {a:[I;1,2],b
+R 0
+A -
+X Expected literal : at position 14: ...:[I;1,2],b<--[HERE]@12
+E Expected literal : at position 14: ...:[I;1,2],b<--[HERE]@12
+S -2--2 0 0 
+@ all {a:[I;1,2],b:
+R 0
+A -
+X Expected a valid unquoted string at position 15: ...[I;1,2],b:<--[HERE]@13
+E Expected a valid unquoted string at position 15: ...[I;1,2],b:<--[HERE]@13
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[
+R 0
+A -
+X Expected literal B at position 16: ...I;1,2],b:[<--[HERE]@14
+E Expected literal B at position 16: ...I;1,2],b:[<--[HERE]@14
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L
+R 0
+A -
+X Expected literal ; at position 17: ...;1,2],b:[L<--[HERE]@15
+E Expected literal ; at position 17: ...;1,2],b:[L<--[HERE]@15
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;
+R 0
+A -
+X Expected literal + at position 18: ...1,2],b:[L;<--[HERE]@16
+E Expected literal + at position 18: ...1,2],b:[L;<--[HERE]@16
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1
+R 0
+A -
+X Expected literal u|U at position 19: ...,2],b:[L;1<--[HERE]@17
+E Expected literal u|U at position 19: ...,2],b:[L;1<--[HERE]@17
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1l
+R 0
+A -
+X Expected literal , at position 20: ...2],b:[L;1l<--[HERE]@18
+E Expected literal , at position 20: ...2],b:[L;1l<--[HERE]@18
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1l,
+R 0
+A -
+X Expected literal + at position 21: ...],b:[L;1l,<--[HERE]@19
+E Expected literal + at position 21: ...],b:[L;1l,<--[HERE]@19
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1l,2
+R 0
+A -
+X Expected literal u|U at position 22: ...,b:[L;1l,2<--[HERE]@20
+E Expected literal u|U at position 22: ...,b:[L;1l,2<--[HERE]@20
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1l,2l
+R 0
+A -
+X Expected literal , at position 23: ...b:[L;1l,2l<--[HERE]@21
+E Expected literal , at position 23: ...b:[L;1l,2l<--[HERE]@21
+S -2--2 0 0 
+@ all {a:[I;1,2],b:[L;1l,2l]
+R 0
+A -
+X Expected literal , at position 24: ...:[L;1l,2l]<--[HERE]@22
+E Expected literal , at position 24: ...:[L;1l,2l]<--[HERE]@22
+S -2--2 0 0 
+@ all {a:t
+R 0
+A -
+X Expected literal ( at position 6: t {a:t<--[HERE]@4
+E Expected literal ( at position 6: t {a:t<--[HERE]@4
+S -2--2 0 0 
+@ all {a:tr
+R 0
+A -
+X Expected literal ( at position 7: t {a:tr<--[HERE]@5
+E Expected literal ( at position 7: t {a:tr<--[HERE]@5
+S -2--2 0 0 
+@ all {a:tru
+R 0
+A -
+X Expected literal ( at position 8: t {a:tru<--[HERE]@6
+E Expected literal ( at position 8: t {a:tru<--[HERE]@6
+S -2--2 0 0 
+@ all {a:true
+R 0
+A -
+X Expected literal ( at position 9: t {a:true<--[HERE]@7
+E Expected literal ( at position 9: t {a:true<--[HERE]@7
+S -2--2 0 0 
+@ all {a:true,
+R 0
+A -
+X Expected literal " at position 10: t {a:true,<--[HERE]@8
+E Expected literal " at position 10: t {a:true,<--[HERE]@8
+S -2--2 0 0 
+@ all {a:true,b
+R 0
+A -
+X Expected literal : at position 11: ... {a:true,b<--[HERE]@9
+E Expected literal : at position 11: ... {a:true,b<--[HERE]@9
+S -2--2 0 0 
+@ all {a:true,b:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...{a:true,b:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...{a:true,b:<--[HERE]@10
+S -2--2 0 0 
+@ all {a:true,b:f
+R 0
+A -
+X Expected literal ( at position 13: ...a:true,b:f<--[HERE]@11
+E Expected literal ( at position 13: ...a:true,b:f<--[HERE]@11
+S -2--2 0 0 
+@ all {a:true,b:fa
+R 0
+A -
+X Expected literal ( at position 14: ...:true,b:fa<--[HERE]@12
+E Expected literal ( at position 14: ...:true,b:fa<--[HERE]@12
+S -2--2 0 0 
+@ all {a:true,b:fal
+R 0
+A -
+X Expected literal ( at position 15: ...true,b:fal<--[HERE]@13
+E Expected literal ( at position 15: ...true,b:fal<--[HERE]@13
+S -2--2 0 0 
+@ all {a:true,b:fals
+R 0
+A -
+X Expected literal ( at position 16: ...rue,b:fals<--[HERE]@14
+E Expected literal ( at position 16: ...rue,b:fals<--[HERE]@14
+S -2--2 0 0 
+@ all {a:true,b:false
+R 0
+A -
+X Expected literal ( at position 17: ...ue,b:false<--[HERE]@15
+E Expected literal ( at position 17: ...ue,b:false<--[HERE]@15
+S -2--2 0 0 
+@ all {a:1.
+R 0
+A -
+X Expected a decimal number at position 7: t {a:1.<--[HERE]@5
+E Expected a decimal number at position 7: t {a:1.<--[HERE]@5
+S -2--2 0 0 
+@ all {a:1.5
+R 0
+A -
+X Expected literal e|E at position 8: t {a:1.5<--[HERE]@6
+E Expected literal e|E at position 8: t {a:1.5<--[HERE]@6
+S -2--2 0 0 
+@ all {a:1.5f
+R 0
+A -
+X Expected literal , at position 9: t {a:1.5f<--[HERE]@7
+E Expected literal , at position 9: t {a:1.5f<--[HERE]@7
+S -2--2 0 0 
+@ all {a:1.5f,
+R 0
+A -
+X Expected literal " at position 10: t {a:1.5f,<--[HERE]@8
+E Expected literal " at position 10: t {a:1.5f,<--[HERE]@8
+S -2--2 0 0 
+@ all {a:1.5f,b
+R 0
+A -
+X Expected literal : at position 11: ... {a:1.5f,b<--[HERE]@9
+E Expected literal : at position 11: ... {a:1.5f,b<--[HERE]@9
+S -2--2 0 0 
+@ all {a:1.5f,b:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...{a:1.5f,b:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...{a:1.5f,b:<--[HERE]@10
+S -2--2 0 0 
+@ all {a:1.5f,b:2
+R 0
+A -
+X Expected literal . at position 13: ...a:1.5f,b:2<--[HERE]@11
+E Expected literal . at position 13: ...a:1.5f,b:2<--[HERE]@11
+S -2--2 0 0 
+@ all {a:1.5f,b:2.
+R 0
+A -
+X Expected a decimal number at position 14: ...:1.5f,b:2.<--[HERE]@12
+E Expected a decimal number at position 14: ...:1.5f,b:2.<--[HERE]@12
+S -2--2 0 0 
+@ all {a:1.5f,b:2.5
+R 0
+A -
+X Expected literal e|E at position 15: ...1.5f,b:2.5<--[HERE]@13
+E Expected literal e|E at position 15: ...1.5f,b:2.5<--[HERE]@13
+S -2--2 0 0 
+@ all {a:1.5f,b:2.5d
+R 0
+A -
+X Expected literal , at position 16: ....5f,b:2.5d<--[HERE]@14
+E Expected literal , at position 16: ....5f,b:2.5d<--[HERE]@14
+S -2--2 0 0 
+@ all {a:"x
+R 0
+A -
+X Invalid string contents at position 7: t {a:"x<--[HERE]@5
+E Invalid string contents at position 7: t {a:"x<--[HERE]@5
+S -2--2 0 0 
+@ all {a:"x"
+R 0
+A -
+X Expected literal , at position 8: t {a:"x"<--[HERE]@6
+E Expected literal , at position 8: t {a:"x"<--[HERE]@6
+S -2--2 0 0 
+@ all {a:"x",
+R 0
+A -
+X Expected literal " at position 9: t {a:"x",<--[HERE]@7
+E Expected literal " at position 9: t {a:"x",<--[HERE]@7
+S -2--2 0 0 
+@ all {a:"x",b
+R 0
+A -
+X Expected literal : at position 10: t {a:"x",b<--[HERE]@8
+E Expected literal : at position 10: t {a:"x",b<--[HERE]@8
+S -2--2 0 0 
+@ all {a:"x",b:
+R 0
+A -
+X Expected a valid unquoted string at position 11: ... {a:"x",b:<--[HERE]@9
+E Expected a valid unquoted string at position 11: ... {a:"x",b:<--[HERE]@9
+S -2--2 0 0 
+@ all {a:"x",b:'
+R 0
+A -
+X Invalid string contents at position 12: ...{a:"x",b:'<--[HERE]@10
+E Invalid string contents at position 12: ...{a:"x",b:'<--[HERE]@10
+S -2--2 0 0 
+@ all {a:"x",b:'y
+R 0
+A -
+X Invalid string contents at position 13: ...a:"x",b:'y<--[HERE]@11
+E Invalid string contents at position 13: ...a:"x",b:'y<--[HERE]@11
+S -2--2 0 0 
+@ all {a:"x",b:'y'
+R 0
+A -
+X Expected literal , at position 14: ...:"x",b:'y'<--[HERE]@12
+E Expected literal , at position 14: ...:"x",b:'y'<--[HERE]@12
+S -2--2 0 0 
+@ all {a:{}
+R 0
+A -
+X Expected literal , at position 7: t {a:{}<--[HERE]@5
+E Expected literal , at position 7: t {a:{}<--[HERE]@5
+S -2--2 0 0 
+@ all {a:[]
+R 0
+A -
+X Expected literal , at position 7: t {a:[]<--[HERE]@5
+E Expected literal , at position 7: t {a:[]<--[HERE]@5
+S -2--2 0 0 
+@ all [[]
+R 0
+A -
+X Expected literal , at position 5: t [[]<--[HERE]@3
+E Expected literal , at position 5: t [[]<--[HERE]@3
+S -2--2 0 0 
+@ all [{}
+R 0
+A -
+X Expected literal , at position 5: t [{}<--[HERE]@3
+E Expected literal , at position 5: t [{}<--[HERE]@3
+S -2--2 0 0 
+@ all {1
+R 0
+A -
+X Expected literal : at position 4: t {1<--[HERE]@2
+E Expected literal : at position 4: t {1<--[HERE]@2
+S -2--2 0 0 
+@ all {1:
+R 0
+A -
+X Expected a valid unquoted string at position 5: t {1:<--[HERE]@3
+E Expected a valid unquoted string at position 5: t {1:<--[HERE]@3
+S -2--2 0 0 
+@ all {1:2
+R 0
+A -
+X Expected literal . at position 6: t {1:2<--[HERE]@4
+E Expected literal . at position 6: t {1:2<--[HERE]@4
+S -2--2 0 0 
+@ all {1.
+R 0
+A -
+X Expected literal : at position 5: t {1.<--[HERE]@3
+E Expected literal : at position 5: t {1.<--[HERE]@3
+S -2--2 0 0 
+@ all {1.5
+R 0
+A -
+X Expected literal : at position 6: t {1.5<--[HERE]@4
+E Expected literal : at position 6: t {1.5<--[HERE]@4
+S -2--2 0 0 
+@ all {1.5:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {1.5:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {1.5:<--[HERE]@5
+S -2--2 0 0 
+@ all {1.5:2
+R 0
+A -
+X Expected literal . at position 8: t {1.5:2<--[HERE]@6
+E Expected literal . at position 8: t {1.5:2<--[HERE]@6
+S -2--2 0 0 
+@ all {t
+R 0
+A -
+X Expected literal : at position 4: t {t<--[HERE]@2
+E Expected literal : at position 4: t {t<--[HERE]@2
+S -2--2 0 0 
+@ all {tr
+R 0
+A -
+X Expected literal : at position 5: t {tr<--[HERE]@3
+E Expected literal : at position 5: t {tr<--[HERE]@3
+S -2--2 0 0 
+@ all {tru
+R 0
+A -
+X Expected literal : at position 6: t {tru<--[HERE]@4
+E Expected literal : at position 6: t {tru<--[HERE]@4
+S -2--2 0 0 
+@ all {true
+R 0
+A -
+X Expected literal : at position 7: t {true<--[HERE]@5
+E Expected literal : at position 7: t {true<--[HERE]@5
+S -2--2 0 0 
+@ all {true:
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {true:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {true:<--[HERE]@6
+S -2--2 0 0 
+@ all {true:1
+R 0
+A -
+X Expected literal . at position 9: t {true:1<--[HERE]@7
+E Expected literal . at position 9: t {true:1<--[HERE]@7
+S -2--2 0 0 
+@ all {a.
+R 0
+A -
+X Expected literal : at position 5: t {a.<--[HERE]@3
+E Expected literal : at position 5: t {a.<--[HERE]@3
+S -2--2 0 0 
+@ all {a.b
+R 0
+A -
+X Expected literal : at position 6: t {a.b<--[HERE]@4
+E Expected literal : at position 6: t {a.b<--[HERE]@4
+S -2--2 0 0 
+@ all {a.b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a.b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a.b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a.b:1
+R 0
+A -
+X Expected literal . at position 8: t {a.b:1<--[HERE]@6
+E Expected literal . at position 8: t {a.b:1<--[HERE]@6
+S -2--2 0 0 
+@ all {a-
+R 0
+A -
+X Expected literal : at position 5: t {a-<--[HERE]@3
+E Expected literal : at position 5: t {a-<--[HERE]@3
+S -2--2 0 0 
+@ all {a-b
+R 0
+A -
+X Expected literal : at position 6: t {a-b<--[HERE]@4
+E Expected literal : at position 6: t {a-b<--[HERE]@4
+S -2--2 0 0 
+@ all {a-b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a-b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a-b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a-b:1
+R 0
+A -
+X Expected literal . at position 8: t {a-b:1<--[HERE]@6
+E Expected literal . at position 8: t {a-b:1<--[HERE]@6
+S -2--2 0 0 
+@ all {a+
+R 0
+A -
+X Expected literal : at position 5: t {a+<--[HERE]@3
+E Expected literal : at position 5: t {a+<--[HERE]@3
+S -2--2 0 0 
+@ all {a+b
+R 0
+A -
+X Expected literal : at position 6: t {a+b<--[HERE]@4
+E Expected literal : at position 6: t {a+b<--[HERE]@4
+S -2--2 0 0 
+@ all {a+b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a+b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a+b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a+b:1
+R 0
+A -
+X Expected literal . at position 8: t {a+b:1<--[HERE]@6
+E Expected literal . at position 8: t {a+b:1<--[HERE]@6
+S -2--2 0 0 
+@ all {a_
+R 0
+A -
+X Expected literal : at position 5: t {a_<--[HERE]@3
+E Expected literal : at position 5: t {a_<--[HERE]@3
+S -2--2 0 0 
+@ all {a_b
+R 0
+A -
+X Expected literal : at position 6: t {a_b<--[HERE]@4
+E Expected literal : at position 6: t {a_b<--[HERE]@4
+S -2--2 0 0 
+@ all {a_b:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {a_b:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {a_b:<--[HERE]@5
+S -2--2 0 0 
+@ all {a_b:1
+R 0
+A -
+X Expected literal . at position 8: t {a_b:1<--[HERE]@6
+E Expected literal . at position 8: t {a_b:1<--[HERE]@6
+S -2--2 0 0 

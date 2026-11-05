@@ -47,6 +47,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 public class ArgsGolden {
+   static Src currentSrc;
    static RegistryAccess.Frozen access;
    static CommandBuildContext ctx;
    static final String[] TEAMS = {"red", "blue", "Team Name!", "sp ace", "\u00e9quipe"};
@@ -54,6 +55,7 @@ public class ArgsGolden {
    /** A server without anything running: only the scoreboard, the registries and the (empty) player list answer. */
    static final class FakePlayerList extends net.minecraft.server.dedicated.DedicatedPlayerList {
       FakePlayerList() { super(null, null, null); }
+      @Override public net.minecraft.server.level.ServerPlayer getPlayerByName(String name) { return null; }
       @Override public void broadcastAll(net.minecraft.network.protocol.Packet<?> packet) {}
       @Override public void broadcastAll(net.minecraft.network.protocol.Packet<?> packet, ResourceKey<Level> dimension) {}
    }
@@ -71,6 +73,7 @@ public class ArgsGolden {
       @Override public net.minecraft.server.dedicated.DedicatedPlayerList getPlayerList() { return players; }
       @Override public String[] getPlayerNames() { return new String[0]; }
       @Override public Set<ResourceKey<Level>> levelKeys() { return Set.of(); }
+      @Override public Iterable<net.minecraft.server.level.ServerLevel> getAllLevels() { return List.of(); }
       @Override public RegistryAccess.Frozen registryAccess() { return access; }
    }
 
@@ -130,6 +133,7 @@ public class ArgsGolden {
       List<String> variants = List.of("all");
       int target = 320;
       boolean prefixes = true;
+      com.mojang.brigadier.suggestion.SuggestionProvider<net.minecraft.commands.CommandSourceStack> suggests;
       Spec(String name, java.util.function.Supplier<ArgumentType<?>> type, String... seeds) {
          this.name = name;
          this.type = type;
@@ -138,6 +142,7 @@ public class ArgsGolden {
       Spec render(Function<Object, String> r) { render = r; return this; }
       Spec variants(String... v) { variants = List.of(v); return this; }
       Spec target(int t) { target = t; return this; }
+      Spec suggests(com.mojang.brigadier.suggestion.SuggestionProvider<net.minecraft.commands.CommandSourceStack> p) { suggests = p; return this; }
       Spec noPrefixes() { prefixes = false; return this; }
    }
 
@@ -234,8 +239,9 @@ public class ArgsGolden {
 
    static void run(Spec spec, Path dir) throws Exception {
       CommandDispatcher<net.minecraft.commands.CommandSourceStack> d = new CommandDispatcher<>();
-      d.register(LiteralArgumentBuilder.<net.minecraft.commands.CommandSourceStack>literal("t")
-         .then(RequiredArgumentBuilder.<net.minecraft.commands.CommandSourceStack, Object>argument("a", (ArgumentType<Object>) spec.type.get()).executes(c -> 1)));
+      var argument = RequiredArgumentBuilder.<net.minecraft.commands.CommandSourceStack, Object>argument("a", (ArgumentType<Object>) spec.type.get()).executes(c -> 1);
+      if (spec.suggests != null) argument.suggests(spec.suggests);
+      d.register(LiteralArgumentBuilder.<net.minecraft.commands.CommandSourceStack>literal("t").then(argument));
       List<String> inputs = corpus(spec);
       Path out = dir.resolve(spec.name + "_golden.txt");
       try (PrintWriter w = new PrintWriter(Files.newBufferedWriter(out, StandardCharsets.UTF_8))) {
@@ -243,6 +249,7 @@ public class ArgsGolden {
             FakeServer server = fakeServer();
             populate(server.getScoreboard());
             Src src = new Src(variant.equals("none") ? PermissionSet.NO_PERMISSIONS : PermissionSet.ALL_PERMISSIONS, server);
+            currentSrc = src;
             for (String input : inputs) {
                String cmd = "t " + input;
                w.println("@ " + variant + " " + esc(input));

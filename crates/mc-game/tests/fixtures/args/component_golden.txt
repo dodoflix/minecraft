@@ -1,0 +1,3915 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all "hello world"
+R 13
+A 0-13 "hello world"
+E ok
+S -2--2 0 0 
+@ all 'hello world'
+R 13
+A 0-13 "hello world"
+E ok
+S -2--2 0 0 
+@ all ""
+R 2
+A 0-2 ""
+E ok
+S -2--2 0 0 
+@ all {text:"hello world"}
+R 20
+A 0-20 "hello world"
+E ok
+S -2--2 0 0 
+@ all [""]
+R 4
+A 0-4 ""
+E ok
+S -2--2 0 0 
+@ all {text:"a",bold:true}
+R 20
+A 0-20 {"bold":true,"text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",color:"red"}
+R 22
+A 0-22 {"color":"red","text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",color:"#ff0000"}
+R 26
+A 0-26 {"color":"#FF0000","text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",color:"nope"}
+R 0
+A -
+X Invalid chat component: Invalid color name: nope at position 2: t <--[HERE]@0
+E Invalid chat component: Invalid color name: nope at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {translate:"chat.type.text"}
+R 28
+A 0-28 {"translate":"chat.type.text"}
+E ok
+S -2--2 0 0 
+@ all {translate:"a",with:[1,"b"]}
+R 28
+A 0-28 {"translate":"a","with":[1,"b"]}
+E ok
+S -2--2 0 0 
+@ all {score:{name:"@s",objective:"a"}}
+R 33
+A 0-33 {"score":{"name":"@s","objective":"a"}}
+E ok
+S -2--2 0 0 
+@ all {selector:"@a"}
+R 15
+A 0-15 {"selector":"@a"}
+E ok
+S -2--2 0 0 
+@ all {keybind:"key.jump"}
+R 20
+A 0-20 {"keybind":"key.jump"}
+E ok
+S -2--2 0 0 
+@ all {nbt:"a",entity:"@s"}
+R 21
+A 0-21 {"entity":"@s","nbt":"a"}
+E ok
+S -2--2 0 0 
+@ all {nbt:"a",block:"1 2 3"}
+R 23
+A 0-23 {"block":"1 2 3","nbt":"a"}
+E ok
+S -2--2 0 0 
+@ all {nbt:"a",storage:"a:b"}
+R 23
+A 0-23 {"nbt":"a","storage":"a:b"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",extra:["b",{text:"c"}]}
+R 33
+A 0-33 {"extra":["b","c"],"text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscated:true}
+R 74
+A 0-74 {"italic":false,"obfuscated":true,"strikethrough":true,"text":"a","underlined":true}
+E ok
+S -2--2 0 0 
+@ all {text:"a",font:"minecraft:uniform"}
+R 35
+A 0-35 {"font":"minecraft:uniform","text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",click_event:{action:"open_url",url:"https://a.b"}}
+R 60
+A 0-60 {"click_event":{"action":"open_url","url":"https://a.b"},"text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",hover_event:{action:"show_text",value:"x"}}
+R 53
+A 0-53 {"hover_event":{"action":"show_text","value":"x"},"text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",insertion:"x"}
+R 24
+A 0-24 {"insertion":"x","text":"a"}
+E ok
+S -2--2 0 0 
+@ all {text:"a",shadow_color:-1}
+R 26
+A 0-26 {"shadow_color":-1,"text":"a"}
+E ok
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1; Second: Not a map: 1 at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1; Second: Not a map: 1 at position 2: t <--[HERE]@0
+S 1-1 17 -169696625 .	b	B	d	D	e	E	f	F	i	I	l	L	S	s	U	u
+@ all 1.5
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1.5d; Second: Not a map: 1.5d at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1.5d; Second: Not a map: 1.5d at position 2: t <--[HERE]@0
+S 3-3 6 -1514971912 d	D	e	E	f	F
+@ all true
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1b; Second: Not a map: 1b at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1b; Second: Not a map: 1b at position 2: t <--[HERE]@0
+S 4-4 1 1249 (
+@ all []
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: List must have contents; Second: Not a map: [] at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: List must have contents; Second: Not a map: [] at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all [1,2]
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 2; Second: Not a map: 2; Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1; Second: Not a map: 1; List must have contents; Second: Not a map: [1,2] at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 2; Second: Not a map: 2; Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1; Second: Not a map: 1; List must have contents; Second: Not a map: [1,2] at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ["a","b"]
+R 9
+A 0-9 {"extra":["b"],"text":"a"}
+E ok
+S -2--2 0 0 
+@ all {}
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {}; Second: No matching codec found at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {}; Second: No matching codec found at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {foo:1}
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {foo:1}; Second: No matching codec found at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {foo:1}; Second: No matching codec found at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {text:1}
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {text:1}; Second: No matching codec found at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {text:1}; Second: No matching codec found at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {text:}
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {text:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {text:<--[HERE]@6
+S -2--2 0 0 
+@ all {text:"a"
+R 0
+A -
+X Expected literal , at position 11: ... {text:"a"<--[HERE]@9
+E Expected literal , at position 11: ... {text:"a"<--[HERE]@9
+S 9-9 2 1323337 ,	}
+@ all ["a"
+R 0
+A -
+X Expected literal , at position 6: t ["a"<--[HERE]@4
+E Expected literal , at position 6: t ["a"<--[HERE]@4
+S 4-4 2 1322345 ,	]
+@ all "a
+R 0
+A -
+X Invalid string contents at position 4: t "a<--[HERE]@2
+E Invalid string contents at position 4: t "a<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all abc
+R 3
+A 0-3 "abc"
+E ok
+S 3-3 1 1249 (
+@ all {text:"a",bold:"x"}
+R 0
+A -
+X Invalid chat component: Not a number at position 2: t <--[HERE]@0
+E Invalid chat component: Not a number at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {type:"text",text:"a"}
+R 22
+A 0-22 "a"
+E ok
+S -2--2 0 0 
+@ all {type:"translatable",translate:"a"}
+R 35
+A 0-35 {"translate":"a"}
+E ok
+S -2--2 0 0 
+@ all {type:"nope"}
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {type:"nope"}; Second: Unknown element id: nope at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {type:"nope"}; Second: Unknown element id: nope at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {text:"a",color:"dark_red"}
+R 27
+A 0-27 {"color":"dark_red","text":"a"}
+E ok
+S -2--2 0 0 
+@ all {object:"atlas",sprite:"a"}
+R 27
+A 0-27 {"sprite":"minecraft:a"}
+E ok
+S -2--2 0 0 
+@ all {object:"player",player:{name:"a"}}
+R 35
+A 0-35 {"player":{"name":"a"}}
+E ok
+S -2--2 0 0 
+@ all {text:"\\u00e9"}
+R 15
+A 0-15 "é"
+E ok
+S -2--2 0 0 
+@ all {text:"\\ud83d\\ude00"}
+R 21
+A 0-21 "😀"
+E ok
+S -2--2 0 0 
+@ all "\\u00a7a"
+R 9
+A 0-9 "§a"
+E ok
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Invalid string contents at position 3: t "<--[HERE]@1
+E Invalid string contents at position 3: t "<--[HERE]@1
+S 1-1 3 404393152 "	'	\\
+@ all "h
+R 0
+A -
+X Invalid string contents at position 4: t "h<--[HERE]@2
+E Invalid string contents at position 4: t "h<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all "he
+R 0
+A -
+X Invalid string contents at position 5: t "he<--[HERE]@3
+E Invalid string contents at position 5: t "he<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all "hel
+R 0
+A -
+X Invalid string contents at position 6: t "hel<--[HERE]@4
+E Invalid string contents at position 6: t "hel<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all "hell
+R 0
+A -
+X Invalid string contents at position 7: t "hell<--[HERE]@5
+E Invalid string contents at position 7: t "hell<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all "hello
+R 0
+A -
+X Invalid string contents at position 8: t "hello<--[HERE]@6
+E Invalid string contents at position 8: t "hello<--[HERE]@6
+S 6-6 3 404393152 "	'	\\
+@ all "hello 
+R 0
+A -
+X Invalid string contents at position 9: t "hello <--[HERE]@7
+E Invalid string contents at position 9: t "hello <--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all "hello w
+R 0
+A -
+X Invalid string contents at position 10: t "hello w<--[HERE]@8
+E Invalid string contents at position 10: t "hello w<--[HERE]@8
+S 8-8 3 404393152 "	'	\\
+@ all "hello wo
+R 0
+A -
+X Invalid string contents at position 11: ... "hello wo<--[HERE]@9
+E Invalid string contents at position 11: ... "hello wo<--[HERE]@9
+S 9-9 3 404393152 "	'	\\
+@ all "hello wor
+R 0
+A -
+X Invalid string contents at position 12: ..."hello wor<--[HERE]@10
+E Invalid string contents at position 12: ..."hello wor<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all "hello worl
+R 0
+A -
+X Invalid string contents at position 13: ...hello worl<--[HERE]@11
+E Invalid string contents at position 13: ...hello worl<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all "hello world
+R 0
+A -
+X Invalid string contents at position 14: ...ello world<--[HERE]@12
+E Invalid string contents at position 14: ...ello world<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all '
+R 0
+A -
+X Invalid string contents at position 3: t '<--[HERE]@1
+E Invalid string contents at position 3: t '<--[HERE]@1
+S 1-1 3 404393152 "	'	\\
+@ all 'h
+R 0
+A -
+X Invalid string contents at position 4: t 'h<--[HERE]@2
+E Invalid string contents at position 4: t 'h<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all 'he
+R 0
+A -
+X Invalid string contents at position 5: t 'he<--[HERE]@3
+E Invalid string contents at position 5: t 'he<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all 'hel
+R 0
+A -
+X Invalid string contents at position 6: t 'hel<--[HERE]@4
+E Invalid string contents at position 6: t 'hel<--[HERE]@4
+S 4-4 3 404393152 "	'	\\
+@ all 'hell
+R 0
+A -
+X Invalid string contents at position 7: t 'hell<--[HERE]@5
+E Invalid string contents at position 7: t 'hell<--[HERE]@5
+S 5-5 3 404393152 "	'	\\
+@ all 'hello
+R 0
+A -
+X Invalid string contents at position 8: t 'hello<--[HERE]@6
+E Invalid string contents at position 8: t 'hello<--[HERE]@6
+S 6-6 3 404393152 "	'	\\
+@ all 'hello 
+R 0
+A -
+X Invalid string contents at position 9: t 'hello <--[HERE]@7
+E Invalid string contents at position 9: t 'hello <--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all 'hello w
+R 0
+A -
+X Invalid string contents at position 10: t 'hello w<--[HERE]@8
+E Invalid string contents at position 10: t 'hello w<--[HERE]@8
+S 8-8 3 404393152 "	'	\\
+@ all 'hello wo
+R 0
+A -
+X Invalid string contents at position 11: ... 'hello wo<--[HERE]@9
+E Invalid string contents at position 11: ... 'hello wo<--[HERE]@9
+S 9-9 3 404393152 "	'	\\
+@ all 'hello wor
+R 0
+A -
+X Invalid string contents at position 12: ...'hello wor<--[HERE]@10
+E Invalid string contents at position 12: ...'hello wor<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all 'hello worl
+R 0
+A -
+X Invalid string contents at position 13: ...hello worl<--[HERE]@11
+E Invalid string contents at position 13: ...hello worl<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all 'hello world
+R 0
+A -
+X Invalid string contents at position 14: ...ello world<--[HERE]@12
+E Invalid string contents at position 14: ...ello world<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S 1-1 3 982877205 "	'	}
+@ all {t
+R 0
+A -
+X Expected literal : at position 4: t {t<--[HERE]@2
+E Expected literal : at position 4: t {t<--[HERE]@2
+S 2-2 1 1807 :
+@ all {te
+R 0
+A -
+X Expected literal : at position 5: t {te<--[HERE]@3
+E Expected literal : at position 5: t {te<--[HERE]@3
+S 3-3 1 1807 :
+@ all {tex
+R 0
+A -
+X Expected literal : at position 6: t {tex<--[HERE]@4
+E Expected literal : at position 6: t {tex<--[HERE]@4
+S 4-4 1 1807 :
+@ all {text
+R 0
+A -
+X Expected literal : at position 7: t {text<--[HERE]@5
+E Expected literal : at position 7: t {text<--[HERE]@5
+S 5-5 1 1807 :
+@ all {text:
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {text:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {text:<--[HERE]@6
+S -2--2 0 0 
+@ all {text:"
+R 0
+A -
+X Invalid string contents at position 9: t {text:"<--[HERE]@7
+E Invalid string contents at position 9: t {text:"<--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all {text:"h
+R 0
+A -
+X Invalid string contents at position 10: t {text:"h<--[HERE]@8
+E Invalid string contents at position 10: t {text:"h<--[HERE]@8
+S 8-8 3 404393152 "	'	\\
+@ all {text:"he
+R 0
+A -
+X Invalid string contents at position 11: ... {text:"he<--[HERE]@9
+E Invalid string contents at position 11: ... {text:"he<--[HERE]@9
+S 9-9 3 404393152 "	'	\\
+@ all {text:"hel
+R 0
+A -
+X Invalid string contents at position 12: ...{text:"hel<--[HERE]@10
+E Invalid string contents at position 12: ...{text:"hel<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {text:"hell
+R 0
+A -
+X Invalid string contents at position 13: ...text:"hell<--[HERE]@11
+E Invalid string contents at position 13: ...text:"hell<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {text:"hello
+R 0
+A -
+X Invalid string contents at position 14: ...ext:"hello<--[HERE]@12
+E Invalid string contents at position 14: ...ext:"hello<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {text:"hello 
+R 0
+A -
+X Invalid string contents at position 15: ...xt:"hello <--[HERE]@13
+E Invalid string contents at position 15: ...xt:"hello <--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {text:"hello w
+R 0
+A -
+X Invalid string contents at position 16: ...t:"hello w<--[HERE]@14
+E Invalid string contents at position 16: ...t:"hello w<--[HERE]@14
+S 14-14 3 404393152 "	'	\\
+@ all {text:"hello wo
+R 0
+A -
+X Invalid string contents at position 17: ...:"hello wo<--[HERE]@15
+E Invalid string contents at position 17: ...:"hello wo<--[HERE]@15
+S 15-15 3 404393152 "	'	\\
+@ all {text:"hello wor
+R 0
+A -
+X Invalid string contents at position 18: ..."hello wor<--[HERE]@16
+E Invalid string contents at position 18: ..."hello wor<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {text:"hello worl
+R 0
+A -
+X Invalid string contents at position 19: ...hello worl<--[HERE]@17
+E Invalid string contents at position 19: ...hello worl<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {text:"hello world
+R 0
+A -
+X Invalid string contents at position 20: ...ello world<--[HERE]@18
+E Invalid string contents at position 20: ...ello world<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {text:"hello world"
+R 0
+A -
+X Expected literal , at position 21: ...llo world"<--[HERE]@19
+E Expected literal , at position 21: ...llo world"<--[HERE]@19
+S 19-19 2 1323337 ,	}
+@ all [
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S 1-1 4 170223856 ]	B	I	L
+@ all ["
+R 0
+A -
+X Invalid string contents at position 4: t ["<--[HERE]@2
+E Invalid string contents at position 4: t ["<--[HERE]@2
+S 2-2 3 404393152 "	'	\\
+@ all [""
+R 0
+A -
+X Expected literal , at position 5: t [""<--[HERE]@3
+E Expected literal , at position 5: t [""<--[HERE]@3
+S 3-3 2 1322345 ,	]
+@ all {text:"a
+R 0
+A -
+X Invalid string contents at position 10: t {text:"a<--[HERE]@8
+E Invalid string contents at position 10: t {text:"a<--[HERE]@8
+S 8-8 3 404393152 "	'	\\
+@ all {text:"a",
+R 0
+A -
+X Expected literal " at position 12: ...{text:"a",<--[HERE]@10
+E Expected literal " at position 12: ...{text:"a",<--[HERE]@10
+S 10-10 3 982877205 "	'	}
+@ all {text:"a",b
+R 0
+A -
+X Expected literal : at position 13: ...text:"a",b<--[HERE]@11
+E Expected literal : at position 13: ...text:"a",b<--[HERE]@11
+S 11-11 1 1807 :
+@ all {text:"a",bo
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",bo<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",bo<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",bol
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",bol<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",bol<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",bold
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",bold<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",bold<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",bold:
+R 0
+A -
+X Expected a valid unquoted string at position 17: ...:"a",bold:<--[HERE]@15
+E Expected a valid unquoted string at position 17: ...:"a",bold:<--[HERE]@15
+S -2--2 0 0 
+@ all {text:"a",bold:t
+R 0
+A -
+X Expected literal ( at position 18: ..."a",bold:t<--[HERE]@16
+E Expected literal ( at position 18: ..."a",bold:t<--[HERE]@16
+S 16-16 3 1154801066 (	,	}
+@ all {text:"a",bold:tr
+R 0
+A -
+X Expected literal ( at position 19: ...a",bold:tr<--[HERE]@17
+E Expected literal ( at position 19: ...a",bold:tr<--[HERE]@17
+S 17-17 3 1154801066 (	,	}
+@ all {text:"a",bold:tru
+R 0
+A -
+X Expected literal ( at position 20: ...",bold:tru<--[HERE]@18
+E Expected literal ( at position 20: ...",bold:tru<--[HERE]@18
+S 18-18 3 1154801066 (	,	}
+@ all {text:"a",bold:true
+R 0
+A -
+X Expected literal ( at position 21: ...,bold:true<--[HERE]@19
+E Expected literal ( at position 21: ...,bold:true<--[HERE]@19
+S 19-19 3 1154801066 (	,	}
+@ all {text:"a",c
+R 0
+A -
+X Expected literal : at position 13: ...text:"a",c<--[HERE]@11
+E Expected literal : at position 13: ...text:"a",c<--[HERE]@11
+S 11-11 1 1807 :
+@ all {text:"a",co
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",co<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",co<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",col
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",col<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",col<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",colo
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",colo<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",colo<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",color
+R 0
+A -
+X Expected literal : at position 17: ...:"a",color<--[HERE]@15
+E Expected literal : at position 17: ...:"a",color<--[HERE]@15
+S 15-15 1 1807 :
+@ all {text:"a",color:
+R 0
+A -
+X Expected a valid unquoted string at position 18: ..."a",color:<--[HERE]@16
+E Expected a valid unquoted string at position 18: ..."a",color:<--[HERE]@16
+S -2--2 0 0 
+@ all {text:"a",color:"
+R 0
+A -
+X Invalid string contents at position 19: ...a",color:"<--[HERE]@17
+E Invalid string contents at position 19: ...a",color:"<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {text:"a",color:"r
+R 0
+A -
+X Invalid string contents at position 20: ...",color:"r<--[HERE]@18
+E Invalid string contents at position 20: ...",color:"r<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {text:"a",color:"re
+R 0
+A -
+X Invalid string contents at position 21: ...,color:"re<--[HERE]@19
+E Invalid string contents at position 21: ...,color:"re<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {text:"a",color:"red
+R 0
+A -
+X Invalid string contents at position 22: ...color:"red<--[HERE]@20
+E Invalid string contents at position 22: ...color:"red<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {text:"a",color:"red"
+R 0
+A -
+X Expected literal , at position 23: ...olor:"red"<--[HERE]@21
+E Expected literal , at position 23: ...olor:"red"<--[HERE]@21
+S 21-21 2 1323337 ,	}
+@ all {text:"a",color:"#
+R 0
+A -
+X Invalid string contents at position 20: ...",color:"#<--[HERE]@18
+E Invalid string contents at position 20: ...",color:"#<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {text:"a",color:"#f
+R 0
+A -
+X Invalid string contents at position 21: ...,color:"#f<--[HERE]@19
+E Invalid string contents at position 21: ...,color:"#f<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {text:"a",color:"#ff
+R 0
+A -
+X Invalid string contents at position 22: ...color:"#ff<--[HERE]@20
+E Invalid string contents at position 22: ...color:"#ff<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {text:"a",color:"#ff0
+R 0
+A -
+X Invalid string contents at position 23: ...olor:"#ff0<--[HERE]@21
+E Invalid string contents at position 23: ...olor:"#ff0<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {text:"a",color:"#ff00
+R 0
+A -
+X Invalid string contents at position 24: ...lor:"#ff00<--[HERE]@22
+E Invalid string contents at position 24: ...lor:"#ff00<--[HERE]@22
+S 22-22 3 404393152 "	'	\\
+@ all {text:"a",color:"#ff000
+R 0
+A -
+X Invalid string contents at position 25: ...or:"#ff000<--[HERE]@23
+E Invalid string contents at position 25: ...or:"#ff000<--[HERE]@23
+S 23-23 3 404393152 "	'	\\
+@ all {text:"a",color:"#ff0000
+R 0
+A -
+X Invalid string contents at position 26: ...r:"#ff0000<--[HERE]@24
+E Invalid string contents at position 26: ...r:"#ff0000<--[HERE]@24
+S 24-24 3 404393152 "	'	\\
+@ all {text:"a",color:"#ff0000"
+R 0
+A -
+X Expected literal , at position 27: ...:"#ff0000"<--[HERE]@25
+E Expected literal , at position 27: ...:"#ff0000"<--[HERE]@25
+S 25-25 2 1323337 ,	}
+@ all {text:"a",color:"n
+R 0
+A -
+X Invalid string contents at position 20: ...",color:"n<--[HERE]@18
+E Invalid string contents at position 20: ...",color:"n<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {text:"a",color:"no
+R 0
+A -
+X Invalid string contents at position 21: ...,color:"no<--[HERE]@19
+E Invalid string contents at position 21: ...,color:"no<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {text:"a",color:"nop
+R 0
+A -
+X Invalid string contents at position 22: ...color:"nop<--[HERE]@20
+E Invalid string contents at position 22: ...color:"nop<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {text:"a",color:"nope
+R 0
+A -
+X Invalid string contents at position 23: ...olor:"nope<--[HERE]@21
+E Invalid string contents at position 23: ...olor:"nope<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {text:"a",color:"nope"
+R 0
+A -
+X Expected literal , at position 24: ...lor:"nope"<--[HERE]@22
+E Expected literal , at position 24: ...lor:"nope"<--[HERE]@22
+S 22-22 2 1323337 ,	}
+@ all {tr
+R 0
+A -
+X Expected literal : at position 5: t {tr<--[HERE]@3
+E Expected literal : at position 5: t {tr<--[HERE]@3
+S 3-3 1 1807 :
+@ all {tra
+R 0
+A -
+X Expected literal : at position 6: t {tra<--[HERE]@4
+E Expected literal : at position 6: t {tra<--[HERE]@4
+S 4-4 1 1807 :
+@ all {tran
+R 0
+A -
+X Expected literal : at position 7: t {tran<--[HERE]@5
+E Expected literal : at position 7: t {tran<--[HERE]@5
+S 5-5 1 1807 :
+@ all {trans
+R 0
+A -
+X Expected literal : at position 8: t {trans<--[HERE]@6
+E Expected literal : at position 8: t {trans<--[HERE]@6
+S 6-6 1 1807 :
+@ all {transl
+R 0
+A -
+X Expected literal : at position 9: t {transl<--[HERE]@7
+E Expected literal : at position 9: t {transl<--[HERE]@7
+S 7-7 1 1807 :
+@ all {transla
+R 0
+A -
+X Expected literal : at position 10: t {transla<--[HERE]@8
+E Expected literal : at position 10: t {transla<--[HERE]@8
+S 8-8 1 1807 :
+@ all {translat
+R 0
+A -
+X Expected literal : at position 11: ... {translat<--[HERE]@9
+E Expected literal : at position 11: ... {translat<--[HERE]@9
+S 9-9 1 1807 :
+@ all {translate
+R 0
+A -
+X Expected literal : at position 12: ...{translate<--[HERE]@10
+E Expected literal : at position 12: ...{translate<--[HERE]@10
+S 10-10 1 1807 :
+@ all {translate:
+R 0
+A -
+X Expected a valid unquoted string at position 13: ...translate:<--[HERE]@11
+E Expected a valid unquoted string at position 13: ...translate:<--[HERE]@11
+S -2--2 0 0 
+@ all {translate:"
+R 0
+A -
+X Invalid string contents at position 14: ...ranslate:"<--[HERE]@12
+E Invalid string contents at position 14: ...ranslate:"<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {translate:"c
+R 0
+A -
+X Invalid string contents at position 15: ...anslate:"c<--[HERE]@13
+E Invalid string contents at position 15: ...anslate:"c<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {translate:"ch
+R 0
+A -
+X Invalid string contents at position 16: ...nslate:"ch<--[HERE]@14
+E Invalid string contents at position 16: ...nslate:"ch<--[HERE]@14
+S 14-14 3 404393152 "	'	\\
+@ all {translate:"cha
+R 0
+A -
+X Invalid string contents at position 17: ...slate:"cha<--[HERE]@15
+E Invalid string contents at position 17: ...slate:"cha<--[HERE]@15
+S 15-15 3 404393152 "	'	\\
+@ all {translate:"chat
+R 0
+A -
+X Invalid string contents at position 18: ...late:"chat<--[HERE]@16
+E Invalid string contents at position 18: ...late:"chat<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {translate:"chat.
+R 0
+A -
+X Invalid string contents at position 19: ...ate:"chat.<--[HERE]@17
+E Invalid string contents at position 19: ...ate:"chat.<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {translate:"chat.t
+R 0
+A -
+X Invalid string contents at position 20: ...te:"chat.t<--[HERE]@18
+E Invalid string contents at position 20: ...te:"chat.t<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {translate:"chat.ty
+R 0
+A -
+X Invalid string contents at position 21: ...e:"chat.ty<--[HERE]@19
+E Invalid string contents at position 21: ...e:"chat.ty<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {translate:"chat.typ
+R 0
+A -
+X Invalid string contents at position 22: ...:"chat.typ<--[HERE]@20
+E Invalid string contents at position 22: ...:"chat.typ<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {translate:"chat.type
+R 0
+A -
+X Invalid string contents at position 23: ..."chat.type<--[HERE]@21
+E Invalid string contents at position 23: ..."chat.type<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {translate:"chat.type.
+R 0
+A -
+X Invalid string contents at position 24: ...chat.type.<--[HERE]@22
+E Invalid string contents at position 24: ...chat.type.<--[HERE]@22
+S 22-22 3 404393152 "	'	\\
+@ all {translate:"chat.type.t
+R 0
+A -
+X Invalid string contents at position 25: ...hat.type.t<--[HERE]@23
+E Invalid string contents at position 25: ...hat.type.t<--[HERE]@23
+S 23-23 3 404393152 "	'	\\
+@ all {translate:"chat.type.te
+R 0
+A -
+X Invalid string contents at position 26: ...at.type.te<--[HERE]@24
+E Invalid string contents at position 26: ...at.type.te<--[HERE]@24
+S 24-24 3 404393152 "	'	\\
+@ all {translate:"chat.type.tex
+R 0
+A -
+X Invalid string contents at position 27: ...t.type.tex<--[HERE]@25
+E Invalid string contents at position 27: ...t.type.tex<--[HERE]@25
+S 25-25 3 404393152 "	'	\\
+@ all {translate:"chat.type.text
+R 0
+A -
+X Invalid string contents at position 28: ....type.text<--[HERE]@26
+E Invalid string contents at position 28: ....type.text<--[HERE]@26
+S 26-26 3 404393152 "	'	\\
+@ all {translate:"chat.type.text"
+R 0
+A -
+X Expected literal , at position 29: ...type.text"<--[HERE]@27
+E Expected literal , at position 29: ...type.text"<--[HERE]@27
+S 27-27 2 1323337 ,	}
+@ all {translate:"a
+R 0
+A -
+X Invalid string contents at position 15: ...anslate:"a<--[HERE]@13
+E Invalid string contents at position 15: ...anslate:"a<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {translate:"a"
+R 0
+A -
+X Expected literal , at position 16: ...nslate:"a"<--[HERE]@14
+E Expected literal , at position 16: ...nslate:"a"<--[HERE]@14
+S 14-14 2 1323337 ,	}
+@ all {translate:"a",
+R 0
+A -
+X Expected literal " at position 17: ...slate:"a",<--[HERE]@15
+E Expected literal " at position 17: ...slate:"a",<--[HERE]@15
+S 15-15 3 982877205 "	'	}
+@ all {translate:"a",w
+R 0
+A -
+X Expected literal : at position 18: ...late:"a",w<--[HERE]@16
+E Expected literal : at position 18: ...late:"a",w<--[HERE]@16
+S 16-16 1 1807 :
+@ all {translate:"a",wi
+R 0
+A -
+X Expected literal : at position 19: ...ate:"a",wi<--[HERE]@17
+E Expected literal : at position 19: ...ate:"a",wi<--[HERE]@17
+S 17-17 1 1807 :
+@ all {translate:"a",wit
+R 0
+A -
+X Expected literal : at position 20: ...te:"a",wit<--[HERE]@18
+E Expected literal : at position 20: ...te:"a",wit<--[HERE]@18
+S 18-18 1 1807 :
+@ all {translate:"a",with
+R 0
+A -
+X Expected literal : at position 21: ...e:"a",with<--[HERE]@19
+E Expected literal : at position 21: ...e:"a",with<--[HERE]@19
+S 19-19 1 1807 :
+@ all {translate:"a",with:
+R 0
+A -
+X Expected a valid unquoted string at position 22: ...:"a",with:<--[HERE]@20
+E Expected a valid unquoted string at position 22: ...:"a",with:<--[HERE]@20
+S -2--2 0 0 
+@ all {translate:"a",with:[
+R 0
+A -
+X Expected literal B at position 23: ..."a",with:[<--[HERE]@21
+E Expected literal B at position 23: ..."a",with:[<--[HERE]@21
+S 21-21 4 170223856 ]	B	I	L
+@ all {translate:"a",with:[1
+R 0
+A -
+X Expected literal . at position 24: ...a",with:[1<--[HERE]@22
+E Expected literal . at position 24: ...a",with:[1<--[HERE]@22
+S 22-22 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all {translate:"a",with:[1,
+R 0
+A -
+X Expected a valid unquoted string at position 25: ...",with:[1,<--[HERE]@23
+E Expected a valid unquoted string at position 25: ...",with:[1,<--[HERE]@23
+S 23-23 1 2892 ]
+@ all {translate:"a",with:[1,"
+R 0
+A -
+X Invalid string contents at position 26: ...,with:[1,"<--[HERE]@24
+E Invalid string contents at position 26: ...,with:[1,"<--[HERE]@24
+S 24-24 3 404393152 "	'	\\
+@ all {translate:"a",with:[1,"b
+R 0
+A -
+X Invalid string contents at position 27: ...with:[1,"b<--[HERE]@25
+E Invalid string contents at position 27: ...with:[1,"b<--[HERE]@25
+S 25-25 3 404393152 "	'	\\
+@ all {translate:"a",with:[1,"b"
+R 0
+A -
+X Expected literal , at position 28: ...ith:[1,"b"<--[HERE]@26
+E Expected literal , at position 28: ...ith:[1,"b"<--[HERE]@26
+S 26-26 2 1322345 ,	]
+@ all {translate:"a",with:[1,"b"]
+R 0
+A -
+X Expected literal , at position 29: ...th:[1,"b"]<--[HERE]@27
+E Expected literal , at position 29: ...th:[1,"b"]<--[HERE]@27
+S 27-27 2 1323337 ,	}
+@ all {s
+R 0
+A -
+X Expected literal : at position 4: t {s<--[HERE]@2
+E Expected literal : at position 4: t {s<--[HERE]@2
+S 2-2 1 1807 :
+@ all {sc
+R 0
+A -
+X Expected literal : at position 5: t {sc<--[HERE]@3
+E Expected literal : at position 5: t {sc<--[HERE]@3
+S 3-3 1 1807 :
+@ all {sco
+R 0
+A -
+X Expected literal : at position 6: t {sco<--[HERE]@4
+E Expected literal : at position 6: t {sco<--[HERE]@4
+S 4-4 1 1807 :
+@ all {scor
+R 0
+A -
+X Expected literal : at position 7: t {scor<--[HERE]@5
+E Expected literal : at position 7: t {scor<--[HERE]@5
+S 5-5 1 1807 :
+@ all {score
+R 0
+A -
+X Expected literal : at position 8: t {score<--[HERE]@6
+E Expected literal : at position 8: t {score<--[HERE]@6
+S 6-6 1 1807 :
+@ all {score:
+R 0
+A -
+X Expected a valid unquoted string at position 9: t {score:<--[HERE]@7
+E Expected a valid unquoted string at position 9: t {score:<--[HERE]@7
+S -2--2 0 0 
+@ all {score:{
+R 0
+A -
+X Expected literal " at position 10: t {score:{<--[HERE]@8
+E Expected literal " at position 10: t {score:{<--[HERE]@8
+S 8-8 3 982877205 "	'	}
+@ all {score:{n
+R 0
+A -
+X Expected literal : at position 11: ... {score:{n<--[HERE]@9
+E Expected literal : at position 11: ... {score:{n<--[HERE]@9
+S 9-9 1 1807 :
+@ all {score:{na
+R 0
+A -
+X Expected literal : at position 12: ...{score:{na<--[HERE]@10
+E Expected literal : at position 12: ...{score:{na<--[HERE]@10
+S 10-10 1 1807 :
+@ all {score:{nam
+R 0
+A -
+X Expected literal : at position 13: ...score:{nam<--[HERE]@11
+E Expected literal : at position 13: ...score:{nam<--[HERE]@11
+S 11-11 1 1807 :
+@ all {score:{name
+R 0
+A -
+X Expected literal : at position 14: ...core:{name<--[HERE]@12
+E Expected literal : at position 14: ...core:{name<--[HERE]@12
+S 12-12 1 1807 :
+@ all {score:{name:
+R 0
+A -
+X Expected a valid unquoted string at position 15: ...ore:{name:<--[HERE]@13
+E Expected a valid unquoted string at position 15: ...ore:{name:<--[HERE]@13
+S -2--2 0 0 
+@ all {score:{name:"
+R 0
+A -
+X Invalid string contents at position 16: ...re:{name:"<--[HERE]@14
+E Invalid string contents at position 16: ...re:{name:"<--[HERE]@14
+S 14-14 3 404393152 "	'	\\
+@ all {score:{name:"@
+R 0
+A -
+X Invalid string contents at position 17: ...e:{name:"@<--[HERE]@15
+E Invalid string contents at position 17: ...e:{name:"@<--[HERE]@15
+S 15-15 3 404393152 "	'	\\
+@ all {score:{name:"@s
+R 0
+A -
+X Invalid string contents at position 18: ...:{name:"@s<--[HERE]@16
+E Invalid string contents at position 18: ...:{name:"@s<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {score:{name:"@s"
+R 0
+A -
+X Expected literal , at position 19: ...{name:"@s"<--[HERE]@17
+E Expected literal , at position 19: ...{name:"@s"<--[HERE]@17
+S 17-17 2 1323337 ,	}
+@ all {score:{name:"@s",
+R 0
+A -
+X Expected literal " at position 20: ...name:"@s",<--[HERE]@18
+E Expected literal " at position 20: ...name:"@s",<--[HERE]@18
+S 18-18 3 982877205 "	'	}
+@ all {score:{name:"@s",o
+R 0
+A -
+X Expected literal : at position 21: ...ame:"@s",o<--[HERE]@19
+E Expected literal : at position 21: ...ame:"@s",o<--[HERE]@19
+S 19-19 1 1807 :
+@ all {score:{name:"@s",ob
+R 0
+A -
+X Expected literal : at position 22: ...me:"@s",ob<--[HERE]@20
+E Expected literal : at position 22: ...me:"@s",ob<--[HERE]@20
+S 20-20 1 1807 :
+@ all {score:{name:"@s",obj
+R 0
+A -
+X Expected literal : at position 23: ...e:"@s",obj<--[HERE]@21
+E Expected literal : at position 23: ...e:"@s",obj<--[HERE]@21
+S 21-21 1 1807 :
+@ all {score:{name:"@s",obje
+R 0
+A -
+X Expected literal : at position 24: ...:"@s",obje<--[HERE]@22
+E Expected literal : at position 24: ...:"@s",obje<--[HERE]@22
+S 22-22 1 1807 :
+@ all {score:{name:"@s",objec
+R 0
+A -
+X Expected literal : at position 25: ..."@s",objec<--[HERE]@23
+E Expected literal : at position 25: ..."@s",objec<--[HERE]@23
+S 23-23 1 1807 :
+@ all {score:{name:"@s",object
+R 0
+A -
+X Expected literal : at position 26: ...@s",object<--[HERE]@24
+E Expected literal : at position 26: ...@s",object<--[HERE]@24
+S 24-24 1 1807 :
+@ all {score:{name:"@s",objecti
+R 0
+A -
+X Expected literal : at position 27: ...s",objecti<--[HERE]@25
+E Expected literal : at position 27: ...s",objecti<--[HERE]@25
+S 25-25 1 1807 :
+@ all {score:{name:"@s",objectiv
+R 0
+A -
+X Expected literal : at position 28: ...",objectiv<--[HERE]@26
+E Expected literal : at position 28: ...",objectiv<--[HERE]@26
+S 26-26 1 1807 :
+@ all {score:{name:"@s",objective
+R 0
+A -
+X Expected literal : at position 29: ...,objective<--[HERE]@27
+E Expected literal : at position 29: ...,objective<--[HERE]@27
+S 27-27 1 1807 :
+@ all {score:{name:"@s",objective:
+R 0
+A -
+X Expected a valid unquoted string at position 30: ...objective:<--[HERE]@28
+E Expected a valid unquoted string at position 30: ...objective:<--[HERE]@28
+S -2--2 0 0 
+@ all {score:{name:"@s",objective:"
+R 0
+A -
+X Invalid string contents at position 31: ...bjective:"<--[HERE]@29
+E Invalid string contents at position 31: ...bjective:"<--[HERE]@29
+S 29-29 3 404393152 "	'	\\
+@ all {score:{name:"@s",objective:"a
+R 0
+A -
+X Invalid string contents at position 32: ...jective:"a<--[HERE]@30
+E Invalid string contents at position 32: ...jective:"a<--[HERE]@30
+S 30-30 3 404393152 "	'	\\
+@ all {score:{name:"@s",objective:"a"
+R 0
+A -
+X Expected literal , at position 33: ...ective:"a"<--[HERE]@31
+E Expected literal , at position 33: ...ective:"a"<--[HERE]@31
+S 31-31 2 1323337 ,	}
+@ all {score:{name:"@s",objective:"a"}
+R 0
+A -
+X Expected literal , at position 34: ...ctive:"a"}<--[HERE]@32
+E Expected literal , at position 34: ...ctive:"a"}<--[HERE]@32
+S 32-32 2 1323337 ,	}
+@ all {se
+R 0
+A -
+X Expected literal : at position 5: t {se<--[HERE]@3
+E Expected literal : at position 5: t {se<--[HERE]@3
+S 3-3 1 1807 :
+@ all {sel
+R 0
+A -
+X Expected literal : at position 6: t {sel<--[HERE]@4
+E Expected literal : at position 6: t {sel<--[HERE]@4
+S 4-4 1 1807 :
+@ all {sele
+R 0
+A -
+X Expected literal : at position 7: t {sele<--[HERE]@5
+E Expected literal : at position 7: t {sele<--[HERE]@5
+S 5-5 1 1807 :
+@ all {selec
+R 0
+A -
+X Expected literal : at position 8: t {selec<--[HERE]@6
+E Expected literal : at position 8: t {selec<--[HERE]@6
+S 6-6 1 1807 :
+@ all {select
+R 0
+A -
+X Expected literal : at position 9: t {select<--[HERE]@7
+E Expected literal : at position 9: t {select<--[HERE]@7
+S 7-7 1 1807 :
+@ all {selecto
+R 0
+A -
+X Expected literal : at position 10: t {selecto<--[HERE]@8
+E Expected literal : at position 10: t {selecto<--[HERE]@8
+S 8-8 1 1807 :
+@ all {selector
+R 0
+A -
+X Expected literal : at position 11: ... {selector<--[HERE]@9
+E Expected literal : at position 11: ... {selector<--[HERE]@9
+S 9-9 1 1807 :
+@ all {selector:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...{selector:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...{selector:<--[HERE]@10
+S -2--2 0 0 
+@ all {selector:"
+R 0
+A -
+X Invalid string contents at position 13: ...selector:"<--[HERE]@11
+E Invalid string contents at position 13: ...selector:"<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {selector:"@
+R 0
+A -
+X Invalid string contents at position 14: ...elector:"@<--[HERE]@12
+E Invalid string contents at position 14: ...elector:"@<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {selector:"@a
+R 0
+A -
+X Invalid string contents at position 15: ...lector:"@a<--[HERE]@13
+E Invalid string contents at position 15: ...lector:"@a<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {selector:"@a"
+R 0
+A -
+X Expected literal , at position 16: ...ector:"@a"<--[HERE]@14
+E Expected literal , at position 16: ...ector:"@a"<--[HERE]@14
+S 14-14 2 1323337 ,	}
+@ all {k
+R 0
+A -
+X Expected literal : at position 4: t {k<--[HERE]@2
+E Expected literal : at position 4: t {k<--[HERE]@2
+S 2-2 1 1807 :
+@ all {ke
+R 0
+A -
+X Expected literal : at position 5: t {ke<--[HERE]@3
+E Expected literal : at position 5: t {ke<--[HERE]@3
+S 3-3 1 1807 :
+@ all {key
+R 0
+A -
+X Expected literal : at position 6: t {key<--[HERE]@4
+E Expected literal : at position 6: t {key<--[HERE]@4
+S 4-4 1 1807 :
+@ all {keyb
+R 0
+A -
+X Expected literal : at position 7: t {keyb<--[HERE]@5
+E Expected literal : at position 7: t {keyb<--[HERE]@5
+S 5-5 1 1807 :
+@ all {keybi
+R 0
+A -
+X Expected literal : at position 8: t {keybi<--[HERE]@6
+E Expected literal : at position 8: t {keybi<--[HERE]@6
+S 6-6 1 1807 :
+@ all {keybin
+R 0
+A -
+X Expected literal : at position 9: t {keybin<--[HERE]@7
+E Expected literal : at position 9: t {keybin<--[HERE]@7
+S 7-7 1 1807 :
+@ all {keybind
+R 0
+A -
+X Expected literal : at position 10: t {keybind<--[HERE]@8
+E Expected literal : at position 10: t {keybind<--[HERE]@8
+S 8-8 1 1807 :
+@ all {keybind:
+R 0
+A -
+X Expected a valid unquoted string at position 11: ... {keybind:<--[HERE]@9
+E Expected a valid unquoted string at position 11: ... {keybind:<--[HERE]@9
+S -2--2 0 0 
+@ all {keybind:"
+R 0
+A -
+X Invalid string contents at position 12: ...{keybind:"<--[HERE]@10
+E Invalid string contents at position 12: ...{keybind:"<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {keybind:"k
+R 0
+A -
+X Invalid string contents at position 13: ...keybind:"k<--[HERE]@11
+E Invalid string contents at position 13: ...keybind:"k<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {keybind:"ke
+R 0
+A -
+X Invalid string contents at position 14: ...eybind:"ke<--[HERE]@12
+E Invalid string contents at position 14: ...eybind:"ke<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {keybind:"key
+R 0
+A -
+X Invalid string contents at position 15: ...ybind:"key<--[HERE]@13
+E Invalid string contents at position 15: ...ybind:"key<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {keybind:"key.
+R 0
+A -
+X Invalid string contents at position 16: ...bind:"key.<--[HERE]@14
+E Invalid string contents at position 16: ...bind:"key.<--[HERE]@14
+S 14-14 3 404393152 "	'	\\
+@ all {keybind:"key.j
+R 0
+A -
+X Invalid string contents at position 17: ...ind:"key.j<--[HERE]@15
+E Invalid string contents at position 17: ...ind:"key.j<--[HERE]@15
+S 15-15 3 404393152 "	'	\\
+@ all {keybind:"key.ju
+R 0
+A -
+X Invalid string contents at position 18: ...nd:"key.ju<--[HERE]@16
+E Invalid string contents at position 18: ...nd:"key.ju<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {keybind:"key.jum
+R 0
+A -
+X Invalid string contents at position 19: ...d:"key.jum<--[HERE]@17
+E Invalid string contents at position 19: ...d:"key.jum<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {keybind:"key.jump
+R 0
+A -
+X Invalid string contents at position 20: ...:"key.jump<--[HERE]@18
+E Invalid string contents at position 20: ...:"key.jump<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {keybind:"key.jump"
+R 0
+A -
+X Expected literal , at position 21: ..."key.jump"<--[HERE]@19
+E Expected literal , at position 21: ..."key.jump"<--[HERE]@19
+S 19-19 2 1323337 ,	}
+@ all {n
+R 0
+A -
+X Expected literal : at position 4: t {n<--[HERE]@2
+E Expected literal : at position 4: t {n<--[HERE]@2
+S 2-2 1 1807 :
+@ all {nb
+R 0
+A -
+X Expected literal : at position 5: t {nb<--[HERE]@3
+E Expected literal : at position 5: t {nb<--[HERE]@3
+S 3-3 1 1807 :
+@ all {nbt
+R 0
+A -
+X Expected literal : at position 6: t {nbt<--[HERE]@4
+E Expected literal : at position 6: t {nbt<--[HERE]@4
+S 4-4 1 1807 :
+@ all {nbt:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {nbt:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {nbt:<--[HERE]@5
+S -2--2 0 0 
+@ all {nbt:"
+R 0
+A -
+X Invalid string contents at position 8: t {nbt:"<--[HERE]@6
+E Invalid string contents at position 8: t {nbt:"<--[HERE]@6
+S 6-6 3 404393152 "	'	\\
+@ all {nbt:"a
+R 0
+A -
+X Invalid string contents at position 9: t {nbt:"a<--[HERE]@7
+E Invalid string contents at position 9: t {nbt:"a<--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all {nbt:"a"
+R 0
+A -
+X Expected literal , at position 10: t {nbt:"a"<--[HERE]@8
+E Expected literal , at position 10: t {nbt:"a"<--[HERE]@8
+S 8-8 2 1323337 ,	}
+@ all {nbt:"a",
+R 0
+A -
+X Expected literal " at position 11: ... {nbt:"a",<--[HERE]@9
+E Expected literal " at position 11: ... {nbt:"a",<--[HERE]@9
+S 9-9 3 982877205 "	'	}
+@ all {nbt:"a",e
+R 0
+A -
+X Expected literal : at position 12: ...{nbt:"a",e<--[HERE]@10
+E Expected literal : at position 12: ...{nbt:"a",e<--[HERE]@10
+S 10-10 1 1807 :
+@ all {nbt:"a",en
+R 0
+A -
+X Expected literal : at position 13: ...nbt:"a",en<--[HERE]@11
+E Expected literal : at position 13: ...nbt:"a",en<--[HERE]@11
+S 11-11 1 1807 :
+@ all {nbt:"a",ent
+R 0
+A -
+X Expected literal : at position 14: ...bt:"a",ent<--[HERE]@12
+E Expected literal : at position 14: ...bt:"a",ent<--[HERE]@12
+S 12-12 1 1807 :
+@ all {nbt:"a",enti
+R 0
+A -
+X Expected literal : at position 15: ...t:"a",enti<--[HERE]@13
+E Expected literal : at position 15: ...t:"a",enti<--[HERE]@13
+S 13-13 1 1807 :
+@ all {nbt:"a",entit
+R 0
+A -
+X Expected literal : at position 16: ...:"a",entit<--[HERE]@14
+E Expected literal : at position 16: ...:"a",entit<--[HERE]@14
+S 14-14 1 1807 :
+@ all {nbt:"a",entity
+R 0
+A -
+X Expected literal : at position 17: ..."a",entity<--[HERE]@15
+E Expected literal : at position 17: ..."a",entity<--[HERE]@15
+S 15-15 1 1807 :
+@ all {nbt:"a",entity:
+R 0
+A -
+X Expected a valid unquoted string at position 18: ...a",entity:<--[HERE]@16
+E Expected a valid unquoted string at position 18: ...a",entity:<--[HERE]@16
+S -2--2 0 0 
+@ all {nbt:"a",entity:"
+R 0
+A -
+X Invalid string contents at position 19: ...",entity:"<--[HERE]@17
+E Invalid string contents at position 19: ...",entity:"<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {nbt:"a",entity:"@
+R 0
+A -
+X Invalid string contents at position 20: ...,entity:"@<--[HERE]@18
+E Invalid string contents at position 20: ...,entity:"@<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {nbt:"a",entity:"@s
+R 0
+A -
+X Invalid string contents at position 21: ...entity:"@s<--[HERE]@19
+E Invalid string contents at position 21: ...entity:"@s<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {nbt:"a",entity:"@s"
+R 0
+A -
+X Expected literal , at position 22: ...ntity:"@s"<--[HERE]@20
+E Expected literal , at position 22: ...ntity:"@s"<--[HERE]@20
+S 20-20 2 1323337 ,	}
+@ all {nbt:"a",b
+R 0
+A -
+X Expected literal : at position 12: ...{nbt:"a",b<--[HERE]@10
+E Expected literal : at position 12: ...{nbt:"a",b<--[HERE]@10
+S 10-10 1 1807 :
+@ all {nbt:"a",bl
+R 0
+A -
+X Expected literal : at position 13: ...nbt:"a",bl<--[HERE]@11
+E Expected literal : at position 13: ...nbt:"a",bl<--[HERE]@11
+S 11-11 1 1807 :
+@ all {nbt:"a",blo
+R 0
+A -
+X Expected literal : at position 14: ...bt:"a",blo<--[HERE]@12
+E Expected literal : at position 14: ...bt:"a",blo<--[HERE]@12
+S 12-12 1 1807 :
+@ all {nbt:"a",bloc
+R 0
+A -
+X Expected literal : at position 15: ...t:"a",bloc<--[HERE]@13
+E Expected literal : at position 15: ...t:"a",bloc<--[HERE]@13
+S 13-13 1 1807 :
+@ all {nbt:"a",block
+R 0
+A -
+X Expected literal : at position 16: ...:"a",block<--[HERE]@14
+E Expected literal : at position 16: ...:"a",block<--[HERE]@14
+S 14-14 1 1807 :
+@ all {nbt:"a",block:
+R 0
+A -
+X Expected a valid unquoted string at position 17: ..."a",block:<--[HERE]@15
+E Expected a valid unquoted string at position 17: ..."a",block:<--[HERE]@15
+S -2--2 0 0 
+@ all {nbt:"a",block:"
+R 0
+A -
+X Invalid string contents at position 18: ...a",block:"<--[HERE]@16
+E Invalid string contents at position 18: ...a",block:"<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {nbt:"a",block:"1
+R 0
+A -
+X Invalid string contents at position 19: ...",block:"1<--[HERE]@17
+E Invalid string contents at position 19: ...",block:"1<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {nbt:"a",block:"1 
+R 0
+A -
+X Invalid string contents at position 20: ...,block:"1 <--[HERE]@18
+E Invalid string contents at position 20: ...,block:"1 <--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {nbt:"a",block:"1 2
+R 0
+A -
+X Invalid string contents at position 21: ...block:"1 2<--[HERE]@19
+E Invalid string contents at position 21: ...block:"1 2<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {nbt:"a",block:"1 2 
+R 0
+A -
+X Invalid string contents at position 22: ...lock:"1 2 <--[HERE]@20
+E Invalid string contents at position 22: ...lock:"1 2 <--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {nbt:"a",block:"1 2 3
+R 0
+A -
+X Invalid string contents at position 23: ...ock:"1 2 3<--[HERE]@21
+E Invalid string contents at position 23: ...ock:"1 2 3<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {nbt:"a",block:"1 2 3"
+R 0
+A -
+X Expected literal , at position 24: ...ck:"1 2 3"<--[HERE]@22
+E Expected literal , at position 24: ...ck:"1 2 3"<--[HERE]@22
+S 22-22 2 1323337 ,	}
+@ all {nbt:"a",s
+R 0
+A -
+X Expected literal : at position 12: ...{nbt:"a",s<--[HERE]@10
+E Expected literal : at position 12: ...{nbt:"a",s<--[HERE]@10
+S 10-10 1 1807 :
+@ all {nbt:"a",st
+R 0
+A -
+X Expected literal : at position 13: ...nbt:"a",st<--[HERE]@11
+E Expected literal : at position 13: ...nbt:"a",st<--[HERE]@11
+S 11-11 1 1807 :
+@ all {nbt:"a",sto
+R 0
+A -
+X Expected literal : at position 14: ...bt:"a",sto<--[HERE]@12
+E Expected literal : at position 14: ...bt:"a",sto<--[HERE]@12
+S 12-12 1 1807 :
+@ all {nbt:"a",stor
+R 0
+A -
+X Expected literal : at position 15: ...t:"a",stor<--[HERE]@13
+E Expected literal : at position 15: ...t:"a",stor<--[HERE]@13
+S 13-13 1 1807 :
+@ all {nbt:"a",stora
+R 0
+A -
+X Expected literal : at position 16: ...:"a",stora<--[HERE]@14
+E Expected literal : at position 16: ...:"a",stora<--[HERE]@14
+S 14-14 1 1807 :
+@ all {nbt:"a",storag
+R 0
+A -
+X Expected literal : at position 17: ..."a",storag<--[HERE]@15
+E Expected literal : at position 17: ..."a",storag<--[HERE]@15
+S 15-15 1 1807 :
+@ all {nbt:"a",storage
+R 0
+A -
+X Expected literal : at position 18: ...a",storage<--[HERE]@16
+E Expected literal : at position 18: ...a",storage<--[HERE]@16
+S 16-16 1 1807 :
+@ all {nbt:"a",storage:
+R 0
+A -
+X Expected a valid unquoted string at position 19: ...",storage:<--[HERE]@17
+E Expected a valid unquoted string at position 19: ...",storage:<--[HERE]@17
+S -2--2 0 0 
+@ all {nbt:"a",storage:"
+R 0
+A -
+X Invalid string contents at position 20: ...,storage:"<--[HERE]@18
+E Invalid string contents at position 20: ...,storage:"<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {nbt:"a",storage:"a
+R 0
+A -
+X Invalid string contents at position 21: ...storage:"a<--[HERE]@19
+E Invalid string contents at position 21: ...storage:"a<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {nbt:"a",storage:"a:
+R 0
+A -
+X Invalid string contents at position 22: ...torage:"a:<--[HERE]@20
+E Invalid string contents at position 22: ...torage:"a:<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {nbt:"a",storage:"a:b
+R 0
+A -
+X Invalid string contents at position 23: ...orage:"a:b<--[HERE]@21
+E Invalid string contents at position 23: ...orage:"a:b<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {nbt:"a",storage:"a:b"
+R 0
+A -
+X Expected literal , at position 24: ...rage:"a:b"<--[HERE]@22
+E Expected literal , at position 24: ...rage:"a:b"<--[HERE]@22
+S 22-22 2 1323337 ,	}
+@ all {text:"a",e
+R 0
+A -
+X Expected literal : at position 13: ...text:"a",e<--[HERE]@11
+E Expected literal : at position 13: ...text:"a",e<--[HERE]@11
+S 11-11 1 1807 :
+@ all {text:"a",ex
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",ex<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",ex<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",ext
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",ext<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",ext<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",extr
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",extr<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",extr<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",extra
+R 0
+A -
+X Expected literal : at position 17: ...:"a",extra<--[HERE]@15
+E Expected literal : at position 17: ...:"a",extra<--[HERE]@15
+S 15-15 1 1807 :
+@ all {text:"a",extra:
+R 0
+A -
+X Expected a valid unquoted string at position 18: ..."a",extra:<--[HERE]@16
+E Expected a valid unquoted string at position 18: ..."a",extra:<--[HERE]@16
+S -2--2 0 0 
+@ all {text:"a",extra:[
+R 0
+A -
+X Expected literal B at position 19: ...a",extra:[<--[HERE]@17
+E Expected literal B at position 19: ...a",extra:[<--[HERE]@17
+S 17-17 4 170223856 ]	B	I	L
+@ all {text:"a",extra:["
+R 0
+A -
+X Invalid string contents at position 20: ...",extra:["<--[HERE]@18
+E Invalid string contents at position 20: ...",extra:["<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {text:"a",extra:["b
+R 0
+A -
+X Invalid string contents at position 21: ...,extra:["b<--[HERE]@19
+E Invalid string contents at position 21: ...,extra:["b<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {text:"a",extra:["b"
+R 0
+A -
+X Expected literal , at position 22: ...extra:["b"<--[HERE]@20
+E Expected literal , at position 22: ...extra:["b"<--[HERE]@20
+S 20-20 2 1322345 ,	]
+@ all {text:"a",extra:["b",
+R 0
+A -
+X Expected a valid unquoted string at position 23: ...xtra:["b",<--[HERE]@21
+E Expected a valid unquoted string at position 23: ...xtra:["b",<--[HERE]@21
+S 21-21 1 2892 ]
+@ all {text:"a",extra:["b",{
+R 0
+A -
+X Expected literal " at position 24: ...tra:["b",{<--[HERE]@22
+E Expected literal " at position 24: ...tra:["b",{<--[HERE]@22
+S 22-22 3 982877205 "	'	}
+@ all {text:"a",extra:["b",{t
+R 0
+A -
+X Expected literal : at position 25: ...ra:["b",{t<--[HERE]@23
+E Expected literal : at position 25: ...ra:["b",{t<--[HERE]@23
+S 23-23 1 1807 :
+@ all {text:"a",extra:["b",{te
+R 0
+A -
+X Expected literal : at position 26: ...a:["b",{te<--[HERE]@24
+E Expected literal : at position 26: ...a:["b",{te<--[HERE]@24
+S 24-24 1 1807 :
+@ all {text:"a",extra:["b",{tex
+R 0
+A -
+X Expected literal : at position 27: ...:["b",{tex<--[HERE]@25
+E Expected literal : at position 27: ...:["b",{tex<--[HERE]@25
+S 25-25 1 1807 :
+@ all {text:"a",extra:["b",{text
+R 0
+A -
+X Expected literal : at position 28: ...["b",{text<--[HERE]@26
+E Expected literal : at position 28: ...["b",{text<--[HERE]@26
+S 26-26 1 1807 :
+@ all {text:"a",extra:["b",{text:
+R 0
+A -
+X Expected a valid unquoted string at position 29: ..."b",{text:<--[HERE]@27
+E Expected a valid unquoted string at position 29: ..."b",{text:<--[HERE]@27
+S -2--2 0 0 
+@ all {text:"a",extra:["b",{text:"
+R 0
+A -
+X Invalid string contents at position 30: ...b",{text:"<--[HERE]@28
+E Invalid string contents at position 30: ...b",{text:"<--[HERE]@28
+S 28-28 3 404393152 "	'	\\
+@ all {text:"a",extra:["b",{text:"c
+R 0
+A -
+X Invalid string contents at position 31: ...",{text:"c<--[HERE]@29
+E Invalid string contents at position 31: ...",{text:"c<--[HERE]@29
+S 29-29 3 404393152 "	'	\\
+@ all {text:"a",extra:["b",{text:"c"
+R 0
+A -
+X Expected literal , at position 32: ...,{text:"c"<--[HERE]@30
+E Expected literal , at position 32: ...,{text:"c"<--[HERE]@30
+S 30-30 2 1323337 ,	}
+@ all {text:"a",extra:["b",{text:"c"}
+R 0
+A -
+X Expected literal , at position 33: ...{text:"c"}<--[HERE]@31
+E Expected literal , at position 33: ...{text:"c"}<--[HERE]@31
+S 31-31 2 1322345 ,	]
+@ all {text:"a",extra:["b",{text:"c"}]
+R 0
+A -
+X Expected literal , at position 34: ...text:"c"}]<--[HERE]@32
+E Expected literal , at position 34: ...text:"c"}]<--[HERE]@32
+S 32-32 2 1323337 ,	}
+@ all {text:"a",i
+R 0
+A -
+X Expected literal : at position 13: ...text:"a",i<--[HERE]@11
+E Expected literal : at position 13: ...text:"a",i<--[HERE]@11
+S 11-11 1 1807 :
+@ all {text:"a",it
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",it<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",it<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",ita
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",ita<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",ita<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",ital
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",ital<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",ital<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",itali
+R 0
+A -
+X Expected literal : at position 17: ...:"a",itali<--[HERE]@15
+E Expected literal : at position 17: ...:"a",itali<--[HERE]@15
+S 15-15 1 1807 :
+@ all {text:"a",italic
+R 0
+A -
+X Expected literal : at position 18: ..."a",italic<--[HERE]@16
+E Expected literal : at position 18: ..."a",italic<--[HERE]@16
+S 16-16 1 1807 :
+@ all {text:"a",italic:
+R 0
+A -
+X Expected a valid unquoted string at position 19: ...a",italic:<--[HERE]@17
+E Expected a valid unquoted string at position 19: ...a",italic:<--[HERE]@17
+S -2--2 0 0 
+@ all {text:"a",italic:f
+R 0
+A -
+X Expected literal ( at position 20: ...",italic:f<--[HERE]@18
+E Expected literal ( at position 20: ...",italic:f<--[HERE]@18
+S 18-18 3 1154801066 (	,	}
+@ all {text:"a",italic:fa
+R 0
+A -
+X Expected literal ( at position 21: ...,italic:fa<--[HERE]@19
+E Expected literal ( at position 21: ...,italic:fa<--[HERE]@19
+S 19-19 3 1154801066 (	,	}
+@ all {text:"a",italic:fal
+R 0
+A -
+X Expected literal ( at position 22: ...italic:fal<--[HERE]@20
+E Expected literal ( at position 22: ...italic:fal<--[HERE]@20
+S 20-20 3 1154801066 (	,	}
+@ all {text:"a",italic:fals
+R 0
+A -
+X Expected literal ( at position 23: ...talic:fals<--[HERE]@21
+E Expected literal ( at position 23: ...talic:fals<--[HERE]@21
+S 21-21 3 1154801066 (	,	}
+@ all {text:"a",italic:false
+R 0
+A -
+X Expected literal ( at position 24: ...alic:false<--[HERE]@22
+E Expected literal ( at position 24: ...alic:false<--[HERE]@22
+S 22-22 3 1154801066 (	,	}
+@ all {text:"a",italic:false,
+R 0
+A -
+X Expected literal " at position 25: ...lic:false,<--[HERE]@23
+E Expected literal " at position 25: ...lic:false,<--[HERE]@23
+S 23-23 3 982877205 "	'	}
+@ all {text:"a",italic:false,u
+R 0
+A -
+X Expected literal : at position 26: ...ic:false,u<--[HERE]@24
+E Expected literal : at position 26: ...ic:false,u<--[HERE]@24
+S 24-24 1 1807 :
+@ all {text:"a",italic:false,un
+R 0
+A -
+X Expected literal : at position 27: ...c:false,un<--[HERE]@25
+E Expected literal : at position 27: ...c:false,un<--[HERE]@25
+S 25-25 1 1807 :
+@ all {text:"a",italic:false,und
+R 0
+A -
+X Expected literal : at position 28: ...:false,und<--[HERE]@26
+E Expected literal : at position 28: ...:false,und<--[HERE]@26
+S 26-26 1 1807 :
+@ all {text:"a",italic:false,unde
+R 0
+A -
+X Expected literal : at position 29: ...false,unde<--[HERE]@27
+E Expected literal : at position 29: ...false,unde<--[HERE]@27
+S 27-27 1 1807 :
+@ all {text:"a",italic:false,under
+R 0
+A -
+X Expected literal : at position 30: ...alse,under<--[HERE]@28
+E Expected literal : at position 30: ...alse,under<--[HERE]@28
+S 28-28 1 1807 :
+@ all {text:"a",italic:false,underl
+R 0
+A -
+X Expected literal : at position 31: ...lse,underl<--[HERE]@29
+E Expected literal : at position 31: ...lse,underl<--[HERE]@29
+S 29-29 1 1807 :
+@ all {text:"a",italic:false,underli
+R 0
+A -
+X Expected literal : at position 32: ...se,underli<--[HERE]@30
+E Expected literal : at position 32: ...se,underli<--[HERE]@30
+S 30-30 1 1807 :
+@ all {text:"a",italic:false,underlin
+R 0
+A -
+X Expected literal : at position 33: ...e,underlin<--[HERE]@31
+E Expected literal : at position 33: ...e,underlin<--[HERE]@31
+S 31-31 1 1807 :
+@ all {text:"a",italic:false,underline
+R 0
+A -
+X Expected literal : at position 34: ...,underline<--[HERE]@32
+E Expected literal : at position 34: ...,underline<--[HERE]@32
+S 32-32 1 1807 :
+@ all {text:"a",italic:false,underlined
+R 0
+A -
+X Expected literal : at position 35: ...underlined<--[HERE]@33
+E Expected literal : at position 35: ...underlined<--[HERE]@33
+S 33-33 1 1807 :
+@ all {text:"a",italic:false,underlined:
+R 0
+A -
+X Expected a valid unquoted string at position 36: ...nderlined:<--[HERE]@34
+E Expected a valid unquoted string at position 36: ...nderlined:<--[HERE]@34
+S -2--2 0 0 
+@ all {text:"a",italic:false,underlined:t
+R 0
+A -
+X Expected literal ( at position 37: ...derlined:t<--[HERE]@35
+E Expected literal ( at position 37: ...derlined:t<--[HERE]@35
+S 35-35 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:tr
+R 0
+A -
+X Expected literal ( at position 38: ...erlined:tr<--[HERE]@36
+E Expected literal ( at position 38: ...erlined:tr<--[HERE]@36
+S 36-36 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:tru
+R 0
+A -
+X Expected literal ( at position 39: ...rlined:tru<--[HERE]@37
+E Expected literal ( at position 39: ...rlined:tru<--[HERE]@37
+S 37-37 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true
+R 0
+A -
+X Expected literal ( at position 40: ...lined:true<--[HERE]@38
+E Expected literal ( at position 40: ...lined:true<--[HERE]@38
+S 38-38 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,
+R 0
+A -
+X Expected literal " at position 41: ...ined:true,<--[HERE]@39
+E Expected literal " at position 41: ...ined:true,<--[HERE]@39
+S 39-39 3 982877205 "	'	}
+@ all {text:"a",italic:false,underlined:true,s
+R 0
+A -
+X Expected literal : at position 42: ...ned:true,s<--[HERE]@40
+E Expected literal : at position 42: ...ned:true,s<--[HERE]@40
+S 40-40 1 1807 :
+@ all {text:"a",italic:false,underlined:true,st
+R 0
+A -
+X Expected literal : at position 43: ...ed:true,st<--[HERE]@41
+E Expected literal : at position 43: ...ed:true,st<--[HERE]@41
+S 41-41 1 1807 :
+@ all {text:"a",italic:false,underlined:true,str
+R 0
+A -
+X Expected literal : at position 44: ...d:true,str<--[HERE]@42
+E Expected literal : at position 44: ...d:true,str<--[HERE]@42
+S 42-42 1 1807 :
+@ all {text:"a",italic:false,underlined:true,stri
+R 0
+A -
+X Expected literal : at position 45: ...:true,stri<--[HERE]@43
+E Expected literal : at position 45: ...:true,stri<--[HERE]@43
+S 43-43 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strik
+R 0
+A -
+X Expected literal : at position 46: ...true,strik<--[HERE]@44
+E Expected literal : at position 46: ...true,strik<--[HERE]@44
+S 44-44 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strike
+R 0
+A -
+X Expected literal : at position 47: ...rue,strike<--[HERE]@45
+E Expected literal : at position 47: ...rue,strike<--[HERE]@45
+S 45-45 1 1807 :
+@ all {text:"a",italic:false,underlined:true,striket
+R 0
+A -
+X Expected literal : at position 48: ...ue,striket<--[HERE]@46
+E Expected literal : at position 48: ...ue,striket<--[HERE]@46
+S 46-46 1 1807 :
+@ all {text:"a",italic:false,underlined:true,striketh
+R 0
+A -
+X Expected literal : at position 49: ...e,striketh<--[HERE]@47
+E Expected literal : at position 49: ...e,striketh<--[HERE]@47
+S 47-47 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethr
+R 0
+A -
+X Expected literal : at position 50: ...,strikethr<--[HERE]@48
+E Expected literal : at position 50: ...,strikethr<--[HERE]@48
+S 48-48 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethro
+R 0
+A -
+X Expected literal : at position 51: ...strikethro<--[HERE]@49
+E Expected literal : at position 51: ...strikethro<--[HERE]@49
+S 49-49 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrou
+R 0
+A -
+X Expected literal : at position 52: ...trikethrou<--[HERE]@50
+E Expected literal : at position 52: ...trikethrou<--[HERE]@50
+S 50-50 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethroug
+R 0
+A -
+X Expected literal : at position 53: ...rikethroug<--[HERE]@51
+E Expected literal : at position 53: ...rikethroug<--[HERE]@51
+S 51-51 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough
+R 0
+A -
+X Expected literal : at position 54: ...ikethrough<--[HERE]@52
+E Expected literal : at position 54: ...ikethrough<--[HERE]@52
+S 52-52 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:
+R 0
+A -
+X Expected a valid unquoted string at position 55: ...kethrough:<--[HERE]@53
+E Expected a valid unquoted string at position 55: ...kethrough:<--[HERE]@53
+S -2--2 0 0 
+@ all {text:"a",italic:false,underlined:true,strikethrough:t
+R 0
+A -
+X Expected literal ( at position 56: ...ethrough:t<--[HERE]@54
+E Expected literal ( at position 56: ...ethrough:t<--[HERE]@54
+S 54-54 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:tr
+R 0
+A -
+X Expected literal ( at position 57: ...through:tr<--[HERE]@55
+E Expected literal ( at position 57: ...through:tr<--[HERE]@55
+S 55-55 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:tru
+R 0
+A -
+X Expected literal ( at position 58: ...hrough:tru<--[HERE]@56
+E Expected literal ( at position 58: ...hrough:tru<--[HERE]@56
+S 56-56 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:true
+R 0
+A -
+X Expected literal ( at position 59: ...rough:true<--[HERE]@57
+E Expected literal ( at position 59: ...rough:true<--[HERE]@57
+S 57-57 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,
+R 0
+A -
+X Expected literal " at position 60: ...ough:true,<--[HERE]@58
+E Expected literal " at position 60: ...ough:true,<--[HERE]@58
+S 58-58 3 982877205 "	'	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,o
+R 0
+A -
+X Expected literal : at position 61: ...ugh:true,o<--[HERE]@59
+E Expected literal : at position 61: ...ugh:true,o<--[HERE]@59
+S 59-59 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,ob
+R 0
+A -
+X Expected literal : at position 62: ...gh:true,ob<--[HERE]@60
+E Expected literal : at position 62: ...gh:true,ob<--[HERE]@60
+S 60-60 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obf
+R 0
+A -
+X Expected literal : at position 63: ...h:true,obf<--[HERE]@61
+E Expected literal : at position 63: ...h:true,obf<--[HERE]@61
+S 61-61 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfu
+R 0
+A -
+X Expected literal : at position 64: ...:true,obfu<--[HERE]@62
+E Expected literal : at position 64: ...:true,obfu<--[HERE]@62
+S 62-62 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfus
+R 0
+A -
+X Expected literal : at position 65: ...true,obfus<--[HERE]@63
+E Expected literal : at position 65: ...true,obfus<--[HERE]@63
+S 63-63 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfusc
+R 0
+A -
+X Expected literal : at position 66: ...rue,obfusc<--[HERE]@64
+E Expected literal : at position 66: ...rue,obfusc<--[HERE]@64
+S 64-64 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfusca
+R 0
+A -
+X Expected literal : at position 67: ...ue,obfusca<--[HERE]@65
+E Expected literal : at position 67: ...ue,obfusca<--[HERE]@65
+S 65-65 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscat
+R 0
+A -
+X Expected literal : at position 68: ...e,obfuscat<--[HERE]@66
+E Expected literal : at position 68: ...e,obfuscat<--[HERE]@66
+S 66-66 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscate
+R 0
+A -
+X Expected literal : at position 69: ...,obfuscate<--[HERE]@67
+E Expected literal : at position 69: ...,obfuscate<--[HERE]@67
+S 67-67 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscated
+R 0
+A -
+X Expected literal : at position 70: ...obfuscated<--[HERE]@68
+E Expected literal : at position 70: ...obfuscated<--[HERE]@68
+S 68-68 1 1807 :
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscated:
+R 0
+A -
+X Expected a valid unquoted string at position 71: ...bfuscated:<--[HERE]@69
+E Expected a valid unquoted string at position 71: ...bfuscated:<--[HERE]@69
+S -2--2 0 0 
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscated:t
+R 0
+A -
+X Expected literal ( at position 72: ...fuscated:t<--[HERE]@70
+E Expected literal ( at position 72: ...fuscated:t<--[HERE]@70
+S 70-70 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscated:tr
+R 0
+A -
+X Expected literal ( at position 73: ...uscated:tr<--[HERE]@71
+E Expected literal ( at position 73: ...uscated:tr<--[HERE]@71
+S 71-71 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscated:tru
+R 0
+A -
+X Expected literal ( at position 74: ...scated:tru<--[HERE]@72
+E Expected literal ( at position 74: ...scated:tru<--[HERE]@72
+S 72-72 3 1154801066 (	,	}
+@ all {text:"a",italic:false,underlined:true,strikethrough:true,obfuscated:true
+R 0
+A -
+X Expected literal ( at position 75: ...cated:true<--[HERE]@73
+E Expected literal ( at position 75: ...cated:true<--[HERE]@73
+S 73-73 3 1154801066 (	,	}
+@ all {text:"a",f
+R 0
+A -
+X Expected literal : at position 13: ...text:"a",f<--[HERE]@11
+E Expected literal : at position 13: ...text:"a",f<--[HERE]@11
+S 11-11 1 1807 :
+@ all {text:"a",fo
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",fo<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",fo<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",fon
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",fon<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",fon<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",font
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",font<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",font<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",font:
+R 0
+A -
+X Expected a valid unquoted string at position 17: ...:"a",font:<--[HERE]@15
+E Expected a valid unquoted string at position 17: ...:"a",font:<--[HERE]@15
+S -2--2 0 0 
+@ all {text:"a",font:"
+R 0
+A -
+X Invalid string contents at position 18: ..."a",font:"<--[HERE]@16
+E Invalid string contents at position 18: ..."a",font:"<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {text:"a",font:"m
+R 0
+A -
+X Invalid string contents at position 19: ...a",font:"m<--[HERE]@17
+E Invalid string contents at position 19: ...a",font:"m<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {text:"a",font:"mi
+R 0
+A -
+X Invalid string contents at position 20: ...",font:"mi<--[HERE]@18
+E Invalid string contents at position 20: ...",font:"mi<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {text:"a",font:"min
+R 0
+A -
+X Invalid string contents at position 21: ...,font:"min<--[HERE]@19
+E Invalid string contents at position 21: ...,font:"min<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {text:"a",font:"mine
+R 0
+A -
+X Invalid string contents at position 22: ...font:"mine<--[HERE]@20
+E Invalid string contents at position 22: ...font:"mine<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {text:"a",font:"minec
+R 0
+A -
+X Invalid string contents at position 23: ...ont:"minec<--[HERE]@21
+E Invalid string contents at position 23: ...ont:"minec<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {text:"a",font:"minecr
+R 0
+A -
+X Invalid string contents at position 24: ...nt:"minecr<--[HERE]@22
+E Invalid string contents at position 24: ...nt:"minecr<--[HERE]@22
+S 22-22 3 404393152 "	'	\\
+@ all {text:"a",font:"minecra
+R 0
+A -
+X Invalid string contents at position 25: ...t:"minecra<--[HERE]@23
+E Invalid string contents at position 25: ...t:"minecra<--[HERE]@23
+S 23-23 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraf
+R 0
+A -
+X Invalid string contents at position 26: ...:"minecraf<--[HERE]@24
+E Invalid string contents at position 26: ...:"minecraf<--[HERE]@24
+S 24-24 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft
+R 0
+A -
+X Invalid string contents at position 27: ..."minecraft<--[HERE]@25
+E Invalid string contents at position 27: ..."minecraft<--[HERE]@25
+S 25-25 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:
+R 0
+A -
+X Invalid string contents at position 28: ...minecraft:<--[HERE]@26
+E Invalid string contents at position 28: ...minecraft:<--[HERE]@26
+S 26-26 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:u
+R 0
+A -
+X Invalid string contents at position 29: ...inecraft:u<--[HERE]@27
+E Invalid string contents at position 29: ...inecraft:u<--[HERE]@27
+S 27-27 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:un
+R 0
+A -
+X Invalid string contents at position 30: ...necraft:un<--[HERE]@28
+E Invalid string contents at position 30: ...necraft:un<--[HERE]@28
+S 28-28 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:uni
+R 0
+A -
+X Invalid string contents at position 31: ...ecraft:uni<--[HERE]@29
+E Invalid string contents at position 31: ...ecraft:uni<--[HERE]@29
+S 29-29 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:unif
+R 0
+A -
+X Invalid string contents at position 32: ...craft:unif<--[HERE]@30
+E Invalid string contents at position 32: ...craft:unif<--[HERE]@30
+S 30-30 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:unifo
+R 0
+A -
+X Invalid string contents at position 33: ...raft:unifo<--[HERE]@31
+E Invalid string contents at position 33: ...raft:unifo<--[HERE]@31
+S 31-31 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:unifor
+R 0
+A -
+X Invalid string contents at position 34: ...aft:unifor<--[HERE]@32
+E Invalid string contents at position 34: ...aft:unifor<--[HERE]@32
+S 32-32 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:uniform
+R 0
+A -
+X Invalid string contents at position 35: ...ft:uniform<--[HERE]@33
+E Invalid string contents at position 35: ...ft:uniform<--[HERE]@33
+S 33-33 3 404393152 "	'	\\
+@ all {text:"a",font:"minecraft:uniform"
+R 0
+A -
+X Expected literal , at position 36: ...t:uniform"<--[HERE]@34
+E Expected literal , at position 36: ...t:uniform"<--[HERE]@34
+S 34-34 2 1323337 ,	}
+@ all {text:"a",cl
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",cl<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",cl<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",cli
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",cli<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",cli<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",clic
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",clic<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",clic<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",click
+R 0
+A -
+X Expected literal : at position 17: ...:"a",click<--[HERE]@15
+E Expected literal : at position 17: ...:"a",click<--[HERE]@15
+S 15-15 1 1807 :
+@ all {text:"a",click_
+R 0
+A -
+X Expected literal : at position 18: ..."a",click_<--[HERE]@16
+E Expected literal : at position 18: ..."a",click_<--[HERE]@16
+S 16-16 1 1807 :
+@ all {text:"a",click_e
+R 0
+A -
+X Expected literal : at position 19: ...a",click_e<--[HERE]@17
+E Expected literal : at position 19: ...a",click_e<--[HERE]@17
+S 17-17 1 1807 :
+@ all {text:"a",click_ev
+R 0
+A -
+X Expected literal : at position 20: ...",click_ev<--[HERE]@18
+E Expected literal : at position 20: ...",click_ev<--[HERE]@18
+S 18-18 1 1807 :
+@ all {text:"a",click_eve
+R 0
+A -
+X Expected literal : at position 21: ...,click_eve<--[HERE]@19
+E Expected literal : at position 21: ...,click_eve<--[HERE]@19
+S 19-19 1 1807 :
+@ all {text:"a",click_even
+R 0
+A -
+X Expected literal : at position 22: ...click_even<--[HERE]@20
+E Expected literal : at position 22: ...click_even<--[HERE]@20
+S 20-20 1 1807 :
+@ all {text:"a",click_event
+R 0
+A -
+X Expected literal : at position 23: ...lick_event<--[HERE]@21
+E Expected literal : at position 23: ...lick_event<--[HERE]@21
+S 21-21 1 1807 :
+@ all {text:"a",click_event:
+R 0
+A -
+X Expected a valid unquoted string at position 24: ...ick_event:<--[HERE]@22
+E Expected a valid unquoted string at position 24: ...ick_event:<--[HERE]@22
+S -2--2 0 0 
+@ all {text:"a",click_event:{
+R 0
+A -
+X Expected literal " at position 25: ...ck_event:{<--[HERE]@23
+E Expected literal " at position 25: ...ck_event:{<--[HERE]@23
+S 23-23 3 982877205 "	'	}
+@ all {text:"a",click_event:{a
+R 0
+A -
+X Expected literal : at position 26: ...k_event:{a<--[HERE]@24
+E Expected literal : at position 26: ...k_event:{a<--[HERE]@24
+S 24-24 1 1807 :
+@ all {text:"a",click_event:{ac
+R 0
+A -
+X Expected literal : at position 27: ..._event:{ac<--[HERE]@25
+E Expected literal : at position 27: ..._event:{ac<--[HERE]@25
+S 25-25 1 1807 :
+@ all {text:"a",click_event:{act
+R 0
+A -
+X Expected literal : at position 28: ...event:{act<--[HERE]@26
+E Expected literal : at position 28: ...event:{act<--[HERE]@26
+S 26-26 1 1807 :
+@ all {text:"a",click_event:{acti
+R 0
+A -
+X Expected literal : at position 29: ...vent:{acti<--[HERE]@27
+E Expected literal : at position 29: ...vent:{acti<--[HERE]@27
+S 27-27 1 1807 :
+@ all {text:"a",click_event:{actio
+R 0
+A -
+X Expected literal : at position 30: ...ent:{actio<--[HERE]@28
+E Expected literal : at position 30: ...ent:{actio<--[HERE]@28
+S 28-28 1 1807 :
+@ all {text:"a",click_event:{action
+R 0
+A -
+X Expected literal : at position 31: ...nt:{action<--[HERE]@29
+E Expected literal : at position 31: ...nt:{action<--[HERE]@29
+S 29-29 1 1807 :
+@ all {text:"a",click_event:{action:
+R 0
+A -
+X Expected a valid unquoted string at position 32: ...t:{action:<--[HERE]@30
+E Expected a valid unquoted string at position 32: ...t:{action:<--[HERE]@30
+S -2--2 0 0 
+@ all {text:"a",click_event:{action:"
+R 0
+A -
+X Invalid string contents at position 33: ...:{action:"<--[HERE]@31
+E Invalid string contents at position 33: ...:{action:"<--[HERE]@31
+S 31-31 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"o
+R 0
+A -
+X Invalid string contents at position 34: ...{action:"o<--[HERE]@32
+E Invalid string contents at position 34: ...{action:"o<--[HERE]@32
+S 32-32 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"op
+R 0
+A -
+X Invalid string contents at position 35: ...action:"op<--[HERE]@33
+E Invalid string contents at position 35: ...action:"op<--[HERE]@33
+S 33-33 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"ope
+R 0
+A -
+X Invalid string contents at position 36: ...ction:"ope<--[HERE]@34
+E Invalid string contents at position 36: ...ction:"ope<--[HERE]@34
+S 34-34 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open
+R 0
+A -
+X Invalid string contents at position 37: ...tion:"open<--[HERE]@35
+E Invalid string contents at position 37: ...tion:"open<--[HERE]@35
+S 35-35 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_
+R 0
+A -
+X Invalid string contents at position 38: ...ion:"open_<--[HERE]@36
+E Invalid string contents at position 38: ...ion:"open_<--[HERE]@36
+S 36-36 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_u
+R 0
+A -
+X Invalid string contents at position 39: ...on:"open_u<--[HERE]@37
+E Invalid string contents at position 39: ...on:"open_u<--[HERE]@37
+S 37-37 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_ur
+R 0
+A -
+X Invalid string contents at position 40: ...n:"open_ur<--[HERE]@38
+E Invalid string contents at position 40: ...n:"open_ur<--[HERE]@38
+S 38-38 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url
+R 0
+A -
+X Invalid string contents at position 41: ...:"open_url<--[HERE]@39
+E Invalid string contents at position 41: ...:"open_url<--[HERE]@39
+S 39-39 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url"
+R 0
+A -
+X Expected literal , at position 42: ..."open_url"<--[HERE]@40
+E Expected literal , at position 42: ..."open_url"<--[HERE]@40
+S 40-40 2 1323337 ,	}
+@ all {text:"a",click_event:{action:"open_url",
+R 0
+A -
+X Expected literal " at position 43: ...open_url",<--[HERE]@41
+E Expected literal " at position 43: ...open_url",<--[HERE]@41
+S 41-41 3 982877205 "	'	}
+@ all {text:"a",click_event:{action:"open_url",u
+R 0
+A -
+X Expected literal : at position 44: ...pen_url",u<--[HERE]@42
+E Expected literal : at position 44: ...pen_url",u<--[HERE]@42
+S 42-42 1 1807 :
+@ all {text:"a",click_event:{action:"open_url",ur
+R 0
+A -
+X Expected literal : at position 45: ...en_url",ur<--[HERE]@43
+E Expected literal : at position 45: ...en_url",ur<--[HERE]@43
+S 43-43 1 1807 :
+@ all {text:"a",click_event:{action:"open_url",url
+R 0
+A -
+X Expected literal : at position 46: ...n_url",url<--[HERE]@44
+E Expected literal : at position 46: ...n_url",url<--[HERE]@44
+S 44-44 1 1807 :
+@ all {text:"a",click_event:{action:"open_url",url:
+R 0
+A -
+X Expected a valid unquoted string at position 47: ..._url",url:<--[HERE]@45
+E Expected a valid unquoted string at position 47: ..._url",url:<--[HERE]@45
+S -2--2 0 0 
+@ all {text:"a",click_event:{action:"open_url",url:"
+R 0
+A -
+X Invalid string contents at position 48: ...url",url:"<--[HERE]@46
+E Invalid string contents at position 48: ...url",url:"<--[HERE]@46
+S 46-46 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"h
+R 0
+A -
+X Invalid string contents at position 49: ...rl",url:"h<--[HERE]@47
+E Invalid string contents at position 49: ...rl",url:"h<--[HERE]@47
+S 47-47 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"ht
+R 0
+A -
+X Invalid string contents at position 50: ...l",url:"ht<--[HERE]@48
+E Invalid string contents at position 50: ...l",url:"ht<--[HERE]@48
+S 48-48 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"htt
+R 0
+A -
+X Invalid string contents at position 51: ...",url:"htt<--[HERE]@49
+E Invalid string contents at position 51: ...",url:"htt<--[HERE]@49
+S 49-49 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"http
+R 0
+A -
+X Invalid string contents at position 52: ...,url:"http<--[HERE]@50
+E Invalid string contents at position 52: ...,url:"http<--[HERE]@50
+S 50-50 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https
+R 0
+A -
+X Invalid string contents at position 53: ...url:"https<--[HERE]@51
+E Invalid string contents at position 53: ...url:"https<--[HERE]@51
+S 51-51 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https:
+R 0
+A -
+X Invalid string contents at position 54: ...rl:"https:<--[HERE]@52
+E Invalid string contents at position 54: ...rl:"https:<--[HERE]@52
+S 52-52 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https:/
+R 0
+A -
+X Invalid string contents at position 55: ...l:"https:/<--[HERE]@53
+E Invalid string contents at position 55: ...l:"https:/<--[HERE]@53
+S 53-53 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https://
+R 0
+A -
+X Invalid string contents at position 56: ...:"https://<--[HERE]@54
+E Invalid string contents at position 56: ...:"https://<--[HERE]@54
+S 54-54 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https://a
+R 0
+A -
+X Invalid string contents at position 57: ..."https://a<--[HERE]@55
+E Invalid string contents at position 57: ..."https://a<--[HERE]@55
+S 55-55 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https://a.
+R 0
+A -
+X Invalid string contents at position 58: ...https://a.<--[HERE]@56
+E Invalid string contents at position 58: ...https://a.<--[HERE]@56
+S 56-56 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https://a.b
+R 0
+A -
+X Invalid string contents at position 59: ...ttps://a.b<--[HERE]@57
+E Invalid string contents at position 59: ...ttps://a.b<--[HERE]@57
+S 57-57 3 404393152 "	'	\\
+@ all {text:"a",click_event:{action:"open_url",url:"https://a.b"
+R 0
+A -
+X Expected literal , at position 60: ...tps://a.b"<--[HERE]@58
+E Expected literal , at position 60: ...tps://a.b"<--[HERE]@58
+S 58-58 2 1323337 ,	}
+@ all {text:"a",click_event:{action:"open_url",url:"https://a.b"}
+R 0
+A -
+X Expected literal , at position 61: ...ps://a.b"}<--[HERE]@59
+E Expected literal , at position 61: ...ps://a.b"}<--[HERE]@59
+S 59-59 2 1323337 ,	}
+@ all {text:"a",h
+R 0
+A -
+X Expected literal : at position 13: ...text:"a",h<--[HERE]@11
+E Expected literal : at position 13: ...text:"a",h<--[HERE]@11
+S 11-11 1 1807 :
+@ all {text:"a",ho
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",ho<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",ho<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",hov
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",hov<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",hov<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",hove
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",hove<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",hove<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",hover
+R 0
+A -
+X Expected literal : at position 17: ...:"a",hover<--[HERE]@15
+E Expected literal : at position 17: ...:"a",hover<--[HERE]@15
+S 15-15 1 1807 :
+@ all {text:"a",hover_
+R 0
+A -
+X Expected literal : at position 18: ..."a",hover_<--[HERE]@16
+E Expected literal : at position 18: ..."a",hover_<--[HERE]@16
+S 16-16 1 1807 :
+@ all {text:"a",hover_e
+R 0
+A -
+X Expected literal : at position 19: ...a",hover_e<--[HERE]@17
+E Expected literal : at position 19: ...a",hover_e<--[HERE]@17
+S 17-17 1 1807 :
+@ all {text:"a",hover_ev
+R 0
+A -
+X Expected literal : at position 20: ...",hover_ev<--[HERE]@18
+E Expected literal : at position 20: ...",hover_ev<--[HERE]@18
+S 18-18 1 1807 :
+@ all {text:"a",hover_eve
+R 0
+A -
+X Expected literal : at position 21: ...,hover_eve<--[HERE]@19
+E Expected literal : at position 21: ...,hover_eve<--[HERE]@19
+S 19-19 1 1807 :
+@ all {text:"a",hover_even
+R 0
+A -
+X Expected literal : at position 22: ...hover_even<--[HERE]@20
+E Expected literal : at position 22: ...hover_even<--[HERE]@20
+S 20-20 1 1807 :
+@ all {text:"a",hover_event
+R 0
+A -
+X Expected literal : at position 23: ...over_event<--[HERE]@21
+E Expected literal : at position 23: ...over_event<--[HERE]@21
+S 21-21 1 1807 :
+@ all {text:"a",hover_event:
+R 0
+A -
+X Expected a valid unquoted string at position 24: ...ver_event:<--[HERE]@22
+E Expected a valid unquoted string at position 24: ...ver_event:<--[HERE]@22
+S -2--2 0 0 
+@ all {text:"a",hover_event:{
+R 0
+A -
+X Expected literal " at position 25: ...er_event:{<--[HERE]@23
+E Expected literal " at position 25: ...er_event:{<--[HERE]@23
+S 23-23 3 982877205 "	'	}
+@ all {text:"a",hover_event:{a
+R 0
+A -
+X Expected literal : at position 26: ...r_event:{a<--[HERE]@24
+E Expected literal : at position 26: ...r_event:{a<--[HERE]@24
+S 24-24 1 1807 :
+@ all {text:"a",hover_event:{ac
+R 0
+A -
+X Expected literal : at position 27: ..._event:{ac<--[HERE]@25
+E Expected literal : at position 27: ..._event:{ac<--[HERE]@25
+S 25-25 1 1807 :
+@ all {text:"a",hover_event:{act
+R 0
+A -
+X Expected literal : at position 28: ...event:{act<--[HERE]@26
+E Expected literal : at position 28: ...event:{act<--[HERE]@26
+S 26-26 1 1807 :
+@ all {text:"a",hover_event:{acti
+R 0
+A -
+X Expected literal : at position 29: ...vent:{acti<--[HERE]@27
+E Expected literal : at position 29: ...vent:{acti<--[HERE]@27
+S 27-27 1 1807 :
+@ all {text:"a",hover_event:{actio
+R 0
+A -
+X Expected literal : at position 30: ...ent:{actio<--[HERE]@28
+E Expected literal : at position 30: ...ent:{actio<--[HERE]@28
+S 28-28 1 1807 :
+@ all {text:"a",hover_event:{action
+R 0
+A -
+X Expected literal : at position 31: ...nt:{action<--[HERE]@29
+E Expected literal : at position 31: ...nt:{action<--[HERE]@29
+S 29-29 1 1807 :
+@ all {text:"a",hover_event:{action:
+R 0
+A -
+X Expected a valid unquoted string at position 32: ...t:{action:<--[HERE]@30
+E Expected a valid unquoted string at position 32: ...t:{action:<--[HERE]@30
+S -2--2 0 0 
+@ all {text:"a",hover_event:{action:"
+R 0
+A -
+X Invalid string contents at position 33: ...:{action:"<--[HERE]@31
+E Invalid string contents at position 33: ...:{action:"<--[HERE]@31
+S 31-31 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"s
+R 0
+A -
+X Invalid string contents at position 34: ...{action:"s<--[HERE]@32
+E Invalid string contents at position 34: ...{action:"s<--[HERE]@32
+S 32-32 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"sh
+R 0
+A -
+X Invalid string contents at position 35: ...action:"sh<--[HERE]@33
+E Invalid string contents at position 35: ...action:"sh<--[HERE]@33
+S 33-33 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"sho
+R 0
+A -
+X Invalid string contents at position 36: ...ction:"sho<--[HERE]@34
+E Invalid string contents at position 36: ...ction:"sho<--[HERE]@34
+S 34-34 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show
+R 0
+A -
+X Invalid string contents at position 37: ...tion:"show<--[HERE]@35
+E Invalid string contents at position 37: ...tion:"show<--[HERE]@35
+S 35-35 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_
+R 0
+A -
+X Invalid string contents at position 38: ...ion:"show_<--[HERE]@36
+E Invalid string contents at position 38: ...ion:"show_<--[HERE]@36
+S 36-36 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_t
+R 0
+A -
+X Invalid string contents at position 39: ...on:"show_t<--[HERE]@37
+E Invalid string contents at position 39: ...on:"show_t<--[HERE]@37
+S 37-37 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_te
+R 0
+A -
+X Invalid string contents at position 40: ...n:"show_te<--[HERE]@38
+E Invalid string contents at position 40: ...n:"show_te<--[HERE]@38
+S 38-38 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_tex
+R 0
+A -
+X Invalid string contents at position 41: ...:"show_tex<--[HERE]@39
+E Invalid string contents at position 41: ...:"show_tex<--[HERE]@39
+S 39-39 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_text
+R 0
+A -
+X Invalid string contents at position 42: ..."show_text<--[HERE]@40
+E Invalid string contents at position 42: ..."show_text<--[HERE]@40
+S 40-40 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_text"
+R 0
+A -
+X Expected literal , at position 43: ...show_text"<--[HERE]@41
+E Expected literal , at position 43: ...show_text"<--[HERE]@41
+S 41-41 2 1323337 ,	}
+@ all {text:"a",hover_event:{action:"show_text",
+R 0
+A -
+X Expected literal " at position 44: ...how_text",<--[HERE]@42
+E Expected literal " at position 44: ...how_text",<--[HERE]@42
+S 42-42 3 982877205 "	'	}
+@ all {text:"a",hover_event:{action:"show_text",v
+R 0
+A -
+X Expected literal : at position 45: ...ow_text",v<--[HERE]@43
+E Expected literal : at position 45: ...ow_text",v<--[HERE]@43
+S 43-43 1 1807 :
+@ all {text:"a",hover_event:{action:"show_text",va
+R 0
+A -
+X Expected literal : at position 46: ...w_text",va<--[HERE]@44
+E Expected literal : at position 46: ...w_text",va<--[HERE]@44
+S 44-44 1 1807 :
+@ all {text:"a",hover_event:{action:"show_text",val
+R 0
+A -
+X Expected literal : at position 47: ..._text",val<--[HERE]@45
+E Expected literal : at position 47: ..._text",val<--[HERE]@45
+S 45-45 1 1807 :
+@ all {text:"a",hover_event:{action:"show_text",valu
+R 0
+A -
+X Expected literal : at position 48: ...text",valu<--[HERE]@46
+E Expected literal : at position 48: ...text",valu<--[HERE]@46
+S 46-46 1 1807 :
+@ all {text:"a",hover_event:{action:"show_text",value
+R 0
+A -
+X Expected literal : at position 49: ...ext",value<--[HERE]@47
+E Expected literal : at position 49: ...ext",value<--[HERE]@47
+S 47-47 1 1807 :
+@ all {text:"a",hover_event:{action:"show_text",value:
+R 0
+A -
+X Expected a valid unquoted string at position 50: ...xt",value:<--[HERE]@48
+E Expected a valid unquoted string at position 50: ...xt",value:<--[HERE]@48
+S -2--2 0 0 
+@ all {text:"a",hover_event:{action:"show_text",value:"
+R 0
+A -
+X Invalid string contents at position 51: ...t",value:"<--[HERE]@49
+E Invalid string contents at position 51: ...t",value:"<--[HERE]@49
+S 49-49 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_text",value:"x
+R 0
+A -
+X Invalid string contents at position 52: ...",value:"x<--[HERE]@50
+E Invalid string contents at position 52: ...",value:"x<--[HERE]@50
+S 50-50 3 404393152 "	'	\\
+@ all {text:"a",hover_event:{action:"show_text",value:"x"
+R 0
+A -
+X Expected literal , at position 53: ...,value:"x"<--[HERE]@51
+E Expected literal , at position 53: ...,value:"x"<--[HERE]@51
+S 51-51 2 1323337 ,	}
+@ all {text:"a",hover_event:{action:"show_text",value:"x"}
+R 0
+A -
+X Expected literal , at position 54: ...value:"x"}<--[HERE]@52
+E Expected literal , at position 54: ...value:"x"}<--[HERE]@52
+S 52-52 2 1323337 ,	}
+@ all {text:"a",in
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",in<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",in<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",ins
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",ins<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",ins<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",inse
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",inse<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",inse<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",inser
+R 0
+A -
+X Expected literal : at position 17: ...:"a",inser<--[HERE]@15
+E Expected literal : at position 17: ...:"a",inser<--[HERE]@15
+S 15-15 1 1807 :
+@ all {text:"a",insert
+R 0
+A -
+X Expected literal : at position 18: ..."a",insert<--[HERE]@16
+E Expected literal : at position 18: ..."a",insert<--[HERE]@16
+S 16-16 1 1807 :
+@ all {text:"a",inserti
+R 0
+A -
+X Expected literal : at position 19: ...a",inserti<--[HERE]@17
+E Expected literal : at position 19: ...a",inserti<--[HERE]@17
+S 17-17 1 1807 :
+@ all {text:"a",insertio
+R 0
+A -
+X Expected literal : at position 20: ...",insertio<--[HERE]@18
+E Expected literal : at position 20: ...",insertio<--[HERE]@18
+S 18-18 1 1807 :
+@ all {text:"a",insertion
+R 0
+A -
+X Expected literal : at position 21: ...,insertion<--[HERE]@19
+E Expected literal : at position 21: ...,insertion<--[HERE]@19
+S 19-19 1 1807 :
+@ all {text:"a",insertion:
+R 0
+A -
+X Expected a valid unquoted string at position 22: ...insertion:<--[HERE]@20
+E Expected a valid unquoted string at position 22: ...insertion:<--[HERE]@20
+S -2--2 0 0 
+@ all {text:"a",insertion:"
+R 0
+A -
+X Invalid string contents at position 23: ...nsertion:"<--[HERE]@21
+E Invalid string contents at position 23: ...nsertion:"<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {text:"a",insertion:"x
+R 0
+A -
+X Invalid string contents at position 24: ...sertion:"x<--[HERE]@22
+E Invalid string contents at position 24: ...sertion:"x<--[HERE]@22
+S 22-22 3 404393152 "	'	\\
+@ all {text:"a",insertion:"x"
+R 0
+A -
+X Expected literal , at position 25: ...ertion:"x"<--[HERE]@23
+E Expected literal , at position 25: ...ertion:"x"<--[HERE]@23
+S 23-23 2 1323337 ,	}
+@ all {text:"a",s
+R 0
+A -
+X Expected literal : at position 13: ...text:"a",s<--[HERE]@11
+E Expected literal : at position 13: ...text:"a",s<--[HERE]@11
+S 11-11 1 1807 :
+@ all {text:"a",sh
+R 0
+A -
+X Expected literal : at position 14: ...ext:"a",sh<--[HERE]@12
+E Expected literal : at position 14: ...ext:"a",sh<--[HERE]@12
+S 12-12 1 1807 :
+@ all {text:"a",sha
+R 0
+A -
+X Expected literal : at position 15: ...xt:"a",sha<--[HERE]@13
+E Expected literal : at position 15: ...xt:"a",sha<--[HERE]@13
+S 13-13 1 1807 :
+@ all {text:"a",shad
+R 0
+A -
+X Expected literal : at position 16: ...t:"a",shad<--[HERE]@14
+E Expected literal : at position 16: ...t:"a",shad<--[HERE]@14
+S 14-14 1 1807 :
+@ all {text:"a",shado
+R 0
+A -
+X Expected literal : at position 17: ...:"a",shado<--[HERE]@15
+E Expected literal : at position 17: ...:"a",shado<--[HERE]@15
+S 15-15 1 1807 :
+@ all {text:"a",shadow
+R 0
+A -
+X Expected literal : at position 18: ..."a",shadow<--[HERE]@16
+E Expected literal : at position 18: ..."a",shadow<--[HERE]@16
+S 16-16 1 1807 :
+@ all {text:"a",shadow_
+R 0
+A -
+X Expected literal : at position 19: ...a",shadow_<--[HERE]@17
+E Expected literal : at position 19: ...a",shadow_<--[HERE]@17
+S 17-17 1 1807 :
+@ all {text:"a",shadow_c
+R 0
+A -
+X Expected literal : at position 20: ...",shadow_c<--[HERE]@18
+E Expected literal : at position 20: ...",shadow_c<--[HERE]@18
+S 18-18 1 1807 :
+@ all {text:"a",shadow_co
+R 0
+A -
+X Expected literal : at position 21: ...,shadow_co<--[HERE]@19
+E Expected literal : at position 21: ...,shadow_co<--[HERE]@19
+S 19-19 1 1807 :
+@ all {text:"a",shadow_col
+R 0
+A -
+X Expected literal : at position 22: ...shadow_col<--[HERE]@20
+E Expected literal : at position 22: ...shadow_col<--[HERE]@20
+S 20-20 1 1807 :
+@ all {text:"a",shadow_colo
+R 0
+A -
+X Expected literal : at position 23: ...hadow_colo<--[HERE]@21
+E Expected literal : at position 23: ...hadow_colo<--[HERE]@21
+S 21-21 1 1807 :
+@ all {text:"a",shadow_color
+R 0
+A -
+X Expected literal : at position 24: ...adow_color<--[HERE]@22
+E Expected literal : at position 24: ...adow_color<--[HERE]@22
+S 22-22 1 1807 :
+@ all {text:"a",shadow_color:
+R 0
+A -
+X Expected a valid unquoted string at position 25: ...dow_color:<--[HERE]@23
+E Expected a valid unquoted string at position 25: ...dow_color:<--[HERE]@23
+S -2--2 0 0 
+@ all {text:"a",shadow_color:-
+R 0
+A -
+X Expected a decimal number at position 26: ...ow_color:-<--[HERE]@24
+E Expected a decimal number at position 26: ...ow_color:-<--[HERE]@24
+S 24-24 7 1048254083 (	.	0	bool	false	true	uuid
+@ all {text:"a",shadow_color:-1
+R 0
+A -
+X Expected literal . at position 27: ...w_color:-1<--[HERE]@25
+E Expected literal . at position 27: ...w_color:-1<--[HERE]@25
+S 25-25 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all 1.
+R 0
+A -
+X Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1.0d; Second: Not a map: 1.0d at position 2: t <--[HERE]@0
+E Invalid chat component: Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 1.0d; Second: Not a map: 1.0d at position 2: t <--[HERE]@0
+S 2-2 6 -1514971912 d	D	e	E	f	F
+@ all t
+R 1
+A 0-1 "t"
+E ok
+S 1-1 1 1249 (
+@ all tr
+R 2
+A 0-2 "tr"
+E ok
+S 2-2 1 1249 (
+@ all tru
+R 3
+A 0-3 "tru"
+E ok
+S 3-3 1 1249 (
+@ all [1
+R 0
+A -
+X Expected literal . at position 4: t [1<--[HERE]@2
+E Expected literal . at position 4: t [1<--[HERE]@2
+S 2-2 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all [1,
+R 0
+A -
+X Expected a valid unquoted string at position 5: t [1,<--[HERE]@3
+E Expected a valid unquoted string at position 5: t [1,<--[HERE]@3
+S 3-3 1 2892 ]
+@ all [1,2
+R 0
+A -
+X Expected literal . at position 6: t [1,2<--[HERE]@4
+E Expected literal . at position 6: t [1,2<--[HERE]@4
+S 4-4 19 -530256392 ,	.	]	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U
+@ all ["a
+R 0
+A -
+X Invalid string contents at position 5: t ["a<--[HERE]@3
+E Invalid string contents at position 5: t ["a<--[HERE]@3
+S 3-3 3 404393152 "	'	\\
+@ all ["a",
+R 0
+A -
+X Expected a valid unquoted string at position 7: t ["a",<--[HERE]@5
+E Expected a valid unquoted string at position 7: t ["a",<--[HERE]@5
+S 5-5 1 2892 ]
+@ all ["a","
+R 0
+A -
+X Invalid string contents at position 8: t ["a","<--[HERE]@6
+E Invalid string contents at position 8: t ["a","<--[HERE]@6
+S 6-6 3 404393152 "	'	\\
+@ all ["a","b
+R 0
+A -
+X Invalid string contents at position 9: t ["a","b<--[HERE]@7
+E Invalid string contents at position 9: t ["a","b<--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all ["a","b"
+R 0
+A -
+X Expected literal , at position 10: t ["a","b"<--[HERE]@8
+E Expected literal , at position 10: t ["a","b"<--[HERE]@8
+S 8-8 2 1322345 ,	]
+@ all {f
+R 0
+A -
+X Expected literal : at position 4: t {f<--[HERE]@2
+E Expected literal : at position 4: t {f<--[HERE]@2
+S 2-2 1 1807 :
+@ all {fo
+R 0
+A -
+X Expected literal : at position 5: t {fo<--[HERE]@3
+E Expected literal : at position 5: t {fo<--[HERE]@3
+S 3-3 1 1807 :
+@ all {foo
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S 4-4 1 1807 :
+@ all {foo:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+S -2--2 0 0 
+@ all {foo:1
+R 0
+A -
+X Expected literal . at position 8: t {foo:1<--[HERE]@6
+E Expected literal . at position 8: t {foo:1<--[HERE]@6
+S 6-6 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all {text:1
+R 0
+A -
+X Expected literal . at position 9: t {text:1<--[HERE]@7
+E Expected literal . at position 9: t {text:1<--[HERE]@7
+S 7-7 19 913487064 ,	.	b	B	d	D	e	E	f	F	i	I	l	L	s	S	u	U	}
+@ all a
+R 1
+A 0-1 "a"
+E ok
+S 1-1 1 1249 (
+@ all ab
+R 2
+A 0-2 "ab"
+E ok
+S 2-2 1 1249 (
+@ all {text:"a",bold:"
+R 0
+A -
+X Invalid string contents at position 18: ..."a",bold:"<--[HERE]@16
+E Invalid string contents at position 18: ..."a",bold:"<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {text:"a",bold:"x
+R 0
+A -
+X Invalid string contents at position 19: ...a",bold:"x<--[HERE]@17
+E Invalid string contents at position 19: ...a",bold:"x<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {text:"a",bold:"x"
+R 0
+A -
+X Expected literal , at position 20: ...",bold:"x"<--[HERE]@18
+E Expected literal , at position 20: ...",bold:"x"<--[HERE]@18
+S 18-18 2 1323337 ,	}
+@ all {ty
+R 0
+A -
+X Expected literal : at position 5: t {ty<--[HERE]@3
+E Expected literal : at position 5: t {ty<--[HERE]@3
+S 3-3 1 1807 :
+@ all {typ
+R 0
+A -
+X Expected literal : at position 6: t {typ<--[HERE]@4
+E Expected literal : at position 6: t {typ<--[HERE]@4
+S 4-4 1 1807 :
+@ all {type
+R 0
+A -
+X Expected literal : at position 7: t {type<--[HERE]@5
+E Expected literal : at position 7: t {type<--[HERE]@5
+S 5-5 1 1807 :
+@ all {type:
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {type:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {type:<--[HERE]@6
+S -2--2 0 0 
+@ all {type:"
+R 0
+A -
+X Invalid string contents at position 9: t {type:"<--[HERE]@7
+E Invalid string contents at position 9: t {type:"<--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all {type:"t
+R 0
+A -
+X Invalid string contents at position 10: t {type:"t<--[HERE]@8
+E Invalid string contents at position 10: t {type:"t<--[HERE]@8
+S 8-8 3 404393152 "	'	\\
+@ all {type:"te
+R 0
+A -
+X Invalid string contents at position 11: ... {type:"te<--[HERE]@9
+E Invalid string contents at position 11: ... {type:"te<--[HERE]@9
+S 9-9 3 404393152 "	'	\\
+@ all {type:"tex
+R 0
+A -
+X Invalid string contents at position 12: ...{type:"tex<--[HERE]@10
+E Invalid string contents at position 12: ...{type:"tex<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {type:"text
+R 0
+A -
+X Invalid string contents at position 13: ...type:"text<--[HERE]@11
+E Invalid string contents at position 13: ...type:"text<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {type:"text"
+R 0
+A -
+X Expected literal , at position 14: ...ype:"text"<--[HERE]@12
+E Expected literal , at position 14: ...ype:"text"<--[HERE]@12
+S 12-12 2 1323337 ,	}
+@ all {type:"text",
+R 0
+A -
+X Expected literal " at position 15: ...pe:"text",<--[HERE]@13
+E Expected literal " at position 15: ...pe:"text",<--[HERE]@13
+S 13-13 3 982877205 "	'	}
+@ all {type:"text",t
+R 0
+A -
+X Expected literal : at position 16: ...e:"text",t<--[HERE]@14
+E Expected literal : at position 16: ...e:"text",t<--[HERE]@14
+S 14-14 1 1807 :
+@ all {type:"text",te
+R 0
+A -
+X Expected literal : at position 17: ...:"text",te<--[HERE]@15
+E Expected literal : at position 17: ...:"text",te<--[HERE]@15
+S 15-15 1 1807 :
+@ all {type:"text",tex
+R 0
+A -
+X Expected literal : at position 18: ..."text",tex<--[HERE]@16
+E Expected literal : at position 18: ..."text",tex<--[HERE]@16
+S 16-16 1 1807 :
+@ all {type:"text",text
+R 0
+A -
+X Expected literal : at position 19: ...text",text<--[HERE]@17
+E Expected literal : at position 19: ...text",text<--[HERE]@17
+S 17-17 1 1807 :
+@ all {type:"text",text:
+R 0
+A -
+X Expected a valid unquoted string at position 20: ...ext",text:<--[HERE]@18
+E Expected a valid unquoted string at position 20: ...ext",text:<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"text",text:"
+R 0
+A -
+X Invalid string contents at position 21: ...xt",text:"<--[HERE]@19
+E Invalid string contents at position 21: ...xt",text:"<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {type:"text",text:"a
+R 0
+A -
+X Invalid string contents at position 22: ...t",text:"a<--[HERE]@20
+E Invalid string contents at position 22: ...t",text:"a<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {type:"text",text:"a"
+R 0
+A -
+X Expected literal , at position 23: ...",text:"a"<--[HERE]@21
+E Expected literal , at position 23: ...",text:"a"<--[HERE]@21
+S 21-21 2 1323337 ,	}
+@ all {type:"tr
+R 0
+A -
+X Invalid string contents at position 11: ... {type:"tr<--[HERE]@9
+E Invalid string contents at position 11: ... {type:"tr<--[HERE]@9
+S 9-9 3 404393152 "	'	\\
+@ all {type:"tra
+R 0
+A -
+X Invalid string contents at position 12: ...{type:"tra<--[HERE]@10
+E Invalid string contents at position 12: ...{type:"tra<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {type:"tran
+R 0
+A -
+X Invalid string contents at position 13: ...type:"tran<--[HERE]@11
+E Invalid string contents at position 13: ...type:"tran<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {type:"trans
+R 0
+A -
+X Invalid string contents at position 14: ...ype:"trans<--[HERE]@12
+E Invalid string contents at position 14: ...ype:"trans<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {type:"transl
+R 0
+A -
+X Invalid string contents at position 15: ...pe:"transl<--[HERE]@13
+E Invalid string contents at position 15: ...pe:"transl<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {type:"transla
+R 0
+A -
+X Invalid string contents at position 16: ...e:"transla<--[HERE]@14
+E Invalid string contents at position 16: ...e:"transla<--[HERE]@14
+S 14-14 3 404393152 "	'	\\
+@ all {type:"translat
+R 0
+A -
+X Invalid string contents at position 17: ...:"translat<--[HERE]@15
+E Invalid string contents at position 17: ...:"translat<--[HERE]@15
+S 15-15 3 404393152 "	'	\\
+@ all {type:"translata
+R 0
+A -
+X Invalid string contents at position 18: ..."translata<--[HERE]@16
+E Invalid string contents at position 18: ..."translata<--[HERE]@16
+S 16-16 3 404393152 "	'	\\
+@ all {type:"translatab
+R 0
+A -
+X Invalid string contents at position 19: ...translatab<--[HERE]@17
+E Invalid string contents at position 19: ...translatab<--[HERE]@17
+S 17-17 3 404393152 "	'	\\
+@ all {type:"translatabl
+R 0
+A -
+X Invalid string contents at position 20: ...ranslatabl<--[HERE]@18
+E Invalid string contents at position 20: ...ranslatabl<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {type:"translatable
+R 0
+A -
+X Invalid string contents at position 21: ...anslatable<--[HERE]@19
+E Invalid string contents at position 21: ...anslatable<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {type:"translatable"
+R 0
+A -
+X Expected literal , at position 22: ...nslatable"<--[HERE]@20
+E Expected literal , at position 22: ...nslatable"<--[HERE]@20
+S 20-20 2 1323337 ,	}
+@ all {type:"translatable",
+R 0
+A -
+X Expected literal " at position 23: ...slatable",<--[HERE]@21
+E Expected literal " at position 23: ...slatable",<--[HERE]@21
+S 21-21 3 982877205 "	'	}
+@ all {type:"translatable",t
+R 0
+A -
+X Expected literal : at position 24: ...latable",t<--[HERE]@22
+E Expected literal : at position 24: ...latable",t<--[HERE]@22
+S 22-22 1 1807 :
+@ all {type:"translatable",tr
+R 0
+A -
+X Expected literal : at position 25: ...atable",tr<--[HERE]@23
+E Expected literal : at position 25: ...atable",tr<--[HERE]@23
+S 23-23 1 1807 :
+@ all {type:"translatable",tra
+R 0
+A -
+X Expected literal : at position 26: ...table",tra<--[HERE]@24
+E Expected literal : at position 26: ...table",tra<--[HERE]@24
+S 24-24 1 1807 :
+@ all {type:"translatable",tran
+R 0
+A -
+X Expected literal : at position 27: ...able",tran<--[HERE]@25
+E Expected literal : at position 27: ...able",tran<--[HERE]@25
+S 25-25 1 1807 :
+@ all {type:"translatable",trans
+R 0
+A -
+X Expected literal : at position 28: ...ble",trans<--[HERE]@26
+E Expected literal : at position 28: ...ble",trans<--[HERE]@26
+S 26-26 1 1807 :
+@ all {type:"translatable",transl
+R 0
+A -
+X Expected literal : at position 29: ...le",transl<--[HERE]@27
+E Expected literal : at position 29: ...le",transl<--[HERE]@27
+S 27-27 1 1807 :
+@ all {type:"translatable",transla
+R 0
+A -
+X Expected literal : at position 30: ...e",transla<--[HERE]@28
+E Expected literal : at position 30: ...e",transla<--[HERE]@28
+S 28-28 1 1807 :
+@ all {type:"translatable",translat
+R 0
+A -
+X Expected literal : at position 31: ...",translat<--[HERE]@29
+E Expected literal : at position 31: ...",translat<--[HERE]@29
+S 29-29 1 1807 :
+@ all {type:"translatable",translate
+R 0
+A -
+X Expected literal : at position 32: ...,translate<--[HERE]@30
+E Expected literal : at position 32: ...,translate<--[HERE]@30
+S 30-30 1 1807 :
+@ all {type:"translatable",translate:
+R 0
+A -
+X Expected a valid unquoted string at position 33: ...translate:<--[HERE]@31
+E Expected a valid unquoted string at position 33: ...translate:<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"translatable",translate:"
+R 0
+A -
+X Invalid string contents at position 34: ...ranslate:"<--[HERE]@32
+E Invalid string contents at position 34: ...ranslate:"<--[HERE]@32
+S 32-32 3 404393152 "	'	\\
+@ all {type:"translatable",translate:"a
+R 0
+A -
+X Invalid string contents at position 35: ...anslate:"a<--[HERE]@33
+E Invalid string contents at position 35: ...anslate:"a<--[HERE]@33
+S 33-33 3 404393152 "	'	\\
+@ all {type:"translatable",translate:"a"
+R 0
+A -
+X Expected literal , at position 36: ...nslate:"a"<--[HERE]@34
+E Expected literal , at position 36: ...nslate:"a"<--[HERE]@34
+S 34-34 2 1323337 ,	}
+@ all {type:"n
+R 0
+A -
+X Invalid string contents at position 10: t {type:"n<--[HERE]@8
+E Invalid string contents at position 10: t {type:"n<--[HERE]@8
+S 8-8 3 404393152 "	'	\\
+@ all {type:"no
+R 0
+A -
+X Invalid string contents at position 11: ... {type:"no<--[HERE]@9
+E Invalid string contents at position 11: ... {type:"no<--[HERE]@9
+S 9-9 3 404393152 "	'	\\
+@ all {type:"nop
+R 0
+A -
+X Invalid string contents at position 12: ...{type:"nop<--[HERE]@10
+E Invalid string contents at position 12: ...{type:"nop<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {type:"nope
+R 0
+A -
+X Invalid string contents at position 13: ...type:"nope<--[HERE]@11
+E Invalid string contents at position 13: ...type:"nope<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {type:"nope"
+R 0
+A -
+X Expected literal , at position 14: ...ype:"nope"<--[HERE]@12
+E Expected literal , at position 14: ...ype:"nope"<--[HERE]@12
+S 12-12 2 1323337 ,	}
+@ all {text:"a",color:"d
+R 0
+A -
+X Invalid string contents at position 20: ...",color:"d<--[HERE]@18
+E Invalid string contents at position 20: ...",color:"d<--[HERE]@18
+S 18-18 3 404393152 "	'	\\
+@ all {text:"a",color:"da
+R 0
+A -
+X Invalid string contents at position 21: ...,color:"da<--[HERE]@19
+E Invalid string contents at position 21: ...,color:"da<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {text:"a",color:"dar
+R 0
+A -
+X Invalid string contents at position 22: ...color:"dar<--[HERE]@20
+E Invalid string contents at position 22: ...color:"dar<--[HERE]@20
+S 20-20 3 404393152 "	'	\\
+@ all {text:"a",color:"dark
+R 0
+A -
+X Invalid string contents at position 23: ...olor:"dark<--[HERE]@21
+E Invalid string contents at position 23: ...olor:"dark<--[HERE]@21
+S 21-21 3 404393152 "	'	\\
+@ all {text:"a",color:"dark_
+R 0
+A -
+X Invalid string contents at position 24: ...lor:"dark_<--[HERE]@22
+E Invalid string contents at position 24: ...lor:"dark_<--[HERE]@22
+S 22-22 3 404393152 "	'	\\
+@ all {text:"a",color:"dark_r
+R 0
+A -
+X Invalid string contents at position 25: ...or:"dark_r<--[HERE]@23
+E Invalid string contents at position 25: ...or:"dark_r<--[HERE]@23
+S 23-23 3 404393152 "	'	\\
+@ all {text:"a",color:"dark_re
+R 0
+A -
+X Invalid string contents at position 26: ...r:"dark_re<--[HERE]@24
+E Invalid string contents at position 26: ...r:"dark_re<--[HERE]@24
+S 24-24 3 404393152 "	'	\\
+@ all {text:"a",color:"dark_red
+R 0
+A -
+X Invalid string contents at position 27: ...:"dark_red<--[HERE]@25
+E Invalid string contents at position 27: ...:"dark_red<--[HERE]@25
+S 25-25 3 404393152 "	'	\\
+@ all {text:"a",color:"dark_red"
+R 0
+A -
+X Expected literal , at position 28: ..."dark_red"<--[HERE]@26
+E Expected literal , at position 28: ..."dark_red"<--[HERE]@26
+S 26-26 2 1323337 ,	}
+@ all {o
+R 0
+A -
+X Expected literal : at position 4: t {o<--[HERE]@2
+E Expected literal : at position 4: t {o<--[HERE]@2
+S 2-2 1 1807 :
+@ all {ob
+R 0
+A -
+X Expected literal : at position 5: t {ob<--[HERE]@3
+E Expected literal : at position 5: t {ob<--[HERE]@3
+S 3-3 1 1807 :
+@ all {obj
+R 0
+A -
+X Expected literal : at position 6: t {obj<--[HERE]@4
+E Expected literal : at position 6: t {obj<--[HERE]@4
+S 4-4 1 1807 :
+@ all {obje
+R 0
+A -
+X Expected literal : at position 7: t {obje<--[HERE]@5
+E Expected literal : at position 7: t {obje<--[HERE]@5
+S 5-5 1 1807 :
+@ all {objec
+R 0
+A -
+X Expected literal : at position 8: t {objec<--[HERE]@6
+E Expected literal : at position 8: t {objec<--[HERE]@6
+S 6-6 1 1807 :
+@ all {object
+R 0
+A -
+X Expected literal : at position 9: t {object<--[HERE]@7
+E Expected literal : at position 9: t {object<--[HERE]@7
+S 7-7 1 1807 :
+@ all {object:
+R 0
+A -
+X Expected a valid unquoted string at position 10: t {object:<--[HERE]@8
+E Expected a valid unquoted string at position 10: t {object:<--[HERE]@8
+S -2--2 0 0 
+@ all {object:"
+R 0
+A -
+X Invalid string contents at position 11: ... {object:"<--[HERE]@9
+E Invalid string contents at position 11: ... {object:"<--[HERE]@9
+S 9-9 3 404393152 "	'	\\
+@ all {object:"a
+R 0
+A -
+X Invalid string contents at position 12: ...{object:"a<--[HERE]@10
+E Invalid string contents at position 12: ...{object:"a<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {object:"at
+R 0
+A -
+X Invalid string contents at position 13: ...object:"at<--[HERE]@11
+E Invalid string contents at position 13: ...object:"at<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {object:"atl
+R 0
+A -
+X Invalid string contents at position 14: ...bject:"atl<--[HERE]@12
+E Invalid string contents at position 14: ...bject:"atl<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {object:"atla
+R 0
+A -
+X Invalid string contents at position 15: ...ject:"atla<--[HERE]@13
+E Invalid string contents at position 15: ...ject:"atla<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {object:"atlas
+R 0
+A -
+X Invalid string contents at position 16: ...ect:"atlas<--[HERE]@14
+E Invalid string contents at position 16: ...ect:"atlas<--[HERE]@14
+S 14-14 3 404393152 "	'	\\
+@ all {object:"atlas"
+R 0
+A -
+X Expected literal , at position 17: ...ct:"atlas"<--[HERE]@15
+E Expected literal , at position 17: ...ct:"atlas"<--[HERE]@15
+S 15-15 2 1323337 ,	}
+@ all {object:"atlas",
+R 0
+A -
+X Expected literal " at position 18: ...t:"atlas",<--[HERE]@16
+E Expected literal " at position 18: ...t:"atlas",<--[HERE]@16
+S 16-16 3 982877205 "	'	}
+@ all {object:"atlas",s
+R 0
+A -
+X Expected literal : at position 19: ...:"atlas",s<--[HERE]@17
+E Expected literal : at position 19: ...:"atlas",s<--[HERE]@17
+S 17-17 1 1807 :
+@ all {object:"atlas",sp
+R 0
+A -
+X Expected literal : at position 20: ..."atlas",sp<--[HERE]@18
+E Expected literal : at position 20: ..."atlas",sp<--[HERE]@18
+S 18-18 1 1807 :
+@ all {object:"atlas",spr
+R 0
+A -
+X Expected literal : at position 21: ...atlas",spr<--[HERE]@19
+E Expected literal : at position 21: ...atlas",spr<--[HERE]@19
+S 19-19 1 1807 :
+@ all {object:"atlas",spri
+R 0
+A -
+X Expected literal : at position 22: ...tlas",spri<--[HERE]@20
+E Expected literal : at position 22: ...tlas",spri<--[HERE]@20
+S 20-20 1 1807 :
+@ all {object:"atlas",sprit
+R 0
+A -
+X Expected literal : at position 23: ...las",sprit<--[HERE]@21
+E Expected literal : at position 23: ...las",sprit<--[HERE]@21
+S 21-21 1 1807 :
+@ all {object:"atlas",sprite
+R 0
+A -
+X Expected literal : at position 24: ...as",sprite<--[HERE]@22
+E Expected literal : at position 24: ...as",sprite<--[HERE]@22
+S 22-22 1 1807 :
+@ all {object:"atlas",sprite:
+R 0
+A -
+X Expected a valid unquoted string at position 25: ...s",sprite:<--[HERE]@23
+E Expected a valid unquoted string at position 25: ...s",sprite:<--[HERE]@23
+S -2--2 0 0 
+@ all {object:"atlas",sprite:"
+R 0
+A -
+X Invalid string contents at position 26: ...",sprite:"<--[HERE]@24
+E Invalid string contents at position 26: ...",sprite:"<--[HERE]@24
+S 24-24 3 404393152 "	'	\\
+@ all {object:"atlas",sprite:"a
+R 0
+A -
+X Invalid string contents at position 27: ...,sprite:"a<--[HERE]@25
+E Invalid string contents at position 27: ...,sprite:"a<--[HERE]@25
+S 25-25 3 404393152 "	'	\\
+@ all {object:"atlas",sprite:"a"
+R 0
+A -
+X Expected literal , at position 28: ...sprite:"a"<--[HERE]@26
+E Expected literal , at position 28: ...sprite:"a"<--[HERE]@26
+S 26-26 2 1323337 ,	}
+@ all {object:"p
+R 0
+A -
+X Invalid string contents at position 12: ...{object:"p<--[HERE]@10
+E Invalid string contents at position 12: ...{object:"p<--[HERE]@10
+S 10-10 3 404393152 "	'	\\
+@ all {object:"pl
+R 0
+A -
+X Invalid string contents at position 13: ...object:"pl<--[HERE]@11
+E Invalid string contents at position 13: ...object:"pl<--[HERE]@11
+S 11-11 3 404393152 "	'	\\
+@ all {object:"pla
+R 0
+A -
+X Invalid string contents at position 14: ...bject:"pla<--[HERE]@12
+E Invalid string contents at position 14: ...bject:"pla<--[HERE]@12
+S 12-12 3 404393152 "	'	\\
+@ all {object:"play
+R 0
+A -
+X Invalid string contents at position 15: ...ject:"play<--[HERE]@13
+E Invalid string contents at position 15: ...ject:"play<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {object:"playe
+R 0
+A -
+X Invalid string contents at position 16: ...ect:"playe<--[HERE]@14
+E Invalid string contents at position 16: ...ect:"playe<--[HERE]@14
+S 14-14 3 404393152 "	'	\\
+@ all {object:"player
+R 0
+A -
+X Invalid string contents at position 17: ...ct:"player<--[HERE]@15
+E Invalid string contents at position 17: ...ct:"player<--[HERE]@15
+S 15-15 3 404393152 "	'	\\
+@ all {object:"player"
+R 0
+A -
+X Expected literal , at position 18: ...t:"player"<--[HERE]@16
+E Expected literal , at position 18: ...t:"player"<--[HERE]@16
+S 16-16 2 1323337 ,	}
+@ all {object:"player",
+R 0
+A -
+X Expected literal " at position 19: ...:"player",<--[HERE]@17
+E Expected literal " at position 19: ...:"player",<--[HERE]@17
+S 17-17 3 982877205 "	'	}
+@ all {object:"player",p
+R 0
+A -
+X Expected literal : at position 20: ..."player",p<--[HERE]@18
+E Expected literal : at position 20: ..."player",p<--[HERE]@18
+S 18-18 1 1807 :
+@ all {object:"player",pl
+R 0
+A -
+X Expected literal : at position 21: ...player",pl<--[HERE]@19
+E Expected literal : at position 21: ...player",pl<--[HERE]@19
+S 19-19 1 1807 :
+@ all {object:"player",pla
+R 0
+A -
+X Expected literal : at position 22: ...layer",pla<--[HERE]@20
+E Expected literal : at position 22: ...layer",pla<--[HERE]@20
+S 20-20 1 1807 :
+@ all {object:"player",play
+R 0
+A -
+X Expected literal : at position 23: ...ayer",play<--[HERE]@21
+E Expected literal : at position 23: ...ayer",play<--[HERE]@21
+S 21-21 1 1807 :
+@ all {object:"player",playe
+R 0
+A -
+X Expected literal : at position 24: ...yer",playe<--[HERE]@22
+E Expected literal : at position 24: ...yer",playe<--[HERE]@22
+S 22-22 1 1807 :
+@ all {object:"player",player
+R 0
+A -
+X Expected literal : at position 25: ...er",player<--[HERE]@23
+E Expected literal : at position 25: ...er",player<--[HERE]@23
+S 23-23 1 1807 :
+@ all {object:"player",player:
+R 0
+A -
+X Expected a valid unquoted string at position 26: ...r",player:<--[HERE]@24
+E Expected a valid unquoted string at position 26: ...r",player:<--[HERE]@24
+S -2--2 0 0 
+@ all {object:"player",player:{
+R 0
+A -
+X Expected literal " at position 27: ...",player:{<--[HERE]@25
+E Expected literal " at position 27: ...",player:{<--[HERE]@25
+S 25-25 3 982877205 "	'	}
+@ all {object:"player",player:{n
+R 0
+A -
+X Expected literal : at position 28: ...,player:{n<--[HERE]@26
+E Expected literal : at position 28: ...,player:{n<--[HERE]@26
+S 26-26 1 1807 :
+@ all {object:"player",player:{na
+R 0
+A -
+X Expected literal : at position 29: ...player:{na<--[HERE]@27
+E Expected literal : at position 29: ...player:{na<--[HERE]@27
+S 27-27 1 1807 :
+@ all {object:"player",player:{nam
+R 0
+A -
+X Expected literal : at position 30: ...layer:{nam<--[HERE]@28
+E Expected literal : at position 30: ...layer:{nam<--[HERE]@28
+S 28-28 1 1807 :
+@ all {object:"player",player:{name
+R 0
+A -
+X Expected literal : at position 31: ...ayer:{name<--[HERE]@29
+E Expected literal : at position 31: ...ayer:{name<--[HERE]@29
+S 29-29 1 1807 :
+@ all {object:"player",player:{name:
+R 0
+A -
+X Expected a valid unquoted string at position 32: ...yer:{name:<--[HERE]@30
+E Expected a valid unquoted string at position 32: ...yer:{name:<--[HERE]@30
+S -2--2 0 0 
+@ all {object:"player",player:{name:"
+R 0
+A -
+X Invalid string contents at position 33: ...er:{name:"<--[HERE]@31
+E Invalid string contents at position 33: ...er:{name:"<--[HERE]@31
+S 31-31 3 404393152 "	'	\\
+@ all {object:"player",player:{name:"a
+R 0
+A -
+X Invalid string contents at position 34: ...r:{name:"a<--[HERE]@32
+E Invalid string contents at position 34: ...r:{name:"a<--[HERE]@32
+S 32-32 3 404393152 "	'	\\
+@ all {object:"player",player:{name:"a"
+R 0
+A -
+X Expected literal , at position 35: ...:{name:"a"<--[HERE]@33
+E Expected literal , at position 35: ...:{name:"a"<--[HERE]@33
+S 33-33 2 1323337 ,	}
+@ all {object:"player",player:{name:"a"}
+R 0
+A -
+X Expected literal , at position 36: ...{name:"a"}<--[HERE]@34
+E Expected literal , at position 36: ...{name:"a"}<--[HERE]@34
+S 34-34 2 1323337 ,	}
+@ all {text:"\\
+R 0
+A -
+X Expected literal b at position 10: t {text:"\\<--[HERE]@8
+E Expected literal b at position 10: t {text:"\\<--[HERE]@8
+S 8-8 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all {text:"\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+E Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+S -2--2 0 0 
+@ all {text:"\\u0
+R 0
+A -
+X Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+E Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+S -2--2 0 0 
+@ all {text:"\\u00
+R 0
+A -
+X Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+E Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+S -2--2 0 0 
+@ all {text:"\\u00e
+R 0
+A -
+X Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+E Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+S -2--2 0 0 
+@ all {text:"\\u00e9
+R 0
+A -
+X Invalid string contents at position 15: ...xt:"\\u00e9<--[HERE]@13
+E Invalid string contents at position 15: ...xt:"\\u00e9<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {text:"\\u00e9"
+R 0
+A -
+X Expected literal , at position 16: ...t:"\\u00e9"<--[HERE]@14
+E Expected literal , at position 16: ...t:"\\u00e9"<--[HERE]@14
+S 14-14 2 1323337 ,	}
+@ all {text:"\\ud
+R 0
+A -
+X Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+E Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+S -2--2 0 0 
+@ all {text:"\\ud8
+R 0
+A -
+X Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+E Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+S -2--2 0 0 
+@ all {text:"\\ud83
+R 0
+A -
+X Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+E Expected a character literal of length 4 at position 11: ... {text:"\\u<--[HERE]@9
+S -2--2 0 0 
+@ all {text:"\\ud83d
+R 0
+A -
+X Invalid string contents at position 15: ...xt:"\\ud83d<--[HERE]@13
+E Invalid string contents at position 15: ...xt:"\\ud83d<--[HERE]@13
+S 13-13 3 404393152 "	'	\\
+@ all {text:"\\ud83d\\
+R 0
+A -
+X Expected literal b at position 16: ...t:"\\ud83d\\<--[HERE]@14
+E Expected literal b at position 16: ...t:"\\ud83d\\<--[HERE]@14
+S 14-14 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all {text:"\\ud83d\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+E Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+S -2--2 0 0 
+@ all {text:"\\ud83d\\ud
+R 0
+A -
+X Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+E Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+S -2--2 0 0 
+@ all {text:"\\ud83d\\ude
+R 0
+A -
+X Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+E Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+S -2--2 0 0 
+@ all {text:"\\ud83d\\ude0
+R 0
+A -
+X Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+E Expected a character literal of length 4 at position 17: ...:"\\ud83d\\u<--[HERE]@15
+S -2--2 0 0 
+@ all {text:"\\ud83d\\ude00
+R 0
+A -
+X Invalid string contents at position 21: ...d83d\\ude00<--[HERE]@19
+E Invalid string contents at position 21: ...d83d\\ude00<--[HERE]@19
+S 19-19 3 404393152 "	'	\\
+@ all {text:"\\ud83d\\ude00"
+R 0
+A -
+X Expected literal , at position 22: ...83d\\ude00"<--[HERE]@20
+E Expected literal , at position 22: ...83d\\ude00"<--[HERE]@20
+S 20-20 2 1323337 ,	}
+@ all "\\
+R 0
+A -
+X Expected literal b at position 4: t "\\<--[HERE]@2
+E Expected literal b at position 4: t "\\<--[HERE]@2
+S 2-2 13 -878017061 "	'	\\	b	f	n	N	r	s	t	u	U	x
+@ all "\\u
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u0
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00a
+R 0
+A -
+X Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+E Expected a character literal of length 4 at position 5: t "\\u<--[HERE]@3
+S -2--2 0 0 
+@ all "\\u00a7
+R 0
+A -
+X Invalid string contents at position 9: t "\\u00a7<--[HERE]@7
+E Invalid string contents at position 9: t "\\u00a7<--[HERE]@7
+S 7-7 3 404393152 "	'	\\
+@ all "\\u00a7a
+R 0
+A -
+X Invalid string contents at position 10: t "\\u00a7a<--[HERE]@8
+E Invalid string contents at position 10: t "\\u00a7a<--[HERE]@8
+S 8-8 3 404393152 "	'	\\

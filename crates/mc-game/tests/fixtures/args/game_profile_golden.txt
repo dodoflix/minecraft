@@ -1,0 +1,5380 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all Player
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all 0123
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ all @e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-2 1 2830 [
+@ all @a
+R 2
+A 0-2 selector max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S 2-2 1 2830 [
+@ all @p
+R 2
+A 0-2 selector max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=0
+E ok
+S 2-2 1 2830 [
+@ all @s
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+S 2-2 1 2830 [
+@ all @r
+R 2
+A 0-2 selector max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=random preds=0
+E ok
+S 2-2 1 2830 [
+@ all @n
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+S 2-2 1 2830 [
+@ all @a[limit=1]
+R 11
+A 0-11 selector max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[
+R 0
+A -
+X Expected end of options at position 5: t @e[<--[HERE]@3
+E Expected end of options at position 5: t @e[<--[HERE]@3
+S 3-3 21 1629532605 advancements=Players with advancements	distance=Distance to entity	dx=Entities between x and x + dx	dy=Entities between y and y + dy	dz=Entities between z and z + dz	gamemode=Players with game mode	level=Experience level	limit=Maximum number of entities to return	name=Entity name	nbt=Entities with NBT	predicate=Custom predicate	scores=Entities with scores	sort=Sort the entities	tag=Entities with tag	team=Entities on team	type=Entities of type	x=x position	x_rotation=Entity's x rotation	y=y position	y_rotation=Entity's y rotation	z=z position
+@ all @e[type=player]
+R 15
+A 0-15 selector max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @a[type=zombie]
+R 15
+A 0-15 selector max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:zombie range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @x
+R 0
+A -
+X Unknown selector type '@x' at position 3: t @<--[HERE]@1
+E Unknown selector type '@x' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @
+R 0
+A -
+X Missing selector type at position 3: t @<--[HERE]@1
+E Missing selector type at position 3: t @<--[HERE]@1
+S 0-1 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all  
+R 0
+A 0-0 plain
+E Incorrect argument for command at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all é
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all a b
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all Steve
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all @a[name=Steve]
+R 14
+A 0-14 selector max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @s[limit=2]
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ all #x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all P
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all Pl
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all Pla
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all Play
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all Playe
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all 01
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all 012
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all d
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all dd
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all dd1
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all dd12
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all dd12b
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all dd12be
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all dd12be4
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-5
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a
+R 12
+A 0-12 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9
+R 13
+A 0-13 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-
+R 14
+A 0-14 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4
+R 15
+A 0-15 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a9
+R 17
+A 0-17 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91
+R 18
+A 0-18 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-
+R 19
+A 0-19 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a
+R 20
+A 0-20 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8
+R 21
+A 0-21 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a
+R 22
+A 0-22 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1
+R 23
+A 0-23 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-
+R 24
+A 0-24 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-1
+R 25
+A 0-25 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11
+R 26
+A 0-26 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c
+R 27
+A 0-27 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c0
+R 28
+A 0-28 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01
+R 29
+A 0-29 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c018
+R 30
+A 0-30 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c0184
+R 31
+A 0-31 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849
+R 32
+A 0-32 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e
+R 33
+A 0-33 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e4
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e49
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ all @a[
+R 0
+A -
+X Expected end of options at position 5: t @a[<--[HERE]@3
+E Expected end of options at position 5: t @a[<--[HERE]@3
+S 3-3 21 1629532605 advancements=Players with advancements	distance=Distance to entity	dx=Entities between x and x + dx	dy=Entities between y and y + dy	dz=Entities between z and z + dz	gamemode=Players with game mode	level=Experience level	limit=Maximum number of entities to return	name=Entity name	nbt=Entities with NBT	predicate=Custom predicate	scores=Entities with scores	sort=Sort the entities	tag=Entities with tag	team=Entities on team	type=Entities of type	x=x position	x_rotation=Entity's x rotation	y=y position	y_rotation=Entity's y rotation	z=z position
+@ all @a[l
+R 0
+A -
+X Unknown option 'l' at position 5: t @a[<--[HERE]@3
+E Unknown option 'l' at position 5: t @a[<--[HERE]@3
+S 3-4 2 -1055867723 level=Experience level	limit=Maximum number of entities to return
+@ all @a[li
+R 0
+A -
+X Unknown option 'li' at position 5: t @a[<--[HERE]@3
+E Unknown option 'li' at position 5: t @a[<--[HERE]@3
+S 3-5 1 798230978 limit=Maximum number of entities to return
+@ all @a[lim
+R 0
+A -
+X Unknown option 'lim' at position 5: t @a[<--[HERE]@3
+E Unknown option 'lim' at position 5: t @a[<--[HERE]@3
+S 3-6 1 798230978 limit=Maximum number of entities to return
+@ all @a[limi
+R 0
+A -
+X Unknown option 'limi' at position 5: t @a[<--[HERE]@3
+E Unknown option 'limi' at position 5: t @a[<--[HERE]@3
+S 3-7 1 798230978 limit=Maximum number of entities to return
+@ all @a[limit
+R 0
+A -
+X Expected value for option 'limit' at position 5: t @a[<--[HERE]@3
+E Expected value for option 'limit' at position 5: t @a[<--[HERE]@3
+S 3-8 1 798230978 limit=Maximum number of entities to return
+@ all @a[limit=
+R 0
+A -
+X Expected integer at position 11: ... @a[limit=<--[HERE]@9
+E Expected integer at position 11: ... @a[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @a[limit=1
+R 0
+A -
+X Expected end of options at position 12: ...@a[limit=1<--[HERE]@10
+E Expected end of options at position 12: ...@a[limit=1<--[HERE]@10
+S 10-10 2 1322345 ,	]
+@ all @e[t
+R 0
+A -
+X Unknown option 't' at position 5: t @e[<--[HERE]@3
+E Unknown option 't' at position 5: t @e[<--[HERE]@3
+S 3-4 3 -525060378 tag=Entities with tag	team=Entities on team	type=Entities of type
+@ all @e[ty
+R 0
+A -
+X Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+S 3-5 1 -2146480761 type=Entities of type
+@ all @e[typ
+R 0
+A -
+X Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+S 3-6 1 -2146480761 type=Entities of type
+@ all @e[type
+R 0
+A -
+X Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+S 3-7 1 -2146480761 type=Entities of type
+@ all @e[type=
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S 8-8 420 397124862 !#minecraft:accepts_iron_golem_gift	!#minecraft:aquatic	!#minecraft:arrows	!#minecraft:arthropod	!#minecraft:axolotl_always_hostiles	!#minecraft:axolotl_hunt_targets	!#minecraft:beehive_inhabitors	!#minecraft:boat
+@ all @e[type=p
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:p' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:p' at position 10: t @e[type=<--[HERE]@8
+S 8-9 20 72258173 minecraft:ender_pearl	minecraft:lingering_potion	minecraft:painting	minecraft:pale_oak_boat	minecraft:pale_oak_chest_boat	minecraft:panda	minecraft:parched	minecraft:parrot	minecraft:phantom	minecraft:pig	minecraft:piglin	minecraft:piglin_brute	minecraft:pillager	minecraft:player	minecraft:polar_bear	minecraft:poplar_boat	minecraft:poplar_chest_boat	minecraft:pufferfish	minecraft:splash_potion	minecraft:zombified_piglin
+@ all @e[type=pl
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:pl' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:pl' at position 10: t @e[type=<--[HERE]@8
+S 8-10 1 -1707284357 minecraft:player
+@ all @e[type=pla
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:pla' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:pla' at position 10: t @e[type=<--[HERE]@8
+S 8-11 1 -1707284357 minecraft:player
+@ all @e[type=play
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:play' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:play' at position 10: t @e[type=<--[HERE]@8
+S 8-12 1 -1707284357 minecraft:player
+@ all @e[type=playe
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:playe' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:playe' at position 10: t @e[type=<--[HERE]@8
+S 8-13 1 -1707284357 minecraft:player
+@ all @e[type=player
+R 0
+A -
+X Expected end of options at position 16: ...ype=player<--[HERE]@14
+E Expected end of options at position 16: ...ype=player<--[HERE]@14
+S 14-14 2 1322345 ,	]
+@ all @a[t
+R 0
+A -
+X Unknown option 't' at position 5: t @a[<--[HERE]@3
+E Unknown option 't' at position 5: t @a[<--[HERE]@3
+S 3-4 3 -525060378 tag=Entities with tag	team=Entities on team	type=Entities of type
+@ all @a[ty
+R 0
+A -
+X Unknown option 'ty' at position 5: t @a[<--[HERE]@3
+E Unknown option 'ty' at position 5: t @a[<--[HERE]@3
+S 3-5 1 -2146480761 type=Entities of type
+@ all @a[typ
+R 0
+A -
+X Unknown option 'typ' at position 5: t @a[<--[HERE]@3
+E Unknown option 'typ' at position 5: t @a[<--[HERE]@3
+S 3-6 1 -2146480761 type=Entities of type
+@ all @a[type
+R 0
+A -
+X Expected value for option 'type' at position 5: t @a[<--[HERE]@3
+E Expected value for option 'type' at position 5: t @a[<--[HERE]@3
+S 3-7 1 -2146480761 type=Entities of type
+@ all @a[type=
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @a[type=<--[HERE]@8
+S 8-8 420 397124862 !#minecraft:accepts_iron_golem_gift	!#minecraft:aquatic	!#minecraft:arrows	!#minecraft:arthropod	!#minecraft:axolotl_always_hostiles	!#minecraft:axolotl_hunt_targets	!#minecraft:beehive_inhabitors	!#minecraft:boat
+@ all @a[type=z
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:z' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:z' at position 10: t @a[type=<--[HERE]@8
+S 8-9 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all @a[type=zo
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zo' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zo' at position 10: t @a[type=<--[HERE]@8
+S 8-10 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all @a[type=zom
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zom' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zom' at position 10: t @a[type=<--[HERE]@8
+S 8-11 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all @a[type=zomb
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zomb' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zomb' at position 10: t @a[type=<--[HERE]@8
+S 8-12 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all @a[type=zombi
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombi' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombi' at position 10: t @a[type=<--[HERE]@8
+S 8-13 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all @a[type=zombie
+R 0
+A -
+X Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+E Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+S 14-14 2 1322345 ,	]
+@ all a
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all a 
+R 1
+A 0-1 plain
+E Incorrect argument for command at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all S
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all St
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all Ste
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all Stev
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @a[n
+R 0
+A -
+X Unknown option 'n' at position 5: t @a[<--[HERE]@3
+E Unknown option 'n' at position 5: t @a[<--[HERE]@3
+S 3-4 2 -53220104 name=Entity name	nbt=Entities with NBT
+@ all @a[na
+R 0
+A -
+X Unknown option 'na' at position 5: t @a[<--[HERE]@3
+E Unknown option 'na' at position 5: t @a[<--[HERE]@3
+S 3-5 1 608512304 name=Entity name
+@ all @a[nam
+R 0
+A -
+X Unknown option 'nam' at position 5: t @a[<--[HERE]@3
+E Unknown option 'nam' at position 5: t @a[<--[HERE]@3
+S 3-6 1 608512304 name=Entity name
+@ all @a[name
+R 0
+A -
+X Expected value for option 'name' at position 5: t @a[<--[HERE]@3
+E Expected value for option 'name' at position 5: t @a[<--[HERE]@3
+S 3-7 1 608512304 name=Entity name
+@ all @a[name=
+R 0
+A -
+X Expected end of options at position 10: t @a[name=<--[HERE]@8
+E Expected end of options at position 10: t @a[name=<--[HERE]@8
+S 8-8 2 1322345 ,	]
+@ all @a[name=S
+R 0
+A -
+X Expected end of options at position 11: ... @a[name=S<--[HERE]@9
+E Expected end of options at position 11: ... @a[name=S<--[HERE]@9
+S 9-9 2 1322345 ,	]
+@ all @a[name=St
+R 0
+A -
+X Expected end of options at position 12: ...@a[name=St<--[HERE]@10
+E Expected end of options at position 12: ...@a[name=St<--[HERE]@10
+S 10-10 2 1322345 ,	]
+@ all @a[name=Ste
+R 0
+A -
+X Expected end of options at position 13: ...a[name=Ste<--[HERE]@11
+E Expected end of options at position 13: ...a[name=Ste<--[HERE]@11
+S 11-11 2 1322345 ,	]
+@ all @a[name=Stev
+R 0
+A -
+X Expected end of options at position 14: ...[name=Stev<--[HERE]@12
+E Expected end of options at position 14: ...[name=Stev<--[HERE]@12
+S 12-12 2 1322345 ,	]
+@ all @a[name=Steve
+R 0
+A -
+X Expected end of options at position 15: ...name=Steve<--[HERE]@13
+E Expected end of options at position 15: ...name=Steve<--[HERE]@13
+S 13-13 2 1322345 ,	]
+@ all @s[
+R 0
+A -
+X Expected end of options at position 5: t @s[<--[HERE]@3
+E Expected end of options at position 5: t @s[<--[HERE]@3
+S 3-3 19 1030400760 advancements=Players with advancements	distance=Distance to entity	dx=Entities between x and x + dx	dy=Entities between y and y + dy	dz=Entities between z and z + dz	gamemode=Players with game mode	level=Experience level	name=Entity name	nbt=Entities with NBT	predicate=Custom predicate	scores=Entities with scores	tag=Entities with tag	team=Entities on team	type=Entities of type	x=x position	x_rotation=Entity's x rotation	y=y position	y_rotation=Entity's y rotation	z=z position
+@ all @s[l
+R 0
+A -
+X Unknown option 'l' at position 5: t @s[<--[HERE]@3
+E Unknown option 'l' at position 5: t @s[<--[HERE]@3
+S 3-4 1 -1233792141 level=Experience level
+@ all @s[li
+R 0
+A -
+X Unknown option 'li' at position 5: t @s[<--[HERE]@3
+E Unknown option 'li' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[lim
+R 0
+A -
+X Unknown option 'lim' at position 5: t @s[<--[HERE]@3
+E Unknown option 'lim' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limi
+R 0
+A -
+X Unknown option 'limi' at position 5: t @s[<--[HERE]@3
+E Unknown option 'limi' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limit
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limit=
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limit=2
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all x
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all xx
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all xxx
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all xxxx
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all xxxxx
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxx
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxx
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxx
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxx
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxx
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxx
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxx
+R 12
+A 0-12 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxx
+R 13
+A 0-13 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxx
+R 14
+A 0-14 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxx
+R 15
+A 0-15 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxx
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxx
+R 17
+A 0-17 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxx
+R 18
+A 0-18 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxx
+R 19
+A 0-19 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxx
+R 20
+A 0-20 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxx
+R 21
+A 0-21 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxx
+R 22
+A 0-22 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxx
+R 23
+A 0-23 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxx
+R 24
+A 0-24 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxx
+R 25
+A 0-25 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxx
+R 26
+A 0-26 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 27
+A 0-27 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 28
+A 0-28 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 29
+A 0-29 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 30
+A 0-30 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 31
+A 0-31 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 32
+A 0-32 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 33
+A 0-33 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 38
+A 0-38 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 39
+A 0-39 plain
+E ok
+S -2--2 0 0 
+@ all #
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all @,e[type=play"er]
+R 0
+A -
+X Unknown selector type '@,' at position 3: t @<--[HERE]@1
+E Unknown selector type '@,' at position 3: t @<--[HERE]@1
+S 0-17 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @s[limit_=2]
+R 0
+A -
+X Unknown option 'limit_' at position 5: t @s[<--[HERE]@3
+E Unknown option 'limit_' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all 3
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all ​:teve
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all @a[Xame=Steve]e
+R 0
+A -
+X Unknown option 'Xame' at position 5: t @a[<--[HERE]@3
+E Unknown option 'Xame' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=pl:yer]
+R 0
+A -
+X Invalid or unknown entity type 'pl:yer' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'pl:yer' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e4988
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ all e8
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @e[[
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @x@
+R 0
+A -
+X Unknown selector type '@x' at position 3: t @<--[HERE]@1
+E Unknown selector type '@x' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all ￿\u000a
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all *!e[type=player]
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ all  '
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all ßa[name=Steve]S
+R 15
+A 0-15 plain
+E ok
+S -2--2 0 0 
+@ all @$
+R 0
+A -
+X Unknown selector type '@$' at position 3: t @<--[HERE]@1
+E Unknown selector type '@$' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all #xd
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @e[6
+R 0
+A -
+X Unknown option '6' at position 5: t @e[<--[HERE]@3
+E Unknown option '6' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 4a[limit=1]
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ all @etype=player]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-14 1 2830 [
+@ all 01232
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all 2
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all layer
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all dd1be42-52a9-4a91-a8a1-11c0849e498
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ all Y 
+R 1
+A 0-1 plain
+E Incorrect argument for command at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ all ~x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @e[fype=pldayer]
+R 0
+A -
+X Unknown option 'fype' at position 5: t @e[<--[HERE]@3
+E Unknown option 'fype' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all éé
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all ee
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all xxx#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all 98
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @,@
+R 0
+A -
+X Unknown selector type '@,' at position 3: t @<--[HERE]@1
+E Unknown selector type '@,' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all c
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all e
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all @a'[name,=Steve]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+S 2-16 1 2830 [
+@ all dd12be42-52a9-4a91-a8a1-11bc01849e498
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ all @a[li\u0009mi=1]
+R 0
+A -
+X Unknown option 'li' at position 5: t @a[<--[HERE]@3
+E Unknown option 'li' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @aa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+S 2-3 1 2830 [
+@ all 0\u0009e
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @a[type=!ombie]b
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:ombie' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:ombie' at position 10: t @a[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @pp
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @p<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @p<--[HERE]@2
+S 2-3 1 2830 [
+@ all @e[[[
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/x
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxYxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all @s4limit=%2]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+S 2-12 1 2830 [
+@ all @a[limßt=1]
+R 0
+A -
+X Unknown option 'lim' at position 5: t @a[<--[HERE]@3
+E Unknown option 'lim' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=player]@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e4982
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxBxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all SteveS
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all @s[limit=2t
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all Stevt
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all ]]
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all layerl
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all ß
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all yé
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @<<
+R 0
+A -
+X Unknown selector type '@<' at position 3: t @<--[HERE]@1
+E Unknown selector type '@<' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @a[nXmce=Steve]
+R 0
+A -
+X Unknown option 'nXmce' at position 5: t @a[<--[HERE]@3
+E Unknown option 'nXmce' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all a 1b
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all "x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @ér#
+R 0
+A -
+X Unknown selector type '@é' at position 3: t @<--[HERE]@1
+E Unknown selector type '@é' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @a[limit=1]1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...a[limit=1]<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...a[limit=1]<--[HERE]@11
+S -2--2 0 0 
+@ all pp
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e494
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ all  b
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all "s[limit=2]
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ all #xxx
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @yr
+R 0
+A -
+X Unknown selector type '@y' at position 3: t @<--[HERE]@1
+E Unknown selector type '@y' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all Steveet
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ all @ee
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-3 1 2830 [
+@ all @@
+R 0
+A -
+X Unknown selector type '@@' at position 3: t @<--[HERE]@1
+E Unknown selector type '@@' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all >n4
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all 01235
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all @a[name=Stev3e]
+R 15
+A 0-15 selector max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @a[name=Steve]t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...ame=Steve]<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...ame=Steve]<--[HERE]@14
+S -2--2 0 0 
+@ all @a[type=zombie]@b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...pe=zombie]<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...pe=zombie]<--[HERE]@15
+S -2--2 0 0 
+@ all S"te#e
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all @a[name=Steve~
+R 0
+A -
+X Expected end of options at position 15: ...name=Steve<--[HERE]@13
+E Expected end of options at position 15: ...name=Steve<--[HERE]@13
+S 13-14 2 1322345 ,	]
+@ all @rr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+S 2-3 1 2830 [
+@ all @e''
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-4 1 2830 [
+@ all  b 
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all @s@
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+S 2-3 1 2830 [
+@ all yer]
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all Stevee
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all ab
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all B0123
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all @a[type=zo​mbie]]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zo' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zo' at position 10: t @a[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @s[limitC2]i
+R 0
+A -
+X Unknown option 'limitC2' at position 5: t @s[<--[HERE]@3
+E Unknown option 'limitC2' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all [limit=1]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all 6
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all =x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all teve
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all ,423
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @<e@
+R 0
+A -
+X Unknown selector type '@<' at position 3: t @<--[HERE]@1
+E Unknown selector type '@<' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all dd12be42-52a9-4a91-a8a1-11c01849e4989
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ all 2-52a9-4a91-a:a1-11c01849e498
+R 29
+A 0-29 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91fa8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ all dd12{e42-52a9-4a91-a8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ all 1,
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e49y88
+R 38
+A 0-38 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91Aa8a1-11c1849e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ all 01230
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all xxxxx7xxxxxxxxx\u0009xxxxxxxxxxxxxxxxxxxxxxxxxx
+R 42
+A 0-42 plain
+E ok
+S -2--2 0 0 
+@ all @!
+R 0
+A -
+X Unknown selector type '@!' at position 3: t @<--[HERE]@1
+E Unknown selector type '@!' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @__
+R 0
+A -
+X Unknown selector type '@_' at position 3: t @<--[HERE]@1
+E Unknown selector type '@_' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all A@e[@
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all playeb]
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ all é]x
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all 5
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all 中é中
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all -52a9-a91-a8a1-11c01849e498
+R 27
+A 0-27 plain
+E ok
+S -2--2 0 0 
+@ all .@e
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all dd12Ye42-5a9-4a91-a8a1-11c01849e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ all ]=
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @eİ[
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-4 1 2830 [
+@ all @s[4imit=]
+R 0
+A -
+X Unknown option '4imit' at position 5: t @s[<--[HERE]@3
+E Unknown option '4imit' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all s
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all \u0009é
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all (@(
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all a b 
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all @n"
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+S 2-3 1 2830 [
+@ all @e[type=player]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+S -2--2 0 0 
+@ all @é
+R 0
+A -
+X Unknown selector type '@é' at position 3: t @<--[HERE]@1
+E Unknown selector type '@é' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\e
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ all #xx
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all ~A
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @4
+R 0
+A -
+X Unknown selector type '@4' at position 3: t @<--[HERE]@1
+E Unknown selector type '@4' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all 8@p@
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @s^
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+S 2-3 1 2830 [
+@ all @s[limt=2]
+R 0
+A -
+X Unknown option 'limt' at position 5: t @s[<--[HERE]@3
+E Unknown option 'limt' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all  r
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all x@
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all y
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all \\
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all be[
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @a[t8e=zombie]
+R 0
+A -
+X Unknown option 't8e' at position 5: t @a[<--[HERE]@3
+E Unknown option 't8e' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all a (
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all #xz
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all yer{
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all -&4a91-a8a1-11c01849e498
+R 24
+A 0-24 plain
+E ok
+S -2--2 0 0 
+@ all @e[@
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 0123*
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all '
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all Stevet
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all éAA
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @s[l{mit=2]]
+R 0
+A -
+X Unknown option 'l' at position 5: t @s[<--[HERE]@3
+E Unknown option 'l' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[t7pe=payer]
+R 0
+A -
+X Unknown option 't7pe' at position 5: t @e[<--[HERE]@3
+E Unknown option 't7pe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=player][
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+S -2--2 0 0 
+@ all @İ
+R 0
+A -
+X Unknown selector type '@İ' at position 3: t @<--[HERE]@1
+E Unknown selector type '@İ' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e}[
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-4 1 2830 [
+@ all @e.
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-3 1 2830 [
+@ all >@.a
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @e#%[
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-5 1 2830 [
+@ all @s[limft=2]
+R 0
+A -
+X Unknown option 'limft' at position 5: t @s[<--[HERE]@3
+E Unknown option 'limft' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all A13
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @aZ[type=zombie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+S 2-16 1 2830 [
+@ all Y
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all c01849e498
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ all e=zombie]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all #r
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @a[type=zomie]t
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zomie' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zomie' at position 10: t @a[type=<--[HERE]@8
+S -2--2 0 0 
+@ all a[limit=1]
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ all a[nam=Steve]
+R 12
+A 0-12 plain
+E ok
+S -2--2 0 0 
+@ all @Ba
+R 0
+A -
+X Unknown selector type '@B' at position 3: t @<--[HERE]@1
+E Unknown selector type '@B' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all 8
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all =zo2bie]
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ all ve]
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all =Steve]
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ all @Z
+R 0
+A -
+X Unknown selector type '@Z' at position 3: t @<--[HERE]@1
+E Unknown selector type '@Z' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @a[limit.1]
+R 0
+A -
+X Unknown option 'limit.1' at position 5: t @a[<--[HERE]@3
+E Unknown option 'limit.1' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all [
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all @xs
+R 0
+A -
+X Unknown selector type '@x' at position 3: t @<--[HERE]@1
+E Unknown selector type '@x' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all S]evee
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all @rf
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+S 2-3 1 2830 [
+@ all #x#
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @a@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @a<--[HERE]@2
+S 2-3 1 2830 [
+@ all @sb
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+S 2-3 1 2830 [
+@ all 13
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all r
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all xs
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @s[limit=2"l
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all {it=2]
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all é*
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @a[ype=zombie]
+R 0
+A -
+X Unknown option 'ype' at position 5: t @a[<--[HERE]@3
+E Unknown option 'ype' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limit=]s
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all 1c01849e498
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ all ie]
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all 233
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all 7 7
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t 7 <--[HERE]@2
+S -2--2 0 0 
+@ all @cs[limit=2]
+R 0
+A -
+X Unknown selector type '@c' at position 3: t @<--[HERE]@1
+E Unknown selector type '@c' at position 3: t @<--[HERE]@1
+S 0-12 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @1[
+R 0
+A -
+X Unknown selector type '@1' at position 3: t @<--[HERE]@1
+E Unknown selector type '@1' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all A@a
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all &n
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxİxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 39
+A 0-39 plain
+E ok
+S -2--2 0 0 
+@ all d@a[type=zombie]
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ all 23
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all é)
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @a[typ=zombie]
+R 0
+A -
+X Unknown option 'typ' at position 5: t @a[<--[HERE]@3
+E Unknown option 'typ' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @yx
+R 0
+A -
+X Unknown selector type '@y' at position 3: t @<--[HERE]@1
+E Unknown selector type '@y' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all x@a
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @a[tye=zombie]
+R 0
+A -
+X Unknown option 'tye' at position 5: t @a[<--[HERE]@3
+E Unknown option 'tye' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all   
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all @.e[
+R 0
+A -
+X Unknown selector type '@.' at position 3: t @<--[HERE]@1
+E Unknown selector type '@.' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e=
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-3 1 2830 [
+@ all e=Steve]
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ all Z
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all Zx
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all 123
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @e[typeplayer]
+R 0
+A -
+X Unknown option 'typeplayer' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typeplayer' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all p
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all 中r
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @eA
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-3 1 2830 [
+@ all @s[lim\u0009t=2
+R 0
+A -
+X Unknown option 'lim' at position 5: t @s[<--[HERE]@3
+E Unknown option 'lim' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all 0 233
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t 0 <--[HERE]@2
+S -2--2 0 0 
+@ all \u0000<
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all [b
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @p@C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @p<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @p<--[HERE]@2
+S 2-4 1 2830 [
+@ all me=Steve]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all @e[typBe=player]
+R 0
+A -
+X Unknown option 'typBe' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typBe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[typ=player]
+R 0
+A -
+X Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @xxx
+R 0
+A -
+X Unknown selector type '@x' at position 3: t @<--[HERE]@1
+E Unknown selector type '@x' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @z
+R 0
+A -
+X Unknown selector type '@z' at position 3: t @<--[HERE]@1
+E Unknown selector type '@z' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @a[typXe=zombie]
+R 0
+A -
+X Unknown option 'typXe' at position 5: t @a[<--[HERE]@3
+E Unknown option 'typXe' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[type=zofbie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zofbie' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zofbie' at position 10: t @a[type=<--[HERE]@8
+S -2--2 0 0 
+@ all tee
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all _￿n
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @\\@
+R 0
+A -
+X Unknown selector type '@\\' at position 3: t @<--[HERE]@1
+E Unknown selector type '@\\' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all Steve$e
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ all @s[lixit=y]
+R 0
+A -
+X Unknown option 'lixit' at position 5: t @s[<--[HERE]@3
+E Unknown option 'lixit' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[l2mit=1]@
+R 0
+A -
+X Unknown option 'l2mit' at position 5: t @a[<--[HERE]@3
+E Unknown option 'l2mit' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @n@
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+S 2-3 1 2830 [
+@ all @a[name=Stve]
+R 13
+A 0-13 selector max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all 4@ee
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all ss
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all name=Steve]
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c0849e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ all @rr@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+S 2-4 1 2830 [
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 42
+A 0-42 plain
+E ok
+S -2--2 0 0 
+@ all @s[limi7t=2]t
+R 0
+A -
+X Unknown option 'limi7t' at position 5: t @s[<--[HERE]@3
+E Unknown option 'limi7t' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all 09723
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all &b
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @a[-y&pe=zombie]
+R 0
+A -
+X Unknown option '-y' at position 5: t @a[<--[HERE]@3
+E Unknown option '-y' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all xxxxxZxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all dd12be2-52a9-4a91-a8a1-a11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ all }9
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @/
+R 0
+A -
+X Unknown selector type '@/' at position 3: t @<--[HERE]@1
+E Unknown selector type '@/' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @}p
+R 0
+A -
+X Unknown selector type '@}' at position 3: t @<--[HERE]@1
+E Unknown selector type '@}' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all xxxxxxxxxxxxxxxxxx]xxxxxxxxxxxxxxxxxxxxx
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ all b@ee
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @a[name=Ste{ve]e
+R 0
+A -
+X Expected end of options at position 13: ...a[name=Ste<--[HERE]@11
+E Expected end of options at position 13: ...a[name=Ste<--[HERE]@11
+S 11-16 2 1322345 ,	]
+@ all @s[limit=2]i=
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @e@@
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-4 1 2830 [
+@ all @rd
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+S 2-3 1 2830 [
+@ all @a[name=Stee]
+R 13
+A 0-13 selector max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9#4a91-a8a1-11c01849e49
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ all \u000a😀
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all yeré
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @r@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+S 2-3 1 2830 [
+@ all >\u0000
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all a ba
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all @nnn
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @n<--[HERE]@2
+S 2-4 1 2830 [
+@ all ameSteve]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all Stfevet
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ all @a[&limit=1]l
+R 0
+A -
+X Unknown option '' at position 5: t @a[<--[HERE]@3
+E Unknown option '' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @(e[+ype=player]
+R 0
+A -
+X Unknown selector type '@(' at position 3: t @<--[HERE]@1
+E Unknown selector type '@(' at position 3: t @<--[HERE]@1
+S 0-16 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all dd12be42-52a9-4a1-a8a-11c01849e498
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a[1-11c01849e498
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ all @a[name=Stev}e​
+R 0
+A -
+X Expected end of options at position 14: ...[name=Stev<--[HERE]@12
+E Expected end of options at position 14: ...[name=Stev<--[HERE]@12
+S 12-15 2 1322345 ,	]
+@ all =@r
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @Ce
+R 0
+A -
+X Unknown selector type '@C' at position 3: t @<--[HERE]@1
+E Unknown selector type '@C' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all éé^
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all :#xx
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ all @a[name=Ste￿ve]e
+R 0
+A -
+X Expected end of options at position 13: ...a[name=Ste<--[HERE]@11
+E Expected end of options at position 13: ...a[name=Ste<--[HERE]@11
+S 11-16 2 1322345 ,	]
+@ all @xx
+R 0
+A -
+X Unknown selector type '@x' at position 3: t @<--[HERE]@1
+E Unknown selector type '@x' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @s[ylimit=2]
+R 0
+A -
+X Unknown option 'ylimit' at position 5: t @s[<--[HERE]@3
+E Unknown option 'ylimit' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all 023
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all édd
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-$52a9-4a91-a8a1-11c01849e498$
+R 38
+A 0-38 plain
+E ok
+S -2--2 0 0 
+@ all @b
+R 0
+A -
+X Unknown selector type '@b' at position 3: t @<--[HERE]@1
+E Unknown selector type '@b' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all yer
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxBxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all @[liit=1]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-9 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all ​@s
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @a[typezombie]
+R 0
+A -
+X Unknown option 'typezombie' at position 5: t @a[<--[HERE]@3
+E Unknown option 'typezombie' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all yxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all 012__
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all @e[+
+R 0
+A -
+X Unknown option '+' at position 5: t @e[<--[HERE]@3
+E Unknown option '+' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[lmit=2]
+R 0
+A -
+X Unknown option 'lmit' at position 5: t @s[<--[HERE]@3
+E Unknown option 'lmit' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all limit=a2]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all a \u0009ba
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all @b[type=zombie]
+R 0
+A -
+X Unknown selector type '@b' at position 3: t @<--[HERE]@1
+E Unknown selector type '@b' at position 3: t @<--[HERE]@1
+S 0-15 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all }
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all @e[type=pla+yr]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:pla' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:pla' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxx%xxxxxxxxxxxxxxx
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ all PlayrP
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all f@s
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @e[ty​pe=player]e
+R 0
+A -
+X Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all dd12be42-5￿a9-4a91-a8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ all @a[limit=*]%
+R 0
+A -
+X Expected integer at position 11: ... @a[limit=<--[HERE]@9
+E Expected integer at position 11: ... @a[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all ' 
+R 1
+A 0-1 plain
+E Incorrect argument for command at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ all @d
+R 0
+A -
+X Unknown selector type '@d' at position 3: t @<--[HERE]@1
+E Unknown selector type '@d' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all ve
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @((
+R 0
+A -
+X Unknown selector type '@(' at position 3: t @<--[HERE]@1
+E Unknown selector type '@(' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all 4
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all @e^[[
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-5 1 2830 [
+@ all )0123
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all 😀@p@
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ all 013
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all -_[
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @e 
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @e<--[HERE]@2
+S 2-3 1 2830 [
+@ all @e[ty!pe=playr]
+R 0
+A -
+X Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx2xxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ all @s[limit=2]@
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all ZéZ
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all c@b
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all @a[limi\\t=1]
+R 0
+A -
+X Unknown option 'limi' at position 5: t @a[<--[HERE]@3
+E Unknown option 'limi' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxx
+R 42
+A 0-42 plain
+E ok
+S -2--2 0 0 
+@ all @0
+R 0
+A -
+X Unknown selector type '@0' at position 3: t @<--[HERE]@1
+E Unknown selector type '@0' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all a :
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all 88
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all [a[name=Steve]
+R 14
+A 0-14 plain
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c0149e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ all n
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all Ste1v}
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ all @<[limit=2]@
+R 0
+A -
+X Unknown selector type '@<' at position 3: t @<--[HERE]@1
+E Unknown selector type '@<' at position 3: t @<--[HERE]@1
+S 0-12 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all a@a[type=zombie]
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ all @sßlimBit=2]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+E Only players may be affected by this command, but the provided selector includes entities at position 4: t @s<--[HERE]@2
+S 2-12 1 2830 [
+@ all &@p
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ all a @
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all @B]
+R 0
+A -
+X Unknown selector type '@B' at position 3: t @<--[HERE]@1
+E Unknown selector type '@B' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all a bba
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all ￿r
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ all @[limit=2]s
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-11 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all f
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all @%s@
+R 0
+A -
+X Unknown selector type '@%' at position 3: t @<--[HERE]@1
+E Unknown selector type '@%' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all ]limit=1]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ all C b
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t C <--[HERE]@2
+S -2--2 0 0 
+@ all \u000a
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ all e=playe3r]
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ all 023(
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ none Player
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none 0123
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ none @e
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @p
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @r
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @n
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limit=1]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=player]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @x
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none  
+R 0
+A 0-0 plain
+E Incorrect argument for command at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none é
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none a b
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none Steve
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none @a[name=Steve]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limit=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ none #x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none P
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none Pl
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none Pla
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none Play
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none Playe
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none 0
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none 01
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none 012
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none d
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none dd
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none dd1
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none dd12
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none dd12b
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none dd12be
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none dd12be4
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-5
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a
+R 12
+A 0-12 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9
+R 13
+A 0-13 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-
+R 14
+A 0-14 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4
+R 15
+A 0-15 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a9
+R 17
+A 0-17 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91
+R 18
+A 0-18 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-
+R 19
+A 0-19 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a
+R 20
+A 0-20 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8
+R 21
+A 0-21 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a
+R 22
+A 0-22 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1
+R 23
+A 0-23 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-
+R 24
+A 0-24 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-1
+R 25
+A 0-25 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11
+R 26
+A 0-26 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c
+R 27
+A 0-27 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c0
+R 28
+A 0-28 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01
+R 29
+A 0-29 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c018
+R 30
+A 0-30 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c0184
+R 31
+A 0-31 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849
+R 32
+A 0-32 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e
+R 33
+A 0-33 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e4
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e49
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ none @a[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[l
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[li
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[lim
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limi
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limit
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limit=
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limit=1
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[t
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[ty
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[typ
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=p
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=pl
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=pla
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=play
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=playe
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=player
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[t
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[ty
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[typ
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=z
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zo
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zom
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zomb
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zombi
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zombie
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none a
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none a 
+R 1
+A 0-1 plain
+E Incorrect argument for command at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ none S
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none St
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none Ste
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none Stev
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @a[n
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[na
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[nam
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=S
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=St
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=Ste
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=Stev
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=Steve
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[l
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[li
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[lim
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limi
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limit
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limit=
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limit=2
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none x
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none xx
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none xxx
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none xxxx
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none xxxxx
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxx
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxx
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxx
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxx
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxx
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxx
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxx
+R 12
+A 0-12 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxx
+R 13
+A 0-13 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxx
+R 14
+A 0-14 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxx
+R 15
+A 0-15 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxx
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxx
+R 17
+A 0-17 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxx
+R 18
+A 0-18 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxx
+R 19
+A 0-19 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxx
+R 20
+A 0-20 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxx
+R 21
+A 0-21 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxx
+R 22
+A 0-22 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxx
+R 23
+A 0-23 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxx
+R 24
+A 0-24 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxx
+R 25
+A 0-25 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxx
+R 26
+A 0-26 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 27
+A 0-27 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 28
+A 0-28 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 29
+A 0-29 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 30
+A 0-30 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 31
+A 0-31 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 32
+A 0-32 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 33
+A 0-33 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 38
+A 0-38 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 39
+A 0-39 plain
+E ok
+S -2--2 0 0 
+@ none #
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none @,e[type=play"er]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limit_=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 3
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none ​:teve
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none @a[Xame=Steve]e
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=pl:yer]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e4988
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ none e8
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @e[[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @x@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none ￿\u000a
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none *!e[type=player]
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ none  '
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ none ßa[name=Steve]S
+R 15
+A 0-15 plain
+E ok
+S -2--2 0 0 
+@ none @$
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none #xd
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @e[6
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 4a[limit=1]
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ none @etype=player]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 01232
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none 2
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none layer
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none dd1be42-52a9-4a91-a8a1-11c0849e498
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ none Y 
+R 1
+A 0-1 plain
+E Incorrect argument for command at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ none ~x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @e[fype=pldayer]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none éé
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none ee
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none xxx#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none 98
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @,@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none c
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none e
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none @a'[name,=Steve]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11bc01849e498
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ none @a[li\u0009mi=1]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @aa
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 0\u0009e
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @a[type=!ombie]b
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @pp
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[[[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/x
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxYxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none @s4limit=%2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limßt=1]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=player]@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e4982
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxBxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none SteveS
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none @s[limit=2t
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none Stevt
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none ]]
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none layerl
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none ß
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none yé
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @<<
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[nXmce=Steve]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none a 1b
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none "x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @ér#
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limit=1]1
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none pp
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e494
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ none  b
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ none "s[limit=2]
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ none #xxx
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @yr
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none Steveet
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ none @ee
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none >n4
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none 01235
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none @a[name=Stev3e]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=Steve]t
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zombie]@b
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none S"te#e
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none @a[name=Steve~
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @rr
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e''
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none  b 
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ none @s@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none yer]
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none Stevee
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none ab
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none B0123
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none @a[type=zo​mbie]]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limitC2]i
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none [limit=1]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none 6
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none =x
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none teve
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none ,423
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @<e@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e4989
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ none 2-52a9-4a91-a:a1-11c01849e498
+R 29
+A 0-29 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91fa8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ none dd12{e42-52a9-4a91-a8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ none 1,
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c01849e49y88
+R 38
+A 0-38 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91Aa8a1-11c1849e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ none 01230
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none xxxxx7xxxxxxxxx\u0009xxxxxxxxxxxxxxxxxxxxxxxxxx
+R 42
+A 0-42 plain
+E ok
+S -2--2 0 0 
+@ none @!
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @__
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none A@e[@
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none playeb]
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ none é]x
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none 5
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none 中é中
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none -52a9-a91-a8a1-11c01849e498
+R 27
+A 0-27 plain
+E ok
+S -2--2 0 0 
+@ none .@e
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none dd12Ye42-5a9-4a91-a8a1-11c01849e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ none ]=
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @eİ[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[4imit=]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none s
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none \u0009é
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none (@(
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none a b 
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none @n"
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=player]]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @é
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\e
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ none #xx
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none ~A
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @4
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 8@p@
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @s^
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limt=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none  r
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ none x@
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none y
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none \\
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none be[
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @a[t8e=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none a (
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none #xz
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none yer{
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none -&4a91-a8a1-11c01849e498
+R 24
+A 0-24 plain
+E ok
+S -2--2 0 0 
+@ none @e[@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 0123*
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none '
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none Stevet
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none éAA
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @s[l{mit=2]]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[t7pe=payer]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[type=player][
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @İ
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e}[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e.
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none >@.a
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @e#%[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limft=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none A13
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @aZ[type=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none Y
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none c01849e498
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ none e=zombie]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none #r
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @a[type=zomie]t
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none a[limit=1]
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ none a[nam=Steve]
+R 12
+A 0-12 plain
+E ok
+S -2--2 0 0 
+@ none @Ba
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 8
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none =zo2bie]
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ none ve]
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none =Steve]
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ none @Z
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[limit.1]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none [
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none @xs
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none S]evee
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none @rf
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none #x#
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @a@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @sb
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 13
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none r
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none xs
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @s[limit=2"l
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none {it=2]
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none é*
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @a[ype=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limit=]s
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 1c01849e498
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ none ie]
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none 233
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none 7 7
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t 7 <--[HERE]@2
+S -2--2 0 0 
+@ none @cs[limit=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @1[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none A@a
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none &n
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxİxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 39
+A 0-39 plain
+E ok
+S -2--2 0 0 
+@ none d@a[type=zombie]
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ none 23
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none é)
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @a[typ=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @yx
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none x@a
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @a[tye=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none   
+R 1
+A 0-0 plain
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ none @.e[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e=
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none e=Steve]
+R 8
+A 0-8 plain
+E ok
+S -2--2 0 0 
+@ none Z
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none Zx
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none 123
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @e[typeplayer]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none p
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none 中r
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @eA
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[lim\u0009t=2
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 0 233
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t 0 <--[HERE]@2
+S -2--2 0 0 
+@ none \u0000<
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none [b
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @p@C
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none me=Steve]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none @e[typBe=player]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[typ=player]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @xxx
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @z
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[typXe=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[type=zofbie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none tee
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none _￿n
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @\\@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none Steve$e
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ none @s[lixit=y]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[l2mit=1]@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @n@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=Stve]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 4@ee
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none ss
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none name=Steve]
+R 11
+A 0-11 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c0849e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ none @rr@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 42
+A 0-42 plain
+E ok
+S -2--2 0 0 
+@ none @s[limi7t=2]t
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 09723
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none &b
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @a[-y&pe=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxZxxxxxxxxxxxxxxxxxxxx\\xxxxxxxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none dd12be2-52a9-4a91-a8a1-a11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ none }9
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @/
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @}p
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxx]xxxxxxxxxxxxxxxxxxxxx
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ none b@ee
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @a[name=Ste{ve]e
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[limit=2]i=
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e@@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @rd
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @a[name=Stee]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none dd12be42-52a9#4a91-a8a1-11c01849e49
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ none \u000a😀
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none yeré
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @r@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none >\u0000
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none a ba
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none @nnn
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none ameSteve]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none Stfevet
+R 7
+A 0-7 plain
+E ok
+S -2--2 0 0 
+@ none @a[&limit=1]l
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @(e[+ype=player]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none dd12be42-52a9-4a1-a8a-11c01849e498
+R 34
+A 0-34 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a[1-11c01849e498
+R 37
+A 0-37 plain
+E ok
+S -2--2 0 0 
+@ none @a[name=Stev}e​
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none =@r
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @Ce
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none éé^
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none :#xx
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 
+@ none @a[name=Ste￿ve]e
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @xx
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[ylimit=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 023
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none édd
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-$52a9-4a91-a8a1-11c01849e498$
+R 38
+A 0-38 plain
+E ok
+S -2--2 0 0 
+@ none @b
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none yer
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxBxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none @[liit=1]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none ​@s
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @a[typezombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none yxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none 012__
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none @e[+
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @s[lmit=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none limit=a2]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none a \u0009ba
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none @b[type=zombie]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none }
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none @e[type=pla+yr]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxx%xxxxxxxxxxxxxxx
+R 40
+A 0-40 plain
+E ok
+S -2--2 0 0 
+@ none PlayrP
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none f@s
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @e[ty​pe=player]e
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none dd12be42-5￿a9-4a91-a8a1-11c01849e498
+R 36
+A 0-36 plain
+E ok
+S -2--2 0 0 
+@ none @a[limit=*]%
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none ' 
+R 1
+A 0-1 plain
+E Incorrect argument for command at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ none @d
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none ve
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @((
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none 4
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none @e^[[
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none )0123
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none 😀@p@
+R 5
+A 0-5 plain
+E ok
+S -2--2 0 0 
+@ none 013
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none -_[
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @e 
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none @e[ty!pe=playr]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx2xxxxxxxx
+R 41
+A 0-41 plain
+E ok
+S -2--2 0 0 
+@ none @s[limit=2]@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none ZéZ
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none c@b
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none @a[limi\\t=1]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxx
+R 42
+A 0-42 plain
+E ok
+S -2--2 0 0 
+@ none @0
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none a :
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none 88
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none [a[name=Steve]
+R 14
+A 0-14 plain
+E ok
+S -2--2 0 0 
+@ none dd12be42-52a9-4a91-a8a1-11c0149e498
+R 35
+A 0-35 plain
+E ok
+S -2--2 0 0 
+@ none n
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none Ste1v}
+R 6
+A 0-6 plain
+E ok
+S -2--2 0 0 
+@ none @<[limit=2]@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none a@a[type=zombie]
+R 16
+A 0-16 plain
+E ok
+S -2--2 0 0 
+@ none @sßlimBit=2]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none &@p
+R 3
+A 0-3 plain
+E ok
+S -2--2 0 0 
+@ none a @
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none @B]
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none a bba
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ none ￿r
+R 2
+A 0-2 plain
+E ok
+S -2--2 0 0 
+@ none @[limit=2]s
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none f
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none @%s@
+R 0
+A -
+X Selector not allowed at position 2: t <--[HERE]@0
+E Selector not allowed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ none ]limit=1]
+R 9
+A 0-9 plain
+E ok
+S -2--2 0 0 
+@ none C b
+R 2
+A 0-1 plain
+E Incorrect argument for command at position 4: t C <--[HERE]@2
+S -2--2 0 0 
+@ none \u000a
+R 1
+A 0-1 plain
+E ok
+S -2--2 0 0 
+@ none e=playe3r]
+R 10
+A 0-10 plain
+E ok
+S -2--2 0 0 
+@ none 023(
+R 4
+A 0-4 plain
+E ok
+S -2--2 0 0 

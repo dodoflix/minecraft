@@ -2,7 +2,9 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import java.util.Optional;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.*;
+import net.minecraft.commands.arguments.blocks.*;
 import net.minecraft.commands.arguments.coordinates.*;
+import net.minecraft.commands.arguments.item.ItemArgument;
 import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.phys.Vec2;
@@ -234,7 +236,155 @@ final class ArgsSpecs {
       }
    }
 
+
+   // ------------------------------------------------------------------------------------------------ messages, components, NBT
+
+   static String canonJson(com.google.gson.JsonElement e) {
+      if (e.isJsonObject()) {
+         var keys = new java.util.TreeSet<>(e.getAsJsonObject().keySet());
+         StringBuilder b = new StringBuilder("{");
+         for (String k : keys) b.append(b.length() > 1 ? "," : "").append('"').append(k).append("\":").append(canonJson(e.getAsJsonObject().get(k)));
+         return b.append('}').toString();
+      }
+      if (e.isJsonArray()) {
+         StringBuilder b = new StringBuilder("[");
+         for (var x : e.getAsJsonArray()) b.append(b.length() > 1 ? "," : "").append(canonJson(x));
+         return b.append(']').toString();
+      }
+      return e.toString();
+   }
+
+   static String message(Object v) {
+      var m = (MessageArgument.Message) v;
+      StringBuilder b = new StringBuilder(m.text());
+      b.append('|');
+      for (var p : m.parts()) b.append(p.start()).append('-').append(p.end()).append(':').append(selector(p.selector())).append(';');
+      return b.toString();
+   }
+
+   static final String[] NBT_SEEDS = {"0", "0b", "0B", "0s", "0l", "0L", "0.0", "0f", "0d", "1.5e3", "-1", "+1", "1e5", ".5", "5.", "0x10", "0b101", "1_000", "128b", "-129b", "true", "false", "True", "\"foo\"", "'foo'", "foo", "\"a\\\"b\"", "'a\\'b'", "\"\\u00e9\"",
+      "\"\\n\"", "\"\\x41\"", "\"\\N{LATIN SMALL LETTER A}\"", "\"\\q\"", "{}", "{foo=bar}", "{foo:bar}", "{foo:1b,bar:[1,2]}", "{\"a b\":1}", "{a:{b:{c:1}}}", "{a:1,}", "{,}", "{a:1,a:2}", "{a:}", "{:1}", "{a 1}", "{a:1 b:2}", "{ a : 1 }", "[]", "[0]", "[B;]", "[B;1b,2b]", "[I;1,2,3]", "[L;1l]", "[B;1]",
+      "[I;1b]", "[1,2,3]", "[1,\"a\"]", "[[1],[2]]", "[{a:1},{b:2}]", "[1,]", "[,]", "[I;,]", "[X;1]", "[B;", "[0", "{a:1", "\"abc", "'abc", "0 ", " 0", "0 1", "1.0f", "1.0F", "Infinity", "NaN", "-Infinity", "1e400", "1e-400", "99999999999", "9223372036854775807L", "9223372036854775808L", "-0", "-0.0", "0.1f", "1d", "1D", "1s", "32768s", "\u00e9", "\ud83d\ude00",
+      "{a:\"\\ud83d\\ude00\"}", "[;]", "I;1", "@", "#", "{a:[B;1b,2b,3b]}", "{a:[I;1,2],b:[L;1l,2l]}", "{a:true,b:false}", "{a:1.5f,b:2.5d}", "{a:\"x\",b:'y'}", "{a:{}}", "{a:[]}", "[[]]", "[{}]", "{1:2}", "{1.5:2}", "{true:1}", "{a.b:1}", "{a-b:1}", "{a+b:1}", "{a_b:1}"};
+
+   static void registerNbt() {
+      add("nbt_tag", () -> NbtTagArgument.nbtTag(), Object::toString, NBT_SEEDS);
+      add("compound_tag", () -> CompoundTagArgument.compoundTag(), Object::toString, NBT_SEEDS);
+      add("component", () -> ComponentArgument.textComponent(ArgsGolden.ctx), v -> {
+         var json = net.minecraft.network.chat.ComponentSerialization.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, (net.minecraft.network.chat.Component) v).getOrThrow();
+         return canonJson(json);
+      }, "\"hello world\"", "'hello world'", "\"\"", "{text:\"hello world\"}", "[\"\"]", "{text:\"a\",bold:true}", "{text:\"a\",color:\"red\"}", "{text:\"a\",color:\"#ff0000\"}", "{text:\"a\",color:\"nope\"}", "{translate:\"chat.type.text\"}", "{translate:\"a\",with:[1,\"b\"]}",
+         "{score:{name:\"@s\",objective:\"a\"}}", "{selector:\"@a\"}", "{keybind:\"key.jump\"}", "{nbt:\"a\",entity:\"@s\"}", "{nbt:\"a\",block:\"1 2 3\"}", "{nbt:\"a\",storage:\"a:b\"}", "{text:\"a\",extra:[\"b\",{text:\"c\"}]}", "{text:\"a\",italic:false,underlined:true,strikethrough:true,obfuscated:true}",
+         "{text:\"a\",font:\"minecraft:uniform\"}", "{text:\"a\",click_event:{action:\"open_url\",url:\"https://a.b\"}}", "{text:\"a\",hover_event:{action:\"show_text\",value:\"x\"}}", "{text:\"a\",insertion:\"x\"}", "{text:\"a\",shadow_color:-1}", "1", "1.5", "true", "[]", "[1,2]", "[\"a\",\"b\"]", "{}", "{foo:1}", "{text:1}", "{text:}", "{text:\"a\"", "[\"a\"", "\"a", "abc", "{text:\"a\",bold:\"x\"}",
+         "{type:\"text\",text:\"a\"}", "{type:\"translatable\",translate:\"a\"}", "{type:\"nope\"}", "{text:\"a\",color:\"dark_red\"}", "{object:\"atlas\",sprite:\"a\"}", "{object:\"player\",player:{name:\"a\"}}", "{text:\"\\u00e9\"}", "{text:\"\\ud83d\\ude00\"}", "\"\\u00a7a\"");
+      add("style", () -> StyleArgument.style(ArgsGolden.ctx), v -> {
+         var json = net.minecraft.network.chat.Style.Serializer.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, (net.minecraft.network.chat.Style) v).getOrThrow();
+         return canonJson(json);
+      }, "{bold: true}", "{color: 'red'}", "{}", "{bold:false}", "{italic:true,underlined:true}", "{color:\"#abcdef\"}", "{color:\"nope\"}", "{color:\"#abcdeg\"}", "{color:\"#abc\"}", "{font:\"minecraft:default\"}", "{insertion:\"x\"}", "{shadow_color:[1.0,0.5,0.25,1.0]}", "{shadow_color:16777215}",
+         "{click_event:{action:\"run_command\",command:\"/say hi\"}}", "{click_event:{action:\"nope\"}}", "{hover_event:{action:\"show_text\",value:\"hi\"}}", "{hover_event:{action:\"show_item\",id:\"stone\"}}", "{hover_event:{action:\"show_entity\",id:\"zombie\",uuid:[I;1,2,3,4]}}", "{bold:1}", "{bold:\"true\"}", "{unknown:1}", "{bold:true", "[]", "\"a\"", "1", "bold", "{obfuscated:true,strikethrough:true}", "{color:'dark_blue',bold:true}", "{color:16711680}", "{color:-1}");
+      add("message", () -> MessageArgument.message(), ArgsSpecs::message, "Hello world!", "foo", "@e", "Hello @p :)", "@a", "@e[type=zombie] hi", "hi @e[type=zombie]", "a @x b", "a @ b", "@", "@@e", "@e@e", "@e[", "hi @e[type=zombie", "@e[type=zombie]]", "x @s y @r z", "\u00e9 @p", "\ud83d\ude00 @a",
+         "@p[limit=2]", "@e[foo=1]", "@e[type=foo]", "@P", "mail@foo.bar", "@e[name=\"a b\"] and @a[tag=x]", "@n[type=zombie]", "100@", "@e[distance=..5]", "", " ", "  @a", "@a ", "x".repeat(255), "x".repeat(256), "x".repeat(257), "@a".repeat(100), "@a".repeat(200));
+      ArgsGolden.add(new ArgsGolden.Spec("message_noselectors", () -> MessageArgument.message(), "Hello world!", "@e", "Hello @p :)", "@e[type=zombie] hi", "a @x b", "@", "x".repeat(257), "", " ").render(ArgsSpecs::message).variants("none").target(300));
+   }
+
+
+   static String scoreHolder(Object v) {
+      var r = (ScoreHolderArgument.Result) v;
+      if (r instanceof ScoreHolderArgument.SelectorResult sr) return "selector " + selector(field(sr, "selector"));
+      try {
+         var names = r.getNames(ArgsGolden.currentSrc, () -> java.util.List.of(net.minecraft.world.scores.ScoreHolder.forNameOnly("w1"), net.minecraft.world.scores.ScoreHolder.forNameOnly("w2")));
+         return "names " + names.stream().map(net.minecraft.world.scores.ScoreHolder::getScoreboardName).toList();
+      } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+         return "error " + e.getMessage();
+      }
+   }
+
+   static void registerScoreHolders() {
+      String[] seeds = {"Player", "0123", "*", "@e", "@a", "@p", "@s", "@r", "@n", "@e[type=zombie]", "@a[limit=1]", "@p[limit=2]", "@e[limit=1]", "@e[", "@x", "@", "#fake", "#", "#a b", "dd12be42-52a9-4a91-a8a1-11c01849e498", "1-1-1-1-1", "Steve Jr", "a b", "", " ", "\u00e9", "\ud83d\ude00",
+         "*x", "x*", "**", "@e[type=!player,limit=1]", "@a[scores={a=1}]", "@s[limit=2]", "name with spaces and a very long length over sixteen", "Player ", "Player\tTab"};
+      ArgsGolden.add(new ArgsGolden.Spec("score_holder", () -> ScoreHolderArgument.scoreHolder(), seeds).render(ArgsSpecs::scoreHolder).variants("all", "none").target(700).suggests(ScoreHolderArgument.SUGGEST_SCORE_HOLDERS));
+      ArgsGolden.add(new ArgsGolden.Spec("score_holders", () -> ScoreHolderArgument.scoreHolders(), seeds).render(ArgsSpecs::scoreHolder).target(700).suggests(ScoreHolderArgument.SUGGEST_SCORE_HOLDERS));
+   }
+
+
+   static String slotRange(Object v) {
+      var r = (net.minecraft.world.inventory.SlotRange) v;
+      return r.getSerializedName() + "|" + r.slots();
+   }
+
+   static void registerSlots() {
+      String[] seeds = {"container.0", "container.5", "container.53", "container.54", "container.*", "weapon", "weapon.mainhand", "weapon.offhand", "weapon.*", "armor.head", "armor.chest", "armor.legs", "armor.feet", "armor.body", "armor.*", "hotbar.0", "hotbar.8", "hotbar.9", "hotbar.*",
+         "inventory.0", "inventory.26", "inventory.27", "inventory.*", "enderchest.5", "enderchest.*", "horse.chest.5", "horse.saddle", "horse.armor", "horse.*", "villager.7", "villager.*", "player.crafting.2", "player.crafting.*", "player.cursor", "contents", "saddle", "mount.*", "container.-1",
+         "container.01", "container.", "container", "foo", "weapon.mainhand ", "", "Weapon", "\u00e9", "armor.head.x", "container.5.6", "container. 5", "bundle.0", "bundle.*", "player.*"};
+      ArgsGolden.add(new ArgsGolden.Spec("slot", () -> SlotArgument.slot(), seeds).render(Object::toString).target(400));
+      ArgsGolden.add(new ArgsGolden.Spec("slots", () -> SlotsArgument.slots(), seeds).render(ArgsSpecs::slotRange).target(400));
+      ArgsGolden.add(new ArgsGolden.Spec("game_profile", () -> GameProfileArgument.gameProfile(), "Player", "0123", "dd12be42-52a9-4a91-a8a1-11c01849e498", "@e", "@a", "@p", "@s", "@r", "@n", "@a[limit=1]", "@e[", "@e[type=player]", "@a[type=zombie]", "@x", "@", "", " ", "\u00e9", "a b", "Steve", "@a[name=Steve]", "@s[limit=2]", "x".repeat(40), "#x")
+         .render(v -> v instanceof GameProfileArgument.SelectorResult sr ? "selector " + selector(field(sr, "selector")) : "plain").variants("all", "none").target(500));
+   }
+
+
+   // ------------------------------------------------------------------------------------------------ blocks and items
+
+   static String stateString(net.minecraft.world.level.block.state.BlockState st) {
+      var props = new java.util.TreeMap<String, String>();
+      for (var p : st.getProperties()) props.put(p.getName(), net.minecraft.world.level.block.state.properties.Property.class.cast(p).getName(st.getValue((net.minecraft.world.level.block.state.properties.Property) p)));
+      StringBuilder b = new StringBuilder(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(st.getBlock()).toString()).append('[');
+      props.forEach((k, v) -> b.append(k).append('=').append(v).append(','));
+      return b.append(']').toString();
+   }
+
+   static String propNames(java.util.Collection<? extends net.minecraft.world.level.block.state.properties.Property<?>> props) {
+      return props.stream().map(net.minecraft.world.level.block.state.properties.Property::getName).sorted().toList().toString();
+   }
+
+   @SuppressWarnings("unchecked")
+   static void registerBlocks() {
+      String[] seeds = {"stone", "minecraft:stone", "stone[foo=bar]", "oak_stairs[facing=east,half=top]", "oak_stairs[facing=east", "oak_stairs[facing=up]", "oak_stairs[facing=east,facing=west]", "oak_stairs[nope=1]", "oak_stairs[]", "oak_stairs[ facing = east ]", "oak_stairs[facing=]", "oak_stairs[=east]", "oak_stairs[facing=east,]",
+         "oak_stairs[facing=east]x", "oak_stairs[facing=east] ", "chest{Items:[]}", "chest[facing=north]{Items:[]}", "chest{Items:[]}[facing=north]", "stone{a:1}", "stone{}", "stone[]{}", "stone[", "stone{", "stone{a:", "foo{bar=baz}", "water[level=3]", "water[level=8]", "redstone_wire[power=15]", "redstone_wire[power=16]", "redstone_wire[power=-1]",
+         "note_block[note=24,instrument=harp]", "note_block[note=25]", "lever[face=wall,powered=true]", "lever[powered=TRUE]", "oak_sign{front_text:{}}", "air", "cave_air", "#logs", "#minecraft:logs", "#minecraft:logs[axis=x]", "#minecraft:logs{a:1}", "#minecraft:logs[nope=1]", "#minecraft:logs[axis=nope]", "#minecraft:nope", "#", "#minecraft:", "#minecraft:logs[", "#minecraft:logs[axis",
+         "#minecraft:logs[axis=", "#minecraft:logs[axis=x", "#minecraft:logs[axis=x,", "#minecraft:logs[axis=x,axis=y]", "#minecraft:logs[axis=x]{", "#minecraft:logs[axis=x]{a:1}", "minecraft:", "nope", "minecraft:nope", "STONE", "", " ", "stone ", "\u00e9", "stone[\u00e9=1]", "oak_door[half=lower,hinge=left,open=true,powered=false,facing=north]", "oak_door[half=lower,half=upper]",
+         "piston[extended=true,facing=down]", "bed[part=head]", "red_bed[part=head,occupied=true]", "barrel[open=true]{Items:[{Slot:0b,id:\"stone\",count:1}]}", "command_block{Command:\"say hi\"}", "oak_leaves[distance=7,persistent=true,waterlogged=true]", "oak_leaves[distance=8]", "oak_leaves[distance=0]",
+         "campfire[lit=true]", "stone[lit=true]", "stone[waterlogged=false]", "oak_stairs[waterlogged=maybe]", "oak_stairs[shape=inner_left]", "oak_stairs[shape=INNER_LEFT]", "cactus[age=15]", "wheat[age=7]", "wheat[age=08]", "wheat[age=+1]", "wheat[age=1.0]", "scaffold", "scaffolding[bottom=true,distance=3]", "lectern[has_book=true]{Book:{}}", "jigsaw[orientation=up_north]", "jigsaw[orientation=up_foo]"};
+      ArgsGolden.add(new ArgsGolden.Spec("block_state", () -> BlockStateArgument.block(ArgsGolden.ctx), seeds).render(v -> {
+         var b = (net.minecraft.commands.arguments.blocks.BlockInput) v;
+         return stateString(b.getState()) + "|" + propNames((java.util.Collection) field(b, "properties")) + "|" + field(b, "tag");
+      }).target(1400));
+      ArgsGolden.add(new ArgsGolden.Spec("block_predicate", () -> BlockPredicateArgument.blockPredicate(ArgsGolden.ctx), seeds).render(v -> {
+         if (v.getClass().getSimpleName().equals("BlockPredicate")) {
+            return "block " + stateString((net.minecraft.world.level.block.state.BlockState) field(v, "state")) + "|" + propNames((java.util.Collection) field(v, "properties")) + "|" + field(v, "nbt");
+         }
+         var vague = new java.util.TreeMap<>((java.util.Map<String, String>) field(v, "vagueProperties"));
+         return "tag n=" + ((net.minecraft.core.HolderSet<?>) field(v, "tag")).size() + "|" + vague + "|" + field(v, "nbt");
+      }).target(1500));
+   }
+
+   static void registerItems() {
+      String[] seeds = {"stick", "minecraft:stick", "stick{foo=bar}", "stick[]", "stick[damage=5]", "stick[!damage]", "stick[damage=5,!damage]", "stick[!damage,damage=5]", "stick[damage=5,damage=6]", "stick[!damage,!damage]", "diamond_sword[damage=5,enchantments={\"minecraft:sharpness\":5}]", "diamond_sword[enchantments={sharpness:5}]",
+         "stick[custom_name='x']", "stick[custom_name={text:'x'}]", "stick[custom_name={text:}]", "stick[nope=1]", "stick[minecraft:nope=1]", "stick[damage=]", "stick[damage=a]", "stick[damage=-1]", "stick[damage=1.5]", "stick[minecraft:damage=5]", "stick[max_stack_size=64]", "stick[max_stack_size=0]", "stick[max_stack_size=100]", "stick[unbreakable={}]", "stick[unbreakable=true]",
+         "apple[food={nutrition:2,saturation:1}]", "stick[custom_data={a:1}]", "stick[custom_data={a:1},custom_data={b:2}]", "stick[lore=['a','b']]", "stick[lore=[]]", "stick[damage=5", "stick[damage=5,", "stick[,]", "stick[!]", "stick[!nope]", "stick[ damage = 5 ]", "stick[damage=5]x", "stick[damage=5] ", "#stick", "#minecraft:logs", "nope", "minecraft:nope", "air", "minecraft:air",
+         "", " ", "stick ", "STICK", "\u00e9", "stick[", "stick[d", "stick[damage", "stick[damage=5,!", "stick[damage=5,!d", "stick[damage=5,m", "stick{", "stick{}", "stick[]{}", "{}", "[]", "stick[enchantments={}]", "stick[enchantments={nope:1}]", "stick[enchantments={sharpness:0}]", "stick[enchantments={sharpness:255}]", "stick[enchantments={sharpness:256}]",
+         "stick[enchantment_glint_override=true]", "stick[rarity=epic]", "stick[rarity=nope]", "stick[repair_cost=5]", "stick[repair_cost=-5]", "stick[item_name={text:'x'}]", "stick[dyed_color=16711680]", "stick[dyed_color={rgb:1}]", "stick[potion_contents={potion:'minecraft:water'}]", "stick[potion_contents={potion:'nope'}]", "stick[profile='Steve']", "stick[profile={name:'Steve'}]",
+         "stick[container=[]]", "stick[container=[{slot:0,item:{id:'stone',count:1}}]]", "stick[bundle_contents=[]]", "stick[attribute_modifiers=[]]", "stick[tool={rules:[],default_mining_speed:1.0,damage_per_block:1}]", "stick[block_state={facing:'north'}]", "stick[can_break={blocks:'stone'}]", "stick[charged_projectiles=[]]", "stick[trim={material:'copper',pattern:'sentry'}]",
+         "stick[firework_explosion={shape:'small_ball'}]", "stick[map_color=5]", "stick[entity_data={id:'zombie'}]", "stick[bees=[]]", "stick[lock='x']", "stick[note_block_sound='a:b']", "stick[instrument='minecraft:ponder_goat_horn']", "stick[jukebox_playable='minecraft:cat']", "stick[death_protection={}]", "stick[equippable={slot:'head'}]", "stick[damage_resistant={types:'#minecraft:is_fire'}]",
+         "stick[use_cooldown={seconds:1.0}]", "stick[consumable={}]", "stick[weapon={}]", "stick[minimum_attack_charge=0.5]", "stick[tooltip_display={hide_tooltip:true}]", "stick[glider={}]", "stick[break_sound='minecraft:entity.item.break']"};
+      ArgsGolden.add(new ArgsGolden.Spec("item", () -> ItemArgument.item(ArgsGolden.ctx), seeds).render(v -> {
+         var i = (net.minecraft.commands.arguments.item.ItemInput) v;
+         String patch;
+         try {
+            patch = net.minecraft.core.component.DataComponentPatch.CODEC.encodeStart(ArgsGolden.ctx.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), i.components()).getOrThrow().toString();
+         } catch (RuntimeException e) {
+            patch = "<encode failed>";
+         }
+         return i.item().getRegisteredName() + "|" + patch;
+      }).target(1500));
+   }
+
    static void register() {
+      registerBlocks();
+      registerItems();
+      registerSlots();
+      registerScoreHolders();
+      registerNbt();
       registerEntities();
       registerRegistries();
       registerCoordinates();

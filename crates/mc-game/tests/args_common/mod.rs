@@ -95,6 +95,72 @@ pub fn render_key(k: &mc_game::commands::arguments::resource_arguments::Resource
     format!("ResourceKey[minecraft:root / {}]|{}", k.registry, k.id)
 }
 
+/// `ArgsSpecs.canonJson`: compact JSON with sorted object keys.
+pub fn canon_json(v: &serde_json::Value) -> String {
+    use serde_json::Value;
+    match v {
+        Value::Object(map) => {
+            let mut keys: Vec<&String> = map.keys().collect();
+            keys.sort();
+            format!("{{{}}}", keys.iter().map(|k| format!("\"{k}\":{}", canon_json(&map[*k]))).collect::<Vec<_>>().join(","))
+        }
+        Value::Array(items) => format!("[{}]", items.iter().map(canon_json).collect::<Vec<_>>().join(",")),
+        other => other.to_string(),
+    }
+}
+
+/// `ArgsSpecs.message`.
+pub fn render_message(m: &mc_game::commands::arguments::message_argument::Message) -> String {
+    let mut out = format!("{}|", m.text);
+    for p in &m.parts {
+        out.push_str(&format!("{}-{}:{};", p.start, p.end, p.selector.describe()));
+    }
+    out
+}
+
+/// `ArgsSpecs.scoreHolder`.
+pub fn render_score_holder(r: &mc_game::commands::arguments::scores::ScoreHolderResult, src: &CommandSourceStack) -> String {
+    use mc_game::commands::arguments::scores::{ScoreHolder, ScoreHolderResult};
+    if let ScoreHolderResult::Selector(s) = r {
+        return format!("selector {}", s.describe());
+    }
+    match r.get_names(src, &|_| vec![ScoreHolder::for_name_only("w1"), ScoreHolder::for_name_only("w2")]) {
+        Ok(names) => format!("names [{}]", names.iter().map(|n| n.scoreboard_name.clone()).collect::<Vec<_>>().join(", ")),
+        Err(e) => format!("error {}", e.get_message()),
+    }
+}
+
+/// `BlockState` as `ArgsSpecs.stateString` renders it.
+pub fn render_state(state: mc_data::block::BlockState) -> String {
+    let mut props: Vec<(&str, &str)> = state.values().map(|(p, i)| (p.name, p.values[i])).collect();
+    props.sort();
+    let mut out = format!("{}[", state.block().name());
+    for (k, v) in props {
+        out.push_str(&format!("{k}={v},"));
+    }
+    out.push(']');
+    out
+}
+
+/// The `block_predicate` rendering of `ArgsSpecs.registerBlocks`.
+pub fn render_block_predicate(p: &mc_game::commands::arguments::blocks::block_predicate_argument::BlockPredicate) -> String {
+    use mc_game::commands::arguments::blocks::block_predicate_argument::BlockPredicate;
+    let nbt = |n: &Option<mc_nbt::CompoundTag>| n.as_ref().map_or("null".to_owned(), |t| mc_nbt::Tag::Compound(t.clone()).to_string());
+    match p {
+        BlockPredicate::Block { state, properties, nbt: n } => {
+            let mut names: Vec<&str> = properties.iter().map(|(p, _)| p.name).collect();
+            names.sort();
+            format!("block {}|[{}]|{}", render_state(*state), names.join(", "), nbt(n))
+        }
+        BlockPredicate::Tag { blocks, vague_properties, nbt: n } => format!(
+            "tag n={}|{{{}}}|{}",
+            blocks.len(),
+            vague_properties.iter().map(|(k, v)| format!("{k}={v}")).collect::<Vec<_>>().join(", "),
+            nbt(n)
+        ),
+    }
+}
+
 /// Java `esc` of the generator.
 pub fn esc(s: &str) -> String {
     let mut b = String::new();
@@ -157,6 +223,17 @@ pub fn replay(
     make: impl Fn(&CommandBuildContext) -> Arg,
     render: impl Fn(&ParsedValue, &CommandSourceStack) -> String,
 ) {
+    replay_with(name, fixture, make, render, None)
+}
+
+/// [`replay`] with an explicit suggestion provider on the argument node (`.suggests(..)`).
+pub fn replay_with(
+    name: &str,
+    fixture: &str,
+    make: impl Fn(&CommandBuildContext) -> Arg,
+    render: impl Fn(&ParsedValue, &CommandSourceStack) -> String,
+    provider: Option<mc_brigadier::SuggestionProvider<CommandSourceStack>>,
+) {
     mc_game::commands::BrigadierExceptions::install();
     mc_game::commands::install_text_validators();
     let (mut server, _keep) = command_common::test_server();
@@ -178,9 +255,11 @@ pub fn replay(
         }
     }
     let dispatcher = CommandDispatcher::<CommandSourceStack>::new();
-    dispatcher.register(
-        LiteralArgumentBuilder::literal("t").then(RequiredArgumentBuilder::argument_shared("a", make(&build_context)).executes(|_| Ok(1))),
-    );
+    let mut argument = RequiredArgumentBuilder::argument_shared("a", make(&build_context)).executes(|_| Ok(1));
+    if let Some(provider) = provider {
+        argument = argument.suggests_provider(Some(provider));
+    }
+    dispatcher.register(LiteralArgumentBuilder::literal("t").then(argument));
     let mut records: Vec<(String, String, Vec<&str>)> = Vec::new();
     for line in fixture.lines() {
         if let Some(rest) = line.strip_prefix("@ ") {
