@@ -272,6 +272,7 @@ public final class VanillaLevel {
       RandomSupport.reseedUniquifier(8682522807148012L);
       Server server = new Server(Thread.currentThread(), access, packs, stem, settings, services, new NotificationManager());
       server.start();
+      REGISTRIES = server.registryAccess();
       VanillaLevel v = new VanillaLevel(dir, server, server.overworld());
       // frozen, quiet world; scripts may flip any rule with `gamerule`
       for (String rule : new String[] {"advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids", "log_admin_commands", "send_command_feedback"}) {
@@ -397,6 +398,8 @@ public final class VanillaLevel {
       channel.register();
       server.getConnection().getConnections().add(connection);
       ChunkPos spawnChunk = ChunkPos.containing(net.minecraft.core.BlockPos.containing(x, y, z));
+      // PrepareSpawnTask.Ready.keepAlive: without a ticket the chunks around a spawn far from the origin never load
+      level.getChunkSource().addTicketWithRadius(net.minecraft.server.level.TicketType.PLAYER_SPAWN, spawnChunk, 3);
       level.waitForEntities(spawnChunk, 3);
       ServerPlayer player = new SimPlayer(server, level, profile, cookie.clientInformation(), sim);
       FakePlayer fp = new FakePlayer(name, player, connection, channel);
@@ -426,6 +429,46 @@ public final class VanillaLevel {
       return fp;
    }
 
+   /**
+    * Vanilla encodes a few collections in HashMap iteration order of identity-hashed keys (differs per JVM run); the oracle
+    * writes them in a canonical order so fixtures are reproducible (a Rust port cannot reproduce identity hashes anyway):
+    * `set_time` clock updates sorted by clock id, particle lists of `set_entity_data` (effect particles of active effects)
+    * sorted by their encoded form.
+    */
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   private static Packet<? super ClientGamePacketListener> canonical(Packet<? super ClientGamePacketListener> p) {
+      if (p instanceof ClientboundSetTimePacket t) {
+         java.util.TreeMap<String, Map.Entry<net.minecraft.core.Holder<net.minecraft.world.clock.WorldClock>, net.minecraft.world.clock.ClockNetworkState>> sorted = new java.util.TreeMap<>();
+         for (var e : t.clockUpdates().entrySet()) {
+            sorted.put(e.getKey().getRegisteredName(), e);
+         }
+         Map<net.minecraft.core.Holder<net.minecraft.world.clock.WorldClock>, net.minecraft.world.clock.ClockNetworkState> map = new LinkedHashMap<>();
+         sorted.values().forEach(e -> map.put(e.getKey(), e.getValue()));
+         return new ClientboundSetTimePacket(t.gameTime(), map);
+      }
+      if (p instanceof ClientboundSetEntityDataPacket d) {
+         List<net.minecraft.network.syncher.SynchedEntityData.DataValue<?>> items = new ArrayList<>();
+         for (var v : d.packedItems()) {
+            if (v.value() instanceof List<?> list && list.size() > 1 && list.get(0) instanceof net.minecraft.core.particles.ParticleOptions) {
+               List<Object> copy = new ArrayList<>(list);
+               copy.sort(Comparator.comparing(o -> {
+                  RegistryFriendlyByteBuf b = new RegistryFriendlyByteBuf(Unpooled.buffer(), REGISTRIES);
+                  net.minecraft.core.particles.ParticleTypes.STREAM_CODEC.encode(b, (net.minecraft.core.particles.ParticleOptions)o);
+                  byte[] bytes = new byte[b.readableBytes()];
+                  b.readBytes(bytes);
+                  return java.util.HexFormat.of().formatHex(bytes);
+               }));
+               items.add(new net.minecraft.network.syncher.SynchedEntityData.DataValue(v.id(), v.serializer(), copy));
+            } else {
+               items.add(v);
+            }
+         }
+         return new ClientboundSetEntityDataPacket(d.id(), items);
+      }
+      return p;
+   }
+
+   private static net.minecraft.core.RegistryAccess REGISTRIES;
    private static net.minecraft.network.protocol.BundlerInfo BUNDLER; // set after Bootstrap (GameProtocols needs the registries)
 
    private static void record(FakePlayer fp, net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, Packet<? super net.minecraft.network.protocol.game.ClientGamePacketListener>> codec, Packet<?> packet) {
@@ -447,6 +490,7 @@ public final class VanillaLevel {
          }
          return;
       }
+      p = canonical(p);
       ByteBuf buf = Unpooled.buffer();
       codec.encode(buf, p);
       byte[] bytes = new byte[buf.readableBytes()];

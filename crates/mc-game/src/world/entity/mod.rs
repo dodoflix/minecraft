@@ -10,11 +10,13 @@
 
 pub mod attributes;
 pub mod dimensions;
+pub mod area_effect_cloud;
 pub mod effect;
 pub mod entity;
 pub mod experience_orb;
 pub mod falling_block_entity;
 pub mod equipment;
+pub mod equipment_table;
 pub mod factory;
 pub mod interpolation;
 pub mod fluid_interaction;

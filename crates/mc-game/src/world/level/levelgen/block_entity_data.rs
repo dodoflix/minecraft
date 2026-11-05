@@ -56,7 +56,7 @@ fn default_tag(id: &str, pos: BlockPos) -> Option<CompoundTag> {
 pub fn get_block_entity_nbt(level: &mut dyn WorldGenLevel, pos: BlockPos) -> Option<CompoundTag> {
     let existing = level.get_block_entity_nbt(pos)?;
     if existing.get_string("id") != Some("DUMMY") {
-        return Some(existing.clone());
+        return Some(existing);
     }
     let state = level.get_block_state(pos);
     let tag = match new_block_entity(pos, state) {

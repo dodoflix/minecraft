@@ -195,6 +195,7 @@ impl MinecraftServer {
             level_height,
         });
         backend.set_gen_env(env.clone());
+        let gen_env = env.clone();
         let hooks: Arc<dyn WorldGenHooks> = Arc::new(VanillaWorldGenHooks::new(env));
         let dimension_dir = self
             .storage_source
@@ -228,6 +229,7 @@ impl MinecraftServer {
             is_debug,
             level_data,
         });
+        level.gen_env = Some(gen_env);
         level.registries = self.registries.composite_access().clone();
         level.server_state = crate::server::level::LevelServerState {
             scoreboard: self.scoreboard.clone(),

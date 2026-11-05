@@ -1,0 +1,45 @@
+# Subset of worldgen-diff-cases.txt used for tests/e2e/worldgen-diff-report.md (smaller radii: vanilla generation is the slow half;
+# controls are placed ~250 chunks from the spawn so no spawn-area ticking noise). Run: scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases-report.txt [--only REGEX]
+# seed dim center_x center_z radius_chunks label   (centres are BLOCK coordinates)
+12345 overworld 4000 4000 2 control
+12345 the_nether 4000 4000 2 control
+12345 the_end 4000 4000 2 control
+12345 overworld 160 880 3 minecraft:village_plains
+12345 overworld -560 -1648 3 minecraft:stronghold
+12345 overworld 4656 7056 3 minecraft:mansion
+12345 overworld -288 -288 3 minecraft:ancient_city
+12345 overworld 0 224 3 minecraft:trial_chambers
+12345 overworld 272 -960 2 minecraft:pillager_outpost
+12345 overworld 1760 -1360 3 minecraft:monument
+12345 overworld 176 160 2 minecraft:shipwreck
+12345 overworld 16 0 2 minecraft:ruined_portal
+12345 overworld 650 650 2 minecraft:mineshaft
+12345 overworld -5120 -4864 2 minecraft:desert_pyramid
+12345 overworld -1520 32 2 minecraft:jungle_pyramid
+12345 overworld -2016 -1696 2 minecraft:swamp_hut
+12345 overworld 576 656 2 minecraft:igloo
+12345 overworld 761 409 2 minecraft:buried_treasure
+12345 overworld 112 80 2 minecraft:ocean_ruin_cold
+12345 the_nether 112 672 3 minecraft:fortress
+12345 the_nether 192 320 3 minecraft:bastion_remnant
+12345 the_nether -352 96 2 minecraft:nether_fossil
+12345 the_nether 16 0 2 minecraft:ruined_portal_nether
+12345 the_end 992 384 3 minecraft:end_city
+12345 the_end 0 0 4 minecraft:main_island
+1 overworld 4000 4000 2 control
+1 the_nether 4000 4000 2 control
+1 the_end 4000 4000 2 control
+1 overworld 640 816 3 minecraft:village_plains
+1 overworld -1136 848 3 minecraft:stronghold
+1 overworld 1888 240 3 minecraft:mansion
+1 overworld -1840 1232 3 minecraft:ancient_city
+1 overworld 288 224 3 minecraft:trial_chambers
+1 overworld 816 -272 3 minecraft:monument
+1 overworld -208 -320 2 minecraft:shipwreck
+1 overworld 304 288 2 minecraft:ruined_portal
+1 overworld 304 192 2 minecraft:abandoned_camp_forest
+1 overworld -439 -343 2 minecraft:buried_treasure
+1 the_nether -96 144 3 minecraft:fortress
+1 the_nether 192 0 3 minecraft:bastion_remnant
+1 the_nether 304 288 2 minecraft:ruined_portal_nether
+1 the_end -1168 -240 3 minecraft:end_city

@@ -1,0 +1,657 @@
+T 1
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=5
+E t2 minecraft:tnt pos=11.5,-58.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=39
+E t3 minecraft:tnt pos=10.5,-57.04,3.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=14
+E t4 minecraft:tnt pos=14.5,-59.54,-2.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=69
+T 2
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4
+E t2 minecraft:tnt pos=11.5,-58.11920000076294,0.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing fuse=38
+E t3 minecraft:tnt pos=10.5,-57.11920000076294,3.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing fuse=13
+E t4 minecraft:tnt pos=14.5,-59.61920000076294,-2.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing fuse=68
+T 3
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=3
+E t2 minecraft:tnt pos=11.5,-58.23681600302124,0.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=37
+E t3 minecraft:tnt pos=10.5,-57.23681600302124,3.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=12
+E t4 minecraft:tnt pos=14.5,-59.73681600302124,-2.5 delta=0.0,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=67
+T 4
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=2
+E t2 minecraft:tnt pos=11.5,-58.39207968747772,0.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing fuse=36
+E t3 minecraft:tnt pos=10.5,-57.39207968747772,3.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing fuse=11
+E t4 minecraft:tnt pos=14.5,-59.89207968747772,-2.5 delta=0.0,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing fuse=66
+T 5
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=1
+E t2 minecraft:tnt pos=11.5,-58.58423810120649,0.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=35
+E t3 minecraft:tnt pos=10.5,-57.58423810120649,3.5 delta=0.0,-0.18831524911932757,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=10
+E t4 minecraft:tnt pos=14.5,-60.0,-2.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=65
+T 6
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=11.96894503753418,-58.177361717664624,0.5 delta=0.4595661457279122,0.39873886363157607,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=34
+E t3 minecraft:tnt pos=10.5,-57.48947242962755,3.9116533720140447 delta=0.0,0.09287035995487575,0.4034203124254287 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=9
+E t4 minecraft:tnt pos=14.799939981752445,-60.0,-2.724954986314334 delta=0.20575883148680843,-0.0,-0.15431912361510633 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=64
+T 7
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=12.428511183262092,-57.818622854033045,0.5 delta=0.4503748315788826,0.35156409320134535,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=33
+E t3 minecraft:tnt pos=10.5,-57.436602069672674,4.315073684439473 delta=0.0,0.051812953764200316,0.39535191387155194 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=8
+E t4 minecraft:tnt pos=15.005698813239253,-60.0,-2.8792741099294403 delta=0.14115056114712737,-0.0,-0.10586292086034553 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=63
+T 8
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=12.878886014840974,-57.5070587608317,0.5 delta=0.4413673435375231,0.30533281727993195,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=32
+E t3 minecraft:tnt pos=10.5,-57.424789115908474,4.710425598311025 delta=0.0,0.011576694914230521,0.38744488313486025 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=7
+E t4 minecraft:tnt pos=15.14684937438638,-60.0,-2.9851370307897858 delta=0.09682928683149268,-0.0,-0.07262196512361951 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=62
+T 9
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=13.320253358378498,-57.241725943551764,0.5 delta=0.43254000508518664,0.2600261659951552,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=31
+E t3 minecraft:tnt pos=10.5,-57.45321242099424,5.097870481445884 delta=0.0,-0.02785483952618561,0.3796959928620877 rot=0.0,0.0 og=0 fall=0.6126614026725292 fire=0 air=300 alive=1 pose=standing fuse=6
+E t4 minecraft:tnt pos=15.243678661217873,-60.0,-3.0577589959134053 delta=0.06642489205921442,-0.0,-0.049818669044410825 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=61
+T 10
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=13.752793363463685,-57.021699777556606,0.5 delta=0.4238892132335288,0.21562564687191818,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=30
+E t3 minecraft:tnt pos=10.5,-57.521067260520425,5.477566474307972 delta=0.0,-0.06649774402989025,0.3721020802469723 rot=0.0,0.0 og=0 fall=0.6805162392556667 fire=0 air=300 alive=1 pose=standing fuse=5
+E t4 minecraft:tnt pos=15.310103553277086,-60.0,-3.107577664957816 delta=0.04556747683948908,-0.0,-0.034175607629616814 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=60
+T 11
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=14.176682576697214,-56.846074130684684,0.5 delta=0.4154114370539033,0.1721131372842732,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=29
+E t3 minecraft:tnt pos=10.5,-57.62756500455031,5.8496685545549445 delta=0.0,-0.10436779118057572,0.36466004573931676 rot=0.0,0.0 og=0 fall=0.7870139814913273 fire=0 air=300 alive=1 pose=standing fuse=4
+E t4 minecraft:tnt pos=15.355671030116575,-60.0,-3.1417532725874326 delta=0.031259289720280956,-0.0,-0.02344446729021072 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=59
+T 12
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=14.592094013751117,-56.71396099340041,0.5 delta=0.40710321623616963,0.12947087705844584,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=28
+E t3 minecraft:tnt pos=10.5,-57.77193279573089,6.2143286002942615 delta=0.0,-0.1414804381105613,0.3573668517798688 rot=0.0,0.0 og=0 fall=0.9313817657530308 fire=0 air=300 alive=1 pose=standing fuse=3
+E t4 minecraft:tnt pos=15.386930319836855,-60.0,-3.165197739877643 delta=0.02144387316546928,-0.0,-0.01608290487410196 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=58
+T 13
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=14.999197229987287,-56.62449011634197,0.5 delta=0.39896115967632384,0.08768146122379847,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=27
+E t3 minecraft:tnt pos=10.5,-57.95341323384145,6.57169545207413 delta=0.0,-0.17785083280981473,0.35021952156050323 rot=0.0,0.0 og=0 fall=1.112862203270197 fire=0 air=300 alive=1 pose=standing fuse=2
+E t4 minecraft:tnt pos=15.408374193002324,-60.0,-3.181280644751745 delta=0.01471049727781852,-0.0,-0.011032872958363889 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=57
+T 14
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=15.39815838966361,-56.57680865511817,0.5 delta=0.3909819440923776,0.0467278329087742,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=26
+E t3 minecraft:tnt pos=10.5,-58.17126406665127,6.9219149736346335 delta=0.0,-0.21349382030879333,0.34321513780920043 rot=0.0,0.0 og=0 fall=1.3307130374014378 fire=0 air=300 alive=1 pose=standing fuse=1
+E t4 minecraft:tnt pos=15.423084690280142,-60.0,-3.192313517710109 delta=0.010091401328989832,-0.0,-0.007568550996742373 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=56
+T 15
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=15.789140333755988,-56.5700808222094,0.5 delta=0.3831623126679188,0.006593276378921943,0.0 rot=0.0,0.0 og=0 fall=0.5842380970716476 fire=0 air=300 alive=1 pose=standing fuse=25
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.433176091609132,-60.0,-3.1998820687068514 delta=0.0069227014464217675,-0.0,-0.005192026084816326 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=55
+T 16
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=16.17230264642391,-56.603487545830475,0.5 delta=0.37549907372280156,-0.032738589785839184,0.0 rot=0.0,0.0 og=0 fall=0.6176448203623295 fire=0 air=300 alive=1 pose=standing fuse=24
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.440098793055554,-60.0,-3.2050740947916676 delta=0.004748973284673368,-0.0,-0.003561729963505026 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=54
+T 17
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=16.54780172014671,-56.67622613561632,0.5 delta=0.36798909941042196,-0.0712838193775009,0.0 rot=0.0,0.0 og=0 fall=0.6903834082186222 fire=0 air=300 alive=1 pose=standing fuse=23
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.444847766340228,-60.0,-3.2086358247551727 delta=0.0032577957366915645,-0.0,-0.002443346802518673 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=53
+T 18
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=16.91579081955713,-56.787509954993816,0.5 delta=0.36062932444104856,-0.1090581451125213,0.0 rot=0.0,0.0 og=0 fall=0.8016672246158123 fire=0 air=300 alive=1 pose=standing fuse=22
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.44810556207692,-60.0,-3.2110791715576914 delta=0.002234847918866679,-0.0,-0.0016761359391500089 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=52
+T 19
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=17.27642014399818,-56.936568100106335,0.5 delta=0.3534167448306861,-0.14607698505332936,0.0 rot=0.0,0.0 og=0 fall=0.9507253728806973 fire=0 air=300 alive=1 pose=standing fuse=21
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.450340409995787,-60.0,-3.2127553074968414 delta=0.0015331057021809806,-0.0,-0.0011498292766357352 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=51
+T 20
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=17.629836888828866,-57.12264508515966,0.5 delta=0.3463484166749618,-0.18235544890139962,0.0 rot=0.0,0.0 og=0 fall=1.1368023566901684 fire=0 air=300 alive=1 pose=standing fuse=20
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.451873515697969,-60.0,-3.213905136773477 delta=0.001051710532165322,-0.0,-7.887828991239914E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=50
+T 21
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=17.976185305503826,-57.34500053406106,0.5 delta=0.33942145494753434,-0.21790834416446525,0.0 rot=0.0,0.0 og=0 fall=1.3591578118503094 fire=0 air=300 alive=1 pose=standing fuse=19
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.452925226230134,-60.0,-3.214693919672601 delta=7.214734391072613E-4,-0.0,-5.41105079330446E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=49
+T 22
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=18.31560676045136,-57.60290887822552,0.5 delta=0.33263303232253416,-0.2527501822003872,0.0 rot=0.0,0.0 og=0 fall=1.6170661561191082 fire=0 air=300 alive=1 pose=standing fuse=18
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.45364669966924,-60.0,-3.2152350247519315 delta=4.949307888602909E-4,-0.0,-3.711980916452182E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=48
+T 23
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=18.648239792773893,-57.895659060425906,0.5 delta=0.3259803780205551,-0.28689518414014603,0.0 rot=0.0,0.0 og=0 fall=1.9098163358867168 fire=0 air=300 alive=1 pose=standing fuse=17
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454141630458102,-60.0,-3.2156062228435767 delta=3.3952252776619845E-4,-0.0,-2.546418958246489E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=47
+T 24
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=18.97422017079445,-58.222554244566055,0.5 delta=0.31946077667772627,-0.3203572866923739,0.0 rot=0.0,0.0 og=0 fall=2.236711513251066 fire=0 air=300 alive=1 pose=standing fuse=16
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=2.329124585807269E-4,-0.0,-1.7468434393554523E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=46
+T 25
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=19.293680947472176,-58.58291153125843,0.5 delta=0.3130715672374025,-0.35315014783179616,0.0 rot=0.0,0.0 og=0 fall=2.5970687977969646 fire=0 air=300 alive=1 pose=standing fuse=15
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=1.5977794969609547E-4,-0.0,-1.1983346227207163E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=45
+T 26
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=19.606752514709576,-58.97606167909023,0.5 delta=0.30681014186402067,-0.3852871523739042,0.0 rot=0.0,0.0 og=0 fall=2.990218948572874 fire=0 air=300 alive=1 pose=standing fuse=14
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=1.0960767562478726E-4,-0.0,-8.220575671859046E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=44
+T 27
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=19.913562656573596,-59.401348831464134,0.5 delta=0.3006739448786793,-0.4167814174381348,0.0 rot=0.0,0.0 og=0 fall=3.4155061058700085 fire=0 air=300 alive=1 pose=standing fuse=13
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=7.519086694202441E-5,-0.0,-5.639315020651832E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=43
+T 28
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=20.214236601452274,-59.85813024890227,0.5 delta=0.2946604717160061,-0.4476457978017862,0.0 rot=0.0,0.0 og=0 fall=3.8722875230014324 fire=0 air=300 alive=1 pose=standing fuse=12
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=5.1580935726135123E-5,-0.0,-3.8685701794601354E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=42
+T 29
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=20.50889707316828,-60.0,0.5 delta=0.20213708753132195,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=11
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=3.5384522596808484E-5,-0.0,-2.6538391947606372E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=41
+T 30
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=20.711034160699604,-60.0,0.5 delta=0.13866604474530814,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=10
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=2.4273782973844966E-5,-0.0,-1.820533723038373E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=40
+T 31
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=20.84970020544491,-60.0,0.5 delta=0.09512490854667281,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=9
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=1.665181544414761E-5,-0.0,-1.2488861583110715E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=39
+T 32
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=20.944825113991584,-60.0,0.5 delta=0.06525568853307209,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=8
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=1.1423145617010982E-5,-0.0,-8.567359212758242E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=38
+T 33
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.010080802524655,-60.0,0.5 delta=0.04476540320494489,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=7
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=7.836278045784982E-6,-0.0,-5.8772085343387396E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=37
+T 34
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.0548462057296,-60.0,0.5 delta=0.030709067196274805,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=6
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=5.375686844034097E-6,-0.0,-4.031765133025574E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=36
+T 35
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.085555272925873,-60.0,0.5 delta=0.021066420506654797,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=5
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=3.6877212467805528E-6,-0.0,-2.765790935085416E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=35
+T 36
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.10662169343253,-60.0,0.5 delta=0.01445156474883225,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=2.5297768245278494E-6,-0.0,-1.8973326183958884E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=34
+T 37
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.12107325818136,-60.0,0.5 delta=0.009913773610648128,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=3
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=1.735426935402269E-6,-0.0,-1.3015702015517028E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=33
+T 38
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.13098703179201,-60.0,0.5 delta=0.006800848829267774,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=2
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=1.1905029008564058E-6,-0.0,-8.92877175642305E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=32
+T 39
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.13778788062128,-60.0,0.5 delta=0.0046653823876788205,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=1
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.454481152985867,-60.0,-3.215860864739401 delta=8.166850058824229E-7,-0.0,-6.125137544118177E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=31
+T 40
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.328327369691195,-60.0,-3.298276252133168 delta=-0.08654149702448022,-0.0,-0.05653695685248814 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=30
+T 41
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.241785872666714,-60.0,-3.3548132089856564 delta=-0.05936746811424707,-0.0,-0.038784353155656676 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=29
+T 42
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.182418404552466,-60.0,-3.3935975621413133 delta=-0.0407260839190147,-0.0,-0.02660606678260746 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=28
+T 43
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.141692320633451,-60.0,-3.420203628923921 delta=-0.027938094112195964,-0.0,-0.018251762168098033 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=27
+T 44
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.113754226521255,-60.0,-3.438455391092019 delta=-0.01916553293398023,-0.0,-0.012520709091002565 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=26
+T 45
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.094588693587275,-60.0,-3.4509761001830217 delta=-0.013147555848597909,-0.0,-0.00858920660359726 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=25
+T 46
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.081441137738677,-60.0,-3.4595653067866188 delta=-0.009019223487676973,-0.0,-0.005892195844746 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=24
+T 47
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.072421914251,-60.0,-3.4654575026313648 delta=-0.006187187432966028,-0.0,-0.004042046428165057 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=23
+T 48
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.066234726818035,-60.0,-3.4694995490595297 delta=-0.004244410661622559,-0.0,-0.0027728439036883708 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=22
+T 49
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.061990316156413,-60.0,-3.472272392963218 delta=-0.0029116657705420715,-0.0,-0.0019021709549516825 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=21
+T 50
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.059078650385871,-60.0,-3.47417456391817 delta=-0.001997402757466793,-0.0,-0.0013048893004935765 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=20
+T 51
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.057081247628403,-60.0,-3.4754794532186635 delta=-0.0013702183182904238,-0.0,-8.951540775607452E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=19
+T 52
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.055711029310112,-60.0,-3.4763746072962243 delta=-9.39969784641619E-4,-0.0,-6.140757091582675E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=18
+T 53
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.054771059525471,-60.0,-3.4769886830053824 delta=-6.448192848141012E-4,-0.0,-4.212559446813668E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=17
+T 54
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.054126240240658,-60.0,-3.4774099389500637 delta=-4.423460379917397E-4,-0.0,-2.889815836757913E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=16
+T 55
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053683894202665,-60.0,-3.4776989205337396 delta=-3.0344938796829016E-4,-0.0,-1.9824137025991324E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=15
+T 56
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-2.0816628419773346E-4,-0.0,-1.3599358264510832E-4 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=14
+T 57
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.428020737389649E-4,-0.0,-9.329159951025452E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=13
+T 58
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-9.79622244915433E-5,-0.0,-6.399803850961183E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=12
+T 59
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-6.72020873091355E-5,-0.0,-4.390265527205972E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=11
+T 60
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-4.6100632791311615E-5,-0.0,-3.011722210279665E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=10
+T 61
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-3.1625034710349615E-5,-0.0,-2.0660414764626797E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=9
+T 62
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-2.16947742335396E-5,-0.0,-1.417304480438028E-5 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=8
+T 63
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.488261541386465E-5,-0.0,-9.722708925035435E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=7
+T 64
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0209474372615502E-5,-0.0,-6.669778452386477E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=6
+T 65
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-7.003699555925423E-6,-0.0,-4.575468107388272E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=5
+T 66
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-4.804537988874317E-6,-0.0,-3.138771182757444E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=4
+T 67
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-3.295913124515284E-6,-0.0,-2.1531970732787232E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=3
+T 68
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-2.2609964474226724E-6,-0.0,-1.4770932210174867E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=2
+T 69
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.5510435931195127E-6,-0.0,-1.013285969339318E-6 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=1
+T 70
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 71
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 72
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 73
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 74
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 75
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 76
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 77
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 78
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 79
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+T 80
+E t1 minecraft:tnt pos=10.5,-60.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t2 minecraft:tnt pos=21.142453263008957,-60.0,0.5 delta=0.003200452380237246,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+E t3 minecraft:tnt pos=10.5,-58.42475788696006,7.265130111443834 delta=0.0,-0.24842394873762835,0.33635084159932566 rot=0.0,0.0 og=0 fall=1.5842068530619144 fire=0 air=300 alive=0 pose=standing fuse=0
+E t4 minecraft:tnt pos=15.053380444814698,-60.0,-3.4778971619039996 delta=-1.0640159255886516E-6,-0.0,-6.951141884955993E-7 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing fuse=0
+B 6 -62 -8 minecraft:dirt
+B 6 -62 -7 minecraft:dirt
+B 6 -62 -6 minecraft:dirt
+B 6 -62 -5 minecraft:dirt
+B 6 -62 -4 minecraft:dirt
+B 6 -62 -3 minecraft:dirt
+B 6 -62 -2 minecraft:dirt
+B 6 -62 -1 minecraft:dirt
+B 6 -62 0 minecraft:dirt
+B 6 -62 1 minecraft:dirt
+B 6 -62 2 minecraft:dirt
+B 6 -62 3 minecraft:dirt
+B 6 -62 4 minecraft:dirt
+B 6 -62 5 minecraft:dirt
+B 6 -62 6 minecraft:dirt
+B 6 -62 7 minecraft:dirt
+B 6 -62 8 minecraft:dirt
+B 6 -61 -8 minecraft:grass_block[snowy=false]
+B 6 -61 -7 minecraft:grass_block[snowy=false]
+B 6 -61 -6 minecraft:grass_block[snowy=false]
+B 6 -61 -5 minecraft:grass_block[snowy=false]
+B 6 -61 -4 minecraft:grass_block[snowy=false]
+B 6 -61 -3 minecraft:grass_block[snowy=false]
+B 6 -61 -2 minecraft:grass_block[snowy=false]
+B 6 -61 -1 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 7 -62 -8 minecraft:dirt
+B 7 -62 -7 minecraft:dirt
+B 7 -62 -6 minecraft:dirt
+B 7 -62 -5 minecraft:dirt
+B 7 -62 -4 minecraft:dirt
+B 7 -62 -3 minecraft:dirt
+B 7 -62 -2 minecraft:dirt
+B 7 -62 -1 minecraft:dirt
+B 7 -62 0 minecraft:dirt
+B 7 -62 1 minecraft:dirt
+B 7 -62 2 minecraft:dirt
+B 7 -62 3 minecraft:dirt
+B 7 -62 4 minecraft:dirt
+B 7 -62 5 minecraft:dirt
+B 7 -61 -8 minecraft:grass_block[snowy=false]
+B 7 -61 -7 minecraft:grass_block[snowy=false]
+B 7 -61 -6 minecraft:grass_block[snowy=false]
+B 7 -61 -5 minecraft:grass_block[snowy=false]
+B 7 -61 -4 minecraft:grass_block[snowy=false]
+B 7 -61 -3 minecraft:grass_block[snowy=false]
+B 8 -62 -8 minecraft:dirt
+B 8 -62 -7 minecraft:dirt
+B 8 -62 -6 minecraft:dirt
+B 8 -62 -5 minecraft:dirt
+B 8 -62 -4 minecraft:dirt
+B 8 -62 -3 minecraft:dirt
+B 8 -62 3 minecraft:dirt
+B 8 -62 4 minecraft:dirt
+B 8 -61 -8 minecraft:grass_block[snowy=false]
+B 8 -61 -7 minecraft:grass_block[snowy=false]
+B 8 -61 -6 minecraft:grass_block[snowy=false]
+B 8 -61 -5 minecraft:grass_block[snowy=false]
+B 8 -61 -4 minecraft:grass_block[snowy=false]
+B 8 -61 -3 minecraft:grass_block[snowy=false]
+B 9 -62 -8 minecraft:dirt
+B 9 -62 -7 minecraft:dirt
+B 9 -62 -6 minecraft:dirt
+B 9 -62 -5 minecraft:dirt
+B 9 -62 -4 minecraft:dirt
+B 9 -62 3 minecraft:dirt
+B 9 -61 -8 minecraft:grass_block[snowy=false]
+B 9 -61 -7 minecraft:grass_block[snowy=false]
+B 9 -61 -6 minecraft:grass_block[snowy=false]
+B 9 -61 -5 minecraft:grass_block[snowy=false]
+B 9 -61 -4 minecraft:grass_block[snowy=false]
+B 10 -62 -8 minecraft:dirt
+B 10 -62 -7 minecraft:dirt
+B 10 -62 -6 minecraft:dirt
+B 10 -62 -5 minecraft:dirt
+B 10 -62 -4 minecraft:dirt
+B 10 -62 -3 minecraft:dirt
+B 10 -62 3 minecraft:dirt
+B 10 -61 -8 minecraft:grass_block[snowy=false]
+B 10 -61 -7 minecraft:grass_block[snowy=false]
+B 10 -61 -6 minecraft:grass_block[snowy=false]
+B 10 -61 -5 minecraft:grass_block[snowy=false]
+B 11 -62 -8 minecraft:dirt
+B 11 -62 -7 minecraft:dirt
+B 11 -62 -6 minecraft:dirt
+B 11 -62 -5 minecraft:dirt
+B 11 -62 -4 minecraft:dirt
+B 11 -61 -8 minecraft:grass_block[snowy=false]
+B 11 -61 -7 minecraft:grass_block[snowy=false]
+B 11 -61 -6 minecraft:grass_block[snowy=false]
+B 11 -61 -4 minecraft:grass_block[snowy=false]
+B 12 -62 -8 minecraft:dirt
+B 12 -62 -7 minecraft:dirt
+B 12 -62 -6 minecraft:dirt
+B 12 -62 3 minecraft:dirt
+B 12 -62 4 minecraft:dirt
+B 12 -61 -8 minecraft:grass_block[snowy=false]
+B 12 -61 -7 minecraft:grass_block[snowy=false]
+B 13 -62 -8 minecraft:dirt
+B 13 -62 -7 minecraft:dirt
+B 13 -62 0 minecraft:dirt
+B 13 -62 1 minecraft:dirt
+B 13 -62 2 minecraft:dirt
+B 13 -62 3 minecraft:dirt
+B 13 -62 4 minecraft:dirt
+B 13 -61 -8 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 14 -62 -8 minecraft:dirt
+B 14 -62 -7 minecraft:dirt
+B 14 -62 -1 minecraft:dirt
+B 14 -62 0 minecraft:dirt
+B 14 -62 1 minecraft:dirt
+B 14 -62 2 minecraft:dirt
+B 14 -62 3 minecraft:dirt
+B 14 -62 4 minecraft:dirt
+B 14 -62 5 minecraft:dirt
+B 14 -62 6 minecraft:dirt
+B 14 -62 8 minecraft:dirt
+B 14 -61 -8 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:grass_block[snowy=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 15 -62 -8 minecraft:dirt
+B 15 -62 -1 minecraft:dirt
+B 15 -62 0 minecraft:dirt
+B 15 -62 1 minecraft:dirt
+B 15 -62 2 minecraft:dirt
+B 15 -62 3 minecraft:dirt
+B 15 -62 4 minecraft:dirt
+B 15 -62 5 minecraft:dirt
+B 15 -62 6 minecraft:dirt
+B 15 -62 7 minecraft:dirt
+B 15 -62 8 minecraft:dirt
+B 15 -61 -8 minecraft:grass_block[snowy=false]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 15 -61 6 minecraft:grass_block[snowy=false]
+B 15 -61 7 minecraft:grass_block[snowy=false]
+B 15 -61 8 minecraft:grass_block[snowy=false]
+B 16 -62 -8 minecraft:dirt
+B 16 -62 -7 minecraft:dirt
+B 16 -62 -1 minecraft:dirt
+B 16 -62 0 minecraft:dirt
+B 16 -62 1 minecraft:dirt
+B 16 -62 2 minecraft:dirt
+B 16 -62 3 minecraft:dirt
+B 16 -62 4 minecraft:dirt
+B 16 -62 5 minecraft:dirt
+B 16 -62 6 minecraft:dirt
+B 16 -62 7 minecraft:dirt
+B 16 -62 8 minecraft:dirt
+B 16 -61 -8 minecraft:grass_block[snowy=false]
+B 16 -61 0 minecraft:grass_block[snowy=false]
+B 16 -61 1 minecraft:grass_block[snowy=false]
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 3 minecraft:grass_block[snowy=false]
+B 16 -61 4 minecraft:grass_block[snowy=false]
+B 16 -61 5 minecraft:grass_block[snowy=false]
+B 16 -61 6 minecraft:grass_block[snowy=false]
+B 16 -61 7 minecraft:grass_block[snowy=false]
+B 16 -61 8 minecraft:grass_block[snowy=false]
+B 17 -62 -8 minecraft:dirt
+B 17 -62 -7 minecraft:dirt
+B 17 -62 -1 minecraft:dirt
+B 17 -62 0 minecraft:dirt
+B 17 -62 1 minecraft:dirt
+B 17 -62 2 minecraft:dirt
+B 17 -62 3 minecraft:dirt
+B 17 -62 4 minecraft:dirt
+B 17 -62 5 minecraft:dirt
+B 17 -62 6 minecraft:dirt
+B 17 -62 7 minecraft:dirt
+B 17 -62 8 minecraft:dirt
+B 17 -61 -8 minecraft:grass_block[snowy=false]
+B 17 -61 -7 minecraft:grass_block[snowy=false]
+B 17 -61 -1 minecraft:grass_block[snowy=false]
+B 17 -61 0 minecraft:grass_block[snowy=false]
+B 17 -61 2 minecraft:grass_block[snowy=false]
+B 17 -61 3 minecraft:grass_block[snowy=false]
+B 17 -61 4 minecraft:grass_block[snowy=false]
+B 17 -61 5 minecraft:grass_block[snowy=false]
+B 17 -61 6 minecraft:grass_block[snowy=false]
+B 17 -61 7 minecraft:grass_block[snowy=false]
+B 17 -61 8 minecraft:grass_block[snowy=false]
+B 18 -62 -8 minecraft:dirt
+B 18 -62 -7 minecraft:dirt
+B 18 -62 -6 minecraft:dirt
+B 18 -62 -5 minecraft:dirt
+B 18 -62 -4 minecraft:dirt
+B 18 -62 -3 minecraft:dirt
+B 18 -62 -2 minecraft:dirt
+B 18 -62 2 minecraft:dirt
+B 18 -62 3 minecraft:dirt
+B 18 -62 4 minecraft:dirt
+B 18 -62 5 minecraft:dirt
+B 18 -62 6 minecraft:dirt
+B 18 -62 7 minecraft:dirt
+B 18 -62 8 minecraft:dirt
+B 18 -61 -8 minecraft:grass_block[snowy=false]
+B 18 -61 -7 minecraft:grass_block[snowy=false]
+B 18 -61 -6 minecraft:grass_block[snowy=false]
+B 18 -61 -5 minecraft:grass_block[snowy=false]
+B 18 -61 3 minecraft:grass_block[snowy=false]
+B 18 -61 4 minecraft:grass_block[snowy=false]
+B 18 -61 5 minecraft:grass_block[snowy=false]
+B 18 -61 6 minecraft:grass_block[snowy=false]
+B 18 -61 7 minecraft:grass_block[snowy=false]
+B 18 -61 8 minecraft:grass_block[snowy=false]
+B 19 -62 -8 minecraft:dirt
+B 19 -62 -7 minecraft:dirt
+B 19 -62 -6 minecraft:dirt
+B 19 -62 -5 minecraft:dirt
+B 19 -62 -4 minecraft:dirt
+B 19 -62 -3 minecraft:dirt
+B 19 -62 3 minecraft:dirt
+B 19 -62 4 minecraft:dirt
+B 19 -62 5 minecraft:dirt
+B 19 -62 6 minecraft:dirt
+B 19 -62 7 minecraft:dirt
+B 19 -62 8 minecraft:dirt
+B 19 -61 -8 minecraft:grass_block[snowy=false]
+B 19 -61 -7 minecraft:grass_block[snowy=false]
+B 19 -61 -6 minecraft:grass_block[snowy=false]
+B 19 -61 -5 minecraft:grass_block[snowy=false]
+B 19 -61 -4 minecraft:grass_block[snowy=false]
+B 19 -61 4 minecraft:grass_block[snowy=false]
+B 19 -61 5 minecraft:grass_block[snowy=false]
+B 19 -61 6 minecraft:grass_block[snowy=false]
+B 19 -61 7 minecraft:grass_block[snowy=false]
+B 19 -61 8 minecraft:grass_block[snowy=false]
+B 20 -62 -8 minecraft:dirt
+B 20 -62 -7 minecraft:dirt
+B 20 -62 -6 minecraft:dirt
+B 20 -62 -5 minecraft:dirt
+B 20 -62 -4 minecraft:dirt
+B 20 -62 3 minecraft:dirt
+B 20 -62 4 minecraft:dirt
+B 20 -62 5 minecraft:dirt
+B 20 -62 6 minecraft:dirt
+B 20 -62 7 minecraft:dirt
+B 20 -62 8 minecraft:dirt
+B 20 -61 -8 minecraft:grass_block[snowy=false]
+B 20 -61 -7 minecraft:grass_block[snowy=false]
+B 20 -61 -6 minecraft:grass_block[snowy=false]
+B 20 -61 -5 minecraft:grass_block[snowy=false]
+B 20 -61 -4 minecraft:grass_block[snowy=false]
+B 20 -61 4 minecraft:grass_block[snowy=false]
+B 20 -61 5 minecraft:grass_block[snowy=false]
+B 20 -61 6 minecraft:grass_block[snowy=false]
+B 20 -61 7 minecraft:grass_block[snowy=false]
+B 20 -61 8 minecraft:grass_block[snowy=false]

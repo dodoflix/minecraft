@@ -160,7 +160,7 @@ impl BlockItem {
             return InteractionResult::FAIL;
         }
         let Some(mut updated) = self.update_placement_context(ctx, level, player.as_deref_mut()) else { return InteractionResult::FAIL };
-        let Some(placement_state) = self.get_placement_state(&updated, level, player.as_deref()) else { return InteractionResult::FAIL };
+        let Some(placement_state) = self.get_placement_state(&updated, &mut *level, player.as_deref()) else { return InteractionResult::FAIL };
         if !self.place_block(&updated, placement_state, level) {
             return InteractionResult::FAIL;
         }
@@ -199,21 +199,21 @@ impl BlockItem {
     }
 
     /// `getPlacementState(context)`.
-    fn get_placement_state(&self, ctx: &BlockPlaceContext, level: &ServerLevel, player: Option<&ServerPlayer>) -> Option<BlockState> {
+    fn get_placement_state(&self, ctx: &BlockPlaceContext, level: &mut ServerLevel, player: Option<&ServerPlayer>) -> Option<BlockState> {
         match self.kind {
             Kind::GameMaster => {
                 if player.is_some_and(|p| !p.can_use_game_master_blocks()) {
                     return None;
                 }
-                self.base_placement_state(ctx, level, player)
+                self.base_placement_state(ctx, &mut *level, player)
             }
             Kind::StandingAndWall { wall, attachment, kind } => {
-                let wall_state = block_behaviour(wall).get_state_for_placement(wall, ctx);
+                let wall_state = block_behaviour(wall).get_state_for_placement(wall, &mut *level, ctx);
                 let pos = ctx.get_clicked_pos();
                 let mut state_for_placement = None;
                 for direction in ctx.get_nearest_looking_directions() {
                     if direction != attachment.get_opposite() {
-                        let possible = if direction == attachment { block_behaviour(self.block).get_state_for_placement(self.block, ctx) } else { wall_state };
+                        let possible = if direction == attachment { block_behaviour(self.block).get_state_for_placement(self.block, &mut *level, ctx) } else { wall_state };
                         if let Some(possible) = possible {
                             if self.standing_can_place(kind, level, possible, pos) {
                                 state_for_placement = Some(possible);
@@ -224,7 +224,7 @@ impl BlockItem {
                 }
                 state_for_placement.filter(|s| level.is_unobstructed_state(*s, pos, &CollisionContext::empty()))
             }
-            _ => self.base_placement_state(ctx, level, player),
+            _ => self.base_placement_state(ctx, &mut *level, player),
         }
     }
 
@@ -236,9 +236,9 @@ impl BlockItem {
         possible.can_survive(level, pos)
     }
 
-    fn base_placement_state(&self, ctx: &BlockPlaceContext, level: &ServerLevel, player: Option<&ServerPlayer>) -> Option<BlockState> {
-        let state_for_placement = block_behaviour(self.block).get_state_for_placement(self.block, ctx);
-        state_for_placement.filter(|s| self.can_place(ctx, *s, level, player))
+    fn base_placement_state(&self, ctx: &BlockPlaceContext, level: &mut ServerLevel, player: Option<&ServerPlayer>) -> Option<BlockState> {
+        let state_for_placement = block_behaviour(self.block).get_state_for_placement(self.block, &mut *level, ctx);
+        state_for_placement.filter(|s| self.can_place(ctx, *s, &*level, player))
     }
 
     /// `canPlace(context, stateForPlacement)`.

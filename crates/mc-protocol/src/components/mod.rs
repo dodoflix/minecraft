@@ -20,6 +20,6 @@ pub use component::{ComponentDef, ComponentKey, ComponentValue, Value};
 pub use hashed::{HashedPatchMap, HashedStack};
 pub use holder::{Holder, HolderSet, NoDirect};
 pub use item_stack::{ItemStack, ItemStackTemplate};
-pub use map::{DataComponentExactPredicate, DataComponentMap, DataComponentPatch, PatchedDataComponentMap, TypedDataComponent};
+pub use map::{DataComponentExactPredicate, DataComponentMap, DataComponentMapBuilder, DataComponentPatch, PatchedDataComponentMap, TypedDataComponent};
 pub use text_hooks::install_text_hooks;
 pub use values::*;

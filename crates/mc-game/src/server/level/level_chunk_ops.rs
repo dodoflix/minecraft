@@ -264,8 +264,9 @@ impl ServerLevel {
         }
         block_entity.clear_removed();
         let Some(chunk) = self.chunk_at_mut(pos) else { return false };
-        if let Some(mut previous) = chunk.block_entities.insert(pos, block_entity) {
-            previous.set_removed();
+        let previous = chunk.block_entities.insert(pos, block_entity);
+        if let Some(mut previous) = previous {
+            previous.set_removed_in_level(self);
         }
         true
     }
@@ -282,10 +283,9 @@ impl ServerLevel {
         let in_level = self.chunk_at(pos).is_some_and(|c| c.data.is_loaded());
         if in_level {
             self.remove_game_event_listener(pos);
-            if let Some(chunk) = self.chunk_at_mut(pos)
-                && let Some(mut removed) = chunk.block_entities.remove(&pos)
-            {
-                removed.set_removed();
+            let removed = self.chunk_at_mut(pos).and_then(|chunk| chunk.block_entities.remove(&pos));
+            if let Some(mut removed) = removed {
+                removed.set_removed_in_level(self);
             }
         }
         self.remove_block_entity_ticker(pos);

@@ -68,6 +68,9 @@ macro_rules! components {
         }
 
         impl EffectComponent {
+            /// Every component type in registry-id order.
+            pub const ALL: &'static [EffectComponent] = &[ $( EffectComponent::$field, )* ];
+
             /// Registry name (`minecraft:damage_protection`).
             pub fn name(self) -> &'static str {
                 match self { $( EffectComponent::$field => $name, )* }

@@ -125,7 +125,7 @@ impl ServerPlayer {
                 let mut progress = 1.0f32;
                 let state = level.get_block_state(pos);
                 if !state.is_air() {
-                    // SEAM(EcEnchant): `EnchantmentHelper.onHitBlock(level, mainHand, player, player, MAINHAND, atCenterOf(pos), state, ..)`
+                    self.enchantment_on_hit_block(level, pos, state);
                     block_behaviour(state.block()).attack(state, level, pos, self);
                     progress = self.get_destroy_progress(state);
                 }
@@ -168,6 +168,35 @@ impl ServerPlayer {
             }
             Action::AbortDestroyBlock => self.abort_destroy_block(level, pos),
             _ => {}
+        }
+    }
+
+    /// `EnchantmentHelper.onHitBlock(level, mainHandItem, player, player, MAINHAND, Vec3.atCenterOf(pos), state, item -> player.onEquippedItemBroken(item, MAINHAND))`.
+    fn enchantment_on_hit_block(&mut self, level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
+        use crate::world::entity::equipment::EquipmentSlot as Slot;
+        use crate::world::item::enchantment::actors::Actors;
+        use std::sync::{Arc, Mutex};
+        let mut weapon = self.get_item_in_hand(InteractionHand::MainHand);
+        let broken: Arc<Mutex<Vec<ItemStack>>> = Arc::default();
+        let sink = broken.clone();
+        let id = self.base_id();
+        let before = weapon.clone();
+        crate::world::item::enchantment_helper::on_hit_block(
+            level,
+            &mut Actors::of(self),
+            &mut weapon,
+            Some(id),
+            id,
+            Some(Slot::MainHand),
+            mc_core::phys::Vec3::at_center_of(&pos),
+            state,
+            Box::new(move |_, item| sink.lock().expect("lock").push(item.clone())),
+        );
+        if weapon != before {
+            self.set_item_in_hand(InteractionHand::MainHand, weapon);
+        }
+        for item in std::mem::take(&mut *broken.lock().expect("lock")) {
+            self.on_equipped_item_broken(level, &item, Slot::MainHand);
         }
     }
 

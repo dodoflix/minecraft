@@ -688,6 +688,11 @@ pub trait Entity: Any {
         None
     }
 
+    /// `isAffectedByPotions()` (`LivingEntity` true; `ArmorStand` overrides false).
+    fn is_affected_by_potions(&self) -> bool {
+        self.living().is_some()
+    }
+
     /// `deflection(projectile)`: `DEFLECTS_PROJECTILES` entities reverse projectiles.
     fn deflection(&self, _projectile: &dyn super::projectile::Projectile) -> super::projectile::ProjectileDeflection {
         if mc_data::tags::get::<EntityType>("deflects_projectiles").is_some_and(|t| t.contains(self.get_type())) {

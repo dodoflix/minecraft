@@ -114,7 +114,7 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         state.can_be_replaced() && (held.is_empty() || Some(held.item()) != state.block().item())
     }
     /// `Block.getStateForPlacement(context)` (`None` = cannot be placed here).
-    fn get_state_for_placement(&self, block: Block, _context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, _context: &BlockPlaceContext) -> Option<BlockState> {
         Some(block.default_state())
     }
     /// `getSeed`.

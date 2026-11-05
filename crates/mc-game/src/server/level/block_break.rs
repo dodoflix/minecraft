@@ -23,11 +23,8 @@ pub fn player_will_destroy(level: &mut ServerLevel, pos: BlockPos, state: BlockS
 
 /// `Block.playerDestroy(level, player, pos, state, blockEntity, destroyedWith)`.
 pub fn player_destroy(level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn BlockEntity>, destroyed_with: &ItemStack) {
-    // SEAM(EcPlayer): `player.awardStat(Stats.BLOCK_MINED.get(this))` and `ServerPlayer::cause_food_exhaustion` once they land
-    // (the exhaustion below is `Player.causeFoodExhaustion`).
-    if !player.player.abilities.invulnerable {
-        player.player.food_data.add_exhaustion(0.005);
-    }
+    player.award_stat_once(level, crate::stats::Stat::Mined(state.block()));
+    player.cause_food_exhaustion(0.005);
     crate::world::level::storage::loot::block_drops::drop_resources_with_tool(level, state, pos, block_entity, Some(&*player), destroyed_with);
 }
 

@@ -1,1 +1,1 @@
-tnt radius=4 blocks=~687±35% knockback_to_player=true fuse_ticks=~42±3 damage=~20±40%
+tnt radius=4 blocks=~660±35% knockback_to_player=true fuse_ticks=~41±3 damage=~20±40%

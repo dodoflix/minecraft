@@ -1,5 +1,6 @@
 //! `net.minecraft.server.level`: `ServerLevel`, chunk map, tickets, entity tracking, `ServerPlayer` glue.
 pub mod block_events;
+pub mod environment_attributes;
 pub mod game_event_dispatcher;
 pub mod level_explode;
 pub mod level_chunk_ops;
@@ -33,6 +34,8 @@ mod server_chunk_cache;
 mod server_level;
 pub mod player_spawn_finder;
 mod server_level_entities;
+pub mod server_level_features;
+pub mod server_level_worldgen;
 pub mod server_entity;
 pub use server_entity::{ServerEntity, UpdateInterval};
 pub mod level_server_state;

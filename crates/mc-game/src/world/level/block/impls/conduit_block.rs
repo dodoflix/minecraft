@@ -1,5 +1,8 @@
-//! `net.minecraft.world.level.block.ConduitBlock`.
+//! `net.minecraft.world.level.block.ConduitBlock` (a `BaseEntityBlock`: the block entity is `ConduitBlockEntity`).
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::item::BlockPlaceContext;
+use mc_data::block::PathComputationType;
 
 pub struct ConduitBlock;
 
@@ -10,6 +13,13 @@ impl BlockBehaviour for ConduitBlock {
         }
         state
     });
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+        let fluid_state = level.get_fluid_state(context.get_clicked_pos());
+        Some(block.default_state().set(props::WATERLOGGED, fluid_state.is_tag("water") && fluid_state.is_full()))
+    }
+    fn is_pathfindable(&self, _state: BlockState, _ty: PathComputationType) -> bool {
+        false
+    }
 }
 
 register_block_class!("ConduitBlock", |_| Box::new(ConduitBlock));

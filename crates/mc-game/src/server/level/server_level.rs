@@ -99,6 +99,12 @@ pub struct ServerLevel {
     game_time: i64,
     /// Mutation/ticking state (neighbor updater, scheduled ticks, block events, ...): see `level_tick_state.rs`.
     pub tick_state: super::level_tick_state::LevelTickState,
+    /// The level's generation environment (`getChunkSource().getGenerator()`, registries, template manager); `None` for
+    /// levels without a generator ([`ServerLevel::detached`]).
+    pub gen_env: Option<Arc<crate::world::level::levelgen::GenEnv>>,
+    /// Server clock inputs of `getCurrentDifficultyAt` while a command places worldgen content
+    /// (see [`server_level_worldgen::with_worldgen_level`](super::server_level_worldgen::with_worldgen_level)).
+    pub worldgen_clock: Option<super::server_level_worldgen::WorldGenClock>,
     // ==== [Damage] additions (ServerLevel field) ====
     /// Operations on entities that were taken out (running) when they were requested: run when put back
     /// (`ServerLevel::with_entity_or_defer`).
@@ -159,6 +165,8 @@ impl ServerLevel {
             chunk_tick_hooks: ChunkTickHooks::default(),
             game_time: 0,
             tick_state,
+            gen_env: None,
+            worldgen_clock: None,
             // ==== [Damage] additions (ServerLevel::new initializer) ====
             deferred_level_ops: Default::default(),
         }
@@ -581,6 +589,10 @@ impl LevelReader for ServerLevel {
                     if let Some(h) = chunk.data.access.heightmaps.get(&ty) {
                         return h.get_first_available(x & 15, z & 15);
                     }
+                    // `ChunkAccess.getHeight` primes a heightmap the chunk does not maintain (the `_WG` types)
+                    let mut primed = mc_world::heightmap::HeightmapMap::new();
+                    mc_world::heightmap::Heightmap::prime_heightmaps(&chunk.data.access.view(true), &mut primed, &[ty]);
+                    return primed[&ty].get_first_available(x & 15, z & 15);
                 }
             }
             self.get_min_y()

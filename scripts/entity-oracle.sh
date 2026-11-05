@@ -7,7 +7,7 @@
 #   scripts/entity-oracle.sh MyScenario.java [args]  run your own Java program against the harness classes
 #   scripts/entity-oracle.sh --regen                 regenerate every crates/mc-game/tests/fixtures/entity_oracle/*.txt from its
 #                                                    scenarios/*.txt twin
-# Needs ref/ (setup-ref.sh). The shadow RandomSupport (tests/oracle/shadow) is compiled into target/entity-oracle-shadow on demand.
+# Needs ref/ (setup-ref.sh). The shadow classes RandomSupport/RandomSource (tests/oracle/shadow) are compiled into target/entity-oracle-shadow on demand.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 T="$ROOT/crates/mc-game/tests"
@@ -22,14 +22,15 @@ fi
 [ $# -ge 1 ] || { sed -n 2,13p "$0" >&2; exit 2; }
 CP="$("$ROOT/scripts/vanilla-cp.sh")"
 SHADOW="$ROOT/target/entity-oracle-shadow"
-SRC="$T/oracle/shadow/net/minecraft/world/level/levelgen/RandomSupport.java"
+SHADOW_SRC="$T/oracle/shadow"
 SERVER_JAR="$(find "$ROOT/ref/bundle/META-INF/versions" -name 'server-*.jar' | head -1)"
 PATCHED="$SHADOW/$(basename "$SERVER_JAR")"
 # The vanilla jar is signed, so a shadow class cannot live in the same package from another classpath entry: build a copy of the
 # server jar without signature files and with the shadow RandomSupport class replacing the vanilla one.
-if [ ! -f "$PATCHED" ] || [ "$SRC" -nt "$PATCHED" ]; then
+if [ ! -f "$PATCHED" ] || [ -n "$(find "$SHADOW_SRC" -name '*.java' -newer "$PATCHED" -print -quit)" ]; then
   mkdir -p "$SHADOW/classes"
-  javac -nowarn -cp "$CP" -d "$SHADOW/classes" "$SRC" 2>/dev/null
+  rm -rf "$SHADOW/classes"; mkdir -p "$SHADOW/classes"
+  javac -nowarn -cp "$CP" -d "$SHADOW/classes" $(find "$SHADOW_SRC" -name '*.java') 2>/dev/null
   python3 - "$SERVER_JAR" "$PATCHED" "$SHADOW/classes" <<'PY'
 import sys, zipfile, os
 src, dst, classes = sys.argv[1:]

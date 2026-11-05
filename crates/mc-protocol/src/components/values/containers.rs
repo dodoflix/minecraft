@@ -9,7 +9,7 @@ use crate::codec::{
 };
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::registry_by_name_codec;
-use crate::components::item_stack::{ItemStackTemplate, item_prototype};
+use crate::components::item_stack::{ItemStack, ItemStackTemplate, item_prototype};
 use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::{Block, DataComponentType, EntityType, MapDecorationType};
@@ -348,6 +348,25 @@ impl ItemContainerContents {
     /// `nonEmptyItems()`.
     pub fn non_empty_items(&self) -> impl Iterator<Item = &ItemStackTemplate> {
         self.items.iter().flatten()
+    }
+
+    /// `fromItems(itemStacks)`.
+    pub fn from_item_stacks(item_stacks: &[ItemStack]) -> ItemContainerContents {
+        let Some(last) = item_stacks.iter().rposition(|s| !s.is_empty()) else {
+            return ItemContainerContents::default();
+        };
+        let items = item_stacks[..=last]
+            .iter()
+            .map(|s| if s.is_empty() { None } else { ItemStackTemplate::from_stack(s).ok() })
+            .collect();
+        ItemContainerContents { items }
+    }
+
+    /// `copyInto(destination)`.
+    pub fn copy_into(&self, destination: &mut [ItemStack]) {
+        for (i, d) in destination.iter_mut().enumerate() {
+            *d = self.items.get(i).and_then(Option::as_ref).map_or_else(ItemStack::empty, ItemStackTemplate::create);
+        }
     }
 
     fn from_slots(slots: Vec<Slot>) -> ItemContainerContents {

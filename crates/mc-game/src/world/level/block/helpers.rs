@@ -67,8 +67,8 @@ pub fn can_support_center(level: &dyn crate::world::level::BlockGetter, below_po
 }
 
 /// `Block.getStateForPlacement(context)` of `block`.
-pub fn get_state_for_placement(block: mc_data::block::Block, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
-    super::behaviour(block).get_state_for_placement(block, context)
+pub fn get_state_for_placement(block: mc_data::block::Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    super::behaviour(block).get_state_for_placement(block, level, context)
 }
 
 /// `Block.dropResources(state, level, pos, blockEntity, breaker, ItemStack.EMPTY)` of a destroyed block (`Level.destroyBlock`).
@@ -185,6 +185,12 @@ pub fn mirror_sides<P: mc_data::props::Property>(state: BlockState, mirror: mc_c
         Mirror::FrontBack => state.set(e, state.get(w)).set(w, state.get(e)),
         Mirror::None => state,
     }
+}
+
+// ==== [Blocks:TechnicalA] ====
+/// `BaseEntityBlock.triggerEvent`: forwards the block event to the block entity at `pos`.
+pub fn base_entity_trigger_event(level: &mut crate::server::level::ServerLevel, pos: BlockPos, b0: i32, b1: i32) -> bool {
+    level.with_block_entity(pos, |level, be| be.trigger_event(level, b0, b1)).unwrap_or(false)
 }
 
 /// `Block.popResource(level, pos, itemStack)`.

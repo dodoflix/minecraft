@@ -253,7 +253,7 @@ pub fn reorient(level: &dyn BlockGetter, block_pos: BlockPos, block_state: Block
 /// (`LootTable`, and `LootTableSeed` only when non-zero: `trySaveLootTable`). Returns whether a block entity exists.
 pub fn set_loot_table(level: &mut dyn WorldGenLevel, pos: BlockPos, loot_table: &str, seed: i64) -> bool {
     let Some(existing) = level.get_block_entity_nbt(pos) else { return false };
-    let mut tag = existing.clone();
+    let mut tag = existing;
     tag.remove("Items");
     tag.put_string("LootTable", loot_table);
     if seed != 0 {

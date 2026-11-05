@@ -21,6 +21,7 @@ macro_rules! block_entity_base {
     };
 }
 
+pub mod base_container;
 mod calibrated_sculk_sensor_block_entity;
 mod creaking_heart_block_entity;
 mod potent_sulfur_block_entity;
@@ -164,6 +165,17 @@ pub trait BlockEntity: Any {
     fn game_event_listener(&mut self) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
         None
     }
+    // ==== [Blocks:TechnicalA] hooks ====
+    /// `BlockEntity.triggerEvent(b0, b1)` (reached through `BaseEntityBlock.triggerEvent`, see
+    /// `helpers::base_entity_trigger_event`); the entity is out of the chunk while this runs.
+    fn trigger_event(&mut self, _level: &mut crate::server::level::ServerLevel, _b0: i32, _b1: i32) -> bool {
+        false
+    }
+    /// `setRemoved()` for types whose override uses the level (beacon deactivate sound): called by the level when the
+    /// entity is removed from its chunk (`Level.removeBlockEntity`, replaced entry); the entity is out of the chunk.
+    fn set_removed_in_level(&mut self, _level: &mut crate::server::level::ServerLevel) {
+        self.set_removed();
+    }
 }
 
 /// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).
@@ -200,4 +212,13 @@ pub fn new_block_entity(pos: BlockPos, state: BlockState) -> Option<Box<dyn Bloc
         map
     });
     create_block_entity(*map.get(&state.block())?, pos, state)
+}
+
+/// `BlockEntity.setChanged(level, pos, state)` (the static form the `BlockEntity.setChanged()` instance method delegates
+/// to): marks the chunk unsaved and notifies comparators when the state is not air.
+pub fn set_changed(level: &mut crate::server::level::ServerLevel, pos: BlockPos, state: BlockState) {
+    level.block_entity_changed(pos);
+    if !state.is_air() {
+        level.update_neighbour_for_output_signal(pos, state.block());
+    }
 }
