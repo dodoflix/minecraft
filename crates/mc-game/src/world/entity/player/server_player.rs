@@ -129,6 +129,8 @@ pub struct ServerPlayer {
     // ==== [Player] additions (ServerPlayer field) ====
     /// `stats`: the player's statistics (shared with `PlayerList.stats`).
     pub stats: crate::stats::SharedStats,
+    /// `advancements`: the player's advancement progress (shared with `PlayerList.advancements`).
+    pub advancements: crate::advancements::SharedAdvancements,
     /// `timeEntitySatOnShoulder` (game time).
     pub time_entity_sat_on_shoulder: i64,
     // ==== [Level] additions (ServerPlayer field) ====
@@ -203,6 +205,7 @@ impl ServerPlayer {
             saved_root_vehicle: None,
             // ==== [Player] additions (ServerPlayer::new initializer) ====
             stats: crate::stats::SharedStats::new(crate::stats::ServerStatsCounter::detached()),
+            advancements: crate::advancements::SharedAdvancements::detached(),
             time_entity_sat_on_shoulder: 0,
             // ==== [Level] additions (ServerPlayer::new initializer) ====
             // ==== [LivingCore] additions (ServerPlayer::new initializer) ====

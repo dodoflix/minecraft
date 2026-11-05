@@ -110,6 +110,7 @@ level_rules! {
     raids: bool = RAIDS,
     random_tick_speed: i32 = RANDOM_TICK_SPEED,
     reduced_debug_info: bool = REDUCED_DEBUG_INFO,
+    show_advancement_messages: bool = SHOW_ADVANCEMENT_MESSAGES,
     show_death_messages: bool = SHOW_DEATH_MESSAGES,
     spawn_mobs: bool = SPAWN_MOBS,
     spawn_monsters: bool = SPAWN_MONSTERS,
