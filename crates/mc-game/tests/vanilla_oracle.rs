@@ -163,7 +163,8 @@ fn write_fixture(name: &str, captured: &Captured) {
         bin.extend(p);
     }
     std::fs::write(dir.join(format!("{name}.bin")), bin).unwrap();
-    std::fs::write(dir.join(format!("{name}.log")), captured.log.join("\n") + "\n").unwrap();
+    // `.log` is git-ignored: the server logs would silently be missing from a clone
+    std::fs::write(dir.join(format!("{name}.server-log.txt")), captured.log.join("\n") + "\n").unwrap();
 }
 
 fn read_packets(name: &str) -> Vec<ClientboundConfigurationPacket> {
@@ -179,7 +180,7 @@ fn read_packets(name: &str) -> Vec<ClientboundConfigurationPacket> {
 }
 
 fn read_log(name: &str) -> Vec<String> {
-    std::fs::read_to_string(fixture_dir().join(format!("{name}.log"))).unwrap().lines().map(str::to_owned).collect()
+    std::fs::read_to_string(fixture_dir().join(format!("{name}.server-log.txt"))).unwrap().lines().map(str::to_owned).collect()
 }
 
 #[test]
