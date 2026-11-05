@@ -10,7 +10,8 @@ use crate::world::effect::potion_contents;
 use crate::world::entity::area_effect_cloud::AreaEffectCloud;
 use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::level::BlockGetter;
+use crate::world::level::material::FluidStateExt;
+use crate::world::level::{BlockGetter, LevelAccessor};
 use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::gameevent::GameEventContext;
 use mc_core::direction::Direction;
@@ -18,7 +19,7 @@ use mc_data::{EntityType, GameEvent, Item, ParticleType, Potion, SoundEvent};
 use mc_protocol::components::{POTION_CONTENTS, PotionContents};
 use mc_protocol::packets::play::ParticleOptions;
 use mc_text::Component;
-use mc_world::sound::SoundSource;
+use mc_protocol::packets::play::SoundSource;
 
 /// `PotionContents.createItemStack(item, potion)`.
 pub fn create_potion_item_stack(item: Item, potion: Potion) -> ItemStack {

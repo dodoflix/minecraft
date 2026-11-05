@@ -12,9 +12,10 @@ use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemSt
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, ServerPlayer};
+use crate::world::level::LevelAccessor;
 use mc_data::SoundEvent;
 use mc_protocol::packets::play::Stat;
-use mc_world::sound::SoundSource;
+use mc_protocol::packets::play::SoundSource;
 use std::sync::OnceLock;
 
 /// The throwable items handled here.
