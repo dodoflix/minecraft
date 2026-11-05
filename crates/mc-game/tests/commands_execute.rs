@@ -227,8 +227,9 @@ fn fork_limit_reports_the_limit() {
     let log = Arc::new(Mutex::new(Vec::new()));
     let commands = test_commands(log.clone());
     server.set_game_rule(GameRules::MAX_COMMAND_FORKS, 3);
-    // `nextSources.size() + newSources.size() >= forkLimit`: 3 sources are one too many for a limit of 3
-    assert_eq!(run(&mut server, &commands, "fan ret 1"), vec!["Maximum number of contexts (3) reached"]);
+    // `nextSources.size() + newSources.size() >= forkLimit`: 3 sources are one too many for a limit of 3. The error is
+    // raised in forked mode, which `handleError` does not report to the sender (only to a tracer).
+    assert_eq!(run(&mut server, &commands, "fan ret 1"), Vec::<String>::new());
     assert!(log.lock().unwrap().iter().all(|l| l != "ret 1"));
     server.set_game_rule(GameRules::MAX_COMMAND_FORKS, 4);
     run(&mut server, &commands, "fan ret 1");
