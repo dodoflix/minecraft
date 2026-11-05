@@ -4,8 +4,8 @@
 use std::collections::HashMap;
 use std::sync::{Arc, LazyLock, RwLock};
 
-const EN_US: &str = include_str!("../data/en_us.json");
-const DEPRECATED: &str = include_str!("../data/deprecated.json");
+const EN_US: &str = include_str!(env!("EN_US_JSON"));
+const DEPRECATED: &str = include_str!(env!("DEPRECATED_JSON"));
 
 pub const DEFAULT: &str = "en_us";
 
