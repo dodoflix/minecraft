@@ -1,11 +1,24 @@
 //! `net.minecraft.world.level.block.BannerBlock` (extends `AbstractBannerBlock`).
+use super::abstract_banner_block;
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::item::{BlockPlaceContext, ItemStack};
+use crate::world::level::block::rotation_segment;
 
 pub struct BannerBlock;
 
 impl BlockBehaviour for BannerBlock {
+    fn is_possible_to_respawn_in_this(&self, _state: BlockState) -> bool {
+        true
+    }
+    fn get_clone_item_stack(&self, state: BlockState, level: &ServerLevel, pos: BlockPos, _include_data: bool) -> ItemStack {
+        abstract_banner_block::get_clone_item_stack(state, level, pos)
+    }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         level.get_block_state(pos.below()).is_solid()
+    }
+    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+        Some(block.default_state().set(props::ROTATION_16, rotation_segment::convert_to_segment(context.get_rotation() + 180.0)))
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if direction == Direction::Down && !state.can_survive(&*level, pos) { air() } else { state }

@@ -229,9 +229,12 @@ impl BlockItem {
     }
 
     fn standing_can_place(&self, kind: StandingKind, level: &ServerLevel, possible: BlockState, pos: BlockPos) -> bool {
-        if kind == StandingKind::HangingSign && possible.block().data().name.contains("_wall_hanging_sign") {
-            // `WallHangingSignBlock.canPlace(state, level, pos)`: the sign must be able to attach sideways
-            // (not ported with the block yet: the block's own `can_survive` below is the vanilla fallback).
+        // `HangingSignItem.canPlace`: a wall hanging sign state also needs `WallHangingSignBlock.canPlace`
+        if kind == StandingKind::HangingSign
+            && possible.block().data().classes.contains(&"WallHangingSignBlock")
+            && !crate::world::level::block::impls::wall_hanging_sign_block::can_place(possible, level, pos)
+        {
+            return false;
         }
         possible.can_survive(level, pos)
     }

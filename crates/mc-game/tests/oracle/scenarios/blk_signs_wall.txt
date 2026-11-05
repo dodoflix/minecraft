@@ -1,0 +1,64 @@
+# Wall variants and attachment rules from a player: wall signs, wall banners, wall skulls, hanging signs (ceiling, wall, chained).
+level flat
+preload 3
+spawn_player p survival 0.5 -60 8.5 0 0
+give p hotbar0 minecraft:oak_sign 64
+give p hotbar1 minecraft:red_banner 64
+give p hotbar2 minecraft:skeleton_skull 64
+give p hotbar3 minecraft:oak_hanging_sign 64
+give p hotbar4 minecraft:wither_skeleton_skull 64
+tick 1
+fill -2 -61 -2 30 -61 2 minecraft:stone
+fill 0 -60 0 0 -58 0 minecraft:stone
+fill 3 -60 0 3 -58 0 minecraft:stone
+fill 6 -60 0 6 -58 0 minecraft:stone
+fill 9 -60 0 9 -58 0 minecraft:stone
+fill 12 -60 0 12 -58 0 minecraft:stone
+fill 15 -60 0 15 -58 0 minecraft:glass
+fill 18 -58 -1 18 -58 1 minecraft:oak_planks
+# wall signs on each horizontal face, from different yaws
+tp p 0.5 -60 3.5 180 0
+select p 0
+use_on p 0 -59 0 south
+tick 1
+tp p 5.5 -60 -2.5 0 0
+use_on p 3 -59 0 north
+tick 1
+tp p -3.5 -60 0.5 270 0
+use_on p 6 -59 0 west
+tick 1
+tp p 11.5 -60 0.5 90 0
+use_on p 9 -59 0 east
+tick 1
+# sign on glass (not solid support) and on the bottom face of stone
+use_on p 15 -59 0 east
+tick 1
+use_on p 12 -59 0 down
+tick 1
+dump blocks:-1,-61,-1,17,-57,2 be:0,-59,1 packets:p
+# wall banners
+tp p 0.5 -60 3.5 180 0
+select p 1
+use_on p 0 -58 0 south
+use_on p 3 -58 0 north
+use_on p 6 -58 0 west
+use_on p 9 -58 0 east
+tick 1
+# wall skulls: facing resolved from the nearest looking directions, replaceable neighbours
+select p 2
+use_on p 0 -60 0 south
+use_on p 3 -60 0 north
+use_on p 12 -60 0 east
+tick 1
+dump blocks:-1,-61,-1,17,-57,2 be:0,-60,1 events
+# hanging signs: ceiling, wall hanging between supports, chain under a hanging sign
+select p 3
+tp p 19.5 -60 0.5 0 0
+use_on p 18 -59 0 down
+tick 1
+use_on p 18 -59 0 down
+tick 1
+tp p 19.5 -60 5.5 180 0
+use_on p 3 -59 0 east
+tick 1
+dump blocks:15,-61,-1,22,-57,2 be:18,-59,0 events

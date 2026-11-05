@@ -27,6 +27,7 @@ mod simple_items;
 pub mod slot;
 mod player_systems;
 mod potion_item;
+pub mod sign_applicator;
 mod stack_ext;
 pub mod throwable;
 mod use_item;

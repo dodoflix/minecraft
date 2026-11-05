@@ -39,10 +39,12 @@ pub(crate) mod prelude {
 }
 
 // MODS
+pub mod abstract_banner_block;
 pub mod abstract_bed_block;
 pub mod abstract_candle_block;
 pub mod abstract_cauldron_block;
 pub mod abstract_furnace_block;
+pub mod abstract_skull_block;
 pub mod amethyst_cluster_block;
 pub mod anvil_block;
 pub mod attached_stem_block;
@@ -257,3 +259,4 @@ pub mod weeping_vines_block;
 pub mod weeping_vines_plant_block;
 pub mod wet_sponge_block;
 pub mod wither_rose_block;
+pub mod wither_skull_block;

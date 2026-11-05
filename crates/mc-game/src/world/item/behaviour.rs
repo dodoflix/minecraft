@@ -172,6 +172,12 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     fn get_attack_damage_bonus(&self, _damage: f32) -> f32 {
         0.0
     }
+
+    // ==== [Blocks:Signs] SignApplicator ====
+    /// `this instanceof SignApplicator` (`DyeItem`, `HoneycombItem`, `InkSacItem`, `GlowInkSacItem`).
+    fn as_sign_applicator(&self) -> Option<&dyn super::sign_applicator::SignApplicator> {
+        None
+    }
 }
 
 /// Vanilla's base `Item` (every method default).
