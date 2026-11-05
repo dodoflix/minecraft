@@ -73,7 +73,10 @@ pub fn fluid_behaviour(fluid: Fluid) -> &'static dyn FluidBehaviour {
             Fluid::iter()
                 .map(|f| match FLUIDS.iter().find(|r| r.fluid == f.data().name) {
                     Some(r) => (r.create)(f),
-                    None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
+                    None => match super::flowing_fluid::flowing_fluid_for(f) {
+                        Some(flowing) => Box::new(flowing) as Box<dyn FluidBehaviour>,
+                        None => Box::new(EmptyFluid) as Box<dyn FluidBehaviour>,
+                    },
                 })
                 .collect()
         })[fluid.id() as usize]
