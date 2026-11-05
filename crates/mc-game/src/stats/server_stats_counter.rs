@@ -4,7 +4,7 @@
 //! current format (`{"stats": {<type>: {<stat>: <int>}}, "DataVersion": N}`) is read and written exactly. The key
 //! order of a written file follows vanilla's `HashMap` iteration order, except that the stat types are written in
 //! registry order (vanilla's order there is the identity hash of the `StatType` objects, i.e. random per JVM run).
-use super::hash_order::{java_hash_map_order, object_open_hash_order};
+use super::hash_order::{DEFAULT_TABLE, JavaHashMapSim, java_hash_map_order, object_open_hash_order, presized_table};
 use super::stat::{Stat, build_name, by_names, stat_type, stat_type_name, value_name};
 use super::stats_counter::StatsCounter;
 use indexmap::IndexSet;
@@ -22,11 +22,10 @@ pub struct ServerStatsCounter {
     dirty: IndexSet<Stat>,
 }
 
-/// `Codec.INT` on a `JsonOps` element: numbers (`Number.intValue`) and booleans (as 0/1).
+/// `Codec.INT` on a `JsonOps` element: numbers only (`Number.intValue`); strings and booleans are errors.
 fn json_int(value: &Value) -> Result<i32, String> {
     match value {
         Value::Number(n) => Ok(n.as_i64().map(|v| v as i32).or_else(|| n.as_u64().map(|v| v as i32)).unwrap_or_else(|| n.as_f64().map_or(0, |f| f as i64 as i32))),
-        Value::Bool(b) => Ok(i32::from(*b)),
         other => Err(format!("Not a number: {other}")),
     }
 }
@@ -91,6 +90,8 @@ impl ServerStatsCounter {
             return;
         };
         let mut errors = Vec::new();
+        // the codec's result: the valid entries per stat type, in file order
+        let mut grouped: Vec<Vec<(Stat, i32)>> = Vec::new();
         for (type_key, values) in types {
             let Ok(type_id) = Identifier::parse(type_key) else {
                 errors.push(format!("Non [a-z0-9_.:-] character in key: {type_key}"));
@@ -104,18 +105,34 @@ impl ServerStatsCounter {
                 errors.push(format!("Not a JSON object: {values}"));
                 continue;
             };
+            let mut of_type = Vec::new();
             for (value_key, count) in values {
                 let parsed = Identifier::parse(value_key)
                     .map_err(|_| format!("Non [a-z0-9_.:-] character in key: {value_key}"))
                     .and_then(|value_id| by_names(&type_id, &value_id))
                     .and_then(|stat| json_int(count).map(|c| (stat, c)));
                 match parsed {
-                    Ok((stat, c)) => {
-                        self.counter.set_value(stat, c);
-                    }
+                    Ok(entry) => of_type.push(entry),
                     Err(e) => errors.push(e),
                 }
             }
+            grouped.push(of_type);
+        }
+        // `xmap`: `HashMap<Stat, Integer> stats = new HashMap<>(); groupedStats.forEach((type, values) -> stats.putAll(values))`
+        let flat: Vec<(Stat, i32)> = grouped.iter().flatten().copied().collect();
+        let mut hash_map = JavaHashMapSim::new();
+        let mut next = 0;
+        for of_type in &grouped {
+            hash_map.put_all_start(of_type.len());
+            for (stat, _) in of_type {
+                hash_map.put(next, java_string_hash(&build_name(stat)));
+                next += 1;
+            }
+        }
+        // `this.stats.putAll(map)`: presizes the fastutil table, then puts in the HashMap's iteration order
+        self.counter.table = presized_table(self.counter.table, self.counter.stats.len() + flat.len());
+        for i in hash_map.order() {
+            self.counter.set_value(flat[i].0, flat[i].1);
         }
         if !errors.is_empty() {
             log::error!(
@@ -172,7 +189,7 @@ impl ServerStatsCounter {
     pub fn stats_packet(&mut self) -> ClientboundAwardStatsPacket {
         let dirty = self.take_dirty();
         let hashes: Vec<i32> = dirty.iter().map(|s| java_string_hash(&build_name(s))).collect();
-        let stats = object_open_hash_order(&hashes, 16).into_iter().map(|i| (dirty[i], mc_protocol::codec::VarInt(self.counter.get_value(&dirty[i])))).collect();
+        let stats = object_open_hash_order(&hashes, DEFAULT_TABLE).into_iter().map(|i| (dirty[i], mc_protocol::codec::VarInt(self.counter.get_value(&dirty[i])))).collect();
         ClientboundAwardStatsPacket { stats }
     }
 }

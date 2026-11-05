@@ -1,13 +1,20 @@
 //! `net.minecraft.stats.StatsCounter`.
-use super::hash_order::object_open_hash_order;
+use super::hash_order::{DEFAULT_TABLE, object_open_hash_order};
 use super::stat::{Stat, build_name};
 use indexmap::IndexMap;
 use mc_core::math::java::java_string_hash;
 
-#[derive(Default)]
 pub struct StatsCounter {
     /// `stats` in insertion order (the order of the `Object2IntOpenHashMap`'s `put`s; `fast_order` derives its iteration order).
     pub(super) stats: IndexMap<Stat, i32>,
+    /// Table size the `Object2IntOpenHashMap` started with (`putAll` presizes it).
+    pub(super) table: usize,
+}
+
+impl Default for StatsCounter {
+    fn default() -> Self {
+        Self { stats: IndexMap::new(), table: DEFAULT_TABLE }
+    }
 }
 
 impl StatsCounter {
@@ -29,6 +36,6 @@ impl StatsCounter {
     pub fn iter_fast_order(&self) -> Vec<(Stat, i32)> {
         let entries: Vec<(&Stat, &i32)> = self.stats.iter().collect();
         let hashes: Vec<i32> = entries.iter().map(|(s, _)| java_string_hash(&build_name(s))).collect();
-        object_open_hash_order(&hashes, 16).into_iter().map(|i| (*entries[i].0, *entries[i].1)).collect()
+        object_open_hash_order(&hashes, self.table).into_iter().map(|i| (*entries[i].0, *entries[i].1)).collect()
     }
 }

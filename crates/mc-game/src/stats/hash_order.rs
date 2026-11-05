@@ -19,10 +19,21 @@ fn max_fill(n: usize) -> usize {
     ((n as f64 * 0.75).ceil() as usize).min(n - 1)
 }
 
-/// Iteration order (indices into `hashes`) of an `Object2IntOpenHashMap` built by `put`ting keys with these hash
-/// codes in this order (distinct keys). `expected` is the constructor argument (`16` for `new Object2IntOpenHashMap()`).
-pub fn object_open_hash_order(hashes: &[i32], expected: usize) -> Vec<usize> {
-    let mut n = array_size(expected);
+/// fastutil `tryCapacity(capacity)` presize of a `0.75` load factor map whose table has `n` slots:
+/// the table size after `putAll` of `capacity` entries (never shrinks).
+pub fn presized_table(n: usize, capacity: usize) -> usize {
+    let needed = ((capacity as f64 / 0.75).ceil() as usize).next_power_of_two().max(2);
+    needed.max(n)
+}
+
+/// The default table size of `new Object2IntOpenHashMap()` (`expected = 16`).
+pub const DEFAULT_TABLE: usize = 32;
+
+/// Iteration order (indices into `hashes`) of an `Object2IntOpenHashMap` with a table of `n0` slots (a power of two,
+/// [`DEFAULT_TABLE`] for the default constructor) built by `put`ting keys with these hash codes in this order
+/// (distinct keys).
+pub fn object_open_hash_order(hashes: &[i32], n0: usize) -> Vec<usize> {
+    let mut n = n0;
     let mut max = max_fill(n);
     let mut table: Vec<Option<usize>> = vec![None; n];
     let place = |table: &mut Vec<Option<usize>>, mask: usize, idx: usize| {
@@ -52,28 +63,90 @@ pub fn object_open_hash_order(hashes: &[i32], expected: usize) -> Vec<usize> {
     table.iter().rev().flatten().copied().collect()
 }
 
-/// Iteration order (indices into `names`) of a `java.util.HashMap` with these keys inserted in this order
-/// (`initial_capacity`: table size of the map before the first insert, 16 for `new HashMap<>()`).
-pub fn java_hash_map_order(names: &[String], initial_capacity: usize) -> Vec<usize> {
-    let mut cap = initial_capacity.max(1).next_power_of_two();
-    let mut bins: Vec<Vec<(usize, i32)>> = vec![Vec::new(); cap];
-    let spread = |s: &str| {
-        let h = java_string_hash(s);
-        h ^ ((h as u32) >> 16) as i32
-    };
-    let mut size = 0;
-    for (idx, name) in names.iter().enumerate() {
-        let h = spread(name);
-        bins[(h as u32 as usize) & (cap - 1)].push((idx, h));
-        size += 1;
-        if size > cap / 4 * 3 {
-            cap *= 2;
-            let old = std::mem::take(&mut bins);
-            bins = vec![Vec::new(); cap];
-            for (i, h) in old.into_iter().flatten() {
-                bins[(h as u32 as usize) & (cap - 1)].push((i, h));
+/// `java.util.HashMap` bookkeeping (table size, threshold, bin order) for stats' `HashMap<Stat, Integer>`s; the entries
+/// are indices (the caller keeps the payload) with their `hashCode`.
+#[derive(Default)]
+pub struct JavaHashMapSim {
+    cap: usize,
+    threshold: usize,
+    bins: Vec<Vec<(usize, i32)>>,
+    size: usize,
+}
+
+impl JavaHashMapSim {
+    /// `new HashMap<>()`.
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// `new HashMap<>(initialCapacity)`.
+    pub fn with_capacity(initial: usize) -> Self {
+        Self { threshold: initial.max(1).next_power_of_two(), ..Self::default() }
+    }
+
+    fn resize(&mut self) {
+        let (old_cap, old_thr) = (self.cap, self.threshold);
+        let (new_cap, mut new_thr) = if old_cap > 0 {
+            (old_cap * 2, if old_cap >= 16 { old_thr * 2 } else { 0 })
+        } else if old_thr > 0 {
+            (old_thr, 0)
+        } else {
+            (16, 12)
+        };
+        if new_thr == 0 {
+            new_thr = (new_cap as f32 * 0.75) as usize;
+        }
+        self.cap = new_cap;
+        self.threshold = new_thr;
+        let old = std::mem::take(&mut self.bins);
+        self.bins = vec![Vec::new(); new_cap];
+        for (i, h) in old.into_iter().flatten() {
+            self.bins[(h as u32 as usize) & (new_cap - 1)].push((i, h));
+        }
+    }
+
+    /// The presizing step of `putAll(map)` (`putMapEntries`) for a map of `s` entries.
+    pub fn put_all_start(&mut self, s: usize) {
+        if s == 0 {
+            return;
+        }
+        if self.cap == 0 {
+            let t = (s as f32 / 0.75 + 1.0) as usize;
+            if t > self.threshold {
+                self.threshold = t.next_power_of_two();
+            }
+        } else {
+            while s > self.threshold {
+                self.resize();
             }
         }
     }
-    bins.into_iter().flatten().map(|(i, _)| i).collect()
+
+    /// `put` of a new key.
+    pub fn put(&mut self, idx: usize, hash: i32) {
+        if self.cap == 0 {
+            self.resize();
+        }
+        let spread = hash ^ ((hash as u32) >> 16) as i32;
+        self.bins[(spread as u32 as usize) & (self.cap - 1)].push((idx, spread));
+        self.size += 1;
+        if self.size > self.threshold {
+            self.resize();
+        }
+    }
+
+    /// Iteration order (the indices).
+    pub fn order(&self) -> Vec<usize> {
+        self.bins.iter().flatten().map(|(i, _)| *i).collect()
+    }
+}
+
+/// Iteration order (indices into `names`) of a `java.util.HashMap` with these keys (hash = `String.hashCode`)
+/// inserted in this order (`initial_capacity` as the constructor argument; 16 for `new HashMap<>()`).
+pub fn java_hash_map_order(names: &[String], initial_capacity: usize) -> Vec<usize> {
+    let mut map = if initial_capacity == 16 { JavaHashMapSim::new() } else { JavaHashMapSim::with_capacity(initial_capacity) };
+    for (i, name) in names.iter().enumerate() {
+        map.put(i, java_string_hash(name));
+    }
+    map.order()
 }
