@@ -225,7 +225,7 @@ fn expect_ok<T>(result: Result<T, ScoreboardError>) -> T {
 /// command's feedback).
 pub(super) fn with_scoreboard<R>(source: &CommandSourceStack, f: impl FnOnce(&mut Scoreboard) -> R) -> R {
     source.with_server(|server: &mut MinecraftServer| {
-        let result = f(&mut server.scoreboard);
+        let result = f(&mut server.scoreboard.write());
         server.flush_scoreboard();
         result
     })
@@ -238,7 +238,7 @@ fn score_access<'a>(scoreboard: &'a mut Scoreboard, holder: &ScoreHolder, object
 
 /// `objective.getFormattedDisplayName()`.
 pub(super) fn formatted_name(source: &CommandSourceStack, objective: &str) -> Component {
-    source.with_server(|s| s.scoreboard.get_objective(objective).expect("objective exists").get_formatted_display_name().clone())
+    source.with_server(|s| s.scoreboard.read().get_objective(objective).expect("objective exists").get_formatted_display_name().clone())
 }
 
 fn suggest_triggers(
@@ -247,7 +247,7 @@ fn suggest_triggers(
     builder: mc_brigadier::SuggestionsBuilder,
 ) -> mc_brigadier::Suggestions {
     let result: Vec<String> = source.with_server(|server| {
-        let scoreboard = &server.scoreboard;
+        let scoreboard = server.scoreboard.read();
         scoreboard
             .get_objectives()
             .filter(|o| *o.get_criteria() == ObjectiveCriteria::TRIGGER)
@@ -259,7 +259,7 @@ fn suggest_triggers(
 }
 
 fn get_score(source: &CommandSourceStack, target: ScoreHolder, objective: &str) -> Result<i32, CommandSyntaxException> {
-    let score = source.with_server(|s| s.scoreboard.get_player_score_info(&target, objective).map(|info| info.value()));
+    let score = source.with_server(|s| s.scoreboard.read().get_player_score_info(&target, objective).map(|info| info.value()));
     let Some(value) = score else { return Err(ERROR_NO_VALUE.create(objective.to_owned(), target.get_feedback_display_name())) };
     let objective_name = formatted_name(source, objective);
     source.send_success(|| translatable!("commands.scoreboard.players.get.success", target.get_feedback_display_name(), value, objective_name), false);
@@ -282,7 +282,8 @@ fn perform_operation(
         *access = attached.detach();
     }
     let outcome = source.with_server(|server| {
-        let scoreboard = &mut server.scoreboard;
+        let mut guard = server.scoreboard.write();
+        let scoreboard: &mut Scoreboard = &mut guard;
         let mut result = Ok(());
         'targets: for target in &targets {
             let mut score = score_access(scoreboard, target, target_objective).detach();
@@ -308,6 +309,7 @@ fn perform_operation(
             with(&mut score, scoreboard, |s| value = s.get());
             tracker.track_value(target.clone(), value);
         }
+        drop(guard);
         server.flush_scoreboard();
         result
     });
@@ -324,7 +326,7 @@ fn perform_operation(
 }
 
 fn enable_trigger(source: &CommandSourceStack, targets: Vec<ScoreHolder>, objective: &str) -> Result<i32, CommandSyntaxException> {
-    let is_trigger = source.with_server(|s| *s.scoreboard.get_objective(objective).expect("objective exists").get_criteria() == ObjectiveCriteria::TRIGGER);
+    let is_trigger = source.with_server(|s| *s.scoreboard.read().get_objective(objective).expect("objective exists").get_criteria() == ObjectiveCriteria::TRIGGER);
     if !is_trigger {
         return Err(ERROR_NOT_TRIGGER.create());
     }
@@ -502,7 +504,7 @@ fn remove_score(source: &CommandSourceStack, targets: Vec<ScoreHolder>, objectiv
 }
 
 fn list_tracked_players(source: &CommandSourceStack) -> i32 {
-    let entities = source.with_server(|s| s.scoreboard.get_tracked_players());
+    let entities = source.with_server(|s| s.scoreboard.read().get_tracked_players());
     if entities.is_empty() {
         source.send_success(|| translatable!("commands.scoreboard.players.list.empty"), false);
     } else {
@@ -522,10 +524,9 @@ fn list_tracked_players(source: &CommandSourceStack) -> i32 {
 
 fn list_tracked_player_scores(source: &CommandSourceStack, entity: &ScoreHolder) -> i32 {
     let scores = source.with_server(|s| {
-        s.scoreboard
-            .list_player_scores_for(entity)
+        s.scoreboard.read().list_player_scores_for(entity)
             .into_iter()
-            .map(|(objective, value)| (s.scoreboard.get_objective(&objective).expect("objective exists").get_formatted_display_name().clone(), value))
+            .map(|(objective, value)| (s.scoreboard.read().get_objective(&objective).expect("objective exists").get_formatted_display_name().clone(), value))
             .collect::<Vec<_>>()
     });
     if scores.is_empty() {
@@ -540,7 +541,7 @@ fn list_tracked_player_scores(source: &CommandSourceStack, entity: &ScoreHolder)
 }
 
 fn clear_display_slot(source: &CommandSourceStack, slot: DisplaySlot) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_display_objective(slot).is_none()) {
+    if source.with_server(|s| s.scoreboard.read().get_display_objective(slot).is_none()) {
         return Err(ERROR_DISPLAY_SLOT_ALREADY_EMPTY.create());
     }
     with_scoreboard(source, |scoreboard| scoreboard.set_display_objective(slot, None));
@@ -549,17 +550,17 @@ fn clear_display_slot(source: &CommandSourceStack, slot: DisplaySlot) -> Result<
 }
 
 fn set_display_slot(source: &CommandSourceStack, slot: DisplaySlot, objective: &str) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_display_objective(slot).is_some_and(|o| o.get_name() == objective)) {
+    if source.with_server(|s| s.scoreboard.read().get_display_objective(slot).is_some_and(|o| o.get_name() == objective)) {
         return Err(ERROR_DISPLAY_SLOT_ALREADY_SET.create());
     }
     with_scoreboard(source, |scoreboard| scoreboard.set_display_objective(slot, Some(objective)));
-    let display_name = source.with_server(|s| s.scoreboard.get_objective(objective).expect("objective exists").get_display_name().clone());
+    let display_name = source.with_server(|s| s.scoreboard.read().get_objective(objective).expect("objective exists").get_display_name().clone());
     source.send_success(|| translatable!("commands.scoreboard.objectives.display.set", slot.get_serialized_name(), display_name), true);
     Ok(0)
 }
 
 fn set_display_name(source: &CommandSourceStack, objective: &str, display_name: Component) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| *s.scoreboard.get_objective(objective).expect("objective exists").get_display_name() != display_name) {
+    if source.with_server(|s| *s.scoreboard.read().get_objective(objective).expect("objective exists").get_display_name() != display_name) {
         with_scoreboard(source, |scoreboard| scoreboard.set_objective_display_name(objective, display_name));
         let formatted = formatted_name(source, objective);
         source.send_success(|| translatable!("commands.scoreboard.objectives.modify.displayname", objective.to_owned(), formatted), true);
@@ -568,7 +569,7 @@ fn set_display_name(source: &CommandSourceStack, objective: &str, display_name: 
 }
 
 fn set_display_auto_update(source: &CommandSourceStack, objective: &str, display_auto_update: bool) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_objective(objective).expect("objective exists").display_auto_update() != display_auto_update) {
+    if source.with_server(|s| s.scoreboard.read().get_objective(objective).expect("objective exists").display_auto_update() != display_auto_update) {
         with_scoreboard(source, |scoreboard| scoreboard.set_objective_display_auto_update(objective, display_auto_update));
         let formatted = formatted_name(source, objective);
         let key = if display_auto_update {
@@ -590,7 +591,7 @@ fn set_objective_format(source: &CommandSourceStack, objective: &str, number_for
 }
 
 fn set_render_type(source: &CommandSourceStack, objective: &str, render_type: RenderType) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_objective(objective).expect("objective exists").get_render_type() != render_type) {
+    if source.with_server(|s| s.scoreboard.read().get_objective(objective).expect("objective exists").get_render_type() != render_type) {
         with_scoreboard(source, |scoreboard| scoreboard.set_objective_render_type(objective, render_type));
         let formatted = formatted_name(source, objective);
         source.send_success(|| translatable!("commands.scoreboard.objectives.modify.rendertype", formatted), true);
@@ -609,7 +610,7 @@ fn remove_objective(source: &CommandSourceStack, objective: &str) -> Result<i32,
 }
 
 fn add_objective(source: &CommandSourceStack, name: &str, criteria: ObjectiveCriteria, display_name: Component) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_objective(name).is_some()) {
+    if source.with_server(|s| s.scoreboard.read().get_objective(name).is_some()) {
         return Err(ERROR_OBJECTIVE_ALREADY_EXISTS.create());
     }
     let count = with_scoreboard(source, |scoreboard| {
@@ -623,7 +624,7 @@ fn add_objective(source: &CommandSourceStack, name: &str, criteria: ObjectiveCri
 }
 
 fn list_objectives(source: &CommandSourceStack) -> i32 {
-    let objectives: Vec<Component> = source.with_server(|s| s.scoreboard.get_objectives().map(|o| o.get_formatted_display_name().clone()).collect());
+    let objectives: Vec<Component> = source.with_server(|s| s.scoreboard.read().get_objectives().map(|o| o.get_formatted_display_name().clone()).collect());
     if objectives.is_empty() {
         source.send_success(|| translatable!("commands.scoreboard.objectives.list.empty"), false);
     } else {

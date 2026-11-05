@@ -336,8 +336,8 @@ fn broadcast_death_message(player: &ServerPlayer, level: &ServerLevel, message: 
             }
         }
         Some(Visibility::HideForOtherTeams) => {
-            for member in team.expect("team").get_players() {
-                if let Some(h) = handles.iter().find(|h| h.name() == member.as_str())
+            for member in team.expect("team").get_players().iter_java_order() {
+                if let Some(h) = handles.iter().find(|h| h.name() == member)
                     && h.id != player.id()
                 {
                     h.send_system_message(message, false);

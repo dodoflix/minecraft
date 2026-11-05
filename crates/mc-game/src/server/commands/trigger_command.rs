@@ -52,7 +52,7 @@ pub fn suggest_objectives(source: &CommandSourceStack, builder: SuggestionsBuild
     let result: Vec<String> = match holder {
         None => Vec::new(),
         Some(holder) => source.with_server(|server| {
-            let scoreboard = &server.scoreboard;
+            let scoreboard = server.scoreboard.read();
             scoreboard
                 .get_objectives()
                 .filter(|o| *o.get_criteria() == ObjectiveCriteria::TRIGGER)
@@ -67,7 +67,7 @@ pub fn suggest_objectives(source: &CommandSourceStack, builder: SuggestionsBuild
 /// `getScore(scoreboard, holder, objective)`: checks the objective is a primed trigger and locks it.
 fn lock_score(source: &CommandSourceStack, holder: &ScoreHolder, objective: &str) -> Result<(), CommandSyntaxException> {
     let (is_trigger, primed) = source.with_server(|server| {
-        let scoreboard = &server.scoreboard;
+        let scoreboard = server.scoreboard.read();
         (
             *scoreboard.get_objective(objective).expect("objective exists").get_criteria() == ObjectiveCriteria::TRIGGER,
             scoreboard.get_player_score_info(holder, objective).is_some_and(|info| !info.is_locked()),

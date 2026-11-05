@@ -20,12 +20,12 @@ register_command!("TeamMsgCommand", |ctx| {
         let entity = EntityRef { dimension: source.get_level().clone(), id: source.get_entity_or_exception()?.id };
         let Some((team, receivers)) = source.with_server(|server| {
             let scoreboard_name = host::get_entity(server, &entity)?.get_scoreboard_name();
-            let team = server.scoreboard.get_players_team(&scoreboard_name)?.get_name().to_owned();
+            let team = server.scoreboard.read().get_players_team(&scoreboard_name)?.get_name().to_owned();
             let receivers: Vec<PlayerHandle> = server
                 .player_list
                 .get_players()
                 .into_iter()
-                .filter(|receiver| receiver.id == entity.id || server.scoreboard.get_players_team(receiver.name()).is_some_and(|t| t.get_name() == team))
+                .filter(|receiver| receiver.id == entity.id || server.scoreboard.read().get_players_team(receiver.name()).is_some_and(|t| t.get_name() == team))
                 .collect();
             Some((team, receivers))
         }) else {
@@ -43,7 +43,7 @@ fn send_message(source: &CommandSourceStack, entity: &EntityRef, team: &str, rec
     let suggest_style = Style::EMPTY
         .with_hover_event(Some(HoverEvent::show_text(translatable!("chat.type.team.hover"))))
         .with_click_event(Some(ClickEvent::SuggestCommand("/teammsg ".to_owned())));
-    let team_name = source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").get_formatted_display_name()).with_style(&suggest_style);
+    let team_name = source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_formatted_display_name()).with_style(&suggest_style);
     let source_name = source.get_display_name();
     let (incoming, outgoing) = source.with_server(|server| {
         (

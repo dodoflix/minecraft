@@ -2,7 +2,7 @@
 
 use std::borrow::Cow;
 use std::collections::HashMap;
-use std::sync::{LazyLock, OnceLock};
+use std::sync::LazyLock;
 
 use mc_core::ident::Identifier;
 
@@ -54,15 +54,6 @@ impl std::hash::Hash for ObjectiveCriteria {
     }
 }
 
-/// Resolves the `<stat_type>:<value>` criteria (`StatType`/`Stat`): `(stat type id, value id) -> exists`. The stats
-/// slice installs it; until then no stat criteria exist.
-pub type StatCriteriaResolver = fn(&Identifier, &Identifier) -> bool;
-static STAT_RESOLVER: OnceLock<StatCriteriaResolver> = OnceLock::new();
-
-pub fn set_stat_criteria_resolver(resolver: StatCriteriaResolver) {
-    let _ = STAT_RESOLVER.set(resolver);
-}
-
 /// `StatType.getRegistry()` of each stat type: the registry whose entries the stat is about.
 pub fn stat_type_registry(stat_type: &str) -> Option<&'static str> {
     Some(match stat_type {
@@ -72,13 +63,6 @@ pub fn stat_type_registry(stat_type: &str) -> Option<&'static str> {
         "custom" => "minecraft:custom_stat",
         _ => return None,
     })
-}
-
-/// `statType.getRegistry().getOptional(value) != null` over the data registries; used until the stats slice installs
-/// its own resolver.
-fn registry_stat_exists(stat_type: &Identifier, value: &Identifier) -> bool {
-    stat_type.namespace() == "minecraft"
-        && stat_type_registry(stat_type.path()).and_then(mc_data::registry::by_name).is_some_and(|r| r.id_of(&value.to_string()).is_some())
 }
 
 impl ObjectiveCriteria {
@@ -159,7 +143,7 @@ impl ObjectiveCriteria {
         Self::custom_table().keys().cloned().collect()
     }
 
-    /// `byName`: custom criteria, else `<stat_type>:<value>` through the stat resolver.
+    /// `byName`: custom criteria, else `<stat_type>:<value>` (`Stat`, named by `Stat.buildName`).
     pub fn by_name(name: &str) -> Option<ObjectiveCriteria> {
         if let Some(c) = Self::custom_table().get(name) {
             return Some(c.clone());
@@ -167,9 +151,8 @@ impl ObjectiveCriteria {
         let colon = name.find(':')?;
         let stat_type = Identifier::try_by_separator(&name[..colon], '.')?;
         let value = Identifier::try_by_separator(&name[colon + 1..], '.')?;
-        let resolver = STAT_RESOLVER.get().copied().unwrap_or(registry_stat_exists);
-        // `Stat.buildName`: both identifiers canonical, `:` written as `.`.
-        resolver(&stat_type, &value).then(|| ObjectiveCriteria::stat(format!("{}:{}", stat_type.to_string().replace(':', "."), value.to_string().replace(':', "."))))
+        let stat = crate::stats::stat::by_names(&stat_type, &value).ok()?;
+        Some(ObjectiveCriteria::stat(crate::stats::stat::build_name(&stat)))
     }
 }
 
@@ -185,7 +168,9 @@ mod tests {
         assert_eq!(ObjectiveCriteria::by_name("teamkill.red"), Some(ObjectiveCriteria::team_kill(TeamColor::Red)));
         assert_eq!(ObjectiveCriteria::by_name("killedByTeam.dark_blue").unwrap().get_name(), "killedByTeam.dark_blue");
         assert_eq!(ObjectiveCriteria::by_name("nope"), None);
-        assert_eq!(ObjectiveCriteria::by_name("minecraft.mined:minecraft.stone"), None, "no stat resolver installed");
+        assert_eq!(ObjectiveCriteria::by_name("minecraft.mined:minecraft.stone").unwrap().get_name(), "minecraft.mined:minecraft.stone");
+        assert_eq!(ObjectiveCriteria::by_name("mined:stone").unwrap().get_name(), "minecraft.mined:minecraft.stone", "named by `Stat.buildName`");
+        assert_eq!(ObjectiveCriteria::by_name("minecraft.mined:minecraft.nothing"), None);
         assert_eq!(ObjectiveCriteria::get_custom_criteria_names().len(), 11 + 32);
         assert_eq!(RenderType::by_id("bogus"), RenderType::Integer);
     }

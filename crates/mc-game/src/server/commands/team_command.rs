@@ -140,7 +140,7 @@ register_command!("TeamCommand", |ctx| {
 
 /// `team.getFormattedDisplayName()`.
 fn formatted(source: &CommandSourceStack, team: &str) -> Component {
-    source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").get_formatted_display_name())
+    source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_formatted_display_name())
 }
 
 fn leave_team(source: &CommandSourceStack, members: Vec<ScoreHolder>) -> Result<i32, CommandSyntaxException> {
@@ -179,7 +179,7 @@ fn join_team(source: &CommandSourceStack, team: &str, members: Vec<ScoreHolder>)
 }
 
 fn set_name_tag_visibility(source: &CommandSourceStack, team: &str, visibility: Visibility) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").get_name_tag_visibility()) == visibility {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_name_tag_visibility()) == visibility {
         return Err(ERROR_TEAM_NAMETAG_VISIBLITY_UNCHANGED.create());
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_name_tag_visibility(visibility));
@@ -189,7 +189,7 @@ fn set_name_tag_visibility(source: &CommandSourceStack, team: &str, visibility: 
 }
 
 fn set_death_message_visibility(source: &CommandSourceStack, team: &str, visibility: Visibility) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").get_death_message_visibility()) == visibility {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_death_message_visibility()) == visibility {
         return Err(ERROR_TEAM_DEATH_MESSAGE_VISIBLITY_UNCHANGED.create());
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_death_message_visibility(visibility));
@@ -199,7 +199,7 @@ fn set_death_message_visibility(source: &CommandSourceStack, team: &str, visibil
 }
 
 fn set_collision(source: &CommandSourceStack, team: &str, collision: CollisionRule) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").get_collision_rule()) == collision {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_collision_rule()) == collision {
         return Err(ERROR_TEAM_COLLISION_UNCHANGED.create());
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_collision_rule(collision));
@@ -209,7 +209,7 @@ fn set_collision(source: &CommandSourceStack, team: &str, collision: CollisionRu
 }
 
 fn set_friendly_sight(source: &CommandSourceStack, team: &str, allowed: bool) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").can_see_friendly_invisibles()) == allowed {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").can_see_friendly_invisibles()) == allowed {
         return Err(if allowed { ERROR_TEAM_ALREADY_FRIENDLYINVISIBLES_ENABLED.create() } else { ERROR_TEAM_ALREADY_FRIENDLYINVISIBLES_DISABLED.create() });
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_see_friendly_invisibles(allowed));
@@ -220,7 +220,7 @@ fn set_friendly_sight(source: &CommandSourceStack, team: &str, allowed: bool) ->
 }
 
 fn set_friendly_fire(source: &CommandSourceStack, team: &str, allowed: bool) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").is_allow_friendly_fire()) == allowed {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").is_allow_friendly_fire()) == allowed {
         return Err(if allowed { ERROR_TEAM_ALREADY_FRIENDLYFIRE_ENABLED.create() } else { ERROR_TEAM_ALREADY_FRIENDLYFIRE_DISABLED.create() });
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_allow_friendly_fire(allowed));
@@ -231,7 +231,7 @@ fn set_friendly_fire(source: &CommandSourceStack, team: &str, allowed: bool) -> 
 }
 
 fn set_display_name(source: &CommandSourceStack, team: &str, display_name: Component) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| *s.scoreboard.get_player_team(team).expect("team exists").get_display_name() == display_name) {
+    if source.with_server(|s| *s.scoreboard.read().get_player_team(team).expect("team exists").get_display_name() == display_name) {
         return Err(ERROR_TEAM_ALREADY_NAME.create());
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_display_name(display_name));
@@ -241,7 +241,7 @@ fn set_display_name(source: &CommandSourceStack, team: &str, display_name: Compo
 }
 
 fn set_color(source: &CommandSourceStack, team: &str, color: TeamColor) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").get_color()) == Some(color) {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_color()) == Some(color) {
         return Err(ERROR_TEAM_ALREADY_COLOR.create());
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_color(Some(color)));
@@ -251,7 +251,7 @@ fn set_color(source: &CommandSourceStack, team: &str, color: TeamColor) -> Resul
 }
 
 fn clear_color(source: &CommandSourceStack, team: &str) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(team).expect("team exists").get_color()).is_none() {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(team).expect("team exists").get_color()).is_none() {
         return Err(ERROR_TEAM_ALREADY_COLOR.create());
     }
     with_scoreboard(source, |sb| sb.team_mut(team).expect("team exists").set_color(None));
@@ -263,7 +263,7 @@ fn clear_color(source: &CommandSourceStack, team: &str) -> Result<i32, CommandSy
 fn empty_team(source: &CommandSourceStack, team: &str) -> Result<i32, CommandSyntaxException> {
     // `Lists.newArrayList(team.getPlayers())`: the HashSet's iteration order.
     let members: Vec<String> = source.with_server(|s| {
-        s.scoreboard.get_player_team(team).expect("team exists").get_players().iter_java_order().into_iter().map(str::to_owned).collect()
+        s.scoreboard.read().get_player_team(team).expect("team exists").get_players().iter_java_order().into_iter().map(str::to_owned).collect()
     });
     if members.is_empty() {
         return Err(ERROR_TEAM_ALREADY_EMPTY.create());
@@ -290,7 +290,7 @@ fn delete_team(source: &CommandSourceStack, team: &str) -> i32 {
 }
 
 fn create_team(source: &CommandSourceStack, name: &str, display_name: Component) -> Result<i32, CommandSyntaxException> {
-    if source.with_server(|s| s.scoreboard.get_player_team(name).is_some()) {
+    if source.with_server(|s| s.scoreboard.read().get_player_team(name).is_some()) {
         return Err(ERROR_TEAM_ALREADY_EXISTS.create());
     }
     let count = with_scoreboard(source, |scoreboard| {
@@ -305,7 +305,7 @@ fn create_team(source: &CommandSourceStack, name: &str, display_name: Component)
 
 fn list_members(source: &CommandSourceStack, team: &str) -> i32 {
     let members: Vec<String> = source.with_server(|s| {
-        s.scoreboard.get_player_team(team).expect("team exists").get_players().iter_java_order().into_iter().map(str::to_owned).collect()
+        s.scoreboard.read().get_player_team(team).expect("team exists").get_players().iter_java_order().into_iter().map(str::to_owned).collect()
     });
     let name = formatted(source, team);
     if members.is_empty() {
@@ -317,7 +317,7 @@ fn list_members(source: &CommandSourceStack, team: &str) -> i32 {
 }
 
 fn list_teams(source: &CommandSourceStack) -> i32 {
-    let teams: Vec<Component> = source.with_server(|s| s.scoreboard.get_player_teams().map(|t| t.get_formatted_display_name()).collect());
+    let teams: Vec<Component> = source.with_server(|s| s.scoreboard.read().get_player_teams().map(|t| t.get_formatted_display_name()).collect());
     if teams.is_empty() {
         source.send_success(|| translatable!("commands.team.list.teams.empty"), false);
     } else {
