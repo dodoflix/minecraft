@@ -1,1 +1,1 @@
-kill_mob health_after_hits=12.096,5.1919994,? death_event=true removed=true
+kill_mob first_hit_damage=~7.920000076293945±40% hits_to_kill=~4±1 death_event=true removed=true
