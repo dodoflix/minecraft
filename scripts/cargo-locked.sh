@@ -3,7 +3,7 @@
 # (systemd-oomd killed the session when many mc-game builds overlapped); test execution runs outside the lock.
 # Usage: scripts/cargo-locked.sh <cargo subcommand> [args...]   e.g. scripts/cargo-locked.sh test -p mc-game --test foo
 set -euo pipefail
-SLOTS="${MC_BUILD_SLOTS:-4}"
+SLOTS="${MC_BUILD_SLOTS:-2}"
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-6}"
 
 with_slot() {
@@ -79,7 +79,7 @@ case "${1:-}" in
       for reg in /tmp/mc-builders/*.ip; do
         [ -e "$reg" ] || continue
         name=$(basename "$reg" .ip)
-        for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-4}"); do
+        for lane in $(seq 1 "${MC_REMOTE_TEST_LANES:-6}"); do
           exec {tfd}>"/tmp/mc-remote.$name.$lane"
           if flock -n "$tfd"; then
             touch "/tmp/mc-builders/$name.last"; rc=0
