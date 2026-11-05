@@ -47,6 +47,8 @@ pub struct DamageEntity {
     pub is_player: bool,
     /// `instanceof Player && abilities.instabuild`.
     pub instabuild: bool,
+    /// `instanceof Player && abilities.mayBuild`.
+    pub may_build: bool,
     /// `getMainHandItem()` for living entities, empty otherwise.
     pub main_hand_item: ItemStack,
     /// `getWeaponItem()`.
@@ -93,6 +95,7 @@ impl DamageEntity {
             is_living,
             is_player: entity.is_player(),
             instabuild: entity.is_player() && entity.player().is_some_and(|p| p.abilities.instabuild),
+            may_build: entity.is_player() && entity.player().is_some_and(|p| p.abilities.may_build),
             main_hand_item: if is_living { entity.get_item_by_slot(EquipmentSlot::MainHand) } else { ItemStack::empty() },
             weapon_item: entity.get_weapon_item(),
             seconds_to_disable_blocking: entity.get_seconds_to_disable_blocking(),

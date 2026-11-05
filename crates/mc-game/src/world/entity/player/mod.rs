@@ -10,6 +10,7 @@ pub mod food_data;
 pub mod handle_sync;
 pub mod drop;
 pub mod effects;
+pub mod interact;
 pub mod inventory;
 pub mod item_use;
 pub mod player_systems;

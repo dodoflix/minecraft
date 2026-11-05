@@ -75,7 +75,10 @@ pub fn create_and_load(tag: &CompoundTag, level: &ServerLevel, request: EntitySp
     };
     let mut entity = create(ty, level, request)?;
     match entity.load(tag) {
-        Ok(()) => Some(entity),
+        Ok(()) => {
+            entity.resolve_registry_refs(&level.registries);
+            Some(entity)
+        }
         Err(message) => {
             log::warn!("Exception loading entity: {message}");
             None

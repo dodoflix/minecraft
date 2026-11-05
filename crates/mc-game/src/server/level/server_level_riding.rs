@@ -88,10 +88,12 @@ impl ServerLevel {
         let vehicle_position = match held_vehicle.as_deref_mut() {
             Some(v) => {
                 v.remove_passenger(rider_id);
+                v.on_passenger_removed(self, rider_id);
                 Some(v.base().position())
             }
             None => {
                 self.entity_manager.defer_or_apply(old_vehicle_id, Box::new(move |v: &mut dyn Entity| v.remove_passenger(rider_id)));
+                self.with_entity(old_vehicle_id, |level, v| v.on_passenger_removed(level, rider_id));
                 self.entity_manager.get_any(old_vehicle_id).map(|v| v.base().position())
             }
         };

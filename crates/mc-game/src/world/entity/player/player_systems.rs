@@ -74,6 +74,17 @@ impl PlayerSystems for ServerPlayerSystems {
         }
     }
 
+    /// `ServerPlayer.interactOn(target, hand, location)`.
+    fn interact_on(
+        &self,
+        ctx: &mut PlayCtx,
+        target: crate::world::entity::EntityId,
+        hand: crate::world::item::InteractionHand,
+        location: mc_core::phys::Vec3,
+    ) -> crate::world::item::InteractionResult {
+        ctx.player.interact_on(ctx.level, target, hand, location)
+    }
+
     /// `getStats().sendStats(player)`.
     fn send_stats(&self, ctx: &mut PlayCtx) {
         let packet = ctx.player.stats.lock().stats_packet();

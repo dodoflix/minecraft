@@ -5,6 +5,7 @@ mod bundle;
 mod block_item;
 mod component_ext;
 mod consumable;
+pub mod entity_items;
 mod context;
 mod cooldowns;
 pub mod enchantment;

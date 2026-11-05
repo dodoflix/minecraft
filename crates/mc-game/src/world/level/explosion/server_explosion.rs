@@ -273,7 +273,7 @@ impl<'a> ServerExplosion<'a> {
         let knockback_resistance = entity.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::EXPLOSION_KNOCKBACK_RESISTANCE));
         let knockback_power = (1.0 - plan.dist) * f64::from(plan.exposure) * f64::from(plan.knockback_multiplier) * (1.0 - knockback_resistance);
         let knockback = plan.direction.scale(knockback_power);
-        entity.push_from_explosion(knockback);
+        entity.push_in_level(level, knockback);
         let redirectable = mc_data::tags::get::<EntityType>("redirectable_projectile").is_some_and(|t| t.contains(entity.get_type()));
         if redirectable && entity.as_projectile().is_some() {
             let owner = self.damage_source.get_entity().and_then(|id| resolve(level, self.source, id)).map(|e| e.uuid());

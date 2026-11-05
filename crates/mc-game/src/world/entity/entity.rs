@@ -2741,6 +2741,85 @@ pub trait Entity: Any {
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
         None
     }
+    // ==== [EntityItems] additions (Entity trait methods) ====
+    /// `interact(player, hand, location)`: the player (taken out of the level) uses the entity.
+    fn interact(
+        &mut self,
+        _level: &mut ServerLevel,
+        _player: &mut super::ServerPlayer,
+        _hand: crate::world::item::InteractionHand,
+        _location: Vec3,
+    ) -> crate::world::item::InteractionResult {
+        crate::world::item::InteractionResult::PASS
+    }
+    /// `skipAttackInteraction(source)`: the attack on this entity is fully handled (`Player.attack` stops).
+    fn skip_attack_interaction(&mut self, _level: &mut ServerLevel, _source: &dyn Entity) -> bool {
+        false
+    }
+    /// `getPickResult()`: the stack of a pick-block on the entity (`None`: nothing).
+    fn get_pick_result(&self) -> Option<crate::world::item::ItemStack> {
+        None
+    }
+    /// `getDirection()`: `Direction.fromYRot(getYRot())` (hanging entities store theirs).
+    fn get_direction(&self) -> mc_core::direction::Direction {
+        mc_core::direction::Direction::from_y_rot(f64::from(self.base().y_rot()))
+    }
+    /// `rotate(rotation)`: the new `yRot` for structure placement.
+    fn rotate(&mut self, rotation: mc_core::rotation::Rotation) -> f32 {
+        use mc_core::rotation::Rotation;
+        let angle = mc_core::math::mth::wrap_degrees_f32(self.base().y_rot());
+        match rotation {
+            Rotation::Clockwise180 => angle + 180.0,
+            Rotation::Counterclockwise90 => angle + 270.0,
+            Rotation::Clockwise90 => angle + 90.0,
+            Rotation::None => angle,
+        }
+    }
+    /// `mirror(mirror)`.
+    fn mirror(&mut self, mirror: mc_core::mirror::Mirror) -> f32 {
+        use mc_core::mirror::Mirror;
+        let angle = mc_core::math::mth::wrap_degrees_f32(self.base().y_rot());
+        match mirror {
+            Mirror::FrontBack => -angle,
+            Mirror::LeftRight => 180.0 - angle,
+            Mirror::None => angle,
+        }
+    }
+    /// `push(Vec3)` with the level at hand (block-attached entities break when pushed; explosions push through this).
+    fn push_in_level(&mut self, _level: &mut ServerLevel, impulse: Vec3) {
+        self.push_from_explosion(impulse);
+    }
+    /// Resolves registry references that were read from NBT without registry access (variants): called after `load`.
+    fn resolve_registry_refs(&mut self, _registries: &crate::registry::RegistryAccess) {}
+    /// `LivingEntity.attackable()`: mobs may target it.
+    fn attackable(&self) -> bool {
+        true
+    }
+    /// `LivingEntity.isAffectedByPotions()`.
+    fn is_affected_by_potions(&self) -> bool {
+        true
+    }
+    /// `getPistonPushReaction()`.
+    fn get_piston_push_reaction(&self) -> mc_data::enums::PushReaction {
+        mc_data::enums::PushReaction::PushPull
+    }
+    /// `applyComponentsFromItemStack(stack)` (`applyImplicitComponents`): the item's components that configure a placed entity.
+    fn apply_implicit_components(&mut self, stack: &crate::world::item::ItemStack) {
+        super::spawn_config::apply_base_implicit_components(self.as_dyn_mut(), stack);
+    }
+    /// The part of `EntityType.create(level, config, pos, ...)` that only applies to mobs (`yHeadRot`/`yBodyRot` = `yRot`,
+    /// `finalizeSpawn`).
+    fn finalize_spawn_on_create(&mut self, _level: &mut ServerLevel, _reason: mc_data::enums::EntitySpawnReason) {}
+    /// `thunderHit(level, lightningBolt)` (the bolt is the cause of what the entity does).
+    fn thunder_hit_by(&mut self, level: &mut ServerLevel, _bolt: EntityId) {
+        self.thunder_hit(level);
+    }
+    /// `removePassenger(passenger)`'s level-dependent part (the passenger list is already updated).
+    fn on_passenger_removed(&mut self, _level: &mut ServerLevel, _passenger: EntityId) {}
+    /// `this instanceof AbstractMinecart minecart && minecart.isRideable()`.
+    fn is_rideable_minecart(&self) -> bool {
+        false
+    }
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

@@ -12,6 +12,7 @@ pub mod enchantment;
 pub mod int_provider;
 pub mod level_stem;
 pub mod network;
+pub mod painting_variant;
 pub mod worldgen;
 
 use serde_json::Value;

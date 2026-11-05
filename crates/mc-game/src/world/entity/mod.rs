@@ -9,6 +9,7 @@
 //! `put_back` applies what vanilla's `EntityInLevelCallback` does synchronously (section moves, removal).
 
 pub mod attributes;
+pub mod decoration;
 pub mod dimensions;
 pub mod area_effect_cloud;
 pub mod effect;
@@ -41,6 +42,7 @@ pub mod vec_delta_codec;
 pub use dimensions::{EntityAttachment, EntityAttachments, EntityDimensions};
 pub use entity::{Entity, EntityData, MoveSimulationType, MovementEmission};
 pub mod respawn;
+pub mod spawn_config;
 pub use player::ServerPlayer;
 
 pub type EntityId = i32;
