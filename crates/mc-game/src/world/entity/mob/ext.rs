@@ -348,3 +348,22 @@ pub fn drop_from_shearing_loot_table(
     }
     true
 }
+
+// ==== [Monsters2] additions ====
+
+/// `me.isLookingAtMe(target, coneSize, adjustForDistance, seeThroughTransparentBlocks, gazeHeights...)`: whether `target` (a
+/// living entity, e.g. the player) looks at `me`.
+pub fn is_looking_at_me(level: &ServerLevel, me: &dyn Entity, target: &dyn Entity, cone_size: f64, adjust_for_distance: bool, see_through_transparent_blocks: bool, gaze_heights: &[f64]) -> bool {
+    let look = target.get_view_vector(1.0).normalize();
+    for &gaze_height in gaze_heights {
+        let dir = Vec3::new(me.base().x() - target.base().x(), gaze_height - target.base().get_eye_y(), me.base().z() - target.base().z());
+        let dist = dir.length();
+        let dir = dir.normalize();
+        let dot = look.dot(dir);
+        let block = if see_through_transparent_blocks { ClipBlock::Visual } else { ClipBlock::Collider };
+        if dot > 1.0 - cone_size / (if adjust_for_distance { dist } else { 1.0 }) && has_line_of_sight_with(level, target, me, block, ClipFluid::None, gaze_height) {
+            return true;
+        }
+    }
+    false
+}
