@@ -127,6 +127,8 @@ pub struct MinecraftServer {
     pub(super) saved_types: SavedDataTypes,
     /// `randomSequences` shared with the levels' loot evaluation; copied into `saved_data` when saving.
     pub(super) loot_random_sequences: Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>>,
+    /// `metricsRecorder` & co: what `/perf` records.
+    pub(super) metrics_recording: super::metrics_recording::MetricsRecording,
     pub registries: LayeredRegistryAccess<RegistryLayer>,
     pub resources: ReloadableResources,
     pub pack_repository: PackRepository,
@@ -246,6 +248,7 @@ impl MinecraftServer {
             game_rules_type,
             saved_types: SavedDataTypes::new(),
             loot_random_sequences: Default::default(),
+            metrics_recording: Default::default(),
             registries,
             resources: init.resources,
             pack_repository: init.pack_repository,
@@ -632,7 +635,9 @@ impl MinecraftServer {
             let next = self.next_tick_time_nanos + this_tick_nanos;
             self.set_next_tick_time(next);
 
+            let metrics_scope = self.begin_metrics_tick();
             self.process_packets_and_tick(sprinting);
+            crate::util::profiling::push("nextTickWait");
             self.may_have_delayed_tasks = true;
             self.delayed_tasks_max_next_tick_time_nanos = (get_nanos() + this_tick_nanos).max(self.next_tick_time_nanos);
             self.sync_have_time();
@@ -640,7 +645,10 @@ impl MinecraftServer {
             if sprinting {
                 self.tick_rate_manager.end_tick_work();
             }
+            crate::util::profiling::pop();
             self.last_tick_nanos = get_nanos();
+            drop(metrics_scope);
+            self.end_metrics_recording_tick();
 
             self.shared.set_ready();
         }
@@ -682,9 +690,14 @@ impl MinecraftServer {
 
     /// `processPacketsAndTick`.
     fn process_packets_and_tick(&mut self, sprinting: bool) {
+        use crate::util::profiling::{pop, push};
+        push("tick");
+        push("scheduledPacketProcessing");
         // `packetProcessor.processQueuedPackets()`
         crate::server::network::game_listener::process_queued_packets(self);
+        pop();
         self.tick_server(sprinting);
+        pop();
     }
 
     /// `tickServer`. `sprinting`: the level tick gets `() -> false` as time budget.
@@ -727,16 +740,20 @@ impl MinecraftServer {
             self.auto_save();
         }
 
+        crate::util::profiling::push("tallying");
         let tick_time = get_nanos() - nano;
         self.tick_times.record(self.tick_count, tick_time);
         self.refresh_shared_info();
+        crate::util::profiling::pop();
     }
 
     /// `autoSave`.
     fn auto_save(&mut self) {
         self.ticks_until_autosave = self.compute_next_autosave_interval();
         log::debug!("Autosave started");
+        crate::util::profiling::push("save");
         self.save_everything(true, false, false);
+        crate::util::profiling::pop();
         log::debug!("Autosave finished");
     }
 

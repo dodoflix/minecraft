@@ -79,13 +79,15 @@ fn draw_random_value_tree(name: &'static str, announce: bool) -> LiteralArgument
     )
 }
 
+/// The live `RandomSequences` (`MinecraftServer.getRandomSequences()`), shared with the levels' loot evaluation.
+fn live_sequences(server: &crate::server::MinecraftServer) -> std::sync::Arc<parking_lot::Mutex<crate::world::level::saveddata::random_sequences::RandomSequences>> {
+    server.loot_random_sequences.clone()
+}
+
 fn suggest_random_sequence(context: &Ctx, builder: SuggestionsBuilder) -> Suggestions {
     let mut result = Vec::new();
-    context.get_source().with_server(|server| {
-        if let Some(sequences) = server.saved_data.peek(&server.saved_types.random_sequences) {
-            sequences.for_all_sequences(|key, _| result.push(key.to_string()));
-        }
-    });
+    let sequences = context.get_source().with_server(|server| live_sequences(server));
+    sequences.lock().for_all_sequences(|key, _| result.push(key.to_string()));
     suggest(result, builder)
 }
 
@@ -96,11 +98,14 @@ fn random_sample(source: &CommandSourceStack, range: Ints, sequence: Option<Iden
     // The random source is fetched (creating the sequence) before the range checks, like vanilla.
     let value = source.with_server(|server| {
         let seed = server.world_gen_settings.options.seed;
+        let live = live_sequences(server);
+        let mut guard;
         let mut sequences_random;
         let level_random;
         let random: &mut dyn RandomSource = match &sequence {
             Some(id) => {
-                sequences_random = server.saved_data.compute_if_absent(&server.saved_types.random_sequences).get(id, seed);
+                guard = live.lock();
+                sequences_random = guard.get(id, seed);
                 &mut sequences_random
             }
             None => {
@@ -129,7 +134,8 @@ fn random_sample(source: &CommandSourceStack, range: Ints, sequence: Option<Iden
 fn reset_sequence(source: &CommandSourceStack, sequence: &Identifier, args: Option<(i32, bool, bool)>) -> i32 {
     source.with_server(|server| {
         let seed = server.world_gen_settings.options.seed;
-        let sequences = server.saved_data.compute_if_absent(&server.saved_types.random_sequences);
+        let live = live_sequences(server);
+        let mut sequences = live.lock();
         match args {
             None => sequences.reset(sequence, seed),
             Some((salt, include_world_seed, include_sequence_id)) => sequences.reset_with(sequence, seed, salt, include_world_seed, include_sequence_id),
@@ -140,14 +146,15 @@ fn reset_sequence(source: &CommandSourceStack, sequence: &Identifier, args: Opti
 }
 
 fn reset_all_sequences(source: &CommandSourceStack) -> i32 {
-    let count = source.with_server(|server| server.saved_data.compute_if_absent(&server.saved_types.random_sequences).clear());
+    let count = source.with_server(|server| live_sequences(server).lock().clear());
     source.send_success(|| translatable!("commands.random.reset.all.success", count), false);
     count
 }
 
 fn reset_all_sequences_and_set_new_defaults(source: &CommandSourceStack, salt: i32, include_world_seed: bool, include_sequence_id: bool) -> i32 {
     let count = source.with_server(|server| {
-        let sequences = server.saved_data.compute_if_absent(&server.saved_types.random_sequences);
+        let live = live_sequences(server);
+        let mut sequences = live.lock();
         sequences.set_seed_defaults(salt, include_world_seed, include_sequence_id);
         sequences.clear()
     });

@@ -133,6 +133,11 @@ impl SystemReport {
         self.set_detail(key, value);
     }
 
+    /// `toLineSeparatedString()`: `key: value` lines.
+    pub fn to_line_separated_string(&self) -> String {
+        self.entries.iter().map(|(k, v)| format!("{k}: {v}")).collect::<Vec<_>>().join("\n")
+    }
+
     pub fn append_to_crash_report_string(&self, out: &mut String) {
         out.push_str("-- System Details --\nDetails:");
         for (key, value) in &self.entries {
@@ -358,4 +363,31 @@ mod tests {
         assert!(!report.save_to_file(&file));
         assert!(std::fs::read_to_string(&file).unwrap().contains("Description: t"));
     }
+}
+
+/// `ReportType.PROFILE.nuggets`.
+const PROFILE_NUGGETS: [&str; 15] = [
+    "I'd Rather Be Surfing",
+    "Shiny numbers!",
+    "Am I not running fast enough? :(",
+    "I'm working as hard as I can!",
+    "Will I ever be good enough for you? :(",
+    "Speedy. Zoooooom!",
+    "Hello world",
+    "40% better than a crash report.",
+    "Now with extra numbers",
+    "Now with less numbers",
+    "Now with the same numbers",
+    "You should add flames to things, it makes them go faster!",
+    "Do you feel the need for... optimization?",
+    "*cracks redstone whip*",
+    "Maybe if you treated it better then it'll have more motivation to work faster! Poor server.",
+];
+
+/// `ReportType.PROFILE.appendHeader(builder, List.of())`.
+pub fn append_profile_report_header(builder: &mut String) {
+    let nanos = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_nanos());
+    builder.push_str("---- Minecraft Profiler Results ----\n// ");
+    builder.push_str(PROFILE_NUGGETS[(nanos % PROFILE_NUGGETS.len() as u128) as usize]);
+    builder.push_str("\n\n");
 }

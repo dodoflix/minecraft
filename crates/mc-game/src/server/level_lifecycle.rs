@@ -429,12 +429,18 @@ impl MinecraftServer {
 
     /// `tickChildren`.
     pub(super) fn tick_children(&mut self, have_time: &mut dyn FnMut() -> bool) {
+        use crate::util::profiling::{pop, pop_push, push, push_with};
         if self.tick_rate_manager.runs_normally() {
+            push("clocks");
             self.tick_clocks();
+            pop();
         }
         if self.tick_count % 20 == 0 {
+            push("timeSync");
             self.force_game_time_synchronization();
+            pop();
         }
+        push("levels");
 
         self.update_effective_respawn_data();
         self.flush_scoreboard();
@@ -446,6 +452,8 @@ impl MinecraftServer {
                 ops_empty: self.player_list.ops.is_empty(),
                 op_players: self.player_list.players().iter().filter(|p| self.player_list.is_op(&p.name_and_id())).map(|p| p.uuid).collect(),
             };
+            push_with(|| format!("ServerLevel[{}] {dimension}", self.world_data.lock().settings.level_name));
+            push("tick");
             let result = self.with_level(&dimension, |server, level| {
                 level.server_state.spawn_protection = spawn_protection;
                 let mut env = ServerTickEnv { server, dimension: dimension.clone() };
@@ -455,6 +463,8 @@ impl MinecraftServer {
                     report
                 })
             });
+            pop();
+            pop();
             if let Some(Err(report)) = result {
                 ReportedException::throw(report);
             }
@@ -462,11 +472,15 @@ impl MinecraftServer {
 
         self.flush_scoreboard();
         self.flush_world_border_events();
+        pop_push("connection");
         self.tick_connection();
+        pop_push("players");
         self.player_list.tick();
+        pop_push("server gui refresh");
         self.run_tickables();
-        // "send chunks"
+        pop_push("send chunks");
         crate::server::network::game_listener::send_next_chunks_all(self);
+        pop();
     }
 
     /// `forceGameTimeSynchronization`.
@@ -595,6 +609,9 @@ impl MinecraftServer {
 
     /// `stopServer` (+ `DedicatedServer.stopServer`: shutting-down notification first).
     pub(super) fn stop_server(&mut self) {
+        if self.is_recording_metrics() {
+            self.cancel_recording_metrics();
+        }
         self.notification_manager.server_shutting_down();
         log::info!("Stopping server");
         self.stop_connection();
