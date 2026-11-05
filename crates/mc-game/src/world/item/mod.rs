@@ -7,6 +7,7 @@ mod component_ext;
 mod consumable;
 mod context;
 mod cooldowns;
+pub mod enchantment;
 pub mod enchantment_helper;
 mod interaction;
 mod item_utils;
