@@ -4,6 +4,7 @@
 use super::chunk_holder::{ChunkHolder, ChunkSlot};
 use super::chunk_io::WorkerMessage;
 use super::chunk_map::{ChunkMap, ChunkMapEvent};
+use crate::crash_report::ReportedException;
 use crate::world::level::chunk::LevelChunk;
 use mc_core::pos::ChunkPos;
 use mc_world::chunk::ProtoChunk;
@@ -54,6 +55,7 @@ impl ChunkMap {
                 Err(e) => self.handle_chunk_load_failure(key, &e.to_string()),
             },
             WorkerMessage::BatchDone(result) => self.on_batch_done(*result),
+            WorkerMessage::BatchFailed(report) => ReportedException::throw(*report),
         }
     }
 

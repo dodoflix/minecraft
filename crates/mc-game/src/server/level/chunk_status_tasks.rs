@@ -6,12 +6,14 @@
 //! are handled by the chunk map.
 
 use super::world_gen::{GenChunk, WorldGenContext, WorldGenRegion};
+use crate::crash_report::CrashReport;
 use crate::world::level::chunk::status::{ChunkStatusTask, ChunkStep};
 use mc_core::pos::ChunkPos;
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::heightmap::HeightmapType;
 use mc_world::status::ChunkStatus;
 use std::collections::HashMap;
+use std::panic::{self, AssertUnwindSafe};
 use std::sync::Arc;
 
 pub struct GenJob {
@@ -34,8 +36,10 @@ pub struct BatchResult {
     pub completed: Vec<(i64, ChunkStatus)>,
 }
 
-/// Run the jobs of a batch one after another (the worldgen executor is serial).
-pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> BatchResult {
+/// Run the jobs of a batch one after another (the worldgen executor is serial). A panic in a step is vanilla's
+/// uncaught exception of `ChunkMap.applyStep`: the report ("Exception generating new chunk", or the step's own
+/// `ReportedException` such as "Feature placement") crashes the server through the game thread.
+pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, CrashReport> {
     let GenBatch { id, jobs, mut chunks, structure_views } = batch;
     let mut completed = Vec::with_capacity(jobs.len());
     for job in &jobs {
@@ -48,7 +52,16 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> BatchResult {
             structure_views.clone(),
             ctx.level_height,
         );
-        run_step(ctx, step, &mut region);
+        if let Err(payload) = panic::catch_unwind(AssertUnwindSafe(|| run_step(ctx, step, &mut region))) {
+            let mut report = CrashReport::for_throwable(payload, "Exception generating new chunk");
+            report
+                .add_category("Chunk to be generated")
+                .set_detail("Status being generated", step.target_status.name())
+                .set_detail("Location", format!("{},{}", job.pos.x, job.pos.z))
+                .set_detail("Position hash", job.pos.pack())
+                .set_detail("Generator", ctx.generator.type_name_for_data_fixer().map_or_else(|| "unknown".to_owned(), |id| id.to_string()));
+            return Err(report);
+        }
         chunks = region.into_chunks();
         completed.push((job.pos.pack(), step.target_status));
     }
@@ -59,7 +72,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> BatchResult {
             GenChunk::Snapshot(_) => None,
         })
         .collect();
-    BatchResult { id, chunks, completed }
+    Ok(BatchResult { id, chunks, completed })
 }
 
 /// `ChunkStep.apply` for a chunk that is still before the target status.

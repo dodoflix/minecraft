@@ -55,6 +55,82 @@ fn empty_registries() -> Arc<GenRegistries> {
     })
 }
 
+fn env_for(
+    all: &decoration_common::Generators,
+    generator: &Arc<dyn mc_worldgen::generator::ChunkGenerator>,
+    registries: &Arc<GenRegistries>,
+    template_manager: &Arc<StructureTemplateManager>,
+    settings: &mc_worldgen::noise_settings::NoiseGeneratorSettings,
+    seed: i64,
+    level_height: LevelHeight,
+) -> Arc<GenEnv> {
+    Arc::new(GenEnv {
+        dimension: mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        seed,
+        generator: generator.clone(),
+        random_state: Arc::new(RandomState::create(all.registries.clone(), seed, settings)),
+        biomes: all.biomes.clone(),
+        registries: registries.clone(),
+        structure_template_manager: template_manager.clone(),
+        structures: Arc::new(StructureRegistries::empty()),
+        start_cache: StartCache::default(),
+        structure_state: None,
+        structure_check: StructureCheck::new(Box::new(NoChunkScan)),
+        generate_structures: false,
+        level_height,
+    })
+}
+
+/// A feature that throws: vanilla wraps it into a `Feature placement` crash report naming the placed feature.
+struct Boom;
+
+impl Feature for Boom {
+    fn place(&self, _level: &mut dyn WorldGenLevel, _generator: &GenEnv, _random: &mut dyn RandomSource, _origin: BlockPos) -> bool {
+        panic!("boom");
+    }
+}
+
+#[test]
+fn a_throwing_feature_is_a_feature_placement_crash() {
+    let text = fixture();
+    let all = generators(&text);
+    let registries = empty_registries();
+    let template_manager = Arc::new(StructureTemplateManager::new(Arc::new(EmptyResourceManager), std::env::temp_dir().join("decoration-loop-golden")));
+    let settings = all.registries.noise_settings(&mc_core::ident::Identifier::parse("minecraft:overworld").unwrap()).unwrap();
+    let factory = PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(all.biomes.names())).unwrap();
+    let level_height = LevelHeight::new(-64, 384);
+    let (_, generator) = all.generators.iter().find(|(n, _)| n == "overworld").unwrap();
+    let env = env_for(&all, generator, &registries, &template_manager, &settings, 0, level_height);
+    let sorted = sort_features_per_step(generator.as_ref(), &all.biomes).unwrap();
+    let features: Vec<StepFeatureData> = sorted
+        .iter()
+        .map(|step| {
+            StepFeatureData::new(
+                step.iter()
+                    .map(|reference| StepFeature { reference: reference.clone(), feature: Arc::new(PlacedFeature { feature: Holder::direct(Arc::new(Boom)), placement: Vec::new() }) })
+                    .collect(),
+            )
+        })
+        .collect();
+    let center = ChunkPos::new(2, -5);
+    let chunks = ChunkPos::range_closed(&center, 1)
+        .map(|pos| (pos.pack(), GenChunk::Loaned(Box::new(ProtoChunk::new(pos, UpgradeData::empty(), level_height, &factory, None)))))
+        .collect();
+    let mut region = WorldGenRegion::new(center, 1, 1, chunks, HashMap::new(), level_height);
+    let input = DecorationInput { center, generation_height: level_height, biomes_in_range: vec![all.biomes.id_of_name("plains").unwrap()] };
+    let mut level = GenLevel::new(&mut region, env.clone());
+    let payload = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| apply_biome_decoration_observed(&mut level, &env, &features, &input, &mut |_| {})))
+        .expect_err("the feature throws");
+    let report = payload.downcast::<mc_game::crash_report::ReportedException>().expect("a ReportedException").0;
+    assert_eq!(report.title(), "Feature placement");
+    let text = report.get_details();
+    // plains lists these step-ordered; the first placed feature of the lowest step is the one that crashed
+    let first = features.iter().flat_map(|s| &s.features).find(|f| all.biomes.get(all.biomes.id_of_name("plains").unwrap()).generation_settings().features().iter().flatten().any(|r| *r == f.reference)).unwrap();
+    assert!(text.contains("-- Feature --"), "{text}");
+    assert!(text.contains(&format!("Description: ResourceKey[minecraft:worldgen/placed_feature / {}]", feature_name(&first.reference))), "{text}");
+    assert!(report.exception().contains("boom"));
+}
+
 #[test]
 fn apply_biome_decoration_matches_vanilla() {
     let text = fixture();
@@ -94,21 +170,7 @@ fn apply_biome_decoration_matches_vanilla() {
         let (_, generator) = all.generators.iter().find(|(n, _)| n == name).unwrap();
         let (min_y, height) = if name == "overworld" || name.starts_with("flat") { (-64, 384) } else { (0, 256) };
         let level_height = LevelHeight::new(min_y, height);
-        let env = Arc::new(GenEnv {
-            dimension: mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
-            seed,
-            generator: generator.clone(),
-            random_state: Arc::new(RandomState::create(all.registries.clone(), seed, &settings)),
-            biomes: all.biomes.clone(),
-            registries: registries.clone(),
-            structure_template_manager: template_manager.clone(),
-            structures: Arc::new(StructureRegistries::empty()),
-            start_cache: StartCache::default(),
-            structure_state: None,
-            structure_check: StructureCheck::new(Box::new(NoChunkScan)),
-            generate_structures: false,
-            level_height,
-        });
+        let env = env_for(&all, generator, &registries, &template_manager, &settings, seed, level_height);
 
         let log = Arc::new(Mutex::new(Vec::new()));
         let features: Vec<StepFeatureData> = sorted[name]

@@ -4,6 +4,7 @@
 
 use super::chunk_status_tasks::{BatchResult, GenBatch, run_batch};
 use super::world_gen::WorldGenContext;
+use crate::crash_report::CrashReport;
 use mc_core::pos::ChunkPos;
 use mc_nbt::CompoundTag;
 use mc_world::region::{RegionStorageInfo, SimpleRegionStorage};
@@ -21,6 +22,8 @@ pub enum WorkerMessage {
     ChunkRead { key: i64, result: io::Result<Option<CompoundTag>> },
     ChunkParsed { key: i64, result: Result<Option<SerializableChunkData>, ChunkReadException> },
     BatchDone(Box<BatchResult>),
+    /// A generation step panicked: the game thread throws the report (`BlockableEventLoop.relayDelayCrash`).
+    BatchFailed(Box<CrashReport>),
 }
 
 enum IoRequest {
@@ -216,8 +219,11 @@ impl WorldgenThread {
             .name("Worldgen".into())
             .spawn(move || {
                 while let Ok((ctx, batch)) = rx.recv() {
-                    let result = run_batch(&ctx, batch);
-                    if results.send(WorkerMessage::BatchDone(Box::new(result))).is_err() {
+                    let message = match run_batch(&ctx, batch) {
+                        Ok(result) => WorkerMessage::BatchDone(Box::new(result)),
+                        Err(report) => WorkerMessage::BatchFailed(Box::new(report)),
+                    };
+                    if results.send(message).is_err() {
                         return;
                     }
                 }
