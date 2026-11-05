@@ -1,7 +1,7 @@
 //! `BonemealableBlock` statics and enums (the instance methods are `BlockBehaviour::{is_valid_bonemeal_target, ...}`).
 use crate::server::level::ServerLevel;
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::LevelReader;
+use crate::world::level::{LevelAccessor, LevelReader};
 use mc_core::direction::Plane;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
