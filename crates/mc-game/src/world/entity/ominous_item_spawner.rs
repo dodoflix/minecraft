@@ -134,4 +134,4 @@ impl Entity for OminousItemSpawner {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static OMINOUS_ITEM_SPAWNER_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::OMINOUS_ITEM_SPAWNER, create: |ty, level| Box::new(OminousItemSpawner::new(ty, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::OMINOUS_ITEM_SPAWNER, create: |ty, id, _registries| Box::new(OminousItemSpawner::new(ty, id)) };
