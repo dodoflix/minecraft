@@ -230,7 +230,7 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
     let access = stem.registries.composite_access();
     let packed = pack_registries(access, &HashSet::new());
     assert_eq!(packed.iter().map(|p| &p.0).collect::<Vec<_>>(), vanilla_registries.iter().map(|p| &p.0).collect::<Vec<_>>(), "registry order");
-    let typed = [keys::DIMENSION_TYPE, keys::BIOME, keys::DAMAGE_TYPE, keys::CHAT_TYPE];
+    let typed = [keys::DIMENSION_TYPE, keys::BIOME, keys::DAMAGE_TYPE, keys::CHAT_TYPE, keys::ENCHANTMENT];
     let mut approx: Vec<String> = Vec::new();
     for ((key, entries), (vkey, ventries)) in packed.iter().zip(&vanilla_registries) {
         assert_eq!(key, vkey);
@@ -240,7 +240,7 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
                 continue;
             }
             if typed.contains(&key.as_str()) {
-                panic!("{key} {id}: network NBT differs\nours:    {:?}\nvanilla: {vdata:?}", e.data);
+                panic!("{key} {id}: network NBT differs at {}\nours:    {:?}\nvanilla: {vdata:?}", first_diff(e.data.as_ref(), vdata.as_ref(), ""), e.data);
             }
             if std::env::var("DUMP_DIFFS").is_ok_and(|v| key.contains(&v)) {
                 eprintln!("{key} {id}\n ours:    {:?}\n vanilla: {vdata:?}", e.data);
@@ -356,4 +356,34 @@ fn broken_pack_fails_like_vanilla() {
     let details = failure.full_details();
     assert!(details.starts_with("> Errors in registry minecraft:chat_type:\n>> Errors in element test:missing_field:\njava.lang.IllegalStateException: Failed to parse test:missing_field from pack file/broken\nCaused by: "));
     let _ = Tag::End;
+}
+
+/// Path of the first difference between two NBT trees (debugging aid for the typed registries).
+fn first_diff(a: Option<&Tag>, b: Option<&Tag>, path: &str) -> String {
+    match (a, b) {
+        (Some(Tag::Compound(x)), Some(Tag::Compound(y))) => {
+            for (k, v) in x.iter() {
+                match y.get(k) {
+                    None => return format!("{path}/{k} (only ours)"),
+                    Some(w) if w != v => return first_diff(Some(v), Some(w), &format!("{path}/{k}")),
+                    _ => {}
+                }
+            }
+            for (k, _) in y.iter() {
+                if x.get(k).is_none() {
+                    return format!("{path}/{k} (only vanilla)");
+                }
+            }
+            path.to_owned()
+        }
+        (Some(Tag::List(x)), Some(Tag::List(y))) => {
+            for (i, (v, w)) in x.iter().zip(y.iter()).enumerate() {
+                if v != w {
+                    return first_diff(Some(v), Some(w), &format!("{path}[{i}]"));
+                }
+            }
+            format!("{path} (list length)")
+        }
+        (a, b) => format!("{path}: ours {a:?} vanilla {b:?}"),
+    }
 }

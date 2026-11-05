@@ -449,3 +449,22 @@ impl VelocitySource {
         })
     }
 }
+
+impl PositionSource {
+    /// `getCoordinate(position, center, boundingBoxSpan, random)`.
+    pub fn get_coordinate(&self, position: f64, center: f64, bounding_box_span: f32, random: &mut dyn mc_core::random::RandomSource) -> f64 {
+        let span = bounding_box_span * self.scale;
+        let base = match self.ty {
+            PositionSourceType::EntityPosition => position,
+            PositionSourceType::BoundingBox => center + (random.next_double() - 0.5) * f64::from(span),
+        };
+        base + f64::from(self.offset)
+    }
+}
+
+impl VelocitySource {
+    /// `getVelocity(movement, random)`.
+    pub fn get_velocity(&self, movement: f64, random: &mut dyn mc_core::random::RandomSource) -> f64 {
+        movement * f64::from(self.movement_scale) + f64::from(self.base.sample(random))
+    }
+}

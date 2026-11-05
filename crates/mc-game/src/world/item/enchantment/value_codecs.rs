@@ -470,8 +470,7 @@ fn safe_position_source_codec() -> Codec<ParticlePositionSource> {
         pos: mc_core::pos::BlockPos,
     }
     let block = record!(BlockPos {
-        pos: INT
-            .list_of()
+        pos: mc_dfu::INT_STREAM
             .comap_flat_map(
                 |l| mc_dfu::extra::fixed_size(l, 3).map(|v| mc_core::pos::BlockPos::new(v[0], v[1], v[2])),
                 |p: &mc_core::pos::BlockPos| vec![p.x(), p.y(), p.z()],
@@ -632,11 +631,7 @@ fn vec3i_offset_schema(max: i32, required: bool) -> Schema {
                 ints[0], ints[1], ints[2]
             ));
         }
-        let mut out = mc_nbt::ListTag::new();
-        for i in ints {
-            out.push(Tag::Int(i));
-        }
-        Ok(Tag::List(out))
+        Ok(Tag::IntArray(ints))
     })
 }
 
