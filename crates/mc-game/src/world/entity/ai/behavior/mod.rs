@@ -83,17 +83,40 @@
 //! and `Brain::provider(...)` (see [`crate::world::entity::ai::brain`]). Control flow behaviors:
 //! [`RunOne`], [`GateBehavior`] (weights/order/running policy), [`trigger_gate`], [`DoNothing`].
 
+pub mod animal_make_love;
+pub mod animal_panic;
+pub mod baby_follow_adult;
+pub mod back_up_if_too_close;
 pub mod behavior_utils;
 pub mod behaviors;
+pub mod croak;
 pub mod declarative;
 pub mod do_nothing;
+pub mod follow_temptation;
 pub mod gate_behavior;
+pub mod go_to_target_location;
+pub mod go_to_wanted_item;
+pub mod inside_brownian_walk;
 pub mod look_at_target_sink;
+pub mod move_to_target_sink;
 pub mod one_shot;
 pub mod position_tracker;
+pub mod random_look_around;
+pub mod random_stroll;
+pub mod set_entity_look_target;
+pub mod set_entity_look_target_sometimes;
+pub mod set_hidden_state;
+pub mod set_walk_target_away_from;
 pub mod set_walk_target_from_look_target;
 pub mod shuffling_list;
+pub mod start_attacking;
+pub mod start_celebrating_if_target_dead;
+pub mod stay_close_to_target;
+pub mod stop_attacking_if_target_invalid;
+pub mod stop_being_angry_if_target_dead;
+pub mod swim;
 pub mod trigger_gate;
+pub mod update_activity_from_schedule;
 
 pub use declarative::{Absent, BehaviorBuilder, Present, Registered, TriggerContext};
 pub use do_nothing::DoNothing;

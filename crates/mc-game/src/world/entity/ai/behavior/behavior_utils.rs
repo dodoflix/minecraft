@@ -6,7 +6,12 @@ use crate::world::entity::EntityId;
 use crate::world::entity::ai::behavior::position_tracker::{BlockPosTracker, EntityTracker, PositionTracker};
 use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, BREED_TARGET, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, WALK_TARGET};
 use crate::world::entity::ai::memory::{EntityRef, MemoryModuleType, WalkTarget};
+use crate::world::entity::ai::util::default_random_pos;
 use crate::world::entity::entity::Entity;
+use crate::world::entity::item::ItemEntity;
+use crate::world::item::ItemStack;
+use crate::world::level::BlockGetter;
+use mc_data::block::PathComputationType;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use uuid::Uuid;
@@ -81,4 +86,54 @@ pub fn get_living_entity_from_uuid_memory(level: &ServerLevel, body: &dyn Entity
 /// `isBreeding(body)`.
 pub fn is_breeding(body: &dyn Entity) -> bool {
     body.brain().has_memory_value(BREED_TARGET)
+}
+
+/// `targetIsValid(brain, memory, targetType)`.
+pub fn target_is_valid_type(level: &ServerLevel, body: &dyn Entity, memory: &MemoryModuleType<EntityRef>, target_type: mc_data::EntityType) -> bool {
+    target_is_valid(level, body, memory, |e| e.get_type() == target_type)
+}
+
+/// `throwItem(thrower, item, targetPos)`.
+pub fn throw_item(level: &mut ServerLevel, thrower: &dyn Entity, item: ItemStack, target_pos: Vec3) {
+    let throw_velocity = Vec3::new(f64::from(0.3_f32), f64::from(0.3_f32), f64::from(0.3_f32));
+    throw_item_full(level, thrower, item, target_pos, throw_velocity, 0.3);
+}
+
+/// `throwItem(thrower, item, targetPos, throwVelocity, handYDistanceFromEye)`.
+pub fn throw_item_full(level: &mut ServerLevel, thrower: &dyn Entity, item: ItemStack, target_pos: Vec3, throw_velocity: Vec3, hand_y_distance_from_eye: f32) {
+    let y_hand_pos = thrower.base().get_eye_y() - f64::from(hand_y_distance_from_eye);
+    let p = thrower.position();
+    let mut item_entity = ItemEntity::with_stack(level, p.x, y_hand_pos, p.z, item);
+    item_entity.set_thrower(thrower.uuid());
+    let throw_vector = target_pos.subtract(thrower.position()).normalize().multiply_xyz(throw_velocity.x, throw_velocity.y, throw_velocity.z);
+    item_entity.base_mut().set_delta_movement(throw_vector);
+    item_entity.set_default_pick_up_delay();
+    level.add_fresh_entity(Box::new(item_entity));
+}
+
+/// `getNearestTarget(body, target1, target2)`: `target2` when there is no `target1` or either does not resolve.
+pub fn get_nearest_target(level: &ServerLevel, body: &dyn Entity, target1: Option<EntityId>, target2: EntityId) -> EntityId {
+    let Some(target1) = target1 else { return target2 };
+    match (level.get_entity(target1), level.get_entity(target2)) {
+        (Some(t1), Some(t2)) => get_target_nearest_me(body, target1, t1.position(), target2, t2.position()),
+        _ => target2,
+    }
+}
+
+/// `getRandomSwimmablePos(body, maxHorizontalDistance, maxVerticalDistance)`.
+pub fn get_random_swimmable_pos(body: &mut dyn Entity, level: &mut ServerLevel, max_horizontal_distance: i32, max_vertical_distance: i32) -> Option<Vec3> {
+    let mut target_pos = default_random_pos::get_pos(body, level, max_horizontal_distance, max_vertical_distance);
+    let mut count = 0;
+    while let Some(pos) = target_pos {
+        if level.get_block_state(BlockPos::containing(pos.x, pos.y, pos.z)).is_pathfindable(PathComputationType::Water) {
+            break;
+        }
+        // `count++ < 10`
+        count += 1;
+        if count > 10 {
+            break;
+        }
+        target_pos = default_random_pos::get_pos(body, level, max_horizontal_distance, max_vertical_distance);
+    }
+    target_pos
 }
