@@ -51,14 +51,16 @@ PY
 fi
 CP="${CP//"$SERVER_JAR"/"$PATCHED"}"
 JAVA_OPTS_ORACLE=(-Xmx2G -Dio.netty.noUnsafe=false -Dlog4j2.configurationFile="$T/oracle/log4j2-oracle.xml")
-scenario="$1"; shift
+scenario="$(realpath "$1")"; shift
+# vanilla writes banned-*.json/ops.json/whitelist.json into the working directory
+RUN="$ROOT/target/entity-oracle-run"; mkdir -p "$RUN"; cd "$RUN"
 if [[ "$scenario" == *.java ]]; then
   exec java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$scenario" "$@"
 fi
 out=""
 if [ "${1:-}" = -o ]; then out="$2"; shift 2; fi
 if [ -n "$out" ]; then
-  mkdir -p "$(dirname "$out")"
+  out="$(realpath -m "$out")"; mkdir -p "$(dirname "$out")"
   tmp="$(mktemp)"
   java "${JAVA_OPTS_ORACLE[@]}" -cp "$CP" "$T/oracle/EntityOracleDriver.java" "$scenario" "$@" > "$tmp"
   mv "$tmp" "$out"
