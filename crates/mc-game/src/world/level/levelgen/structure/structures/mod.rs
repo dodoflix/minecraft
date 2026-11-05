@@ -7,3 +7,5 @@ pub mod desert_pyramid_piece;
 pub mod desert_pyramid_structure;
 pub mod jungle_temple_piece;
 pub mod jungle_temple_structure;
+pub mod buried_treasure_pieces;
+pub mod buried_treasure_structure;
