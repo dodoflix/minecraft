@@ -58,6 +58,7 @@ decay
 add 13a78942-2fb5-5c88-8c9f-5471da31ea15 minor_negative 14
 decay
 add 1d7b4de3-4790-0acc-8c9f-5471da31ea15 trading 4
+unordered
 transfer 2562517136559121658 5 4 7fc0fc2e-361a-d974-6a07-2bbc5c09ae4a major_positive 10 f5ae33bb-545b-04a4-ce42-3ec1e268ab4f minor_positive 19 ff81f85c-6c35-b2e8-327d-51c768c7a854 minor_positive 26 6b9b6b48-729b-2fd4-5fee-1b614714f306 minor_positive 24 -> 3
 transfer -3954019495604137687 6 8 8916b92b-ba2b-3aa0-aff7-0db0a38a7983 major_positive 5 93688570-65d0-35fc-2864-416c53d2ed10 minor_negative 37 274f1284-5f6a-b910-4bbb-faab1d2b7c7e major_positive 9 92ea7dcc-d205-e8e4-2864-416c53d2ed10 trading 9 ce5f2136-f4f0-4b94-e274-5f780c5221d7 major_positive 20 6245ae4a-ee8a-cea8-55d5-0b06322037c2 trading 12 4e9e2508-bed5-7220-193e-a8e3b463d42a major_positive 7 3a789422-fb55-c880-ce42-3ec1e268ab4f trading 11 -> 3
 add 09d3c4a1-17da-ae44-8c9f-5471da31ea15 major_positive 37
@@ -79,6 +80,7 @@ order [329746754, 800414856, -1935715215, -634263019] [494620131, 1200622284, 16
 copy 13a78942-2fb5-5c88-8c9f-5471da31ea15[major_positive=20,] 1d7b4de3-4790-0acc-8792-cc444fb78c73[minor_positive=18,] 09d3c4a1-17da-ae44-8c9f-5471da31ea15[major_positive=20,] 1d7b4de3-4790-0acc-0a19-105b14f4bb44[minor_positive=24,] ff81f85c-6c35-b2e8-327d-51c768c7a854[minor_positive=19,] 09d3c4a1-17da-ae44-8792-cc444fb78c73[minor_positive=22,trading=23,] 1d7b4de3-4790-0acc-8c9f-5471da31ea15[trading=2,] f5ae33bb-545b-04a4-ce42-3ec1e268ab4f[minor_positive=13,]
 add 09d3c4a1-17da-ae44-8792-cc444fb78c73 major_positive 32
 remove_type minor_negative
+unordered
 transfer -2869185267695435976 4 5 13a78942-2fb5-5c88-6a07-2bbc5c09ae4a major_negative 25 1cfd463f-b3c5-bdb4-327d-51c768c7a854 major_positive 17 30a4cf81-e37b-1a3c-ec8d-6fd32146dd1b major_negative 12 0955bcfd-8410-612c-c935-b69457ee4dad minor_positive 8 75ed378d-1e40-2b30-3c96-62227dbc6398 minor_negative 27 -> 3
 remove_amount 1d7b4de3-4790-0acc-8c9f-5471da31ea15 major_negative 30
 add 13a78942-2fb5-5c88-8c9f-5471da31ea15 major_negative 2
@@ -160,6 +162,7 @@ scenario 1
 add 3122d725-7745-6754-1432-20b629e97688 major_negative 12
 remove_type minor_positive
 add 44ca6067-a6fa-c3dc-8c9f-5471da31ea15 minor_negative 3
+unordered
 transfer -3703832009645429257 6 8 3a789422-fb55-c880-327d-51c768c7a854 major_negative 29 8916b92b-ba2b-3aa0-bf1c-a63942f99269 major_negative 28 09d3c4a1-17da-ae44-dd67-d74a81d7c435 major_negative 1 c48b5c95-dd15-9d50-46af-727d92b11edc major_negative 8 ce5f2136-f4f0-4b94-46af-727d92b11edc minor_positive 35 3af69bc6-8f20-1598-aff7-0db0a38a7983 trading 26 f5ae33bb-545b-04a4-f199-f800abc13abd minor_negative 32 3af69bc6-8f20-1598-193e-a8e3b463d42a minor_negative 26 -> 4
 remove 274f1284-5f6a-b910-0f25-98889f6f18e6 minor_positive
 query 13a78942-2fb5-5c88-96b8-64ccef26a559 12 minor_positive -> 0 1
@@ -279,6 +282,7 @@ remove_amount 1d7b4de3-4790-0acc-193e-a8e3b463d42a major_negative 22
 transfer 5559549332320180280 1 6 b0e3d353-ad60-40c8-aaea-858319101be1 major_negative 20 1cfd463f-b3c5-bdb4-3789-d9f4f34205f6 major_positive 21 e206aa79-24a5-a81c-ec8d-6fd32146dd1b major_positive 22 f5ae33bb-545b-04a4-8792-cc444fb78c73 trading 8 61c7a6a7-5ac0-8190-2357-b93ec9588f6e major_positive 16 ba399051-3170-a1f4-3c96-62227dbc6398 major_negative 21 -> 1
 remove_type major_positive
 add 09d3c4a1-17da-ae44-91ab-dc9f64ac47b7 minor_negative 2
+unordered
 transfer 2078536540931183354 5 6 b0e3d353-ad60-40c8-2864-416c53d2ed10 minor_negative 16 6c1972ec-0665-7cec-ba10-1e0bb87f34c7 minor_positive 22 57f3e206-42e5-d34c-5ae1-9333bc9a9564 trading 20 ff81f85c-6c35-b2e8-fbb3-085bc0b5f601 minor_negative 38 09d3c4a1-17da-ae44-d85b-4f1cf75d6693 trading 14 3af69bc6-8f20-1598-f6a6-802e363b985f major_negative 31 -> 3
 add 44ca6067-a6fa-c3dc-91ab-dc9f64ac47b7 major_positive 25
 remove_amount 09d3c4a1-17da-ae44-1432-20b629e97688 major_positive 14
@@ -320,6 +324,7 @@ transfer 4493305176783568921 1 2 ba399051-3170-a1f4-4bbb-faab1d2b7c7e minor_nega
 add 75ed378d-1e40-2b30-96b8-64ccef26a559 major_negative 14
 add 1d7b4de3-4790-0acc-9bc4-ecfa79a102fb minor_negative 11
 query 09d3c4a1-17da-ae44-a0d1-7528041b609d 16 minor_negative -> 0 0
+unordered
 transfer 7704653133774454440 4 3 c40d54f2-494b-5038-8792-cc444fb78c73 minor_positive 16 26d10ae0-cba0-6bf8-46af-727d92b11edc minor_positive 37 3a789422-fb55-c880-6f13-b3e9e6840bec trading 40 -> 2
 decay
 remove_amount 8994c0cf-4df5-87b8-1e4b-31113ede31cc trading 15
@@ -348,6 +353,7 @@ query 274f1284-5f6a-b910-2864-416c53d2ed10 1 minor_positive -> 0 6
 remove_type minor_negative
 query 8994c0cf-4df5-87b8-91ab-dc9f64ac47b7 29 minor_negative -> 0 0
 add 1d7b4de3-4790-0acc-2864-416c53d2ed10 trading 4
+unordered
 transfer 1484784480868592049 2 5 f5ae33bb-545b-04a4-0ad8-a0e460250ee7 trading 13 444c58c4-1330-76c4-b503-95de2e04d725 major_negative 22 09d3c4a1-17da-ae44-a5dd-fd558e95be3f minor_negative 5 8916b92b-ba2b-3aa0-64fa-a38ed18f50a8 minor_positive 23 444c58c4-1330-76c4-c935-b69457ee4dad major_negative 29 -> 2
 add 75ed378d-1e40-2b30-a0d1-7528041b609d major_positive 5
 remove_type major_positive
@@ -395,6 +401,7 @@ order [164873377, 400207428, -1935715215, -634263019] [1648733770, -292893016, -
 copy 75ed378d-1e40-2b30-9bc4-ecfa79a102fb[major_positive=20,] 09d3c4a1-17da-ae44-8c9f-5471da31ea15[major_positive=15,] 44ca6067-a6fa-c3dc-8792-cc444fb78c73[major_negative=2,] 6245ae4a-ee8a-cea8-9bc4-ecfa79a102fb[minor_positive=25,] 09d3c4a1-17da-ae44-8792-cc444fb78c73[trading=4,] 44ca6067-a6fa-c3dc-193e-a8e3b463d42a[major_negative=10,]
 add 6245ae4a-ee8a-cea8-96b8-64ccef26a559 major_positive 3
 query 75ed378d-1e40-2b30-a5dd-fd558e95be3f 11 minor_negative -> 0 0
+unordered
 transfer 7056185585419245148 5 6 8916b92b-ba2b-3aa0-91ab-dc9f64ac47b7 major_negative 6 6245ae4a-ee8a-cea8-2864-416c53d2ed10 major_positive 6 9d3c4a11-7daa-e440-46af-727d92b11edc minor_negative 32 3a789422-fb55-c880-00bf-90894b3053a3 major_negative 19 3122d725-7745-6754-55d5-0b06322037c2 minor_positive 36 eb5c6776-a8b6-0948-7420-3c1770fe698e major_negative 2 -> 4
 transfer -6111306275260043342 1 6 8916b92b-ba2b-3aa0-ce42-3ec1e268ab4f minor_negative 13 1cfd463f-b3c5-bdb4-c935-b69457ee4dad major_negative 13 92ea7dcc-d205-e8e4-8c9f-5471da31ea15 minor_negative 30 3a789422-fb55-c880-6a07-2bbc5c09ae4a minor_negative 19 75ed378d-1e40-2b30-8852-5ccd9ae7e016 major_positive 40 f5302c17-c090-b78c-d34e-c6ef6ce308f1 major_positive 28 -> 1
 remove_type minor_positive
@@ -487,6 +494,7 @@ dump d832e5d8-0cca-f9d8-3789-d9f4f34205f6[major_positive=15,] 26d10ae0-cba0-6bf8
 order [-667753000, 214628824, 931781108, -213776906] [651234016, -878679048, -1766300468, -282679975] [-8259492, 1815458536, 847073735, 1757915220]
 copy d832e5d8-0cca-f9d8-3789-d9f4f34205f6[major_positive=15,] 26d10ae0-cba0-6bf8-96b8-64ccef26a559[minor_positive=24,] ff81f85c-6c35-b2e8-327d-51c768c7a854[major_positive=6,]
 add c48b5c95-dd15-9d50-bf1c-a63942f99269 trading 28
+unordered
 transfer -3448519462847183533 6 8 e188a2d5-90db-5b04-ec8d-6fd32146dd1b minor_negative 1 c40d54f2-494b-5038-2e30-5a23297d9e55 trading 15 f5302c17-c090-b78c-a5dd-fd558e95be3f major_negative 26 5871e9a9-d6b0-2064-9bc4-ecfa79a102fb minor_positive 10 6b9b6b48-729b-2fd4-05cc-18b6d5aab145 minor_positive 13 9cbe426d-e9e0-9728-ce42-3ec1e268ab4f trading 30 a692070f-01bb-456c-926b-6d28afdc9b5a trading 26 92ea7dcc-d205-e8e4-e274-5f780c5221d7 major_positive 39 -> 3
 add 1329819e-9beb-0f70-a0d1-7528041b609d major_positive 19
 transfer -4181995651232010345 6 5 ff81f85c-6c35-b2e8-19fe-396cff9427cd minor_positive 3 274f1284-5f6a-b910-0fe5-2911ea9f6c89 major_positive 13 26d10ae0-cba0-6bf8-a5dd-fd558e95be3f major_positive 20 6c1972ec-0665-7cec-05cc-18b6d5aab145 minor_negative 27 6c1972ec-0665-7cec-ce42-3ec1e268ab4f major_positive 21 -> 3
@@ -554,6 +562,7 @@ copy 92ea7dcc-d205-e8e4-7420-3c1770fe698e[major_negative=25,] 5871e9a9-d6b0-2064
 add 75ed378d-1e40-2b30-ba10-1e0bb87f34c7 trading 12
 add 9d3c4a11-7daa-e440-3c96-62227dbc6398 major_negative 32
 remove_amount 44ca6067-a6fa-c3dc-2d70-c999de4d4ab2 major_negative 27
+unordered
 transfer 7019978464389964532 4 5 1c7f3e9c-1ffb-709c-8c9f-5471da31ea15 major_negative 20 3af69bc6-8f20-1598-792c-c444fb78c730 trading 16 926c7629-3e3b-9bcc-b0b6-9e39eebacd26 major_negative 28 61c7a6a7-5ac0-8190-ba10-1e0bb87f34c7 major_positive 12 e206aa79-24a5-a81c-9777-f5563a56f8fc major_positive 36 -> 4
 add 8994c0cf-4df5-87b8-a0d1-7528041b609d trading 33
 add f5ae33bb-545b-04a4-4bbb-faab1d2b7c7e major_negative 9
@@ -570,6 +579,7 @@ add 0955bcfd-8410-612c-0f25-98889f6f18e6 minor_positive 11
 transfer 4570099875371964399 5 5 61c7a6a7-5ac0-8190-ec8d-6fd32146dd1b major_positive 30 39fa8c7f-678b-7b68-1e4b-31113ede31cc trading 20 6245ae4a-ee8a-cea8-00bf-90894b3053a3 minor_negative 15 bab797f4-c53a-ef0c-9777-f5563a56f8fc minor_negative 21 5775da62-af1b-8634-5ae1-9333bc9a9564 major_positive 35 -> 2
 query 13a78942-2fb5-5c88-1432-20b629e97688 7 minor_positive -> 0 6
 remove_type minor_positive
+unordered
 transfer 4741065261266412174 4 4 7fc0fc2e-361a-d974-2357-b93ec9588f6e trading 30 43ce5120-7f66-29ac-14f1-b13f7519ca2b major_negative 25 0955bcfd-8410-612c-3c96-62227dbc6398 trading 12 13a78942-2fb5-5c88-ce42-3ec1e268ab4f major_negative 6 -> 3
 add 1d7b4de3-4790-0acc-ce42-3ec1e268ab4f major_negative 40
 remove_type minor_positive
@@ -590,6 +600,7 @@ add 7fc0fc2e-361a-d974-193e-a8e3b463d42a minor_negative 14
 dump 1d7b4de3-4790-0acc-ce42-3ec1e268ab4f[major_negative=40,] 92ea7dcc-d205-e8e4-7420-3c1770fe698e[major_negative=15,] e206aa79-24a5-a81c-2d70-c999de4d4ab2[major_negative=6,] 926c7629-3e3b-9bcc-b0b6-9e39eebacd26[major_negative=8,] 7fc0fc2e-361a-d974-193e-a8e3b463d42a[minor_negative=14,] 8994c0cf-4df5-87b8-c935-b69457ee4dad[trading=24,] 9d3c4a11-7daa-e440-3c96-62227dbc6398[major_negative=22,] 6245ae4a-ee8a-cea8-05cc-18b6d5aab145[major_negative=22,] 43ce5120-7f66-29ac-14f1-b13f7519ca2b[major_negative=15,] d832e5d8-0cca-f9d8-ce42-3ec1e268ab4f[major_negative=16,]
 order [494620131, 1200622284, -834519359, -496456881] [-1830126132, -771364636, 1948269591, 1895721358] [-1838385623, 1044093900, -1330209223, -289747674] [-502879623, 614836252, 762366361, -565359950] [2143353902, 907729268, 423536867, -1268526038] [-1986740017, 1307936696, -919226732, 1475235245] [-1656993263, 2108351552, 1016488482, 2109498264] [1648733770, -292893016, 97261750, -710233787] [1137594656, 2137401772, 351383871, 1964624427] [-667753000, 214628824, -834519359, -496456881]
 copy e206aa79-24a5-a81c-2d70-c999de4d4ab2[major_negative=6,] 92ea7dcc-d205-e8e4-7420-3c1770fe698e[major_negative=15,] 1d7b4de3-4790-0acc-ce42-3ec1e268ab4f[major_negative=40,] 926c7629-3e3b-9bcc-b0b6-9e39eebacd26[major_negative=8,] 8994c0cf-4df5-87b8-c935-b69457ee4dad[trading=24,] 7fc0fc2e-361a-d974-193e-a8e3b463d42a[minor_negative=14,] 9d3c4a11-7daa-e440-3c96-62227dbc6398[major_negative=22,] 43ce5120-7f66-29ac-14f1-b13f7519ca2b[major_negative=15,] 6245ae4a-ee8a-cea8-05cc-18b6d5aab145[major_negative=22,] d832e5d8-0cca-f9d8-ce42-3ec1e268ab4f[major_negative=16,]
+unordered
 transfer -5161349286035882557 2 6 f5ae33bb-545b-04a4-aff7-0db0a38a7983 trading 31 afe7c40c-85cb-a698-2417-49c81488e311 trading 2 926c7629-3e3b-9bcc-4bbb-faab1d2b7c7e minor_negative 22 1329819e-9beb-0f70-91ab-dc9f64ac47b7 major_negative 20 8916b92b-ba2b-3aa0-327d-51c768c7a854 minor_positive 3 ff03f0b8-d86b-65d0-8345-d4a0106d8274 minor_positive 21 -> 2
 add 5871e9a9-d6b0-2064-aaea-858319101be1 trading 6
 add 7fc0fc2e-361a-d974-2864-416c53d2ed10 major_positive 15
@@ -597,12 +608,14 @@ transfer -7391260847758493392 6 2 6245ae4a-ee8a-cea8-c429-2e66cd73f00b trading 4
 add ebda6f1a-3c80-5660-2357-b93ec9588f6e minor_positive 8
 remove_amount 09d3c4a1-17da-ae44-3789-d9f4f34205f6 minor_negative 4
 add ff81f85c-6c35-b2e8-41a2-ea500836c13a trading 36
+unordered
 transfer -7928081331638203100 6 4 61c7a6a7-5ac0-8190-5ae1-9333bc9a9564 major_positive 23 92ea7dcc-d205-e8e4-0ad8-a0e460250ee7 trading 40 a692070f-01bb-456c-b0b6-9e39eebacd26 minor_positive 5 ff03f0b8-d86b-65d0-ec8d-6fd32146dd1b minor_positive 36 -> 4
 query 1cfd463f-b3c5-bdb4-0f25-98889f6f18e6 17 major_negative -> 0 0
 query 0955bcfd-8410-612c-bf1c-a63942f99269 11 trading -> 0 6
 dump 1d7b4de3-4790-0acc-ce42-3ec1e268ab4f[major_negative=40,] 92ea7dcc-d205-e8e4-7420-3c1770fe698e[major_negative=15,] 926c7629-3e3b-9bcc-b0b6-9e39eebacd26[major_negative=8,] ff03f0b8-d86b-65d0-ec8d-6fd32146dd1b[minor_positive=20,] f5ae33bb-545b-04a4-aff7-0db0a38a7983[trading=5,] 7fc0fc2e-361a-d974-2864-416c53d2ed10[major_positive=15,] e206aa79-24a5-a81c-2d70-c999de4d4ab2[major_negative=6,] 5871e9a9-d6b0-2064-aaea-858319101be1[trading=6,] 7fc0fc2e-361a-d974-193e-a8e3b463d42a[minor_negative=14,] 8994c0cf-4df5-87b8-c935-b69457ee4dad[trading=24,] 926c7629-3e3b-9bcc-4bbb-faab1d2b7c7e[minor_negative=2,] 9d3c4a11-7daa-e440-3c96-62227dbc6398[major_negative=22,] 6245ae4a-ee8a-cea8-05cc-18b6d5aab145[major_negative=22,] 43ce5120-7f66-29ac-14f1-b13f7519ca2b[major_negative=15,] 92ea7dcc-d205-e8e4-0ad8-a0e460250ee7[trading=5,] 6245ae4a-ee8a-cea8-c429-2e66cd73f00b[trading=5,] d832e5d8-0cca-f9d8-ce42-3ec1e268ab4f[major_negative=16,] ff81f85c-6c35-b2e8-41a2-ea500836c13a[trading=25,] ebda6f1a-3c80-5660-2357-b93ec9588f6e[minor_positive=8,]
 order [494620131, 1200622284, -834519359, -496456881] [-1830126132, -771364636, 1948269591, 1895721358] [-1838385623, 1044093900, -1330209223, -289747674] [-16518984, -664050224, -326275117, 558292251] [-173132869, 1415251108, -1342763600, -1551206013] [2143353902, 907729268, 677658988, 1406332176] [-502879623, 614836252, 762366361, -565359950] [1483860393, -693100444, -1427470973, 420486113] [2143353902, 907729268, 423536867, -1268526038] [-1986740017, 1307936696, -919226732, 1475235245] [-1838385623, 1044093900, 1270610603, 489389182] [-1656993263, 2108351552, 1016488482, 2109498264] [1648733770, -292893016, 97261750, -710233787] [1137594656, 2137401772, 351383871, 1964624427] [-1830126132, -771364636, 181969124, 1613041383] [1648733770, -292893016, -1003934106, -848039925] [-667753000, 214628824, -834519359, -496456881] [-8259492, 1815458536, 1101195856, 137806138] [-338006246, 1015043680, 592951614, -916942994]
 copy 92ea7dcc-d205-e8e4-7420-3c1770fe698e[major_negative=15,] 1d7b4de3-4790-0acc-ce42-3ec1e268ab4f[major_negative=40,] 926c7629-3e3b-9bcc-b0b6-9e39eebacd26[major_negative=8,] ff03f0b8-d86b-65d0-ec8d-6fd32146dd1b[minor_positive=20,] f5ae33bb-545b-04a4-aff7-0db0a38a7983[trading=5,] 7fc0fc2e-361a-d974-2864-416c53d2ed10[major_positive=15,] e206aa79-24a5-a81c-2d70-c999de4d4ab2[major_negative=6,] 8994c0cf-4df5-87b8-c935-b69457ee4dad[trading=24,] 7fc0fc2e-361a-d974-193e-a8e3b463d42a[minor_negative=14,] 5871e9a9-d6b0-2064-aaea-858319101be1[trading=6,] 9d3c4a11-7daa-e440-3c96-62227dbc6398[major_negative=22,] 926c7629-3e3b-9bcc-4bbb-faab1d2b7c7e[minor_negative=2,] 43ce5120-7f66-29ac-14f1-b13f7519ca2b[major_negative=15,] 6245ae4a-ee8a-cea8-05cc-18b6d5aab145[major_negative=22,] 92ea7dcc-d205-e8e4-0ad8-a0e460250ee7[trading=5,] 6245ae4a-ee8a-cea8-c429-2e66cd73f00b[trading=5,] d832e5d8-0cca-f9d8-ce42-3ec1e268ab4f[major_negative=16,] ff81f85c-6c35-b2e8-41a2-ea500836c13a[trading=25,] ebda6f1a-3c80-5660-2357-b93ec9588f6e[minor_positive=8,]
+unordered
 transfer 8477113840702789048 5 8 c48b5c95-dd15-9d50-7420-3c1770fe698e minor_positive 37 5775da62-af1b-8634-4bbb-faab1d2b7c7e trading 16 6b9b6b48-729b-2fd4-e780-e7a596cc7f79 minor_negative 40 6245ae4a-ee8a-cea8-7420-3c1770fe698e minor_positive 4 c48b5c95-dd15-9d50-8d5e-e4fb25623db8 major_negative 35 12ab79fb-0820-c258-8792-cc444fb78c73 trading 16 3af69bc6-8f20-1598-e780-e7a596cc7f79 major_negative 39 26d10ae0-cba0-6bf8-bf1c-a63942f99269 trading 19 -> 2
 decay
 add 1329819e-9beb-0f70-193e-a8e3b463d42a major_positive 25
@@ -612,12 +625,14 @@ decay
 remove_amount 13a78942-2fb5-5c88-91ab-dc9f64ac47b7 trading 8
 transfer 3042187714615638034 1 6 a692070f-01bb-456c-bf1c-a63942f99269 minor_negative 33 444c58c4-1330-76c4-bf1c-a63942f99269 major_positive 24 f5302c17-c090-b78c-3c96-62227dbc6398 minor_positive 7 39fa8c7f-678b-7b68-327d-51c768c7a854 major_negative 16 9d3c4a11-7daa-e440-14f1-b13f7519ca2b trading 30 1d7b4de3-4790-0acc-5fee-1b614714f306 major_positive 5 -> 1
 remove_type trading
+unordered
 transfer 3302585618553812889 6 6 274f1284-5f6a-b910-3c96-62227dbc6398 minor_negative 2 f5302c17-c090-b78c-e780-e7a596cc7f79 major_negative 24 9c403aca-5616-4a10-3c96-62227dbc6398 minor_negative 32 e188a2d5-90db-5b04-41a2-ea500836c13a major_positive 36 5871e9a9-d6b0-2064-2d70-c999de4d4ab2 trading 27 3026c7de-4fb0-cd24-96b8-64ccef26a559 major_negative 26 -> 2
 dump 1d7b4de3-4790-0acc-ce42-3ec1e268ab4f[major_negative=20,] ff03f0b8-d86b-65d0-ec8d-6fd32146dd1b[minor_positive=18,] c48b5c95-dd15-9d50-8d5e-e4fb25623db8[major_negative=5,] 3026c7de-4fb0-cd24-96b8-64ccef26a559[major_negative=16,] 7fc0fc2e-361a-d974-2864-416c53d2ed10[major_positive=15,] f5302c17-c090-b78c-e780-e7a596cc7f79[major_negative=14,] 26d10ae0-cba0-6bf8-a5dd-fd558e95be3f[minor_positive=22,] ff81f85c-6c35-b2e8-bf1c-a63942f99269[major_negative=5,] 9d3c4a11-7daa-e440-3c96-62227dbc6398[major_negative=2,] 1329819e-9beb-0f70-193e-a8e3b463d42a[major_positive=20,] 3af69bc6-8f20-1598-e780-e7a596cc7f79[major_negative=9,] 6245ae4a-ee8a-cea8-05cc-18b6d5aab145[major_negative=2,] ebda6f1a-3c80-5660-2357-b93ec9588f6e[minor_positive=6,]
 order [494620131, 1200622284, -834519359, -496456881] [-16518984, -664050224, -326275117, 558292251] [-997499755, -585786032, -1923160837, 627195320] [807847902, 1336986916, -1766300468, -282679975] [2143353902, 907729268, 677658988, 1406332176] [-181392361, -1064257652, -410982491, -1764982919] [651234016, -878679048, -1512178347, -1902789057] [-8259492, 1815458536, -1088641479, 1123652201] [-1656993263, 2108351552, 1016488482, 2109498264] [321487262, -1679093904, 423536867, -1268526038] [989240262, -1893722728, -410982491, -1764982919] [1648733770, -292893016, 97261750, -710233787] [-338006246, 1015043680, 592951614, -916942994]
 copy 1d7b4de3-4790-0acc-ce42-3ec1e268ab4f[major_negative=20,] ff03f0b8-d86b-65d0-ec8d-6fd32146dd1b[minor_positive=18,] c48b5c95-dd15-9d50-8d5e-e4fb25623db8[major_negative=5,] 3026c7de-4fb0-cd24-96b8-64ccef26a559[major_negative=16,] 7fc0fc2e-361a-d974-2864-416c53d2ed10[major_positive=15,] 26d10ae0-cba0-6bf8-a5dd-fd558e95be3f[minor_positive=22,] f5302c17-c090-b78c-e780-e7a596cc7f79[major_negative=14,] ff81f85c-6c35-b2e8-bf1c-a63942f99269[major_negative=5,] 9d3c4a11-7daa-e440-3c96-62227dbc6398[major_negative=2,] 6245ae4a-ee8a-cea8-05cc-18b6d5aab145[major_negative=2,] 3af69bc6-8f20-1598-e780-e7a596cc7f79[major_negative=9,] 1329819e-9beb-0f70-193e-a8e3b463d42a[major_positive=20,] ebda6f1a-3c80-5660-2357-b93ec9588f6e[minor_positive=6,]
 query 7fc0fc2e-361a-d974-327d-51c768c7a854 21 major_negative -> 0 0
 transfer 144011546665716111 5 2 08d7b559-f046-1414-e780-e7a596cc7f79 major_negative 35 5775da62-af1b-8634-00bf-90894b3053a3 trading 6 -> 1
+unordered
 transfer 6835275767027496115 4 7 cde11993-6125-fe7c-8c9f-5471da31ea15 major_negative 28 a692070f-01bb-456c-193e-a8e3b463d42a minor_negative 39 6245ae4a-ee8a-cea8-b0b6-9e39eebacd26 trading 4 ebda6f1a-3c80-5660-5fee-1b614714f306 major_negative 5 1329819e-9beb-0f70-b503-95de2e04d725 trading 2 756f2fe9-8a75-de18-aaea-858319101be1 minor_negative 13 a613ff6b-6df0-f854-d85b-4f1cf75d6693 minor_negative 34 -> 2
 query ce5f2136-f4f0-4b94-b503-95de2e04d725 0 minor_negative -> 0 0
 add 3af69bc6-8f20-1598-0a19-105b14f4bb44 major_negative 13
@@ -697,6 +712,7 @@ dump 75ed378d-1e40-2b30-e780-e7a596cc7f79[trading=19,] 39fa8c7f-678b-7b68-c429-2
 order [1978480525, 507521840, -410982491, -1764982919] [972721279, 1737194344, -1003934106, -848039925] [-346265738, -1464465080, 762366361, -565359950] [816107393, -478471620, 762366361, -565359950] [-346265738, -1464465080, -326275117, 558292251] [1310727525, 722150664, 181969124, 1613041383] [1805347656, 1922772948, 338829494, 703166088] [-840885869, 1629879932, 1440025350, 840972226] [-832626378, -185578604, 1948269591, 1895721358] [2143353902, 907729268, 351383871, 1964624427] [1648733770, -292893016, -749811985, 1826818289]
 copy 75ed378d-1e40-2b30-e780-e7a596cc7f79[trading=19,] 39fa8c7f-678b-7b68-c429-2e66cd73f00b[minor_positive=23,] eb5c6776-a8b6-0948-2d70-c999de4d4ab2[minor_positive=4,] 30a4cf81-e37b-1a3c-2d70-c999de4d4ab2[major_positive=17,] eb5c6776-a8b6-0948-ec8d-6fd32146dd1b[trading=21,] 4e201d65-2b0b-2508-0ad8-a0e460250ee7[trading=17,] 6b9b6b48-729b-2fd4-1432-20b629e97688[trading=5,] ce5f2136-f4f0-4b94-7420-3c1770fe698e[trading=15,] cde11993-6125-fe7c-55d5-0b06322037c2[trading=17,] 7fc0fc2e-361a-d974-14f1-b13f7519ca2b[major_positive=8,] 6245ae4a-ee8a-cea8-d34e-c6ef6ce308f1[minor_negative=20,]
 transfer -7370214667143226581 2 5 7fc0fc2e-361a-d974-ec8d-6fd32146dd1b major_negative 11 b065cbb0-1995-f3b0-9c84-7d83c4d1569e major_positive 8 926c7629-3e3b-9bcc-8852-5ccd9ae7e016 major_negative 38 b0e3d353-ad60-40c8-9c84-7d83c4d1569e major_negative 14 7fc0fc2e-361a-d974-14f1-b13f7519ca2b trading 28 -> 2
+unordered
 transfer 1075165077379581909 4 6 ebda6f1a-3c80-5660-ec8d-6fd32146dd1b major_negative 35 cde11993-6125-fe7c-64fa-a38ed18f50a8 minor_positive 8 3a789422-fb55-c880-a0d1-7528041b609d major_negative 36 6a9f5c01-4b06-95a4-91ab-dc9f64ac47b7 major_positive 25 8898b188-2660-ed88-0ad8-a0e460250ee7 major_positive 15 eb5c6776-a8b6-0948-e780-e7a596cc7f79 minor_positive 13 -> 3
 remove_type minor_negative
 decay
@@ -765,8 +781,10 @@ add 274f1284-5f6a-b910-14f1-b13f7519ca2b major_positive 11
 remove_type minor_negative
 query 7f42f48a-a250-8c5c-9777-f5563a56f8fc 2 minor_positive -> 0 3
 add e206aa79-24a5-a81c-7e39-4c7285f324d2 major_positive 33
+unordered
 transfer 8992216758362191242 4 5 7f42f48a-a250-8c5c-9777-f5563a56f8fc major_negative 39 756f2fe9-8a75-de18-8345-d4a0106d8274 major_positive 15 9d3c4a11-7daa-e440-5188-1361f2d62dc3 major_negative 32 e188a2d5-90db-5b04-b5c3-266779352ac8 minor_negative 29 43ce5120-7f66-29ac-0fe5-2911ea9f6c89 minor_positive 12 -> 3
 add f5302c17-c090-b78c-50c8-82d8a7a5da20 trading 33
+unordered
 transfer 3679032750578589593 4 6 1329819e-9beb-0f70-a69d-8dded9c611e2 major_negative 39 b93d810a-09dc-07c4-0fe5-2911ea9f6c89 minor_positive 31 4d240e1e-0376-8ad8-91ab-dc9f64ac47b7 major_positive 6 b065cbb0-1995-f3b0-a5dd-fd558e95be3f minor_negative 37 08d7b559-f046-1414-2864-416c53d2ed10 minor_negative 25 6b9b6b48-729b-2fd4-19fe-396cff9427cd major_positive 10 -> 3
 transfer -2196702843810665787 4 1 a595f7c7-da26-ab3c-e333-f0015782757a minor_positive 31 -> 1
 add e188a2d5-90db-5b04-5ae1-9333bc9a9564 minor_negative 31
@@ -802,6 +820,7 @@ decay
 dump 13a78942-2fb5-5c88-8c9f-5471da31ea15[trading=2,] 3122d725-7745-6754-0a19-105b14f4bb44[minor_positive=22,]
 order [329746754, 800414856, -1935715215, -634263019] [824366885, 2001037140, 169414747, 351583044]
 copy 13a78942-2fb5-5c88-8c9f-5471da31ea15[trading=2,] 3122d725-7745-6754-0a19-105b14f4bb44[minor_positive=22,]
+unordered
 transfer 7978575576690039261 6 6 8994c0cf-4df5-87b8-f6a6-802e363b985f minor_negative 21 92ea7dcc-d205-e8e4-ba10-1e0bb87f34c7 major_positive 3 e206aa79-24a5-a81c-d85b-4f1cf75d6693 minor_positive 35 a7100eb2-9585-9284-f6a6-802e363b985f major_negative 39 8916b92b-ba2b-3aa0-50c8-82d8a7a5da20 major_positive 33 d832e5d8-0cca-f9d8-2864-416c53d2ed10 major_negative 30 -> 4
 query 274f1284-5f6a-b910-1432-20b629e97688 29 trading -> 0 0
 add 274f1284-5f6a-b910-0f25-98889f6f18e6 minor_negative 36
@@ -810,6 +829,7 @@ add 13a78942-2fb5-5c88-0a19-105b14f4bb44 major_positive 3
 remove 3122d725-7745-6754-0a19-105b14f4bb44 major_positive
 add 3122d725-7745-6754-1432-20b629e97688 minor_negative 37
 remove_amount 13a78942-2fb5-5c88-8c9f-5471da31ea15 major_negative 17
+unordered
 transfer -1793768949195321578 4 5 ce5f2136-f4f0-4b94-aaea-858319101be1 trading 11 4e9e2508-bed5-7220-5ae1-9333bc9a9564 major_positive 40 444c58c4-1330-76c4-c935-b69457ee4dad minor_positive 32 1329819e-9beb-0f70-ba10-1e0bb87f34c7 minor_negative 37 ebda6f1a-3c80-5660-792c-c444fb78c730 minor_positive 4 -> 3
 transfer -5007324342535015028 2 5 8916b92b-ba2b-3aa0-e274-5f780c5221d7 minor_negative 16 1cfd463f-b3c5-bdb4-d85b-4f1cf75d6693 major_positive 28 30a4cf81-e37b-1a3c-64fa-a38ed18f50a8 minor_negative 26 ff81f85c-6c35-b2e8-dd67-d74a81d7c435 minor_positive 21 a7100eb2-9585-9284-0f25-98889f6f18e6 trading 36 -> 2
 dump d832e5d8-0cca-f9d8-2864-416c53d2ed10[major_negative=20,] 13a78942-2fb5-5c88-8c9f-5471da31ea15[trading=2,] 3122d725-7745-6754-1432-20b629e97688[minor_negative=37,] 3122d725-7745-6754-0a19-105b14f4bb44[minor_positive=22,] 274f1284-5f6a-b910-0f25-98889f6f18e6[minor_negative=36,] a7100eb2-9585-9284-0f25-98889f6f18e6[trading=5,] 13a78942-2fb5-5c88-0a19-105b14f4bb44[major_positive=3,] 444c58c4-1330-76c4-c935-b69457ee4dad[minor_positive=20,] 1329819e-9beb-0f70-ba10-1e0bb87f34c7[minor_negative=17,] e206aa79-24a5-a81c-d85b-4f1cf75d6693[minor_positive=20,] a7100eb2-9585-9284-f6a6-802e363b985f[major_negative=29,]
@@ -846,6 +866,7 @@ remove_amount 274f1284-5f6a-b910-91ab-dc9f64ac47b7 minor_negative 20
 add 3af69bc6-8f20-1598-8c9f-5471da31ea15 major_positive 1
 remove 1d7b4de3-4790-0acc-1432-20b629e97688 major_positive
 decay
+unordered
 transfer 5717300089821992253 2 2 a692070f-01bb-456c-0a19-105b14f4bb44 trading 35 c48b5c95-dd15-9d50-e780-e7a596cc7f79 trading 28 -> 2
 add 1d7b4de3-4790-0acc-8792-cc444fb78c73 minor_positive 37
 add 3af69bc6-8f20-1598-1432-20b629e97688 trading 19
@@ -887,6 +908,7 @@ add 274f1284-5f6a-b910-1432-20b629e97688 major_positive 16
 query 1d7b4de3-4790-0acc-91ab-dc9f64ac47b7 13 minor_negative -> 0 0
 remove_type minor_negative
 remove_type major_positive
+unordered
 transfer -6600797864720026462 5 6 3122d725-7745-6754-aff7-0db0a38a7983 trading 1 9d3c4a11-7daa-e440-3789-d9f4f34205f6 minor_positive 14 f5ae33bb-545b-04a4-96b8-64ccef26a559 major_positive 9 26d10ae0-cba0-6bf8-8792-cc444fb78c73 major_negative 29 6b9b6b48-729b-2fd4-64fa-a38ed18f50a8 minor_negative 24 bab797f4-c53a-ef0c-d85b-4f1cf75d6693 minor_negative 3 -> 3
 query 3122d725-7745-6754-8792-cc444fb78c73 19 major_negative -> 0 0
 remove_type minor_negative
@@ -910,6 +932,7 @@ add 3122d725-7745-6754-8792-cc444fb78c73 major_negative 18
 remove 09d3c4a1-17da-ae44-0a19-105b14f4bb44 major_positive
 decay
 transfer -2503349604533738023 6 3 6b9b6b48-729b-2fd4-8792-cc444fb78c73 major_positive 35 d832e5d8-0cca-f9d8-1432-20b629e97688 minor_positive 2 8916b92b-ba2b-3aa0-b503-95de2e04d725 major_positive 27 -> 3
+unordered
 transfer -908955597979537160 3 5 8994c0cf-4df5-87b8-6a07-2bbc5c09ae4a trading 23 61c7a6a7-5ac0-8190-193e-a8e3b463d42a minor_positive 27 4e9e2508-bed5-7220-e274-5f780c5221d7 major_negative 10 8994c0cf-4df5-87b8-e274-5f780c5221d7 major_positive 10 f5ae33bb-545b-04a4-c935-b69457ee4dad minor_positive 4 -> 3
 add 09d3c4a1-17da-ae44-0f25-98889f6f18e6 minor_positive 24
 transfer 1766368878468825821 2 4 61c7a6a7-5ac0-8190-aaea-858319101be1 major_negative 6 93688570-65d0-35fc-aaea-858319101be1 major_positive 10 444c58c4-1330-76c4-8792-cc444fb78c73 minor_positive 25 26d10ae0-cba0-6bf8-91ab-dc9f64ac47b7 minor_positive 9 -> 2

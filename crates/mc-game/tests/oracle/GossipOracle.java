@@ -64,7 +64,11 @@ public class GossipOracle {
                for (int i = 0; i < n; i++) { UUID u = uuid(r, pool + 40); GossipType t = T[r.nextInt(5)]; int a = r.nextInt(40) + 1;
                   if (s.getReputation(u, x -> true) == 0) { s.add(u, t, a); lines.add(u + " " + t.id + " " + a); } }
                long seed = r.nextLong(); int max = 1 + r.nextInt(6);
+               Set<UUID> before = new HashSet<>(c.getGossipEntries().keySet());
                int moved = c.transferFrom(s, new LegacyRandomSource(seed), max);
+               Set<UUID> after = new HashSet<>(c.getGossipEntries().keySet()); after.removeAll(before);
+               // several new targets are inserted in identity-hash (JVM-random) order: their bucket-collision order is unspecified from here on
+               if (after.size() >= 2) OUT.println("unordered");
                OUT.println("transfer " + seed + " " + max + " " + lines.size() + " " + String.join(" ", lines) + " -> " + moved);
             } else if (op == 8) {
                GossipType t = T[r.nextInt(5)]; c.remove(t);

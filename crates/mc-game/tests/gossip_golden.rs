@@ -53,11 +53,16 @@ fn gossip_container_matches_vanilla() {
     let golden = include_str!("fixtures/brain/gossip.txt");
     let mut c = GossipContainer::new();
     let mut ops = 0;
+    let mut unordered = false;
     for (n, line) in golden.lines().enumerate() {
         let w: Vec<&str> = line.split_whitespace().collect();
         let ctx = format!("line {} `{line}`", n + 1);
         match w[0] {
-            "scenario" => c = GossipContainer::new(),
+            "scenario" => {
+                c = GossipContainer::new();
+                unordered = false;
+            }
+            "unordered" => unordered = true,
             "add" => c.add(w[1].parse::<Uuid>().unwrap(), ty(w[2]), w[3].parse().unwrap()),
             "remove_amount" => c.remove_amount(w[1].parse::<Uuid>().unwrap(), ty(w[2]), w[3].parse().unwrap()),
             "remove" => c.remove(&w[1].parse::<Uuid>().unwrap(), ty(w[2])),
@@ -82,7 +87,14 @@ fn gossip_container_matches_vanilla() {
             }
             "dump" => assert_eq!(dump(&c), parse_dump(line.strip_prefix("dump").unwrap()), "{ctx}"),
             "copy" => assert_eq!(dump(&c.copy()), parse_dump(line.strip_prefix("copy").unwrap()), "{ctx}"),
-            "order" => assert_eq!(order(&c), line.strip_prefix("order ").unwrap_or(""), "{ctx}"),
+            "order" => {
+                let (mut got, mut want): (Vec<String>, Vec<String>) = (order(&c).split("] ").map(String::from).collect(), line.strip_prefix("order ").unwrap_or("").split("] ").map(String::from).collect());
+                if unordered {
+                    got.sort();
+                    want.sort();
+                }
+                assert_eq!(got, want, "{ctx}");
+            }
             "nbt_roundtrip" => {
                 let back = GossipContainer::from_nbt(&c.to_nbt());
                 assert_eq!(dump(&back), parse_dump(line.strip_prefix("nbt_roundtrip").unwrap()), "{ctx}");
