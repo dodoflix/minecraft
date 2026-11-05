@@ -51,6 +51,10 @@ impl VanillaWorldGenHooks {
 }
 
 impl WorldGenHooks for VanillaWorldGenHooks {
+    fn gen_env(&self) -> Option<&Arc<GenEnv>> {
+        Some(&self.env)
+    }
+
     fn create_structures(&self, _ctx: &WorldGenContext, chunk: &mut ProtoChunk) {
         generation::create_structures(&self.env, chunk);
     }

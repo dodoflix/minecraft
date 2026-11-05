@@ -10,6 +10,7 @@ use super::feature::Feature;
 use super::holder::Holder;
 use super::placement::PlacedFeature;
 use super::stateproviders::BlockStateProvider;
+use crate::world::item::block_transformer::{BLOCK_TRANSFORMER_REGISTRY, BlockTransformer};
 use super::structure::templatesystem::structure_processor_list::{PROCESSOR_LIST_REGISTRY, load_processor_lists};
 use super::structure::templatesystem::StructureProcessorList;
 use indexmap::IndexMap;
@@ -174,6 +175,8 @@ pub struct GenRegistries {
     pub features: TypedRegistry<dyn Feature>,
     pub placed_features: TypedRegistry<PlacedFeature>,
     pub block_state_providers: TypedRegistry<dyn BlockStateProvider>,
+    /// `block_transformer` (axes/hoes/shovels): its rules are block predicates + block state providers.
+    pub block_transformers: TypedRegistry<BlockTransformer>,
 }
 
 impl GenRegistries {
@@ -187,11 +190,12 @@ impl GenRegistries {
         let block_state_providers = load_registry(&ctx, BLOCK_STATE_PROVIDER_REGISTRY, |v, c| super::stateproviders::decode_direct(v, c))?;
         let features = load_registry(&ctx, FEATURE_REGISTRY, |v, c| super::feature::decode_direct(v, c))?;
         let placed_features = load_registry(&ctx, PLACED_FEATURE_REGISTRY, |v, c| PlacedFeature::decode_direct(v, c).map(Arc::new))?;
+        let block_transformers = load_registry(&ctx, BLOCK_TRANSFORMER_REGISTRY, |v, c| BlockTransformer::decode(v, c))?;
         cells.check_all_bound::<dyn Feature>(FEATURE_REGISTRY)?;
         cells.check_all_bound::<PlacedFeature>(PLACED_FEATURE_REGISTRY)?;
         cells.check_all_bound::<dyn BlockStateProvider>(BLOCK_STATE_PROVIDER_REGISTRY)?;
         cells.check_all_bound::<StructureProcessorList>(PROCESSOR_LIST_REGISTRY)?;
-        Ok(GenRegistries { features, placed_features, block_state_providers })
+        Ok(GenRegistries { features, placed_features, block_state_providers, block_transformers })
     }
 
     pub fn feature(&self, id: &Identifier) -> Option<&Holder<dyn Feature>> {

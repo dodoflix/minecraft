@@ -186,6 +186,10 @@ pub trait WorldGenHooks: Send + Sync {
     ) -> bool {
         false
     }
+    /// The level's decoded feature-layer environment (`block_transformer` registry, ...), if it has one.
+    fn gen_env(&self) -> Option<&Arc<crate::world::level::levelgen::GenEnv>> {
+        None
+    }
 }
 
 /// The hooks of a level without structure/feature/mob generation (terrain only).

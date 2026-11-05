@@ -25,31 +25,18 @@ use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::{DataComponentType, Item};
-use mc_protocol::components::{BLOCK_TRANSFORMER as BLOCK_TRANSFORMER_KEY, CONSUMABLE, ITEM_NAME, ItemUseAnimation, TOOL};
+use mc_protocol::components::{CONSUMABLE, ITEM_NAME, ItemUseAnimation, TOOL};
 use mc_text::Component;
 use std::sync::OnceLock;
 
 /// `APPROXIMATELY_INFINITE_USE_DURATION`.
 pub const APPROXIMATELY_INFINITE_USE_DURATION: i32 = 72000;
 
-/// `Item.useOn` for items with a `block_transformer` component (axes, hoes, shovels): the data-driven
-/// `BlockTransformers` evaluation, installed by the registry/block-state-provider slice. Without it: `PASS`.
-pub type BlockTransformerFn = fn(transformer: &mc_core::ident::Identifier, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult;
-
-static BLOCK_TRANSFORMER: OnceLock<BlockTransformerFn> = OnceLock::new();
-
-pub fn set_block_transformer_hook(f: BlockTransformerFn) {
-    let _ = BLOCK_TRANSFORMER.set(f);
-}
-
 pub trait ItemBehaviour: Send + Sync + 'static {
     /// `Item.useOn(context)`: the `block_transformer` component, else `PASS`. The player's held stack in
     /// `context.item_stack` may be mutated (the caller stores it back).
     fn use_on(&self, context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
-        match (context.item_stack.get(&BLOCK_TRANSFORMER_KEY).and_then(|h| h.name().cloned()), BLOCK_TRANSFORMER.get()) {
-            (Some(name), Some(f)) => f(&name, context, level, player),
-            _ => InteractionResult::PASS,
-        }
+        super::block_transformer::use_on(context, level, player)
     }
 
     /// `Item.use(level, player, hand)`: consumable / swappable equippable / blocks_attacks / kinetic_weapon.

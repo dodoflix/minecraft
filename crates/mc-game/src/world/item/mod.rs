@@ -5,6 +5,7 @@ mod crossbow_item;
 pub mod projectile_weapon_item;
 mod trident_item;
 mod behaviour;
+pub mod block_transformer;
 mod bundle;
 mod block_item;
 mod component_ext;
