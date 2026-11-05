@@ -1,0 +1,31 @@
+# Scaffolding: distance/bottom updates when placed in chains, collapse when the support goes (scheduled ticks, falling scaffolding).
+level void
+preload 3
+level_seed 3
+fill 0 -62 0 15 -62 15 minecraft:stone
+block 2 -61 2 minecraft:scaffolding[bottom=false,distance=0,waterlogged=false]
+block 2 -60 2 minecraft:scaffolding
+block 2 -59 2 minecraft:scaffolding
+block 2 -58 2 minecraft:scaffolding
+block 2 -57 2 minecraft:scaffolding
+block 2 -56 2 minecraft:scaffolding
+block 2 -55 2 minecraft:scaffolding
+block 3 -55 2 minecraft:scaffolding
+block 4 -55 2 minecraft:scaffolding
+block 5 -55 2 minecraft:scaffolding
+block 6 -55 2 minecraft:scaffolding
+block 7 -55 2 minecraft:scaffolding
+block 8 -55 2 minecraft:scaffolding
+block 9 -55 2 minecraft:scaffolding
+block 10 -55 2 minecraft:scaffolding
+block 11 -55 2 minecraft:scaffolding
+block 6 -61 6 minecraft:scaffolding
+block 6 -60 6 minecraft:scaffolding
+block 6 -59 6 minecraft:water
+tick 3
+dump blocks:0,-62,0,15,-52,15 ticks
+block 2 -61 2 minecraft:air
+tick 1
+dump blocks:0,-62,0,15,-52,15 ticks
+tick 30
+dump blocks:0,-62,0,15,-52,15 ticks

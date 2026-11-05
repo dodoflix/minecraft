@@ -1,0 +1,35 @@
+# Placing pointed dripstone: tip direction from look direction + support, merged tips, stalagmite on floor, thickness updates.
+level void
+preload 3
+level_seed 1
+fill 0 -62 0 15 -62 15 minecraft:stone
+fill 0 -54 0 15 -54 15 minecraft:stone
+spawn_player P creative 8.5 -61 8.5 0 -90
+give P mainhand minecraft:pointed_dripstone 64
+tp P 8.5 -61 8.5 0 -90
+use_on P 3 -54 3 down
+tp P 8.5 -61 8.5 0 -90
+use_on P 3 -55 3 down
+tp P 8.5 -61 8.5 0 -90
+use_on P 3 -56 3 down
+tp P 8.5 -61 8.5 0 90
+use_on P 10 -62 10 up
+tp P 8.5 -61 8.5 0 90
+use_on P 10 -61 10 up
+tp P 8.5 -61 8.5 0 90
+use_on P 10 -60 10 up
+tp P 8.5 -61 8.5 0 -90
+use_on P 6 -54 6 down
+tp P 8.5 -61 8.5 0 -90
+use_on P 6 -55 6 down
+tp P 8.5 -61 8.5 0 90
+use_on P 6 -62 6 up
+tp P 8.5 -61 8.5 0 90
+use_on P 6 -61 6 up
+tp P 8.5 -61 8.5 0 90
+use_on P 6 -60 6 up
+dump blocks:0,-62,0,15,-54,15 events ticks
+tick 5
+block 6 -57 6 minecraft:air
+tick 5
+dump blocks:5,-62,5,7,-54,7 ticks

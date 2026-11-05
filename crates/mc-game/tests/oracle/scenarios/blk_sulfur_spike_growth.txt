@@ -1,0 +1,305 @@
+# sulfur_spike: random-tick growth of stalactites/stalagmites (RNG order, merge, length limits) over a long seeded run.
+level void
+preload 3
+level_seed 31337
+rand_value 4711
+fill 0 -62 0 15 -62 15 minecraft:stone
+fill 1 -55 1 13 -52 13 minecraft:stone
+fill 2 -55 2 12 -55 12 minecraft:sulfur
+fill 2 -54 2 12 -53 12 minecraft:air
+block 3 -56 3 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 6 -56 3 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 9 -56 3 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 3 -56 6 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 6 -56 6 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 9 -56 6 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 3 -56 9 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 7 -56 10 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 11 -56 11 minecraft:sulfur_spike[vertical_direction=down,thickness=tip]
+block 6 -62 6 minecraft:stone
+block 6 -61 6 minecraft:sulfur_spike[vertical_direction=up,thickness=tip]
+dump blocks:0,-62,0,15,-54,15 ticks
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+dump blocks:0,-62,0,15,-54,15 ticks events
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+dump blocks:0,-62,0,15,-54,15 ticks events
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+dump blocks:0,-62,0,15,-54,15 ticks events
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick_chunk 0 0 24000
+tick 2
+dump blocks:0,-62,0,15,-54,15 ticks events

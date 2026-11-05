@@ -1,0 +1,31 @@
+# Stalactite breaking and falling (scheduled tick after losing support, FallingBlockEntity with hurtsEntities), stalagmite breaking, thickness after removal.
+level void
+preload 3
+level_seed 2
+fill 0 -62 0 15 -62 15 minecraft:stone
+fill 0 -54 0 15 -54 15 minecraft:stone
+block 3 -55 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=base]
+block 3 -56 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=middle]
+block 3 -57 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=frustum]
+block 3 -58 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+block 7 -55 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=base]
+block 7 -56 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=middle]
+block 7 -57 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=frustum]
+block 7 -58 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+block 11 -55 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=base]
+block 11 -56 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=middle]
+block 11 -57 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=frustum]
+block 11 -58 4 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+block 4 -61 10 minecraft:pointed_dripstone[vertical_direction=up,thickness=base]
+block 4 -60 10 minecraft:pointed_dripstone[vertical_direction=up,thickness=tip]
+spawn cow1 minecraft:cow 3.5 -61 4.5
+spawn cow2 minecraft:cow 7.5 -61 4.5
+watch entities events
+dump blocks:0,-62,0,15,-54,15 ticks
+block 3 -54 4 minecraft:air
+tick 40
+block 7 -55 4 minecraft:air
+tick 40
+block 4 -62 10 minecraft:air
+tick 20
+dump blocks:0,-62,0,15,-54,15 ticks

@@ -1,0 +1,193 @@
+# Pointed dripstone transfers: mud+water -> clay, water/lava dripping into cauldrons (random tick fluid transfer, scheduled cauldron tick).
+level void
+preload 3
+level_seed 555
+rand_value 99
+fill 0 -62 0 15 -62 15 minecraft:stone
+fill 1 -56 1 13 -52 13 minecraft:stone
+fill 2 -55 2 4 -54 4 minecraft:air
+fill 2 -56 2 4 -56 4 minecraft:air
+block 3 -55 3 minecraft:mud
+block 3 -56 3 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+block 3 -56 3 minecraft:air
+block 3 -56 3 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+fill 5 -56 2 7 -52 4 minecraft:stone
+block 6 -55 3 minecraft:water
+block 6 -56 3 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+block 6 -57 3 minecraft:air
+fill 8 -56 2 10 -52 4 minecraft:stone
+block 9 -55 3 minecraft:lava
+block 9 -56 3 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+block 9 -57 3 minecraft:air
+fill 5 -56 6 7 -52 8 minecraft:stone
+block 6 -55 7 minecraft:water
+block 6 -56 7 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
+block 6 -57 7 minecraft:air
+block 6 -60 3 minecraft:cauldron
+block 9 -60 3 minecraft:cauldron
+block 6 -60 7 minecraft:water_cauldron[level=1]
+dump blocks:0,-62,0,15,-50,15 ticks
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+dump blocks:0,-62,0,15,-50,15 ticks events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+dump blocks:0,-62,0,15,-50,15 ticks events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+dump blocks:0,-62,0,15,-50,15 ticks events
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick_chunk 0 0 20000
+tick 60
+dump blocks:0,-62,0,15,-50,15 ticks events

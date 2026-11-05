@@ -1,0 +1,179 @@
+# Oxidation of every WeatheringCopper family (all stages, waxed twins, neighbours) in long seeded random-tick runs.
+# Layout: 4 spots per chunk (7 apart), each a row [stage0, stage2, waxed stage0] of one family; random ticks via tick_chunk.
+level void
+preload 3
+level_seed 9001
+rand_value 12345
+fill 0 -61 0 31 -61 31 minecraft:stone
+block 2 -60 2 minecraft:copper_block
+block 3 -60 2 minecraft:weathered_copper
+block 4 -60 2 minecraft:waxed_copper_block
+block 9 -60 2 minecraft:cut_copper
+block 10 -60 2 minecraft:weathered_cut_copper
+block 11 -60 2 minecraft:waxed_cut_copper
+block 2 -60 9 minecraft:chiseled_copper
+block 3 -60 9 minecraft:weathered_chiseled_copper
+block 4 -60 9 minecraft:waxed_chiseled_copper
+block 9 -60 9 minecraft:cut_copper_slab
+block 10 -60 9 minecraft:weathered_cut_copper_slab
+block 11 -60 9 minecraft:waxed_cut_copper_slab
+block 2 -60 18 minecraft:cut_copper_stairs
+block 3 -60 18 minecraft:weathered_cut_copper_stairs
+block 4 -60 18 minecraft:waxed_cut_copper_stairs
+block 9 -60 18 minecraft:copper_door[half=lower]
+block 9 -59 18 minecraft:copper_door[half=upper]
+block 10 -60 18 minecraft:weathered_copper_door[half=lower]
+block 10 -59 18 minecraft:weathered_copper_door[half=upper]
+block 11 -60 18 minecraft:waxed_copper_door[half=lower]
+block 11 -59 18 minecraft:waxed_copper_door[half=upper]
+block 2 -60 25 minecraft:copper_trapdoor
+block 3 -60 25 minecraft:weathered_copper_trapdoor
+block 4 -60 25 minecraft:waxed_copper_trapdoor
+block 9 -60 25 minecraft:copper_bars
+block 10 -60 25 minecraft:weathered_copper_bars
+block 11 -60 25 minecraft:waxed_copper_bars
+block 18 -60 2 minecraft:copper_grate
+block 19 -60 2 minecraft:weathered_copper_grate
+block 20 -60 2 minecraft:waxed_copper_grate
+block 25 -60 2 minecraft:copper_bulb
+block 26 -60 2 minecraft:weathered_copper_bulb
+block 27 -60 2 minecraft:waxed_copper_bulb
+block 18 -60 9 minecraft:copper_lantern
+block 19 -60 9 minecraft:weathered_copper_lantern
+block 20 -60 9 minecraft:waxed_copper_lantern
+block 25 -60 9 minecraft:copper_chest
+block 26 -60 9 minecraft:weathered_copper_chest
+block 27 -60 9 minecraft:waxed_copper_chest
+block 18 -60 18 minecraft:copper_golem_statue
+block 19 -60 18 minecraft:weathered_copper_golem_statue
+block 20 -60 18 minecraft:waxed_copper_golem_statue
+block 25 -60 18 minecraft:lightning_rod
+block 26 -60 18 minecraft:weathered_lightning_rod
+block 27 -60 18 minecraft:waxed_lightning_rod
+block 18 -60 25 minecraft:copper_chain
+block 19 -60 25 minecraft:weathered_copper_chain
+block 20 -60 25 minecraft:waxed_copper_chain
+dump blocks:0,-60,0,31,-59,31
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+dump blocks:0,-60,0,31,-59,31
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+dump blocks:0,-60,0,31,-59,31
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+tick_chunk 0 0 30000
+tick_chunk 0 1 30000
+tick_chunk 1 0 30000
+tick_chunk 1 1 30000
+dump blocks:0,-60,0,31,-59,31
