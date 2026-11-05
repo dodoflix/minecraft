@@ -88,7 +88,20 @@ fn map_directions(state: BlockState, mapping: impl Fn(Direction) -> Direction) -
     new_state
 }
 
+fn has_any_vacant_face(state: BlockState) -> bool {
+    Direction::ALL.into_iter().any(|d| !has_face(state, d))
+}
+
 impl BlockBehaviour for MultifaceBlock {
+    fn can_be_replaced(&self, state: BlockState, context: &crate::world::item::BlockPlaceContext) -> bool {
+        let held = context.use_on.get_item_in_hand();
+        held.is_empty() || Some(held.item()) != state.block().item() || has_any_vacant_face(state)
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let place_pos = context.get_clicked_pos();
+        let old_state = level.get_block_state(place_pos);
+        context.get_nearest_looking_directions().into_iter().find_map(|direction| get_state_for_placement(block, old_state, &*level, place_pos, direction))
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

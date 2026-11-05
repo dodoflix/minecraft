@@ -72,7 +72,7 @@ pub fn perform_bonemeal(this: &dyn GrowingPlantBody, level: &mut crate::server::
 /// `GrowingPlantBodyBlock.canBeReplaced(state, context)`.
 pub fn can_be_replaced(this: &dyn GrowingPlantBody, state: BlockState, context: &crate::world::item::BlockPlaceContext) -> bool {
     let held = context.use_on.get_item_in_hand();
-    let result = state.can_be_replaced() && (held.is_empty() || Some(held.item()) != state.block().item());
+    let result = crate::world::level::block::PlainBlock.can_be_replaced(state, context);
     result && (held.is_empty() || Some(held.item()) != this.head_block().item())
 }
 

@@ -1,9 +1,32 @@
 //! `net.minecraft.world.level.block.SugarCaneBlock`.
 use super::prelude::*;
+use crate::server::level::ServerLevel;
 
 pub struct SugarCaneBlock;
 
 impl BlockBehaviour for SugarCaneBlock {
+    fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+        if !state.can_survive(&*level, pos) {
+            level.destroy_block(pos, true, None, 512);
+        }
+    }
+    fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+        if level.is_empty_block(pos.above()) {
+            let mut height = 1;
+            while level.get_block_state(pos.below_n(height)).is_block(state.block()) {
+                height += 1;
+            }
+            if height < 3 {
+                let age = state.get(props::AGE_15);
+                if age == 15 {
+                    level.set_block_and_update(pos.above(), state.block().default_state());
+                    level.set_block_flags(pos, state.set(props::AGE_15, 0), 260);
+                } else {
+                    level.set_block_flags(pos, state.set(props::AGE_15, age + 1), 260);
+                }
+            }
+        }
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if !state.can_survive(&*level, pos) {
             helpers::schedule_block_tick(level, pos, state.block(), 1);

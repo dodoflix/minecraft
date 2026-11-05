@@ -215,6 +215,7 @@ pub mod sculk_catalyst_block;
 pub mod sculk_sensor_block;
 pub mod sculk_shrieker_block;
 pub mod sculk_vein_block;
+pub mod segmentable_block;
 pub mod sea_pickle_block;
 pub mod seagrass_block;
 pub mod shelf_block;

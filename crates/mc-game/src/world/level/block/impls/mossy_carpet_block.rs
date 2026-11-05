@@ -1,6 +1,8 @@
 //! `net.minecraft.world.level.block.MossyCarpetBlock` (pale moss carpet).
-use super::prelude::*;
 use super::multiface_block;
+use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::level::block::bonemeal::BonemealSource;
 use mc_data::enums::WallSide;
 use mc_data::props::EnumProperty;
 
@@ -93,7 +95,34 @@ pub fn place_at(level: &mut dyn LevelAccessor, pos: BlockPos, update_type: u32) 
     }
 }
 
+/// `createTopperWithSideChance(level, pos, () -> true)` (bone meal).
+fn topper_all_sides(level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
+    topper_with_side_chance(topper_candidate(level, pos), &mut || true)
+}
+
 impl BlockBehaviour for MossyCarpetBlock {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        Some(get_updated_state(block.default_state(), &*level, context.get_clicked_pos(), true))
+    }
+    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {
+        let candidate = topper_candidate(&*level, pos);
+        let topper = topper_with_side_chance(candidate, &mut || level.random().next_boolean());
+        if !topper.is_air() {
+            level.set_block_and_update(pos.above(), topper);
+        }
+    }
+    fn is_bonemealable(&self) -> bool {
+        true
+    }
+    fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
+        state.get(props::BOTTOM) && !topper_all_sides(level, pos).is_air()
+    }
+    fn perform_bonemeal(&self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState, _source: BonemealSource) {
+        let topper = topper_all_sides(&*level, pos);
+        if !topper.is_air() {
+            level.set_block_and_update(pos.above(), topper);
+        }
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
         if state.get(props::BOTTOM) { !below_state.is_air() } else { below_state.is_block(state.block()) && below_state.get(props::BOTTOM) }

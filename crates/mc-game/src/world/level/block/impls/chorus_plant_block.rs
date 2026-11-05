@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.ChorusPlantBlock` (extends `PipeBlock`).
 use super::prelude::*;
+use crate::server::level::ServerLevel;
 
 pub struct ChorusPlantBlock;
 
@@ -24,6 +25,14 @@ pub fn get_state_with_connections(level: &dyn BlockGetter, pos: BlockPos, defaul
 }
 
 impl BlockBehaviour for ChorusPlantBlock {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        Some(get_state_with_connections(&*level, context.get_clicked_pos(), block.default_state()))
+    }
+    fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
+        if !state.can_survive(&*level, pos) {
+            level.destroy_block(pos, true, None, 512);
+        }
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
         let block_above_or_below = !level.get_block_state(pos.above()).is_air() && !below_state.is_air();

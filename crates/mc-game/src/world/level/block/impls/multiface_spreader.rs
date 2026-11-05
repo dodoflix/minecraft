@@ -129,6 +129,21 @@ impl MultifaceSpreader {
         None
     }
 
+    /// `spreadFromRandomFaceTowardRandomDirection(state, level, pos, level.getRandom())`: the same, drawing from the
+    /// level's own random (which cannot be passed alongside the `&mut` level).
+    pub fn spread_from_random_face_toward_random_direction_with_level_random(&self, state: BlockState, level: &mut dyn LevelAccessor, pos: BlockPos) -> Option<SpreadPos> {
+        for face_direction in Direction::all_shuffled(level.random()) {
+            if self.config.can_spread_from(state, face_direction) {
+                for spread_direction in Direction::all_shuffled(level.random()) {
+                    if let Some(spread) = self.spread_from_face_toward_direction(state, level, pos, face_direction, spread_direction, false) {
+                        return Some(spread);
+                    }
+                }
+            }
+        }
+        None
+    }
+
     /// `spreadAll`.
     pub fn spread_all(&self, state: BlockState, level: &mut dyn LevelAccessor, pos: BlockPos, post_process: bool) -> i64 {
         let mut sum = 0;
