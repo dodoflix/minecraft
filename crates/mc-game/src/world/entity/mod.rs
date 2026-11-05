@@ -34,6 +34,7 @@ pub mod mob;
 pub mod monster;
 pub mod dismount_helper;
 pub mod movement;
+pub mod ominous_item_spawner;
 pub mod object_open_hash_map;
 pub mod plain;
 pub mod portal;
