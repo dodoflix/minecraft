@@ -125,20 +125,23 @@ impl ServerLevel {
             return;
         }
         let dirty = e.base().waypoint_dirty;
+        let attribute_dirty = e.base().waypoint_attribute_dirty;
         let has_connection = e.as_any().downcast_ref::<ServerPlayer>().is_some_and(|p| p.connection.is_some());
         let (transmitting, receiving) = self.waypoint_roles(id);
-        if dirty {
+        if dirty || attribute_dirty {
             if let Some(e) = self.get_entity_mut(id) {
                 e.base_mut().waypoint_dirty = false;
+                e.base_mut().waypoint_attribute_dirty = false;
             }
         }
         self.with_waypoint_manager(|m, ctx| {
-            if receiving && !m.has_player(id) {
+            // `onAttributeUpdated`: a changed range re-tracks (TRACK packets again) or untracks, even above zero both times
+            if receiving && (attribute_dirty || !m.has_player(id)) {
                 m.add_player(ctx, id, transmitting);
             } else if !receiving && m.has_player(id) {
                 m.remove_player(ctx, id);
             }
-            if transmitting && !m.is_tracked(id) {
+            if transmitting && (attribute_dirty || !m.is_tracked(id)) {
                 m.track_waypoint(ctx, id);
             } else if !transmitting && m.is_tracked(id) {
                 m.untrack_waypoint(ctx, id);

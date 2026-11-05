@@ -88,7 +88,7 @@ fn set_team_color(source: &CommandSourceStack, waypoint: &EntityRef, color: crat
     let color = TeamColor::by_name(color.get_serialized_name()).expect("team colors have the same names");
     mutate_icon(source, waypoint, |icon| icon.color = Some(color.rgb()));
     source.send_success(
-        || translatable!("commands.waypoint.modify.color", Component::literal(color.get_serialized_name()).with_color(color.rgb())),
+        || translatable!("commands.waypoint.modify.color", Component::literal(color.get_serialized_name()).with_style_fn(|s| s.with_color(Some(color.text_color())))),
         false,
     );
     Ok(0)

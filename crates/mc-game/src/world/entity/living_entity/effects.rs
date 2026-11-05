@@ -268,6 +268,8 @@ pub fn on_attribute_updated(entity: &mut dyn Entity, _level: &mut ServerLevel, a
         if entity.get_absorption_amount() > max {
             entity.set_absorption_amount(max);
         }
+    } else if attribute == Attribute::WAYPOINT_TRANSMIT_RANGE || attribute == Attribute::WAYPOINT_RECEIVE_RANGE {
+        entity.base_mut().waypoint_attribute_dirty = true;
     } else if attribute == Attribute::SCALE {
         entity.refresh_dimensions();
     }
