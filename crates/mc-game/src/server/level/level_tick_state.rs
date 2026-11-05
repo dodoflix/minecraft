@@ -86,6 +86,8 @@ pub struct LevelTickState {
     pub rain_level: f32,
     pub o_thunder_level: f32,
     pub thunder_level: f32,
+    /// Entities whose `PortalProcessor` decided to teleport this tick (see `world::entity::portal`).
+    pub pending_portal_teleports: Vec<crate::world::entity::EntityId>,
 }
 
 impl LevelTickState {
@@ -119,6 +121,7 @@ impl LevelTickState {
             rain_level: 0.0,
             o_thunder_level: 0.0,
             thunder_level: 0.0,
+            pending_portal_teleports: Vec::new(),
         }
     }
 }

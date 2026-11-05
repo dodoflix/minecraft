@@ -296,7 +296,7 @@ impl Entity for ItemEntity {
         if self.age != INFINITE_LIFETIME {
             self.age += 1;
         }
-        let in_fluid = movement::update_fluid_state(self, level);
+        let in_fluid = self.update_fluid_interaction(level);
         self.base.needs_sync |= in_fluid;
         let diff = self.base.delta_movement().subtract(old_movement).length_sqr();
         if diff > 0.01 {

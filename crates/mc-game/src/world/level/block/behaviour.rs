@@ -161,8 +161,18 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) {}
     /// `randomTick` (the random is `level.random()`).
     fn random_tick(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos) {}
-    /// `entityInside` (the entity is not part of the level's entity slot while it is being ticked).
-    fn entity_inside(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity) {}
+    /// `entityInside(state, level, pos, entity, effectApplier, isPrecise)` (the entity is not part of the level's entity
+    /// slot while it is being ticked).
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _entity: &mut dyn Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+    }
     /// `shouldRedstoneWireConnectTo`.
     fn should_redstone_wire_connect_to(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Option<Direction>) -> bool {
         state.is_signal_source() && direction.is_some()
@@ -184,6 +194,14 @@ pub trait BlockBehaviour: Send + Sync + 'static {
 
     /// `Block.stepOn`.
     fn step_on(&self, _level: &mut ServerLevel, _pos: BlockPos, _on_state: BlockState, _entity: &mut dyn Entity) {}
+    /// `Block.fallOn(level, state, pos, entity, fallDistance)`.
+    fn fall_on(&self, level: &mut ServerLevel, state: BlockState, _pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+        let reduced_fall_distance = fall_distance * f64::from(1.0f32 - state.block().data().fall_distance_reduction);
+        let source = level.damage_sources().fall();
+        entity.cause_fall_damage(level, reduced_fall_distance, 1.0, &source);
+    }
+    /// `Block.bounceOn(level, state, pos, entity, fallDistance)`.
+    fn bounce_on(&self, _level: &mut ServerLevel, _state: BlockState, _pos: BlockPos, _entity: &mut dyn Entity, _fall_distance: f64) {}
     /// `BlockBehaviour.useItemOn(stack, state, level, pos, player, hand, hitResult)`: default `TRY_WITH_EMPTY_HAND`.
     fn use_item_on(
         &self,

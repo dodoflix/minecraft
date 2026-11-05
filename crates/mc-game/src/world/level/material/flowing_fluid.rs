@@ -3,6 +3,9 @@
 //! fluids when nothing registered them with `register_fluid!`; the slice that ports the tick half registers its own
 //! behavior (and must implement `get_flow` / `get_height` there, they are shadowed by that registration).
 use super::{FluidBehaviour, FluidStateExt};
+use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
+use crate::world::entity::inside_block_effects::{InsideBlockEffectApplier, InsideBlockEffectType};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use mc_core::direction::Direction;
@@ -94,6 +97,18 @@ impl FluidBehaviour for FlowingFluid {
     fn get_height(&self, fluid_state: FluidState, level: &dyn BlockGetter, pos: BlockPos) -> f32 {
         // `hasSameAbove`: `fluidState.getType().isSame(level.getFluidState(pos.above()).getType())`
         if is_same(self, level.get_fluid_state(pos.above()).get_type()) { 1.0 } else { fluid_state.own_height() }
+    }
+
+    fn entity_inside(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &mut dyn Entity, effect_applier: &mut dyn InsideBlockEffectApplier) {
+        if self.source == Fluid::WATER {
+            // `WaterFluid.entityInside`
+            effect_applier.apply(InsideBlockEffectType::Extinguish);
+        } else {
+            // `LavaFluid.entityInside`
+            effect_applier.apply(InsideBlockEffectType::ClearFreeze);
+            effect_applier.apply(InsideBlockEffectType::LavaIgnite);
+            effect_applier.run_after(InsideBlockEffectType::LavaIgnite, Box::new(|entity, level| entity.lava_hurt(level)));
+        }
     }
 }
 
