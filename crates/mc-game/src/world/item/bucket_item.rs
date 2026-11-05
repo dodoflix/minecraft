@@ -83,7 +83,7 @@ impl BucketItem {
         let place_liquid = may_replace || (behaviour.is_liquid_block_container() && behaviour.can_place_liquid(user, &*level, pos, state, self.content));
         let can_place_fluid_inside_block = state.is_air() || (place_liquid && (!shift_key_down || hit.is_none()));
         if can_place_fluid_inside_block {
-            if level.environment_bool("gameplay/water_evaporates") && self.content == Fluid::WATER {
+            if level.attribute_bool(crate::world::attribute::attributes::WATER_EVAPORATES, pos) && self.content == Fluid::WATER {
                 let (x, y, z) = (pos.x(), pos.y(), pos.z());
                 let random = LevelAccessor::random(level);
                 let pitch = 2.6 + (random.next_float() - random.next_float()) * 0.8;
