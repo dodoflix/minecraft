@@ -1,8 +1,7 @@
 //! Block state behaviour against golden values generated from the vanilla classes
 //! (`tests/fixtures/GoldenBlocks.java` → `block_golden.json`).
 
-mod common;
-use common::golden;
+use crate::common::golden;
 use mc_core::direction::{Axis, Direction};
 use mc_data::block::{Block, BlockState, PathComputationType, SupportType};
 use mc_data::enums::{BedPart, Half, SlabType, StairsShape};

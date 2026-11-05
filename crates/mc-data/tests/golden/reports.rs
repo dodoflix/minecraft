@@ -1,7 +1,6 @@
 //! mc-data against the vanilla data generator reports (`ref/generated/reports`).
 
-mod common;
-use common::read_json;
+use crate::common::read_json;
 use mc_data::block::{BLOCK_COUNT, Block, BlockState};
 use mc_data::{ids, registry};
 

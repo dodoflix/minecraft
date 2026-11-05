@@ -1,7 +1,6 @@
 //! Embedded data pack, tags and language file against the files on disk and vanilla's own tag resolution.
 
-mod common;
-use common::{read_json, repo_root};
+use crate::common::{read_json, repo_root};
 use mc_data::block::Block;
 use mc_data::item::Item;
 use mc_data::{datapack, lang, registry, tags};

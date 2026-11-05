@@ -1,7 +1,6 @@
 //! Spot checks of generated per-block / fluid / item / entity / registry data against known vanilla values.
 
-mod common;
-use common::read_json;
+use crate::common::read_json;
 use mc_core::direction::Direction;
 use mc_data::block::{Block, OffsetType};
 use mc_data::enums::{MobCategory, NoteBlockInstrument, PushReaction};
