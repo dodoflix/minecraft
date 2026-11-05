@@ -2,6 +2,7 @@
 use super::arg_provider::ArgProvider;
 use super::data::DataAccessor;
 use super::data_commands::{Accessor, SOURCE_PROVIDERS, TARGET_PROVIDERS};
+use super::item::item_accessor::{ItemAccessor, slot_source_value};
 use crate::commands::arguments::coordinates::block_pos_argument::ERROR_NOT_LOADED;
 use crate::commands::arguments::coordinates::{BlockPosArgument, RotationArgument, SwizzleArgument, Vec3Argument};
 use crate::commands::arguments::entity_anchor_argument::{Anchor, EntityAnchorArgument};
@@ -14,6 +15,7 @@ use crate::commands::arguments::{
     ObjectiveArgument, ScoreHolderArgument,
 };
 use crate::commands::arguments::blocks::BlockPredicateArgument;
+use crate::commands::arguments::item::ItemPredicateArgument;
 use crate::commands::arguments::slot_arguments::SlotSourceArgument;
 use crate::commands::execution::tasks::build_contexts::BuildContexts;
 use crate::commands::execution::tasks::call_function::CallFunction;
@@ -401,7 +403,7 @@ fn add_conditionals(
         parent = parent
             .then(provider.wrap(literal("items"), |p| {
                 p.then(argument("slots", SlotSourceArgument::slot_source(&context)).then(
-                    argument("item_predicate", crate::commands::arguments::item::ItemPredicateArgument::item_predicate(&context))
+                    argument("item_predicate", ItemPredicateArgument::item_predicate(&context))
                         .fork(execute.clone(), move |c| {
                             expect(c, expected, count_items(c, &*items_fork.access(c)?)? > 0)
                         })
@@ -434,17 +436,17 @@ fn score_comparison(
 }
 
 /// `countItems(source, accessor, slotSource, predicate)`.
-fn count_items(c: &CommandContext<CommandSourceStack>, accessor: &dyn super::item_commands::ItemAccessor) -> Result<i32, CommandSyntaxException> {
-    let slot_source = SlotSourceArgument::get_slot_source(c, "slots");
-    let predicate = crate::commands::arguments::item::ItemPredicateArgument::get_item_predicate(c, "item_predicate");
+fn count_items(c: &CommandContext<CommandSourceStack>, accessor: &dyn ItemAccessor) -> Result<i32, CommandSyntaxException> {
+    let slot_source = slot_source_value(c.get_source(), &SlotSourceArgument::get_slot_source(c, "slots"))?;
+    let predicate = ItemPredicateArgument::get_item_predicate(c, "item_predicate");
     let slots = accessor.get_slots(c.get_source(), &slot_source)?;
-    Ok(slots.item_copies().into_iter().filter(|stack| predicate.test(stack)).map(|stack| stack.count()).fold(0i32, i32::wrapping_add))
+    Ok(slots.item_copies().iter().filter(|stack| predicate.test(stack)).map(|stack| stack.count()).fold(0i32, i32::wrapping_add))
 }
 
 /// `countSlots(source, accessor, slotSource)`.
-fn count_slots(c: &CommandContext<CommandSourceStack>, accessor: &dyn super::item_commands::ItemAccessor) -> Result<i32, CommandSyntaxException> {
-    let slot_source = SlotSourceArgument::get_slot_source(c, "slots");
-    Ok(accessor.get_slots(c.get_source(), &slot_source)?.size() as i32)
+fn count_slots(c: &CommandContext<CommandSourceStack>, accessor: &dyn ItemAccessor) -> Result<i32, CommandSyntaxException> {
+    let slot_source = slot_source_value(c.get_source(), &SlotSourceArgument::get_slot_source(c, "slots"))?;
+    Ok(accessor.get_slots(c.get_source(), &slot_source)?.size())
 }
 
 /// `createNumericConditionalHandler(expected, condition)`.
