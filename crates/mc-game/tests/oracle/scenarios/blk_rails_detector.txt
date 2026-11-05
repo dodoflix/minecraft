@@ -1,6 +1,6 @@
 level flat
 seed 4242
-preload 4
+preload 5
 note blk_rails_detector: detector rail pressed by minecarts only, 20 tick re-check, power to neighbouring rails
 note --- a: minecart first, detector rail placed under it (onPlace check), powered rails next to it
 spawn m1 minecart 0.5 -59.9 0.5 {NoGravity:1b}

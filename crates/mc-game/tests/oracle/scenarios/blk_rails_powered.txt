@@ -1,6 +1,6 @@
 level flat
 seed 4242
-preload 4
+preload 5
 note blk_rails_powered: powered/activator rail propagation, power loss, slopes, curves next to regular rails
 
 note 20 powered rails, then redstone block at the west end (power loss past 9)
