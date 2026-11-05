@@ -1,0 +1,14 @@
+# Fish AI in a pool: random swimming, flock leader selection (cod x3, salmon x2), tropical fish, pufferfish.
+level flat
+fill -4 -60 -4 60 -40 40 minecraft:air
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+mobspawn Cod1 minecraft:cod 10.5 -57 0.5 0 0 {PersistenceRequired:1b}
+mobspawn Cod2 minecraft:cod 11.5 -57 1.5 0 0 {PersistenceRequired:1b}
+mobspawn Cod3 minecraft:cod 12.5 -57 2.5 0 0 {PersistenceRequired:1b}
+mobspawn Salmon1 minecraft:salmon 14.5 -57 -2.5 0 0 {PersistenceRequired:1b}
+mobspawn Salmon2 minecraft:salmon 15.5 -57 -3.5 0 0 {PersistenceRequired:1b}
+mobspawn Tropical minecraft:tropical_fish 18.5 -57 3.5 0 0 {PersistenceRequired:1b}
+mobspawn Puffer minecraft:pufferfish 20.5 -57 -4.5 0 0 {PersistenceRequired:1b}
+watch mob:Cod1 mob:Cod2 mob:Cod3 mob:Salmon1 mob:Salmon2 mob:Tropical mob:Puffer
+tick 120
