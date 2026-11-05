@@ -3,6 +3,8 @@
 //! The fixture is produced by `tests/oracle/BlendingOracle.java` (scenario parameters + FNV-1a digests of every value stream;
 //! regenerate with `scripts/vanilla-java.sh crates/mc-worldgen/tests/oracle/BlendingOracle.java <out>` from the repo root).
 
+use crate::common;
+
 use std::cell::{Cell, RefCell};
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -559,7 +561,6 @@ fn level_chunk_shares_the_chunk_view_semantics() {
 // Blended terrain: createBiomes / doFill / buildTerrain with a non-empty Blender (tests/oracle/BlendedTerrainOracle.java)
 // ------------------------------------------------------------------------------------------------------------------
 
-mod common;
 
 use mc_worldgen::biome::BiomeManager;
 use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator, NoiseBasedChunkGenerator};
@@ -690,7 +691,7 @@ fn check_lines(lines: &Lines, tag: &str, id: i32, got: &[String]) {
 
 #[test]
 fn blended_terrain_matches_vanilla() {
-    use common::{WORLD, biome_hash, generator, heightmap_lines, post_processing_hash, random_state, section_hashes};
+    use crate::common::{WORLD, biome_hash, generator, heightmap_lines, post_processing_hash, random_state, section_hashes};
 
     let table: [u32; 8] = std::array::from_fn(|i| WORLD.biomes.id_of_name(BIOME_NAMES[i]).expect("biome").0);
     BIOME_TABLE.with(|t| t.set(table));

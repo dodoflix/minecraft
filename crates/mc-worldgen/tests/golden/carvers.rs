@@ -42,7 +42,7 @@ fn carvers_match_vanilla() {
     }
 
     let mut dumps: BTreeMap<String, Vec<String>> = BTreeMap::new();
-    let mut gz = flate2::read::GzDecoder::new(&include_bytes!("fixtures/carver_masks.txt.gz")[..]);
+    let mut gz = flate2::read::GzDecoder::new(&include_bytes!("../fixtures/carver_masks.txt.gz")[..]);
     let mut text = String::new();
     gz.read_to_string(&mut text).unwrap();
     for line in text.lines() {
@@ -55,7 +55,7 @@ fn carvers_match_vanilla() {
     }
 
     let (mut total_starts, mut total_blocks, mut checked_dumps, mut edge_cases) = (0i64, 0i64, 0, 0);
-    for line in include_str!("fixtures/carvers.txt").lines() {
+    for line in include_str!("../fixtures/carvers.txt").lines() {
         let (tag, rest) = line.split_once(' ').unwrap();
         if tag == "E" {
             let (status, json) = rest.split_once(' ').unwrap();

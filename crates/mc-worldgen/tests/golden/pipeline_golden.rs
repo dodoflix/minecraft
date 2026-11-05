@@ -2,7 +2,6 @@
 //! settings x 3 seeds x 12 chunk positions: block states of every section, heightmaps and post-processing marks
 //! (fixture `tests/fixtures/terrain_golden.txt`, generator `tests/oracle/TerrainOracle.java`, `F*` lines).
 
-mod common;
 
 use mc_worldgen::biome::BiomeManager;
 use mc_worldgen::blending::Blender;
@@ -13,7 +12,7 @@ use mc_core::pos::chunk_pos::ChunkPos;
 use mc_world::palette::BiomeId;
 use mc_worldgen::generator::{BuildTerrainContext, CarverBiomeCache, ChunkGenerator};
 
-use common::*;
+use crate::common::*;
 
 /// `ChunkAccess.carverBiome(supplier)` stand-in: computed once per source chunk, remembered afterwards.
 #[derive(Default)]

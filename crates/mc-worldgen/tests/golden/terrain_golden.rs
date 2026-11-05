@@ -2,7 +2,6 @@
 //! generator `tests/oracle/TerrainOracle.java`): `createBiomes`, `doFill` (blocks, heightmaps, post-processing marks),
 //! `Aquifer.computeSubstance`, `getBaseHeight`/`getBaseColumn` and `getOrigin` for every noise settings x 3 seeds.
 
-mod common;
 
 use std::collections::BTreeMap;
 
@@ -15,7 +14,7 @@ use mc_worldgen::generator::{BlockColumn, BuildTerrainContext, ChunkGenerator, N
 use mc_worldgen::random_state::RandomState;
 use std::sync::Arc;
 
-use common::*;
+use crate::common::*;
 
 /// Runs `check(setting, seed, generator, random_state)` for every (setting, seed) in fixture order.
 fn for_each_state(mut check: impl FnMut(&str, i64, &NoiseBasedChunkGenerator, &Arc<RandomState>)) {

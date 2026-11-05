@@ -50,7 +50,7 @@ fn int_range(kind: &str) -> Option<(i32, i32)> {
 
 #[test]
 fn providers_match_vanilla() {
-    let fixture = include_str!("fixtures/providers.txt");
+    let fixture = include_str!("../fixtures/providers.txt");
     let mut ok_cases = 0;
     let mut err_cases = 0;
     let mut sampled = 0;
