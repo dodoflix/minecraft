@@ -472,8 +472,11 @@ impl StructureTemplate {
                     nbt.put_long("LootTableSeed", random.next_long());
                 }
                 // `blockEntity.loadWithComponents(nbt)`: the level stores the block entity data (`id`, `x`, `y`, `z`
-                // are the metadata `saveWithFullMetadata` adds)
+                // are the metadata `saveWithFullMetadata` adds, and it always saves the `components` map)
                 let mut tag = nbt.clone();
+                if !tag.contains("components") {
+                    tag.put("components", CompoundTag::new());
+                }
                 tag.put_int("x", block_pos.x());
                 tag.put_int("y", block_pos.y());
                 tag.put_int("z", block_pos.z());

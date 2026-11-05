@@ -266,6 +266,20 @@ pub fn set_loot_table(level: &mut dyn WorldGenLevel, pos: BlockPos, loot_table: 
     true
 }
 
+/// `StructurePiece.createChest(level, chunkBB, random, pos, lootTable, blockState)` (a free function for pieces that call
+/// it from a data marker handler while their template data is borrowed).
+pub fn create_chest_at(level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, pos: BlockPos, loot_table: &str, block_state: Option<BlockState>) -> bool {
+    if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::CHEST {
+        let state = block_state.unwrap_or_else(|| reorient(level, pos, Block::CHEST.default_state()));
+        level.set_block_flags(pos, state, 2);
+        let seed = random.next_long();
+        set_loot_table(level, pos, loot_table, seed);
+        true
+    } else {
+        false
+    }
+}
+
 /// `StructurePiece`.
 pub trait StructurePiece: Any + Send + Sync {
     fn base(&self) -> &PieceBase;
@@ -635,7 +649,9 @@ pub trait StructurePiece: Any + Send + Sync {
     }
 
     /// `createChest(level, chunkBB, random, pos, lootTable, blockState)`.
+    #[allow(clippy::too_many_arguments)]
     fn create_chest_at(&self, level: &mut dyn WorldGenLevel, chunk_bb: &BoundingBox, random: &mut dyn RandomSource, pos: BlockPos, loot_table: &str, block_state: Option<BlockState>) -> bool {
+<<<<<<< HEAD
         if chunk_bb.is_inside(&pos) && level.get_block_state(pos).block() != Block::CHEST {
             let state = block_state.unwrap_or_else(|| reorient(level, pos, Block::CHEST.default_state()));
             level.set_block_flags(pos, state, 2);
@@ -644,6 +660,9 @@ pub trait StructurePiece: Any + Send + Sync {
         } else {
             false
         }
+=======
+        create_chest_at(level, chunk_bb, random, pos, loot_table, block_state)
+>>>>>>> 9d2417f (feat(game): end city and woodland mansion structures, monument/mansion/end city golden (wip))
     }
 
     /// `createDispenser(level, chunkBB, random, x, y, z, facing, lootTable)`.

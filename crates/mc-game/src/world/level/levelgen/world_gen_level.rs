@@ -8,6 +8,7 @@
 //! instances only exist after the chunk is promoted to a `LevelChunk`.
 
 use super::env::GenEnv;
+use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::level::LevelAccessor;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
@@ -19,6 +20,9 @@ use std::sync::Arc;
 pub trait WorldGenLevel: LevelAccessor {
     /// `getSeed()`.
     fn get_seed(&self) -> i64;
+    /// `WorldGenRegion.getCurrentDifficultyAt(pos)`: `new DifficultyInstance(level.getDifficulty(), level.getOverworldClockTime(),
+    /// 0, level.getMoonBrightness(pos))` (panics like vanilla's `RuntimeException` for a chunk outside the region).
+    fn get_current_difficulty_at(&self, pos: BlockPos) -> DifficultyInstance;
     /// The level's generator environment (`getLevel().getChunkSource().getGenerator()`, registries, ...).
     fn env(&self) -> &Arc<GenEnv>;
     /// `WorldGenRegion.getCenter()`: the chunk being generated.

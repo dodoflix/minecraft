@@ -229,6 +229,8 @@ public class FeatureOracleBase {
         @Override public int getRawBrightness(BlockPos pos, int darkening) { return 0; }
         @Override public boolean canSeeSky(BlockPos pos) { return false; }
         @Override public net.minecraft.server.level.ServerLevel getLevel() { return stubLevel(); }
+        /** The overworld's dimension attributes are the defaults (no fast lava, ...). */
+        @Override public net.minecraft.world.attribute.EnvironmentAttributeReader environmentAttributes() { return net.minecraft.world.attribute.EnvironmentAttributeReader.EMPTY; }
         /** The server difficulty is runtime configuration (NORMAL here), the clock and moon brightness are 0. */
         @Override public net.minecraft.world.DifficultyInstance getCurrentDifficultyAt(BlockPos pos) {
             return new net.minecraft.world.DifficultyInstance(net.minecraft.world.Difficulty.NORMAL, 0L, 0L, 0.0F);

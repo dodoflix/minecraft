@@ -14,7 +14,6 @@ use crate::world::level::levelgen::structure::piece::{
 };
 use crate::world::level::levelgen::structure::structures::structure_entities;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use crate::world::level::{LevelAccessor, LevelReader};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::pos::{BlockPos, ChunkPos};

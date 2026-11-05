@@ -23,6 +23,7 @@ use super::env::GenEnv;
 use super::world_gen_level::WorldGenLevel;
 use crate::server::level::world_gen::{GenChunk, WorldGenRegion};
 use crate::world::block_entity::BlockEntity;
+use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::chunk::status::ChunkStep;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelHeight, LevelReader, LightLayer};
@@ -35,6 +36,7 @@ use mc_data::fluid::{Fluid, FluidState};
 use mc_nbt::CompoundTag;
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::heightmap::{Heightmap, HeightmapMap, HeightmapType};
+use mc_world::level_storage::Difficulty;
 use mc_world::palette::BiomeId;
 use mc_world::status::ChunkStatus;
 use mc_world::ticks::{ScheduledTick, TickAccess, TickPriority};
@@ -61,6 +63,8 @@ pub struct GenLevel<'a> {
     max_allowed: Option<Vec<ChunkStatus>>,
     /// `levelData.getGameTime()`.
     game_time: i64,
+    /// `level.getDifficulty()`, `level.getOverworldClockTime()` and `level.getMoonBrightness(pos)` (a flat value here).
+    difficulty: (Difficulty, i64, f32),
     /// Heightmaps read while missing from their (writable) chunk: `(chunkX, chunkZ, type)`, primed lazily.
     pending_heightmaps: RefCell<Vec<(i32, i32, HeightmapType)>>,
 }
@@ -83,6 +87,7 @@ impl<'a> GenLevel<'a> {
             target_status: ChunkStatus::Features,
             max_allowed: None,
             game_time: 0,
+            difficulty: (Difficulty::Normal, 0, 0.0),
             pending_heightmaps: RefCell::new(Vec::new()),
         }
     }
@@ -97,6 +102,13 @@ impl<'a> GenLevel<'a> {
     /// `levelData.getGameTime()` (only the trigger time of scheduled ticks depends on it).
     pub fn with_game_time(mut self, game_time: i64) -> GenLevel<'a> {
         self.game_time = game_time;
+        self
+    }
+
+    /// The server difficulty, the overworld clock time and the moon brightness `getCurrentDifficultyAt` reports (default:
+    /// normal difficulty, clock 0, moon 0).
+    pub fn with_difficulty(mut self, difficulty: Difficulty, overworld_clock_time: i64, moon_brightness: f32) -> GenLevel<'a> {
+        self.difficulty = (difficulty, overworld_clock_time, moon_brightness);
         self
     }
 
@@ -413,6 +425,12 @@ impl GenLevel<'_> {
 impl WorldGenLevel for GenLevel<'_> {
     fn get_seed(&self) -> i64 {
         self.env.seed
+    }
+
+    fn get_current_difficulty_at(&self, pos: BlockPos) -> DifficultyInstance {
+        assert!(self.has_chunk(pos.x() >> 4, pos.z() >> 4), "We are asking a region for a chunk out of bound");
+        let (difficulty, clock_time, moon_brightness) = self.difficulty;
+        DifficultyInstance::new(difficulty, clock_time, 0, moon_brightness)
     }
 
     fn env(&self) -> &Arc<GenEnv> {
