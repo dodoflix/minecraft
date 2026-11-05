@@ -1,0 +1,388 @@
+T 2
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-18 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 3
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-16 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 4
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-15 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 5
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=6/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-14 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=6/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 6
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-13 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=5/16 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 7
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-12 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 8
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=3/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-10 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=3/14 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 9
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-8 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=2/13 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 10
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=1/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-7 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=1/12 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+T 11
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.833333 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.1 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-6 air=300 alive=1 pose=standing hp=15.833333 abs=0.0 hurt=0/11 death=0 fx=- gm=survival food=20 sat=5.0 exh=5.1 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+T 12
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.833333 abs=0.0 hurt=0/10 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-5 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+T 13
+P A minecraft:player pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.833333 abs=0.0 hurt=0/9 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=12.0,-60.0,1.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-4 air=300 alive=1 pose=standing hp=14.833333 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=4.0 exh=1.1999998 xp=0/0/0.0 sel=0 main=empty
+P C minecraft:player pos=11.5,-60.0,-1.0 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P D minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E b1 minecraft:lightning_bolt pos=10.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
+B 5 -62 -6 minecraft:dirt
+B 5 -62 -5 minecraft:dirt
+B 5 -62 -4 minecraft:dirt
+B 5 -62 -3 minecraft:dirt
+B 5 -62 -2 minecraft:dirt
+B 5 -62 -1 minecraft:dirt
+B 5 -62 0 minecraft:dirt
+B 5 -62 1 minecraft:dirt
+B 5 -62 2 minecraft:dirt
+B 5 -62 3 minecraft:dirt
+B 5 -62 4 minecraft:dirt
+B 5 -62 5 minecraft:dirt
+B 5 -62 6 minecraft:dirt
+B 5 -61 -6 minecraft:grass_block[snowy=false]
+B 5 -61 -5 minecraft:grass_block[snowy=false]
+B 5 -61 -4 minecraft:grass_block[snowy=false]
+B 5 -61 -3 minecraft:grass_block[snowy=false]
+B 5 -61 -2 minecraft:grass_block[snowy=false]
+B 5 -61 -1 minecraft:grass_block[snowy=false]
+B 5 -61 0 minecraft:grass_block[snowy=false]
+B 5 -61 1 minecraft:grass_block[snowy=false]
+B 5 -61 2 minecraft:grass_block[snowy=false]
+B 5 -61 3 minecraft:grass_block[snowy=false]
+B 5 -61 4 minecraft:grass_block[snowy=false]
+B 5 -61 5 minecraft:grass_block[snowy=false]
+B 5 -61 6 minecraft:grass_block[snowy=false]
+B 6 -62 -6 minecraft:dirt
+B 6 -62 -5 minecraft:dirt
+B 6 -62 -4 minecraft:dirt
+B 6 -62 -3 minecraft:dirt
+B 6 -62 -2 minecraft:dirt
+B 6 -62 -1 minecraft:dirt
+B 6 -62 0 minecraft:dirt
+B 6 -62 1 minecraft:dirt
+B 6 -62 2 minecraft:dirt
+B 6 -62 3 minecraft:dirt
+B 6 -62 4 minecraft:dirt
+B 6 -62 5 minecraft:dirt
+B 6 -62 6 minecraft:dirt
+B 6 -61 -6 minecraft:grass_block[snowy=false]
+B 6 -61 -5 minecraft:grass_block[snowy=false]
+B 6 -61 -4 minecraft:grass_block[snowy=false]
+B 6 -61 -3 minecraft:grass_block[snowy=false]
+B 6 -61 -2 minecraft:grass_block[snowy=false]
+B 6 -61 -1 minecraft:grass_block[snowy=false]
+B 6 -61 0 minecraft:grass_block[snowy=false]
+B 6 -61 1 minecraft:grass_block[snowy=false]
+B 6 -61 2 minecraft:grass_block[snowy=false]
+B 6 -61 3 minecraft:grass_block[snowy=false]
+B 6 -61 4 minecraft:grass_block[snowy=false]
+B 6 -61 5 minecraft:grass_block[snowy=false]
+B 6 -61 6 minecraft:grass_block[snowy=false]
+B 7 -62 -6 minecraft:dirt
+B 7 -62 -5 minecraft:dirt
+B 7 -62 -4 minecraft:dirt
+B 7 -62 -3 minecraft:dirt
+B 7 -62 -2 minecraft:dirt
+B 7 -62 -1 minecraft:dirt
+B 7 -62 0 minecraft:dirt
+B 7 -62 1 minecraft:dirt
+B 7 -62 2 minecraft:dirt
+B 7 -62 3 minecraft:dirt
+B 7 -62 4 minecraft:dirt
+B 7 -62 5 minecraft:dirt
+B 7 -62 6 minecraft:dirt
+B 7 -61 -6 minecraft:grass_block[snowy=false]
+B 7 -61 -5 minecraft:grass_block[snowy=false]
+B 7 -61 -4 minecraft:grass_block[snowy=false]
+B 7 -61 -3 minecraft:grass_block[snowy=false]
+B 7 -61 -2 minecraft:grass_block[snowy=false]
+B 7 -61 -1 minecraft:grass_block[snowy=false]
+B 7 -61 0 minecraft:grass_block[snowy=false]
+B 7 -61 1 minecraft:grass_block[snowy=false]
+B 7 -61 2 minecraft:grass_block[snowy=false]
+B 7 -61 3 minecraft:grass_block[snowy=false]
+B 7 -61 4 minecraft:grass_block[snowy=false]
+B 7 -61 5 minecraft:grass_block[snowy=false]
+B 7 -61 6 minecraft:grass_block[snowy=false]
+B 8 -62 -6 minecraft:dirt
+B 8 -62 -5 minecraft:dirt
+B 8 -62 -4 minecraft:dirt
+B 8 -62 -3 minecraft:dirt
+B 8 -62 -2 minecraft:dirt
+B 8 -62 -1 minecraft:dirt
+B 8 -62 0 minecraft:dirt
+B 8 -62 1 minecraft:dirt
+B 8 -62 2 minecraft:dirt
+B 8 -62 3 minecraft:dirt
+B 8 -62 4 minecraft:dirt
+B 8 -62 5 minecraft:dirt
+B 8 -62 6 minecraft:dirt
+B 8 -61 -6 minecraft:grass_block[snowy=false]
+B 8 -61 -5 minecraft:grass_block[snowy=false]
+B 8 -61 -4 minecraft:grass_block[snowy=false]
+B 8 -61 -3 minecraft:grass_block[snowy=false]
+B 8 -61 -2 minecraft:grass_block[snowy=false]
+B 8 -61 -1 minecraft:grass_block[snowy=false]
+B 8 -61 0 minecraft:grass_block[snowy=false]
+B 8 -61 1 minecraft:grass_block[snowy=false]
+B 8 -61 2 minecraft:grass_block[snowy=false]
+B 8 -61 3 minecraft:grass_block[snowy=false]
+B 8 -61 4 minecraft:grass_block[snowy=false]
+B 8 -61 5 minecraft:grass_block[snowy=false]
+B 8 -61 6 minecraft:grass_block[snowy=false]
+B 9 -62 -6 minecraft:dirt
+B 9 -62 -5 minecraft:dirt
+B 9 -62 -4 minecraft:dirt
+B 9 -62 -3 minecraft:dirt
+B 9 -62 -2 minecraft:dirt
+B 9 -62 -1 minecraft:dirt
+B 9 -62 0 minecraft:dirt
+B 9 -62 1 minecraft:dirt
+B 9 -62 2 minecraft:dirt
+B 9 -62 3 minecraft:dirt
+B 9 -62 4 minecraft:dirt
+B 9 -62 5 minecraft:dirt
+B 9 -62 6 minecraft:dirt
+B 9 -61 -6 minecraft:grass_block[snowy=false]
+B 9 -61 -5 minecraft:grass_block[snowy=false]
+B 9 -61 -4 minecraft:grass_block[snowy=false]
+B 9 -61 -3 minecraft:grass_block[snowy=false]
+B 9 -61 -2 minecraft:grass_block[snowy=false]
+B 9 -61 -1 minecraft:grass_block[snowy=false]
+B 9 -61 0 minecraft:grass_block[snowy=false]
+B 9 -61 1 minecraft:grass_block[snowy=false]
+B 9 -61 2 minecraft:grass_block[snowy=false]
+B 9 -61 3 minecraft:grass_block[snowy=false]
+B 9 -61 4 minecraft:grass_block[snowy=false]
+B 9 -61 5 minecraft:grass_block[snowy=false]
+B 9 -61 6 minecraft:grass_block[snowy=false]
+B 10 -62 -6 minecraft:dirt
+B 10 -62 -5 minecraft:dirt
+B 10 -62 -4 minecraft:dirt
+B 10 -62 -3 minecraft:dirt
+B 10 -62 -2 minecraft:dirt
+B 10 -62 -1 minecraft:dirt
+B 10 -62 0 minecraft:dirt
+B 10 -62 1 minecraft:dirt
+B 10 -62 2 minecraft:dirt
+B 10 -62 3 minecraft:dirt
+B 10 -62 4 minecraft:dirt
+B 10 -62 5 minecraft:dirt
+B 10 -62 6 minecraft:dirt
+B 10 -61 -6 minecraft:grass_block[snowy=false]
+B 10 -61 -5 minecraft:grass_block[snowy=false]
+B 10 -61 -4 minecraft:grass_block[snowy=false]
+B 10 -61 -3 minecraft:grass_block[snowy=false]
+B 10 -61 -2 minecraft:grass_block[snowy=false]
+B 10 -61 -1 minecraft:grass_block[snowy=false]
+B 10 -61 0 minecraft:grass_block[snowy=false]
+B 10 -61 1 minecraft:grass_block[snowy=false]
+B 10 -61 2 minecraft:grass_block[snowy=false]
+B 10 -61 3 minecraft:grass_block[snowy=false]
+B 10 -61 4 minecraft:grass_block[snowy=false]
+B 10 -61 5 minecraft:grass_block[snowy=false]
+B 10 -61 6 minecraft:grass_block[snowy=false]
+B 10 -60 0 minecraft:oak_planks
+B 11 -62 -6 minecraft:dirt
+B 11 -62 -5 minecraft:dirt
+B 11 -62 -4 minecraft:dirt
+B 11 -62 -3 minecraft:dirt
+B 11 -62 -2 minecraft:dirt
+B 11 -62 -1 minecraft:dirt
+B 11 -62 0 minecraft:dirt
+B 11 -62 1 minecraft:dirt
+B 11 -62 2 minecraft:dirt
+B 11 -62 3 minecraft:dirt
+B 11 -62 4 minecraft:dirt
+B 11 -62 5 minecraft:dirt
+B 11 -62 6 minecraft:dirt
+B 11 -61 -6 minecraft:grass_block[snowy=false]
+B 11 -61 -5 minecraft:grass_block[snowy=false]
+B 11 -61 -4 minecraft:grass_block[snowy=false]
+B 11 -61 -3 minecraft:grass_block[snowy=false]
+B 11 -61 -2 minecraft:grass_block[snowy=false]
+B 11 -61 -1 minecraft:grass_block[snowy=false]
+B 11 -61 0 minecraft:grass_block[snowy=false]
+B 11 -61 1 minecraft:grass_block[snowy=false]
+B 11 -61 2 minecraft:grass_block[snowy=false]
+B 11 -61 3 minecraft:grass_block[snowy=false]
+B 11 -61 4 minecraft:grass_block[snowy=false]
+B 11 -61 5 minecraft:grass_block[snowy=false]
+B 11 -61 6 minecraft:grass_block[snowy=false]
+B 11 -60 0 minecraft:oak_planks
+B 11 -60 1 minecraft:dirt
+B 11 -59 1 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 12 -62 -6 minecraft:dirt
+B 12 -62 -5 minecraft:dirt
+B 12 -62 -4 minecraft:dirt
+B 12 -62 -3 minecraft:dirt
+B 12 -62 -2 minecraft:dirt
+B 12 -62 -1 minecraft:dirt
+B 12 -62 0 minecraft:dirt
+B 12 -62 1 minecraft:dirt
+B 12 -62 2 minecraft:dirt
+B 12 -62 3 minecraft:dirt
+B 12 -62 4 minecraft:dirt
+B 12 -62 5 minecraft:dirt
+B 12 -62 6 minecraft:dirt
+B 12 -61 -6 minecraft:grass_block[snowy=false]
+B 12 -61 -5 minecraft:grass_block[snowy=false]
+B 12 -61 -4 minecraft:grass_block[snowy=false]
+B 12 -61 -3 minecraft:grass_block[snowy=false]
+B 12 -61 -2 minecraft:grass_block[snowy=false]
+B 12 -61 -1 minecraft:grass_block[snowy=false]
+B 12 -61 0 minecraft:grass_block[snowy=false]
+B 12 -61 1 minecraft:grass_block[snowy=false]
+B 12 -61 2 minecraft:grass_block[snowy=false]
+B 12 -61 3 minecraft:grass_block[snowy=false]
+B 12 -61 4 minecraft:grass_block[snowy=false]
+B 12 -61 5 minecraft:grass_block[snowy=false]
+B 12 -61 6 minecraft:grass_block[snowy=false]
+B 13 -62 -6 minecraft:dirt
+B 13 -62 -5 minecraft:dirt
+B 13 -62 -4 minecraft:dirt
+B 13 -62 -3 minecraft:dirt
+B 13 -62 -2 minecraft:dirt
+B 13 -62 -1 minecraft:dirt
+B 13 -62 0 minecraft:dirt
+B 13 -62 1 minecraft:dirt
+B 13 -62 2 minecraft:dirt
+B 13 -62 3 minecraft:dirt
+B 13 -62 4 minecraft:dirt
+B 13 -62 5 minecraft:dirt
+B 13 -62 6 minecraft:dirt
+B 13 -61 -6 minecraft:grass_block[snowy=false]
+B 13 -61 -5 minecraft:grass_block[snowy=false]
+B 13 -61 -4 minecraft:grass_block[snowy=false]
+B 13 -61 -3 minecraft:grass_block[snowy=false]
+B 13 -61 -2 minecraft:grass_block[snowy=false]
+B 13 -61 -1 minecraft:grass_block[snowy=false]
+B 13 -61 0 minecraft:grass_block[snowy=false]
+B 13 -61 1 minecraft:grass_block[snowy=false]
+B 13 -61 2 minecraft:grass_block[snowy=false]
+B 13 -61 3 minecraft:grass_block[snowy=false]
+B 13 -61 4 minecraft:grass_block[snowy=false]
+B 13 -61 5 minecraft:grass_block[snowy=false]
+B 13 -61 6 minecraft:grass_block[snowy=false]
+B 14 -62 -6 minecraft:dirt
+B 14 -62 -5 minecraft:dirt
+B 14 -62 -4 minecraft:dirt
+B 14 -62 -3 minecraft:dirt
+B 14 -62 -2 minecraft:dirt
+B 14 -62 -1 minecraft:dirt
+B 14 -62 0 minecraft:dirt
+B 14 -62 1 minecraft:dirt
+B 14 -62 2 minecraft:dirt
+B 14 -62 3 minecraft:dirt
+B 14 -62 4 minecraft:dirt
+B 14 -62 5 minecraft:dirt
+B 14 -62 6 minecraft:dirt
+B 14 -61 -6 minecraft:grass_block[snowy=false]
+B 14 -61 -5 minecraft:grass_block[snowy=false]
+B 14 -61 -4 minecraft:grass_block[snowy=false]
+B 14 -61 -3 minecraft:grass_block[snowy=false]
+B 14 -61 -2 minecraft:grass_block[snowy=false]
+B 14 -61 -1 minecraft:grass_block[snowy=false]
+B 14 -61 0 minecraft:grass_block[snowy=false]
+B 14 -61 1 minecraft:grass_block[snowy=false]
+B 14 -61 2 minecraft:grass_block[snowy=false]
+B 14 -61 3 minecraft:grass_block[snowy=false]
+B 14 -61 4 minecraft:grass_block[snowy=false]
+B 14 -61 5 minecraft:grass_block[snowy=false]
+B 14 -61 6 minecraft:grass_block[snowy=false]
+B 15 -62 -6 minecraft:dirt
+B 15 -62 -5 minecraft:dirt
+B 15 -62 -4 minecraft:dirt
+B 15 -62 -3 minecraft:dirt
+B 15 -62 -2 minecraft:dirt
+B 15 -62 -1 minecraft:dirt
+B 15 -62 0 minecraft:dirt
+B 15 -62 1 minecraft:dirt
+B 15 -62 2 minecraft:dirt
+B 15 -62 3 minecraft:dirt
+B 15 -62 4 minecraft:dirt
+B 15 -62 5 minecraft:dirt
+B 15 -62 6 minecraft:dirt
+B 15 -61 -6 minecraft:grass_block[snowy=false]
+B 15 -61 -5 minecraft:grass_block[snowy=false]
+B 15 -61 -4 minecraft:grass_block[snowy=false]
+B 15 -61 -3 minecraft:grass_block[snowy=false]
+B 15 -61 -2 minecraft:grass_block[snowy=false]
+B 15 -61 -1 minecraft:grass_block[snowy=false]
+B 15 -61 0 minecraft:grass_block[snowy=false]
+B 15 -61 1 minecraft:grass_block[snowy=false]
+B 15 -61 2 minecraft:grass_block[snowy=false]
+B 15 -61 3 minecraft:grass_block[snowy=false]
+B 15 -61 4 minecraft:grass_block[snowy=false]
+B 15 -61 5 minecraft:grass_block[snowy=false]
+B 15 -61 6 minecraft:grass_block[snowy=false]
+B 16 -62 -6 minecraft:dirt
+B 16 -62 -5 minecraft:dirt
+B 16 -62 -4 minecraft:dirt
+B 16 -62 -3 minecraft:dirt
+B 16 -62 -2 minecraft:dirt
+B 16 -62 -1 minecraft:dirt
+B 16 -62 0 minecraft:dirt
+B 16 -62 1 minecraft:dirt
+B 16 -62 2 minecraft:dirt
+B 16 -62 3 minecraft:dirt
+B 16 -62 4 minecraft:dirt
+B 16 -62 5 minecraft:dirt
+B 16 -62 6 minecraft:dirt
+B 16 -61 -6 minecraft:grass_block[snowy=false]
+B 16 -61 -5 minecraft:grass_block[snowy=false]
+B 16 -61 -4 minecraft:grass_block[snowy=false]
+B 16 -61 -3 minecraft:grass_block[snowy=false]
+B 16 -61 -2 minecraft:grass_block[snowy=false]
+B 16 -61 -1 minecraft:grass_block[snowy=false]
+B 16 -61 0 minecraft:grass_block[snowy=false]
+B 16 -61 1 minecraft:grass_block[snowy=false]
+B 16 -61 2 minecraft:grass_block[snowy=false]
+B 16 -61 3 minecraft:grass_block[snowy=false]
+B 16 -61 4 minecraft:grass_block[snowy=false]
+B 16 -61 5 minecraft:grass_block[snowy=false]
+B 16 -61 6 minecraft:grass_block[snowy=false]
