@@ -65,6 +65,7 @@ pub mod base_rail_block;
 pub mod base_torch_block;
 pub mod beehive_block;
 pub mod bell_block;
+pub mod bonemealable_feature_placer_block;
 pub mod big_dripleaf_block;
 pub mod big_dripleaf_stem_block;
 pub mod brushable_block;

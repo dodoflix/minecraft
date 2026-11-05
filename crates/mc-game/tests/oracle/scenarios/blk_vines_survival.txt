@@ -1,0 +1,62 @@
+level flat
+seed 4242
+difficulty peaceful
+note update_shape / scheduled tick / drops when the support goes away
+fill -10 -61 -10 10 -61 10 minecraft:stone
+fill -10 -40 -10 10 -40 10 minecraft:stone
+block 0 -60 0 minecraft:cave_vines[age=3,berries=true]
+block 2 -41 0 minecraft:weeping_vines_plant
+block 2 -42 0 minecraft:weeping_vines[age=2]
+block 4 -60 0 minecraft:twisting_vines[age=2]
+block 4 -59 0 minecraft:twisting_vines_plant
+block 4 -58 0 minecraft:twisting_vines[age=7]
+block 6 -41 0 minecraft:hanging_roots[waterlogged=false]
+block 6 -41 2 minecraft:spore_blossom
+block -2 -60 0 minecraft:leaf_litter[facing=north,segment_amount=3]
+block -2 -60 2 minecraft:mangrove_roots[waterlogged=false]
+block -4 -60 0 minecraft:bamboo_sapling
+block -4 -60 2 minecraft:bamboo[age=1,leaves=small,stage=0]
+block -4 -59 2 minecraft:bamboo[age=1,leaves=large,stage=0]
+block -6 -60 0 minecraft:sugar_cane[age=3]
+block -6 -59 0 minecraft:sugar_cane[age=3]
+block -8 -60 0 minecraft:cactus[age=3]
+block -8 -59 0 minecraft:cactus[age=3]
+block 8 -61 0 minecraft:end_stone
+block 8 -60 0 minecraft:chorus_plant[up=true,down=true]
+block 8 -59 0 minecraft:chorus_plant[up=true,down=true]
+block 8 -58 0 minecraft:chorus_flower[age=0]
+block 0 -60 4 minecraft:big_dripleaf_stem[facing=south,waterlogged=false]
+block 0 -59 4 minecraft:big_dripleaf[facing=south,tilt=none,waterlogged=false]
+block 3 -60 5 minecraft:glow_lichen[down=true]
+block 6 -60 6 minecraft:pale_moss_carpet[bottom=true,north=none,east=none,south=none,west=none]
+block 6 -59 6 minecraft:pale_moss_carpet[bottom=false,north=low,east=none,south=none,west=none]
+block 8 -60 6 minecraft:pale_hanging_moss[tip=false]
+block 8 -61 6 minecraft:pale_hanging_moss[tip=true]
+block 0 -60 -4 minecraft:vine[east=true]
+block 1 -60 -4 minecraft:stone
+block 0 -59 -4 minecraft:vine[east=true,north=false]
+block 1 -59 -4 minecraft:stone
+level_seed 1
+dump blocks:-10,-61,-4,10,-40,6
+note break supports one by one
+tick 1
+block 2 -40 0 minecraft:air
+block 6 -40 0 minecraft:air
+block 6 -40 2 minecraft:air
+block 4 -61 0 minecraft:air
+block -2 -61 0 minecraft:air
+block -2 -61 2 minecraft:air
+block -4 -61 0 minecraft:air
+block -4 -61 2 minecraft:air
+block -6 -61 0 minecraft:air
+block -8 -61 0 minecraft:air
+block 8 -61 0 minecraft:air
+block 0 -61 4 minecraft:air
+block 3 -61 5 minecraft:air
+block 6 -61 6 minecraft:air
+block 8 -40 6 minecraft:air
+block 1 -60 -4 minecraft:air
+block 1 -59 -4 minecraft:air
+tick 6
+dump blocks:-10,-61,-4,10,-40,6
+dump entities

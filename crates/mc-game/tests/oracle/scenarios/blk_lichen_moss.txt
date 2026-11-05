@@ -1,0 +1,80 @@
+level flat
+seed 4242
+difficulty peaceful
+note glow lichen bonemeal spreading, pale moss carpet + hanging moss bonemeal, multiface survival
+fill -8 -61 -8 8 -61 8 minecraft:stone
+fill -8 -60 -8 8 -57 -8 minecraft:stone
+fill -8 -60 8 8 -57 8 minecraft:stone
+fill -8 -56 -8 8 -56 8 minecraft:stone
+block 0 -60 -7 minecraft:glow_lichen[south=true]
+block 0 -57 0 minecraft:glow_lichen[down=true]
+block 4 -60 -7 minecraft:glow_lichen[south=true,up=true]
+block -4 -60 0 minecraft:pale_moss_carpet[bottom=true,north=none,east=none,south=none,west=none]
+block -6 -60 0 minecraft:pale_moss_carpet
+block -6 -59 -2 minecraft:stone
+block -6 -60 -2 minecraft:stone
+block 6 -57 5 minecraft:pale_hanging_moss[tip=true]
+level_seed 314
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -60 -7
+bonemeal 4 -60 -7
+bonemeal 0 -57 0
+bonemeal 0 -57 0
+bonemeal 0 -57 0
+dump blocks:-8,-61,-8,8,-56,8
+bonemeal -4 -60 0
+bonemeal -6 -60 0
+bonemeal 6 -57 5
+bonemeal 6 -58 5
+bonemeal -4 -60 0
+bonemeal -6 -60 0
+bonemeal 6 -57 5
+bonemeal 6 -58 5
+bonemeal -4 -60 0
+bonemeal -6 -60 0
+bonemeal 6 -57 5
+bonemeal 6 -58 5
+bonemeal -4 -60 0
+bonemeal -6 -60 0
+bonemeal 6 -57 5
+bonemeal 6 -58 5
+bonemeal -4 -60 0
+bonemeal -6 -60 0
+bonemeal 6 -57 5
+bonemeal 6 -58 5
+bonemeal -4 -60 0
+bonemeal -6 -60 0
+bonemeal 6 -57 5
+bonemeal 6 -58 5
+dump blocks:-8,-61,-8,8,-56,8
+note remove supports
+block 0 -61 -7 minecraft:air
+block -8 -60 -8 minecraft:air
+fill 0 -60 -8 0 -57 -8 minecraft:air
+block 6 -56 5 minecraft:air
+block -4 -61 0 minecraft:air
+block -6 -61 0 minecraft:air
+tick 5
+dump blocks:-8,-61,-8,8,-56,8
+dump entities
