@@ -6,7 +6,7 @@ use std::cell::Cell;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::Vec3i;
-use mc_dfu::{Codec, DataResult, DOUBLE, INT};
+use mc_dfu::{Codec, DataResult, DOUBLE, INT_STREAM};
 use mc_protocol::components::holder::{Holder, HolderSet};
 use mc_protocol::registry_context as global;
 
@@ -177,7 +177,7 @@ pub fn vec3_codec() -> Codec<Vec3> {
 
 /// `Vec3i.CODEC`: a list of exactly three ints.
 pub fn vec3i_codec() -> Codec<Vec3i> {
-    INT.list_of().comap_flat_map(
+    INT_STREAM.comap_flat_map(
         |list| match mc_dfu::extra::fixed_size(list, 3) {
             DataResult::Success(l) => DataResult::success(Vec3i::new(l[0], l[1], l[2])),
             DataResult::Error { message, .. } => DataResult::error_msg(message, None),

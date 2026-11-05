@@ -131,4 +131,3 @@ pub fn write_broken_packs(world: &Path) {
 pub mod entity_oracle;
 pub mod feature_harness;
 pub mod structure_golden;
-pub mod entity_oracle;

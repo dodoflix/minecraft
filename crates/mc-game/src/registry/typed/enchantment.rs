@@ -13,7 +13,7 @@ use crate::world::item::enchantment::enchantment::Enchantment;
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
     let input = Dyn::from_json_str(&json.to_string())?;
     let codec = Enchantment::codec();
-    let value = with_decode_context(ctx, || codec.parse(&JSON, &input)).into_result()?;
+    let value = crate::world::level::storage::loot::holder::with_decode_context(ctx, || with_decode_context(ctx, || codec.parse(&JSON, &input))).into_result()?;
     let network = codec.encode_start(&NBT, &value).into_result()?.to_tag()?;
     Ok(DecodedEntry::with_network(value, network))
 }
