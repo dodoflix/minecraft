@@ -9,6 +9,10 @@ use mc_game::crash_report::ReportedException;
 use mc_game::server::level::world_gen::{ChunkGeneratorBackend, WorldGenContext, WorldGenHooks, WorldGenRegion};
 use mc_game::server::level::{ServerLevel, ServerLevelParams};
 use mc_game::server::shared::ServerShared;
+use mc_core::pos::BlockPos;
+use mc_data::block::Block;
+use mc_world::below_zero_retrogen::BelowZeroRetrogen;
+use mc_world::blending_data::{BlendingData, BlendingDataPacked};
 use mc_world::chunk::{LevelHeight, ProtoChunk};
 use mc_world::palette::{BiomeRegistry, PalettedContainerFactory};
 use mc_world::status::ChunkStatus;
@@ -27,17 +31,40 @@ enum Stage {
 
 type Log = Arc<Mutex<Vec<(Stage, ChunkPos, std::thread::ThreadId)>>>;
 
-struct Generator(Log);
+/// `legacy`: every chunk is an old-version chunk (below zero retrogen + blending data) with old bedrock at y 0..=4, new
+/// bedrock in the below-zero column (x 3, z 2) and water at the bottom of the old generation area.
+struct Generator {
+    log: Log,
+    legacy: bool,
+}
 
 impl ChunkGeneratorBackend for Generator {
     fn type_name_for_data_fixer(&self) -> Option<Identifier> {
         Identifier::parse("minecraft:noise").ok()
     }
     fn create_biomes(&self, chunk: &mut ProtoChunk, _region: &WorldGenRegion) {
-        self.0.lock().unwrap().push((Stage::Biomes, chunk.pos(), std::thread::current().id()));
+        self.log.lock().unwrap().push((Stage::Biomes, chunk.pos(), std::thread::current().id()));
+        if self.legacy {
+            let mut retrogen = mc_nbt::CompoundTag::new();
+            retrogen.put_string("target_status", "minecraft:features");
+            // the column (x 3, z 2) lost its bedrock
+            retrogen.put_long_array("missing_bedrock", vec![1 << 35]);
+            chunk.set_below_zero_retrogen(BelowZeroRetrogen::parse(&mc_nbt::Tag::Compound(retrogen)));
+            let packed = BlendingDataPacked { min_section: -4, max_section: 8, heights: None };
+            chunk.access.blending_data = BlendingData::unpack(Some(&packed));
+        }
     }
     fn build_terrain(&self, chunk: &mut ProtoChunk, _region: &WorldGenRegion) {
-        self.0.lock().unwrap().push((Stage::Terrain, chunk.pos(), std::thread::current().id()));
+        self.log.lock().unwrap().push((Stage::Terrain, chunk.pos(), std::thread::current().id()));
+        if self.legacy {
+            for y in 0..=4 {
+                chunk.set_block_state(BlockPos::new(0, y, 0), Block::BEDROCK.default_state(), None);
+            }
+            for y in -64..=-60 {
+                chunk.set_block_state(BlockPos::new(3, y, 2), Block::BEDROCK.default_state(), None);
+            }
+            chunk.set_block_state(BlockPos::new(5, -64, 7), Block::WATER.default_state(), None);
+        }
     }
     fn get_base_height(&self, _x: i32, _z: i32, _ty: mc_world::heightmap::HeightmapType, height: LevelHeight) -> i32 {
         height.min_y
@@ -74,7 +101,7 @@ impl WorldGenHooks for Hooks {
     }
 }
 
-fn open(dir: &std::path::Path, log: &Log, fail_features_at: Option<ChunkPos>) -> ServerLevel {
+fn open(dir: &std::path::Path, log: &Log, fail_features_at: Option<ChunkPos>, legacy: bool) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     ServerLevel::new(ServerLevelParams {
         shared,
@@ -85,7 +112,7 @@ fn open(dir: &std::path::Path, log: &Log, fail_features_at: Option<ChunkPos>) ->
         sea_level: 63,
         has_sky_light: true,
         factory: Arc::new(PalettedContainerFactory::create(BiomeRegistry::new(vec!["minecraft:plains".to_string()])).unwrap()),
-        generator: Arc::new(Generator(log.clone())),
+        generator: Arc::new(Generator { log: log.clone(), legacy }),
         generate_structures: true,
         hooks: Arc::new(Hooks { log: log.clone(), fail_features_at }),
         seed: 0,
@@ -107,7 +134,7 @@ fn stages_run_in_chunk_pyramid_order_on_the_worldgen_thread() {
     let dir = std::env::temp_dir().join(format!("mc-pipeline-order-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&dir);
     let log: Log = Arc::default();
-    let mut level = open(&dir, &log, None);
+    let mut level = open(&dir, &log, None, false);
     let target = ChunkPos::new(3, -2);
     assert!(level.proto_chunk_blocking(target.x, target.z, ChunkStatus::Spawn, true).is_some());
     level.close();
@@ -162,7 +189,7 @@ fn an_exception_in_a_generation_step_crashes_the_server_with_vanilla_s_report() 
     let _ = std::fs::remove_dir_all(&dir);
     let log: Log = Arc::default();
     let target = ChunkPos::new(-4, 6);
-    let mut level = open(&dir, &log, Some(target));
+    let mut level = open(&dir, &log, Some(target), false);
     let payload = catch_unwind(AssertUnwindSafe(|| level.proto_chunk_blocking(target.x, target.z, ChunkStatus::Features, true).is_some())).expect_err("the step crashes");
     let report = payload.downcast::<ReportedException>().expect("a ReportedException").0;
     assert_eq!(report.title(), "Exception generating new chunk");
@@ -172,5 +199,35 @@ fn an_exception_in_a_generation_step_crashes_the_server_with_vanilla_s_report() 
     assert!(details.contains("Status being generated: minecraft:features"), "{details}");
     assert!(details.contains("Location: -4,6"), "{details}");
     assert!(details.contains(&format!("Position hash: {}", target.pack())), "{details}");
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+/// `ChunkStatusTasks.buildTerrain` fixes the bedrock of below zero retrogen chunks and `generateFeatures` ends with
+/// `Blender.generateBorderTicks` (old chunks mark their fluids/leaves at the old area's bounds for post processing).
+#[test]
+fn old_chunks_get_retrogen_bedrock_and_border_ticks() {
+    let dir = std::env::temp_dir().join(format!("mc-pipeline-legacy-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let log: Log = Arc::default();
+    let mut level = open(&dir, &log, None, true);
+    let target = ChunkPos::new(1, 1);
+    let chunk = level.proto_chunk_blocking(target.x, target.z, ChunkStatus::Terrain, true).expect("terrain");
+    let name = |x, y, z| chunk.get_block_state(BlockPos::new(target.x * 16 + x, y, target.z * 16 + z)).block();
+    assert!(chunk.get_below_zero_retrogen().unwrap().has_bedrock_hole(3, 2), "{:?}", chunk.get_below_zero_retrogen());
+    for y in 0..=4 {
+        // `replaceOldBedrock`: old bedrock in y 0..=4 becomes deepslate
+        assert_eq!(name(0, y, 0), Block::DEEPSLATE, "y {y}");
+    }
+    for y in -64..=-1 {
+        // `applyBedrockMask`: the below-zero part of a column with a bedrock hole is air
+        assert_eq!(name(3, y, 2), Block::AIR, "y {y}");
+    }
+    assert!(chunk.get_below_zero_retrogen().is_some());
+    let chunk = level.proto_chunk_blocking(target.x, target.z, ChunkStatus::Features, true).expect("features");
+    assert!(chunk.get_below_zero_retrogen().is_none(), "the retrogen ends at its target status");
+    // the water at the old area's lowest y: marked for post processing (section 0, one packed offset)
+    assert_eq!(chunk.access.post_processing[0].as_ref().map(Vec::len), Some(1));
+    assert!(chunk.access.post_processing[1..].iter().all(Option::is_none));
+    level.close();
     let _ = std::fs::remove_dir_all(&dir);
 }

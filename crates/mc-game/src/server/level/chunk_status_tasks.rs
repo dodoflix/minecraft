@@ -12,6 +12,8 @@ use mc_core::pos::ChunkPos;
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::heightmap::HeightmapType;
 use mc_world::status::ChunkStatus;
+use mc_worldgen::blending::{self, BlendingChunk, BlendingRegion};
+use std::cell::RefCell;
 use std::collections::HashMap;
 use std::panic::{self, AssertUnwindSafe};
 use std::sync::Arc;
@@ -95,14 +97,22 @@ fn run_step(ctx: &WorldGenContext, step: &ChunkStep, region: &mut WorldGenRegion
         ChunkStatusTask::BuildTerrain => {
             let mut chunk = region.take_chunk(center).expect("center chunk is lent");
             ctx.generator.build_terrain(chunk.proto_mut(), region);
-            // (below zero retrogen `replaceOldBedrock`/`applyBedrockMask` are not ported in mc-world yet)
+            if let Some(retrogen) = chunk.proto().get_below_zero_retrogen().cloned() {
+                blending::replace_old_bedrock(chunk.proto_mut());
+                if retrogen.has_bedrock_holes() {
+                    blending::apply_bedrock_mask(&retrogen, chunk.proto_mut());
+                }
+            }
             chunk.proto_mut().access.prime_heightmaps(
                 true,
                 &[HeightmapType::MotionBlocking, HeightmapType::MotionBlockingNoLeaves, HeightmapType::OceanFloor, HeightmapType::WorldSurface],
             );
             region.put_chunk(center, chunk);
         }
-        ChunkStatusTask::GenerateFeatures => ctx.hooks.apply_biome_decoration(ctx, region),
+        ChunkStatusTask::GenerateFeatures => {
+            ctx.hooks.apply_biome_decoration(ctx, region);
+            blending::generate_border_ticks(&RegionBlending(RefCell::new(&mut *region)), center);
+        }
         ChunkStatusTask::GenerateSpawn => {
             let upgrading = region.get_chunk(center.x, center.z).is_some_and(ProtoChunk::is_upgrading);
             if !upgrading {
@@ -114,6 +124,25 @@ fn run_step(ctx: &WorldGenContext, step: &ChunkStep, region: &mut WorldGenRegion
     let chunk = region.get_chunk_mut_unchecked(center);
     if chunk.get_persisted_status().is_before(step.target_status) {
         chunk.set_persisted_status(step.target_status);
+    }
+}
+
+/// The part of `WorldGenRegion` `Blender.generateBorderTicks` uses (`getChunk` of the center and its four neighbours).
+struct RegionBlending<'a>(RefCell<&'a mut WorldGenRegion>);
+
+impl BlendingRegion for RegionBlending<'_> {
+    fn get_center(&self) -> ChunkPos {
+        self.0.borrow().center
+    }
+
+    fn is_old_chunk_around(&self, _pos: ChunkPos, _range: i32) -> bool {
+        unreachable!("only Blender.of asks for old chunks (it is not wired: Blender::empty() everywhere)")
+    }
+
+    fn with_chunk(&self, chunk_x: i32, chunk_z: i32, f: &mut dyn FnMut(&mut dyn BlendingChunk)) {
+        let mut region = self.0.borrow_mut();
+        let chunk = region.gen_chunk_mut(chunk_x, chunk_z).unwrap_or_else(|| panic!("Requested chunk unavailable during world generation: {chunk_x},{chunk_z}"));
+        f(chunk);
     }
 }
 

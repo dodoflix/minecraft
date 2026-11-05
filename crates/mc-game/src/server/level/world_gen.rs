@@ -94,6 +94,12 @@ impl WorldGenRegion {
         }
     }
 
+    /// Any chunk of the region (lent or snapshot) without a write-radius check: for stages that only mark or read
+    /// (`Blender.generateBorderTicks`).
+    pub fn gen_chunk_mut(&mut self, x: i32, z: i32) -> Option<&mut ProtoChunk> {
+        self.chunks.get_mut(&ChunkPos::pack_xz(x, z)).map(GenChunk::proto_mut)
+    }
+
     /// The center chunk of the step (always lent).
     pub fn get_chunk_mut_unchecked(&mut self, pos: ChunkPos) -> &mut ProtoChunk {
         self.chunks.get_mut(&pos.pack()).expect("chunk is part of the region").proto_mut()
