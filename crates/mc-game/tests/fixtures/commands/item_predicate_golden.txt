@@ -1,0 +1,699 @@
+stick	OK@5|111000000000000000000000111000111|S5:1:91:[
+minecraft:stick	OK@15|111000000000000000000000111000111|S15:1:91:[
+#stick	ERR6:Unknown item tag 'minecraft:stick' at position 6: #stick<--[HERE]|S1:1:1122755808:minecraft:sulfur_cube_archetype/sticky
+#minecraft:planks	OK@17|000000000000000000000000000000000|S17:1:91:[
+*	OK@1|111111111111111111111111111111111|S1:1:91:[
+stone	OK@5|000000000000000111000000000000000|S5:1:91:[
+diamond_sword	OK@13|000111111000000000000000000111000|S13:1:91:[
+#swords	OK@7|000111111000000000000000000111000|S7:1:91:[
+STICK	ERR0:Invalid ID at position 0: <--[HERE]|S0:5:-151753261:minecraft:carrot_on_a_stick,minecraft:debug_stick,minecraft:stick,minecraft:sticky_piston,minecraft:warped_fungus_on_a_stick
+minecraft:	ERR10:Unknown item 'minecraft:' at position 10: minecraft:<--[HERE]|S0:1658:224612183:minecraft:abandoned_camp_map,minecraft:acacia_boat,minecraft:acacia_button,minecraft:acacia_chest_boat,minecraft:acacia_door,minecraft:acacia_fence
+minecraft:nope	ERR14:Unknown item 'minecraft:nope' at position 14: ...craft:nope<--[HERE]|S0:0:0:
+nope	ERR4:Unknown item 'minecraft:nope' at position 4: nope<--[HERE]|S0:0:0:
+#nope	ERR5:Unknown item tag 'minecraft:nope' at position 5: #nope<--[HERE]|S0:0:0:
+#	ERR1:Invalid ID at position 1: #<--[HERE]|S1:236:1575195169:minecraft:acacia_logs,minecraft:anvil,minecraft:armadillo_food,minecraft:arrows,minecraft:axes,minecraft:axolotl_food
+!	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+[	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+]	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+stick[	ERR6:Invalid ID at position 6: stick[<--[HERE]|S6:122:380708778:!,],minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant
+stick]	OK@5|111000000000000000000000111000111|S0:0:0:
+stick[]	OK@7|111000000000000000000000111000111|S0:0:0:
+stick[ ]	OK@8|111000000000000000000000111000111|S0:0:0:
+stick[count=3]	OK@14|010000000000000000000000010000010|S0:0:0:
+stick[count=(1..5)]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+stick[count={min:1,max:5}]	OK@26|111000000000000000000000111000111|S0:0:0:
+stick[count={min:5,max:1}]	ERR25:Malformed 'minecraft:count' component: 'Swapped bounds in range: Optional[5] is higher than Optional[1]' at position 25: ...n:5,max:1}<--[HERE]|S0:0:0:
+stick[count=x]	ERR13:Malformed 'minecraft:count' component: 'Failed to parse either. First: Not a map: "x"; Second: Not a number' at position 13: ...ck[count=x<--[HERE]|S0:0:0:
+stick[!count=3]	OK@15|101000000000000000000000101000101|S0:0:0:
+stick[!count]	OK@13|000000000000000000000000000000000|S0:0:0:
+stick[count]	OK@12|111000000000000000000000111000111|S0:0:0:
+stick[count~3]	OK@14|010000000000000000000000010000010|S0:0:0:
+stick[count~{min:2}]	OK@20|011000000000000000000000011000011|S0:0:0:
+stick[count~{max:2}]	OK@20|100000000000000000000000100000100|S0:0:0:
+stick[count~{}]	OK@15|111000000000000000000000111000111|S0:0:0:
+stick[damage=3]	OK@15|000000000000000000000000000000000|S0:0:0:
+diamond_sword[damage=3]	OK@23|000000000000000000000000000000000|S0:0:0:
+diamond_sword[damage]	OK@21|000111111000000000000000000111000|S0:0:0:
+diamond_sword[!damage]	OK@22|000000000000000000000000000000000|S0:0:0:
+diamond_sword[damage~{damage:3}]	OK@32|000000000000000000000000000000000|S0:0:0:
+diamond_sword[damage~{durability:{min:10}}]	OK@43|000111111000000000000000000111000|S0:0:0:
+diamond_sword[damage~{damage:{min:1,max:5}}]	OK@44|000000000000000000000000000000000|S0:0:0:
+diamond_sword[damage~3]	ERR22:Malformed 'minecraft:damage' predicate: 'Not a map: 3' at position 22: ...d[damage~3<--[HERE]|S0:0:0:
+diamond_sword[damage~{}]	OK@24|000111111000000000000000000111000|S0:0:0:
+diamond_sword[damage~{damage:'x'}]	ERR33:Malformed 'minecraft:damage' predicate: 'Failed to parse either. First: Not a map: "x"; Second: Not a number' at position 33: ...amage:'x'}<--[HERE]|S0:0:0:
+diamond_sword[enchantments~[{enchantments:'minecraft:sharpness'}]]	OK@66|000000000000000000000000000111000|S0:0:0:
+diamond_sword[enchantments~[{}]]	OK@32|000000000000000000000000000111000|S0:0:0:
+diamond_sword[enchantments~[]]	OK@30|000111111000000000000000000111000|S0:0:0:
+diamond_sword[enchantments]	OK@27|000111111000000000000000000111000|S0:0:0:
+enchanted_book[stored_enchantments~[{enchantments:'minecraft:mending'}]]	OK@72|000000000000000000000000000000000|S0:0:0:
+enchanted_book[stored_enchantments]	OK@35|000000000111000000000000000000000|S0:0:0:
+stick[custom_data~{a:1}]	OK@24|000000000000000000000000000000111|S0:0:0:
+stick[custom_data={a:1}]	OK@24|000000000000000000000000000000111|S0:0:0:
+stick[custom_data]	OK@18|000000000000000000000000000000111|S0:0:0:
+stick[custom_data~{}]	OK@21|111000000000000000000000111000111|S0:0:0:
+stick[custom_data=5]	ERR19:Malformed 'minecraft:custom_data' component: 'Failed to parse either. First: Not a compound tag: 5; Second: Not a string' at position 19: ...tom_data=5<--[HERE]|S0:0:0:
+stick[custom_data~'x']	ERR21:Malformed 'minecraft:custom_data' predicate: 'Failed to parse either. First: Expected compound tag, got "x"; Second: Not a compound tag: "x"' at position 21: ...m_data~'x'<--[HERE]|S0:0:0:
+stick[minecraft:count=3]	OK@24|010000000000000000000000010000010|S0:0:0:
+stick[minecraft:damage=3]	OK@25|000000000000000000000000000000000|S0:0:0:
+stick[minecraft:custom_name='"x"']	OK@34|000000000000000000000000111000000|S0:0:0:
+stick[custom_name='"x"']	OK@24|000000000000000000000000111000000|S0:0:0:
+stick[custom_name]	OK@18|000000000000000000000000111000000|S0:0:0:
+stick[custom_name=3]	ERR19:Malformed 'minecraft:custom_name' component: 'Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 3; Second: Not a map: 3' at position 19: ...tom_name=3<--[HERE]|S0:0:0:
+stick[nope=3]	ERR10:Unknown item component 'minecraft:nope' at position 10: stick[nope<--[HERE]|S0:0:0:
+stick[nope]	ERR10:Unknown item component 'minecraft:nope' at position 10: stick[nope<--[HERE]|S0:0:0:
+stick[nope~3]	ERR10:Unknown item component 'minecraft:nope' at position 10: stick[nope<--[HERE]|S0:0:0:
+stick[!nope]	ERR11:Unknown item component 'minecraft:nope' at position 11: ...tick[!nope<--[HERE]|S0:0:0:
+stick[minecraft:]	ERR16:Unknown item component 'minecraft:' at position 16: ...minecraft:<--[HERE]|S0:0:0:
+stick[=3]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[~3]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[count=]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+stick[count=3,]	ERR14:Invalid ID at position 14: ...k[count=3,<--[HERE]|S0:0:0:
+stick[count=3,count=4]	OK@22|000000000000000000000000000000000|S0:0:0:
+stick[count=3|count=4]	OK@22|010000000000000000000000010000010|S0:0:0:
+stick[count=3|]	ERR14:Invalid ID at position 14: ...k[count=3|<--[HERE]|S0:0:0:
+stick[|count=3]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[count=3||count=4]	ERR14:Invalid ID at position 14: ...k[count=3|<--[HERE]|S0:0:0:
+stick[count=1|count=2,damage]	OK@29|000000000000000000000000000000000|S0:0:0:
+stick[count=1|!count=2]	OK@23|111000000000000000000000111000111|S0:0:0:
+stick[!!count=2]	ERR7:Invalid ID at position 7: stick[!<--[HERE]|S0:0:0:
+stick[! count=2]	OK@16|111000000000000000000000111000111|S0:0:0:
+stick[ count = 3 ]	OK@18|010000000000000000000000010000010|S0:0:0:
+stick [count=3]	OK@15|010000000000000000000000010000010|S0:0:0:
+stick[count=3] 	OK@14|010000000000000000000000010000010|S0:0:0:
+stick[count=3]x	OK@14|010000000000000000000000010000010|S0:0:0:
+#stick[count=3]	ERR6:Unknown item tag 'minecraft:stick' at position 6: #stick<--[HERE]|S0:0:0:
+*[count=3]	OK@10|010000000000010010000010010000010|S0:0:0:
+*[!count=3|damage]	OK@18|101111111111101101111101101111101|S0:0:0:
+#stick[count~3]	ERR6:Unknown item tag 'minecraft:stick' at position 6: #stick<--[HERE]|S0:0:0:
+stick[count=3,damage=2]	OK@23|000000000000000000000000000000000|S0:0:0:
+stick[count=3,damage]	OK@21|000000000000000000000000000000000|S0:0:0:
+stick[count=3|damage=2,custom_name]	OK@35|000000000000000000000000010000000|S0:0:0:
+stick[count=(2..)]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+stick[count=(..2)]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+stick[count=2..]	ERR14:Expected literal | at position 14: ...k[count=2.<--[HERE]|S0:0:0:
+stick[food]	OK@11|000000000000000000000000000000000|S0:0:0:
+apple[food]	OK@11|000000000000111000000000000000000|S0:0:0:
+apple[!food]	OK@12|000000000000000000000000000000000|S0:0:0:
+apple[consumable]	OK@17|000000000000111000000000000000000|S0:0:0:
+stick[max_stack_size=64]	OK@24|111000000000000000000000111000111|S0:0:0:
+stick[max_stack_size=65]	OK@24|000000000000000000000000000000000|S0:0:0:
+stick[max_stack_size=0]	ERR22:Malformed 'minecraft:max_stack_size' component: 'Value must be within range [1;99]: 0' at position 22: ...ack_size=0<--[HERE]|S0:0:0:
+stick[max_stack_size='a']	ERR24:Malformed 'minecraft:max_stack_size' component: 'Not a number' at position 24: ...k_size='a'<--[HERE]|S0:0:0:
+stick[lore=['"a"']]	OK@19|000000000000000000000000000000000|S0:0:0:
+stick[lore]	OK@11|111000000000000000000000111000111|S0:0:0:
+stick[item_name='"x"']	OK@22|000000000000000000000000000000000|S0:0:0:
+stick[rarity=epic]	OK@18|000000000000000000000000000000000|S0:0:0:
+stick[rarity='epic']	OK@20|000000000000000000000000000000000|S0:0:0:
+stick[rarity=nope]	ERR17:Malformed 'minecraft:rarity' component: 'Unknown element name:nope' at position 17: ...arity=nope<--[HERE]|S0:0:0:
+stick[unbreakable={}]	OK@21|000000000000000000000000000000000|S0:0:0:
+stick[unbreakable]	OK@18|000000000000000000000000000000000|S0:0:0:
+stick[repair_cost=3]	OK@20|000000000000000000000000000000000|S0:0:0:
+stick[repair_cost=-3]	ERR20:Malformed 'minecraft:repair_cost' component: 'Value must be non-negative: -3' at position 20: ...ir_cost=-3<--[HERE]|S0:0:0:
+stick[enchantment_glint_override=true]	OK@38|000000000000000000000000000000000|S0:0:0:
+stick[enchantment_glint_override=1b]	OK@36|000000000000000000000000000000000|S0:0:0:
+stick[enchantment_glint_override]	OK@33|000000000000000000000000000000000|S0:0:0:
+potion[potion_contents~{potions:'minecraft:water'}]	OK@51|000000000000000000000000000000000|S0:0:0:
+potion[potion_contents={potion:'minecraft:water'}]	OK@50|000000000000000000000000000000000|S0:0:0:
+potion[potion_contents]	OK@23|000000000000000000111000000000000|S0:0:0:
+potion[potion_contents~{}]	OK@26|000000000000000000111000000000000|S0:0:0:
+bundle[bundle_contents~{items:{}}]	OK@34|000000000000000000000000000000000|S0:0:0:
+chest[container]	OK@16|000000000000000000000111000000000|S0:0:0:
+chest[container~{items:{}}]	OK@27|000000000000000000000111000000000|S0:0:0:
+shulker_box[container~[]]	ERR24:Malformed 'minecraft:container' predicate: 'Not a map: []' at position 24: ...ntainer~[]<--[HERE]|S0:0:0:
+firework_star[firework_explosion~{shape:'star'}]	OK@48|000000000000000000000000000000000|S0:0:0:
+firework_rocket[fireworks~{flight_duration:2}]	OK@46|000000000000000000000000000000000|S0:0:0:
+writable_book[writable_book_content~{}]	OK@39|000000000000000000000000000000000|S0:0:0:
+written_book[written_book_content~{}]	OK@37|000000000000000000000000000000000|S0:0:0:
+diamond_chestplate[attribute_modifiers~{}]	OK@42|000000000000000000000000000000000|S0:0:0:
+diamond_chestplate[trim~{}]	OK@27|000000000000000000000000000000000|S0:0:0:
+music_disc_13[jukebox_playable~{}]	OK@34|000000000000000000000000000000000|S0:0:0:
+stick[villager/variant~{}]	ERR25:Malformed 'minecraft:villager/variant' predicate: 'Failed to parse either. First: Not a string; Second: Failed to parse either. First: Not a list: {}; Second: Not a string' at position 25: ...variant~{}<--[HERE]|S0:0:0:
+stick[villager/variant]	OK@23|000000000000000000000000000000000|S0:0:0:
+stick[minecraft:enchantments={}]	OK@32|111000000000000000000000111000111|S0:0:0:
+stick[enchantments={}]	OK@22|111000000000000000000000111000111|S0:0:0:
+stick[enchantments={levels:{'minecraft:sharpness':3}}]	ERR53:Malformed 'minecraft:enchantments' component: 'Not a number; Failed to get element minecraft:levels from registry minecraft:enchantment missed input: {levels:{"minecraft:sharpness":3}}' at position 53: ...pness':3}}<--[HERE]|S0:0:0:
+stick[enchantments={'minecraft:sharpness':3}]	OK@45|000000000000000000000000000000000|S0:0:0:
+stick[enchantments={'minecraft:sharpness':0}]	ERR44:Malformed 'minecraft:enchantments' component: 'Value 0 outside of range [1:255] missed input: {"minecraft:sharpness":0}' at position 44: ...rpness':0}<--[HERE]|S0:0:0:
+stick[tool]	OK@11|000000000000000000000000000000000|S0:0:0:
+stick[tool={rules:[]}]	OK@22|000000000000000000000000000000000|S0:0:0:
+stick[attribute_modifiers=[]]	OK@29|111000000000000000000000111000111|S0:0:0:
+stick[attribute_modifiers={}]	ERR28:Malformed 'minecraft:attribute_modifiers' component: 'Not a list: {}' at position 28: ...difiers={}<--[HERE]|S0:0:0:
+stick[profile]	OK@14|000000000000000000000000000000000|S0:0:0:
+stick[profile=Steve]	OK@20|000000000000000000000000000000000|S0:0:0:
+player_head[profile=Steve]	OK@26|000000000000000000000000000000000|S0:0:0:
+stick[count=1.5]	OK@16|100000000000000000000000100000100|S0:0:0:
+stick[count=1b]	OK@15|100000000000000000000000100000100|S0:0:0:
+stick[count=2147483648]	ERR22:Expected literal . at position 22: ...2147483648<--[HERE]|S0:0:0:
+stick[count=-1]	OK@15|000000000000000000000000000000000|S0:0:0:
+stick[count="3"]	ERR15:Malformed 'minecraft:count' component: 'Failed to parse either. First: Not a map: "3"; Second: Not a number' at position 15: ...[count="3"<--[HERE]|S0:0:0:
+stick[count='3']	ERR15:Malformed 'minecraft:count' component: 'Failed to parse either. First: Not a map: "3"; Second: Not a number' at position 15: ...[count='3'<--[HERE]|S0:0:0:
+stick[count=[1]]	ERR15:Malformed 'minecraft:count' component: 'Failed to parse either. First: Not a map: [1]; Second: Not a number' at position 15: ...[count=[1]<--[HERE]|S0:0:0:
+stick[count={}]	OK@15|111000000000000000000000111000111|S0:0:0:
+stick[custom_data={a:}]	ERR21:Expected a valid unquoted string at position 21: ...m_data={a:<--[HERE]|S0:0:0:
+stick[custom_data={a:1]	ERR22:Expected literal . at position 22: ..._data={a:1<--[HERE]|S0:0:0:
+stick[custom_data=[1,]]	ERR22:Malformed 'minecraft:custom_data' component: 'Failed to parse either. First: Not a compound tag: [1]; Second: Not a string' at position 22: ..._data=[1,]<--[HERE]|S0:0:0:
+stick[custom_data={'a':1}]	OK@26|000000000000000000000000000000111|S0:0:0:
+stick[custom_data="a]	ERR21:Invalid string contents at position 21: ...m_data="a]<--[HERE]|S0:0:0:
+stick[custom_name='	ERR19:Invalid string contents at position 19: ...tom_name='<--[HERE]|S0:0:0:
+stick[a b]	ERR7:Unknown item component 'minecraft:a' at position 7: stick[a<--[HERE]|S0:0:0:
+stick[a,b]	ERR7:Unknown item component 'minecraft:a' at position 7: stick[a<--[HERE]|S0:0:0:
+stick[a=1,b=2]	ERR7:Unknown item component 'minecraft:a' at position 7: stick[a<--[HERE]|S0:0:0:
+stick[count=3 damage=2]	ERR15:Expected literal | at position 15: ...[count=3 d<--[HERE]|S0:0:0:
+stick{}	OK@5|111000000000000000000000111000111|S0:0:0:
+stick{a:1}	OK@5|111000000000000000000000111000111|S0:0:0:
+#stick{foo:'bar'}	ERR6:Unknown item tag 'minecraft:stick' at position 6: #stick<--[HERE]|S0:0:0:
+stick[count=3]{}	OK@14|010000000000000000000000010000010|S0:0:0:
+diamond	OK@7|000000000000000000000000000000000|S7:1:91:[
+diamond_sword[	ERR14:Invalid ID at position 14: ...ond_sword[<--[HERE]|S14:122:380708778:!,],minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant
+diamond_sword[d	ERR15:Unknown item component 'minecraft:d' at position 15: ...nd_sword[d<--[HERE]|S14:17:-1652552056:minecraft:block_entity_data,minecraft:bucket_entity_data,minecraft:custom_data,minecraft:custom_model_data,minecraft:damage,minecraft:damage_resistant
+diamond_sword[dam	ERR17:Unknown item component 'minecraft:dam' at position 17: ..._sword[dam<--[HERE]|S14:4:-1063814360:minecraft:damage,minecraft:damage_resistant,minecraft:damage_type,minecraft:max_damage
+diamond_sword[damage	ERR20:Expected literal = at position 20: ...ord[damage<--[HERE]|S20:5:1100776912:,,=,],|,~
+diamond_sword[damage=	ERR21:Expected a valid unquoted string at position 21: ...rd[damage=<--[HERE]|S0:0:0:
+diamond_sword[damage=1	ERR22:Expected literal | at position 22: ...d[damage=1<--[HERE]|S22:3:42036589:,,],|
+diamond_sword[damage=1,	ERR23:Invalid ID at position 23: ...[damage=1,<--[HERE]|S23:121:1884991225:!,minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant,minecraft:banner_patterns
+diamond_sword[damage=1,c	ERR24:Unknown item component 'minecraft:c' at position 24: ...damage=1,c<--[HERE]|S23:35:-143470157:minecraft:base_color,minecraft:bundle_contents,minecraft:can_break,minecraft:can_place_on,minecraft:cat/collar,minecraft:cat/sound_variant
+diamond_sword[!	ERR15:Invalid ID at position 15: ...nd_sword[!<--[HERE]|S15:120:1505689668:minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant,minecraft:banner_patterns,minecraft:base_color
+diamond_sword[!d	ERR16:Unknown item component 'minecraft:d' at position 16: ...d_sword[!d<--[HERE]|S15:17:-1652552056:minecraft:block_entity_data,minecraft:bucket_entity_data,minecraft:custom_data,minecraft:custom_model_data,minecraft:damage,minecraft:damage_resistant
+diamond_sword[damage~	ERR21:Expected a valid unquoted string at position 21: ...rd[damage~<--[HERE]|S0:0:0:
+diamond_sword[damage~{	ERR22:Expected literal " at position 22: ...d[damage~{<--[HERE]|S0:0:0:
+diamond_sword[enchantments~[	ERR28:Expected literal B at position 28: ...antments~[<--[HERE]|S0:0:0:
+diamond_sword[count~	ERR20:Expected a valid unquoted string at position 20: ...ord[count~<--[HERE]|S0:0:0:
+diamond_sword[count=1|	ERR22:Invalid ID at position 22: ...d[count=1|<--[HERE]|S22:121:1884991225:!,minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant,minecraft:banner_patterns
+diamond_sword[count=1|d	ERR23:Unknown item component 'minecraft:d' at position 23: ...[count=1|d<--[HERE]|S22:17:-1652552056:minecraft:block_entity_data,minecraft:bucket_entity_data,minecraft:custom_data,minecraft:custom_model_data,minecraft:damage,minecraft:damage_resistant
+#m	ERR2:Unknown item tag 'minecraft:m' at position 2: #m<--[HERE]|S1:236:1575195169:minecraft:acacia_logs,minecraft:anvil,minecraft:armadillo_food,minecraft:arrows,minecraft:axes,minecraft:axolotl_food
+#minecraft:	ERR11:Unknown item tag 'minecraft:' at position 11: ...minecraft:<--[HERE]|S1:236:1575195169:minecraft:acacia_logs,minecraft:anvil,minecraft:armadillo_food,minecraft:arrows,minecraft:axes,minecraft:axolotl_food
+#minecraft:s	ERR12:Unknown item tag 'minecraft:s' at position 12: ...inecraft:s<--[HERE]|S1:38:1572978448:minecraft:sand,minecraft:saplings,minecraft:shearable_from_copper_golem,minecraft:sheep_food,minecraft:shovels,minecraft:shulker_boxes
+minecraft:s	ERR11:Unknown item 'minecraft:s' at position 11: ...inecraft:s<--[HERE]|S0:170:-2029893672:minecraft:saddle,minecraft:salmon,minecraft:salmon_bucket,minecraft:salmon_spawn_egg,minecraft:sand,minecraft:sandstone
+dia	ERR3:Unknown item 'minecraft:dia' at position 3: dia<--[HERE]|S0:16:714432759:minecraft:deepslate_diamond_ore,minecraft:diamond,minecraft:diamond_axe,minecraft:diamond_block,minecraft:diamond_boots,minecraft:diamond_chestplate
+min	ERR3:Unknown item 'minecraft:min' at position 3: min<--[HERE]|S0:1658:224612183:minecraft:abandoned_camp_map,minecraft:acacia_boat,minecraft:acacia_button,minecraft:acacia_chest_boat,minecraft:acacia_door,minecraft:acacia_fence
+mine	ERR4:Unknown item 'minecraft:mine' at position 4: mine<--[HERE]|S0:1658:224612183:minecraft:abandoned_camp_map,minecraft:acacia_boat,minecraft:acacia_button,minecraft:acacia_chest_boat,minecraft:acacia_door,minecraft:acacia_fence
+*[	ERR2:Invalid ID at position 2: *[<--[HERE]|S2:122:380708778:!,],minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant
+*[c	ERR3:Unknown item component 'minecraft:c' at position 3: *[c<--[HERE]|S2:35:-143470157:minecraft:base_color,minecraft:bundle_contents,minecraft:can_break,minecraft:can_place_on,minecraft:cat/collar,minecraft:cat/sound_variant
+*[count~(1..2)]	ERR8:Expected a valid unquoted string at position 8: *[count~<--[HERE]|S0:0:0:
+stick[ cou	ERR10:Unknown item component 'minecraft:cou' at position 10: stick[ cou<--[HERE]|S7:1:-1148868350:minecraft:count
+stick[,	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[count=3,,damage]	ERR14:Invalid ID at position 14: ...k[count=3,<--[HERE]|S0:0:0:
+mmin|	ERR4:Unknown item 'minecraft:mmin' at position 4: mmin<--[HERE]|S0:0:0:
+mi	ERR2:Unknown item 'minecraft:mi' at position 2: mi<--[HERE]|S0:1658:224612183:minecraft:abandoned_camp_map,minecraft:acacia_boat,minecraft:acacia_button,minecraft:acacia_chest_boat,minecraft:acacia_door,minecraft:acacia_fence
+stizck[xarity='epic']	ERR6:Unknown item 'minecraft:stizck' at position 6: stizck<--[HERE]|S0:0:0:
+diamo9d_sword[damage=3]	ERR13:Unknown item 'minecraft:diamo9d_sword' at position 13: ...mo9d_sword<--[HERE]|S0:0:0:
+scick[custom_data~{a:1}]	ERR5:Unknown item 'minecraft:scick' at position 5: scick<--[HERE]|S0:0:0:
+potioon[potion_contents]	ERR7:Unknown item 'minecraft:potioon' at position 7: potioon<--[HERE]|S0:0:0:
+diamond_sword'[!	OK@13|000111111000000000000000000111000|S0:0:0:
+s	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:638:138768165:minecraft:acacia_hanging_sign,minecraft:acacia_sapling,minecraft:acacia_shelf,minecraft:acacia_sign,minecraft:acacia_slab,minecraft:acacia_stairs
+stick[minecraft:custom_name,'"x"']	ERR28:Invalid ID at position 28: ...stom_name,<--[HERE]|S0:0:0:
+d0	ERR2:Unknown item 'minecraft:d0' at position 2: d0<--[HERE]|S0:0:0:
+stick[count=3,dama	ERR18:Unknown item component 'minecraft:dama' at position 18: ...unt=3,dama<--[HERE]|S14:4:-1063814360:minecraft:damage,minecraft:damage_resistant,minecraft:damage_type,minecraft:max_damage
+sttick[cudstom_data={a:1}]	ERR6:Unknown item 'minecraft:sttick' at position 6: sttick<--[HERE]|S0:0:0:
+stt)ick[food]	ERR3:Unknown item 'minecraft:stt' at position 3: stt<--[HERE]|S0:0:0:
+stick[repair_1cost=-3]	ERR18:Unknown item component 'minecraft:repair_1cost' at position 18: ...pair_1cost<--[HERE]|S0:0:0:
+stick[custm_name='	ERR16:Unknown item component 'minecraft:custm_name' at position 16: ...custm_name<--[HERE]|S0:0:0:
+stick[repair_cost	ERR17:Expected literal = at position 17: ...epair_cost<--[HERE]|S17:5:1100776912:,,=,],|,~
+stick[re{pair_cost=-3	ERR8:Unknown item component 'minecraft:re' at position 8: stick[re<--[HERE]|S0:0:0:
+diamo,d_sword[damage~3]	ERR5:Unknown item 'minecraft:diamo' at position 5: diamo<--[HERE]|S0:0:0:
+st	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:216:1757808912:minecraft:acacia_stairs,minecraft:andesite_stairs,minecraft:armor_stand,minecraft:bamboo_mosaic_stairs,minecraft:bamboo_stairs,minecraft:birch_stairs
+0diammond_sword[!damag]	ERR15:Unknown item 'minecraft:0diammond_sword' at position 15: ...mond_sword<--[HERE]|S0:0:0:
+diamond_swor![damage~{damage:'x'}]	ERR12:Unknown item 'minecraft:diamond_swor' at position 12: ...amond_swor<--[HERE]|S0:0:0:
+diaamond_s	ERR10:Unknown item 'minecraft:diaamond_s' at position 10: diaamond_s<--[HERE]|S0:0:0:
+stick[cout=-]	ERR10:Unknown item component 'minecraft:cout' at position 10: stick[cout<--[HERE]|S0:0:0:
+diamond_sword[!ddamadge]	ERR23:Unknown item component 'minecraft:ddamadge' at position 23: ...[!ddamadge<--[HERE]|S0:0:0:
+diaond_sword[damage~3	ERR12:Unknown item 'minecraft:diaond_sword' at position 12: ...aond_sword<--[HERE]|S0:0:0:
+stick[attribu	ERR13:Unknown item component 'minecraft:attribu' at position 13: ...ck[attribu<--[HERE]|S6:1:-1177985716:minecraft:attribute_modifiers
+stic[count=3|]	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+stick[enchantment_glint_ovrride=true]	ERR31:Unknown item component 'minecraft:enchantment_glint_ovrride' at position 31: ...nt_ovrride<--[HERE]|S0:0:0:
+#sstick	ERR7:Unknown item tag 'minecraft:sstick' at position 7: #sstick<--[HERE]|S0:0:0:
+ia	ERR2:Unknown item 'minecraft:ia' at position 2: ia<--[HERE]|S0:0:0:
+sti	ERR3:Unknown item 'minecraft:sti' at position 3: sti<--[HERE]|S0:5:-151753261:minecraft:carrot_on_a_stick,minecraft:debug_stick,minecraft:stick,minecraft:sticky_piston,minecraft:warped_fungus_on_a_stick
+#stiick[count~3]	ERR7:Unknown item tag 'minecraft:stiick' at position 7: #stiick<--[HERE]|S0:0:0:
+enchanted_book[stored_enchantmentsx	ERR35:Unknown item component 'minecraft:stored_enchantmentsx' at position 35: ...hantmentsx<--[HERE]|S0:0:0:
+sti/ck[!nop]	ERR6:Unknown item 'minecraft:sti/ck' at position 6: sti/ck<--[HERE]|S0:0:0:
+sick]	ERR4:Unknown item 'minecraft:sick' at position 4: sick<--[HERE]|S0:0:0:
+sck]	ERR3:Unknown item 'minecraft:sck' at position 3: sck<--[HERE]|S0:0:0:
+d1a	ERR3:Unknown item 'minecraft:d1a' at position 3: d1a<--[HERE]|S0:0:0:
+stick[enchantments={'minecraft:sharp]ness':0}]	ERR45:Malformed 'minecraft:enchantments' component: 'Value 0 outside of range [1:255]; Not a valid resource location: minecraft:sharp]ness Non [a-z0-9/._-] character in path of location: minecraft:sharp]ness missed input: {"minecraft:sharp]ness":0}' at position 45: ...p]ness':0}<--[HERE]|S0:0:0:
+#stick[ount~3]	ERR6:Unknown item tag 'minecraft:stick' at position 6: #stick<--[HERE]|S0:0:0:
+stickk[custom)name=3]	ERR6:Unknown item 'minecraft:stickk' at position 6: stickk<--[HERE]|S0:0:0:
+diamond_chestplate[trim~{}!	ERR26:Expected literal | at position 26: ...te[trim~{}<--[HERE]|S0:0:0:
+stick[custom_ata=[1,]]	ERR16:Unknown item component 'minecraft:custom_ata' at position 16: ...custom_ata<--[HERE]|S0:0:0:
+stick.nope~3]	ERR10:Unknown item 'minecraft:stick.nope' at position 10: stick.nope<--[HERE]|S0:0:0:
+stick[a=,b=2]	ERR7:Unknown item component 'minecraft:a' at position 7: stick[a<--[HERE]|S0:0:0:
+stick[count=3|damage=2,custom_nme]	ERR33:Unknown item component 'minecraft:custom_nme' at position 33: ...custom_nme<--[HERE]|S0:0:0:
+st(icck[.ax_stack_size=0]	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:0:0:
+stick[cou("t=3,,damag	ERR9:Unknown item component 'minecraft:cou' at position 9: stick[cou<--[HERE]|S0:0:0:
+stizk[max_st9ck_size='a']	ERR5:Unknown item 'minecraft:stizk' at position 5: stizk<--[HERE]|S0:0:0:
+sticky[count=3|countt=	ERR6:Unknown item 'minecraft:sticky' at position 6: sticky<--[HERE]|S0:0:0:
+stiick[cu	ERR6:Unknown item 'minecraft:stiick' at position 6: stiick<--[HERE]|S0:0:0:
+st!ck[co nt=[1]]	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:0:0:
+s ick[count*3]	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+stick[custo_n.ame3]	ERR18:Unknown item component 'minecraft:custo_n.ame3' at position 18: ...sto_n.ame3<--[HERE]|S0:0:0:
+stick [ ]	OK@9|111000000000000000000000111000111|S0:0:0:
+stic k[	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+diamond_sword[count=1|-d	ERR24:Unknown item component 'minecraft:-d' at position 24: ...count=1|-d<--[HERE]|S0:0:0:
+diaamon/nd_sword	ERR16:Unknown item 'minecraft:diaamon/nd_sword' at position 16: ...n/nd_sword<--[HERE]|S0:0:0:
+stickk[count=3,count=4]	ERR6:Unknown item 'minecraft:stickk' at position 6: stickk<--[HERE]|S0:0:0:
+stick[codunt=1|!count=2~]	ERR12:Unknown item component 'minecraft:codunt' at position 12: ...ick[codunt<--[HERE]|S0:0:0:
+stick[tool={{rules:[]}]	ERR12:Expected literal " at position 12: ...ick[tool={<--[HERE]|S0:0:0:
+=	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+stick[enchantment,={}]	ERR17:Unknown item component 'minecraft:enchantment' at position 17: ...nchantment<--[HERE]|S0:0:0:
+sticdcou	ERR8:Unknown item 'minecraft:sticdcou' at position 8: sticdcou<--[HERE]|S0:0:0:
+cinecraft:	ERR10:Unknown item 'cinecraft:' at position 10: cinecraft:<--[HERE]|S0:0:0:
+*[9	ERR3:Unknown item component 'minecraft:9' at position 3: *[9<--[HERE]|S0:0:0:
+player_hea[profile=Steve]	ERR10:Unknown item 'minecraft:player_hea' at position 10: player_hea<--[HERE]|S0:0:0:
+stick[cout=3]|{}	ERR10:Unknown item component 'minecraft:cout' at position 10: stick[cout<--[HERE]|S0:0:0:
+#minecbaft:s	ERR12:Unknown item tag 'minecbaft:s' at position 12: ...inecbaft:s<--[HERE]|S0:0:0:
+xine	ERR4:Unknown item 'minecraft:xine' at position 4: xine<--[HERE]|S0:0:0:
+diam*ndsword[damage=	ERR4:Unknown item 'minecraft:diam' at position 4: diam<--[HERE]|S0:0:0:
+player_he ad[pro~ile=S*eve]	ERR9:Unknown item 'minecraft:player_he' at position 9: player_he<--[HERE]|S0:0:0:
+potion[potion_contents={potionn:'minecraft:water'}]	OK@51|000000000000000000111000000000000|S0:0:0:
+appe[!food]	ERR4:Unknown item 'minecraft:appe' at position 4: appe<--[HERE]|S0:0:0:
+#stick[	ERR6:Unknown item tag 'minecraft:stick' at position 6: #stick<--[HERE]|S0:0:0:
+"nchanted_book[stored_enchantments]	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+stick[! *count=2]	ERR8:Invalid ID at position 8: stick[! <--[HERE]|S0:0:0:
+stick[count=3|dam.age=2,custom_name]	ERR21:Unknown item component 'minecraft:dam.age' at position 21: ...=3|dam.age<--[HERE]|S0:0:0:
+stick[item_name='"xx"']	OK@23|000000000000000000000000000000000|S0:0:0:
+stick[cunt=3] 	ERR10:Unknown item component 'minecraft:cunt' at position 10: stick[cunt<--[HERE]|S0:0:0:
+stick[repai#_cost=3]	ERR11:Unknown item component 'minecraft:repai' at position 11: ...tick[repai<--[HERE]|S0:0:0:
+"	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+di9mond_sord[!d	ERR12:Unknown item 'minecraft:di9mond_sord' at position 12: ...9mond_sord<--[HERE]|S0:0:0:
+#saick[coun9t~3	ERR6:Unknown item tag 'minecraft:saick' at position 6: #saick<--[HERE]|S0:0:0:
+sti-c[cu	ERR5:Unknown item 'minecraft:sti-c' at position 5: sti-c<--[HERE]|S0:0:0:
+diamond_sword]damage~{damage:'x'}]	OK@13|000111111000000000000000000111000|S0:0:0:
+potion[potion_contents={potion:'minecraft:water'},	ERR50:Invalid ID at position 50: ...t:water'},<--[HERE]|S50:121:1884991225:!,minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant,minecraft:banner_patterns
+stiicck[max_stack!_size=65]	ERR7:Unknown item 'minecraft:stiicck' at position 7: stiicck<--[HERE]|S0:0:0:
+iamond_swwo|d[damage=	ERR11:Unknown item 'minecraft:iamond_swwo' at position 11: ...amond_swwo<--[HERE]|S0:0:0:
+#sw	ERR3:Unknown item tag 'minecraft:sw' at position 3: #sw<--[HERE]|S1:3:26560462:minecraft:enchantable/sweeping,minecraft:sulfur_cube_swallowable,minecraft:swords
+mincraft:stick	ERR14:Unknown item 'mincraft:stick' at position 14: ...raft:stick<--[HERE]|S0:0:0:
+dia1mond_sword[count~	ERR14:Unknown item 'minecraft:dia1mond_sword' at position 14: ...mond_sword<--[HERE]|S0:0:0:
+di_amo	ERR6:Unknown item 'minecraft:di_amo' at position 6: di_amo<--[HERE]|S0:0:0:
+stick[enchantmentss={'minecraft:sharpzess':0}]	ERR19:Unknown item component 'minecraft:enchantmentss' at position 19: ...hantmentss<--[HERE]|S0:0:0:
+stik[  cou	ERR4:Unknown item 'minecraft:stik' at position 4: stik<--[HERE]|S0:0:0:
+diamond_sword[!damagee]	ERR22:Unknown item component 'minecraft:damagee' at position 22: ...d[!damagee<--[HERE]|S0:0:0:
+stick[ench-antments={'minecraft:sharpness':0}]	ERR19:Unknown item component 'minecraft:ench-antments' at position 19: ...h-antments<--[HERE]|S0:0:0:
+stick[coun9t]	ERR12:Unknown item component 'minecraft:coun9t' at position 12: ...ick[coun9t<--[HERE]|S0:0:0:
+)stick[cout=3,,dam]ge]	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+sick[count={}]	ERR4:Unknown item 'minecraft:sick' at position 4: sick<--[HERE]|S0:0:0:
+potion[potion_contents={poti)on:'minecraft:water'}]	ERR28:Expected literal : at position 28: ...ents={poti<--[HERE]|S0:0:0:
+shul[ker_box[container~[]]	ERR4:Unknown item 'minecraft:shul' at position 4: shul<--[HERE]|S0:0:0:
+stic	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:5:-151753261:minecraft:carrot_on_a_stick,minecraft:debug_stick,minecraft:stick,minecraft:sticky_piston,minecraft:warped_fungus_on_a_stick
+stick{a'	OK@5|111000000000000000000000111000111|S0:0:0:
+stick[max_stack_size=	ERR21:Expected a valid unquoted string at position 21: ...tack_size=<--[HERE]|S0:0:0:
+diamond_swor.[damage~{damage:{min:1,max:5}}]	ERR13:Unknown item 'minecraft:diamond_swor.' at position 13: ...mond_swor.<--[HERE]|S0:0:0:
+stick[count=)b	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+##stick[couunt=3]	ERR1:Invalid ID at position 1: #<--[HERE]|S0:0:0:
+stic:k[food]	ERR6:Unknown item 'stic:k' at position 6: stic:k<--[HERE]|S0:0:0:
+diamond_swor=[damage=1,c	ERR12:Unknown item 'minecraft:diamond_swor' at position 12: ...amond_swor<--[HERE]|S0:0:0:
+diamond_chestplate[attribute_modifie	ERR36:Unknown item component 'minecraft:attribute_modifie' at position 36: ...te_modifie<--[HERE]|S19:1:-1177985716:minecraft:attribute_modifiers
+stick[ c'u	ERR8:Unknown item component 'minecraft:c' at position 8: stick[ c<--[HERE]|S0:0:0:
+c*	ERR1:Unknown item 'minecraft:c' at position 1: c<--[HERE]|S0:0:0:
+stick[unbrea	ERR12:Unknown item component 'minecraft:unbrea' at position 12: ...ick[unbrea<--[HERE]|S6:1:1594161683:minecraft:unbreakable
+stickcount=3]{}	ERR10:Unknown item 'minecraft:stickcount' at position 10: stickcount<--[HERE]|S0:0:0:
+ch st[containeer~{items:{}}]	ERR2:Unknown item 'minecraft:ch' at position 2: ch<--[HERE]|S0:0:0:
+stick[max_stack_si0e='a']	ERR20:Unknown item component 'minecraft:max_stack_si0e' at position 20: ...stack_si0e<--[HERE]|S0:0:0:
+stick[co~un	ERR8:Unknown item component 'minecraft:co' at position 8: stick[co<--[HERE]|S0:0:0:
+enchan9ed_book[stored_enchantments]	ERR14:Unknown item 'minecraft:enchan9ed_book' at position 14: ...an9ed_book<--[HERE]|S0:0:0:
+stick[counnt=3|]	ERR12:Unknown item component 'minecraft:counnt' at position 12: ...ick[counnt<--[HERE]|S0:0:0:
+stickcoun9=(2..)]	ERR10:Unknown item 'minecraft:stickcoun9' at position 10: stickcoun9<--[HERE]|S0:0:0:
+#stick[rarity==epic']	ERR6:Unknown item tag 'minecraft:stick' at position 6: #stick<--[HERE]|S0:0:0:
+stick[[ustom_name='	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stiick[cunt=-11]	ERR6:Unknown item 'minecraft:stiick' at position 6: stiick<--[HERE]|S0:0:0:
+stick[count='3]	ERR15:Invalid string contents at position 15: ...[count='3]<--[HERE]|S0:0:0:
+stickk[count=3,damage]	ERR6:Unknown item 'minecraft:stickk' at position 6: stickk<--[HERE]|S0:0:0:
+stick[c-ustom_data]	ERR18:Unknown item component 'minecraft:c-ustom_data' at position 18: ...ustom_data<--[HERE]|S0:0:0:
+stzi	ERR4:Unknown item 'minecraft:stzi' at position 4: stzi<--[HERE]|S0:0:0:
+mi.ec*raft:nope	ERR5:Unknown item 'minecraft:mi.ec' at position 5: mi.ec<--[HERE]|S0:0:0:
+stick[cso)_name='	ERR9:Unknown item component 'minecraft:cso' at position 9: stick[cso<--[HERE]|S0:0:0:
+stic,k[count=]	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+stick[|cozunt=3]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+st=ck[!count1	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:0:0:
+aaple[foox]	ERR5:Unknown item 'minecraft:aaple' at position 5: aaple<--[HERE]|S0:0:0:
+stick[reair_costtc=3]	ERR18:Unknown item component 'minecraft:reair_costtc' at position 18: ...air_costtc<--[HERE]|S0:0:0:
+apple[onsum=b	ERR11:Unknown item component 'minecraft:onsum' at position 11: ...pple[onsum<--[HERE]|S0:0:0:
+[btick	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+diamond_sword[damae~{}]	ERR19:Unknown item component 'minecraft:damae' at position 19: ...word[damae<--[HERE]|S0:0:0:
+stiic	ERR5:Unknown item 'minecraft:stiic' at position 5: stiic<--[HERE]|S0:0:0:
+stick[enchan]tments={levels:{'minecraft:sharpness':3}}]	ERR12:Unknown item component 'minecraft:enchan' at position 12: ...ick[enchan<--[HERE]|S0:0:0:
+stick[eenchantments={levels:{'minecraft:sharpness':3}}]	ERR19:Unknown item component 'minecraft:eenchantments' at position 19: ...chantments<--[HERE]|S0:0:0:
+diamo(nd_chestplate[trim~{}]	ERR5:Unknown item 'minecraft:diamo' at position 5: diamo<--[HERE]|S0:0:0:
+stick[count=3,,da	ERR14:Invalid ID at position 14: ...k[count=3,<--[HERE]|S0:0:0:
+sti1c:[	ERR6:Unknown item 'sti1c:' at position 6: sti1c:<--[HERE]|S0:0:0:
+##	ERR1:Invalid ID at position 1: #<--[HERE]|S0:0:0:
+st*ck[minecraft:count=3]	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:0:0:
+stickk[rarity=epic]	ERR6:Unknown item 'minecraft:stickk' at position 6: stickk<--[HERE]|S0:0:0:
+music_disc_3[jukebox_layable~{}]	ERR12:Unknown item 'minecraft:music_disc_3' at position 12: ...sic_disc_3<--[HERE]|S0:0:0:
+stick[count=1|)ount=22,damage]	ERR14:Invalid ID at position 14: ...k[count=1|<--[HERE]|S0:0:0:
+stick[custom_data={a:1}]!	OK@24|000000000000000000000000000000111|S0:0:0:
+diam	ERR4:Unknown item 'minecraft:diam' at position 4: diam<--[HERE]|S0:16:714432759:minecraft:deepslate_diamond_ore,minecraft:diamond,minecraft:diamond_axe,minecraft:diamond_block,minecraft:diamond_boots,minecraft:diamond_chestplate
+stickxcustom_	ERR13:Unknown item 'minecraft:stickxcustom_' at position 13: ...ckxcustom_<--[HERE]|S0:0:0:
+stic#[count=x_]	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+stiick[]	ERR6:Unknown item 'minecraft:stiick' at position 6: stiick<--[HERE]|S0:0:0:
+stickk[!coount]	ERR6:Unknown item 'minecraft:stickk' at position 6: stickk<--[HERE]|S0:0:0:
+stick[nop	ERR9:Unknown item component 'minecraft:nop' at position 9: stick[nop<--[HERE]|S0:0:0:
+stick[enchantmentts={}]	ERR19:Unknown item component 'minecraft:enchantmentts' at position 19: ...hantmentts<--[HERE]|S0:0:0:
+m	ERR1:Unknown item 'minecraft:m' at position 1: m<--[HERE]|S0:1658:224612183:minecraft:abandoned_camp_map,minecraft:acacia_boat,minecraft:acacia_button,minecraft:acacia_chest_boat,minecraft:acacia_door,minecraft:acacia_fence
+minecrraft:sttic	ERR16:Unknown item 'minecrraft:sttic' at position 16: ...raft:sttic<--[HERE]|S0:0:0:
+diamond_sword[damage~{dcrability({min:10}}]	ERR32:Expected literal : at position 32: ...dcrability<--[HERE]|S0:0:0:
+stick[atttribut_modifier	ERR24:Unknown item component 'minecraft:atttribut_modifier' at position 24: ...t_modifier<--[HERE]|S0:0:0:
+stick[enchantment_glint_ovv	ERR27:Unknown item component 'minecraft:enchantment_glint_ovv' at position 27: ..._glint_ovv<--[HERE]|S0:0:0:
+st|ick[ma}x_stack_size=64]	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:0:0:
+stick[t)ol=rules:[]}]	ERR7:Unknown item component 'minecraft:t' at position 7: stick[t<--[HERE]|S0:0:0:
+st ck[-amage=3]	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:0:0:
+enc,anted_book[stored_enchantments]	ERR3:Unknown item 'minecraft:enc' at position 3: enc<--[HERE]|S0:0:0:
+diamond_sword[enchantmens~[]]	ERR25:Unknown item component 'minecraft:enchantmens' at position 25: ...nchantmens<--[HERE]|S0:0:0:
+]ope	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+stick[-minecraft:count=3]	ERR22:Unknown item component '-minecraft:count' at position 22: ...raft:count<--[HERE]|S0:0:0:
+enchanted_book[stored_encantments~[{enchantments:'min,craft:mending'}]]	ERR33:Unknown item component 'minecraft:stored_encantments' at position 33: ...ncantments<--[HERE]|S0:0:0:
+diamond_sword[daamage1	ERR22:Unknown item component 'minecraft:daamage1' at position 22: ...d[daamage1<--[HERE]|S0:0:0:
+stick[custom_ddata={a:}]	ERR18:Unknown item component 'minecraft:custom_ddata' at position 18: ...stom_ddata<--[HERE]|S0:0:0:
+stick[ount={min:5,max:1}]	ERR10:Unknown item component 'minecraft:ount' at position 10: stick[ount<--[HERE]|S0:0:0:
+stick[9!	ERR7:Unknown item component 'minecraft:9' at position 7: stick[9<--[HERE]|S0:0:0:
+stick[tool={rulles/[[]}]	ERR18:Expected literal : at position 18: ...ol={rulles<--[HERE]|S0:0:0:
+stick[custom"_name]	ERR12:Unknown item component 'minecraft:custom' at position 12: ...ick[custom<--[HERE]|S0:0:0:
+stick[nnope~3]	ERR11:Unknown item component 'minecraft:nnope' at position 11: ...tick[nnope<--[HERE]|S0:0:0:
+stic[coun=1|count=b2,damage]	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+stick[cbstom_data={a:1]	ERR17:Unknown item component 'minecraft:cbstom_data' at position 17: ...bstom_data<--[HERE]|S0:0:0:
+stick[custom_data{a:1}]	ERR17:Expected literal = at position 17: ...ustom_data<--[HERE]|S0:0:0:
+stick[countt=(1..5)]	ERR12:Unknown item component 'minecraft:countt' at position 12: ...ick[countt<--[HERE]|S0:0:0:
+s~tickk)count=]	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+sstick[a b]	ERR6:Unknown item 'minecraft:sstick' at position 6: sstick<--[HERE]|S0:0:0:
+iamond_:woord[!damage]	ERR13:Unknown item 'iamond_:woord' at position 13: ...ond_:woord<--[HERE]|S0:0:0:
+stick[!co{{unt=)3]	ERR9:Unknown item component 'minecraft:co' at position 9: stick[!co<--[HERE]|S0:0:0:
+diamonnd_sword[damage~{}]	ERR14:Unknown item 'minecraft:diamonnd_sword' at position 14: ...onnd_sword<--[HERE]|S0:0:0:
+diammond_sword[	ERR14:Unknown item 'minecraft:diammond_sword' at position 14: ...mond_sword<--[HERE]|S0:0:0:
+bundle[bundle_coontents~{items::{}}]	ERR23:Unknown item component 'minecraft:bundle_coontents' at position 23: ..._coontents<--[HERE]|S0:0:0:
+stic][attribute_mocifiers={}]	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+tickk[a=1,b2]	ERR5:Unknown item 'minecraft:tickk' at position 5: tickk<--[HERE]|S0:0:0:
+stiick[[minecraft:count=3]	ERR6:Unknown item 'minecraft:stiick' at position 6: stiick<--[HERE]|S0:0:0:
+bunle[bundle_contents~{items:{}}]	ERR5:Unknown item 'minecraft:bunle' at position 5: bunle<--[HERE]|S0:0:0:
+st0ne	ERR5:Unknown item 'minecraft:st0ne' at position 5: st0ne<--[HERE]|S0:0:0:
+tic[k{}	ERR3:Unknown item 'minecraft:tic' at position 3: tic<--[HERE]|S0:0:0:
+##nope	ERR1:Invalid ID at position 1: #<--[HERE]|S0:0:0:
+mus*c_disc_13[jukebox_playable~{}]	ERR3:Unknown item 'minecraft:mus' at position 3: mus<--[HERE]|S0:0:0:
+stick[count=3	ERR13:Expected literal | at position 13: ...ck[count=3<--[HERE]|S13:3:42036589:,,],|
+sick[nope~3]	ERR4:Unknown item 'minecraft:sick' at position 4: sick<--[HERE]|S0:0:0:
+#swordsz	ERR8:Unknown item tag 'minecraft:swordsz' at position 8: #swordsz<--[HERE]|S0:0:0:
+sticck[!coun!xt]	ERR6:Unknown item 'minecraft:sticck' at position 6: sticck<--[HERE]|S0:0:0:
+ap)le[co	ERR2:Unknown item 'minecraft:ap' at position 2: ap<--[HERE]|S0:0:0:
+stick[cusatom_data=5]	ERR18:Unknown item component 'minecraft:cusatom_data' at position 18: ...satom_data<--[HERE]|S0:0:0:
+stick[coant~{}]	ERR11:Unknown item component 'minecraft:coant' at position 11: ...tick[coant<--[HERE]|S0:0:0:
+stick[rofile=Steve]	ERR12:Unknown item component 'minecraft:rofile' at position 12: ...ick[rofile<--[HERE]|S0:0:0:
+mmi	ERR3:Unknown item 'minecraft:mmi' at position 3: mmi<--[HERE]|S0:0:0:
+#aope	ERR5:Unknown item tag 'minecraft:aope' at position 5: #aope<--[HERE]|S0:0:0:
+stick[ ccou	ERR11:Unknown item component 'minecraft:ccou' at position 11: ...tick[ ccou<--[HERE]|S0:0:0:
+stiick[enchantments={levels:{'minecaft:sharpness':3}}]	ERR6:Unknown item 'minecraft:stiick' at position 6: stiick<--[HERE]|S0:0:0:
+diaond_sword[damage=	ERR12:Unknown item 'minecraft:diaond_sword' at position 12: ...aond_sword<--[HERE]|S0:0:0:
+sicz	ERR4:Unknown item 'minecraft:sicz' at position 4: sicz<--[HERE]|S0:0:0:
+stick[unbreakab:e]	ERR17:Unknown item component 'unbreakab:e' at position 17: ...nbreakab:e<--[HERE]|S0:0:0:
+enchanted_book[stored_eanchantments]	ERR35:Unknown item component 'minecraft:stored_eanchantments' at position 35: ...chantments<--[HERE]|S0:0:0:
+*('[	OK@1|111111111111111111111111111111111|S0:0:0:
+stick[minecraftzdamage=3]	ERR22:Unknown item component 'minecraft:minecraftzdamage' at position 22: ...aftzdamage<--[HERE]|S0:0:0:
+stick[[ ]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+nnope	ERR5:Unknown item 'minecraft:nnope' at position 5: nnope<--[HERE]|S0:0:0:
+stick[3]	ERR7:Unknown item component 'minecraft:3' at position 7: stick[3<--[HERE]|S0:0:0:
+di mond_swo	ERR2:Unknown item 'minecraft:di' at position 2: di<--[HERE]|S0:0:0:
+styi,k[count=x]	ERR4:Unknown item 'minecraft:styi' at position 4: styi<--[HERE]|S0:0:0:
+diamond_sword[enchantments~[{enchantments:'minecraft:sharpness'}]]_	OK@66|000000000000000000000000000111000|S0:0:0:
+stick[cusstom_data={a:1}]	ERR18:Unknown item component 'minecraft:cusstom_data' at position 18: ...sstom_data<--[HERE]|S0:0:0:
+stick[encha	ERR11:Unknown item component 'minecraft:encha' at position 11: ...tick[encha<--[HERE]|S6:4:-150993032:minecraft:enchantable,minecraft:enchantment_glint_override,minecraft:enchantments,minecraft:stored_enchantments
+diamond_sword[damae=1	ERR19:Unknown item component 'minecraft:damae' at position 19: ...word[damae<--[HERE]|S0:0:0:
+diamond_sword[enhan_tments~[{}]]	ERR26:Unknown item component 'minecraft:enhan_tments' at position 26: ...han_tments<--[HERE]|S0:0:0:
+s{ick[nope~3]	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+diamond_sword[dama]ge=1,	ERR18:Unknown item component 'minecraft:dama' at position 18: ...sword[dama<--[HERE]|S0:0:0:
+stick[un9reakable]	ERR17:Unknown item component 'minecraft:un9reakable' at position 17: ...n9reakable<--[HERE]|S0:0:0:
+stick[custo	ERR11:Unknown item component 'minecraft:custo' at position 11: ...tick[custo<--[HERE]|S6:3:-1579416864:minecraft:custom_data,minecraft:custom_model_data,minecraft:custom_name
+minecra[ft:	ERR7:Unknown item 'minecraft:minecra' at position 7: minecra<--[HERE]|S0:0:0:
+sick{|a:1}	ERR4:Unknown item 'minecraft:sick' at position 4: sick<--[HERE]|S0:0:0:
+stick[count==2..]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+sbtiick	ERR7:Unknown item 'minecraft:sbtiick' at position 7: sbtiick<--[HERE]|S0:0:0:
+sick[villager/variant]	ERR4:Unknown item 'minecraft:sick' at position 4: sick<--[HERE]|S0:0:0:
+sstick[count=3]	ERR6:Unknown item 'minecraft:sstick' at position 6: sstick<--[HERE]|S0:0:0:
+sticck[a=1,b=2"	ERR6:Unknown item 'minecraft:sticck' at position 6: sticck<--[HERE]|S0:0:0:
+stick[count=3"]	ERR13:Expected literal | at position 13: ...ck[count=3<--[HERE]|S0:0:0:
+firework_star[firework_exbplosion~{shape:'star'}]	ERR33:Unknown item component 'minecraft:firework_exbplosion' at position 33: ...exbplosion<--[HERE]|S0:0:0:
+stick[custom_data=	ERR18:Expected a valid unquoted string at position 18: ...stom_data=<--[HERE]|S0:0:0:
+0sti	ERR4:Unknown item 'minecraft:0sti' at position 4: 0sti<--[HERE]|S0:0:0:
+minnecraft:stick	ERR16:Unknown item 'minnecraft:stick' at position 16: ...raft:stick<--[HERE]|S0:0:0:
+diamond_sword[enchantmens]	ERR25:Unknown item component 'minecraft:enchantmens' at position 25: ...nchantmens<--[HERE]|S0:0:0:
+stick[custom_data={a:}]9	ERR21:Expected a valid unquoted string at position 21: ...m_data={a:<--[HERE]|S0:0:0:
+diammond_}word[dama	ERR9:Unknown item 'minecraft:diammond_' at position 9: diammond_<--[HERE]|S0:0:0:
+stck[c	ERR4:Unknown item 'minecraft:stck' at position 4: stck<--[HERE]|S0:0:0:
+enchanted_book[stored_enc]antments~[{	ERR25:Unknown item component 'minecraft:stored_enc' at position 25: ...stored_enc<--[HERE]|S0:0:0:
+stick[custom0_data=[1.]]	ERR18:Unknown item component 'minecraft:custom0_data' at position 18: ...stom0_data<--[HERE]|S0:0:0:
+ss	ERR2:Unknown item 'minecraft:ss' at position 2: ss<--[HERE]|S0:0:0:
+ddim	ERR4:Unknown item 'minecraft:ddim' at position 4: ddim<--[HERE]|S0:0:0:
+stick[minecraft:c~1tom_name'"x"']	ERR17:Unknown item component 'minecraft:c' at position 17: ...inecraft:c<--[HERE]|S0:0:0:
+stick[rarity=_pc]	ERR16:Malformed 'minecraft:rarity' component: 'Unknown element name:_pc' at position 16: ...rarity=_pc<--[HERE]|S0:0:0:
+stik[]	ERR4:Unknown item 'minecraft:stik' at position 4: stik<--[HERE]|S0:0:0:
+diiac	ERR5:Unknown item 'minecraft:diiac' at position 5: diiac<--[HERE]|S0:0:0:
+c	ERR1:Unknown item 'minecraft:c' at position 1: c<--[HERE]|S0:491:-606723188:minecraft:abandoned_camp_map,minecraft:acacia_chest_boat,minecraft:amethyst_cluster,minecraft:bamboo_chest_raft,minecraft:birch_chest_boat,minecraft:black_candle
+~~	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+sstick[minecraft:enchantm)ents={}]	ERR6:Unknown item 'minecraft:sstick' at position 6: sstick<--[HERE]|S0:0:0:
+stick[enchantment_glint_oover#rride=1b]	ERR29:Unknown item component 'minecraft:enchantment_glint_oover' at position 29: ...lint_oover<--[HERE]|S0:0:0:
+stick[ount=x]	ERR10:Unknown item component 'minecraft:ount' at position 10: stick[ount<--[HERE]|S0:0:0:
+stick9count='3']	ERR11:Unknown item 'minecraft:stick9count' at position 11: ...tick9count<--[HERE]|S0:0:0:
+diamond_sworrd[enchantmentx~[{enchantments:'minecraft:sharpn	ERR14:Unknown item 'minecraft:diamond_sworrd' at position 14: ...ond_sworrd<--[HERE]|S0:0:0:
+stick[max_stack_siize=65]	ERR21:Unknown item component 'minecraft:max_stack_siize' at position 21: ...tack_siize<--[HERE]|S0:0:0:
+stik[profi/le]	ERR4:Unknown item 'minecraft:stik' at position 4: stik<--[HERE]|S0:0:0:
+,	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+*[count~(}1..2)]	ERR8:Expected a valid unquoted string at position 8: *[count~<--[HERE]|S0:0:0:
+stck{}	ERR4:Unknown item 'minecraft:stck' at position 4: stck<--[HERE]|S0:0:0:
+**==	OK@1|111111111111111111111111111111111|S0:0:0:
+stick[[custom_name#='"x"']	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+sticck[custom_daata={a:}]	ERR6:Unknown item 'minecraft:sticck' at position 6: sticck<--[HERE]|S0:0:0:
+chest[cntainer]	ERR14:Unknown item component 'minecraft:cntainer' at position 14: ...t[cntainer<--[HERE]|S0:0:0:
+stik[custom#data*=5]	ERR4:Unknown item 'minecraft:stik' at position 4: stik<--[HERE]|S0:0:0:
+dimond_swo_rd_damage=1,	ERR20:Unknown item 'minecraft:dimond_swo_rd_damage' at position 20: ..._rd_damage<--[HERE]|S0:0:0:
+stick[ 	ERR7:Invalid ID at position 7: stick[ <--[HERE]|S7:122:380708778:!,],minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant
+stick[tool={rules:[]-]	ERR20:Expected literal , at position 20: ...={rules:[]<--[HERE]|S0:0:0:
+stic.k[count=2..]	ERR6:Unknown item 'minecraft:stic.k' at position 6: stic.k<--[HERE]|S0:0:0:
+stick-countt=1.5]	ERR12:Unknown item 'minecraft:stick-countt' at position 12: ...ick-countt<--[HERE]|S0:0:0:
+sticck[custom_data~{}]	ERR6:Unknown item 'minecraft:sticck' at position 6: sticck<--[HERE]|S0:0:0:
+stick [count=3!	ERR14:Expected literal | at position 14: ...k [count=3<--[HERE]|S0:0:0:
+diamond_swo,rd[damage	ERR11:Unknown item 'minecraft:diamond_swo' at position 11: ...iamond_swo<--[HERE]|S0:0:0:
+poti"n[potion_con	ERR4:Unknown item 'minecraft:poti' at position 4: poti<--[HERE]|S0:0:0:
+!ches't[contain	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+writable_book[writable_book,_content~{}]	ERR27:Unknown item component 'minecraft:writable_book' at position 27: ...table_book<--[HERE]|S0:0:0:
+s0tick[count={min:1,max:5}]	ERR6:Unknown item 'minecraft:s0tick' at position 6: s0tick<--[HERE]|S0:0:0:
+stick[co{nt[1]]	ERR8:Unknown item component 'minecraft:co' at position 8: stick[co<--[HERE]|S0:0:0:
+stick[enchanytments={levels:{'minecraft:sharpness':3}}]	ERR19:Unknown item component 'minecraft:enchanytments' at position 19: ...hanytments<--[HERE]|S0:0:0:
+stic,k-[ cou	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+stick[minecraft:count=3	ERR23:Expected literal | at position 23: ...ft:count=3<--[HERE]|S23:3:42036589:,,],|
+-i0m	ERR4:Unknown item 'minecraft:-i0m' at position 4: -i0m<--[HERE]|S0:0:0:
+stickz[rarity='epic']	ERR6:Unknown item 'minecraft:stickz' at position 6: stickz<--[HERE]|S0:0:0:
+diamond_sword[damage~{damage:{min::1,max:5}}]	ERR34:Expected a valid unquoted string at position 34: ...mage:{min:<--[HERE]|S0:0:0:
+diaond_sword[dam	ERR12:Unknown item 'minecraft:diaond_sword' at position 12: ...aond_sword<--[HERE]|S0:0:0:
+diia1	ERR5:Unknown item 'minecraft:diia1' at position 5: diia1<--[HERE]|S0:0:0:
+diamondsword[da	ERR12:Unknown item 'minecraft:diamondsword' at position 12: ...amondsword<--[HERE]|S0:0:0:
+stic[	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+diamondd_sword[cdount=1|dd	ERR14:Unknown item 'minecraft:diamondd_sword' at position 14: ...ondd_sword<--[HERE]|S0:0:0:
+written_book[wr/itten_book_(ontent~{}]	ERR27:Unknown item component 'minecraft:wr/itten_book_' at position 27: ...tten_book_<--[HERE]|S0:0:0:
+SSTICK	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+s=i*	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+enchantdd_book[stored_enchantments]	ERR14:Unknown item 'minecraft:enchantdd_book' at position 14: ...antdd_book<--[HERE]|S0:0:0:
+stick[profile|	ERR14:Invalid ID at position 14: ...k[profile|<--[HERE]|S14:121:1884991225:!,minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant,minecraft:banner_patterns
+stick[ench*ntments=|{}]	ERR10:Unknown item component 'minecraft:ench' at position 10: stick[ench<--[HERE]|S0:0:0:
+diamonnd_sword[damag	ERR14:Unknown item 'minecraft:diamonnd_sword' at position 14: ...onnd_sword<--[HERE]|S0:0:0:
+stick[~count=3|count=4]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[coun1t=3 damage2]	ERR12:Unknown item component 'minecraft:coun1t' at position 12: ...ick[coun1t<--[HERE]|S0:0:0:
+stick[rep"air_cost=3]	ERR9:Unknown item component 'minecraft:rep' at position 9: stick[rep<--[HERE]|S0:0:0:
+minecraf:	ERR9:Unknown item 'minecraf:' at position 9: minecraf:<--[HERE]|S0:0:0:
+stic'[ :	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+ssti	ERR4:Unknown item 'minecraft:ssti' at position 4: ssti<--[HERE]|S0:0:0:
+applle[consumable]	ERR6:Unknown item 'minecraft:applle' at position 6: applle<--[HERE]|S0:0:0:
+=ope	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+*[count~(1..2d]	ERR8:Expected a valid unquoted string at position 8: *[count~<--[HERE]|S0:0:0:
+writable_book[cwritable_boo_content~{}]	ERR35:Unknown item component 'minecraft:cwritable_boo_content' at position 35: ...oo_content<--[HERE]|S0:0:0:
+diamond_woord[count=1|dd	ERR13:Unknown item 'minecraft:diamond_woord' at position 13: ...mond_woord<--[HERE]|S0:0:0:
+stick[profile=Stevee]	OK@21|000000000000000000000000000000000|S0:0:0:
+stick[~3]]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[fooddd]	ERR12:Unknown item component 'minecraft:fooddd' at position 12: ...ick[fooddd<--[HERE]|S0:0:0:
+stick[attribute_modif	ERR21:Unknown item component 'minecraft:attribute_modif' at position 21: ...bute_modif<--[HERE]|S6:1:-1177985716:minecraft:attribute_modifiers
+#'minezcraft:	ERR1:Invalid ID at position 1: #<--[HERE]|S0:0:0:
+sti(k[count=3,ccoun-=4]	ERR3:Unknown item 'minecraft:sti' at position 3: sti<--[HERE]|S0:0:0:
+minecr'!ft:nopae	ERR6:Unknown item 'minecraft:minecr' at position 6: minecr<--[HERE]|S0:0:0:
+stick[:	ERR7:Unknown item component 'minecraft:' at position 7: stick[:<--[HERE]|S0:0:0:
+stick[[minec	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+diamond_sword[damage~{durabil/it#:{min:10}}]	ERR29:Expected literal : at position 29: ...e~{durabil<--[HERE]|S0:0:0:
+stick[profiilee]	ERR15:Unknown item component 'minecraft:profiilee' at position 15: ...[profiilee<--[HERE]|S0:0:0:
+stick[att	ERR9:Unknown item component 'minecraft:att' at position 9: stick[att<--[HERE]|S6:5:1181028487:minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:blocks_attacks,minecraft:minimum_attack_charge
+staic[nope]	ERR5:Unknown item 'minecraft:staic' at position 5: staic<--[HERE]|S0:0:0:
+stick[count=/2147483648]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+dimond_chestplat	ERR16:Unknown item 'minecraft:dimond_chestplat' at position 16: ..._chestplat<--[HERE]|S0:0:0:
+stick[enchantmenbs={'minecraft:	ERR18:Unknown item component 'minecraft:enchantmenbs' at position 18: ...chantmenbs<--[HERE]|S0:0:0:
+stick[count=3{|count=4]	ERR13:Expected literal | at position 13: ...ck[count=3<--[HERE]|S0:0:0:
+st/ck[,	ERR5:Unknown item 'minecraft:st/ck' at position 5: st/ck<--[HERE]|S0:0:0:
+#minecraft	ERR10:Unknown item tag 'minecraft:minecraft' at position 10: #minecraft<--[HERE]|S1:236:1575195169:minecraft:acacia_logs,minecraft:anvil,minecraft:armadillo_food,minecraft:arrows,minecraft:axes,minecraft:axolotl_food
+stick[}en9hantment_glint_override=(rue]	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[minecraft:custom_name='d"x"']	OK@35|000000000000000000000000000000000|S0:0:0:
+stick['ount='3']	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[c.ount=1|~count=2]	ERR12:Unknown item component 'minecraft:c.ount' at position 12: ...ick[c.ount<--[HERE]|S0:0:0:
+chest[container~{item*:{}}]	ERR21:Expected literal : at position 21: ...iner~{item<--[HERE]|S0:0:0:
+stck	ERR4:Unknown item 'minecraft:stck' at position 4: stck<--[HERE]|S0:0:0:
+sti)ck[ount=[[1]]	ERR3:Unknown item 'minecraft:sti' at position 3: sti<--[HERE]|S0:0:0:
+stick[max_s	ERR11:Unknown item component 'minecraft:max_s' at position 11: ...tick[max_s<--[HERE]|S6:1:-1146864000:minecraft:max_stack_size
+tic[tool]	ERR3:Unknown item 'minecraft:tic' at position 3: tic<--[HERE]|S0:0:0:
+stck[custom_datta={a:1}]	ERR4:Unknown item 'minecraft:stck' at position 4: stck<--[HERE]|S0:0:0:
+stick[countt=3,damage=2]	ERR12:Unknown item component 'minecraft:countt' at position 12: ...ick[countt<--[HERE]|S0:0:0:
+stick[raarity=epic]	ERR13:Unknown item component 'minecraft:raarity' at position 13: ...ck[raarity<--[HERE]|S0:0:0:
+diamond_sword[damage~{durability:{min:10/}]	ERR40:Expected literal . at position 40: ...ty:{min:10<--[HERE]|S0:0:0:
+diamond_sword[damage~{durability:{min:1=0}}]]	ERR39:Expected literal . at position 39: ...ity:{min:1<--[HERE]|S0:0:0:
+minecr)ft:noppe	ERR6:Unknown item 'minecraft:minecr' at position 6: minecr<--[HERE]|S0:0:0:
+stick[vil!ager/variant]	ERR9:Unknown item component 'minecraft:vil' at position 9: stick[vil<--[HERE]|S0:0:0:
+#/*tick	ERR2:Unknown item tag 'minecraft:/' at position 2: #/<--[HERE]|S0:0:0:
+**	OK@1|111111111111111111111111111111111|S0:0:0:
+stick[yoe]	ERR9:Unknown item component 'minecraft:yoe' at position 9: stick[yoe<--[HERE]|S0:0:0:
+diamonbd_sword[dam	ERR14:Unknown item 'minecraft:diamonbd_sword' at position 14: ...onbd_sword<--[HERE]|S0:0:0:
+s tiick[a b]	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+stick[cust=m_data={'a':1}]	ERR10:Unknown item component 'minecraft:cust' at position 10: stick[cust<--[HERE]|S0:0:0:
+di~amond_sord[ddamage	ERR2:Unknown item 'minecraft:di' at position 2: di<--[HERE]|S0:0:0:
+stick[cou	ERR9:Unknown item component 'minecraft:cou' at position 9: stick[cou<--[HERE]|S6:1:-1148868350:minecraft:count
+:#	ERR1:Unknown item 'minecraft:' at position 1: :<--[HERE]|S0:0:0:
+0minecraft:	ERR11:Unknown item '0minecraft:' at position 11: ...minecraft:<--[HERE]|S0:0:0:
+enchanted_book[st	ERR17:Unknown item component 'minecraft:st' at position 17: ...ed_book[st<--[HERE]|S15:6:449427575:minecraft:block_state,minecraft:debug_stick_state,minecraft:max_stack_size,minecraft:stored_enchantments,minecraft:suspicious_stew_effects,minecraft:tooltip_style
+syick	ERR5:Unknown item 'minecraft:syick' at position 5: syick<--[HERE]|S0:0:0:
+stick[custom_name=|3]	ERR18:Expected a valid unquoted string at position 18: ...stom_name=<--[HERE]|S0:0:0:
+diamond_sword[enchatments]	ERR25:Unknown item component 'minecraft:enchatments' at position 25: ...nchatments<--[HERE]|S0:0:0:
+stick[count=	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+s]tick[ccunt=3]x	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+"di	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+tick[count=[1]]	ERR4:Unknown item 'minecraft:tick' at position 4: tick<--[HERE]|S0:0:0:
+sic}k[!!count=22]	ERR3:Unknown item 'minecraft:sic' at position 3: sic<--[HERE]|S0:0:0:
+stick[counnt=x]	ERR12:Unknown item component 'minecraft:counnt' at position 12: ...ick[counnt<--[HERE]|S0:0:0:
+stick[!count=33]	OK@16|111000000000000000000000111000111|S0:0:0:
+stick[]count]	OK@7|111000000000000000000000111000111|S0:0:0:
+stick[count=33]x	OK@15|000000000000000000000000000000000|S0:0:0:
+stickmidecraft:cust	ERR19:Unknown item 'stickmidecraft:cust' at position 19: ...craft:cust<--[HERE]|S0:0:0:
+(	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+tick [coount=3]	ERR4:Unknown item 'minecraft:tick' at position 4: tick<--[HERE]|S0:0:0:
+sxick[proffile]	ERR5:Unknown item 'minecraft:sxick' at position 5: sxick<--[HERE]|S0:0:0:
+*[count3]	ERR8:Unknown item component 'minecraft:count3' at position 8: *[count3<--[HERE]|S0:0:0:
+stick[counnt=(.a.2)]	ERR12:Unknown item component 'minecraft:counnt' at position 12: ...ick[counnt<--[HERE]|S0:0:0:
+che	ERR3:Unknown item 'minecraft:che' at position 3: che<--[HERE]|S0:49:-2128068209:minecraft:acacia_chest_boat,minecraft:bamboo_chest_raft,minecraft:birch_chest_boat,minecraft:chainmail_chestplate,minecraft:cherry_boat,minecraft:cherry_button
+stick[counta]	ERR12:Unknown item component 'minecraft:counta' at position 12: ...ick[counta<--[HERE]|S0:0:0:
+stick[custom_name=3]]	ERR19:Malformed 'minecraft:custom_name' component: 'Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: 3; Second: Not a map: 3' at position 19: ...tom_name=3<--[HERE]|S0:0:0:
+shulker_boxc[cont	ERR12:Unknown item 'minecraft:shulker_boxc' at position 12: ...ulker_boxc<--[HERE]|S0:0:0:
+stick[cus=_data~{a:1}]	ERR9:Unknown item component 'minecraft:cus' at position 9: stick[cus<--[HERE]|S0:0:0:
+stickk[cou,	ERR6:Unknown item 'minecraft:stickk' at position 6: stickk<--[HERE]|S0:0:0:
+[tick[=3]	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+potion[potion_conten#ts={potion:'minecraft:water'}]	ERR20:Unknown item component 'minecraft:potion_conten' at position 20: ...ion_conten<--[HERE]|S0:0:0:
+stick[minecraftt:]	ERR17:Unknown item component 'minecraftt:' at position 17: ...inecraftt:<--[HERE]|S0:0:0:
+stick[count={}]:	OK@15|111000000000000000000000111000111|S0:0:0:
+stick[p0rofile]	ERR14:Unknown item component 'minecraft:p0rofile' at position 14: ...k[p0rofile<--[HERE]|S0:0:0:
+stick[count={min:1,ma	ERR21:Expected literal : at position 21: ...={min:1,ma<--[HERE]|S0:0:0:
+st~ck[count="3""]	ERR2:Unknown item 'minecraft:st' at position 2: st<--[HERE]|S0:0:0:
+*[count~:(..2)]	ERR8:Expected a valid unquoted string at position 8: *[count~<--[HERE]|S0:0:0:
+stick[rarity=ep	ERR15:Malformed 'minecraft:rarity' component: 'Unknown element name:ep' at position 15: ...[rarity=ep<--[HERE]|S0:0:0:
+st/ck[count="3"]	ERR5:Unknown item 'minecraft:st/ck' at position 5: st/ck<--[HERE]|S0:0:0:
+stick[!noppe]	ERR12:Unknown item component 'minecraft:noppe' at position 12: ...ick[!noppe<--[HERE]|S0:0:0:
+bun	ERR3:Unknown item 'minecraft:bun' at position 3: bun<--[HERE]|S0:17:1308417432:minecraft:black_bundle,minecraft:blue_bundle,minecraft:brown_bundle,minecraft:bundle,minecraft:cyan_bundle,minecraft:gray_bundle
+**[	OK@1|111111111111111111111111111111111|S0:0:0:
+stick.[custo	ERR6:Unknown item 'minecraft:stick.' at position 6: stick.<--[HERE]|S0:0:0:
+diiamond_sword[!	ERR14:Unknown item 'minecraft:diiamond_sword' at position 14: ...mond_sword<--[HERE]|S0:0:0:
+stick[minecraf:]	ERR15:Unknown item component 'minecraf:' at position 15: ...[minecraf:<--[HERE]|S0:0:0:
+dstick[custom_data={a:}]	ERR6:Unknown item 'minecraft:dstick' at position 6: dstick<--[HERE]|S0:0:0:
+appl#[!fod	ERR4:Unknown item 'minecraft:appl' at position 4: appl<--[HERE]|S0:0:0:
+damond	ERR6:Unknown item 'minecraft:damond' at position 6: damond<--[HERE]|S0:0:0:
+stick[c[nt=(2..)]	ERR7:Unknown item component 'minecraft:c' at position 7: stick[c<--[HERE]|S0:0:0:
+diamond_sword[cc=ount	ERR16:Unknown item component 'minecraft:cc' at position 16: ...d_sword[cc<--[HERE]|S0:0:0:
+di	ERR2:Unknown item 'minecraft:di' at position 2: di<--[HERE]|S0:51:-1570357591:minecraft:coarse_dirt,minecraft:deepslate_diamond_ore,minecraft:diamond,minecraft:diamond_axe,minecraft:diamond_block,minecraft:diamond_boots
+diamond_swocd[d	ERR13:Unknown item 'minecraft:diamond_swocd' at position 13: ...mond_swocd<--[HERE]|S0:0:0:
+stick[enchan:tments={'minecraft:sharpness':3}]	ERR19:Unknown item component 'enchan:tments' at position 19: ...han:tments<--[HERE]|S0:0:0:
+s}ick[custom_data~'x']	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+#min ecra	ERR4:Unknown item tag 'minecraft:min' at position 4: #min<--[HERE]|S0:0:0:
+stick[count~{max:2	ERR18:Expected literal . at position 18: ...unt~{max:2<--[HERE]|S0:0:0:
+,tick[tool]	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+stick[cou/nt=[9]]	ERR12:Unknown item component 'minecraft:cou/nt' at position 12: ...ick[cou/nt<--[HERE]|S0:0:0:
+diamond__sword[count~	ERR14:Unknown item 'minecraft:diamond__sword' at position 14: ...ond__sword<--[HERE]|S0:0:0:
+diamond_sword[enchantments~[]]]	OK@30|000111111000000000000000000111000|S0:0:0:
+stick[c(unt~{max:2}]	ERR7:Unknown item component 'minecraft:c' at position 7: stick[c<--[HERE]|S0:0:0:
+mmin	ERR4:Unknown item 'minecraft:mmin' at position 4: mmin<--[HERE]|S0:0:0:
+stick[cc	ERR8:Unknown item component 'minecraft:cc' at position 8: stick[cc<--[HERE]|S0:0:0:
+potion[potion_contents~{cpotions:'minecraft:water'}]	OK@52|000000000000000000111000000000000|S0:0:0:
+##x	ERR1:Invalid ID at position 1: #<--[HERE]|S0:0:0:
+stick[coxnt=[1]]	ERR11:Unknown item component 'minecraft:coxnt' at position 11: ...tick[coxnt<--[HERE]|S0:0:0:
+__ick[count=3,count=4]	ERR5:Unknown item 'minecraft:__ick' at position 5: __ick<--[HERE]|S0:0:0:
+*[c.unt=3]	ERR7:Unknown item component 'minecraft:c.unt' at position 7: *[c.unt<--[HERE]|S0:0:0:
+diamond_sword[enchantme'nts~[{enchantments:'minecraft:sharpness'}]]	ERR23:Unknown item component 'minecraft:enchantme' at position 23: ...[enchantme<--[HERE]|S0:0:0:
+fireework_star[firework_explosion~{shape:'star'}]	ERR14:Unknown item 'minecraft:fireework_star' at position 14: ...ework_star<--[HERE]|S0:0:0:
+s-ttick[ount~{max:2}]	ERR7:Unknown item 'minecraft:s-ttick' at position 7: s-ttick<--[HERE]|S0:0:0:
+sttick[minecraft:]	ERR6:Unknown item 'minecraft:sttick' at position 6: sttick<--[HERE]|S0:0:0:
+d	ERR1:Unknown item 'minecraft:d' at position 1: d<--[HERE]|S0:187:368343649:minecraft:acacia_door,minecraft:ancient_debris,minecraft:bamboo_door,minecraft:big_dripleaf,minecraft:birch_door,minecraft:black_dye
+stick*[coount=3] 	OK@5|111000000000000000000000111000111|S0:0:0:
+stick[fod]	ERR9:Unknown item component 'minecraft:fod' at position 9: stick[fod<--[HERE]|S0:0:0:
+s#tick[count='3']	ERR1:Unknown item 'minecraft:s' at position 1: s<--[HERE]|S0:0:0:
+stick[count=1bb]	ERR14:Expected literal | at position 14: ...k[count=1b<--[HERE]|S0:0:0:
+writt	ERR5:Unknown item 'minecraft:writt' at position 5: writt<--[HERE]|S0:1:-1444394562:minecraft:written_book
+stiick[c,ount='3']	ERR6:Unknown item 'minecraft:stiick' at position 6: stiick<--[HERE]|S0:0:0:
+bundle[bundle_contents~~{items:{}}]	ERR23:Expected a valid unquoted string at position 23: ..._contents~<--[HERE]|S0:0:0:
+stick[count~{main,:2}]	ERR17:Expected literal : at position 17: ...ount~{main<--[HERE]|S0:0:0:
+playerbhead[prof[le=Steve"	ERR11:Unknown item 'minecraft:playerbhead' at position 11: ...layerbhead<--[HERE]|S0:0:0:
+enchanteed_book[stored_enchantments]	ERR15:Unknown item 'minecraft:enchanteed_book' at position 15: ...nteed_book<--[HERE]|S0:0:0:
+#st#.c[count=3]	ERR3:Unknown item tag 'minecraft:st' at position 3: #st<--[HERE]|S0:0:0:
+diamond_sword[dam]ge=1,c	ERR17:Unknown item component 'minecraft:dam' at position 17: ..._sword[dam<--[HERE]|S0:0:0:
+*[count=3/	ERR9:Expected literal | at position 9: *[count=3<--[HERE]|S0:0:0:
+enchan~ted_book[stored_enchantments~[{enhantments:'minecraft:mending'}]]	ERR6:Unknown item 'minecraft:enchan' at position 6: enchan<--[HERE]|S0:0:0:
+stick[enchantments={'mi	ERR23:Invalid string contents at position 23: ...ments={'mi<--[HERE]|S0:0:0:
+stic{count=3||count=4]	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+stick[! couunt=2]	ERR14:Unknown item component 'minecraft:couunt' at position 14: ...k[! couunt<--[HERE]|S0:0:0:
+stcck[!nope]	ERR5:Unknown item 'minecraft:stcck' at position 5: stcck<--[HERE]|S0:0:0:
+m0ineraft:s	ERR11:Unknown item 'm0ineraft:s' at position 11: ...0ineraft:s<--[HERE]|S0:0:0:
+stick[custom_nname=3]	ERR18:Unknown item component 'minecraft:custom_nname' at position 18: ...stom_nname<--[HERE]|S0:0:0:
+#st]ick{foo:'ar'}	ERR3:Unknown item tag 'minecraft:st' at position 3: #st<--[HERE]|S0:0:0:
+stic(k[vilager/variant]	ERR4:Unknown item 'minecraft:stic' at position 4: stic<--[HERE]|S0:0:0:
+stic9[count=	ERR5:Unknown item 'minecraft:stic9' at position 5: stic9<--[HERE]|S0:0:0:
+stick{	OK@5|111000000000000000000000111000111|S0:0:0:
+player_head[profile=S'eve]	ERR21:Expected literal | at position 21: ...[profile=S<--[HERE]|S0:0:0:
+diamond_sword[damage~{durabilityy:{min:10}}]	OK@44|000111111000000000000000000111000|S0:0:0:
+stic0k[nop[~3]	ERR6:Unknown item 'minecraft:stic0k' at position 6: stic0k<--[HERE]|S0:0:0:
+e!cchanted_book[stored_encchantments~[{enchantments:'minecraft:mending'}]]	ERR1:Unknown item 'minecraft:e' at position 1: e<--[HERE]|S0:0:0:
+sti}k[count=3,damagge=2]	ERR3:Unknown item 'minecraft:sti' at position 3: sti<--[HERE]|S0:0:0:
+sic	ERR3:Unknown item 'minecraft:sic' at position 3: sic<--[HERE]|S0:0:0:
+stick[ustom_data]	ERR16:Unknown item component 'minecraft:ustom_data' at position 16: ...ustom_data<--[HERE]|S0:0:0:
+stiick[!countt=3]	ERR6:Unknown item 'minecraft:stiick' at position 6: stiick<--[HERE]|S0:0:0:
+stizk[tol]	ERR5:Unknown item 'minecraft:stizk' at position 5: stizk<--[HERE]|S0:0:0:
+stick[co}nt~{in2}]	ERR8:Unknown item component 'minecraft:co' at position 8: stick[co<--[HERE]|S0:0:0:
+mne	ERR3:Unknown item 'minecraft:mne' at position 3: mne<--[HERE]|S0:0:0:
+stti	ERR4:Unknown item 'minecraft:stti' at position 4: stti<--[HERE]|S0:0:0:
+stick[count=min:5,max:1})	ERR15:Malformed 'minecraft:count' component: 'Failed to parse either. First: Not a map: "min"; Second: Not a number' at position 15: ...[count=min<--[HERE]|S0:0:0:
+stick[maxx_stack_szze=0]	ERR21:Unknown item component 'minecraft:maxx_stack_szze' at position 21: ...stack_szze<--[HERE]|S0:0:0:
+stick[custom_da	ERR15:Unknown item component 'minecraft:custom_da' at position 15: ...[custom_da<--[HERE]|S6:1:1645277547:minecraft:custom_data
+diamond__sword[!	ERR14:Unknown item 'minecraft:diamond__sword' at position 14: ...ond__sword<--[HERE]|S0:0:0:
+*[ount=	ERR6:Unknown item component 'minecraft:ount' at position 6: *[ount<--[HERE]|S0:0:0:
+s.ick[countt=x]	ERR5:Unknown item 'minecraft:s.ick' at position 5: s.ick<--[HERE]|S0:0:0:
+stick[counnt=]	ERR12:Unknown item component 'minecraft:counnt' at position 12: ...ick[counnt<--[HERE]|S0:0:0:
+stick[count=3,	ERR14:Invalid ID at position 14: ...k[count=3,<--[HERE]|S14:121:1884991225:!,minecraft:attack_animation,minecraft:attack_range,minecraft:attribute_modifiers,minecraft:axolotl/variant,minecraft:banner_patterns
+ttick[count=(1."5)]	ERR5:Unknown item 'minecraft:ttick' at position 5: ttick<--[HERE]|S0:0:0:
+ssttick[,	ERR7:Unknown item 'minecraft:ssttick' at position 7: ssttick<--[HERE]|S0:0:0:
+di,	ERR2:Unknown item 'minecraft:di' at position 2: di<--[HERE]|S0:0:0:
+sti1ck{a:1}	ERR6:Unknown item 'minecraft:sti1ck' at position 6: sti1ck<--[HERE]|S0:0:0:
+minecraftd:nope	ERR15:Unknown item 'minecraftd:nope' at position 15: ...raftd:nope<--[HERE]|S0:0:0:
+stick[mminecraft:]	ERR17:Unknown item component 'mminecraft:' at position 17: ...minecraft:<--[HERE]|S0:0:0:
+stick[minecraft:custom__name='"x"']	ERR28:Unknown item component 'minecraft:custom__name' at position 28: ...stom__name<--[HERE]|S0:0:0:
+stick[rarity=nopz]	ERR17:Malformed 'minecraft:rarity' component: 'Unknown element name:nopz' at position 17: ...arity=nopz<--[HERE]|S0:0:0:
+]}[	ERR0:Invalid ID at position 0: <--[HERE]|S0:0:0:
+potion[po"tion_contents~{potions:'minecraft:wwater'}]	ERR9:Unknown item component 'minecraft:po' at position 9: potion[po<--[HERE]|S0:0:0:
+stick[max_stack_size=641	ERR24:Malformed 'minecraft:max_stack_size' component: 'Value must be within range [1;99]: 641' at position 24: ...k_size=641<--[HERE]|S0:0:0:
+iamon*d_sworddamage=1	ERR5:Unknown item 'minecraft:iamon' at position 5: iamon<--[HERE]|S0:0:0:
+*[cont=3]	ERR6:Unknown item component 'minecraft:cont' at position 6: *[cont<--[HERE]|S0:0:0:
+writable_book[writable_book_content~{}	ERR38:Expected literal | at position 38: ...content~{}<--[HERE]|S38:3:42036589:,,],|
+stick[max_stack_size'a']	ERR20:Expected literal = at position 20: ...stack_size<--[HERE]|S0:0:0:
+stick[1count={}]	ERR12:Unknown item component 'minecraft:1count' at position 12: ...ick[1count<--[HERE]|S0:0:0:
+stick[count=(.	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+sticak[custom_da!ta=[1,]]	ERR6:Unknown item 'minecraft:sticak' at position 6: sticak<--[HERE]|S0:0:0:
+applex[conssymable]	ERR6:Unknown item 'minecraft:applex' at position 6: applex<--[HERE]|S0:0:0:
+bstick[custom_datax{a::1}]	ERR6:Unknown item 'minecraft:bstick' at position 6: bstick<--[HERE]|S0:0:0:
+stick[,ustom_data	ERR6:Invalid ID at position 6: stick[<--[HERE]|S0:0:0:
+stick[count="3""]	ERR15:Malformed 'minecraft:count' component: 'Failed to parse either. First: Not a map: "3"; Second: Not a number' at position 15: ...[count="3"<--[HERE]|S0:0:0:
+sbic	ERR4:Unknown item 'minecraft:sbic' at position 4: sbic<--[HERE]|S0:0:0:
+chest[contain9er]c	ERR16:Unknown item component 'minecraft:contain9er' at position 16: ...contain9er<--[HERE]|S0:0:0:
+stick[profile=Stee]	OK@19|000000000000000000000000000000000|S0:0:0:
+stick[proffile]	ERR14:Unknown item component 'minecraft:proffile' at position 14: ...k[proffile<--[HERE]|S0:0:0:
+diamondz_swordd[count=1|d	ERR15:Unknown item 'minecraft:diamondz_swordd' at position 15: ...ndz_swordd<--[HERE]|S0:0:0:
+sti.ck[	ERR6:Unknown item 'minecraft:sti.ck' at position 6: sti.ck<--[HERE]|S0:0:0:
+diamond_word[dammage=3]	ERR12:Unknown item 'minecraft:diamond_word' at position 12: ...amond_word<--[HERE]|S0:0:0:
+stick[max_stack_size=='a']	ERR21:Expected a valid unquoted string at position 21: ...tack_size=<--[HERE]|S0:0:0:
+diamond_chesttplate[attribute_modifiers~{}]	ERR19:Unknown item 'minecraft:diamond_chesttplate' at position 19: ...hesttplate<--[HERE]|S0:0:0:
+stick[count=3,,ydamage]	ERR14:Invalid ID at position 14: ...k[count=3,<--[HERE]|S0:0:0:
+stick[count=:[1]]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+stick[count=(x.2)]	ERR12:Expected a valid unquoted string at position 12: ...ick[count=<--[HERE]|S0:0:0:
+stck[count=3]	ERR4:Unknown item 'minecraft:stck' at position 4: stck<--[HERE]|S0:0:0:
+stick[cont=,amage]	ERR10:Unknown item component 'minecraft:cont' at position 10: stick[cont<--[HERE]|S0:0:0:
