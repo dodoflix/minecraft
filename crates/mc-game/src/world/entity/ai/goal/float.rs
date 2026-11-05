@@ -26,7 +26,7 @@ impl FloatGoal {
 
 impl Goal for FloatGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
-        mob.get_fluid_height(self.fluid) > mob.base().get_fluid_jump_threshold() || mob.is_in_lava()
+        mob.get_fluid_height(self.fluid) > mob.get_fluid_jump_threshold() || mob.is_in_lava()
     }
 
     fn requires_update_every_tick(&self) -> bool {

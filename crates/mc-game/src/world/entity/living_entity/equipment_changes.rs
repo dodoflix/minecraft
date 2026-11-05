@@ -59,6 +59,9 @@ pub fn stop_location_based_effects(entity: &mut dyn Entity, previous: &ItemStack
 
 /// `detectEquipmentUpdates()`.
 pub fn detect_equipment_updates(entity: &mut dyn Entity, level: &mut ServerLevel) {
+    if let Some(last) = entity.living().map(|l| l.last_equipment_items.clone()) {
+        entity.collect_equipment_changes_pre(level, &last);
+    }
     let Some(mut changed) = collect_equipment_changes(entity) else { return };
     handle_hand_swap(entity, level, &mut changed);
     if !changed.is_empty() {

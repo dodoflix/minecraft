@@ -2811,6 +2811,13 @@ pub trait Entity: Any {
         None
     }
     // ==== [Cubes] additions (Entity trait methods) ====
+    /// `getFluidJumpThreshold()` (`SulfurCube` overrides it).
+    fn get_fluid_jump_threshold(&self) -> f64 {
+        self.base().get_fluid_jump_threshold()
+    }
+    /// `collectEquipmentChanges(lastEquipmentItems)` override part that runs before the generic collection (`SulfurCube`
+    /// swaps goals and archetype modifiers when the body item changes). `last` = the `lastEquipmentItems` being compared.
+    fn collect_equipment_changes_pre(&mut self, _level: &mut ServerLevel, _last: &[crate::world::item::ItemStack; 8]) {}
     /// `this instanceof AbstractCubeMob`: the cube-mob view of a slime / magma cube / sulfur cube.
     fn as_cube_mob(&self) -> Option<&dyn super::monster::cubemob::CubeMob> {
         None

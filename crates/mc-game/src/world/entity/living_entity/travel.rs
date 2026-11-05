@@ -184,7 +184,7 @@ pub fn travel_in_water(entity: &mut dyn Entity, level: &mut ServerLevel, input: 
 
 /// `isInShallowFluid(tag)`.
 pub fn is_in_shallow_fluid(entity: &dyn Entity, fluid: FluidKind) -> bool {
-    util::get_fluid_height(entity, fluid) <= entity.base().get_fluid_jump_threshold()
+    util::get_fluid_height(entity, fluid) <= entity.get_fluid_jump_threshold()
 }
 
 /// `isInFluidDeeperThan(depth, tag)`.
@@ -226,7 +226,7 @@ fn jump_out_of_fluid(entity: &mut dyn Entity, level: &ServerLevel, old_y: f64) {
 /// `floatInLiquidWhileRidden(FluidTags.ENTITY_FLOATABLE)` (`entity_floatable` = water).
 fn float_in_liquid_while_ridden(entity: &mut dyn Entity) {
     let floats = mc_data::tags::get::<mc_data::EntityType>("can_float_while_ridden").is_some_and(|t| t.contains(entity.get_type()));
-    if entity.base().is_vehicle() && floats && is_in_fluid_deeper_than(entity, entity.base().get_fluid_jump_threshold(), FluidKind::Water) {
+    if entity.base().is_vehicle() && floats && is_in_fluid_deeper_than(entity, entity.get_fluid_jump_threshold(), FluidKind::Water) {
         let dm = entity.base().delta_movement().add_xyz(0.0, f64::from(0.04f32), 0.0);
         entity.base_mut().set_delta_movement(dm);
     }

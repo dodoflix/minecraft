@@ -118,7 +118,7 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if l(entity).jumping && entity.is_affected_by_fluids() {
         let fluid_height = if is_in_lava(entity) { util::get_fluid_height(entity, FluidKind::Lava) } else { util::get_fluid_height(entity, FluidKind::Water) };
         let in_water_and_has_fluid_height = is_in_water(entity) && fluid_height > 0.0;
-        let fluid_jump_threshold = entity.base().get_fluid_jump_threshold();
+        let fluid_jump_threshold = entity.get_fluid_jump_threshold();
         let on_ground = entity.base().on_ground();
         if !in_water_and_has_fluid_height || on_ground && !(fluid_height > fluid_jump_threshold) {
             if !is_in_lava(entity) || on_ground && is_in_shallow_fluid(entity, FluidKind::Lava) {
