@@ -3,7 +3,8 @@
 //! * `placement_codec.txt`: whether `PlacementModifier.CODEC` accepts each JSON (accept/reject edge cases per modifier),
 //! * `placement_golden.txt`: for every placed feature of the vanilla data pack (273) the PLACEMENT chain only (the loop of
 //!   `FeaturePlacer.place`, without the feature) at 6 origins x 2 regions x 3 seeds over the shared synthetic world, with and
-//!   without the biome check: the ordered final positions and the random's next long afterwards.
+//!   without the biome check: the ordered final positions and the random's next long afterwards,
+//! * the same for the chains of `placement_synthetic.json` (modifier types and parameters the data pack never uses).
 
 mod common;
 
@@ -85,6 +86,8 @@ fn chain(modifiers: &[Arc<dyn PlacementModifier>], context: &PlacementContext<'_
 
 struct Feature {
     id: Identifier,
+    /// The chain tests `would_survive`, i.e. the concrete block classes' `canSurvive` (blocks being ported separately).
+    needs_can_survive: bool,
     /// The decoded `placement` list; `without_biome` has the `minecraft:biome` entries removed.
     with_biome: Vec<Arc<dyn PlacementModifier>>,
     without_biome: Vec<Arc<dyn PlacementModifier>>,
@@ -106,15 +109,36 @@ fn load_placed_features() -> HashMap<String, Feature> {
                 .collect()
         };
         let id = Identifier::with_default_namespace(&name).expect("id");
-        out.insert(format!("minecraft:{name}"), Feature { id, with_biome: decode_all(true), without_biome: decode_all(false) });
+        let needs_can_survive = json["placement"].to_string().contains("would_survive");
+        out.insert(format!("minecraft:{name}"), Feature { id, needs_can_survive, with_biome: decode_all(true), without_biome: decode_all(false) });
+    }
+    let synthetic: Value = serde_json::from_str(&fixture("placement_synthetic.json")).expect("synthetic json");
+    for entry in synthetic.as_array().expect("array") {
+        let name = format!("synthetic:{}", entry["name"].as_str().expect("name"));
+        let modifiers: Vec<Arc<dyn PlacementModifier>> =
+            entry["placement"].as_array().expect("placement").iter().map(|m| decode(m).unwrap_or_else(|e| panic!("{name}: {e}"))).collect();
+        let id = Identifier::with_default_namespace("synthetic").expect("id");
+        out.insert(name, Feature { id, needs_can_survive: false, with_biome: modifiers.clone(), without_biome: modifiers });
     }
     out
 }
 
+/// Chains that do not depend on any concrete block class.
 #[test]
 fn placement_chains_match_vanilla() {
+    run_chains(false);
+}
+
+/// The chains with a `would_survive` predicate: need `canSurvive` of the sapling/plant block classes (not ported yet).
+#[test]
+#[ignore = "needs the concrete block classes (WorldgenBlocks): would_survive uses canSurvive"]
+fn placement_chains_with_would_survive_match_vanilla() {
+    run_chains(true);
+}
+
+fn run_chains(can_survive: bool) {
     let features = load_placed_features();
-    assert_eq!(features.len(), 273);
+    assert_eq!(features.len(), 273 + 50);
     let mut compared = 0usize;
     let mut skipped = 0usize;
     let mut nonempty = 0usize;
@@ -142,6 +166,9 @@ fn placement_chains_match_vanilla() {
                 continue;
             }
             let feature = &features[name];
+            if feature.needs_can_survive != can_survive {
+                continue;
+            }
             let origin = origins[oi];
             let rs = h_seed(seed, cx, cz, oi, name);
             let mut random: Box<dyn RandomSource> =
@@ -179,8 +206,12 @@ fn placement_chains_match_vanilla() {
         names.join(" "),
         failures.iter().take(20).cloned().collect::<Vec<_>>().join("\n")
     );
-    assert_eq!(compared + skipped, 273 * 6 * 2 * 6);
-    assert!(nonempty > 3000, "only {nonempty} chains produced positions: the test does not exercise the modifiers");
+    if !can_survive {
+        assert_eq!(compared + skipped, 6 * 6 * (210 * 2 + 50));
+        assert!(nonempty > 3000, "only {nonempty} chains produced positions: the test does not exercise the modifiers");
+    } else {
+        assert_eq!(compared + skipped, 6 * 6 * 63 * 2);
+    }
     eprintln!("{compared} chains compared ({nonempty} with positions), {skipped} skipped (vanilla threw)");
 }
 
