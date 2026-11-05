@@ -63,7 +63,7 @@ pub type LoadedEntities = Vec<Box<dyn Entity>>;
 
 /// `EntityType.create(input, level, request)` + `load`: `None` (logged) when the id is unknown / not creatable /
 /// the tag is invalid.
-fn create_and_load(tag: &CompoundTag, level: &ServerLevel, request: EntitySpawnRequest) -> Option<Box<dyn Entity>> {
+pub fn create_and_load(tag: &CompoundTag, level: &ServerLevel, request: EntitySpawnRequest) -> Option<Box<dyn Entity>> {
     let Some(ty) = by(tag) else {
         log::warn!("Skipping Entity with id {}", tag.get_string("id").unwrap_or("[invalid]"));
         return None;

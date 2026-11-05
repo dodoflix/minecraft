@@ -69,40 +69,6 @@ impl ServerPlayer {
         }
     }
 
-    /// `ServerPlayerGameMode.changeGameModeForPlayer(new)`: false when unchanged. The tab-list broadcast
-    /// (`ClientboundPlayerInfoUpdatePacket`) is the caller's (PlayerList).
-    pub fn change_game_mode_for_player(&mut self, new: GameType) -> bool {
-        let old = self.game_mode.game_mode_for_player;
-        if new == old {
-            return false;
-        }
-        self.set_game_mode_for_player(new, Some(old));
-        if self.player.abilities.flying && new != GameType::Spectator {
-            // `isInRangeOfGround()` needs the level: the caller clears `flying` via `clear_flying_if_near_ground`
-        }
-        self.on_update_abilities();
-        self.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::CHANGE_GAME_MODE, param: game_type_id(new) as f32 });
-        if new == GameType::Creative {
-            self.player.living.current_impulse_impact_pos = None;
-            self.player.living.current_impulse_context_reset_grace_time = 0;
-        }
-        true
-    }
-
-    /// `onUpdateAbilities()` (server side: `ClientboundPlayerAbilitiesPacket`).
-    pub fn on_update_abilities(&mut self) {
-        let a = &self.player.abilities;
-        let packet = ClientboundPlayerAbilitiesPacket {
-            invulnerable: a.invulnerable,
-            is_flying: a.flying,
-            can_fly: a.mayfly,
-            instabuild: a.instabuild,
-            flying_speed: a.get_flying_speed(),
-            walking_speed: a.get_walking_speed(),
-        };
-        self.send(&packet);
-    }
-
     /// `ServerPlayerGameMode.handleBlockBreakAction(pos, action, direction, maxY, sequence)`.
     pub fn handle_block_break_action(&mut self, level: &mut ServerLevel, pos: BlockPos, action: Action, direction: Direction, max_y: i32, _sequence: i32) {
         let id = self.base_id();

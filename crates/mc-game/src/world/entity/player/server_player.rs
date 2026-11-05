@@ -125,6 +125,8 @@ pub struct ServerPlayer {
     // ==== [Player] additions (ServerPlayer field) ====
     /// `stats`: the player's statistics (shared with `PlayerList.stats`).
     pub stats: crate::stats::SharedStats,
+    /// `timeEntitySatOnShoulder` (game time).
+    pub time_entity_sat_on_shoulder: i64,
     // ==== [Level] additions (ServerPlayer field) ====
     // ==== [LivingCore] additions (ServerPlayer field) ====
     /// The server simulates this player's physics like a locally controlled `LocalPlayer` from `last_client_input` (the
@@ -196,6 +198,7 @@ impl ServerPlayer {
             saved_root_vehicle: None,
             // ==== [Player] additions (ServerPlayer::new initializer) ====
             stats: crate::stats::SharedStats::new(crate::stats::ServerStatsCounter::detached()),
+            time_entity_sat_on_shoulder: 0,
             // ==== [Level] additions (ServerPlayer::new initializer) ====
             // ==== [LivingCore] additions (ServerPlayer::new initializer) ====
             simulate_local_player: false,

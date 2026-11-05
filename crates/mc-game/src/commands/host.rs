@@ -533,9 +533,6 @@ pub fn look_at(server: &mut MinecraftServer, target: &EntityRef, anchor: super::
 }
 
 /// `ServerPlayer.setGameMode(mode)`: false when the player already has it.
-///
-/// Gaps (entity slice): the spectator side effects (`removeEntitiesOnShoulder`/`stopRiding`/`stopUsingItem`/location
-/// effects) and `updateEffectVisibility` have no counterpart yet; `isInRangeOfGround` is approximated by `onGround`.
 pub fn set_game_mode(server: &mut MinecraftServer, player: &EntityRef, game_mode: mc_world::level_storage::GameType) -> bool {
     use mc_data::enums::GameType;
     let mode = match game_mode {
@@ -544,44 +541,8 @@ pub fn set_game_mode(server: &mut MinecraftServer, player: &EntityRef, game_mode
         mc_world::level_storage::GameType::Adventure => GameType::Adventure,
         mc_world::level_storage::GameType::Spectator => GameType::Spectator,
     };
-    use mc_protocol::packets::play::{ClientboundGameEventPacket, ClientboundPlayerInfoUpdateAction, ClientboundPlayerInfoUpdatePacket};
-    let Some(handle) = player_handle(server, player) else { return false };
-    let changed = server.level_mut(&player.dimension).and_then(|l| l.get_entity_mut(player.id)).and_then(|entity| {
-        let sp = entity.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>()?;
-        let old = sp.game_mode.game_mode_for_player;
-        if old == mode {
-            return Some(false);
-        }
-        sp.set_game_mode_for_player(mode, Some(old));
-        if sp.player.abilities.flying && mode != GameType::Spectator && sp.base().on_ground() {
-            sp.player.abilities.flying = false;
-        }
-        sp.on_update_abilities();
-        if mode == GameType::Creative {
-            sp.player.living.current_impulse_impact_pos = None;
-            sp.player.living.current_impulse_context_reset_grace_time = 0;
-        }
-        Some(true)
-    });
-    if changed != Some(true) {
-        return false;
-    }
-    handle.shared.lock().game_mode = mode;
-    server.player_list.broadcast_all(&ClientboundPlayerInfoUpdatePacket {
-        actions: [ClientboundPlayerInfoUpdateAction::UpdateGameMode].into_iter().collect(),
-        entries: vec![handle.info_entry()],
-    });
-    let id = match mode {
-        GameType::Survival => 0,
-        GameType::Creative => 1,
-        GameType::Adventure => 2,
-        GameType::Spectator => 3,
-    };
-    handle.connection.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::CHANGE_GAME_MODE, param: id as f32 });
-    if let Some(sp) = server.level_mut(&player.dimension).and_then(|l| l.get_entity_mut(player.id)).and_then(|e| e.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>()) {
-        sp.on_update_abilities();
-    }
-    true
+    let Some(level) = server.level_mut(&player.dimension) else { return false };
+    level.with_player(player.id, |level, sp| sp.set_game_mode(level, mode)).unwrap_or(false)
 }
 
 /// Kicks `player` (`player.connection.disconnect(reason)`); the player's display name for the feedback.
