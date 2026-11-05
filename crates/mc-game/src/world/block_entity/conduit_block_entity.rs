@@ -3,14 +3,14 @@
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
 use crate::server::level::ServerLevel;
 use crate::world::entity::EntityId;
-use crate::world::entity::effect::{MobEffect, MobEffectInstance};
-use crate::world::level::LevelReader;
-use crate::world::level::block::helpers;
+use crate::world::entity::effect::MobEffectInstance;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use crate::world::level::block::{BlockStateExt, helpers};
 use linkme::distributed_slice;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
-use mc_data::{BlockEntityType, SoundEvent};
+use mc_data::{BlockEntityType, MobEffect, SoundEvent};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::uuid_codec;
 use mc_protocol::packets::play::level::{ClientboundBlockEntityDataPacket, SoundSource};
@@ -181,7 +181,7 @@ impl BlockEntity for ConduitBlockEntity {
                 if let Some(target) = get_living_entity(level, new_destroy_target) {
                     let (tx, ty, tz) = {
                         let target = level.get_entity(target).expect("the target was just resolved");
-                        (target.x(), target.y(), target.z())
+                        { let p = target.position(); (p.x, p.y, p.z) }
                     };
                     level.play_sound_at(None, tx, ty, tz, SoundEvent::BLOCK_CONDUIT_ATTACK_TARGET, SoundSource::Blocks, 1.0, 1.0);
                     let source = level.damage_sources().magic();
