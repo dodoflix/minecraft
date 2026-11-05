@@ -77,8 +77,8 @@ pub(crate) fn string_list_tag<'a>(values: impl IntoIterator<Item = &'a String>) 
     list
 }
 
-/// Iteration order of a Java `HashSet<E>` (default capacity 16, load factor 0.75, no treeification) built by
-/// inserting `items` in order: ascending bucket index, insertion order within a bucket. Duplicates collapse.
+/// Iteration order of a Java `HashSet<E>` (default capacity) built by inserting `items` in order
+/// (`mc_core::java_collections::hash_map_order`). Duplicates collapse.
 pub(crate) fn java_hash_set_order<T: PartialEq>(items: Vec<(i32, T)>) -> Vec<T> {
     let mut unique: Vec<(i32, T)> = Vec::with_capacity(items.len());
     for (hash, item) in items {
@@ -86,13 +86,10 @@ pub(crate) fn java_hash_set_order<T: PartialEq>(items: Vec<(i32, T)>) -> Vec<T> 
             unique.push((hash, item));
         }
     }
-    let mut capacity = 16usize;
-    while unique.len() > capacity * 3 / 4 {
-        capacity *= 2;
-    }
-    let bucket = |hash: i32| ((hash ^ ((hash as u32) >> 16) as i32) as u32 as usize) & (capacity - 1);
-    unique.sort_by_key(|(hash, _)| bucket(*hash)); // stable: insertion order inside a bucket
-    unique.into_iter().map(|(_, item)| item).collect()
+    mc_core::java_collections::hash_map_ordered(unique, |e| e.0, mc_core::java_collections::HASH_MAP_DEFAULT_CAPACITY)
+        .into_iter()
+        .map(|(_, item)| item)
+        .collect()
 }
 
 /// [`java_hash_set_order`] for `HashSet<String>`.
