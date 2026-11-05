@@ -94,3 +94,11 @@ pub fn become_passive_if_memory_present(pacifying_memory: MemoryTypeId, pacify_d
 pub fn boxed(behavior: impl BehaviorControl) -> Box<dyn BehaviorControl> {
     Box::new(behavior)
 }
+
+/// `UpdateActivityFromSchedule.create()`.
+pub fn update_activity_from_schedule() -> OneShot {
+    BehaviorBuilder::point(|level: &mut ServerLevel, body: &mut dyn Entity, _: i64| {
+        crate::world::entity::ai::brain::update_activity_from_schedule(level, body);
+        true
+    })
+}

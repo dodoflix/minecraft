@@ -731,3 +731,14 @@ impl Brain {
         *self = other;
     }
 }
+
+/// `body.getBrain().updateActivityFromSchedule(level.environmentAttributes(), level.getGameTime(), body.position())`.
+pub fn update_activity_from_schedule(level: &ServerLevel, body: &mut dyn Entity) {
+    use crate::world::attribute::AttrValue;
+    let pos = body.position();
+    let game_time = level.game_time();
+    body.brain_mut().update_activity_from_schedule(game_time, |attribute| match level.environment_value(attribute, &pos) {
+        AttrValue::Activity(id) => Activity::by_id(&id).unwrap_or(Activity::IDLE),
+        _ => Activity::IDLE,
+    });
+}
