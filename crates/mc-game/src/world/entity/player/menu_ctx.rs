@@ -68,6 +68,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn level(&mut self) -> Option<&mut ServerLevel> {
         Some(self.level)
     }
+    fn with_server_player(&mut self, f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer)) {
+        f(&mut *self.level, &mut *self.player);
+    }
     fn level_ref(&self) -> Option<&ServerLevel> {
         Some(&*self.level)
     }

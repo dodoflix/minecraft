@@ -72,6 +72,9 @@ pub trait MenuPlayer {
     }
     /// `isWithinBlockInteractionRange(pos, buffer)`.
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
+    /// Runs `f` with the real `ServerLevel`/`ServerPlayer` (advancement triggers, stats, xp, ...); no-op for test
+    /// players. The player's own menus are detached while a menu runs.
+    fn with_server_player(&mut self, _f: &mut dyn FnMut(&mut ServerLevel, &mut crate::world::entity::player::ServerPlayer)) {}
     /// Read-only view of the player's level (`None` for level-less test players).
     fn level_ref(&self) -> Option<&ServerLevel> {
         None
