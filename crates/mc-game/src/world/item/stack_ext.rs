@@ -28,6 +28,8 @@ pub trait ItemStackExt {
     fn get_hover_name(&self) -> Component;
     /// `getRarity()`.
     fn get_rarity(&self) -> Rarity;
+    /// `canBeHurtBy(source)`: false when the `damage_resistant` component covers the damage type of `source`.
+    fn can_be_hurt_by(&self, level: &crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool;
     /// `getDisplayName()`: the bracketed, rarity-coloured name with the `show_item` hover.
     fn get_display_name(&self) -> Component;
 }
@@ -35,6 +37,16 @@ pub trait ItemStackExt {
 impl ItemStackExt for ItemStack {
     fn is_enchanted(&self) -> bool {
         self.get(&ENCHANTMENTS).is_some_and(|e| !e.is_empty())
+    }
+
+    fn can_be_hurt_by(&self, level: &crate::server::level::ServerLevel, source: &crate::world::damagesource::DamageSource) -> bool {
+        use mc_protocol::components::{DAMAGE_RESISTANT, HolderSet};
+        let Some(resistant) = self.get(&DAMAGE_RESISTANT) else { return true };
+        let resistant_to = match &resistant.types {
+            HolderSet::Named(tag) => level.registries.is_in_tag(crate::registry::keys::DAMAGE_TYPE, &source.damage_type, tag),
+            HolderSet::Direct(holders) => holders.iter().any(|h| h.name() == Some(&source.damage_type)),
+        };
+        !resistant_to
     }
 
     fn get_custom_name(&self) -> Option<Component> {

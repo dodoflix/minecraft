@@ -244,6 +244,13 @@ impl SynchedEntityData {
         }
     }
 
+    /// Replaces the stored value without marking it dirty: vanilla code that mutates a stored object in place
+    /// (`ItemEntity.merge`'s `fromStack.shrink`, `Inventory.add(itemEntity.getItem())`) is never noticed by
+    /// `SynchedEntityData`.
+    pub fn set_untracked<S: Serializer>(&mut self, accessor: EntityDataAccessor<S>, value: S::Value) {
+        self.items[accessor.id as usize].value = S::wrap(value);
+    }
+
     pub fn is_dirty(&self) -> bool {
         self.is_dirty
     }

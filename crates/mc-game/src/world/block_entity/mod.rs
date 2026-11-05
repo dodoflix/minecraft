@@ -53,13 +53,17 @@ pub trait BlockEntity: Any {
     fn load_additional(&mut self, _tag: &CompoundTag) {}
     /// `saveAdditional(output)`: write the type-specific part (the common `id`/`x`/`y`/`z` part is added by the caller).
     fn save_additional(&self, _tag: &mut CompoundTag) {}
-    /// `saveWithFullMetadata(registries)`: `saveAdditional`, the `components` map, then `id`, `x`, `y`, `z`.
-    fn save_with_full_metadata(&self) -> CompoundTag {
-        let mut tag = CompoundTag::new();
-        self.save_additional(&mut tag);
+    /// `saveWithoutMetadata(output)`: `saveAdditional` and the `components` map.
+    fn save_without_metadata(&self, tag: &mut CompoundTag) {
+        self.save_additional(tag);
         if let Ok(components) = mc_dfu::encode_nbt(&mc_protocol::components::DataComponentMap::codec(), &self.base().components).into_result() {
             tag.put("components", components);
         }
+    }
+    /// `saveWithFullMetadata(registries)`: `saveAdditional`, the `components` map, then `id`, `x`, `y`, `z`.
+    fn save_with_full_metadata(&self) -> CompoundTag {
+        let mut tag = CompoundTag::new();
+        self.save_without_metadata(&mut tag);
         tag.put_string("id", self.get_type().name());
         let pos = self.get_block_pos();
         tag.put_int("x", pos.x());

@@ -275,6 +275,26 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     ) -> Option<Option<mc_core::phys::Vec3>> {
         None
     }
+
+    // ==== [Items] additions: `Fallable` (FallingBlock, BrushableBlock, SpeleothemBlock) ====
+    /// `FallingBlock.falling(entity)`: configures the entity before it enters the level.
+    fn falling(&self, _entity: &mut crate::world::entity::falling_block_entity::FallingBlockEntity) {}
+    /// `Fallable.onLand(level, pos, state, replacedBlock, entity)`.
+    fn on_land(
+        &self,
+        _level: &mut ServerLevel,
+        _pos: BlockPos,
+        _state: BlockState,
+        _replaced: BlockState,
+        _entity: &crate::world::entity::falling_block_entity::FallingBlockEntity,
+    ) {
+    }
+    /// `Fallable.onBrokenAfterFall(level, pos, entity)`.
+    fn on_broken_after_fall(&self, _level: &mut ServerLevel, _pos: BlockPos, _entity: &crate::world::entity::falling_block_entity::FallingBlockEntity) {}
+    /// `Fallable.getFallDamageSource(entity)`.
+    fn get_fall_damage_source(&self, level: &ServerLevel, entity: &crate::world::entity::falling_block_entity::FallingBlockEntity) -> crate::world::damagesource::DamageSource {
+        level.damage_sources().falling_block(entity)
+    }
 }
 
 /// Vanilla's base behavior (every method default).

@@ -7,6 +7,8 @@ pub mod effects;
 pub mod inventory;
 pub mod item_use;
 pub mod menu_ctx;
+pub mod pickup;
+mod ec_tmp;
 pub mod tick;
 pub mod travel;
 pub mod server_player;
