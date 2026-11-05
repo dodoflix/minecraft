@@ -221,6 +221,18 @@ impl Replay {
                 let path = create_path(level, m, x, y, z, reach);
                 dump_path(&mut self.out, t[1], path, m);
             }
+            "pathset" => {
+                let reach = int(t[2]);
+                let targets: Vec<BlockPos> = t[3..].chunks(3).map(|c| BlockPos::new(int(c[0]), int(c[1]), int(c[2]))).collect();
+                let level = &self.level;
+                let m = self.mobs.iter_mut().find(|(n, _)| n == t[1]).map(|(_, m)| m).expect("mob");
+                let path = create_path_targets(level, m, &targets, reach);
+                dump_path(&mut self.out, t[1], path, m);
+            }
+            "malus" => {
+                let line = format!("MALUS {} {}", t[1], self.mob(t[1]).mob.malus.iter().map(|v| f32s(*v)).collect::<Vec<_>>().join(","));
+                self.out.push(line);
+            }
             "pathtype" => {
                 let pos = BlockPos::new(int(t[2]), int(t[3]), int(t[4]));
                 let level = &self.level;
@@ -248,7 +260,12 @@ fn create_path(level: &ServerLevel, m: &mut Mob, x: f64, y: f64, z: f64, reach: 
             pos = find_surface_position(level, pos);
         }
     }
-    if m.mob.pos.y < f64::from(level.get_min_y()) {
+    create_path_targets(level, m, &[pos], reach)
+}
+
+/// `PathNavigation.createPath(targets, 8, false, reachRange)`.
+fn create_path_targets(level: &ServerLevel, m: &mut Mob, targets: &[BlockPos], reach: i32) -> Option<Path> {
+    if targets.is_empty() || m.mob.pos.y < f64::from(level.get_min_y()) {
         return None;
     }
     let can_update = match m.class {
@@ -262,13 +279,13 @@ fn create_path(level: &ServerLevel, m: &mut Mob, x: f64, y: f64, z: f64, reach: 
     }
     if let Some(path) = &m.nav.path
         && !path.is_done()
-        && m.nav.target_pos() == Some(pos)
+        && m.nav.target_pos().is_some_and(|t| targets.contains(&t))
     {
         return Some(path.clone());
     }
     // `getMaxPathLength()`
     let max_path_length = m.nav.max_path_length(m.follow_value);
-    create_path_with_finder(&mut m.nav, &mut m.mob, level, &[pos], 8, false, reach, max_path_length, 1.0)
+    create_path_with_finder(&mut m.nav, &mut m.mob, level, targets, 8, false, reach, max_path_length, 1.0)
 }
 
 fn dump_path(out: &mut Vec<String>, name: &str, path: Option<Path>, m: &Mob) {

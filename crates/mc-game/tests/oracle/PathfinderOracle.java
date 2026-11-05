@@ -139,6 +139,19 @@ public final class PathfinderOracle {
                   }
                   dumpPath(out, a[1], p, nav);
                }
+               case "pathset" -> {
+                  // pathset NAME REACH X Y Z [X Y Z ...]: nav.createPath(Set<BlockPos>, reach) with the set in this (insertion) order
+                  Mob mob = mobs.get(a[1]);
+                  Set<BlockPos> set = new LinkedHashSet<>();
+                  for (int i = 3; i + 2 < a.length; i += 3) set.add(new BlockPos(Integer.parseInt(a[i]), Integer.parseInt(a[i + 1]), Integer.parseInt(a[i + 2])));
+                  dumpPath(out, a[1], mob.getNavigation().createPath(set, Integer.parseInt(a[2])), mob.getNavigation());
+               }
+               case "malus" -> {
+                  Mob mob = mobs.get(a[1]);
+                  StringBuilder m = new StringBuilder();
+                  for (PathType p : PathType.values()) m.append(p.ordinal() == 0 ? "" : ",").append(f(mob.getPathfindingMalus(p)));
+                  out.println("MALUS " + a[1] + " " + m);
+               }
                case "pathtype" -> {
                   Mob mob = mobs.get(a[1]);
                   BlockPos pos = new BlockPos(Integer.parseInt(a[2]), Integer.parseInt(a[3]), Integer.parseInt(a[4]));

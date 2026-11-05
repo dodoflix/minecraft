@@ -34,3 +34,20 @@ mob z2 zombie 202.5 64 2.5
 path z2 212 64 2 1
 path z2 229 56 2 1
 path z2 207 61 2 1
+# ---- T3: inner corner (diagonal corner cutting), multi-target sets (target HashMap iteration order), door diagonals
+fill 300 63 0 330 63 30 minecraft:stone
+fill 310 64 10 310 66 20 minecraft:stone
+fill 311 64 20 320 66 20 minecraft:stone
+fill 305 64 5 307 64 5 minecraft:stone
+mob z3 zombie 308.5 64 11.5
+path z3 312 64 19 1
+path z3 309 64 21 0
+mob z4 zombie 302.5 64 2.5
+pathset z4 1 320 64 2 302 64 22 316 64 8 328 64 28 305 64 12
+pathset z4 0 301 64 3 325 64 25 310 64 3 304 64 27
+pathset z4 2 312 64 12 320 64 12 313 64 5 311 64 19 330 64 30 318 64 22 307 64 29 309 64 3 326 64 9 314 64 14 303 64 21 321 64 6 305 64 8
+malus z4
+mob v3 villager 302.5 64 2.5 doors
+fill 303 64 0 303 66 5 minecraft:oak_door[half=lower,facing=east,open=false,hinge=left]
+path v3 310 64 2 1
+malus v3

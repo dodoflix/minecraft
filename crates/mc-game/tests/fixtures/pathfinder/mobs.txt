@@ -499,3 +499,90 @@ N 7 310 64 10 g=49.0 h=23.286263 f=72.28626 type=WALKABLE walked=15.48528 malus=
 PT a_drowned 316,63,5 static=OPEN cache=OPEN cache2=OPEN evaluator=OPEN
 PT a_drowned 321,60,5 static=WATER cache=WATER cache2=WATER evaluator=WATER_BORDER
 PT a_drowned 311,62,5 static=WATER cache=WATER cache2=WATER evaluator=WATER_BORDER
+MOB f_bee_stuck type=bee nav=FlyingPathNavigation pos=210.5,66.0,2.0 bb=210.22499999403954,66.0,1.7249999940395355,210.77500000596046,66.5,2.2750000059604645 w=0.55 h=0.5 ground=false water=false liquid=false floatable=false step=0.6 fall=3 follow=16.0 followv=16.0 eval=true,false,true,false reqlen=48.0 powder=false passenger=false seed=11 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,-1.0,16.0,0.0,-1.0,16.0,-1.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,-1.0,0.0,0.0,4.0
+PATH f_bee_stuck reached=false count=15 dist=11.0 target=225,66,15 next=0 navtarget=225,66,15
+N 0 209 67 1 g=0.0 h=21.283796 f=21.283796 type=OPEN walked=0.0 malus=0.0 closed=true
+N 1 209 67 2 g=1.0 h=30.95965 f=31.95965 type=OPEN walked=1.0 malus=0.0 closed=true
+N 2 209 67 3 g=2.0 h=30.037476 f=32.037476 type=OPEN walked=2.0 malus=0.0 closed=true
+N 3 209 67 4 g=3.0 h=29.163334 f=32.163334 type=OPEN walked=3.0 malus=0.0 closed=true
+N 4 210 67 5 g=4.4142137 h=27.083204 f=31.497417 type=OPEN walked=4.4142137 malus=0.0 closed=true
+N 5 211 67 6 g=5.8284273 h=25.009998 f=30.838425 type=OPEN walked=5.8284273 malus=0.0 closed=true
+N 6 212 67 7 g=7.242641 h=22.945587 f=30.188229 type=OPEN walked=7.242641 malus=0.0 closed=true
+N 7 213 67 8 g=8.656855 h=20.892582 f=29.549437 type=OPEN walked=8.656855 malus=0.0 closed=true
+N 8 214 66 9 g=10.388906 h=18.794947 f=29.183853 type=OPEN walked=11.071068 malus=0.0 closed=true
+N 9 214 66 10 g=11.388906 h=18.124569 f=29.513474 type=OPEN walked=13.485281 malus=0.0 closed=true
+N 10 214 66 11 g=12.388906 h=17.557049 f=29.945953 type=OPEN walked=18.631544 malus=0.0 closed=true
+N 11 214 66 12 g=13.388906 h=17.10263 f=30.491535 type=OPEN walked=21.045757 malus=0.0 closed=true
+N 12 214 66 13 g=14.388906 h=16.77051 f=31.159416 type=OPEN walked=26.92407 malus=0.0 closed=true
+N 13 214 66 14 g=15.388906 h=16.56804 f=31.956947 type=OPEN walked=32.898758 malus=0.0 closed=true
+N 14 214 66 15 g=16.388905 h=16.5 f=32.888905 type=OPEN walked=44.48383 malus=0.0 closed=true
+MOB f_bee_stuck2 type=bee nav=FlyingPathNavigation pos=210.5,66.0,2.0 bb=210.22499999403954,66.0,1.7249999940395355,210.77500000596046,66.5,2.2750000059604645 w=0.55 h=0.5 ground=false water=false liquid=false floatable=false step=0.6 fall=3 follow=16.0 followv=16.0 eval=true,false,true,false reqlen=48.0 powder=false passenger=false seed=12345 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,-1.0,16.0,0.0,-1.0,16.0,-1.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,-1.0,0.0,0.0,4.0
+PATH f_bee_stuck2 reached=true count=24 dist=1.0 target=205,66,25 next=0 navtarget=205,66,25
+N 0 209 66 1 g=0.0 h=24.33105 f=24.33105 type=OPEN walked=0.0 malus=0.0 closed=true
+N 1 209 66 2 g=1.0 h=35.017853 f=36.017853 type=OPEN walked=1.0 malus=0.0 closed=true
+N 2 209 66 3 g=2.0 h=33.54102 f=35.54102 type=OPEN walked=2.0 malus=0.0 closed=true
+N 3 209 66 4 g=3.0 h=32.066338 f=35.066338 type=OPEN walked=3.0 malus=0.0 closed=true
+N 4 209 66 5 g=4.0 h=30.594116 f=34.594116 type=OPEN walked=4.0 malus=0.0 closed=true
+N 5 209 66 6 g=5.0 h=29.124733 f=34.124733 type=OPEN walked=5.0 malus=0.0 closed=true
+N 6 209 66 7 g=6.0 h=27.658634 f=33.658634 type=OPEN walked=6.0 malus=0.0 closed=true
+N 7 209 66 8 g=7.0 h=26.196373 f=33.196373 type=OPEN walked=7.0 malus=0.0 closed=true
+N 8 209 66 9 g=8.0 h=24.738632 f=32.738632 type=OPEN walked=8.0 malus=0.0 closed=true
+N 9 209 66 10 g=9.0 h=23.286263 f=32.286263 type=OPEN walked=9.0 malus=0.0 closed=true
+N 10 209 66 11 g=10.0 h=21.84033 f=31.84033 type=OPEN walked=10.0 malus=0.0 closed=true
+N 11 209 66 12 g=11.0 h=20.402206 f=31.402206 type=OPEN walked=11.0 malus=0.0 closed=true
+N 12 208 66 13 g=12.414213 h=18.553976 f=30.96819 type=OPEN walked=12.414213 malus=0.0 closed=true
+N 13 208 66 14 g=13.414213 h=17.10263 f=30.516844 type=OPEN walked=13.414213 malus=0.0 closed=true
+N 14 208 66 15 g=14.414213 h=15.6604595 f=30.074673 type=OPEN walked=14.414213 malus=0.0 closed=true
+N 15 208 66 16 g=15.414213 h=14.230249 f=29.644463 type=OPEN walked=15.414213 malus=0.0 closed=true
+N 16 207 66 17 g=16.828426 h=12.369316 f=29.197742 type=OPEN walked=16.828426 malus=0.0 closed=true
+N 17 207 66 18 g=17.828426 h=10.920165 f=28.748592 type=OPEN walked=17.828426 malus=0.0 closed=true
+N 18 207 66 19 g=18.828426 h=9.486834 f=28.31526 type=OPEN walked=18.828426 malus=0.0 closed=true
+N 19 206 66 20 g=20.24264 h=7.648529 f=27.891169 type=OPEN walked=20.24264 malus=0.0 closed=true
+N 20 206 66 21 g=21.24264 h=6.184658 f=27.427298 type=OPEN walked=21.24264 malus=0.0 closed=true
+N 21 206 66 22 g=22.24264 h=4.743417 f=26.986057 type=OPEN walked=22.24264 malus=0.0 closed=true
+N 22 206 66 23 g=23.24264 h=3.3541021 f=26.59674 type=OPEN walked=23.24264 malus=0.0 closed=true
+N 23 205 66 24 g=24.656853 h=1.5 f=26.156853 type=OPEN walked=24.656853 malus=0.0 closed=true
+MOB f_parrot_w type=parrot nav=FlyingPathNavigation pos=110.5,59.0,10.5 bb=110.25,59.0,10.25,110.75,59.89999997615814,10.75 w=0.5 h=0.9 ground=false water=true liquid=true floatable=true step=0.6 fall=3 follow=16.0 followv=16.0 eval=true,false,true,false reqlen=16.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,8.0,8.0,0.0,-1.0,-1.0,-1.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,-1.0,0.0,0.0,4.0
+PATH f_parrot_w reached=true count=7 dist=1.0 target=117,66,10 next=0 navtarget=117,66,10
+N 0 110 63 10 g=0.0 h=7.615773 f=7.615773 type=WATER_BORDER walked=0.0 malus=8.0 closed=true
+N 1 111 64 10 g=1.4142135 h=9.486834 f=10.901047 type=OPEN walked=1.4142135 malus=0.0 closed=true
+N 2 112 65 10 g=2.828427 h=7.648529 f=10.476956 type=OPEN walked=2.828427 malus=0.0 closed=true
+N 3 113 65 10 g=3.828427 h=6.184658 f=10.013085 type=OPEN walked=3.828427 malus=0.0 closed=true
+N 4 114 65 10 g=4.8284273 h=4.743417 f=9.571844 type=OPEN walked=4.8284273 malus=0.0 closed=true
+N 5 115 65 10 g=5.8284273 h=3.3541021 f=9.182529 type=OPEN walked=5.8284273 malus=0.0 closed=true
+N 6 116 66 10 g=7.242641 h=1.5 f=8.742641 type=OPEN walked=7.242641 malus=0.0 closed=true
+MALUS f_parrot_w -1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,8.0,8.0,0.0,-1.0,-1.0,-1.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,-1.0,0.0,0.0,4.0
+MOB w_dolphin2 type=dolphin nav=WaterBoundPathNavigation pos=110.5,59.0,10.5 bb=110.05000001192093,59.0,10.050000011920929,110.94999998807907,59.60000002384186,10.949999988079071 w=0.9 h=0.6 ground=true water=true liquid=true floatable=true step=0.6 fall=3 follow=16.0 followv=16.0 eval=false,false,false,false reqlen=16.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,0.0,8.0,0.0,-1.0,8.0,16.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
+PATH w_dolphin2 reached=true count=6 dist=1.0 target=114,61,10 next=0 navtarget=114,61,10
+N 0 110 59 10 g=0.0 h=4.472136 f=4.472136 type=WATER walked=0.0 malus=0.0 closed=true
+N 1 111 59 11 g=1.4142135 h=5.6124864 f=7.0267 type=WATER walked=2.0 malus=0.0 closed=true
+N 2 112 59 11 g=2.4142137 h=4.5 f=6.9142137 type=WATER walked=3.0 malus=0.0 closed=true
+N 3 112 60 11 g=3.4142137 h=3.6742349 f=7.0884485 type=WATER walked=4.0 malus=0.0 closed=true
+N 4 113 60 11 g=4.4142137 h=2.598076 f=7.01229 type=WATER walked=5.0 malus=0.0 closed=true
+N 5 114 60 10 g=5.8284273 h=1.5 f=7.3284273 type=WATER walked=6.4142137 malus=0.0 closed=true
+MOB g_golem2 type=iron_golem nav=GroundPathNavigation pos=14.0,64.0,4.0 bb=13.300000011920929,64.0,3.300000011920929,14.699999988079071,66.70000004768372,4.699999988079071 w=1.4 h=2.7 ground=true water=false liquid=false floatable=false step=1.0 fall=3 follow=16.0 followv=16.0 eval=true,false,false,false reqlen=16.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,8.0,8.0,0.0,-1.0,8.0,16.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
+PATH g_golem2 reached=false count=3 dist=13.0 target=26,64,5 next=0 navtarget=26,64,5
+N 0 13 64 3 g=0.0 h=13.152946 f=13.152946 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 13 64 4 g=1.0 h=19.557606 f=20.557606 type=WALKABLE walked=1.0 malus=0.0 closed=true
+N 2 13 64 5 g=2.0 h=19.5 f=21.5 type=WALKABLE walked=2.0 malus=0.0 closed=true
+PT g_golem2 19,64,5 static=DAMAGING_IN_NEIGHBOR cache=OPEN cache2=OPEN evaluator=DAMAGING_IN_NEIGHBOR
+PT g_golem2 21,64,6 static=DAMAGING_IN_NEIGHBOR cache=OPEN cache2=OPEN evaluator=DAMAGING_IN_NEIGHBOR
+MOB a_drowned2 type=drowned nav=AmphibiousPathNavigation pos=303.5,64.0,10.5 bb=303.19999998807907,64.0,10.199999988079071,303.80000001192093,65.95000004768372,10.800000011920929 w=0.6 h=1.95 ground=true water=false liquid=false floatable=false step=1.0 fall=3 follow=35.0 followv=35.0 eval=true,false,false,false reqlen=16.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,0.0,8.0,0.0,-1.0,8.0,16.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
+PATH a_drowned2 reached=false count=16 dist=9.0 target=325,60,10 next=0 navtarget=325,60,10
+N 0 303 64 10 g=0.0 h=22.36068 f=22.36068 type=WALKABLE walked=0.0 malus=6.0 closed=true
+N 1 304 64 10 g=7.0 h=32.066338 f=39.066338 type=WALKABLE walked=1.0 malus=6.0 closed=true
+N 2 305 64 10 g=14.0 h=30.594116 f=44.594116 type=WALKABLE walked=3.4142137 malus=6.0 closed=true
+N 3 306 64 10 g=21.0 h=29.124733 f=50.124733 type=WALKABLE walked=5.8284273 malus=6.0 closed=true
+N 4 307 64 10 g=28.0 h=27.658634 f=55.658634 type=WALKABLE walked=8.2426405 malus=6.0 closed=true
+N 5 308 64 10 g=35.0 h=26.196373 f=61.196373 type=WALKABLE walked=10.656854 malus=6.0 closed=true
+N 6 309 64 10 g=42.0 h=24.738632 f=66.73863 type=WALKABLE walked=13.071067 malus=6.0 closed=true
+N 7 310 64 10 g=49.0 h=23.286263 f=72.28626 type=WALKABLE walked=15.48528 malus=6.0 closed=true
+N 8 311 62 10 g=55.23607 h=21.213203 f=76.44927 type=WATER_BORDER walked=18.934769 malus=4.0 closed=true
+N 9 312 62 10 g=60.23607 h=19.72942 f=79.965485 type=WATER_BORDER walked=21.348982 malus=4.0 closed=true
+N 10 313 62 10 g=65.23607 h=18.248287 f=83.48436 type=WATER_BORDER walked=23.763195 malus=4.0 closed=true
+N 11 314 62 10 g=70.23607 h=16.77051 f=87.00658 type=WATER_BORDER walked=26.177408 malus=4.0 closed=true
+N 12 315 62 10 g=75.23607 h=15.297058 f=90.53313 type=WATER_BORDER walked=28.591621 malus=4.0 closed=true
+N 13 316 62 10 g=80.23607 h=13.829317 f=94.065384 type=WATER_BORDER walked=31.005835 malus=4.0 closed=true
+N 14 317 62 10 g=85.23607 h=12.369316 f=97.605385 type=WATER_BORDER walked=33.42005 malus=4.0 closed=true
+N 15 318 62 10 g=90.23607 h=10.920165 f=101.156235 type=WATER_BORDER walked=35.834267 malus=4.0 closed=true
+MALUS a_drowned2 -1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,0.0,8.0,0.0,-1.0,8.0,16.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
