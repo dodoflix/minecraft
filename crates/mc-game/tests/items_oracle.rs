@@ -13,6 +13,11 @@ use mc_game::world::item::ItemStack;
 use mc_game::world::level::LevelAccessor;
 use mc_data::Item;
 
+thread_local! {
+    /// Next pinned entity id (tests run on their own threads).
+    static NEXT_ID: std::cell::Cell<i32> = std::cell::Cell::new(std::env::var("ITEM_ID_BASE").ok().and_then(|v| v.parse().ok()).unwrap_or(1001));
+}
+
 /// The flat world of the oracle: grass at y=-61 (the player stands at y=-60).
 fn registries() -> mc_game::registry::RegistryAccess {
     static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
@@ -48,9 +53,18 @@ fn fill(level: &mut ServerLevel, (x1, y1, z1): (i32, i32, i32), (x2, y2, z2): (i
 }
 
 /// `spawn_item REF STACK X Y Z vx vy vz` + `snap REF X Y Z yaw pitch`.
+///
+/// Entity ids are not printed by the oracle, but a resting item moves only every `(tickCount + id) % 4`th tick: the ids of
+/// the scenario are pinned to `1001 + spawn index` (only `id % 4` matters; 1001 reproduces the vanilla oracle).
 fn spawn_item(level: &mut ServerLevel, stack: ItemStack, pos: (f64, f64, f64), motion: (f64, f64, f64), yaw: f32) -> EntityId {
-    let mut e = ItemEntity::with_stack_and_motion(level, pos.0, pos.1, pos.2, stack, motion.0, motion.1, motion.2);
+    let id = NEXT_ID.with(|n| {
+        n.set(n.get() + 1);
+        n.get() - 1
+    });
+    let mut e = ItemEntity::new(mc_data::EntityType::ITEM, id);
     e.set_pos(pos.0, pos.1, pos.2);
+    e.set_item(stack);
+    e.base_mut().set_delta_movement_xyz(motion.0, motion.1, motion.2);
     e.set_rot(yaw, 0.0);
     let id = e.id();
     level.add_fresh_entity(Box::new(e));
@@ -80,7 +94,7 @@ fn describe_item(name: &str, e: &ItemEntity) -> String {
     let d = b.delta_movement();
     let item = e.get_item();
     format!(
-        "E {name} minecraft:item pos={} delta={} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing item={}*{} age={}",
+        "E {name} minecraft:item pos={} delta={} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing item={}*{} age={} pickup={} health={} owner={} thrower={}",
         vec3(p.x, p.y, p.z),
         vec3(d.x, d.y, d.z),
         b.y_rot(),
@@ -92,7 +106,11 @@ fn describe_item(name: &str, e: &ItemEntity) -> String {
         i32::from(e.is_alive()),
         item.item().name(),
         item.count(),
-        e.age
+        e.age,
+        e.pickup_delay,
+        e.health,
+        e.target.map_or("-".to_string(), |u| u.to_string()),
+        e.thrower.map_or("-".to_string(), |u| u.to_string())
     )
 }
 
@@ -183,4 +201,44 @@ fn item_merge_rules_match_vanilla() {
             "merge {a}*{ca} <- {b}*{cb}"
         );
     }
+}
+
+#[test]
+fn item_merge_pickup_delay_and_despawn_match_vanilla() {
+    let mut level = flat_level();
+    // (name, item, count, pos, age, pickup delay)
+    let specs: [(&str, Item, i32, (f64, f64, f64), i32, i32); 9] = [
+        ("m1", Item::DIAMOND, 20, (5.5, -60.0, 2.5), 0, 0),
+        ("m2", Item::DIAMOND, 30, (5.7, -60.0, 2.5), 0, 0),
+        ("m3", Item::DIAMOND, 5, (5.9, -60.0, 2.5), 0, 0),
+        ("n1", Item::STONE, 64, (8.5, -60.0, 2.5), 0, 0),
+        ("n2", Item::STONE, 3, (8.6, -60.0, 2.5), 0, 0),
+        ("e1", Item::EMERALD, 10, (2.5, -60.0, 2.5), 0, 0),
+        ("e2", Item::EMERALD, 10, (2.6, -60.0, 2.5), 100, 20),
+        ("d1", Item::DIRT, 1, (12.5, -60.0, 3.5), 5990, 0),
+        ("u1", Item::DIRT, 1, (12.5, -60.0, -3.5), -32768, 3),
+    ];
+    let mut names = Vec::new();
+    let mut ids = Vec::new();
+    for (name, item, count, pos, age, pickup) in specs {
+        let id = spawn_item(&mut level, ItemStack::with_count(item, count), pos, (0.0, 0.0, 0.0), 0.0);
+        level.with_entity(id, |_, e| {
+            let e = e.as_any_mut().downcast_mut::<ItemEntity>().unwrap();
+            e.age = age;
+            e.pickup_delay = pickup;
+        });
+        names.push(name);
+        ids.push(id);
+    }
+    let mut actual = Vec::new();
+    for t in 1..=45 {
+        tick_entities(&mut level, &ids);
+        actual.push(format!("T {t}"));
+        for (name, &id) in names.iter().zip(&ids) {
+            if let Some(e) = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()) {
+                actual.push(describe_item(name, e));
+            }
+        }
+    }
+    Fixture::load("item_merge").assert_matches(&actual, &Options::default());
 }

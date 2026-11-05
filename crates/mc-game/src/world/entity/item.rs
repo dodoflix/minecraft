@@ -265,6 +265,11 @@ impl Entity for ItemEntity {
         MoveSimulationType::ServerAndClient
     }
 
+    /// `ignoreExplosion(explosion)`: items only react to explosions that affect blocklike entities.
+    fn ignore_explosion(&self, explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+        !explosion.should_affect_blocklike_entities()
+    }
+
     /// `shouldPlayLavaHurtSound()`.
     fn should_play_lava_hurt_sound(&self) -> bool {
         self.health <= 0 || self.base.tick_count % 10 == 0
