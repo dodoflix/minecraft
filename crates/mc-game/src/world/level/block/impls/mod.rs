@@ -212,7 +212,6 @@ pub mod wall_sign_block;
 pub mod wall_skull_block;
 pub mod wall_torch_block;
 pub mod waterlogged_transparent_block;
-pub mod slime_block;
 pub mod web_block;
 pub mod weeping_vines_block;
 pub mod weeping_vines_plant_block;

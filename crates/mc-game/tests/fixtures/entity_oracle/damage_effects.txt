@@ -1,0 +1,509 @@
+EFFECT R1 minecraft:resistance added=true
+P R1 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/0/999 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT R1 minecraft:update_mob_effect 8701010a00e8070e
+PKT R1 minecraft:set_entity_data 6501090341a000000a11011cff9146f0ff
+PKT R1 minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2052312000080009696e73657274696f6e0002523108000474657874000252310a000b686f7665725f6576656e740800046e616d6500025231080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004a17a4d8adaba35c0b215f37c659a37a60000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e7368696e795f676561722e6465736372697074696f6e000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT R1 minecraft:container_set_slot 140002000601bd080000
+PKT R1 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT R1 minecraft:update_advancements -
+PKT R1 minecraft:set_health 6a41a000001440a00000
+PKT R1 minecraft:set_experience 69000000000000
+PKT R1 minecraft:chunk_batch_start 0c
+PKT R1 minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=-1,0/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
+PKT R1 minecraft:level_chunk_with_light chunk=-1,1/len=7260
+PKT R1 minecraft:chunk_batch_finished 0b09
+HURT R1 generic 10 -> true
+HURT R1 in_fire 8 -> true
+HURT R1 magic 6 -> true
+HURT R1 out_of_world 9 -> true
+P R1 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/0/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
+PKT R1 minecraft:damage_event 190112000000
+PKT R1 minecraft:set_entity_data 6501090341400000ff
+PKT R1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R1 minecraft:set_entity_motion 6701f9ff7ffeebed
+PKT R1 minecraft:set_health 6a414000001440a00000
+PKT R1 minecraft:set_health 6a414d55551440a00000
+PKT R1 minecraft:set_entity_data 65010903414d5555ff
+PKT R1 minecraft:set_time 73000000000000001300
+PKT R1 minecraft:set_health 6a415800001440800000
+PKT R1 minecraft:set_entity_data 6501090341580000ff
+PKT R1 minecraft:damage_event 190115000000
+PKT R1 minecraft:set_entity_data 65010903416d42c4ff
+PKT R1 minecraft:set_entity_motion 6701f9ff7ffeebed
+PKT R1 minecraft:container_set_slot 140003000601bd0801000302
+PKT R1 minecraft:set_health 6a416d42c41440400000
+PKT R1 minecraft:update_attributes entity=1;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R1 minecraft:set_health 6a417542c41440400000
+PKT R1 minecraft:set_entity_data 65010903417542c4ff
+PKT R1 minecraft:set_time 73000000000000002700
+PKT R1 minecraft:set_health 6a417a98191440000000
+PKT R1 minecraft:set_entity_data 65010903417a9819ff
+PKT R1 minecraft:damage_event 19011b000000
+PKT R1 minecraft:set_entity_data 6501090341733333ff
+PKT R1 minecraft:set_entity_motion 6701f9ff7ffeebed
+PKT R1 minecraft:set_health 6a417333331440000000
+PKT R1 minecraft:set_health 6a417888881440000000
+PKT R1 minecraft:set_entity_data 6501090341788888ff
+PKT R1 minecraft:set_time 73000000000000003b00
+PKT R1 minecraft:set_health 6a417b3333143f800000
+PKT R1 minecraft:set_entity_data 65010903417b3333ff
+PKT R1 minecraft:damage_event 190120000000
+PKT R1 minecraft:set_entity_data 6501090341300000ff
+PKT R1 minecraft:set_entity_motion 6701f9ff7ffeebed
+PKT R1 minecraft:set_health 6a41300000143f800000
+PKT R1 minecraft:set_health 6a4132aaab143f800000
+PKT R1 minecraft:set_entity_data 650109034132aaabff
+PKT R1 minecraft:set_time 73000000000000004f00
+PKT R1 minecraft:set_health 6a41355556143f800000
+PKT R1 minecraft:set_entity_data 6501090341355556ff
+EFFECT R2 minecraft:resistance added=true
+P R2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/1/999 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT R2 minecraft:update_mob_effect 8701020a01e8070e
+PKT R2 minecraft:set_entity_data 6502090341a000000a11011cff9146f0ff
+PKT R2 minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2052322000080009696e73657274696f6e0002523208000474657874000252320a000b686f7665725f6576656e740800046e616d6500025232080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004d834dddddf9938b99dd4fb9e2b6a7e8d0000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e7368696e795f676561722e6465736372697074696f6e000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT R2 minecraft:container_set_slot 140002000601bd080000
+PKT R2 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT R2 minecraft:update_advancements -
+PKT R2 minecraft:set_health 6a41a000001440a00000
+PKT R2 minecraft:set_experience 69000000000000
+PKT R2 minecraft:chunk_batch_start 0c
+PKT R2 minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=-1,0/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
+PKT R2 minecraft:level_chunk_with_light chunk=-1,1/len=7260
+PKT R2 minecraft:chunk_batch_finished 0b09
+HURT R2 generic 10 -> true
+HURT R2 in_fire 8 -> true
+HURT R2 magic 6 -> true
+HURT R2 out_of_world 9 -> true
+P R2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/1/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
+PKT R2 minecraft:damage_event 190212000000
+PKT R2 minecraft:set_entity_data 6502090341600000ff
+PKT R2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R2 minecraft:set_entity_motion 6702f9ff7ffeebed
+PKT R2 minecraft:set_health 6a416000001440a00000
+PKT R2 minecraft:set_health 6a416d55551440a00000
+PKT R2 minecraft:set_entity_data 65020903416d5555ff
+PKT R2 minecraft:set_time 73000000000000006300
+PKT R2 minecraft:set_health 6a417800001440800000
+PKT R2 minecraft:set_entity_data 6502090341780000ff
+PKT R2 minecraft:damage_event 190215000000
+PKT R2 minecraft:set_entity_data 650209034180f90aff
+PKT R2 minecraft:set_entity_motion 6702f9ff7ffeebed
+PKT R2 minecraft:container_set_slot 140003000601bd0801000302
+PKT R2 minecraft:set_health 6a4180f90a1440400000
+PKT R2 minecraft:update_attributes entity=2;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R2 minecraft:set_health 6a4184f90a1440400000
+PKT R2 minecraft:set_entity_data 650209034184f90aff
+PKT R2 minecraft:set_time 73000000000000007700
+PKT R2 minecraft:set_health 6a4187a3b51440000000
+PKT R2 minecraft:set_entity_data 650209034187a3b5ff
+PKT R2 minecraft:damage_event 19021b000000
+PKT R2 minecraft:set_entity_data 6502090341833333ff
+PKT R2 minecraft:set_entity_motion 6702f9ff7ffeebed
+PKT R2 minecraft:set_health 6a418333331440000000
+PKT R2 minecraft:set_health 6a4185ddde1440000000
+PKT R2 minecraft:set_entity_data 650209034185dddeff
+PKT R2 minecraft:set_time 73000000000000008b00
+PKT R2 minecraft:set_health 6a41873333143f800000
+PKT R2 minecraft:set_entity_data 6502090341873333ff
+PKT R2 minecraft:damage_event 190220000000
+PKT R2 minecraft:set_entity_data 6502090341300000ff
+PKT R2 minecraft:set_entity_motion 6702f9ff7ffeebed
+PKT R2 minecraft:set_health 6a41300000143f800000
+PKT R2 minecraft:set_health 6a4132aaab143f800000
+PKT R2 minecraft:set_entity_data 650209034132aaabff
+PKT R2 minecraft:set_time 73000000000000009f00
+PKT R2 minecraft:set_health 6a41355556143f800000
+PKT R2 minecraft:set_entity_data 6502090341355556ff
+EFFECT R3 minecraft:resistance added=true
+P R3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/2/999 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT R3 minecraft:update_mob_effect 8701030a02e8070e
+PKT R3 minecraft:set_entity_data 6503090341a000000a11011cff9146f0ff
+PKT R3 minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2052332000080009696e73657274696f6e0002523308000474657874000252330a000b686f7665725f6576656e740800046e616d6500025233080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000048a09572e9f223f7b9d631645078453ce0000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e7368696e795f676561722e6465736372697074696f6e000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT R3 minecraft:container_set_slot 140002000601bd080000
+PKT R3 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT R3 minecraft:update_advancements -
+PKT R3 minecraft:set_health 6a41a000001440a00000
+PKT R3 minecraft:set_experience 69000000000000
+PKT R3 minecraft:chunk_batch_start 0c
+PKT R3 minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=-1,0/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=-1,-1/len=7260
+PKT R3 minecraft:level_chunk_with_light chunk=-1,1/len=7260
+PKT R3 minecraft:chunk_batch_finished 0b09
+HURT R3 generic 10 -> true
+HURT R3 in_fire 8 -> true
+HURT R3 magic 6 -> true
+HURT R3 out_of_world 9 -> true
+P R3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/2/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
+PKT R3 minecraft:damage_event 190312000000
+PKT R3 minecraft:set_entity_data 6503090341800000ff
+PKT R3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R3 minecraft:set_entity_motion 6703f9ff7ffeebed
+PKT R3 minecraft:set_health 6a418000001440a00000
+PKT R3 minecraft:set_time 7300000000000000b300
+PKT R3 minecraft:set_health 6a4186aaab1440a00000
+PKT R3 minecraft:set_entity_data 650309034186aaabff
+PKT R3 minecraft:set_health 6a418c00001440800000
+PKT R3 minecraft:set_entity_data 65030903418c0000ff
+PKT R3 minecraft:damage_event 190315000000
+PKT R3 minecraft:set_entity_data 65030903418b50b1ff
+PKT R3 minecraft:set_entity_motion 6703f9ff7ffeebed
+PKT R3 minecraft:container_set_slot 140003000601bd0801000302
+PKT R3 minecraft:set_health 6a418b50b11440400000
+PKT R3 minecraft:update_attributes entity=3;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R3 minecraft:set_time 7300000000000000c700
+PKT R3 minecraft:set_health 6a418f50b11440400000
+PKT R3 minecraft:set_entity_data 65030903418f50b1ff
+PKT R3 minecraft:set_health 6a4191fb5c1440000000
+PKT R3 minecraft:set_entity_data 650309034191fb5cff
+PKT R3 minecraft:damage_event 19031b000000
+PKT R3 minecraft:set_entity_data 65030903418ccccdff
+PKT R3 minecraft:set_entity_motion 6703f9ff7ffeebed
+PKT R3 minecraft:set_health 6a418ccccd1440000000
+PKT R3 minecraft:set_time 7300000000000000db00
+PKT R3 minecraft:set_health 6a418f77781440000000
+PKT R3 minecraft:set_entity_data 65030903418f7778ff
+PKT R3 minecraft:set_health 6a4190cccd143f800000
+PKT R3 minecraft:set_entity_data 650309034190cccdff
+PKT R3 minecraft:damage_event 190320000000
+PKT R3 minecraft:set_entity_data 6503090341300000ff
+PKT R3 minecraft:set_entity_motion 6703f9ff7ffeebed
+PKT R3 minecraft:set_health 6a41300000143f800000
+PKT R3 minecraft:set_time 7300000000000000ef00
+PKT R3 minecraft:set_health 6a4132aaab143f800000
+PKT R3 minecraft:set_entity_data 650309034132aaabff
+PKT R3 minecraft:set_health 6a41355556143f800000
+PKT R3 minecraft:set_entity_data 6503090341355556ff
+EFFECT R4 minecraft:resistance added=true
+P R4 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/3/999 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT R4 minecraft:update_mob_effect 8701040a03e8070e
+PKT R4 minecraft:set_entity_data 6504090341a000000a11011cff9146f0ff
+PKT R4 minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2052342000080009696e73657274696f6e0002523408000474657874000252340a000b686f7665725f6576656e740800046e616d6500025234080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f1c79c64cc71335781664a0851a083530000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e7368696e795f676561722e6465736372697074696f6e000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT R4 minecraft:container_set_slot 140002000601bd080000
+PKT R4 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT R4 minecraft:update_advancements -
+PKT R4 minecraft:set_health 6a41a000001440a00000
+PKT R4 minecraft:set_experience 69000000000000
+PKT R4 minecraft:chunk_batch_start 0c
+PKT R4 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=2,0/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=2,1/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT R4 minecraft:level_chunk_with_light chunk=2,-1/len=7260
+PKT R4 minecraft:chunk_batch_finished 0b09
+HURT R4 generic 10 -> true
+HURT R4 in_fire 8 -> true
+HURT R4 magic 6 -> true
+HURT R4 out_of_world 9 -> true
+P R4 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/3/915 gm=survival food=20 sat=1.0 exh=3.1 xp=0/0/0.0 sel=0 main=empty
+PKT R4 minecraft:damage_event 190412000000
+PKT R4 minecraft:set_entity_data 6504090341900000ff
+PKT R4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R4 minecraft:set_entity_motion 6704f9ff7ffeebed
+PKT R4 minecraft:set_health 6a419000001440a00000
+PKT R4 minecraft:set_time 73000000000000010300
+PKT R4 minecraft:set_health 6a4196aaab1440a00000
+PKT R4 minecraft:set_entity_data 650409034196aaabff
+PKT R4 minecraft:set_health 6a419c00001440800000
+PKT R4 minecraft:set_entity_data 65040903419c0000ff
+PKT R4 minecraft:damage_event 190415000000
+PKT R4 minecraft:set_entity_data 650409034195a858ff
+PKT R4 minecraft:set_entity_motion 6704f9ff7ffeebed
+PKT R4 minecraft:container_set_slot 140003000601bd0801000302
+PKT R4 minecraft:set_health 6a4195a8581440400000
+PKT R4 minecraft:set_time 73000000000000011700
+PKT R4 minecraft:update_attributes entity=4;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R4 minecraft:set_health 6a4199a8581440400000
+PKT R4 minecraft:set_entity_data 650409034199a858ff
+PKT R4 minecraft:set_health 6a419c53031440000000
+PKT R4 minecraft:set_entity_data 65040903419c5303ff
+PKT R4 minecraft:damage_event 19041b000000
+PKT R4 minecraft:set_entity_data 6504090341966666ff
+PKT R4 minecraft:set_entity_motion 6704f9ff7ffeebed
+PKT R4 minecraft:set_health 6a419666661440000000
+PKT R4 minecraft:set_time 73000000000000012b00
+PKT R4 minecraft:set_health 6a419911111440000000
+PKT R4 minecraft:set_entity_data 6504090341991111ff
+PKT R4 minecraft:set_health 6a419a6666143f800000
+PKT R4 minecraft:set_entity_data 65040903419a6666ff
+PKT R4 minecraft:damage_event 190420000000
+PKT R4 minecraft:set_time 73000000000000013f00
+PKT R4 minecraft:set_entity_data 6504090341300000ff
+PKT R4 minecraft:set_entity_motion 6704f9ff7ffeebed
+PKT R4 minecraft:set_health 6a41300000143f800000
+PKT R4 minecraft:set_health 6a4132aaab143f800000
+PKT R4 minecraft:set_entity_data 650409034132aaabff
+PKT R4 minecraft:set_health 6a41355556143f800000
+PKT R4 minecraft:set_entity_data 6504090341355556ff
+PKT R4 minecraft:set_time 73000000000000015300
+EFFECT R5 minecraft:resistance added=true
+P R5 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/4/999 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT R5 minecraft:update_mob_effect 8701050a04e8070e
+PKT R5 minecraft:set_entity_data 6505090341a000000a11011cff9146f0ff
+PKT R5 minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2052352000080009696e73657274696f6e0002523508000474657874000252350a000b686f7665725f6576656e740800046e616d6500025235080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b5babdb8213b35c58d7eb6d5d85cdf2e0000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e7368696e795f676561722e6465736372697074696f6e000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500000800097472616e736c6174650023616476616e63656d656e74732e73746f72792e7368696e795f676561722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT R5 minecraft:container_set_slot 140002000601bd080000
+PKT R5 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT R5 minecraft:update_advancements -
+PKT R5 minecraft:set_health 6a41a000001440a00000
+PKT R5 minecraft:set_experience 69000000000000
+PKT R5 minecraft:chunk_batch_start 0c
+PKT R5 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=2,0/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=2,1/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT R5 minecraft:level_chunk_with_light chunk=2,-1/len=7260
+PKT R5 minecraft:chunk_batch_finished 0b09
+HURT R5 generic 10 -> true
+HURT R5 in_fire 8 -> true
+HURT R5 magic 6 -> true
+HURT R5 out_of_world 9 -> true
+P R5 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:resistance/4/915 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+PKT R5 minecraft:damage_event 190512000000
+PKT R5 minecraft:set_entity_motion 6705f9ff7ffeebed
+PKT R5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT R5 minecraft:set_time 73000000000000016700
+PKT R5 minecraft:damage_event 190515000000
+PKT R5 minecraft:set_entity_motion 6705f9ff7ffeebed
+PKT R5 minecraft:container_set_slot 140003000601bd0801000302
+PKT R5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.chestplate/8.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.chestplate/2.0/add_value]
+PKT R5 minecraft:set_time 73000000000000017b00
+PKT R5 minecraft:damage_event 19051b000000
+PKT R5 minecraft:set_entity_motion 6705f9ff7ffeebed
+PKT R5 minecraft:set_time 73000000000000018f00
+PKT R5 minecraft:damage_event 190520000000
+PKT R5 minecraft:set_entity_data 6505090341300000ff
+PKT R5 minecraft:set_entity_motion 6705f9ff7ffeebed
+PKT R5 minecraft:set_health 6a413000001440a00000
+PKT R5 minecraft:set_health 6a413d55551440a00000
+PKT R5 minecraft:set_entity_data 65050903413d5555ff
+PKT R5 minecraft:set_time 7300000000000001a300
+PKT R5 minecraft:set_health 6a414800001440800000
+PKT R5 minecraft:set_entity_data 6505090341480000ff
+P B1 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B1 minecraft:set_entity_data 6506090341a00000ff
+PKT B1 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT B1 minecraft:update_advancements -
+PKT B1 minecraft:set_health 6a41a000001440a00000
+PKT B1 minecraft:set_experience 69000000000000
+PKT B1 minecraft:chunk_batch_start 0c
+PKT B1 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=2,0/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=2,1/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT B1 minecraft:level_chunk_with_light chunk=2,-1/len=7260
+PKT B1 minecraft:chunk_batch_finished 0b09
+HURT B1 generic 3 -> true
+HURT B1 generic 3 -> true
+P B1 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
+PKT B1 minecraft:damage_event 190612000000
+PKT B1 minecraft:set_entity_data 6506090341880000ff
+PKT B1 minecraft:update_attributes entity=6;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B1 minecraft:set_entity_motion 6706f9ff7ffeebed
+PKT B1 minecraft:set_health 6a418800001440a00000
+PKT B1 minecraft:set_health 6a418eaaab1440a00000
+PKT B1 minecraft:set_entity_data 65060903418eaaabff
+PKT B1 minecraft:set_time 7300000000000001b700
+PKT B1 minecraft:set_health 6a419400001440800000
+PKT B1 minecraft:set_entity_data 6506090341940000ff
+PKT B1 minecraft:damage_event 190612000000
+PKT B1 minecraft:set_entity_data 6506090341780000ff
+PKT B1 minecraft:set_entity_motion 6706f9ff7ffeebed
+PKT B1 minecraft:set_health 6a417800001440400000
+PKT B1 minecraft:set_health 6a418000001440400000
+PKT B1 minecraft:set_entity_data 6506090341800000ff
+PKT B1 minecraft:set_time 7300000000000001cb00
+PKT B1 minecraft:set_health 6a418400001440400000
+PKT B1 minecraft:set_entity_data 6506090341840000ff
+P B2 minecraft:player pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B2 minecraft:set_entity_data 6507090341a00000ff
+PKT B2 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT B2 minecraft:update_advancements -
+PKT B2 minecraft:set_health 6a41a000001440a00000
+PKT B2 minecraft:set_experience 69000000000000
+PKT B2 minecraft:chunk_batch_start 0c
+PKT B2 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=2,0/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=2,1/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT B2 minecraft:level_chunk_with_light chunk=2,-1/len=7260
+PKT B2 minecraft:chunk_batch_finished 0b09
+HURT B2 generic 6 -> true
+HURT B2 generic 6 -> true
+P B2 minecraft:player pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=10.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
+PKT B2 minecraft:damage_event 190712000000
+PKT B2 minecraft:set_entity_data 6507090341600000ff
+PKT B2 minecraft:update_attributes entity=7;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B2 minecraft:set_entity_motion 6707f9ff7ffeebed
+PKT B2 minecraft:set_health 6a416000001440a00000
+PKT B2 minecraft:set_health 6a416d55551440a00000
+PKT B2 minecraft:set_time 7300000000000001df00
+PKT B2 minecraft:set_entity_data 65070903416d5555ff
+PKT B2 minecraft:set_health 6a417800001440800000
+PKT B2 minecraft:set_entity_data 6507090341780000ff
+PKT B2 minecraft:damage_event 190712000000
+PKT B2 minecraft:set_entity_data 6507090341180000ff
+PKT B2 minecraft:set_entity_motion 6707f9ff7ffeebed
+PKT B2 minecraft:set_health 6a411800001440400000
+PKT B2 minecraft:set_health 6a412000001440400000
+PKT B2 minecraft:set_time 7300000000000001f300
+PKT B2 minecraft:set_entity_data 6507090341200000ff
+PKT B2 minecraft:set_health 6a412800001440400000
+PKT B2 minecraft:set_entity_data 6507090341280000ff
+P B3 minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B3 minecraft:set_entity_data 6508090341a00000ff
+PKT B3 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT B3 minecraft:update_advancements -
+PKT B3 minecraft:set_health 6a41a000001440a00000
+PKT B3 minecraft:set_experience 69000000000000
+PKT B3 minecraft:chunk_batch_start 0c
+PKT B3 minecraft:level_chunk_with_light chunk=2,0/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=2,1/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=2,-1/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=3,0/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=3,-1/len=7260
+PKT B3 minecraft:level_chunk_with_light chunk=3,1/len=7260
+PKT B3 minecraft:chunk_batch_finished 0b09
+HURT B3 generic 2.5 -> true
+HURT B3 generic 2.5 -> true
+P B3 minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=empty
+PKT B3 minecraft:damage_event 190812000000
+PKT B3 minecraft:set_entity_data 65080903418c0000ff
+PKT B3 minecraft:update_attributes entity=8;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B3 minecraft:set_entity_motion 6708f9ff7ffeebed
+PKT B3 minecraft:set_health 6a418c00001440a00000
+PKT B3 minecraft:set_time 73000000000000020700
+PKT B3 minecraft:set_health 6a4192aaab1440a00000
+PKT B3 minecraft:set_entity_data 650809034192aaabff
+PKT B3 minecraft:set_health 6a419800001440800000
+PKT B3 minecraft:set_entity_data 6508090341980000ff
+PKT B3 minecraft:damage_event 190812000000
+PKT B3 minecraft:set_entity_data 6508090341840000ff
+PKT B3 minecraft:set_entity_motion 6708f9ff7ffeebed
+PKT B3 minecraft:set_health 6a418400001440400000
+PKT B3 minecraft:set_time 73000000000000021b00
+PKT B3 minecraft:set_health 6a418800001440400000
+PKT B3 minecraft:set_entity_data 6508090341880000ff
+PKT B3 minecraft:set_health 6a418c00001440400000
+PKT B3 minecraft:set_entity_data 65080903418c0000ff
+P B4 minecraft:player pos=36.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT B4 minecraft:set_entity_data 6509090341a00000ff
+PKT B4 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT B4 minecraft:update_advancements -
+PKT B4 minecraft:set_health 6a41a000001440a00000
+PKT B4 minecraft:set_experience 69000000000000
+PKT B4 minecraft:chunk_batch_start 0c
+PKT B4 minecraft:level_chunk_with_light chunk=2,0/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=2,1/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=2,-1/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=3,0/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=3,-1/len=7260
+PKT B4 minecraft:level_chunk_with_light chunk=3,1/len=7260
+PKT B4 minecraft:chunk_batch_finished 0b09
+HURT B4 generic 12 -> true
+HURT B4 generic 12 -> true
+P B4 minecraft:player pos=36.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=21 fx=- gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+PKT B4 minecraft:damage_event 190912000000
+PKT B4 minecraft:set_entity_data 6509090341000000ff
+PKT B4 minecraft:update_attributes entity=9;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT B4 minecraft:set_entity_motion 6709f9ff7ffeebed
+PKT B4 minecraft:set_health 6a410000001440a00000
+PKT B4 minecraft:set_time 73000000000000022f00
+PKT B4 minecraft:set_health 6a410d55551440a00000
+PKT B4 minecraft:set_entity_data 65090903410d5555ff
+PKT B4 minecraft:set_health 6a411800001440800000
+PKT B4 minecraft:set_entity_data 6509090341180000ff
+PKT B4 minecraft:damage_event 190912000000
+PKT B4 minecraft:player_combat_kill 45090a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2042342000080009696e73657274696f6e0002423408000474657874000242340a000b686f7665725f6576656e740800046e616d6500024234080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000044657700f140f3320a9ce87c19ff3ea5d00000800097472616e736c617465001464656174682e61747461636b2e67656e6572696300
+PKT B4 minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2042342000080009696e73657274696f6e0002423408000474657874000242340a000b686f7665725f6576656e740800046e616d6500024234080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b000475756964000000044657700f140f3320a9ce87c19ff3ea5d00000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000
+PKT B4 minecraft:entity_event 220000000903
+PKT B4 minecraft:set_entity_data 6509090300000000ff
+PKT B4 minecraft:set_entity_motion 6709f9ff7ffeebed
+PKT B4 minecraft:set_health 6a000000001440400000
+PKT B4 minecraft:set_time 73000000000000024300
+PKT B4 minecraft:entity_event 22000000093c
+PKT B4 minecraft:waypoint 8d010101a17a4d8adaba35c0b215f37c659a37a6116d696e6563726166743a64656661756c740000
+PKT B4 minecraft:waypoint 8d010101d834dddddf9938b99dd4fb9e2b6a7e8d116d696e6563726166743a64656661756c740000
+PKT B4 minecraft:waypoint 8d0101018a09572e9f223f7b9d631645078453ce116d696e6563726166743a64656661756c740000
+PKT B4 minecraft:waypoint 8d010101f1c79c64cc71335781664a0851a08353116d696e6563726166743a64656661756c740000
+PKT B4 minecraft:waypoint 8d010101b5babdb8213b35c58d7eb6d5d85cdf2e116d696e6563726166743a64656661756c740000
+PKT B4 minecraft:waypoint 8d010101b75f6b135a6f3f6092a9f33030899e55116d696e6563726166743a64656661756c740000
+PKT B4 minecraft:waypoint 8d01010101efce26cb3a36e281faeffc2f0bda92116d696e6563726166743a64656661756c740000
+PKT B4 minecraft:waypoint 8d010101dfcf468387b03148b9752e61a7cc697d116d696e6563726166743a64656661756c740000
+EFFECT F1 minecraft:fire_resistance added=true
+P F1 minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/999 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT F1 minecraft:update_mob_effect 87010a0b00e8070e
+PKT F1 minecraft:set_entity_data 650a090341a000000a11011cffff9900ff
+PKT F1 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT F1 minecraft:update_advancements -
+PKT F1 minecraft:set_health 6a41a000001440a00000
+PKT F1 minecraft:set_experience 69000000000000
+PKT F1 minecraft:chunk_batch_start 0c
+PKT F1 minecraft:level_chunk_with_light chunk=2,0/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=2,1/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=2,-1/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=3,0/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=3,-1/len=7260
+PKT F1 minecraft:level_chunk_with_light chunk=3,1/len=7260
+PKT F1 minecraft:chunk_batch_finished 0b09
+HURT F1 in_fire 5 -> false
+HURT F1 lava 4 -> false
+HURT F1 generic 4 -> true
+P F1 minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.5 abs=0.0 hurt=0/0 death=0 fx=minecraft:fire_resistance/0/936 gm=survival food=20 sat=3.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
+PKT F1 minecraft:set_time 73000000000000025700
+PKT F1 minecraft:update_attributes entity=10;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT F1 minecraft:player_info_update 47100aa17a4d8adaba35c0b215f37c659a37a600d834dddddf9938b99dd4fb9e2b6a7e8d008a09572e9f223f7b9d631645078453ce00f1c79c64cc71335781664a0851a0835300b5babdb8213b35c58d7eb6d5d85cdf2e00b75f6b135a6f3f6092a9f33030899e550001efce26cb3a36e281faeffc2f0bda9200dfcf468387b03148b9752e61a7cc697d004657700f140f3320a9ce87c19ff3ea5d0027afec9e906e306580bbe62a43e95b1900
+PKT F1 minecraft:set_time 73000000000000026b00
+PKT F1 minecraft:set_time 73000000000000027f00
+PKT F1 minecraft:damage_event 190a12000000
+PKT F1 minecraft:set_entity_data 650a090341800000ff
+PKT F1 minecraft:set_entity_motion 670af9ff7ffeebed
+PKT F1 minecraft:set_health 6a418000001440a00000
+PKT F1 minecraft:set_health 6a4186aaab1440a00000
+PKT F1 minecraft:set_entity_data 650a09034186aaabff
+PKT F1 minecraft:set_time 73000000000000029300
+PKT F1 minecraft:set_health 6a418c00001440800000
+PKT F1 minecraft:set_entity_data 650a0903418c0000ff

@@ -245,6 +245,7 @@ impl MinecraftServer {
             scoreboard: self.scoreboard.clone(),
             roster: self.player_list.roster.clone(),
             loot: self.loot_services(),
+            spawn_protection: Default::default(),
         };
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;
@@ -442,7 +443,14 @@ impl MinecraftServer {
         self.flush_scoreboard();
         self.flush_world_border_events();
         for dimension in self.level_keys() {
+            let spawn_protection = crate::server::level::SpawnProtection {
+                respawn: Some(self.get_respawn_data()),
+                radius: self.spawn_protection_radius(),
+                ops_empty: self.player_list.ops.is_empty(),
+                op_players: self.player_list.players().iter().filter(|p| self.player_list.is_op(&p.name_and_id())).map(|p| p.uuid).collect(),
+            };
             let result = self.with_level(&dimension, |server, level| {
+                level.server_state.spawn_protection = spawn_protection;
                 let mut env = ServerTickEnv { server, dimension: dimension.clone() };
                 panic::catch_unwind(AssertUnwindSafe(|| level.tick(&mut env, &mut *have_time))).map_err(|payload| {
                     let mut report = CrashReport::for_throwable(payload, "Exception ticking world");

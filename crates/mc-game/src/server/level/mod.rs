@@ -36,7 +36,7 @@ mod server_level_entities;
 pub mod server_entity;
 pub use server_entity::{ServerEntity, UpdateInterval};
 pub mod level_server_state;
-pub use level_server_state::{LevelServerState, PlayerRoster, SharedScoreboard};
+pub use level_server_state::{LevelServerState, SpawnProtection, PlayerRoster, SharedScoreboard};
 mod entity_tracker;
 pub use entity_tracker::{EntityTracker, TrackerPlayer, TrackingEnv};
 mod ticket;

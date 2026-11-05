@@ -164,13 +164,13 @@ impl Replay {
                         let p = self.player(name);
                         let l = &p.player.living;
                         let line = format!(
-                            "P {name} minecraft:player hp={} abs={} hurt={}/{} death={} alive={} food={} sat={} exh={}",
+                            "P {name} minecraft:player alive={} hp={} abs={} hurt={}/{} death={} food={} sat={} exh={}",
+                            u8::from(p.is_alive()),
                             f(l.get_health()),
                             f(p.player.get_absorption_amount()),
                             l.hurt_time,
                             l.damage_cooldown_time,
                             l.death_time,
-                            u8::from(p.is_alive()),
                             p.player.food_data.get_food_level(),
                             f(p.player.food_data.get_saturation_level()),
                             f(p.player.food_data.exhaustion_level),

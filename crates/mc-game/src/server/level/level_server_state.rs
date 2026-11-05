@@ -53,6 +53,17 @@ impl PlayerRoster {
     }
 }
 
+/// The `DedicatedServer.isUnderSpawnProtection` inputs; the server refreshes them right before it ticks the level
+/// (ops and the radius only change through commands/management, which run before the level ticks).
+#[derive(Clone, Default)]
+pub struct SpawnProtection {
+    pub respawn: Option<mc_world::level_storage::RespawnData>,
+    pub radius: i32,
+    pub ops_empty: bool,
+    /// Online players that are operators.
+    pub op_players: Vec<uuid::Uuid>,
+}
+
 /// What the server installs on a level at creation.
 #[derive(Clone, Default)]
 pub struct LevelServerState {
@@ -60,11 +71,22 @@ pub struct LevelServerState {
     pub roster: PlayerRoster,
     /// What loot evaluation reads from the server (random sequences, command storage, clocks).
     pub loot: crate::world::level::storage::loot::server_access::LootServices,
+    pub spawn_protection: SpawnProtection,
 }
 
 static DEFAULT_BORDER: LazyLock<WorldBorder> = LazyLock::new(WorldBorder::default);
 
 impl ServerLevel {
+    /// `DedicatedServer.isUnderSpawnProtection(level, pos, player)`.
+    pub fn is_under_spawn_protection(&self, player: &crate::world::entity::ServerPlayer, pos: mc_core::pos::BlockPos) -> bool {
+        let sp = &self.server_state.spawn_protection;
+        let Some(respawn) = &sp.respawn else { return false };
+        if self.dimension != respawn.dimension || sp.ops_empty || sp.op_players.contains(&crate::world::entity::Entity::uuid(player)) || sp.radius <= 0 {
+            return false;
+        }
+        (pos.x() - respawn.pos.x()).abs().max((pos.z() - respawn.pos.z()).abs()) <= sp.radius
+    }
+
     /// `getDifficulty()`.
     pub fn difficulty(&self) -> Difficulty {
         self.level_data.get_difficulty()

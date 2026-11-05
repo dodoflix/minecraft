@@ -8,6 +8,7 @@ use common::entity_oracle::*;
 use mc_core::ident::Identifier;
 use mc_data::{Block, MobEffect};
 use mc_game::server::level::ServerLevel;
+use mc_game::world::level::LevelAccessor;
 use mc_game::server::level::level_data::{PrimaryServerLevelData, default_world_data};
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::{Entity, ServerPlayer};

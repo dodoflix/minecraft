@@ -36,6 +36,9 @@ struct TestPlayer {
 }
 
 impl MenuPlayer for TestPlayer {
+    fn registries(&self) -> mc_game::registry::RegistryAccess {
+        mc_game::registry::RegistryAccess::empty()
+    }
     fn entity_id(&self) -> i32 {
         0
     }

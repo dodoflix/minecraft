@@ -28,11 +28,3 @@ impl ServerLevel {
     }
 }
 
-
-impl ServerLevel {
-    /// `Level.broadcastEntityEvent(entity, event)`: to the players tracking the entity and the entity itself.
-    pub fn broadcast_entity_event(&mut self, id: EntityId, event_id: i8) {
-        let packet = mc_protocol::packets::play::ClientboundEntityEventPacket { entity_id: id, event_id };
-        self.entity_tracker.send_to_tracking_players_and_self(id, &super::level_events::encode_packet(&packet));
-    }
-}

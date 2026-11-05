@@ -1,0 +1,153 @@
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:set_entity_data 6503090341a00000ff
+PKT S minecraft:container_set_slot 140002002d01a60b0000
+PKT S minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT S minecraft:update_advancements -
+PKT S minecraft:set_health 6a41a000001440a00000
+PKT S minecraft:set_experience 69000000000000
+PKT S minecraft:chunk_batch_start 0c
+PKT S minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT S minecraft:level_chunk_with_light chunk=-1,0/len=7260
+PKT S minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT S minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT S minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT S minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT S minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT S minecraft:level_chunk_with_light chunk=-1,-1/len=7260
+PKT S minecraft:level_chunk_with_light chunk=-1,1/len=7260
+PKT S minecraft:chunk_batch_finished 0b09
+HURT S mob_attack 6 -> true
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.5 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=1.0999999 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:player_combat_enter 44
+PKT S minecraft:damage_event 19031c020200
+PKT S minecraft:hurt_animation 2b0342b40000
+PKT S minecraft:set_entity_data 6503090341600000ff
+PKT S minecraft:update_attributes entity=3;minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT S minecraft:set_entity_motion 670331337fff5c59
+PKT S minecraft:set_health 6a416000001440a00000
+PKT S minecraft:set_health 6a416d55551440a00000
+PKT S minecraft:set_entity_data 65030903416d5555ff
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f8930cfabfa27c46b64b31d
+PKT S minecraft:set_time 73000000000000001300
+PKT S minecraft:set_health 6a417800001440800000
+PKT S minecraft:set_entity_data 6503090341780000ff
+HURT S mob_attack 6 -> true
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=10.333333 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=2.0 exh=2.1999998 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:set_entity_data 6503080003ff
+PKT S minecraft:block_changed_ack 0401
+PKT S minecraft:damage_event 19031c020200
+PKT S minecraft:hurt_animation 2b0342b40000
+PKT S minecraft:set_entity_data 6503090341180000ff
+PKT S minecraft:set_entity_motion 670331337fff5c59
+PKT S minecraft:set_health 6a411800001440400000
+PKT S minecraft:set_health 6a412000001440400000
+PKT S minecraft:set_entity_data 6503090341200000ff
+PKT S minecraft:sound 77d20e050000002cfffffe200000001c3f8000003f80def854f579e24158ce8f
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f8dfec95cd21eb465ee31bf
+PKT S minecraft:set_time 73000000000000002700
+PKT S minecraft:set_health 6a412555551440000000
+PKT S minecraft:set_entity_data 6503090341255555ff
+HURT S mob_attack 6 -> false
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.1999998 xp=0/0/0.0 sel=0 main=empty
+I S 40 minecraft:shield*1/dmg=7
+PKT S minecraft:sound 77b40b0700000004fffffe20000000043f8000003f949955af2ecf2b6dc279eb
+PKT S minecraft:container_set_slot 140003002d01a60b01000307
+PKT S minecraft:set_health 6a412aaaaa1440000000
+PKT S minecraft:set_entity_data 65030903412aaaaaff
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f6ebf44852e9e2dcbc0ab6a
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f6d5ad578d8408bad92f5a4
+PKT S minecraft:set_time 73000000000000003b00
+PKT S minecraft:set_health 6a412d5555143f800000
+PKT S minecraft:set_entity_data 65030903412d5555ff
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f77bf110ede83054a18a81c
+PKT S minecraft:set_health 6a41300000143f800000
+HURT S mob_attack 6 -> false
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.333334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.19999981 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:sound 77b40b0700000004fffffe20000000043f8000003f87ebc9840e80c4b088a22c
+PKT S minecraft:set_entity_data 6503090341300000ff
+PKT S minecraft:container_set_slot 140004002d01a60b0100030e
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f81953365a43af25d3408ed
+PKT S minecraft:set_time 73000000000000004f00
+PKT S minecraft:set_health 6a4132aaab143f800000
+PKT S minecraft:set_entity_data 650309034132aaabff
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f8b0d462f4f7fba4065a53f
+PKT S minecraft:set_health 6a41355556143f800000
+PKT S minecraft:set_entity_data 6503090341355556ff
+PKT S minecraft:set_health 6a413555561400000000
+HURT S mob_attack 6 -> true
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=5.333334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.2999998 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:damage_event 19031c020200
+PKT S minecraft:hurt_animation 2b0300000000
+PKT S minecraft:set_entity_data 6503090340aaaaacff
+PKT S minecraft:set_entity_motion 670331337fff5c59
+PKT S minecraft:set_health 6a40aaaaac1400000000
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f7fda0ea638ace37c7cae7d
+PKT S minecraft:set_time 73000000000000006300
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f808a7071a6cebeee30bfbe
+HURT S arrow 5 -> false
+HURT S explosion 5 -> false
+HURT S in_fire 4 -> true
+HURT S generic 3 -> true
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=21 fx=- gm=survival food=19 sat=0.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:sound 77b40b0700000004fffffe20000000043f8000003f8503a1f1a3f4c0f9dc6ec3
+PKT S minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20532000080009696e73657274696f6e000153080004746578740001530a000b686f7665725f6576656e740800046e616d65000153080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004dfc363ed9c3c36548dfe81fb34b3cda20000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c617465002c616476616e63656d656e74732e73746f72792e6465666c6563745f6172726f772e6465736372697074696f6e000800097472616e736c6174650026616476616e63656d656e74732e73746f72792e6465666c6563745f6172726f772e7469746c6500000800097472616e736c6174650026616476616e63656d656e74732e73746f72792e6465666c6563745f6172726f772e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT S minecraft:container_set_slot 140005002d01a60b01000314
+PKT S minecraft:update_advancements -
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f5adb8901687d2f22bf3679
+PKT S minecraft:set_time 73000000000000007700
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f86350529c5377bac8a5ee3
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f6a83af4e742e1126621bb5
+PKT S minecraft:sound 77b40b0700000004fffffe20000000043f8000003f90f36d29360f1284ea99fe
+PKT S minecraft:container_set_slot 140006002d01a60b0100031a
+PKT S minecraft:set_time 73000000000000008b00
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f71a20490fd89cf5c98bb5f
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f7bed8b6e81e6b7c1da3666
+PKT S minecraft:damage_event 190315000000
+PKT S minecraft:set_entity_data 650309033faaaab0ff
+PKT S minecraft:set_entity_motion 6703f9ff7ffeebed
+PKT S minecraft:set_health 6a3faaaab01400000000
+PKT S minecraft:set_time 73000000000000009f00
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f603e1ca7cf7236de37dbab
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f8a718c8c59b88656d327c6
+PKT S minecraft:set_health 6a401555581400000000
+PKT S minecraft:set_entity_data 6503090340155558ff
+PKT S minecraft:set_health 6a401555581300000000
+PKT S minecraft:damage_event 190312000000
+PKT S minecraft:player_combat_kill 45030a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20532000080009696e73657274696f6e000153080004746578740001530a000b686f7665725f6576656e740800046e616d65000153080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004dfc363ed9c3c36548dfe81fb34b3cda20000080009696e73657274696f6e002437363831333061362d663662392d343236392d613830342d6631636464666131643338620a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e7a6f6d62696500080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a7a6f6d6269650b00047575696400000004768130a6f6b94269a804f1cddfa1d38b000800097472616e736c6174650017656e746974792e6d696e6563726166742e7a6f6d626965000800097472616e736c617465001b64656174682e61747461636b2e67656e657269632e706c6179657200
+PKT S minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20532000080009696e73657274696f6e000153080004746578740001530a000b686f7665725f6576656e740800046e616d65000153080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004dfc363ed9c3c36548dfe81fb34b3cda20000080009696e73657274696f6e002437363831333061362d663662392d343236392d613830342d6631636464666131643338620a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650017656e746974792e6d696e6563726166742e7a6f6d62696500080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a7a6f6d6269650b00047575696400000004768130a6f6b94269a804f1cddfa1d38b000800097472616e736c6174650017656e746974792e6d696e6563726166742e7a6f6d626965000800097472616e736c617465001b64656174682e61747461636b2e67656e657269632e706c617965720000
+PKT S minecraft:bundle_delimiter 00
+PKT S minecraft:add_entity 01045ae1414079ef488fb33b0acdd49a8e98483fe0000000000000c04d570a3d8000003fe000000000000021067f3b3332002b0000
+PKT S minecraft:set_entity_data 6504080701a60b0100031aff
+PKT S minecraft:bundle_delimiter 00
+PKT S minecraft:entity_event 220000000303
+PKT S minecraft:player_combat_end 43af01
+PKT S minecraft:move_entity_pos 360400000000000000
+PKT S minecraft:set_entity_data 6504080701a60b0100031aff
+PKT S minecraft:set_entity_data 6503090300000000ff
+PKT S minecraft:set_entity_motion 6703f9ff7ffeebed
+PKT S minecraft:container_set_slot 140007002d00
+PKT S minecraft:update_advancements -
+PKT S minecraft:set_health 6a000000001300000000
+PKT S minecraft:set_entity_data 6503080002ff
+PKT S minecraft:set_time 7300000000000000b300
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f7ec014d6cfceaa0e4e4b68
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f7032b87a663636e3ba3402
+PKT S minecraft:set_entity_motion 6704c1027fa6fffe
+PKT S minecraft:entity_position_sync 2304003fe4bf6afe4c4612c04e0000000000003fdb461e2ac8152442762fd70000000001
+PKT S minecraft:entity_event 22000000033c
+PKT S minecraft:remove_entities 4e0104
+HURT S mob_attack 30 -> false
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=42 fx=- gm=survival food=19 sat=0.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:set_time 7300000000000000c700
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f5f2d187b78c3e80e2de911
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f840914fab1d9e67ab3a811
+HURT S mob_attack 3 -> false
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=42 fx=- gm=survival food=19 sat=0.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:set_health 6a41a000001300000000
+PKT S minecraft:set_time 7300000000000000db00
+P S minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=42 fx=- gm=survival food=19 sat=0.0 exh=2.3999996 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f6a6701d9b07f7df77508e3
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f876ccccaaa741866a4fe0c
+PKT S minecraft:set_time 7300000000000000ef00
+PKT S minecraft:sound 77de0e050000002cfffffe20000000043f8000003f8722fe1c4f742d1eb89f1a
+PKT S minecraft:sound 77de0e050000002cfffffe200000001c3f8000003f7413608e3e344bf4362498
