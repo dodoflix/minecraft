@@ -42,6 +42,10 @@ impl MenuPlayer for PlayerCtx<'_> {
         use crate::world::entity::{Entity, RemovalReason};
         self.player.base().removal_reason().is_some_and(|r| r != RemovalReason::ChangedDimension)
     }
+    fn is_alive(&self) -> bool {
+        use crate::world::entity::Entity;
+        self.player.is_alive()
+    }
     fn has_disconnected(&self) -> bool {
         self.player.disconnected
     }

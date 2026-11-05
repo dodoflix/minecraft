@@ -738,6 +738,14 @@ pub trait Entity: Any {
         None
     }
 
+    /// `entity instanceof Merchant` (villager, wandering trader): what `MerchantMenu` talks to.
+    fn as_merchant(&self) -> Option<&dyn crate::world::item::trading::Merchant> {
+        None
+    }
+    fn as_merchant_mut(&mut self) -> Option<&mut dyn crate::world::item::trading::Merchant> {
+        None
+    }
+
     /// `instanceof Player`.
     fn is_player(&self) -> bool {
         false

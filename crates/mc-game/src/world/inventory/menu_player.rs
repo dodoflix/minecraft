@@ -38,6 +38,10 @@ pub trait MenuPlayer {
     fn is_removed_not_changing_dimension(&self) -> bool {
         false
     }
+    /// `isAlive()`.
+    fn is_alive(&self) -> bool {
+        true
+    }
     fn has_disconnected(&self) -> bool {
         false
     }
