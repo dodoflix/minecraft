@@ -113,3 +113,36 @@ fn player_loads_ticks_and_unloads_chunks() {
     assert!(state.lock().unwrap().pending.is_empty(), "every chunk was dropped for the player");
     level.close();
 }
+
+/// `ChunkMap.waitForLightBeforeSending`: every visible chunk around the centre gets its own `waitForPendingTasks`
+/// barrier (queued through the light dispatcher at the chunk's queue level); a chunk is not sendable until the light
+/// thread (`poll_chunk_task`) ran its barrier, and is sendable afterwards.
+#[test]
+fn wait_for_light_before_sending_holds_chunks_until_their_barrier_ran() {
+    let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+    level.chunk_source.set_view_distance(3);
+    let state = Arc::new(Mutex::new(SinkState::default()));
+    let (tx, _rx) = tokio::sync::mpsc::unbounded_channel();
+    level.chunk_source.chunk_map.add_player(PlayerTrackingInfo {
+        entity_id: 1,
+        uuid: Uuid::nil(),
+        connection: ConnectionSender::new(tx),
+        sink: Box::new(Sink(state.clone())),
+        position: Vec3::new(8.0, 64.0, 8.0),
+        requested_view_distance: 3,
+        spectator: false,
+        alive: true,
+    });
+    run_until(&mut level, "centre chunk sendable", |l| l.chunk_source.chunk_map.get_chunk_to_send(ChunkPos::pack_xz(0, 0)).is_some());
+    run_until(&mut level, "light settled", |l| !l.chunk_source.chunk_map.light.has_pending_work());
+    let around: Vec<i64> = ChunkPos::range_closed(&ChunkPos::new(0, 0), 1).map(|p| p.pack()).collect();
+    level.chunk_source.chunk_map.wait_for_light_before_sending(ChunkPos::new(0, 0), 0);
+    for key in &around {
+        assert!(level.chunk_source.chunk_map.get_chunk_to_send(*key).is_none(), "{key} is held back by its barrier");
+    }
+    assert!(level.chunk_source.chunk_map.light.dispatcher_has_work());
+    run_until(&mut level, "barriers to run", |l| around.iter().all(|k| l.chunk_source.chunk_map.get_chunk_to_send(*k).is_some()));
+    assert!(!level.chunk_source.chunk_map.light.has_pending_work());
+    level.chunk_source.chunk_map.remove_player(1);
+    level.close();
+}
