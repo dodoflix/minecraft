@@ -6,6 +6,7 @@ pub mod impls;
 pub mod sculk_behaviour;
 pub mod sculk_spreader;
 pub mod state;
+pub mod weathering_copper;
 
 pub use behaviour::*;
 pub use state::{BlockStateExt, UPDATE_SHAPE_ORDER};

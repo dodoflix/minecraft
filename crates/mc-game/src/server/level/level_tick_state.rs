@@ -111,7 +111,7 @@ impl LevelTickState {
             sleep_status: super::sleep_status::SleepStatus::default(),
             biomes: None,
             biome_zoom_seed: 0,
-            lightning_spawn: None,
+            lightning_spawn: Some(crate::world::entity::lightning_bolt::spawn_from_thunder),
             find_lightning_rod: None,
             dragon_fight_tick: None,
             attributes: crate::world::attribute::EnvironmentAttributeSystem::build(&Default::default(), &[], false),
