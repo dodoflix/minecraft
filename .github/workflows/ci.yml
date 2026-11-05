@@ -78,4 +78,4 @@ jobs:
           MC_SERVER_BIN: ${{ github.workspace }}/target/debug/mc-server
           TEST_FILTER: ${{ inputs.test_filter || '--workspace' }}
         # mc-core float goldens depend on libm matching Java; a failure only there on CI is a platform issue
-        run: cargo test $TEST_FILTER -- --test-threads=2
+        run: cargo test --no-fail-fast $TEST_FILTER -- --test-threads=2

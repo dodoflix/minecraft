@@ -45,6 +45,10 @@ fn blocks_and_states_match_report() {
         let rp = b.get("properties").and_then(|p| p.as_object());
         assert_eq!(props.len(), rp.map_or(0, |p| p.len()), "{name}: property count");
         if let Some(rp) = rp {
+            // StateDefinition orders properties by name; the report's object order depends on serde_json's
+            // preserve_order feature (enabled workspace-wide by other crates), so sort explicitly.
+            let mut rp: Vec<_> = rp.iter().collect();
+            rp.sort_by(|a, b| a.0.cmp(b.0));
             for (def, (rname, rvalues)) in props.iter().zip(rp) {
                 assert_eq!(def.name, rname, "{name}");
                 let rv: Vec<&str> = rvalues.as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
