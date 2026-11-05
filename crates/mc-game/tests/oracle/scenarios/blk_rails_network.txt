@@ -1,7 +1,7 @@
 level flat
 seed 4242
 preload 4
-note rails_network: placement order independence, curves, junctions, slopes
+note blk_rails_network: placement order independence, curves, junctions, slopes
 
 note straight line order (0, 1, 2, 3)
 block 0 -60 0 minecraft:rail

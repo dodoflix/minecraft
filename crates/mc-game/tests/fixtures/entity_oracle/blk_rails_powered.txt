@@ -1,4 +1,4 @@
-# rails_powered: powered/activator rail propagation, power loss, slopes, curves next to regular rails
+# blk_rails_powered: powered/activator rail propagation, power loss, slopes, curves next to regular rails
 # 20 powered rails, then redstone block at the west end (power loss past 9)
 # redstone block first, then 20 powered rails east
 # same, rails placed from the far end

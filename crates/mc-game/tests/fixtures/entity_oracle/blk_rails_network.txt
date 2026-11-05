@@ -1,4 +1,4 @@
-# rails_network: placement order independence, curves, junctions, slopes
+# blk_rails_network: placement order independence, curves, junctions, slopes
 # straight line order (0, 1, 2, 3)
 # straight line order (3, 2, 1, 0)
 # straight line order (2, 0, 3, 1)

@@ -1,4 +1,4 @@
-# rails_detector: detector rail pressed by minecarts only, 20 tick re-check, power to neighbouring rails
+# blk_rails_detector: detector rail pressed by minecarts only, 20 tick re-check, power to neighbouring rails
 # --- a: minecart first, detector rail placed under it (onPlace check), powered rails next to it
 B 0 -60 0 minecraft:detector_rail[powered=true,shape=east_west,waterlogged=false]
 B 1 -60 0 minecraft:powered_rail[powered=true,shape=east_west,waterlogged=false]
