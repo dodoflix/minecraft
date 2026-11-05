@@ -76,7 +76,8 @@ pub fn entity_plain_text_name(entity: &dyn Entity) -> String {
 /// `Entity.getDisplayName()`: the name formatted for its team, with the hover/insertion vanilla adds.
 pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Component {
     let name = entity_name(entity);
-    let team = server.scoreboard.read().get_players_team(&entity.get_scoreboard_name());
+    let scoreboard = server.scoreboard.read();
+    let team = scoreboard.get_players_team(&entity.get_scoreboard_name());
     let name = crate::world::scores::PlayerTeam::format_name_for_team(team, &name);
     let hover = mc_text::events::HoverEvent::ShowEntity(mc_text::events::EntityTooltipInfo {
         entity_type: entity.get_type().identifier(),
