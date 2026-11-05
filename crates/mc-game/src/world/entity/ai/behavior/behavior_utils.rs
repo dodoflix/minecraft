@@ -137,3 +137,10 @@ pub fn get_random_swimmable_pos(body: &mut dyn Entity, level: &mut ServerLevel, 
     }
     target_pos
 }
+
+/// `level.playSound(null, entity, sound, source, volume, pitch)` (seed drawn from the level's sound seed generator).
+pub fn play_sound_from_entity(level: &mut ServerLevel, entity: EntityId, sound: mc_data::SoundEvent, source: mc_protocol::packets::play::SoundSource, volume: f32, pitch: f32) {
+    use mc_core::random::RandomSource;
+    let seed = level.tick_state.sound_seed_generator.next_long();
+    level.play_seeded_sound_from_entity(None, entity, sound, source, volume, pitch, seed);
+}

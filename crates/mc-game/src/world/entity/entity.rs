@@ -2914,6 +2914,9 @@ pub trait Entity: Any {
     fn can_target_entity(&self, _level: &ServerLevel, _entity: &dyn Entity) -> bool {
         false
     }
+    // ==== [BehaviorsA] additions (Entity trait methods) ====
+    /// `Villager.releasePoi(memoryType)` (the villager overrides; `SetWalkTargetFromBlockMemory` calls it on its body).
+    fn release_poi(&mut self, _level: &mut ServerLevel, _memory: super::ai::memory::MemoryTypeId) {}
     // ==== [Loot] additions (Entity trait methods) ====
     /// `this instanceof SlotProvider` (entities whose slots `slot_range` loot sources read).
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
