@@ -30,6 +30,8 @@ mod server_chunk_cache;
 mod server_level;
 pub mod player_spawn_finder;
 mod server_level_entities;
+pub mod server_level_features;
+pub mod server_level_worldgen;
 pub mod server_entity;
 pub use server_entity::{ServerEntity, UpdateInterval};
 mod entity_tracker;

@@ -15,6 +15,54 @@ use parking_lot::Mutex;
 use std::rc::Rc;
 use std::sync::Arc;
 
+/// `Level.random` as a shared handle: vanilla passes the very same `RandomSource` object to `Feature.place(level, ..,
+/// random, ..)` that the level's own block updates draw from, so the call interleaving is observable. A clone of the
+/// handle can be passed as the `random` argument while the level itself is borrowed mutably as the `WorldGenLevel`.
+#[derive(Clone, Debug)]
+pub struct LevelRandom(Arc<Mutex<LegacyRandomSource>>);
+
+impl LevelRandom {
+    pub fn new(random: LegacyRandomSource) -> Self {
+        Self(Arc::new(Mutex::new(random)))
+    }
+}
+
+impl RandomSource for LevelRandom {
+    fn fork(&mut self) -> Box<dyn RandomSource> {
+        self.0.lock().fork()
+    }
+    fn fork_positional(&mut self) -> Box<dyn mc_core::random::PositionalRandomFactory> {
+        self.0.lock().fork_positional()
+    }
+    fn set_seed(&mut self, seed: i64) {
+        self.0.lock().set_seed(seed);
+    }
+    fn next_int(&mut self) -> i32 {
+        self.0.lock().next_int()
+    }
+    fn next_int_bounded(&mut self, bound: i32) -> i32 {
+        self.0.lock().next_int_bounded(bound)
+    }
+    fn next_long(&mut self) -> i64 {
+        self.0.lock().next_long()
+    }
+    fn next_boolean(&mut self) -> bool {
+        self.0.lock().next_boolean()
+    }
+    fn next_float(&mut self) -> f32 {
+        self.0.lock().next_float()
+    }
+    fn next_double(&mut self) -> f64 {
+        self.0.lock().next_double()
+    }
+    fn next_gaussian(&mut self) -> f64 {
+        self.0.lock().next_gaussian()
+    }
+    fn legacy_next(&mut self, bits: i32) -> Option<i32> {
+        self.0.lock().legacy_next(bits)
+    }
+}
+
 /// `max-chained-neighbor-updates` default (server.properties).
 pub const DEFAULT_MAX_CHAINED_NEIGHBOR_UPDATES: i32 = 1_000_000;
 
@@ -50,7 +98,7 @@ pub struct LevelTickState {
     /// `randValue` (`getBlockRandomPos`).
     pub rand_value: i32,
     /// `Level.random`.
-    pub random: LegacyRandomSource,
+    pub random: LevelRandom,
     /// `soundSeedGenerator`.
     pub sound_seed_generator: ThreadSafeLegacyRandomSource,
     /// `handlingTick`.
@@ -99,7 +147,7 @@ impl LevelTickState {
             ticking_block_entities: false,
             sub_tick_count: 0,
             rand_value: create_thread_local_instance_new().next_int(),
-            random: create_new(),
+            random: LevelRandom::new(create_new()),
             sound_seed_generator: mc_core::random::create_thread_safe(),
             enabled_features: FeatureFlagSet::DEFAULT_FLAGS,
             poi_hook: None,

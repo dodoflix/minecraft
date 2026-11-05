@@ -242,6 +242,10 @@ pub fn poi_type_for_state(state: BlockState) -> Option<usize> {
 }
 
 impl LevelAccessor for ServerLevel {
+    fn as_world_gen_level(&self) -> Option<&dyn crate::world::level::levelgen::WorldGenLevel> {
+        self.gen_env.as_ref().map(|_| self as &dyn crate::world::level::levelgen::WorldGenLevel)
+    }
+
     fn is_unobstructed_block(&self, pos: BlockPos) -> bool {
         use crate::world::level::collision::CollisionGetter as _;
         self.is_unobstructed(None, &mc_core::phys::shapes::Shapes::block().move_vec3i(*pos))

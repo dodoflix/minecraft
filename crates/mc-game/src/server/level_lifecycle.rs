@@ -195,6 +195,7 @@ impl MinecraftServer {
             level_height,
         });
         backend.set_gen_env(env.clone());
+        let gen_env = env.clone();
         let hooks: Arc<dyn WorldGenHooks> = Arc::new(VanillaWorldGenHooks::new(env));
         let dimension_dir = self
             .storage_source
@@ -228,6 +229,7 @@ impl MinecraftServer {
             is_debug,
             level_data,
         });
+        level.gen_env = Some(gen_env);
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;
         level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;

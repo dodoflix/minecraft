@@ -442,10 +442,6 @@ impl WorldGenLevel for GenLevel<'_> {
         &self.env
     }
 
-    fn get_center(&self) -> ChunkPos {
-        self.region.center
-    }
-
     fn ensure_can_write(&mut self, pos: BlockPos) -> bool {
         if !self.is_within_write_zone(pos) {
             log::error!(
@@ -495,8 +491,8 @@ impl WorldGenLevel for GenLevel<'_> {
         }
     }
 
-    fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<&CompoundTag> {
-        self.chunk(pos.x() >> 4, pos.z() >> 4).access.get_block_entity_nbt(pos)
+    fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<CompoundTag> {
+        self.chunk(pos.x() >> 4, pos.z() >> 4).access.get_block_entity_nbt(pos).cloned()
     }
 
     fn set_block_entity_nbt(&mut self, tag: CompoundTag) {

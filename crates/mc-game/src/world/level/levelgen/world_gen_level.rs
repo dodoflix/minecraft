@@ -25,8 +25,6 @@ pub trait WorldGenLevel: LevelAccessor {
     fn get_current_difficulty_at(&self, pos: BlockPos) -> DifficultyInstance;
     /// The level's generator environment (`getLevel().getChunkSource().getGenerator()`, registries, ...).
     fn env(&self) -> &Arc<GenEnv>;
-    /// `WorldGenRegion.getCenter()`: the chunk being generated.
-    fn get_center(&self) -> ChunkPos;
     /// `ensureCanWrite(pos)`: inside the step's block-state write radius (logs vanilla's error otherwise).
     fn ensure_can_write(&mut self, pos: BlockPos) -> bool;
     /// `isWithinWriteZone(pos)` (no logging).
@@ -42,7 +40,7 @@ pub trait WorldGenLevel: LevelAccessor {
     /// `getChunk(pos).markPosForPostProcessing(pos)`.
     fn mark_pos_for_post_processing(&mut self, pos: BlockPos);
     /// `getChunk(pos).getBlockEntityNbt(pos)`.
-    fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<&CompoundTag>;
+    fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<CompoundTag>;
     /// `getChunk(pos).setBlockEntityNbt(tag)` (position from the tag's `x`/`y`/`z`).
     fn set_block_entity_nbt(&mut self, tag: CompoundTag);
     /// `getChunk(pos).removeBlockEntity(pos)`.
