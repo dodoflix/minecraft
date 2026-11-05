@@ -22,7 +22,8 @@
 #                      chat/system message the bots received because of it
 #   @bot <command>     the command as player Bot (op, permission level 4)
 #   @bot0 <command>    the command as player Bot0 (not an op, level 0)
-#   !wait <ms>         sleep (real time), then resync
+#   !wait <ms>         sleep (real time); output that arrives meanwhile (e.g. a kicked bot's disconnect) lands in the next
+#                      command's segment
 #   !ticks <n>         wait n game ticks: polls `time query gametime` (and runs `tick step n` first when the corpus did
 #                      `tick freeze`); `tick freeze` / `tick step` are the way to make tick-dependent output exact
 #   !ignore <regex>    drop every normalized output line matching the regex (log, bot chat, packets) for the rest of the file
@@ -43,6 +44,8 @@
 #     Trusted* keys) -> `<UUID>`, EXCEPT the fixed offline UUIDs of Bot and Bot0 (identical on both servers)
 #   - absolute paths of the server directory and of the repository -> `<DIR>`
 #   - `/127.0.0.1:<client port>` (connection addresses) -> `/127.0.0.1:<PORT>`
+#   - `logged in with entity id N at (x, y, z)` -> `<ID>`/`<POS>` (vanilla picks the spawn position with an unseeded RNG; after
+#     joining, both bots are teleported to fixed places: Bot 0.5 -60 0.5, Bot0 2.5 -60 0.5, rotation 0 0)
 #   - trailing whitespace; the marker lines themselves
 #   Entity numeric ids are NOT normalized (they should be equal: same join order, same seed); a corpus that spawns entities
 #   whose ids legitimately depend on timing uses `!ignore`.

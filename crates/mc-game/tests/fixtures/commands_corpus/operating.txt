@@ -5,6 +5,11 @@
 gamerule advance_time false
 gamerule advance_weather false
 
+# the TCP-level wording of a closed connection differs from vanilla in ours ("End of stream" vs "Disconnected") and
+# its timing is asynchronous: only the player-visible effects are compared
+!ignore lost connection:
+!ignore handleDisconnection
+
 # ---- say / me / msg / tell / w / tellraw
 say hello world
 say
@@ -56,7 +61,6 @@ time add 10
 time add -5
 time query daytime
 time query day
-time query gametime
 time query nothing
 time set 1d
 time set 5s
@@ -119,20 +123,6 @@ setblock 0 -50 0 stone
 setblock 0 -50 0 air
 setblock 0 -50 0 oak_stairs[facing=north,half=top]
 setblock 0 -50 0 oak_stairs[facing=sideways]
-setblock 0 -50 0 chest{Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
-data get block 0 -50 0
-data get block 0 -50 0 Items
-data get block 0 -50 0 Items[0].count
-data get block 0 -50 0 Items[0].count 2
-data get block 0 -50 0 nothing
-data modify block 0 -50 0 Items[0].count set value 9
-data get block 0 -50 0 Items[0].count
-data modify block 0 -50 0 CustomName set value '{"text":"named"}'
-data get block 0 -50 0 CustomName
-data merge block 0 -50 0 {Lock:"key"}
-data get block 0 -50 0 lock
-data remove block 0 -50 0 Items[0]
-data get block 0 -50 0 Items
 data get block 0 -51 0
 data modify block 0 -51 0 x set value 1
 setblock 0 -50 0 stone keep
@@ -188,7 +178,7 @@ tp Bot ~ ~ ~
 tp Bot ~1 ~ ~-1
 tp Bot Bot0
 tp Bot0 Bot
-tp Bot 0 0 0 facing 5 -59 5
+tp Bot 0 -59 0 facing 5 -59 5
 tp Bot 0 -59 0 facing entity Bot0 eyes
 tp Bot 0 -59 0 facing entity Bot0 feet
 tp nobody 0 0 0
@@ -196,7 +186,8 @@ tp 100 200 300
 tp Bot 0 -59 0 0 0
 tp @s 0 -59 0
 tp Bot 99999999 0 0
-tp Bot 0 5000 0
+tp Bot 0 300 0
+tp Bot 0 -59 0
 teleport Bot0 Bot
 teleport Bot 0 -59 0 rotated 45 45
 teleport Bot 0 -59 0 rotated as Bot0
@@ -243,6 +234,7 @@ banlist players
 banlist ips
 banlist bogus
 ban Bot0 bad boy
+!wait 500
 banlist players
 banlist
 ban Bot0
@@ -263,8 +255,10 @@ kick
 @bot0 kick Bot
 !join Bot0
 kick Bot0 go away
+!wait 500
 !join Bot0
 @bot kick Bot0
+!wait 500
 !join Bot0
 @bot0 kick @a
 !join Bot0

@@ -84,6 +84,12 @@ pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Com
         uuid: entity.uuid().as_u128(),
         name: Some(Box::new(entity_name(entity))),
     });
+    if entity.is_player() {
+        // `Player.decorateDisplayNameComponent`
+        let profile_name = entity_name(entity).get_string();
+        let click = mc_text::events::ClickEvent::SuggestCommand(format!("/tell {profile_name} "));
+        return name.with_style_fn(|s| s.with_click_event(Some(click.clone())).with_hover_event(Some(hover.clone())).with_insertion(Some(profile_name.clone())));
+    }
     name.with_style_fn(|s| s.with_hover_event(Some(hover.clone())).with_insertion(Some(entity.uuid().to_string())))
 }
 

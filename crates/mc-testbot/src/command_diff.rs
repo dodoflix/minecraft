@@ -98,6 +98,7 @@ struct Norm {
     uuid: Regex,
     uuid_ints: Regex,
     addr: Regex,
+    login: Regex,
     dirs: Vec<String>,
     keep_uuids: Vec<String>,
     keep_ints: Vec<String>,
@@ -116,6 +117,8 @@ impl Norm {
             uuid_ints: Regex::new(r"((?:UUID|Owner|Thrower|Target|LoveCause|AngryAt|LastHurtBy\w*|Leash|Trusted\w*)\W{1,3}\[I;\s*)(-?\d+),\s*(-?\d+),\s*(-?\d+),\s*(-?\d+)(\s*\])")
                 .expect("regex"),
             addr: Regex::new(r"/127\.0\.0\.1:\d+").expect("regex"),
+            // entity ids and the random spawn position (vanilla fudges it with the player's own unseeded RNG)
+            login: Regex::new(r"(logged in with entity id )\d+( at \().*\)$").expect("regex"),
             dirs,
             keep_uuids: bot_uuids.iter().map(|u| u.to_string()).collect(),
             keep_ints: bot_uuids.iter().map(ints).collect(),
@@ -134,6 +137,7 @@ impl Norm {
             s = s.replace(d.as_str(), "<DIR>");
         }
         s = self.addr.replace_all(&s, "/127.0.0.1:<PORT>").into_owned();
+        s = self.login.replace(&s, "${1}<ID>${2}<POS>)").into_owned();
         s = self.uuid.replace_all(&s, |c: &regex::Captures| if self.keep_uuids.contains(&c[0].to_lowercase()) { c[0].to_string() } else { "<UUID>".into() }).into_owned();
         s = self
             .uuid_ints
@@ -440,8 +444,8 @@ impl Side {
             }
             Item::Player(i, c) => self.issue(Some(*i), Some(c), header).await.map(Some),
             Item::Wait(ms) => {
+                // output arriving meanwhile (a kicked client's disconnect) belongs to the next command's segment
                 tokio::time::sleep(Duration::from_millis(*ms)).await;
-                self.sync().await?;
                 Ok(None)
             }
             Item::Ticks(n) => {
@@ -526,6 +530,9 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
     // Bot is opped through ops.json (prepare_dir) before the server starts: its first `commands` packet is the op view
     side.join_bot(0).await?;
     side.join_bot(1).await?;
+    // the spawn position is random (unseeded player RNG) even in vanilla: put both bots at fixed places
+    side.srv.cmd("tp Bot 0.5 -60 0.5 0 0");
+    side.srv.cmd("tp Bot0 2.5 -60 0.5 0 0");
     side.sync().await?;
     let mut trees = vec![];
     for b in &side.bots {
@@ -796,6 +803,7 @@ mod tests {
         assert_eq!(n.line("u 123e4567-e89b-12d3-a456-426614174000"), "u <UUID>");
         assert_eq!(n.line(&format!("u {bot}")), format!("u {bot}"));
         assert_eq!(n.line("UUID: [I; 1, 2, 3, 4]"), "UUID: [I; <UUID>]");
+        assert_eq!(n.line("Bot[/1.2.3.4:5] logged in with entity id 12 at (0.5, 4.0, 1.5)"), "Bot[/1.2.3.4:5] logged in with entity id <ID> at (<POS>)");
     }
 
     #[test]

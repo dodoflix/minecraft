@@ -344,7 +344,7 @@ impl Commands {
                     if cursor > 10 {
                         context = context.append(ellipsis());
                     }
-                    context = context.append(Component::literal(substring(input, cursor.saturating_sub(10), cursor)));
+                    context = context.append_str(&substring(input, cursor.saturating_sub(10), cursor));
                     if cursor < len16(input) {
                         let remaining = Component::literal(substring_from(input, cursor))
                             .with_formats(&[ChatFormatting::Red, ChatFormatting::Underline]);
