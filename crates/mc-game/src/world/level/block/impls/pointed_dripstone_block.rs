@@ -145,7 +145,7 @@ fn get_fluid_above_stalactite(level: &ServerLevel, stalactite_pos: BlockPos, sta
     find_root_block(level, stalactite_pos, stalactite_state, MAX_SEARCH_LENGTH_WHEN_CHECKING_DRIP_TYPE).map(|root_pos| {
         let above_pos = root_pos.above();
         let above_state = level.get_block_state(above_pos);
-        let fluid = if above_state.is_block(Block::MUD) && !level.environment_bool("gameplay/water_evaporates") {
+        let fluid = if above_state.is_block(Block::MUD) && !level.attribute_bool(crate::world::attribute::attributes::WATER_EVAPORATES, above_pos) {
             Fluid::WATER
         } else {
             level.get_fluid_state(above_pos).get_type()
