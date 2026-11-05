@@ -10,6 +10,8 @@ use super::feature::Feature;
 use super::holder::Holder;
 use super::placement::PlacedFeature;
 use super::stateproviders::BlockStateProvider;
+use super::structure::templatesystem::structure_processor_list::{PROCESSOR_LIST_REGISTRY, load_processor_lists};
+use super::structure::templatesystem::StructureProcessorList;
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_worldgen::biome::BiomeRegistry;
@@ -179,12 +181,16 @@ impl GenRegistries {
     pub fn load(source: Arc<dyn WorldgenDataSource>, worldgen: &WorldgenRegistries, biomes: &BiomeRegistry) -> LoadResult<GenRegistries> {
         let cells = Cells::new(source);
         let ctx = DecodeCtx { worldgen, biomes, cells: &cells };
+        // `fossil`/`template` features reference `worldgen/processor_list` entries: their holders bind through these cells
+        // (the structure layer decodes its own copy for its templates/pools).
+        load_processor_lists(&ctx)?;
         let block_state_providers = load_registry(&ctx, BLOCK_STATE_PROVIDER_REGISTRY, |v, c| super::stateproviders::decode_direct(v, c))?;
         let features = load_registry(&ctx, FEATURE_REGISTRY, |v, c| super::feature::decode_direct(v, c))?;
         let placed_features = load_registry(&ctx, PLACED_FEATURE_REGISTRY, |v, c| PlacedFeature::decode_direct(v, c).map(Arc::new))?;
         cells.check_all_bound::<dyn Feature>(FEATURE_REGISTRY)?;
         cells.check_all_bound::<PlacedFeature>(PLACED_FEATURE_REGISTRY)?;
         cells.check_all_bound::<dyn BlockStateProvider>(BLOCK_STATE_PROVIDER_REGISTRY)?;
+        cells.check_all_bound::<StructureProcessorList>(PROCESSOR_LIST_REGISTRY)?;
         Ok(GenRegistries { features, placed_features, block_state_providers })
     }
 
