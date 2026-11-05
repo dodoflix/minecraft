@@ -3,8 +3,8 @@
 use super::{InteractionResult, ItemBehaviour, ItemStack, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::ServerPlayer;
-use crate::world::level::LevelAccessor;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::props::PropertyDef;
@@ -53,12 +53,12 @@ impl DebugStickItem {
         let block = state.block();
         let properties: Vec<&'static PropertyDef> = block.properties().collect();
         if properties.is_empty() {
-            Self::message(player, Component::translatable(format!("{}.empty", self.description_id), vec![Component::literal(block.data().name)]));
+            Self::message(player, Component::translatable(format!("{}.empty", self.description_id), vec![mc_text::TranslatableArg::Component(Component::literal(block.data().name))]));
             return false;
         }
         let Some(debug_stick_state) = stack.get(&DEBUG_STICK_STATE).cloned() else { return false };
         let selected = debug_stick_state.properties.iter().find(|(b, _)| *b == block).and_then(|(_, name)| properties.iter().position(|p| p.name == name));
-        let secondary = player.is_secondary_use_active();
+        let secondary = crate::world::entity::Entity::is_shift_key_down(&*player);
         if cycle {
             let index = selected.unwrap_or(0);
             let property = properties[index];
@@ -66,7 +66,7 @@ impl DebugStickItem {
             let new_index = get_relative(property.values.len(), current, secondary);
             let new_state = state.with_property_str(property.name, property.values[new_index]).expect("value of the property");
             level.set_block_flags(pos, new_state, 18);
-            Self::message(player, Component::translatable(format!("{}.update", self.description_id), vec![Component::literal(property.name), Component::literal(name_helper(new_state, property))]));
+            Self::message(player, Component::translatable(format!("{}.update", self.description_id), vec![mc_text::TranslatableArg::Component(Component::literal(property.name)), mc_text::TranslatableArg::Component(Component::literal(name_helper(new_state, property)))]));
         } else {
             let index = get_relative(properties.len(), selected, secondary);
             let property = properties[index];
@@ -76,7 +76,7 @@ impl DebugStickItem {
                 None => new_state.properties.push((block, property.name.to_owned())),
             }
             stack.set(DEBUG_STICK_STATE, new_state);
-            Self::message(player, Component::translatable(format!("{}.select", self.description_id), vec![Component::literal(property.name), Component::literal(name_helper(state, property))]));
+            Self::message(player, Component::translatable(format!("{}.select", self.description_id), vec![mc_text::TranslatableArg::Component(Component::literal(property.name)), mc_text::TranslatableArg::Component(Component::literal(name_helper(state, property)))]));
         }
         true
     }

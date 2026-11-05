@@ -5,6 +5,7 @@
 
 use super::{InteractionResult, ItemStack, ItemStackExt, UseOnContext, hurt_and_break};
 use crate::server::level::ServerLevel;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::impls::chest_block;
@@ -13,7 +14,6 @@ use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::levelgen::codec::{Fields, LoadError, LoadResult, parse_bool, parse_direction, parse_identifier, parse_int, parse_list, parse_str};
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::stateproviders::BlockStateProvider;
-use crate::world::level::{LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -184,7 +184,7 @@ impl BlockTransformer {
 pub fn use_on(context: &mut UseOnContext, level: &mut ServerLevel, player: &mut ServerPlayer) -> InteractionResult {
     let Some(holder) = context.item_stack.get(&BLOCK_TRANSFORMER) else { return InteractionResult::PASS };
     let Some(name) = holder.name() else { return InteractionResult::PASS };
-    let Some(transformer) = level.hooks.gen_env().and_then(|env| env.registries.block_transformers.get(name)).map(|h| h.value().clone()) else {
+    let Some(transformer) = level.gen_env.as_ref().and_then(|env| env.registries.block_transformers.get(name)).map(|h| h.value().clone()) else {
         return InteractionResult::PASS;
     };
     transform_block(&transformer, context, level, player)

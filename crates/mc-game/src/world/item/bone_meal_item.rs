@@ -3,10 +3,10 @@
 use super::{InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::ServerPlayer;
 use crate::world::level::block::{BlockStateExt, BonemealSource, behaviour as block_behaviour};
 use crate::world::level::material::FluidStateExt;
-use crate::world::level::{LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
@@ -118,7 +118,8 @@ impl ItemBehaviour for BoneMealItem {
         }
         let clicked_state = level.get_block_state(pos);
         let solid_block_face = clicked_state.is_face_sturdy_at(&*level, pos, context.get_clicked_face());
-        if solid_block_face && grow_water_plant(&mut context.item_stack, level, relative, Some(context.get_clicked_face())) {
+        let clicked_face = context.get_clicked_face();
+        if solid_block_face && grow_water_plant(&mut context.item_stack, level, relative, Some(clicked_face)) {
             player.cause_use_vibration(level, &context.item_stack, GameEvent::ITEM_INTERACT_FINISH);
             level.level_event(None, 1505, relative, 15);
             return InteractionResult::SUCCESS;

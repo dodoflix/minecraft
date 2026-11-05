@@ -4,6 +4,7 @@
 use super::{InteractionResult, ItemBehaviour, ItemStackExt, UseOnContext};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::ServerPlayer;
 use crate::world::level::block::impls::chest_block;
 use crate::world::level::block::BlockStateExt;

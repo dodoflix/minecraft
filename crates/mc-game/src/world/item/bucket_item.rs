@@ -7,11 +7,11 @@ use super::{
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::player::menu_ctx::PlayerCtx;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::{BlockStateExt, behaviour as block_behaviour};
 use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::{LevelAccessor, LevelReader};
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::fluid::Fluid;

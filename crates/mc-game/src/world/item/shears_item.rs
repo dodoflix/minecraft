@@ -3,6 +3,7 @@
 use super::{InteractionResult, ItemBehaviour, ItemStack, UseOnContext, hurt_and_break};
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::ServerPlayer;
 use crate::world::level::block::{BlockStateExt, helpers};
