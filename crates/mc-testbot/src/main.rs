@@ -59,7 +59,7 @@ async fn status(args: &[String]) -> i32 {
     let opts = BotOptions::new(host, port, "Bot");
     match status_ping(&opts, Arc::new(Mutex::new(PacketLog::new()))).await {
         Ok(r) => {
-            println!("{}", r.status.to_json());
+            println!("{}", r.status.to_json_string());
             println!("latency: {} ms", r.latency.as_millis());
             0
         }

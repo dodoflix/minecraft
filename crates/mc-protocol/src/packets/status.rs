@@ -1,9 +1,12 @@
 //! `status` state: server list ping.
+use mc_core::math::java::java_double_to_string;
+use mc_core::uuid_util::uuid_from_string;
 use mc_text::Component;
-use serde_json::{Map, Value};
+use serde_json::{Map, Number, Value};
 use uuid::Uuid;
 
 use crate::codec::{read_utf, write_utf, DecodeError, DecodeResult};
+use crate::gson::{self, JsonElement, JsonObject};
 use crate::{packet_enum, Decode, Encode, Packet};
 
 const FAVICON_PREFIX: &str = "data:image/png;base64,";
@@ -35,90 +38,180 @@ pub struct ServerStatus {
     pub enforces_secure_chat: bool,
 }
 
+fn string(s: &str) -> JsonElement {
+    JsonElement::String(s.to_owned())
+}
+
+/// `JsonOps` view of a `ComponentSerialization` encoding (`serde_json` floats print like `Double.toString`).
+fn value_to_element(v: &Value) -> JsonElement {
+    match v {
+        Value::Null => JsonElement::Null,
+        Value::Bool(b) => JsonElement::Bool(*b),
+        Value::Number(n) if n.is_i64() || n.is_u64() => JsonElement::Number(n.to_string()),
+        Value::Number(n) => JsonElement::Number(java_double_to_string(n.as_f64().unwrap_or(0.0))),
+        Value::String(s) => string(s),
+        Value::Array(a) => JsonElement::Array(a.iter().map(value_to_element).collect()),
+        Value::Object(o) => {
+            let mut obj = JsonObject::new();
+            for (k, v) in o {
+                obj.add(k, value_to_element(v));
+            }
+            JsonElement::Object(obj)
+        }
+    }
+}
+
+/// The reverse, for the `description` input of `ComponentSerialization`. `None` for a number `serde_json` cannot hold
+/// (outside the `f64` range), where vanilla's `BigDecimal` conversion would still succeed.
+fn element_to_value(e: &JsonElement) -> Option<Value> {
+    Some(match e {
+        JsonElement::Null => Value::Null,
+        JsonElement::Bool(b) => Value::Bool(*b),
+        JsonElement::Number(t) => Value::Number(match (t.parse::<i64>(), t.parse::<u64>()) {
+            (Ok(i), _) => Number::from(i),
+            (_, Ok(u)) => Number::from(u),
+            _ => Number::from_f64(t.parse::<f64>().ok()?)?,
+        }),
+        JsonElement::String(s) => Value::String(s.clone()),
+        JsonElement::Array(a) => Value::Array(a.iter().map(element_to_value).collect::<Option<_>>()?),
+        JsonElement::Object(o) => {
+            let mut m = Map::new();
+            for (k, v) in o.iter() {
+                m.insert(k.to_owned(), element_to_value(v)?);
+            }
+            Value::Object(m)
+        }
+    })
+}
+
+/// `MapLike.get`: a missing key and a JSON `null` both read as absent.
+fn field<'a>(o: &'a JsonObject, key: &str) -> Option<&'a JsonElement> {
+    o.get(key).filter(|e| **e != JsonElement::Null)
+}
+
+/// `Codec.INT` over `JsonOps`: `Ok(None)` is a `DataResult` error, `Err` an exception that escapes the codec
+/// (`LazilyParsedNumber.intValue` on a pathological number).
+fn codec_int(e: &JsonElement) -> Result<Option<i32>, String> {
+    match e {
+        JsonElement::Number(t) => gson::lazily_parsed_int_value(t).map(Some),
+        _ => Ok(None),
+    }
+}
+
+fn codec_string(e: &JsonElement) -> Option<&str> {
+    match e {
+        JsonElement::String(s) => Some(s),
+        _ => None,
+    }
+}
+
 impl ServerStatus {
-    /// `ServerStatus.CODEC` encode: fields equal to their defaults (empty description, empty
-    /// `sample`, `enforcesSecureChat == false`) are omitted, in declaration order.
-    pub fn to_json(&self) -> Value {
-        let mut o = Map::new();
+    /// `ServerStatus.CODEC` encode (`JsonOps`): fields equal to their defaults (empty description, empty `sample`,
+    /// `enforcesSecureChat == false`) are omitted, in declaration order.
+    pub fn to_json(&self) -> JsonElement {
+        let mut o = JsonObject::new();
         if self.description != Component::empty() {
-            o.insert("description".into(), self.description.to_json().unwrap_or_else(|e| panic!("Failed to encode: {e}")));
+            let d = self.description.to_json().unwrap_or_else(|e| panic!("Failed to encode: {e}"));
+            o.add("description", value_to_element(&d));
         }
         if let Some(p) = &self.players {
-            let mut po = Map::new();
-            po.insert("max".into(), p.max.into());
-            po.insert("online".into(), p.online.into());
+            let mut po = JsonObject::new();
+            po.add_property_int("max", i64::from(p.max));
+            po.add_property_int("online", i64::from(p.online));
             if !p.sample.is_empty() {
                 let sample = p
                     .sample
                     .iter()
                     .map(|(id, name)| {
-                        let mut e = Map::new();
-                        e.insert("id".into(), id.hyphenated().to_string().into());
-                        e.insert("name".into(), name.clone().into());
-                        Value::Object(e)
+                        let mut e = JsonObject::new();
+                        e.add("id", string(&id.hyphenated().to_string()));
+                        e.add("name", string(name));
+                        JsonElement::Object(e)
                     })
                     .collect();
-                po.insert("sample".into(), Value::Array(sample));
+                po.add("sample", JsonElement::Array(sample));
             }
-            o.insert("players".into(), Value::Object(po));
+            o.add("players", JsonElement::Object(po));
         }
         if let Some(v) = &self.version {
-            let mut vo = Map::new();
-            vo.insert("name".into(), v.name.clone().into());
-            vo.insert("protocol".into(), v.protocol.into());
-            o.insert("version".into(), Value::Object(vo));
+            let mut vo = JsonObject::new();
+            vo.add("name", string(&v.name));
+            vo.add_property_int("protocol", i64::from(v.protocol));
+            o.add("version", JsonElement::Object(vo));
         }
         if let Some(png) = &self.favicon {
-            o.insert("favicon".into(), format!("{FAVICON_PREFIX}{}", base64_encode(png)).into());
+            o.add("favicon", string(&format!("{FAVICON_PREFIX}{}", base64_encode(png))));
         }
         if self.enforces_secure_chat {
-            o.insert("enforcesSecureChat".into(), true.into());
+            o.add_property_bool("enforcesSecureChat", true);
         }
-        Value::Object(o)
+        JsonElement::Object(o)
     }
 
-    /// `ServerStatus.CODEC` decode. Optional fields (`lenientOptionalFieldOf`) that are missing or
-    /// malformed fall back to their defaults.
-    pub fn from_json(v: &Value) -> Result<Self, String> {
-        let o = v.as_object().ok_or("Not a JSON object")?;
-        let description = match o.get("description") {
-            Some(d) => Component::from_json(d).unwrap_or_else(|_| Component::empty()),
-            None => Component::empty(),
+    /// The text of the status response: `ByteBufCodecs.lenientJson` writes it with a Gson that has HTML escaping
+    /// disabled.
+    pub fn to_json_string(&self) -> String {
+        self.to_json().to_gson_string_unescaped()
+    }
+
+    /// `ServerStatus.CODEC` decode. Optional fields (`lenientOptionalFieldOf`) that are missing or malformed fall back
+    /// to their defaults; the only failures are a non-object document (`DecoderException` text of
+    /// `fromCodec`) and exceptions that escape the codec (`NumberFormatException` text).
+    pub fn from_json(json: &JsonElement) -> Result<Self, String> {
+        let JsonElement::Object(o) = json else {
+            let payload = json.to_compact_string();
+            return Err(format!("Failed to decode: Not a JSON object: {payload} {payload}"));
         };
-        let players = o.get("players").and_then(|p| {
-            let p = p.as_object()?;
-            let sample = p
-                .get("sample")
-                .and_then(Value::as_array)
-                .map(|a| {
-                    a.iter()
-                        .map(|e| {
-                            let id = Uuid::parse_str(e.get("id")?.as_str()?).ok()?;
-                            Some((id, e.get("name")?.as_str()?.to_owned()))
-                        })
-                        .collect::<Option<Vec<_>>>()
-                })
-                .and_then(|s| s)
-                .unwrap_or_default();
-            Some(Players {
-                max: i32::try_from(p.get("max")?.as_i64()?).ok()?,
-                online: i32::try_from(p.get("online")?.as_i64()?).ok()?,
-                sample,
-            })
-        });
-        let version = o.get("version").and_then(|v| {
-            Some(Version {
-                name: v.get("name")?.as_str()?.to_owned(),
-                protocol: i32::try_from(v.get("protocol")?.as_i64()?).ok()?,
-            })
-        });
-        let favicon = o
-            .get("favicon")
-            .and_then(Value::as_str)
+        let description = field(o, "description")
+            .and_then(element_to_value)
+            .and_then(|v| Component::from_json(&v).ok())
+            .unwrap_or_else(Component::empty);
+        let players = match field(o, "players") {
+            Some(p) => Self::decode_players(p)?,
+            None => None,
+        };
+        let version = match field(o, "version") {
+            Some(JsonElement::Object(v)) => {
+                let name = field(v, "name").and_then(codec_string);
+                let protocol = match field(v, "protocol") {
+                    Some(p) => codec_int(p)?,
+                    None => None,
+                };
+                name.zip(protocol).map(|(name, protocol)| Version { name: name.to_owned(), protocol })
+            }
+            _ => None,
+        };
+        let favicon = field(o, "favicon")
+            .and_then(codec_string)
             .and_then(|s| s.strip_prefix(FAVICON_PREFIX))
             .and_then(|b| base64_decode(&b.replace('\n', "")));
-        let enforces_secure_chat = o.get("enforcesSecureChat").and_then(Value::as_bool).unwrap_or(false);
+        let enforces_secure_chat = matches!(field(o, "enforcesSecureChat"), Some(JsonElement::Bool(true)));
         Ok(Self { description, players, version, favicon, enforces_secure_chat })
+    }
+
+    /// `ServerStatus.Players.CODEC`.
+    fn decode_players(p: &JsonElement) -> Result<Option<Players>, String> {
+        let JsonElement::Object(p) = p else { return Ok(None) };
+        let max = match field(p, "max") {
+            Some(e) => codec_int(e)?,
+            None => None,
+        };
+        let online = match field(p, "online") {
+            Some(e) => codec_int(e)?,
+            None => None,
+        };
+        let sample = match field(p, "sample") {
+            Some(JsonElement::Array(a)) => a.iter().map(Self::decode_name_and_id).collect::<Option<Vec<_>>>().unwrap_or_default(),
+            _ => Vec::new(),
+        };
+        Ok(max.zip(online).map(|(max, online)| Players { max, online, sample }))
+    }
+
+    /// `NameAndId.CODEC` (`UUIDUtil.STRING_CODEC` id).
+    fn decode_name_and_id(e: &JsonElement) -> Option<(Uuid, String)> {
+        let JsonElement::Object(o) = e else { return None };
+        let id = uuid_from_string(field(o, "id").and_then(codec_string)?).ok()?;
+        Some((id, codec_string(field(o, "name")?)?.to_owned()))
     }
 }
 
@@ -135,25 +228,52 @@ fn base64_encode(data: &[u8]) -> String {
     s
 }
 
-/// Java `Base64.getDecoder()` (strict, padded).
+/// `Base64.getDecoder().decode(byte[])` (`Base64.Decoder.decode0`): padding is optional, the alphabet is strict.
+/// `None` is the `IllegalArgumentException`.
 fn base64_decode(s: &str) -> Option<Vec<u8>> {
-    let b = s.as_bytes();
-    if !b.len().is_multiple_of(4) {
+    let src = s.as_bytes();
+    let sl = src.len();
+    if sl == 0 {
+        return Some(Vec::new());
+    }
+    if sl < 2 {
         return None;
     }
-    let mut out = Vec::with_capacity(b.len() / 4 * 3);
-    for (ci, c) in b.chunks(4).enumerate() {
-        let last = ci == b.len() / 4 - 1;
-        let pad = c.iter().rev().take_while(|&&x| x == b'=').count();
-        if pad > 2 || (pad > 0 && !last) {
-            return None;
+    let mut out = Vec::with_capacity(sl / 4 * 3 + 3);
+    let (mut bits, mut shiftto, mut sp) = (0u32, 18i32, 0usize);
+    while sp < sl {
+        let b = src[sp];
+        sp += 1;
+        let Some(v) = B64.iter().position(|&y| y == b) else {
+            if b != b'=' {
+                return None;
+            }
+            if shiftto == 6 {
+                if sp == sl || src[sp] != b'=' {
+                    return None;
+                }
+                sp += 1;
+            } else if shiftto == 18 {
+                return None;
+            }
+            break;
+        };
+        bits |= (v as u32) << shiftto;
+        shiftto -= 6;
+        if shiftto < 0 {
+            out.extend_from_slice(&[(bits >> 16) as u8, (bits >> 8) as u8, bits as u8]);
+            shiftto = 18;
+            bits = 0;
         }
-        let mut n = 0u32;
-        for (i, &x) in c.iter().enumerate() {
-            let v = if i >= 4 - pad { 0 } else { B64.iter().position(|&y| y == x)? as u32 };
-            n |= v << (18 - 6 * i);
-        }
-        out.extend_from_slice(&n.to_be_bytes()[1..4 - pad]);
+    }
+    match shiftto {
+        6 => out.push((bits >> 16) as u8),
+        0 => out.extend_from_slice(&[(bits >> 16) as u8, (bits >> 8) as u8]),
+        12 => return None,
+        _ => {}
+    }
+    if sp < sl {
+        return None;
     }
     Some(out)
 }
@@ -186,14 +306,13 @@ pub struct ClientboundStatusResponsePacket {
 
 impl Encode for ClientboundStatusResponsePacket {
     fn encode(&self, out: &mut Vec<u8>) {
-        write_utf(out, &self.status.to_json().to_string())
+        write_utf(out, &self.status.to_json_string())
     }
 }
 impl Decode for ClientboundStatusResponsePacket {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        let json: Value = serde_json::from_str(&read_utf(input, 32767)?)
-            .map_err(|e| DecodeError::Message(format!("Failed to parse JSON: {e}")))?;
-        let status = ServerStatus::from_json(&json).map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {json}")))?;
+        let json = gson::parse_lenient_json_parser(&read_utf(input, 32767)?).map_err(|_| DecodeError::msg("Failed to parse JSON"))?;
+        let status = ServerStatus::from_json(&json).map_err(DecodeError::Message)?;
         Ok(Self { status })
     }
 }

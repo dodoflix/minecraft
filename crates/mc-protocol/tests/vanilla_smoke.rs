@@ -24,7 +24,7 @@ async fn status_and_offline_login_to_configuration() {
     let ClientboundStatusPacket::StatusResponse(resp) = ClientboundStatusPacket::decode_payload(&payload).unwrap() else {
         panic!("expected status response")
     };
-    println!("status: {}", resp.status.to_json());
+    println!("status: {}", resp.status.to_json_string());
     assert_eq!(resp.status.version.as_ref().unwrap().protocol, PROTOCOL_VERSION);
     assert_eq!(resp.status.players.as_ref().unwrap().online, 0);
     send!(c, ServerboundStatusPacket::PingRequest(ServerboundPingRequestPacket { time: 0x1234_5678_9abc }));
