@@ -107,7 +107,7 @@ impl MinecraftServer {
     /// `saveDebugReport(output)`. Not written: `levels/` (`ServerLevel.saveDebugReport`), `classpath.txt`,
     /// `threads.txt` and `modules.txt` (JVM introspection).
     fn save_debug_report(&mut self, output: &Path) {
-        let write = || -> io::Result<()> {
+        let mut write = || -> io::Result<()> {
             std::fs::create_dir_all(output)?;
             self.dump_game_rules(&output.join("gamerules.txt"))?;
             self.dump_misc_stats(&output.join("stats.txt"))?;
@@ -141,24 +141,6 @@ impl MinecraftServer {
         let _ = writeln!(out, "pending_tasks: {}", self.pending_tasks_count());
         let _ = writeln!(out, "average_tick_time: {}", crate::util::java_format::format_fixed(f64::from(self.get_current_smoothed_tick_time()), 6));
         let _ = writeln!(out, "tick_times: [{}]", tick_times.join(", "));
-        std::fs::write(path, out)
-    }
-
-    /// `DedicatedServer.dumpServerProperties`.
-    fn dump_server_properties(&self, path: &Path) -> io::Result<()> {
-        let p = self.properties();
-        let mut out = String::new();
-        let _ = writeln!(out, "sync-chunk-writes={}", p.sync_chunk_writes);
-        let _ = writeln!(out, "gamemode={}", p.game_mode.get().get_name().to_uppercase());
-        let _ = writeln!(out, "entity-broadcast-range-percentage={}", p.entity_broadcast_range_percentage.get());
-        let _ = writeln!(out, "max-world-size={}", p.max_world_size);
-        let _ = writeln!(out, "view-distance={}", p.view_distance.get());
-        let _ = writeln!(out, "simulation-distance={}", p.simulation_distance.get());
-        let _ = writeln!(out, "generate-structures={}", p.world_options.generate_structures);
-        let _ = writeln!(out, "use-native={}", p.use_native_transport);
-        let _ = writeln!(out, "rate-limit={}", p.rate_limit_packets_per_second);
-        let _ = writeln!(out, "command-spam-threshold-seconds={}", p.command_spam_threshold_seconds);
-        let _ = writeln!(out, "chat-spam-threshold-seconds={}", p.chat_spam_threshold_seconds);
         std::fs::write(path, out)
     }
 }
