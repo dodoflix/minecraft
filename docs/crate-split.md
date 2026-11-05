@@ -115,18 +115,18 @@ References that could not be resolved by moving files (each is a small hand edit
 ## linkme
 
 `#[distributed_slice]` statics in a crate nothing references are dropped by the linker. `mc-game` re-exports modules of every area
-crate (so rustc links them); `crates/mc-game/tests/registration_counts.rs` prints and asserts the length of every slice
+crate (so rustc links them); `crates/mc-game/tests/golden/registration_counts.rs` prints and asserts the length of every slice
 (values captured before the split) and fails if a crate stops being linked.
 
 ## Integration tests
 
 A test moves to `mc-game-core` only if it passes there with the same results as before: most tests build a
 `MinecraftServer`/`ServerLevel`, which needs the registrations (blocks, features, commands, entity factories, ...) of the area
-crates, and those only exist in the linked-everything `mc-game`. Of 231 test binaries, 55 run on `mc-game-core` alone and moved
-(`crates/mc-game-core/tests/`, `brain_golden` included); the rest stay in `crates/mc-game/tests/`. Shared helpers
+crates, and those only exist in the linked-everything `mc-game`. Of 231 test files, 55 run on `mc-game-core` alone and moved
+(`crates/mc-game-core/tests/golden`, `brain_golden` included); the rest stay in `crates/mc-game/tests/golden`. Shared helpers
 (`common`, `args_common`, ...) and `fixtures/`, `oracle/` stay in `crates/mc-game/tests/` (most users and every fixture-generating script
-live there); moved tests include the helpers with `#[path = "../../mc-game/tests/<dir>/mod.rs"]` and read fixtures through
-`../mc-game/tests/..`. Each moved test starts with `extern crate mc_game_core as mc_game;`, so its text is otherwise unchanged.
+live there); the core golden target includes the helpers with `#[path = "../../../mc-game/tests/golden/<dir>/mod.rs"]` and reads fixtures through
+`../mc-game/tests/..`. Its `main.rs` declares `extern crate mc_game_core as mc_game;` once, so the moved modules keep their text.
 Fixtures used only by `src/` unit tests (`include_str!`) live in `crates/mc-game-core/tests/fixtures`.
 
 ## Further carve-outs of `core` (not done)

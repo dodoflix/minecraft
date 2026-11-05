@@ -1,7 +1,7 @@
 # Full build + test on GitHub's runners (public repo: unlimited minutes).
 # - scheduled: a complete run of main's tip every 2 hours
 # - on demand for any branch: `gh workflow run ci.yml --ref <branch>` then `gh run watch`
-#   (optionally `-f test_filter='-p mc-game --test foo'` or `-p mc-game-core --test foo` to run a subset)
+#   (optionally `-f test_filter='-p mc-game --test golden'` or `-p mc-game-core` to run a subset of T0/T1)
 name: ci
 
 on:
@@ -75,14 +75,16 @@ jobs:
       - name: Build (workspace, tests)
         run: cargo build --workspace --tests
 
-      - name: Build mc-server binary (for server-level tests)
-        run: cargo build -p mc-server
-
-      - name: Test
+      - name: Test (T0/T1)
         env:
-          MC_SERVER_BIN: ${{ github.workspace }}/target/debug/mc-server
-          # Tests start the real vanilla server; running this workflow accepts the Minecraft EULA (docs/testing.md)
-          MC_ACCEPT_EULA: "1"
           TEST_FILTER: ${{ inputs.test_filter || '--workspace' }}
         # mc-core float goldens depend on libm matching Java; a failure only there on CI is a platform issue
         run: cargo test --no-fail-fast $TEST_FILTER -- --test-threads=2
+
+      # T2 starts the real vanilla server and our mc-server binary (built by the target itself); running this
+      # workflow accepts the Minecraft EULA (docs/testing.md). Skipped when a test filter narrows the run.
+      - name: Test (oracle, T2)
+        if: ${{ !cancelled() && (!inputs.test_filter || inputs.test_filter == '--workspace') }}
+        env:
+          MC_ACCEPT_EULA: "1"
+        run: cargo test --no-fail-fast --workspace --test oracle -- --ignored --test-threads=2

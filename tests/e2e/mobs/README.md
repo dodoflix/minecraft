@@ -21,7 +21,7 @@ Outputs in `run/mob-e2e/NAME/`: `vanilla.jsonl`/`ours.jsonl` (full packet logs o
 `diff.txt` (`mc-testbot diff`, ids are never compared, see `--field`/`--all-fields`) and `obs.diff`. The servers are started one after the
 other (never two JVMs/servers at once) with identical properties (flat world, normal difficulty, no natural spawning, survival, bot op'd).
 By hand: `scripts/vanilla-server.sh start ...`, `mc-testbot run 127.0.0.1:PORT tests/e2e/mobs/X.scn --log a.jsonl --obs a.txt`,
-`mc-testbot diff a.jsonl b.jsonl --state play`. The Rust dual-test facility (`crates/mc-testbot/tests/entity_dual.rs`, scenarios written in Rust
+`mc-testbot diff a.jsonl b.jsonl --state play`. The Rust dual-test facility (`crates/mc-server/tests/oracle/entity_dual.rs`, scenarios written in Rust
 with committed vanilla observations) is the right place for assertions that must run in CI; `.scn` files are for exploration and diffing.
 
 ## Scenario language (`crates/mc-testbot/src/scenario.rs`)

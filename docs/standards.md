@@ -57,9 +57,9 @@ Enforced: `scripts/check.sh` runs `cargo clippy --workspace --all-targets --all-
   `#[ignore]` carries a reason too. Enforced: `clippy::ignore_without_reason`.
 - Production code uses `#[expect(lint, reason = ...)]`, not `#[allow]`, so a suppression that stops being needed
   becomes a warning. Enforced: `unfulfilled_lint_expectations` under clippy.
-- `#[allow(dead_code)]` is not used on production items; delete the item. In a crate's `tests/common` module there is
-  exactly one `#![allow(dead_code, reason = "each test binary uses a subset of the helpers")]`, which goes away when
-  the crate's tests are consolidated into fewer targets. Enforced: review.
+- `#[allow(dead_code)]` is not used on production items; delete the item. The root of a test helper module (`common`
+  and friends) has exactly one `#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]`:
+  a helper that one of the crate's two targets does not use would otherwise warn. Enforced: review.
 - Test code may `unwrap`, `expect`, `panic!`, index, print and use `dbg!` (`clippy.toml` `allow-*-in-tests`). Tests that
   compare NaN on purpose use `#[expect(clippy::eq_op, reason = "NaN != NaN")]`.
 - Output: library crates log through the `log` crate; `print_stdout` and `print_stderr` are `warn`. The binaries

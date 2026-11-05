@@ -16,7 +16,7 @@ Tests are grouped by what they need to run.
 |---|---|---|---|
 | T0 hermetic | nothing beyond a successful build | yes | unit tests, `tests/golden/`, committed fixtures |
 | T1 reads `ref/` | `ref/` from `scripts/setup-ref.sh` | yes | suites that read vanilla data (registries, reports, data packs) from `ref/` |
-| T2 JVM oracle | `ref/`, JDK 25, and a spawned vanilla JVM and/or our `mc-server` | no, all `#[ignore]`d | `tests/oracle/` target of a crate |
+| T2 JVM oracle | `ref/`, JDK 25, `MC_ACCEPT_EULA=1`, and a spawned vanilla JVM and/or our `mc-server` | no, all `#[ignore]`d | `tests/oracle/` target of a crate |
 | T3 real client | GPU, `gamescope`, `xdotool`, client download | no, manual | [`tests/e2e/README.md`](../tests/e2e/README.md) |
 
 T0 and T1 spawn no processes. Building the workspace already needs `ref/` and JDK 25, because the build script of
@@ -28,12 +28,16 @@ server from Mojang; you accept Mojang's EULA yourself (section 3).
 `cargo test --workspace`. Enforced by CI once the lanes in section 9 are wired.
 
 **T2 ignores.** T2 tests live in a dedicated target, `crates/<crate>/tests/oracle/main.rs`, and every test in it
-carries `#[ignore = "<class>: <reason>"]`. There is no Cargo feature for it. Run one crate's oracle tests with:
+carries `#[ignore = "<class>: <reason>"]`. There is no Cargo feature for it. Run the oracle tier of the whole
+workspace, or of one crate:
 
 ```sh
-cargo test -p <crate> --test oracle -- --ignored
+MC_ACCEPT_EULA=1 cargo test --workspace --test oracle -- --ignored
+MC_ACCEPT_EULA=1 cargo test -p <crate> --test oracle -- --ignored
 ```
 
+`--workspace --test oracle` skips the crates that have no `oracle` target. Add `--test-threads=2` on a small machine:
+every oracle test starts its own server on its own port and directory, but each vanilla JVM needs about 1 GB.
 Never use `--include-ignored` over the workspace: it would also run fixture regeneration and the known-red
 `deviation:` tests.
 
@@ -44,8 +48,9 @@ Ignore classes (the only allowed prefixes):
 - `permanent: <why>`: vanilla behaviour that cannot be represented in Rust; explain why.
 
 A bare `#[ignore]` is not allowed, and `#[should_panic]` always has `expected = "..."`. Enforced by
-`clippy::ignore_without_reason` (via `cargo clippy --all-targets`) and review of the class prefix. The tree does
-not fully meet this yet; ignores are being brought into these classes.
+`clippy::ignore_without_reason` (via `cargo clippy --all-targets`) and review of the class prefix. Every ignore in
+an `oracle` target has the `oracle:` class. Ignores outside it are not all in one of these classes yet (some still
+start with `known deviation:` or `known limit:`).
 
 ## 2. A missing prerequisite fails, it does not skip
 
@@ -55,8 +60,15 @@ A test whose prerequisite is absent panics with the command that fixes it, for e
 `eprintln!("skipping ...")` followed by an early return is forbidden in `crates/*/tests`. Enforcement will be a
 syntactic check in `scripts/check.sh`; until it lands, review enforces it.
 
-Not met yet: part of the tree still skips silently, notably suites that read a local reference world. Those are
-being moved to the oracle tier, or switched to a committed world fixture.
+The tree meets this rule. Two cases needed work:
+
+- Tests that need our server binary use `env!("CARGO_BIN_EXE_mc-server")`, which Cargo only defines for the
+  integration tests of package `mc-server`. They live in `crates/mc-server/tests/oracle`, which builds the binary
+  itself. There is no `MC_SERVER_BIN` variable for tests.
+- Tests that read a vanilla-generated world get it from `mc_testkit::worldref()`. The first call starts the vanilla
+  server once (seed 12345, spawn area, clean stop) and leaves the world in `run/servers/worldref`; later calls and
+  other test processes reuse it. Delete that directory to regenerate it. Because generating it spawns a JVM, these
+  tests are T2.
 
 ## 3. EULA
 
@@ -87,11 +99,22 @@ crate can use it as a dev-dependency.
 
 - A test lives in the lowest crate where it passes with identical results. Integration goldens live in `mc-game`,
   the crate that wires everything together. Review.
-- Few test targets per crate: `tests/golden/main.rs` for T0/T1, `tests/oracle/main.rs` for T2, topics as modules.
-  Consolidation is in progress; many crates still have one target per file.
-- Shared helpers go in `mod common;` at the target root, with `#![allow(dead_code, reason = "...")]` stating
-  why (not every module uses every helper).
-- No `#[path]` attributes and no reaching into another crate's `tests/` directory. Review.
+- Few test targets per crate: `tests/golden/main.rs` for T0/T1, `tests/oracle/main.rs` for T2, topics as modules
+  (`mod args;`, `mod chunk_world;`, ...). A module keeps the name of the vanilla area it tests, so a test is
+  `<module>::<test>` in the output. Only `mc-server` has nothing but an oracle target; crates without T2 tests have
+  only `golden`. Current targets: `golden` in `mc-brigadier`, `mc-core`, `mc-data`, `mc-datafix`, `mc-dfu`,
+  `mc-game`, `mc-game-core`, `mc-light`, `mc-nbt`, `mc-protocol`, `mc-text`, `mc-world`, `mc-worldgen`; `oracle` in
+  `mc-game`, `mc-game-core`, `mc-light`, `mc-protocol`, `mc-server`, `mc-world`. Run one module with
+  `cargo test -p mc-game --test golden args::`.
+- Shared helpers go in `mod common;` (or `args_common`, `net_common`, ...) at the target root, with
+  `#![allow(dead_code, reason = "...")]` stating why (not every module uses every helper). A helper two targets of one
+  crate both need is split so each keeps only what it uses; the few exceptions load one helper file with `#[path]`.
+- No `#[path]` attributes and no reaching into another crate's `tests/` directory. Review. Not met yet: the golden
+  target of `mc-game-core` loads the helper modules of `mc-game`'s golden target (`common`, `args_common`,
+  `net_common`, `decoration_common`) and reads fixtures from `mc-game`, because these tests pass on the core crate alone
+  but share their helpers and recordings with the tests that need the area crates; `mc-game`'s oracle target and
+  `mc-world`'s oracle target load three helper modules of their golden target; and some modules read another crate's
+  fixtures through `../<crate>/tests/fixtures`.
 - Every `.rs` file under `tests/` is either a target or named by a `mod`. A file nobody declares is a silently
   dead test. Enforced by the orphan check in `scripts/check.sh`.
 - Names: file or module is the vanilla area; golden replays are named `<behaviour>_matches_vanilla`. Review.
@@ -172,7 +195,7 @@ running. Review until they exist.
 `tests/known-failures.txt` is a temporary baseline of tests that fail on `main` today. One line per test:
 
 ```
-<package> <test binary> <test name>
+<package> <test binary path> <test name>      e.g. mc-game tests/golden/main.rs attack_golden::damage_matches_vanilla
 ```
 
 Rules: a change may only delete lines, never add them; a new failure is fixed, not listed. Flaky tests are not
@@ -186,9 +209,10 @@ The deterministic lane is: `cargo fmt --all --check`, `cargo clippy --workspace 
 `cargo test --workspace` (T0/T1). Run `scripts/check.sh` locally before pushing; `scripts/check.sh --fast` skips
 clippy.
 
-The oracle tier (`cargo test -p <crate> --test oracle -- --ignored`, with `MC_ACCEPT_EULA=1`) runs on pushes to
+The oracle tier (`cargo test --workspace --test oracle -- --ignored`, with `MC_ACCEPT_EULA=1`) runs on pushes to
 `main` and nightly. It must pass before a release is tagged. It is not part of the required pull request checks.
 
 Current state: `.github/workflows/ci.yml` only runs the scheduled and on-demand full build and test of the
-workspace. The lanes above are wired in after the tree passes `scripts/check.sh` and clippy with `-D warnings`;
-until then `scripts/check.sh` is expected to fail on parts of the tree.
+workspace, `cargo test --workspace` followed by the oracle tier with `MC_ACCEPT_EULA=1`. The other lanes above are
+wired in after the tree passes `scripts/check.sh` and clippy with `-D warnings`; until then `scripts/check.sh` is
+expected to fail on parts of the tree.
