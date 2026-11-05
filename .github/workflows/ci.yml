@@ -21,15 +21,29 @@ concurrency:
 env:
   CARGO_TERM_COLOR: always
   CARGO_INCREMENTAL: "0"
+  # runners have ~14 GB free disk; full debuginfo for all test binaries would not fit
+  CARGO_PROFILE_DEV_DEBUG: "0"
+  CARGO_PROFILE_TEST_DEBUG: "0"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
-      - uses: actions/checkout@v4
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: false
+          docker-images: true
+          swap-storage: false
 
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "25"
@@ -46,7 +60,7 @@ jobs:
         if: steps.ref-cache.outputs.cache-hit != 'true'
         run: scripts/setup-ref.sh
 
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@1.97.1
 
       - uses: Swatinem/rust-cache@v2
         with:
@@ -62,4 +76,6 @@ jobs:
       - name: Test
         env:
           MC_SERVER_BIN: ${{ github.workspace }}/target/debug/mc-server
-        run: cargo test ${{ inputs.test_filter || '--workspace' }} -- --test-threads=2
+          TEST_FILTER: ${{ inputs.test_filter || '--workspace' }}
+        # mc-core float goldens depend on libm matching Java; a failure only there on CI is a platform issue
+        run: cargo test $TEST_FILTER -- --test-threads=2
