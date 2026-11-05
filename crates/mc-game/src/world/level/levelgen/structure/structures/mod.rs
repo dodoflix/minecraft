@@ -3,3 +3,7 @@
 //! `STRUCTURE_TYPES` and its piece types in `STRUCTURE_PIECE_TYPES` from its own file; the area owners add their
 //! `pub mod` lines here.
 
+pub mod desert_pyramid_piece;
+pub mod desert_pyramid_structure;
+pub mod jungle_temple_piece;
+pub mod jungle_temple_structure;
