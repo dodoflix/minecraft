@@ -8,9 +8,13 @@
 //! Without a spawner the item is still used up (sound, stat, consumption), exactly the part of vanilla that does not
 //! need the entity. `ProjectileItem.asProjectile` (dispenser) is the other entry point of the same entities.
 
-use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt};
+use super::{DispenseConfig, InteractionHand, InteractionResult, ItemBehaviour, ItemStack, ItemStackExt, ProjectileItem};
+use mc_core::direction::Direction;
+use mc_core::phys::Vec3;
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::entity::projectile::spawn::spawn_projectile_from_rotation;
+use crate::world::entity::projectile::throwableitemprojectile::thrown_experience_bottle::ThrownExperienceBottle;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::LevelAccessor;
 use mc_data::SoundEvent;
@@ -59,7 +63,9 @@ pub fn throw_item(kind: ThrowKind, level: &mut ServerLevel, player: &mut ServerP
     };
     let pitch = 0.4 / (level.random().next_float() * 0.4 + 0.8);
     level.play_sound_at(None, x, y, z, sound, source, 0.5, pitch);
-    if let Some(spawn) = SPAWNERS[kind.index()].get() {
+    if kind == ThrowKind::ExperienceBottle {
+        spawn_projectile_from_rotation(level, |level, source, item| Box::new(ThrownExperienceBottle::with_owner(level, source, item)), &stack, player, -20.0, kind.power(), 1.0);
+    } else if let Some(spawn) = SPAWNERS[kind.index()].get() {
         spawn(level, player, &stack, -20.0, kind.power(), 1.0);
     }
     player.award_stat_once(level, Stat::Used(stack.item()));
@@ -75,6 +81,21 @@ struct ExperienceBottleItem;
 impl ItemBehaviour for ExperienceBottleItem {
     fn use_item(&self, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
         throw_item(ThrowKind::ExperienceBottle, level, player, hand)
+    }
+
+    fn as_projectile_item(&self) -> Option<&dyn ProjectileItem> {
+        Some(self)
+    }
+}
+
+impl ProjectileItem for ExperienceBottleItem {
+    fn as_projectile(&self, level: &mut ServerLevel, position: Vec3, item_stack: &ItemStack, _direction: Direction) -> Box<dyn Entity> {
+        Box::new(ThrownExperienceBottle::at(level, position.x, position.y, position.z, item_stack))
+    }
+
+    /// `uncertainty * 0.5`, `power * 1.25` of the defaults.
+    fn create_dispense_config(&self) -> DispenseConfig {
+        DispenseConfig { uncertainty: DispenseConfig::DEFAULT.uncertainty * 0.5, power: DispenseConfig::DEFAULT.power * 1.25, ..DispenseConfig::DEFAULT }
     }
 }
 

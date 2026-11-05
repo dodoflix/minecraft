@@ -107,7 +107,7 @@ fn handle_first_tick_bubble_column(p: &mut dyn Projectile, level: &mut ServerLev
             for z in from.z()..=to.z() {
                 let pos = mc_core::pos::BlockPos::new(x, y, z);
                 let state = level.get_block_state(pos);
-                if state.is_block(Block::BUBBLE_COLUMN) {
+                if state.block() == Block::BUBBLE_COLUMN {
                     crate::world::level::block::behaviour(state.block()).entity_inside(state, level, pos, p.as_dyn_mut(), &mut NoopApplier, true);
                 }
             }
