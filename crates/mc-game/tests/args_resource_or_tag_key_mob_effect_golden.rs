@@ -9,7 +9,7 @@ fn resource_or_tag_key_mob_effect_matches_vanilla() {
     args_common::replay(
         "resource_or_tag_key_mob_effect",
         include_str!("fixtures/args/resource_or_tag_key_mob_effect_golden.txt"),
-        |_| Arc::new(ResourceOrTagKeyArgument::resource_or_tag_key("minecraft:mob_effect")),
+        |_| Arc::new(ResourceOrTagKeyArgument::resource_or_tag_key("mob_effect")),
         |v, _| {
             let r = v.downcast_ref::<ResourceOrTagKey>().expect("result");
             let kind = match r {

@@ -9,7 +9,7 @@ fn resource_mob_effect_matches_vanilla() {
     args_common::replay(
         "resource_mob_effect",
         include_str!("fixtures/args/resource_mob_effect_golden.txt"),
-        |ctx| Arc::new(ResourceArgument::resource(ctx, "minecraft:mob_effect")),
+        |ctx| Arc::new(ResourceArgument::resource(ctx, "mob_effect")),
         |v, _| v.downcast_ref::<ResourceKey>().expect("key").id.to_string(),
     );
 }

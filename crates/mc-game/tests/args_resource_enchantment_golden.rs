@@ -9,7 +9,7 @@ fn resource_enchantment_matches_vanilla() {
     args_common::replay(
         "resource_enchantment",
         include_str!("fixtures/args/resource_enchantment_golden.txt"),
-        |ctx| Arc::new(ResourceArgument::resource(ctx, "minecraft:enchantment")),
+        |ctx| Arc::new(ResourceArgument::resource(ctx, "enchantment")),
         |v, _| v.downcast_ref::<ResourceKey>().expect("key").id.to_string(),
     );
 }

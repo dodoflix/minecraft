@@ -9,7 +9,7 @@ fn resource_or_tag_key_entity_type_matches_vanilla() {
     args_common::replay(
         "resource_or_tag_key_entity_type",
         include_str!("fixtures/args/resource_or_tag_key_entity_type_golden.txt"),
-        |_| Arc::new(ResourceOrTagKeyArgument::resource_or_tag_key("minecraft:entity_type")),
+        |_| Arc::new(ResourceOrTagKeyArgument::resource_or_tag_key("entity_type")),
         |v, _| {
             let r = v.downcast_ref::<ResourceOrTagKey>().expect("result");
             let kind = match r {

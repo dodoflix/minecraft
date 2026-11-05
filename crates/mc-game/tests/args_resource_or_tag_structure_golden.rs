@@ -9,7 +9,7 @@ fn resource_or_tag_structure_matches_vanilla() {
     args_common::replay(
         "resource_or_tag_structure",
         include_str!("fixtures/args/resource_or_tag_structure_golden.txt"),
-        |ctx| Arc::new(ResourceOrTagArgument::resource_or_tag(ctx, "minecraft:worldgen/structure")),
+        |ctx| Arc::new(ResourceOrTagArgument::resource_or_tag(ctx, "worldgen/structure")),
         |v, _| {
             let r = v.downcast_ref::<ResourceOrTag>().expect("result");
             let kind = match r {

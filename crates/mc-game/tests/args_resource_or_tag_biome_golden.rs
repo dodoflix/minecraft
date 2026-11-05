@@ -9,7 +9,7 @@ fn resource_or_tag_biome_matches_vanilla() {
     args_common::replay(
         "resource_or_tag_biome",
         include_str!("fixtures/args/resource_or_tag_biome_golden.txt"),
-        |ctx| Arc::new(ResourceOrTagArgument::resource_or_tag(ctx, "minecraft:worldgen/biome")),
+        |ctx| Arc::new(ResourceOrTagArgument::resource_or_tag(ctx, "worldgen/biome")),
         |v, _| {
             let r = v.downcast_ref::<ResourceOrTag>().expect("result");
             let kind = match r {

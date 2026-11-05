@@ -9,7 +9,7 @@ fn resource_key_biome_matches_vanilla() {
     args_common::replay(
         "resource_key_biome",
         include_str!("fixtures/args/resource_key_biome_golden.txt"),
-        |_| Arc::new(ResourceKeyArgument::key("minecraft:worldgen/biome")),
+        |_| Arc::new(ResourceKeyArgument::key("worldgen/biome")),
         |v, _| args_common::render_key(v.downcast_ref::<ResourceKey>().expect("key")),
     );
 }

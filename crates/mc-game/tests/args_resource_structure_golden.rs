@@ -9,7 +9,7 @@ fn resource_structure_matches_vanilla() {
     args_common::replay(
         "resource_structure",
         include_str!("fixtures/args/resource_structure_golden.txt"),
-        |ctx| Arc::new(ResourceArgument::resource(ctx, "minecraft:worldgen/structure")),
+        |ctx| Arc::new(ResourceArgument::resource(ctx, "worldgen/structure")),
         |v, _| v.downcast_ref::<ResourceKey>().expect("key").id.to_string(),
     );
 }

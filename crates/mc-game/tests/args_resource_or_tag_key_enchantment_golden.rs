@@ -9,7 +9,7 @@ fn resource_or_tag_key_enchantment_matches_vanilla() {
     args_common::replay(
         "resource_or_tag_key_enchantment",
         include_str!("fixtures/args/resource_or_tag_key_enchantment_golden.txt"),
-        |_| Arc::new(ResourceOrTagKeyArgument::resource_or_tag_key("minecraft:enchantment")),
+        |_| Arc::new(ResourceOrTagKeyArgument::resource_or_tag_key("enchantment")),
         |v, _| {
             let r = v.downcast_ref::<ResourceOrTagKey>().expect("result");
             let kind = match r {

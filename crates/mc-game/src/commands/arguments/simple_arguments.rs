@@ -83,13 +83,25 @@ pub static ERROR_INVALID_HEX: LazyLock<DynamicCommandExceptionType<String>> = La
 /// (a runtime exception: brigadier reports it as "Could not parse command").
 fn parse_hex(s: &str, begin: usize, end: usize) -> i32 {
     let part = &s[begin..end];
-    match i32::from_str_radix(part, 16) {
-        Ok(v) => v,
-        Err(_) => {
-            let index = part.find(|c: char| !c.is_ascii_hexdigit()).unwrap_or(0);
-            panic!("Error at index {index} in: \"{part}\"")
+    let fail = |index: usize| -> ! { panic!("Error at index {index} in: \"{part}\"") };
+    let bytes = part.as_bytes();
+    // JDK: an optional sign, then at least one digit; a sign alone reports index 1 (the cursor after the sign)
+    let (negative, digits_from) = match bytes.first() {
+        Some(b'-') => (true, 1),
+        Some(b'+') => (false, 1),
+        _ => (false, 0),
+    };
+    if digits_from == 1 && bytes.len() == 1 {
+        fail(1);
+    }
+    let mut value: i32 = 0;
+    for (i, c) in bytes.iter().enumerate().skip(digits_from) {
+        match (*c as char).to_digit(16) {
+            Some(d) => value = value * 16 + d as i32,
+            None => fail(i),
         }
     }
+    if negative { -value } else { value }
 }
 
 #[derive(Clone, Copy, Debug, Default)]

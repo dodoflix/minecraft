@@ -109,8 +109,8 @@ pub fn parse_property_value(property: &'static PropertyDef, raw: &str) -> Option
     use mc_data::props::PropertyKind;
     match property.kind {
         PropertyKind::Integer => {
-            // `Ints.tryParse`: optional leading '-', ASCII digits only.
-            let digits = raw.strip_prefix('-').unwrap_or(raw);
+            // `Ints.tryParse`: optional leading '-' or '+', ASCII digits only.
+            let digits = raw.strip_prefix(['-', '+']).unwrap_or(raw);
             if digits.is_empty() || !digits.bytes().all(|b| b.is_ascii_digit()) {
                 return None;
             }

@@ -9,7 +9,7 @@ fn resource_attribute_matches_vanilla() {
     args_common::replay(
         "resource_attribute",
         include_str!("fixtures/args/resource_attribute_golden.txt"),
-        |ctx| Arc::new(ResourceArgument::resource(ctx, "minecraft:attribute")),
+        |ctx| Arc::new(ResourceArgument::resource(ctx, "attribute")),
         |v, _| v.downcast_ref::<ResourceKey>().expect("key").id.to_string(),
     );
 }

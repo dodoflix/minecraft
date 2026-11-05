@@ -9,7 +9,7 @@ fn resource_key_entity_type_matches_vanilla() {
     args_common::replay(
         "resource_key_entity_type",
         include_str!("fixtures/args/resource_key_entity_type_golden.txt"),
-        |_| Arc::new(ResourceKeyArgument::key("minecraft:entity_type")),
+        |_| Arc::new(ResourceKeyArgument::key("entity_type")),
         |v, _| args_common::render_key(v.downcast_ref::<ResourceKey>().expect("key")),
     );
 }

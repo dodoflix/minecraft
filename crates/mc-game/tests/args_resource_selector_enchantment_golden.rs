@@ -9,7 +9,7 @@ fn resource_selector_enchantment_matches_vanilla() {
     args_common::replay(
         "resource_selector_enchantment",
         include_str!("fixtures/args/resource_selector_enchantment_golden.txt"),
-        |ctx| Arc::new(ResourceSelectorArgument::resource_selector(ctx, "minecraft:enchantment")),
+        |ctx| Arc::new(ResourceSelectorArgument::resource_selector(ctx, "enchantment")),
         |v, _| args_common::render_id_list(&v.downcast_ref::<Vec<ResourceKey>>().expect("keys").iter().map(|k| k.id.to_string()).collect::<Vec<_>>()),
     );
 }
