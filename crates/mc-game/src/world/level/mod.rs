@@ -22,7 +22,6 @@ pub mod saveddata;
 pub mod signal_getter;
 pub mod spawner;
 pub mod shapes;
-pub mod signal_getter;
 pub mod storage;
 pub mod ticket_storage;
 
