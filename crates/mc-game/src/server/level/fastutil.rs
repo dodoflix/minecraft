@@ -579,11 +579,16 @@ impl ConstHashReferenceSet {
         self.max_fill = max_fill(new_n);
     }
 
+    /// `clear()` (keeps the table size).
+    pub fn clear(&mut self) {
+        self.table.fill(None);
+        self.size = 0;
+    }
+
     /// Iteration order (descending slots), then `clear()`.
     pub fn drain(&mut self) -> Vec<i64> {
         let keys = self.table.iter().rev().flatten().copied().collect();
-        self.table.fill(None);
-        self.size = 0;
+        self.clear();
         keys
     }
 }
