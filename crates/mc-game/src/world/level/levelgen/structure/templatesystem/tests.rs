@@ -217,3 +217,21 @@ fn processor_accepts() {
         assert!(t(rule).is_ok());
     });
 }
+
+#[test]
+fn shared_random_scoped_advances_the_callers_stream() {
+    use super::structure_place_settings::SharedRandom;
+    let mut a = random::create(11);
+    let mut b = random::create(11);
+    let (x, y) = SharedRandom::scoped(&mut a, |shared| {
+        let mut settings_view = shared.clone();
+        let mut call_arg = shared.clone();
+        (settings_view.next_int_bounded(100), call_arg.next_long())
+    });
+    assert_eq!((x, y), (b.next_int_bounded(100), b.next_long()));
+    assert_eq!(a.next_int(), b.next_int());
+    let mut owned = SharedRandom::new(Box::new(random::create(3)));
+    let mut clone = owned.clone();
+    let mut expect = random::create(3);
+    assert_eq!((owned.next_int(), clone.next_int()), (expect.next_int(), expect.next_int()));
+}

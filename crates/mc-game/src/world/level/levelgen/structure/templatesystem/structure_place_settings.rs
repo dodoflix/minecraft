@@ -9,20 +9,62 @@ use mc_core::mirror::Mirror;
 use mc_core::pos::BlockPos;
 use mc_core::random::{self, PositionalRandomFactory, RandomSource};
 use mc_core::rotation::Rotation;
+use std::ptr::NonNull;
 use std::sync::{Arc, Mutex};
 
 /// A random source shared by reference (vanilla stores the `RandomSource` object itself in the settings, so every
 /// `getRandom(pos)` consumer advances the same stream).
 #[derive(Clone)]
-pub struct SharedRandom(Arc<Mutex<Box<dyn RandomSource>>>);
+pub struct SharedRandom(Shared);
+
+#[derive(Clone)]
+enum Shared {
+    Owned(Arc<Mutex<Box<dyn RandomSource>>>),
+    /// The caller's own random during [`SharedRandom::scoped`].
+    Borrowed(Arc<BorrowedRandom>),
+}
+
+struct BorrowedRandom {
+    ptr: Mutex<Option<NonNull<dyn RandomSource>>>,
+}
+
+// SAFETY: the pointer is only dereferenced under the mutex while `scoped` (which owns the `&mut` it was made from) is
+// running on the creating thread's call stack; `scoped` clears it before returning, and `RandomSource: Send`.
+unsafe impl Send for BorrowedRandom {}
+unsafe impl Sync for BorrowedRandom {}
 
 impl SharedRandom {
     pub fn new(random: Box<dyn RandomSource>) -> SharedRandom {
-        SharedRandom(Arc::new(Mutex::new(random)))
+        SharedRandom(Shared::Owned(Arc::new(Mutex::new(random))))
+    }
+
+    /// Shares the caller's `random` for the duration of `f` (vanilla passes the same `RandomSource` object to
+    /// `settings.setRandom(random)` and to `placeInWorld(.., random, ..)`): every draw through the given
+    /// `SharedRandom` (or a clone of it) advances `random`. Clones that outlive `f` panic when used.
+    pub fn scoped<R>(random: &mut dyn RandomSource, f: impl FnOnce(&SharedRandom) -> R) -> R {
+        // SAFETY: only the lifetime is erased; the pointer is invalidated by `Guard` before `random`'s borrow ends.
+        let erased: &'static mut dyn RandomSource = unsafe { std::mem::transmute::<&mut dyn RandomSource, &'static mut dyn RandomSource>(random) };
+        let shared = Arc::new(BorrowedRandom { ptr: Mutex::new(Some(NonNull::from(erased))) });
+        struct Guard(Arc<BorrowedRandom>);
+        impl Drop for Guard {
+            fn drop(&mut self) {
+                *self.0.ptr.lock().unwrap_or_else(|e| e.into_inner()) = None;
+            }
+        }
+        let _guard = Guard(shared.clone());
+        f(&SharedRandom(Shared::Borrowed(shared)))
     }
 
     fn with<R>(&self, f: impl FnOnce(&mut dyn RandomSource) -> R) -> R {
-        f(&mut **self.0.lock().unwrap_or_else(|e| e.into_inner()))
+        match &self.0 {
+            Shared::Owned(random) => f(&mut **random.lock().unwrap_or_else(|e| e.into_inner())),
+            Shared::Borrowed(borrowed) => {
+                let guard = borrowed.ptr.lock().unwrap_or_else(|e| e.into_inner());
+                let ptr = guard.expect("scoped SharedRandom used after its scope ended");
+                // SAFETY: see `BorrowedRandom`; the mutex serializes access and `scoped` is still on the stack.
+                f(unsafe { &mut *ptr.as_ptr() })
+            }
+        }
     }
 }
 
