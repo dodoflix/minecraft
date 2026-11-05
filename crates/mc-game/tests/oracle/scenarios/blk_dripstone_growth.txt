@@ -18,7 +18,7 @@ block 7 -56 10 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip
 block 11 -56 11 minecraft:pointed_dripstone[vertical_direction=down,thickness=tip]
 block 6 -62 6 minecraft:stone
 block 6 -61 6 minecraft:pointed_dripstone[vertical_direction=up,thickness=tip]
-dump blocks:0,-62,0,15,-54,15 ticks
+dump blocks:0,-62,0,15,-54,15
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
@@ -89,7 +89,7 @@ tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick 2
-dump blocks:0,-62,0,15,-54,15 ticks events
+dump blocks:0,-62,0,15,-54,15 events
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
@@ -160,7 +160,7 @@ tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick 2
-dump blocks:0,-62,0,15,-54,15 ticks events
+dump blocks:0,-62,0,15,-54,15 events
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
@@ -231,7 +231,7 @@ tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick 2
-dump blocks:0,-62,0,15,-54,15 ticks events
+dump blocks:0,-62,0,15,-54,15 events
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
@@ -302,4 +302,4 @@ tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick_chunk 0 0 24000
 tick 2
-dump blocks:0,-62,0,15,-54,15 ticks events
+dump blocks:0,-62,0,15,-54,15 events
