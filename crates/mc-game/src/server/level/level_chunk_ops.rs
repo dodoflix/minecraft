@@ -173,14 +173,23 @@ impl ServerLevel {
         self.chunk_at_mut(pos)?.block_entities.get_mut(&pos).map(|b| &mut **b)
     }
 
-    /// `LevelChunk.promotePendingBlockEntity`: the pending NBT becomes a live block entity. Types without an
-    /// implementation keep their raw NBT (returns `false` and leaves the tag pending) so nothing is lost on save.
+    /// `LevelChunk.promotePendingBlockEntity`: the pending NBT (or `DUMMY` stub) becomes a live block entity. Types
+    /// without an implementation keep their raw NBT (returns `false` and leaves the tag pending) so nothing is lost on
+    /// save.
     fn promote_pending_block_entity(&mut self, pos: BlockPos, tag: CompoundTag) -> bool {
         let state = BlockGetter::get_block_state(self, pos);
         let id = tag.get_string_or("id", "");
         let block_entity: Option<Box<dyn BlockEntity>> = if id == "DUMMY" {
             if state.has_block_entity() {
-                new_block_entity(pos, state)
+                let created = new_block_entity(pos, state);
+                if created.is_none() {
+                    // no implementation for this block's type yet: keep the stub (like the typed branch below), not a failure
+                    if let Some(chunk) = self.chunk_at_mut(pos) {
+                        chunk.data.access.block_entities.insert(pos, tag);
+                    }
+                    return false;
+                }
+                created
             } else {
                 log::warn!("Tried to load a DUMMY block entity @ {} but found not block entity block {} at location", pos.to_short_string(), state);
                 None

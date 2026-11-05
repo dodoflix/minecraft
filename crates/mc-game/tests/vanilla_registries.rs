@@ -27,9 +27,7 @@ fn golden() -> String {
     text
 }
 
-// Fails until every structure type is ported (`level_factory` then stops falling back to terrain only).
 #[test]
-#[ignore = "structure types missing: jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city"]
 fn vanilla_data_pack_registries_match_vanilla() {
     let text = golden();
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data");
@@ -59,6 +57,7 @@ fn vanilla_data_pack_registries_match_vanilla() {
         counts += 1;
     }
     assert_eq!(counts, 6);
+    assert!(structures.unported.is_empty(), "structure types without an implementation: {:?}", structures.unported);
 
     // the structure loop of `applyBiomeDecoration`: `Registry<Structure>` order within each step
     for line in text.lines().filter_map(|l| l.strip_prefix("STRUCTURES ")) {

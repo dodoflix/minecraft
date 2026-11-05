@@ -130,6 +130,8 @@ public class FeatureOracleBase {
         world.listRegistries().forEach(dimContext::add);
         var dims = RegistryDataLoader.load(resources, dimContext, RegistryDataLoader.DIMENSION_REGISTRIES, direct).join();
         ACCESS = layers.replaceFrom(RegistryLayer.WORLD, world, dims).compositeAccess();
+        // the item components (ReloadableServerResources.updateComponentsAndStaticRegistryTags): item stacks decode only after this
+        BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(ACCESS).forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
         BIOMES = ACCESS.lookupOrThrow(Registries.BIOME);
         FACTORY = PalettedContainerFactory.create(ACCESS);
         // items/entity types of structures that equip mobs need their default components (ReloadableServerResources does this)
@@ -234,6 +236,22 @@ public class FeatureOracleBase {
         /** The server difficulty is runtime configuration (NORMAL here), the clock and moon brightness are 0. */
         @Override public net.minecraft.world.DifficultyInstance getCurrentDifficultyAt(BlockPos pos) {
             return new net.minecraft.world.DifficultyInstance(net.minecraft.world.Difficulty.NORMAL, 0L, 0L, 0.0F);
+        }
+
+        /** Optional fake level so pieces can create mobs (`level.getLevel()`); null by default like the real null level. */
+        public net.minecraft.server.level.ServerLevel fakeLevel;
+        /** Optional: returned by getRandom() inside a mob's finalizeSpawn (Rust has no mob classes, those draws are not modelled). */
+        public RandomSource finalizeSpawnRandom;
+        @Override public net.minecraft.server.level.ServerLevel getLevel() { return fakeLevel; }
+        @Override public net.minecraft.world.DifficultyInstance getCurrentDifficultyAt(BlockPos pos) {
+            return new net.minecraft.world.DifficultyInstance(net.minecraft.world.Difficulty.NORMAL, 0L, 0L, 0.0F);
+        }
+        @Override public net.minecraft.world.attribute.EnvironmentAttributeReader environmentAttributes() { return net.minecraft.world.attribute.EnvironmentAttributeReader.EMPTY; }
+        @Override public RandomSource getRandom() {
+            if (finalizeSpawnRandom != null) {
+                for (StackTraceElement e : Thread.currentThread().getStackTrace()) if (e.getMethodName().equals("finalizeSpawn")) return finalizeSpawnRandom;
+            }
+            return super.getRandom();
         }
 
         /** WorldGenRegion.setBlock without the POI hook (the level is null) and with the chunk-type branch of proto chunks. */

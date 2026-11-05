@@ -13,6 +13,8 @@ use mc_core::math::mth;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::random::RandomSource;
 use mc_data::SoundEvent;
+use mc_dfu::{Codec, record, string_resolver};
+use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::SoundSource;
 use std::collections::HashMap;
 use std::sync::LazyLock;
@@ -98,6 +100,22 @@ impl SculkSpreader {
         }
     }
 
+    /// `load(input)`: the `cursors` list (at most 32; a failed decode keeps its partial list).
+    pub fn load(&mut self, tag: &CompoundTag) {
+        self.cursors.clear();
+        let cursors = crate::world::block_entity::read_codec(tag, "cursors", &CURSORS_CODEC).unwrap_or_default();
+        for cursor in cursors {
+            self.add_cursor(cursor);
+        }
+    }
+
+    /// `save(output)`: `cursors` (the `SharedConstants.DEBUG_SCULK_CATALYST` stats are off in release builds).
+    pub fn save(&self, tag: &mut CompoundTag) {
+        if let Ok(cursors) = mc_dfu::encode_nbt(&CURSORS_LIST_CODEC, &self.cursors).into_result() {
+            tag.put("cursors", cursors);
+        }
+    }
+
     fn add_cursor(&mut self, cursor: ChargeCursor) {
         if self.cursors.len() < MAX_CURSORS {
             self.cursors.push(cursor);
@@ -177,6 +195,30 @@ static NON_CORNER_NEIGHBOURS: LazyLock<Vec<Vec3i>> = LazyLock::new(|| {
         .map(|p| Vec3i::new(p.x(), p.y(), p.z()))
         .collect()
 });
+
+/// `ChargeCursor.CODEC`.
+static CURSOR_CODEC: LazyLock<Codec<ChargeCursor>> = LazyLock::new(|| {
+    let direction = string_resolver(|d: &Direction| Some(d.get_name().to_string()), Direction::by_name);
+    // `DIRECTION_SET`: an enum set, so ordinal order and no duplicates
+    let direction_set = direction.list_of().xmap(
+        |mut l: Vec<Direction>| {
+            l.sort();
+            l.dedup();
+            l
+        },
+        |s: &Vec<Direction>| s.clone(),
+    );
+    record!(ChargeCursor {
+        pos: mc_protocol::components::block_pos_codec().field_of("pos"),
+        charge: mc_dfu::int_range(0, MAX_CHARGE).optional_field_of_default("charge", 0),
+        decay_delay: mc_dfu::int_range(0, 1).optional_field_of_default("decay_delay", 1),
+        update_delay: mc_dfu::int_range(0, i32::MAX).optional_field_of_default("update_delay", 0),
+        facings: direction_set.lenient_optional_field_of("facings"),
+    })
+    .codec()
+});
+static CURSORS_CODEC: LazyLock<Codec<Vec<ChargeCursor>>> = LazyLock::new(|| CURSOR_CODEC.size_limited_list_of(MAX_CURSORS));
+static CURSORS_LIST_CODEC: LazyLock<Codec<Vec<ChargeCursor>>> = LazyLock::new(|| CURSOR_CODEC.list_of());
 
 impl ChargeCursor {
     pub fn new(pos: BlockPos, charge: i32) -> ChargeCursor {

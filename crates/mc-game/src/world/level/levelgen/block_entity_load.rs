@@ -8,6 +8,7 @@
 //! Types that are not modelled return `None` (callers keep the raw NBT).
 
 use super::block_entity_data::{base_tag, block_entity_type_of};
+use crate::world::block_entity::create_block_entity;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_nbt::{CompoundTag, ListTag, Tag};
@@ -15,6 +16,10 @@ use mc_nbt::{CompoundTag, ListTag, Tag};
 /// The `loadWithComponents` + `saveWithFullMetadata` result for the block entity of `state` at `pos` loaded from `nbt`.
 pub fn load_with_components(state: BlockState, pos: BlockPos, nbt: &CompoundTag) -> Option<CompoundTag> {
     let ty = block_entity_type_of(state.block())?;
+    if let Some(mut block_entity) = create_block_entity(ty, pos, state) {
+        block_entity.load_with_components(nbt);
+        return Some(block_entity.save_with_full_metadata());
+    }
     let id = ty.name();
     let mut out = base_tag(id, pos);
     if let Some(components) = nbt.get_compound("components") {
@@ -70,16 +75,6 @@ pub fn load_with_components(state: BlockState, pos: BlockPos, nbt: &CompoundTag)
                 out.put("CustomName", name.clone());
             }
         }
-        "minecraft:sculk_sensor" | "minecraft:calibrated_sculk_sensor" => {
-            out.put_int("last_vibration_frequency", nbt.get_int_or("last_vibration_frequency", 0));
-            // a fresh `VibrationSystem.Data`: no vibration in flight, selector without a tick
-            let mut selector = CompoundTag::new();
-            selector.put_long("tick", -1);
-            let mut listener = CompoundTag::new();
-            listener.put_int("event_delay", 0);
-            listener.put("selector", selector);
-            out.put("listener", listener);
-        }
         "minecraft:decorated_pot" => {
             if let Some(sherds) = nbt.get_compound("sherds") {
                 out.put("sherds", sherds.clone());
@@ -100,11 +95,6 @@ pub fn load_with_components(state: BlockState, pos: BlockPos, nbt: &CompoundTag)
         "minecraft:mob_spawner" => spawner(nbt, &mut out),
         // no saved fields of their own
         "minecraft:bell" | "minecraft:skull" | "minecraft:copper_golem_statue" => {}
-        "minecraft:creaking_heart" => {
-            if let Some(Tag::IntArray(uuid)) = nbt.get("creaking") {
-                out.put("creaking", Tag::IntArray(uuid.clone()));
-            }
-        }
         "minecraft:lectern" => {
             if let Some(book) = nbt.get_compound("Book") {
                 out.put("Book", book.clone());

@@ -16,6 +16,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::item::BlockPlaceContext;
+use crate::world::level::block::bonemeal::{BonemealSource, BonemealType};
 use crate::world::level::collision::CollisionContext;
 use crate::world::level::precipitation::Precipitation;
 use crate::world::level::redstone::Orientation;
@@ -317,6 +318,57 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     /// `Fallable.getFallDamageSource(entity)`.
     fn get_fall_damage_source(&self, level: &ServerLevel, entity: &crate::world::entity::falling_block_entity::FallingBlockEntity) -> crate::world::damagesource::DamageSource {
         level.damage_sources().falling_block(entity)
+    }
+
+    // ============================================================ [Blocks] BonemealableBlock / liquid containers
+    /// `this instanceof BonemealableBlock`.
+    fn is_bonemealable(&self) -> bool {
+        false
+    }
+    /// `BonemealableBlock.isValidBonemealTarget(level, pos, state, source)`.
+    fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
+        false
+    }
+    /// `BonemealableBlock.isBonemealSuccess(level, random, pos, state, source)` (random = `level.random()`).
+    fn is_bonemeal_success(&self, _level: &mut ServerLevel, _pos: BlockPos, _state: BlockState, _source: BonemealSource) -> bool {
+        true
+    }
+    /// `BonemealableBlock.performBonemeal(level, random, pos, state, source)` (random = `level.random()`).
+    fn perform_bonemeal(&self, _level: &mut ServerLevel, _pos: BlockPos, _state: BlockState, _source: BonemealSource) {}
+    /// `BonemealableBlock.getType()`.
+    fn get_bonemeal_type(&self) -> BonemealType {
+        BonemealType::Grower
+    }
+    /// `BonemealableBlock.getParticlePos(pos)`.
+    fn get_bonemeal_particle_pos(&self, pos: BlockPos) -> BlockPos {
+        match self.get_bonemeal_type() {
+            BonemealType::NeighborSpreader => pos.above(),
+            BonemealType::Grower => pos,
+        }
+    }
+    /// `this instanceof LiquidBlockContainer` (`SimpleWaterloggedBlock`, `KelpBlock`, ...).
+    fn is_liquid_block_container(&self) -> bool {
+        false
+    }
+    /// `LiquidBlockContainer.canPlaceLiquid(user, level, pos, state, type)`.
+    fn can_place_liquid(&self, _user: Option<&dyn Entity>, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _fluid: Fluid) -> bool {
+        false
+    }
+    /// `LiquidBlockContainer.placeLiquid(level, pos, state, fluidState)`.
+    fn place_liquid(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState, _fluid_state: mc_data::fluid::FluidState) -> bool {
+        false
+    }
+    /// `this instanceof BucketPickup` (`LiquidBlock`, `SimpleWaterloggedBlock`, `PowderSnowBlock`).
+    fn is_bucket_pickup(&self) -> bool {
+        false
+    }
+    /// `BucketPickup.pickupBlock(user, level, pos, state)` (`ItemStack.EMPTY` when nothing was picked up).
+    fn pickup_block(&self, _user: Option<&dyn Entity>, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) -> crate::world::item::ItemStack {
+        crate::world::item::ItemStack::empty()
+    }
+    /// `BucketPickup.getPickupSound()`.
+    fn get_pickup_sound(&self) -> Option<mc_data::SoundEvent> {
+        None
     }
 }
 

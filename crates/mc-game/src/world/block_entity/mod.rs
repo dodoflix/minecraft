@@ -1,7 +1,42 @@
 //! `net.minecraft.world.level.block.entity`: block entities are `Box<dyn BlockEntity>` stored in the level's chunk
 //! (same take-out-while-ticking pattern as entities). Concrete types register a factory through
-//! [`BLOCK_ENTITY_TYPES`] from the module that implements them; unknown types are kept as raw NBT by mc-world so
-//! nothing is lost on save.
+//! [`BLOCK_ENTITY_TYPES`] from the module that implements them (one file per vanilla class); types without an
+//! implementation are kept as raw NBT by mc-world so nothing is lost on save.
+
+/// The accessors every implementation of [`BlockEntity`] needs (the struct keeps its [`BlockEntityData`] in `base`).
+macro_rules! block_entity_base {
+    () => {
+        fn base(&self) -> &BlockEntityData {
+            &self.base
+        }
+        fn base_mut(&mut self) -> &mut BlockEntityData {
+            &mut self.base
+        }
+        fn as_any(&self) -> &dyn std::any::Any {
+            self
+        }
+        fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
+            self
+        }
+    };
+}
+
+mod calibrated_sculk_sensor_block_entity;
+mod creaking_heart_block_entity;
+mod potent_sulfur_block_entity;
+mod sculk_catalyst_block_entity;
+mod sculk_sensor_block_entity;
+mod sculk_shrieker_block_entity;
+mod the_end_gateway_block_entity;
+mod the_end_portal_block_entity;
+
+pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
+pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
+pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
+pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
+pub use sculk_shrieker_block_entity::SculkShriekerBlockEntity;
+pub use the_end_gateway_block_entity::TheEndGatewayBlockEntity;
+pub use the_end_portal_block_entity::TheEndPortalBlockEntity;
 
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
@@ -74,10 +109,7 @@ pub trait BlockEntity: Any {
     /// `loadWithComponents(input)`: `loadAdditional`, then `components` (empty when absent or malformed).
     fn load_with_components(&mut self, tag: &CompoundTag) {
         self.load_additional(tag);
-        self.base_mut().components = tag
-            .get("components")
-            .and_then(|t| mc_dfu::parse_nbt(&mc_protocol::components::DataComponentMap::codec(), t).into_result().ok())
-            .unwrap_or_default();
+        self.base_mut().components = read_codec(tag, "components", &mc_protocol::components::DataComponentMap::codec()).unwrap_or_default();
     }
     // ==== [Loot] additions (BlockEntity trait methods) ====
     /// `collectImplicitComponents(builder)`: the components a block entity derives from its own state (container contents,
@@ -132,6 +164,11 @@ pub trait BlockEntity: Any {
     fn game_event_listener(&mut self) -> Option<&mut dyn crate::world::level::gameevent::GameEventListener> {
         None
     }
+}
+
+/// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).
+pub(crate) fn read_codec<A: 'static>(tag: &CompoundTag, key: &str, codec: &mc_dfu::Codec<A>) -> Option<A> {
+    mc_dfu::parse_nbt(codec, tag.get(key)?).result_or_partial()
 }
 
 /// A registered block entity type implementation.

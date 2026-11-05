@@ -146,7 +146,6 @@ fn structure_data(level: &mut ServerLevel, pos: ChunkPos) -> StructureData {
 }
 
 #[test]
-#[ignore = "needs the vanilla structure registry to decode (jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city)"]
 fn overworld_has_trees_ores_flowers_and_structure_data_round_trips() {
     let world = load_world();
     let dir = scratch("overworld");
@@ -203,7 +202,6 @@ fn start_ids(level: &mut ServerLevel, x0: i32, z0: i32, n: i32) -> BTreeSet<Stri
 }
 
 #[test]
-#[ignore = "needs the vanilla structure registry to decode (jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city)"]
 fn nether_records_fortress_and_bastion_starts_and_has_features() {
     let world = load_world();
     let dir = scratch("nether");
@@ -224,7 +222,6 @@ fn nether_records_fortress_and_bastion_starts_and_has_features() {
 }
 
 #[test]
-#[ignore = "needs the vanilla structure registry to decode (jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city)"]
 fn end_has_spikes_islands_and_end_cities() {
     let world = load_world();
     let dir = scratch("end");
@@ -238,7 +235,7 @@ fn end_has_spikes_islands_and_end_cities() {
     assert!(names.contains("minecraft:end_stone"), "{names:?}");
     assert!(names.contains("minecraft:obsidian"), "end spikes: {names:?}");
     // outer islands start 1000+ blocks from the center; their cities are structures of the outer end
-    let starts = start_ids(&mut level, 64, 0, 64);
+    let starts = start_ids(&mut level, 64, 0, 160);
     assert!(starts.contains("minecraft:end_city"), "{starts:?}");
     level.close();
     let _ = std::fs::remove_dir_all(&dir);

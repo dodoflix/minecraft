@@ -3,6 +3,7 @@
 //! always-present empty `components` compound). Shared by every feature that fills a block entity.
 
 use super::world_gen_level::WorldGenLevel;
+use crate::world::block_entity::{BlockEntity, TheEndGatewayBlockEntity, new_block_entity};
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
 use mc_core::random::RandomSource;
@@ -35,7 +36,7 @@ pub(super) fn block_entity_type_of(block: mc_data::block::Block) -> Option<Block
 /// `new XBlockEntity(pos, state).saveWithFullMetadata()` for the types worldgen features configure (`None`: not modelled).
 fn default_tag(id: &str, pos: BlockPos) -> Option<CompoundTag> {
     match id {
-        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" => {
+        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" | "minecraft:dispenser" | "minecraft:dropper" => {
             let mut tag = base_tag(id, pos);
             tag.put("Items", ListTag::new());
             Some(tag)
@@ -45,7 +46,6 @@ fn default_tag(id: &str, pos: BlockPos) -> Option<CompoundTag> {
             tag.remove("SpawnData");
             Some(tag)
         }
-        "minecraft:end_gateway" => Some(end_gateway_tag(pos, None)),
         _ => None,
     }
 }
@@ -59,8 +59,10 @@ pub fn get_block_entity_nbt(level: &mut dyn WorldGenLevel, pos: BlockPos) -> Opt
         return Some(existing.clone());
     }
     let state = level.get_block_state(pos);
-    let ty = block_entity_type_of(state.block())?;
-    let tag = default_tag(ty.name(), pos)?;
+    let tag = match new_block_entity(pos, state) {
+        Some(block_entity) => block_entity.save_with_full_metadata(),
+        None => default_tag(block_entity_type_of(state.block())?.name(), pos)?,
+    };
     level.set_block_entity_nbt(tag.clone());
     Some(tag)
 }
@@ -143,13 +145,9 @@ pub fn spawner_tag(pos: BlockPos, entity_id: &str) -> CompoundTag {
 
 /// `TheEndGatewayBlockEntity` (`Age`, and the exit when `setExitPosition(pos, exact)` was called).
 pub fn end_gateway_tag(pos: BlockPos, exit: Option<(BlockPos, bool)>) -> CompoundTag {
-    let mut tag = base_tag("minecraft:end_gateway", pos);
-    tag.put_long("Age", 0);
+    let mut gateway = TheEndGatewayBlockEntity::new(pos, mc_data::block::Block::END_GATEWAY.default_state());
     if let Some((exit_pos, exact)) = exit {
-        tag.put_int_array("exit_portal", vec![exit_pos.x(), exit_pos.y(), exit_pos.z()]);
-        if exact {
-            tag.put_boolean("ExactTeleport", true);
-        }
+        gateway.set_exit_position(exit_pos, exact);
     }
-    tag
+    gateway.save_with_full_metadata()
 }

@@ -341,7 +341,48 @@ pub fn load(manager: &dyn ResourceManager, context: &RegistryAccess, registries_
         failure.log();
         return Err(failure);
     }
-    Ok(RegistryAccess::from_registries(registries))
+    let access = RegistryAccess::from_registries(registries);
+    if registries_to_load.iter().any(|r| r.key == keys::FEATURE) {
+        validate_feature_layer(&access)?;
+    }
+    Ok(access)
+}
+
+/// The decoders of `worldgen/{feature,placed_feature,structure,structure_set,processor_list,template_pool}` run at the
+/// end of the world stage: they need the whole stage (features reference each other, biomes list placed features,
+/// structures list biomes), so every entry is decoded against the finished registries and the first failing entry
+/// fails the load like any other registry decode error (vanilla collects all of them; the first is reported here).
+fn validate_feature_layer(stage: &RegistryAccess) -> Result<(), RegistryLoadFailure> {
+    use crate::world::level::levelgen::registries::GenRegistries;
+    use crate::world::level::levelgen::structure::registries::StructureRegistries;
+    use mc_worldgen::biome::BiomeRegistry;
+    use mc_worldgen::structure_placement::StructureSetRegistry;
+
+    let source = Arc::new(RegistryWorldgenSource(stage.clone()));
+    let worldgen = stage.worldgen_registries();
+    let decoded = BiomeRegistry::load(&worldgen).and_then(|biomes| {
+        GenRegistries::load(source.clone(), &worldgen, &biomes)?;
+        StructureRegistries::load(source, &worldgen, &biomes)?;
+        StructureSetRegistry::load(&worldgen, &biomes).map(|_| ())
+    });
+    let Err(error) = decoded else { return Ok(()) };
+    // `LoadError::in_entry`: `<registry>/<id>: <path>: <message>`
+    let text = error.to_string();
+    let entry = text.strip_prefix("worldgen/").and_then(|rest| {
+        let (registry, rest) = rest.split_once('/')?;
+        let (id, message) = rest.split_once(": ")?;
+        Some((format!("minecraft:worldgen/{registry}"), Identifier::try_parse(id)?, message.to_owned()))
+    });
+    let (key, failure) = match entry {
+        Some((registry, id, message)) => {
+            let pack = stage.registry(&registry).and_then(|r| r.entry_by_key(&id).map(|e| e.source_pack.clone())).unwrap_or_default();
+            ((registry, id.clone()), LoadingError::failed_to_parse(&id, &pack, "java.lang.IllegalStateException", message))
+        }
+        None => (("minecraft:root".to_owned(), Identifier::with_default_namespace("worldgen").expect("valid")), LoadingError::state(text)),
+    };
+    let failure = RegistryLoadFailure { errors: BTreeMap::from([(key, failure)]) };
+    failure.log();
+    Err(failure)
 }
 
 /// Registries without a typed decoder: the entry must at least be a JSON object, except for the registries whose codec
@@ -356,4 +397,34 @@ fn generic_validate(registry: &str, json: &Value) -> Result<(), String> {
         _ => false,
     };
     if allowed { Ok(()) } else { Err(format!("Not a JSON object: {}", serde_json::to_string(json).unwrap_or_default())) }
+}
+
+#[cfg(test)]
+mod feature_layer_tests {
+    use super::*;
+
+    fn access_with(registry: &'static str, id: &str, json: Value, pack: &str) -> RegistryAccess {
+        let entry = RegistryEntry {
+            id: Identifier::parse(id).unwrap(),
+            json: Arc::new(json),
+            value: None,
+            network: None,
+            source_pack: pack.to_owned(),
+            info: RegistrationInfo::default(),
+        };
+        RegistryAccess::from_registries([Registry::dynamic(registry, vec![entry])])
+    }
+
+    /// A data pack placed feature that does not decode fails the world load like a vanilla registry decode error, naming
+    /// the registry, the entry and the pack.
+    #[test]
+    fn an_undecodable_placed_feature_fails_the_load() {
+        let access = access_with("minecraft:worldgen/placed_feature", "test:broken", serde_json::json!({"feature": "test:missing", "placement": []}), "file/test_pack");
+        let failure = validate_feature_layer(&access).expect_err("the entry is invalid");
+        let ((registry, id), error) = failure.errors.iter().next().unwrap();
+        assert_eq!((registry.as_str(), id.to_string().as_str()), ("minecraft:worldgen/placed_feature", "test:broken"));
+        assert_eq!(error.message, "Failed to parse test:broken from pack file/test_pack");
+        assert!(error.cause.as_ref().unwrap().1.contains("test:missing"), "{error:?}");
+        assert_eq!(failure.errors.len(), 1);
+    }
 }
