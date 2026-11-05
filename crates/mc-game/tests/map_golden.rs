@@ -169,7 +169,7 @@ fn map_update_and_packets_match_vanilla() {
         for t in 0..ticks as usize {
             p.tick_inventory_items(&mut level);
             if let Some(Some(packet)) = level.with_map_data(id, |_, data| data.get_update_packet(id, pid)) {
-                got.insert(t, hex(&encode_packet(&packet)));
+                got.insert(t, hex(&mc_protocol::packet::encode_packet(&packet).unwrap()));
             }
         }
         let (colors, center, decos) = level
