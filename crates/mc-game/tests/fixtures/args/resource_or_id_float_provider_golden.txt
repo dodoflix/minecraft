@@ -1,0 +1,4022 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' in registry 'minecraft:context_float_provider' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' in registry 'minecraft:context_float_provider' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:foo
+R 0
+A -
+X Can't find element 'minecraft:foo' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:foo<--[HERE]@13
+E Can't find element 'minecraft:foo' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:foo<--[HERE]@13
+S -2--2 0 0 
+@ all 012
+R 0
+A -
+X Can't find element 'minecraft:012' in registry 'minecraft:context_float_provider' at position 5: t 012<--[HERE]@3
+E Can't find element 'minecraft:012' in registry 'minecraft:context_float_provider' at position 5: t 012<--[HERE]@3
+S -2--2 0 0 
+@ all {}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{}] at position 4: t {}<--[HERE]@2
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{}] at position 4: t {}<--[HERE]@2
+S -2--2 0 0 
+@ all true
+R 0
+A -
+X Can't find element 'minecraft:true' in registry 'minecraft:context_float_provider' at position 6: t true<--[HERE]@4
+E Can't find element 'minecraft:true' in registry 'minecraft:context_float_provider' at position 6: t true<--[HERE]@4
+S -2--2 0 0 
+@ all false
+R 0
+A -
+X Can't find element 'minecraft:false' in registry 'minecraft:context_float_provider' at position 7: t false<--[HERE]@5
+E Can't find element 'minecraft:false' in registry 'minecraft:context_float_provider' at position 7: t false<--[HERE]@5
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Can't find element 'minecraft:1' in registry 'minecraft:context_float_provider' at position 3: t 1<--[HERE]@1
+E Can't find element 'minecraft:1' in registry 'minecraft:context_float_provider' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1.5
+R 0
+A -
+X Can't find element 'minecraft:1.5' in registry 'minecraft:context_float_provider' at position 5: t 1.5<--[HERE]@3
+E Can't find element 'minecraft:1.5' in registry 'minecraft:context_float_provider' at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all -1
+R 0
+A -
+X Can't find element 'minecraft:-1' in registry 'minecraft:context_float_provider' at position 4: t -1<--[HERE]@2
+E Can't find element 'minecraft:-1' in registry 'minecraft:context_float_provider' at position 4: t -1<--[HERE]@2
+S -2--2 0 0 
+@ all []
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: [] at position 4: t []<--[HERE]@2
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: [] at position 4: t []<--[HERE]@2
+S -2--2 0 0 
+@ all {type:"minecraft:constant",value:1}
+R 35
+A 0-35 direct
+E ok
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",config:{}}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:no_op at position 36: ...config:{}}<--[HERE]@34
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:no_op at position 36: ...config:{}}<--[HERE]@34
+S -2--2 0 0 
+@ all {type:"minecraft:nope"}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:nope at position 25: ...aft:nope"}<--[HERE]@23
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:nope at position 25: ...aft:nope"}<--[HERE]@23
+S -2--2 0 0 
+@ all {foo:bar}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{foo:"bar"}] at position 11: ... {foo:bar}<--[HERE]@9
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{foo:"bar"}] at position 11: ... {foo:bar}<--[HERE]@9
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Expected literal " at position 3: t {<--[HERE]@1
+E Expected literal " at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all {a:
+R 0
+A -
+X Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+E Expected a valid unquoted string at position 5: t {a:<--[HERE]@3
+S -2--2 0 0 
+@ all "x"
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "x" at position 5: t "x"<--[HERE]@3
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "x" at position 5: t "x"<--[HERE]@3
+S -2--2 0 0 
+@ all 'x'
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "x" at position 5: t 'x'<--[HERE]@3
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "x" at position 5: t 'x'<--[HERE]@3
+S -2--2 0 0 
+@ all x:y
+R 0
+A -
+X Can't find element 'x:y' in registry 'minecraft:context_float_provider' at position 5: t x:y<--[HERE]@3
+E Can't find element 'x:y' in registry 'minecraft:context_float_provider' at position 5: t x:y<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' in registry 'minecraft:context_float_provider' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' in registry 'minecraft:context_float_provider' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all :x
+R 0
+A -
+X Can't find element 'minecraft:x' in registry 'minecraft:context_float_provider' at position 4: t :x<--[HERE]@2
+E Can't find element 'minecraft:x' in registry 'minecraft:context_float_provider' at position 4: t :x<--[HERE]@2
+S -2--2 0 0 
+@ all A:B
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "A" at position 3: t A<--[HERE]@1
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "A" at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all a b
+R 0
+A -
+X Can't find element 'minecraft:a' in registry 'minecraft:context_float_provider' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' in registry 'minecraft:context_float_provider' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Expected a valid unquoted string at position 3: t  <--[HERE]@1
+E Expected a valid unquoted string at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Expected a valid unquoted string at position 2: t <--[HERE]@0
+E Expected a valid unquoted string at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {} 
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{}] at position 4: t {}<--[HERE]@2
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{}] at position 4: t {}<--[HERE]@2
+S -2--2 0 0 
+@ all  {}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{}] at position 5: t  {}<--[HERE]@3
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{}] at position 5: t  {}<--[HERE]@3
+S -2--2 0 0 
+@ all chests/simple_dungeon
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dungeon' in registry 'minecraft:context_float_provider' at position 23: ...le_dungeon<--[HERE]@21
+E Can't find element 'minecraft:chests/simple_dungeon' in registry 'minecraft:context_float_provider' at position 23: ...le_dungeon<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:chests/simple_dungeon
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dungeon' in registry 'minecraft:context_float_provider' at position 33: ...le_dungeon<--[HERE]@31
+E Can't find element 'minecraft:chests/simple_dungeon' in registry 'minecraft:context_float_provider' at position 33: ...le_dungeon<--[HERE]@31
+S -2--2 0 0 
+@ all gameplay/fishing
+R 0
+A -
+X Can't find element 'minecraft:gameplay/fishing' in registry 'minecraft:context_float_provider' at position 18: ...ay/fishing<--[HERE]@16
+E Can't find element 'minecraft:gameplay/fishing' in registry 'minecraft:context_float_provider' at position 18: ...ay/fishing<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:entities/zombie
+R 0
+A -
+X Can't find element 'minecraft:entities/zombie' in registry 'minecraft:context_float_provider' at position 27: ...ies/zombie<--[HERE]@25
+E Can't find element 'minecraft:entities/zombie' in registry 'minecraft:context_float_provider' at position 27: ...ies/zombie<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:empty
+R 0
+A -
+X Can't find element 'minecraft:empty' in registry 'minecraft:context_float_provider' at position 17: ...raft:empty<--[HERE]@15
+E Can't find element 'minecraft:empty' in registry 'minecraft:context_float_provider' at position 17: ...raft:empty<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:chests/
+R 0
+A -
+X Can't find element 'minecraft:chests/' in registry 'minecraft:context_float_provider' at position 19: ...ft:chests/<--[HERE]@17
+E Can't find element 'minecraft:chests/' in registry 'minecraft:context_float_provider' at position 19: ...ft:chests/<--[HERE]@17
+S -2--2 0 0 
+@ all container.5
+R 0
+A -
+X Can't find element 'minecraft:container.5' in registry 'minecraft:context_float_provider' at position 13: ...ontainer.5<--[HERE]@11
+E Can't find element 'minecraft:container.5' in registry 'minecraft:context_float_provider' at position 13: ...ontainer.5<--[HERE]@11
+S -2--2 0 0 
+@ all weapon
+R 0
+A -
+X Can't find element 'minecraft:weapon' in registry 'minecraft:context_float_provider' at position 8: t weapon<--[HERE]@6
+E Can't find element 'minecraft:weapon' in registry 'minecraft:context_float_provider' at position 8: t weapon<--[HERE]@6
+S -2--2 0 0 
+@ all weapon.*
+R 0
+A -
+X Can't find element 'minecraft:weapon.' in registry 'minecraft:context_float_provider' at position 9: t weapon.<--[HERE]@7
+E Can't find element 'minecraft:weapon.' in registry 'minecraft:context_float_provider' at position 9: t weapon.<--[HERE]@7
+S -2--2 0 0 
+@ all container.*
+R 0
+A -
+X Can't find element 'minecraft:container.' in registry 'minecraft:context_float_provider' at position 12: ...container.<--[HERE]@10
+E Can't find element 'minecraft:container.' in registry 'minecraft:context_float_provider' at position 12: ...container.<--[HERE]@10
+S -2--2 0 0 
+@ all armor.head
+R 0
+A -
+X Can't find element 'minecraft:armor.head' in registry 'minecraft:context_float_provider' at position 12: ...armor.head<--[HERE]@10
+E Can't find element 'minecraft:armor.head' in registry 'minecraft:context_float_provider' at position 12: ...armor.head<--[HERE]@10
+S -2--2 0 0 
+@ all contents
+R 0
+A -
+X Can't find element 'minecraft:contents' in registry 'minecraft:context_float_provider' at position 10: t contents<--[HERE]@8
+E Can't find element 'minecraft:contents' in registry 'minecraft:context_float_provider' at position 10: t contents<--[HERE]@8
+S -2--2 0 0 
+@ all mainhand
+R 0
+A -
+X Can't find element 'minecraft:mainhand' in registry 'minecraft:context_float_provider' at position 10: t mainhand<--[HERE]@8
+E Can't find element 'minecraft:mainhand' in registry 'minecraft:context_float_provider' at position 10: t mainhand<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:slots/hotbar
+R 0
+A -
+X Can't find element 'minecraft:slots/hotbar' in registry 'minecraft:context_float_provider' at position 24: ...ots/hotbar<--[HERE]@22
+E Can't find element 'minecraft:slots/hotbar' in registry 'minecraft:context_float_provider' at position 24: ...ots/hotbar<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:slots/weapon
+R 0
+A -
+X Can't find element 'minecraft:slots/weapon' in registry 'minecraft:context_float_provider' at position 24: ...ots/weapon<--[HERE]@22
+E Can't find element 'minecraft:slots/weapon' in registry 'minecraft:context_float_provider' at position 24: ...ots/weapon<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:slots/nope
+R 0
+A -
+X Can't find element 'minecraft:slots/nope' in registry 'minecraft:context_float_provider' at position 22: ...slots/nope<--[HERE]@20
+E Can't find element 'minecraft:slots/nope' in registry 'minecraft:context_float_provider' at position 22: ...slots/nope<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:empty"}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:empty at position 26: ...ft:empty"}<--[HERE]@24
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:empty at position 26: ...ft:empty"}<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"weapon.*"}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:slot_range at position 48: ...weapon.*"}<--[HERE]@46
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:slot_range at position 48: ...weapon.*"}<--[HERE]@46
+S -2--2 0 0 
+@ all {type:"minecraft:group",terms:[]}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:group at position 35: ...,terms:[]}<--[HERE]@33
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:group at position 35: ...,terms:[]}<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range"}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:slot_range at position 31: ...ot_range"}<--[HERE]@29
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:slot_range at position 31: ...ot_range"}<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",count:1}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:set_count at position 38: ...",count:1}<--[HERE]@36
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:set_count at position 38: ...",count:1}<--[HERE]@36
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chance:0.5}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{chance:0.5d,condition:"minecraft:random_chance"}] at position 50: ...hance:0.5}<--[HERE]@48
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{chance:0.5d,condition:"minecraft:random_chance"}] at position 50: ...hance:0.5}<--[HERE]@48
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",count:1}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{count:1,function:"minecraft:set_count"}] at position 42: ...",count:1}<--[HERE]@40
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{count:1,function:"minecraft:set_count"}] at position 42: ...",count:1}<--[HERE]@40
+S -2--2 0 0 
+@ all {pools:[]}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{pools:[]}] at position 12: ...{pools:[]}<--[HERE]@10
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: No key type in MapLike[{pools:[]}] at position 12: ...{pools:[]}<--[HERE]@10
+S -2--2 0 0 
+@ all {type:"minecraft:chest",pools:[]}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:chest at position 35: ...,pools:[]}<--[HERE]@33
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:chest at position 35: ...,pools:[]}<--[HERE]@33
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",contents:"x"}}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:notice at position 88: ...ents:"x"}}<--[HERE]@86
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:notice at position 88: ...ents:"x"}}<--[HERE]@86
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1,max:2}
+R 38
+A 0-38 direct
+E ok
+S -2--2 0 0 
+@ all {type:"minecraft:constant",value:1.5}
+R 37
+A 0-37 direct
+E ok
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3,p:0.5}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:binomial at position 39: ...n:3,p:0.5}<--[HERE]@37
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:binomial at position 39: ...n:3,p:0.5}<--[HERE]@37
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placement:[]}}}
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:random_patch at position 120: ...ment:[]}}}<--[HERE]@118
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:random_patch at position 120: ...ment:[]}}}<--[HERE]@118
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' in registry 'minecraft:context_float_provider' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' in registry 'minecraft:context_float_provider' at position 3: t f<--[HERE]@1
+S 0-1 1 -283759921 minecraft:cooking/fast_speed_multiplier
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' in registry 'minecraft:context_float_provider' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' in registry 'minecraft:context_float_provider' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' in registry 'minecraft:context_float_provider' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' in registry 'minecraft:context_float_provider' at position 3: t m<--[HERE]@1
+S 0-1 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' in registry 'minecraft:context_float_provider' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' in registry 'minecraft:context_float_provider' at position 4: t mi<--[HERE]@2
+S 0-2 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' in registry 'minecraft:context_float_provider' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' in registry 'minecraft:context_float_provider' at position 5: t min<--[HERE]@3
+S 0-3 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' in registry 'minecraft:context_float_provider' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' in registry 'minecraft:context_float_provider' at position 6: t mine<--[HERE]@4
+S 0-4 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' in registry 'minecraft:context_float_provider' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' in registry 'minecraft:context_float_provider' at position 7: t minec<--[HERE]@5
+S 0-5 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' in registry 'minecraft:context_float_provider' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' in registry 'minecraft:context_float_provider' at position 8: t minecr<--[HERE]@6
+S 0-6 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' in registry 'minecraft:context_float_provider' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' in registry 'minecraft:context_float_provider' at position 9: t minecra<--[HERE]@7
+S 0-7 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' in registry 'minecraft:context_float_provider' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' in registry 'minecraft:context_float_provider' at position 10: t minecraf<--[HERE]@8
+S 0-8 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' in registry 'minecraft:context_float_provider' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' in registry 'minecraft:context_float_provider' at position 11: ... minecraft<--[HERE]@9
+S 0-9 4 1047562023 minecraft:brewing/speed_default	minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all minecraft:f
+R 0
+A -
+X Can't find element 'minecraft:f' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:f<--[HERE]@11
+E Can't find element 'minecraft:f' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:f<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:fo
+R 0
+A -
+X Can't find element 'minecraft:fo' in registry 'minecraft:context_float_provider' at position 14: ...necraft:fo<--[HERE]@12
+E Can't find element 'minecraft:fo' in registry 'minecraft:context_float_provider' at position 14: ...necraft:fo<--[HERE]@12
+S -2--2 0 0 
+@ all 0
+R 0
+A -
+X Can't find element 'minecraft:0' in registry 'minecraft:context_float_provider' at position 3: t 0<--[HERE]@1
+E Can't find element 'minecraft:0' in registry 'minecraft:context_float_provider' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 01
+R 0
+A -
+X Can't find element 'minecraft:01' in registry 'minecraft:context_float_provider' at position 4: t 01<--[HERE]@2
+E Can't find element 'minecraft:01' in registry 'minecraft:context_float_provider' at position 4: t 01<--[HERE]@2
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X Can't find element 'minecraft:t' in registry 'minecraft:context_float_provider' at position 3: t t<--[HERE]@1
+E Can't find element 'minecraft:t' in registry 'minecraft:context_float_provider' at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all tr
+R 0
+A -
+X Can't find element 'minecraft:tr' in registry 'minecraft:context_float_provider' at position 4: t tr<--[HERE]@2
+E Can't find element 'minecraft:tr' in registry 'minecraft:context_float_provider' at position 4: t tr<--[HERE]@2
+S -2--2 0 0 
+@ all tru
+R 0
+A -
+X Can't find element 'minecraft:tru' in registry 'minecraft:context_float_provider' at position 5: t tru<--[HERE]@3
+E Can't find element 'minecraft:tru' in registry 'minecraft:context_float_provider' at position 5: t tru<--[HERE]@3
+S -2--2 0 0 
+@ all fa
+R 0
+A -
+X Can't find element 'minecraft:fa' in registry 'minecraft:context_float_provider' at position 4: t fa<--[HERE]@2
+E Can't find element 'minecraft:fa' in registry 'minecraft:context_float_provider' at position 4: t fa<--[HERE]@2
+S 0-2 1 -283759921 minecraft:cooking/fast_speed_multiplier
+@ all fal
+R 0
+A -
+X Can't find element 'minecraft:fal' in registry 'minecraft:context_float_provider' at position 5: t fal<--[HERE]@3
+E Can't find element 'minecraft:fal' in registry 'minecraft:context_float_provider' at position 5: t fal<--[HERE]@3
+S -2--2 0 0 
+@ all fals
+R 0
+A -
+X Can't find element 'minecraft:fals' in registry 'minecraft:context_float_provider' at position 6: t fals<--[HERE]@4
+E Can't find element 'minecraft:fals' in registry 'minecraft:context_float_provider' at position 6: t fals<--[HERE]@4
+S -2--2 0 0 
+@ all 1.
+R 0
+A -
+X Can't find element 'minecraft:1.' in registry 'minecraft:context_float_provider' at position 4: t 1.<--[HERE]@2
+E Can't find element 'minecraft:1.' in registry 'minecraft:context_float_provider' at position 4: t 1.<--[HERE]@2
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Can't find element 'minecraft:-' in registry 'minecraft:context_float_provider' at position 3: t -<--[HERE]@1
+E Can't find element 'minecraft:-' in registry 'minecraft:context_float_provider' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X Expected literal B at position 3: t [<--[HERE]@1
+E Expected literal B at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all {t
+R 0
+A -
+X Expected literal : at position 4: t {t<--[HERE]@2
+E Expected literal : at position 4: t {t<--[HERE]@2
+S -2--2 0 0 
+@ all {ty
+R 0
+A -
+X Expected literal : at position 5: t {ty<--[HERE]@3
+E Expected literal : at position 5: t {ty<--[HERE]@3
+S -2--2 0 0 
+@ all {typ
+R 0
+A -
+X Expected literal : at position 6: t {typ<--[HERE]@4
+E Expected literal : at position 6: t {typ<--[HERE]@4
+S -2--2 0 0 
+@ all {type
+R 0
+A -
+X Expected literal : at position 7: t {type<--[HERE]@5
+E Expected literal : at position 7: t {type<--[HERE]@5
+S -2--2 0 0 
+@ all {type:
+R 0
+A -
+X Expected a valid unquoted string at position 8: t {type:<--[HERE]@6
+E Expected a valid unquoted string at position 8: t {type:<--[HERE]@6
+S -2--2 0 0 
+@ all {type:"
+R 0
+A -
+X Invalid string contents at position 9: t {type:"<--[HERE]@7
+E Invalid string contents at position 9: t {type:"<--[HERE]@7
+S -2--2 0 0 
+@ all {type:"m
+R 0
+A -
+X Invalid string contents at position 10: t {type:"m<--[HERE]@8
+E Invalid string contents at position 10: t {type:"m<--[HERE]@8
+S -2--2 0 0 
+@ all {type:"mi
+R 0
+A -
+X Invalid string contents at position 11: ... {type:"mi<--[HERE]@9
+E Invalid string contents at position 11: ... {type:"mi<--[HERE]@9
+S -2--2 0 0 
+@ all {type:"min
+R 0
+A -
+X Invalid string contents at position 12: ...{type:"min<--[HERE]@10
+E Invalid string contents at position 12: ...{type:"min<--[HERE]@10
+S -2--2 0 0 
+@ all {type:"mine
+R 0
+A -
+X Invalid string contents at position 13: ...type:"mine<--[HERE]@11
+E Invalid string contents at position 13: ...type:"mine<--[HERE]@11
+S -2--2 0 0 
+@ all {type:"minec
+R 0
+A -
+X Invalid string contents at position 14: ...ype:"minec<--[HERE]@12
+E Invalid string contents at position 14: ...ype:"minec<--[HERE]@12
+S -2--2 0 0 
+@ all {type:"minecr
+R 0
+A -
+X Invalid string contents at position 15: ...pe:"minecr<--[HERE]@13
+E Invalid string contents at position 15: ...pe:"minecr<--[HERE]@13
+S -2--2 0 0 
+@ all {type:"minecra
+R 0
+A -
+X Invalid string contents at position 16: ...e:"minecra<--[HERE]@14
+E Invalid string contents at position 16: ...e:"minecra<--[HERE]@14
+S -2--2 0 0 
+@ all {type:"minecraf
+R 0
+A -
+X Invalid string contents at position 17: ...:"minecraf<--[HERE]@15
+E Invalid string contents at position 17: ...:"minecraf<--[HERE]@15
+S -2--2 0 0 
+@ all {type:"minecraft
+R 0
+A -
+X Invalid string contents at position 18: ..."minecraft<--[HERE]@16
+E Invalid string contents at position 18: ..."minecraft<--[HERE]@16
+S -2--2 0 0 
+@ all {type:"minecraft:
+R 0
+A -
+X Invalid string contents at position 19: ...minecraft:<--[HERE]@17
+E Invalid string contents at position 19: ...minecraft:<--[HERE]@17
+S -2--2 0 0 
+@ all {type:"minecraft:c
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:c<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:c<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:co
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:co<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:co<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:con
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:con<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:con<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:cons
+R 0
+A -
+X Invalid string contents at position 23: ...craft:cons<--[HERE]@21
+E Invalid string contents at position 23: ...craft:cons<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:const
+R 0
+A -
+X Invalid string contents at position 24: ...raft:const<--[HERE]@22
+E Invalid string contents at position 24: ...raft:const<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:consta
+R 0
+A -
+X Invalid string contents at position 25: ...aft:consta<--[HERE]@23
+E Invalid string contents at position 25: ...aft:consta<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:constan
+R 0
+A -
+X Invalid string contents at position 26: ...ft:constan<--[HERE]@24
+E Invalid string contents at position 26: ...ft:constan<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:constant
+R 0
+A -
+X Invalid string contents at position 27: ...t:constant<--[HERE]@25
+E Invalid string contents at position 27: ...t:constant<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:constant"
+R 0
+A -
+X Expected literal , at position 28: ...:constant"<--[HERE]@26
+E Expected literal , at position 28: ...:constant"<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:constant",
+R 0
+A -
+X Expected literal " at position 29: ...constant",<--[HERE]@27
+E Expected literal " at position 29: ...constant",<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:constant",v
+R 0
+A -
+X Expected literal : at position 30: ...onstant",v<--[HERE]@28
+E Expected literal : at position 30: ...onstant",v<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:constant",va
+R 0
+A -
+X Expected literal : at position 31: ...nstant",va<--[HERE]@29
+E Expected literal : at position 31: ...nstant",va<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:constant",val
+R 0
+A -
+X Expected literal : at position 32: ...stant",val<--[HERE]@30
+E Expected literal : at position 32: ...stant",val<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:constant",valu
+R 0
+A -
+X Expected literal : at position 33: ...tant",valu<--[HERE]@31
+E Expected literal : at position 33: ...tant",valu<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:constant",value
+R 0
+A -
+X Expected literal : at position 34: ...ant",value<--[HERE]@32
+E Expected literal : at position 34: ...ant",value<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:constant",value:
+R 0
+A -
+X Expected a valid unquoted string at position 35: ...nt",value:<--[HERE]@33
+E Expected a valid unquoted string at position 35: ...nt",value:<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:constant",value:1
+R 0
+A -
+X Expected literal . at position 36: ...t",value:1<--[HERE]@34
+E Expected literal . at position 36: ...t",value:1<--[HERE]@34
+S -2--2 0 0 
+@ all {type:"minecraft:n
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:n<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:n<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:no
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:no<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:no<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:no_
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:no_<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:no_<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:no_o
+R 0
+A -
+X Invalid string contents at position 23: ...craft:no_o<--[HERE]@21
+E Invalid string contents at position 23: ...craft:no_o<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:no_op
+R 0
+A -
+X Invalid string contents at position 24: ...raft:no_op<--[HERE]@22
+E Invalid string contents at position 24: ...raft:no_op<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:no_op"
+R 0
+A -
+X Expected literal , at position 25: ...aft:no_op"<--[HERE]@23
+E Expected literal , at position 25: ...aft:no_op"<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",
+R 0
+A -
+X Expected literal " at position 26: ...ft:no_op",<--[HERE]@24
+E Expected literal " at position 26: ...ft:no_op",<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",c
+R 0
+A -
+X Expected literal : at position 27: ...t:no_op",c<--[HERE]@25
+E Expected literal : at position 27: ...t:no_op",c<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",co
+R 0
+A -
+X Expected literal : at position 28: ...:no_op",co<--[HERE]@26
+E Expected literal : at position 28: ...:no_op",co<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",con
+R 0
+A -
+X Expected literal : at position 29: ...no_op",con<--[HERE]@27
+E Expected literal : at position 29: ...no_op",con<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",conf
+R 0
+A -
+X Expected literal : at position 30: ...o_op",conf<--[HERE]@28
+E Expected literal : at position 30: ...o_op",conf<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",confi
+R 0
+A -
+X Expected literal : at position 31: ..._op",confi<--[HERE]@29
+E Expected literal : at position 31: ..._op",confi<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",config
+R 0
+A -
+X Expected literal : at position 32: ...op",config<--[HERE]@30
+E Expected literal : at position 32: ...op",config<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",config:
+R 0
+A -
+X Expected a valid unquoted string at position 33: ...p",config:<--[HERE]@31
+E Expected a valid unquoted string at position 33: ...p",config:<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",config:{
+R 0
+A -
+X Expected literal " at position 34: ...",config:{<--[HERE]@32
+E Expected literal " at position 34: ...",config:{<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:no_op",config:{}
+R 0
+A -
+X Expected literal , at position 35: ...,config:{}<--[HERE]@33
+E Expected literal , at position 35: ...,config:{}<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:nop
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:nop<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:nop<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:nope
+R 0
+A -
+X Invalid string contents at position 23: ...craft:nope<--[HERE]@21
+E Invalid string contents at position 23: ...craft:nope<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:nope"
+R 0
+A -
+X Expected literal , at position 24: ...raft:nope"<--[HERE]@22
+E Expected literal , at position 24: ...raft:nope"<--[HERE]@22
+S -2--2 0 0 
+@ all {f
+R 0
+A -
+X Expected literal : at position 4: t {f<--[HERE]@2
+E Expected literal : at position 4: t {f<--[HERE]@2
+S -2--2 0 0 
+@ all {fo
+R 0
+A -
+X Expected literal : at position 5: t {fo<--[HERE]@3
+E Expected literal : at position 5: t {fo<--[HERE]@3
+S -2--2 0 0 
+@ all {foo
+R 0
+A -
+X Expected literal : at position 6: t {foo<--[HERE]@4
+E Expected literal : at position 6: t {foo<--[HERE]@4
+S -2--2 0 0 
+@ all {foo:
+R 0
+A -
+X Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+E Expected a valid unquoted string at position 7: t {foo:<--[HERE]@5
+S -2--2 0 0 
+@ all {foo:b
+R 0
+A -
+X Expected literal ( at position 8: t {foo:b<--[HERE]@6
+E Expected literal ( at position 8: t {foo:b<--[HERE]@6
+S -2--2 0 0 
+@ all {foo:ba
+R 0
+A -
+X Expected literal ( at position 9: t {foo:ba<--[HERE]@7
+E Expected literal ( at position 9: t {foo:ba<--[HERE]@7
+S -2--2 0 0 
+@ all {foo:bar
+R 0
+A -
+X Expected literal ( at position 10: t {foo:bar<--[HERE]@8
+E Expected literal ( at position 10: t {foo:bar<--[HERE]@8
+S -2--2 0 0 
+@ all {a
+R 0
+A -
+X Expected literal : at position 4: t {a<--[HERE]@2
+E Expected literal : at position 4: t {a<--[HERE]@2
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Invalid string contents at position 3: t "<--[HERE]@1
+E Invalid string contents at position 3: t "<--[HERE]@1
+S -2--2 0 0 
+@ all "x
+R 0
+A -
+X Invalid string contents at position 4: t "x<--[HERE]@2
+E Invalid string contents at position 4: t "x<--[HERE]@2
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Invalid string contents at position 3: t '<--[HERE]@1
+E Invalid string contents at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ all 'x
+R 0
+A -
+X Invalid string contents at position 4: t 'x<--[HERE]@2
+E Invalid string contents at position 4: t 'x<--[HERE]@2
+S -2--2 0 0 
+@ all x
+R 0
+A -
+X Can't find element 'minecraft:x' in registry 'minecraft:context_float_provider' at position 3: t x<--[HERE]@1
+E Can't find element 'minecraft:x' in registry 'minecraft:context_float_provider' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all x:
+R 0
+A -
+X Can't find element 'x:' in registry 'minecraft:context_float_provider' at position 4: t x:<--[HERE]@2
+E Can't find element 'x:' in registry 'minecraft:context_float_provider' at position 4: t x:<--[HERE]@2
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Can't find element 'minecraft:' in registry 'minecraft:context_float_provider' at position 3: t :<--[HERE]@1
+E Can't find element 'minecraft:' in registry 'minecraft:context_float_provider' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all A
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "A" at position 3: t A<--[HERE]@1
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "A" at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all A:
+R 0
+A -
+X Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "A" at position 3: t A<--[HERE]@1
+E Failed to parse structure: Failed to parse either. First: Not a number; Second: Not a map: "A" at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Can't find element 'minecraft:a' in registry 'minecraft:context_float_provider' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' in registry 'minecraft:context_float_provider' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all a 
+R 0
+A -
+X Can't find element 'minecraft:a' in registry 'minecraft:context_float_provider' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' in registry 'minecraft:context_float_provider' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all  {
+R 0
+A -
+X Expected literal " at position 4: t  {<--[HERE]@2
+E Expected literal " at position 4: t  {<--[HERE]@2
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X Can't find element 'minecraft:c' in registry 'minecraft:context_float_provider' at position 3: t c<--[HERE]@1
+E Can't find element 'minecraft:c' in registry 'minecraft:context_float_provider' at position 3: t c<--[HERE]@1
+S 0-1 3 -1930812277 minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all ch
+R 0
+A -
+X Can't find element 'minecraft:ch' in registry 'minecraft:context_float_provider' at position 4: t ch<--[HERE]@2
+E Can't find element 'minecraft:ch' in registry 'minecraft:context_float_provider' at position 4: t ch<--[HERE]@2
+S -2--2 0 0 
+@ all che
+R 0
+A -
+X Can't find element 'minecraft:che' in registry 'minecraft:context_float_provider' at position 5: t che<--[HERE]@3
+E Can't find element 'minecraft:che' in registry 'minecraft:context_float_provider' at position 5: t che<--[HERE]@3
+S -2--2 0 0 
+@ all ches
+R 0
+A -
+X Can't find element 'minecraft:ches' in registry 'minecraft:context_float_provider' at position 6: t ches<--[HERE]@4
+E Can't find element 'minecraft:ches' in registry 'minecraft:context_float_provider' at position 6: t ches<--[HERE]@4
+S -2--2 0 0 
+@ all chest
+R 0
+A -
+X Can't find element 'minecraft:chest' in registry 'minecraft:context_float_provider' at position 7: t chest<--[HERE]@5
+E Can't find element 'minecraft:chest' in registry 'minecraft:context_float_provider' at position 7: t chest<--[HERE]@5
+S -2--2 0 0 
+@ all chests
+R 0
+A -
+X Can't find element 'minecraft:chests' in registry 'minecraft:context_float_provider' at position 8: t chests<--[HERE]@6
+E Can't find element 'minecraft:chests' in registry 'minecraft:context_float_provider' at position 8: t chests<--[HERE]@6
+S -2--2 0 0 
+@ all chests/
+R 0
+A -
+X Can't find element 'minecraft:chests/' in registry 'minecraft:context_float_provider' at position 9: t chests/<--[HERE]@7
+E Can't find element 'minecraft:chests/' in registry 'minecraft:context_float_provider' at position 9: t chests/<--[HERE]@7
+S -2--2 0 0 
+@ all chests/s
+R 0
+A -
+X Can't find element 'minecraft:chests/s' in registry 'minecraft:context_float_provider' at position 10: t chests/s<--[HERE]@8
+E Can't find element 'minecraft:chests/s' in registry 'minecraft:context_float_provider' at position 10: t chests/s<--[HERE]@8
+S -2--2 0 0 
+@ all chests/si
+R 0
+A -
+X Can't find element 'minecraft:chests/si' in registry 'minecraft:context_float_provider' at position 11: ... chests/si<--[HERE]@9
+E Can't find element 'minecraft:chests/si' in registry 'minecraft:context_float_provider' at position 11: ... chests/si<--[HERE]@9
+S -2--2 0 0 
+@ all chests/sim
+R 0
+A -
+X Can't find element 'minecraft:chests/sim' in registry 'minecraft:context_float_provider' at position 12: ...chests/sim<--[HERE]@10
+E Can't find element 'minecraft:chests/sim' in registry 'minecraft:context_float_provider' at position 12: ...chests/sim<--[HERE]@10
+S -2--2 0 0 
+@ all chests/simp
+R 0
+A -
+X Can't find element 'minecraft:chests/simp' in registry 'minecraft:context_float_provider' at position 13: ...hests/simp<--[HERE]@11
+E Can't find element 'minecraft:chests/simp' in registry 'minecraft:context_float_provider' at position 13: ...hests/simp<--[HERE]@11
+S -2--2 0 0 
+@ all chests/simpl
+R 0
+A -
+X Can't find element 'minecraft:chests/simpl' in registry 'minecraft:context_float_provider' at position 14: ...ests/simpl<--[HERE]@12
+E Can't find element 'minecraft:chests/simpl' in registry 'minecraft:context_float_provider' at position 14: ...ests/simpl<--[HERE]@12
+S -2--2 0 0 
+@ all chests/simple
+R 0
+A -
+X Can't find element 'minecraft:chests/simple' in registry 'minecraft:context_float_provider' at position 15: ...sts/simple<--[HERE]@13
+E Can't find element 'minecraft:chests/simple' in registry 'minecraft:context_float_provider' at position 15: ...sts/simple<--[HERE]@13
+S -2--2 0 0 
+@ all chests/simple_
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_' in registry 'minecraft:context_float_provider' at position 16: ...ts/simple_<--[HERE]@14
+E Can't find element 'minecraft:chests/simple_' in registry 'minecraft:context_float_provider' at position 16: ...ts/simple_<--[HERE]@14
+S -2--2 0 0 
+@ all chests/simple_d
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_d' in registry 'minecraft:context_float_provider' at position 17: ...s/simple_d<--[HERE]@15
+E Can't find element 'minecraft:chests/simple_d' in registry 'minecraft:context_float_provider' at position 17: ...s/simple_d<--[HERE]@15
+S -2--2 0 0 
+@ all chests/simple_du
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_du' in registry 'minecraft:context_float_provider' at position 18: .../simple_du<--[HERE]@16
+E Can't find element 'minecraft:chests/simple_du' in registry 'minecraft:context_float_provider' at position 18: .../simple_du<--[HERE]@16
+S -2--2 0 0 
+@ all chests/simple_dun
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dun' in registry 'minecraft:context_float_provider' at position 19: ...simple_dun<--[HERE]@17
+E Can't find element 'minecraft:chests/simple_dun' in registry 'minecraft:context_float_provider' at position 19: ...simple_dun<--[HERE]@17
+S -2--2 0 0 
+@ all chests/simple_dung
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dung' in registry 'minecraft:context_float_provider' at position 20: ...imple_dung<--[HERE]@18
+E Can't find element 'minecraft:chests/simple_dung' in registry 'minecraft:context_float_provider' at position 20: ...imple_dung<--[HERE]@18
+S -2--2 0 0 
+@ all chests/simple_dunge
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dunge' in registry 'minecraft:context_float_provider' at position 21: ...mple_dunge<--[HERE]@19
+E Can't find element 'minecraft:chests/simple_dunge' in registry 'minecraft:context_float_provider' at position 21: ...mple_dunge<--[HERE]@19
+S -2--2 0 0 
+@ all chests/simple_dungeo
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dungeo' in registry 'minecraft:context_float_provider' at position 22: ...ple_dungeo<--[HERE]@20
+E Can't find element 'minecraft:chests/simple_dungeo' in registry 'minecraft:context_float_provider' at position 22: ...ple_dungeo<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:c
+R 0
+A -
+X Can't find element 'minecraft:c' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:c<--[HERE]@11
+E Can't find element 'minecraft:c' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:c<--[HERE]@11
+S 0-11 3 -1930812277 minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all minecraft:ch
+R 0
+A -
+X Can't find element 'minecraft:ch' in registry 'minecraft:context_float_provider' at position 14: ...necraft:ch<--[HERE]@12
+E Can't find element 'minecraft:ch' in registry 'minecraft:context_float_provider' at position 14: ...necraft:ch<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:che
+R 0
+A -
+X Can't find element 'minecraft:che' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:che<--[HERE]@13
+E Can't find element 'minecraft:che' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:che<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:ches
+R 0
+A -
+X Can't find element 'minecraft:ches' in registry 'minecraft:context_float_provider' at position 16: ...craft:ches<--[HERE]@14
+E Can't find element 'minecraft:ches' in registry 'minecraft:context_float_provider' at position 16: ...craft:ches<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:chest
+R 0
+A -
+X Can't find element 'minecraft:chest' in registry 'minecraft:context_float_provider' at position 17: ...raft:chest<--[HERE]@15
+E Can't find element 'minecraft:chest' in registry 'minecraft:context_float_provider' at position 17: ...raft:chest<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:chests
+R 0
+A -
+X Can't find element 'minecraft:chests' in registry 'minecraft:context_float_provider' at position 18: ...aft:chests<--[HERE]@16
+E Can't find element 'minecraft:chests' in registry 'minecraft:context_float_provider' at position 18: ...aft:chests<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:chests/s
+R 0
+A -
+X Can't find element 'minecraft:chests/s' in registry 'minecraft:context_float_provider' at position 20: ...t:chests/s<--[HERE]@18
+E Can't find element 'minecraft:chests/s' in registry 'minecraft:context_float_provider' at position 20: ...t:chests/s<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:chests/si
+R 0
+A -
+X Can't find element 'minecraft:chests/si' in registry 'minecraft:context_float_provider' at position 21: ...:chests/si<--[HERE]@19
+E Can't find element 'minecraft:chests/si' in registry 'minecraft:context_float_provider' at position 21: ...:chests/si<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:chests/sim
+R 0
+A -
+X Can't find element 'minecraft:chests/sim' in registry 'minecraft:context_float_provider' at position 22: ...chests/sim<--[HERE]@20
+E Can't find element 'minecraft:chests/sim' in registry 'minecraft:context_float_provider' at position 22: ...chests/sim<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:chests/simp
+R 0
+A -
+X Can't find element 'minecraft:chests/simp' in registry 'minecraft:context_float_provider' at position 23: ...hests/simp<--[HERE]@21
+E Can't find element 'minecraft:chests/simp' in registry 'minecraft:context_float_provider' at position 23: ...hests/simp<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:chests/simpl
+R 0
+A -
+X Can't find element 'minecraft:chests/simpl' in registry 'minecraft:context_float_provider' at position 24: ...ests/simpl<--[HERE]@22
+E Can't find element 'minecraft:chests/simpl' in registry 'minecraft:context_float_provider' at position 24: ...ests/simpl<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:chests/simple
+R 0
+A -
+X Can't find element 'minecraft:chests/simple' in registry 'minecraft:context_float_provider' at position 25: ...sts/simple<--[HERE]@23
+E Can't find element 'minecraft:chests/simple' in registry 'minecraft:context_float_provider' at position 25: ...sts/simple<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:chests/simple_
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_' in registry 'minecraft:context_float_provider' at position 26: ...ts/simple_<--[HERE]@24
+E Can't find element 'minecraft:chests/simple_' in registry 'minecraft:context_float_provider' at position 26: ...ts/simple_<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:chests/simple_d
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_d' in registry 'minecraft:context_float_provider' at position 27: ...s/simple_d<--[HERE]@25
+E Can't find element 'minecraft:chests/simple_d' in registry 'minecraft:context_float_provider' at position 27: ...s/simple_d<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:chests/simple_du
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_du' in registry 'minecraft:context_float_provider' at position 28: .../simple_du<--[HERE]@26
+E Can't find element 'minecraft:chests/simple_du' in registry 'minecraft:context_float_provider' at position 28: .../simple_du<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:chests/simple_dun
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dun' in registry 'minecraft:context_float_provider' at position 29: ...simple_dun<--[HERE]@27
+E Can't find element 'minecraft:chests/simple_dun' in registry 'minecraft:context_float_provider' at position 29: ...simple_dun<--[HERE]@27
+S -2--2 0 0 
+@ all minecraft:chests/simple_dung
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dung' in registry 'minecraft:context_float_provider' at position 30: ...imple_dung<--[HERE]@28
+E Can't find element 'minecraft:chests/simple_dung' in registry 'minecraft:context_float_provider' at position 30: ...imple_dung<--[HERE]@28
+S -2--2 0 0 
+@ all minecraft:chests/simple_dunge
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dunge' in registry 'minecraft:context_float_provider' at position 31: ...mple_dunge<--[HERE]@29
+E Can't find element 'minecraft:chests/simple_dunge' in registry 'minecraft:context_float_provider' at position 31: ...mple_dunge<--[HERE]@29
+S -2--2 0 0 
+@ all minecraft:chests/simple_dungeo
+R 0
+A -
+X Can't find element 'minecraft:chests/simple_dungeo' in registry 'minecraft:context_float_provider' at position 32: ...ple_dungeo<--[HERE]@30
+E Can't find element 'minecraft:chests/simple_dungeo' in registry 'minecraft:context_float_provider' at position 32: ...ple_dungeo<--[HERE]@30
+S -2--2 0 0 
+@ all g
+R 0
+A -
+X Can't find element 'minecraft:g' in registry 'minecraft:context_float_provider' at position 3: t g<--[HERE]@1
+E Can't find element 'minecraft:g' in registry 'minecraft:context_float_provider' at position 3: t g<--[HERE]@1
+S -2--2 0 0 
+@ all ga
+R 0
+A -
+X Can't find element 'minecraft:ga' in registry 'minecraft:context_float_provider' at position 4: t ga<--[HERE]@2
+E Can't find element 'minecraft:ga' in registry 'minecraft:context_float_provider' at position 4: t ga<--[HERE]@2
+S -2--2 0 0 
+@ all gam
+R 0
+A -
+X Can't find element 'minecraft:gam' in registry 'minecraft:context_float_provider' at position 5: t gam<--[HERE]@3
+E Can't find element 'minecraft:gam' in registry 'minecraft:context_float_provider' at position 5: t gam<--[HERE]@3
+S -2--2 0 0 
+@ all game
+R 0
+A -
+X Can't find element 'minecraft:game' in registry 'minecraft:context_float_provider' at position 6: t game<--[HERE]@4
+E Can't find element 'minecraft:game' in registry 'minecraft:context_float_provider' at position 6: t game<--[HERE]@4
+S -2--2 0 0 
+@ all gamep
+R 0
+A -
+X Can't find element 'minecraft:gamep' in registry 'minecraft:context_float_provider' at position 7: t gamep<--[HERE]@5
+E Can't find element 'minecraft:gamep' in registry 'minecraft:context_float_provider' at position 7: t gamep<--[HERE]@5
+S -2--2 0 0 
+@ all gamepl
+R 0
+A -
+X Can't find element 'minecraft:gamepl' in registry 'minecraft:context_float_provider' at position 8: t gamepl<--[HERE]@6
+E Can't find element 'minecraft:gamepl' in registry 'minecraft:context_float_provider' at position 8: t gamepl<--[HERE]@6
+S -2--2 0 0 
+@ all gamepla
+R 0
+A -
+X Can't find element 'minecraft:gamepla' in registry 'minecraft:context_float_provider' at position 9: t gamepla<--[HERE]@7
+E Can't find element 'minecraft:gamepla' in registry 'minecraft:context_float_provider' at position 9: t gamepla<--[HERE]@7
+S -2--2 0 0 
+@ all gameplay
+R 0
+A -
+X Can't find element 'minecraft:gameplay' in registry 'minecraft:context_float_provider' at position 10: t gameplay<--[HERE]@8
+E Can't find element 'minecraft:gameplay' in registry 'minecraft:context_float_provider' at position 10: t gameplay<--[HERE]@8
+S -2--2 0 0 
+@ all gameplay/
+R 0
+A -
+X Can't find element 'minecraft:gameplay/' in registry 'minecraft:context_float_provider' at position 11: ... gameplay/<--[HERE]@9
+E Can't find element 'minecraft:gameplay/' in registry 'minecraft:context_float_provider' at position 11: ... gameplay/<--[HERE]@9
+S -2--2 0 0 
+@ all gameplay/f
+R 0
+A -
+X Can't find element 'minecraft:gameplay/f' in registry 'minecraft:context_float_provider' at position 12: ...gameplay/f<--[HERE]@10
+E Can't find element 'minecraft:gameplay/f' in registry 'minecraft:context_float_provider' at position 12: ...gameplay/f<--[HERE]@10
+S -2--2 0 0 
+@ all gameplay/fi
+R 0
+A -
+X Can't find element 'minecraft:gameplay/fi' in registry 'minecraft:context_float_provider' at position 13: ...ameplay/fi<--[HERE]@11
+E Can't find element 'minecraft:gameplay/fi' in registry 'minecraft:context_float_provider' at position 13: ...ameplay/fi<--[HERE]@11
+S -2--2 0 0 
+@ all gameplay/fis
+R 0
+A -
+X Can't find element 'minecraft:gameplay/fis' in registry 'minecraft:context_float_provider' at position 14: ...meplay/fis<--[HERE]@12
+E Can't find element 'minecraft:gameplay/fis' in registry 'minecraft:context_float_provider' at position 14: ...meplay/fis<--[HERE]@12
+S -2--2 0 0 
+@ all gameplay/fish
+R 0
+A -
+X Can't find element 'minecraft:gameplay/fish' in registry 'minecraft:context_float_provider' at position 15: ...eplay/fish<--[HERE]@13
+E Can't find element 'minecraft:gameplay/fish' in registry 'minecraft:context_float_provider' at position 15: ...eplay/fish<--[HERE]@13
+S -2--2 0 0 
+@ all gameplay/fishi
+R 0
+A -
+X Can't find element 'minecraft:gameplay/fishi' in registry 'minecraft:context_float_provider' at position 16: ...play/fishi<--[HERE]@14
+E Can't find element 'minecraft:gameplay/fishi' in registry 'minecraft:context_float_provider' at position 16: ...play/fishi<--[HERE]@14
+S -2--2 0 0 
+@ all gameplay/fishin
+R 0
+A -
+X Can't find element 'minecraft:gameplay/fishin' in registry 'minecraft:context_float_provider' at position 17: ...lay/fishin<--[HERE]@15
+E Can't find element 'minecraft:gameplay/fishin' in registry 'minecraft:context_float_provider' at position 17: ...lay/fishin<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:e
+R 0
+A -
+X Can't find element 'minecraft:e' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:e<--[HERE]@11
+E Can't find element 'minecraft:e' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:e<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:en
+R 0
+A -
+X Can't find element 'minecraft:en' in registry 'minecraft:context_float_provider' at position 14: ...necraft:en<--[HERE]@12
+E Can't find element 'minecraft:en' in registry 'minecraft:context_float_provider' at position 14: ...necraft:en<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:ent
+R 0
+A -
+X Can't find element 'minecraft:ent' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:ent<--[HERE]@13
+E Can't find element 'minecraft:ent' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:ent<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:enti
+R 0
+A -
+X Can't find element 'minecraft:enti' in registry 'minecraft:context_float_provider' at position 16: ...craft:enti<--[HERE]@14
+E Can't find element 'minecraft:enti' in registry 'minecraft:context_float_provider' at position 16: ...craft:enti<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:entit
+R 0
+A -
+X Can't find element 'minecraft:entit' in registry 'minecraft:context_float_provider' at position 17: ...raft:entit<--[HERE]@15
+E Can't find element 'minecraft:entit' in registry 'minecraft:context_float_provider' at position 17: ...raft:entit<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:entiti
+R 0
+A -
+X Can't find element 'minecraft:entiti' in registry 'minecraft:context_float_provider' at position 18: ...aft:entiti<--[HERE]@16
+E Can't find element 'minecraft:entiti' in registry 'minecraft:context_float_provider' at position 18: ...aft:entiti<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:entitie
+R 0
+A -
+X Can't find element 'minecraft:entitie' in registry 'minecraft:context_float_provider' at position 19: ...ft:entitie<--[HERE]@17
+E Can't find element 'minecraft:entitie' in registry 'minecraft:context_float_provider' at position 19: ...ft:entitie<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:entities
+R 0
+A -
+X Can't find element 'minecraft:entities' in registry 'minecraft:context_float_provider' at position 20: ...t:entities<--[HERE]@18
+E Can't find element 'minecraft:entities' in registry 'minecraft:context_float_provider' at position 20: ...t:entities<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:entities/
+R 0
+A -
+X Can't find element 'minecraft:entities/' in registry 'minecraft:context_float_provider' at position 21: ...:entities/<--[HERE]@19
+E Can't find element 'minecraft:entities/' in registry 'minecraft:context_float_provider' at position 21: ...:entities/<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:entities/z
+R 0
+A -
+X Can't find element 'minecraft:entities/z' in registry 'minecraft:context_float_provider' at position 22: ...entities/z<--[HERE]@20
+E Can't find element 'minecraft:entities/z' in registry 'minecraft:context_float_provider' at position 22: ...entities/z<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:entities/zo
+R 0
+A -
+X Can't find element 'minecraft:entities/zo' in registry 'minecraft:context_float_provider' at position 23: ...ntities/zo<--[HERE]@21
+E Can't find element 'minecraft:entities/zo' in registry 'minecraft:context_float_provider' at position 23: ...ntities/zo<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:entities/zom
+R 0
+A -
+X Can't find element 'minecraft:entities/zom' in registry 'minecraft:context_float_provider' at position 24: ...tities/zom<--[HERE]@22
+E Can't find element 'minecraft:entities/zom' in registry 'minecraft:context_float_provider' at position 24: ...tities/zom<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:entities/zomb
+R 0
+A -
+X Can't find element 'minecraft:entities/zomb' in registry 'minecraft:context_float_provider' at position 25: ...ities/zomb<--[HERE]@23
+E Can't find element 'minecraft:entities/zomb' in registry 'minecraft:context_float_provider' at position 25: ...ities/zomb<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:entities/zombi
+R 0
+A -
+X Can't find element 'minecraft:entities/zombi' in registry 'minecraft:context_float_provider' at position 26: ...ties/zombi<--[HERE]@24
+E Can't find element 'minecraft:entities/zombi' in registry 'minecraft:context_float_provider' at position 26: ...ties/zombi<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:em
+R 0
+A -
+X Can't find element 'minecraft:em' in registry 'minecraft:context_float_provider' at position 14: ...necraft:em<--[HERE]@12
+E Can't find element 'minecraft:em' in registry 'minecraft:context_float_provider' at position 14: ...necraft:em<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:emp
+R 0
+A -
+X Can't find element 'minecraft:emp' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:emp<--[HERE]@13
+E Can't find element 'minecraft:emp' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:emp<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:empt
+R 0
+A -
+X Can't find element 'minecraft:empt' in registry 'minecraft:context_float_provider' at position 16: ...craft:empt<--[HERE]@14
+E Can't find element 'minecraft:empt' in registry 'minecraft:context_float_provider' at position 16: ...craft:empt<--[HERE]@14
+S -2--2 0 0 
+@ all co
+R 0
+A -
+X Can't find element 'minecraft:co' in registry 'minecraft:context_float_provider' at position 4: t co<--[HERE]@2
+E Can't find element 'minecraft:co' in registry 'minecraft:context_float_provider' at position 4: t co<--[HERE]@2
+S 0-2 3 -1930812277 minecraft:cooking/fast_speed_multiplier	minecraft:cooking/normal_speed_multiplier	minecraft:cooking/speed_default
+@ all con
+R 0
+A -
+X Can't find element 'minecraft:con' in registry 'minecraft:context_float_provider' at position 5: t con<--[HERE]@3
+E Can't find element 'minecraft:con' in registry 'minecraft:context_float_provider' at position 5: t con<--[HERE]@3
+S -2--2 0 0 
+@ all cont
+R 0
+A -
+X Can't find element 'minecraft:cont' in registry 'minecraft:context_float_provider' at position 6: t cont<--[HERE]@4
+E Can't find element 'minecraft:cont' in registry 'minecraft:context_float_provider' at position 6: t cont<--[HERE]@4
+S -2--2 0 0 
+@ all conta
+R 0
+A -
+X Can't find element 'minecraft:conta' in registry 'minecraft:context_float_provider' at position 7: t conta<--[HERE]@5
+E Can't find element 'minecraft:conta' in registry 'minecraft:context_float_provider' at position 7: t conta<--[HERE]@5
+S -2--2 0 0 
+@ all contai
+R 0
+A -
+X Can't find element 'minecraft:contai' in registry 'minecraft:context_float_provider' at position 8: t contai<--[HERE]@6
+E Can't find element 'minecraft:contai' in registry 'minecraft:context_float_provider' at position 8: t contai<--[HERE]@6
+S -2--2 0 0 
+@ all contain
+R 0
+A -
+X Can't find element 'minecraft:contain' in registry 'minecraft:context_float_provider' at position 9: t contain<--[HERE]@7
+E Can't find element 'minecraft:contain' in registry 'minecraft:context_float_provider' at position 9: t contain<--[HERE]@7
+S -2--2 0 0 
+@ all containe
+R 0
+A -
+X Can't find element 'minecraft:containe' in registry 'minecraft:context_float_provider' at position 10: t containe<--[HERE]@8
+E Can't find element 'minecraft:containe' in registry 'minecraft:context_float_provider' at position 10: t containe<--[HERE]@8
+S -2--2 0 0 
+@ all container
+R 0
+A -
+X Can't find element 'minecraft:container' in registry 'minecraft:context_float_provider' at position 11: ... container<--[HERE]@9
+E Can't find element 'minecraft:container' in registry 'minecraft:context_float_provider' at position 11: ... container<--[HERE]@9
+S -2--2 0 0 
+@ all container.
+R 0
+A -
+X Can't find element 'minecraft:container.' in registry 'minecraft:context_float_provider' at position 12: ...container.<--[HERE]@10
+E Can't find element 'minecraft:container.' in registry 'minecraft:context_float_provider' at position 12: ...container.<--[HERE]@10
+S -2--2 0 0 
+@ all w
+R 0
+A -
+X Can't find element 'minecraft:w' in registry 'minecraft:context_float_provider' at position 3: t w<--[HERE]@1
+E Can't find element 'minecraft:w' in registry 'minecraft:context_float_provider' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all we
+R 0
+A -
+X Can't find element 'minecraft:we' in registry 'minecraft:context_float_provider' at position 4: t we<--[HERE]@2
+E Can't find element 'minecraft:we' in registry 'minecraft:context_float_provider' at position 4: t we<--[HERE]@2
+S -2--2 0 0 
+@ all wea
+R 0
+A -
+X Can't find element 'minecraft:wea' in registry 'minecraft:context_float_provider' at position 5: t wea<--[HERE]@3
+E Can't find element 'minecraft:wea' in registry 'minecraft:context_float_provider' at position 5: t wea<--[HERE]@3
+S -2--2 0 0 
+@ all weap
+R 0
+A -
+X Can't find element 'minecraft:weap' in registry 'minecraft:context_float_provider' at position 6: t weap<--[HERE]@4
+E Can't find element 'minecraft:weap' in registry 'minecraft:context_float_provider' at position 6: t weap<--[HERE]@4
+S -2--2 0 0 
+@ all weapo
+R 0
+A -
+X Can't find element 'minecraft:weapo' in registry 'minecraft:context_float_provider' at position 7: t weapo<--[HERE]@5
+E Can't find element 'minecraft:weapo' in registry 'minecraft:context_float_provider' at position 7: t weapo<--[HERE]@5
+S -2--2 0 0 
+@ all weapon.
+R 0
+A -
+X Can't find element 'minecraft:weapon.' in registry 'minecraft:context_float_provider' at position 9: t weapon.<--[HERE]@7
+E Can't find element 'minecraft:weapon.' in registry 'minecraft:context_float_provider' at position 9: t weapon.<--[HERE]@7
+S -2--2 0 0 
+@ all ar
+R 0
+A -
+X Can't find element 'minecraft:ar' in registry 'minecraft:context_float_provider' at position 4: t ar<--[HERE]@2
+E Can't find element 'minecraft:ar' in registry 'minecraft:context_float_provider' at position 4: t ar<--[HERE]@2
+S -2--2 0 0 
+@ all arm
+R 0
+A -
+X Can't find element 'minecraft:arm' in registry 'minecraft:context_float_provider' at position 5: t arm<--[HERE]@3
+E Can't find element 'minecraft:arm' in registry 'minecraft:context_float_provider' at position 5: t arm<--[HERE]@3
+S -2--2 0 0 
+@ all armo
+R 0
+A -
+X Can't find element 'minecraft:armo' in registry 'minecraft:context_float_provider' at position 6: t armo<--[HERE]@4
+E Can't find element 'minecraft:armo' in registry 'minecraft:context_float_provider' at position 6: t armo<--[HERE]@4
+S -2--2 0 0 
+@ all armor
+R 0
+A -
+X Can't find element 'minecraft:armor' in registry 'minecraft:context_float_provider' at position 7: t armor<--[HERE]@5
+E Can't find element 'minecraft:armor' in registry 'minecraft:context_float_provider' at position 7: t armor<--[HERE]@5
+S -2--2 0 0 
+@ all armor.
+R 0
+A -
+X Can't find element 'minecraft:armor.' in registry 'minecraft:context_float_provider' at position 8: t armor.<--[HERE]@6
+E Can't find element 'minecraft:armor.' in registry 'minecraft:context_float_provider' at position 8: t armor.<--[HERE]@6
+S -2--2 0 0 
+@ all armor.h
+R 0
+A -
+X Can't find element 'minecraft:armor.h' in registry 'minecraft:context_float_provider' at position 9: t armor.h<--[HERE]@7
+E Can't find element 'minecraft:armor.h' in registry 'minecraft:context_float_provider' at position 9: t armor.h<--[HERE]@7
+S -2--2 0 0 
+@ all armor.he
+R 0
+A -
+X Can't find element 'minecraft:armor.he' in registry 'minecraft:context_float_provider' at position 10: t armor.he<--[HERE]@8
+E Can't find element 'minecraft:armor.he' in registry 'minecraft:context_float_provider' at position 10: t armor.he<--[HERE]@8
+S -2--2 0 0 
+@ all armor.hea
+R 0
+A -
+X Can't find element 'minecraft:armor.hea' in registry 'minecraft:context_float_provider' at position 11: ... armor.hea<--[HERE]@9
+E Can't find element 'minecraft:armor.hea' in registry 'minecraft:context_float_provider' at position 11: ... armor.hea<--[HERE]@9
+S -2--2 0 0 
+@ all conte
+R 0
+A -
+X Can't find element 'minecraft:conte' in registry 'minecraft:context_float_provider' at position 7: t conte<--[HERE]@5
+E Can't find element 'minecraft:conte' in registry 'minecraft:context_float_provider' at position 7: t conte<--[HERE]@5
+S -2--2 0 0 
+@ all conten
+R 0
+A -
+X Can't find element 'minecraft:conten' in registry 'minecraft:context_float_provider' at position 8: t conten<--[HERE]@6
+E Can't find element 'minecraft:conten' in registry 'minecraft:context_float_provider' at position 8: t conten<--[HERE]@6
+S -2--2 0 0 
+@ all content
+R 0
+A -
+X Can't find element 'minecraft:content' in registry 'minecraft:context_float_provider' at position 9: t content<--[HERE]@7
+E Can't find element 'minecraft:content' in registry 'minecraft:context_float_provider' at position 9: t content<--[HERE]@7
+S -2--2 0 0 
+@ all ma
+R 0
+A -
+X Can't find element 'minecraft:ma' in registry 'minecraft:context_float_provider' at position 4: t ma<--[HERE]@2
+E Can't find element 'minecraft:ma' in registry 'minecraft:context_float_provider' at position 4: t ma<--[HERE]@2
+S -2--2 0 0 
+@ all mai
+R 0
+A -
+X Can't find element 'minecraft:mai' in registry 'minecraft:context_float_provider' at position 5: t mai<--[HERE]@3
+E Can't find element 'minecraft:mai' in registry 'minecraft:context_float_provider' at position 5: t mai<--[HERE]@3
+S -2--2 0 0 
+@ all main
+R 0
+A -
+X Can't find element 'minecraft:main' in registry 'minecraft:context_float_provider' at position 6: t main<--[HERE]@4
+E Can't find element 'minecraft:main' in registry 'minecraft:context_float_provider' at position 6: t main<--[HERE]@4
+S -2--2 0 0 
+@ all mainh
+R 0
+A -
+X Can't find element 'minecraft:mainh' in registry 'minecraft:context_float_provider' at position 7: t mainh<--[HERE]@5
+E Can't find element 'minecraft:mainh' in registry 'minecraft:context_float_provider' at position 7: t mainh<--[HERE]@5
+S -2--2 0 0 
+@ all mainha
+R 0
+A -
+X Can't find element 'minecraft:mainha' in registry 'minecraft:context_float_provider' at position 8: t mainha<--[HERE]@6
+E Can't find element 'minecraft:mainha' in registry 'minecraft:context_float_provider' at position 8: t mainha<--[HERE]@6
+S -2--2 0 0 
+@ all mainhan
+R 0
+A -
+X Can't find element 'minecraft:mainhan' in registry 'minecraft:context_float_provider' at position 9: t mainhan<--[HERE]@7
+E Can't find element 'minecraft:mainhan' in registry 'minecraft:context_float_provider' at position 9: t mainhan<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' in registry 'minecraft:context_float_provider' at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:sl
+R 0
+A -
+X Can't find element 'minecraft:sl' in registry 'minecraft:context_float_provider' at position 14: ...necraft:sl<--[HERE]@12
+E Can't find element 'minecraft:sl' in registry 'minecraft:context_float_provider' at position 14: ...necraft:sl<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:slo
+R 0
+A -
+X Can't find element 'minecraft:slo' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:slo<--[HERE]@13
+E Can't find element 'minecraft:slo' in registry 'minecraft:context_float_provider' at position 15: ...ecraft:slo<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:slot
+R 0
+A -
+X Can't find element 'minecraft:slot' in registry 'minecraft:context_float_provider' at position 16: ...craft:slot<--[HERE]@14
+E Can't find element 'minecraft:slot' in registry 'minecraft:context_float_provider' at position 16: ...craft:slot<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:slots
+R 0
+A -
+X Can't find element 'minecraft:slots' in registry 'minecraft:context_float_provider' at position 17: ...raft:slots<--[HERE]@15
+E Can't find element 'minecraft:slots' in registry 'minecraft:context_float_provider' at position 17: ...raft:slots<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:slots/
+R 0
+A -
+X Can't find element 'minecraft:slots/' in registry 'minecraft:context_float_provider' at position 18: ...aft:slots/<--[HERE]@16
+E Can't find element 'minecraft:slots/' in registry 'minecraft:context_float_provider' at position 18: ...aft:slots/<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:slots/h
+R 0
+A -
+X Can't find element 'minecraft:slots/h' in registry 'minecraft:context_float_provider' at position 19: ...ft:slots/h<--[HERE]@17
+E Can't find element 'minecraft:slots/h' in registry 'minecraft:context_float_provider' at position 19: ...ft:slots/h<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:slots/ho
+R 0
+A -
+X Can't find element 'minecraft:slots/ho' in registry 'minecraft:context_float_provider' at position 20: ...t:slots/ho<--[HERE]@18
+E Can't find element 'minecraft:slots/ho' in registry 'minecraft:context_float_provider' at position 20: ...t:slots/ho<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:slots/hot
+R 0
+A -
+X Can't find element 'minecraft:slots/hot' in registry 'minecraft:context_float_provider' at position 21: ...:slots/hot<--[HERE]@19
+E Can't find element 'minecraft:slots/hot' in registry 'minecraft:context_float_provider' at position 21: ...:slots/hot<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:slots/hotb
+R 0
+A -
+X Can't find element 'minecraft:slots/hotb' in registry 'minecraft:context_float_provider' at position 22: ...slots/hotb<--[HERE]@20
+E Can't find element 'minecraft:slots/hotb' in registry 'minecraft:context_float_provider' at position 22: ...slots/hotb<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:slots/hotba
+R 0
+A -
+X Can't find element 'minecraft:slots/hotba' in registry 'minecraft:context_float_provider' at position 23: ...lots/hotba<--[HERE]@21
+E Can't find element 'minecraft:slots/hotba' in registry 'minecraft:context_float_provider' at position 23: ...lots/hotba<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:slots/w
+R 0
+A -
+X Can't find element 'minecraft:slots/w' in registry 'minecraft:context_float_provider' at position 19: ...ft:slots/w<--[HERE]@17
+E Can't find element 'minecraft:slots/w' in registry 'minecraft:context_float_provider' at position 19: ...ft:slots/w<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:slots/we
+R 0
+A -
+X Can't find element 'minecraft:slots/we' in registry 'minecraft:context_float_provider' at position 20: ...t:slots/we<--[HERE]@18
+E Can't find element 'minecraft:slots/we' in registry 'minecraft:context_float_provider' at position 20: ...t:slots/we<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:slots/wea
+R 0
+A -
+X Can't find element 'minecraft:slots/wea' in registry 'minecraft:context_float_provider' at position 21: ...:slots/wea<--[HERE]@19
+E Can't find element 'minecraft:slots/wea' in registry 'minecraft:context_float_provider' at position 21: ...:slots/wea<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:slots/weap
+R 0
+A -
+X Can't find element 'minecraft:slots/weap' in registry 'minecraft:context_float_provider' at position 22: ...slots/weap<--[HERE]@20
+E Can't find element 'minecraft:slots/weap' in registry 'minecraft:context_float_provider' at position 22: ...slots/weap<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:slots/weapo
+R 0
+A -
+X Can't find element 'minecraft:slots/weapo' in registry 'minecraft:context_float_provider' at position 23: ...lots/weapo<--[HERE]@21
+E Can't find element 'minecraft:slots/weapo' in registry 'minecraft:context_float_provider' at position 23: ...lots/weapo<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:slots/n
+R 0
+A -
+X Can't find element 'minecraft:slots/n' in registry 'minecraft:context_float_provider' at position 19: ...ft:slots/n<--[HERE]@17
+E Can't find element 'minecraft:slots/n' in registry 'minecraft:context_float_provider' at position 19: ...ft:slots/n<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:slots/no
+R 0
+A -
+X Can't find element 'minecraft:slots/no' in registry 'minecraft:context_float_provider' at position 20: ...t:slots/no<--[HERE]@18
+E Can't find element 'minecraft:slots/no' in registry 'minecraft:context_float_provider' at position 20: ...t:slots/no<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:slots/nop
+R 0
+A -
+X Can't find element 'minecraft:slots/nop' in registry 'minecraft:context_float_provider' at position 21: ...:slots/nop<--[HERE]@19
+E Can't find element 'minecraft:slots/nop' in registry 'minecraft:context_float_provider' at position 21: ...:slots/nop<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:e
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:e<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:e<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:em
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:em<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:em<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:emp
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:emp<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:emp<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:empt
+R 0
+A -
+X Invalid string contents at position 23: ...craft:empt<--[HERE]@21
+E Invalid string contents at position 23: ...craft:empt<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:empty
+R 0
+A -
+X Invalid string contents at position 24: ...raft:empty<--[HERE]@22
+E Invalid string contents at position 24: ...raft:empty<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:empty"
+R 0
+A -
+X Expected literal , at position 25: ...aft:empty"<--[HERE]@23
+E Expected literal , at position 25: ...aft:empty"<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:s
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:s<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:s<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:sl
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:sl<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:sl<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:slo
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:slo<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:slo<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:slot
+R 0
+A -
+X Invalid string contents at position 23: ...craft:slot<--[HERE]@21
+E Invalid string contents at position 23: ...craft:slot<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:slot_
+R 0
+A -
+X Invalid string contents at position 24: ...raft:slot_<--[HERE]@22
+E Invalid string contents at position 24: ...raft:slot_<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:slot_r
+R 0
+A -
+X Invalid string contents at position 25: ...aft:slot_r<--[HERE]@23
+E Invalid string contents at position 25: ...aft:slot_r<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:slot_ra
+R 0
+A -
+X Invalid string contents at position 26: ...ft:slot_ra<--[HERE]@24
+E Invalid string contents at position 26: ...ft:slot_ra<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:slot_ran
+R 0
+A -
+X Invalid string contents at position 27: ...t:slot_ran<--[HERE]@25
+E Invalid string contents at position 27: ...t:slot_ran<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:slot_rang
+R 0
+A -
+X Invalid string contents at position 28: ...:slot_rang<--[HERE]@26
+E Invalid string contents at position 28: ...:slot_rang<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range
+R 0
+A -
+X Invalid string contents at position 29: ...slot_range<--[HERE]@27
+E Invalid string contents at position 29: ...slot_range<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range"
+R 0
+A -
+X Expected literal , at position 30: ...lot_range"<--[HERE]@28
+E Expected literal , at position 30: ...lot_range"<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",
+R 0
+A -
+X Expected literal " at position 31: ...ot_range",<--[HERE]@29
+E Expected literal " at position 31: ...ot_range",<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",s
+R 0
+A -
+X Expected literal : at position 32: ...t_range",s<--[HERE]@30
+E Expected literal : at position 32: ...t_range",s<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",sl
+R 0
+A -
+X Expected literal : at position 33: ..._range",sl<--[HERE]@31
+E Expected literal : at position 33: ..._range",sl<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slo
+R 0
+A -
+X Expected literal : at position 34: ...range",slo<--[HERE]@32
+E Expected literal : at position 34: ...range",slo<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slot
+R 0
+A -
+X Expected literal : at position 35: ...ange",slot<--[HERE]@33
+E Expected literal : at position 35: ...ange",slot<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots
+R 0
+A -
+X Expected literal : at position 36: ...nge",slots<--[HERE]@34
+E Expected literal : at position 36: ...nge",slots<--[HERE]@34
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:
+R 0
+A -
+X Expected a valid unquoted string at position 37: ...ge",slots:<--[HERE]@35
+E Expected a valid unquoted string at position 37: ...ge",slots:<--[HERE]@35
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"
+R 0
+A -
+X Invalid string contents at position 38: ...e",slots:"<--[HERE]@36
+E Invalid string contents at position 38: ...e",slots:"<--[HERE]@36
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"w
+R 0
+A -
+X Invalid string contents at position 39: ...",slots:"w<--[HERE]@37
+E Invalid string contents at position 39: ...",slots:"w<--[HERE]@37
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"we
+R 0
+A -
+X Invalid string contents at position 40: ...,slots:"we<--[HERE]@38
+E Invalid string contents at position 40: ...,slots:"we<--[HERE]@38
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"wea
+R 0
+A -
+X Invalid string contents at position 41: ...slots:"wea<--[HERE]@39
+E Invalid string contents at position 41: ...slots:"wea<--[HERE]@39
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"weap
+R 0
+A -
+X Invalid string contents at position 42: ...lots:"weap<--[HERE]@40
+E Invalid string contents at position 42: ...lots:"weap<--[HERE]@40
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"weapo
+R 0
+A -
+X Invalid string contents at position 43: ...ots:"weapo<--[HERE]@41
+E Invalid string contents at position 43: ...ots:"weapo<--[HERE]@41
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"weapon
+R 0
+A -
+X Invalid string contents at position 44: ...ts:"weapon<--[HERE]@42
+E Invalid string contents at position 44: ...ts:"weapon<--[HERE]@42
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"weapon.
+R 0
+A -
+X Invalid string contents at position 45: ...s:"weapon.<--[HERE]@43
+E Invalid string contents at position 45: ...s:"weapon.<--[HERE]@43
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"weapon.*
+R 0
+A -
+X Invalid string contents at position 46: ...:"weapon.*<--[HERE]@44
+E Invalid string contents at position 46: ...:"weapon.*<--[HERE]@44
+S -2--2 0 0 
+@ all {type:"minecraft:slot_range",slots:"weapon.*"
+R 0
+A -
+X Expected literal , at position 47: ..."weapon.*"<--[HERE]@45
+E Expected literal , at position 47: ..."weapon.*"<--[HERE]@45
+S -2--2 0 0 
+@ all {type:"minecraft:g
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:g<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:g<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:gr
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:gr<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:gr<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:gro
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:gro<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:gro<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:grou
+R 0
+A -
+X Invalid string contents at position 23: ...craft:grou<--[HERE]@21
+E Invalid string contents at position 23: ...craft:grou<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:group
+R 0
+A -
+X Invalid string contents at position 24: ...raft:group<--[HERE]@22
+E Invalid string contents at position 24: ...raft:group<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:group"
+R 0
+A -
+X Expected literal , at position 25: ...aft:group"<--[HERE]@23
+E Expected literal , at position 25: ...aft:group"<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:group",
+R 0
+A -
+X Expected literal " at position 26: ...ft:group",<--[HERE]@24
+E Expected literal " at position 26: ...ft:group",<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:group",t
+R 0
+A -
+X Expected literal : at position 27: ...t:group",t<--[HERE]@25
+E Expected literal : at position 27: ...t:group",t<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:group",te
+R 0
+A -
+X Expected literal : at position 28: ...:group",te<--[HERE]@26
+E Expected literal : at position 28: ...:group",te<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:group",ter
+R 0
+A -
+X Expected literal : at position 29: ...group",ter<--[HERE]@27
+E Expected literal : at position 29: ...group",ter<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:group",term
+R 0
+A -
+X Expected literal : at position 30: ...roup",term<--[HERE]@28
+E Expected literal : at position 30: ...roup",term<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:group",terms
+R 0
+A -
+X Expected literal : at position 31: ...oup",terms<--[HERE]@29
+E Expected literal : at position 31: ...oup",terms<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:group",terms:
+R 0
+A -
+X Expected a valid unquoted string at position 32: ...up",terms:<--[HERE]@30
+E Expected a valid unquoted string at position 32: ...up",terms:<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:group",terms:[
+R 0
+A -
+X Expected literal B at position 33: ...p",terms:[<--[HERE]@31
+E Expected literal B at position 33: ...p",terms:[<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:group",terms:[]
+R 0
+A -
+X Expected literal , at position 34: ...",terms:[]<--[HERE]@32
+E Expected literal , at position 34: ...",terms:[]<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:se
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:se<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:se<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:set
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:set<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:set<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:set_
+R 0
+A -
+X Invalid string contents at position 23: ...craft:set_<--[HERE]@21
+E Invalid string contents at position 23: ...craft:set_<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:set_c
+R 0
+A -
+X Invalid string contents at position 24: ...raft:set_c<--[HERE]@22
+E Invalid string contents at position 24: ...raft:set_c<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:set_co
+R 0
+A -
+X Invalid string contents at position 25: ...aft:set_co<--[HERE]@23
+E Invalid string contents at position 25: ...aft:set_co<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:set_cou
+R 0
+A -
+X Invalid string contents at position 26: ...ft:set_cou<--[HERE]@24
+E Invalid string contents at position 26: ...ft:set_cou<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:set_coun
+R 0
+A -
+X Invalid string contents at position 27: ...t:set_coun<--[HERE]@25
+E Invalid string contents at position 27: ...t:set_coun<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:set_count
+R 0
+A -
+X Invalid string contents at position 28: ...:set_count<--[HERE]@26
+E Invalid string contents at position 28: ...:set_count<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:set_count"
+R 0
+A -
+X Expected literal , at position 29: ...set_count"<--[HERE]@27
+E Expected literal , at position 29: ...set_count"<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",
+R 0
+A -
+X Expected literal " at position 30: ...et_count",<--[HERE]@28
+E Expected literal " at position 30: ...et_count",<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",c
+R 0
+A -
+X Expected literal : at position 31: ...t_count",c<--[HERE]@29
+E Expected literal : at position 31: ...t_count",c<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",co
+R 0
+A -
+X Expected literal : at position 32: ..._count",co<--[HERE]@30
+E Expected literal : at position 32: ..._count",co<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",cou
+R 0
+A -
+X Expected literal : at position 33: ...count",cou<--[HERE]@31
+E Expected literal : at position 33: ...count",cou<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",coun
+R 0
+A -
+X Expected literal : at position 34: ...ount",coun<--[HERE]@32
+E Expected literal : at position 34: ...ount",coun<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",count
+R 0
+A -
+X Expected literal : at position 35: ...unt",count<--[HERE]@33
+E Expected literal : at position 35: ...unt",count<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",count:
+R 0
+A -
+X Expected a valid unquoted string at position 36: ...nt",count:<--[HERE]@34
+E Expected a valid unquoted string at position 36: ...nt",count:<--[HERE]@34
+S -2--2 0 0 
+@ all {type:"minecraft:set_count",count:1
+R 0
+A -
+X Expected literal . at position 37: ...t",count:1<--[HERE]@35
+E Expected literal . at position 37: ...t",count:1<--[HERE]@35
+S -2--2 0 0 
+@ all {c
+R 0
+A -
+X Expected literal : at position 4: t {c<--[HERE]@2
+E Expected literal : at position 4: t {c<--[HERE]@2
+S -2--2 0 0 
+@ all {co
+R 0
+A -
+X Expected literal : at position 5: t {co<--[HERE]@3
+E Expected literal : at position 5: t {co<--[HERE]@3
+S -2--2 0 0 
+@ all {con
+R 0
+A -
+X Expected literal : at position 6: t {con<--[HERE]@4
+E Expected literal : at position 6: t {con<--[HERE]@4
+S -2--2 0 0 
+@ all {cond
+R 0
+A -
+X Expected literal : at position 7: t {cond<--[HERE]@5
+E Expected literal : at position 7: t {cond<--[HERE]@5
+S -2--2 0 0 
+@ all {condi
+R 0
+A -
+X Expected literal : at position 8: t {condi<--[HERE]@6
+E Expected literal : at position 8: t {condi<--[HERE]@6
+S -2--2 0 0 
+@ all {condit
+R 0
+A -
+X Expected literal : at position 9: t {condit<--[HERE]@7
+E Expected literal : at position 9: t {condit<--[HERE]@7
+S -2--2 0 0 
+@ all {conditi
+R 0
+A -
+X Expected literal : at position 10: t {conditi<--[HERE]@8
+E Expected literal : at position 10: t {conditi<--[HERE]@8
+S -2--2 0 0 
+@ all {conditio
+R 0
+A -
+X Expected literal : at position 11: ... {conditio<--[HERE]@9
+E Expected literal : at position 11: ... {conditio<--[HERE]@9
+S -2--2 0 0 
+@ all {condition
+R 0
+A -
+X Expected literal : at position 12: ...{condition<--[HERE]@10
+E Expected literal : at position 12: ...{condition<--[HERE]@10
+S -2--2 0 0 
+@ all {condition:
+R 0
+A -
+X Expected a valid unquoted string at position 13: ...condition:<--[HERE]@11
+E Expected a valid unquoted string at position 13: ...condition:<--[HERE]@11
+S -2--2 0 0 
+@ all {condition:"
+R 0
+A -
+X Invalid string contents at position 14: ...ondition:"<--[HERE]@12
+E Invalid string contents at position 14: ...ondition:"<--[HERE]@12
+S -2--2 0 0 
+@ all {condition:"m
+R 0
+A -
+X Invalid string contents at position 15: ...ndition:"m<--[HERE]@13
+E Invalid string contents at position 15: ...ndition:"m<--[HERE]@13
+S -2--2 0 0 
+@ all {condition:"mi
+R 0
+A -
+X Invalid string contents at position 16: ...dition:"mi<--[HERE]@14
+E Invalid string contents at position 16: ...dition:"mi<--[HERE]@14
+S -2--2 0 0 
+@ all {condition:"min
+R 0
+A -
+X Invalid string contents at position 17: ...ition:"min<--[HERE]@15
+E Invalid string contents at position 17: ...ition:"min<--[HERE]@15
+S -2--2 0 0 
+@ all {condition:"mine
+R 0
+A -
+X Invalid string contents at position 18: ...tion:"mine<--[HERE]@16
+E Invalid string contents at position 18: ...tion:"mine<--[HERE]@16
+S -2--2 0 0 
+@ all {condition:"minec
+R 0
+A -
+X Invalid string contents at position 19: ...ion:"minec<--[HERE]@17
+E Invalid string contents at position 19: ...ion:"minec<--[HERE]@17
+S -2--2 0 0 
+@ all {condition:"minecr
+R 0
+A -
+X Invalid string contents at position 20: ...on:"minecr<--[HERE]@18
+E Invalid string contents at position 20: ...on:"minecr<--[HERE]@18
+S -2--2 0 0 
+@ all {condition:"minecra
+R 0
+A -
+X Invalid string contents at position 21: ...n:"minecra<--[HERE]@19
+E Invalid string contents at position 21: ...n:"minecra<--[HERE]@19
+S -2--2 0 0 
+@ all {condition:"minecraf
+R 0
+A -
+X Invalid string contents at position 22: ...:"minecraf<--[HERE]@20
+E Invalid string contents at position 22: ...:"minecraf<--[HERE]@20
+S -2--2 0 0 
+@ all {condition:"minecraft
+R 0
+A -
+X Invalid string contents at position 23: ..."minecraft<--[HERE]@21
+E Invalid string contents at position 23: ..."minecraft<--[HERE]@21
+S -2--2 0 0 
+@ all {condition:"minecraft:
+R 0
+A -
+X Invalid string contents at position 24: ...minecraft:<--[HERE]@22
+E Invalid string contents at position 24: ...minecraft:<--[HERE]@22
+S -2--2 0 0 
+@ all {condition:"minecraft:r
+R 0
+A -
+X Invalid string contents at position 25: ...inecraft:r<--[HERE]@23
+E Invalid string contents at position 25: ...inecraft:r<--[HERE]@23
+S -2--2 0 0 
+@ all {condition:"minecraft:ra
+R 0
+A -
+X Invalid string contents at position 26: ...necraft:ra<--[HERE]@24
+E Invalid string contents at position 26: ...necraft:ra<--[HERE]@24
+S -2--2 0 0 
+@ all {condition:"minecraft:ran
+R 0
+A -
+X Invalid string contents at position 27: ...ecraft:ran<--[HERE]@25
+E Invalid string contents at position 27: ...ecraft:ran<--[HERE]@25
+S -2--2 0 0 
+@ all {condition:"minecraft:rand
+R 0
+A -
+X Invalid string contents at position 28: ...craft:rand<--[HERE]@26
+E Invalid string contents at position 28: ...craft:rand<--[HERE]@26
+S -2--2 0 0 
+@ all {condition:"minecraft:rando
+R 0
+A -
+X Invalid string contents at position 29: ...raft:rando<--[HERE]@27
+E Invalid string contents at position 29: ...raft:rando<--[HERE]@27
+S -2--2 0 0 
+@ all {condition:"minecraft:random
+R 0
+A -
+X Invalid string contents at position 30: ...aft:random<--[HERE]@28
+E Invalid string contents at position 30: ...aft:random<--[HERE]@28
+S -2--2 0 0 
+@ all {condition:"minecraft:random_
+R 0
+A -
+X Invalid string contents at position 31: ...ft:random_<--[HERE]@29
+E Invalid string contents at position 31: ...ft:random_<--[HERE]@29
+S -2--2 0 0 
+@ all {condition:"minecraft:random_c
+R 0
+A -
+X Invalid string contents at position 32: ...t:random_c<--[HERE]@30
+E Invalid string contents at position 32: ...t:random_c<--[HERE]@30
+S -2--2 0 0 
+@ all {condition:"minecraft:random_ch
+R 0
+A -
+X Invalid string contents at position 33: ...:random_ch<--[HERE]@31
+E Invalid string contents at position 33: ...:random_ch<--[HERE]@31
+S -2--2 0 0 
+@ all {condition:"minecraft:random_cha
+R 0
+A -
+X Invalid string contents at position 34: ...random_cha<--[HERE]@32
+E Invalid string contents at position 34: ...random_cha<--[HERE]@32
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chan
+R 0
+A -
+X Invalid string contents at position 35: ...andom_chan<--[HERE]@33
+E Invalid string contents at position 35: ...andom_chan<--[HERE]@33
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chanc
+R 0
+A -
+X Invalid string contents at position 36: ...ndom_chanc<--[HERE]@34
+E Invalid string contents at position 36: ...ndom_chanc<--[HERE]@34
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance
+R 0
+A -
+X Invalid string contents at position 37: ...dom_chance<--[HERE]@35
+E Invalid string contents at position 37: ...dom_chance<--[HERE]@35
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance"
+R 0
+A -
+X Expected literal , at position 38: ...om_chance"<--[HERE]@36
+E Expected literal , at position 38: ...om_chance"<--[HERE]@36
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",
+R 0
+A -
+X Expected literal " at position 39: ...m_chance",<--[HERE]@37
+E Expected literal " at position 39: ...m_chance",<--[HERE]@37
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",c
+R 0
+A -
+X Expected literal : at position 40: ..._chance",c<--[HERE]@38
+E Expected literal : at position 40: ..._chance",c<--[HERE]@38
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",ch
+R 0
+A -
+X Expected literal : at position 41: ...chance",ch<--[HERE]@39
+E Expected literal : at position 41: ...chance",ch<--[HERE]@39
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",cha
+R 0
+A -
+X Expected literal : at position 42: ...hance",cha<--[HERE]@40
+E Expected literal : at position 42: ...hance",cha<--[HERE]@40
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chan
+R 0
+A -
+X Expected literal : at position 43: ...ance",chan<--[HERE]@41
+E Expected literal : at position 43: ...ance",chan<--[HERE]@41
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chanc
+R 0
+A -
+X Expected literal : at position 44: ...nce",chanc<--[HERE]@42
+E Expected literal : at position 44: ...nce",chanc<--[HERE]@42
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chance
+R 0
+A -
+X Expected literal : at position 45: ...ce",chance<--[HERE]@43
+E Expected literal : at position 45: ...ce",chance<--[HERE]@43
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chance:
+R 0
+A -
+X Expected a valid unquoted string at position 46: ...e",chance:<--[HERE]@44
+E Expected a valid unquoted string at position 46: ...e",chance:<--[HERE]@44
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chance:0
+R 0
+A -
+X Expected literal . at position 47: ...",chance:0<--[HERE]@45
+E Expected literal . at position 47: ...",chance:0<--[HERE]@45
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chance:0.
+R 0
+A -
+X Expected a decimal number at position 48: ...,chance:0.<--[HERE]@46
+E Expected a decimal number at position 48: ...,chance:0.<--[HERE]@46
+S -2--2 0 0 
+@ all {condition:"minecraft:random_chance",chance:0.5
+R 0
+A -
+X Expected literal e|E at position 49: ...chance:0.5<--[HERE]@47
+E Expected literal e|E at position 49: ...chance:0.5<--[HERE]@47
+S -2--2 0 0 
+@ all {fu
+R 0
+A -
+X Expected literal : at position 5: t {fu<--[HERE]@3
+E Expected literal : at position 5: t {fu<--[HERE]@3
+S -2--2 0 0 
+@ all {fun
+R 0
+A -
+X Expected literal : at position 6: t {fun<--[HERE]@4
+E Expected literal : at position 6: t {fun<--[HERE]@4
+S -2--2 0 0 
+@ all {func
+R 0
+A -
+X Expected literal : at position 7: t {func<--[HERE]@5
+E Expected literal : at position 7: t {func<--[HERE]@5
+S -2--2 0 0 
+@ all {funct
+R 0
+A -
+X Expected literal : at position 8: t {funct<--[HERE]@6
+E Expected literal : at position 8: t {funct<--[HERE]@6
+S -2--2 0 0 
+@ all {functi
+R 0
+A -
+X Expected literal : at position 9: t {functi<--[HERE]@7
+E Expected literal : at position 9: t {functi<--[HERE]@7
+S -2--2 0 0 
+@ all {functio
+R 0
+A -
+X Expected literal : at position 10: t {functio<--[HERE]@8
+E Expected literal : at position 10: t {functio<--[HERE]@8
+S -2--2 0 0 
+@ all {function
+R 0
+A -
+X Expected literal : at position 11: ... {function<--[HERE]@9
+E Expected literal : at position 11: ... {function<--[HERE]@9
+S -2--2 0 0 
+@ all {function:
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...{function:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...{function:<--[HERE]@10
+S -2--2 0 0 
+@ all {function:"
+R 0
+A -
+X Invalid string contents at position 13: ...function:"<--[HERE]@11
+E Invalid string contents at position 13: ...function:"<--[HERE]@11
+S -2--2 0 0 
+@ all {function:"m
+R 0
+A -
+X Invalid string contents at position 14: ...unction:"m<--[HERE]@12
+E Invalid string contents at position 14: ...unction:"m<--[HERE]@12
+S -2--2 0 0 
+@ all {function:"mi
+R 0
+A -
+X Invalid string contents at position 15: ...nction:"mi<--[HERE]@13
+E Invalid string contents at position 15: ...nction:"mi<--[HERE]@13
+S -2--2 0 0 
+@ all {function:"min
+R 0
+A -
+X Invalid string contents at position 16: ...ction:"min<--[HERE]@14
+E Invalid string contents at position 16: ...ction:"min<--[HERE]@14
+S -2--2 0 0 
+@ all {function:"mine
+R 0
+A -
+X Invalid string contents at position 17: ...tion:"mine<--[HERE]@15
+E Invalid string contents at position 17: ...tion:"mine<--[HERE]@15
+S -2--2 0 0 
+@ all {function:"minec
+R 0
+A -
+X Invalid string contents at position 18: ...ion:"minec<--[HERE]@16
+E Invalid string contents at position 18: ...ion:"minec<--[HERE]@16
+S -2--2 0 0 
+@ all {function:"minecr
+R 0
+A -
+X Invalid string contents at position 19: ...on:"minecr<--[HERE]@17
+E Invalid string contents at position 19: ...on:"minecr<--[HERE]@17
+S -2--2 0 0 
+@ all {function:"minecra
+R 0
+A -
+X Invalid string contents at position 20: ...n:"minecra<--[HERE]@18
+E Invalid string contents at position 20: ...n:"minecra<--[HERE]@18
+S -2--2 0 0 
+@ all {function:"minecraf
+R 0
+A -
+X Invalid string contents at position 21: ...:"minecraf<--[HERE]@19
+E Invalid string contents at position 21: ...:"minecraf<--[HERE]@19
+S -2--2 0 0 
+@ all {function:"minecraft
+R 0
+A -
+X Invalid string contents at position 22: ..."minecraft<--[HERE]@20
+E Invalid string contents at position 22: ..."minecraft<--[HERE]@20
+S -2--2 0 0 
+@ all {function:"minecraft:
+R 0
+A -
+X Invalid string contents at position 23: ...minecraft:<--[HERE]@21
+E Invalid string contents at position 23: ...minecraft:<--[HERE]@21
+S -2--2 0 0 
+@ all {function:"minecraft:s
+R 0
+A -
+X Invalid string contents at position 24: ...inecraft:s<--[HERE]@22
+E Invalid string contents at position 24: ...inecraft:s<--[HERE]@22
+S -2--2 0 0 
+@ all {function:"minecraft:se
+R 0
+A -
+X Invalid string contents at position 25: ...necraft:se<--[HERE]@23
+E Invalid string contents at position 25: ...necraft:se<--[HERE]@23
+S -2--2 0 0 
+@ all {function:"minecraft:set
+R 0
+A -
+X Invalid string contents at position 26: ...ecraft:set<--[HERE]@24
+E Invalid string contents at position 26: ...ecraft:set<--[HERE]@24
+S -2--2 0 0 
+@ all {function:"minecraft:set_
+R 0
+A -
+X Invalid string contents at position 27: ...craft:set_<--[HERE]@25
+E Invalid string contents at position 27: ...craft:set_<--[HERE]@25
+S -2--2 0 0 
+@ all {function:"minecraft:set_c
+R 0
+A -
+X Invalid string contents at position 28: ...raft:set_c<--[HERE]@26
+E Invalid string contents at position 28: ...raft:set_c<--[HERE]@26
+S -2--2 0 0 
+@ all {function:"minecraft:set_co
+R 0
+A -
+X Invalid string contents at position 29: ...aft:set_co<--[HERE]@27
+E Invalid string contents at position 29: ...aft:set_co<--[HERE]@27
+S -2--2 0 0 
+@ all {function:"minecraft:set_cou
+R 0
+A -
+X Invalid string contents at position 30: ...ft:set_cou<--[HERE]@28
+E Invalid string contents at position 30: ...ft:set_cou<--[HERE]@28
+S -2--2 0 0 
+@ all {function:"minecraft:set_coun
+R 0
+A -
+X Invalid string contents at position 31: ...t:set_coun<--[HERE]@29
+E Invalid string contents at position 31: ...t:set_coun<--[HERE]@29
+S -2--2 0 0 
+@ all {function:"minecraft:set_count
+R 0
+A -
+X Invalid string contents at position 32: ...:set_count<--[HERE]@30
+E Invalid string contents at position 32: ...:set_count<--[HERE]@30
+S -2--2 0 0 
+@ all {function:"minecraft:set_count"
+R 0
+A -
+X Expected literal , at position 33: ...set_count"<--[HERE]@31
+E Expected literal , at position 33: ...set_count"<--[HERE]@31
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",
+R 0
+A -
+X Expected literal " at position 34: ...et_count",<--[HERE]@32
+E Expected literal " at position 34: ...et_count",<--[HERE]@32
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",c
+R 0
+A -
+X Expected literal : at position 35: ...t_count",c<--[HERE]@33
+E Expected literal : at position 35: ...t_count",c<--[HERE]@33
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",co
+R 0
+A -
+X Expected literal : at position 36: ..._count",co<--[HERE]@34
+E Expected literal : at position 36: ..._count",co<--[HERE]@34
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",cou
+R 0
+A -
+X Expected literal : at position 37: ...count",cou<--[HERE]@35
+E Expected literal : at position 37: ...count",cou<--[HERE]@35
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",coun
+R 0
+A -
+X Expected literal : at position 38: ...ount",coun<--[HERE]@36
+E Expected literal : at position 38: ...ount",coun<--[HERE]@36
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",count
+R 0
+A -
+X Expected literal : at position 39: ...unt",count<--[HERE]@37
+E Expected literal : at position 39: ...unt",count<--[HERE]@37
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",count:
+R 0
+A -
+X Expected a valid unquoted string at position 40: ...nt",count:<--[HERE]@38
+E Expected a valid unquoted string at position 40: ...nt",count:<--[HERE]@38
+S -2--2 0 0 
+@ all {function:"minecraft:set_count",count:1
+R 0
+A -
+X Expected literal . at position 41: ...t",count:1<--[HERE]@39
+E Expected literal . at position 41: ...t",count:1<--[HERE]@39
+S -2--2 0 0 
+@ all {p
+R 0
+A -
+X Expected literal : at position 4: t {p<--[HERE]@2
+E Expected literal : at position 4: t {p<--[HERE]@2
+S -2--2 0 0 
+@ all {po
+R 0
+A -
+X Expected literal : at position 5: t {po<--[HERE]@3
+E Expected literal : at position 5: t {po<--[HERE]@3
+S -2--2 0 0 
+@ all {poo
+R 0
+A -
+X Expected literal : at position 6: t {poo<--[HERE]@4
+E Expected literal : at position 6: t {poo<--[HERE]@4
+S -2--2 0 0 
+@ all {pool
+R 0
+A -
+X Expected literal : at position 7: t {pool<--[HERE]@5
+E Expected literal : at position 7: t {pool<--[HERE]@5
+S -2--2 0 0 
+@ all {pools
+R 0
+A -
+X Expected literal : at position 8: t {pools<--[HERE]@6
+E Expected literal : at position 8: t {pools<--[HERE]@6
+S -2--2 0 0 
+@ all {pools:
+R 0
+A -
+X Expected a valid unquoted string at position 9: t {pools:<--[HERE]@7
+E Expected a valid unquoted string at position 9: t {pools:<--[HERE]@7
+S -2--2 0 0 
+@ all {pools:[
+R 0
+A -
+X Expected literal B at position 10: t {pools:[<--[HERE]@8
+E Expected literal B at position 10: t {pools:[<--[HERE]@8
+S -2--2 0 0 
+@ all {pools:[]
+R 0
+A -
+X Expected literal , at position 11: ... {pools:[]<--[HERE]@9
+E Expected literal , at position 11: ... {pools:[]<--[HERE]@9
+S -2--2 0 0 
+@ all {type:"minecraft:ch
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:ch<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:ch<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:che
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:che<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:che<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:ches
+R 0
+A -
+X Invalid string contents at position 23: ...craft:ches<--[HERE]@21
+E Invalid string contents at position 23: ...craft:ches<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:chest
+R 0
+A -
+X Invalid string contents at position 24: ...raft:chest<--[HERE]@22
+E Invalid string contents at position 24: ...raft:chest<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:chest"
+R 0
+A -
+X Expected literal , at position 25: ...aft:chest"<--[HERE]@23
+E Expected literal , at position 25: ...aft:chest"<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:chest",
+R 0
+A -
+X Expected literal " at position 26: ...ft:chest",<--[HERE]@24
+E Expected literal " at position 26: ...ft:chest",<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:chest",p
+R 0
+A -
+X Expected literal : at position 27: ...t:chest",p<--[HERE]@25
+E Expected literal : at position 27: ...t:chest",p<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:chest",po
+R 0
+A -
+X Expected literal : at position 28: ...:chest",po<--[HERE]@26
+E Expected literal : at position 28: ...:chest",po<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:chest",poo
+R 0
+A -
+X Expected literal : at position 29: ...chest",poo<--[HERE]@27
+E Expected literal : at position 29: ...chest",poo<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:chest",pool
+R 0
+A -
+X Expected literal : at position 30: ...hest",pool<--[HERE]@28
+E Expected literal : at position 30: ...hest",pool<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:chest",pools
+R 0
+A -
+X Expected literal : at position 31: ...est",pools<--[HERE]@29
+E Expected literal : at position 31: ...est",pools<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:chest",pools:
+R 0
+A -
+X Expected a valid unquoted string at position 32: ...st",pools:<--[HERE]@30
+E Expected a valid unquoted string at position 32: ...st",pools:<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:chest",pools:[
+R 0
+A -
+X Expected literal B at position 33: ...t",pools:[<--[HERE]@31
+E Expected literal B at position 33: ...t",pools:[<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:chest",pools:[]
+R 0
+A -
+X Expected literal , at position 34: ...",pools:[]<--[HERE]@32
+E Expected literal , at position 34: ...",pools:[]<--[HERE]@32
+S -2--2 0 0 
+@ all {ti
+R 0
+A -
+X Expected literal : at position 5: t {ti<--[HERE]@3
+E Expected literal : at position 5: t {ti<--[HERE]@3
+S -2--2 0 0 
+@ all {tit
+R 0
+A -
+X Expected literal : at position 6: t {tit<--[HERE]@4
+E Expected literal : at position 6: t {tit<--[HERE]@4
+S -2--2 0 0 
+@ all {titl
+R 0
+A -
+X Expected literal : at position 7: t {titl<--[HERE]@5
+E Expected literal : at position 7: t {titl<--[HERE]@5
+S -2--2 0 0 
+@ all {title
+R 0
+A -
+X Expected literal : at position 8: t {title<--[HERE]@6
+E Expected literal : at position 8: t {title<--[HERE]@6
+S -2--2 0 0 
+@ all {title:
+R 0
+A -
+X Expected a valid unquoted string at position 9: t {title:<--[HERE]@7
+E Expected a valid unquoted string at position 9: t {title:<--[HERE]@7
+S -2--2 0 0 
+@ all {title:"
+R 0
+A -
+X Invalid string contents at position 10: t {title:"<--[HERE]@8
+E Invalid string contents at position 10: t {title:"<--[HERE]@8
+S -2--2 0 0 
+@ all {title:"x
+R 0
+A -
+X Invalid string contents at position 11: ... {title:"x<--[HERE]@9
+E Invalid string contents at position 11: ... {title:"x<--[HERE]@9
+S -2--2 0 0 
+@ all {title:"x"
+R 0
+A -
+X Expected literal , at position 12: ...{title:"x"<--[HERE]@10
+E Expected literal , at position 12: ...{title:"x"<--[HERE]@10
+S -2--2 0 0 
+@ all {title:"x",
+R 0
+A -
+X Expected literal " at position 13: ...title:"x",<--[HERE]@11
+E Expected literal " at position 13: ...title:"x",<--[HERE]@11
+S -2--2 0 0 
+@ all {title:"x",t
+R 0
+A -
+X Expected literal : at position 14: ...itle:"x",t<--[HERE]@12
+E Expected literal : at position 14: ...itle:"x",t<--[HERE]@12
+S -2--2 0 0 
+@ all {title:"x",ty
+R 0
+A -
+X Expected literal : at position 15: ...tle:"x",ty<--[HERE]@13
+E Expected literal : at position 15: ...tle:"x",ty<--[HERE]@13
+S -2--2 0 0 
+@ all {title:"x",typ
+R 0
+A -
+X Expected literal : at position 16: ...le:"x",typ<--[HERE]@14
+E Expected literal : at position 16: ...le:"x",typ<--[HERE]@14
+S -2--2 0 0 
+@ all {title:"x",type
+R 0
+A -
+X Expected literal : at position 17: ...e:"x",type<--[HERE]@15
+E Expected literal : at position 17: ...e:"x",type<--[HERE]@15
+S -2--2 0 0 
+@ all {title:"x",type:
+R 0
+A -
+X Expected a valid unquoted string at position 18: ...:"x",type:<--[HERE]@16
+E Expected a valid unquoted string at position 18: ...:"x",type:<--[HERE]@16
+S -2--2 0 0 
+@ all {title:"x",type:"
+R 0
+A -
+X Invalid string contents at position 19: ..."x",type:"<--[HERE]@17
+E Invalid string contents at position 19: ..."x",type:"<--[HERE]@17
+S -2--2 0 0 
+@ all {title:"x",type:"m
+R 0
+A -
+X Invalid string contents at position 20: ...x",type:"m<--[HERE]@18
+E Invalid string contents at position 20: ...x",type:"m<--[HERE]@18
+S -2--2 0 0 
+@ all {title:"x",type:"mi
+R 0
+A -
+X Invalid string contents at position 21: ...",type:"mi<--[HERE]@19
+E Invalid string contents at position 21: ...",type:"mi<--[HERE]@19
+S -2--2 0 0 
+@ all {title:"x",type:"min
+R 0
+A -
+X Invalid string contents at position 22: ...,type:"min<--[HERE]@20
+E Invalid string contents at position 22: ...,type:"min<--[HERE]@20
+S -2--2 0 0 
+@ all {title:"x",type:"mine
+R 0
+A -
+X Invalid string contents at position 23: ...type:"mine<--[HERE]@21
+E Invalid string contents at position 23: ...type:"mine<--[HERE]@21
+S -2--2 0 0 
+@ all {title:"x",type:"minec
+R 0
+A -
+X Invalid string contents at position 24: ...ype:"minec<--[HERE]@22
+E Invalid string contents at position 24: ...ype:"minec<--[HERE]@22
+S -2--2 0 0 
+@ all {title:"x",type:"minecr
+R 0
+A -
+X Invalid string contents at position 25: ...pe:"minecr<--[HERE]@23
+E Invalid string contents at position 25: ...pe:"minecr<--[HERE]@23
+S -2--2 0 0 
+@ all {title:"x",type:"minecra
+R 0
+A -
+X Invalid string contents at position 26: ...e:"minecra<--[HERE]@24
+E Invalid string contents at position 26: ...e:"minecra<--[HERE]@24
+S -2--2 0 0 
+@ all {title:"x",type:"minecraf
+R 0
+A -
+X Invalid string contents at position 27: ...:"minecraf<--[HERE]@25
+E Invalid string contents at position 27: ...:"minecraf<--[HERE]@25
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft
+R 0
+A -
+X Invalid string contents at position 28: ..."minecraft<--[HERE]@26
+E Invalid string contents at position 28: ..."minecraft<--[HERE]@26
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:
+R 0
+A -
+X Invalid string contents at position 29: ...minecraft:<--[HERE]@27
+E Invalid string contents at position 29: ...minecraft:<--[HERE]@27
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:n
+R 0
+A -
+X Invalid string contents at position 30: ...inecraft:n<--[HERE]@28
+E Invalid string contents at position 30: ...inecraft:n<--[HERE]@28
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:no
+R 0
+A -
+X Invalid string contents at position 31: ...necraft:no<--[HERE]@29
+E Invalid string contents at position 31: ...necraft:no<--[HERE]@29
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:not
+R 0
+A -
+X Invalid string contents at position 32: ...ecraft:not<--[HERE]@30
+E Invalid string contents at position 32: ...ecraft:not<--[HERE]@30
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:noti
+R 0
+A -
+X Invalid string contents at position 33: ...craft:noti<--[HERE]@31
+E Invalid string contents at position 33: ...craft:noti<--[HERE]@31
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notic
+R 0
+A -
+X Invalid string contents at position 34: ...raft:notic<--[HERE]@32
+E Invalid string contents at position 34: ...raft:notic<--[HERE]@32
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice
+R 0
+A -
+X Invalid string contents at position 35: ...aft:notice<--[HERE]@33
+E Invalid string contents at position 35: ...aft:notice<--[HERE]@33
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice"
+R 0
+A -
+X Expected literal , at position 36: ...ft:notice"<--[HERE]@34
+E Expected literal , at position 36: ...ft:notice"<--[HERE]@34
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",
+R 0
+A -
+X Expected literal " at position 37: ...t:notice",<--[HERE]@35
+E Expected literal " at position 37: ...t:notice",<--[HERE]@35
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",b
+R 0
+A -
+X Expected literal : at position 38: ...:notice",b<--[HERE]@36
+E Expected literal : at position 38: ...:notice",b<--[HERE]@36
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",bo
+R 0
+A -
+X Expected literal : at position 39: ...notice",bo<--[HERE]@37
+E Expected literal : at position 39: ...notice",bo<--[HERE]@37
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",bod
+R 0
+A -
+X Expected literal : at position 40: ...otice",bod<--[HERE]@38
+E Expected literal : at position 40: ...otice",bod<--[HERE]@38
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body
+R 0
+A -
+X Expected literal : at position 41: ...tice",body<--[HERE]@39
+E Expected literal : at position 41: ...tice",body<--[HERE]@39
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:
+R 0
+A -
+X Expected a valid unquoted string at position 42: ...ice",body:<--[HERE]@40
+E Expected a valid unquoted string at position 42: ...ice",body:<--[HERE]@40
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{
+R 0
+A -
+X Expected literal " at position 43: ...ce",body:{<--[HERE]@41
+E Expected literal " at position 43: ...ce",body:{<--[HERE]@41
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{t
+R 0
+A -
+X Expected literal : at position 44: ...e",body:{t<--[HERE]@42
+E Expected literal : at position 44: ...e",body:{t<--[HERE]@42
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{ty
+R 0
+A -
+X Expected literal : at position 45: ...",body:{ty<--[HERE]@43
+E Expected literal : at position 45: ...",body:{ty<--[HERE]@43
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{typ
+R 0
+A -
+X Expected literal : at position 46: ...,body:{typ<--[HERE]@44
+E Expected literal : at position 46: ...,body:{typ<--[HERE]@44
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type
+R 0
+A -
+X Expected literal : at position 47: ...body:{type<--[HERE]@45
+E Expected literal : at position 47: ...body:{type<--[HERE]@45
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:
+R 0
+A -
+X Expected a valid unquoted string at position 48: ...ody:{type:<--[HERE]@46
+E Expected a valid unquoted string at position 48: ...ody:{type:<--[HERE]@46
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"
+R 0
+A -
+X Invalid string contents at position 49: ...dy:{type:"<--[HERE]@47
+E Invalid string contents at position 49: ...dy:{type:"<--[HERE]@47
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"m
+R 0
+A -
+X Invalid string contents at position 50: ...y:{type:"m<--[HERE]@48
+E Invalid string contents at position 50: ...y:{type:"m<--[HERE]@48
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"mi
+R 0
+A -
+X Invalid string contents at position 51: ...:{type:"mi<--[HERE]@49
+E Invalid string contents at position 51: ...:{type:"mi<--[HERE]@49
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"min
+R 0
+A -
+X Invalid string contents at position 52: ...{type:"min<--[HERE]@50
+E Invalid string contents at position 52: ...{type:"min<--[HERE]@50
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"mine
+R 0
+A -
+X Invalid string contents at position 53: ...type:"mine<--[HERE]@51
+E Invalid string contents at position 53: ...type:"mine<--[HERE]@51
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minec
+R 0
+A -
+X Invalid string contents at position 54: ...ype:"minec<--[HERE]@52
+E Invalid string contents at position 54: ...ype:"minec<--[HERE]@52
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecr
+R 0
+A -
+X Invalid string contents at position 55: ...pe:"minecr<--[HERE]@53
+E Invalid string contents at position 55: ...pe:"minecr<--[HERE]@53
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecra
+R 0
+A -
+X Invalid string contents at position 56: ...e:"minecra<--[HERE]@54
+E Invalid string contents at position 56: ...e:"minecra<--[HERE]@54
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraf
+R 0
+A -
+X Invalid string contents at position 57: ...:"minecraf<--[HERE]@55
+E Invalid string contents at position 57: ...:"minecraf<--[HERE]@55
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft
+R 0
+A -
+X Invalid string contents at position 58: ..."minecraft<--[HERE]@56
+E Invalid string contents at position 58: ..."minecraft<--[HERE]@56
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:
+R 0
+A -
+X Invalid string contents at position 59: ...minecraft:<--[HERE]@57
+E Invalid string contents at position 59: ...minecraft:<--[HERE]@57
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:p
+R 0
+A -
+X Invalid string contents at position 60: ...inecraft:p<--[HERE]@58
+E Invalid string contents at position 60: ...inecraft:p<--[HERE]@58
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:pl
+R 0
+A -
+X Invalid string contents at position 61: ...necraft:pl<--[HERE]@59
+E Invalid string contents at position 61: ...necraft:pl<--[HERE]@59
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:pla
+R 0
+A -
+X Invalid string contents at position 62: ...ecraft:pla<--[HERE]@60
+E Invalid string contents at position 62: ...ecraft:pla<--[HERE]@60
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plai
+R 0
+A -
+X Invalid string contents at position 63: ...craft:plai<--[HERE]@61
+E Invalid string contents at position 63: ...craft:plai<--[HERE]@61
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain
+R 0
+A -
+X Invalid string contents at position 64: ...raft:plain<--[HERE]@62
+E Invalid string contents at position 64: ...raft:plain<--[HERE]@62
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_
+R 0
+A -
+X Invalid string contents at position 65: ...aft:plain_<--[HERE]@63
+E Invalid string contents at position 65: ...aft:plain_<--[HERE]@63
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_m
+R 0
+A -
+X Invalid string contents at position 66: ...ft:plain_m<--[HERE]@64
+E Invalid string contents at position 66: ...ft:plain_m<--[HERE]@64
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_me
+R 0
+A -
+X Invalid string contents at position 67: ...t:plain_me<--[HERE]@65
+E Invalid string contents at position 67: ...t:plain_me<--[HERE]@65
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_mes
+R 0
+A -
+X Invalid string contents at position 68: ...:plain_mes<--[HERE]@66
+E Invalid string contents at position 68: ...:plain_mes<--[HERE]@66
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_mess
+R 0
+A -
+X Invalid string contents at position 69: ...plain_mess<--[HERE]@67
+E Invalid string contents at position 69: ...plain_mess<--[HERE]@67
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_messa
+R 0
+A -
+X Invalid string contents at position 70: ...lain_messa<--[HERE]@68
+E Invalid string contents at position 70: ...lain_messa<--[HERE]@68
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_messag
+R 0
+A -
+X Invalid string contents at position 71: ...ain_messag<--[HERE]@69
+E Invalid string contents at position 71: ...ain_messag<--[HERE]@69
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message
+R 0
+A -
+X Invalid string contents at position 72: ...in_message<--[HERE]@70
+E Invalid string contents at position 72: ...in_message<--[HERE]@70
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message"
+R 0
+A -
+X Expected literal , at position 73: ...n_message"<--[HERE]@71
+E Expected literal , at position 73: ...n_message"<--[HERE]@71
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",
+R 0
+A -
+X Expected literal " at position 74: ..._message",<--[HERE]@72
+E Expected literal " at position 74: ..._message",<--[HERE]@72
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",c
+R 0
+A -
+X Expected literal : at position 75: ...message",c<--[HERE]@73
+E Expected literal : at position 75: ...message",c<--[HERE]@73
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",co
+R 0
+A -
+X Expected literal : at position 76: ...essage",co<--[HERE]@74
+E Expected literal : at position 76: ...essage",co<--[HERE]@74
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",con
+R 0
+A -
+X Expected literal : at position 77: ...ssage",con<--[HERE]@75
+E Expected literal : at position 77: ...ssage",con<--[HERE]@75
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",cont
+R 0
+A -
+X Expected literal : at position 78: ...sage",cont<--[HERE]@76
+E Expected literal : at position 78: ...sage",cont<--[HERE]@76
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",conte
+R 0
+A -
+X Expected literal : at position 79: ...age",conte<--[HERE]@77
+E Expected literal : at position 79: ...age",conte<--[HERE]@77
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",conten
+R 0
+A -
+X Expected literal : at position 80: ...ge",conten<--[HERE]@78
+E Expected literal : at position 80: ...ge",conten<--[HERE]@78
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",content
+R 0
+A -
+X Expected literal : at position 81: ...e",content<--[HERE]@79
+E Expected literal : at position 81: ...e",content<--[HERE]@79
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",contents
+R 0
+A -
+X Expected literal : at position 82: ...",contents<--[HERE]@80
+E Expected literal : at position 82: ...",contents<--[HERE]@80
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",contents:
+R 0
+A -
+X Expected a valid unquoted string at position 83: ...,contents:<--[HERE]@81
+E Expected a valid unquoted string at position 83: ...,contents:<--[HERE]@81
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",contents:"
+R 0
+A -
+X Invalid string contents at position 84: ...contents:"<--[HERE]@82
+E Invalid string contents at position 84: ...contents:"<--[HERE]@82
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",contents:"x
+R 0
+A -
+X Invalid string contents at position 85: ...ontents:"x<--[HERE]@83
+E Invalid string contents at position 85: ...ontents:"x<--[HERE]@83
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",contents:"x"
+R 0
+A -
+X Expected literal , at position 86: ...ntents:"x"<--[HERE]@84
+E Expected literal , at position 86: ...ntents:"x"<--[HERE]@84
+S -2--2 0 0 
+@ all {title:"x",type:"minecraft:notice",body:{type:"minecraft:plain_message",contents:"x"}
+R 0
+A -
+X Expected literal , at position 87: ...tents:"x"}<--[HERE]@85
+E Expected literal , at position 87: ...tents:"x"}<--[HERE]@85
+S -2--2 0 0 
+@ all {type:"minecraft:u
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:u<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:u<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:un
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:un<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:un<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:uni
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:uni<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:uni<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:unif
+R 0
+A -
+X Invalid string contents at position 23: ...craft:unif<--[HERE]@21
+E Invalid string contents at position 23: ...craft:unif<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:unifo
+R 0
+A -
+X Invalid string contents at position 24: ...raft:unifo<--[HERE]@22
+E Invalid string contents at position 24: ...raft:unifo<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:unifor
+R 0
+A -
+X Invalid string contents at position 25: ...aft:unifor<--[HERE]@23
+E Invalid string contents at position 25: ...aft:unifor<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:uniform
+R 0
+A -
+X Invalid string contents at position 26: ...ft:uniform<--[HERE]@24
+E Invalid string contents at position 26: ...ft:uniform<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:uniform"
+R 0
+A -
+X Expected literal , at position 27: ...t:uniform"<--[HERE]@25
+E Expected literal , at position 27: ...t:uniform"<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",
+R 0
+A -
+X Expected literal " at position 28: ...:uniform",<--[HERE]@26
+E Expected literal " at position 28: ...:uniform",<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",m
+R 0
+A -
+X Expected literal : at position 29: ...uniform",m<--[HERE]@27
+E Expected literal : at position 29: ...uniform",m<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",mi
+R 0
+A -
+X Expected literal : at position 30: ...niform",mi<--[HERE]@28
+E Expected literal : at position 30: ...niform",mi<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min
+R 0
+A -
+X Expected literal : at position 31: ...iform",min<--[HERE]@29
+E Expected literal : at position 31: ...iform",min<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:
+R 0
+A -
+X Expected a valid unquoted string at position 32: ...form",min:<--[HERE]@30
+E Expected a valid unquoted string at position 32: ...form",min:<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1
+R 0
+A -
+X Expected literal . at position 33: ...orm",min:1<--[HERE]@31
+E Expected literal . at position 33: ...orm",min:1<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1,
+R 0
+A -
+X Expected literal " at position 34: ...rm",min:1,<--[HERE]@32
+E Expected literal " at position 34: ...rm",min:1,<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1,m
+R 0
+A -
+X Expected literal : at position 35: ...m",min:1,m<--[HERE]@33
+E Expected literal : at position 35: ...m",min:1,m<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1,ma
+R 0
+A -
+X Expected literal : at position 36: ...",min:1,ma<--[HERE]@34
+E Expected literal : at position 36: ...",min:1,ma<--[HERE]@34
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1,max
+R 0
+A -
+X Expected literal : at position 37: ...,min:1,max<--[HERE]@35
+E Expected literal : at position 37: ...,min:1,max<--[HERE]@35
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1,max:
+R 0
+A -
+X Expected a valid unquoted string at position 38: ...min:1,max:<--[HERE]@36
+E Expected a valid unquoted string at position 38: ...min:1,max:<--[HERE]@36
+S -2--2 0 0 
+@ all {type:"minecraft:uniform",min:1,max:2
+R 0
+A -
+X Expected literal . at position 39: ...in:1,max:2<--[HERE]@37
+E Expected literal . at position 39: ...in:1,max:2<--[HERE]@37
+S -2--2 0 0 
+@ all {type:"minecraft:constant",value:1.
+R 0
+A -
+X Expected a decimal number at position 37: ...",value:1.<--[HERE]@35
+E Expected a decimal number at position 37: ...",value:1.<--[HERE]@35
+S -2--2 0 0 
+@ all {type:"minecraft:constant",value:1.5
+R 0
+A -
+X Expected literal e|E at position 38: ...,value:1.5<--[HERE]@36
+E Expected literal e|E at position 38: ...,value:1.5<--[HERE]@36
+S -2--2 0 0 
+@ all {type:"minecraft:b
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:b<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:b<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:bi
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:bi<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:bi<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:bin
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:bin<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:bin<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:bino
+R 0
+A -
+X Invalid string contents at position 23: ...craft:bino<--[HERE]@21
+E Invalid string contents at position 23: ...craft:bino<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:binom
+R 0
+A -
+X Invalid string contents at position 24: ...raft:binom<--[HERE]@22
+E Invalid string contents at position 24: ...raft:binom<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:binomi
+R 0
+A -
+X Invalid string contents at position 25: ...aft:binomi<--[HERE]@23
+E Invalid string contents at position 25: ...aft:binomi<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:binomia
+R 0
+A -
+X Invalid string contents at position 26: ...ft:binomia<--[HERE]@24
+E Invalid string contents at position 26: ...ft:binomia<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:binomial
+R 0
+A -
+X Invalid string contents at position 27: ...t:binomial<--[HERE]@25
+E Invalid string contents at position 27: ...t:binomial<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:binomial"
+R 0
+A -
+X Expected literal , at position 28: ...:binomial"<--[HERE]@26
+E Expected literal , at position 28: ...:binomial"<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",
+R 0
+A -
+X Expected literal " at position 29: ...binomial",<--[HERE]@27
+E Expected literal " at position 29: ...binomial",<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n
+R 0
+A -
+X Expected literal : at position 30: ...inomial",n<--[HERE]@28
+E Expected literal : at position 30: ...inomial",n<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:
+R 0
+A -
+X Expected a valid unquoted string at position 31: ...nomial",n:<--[HERE]@29
+E Expected a valid unquoted string at position 31: ...nomial",n:<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3
+R 0
+A -
+X Expected literal . at position 32: ...omial",n:3<--[HERE]@30
+E Expected literal . at position 32: ...omial",n:3<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3,
+R 0
+A -
+X Expected literal " at position 33: ...mial",n:3,<--[HERE]@31
+E Expected literal " at position 33: ...mial",n:3,<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3,p
+R 0
+A -
+X Expected literal : at position 34: ...ial",n:3,p<--[HERE]@32
+E Expected literal : at position 34: ...ial",n:3,p<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3,p:
+R 0
+A -
+X Expected a valid unquoted string at position 35: ...al",n:3,p:<--[HERE]@33
+E Expected a valid unquoted string at position 35: ...al",n:3,p:<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3,p:0
+R 0
+A -
+X Expected literal . at position 36: ...l",n:3,p:0<--[HERE]@34
+E Expected literal . at position 36: ...l",n:3,p:0<--[HERE]@34
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3,p:0.
+R 0
+A -
+X Expected a decimal number at position 37: ...",n:3,p:0.<--[HERE]@35
+E Expected a decimal number at position 37: ...",n:3,p:0.<--[HERE]@35
+S -2--2 0 0 
+@ all {type:"minecraft:binomial",n:3,p:0.5
+R 0
+A -
+X Expected literal e|E at position 38: ...,n:3,p:0.5<--[HERE]@36
+E Expected literal e|E at position 38: ...,n:3,p:0.5<--[HERE]@36
+S -2--2 0 0 
+@ all {type:"minecraft:r
+R 0
+A -
+X Invalid string contents at position 20: ...inecraft:r<--[HERE]@18
+E Invalid string contents at position 20: ...inecraft:r<--[HERE]@18
+S -2--2 0 0 
+@ all {type:"minecraft:ra
+R 0
+A -
+X Invalid string contents at position 21: ...necraft:ra<--[HERE]@19
+E Invalid string contents at position 21: ...necraft:ra<--[HERE]@19
+S -2--2 0 0 
+@ all {type:"minecraft:ran
+R 0
+A -
+X Invalid string contents at position 22: ...ecraft:ran<--[HERE]@20
+E Invalid string contents at position 22: ...ecraft:ran<--[HERE]@20
+S -2--2 0 0 
+@ all {type:"minecraft:rand
+R 0
+A -
+X Invalid string contents at position 23: ...craft:rand<--[HERE]@21
+E Invalid string contents at position 23: ...craft:rand<--[HERE]@21
+S -2--2 0 0 
+@ all {type:"minecraft:rando
+R 0
+A -
+X Invalid string contents at position 24: ...raft:rando<--[HERE]@22
+E Invalid string contents at position 24: ...raft:rando<--[HERE]@22
+S -2--2 0 0 
+@ all {type:"minecraft:random
+R 0
+A -
+X Invalid string contents at position 25: ...aft:random<--[HERE]@23
+E Invalid string contents at position 25: ...aft:random<--[HERE]@23
+S -2--2 0 0 
+@ all {type:"minecraft:random_
+R 0
+A -
+X Invalid string contents at position 26: ...ft:random_<--[HERE]@24
+E Invalid string contents at position 26: ...ft:random_<--[HERE]@24
+S -2--2 0 0 
+@ all {type:"minecraft:random_p
+R 0
+A -
+X Invalid string contents at position 27: ...t:random_p<--[HERE]@25
+E Invalid string contents at position 27: ...t:random_p<--[HERE]@25
+S -2--2 0 0 
+@ all {type:"minecraft:random_pa
+R 0
+A -
+X Invalid string contents at position 28: ...:random_pa<--[HERE]@26
+E Invalid string contents at position 28: ...:random_pa<--[HERE]@26
+S -2--2 0 0 
+@ all {type:"minecraft:random_pat
+R 0
+A -
+X Invalid string contents at position 29: ...random_pat<--[HERE]@27
+E Invalid string contents at position 29: ...random_pat<--[HERE]@27
+S -2--2 0 0 
+@ all {type:"minecraft:random_patc
+R 0
+A -
+X Invalid string contents at position 30: ...andom_patc<--[HERE]@28
+E Invalid string contents at position 30: ...andom_patc<--[HERE]@28
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch
+R 0
+A -
+X Invalid string contents at position 31: ...ndom_patch<--[HERE]@29
+E Invalid string contents at position 31: ...ndom_patch<--[HERE]@29
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch"
+R 0
+A -
+X Expected literal , at position 32: ...dom_patch"<--[HERE]@30
+E Expected literal , at position 32: ...dom_patch"<--[HERE]@30
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",
+R 0
+A -
+X Expected literal " at position 33: ...om_patch",<--[HERE]@31
+E Expected literal " at position 33: ...om_patch",<--[HERE]@31
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",c
+R 0
+A -
+X Expected literal : at position 34: ...m_patch",c<--[HERE]@32
+E Expected literal : at position 34: ...m_patch",c<--[HERE]@32
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",co
+R 0
+A -
+X Expected literal : at position 35: ..._patch",co<--[HERE]@33
+E Expected literal : at position 35: ..._patch",co<--[HERE]@33
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",con
+R 0
+A -
+X Expected literal : at position 36: ...patch",con<--[HERE]@34
+E Expected literal : at position 36: ...patch",con<--[HERE]@34
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",conf
+R 0
+A -
+X Expected literal : at position 37: ...atch",conf<--[HERE]@35
+E Expected literal : at position 37: ...atch",conf<--[HERE]@35
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",confi
+R 0
+A -
+X Expected literal : at position 38: ...tch",confi<--[HERE]@36
+E Expected literal : at position 38: ...tch",confi<--[HERE]@36
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config
+R 0
+A -
+X Expected literal : at position 39: ...ch",config<--[HERE]@37
+E Expected literal : at position 39: ...ch",config<--[HERE]@37
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:
+R 0
+A -
+X Expected a valid unquoted string at position 40: ...h",config:<--[HERE]@38
+E Expected a valid unquoted string at position 40: ...h",config:<--[HERE]@38
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{
+R 0
+A -
+X Expected literal " at position 41: ...",config:{<--[HERE]@39
+E Expected literal " at position 41: ...",config:{<--[HERE]@39
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{t
+R 0
+A -
+X Expected literal : at position 42: ...,config:{t<--[HERE]@40
+E Expected literal : at position 42: ...,config:{t<--[HERE]@40
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tr
+R 0
+A -
+X Expected literal : at position 43: ...config:{tr<--[HERE]@41
+E Expected literal : at position 43: ...config:{tr<--[HERE]@41
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tri
+R 0
+A -
+X Expected literal : at position 44: ...onfig:{tri<--[HERE]@42
+E Expected literal : at position 44: ...onfig:{tri<--[HERE]@42
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{trie
+R 0
+A -
+X Expected literal : at position 45: ...nfig:{trie<--[HERE]@43
+E Expected literal : at position 45: ...nfig:{trie<--[HERE]@43
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries
+R 0
+A -
+X Expected literal : at position 46: ...fig:{tries<--[HERE]@44
+E Expected literal : at position 46: ...fig:{tries<--[HERE]@44
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:
+R 0
+A -
+X Expected a valid unquoted string at position 47: ...ig:{tries:<--[HERE]@45
+E Expected a valid unquoted string at position 47: ...ig:{tries:<--[HERE]@45
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1
+R 0
+A -
+X Expected literal . at position 48: ...g:{tries:1<--[HERE]@46
+E Expected literal . at position 48: ...g:{tries:1<--[HERE]@46
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,
+R 0
+A -
+X Expected literal " at position 49: ...:{tries:1,<--[HERE]@47
+E Expected literal " at position 49: ...:{tries:1,<--[HERE]@47
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,x
+R 0
+A -
+X Expected literal : at position 50: ...{tries:1,x<--[HERE]@48
+E Expected literal : at position 50: ...{tries:1,x<--[HERE]@48
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz
+R 0
+A -
+X Expected literal : at position 51: ...tries:1,xz<--[HERE]@49
+E Expected literal : at position 51: ...tries:1,xz<--[HERE]@49
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_
+R 0
+A -
+X Expected literal : at position 52: ...ries:1,xz_<--[HERE]@50
+E Expected literal : at position 52: ...ries:1,xz_<--[HERE]@50
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_s
+R 0
+A -
+X Expected literal : at position 53: ...ies:1,xz_s<--[HERE]@51
+E Expected literal : at position 53: ...ies:1,xz_s<--[HERE]@51
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_sp
+R 0
+A -
+X Expected literal : at position 54: ...es:1,xz_sp<--[HERE]@52
+E Expected literal : at position 54: ...es:1,xz_sp<--[HERE]@52
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spr
+R 0
+A -
+X Expected literal : at position 55: ...s:1,xz_spr<--[HERE]@53
+E Expected literal : at position 55: ...s:1,xz_spr<--[HERE]@53
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spre
+R 0
+A -
+X Expected literal : at position 56: ...:1,xz_spre<--[HERE]@54
+E Expected literal : at position 56: ...:1,xz_spre<--[HERE]@54
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_sprea
+R 0
+A -
+X Expected literal : at position 57: ...1,xz_sprea<--[HERE]@55
+E Expected literal : at position 57: ...1,xz_sprea<--[HERE]@55
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread
+R 0
+A -
+X Expected literal : at position 58: ...,xz_spread<--[HERE]@56
+E Expected literal : at position 58: ...,xz_spread<--[HERE]@56
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:
+R 0
+A -
+X Expected a valid unquoted string at position 59: ...xz_spread:<--[HERE]@57
+E Expected a valid unquoted string at position 59: ...xz_spread:<--[HERE]@57
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1
+R 0
+A -
+X Expected literal . at position 60: ...z_spread:1<--[HERE]@58
+E Expected literal . at position 60: ...z_spread:1<--[HERE]@58
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,
+R 0
+A -
+X Expected literal " at position 61: ..._spread:1,<--[HERE]@59
+E Expected literal " at position 61: ..._spread:1,<--[HERE]@59
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y
+R 0
+A -
+X Expected literal : at position 62: ...spread:1,y<--[HERE]@60
+E Expected literal : at position 62: ...spread:1,y<--[HERE]@60
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_
+R 0
+A -
+X Expected literal : at position 63: ...pread:1,y_<--[HERE]@61
+E Expected literal : at position 63: ...pread:1,y_<--[HERE]@61
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_s
+R 0
+A -
+X Expected literal : at position 64: ...read:1,y_s<--[HERE]@62
+E Expected literal : at position 64: ...read:1,y_s<--[HERE]@62
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_sp
+R 0
+A -
+X Expected literal : at position 65: ...ead:1,y_sp<--[HERE]@63
+E Expected literal : at position 65: ...ead:1,y_sp<--[HERE]@63
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spr
+R 0
+A -
+X Expected literal : at position 66: ...ad:1,y_spr<--[HERE]@64
+E Expected literal : at position 66: ...ad:1,y_spr<--[HERE]@64
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spre
+R 0
+A -
+X Expected literal : at position 67: ...d:1,y_spre<--[HERE]@65
+E Expected literal : at position 67: ...d:1,y_spre<--[HERE]@65
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_sprea
+R 0
+A -
+X Expected literal : at position 68: ...:1,y_sprea<--[HERE]@66
+E Expected literal : at position 68: ...:1,y_sprea<--[HERE]@66
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread
+R 0
+A -
+X Expected literal : at position 69: ...1,y_spread<--[HERE]@67
+E Expected literal : at position 69: ...1,y_spread<--[HERE]@67
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:
+R 0
+A -
+X Expected a valid unquoted string at position 70: ...,y_spread:<--[HERE]@68
+E Expected a valid unquoted string at position 70: ...,y_spread:<--[HERE]@68
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1
+R 0
+A -
+X Expected literal . at position 71: ...y_spread:1<--[HERE]@69
+E Expected literal . at position 71: ...y_spread:1<--[HERE]@69
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,
+R 0
+A -
+X Expected literal " at position 72: ..._spread:1,<--[HERE]@70
+E Expected literal " at position 72: ..._spread:1,<--[HERE]@70
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,f
+R 0
+A -
+X Expected literal : at position 73: ...spread:1,f<--[HERE]@71
+E Expected literal : at position 73: ...spread:1,f<--[HERE]@71
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,fe
+R 0
+A -
+X Expected literal : at position 74: ...pread:1,fe<--[HERE]@72
+E Expected literal : at position 74: ...pread:1,fe<--[HERE]@72
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,fea
+R 0
+A -
+X Expected literal : at position 75: ...read:1,fea<--[HERE]@73
+E Expected literal : at position 75: ...read:1,fea<--[HERE]@73
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feat
+R 0
+A -
+X Expected literal : at position 76: ...ead:1,feat<--[HERE]@74
+E Expected literal : at position 76: ...ead:1,feat<--[HERE]@74
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,featu
+R 0
+A -
+X Expected literal : at position 77: ...ad:1,featu<--[HERE]@75
+E Expected literal : at position 77: ...ad:1,featu<--[HERE]@75
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,featur
+R 0
+A -
+X Expected literal : at position 78: ...d:1,featur<--[HERE]@76
+E Expected literal : at position 78: ...d:1,featur<--[HERE]@76
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature
+R 0
+A -
+X Expected literal : at position 79: ...:1,feature<--[HERE]@77
+E Expected literal : at position 79: ...:1,feature<--[HERE]@77
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:
+R 0
+A -
+X Expected a valid unquoted string at position 80: ...1,feature:<--[HERE]@78
+E Expected a valid unquoted string at position 80: ...1,feature:<--[HERE]@78
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{
+R 0
+A -
+X Expected literal " at position 81: ...,feature:{<--[HERE]@79
+E Expected literal " at position 81: ...,feature:{<--[HERE]@79
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{f
+R 0
+A -
+X Expected literal : at position 82: ...feature:{f<--[HERE]@80
+E Expected literal : at position 82: ...feature:{f<--[HERE]@80
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{fe
+R 0
+A -
+X Expected literal : at position 83: ...eature:{fe<--[HERE]@81
+E Expected literal : at position 83: ...eature:{fe<--[HERE]@81
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{fea
+R 0
+A -
+X Expected literal : at position 84: ...ature:{fea<--[HERE]@82
+E Expected literal : at position 84: ...ature:{fea<--[HERE]@82
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feat
+R 0
+A -
+X Expected literal : at position 85: ...ture:{feat<--[HERE]@83
+E Expected literal : at position 85: ...ture:{feat<--[HERE]@83
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{featu
+R 0
+A -
+X Expected literal : at position 86: ...ure:{featu<--[HERE]@84
+E Expected literal : at position 86: ...ure:{featu<--[HERE]@84
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{featur
+R 0
+A -
+X Expected literal : at position 87: ...re:{featur<--[HERE]@85
+E Expected literal : at position 87: ...re:{featur<--[HERE]@85
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature
+R 0
+A -
+X Expected literal : at position 88: ...e:{feature<--[HERE]@86
+E Expected literal : at position 88: ...e:{feature<--[HERE]@86
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:
+R 0
+A -
+X Expected a valid unquoted string at position 89: ...:{feature:<--[HERE]@87
+E Expected a valid unquoted string at position 89: ...:{feature:<--[HERE]@87
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"
+R 0
+A -
+X Invalid string contents at position 90: ...{feature:"<--[HERE]@88
+E Invalid string contents at position 90: ...{feature:"<--[HERE]@88
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"m
+R 0
+A -
+X Invalid string contents at position 91: ...feature:"m<--[HERE]@89
+E Invalid string contents at position 91: ...feature:"m<--[HERE]@89
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"mi
+R 0
+A -
+X Invalid string contents at position 92: ...eature:"mi<--[HERE]@90
+E Invalid string contents at position 92: ...eature:"mi<--[HERE]@90
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"min
+R 0
+A -
+X Invalid string contents at position 93: ...ature:"min<--[HERE]@91
+E Invalid string contents at position 93: ...ature:"min<--[HERE]@91
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"mine
+R 0
+A -
+X Invalid string contents at position 94: ...ture:"mine<--[HERE]@92
+E Invalid string contents at position 94: ...ture:"mine<--[HERE]@92
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minec
+R 0
+A -
+X Invalid string contents at position 95: ...ure:"minec<--[HERE]@93
+E Invalid string contents at position 95: ...ure:"minec<--[HERE]@93
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecr
+R 0
+A -
+X Invalid string contents at position 96: ...re:"minecr<--[HERE]@94
+E Invalid string contents at position 96: ...re:"minecr<--[HERE]@94
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecra
+R 0
+A -
+X Invalid string contents at position 97: ...e:"minecra<--[HERE]@95
+E Invalid string contents at position 97: ...e:"minecra<--[HERE]@95
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraf
+R 0
+A -
+X Invalid string contents at position 98: ...:"minecraf<--[HERE]@96
+E Invalid string contents at position 98: ...:"minecraf<--[HERE]@96
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft
+R 0
+A -
+X Invalid string contents at position 99: ..."minecraft<--[HERE]@97
+E Invalid string contents at position 99: ..."minecraft<--[HERE]@97
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:
+R 0
+A -
+X Invalid string contents at position 100: ...minecraft:<--[HERE]@98
+E Invalid string contents at position 100: ...minecraft:<--[HERE]@98
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:o
+R 0
+A -
+X Invalid string contents at position 101: ...inecraft:o<--[HERE]@99
+E Invalid string contents at position 101: ...inecraft:o<--[HERE]@99
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oa
+R 0
+A -
+X Invalid string contents at position 102: ...necraft:oa<--[HERE]@100
+E Invalid string contents at position 102: ...necraft:oa<--[HERE]@100
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak
+R 0
+A -
+X Invalid string contents at position 103: ...ecraft:oak<--[HERE]@101
+E Invalid string contents at position 103: ...ecraft:oak<--[HERE]@101
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak"
+R 0
+A -
+X Expected literal , at position 104: ...craft:oak"<--[HERE]@102
+E Expected literal , at position 104: ...craft:oak"<--[HERE]@102
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",
+R 0
+A -
+X Expected literal " at position 105: ...raft:oak",<--[HERE]@103
+E Expected literal " at position 105: ...raft:oak",<--[HERE]@103
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",p
+R 0
+A -
+X Expected literal : at position 106: ...aft:oak",p<--[HERE]@104
+E Expected literal : at position 106: ...aft:oak",p<--[HERE]@104
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",pl
+R 0
+A -
+X Expected literal : at position 107: ...ft:oak",pl<--[HERE]@105
+E Expected literal : at position 107: ...ft:oak",pl<--[HERE]@105
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",pla
+R 0
+A -
+X Expected literal : at position 108: ...t:oak",pla<--[HERE]@106
+E Expected literal : at position 108: ...t:oak",pla<--[HERE]@106
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",plac
+R 0
+A -
+X Expected literal : at position 109: ...:oak",plac<--[HERE]@107
+E Expected literal : at position 109: ...:oak",plac<--[HERE]@107
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",place
+R 0
+A -
+X Expected literal : at position 110: ...oak",place<--[HERE]@108
+E Expected literal : at position 110: ...oak",place<--[HERE]@108
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placem
+R 0
+A -
+X Expected literal : at position 111: ...ak",placem<--[HERE]@109
+E Expected literal : at position 111: ...ak",placem<--[HERE]@109
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placeme
+R 0
+A -
+X Expected literal : at position 112: ...k",placeme<--[HERE]@110
+E Expected literal : at position 112: ...k",placeme<--[HERE]@110
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placemen
+R 0
+A -
+X Expected literal : at position 113: ...",placemen<--[HERE]@111
+E Expected literal : at position 113: ...",placemen<--[HERE]@111
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placement
+R 0
+A -
+X Expected literal : at position 114: ...,placement<--[HERE]@112
+E Expected literal : at position 114: ...,placement<--[HERE]@112
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placement:
+R 0
+A -
+X Expected a valid unquoted string at position 115: ...placement:<--[HERE]@113
+E Expected a valid unquoted string at position 115: ...placement:<--[HERE]@113
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placement:[
+R 0
+A -
+X Expected literal B at position 116: ...lacement:[<--[HERE]@114
+E Expected literal B at position 116: ...lacement:[<--[HERE]@114
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placement:[]
+R 0
+A -
+X Expected literal , at position 117: ...acement:[]<--[HERE]@115
+E Expected literal , at position 117: ...acement:[]<--[HERE]@115
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placement:[]}
+R 0
+A -
+X Expected literal , at position 118: ...cement:[]}<--[HERE]@116
+E Expected literal , at position 118: ...cement:[]}<--[HERE]@116
+S -2--2 0 0 
+@ all {type:"minecraft:random_patch",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:"minecraft:oak",placement:[]}}
+R 0
+A -
+X Expected literal , at position 119: ...ement:[]}}<--[HERE]@117
+E Expected literal , at position 119: ...ement:[]}}<--[HERE]@117
+S -2--2 0 0 

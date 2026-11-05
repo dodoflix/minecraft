@@ -49,6 +49,8 @@ import net.minecraft.world.phys.Vec3;
 public class ArgsGolden {
    static Src currentSrc;
    static RegistryAccess.Frozen access;
+   /** Static + data pack + reloadable registries with updated tags (`ReloadableServerRegistries.LoadResult.lookupWithUpdatedTags`). */
+   static net.minecraft.core.HolderLookup.Provider fullLookup;
    static CommandBuildContext ctx;
    static final String[] TEAMS = {"red", "blue", "Team Name!", "sp ace", "\u00e9quipe"};
 
@@ -117,8 +119,10 @@ public class ArgsGolden {
       @Override public FeatureFlagSet enabledFeatures() { return FeatureFlags.DEFAULT_FLAGS; }
       @Override public <E> CompletableFuture<Suggestions> suggestRegistryElements(ResourceKey<? extends net.minecraft.core.Registry<E>> key, ElementSuggestionType elements,
          com.mojang.brigadier.suggestion.SuggestionsBuilder builder, CommandContext<?> context, java.util.function.Predicate<E> filter) {
-         return access.lookup(key).map(registry -> {
-            this.suggestRegistryElements((net.minecraft.core.HolderLookup<E>) registry, elements, builder, filter);
+         java.util.Optional<? extends net.minecraft.core.HolderLookup<E>> lookup = access.lookup(key);
+         if (lookup.isEmpty()) lookup = fullLookup.lookup(key);
+         return lookup.map(registry -> {
+            this.suggestRegistryElements(registry, elements, builder, filter);
             return builder.buildFuture();
          }).orElseGet(Suggestions::empty);
       }
@@ -295,9 +299,31 @@ public class ArgsGolden {
       System.err.println(spec.name + ": " + inputs.size() + " inputs -> " + out);
    }
 
+   /** `extractor.Setup.bootstrap()` plus the reloadable registries (loot tables, predicates, ...), like `ReloadableServerResources.loadResources`. */
+   static void boot() throws Exception {
+      net.minecraft.SharedConstants.tryDetectVersion();
+      net.minecraft.server.Bootstrap.bootStrap();
+      java.util.concurrent.Executor direct = Runnable::run;
+      var resources = new net.minecraft.server.packs.resources.MultiPackResourceManager(net.minecraft.server.packs.PackType.SERVER_DATA,
+         List.of(net.minecraft.server.packs.repository.ServerPacksSource.createVanillaPackSource().fullResources()));
+      var layers = net.minecraft.server.RegistryLayer.createRegistryAccess();
+      var staticTags = net.minecraft.tags.TagLoader.loadTagsForExistingRegistries(resources, layers.getLayer(net.minecraft.server.RegistryLayer.STATIC));
+      staticTags.forEach(net.minecraft.core.Registry.PendingTags::apply);
+      var worldContext = net.minecraft.tags.TagLoader.buildUpdatedLookups(layers.getAccessForLoading(net.minecraft.server.RegistryLayer.WORLD), staticTags);
+      var world = net.minecraft.resources.RegistryDataLoader.load(resources, worldContext, net.minecraft.resources.RegistryDataLoader.WORLD_REGISTRIES, direct).join();
+      List<net.minecraft.core.HolderLookup.RegistryLookup<?>> dimContext = new ArrayList<>(worldContext);
+      world.listRegistries().forEach(dimContext::add);
+      var dims = net.minecraft.resources.RegistryDataLoader.load(resources, dimContext, net.minecraft.resources.RegistryDataLoader.DIMENSION_REGISTRIES, direct).join();
+      layers = layers.replaceFrom(net.minecraft.server.RegistryLayer.WORLD, world, dims);
+      access = layers.compositeAccess();
+      var reloadable = net.minecraft.server.ReloadableServerRegistries.reload(layers, staticTags, resources, direct).join();
+      fullLookup = reloadable.lookupWithUpdatedTags();
+      net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(fullLookup).forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
+   }
+
    public static void main(String[] args) throws Exception {
-      access = extractor.Setup.bootstrap();
-      ctx = CommandBuildContext.simple(access, FeatureFlags.DEFAULT_FLAGS);
+      boot();
+      ctx = CommandBuildContext.simple(fullLookup, FeatureFlags.DEFAULT_FLAGS);
       ArgsSpecs.register();
       Path dir = Path.of(args[0]);
       Set<String> wanted = new HashSet<>(Arrays.asList(args).subList(1, args.length));

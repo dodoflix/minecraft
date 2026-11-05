@@ -161,6 +161,15 @@ pub fn render_block_predicate(p: &mc_game::commands::arguments::blocks::block_pr
     }
 }
 
+/// `ArgsSpecs.holder`.
+pub fn render_resource_or_id(r: &mc_game::commands::arguments::resource_arguments::ResourceOrId) -> String {
+    use mc_game::commands::arguments::resource_arguments::ResourceOrId;
+    match r {
+        ResourceOrId::Reference(key) => key.id.to_string(),
+        ResourceOrId::Inline(_) => "direct".to_owned(),
+    }
+}
+
 /// Java `esc` of the generator.
 pub fn esc(s: &str) -> String {
     let mut b = String::new();

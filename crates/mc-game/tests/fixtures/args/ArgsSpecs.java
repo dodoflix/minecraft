@@ -379,7 +379,38 @@ final class ArgsSpecs {
       }).target(1500));
    }
 
+
+   static String holder(Object v) {
+      if (v == null) return "null";
+      var h = (net.minecraft.core.Holder<?>) v;
+      return h.getRegisteredNameIfPresent().orElse("direct");
+   }
+
+   static void registerResourceOrId() {
+      String[] seeds = {"foo", "minecraft:foo", "012", "{}", "true", "false", "1", "1.5", "-1", "[]", "{type:\"minecraft:constant\",value:1}", "{type:\"minecraft:no_op\",config:{}}", "{type:\"minecraft:nope\"}", "{foo:bar}", "{", "{a:", "\"x\"", "'x'", "x:y", "minecraft:", ":x", "A:B", "a b", "", " ", "\u00e9", "{} ", " {}",
+         "chests/simple_dungeon", "minecraft:chests/simple_dungeon", "gameplay/fishing", "minecraft:entities/zombie", "minecraft:empty", "minecraft:chests/", "container.5", "weapon", "weapon.*", "container.*", "armor.head", "contents", "mainhand", "minecraft:slots/hotbar", "minecraft:slots/weapon", "minecraft:slots/nope", "{type:\"minecraft:empty\"}", "{type:\"minecraft:slot_range\",slots:\"weapon.*\"}",
+         "{type:\"minecraft:group\",terms:[]}", "{type:\"minecraft:slot_range\"}", "{type:\"minecraft:set_count\",count:1}", "{condition:\"minecraft:random_chance\",chance:0.5}", "{function:\"minecraft:set_count\",count:1}", "{pools:[]}", "{type:\"minecraft:chest\",pools:[]}", "{title:\"x\",type:\"minecraft:notice\",body:{type:\"minecraft:plain_message\",contents:\"x\"}}",
+         "{type:\"minecraft:uniform\",min:1,max:2}", "{type:\"minecraft:constant\",value:1.5}", "{type:\"minecraft:binomial\",n:3,p:0.5}", "{type:\"minecraft:random_patch\",config:{tries:1,xz_spread:1,y_spread:1,feature:{feature:\"minecraft:oak\",placement:[]}}}"};
+      Object[][] types = {{"loot_table", (java.util.function.Supplier<ArgumentType<?>>) () -> ResourceOrIdArgument.lootTable(ArgsGolden.ctx)},
+         {"loot_modifier", (java.util.function.Supplier<ArgumentType<?>>) () -> ResourceOrIdArgument.lootModifier(ArgsGolden.ctx)},
+         {"loot_predicate", (java.util.function.Supplier<ArgumentType<?>>) () -> ResourceOrIdArgument.lootPredicate(ArgsGolden.ctx)},
+         {"float_provider", (java.util.function.Supplier<ArgumentType<?>>) () -> ResourceOrIdArgument.floatProvider(ArgsGolden.ctx)},
+         {"int_provider", (java.util.function.Supplier<ArgumentType<?>>) () -> ResourceOrIdArgument.intProvider(ArgsGolden.ctx)},
+         {"feature", (java.util.function.Supplier<ArgumentType<?>>) () -> ResourceOrIdArgument.feature(ArgsGolden.ctx)},
+         {"dialog", (java.util.function.Supplier<ArgumentType<?>>) () -> ResourceOrIdArgument.dialog(ArgsGolden.ctx)}};
+      for (var t : types) {
+         @SuppressWarnings("unchecked")
+         var sup = (java.util.function.Supplier<ArgumentType<?>>) t[1];
+         ArgsGolden.add(new ArgsGolden.Spec("resource_or_id_" + t[0], sup, seeds).render(ArgsSpecs::holder).target(500));
+      }
+      ArgsGolden.add(new ArgsGolden.Spec("slot_source", () -> SlotSourceArgument.slotSource(ArgsGolden.ctx), seeds).render(v -> {
+         var r = (SlotSourceArgument.Result) v;
+         return r.name().orElse("<unnamed>") + "|" + (r instanceof SlotSourceArgument.LiteralResult ? "literal" : "holder");
+      }).target(500));
+   }
+
    static void register() {
+      registerResourceOrId();
       registerBlocks();
       registerItems();
       registerSlots();
