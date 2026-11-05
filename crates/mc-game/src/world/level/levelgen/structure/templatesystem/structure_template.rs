@@ -472,15 +472,12 @@ impl StructureTemplate {
                     nbt.put_long("LootTableSeed", random.next_long());
                 }
                 // `blockEntity.loadWithComponents(nbt)`: the level stores the block entity data (`id`, `x`, `y`, `z`
-                // are the metadata `saveWithFullMetadata` adds, and it always saves the `components` map)
+                // are the metadata `saveWithFullMetadata` adds)
                 let mut tag = nbt.clone();
-                if !tag.contains("components") {
-                    tag.put("components", CompoundTag::new());
-                }
                 tag.put_int("x", block_pos.x());
                 tag.put_int("y", block_pos.y());
                 tag.put_int("z", block_pos.z());
-                level.set_block_entity_nbt(tag);
+                level.set_block_entity_nbt(crate::world::level::levelgen::block_entity_data::load_and_save_template_block_entity(tag));
             }
             if let Some(previous_fluid_state) = previous_fluid_state {
                 if state.get_fluid_state().is_source() {

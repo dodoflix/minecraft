@@ -65,6 +65,43 @@ pub fn get_block_entity_nbt(level: &mut dyn WorldGenLevel, pos: BlockPos) -> Opt
     Some(tag)
 }
 
+/// `blockEntity.loadWithComponents(tag)` then `saveWithFullMetadata()` for a block entity of a data pack template (`id`, `x`,
+/// `y`, `z` present): the `components` map is always saved, and the types whose saved form differs from the template's
+/// stored NBT are normalised (brewing stand: `BrewTime`/`Fuel` as ints and the defaulted fields; randomizable containers
+/// keep `LootTableSeed` only with a `LootTable` and then save no `Items`; a banner without layers saves no `patterns`).
+/// Other types are saved as they were stored.
+pub fn load_and_save_template_block_entity(mut tag: CompoundTag) -> CompoundTag {
+    if tag.get_string("id").is_some_and(is_randomizable_container) {
+        if tag.contains("LootTable") {
+            tag.remove("Items");
+            if tag.get_long_or("LootTableSeed", 0) == 0 {
+                tag.remove("LootTableSeed");
+            }
+        } else {
+            tag.remove("LootTableSeed");
+        }
+    }
+    if tag.get_string("id") == Some("minecraft:banner") && tag.get_list("patterns").is_some_and(|p| p.is_empty()) {
+        tag.remove("patterns");
+    }
+    if tag.get_string("id") == Some("minecraft:brewing_stand") {
+        let brew_time = tag.get_int_or("BrewTime", 0);
+        let fuel = tag.get_int_or("Fuel", 0);
+        let total_brew_time = tag.get_int_or("total_brew_time", 400);
+        let total_fuel = tag.get_int_or("total_fuel", 20);
+        let speed_multiplier = tag.get_float_or("speed_multiplier", 1.0);
+        tag.put_int("BrewTime", brew_time);
+        tag.put_int("total_brew_time", total_brew_time);
+        tag.put_int("Fuel", fuel);
+        tag.put_int("total_fuel", total_fuel);
+        tag.put_float("speed_multiplier", speed_multiplier);
+    }
+    if !tag.contains("components") {
+        tag.put("components", CompoundTag::new());
+    }
+    tag
+}
+
 /// `RandomizableContainer.setBlockEntityLootTable(level, random, pos, lootTable)`: when the block entity at `pos` is a
 /// randomizable container it gets the loot table and `random.nextLong()` as seed (`trySaveLootTable`: the seed is only
 /// saved when non-zero, and a container with a loot table saves no `Items`).

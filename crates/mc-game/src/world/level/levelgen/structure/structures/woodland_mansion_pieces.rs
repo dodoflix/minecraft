@@ -1063,7 +1063,7 @@ fn handle_data_marker(rotation: Rotation, marker_id: &str, position: BlockPos, l
             _ => None,
         };
         if let Some(facing) = facing {
-            chest_state = chest_state.set(props::FACING, rotation.rotate(facing));
+            chest_state = chest_state.set(props::HORIZONTAL_FACING, rotation.rotate(facing));
         }
         create_chest_at(level, chunk_bb, random, position, WOODLAND_MANSION_LOOT, Some(chest_state));
         return;

@@ -252,8 +252,8 @@ pub fn reorient(level: &dyn BlockGetter, block_pos: BlockPos, block_state: Block
 /// `RandomizableContainer.setLootTable(table, seed)` on the raw block entity NBT the level holds at `pos`
 /// (`LootTable`, and `LootTableSeed` only when non-zero: `trySaveLootTable`). Returns whether a block entity exists.
 pub fn set_loot_table(level: &mut dyn WorldGenLevel, pos: BlockPos, loot_table: &str, seed: i64) -> bool {
-    let Some(existing) = level.get_block_entity_nbt(pos) else { return false };
-    let mut tag = existing.clone();
+    // `level.getBlockEntity(pos)`: a `DUMMY` entry becomes the block's fresh block entity
+    let Some(mut tag) = super::super::block_entity_data::get_block_entity_nbt(level, pos) else { return false };
     tag.remove("Items");
     tag.put_string("LootTable", loot_table);
     if seed != 0 {

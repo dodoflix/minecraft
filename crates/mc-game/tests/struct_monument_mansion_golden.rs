@@ -14,7 +14,9 @@ mod common;
 use common::feature_harness::*;
 use flate2::read::GzDecoder;
 use mc_core::bounding_box::BoundingBox;
-use mc_core::pos::ChunkPos;
+use mc_core::pos::{BlockPos, ChunkPos};
+use mc_game::world::level::levelgen::block_entity_data::get_block_entity_nbt;
+use mc_game::world::level::levelgen::gen_level::GenLevel;
 use mc_core::random::{WorldgenRandom, XoroshiroRandomSource};
 use mc_game::world::level::levelgen::holder::Holder;
 use mc_game::world::level::levelgen::registries::{Cells, DecodeCtx};
@@ -78,6 +80,20 @@ fn oracle_lines(dump: Vec<String>, full: bool) -> Vec<String> {
         out.push(format!("DG {c} {} {count}", fnv.hex()));
     }
     out
+}
+
+/// `ProtoChunk.getBlockEntity` turns a `DUMMY` entry into the block's fresh block entity when something fetches it (the vanilla
+/// dump saves the real ones): materialise the modelled types before dumping.
+fn materialize_block_entities(level: &mut GenLevel<'_>, cx: i32, cz: i32) {
+    for x in cx - 1..=cx + 1 {
+        for z in cz - 1..=cz + 1 {
+            let dummies: Vec<BlockPos> =
+                level.region().get_chunk(x, z).expect("chunk of the region").access.block_entities.iter().filter(|(_, t)| t.get_string("id") == Some("DUMMY")).map(|(p, _)| *p).collect();
+            for pos in dummies {
+                get_block_entity_nbt(level, pos);
+            }
+        }
+    }
 }
 
 fn first_diff(got: &[String], want: &[String]) -> usize {
@@ -179,6 +195,7 @@ fn run(name: &str, accept_every_biome: bool, fixture: &str) -> Stats {
             let writable = BoundingBox::new(min_x, MIN_Y + 1, min_z, min_x + 15, MIN_Y + HEIGHT - 1, min_z + 15);
             let manager = StructureManager::new(&env);
             start.place_in_chunk(&mut level, &manager, &env, &mut random, &writable, ChunkPos::new(px, pz));
+            materialize_block_entities(&mut level, px, pz);
             let got = oracle_lines(dump(&mut level, &before), plain.is_some());
             stats.placements += 1;
             if got != expected {
