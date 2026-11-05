@@ -190,7 +190,7 @@ impl LevelTickEnv for Env {
     fn runs_normally(&self) -> bool {
         true
     }
-    fn is_entity_frozen(&self, _entity: &dyn Entity) -> bool {
+    fn is_entity_frozen(&self, _entity: &dyn Entity, _count_player_passengers: i32) -> bool {
         false
     }
     fn weather(&self) -> WeatherState {
