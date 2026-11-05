@@ -4,6 +4,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::RemovalReason;
+use crate::world::item::enchantment::actors::Actors;
 
 /// The damage sources `LivingEntity` movement/tick code hurts with (`DamageSources` factory names).
 #[derive(Clone, Copy, Debug)]
@@ -30,11 +31,17 @@ pub fn hurt(level: &mut ServerLevel, entity: &mut dyn Entity, kind: LivingDamage
     entity.hurt_server(level, &source, amount);
 }
 
-/// SEAM(EcEnchant): `EnchantmentHelper.tickEffects(level, entity)`.
-pub fn enchantment_tick_effects(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
+/// `EnchantmentHelper.tickEffects(level, entity)`.
+pub fn enchantment_tick_effects(level: &mut ServerLevel, entity: &mut dyn Entity) {
+    let id = entity.id();
+    crate::world::item::enchantment_helper::tick_effects(level, &mut Actors::of(entity), id);
+}
 
-/// SEAM(EcEnchant): `EnchantmentHelper.runLocationChangedEffects(level, entity)`.
-pub fn run_location_changed_effects(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
+/// `EnchantmentHelper.runLocationChangedEffects(level, entity)`.
+pub fn run_location_changed_effects(level: &mut ServerLevel, entity: &mut dyn Entity) {
+    let id = entity.id();
+    crate::world::item::enchantment_helper::run_location_changed_effects(level, &mut Actors::of(entity), id);
+}
 
 pub fn tick_effects(level: &mut ServerLevel, entity: &mut dyn Entity) {
     super::effects::tick_effects(entity, level);
