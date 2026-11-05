@@ -1,12 +1,13 @@
 //! `net.minecraft.world.level.block.CauldronBlock` (the empty cauldron).
+use mc_game_core::register_block_class;
 use super::abstract_cauldron_block;
 use super::cauldron_interactions::CauldronKind;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ServerPlayer;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::precipitation::Precipitation;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::precipitation::Precipitation;
 use mc_data::GameEvent;
 
 pub struct CauldronBlock;

@@ -1,15 +1,16 @@
 //! `net.minecraft.world.level.block.SculkShriekerBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::SculkShriekerBlockEntity;
-use crate::world::entity::Entity;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::SculkShriekerBlockEntity;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::BlockPlaceContext;
 use mc_data::fluid::Fluid;
 
 pub struct SculkShriekerBlock;
 
 impl BlockBehaviour for SculkShriekerBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let replaced_fluid = level.get_fluid_state(context.get_clicked_pos());
         Some(block.default_state().set(props::WATERLOGGED, replaced_fluid.fluid() == Fluid::WATER))
@@ -28,9 +29,9 @@ impl BlockBehaviour for SculkShriekerBlock {
         }
     }
 
-    fn spawn_after_break(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, tool: &crate::world::item::ItemStack, drop_experience: bool) {
+    fn spawn_after_break(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, tool: &mc_game_core::world::item::ItemStack, drop_experience: bool) {
         if drop_experience {
-            helpers::try_drop_experience(level, pos, tool, &crate::registry::typed::int_provider::IntProvider::Constant(5));
+            helpers::try_drop_experience(level, pos, tool, &mc_game_core::registry::typed::int_provider::IntProvider::Constant(5));
         }
     }
 

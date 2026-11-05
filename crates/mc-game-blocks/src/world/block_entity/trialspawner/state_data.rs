@@ -1,10 +1,10 @@
 //! `TrialSpawnerStateData`: the mutable run state of a trial spawner (tracked players and mobs, counters, next spawn
 //! data, the ejecting loot table) and its saved form (`Packed`).
 
-use crate::util::java_uuid_hash_set::UuidHashSet;
-use crate::util::weighted_list::{Weighted, WeightedList};
-use crate::world::item::ItemStack;
-use crate::world::level::spawn_data::SpawnData;
+use mc_game_core::util::java_uuid_hash_set::UuidHashSet;
+use mc_game_core::util::weighted_list::{Weighted, WeightedList};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::spawn_data::SpawnData;
 use mc_core::ident::Identifier;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, LONG, MapCodec, int_range, record};

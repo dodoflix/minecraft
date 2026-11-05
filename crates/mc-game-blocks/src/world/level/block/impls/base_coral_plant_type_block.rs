@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.BaseCoralPlantTypeBlock` (also dead coral plants / fans: `BaseCoralPlantBlock`,
 //! `BaseCoralFanBlock`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct BaseCoralPlantTypeBlock;
 
@@ -54,7 +55,7 @@ pub fn can_survive(level: &dyn LevelReader, pos: BlockPos) -> bool {
 }
 
 impl BlockBehaviour for BaseCoralPlantTypeBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         Some(get_state_for_placement(block, level, context))
     }

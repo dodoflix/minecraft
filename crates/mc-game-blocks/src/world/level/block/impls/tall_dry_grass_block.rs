@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.TallDryGrassBlock` (extends `DryVegetationBlock`): bonemeal spreads short dry grass.
-use super::prelude::*;
-use super::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::{BonemealSource, find_spreadable_neighbour_pos, has_spreadable_neighbour_pos};
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::{BonemealSource, find_spreadable_neighbour_pos, has_spreadable_neighbour_pos};
 
 pub struct TallDryGrassBlock;
 

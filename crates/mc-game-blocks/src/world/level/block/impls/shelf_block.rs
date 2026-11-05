@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.ShelfBlock`.
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct ShelfBlock;
 
 impl BlockBehaviour for ShelfBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

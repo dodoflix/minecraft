@@ -1,11 +1,12 @@
 //! `DecoratedPotBlockEntity` (single-item container with sherds, loot table and the wobble animation state).
 
-use super::randomizable_container::{self, RandomizableContainerData};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::server::level::ServerLevel;
-use crate::world::container::Container;
-use crate::world::entity::EntityId;
-use crate::world::item::ItemStack;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::randomizable_container::{self, RandomizableContainerData};
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::Container;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
@@ -75,7 +76,7 @@ impl DecoratedPotBlockEntity {
         self.item = stack;
     }
 
-    pub fn unpack(&mut self, level: &ServerLevel, player: Option<&dyn crate::world::entity::Entity>) {
+    pub fn unpack(&mut self, level: &ServerLevel, player: Option<&dyn mc_game_core::world::entity::Entity>) {
         let mut loot = std::mem::take(&mut self.loot);
         let pos = self.base.pos;
         randomizable_container::unpack_loot_table(level, pos, &mut loot, self, player);
@@ -102,7 +103,7 @@ impl Container for DecoratedPotBlockEntity {
         self.item.is_empty()
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        if slot == 0 { &self.item } else { crate::world::container::empty_stack() }
+        if slot == 0 { &self.item } else { mc_game_core::world::container::empty_stack() }
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
         if slot == 0 { Some(&mut self.item) } else { None }
@@ -132,8 +133,8 @@ impl Container for DecoratedPotBlockEntity {
     fn set_changed(&mut self) {
         self.base.changed = true;
     }
-    fn still_valid(&self, player: &dyn crate::world::inventory::MenuPlayer) -> bool {
-        crate::world::container::still_valid_block_entity(self.base.pos, player)
+    fn still_valid(&self, player: &dyn mc_game_core::world::inventory::MenuPlayer) -> bool {
+        mc_game_core::world::container::still_valid_block_entity(self.base.pos, player)
     }
 }
 
@@ -141,7 +142,7 @@ impl BlockEntity for DecoratedPotBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.decorations = super::read_codec(tag, "sherds", &PotDecorations::codec()).unwrap_or_default();
+        self.decorations = mc_game_core::world::block_entity::read_codec(tag, "sherds", &PotDecorations::codec()).unwrap_or_default();
         if !self.loot.try_load_loot_table(tag) {
             self.item = tag.get("item").and_then(|t| ItemStack::from_tag(t).into_result().ok()).unwrap_or_else(ItemStack::empty);
         } else {
@@ -198,7 +199,7 @@ impl BlockEntity for DecoratedPotBlockEntity {
 
     fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
         self.unpack(level, None);
-        crate::world::containers::drop_contents_list(level, pos, std::slice::from_ref(&self.item));
+        mc_game_core::world::containers::drop_contents_list(level, pos, std::slice::from_ref(&self.item));
     }
 
     fn as_container(&self) -> Option<&dyn Container> {
@@ -215,10 +216,10 @@ impl BlockEntity for DecoratedPotBlockEntity {
 
     fn container_accessed(&mut self, level: &mut ServerLevel) {
         self.base.changed = false;
-        super::set_changed(level, self.base.pos, self.base.block_state);
+        mc_game_core::world::block_entity::set_changed(level, self.base.pos, self.base.block_state);
     }
 
-    fn unpack_loot_table(&mut self, level: &ServerLevel, player: Option<&dyn crate::world::entity::Entity>) {
+    fn unpack_loot_table(&mut self, level: &ServerLevel, player: Option<&dyn mc_game_core::world::entity::Entity>) {
         self.unpack(level, player);
     }
 

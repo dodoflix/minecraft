@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.NetherrackBlock`: bone meal turns it into the nylium found next to it.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::{BonemealSource, BonemealType};
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::{BonemealSource, BonemealType};
 
 pub struct NetherrackBlock;
 

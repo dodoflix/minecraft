@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.WitherRoseBlock` (extends `FlowerBlock`).
+use mc_game_core::register_block_class;
 use super::flower_block::FlowerBlock;
-use super::prelude::*;
-use super::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
-use crate::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
+use mc_game_core::world::entity::effect::MobEffectInstance;
 use mc_data::MobEffect;
 use mc_protocol::components::SuspiciousStewEffects;
 
@@ -22,13 +23,13 @@ impl BlockBehaviour for WitherRoseBlock {
     fn entity_inside(
         &self,
         _state: BlockState,
-        level: &mut crate::server::level::ServerLevel,
+        level: &mut mc_game_core::server::level::ServerLevel,
         _pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
-        use crate::server::level::level_data::ServerLevelData;
+        use mc_game_core::server::level::level_data::ServerLevelData;
         if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful && entity.living().is_some() {
             let source = level.damage_sources().wither();
             if !entity.is_invulnerable_to(level, &source) {

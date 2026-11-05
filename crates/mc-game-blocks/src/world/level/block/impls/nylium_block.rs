@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.NyliumBlock`: turns into netherrack under cover; bone meal spreads nether vegetation.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::{BonemealSource, BonemealType};
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::{BonemealSource, BonemealType};
 
 pub struct NyliumBlock;
 

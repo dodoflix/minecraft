@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.CactusBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 
 const MAX_CACTUS_GROWING_HEIGHT: i32 = 3;
 const ATTEMPT_GROW_CACTUS_FLOWER_AGE: i32 = 8;
@@ -11,10 +12,10 @@ impl BlockBehaviour for CactusBlock {
     fn entity_inside(
         &self,
         _state: BlockState,
-        level: &mut crate::server::level::ServerLevel,
+        level: &mut mc_game_core::server::level::ServerLevel,
         _pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         let source = level.damage_sources().cactus();

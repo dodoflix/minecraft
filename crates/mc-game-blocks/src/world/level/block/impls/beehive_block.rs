@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.BeehiveBlock` (`bee_nest`, `beehive`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::{BeeReleaseStatus, BeehiveBlockEntity};
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{BlockPlaceContext, ItemStack};
-use crate::world::item::enchantment::enchantment_tags::PREVENTS_BEE_SPAWNS_WHEN_MINING;
-use crate::world::level::explosion::{Explosion, default_on_explosion_hit};
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{BeeReleaseStatus, BeehiveBlockEntity};
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::item::enchantment::enchantment_tags::PREVENTS_BEE_SPAWNS_WHEN_MINING;
+use mc_game_core::world::level::explosion::{Explosion, default_on_explosion_hit};
 use mc_core::ident::Identifier;
 use mc_core::phys::AABB;
 use mc_data::EntityType;
@@ -47,11 +48,11 @@ impl BlockBehaviour for BeehiveBlock {
         default_on_explosion_hit(state, level, pos, explosion, on_hit);
         anger_nearby_bees(level, pos);
     }
-    fn player_destroy(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn crate::world::block_entity::BlockEntity>, destroyed_with: &ItemStack) {
-        crate::server::level::block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
+    fn player_destroy(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos, state: BlockState, block_entity: Option<&dyn mc_game_core::world::block_entity::BlockEntity>, destroyed_with: &ItemStack) {
+        mc_game_core::server::level::block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
         if let Some(hive) = block_entity.and_then(|be| be.as_any().downcast_ref::<BeehiveBlockEntity>()) {
             let prevents = Identifier::try_parse(PREVENTS_BEE_SPAWNS_WHEN_MINING)
-                .is_some_and(|tag| crate::world::item::enchantment_helper::has_tag(&level.registries, destroyed_with, &tag));
+                .is_some_and(|tag| mc_game_core::world::item::enchantment_helper::has_tag(&level.registries, destroyed_with, &tag));
             if !prevents {
                 // the snapshot of the destroyed hive: release its bees through a detached copy (the original is gone)
                 let mut copy = BeehiveBlockEntity::new(pos, state);
@@ -86,7 +87,7 @@ impl BlockBehaviour for BeehiveBlock {
         {
             server_level.with_block_entity(pos, |level, be| {
                 if let Some(hive) = be.as_any_mut().downcast_mut::<BeehiveBlockEntity>() {
-                    hive.empty_all_living_from_hive(level, None, state, crate::world::block_entity::BeeReleaseStatus::Emergency);
+                    hive.empty_all_living_from_hive(level, None, state, mc_game_core::world::block_entity::BeeReleaseStatus::Emergency);
                 }
             });
         }

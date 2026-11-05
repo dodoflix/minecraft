@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.SkullBlock` (extends `AbstractSkullBlock`); also `PlayerHeadBlock`.
+use mc_game_core::register_block_class;
 use super::abstract_skull_block;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::rotation_segment;
-use crate::world::level::redstone::Orientation;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::rotation_segment;
+use mc_game_core::world::level::redstone::Orientation;
 use mc_data::block::PathComputationType;
 
 pub struct SkullBlock;

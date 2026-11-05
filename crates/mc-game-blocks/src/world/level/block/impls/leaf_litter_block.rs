@@ -1,13 +1,14 @@
 //! `net.minecraft.world.level.block.LeafLitterBlock` (extends `VegetationBlock`).
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct LeafLitterBlock;
 
 impl BlockBehaviour for LeafLitterBlock {
-    fn can_be_replaced(&self, state: BlockState, context: &crate::world::item::BlockPlaceContext) -> bool {
-        super::segmentable_block::can_be_replaced(state, context, props::SEGMENT_AMOUNT) || crate::world::level::block::PlainBlock.can_be_replaced(state, context)
+    fn can_be_replaced(&self, state: BlockState, context: &mc_game_core::world::item::BlockPlaceContext) -> bool {
+        super::segmentable_block::can_be_replaced(state, context, props::SEGMENT_AMOUNT) || mc_game_core::world::level::block::PlainBlock.can_be_replaced(state, context)
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         Some(super::segmentable_block::get_state_for_placement(&*level, context, block, props::SEGMENT_AMOUNT, props::HORIZONTAL_FACING))
     }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
@@ -15,7 +16,7 @@ impl BlockBehaviour for LeafLitterBlock {
         level.get_block_state(below_pos).is_face_sturdy_at(level, below_pos, Direction::Up)
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        super::vegetation_block::update_shape(state, &*level, pos)
+        mc_game_core::world::level::block::impls::vegetation_block::update_shape(state, &*level, pos)
     });
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)

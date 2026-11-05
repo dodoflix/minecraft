@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.BaseTorchBlock` (also `TorchBlock`, `RedstoneTorchBlock`: no own overrides here).
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct BaseTorchBlock;
 

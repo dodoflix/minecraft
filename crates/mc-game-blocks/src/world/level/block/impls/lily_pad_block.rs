@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.LilyPadBlock` (extends `VegetationBlock`).
-use super::prelude::*;
-use super::vegetation_block::MayPlaceOn;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
 
 pub struct LilyPadBlock;
 
@@ -20,18 +21,18 @@ fn is_abstract_boat(ty: mc_data::EntityType) -> bool {
 
 impl BlockBehaviour for LilyPadBlock {
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-        super::vegetation_block::can_survive(self, level, pos)
+        mc_game_core::world::level::block::impls::vegetation_block::can_survive(self, level, pos)
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        super::vegetation_block::update_shape(state, &*level, pos)
+        mc_game_core::world::level::block::impls::vegetation_block::update_shape(state, &*level, pos)
     });
     fn entity_inside(
         &self,
         _state: BlockState,
-        level: &mut crate::server::level::ServerLevel,
+        level: &mut mc_game_core::server::level::ServerLevel,
         pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         if is_abstract_boat(entity.get_type()) {

@@ -2,9 +2,9 @@
 //! shortcut: the debug-only `SHEEP` detector (`SharedConstants.DEBUG_*_DETECTS_SHEEP_AS_PLAYERS`, off in release) and the
 //! test-only `EntitySelector.onlySelectPlayer(s)` are not modelled.
 
-use crate::server::level::ServerLevel;
-use crate::world::entity::ServerPlayer;
-use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use uuid::Uuid;

@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.TallSeagrassBlock` (extends `DoublePlantBlock`).
-use super::double_plant_block;
-use super::prelude::*;
-use super::vegetation_block::MayPlaceOn;
-use crate::server::level::ServerLevel;
-use crate::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::double_plant_block;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
 use mc_data::enums::DoubleBlockHalf;
 
 pub struct TallSeagrassBlock;
@@ -18,7 +19,7 @@ impl BlockBehaviour for TallSeagrassBlock {
     fn is_liquid_block_container(&self) -> bool {
         true
     }
-    fn can_place_liquid(&self, _user: Option<&dyn crate::world::entity::Entity>, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _fluid: mc_data::fluid::Fluid) -> bool {
+    fn can_place_liquid(&self, _user: Option<&dyn mc_game_core::world::entity::Entity>, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _fluid: mc_data::fluid::Fluid) -> bool {
         false
     }
     fn place_liquid(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState, _fluid_state: mc_data::fluid::FluidState) -> bool {
@@ -44,19 +45,19 @@ impl BlockBehaviour for TallSeagrassBlock {
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         double_plant_block::update_shape(state, &*level, pos, direction, neighbour_state)
     });
-    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &ItemStack) {
+    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &ItemStack) {
         double_plant_block::set_placed_by(state.block(), level, pos);
     }
-    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer) -> BlockState {
         double_plant_block::player_will_destroy(level, pos, state, player)
     }
     fn player_destroy(
         &self,
         level: &mut ServerLevel,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         pos: BlockPos,
         _state: BlockState,
-        block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
+        block_entity: Option<&dyn mc_game_core::world::block_entity::BlockEntity>,
         destroyed_with: &ItemStack,
     ) {
         double_plant_block::player_destroy(level, player, pos, block_entity, destroyed_with);

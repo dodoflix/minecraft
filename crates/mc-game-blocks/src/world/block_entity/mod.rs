@@ -1,8 +1,3 @@
-// bridge: remove after branch migration (docs/crate-split.md#removal)
-//! `mc-game-blocks`: re-exports the lower crate's module tree and adds this crate's modules.
-
-pub use parent::world::block_entity::*;
-
 mod beacon_block_entity;
 
 pub use beacon_block_entity::BeaconBlockEntity;

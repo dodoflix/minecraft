@@ -1,9 +1,10 @@
 //! `SpawnerBlockEntity`: the monster spawner. All logic is `BaseSpawner`'s.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
-use crate::server::level::ServerLevel;
-use crate::world::level::BlockGetter;
-use crate::world::level::base_spawner::{BaseSpawner, BaseSpawnerHost};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::base_spawner::{BaseSpawner, BaseSpawnerHost};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -11,7 +12,7 @@ use mc_data::{BlockEntityType, EntityType};
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 
-pub use super::Spawner;
+pub use mc_game_core::world::block_entity::Spawner;
 
 /// The anonymous `BaseSpawner` subclass of `SpawnerBlockEntity`.
 struct SpawnerHost;

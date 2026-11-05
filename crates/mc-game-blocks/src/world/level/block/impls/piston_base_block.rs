@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.PistonBaseBlock` (`piston` package; `minecraft:piston` and `minecraft:sticky_piston`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::{BlockPlaceContext, ItemStack};
-use crate::world::level::block::piston::{PistonStructureResolver, push_reaction};
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::has_signal;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::level::block::piston::{PistonStructureResolver, push_reaction};
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_signal;
 use mc_data::GameEvent;
 use mc_data::SoundEvent;
 use mc_data::enums::{PistonType, PushReaction};
@@ -14,7 +15,7 @@ use crate::world::block_entity::PistonMovingBlockEntity;
 use crate::world::block_entity::piston_moving_block_entity::MovingPistonLevelExt;
 use mc_core::random::RandomSource;
 
-pub use crate::world::level::block::piston::is_pushable;
+pub use mc_game_core::world::level::block::piston::is_pushable;
 
 /// `PistonBaseBlock.TRIGGER_*`.
 pub const TRIGGER_EXTEND: i32 = 0;
@@ -195,7 +196,7 @@ impl JavaPosMap {
 }
 
 impl BlockBehaviour for PistonBaseBlock {
-    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &ItemStack) {
+    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &ItemStack) {
         self.check_if_extend(level, pos, state);
     }
 

@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.SaplingBlock` (extends `VegetationBlock`): grows into the trees of its `TreeGrower`.
-use super::prelude::*;
-use super::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::BonemealSource;
-use crate::world::level::block::grower::TreeGrower;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::block::grower::TreeGrower;
 
 pub const BRIGHTNESS_FOR_SAPLING_GROWTH: i32 = 9;
 pub const TICK_CHANCE_FOR_SAPLING_GROWTH: i32 = 7;

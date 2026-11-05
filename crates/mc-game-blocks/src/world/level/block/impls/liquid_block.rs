@@ -1,12 +1,13 @@
 //! `net.minecraft.world.level.block.LiquidBlock` (water and lava).
+use mc_game_core::{register_block_class, update_shape};
 use super::bubble_column_block;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::item::ItemStack;
-use crate::world::level::collision::CollisionContext;
-use crate::world::level::material::{fluid_behaviour, fluid_is_tag};
-use crate::world::level::redstone::Orientation;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::material::{fluid_behaviour, fluid_is_tag};
+use mc_game_core::world::level::redstone::Orientation;
 use mc_core::phys::shapes::Shapes;
 use mc_core::phys::shapes::VoxelShape;
 use mc_data::fluid::Fluid;

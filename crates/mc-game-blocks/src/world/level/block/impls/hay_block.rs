@@ -1,13 +1,14 @@
 //! `net.minecraft.world.level.block.HayBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 
 pub struct HayBlock;
 
 impl BlockBehaviour for HayBlock {
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
-        super::rotated_pillar_block::rotate_pillar(state, rotation)
+        mc_game_core::world::level::block::impls::rotated_pillar_block::rotate_pillar(state, rotation)
     }
 
     fn fall_on(&self, level: &mut ServerLevel, _state: BlockState, _pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {

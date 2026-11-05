@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.RepeaterBlock` (extends `DiodeBlock`).
-use super::diode_block::{self, Diode, diode_behaviour};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::InteractionResult;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::diode_block::{self, Diode, diode_behaviour};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::InteractionResult;
 
 pub struct RepeaterBlock;
 
@@ -26,7 +27,7 @@ impl BlockBehaviour for RepeaterBlock {
         state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         if !player.player.abilities.may_build {
@@ -36,7 +37,7 @@ impl BlockBehaviour for RepeaterBlock {
             InteractionResult::SUCCESS
         }
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let state = diode_block::get_state_for_placement(block, context);
         Some(state.set(props::LOCKED, self.is_locked(&*level, context.get_clicked_pos(), state)))
     }

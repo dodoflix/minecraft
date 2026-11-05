@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.BigDripleafBlock` (extends `HorizontalDirectionalBlock`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::BonemealSource;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::random::RandomSource;
 use mc_data::SoundEvent;
 use mc_data::enums::Tilt;
@@ -105,8 +106,8 @@ fn set_tilt_and_schedule_tick(state: BlockState, level: &mut ServerLevel, pos: B
 }
 
 impl BlockBehaviour for BigDripleafBlock {
-    crate::simple_waterlogged!();
-    fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+    mc_game_core::simple_waterlogged!();
+    fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn mc_game_core::world::entity::projectile::Projectile) {
         set_tilt_and_schedule_tick(state, level, hit.block_pos, Tilt::Full, Some(SoundEvent::BLOCK_BIG_DRIPLEAF_TILT_DOWN));
     }
     fn entity_inside(
@@ -114,13 +115,13 @@ impl BlockBehaviour for BigDripleafBlock {
         state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         // `canEntityTilt`: `onGround() && position().y > pos.getY() + 0.6875F`
         let can_entity_tilt = entity.base().on_ground() && entity.position().y > f64::from(pos.y() as f32 + 0.6875_f32);
-        if state.get(props::TILT) == Tilt::None && can_entity_tilt && !crate::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
+        if state.get(props::TILT) == Tilt::None && can_entity_tilt && !mc_game_core::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
             set_tilt_and_schedule_tick(state, level, pos, Tilt::Unstable, None);
         }
     }
@@ -143,7 +144,7 @@ impl BlockBehaviour for BigDripleafBlock {
         }
     });
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
-        if crate::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
+        if mc_game_core::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
             reset_tilt(state, level, pos);
         } else {
             match state.get(props::TILT) {
@@ -154,12 +155,12 @@ impl BlockBehaviour for BigDripleafBlock {
             }
         }
     }
-    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<crate::world::level::redstone::Orientation>, _moved_by_piston: bool) {
-        if crate::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
+    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<mc_game_core::world::level::redstone::Orientation>, _moved_by_piston: bool) {
+        if mc_game_core::world::level::signal_getter::has_neighbor_signal(&*level, pos) {
             reset_tilt(state, level, pos);
         }
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let clicked_pos = context.get_clicked_pos();
         let below_state = level.get_block_state(clicked_pos.below());
         let fluid_state = level.get_fluid_state(clicked_pos);

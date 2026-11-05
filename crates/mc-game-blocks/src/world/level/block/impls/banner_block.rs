@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.BannerBlock` (extends `AbstractBannerBlock`).
+use mc_game_core::{register_block_class, update_shape};
 use super::abstract_banner_block;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::{BlockPlaceContext, ItemStack};
-use crate::world::level::block::rotation_segment;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::level::block::rotation_segment;
 
 pub struct BannerBlock;
 

@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.AmethystBlock` (superclass of `BuddingAmethystBlock` and `AmethystClusterBlock`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use mc_data::SoundEvent;
 use mc_protocol::packets::play::level::SoundSource;
 
@@ -13,7 +14,7 @@ pub fn on_projectile_hit(level: &mut ServerLevel, hit: &mc_core::phys::BlockHitR
 }
 
 impl BlockBehaviour for AmethystBlock {
-    fn on_projectile_hit(&self, level: &mut ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+    fn on_projectile_hit(&self, level: &mut ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn mc_game_core::world::entity::projectile::Projectile) {
         on_projectile_hit(level, hit);
     }
 }

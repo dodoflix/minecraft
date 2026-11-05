@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.CarpetBlock` (also `WoolCarpetBlock`).
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct CarpetBlock;
 

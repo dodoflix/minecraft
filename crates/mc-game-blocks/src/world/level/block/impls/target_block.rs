@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.TargetBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use mc_core::math::mth;
 use mc_core::phys::{BlockHitResult, Vec3};
 
@@ -38,13 +39,13 @@ impl BlockBehaviour for TargetBlock {
             level.set_block_and_update(pos, state.set(props::POWER, 0));
         }
     }
-    fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &BlockHitResult, projectile: &mut dyn crate::world::entity::projectile::Projectile) {
-        let is_arrow = projectile.tracking_kind() == crate::world::entity::TrackingKind::Arrow;
+    fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &BlockHitResult, projectile: &mut dyn mc_game_core::world::entity::projectile::Projectile) {
+        let is_arrow = projectile.tracking_kind() == mc_game_core::world::entity::TrackingKind::Arrow;
         let output_strength = update_redstone_output(level, state, hit, is_arrow);
         if let Some(owner) = projectile.get_owner(level).filter(|o| o.is_player()).map(|o| o.id()) {
             level.with_player(owner, |level, player| {
-                player.award_stat_once(level, crate::stats::stats::Stats::TARGET_HIT);
-                crate::advancements::triggers::CriteriaTriggers::TARGET_BLOCK_HIT.trigger(level, player, projectile.as_dyn(), hit.location, output_strength);
+                player.award_stat_once(level, mc_game_core::stats::stats::Stats::TARGET_HIT);
+                mc_game_core::advancements::triggers::CriteriaTriggers::TARGET_BLOCK_HIT.trigger(level, player, projectile.as_dyn(), hit.location, output_strength);
             });
         }
     }

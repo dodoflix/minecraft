@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.ObserverBlock` (extends `DirectionalBlock`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 
 pub struct ObserverBlock;
 
@@ -60,7 +61,7 @@ impl BlockBehaviour for ObserverBlock {
             update_neighbors_in_front(level, pos, state.set(props::POWERED, false));
         }
     }
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         Some(block.default_state().set(props::FACING, context.get_nearest_looking_direction()))
     }
 }

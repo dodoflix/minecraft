@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.FlowerPotBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ServerPlayer;
-use crate::world::inventory::Prediction;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::inventory::Prediction;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::GameEvent;
 use mc_protocol::packets::play::level::SoundSource;
 use std::sync::OnceLock;
@@ -93,7 +94,7 @@ impl BlockBehaviour for FlowerPotBlock {
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if state.is_block(Block::POTTED_OPEN_EYEBLOSSOM) || state.is_block(Block::POTTED_CLOSED_EYEBLOSSOM) {
             let is_open = self.potted == Block::OPEN_EYEBLOSSOM;
-            let should_be_open = level.attribute_tri_state(crate::world::attribute::attributes::EYEBLOSSOM_OPEN, pos).to_boolean(is_open);
+            let should_be_open = level.attribute_tri_state(mc_game_core::world::attribute::attributes::EYEBLOSSOM_OPEN, pos).to_boolean(is_open);
             if is_open != should_be_open {
                 level.set_block_and_update(pos, opposite(state));
                 let new_type = super::eyeblossom_block::transformed_type(is_open);

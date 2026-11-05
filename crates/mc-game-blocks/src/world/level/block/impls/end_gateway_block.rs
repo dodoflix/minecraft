@@ -1,12 +1,13 @@
 //! `net.minecraft.world.level.block.EndGatewayBlock` (a `Portal`: teleports within the End to the gateway's exit).
-use super::prelude::*;
-use crate::server::MinecraftServer;
-use crate::server::level::ServerLevel;
-use crate::server::players::dimension_change::{PostTeleportTransition, TeleportTransition};
-use crate::world::block_entity::TheEndGatewayBlockEntity;
-use crate::world::entity::Entity;
-use crate::world::entity::inside_block_effects::InsideBlockEffectApplier;
-use crate::world::entity::portal::Portal;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::MinecraftServer;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::players::dimension_change::{PostTeleportTransition, TeleportTransition};
+use mc_game_core::world::block_entity::TheEndGatewayBlockEntity;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier;
+use mc_game_core::world::entity::portal::Portal;
 use mc_core::phys::Vec3;
 use mc_protocol::packets::play::Relatives;
 
@@ -52,8 +53,8 @@ impl BlockBehaviour for EndGatewayBlock {
         Some(&END_GATEWAY_BLOCK)
     }
 
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
-        crate::world::item::ItemStack::empty()
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+        mc_game_core::world::item::ItemStack::empty()
     }
 
     fn can_be_replaced_by_fluid(&self, _state: BlockState, _fluid: mc_data::fluid::Fluid) -> bool {

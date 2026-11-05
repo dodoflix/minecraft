@@ -1,15 +1,16 @@
 //! `net.minecraft.world.level.block.CeilingHangingSignBlock` (extends `SignBlock`).
-use super::prelude::*;
-use super::sign_block;
-use crate::server::level::ServerLevel;
-use crate::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::block::rotation_segment;
-use crate::world::level::shapes::is_face_full;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::sign_block;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::block::rotation_segment;
+use mc_game_core::world::level::shapes::is_face_full;
 
 pub struct CeilingHangingSignBlock;
 
 impl BlockBehaviour for CeilingHangingSignBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn is_possible_to_respawn_in_this(&self, _state: BlockState) -> bool {
         true
     }
@@ -18,12 +19,12 @@ impl BlockBehaviour for CeilingHangingSignBlock {
         _state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         sign_block::use_without_item(level, pos, player)
     }
-    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &ItemStack) {
+    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &ItemStack) {
         sign_block::set_placed_by(level, pos, placer)
     }
     /// `useItemOn`: a hanging sign clicked on its bottom face chains another hanging sign (`PASS`).
@@ -33,7 +34,7 @@ impl BlockBehaviour for CeilingHangingSignBlock {
         _state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         hand: InteractionHand,
         hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {

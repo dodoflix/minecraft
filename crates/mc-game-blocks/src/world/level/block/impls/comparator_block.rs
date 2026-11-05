@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.ComparatorBlock` (extends `DiodeBlock`, `EntityBlock`).
-use super::diode_block::{self, Diode, diode_behaviour};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::diode_block::{self, Diode, diode_behaviour};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::ComparatorBlockEntity;
-use crate::world::entity::Entity as _;
-use crate::world::item::InteractionResult;
+use mc_game_core::world::entity::Entity as _;
+use mc_game_core::world::item::InteractionResult;
 use mc_data::enums::ComparatorMode;
 use mc_protocol::packets::play::level::SoundSource;
 use mc_world::ticks::TickPriority;
@@ -111,7 +112,7 @@ impl Diode for ComparatorBlock {
 /// `getItemFrame(level, direction, pos)` + `ItemFrame.getAnalogOutput()`: the single item frame in `pos` facing
 /// `direction`, if any.
 fn item_frame_analog_output(level: &ServerLevel, direction: Direction, pos: BlockPos) -> Option<i32> {
-    use crate::world::entity::decoration::item_frame::analog_output_of;
+    use mc_game_core::world::entity::decoration::item_frame::analog_output_of;
     let bb = mc_core::phys::AABB::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), f64::from(pos.x() + 1), f64::from(pos.y() + 1), f64::from(pos.z() + 1));
     let frames: Vec<i32> = level
         .get_entities_of_class(&bb, |e| analog_output_of(e).is_some(), |e| analog_output_of(e).is_some_and(|(frame_direction, _)| frame_direction == direction))
@@ -123,7 +124,7 @@ fn item_frame_analog_output(level: &ServerLevel, direction: Direction, pos: Bloc
 
 impl BlockBehaviour for ComparatorBlock {
     diode_behaviour!();
-    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         Some(diode_block::get_state_for_placement(block, context))
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
@@ -134,7 +135,7 @@ impl BlockBehaviour for ComparatorBlock {
         state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         if !player.player.abilities.may_build {

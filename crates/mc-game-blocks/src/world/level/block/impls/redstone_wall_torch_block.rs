@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.RedstoneWallTorchBlock` (extends `RedstoneTorchBlock`).
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::redstone_torch_block;
 use super::wall_torch_block;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::has_signal;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_signal;
 
 /// `RedstoneWallTorchBlock.hasNeighborSignal`.
 fn has_neighbor_signal(level: &ServerLevel, pos: BlockPos, state: BlockState) -> bool {

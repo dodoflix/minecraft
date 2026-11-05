@@ -2,14 +2,15 @@
 //! (nausea cloud, geyser countdown, entity launching). The client-only tickers (particles, local sounds) are not part of
 //! a dedicated server.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
-use crate::world::level::{BlockGetter, LevelAccessor};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::material::FluidStateExt;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::material::FluidStateExt;
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::phys::{AABB, Vec3};
@@ -65,7 +66,7 @@ impl PotentSulfurBlockEntity {
             let state_to_set = if state.get(props::POTENT_SULFUR_STATE) == PotentSulfurState::Dormant { PotentSulfurState::Erupting } else { PotentSulfurState::Dormant };
             level.set_block_and_update(pos, state.set(props::POTENT_SULFUR_STATE, state_to_set));
             if state_to_set == PotentSulfurState::Dormant {
-                level.game_event_at_block(GameEvent::BLOCK_DEACTIVATE, pos, &crate::world::level::gameevent::GameEventContext::of_state(Some(state)));
+                level.game_event_at_block(GameEvent::BLOCK_DEACTIVATE, pos, &mc_game_core::world::level::gameevent::GameEventContext::of_state(Some(state)));
             }
         }
     }

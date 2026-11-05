@@ -1,14 +1,15 @@
 //! `SculkCatalystBlockEntity`: saves the cursors of its level spreader (`cursors`), spreads them every tick and turns
 //! the experience of dying mobs near it into new cursors (`CatalystListener`, delivery `BY_DISTANCE`, radius 8).
 
-use crate::world::level::LevelAccessor as _;
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::living_entity::death::get_experience_reward;
-use crate::world::entity::player::ServerPlayer;
-use crate::world::level::block::sculk_spreader::SculkSpreader;
-use crate::world::level::gameevent::{BlockEntityListener, DeliveryMode, GameEventContext, PositionSource};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::level::LevelAccessor as _;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::living_entity::death::get_experience_reward;
+use mc_game_core::world::entity::player::ServerPlayer;
+use mc_game_core::world::level::block::sculk_spreader::SculkSpreader;
+use mc_game_core::world::level::gameevent::{BlockEntityListener, DeliveryMode, GameEventContext, PositionSource};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
@@ -95,7 +96,7 @@ fn try_award_it_spreads_advancement(level: &ServerLevel, mob: &dyn Entity) {
 
 /// `CatalystListener.bloom(level, pos, state, random)`.
 fn bloom(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
-    crate::world::level::LevelAccessor::set_block_and_update(level, pos, state.set(props::BLOOM, true));
+    mc_game_core::world::level::LevelAccessor::set_block_and_update(level, pos, state.set(props::BLOOM, true));
     level.schedule_tick_block(pos, state.block(), PULSE_TICKS);
     level.send_particles(ParticleOptions::Simple(mc_data::ParticleType::SCULK_SOUL), f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 1.15, f64::from(pos.z()) + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
     let pitch = 0.6 + level.random().next_float() * 0.4;

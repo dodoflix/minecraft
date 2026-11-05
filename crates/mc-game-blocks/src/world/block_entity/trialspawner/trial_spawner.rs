@@ -5,19 +5,19 @@ use super::config::{FullConfig, TrialSpawnerConfig};
 use super::player_detector::{PlayerDetector, in_line_of_sight};
 use super::state::TrialSpawnerStateExt;
 use super::state_data::{Packed, TrialSpawnerStateData, dispensing_from_drops};
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::set_changed;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::factory::{self, EntitySpawnRequest};
-use crate::world::entity::{Entity, RemovalReason};
-use crate::world::item::ItemStack;
-use crate::world::level::base_spawner::{load_entity_tree, read_or_random_spawn_pos, spawn_aabb};
-use crate::world::level::collision::CollisionGetter;
-use crate::world::level::spawn_data::{SpawnData, has_no_configuration};
-use crate::world::level::spawner_mob_seam::{self, MobSpawnSteps};
-use crate::world::level::storage::loot::loading::get_loot_table;
-use crate::world::level::storage::loot::{LootContextParamSets, LootParams};
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::set_changed;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
+use mc_game_core::world::entity::{Entity, RemovalReason};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::base_spawner::{load_entity_tree, read_or_random_spawn_pos, spawn_aabb};
+use mc_game_core::world::level::collision::CollisionGetter;
+use mc_game_core::world::level::spawn_data::{SpawnData, has_no_configuration};
+use mc_game_core::world::level::spawner_mob_seam::{self, MobSpawnSteps};
+use mc_game_core::world::level::storage::loot::loading::get_loot_table;
+use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -293,7 +293,7 @@ impl TrialSpawner {
         let flame = if self.is_ominous { FLAME_OMINOUS } else { FLAME_NORMAL };
         level.level_event(None, 3011, spawner_pos, flame);
         level.level_event(None, 3012, spawn_block_pos, flame);
-        level.game_event_at_block(GameEvent::ENTITY_PLACE, spawn_block_pos, &crate::world::level::gameevent::GameEventContext::of_entity(Some(id)));
+        level.game_event_at_block(GameEvent::ENTITY_PLACE, spawn_block_pos, &mc_game_core::world::level::gameevent::GameEventContext::of_entity(Some(id)));
         Some(uuid)
     }
 
@@ -313,7 +313,7 @@ impl TrialSpawner {
     }
 
     /// `getDispensingItems(level, config, pos)` (`None` for the empty list, which is not cached).
-    pub fn get_dispensing_items(&mut self, level: &mut ServerLevel, config: &TrialSpawnerConfig, pos: BlockPos) -> Option<&crate::util::weighted_list::WeightedList<ItemStack>> {
+    pub fn get_dispensing_items(&mut self, level: &mut ServerLevel, config: &TrialSpawnerConfig, pos: BlockPos) -> Option<&mc_game_core::util::weighted_list::WeightedList<ItemStack>> {
         if self.data.dispensing.is_none() {
             let table = get_loot_table(&level.registries, &config.items_to_drop_when_ominous);
             let seed = low_resolution_position(level, pos);
@@ -366,7 +366,7 @@ fn should_mob_be_untracked(level: &ServerLevel, spawner_pos: BlockPos, id: &Uuid
 }
 
 /// `findPlayerWithOminousEffect(level, inLineOfSightPlayers)`: a player with trial omen, else the last one with bad omen.
-fn find_player_with_ominous_effect(level: &ServerLevel, players: &[Uuid]) -> Option<(crate::world::entity::EntityId, MobEffect)> {
+fn find_player_with_ominous_effect(level: &ServerLevel, players: &[Uuid]) -> Option<(mc_game_core::world::entity::EntityId, MobEffect)> {
     let mut player_with_bad_omen = None;
     for uuid in players {
         let Some(id) = level.get_player_by_uuid(*uuid) else { continue };
@@ -382,7 +382,7 @@ fn find_player_with_ominous_effect(level: &ServerLevel, players: &[Uuid]) -> Opt
 }
 
 /// `transformBadOmenIntoTrialOmen(player)`.
-fn transform_bad_omen_into_trial_omen(level: &mut ServerLevel, player: crate::world::entity::EntityId) {
+fn transform_bad_omen_into_trial_omen(level: &mut ServerLevel, player: mc_game_core::world::entity::EntityId) {
     level.with_entity(player, |level, p| {
         if let Some(bad_omen) = p.get_effect(MobEffect::BAD_OMEN) {
             let amplifier = bad_omen.amplifier + 1;

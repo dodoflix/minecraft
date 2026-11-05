@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.PitcherCropBlock` (extends `DoublePlantBlock`).
-use super::crop_block;
-use super::double_plant_block;
-use super::prelude::*;
-use super::vegetation_block::MayPlaceOn;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::crop_block;
+use mc_game_core::world::level::block::impls::double_plant_block;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_data::enums::DoubleBlockHalf;
 
 pub struct PitcherCropBlock;
@@ -73,17 +74,17 @@ impl BlockBehaviour for PitcherCropBlock {
     fn can_be_replaced(&self, _state: BlockState, _context: &BlockPlaceContext) -> bool {
         false
     }
-    fn set_placed_by(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {}
+    fn set_placed_by(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &mc_game_core::world::item::ItemStack) {}
     fn entity_inside(
         &self,
         _state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
-        super::vegetation_block::ravager_destroys_crop(level, pos, &*entity);
+        mc_game_core::world::level::block::impls::vegetation_block::ravager_destroys_crop(level, pos, &*entity);
     }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         let growth_speed = crop_block::get_growth_speed(state.block(), &*level, pos);
@@ -108,15 +109,15 @@ impl BlockBehaviour for PitcherCropBlock {
     fn player_destroy(
         &self,
         level: &mut ServerLevel,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         pos: BlockPos,
         _state: BlockState,
-        block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
-        destroyed_with: &crate::world::item::ItemStack,
+        block_entity: Option<&dyn mc_game_core::world::block_entity::BlockEntity>,
+        destroyed_with: &mc_game_core::world::item::ItemStack,
     ) {
         double_plant_block::player_destroy(level, player, pos, block_entity, destroyed_with);
     }
-    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer) -> BlockState {
         double_plant_block::player_will_destroy(level, pos, state, player)
     }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {

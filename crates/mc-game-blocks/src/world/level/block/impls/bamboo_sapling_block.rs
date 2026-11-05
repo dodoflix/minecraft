@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.BambooSaplingBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_data::enums::BambooLeaves;
 use mc_data::item::Item;
 
@@ -30,8 +31,8 @@ impl BlockBehaviour for BambooSaplingBlock {
             state
         }
     });
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
-        crate::world::item::ItemStack::new(Item::BAMBOO)
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+        mc_game_core::world::item::ItemStack::new(Item::BAMBOO)
     }
     fn is_bonemealable(&self) -> bool {
         true

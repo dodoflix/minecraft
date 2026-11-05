@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.BaseCoralWallFanBlock` (extends `BaseCoralFanBlock`).
+use mc_game_core::{register_block_class, update_shape};
 use super::base_coral_plant_type_block as base;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct BaseCoralWallFanBlock;
 
@@ -37,7 +38,7 @@ pub fn get_state_for_placement(block: Block, level: &mut ServerLevel, context: &
 }
 
 impl BlockBehaviour for BaseCoralWallFanBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         get_state_for_placement(block, level, context)
     }

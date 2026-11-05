@@ -1,14 +1,14 @@
 //! `net.minecraft.core.cauldron.CauldronInteractions` / `CauldronInteraction.Dispatcher`: what a right-click with an
 //! item does to a cauldron of each kind (`EMPTY`, `WATER`, `LAVA`, `POWDER_SNOW`).
 use super::layered_cauldron_block::lower_fill_level;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::stats::stat::Stat;
-use crate::stats::stats::Stats;
-use crate::world::entity::ServerPlayer;
-use crate::world::entity::player::menu_ctx::PlayerCtx;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stat::Stat;
+use mc_game_core::stats::stats::Stats;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::entity::player::menu_ctx::PlayerCtx;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, create_filled_result};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::{GameEvent, Item, SoundEvent};
 use mc_protocol::components::{BANNER_PATTERNS, POTION_CONTENTS};
 use mc_protocol::packets::play::level::SoundSource;

@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.CaveVinesPlantBlock` (extends `GrowingPlantBodyBlock`).
+use mc_game_core::register_block_class;
 use super::growing_plant_block::GrowingPlant;
 use super::growing_plant_body_block::{GrowingPlantBody, growing_plant_body_behaviour};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 
 pub struct CaveVinesPlantBlock;
 
@@ -29,11 +30,11 @@ impl GrowingPlantBody for CaveVinesPlantBlock {
 
 impl BlockBehaviour for CaveVinesPlantBlock {
     growing_plant_body_behaviour!(custom_bonemeal_and_clone);
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
-        super::cave_vines::glow_berries()
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+        mc_game_core::world::level::block::impls::cave_vines::glow_berries()
     }
-    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> crate::world::item::InteractionResult {
-        super::cave_vines::use_(&*player, state, level, pos)
+    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> mc_game_core::world::item::InteractionResult {
+        mc_game_core::world::level::block::impls::cave_vines::use_(&*player, state, level, pos)
     }
     fn is_valid_bonemeal_target(&self, _level: &dyn LevelReader, _pos: BlockPos, state: BlockState, _source: BonemealSource) -> bool {
         !state.get(props::BERRIES)

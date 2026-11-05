@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.EyeblossomBlock` (extends `FlowerBlock`): opens and closes with the
 //! `gameplay/eyeblossom_open` attribute.
-use super::prelude::*;
-use super::vegetation_block::vegetation_behaviour_methods;
-use crate::server::level::ServerLevel;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::level::blockscan;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::register_block;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::vegetation_behaviour_methods;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::level::blockscan;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::phys::Vec3;
 use mc_data::{GameEvent, MobEffect, SoundEvent};
 use mc_protocol::components::SuspiciousStewEffects;
@@ -68,7 +69,7 @@ pub struct EyeblossomBlock {
 impl EyeblossomBlock {
     /// `tryChangingState(state, level, pos, random)`.
     fn try_changing_state(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) -> bool {
-        let should_be_open = level.attribute_tri_state(crate::world::attribute::attributes::EYEBLOSSOM_OPEN, pos).to_boolean(self.ty.open);
+        let should_be_open = level.attribute_tri_state(mc_game_core::world::attribute::attributes::EYEBLOSSOM_OPEN, pos).to_boolean(self.ty.open);
         if should_be_open == self.ty.open {
             return false;
         }
@@ -92,7 +93,7 @@ impl EyeblossomBlock {
     }
 }
 
-impl super::vegetation_block::MayPlaceOn for EyeblossomBlock {}
+impl mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn for EyeblossomBlock {}
 
 impl BlockBehaviour for EyeblossomBlock {
     vegetation_behaviour_methods!();
@@ -111,8 +112,8 @@ impl BlockBehaviour for EyeblossomBlock {
         state: BlockState,
         level: &mut ServerLevel,
         _pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful

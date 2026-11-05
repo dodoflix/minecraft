@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.BambooStalkBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_core::random::RandomSource;
 use mc_data::enums::BambooLeaves;
 
@@ -50,7 +51,7 @@ fn grow_bamboo(state: BlockState, level: &mut ServerLevel, pos: BlockPos, height
 }
 
 impl BlockBehaviour for BambooStalkBlock {
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let clicked_pos = context.get_clicked_pos();
         if !level.get_fluid_state(clicked_pos).is_empty() {
             return None;

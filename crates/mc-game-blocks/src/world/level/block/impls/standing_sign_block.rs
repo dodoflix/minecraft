@@ -1,14 +1,15 @@
 //! `net.minecraft.world.level.block.StandingSignBlock` (extends `SignBlock`).
-use super::prelude::*;
-use super::sign_block::{self, sign_block_common};
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::rotation_segment;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::sign_block::{self, sign_block_common};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::rotation_segment;
 
 pub struct StandingSignBlock;
 
 impl BlockBehaviour for StandingSignBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     sign_block_common!();
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         level.get_block_state(pos.below()).is_solid()

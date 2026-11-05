@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.JukeboxBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::stats::stats::Stats;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
 use crate::world::block_entity::jukebox_block_entity::JukeboxBlockEntity;
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::phys::BlockHitResult;
 use mc_data::GameEvent;
 use mc_protocol::components::{BLOCK_ENTITY_DATA, JUKEBOX_PLAYABLE};

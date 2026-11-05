@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.GrassBlock`: spreading snowy block + bone meal (grass / flower patches around).
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::{snowy_block, spreading_snowy_block};
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::bonemeal::{BonemealSource, BonemealType};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::bonemeal::{BonemealSource, BonemealType};
 
 pub struct GrassBlock;
 
@@ -16,7 +17,7 @@ fn stop_bonemeal_spread(level: &ServerLevel, this: Block, test_pos: BlockPos) ->
 fn place_bonemeal_effect(level: &mut ServerLevel, test_pos: BlockPos, source: BonemealSource) {
     let test_state = level.get_block_state(test_pos);
     if test_state.is_block(Block::SHORT_GRASS) && level.random().next_float() < 0.1 {
-        let grass = crate::world::level::block::behaviour(Block::SHORT_GRASS);
+        let grass = mc_game_core::world::level::block::behaviour(Block::SHORT_GRASS);
         if grass.is_valid_bonemeal_target(&*level, test_pos, test_state, source) {
             grass.perform_bonemeal(level, test_pos, test_state, source);
         }

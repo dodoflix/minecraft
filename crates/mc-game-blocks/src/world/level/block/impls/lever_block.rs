@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.LeverBlock` (extends `FaceAttachedHorizontalDirectionalBlock`).
-use super::face_attached_horizontal_directional_block::{self as face_attached, get_connected_direction};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::{EntityId, ServerPlayer};
-use crate::world::item::InteractionResult;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::face_attached_horizontal_directional_block::{self as face_attached, get_connected_direction};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{EntityId, ServerPlayer};
+use mc_game_core::world::item::InteractionResult;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::GameEvent;
 use mc_protocol::packets::play::level::SoundSource;
 
@@ -33,7 +34,7 @@ impl BlockBehaviour for LeverBlock {
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         face_attached::can_survive(state, level, pos)
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         face_attached::get_state_for_placement(block, &*level, context)
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
@@ -55,13 +56,13 @@ impl BlockBehaviour for LeverBlock {
         state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        explosion: &dyn crate::world::level::explosion::Explosion,
-        on_hit: &mut dyn FnMut(crate::world::item::ItemStack, BlockPos),
+        explosion: &dyn mc_game_core::world::level::explosion::Explosion,
+        on_hit: &mut dyn FnMut(mc_game_core::world::item::ItemStack, BlockPos),
     ) {
         if explosion.can_trigger_blocks() {
             pull(state, level, pos, None);
         }
-        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+        mc_game_core::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
     }
     fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {
         if !moved_by_piston && state.get(props::POWERED) {

@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.LadderBlock`.
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct LadderBlock;
 
 impl BlockBehaviour for LadderBlock {
-    crate::simple_waterlogged!();
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    mc_game_core::simple_waterlogged!();
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         if !helpers::replacing_clicked_on_block(level, context) {
             let state = level.get_block_state(pos.relative(context.get_clicked_face().get_opposite()));

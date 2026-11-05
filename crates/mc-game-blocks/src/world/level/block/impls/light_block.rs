@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.LightBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ServerPlayer;
-use crate::world::item::{InteractionResult, ItemStack};
-use crate::world::level::collision::CollisionContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::{InteractionResult, ItemStack};
+use mc_game_core::world::level::collision::CollisionContext;
 use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_core::phys::BlockHitResult;
 use mc_data::Item;
@@ -11,7 +12,7 @@ use mc_data::Item;
 pub struct LightBlock;
 
 impl BlockBehaviour for LightBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);

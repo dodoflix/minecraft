@@ -1,13 +1,14 @@
 //! `net.minecraft.world.level.block.NetherPortalBlock`.
-use super::prelude::*;
-use crate::server::MinecraftServer;
-use crate::server::level::ServerLevel;
-use crate::server::players::dimension_change::{PostTeleportTransition, TeleportTransition};
-use crate::util::block_util::{self, FoundRectangle};
-use crate::world::entity::Entity;
-use crate::world::entity::portal::{Portal, PortalTransition};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::portal::PortalShape;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::MinecraftServer;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::players::dimension_change::{PostTeleportTransition, TeleportTransition};
+use mc_game_core::util::block_util::{self, FoundRectangle};
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::portal::{Portal, PortalTransition};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::portal::PortalShape;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_protocol::packets::play::Relatives;
@@ -32,7 +33,7 @@ impl BlockBehaviour for NetherPortalBlock {
     });
     fn random_tick(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         use mc_world::level_storage::Difficulty;
-        if level.is_spawning_monsters() && level.difficulty() != Difficulty::Peaceful && level.attribute_bool(crate::world::attribute::attributes::NETHER_PORTAL_SPAWNS_PIGLINS, pos) && {
+        if level.is_spawning_monsters() && level.difficulty() != Difficulty::Peaceful && level.attribute_bool(mc_game_core::world::attribute::attributes::NETHER_PORTAL_SPAWNS_PIGLINS, pos) && {
             let difficulty_id = level.difficulty().get_id();
             level.random().next_int_bounded(2000) < difficulty_id
         } && level.chunk_source.chunk_map.any_player_close_enough_for_spawning(mc_core::pos::ChunkPos::containing(&pos))
@@ -61,15 +62,15 @@ impl BlockBehaviour for NetherPortalBlock {
         level: &mut ServerLevel,
         pos: BlockPos,
         entity: &mut dyn Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         if entity.can_use_portal(false) {
             entity.set_as_inside_portal(level, &NETHER_PORTAL, pos);
         }
     }
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
-        crate::world::item::ItemStack::empty()
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+        mc_game_core::world::item::ItemStack::empty()
     }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         rotate_pillar_horizontal(state, rotation)
@@ -77,8 +78,8 @@ impl BlockBehaviour for NetherPortalBlock {
 }
 
 /// `EntityTypes.ZOMBIFIED_PIGLIN.spawn(level, pos, STRUCTURE)`.
-fn spawn_zombified_piglin(level: &mut ServerLevel, pos: BlockPos) -> Option<crate::world::entity::EntityId> {
-    use crate::world::entity::factory::{self, EntitySpawnRequest};
+fn spawn_zombified_piglin(level: &mut ServerLevel, pos: BlockPos) -> Option<mc_game_core::world::entity::EntityId> {
+    use mc_game_core::world::entity::factory::{self, EntitySpawnRequest};
     use mc_core::random::RandomSource;
     let mut entity = factory::create(mc_data::EntityType::ZOMBIFIED_PIGLIN, level, EntitySpawnRequest { reason: mc_data::enums::EntitySpawnReason::Structure, ignore_checks: false })?;
     let y_rot = mc_core::math::mth::wrap_degrees_f32(level.random().next_float() * 360.0);
@@ -105,7 +106,7 @@ impl Portal for NetherPortalBlock {
 
     /// `getPortalDestination(currentLevel, entity, portalEntryPos)`.
     fn get_portal_destination(&self, server: &mut MinecraftServer, current_level: &mut ServerLevel, entity: &mut dyn Entity, portal_entry_pos: BlockPos) -> Option<TeleportTransition> {
-        let new_dimension = if current_level.dimension == nether_key() { crate::server::world_dimensions::overworld_key() } else { nether_key() };
+        let new_dimension = if current_level.dimension == nether_key() { mc_game_core::server::world_dimensions::overworld_key() } else { nether_key() };
         let new_level = server.level_mut(&new_dimension)?;
         let to_nether = new_level.dimension == nether_key();
         let teleportation_scale = current_level.teleportation_scale_to(new_level);

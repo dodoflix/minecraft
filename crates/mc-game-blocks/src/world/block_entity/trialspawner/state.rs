@@ -1,11 +1,11 @@
 //! `TrialSpawnerState`: per-state constants and the state machine step (`tickAndGetNext`).
 
 use super::trial_spawner::{TrialSpawner, play_block_sound};
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::{BlockGetter, LevelAccessor};
-use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -164,7 +164,7 @@ fn spawn_ominous_item_spawner(level: &mut ServerLevel, trial_spawner_pos: BlockP
         return;
     }
     if let Some(pos) = calculate_position_to_spawn_spawner(level, trial_spawner_pos, ts) {
-        let spawner = crate::world::entity::ominous_item_spawner::OminousItemSpawner::create(level, item_to_dispense);
+        let spawner = mc_game_core::world::entity::ominous_item_spawner::OminousItemSpawner::create(level, item_to_dispense);
         let mut spawner = spawner;
         spawner.snap_to_pos(pos.x, pos.y, pos.z);
         level.add_fresh_entity(Box::new(spawner));
@@ -192,7 +192,7 @@ fn calculate_position_to_spawn_spawner(level: &mut ServerLevel, trial_spawner_po
         .filter_map(|uuid| level.get_player_by_uuid(*uuid))
         .filter(|&id| {
             level.get_entity(id).is_some_and(|p| {
-                let creative = p.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(crate::world::entity::ServerPlayer::is_creative);
+                let creative = p.as_any().downcast_ref::<mc_game_core::world::entity::ServerPlayer>().is_some_and(mc_game_core::world::entity::ServerPlayer::is_creative);
                 !creative && !p.is_spectator() && p.is_alive() && p.base().distance_to_sqr_vec(center) <= range * range
             })
         })

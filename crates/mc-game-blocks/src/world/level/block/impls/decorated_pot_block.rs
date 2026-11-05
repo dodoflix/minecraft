@@ -1,12 +1,13 @@
 //! `net.minecraft.world.level.block.DecoratedPotBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::stats::Stat;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::Stat;
 use crate::world::block_entity::decorated_pot_block_entity::{DecoratedPotBlockEntity, WobbleStyle, create_decorated_pot_instance};
-use crate::world::entity::projectile::Projectile;
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::world::entity::projectile::Projectile;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::ident::Identifier;
 use mc_core::phys::BlockHitResult;
 use mc_data::fluid::Fluid;
@@ -21,7 +22,7 @@ fn item_in_tag(item: Item, tag: &str) -> bool {
 }
 
 impl BlockBehaviour for DecoratedPotBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let replaced_fluid_state = level.get_fluid_state(context.get_clicked_pos());
         Some(block.default_state().set(props::HORIZONTAL_FACING, context.get_horizontal_direction()).set(props::WATERLOGGED, replaced_fluid_state.fluid() == Fluid::WATER).set(props::CRACKED, false))
@@ -65,7 +66,7 @@ impl BlockBehaviour for DecoratedPotBlock {
                 .unwrap_or(0.0);
             level.play_sound(None, pos, SoundEvent::BLOCK_DECORATED_POT_INSERT, SoundSource::Blocks, 1.0, 0.7 + 0.5 * pitch_bend);
             level.send_particles(ParticleOptions::Simple(ParticleType::DUST_PLUME), f64::from(pos.x()) + 0.5, f64::from(pos.y()) + 1.2, f64::from(pos.z()) + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
-            crate::world::block_entity::set_changed(level, pos, level.get_block_state(pos));
+            mc_game_core::world::block_entity::set_changed(level, pos, level.get_block_state(pos));
             level.game_event_at_block(GameEvent::BLOCK_CHANGE, pos, &GameEventContext::of_entity(Some(player.id())));
             InteractionResult::SUCCESS
         } else {
@@ -100,12 +101,12 @@ impl BlockBehaviour for DecoratedPotBlock {
         let destroyed_with = player.get_item_in_hand(InteractionHand::MainHand);
         let mut next_state = state;
         if item_in_tag(destroyed_with.item(), "breaks_decorated_pots")
-            && !crate::world::item::enchantment_helper::has_tag(&level.registries, &destroyed_with, &Identifier::parse("minecraft:prevents_decorated_pot_shattering").expect("valid id"))
+            && !mc_game_core::world::item::enchantment_helper::has_tag(&level.registries, &destroyed_with, &Identifier::parse("minecraft:prevents_decorated_pot_shattering").expect("valid id"))
         {
             next_state = state.set(props::CRACKED, true);
             level.set_block(pos, next_state, 260, 512);
         }
-        crate::server::level::block_break::player_will_destroy(level, pos, next_state, player)
+        mc_game_core::server::level::block_break::player_will_destroy(level, pos, next_state, player)
     }
 
     fn on_projectile_hit(&self, level: &mut ServerLevel, state: BlockState, hit: &BlockHitResult, projectile: &mut dyn Projectile) {
@@ -124,7 +125,7 @@ impl BlockBehaviour for DecoratedPotBlock {
     }
 
     fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        crate::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
+        mc_game_core::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
     }
 
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {

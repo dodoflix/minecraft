@@ -1,15 +1,16 @@
 //! `VaultBlockEntity` (+ `Server.tick` / `tryInsertKey`).
 
+use mc_game_core::block_entity_base;
 use super::loot_roll::roll;
 use super::vault::{VaultConfig, VaultServerData, VaultSharedData, VaultStateExt};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec, set_changed};
-use crate::server::level::ServerLevel;
-use crate::stats::Stat;
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{ItemStack, ItemStackExt};
-use crate::world::level::BlockGetter;
-use crate::world::level::storage::loot::loading::get_loot_table;
-use crate::world::level::storage::loot::{LootContextParamSets, LootParams};
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec, set_changed};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::Stat;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{ItemStack, ItemStackExt};
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::storage::loot::loading::get_loot_table;
+use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams};
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -153,7 +154,7 @@ pub fn try_insert_key(
 fn set_vault_state(level: &mut ServerLevel, pos: BlockPos, current: BlockState, new: BlockState, config: &VaultConfig, shared_data: &mut VaultSharedData) {
     let current_vault_state = current.get(props::VAULT_STATE);
     let new_vault_state = new.get(props::VAULT_STATE);
-    crate::world::level::LevelAccessor::set_block_and_update(level, pos, new);
+    mc_game_core::world::level::LevelAccessor::set_block_and_update(level, pos, new);
     current_vault_state.on_transition(level, pos, new_vault_state, config, shared_data, new.get(props::OMINOUS));
 }
 
@@ -179,7 +180,7 @@ fn get_random_display_item_from_loot_table(level: &mut ServerLevel, pos: BlockPo
         return ItemStack::empty();
     }
     // `Util.getRandom(results, level.getRandom())`
-    let index = crate::world::level::LevelAccessor::random(level).next_int_bounded(results.len() as i32) as usize;
+    let index = mc_game_core::world::level::LevelAccessor::random(level).next_int_bounded(results.len() as i32) as usize;
     results[index].clone()
 }
 

@@ -1,17 +1,18 @@
 //! `net.minecraft.world.level.block.HopperBlock`.
+use mc_game_core::register_block_class;
 use super::dispenser_block::update_neighbours_after_destroy;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::hopper_block_entity;
-use crate::world::entity::Entity;
-use crate::world::entity::item::ItemEntity;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::has_neighbor_signal;
-use crate::stats::stats::Stats;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
+use mc_game_core::stats::stats::Stats;
 use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
-use crate::world::entity::ServerPlayer;
-use crate::world::item::InteractionResult;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::InteractionResult;
 use mc_core::phys::BlockHitResult;
 use mc_data::block::PathComputationType;
 
@@ -61,12 +62,12 @@ impl BlockBehaviour for HopperBlock {
         update_neighbours_after_destroy(state, level, pos);
     }
 
-    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
-        BlockEntityMenuProvider::of(level, pos).map(|p| Box::new(p) as Box<dyn crate::world::inventory::MenuProvider>)
+    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        BlockEntityMenuProvider::of(level, pos).map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
     }
 
     fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        crate::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
+        mc_game_core::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
     }
 
     fn entity_inside(
@@ -75,7 +76,7 @@ impl BlockBehaviour for HopperBlock {
         level: &mut ServerLevel,
         pos: BlockPos,
         entity: &mut dyn Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         if let Some(item) = entity.as_any_mut().downcast_mut::<ItemEntity>() {

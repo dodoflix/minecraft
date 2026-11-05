@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.LeavesBlock` (also the tinted / untinted particle variants, whose extra state is
 //! client-only: `animateTick` particles) and `MangroveLeavesBlock` (bone meal grows a hanging propagule).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::bonemeal::{BonemealSource, BonemealType};
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::bonemeal::{BonemealSource, BonemealType};
 
 pub struct LeavesBlock;
 pub struct MangroveLeavesBlock;
@@ -67,7 +68,7 @@ fn get_state_for_placement(block: Block, level: &mut ServerLevel, context: &Bloc
 }
 
 impl BlockBehaviour for LeavesBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| { update_shape(state, level, pos, neighbour_state) });
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         random_tick(state, level, pos);
@@ -81,7 +82,7 @@ impl BlockBehaviour for LeavesBlock {
 }
 
 impl BlockBehaviour for MangroveLeavesBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| { update_shape(state, level, pos, neighbour_state) });
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         random_tick(state, level, pos);

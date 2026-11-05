@@ -1,6 +1,6 @@
 //! `VaultServerData`: who got a reward, the items still to eject and the state timer.
 
-use crate::world::item::ItemStack;
+use mc_game_core::world::item::ItemStack;
 use mc_dfu::{Codec, INT, LONG, MapCodec, record};
 use mc_protocol::components::uuid_codec;
 use std::sync::LazyLock;

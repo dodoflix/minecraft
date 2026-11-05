@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.FenceBlock` (extends `CrossCollisionBlock`).
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::cross_collision_block;
 use super::fence_gate_block;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::collision::CollisionContext;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::collision::CollisionContext;
 use mc_core::phys::shapes::VoxelShape;
 use mc_data::block::PathComputationType;
 
@@ -18,7 +19,7 @@ fn connects_to(this_state: BlockState, state: BlockState, face_solid: bool, dire
 }
 
 impl BlockBehaviour for FenceBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_visual_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, context: &CollisionContext) -> VoxelShape {
         self.get_shape(state, level, pos, context)
     }

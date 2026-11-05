@@ -1,15 +1,16 @@
 //! `net.minecraft.world.level.block.CoralFanBlock` (extends `BaseCoralFanBlock`).
+use mc_game_core::{register_block_class, update_shape};
 use super::base_coral_plant_type_block::{self as base, dead_block};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct CoralFanBlock {
     dead_block: Block,
 }
 
 impl BlockBehaviour for CoralFanBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         Some(base::get_state_for_placement(block, level, context))
     }

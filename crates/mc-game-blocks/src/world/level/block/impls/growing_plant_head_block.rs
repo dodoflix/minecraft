@@ -3,9 +3,9 @@
 //! The concrete head blocks (kelp, cave vines, twisting/weeping vines) implement [`GrowingPlantHead`] and get their
 //! [`BlockBehaviour`] methods from [`growing_plant_head_behaviour!`].
 use super::growing_plant_block::GrowingPlant;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 use mc_core::random::RandomSource;
 
 pub trait GrowingPlantHead: GrowingPlant {
@@ -126,10 +126,10 @@ pub fn perform_bonemeal(this: &dyn GrowingPlantHead, level: &mut ServerLevel, po
 macro_rules! growing_plant_head_behaviour {
     () => {
         $crate::world::level::block::impls::growing_plant_head_block::growing_plant_head_behaviour!(@common);
-        fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, _state: BlockState, _source: $crate::world::level::block::bonemeal::BonemealSource) -> bool {
+        fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, _state: BlockState, _source: ::mc_game_core::world::level::block::bonemeal::BonemealSource) -> bool {
             $crate::world::level::block::impls::growing_plant_head_block::is_valid_bonemeal_target(self, level, pos)
         }
-        fn perform_bonemeal(&self, level: &mut $crate::server::level::ServerLevel, pos: BlockPos, state: BlockState, _source: $crate::world::level::block::bonemeal::BonemealSource) {
+        fn perform_bonemeal(&self, level: &mut ::mc_game_core::server::level::ServerLevel, pos: BlockPos, state: BlockState, _source: ::mc_game_core::world::level::block::bonemeal::BonemealSource) {
             $crate::world::level::block::impls::growing_plant_head_block::perform_bonemeal(self, level, pos, state)
         }
     };
@@ -143,16 +143,16 @@ macro_rules! growing_plant_head_behaviour {
         update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
             $crate::world::level::block::impls::growing_plant_head_block::update_shape(self, state, level, pos, direction, neighbour_state)
         });
-        fn tick(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos) {
+        fn tick(&self, state: BlockState, level: &mut ::mc_game_core::server::level::ServerLevel, pos: BlockPos) {
             $crate::world::level::block::impls::growing_plant_block::tick(state, level, pos);
         }
-        fn random_tick(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos) {
+        fn random_tick(&self, state: BlockState, level: &mut ::mc_game_core::server::level::ServerLevel, pos: BlockPos) {
             $crate::world::level::block::impls::growing_plant_head_block::random_tick(self, state, level, pos);
         }
         fn is_bonemealable(&self) -> bool {
             true
         }
-        fn get_state_for_placement(&self, block: Block, level: &mut $crate::server::level::ServerLevel, context: &$crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        fn get_state_for_placement(&self, block: Block, level: &mut ::mc_game_core::server::level::ServerLevel, context: &::mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
             $crate::world::level::block::impls::growing_plant_head_block::get_state_for_placement_ctx(self, block, level, context)
         }
     };

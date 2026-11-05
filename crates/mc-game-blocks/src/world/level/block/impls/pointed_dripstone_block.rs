@@ -1,14 +1,15 @@
 //! `net.minecraft.world.level.block.PointedDripstoneBlock` (extends `SpeleothemBlock`): fluid transfer into cauldrons /
 //! mud -> clay, growth conditions. The speleothem logic itself is [`super::speleothem_block`].
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::speleothem_block::{
     Speleothem, SpeleothemClass, find_block_vertical, find_tip, is_stalactite, is_stalactite_start_pos,
 };
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 use mc_data::enums::SpeleothemThickness;
-use crate::world::level::block::behaviour;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::block::behaviour;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_data::GameEvent;
 use mc_data::fluid::Fluid;
@@ -19,7 +20,7 @@ const MAX_SEARCH_LENGTH_BETWEEN_STALACTITE_TIP_AND_CAULDRON: i32 = 11;
 const WATER_TRANSFER_PROBABILITY_PER_RANDOM_TICK: f32 = 0.17578125;
 const LAVA_TRANSFER_PROBABILITY_PER_RANDOM_TICK: f32 = 0.05859375;
 
-static REQUIRED_SPACE_TO_DRIP_THROUGH_NON_SOLID_BLOCK: LazyLock<VoxelShape> = LazyLock::new(|| crate::world::level::shapes::column(4.0, 0.0, 16.0));
+static REQUIRED_SPACE_TO_DRIP_THROUGH_NON_SOLID_BLOCK: LazyLock<VoxelShape> = LazyLock::new(|| mc_game_core::world::level::shapes::column(4.0, 0.0, 16.0));
 
 pub struct PointedDripstoneBlock;
 
@@ -145,7 +146,7 @@ fn get_fluid_above_stalactite(level: &ServerLevel, stalactite_pos: BlockPos, sta
     find_root_block(level, stalactite_pos, stalactite_state, MAX_SEARCH_LENGTH_WHEN_CHECKING_DRIP_TYPE).map(|root_pos| {
         let above_pos = root_pos.above();
         let above_state = level.get_block_state(above_pos);
-        let fluid = if above_state.is_block(Block::MUD) && !level.attribute_bool(crate::world::attribute::attributes::WATER_EVAPORATES, above_pos) {
+        let fluid = if above_state.is_block(Block::MUD) && !level.attribute_bool(mc_game_core::world::attribute::attributes::WATER_EVAPORATES, above_pos) {
             Fluid::WATER
         } else {
             level.get_fluid_state(above_pos).get_type()

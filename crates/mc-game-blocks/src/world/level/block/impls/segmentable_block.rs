@@ -1,6 +1,6 @@
 //! `net.minecraft.world.level.block.SegmentableBlock` (leaf litter, pink petals, wildflowers).
-use super::prelude::*;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::item::BlockPlaceContext;
 use mc_data::props::{EnumProperty, IntegerProperty};
 
 /// `SegmentableBlock.MAX_SEGMENT`.

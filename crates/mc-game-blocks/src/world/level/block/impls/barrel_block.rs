@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.BarrelBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::barrel_block_entity::BarrelBlockEntity;
-use crate::world::container::get_redstone_signal_from_block_entity;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::barrel_block_entity::BarrelBlockEntity;
+use mc_game_core::world::container::get_redstone_signal_from_block_entity;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct BarrelBlock;
 
@@ -11,15 +12,15 @@ impl BlockBehaviour for BarrelBlock {
     fn get_state_for_placement(&self, block: Block, _level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         Some(block.default_state().set(props::FACING, context.get_nearest_looking_direction().get_opposite()))
     }
-    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> crate::world::item::InteractionResult {
-        use crate::world::block_entity::container_menus::{BlockEntityMenuProvider, ContainerBlockKind};
+    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> mc_game_core::world::item::InteractionResult {
+        use mc_game_core::world::block_entity::container_menus::{BlockEntityMenuProvider, ContainerBlockKind};
         if let Some(title) = level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<BarrelBlockEntity>()).map(|b| b.get_display_name()) {
             let provider = BlockEntityMenuProvider { kind: ContainerBlockKind::Barrel, first: pos, second: None, title };
             if player.open_menu(level, &provider).is_some() {
-                player.award_stat_once(&*level, crate::stats::stats::Stats::OPEN_BARREL);
+                player.award_stat_once(&*level, mc_game_core::stats::stats::Stats::OPEN_BARREL);
             }
         }
-        crate::world::item::InteractionResult::SUCCESS
+        mc_game_core::world::item::InteractionResult::SUCCESS
     }
     fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _moved_by_piston: bool) {
         // `Containers.updateNeighboursAfterDestroy`

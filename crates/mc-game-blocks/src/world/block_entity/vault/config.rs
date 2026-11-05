@@ -1,6 +1,6 @@
 //! `VaultConfig`.
 
-use crate::world::item::ItemStack;
+use mc_game_core::world::item::ItemStack;
 use mc_core::ident::Identifier;
 use mc_core::math::java::java_double_to_string;
 use mc_data::Item;

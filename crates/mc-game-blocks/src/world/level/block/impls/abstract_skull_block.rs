@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.block.AbstractSkullBlock`: `POWERED` handling shared by every skull class.
-use crate::server::level::ServerLevel;
-use crate::world::level::BlockGetter;
-use crate::world::level::signal_getter::has_neighbor_signal;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::props;
@@ -13,7 +13,7 @@ pub fn get_state_for_placement(block: Block, level: &dyn BlockGetter, pos: Block
 
 /// `neighborChanged`: follows the redstone signal into `POWERED` (flags 2).
 pub fn neighbor_changed(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
-    use crate::world::level::LevelAccessor;
+    use mc_game_core::world::level::LevelAccessor;
     let signal = has_neighbor_signal(&*level, pos);
     if signal != state.get(props::POWERED) {
         level.set_block_flags(pos, state.set(props::POWERED, signal), 2);

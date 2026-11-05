@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.AmethystClusterBlock` (extends `AmethystBlock`).
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct AmethystClusterBlock;
 
 impl BlockBehaviour for AmethystClusterBlock {
-    crate::simple_waterlogged!();
-    fn on_projectile_hit(&self, level: &mut crate::server::level::ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+    mc_game_core::simple_waterlogged!();
+    fn on_projectile_hit(&self, level: &mut mc_game_core::server::level::ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn mc_game_core::world::entity::projectile::Projectile) {
         super::amethyst_block::on_projectile_hit(level, hit);
     }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
@@ -19,7 +20,7 @@ impl BlockBehaviour for AmethystClusterBlock {
         }
         if direction == state.get(props::FACING).get_opposite() && !state.can_survive(&*level, pos) { air() } else { state }
     });
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         Some(block.default_state().set(props::WATERLOGGED, level.get_fluid_state(pos).get_type() == mc_data::fluid::Fluid::WATER).set(props::FACING, context.get_clicked_face()))
     }

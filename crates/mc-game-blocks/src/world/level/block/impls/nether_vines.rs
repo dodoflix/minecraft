@@ -1,5 +1,5 @@
 //! `net.minecraft.world.level.block.NetherVines` (shared by weeping and twisting vines).
-use super::prelude::*;
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_core::random::RandomSource;
 
 /// `NetherVines.GROW_PER_TICK_PROBABILITY`.

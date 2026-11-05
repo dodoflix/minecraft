@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.PathBlock` (dirt path; the base block is dirt).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::GameEvent;
 
 pub struct PathBlock;

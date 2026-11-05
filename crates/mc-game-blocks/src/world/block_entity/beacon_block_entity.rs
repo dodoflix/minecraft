@@ -1,15 +1,16 @@
 //! `BeaconBlockEntity`: beam section scan (10 blocks per tick), pyramid level scan (`updateBase` every 80 ticks), the
 //! primary / secondary effects and their `ContainerData` view for `BeaconMenu`.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
-use crate::server::level::ServerLevel;
-use crate::world::level::LevelAccessor;
-use crate::world::entity::Entity;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::inventory::{BEACON_EFFECTS, ContainerData, decode_effect, encode_effect};
-use crate::world::level::block::BlockStateExt;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::inventory::{BEACON_EFFECTS, ContainerData, decode_effect, encode_effect};
+use mc_game_core::world::level::block::BlockStateExt;
 use mc_core::phys::AABB;
-use crate::world::level::{BlockGetter, LevelReader};
+use mc_game_core::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};

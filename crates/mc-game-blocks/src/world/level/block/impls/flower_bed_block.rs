@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.FlowerBlock`-like `FlowerBedBlock` (pink petals, wildflowers; extends
 //! `VegetationBlock`, implements `SegmentableBlock`).
-use super::prelude::*;
-use super::vegetation_block::MayPlaceOn;
-use crate::server::level::ServerLevel;
-use crate::world::item::{BlockPlaceContext, ItemStack};
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_data::props::{EnumProperty, IntegerProperty};
 
 pub struct FlowerBedBlock;
@@ -28,10 +29,10 @@ pub fn segment_state_for_placement(level: &dyn BlockGetter, context: &BlockPlace
 
 impl BlockBehaviour for FlowerBedBlock {
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-        super::vegetation_block::can_survive(self, level, pos)
+        mc_game_core::world::level::block::impls::vegetation_block::can_survive(self, level, pos)
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        super::vegetation_block::update_shape(state, &*level, pos)
+        mc_game_core::world::level::block::impls::vegetation_block::update_shape(state, &*level, pos)
     });
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)

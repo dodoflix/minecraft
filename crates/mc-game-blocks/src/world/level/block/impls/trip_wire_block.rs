@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.TripWireBlock`.
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::trip_wire_hook_block::calculate_state;
-use crate::server::level::ServerLevel;
+use mc_game_core::server::level::ServerLevel;
 
 pub struct TripWireBlock;
 
@@ -68,7 +69,7 @@ impl BlockBehaviour for TripWireBlock {
             state
         }
     });
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let mut state = block.default_state();
         for direction in [Direction::North, Direction::East, Direction::South, Direction::West] {
@@ -87,7 +88,7 @@ impl BlockBehaviour for TripWireBlock {
             update_source(level, pos, state.set(props::POWERED, true));
         }
     }
-    fn get_entity_inside_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, _entity: &dyn crate::world::entity::Entity) -> mc_core::phys::shapes::VoxelShape {
+    fn get_entity_inside_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, _entity: &dyn mc_game_core::world::entity::Entity) -> mc_core::phys::shapes::VoxelShape {
         state.get_shape(level, pos)
     }
     fn entity_inside(
@@ -95,22 +96,22 @@ impl BlockBehaviour for TripWireBlock {
         state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         if !state.get(props::POWERED) && !level.has_scheduled_block_tick(pos, state.block()) {
             check_pressed_with(level, pos, !entity.is_ignoring_block_triggers());
         }
     }
-    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
-        use crate::world::entity::Entity as _;
-        let held = player.get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer) -> BlockState {
+        use mc_game_core::world::entity::Entity as _;
+        let held = player.get_item_in_hand(mc_game_core::world::item::InteractionHand::MainHand);
         if !held.is_empty() && held.is(mc_data::Item::SHEARS) {
             level.set_block_flags(pos, state.set(props::DISARMED, true), 260);
-            level.game_event_at_block(mc_data::GameEvent::SHEAR, pos, &crate::world::level::gameevent::GameEventContext::of_entity(Some(player.id())));
+            level.game_event_at_block(mc_data::GameEvent::SHEAR, pos, &mc_game_core::world::level::gameevent::GameEventContext::of_entity(Some(player.id())));
         }
-        crate::server::level::block_break::player_will_destroy(level, pos, state, player)
+        mc_game_core::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
     fn tick(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if level.get_block_state(pos).get(props::POWERED) {

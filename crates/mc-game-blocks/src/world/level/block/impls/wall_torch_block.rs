@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.WallTorchBlock` (extends `TorchBlock`).
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct WallTorchBlock;
 
@@ -15,7 +16,7 @@ pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos, d
 }
 
 impl BlockBehaviour for WallTorchBlock {
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let mut state = block.default_state();
         let pos = context.get_clicked_pos();
         for direction in context.get_nearest_looking_directions() {

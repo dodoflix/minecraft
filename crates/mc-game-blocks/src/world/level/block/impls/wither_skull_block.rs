@@ -1,14 +1,16 @@
 //! `net.minecraft.world.level.block.WitherSkullBlock` (extends `SkullBlock`) and `WitherWallSkullBlock` (extends
 //! `WallSkullBlock`): placing the last head of the wither pattern summons the wither.
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::{skull_block::SkullBlock, wall_skull_block::WallSkullBlock};
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::{BlockEntity, SkullBlockEntity};
-use crate::world::entity::ServerPlayer;
-use crate::world::item::{BlockPlaceContext, ItemStack};
-use crate::world::level::block::pattern::{BlockPattern, BlockPatternBuilder};
-use crate::world::level::block::pattern_blocks;
-use crate::world::level::redstone::Orientation;
+use mc_game_core::server::level::ServerLevel;
+use crate::world::block_entity::SkullBlockEntity;
+use mc_game_core::world::block_entity::BlockEntity;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::level::block::pattern::{BlockPattern, BlockPatternBuilder};
+use mc_game_core::world::level::block::pattern_blocks;
+use mc_game_core::world::level::redstone::Orientation;
 use mc_data::block::PathComputationType;
 use mc_data::{EntityType, Item};
 use mc_world::level_storage::Difficulty;
@@ -52,7 +54,7 @@ pub fn check_spawn(level: &mut ServerLevel, pos: BlockPos) {
     pattern_blocks::clear_pattern_blocks(level, &mut found);
     let spawn_pos = found.get_block(1, 2, 0).get_pos();
     let rot = if found.get_forwards().get_axis() == Axis::X { 0.0 } else { 90.0 };
-    let mut tag = crate::world::level::block::hatch_spawns::snap_to_tag(spawn_pos.x() as f64 + 0.5, spawn_pos.y() as f64 + 0.55, spawn_pos.z() as f64 + 0.5, rot, 0.0);
+    let mut tag = mc_game_core::world::level::block::hatch_spawns::snap_to_tag(spawn_pos.x() as f64 + 0.5, spawn_pos.y() as f64 + 0.55, spawn_pos.z() as f64 + 0.5, rot, 0.0);
     // `witherBoss.makeInvulnerable()`: `setInvulnerableTicks(220)` (saved as `Invul`)
     tag.put_int("Invul", 220);
     if let Err(message) = wither.load(&tag) {

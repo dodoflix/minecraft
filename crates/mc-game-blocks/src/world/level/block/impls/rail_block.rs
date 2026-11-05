@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.RailBlock` (extends `BaseRailBlock`).
-use super::base_rail_block::{self, rail_behaviour};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::rail_state::RailState;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::base_rail_block::{self, rail_behaviour};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::rail_state::RailState;
 
 pub struct RailBlock;
 

@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.SlabBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::simple_waterlogged;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::simple_waterlogged;
 use mc_data::block::PathComputationType;
 use mc_data::enums::SlabType;
 use mc_data::fluid::{Fluid, FluidState};
@@ -23,7 +24,7 @@ impl BlockBehaviour for SlabBlock {
     fn is_bucket_pickup(&self) -> bool {
         true
     }
-    fn pickup_block(&self, user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> crate::world::item::ItemStack {
+    fn pickup_block(&self, user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> mc_game_core::world::item::ItemStack {
         simple_waterlogged::pickup_block(user, level, pos, state)
     }
     fn get_pickup_sound(&self) -> Option<mc_data::SoundEvent> {

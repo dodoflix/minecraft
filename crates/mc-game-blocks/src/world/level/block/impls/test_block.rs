@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.TestBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::test_block_entity;
-use crate::world::item::{InteractionResult, ItemStack};
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::test_block_entity;
+use mc_game_core::world::item::{InteractionResult, ItemStack};
 use mc_data::enums::TestBlockMode;
 use mc_protocol::components::values::containers::{BLOCK_STATE, BlockItemStateProperties};
 
@@ -15,7 +16,7 @@ impl BlockBehaviour for TestBlock {
         _state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         if test_block_entity::get(level, pos).is_some() {
@@ -35,13 +36,13 @@ impl BlockBehaviour for TestBlock {
         level: &mut ServerLevel,
         pos: BlockPos,
         _block: Block,
-        _orientation: Option<crate::world::level::redstone::Orientation>,
+        _orientation: Option<mc_game_core::world::level::redstone::Orientation>,
         _moved_by_piston: bool,
     ) {
         let Some(test_block) = test_block_entity::get(level, pos) else { return };
         if test_block.get_mode() != TestBlockMode::Start {
             let is_powered = test_block.is_powered();
-            let should_trigger = crate::world::level::signal_getter::has_neighbor_signal(&*level, pos);
+            let should_trigger = mc_game_core::world::level::signal_getter::has_neighbor_signal(&*level, pos);
             if should_trigger && !is_powered {
                 if let Some(be) = test_block_entity::get(level, pos) {
                     be.set_powered(true);
@@ -59,7 +60,7 @@ impl BlockBehaviour for TestBlock {
         if state.get(props::TEST_BLOCK_MODE) != TestBlockMode::Start {
             return 0;
         }
-        match level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<crate::world::block_entity::TestBlockEntity>()) {
+        match level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<mc_game_core::world::block_entity::TestBlockEntity>()) {
             Some(test_block) if test_block.is_powered() => 15,
             _ => 0,
         }

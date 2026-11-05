@@ -1,18 +1,19 @@
 //! `BrewingStandBlockEntity`: 5 slots (3 potion bottles, ingredient, fuel), brew time / fuel counters, the 400 tick
 //! (scaled by the fuel's `speed_multiplier`) brewing cycle driven by the `minecraft:brewing` recipes.
 
-use super::base_container::{BaseContainer, send_chest_locked_notifications};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log};
-use crate::server::level::ServerLevel;
-use crate::world::container::{Container, WorldlyContainer, empty_stack, helper};
-use crate::world::containers::drop_item_stack;
-use crate::world::inventory::{AbstractContainerMenu, BrewingStandMenu, ContainerData, MenuPlayer, MenuProvider};
-use crate::world::item::crafting::{BrewingInput, PotionIngredient, RecipeCheck, RecipePropertySet};
-use crate::world::level::storage::loot::providers::number::{ResolvableFloat, ResolvableInt};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::base_container::{BaseContainer, send_chest_locked_notifications};
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::{Container, WorldlyContainer, empty_stack, helper};
+use mc_game_core::world::containers::drop_item_stack;
+use mc_game_core::world::inventory::{AbstractContainerMenu, BrewingStandMenu, ContainerData, MenuPlayer, MenuProvider};
+use mc_game_core::world::item::crafting::{BrewingInput, PotionIngredient, RecipeCheck, RecipePropertySet};
+use mc_game_core::world::level::storage::loot::providers::number::{ResolvableFloat, ResolvableInt};
 use mc_protocol::components::{ResolvableFloat as ProtocolFloat, ResolvableInt as ProtocolInt};
-use crate::world::item::{ItemStack, ItemStackExt};
-use crate::world::level::storage::loot::{LootContext, LootContextParamSets, LootParams};
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::world::item::{ItemStack, ItemStackExt};
+use mc_game_core::world::level::storage::loot::{LootContext, LootContextParamSets, LootParams};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
@@ -84,7 +85,7 @@ impl BrewingStandBlockEntity {
 
     /// `getLootContext(level)` (`CONTAINER_PROCESS`: block state, block entity, origin, container) handed to `f`.
     fn with_loot_context<R>(&self, level: &ServerLevel, f: impl FnOnce(&mut LootContext) -> R) -> R {
-        let slots = crate::server::commands::item::slots::ContainerSlots::new(self);
+        let slots = mc_game_core::server::commands::item::slots::ContainerSlots::new(self);
         let params = LootParams::builder(level)
             .block_state(self.base.block_state)
             .block_entity(Some(self as &dyn BlockEntity))
@@ -115,7 +116,7 @@ impl BrewingStandBlockEntity {
 
     /// `BlockEntity.setChanged(level, pos, state)`.
     fn set_changed_in(level: &mut ServerLevel, pos: BlockPos, state: BlockState) {
-        super::set_changed(level, pos, state);
+        mc_game_core::world::block_entity::set_changed(level, pos, state);
     }
 
     /// `MenuProvider` of the brewing stand at `pos` (`BaseContainerBlockEntity.createMenu`: lock check, then the menu).
@@ -279,7 +280,7 @@ impl BlockEntity for BrewingStandBlockEntity {
 
     /// `preRemoveSideEffects`: `Containers.dropContents(level, pos, this)` (a `BaseContainerBlockEntity`).
     fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
-        crate::world::containers::drop_contents_list(level, pos, &self.items);
+        mc_game_core::world::containers::drop_contents_list(level, pos, &self.items);
     }
 
     fn apply_components_from_item_stack(&mut self, stack: &ItemStack) {
@@ -387,7 +388,7 @@ impl Container for BrewingStandBlockEntity {
         Some(self)
     }
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
-        crate::world::container::still_valid_block_entity(self.base.pos, player)
+        mc_game_core::world::container::still_valid_block_entity(self.base.pos, player)
     }
     /// `canPlaceItem` of a block entity whose `level` is `null` (only the fuel slot answers); with a level use
     /// [`BrewingStandBlockEntity::can_place_item_in`] / the `WorldlyContainer` face methods.

@@ -1,13 +1,14 @@
 //! `net.minecraft.world.level.block.LecternBlock`: placing/taking the book, page-turn redstone pulse, comparator signal,
 //! the lectern menu. The block entity is `block_entity::lectern_block_entity`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::lectern_block_entity::LecternBlockEntity;
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::{Entity as _, EntityId, ServerPlayer};
-use crate::world::inventory::{AbstractContainerMenu, LecternMenu, MenuProvider, SimpleMenuProvider};
-use crate::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::{Entity as _, EntityId, ServerPlayer};
+use mc_game_core::world::inventory::{AbstractContainerMenu, LecternMenu, MenuProvider, SimpleMenuProvider};
+use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::ident::Identifier;
 use mc_data::GameEvent;
 use mc_protocol::components::BLOCK_ENTITY_DATA;
@@ -155,7 +156,7 @@ impl BlockBehaviour for LecternBlock {
             if level.get_block_entity(pos).is_some_and(|be| be.as_any().is::<LecternBlockEntity>()) {
                 let provider = lectern_menu_provider(pos);
                 player.open_menu(level, provider.as_ref());
-                player.award_stat_once(level, crate::stats::stats::Stats::INTERACT_WITH_LECTERN);
+                player.award_stat_once(level, mc_game_core::stats::stats::Stats::INTERACT_WITH_LECTERN);
             }
             InteractionResult::SUCCESS
         } else {

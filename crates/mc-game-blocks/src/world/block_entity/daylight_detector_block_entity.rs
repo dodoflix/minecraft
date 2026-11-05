@@ -1,8 +1,9 @@
 //! `DaylightDetectorBlockEntity`: no saved data; its ticker (`DaylightDetectorBlock.tickEntity`) refreshes the
 //! signal every 20 ticks in dimensions with sky light.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::server::level::ServerLevel;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::server::level::ServerLevel;
 use crate::world::level::block::impls::daylight_detector_block::update_signal_strength;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
@@ -29,8 +30,8 @@ impl BlockEntity for DaylightDetectorBlockEntity {
 
     /// `DaylightDetectorBlock.tickEntity`.
     fn server_tick(&mut self, level: &mut ServerLevel) {
-        if level.chunk_source.chunk_map.has_sky_light && crate::world::level::LevelAccessor::get_game_time(level) % 20 == 0 {
-            let state = crate::world::level::BlockGetter::get_block_state(level, self.base.pos);
+        if level.chunk_source.chunk_map.has_sky_light && mc_game_core::world::level::LevelAccessor::get_game_time(level) % 20 == 0 {
+            let state = mc_game_core::world::level::BlockGetter::get_block_state(level, self.base.pos);
             update_signal_strength(state, level, self.base.pos);
         }
     }

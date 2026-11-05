@@ -10,17 +10,18 @@
 //! `Container::set_changed` of block entity containers is recorded in [`changed_log`] and replayed right after each
 //! public operation (the comparator updates of vanilla's `setChanged`, in their original order).
 
-use super::base_container::BaseContainer;
-use super::randomizable_container::{RandomizableContainerData, unpack_loot_table};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log};
-use crate::server::level::ServerLevel;
-use crate::world::container::{BlockEntityContainer, CompoundContainer, Container, empty_stack, helper};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::entity::item::ItemEntity;
-use crate::world::inventory::MenuPlayer;
-use crate::world::item::ItemStack;
-use crate::world::level::block::{BlockStateExt, behaviour};
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::base_container::BaseContainer;
+use mc_game_core::world::block_entity::randomizable_container::{RandomizableContainerData, unpack_loot_table};
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, changed_log};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::{BlockEntityContainer, CompoundContainer, Container, empty_stack, helper};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::inventory::MenuPlayer;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::{BlockStateExt, behaviour};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_core::direction::Direction;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
@@ -211,7 +212,7 @@ impl Container for HopperBlockEntity {
         changed_log::push(self.base.pos);
     }
     fn still_valid(&self, player: &dyn MenuPlayer) -> bool {
-        crate::world::container::still_valid_block_entity(self.base.pos, player)
+        mc_game_core::world::container::still_valid_block_entity(self.base.pos, player)
     }
 }
 
@@ -261,7 +262,7 @@ fn try_move_items(
         if changed {
             entity.set_cooldown(MOVE_ITEM_SPEED);
             // the static `setChanged(level, pos, state)` uses the state the caller passed
-            super::set_changed(level, pos, state);
+            mc_game_core::world::block_entity::set_changed(level, pos, state);
             return true;
         }
     }
@@ -405,7 +406,7 @@ pub fn add_item_entity(level: &ServerLevel, container: &mut dyn Container, entit
     let result = add_item(level, None, container, copy, None);
     if result.is_empty() {
         entity.set_item(ItemStack::empty());
-        crate::world::entity::Entity::discard(entity);
+        mc_game_core::world::entity::Entity::discard(entity);
         true
     } else {
         entity.set_item(result);
@@ -544,7 +545,7 @@ fn get_block_container(level: &mut ServerLevel, pos: BlockPos, state: BlockState
 
 /// `ChestBlock.getContainer(block, state, level, pos, true)` for a chest whose block entity is a container.
 fn combine_chest(level: &mut ServerLevel, pos: BlockPos, state: BlockState) -> ContainerTarget {
-    use crate::world::level::block::impls::chest_block::get_connected_direction;
+    use mc_game_core::world::level::block::impls::chest_block::get_connected_direction;
     use mc_data::enums::ChestType;
     let ty = state.get(props::CHEST_TYPE);
     if ty == ChestType::Single {
@@ -638,7 +639,7 @@ pub fn get_items_at_and_above(level: &ServerLevel, hopper: &dyn Hopper) -> Vec<E
 /// `HopperBlockEntity.entityInside(level, pos, state, entity, hopper)`: an item entity touching the suck box is moved in
 /// right away (subject to the cooldown / enabled checks of `tryMoveItems`).
 pub fn entity_inside(level: &mut ServerLevel, pos: BlockPos, state: BlockState, entity: &mut ItemEntity) {
-    use crate::world::entity::Entity;
+    use mc_game_core::world::entity::Entity;
     if entity.get_item().is_empty() {
         return;
     }

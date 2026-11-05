@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.MovingPistonBlock` (`piston` package): the block entity block of a block in transit.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::{PistonMovingBlockEntity, moving_piston_collision_shape};
-use crate::world::entity::ServerPlayer;
-use crate::world::item::{InteractionResult, ItemStack};
-use crate::world::level::collision::CollisionContext;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::{InteractionResult, ItemStack};
+use mc_game_core::world::level::collision::CollisionContext;
 use mc_core::phys::BlockHitResult;
 use mc_core::phys::shapes::VoxelShape;
 

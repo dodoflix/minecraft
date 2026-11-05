@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.TripWireHookBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::{GameEvent, SoundEvent};
 use mc_protocol::packets::play::level::SoundSource;
 
@@ -133,7 +134,7 @@ impl BlockBehaviour for TripWireHookBlock {
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if direction.get_opposite() == state.get(props::HORIZONTAL_FACING) && !state.can_survive(&*level, pos) { air() } else { state }
     });
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let mut state = block.default_state().set(props::POWERED, false).set(props::ATTACHED, false);
         for direction in context.get_nearest_looking_directions() {
             if direction.get_axis().is_horizontal() {
@@ -145,7 +146,7 @@ impl BlockBehaviour for TripWireHookBlock {
         }
         None
     }
-    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {
+    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &mc_game_core::world::item::ItemStack) {
         calculate_state(level, pos, state, false, false, -1, None);
     }
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {

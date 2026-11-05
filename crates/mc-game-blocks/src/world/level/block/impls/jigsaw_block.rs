@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.JigsawBlock`.
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct JigsawBlock;
 
@@ -21,7 +22,7 @@ impl BlockBehaviour for JigsawBlock {
     }
 
     /// `getStateForPlacement`: the clicked face is the front; the top is up, or away from the player on a vertical face.
-    fn get_state_for_placement(&self, block: Block, _level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, _level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let front = context.get_clicked_face();
         let top = if front.get_axis() == Axis::Y { context.get_horizontal_direction().get_opposite() } else { Direction::Up };
         Some(with_orientation(block.default_state(), mc_core::direction::FrontAndTop::from_front_and_top(front, top).expect("valid jigsaw orientation")))
@@ -31,13 +32,13 @@ impl BlockBehaviour for JigsawBlock {
     fn use_without_item(
         &self,
         _state: BlockState,
-        level: &mut crate::server::level::ServerLevel,
+        level: &mut mc_game_core::server::level::ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
-    ) -> crate::world::item::InteractionResult {
-        let is_jigsaw = level.get_block_entity_immediate(pos).is_some_and(|be| be.as_any().is::<crate::world::block_entity::JigsawBlockEntity>());
-        if is_jigsaw && player.can_use_game_master_blocks() { crate::world::item::InteractionResult::SUCCESS } else { crate::world::item::InteractionResult::PASS }
+    ) -> mc_game_core::world::item::InteractionResult {
+        let is_jigsaw = level.get_block_entity_immediate(pos).is_some_and(|be| be.as_any().is::<mc_game_core::world::block_entity::JigsawBlockEntity>());
+        if is_jigsaw && player.can_use_game_master_blocks() { mc_game_core::world::item::InteractionResult::SUCCESS } else { mc_game_core::world::item::InteractionResult::PASS }
     }
 }
 

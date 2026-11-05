@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.entity.ConduitBlockEntity` (server side: the client tick only animates).
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
-use crate::world::level::block::{BlockStateExt, helpers};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::world::level::block::{BlockStateExt, helpers};
 use linkme::distributed_slice;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;

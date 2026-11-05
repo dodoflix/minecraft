@@ -1,14 +1,15 @@
 //! `net.minecraft.world.level.block.SweetBerryBushBlock` (`entityInside`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::inside_block_effects::InsideBlockEffectApplier;
-use super::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
-use crate::world::entity::ServerPlayer;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::block::bonemeal::BonemealSource;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::storage::loot::block_drops::block_interact_drops;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier;
+use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::storage::loot::block_drops::block_interact_drops;
 use mc_core::phys::Vec3;
 use mc_data::{GameEvent, Item, SoundEvent};
 use mc_protocol::packets::play::level::SoundSource;

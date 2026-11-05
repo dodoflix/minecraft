@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.TestInstanceBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::InteractionResult;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::InteractionResult;
 use mc_data::BlockEntityType;
 
 pub struct TestInstanceBlock;
@@ -13,7 +14,7 @@ impl BlockBehaviour for TestInstanceBlock {
         _state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
         let is_test_instance = level.get_block_entity(pos).is_some_and(|be| be.get_type() == BlockEntityType::TEST_INSTANCE_BLOCK);

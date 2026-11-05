@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.BuddingAmethystBlock` (extends `AmethystBlock`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 
 const GROWTH_CHANCE: i32 = 5;
 
@@ -12,7 +13,7 @@ pub fn can_cluster_grow_at_state(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for BuddingAmethystBlock {
-    fn on_projectile_hit(&self, level: &mut crate::server::level::ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {
+    fn on_projectile_hit(&self, level: &mut mc_game_core::server::level::ServerLevel, _state: BlockState, hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn mc_game_core::world::entity::projectile::Projectile) {
         super::amethyst_block::on_projectile_hit(level, hit);
     }
     fn random_tick(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos) {

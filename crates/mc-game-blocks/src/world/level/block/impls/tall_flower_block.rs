@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.TallFlowerBlock` (extends `DoublePlantBlock`; sunflower, lilac, rose bush, peony):
 //! bonemeal pops the flower as an item.
-use super::double_plant_block::double_plant_behaviour_methods;
-use super::prelude::*;
-use super::vegetation_block::MayPlaceOn;
-use crate::server::level::ServerLevel;
-use crate::world::item::ItemStack;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::double_plant_block::double_plant_behaviour_methods;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 
 pub struct TallFlowerBlock;
 impl MayPlaceOn for TallFlowerBlock {}

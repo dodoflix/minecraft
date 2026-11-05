@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.VaultBlock`: key insertion, placement facing, `rotate` / `mirror`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::vault::VaultConfig;
 use crate::world::block_entity::vault_block_entity::{VaultBlockEntity, try_insert_key};
-use crate::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
 use mc_data::enums::VaultState;
 
 pub struct VaultBlock;
@@ -15,7 +16,7 @@ impl BlockBehaviour for VaultBlock {
         state: BlockState,
         level: &mut ServerLevel,
         pos: BlockPos,
-        player: &mut crate::world::entity::ServerPlayer,
+        player: &mut mc_game_core::world::entity::ServerPlayer,
         hand: InteractionHand,
         _hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {

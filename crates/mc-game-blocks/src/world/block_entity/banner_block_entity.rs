@@ -1,7 +1,8 @@
 //! `BannerBlockEntity`: custom name, the pattern layers and the base colour of the banner block.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
-use crate::world::item::ItemStack;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use mc_game_core::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;

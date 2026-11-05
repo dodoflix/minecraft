@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.StructureBlock`: redstone trigger, creator tracking and the editor access check.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::StructureBlockEntity;
-use crate::world::item::InteractionResult;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::has_neighbor_signal;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::StructureBlockEntity;
+use mc_game_core::world::item::InteractionResult;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 use mc_data::enums::StructureMode;
 
 pub struct StructureBlock;
@@ -24,14 +25,14 @@ impl StructureBlock {
 }
 
 impl BlockBehaviour for StructureBlock {
-    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
+    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
         match level.get_block_entity_immediate(pos) {
             Some(be) if be.as_any().is::<StructureBlockEntity>() && StructureBlockEntity::used_by(player.can_use_game_master_blocks()) => InteractionResult::SUCCESS,
             _ => InteractionResult::PASS,
         }
     }
 
-    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {
+    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &mc_game_core::world::item::ItemStack) {
         if let Some(placer) = placer {
             let name = placer.player.game_profile.name.clone();
             level.with_typed_block_entity::<StructureBlockEntity, _>(pos, |_, be| be.created_by(&name));

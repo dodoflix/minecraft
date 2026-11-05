@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.HoneyBlock` (the entity-facing half: sliding and landing).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::inside_block_effects::InsideBlockEffectApplier;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 

@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.BubbleColumnBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::item::ItemStack;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::ItemStack;
 use mc_data::fluid::Fluid;
 use mc_data::{Item, SoundEvent};
 
@@ -75,10 +76,10 @@ impl BlockBehaviour for BubbleColumnBlock {
     fn entity_inside(
         &self,
         state: BlockState,
-        level: &mut crate::server::level::ServerLevel,
+        level: &mut mc_game_core::server::level::ServerLevel,
         pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         is_precise: bool,
     ) {
         if is_precise {

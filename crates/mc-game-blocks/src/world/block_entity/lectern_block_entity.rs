@@ -5,11 +5,12 @@
 //! `setPage` -> `signalPageChange`); the container methods here only queue those effects in order, and the menu
 //! resolver runs them through [`BlockEntity::container_accessed`] right after the container operation.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
-use crate::server::level::ServerLevel;
-use crate::world::container::{Container, empty_stack, still_valid_block_entity};
-use crate::world::inventory::{ContainerData, MenuPlayer};
-use crate::world::item::ItemStack;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::{Container, empty_stack, still_valid_block_entity};
+use mc_game_core::world::inventory::{ContainerData, MenuPlayer};
+use mc_game_core::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
@@ -81,14 +82,14 @@ impl LecternBlockEntity {
     /// a game-master source at the lectern. Vanilla only does it for a block entity that has a level; here the server
     /// must be installed (`enter_server`), which block use from a player packet guarantees, while chunk loading (no
     /// level yet in vanilla either) does not resolve.
-    pub fn resolve_book(&self, level: &ServerLevel, player: Option<&crate::world::entity::ServerPlayer>, book: &mut ItemStack) {
-        use crate::commands::command_source::null_source;
-        use crate::commands::command_source_stack::{CommandEntity, CommandSourceStack};
-        use crate::commands::component_utils::ResolutionContext;
-        use crate::server::permissions::{LevelBasedPermissionSet, PermissionSet};
-        use crate::world::entity::Entity;
+    pub fn resolve_book(&self, level: &ServerLevel, player: Option<&mc_game_core::world::entity::ServerPlayer>, book: &mut ItemStack) {
+        use mc_game_core::commands::command_source::null_source;
+        use mc_game_core::commands::command_source_stack::{CommandEntity, CommandSourceStack};
+        use mc_game_core::commands::component_utils::ResolutionContext;
+        use mc_game_core::server::permissions::{LevelBasedPermissionSet, PermissionSet};
+        use mc_game_core::world::entity::Entity;
         use mc_core::phys::{Vec2, Vec3};
-        if !crate::commands::server_access::has_server() {
+        if !mc_game_core::commands::server_access::has_server() {
             return;
         }
         let permissions: PermissionSet = LevelBasedPermissionSet::GAMEMASTER.into();
@@ -112,7 +113,7 @@ impl LecternBlockEntity {
             ),
             None => CommandSourceStack::named(null_source(), position, Vec2::ZERO, level.dimension.clone(), permissions, mc_text::Component::literal("Lectern")),
         };
-        crate::world::item::resolve_for_item(book, &ResolutionContext::create(&source));
+        mc_game_core::world::item::resolve_for_item(book, &ResolutionContext::create(&source));
     }
 
     /// `getPage()`.
@@ -175,7 +176,7 @@ impl BlockEntity for LecternBlockEntity {
     }
 
     /// `LecternBlockEntity` is its own `MenuProvider`.
-    fn menu_provider(&self) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+    fn menu_provider(&self) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
         Some(crate::world::level::block::impls::lectern_block::lectern_menu_provider(self.base.pos))
     }
 

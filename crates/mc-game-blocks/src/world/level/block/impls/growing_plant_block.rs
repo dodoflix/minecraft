@@ -2,7 +2,7 @@
 //!
 //! Java's constructor fields and virtual methods are the [`GrowingPlant`] trait, implemented by every concrete
 //! subclass; [`can_survive`] is the shared `canSurvive`.
-use super::prelude::*;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub trait GrowingPlant {
     /// `growthDirection`.
@@ -33,7 +33,7 @@ pub fn can_survive(this: &dyn GrowingPlant, level: &dyn LevelReader, pos: BlockP
 }
 
 /// `GrowingPlantBlock.tick`.
-pub fn tick(state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos) {
+pub fn tick(state: BlockState, level: &mut mc_game_core::server::level::ServerLevel, pos: BlockPos) {
     if !state.can_survive(&*level, pos) {
         level.destroy_block(pos, true, None, 512);
     }

@@ -1,12 +1,13 @@
 //! `JukeboxBlockEntity` + `JukeboxSongPlayer` (`world.item`): one record, song playing state, ticking while `has_record`.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::server::level::ServerLevel;
-use crate::world::entity::item::ItemEntity;
-use crate::world::item::ItemStack;
-use crate::world::level::LevelAccessor;
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -105,7 +106,7 @@ impl JukeboxBlockEntity {
     /// `onSongChanged()`.
     fn on_song_changed(&self, level: &mut ServerLevel) {
         level.update_neighbors_at(self.base.pos, self.base.block_state.block());
-        super::set_changed(level, self.base.pos, self.base.block_state);
+        mc_game_core::world::block_entity::set_changed(level, self.base.pos, self.base.block_state);
     }
 
     /// `JukeboxSongPlayer.play(level, song)`.
@@ -131,7 +132,7 @@ impl JukeboxBlockEntity {
     /// `notifyItemChangedInJukebox(wasInserted)`.
     fn notify_item_changed(&mut self, level: &mut ServerLevel, was_inserted: bool) {
         let pos = self.base.pos;
-        if crate::world::level::BlockGetter::get_block_state(level, pos) == self.base.block_state {
+        if mc_game_core::world::level::BlockGetter::get_block_state(level, pos) == self.base.block_state {
             let new_state = self.base.block_state.set(props::HAS_RECORD, was_inserted);
             level.set_block(pos, new_state, 2, 512);
             self.base.block_state = new_state;

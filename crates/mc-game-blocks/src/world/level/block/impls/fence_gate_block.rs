@@ -1,12 +1,13 @@
 //! `net.minecraft.world.level.block.FenceGateBlock` (extends `HorizontalDirectionalBlock`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{ItemStack, BlockPlaceContext, InteractionResult};
-use crate::world::level::block::block_set_type::WoodType;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::has_neighbor_signal;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{ItemStack, BlockPlaceContext, InteractionResult};
+use mc_game_core::world::level::block::block_set_type::WoodType;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::random::RandomSource;
 use mc_data::block::PathComputationType;
@@ -27,7 +28,7 @@ fn is_wall(state: BlockState) -> bool {
 }
 
 impl FenceGateBlock {
-    fn play_sound(&self, level: &mut ServerLevel, except: Option<crate::world::entity::EntityId>, pos: BlockPos, open: bool) {
+    fn play_sound(&self, level: &mut ServerLevel, except: Option<mc_game_core::world::entity::EntityId>, pos: BlockPos, open: bool) {
         let pitch = level.random().next_float() * 0.1 + 0.9;
         let sound = if open { self.wood.fence_gate_open } else { self.wood.fence_gate_close };
         level.play_sound(except, pos, sound, SoundSource::Blocks, 1.0, pitch);
@@ -45,9 +46,9 @@ impl FenceGateBlock {
 }
 
 impl BlockBehaviour for FenceGateBlock {
-    fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, explosion: &dyn crate::world::level::explosion::Explosion, on_hit: &mut dyn FnMut(ItemStack, BlockPos)) {
+    fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, explosion: &dyn mc_game_core::world::level::explosion::Explosion, on_hit: &mut dyn FnMut(ItemStack, BlockPos)) {
         self.on_explosion_hit_inner(state, level, pos, explosion.can_trigger_blocks());
-        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+        mc_game_core::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         let axis = direction.get_axis();

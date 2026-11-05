@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.SnifferEggBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::hatch_spawns;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::hatch_spawns;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::math::mth;
 use mc_data::block::PathComputationType;
 use mc_data::{EntityType, GameEvent, SoundEvent};

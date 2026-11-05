@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.GlazedTerracottaBlock` (extends `HorizontalDirectionalBlock`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct GlazedTerracottaBlock;
 

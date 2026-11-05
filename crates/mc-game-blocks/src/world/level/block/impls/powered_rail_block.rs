@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.PoweredRailBlock` (extends `BaseRailBlock`); powered and activator rails.
-use super::base_rail_block::{self, is_slope, rail_behaviour};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::signal_getter;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::base_rail_block::{self, is_slope, rail_behaviour};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::signal_getter;
 use mc_data::enums::RailShape;
 
 pub struct PoweredRailBlock;

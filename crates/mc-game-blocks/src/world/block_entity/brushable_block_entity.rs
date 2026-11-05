@@ -1,7 +1,8 @@
 //! `BrushableBlockEntity` (suspicious sand / gravel): brush progress, the archaeology loot (`LootTable` + seed or the
 //! unpacked `item`) and the direction the brushing started from.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
@@ -10,9 +11,9 @@ use mc_data::BlockEntityType;
 use mc_data::block::BlockState;
 use mc_dfu::extra::IDENTIFIER;
 use mc_nbt::CompoundTag;
-use crate::server::level::ServerLevel;
-use crate::world::level::LevelAccessor;
-use crate::world::item::ItemStack;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::item::ItemStack;
 use mc_data::props;
 
 pub const BRUSH_COOLDOWN_TICKS: i64 = 10;

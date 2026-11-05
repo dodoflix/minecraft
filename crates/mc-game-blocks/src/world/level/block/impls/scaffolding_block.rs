@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.ScaffoldingBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::collision::CollisionContext;
-use crate::world::level::shapes::{box_, box_z, column};
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::shapes::{box_, box_z, column};
 use mc_core::phys::shapes::{Shapes, VoxelShape};
 use std::sync::LazyLock;
 
@@ -54,7 +55,7 @@ fn is_bottom(level: &dyn BlockGetter, pos: BlockPos, distance: i32) -> bool {
 }
 
 impl BlockBehaviour for ScaffoldingBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_shape(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, context: &CollisionContext) -> VoxelShape {
         if !state.block().item().is_some_and(|item| context.is_holding_item(item)) {
             if state.get(props::BOTTOM) { SHAPE_UNSTABLE.clone() } else { SHAPE_STABLE.clone() }
@@ -96,7 +97,7 @@ impl BlockBehaviour for ScaffoldingBlock {
         let new_state = state.set(props::STABILITY_DISTANCE, distance).set(props::BOTTOM, is_bottom(level, pos, distance));
         if new_state.get(props::STABILITY_DISTANCE) == STABILITY_MAX_DISTANCE {
             if state.get(props::STABILITY_DISTANCE) == STABILITY_MAX_DISTANCE {
-                crate::world::entity::falling_block_entity::FallingBlockEntity::fall(level, pos, new_state);
+                mc_game_core::world::entity::falling_block_entity::FallingBlockEntity::fall(level, pos, new_state);
             } else {
                 level.destroy_block(pos, true, None, 512);
             }

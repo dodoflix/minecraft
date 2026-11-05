@@ -1,16 +1,17 @@
 //! `net.minecraft.world.level.block.CoralWallFanBlock` (extends `BaseCoralWallFanBlock`).
+use mc_game_core::{register_block_class, update_shape};
 use super::base_coral_plant_type_block::{self as base, dead_block};
 use super::base_coral_wall_fan_block as wall_fan;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct CoralWallFanBlock {
     dead_block: Block,
 }
 
 impl BlockBehaviour for CoralWallFanBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
         base::try_schedule_die_tick(state, level, pos);
     }

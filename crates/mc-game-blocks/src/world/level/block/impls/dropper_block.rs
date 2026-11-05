@@ -1,12 +1,13 @@
 //! `net.minecraft.world.level.block.DropperBlock`: a dispenser that drops (or inserts into the container in front).
+use mc_game_core::register_block_class;
 use super::dispenser_block::DispenserBlock;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::hopper_block_entity::{add_item, get_container_at, with_container};
-use crate::world::block_entity::{BlockEntity, DispenserBlockEntity, changed_log};
-use crate::world::container::Container;
-use crate::world::dispenser::{BlockSource, DispenseItemBehavior, default_behavior};
-use crate::world::level::redstone::Orientation;
+use mc_game_core::world::block_entity::{BlockEntity, DispenserBlockEntity, changed_log};
+use mc_game_core::world::container::Container;
+use mc_game_core::world::dispenser::{BlockSource, DispenseItemBehavior, default_behavior};
+use mc_game_core::world::level::redstone::Orientation;
 use mc_data::BlockEntityType;
 
 pub struct DropperBlock;
@@ -18,7 +19,7 @@ impl BlockBehaviour for DropperBlock {
     fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
         DispenserBlock.mirror(state, mirror)
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         DispenserBlock.get_state_for_placement(block, level, context)
     }
     fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, block: Block, orientation: Option<Orientation>, moved_by_piston: bool) {
@@ -27,7 +28,7 @@ impl BlockBehaviour for DropperBlock {
     fn tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         dispense_from(level, state, pos);
     }
-    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, hit: &mc_core::phys::BlockHitResult) -> crate::world::item::InteractionResult {
+    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, hit: &mc_core::phys::BlockHitResult) -> mc_game_core::world::item::InteractionResult {
         DispenserBlock.use_without_item(state, level, pos, player, hit)
     }
     fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {

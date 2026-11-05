@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.WeepingVinesBlock` (extends `GrowingPlantHeadBlock`).
+use mc_game_core::register_block_class;
 use super::growing_plant_block::GrowingPlant;
 use super::growing_plant_head_block::{GrowingPlantHead, growing_plant_head_behaviour};
 use super::nether_vines;
-use super::prelude::*;
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_core::random::RandomSource;
 
 pub struct WeepingVinesBlock;

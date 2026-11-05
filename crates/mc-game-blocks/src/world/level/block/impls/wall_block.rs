@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.WallBlock`.
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_data::enums::WallSide;
 use std::collections::HashMap;
@@ -8,10 +9,10 @@ use std::sync::LazyLock;
 pub struct WallBlock;
 
 /// `WallBlock.TEST_SHAPE_POST`.
-static TEST_SHAPE_POST: LazyLock<VoxelShape> = LazyLock::new(|| crate::world::level::shapes::column(2.0, 0.0, 16.0));
+static TEST_SHAPE_POST: LazyLock<VoxelShape> = LazyLock::new(|| mc_game_core::world::level::shapes::column(2.0, 0.0, 16.0));
 /// `WallBlock.TEST_SHAPES_WALL`.
 static TEST_SHAPES_WALL: LazyLock<HashMap<Direction, VoxelShape>> =
-    LazyLock::new(|| Shapes::rotate_horizontal(&crate::world::level::shapes::box_z_xy(2.0, 16.0, 0.0, 9.0)));
+    LazyLock::new(|| Shapes::rotate_horizontal(&mc_game_core::world::level::shapes::box_z_xy(2.0, 16.0, 0.0, 9.0)));
 
 fn wall_property(direction: Direction) -> mc_data::props::EnumProperty<WallSide> {
     match direction {
@@ -112,11 +113,11 @@ fn side_update(level: &dyn LevelReader, pos: BlockPos, state: BlockState, neighb
 }
 
 impl BlockBehaviour for WallBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
         false
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let replaced_fluid_state = level.get_fluid_state(pos);
         let mut connected = [false; 4];

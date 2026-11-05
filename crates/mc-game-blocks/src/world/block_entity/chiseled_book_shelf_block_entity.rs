@@ -1,11 +1,12 @@
 //! `ChiseledBookShelfBlockEntity` (`ListBackedContainer` of 6 books, one per slot).
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::server::level::ServerLevel;
-use crate::world::container::{Container, helper};
-use crate::world::item::ItemStack;
-use crate::world::level::block::BlockStateExt;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::{Container, helper};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::BlockStateExt;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
@@ -54,7 +55,7 @@ impl ChiseledBookShelfBlockEntity {
             for slot in 0..MAX_BOOKS_IN_STORAGE {
                 updated = updated.set(slot_occupied_property(slot), !self.items[slot].is_empty());
             }
-            crate::world::level::LevelAccessor::set_block_and_update(level, self.base.pos, updated);
+            mc_game_core::world::level::LevelAccessor::set_block_and_update(level, self.base.pos, updated);
             self.base.block_state = updated;
             level.game_event_at_block(GameEvent::BLOCK_CHANGE, self.base.pos, &GameEventContext::of_state(Some(updated)));
         } else {
@@ -96,7 +97,7 @@ impl Container for ChiseledBookShelfBlockEntity {
         self.items.iter().all(|s| s.is_empty())
     }
     fn get_item(&self, slot: usize) -> &ItemStack {
-        self.items.get(slot).unwrap_or_else(|| crate::world::container::empty_stack())
+        self.items.get(slot).unwrap_or_else(|| mc_game_core::world::container::empty_stack())
     }
     fn get_item_mut(&mut self, slot: usize) -> Option<&mut ItemStack> {
         self.items.get_mut(slot)
@@ -127,8 +128,8 @@ impl Container for ChiseledBookShelfBlockEntity {
     fn set_changed(&mut self) {
         self.base.changed = true;
     }
-    fn still_valid(&self, player: &dyn crate::world::inventory::MenuPlayer) -> bool {
-        crate::world::container::still_valid_block_entity(self.base.pos, player)
+    fn still_valid(&self, player: &dyn mc_game_core::world::inventory::MenuPlayer) -> bool {
+        mc_game_core::world::container::still_valid_block_entity(self.base.pos, player)
     }
     fn get_max_stack_size(&self) -> i32 {
         1
@@ -184,7 +185,7 @@ impl BlockEntity for ChiseledBookShelfBlockEntity {
 
     fn container_accessed(&mut self, level: &mut ServerLevel) {
         if std::mem::take(&mut self.base.changed) {
-            super::set_changed(level, self.base.pos, self.base.block_state);
+            mc_game_core::world::block_entity::set_changed(level, self.base.pos, self.base.block_state);
         }
         if let Some(slot) = self.pending_slot.take() {
             self.update_state(level, slot);
@@ -192,7 +193,7 @@ impl BlockEntity for ChiseledBookShelfBlockEntity {
     }
 
     fn pre_remove_side_effects(&mut self, level: &mut ServerLevel, pos: BlockPos, _state: BlockState) {
-        crate::world::containers::drop_contents_list(level, pos, &self.items);
+        mc_game_core::world::containers::drop_contents_list(level, pos, &self.items);
     }
 }
 

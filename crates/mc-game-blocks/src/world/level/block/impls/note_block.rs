@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.NoteBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity as _, EntityId, ServerPlayer};
-use crate::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::SignalGetter;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity as _, EntityId, ServerPlayer};
+use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::SignalGetter;
 use mc_core::phys::BlockHitResult;
 use mc_data::GameEvent;
 use mc_data::enums::NoteBlockInstrument;

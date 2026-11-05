@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.ConcretePowderBlock` (extends `FallingBlock`).
-use super::prelude::*;
-use super::falling_block;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::entity::falling_block_entity::FallingBlockEntity;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::falling_block;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::entity::falling_block_entity::FallingBlockEntity;
 
 pub struct ConcretePowderBlock;
 

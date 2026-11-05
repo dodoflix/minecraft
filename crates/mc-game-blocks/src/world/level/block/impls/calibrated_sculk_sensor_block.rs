@@ -1,14 +1,15 @@
 //! `net.minecraft.world.level.block.CalibratedSculkSensorBlock` (extends `SculkSensorBlock`).
-use super::prelude::*;
-use super::sculk_sensor_block::{self, SculkSensorBlock};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::sculk_sensor_block::{self, SculkSensorBlock};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct CalibratedSculkSensorBlock;
 
 impl BlockBehaviour for CalibratedSculkSensorBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         SculkSensorBlock.get_state_for_placement(block, level, context).map(|state| state.set(props::HORIZONTAL_FACING, context.get_horizontal_direction()))
     }
@@ -43,9 +44,9 @@ impl BlockBehaviour for CalibratedSculkSensorBlock {
     fn get_analog_output_signal(&self, state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
         sculk_sensor_block::analog_output_signal(state, level, pos)
     }
-    fn spawn_after_break(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, tool: &crate::world::item::ItemStack, drop_experience: bool) {
+    fn spawn_after_break(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, tool: &mc_game_core::world::item::ItemStack, drop_experience: bool) {
         if drop_experience {
-            helpers::try_drop_experience(level, pos, tool, &crate::registry::typed::int_provider::IntProvider::Constant(5));
+            helpers::try_drop_experience(level, pos, tool, &mc_game_core::registry::typed::int_provider::IntProvider::Constant(5));
         }
     }
 

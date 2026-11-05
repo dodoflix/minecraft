@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.StemBlock` (extends `VegetationBlock`): pumpkin and melon stems.
-use super::crop_block::get_growth_speed;
-use super::prelude::*;
-use super::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
-use crate::server::level::ServerLevel;
-use crate::world::item::ItemStack;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::crop_block::get_growth_speed;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{MayPlaceOn, vegetation_behaviour_methods};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_core::direction::Plane;
 use mc_core::math::mth;
 use mc_data::Item;

@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.DriedGhastBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ServerPlayer;
-use crate::world::item::{BlockPlaceContext, ItemStack};
-use crate::world::level::block::{hatch_spawns, simple_waterlogged};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::{BlockPlaceContext, ItemStack};
+use mc_game_core::world::level::block::{hatch_spawns, simple_waterlogged};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::block::PathComputationType;
 use mc_data::fluid::{Fluid, FluidState};
 use mc_data::{EntityType, GameEvent, SoundEvent};
@@ -32,13 +33,13 @@ impl BlockBehaviour for DriedGhastBlock {
     fn is_liquid_block_container(&self) -> bool {
         true
     }
-    fn can_place_liquid(&self, user: Option<&dyn crate::world::entity::Entity>, level: &dyn BlockGetter, pos: BlockPos, state: BlockState, fluid: Fluid) -> bool {
+    fn can_place_liquid(&self, user: Option<&dyn mc_game_core::world::entity::Entity>, level: &dyn BlockGetter, pos: BlockPos, state: BlockState, fluid: Fluid) -> bool {
         simple_waterlogged::can_place_liquid(user, level, pos, state, fluid)
     }
     fn is_bucket_pickup(&self) -> bool {
         true
     }
-    fn pickup_block(&self, user: Option<&dyn crate::world::entity::Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> ItemStack {
+    fn pickup_block(&self, user: Option<&dyn mc_game_core::world::entity::Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> ItemStack {
         simple_waterlogged::pickup_block(user, level, pos, state)
     }
     fn get_pickup_sound(&self) -> Option<SoundEvent> {
@@ -84,7 +85,7 @@ impl BlockBehaviour for DriedGhastBlock {
     fn place_liquid(&self, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState, fluid_state: FluidState) -> bool {
         if !state.get(props::WATERLOGGED) && fluid_state.get_type() == Fluid::WATER {
             level.set_block_and_update(pos, state.set(props::WATERLOGGED, true));
-            let delay = crate::world::level::material::fluid_behaviour(fluid_state.get_type()).get_tick_delay(&*level);
+            let delay = mc_game_core::world::level::material::fluid_behaviour(fluid_state.get_type()).get_tick_delay(&*level);
             level.schedule_fluid_tick(pos, fluid_state.get_type(), delay, mc_world::ticks::TickPriority::Normal);
             level.play_sound(None, pos, SoundEvent::BLOCK_DRIED_GHAST_PLACE_IN_WATER, SoundSource::Blocks, 1.0, 1.0);
             true

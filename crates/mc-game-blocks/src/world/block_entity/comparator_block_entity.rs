@@ -1,6 +1,7 @@
 //! `ComparatorBlockEntity`: the remembered output signal (`OutputSignal`).
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;

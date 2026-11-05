@@ -1,16 +1,17 @@
 //! `net.minecraft.world.level.block.EndPortalBlock` (a `Portal`: overworld/anywhere -> End platform, End -> respawn).
-use super::prelude::*;
-use crate::server::MinecraftServer;
-use crate::server::level::ServerLevel;
-use crate::server::players::dimension_change::{PostTeleportTransition, TeleportTransition};
-use crate::server::players::respawn::find_respawn_position_and_use_spawn_block;
-use crate::server::players::teleport_transition::adjusted_spawn_pos;
-use crate::server::world_dimensions::end_key;
-use crate::world::entity::inside_block_effects::InsideBlockEffectApplier;
-use crate::world::entity::portal::Portal;
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::level::levelgen::feature::end_platform_feature::EndPlatformFeature;
-use crate::world::level::shapes::voxel_shape;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::MinecraftServer;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::players::dimension_change::{PostTeleportTransition, TeleportTransition};
+use mc_game_core::server::players::respawn::find_respawn_position_and_use_spawn_block;
+use mc_game_core::server::players::teleport_transition::adjusted_spawn_pos;
+use mc_game_core::server::world_dimensions::end_key;
+use mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier;
+use mc_game_core::world::entity::portal::Portal;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::level::levelgen::feature::end_platform_feature::EndPlatformFeature;
+use mc_game_core::world::level::shapes::voxel_shape;
 use mc_core::phys::Vec3;
 use mc_core::phys::shapes::VoxelShape;
 use mc_protocol::packets::play::{Relative, Relatives};
@@ -43,8 +44,8 @@ impl BlockBehaviour for EndPortalBlock {
         }
     }
 
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
-        crate::world::item::ItemStack::empty()
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+        mc_game_core::world::item::ItemStack::empty()
     }
 
     fn as_portal(&self) -> Option<&'static dyn Portal> {

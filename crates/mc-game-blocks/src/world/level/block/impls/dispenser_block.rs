@@ -1,17 +1,18 @@
 //! `net.minecraft.world.level.block.DispenserBlock` (the dropper extends it, see `dropper_block`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::{BlockEntity, DispenserBlockEntity, changed_log};
-use crate::world::container::Container;
-use crate::world::dispenser::{BlockSource, get_dispense_method};
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::has_neighbor_signal;
-use crate::stats::{Stat, stats::Stats};
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::{BlockEntity, DispenserBlockEntity, changed_log};
+use mc_game_core::world::container::Container;
+use mc_game_core::world::dispenser::{BlockSource, get_dispense_method};
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
+use mc_game_core::stats::{Stat, stats::Stats};
 use crate::world::block_entity::container_menu_provider::BlockEntityMenuProvider;
-use crate::world::entity::ServerPlayer;
-use crate::world::item::InteractionResult;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::InteractionResult;
 use mc_core::phys::BlockHitResult;
 use mc_data::BlockEntityType;
 use mc_data::GameEvent;
@@ -61,12 +62,12 @@ impl BlockBehaviour for DispenserBlock {
         update_neighbours_after_destroy(state, level, pos);
     }
 
-    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
-        BlockEntityMenuProvider::of(level, pos).map(|p| Box::new(p) as Box<dyn crate::world::inventory::MenuProvider>)
+    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn mc_game_core::world::inventory::MenuProvider>> {
+        BlockEntityMenuProvider::of(level, pos).map(|p| Box::new(p) as Box<dyn mc_game_core::world::inventory::MenuProvider>)
     }
 
     fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
-        crate::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
+        mc_game_core::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
     }
 }
 

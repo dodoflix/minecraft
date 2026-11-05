@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.SmallDripleafBlock` (extends `DoublePlantBlock`).
-use super::double_plant_block;
-use super::prelude::*;
-use super::vegetation_block::MayPlaceOn;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::double_plant_block;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_data::enums::DoubleBlockHalf;
 use mc_data::fluid::Fluid;
 
@@ -21,8 +22,8 @@ impl MayPlaceOn for SmallDripleafBlock {
 }
 
 impl BlockBehaviour for SmallDripleafBlock {
-    crate::simple_waterlogged!();
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    mc_game_core::simple_waterlogged!();
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         // `DoublePlantBlock.getStateForPlacement`
         let pos = context.get_clicked_pos();
         if !(pos.y() < level.get_max_y() && level.get_block_state(pos.above()).can_be_replaced_by(context)) {
@@ -31,7 +32,7 @@ impl BlockBehaviour for SmallDripleafBlock {
         let state = block.default_state().set(props::HORIZONTAL_FACING, context.use_on.get_horizontal_direction().get_opposite());
         Some(double_plant_block::copy_waterlogged_from(&*level, pos, state))
     }
-    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {
+    fn set_placed_by(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, _stack: &mc_game_core::world::item::ItemStack) {
         let above_pos = pos.above();
         let upper = state.block().default_state().set(props::DOUBLE_BLOCK_HALF, DoubleBlockHalf::Upper).set(props::HORIZONTAL_FACING, state.get(props::HORIZONTAL_FACING));
         let block_state = double_plant_block::copy_waterlogged_from(&*level, above_pos, upper);

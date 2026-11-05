@@ -1,13 +1,14 @@
 //! `net.minecraft.world.level.block.RespawnAnchorBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::server::level::level_explode::Explode;
-use crate::world::entity::dismount_helper::find_safe_dismount_location;
-use crate::world::entity::respawn::respawn_data_of;
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::explosion::{Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::level::level_explode::Explode;
+use mc_game_core::world::entity::dismount_helper::find_safe_dismount_location;
+use mc_game_core::world::entity::respawn::respawn_data_of;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::explosion::{Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::phys::Vec3;
 use mc_data::block::BlockState as State;
 use mc_data::fluid::FluidState;
@@ -43,11 +44,11 @@ fn can_be_charged(state: State) -> bool {
 
 /// `RespawnAnchorBlock.canSetSpawn(level, pos)`.
 pub fn can_set_spawn(level: &ServerLevel, pos: BlockPos) -> bool {
-    level.attribute_bool(crate::world::attribute::attributes::RESPAWN_ANCHOR_WORKS, pos)
+    level.attribute_bool(mc_game_core::world::attribute::attributes::RESPAWN_ANCHOR_WORKS, pos)
 }
 
 /// `RespawnAnchorBlock.charge(sourceEntity, level, pos, state)`.
-pub fn charge(source_entity: Option<crate::world::entity::EntityId>, level: &mut ServerLevel, pos: BlockPos, state: State) {
+pub fn charge(source_entity: Option<mc_game_core::world::entity::EntityId>, level: &mut ServerLevel, pos: BlockPos, state: State) {
     let new_state = state.set(props::RESPAWN_ANCHOR_CHARGES, state.get(props::RESPAWN_ANCHOR_CHARGES) + 1);
     level.set_block_and_update(pos, new_state);
     level.game_event_at_block(mc_data::GameEvent::BLOCK_CHANGE, pos, &GameEventContext::of(source_entity, Some(new_state)));
@@ -102,7 +103,7 @@ impl BlockBehaviour for RespawnAnchorBlock {
         if stack.is(Item::GLOWSTONE) && can_be_charged(state) {
             charge(Some(player.base_id()), level, pos, state);
             let mut held = stack.clone();
-            crate::world::item::ItemStackExt::consume(&mut held, 1, player.has_infinite_materials());
+            mc_game_core::world::item::ItemStackExt::consume(&mut held, 1, player.has_infinite_materials());
             player.set_item_in_hand(hand, held);
             InteractionResult::SUCCESS
         } else if hand == InteractionHand::MainHand && player.get_item_in_hand(InteractionHand::OffHand).is(Item::GLOWSTONE) && can_be_charged(state) {
@@ -120,7 +121,7 @@ impl BlockBehaviour for RespawnAnchorBlock {
             explode(level, pos, player);
             return InteractionResult::SUCCESS_SERVER;
         }
-        let new_config = crate::world::entity::respawn::RespawnConfig { respawn_data: respawn_data_of(level.dimension.clone(), pos, 0.0, 0.0), forced: false };
+        let new_config = mc_game_core::world::entity::respawn::RespawnConfig { respawn_data: respawn_data_of(level.dimension.clone(), pos, 0.0, 0.0), forced: false };
         if !new_config.is_same_position(player.respawn_config.as_ref()) {
             player.set_respawn_position(Some(new_config), true);
             level.play_sound(None, pos, mc_data::SoundEvent::BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundSource::Blocks, 1.0, 1.0);

@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.LanternBlock`.
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct LanternBlock;
 
@@ -9,11 +10,11 @@ fn get_connected_direction(state: BlockState) -> Direction {
 }
 
 impl BlockBehaviour for LanternBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
         false
     }
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let replaced_fluid_state = level.get_fluid_state(pos);
         for direction in context.get_nearest_looking_directions() {

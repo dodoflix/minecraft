@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.BasePressurePlateBlock` and its two subclasses `PressurePlateBlock` (powered
 //! boolean, sensitivity from the `BlockSetType`) and `WeightedPressurePlateBlock` (power from the entity count).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::block::block_set_type::{BlockSetType, PressurePlateSensitivity};
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::block::block_set_type::{BlockSetType, PressurePlateSensitivity};
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_data::GameEvent;
@@ -129,7 +130,7 @@ impl BlockBehaviour for BasePressurePlateBlock {
         level: &mut ServerLevel,
         pos: BlockPos,
         entity: &mut dyn Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         let signal = self.get_signal_for_state(state);

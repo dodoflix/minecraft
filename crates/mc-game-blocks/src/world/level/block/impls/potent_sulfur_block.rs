@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.PotentSulfurBlock` (extends `BaseEntityBlock`); the geyser/nausea tickers live in
 //! `PotentSulfurBlockEntity`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::PotentSulfurBlockEntity;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::enums::PotentSulfurState;
 use mc_data::fluid::Fluid;
 use mc_data::{GameEvent, SoundEvent};
@@ -42,7 +43,7 @@ impl BlockBehaviour for PotentSulfurBlock {
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         valid_block_state(state, level, pos)
     });
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         Some(valid_block_state(block.default_state(), level, context.get_clicked_pos()))
     }
     fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {

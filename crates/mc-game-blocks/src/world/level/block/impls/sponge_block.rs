@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.SpongeBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::behaviour;
-use crate::world::level::material::FluidStateExt;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::behaviour;
+use mc_game_core::world::level::material::FluidStateExt;
 use mc_core::pos::TraversalNodeStatus;
 use mc_data::SoundEvent;
 use mc_protocol::packets::play::level::SoundSource;
@@ -61,7 +62,7 @@ impl BlockBehaviour for SpongeBlock {
             try_absorb_water(level, pos);
         }
     }
-    fn neighbor_changed(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<crate::world::level::redstone::Orientation>, _moved_by_piston: bool) {
+    fn neighbor_changed(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _block: Block, _orientation: Option<mc_game_core::world::level::redstone::Orientation>, _moved_by_piston: bool) {
         try_absorb_water(level, pos);
     }
 }

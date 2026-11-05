@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.HorizontalDirectionalBlock`: `rotate` / `mirror` of the `facing` property.
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct HorizontalDirectionalBlock;
 

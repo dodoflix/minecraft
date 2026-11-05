@@ -1,13 +1,14 @@
 //! `net.minecraft.world.level.block.ChiseledBookShelfBlock`.
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::selectable_slot_container::get_hit_slot;
-use crate::server::level::ServerLevel;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::chiseled_book_shelf_block_entity::{ChiseledBookShelfBlockEntity, is_bookshelf_book, slot_occupied_property};
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::inventory::Prediction;
-use crate::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::gameevent::GameEventContext;
-use crate::stats::Stat;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::inventory::Prediction;
+use mc_game_core::world::item::{BlockPlaceContext, InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::stats::Stat;
 use mc_core::phys::BlockHitResult;
 use mc_data::{GameEvent, Item, SoundEvent};
 use mc_protocol::packets::play::level::SoundSource;

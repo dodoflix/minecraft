@@ -2,16 +2,17 @@
 //!
 //! The Java abstract hooks (`getStalactiteLandingSound`, `canGrow`, `blocksStalagmiteScan`, `getMaxGrowthLength`,
 //! `randomTick` override of the dripstone) are the [`SpeleothemClass`] trait; [`Speleothem`] is the shared behaviour.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::falling_block_entity::FallingBlockEntity;
-use crate::world::level::collision::CollisionContext;
-use crate::world::level::shapes::column;
+use mc_game_core::update_shape;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::falling_block_entity::FallingBlockEntity;
+use mc_game_core::world::level::collision::CollisionContext;
+use mc_game_core::world::level::shapes::column;
 use mc_core::phys::shapes::VoxelShape;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::projectile::Projectile;
-use crate::world::level::block::PlainBlock;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::projectile::Projectile;
+use mc_game_core::world::level::block::PlainBlock;
 use mc_data::EntityType;
 use mc_data::enums::SpeleothemThickness;
 use std::sync::LazyLock;
@@ -256,7 +257,7 @@ impl<C: SpeleothemClass> Speleothem<C> {
 }
 
 impl<C: SpeleothemClass> BlockBehaviour for Speleothem<C> {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         self.is_valid_placement(level, pos, state.get(props::VERTICAL_DIRECTION))
     }
@@ -278,7 +279,7 @@ impl<C: SpeleothemClass> BlockBehaviour for Speleothem<C> {
             state.set(props::SPELEOTHEM_THICKNESS, calculate_speleothem_thickness(state.block(), &*level, pos, tip_direction, merge_opposing_tips))
         }
     });
-    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let pos = context.get_clicked_pos();
         let default_tip_direction = context.get_nearest_looking_vertical_direction().get_opposite();
         let tip_direction = self.calculate_tip_direction(level, pos, default_tip_direction)?;

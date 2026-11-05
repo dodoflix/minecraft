@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.CommandBlock`: redstone / auto / chain execution, the chain walk, the editor
 //! hand-off and the comparator output.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::block_entity::CommandBlockEntity;
-use crate::world::item::{BlockPlaceContext, InteractionResult};
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::has_neighbor_signal;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::block_entity::CommandBlockEntity;
+use mc_game_core::world::item::{BlockPlaceContext, InteractionResult};
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::has_neighbor_signal;
 use mc_protocol::packets::play::CommandBlockEntityMode as Mode;
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 
@@ -128,7 +129,7 @@ impl BlockBehaviour for CommandBlock {
     }
 
     /// `useWithoutItem`: `player.openCommandBlock(be)` (server side: the entity's custom-only data to the client).
-    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
+    fn use_without_item(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut mc_game_core::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
         let Some(be) = level.get_block_entity_immediate(pos) else { return InteractionResult::PASS };
         if !be.as_any().is::<CommandBlockEntity>() || !player.can_use_game_master_blocks() {
             return InteractionResult::PASS;
@@ -145,7 +146,7 @@ impl BlockBehaviour for CommandBlock {
         level.get_block_entity(pos).and_then(|be| be.as_any().downcast_ref::<CommandBlockEntity>()).map_or(0, |be| be.get_command_block().get_success_count())
     }
 
-    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, stack: &crate::world::item::ItemStack) {
+    fn set_placed_by(&self, _state: BlockState, level: &mut ServerLevel, pos: BlockPos, _placer: Option<&mut mc_game_core::world::entity::ServerPlayer>, stack: &mc_game_core::world::item::ItemStack) {
         if !level.get_block_entity_immediate(pos).is_some_and(|be| be.as_any().is::<CommandBlockEntity>()) {
             return;
         }

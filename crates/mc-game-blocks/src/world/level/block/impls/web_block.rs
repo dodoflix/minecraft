@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.WebBlock`.
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 use mc_core::phys::Vec3;
 
 pub struct WebBlock;
@@ -8,10 +9,10 @@ impl BlockBehaviour for WebBlock {
     fn entity_inside(
         &self,
         state: BlockState,
-        _level: &mut crate::server::level::ServerLevel,
+        _level: &mut mc_game_core::server::level::ServerLevel,
         _pos: BlockPos,
-        entity: &mut dyn crate::world::entity::Entity,
-        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        entity: &mut dyn mc_game_core::world::entity::Entity,
+        _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
         // `MobEffects.WEAVING` (0.5, 0.25, 0.5) needs the mob effects (`Entity::has_effect`)

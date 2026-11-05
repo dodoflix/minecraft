@@ -1,11 +1,12 @@
 //! `BaseContainerBlockEntity` / `RandomizableContainerBlockEntity` as `MenuProvider` for the dispenser, dropper and hopper:
 //! the lock check, the loot table unpack, `sendChestLockedNotifications`, then the menu over the block entity container.
 
-use super::base_container::{BaseContainer, send_chest_locked_notifications};
-use super::randomizable_container::RandomizableContainerData;
-use super::{BlockEntity, DispenserBlockEntity, HopperBlockEntity};
-use crate::world::inventory::{AbstractContainerMenu, ContainerRef, DispenserMenu, HopperMenu, MenuPlayer, MenuProvider};
-use crate::world::level::BlockGetter;
+use mc_game_core::world::block_entity::base_container::{BaseContainer, send_chest_locked_notifications};
+use mc_game_core::world::block_entity::randomizable_container::RandomizableContainerData;
+use crate::world::block_entity::HopperBlockEntity;
+use mc_game_core::world::block_entity::{BlockEntity, DispenserBlockEntity};
+use mc_game_core::world::inventory::{AbstractContainerMenu, ContainerRef, DispenserMenu, HopperMenu, MenuPlayer, MenuProvider};
+use mc_game_core::world::level::BlockGetter;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_text::Component;

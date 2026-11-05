@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.RedstoneTorchBlock` (extends `BaseTorchBlock`).
+use mc_game_core::register_block_class;
 use super::base_torch_block::BaseTorchBlock;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::redstone::{ExperimentalRedstoneUtils, Orientation};
-use crate::world::level::signal_getter::has_signal;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::redstone::{ExperimentalRedstoneUtils, Orientation};
+use mc_game_core::world::level::signal_getter::has_signal;
 
 pub struct RedstoneTorchBlock;
 

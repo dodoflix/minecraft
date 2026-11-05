@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.SeaPickleBlock` (extends `VegetationBlock`).
-use super::prelude::*;
-use super::vegetation_block::MayPlaceOn;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_data::fluid::Fluid;
 
 pub struct SeaPickleBlock;
@@ -20,7 +21,7 @@ pub fn is_dead(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for SeaPickleBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let state = level.get_block_state(context.get_clicked_pos());
         if state.is_block(block) {

@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.DropExperienceBlock`: ores drop experience after being broken.
-use super::prelude::*;
-use crate::registry::typed::int_provider::IntProvider;
-use crate::server::level::ServerLevel;
-use crate::world::item::ItemStack;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::registry::typed::int_provider::IntProvider;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::ItemStack;
 
 pub struct DropExperienceBlock {
     xp_range: IntProvider,

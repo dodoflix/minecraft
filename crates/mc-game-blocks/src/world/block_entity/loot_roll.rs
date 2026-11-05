@@ -3,11 +3,11 @@
 //! `LootTable.getRandomItems(params)` draws from the table's `random_sequence`, or from `level.getRandom()` when it has
 //! none; `getRandomItems(params, random)` draws from the given random.
 
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::item::ItemStack;
-use crate::world::level::LevelAccessor;
-use crate::world::level::storage::loot::{LootParams, LootTable};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::storage::loot::{LootParams, LootTable};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -24,7 +24,7 @@ pub fn roll(params: &LootParams, table: &LootTable, explicit_level_random: bool)
 
 /// `DefaultDispenseItemBehavior.spawnItem(level, stack, accuracy, direction, position)`.
 pub fn spawn_item(level: &mut ServerLevel, stack: ItemStack, accuracy: i32, direction: Direction, position: Vec3) {
-    use crate::world::entity::item::ItemEntity;
+    use mc_game_core::world::entity::item::ItemEntity;
     let spawn_y = position.y - if direction.get_axis() == mc_core::direction::Axis::Y { 0.125 } else { 0.15625 };
     let mut item = ItemEntity::with_stack(level, position.x, spawn_y, position.z, stack);
     let random = level.random();

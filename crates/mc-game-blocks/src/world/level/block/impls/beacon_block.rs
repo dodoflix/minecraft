@@ -1,13 +1,14 @@
 //! `net.minecraft.world.level.block.BeaconBlock` (`BaseEntityBlock` + `BeaconBeamBlock`: the beam color of the block is
 //! `block_entity::beacon_beam_color`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::stats::stats::Stats;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::stats::stats::Stats;
 use crate::world::block_entity::BeaconBlockEntity;
-use crate::world::block_entity::base_container::send_chest_locked_notifications;
-use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::inventory::{BeaconMenu, ContainerLevelAccess, SimpleMenuProvider};
-use crate::world::item::InteractionResult;
+use mc_game_core::world::block_entity::base_container::send_chest_locked_notifications;
+use mc_game_core::world::entity::{Entity, ServerPlayer};
+use mc_game_core::world::inventory::{BeaconMenu, ContainerLevelAccess, SimpleMenuProvider};
+use mc_game_core::world::item::InteractionResult;
 use mc_core::phys::{BlockHitResult, Vec3};
 
 pub struct BeaconBlock;

@@ -1,6 +1,6 @@
 //! `net.minecraft.world.level.block.GrowingPlantBodyBlock`.
 use super::growing_plant_block::GrowingPlant;
-use super::prelude::*;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub trait GrowingPlantBody: GrowingPlant {
     /// `updateHeadAfterConvertedFromBody(bodyState, headState)`.
@@ -62,25 +62,25 @@ pub fn is_valid_bonemeal_target(this: &dyn GrowingPlantBody, level: &dyn LevelRe
 }
 
 /// `GrowingPlantBodyBlock.performBonemeal`: the head block grows.
-pub fn perform_bonemeal(this: &dyn GrowingPlantBody, level: &mut crate::server::level::ServerLevel, pos: BlockPos, state: BlockState, source: crate::world::level::block::bonemeal::BonemealSource) {
+pub fn perform_bonemeal(this: &dyn GrowingPlantBody, level: &mut mc_game_core::server::level::ServerLevel, pos: BlockPos, state: BlockState, source: mc_game_core::world::level::block::bonemeal::BonemealSource) {
     if let Some(head_pos) = get_head_pos(this, &*level, pos, state.block()) {
         let forward_state = level.get_block_state(head_pos);
-        crate::world::level::block::behaviour(forward_state.block()).perform_bonemeal(level, head_pos, forward_state, source);
+        mc_game_core::world::level::block::behaviour(forward_state.block()).perform_bonemeal(level, head_pos, forward_state, source);
     }
 }
 
 /// `GrowingPlantBodyBlock.canBeReplaced(state, context)`.
-pub fn can_be_replaced(this: &dyn GrowingPlantBody, state: BlockState, context: &crate::world::item::BlockPlaceContext) -> bool {
+pub fn can_be_replaced(this: &dyn GrowingPlantBody, state: BlockState, context: &mc_game_core::world::item::BlockPlaceContext) -> bool {
     let held = context.use_on.get_item_in_hand();
-    let result = crate::world::level::block::PlainBlock.can_be_replaced(state, context);
+    let result = mc_game_core::world::level::block::PlainBlock.can_be_replaced(state, context);
     result && (held.is_empty() || Some(held.item()) != this.head_block().item())
 }
 
 /// `GrowingPlantBodyBlock.getCloneItemStack`.
-pub fn get_clone_item_stack(this: &dyn GrowingPlantBody) -> crate::world::item::ItemStack {
+pub fn get_clone_item_stack(this: &dyn GrowingPlantBody) -> mc_game_core::world::item::ItemStack {
     match this.head_block().item() {
-        Some(item) => crate::world::item::ItemStack::new(item),
-        None => crate::world::item::ItemStack::empty(),
+        Some(item) => mc_game_core::world::item::ItemStack::new(item),
+        None => mc_game_core::world::item::ItemStack::empty(),
     }
 }
 
@@ -89,13 +89,13 @@ pub fn get_clone_item_stack(this: &dyn GrowingPlantBody) -> crate::world::item::
 macro_rules! growing_plant_body_behaviour {
     () => {
         $crate::world::level::block::impls::growing_plant_body_block::growing_plant_body_behaviour!(@common);
-        fn get_clone_item_stack(&self, _state: BlockState, _level: &$crate::server::level::ServerLevel, _pos: BlockPos, _include_data: bool) -> $crate::world::item::ItemStack {
+        fn get_clone_item_stack(&self, _state: BlockState, _level: &::mc_game_core::server::level::ServerLevel, _pos: BlockPos, _include_data: bool) -> ::mc_game_core::world::item::ItemStack {
             $crate::world::level::block::impls::growing_plant_body_block::get_clone_item_stack(self)
         }
-        fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, state: BlockState, _source: $crate::world::level::block::bonemeal::BonemealSource) -> bool {
+        fn is_valid_bonemeal_target(&self, level: &dyn LevelReader, pos: BlockPos, state: BlockState, _source: ::mc_game_core::world::level::block::bonemeal::BonemealSource) -> bool {
             $crate::world::level::block::impls::growing_plant_body_block::is_valid_bonemeal_target(self, level, pos, state)
         }
-        fn perform_bonemeal(&self, level: &mut $crate::server::level::ServerLevel, pos: BlockPos, state: BlockState, source: $crate::world::level::block::bonemeal::BonemealSource) {
+        fn perform_bonemeal(&self, level: &mut ::mc_game_core::server::level::ServerLevel, pos: BlockPos, state: BlockState, source: ::mc_game_core::world::level::block::bonemeal::BonemealSource) {
             $crate::world::level::block::impls::growing_plant_body_block::perform_bonemeal(self, level, pos, state, source)
         }
     };
@@ -109,13 +109,13 @@ macro_rules! growing_plant_body_behaviour {
         update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
             $crate::world::level::block::impls::growing_plant_body_block::update_shape(self, state, level, pos, direction, neighbour_state)
         });
-        fn tick(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos) {
+        fn tick(&self, state: BlockState, level: &mut ::mc_game_core::server::level::ServerLevel, pos: BlockPos) {
             $crate::world::level::block::impls::growing_plant_block::tick(state, level, pos);
         }
         fn is_bonemealable(&self) -> bool {
             true
         }
-        fn can_be_replaced(&self, state: BlockState, context: &$crate::world::item::BlockPlaceContext) -> bool {
+        fn can_be_replaced(&self, state: BlockState, context: &::mc_game_core::world::item::BlockPlaceContext) -> bool {
             $crate::world::level::block::impls::growing_plant_body_block::can_be_replaced(self, state, context)
         }
     };

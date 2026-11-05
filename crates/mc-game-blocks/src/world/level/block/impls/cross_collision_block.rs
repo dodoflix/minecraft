@@ -1,5 +1,5 @@
 //! `net.minecraft.world.level.block.CrossCollisionBlock` (shared by `FenceBlock` and `IronBarsBlock`).
-use super::prelude::*;
+use mc_game_core::world::level::block::impls::prelude::*;
 
 /// `CrossCollisionBlock.rotate`.
 pub fn rotate(state: BlockState, rotation: Rotation) -> BlockState {

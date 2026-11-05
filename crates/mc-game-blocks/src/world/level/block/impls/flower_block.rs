@@ -1,7 +1,8 @@
 //! `net.minecraft.world.level.block.FlowerBlock` (extends `VegetationBlock`, `SuspiciousEffectHolder`); the effect of
 //! every flower is the constructor argument in `Blocks.java`.
-use super::prelude::*;
-use super::vegetation_block::vegetation_behaviour_methods;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::vegetation_behaviour_methods;
 use mc_core::math::mth;
 use mc_data::MobEffect;
 use mc_protocol::components::{SuspiciousStewEffects, SuspiciousStewEffectsEntry};
@@ -53,7 +54,7 @@ impl FlowerBlock {
     }
 }
 
-impl super::vegetation_block::MayPlaceOn for FlowerBlock {}
+impl mc_game_core::world::level::block::impls::vegetation_block::MayPlaceOn for FlowerBlock {}
 
 impl BlockBehaviour for FlowerBlock {
     vegetation_behaviour_methods!();

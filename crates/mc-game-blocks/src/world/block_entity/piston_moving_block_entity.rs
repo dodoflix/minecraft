@@ -1,12 +1,13 @@
 //! `PistonMovingBlockEntity` (`block.piston` package): the block that is in transit between two positions while a piston
 //! pushes/pulls it (`minecraft:moving_piston`). Moves entities standing in/on it, becomes the moved block when done.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, MoverType};
-use crate::world::level::block::piston::{entity_push_reaction, get_movement_area};
-use crate::world::level::block::{BlockStateExt, helpers};
-use crate::world::level::{BlockGetter, LevelAccessor};
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, MoverType};
+use mc_game_core::world::level::block::piston::{entity_push_reaction, get_movement_area};
+use mc_game_core::world::level::block::{BlockStateExt, helpers};
+use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::math::mth;
@@ -369,7 +370,7 @@ fn fix_entity_within_piston_base(level: &mut ServerLevel, pos: BlockPos, entity:
 
 /// `input.read("blockState", BlockState.CODEC).orElse(AIR)`: bare block id or `{id, properties}`.
 fn read_moved_state(tag: &CompoundTag) -> BlockState {
-    use crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state;
+    use mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::read_block_state;
     if let Some(name) = tag.get_string("blockState") {
         let mut compound = CompoundTag::new();
         compound.put_string("id", name);
@@ -395,7 +396,7 @@ impl BlockEntity for PistonMovingBlockEntity {
         if self.moved_state == self.moved_state.block().default_state() {
             tag.put_string("blockState", self.moved_state.block().name());
         } else {
-            tag.put("blockState", crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(self.moved_state));
+            tag.put("blockState", mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(self.moved_state));
         }
         tag.put_byte("facing", self.direction.get_3d_data_value() as i8);
         tag.put_float("progress", self.progress_o);

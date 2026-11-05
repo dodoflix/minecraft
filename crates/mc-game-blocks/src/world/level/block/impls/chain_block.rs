@@ -1,14 +1,15 @@
 //! `net.minecraft.world.level.block.ChainBlock` (extends `RotatedPillarBlock`).
-use super::prelude::*;
-use super::rotated_pillar_block::rotate_pillar;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::rotated_pillar_block::rotate_pillar;
 
 pub struct ChainBlock;
 
 impl BlockBehaviour for ChainBlock {
-    crate::simple_waterlogged!();
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    mc_game_core::simple_waterlogged!();
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let is_water_source = level.get_fluid_state(context.get_clicked_pos()).get_type() == mc_data::fluid::Fluid::WATER;
-        Some(super::rotated_pillar_block::get_state_for_placement(block, context).set(props::WATERLOGGED, is_water_source))
+        Some(mc_game_core::world::level::block::impls::rotated_pillar_block::get_state_for_placement(block, context).set(props::WATERLOGGED, is_water_source))
     }
     fn is_pathfindable(&self, _state: BlockState, _ty: mc_data::block::PathComputationType) -> bool {
         false

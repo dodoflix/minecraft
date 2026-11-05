@@ -1,8 +1,8 @@
 //! `net.minecraft.world.level.block.AbstractBannerBlock`: shared by `BannerBlock` and `WallBannerBlock`.
-use crate::server::level::ServerLevel;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::BannerBlockEntity;
-use crate::world::item::ItemStack;
-use crate::world::level::BlockGetter;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::BlockGetter;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 

@@ -2,17 +2,18 @@
 //!
 //! `FrostedIceBlock.getCloneItemStack` is empty. Frost Walker (`ReplaceDisk`) only places the block and schedules its tick
 //! like vanilla, nothing of it lives here.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::server::level::block_break;
-use crate::world::block_entity::BlockEntity;
-use crate::world::entity::ServerPlayer;
-use crate::world::item::enchantment::enchantment_tags;
-use crate::world::item::{ItemStack, enchantment_helper};
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::level::block_break;
+use mc_game_core::world::block_entity::BlockEntity;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::item::enchantment::enchantment_tags;
+use mc_game_core::world::item::{ItemStack, enchantment_helper};
 use mc_core::ident::Identifier;
-use crate::world::level::LightLayer;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::redstone::Orientation;
+use mc_game_core::world::level::LightLayer;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::redstone::Orientation;
 use mc_core::math::mth;
 use mc_data::GameEvent;
 
@@ -26,7 +27,7 @@ fn melts_into() -> BlockState {
 
 /// `environmentAttributes().getValue(WATER_EVAPORATES, pos)`.
 fn water_evaporates(level: &ServerLevel, pos: BlockPos) -> bool {
-    level.attribute_bool(crate::world::attribute::attributes::WATER_EVAPORATES, pos)
+    level.attribute_bool(mc_game_core::world::attribute::attributes::WATER_EVAPORATES, pos)
 }
 
 /// `IceBlock.melt(state, level, pos)`.

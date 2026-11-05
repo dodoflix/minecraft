@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.HangingRootsBlock`.
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct HangingRootsBlock;
 
 impl BlockBehaviour for HangingRootsBlock {
-    crate::simple_waterlogged!();
-    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+    mc_game_core::simple_waterlogged!();
+    fn get_state_for_placement(&self, block: Block, level: &mut mc_game_core::server::level::ServerLevel, context: &mc_game_core::world::item::BlockPlaceContext) -> Option<BlockState> {
         let fluid_state = level.get_fluid_state(context.get_clicked_pos());
         Some(block.default_state().set(props::WATERLOGGED, fluid_state.is_source_of_type(mc_data::fluid::Fluid::WATER)))
     }

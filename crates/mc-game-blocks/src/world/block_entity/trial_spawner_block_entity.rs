@@ -1,10 +1,11 @@
 //! `TrialSpawnerBlockEntity`: owns a [`TrialSpawner`] and mirrors its block state into it.
 
+use mc_game_core::block_entity_base;
 use super::spawner_block_entity::Spawner;
 use super::trialspawner::TrialSpawner;
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
-use crate::server::level::ServerLevel;
-use crate::world::level::BlockGetter;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::BlockGetter;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;

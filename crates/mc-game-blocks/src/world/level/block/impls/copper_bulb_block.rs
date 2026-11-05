@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.CopperBulbBlock` (also the base of `WeatheringCopperBulbBlock`, whose weathering is
 //! dispatched by `weathering_copper::random_tick`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::redstone::Orientation;
-use crate::world::level::signal_getter::SignalGetter;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::redstone::Orientation;
+use mc_game_core::world::level::signal_getter::SignalGetter;
 use mc_protocol::packets::play::level::SoundSource;
 
 pub struct CopperBulbBlock;

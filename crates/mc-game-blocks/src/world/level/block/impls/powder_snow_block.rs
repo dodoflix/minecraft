@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.PowderSnowBlock` (the entity-facing half: `entityInside`, `fallOn`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::inside_block_effects::{InsideBlockEffectApplier, InsideBlockEffectType};
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::inside_block_effects::{InsideBlockEffectApplier, InsideBlockEffectType};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_protocol::packets::play::{ParticleOptions, RandomizationType};
@@ -17,7 +18,7 @@ fn random_between(random: &mut dyn RandomSource, min: f32, max: f32) -> f32 {
 impl BlockBehaviour for PowderSnowBlock {
     /// `getCollisionShape`: a falling entity (fall distance > 2.5) lands on a 0.9 high slab of the block, entities that can
     /// walk on powder snow (leather boots, ...) and falling blocks stand on the full block, everything else sinks in.
-    fn get_collision_shape(&self, _state: BlockState, _level: &dyn BlockGetter, pos: BlockPos, context: &crate::world::level::collision::CollisionContext) -> mc_core::phys::shapes::VoxelShape {
+    fn get_collision_shape(&self, _state: BlockState, _level: &dyn BlockGetter, pos: BlockPos, context: &mc_game_core::world::level::collision::CollisionContext) -> mc_core::phys::shapes::VoxelShape {
         use mc_core::phys::shapes::Shapes;
         if !context.is_placement() && context.entity().is_some() {
             if context.entity_fall_distance() > 2.5 {
@@ -30,7 +31,7 @@ impl BlockBehaviour for PowderSnowBlock {
         Shapes::empty()
     }
     fn get_entity_inside_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, entity: &dyn Entity) -> mc_core::phys::shapes::VoxelShape {
-        let shape = self.get_collision_shape(state, level, pos, &crate::world::entity::movement::collision_context(entity));
+        let shape = self.get_collision_shape(state, level, pos, &mc_game_core::world::entity::movement::collision_context(entity));
         if shape.is_empty() { mc_core::phys::shapes::Shapes::block() } else { shape }
     }
     fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, effect_applier: &mut dyn InsideBlockEffectApplier, _is_precise: bool) {
@@ -77,10 +78,10 @@ impl BlockBehaviour for PowderSnowBlock {
         true
     }
     /// `BucketPickup.pickupBlock`.
-    fn pickup_block(&self, _user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> crate::world::item::ItemStack {
+    fn pickup_block(&self, _user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> mc_game_core::world::item::ItemStack {
         level.set_block_flags(pos, air(), 11);
         level.level_event(None, 2001, pos, state.id() as i32);
-        crate::world::item::ItemStack::new(mc_data::Item::POWDER_SNOW_BUCKET)
+        mc_game_core::world::item::ItemStack::new(mc_data::Item::POWDER_SNOW_BUCKET)
     }
     fn get_pickup_sound(&self) -> Option<mc_data::SoundEvent> {
         Some(mc_data::SoundEvent::ITEM_BUCKET_FILL_POWDER_SNOW)

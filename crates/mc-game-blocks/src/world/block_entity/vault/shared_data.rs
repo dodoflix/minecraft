@@ -2,10 +2,10 @@
 
 use super::config::{self, VaultConfig};
 use super::server_data::VaultServerData;
-use crate::server::level::ServerLevel;
-use crate::util::java_uuid_hash_set::UuidHashSet;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::util::java_uuid_hash_set::UuidHashSet;
 use crate::world::block_entity::trialspawner::PlayerDetector;
-use crate::world::item::ItemStack;
+use mc_game_core::world::item::ItemStack;
 use mc_core::pos::BlockPos;
 use mc_dfu::{Codec, DOUBLE, MapCodec, record};
 use mc_protocol::components::uuid_codec;

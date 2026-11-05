@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.DetectorRailBlock` (extends `BaseRailBlock`).
-use super::base_rail_block::{self, rail_behaviour};
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::base_rail_block::{self, rail_behaviour};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
 use mc_core::phys::AABB;
-use crate::world::level::block::rail_state::RailState;
+use mc_game_core::world::level::block::rail_state::RailState;
 use mc_data::EntityType;
 
 pub struct DetectorRailBlock;
@@ -33,7 +34,7 @@ fn get_search_bb(pos: BlockPos) -> AABB {
 
 /// `DetectorRailBlock.getInteractingMinecartOfType`: the minecarts (matching `test`) in the search box, in entity
 /// query order.
-fn get_interacting_minecarts(level: &ServerLevel, pos: BlockPos, test: impl Fn(&dyn Entity) -> bool, selector: impl FnMut(&dyn Entity) -> bool) -> Vec<crate::world::entity::EntityId> {
+fn get_interacting_minecarts(level: &ServerLevel, pos: BlockPos, test: impl Fn(&dyn Entity) -> bool, selector: impl FnMut(&dyn Entity) -> bool) -> Vec<mc_game_core::world::entity::EntityId> {
     level.get_entities_of_class(&get_search_bb(pos), test, selector)
 }
 
@@ -89,7 +90,7 @@ rail_behaviour!(DetectorRailBlock, |_state, _level, _pos, _block| {}, on_place,
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
         if state.get(props::POWERED) { 15 } else { 0 }
     }
-    fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier, _is_precise: bool) {
+    fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, _effect_applier: &mut dyn mc_game_core::world::entity::inside_block_effects::InsideBlockEffectApplier, _is_precise: bool) {
         if !state.get(props::POWERED) {
             check_pressed(level, pos, state, Some(&*entity));
         }

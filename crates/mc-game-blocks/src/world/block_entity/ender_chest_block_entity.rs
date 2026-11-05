@@ -1,11 +1,12 @@
 //! `EnderChestBlockEntity`: only the lid state and the opener counter; the contents live in the player's
 //! `PlayerEnderChestContainer` (`isActiveChest` tells which chest the player has open).
 
-use super::container_openers::{ChestLidController, ContainerOpenersCounter, OpenersHost, player_has_ender_chest_active_at};
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, ContainerUser};
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::level::LevelAccessor;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::container_openers::{ChestLidController, ContainerOpenersCounter, OpenersHost, player_has_ender_chest_active_at};
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, ContainerUser};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::level::LevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};

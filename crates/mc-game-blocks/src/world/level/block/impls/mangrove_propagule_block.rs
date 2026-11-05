@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.MangrovePropaguleBlock` (extends `SaplingBlock`).
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::sapling_block;
-use super::vegetation_block::{self, MayPlaceOn};
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::bonemeal::BonemealSource;
-use crate::world::level::block::grower::TreeGrower;
+use mc_game_core::world::level::block::impls::vegetation_block::{self, MayPlaceOn};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::block::grower::TreeGrower;
 use mc_data::fluid::Fluid;
 
 pub struct MangrovePropaguleBlock;
@@ -26,7 +27,7 @@ fn is_fully_grown(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for MangrovePropaguleBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
         let is_water_source = level.get_fluid_state(context.get_clicked_pos()).fluid() == Fluid::WATER;
         Some(block.default_state().set(props::WATERLOGGED, is_water_source).set(props::AGE_4, 4))

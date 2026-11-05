@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.SulfurSpikeBlock` (extends `SpeleothemBlock`).
-use super::prelude::*;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::speleothem_block::{Speleothem, SpeleothemClass};
 
 const MAX_GROWING_LENGTH: i32 = 2;

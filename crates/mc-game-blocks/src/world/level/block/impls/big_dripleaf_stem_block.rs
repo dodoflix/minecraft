@@ -1,8 +1,9 @@
 //! `net.minecraft.world.level.block.BigDripleafStemBlock` (extends `HorizontalDirectionalBlock`).
+use mc_game_core::{register_block_class, update_shape};
 use super::growing_plant_body_block::get_top_connected_block;
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_data::fluid::{Fluid, FluidState};
 
 pub struct BigDripleafStemBlock;
@@ -17,7 +18,7 @@ pub fn place(level: &mut dyn LevelAccessor, pos: BlockPos, fluid_state: FluidSta
 }
 
 impl BlockBehaviour for BigDripleafStemBlock {
-    crate::simple_waterlogged!();
+    mc_game_core::simple_waterlogged!();
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below_state = level.get_block_state(pos.below());
         let above_state = level.get_block_state(pos.above());
@@ -38,10 +39,10 @@ impl BlockBehaviour for BigDripleafStemBlock {
             level.destroy_block(pos, true, None, 512);
         }
     }
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
         match Block::BIG_DRIPLEAF.item() {
-            Some(item) => crate::world::item::ItemStack::new(item),
-            None => crate::world::item::ItemStack::empty(),
+            Some(item) => mc_game_core::world::item::ItemStack::new(item),
+            None => mc_game_core::world::item::ItemStack::empty(),
         }
     }
     fn is_bonemealable(&self) -> bool {

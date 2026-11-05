@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.BrushableBlock` (suspicious sand / gravel; extends `BaseEntityBlock`).
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 
 pub struct BrushableBlock;
 

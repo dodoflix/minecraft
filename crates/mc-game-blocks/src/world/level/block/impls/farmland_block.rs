@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.FarmlandBlock`.
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::EntityId;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::EntityId;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_data::GameEvent;
 
 pub struct FarmlandBlock;
@@ -35,10 +36,10 @@ pub fn turn_to_base_block(source_entity: Option<EntityId>, state: BlockState, le
 }
 
 impl BlockBehaviour for FarmlandBlock {
-    fn fall_on(&self, level: &mut crate::server::level::ServerLevel, state: BlockState, pos: BlockPos, entity: &mut dyn crate::world::entity::Entity, fall_distance: f64) {
+    fn fall_on(&self, level: &mut mc_game_core::server::level::ServerLevel, state: BlockState, pos: BlockPos, entity: &mut dyn mc_game_core::world::entity::Entity, fall_distance: f64) {
         use mc_core::random::RandomSource;
         if f64::from(LevelAccessor::random(level).next_float()) < fall_distance - 0.5 && entity.living().is_some() {
-            let can_trample = match entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>() {
+            let can_trample = match entity.as_any().downcast_ref::<mc_game_core::world::entity::ServerPlayer>() {
                 Some(player) => !level.is_under_spawn_protection(player, pos),
                 None => level.mob_griefing(),
             };
@@ -47,7 +48,7 @@ impl BlockBehaviour for FarmlandBlock {
                 // `turnToBaseBlock`: the base block of every farmland is dirt
                 let new_state = helpers::push_entities_up(level, state, Block::DIRT.default_state(), pos);
                 level.set_block(pos, new_state, 3, 512);
-                level.game_event_at_block(mc_data::GameEvent::BLOCK_CHANGE, pos, &crate::world::level::gameevent::GameEventContext::of(Some(entity.id()), Some(new_state)));
+                level.game_event_at_block(mc_data::GameEvent::BLOCK_CHANGE, pos, &mc_game_core::world::level::gameevent::GameEventContext::of(Some(entity.id()), Some(new_state)));
             }
         }
         // `super.fallOn`

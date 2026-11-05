@@ -1,7 +1,8 @@
 //! `SkullBlockEntity`: owner profile, note block sound, custom name and the dragon/piglin head animation counter.
 
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
-use crate::world::item::ItemStack;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use mc_game_core::world::item::ItemStack;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;

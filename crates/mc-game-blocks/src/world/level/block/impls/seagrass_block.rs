@@ -1,9 +1,10 @@
 //! `net.minecraft.world.level.block.SeagrassBlock` (extends `VegetationBlock`).
-use super::prelude::*;
-use super::vegetation_block::{self, MayPlaceOn};
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
-use crate::world::level::block::bonemeal::BonemealSource;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{self, MayPlaceOn};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
+use mc_game_core::world::level::block::bonemeal::BonemealSource;
 use mc_data::enums::DoubleBlockHalf;
 
 pub struct SeagrassBlock;
@@ -18,7 +19,7 @@ impl BlockBehaviour for SeagrassBlock {
     fn is_liquid_block_container(&self) -> bool {
         true
     }
-    fn can_place_liquid(&self, _user: Option<&dyn crate::world::entity::Entity>, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _fluid: mc_data::fluid::Fluid) -> bool {
+    fn can_place_liquid(&self, _user: Option<&dyn mc_game_core::world::entity::Entity>, _level: &dyn BlockGetter, _pos: BlockPos, _state: BlockState, _fluid: mc_data::fluid::Fluid) -> bool {
         false
     }
     fn place_liquid(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState, _fluid_state: mc_data::fluid::FluidState) -> bool {

@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.block.AttachedStemBlock` (extends `VegetationBlock`).
-use super::prelude::*;
-use super::vegetation_block::{self, MayPlaceOn};
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::world::level::block::impls::vegetation_block::{self, MayPlaceOn};
 
 /// The fruit block the stem attaches to, the (grown) stem block it reverts to, and its support tag.
 pub struct AttachedStemBlock {
@@ -26,8 +27,8 @@ impl BlockBehaviour for AttachedStemBlock {
         }
         vegetation_block::update_shape(state, &*level, pos)
     });
-    fn get_clone_item_stack(&self, _state: BlockState, _level: &crate::server::level::ServerLevel, _pos: BlockPos, _include_data: bool) -> crate::world::item::ItemStack {
-        crate::world::item::ItemStack::new(self.seed)
+    fn get_clone_item_stack(&self, _state: BlockState, _level: &mc_game_core::server::level::ServerLevel, _pos: BlockPos, _include_data: bool) -> mc_game_core::world::item::ItemStack {
+        mc_game_core::world::item::ItemStack::new(self.seed)
     }
     fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
         helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)

@@ -1,10 +1,11 @@
 //! `net.minecraft.world.level.block.SpreadingSnowyBlock` (grass block, mycelium): dies under cover, spreads to dirt.
 //! `MyceliumBlock` adds only client particles; `GrassBlock` (bone meal) lives in `grass_block.rs` and reuses
 //! [`random_tick`] / [`can_stay_alive`].
-use super::prelude::*;
+use mc_game_core::{register_block_class, update_shape};
+use mc_game_core::world::level::block::impls::prelude::*;
 use super::snowy_block;
-use crate::server::level::ServerLevel;
-use crate::world::item::BlockPlaceContext;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::item::BlockPlaceContext;
 
 pub struct SpreadingSnowyBlock;
 

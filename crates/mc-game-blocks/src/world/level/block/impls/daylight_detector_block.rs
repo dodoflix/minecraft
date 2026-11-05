@@ -1,11 +1,12 @@
 //! `net.minecraft.world.level.block.DaylightDetectorBlock` (a `BaseEntityBlock`; the ticker is
 //! `DaylightDetectorBlockEntity::server_tick`).
-use super::prelude::*;
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity as _, ServerPlayer};
-use crate::world::item::InteractionResult;
-use crate::world::level::LightLayer;
-use crate::world::level::gameevent::GameEventContext;
+use mc_game_core::register_block_class;
+use mc_game_core::world::level::block::impls::prelude::*;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity as _, ServerPlayer};
+use mc_game_core::world::item::InteractionResult;
+use mc_game_core::world::level::LightLayer;
+use mc_game_core::world::level::gameevent::GameEventContext;
 use mc_core::math::mth;
 use mc_data::GameEvent;
 
@@ -14,7 +15,7 @@ pub struct DaylightDetectorBlock;
 /// `DaylightDetectorBlock.updateSignalStrength`.
 pub fn update_signal_strength(state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
     let mut target = (level.get_brightness(LightLayer::Sky, pos) - level.get_sky_darken()).max(0);
-    let mut sun_angle = level.attribute_float(crate::world::attribute::attributes::SUN_ANGLE, pos) * (std::f64::consts::PI / 180.0) as f32;
+    let mut sun_angle = level.attribute_float(mc_game_core::world::attribute::attributes::SUN_ANGLE, pos) * (std::f64::consts::PI / 180.0) as f32;
     if state.get(props::INVERTED) {
         target = 15 - target;
     } else if target > 0 {

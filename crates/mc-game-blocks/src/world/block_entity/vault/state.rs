@@ -3,11 +3,11 @@
 use super::config::VaultConfig;
 use super::server_data::VaultServerData;
 use super::shared_data::VaultSharedData;
-use crate::server::level::ServerLevel;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::loot_roll::{reward_eject_position, spawn_item};
 use crate::world::block_entity::vault_block_entity;
-use crate::world::item::ItemStack;
-use crate::world::level::LevelAccessor;
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::LevelAccessor;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
 use mc_data::SoundEvent;
