@@ -8,3 +8,4 @@ license.workspace = true
 mc-core = { path = "../mc-core" }
 mc-nbt = { path = "../mc-nbt" }
 mc-dfu = { path = "../mc-dfu" }
+log = "0.4"
