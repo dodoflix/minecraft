@@ -420,19 +420,25 @@ impl Harness {
             "gamerule" => {
                 self.world();
                 let v = a[2] == "true";
-                let r = &mut self.level.tick_state.rules;
-                match a[1].as_str() {
-                    "keep_inventory" => r.keep_inventory = v,
-                    "fall_damage" => r.fall_damage = v,
-                    "fire_damage" => r.fire_damage = v,
-                    "drowning_damage" => r.drowning_damage = v,
-                    "freeze_damage" => r.freeze_damage = v,
-                    "show_death_messages" => r.show_death_messages = v,
-                    "forgive_dead_players" => r.forgive_dead_players = v,
-                    // quiet-world defaults of the oracle that the replay never contradicts
-                    "advance_time" | "advance_weather" | "spawn_mobs" | "spawn_monsters" | "spawn_patrols" | "spawn_phantoms" | "spawn_wandering_traders" | "spawn_wardens"
-                    | "raids" | "log_admin_commands" | "send_command_feedback" | "random_tick_speed" => {}
-                    other => self.fail(&format!("gamerule {other} is not modelled by the replay")),
+                let name = a[1].clone();
+                let modelled = ["keep_inventory", "fall_damage", "fire_damage", "drowning_damage", "freeze_damage", "show_death_messages", "forgive_dead_players"];
+                // quiet-world defaults of the oracle that the replay never contradicts
+                let quiet = [
+                    "advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids",
+                    "log_admin_commands", "send_command_feedback", "random_tick_speed",
+                ];
+                if modelled.contains(&name.as_str()) {
+                    self.level.server_state.rules.update(|r| match name.as_str() {
+                        "keep_inventory" => r.keep_inventory = v,
+                        "fall_damage" => r.fall_damage = v,
+                        "fire_damage" => r.fire_damage = v,
+                        "drowning_damage" => r.drowning_damage = v,
+                        "freeze_damage" => r.freeze_damage = v,
+                        "show_death_messages" => r.show_death_messages = v,
+                        _ => r.forgive_dead_players = v,
+                    });
+                } else if !quiet.contains(&name.as_str()) {
+                    self.fail(&format!("gamerule {name} is not modelled by the replay"));
                 }
             }
             "time" => {

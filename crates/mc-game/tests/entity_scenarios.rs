@@ -58,7 +58,7 @@ fn unknown_commands_fail_loudly() {
 
 #[test]
 fn plain_entities_and_notes_replay() {
-    let lines = run_scenario_text("inline", "level void\nnote hello\nspawn_item a minecraft:diamond 0.5 -50 0.5 0 0 0\ndump entity:a\ntick 2\n");
+    let lines = run_scenario_text("inline", "level flat\nnote hello\nspawn_item a minecraft:diamond 0.5 -50 0.5 0 0 0\ndump entity:a\ntick 2\n");
     assert_eq!(lines[0], "# hello");
     assert!(lines[1].starts_with("E a minecraft:item pos=0.5,-50.0,0.5 "), "{}", lines[1]);
     assert_eq!(lines.iter().filter(|l| l.starts_with("T ")).count(), 0, "no watch: no T headers");
