@@ -619,21 +619,66 @@ impl ServerLevel {
         crate::registry::typed::dimension_type::MOON_BRIGHTNESS_PER_PHASE[usize::from(self.environment_moon_phase(pos))]
     }
 
-    fn sleep_infos(&self) -> Vec<SleepInfo> {
+    /// `SleepStatus.update`'s view of the level's players: `current` is a player that is out of the level's storage while
+    /// its packet or tick is handled (it takes the place of its own entry).
+    fn sleep_infos(&self, current: Option<&crate::world::entity::ServerPlayer>) -> Vec<SleepInfo> {
+        let info = |p: &dyn Entity| SleepInfo {
+            spectator: p.is_spectator(),
+            sleeping: is_sleeping(p),
+            sleeping_long_enough: is_sleeping(p) && p.player().is_some_and(|d| d.sleep_counter >= 100),
+        };
         self.players
             .iter()
-            .filter_map(|&id| self.get_entity(id))
-            .map(|p| SleepInfo { spectator: p.is_spectator(), sleeping: is_sleeping(p), sleeping_long_enough: is_sleeping(p) && p.player().is_some_and(|d| d.sleep_counter >= 100) })
+            .filter_map(|&id| match current {
+                Some(c) if c.base_id() == id => Some(info(c)),
+                _ => self.get_entity(id).map(info),
+            })
             .collect()
     }
 
-    /// `updateSleepingPlayerList()`.
-    pub fn update_sleeping_player_list(&mut self) -> bool {
-        if self.players.is_empty() {
-            return false;
+    /// `canSleepThroughNights()`.
+    pub fn can_sleep_through_nights(&self) -> bool {
+        self.players_sleeping_percentage() <= 100
+    }
+
+    /// `announceSleepStatus()` (a dedicated server is never singleplayer): the overlay message to every player.
+    fn announce_sleep_status(&self, current: Option<&crate::world::entity::ServerPlayer>) {
+        if !self.can_sleep_through_nights() {
+            return;
         }
-        let infos = self.sleep_infos();
-        self.tick_state.sleep_status.update(&infos)
+        let percentage = self.players_sleeping_percentage();
+        let status = &self.tick_state.sleep_status;
+        let message = if status.are_enough_sleeping(percentage) {
+            mc_text::Component::translatable("sleep.skipping_night", Vec::new())
+        } else {
+            mc_text::Component::translatable("sleep.players_sleeping", vec![status.amount_sleeping().into(), status.sleepers_needed(percentage).into()])
+        };
+        for &id in &self.players {
+            match current {
+                Some(c) if c.base_id() == id => c.send_overlay_message(message.clone()),
+                _ => {
+                    if let Some(player) = self.get_entity(id).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>()) {
+                        player.send_overlay_message(message.clone());
+                    }
+                }
+            }
+        }
+    }
+
+    /// `updateSleepingPlayerList()`.
+    pub fn update_sleeping_player_list(&mut self) {
+        self.update_sleeping_player_list_with(None);
+    }
+
+    /// `updateSleepingPlayerList()` called while `current` is out of the level's storage (its own packet or tick).
+    pub fn update_sleeping_player_list_with(&mut self, current: Option<&crate::world::entity::ServerPlayer>) {
+        if self.players.is_empty() {
+            return;
+        }
+        let infos = self.sleep_infos(current);
+        if self.tick_state.sleep_status.update(&infos) {
+            self.announce_sleep_status(current);
+        }
     }
 
     /// `ServerLevel.tick(haveTime)`.
@@ -649,7 +694,7 @@ impl ServerLevel {
         }
 
         let percentage = self.players_sleeping_percentage();
-        let infos = self.sleep_infos();
+        let infos = self.sleep_infos(None);
         if self.tick_state.sleep_status.are_enough_sleeping(percentage) && self.tick_state.sleep_status.are_enough_deep_sleeping(percentage, &infos) {
             if self.advance_time() {
                 env.wake_up_from_sleep();

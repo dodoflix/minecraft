@@ -145,12 +145,12 @@ fn java_max(a: f32, b: f32) -> f32 {
     if a.is_nan() || b.is_nan() { f32::NAN } else if a == 0.0 && b == 0.0 { if a.is_sign_negative() { b } else { a } } else { a.max(b) }
 }
 
-/// JOML `Vector3f.lerp` (`Math.fma(other - this, t, this)`).
+/// JOML `Vector3f.lerp(other, t)`: `x + (other.x - x) * t`.
 fn lerp3(t: f32, a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
-    [(b[0] - a[0]).mul_add(t, a[0]), (b[1] - a[1]).mul_add(t, a[1]), (b[2] - a[2]).mul_add(t, a[2])]
+    [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]
 }
 fn lerp4(t: f32, a: [f32; 4], b: [f32; 4]) -> [f32; 4] {
-    [(b[0] - a[0]).mul_add(t, a[0]), (b[1] - a[1]).mul_add(t, a[1]), (b[2] - a[2]).mul_add(t, a[2]), (b[3] - a[3]).mul_add(t, a[3])]
+    [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t]
 }
 
 /// `ARGB.alphaBlend(Vector3fc, Vector4fc)`.

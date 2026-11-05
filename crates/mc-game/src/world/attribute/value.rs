@@ -305,7 +305,7 @@ impl AttrValue {
             K::RgbColor => AttrValue::Rgb(parse_rgb(json)?),
             K::ArgbColor => AttrValue::Argb(parse_argb(json)?),
             K::MoonPhase => AttrValue::MoonPhase(MOON_PHASES.iter().position(|p| Some(*p) == json.as_str())? as u8),
-            K::Activity => AttrValue::Activity(Identifier::with_default_namespace(json.as_str()?).ok()?),
+            K::Activity => AttrValue::Activity(Identifier::try_parse(json.as_str()?)?),
             K::BedRule => AttrValue::BedRule(Arc::new(BedRule::from_json(json)?)),
             K::Particle => AttrValue::Particle(Arc::new(json.clone())),
             K::AmbientParticles => AttrValue::AmbientParticles(Arc::new(json.as_array()?.clone())),

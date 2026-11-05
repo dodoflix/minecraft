@@ -252,6 +252,7 @@ impl ServerLevel {
                     if let Some(info) = info {
                         self.chunk_source.chunk_map.add_player(info);
                     }
+                    self.update_sleeping_player_list();
                 }
                 let players = self.tracker_players();
                 self.entity_tracker.add_entity(&mut Entities::new(&mut self.entity_manager), &self.chunk_source.chunk_map, &players, id);
@@ -260,7 +261,11 @@ impl ServerLevel {
                 if self.players.contains(&id) {
                     self.chunk_source.chunk_map.remove_player(id);
                 }
+                let was_player = self.players.contains(&id);
                 self.players.retain(|&p| p != id);
+                if was_player {
+                    self.update_sleeping_player_list();
+                }
                 let player = self
                     .entity_manager
                     .get_removed(id)

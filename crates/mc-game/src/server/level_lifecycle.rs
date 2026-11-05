@@ -243,14 +243,14 @@ impl MinecraftServer {
         };
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;
-        level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
+        level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling && dimension.to_string() != "minecraft:the_end";
         level.tick_state.enabled_features = enabled_features;
         level.tick_state.biomes = Some(factory.biomes.clone());
         level.tick_state.biome_zoom_seed = BiomeManager::obfuscate_seed(seed);
         level.tick_state.has_fixed_time = dimension_type.has_fixed_time;
         level.tick_state.infiniburn = dimension_type.infiniburn.clone();
         level.tick_state.ambient_light = dimension_type.ambient_light;
-        level.tick_state.attributes = self.build_attribute_system(&dimension_type, &factory.biomes);
+        level.tick_state.attributes = self.build_attribute_system(&dimension_type, &factory.biomes, level.tick_state.can_have_weather);
         // ==== [SpawnFramework] additions (level creation) ====
         level.spawning.install_dimension_type(dimension_type.clone());
         level.spawning.gen_live.install(level.registries.clone(), dimension_type.clone());
@@ -261,13 +261,13 @@ impl MinecraftServer {
 
     /// `EnvironmentAttributeSystem.builder().addDefaultLayers(level)` for a dimension type: its constant attributes, its
     /// timelines (the `timelines` holder set resolved against the timeline registry) and the weather layers.
-    fn build_attribute_system(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry) -> crate::world::attribute::EnvironmentAttributeSystem {
-        self.build_attribute_system_with(dimension_type, biomes, &[])
+    fn build_attribute_system(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry, can_have_weather: bool) -> crate::world::attribute::EnvironmentAttributeSystem {
+        self.build_attribute_system_with(dimension_type, biomes, can_have_weather, &[])
     }
 
     /// `builder().addDefaultLayers(level)` followed by `addTimelineLayer(timeline, clockManager)` for each of `extra_timelines`
     /// (the `timeline_attributes` game test environment).
-    fn build_attribute_system_with(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
+    fn build_attribute_system_with(&self, dimension_type: &DimensionType, biomes: &mc_worldgen::biome::BiomeRegistry, can_have_weather: bool, extra_timelines: &[Identifier]) -> crate::world::attribute::EnvironmentAttributeSystem {
         use crate::registry::typed::HolderSetRef;
         use crate::world::attribute::Timeline;
         let access = self.registries.composite_access();
@@ -285,7 +285,6 @@ impl MinecraftServer {
         if let Some(registry) = access.registry(keys::TIMELINE) {
             timelines.extend(extra_timelines.iter().filter_map(|id| registry.entry_by_key(id)).filter_map(|entry| Timeline::from_json(&entry.json)));
         }
-        let can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
         let mut biome_attributes: Vec<Option<&serde_json::Value>> = vec![None; biomes.len()];
         for id in biomes.ids() {
             biome_attributes[id.0 as usize] = biomes.get(id).attributes.as_ref();
@@ -304,7 +303,8 @@ impl MinecraftServer {
             ),
         };
         let biomes = self.level(dimension).and_then(|level| level.tick_state.biomes.clone()).unwrap_or_else(|| panic!("The level {dimension} has no biomes"));
-        self.build_attribute_system_with(&dimension_type, &biomes, extra_timelines)
+        let can_have_weather = self.level(dimension).is_some_and(|level| level.tick_state.can_have_weather);
+        self.build_attribute_system_with(&dimension_type, &biomes, can_have_weather, extra_timelines)
     }
 
     /// `createLevels`.

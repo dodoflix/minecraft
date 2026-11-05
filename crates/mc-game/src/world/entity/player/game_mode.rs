@@ -60,7 +60,7 @@ impl ServerPlayer {
                 entries: vec![handle.info_entry()],
             });
         }
-        level.update_sleeping_player_list();
+        level.update_sleeping_player_list_with(Some(self));
         if mode == GameType::Creative {
             self.reset_current_impulse_context();
         }
