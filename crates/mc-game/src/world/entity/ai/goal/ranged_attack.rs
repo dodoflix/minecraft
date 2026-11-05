@@ -23,8 +23,8 @@ impl RangedAttackGoal {
         Self::with_interval_range(speed_modifier, attack_interval, attack_interval, attack_radius)
     }
 
-    /// `RangedAttackGoal(mob, speedModifier, attackIntervalMin, attackIntervalMax, attackRadius)`. The mob must expose
-    /// `Entity::as_ranged_attack_mob_mut` (vanilla's constructor requires `RangedAttackMob`).
+    /// `RangedAttackGoal(mob, speedModifier, attackIntervalMin, attackIntervalMax, attackRadius)`.. The mob must override
+    /// `Entity::perform_ranged_attack` (vanilla's constructor requires `RangedAttackMob`).
     pub fn with_interval_range(speed_modifier: f64, attack_interval_min: i32, attack_interval_max: i32, attack_radius: f32) -> Self {
         Self {
             target: None,
@@ -90,9 +90,7 @@ impl Goal for RangedAttackGoal {
             }
             let dist = (target_dist_sqr.sqrt() as f32) / self.attack_radius;
             let power = mth::clamp_f32(dist, 0.1, 1.0);
-            if let Some(ranged) = mob.as_ranged_attack_mob_mut() {
-                ranged.perform_ranged_attack(level, target_id, power);
-            }
+            mob.perform_ranged_attack(level, target_id, power);
             self.attack_time = mth::floor_f32(dist * (self.attack_interval_max - self.attack_interval_min) as f32 + self.attack_interval_min as f32);
         } else if self.attack_time < 0 {
             self.attack_time = mth::floor_f64(mth::lerp_f64(target_dist_sqr.sqrt() / f64::from(self.attack_radius), f64::from(self.attack_interval_min), f64::from(self.attack_interval_max)));

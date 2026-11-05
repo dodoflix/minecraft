@@ -65,7 +65,6 @@ pub mod navigation;
 pub mod nbt;
 pub mod neutral;
 pub mod pathfinder;
-pub mod ranged;
 pub mod spawn;
 pub mod tamable;
 pub mod tick;

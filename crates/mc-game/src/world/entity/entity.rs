@@ -3166,14 +3166,16 @@ pub trait Entity: Any {
         None
     }
     // ==== [GoalsB] additions (Entity trait methods) ====
-    /// `this instanceof RangedAttackMob`: the mob implements `performRangedAttack` (Skeleton, Witch, SnowGolem, ...).
-    fn as_ranged_attack_mob_mut(&mut self) -> Option<&mut dyn super::mob::ranged::RangedAttackMob> {
-        None
+    /// `RangedAttackMob.performRangedAttack(target, power)` (default: not a ranged-attack mob). `target` is in the level.
+    fn perform_ranged_attack(&mut self, _level: &mut ServerLevel, _target: EntityId, _power: f32) {}
+    /// `RangedAttackMob.rangedAttackUncertainty(level)`.
+    fn ranged_attack_uncertainty(&self, level: &ServerLevel) -> f32 {
+        (14 - level.difficulty().get_id() * 4) as f32
     }
-    /// `this instanceof CrossbowAttackMob` (Pillager, Piglin).
-    fn as_crossbow_attack_mob_mut(&mut self) -> Option<&mut dyn super::mob::ranged::CrossbowAttackMob> {
-        None
-    }
+    /// `CrossbowAttackMob.setChargingCrossbow(isCharging)`.
+    fn set_charging_crossbow(&mut self, _is_charging: bool) {}
+    /// `CrossbowAttackMob.onCrossbowAttackPerformed()`.
+    fn on_crossbow_attack_performed(&mut self) {}
     /// `Creeper.getSwellDir()` (`SwellGoal`); 0 for non-creepers.
     fn get_swell_dir(&self) -> i32 {
         0
