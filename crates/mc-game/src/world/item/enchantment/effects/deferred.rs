@@ -152,7 +152,7 @@ fn summon_entity(e: &SummonEntityEffect, level: &mut ServerLevel, actors: &mut A
     let spawned_id = spawned.id();
     level.add_fresh_entity_with_passengers(vec![spawned]);
     let owner_is_player = item.owner.is_some_and(|o| actors.get(level, o).is_some_and(|o| o.is_player()));
-    let team = if e.join_team { actors.get(level, entity).and_then(|t| level.scoreboard().get_players_team(&t.get_scoreboard_name()).map(|t| t.name.clone())) } else { None };
+    let team = if e.join_team { actors.get(level, entity).and_then(|t| level.scoreboard().get_players_team(&t.get_scoreboard_name()).map(|t| t.get_name().to_string())) } else { None };
     level.with_entity(spawned_id, |level, spawned| {
         if let Some(bolt) = spawned.as_any_mut().downcast_mut::<LightningBolt>()
             && owner_is_player
