@@ -1,0 +1,62 @@
+# /worldborder, /tick, /setworldspawn, /spawnpoint: feedback, errors and the packets they cause
+!packets ^(initialize_border|set_border_.*|ticking_state|ticking_step|set_default_spawn_position)$
+!ignore (?i)(target tick rate|average time per tick|percentiles|sprint report|sprinting|per second)
+worldborder get
+@bot worldborder get
+@bot worldborder set 10 5
+@bot worldborder set 10 5
+@bot worldborder set 10
+@bot worldborder get
+@bot worldborder set 0
+@bot worldborder set 100000000
+@bot worldborder set 200
+@bot worldborder add 50
+@bot worldborder add -10 3
+@bot worldborder add 1000 10
+@bot worldborder center 100 -50
+@bot worldborder center 100 -50
+@bot worldborder center 30000000 0
+@bot worldborder center ~ ~
+@bot worldborder damage amount 0.5
+@bot worldborder damage amount 0.5
+@bot worldborder damage buffer 3
+@bot worldborder damage buffer 3.25
+@bot worldborder warning distance 7
+@bot worldborder warning distance 7
+@bot worldborder warning time 20
+@bot worldborder warning time 5s
+@bot worldborder warning time 5s
+@bot worldborder set 59999970
+@bot worldborder get
+worldborder set 1000
+worldborder get
+@bot0 worldborder get
+@bot tick freeze
+@bot tick freeze
+@bot tick step
+@bot tick step 5
+@bot tick step 40
+@bot tick step stop
+@bot tick step stop
+@bot tick unfreeze
+@bot tick step
+@bot tick rate 10
+@bot tick rate 10.5
+@bot tick rate 20
+@bot tick query
+@bot tick freeze
+@bot tick sprint 20
+@bot tick sprint stop
+@bot tick sprint stop
+@bot0 tick query
+setworldspawn 10 70 10
+setworldspawn 10 70 10
+setworldspawn 3 4 5 45 30
+setworldspawn ~ ~ ~
+@bot setworldspawn
+@bot spawnpoint
+@bot spawnpoint Bot 1 2 3
+@bot spawnpoint Bot 1 2 3 90 -10
+@bot spawnpoint @a 7 8 9
+spawnpoint Bot0 0 0 0
+spawnpoint
