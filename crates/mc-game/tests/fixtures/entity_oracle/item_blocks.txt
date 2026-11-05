@@ -1,0 +1,956 @@
+# CASE 0 tool=iron_axe block=minecraft:oak_wood above=none face=up
+B 2 -60 0 minecraft:stripped_oak_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 1 tool=iron_axe block=minecraft:oak_log above=none face=up
+B 2 -60 0 minecraft:stripped_oak_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 2 tool=iron_axe block=minecraft:dark_oak_wood above=none face=up
+B 2 -60 0 minecraft:stripped_dark_oak_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 3 tool=iron_axe block=minecraft:dark_oak_log above=none face=up
+B 2 -60 0 minecraft:stripped_dark_oak_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 4 tool=iron_axe block=minecraft:pale_oak_wood above=none face=up
+B 2 -60 0 minecraft:stripped_pale_oak_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 5 tool=iron_axe block=minecraft:pale_oak_log above=none face=up
+B 2 -60 0 minecraft:stripped_pale_oak_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 6 tool=iron_axe block=minecraft:poplar_wood above=none face=up
+B 2 -60 0 minecraft:stripped_poplar_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 7 tool=iron_axe block=minecraft:poplar_log above=none face=up
+B 2 -60 0 minecraft:stripped_poplar_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 8 tool=iron_axe block=minecraft:acacia_wood above=none face=up
+B 2 -60 0 minecraft:stripped_acacia_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 9 tool=iron_axe block=minecraft:acacia_log above=none face=up
+B 2 -60 0 minecraft:stripped_acacia_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 10 tool=iron_axe block=minecraft:cherry_wood above=none face=up
+B 2 -60 0 minecraft:stripped_cherry_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 11 tool=iron_axe block=minecraft:cherry_log above=none face=up
+B 2 -60 0 minecraft:stripped_cherry_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 12 tool=iron_axe block=minecraft:birch_wood above=none face=up
+B 2 -60 0 minecraft:stripped_birch_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 13 tool=iron_axe block=minecraft:birch_log above=none face=up
+B 2 -60 0 minecraft:stripped_birch_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 14 tool=iron_axe block=minecraft:jungle_wood above=none face=up
+B 2 -60 0 minecraft:stripped_jungle_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 15 tool=iron_axe block=minecraft:jungle_log above=none face=up
+B 2 -60 0 minecraft:stripped_jungle_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 16 tool=iron_axe block=minecraft:spruce_wood above=none face=up
+B 2 -60 0 minecraft:stripped_spruce_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 17 tool=iron_axe block=minecraft:spruce_log above=none face=up
+B 2 -60 0 minecraft:stripped_spruce_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 18 tool=iron_axe block=minecraft:warped_stem above=none face=up
+B 2 -60 0 minecraft:stripped_warped_stem[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 19 tool=iron_axe block=minecraft:warped_hyphae above=none face=up
+B 2 -60 0 minecraft:stripped_warped_hyphae[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 20 tool=iron_axe block=minecraft:crimson_stem above=none face=up
+B 2 -60 0 minecraft:stripped_crimson_stem[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 21 tool=iron_axe block=minecraft:crimson_hyphae above=none face=up
+B 2 -60 0 minecraft:stripped_crimson_hyphae[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 22 tool=iron_axe block=minecraft:mangrove_wood above=none face=up
+B 2 -60 0 minecraft:stripped_mangrove_wood[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 23 tool=iron_axe block=minecraft:mangrove_log above=none face=up
+B 2 -60 0 minecraft:stripped_mangrove_log[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 24 tool=iron_axe block=minecraft:bamboo_block above=none face=up
+B 2 -60 0 minecraft:stripped_bamboo_block[axis=y]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 25 tool=iron_axe block=minecraft:exposed_copper above=none face=up
+B 2 -60 0 minecraft:copper_block
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 26 tool=iron_axe block=minecraft:weathered_copper above=none face=up
+B 2 -60 0 minecraft:exposed_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 27 tool=iron_axe block=minecraft:oxidized_copper above=none face=up
+B 2 -60 0 minecraft:weathered_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 28 tool=iron_axe block=minecraft:exposed_cut_copper above=none face=up
+B 2 -60 0 minecraft:cut_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 29 tool=iron_axe block=minecraft:weathered_cut_copper above=none face=up
+B 2 -60 0 minecraft:exposed_cut_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 30 tool=iron_axe block=minecraft:oxidized_cut_copper above=none face=up
+B 2 -60 0 minecraft:weathered_cut_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 31 tool=iron_axe block=minecraft:exposed_chiseled_copper above=none face=up
+B 2 -60 0 minecraft:chiseled_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 32 tool=iron_axe block=minecraft:weathered_chiseled_copper above=none face=up
+B 2 -60 0 minecraft:exposed_chiseled_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 33 tool=iron_axe block=minecraft:oxidized_chiseled_copper above=none face=up
+B 2 -60 0 minecraft:weathered_chiseled_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 34 tool=iron_axe block=minecraft:exposed_cut_copper_slab above=none face=up
+B 2 -60 0 minecraft:cut_copper_slab[type=bottom,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 35 tool=iron_axe block=minecraft:weathered_cut_copper_slab above=none face=up
+B 2 -60 0 minecraft:exposed_cut_copper_slab[type=bottom,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 36 tool=iron_axe block=minecraft:oxidized_cut_copper_slab above=none face=up
+B 2 -60 0 minecraft:weathered_cut_copper_slab[type=bottom,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 37 tool=iron_axe block=minecraft:exposed_cut_copper_stairs above=none face=up
+B 2 -60 0 minecraft:cut_copper_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 38 tool=iron_axe block=minecraft:weathered_cut_copper_stairs above=none face=up
+B 2 -60 0 minecraft:exposed_cut_copper_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 39 tool=iron_axe block=minecraft:oxidized_cut_copper_stairs above=none face=up
+B 2 -60 0 minecraft:weathered_cut_copper_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 40 tool=iron_axe block=minecraft:exposed_copper_trapdoor above=none face=up
+B 2 -60 0 minecraft:exposed_copper_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 41 tool=iron_axe block=minecraft:weathered_copper_trapdoor above=none face=up
+B 2 -60 0 minecraft:weathered_copper_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 42 tool=iron_axe block=minecraft:oxidized_copper_trapdoor above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 43 tool=iron_axe block=minecraft:exposed_copper_bars above=none face=up
+B 2 -60 0 minecraft:copper_bars[east=false,north=false,south=false,waterlogged=false,west=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 44 tool=iron_axe block=minecraft:weathered_copper_bars above=none face=up
+B 2 -60 0 minecraft:exposed_copper_bars[east=false,north=false,south=false,waterlogged=false,west=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 45 tool=iron_axe block=minecraft:oxidized_copper_bars above=none face=up
+B 2 -60 0 minecraft:weathered_copper_bars[east=false,north=false,south=false,waterlogged=false,west=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 46 tool=iron_axe block=minecraft:exposed_copper_grate above=none face=up
+B 2 -60 0 minecraft:copper_grate[waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 47 tool=iron_axe block=minecraft:weathered_copper_grate above=none face=up
+B 2 -60 0 minecraft:exposed_copper_grate[waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 48 tool=iron_axe block=minecraft:oxidized_copper_grate above=none face=up
+B 2 -60 0 minecraft:weathered_copper_grate[waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 49 tool=iron_axe block=minecraft:exposed_copper_bulb above=none face=up
+B 2 -60 0 minecraft:copper_bulb[lit=false,powered=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 50 tool=iron_axe block=minecraft:weathered_copper_bulb above=none face=up
+B 2 -60 0 minecraft:exposed_copper_bulb[lit=false,powered=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 51 tool=iron_axe block=minecraft:oxidized_copper_bulb above=none face=up
+B 2 -60 0 minecraft:weathered_copper_bulb[lit=false,powered=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 52 tool=iron_axe block=minecraft:exposed_copper_lantern above=none face=up
+B 2 -60 0 minecraft:copper_lantern[hanging=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 53 tool=iron_axe block=minecraft:weathered_copper_lantern above=none face=up
+B 2 -60 0 minecraft:exposed_copper_lantern[hanging=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 54 tool=iron_axe block=minecraft:oxidized_copper_lantern above=none face=up
+B 2 -60 0 minecraft:weathered_copper_lantern[hanging=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 55 tool=iron_axe block=minecraft:exposed_copper_golem_statue above=none face=up
+B 2 -60 0 minecraft:copper_golem_statue[copper_golem_pose=standing,facing=north,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 56 tool=iron_axe block=minecraft:weathered_copper_golem_statue above=none face=up
+B 2 -60 0 minecraft:exposed_copper_golem_statue[copper_golem_pose=standing,facing=north,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 57 tool=iron_axe block=minecraft:oxidized_copper_golem_statue above=none face=up
+B 2 -60 0 minecraft:weathered_copper_golem_statue[copper_golem_pose=standing,facing=north,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 58 tool=iron_axe block=minecraft:exposed_lightning_rod above=none face=up
+B 2 -60 0 minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 59 tool=iron_axe block=minecraft:weathered_lightning_rod above=none face=up
+B 2 -60 0 minecraft:exposed_lightning_rod[facing=up,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 60 tool=iron_axe block=minecraft:oxidized_lightning_rod above=none face=up
+B 2 -60 0 minecraft:weathered_lightning_rod[facing=up,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 61 tool=iron_axe block=minecraft:exposed_copper_chain above=none face=up
+B 2 -60 0 minecraft:copper_chain[axis=y,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 62 tool=iron_axe block=minecraft:weathered_copper_chain above=none face=up
+B 2 -60 0 minecraft:exposed_copper_chain[axis=y,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 63 tool=iron_axe block=minecraft:oxidized_copper_chain above=none face=up
+B 2 -60 0 minecraft:weathered_copper_chain[axis=y,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 64 tool=iron_axe block=minecraft:exposed_copper_chest above=none face=up
+B 2 -60 0 minecraft:exposed_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 65 tool=iron_axe block=minecraft:weathered_copper_chest above=none face=up
+B 2 -60 0 minecraft:weathered_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 66 tool=iron_axe block=minecraft:oxidized_copper_chest above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 67 tool=iron_axe block=minecraft:exposed_copper_door above=none face=up
+B 2 -60 0 minecraft:exposed_copper_door[facing=north,half=lower,hinge=left,open=true,powered=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 68 tool=iron_axe block=minecraft:weathered_copper_door above=none face=up
+B 2 -60 0 minecraft:weathered_copper_door[facing=north,half=lower,hinge=left,open=true,powered=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 69 tool=iron_axe block=minecraft:oxidized_copper_door above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_door[facing=north,half=lower,hinge=left,open=true,powered=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 70 tool=iron_axe block=minecraft:waxed_copper_block above=none face=up
+B 2 -60 0 minecraft:copper_block
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 71 tool=iron_axe block=minecraft:waxed_exposed_copper above=none face=up
+B 2 -60 0 minecraft:exposed_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 72 tool=iron_axe block=minecraft:waxed_weathered_copper above=none face=up
+B 2 -60 0 minecraft:weathered_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 73 tool=iron_axe block=minecraft:waxed_oxidized_copper above=none face=up
+B 2 -60 0 minecraft:oxidized_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 74 tool=iron_axe block=minecraft:waxed_cut_copper above=none face=up
+B 2 -60 0 minecraft:cut_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 75 tool=iron_axe block=minecraft:waxed_exposed_cut_copper above=none face=up
+B 2 -60 0 minecraft:exposed_cut_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 76 tool=iron_axe block=minecraft:waxed_weathered_cut_copper above=none face=up
+B 2 -60 0 minecraft:weathered_cut_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 77 tool=iron_axe block=minecraft:waxed_oxidized_cut_copper above=none face=up
+B 2 -60 0 minecraft:oxidized_cut_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 78 tool=iron_axe block=minecraft:waxed_cut_copper_slab above=none face=up
+B 2 -60 0 minecraft:cut_copper_slab[type=bottom,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 79 tool=iron_axe block=minecraft:waxed_exposed_cut_copper_slab above=none face=up
+B 2 -60 0 minecraft:exposed_cut_copper_slab[type=bottom,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 80 tool=iron_axe block=minecraft:waxed_weathered_cut_copper_slab above=none face=up
+B 2 -60 0 minecraft:weathered_cut_copper_slab[type=bottom,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 81 tool=iron_axe block=minecraft:waxed_oxidized_cut_copper_slab above=none face=up
+B 2 -60 0 minecraft:oxidized_cut_copper_slab[type=bottom,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 82 tool=iron_axe block=minecraft:waxed_cut_copper_stairs above=none face=up
+B 2 -60 0 minecraft:cut_copper_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 83 tool=iron_axe block=minecraft:waxed_exposed_cut_copper_stairs above=none face=up
+B 2 -60 0 minecraft:exposed_cut_copper_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 84 tool=iron_axe block=minecraft:waxed_weathered_cut_copper_stairs above=none face=up
+B 2 -60 0 minecraft:weathered_cut_copper_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 85 tool=iron_axe block=minecraft:waxed_oxidized_cut_copper_stairs above=none face=up
+B 2 -60 0 minecraft:oxidized_cut_copper_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 86 tool=iron_axe block=minecraft:waxed_chiseled_copper above=none face=up
+B 2 -60 0 minecraft:chiseled_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 87 tool=iron_axe block=minecraft:waxed_exposed_chiseled_copper above=none face=up
+B 2 -60 0 minecraft:exposed_chiseled_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 88 tool=iron_axe block=minecraft:waxed_weathered_chiseled_copper above=none face=up
+B 2 -60 0 minecraft:weathered_chiseled_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 89 tool=iron_axe block=minecraft:waxed_oxidized_chiseled_copper above=none face=up
+B 2 -60 0 minecraft:oxidized_chiseled_copper
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 90 tool=iron_axe block=minecraft:waxed_copper_trapdoor above=none face=up
+B 2 -60 0 minecraft:waxed_copper_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 91 tool=iron_axe block=minecraft:waxed_exposed_copper_trapdoor above=none face=up
+B 2 -60 0 minecraft:waxed_exposed_copper_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 92 tool=iron_axe block=minecraft:waxed_weathered_copper_trapdoor above=none face=up
+B 2 -60 0 minecraft:waxed_weathered_copper_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 93 tool=iron_axe block=minecraft:waxed_oxidized_copper_trapdoor above=none face=up
+B 2 -60 0 minecraft:waxed_oxidized_copper_trapdoor[facing=north,half=bottom,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 94 tool=iron_axe block=minecraft:waxed_copper_bars above=none face=up
+B 2 -60 0 minecraft:copper_bars[east=false,north=false,south=false,waterlogged=false,west=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 95 tool=iron_axe block=minecraft:waxed_exposed_copper_bars above=none face=up
+B 2 -60 0 minecraft:exposed_copper_bars[east=false,north=false,south=false,waterlogged=false,west=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 96 tool=iron_axe block=minecraft:waxed_weathered_copper_bars above=none face=up
+B 2 -60 0 minecraft:weathered_copper_bars[east=false,north=false,south=false,waterlogged=false,west=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 97 tool=iron_axe block=minecraft:waxed_oxidized_copper_bars above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_bars[east=false,north=false,south=false,waterlogged=false,west=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 98 tool=iron_axe block=minecraft:waxed_copper_grate above=none face=up
+B 2 -60 0 minecraft:copper_grate[waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 99 tool=iron_axe block=minecraft:waxed_exposed_copper_grate above=none face=up
+B 2 -60 0 minecraft:exposed_copper_grate[waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 100 tool=iron_axe block=minecraft:waxed_weathered_copper_grate above=none face=up
+B 2 -60 0 minecraft:weathered_copper_grate[waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 101 tool=iron_axe block=minecraft:waxed_oxidized_copper_grate above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_grate[waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 102 tool=iron_axe block=minecraft:waxed_copper_bulb above=none face=up
+B 2 -60 0 minecraft:copper_bulb[lit=false,powered=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 103 tool=iron_axe block=minecraft:waxed_exposed_copper_bulb above=none face=up
+B 2 -60 0 minecraft:exposed_copper_bulb[lit=false,powered=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 104 tool=iron_axe block=minecraft:waxed_weathered_copper_bulb above=none face=up
+B 2 -60 0 minecraft:weathered_copper_bulb[lit=false,powered=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 105 tool=iron_axe block=minecraft:waxed_oxidized_copper_bulb above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_bulb[lit=false,powered=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 106 tool=iron_axe block=minecraft:waxed_copper_golem_statue above=none face=up
+B 2 -60 0 minecraft:copper_golem_statue[copper_golem_pose=standing,facing=north,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 107 tool=iron_axe block=minecraft:waxed_exposed_copper_golem_statue above=none face=up
+B 2 -60 0 minecraft:exposed_copper_golem_statue[copper_golem_pose=standing,facing=north,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 108 tool=iron_axe block=minecraft:waxed_weathered_copper_golem_statue above=none face=up
+B 2 -60 0 minecraft:weathered_copper_golem_statue[copper_golem_pose=standing,facing=north,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 109 tool=iron_axe block=minecraft:waxed_oxidized_copper_golem_statue above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_golem_statue[copper_golem_pose=standing,facing=north,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 110 tool=iron_axe block=minecraft:waxed_lightning_rod above=none face=up
+B 2 -60 0 minecraft:lightning_rod[facing=up,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 111 tool=iron_axe block=minecraft:waxed_exposed_lightning_rod above=none face=up
+B 2 -60 0 minecraft:exposed_lightning_rod[facing=up,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 112 tool=iron_axe block=minecraft:waxed_weathered_lightning_rod above=none face=up
+B 2 -60 0 minecraft:weathered_lightning_rod[facing=up,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 113 tool=iron_axe block=minecraft:waxed_oxidized_lightning_rod above=none face=up
+B 2 -60 0 minecraft:oxidized_lightning_rod[facing=up,powered=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 114 tool=iron_axe block=minecraft:waxed_copper_lantern above=none face=up
+B 2 -60 0 minecraft:copper_lantern[hanging=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 115 tool=iron_axe block=minecraft:waxed_exposed_copper_lantern above=none face=up
+B 2 -60 0 minecraft:exposed_copper_lantern[hanging=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 116 tool=iron_axe block=minecraft:waxed_weathered_copper_lantern above=none face=up
+B 2 -60 0 minecraft:weathered_copper_lantern[hanging=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 117 tool=iron_axe block=minecraft:waxed_oxidized_copper_lantern above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_lantern[hanging=false,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 118 tool=iron_axe block=minecraft:waxed_copper_chain above=none face=up
+B 2 -60 0 minecraft:copper_chain[axis=y,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 119 tool=iron_axe block=minecraft:waxed_exposed_copper_chain above=none face=up
+B 2 -60 0 minecraft:exposed_copper_chain[axis=y,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 120 tool=iron_axe block=minecraft:waxed_weathered_copper_chain above=none face=up
+B 2 -60 0 minecraft:weathered_copper_chain[axis=y,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 121 tool=iron_axe block=minecraft:waxed_oxidized_copper_chain above=none face=up
+B 2 -60 0 minecraft:oxidized_copper_chain[axis=y,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 122 tool=iron_axe block=minecraft:waxed_copper_chest above=none face=up
+B 2 -60 0 minecraft:waxed_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 123 tool=iron_axe block=minecraft:waxed_exposed_copper_chest above=none face=up
+B 2 -60 0 minecraft:waxed_exposed_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 124 tool=iron_axe block=minecraft:waxed_weathered_copper_chest above=none face=up
+B 2 -60 0 minecraft:waxed_weathered_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 125 tool=iron_axe block=minecraft:waxed_oxidized_copper_chest above=none face=up
+B 2 -60 0 minecraft:waxed_oxidized_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 126 tool=iron_axe block=minecraft:waxed_copper_door above=none face=up
+B 2 -60 0 minecraft:waxed_copper_door[facing=north,half=lower,hinge=left,open=true,powered=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 127 tool=iron_axe block=minecraft:waxed_exposed_copper_door above=none face=up
+B 2 -60 0 minecraft:waxed_exposed_copper_door[facing=north,half=lower,hinge=left,open=true,powered=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 128 tool=iron_axe block=minecraft:waxed_weathered_copper_door above=none face=up
+B 2 -60 0 minecraft:waxed_weathered_copper_door[facing=north,half=lower,hinge=left,open=true,powered=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 129 tool=iron_axe block=minecraft:waxed_oxidized_copper_door above=none face=up
+B 2 -60 0 minecraft:waxed_oxidized_copper_door[facing=north,half=lower,hinge=left,open=true,powered=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 130 tool=iron_axe block=minecraft:stone above=none face=up
+B 2 -60 0 minecraft:stone
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 131 tool=iron_axe block=minecraft:oak_planks above=none face=up
+B 2 -60 0 minecraft:oak_planks
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 132 tool=iron_axe block=minecraft:grass_block above=none face=up
+B 2 -60 0 minecraft:grass_block[snowy=false]
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 133 tool=iron_axe block=minecraft:air above=none face=up
+I Steve 0 minecraft:iron_axe*1
+C No entity was found
+# CASE 134 tool=iron_axe block=minecraft:oak_log[axis=z] above=none face=north
+B 2 -60 0 minecraft:stripped_oak_log[axis=z]
+I Steve 0 minecraft:iron_axe*1/dmg=1
+C No entity was found
+# CASE 135 tool=wooden_axe block=minecraft:crimson_stem[axis=y] above=none face=down
+B 2 -60 0 minecraft:stripped_crimson_stem[axis=y]
+I Steve 0 minecraft:wooden_axe*1/dmg=1
+C No entity was found
+# CASE 136 tool=iron_shovel block=minecraft:grass_block above=none face=up
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1/dmg=1
+C No entity was found
+# CASE 137 tool=iron_hoe block=minecraft:grass_block above=none face=up
+B 2 -60 0 minecraft:farmland[moisture=0]
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 138 tool=iron_shovel block=minecraft:grass_block above=minecraft:stone face=up
+B 2 -60 0 minecraft:grass_block[snowy=false]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 139 tool=iron_hoe block=minecraft:grass_block above=minecraft:stone face=up
+B 2 -60 0 minecraft:grass_block[snowy=false]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 140 tool=iron_shovel block=minecraft:grass_block above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:grass_block[snowy=false]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 141 tool=iron_hoe block=minecraft:grass_block above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:grass_block[snowy=false]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 142 tool=iron_shovel block=minecraft:grass_block above=none face=down
+B 2 -60 0 minecraft:grass_block[snowy=false]
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 143 tool=iron_hoe block=minecraft:grass_block above=none face=down
+B 2 -60 0 minecraft:grass_block[snowy=false]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 144 tool=iron_hoe block=minecraft:grass_block above=none face=north
+B 2 -60 0 minecraft:farmland[moisture=0]
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 145 tool=iron_shovel block=minecraft:dirt above=none face=up
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1/dmg=1
+C No entity was found
+# CASE 146 tool=iron_hoe block=minecraft:dirt above=none face=up
+B 2 -60 0 minecraft:farmland[moisture=0]
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 147 tool=iron_shovel block=minecraft:dirt above=minecraft:stone face=up
+B 2 -60 0 minecraft:dirt
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 148 tool=iron_hoe block=minecraft:dirt above=minecraft:stone face=up
+B 2 -60 0 minecraft:dirt
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 149 tool=iron_shovel block=minecraft:dirt above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:dirt
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 150 tool=iron_hoe block=minecraft:dirt above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:dirt
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 151 tool=iron_shovel block=minecraft:dirt above=none face=down
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 152 tool=iron_hoe block=minecraft:dirt above=none face=down
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 153 tool=iron_hoe block=minecraft:dirt above=none face=north
+B 2 -60 0 minecraft:farmland[moisture=0]
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 154 tool=iron_shovel block=minecraft:podzol above=none face=up
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1/dmg=1
+C No entity was found
+# CASE 155 tool=iron_hoe block=minecraft:podzol above=none face=up
+B 2 -60 0 minecraft:podzol[snowy=false]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 156 tool=iron_shovel block=minecraft:podzol above=minecraft:stone face=up
+B 2 -60 0 minecraft:podzol[snowy=false]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 157 tool=iron_hoe block=minecraft:podzol above=minecraft:stone face=up
+B 2 -60 0 minecraft:podzol[snowy=false]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 158 tool=iron_shovel block=minecraft:podzol above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:podzol[snowy=false]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 159 tool=iron_hoe block=minecraft:podzol above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:podzol[snowy=false]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 160 tool=iron_shovel block=minecraft:podzol above=none face=down
+B 2 -60 0 minecraft:podzol[snowy=false]
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 161 tool=iron_hoe block=minecraft:podzol above=none face=down
+B 2 -60 0 minecraft:podzol[snowy=false]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 162 tool=iron_hoe block=minecraft:podzol above=none face=north
+B 2 -60 0 minecraft:podzol[snowy=false]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 163 tool=iron_shovel block=minecraft:mycelium above=none face=up
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1/dmg=1
+C No entity was found
+# CASE 164 tool=iron_hoe block=minecraft:mycelium above=none face=up
+B 2 -60 0 minecraft:mycelium[snowy=false]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 165 tool=iron_shovel block=minecraft:mycelium above=minecraft:stone face=up
+B 2 -60 0 minecraft:mycelium[snowy=false]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 166 tool=iron_hoe block=minecraft:mycelium above=minecraft:stone face=up
+B 2 -60 0 minecraft:mycelium[snowy=false]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 167 tool=iron_shovel block=minecraft:mycelium above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:mycelium[snowy=false]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 168 tool=iron_hoe block=minecraft:mycelium above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:mycelium[snowy=false]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C Killed Wheat Seeds
+# CASE 169 tool=iron_shovel block=minecraft:mycelium above=none face=down
+B 2 -60 0 minecraft:mycelium[snowy=false]
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 170 tool=iron_hoe block=minecraft:mycelium above=none face=down
+B 2 -60 0 minecraft:mycelium[snowy=false]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 171 tool=iron_hoe block=minecraft:mycelium above=none face=north
+B 2 -60 0 minecraft:mycelium[snowy=false]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 172 tool=iron_shovel block=minecraft:coarse_dirt above=none face=up
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1/dmg=1
+C No entity was found
+# CASE 173 tool=iron_hoe block=minecraft:coarse_dirt above=none face=up
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 174 tool=iron_shovel block=minecraft:coarse_dirt above=minecraft:stone face=up
+B 2 -60 0 minecraft:coarse_dirt
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 175 tool=iron_hoe block=minecraft:coarse_dirt above=minecraft:stone face=up
+B 2 -60 0 minecraft:coarse_dirt
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 176 tool=iron_shovel block=minecraft:coarse_dirt above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:coarse_dirt
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C Killed Wheat Seeds
+# CASE 177 tool=iron_hoe block=minecraft:coarse_dirt above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:coarse_dirt
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 178 tool=iron_shovel block=minecraft:coarse_dirt above=none face=down
+B 2 -60 0 minecraft:coarse_dirt
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 179 tool=iron_hoe block=minecraft:coarse_dirt above=none face=down
+B 2 -60 0 minecraft:coarse_dirt
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 180 tool=iron_hoe block=minecraft:coarse_dirt above=none face=north
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 181 tool=iron_shovel block=minecraft:rooted_dirt above=none face=up
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1/dmg=1
+C No entity was found
+# CASE 182 tool=iron_hoe block=minecraft:rooted_dirt above=none face=up
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+E item#3 minecraft:item pos=2.6173886569958724,-59.0,0.2765772105745712 delta=0.0015468769397283533,0.2,-0.04950284383199575 rot=35.401466,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+C Killed Hanging Roots
+# CASE 183 tool=iron_shovel block=minecraft:rooted_dirt above=minecraft:stone face=up
+B 2 -60 0 minecraft:rooted_dirt
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 184 tool=iron_hoe block=minecraft:rooted_dirt above=minecraft:stone face=up
+B 2 -60 0 minecraft:dirt
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+E item#4 minecraft:item pos=2.4778529858738403,-59.0,0.664681433863989 delta=-0.05355325740577863,0.2,0.08651436115924879 rot=35.401466,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+C Killed Hanging Roots
+# CASE 185 tool=iron_shovel block=minecraft:rooted_dirt above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:rooted_dirt
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 186 tool=iron_hoe block=minecraft:rooted_dirt above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:dirt
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+E item#5 minecraft:item pos=2.342603283821784,-59.0,0.36253386098897666 delta=-0.07960850969772022,0.2,0.04569403095718799 rot=35.401466,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+C Killed Hanging Roots
+# CASE 187 tool=iron_shovel block=minecraft:rooted_dirt above=none face=down
+B 2 -60 0 minecraft:rooted_dirt
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 188 tool=iron_hoe block=minecraft:rooted_dirt above=none face=down
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+E item#6 minecraft:item pos=2.655506485647805,-60.25,0.6210810549411752 delta=-0.010713659789465632,0.0,-0.0691694301193202 rot=155.29208,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+C Killed Hanging Roots
+# CASE 189 tool=iron_hoe block=minecraft:rooted_dirt above=none face=north
+B 2 -60 0 minecraft:dirt
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+E item#7 minecraft:item pos=2.302920266008767,-59.849262806025024,-0.125 delta=0.0220545386187391,0.022572221876716914,-0.1 rot=119.31318,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:hanging_roots*1 age=0 pickup=10 health=5 owner=- thrower=-
+C Killed Hanging Roots
+# CASE 190 tool=iron_shovel block=minecraft:farmland[moisture=3] above=none face=up
+B 2 -60 0 minecraft:farmland[moisture=3]
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 191 tool=iron_hoe block=minecraft:farmland[moisture=3] above=none face=up
+B 2 -60 0 minecraft:farmland[moisture=3]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 192 tool=iron_shovel block=minecraft:farmland[moisture=3] above=minecraft:stone face=up
+B 2 -60 0 minecraft:farmland[moisture=3]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 193 tool=iron_hoe block=minecraft:farmland[moisture=3] above=minecraft:stone face=up
+B 2 -60 0 minecraft:farmland[moisture=3]
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 194 tool=iron_shovel block=minecraft:farmland[moisture=3] above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:farmland[moisture=3]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 195 tool=iron_hoe block=minecraft:farmland[moisture=3] above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:farmland[moisture=3]
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 196 tool=iron_shovel block=minecraft:farmland[moisture=3] above=none face=down
+B 2 -60 0 minecraft:farmland[moisture=3]
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 197 tool=iron_hoe block=minecraft:farmland[moisture=3] above=none face=down
+B 2 -60 0 minecraft:farmland[moisture=3]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 198 tool=iron_hoe block=minecraft:farmland[moisture=3] above=none face=north
+B 2 -60 0 minecraft:farmland[moisture=3]
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 199 tool=iron_shovel block=minecraft:dirt_path above=none face=up
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 200 tool=iron_hoe block=minecraft:dirt_path above=none face=up
+B 2 -60 0 minecraft:farmland[moisture=0]
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 201 tool=iron_shovel block=minecraft:dirt_path above=minecraft:stone face=up
+B 2 -60 0 minecraft:dirt_path
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 202 tool=iron_hoe block=minecraft:dirt_path above=minecraft:stone face=up
+B 2 -60 0 minecraft:dirt_path
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 203 tool=iron_shovel block=minecraft:dirt_path above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:dirt_path
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 204 tool=iron_hoe block=minecraft:dirt_path above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:dirt_path
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 205 tool=iron_shovel block=minecraft:dirt_path above=none face=down
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 206 tool=iron_hoe block=minecraft:dirt_path above=none face=down
+B 2 -60 0 minecraft:dirt_path
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 207 tool=iron_hoe block=minecraft:dirt_path above=none face=north
+B 2 -60 0 minecraft:farmland[moisture=0]
+I Steve 0 minecraft:iron_hoe*1/dmg=1
+C No entity was found
+# CASE 208 tool=iron_shovel block=minecraft:stone above=none face=up
+B 2 -60 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 209 tool=iron_hoe block=minecraft:stone above=none face=up
+B 2 -60 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 210 tool=iron_shovel block=minecraft:stone above=minecraft:stone face=up
+B 2 -60 0 minecraft:stone
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 211 tool=iron_hoe block=minecraft:stone above=minecraft:stone face=up
+B 2 -60 0 minecraft:stone
+B 2 -59 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 212 tool=iron_shovel block=minecraft:stone above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:stone
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 213 tool=iron_hoe block=minecraft:stone above=minecraft:short_grass face=up
+B 2 -60 0 minecraft:stone
+B 2 -59 0 minecraft:short_grass
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 214 tool=iron_shovel block=minecraft:stone above=none face=down
+B 2 -60 0 minecraft:stone
+I Steve 0 minecraft:iron_shovel*1
+C No entity was found
+# CASE 215 tool=iron_hoe block=minecraft:stone above=none face=down
+B 2 -60 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 216 tool=iron_hoe block=minecraft:stone above=none face=north
+B 2 -60 0 minecraft:stone
+I Steve 0 minecraft:iron_hoe*1
+C No entity was found
+# CASE 217 tool=honeycomb block=minecraft:copper_block above=none face=up
+B 2 -60 0 minecraft:waxed_copper_block
+C No entity was found
+# CASE 218 tool=honeycomb block=minecraft:exposed_cut_copper above=none face=up
+B 2 -60 0 minecraft:waxed_exposed_cut_copper
+C No entity was found
+# CASE 219 tool=honeycomb block=minecraft:weathered_cut_copper_slab[type=top] above=none face=up
+B 2 -60 0 minecraft:waxed_weathered_cut_copper_slab[type=top,waterlogged=false]
+C No entity was found
+# CASE 220 tool=honeycomb block=minecraft:oxidized_copper_bulb[lit=true] above=none face=up
+B 2 -60 0 minecraft:waxed_oxidized_copper_bulb[lit=true,powered=false]
+C No entity was found
+# CASE 221 tool=honeycomb block=minecraft:copper_door[half=lower,facing=east,hinge=right,open=true,powered=false] above=none face=up
+B 2 -60 0 minecraft:copper_door[facing=east,half=lower,hinge=right,open=false,powered=false]
+I Steve 0 minecraft:honeycomb*1
+C No entity was found
+# CASE 222 tool=honeycomb block=minecraft:exposed_copper_chest[facing=north,type=single,waterlogged=false] above=none face=up
+B 2 -60 0 minecraft:exposed_copper_chest[facing=north,type=single,waterlogged=false]
+I Steve 0 minecraft:honeycomb*1
+C No entity was found
+# CASE 223 tool=honeycomb block=minecraft:waxed_copper_block above=none face=up
+B 2 -60 0 minecraft:waxed_copper_block
+I Steve 0 minecraft:honeycomb*1
+C No entity was found
+# CASE 224 tool=honeycomb block=minecraft:oxidized_copper above=none face=up
+B 2 -60 0 minecraft:waxed_oxidized_copper
+C No entity was found
+# CASE 225 tool=honeycomb block=minecraft:lightning_rod[facing=up,powered=false,waterlogged=false] above=none face=up
+B 2 -60 0 minecraft:waxed_lightning_rod[facing=up,powered=false,waterlogged=false]
+C No entity was found
+# CASE 226 tool=honeycomb block=minecraft:copper_trapdoor[half=top,open=false,powered=false,waterlogged=false,facing=south] above=none face=up
+B 2 -60 0 minecraft:copper_trapdoor[facing=south,half=top,open=true,powered=false,waterlogged=false]
+I Steve 0 minecraft:honeycomb*1
+C No entity was found
+# CASE 227 tool=honeycomb block=minecraft:weathered_copper_golem_statue[facing=east,waterlogged=false,copper_golem_pose=standing] above=none face=up
+B 2 -60 0 minecraft:waxed_weathered_copper_golem_statue[copper_golem_pose=standing,facing=east,waterlogged=false]
+C No entity was found
+# CASE 228 tool=honeycomb block=minecraft:stone above=none face=up
+B 2 -60 0 minecraft:stone
+I Steve 0 minecraft:honeycomb*1
+C No entity was found
+# CASE 229 tool=honeycomb block=minecraft:copper_chain[axis=y,waterlogged=false] above=none face=up
+B 2 -60 0 minecraft:waxed_copper_chain[axis=y,waterlogged=false]
+C No entity was found
+# CASE 230 tool=honeycomb block=minecraft:waxed_oxidized_copper_lantern[hanging=true,waterlogged=false] above=none face=up
+B 2 -60 0 minecraft:waxed_oxidized_copper_lantern[hanging=true,waterlogged=false]
+I Steve 0 minecraft:honeycomb*1
+C No entity was found
