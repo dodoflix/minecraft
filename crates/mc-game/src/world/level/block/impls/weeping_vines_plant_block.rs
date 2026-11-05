@@ -1,6 +1,6 @@
 //! `net.minecraft.world.level.block.WeepingVinesPlantBlock` (extends `GrowingPlantBodyBlock`).
-use super::growing_plant_block::{self, GrowingPlant};
-use super::growing_plant_body_block::{self, GrowingPlantBody};
+use super::growing_plant_block::GrowingPlant;
+use super::growing_plant_body_block::{GrowingPlantBody, growing_plant_body_behaviour};
 use super::prelude::*;
 
 pub struct WeepingVinesPlantBlock;
@@ -19,16 +19,10 @@ impl GrowingPlant for WeepingVinesPlantBlock {
         Block::WEEPING_VINES_PLANT
     }
 }
-impl GrowingPlantBody for WeepingVinesPlantBlock {
-}
+impl GrowingPlantBody for WeepingVinesPlantBlock {}
 
 impl BlockBehaviour for WeepingVinesPlantBlock {
-    fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-        growing_plant_block::can_survive(self, level, pos)
-    }
-    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-        growing_plant_body_block::update_shape(self, state, level, pos, direction, neighbour_state)
-    });
+    growing_plant_body_behaviour!();
 }
 
 register_block_class!("WeepingVinesPlantBlock", |_| Box::new(WeepingVinesPlantBlock));

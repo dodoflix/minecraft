@@ -181,6 +181,7 @@ pub mod nether_fungus_block;
 pub mod nether_portal_block;
 pub mod nether_roots_block;
 pub mod nether_sprouts_block;
+pub mod nether_vines;
 pub mod nether_wart_block;
 pub mod netherrack_block;
 pub mod note_block;

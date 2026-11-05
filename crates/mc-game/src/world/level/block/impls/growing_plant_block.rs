@@ -31,3 +31,10 @@ pub fn can_survive(this: &dyn GrowingPlant, level: &dyn LevelReader, pos: BlockP
             || attached_to_state.is_face_sturdy_at(level, attached_to_pos, this.growth_direction())
     }
 }
+
+/// `GrowingPlantBlock.tick`.
+pub fn tick(state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos) {
+    if !state.can_survive(&*level, pos) {
+        level.destroy_block(pos, true, None, 512);
+    }
+}
