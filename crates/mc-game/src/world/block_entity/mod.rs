@@ -34,6 +34,7 @@ mod sculk_sensor_block_entity;
 mod sculk_shrieker_block_entity;
 mod the_end_gateway_block_entity;
 mod the_end_portal_block_entity;
+pub mod structure_block_entity;
 
 pub use comparator_block_entity::ComparatorBlockEntity;
 pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
@@ -46,6 +47,7 @@ pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
 pub use sculk_shrieker_block_entity::SculkShriekerBlockEntity;
 pub use the_end_gateway_block_entity::TheEndGatewayBlockEntity;
 pub use the_end_portal_block_entity::TheEndPortalBlockEntity;
+pub use structure_block_entity::StructureBlockEntity;
 
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;

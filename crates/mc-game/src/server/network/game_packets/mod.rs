@@ -23,6 +23,7 @@ mod movement;
 pub(crate) mod seam;
 mod services_keys;
 mod session;
+mod technical_blocks;
 
 pub mod hooks;
 

@@ -6,8 +6,8 @@ use super::PlayCtx;
 use super::hooks::{PLAY_HANDLERS, PlayHandlers};
 use crate::translatable;
 use crate::world::block_entity::command_block_entity::CommandBlockEntity;
-use crate::world::block_entity::{JigsawBlockEntity, StructureBlockEntity};
-use crate::world::level::BlockGetter;
+use crate::world::block_entity::{BlockEntity, JigsawBlockEntity, StructureBlockEntity};
+use crate::world::level::{BlockGetter, LevelAccessor};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::gamerules::GameRules;
 use linkme::distributed_slice;
@@ -15,7 +15,7 @@ use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::props;
 use mc_protocol::packets::play::{
-    CommandBlockEntityMode, ServerboundJigsawGeneratePacket, ServerboundSetCommandBlockPacket, ServerboundSetJigsawBlockPacket, ServerboundSetStructureBlockPacket,
+    CommandBlockEntityMode, ServerboundSetCommandBlockPacket, ServerboundSetJigsawBlockPacket, ServerboundSetStructureBlockPacket,
     StructureBlockEntityUpdateType, StructureMode as PacketStructureMode,
 };
 
@@ -171,15 +171,6 @@ impl PlayHandlers for TechnicalBlockHandlers {
         });
         if updated.is_some() {
             ctx.level.send_block_updated(pos, state, state, 3);
-        }
-    }
-
-    fn handle_jigsaw_generate(&self, ctx: &mut PlayCtx, packet: &ServerboundJigsawGeneratePacket) {
-        if !ctx.can_use_game_master_blocks() {
-            return;
-        }
-        if ctx.level.get_block_entity_immediate(packet.pos).is_some_and(|be| be.as_any().is::<JigsawBlockEntity>()) {
-            JigsawBlockEntity::generate(ctx.level, packet.pos, packet.levels, packet.keep_jigsaws);
         }
     }
 }

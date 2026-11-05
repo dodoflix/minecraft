@@ -218,6 +218,7 @@ pub mod stair_block;
 pub mod standing_sign_block;
 pub mod stem_block;
 pub mod stonecutter_block;
+pub mod structure_block;
 pub mod sugar_cane_block;
 pub mod sweet_berry_bush_block;
 pub mod tall_dry_grass_block;

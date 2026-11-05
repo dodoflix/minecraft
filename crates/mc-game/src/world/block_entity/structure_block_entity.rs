@@ -6,12 +6,11 @@
 
 use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration};
 use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::structure::templatesystem::block_rot_processor::BlockRotProcessor;
 use crate::world::level::levelgen::structure::templatesystem::structure_place_settings::SharedRandom;
 use crate::world::level::levelgen::structure::templatesystem::{StructurePlaceSettings, StructureTemplate};
-use crate::world::level::{BlockGetter, LevelReader};
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
@@ -97,9 +96,9 @@ fn mode_by_name(name: &str) -> Option<StructureMode> {
 pub fn create_random(seed: i64) -> Box<dyn RandomSource> {
     if seed == 0 {
         // `Util.getMillis()`
-        random::create(std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64))
+        Box::new(random::create(std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_millis() as i64)))
     } else {
-        random::create(seed)
+        Box::new(random::create(seed))
     }
 }
 
@@ -304,12 +303,12 @@ impl StructureBlockEntity {
         let (min_x, max_x) = (self_pos.x() - SCAN_CORNER_BLOCKS_RANGE, self_pos.x() + SCAN_CORNER_BLOCKS_RANGE);
         let (min_z, max_z) = (self_pos.z() - SCAN_CORNER_BLOCKS_RANGE, self_pos.z() + SCAN_CORNER_BLOCKS_RANGE);
         let (min_y, max_y) = (level.get_min_y(), level.get_max_y());
-        let min_section_y = level.get_min_section_y();
+        let min_section_y = level.get_min_y() >> 4;
         // `BlockScanUtils.sectionBasedScan`: chunks (loaded on demand) x, z, then sections by y
         for chunk_x in (min_x >> 4)..=(max_x >> 4) {
             for chunk_z in (min_z >> 4)..=(max_z >> 4) {
                 level.chunk_blocking_mut(chunk_x, chunk_z);
-                for section_y in (min_y >> 4).max(min_section_y)..=(max_y >> 4).min(level.get_max_section_y()) {
+                for section_y in (min_y >> 4).max(min_section_y)..=(max_y >> 4).min((level.get_max_y() >> 4)) {
                     let has = level.chunk_now(chunk_x, chunk_z).is_some_and(|chunk| {
                         chunk.data.access.get_section((section_y - min_section_y) as usize).maybe_has(|state| state.block() == Block::STRUCTURE_BLOCK)
                     });
