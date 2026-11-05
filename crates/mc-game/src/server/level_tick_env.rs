@@ -1,7 +1,7 @@
 //! `LevelTickEnv` for the server: what `ServerLevel.tick` reads from `MinecraftServer` (tick rate manager, game rules,
 //! weather saved data, difficulty, clocks, player list).
 //!
-//! Not modelled yet (their owners have not landed): raids, the scheduled-events timer queue (needs the function manager) and the
+//! Not modelled yet (their owners have not landed): raids and the
 //! environment attribute system behind `sky_light_level` / `moon_brightness` (the overworld day/night cycle is read from
 //! the overworld clock with the vanilla day length instead).
 
@@ -65,10 +65,8 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.overworld_clock_time()
     }
 
-    fn tick_scheduled_events(&mut self, game_time: i64) {
-        if let Some(hook) = self.server.tick_hooks.tick_scheduled_events {
-            hook(self.server, game_time);
-        }
+    fn tick_scheduled_events(&mut self, game_time: i64, level: &mut ServerLevel) {
+        self.server.tick_scheduled_events(game_time, level);
     }
 
     fn tick_raids(&mut self, level: &mut ServerLevel) {

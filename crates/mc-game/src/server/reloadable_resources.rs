@@ -3,10 +3,14 @@
 //! tags of every registry, and the [`ReloadListener`]s (function library, ... registered by their own modules).
 
 use std::any::Any;
+use std::sync::Arc;
 
 use mc_world::level_storage::FeatureFlagSet;
 
 use super::registry_layer::RegistryLayer;
+use super::permissions::PermissionSet;
+use crate::commands::command_build_context::AccessRegistries;
+use crate::commands::{CommandBuildContext, CommandSelection, Commands};
 use crate::registry::data_loader::{self, RegistryLoadFailure};
 use crate::registry::keys::RELOADABLE_REGISTRIES;
 use crate::registry::{LayeredRegistryAccess, PendingTags, RegistryAccess, build_updated_lookups, load_tags_for_existing_registries};
@@ -18,6 +22,10 @@ pub struct ReloadContext<'a> {
     /// All registries (static ones with the new tags, the new `RELOADABLE` layer included).
     pub registries: &'a RegistryAccess,
     pub enabled_features: FeatureFlagSet,
+    /// The `Commands` built for this reload (`ReloadableServerResources.commands`): what functions compile against.
+    pub commands: &'a Commands,
+    /// `functionCompilationPermissions` (`function-permission-level`).
+    pub function_compilation_permissions: &'a PermissionSet,
 }
 
 /// A reloadable piece of server state that is rebuilt from the resource manager on every (re)load
@@ -80,6 +88,7 @@ impl From<RegistryLoadFailure> for ReloadError {
 
 /// `ReloadableServerResources`.
 pub struct ReloadableServerResources {
+    commands: Arc<Commands>,
     layers: LayeredRegistryAccess<RegistryLayer>,
     postponed_tags: Vec<PendingTags>,
     enabled_features: FeatureFlagSet,
@@ -94,6 +103,7 @@ impl ReloadableServerResources {
         context_layers: &LayeredRegistryAccess<RegistryLayer>,
         updated_context_tags: Vec<PendingTags>,
         enabled_features: FeatureFlagSet,
+        function_compilation_permissions: &PermissionSet,
     ) -> Result<ReloadableServerResources, ReloadError> {
         // ReloadableServerRegistries.reload
         let context = build_updated_lookups(&context_layers.get_access_for_loading(RegistryLayer::Reloadable), &updated_context_tags);
@@ -102,16 +112,31 @@ impl ReloadableServerResources {
 
         let full_with_tags = build_updated_lookups(layers.composite_access(), &updated_context_tags);
         crate::world::level::storage::loot::loading::validate_loot_registries(&full_with_tags).map_err(|message| ReloadError::Listener { name: "loot tables", message })?;
+        let commands = Arc::new(Commands::new(
+            CommandSelection::Dedicated,
+            &CommandBuildContext::simple(Arc::new(AccessRegistries(full_with_tags.clone())), enabled_features),
+        ));
         let mut registrations: Vec<&ReloadListenerRegistration> = RELOAD_LISTENERS.iter().collect();
         registrations.sort_by_key(|r| r.order);
         let mut listeners = Vec::with_capacity(registrations.len());
-        let ctx = ReloadContext { resource_manager: manager, registries: &full_with_tags, enabled_features };
+        let ctx = ReloadContext {
+            resource_manager: manager,
+            registries: &full_with_tags,
+            enabled_features,
+            commands: &commands,
+            function_compilation_permissions,
+        };
         for registration in registrations {
             let mut listener = (registration.create)();
             listener.reload(&ctx).map_err(|message| ReloadError::Listener { name: registration.name, message })?;
             listeners.push(listener);
         }
-        Ok(ReloadableServerResources { layers, postponed_tags: updated_context_tags, enabled_features, listeners })
+        Ok(ReloadableServerResources { commands, layers, postponed_tags: updated_context_tags, enabled_features, listeners })
+    }
+
+    /// `getCommands()`.
+    pub fn commands(&self) -> &Arc<Commands> {
+        &self.commands
     }
 
     /// `fullRegistries()`: every registry of every layer.
@@ -174,11 +199,12 @@ pub fn reload_resources(
     packs_to_enable: &[String],
     registries: &LayeredRegistryAccess<RegistryLayer>,
     enabled_features: FeatureFlagSet,
+    function_compilation_permissions: &PermissionSet,
 ) -> Result<ReloadedResources, ReloadError> {
     let packs: Vec<_> = packs_to_enable.iter().filter_map(|id| pack_repository.get_pack(id)).flat_map(|p| p.open()).collect();
     let resource_manager = MultiPackResourceManager::new(PackType::ServerData, packs);
     let postponed_tags = load_tags_for_existing_registries(&resource_manager, registries.composite_access());
-    match ReloadableServerResources::load_resources(&resource_manager, registries, postponed_tags, enabled_features) {
+    match ReloadableServerResources::load_resources(&resource_manager, registries, postponed_tags, enabled_features, function_compilation_permissions) {
         Ok(mut managers) => {
             managers.update_components_and_static_registry_tags();
             Ok(ReloadedResources { resource_manager, managers })

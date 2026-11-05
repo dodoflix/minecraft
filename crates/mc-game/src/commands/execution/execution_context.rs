@@ -18,7 +18,7 @@ const MAX_QUEUE_DEPTH: usize = 10_000_000;
 pub type EntryAction = Box<dyn FnOnce(&mut ExecutionContext, &Frame)>;
 
 /// `UnboundEntryAction`: an action that still needs its sender (function entries run once per sender).
-pub trait UnboundEntryAction {
+pub trait UnboundEntryAction: Send + Sync {
     fn execute(&self, sender: &CommandSourceStack, context: &mut ExecutionContext, frame: &Frame);
 }
 
@@ -211,5 +211,10 @@ impl<'a> ExecutionControl<'a> {
 
     pub fn current_frame(&self) -> &Frame {
         &self.frame
+    }
+
+    /// `currentFrame().discard()` (vanilla's frame holds the context's control lambda; here the frame needs the context).
+    pub fn discard_current_frame(&mut self) {
+        self.frame.discard(self.context);
     }
 }

@@ -12,7 +12,6 @@ use mc_core::ident::Identifier;
 use mc_protocol::packets::play::ArgumentTypeTemplate;
 use std::sync::{Arc, LazyLock};
 
-static ERROR_UNKNOWN_TAG: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("arguments.function.tag.unknown"));
 static ERROR_UNKNOWN_FUNCTION: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("arguments.function.unknown"));
 
 /// `FunctionArgument.Result`: a function or a function tag, resolved against the server's function manager when used.
@@ -48,8 +47,9 @@ impl FunctionResult {
     pub fn unwrap(&self, context: &CommandContext<CommandSourceStack>) -> Result<(Identifier, FunctionOrTag), CommandSyntaxException> {
         let id = self.id().clone();
         let resolved = context.get_source().with_server(|server| match self {
-            FunctionResult::Function(id) => crate::commands::host::get_function(server, id).map(FunctionOrTag::Function).ok_or_else(|| ERROR_UNKNOWN_FUNCTION.create(id.to_string())),
-            FunctionResult::Tag(id) => crate::commands::host::get_function_tag(server, id).map(FunctionOrTag::Tag).ok_or_else(|| ERROR_UNKNOWN_TAG.create(id.to_string())),
+            FunctionResult::Function(id) => server.functions().get(id).map(FunctionOrTag::Function).ok_or_else(|| ERROR_UNKNOWN_FUNCTION.create(id.to_string())),
+            // `getTag` of a missing tag is the empty list, never `null`.
+            FunctionResult::Tag(id) => Ok(FunctionOrTag::Tag(server.functions().get_tag(id))),
         })?;
         Ok((id, resolved))
     }

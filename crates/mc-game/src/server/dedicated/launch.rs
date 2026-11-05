@@ -143,7 +143,7 @@ fn prepare(options: &ServerOptions, settings: DedicatedServerSettings, lookup: A
         Some(tag) => (false, LevelStorageSource::read_data_config(tag)),
         None => (true, WorldDataConfiguration { data_packs: Some(properties.initial_data_pack_configuration.clone()), enabled_features: FeatureFlagSet::DEFAULT_FLAGS }),
     };
-    let mut pack_config = PackConfig { pack_repository: &mut pack_repository, initial_data_config: data_config_to_use, safe_mode, init_mode };
+    let mut pack_config = PackConfig { pack_repository: &mut pack_repository, initial_data_config: data_config_to_use, safe_mode, init_mode, function_compilation_permissions: properties.function_permissions.clone().into() };
     let loaded = load(
         &mut pack_config,
         |context| world_data_supplier(context, &access, level_data_tag.as_ref(), &properties, options),

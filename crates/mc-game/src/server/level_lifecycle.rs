@@ -468,6 +468,9 @@ impl MinecraftServer {
     /// `tickChildren`.
     pub(super) fn tick_children(&mut self, have_time: &mut dyn FnMut() -> bool) {
         use crate::util::profiling::{pop, pop_push, push, push_with};
+        push("commandFunctions");
+        self.tick_functions();
+        pop();
         if self.tick_rate_manager.runs_normally() {
             push("clocks");
             self.tick_clocks();

@@ -4,6 +4,7 @@
 use mc_world::level_storage::{FeatureFlagSet, WorldDataConfiguration};
 
 use super::packs::{MultiPackResourceManager, PackRepository, PackType, configure_pack_repository};
+use super::permissions::PermissionSet;
 use super::registry_layer::RegistryLayer;
 use super::reloadable_resources::{ReloadError, ReloadableServerResources};
 use crate::registry::data_loader::{self, RegistryLoadFailure};
@@ -17,6 +18,8 @@ pub struct PackConfig<'a> {
     pub safe_mode: bool,
     /// New world (`server.properties` `initial-*-packs`) rather than an existing `level.dat`.
     pub init_mode: bool,
+    /// `functionCompilationPermissions` of the server (`function-permission-level`).
+    pub function_compilation_permissions: PermissionSet,
 }
 
 impl PackConfig<'_> {
@@ -121,12 +124,13 @@ pub fn load<D, R>(
     result_factory: impl FnOnce(MultiPackResourceManager, ReloadableServerResources, LayeredRegistryAccess<RegistryLayer>, D) -> R,
 ) -> Result<(WorldDataConfiguration, R), WorldLoadError> {
     let (world_data_configuration, resources) = config.create_resource_manager();
-    let result = load_with_resources(&world_data_configuration, resources, world_data_supplier, result_factory);
+    let result = load_with_resources(&world_data_configuration, &config.function_compilation_permissions, resources, world_data_supplier, result_factory);
     result.map(|r| (world_data_configuration, r))
 }
 
 fn load_with_resources<D, R>(
     world_data_configuration: &WorldDataConfiguration,
+    function_compilation_permissions: &PermissionSet,
     resources: MultiPackResourceManager,
     world_data_supplier: impl FnOnce(&DataLoadContext) -> DataLoadOutput<D>,
     result_factory: impl FnOnce(MultiPackResourceManager, ReloadableServerResources, LayeredRegistryAccess<RegistryLayer>, D) -> R,
@@ -147,7 +151,7 @@ fn load_with_resources<D, R>(
         });
         let resources_load_context = initial_layers.replace_from(RegistryLayer::World, vec![loaded_world_registries, world_data_and_registries.final_dimensions]);
         let enabled: FeatureFlagSet = world_data_configuration.enabled_features;
-        let mut managers = ReloadableServerResources::load_resources(&resources, &resources_load_context, static_layer_tags, enabled)?;
+        let mut managers = ReloadableServerResources::load_resources(&resources, &resources_load_context, static_layer_tags, enabled, function_compilation_permissions)?;
         managers.update_components_and_static_registry_tags();
         let layers = managers.registry_layers().clone();
         Ok((managers, layers, world_data_and_registries.cookie))

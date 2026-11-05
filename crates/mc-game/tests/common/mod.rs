@@ -40,7 +40,7 @@ pub fn take_logs() -> Vec<String> {
 
 pub fn load_world(world: &Path, config: WorldDataConfiguration, init_mode: bool) -> Result<(WorldDataConfiguration, WorldStem<()>), world_loader::WorldLoadError> {
     let mut repo = ServerPacksSource::create_pack_repository(world.join("datapacks"), DirectoryValidator::no_symlinks_allowed());
-    let mut pc = PackConfig { pack_repository: &mut repo, initial_data_config: config, safe_mode: false, init_mode };
+    let mut pc = PackConfig { pack_repository: &mut repo, initial_data_config: config, safe_mode: false, init_mode, function_compilation_permissions: mc_game::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into() };
     world_loader::load(
         &mut pc,
         |_ctx| DataLoadOutput { cookie: (), final_dimensions: RegistryAccess::empty() },

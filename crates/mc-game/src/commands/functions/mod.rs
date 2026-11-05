@@ -42,8 +42,13 @@ impl std::fmt::Display for FunctionInstantiationException {
 }
 
 /// `CommandFunction<CommandSourceStack>`. Functions live on the game thread only.
-pub trait CommandFunction {
+pub trait CommandFunction: Send + Sync {
     fn id(&self) -> &Identifier;
+
+    /// `function instanceof MacroFunction`.
+    fn is_macro(&self) -> bool {
+        false
+    }
 
     fn instantiate(
         &self,

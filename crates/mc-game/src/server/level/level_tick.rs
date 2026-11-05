@@ -56,7 +56,8 @@ pub trait LevelTickEnv {
     /// `getOverworldClockTime()` (ticks).
     fn overworld_clock_time(&self) -> i64;
     /// `server.getScheduledEvents().tick(server, gameTime)`.
-    fn tick_scheduled_events(&mut self, game_time: i64);
+    /// `level` is the ticking level (taken out of the server): the events' functions act on it.
+    fn tick_scheduled_events(&mut self, game_time: i64, level: &mut ServerLevel);
     /// `raids.tick(level)`.
     fn tick_raids(&mut self, level: &mut ServerLevel);
     /// `server.getCommands().performPrefixedCommand(source, command)` for a source located in `level` (the ticking level, lent
@@ -750,7 +751,7 @@ impl ServerLevel {
             let time = self.game_time() + 1;
             env.set_game_time(time);
             self.set_game_time(time);
-            env.tick_scheduled_events(time);
+            env.tick_scheduled_events(time, self);
         }
     }
 

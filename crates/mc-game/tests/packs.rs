@@ -180,7 +180,7 @@ fn reload_with_new_selection_and_failure_keeps_old_resources() {
     assert_eq!(block(&stem.registries), 1);
 
     // `/datapack disable file/good` + `/reload`: only vanilla -> the full wool tag again
-    let ok = reload_resources(&repo, &["vanilla".to_owned()], &stem.registries, stem.data_pack_resources.enabled_features()).unwrap();
+    let ok = reload_resources(&repo, &["vanilla".to_owned()], &stem.registries, stem.data_pack_resources.enabled_features(), &mc_game::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into()).unwrap();
     assert!(block(ok.managers.registry_layers()) > 10);
     // the world registries (worldgen) are not reloaded
     assert!(ok.managers.registry_layers().composite_access().registry("minecraft:worldgen/biome").unwrap().contains(&id("test:custom")));
@@ -191,6 +191,6 @@ fn reload_with_new_selection_and_failure_keeps_old_resources() {
     std::fs::write(broken.join("pack.mcmeta"), r#"{"pack": {"description": "b", "min_format": 121, "max_format": 121}}"#).unwrap();
     std::fs::write(broken.join("data/test/recipe/bad.json"), "[1, 2").unwrap();
     repo.reload();
-    let err = reload_resources(&repo, &["vanilla".to_owned(), "file/broken".to_owned()], &stem.registries, stem.data_pack_resources.enabled_features());
+    let err = reload_resources(&repo, &["vanilla".to_owned(), "file/broken".to_owned()], &stem.registries, stem.data_pack_resources.enabled_features(), &mc_game::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into());
     assert!(matches!(err, Err(mc_game::server::reloadable_resources::ReloadError::Registries(_))));
 }

@@ -22,6 +22,7 @@ pub struct SavedDataTypes {
     pub custom_boss_events: SavedDataType<super::bossevents::CustomBossEvents>,
     pub random_sequences: SavedDataType<crate::world::level::saveddata::random_sequences::RandomSequences>,
     pub stopwatches: SavedDataType<crate::world::level::saveddata::stopwatches::Stopwatches>,
+    pub scheduled_events: SavedDataType<crate::util::timer_queue::TimerQueue<MinecraftServer>>,
     pub wandering_trader: SavedDataType<crate::world::level::saveddata::wandering_trader_data::WanderingTraderData>,
 }
 
@@ -34,6 +35,7 @@ impl SavedDataTypes {
             custom_boss_events: super::bossevents::CustomBossEvents::type_(),
             random_sequences: crate::world::level::saveddata::random_sequences::RandomSequences::type_(),
             stopwatches: crate::world::level::saveddata::stopwatches::Stopwatches::type_(),
+            scheduled_events: crate::util::timer_queue::TimerQueue::<MinecraftServer>::type_(),
             wandering_trader: crate::world::level::saveddata::wandering_trader_data::WanderingTraderData::type_(),
         }
     }

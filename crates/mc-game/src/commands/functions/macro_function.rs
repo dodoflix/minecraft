@@ -8,8 +8,7 @@ use mc_brigadier::{CommandDispatcher, StringReader};
 use mc_core::ident::Identifier;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
-use std::cell::RefCell;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 const MAX_CACHE_ENTRIES: usize = 8;
 
@@ -55,14 +54,14 @@ impl MacroEntry {
 
 pub struct MacroFunction {
     parameters: Vec<String>,
-    cache: RefCell<Vec<(Vec<String>, Arc<InstantiatedFunction>)>>,
+    cache: Mutex<Vec<(Vec<String>, Arc<InstantiatedFunction>)>>,
     id: Identifier,
     entries: Vec<MacroEntry>,
 }
 
 impl MacroFunction {
     pub fn new(id: Identifier, entries: Vec<MacroEntry>, parameters: Vec<String>) -> Self {
-        Self { parameters, cache: RefCell::new(Vec::new()), id, entries }
+        Self { parameters, cache: Mutex::new(Vec::new()), id, entries }
     }
 }
 
@@ -136,6 +135,10 @@ impl CommandFunction for MacroFunction {
         &self.id
     }
 
+    fn is_macro(&self) -> bool {
+        true
+    }
+
     fn instantiate(
         &self,
         arguments: Option<&CompoundTag>,
@@ -159,7 +162,7 @@ impl CommandFunction for MacroFunction {
             parameter_values.push(stringify(value));
         }
         {
-            let mut cache = self.cache.borrow_mut();
+            let mut cache = self.cache.lock().unwrap_or_else(|e| e.into_inner());
             if let Some(pos) = cache.iter().position(|(k, _)| *k == parameter_values) {
                 let entry = cache.remove(pos);
                 let function = entry.1.clone();
@@ -171,7 +174,7 @@ impl CommandFunction for MacroFunction {
             }
         }
         let function = self.substitute_and_parse(&parameter_values, dispatcher)?;
-        self.cache.borrow_mut().push((parameter_values, function.clone()));
+        self.cache.lock().unwrap_or_else(|e| e.into_inner()).push((parameter_values, function.clone()));
         Ok(function)
     }
 }

@@ -161,23 +161,29 @@ impl<T: 'static> TimerQueue<T> {
 
     /// `tick`: runs every event due at or before `current_tick`, oldest first.
     pub fn tick(&mut self, context: &mut T, current_tick: i64) {
-        loop {
-            let Some((&key, _)) = self.queue.first_key_value() else { return };
-            if key.0 > current_tick {
-                return;
-            }
-            let event = self.queue.remove(&key).expect("first key present");
-            // Vanilla removes `(id, currentTick)` — not the event's own trigger time — so a late event leaves its
-            // table cell behind. Kept.
-            if let Some(row) = self.events.get_mut(&event.id) {
-                row.remove(&current_tick);
-                if row.is_empty() {
-                    self.events.remove(&event.id);
-                }
-            }
-            self.set_dirty();
-            event.callback.handle(context, self, current_tick);
+        while let Some(callback) = self.pop_due(current_tick) {
+            callback.handle(context, self, current_tick);
         }
+    }
+
+    /// One iteration of `tick`: removes the oldest event due at or before `current_tick` and returns its callback, for owners
+    /// whose context contains the queue itself (they cannot lend it to `handle`).
+    pub fn pop_due(&mut self, current_tick: i64) -> Option<Box<dyn TimerCallback<T>>> {
+        let (&key, _) = self.queue.first_key_value()?;
+        if key.0 > current_tick {
+            return None;
+        }
+        let event = self.queue.remove(&key).expect("first key present");
+        // Vanilla removes `(id, currentTick)` — not the event's own trigger time — so a late event leaves its
+        // table cell behind. Kept.
+        if let Some(row) = self.events.get_mut(&event.id) {
+            row.remove(&current_tick);
+            if row.is_empty() {
+                self.events.remove(&event.id);
+            }
+        }
+        self.set_dirty();
+        Some(event.callback)
     }
 
     /// `schedule`: ignored when `id` already has an event at `time`.

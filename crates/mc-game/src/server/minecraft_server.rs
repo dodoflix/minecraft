@@ -76,12 +76,9 @@ pub struct ServerInit {
     pub level_load_listener: Box<dyn LevelLoadListener>,
 }
 
-/// Per-tick work owned by slices that have not landed (scheduled events need the function manager, raids need the raid
-/// manager): they register a function here and `ServerLevel::tick` calls it at vanilla's position in the tick.
+/// Per-tick work owned by slices that have not landed (raids need the raid manager): they register a function here and `ServerLevel::tick` calls it at vanilla's position in the tick.
 #[derive(Default, Clone, Copy)]
 pub struct ServerTickHooks {
-    /// `server.getScheduledEvents().tick(server, gameTime)` (inside `ServerLevel.tickTime`).
-    pub tick_scheduled_events: Option<fn(&mut MinecraftServer, i64)>,
     /// `raids.tick(level)`.
     pub tick_raids: Option<fn(&mut MinecraftServer, &mut ServerLevel)>,
 }
@@ -96,6 +93,12 @@ struct LentLevel {
 // SAFETY: set and read on the game thread only, and only for the duration of one `with_lent_level` call.
 unsafe impl Send for LentLevel {}
 
+/// `MinecraftServer.TimeProfiler` (`/debug start`): when it started.
+pub(super) struct TimeProfiler {
+    start_nanos: i64,
+    start_tick: i32,
+}
+
 pub struct MinecraftServer {
     pub shared: Arc<ServerShared>,
     /// Seams for per-tick work of unlanded slices, see [`ServerTickHooks`].
@@ -107,6 +110,9 @@ pub struct MinecraftServer {
     /// The level whose own tick is currently running, lent back to the server while commands run inside it
     /// (see [`MinecraftServer::with_lent_level`]).
     lent_level: Option<LentLevel>,
+    /// `debugCommandProfilerDelayStart` / `debugCommandProfiler`.
+    debug_command_profiler_delay_start: bool,
+    debug_command_profiler: Option<TimeProfiler>,
     /// `tickCount` (mirrored into `shared`; only this struct writes it).
     pub tick_count: i32,
 
@@ -147,6 +153,8 @@ pub struct MinecraftServer {
     pub dedicated: DedicatedServer,
     /// `getCommands()` (`resources.managers.getCommands()` in vanilla).
     pub commands: Arc<crate::commands::Commands>,
+    /// `getFunctions()`.
+    pub(super) functions: super::server_function_manager::ServerFunctionManager,
     pub key_pair: Option<Arc<ServerKeyPair>>,
     /// `getConnection()`: the TCP listener and the live connections (`None` before `initServer` / after `stop`).
     pub connection: Option<super::network::ServerConnectionListener>,
@@ -214,13 +222,10 @@ impl MinecraftServer {
         crate::server::players::server_join_host::set_send_commands(|server, player, permissions| {
             crate::commands::send_commands(server, player, &permissions.into());
         });
-        let commands = Arc::new(crate::commands::Commands::new(
-            crate::commands::CommandSelection::Dedicated,
-            &crate::commands::CommandBuildContext::simple(
-                Arc::new(crate::commands::command_build_context::AccessRegistries(registries.composite_access().clone())),
-                mc_world::level_storage::FeatureFlagSet::VANILLA,
-            ),
-        ));
+        let commands = init.resources.managers.commands().clone();
+        let functions = super::server_function_manager::ServerFunctionManager::new(
+            init.resources.managers.listener::<super::server_function_library::ServerFunctionLibrary>().map(|l| l.data().clone()).unwrap_or_default(),
+        );
         let game_rules_type = GameRules::type_(enabled_features);
         saved_data.compute_if_absent(&game_rules_type);
         let now = get_nanos();
@@ -242,6 +247,8 @@ impl MinecraftServer {
             tasks: TaskQueue::new(tasks),
             levels: IndexMap::new(),
             lent_level: None,
+            debug_command_profiler_delay_start: false,
+            debug_command_profiler: None,
             tick_count: 0,
             server_directory: init.server_directory,
             storage_source: init.storage_source,
@@ -262,6 +269,7 @@ impl MinecraftServer {
             tick_rate_manager: ServerTickRateManager::new(),
             scoreboard: crate::server::level::SharedScoreboard::default(),
             commands,
+            functions,
             player_list,
             detached_players: std::collections::HashMap::new(),
             notification_manager: init.notification_manager,
@@ -294,6 +302,8 @@ impl MinecraftServer {
             effective_respawn_data: None,
         };
         *server.loot_random_sequences.lock() = server.saved_data.compute_if_absent(&server.saved_types.random_sequences).clone();
+        server.saved_data.compute_if_absent(&server.saved_types.random_sequences);
+        server.saved_data.compute_if_absent(&server.saved_types.scheduled_events);
         server.weather_data();
         server.saved_data.compute_if_absent(&server.saved_types.custom_boss_events);
         server.init_clock_manager();
@@ -639,6 +649,10 @@ impl MinecraftServer {
             }
 
             let sprinting = this_tick_nanos == 0;
+            if self.debug_command_profiler_delay_start {
+                self.debug_command_profiler_delay_start = false;
+                self.debug_command_profiler = Some(TimeProfiler { start_nanos: get_nanos(), start_tick: self.tick_count });
+            }
             let next = self.next_tick_time_nanos + this_tick_nanos;
             self.set_next_tick_time(next);
 
@@ -692,6 +706,24 @@ impl MinecraftServer {
 
     pub fn get_server_directory(&self) -> &Path {
         &self.server_directory
+    }
+
+    /// `isTimeProfilerRunning()`.
+    pub fn is_time_profiler_running(&self) -> bool {
+        self.debug_command_profiler_delay_start || self.debug_command_profiler.is_some()
+    }
+
+    /// `startTimeProfiler()`: starts at the next tick.
+    pub fn start_time_profiler(&mut self) {
+        self.debug_command_profiler_delay_start = true;
+    }
+
+    /// `stopTimeProfiler()`: `(nano duration, tick duration)` of the `ProfileResults` (`EmptyProfileResults` when it never started).
+    pub fn stop_time_profiler(&mut self) -> (i64, i32) {
+        match self.debug_command_profiler.take() {
+            None => (0, 0),
+            Some(profiler) => (get_nanos() - profiler.start_nanos, self.tick_count.wrapping_sub(profiler.start_tick)),
+        }
     }
 
     // ------------------------------------------------------------------ one tick

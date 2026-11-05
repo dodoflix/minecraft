@@ -285,23 +285,6 @@ pub fn registry_view(server: &MinecraftServer, registry_key: &str) -> Option<std
     AccessRegistries(server.registries.composite_access().clone()).lookup(registry_key).or_else(|| StaticRegistries.lookup(registry_key))
 }
 
-// ---- functions ----
-
-/// `server.getFunctions().get(id)`.
-/// Nobody owns `ServerFunctionManager` yet: no data pack function is loaded, so every lookup is `Optional.empty()`
-/// (`arguments.function.unknown`).
-pub fn get_function(server: &MinecraftServer, id: &mc_core::ident::Identifier) -> Option<std::sync::Arc<dyn super::functions::CommandFunction>> {
-    let _ = (server, id);
-    None
-}
-
-/// `server.getFunctions().getTag(id)`.
-/// See [`get_function`]: every function tag is unknown (`arguments.function.tag.unknown`).
-pub fn get_function_tag(server: &MinecraftServer, id: &mc_core::ident::Identifier) -> Option<Vec<std::sync::Arc<dyn super::functions::CommandFunction>>> {
-    let _ = (server, id);
-    None
-}
-
 // ---- players, chat, permissions ----
 
 use crate::server::chat::chat_type::{Bound, ChatTypeLookup};
