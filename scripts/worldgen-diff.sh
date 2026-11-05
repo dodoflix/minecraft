@@ -20,9 +20,10 @@
 #   --difficulty D / --gamemode M   default normal / survival (difficulty changes which mobs spawn during worldgen)
 #   --ours-bin PATH          our mc-server binary (default $MC_SERVER_BIN, else target/worldgen-diff/debug/mc-server,
 #                            built with `CARGO_TARGET_DIR=target/worldgen-diff cargo build -p mc-server` if missing)
-#   --order batch|seq        batch: forceload tiles all at once (default, fast); seq: one chunk at a time in raster
-#                            order, each awaited (slower; removes most vanilla scheduling nondeterminism, see below)
-#   --vanilla-jvm-opts "..." extra JVM flags for the vanilla server (e.g. "-Dmax.bg.threads=1")
+#   --order seq|batch        seq (default): one chunk at a time in raster order, each awaited; batch: all tiles at once (fast,
+#                            but vanilla's cross-chunk feature writes then depend on thread scheduling: vanilla-vs-vanilla
+#                            differs). Measured: seq + max.bg.threads=1, area away from the spawn => vanilla-vs-vanilla identical
+#   --vanilla-jvm-opts "..." JVM flags for the vanilla server (default "-Dmax.bg.threads=1" = single worldgen worker)
 #   (env MC_TESTBOT_BIN: mc-testbot binary for that fallback, built like mc-server if missing)
 #   --bot-seconds N          fallback generation (see below): seconds the bot stays connected (default 90)
 #   --port N                 server port (default: a free one)
@@ -48,6 +49,9 @@
 #   our side until `execute`/`forceload` exist (then the primary path is taken automatically).
 #
 # Results & comparison
+#   NOTE the spawn area (chunks around the world spawn, ~(0,0)) is generated and ticks BEFORE `tick freeze` can be sent, so
+#   its chunks are nondeterministic even vanilla-vs-vanilla (random ticks: vines, grass, ...): keep areas away from spawn
+#   (distance > ~4 chunks) or ignore `blocks`/`ticks` there. Entity fields from the entity's own RNG are normalized by worldcmp.
 #   Exit status: 0 iff worldcmp reports the worlds identical in every dimension, 1 if they differ, 2 on harness error.
 #   worldcmp compares only chunks that are `minecraft:full` in BOTH worlds (see tools/worldcmp/src/main.rs) and ignores
 #   LastUpdate, InhabitedTime, light data and entity UUIDs. Spawn-area chunks and the one-chunk ring around the area
@@ -65,8 +69,9 @@ die() { echo "worldgen-diff: $*" >&2; exit 2; }
 log() { echo "[worldgen-diff] $*" >&2; }
 
 ORIG_ARGS=("$@")
+export VANILLA_JVM_OPTS="${VANILLA_JVM_OPTS--Dmax.bg.threads=1}"
 SEED=12345 DIMS=overworld CENTER=0,0 RADIUS=8 OUT="" CASES="" ONLY="" SIDES=vanilla,ours GENSET="" LEVELTYPE=minecraft:normal
-ORDER=batch DIFFICULTY=normal GAMEMODE=survival BIN="${MC_SERVER_BIN:-}" BOTSEC=90 PORT="" TMO=1800 CMPARGS="" COMPARE=1
+ORDER=seq DIFFICULTY=normal GAMEMODE=survival BIN="${MC_SERVER_BIN:-}" BOTSEC=90 PORT="" TMO=1800 CMPARGS="" COMPARE=1
 if (($# >= 5)) && [[ "$1" != --* ]]; then SEED="$1" DIMS="$2" CENTER="$3,$4" RADIUS="$5"; shift 5; fi
 while (($#)); do
   case "$1" in
@@ -303,8 +308,8 @@ run_side "$SIDE_A" A
 run_side "$SIDE_B" B
 [[ "$COMPARE" == 1 ]] || { log "generated; skipped compare"; exit 0; }
 
+[[ -n "${WORLDCMP:-}" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldcmp cargo build -q -p worldcmp) || die "cannot build worldcmp"   # always: stays current
 WORLDCMP="${WORLDCMP:-$ROOT/target/worldcmp/debug/worldcmp}"
-[[ -x "$WORLDCMP" ]] || (cd "$ROOT" && CARGO_TARGET_DIR=target/worldcmp cargo build -q -p worldcmp) || die "cannot build worldcmp"
 set +e
 # shellcheck disable=SC2086
 "$WORLDCMP" "$OUT/A/world" "$OUT/B/world" --dim "$DIMS" --chunks "$X1,$Z1,$X2,$Z2" --report "$OUT/report.json" $CMPARGS | tee "$OUT/report.txt"
