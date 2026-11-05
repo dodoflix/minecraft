@@ -928,21 +928,36 @@ pub enum EntityRelation {
 /// The entities `relation` leads to from `entity`, before the `!isRemoved()` filter `/execute on` applies:
 /// `OwnableEntity.getOwner`, `Leashable.getLeashHolder`, `Targeting.getTarget`, `Attackable.getLastAttacker`,
 /// `getVehicle`, `getControllingPassenger`, `TraceableEntity.getOwner`, `getPassengers`.
-/// SEAM(MobsScope/EntitiesCore2): `Owner`, `Leasher`, `Target`, `Attacker`, `Origin` need the mob/projectile types that
-/// own those references (tameable owner, leash holder, mob target, last hurt-by mob, projectile/TNT owner); they
-/// resolve to nothing until those entity classes exist and expose them through this function.
+/// `TraceableEntity` covers the projectiles, item entities and primed TNT that exist so far; `OwnableEntity` goes
+/// through [`Entity::ownable_owner_uuid`] (SEAM(MobsScope): the tameable/horse classes implement it).
 pub fn entity_relation(server: &MinecraftServer, entity: &EntityRef, relation: EntityRelation) -> Vec<EntityRef> {
-    let Some(e) = get_entity(server, entity) else { return Vec::new() };
-    let in_same_level = |id: EntityId| EntityRef { dimension: entity.dimension.clone(), id };
-    let live = |refs: Vec<EntityId>| -> Vec<EntityRef> {
-        refs.into_iter().filter(|&id| get_entity(server, &in_same_level(id)).is_some_and(|o| !o.is_removed())).map(in_same_level).collect()
+    use crate::world::entity::item::ItemEntity;
+    use crate::world::entity::item::primed_tnt::PrimedTnt;
+    let Some(level) = server.level(&entity.dimension) else { return Vec::new() };
+    let Some(e) = level.get_entity(entity.id) else { return Vec::new() };
+    let by_uuid = |uuid: Option<uuid::Uuid>| -> Vec<EntityId> { uuid.and_then(|u| level.get_entity_by_uuid(u)).map(|o| o.id()).into_iter().collect() };
+    let ids: Vec<EntityId> = match relation {
+        EntityRelation::Vehicle => e.base().vehicle.into_iter().collect(),
+        EntityRelation::Controller => e.get_controlling_passenger().into_iter().collect(),
+        EntityRelation::Passengers => e.base().passengers.clone(),
+        EntityRelation::Leasher => e.leash_holder().into_iter().collect(),
+        EntityRelation::Target => e.get_target().into_iter().collect(),
+        EntityRelation::Owner => by_uuid(e.ownable_owner_uuid()),
+        // `LivingEntity.getLastHurtByMob`: a living entity of the level.
+        EntityRelation::Attacker => by_uuid(e.living().and_then(|l| l.last_hurt_by_mob).filter(|&u| level.get_entity_by_uuid(u).is_some_and(|o| o.living().is_some()))),
+        EntityRelation::Origin => match e.as_projectile() {
+            Some(projectile) => projectile.get_owner(level).map(|o| o.id()).into_iter().collect(),
+            None => match (e.as_any().downcast_ref::<ItemEntity>(), e.as_any().downcast_ref::<PrimedTnt>()) {
+                (Some(item), _) => item.get_owner(level).into_iter().collect(),
+                (_, Some(tnt)) => tnt.get_owner(level).map(|o| o.id()).into_iter().collect(),
+                _ => Vec::new(),
+            },
+        },
     };
-    match relation {
-        EntityRelation::Vehicle => live(e.base().vehicle.into_iter().collect()),
-        EntityRelation::Controller => live(e.get_controlling_passenger().into_iter().collect()),
-        EntityRelation::Passengers => live(e.base().passengers.clone()),
-        EntityRelation::Owner | EntityRelation::Leasher | EntityRelation::Target | EntityRelation::Attacker | EntityRelation::Origin => Vec::new(),
-    }
+    ids.into_iter()
+        .filter(|&id| level.get_entity(id).is_some_and(|o| !o.is_removed()))
+        .map(|id| EntityRef { dimension: entity.dimension.clone(), id })
+        .collect()
 }
 
 /// The live entity a stack's [`CommandEntity`](super::CommandEntity) stands for (`source.getEntity()`): looked up in
@@ -958,10 +973,8 @@ pub fn entity_ref_of(server: &MinecraftServer, entity: &super::CommandEntity, pr
 }
 
 /// `ExecuteCommand.checkCustomPredicate`: evaluates the loot predicate with `LootContextParams.ORIGIN = origin`,
-/// `THIS_ENTITY = entity` in `LootContextParamSets.COMMAND` (a reference that is not loaded, or an inline predicate
-/// that does not decode, cannot test true).
-/// SEAM(EntitiesCore2): `LootItemCondition`/`LootParams`/`LootContext` live on the `EntitiesCore` branch (not on main
-/// yet); there are no loot predicates to evaluate on this tree, like [`loot_predicate_matches`].
+/// `THIS_ENTITY = entity` in `LootContextParamSets.COMMAND`. A reference that is not registered, or an inline predicate
+/// that does not decode, cannot test true (vanilla rejects both while parsing the argument).
 pub fn loot_predicate_test(
     server: &MinecraftServer,
     dimension: &DimensionKey,
@@ -969,6 +982,26 @@ pub fn loot_predicate_test(
     entity: Option<&EntityRef>,
     predicate: &super::arguments::resource_arguments::ResourceOrId,
 ) -> bool {
-    let _ = (server, dimension, origin, entity, predicate);
-    false
+    use super::arguments::resource_arguments::ResourceOrId;
+    use crate::registry::keys;
+    use crate::world::level::storage::loot::parameters::LootContextParamSets;
+    use crate::world::level::storage::loot::predicates::{ConditionRef, condition_codec};
+    use crate::world::level::storage::loot::context::VisitedEntry;
+    use crate::world::level::storage::loot::{LootContext, LootParams};
+    let Some(level) = server.level(dimension) else { return false };
+    let condition: ConditionRef = match predicate {
+        ResourceOrId::Reference(key) => match level.registries.get::<ConditionRef>(keys::PREDICATE, &key.id) {
+            Some(condition) => condition.clone(),
+            None => return false,
+        },
+        ResourceOrId::Inline(tag) => match mc_dfu::parse_nbt(&condition_codec(), tag).into_result() {
+            Ok(condition) => condition,
+            Err(_) => return false,
+        },
+    };
+    let this_entity = entity.and_then(|e| get_entity(server, e));
+    let params = LootParams::builder(level).origin(origin).optional_this_entity(this_entity).create(&LootContextParamSets::COMMAND);
+    let mut context = LootContext::builder(&params).create(None);
+    context.push_visited_element(VisitedEntry::predicate(&condition));
+    condition.test(&mut context)
 }

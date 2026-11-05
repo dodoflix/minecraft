@@ -998,6 +998,12 @@ pub trait Entity: Any {
         super::mob::leashable::get_leash_holder(self.as_dyn())
     }
 
+    /// `OwnableEntity.getOwnerReference()`: the owner's UUID for tameable animals, horses and the like (`None` for
+    /// everything else). SEAM(MobsScope): overridden by the mob classes that are `OwnableEntity`.
+    fn ownable_owner_uuid(&self) -> Option<uuid::Uuid> {
+        None
+    }
+
     /// `startSeenByPlayer(player)`.
     fn start_seen_by_player(&mut self, _player_id: EntityId) {}
 
