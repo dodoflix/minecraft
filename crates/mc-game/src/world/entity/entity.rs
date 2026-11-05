@@ -3340,12 +3340,6 @@ pub trait Entity: Any {
     /// Class-specific part of `ConversionType.convertCommon(from, to)` (zombie door breaking, ...).
     fn conversion_common_extra(&self, _to: &mut dyn Entity) {}
     // ==== [Undead] additions (Entity trait methods) ====
-    /// `Mob.setTarget(target)` (overridden by `ZombifiedPiglin`, ...).
-    fn set_target(&mut self, level: &ServerLevel, target: Option<EntityId>) {
-        if self.mob().is_some() {
-            super::mob::tick::set_target(self.as_dyn_mut(), level, target);
-        }
-    }
     /// `LivingEntity.setBaby(baby)` (`AgeableMob` sets its age; `Zombie` its own flag).
     fn set_baby(&mut self, baby: bool) {
         if self.mob().is_some_and(|m| m.ageable.is_some()) {
@@ -3358,12 +3352,6 @@ pub trait Entity: Any {
     }
     fn as_zombie_mut(&mut self) -> Option<&mut super::monster::zombie::Zombie> {
         None
-    }
-    /// `PerformRangedAttack`: `RangedAttackMob.performRangedAttack(target, power)` (the target is in the level).
-    fn perform_ranged_attack(&mut self, _level: &mut ServerLevel, _target: EntityId, _power: f32) {}
-    /// `RangedAttackMob.rangedAttackUncertainty(level)`.
-    fn ranged_attack_uncertainty(&self, level: &ServerLevel) -> f32 {
-        14.0 - (level.difficulty() as i32 * 4) as f32
     }
     // TEMP-EC2ATTACK: replaced by EC2Attack's `do_hurt_target` on rebase
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
