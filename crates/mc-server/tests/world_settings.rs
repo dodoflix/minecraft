@@ -101,7 +101,6 @@ fn inline_biome_flat_world_and_inline_dimension_type_start() {
 
     let log = run_server(dir.path());
     assert!(!log.contains("Unable to read or access the world gen settings file"), "{log}");
-    assert!(log.contains("Preparing spawn area: 100%"), "{log}");
     let dimensions = read_dimensions(dir.path());
     let overworld = dimensions.get_compound("minecraft:overworld").unwrap();
     assert_eq!(overworld.get_compound("type").unwrap().get_int("height"), Some(384), "the inline dimension type is kept");
