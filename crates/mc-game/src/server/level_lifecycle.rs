@@ -652,6 +652,7 @@ impl MinecraftServer {
         if self.is_recording_metrics() {
             self.cancel_recording_metrics();
         }
+        crate::util::profiling::jfr::instance().stop_on_exit();
         self.notification_manager.server_shutting_down();
         log::info!("Stopping server");
         self.stop_connection();

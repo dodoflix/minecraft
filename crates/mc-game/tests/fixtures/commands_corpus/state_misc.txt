@@ -1,0 +1,80 @@
+# /stopwatch, /random, /defaultgamemode, /setidletimeout, /version, /transfer (errors), /fetchprofile (errors), /perf, /jfr
+stopwatch
+stopwatch create
+stopwatch create state:a
+stopwatch create state:a
+stopwatch query state:a
+stopwatch query state:a 1000
+stopwatch query state:nope
+stopwatch restart state:a
+stopwatch restart state:nope
+stopwatch remove state:a
+stopwatch remove state:a
+stopwatch query state:a
+random
+random value
+random value 1..6
+random value 5..5
+random value 1..
+random value ..-1
+random value 0..2147483647
+random value ..
+random value 6..1
+random value 1..100 state:seq
+random value 1..100 state:seq
+random roll 1..6
+random roll 1..6 state:seq
+random reset
+random reset state:seq
+random reset state:seq 5
+random reset state:seq 5 false
+random reset state:seq 5 false false
+random value 1..100 state:seq
+random reset *
+random reset * 7
+random reset * 7 false true
+random reset * 7 false true extra
+@bot0 random value 1..6
+@bot0 random value 1..6 state:seq
+@bot0 random roll 1..6
+@bot0 random reset *
+defaultgamemode
+defaultgamemode creative
+defaultgamemode adventure
+defaultgamemode nope
+defaultgamemode survival
+@bot0 defaultgamemode creative
+setidletimeout
+setidletimeout 5
+setidletimeout 0
+setidletimeout -1
+@bot0 setidletimeout 1
+!ignore build time|Build Time
+version
+@bot version
+@bot0 version
+transfer
+transfer localhost 0
+transfer localhost 65536
+transfer localhost 25565 Nobody
+transfer localhost 25565 @e[type=zombie]
+@bot0 transfer localhost
+fetchprofile
+fetchprofile name
+fetchprofile id notauuid
+fetchprofile entity
+fetchprofile entity @e[type=zombie]
+@bot fetchprofile entity @s
+@bot0 fetchprofile entity @s
+perf stop
+perf start
+perf start
+perf stop
+!wait 1500
+perf stop
+@bot0 perf start
+jfr stop
+jfr start
+jfr start
+jfr stop
+@bot0 jfr start

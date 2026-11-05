@@ -134,6 +134,7 @@ impl ConnectionContext {
                     return match r {
                         Ok(p) => {
                             self.received_packets = self.received_packets.wrapping_add(1);
+                            self.handle.record_received_packet(&p);
                             Event::Payload(p)
                         }
                         Err(e) => Event::ReadError(e),

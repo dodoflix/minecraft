@@ -1,0 +1,56 @@
+# /bossbar: every subcommand, success + error. Packets: boss_event (add/remove/progress/name/style).
+!packets ^boss_event$
+bossbar
+bossbar list
+bossbar add
+bossbar add test
+bossbar add test {"text":"Hello"}
+bossbar add test {"text":"Again"}
+bossbar add bad:ID! x
+bossbar add second:bar "Second"
+bossbar list
+bossbar get test value
+bossbar get test max
+bossbar get test visible
+bossbar get test players
+bossbar get nope value
+bossbar set test players Bot
+bossbar get test players
+bossbar set test players Bot
+bossbar set test players
+bossbar get test players
+bossbar set test players Bot
+bossbar set test players @a
+bossbar get test players
+bossbar set test value 50
+bossbar set test value 50
+bossbar set test value -1
+bossbar set test max 200
+bossbar set test max 200
+bossbar set test max 0
+bossbar set test value 100
+bossbar get test value
+bossbar set test color red
+bossbar set test color red
+bossbar set test color rainbow
+bossbar set test style notched_12
+bossbar set test style notched_12
+bossbar set test style nope
+bossbar set test name {"text":"Renamed","color":"gold"}
+bossbar set test name {"text":"Renamed","color":"gold"}
+bossbar set test visible false
+bossbar set test visible false
+bossbar get test visible
+bossbar set test visible true
+bossbar set test visible true
+bossbar set test name {"selector":"@s"}
+bossbar set test name {"score":{"name":"Bot","objective":"nope"}}
+bossbar list
+bossbar remove test
+bossbar remove test
+bossbar remove second:bar
+bossbar list
+@bot0 bossbar list
+@bot bossbar add bybot Bot
+@bot bossbar set bybot players @s
+@bot bossbar remove bybot

@@ -658,6 +658,7 @@ impl MinecraftServer {
             self.end_metrics_recording_tick();
 
             self.shared.set_ready();
+            crate::util::profiling::jfr::instance().on_server_tick(self.get_current_smoothed_tick_time());
         }
     }
 

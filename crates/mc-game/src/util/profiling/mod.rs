@@ -5,6 +5,7 @@
 //! profilers installed on the calling thread by [`use_profilers`] and do nothing when none is.
 
 mod active_profiler;
+pub mod jfr;
 pub mod metrics;
 mod results;
 

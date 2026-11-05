@@ -22,6 +22,7 @@ mod give_command;
 mod help_command;
 pub mod item;
 pub mod item_commands;
+mod jfr_command;
 mod kick_command;
 mod list_players_command;
 mod loot_command;

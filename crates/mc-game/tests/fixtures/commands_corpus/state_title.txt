@@ -1,0 +1,26 @@
+# /title: all forms. Packets: the five title packets.
+!packets ^(set_title_text|set_subtitle_text|set_actionbar_text|set_titles_animation|clear_titles)$
+title
+title Bot
+title Bot title
+title Bot title {"text":"Big"}
+title Bot subtitle {"text":"Small","color":"red"}
+title Bot actionbar {"text":"Bar"}
+title Bot times 10 70 20
+title Bot times 1s 2s 3s
+title Bot times -1 1 1
+title Bot times 10 70
+title Bot clear
+title Bot reset
+title @a title "multiple"
+title @a clear
+title @a reset
+title @a times 0 0 0
+title Nobody title "x"
+title @e[type=zombie] title "x"
+title Bot title {"selector":"@s"}
+title Bot title {"score":{"name":"*","objective":"nope"}}
+title Bot title {"text":"x" 
+title Bot title not json
+@bot title @s title "self"
+@bot0 title @s title "denied"

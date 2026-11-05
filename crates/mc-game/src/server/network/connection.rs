@@ -17,7 +17,7 @@ use parking_lot::Mutex;
 use std::net::{IpAddr, SocketAddr};
 use std::path::PathBuf;
 use std::sync::Arc;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU8, Ordering};
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::tcp::{OwnedReadHalf, OwnedWriteHalf};
@@ -77,9 +77,40 @@ pub struct ConnectionHandle {
     notify: Notify,
     /// Where the play-protocol reader waits for `switch_to_configuration` (set while the connection is in play).
     reconfigure: Mutex<Option<UnboundedSender<CommonListenerCookie>>>,
+    /// The protocol the writer encodes with (`ConnectionState` index): what the flight recorder labels packets with.
+    protocol_state: AtomicU8,
 }
 
 impl ConnectionHandle {
+    pub(crate) fn set_protocol_state(&self, state: ConnectionState) {
+        self.protocol_state.store(state as u8, Ordering::Relaxed);
+    }
+
+    fn protocol_state(&self) -> ConnectionState {
+        [ConnectionState::Handshake, ConnectionState::Status, ConnectionState::Login, ConnectionState::Configuration, ConnectionState::Play]
+            [usize::from(self.protocol_state.load(Ordering::Relaxed)).min(4)]
+    }
+
+    /// `JvmProfiler.onPacketSent/onPacketReceived` for a payload (`varint id` + body) of this connection.
+    pub(crate) fn record_packet(&self, flow: mc_protocol::packet::PacketFlow, state: ConnectionState, payload: &[u8]) {
+        let jfr = crate::util::profiling::jfr::instance();
+        if !jfr.is_running() {
+            return;
+        }
+        let Some(id) = mc_protocol::codec::read_varint(&mut &payload[..]).ok() else { return };
+        let name = mc_protocol::packet::packet_name(state, flow, id).map_or_else(|| format!("minecraft:unknown_{id}"), |n| format!("minecraft:{n}"));
+        let remote = self.remote.as_ref().map(java_socket_address_string).unwrap_or_default();
+        match flow {
+            mc_protocol::packet::PacketFlow::Clientbound => jfr.on_packet_sent(state.id(), &name, &remote, payload.len() as i32),
+            mc_protocol::packet::PacketFlow::Serverbound => jfr.on_packet_received(state.id(), &name, &remote, payload.len() as i32),
+        }
+    }
+
+    /// Inbound packets are labelled with the protocol the writer currently uses.
+    pub(crate) fn record_received_packet(&self, payload: &[u8]) {
+        self.record_packet(mc_protocol::packet::PacketFlow::Serverbound, self.protocol_state(), payload);
+    }
+
     pub fn new(id: u64, remote: Option<SocketAddr>) -> Arc<Self> {
         Arc::new(Self {
             id,
@@ -89,6 +120,7 @@ impl ConnectionHandle {
             details: Mutex::new(None),
             notify: Notify::new(),
             reconfigure: Mutex::new(None),
+            protocol_state: AtomicU8::new(ConnectionState::Handshake as u8),
         })
     }
 
@@ -387,11 +419,13 @@ pub(crate) async fn run_writer(mut socket: OwnedWriteHalf, mut rx: UnboundedRece
             match m {
                 Outbound::Payload(p) => {
                     flush = true;
+                    handle.record_packet(mc_protocol::packet::PacketFlow::Clientbound, state, &p);
                     if let Err(e) = encoder.encode(&p, &mut buf) {
                         fault = Some(e);
                     }
                 }
                 Outbound::Write(p) => {
+                    handle.record_packet(mc_protocol::packet::PacketFlow::Clientbound, state, &p);
                     if let Err(e) = encoder.encode(&p, &mut buf) {
                         fault = Some(e);
                     }
@@ -400,7 +434,10 @@ pub(crate) async fn run_writer(mut socket: OwnedWriteHalf, mut rx: UnboundedRece
                 Outbound::Flush => flush = true,
                 Outbound::SetCompression(t) => encoder.set_compression(t),
                 Outbound::EnableEncryption(k) => encoder.enable_encryption(k),
-                Outbound::SetState(s) => state = s,
+                Outbound::SetState(s) => {
+                    state = s;
+                    handle.set_protocol_state(s);
+                }
                 Outbound::Disconnect(reason) => {
                     if let Some(p) = disconnect_payload(state, &reason) {
                         let _ = encoder.encode(&p, &mut buf);
