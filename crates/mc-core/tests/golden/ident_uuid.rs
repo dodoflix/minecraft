@@ -5,8 +5,8 @@ use mc_core::ident::{self, Identifier};
 use mc_core::uuid_util::*;
 use uuid::Uuid;
 
-const IDENT: &str = include_str!("fixtures/ident_uuid/ident.txt");
-const UUIDS: &str = include_str!("fixtures/ident_uuid/uuid.txt");
+const IDENT: &str = include_str!("../fixtures/ident_uuid/ident.txt");
+const UUIDS: &str = include_str!("../fixtures/ident_uuid/uuid.txt");
 
 /// Decodes the generators' escaping (`\uXXXX` per UTF-16 unit).
 fn unesc(s: &str) -> String {

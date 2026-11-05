@@ -7,7 +7,7 @@
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
 use mc_core::phys::{Vec3, AABB};
 
-const FIXTURE: &str = include_str!("fixtures/java_format/java_format.txt");
+const FIXTURE: &str = include_str!("../fixtures/java_format/java_format.txt");
 
 fn dbl(h: &str) -> f64 {
     f64::from_bits(u64::from_str_radix(h, 16).unwrap())

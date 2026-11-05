@@ -3,7 +3,7 @@ use std::panic::catch_unwind;
 
 use mc_core::bits::{BitStorage, SimpleBitStorage, ZeroBitStorage};
 
-const FIXTURE: &str = include_str!("fixtures/bits/bits.txt");
+const FIXTURE: &str = include_str!("../fixtures/bits/bits.txt");
 
 struct SplitMix(u64);
 

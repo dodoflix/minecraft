@@ -4,7 +4,7 @@
 use mc_core::java_collections::*;
 use mc_core::math::java::java_string_hash;
 
-const GOLDEN: &str = include_str!("fixtures/java_collections/golden.txt");
+const GOLDEN: &str = include_str!("../fixtures/java_collections/golden.txt");
 
 fn split(s: &str) -> Vec<&str> {
     if s.is_empty() { vec![] } else { s.split('\u{1f}').collect() }

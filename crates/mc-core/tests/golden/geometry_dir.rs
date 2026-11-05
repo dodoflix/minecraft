@@ -14,7 +14,7 @@ use mc_core::rotation::Rotation;
 use std::collections::BTreeMap;
 use std::panic::{catch_unwind, AssertUnwindSafe};
 
-const FIXTURE: &str = include_str!("fixtures/geometry_dir/geometry_dir.txt");
+const FIXTURE: &str = include_str!("../fixtures/geometry_dir/geometry_dir.txt");
 
 // ---- formatting (Rust values -> fixture tokens) ----
 fn d(v: f64) -> String {

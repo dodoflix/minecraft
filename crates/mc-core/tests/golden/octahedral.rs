@@ -14,10 +14,10 @@ use mc_core::phys::shapes::{AttachFace, DiscreteVoxelShape, Shapes, VoxelShape};
 use mc_core::phys::Vec3;
 use mc_core::rotation::Rotation;
 
-const SCRIPT: &str = include_str!("fixtures/octahedral/octahedral.script");
-const EXPECTED: &str = include_str!("fixtures/octahedral/octahedral.out");
+const SCRIPT: &str = include_str!("../fixtures/octahedral/octahedral.script");
+const EXPECTED: &str = include_str!("../fixtures/octahedral/octahedral.out");
 // The generator is committed next to its output; referencing it here keeps the pair honest.
-const _ORACLE: &str = include_str!("fixtures/octahedral/OctahedralOracle.java");
+const _ORACLE: &str = include_str!("../fixtures/octahedral/OctahedralOracle.java");
 
 fn hx(d: f64) -> String {
     format!("{:x}", d.to_bits())

@@ -1,7 +1,7 @@
 //! Golden tests against vanilla: fixtures/random/RandomGen.java -> random.txt.
 use mc_core::random::*;
 
-const GOLDEN: &str = include_str!("fixtures/random/random.txt");
+const GOLDEN: &str = include_str!("../fixtures/random/random.txt");
 
 const SEEDS: [i64; 9] = [0, 1, -1, 42, 12345, -987654321, 0x123456789ABCDEF, i64::MAX, i64::MIN];
 const BOUNDS: [i32; 11] = [1, 2, 3, 7, 16, 100, 1000, 65536, 1 << 30, i32::MAX, 12345678];

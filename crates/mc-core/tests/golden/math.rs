@@ -3,7 +3,7 @@ use mc_core::math::java;
 use mc_core::math::mth::*;
 use mc_core::phys::{AABB, Vec3};
 
-const FIXTURE: &str = include_str!("fixtures/math/mth.txt");
+const FIXTURE: &str = include_str!("../fixtures/math/mth.txt");
 
 fn d(s: &str) -> f64 {
     f64::from_bits(u64::from_str_radix(s, 16).unwrap())

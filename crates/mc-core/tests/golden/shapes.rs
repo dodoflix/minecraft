@@ -11,10 +11,10 @@ use mc_core::phys::shapes::{BitSetDiscreteVoxelShape, BooleanOp, Coords, Discret
 use mc_core::phys::{Vec3, AABB};
 use mc_core::pos::BlockPos;
 
-const SCRIPT: &str = include_str!("fixtures/shapes/shapes.script");
-const EXPECTED: &str = include_str!("fixtures/shapes/shapes.out");
+const SCRIPT: &str = include_str!("../fixtures/shapes/shapes.script");
+const EXPECTED: &str = include_str!("../fixtures/shapes/shapes.out");
 // The generator is committed next to its output; referencing it here keeps the pair honest.
-const _ORACLE: &str = include_str!("fixtures/shapes/ShapesOracle.java");
+const _ORACLE: &str = include_str!("../fixtures/shapes/ShapesOracle.java");
 
 fn hx(d: f64) -> String {
     format!("{:x}", d.to_bits())

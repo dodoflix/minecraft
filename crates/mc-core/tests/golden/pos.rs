@@ -10,7 +10,7 @@ use mc_core::phys::{Vec3, AABB};
 use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_core::rotation::Rotation;
 
-const GOLDEN: &str = include_str!("fixtures/pos/pos_golden.txt");
+const GOLDEN: &str = include_str!("../fixtures/pos/pos_golden.txt");
 
 fn int(s: &str) -> i32 {
     s.parse().unwrap_or_else(|_| panic!("bad int {s:?}"))
