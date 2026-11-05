@@ -1,5 +1,6 @@
 //! `net.minecraft.world.level.block.FireBlock`.
 use super::prelude::*;
+use mc_core::random::RandomSource;
 
 pub struct FireBlock;
 
@@ -60,6 +61,15 @@ impl BlockBehaviour for FireBlock {
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below = pos.below();
         level.get_block_state(below).is_face_sturdy_at(level, below, Direction::Up) || is_valid_fire_location(level, pos)
+    }
+    /// `BaseFireBlock.onPlace` + `FireBlock.onPlace`. The nether portal creation of `BaseFireBlock.onPlace`
+    /// (`PortalShape.findEmptyPortalShape`) is not ported (portal slice).
+    fn on_place(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+        if !old_state.is_block(state.block()) && !state.can_survive(&*level, pos) {
+            level.remove_block(pos, false);
+        }
+        let delay = 30 + level.random().next_int_bounded(10);
+        helpers::schedule_block_tick(level, pos, state.block(), delay);
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if self.can_survive(state, &*level, pos) { get_state_with_age(&*level, pos, state.get(props::AGE_15)) } else { air() }
