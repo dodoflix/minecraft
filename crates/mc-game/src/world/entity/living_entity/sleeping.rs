@@ -8,7 +8,8 @@ use super::util::{l, lm};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::dismount_helper::find_safe_dismount_location;
-use crate::world::level::BlockGetter;
+use crate::world::level::level_access::LevelAccessor;
+use crate::world::level::{BlockGetter, LevelReader};
 use crate::world::level::block::helpers;
 use crate::world::level::block::state::BlockStateExt;
 use mc_core::direction::{Axis, Direction};
@@ -83,7 +84,7 @@ pub fn start_sleeping(entity: &mut dyn Entity, level: &mut ServerLevel, bed_posi
 
 /// `stopSleeping()`.
 pub fn stop_sleeping(entity: &mut dyn Entity, level: &mut ServerLevel) {
-    if let Some(bed_position) = l(entity).get_sleeping_pos().filter(|&pos| level.has_chunk_at(pos)) {
+    if let Some(bed_position) = l(entity).get_sleeping_pos().filter(|&pos| LevelReader::has_chunk(level, pos.x() >> 4, pos.z() >> 4)) {
         let state = level.get_block_state(bed_position);
         if is_bed(state) {
             let facing = state.get(props::HORIZONTAL_FACING);

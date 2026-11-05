@@ -81,7 +81,7 @@ pub fn is_sprinting(entity: &dyn Entity) -> bool {
 
 /// `getLookAngle()`.
 pub fn look_angle(entity: &dyn Entity) -> Vec3 {
-    crate::world::item::block_item::calculate_view_vector(entity.base().x_rot(), entity.base().y_rot())
+    crate::world::item::calculate_view_vector(entity.base().x_rot(), entity.base().y_rot())
 }
 
 /// `isFree(xa, ya, za)`: the box moved by the offset has no collision.

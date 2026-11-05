@@ -92,11 +92,6 @@ impl ServerPlayer {
         self.player.living.entity.set_shared_flag(crate::world::entity::entity::FLAG_SHIFT_KEY_DOWN, shift);
     }
 
-    /// `setSprinting(sprinting)`.
-    pub fn set_sprinting(&mut self, sprinting: bool) {
-        self.player.living.entity.set_shared_flag(crate::world::entity::entity::FLAG_SPRINTING, sprinting);
-    }
-
     /// `setKnownMovement(movement)`.
     pub fn set_known_movement(&mut self, movement: Vec3) {
         self.last_known_client_movement = movement;

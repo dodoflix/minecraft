@@ -2182,7 +2182,7 @@ pub trait Entity: Any {
     }
     /// `getFallSounds()` as `(small, big)`.
     fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
-        (mc_data::SoundEvent::GENERIC_SMALL_FALL, mc_data::SoundEvent::GENERIC_BIG_FALL)
+        (mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL, mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL)
     }
     /// `canInteractWithLevel()`.
     fn can_interact_with_level(&self) -> bool {
@@ -2194,6 +2194,13 @@ pub trait Entity: Any {
     }
     /// `doAutoAttackOnTouch(entity)` (riptide spin attack; `Player`).
     fn do_auto_attack_on_touch(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) {}
+    /// `applyInput()` (`LivingEntity`: the movement input decays by 0.98; `LocalPlayer` reads the keyboard).
+    fn apply_input(&mut self) {
+        if let Some(l) = self.living_mut() {
+            l.xxa *= 0.98;
+            l.zza *= 0.98;
+        }
+    }
     // ==== [Damage] additions (Entity trait methods) ====
 
     /// `getWeaponItem()`: `LivingEntity` = main hand; projectiles override with the weapon that fired them.

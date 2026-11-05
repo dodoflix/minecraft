@@ -6,7 +6,7 @@ use crate::world::entity::Entity;
 use crate::world::entity::entity::FLAG_FALL_FLYING;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::item::ItemStack;
-use crate::world::item::stack_ext::ItemStackExt;
+use crate::world::item::ItemStackExt;
 use mc_core::random::RandomSource;
 use mc_data::{GameEvent, MobEffect};
 use mc_protocol::components::{EQUIPPABLE, GLIDER};

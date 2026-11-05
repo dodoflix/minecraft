@@ -7,7 +7,7 @@ use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOpera
 use mc_core::ident::Identifier;
 use super::ServerPlayer;
 use crate::server::level::ServerLevel;
-use crate::world::entity::movement;
+use crate::world::entity::{living_entity, movement};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::inventory::PlayerMenus;
 use mc_core::math::mth;
@@ -87,8 +87,8 @@ impl ServerPlayer {
         self.update_player_attributes();
     }
 
-    /// `Player.tick()` + `LivingEntity.tick()`/`Entity.tick()` bases that run on the server for players.
-    fn player_base_tick(&mut self, level: &mut ServerLevel) {
+    /// `Player.tick()`; `super.tick()` is the generic `LivingEntity.tick` (which runs `aiStep` = `Player.aiStep` below).
+    pub(super) fn player_tick(&mut self, level: &mut ServerLevel) {
         let spectator = self.is_spectator();
         self.base_mut().no_physics = spectator;
         if spectator || self.base().is_passenger() {
@@ -105,25 +105,9 @@ impl ServerPlayer {
                 self.player.sleep_counter = 0;
             }
         }
+        // `updateIsUnderwater()`
         self.player.was_underwater = self.base().eye_in_fluid[0];
-        self.player.living.swing_state.tick();
-        // Entity.baseTick
-        self.base_tick(level);
-        self.updating_using_item(level);
-        // LivingEntity.baseTick counters
-        let l = &mut self.player.living;
-        if l.hurt_time > 0 {
-            l.hurt_time -= 1;
-        }
-        if l.last_hurt_by_player_memory_time > 0 {
-            l.last_hurt_by_player_memory_time -= 1;
-        } else {
-            l.last_hurt_by_player = None;
-        }
-        l.y_head_rot_o = l.y_head_rot;
-        l.y_body_rot_o = l.y_body_rot;
-        self.ai_step_travel(level);
-        // Player.tick tail
+        living_entity::tick::tick(self, level);
         let (x, z) = (self.base().x(), self.base().z());
         let (nx, nz) = (mth::clamp_f64(x, -2.9999999E7, 2.9999999E7), mth::clamp_f64(z, -2.9999999E7, 2.9999999E7));
         if nx != x || nz != z {
@@ -132,15 +116,32 @@ impl ServerPlayer {
         }
         self.player.living.attack_strength_ticker += 1;
         self.player.living.item_swap_ticker += 1;
-        self.tick_inventory(level);
-        self.touch_nearby_entities(level);
         self.player.cooldowns.tick();
+        self.update_player_pose(level);
         self.flush_item_cooldown_packets();
         self.flush_pending_drops(level);
     }
 
-    /// `Player.aiStep` pickup part: `playerTouch` for every entity around the player (experience orbs: a random one).
+    /// `Player.aiStep()`: `super.aiStep()` is the generic `LivingEntity.aiStep`.
+    pub(super) fn player_ai_step(&mut self, level: &mut ServerLevel) {
+        if self.player.jump_trigger_time > 0 {
+            self.player.jump_trigger_time -= 1;
+        }
+        self.tick_inventory_items(level);
+        if self.player.abilities.flying && !self.base().is_passenger() {
+            self.reset_fall_distance();
+        }
+        living_entity::ai_step::ai_step(self, level);
+        let y_rot = self.base().y_rot();
+        self.player.living.y_head_rot = y_rot;
+        let speed = self.player.living.get_attribute_value(mc_data::Attribute::MOVEMENT_SPEED) as f32;
+        self.set_speed(speed);
+        self.touch_nearby_entities(level);
+    }
+
+    /// `Player.aiStep` pickup part: `playerTouch` for every entity around the player (experience orbs: one random orb).
     fn touch_nearby_entities(&mut self, level: &mut ServerLevel) {
+        use mc_core::random::RandomSource;
         if self.player.living.get_health() <= 0.0 || self.is_spectator() {
             return;
         }
@@ -150,19 +151,73 @@ impl ServerPlayer {
             _ => bb.inflate(1.0, 0.5, 1.0),
         };
         let ids = level.get_entities(Some(self.base_id()), &area, |_| true);
+        let mut orbs = Vec::new();
         for id in ids {
-            level.with_entity(id, |level, e| {
-                if !e.is_removed() {
-                    e.player_touch(level, self);
-                }
-            });
+            if level.get_entity(id).is_some_and(|e| e.get_type() == mc_data::EntityType::EXPERIENCE_ORB) {
+                orbs.push(id);
+            } else {
+                level.with_entity(id, |level, e| {
+                    if !e.is_removed() {
+                        e.player_touch(level, self);
+                    }
+                });
+            }
         }
+        if !orbs.is_empty() {
+            let index = self.base_mut().random.next_int_bounded(orbs.len() as i32) as usize;
+            level.with_entity(orbs[index], |level, e| e.player_touch(level, self));
+        }
+    }
+
+    /// `Player.updatePlayerPose()`.
+    fn update_player_pose(&mut self, level: &mut ServerLevel) {
+        use mc_data::enums::Pose;
+        if self.can_player_fit_within_blocks_and_entities_when(level, Pose::Swimming) {
+            let desired_pose = self.get_desired_pose();
+            let actual_pose = if self.is_spectator() || self.base().is_passenger() || self.can_player_fit_within_blocks_and_entities_when(level, desired_pose) {
+                desired_pose
+            } else if self.can_player_fit_within_blocks_and_entities_when(level, Pose::Crouching) {
+                Pose::Crouching
+            } else {
+                Pose::Swimming
+            };
+            self.set_pose(actual_pose);
+        }
+    }
+
+    /// `Player.getDesiredPose()`.
+    fn get_desired_pose(&self) -> mc_data::enums::Pose {
+        use mc_data::enums::Pose;
+        if self.player.living.is_sleeping() {
+            Pose::Sleeping
+        } else if self.is_swimming() {
+            Pose::Swimming
+        } else if self.player.living.is_fall_flying() {
+            Pose::FallFlying
+        } else if self.player.living.get_living_entity_flag(crate::world::entity::living::LIVING_ENTITY_FLAG_SPIN_ATTACK) {
+            Pose::SpinAttack
+        } else if self.is_shift_key_down() && !self.player.abilities.flying {
+            Pose::Crouching
+        } else {
+            Pose::Standing
+        }
+    }
+
+    /// `Player.isSwimming()`.
+    pub fn is_swimming(&self) -> bool {
+        !self.player.abilities.flying && !self.is_spectator() && self.base().get_shared_flag(crate::world::entity::entity::FLAG_SWIMMING)
+    }
+
+    /// `canPlayerFitWithinBlocksAndEntitiesWhen(pose)`.
+    fn can_player_fit_within_blocks_and_entities_when(&self, level: &ServerLevel, pose: mc_data::enums::Pose) -> bool {
+        let aabb = self.get_dimensions(pose).make_bounding_box_vec(self.base().position()).deflate_scalar(1.0E-7);
+        movement::collect_all_colliders(self, level, &aabb).iter().all(|shape| shape.is_empty())
     }
 
     /// `ServerPlayer.doTick()`.
     pub fn do_tick(&mut self, level: &mut ServerLevel) {
         if !self.is_spectator() || !movement::touching_unloaded_chunk(self, level) {
-            self.player_base_tick(level);
+            self.player_tick(level);
             let rules = level.player_food_rules();
             let health = self.player.living.get_health();
             let max = self.player.living.get_max_health();

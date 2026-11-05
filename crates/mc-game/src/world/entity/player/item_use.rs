@@ -234,9 +234,9 @@ impl ServerPlayer {
         }
     }
 
-    /// `Inventory.tick()` + `EntityEquipment.tick(owner)`: `Item.inventoryTick` for every stack (taken out of its slot
-    /// while it runs; `popTime` is client-only state and not modelled).
-    pub fn tick_inventory(&mut self, level: &mut ServerLevel) {
+    /// `Inventory.tick()`: `Item.inventoryTick` for every inventory stack (taken out of its slot while it runs;
+    /// `popTime` is client-only state and not modelled).
+    pub fn tick_inventory_items(&mut self, level: &mut ServerLevel) {
         let selected = self.player.inventory.get_selected_slot() as usize;
         for i in 0..self.player.inventory.get_non_equipment_items().len() {
             let mut stack = std::mem::take(&mut self.player.inventory.get_non_equipment_items_mut()[i]);
@@ -246,6 +246,10 @@ impl ServerPlayer {
             }
             self.player.inventory.get_non_equipment_items_mut()[i] = stack;
         }
+    }
+
+    /// `EntityEquipment.tick(owner)`: `Item.inventoryTick` for the equipped stacks.
+    pub fn tick_equipment_items(&mut self, level: &mut ServerLevel) {
         for slot in EquipmentSlot::VALUES {
             if slot == EquipmentSlot::MainHand {
                 continue;

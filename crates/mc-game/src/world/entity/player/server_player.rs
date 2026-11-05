@@ -125,6 +125,9 @@ pub struct ServerPlayer {
     // ==== [Player] additions (ServerPlayer field) ====
     // ==== [Level] additions (ServerPlayer field) ====
     // ==== [LivingCore] additions (ServerPlayer field) ====
+    /// The server simulates this player's physics like a locally controlled `LocalPlayer` from `last_client_input` (the
+    /// oracle/test mode; real vanilla players are client-authoritative and the server only validates their movement).
+    pub simulate_local_player: bool,
     // ==== [Damage] additions (ServerPlayer field) ====
 }
 
@@ -192,6 +195,7 @@ impl ServerPlayer {
             // ==== [Player] additions (ServerPlayer::new initializer) ====
             // ==== [Level] additions (ServerPlayer::new initializer) ====
             // ==== [LivingCore] additions (ServerPlayer::new initializer) ====
+            simulate_local_player: false,
             // ==== [Damage] additions (ServerPlayer::new initializer) ====
         };
         p.update_options(client_information);
@@ -343,15 +347,106 @@ impl Entity for ServerPlayer {
     }
     /// `Player.isClientAuthoritative()`.
     fn is_client_authoritative(&self) -> bool {
-        true
+        !self.simulate_local_player
     }
-    /// `LivingEntity.getDefaultGravity()`: the `GRAVITY` attribute.
-    fn get_default_gravity(&self) -> f64 {
-        self.player.living.get_attribute_value(mc_data::Attribute::GRAVITY)
+    /// `LocalPlayer.applyInput()` for a simulated player (keyboard input -> movement vector, jump, sprint).
+    fn apply_input(&mut self) {
+        if !self.simulate_local_player {
+            let l = &mut self.player.living;
+            l.xxa *= 0.98;
+            l.zza *= 0.98;
+            return;
+        }
+        let input = self.last_client_input;
+        let mut forward = f32::from(u8::from(input.forward)) - f32::from(u8::from(input.backward));
+        let mut sideways = f32::from(u8::from(input.left)) - f32::from(u8::from(input.right));
+        self.set_shift_key_down(input.shift);
+        if input.shift && !self.player.abilities.flying {
+            let sneak = self.player.living.get_attribute_value(mc_data::Attribute::SNEAKING_SPEED) as f32;
+            forward *= sneak;
+            sideways *= sneak;
+        }
+        let l = &mut self.player.living;
+        l.zza = forward;
+        l.xxa = sideways;
+        l.jumping = input.jump;
+        self.set_sprinting(input.sprint && input.forward);
     }
-    fn get_effective_gravity(&self) -> f64 {
-        self.living_effective_gravity()
+    // ==== [LivingCore] additions (impl Entity for ServerPlayer) ====
+    /// `Player.aiStep()`.
+    fn ai_step(&mut self, level: &mut crate::server::level::ServerLevel) {
+        self.player_ai_step(level);
     }
+    /// `Player.travel(input)`.
+    fn travel(&mut self, level: &mut crate::server::level::ServerLevel, input: Vec3) {
+        self.player_travel(level, input);
+    }
+    /// `Player.isImmobile()`: dead or sleeping.
+    fn is_immobile(&self) -> bool {
+        self.player.living.is_dead_or_dying() || self.player.living.is_sleeping()
+    }
+    /// `Player.isAffectedByFluids()`.
+    fn is_affected_by_fluids(&self) -> bool {
+        !self.player.abilities.flying
+    }
+    /// `Player.getSpeed()`: the `MOVEMENT_SPEED` attribute.
+    fn get_speed(&self) -> f32 {
+        self.player.living.get_attribute_value(mc_data::Attribute::MOVEMENT_SPEED) as f32
+    }
+    /// `Player.getFlyingSpeed()`.
+    fn get_flying_speed(&self, _level: &crate::server::level::ServerLevel) -> f32 {
+        let sprinting = self.base().get_shared_flag(entity::FLAG_SPRINTING);
+        if self.player.abilities.flying && !self.base().is_passenger() {
+            if sprinting { self.player.abilities.get_flying_speed() * 2.0 } else { self.player.abilities.get_flying_speed() }
+        } else if sprinting {
+            0.025999999
+        } else {
+            0.02
+        }
+    }
+    /// `Player.onClimbable()`.
+    fn on_climbable(&self, level: &crate::server::level::ServerLevel) -> bool {
+        !self.player.abilities.flying && crate::world::entity::living_entity::travel::on_climbable(self, level)
+    }
+    /// `Player.canGlide()`.
+    fn can_glide(&self) -> bool {
+        !self.player.abilities.flying && crate::world::entity::living_entity::fall_flying::can_glide(self)
+    }
+    /// `Player.getBlockSpeedFactor()`.
+    fn modify_block_speed_factor(&self, base: f32) -> f32 {
+        if !self.player.abilities.flying && !self.player.living.is_fall_flying() {
+            mc_core::math::mth::lerp_f32(self.player.living.get_attribute_value(mc_data::Attribute::MOVEMENT_EFFICIENCY) as f32, base, 1.0)
+        } else {
+            1.0
+        }
+    }
+    /// `Player.isPickable()`.
+    fn is_pickable(&self) -> bool {
+        !self.is_spectator() && !self.is_removed()
+    }
+    /// `Player.canBeSeenAsEnemy()`.
+    fn can_be_seen_as_enemy(&self) -> bool {
+        !self.player.abilities.invulnerable && !self.base().permanently_invulnerable && !self.is_spectator() && self.is_alive()
+    }
+    /// `EntityEquipment.tick(this)`.
+    fn tick_equipment(&mut self, level: &mut crate::server::level::ServerLevel) {
+        self.tick_equipment_items(level);
+    }
+    /// `updatingUsingItem()`.
+    fn updating_using_item(&mut self, level: &mut crate::server::level::ServerLevel) {
+        ServerPlayer::updating_using_item(self, level);
+    }
+    /// `Player.getFallSounds()`.
+    fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
+        (mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL, mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL)
+    }
+    /// `ItemStack.hurtAndBreak(amount, this, slot)` on a player's equipped item.
+    fn hurt_and_break_equipment(&mut self, level: &mut crate::server::level::ServerLevel, slot: crate::world::entity::equipment::EquipmentSlot, amount: i32) {
+        let mut stack = self.player.inventory.equipment_get(slot).clone();
+        crate::world::item::hurt_and_break(&mut stack, amount, level, self, slot);
+        self.player.inventory.equipment_set(slot, stack);
+    }
+    // ==== [LivingCore] end ====
     fn move_simulation_type(&self) -> crate::world::entity::MoveSimulationType {
         crate::world::entity::MoveSimulationType::AuthoritativeSideAndServer
     }

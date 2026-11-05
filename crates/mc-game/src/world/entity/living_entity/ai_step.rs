@@ -106,12 +106,7 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
         dy = 0.0;
     }
     entity.base_mut().set_delta_movement_xyz(dx, dy, dz);
-    // `applyInput()`
-    {
-        let living = lm(entity);
-        living.xxa *= 0.98;
-        living.zza *= 0.98;
-    }
+    entity.apply_input();
     if entity.is_immobile() {
         let living = lm(entity);
         living.jumping = false;
