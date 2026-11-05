@@ -1,5 +1,8 @@
 //! `net.minecraft.world.entity.animal.turtle`.
 
+pub mod turtle;
+pub use turtle::Turtle;
+
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 

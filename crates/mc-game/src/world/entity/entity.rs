@@ -3387,6 +3387,10 @@ pub trait Entity: Any {
     /// controlled `PathfinderMob` vehicle).
     fn after_ride_tick(&mut self, _level: &ServerLevel) {}
     // ==== [Pets] additions (Entity trait methods) ====
+    /// `AgeableMob.getAgeScale()` (`Turtle`: 0.3 for babies).
+    fn get_age_scale(&self) -> f32 {
+        if self.is_baby() { 0.5 } else { 1.0 }
+    }
     /// `TamableAnimal.wantsToAttack(target, owner)`.
     fn wants_to_attack(&self, _level: &ServerLevel, _target: &dyn Entity, _owner: &dyn Entity) -> bool {
         true

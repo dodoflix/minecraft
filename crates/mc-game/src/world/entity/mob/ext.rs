@@ -300,7 +300,7 @@ pub fn living_dimensions(e: &dyn Entity, pose: mc_data::enums::Pose, default_dim
 /// `LivingEntity.getScale()` (`SCALE` attribute) times `getAgeScale()`.
 pub fn get_scale_times_age_scale(e: &dyn Entity) -> f32 {
     let scale = e.living().map_or(1.0, |l| l.get_attribute_value(mc_data::Attribute::SCALE) as f32);
-    scale * if e.is_baby() { 0.5 } else { 1.0 }
+    scale * e.get_age_scale()
 }
 
 /// `Entity.distanceTo(entity)` (float math).
