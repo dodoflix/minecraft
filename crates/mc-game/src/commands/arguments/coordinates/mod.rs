@@ -1,11 +1,11 @@
 //! `net.minecraft.commands.arguments.coordinates`: `~`/`^` coordinate arguments.
 
 pub mod block_pos_argument;
-mod column_pos_argument;
-mod rotation_argument;
-mod swizzle_argument;
-mod vec2_argument;
-mod vec3_argument;
+pub mod column_pos_argument;
+pub mod rotation_argument;
+pub mod swizzle_argument;
+pub mod vec2_argument;
+pub mod vec3_argument;
 
 pub use block_pos_argument::BlockPosArgument;
 pub use column_pos_argument::{ColumnPos, ColumnPosArgument};
