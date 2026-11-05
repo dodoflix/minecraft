@@ -184,16 +184,20 @@ impl ServerLevel {
         self.set_block_impl(pos, fluid_state.create_legacy_block(), UPDATE_ALL | if moved_by_piston { UPDATE_MOVE_BY_PISTON } else { 0 }, 512)
     }
 
-    /// `updatePOIOnBlockStateChange(pos, old, new)`: the removal/registration runs as a server task (`getServer().execute`).
+    /// `updatePOIOnBlockStateChange(pos, old, new)`: the removal/registration is `getServer().execute(task)`: inline on the game thread outside a task, else queued.
     pub fn update_poi_on_block_state_change(&mut self, pos: BlockPos, old_state: BlockState, new_state: BlockState) {
         let (old_type, new_type) = (PoiTypes::for_state(old_state), PoiTypes::for_state(new_state));
         if old_type != new_type {
-            let dimension = self.dimension.clone();
-            self.shared.execute(move |server| {
-                if let Some(level) = server.level_mut(&dimension) {
-                    level.poi_manager().apply_block_state_change(pos, old_type, new_type);
-                }
-            });
+            if self.shared.runs_tasks_inline() {
+                self.poi_manager().apply_block_state_change(pos, old_type, new_type);
+            } else {
+                let dimension = self.dimension.clone();
+                self.shared.execute(move |server| {
+                    if let Some(level) = server.level_mut(&dimension) {
+                        level.poi_manager().apply_block_state_change(pos, old_type, new_type);
+                    }
+                });
+            }
         }
     }
 

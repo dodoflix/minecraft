@@ -173,6 +173,12 @@ impl ServerShared {
     pub(crate) fn set_have_time_deadline(&self, nanos: i64) {
         self.have_time_deadline_nanos.store(nanos, Ordering::Relaxed);
     }
+    /// `BlockableEventLoop.scheduleExecutables()` of the server for the calling thread: tasks submitted with `execute` are
+    /// queued unless the game thread submits them while no task runs (or the server is stopped): those run inline.
+    pub fn runs_tasks_inline(&self) -> bool {
+        self.is_game_thread() && (!self.running_task.load(Ordering::Relaxed) || self.is_stopped())
+    }
+
     pub(crate) fn set_running_task(&self, running: bool) {
         self.running_task.store(running, Ordering::Relaxed);
     }
