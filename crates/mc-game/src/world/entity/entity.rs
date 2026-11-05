@@ -3369,6 +3369,10 @@ pub trait Entity: Any {
     fn do_hurt_target(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) -> bool {
         false
     }
+    /// `canReplaceCurrentItem(newItemStack, currentItemStack, slot)`.
+    fn can_replace_current_item(&self, level: &ServerLevel, new: &crate::world::item::ItemStack, current: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) -> bool {
+        super::mob::equipment::can_replace_current_item(self.as_dyn(), level, new, current, slot)
+    }
     /// `Cat.hiss()` (a phantom swooping near cats); `Cat` overrides.
     fn hiss(&mut self, _level: &mut ServerLevel) {}
     /// What a class's `rideTick()` override does after `super.rideTick()` (`Zombie`/`AbstractSkeleton`: the body follows a

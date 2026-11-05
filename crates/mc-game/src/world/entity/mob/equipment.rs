@@ -181,7 +181,7 @@ pub fn equip_item_if_possible(e: &mut dyn Entity, level: &mut ServerLevel, mut i
         return ItemStack::empty();
     }
     let mut current = e.get_item_by_slot(slot);
-    let mut can_replace = can_replace_current_item(e, level, &item_stack, &current, slot);
+    let mut can_replace = e.can_replace_current_item(level, &item_stack, &current, slot);
     if slot.is_armor() && !can_replace {
         slot = EquipmentSlot::MainHand;
         current = e.get_item_by_slot(slot);

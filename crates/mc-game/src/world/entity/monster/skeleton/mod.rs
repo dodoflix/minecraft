@@ -142,7 +142,7 @@ impl AbstractSkeleton {
     pub fn is_shaking(&self) -> bool {
         match &self.kind {
             SkeletonKind::Skeleton(tracker) => tracker.is_converting(&self.mob.living.entity.entity_data),
-            _ => self.is_fully_frozen(),
+            _ => self.base().get_ticks_frozen() >= self.get_ticks_required_to_freeze(),
         }
     }
 
@@ -180,7 +180,7 @@ impl Entity for AbstractSkeleton {
     }
 
     fn can_freeze(&self) -> bool {
-        !matches!(self.kind, SkeletonKind::Skeleton(_)) && crate::world::entity::entity::default_can_freeze(self)
+        !matches!(self.kind, SkeletonKind::Skeleton(_))
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {

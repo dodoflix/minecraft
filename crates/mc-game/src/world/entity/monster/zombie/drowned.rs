@@ -19,7 +19,7 @@ use crate::world::entity::{Entity, MoverType};
 use crate::world::item::ItemStack;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use crate::world::level::block::state::BlockStateExt;
-use crate::world::level::BlockGetter;
+use crate::world::level::{BlockGetter, LevelReader};
 use crate::world::level::material::FluidStateExt;
 use crate::world::level::pathfinder::PathType;
 use mc_core::math::mth;
@@ -99,11 +99,10 @@ pub fn wants_to_swim(e: &dyn Entity, level: &ServerLevel) -> bool {
 pub fn close_to_next_pos(e: &dyn Entity, level: &ServerLevel) -> bool {
     let path = navigation::with_navigation_ref(e, level, |n| n.get_path()).flatten();
     if let Some(path) = path {
-        if let Some(pos) = path.get_target() {
-            let sqr_dist_to_next_pos = e.base().distance_to_sqr(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
-            if sqr_dist_to_next_pos < 4.0 {
-                return true;
-            }
+        let pos = path.get_target();
+        let sqr_dist_to_next_pos = e.base().distance_to_sqr_xyz(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()));
+        if sqr_dist_to_next_pos < 4.0 {
+            return true;
         }
     }
     false
@@ -183,7 +182,7 @@ pub fn travel_in_water(zombie: &mut Zombie, level: &mut ServerLevel, input: Vec3
     if zombie.is_under_water() && wants_to_swim(zombie, level) {
         zombie.move_relative(0.01, input);
         let movement = zombie.base().delta_movement();
-        let _ = zombie.r#move(level, MoverType::Self_, movement);
+        let _ = zombie.r#move(level, MoverType::SelfMover, movement);
         let scaled = zombie.base().delta_movement().scale(0.9);
         zombie.base_mut().set_delta_movement(scaled);
     } else {
@@ -327,7 +326,7 @@ impl MoveControl for DrownedMoveControl {
             let target_above = target.and_then(|id| level.get_entity(id)).is_some_and(|t| t.base().y() > mob.base().y());
             if target_above || is_searching_for_land(mob) {
                 let m = mob.base().delta_movement();
-                mob.base_mut().set_delta_movement(m.add(0.0, 0.002, 0.0));
+                mob.base_mut().set_delta_movement(m.add_xyz(0.0, 0.002, 0.0));
             }
             if self.base.operation != Operation::MoveTo || navigation::is_done(mob, level) {
                 mob.set_speed(0.0);
@@ -350,11 +349,11 @@ impl MoveControl for DrownedMoveControl {
             mob.set_speed(new_speed);
             let ns = f64::from(new_speed);
             let m = mob.base().delta_movement();
-            mob.base_mut().set_delta_movement(m.add(ns * xd * 0.005, ns * yd * 0.1, ns * zd * 0.005));
+            mob.base_mut().set_delta_movement(m.add_xyz(ns * xd * 0.005, ns * yd * 0.1, ns * zd * 0.005));
         } else {
             if !mob.base().on_ground() {
                 let m = mob.base().delta_movement();
-                mob.base_mut().set_delta_movement(m.add(0.0, -0.008, 0.0));
+                mob.base_mut().set_delta_movement(m.add_xyz(0.0, -0.008, 0.0));
             }
             crate::world::entity::ai::control::move_control::base_tick(&mut self.base, mob, level);
         }

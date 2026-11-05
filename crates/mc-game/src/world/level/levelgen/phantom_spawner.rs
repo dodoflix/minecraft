@@ -1,7 +1,7 @@
 //! `net.minecraft.world.level.levelgen.PhantomSpawner`: spawns phantoms above players that did not rest for a long time.
 
 use crate::server::level::ServerLevel;
-use crate::stats::Stats;
+use crate::stats::stats::Stats;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::factory::EntitySpawnRequest;
 use crate::world::level::BlockGetter;
@@ -24,6 +24,7 @@ pub struct PhantomSpawner {
 
 impl CustomSpawner for PhantomSpawner {
     fn tick(&mut self, level: &mut ServerLevel, spawn_enemies: bool) -> i32 {
+        let has_sky_light = level.chunk_source.chunk_map.has_sky_light;
         if !spawn_enemies || !level.spawn_phantoms() {
             return 0;
         }
@@ -34,7 +35,7 @@ impl CustomSpawner for PhantomSpawner {
         // `RandomSource random = level.getRandom()`: the level's random is a shared handle
         let mut random = level.tick_state.random.clone();
         self.next_tick += (60 + random.next_int_bounded(60)) * 20;
-        if level.sky_darken < 5 && level.has_sky_light {
+        if level.sky_darken < 5 && has_sky_light {
             return 0;
         }
         let mut count = 0;
@@ -49,7 +50,7 @@ impl CustomSpawner for PhantomSpawner {
             if is_spectator {
                 continue;
             }
-            if level.has_sky_light && !(player_pos.y() >= level.get_sea_level() && level.can_see_sky(player_pos)) {
+            if has_sky_light && !(player_pos.y() >= level.get_sea_level() && level.can_see_sky(player_pos)) {
                 continue;
             }
             let difficulty = ServerLevelAccessor::get_current_difficulty_at(&*level, player_pos);

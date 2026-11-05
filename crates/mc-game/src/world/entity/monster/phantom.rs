@@ -19,10 +19,13 @@ use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use crate::world::level::BlockGetter;
+use crate::world::level::block::state::BlockStateExt;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
+use crate::world::level::LevelReader;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, SoundEvent};
 use mc_nbt::CompoundTag;
@@ -253,8 +256,8 @@ impl PhantomAttackStrategyGoal {
             let Some(target_pos) = target_pos else { return };
             let above = 20 + mob.base_mut().random.next_int_bounded(20);
             let mut anchor = target_pos.above_n(above);
-            if anchor.y() < level.get_sea_level_value() {
-                anchor = BlockPos::new(anchor.x(), level.get_sea_level_value() + 1, anchor.z());
+            if anchor.y() < level.get_sea_level() {
+                anchor = BlockPos::new(anchor.x(), level.get_sea_level() + 1, anchor.z());
             }
             phantom_mut(mob).anchor_point = Some(anchor);
         }
@@ -303,7 +306,7 @@ impl Goal for PhantomAttackStrategyGoal {
 
 /// `touchingTarget()` of `PhantomMoveTargetGoal`.
 fn touching_target(mob: &dyn Entity) -> bool {
-    phantom(mob).move_target_point.distance_to_sqr(mob.base().x(), mob.base().y(), mob.base().z()) < 4.0
+    phantom(mob).move_target_point.distance_to_sqr_xyz(mob.base().x(), mob.base().y(), mob.base().z()) < 4.0
 }
 
 /// `PhantomCircleAroundAnchorGoal`.
@@ -324,7 +327,7 @@ impl PhantomCircleAroundAnchorGoal {
         let anchor = phantom(mob).anchor_point.expect("anchor");
         let lower_corner = Vec3::at_lower_corner_of(&anchor);
         let d = f64::from(self.distance);
-        phantom_mut(mob).move_target_point = lower_corner.add(d * f64::from(mth::cos(f64::from(self.angle))), f64::from(-4.0 + self.height), d * f64::from(mth::sin(f64::from(self.angle))));
+        phantom_mut(mob).move_target_point = lower_corner.add_xyz(d * f64::from(mth::cos(f64::from(self.angle))), f64::from(-4.0 + self.height), d * f64::from(mth::sin(f64::from(self.angle))));
     }
 }
 
@@ -362,11 +365,11 @@ impl Goal for PhantomCircleAroundAnchorGoal {
         if touching_target(mob) {
             self.select_next(mob);
         }
-        if phantom(mob).move_target_point.y < mob.base().y() && !level.is_empty_block(mob.block_position().below_n(1)) {
+        if phantom(mob).move_target_point.y < mob.base().y() && level.get_block_state(mob.block_position().below_n(1)).is_air() {
             self.height = self.height.max(1.0);
             self.select_next(mob);
         }
-        if phantom(mob).move_target_point.y > mob.base().y() && !level.is_empty_block(mob.block_position().above_n(1)) {
+        if phantom(mob).move_target_point.y > mob.base().y() && level.get_block_state(mob.block_position().above_n(1)).is_air() {
             self.height = self.height.min(-1.0);
             self.select_next(mob);
         }
@@ -419,9 +422,9 @@ impl Goal for PhantomSweepAttackGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let Some(target) = mob::tick::get_target_checked(mob, level) else { return };
-        let Some((tx, ty, tz, target_bb)) = level.get_entity(target).map(|t| (t.base().x(), t.base().get_y(0.5), t.base().z(), t.base().bounding_box())) else { return };
+        let Some((tx, ty, tz, target_bb)) = level.get_entity(target).map(|t| (t.base().x(), t.base().get_y_progress(0.5), t.base().z(), t.base().bounding_box())) else { return };
         phantom_mut(mob).move_target_point = Vec3::new(tx, ty, tz);
-        if mob.base().bounding_box().inflate(f64::from(0.2f32), f64::from(0.2f32), f64::from(0.2f32)).intersects(&target_bb) {
+        if mob.base().bounding_box().inflate(f64::from(0.2f32), f64::from(0.2f32), f64::from(0.2f32)).intersects_aabb(&target_bb) {
             let hit_target = level.with_entity(target, |level, t| mob.do_hurt_target(level, t));
             let _ = hit_target;
             phantom_mut(mob).attack_phase = AttackPhase::Circle;
@@ -470,9 +473,10 @@ impl BodyRotationControl for PhantomBodyRotationControl {
     }
 
     fn client_tick(&mut self, mob: &mut dyn Entity) {
+        let y_rot = mob.base().y_rot();
         if let Some(living) = mob.living_mut() {
             living.y_head_rot = living.y_body_rot;
-            living.y_body_rot = mob.base().y_rot();
+            living.y_body_rot = y_rot;
         }
     }
 }
@@ -532,7 +536,7 @@ impl MoveControl for PhantomMoveControl {
             let tzd = f64::from(self.speed * mth::sin(f64::from(move_angle * deg_to_rad))) * (tdz / sd2).abs();
             let tyd = f64::from(self.speed * mth::sin(f64::from(x_rot_d * deg_to_rad))) * (tdy / sd2).abs();
             let movement = mob.base().delta_movement();
-            let new_movement = movement.add_vec(Vec3::new(txd, tyd, tzd).subtract(movement).scale(0.2));
+            let new_movement = movement.add(Vec3::new(txd, tyd, tzd).subtract(movement).scale(0.2));
             mob.base_mut().set_delta_movement(new_movement);
         }
     }

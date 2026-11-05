@@ -190,7 +190,7 @@ fn has_nearby_alive_player(level: &ServerLevel, x: f64, y: f64, z: f64, distance
             if player.is_spectator() || !player.is_alive() {
                 return false;
             }
-            let dist = player.base().distance_to_sqr(x, y, z);
+            let dist = player.base().distance_to_sqr_xyz(x, y, z);
             distance < 0.0 || dist < distance * distance
         })
     })
@@ -214,7 +214,7 @@ pub fn hurt_server(zombie: &mut Zombie, level: &mut ServerLevel, source: &Damage
     }
     if let Some(target) = target {
         if level.difficulty() == Difficulty::Hard
-            && f64::from(zombie.base_mut().random.next_float()) < mob::attribute_value(zombie, Attribute::SPAWN_REINFORCEMENTS_CHANCE)
+            && f64::from(zombie.base_mut().random.next_float()) < mob::attribute_value(zombie, Attribute::SPAWN_REINFORCEMENTS)
             && level.is_spawning_monsters()
         {
             call_reinforcements(zombie, level, target);
@@ -249,7 +249,7 @@ fn call_reinforcements(zombie: &mut Zombie, level: &mut ServerLevel, target: Ent
                 reinforcement.set_target(level, Some(target));
                 let difficulty = ServerLevelAccessor::get_current_difficulty_at(&*level, reinforcement.block_position());
                 reinforcement.finalize_spawn(level, difficulty, EntitySpawnReason::Reinforcement, None);
-                if let Some(attribute) = lm(&mut *reinforcement).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS_CHANCE) {
+                if let Some(attribute) = lm(&mut *reinforcement).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS) {
                     attribute.add_permanent_modifier(AttributeModifier {
                         id: REINFORCEMENT_CALLEE_CHARGE_ID.clone(),
                         amount: f64::from(-0.05f32),
@@ -257,7 +257,7 @@ fn call_reinforcements(zombie: &mut Zombie, level: &mut ServerLevel, target: Ent
                     });
                 }
                 level.add_fresh_entity_with_passengers(vec![reinforcement]);
-                if let Some(attribute) = lm(zombie).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS_CHANCE) {
+                if let Some(attribute) = lm(zombie).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS) {
                     let existing_amount = attribute.get_modifier(&REINFORCEMENT_CALLER_CHARGE_ID).map_or(0.0, |m| m.amount);
                     attribute.remove_modifier(&REINFORCEMENT_CALLER_CHARGE_ID);
                     attribute.add_permanent_modifier(AttributeModifier {
@@ -450,7 +450,7 @@ pub fn handle_attributes(zombie: &mut Zombie, difficulty_modifier: f32, spawn_re
     }
     if zombie.base_mut().random.next_float() < difficulty_modifier * 0.05 {
         let reinforcements = zombie.base_mut().random.next_double() * 0.25 + 0.5;
-        if let Some(a) = lm(zombie).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS_CHANCE) {
+        if let Some(a) = lm(zombie).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS) {
             a.add_or_replace_permanent_modifier(AttributeModifier { id: LEADER_ZOMBIE_BONUS_ID.clone(), amount: reinforcements, operation: AttributeModifierOperation::AddValue });
         }
         let health = zombie.base_mut().random.next_double() * 3.0 + 1.0;
@@ -468,7 +468,7 @@ pub fn handle_attributes(zombie: &mut Zombie, difficulty_modifier: f32, spawn_re
 /// `randomizeReinforcementsChance()`.
 fn randomize_reinforcements_chance(zombie: &mut Zombie) {
     let value = if let ZombieKind::ZombifiedPiglin(_) = zombie.kind { 0.0 } else { zombie.base_mut().random.next_double() * f64::from(0.1f32) };
-    if let Some(a) = lm(zombie).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS_CHANCE) {
+    if let Some(a) = lm(zombie).attributes.get_instance(Attribute::SPAWN_REINFORCEMENTS) {
         a.set_base_value(value);
     }
 }

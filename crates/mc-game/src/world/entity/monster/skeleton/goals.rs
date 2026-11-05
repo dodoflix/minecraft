@@ -11,6 +11,7 @@ use crate::world::item::projectile_weapon_item::{get_mob_arrow, get_weapon_holdi
 use crate::world::item::{InteractionHand, ItemStack};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
+use mc_core::random::RandomSource;
 use mc_data::{Item, MobEffect, SoundEvent};
 use mc_protocol::packets::play::level::SoundSource;
 use mc_world::level_storage::Difficulty;
@@ -95,10 +96,9 @@ pub fn perform_ranged_attack(skeleton: &mut AbstractSkeleton, level: &mut Server
     let bow_slot = if hand == InteractionHand::MainHand { EquipmentSlot::MainHand } else { EquipmentSlot::OffHand };
     let bow_item = skeleton.get_item_by_slot(bow_slot);
     // `getProjectile(bowItem)` of a mob: the held ammunition, else a plain arrow
-    let projectile = crate::world::item::projectile_weapon_item::get_mob_projectile(skeleton, &bow_item);
-    let mut arrow = get_arrow(skeleton, level, &projectile, power, Some(&bow_item));
-    let Some((tx, ty, tz, ty_third)) = level.get_entity(target).map(|t| (t.base().x(), t.base().y(), t.base().z(), t.base().get_y(0.3333333333333333))) else { return };
-    let _ = ty;
+    let projectile = get_mob_projectile(skeleton);
+    let arrow = get_arrow(skeleton, level, &projectile, power, Some(&bow_item));
+    let Some((tx, tz, ty_third)) = level.get_entity(target).map(|t| (t.base().x(), t.base().z(), t.base().get_y_progress(0.3333333333333333))) else { return };
     let xd = tx - skeleton.base().x();
     let yd = ty_third - arrow.base().y();
     let zd = tz - skeleton.base().z();
@@ -107,7 +107,6 @@ pub fn perform_ranged_attack(skeleton: &mut AbstractSkeleton, level: &mut Server
     crate::world::entity::projectile::spawn::spawn_projectile_using_shoot(level, arrow, &projectile, xd, yd + distance_to_target * f64::from(0.2f32), zd, 1.6, uncertainty);
     let pitch = 1.0 / (skeleton.base_mut().random.next_float() * 0.4 + 0.8);
     skeleton.play_sound(level, SoundEvent::ENTITY_SKELETON_SHOOT, 1.0, pitch);
-    let _ = (&mut arrow, Vec3::ZERO);
 }
 
 /// `getArrow(projectile, power, firingWeapon)`.
@@ -125,7 +124,7 @@ fn get_arrow(skeleton: &AbstractSkeleton, level: &mut ServerLevel, projectile: &
 
 fn add_arrow_effect(arrow: &mut dyn Entity, effect: MobEffect, duration: i32) {
     if let Some(arrow) = arrow.as_any_mut().downcast_mut::<Arrow>() {
-        arrow.add_effect(mc_protocol::components::MobEffectInstance::of(effect, duration, 0));
+        arrow.add_effect(mc_protocol::components::MobEffectInstance::new(effect, duration, 0));
     }
 }
 
@@ -137,9 +136,10 @@ pub fn shear_bogged(skeleton: &mut AbstractSkeleton, level: &mut ServerLevel, pl
     let _ = SoundSource::Players;
     drop_from_shearing_loot_table(skeleton, level, &tool);
     skeleton.set_sheared(true);
-    skeleton.game_event_with_source(level, mc_data::GameEvent::SHEAR, player.id());
+    level.game_event_from_entity_ref(&*player, mc_data::GameEvent::SHEAR, skeleton.position());
+    let slot = if hand == InteractionHand::MainHand { EquipmentSlot::MainHand } else { EquipmentSlot::OffHand };
     mob::interact::with_hand_stack(player, hand, |stack, player| {
-        crate::world::item::item_utils::hurt_and_break(stack, 1, player, hand);
+        crate::world::item::hurt_and_break(stack, 1, level, player, slot);
     });
 }
 
@@ -157,4 +157,15 @@ fn drop_from_shearing_loot_table(skeleton: &mut AbstractSkeleton, level: &mut Se
         let height = skeleton.base().get_bb_height();
         crate::world::entity::item::spawn_at_location(level, skeleton, stack, Vec3::new(0.0, f64::from(height), 0.0));
     }
+}
+
+/// `Monster.getProjectile(heldWeapon)` for a bow: the arrow held in a hand (off hand first), else a plain arrow.
+fn get_mob_projectile(skeleton: &AbstractSkeleton) -> ItemStack {
+    for slot in [EquipmentSlot::OffHand, EquipmentSlot::MainHand] {
+        let held = skeleton.get_item_by_slot(slot);
+        if crate::world::item::projectile_weapon_item::is_arrow(&held) {
+            return held;
+        }
+    }
+    ItemStack::new(Item::ARROW)
 }

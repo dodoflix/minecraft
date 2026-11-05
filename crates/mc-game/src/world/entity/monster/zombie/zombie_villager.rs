@@ -11,7 +11,7 @@ use crate::world::entity::mob;
 use crate::world::entity::spawn_group_data::SpawnGroupData;
 use crate::world::entity::synched_data::SynchedEntityDataBuilder;
 use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult};
+use crate::world::item::{InteractionHand, InteractionResult, ItemStackExt as _};
 use crate::world::item::trading::MerchantOffers;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
 use mc_core::pos::BlockPos;
@@ -80,10 +80,12 @@ pub fn define_synched_data(b: &mut SynchedEntityDataBuilder, _registries: &Regis
 /// `initializeZombieVillagerData(random)`: the default data with a random profession of the registry.
 fn initialize_zombie_villager_data(random: &mut dyn RandomSource) -> VillagerData {
     let mut villager_data = create_default_villager_data();
-    let count = VillagerProfession::COUNT as i32;
+    let count = VillagerProfession::iter().len() as i32;
     if count > 0 {
-        let index = random.next_int_bounded(count) as usize;
-        villager_data.profession = VillagerProfession::from_index(index);
+        let index = random.next_int_bounded(count) as u32;
+        if let Some(profession) = VillagerProfession::from_id(index) {
+            villager_data.profession = profession;
+        }
     }
     villager_data
 }
@@ -185,7 +187,8 @@ pub fn mob_interact(zombie: &mut Zombie, level: &mut ServerLevel, player: &mut S
     if in_hand.is(Item::GOLDEN_APPLE) {
         if zombie.has_effect(MobEffect::WEAKNESS) {
             mob::interact::with_hand_stack(player, hand, |stack, player| {
-                crate::world::item::item_utils::consume(stack, 1, player);
+                let infinite = player.has_infinite_materials();
+                stack.consume(1, infinite);
             });
             let time = zombie.base_mut().random.next_int_bounded(2401) + VILLAGER_CONVERSION_WAIT_MIN;
             start_converting(zombie, level, Some(player.uuid()), time);
