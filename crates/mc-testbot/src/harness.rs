@@ -37,30 +37,9 @@ pub struct OurServer {
 }
 
 impl OurServer {
-    /// `MC_SERVER_BIN` or `target/*/debug/mc-server` of the repo. `None` when no binary is available.
-    pub fn binary() -> Option<PathBuf> {
-        if let Ok(b) = std::env::var("MC_SERVER_BIN") {
-            return Some(PathBuf::from(b));
-        }
-        let root = repo_root();
-        std::fs::read_dir(root.join("target"))
-            .ok()?
-            .flatten()
-            .map(|e| e.path().join("debug/mc-server"))
-            .find(|p| p.exists())
-    }
-
-    pub fn start(bin: &Path, seed: i64, gamemode: &str) -> std::io::Result<Self> {
-        Self::start_with_props(bin, seed, gamemode, &[])
-    }
-
-    /// Like [`Self::start`]; `props` are `key=value` entries replacing the defaults of the same key (e.g. `difficulty=normal`,
-    /// `level-type=minecraft:flat`).
-    pub fn start_with_props(bin: &Path, seed: i64, gamemode: &str, props: &[&str]) -> std::io::Result<Self> {
-        Self::start_in(bin, seed, gamemode, props, None, false)
-    }
-
-    /// [`Self::start_with_props`] in `dir` (default: a fresh temp dir; the caller wipes/prepares it); `keep` leaves it on drop.
+    /// Starts `bin` for `seed` and `gamemode`; `props` are `key=value` entries replacing the defaults of the same key (e.g.
+    /// `difficulty=normal`, `level-type=minecraft:flat`). Runs in `dir` (default: a fresh temp dir; the caller wipes/prepares it);
+    /// `keep` leaves it on drop.
     pub fn start_in(bin: &Path, seed: i64, gamemode: &str, props: &[&str], dir: Option<PathBuf>, keep: bool) -> std::io::Result<Self> {
         let port = mc_testkit::free_port();
         let dir = dir.unwrap_or_else(|| std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id())));
@@ -124,30 +103,6 @@ impl OurServer {
     /// The server's working directory (`world/` lives in it).
     pub fn dir(&self) -> &Path {
         &self.dir
-    }
-
-    /// Sends `stop` and waits for the process to exit; false when it had to be killed after `timeout_s`.
-    pub fn stop_and_wait(&mut self, timeout_s: u32) -> bool {
-        self.cmd("stop");
-        for _ in 0..timeout_s * 10 {
-            if matches!(self.child.try_wait(), Ok(Some(_))) {
-                return true;
-            }
-            std::thread::sleep(std::time::Duration::from_millis(100));
-        }
-        let _ = self.child.kill();
-        false
-    }
-
-    /// Starts the (stopped) server again in the same directory with the same port; waits for `Done (`.
-    pub fn restart(&mut self, bin: &Path) -> std::io::Result<()> {
-        let (child, stdin, out) = Self::spawn(bin, &self.dir)?;
-        self.child = child;
-        *self.stdin.lock().expect("stdin lock") = stdin;
-        self.out = out;
-        self.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not restart:\n{}", self.log())))?;
-        std::thread::sleep(std::time::Duration::from_secs(1));
-        Ok(())
     }
 
     pub fn cmd(&self, command: &str) {
