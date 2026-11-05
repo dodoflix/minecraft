@@ -1,0 +1,47 @@
+# Starvation per difficulty (80-tick hunger damage floors), void damage below minY-64, fall damage by distance and difficulty.
+level flat
+difficulty easy
+spawn_player S1 survival 4.5 -60 0.5 0 0
+set S1 food 0
+set S1 saturation 0
+tick 1
+dump player:S1 packets:S1
+tick 400
+dump player:S1 packets:S1
+cmd difficulty normal
+spawn_player S2 survival 8.5 -60 0.5 0 0
+set S2 food 0
+set S2 saturation 0
+tick 1
+dump player:S2 packets:S2
+tick 400
+dump player:S2 packets:S2
+tick 1000
+dump player:S2 packets:S2
+cmd difficulty hard
+spawn_player S3 survival 12.5 -60 0.5 0 0
+set S3 food 0
+set S3 saturation 0
+tick 1
+dump player:S3 packets:S3
+tick 1900
+dump player:S3 packets:S3
+cmd difficulty peaceful
+spawn_player S4 survival 16.5 -60 0.5 0 0
+set S4 food 3
+set S4 health 5
+tick 1
+dump player:S4 packets:S4
+tick 100
+dump player:S4 packets:S4
+cmd difficulty normal
+spawn_player V1 survival 100.5 -100 0.5 0 0
+tick 1
+dump player:V1 packets:V1
+snap V1 100.5 -140 0.5 0 0
+tick 1
+dump player:V1 packets:V1
+tick 1
+dump player:V1 packets:V1
+tick 20
+dump player:V1 packets:V1

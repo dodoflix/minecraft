@@ -1,0 +1,39 @@
+# Totem of undying: which damage it saves from, hand priority, effects, packets; bypasses_invulnerability damage kills through it.
+level flat
+difficulty normal
+spawn_player T1 survival 4.5 -60 0.5 0 0
+spawn_player T2 survival 8.5 -60 0.5 0 0
+spawn_player T3 survival 12.5 -60 0.5 0 0
+spawn_player T4 survival 16.5 -60 0.5 0 0
+spawn_player T5 survival 20.5 -60 0.5 0 0
+spawn_player T6 survival 24.5 -60 0.5 0 0
+give T1 mainhand minecraft:totem_of_undying
+give T2 mainhand minecraft:totem_of_undying
+give T3 offhand minecraft:totem_of_undying
+give T4 mainhand minecraft:totem_of_undying
+give T5 mainhand minecraft:totem_of_undying
+give T6 mainhand minecraft:totem_of_undying
+effect T6 minecraft:poison 1 200
+effect T6 minecraft:weakness 0 200
+tick 1
+dump packets:T1 packets:T2 packets:T3 packets:T4 packets:T5 packets:T6
+hurt T1 generic 1000
+tick 1
+dump player:T1 inventory:T1 packets:T1
+hurt T2 out_of_world 1000
+tick 1
+dump player:T2 inventory:T2 packets:T2
+hurt T3 generic_kill 1000
+tick 1
+dump player:T3 inventory:T3 packets:T3
+hurt T4 drown 1000
+tick 1
+dump player:T4 inventory:T4 packets:T4
+hurt T5 explosion 1000
+tick 1
+dump player:T5 inventory:T5 packets:T5
+hurt T6 magic 1000
+tick 1
+dump player:T6 inventory:T6 packets:T6
+tick 40
+dump player:T1 player:T6 packets:T1 packets:T6

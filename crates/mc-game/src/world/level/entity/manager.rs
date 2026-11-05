@@ -103,6 +103,11 @@ impl PersistentEntitySectionManager {
         self.limbo.get(&id).map(|e| e.as_ref())
     }
 
+    /// Ids of the entities waiting in limbo.
+    pub fn removed_ids(&self) -> Vec<EntityId> {
+        self.limbo.keys().copied().collect()
+    }
+
     /// Hand a removed entity to its owner (players keep existing after removal).
     pub fn take_removed(&mut self, id: EntityId) -> Option<Box<dyn Entity>> {
         self.limbo.remove(&id)

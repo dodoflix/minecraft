@@ -715,6 +715,10 @@ impl Entity for ServerPlayer {
     fn is_always_experience_dropper(&self) -> bool {
         true
     }
+    /// `Player.getFireImmuneTicks()`.
+    fn get_fire_immune_ticks(&self) -> i32 {
+        20
+    }
     fn snapshot_for_damage(&self) -> Option<Box<dyn Entity>> {
         Some(super::damage::snapshot_for_damage(self))
     }

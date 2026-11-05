@@ -1,0 +1,46 @@
+# Drowning (air supply, damage every 20 ticks at -20, gamerule), freezing (powder snow, fully frozen damage), per difficulty.
+level flat
+difficulty normal
+fill 18 -61 -3 22 -52 3 minecraft:stone
+fill 19 -60 -2 21 -53 2 minecraft:water[level=0]
+spawn_player W1 survival 20.5 -60 0.5 0 0
+tick 1
+dump player:W1 packets:W1
+tick 100
+dump player:W1
+tick 200
+dump player:W1
+tick 19
+dump player:W1
+tick 1
+dump player:W1 packets:W1
+tick 19
+dump player:W1
+tick 1
+dump player:W1 packets:W1
+gamerule drowning_damage false
+tick 40
+dump player:W1 packets:W1
+gamerule drowning_damage true
+set W1 health 20
+set W1 air 300
+cmd difficulty hard
+set W1 air -19
+tick 1
+dump player:W1 packets:W1
+tick 20
+dump player:W1 packets:W1
+cmd difficulty normal
+# freezing: fully frozen (ticksFrozen >= 140) hurts 1 every 40 ticks (tickCount % 40); thaws 2 per tick outside powder snow
+spawn_player F1 survival 32.5 -60 0.5 0 0
+set F1 ticks_frozen 1000
+tick 1
+dump player:F1 packets:F1
+tick 80
+dump player:F1 packets:F1
+tick 400
+dump player:F1 packets:F1
+gamerule freeze_damage false
+set F1 ticks_frozen 1000
+tick 100
+dump player:F1 packets:F1

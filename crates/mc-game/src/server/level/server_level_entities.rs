@@ -93,6 +93,7 @@ impl ServerLevel {
 
     /// `removePlayerImmediately(player, reason)` = `player.remove(reason)`.
     pub fn remove_player_immediately(&mut self, id: EntityId, reason: RemovalReason) {
+        self.dead_players.remove(&id);
         self.with_entity(id, |_, e| e.remove(reason));
     }
 
@@ -126,7 +127,7 @@ impl ServerLevel {
 
     /// Take an entity out of its slot (lookups return `None` while it is out). Pair with [`ServerLevel::put_back_entity`].
     pub fn take_entity(&mut self, id: EntityId) -> Option<Box<dyn Entity>> {
-        let entity = self.entity_manager.take(id)?;
+        let entity = self.entity_manager.take(id).or_else(|| self.dead_players.remove(&id))?;
         if let Some(p) = entity.as_any().downcast_ref::<crate::world::entity::ServerPlayer>() {
             self.taken_out_players.insert(id, super::TrackerPlayer::of(p));
         }
@@ -245,7 +246,19 @@ impl ServerLevel {
                 }
             }
         }
+        // a killed player's entity leaves the level but the player lives on (player list, connection, respawn)
+        let dead: Vec<EntityId> = self.entity_manager.removed_ids().into_iter().filter(|&id| self.entity_manager.get_removed(id).is_some_and(|e| e.is_player() && e.base().removal_reason() == Some(RemovalReason::Killed) && e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(|p| p.connection.is_some()))).collect();
+        for id in dead {
+            if let Some(player) = self.entity_manager.take_removed(id) {
+                self.dead_players.insert(id, player);
+            }
+        }
         self.entity_manager.clear_limbo();
+    }
+
+    /// A killed player that is no longer in the level (see [`ServerLevel::dead_players`]).
+    pub fn get_dead_player(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.dead_players.get(&id).map(|e| e.as_ref())
     }
 
     fn handle_entity_event(&mut self, event: EntityLevelEvent) {

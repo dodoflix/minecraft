@@ -115,7 +115,8 @@ spawn_player A6 survival 24.5 -60 0.5 0 0
 give A6 head minecraft:netherite_helmet
 give A6 chest minecraft:netherite_chestplate
 give A6 legs minecraft:netherite_leggings
-give A6 feet minecraft:netherite_boots
+# (a full netherite set would grant the "Cover Me in Debris" advancement: 100 xp)
+give A6 feet minecraft:leather_boots
 tick 1
 dump player:A6 inventory:A6 packets:A6
 hurt A6 generic 3

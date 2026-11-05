@@ -1,28 +1,38 @@
-//! Damage pipeline golden: the scenarios `tests/oracle/scenarios/{damage_*,death_*}.txt` run on the real vanilla server
-//! (`scripts/entity-oracle.sh`, fixtures in `tests/fixtures/entity_oracle/`) are replayed on our `ServerPlayer` over a
-//! `ServerLevel` with the real vanilla registries (damage types + tags, enchantments, loot tables) and compared line by line:
-//! `P` lines (health, absorption, hurt time / damage cooldown, death time, food, saturation, exhaustion, alive) and `HURT`
-//! results.
+//! Damage pipeline / death / respawn golden: the scenarios `tests/oracle/scenarios/{damage_*,death_*,hurt_*}.txt` run on the
+//! real vanilla server (`scripts/entity-oracle.sh`, fixtures in `tests/fixtures/entity_oracle/`) are replayed on our
+//! `ServerPlayer`s + `ServerLevel` (real vanilla registries: damage types + tags, enchantments, loot tables) and compared line
+//! by line, nothing ignored but the `PKT` types listed in [`PKT_TYPES`] complement (the join burst, chunk/tracker traffic).
 //!
-//! Replay subset: `level`, `difficulty`, `gamerule`, `spawn_player`, `give` (plain item ids), `effect`, `set health|absorption`,
-//! `hurt` (no `by=`/`direct=`/`at=`), `tick`, `dump player:`. Scenarios needing mobs, item components, the connection packets
-//! (`PKT` lines), inventories or respawn are not replayed yet (see STATUS: EcDamage known gaps).
+//! Replay: `level`, `difficulty`, `gamerule`, `cmd difficulty`, `spawn` (a living stand-in `Mob` for any entity type: attackers
+//! only need name/equipment/position), `spawn_player`, `give` (item components via the command item parser), `effect`, `set`,
+//! `snap`, `use`, `hurt` (`by=`/`direct=`/`at=`), `respawn` (`PlayerList.respawn` core), `tick`, `watch`, `dump`
+//! (`player:`/`entity:`/`entities`/`inventory:`/`packets:`).
 mod common;
 use common::entity_oracle::*;
 use mc_core::ident::Identifier;
-use mc_core::pos::BlockPos;
+use mc_core::phys::Vec3;
+use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::Block;
 use mc_data::enums::GameType;
-use mc_data::{Item, MobEffect};
+use mc_data::{EntityType, Item, MobEffect};
 use mc_game::server::level::ServerLevel;
+use mc_game::server::network::{ConnectionSender, Outbound};
+use mc_game::server::players::PlayerHandle;
 use mc_game::world::damagesource::DamageSource;
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::equipment::EquipmentSlot;
-use mc_game::world::entity::{Entity, ServerPlayer};
-use mc_game::world::item::ItemStack;
-use mc_game::world::level::LevelAccessor;
+use mc_game::world::entity::living::{self, LivingEntityData};
+use mc_game::world::entity::{Entity, EntityData, EntityId, ServerPlayer};
+use mc_game::world::item::{InteractionHand, ItemStack};
+use mc_game::world::level::{BlockGetter, LevelAccessor};
+use mc_game::world::level::entity::Visibility;
+use mc_nbt::CompoundTag;
 use mc_protocol::codec::GameProfile;
+use mc_protocol::packet::{ConnectionState, PacketFlow, packet_names};
 use mc_world::level_storage::Difficulty;
+use std::any::Any;
+use std::collections::HashMap;
+use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
 
 static ACCESS: std::sync::LazyLock<mc_game::registry::RegistryAccess> = std::sync::LazyLock::new(|| {
     let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
@@ -35,34 +45,271 @@ fn registries() -> mc_game::registry::RegistryAccess {
     ACCESS.clone()
 }
 
-struct Replay {
-    level: ServerLevel,
-    players: Vec<(String, ServerPlayer)>,
-    out: Vec<String>,
-    next_id: i32,
-    world: mc_game::server::level::level_data::SharedWorldData,
-}
-
 fn f(v: f32) -> String {
     mc_core::math::java::java_float_to_string(v)
 }
 
+fn d(v: f64) -> String {
+    mc_core::math::java::java_double_to_string(v)
+}
+
+fn overworld() -> Identifier {
+    Identifier::parse("minecraft:overworld").unwrap()
+}
+
+/// The oracle driver's `tokens`: whitespace separated, `[..]`, `{..}` and `".."` keep their spaces.
+fn tokens(s: &str) -> Vec<String> {
+    let mut r = Vec::new();
+    let mut cur = String::new();
+    let (mut depth, mut quote) = (0i32, false);
+    for c in s.chars() {
+        if c == '"' {
+            quote = !quote;
+        }
+        if !quote {
+            if c == '[' || c == '{' {
+                depth += 1;
+            } else if c == ']' || c == '}' {
+                depth -= 1;
+            }
+        }
+        if c.is_whitespace() && depth == 0 && !quote {
+            if !cur.is_empty() {
+                r.push(std::mem::take(&mut cur));
+            }
+        } else {
+            cur.push(c);
+        }
+    }
+    if !cur.is_empty() {
+        r.push(cur);
+    }
+    r
+}
+
+/// `EntityOracleDriver.hash`.
+fn driver_hash(s: &str) -> i64 {
+    let mut h: i64 = 1125899906842597;
+    for c in s.encode_utf16() {
+        h = h.wrapping_mul(31).wrapping_add(i64::from(c));
+    }
+    h
+}
+
+fn item_string(s: &ItemStack) -> String {
+    if s.is_empty() {
+        return "empty".into();
+    }
+    let mut b = format!("{}*{}", s.item().name(), s.count());
+    if s.is_damageable_item() && s.get_damage_value() != 0 {
+        b.push_str(&format!("/dmg={}", s.get_damage_value()));
+    }
+    b
+}
+
+fn pose_name(pose: mc_data::enums::Pose) -> String {
+    format!("{pose:?}").chars().fold(String::new(), |mut s, c| {
+        if c.is_uppercase() && !s.is_empty() {
+            s.push('_');
+        }
+        s.push(c.to_ascii_lowercase());
+        s
+    })
+}
+
+fn parse_state(text: &str) -> mc_data::block::BlockState {
+    let (name, props) = match text.split_once('[') {
+        Some((n, p)) => (n, Some(p.trim_end_matches(']'))),
+        None => (text, None),
+    };
+    let block = Block::by_name(name).unwrap_or_else(|| panic!("block {name}"));
+    let props: Vec<(&str, &str)> = props.map(|p| p.split(',').filter_map(|kv| kv.split_once('=')).collect()).unwrap_or_default();
+    block.state_from_properties(props).expect("valid properties")
+}
+
+fn parse_stack(spec: &str, count: i32) -> ItemStack {
+    use mc_game::commands::CommandBuildContext;
+    use mc_game::commands::command_build_context::StaticRegistries;
+    use std::sync::Arc;
+    let context = CommandBuildContext::simple(Arc::new(StaticRegistries), mc_world::level_storage::FeatureFlagSet::ALL);
+    let mut reader = mc_brigadier::StringReader::new(spec);
+    let mut stack = mc_game::commands::arguments::item::item_parser::ItemParser::new(&context)
+        .parse(&mut reader)
+        .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"))
+        .create_item_stack(1)
+        .unwrap_or_else(|e| panic!("stack {spec}: {e:?}"));
+    stack.set_count(count);
+    stack
+}
+
+// ---------------------------------------------------------------------------------------------------- stand-in mob
+
+/// A living entity of any type with nothing but the `LivingEntity` state: what the scenarios use `spawn Z minecraft:zombie ...`
+/// for (attacker with a name, a main hand item and a position; `NoAI`).
+struct Mob {
+    living: LivingEntityData,
+}
+
+impl Mob {
+    fn new(ty: EntityType, id: EntityId) -> Self {
+        let mut living = LivingEntityData::new(ty, id, 300, |_| {});
+        let max = living.get_max_health();
+        living.set_health(max);
+        Mob { living }
+    }
+}
+
+impl Entity for Mob {
+    fn base(&self) -> &EntityData {
+        &self.living.entity
+    }
+    fn base_mut(&mut self) -> &mut EntityData {
+        &mut self.living.entity
+    }
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+    fn as_any_mut(&mut self) -> &mut dyn Any {
+        self
+    }
+    fn as_dyn(&self) -> &dyn Entity {
+        self
+    }
+    fn as_dyn_mut(&mut self) -> &mut dyn Entity {
+        self
+    }
+    fn living(&self) -> Option<&LivingEntityData> {
+        Some(&self.living)
+    }
+    fn living_mut(&mut self) -> Option<&mut LivingEntityData> {
+        Some(&mut self.living)
+    }
+    /// `Mob.isEffectiveAi()` with `NoAI`: the scenarios only spawn NoAI attackers.
+    fn is_effective_ai(&self) -> bool {
+        false
+    }
+    fn add_additional_save_data(&self, out: &mut CompoundTag) {
+        living::add_additional_save_data(&self.living, self.living.absorption_amount, &self.living.equipment, out);
+    }
+    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+        let (absorption, equipment) = living::read_additional_save_data(&mut self.living, input);
+        self.living.absorption_amount = absorption;
+        self.living.equipment = equipment;
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------- replay
+
+/// Packet types compared (`PKT` lines of other types are dropped from both sides: join/respawn bursts, chunk and tracker traffic).
+const PKT_TYPES: &[&str] = &[
+    "minecraft:damage_event",
+    "minecraft:hurt_animation",
+    "minecraft:entity_event",
+    "minecraft:player_combat_kill",
+    "minecraft:player_combat_enter",
+    "minecraft:player_combat_end",
+    "minecraft:set_health",
+    "minecraft:set_experience",
+    "minecraft:update_mob_effect",
+    "minecraft:remove_mob_effect",
+];
+
+fn hex(bytes: &[u8]) -> String {
+    bytes.iter().map(|b| format!("{b:02x}")).collect()
+}
+
+fn read_varint(bytes: &[u8]) -> i32 {
+    let (mut value, mut shift) = (0i32, 0);
+    for &b in bytes {
+        value |= i32::from(b & 0x7f) << shift;
+        if b & 0x80 == 0 {
+            break;
+        }
+        shift += 7;
+    }
+    value
+}
+
+struct Replay {
+    level: ServerLevel,
+    refs: HashMap<String, EntityId>,
+    names: Vec<String>,
+    players: Vec<String>,
+    rx: HashMap<String, UnboundedReceiver<Outbound>>,
+    out: Vec<String>,
+    next_id: EntityId,
+    ticks: i64,
+    known: std::collections::HashSet<EntityId>,
+    auto_counter: HashMap<String, i32>,
+    watches: Vec<Vec<String>>,
+    world: mc_game::server::level::level_data::SharedWorldData,
+    packet_names: HashMap<i32, &'static str>,
+    /// the oracle world exists (first world command ran): every later command restarts the entity seed sequence
+    booted: bool,
+}
+
 impl Replay {
     fn new() -> Self {
-        let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+        let mut level = ServerLevel::detached(overworld());
         level.registries = registries();
         let world = mc_game::server::level::level_data::default_world_data();
         level.level_data = Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(world.clone()));
-        for x in -3..=60 {
-            for z in -4..=4 {
+        for x in -3..=130 {
+            for z in -4..=12 {
                 level.set_block_and_update(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state());
             }
         }
-        Replay { level, players: Vec::new(), out: Vec::new(), next_id: 1, world }
+        for cx in -1..=8 {
+            for cz in -1..=1 {
+                level.entity_manager.update_chunk_status(ChunkPos::new(cx, cz), Visibility::Ticking);
+            }
+        }
+        let packet_names = packet_names(ConnectionState::Play, PacketFlow::Clientbound).iter().copied().collect();
+        Replay {
+            level,
+            refs: HashMap::new(),
+            names: Vec::new(),
+            players: Vec::new(),
+            rx: HashMap::new(),
+            out: Vec::new(),
+            next_id: 1,
+            ticks: 0,
+            known: Default::default(),
+            auto_counter: HashMap::new(),
+            watches: Vec::new(),
+            world,
+            packet_names,
+            booted: false,
+        }
     }
 
-    fn player(&mut self, name: &str) -> &mut ServerPlayer {
-        &mut self.players.iter_mut().find(|(n, _)| n == name).unwrap_or_else(|| panic!("no player {name}")).1
+    fn id_of(&self, name: &str) -> EntityId {
+        *self.refs.get(name).unwrap_or_else(|| panic!("unknown ref {name}"))
+    }
+
+    fn entity(&self, name: &str) -> &dyn Entity {
+        let id = self.id_of(name);
+        self.level.get_entity(id).or_else(|| self.level.get_dead_player(id)).unwrap_or_else(|| panic!("{name} is not in the level"))
+    }
+
+    fn with_player<R>(&mut self, name: &str, f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R) -> R {
+        let id = self.id_of(name);
+        self.level.with_player(id, f).unwrap_or_else(|| panic!("{name} is not a player"))
+    }
+
+    fn with_entity<R>(&mut self, name: &str, f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R) -> R {
+        let id = self.id_of(name);
+        self.level.with_entity(id, f).unwrap_or_else(|| panic!("{name} is not in the level"))
+    }
+
+    fn set_difficulty(&mut self, name: &str) {
+        let d = match name {
+            "peaceful" => Difficulty::Peaceful,
+            "easy" => Difficulty::Easy,
+            "hard" => Difficulty::Hard,
+            _ => Difficulty::Normal,
+        };
+        self.world.lock().settings.difficulty_settings.difficulty = d;
     }
 
     fn run_line(&mut self, line: &str) {
@@ -70,21 +317,21 @@ impl Replay {
         if line.is_empty() || line.starts_with('#') {
             return;
         }
-        let t: Vec<&str> = line.split_whitespace().collect();
-        match t[0] {
+        let t = tokens(line);
+        if self.booted && t[0] != "reseed" {
+            mc_core::random::reseed_uniquifier(driver_hash(line));
+        }
+        match t[0].as_str() {
             "level" => {}
-            "difficulty" => {
-                let d = match t[1] {
-                    "peaceful" => Difficulty::Peaceful,
-                    "easy" => Difficulty::Easy,
-                    "hard" => Difficulty::Hard,
-                    _ => Difficulty::Normal,
-                };
-                self.world.lock().settings.difficulty_settings.difficulty = d;
+            "difficulty" => self.set_difficulty(&t[1]),
+            "cmd" => {
+                let c = tokens(&line[3..].trim());
+                assert!(c.len() == 2 && c[0] == "difficulty", "unsupported cmd `{line}`");
+                self.set_difficulty(&c[1]);
             }
             "gamerule" => {
                 let v = t[2] == "true";
-                self.level.server_state.rules.update(|r| match t[1] {
+                self.level.server_state.rules.update(|r| match t[1].as_str() {
                     "keep_inventory" => r.keep_inventory = v,
                     "fall_damage" => r.fall_damage = v,
                     "fire_damage" => r.fire_damage = v,
@@ -95,90 +342,379 @@ impl Replay {
                     other => panic!("gamerule {other}"),
                 });
             }
-            "spawn_player" => {
-                let id = self.next_id;
-                self.next_id += 1;
-                let profile = GameProfile { id: uuid::Uuid::from_u128(id as u128), name: t[1].into(), properties: vec![] };
-                let mut p = ServerPlayer::new(id, Identifier::parse("minecraft:overworld").unwrap(), profile, Default::default());
-                let mode = match t[2] {
-                    "creative" => GameType::Creative,
-                    "spectator" => GameType::Spectator,
-                    "adventure" => GameType::Adventure,
-                    _ => GameType::Survival,
-                };
-                p.set_game_mode_for_player(mode, None);
-                let n = |i: usize| t[i].parse::<f64>().unwrap();
-                p.snap_to(n(3), n(4), n(5), 0.0, 0.0);
-                self.players.push((t[1].to_string(), p));
+            "block" => {
+                let state = parse_state(&t[4]);
+                self.level.set_block(BlockPos::new(t[1].parse().unwrap(), t[2].parse().unwrap(), t[3].parse().unwrap()), state, 3, 512);
             }
-            "give" => {
-                let slot = match t[2] {
-                    "chest" => EquipmentSlot::Chest,
-                    "head" => EquipmentSlot::Head,
-                    "legs" => EquipmentSlot::Legs,
-                    "feet" => EquipmentSlot::Feet,
-                    other => panic!("slot {other}"),
-                };
-                let item = Item::by_name(t[3]).unwrap_or_else(|| panic!("item {}", t[3]));
-                self.player(t[1]).player.inventory.equipment_set(slot, ItemStack::new(item));
-            }
-            "effect" => {
-                let effect = MobEffect::by_name(t[2]).unwrap_or_else(|| panic!("effect {}", t[2]));
-                let (amp, dur) = (t[3].parse().unwrap(), t[4].parse().unwrap());
-                let (level, players) = (&mut self.level, &mut self.players);
-                let p = &mut players.iter_mut().find(|(n, _)| n == t[1]).unwrap().1;
-                p.add_effect(level, MobEffectInstance::new(effect, dur, amp, false, true, true, None), None);
-            }
-            "set" => {
-                let v: f32 = t[3].parse().unwrap();
-                let p = self.player(t[1]);
-                match t[2] {
-                    "health" => p.player.living.set_health(v),
-                    "absorption" => p.player.internal_set_absorption_amount(v),
-                    other => panic!("set {other}"),
-                }
-            }
-            "hurt" => {
-                let (level, players) = (&mut self.level, &mut self.players);
-                let p = &mut players.iter_mut().find(|(n, _)| n == t[1]).unwrap().1;
-                let key = Identifier::parse(&format!("minecraft:{}", t[2])).unwrap();
-                let data = level.registries.get::<mc_game::registry::typed::damage_type::DamageType>("minecraft:damage_type", &key).expect("damage type").clone();
-                let source = DamageSource::new(key, std::sync::Arc::new(data), None, None, None);
-                let r = p.hurt_server(level, &source, t[3].parse::<f64>().unwrap() as f32);
-                self.out.push(format!("HURT {} {} {} -> {}", t[1], t[2], t[3], r));
-            }
-            "tick" => {
-                for _ in 0..t.get(1).map_or(1, |n| n.parse().unwrap()) {
-                    let level = &mut self.level;
-                    for (_, p) in &mut self.players {
-                        mc_game::world::entity::entity::common_tick(p);
-                        p.tick(level);
-                        p.do_tick(level);
+            "fill" => {
+                let state = parse_state(&t[7]);
+                let n = |i: usize| t[i].parse::<i32>().unwrap();
+                for x in n(1).min(n(4))..=n(1).max(n(4)) {
+                    for y in n(2).min(n(5))..=n(2).max(n(5)) {
+                        for z in n(3).min(n(6))..=n(3).max(n(6)) {
+                            self.level.set_block(BlockPos::new(x, y, z), state, 3, 512);
+                        }
                     }
                 }
             }
-            "dump" => {
-                for w in &t[1..] {
-                    if let Some(name) = w.strip_prefix("player:") {
-                        let p = self.player(name);
-                        let l = &p.player.living;
-                        let line = format!(
-                            "P {name} minecraft:player alive={} hp={} abs={} hurt={}/{} death={} food={} sat={} exh={}",
-                            u8::from(p.is_alive()),
-                            f(l.get_health()),
-                            f(p.player.get_absorption_amount()),
-                            l.hurt_time,
-                            l.damage_cooldown_time,
-                            l.death_time,
-                            p.player.food_data.get_food_level(),
-                            f(p.player.food_data.get_saturation_level()),
-                            f(p.player.food_data.exhaustion_level),
-                        );
+            "spawn_player" => self.spawn_player(&t),
+            "spawn" => self.spawn(&t),
+            "give" => self.give(&t),
+            "effect" => {
+                let effect = MobEffect::by_name(&t[2]).unwrap_or_else(|| panic!("effect {}", t[2]));
+                let (amp, dur) = (t[3].parse().unwrap(), t[4].parse().unwrap());
+                let hidden = t.iter().any(|s| s == "hidden");
+                let added = self.with_entity(&t[1], |level, e| e.add_effect(level, MobEffectInstance::new(effect, dur, amp, false, !hidden, !hidden, None), None));
+                self.out.push(format!("EFFECT {} {} added={}", t[1], t[2], added));
+            }
+            "set" => {
+                let v: f64 = t[3].parse().unwrap_or(0.0);
+                let what = t[2].clone();
+                self.with_entity(&t[1], |_, e| match what.as_str() {
+                    "health" => e.living_mut().expect("living").set_health(v as f32),
+                    "absorption" => e.set_absorption_amount(v as f32),
+                    "xp_level" => e.as_any_mut().downcast_mut::<ServerPlayer>().expect("player").set_experience_levels(v as i32),
+                    "food" => e.player_mut().expect("player").food_data.set_food_level(v as i32),
+                    "saturation" => e.player_mut().expect("player").food_data.set_saturation(v as f32),
+                    "exhaustion" => e.player_mut().expect("player").food_data.exhaustion_level = v as f32,
+                    "air" => e.base_mut().set_air_supply(v as i32),
+                    "fire" => e.base_mut().remaining_fire_ticks = v as i32,
+                    "fall_distance" => e.base_mut().fall_distance = v,
+                    "ticks_frozen" => e.base_mut().set_ticks_frozen(v as i32),
+                    other => panic!("set {other}"),
+                });
+            }
+            "snap" => {
+                let n = |i: usize| t[i].parse::<f64>().unwrap();
+                let (x, y, z) = (n(2), n(3), n(4));
+                self.with_entity(&t[1], |_, e| {
+                    let yaw = t.get(5).map_or(e.base().y_rot(), |s| s.parse::<f64>().unwrap() as f32);
+                    let pitch = t.get(6).map_or(e.base().x_rot(), |s| s.parse::<f64>().unwrap() as f32);
+                    e.snap_to(x, y, z, yaw, pitch);
+                });
+            }
+            "use" => {
+                let hand = if t.get(2).is_some_and(|h| h == "off") { InteractionHand::OffHand } else { InteractionHand::MainHand };
+                self.with_player(&t[1], |level, p| {
+                    p.use_item(level, hand);
+                });
+            }
+            "hurt" => self.hurt(&t),
+            "respawn" => self.respawn(&t[1]),
+            "tick" => {
+                for _ in 0..t.get(1).map_or(1, |n| n.parse().unwrap()) {
+                    self.tick_once();
+                }
+            }
+            "watch" => {
+                if t[1] == "off" {
+                    self.watches.clear();
+                } else {
+                    self.watches.push(t[1..].to_vec());
+                }
+            }
+            "dump" => self.dump(&t[1..]),
+            other => panic!("unsupported scenario command `{other}`"),
+        }
+        self.name_new_entities();
+        self.booted |= !matches!(t[0].as_str(), "level" | "seed" | "difficulty" | "preload" | "note");
+    }
+
+    fn spawn_player(&mut self, t: &[String]) {
+        let id = self.next_id;
+        self.next_id += 1;
+        let name = t[1].clone();
+        mc_core::random::reseed_uniquifier(driver_hash(&name));
+        let profile = GameProfile { id: mc_core::uuid_util::create_offline_player_uuid(&name), name: name.clone(), properties: vec![] };
+        let mut p = ServerPlayer::new(id, overworld(), profile.clone(), Default::default());
+        let mode = match t[2].as_str() {
+            "creative" => GameType::Creative,
+            "spectator" => GameType::Spectator,
+            "adventure" => GameType::Adventure,
+            _ => GameType::Survival,
+        };
+        p.set_game_mode_for_player(mode, None);
+        let n = |i: usize| t[i].parse::<f64>().unwrap();
+        let rot = |i: usize| t.get(i).filter(|s| s.parse::<f64>().is_ok()).map_or(0.0, |s| s.parse::<f64>().unwrap() as f32);
+        p.snap_to(n(3), n(4), n(5), rot(6), rot(7));
+        // the oracle derives onGround once from the collision below (`!noCollision(box.move(0, -1.0E-3, 0))`)
+        let below = BlockPos::new(mc_core::math::mth::floor_f64(n(3)), mc_core::math::mth::floor_f64(n(4) - 1.0e-3), mc_core::math::mth::floor_f64(n(5)));
+        p.base_mut().set_on_ground_raw(!self.level.get_block_state(below).is_air());
+        p.simulate_local_player = t.last().is_some_and(|l| l == "sim");
+        // the connection: every packet the player (and the player list on its behalf) sends lands in `rx`
+        let (tx, rx) = unbounded_channel();
+        let sender = ConnectionSender::new(tx);
+        p.connection = Some(sender.clone());
+        let handle = PlayerHandle::new(id, profile, sender, "127.0.0.1".into(), mc_game::world::level::DimensionKey::try_parse("minecraft:overworld").unwrap());
+        p.handle = Some(handle.clone());
+        p.sync_handle();
+        self.level.server_state.roster.add(handle);
+        self.level.add_player(Box::new(p));
+        self.refs.insert(name.clone(), id);
+        self.players.push(name.clone());
+        self.names.push(name.clone());
+        self.rx.insert(name, rx);
+        self.known.insert(id);
+    }
+
+    fn spawn(&mut self, t: &[String]) {
+        let id = self.next_id;
+        self.next_id += 1;
+        mc_core::random::reseed_uniquifier(driver_hash(&t[1]));
+        let ty = EntityType::by_name(&t[2]).unwrap_or_else(|| panic!("entity type {}", t[2]));
+        let mut mob = Mob::new(ty, id);
+        let n = |i: usize| t[i].parse::<f64>().unwrap();
+        let snbt = t.last().filter(|s| s.starts_with('{') && t.len() > 6).cloned();
+        let rotated = t.len() - usize::from(snbt.is_some()) > 7;
+        mob.snap_to(n(3), n(4), n(5), if rotated { n(6) as f32 } else { 0.0 }, if rotated { n(7) as f32 } else { 0.0 });
+        if let Some(snbt) = snbt {
+            let mut tag = CompoundTag::new();
+            tag.merge(&mc_nbt::snbt::parse_compound(&snbt).expect("snbt"));
+            mob.read_additional_save_data(&tag);
+            if let Some(name) = tag.get_string("CustomName") {
+                mob.base_mut().set_custom_name(Some(mc_text::Component::from_json_str(name).expect("custom name json")));
+            }
+        }
+        self.level.add_fresh_entity(Box::new(mob));
+        self.refs.insert(t[1].clone(), id);
+        self.names.push(t[1].clone());
+        self.known.insert(id);
+    }
+
+    fn give(&mut self, t: &[String]) {
+        let count = t.get(4).map_or(1, |c| c.parse().unwrap());
+        let stack = parse_stack(&t[3], count);
+        let slot = t[2].clone();
+        self.with_entity(&t[1], |level, e| {
+            if let Some(i) = slot.strip_prefix("hotbar").or_else(|| slot.strip_prefix("inv")).and_then(|i| i.parse::<usize>().ok()) {
+                e.as_any_mut().downcast_mut::<ServerPlayer>().expect("player").player.inventory.get_non_equipment_items_mut()[i] = stack;
+                return;
+            }
+            let es = match slot.as_str() {
+                "mainhand" => EquipmentSlot::MainHand,
+                "offhand" => EquipmentSlot::OffHand,
+                "head" => EquipmentSlot::Head,
+                "chest" => EquipmentSlot::Chest,
+                "legs" => EquipmentSlot::Legs,
+                "feet" => EquipmentSlot::Feet,
+                other => panic!("slot {other}"),
+            };
+            match e.as_any_mut().downcast_mut::<ServerPlayer>() {
+                Some(p) => p.set_item_slot(level, es, stack),
+                None => {
+                    e.living_mut().expect("living").equipment.set(es, stack);
+                }
+            }
+        });
+    }
+
+    fn hurt(&mut self, t: &[String]) {
+        let key = Identifier::parse(&if t[2].contains(':') { t[2].clone() } else { format!("minecraft:{}", t[2]) }).unwrap();
+        let data = self.level.registries.get::<mc_game::registry::typed::damage_type::DamageType>("minecraft:damage_type", &key).expect("damage type").clone();
+        let kv: HashMap<&str, &str> = t[4..].iter().filter_map(|s| s.split_once('=')).collect();
+        let by = kv.get("by").map(|n| self.id_of(n));
+        let direct = kv.get("direct").map(|n| self.id_of(n)).or(by);
+        let at = kv.get("at").map(|s| {
+            let v: Vec<f64> = s.split(',').map(|x| x.parse().unwrap()).collect();
+            Vec3::new(v[0], v[1], v[2])
+        });
+        let source = DamageSource::new(
+            key,
+            std::sync::Arc::new(data),
+            direct.map(|id| self.level.get_entity(id).expect("direct entity")),
+            by.map(|id| self.level.get_entity(id).expect("causing entity")),
+            at,
+        );
+        let amount = t[3].parse::<f64>().unwrap() as f32;
+        let r = self.with_entity(&t[1], |level, e| e.hurt_server(level, &source, amount));
+        self.out.push(format!("HURT {} {} {} -> {}", t[1], t[2], t[3], r));
+    }
+
+    /// `ServerboundClientCommandPacket(PERFORM_RESPAWN)` -> `PlayerList.respawn(player, false)`: the level half of it (the
+    /// packet burst that is not compared is skipped).
+    fn respawn(&mut self, name: &str) {
+        use mc_game::server::players::respawn::{create_respawned_player, find_spawn_position, take_old_player};
+        let id = self.id_of(name);
+        let keep_inventory = self.level.keep_inventory();
+        let old = take_old_player(&mut self.level, id, mc_game::world::entity::RemovalReason::Killed).expect("player");
+        let position = find_spawn_position(&mut self.level, false, 10, BlockPos::new(0, -60, 0));
+        let transition = mc_game::server::players::teleport_transition::TeleportTransition::new(old.dimension.clone(), position, Vec3::ZERO, 0.0, 0.0, mc_game::server::players::teleport_transition::PostTeleportTransition::DO_NOTHING);
+        let mut new = create_respawned_player(old, &mut self.level, &transition, false, keep_inventory);
+        new.send(&mc_protocol::packets::play::ClientboundSetExperiencePacket {
+            experience_progress: new.player.experience_progress,
+            experience_level: new.player.experience_level,
+            total_experience: new.player.total_experience,
+        });
+        mc_game::server::players::join::send_active_player_effects(&new);
+        // `PlayerList.sendPlayerPermissionLevel`: entity event 24 (op level 0)
+        new.send(&mc_protocol::packets::play::ClientboundEntityEventPacket { entity_id: id, event_id: 24 });
+        self.level.add_player(Box::new(new));
+        self.with_player(name, |level, p| p.init_inventory_menu(level));
+    }
+
+    fn tick_once(&mut self) {
+        self.ticks += 1;
+        // `VanillaLevel.tick`: every tick restarts the entity-seed sequence
+        mc_core::random::reseed_uniquifier(8682522807148012i64 ^ self.ticks.wrapping_mul(0x9E3779B97F4A7C15u64 as i64));
+        for name in self.players.clone() {
+            self.with_player(&name, |_, p| {
+                if p.simulate_local_player {
+                    p.apply_input();
+                }
+            });
+        }
+        self.level.tick_entity_tracker();
+        self.level.for_each_ticking(|level, e| {
+            if !e.is_removed() {
+                mc_game::world::entity::entity::common_tick(e);
+                e.tick(level);
+            }
+        });
+        for name in self.players.clone() {
+            // `ServerGamePacketListenerImpl.tickPlayer`: `doTick()`, then a client-authoritative player is snapped back to
+            // the position it had when the connection tick started (its server-side motion is thrown away)
+            self.with_player(&name, |level, p| {
+                let (pos, y_rot, x_rot) = (p.position(), p.get_y_rot(), p.get_x_rot());
+                p.base_mut().set_old_pos(pos);
+                p.do_tick(level);
+                if !p.simulate_local_player {
+                    p.abs_snap_to(pos.x, pos.y, pos.z, y_rot, x_rot);
+                }
+            });
+        }
+        self.name_new_entities();
+        if !self.watches.is_empty() {
+            self.out.push(format!("T {}", self.ticks));
+            for w in self.watches.clone() {
+                self.dump(&w);
+            }
+        }
+    }
+
+    /// Entities created by game logic get stable names `type_path#n` in creation order (the driver's `nameNewEntities`).
+    fn name_new_entities(&mut self) {
+        let big = mc_core::phys::AABB::new(-1.0e6, -1.0e4, -1.0e6, 1.0e6, 1.0e4, 1.0e6);
+        let mut ids = self.level.get_entities(None, &big, |_| true);
+        ids.sort_unstable();
+        for id in ids {
+            if self.known.insert(id) {
+                let path = self.level.get_entity(id).map(|e| e.get_type().name().trim_start_matches("minecraft:").to_owned()).unwrap_or_default();
+                let n = self.auto_counter.entry(path.clone()).and_modify(|n| *n += 1).or_insert(1);
+                let name = format!("{path}#{n}");
+                self.refs.insert(name.clone(), id);
+                self.names.push(name);
+            }
+        }
+    }
+
+    fn dump(&mut self, what: &[String]) {
+        for w in what {
+            let (kind, arg) = w.split_once(':').map_or((w.as_str(), ""), |(k, a)| (k, a));
+            match kind {
+                "player" | "entity" => {
+                    let line = self.describe(arg);
+                    self.out.push(line);
+                }
+                "all_players" => {
+                    for name in self.players.clone() {
+                        let line = self.describe(&name);
                         self.out.push(line);
                     }
                 }
+                "entities" => {
+                    self.name_new_entities();
+                    let mut all: Vec<(EntityId, String)> = self
+                        .names
+                        .iter()
+                        .filter_map(|n| {
+                            let id = self.refs[n];
+                            let e = self.level.get_entity(id)?;
+                            (!e.is_player() && e.is_alive()).then(|| (id, n.clone()))
+                        })
+                        .collect();
+                    all.sort();
+                    for (_, name) in all {
+                        let line = self.describe(&name);
+                        self.out.push(line);
+                    }
+                }
+                "inventory" => {
+                    let lines: Vec<String> = {
+                        let p = self.entity(arg).player().expect("player");
+                        let inv = &p.inventory;
+                        let mut v = Vec::new();
+                        // `Inventory.getItem(i)`: 0..35 hotbar + main, 36..39 feet legs chest head, 40 offhand
+                        let items = inv.get_non_equipment_items();
+                        for (i, s) in items.iter().enumerate() {
+                            if !s.is_empty() {
+                                v.push(format!("I {arg} {i} {}", item_string(s)));
+                            }
+                        }
+                        for (slot_no, slot) in [(36, EquipmentSlot::Feet), (37, EquipmentSlot::Legs), (38, EquipmentSlot::Chest), (39, EquipmentSlot::Head), (40, EquipmentSlot::OffHand)] {
+                            let s = inv.equipment_get(slot);
+                            if !s.is_empty() {
+                                v.push(format!("I {arg} {slot_no} {}", item_string(s)));
+                            }
+                        }
+                        v
+                    };
+                    self.out.extend(lines);
+                }
+                "packets" => {
+                    let rx = self.rx.get_mut(arg).unwrap_or_else(|| panic!("no player {arg}"));
+                    while let Ok(msg) = rx.try_recv() {
+                        let Outbound::Payload(p) = msg else { continue };
+                        let kind = self.packet_names.get(&read_varint(&p)).copied().unwrap_or("?");
+                        if PKT_TYPES.contains(&kind) {
+                            self.out.push(format!("PKT {arg} {kind} {}", hex(&p)));
+                        }
+                    }
+                }
+                other => panic!("unsupported dump {other}"),
             }
-            other => panic!("unsupported scenario command `{other}`"),
+        }
+    }
+
+    fn describe(&self, name: &str) -> String {
+        let e = self.entity(name);
+        let b = e.base();
+        let is_player = e.is_player();
+        let mut s = format!("{} {} {}", if is_player { "P" } else { "E" }, name, e.get_type().name());
+        let (pos, dm) = (b.position(), b.delta_movement());
+        s.push_str(&format!(" pos={},{},{}", d(pos.x), d(pos.y), d(pos.z)));
+        s.push_str(&format!(" delta={},{},{}", d(dm.x), d(dm.y), d(dm.z)));
+        s.push_str(&format!(" rot={},{}", f(b.y_rot()), f(b.x_rot())));
+        s.push_str(&format!(" og={} fall={} fire={} air={} alive={} pose={}", u8::from(b.on_ground()), d(b.fall_distance), b.remaining_fire_ticks, b.get_air_supply(), u8::from(e.is_alive()), pose_name(b.get_pose())));
+        if let Some(l) = e.living() {
+            s.push_str(&format!(" hp={} abs={} hurt={}/{} death={} fx=", f(l.get_health()), f(e.get_absorption_amount()), l.hurt_time, l.damage_cooldown_time, l.death_time));
+            let mut fx: Vec<&MobEffectInstance> = l.active_effects.values().collect();
+            fx.sort_by_key(|m| m.effect.name());
+            if fx.is_empty() {
+                s.push('-');
+            }
+            for (i, m) in fx.iter().enumerate() {
+                s.push_str(&format!("{}{}/{}/{}", if i > 0 { ";" } else { "" }, m.effect.name(), m.amplifier, m.duration));
+            }
+        }
+        if let Some(p) = e.player() {
+            let sp = e.as_any().downcast_ref::<ServerPlayer>().expect("server player");
+            s.push_str(&format!(" gm={}", sp.game_mode.game_mode_for_player.name().to_lowercase()));
+            s.push_str(&format!(" food={} sat={} exh={}", p.food_data.get_food_level(), f(p.food_data.get_saturation_level()), f(p.food_data.exhaustion_level)));
+            s.push_str(&format!(" xp={}/{}/{}", p.experience_level, p.total_experience, f(p.experience_progress)));
+            s.push_str(&format!(" sel={} main={}", p.inventory.get_selected_slot(), item_string(&e.get_item_by_slot(EquipmentSlot::MainHand))));
+        } else if let Some(i) = e.as_any().downcast_ref::<mc_game::world::entity::item::ItemEntity>() {
+            s.push_str(&format!(" item={} age={}", item_string(&i.get_item()), i.age));
+            s.push_str(&format!(" pickup={} health={} owner={} thrower={}", i.pickup_delay, i.health, self.uuid_name(i.target), self.uuid_name(i.thrower)));
+        } else if let Some(o) = e.as_any().downcast_ref::<mc_game::world::entity::experience_orb::ExperienceOrb>() {
+            s.push_str(&format!(" value={} count={} age={} health={}", o.get_value(), o.count, o.age, o.health));
+        }
+        s
+    }
+
+    fn uuid_name(&self, u: Option<uuid::Uuid>) -> String {
+        match u {
+            None => "-".into(),
+            Some(u) => self.names.iter().find(|n| self.level.get_entity(self.refs[*n]).is_some_and(|e| e.uuid() == u)).cloned().unwrap_or_else(|| u.to_string()),
         }
     }
 }
@@ -192,16 +728,14 @@ fn replay(name: &str) -> Vec<String> {
     r.out
 }
 
-/// Keep only the lines (and fields) the replay models.
+/// The fixture without the `PKT` lines of types the replay does not produce.
 fn check(name: &str) {
-    let fixture = Fixture::load(name);
-    let keep = |l: &&str| l.starts_with("P ") || l.starts_with("HURT ");
-    let _ = keep;
-    let opts = Options {
-        ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "T", "E"],
-        ignore_fields: vec!["pos", "delta", "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel", "main"],
-        ..Default::default()
-    };
+    let mut fixture = Fixture::load(name);
+    fixture.lines.retain(|l| {
+        let mut it = l.split_whitespace();
+        it.next() != Some("PKT") || PKT_TYPES.contains(&it.nth(1).unwrap_or(""))
+    });
+    let opts = Options { ignore_kinds: vec!["#", "C"], ..Default::default() };
     fixture.assert_matches(&replay(name), &opts);
 }
 
@@ -225,6 +759,57 @@ fn damage_sources_by_game_mode_and_rules() {
     check("damage_sources");
 }
 
+#[test]
+fn enchantment_protections() {
+    check("damage_enchant");
+}
+
+#[test]
+#[ignore = "player_combat_kill message of the shield scenario differs from vanilla (S dies from the 30 damage hit): see damage_golden shield_blocking diff"]
+fn shield_blocking() {
+    check("damage_shield");
+}
+
+#[test]
+#[ignore = "knockback direction of mob_attack at a NoAI zombie depends on the entity seed sequence (harness reseed added, unverified) and D3 player_combat_kill message differs"]
+fn difficulty_scaling() {
+    check("damage_difficulty");
+}
+
+#[test]
+#[ignore = "stand-in Mob must not tick physics (NoAI) - fixed in the harness, awaiting a verified run"]
+fn zombie_hits_player() {
+    check("hurt_basic");
+}
+
+#[test]
+#[ignore = "death drop/orb motion needs the oracle seed sequence (harness reseed added) and respawn position; awaiting a verified run"]
+fn player_death_drops_xp_totem_and_respawn() {
+    check("death_basic");
+}
+
+#[test]
+#[ignore = "respawn permission-level entity event added to the harness; awaiting a verified run"]
+fn death_messages_for_every_damage_type() {
+    check("death_messages");
+}
+
+#[test]
+fn drowning_and_freezing() {
+    check("damage_drown_freeze");
+}
+
+#[test]
+#[ignore = "initial onGround of a mid-air player derived from collision below (fixed in harness); awaiting a verified run"]
+fn starvation_void_and_fall_by_difficulty() {
+    check("damage_starve_void");
+}
+
+#[test]
+fn totem_of_undying() {
+    check("death_totem");
+}
+
 /// `/gamerule keepInventory true` then `/kill` in the same tick: levels read the live rule at the point of use (no per-tick
 /// snapshot), so the very next death already keeps the inventory (and a flip back drops it).
 #[test]
@@ -237,9 +822,11 @@ fn keep_inventory_rule_is_live_within_a_tick() {
         r.run_line(&format!("spawn_player {name} survival 0.5 -60 0.5 0 0"));
         rules.set(GameRules::KEEP_INVENTORY, keep, None);
         let mut stack = ItemStack::new(Item::by_name("minecraft:cobblestone").unwrap());
-        r.player(name).player.inventory.add(&mut stack, false);
+        r.with_player(name, |_, p| {
+            p.player.inventory.add(&mut stack, false);
+        });
         r.run_line(&format!("hurt {name} generic_kill 1000"));
-        let kept = !r.player(name).player.inventory.get_selected_item().is_empty();
+        let kept = !r.entity(name).player().unwrap().inventory.get_selected_item().is_empty();
         assert_eq!(kept, expect_kept, "keepInventory={keep}");
     }
 }

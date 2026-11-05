@@ -27,6 +27,12 @@ use mc_protocol::packets::play::{
 pub(crate) fn adjust_spawn_location(server: &mut MinecraftServer, level: &mut ServerLevel, suggestion: BlockPos) -> Vec3 {
     let adventure = server.world_data.lock().settings.game_type == mc_world::level_storage::GameType::Adventure;
     let radius = server.game_rules_ref().get(GameRules::RESPAWN_RADIUS);
+    find_spawn_position(level, adventure, radius, suggestion)
+}
+
+/// The level half of [`adjust_spawn_location`] (`adventure` = the world's default game type, `radius` = the
+/// `respawnRadius` rule).
+pub fn find_spawn_position(level: &mut ServerLevel, adventure: bool, radius: i32, suggestion: BlockPos) -> Vec3 {
     let border = mc_core::math::mth::floor_f64(level.get_world_border().get_distance_to_border(f64::from(suggestion.x()), f64::from(suggestion.z())));
     match PlayerSpawnFinder::find_spawn(adventure, radius, border, suggestion) {
         FindSpawn::Adventure(pos) => {
@@ -161,6 +167,50 @@ fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool
     effects
 }
 
+/// `PlayerList.respawn` step 1: the old player's state is taken out of its level and the entity is removed
+/// (`removePlayerImmediately`); `level` keeps a removed placeholder until the entity manager drops it.
+pub fn take_old_player(level: &mut ServerLevel, id: EntityId, reason: RemovalReason) -> Option<ServerPlayer> {
+    level.with_player(id, |level, player| {
+        let mut dummy = ServerPlayer::new(id, player.dimension.clone(), player.player.game_profile.clone(), Default::default());
+        dummy.remove(reason);
+        let mut old = std::mem::replace(player, dummy);
+        old.close_menus_on_removal(level);
+        old
+    })
+}
+
+/// `PlayerList.respawn` step 2: the fresh `ServerPlayer` (same entity id and connection) with `restoreFrom` applied,
+/// the restored effects added in the new `level` and the player placed at the transition's position.
+pub fn create_respawned_player(old: ServerPlayer, level: &mut ServerLevel, transition: &TeleportTransition, keep_all_player_data: bool, keep_inventory: bool) -> ServerPlayer {
+    let mut old = old;
+    let client_information = old.client_information.clone();
+    let mut new = ServerPlayer::new(old.base_id(), transition.level.clone(), old.player.game_profile.clone(), client_information);
+    new.connection = old.connection.take();
+    new.listener = old.listener.take();
+    new.stats = old.stats.clone();
+    new.handle = old.handle.clone();
+    new.player.set_main_arm(old.player.get_main_arm());
+    if !transition.missing_respawn_block {
+        new.respawn_config = old.respawn_config.clone();
+    }
+    for tag in old.base().tags.iter_java_order() {
+        new.base_mut().add_tag(tag);
+    }
+    new.player.post_effects = old.player.post_effects.clone();
+    let restored_effects = restore_from(&mut new, old, keep_all_player_data, keep_inventory);
+    // `restoreFrom`: `addEffect(new MobEffectInstance(effect))` in the new level (sends the effect packets before the respawn packet)
+    for effect in restored_effects {
+        crate::world::entity::Entity::add_effect(&mut new, level, effect, None);
+    }
+    new.snap_to(transition.position.x, transition.position.y, transition.position.z, transition.y_rot, transition.x_rot);
+    new.dimension = transition.level.clone();
+    new.sync_handle();
+    if transition.missing_respawn_block {
+        new.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::NO_RESPAWN_BLOCK_AVAILABLE, param: 0.0 });
+    }
+    new
+}
+
 /// `PlayerList.respawn`: replaces the player `id` of `old_dimension` by a fresh `ServerPlayer` placed at its respawn
 /// position; `after` runs on the new player (the listener's `resetPosition()` etc.). Returns the new player's id.
 pub fn respawn(
@@ -174,7 +224,7 @@ pub fn respawn(
     // 1. take the old player's state out of its level and remove it (`removePlayerImmediately`)
     let keep_inventory = server.game_rules_ref().get(GameRules::KEEP_INVENTORY);
     let detached = server.detached_players.iter().find(|(_, p)| p.base_id() == id).map(|(uuid, _)| *uuid).and_then(|uuid| server.detached_players.remove(&uuid));
-    let (mut old, transition) = if let Some(old) = detached {
+    let (old, transition) = if let Some(old) = detached {
         // `showEndCredits` already removed the player from its level (`removePlayerImmediately` again is a no-op)
         let config = old.respawn_config.clone();
         let transition = server.with_level(old_dimension, |server, level| {
@@ -184,16 +234,9 @@ pub fn respawn(
     } else {
         server
             .with_level(old_dimension, |server, level| {
-                let profile = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).map(|p| p.player.game_profile.clone())?;
-                let config = level.get_entity(id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).and_then(|p| p.respawn_config.clone());
+                let config = level.get_entity(id).or_else(|| level.get_dead_player(id)).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()).and_then(|p| p.respawn_config.clone());
                 let transition = find_respawn_position_and_use_spawn_block(server, level, config.as_ref(), !keep_all_player_data, PostTeleportTransition::DO_NOTHING);
-                let old = level.with_player(id, |level, player| {
-                    let mut dummy = ServerPlayer::new(id, player.dimension.clone(), profile, Default::default());
-                    dummy.remove(reason);
-                    let mut old = std::mem::replace(player, dummy);
-                    old.close_menus_on_removal(level);
-                    old
-                })?;
+                let old = take_old_player(level, id, reason)?;
                 Some((old, transition))
             })
             .flatten()?
@@ -202,34 +245,8 @@ pub fn respawn(
     server.player_list.remove_from_players(&handle);
 
     // 2. the new player
-    let client_information = old.client_information.clone();
-    let mut new = ServerPlayer::new(id, transition.level.clone(), old.player.game_profile.clone(), client_information);
-    new.connection = old.connection.take();
-    new.listener = old.listener.take();
-    new.stats = old.stats.clone();
-    new.handle = Some(handle.clone());
-    new.player.set_main_arm(old.player.get_main_arm());
-    if !transition.missing_respawn_block {
-        new.respawn_config = old.respawn_config.clone();
-    }
-    for tag in old.base().tags.iter_java_order() {
-        new.base_mut().add_tag(tag);
-    }
-    new.player.post_effects = old.player.post_effects.clone();
     let old_respawn_config = old.respawn_config.clone();
-    let restored_effects = restore_from(&mut new, old, keep_all_player_data, keep_inventory);
-    // `restoreFrom`: `addEffect(new MobEffectInstance(effect))` in the new level (sends the effect packets before the respawn packet)
-    server.with_level(&transition.level, |_, level| {
-        for effect in restored_effects {
-            crate::world::entity::Entity::add_effect(&mut new, level, effect, None);
-        }
-    })?;
-    new.snap_to(transition.position.x, transition.position.y, transition.position.z, transition.y_rot, transition.x_rot);
-    new.dimension = transition.level.clone();
-    new.sync_handle();
-    if transition.missing_respawn_block {
-        new.send(&ClientboundGameEventPacket { event: ClientboundGameEventPacket::NO_RESPAWN_BLOCK_AVAILABLE, param: 0.0 });
-    }
+    let mut new = server.with_level(&transition.level, |_, level| create_respawned_player(old, level, &transition, keep_all_player_data, keep_inventory))?;
 
     // 3. the packets and the placement in the new level
     let new_id = new.base_id();

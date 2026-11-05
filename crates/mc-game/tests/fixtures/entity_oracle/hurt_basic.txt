@@ -45,8 +45,8 @@ P Steve minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot
 EFFECT Steve minecraft:resistance added=true
 HURT Steve minecraft:mob_attack 8 -> true
 T 22
-P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.21840002862134353,0.2751840104494096,-5.938213053396341E-7 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.0056 abs=0.0 hurt=9/19 death=0 fx=minecraft:resistance/1/99 gm=survival food=20 sat=3.0 exh=1.1 xp=0/0/0.0 sel=0 main=empty
-E Zed minecraft:zombie pos=2.2677628448008846,-60.0,0.5000050717243051 delta=-0.05326435202573788,-0.0784000015258789,3.5371970293839115E-18 rot=90.00035,3.6808782 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.2184000286221508,0.2751840104494096,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.0056 abs=0.0 hurt=9/19 death=0 fx=minecraft:resistance/1/99 gm=survival food=20 sat=3.0 exh=1.1 xp=0/0/0.0 sel=0 main=empty
+E Zed minecraft:zombie pos=2.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT Steve minecraft:damage_event 190112000000
 PKT Steve minecraft:set_entity_data 6501090341600000ff
 PKT Steve minecraft:set_entity_motion 670100
@@ -80,7 +80,7 @@ PKT Steve minecraft:set_entity_data 6501090341780000ff
 PKT Steve minecraft:update_mob_effect 8701010a01640e
 PKT Steve minecraft:player_combat_enter 44
 PKT Steve minecraft:damage_event 19011c030300
-PKT Steve minecraft:hurt_animation 2b0139235534
+PKT Steve minecraft:hurt_animation 2b0100000000
 PKT Steve minecraft:set_entity_data 65010903414016f00a11011cff9146f0ff
 PKT Steve minecraft:set_entity_motion 670131337fff5c59
 PKT Steve minecraft:container_set_slot 140004000501b80801000302

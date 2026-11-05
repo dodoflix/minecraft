@@ -118,7 +118,7 @@ import net.minecraft.util.RandomSource;
  * select PLAYER N             hotbar slot (ServerboundSetCarriedItemPacket)
  * effect REF EFFECT AMPLIFIER TICKS [hidden]      addEffect
  * attribute REF ATTRIBUTE BASEVALUE               setBaseValue
- * set REF health|food|saturation|exhaustion|air|fire|fall_distance|xp_level|absorption|invulnerable|no_gravity|on_ground|tag VALUE
+ * set REF health|food|saturation|exhaustion|air|fire|fall_distance|ticks_frozen|xp_level|absorption|invulnerable|no_gravity|on_ground|tag VALUE
  * nbt REF SNBT                merge SNBT into the entity (Entity.load of the merged save data)
  * snap REF X Y Z [yaw pitch]  Entity.snapTo (no packets)          tp REF X Y Z [yaw pitch]   teleportTo
  * velocity REF X Y Z          setDeltaMovement
@@ -610,6 +610,8 @@ public final class EntityOracleDriver {
             ServerPlayer neu = v.server.getPlayerList().getPlayerByName(a.get(1));
             refs.put(a.get(1), neu);
             v.player(a.get(1)).replaceServerPlayer(neu);
+            // a real client reports the respawn world loaded (ServerboundPlayerLoadedPacket); until then hasClientLoaded() is false and the player is invulnerable
+            neu.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
          }
          case "pcommand" -> {
             world();
@@ -863,6 +865,7 @@ public final class EntityOracleDriver {
          case "air" -> e.setAirSupply(Integer.parseInt(value));
          case "fire" -> e.setRemainingFireTicks(Integer.parseInt(value));
          case "fall_distance" -> e.fallDistance = d(value);
+         case "ticks_frozen" -> e.setTicksFrozen(Integer.parseInt(value));
          case "xp_level" -> ((ServerPlayer)e).setExperienceLevels(Integer.parseInt(value));
          case "absorption" -> ((LivingEntity)e).setAbsorptionAmount(Float.parseFloat(value));
          case "invulnerable" -> priv(e, Entity.class, "permanentlyInvulnerable", Boolean.parseBoolean(value));

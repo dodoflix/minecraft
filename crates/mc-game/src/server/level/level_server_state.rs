@@ -40,11 +40,11 @@ impl SharedScoreboard {
 pub struct PlayerRoster(Arc<RwLock<Vec<PlayerHandle>>>);
 
 impl PlayerRoster {
-    pub(crate) fn add(&self, handle: PlayerHandle) {
+    pub fn add(&self, handle: PlayerHandle) {
         self.0.write().push(handle);
     }
 
-    pub(crate) fn remove(&self, handle: &PlayerHandle) {
+    pub fn remove(&self, handle: &PlayerHandle) {
         self.0.write().retain(|p| !p.same_player(handle));
     }
 

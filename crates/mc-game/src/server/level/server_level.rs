@@ -62,6 +62,9 @@ pub struct ServerLevel {
     pub entity_tracker: super::EntityTracker,
     /// Handles to the server-global state (scoreboard, player roster), installed by the server (see `level_server_state.rs`).
     pub server_state: super::LevelServerState,
+    /// Dead players whose entity was removed from the level (`tickDeath` after 20 ticks): vanilla keeps the `ServerPlayer`
+    /// alive through the player list and its connection (still ticked, respawned later); see `server_level_entities.rs`.
+    pub dead_players: std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>,
     /// Snapshots of the players that are currently taken out of the entity storage (see `tracker_players`).
     pub(super) taken_out_players: std::collections::HashMap<EntityId, super::TrackerPlayer>,
     /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
@@ -158,6 +161,7 @@ impl ServerLevel {
             players: Vec::new(),
             entity_tracker: Default::default(),
             server_state: Default::default(),
+            dead_players: Default::default(),
             taken_out_players: Default::default(),
             registries: Default::default(),
             chunk_source,

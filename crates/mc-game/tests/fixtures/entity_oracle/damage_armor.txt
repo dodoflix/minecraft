@@ -477,21 +477,21 @@ PKT A5 minecraft:container_set_slot 14000d000801bf0801000302
 PKT A5 minecraft:set_health 6a413b88891400000000
 PKT A5 minecraft:update_attributes entity=5;minecraft:armor=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/2.0/add_value,minecraft:armor.chestplate/2.0/add_value,minecraft:armor.helmet/2.0/add_value,minecraft:armor.leggings/2.0/add_value]
 PKT A5 minecraft:set_time 73000000000000026b00
-P A6 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=7/100/0.42857128 sel=0 main=empty
-I A6 36 minecraft:netherite_boots*1
+P A6 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+I A6 36 minecraft:leather_boots*1
 I A6 37 minecraft:netherite_leggings*1
 I A6 38 minecraft:netherite_chestplate*1
 I A6 39 minecraft:netherite_helmet*1
 PKT A6 minecraft:set_entity_data 6506090341a00000ff
-PKT A6 minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2041362000080009696e73657274696f6e0002413608000474657874000241360a000b686f7665725f6576656e740800046e616d6500024136080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000416e51f9727723c5f8bd276eaeb2ab8170000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f72000b6461726b5f707572706c6509000565787472610a0000000208000000010a000800097472616e736c617465002f616476616e63656d656e74732e6e65746865722e6e65746865726974655f61726d6f722e6465736372697074696f6e000800097472616e736c6174650029616476616e63656d656e74732e6e65746865722e6e65746865726974655f61726d6f722e7469746c6500000800097472616e736c6174650029616476616e63656d656e74732e6e65746865722e6e65746865726974655f61726d6f722e7469746c6500080005636f6c6f72000b6461726b5f707572706c650800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001f636861742e747970652e616476616e63656d656e742e6368616c6c656e67650000
 PKT A6 minecraft:container_set_slot 140002000501c4080000
 PKT A6 minecraft:container_set_slot 140003000601c5080000
 PKT A6 minecraft:container_set_slot 140004000701c6080000
-PKT A6 minecraft:container_set_slot 140005000801c7080000
+PKT A6 minecraft:recipe_book_add 4b01a80600020602af080306000e6d696e6563726166743a647965732e070306000e6d696e6563726166743a647965732e0602af080495033903010202af08000e6d696e6563726166743a647965730300
+PKT A6 minecraft:container_set_slot 140005000801af080000
 PKT A6 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
 PKT A6 minecraft:update_advancements -
 PKT A6 minecraft:set_health 6a41a000001440a00000
-PKT A6 minecraft:set_experience 693edb6db20764
+PKT A6 minecraft:set_experience 69000000000000
 PKT A6 minecraft:chunk_batch_start 0c
 PKT A6 minecraft:level_chunk_with_light chunk=1,0/len=7260
 PKT A6 minecraft:level_chunk_with_light chunk=1,1/len=7260
@@ -509,14 +509,14 @@ HURT A6 generic 16.5 -> true
 HURT A6 out_of_world 7 -> true
 HURT A6 cactus 1 -> true
 HURT A6 explosion 5.5 -> true
-P A6 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.783334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=7/100/0.42857128 sel=0 main=empty
-I A6 36 minecraft:netherite_boots*1/dmg=2
+P A6 minecraft:player pos=24.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=11.219216 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=0.0 exh=0.1999999 xp=0/0/0.0 sel=0 main=empty
+I A6 36 minecraft:leather_boots*1/dmg=2
 I A6 37 minecraft:netherite_leggings*1/dmg=2
 I A6 38 minecraft:netherite_chestplate*1/dmg=2
 I A6 39 minecraft:netherite_helmet*1/dmg=2
 PKT A6 minecraft:damage_event 190612000000
-PKT A6 minecraft:set_entity_data 6506090341880000120164ff
-PKT A6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
+PKT A6 minecraft:set_entity_data 6506090341880000ff
+PKT A6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/1.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/3.0/add_value];minecraft:block_interaction_range=4.5[];minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[]
 PKT A6 minecraft:set_entity_motion 6706f9ff7ffeebed
 PKT A6 minecraft:set_health 6a418800001440a00000
 PKT A6 minecraft:set_time 73000000000000027f00
@@ -553,24 +553,24 @@ PKT A6 minecraft:set_health 6a41555556143f800000
 PKT A6 minecraft:set_entity_data 6506090341555556ff
 PKT A6 minecraft:set_time 7300000000000002cf00
 PKT A6 minecraft:damage_event 190602000000
-PKT A6 minecraft:set_entity_data 650609034152015eff
+PKT A6 minecraft:set_entity_data 650609034150b3e8ff
 PKT A6 minecraft:set_entity_motion 6706f9ff7ffeebed
 PKT A6 minecraft:container_set_slot 140006000501c40801000301
 PKT A6 minecraft:container_set_slot 140007000601c50801000301
 PKT A6 minecraft:container_set_slot 140008000701c60801000301
-PKT A6 minecraft:container_set_slot 140009000801c70801000301
-PKT A6 minecraft:set_health 6a4152015e1400000000
-PKT A6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/3.0/add_value]
+PKT A6 minecraft:container_set_slot 140009000801af0801000301
+PKT A6 minecraft:set_health 6a4150b3e81400000000
+PKT A6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/1.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/3.0/add_value]
 PKT A6 minecraft:set_time 7300000000000002e300
 PKT A6 minecraft:damage_event 190609000000
-PKT A6 minecraft:set_entity_data 65060903413c8889ff
+PKT A6 minecraft:set_entity_data 65060903413381e9ff
 PKT A6 minecraft:set_entity_motion 6706f9ff7ffeebed
 PKT A6 minecraft:container_set_slot 14000a000501c40801000302
 PKT A6 minecraft:container_set_slot 14000b000601c50801000302
 PKT A6 minecraft:container_set_slot 14000c000701c60801000302
-PKT A6 minecraft:container_set_slot 14000d000801c70801000302
-PKT A6 minecraft:set_health 6a413c88891400000000
-PKT A6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/3.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/3.0/add_value]
+PKT A6 minecraft:container_set_slot 14000d000801af0801000302
+PKT A6 minecraft:set_health 6a413381e91400000000
+PKT A6 minecraft:update_attributes entity=6;minecraft:armor=0.0[minecraft:armor.boots/1.0/add_value,minecraft:armor.chestplate/8.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/6.0/add_value];minecraft:armor_toughness=0.0[minecraft:armor.boots/0.0/add_value,minecraft:armor.chestplate/3.0/add_value,minecraft:armor.helmet/3.0/add_value,minecraft:armor.leggings/3.0/add_value]
 PKT A6 minecraft:set_time 7300000000000002f700
 P A7 minecraft:player pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:water_breathing/0/200 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT A7 minecraft:set_entity_data 6507090341a00000ff
