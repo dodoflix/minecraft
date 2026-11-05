@@ -3,6 +3,7 @@
 //! chunk owns one.
 
 pub mod chunk_source;
+pub mod chunk_task_queue;
 pub mod engine;
 pub mod level_light_engine;
 pub mod long_set;

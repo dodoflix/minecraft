@@ -56,7 +56,7 @@ impl Scenario {
             has_sky,
             grid: (g0, n),
             getter,
-            engine: ThreadedLevelLightEngine::new(height, has_sky),
+            engine: ThreadedLevelLightEngine::new(height, has_sky, 46),
             removed: None,
             saved: BTreeMap::new(),
             runs: VecDeque::new(),
@@ -113,12 +113,12 @@ impl Scenario {
         for pos in &positions {
             self.engine.initialize_light(&self.getter.chunks[&pos.pack()].access, false);
         }
-        let r = self.engine.run_update(&self.getter);
+        let r = self.engine.run_update(&self.getter, &|_| 45);
         self.record_run(r.light_updates_run);
         for pos in &positions {
             self.engine.light_chunk(*pos, false);
         }
-        let r = self.engine.run_update(&self.getter);
+        let r = self.engine.run_update(&self.getter, &|_| 45);
         self.record_run(r.light_updates_run);
     }
 
@@ -130,7 +130,7 @@ impl Scenario {
     }
 
     fn run_queued(&mut self) {
-        let r = self.engine.run_update(&self.getter);
+        let r = self.engine.run_update(&self.getter, &|_| 45);
         self.record_run(r.light_updates_run);
     }
 

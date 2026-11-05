@@ -140,7 +140,7 @@ fn relight_matches_saved_light() {
         for pos in &positions {
             getter.chunks.get_mut(&pos.pack()).unwrap().access_mut().initialize_light_sources();
         }
-        let mut engine = ThreadedLevelLightEngine::new(height, has_sky);
+        let mut engine = ThreadedLevelLightEngine::new(height, has_sky, 46);
         for pos in &positions {
             let access = match getter.chunks.get_mut(&pos.pack()).unwrap() {
                 Chunk::Proto(p) => &p.access,
@@ -148,14 +148,14 @@ fn relight_matches_saved_light() {
             };
             engine.initialize_light(access, false);
         }
-        while engine.pending_task_count() > 0 {
-            engine.run_update(&getter);
+        while engine.has_pending_work() {
+            engine.run_update(&getter, &|_| 45);
         }
         for pos in &positions {
             engine.light_chunk(*pos, false);
         }
-        while engine.pending_task_count() > 0 {
-            engine.run_update(&getter);
+        while engine.has_pending_work() {
+            engine.run_update(&getter, &|_| 45);
         }
         assert!(!engine.has_pending_work());
 

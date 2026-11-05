@@ -238,8 +238,8 @@ pub struct ChunkMap {
     /// Chunks whose EMPTY load is waiting for the pool/IO.
     pub(crate) loading: LongOpenHashSet,
     /// Per-light-barrier: holders whose `sendSync` waits for it.
-    pub(crate) light_barriers: HashMap<u64, i64>,
-    pub(crate) light_barrier_done: std::collections::HashSet<u64>,
+    /// Light barriers handed out by `waitForLightBeforeSending` that the light thread has not run yet.
+    pub(crate) light_barrier_pending: std::collections::HashSet<u64>,
 
     // saving
     pub(crate) chunk_type_cache: HashMap<i64, i8>,
@@ -284,7 +284,7 @@ impl ChunkMap {
             factory,
             gen_context,
             is_known_structure,
-            light: ThreadedLevelLightEngine::new(level_height, has_sky_light),
+            light: ThreadedLevelLightEngine::new(level_height, has_sky_light, super::chunk_task_queue::priority_level_count()),
             settings: ChunkMapSettings { spectators_generate_chunks: false, no_save: false },
             game_time: 0,
             tick_containers: None,
@@ -298,15 +298,14 @@ impl ChunkMap {
             tasks: HashMap::new(),
             next_task_id: 1,
             pending_generation_tasks: Vec::new(),
-            worldgen_queue: ChunkTaskPriorityQueue::new(),
+            worldgen_queue: ChunkTaskPriorityQueue::new(super::chunk_task_queue::priority_level_count()),
             ready: VecDeque::new(),
             main_tasks: VecDeque::new(),
             events: Vec::new(),
             next_batch_id: 1,
             in_flight_batch: None,
             loading: LongOpenHashSet::new(),
-            light_barriers: HashMap::new(),
-            light_barrier_done: std::collections::HashSet::new(),
+            light_barrier_pending: std::collections::HashSet::new(),
             chunk_type_cache: HashMap::new(),
             next_chunk_save_time: HashMap::new(),
             chunks_to_eagerly_save: IndexSet::new(),
@@ -379,7 +378,8 @@ impl ChunkMap {
 
     /// `hasWork()`.
     pub fn has_work(&self) -> bool {
-        self.light.has_pending_work()
+        self.light.engine().has_light_work()
+            || self.light.dispatcher_has_work()
             || !self.holders.pending_unloads.is_empty()
             || !self.holders.updating.is_empty()
             || !self.holders.to_drop.is_empty()
@@ -683,7 +683,12 @@ impl ChunkMap {
         if !self.light.has_pending_work() {
             return;
         }
-        let result = self.light.run_update(&HolderLightChunks(&self.holders));
+        let holders = &self.holders;
+        let queue_level = |key: i64| {
+            let max = super::chunk_task_queue::priority_level_count() - 1;
+            holders.visible_holder(key).map_or(max, |c| c.get_queue_level().min(max))
+        };
+        let result = self.light.run_update(&HolderLightChunks(holders), &queue_level);
         for completion in result.completions {
             self.on_light_event(completion);
         }

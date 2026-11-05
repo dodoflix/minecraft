@@ -398,7 +398,7 @@ impl ChunkMap {
                 self.complete_step(pos.pack(), ChunkStatus::Light);
             }
             LightCompletion::Barrier(id) => {
-                self.light_barrier_done.insert(id);
+                self.light_barrier_pending.remove(&id);
             }
         }
     }

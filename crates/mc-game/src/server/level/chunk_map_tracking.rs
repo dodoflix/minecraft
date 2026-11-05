@@ -177,8 +177,7 @@ impl ChunkMap {
     /// `getChunkToSend(key)`.
     pub fn get_chunk_to_send(&self, key: i64) -> Option<&LevelChunk> {
         let holder = self.get_visible_chunk_if_present(key)?;
-        let barrier = holder.send_sync_light_ticket;
-        if barrier != 0 && !self.light_barrier_done.contains(&(barrier - 1)) {
+        if holder.send_sync_light_barriers.iter().any(|id| self.light_barrier_pending.contains(id)) {
             return None;
         }
         holder.get_ticking_chunk()
@@ -199,11 +198,15 @@ impl ChunkMap {
     /// `waitForLightBeforeSending(centerChunk, chunkRadius)`.
     pub fn wait_for_light_before_sending(&mut self, center: ChunkPos, chunk_radius: i32) {
         let affected = chunk_radius + 1;
-        let barrier = self.light.wait_for_pending_tasks();
         for pos in ChunkPos::range_closed(&center, affected) {
-            if let Some(holder) = self.holders.visible_holder_mut(pos.pack()) {
-                // `addSendDependency`: the later barrier subsumes earlier ones (FIFO light tasks).
-                holder.send_sync_light_ticket = barrier + 1;
+            if self.holders.visible_holder(pos.pack()).is_some() {
+                let barrier = self.light.wait_for_pending_tasks(pos);
+                self.light_barrier_pending.insert(barrier);
+                let pending = &self.light_barrier_pending;
+                let holder = self.holders.visible_holder_mut(pos.pack()).expect("visible holder");
+                // `addSendDependency`: the chunk waits for every barrier added to it.
+                holder.send_sync_light_barriers.retain(|id| pending.contains(id));
+                holder.send_sync_light_barriers.push(barrier);
             }
         }
     }

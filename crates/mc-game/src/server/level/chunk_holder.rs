@@ -109,8 +109,8 @@ pub struct ChunkHolder {
     was_accessible_since_last_save: bool,
     /// `pendingFullStateConfirmation`: status to report once the pending promotion succeeds.
     pub(crate) pending_full_state_confirmation: Option<FullChunkStatus>,
-    /// `sendSync`: the light engine task that must finish before the chunk may be sent (0 = none).
-    pub(crate) send_sync_light_ticket: u64,
+    /// `sendSync`: light barriers (`waitForPendingTasks`) that must all finish before the chunk may be sent.
+    pub(crate) send_sync_light_barriers: Vec<u64>,
     /// Holders registered to release their throttle slot once the entity ticking future completes.
     pub(crate) release_when_entity_ticking: bool,
 }
@@ -156,7 +156,7 @@ impl ChunkHolder {
             sky_changed_light_section_filter: HashSet::new(),
             was_accessible_since_last_save: false,
             pending_full_state_confirmation: None,
-            send_sync_light_ticket: 0,
+            send_sync_light_barriers: Vec::new(),
             release_when_entity_ticking: false,
         };
         holder.set_ticket_level(ticket_level);

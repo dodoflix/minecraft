@@ -1,11 +1,17 @@
 //! `ThreadedLevelLightEngine`: the ordered light task queue in front of a [`LevelLightEngine`].
 //!
-//! Vanilla runs these tasks on a dedicated light thread through its chunk task dispatcher. Here the queue is a plain
-//! FIFO owned by whoever runs the engine (a light thread or the game thread): `add_*` mirror the vanilla `addTask`
-//! callers, [`ThreadedLevelLightEngine::run_update`] is `runUpdate` (PRE_UPDATE tasks, `runLightUpdates`, POST_UPDATE
-//! tasks) and its return value stands for the `CompletableFuture`s vanilla completes in POST_UPDATE.
+//! Vanilla submits every task to `lightTaskDispatcher` (a `ChunkTaskDispatcher`): the task is queued per chunk at the
+//! chunk's queue level (`ChunkMap.getChunkQueueLevel`, or `0` for `updateChunkStatus`/`updateSectionStatus`/
+//! `queueSectionData`/`retainData`), and the light thread pops chunk after chunk, lowest level first, appending to
+//! `lightTasks`. Here the engine is run by whoever owns it (the game thread) and "the light thread got to run" is
+//! [`ThreadedLevelLightEngine::run_update`]: it drains every submission through the priority queue into `lightTasks`
+//! (running `runUpdate` inline whenever the list reaches a full batch, like `addTask`), then runs `runUpdate` once
+//! (PRE_UPDATE tasks, `runLightUpdates`, POST_UPDATE tasks). The return value stands for the `CompletableFuture`s
+//! vanilla completes in POST_UPDATE. Vanilla's interleaving of the light thread with the main thread is a race; this
+//! is the schedule where the light thread is idle until the main thread polls it.
 
 use crate::chunk_source::LightChunkGetter;
+use crate::chunk_task_queue::ChunkTaskPriorityQueue;
 use crate::level_light_engine::LevelLightEngine;
 use crate::storage::LightLayer;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
@@ -41,6 +47,15 @@ impl Task {
     }
 }
 
+/// The level supplier a task is submitted with.
+#[derive(Clone, Copy)]
+enum SubmitLevel {
+    /// `() -> 0`.
+    Zero,
+    /// `chunkMap.getChunkQueueLevel(pos)`, evaluated when the dispatcher handles the submission.
+    Chunk,
+}
+
 /// What a POST_UPDATE task completes (the vanilla futures).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum LightCompletion {
@@ -53,7 +68,7 @@ pub enum LightCompletion {
 }
 
 /// Result of [`ThreadedLevelLightEngine::run_update`].
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct UpdateResult {
     /// What `runLightUpdates` returned (queue entries processed).
     pub light_updates_run: i32,
@@ -62,14 +77,27 @@ pub struct UpdateResult {
 
 pub struct ThreadedLevelLightEngine {
     engine: LevelLightEngine,
+    /// `lightTasks`.
     tasks: Vec<Task>,
+    /// Submissions the dispatcher has not handled yet (its `submit` messages), in submission order.
+    submitted: Vec<(i64, SubmitLevel, Task)>,
+    /// `ChunkTaskDispatcher.queue`; empty between runs, so `onLevelChange` (`resortChunkTasks`) never has tasks to move:
+    /// a chunk's level change only shows through the level supplier evaluated when a submission is handled.
+    queue: ChunkTaskPriorityQueue<Task>,
     next_barrier: u64,
 }
 
 impl ThreadedLevelLightEngine {
     /// `new ThreadedLevelLightEngine(chunkGetter, chunkMap, hasSkyLight, ..)`: block light always, sky light on demand.
-    pub fn new(level_height: LevelHeight, has_sky_light: bool) -> Self {
-        ThreadedLevelLightEngine { engine: LevelLightEngine::new(level_height, true, has_sky_light), tasks: Vec::new(), next_barrier: 0 }
+    /// `priority_level_count` is `ChunkTaskPriorityQueue.PRIORITY_LEVEL_COUNT` (`ChunkLevel.MAX_LEVEL + 2`).
+    pub fn new(level_height: LevelHeight, has_sky_light: bool, priority_level_count: i32) -> Self {
+        ThreadedLevelLightEngine {
+            engine: LevelLightEngine::new(level_height, true, has_sky_light),
+            tasks: Vec::new(),
+            submitted: Vec::new(),
+            queue: ChunkTaskPriorityQueue::new(priority_level_count),
+            next_barrier: 0,
+        }
     }
 
     /// The underlying engine, for queries (`get_*`, `reader`, packet data) and unqueued calls.
@@ -81,47 +109,53 @@ impl ThreadedLevelLightEngine {
         &mut self.engine
     }
 
+    /// Tasks in `lightTasks` (already dispatched, not yet run).
     pub fn pending_task_count(&self) -> usize {
         self.tasks.len()
     }
 
-    /// Vanilla runs `runUpdate()` inline as soon as the queue holds a full batch.
-    pub fn batch_full(&self) -> bool {
-        self.tasks.len() >= DEFAULT_BATCH_SIZE
+    /// `tryScheduleUpdate` condition (`!lightTasks.isEmpty() || hasLightWork()`) or anything still in the dispatcher:
+    /// whether [`Self::run_update`] has something to do.
+    pub fn has_pending_work(&self) -> bool {
+        !self.tasks.is_empty() || self.dispatcher_has_work() || self.engine.has_light_work()
     }
 
-    /// `tryScheduleUpdate` condition: `!lightTasks.isEmpty() || hasLightWork()`.
-    pub fn has_pending_work(&self) -> bool {
-        !self.tasks.is_empty() || self.engine.has_light_work()
+    /// `lightTaskDispatcher.hasWork()`: unhandled submissions or tasks waiting in the priority queue.
+    pub fn dispatcher_has_work(&self) -> bool {
+        !self.submitted.is_empty() || self.queue.has_work()
+    }
+
+    fn submit(&mut self, pos: ChunkPos, level: SubmitLevel, task: Task) {
+        self.submitted.push((pos.pack(), level, task));
     }
 
     pub fn check_block(&mut self, pos: BlockPos) {
-        self.tasks.push(Task::CheckBlock(pos));
+        self.submit(ChunkPos::new(pos.x() >> 4, pos.z() >> 4), SubmitLevel::Chunk, Task::CheckBlock(pos));
     }
 
     /// `updateChunkStatus(pos)`.
     pub fn update_chunk_status(&mut self, pos: ChunkPos) {
-        self.tasks.push(Task::UpdateChunkStatus(pos));
+        self.submit(pos, SubmitLevel::Zero, Task::UpdateChunkStatus(pos));
     }
 
     pub fn update_section_status(&mut self, pos: SectionPos, section_empty: bool) {
-        self.tasks.push(Task::UpdateSectionStatus(pos, section_empty));
+        self.submit(ChunkPos::new(pos.x(), pos.z()), SubmitLevel::Zero, Task::UpdateSectionStatus(pos, section_empty));
     }
 
     pub fn propagate_light_sources(&mut self, pos: ChunkPos) {
-        self.tasks.push(Task::PropagateLightSources(pos));
+        self.submit(pos, SubmitLevel::Chunk, Task::PropagateLightSources(pos));
     }
 
     pub fn set_light_enabled(&mut self, pos: ChunkPos, enable: bool) {
-        self.tasks.push(Task::SetLightEnabled(pos, enable));
+        self.submit(pos, SubmitLevel::Chunk, Task::SetLightEnabled(pos, enable));
     }
 
     pub fn queue_section_data(&mut self, layer: LightLayer, pos: SectionPos, data: Option<DataLayer>) {
-        self.tasks.push(Task::QueueSectionData(layer, pos, data));
+        self.submit(ChunkPos::new(pos.x(), pos.z()), SubmitLevel::Zero, Task::QueueSectionData(layer, pos, data));
     }
 
     pub fn retain_data(&mut self, pos: ChunkPos, retain: bool) {
-        self.tasks.push(Task::RetainData(pos, retain));
+        self.submit(pos, SubmitLevel::Zero, Task::RetainData(pos, retain));
     }
 
     /// The load side of `SerializableChunkData.read` (`retainData` + `queueSectionData` per layer), as queued tasks.
@@ -155,22 +189,22 @@ impl ThreadedLevelLightEngine {
             .filter(|(_, section)| !section.has_only_air())
             .map(|(index, _)| chunk.level_height.section_y_from_section_index(index as i32))
             .collect();
-        self.tasks.push(Task::InitializeLight(chunk.pos, non_empty));
-        self.tasks.push(Task::FinishInitializeLight(chunk.pos, lighted));
+        self.submit(chunk.pos, SubmitLevel::Chunk, Task::InitializeLight(chunk.pos, non_empty));
+        self.submit(chunk.pos, SubmitLevel::Chunk, Task::FinishInitializeLight(chunk.pos, lighted));
     }
 
     /// `lightChunk(chunk, lighted)`: the caller marks the chunk `setLightCorrect(false)` first and sets it to true
     /// when [`LightCompletion::Lit`] arrives.
     pub fn light_chunk(&mut self, pos: ChunkPos, lighted: bool) {
-        self.tasks.push(Task::LightChunk(pos, lighted));
-        self.tasks.push(Task::FinishLightChunk(pos));
+        self.submit(pos, SubmitLevel::Chunk, Task::LightChunk(pos, lighted));
+        self.submit(pos, SubmitLevel::Chunk, Task::FinishLightChunk(pos));
     }
 
     /// `waitForPendingTasks`: the returned id comes back as [`LightCompletion::Barrier`] once every earlier task ran.
-    pub fn wait_for_pending_tasks(&mut self) -> u64 {
+    pub fn wait_for_pending_tasks(&mut self, pos: ChunkPos) -> u64 {
         let id = self.next_barrier;
         self.next_barrier += 1;
-        self.tasks.push(Task::Barrier(id));
+        self.submit(pos, SubmitLevel::Chunk, Task::Barrier(id));
         id
     }
 
@@ -208,30 +242,51 @@ impl ThreadedLevelLightEngine {
         }
     }
 
+    /// The light thread runs: every submission goes through the dispatcher into `lightTasks`, then `runUpdate`.
+    /// `queue_level` is `ChunkMap.getChunkQueueLevel(pos)`.
+    pub fn run_update(&mut self, chunks: &dyn LightChunkGetter, queue_level: &dyn Fn(i64) -> i32) -> UpdateResult {
+        let mut result = UpdateResult::default();
+        for (pos, level, task) in std::mem::take(&mut self.submitted) {
+            let level = match level {
+                SubmitLevel::Zero => 0,
+                SubmitLevel::Chunk => queue_level(pos),
+            };
+            self.queue.submit(task, pos, level);
+        }
+        while let Some((_, tasks)) = self.queue.pop() {
+            for task in tasks {
+                self.tasks.push(task);
+                if self.tasks.len() >= DEFAULT_BATCH_SIZE {
+                    self.run_batch(chunks, &mut result);
+                }
+            }
+        }
+        self.run_batch(chunks, &mut result);
+        result
+    }
+
     /// `runUpdate()`: up to a batch of tasks — PRE_UPDATE ones run, then the engine updates, then the POST_UPDATE
     /// ones of the batch run and the whole batch is dropped.
-    pub fn run_update(&mut self, chunks: &dyn LightChunkGetter) -> UpdateResult {
+    fn run_batch(&mut self, chunks: &dyn LightChunkGetter, result: &mut UpdateResult) {
         let total = self.tasks.len().min(DEFAULT_BATCH_SIZE);
         for task in self.tasks.iter_mut().take(total) {
             if !task.is_post_update() {
                 Self::run_pre(&mut self.engine, chunks, task);
             }
         }
-        let light_updates_run = self.engine.run_light_updates(chunks);
-        let mut completions = Vec::new();
+        result.light_updates_run += self.engine.run_light_updates(chunks);
         for task in self.tasks.drain(..total) {
             match task {
                 Task::FinishInitializeLight(pos, lighted) => {
                     self.engine.set_light_enabled(chunks, pos, lighted);
                     self.engine.retain_data(pos, false);
-                    completions.push(LightCompletion::Initialized(pos));
+                    result.completions.push(LightCompletion::Initialized(pos));
                 }
-                Task::FinishLightChunk(pos) => completions.push(LightCompletion::Lit(pos)),
-                Task::Barrier(id) => completions.push(LightCompletion::Barrier(id)),
+                Task::FinishLightChunk(pos) => result.completions.push(LightCompletion::Lit(pos)),
+                Task::Barrier(id) => result.completions.push(LightCompletion::Barrier(id)),
                 _ => {}
             }
         }
-        UpdateResult { light_updates_run, completions }
     }
 }
 
