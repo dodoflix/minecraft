@@ -181,6 +181,7 @@ impl MinecraftServer {
         if !init.registries.composite_access().registry_or_throw(crate::registry::keys::LEVEL_STEM).contains(&overworld) {
             return Err("Missing Overworld dimension data".to_owned());
         }
+        init.registries.composite_access().install_protocol_context();
         shared.bind_game_thread();
         let enabled_features = init.world_data.settings.data_configuration.enabled_features;
         let mut saved_data = SavedDataManager::new(mc_world::level_storage::SavedDataStorage::new(

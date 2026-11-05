@@ -6,6 +6,7 @@ extern crate self as mc_protocol;
 
 pub mod codec;
 pub mod components;
+pub mod dialog;
 pub mod registry_context;
 pub mod packet;
 

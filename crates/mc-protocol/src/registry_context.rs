@@ -195,7 +195,47 @@ pub fn registry_name(registry: &str, id: i32) -> Option<Identifier> {
     get().registry(registry)?.name_of(id).cloned()
 }
 
-/// Whether `name` is an entry of `registry`.
+/// Whether `name` is an entry of `registry` (a [scoped lookup](with_scoped_lookup) takes precedence).
 pub fn registry_contains(registry: &str, name: &Identifier) -> bool {
+    if let Some(found) = scoped(|l| l.contains(registry, name)) {
+        return found;
+    }
     registry_id(registry, name).is_some()
+}
+
+/// Whether the tag `tag` exists in `registry` (a [scoped lookup](with_scoped_lookup) takes precedence).
+pub fn tag_exists(registry: &str, tag: &Identifier) -> bool {
+    scoped(|l| l.tag_exists(registry, tag)).unwrap_or_else(|| get().tag_exists(registry, tag))
+}
+
+/// A `RegistryOps.RegistryInfoLookup` for one thread and one codec run: while a registry is being loaded its entries
+/// are not in the process-global context yet, but codecs of that very registry reference each other (and tags).
+pub trait ScopedLookup {
+    /// `Some(answer)` when this lookup decides about `registry`, `None` to fall through to the global context.
+    fn contains(&self, registry: &str, name: &Identifier) -> Option<bool>;
+    fn tag_exists(&self, registry: &str, tag: &Identifier) -> Option<bool>;
+}
+
+thread_local! {
+    static SCOPED: std::cell::Cell<Option<*const (dyn ScopedLookup + 'static)>> = const { std::cell::Cell::new(None) };
+}
+
+fn scoped<R>(f: impl FnOnce(&dyn ScopedLookup) -> Option<R>) -> Option<R> {
+    // SAFETY: the pointer was stored by `with_scoped_lookup`, which keeps the referent alive and resets the slot
+    // before returning (also on unwind); it is only read on the same thread, inside that call.
+    SCOPED.with(|s| s.get()).and_then(|p| f(unsafe { &*p }))
+}
+
+/// Runs `f` with `lookup` answering [`registry_contains`] / [`tag_exists`] on this thread (nesting restores the outer one).
+pub fn with_scoped_lookup<R>(lookup: &dyn ScopedLookup, f: impl FnOnce() -> R) -> R {
+    struct Reset(Option<*const (dyn ScopedLookup + 'static)>);
+    impl Drop for Reset {
+        fn drop(&mut self) {
+            SCOPED.with(|s| s.set(self.0));
+        }
+    }
+    // SAFETY: only the lifetime is erased; `Reset` clears the slot before `lookup`'s borrow ends.
+    let erased: *const (dyn ScopedLookup + 'static) = unsafe { std::mem::transmute::<&dyn ScopedLookup, &'static dyn ScopedLookup>(lookup) };
+    let _reset = Reset(SCOPED.with(|s| s.replace(Some(erased))));
+    f()
 }

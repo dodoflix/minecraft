@@ -6,6 +6,7 @@ pub mod attributes;
 pub mod biome;
 pub mod chat_type;
 pub mod damage_type;
+pub mod dialog;
 pub mod dimension_type;
 pub mod enchantment;
 pub mod int_provider;

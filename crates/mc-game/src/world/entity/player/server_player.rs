@@ -227,6 +227,14 @@ impl ServerPlayer {
         }
     }
 
+    /// `ServerPlayer.openDialog(dialog)`: a registered dialog (by name) or an inline one.
+    pub fn open_dialog(&self, dialog: &mc_protocol::components::Holder<mc_protocol::dialog::Dialog>) {
+        match mc_protocol::dialog::Dialog::wire_holder(dialog) {
+            Some(dialog) => self.send(&mc_protocol::packets::play::ClientboundShowDialogPacket { dialog }),
+            None => log::error!("Can't open a dialog that is not in the dialog registry: {dialog:?}"),
+        }
+    }
+
     /// `ServerPlayerGameMode.setGameModeForPlayer(new, previous)` (`GameType.updatePlayerAbilities`).
     pub fn set_game_mode_for_player(&mut self, game_mode: GameType, previous: Option<GameType>) {
         self.game_mode.previous_game_mode_for_player = previous;

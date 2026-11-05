@@ -33,8 +33,8 @@ impl PlayCtx<'_> {
 
     /// `handleCustomClickAction`.
     pub fn handle_custom_click_action(&mut self, packet: &ServerboundCustomClickActionPacket) {
-        // `server.handleCustomClickAction(id, payload)`: dialog click actions are not handled by any slice yet
-        log::debug!("Unhandled custom click action {} from {}", packet.id, self.player.get_plain_text_name());
+        // `MinecraftServer.handleCustomClickAction(id, payload)` only logs
+        log::debug!("Received custom click action {} with payload {:?}", packet.id, packet.payload);
     }
 
     /// `handleResourcePackResponse`.

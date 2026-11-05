@@ -79,10 +79,8 @@ fn underground_features_match_vanilla() {
 }
 
 /// `fossil` / `template` place structure templates: `StructureTemplate.placeInWorld` updates the shapes of the placed blocks
-/// (`RotatedPillarBlock.rotate`, `FallingBlock`/`LiquidBlock` tick scheduling, `SulfurSpike` thickness, ...), i.e. needs the
-/// concrete block classes (WorldgenBlocks, not on main yet).
+/// (`RotatedPillarBlock.rotate`, `FallingBlock`/`LiquidBlock` tick scheduling, `SulfurSpike` thickness, ...).
 #[test]
-#[ignore = "needs the concrete block classes (WorldgenBlocks): rotate / updateShape / onPlace of the placed template blocks"]
 fn template_features_match_vanilla() {
     run(true);
 }

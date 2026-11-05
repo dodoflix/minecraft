@@ -70,7 +70,7 @@ pub fn get_block_entity_nbt(level: &mut dyn WorldGenLevel, pos: BlockPos) -> Opt
 /// `blockEntity.loadWithComponents(tag)` then `saveWithFullMetadata()` for a block entity of a data pack template (`id`, `x`,
 /// `y`, `z` present): the `components` map is always saved, and the types whose saved form differs from the template's
 /// stored NBT are normalised (brewing stand: `BrewTime`/`Fuel` as ints and the defaulted fields; randomizable containers
-/// keep `LootTableSeed` only with a `LootTable` and then save no `Items`; a banner without layers saves no `patterns`).
+/// keep `LootTableSeed` only with a `LootTable` and then save no `Items`; a banner without layers saves no `patterns`; a jigsaw always saves both priorities).
 /// Other types are saved as they were stored.
 pub fn load_and_save_template_block_entity(mut tag: CompoundTag) -> CompoundTag {
     if tag.get_string("id").is_some_and(is_randomizable_container) {
@@ -85,6 +85,13 @@ pub fn load_and_save_template_block_entity(mut tag: CompoundTag) -> CompoundTag 
     }
     if tag.get_string("id") == Some("minecraft:banner") && tag.get_list("patterns").is_some_and(|p| p.is_empty()) {
         tag.remove("patterns");
+    }
+    if tag.get_string("id") == Some("minecraft:jigsaw") {
+        // `JigsawBlockEntity.saveAdditional` always writes both priorities (`loadAdditional` defaults them to 0)
+        for key in ["placement_priority", "selection_priority"] {
+            let value = tag.get_int_or(key, 0);
+            tag.put_int(key, value);
+        }
     }
     if tag.get_string("id") == Some("minecraft:brewing_stand") {
         let brew_time = tag.get_int_or("BrewTime", 0);
