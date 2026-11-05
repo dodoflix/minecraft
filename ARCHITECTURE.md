@@ -96,10 +96,11 @@ Vanilla's gameplay code is one tightly coupled object graph, so it lives in one 
 **The main checkout `/home/dodo/Projects/minecraft` is READ-ONLY for every agent, helpers included.** A guard moves any
 uncommitted edit found there to a `stray-main-<time>` branch every minute. Every agent works in its own git worktree:
 `git worktree add /home/dodo/Projects/mc-wt/<name> -b <name> main && ln -s ./ref /home/dodo/Projects/mc-wt/<name>/ref`
-(the `ref/` symlink is required: builds read `ref/extracted`, `ref/generated`, …), builds only there, then integrates:
-`git rebase main` (resolve conflicts, keep both sides' intent), build + test the crates it touched, and fast-forward
-main under a lock: `flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft merge --ff-only <name>` (retry
-rebase if main moved). Never force-push/reset main; never discard others' work.
+(the `ref/` symlink is required: builds read `ref/extracted`, `ref/generated`, …), builds only there, runs its tests,
+then integrates ONLY via `./scripts/merge-to-main.sh` (from the worktree): it rebases on
+main, runs `cargo check --workspace --tests` through the build slots, and fast-forwards + pushes main only if main
+didn't move meanwhile (else retries). Resolve rebase conflicts keeping both sides' intent. Never merge by hand (a
+hand merge broke main once), never force-push/reset main, never discard others' work.
 
 **Backup:** remote `origin` = private GitHub repo `dodoflix/minecraft`. After merging to main run
 `flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft push -q origin main`; after WIP/checkpoint commits
