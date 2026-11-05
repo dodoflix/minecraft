@@ -4,8 +4,7 @@
 //! Recorded events are the Minecraft ones that exist in this server: `minecraft.ServerTickTime` (every second),
 //! `minecraft.PacketReceived` / `minecraft.PacketSent` and `minecraft.NetworkSummary` (every 10 s). Not produced: the
 //! JVM's own events (GC, CPU, allocation, file IO) and the chunk generation/region IO/structure events, which have no
-//! source here. The summary written next to the recording (`SummaryReporter`) therefore only holds the network and
-//! server tick sections.
+//! source here; the summary written next to the recording (`SummaryReporter`) reports those JVM-only sections as empty.
 
 use std::collections::BTreeMap;
 use std::fs::File;
@@ -466,11 +465,24 @@ fn percentiles(values: &[f64]) -> Vec<(i32, f64)> {
         .collect()
 }
 
+/// A JSON number as Gson writes it: non-finite doubles are the bare words `Infinity`/`-Infinity`/`NaN` (marked here,
+/// unquoted by [`Summary::as_json`]).
+fn num(value: f64) -> Value {
+    if value.is_nan() {
+        json!("\u{1}NaN")
+    } else if value.is_infinite() {
+        json!(if value > 0.0 { "\u{1}Infinity" } else { "\u{1}-Infinity" })
+    } else {
+        json!(value)
+    }
+}
+
 impl Summary {
     fn duration_seconds(&self) -> f64 {
         ((self.ended_epoch_millis - self.started_epoch_millis) / 1000) as f64
     }
 
+    /// `IoSummary` as `JfrResultJsonSerializer.ioSummary` writes it.
     fn io_summary(&self, stats: &IndexMap<(String, String), CountAndSize>) -> Value {
         let total_count: i64 = stats.values().map(|s| s.count).sum();
         let total_size: i64 = stats.values().map(|s| s.size).sum();
@@ -481,46 +493,46 @@ impl Summary {
             .into_iter()
             .take(10)
             .map(|((protocol, packet), s)| {
-                json!({"protocolId": protocol, "packetId": packet, "totalBytes": s.size, "count": s.count, "averageSize": f64::from(s.size as f32 / s.count as f32)})
+                json!({"protocolId": protocol, "packetId": packet, "totalBytes": s.size, "count": s.count, "averageSize": num(f64::from(s.size as f32 / s.count as f32))})
             })
             .collect();
-        json!({"totalBytes": total_size, "count": total_count, "bytesPerSecond": total_size as f64 / seconds, "countPerSecond": total_count as f64 / seconds, "topContributors": top})
+        json!({"totalBytes": total_size, "count": total_count, "bytesPerSecond": num(total_size as f64 / seconds), "countPerSecond": num(total_count as f64 / seconds), "topContributors": top})
     }
 
-    /// `JfrResultJsonSerializer.format`, limited to the sections this recording has data for. Gson refuses
-    /// non-finite numbers (a recording shorter than one second divides by zero), like here.
-    fn as_json(&self) -> Result<String, String> {
+    /// `JfrResultJsonSerializer.format`. The JVM-only sections (GC heap, CPU load, thread allocation, file IO) are
+    /// formatted over empty statistics, which is what they are in this server.
+    fn as_json(&self) -> String {
+        let seconds = self.duration_seconds();
+        let duration_ms = self.ended_epoch_millis - self.started_epoch_millis;
+        let empty_io = || json!({"totalBytes": 0, "count": 0, "bytesPerSecond": num(0.0 / seconds), "countPerSecond": num(0.0 / seconds), "topContributors": []});
+        let cpu = || json!({"min": num(f64::INFINITY), "average": 0.0, "max": num(f64::NEG_INFINITY)});
         let mut root = Map::new();
         root.insert("startedEpoch".into(), json!(self.started_epoch_millis));
         root.insert("endedEpoch".into(), json!(self.ended_epoch_millis));
-        root.insert("durationMs".into(), json!(self.ended_epoch_millis - self.started_epoch_millis));
+        root.insert("durationMs".into(), json!(duration_ms));
+        root.insert(
+            "heap".into(),
+            json!({"allocationRateBytesPerSecond": 0.0, "gcCount": 0, "gcOverHeadPercent": num(f64::from(0.0_f32 / duration_ms as f32)), "gcTotalDurationMs": 0}),
+        );
+        root.insert("cpuPercent".into(), json!({"jvm": cpu(), "userJvm": cpu(), "system": cpu()}));
         root.insert("network".into(), json!({"sent": self.io_summary(&self.sent), "received": self.io_summary(&self.received)}));
+        root.insert("fileIO".into(), json!({"write": empty_io(), "read": empty_io(), "chunksRead": empty_io(), "chunksWritten": empty_io()}));
         if !self.tick_times_nanos.is_empty() {
             let ms: Vec<f64> = self.tick_times_nanos.iter().map(|n| *n as f64 / 1_000_000.0).collect();
             let mut tick = Map::new();
-            tick.insert("minMs".into(), json!(ms.iter().copied().fold(f64::INFINITY, f64::min)));
-            tick.insert("averageMs".into(), json!(ms.iter().sum::<f64>() / ms.len() as f64));
-            tick.insert("maxMs".into(), json!(ms.iter().copied().fold(f64::NEG_INFINITY, f64::max)));
+            tick.insert("minMs".into(), num(ms.iter().copied().fold(f64::INFINITY, f64::min)));
+            tick.insert("averageMs".into(), num(ms.iter().sum::<f64>() / ms.len() as f64));
+            tick.insert("maxMs".into(), num(ms.iter().copied().fold(f64::NEG_INFINITY, f64::max)));
             for (p, v) in percentiles(&ms) {
-                tick.insert(format!("p{p}"), json!(v));
+                tick.insert(format!("p{p}"), num(v));
             }
             root.insert("serverTick".into(), Value::Object(tick));
         }
+        root.insert("threadAllocation".into(), json!([]));
         root.insert("chunkGen".into(), json!({}));
         root.insert("structureGen".into(), json!({}));
-        if has_non_finite(&Value::Object(root.clone())) {
-            return Err("JSON forbids NaN and infinities".to_owned());
-        }
-        serde_json::to_string_pretty(&Value::Object(root)).map_err(|e| e.to_string())
-    }
-}
-
-fn has_non_finite(value: &Value) -> bool {
-    match value {
-        Value::Null => true, // serde_json turns NaN/Infinity into null
-        Value::Array(a) => a.iter().any(has_non_finite),
-        Value::Object(o) => o.values().any(has_non_finite),
-        _ => false,
+        let text = serde_json::to_string_pretty(&Value::Object(root)).expect("plain JSON values");
+        text.replace("\"\u{1}NaN\"", "NaN").replace("\"\u{1}Infinity\"", "Infinity").replace("\"\u{1}-Infinity\"", "-Infinity")
     }
 }
 
@@ -655,13 +667,7 @@ impl JfrProfiler {
 /// `SummaryReporter.recordingStopped`.
 fn report_summary(result: &Path, summary: &Summary) {
     log::info!("Dumped flight recorder profiling to {}", result.display());
-    let json = match summary.as_json() {
-        Ok(json) => json,
-        Err(e) => {
-            log::warn!("Failed to output JFR report\n{e}");
-            return;
-        }
-    };
+    let json = summary.as_json();
     log::info!("{json}");
     let file_name = result.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
     let stem = file_name.split(".jfr").next().unwrap_or(&file_name);

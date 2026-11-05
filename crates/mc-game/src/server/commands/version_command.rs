@@ -19,10 +19,18 @@ register_command!("VersionCommand", |ctx| {
     }));
 });
 
-/// `Date.toString()` of the build time in the JVM default zone (`EEE MMM dd HH:mm:ss zzz yyyy`).
+/// `Date.toString()` of the build time in the JVM default zone (`EEE MMM dd HH:mm:ss zzz yyyy`): `UTC` for offset 0,
+/// else the `GMT+hh:mm` form the JVM prints for zones without a short name.
 fn build_time_string() -> String {
     let instant = chrono::DateTime::parse_from_rfc3339(BUILD_TIME).expect("version.json build_time");
-    instant.with_timezone(&chrono::Local).format("%a %b %d %H:%M:%S %Z %Y").to_string()
+    let local = instant.with_timezone(&chrono::Local);
+    let offset = chrono::Offset::fix(local.offset()).local_minus_utc();
+    let zone = if offset == 0 {
+        "UTC".to_owned()
+    } else {
+        format!("GMT{}{:02}:{:02}", if offset < 0 { '-' } else { '+' }, offset.abs() / 3600, offset.abs() / 60 % 60)
+    };
+    format!("{} {zone} {}", local.format("%a %b %d %H:%M:%S"), local.format("%Y"))
 }
 
 /// `VersionCommand.dumpVersion`.

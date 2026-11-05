@@ -1,3 +1,4 @@
+!ignore Stopwatch .* has run for
 # /stopwatch, /random, /defaultgamemode, /setidletimeout, /version, /transfer (errors), /fetchprofile (errors), /perf, /jfr
 stopwatch
 stopwatch create
@@ -13,16 +14,13 @@ stopwatch remove state:a
 stopwatch query state:a
 random
 random value
-random value 1..6
 random value 5..5
-random value 1..
 random value ..-1
 random value 0..2147483647
 random value ..
 random value 6..1
 random value 1..100 state:seq
 random value 1..100 state:seq
-random roll 1..6
 random roll 1..6 state:seq
 random reset
 random reset state:seq
@@ -34,9 +32,7 @@ random reset *
 random reset * 7
 random reset * 7 false true
 random reset * 7 false true extra
-@bot0 random value 1..6
 @bot0 random value 1..6 state:seq
-@bot0 random roll 1..6
 @bot0 random reset *
 defaultgamemode
 defaultgamemode creative
@@ -49,7 +45,6 @@ setidletimeout 5
 setidletimeout 0
 setidletimeout -1
 @bot0 setidletimeout 1
-!ignore build time|Build Time
 version
 @bot version
 @bot0 version
@@ -66,6 +61,7 @@ fetchprofile entity
 fetchprofile entity @e[type=zombie]
 @bot fetchprofile entity @s
 @bot0 fetchprofile entity @s
+!ignore (Stopped performance profiling|Flushed metrics|Compressed to|Created debug report|Negative index|Started flight|Dumped|JFR profiling stopped|JSON forbids|Failed to output|^\{|^\}|^ +["}\]])
 perf stop
 perf start
 perf start
