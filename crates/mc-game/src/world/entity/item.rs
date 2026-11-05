@@ -1,5 +1,6 @@
 //! `net.minecraft.world.entity.item.ItemEntity`.
 
+pub mod primed_tnt;
 use super::entity::{self, Entity, EntityData, MoveSimulationType, MovementEmission};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};
 use super::{EntityId, MoverType, movement};

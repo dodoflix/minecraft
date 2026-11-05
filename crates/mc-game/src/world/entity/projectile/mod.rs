@@ -173,7 +173,7 @@ pub trait Projectile: Entity {
             o.as_any().downcast_ref::<crate::world::entity::ServerPlayer>().is_some_and(|p| p.game_mode.game_mode_for_player != mc_data::enums::GameType::Adventure)
         });
         if (owner.is_some() || world_game_mode_is_adventure) && !owner_not_adventure_player {
-            self.projectile_data().can_break.as_ref().is_some_and(|p| crate::world::item::use_item::adventure_predicate_test(p, level, pos))
+            self.projectile_data().can_break.as_ref().is_some_and(|p| crate::world::item::adventure_predicate_test(p, level, pos))
         } else {
             true
         }
