@@ -26,7 +26,7 @@ impl ServerLevel {
 
 impl<'a> DamageSources<'a> {
     /// `source(key, direct, causing)`: `damageTypes.getOrThrow(key)`.
-    fn source(&self, key: &str, direct: Option<&dyn Entity>, causing: Option<&dyn Entity>) -> DamageSource {
+    pub fn source(&self, key: &str, direct: Option<&dyn Entity>, causing: Option<&dyn Entity>) -> DamageSource {
         let (id, data) = self.resolve(key);
         DamageSource::new(id, data, direct, causing, None)
     }

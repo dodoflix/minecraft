@@ -83,6 +83,26 @@ pub fn load_default_data_from_bucket_tag(entity: &mut dyn Entity, tag: &Compound
     }
 }
 
+/// `Bucketable.bucketMobPickup(player, hand, pickupEntity)` for the mob currently being interacted with (taken out of the
+/// level while its `mobInteract` runs, so it is passed in): `None` when it cannot be picked up with the held stack.
+pub fn bucket_mob_pickup_in_place(level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand, entity: &mut dyn Entity) -> Option<InteractionResult> {
+    let stack = player.get_item_in_hand(hand);
+    let bucketable = entity.as_bucketable()?;
+    if !(bucketable.can_be_picked_up_with_bucket(&stack) && entity.is_alive()) {
+        return None;
+    }
+    let sound = bucketable.get_pickup_sound();
+    entity.play_sound(level, sound, 1.0, 1.0);
+    let mut bucket = entity.as_bucketable()?.get_bucket_item_stack();
+    entity.as_bucketable()?.save_to_bucket_tag(&mut bucket);
+    crate::world::entity::mob::leashable::drop_leash(entity, level);
+    entity.discard();
+    let result = create_filled_result(stack, &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level }, bucket, false);
+    player.set_item_in_hand(hand, result);
+    // CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &bucket) once ImAdvancements lands
+    Some(InteractionResult::SUCCESS)
+}
+
 /// `Bucketable.bucketMobPickup(player, hand, pickupEntity)`: `None` when the mob cannot be picked up with the held stack.
 pub fn bucket_mob_pickup(level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand, mob: EntityId) -> Option<InteractionResult> {
     let stack = player.get_item_in_hand(hand);

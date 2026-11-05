@@ -38,6 +38,9 @@ pub struct DamageEntity {
     pub uuid: Uuid,
     pub entity_type: EntityType,
     pub position: Vec3,
+    /// `getEyePosition()` and `getLookAngle()` when captured (`SulfurCube.knockback` reads the attacker's aim).
+    pub eye_position: Vec3,
+    pub look_angle: Vec3,
     /// `getName()` (not team-decorated: the scoreboard is applied when the message is built).
     pub name: Component,
     pub scoreboard_name: String,
@@ -90,6 +93,8 @@ impl DamageEntity {
             uuid: entity.uuid(),
             entity_type: entity.get_type(),
             position: entity.position(),
+            eye_position: entity.base().get_eye_position(),
+            look_angle: entity.get_look_angle(),
             name: crate::commands::host::entity_name(entity),
             scoreboard_name: entity.get_scoreboard_name(),
             is_living,

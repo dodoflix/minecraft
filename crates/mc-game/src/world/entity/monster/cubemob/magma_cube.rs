@@ -55,6 +55,7 @@ impl MagmaCube {
         goals.add_goal(4, Box::new(CubeMobRandomDirectionGoal::new()));
         goals.add_goal(5, Box::new(CubeMobKeepOnJumpingGoal));
         goals.add_goal(2, Box::new(CubeMobAttackGoal::new()));
+        acm::add_slime_targeting_goals(&mut self.mob.target_selector);
     }
 }
 

@@ -60,6 +60,7 @@ impl Slime {
         goals.add_goal(5, Box::new(CubeMobKeepOnJumpingGoal));
         // `addBehaviourGoals()`
         goals.add_goal(2, Box::new(CubeMobAttackGoal::new()));
+        acm::add_slime_targeting_goals(&mut self.mob.target_selector);
     }
 }
 

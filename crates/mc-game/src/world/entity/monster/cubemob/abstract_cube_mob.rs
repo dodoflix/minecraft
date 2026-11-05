@@ -230,6 +230,19 @@ pub fn set_wanted_movement(mob: &mut dyn Entity, speed_modifier: f64) {
     with_cube_move_control(mob, |c| c.set_wanted_movement(speed_modifier));
 }
 
+/// `addTargetingGoals()` of `Slime` / `MagmaCube`.
+pub fn add_slime_targeting_goals(selector: &mut crate::world::entity::ai::goal::GoalSelector) {
+    use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+    selector.add_goal(
+        1,
+        Box::new(
+            NearestAttackableTargetGoal::build(TargetType::Player, 10, true, false, None)
+                .with_source_selector(std::sync::Arc::new(|mob: &dyn Entity, target: &dyn Entity, _level: &ServerLevel| (target.base().y() - mob.base().y()).abs() <= 4.0)),
+        ),
+    );
+    selector.add_goal(3, Box::new(NearestAttackableTargetGoal::new(TargetType::of_type(EntityType::IRON_GOLEM), true)));
+}
+
 // ---- goals -----------------------------------------------------------------------------------------------------------
 
 /// `AbstractCubeMob.CubeMobAttackGoal`.
