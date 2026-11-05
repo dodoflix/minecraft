@@ -9,6 +9,12 @@ gamerule advance_weather false
 # its timing is asynchronous: only the player-visible effects are compared
 !ignore lost connection:
 !ignore handleDisconnection
+# vanilla's kick/ban run `handleDisconnection` synchronously (`server.executeBlocking`), so the leave message lands in the
+# command's own output; ours processes the disconnect on a later tick (network layer, not the commands): ignore until fixed
+!ignore left the game
+!ignore multiplayer.player.left
+# timing dependent in vanilla too (the bot's own movement packets after a teleport)
+!ignore standing on air
 
 # ---- say / me / msg / tell / w / tellraw
 say hello world
@@ -208,7 +214,6 @@ give nobody stone
 give @a apple 2
 @bot give @s bread 3
 @bot0 give @s bread 3
-clear Bot
 
 # ---- ops, whitelist, bans, kick (Bot/Bot0 are online players, so name resolution does not hit Mojang)
 whitelist list

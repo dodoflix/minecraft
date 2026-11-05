@@ -78,14 +78,18 @@ pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Com
     let name = entity_name(entity);
     let scoreboard = server.scoreboard.read();
     let team = scoreboard.get_players_team(&entity.get_scoreboard_name());
-    let name = crate::world::scores::PlayerTeam::format_name_for_team(team, &name);
+    decorate_display_name(crate::world::scores::PlayerTeam::format_name_for_team(team, &name), entity)
+}
+
+/// `Entity.decorateDisplayNameComponent` (hover = the entity, insertion = its UUID) and the override of
+/// `Player` (click = suggest `/tell <name> `, insertion = the profile name).
+pub fn decorate_display_name(name: Component, entity: &dyn Entity) -> Component {
     let hover = mc_text::events::HoverEvent::ShowEntity(mc_text::events::EntityTooltipInfo {
         entity_type: entity.get_type().identifier(),
         uuid: entity.uuid().as_u128(),
         name: Some(Box::new(entity_name(entity))),
     });
     if entity.is_player() {
-        // `Player.decorateDisplayNameComponent`
         let profile_name = entity_name(entity).get_string();
         let click = mc_text::events::ClickEvent::SuggestCommand(format!("/tell {profile_name} "));
         return name.with_style_fn(|s| s.with_click_event(Some(click.clone())).with_hover_event(Some(hover.clone())).with_insertion(Some(profile_name.clone())));

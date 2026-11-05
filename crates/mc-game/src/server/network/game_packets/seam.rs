@@ -36,9 +36,9 @@ impl ServerPlayer {
         NameAndId { id: self.player.game_profile.id, name: self.player.game_profile.name.clone() }
     }
 
-    /// `getDisplayName()` (team decoration and hover/click events come with the scoreboard/selector slices).
+    /// `getDisplayName()` without the team formatting (that needs the scoreboard: `host::entity_display_name`).
     pub fn get_display_name(&self) -> Component {
-        Component::literal(self.player.game_profile.name.clone())
+        crate::commands::host::decorate_display_name(Component::literal(self.player.game_profile.name.clone()), self)
     }
 
     pub fn get_y_rot(&self) -> f32 {

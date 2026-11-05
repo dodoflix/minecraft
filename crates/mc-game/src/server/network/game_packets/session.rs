@@ -214,7 +214,7 @@ impl PlayCtx<'_> {
     /// is applied when the taken-out player is put back, see `ServerLevel::put_back_entity`).
     fn remove_player_from_world(&mut self) {
         self.server.invalidate_status();
-        let message = Component::translatable("multiplayer.player.left", vec![self.player.get_display_name().into()]).with_format(ChatFormatting::Yellow);
+        let message = Component::translatable("multiplayer.player.left", vec![crate::commands::host::entity_display_name(self.server, &*self.player).into()]).with_format(ChatFormatting::Yellow);
         self.server.player_list.broadcast_system_message(&message, false);
         self.player.disconnected = true;
         self.remove_from_player_list();

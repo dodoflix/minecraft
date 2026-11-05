@@ -240,7 +240,7 @@ impl PlayCtx<'_> {
     /// `broadcastChatMessage`: `playerList.broadcastChatMessage(message, player, ChatType.bind(ChatType.CHAT, player))`.
     fn broadcast_chat_message(&mut self, message: PlayerChatMessage) {
         let Some(handle) = self.player.handle.clone() else { return };
-        let bound = crate::commands::host::bind_chat_type(self.server, "minecraft:chat", self.player.get_display_name());
+        let bound = crate::commands::host::bind_chat_type(self.server, "minecraft:chat", crate::commands::host::entity_display_name(self.server, &*self.player));
         self.server.player_list.broadcast_chat_message_from_player(&message, &handle, &bound);
         self.detect_chat_rate_spam();
     }

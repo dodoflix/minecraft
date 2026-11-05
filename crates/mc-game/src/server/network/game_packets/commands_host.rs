@@ -46,7 +46,7 @@ impl PlayCtx<'_> {
             id: self.player.id(),
             uuid: self.player.uuid(),
             is_player: true,
-            display_name: self.player.get_display_name(),
+            display_name: crate::commands::host::entity_display_name(self.server, &*self.player),
             plain_text_name: self.player.get_plain_text_name(),
             eye_height: self.player.player.living.entity.eye_height,
             player: Some(handle),
