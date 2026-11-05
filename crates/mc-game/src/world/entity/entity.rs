@@ -2300,6 +2300,22 @@ pub trait Entity: Any {
     }
     /// `doAutoAttackOnTouch(entity)` (riptide spin attack; `Player`).
     fn do_auto_attack_on_touch(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) {}
+    /// `randomTeleport(x, y, z, showParticles, avoidanceTag)` (block tag name without namespace).
+    fn random_teleport(&mut self, level: &mut ServerLevel, x: f64, y: f64, z: f64, show_particles: bool, avoidance_tag: &str) -> bool {
+        super::living_entity::teleport::random_teleport(self.as_dyn_mut(), level, x, y, z, show_particles, avoidance_tag)
+    }
+    /// `resetCurrentImpulseContext()`.
+    fn reset_current_impulse_context(&mut self) {
+        super::living_entity::teleport::reset_current_impulse_context(self.as_dyn_mut());
+    }
+    /// `setLastHurtMob(target)`.
+    fn set_last_hurt_mob(&mut self, target: &dyn Entity) {
+        let tick_count = self.base().tick_count;
+        if let Some(l) = self.living_mut() {
+            l.last_hurt_mob = target.living().is_some().then(|| target.id());
+            l.last_hurt_mob_timestamp = tick_count;
+        }
+    }
     /// `applyInput()` (`LivingEntity`: the movement input decays by 0.98; `LocalPlayer` reads the keyboard).
     fn apply_input(&mut self) {
         if let Some(l) = self.living_mut() {

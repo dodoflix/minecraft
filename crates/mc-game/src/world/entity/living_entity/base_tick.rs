@@ -113,6 +113,11 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     } else {
         lm(entity).last_hurt_by_player = None;
     }
+    if let Some(target) = l(entity).last_hurt_mob {
+        if !level.get_entity(target).is_some_and(|t| t.is_alive()) {
+            lm(entity).last_hurt_mob = None;
+        }
+    }
     if let Some(uuid) = l(entity).last_hurt_by_mob {
         if let Some(hurt_by) = level.get_entity_by_uuid(uuid).filter(|e| e.living().is_some()) {
             let hurt_by_alive = hurt_by.is_alive();

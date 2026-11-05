@@ -384,6 +384,44 @@ impl Entity for ServerPlayer {
         self.set_sprinting(input.sprint && input.forward);
     }
     // ==== [LivingCore] additions (impl Entity for ServerPlayer) ====
+    /// `ServerPlayer.teleportTo(x, y, z)`: a client teleport (`Relative.DELTA | ROTATION`).
+    fn teleport_to(&mut self, level: &mut crate::server::level::ServerLevel, x: f64, y: f64, z: f64) {
+        use mc_protocol::packets::play::{PositionMoveRotation, Relatives};
+        if self.listener.is_none() {
+            let (yr, xr) = (self.base().y_rot(), self.base().x_rot());
+            self.snap_to(x, y, z, yr, xr);
+            return;
+        }
+        let _ = level;
+        self.connection_teleport_pmr(
+            PositionMoveRotation { position: Vec3::new(x, y, z), delta_movement: Vec3::ZERO, y_rot: 0.0, x_rot: 0.0 },
+            Relatives::DELTA.union(Relatives::ROTATION),
+        );
+    }
+    /// `Player.updateSwimming()`.
+    fn update_swimming(&mut self, level: &crate::server::level::ServerLevel) {
+        if self.player.abilities.flying {
+            self.set_swimming(false);
+        } else {
+            // `Entity.updateSwimming`, which reads the raw flag through `isSwimming()`
+            let was_swimming = self.is_swimming();
+            let in_passenger = self.base().is_passenger();
+            let sprinting = self.is_sprinting();
+            let swimming = if was_swimming {
+                sprinting && self.is_in_water() && !in_passenger
+            } else {
+                sprinting
+                    && self.is_under_water()
+                    && !in_passenger
+                    && crate::world::level::material::FluidStateExt::is_tag(crate::world::level::BlockGetter::get_fluid_state(level, self.base().block_position()), "water")
+            };
+            self.set_swimming(swimming);
+        }
+    }
+    /// `Player.getMaxHeadRotationRelativeToBody()`.
+    fn get_max_head_rotation_relative_to_body(&self) -> f32 {
+        if self.is_blocking() { 15.0 } else { 50.0 }
+    }
     /// `Player.doesEmitEquipEvent(slot)`.
     fn does_emit_equip_event(&self, slot: crate::world::entity::equipment::EquipmentSlot) -> bool {
         slot.get_type() == crate::world::entity::equipment::EquipmentSlotType::HumanoidArmor

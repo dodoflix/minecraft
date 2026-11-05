@@ -1,0 +1,24 @@
+# Sneaking at an edge (Player.maybeBackOffFromEdge): a 5x5 stone platform one block above the ground, walk/strafe/diagonal while sneaking, then walk off.
+level flat
+fill -10 -61 -10 10 -61 10 minecraft:air
+fill -2 -61 -2 2 -61 2 minecraft:stone
+spawn_player Edge survival 0.5 -60 0.5 0 0 sim
+spawn_player Diag survival 20.5 -60 0.5 45 0 sim
+fill 18 -61 -2 22 -61 2 minecraft:stone
+watch player:Edge player:Diag
+tick 3
+input Edge forward,sneak
+input Diag forward,sneak
+tick 30
+input Edge right,sneak
+input Diag forward,left,sneak
+tick 30
+input Edge back,sneak
+input Diag back,sneak
+tick 20
+input Edge forward
+input Diag forward
+tick 20
+input Edge none
+input Diag none
+tick 15

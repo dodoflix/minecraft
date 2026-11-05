@@ -88,6 +88,8 @@ pub struct LivingEntityData {
     pub last_climbable_pos: Option<BlockPos>,
     /// `discardFriction` (`shouldDiscardFriction()`).
     pub discard_friction: bool,
+    /// `lastHurtMob` (a live `LivingEntity` the entity last attacked).
+    pub last_hurt_mob: Option<super::EntityId>,
     /// `autoSpinAttackItemStack`.
     pub auto_spin_attack_item_stack: Option<crate::world::item::ItemStack>,
     // ==== [Damage] additions (LivingEntityData field) ====
@@ -177,6 +179,7 @@ impl LivingEntityData {
             // ==== [LivingCore] additions (LivingEntityData::new initializer) ====
             last_climbable_pos: None,
             discard_friction: false,
+            last_hurt_mob: None,
             auto_spin_attack_item_stack: None,
             // ==== [Damage] additions (LivingEntityData::new initializer) ====
             combat_tracker: Default::default(),

@@ -1,6 +1,4 @@
 //! Collision pushing between entities: `LivingEntity.pushEntities` (incl. cramming damage), `doPush`, `isPushable`.
-//!
-//! `EntitySelector.pushableBy`'s team collision rules are not applied (no scoreboard access from the level yet).
 
 use super::seams::{self, LivingDamage};
 use super::util::is_position_entity_ticking;
@@ -17,10 +15,32 @@ pub fn living_is_pushable(entity: &dyn Entity, level: &ServerLevel) -> bool {
     }
 }
 
-/// `Level.getPushableEntities(entity, box)` = `getEntities(entity, box, EntitySelector.pushableBy(entity))`
-/// (`NO_SPECTATORS` and `isPushable()`).
+/// `EntitySelector.pushableBy(entity)` over `Level.getPushableEntities(entity, box)` (`NO_SPECTATORS`, `isPushable()` and the
+/// scoreboard team collision rules of both entities).
 fn get_pushable_entities(level: &ServerLevel, entity: &dyn Entity) -> Vec<crate::world::entity::EntityId> {
-    level.get_entities(Some(entity.id()), &entity.base().bounding_box(), |other| !other.is_spectator() && other.is_pushable(level))
+    use crate::world::scores::CollisionRule;
+    let scoreboard = level.scoreboard();
+    let own_team = scoreboard.get_player_team(&entity.get_scoreboard_name());
+    let own_rule = own_team.map_or(CollisionRule::Always, |t| t.get_collision_rule());
+    if own_rule == CollisionRule::Never {
+        return Vec::new();
+    }
+    level.get_entities(Some(entity.id()), &entity.base().bounding_box(), |other| {
+        if other.is_spectator() || !other.is_pushable(level) {
+            return false;
+        }
+        let their_team = scoreboard.get_player_team(&other.get_scoreboard_name());
+        let their_rule = their_team.map_or(CollisionRule::Always, |t| t.get_collision_rule());
+        if their_rule == CollisionRule::Never {
+            return false;
+        }
+        let same_team = own_team.is_some_and(|t| t.is_allied_to(their_team));
+        if (own_rule == CollisionRule::PushOwnTeam || their_rule == CollisionRule::PushOwnTeam) && same_team {
+            false
+        } else {
+            (own_rule != CollisionRule::PushOtherTeams && their_rule != CollisionRule::PushOtherTeams) || same_team
+        }
+    })
 }
 
 /// `LivingEntity.pushEntities()`.

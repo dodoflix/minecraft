@@ -301,3 +301,13 @@ fn air_supply_under_water() {
 fn cobweb_and_bubble_column() {
     check("ll_cobweb");
 }
+
+#[test]
+fn sneaking_at_edges() {
+    check("ll_edge");
+}
+
+#[test]
+fn pose_transitions_crouch_and_crawl() {
+    check("ll_pose");
+}

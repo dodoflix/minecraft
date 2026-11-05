@@ -17,6 +17,7 @@ pub mod jump;
 pub mod push;
 pub mod seams;
 pub mod sleeping;
+pub mod teleport;
 pub mod tick;
 pub mod totem;
 pub mod travel;

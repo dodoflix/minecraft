@@ -164,6 +164,11 @@ impl ServerPlayer {
         }
         self.player.living.attack_strength_ticker += 1;
         self.player.living.item_swap_ticker += 1;
+        if !self.is_eye_in_fluid(crate::world::entity::fluid_interaction::TAG_WATER) && self.is_equipped(mc_data::Item::TURTLE_HELMET) {
+            // `turtleHelmetTick()`
+            let effect = crate::world::entity::effect::MobEffectInstance::new(mc_data::MobEffect::WATER_BREATHING, 200, 0, false, false, true, None);
+            self.add_effect(level, effect, None);
+        }
         self.player.cooldowns.tick();
         self.update_player_pose(level);
         self.flush_item_cooldown_packets();
@@ -218,6 +223,15 @@ impl ServerPlayer {
         }
     }
 
+    /// `Player.isEquipped(item)`: worn in the slot its `equippable` component names.
+    fn is_equipped(&self, item: mc_data::Item) -> bool {
+        use crate::world::entity::equipment::EquipmentSlot;
+        EquipmentSlot::VALUES.into_iter().any(|slot| {
+            let stack = self.get_item_by_slot(slot);
+            stack.item() == item && stack.get(&mc_protocol::components::EQUIPPABLE).is_some_and(|e| EquipmentSlot::from_protocol(e.slot) == slot)
+        })
+    }
+
     /// `Player.updatePlayerPose()`.
     fn update_player_pose(&mut self, level: &mut ServerLevel) {
         use mc_data::enums::Pose;
@@ -250,11 +264,6 @@ impl ServerPlayer {
         } else {
             Pose::Standing
         }
-    }
-
-    /// `Player.isSwimming()`.
-    pub fn is_swimming(&self) -> bool {
-        !self.player.abilities.flying && !self.is_spectator() && self.base().get_shared_flag(crate::world::entity::entity::FLAG_SWIMMING)
     }
 
     /// `canPlayerFitWithinBlocksAndEntitiesWhen(pose)`.

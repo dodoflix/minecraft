@@ -80,7 +80,9 @@ pub fn apply_consume_effect(effect: &ConsumeEffect, level: &mut ServerLevel, use
         ConsumeEffect::ClearAllStatusEffects => {
             user.remove_all_effects(level);
         }
-        ConsumeEffect::TeleportRandomly(_) => {}
+        ConsumeEffect::TeleportRandomly(t) => {
+            crate::world::entity::living_entity::teleport::apply_teleport_randomly(t, level, user);
+        }
     }
 }
 

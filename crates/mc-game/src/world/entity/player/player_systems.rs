@@ -9,6 +9,34 @@ use linkme::distributed_slice;
 struct ServerPlayerSystems;
 
 impl PlayerSystems for ServerPlayerSystems {
+    /// `ServerPlayer.jumpFromGround()` (jump power, sprint boost, `Stats.JUMP`, food exhaustion).
+    fn jump_from_ground(&self, ctx: &mut PlayCtx) {
+        crate::world::entity::Entity::jump_from_ground(&mut *ctx.player, &*ctx.level);
+    }
+
+    /// `LivingEntity.onClimbable()` of the player (records `lastClimbablePos`).
+    fn on_climbable(&self, ctx: &mut PlayCtx) -> bool {
+        crate::world::entity::living_entity::travel::climbable(&mut *ctx.player, &*ctx.level)
+    }
+
+    /// `Player.tryToStartFallFlying()`.
+    fn try_to_start_fall_flying(&self, ctx: &mut PlayCtx) -> bool {
+        use crate::world::entity::Entity;
+        let player = &mut *ctx.player;
+        if !player.player.living.is_fall_flying() && player.can_glide() && !player.is_in_liquid() {
+            // `startFallFlying()`
+            player.base_mut().set_shared_flag(crate::world::entity::entity::FLAG_FALL_FLYING, true);
+            true
+        } else {
+            false
+        }
+    }
+
+    /// `LivingEntity.stopFallFlying()`.
+    fn stop_fall_flying(&self, ctx: &mut PlayCtx) {
+        crate::world::entity::living_entity::fall_flying::stop_fall_flying(&mut *ctx.player);
+    }
+
     /// `ServerPlayer.sendBuildLimitMessage(isTooHigh, limit)`.
     fn send_build_limit_message(&self, ctx: &mut PlayCtx, upper: bool, limit: i32) {
         ctx.player.send_build_limit_message(upper, limit);
