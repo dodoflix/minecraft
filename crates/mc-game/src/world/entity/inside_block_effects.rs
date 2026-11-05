@@ -55,7 +55,7 @@ pub fn fire_ignite(entity: &mut dyn Entity, level: &mut ServerLevel) {
         let t = entity.get_remaining_fire_ticks() + 1;
         entity.set_remaining_fire_ticks(t);
     } else if entity.is_player() {
-        let added_fire_ticks = level.random().next_int_between(1, 3);
+        let added_fire_ticks = crate::world::level::LevelAccessor::random(level).next_int_between(1, 3);
         let t = entity.get_remaining_fire_ticks().wrapping_add(added_fire_ticks);
         entity.set_remaining_fire_ticks(t);
     }
@@ -234,7 +234,7 @@ fn check_inside_blocks(entity: &mut dyn Entity, level: &mut ServerLevel, movemen
                 for axis in Direction::axis_step_order(original) {
                     let axis_move = delta.get(axis);
                     if axis_move != 0.0 {
-                        let to = pos.relative(Direction::of_axis_positive(axis), axis_move);
+                        let to = pos.relative(Direction::from_axis_and_direction(axis, mc_core::direction::AxisDirection::Positive), axis_move);
                         max_movement_iterations -= check_inside_blocks_step(entity, level, pos, to, collector, &mut visited_blocks, max_movement_iterations);
                         pos = to;
                     }

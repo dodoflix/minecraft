@@ -29,7 +29,7 @@ impl BlockBehaviour for BubbleColumnBlock {
         if is_precise {
             let state_above = level.get_block_state(pos.above());
             let nothing_above = state_above.get_collision_shape(&*level, pos).is_empty() && state_above.get_fluid_state().is_empty();
-            let drag_down = state.get(props::DRAG_DOWN);
+            let drag_down = state.get(props::DRAG);
             if nothing_above {
                 entity.on_above_bubble_column(level, drag_down, pos);
             } else {

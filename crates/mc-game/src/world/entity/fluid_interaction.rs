@@ -5,6 +5,7 @@ use super::entity::Entity;
 use crate::server::level::ServerLevel;
 use crate::world::level::material::FluidStateExt;
 use crate::world::level::BlockGetter;
+use crate::world::level::block::BlockStateExt;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -37,11 +38,17 @@ pub fn fluid_is_tag(fluid: Fluid, tag: &str) -> bool {
 }
 
 /// `EntityFluidInteraction.CurrentAccumulator`.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 struct CurrentAccumulator {
     height: f64,
     accumulated_current: Vec3,
     current_count: i32,
+}
+
+impl Default for CurrentAccumulator {
+    fn default() -> Self {
+        Self { height: 0.0, accumulated_current: Vec3::ZERO, current_count: 0 }
+    }
 }
 
 impl CurrentAccumulator {
@@ -97,9 +104,9 @@ fn has_fluid_and_loaded(level: &ServerLevel, x0: i32, y0: i32, z0: i32, x1: i32,
     for chunk_z in section_z0..=section_z1 {
         for chunk_x in section_x0..=section_x1 {
             let Some(chunk) = level.chunk_now(chunk_x, chunk_z) else { return false };
-            let sections = chunk.data.sections();
+            let sections = &chunk.data.access.sections;
             for section_y in section_y0..=section_y1 {
-                let index = chunk.data.section_index_from_section_y(section_y);
+                let index = chunk.data.access.level_height.section_index_from_section_y(section_y);
                 if index >= 0 && (index as usize) < sections.len() {
                     has_fluid |= sections[index as usize].has_fluid();
                 }
@@ -241,7 +248,7 @@ fn get_height_for_camera(fluid_state: mc_data::fluid::FluidState, level: &Server
     if fluid_state.is_source() {
         let above = pos.above();
         let state: BlockState = level.get_block_state(above);
-        if state.is_face_sturdy(level, above, Direction::Down) {
+        if state.is_face_sturdy_at(level, above, Direction::Down) {
             return 1.0;
         }
     }

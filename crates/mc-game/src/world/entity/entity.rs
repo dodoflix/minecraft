@@ -1345,7 +1345,7 @@ pub trait Entity: Any {
             let swimming = self.is_sprinting()
                 && self.is_under_water()
                 && !self.base().is_passenger()
-                && crate::world::level::BlockGetter::get_fluid_state(level, self.base().block_position()).is_tag("water");
+                && crate::world::level::material::FluidStateExt::is_tag(crate::world::level::BlockGetter::get_fluid_state(level, self.base().block_position()), "water");
             self.set_swimming(swimming);
         }
     }
@@ -1402,7 +1402,7 @@ pub trait Entity: Any {
     }
     /// `checkBelowWorld()`.
     fn check_below_world(&mut self, level: &mut ServerLevel) {
-        if self.base().y() < f64::from(crate::world::level::LevelHeightAccessor::get_min_y(&*level) - 64) {
+        if self.base().y() < f64::from(crate::world::level::BlockGetter::get_min_y(&*level) - 64) {
             self.on_below_world(level);
         }
     }
@@ -1420,7 +1420,7 @@ pub trait Entity: Any {
                 let pitch = 2.0 + self.base_mut().random.next_float() * 0.4;
                 let p = self.base().position();
                 let sound_source = self.get_sound_source();
-                level.play_sound_at(None, p.x, p.y, p.z, mc_data::SoundEvent::GENERIC_BURN, sound_source, 0.4, pitch);
+                level.play_sound_at(None, p.x, p.y, p.z, mc_data::SoundEvent::ENTITY_GENERIC_BURN, sound_source, 0.4, pitch);
             }
         }
     }
@@ -1438,7 +1438,7 @@ pub trait Entity: Any {
         let b = self.base_mut().random.next_float();
         let p = self.base().position();
         let sound_source = self.get_sound_source();
-        level.play_sound_at(None, p.x, p.y, p.z, mc_data::SoundEvent::GENERIC_EXTINGUISH_FIRE, sound_source, 0.7, 1.6 + (a - b) * 0.4);
+        level.play_sound_at(None, p.x, p.y, p.z, mc_data::SoundEvent::ENTITY_GENERIC_EXTINGUISH_FIRE, sound_source, 0.7, 1.6 + (a - b) * 0.4);
     }
     /// `extinguishFire()`.
     fn extinguish_fire(&mut self, level: &mut ServerLevel) {
@@ -1524,15 +1524,15 @@ pub trait Entity: Any {
     }
     /// `getSwimSound()`.
     fn get_swim_sound(&self) -> mc_data::SoundEvent {
-        mc_data::SoundEvent::GENERIC_SWIM
+        mc_data::SoundEvent::ENTITY_GENERIC_SWIM
     }
     /// `getSwimSplashSound()`.
     fn get_swim_splash_sound(&self) -> mc_data::SoundEvent {
-        mc_data::SoundEvent::GENERIC_SPLASH
+        mc_data::SoundEvent::ENTITY_GENERIC_SPLASH
     }
     /// `getSwimHighSpeedSplashSound()`.
     fn get_swim_high_speed_splash_sound(&self) -> mc_data::SoundEvent {
-        mc_data::SoundEvent::GENERIC_SPLASH
+        mc_data::SoundEvent::ENTITY_GENERIC_SPLASH
     }
     /// `nextStep()`.
     fn next_step(&self) -> f32 {
@@ -1602,7 +1602,7 @@ pub trait Entity: Any {
         if on_ground {
             if self.base().fall_distance > 0.0 {
                 let fall_distance = self.base().fall_distance;
-                on_state.fall_on(level, pos, self.as_dyn_mut(), fall_distance);
+                crate::world::level::block::BlockStateExt::fall_on(on_state, level, pos, self.as_dyn_mut(), fall_distance);
                 let ctx_state = match self.base().main_supporting_block_pos {
                     Some(p) => level.get_block_state(p),
                     None => on_state,
@@ -1659,6 +1659,340 @@ pub trait Entity: Any {
     fn on_below_world(&mut self, _level: &mut ServerLevel) {
         self.discard();
     }
+
+    // ---- portals ---------------------------------------------------------------------------------------------------
+
+    /// `getDimensionChangingDelay()` (players 10, projectiles 2, vehicles 10: those override).
+    fn get_dimension_changing_delay(&self, level: &ServerLevel) -> i32 {
+        if self.is_player() {
+            return 10;
+        }
+        match self.base().passengers.first().and_then(|&p| level.entity_manager.get_any(p)) {
+            Some(first) if first.is_player() => first.get_dimension_changing_delay(level),
+            _ => 300,
+        }
+    }
+    /// `setPortalCooldown()`.
+    fn set_portal_cooldown(&mut self, level: &ServerLevel) {
+        let delay = self.get_dimension_changing_delay(level);
+        self.base_mut().portal_cooldown = delay;
+    }
+    /// `isOnPortalCooldown()`.
+    fn is_on_portal_cooldown(&self) -> bool {
+        self.base().portal_cooldown > 0
+    }
+    /// `processPortalCooldown()`.
+    fn process_portal_cooldown(&mut self) {
+        if self.is_on_portal_cooldown() {
+            self.base_mut().portal_cooldown -= 1;
+        }
+    }
+    /// `canUsePortal(ignorePassenger)`.
+    fn can_use_portal(&self, ignore_passenger: bool) -> bool {
+        (ignore_passenger || !self.base().is_passenger()) && self.is_alive()
+    }
+    /// `canTeleport(from, to)` for a player passenger that has not seen the credits (`END` -> `OVERWORLD`): given as
+    /// whether the entity or any passenger is such a player.
+    fn has_player_passenger_without_credits(&self, _level: &ServerLevel) -> bool {
+        false
+    }
+    /// `setAsInsidePortal(portal, pos)`.
+    fn set_as_inside_portal(&mut self, level: &ServerLevel, portal: &'static dyn super::portal::Portal, pos: BlockPos) {
+        if self.is_on_portal_cooldown() {
+            self.set_portal_cooldown(level);
+        } else {
+            let b = self.base_mut();
+            match &mut b.portal_process {
+                Some(p) if p.is_same_portal(portal) => {
+                    if !p.is_inside_portal_this_tick() {
+                        p.update_entry_position(pos);
+                        p.set_as_inside_portal_this_tick(true);
+                    }
+                }
+                _ => b.portal_process = Some(super::portal::PortalProcessor::new(portal, pos)),
+            }
+        }
+    }
+    /// `handlePortal()`: the teleport itself is queued on the level (see `world::entity::portal`).
+    fn handle_portal(&mut self, level: &mut ServerLevel) {
+        self.process_portal_cooldown();
+        if let Some(mut process) = self.base_mut().portal_process.take() {
+            let can_use = self.can_use_portal(false);
+            if process.process_portal_teleportation(&*level, self.as_dyn(), can_use) {
+                self.set_portal_cooldown(&*level);
+                level.queue_portal_teleport(self.id());
+                self.base_mut().portal_process = Some(process);
+            } else if !process.has_expired() {
+                self.base_mut().portal_process = Some(process);
+            }
+        }
+    }
+
+    // ---- riding / passengers ------------------------------------------------------------------------------------
+
+    /// `getVehicleAttachmentPoint(vehicle)`.
+    fn get_vehicle_attachment_point(&self, _vehicle: &dyn Entity) -> Vec3 {
+        self.get_attachments().get(EntityAttachment::Vehicle, 0, self.base().y_rot())
+    }
+    /// `getPassengerAttachmentPoint(passenger, dimensions, scale)`.
+    fn get_passenger_attachment_point(&self, passenger: &dyn Entity, dimensions: &EntityDimensions, _scale: f32) -> Vec3 {
+        default_passenger_attachment_point(self.as_dyn(), passenger, &dimensions.attachments)
+    }
+    /// `getPassengerRidingPosition(passenger)`.
+    fn get_passenger_riding_position(&self, passenger: &dyn Entity) -> Vec3 {
+        let base = self.base();
+        base.position().add(self.get_passenger_attachment_point(passenger, &base.dimensions, 1.0))
+    }
+    /// `positionRider(passenger, moveFunction)` (protected, overridden by boats, minecarts, ...).
+    fn position_rider_with(&self, passenger: &mut dyn Entity, move_function: MoveFunction) {
+        let position = self.get_passenger_riding_position(passenger.as_dyn());
+        let offset = passenger.get_vehicle_attachment_point(self.as_dyn());
+        move_function.apply(passenger, position.x - offset.x, position.y - offset.y, position.z - offset.z);
+    }
+    /// `positionRider(passenger)`.
+    fn position_rider(&self, passenger: &mut dyn Entity) {
+        if self.base().passengers.contains(&passenger.id()) {
+            self.position_rider_with(passenger, MoveFunction::SetPos);
+        }
+    }
+    /// `onPassengerTurned(passenger)`.
+    fn on_passenger_turned(&mut self, _passenger: &mut dyn Entity) {}
+    /// `getDismountLocationForPassenger(passenger)`.
+    fn get_dismount_location_for_passenger(&self, _level: &ServerLevel, _passenger: &dyn Entity) -> Vec3 {
+        let b = self.base();
+        Vec3::new(b.x(), b.bounding_box().max_y, b.z())
+    }
+    /// `addPassenger(passenger)`: `first_passenger_is_player` = `getFirstPassenger() instanceof Player`.
+    fn add_passenger(&mut self, passenger: &dyn Entity, first_passenger_is_player: bool) {
+        let id = passenger.id();
+        let is_player = passenger.is_player();
+        let passengers = &mut self.base_mut().passengers;
+        if passengers.is_empty() || !(is_player && !first_passenger_is_player) {
+            passengers.push(id);
+        } else {
+            passengers.insert(0, id);
+        }
+    }
+    /// `removePassenger(passenger)` (the vehicle side; the boarding cooldown is the rider's).
+    fn remove_passenger(&mut self, passenger: EntityId) {
+        self.base_mut().passengers.retain(|&p| p != passenger);
+    }
+    /// `dismountsUnderwater()`.
+    fn dismounts_underwater(&self) -> bool {
+        mc_data::tags::get::<EntityType>("dismounts_underwater").is_some_and(|t| t.contains(self.get_type()))
+    }
+    /// `canControlVehicle()`.
+    fn can_control_vehicle(&self) -> bool {
+        !mc_data::tags::get::<EntityType>("non_controlling_rider").is_some_and(|t| t.contains(self.get_type()))
+    }
+    /// `getRootVehicle()`.
+    fn get_root_vehicle(&self, level: &ServerLevel) -> EntityId {
+        let mut id = self.id();
+        let mut cur = self.base().vehicle;
+        while let Some(v) = cur {
+            id = v;
+            cur = level.entity_manager.get_any(v).and_then(|e| e.base().vehicle);
+        }
+        id
+    }
+    /// `isPassengerOfSameVehicle(other)`.
+    fn is_passenger_of_same_vehicle(&self, level: &ServerLevel, other: &dyn Entity) -> bool {
+        level.is_passenger_of_same_vehicle(self.as_dyn(), other)
+    }
+    /// `hasIndirectPassenger(entity)`.
+    fn has_indirect_passenger(&self, level: &ServerLevel, entity: &dyn Entity) -> bool {
+        let mut cur = entity.base().vehicle;
+        while let Some(v) = cur {
+            if v == self.id() {
+                return true;
+            }
+            cur = level.entity_manager.get_any(v).and_then(|e| e.base().vehicle);
+        }
+        false
+    }
+    /// `getIndirectPassengers()`: every passenger below this entity (pre-order, `getSelfAndPassengers()` without self).
+    fn get_indirect_passengers(&self, level: &ServerLevel) -> Vec<EntityId> {
+        let mut out = Vec::new();
+        fn walk(level: &ServerLevel, passengers: &[EntityId], out: &mut Vec<EntityId>) {
+            for &p in passengers {
+                out.push(p);
+                if let Some(e) = level.entity_manager.get_any(p) {
+                    walk(level, &e.base().passengers, out);
+                }
+            }
+        }
+        walk(level, &self.base().passengers, &mut out);
+        out
+    }
+    /// `getSelfAndPassengers()`.
+    fn get_self_and_passengers(&self, level: &ServerLevel) -> Vec<EntityId> {
+        let mut out = vec![self.id()];
+        out.extend(self.get_indirect_passengers(level));
+        out
+    }
+    /// `canCollideWith(entity)`.
+    fn can_collide_with(&self, level: &ServerLevel, entity: &dyn Entity) -> bool {
+        entity.can_be_collided_with(Some(self.as_dyn())) && !self.is_passenger_of_same_vehicle(level, entity)
+    }
+    /// `getKnownMovement()`.
+    fn get_known_movement(&self, level: &ServerLevel) -> Vec3 {
+        if let Some(controller) = self.get_controlling_passenger().and_then(|id| level.entity_manager.get_any(id)) {
+            if controller.is_player() && self.is_alive() {
+                return controller.get_known_movement(level);
+            }
+        }
+        self.base().delta_movement()
+    }
+    /// `getKnownSpeed()`.
+    fn get_known_speed(&self, level: &ServerLevel) -> Vec3 {
+        if let Some(controller) = self.get_controlling_passenger().and_then(|id| level.entity_manager.get_any(id)) {
+            if controller.is_player() && self.is_alive() {
+                return controller.get_known_speed(level);
+            }
+        }
+        self.base().last_known_speed
+    }
+
+    // ---- teleport / push / look ---------------------------------------------------------------------------------
+
+    /// `teleportTo(x, y, z)` (same level; `ServerPlayer` sends a client teleport instead).
+    fn teleport_to(&mut self, level: &mut ServerLevel, x: f64, y: f64, z: f64) {
+        let (yr, xr) = (self.base().y_rot(), self.base().x_rot());
+        self.snap_to(x, y, z, yr, xr);
+        teleport_passengers(self.as_dyn_mut(), level);
+    }
+    /// `teleportRelative(dx, dy, dz)`.
+    fn teleport_relative(&mut self, level: &mut ServerLevel, dx: f64, dy: f64, dz: f64) {
+        let p = self.base().position();
+        self.teleport_to(level, p.x + dx, p.y + dy, p.z + dz);
+    }
+    /// `dismountTo(x, y, z)`.
+    fn dismount_to(&mut self, level: &mut ServerLevel, x: f64, y: f64, z: f64) {
+        self.teleport_to(level, x, y, z);
+    }
+    /// `push(entity)`: separates two overlapping entities (`other` is the entity this one collides with).
+    fn push_entity(&mut self, level: &ServerLevel, other: &mut dyn Entity) {
+        if self.is_passenger_of_same_vehicle(level, other.as_dyn()) {
+            return;
+        }
+        if other.base().no_physics || self.base().no_physics {
+            return;
+        }
+        let mut xa = other.base().x() - self.base().x();
+        let mut za = other.base().z() - self.base().z();
+        let mut dd = mth::abs_max_f64(xa, za);
+        if dd >= f64::from(0.01f32) {
+            dd = dd.sqrt();
+            xa /= dd;
+            za /= dd;
+            let mut pow = 1.0 / dd;
+            if pow > 1.0 {
+                pow = 1.0;
+            }
+            xa *= pow;
+            za *= pow;
+            xa *= f64::from(0.05f32);
+            za *= f64::from(0.05f32);
+            if !self.base().is_vehicle() && self.is_pushable() {
+                self.push_xyz(-xa, 0.0, -za);
+            }
+            if !other.base().is_vehicle() && other.is_pushable() {
+                other.push_xyz(xa, 0.0, za);
+            }
+        }
+    }
+    /// `push(impulse)`.
+    fn push_vec(&mut self, impulse: Vec3) {
+        if impulse.is_finite() {
+            self.push_xyz(impulse.x, impulse.y, impulse.z);
+        }
+    }
+    /// `pushFromExplosion(impulse)`.
+    fn push_from_explosion(&mut self, impulse: Vec3) {
+        self.push_vec(impulse);
+    }
+    /// `push(xa, ya, za)`.
+    fn push_xyz(&mut self, xa: f64, ya: f64, za: f64) {
+        if xa.is_finite() && ya.is_finite() && za.is_finite() {
+            let b = self.base_mut();
+            let m = b.delta_movement();
+            b.set_delta_movement(m.add(Vec3::new(xa, ya, za)));
+            b.needs_sync = true;
+        }
+    }
+    /// `markHurt()`.
+    fn mark_hurt(&mut self) {
+        self.base_mut().sync_velocity = true;
+    }
+    /// `getLookAngle()`.
+    fn get_look_angle(&self) -> Vec3 {
+        calculate_view_vector(self.base().x_rot(), self.base().y_rot())
+    }
+    /// `getHeadLookAngle()`.
+    fn get_head_look_angle(&self) -> Vec3 {
+        calculate_view_vector(self.base().x_rot(), self.get_y_head_rot())
+    }
+    /// `getViewXRot(a)` / `getXRot(a)`.
+    fn get_view_x_rot(&self, a: f32) -> f32 {
+        if a == 1.0 { self.base().x_rot() } else { mth::lerp_f32(a, self.base().x_rot_o, self.base().x_rot()) }
+    }
+    /// `getViewYRot(a)` / `getYRot(a)`.
+    fn get_view_y_rot(&self, a: f32) -> f32 {
+        if a == 1.0 { self.base().y_rot() } else { mth::rot_lerp_f32(a, self.base().y_rot_o, self.base().y_rot()) }
+    }
+    /// `getViewVector(a)`.
+    fn get_view_vector(&self, a: f32) -> Vec3 {
+        calculate_view_vector(self.get_view_x_rot(a), self.get_view_y_rot(a))
+    }
+    /// `getEyePosition(partialTick)`.
+    fn get_eye_position_partial(&self, a: f32) -> Vec3 {
+        let b = self.base();
+        let x = mth::lerp_f64(f64::from(a), b.xo, b.x());
+        let y = mth::lerp_f64(f64::from(a), b.yo, b.y()) + f64::from(b.eye_height);
+        let z = mth::lerp_f64(f64::from(a), b.zo, b.z());
+        Vec3::new(x, y, z)
+    }
+    /// `pick(range, a, withLiquids)`.
+    fn pick(&self, level: &ServerLevel, range: f64, a: f32, with_liquids: bool) -> mc_core::phys::BlockHitResult {
+        use crate::world::level::collision::{ClipBlock, ClipContext, ClipFluid};
+        let from = self.get_eye_position_partial(a);
+        let view_vector = self.get_view_vector(a);
+        let to = from.add(Vec3::new(view_vector.x * range, view_vector.y * range, view_vector.z * range));
+        crate::world::level::collision::BlockGetterExt::clip(level, &ClipContext::new(from, to, ClipBlock::Outline, if with_liquids { ClipFluid::Any } else { ClipFluid::None }, super::movement::collision_context(self.as_dyn())))
+    }
+    /// `lookAt(anchor, pos)`.
+    fn look_at(&mut self, anchor: crate::commands::arguments::entity_anchor_argument::Anchor, pos: Vec3) {
+        let from = anchor.apply_entity(self.base().position(), self.base().eye_height);
+        let (xd, yd, zd) = (pos.x - from.x, pos.y - from.y, pos.z - from.z);
+        let sd = (xd * xd + zd * zd).sqrt();
+        let pi = std::f64::consts::PI as f32;
+        self.set_x_rot(mth::wrap_degrees_f32((-(mth::atan2(yd, sd) * f64::from(180.0f32) / f64::from(pi))) as f32));
+        self.set_y_rot(mth::wrap_degrees_f32((mth::atan2(zd, xd) * f64::from(180.0f32) / f64::from(pi)) as f32 - 90.0));
+        let y_rot = self.base().y_rot();
+        self.set_y_head_rot(y_rot);
+        let b = self.base_mut();
+        b.x_rot_o = b.x_rot();
+        b.y_rot_o = b.y_rot();
+    }
+    /// `canBeHitByProjectile()`.
+    fn can_be_hit_by_projectile(&self) -> bool {
+        self.is_alive() && self.is_pickable()
+    }
+    /// `mayInteract(level, pos)`.
+    fn may_interact(&self, _level: &ServerLevel, _pos: BlockPos) -> bool {
+        true
+    }
+    /// `getRequiresPrecisePosition()`.
+    fn get_requires_precise_position(&self) -> bool {
+        self.base().requires_precise_position
+    }
+    /// `setRequiresPrecisePosition(requiresPrecisePosition)`.
+    fn set_requires_precise_position(&mut self, requires_precise_position: bool) {
+        self.base_mut().requires_precise_position = requires_precise_position;
+    }
+    /// What `ServerPlayer.removeVehicle()` adds after the base `removeVehicle`: `old_vehicle` (in storage, or `held`
+    /// when it is the entity being processed) lost this entity as a passenger.
+    fn on_vehicle_removed(&mut self, _level: &mut ServerLevel, _old_vehicle: EntityId, _held: Option<&dyn Entity>) {}
     // ==== [LivingCore] additions (Entity trait methods) ====
     // ==== [Damage] additions (Entity trait methods) ====
 
@@ -2015,14 +2349,60 @@ pub fn get_input_vector(input: Vec3, speed: f32, y_rot: f32) -> Vec3 {
     Vec3::new(movement.x * f64::from(cos) - movement.z * f64::from(sin), movement.y, movement.z * f64::from(cos) + movement.x * f64::from(sin))
 }
 
+/// `Entity.MoveFunction` (`Entity::setPos` / `Entity::snapTo`).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum MoveFunction {
+    SetPos,
+    SnapTo,
+}
+
+impl MoveFunction {
+    pub fn apply(self, target: &mut dyn Entity, x: f64, y: f64, z: f64) {
+        match self {
+            MoveFunction::SetPos => target.set_pos(x, y, z),
+            MoveFunction::SnapTo => target.snap_to_pos(x, y, z),
+        }
+    }
+}
+
+/// `Entity.getDefaultPassengerAttachmentPoint(vehicle, passenger, attachments)`.
+pub fn default_passenger_attachment_point(vehicle: &dyn Entity, passenger: &dyn Entity, attachments: &EntityAttachments) -> Vec3 {
+    let index = vehicle.base().passengers.iter().position(|&p| p == passenger.id()).map_or(-1, |i| i as i32);
+    attachments.get_clamped(super::EntityAttachment::Passenger, index, vehicle.base().y_rot())
+}
+
+/// `Entity.teleportPassengers()`: every passenger below `entity` is snapped to its riding position.
+pub fn teleport_passengers(entity: &mut dyn Entity, level: &mut ServerLevel) {
+    for passenger_id in entity.base().passengers.clone() {
+        level.with_entity(passenger_id, |level, passenger| {
+            entity.position_rider_with(passenger, MoveFunction::SnapTo);
+            teleport_passengers(passenger, level);
+        });
+    }
+}
+
+/// `Entity.calculateViewVector(xRot, yRot)`.
+pub fn calculate_view_vector(x_rot: f32, y_rot: f32) -> Vec3 {
+    let deg = (std::f64::consts::PI / 180.0) as f32;
+    let real_x_rot = x_rot * deg;
+    let real_y_rot = -y_rot * deg;
+    let y_cos = mth::cos(f64::from(real_y_rot));
+    let y_sin = mth::sin(f64::from(real_y_rot));
+    let x_cos = mth::cos(f64::from(real_x_rot));
+    let x_sin = mth::sin(f64::from(real_x_rot));
+    Vec3::new(f64::from(y_sin * x_cos), f64::from(-x_sin), f64::from(y_cos * x_cos))
+}
+
 /// `Entity.sendBubbleColumnParticles(level, pos)`.
 pub fn send_bubble_column_particles(level: &mut ServerLevel, pos: BlockPos) {
     use mc_core::random::RandomSource;
     use mc_protocol::packets::play::ParticleOptions;
     for _ in 0..2 {
-        let (rx, rz) = (level.random().next_double(), level.random().next_double());
+        let rx = crate::world::level::LevelAccessor::random(level).next_double();
+        let rz = crate::world::level::LevelAccessor::random(level).next_double();
         level.send_particles(ParticleOptions::Simple(mc_data::ParticleType::SPLASH), f64::from(pos.x()) + rx, f64::from(pos.y() + 1), f64::from(pos.z()) + rz, 1, 0.0, 0.0, 0.0, 1.0);
-        let (rx, rz) = (level.random().next_double(), level.random().next_double());
+        let rx = crate::world::level::LevelAccessor::random(level).next_double();
+        let rz = crate::world::level::LevelAccessor::random(level).next_double();
         level.send_particles(ParticleOptions::Simple(mc_data::ParticleType::BUBBLE), f64::from(pos.x()) + rx, f64::from(pos.y() + 1), f64::from(pos.z()) + rz, 1, 0.0, 0.01, 0.0, 0.2);
     }
 }

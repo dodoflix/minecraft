@@ -46,7 +46,7 @@ impl FlowingFluid {
         } else if state.block().data().classes.contains(&"IceBlock") {
             false
         } else {
-            state.is_face_sturdy(level, pos, direction)
+            state.is_face_sturdy_at(level, pos, direction)
         }
     }
 }
@@ -76,8 +76,8 @@ impl FluidBehaviour for FlowingFluid {
                     distance = fluid_state.own_height() - neighbor_height;
                 }
                 if distance != 0.0 {
-                    flow_x += f64::from(direction.step_x() as f32 * distance);
-                    flow_z += f64::from(direction.step_z() as f32 * distance);
+                    flow_x += f64::from(direction.get_step_x() as f32 * distance);
+                    flow_z += f64::from(direction.get_step_z() as f32 * distance);
                 }
             }
         }

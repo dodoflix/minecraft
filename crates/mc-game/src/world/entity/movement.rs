@@ -17,6 +17,7 @@ use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 
 /// Entity-side collision shapes of a level (`EntityGetter.getEntityCollisions(source, area)`); the source is a live
@@ -526,7 +527,7 @@ pub fn contains_any_liquid<L: BlockGetter + ?Sized>(level: &L, bx: &AABB) -> boo
 }
 
 /// `Entity.isInWall()`.
-pub fn is_in_wall<L: BlockGetter + ?Sized>(entity: &dyn Entity, level: &L) -> bool {
+pub fn is_in_wall(entity: &dyn Entity, level: &dyn BlockGetter) -> bool {
     if entity.base().no_physics {
         return false;
     }

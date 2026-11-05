@@ -1,6 +1,7 @@
 //! `ServerLevel.sendParticles(...)`: a `ClientboundLevelParticlesPacket` to every player of this level close enough.
 
 use super::ServerLevel;
+use crate::world::entity::Entity;
 use crate::world::entity::player::ServerPlayer;
 use mc_core::phys::Vec3;
 use mc_protocol::packets::play::{ClientboundLevelParticlesPacket, ParticleOptions, RandomizationType};
