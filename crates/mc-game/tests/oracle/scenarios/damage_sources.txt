@@ -1,0 +1,169 @@
+# Sources vs creative/spectator/survival players: invulnerability, bypasses, gamerules (fall/fire/drowning/freeze damage).
+level flat
+difficulty normal
+spawn_player G1 survival 4.5 -60 0.5 0 0
+tick 1
+dump player:G1 packets:G1
+hurt G1 generic 3
+tick 21
+hurt G1 out_of_world 3
+tick 21
+hurt G1 generic_kill 3
+tick 21
+hurt G1 drown 2
+tick 21
+hurt G1 freeze 1
+tick 21
+hurt G1 fall 5
+tick 21
+hurt G1 on_fire 1
+tick 21
+hurt G1 starve 1
+tick 21
+hurt G1 wither 2
+tick 21
+hurt G1 dragon_breath 2
+tick 21
+hurt G1 hot_floor 1
+tick 21
+hurt G1 cramming 1
+tick 21
+hurt G1 in_wall 1
+tick 21
+hurt G1 thorns 3
+tick 21
+hurt G1 sweet_berry_bush 1
+tick 21
+hurt G1 lightning_bolt 5
+tick 21
+dump player:G1 packets:G1
+spawn_player G2 creative 8.5 -60 0.5 0 0
+tick 1
+dump player:G2 packets:G2
+hurt G2 generic 3
+tick 21
+hurt G2 out_of_world 3
+tick 21
+hurt G2 generic_kill 3
+tick 21
+hurt G2 drown 2
+tick 21
+hurt G2 freeze 1
+tick 21
+hurt G2 fall 5
+tick 21
+hurt G2 on_fire 1
+tick 21
+hurt G2 starve 1
+tick 21
+hurt G2 wither 2
+tick 21
+hurt G2 dragon_breath 2
+tick 21
+hurt G2 hot_floor 1
+tick 21
+hurt G2 cramming 1
+tick 21
+hurt G2 in_wall 1
+tick 21
+hurt G2 thorns 3
+tick 21
+hurt G2 sweet_berry_bush 1
+tick 21
+hurt G2 lightning_bolt 5
+tick 21
+dump player:G2 packets:G2
+spawn_player G3 spectator 12.5 -60 0.5 0 0
+tick 1
+dump player:G3 packets:G3
+hurt G3 generic 3
+tick 21
+hurt G3 out_of_world 3
+tick 21
+hurt G3 generic_kill 3
+tick 21
+hurt G3 drown 2
+tick 21
+hurt G3 freeze 1
+tick 21
+hurt G3 fall 5
+tick 21
+hurt G3 on_fire 1
+tick 21
+hurt G3 starve 1
+tick 21
+hurt G3 wither 2
+tick 21
+hurt G3 dragon_breath 2
+tick 21
+hurt G3 hot_floor 1
+tick 21
+hurt G3 cramming 1
+tick 21
+hurt G3 in_wall 1
+tick 21
+hurt G3 thorns 3
+tick 21
+hurt G3 sweet_berry_bush 1
+tick 21
+hurt G3 lightning_bolt 5
+tick 21
+dump player:G3 packets:G3
+spawn_player G4 adventure 16.5 -60 0.5 0 0
+tick 1
+dump player:G4 packets:G4
+hurt G4 generic 3
+tick 21
+hurt G4 out_of_world 3
+tick 21
+hurt G4 generic_kill 3
+tick 21
+hurt G4 drown 2
+tick 21
+hurt G4 freeze 1
+tick 21
+hurt G4 fall 5
+tick 21
+hurt G4 on_fire 1
+tick 21
+hurt G4 starve 1
+tick 21
+hurt G4 wither 2
+tick 21
+hurt G4 dragon_breath 2
+tick 21
+hurt G4 hot_floor 1
+tick 21
+hurt G4 cramming 1
+tick 21
+hurt G4 in_wall 1
+tick 21
+hurt G4 thorns 3
+tick 21
+hurt G4 sweet_berry_bush 1
+tick 21
+hurt G4 lightning_bolt 5
+tick 21
+dump player:G4 packets:G4
+gamerule fall_damage false
+gamerule fire_damage false
+gamerule drowning_damage false
+gamerule freeze_damage false
+spawn_player H survival 40.5 -60 0.5 0 0
+tick 1
+dump player:H packets:H
+hurt H fall 3
+tick 21
+hurt H in_fire 3
+tick 21
+hurt H on_fire 3
+tick 21
+hurt H lava 3
+tick 21
+hurt H drown 3
+tick 21
+hurt H freeze 3
+tick 21
+hurt H cactus 3
+tick 21
+dump player:H packets:H

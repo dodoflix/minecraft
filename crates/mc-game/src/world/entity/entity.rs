@@ -1766,8 +1766,13 @@ pub trait Entity: Any {
         self.base_mut().set_delta_movement(m.add(delta));
     }
     /// `onBelowWorld(level)`: `discard()` (living entities hurt with `fell_out_of_world`).
-    fn on_below_world(&mut self, _level: &mut ServerLevel) {
-        self.discard();
+    fn on_below_world(&mut self, level: &mut ServerLevel) {
+        if self.living().is_some() {
+            let source = level.damage_sources().fell_out_of_world();
+            self.hurt_server(level, &source, 4.0);
+        } else {
+            self.discard();
+        }
     }
 
     // ---- portals ---------------------------------------------------------------------------------------------------
@@ -2375,6 +2380,17 @@ pub trait Entity: Any {
     /// `causeFallDamage(fallDistance, damageModifier, source)`.
     fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &crate::world::damagesource::DamageSource) -> bool {
         super::living_entity::damage::cause_fall_damage(self.as_dyn_mut(), level, fall_distance, damage_modifier, source)
+    }
+
+    /// `kill(level)`: `Entity` removes itself (`KILLED`) and posts `ENTITY_DIE`; `LivingEntity` hurts itself with `generic_kill`.
+    fn kill_in_level(&mut self, level: &mut ServerLevel) {
+        if self.living().is_some() {
+            let source = level.damage_sources().generic_kill();
+            self.hurt_server(level, &source, f32::MAX);
+        } else {
+            self.remove(RemovalReason::Killed);
+            level.game_event_from_entity(Some(self.id()), mc_data::GameEvent::ENTITY_DIE, self.position());
+        }
     }
 
     /// `heal(amount)`.

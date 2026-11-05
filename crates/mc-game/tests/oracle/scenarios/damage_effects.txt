@@ -1,0 +1,140 @@
+# Resistance levels, absorption, fire resistance, stacking with armor; MobEffect-driven damage reduction in actuallyHurt.
+level flat
+difficulty normal
+spawn_player R1 survival 4.5 -60 0.5 0 0
+give R1 chest minecraft:diamond_chestplate
+effect R1 minecraft:resistance 0 1000
+tick 1
+dump player:R1 packets:R1
+hurt R1 generic 10
+tick 21
+set R1 health 20
+hurt R1 in_fire 8
+tick 21
+set R1 health 20
+hurt R1 magic 6
+tick 21
+set R1 health 20
+hurt R1 out_of_world 9
+tick 21
+set R1 health 20
+dump player:R1 packets:R1
+spawn_player R2 survival 8.5 -60 0.5 0 0
+give R2 chest minecraft:diamond_chestplate
+effect R2 minecraft:resistance 1 1000
+tick 1
+dump player:R2 packets:R2
+hurt R2 generic 10
+tick 21
+set R2 health 20
+hurt R2 in_fire 8
+tick 21
+set R2 health 20
+hurt R2 magic 6
+tick 21
+set R2 health 20
+hurt R2 out_of_world 9
+tick 21
+set R2 health 20
+dump player:R2 packets:R2
+spawn_player R3 survival 12.5 -60 0.5 0 0
+give R3 chest minecraft:diamond_chestplate
+effect R3 minecraft:resistance 2 1000
+tick 1
+dump player:R3 packets:R3
+hurt R3 generic 10
+tick 21
+set R3 health 20
+hurt R3 in_fire 8
+tick 21
+set R3 health 20
+hurt R3 magic 6
+tick 21
+set R3 health 20
+hurt R3 out_of_world 9
+tick 21
+set R3 health 20
+dump player:R3 packets:R3
+spawn_player R4 survival 16.5 -60 0.5 0 0
+give R4 chest minecraft:diamond_chestplate
+effect R4 minecraft:resistance 3 1000
+tick 1
+dump player:R4 packets:R4
+hurt R4 generic 10
+tick 21
+set R4 health 20
+hurt R4 in_fire 8
+tick 21
+set R4 health 20
+hurt R4 magic 6
+tick 21
+set R4 health 20
+hurt R4 out_of_world 9
+tick 21
+set R4 health 20
+dump player:R4 packets:R4
+spawn_player R5 survival 20.5 -60 0.5 0 0
+give R5 chest minecraft:diamond_chestplate
+effect R5 minecraft:resistance 4 1000
+tick 1
+dump player:R5 packets:R5
+hurt R5 generic 10
+tick 21
+set R5 health 20
+hurt R5 in_fire 8
+tick 21
+set R5 health 20
+hurt R5 magic 6
+tick 21
+set R5 health 20
+hurt R5 out_of_world 9
+tick 21
+set R5 health 20
+dump player:R5 packets:R5
+spawn_player B1 survival 24.5 -60 0.5 0 0
+set B1 absorption 4
+tick 1
+dump player:B1 packets:B1
+hurt B1 generic 3
+tick 21
+hurt B1 generic 3
+tick 21
+dump player:B1 packets:B1
+spawn_player B2 survival 28.5 -60 0.5 0 0
+set B2 absorption 4
+tick 1
+dump player:B2 packets:B2
+hurt B2 generic 6
+tick 21
+hurt B2 generic 6
+tick 21
+dump player:B2 packets:B2
+spawn_player B3 survival 32.5 -60 0.5 0 0
+set B3 absorption 8
+tick 1
+dump player:B3 packets:B3
+hurt B3 generic 2.5
+tick 21
+hurt B3 generic 2.5
+tick 21
+dump player:B3 packets:B3
+spawn_player B4 survival 36.5 -60 0.5 0 0
+set B4 absorption 20
+tick 1
+dump player:B4 packets:B4
+hurt B4 generic 12
+tick 21
+hurt B4 generic 12
+tick 21
+dump player:B4 packets:B4
+spawn_player F1 survival 40.5 -60 0.5 0 0
+effect F1 minecraft:fire_resistance 0 1000
+tick 1
+dump player:F1 packets:F1
+hurt F1 in_fire 5
+tick 21
+hurt F1 lava 4
+tick 21
+hurt F1 generic 4
+tick 21
+dump player:F1 packets:F1

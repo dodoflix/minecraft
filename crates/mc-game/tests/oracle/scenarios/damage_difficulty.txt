@@ -1,0 +1,72 @@
+# Difficulty scaling (scalesWithDifficulty) for mob-caused damage and the hit-point outcome per difficulty; players as attackers do not scale.
+level flat
+difficulty normal
+spawn Z minecraft:zombie 6.5 -60 0.5 90 0 {NoAI:1b,PersistenceRequired:1b}
+cmd difficulty peaceful
+spawn_player D1 survival 4.5 -60 6.5 0 0
+tick 1
+dump player:D1 packets:D1
+hurt D1 mob_attack 4 by=Z direct=Z
+tick 21
+hurt D1 mob_attack 7 by=Z direct=Z
+tick 21
+hurt D1 generic 4
+tick 21
+hurt D1 magic 4
+tick 21
+hurt D1 arrow 6 by=Z direct=Z
+tick 21
+hurt D1 mob_attack 1 by=Z direct=Z
+tick 21
+dump player:D1 packets:D1
+cmd difficulty easy
+spawn_player D2 survival 8.5 -60 6.5 0 0
+tick 1
+dump player:D2 packets:D2
+hurt D2 mob_attack 4 by=Z direct=Z
+tick 21
+hurt D2 mob_attack 7 by=Z direct=Z
+tick 21
+hurt D2 generic 4
+tick 21
+hurt D2 magic 4
+tick 21
+hurt D2 arrow 6 by=Z direct=Z
+tick 21
+hurt D2 mob_attack 1 by=Z direct=Z
+tick 21
+dump player:D2 packets:D2
+cmd difficulty normal
+spawn_player D3 survival 12.5 -60 6.5 0 0
+tick 1
+dump player:D3 packets:D3
+hurt D3 mob_attack 4 by=Z direct=Z
+tick 21
+hurt D3 mob_attack 7 by=Z direct=Z
+tick 21
+hurt D3 generic 4
+tick 21
+hurt D3 magic 4
+tick 21
+hurt D3 arrow 6 by=Z direct=Z
+tick 21
+hurt D3 mob_attack 1 by=Z direct=Z
+tick 21
+dump player:D3 packets:D3
+cmd difficulty hard
+spawn_player D4 survival 16.5 -60 6.5 0 0
+tick 1
+dump player:D4 packets:D4
+hurt D4 mob_attack 4 by=Z direct=Z
+tick 21
+hurt D4 mob_attack 7 by=Z direct=Z
+tick 21
+hurt D4 generic 4
+tick 21
+hurt D4 magic 4
+tick 21
+hurt D4 arrow 6 by=Z direct=Z
+tick 21
+hurt D4 mob_attack 1 by=Z direct=Z
+tick 21
+dump player:D4 packets:D4

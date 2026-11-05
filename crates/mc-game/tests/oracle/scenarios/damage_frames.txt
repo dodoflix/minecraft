@@ -1,0 +1,63 @@
+# Invulnerability frames: hits at t, t+5, t+10, t+21 with increasing/decreasing amounts, bypasses_cooldown, creative/peaceful/difficulty scaling.
+level flat
+difficulty normal
+spawn_player I1 survival 4.5 -60 0.5 0 0
+tick 1
+dump player:I1 packets:I1
+hurt I1 generic 5
+dump player:I1
+tick 5
+hurt I1 generic 7
+dump player:I1
+tick 5
+hurt I1 generic 6
+dump player:I1
+tick 11
+hurt I1 generic 3
+dump player:I1
+dump packets:I1
+spawn_player I2 survival 8.5 -60 0.5 0 0
+tick 1
+dump player:I2 packets:I2
+hurt I2 generic 8
+dump player:I2
+tick 5
+hurt I2 generic 3
+dump player:I2
+tick 5
+hurt I2 generic 9
+dump player:I2
+tick 11
+hurt I2 generic 1
+dump player:I2
+dump packets:I2
+spawn_player I3 survival 12.5 -60 0.5 0 0
+tick 1
+dump player:I3 packets:I3
+hurt I3 generic 4
+dump player:I3
+tick 10
+hurt I3 generic 4
+dump player:I3
+tick 10
+hurt I3 generic 4.5
+dump player:I3
+tick 1
+hurt I3 generic 2
+dump player:I3
+dump packets:I3
+spawn_player I4 survival 16.5 -60 0.5 0 0
+tick 1
+dump player:I4 packets:I4
+hurt I4 generic 5
+hurt I4 out_of_world 4
+hurt I4 generic_kill 100
+dump player:I4 packets:I4
+spawn_player C1 creative 20.5 -60 0.5 0 0
+tick 1
+dump player:C1 packets:C1
+hurt C1 generic 5
+hurt C1 out_of_world 4
+hurt C1 lava 4
+tick 21
+dump player:C1 packets:C1
