@@ -66,3 +66,20 @@ impl BlockBehaviour for BaseCoralPlantTypeBlock {
 }
 
 register_block_class!("BaseCoralPlantTypeBlock", |_| Box::new(BaseCoralPlantTypeBlock));
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_living_coral_block_has_a_dead_variant() {
+        let mut count = 0;
+        for block in Block::iter() {
+            if ["CoralBlock", "CoralPlantBlock", "CoralFanBlock", "CoralWallFanBlock"].contains(&block.data().classes[0]) {
+                assert_eq!(dead_block(block).name(), format!("minecraft:dead_{}", block.name().strip_prefix("minecraft:").unwrap()));
+                count += 1;
+            }
+        }
+        assert_eq!(count, 20);
+    }
+}
