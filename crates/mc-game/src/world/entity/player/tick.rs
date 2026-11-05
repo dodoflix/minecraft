@@ -299,6 +299,7 @@ impl ServerPlayer {
     /// and the handle sync. Idempotent: a portal hand-over runs it again after the player arrived (vanilla's tail runs
     /// after the teleport that happens inside `super.tick()`).
     pub fn do_tick_tail(&mut self, level: &mut ServerLevel) {
+        self.synchronize_special_item_updates(level);
         let health = self.player.living.get_health();
         let food = self.player.food_data.food_level;
         let saturation = self.player.food_data.saturation_level;

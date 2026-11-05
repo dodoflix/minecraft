@@ -141,12 +141,14 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     }
 
     /// `onCraftedBy(stack, player)`.
-    fn on_crafted_by(&self, stack: &mut ItemStack, _player: &mut dyn MenuPlayer) {
-        self.on_crafted_post_process(stack);
+    fn on_crafted_by(&self, stack: &mut ItemStack, player: &mut dyn MenuPlayer) {
+        if let Some(level) = player.level() {
+            self.on_crafted_post_process(stack, level);
+        }
     }
 
     /// `onCraftedPostProcess(stack, level)`.
-    fn on_crafted_post_process(&self, _stack: &mut ItemStack) {}
+    fn on_crafted_post_process(&self, _stack: &mut ItemStack, _level: &mut ServerLevel) {}
 
     /// `getName(stack)`: the `item_name` component.
     fn get_name(&self, stack: &ItemStack) -> Component {

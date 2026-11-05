@@ -597,6 +597,7 @@ impl MinecraftServer {
                 std::thread::Builder::new().name("IO-Worker".to_owned()).spawn(move || pending.write()).ok();
             }
         }
+        self.shared.map_storage.save(flush);
         self.notification_manager.server_save_completed();
         result
     }
@@ -690,6 +691,7 @@ impl MinecraftServer {
         self.shared.set_saving(false);
         self.sync_random_sequences_to_saved_data();
         self.saved_data.close();
+        self.shared.map_storage.close();
         self.resources.resource_manager.close();
         if let Err(e) = self.storage_source.close() {
             log::error!("Failed to unlock level {}\n{e}", self.storage_source.get_level_id());

@@ -5,3 +5,4 @@ mod flowing_fluid;
 mod fluid;
 pub use flowing_fluid::FlowingFluid;
 pub use fluid::*;
+pub mod map_color;

@@ -73,6 +73,8 @@ pub struct ServerShared {
     delayed_crash: Mutex<Option<CrashReport>>,
     /// `MinecraftServer.getRecipeManager()`: swapped by `/reload` (see `MinecraftServer::publish_recipe_manager`).
     recipe_manager: RwLock<crate::world::item::crafting::RecipeManager>,
+    /// The maps of the server (`MinecraftServer.getDataStorage()` map files), reachable from every level.
+    pub map_storage: crate::world::level::saveddata::maps::MapStorage,
 }
 
 impl ServerShared {
@@ -94,6 +96,7 @@ impl ServerShared {
             info: RwLock::new(ServerInfoSnapshot::default()),
             delayed_crash: Mutex::new(None),
             recipe_manager: RwLock::new(crate::world::item::crafting::RecipeManager::empty()),
+            map_storage: Default::default(),
         });
         (shared, rx)
     }

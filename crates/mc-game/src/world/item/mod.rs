@@ -35,6 +35,8 @@ mod jukebox;
 mod registry_hook;
 mod misc_items;
 pub mod mace;
+mod compass_item;
+pub mod map_item;
 mod simple_items;
 pub mod slot;
 mod player_systems;
