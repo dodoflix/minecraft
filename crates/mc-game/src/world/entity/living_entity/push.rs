@@ -6,7 +6,6 @@ use super::seams::{self, LivingDamage};
 use super::util::is_position_entity_ticking;
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
-use mc_core::math::mth;
 use mc_core::random::RandomSource;
 
 /// `LivingEntity.isPushable()`.
@@ -43,51 +42,6 @@ pub fn push_entities(entity: &mut dyn Entity, level: &mut ServerLevel) {
 }
 
 /// `LivingEntity.doPush(entity)` = `entity.push(this)`.
-pub fn do_push(level: &mut ServerLevel, this: &mut dyn Entity, other: &mut dyn Entity) {
-    push(level, other, this);
-}
-
-/// `LivingEntity.push(entity)` / `Entity.push(entity)` with `this` the entity being pushed into and `entity` the
-/// pusher: both move apart.
-pub fn push(level: &ServerLevel, this: &mut dyn Entity, entity: &mut dyn Entity) {
-    // `LivingEntity.push`: sleeping entities do not take part
-    if this.living().is_some_and(|l| l.is_sleeping()) {
-        return;
-    }
-    if level.is_passenger_of_same_vehicle(this.as_dyn(), entity.as_dyn()) {
-        return;
-    }
-    if !entity.base().no_physics && !this.base().no_physics {
-        let mut xa = entity.base().x() - this.base().x();
-        let mut za = entity.base().z() - this.base().z();
-        let mut dd = mth::abs_max_f64(xa, za);
-        if dd >= f64::from(0.01f32) {
-            dd = dd.sqrt();
-            xa /= dd;
-            za /= dd;
-            let mut pow = 1.0 / dd;
-            if pow > 1.0 {
-                pow = 1.0;
-            }
-            xa *= pow;
-            za *= pow;
-            xa *= f64::from(0.05f32);
-            za *= f64::from(0.05f32);
-            if !this.base().is_vehicle() && this.is_pushable(level) {
-                push_xyz(this, -xa, 0.0, -za);
-            }
-            if !entity.base().is_vehicle() && entity.is_pushable(level) {
-                push_xyz(entity, xa, 0.0, za);
-            }
-        }
-    }
-}
-
-/// `Entity.push(xa, ya, za)`.
-fn push_xyz(entity: &mut dyn Entity, xa: f64, ya: f64, za: f64) {
-    if xa.is_finite() && ya.is_finite() && za.is_finite() {
-        let dm = entity.base().delta_movement().add_xyz(xa, ya, za);
-        entity.base_mut().set_delta_movement(dm);
-        entity.base_mut().needs_sync = true;
-    }
+pub fn do_push(level: &ServerLevel, this: &mut dyn Entity, other: &mut dyn Entity) {
+    other.push_entity(level, this);
 }

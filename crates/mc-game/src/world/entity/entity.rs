@@ -1914,7 +1914,8 @@ pub trait Entity: Any {
     }
     /// `push(entity)`: separates two overlapping entities (`other` is the entity this one collides with).
     fn push_entity(&mut self, level: &ServerLevel, other: &mut dyn Entity) {
-        if self.is_passenger_of_same_vehicle(level, other.as_dyn()) {
+        // `LivingEntity.push`: sleeping entities do not take part
+        if self.living().is_some_and(|l| l.is_sleeping()) || self.is_passenger_of_same_vehicle(level, other.as_dyn()) {
             return;
         }
         if other.base().no_physics || self.base().no_physics {
@@ -1935,10 +1936,10 @@ pub trait Entity: Any {
             za *= pow;
             xa *= f64::from(0.05f32);
             za *= f64::from(0.05f32);
-            if !self.base().is_vehicle() && self.is_pushable() {
+            if !self.base().is_vehicle() && self.is_pushable(level) {
                 self.push_xyz(-xa, 0.0, -za);
             }
-            if !other.base().is_vehicle() && other.is_pushable() {
+            if !other.base().is_vehicle() && other.is_pushable(level) {
                 other.push_xyz(xa, 0.0, za);
             }
         }
