@@ -1,12 +1,11 @@
 //! Behavioral tests ported from brigadier's own CommandDispatcher/StringReader/Suggestions test suites
 //! (plus extension-point tests for the Rust-specific parts: custom argument types, downcasting).
 
-mod common;
 
 use std::sync::atomic::{AtomicI32, Ordering};
 use std::sync::{Arc, Mutex};
 
-use common::{D, arg, lit};
+use crate::common::{D, arg, lit};
 use mc_brigadier::arguments::{
     ArgumentType, BoolArgumentType, IntegerArgumentType, StringArgumentType, integer, integer_range, value,
 };

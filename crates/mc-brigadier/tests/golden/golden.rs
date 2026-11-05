@@ -1,18 +1,17 @@
 //! Compares against `fixtures/golden.txt`, produced by running the real brigadier 1.3.11 through
 //! `scripts/vanilla-java.sh crates/mc-brigadier/tests/fixtures/BrigadierGolden.java`.
 
-mod common;
 
 use std::any::Any;
 
-use common::*;
+use crate::common::*;
 use mc_brigadier::arguments::*;
 use mc_brigadier::java_fmt::{double_to_string, float_to_string};
 use mc_brigadier::message::literal as msg;
 use mc_brigadier::utf16::substring;
 use mc_brigadier::*;
 
-const GOLDEN: &str = include_str!("fixtures/golden.txt");
+const GOLDEN: &str = include_str!("../fixtures/golden.txt");
 
 fn path(d: &D, n: &std::sync::Arc<CommandNode<i32>>) -> String {
     d.get_path(n).join(" ")
