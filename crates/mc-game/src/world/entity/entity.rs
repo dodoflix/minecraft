@@ -639,6 +639,64 @@ pub trait Entity: Any {
         self.base().bounding_box()
     }
 
+    // ==== [Explosions] additions (Entity trait methods) ====
+
+    /// `Explosion.getIndirectSourceEntity(this)` when this entity is an explosion source: a living entity is its own
+    /// indirect source, a projectile's is its living owner (`PrimedTnt` overrides with its owner).
+    fn explosion_indirect_source(&self, level: &ServerLevel) -> Option<EntityId> {
+        if let Some(projectile) = self.as_projectile() {
+            return projectile.get_owner(level).filter(|o| o.living().is_some()).map(|o| o.id());
+        }
+        self.living().map(|_| self.id())
+    }
+
+    /// `ignoreExplosion(explosion)`.
+    fn ignore_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+        false
+    }
+
+    /// `getBlockExplosionResistance(explosion, level, pos, block, fluid, resistance)`.
+    fn get_block_explosion_resistance(
+        &self,
+        _explosion: &dyn crate::world::level::explosion::Explosion,
+        _level: &dyn crate::world::level::BlockGetter,
+        _pos: BlockPos,
+        _block: mc_data::block::BlockState,
+        _fluid: mc_data::fluid::FluidState,
+        resistance: f32,
+    ) -> f32 {
+        resistance
+    }
+
+    /// `shouldBlockExplode(explosion, level, pos, state, power)`.
+    fn should_block_explode(
+        &self,
+        _explosion: &dyn crate::world::level::explosion::Explosion,
+        _level: &dyn crate::world::level::BlockGetter,
+        _pos: BlockPos,
+        _state: mc_data::block::BlockState,
+        _power: f32,
+    ) -> bool {
+        true
+    }
+
+    /// `pushFromExplosion(impulse)` = `push(impulse)`: ignored unless finite, then adds to the motion and flags a sync.
+    fn push_from_explosion(&mut self, impulse: Vec3) {
+        if impulse.is_finite() {
+            let b = self.base_mut();
+            b.set_delta_movement(b.delta_movement().add(impulse));
+            b.needs_sync = true;
+        }
+    }
+
+    /// This entity as a `Projectile` (`instanceof Projectile`).
+    fn as_projectile(&self) -> Option<&dyn super::projectile::Projectile> {
+        None
+    }
+    fn as_projectile_mut(&mut self) -> Option<&mut dyn super::projectile::Projectile> {
+        None
+    }
+
     // ---- identity / classification -------------------------------------------------------------------------
 
     /// `LivingEntity` data (`asLivingEntity()`), `None` for non-living entities.
