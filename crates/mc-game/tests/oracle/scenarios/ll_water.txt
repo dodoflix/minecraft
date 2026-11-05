@@ -1,8 +1,12 @@
 # Swimming: fall into a pool, surface swim, sprint-swim (swimming pose), dive and jump out; water movement efficiency levels and dolphins grace.
 level flat
+fill -7 -61 -7 7 -49 7 minecraft:stone
 fill -6 -61 -6 6 -50 6 minecraft:water
+fill -7 -61 19 7 -49 33 minecraft:stone
 fill -6 -61 20 6 -50 32 minecraft:water
+fill -7 -61 39 7 -49 53 minecraft:stone
 fill -6 -61 40 6 -50 52 minecraft:water
+fill -7 -61 59 7 -49 73 minecraft:stone
 fill -6 -61 60 6 -50 72 minecraft:water
 spawn_player Base survival 0.5 -48 0.5 0 0 sim
 spawn_player Eff1 survival 0.5 -48 26.5 0 0 sim

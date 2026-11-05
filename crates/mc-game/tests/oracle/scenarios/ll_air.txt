@@ -1,8 +1,12 @@
 # Air supply under water: no respiration, respiration III, water breathing; creative players never drown.
 level flat
+fill -5 -61 -5 5 -39 5 minecraft:stone
 fill -4 -61 -4 4 -40 4 minecraft:water
+fill 15 -61 -5 25 -39 5 minecraft:stone
 fill 16 -61 -4 24 -40 4 minecraft:water
+fill 35 -61 -5 45 -39 5 minecraft:stone
 fill 36 -61 -4 44 -40 4 minecraft:water
+fill 55 -61 -5 65 -39 5 minecraft:stone
 fill 56 -61 -4 64 -40 4 minecraft:water
 spawn_player Plain survival 0.5 -55 0.5 0 0 sim
 spawn_player Resp survival 20.5 -55 0.5 0 0 sim
