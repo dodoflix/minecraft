@@ -79,7 +79,7 @@ impl MinecraftServer {
     }
 
     /// `ServerFunctionManager.tick`: the load tag once after a (re)load, then the tick tag, while the game runs normally.
-    pub(super) fn tick_functions(&mut self) {
+    pub fn tick_functions(&mut self) {
         if self.tick_rate_manager.runs_normally() {
             if self.functions.post_reload {
                 self.functions.post_reload = false;

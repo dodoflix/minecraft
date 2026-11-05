@@ -1,0 +1,125 @@
+# Data pack function system (fixtures/commands_corpus/functions/fnpack), see scripts/command-diff.sh
+!datapack functions/fnpack
+# load tag ran at the first tick, tick tag keeps running
+!ticks 2
+data get storage fn:state loaded
+data get storage fn:state tick_ran
+# plain, nested, comments / line continuation
+function fn:hello
+function fn:nested
+function fn:comment_lines
+function fn:empty
+# return forms
+function fn:ret_value
+function fn:ret_fail
+function fn:ret_run
+function fn:ret_run_cmd
+function fn:ret_run_fail
+function fn:calls_ret_three
+return 5
+return fail
+return run say hi
+return run
+return x
+# unknown functions / tags / broken library entries
+function fn:unknown
+function fn:bad_syntax
+function fn:bad_slash
+function fn:bad_continuation
+function #fn:all
+function #fn:more
+function #fn:optional
+function #fn:nothing
+function #fn:broken
+function #fn:missing_tag
+function
+function fn:hello {a:1}
+function fn:hello with storage fn:state
+# macros
+function fn:macro
+function fn:macro {a:1,b:"x y"}
+function fn:macro {a:1}
+function fn:macro {a:1.5d,b:2b}
+function fn:macro {a:1.5f,b:123456789012L}
+function fn:macro {a:[1,2],b:{k:"v"}}
+data merge storage fn:args {a:"q",b:5s}
+function fn:macro with storage fn:args
+function fn:macro with storage fn:args a
+function fn:macro with storage fn:nope
+function fn:macro with storage fn:state loaded
+function fn:macro with storage fn:state hello
+function fn:macro_parse_error {c:"bogus"}
+function fn:macro_parse_error
+function fn:call_bad_macro
+function fn:macro {a:}
+function fn:macro_missing
+# schedule
+schedule function fn:sched 5t
+schedule function fn:sched 5t append
+schedule function fn:sched 3t replace
+schedule function fn:sched 0t
+schedule function #fn:all 10t
+schedule function #fn:nothing 10t
+schedule function fn:macro 1t
+schedule function fn:unknown 1t
+schedule function fn:sched 1d
+schedule clear fn:sched
+schedule clear fn:sched
+schedule clear #fn:all
+schedule clear fn:nothing
+schedule clear
+!ticks 12
+data get storage fn:state sched
+# results through execute store / chain limits
+execute store result storage fn:r v int 1 run function fn:ret_value
+data get storage fn:r v
+execute store result storage fn:r f int 1 run function fn:ret_fail
+data get storage fn:r f
+execute store result storage fn:r t int 1 run function #fn:more
+data get storage fn:r t
+execute store result storage fn:r n int 1 run function #fn:nothing
+function fn:loop
+gamerule max_command_sequence_length 10
+function fn:nested
+gamerule max_command_sequence_length 65536
+gamerule max_command_forks 1
+execute as @a run say forks
+gamerule max_command_forks 65536
+# /reload keeps the library, load tag runs again
+data remove storage fn:state loaded
+reload
+!ticks 2
+data get storage fn:state loaded
+# /datapack
+datapack list
+datapack list enabled
+datapack list available
+datapack disable file/fnpack
+datapack disable file/fnpack
+datapack disable nothere
+!ticks 2
+function fn:hello
+datapack enable file/fnpack
+datapack enable file/fnpack
+datapack enable "file/fnpack" first
+datapack enable file/fnpack last
+datapack enable file/fnpack before vanilla
+datapack enable file/fnpack after vanilla
+datapack enable bogus
+datapack enable
+!ticks 2
+function fn:hello
+datapack create
+datapack create bad!name {"text":"x"}
+datapack create fnpack {"text":"x"}
+# debug (profiling durations and trace file names are timestamps)
+!ignore Stopped tick profiling
+!ignore debug-trace-
+debug stop
+debug start
+debug start
+debug stop
+debug function fn:nested
+debug function fn:macro
+debug function fn:unknown
+debug function #fn:all
