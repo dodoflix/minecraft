@@ -111,4 +111,17 @@ fn mob_command_arms_run() {
 #[ignore = "enable when the mob dump registrations are on main; owner: PathfinderCore"]
 fn mob_path_ground() {
     run_scenario_test("mob_path_ground");
+
+/// Piglin barter / admire / hostility toward a player without gold armor.
+#[test]
+#[ignore = "vanilla fixture generated, Rust replay not yet run/verified (piglin brain trace)"]
+fn mob_piglin_barter() {
+    run_scenario_test("mob_piglin_barter");
+}
+
+/// Hoglin attack and throwTarget knockback against a player.
+#[test]
+#[ignore = "vanilla fixture generated, Rust replay not yet run/verified (hoglin attack trace)"]
+fn mob_hoglin_vs_player() {
+    run_scenario_test("mob_hoglin_vs_player");
 }

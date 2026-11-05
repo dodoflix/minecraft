@@ -1,0 +1,14 @@
+# Piglin vs a survival player without gold armor, with a gold ingot on the floor: admire (119 ticks), barter loot (level RNG), throw
+# toward the player, then the attack; brain + mob state watched every tick.
+level flat
+difficulty normal
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 8.5 -60 0.5 0 0
+mobspawn P minecraft:piglin 0.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b,IsBaby:0b}
+mobspawn G minecraft:item 1.5 -60 0.5 0 0 {Item:{id:"minecraft:gold_ingot",count:1}}
+tick 2
+watch mob:P player:Steve
+tick 240
+watch off
+dump brain:P mob:P mobs

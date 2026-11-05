@@ -1,0 +1,12 @@
+# Hoglin vs a survival player (StartAttacking via NEAREST_VISIBLE_ATTACKABLE_PLAYER, MeleeAttack, throwTarget knockback RNG).
+level flat
+difficulty normal
+time 18000
+gamerule mob_drops false
+spawn_player Steve survival 6.5 -60 0.5 0 0
+mobspawn H minecraft:hoglin 0.5 -60 0.5 0 0 {PersistenceRequired:1b,IsImmuneToZombification:1b}
+tick 2
+watch mob:H player:Steve
+tick 160
+watch off
+dump brain:H mob:H mobs
