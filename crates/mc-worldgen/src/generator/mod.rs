@@ -55,6 +55,12 @@ pub trait ChunkGenerator: Send + Sync {
     /// `getBiomeGenerationSettings(biome)` (flat generators adjust the biome's settings).
     fn get_biome_generation_settings(&self, biome: BiomeId) -> &BiomeGenerationSettings;
 
+    /// Whether `spawnOriginalMobs(region)` spawns anything: noise generators unless the settings disable mob generation
+    /// (`!settings.disableMobGeneration()`); flat and debug generators never do.
+    fn spawns_original_mobs(&self) -> bool {
+        false
+    }
+
     /// `getOrigin(randomState)`.
     fn get_origin(&self, _random_state: &Arc<RandomState>) -> ChunkPos {
         ChunkPos::ZERO

@@ -422,4 +422,4 @@ fn particle_from_nbt(tag: &Tag) -> Option<ParticleOptions> {
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static AREA_EFFECT_CLOUD_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::AREA_EFFECT_CLOUD, create: |ty, level| Box::new(AreaEffectCloud::new(ty, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::AREA_EFFECT_CLOUD, create: |ty, id, _registries| Box::new(AreaEffectCloud::new(ty, id)) };

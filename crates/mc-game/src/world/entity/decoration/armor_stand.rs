@@ -643,4 +643,4 @@ impl Entity for ArmorStand {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ARMOR_STAND_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ARMOR_STAND, create: |ty, level| Box::new(ArmorStand::new(ty, level.next_entity_id())) };
+static ARMOR_STAND_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ARMOR_STAND, create: |ty, id, _registries| Box::new(ArmorStand::new(ty, id)) };

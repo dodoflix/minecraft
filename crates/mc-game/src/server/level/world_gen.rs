@@ -160,6 +160,20 @@ pub trait WorldGenHooks: Send + Sync {
     fn apply_biome_decoration(&self, ctx: &WorldGenContext, region: &mut WorldGenRegion);
     /// `spawnOriginalMobs(region)`.
     fn spawn_original_mobs(&self, ctx: &WorldGenContext, region: &mut WorldGenRegion);
+    /// `ChunkGenerator.getMobsAt` structure part: the spawns of the `spawn_overrides` entry of `category` of the first
+    /// structure at `pos` whose piece / bounding box (per the override's `bounding_box`) contains `pos`.
+    fn structure_spawn_override(
+        &self,
+        _source: &dyn crate::world::level::levelgen::structure::manager::StructureDataSource,
+        _pos: mc_core::pos::BlockPos,
+        _category: mc_data::enums::MobCategory,
+    ) -> Option<mc_worldgen::provider::WeightedList<crate::world::level::levelgen::structure::structure::SpawnerData>> {
+        None
+    }
+    /// `NaturalSpawner.isInNetherFortressBounds`: `structureManager.getStructureAt(pos, fortress).isValid()`.
+    fn is_in_nether_fortress(&self, _source: &dyn crate::world::level::levelgen::structure::manager::StructureDataSource, _pos: mc_core::pos::BlockPos) -> bool {
+        false
+    }
     /// `level.onStructureStartsAvailable(chunk)` (structure check cache).
     fn on_structure_starts_available(&self, _chunk: &ProtoChunk) {}
     /// `StructureManager.getStructureWithPieceAt(pos, structures).isValid()` for the structures `matcher` accepts
@@ -194,6 +208,8 @@ pub struct WorldGenContext {
     /// `getWorldGenSettings().options().generateStructures()`.
     pub generate_structures: bool,
     pub seed: i64,
+    /// The live level values chunk generation reads (difficulty, `spawnMobs`, clocks, registries).
+    pub live: Arc<super::gen_live_state::GenLiveState>,
 }
 
 

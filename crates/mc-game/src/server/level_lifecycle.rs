@@ -196,7 +196,7 @@ impl MinecraftServer {
         });
         backend.set_gen_env(env.clone());
         let gen_env = env.clone();
-        let hooks: Arc<dyn WorldGenHooks> = Arc::new(VanillaWorldGenHooks::new(env));
+        let hooks: Arc<dyn WorldGenHooks> = Arc::new(VanillaWorldGenHooks::new(env).with_mob_spawner(Arc::new(crate::world::level::spawner::chunk_gen::NaturalOriginalMobs)));
         let dimension_dir = self
             .storage_source
             .get_dimension_path(dimension)
@@ -248,6 +248,11 @@ impl MinecraftServer {
         level.tick_state.infiniburn = dimension_type.infiniburn.clone();
         level.tick_state.ambient_light = dimension_type.ambient_light;
         level.tick_state.attributes = self.build_attribute_system(&dimension_type, &factory.biomes);
+        // ==== [SpawnFramework] additions (level creation) ====
+        level.spawning.install_dimension_type(dimension_type.clone());
+        level.spawning.gen_live.install(level.registries.clone(), dimension_type.clone());
+        level.install_custom_spawners();
+        level.spawning.gen_live.publish(level.difficulty(), true, 0, 0.0);
         level
     }
 

@@ -14,6 +14,12 @@ use uuid::Uuid;
 /// `ServerLevel.ENTITY_COUNTER` (static: shared by all levels).
 static ENTITY_COUNTER: AtomicI32 = AtomicI32::new(0);
 
+/// `ServerLevel.ENTITY_COUNTER.incrementAndGet()` for entities created off the game thread (worldgen): no level to
+/// check for taken ids (they are saved as NBT and get a fresh id when loaded).
+pub fn next_detached_entity_id() -> EntityId {
+    ENTITY_COUNTER.fetch_add(1, Ordering::Relaxed).wrapping_add(1)
+}
+
 impl ServerLevel {
     /// `getNextEntityId()`.
     pub fn next_entity_id(&self) -> EntityId {
@@ -24,10 +30,15 @@ impl ServerLevel {
         id
     }
 
-    /// `EntityType.canSpawn(level)`: enabled features and peaceful difficulty. The level data these read
-    /// (`enabledFeatures`, difficulty) does not exist on `ServerLevel` yet, so every type may spawn for now.
-    pub fn can_spawn_entity_type(&self, _ty: EntityType) -> bool {
-        true
+    /// `EntityType.canSpawn(level)`: the type's required features are enabled and (unless allowed in peaceful) the
+    /// difficulty is not peaceful.
+    pub fn can_spawn_entity_type(&self, ty: EntityType) -> bool {
+        let data = ty.data();
+        let required: Vec<mc_core::ident::Identifier> = data.required_features.iter().filter_map(|n| mc_core::ident::Identifier::try_parse(n)).collect();
+        if !mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(self.tick_state.enabled_features) {
+            return false;
+        }
+        data.allowed_in_peaceful || self.difficulty() != mc_world::level_storage::Difficulty::Peaceful
     }
 
     // ---- adding ---------------------------------------------------------------------------------------------

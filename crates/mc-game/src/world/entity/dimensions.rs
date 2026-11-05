@@ -31,6 +31,12 @@ impl EntityAttachments {
         }
     }
 
+    /// `Builder.attach(PASSENGER, point)` on top of the defaults.
+    pub fn with_passenger(mut self, point: Vec3) -> Self {
+        self.attachments[EntityAttachment::Passenger as usize] = vec![point];
+        self
+    }
+
     /// `Builder.attach(VEHICLE, point)` on top of the defaults.
     pub fn with_vehicle(mut self, point: Vec3) -> Self {
         self.attachments[EntityAttachment::Vehicle as usize] = vec![point];
@@ -141,5 +147,10 @@ impl EntityDimensions {
 
     pub fn with_eye_height(&self, eye_height: f32) -> Self {
         Self { eye_height, ..self.clone() }
+    }
+
+    /// `withAttachments(builder)`.
+    pub fn with_attachments(&self, attachments: EntityAttachments) -> Self {
+        Self { attachments, ..self.clone() }
     }
 }

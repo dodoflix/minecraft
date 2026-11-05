@@ -8,6 +8,8 @@
 //! back afterwards: lookups during its own tick exclude it, exactly as vanilla's level queries exclude `this`.
 //! `put_back` applies what vanilla's `EntityInLevelCallback` does synchronously (section moves, removal).
 
+pub mod ai;
+pub mod animal;
 pub mod attributes;
 pub mod decoration;
 pub mod dimensions;
@@ -26,6 +28,7 @@ pub mod item;
 pub mod living;
 pub mod lightning_bolt;
 pub mod living_entity;
+pub mod mob;
 pub mod dismount_helper;
 pub mod movement;
 pub mod object_open_hash_map;
@@ -33,9 +36,11 @@ pub mod plain;
 pub mod portal;
 pub mod projectile;
 pub mod player;
+pub mod spawn_group_data;
 pub mod swing;
 pub mod team;
 pub mod spawn_util;
+pub mod variant;
 pub mod synched_data;
 pub mod tag_set;
 pub mod vec_delta_codec;
@@ -44,6 +49,8 @@ pub use dimensions::{EntityAttachment, EntityAttachments, EntityDimensions};
 pub use entity::{Entity, EntityData, MoveSimulationType, MovementEmission};
 pub mod respawn;
 pub mod spawn_config;
+pub mod spawn_placements;
+pub mod spawn_predicates;
 pub use player::ServerPlayer;
 
 pub type EntityId = i32;

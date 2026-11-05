@@ -76,6 +76,26 @@ pub trait LevelReader: BlockGetter {
     fn enabled_features(&self) -> FeatureFlagSet {
         FeatureFlagSet::DEFAULT_FLAGS
     }
+    // ==== [MobSpine] additions (LevelReader methods) ====
+    /// `dimensionType().ambientLight()`.
+    fn ambient_light(&self) -> f32 {
+        0.0
+    }
+    /// `getLightLevelDependentMagicValue(pos)`.
+    fn get_light_level_dependent_magic_value(&self, pos: BlockPos) -> f32 {
+        let raw = if pos.x() >= -30_000_000 && pos.z() >= -30_000_000 && pos.x() < 30_000_000 && pos.z() < 30_000_000 {
+            self.get_raw_brightness(pos, self.get_sky_darken())
+        } else {
+            15
+        };
+        let v = raw as f32 / 15.0;
+        let curved_v = v / (4.0 - 3.0 * v);
+        mc_core::math::mth::lerp_f32(self.ambient_light(), curved_v, 1.0)
+    }
+    /// `getPathfindingCostFromLightLevels(pos)`.
+    fn get_pathfinding_cost_from_light_levels(&self, pos: BlockPos) -> f32 {
+        self.get_light_level_dependent_magic_value(pos) - 0.5
+    }
 }
 
 /// `LevelAccessor` (+ `ScheduledTickAccess`): mutation entry points shared by `ServerLevel` and `WorldGenRegion`.

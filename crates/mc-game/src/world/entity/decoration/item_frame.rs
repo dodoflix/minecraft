@@ -470,7 +470,7 @@ pub fn analog_output_of(entity: &dyn Entity) -> Option<(Direction, i32)> {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static ITEM_FRAME_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ITEM_FRAME, create: |ty, level| Box::new(ItemFrame::new(ty, level.next_entity_id())) };
+static ITEM_FRAME_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::ITEM_FRAME, create: |ty, id, _registries| Box::new(ItemFrame::new(ty, id)) };
 #[distributed_slice(ENTITY_FACTORIES)]
 static GLOW_ITEM_FRAME_FACTORY: EntityRegistration =
-    EntityRegistration { entity_type: EntityType::GLOW_ITEM_FRAME, create: |ty, level| Box::new(ItemFrame::new(ty, level.next_entity_id())) };
+    EntityRegistration { entity_type: EntityType::GLOW_ITEM_FRAME, create: |ty, id, _registries| Box::new(ItemFrame::new(ty, id)) };

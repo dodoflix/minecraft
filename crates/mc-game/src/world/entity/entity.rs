@@ -961,7 +961,7 @@ pub trait Entity: Any {
 
     /// `Leashable.getLeashHolder()` id when the entity is leashed.
     fn leash_holder(&self) -> Option<EntityId> {
-        None
+        super::mob::leashable::get_leash_holder(self.as_dyn())
     }
 
     /// `startSeenByPlayer(player)`.
@@ -1124,7 +1124,9 @@ pub trait Entity: Any {
 
     /// `tick()` (`LivingEntity.tick()` for living entities).
     fn tick(&mut self, level: &mut ServerLevel) {
-        if self.living().is_some() {
+        if self.mob().is_some() {
+            super::mob::tick::tick(self.as_dyn_mut(), level);
+        } else if self.living().is_some() {
             super::living_entity::tick::tick(self.as_dyn_mut(), level);
         } else {
             self.base_tick(level);
@@ -1133,7 +1135,9 @@ pub trait Entity: Any {
 
     /// `baseTick()` (`LivingEntity.baseTick()` for living entities).
     fn base_tick(&mut self, level: &mut ServerLevel) {
-        if self.living().is_some() {
+        if self.mob().is_some() {
+            super::mob::tick::base_tick(self.as_dyn_mut(), level);
+        } else if self.living().is_some() {
             super::living_entity::base_tick::base_tick(self.as_dyn_mut(), level);
         } else {
             base_tick(self, level);
@@ -1149,7 +1153,11 @@ pub trait Entity: Any {
     }
 
     /// `checkDespawn()`.
-    fn check_despawn(&mut self, _level: &mut ServerLevel) {}
+    fn check_despawn(&mut self, level: &mut ServerLevel) {
+        if self.mob().is_some() {
+            super::mob::spawn::check_despawn(self.as_dyn_mut(), level);
+        }
+    }
     /// `ServerPlayer.stopSleepInBed(forceWakeUp, updateLevelList)` (only players sleep; `ServerPlayer` overrides).
     fn stop_sleep_in_bed(&mut self, _level: &mut ServerLevel, _force_wake_up: bool, _update_level_list: bool) {}
     /// The entity's `DynamicGameEventListener` target, if it listens to game events (vibration listeners).
@@ -1300,10 +1308,18 @@ pub trait Entity: Any {
     }
 
     /// `addAdditionalSaveData(output)` (abstract in vanilla; subclasses add their tags).
-    fn add_additional_save_data(&self, _out: &mut CompoundTag) {}
+    fn add_additional_save_data(&self, out: &mut CompoundTag) {
+        if self.mob().is_some() {
+            super::mob::nbt::add_additional_save_data(self.as_dyn(), out);
+        }
+    }
 
     /// `readAdditionalSaveData(input)`.
-    fn read_additional_save_data(&mut self, _input: &CompoundTag) {}
+    fn read_additional_save_data(&mut self, input: &CompoundTag) {
+        if self.mob().is_some() {
+            super::mob::nbt::read_additional_save_data(self.as_dyn_mut(), input);
+        }
+    }
 
     /// `repositionEntityAfterLoad()`.
     fn reposition_entity_after_load(&self) -> bool {
@@ -1592,7 +1608,11 @@ pub trait Entity: Any {
         self.base_mut().is_in_powder_snow = is_in_powder_snow;
     }
     /// `Leashable.tickLeash(level, this)` for leashable entities.
-    fn tick_leash(&mut self, _level: &mut ServerLevel) {}
+    fn tick_leash(&mut self, level: &mut ServerLevel) {
+        if self.mob().is_some() {
+            super::mob::leashable::tick_leash(self.as_dyn_mut(), level);
+        }
+    }
     /// `applyEffectsFromBlocks()`.
     fn apply_effects_from_blocks(&mut self, level: &mut ServerLevel) {
         super::inside_block_effects::apply_effects_from_blocks(self.as_dyn_mut(), level);
@@ -2147,16 +2167,24 @@ pub trait Entity: Any {
 
     /// `isEffectiveAi()` (server side: `Player` true, `Mob` `!isNoAi()`).
     fn is_effective_ai(&self) -> bool {
-        true
+        !self.mob().is_some_and(|m| m.is_no_ai())
     }
     /// `isImmobile()` (`LivingEntity`: dead or dying; `Player` adds sleeping).
     fn is_immobile(&self) -> bool {
         self.living().is_some_and(|l| l.is_dead_or_dying())
     }
     /// `serverAiStep()` (`Mob`: brain, goals, controls).
-    fn server_ai_step(&mut self, _level: &mut ServerLevel) {}
+    fn server_ai_step(&mut self, level: &mut ServerLevel) {
+        if self.mob().is_some() {
+            super::mob::tick::server_ai_step(self.as_dyn_mut(), level);
+        }
+    }
     /// `aiStep()`.
     fn ai_step(&mut self, level: &mut ServerLevel) {
+        if self.mob().is_some() {
+            super::mob::tick::ai_step(self.as_dyn_mut(), level);
+            return;
+        }
         super::living_entity::ai_step::ai_step(self.as_dyn_mut(), level);
     }
     /// `travel(input)`.
@@ -2177,8 +2205,12 @@ pub trait Entity: Any {
     }
     /// `setSpeed(speed)`.
     fn set_speed(&mut self, speed: f32) {
+        let is_mob = self.mob().is_some();
         if let Some(l) = self.living_mut() {
             l.speed = speed;
+            if is_mob {
+                l.zza = speed; // `Mob.setSpeed`: `setZza(speed)`
+            }
         }
     }
     /// `getFlyingSpeed()`.
@@ -2240,6 +2272,10 @@ pub trait Entity: Any {
     }
     /// `tickHeadTurn(yBodyRotT)`.
     fn tick_head_turn(&mut self, y_body_rot_t: f32) {
+        if self.mob().is_some() {
+            super::mob::tick::tick_head_turn(self.as_dyn_mut());
+            return;
+        }
         super::living_entity::tick::tick_head_turn(self.as_dyn_mut(), y_body_rot_t);
     }
     /// `getMaxHeadRotationRelativeToBody()`.
@@ -2521,6 +2557,9 @@ pub trait Entity: Any {
 
     /// `actuallyHurt(level, source, damage)`.
     fn actually_hurt(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, damage: f32) {
+        if self.mob().is_some_and(|m| m.animal.is_some()) {
+            super::mob::animal::reset_love(self.as_dyn_mut()); // `Animal.actuallyHurt`
+        }
         super::living_entity::damage::actually_hurt(self.as_dyn_mut(), level, source, damage);
     }
 
@@ -2555,16 +2594,23 @@ pub trait Entity: Any {
     }
 
     /// `dropCustomDeathLoot(level, source, killedByPlayer)`.
-    fn drop_custom_death_loot(&mut self, _level: &mut ServerLevel, _source: &crate::world::damagesource::DamageSource, _killed_by_player: bool) {}
+    fn drop_custom_death_loot(&mut self, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, killed_by_player: bool) {
+        if self.mob().is_some() {
+            super::mob::equipment::drop_custom_death_loot(self.as_dyn_mut(), level, source, killed_by_player);
+        }
+    }
 
     /// `getLootTable()`: the loot table of the death drops (`None`: no drops).
     fn get_loot_table(&self) -> Option<mc_core::ident::Identifier> {
+        if let Some(t) = self.mob().and_then(|m| m.loot_table.clone()) {
+            return Some(t);
+        }
         super::living_entity::death::default_loot_table(self.as_dyn())
     }
 
     /// `getLootTableSeed()`.
     fn get_loot_table_seed(&self) -> i64 {
-        0
+        self.mob().map_or(0, |m| m.loot_table_seed)
     }
 
     /// `shouldDropExperience()` / `isAlwaysExperienceDropper()` / `getBaseExperienceReward(level)`.
@@ -2574,12 +2620,16 @@ pub trait Entity: Any {
     fn is_always_experience_dropper(&self) -> bool {
         false
     }
-    fn get_base_experience_reward(&self, _level: &ServerLevel) -> i32 {
-        0
+    fn get_base_experience_reward(&mut self, level: &ServerLevel) -> i32 {
+        let _ = level;
+        super::mob::equipment::get_base_experience_reward(self.as_dyn_mut())
     }
 
     /// `shouldDropLoot(level)`.
     fn should_drop_loot(&self, level: &ServerLevel) -> bool {
+        if super::mob::monster::is_monster(self.as_dyn()) {
+            return super::mob::monster::should_drop_loot(level);
+        }
         !self.is_baby() && level.mob_drops()
     }
 
@@ -2691,11 +2741,11 @@ pub trait Entity: Any {
     }
     /// `LivingEntity.isBaby()`.
     fn is_baby(&self) -> bool {
-        false
+        self.mob().is_some_and(|m| m.ageable.is_some()) && super::mob::ageable::is_baby(self.as_dyn())
     }
     /// `Mob.getTarget()` (`None` for non-mobs). SEAM(Mob): overridden by the mob slice.
     fn get_target(&self) -> Option<EntityId> {
-        None
+        self.mob().and_then(|m| m.target)
     }
     /// `Sheep.isSheared()`; `None` when the entity is not a `Sheep`. SEAM(Sheep).
     fn sheep_sheared(&self) -> Option<bool> {
@@ -2745,16 +2795,400 @@ pub trait Entity: Any {
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
         None
     }
+    // ==== [PathfinderCore] additions (Entity trait methods) ====
+    // Mob hooks the pathfinder/navigation call; the defaults are the behavior of an entity that is not a `Mob`
+    // (`Mob` types override them: malus map, move control, ...).
+    /// `Mob.getPathfindingMalus(type)` (incl. the controlled-vehicle redirect; `level` resolves the vehicle).
+    fn get_pathfinding_malus(&self, level: &ServerLevel, ty: crate::world::level::pathfinder::PathType) -> f32 {
+        if self.mob().is_some() { super::mob::get_pathfinding_malus(self.as_dyn(), level, ty) } else { ty.get_malus() }
+    }
+    /// `Mob.setPathfindingMalus(type, cost)`.
+    fn set_pathfinding_malus(&mut self, ty: crate::world::level::pathfinder::PathType, cost: f32) {
+        super::mob::set_pathfinding_malus(self.as_dyn_mut(), ty, cost);
+    }
+    /// `Mob.onPathfindingStart()`.
+    fn on_pathfinding_start(&mut self) {}
+    /// `Mob.onPathfindingDone()`.
+    fn on_pathfinding_done(&mut self) {}
+    /// `getMaxFallDistance()` (`Entity`: 3; `Mob`/`Creeper` override, reading the target/difficulty).
+    fn get_max_fall_distance(&self, level: &ServerLevel) -> i32 {
+        if self.mob().is_some() {
+            super::mob::tick::get_max_fall_distance(self.as_dyn(), level)
+        } else if self.living().is_some() {
+            super::mob::tick::comfortable_fall_distance(0.0)
+        } else {
+            3
+        }
+    }
+    /// `getMoveControl().setWantedPosition(x, y, z, speedModifier)`.
+    fn set_wanted_position(&mut self, x: f64, y: f64, z: f64, speed_modifier: f64) {
+        super::mob::set_wanted_position(self.as_dyn_mut(), x, y, z, speed_modifier);
+    }
+    /// `getMoveControl().getSpeedModifier()`.
+    fn move_control_speed_modifier(&self) -> f64 {
+        super::mob::move_control_speed_modifier(self.as_dyn())
+    }
+    // ==== [MobSpine] additions (Entity trait methods) ====
+    // `Mob` and its generic subclasses. Every default is the vanilla behavior and dispatches on `mob()` (the `MobData`
+    // of mob types); concrete mobs override what their Java class overrides and call the `world::entity::mob` function
+    // of the layer they extend as their `super` call (see the module docs of `world/entity/mob/mod.rs`).
+
+    /// The `Mob` data of mob types.
+    fn mob(&self) -> Option<&super::mob::MobData> {
+        None
+    }
+    fn mob_mut(&mut self) -> Option<&mut super::mob::MobData> {
+        None
+    }
+    // ---- SEAM(SpawnFramework): removed when its hooks land (identical names and signatures) ----
+    /// `this instanceof Mob`.
+    fn is_mob(&self) -> bool {
+        self.mob().is_some()
+    }
+    /// `Mob.isPersistenceRequired()`.
+    fn is_persistence_required(&self) -> bool {
+        self.mob().is_some_and(|m| m.persistence_required)
+    }
+    /// `Mob.requiresCustomPersistence()`.
+    fn requires_custom_persistence(&self) -> bool {
+        self.mob().is_some() && (self.base().is_passenger() || super::mob::leashable::is_leashed(self.as_dyn()))
+    }
+    /// `Mob.removeWhenFarAway(dist)`.
+    fn remove_when_far_away(&self, _distance_to_closest_player: f64) -> bool {
+        !self.mob().is_some_and(|m| m.animal.is_some())
+    }
+    /// `Mob.checkSpawnRules(level, reason)`.
+    fn check_spawn_rules(&self, level: &dyn crate::world::level::server_level_accessor::ServerLevelAccessor, _reason: mc_data::enums::EntitySpawnReason) -> bool {
+        match self.mob() {
+            Some(m) if m.kind.is_pathfinder() => super::mob::spawn::pathfinder_check_spawn_rules(self.as_dyn(), level),
+            _ => true,
+        }
+    }
+    /// `Mob.checkSpawnObstruction(level)`.
+    fn check_spawn_obstruction(&self, level: &dyn crate::world::level::server_level_accessor::ServerLevelAccessor) -> bool {
+        self.mob().is_none() || super::mob::spawn::check_spawn_obstruction(self.as_dyn(), level)
+    }
+    /// `Mob.getMaxSpawnClusterSize()`.
+    fn get_max_spawn_cluster_size(&self) -> i32 {
+        4
+    }
+    /// `Mob.isMaxGroupSizeReached(groupSize)`.
+    fn is_max_group_size_reached(&self, _group_size: i32) -> bool {
+        false
+    }
+    /// `Mob.finalizeSpawn(level, difficulty, reason, groupData)`.
+    fn finalize_spawn(
+        &mut self,
+        level: &mut dyn crate::world::level::server_level_accessor::ServerLevelAccessor,
+        difficulty: crate::world::difficulty_instance::DifficultyInstance,
+        reason: mc_data::enums::EntitySpawnReason,
+        group_data: Option<Box<dyn super::spawn_group_data::SpawnGroupData>>,
+    ) -> Option<Box<dyn super::spawn_group_data::SpawnGroupData>> {
+        if self.mob().is_some() { super::mob::spawn::finalize_spawn(self.as_dyn_mut(), level, difficulty, reason, group_data) } else { group_data }
+    }
+
+    /// `shouldPassengersInheritMalus()`.
+    fn should_passengers_inherit_malus(&self) -> bool {
+        false
+    }
+
+    // ---- sounds / timing ----
+    /// `getAmbientSound()`.
+    fn get_ambient_sound(&self) -> Option<mc_data::SoundEvent> {
+        None
+    }
+    /// `getAmbientSoundInterval()` (`Animal`: 120).
+    fn get_ambient_sound_interval(&self) -> i32 {
+        if self.mob().is_some_and(|m| m.animal.is_some()) { 120 } else { 80 }
+    }
+    /// `playAmbientSound()`.
+    fn play_ambient_sound(&mut self, level: &mut ServerLevel) {
+        if self.mob().is_some() {
+            super::mob::tick::play_ambient_sound(self.as_dyn_mut(), level);
+        }
+    }
+    /// `customServerAiStep(level)` (`Animal`: forgets love while not an adult).
+    fn custom_server_ai_step(&mut self, _level: &mut ServerLevel) {
+        if self.mob().is_some_and(|m| m.animal.is_some()) {
+            super::mob::animal::custom_server_ai_step(self.as_dyn_mut());
+        }
+    }
+    /// `Monster.updateNoActionTime()`.
+    fn update_no_action_time(&mut self, level: &ServerLevel) {
+        super::mob::tick::monster_update_no_action_time(self.as_dyn_mut(), level);
+    }
+    fn get_max_head_x_rot(&self) -> i32 {
+        40
+    }
+    fn get_max_head_y_rot(&self) -> i32 {
+        75
+    }
+    fn get_head_rot_speed(&self) -> i32 {
+        10
+    }
+
+    // ---- equipment ----
+    fn can_use_non_melee_weapon(&self, _stack: &crate::world::item::ItemStack) -> bool {
+        false
+    }
+    /// `canPickUpLoot()`.
+    fn can_pick_up_loot(&self) -> bool {
+        self.mob().is_some_and(|m| m.can_pick_up_loot)
+    }
+    fn set_can_pick_up_loot(&mut self, value: bool) {
+        if let Some(m) = self.mob_mut() {
+            m.can_pick_up_loot = value;
+        }
+    }
+    /// `getPickupReach()` (x, y, z).
+    fn get_pickup_reach(&self) -> (i32, i32, i32) {
+        (1, 0, 1)
+    }
+    /// `canHoldItem(stack)`.
+    fn can_hold_item(&self, _stack: &crate::world::item::ItemStack) -> bool {
+        true
+    }
+    /// `wantsToPickUp(level, stack)`.
+    fn wants_to_pick_up(&self, _level: &ServerLevel, stack: &crate::world::item::ItemStack) -> bool {
+        self.can_hold_item(stack)
+    }
+    /// `pickUpItem(level, itemEntity)`.
+    fn pick_up_item(&mut self, level: &mut ServerLevel, item: EntityId) {
+        super::mob::equipment::pick_up_item(self.as_dyn_mut(), level, item);
+    }
+    /// `canReplaceEqualItem(new, current)`.
+    fn can_replace_equal_item(&self, new: &crate::world::item::ItemStack, current: &crate::world::item::ItemStack) -> bool {
+        super::mob::equipment::can_replace_equal_item(new, current)
+    }
+    /// `getPreferredWeaponType()` (an item tag name).
+    fn get_preferred_weapon_type(&self) -> Option<&'static str> {
+        None
+    }
+    /// `sunProtectionSlot()`.
+    fn sun_protection_slot(&self) -> super::equipment::EquipmentSlot {
+        super::equipment::EquipmentSlot::Head
+    }
+    /// `canUseSlot(slot)`.
+    fn can_use_slot(&self, _slot: super::equipment::EquipmentSlot) -> bool {
+        true
+    }
+    /// `getEquipmentSlotForItem(stack)`.
+    fn get_equipment_slot_for_item(&self, stack: &crate::world::item::ItemStack) -> super::equipment::EquipmentSlot {
+        super::mob::equipment::get_equipment_slot_for_item(self.as_dyn(), stack)
+    }
+    /// `isEquippableInSlot(stack, slot)`.
+    fn is_equippable_in_slot(&self, stack: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) -> bool {
+        super::mob::equipment::is_equippable_in_slot(self.as_dyn(), stack, slot)
+    }
+    /// `setItemSlot(slot, stack)` (non-player living entities).
+    fn set_item_slot(&mut self, level: &mut ServerLevel, slot: super::equipment::EquipmentSlot, stack: crate::world::item::ItemStack) {
+        super::mob::equipment::set_item_slot(self.as_dyn_mut(), level, slot, stack);
+    }
+    /// `setPersistenceRequired()`.
+    fn set_persistence_required(&mut self) {
+        if let Some(m) = self.mob_mut() {
+            m.persistence_required = true;
+        }
+    }
+    /// `populateDefaultEquipmentSlots(random, difficulty)`.
+    fn populate_default_equipment_slots(&mut self, random: &mut dyn RandomSource, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
+        super::mob::equipment::populate_default_equipment_slots(self.as_dyn_mut(), random, difficulty);
+    }
+    /// `populateDefaultEquipmentEnchantments(level, random, difficulty)`.
+    fn populate_default_equipment_enchantments(&mut self, registries: &crate::registry::RegistryAccess, random: &mut dyn RandomSource, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
+        super::mob::equipment::populate_default_equipment_enchantments(self.as_dyn_mut(), registries, random, difficulty);
+    }
+    /// `enchantSpawnedWeapon(level, random, difficulty)`.
+    fn enchant_spawned_weapon(&mut self, registries: &crate::registry::RegistryAccess, random: &mut dyn RandomSource, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
+        super::mob::equipment::enchant_spawned_weapon(self.as_dyn_mut(), registries, random, difficulty);
+    }
+    /// `enchantSpawnedArmor(level, random, slot, difficulty)`.
+    fn enchant_spawned_armor(&mut self, registries: &crate::registry::RegistryAccess, random: &mut dyn RandomSource, slot: super::equipment::EquipmentSlot, difficulty: &crate::world::difficulty_instance::DifficultyInstance) {
+        super::mob::equipment::enchant_spawned_armor(self.as_dyn_mut(), registries, random, slot, difficulty);
+    }
+    /// `equip(EquipmentTable)`.
+    fn equip(&mut self, level: &mut ServerLevel, table: &super::equipment_table::EquipmentTable) {
+        super::mob::equipment::equip(self.as_dyn_mut(), level, table);
+    }
+    /// `dropPreservedEquipment(level)`.
+    fn drop_preserved_equipment(&mut self, level: &mut ServerLevel) {
+        super::mob::equipment::drop_preserved_equipment_where(self.as_dyn_mut(), level, |_| true);
+    }
+    /// `setDropChance(slot, percent)`.
+    fn set_drop_chance(&mut self, slot: super::equipment::EquipmentSlot, percent: f32) {
+        super::mob::equipment::set_drop_chance(self.as_dyn_mut(), slot, percent);
+    }
+
+    // ---- targeting / combat ----
+    /// `canAttack(target)` (`LivingEntity`; `Mob`: not a ghast; `TamableAnimal`: not its owner).
+    fn can_attack(&self, level: &ServerLevel, target: &dyn Entity) -> bool {
+        if self.mob().is_some() && target.get_type() == EntityType::GHAST {
+            return false;
+        }
+        if self.mob().is_some_and(|m| m.tamable.is_some()) && super::mob::tamable::is_owned_by(self.as_dyn(), level, target) {
+            return false;
+        }
+        if target.is_player() && level.difficulty() == mc_world::level_storage::Difficulty::Peaceful {
+            return false;
+        }
+        target.can_be_seen_as_enemy()
+    }
+    /// `getVisibilityPercent(level, targetingEntity)`.
+    fn get_visibility_percent(&self, _level: &ServerLevel, targeting_entity: Option<&dyn Entity>) -> f64 {
+        super::mob::ext::get_visibility_percent(self.as_dyn(), targeting_entity)
+    }
+    /// `Entity.isPanicking()` (`PathfinderMob`).
+    fn is_panicking(&self) -> bool {
+        self.mob().is_some_and(|m| m.kind.is_pathfinder()) && super::mob::pathfinder::is_panicking(self.as_dyn())
+    }
+    /// The brain's `IS_PANICKING` memory; `None` = no brain.
+    fn is_panicking_by_brain(&self) -> Option<bool> {
+        None
+    }
+    /// `Entity.hasControllingPassenger()`.
+    fn has_controlling_passenger(&self) -> bool {
+        self.get_controlling_passenger().is_some()
+    }
+    /// `AbstractBoat.hasEnoughSpaceFor(passenger)`; `None` when this entity is not a boat.
+    fn has_enough_space_for(&self, _level: &ServerLevel, _passenger: &dyn Entity) -> Option<bool> {
+        None
+    }
+    /// `PathfinderMob.getWalkTargetValue(pos, level)`.
+    fn get_walk_target_value(&self, pos: BlockPos, level: &dyn crate::world::level::LevelReader) -> f32 {
+        super::mob::pathfinder::get_walk_target_value(self.as_dyn(), pos, level)
+    }
+
+    // ---- interaction ----
+    /// `mobInteract(player, hand)`.
+    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut super::ServerPlayer, hand: crate::world::item::InteractionHand) -> crate::world::item::InteractionResult {
+        super::mob::interact::mob_interact(self.as_dyn_mut(), level, player, hand)
+    }
+    /// `onOffspringSpawnedFromEgg(spawner, offspring)`.
+    fn on_offspring_spawned_from_egg(&mut self, _level: &mut ServerLevel, _spawner: &mut super::ServerPlayer, _offspring: EntityId) {}
+    /// `dropAllLeashConnections(player)`: drops this entity's leash and every leash it holds.
+    fn drop_all_leash_connections(&mut self, level: &mut ServerLevel, player: Option<EntityId>) -> bool {
+        self.mob().is_some() && super::mob::interact::drop_all_leash_connections(self.as_dyn_mut(), level, player)
+    }
+    /// `canShearEquipment(player)`.
+    fn can_shear_equipment(&self, _player: &super::ServerPlayer) -> bool {
+        !self.base().is_vehicle()
+    }
+    /// `playEatingSound()`.
+    fn play_eating_sound(&mut self, _level: &mut ServerLevel) {}
+
+    // ---- leash ----
+    /// `canBeLeashed()` (`Mob`: not an `Enemy`).
+    fn can_be_leashed(&self) -> bool {
+        self.mob().is_some_and(|m| !m.enemy || m.tamable.is_some())
+    }
+    fn leash_snap_distance(&self) -> f64 {
+        12.0
+    }
+    fn leash_elastic_distance(&self) -> f64 {
+        6.0
+    }
+    /// `onLeashRemoved()`.
+    fn on_leash_removed(&mut self) {
+        if let Some(m) = self.mob_mut() {
+            if m.leash_data.is_none() {
+                m.clear_home();
+            }
+        }
+    }
+    /// `whenLeashedTo(holder)`.
+    fn when_leashed_to(&mut self, level: &mut ServerLevel, holder: EntityId) {
+        super::mob::pathfinder::when_leashed_to(self.as_dyn_mut(), level, holder);
+    }
+    /// `leashTooFarBehaviour()`.
+    fn leash_too_far_behaviour(&mut self, level: &mut ServerLevel) {
+        super::mob::leashable::mob_leash_too_far_behaviour(self.as_dyn_mut(), level);
+    }
+    /// `closeRangeLeashBehaviour(holder)`.
+    fn close_range_leash_behaviour(&mut self, level: &mut ServerLevel, holder: EntityId) {
+        if self.mob().is_some_and(|m| m.kind.is_pathfinder()) {
+            super::mob::pathfinder::close_range_leash_behaviour(self.as_dyn_mut(), level, holder);
+        }
+    }
+    /// `onElasticLeashPull()`.
+    fn on_elastic_leash_pull(&mut self) {
+        self.check_fall_distance_accumulation();
+    }
+    /// `shouldStayCloseToLeashHolder()`.
+    fn should_stay_close_to_leash_holder(&self) -> bool {
+        true
+    }
+    /// `followLeashSpeed()`.
+    fn follow_leash_speed(&self) -> f64 {
+        1.0
+    }
+    fn support_quad_leash(&self) -> bool {
+        false
+    }
+    fn support_quad_leash_as_holder(&self) -> bool {
+        false
+    }
+    /// `notifyLeashHolder(leashee)`.
+    fn notify_leash_holder(&mut self, _leashee: EntityId) {}
+    /// `notifyLeasheeRemoved(leashee)`.
+    fn notify_leashee_removed(&mut self, _level: &mut ServerLevel, _leashee: EntityId) {}
+    /// `LeashFenceKnotEntity.getPos()` for knots.
+    fn leash_knot_pos(&self) -> Option<BlockPos> {
+        None
+    }
+
+    // ---- ageable / animal / tamable / neutral ----
+    /// `canBeABaby()`.
+    fn can_be_a_baby(&self) -> bool {
+        true
+    }
+    /// `getBabyStartAge()`.
+    fn get_baby_start_age(&self) -> i32 {
+        -24000
+    }
+    /// `ageBoundaryReached()`.
+    fn age_boundary_reached(&mut self, level: &mut ServerLevel) {
+        super::mob::ageable::age_boundary_reached(self.as_dyn_mut(), level);
+    }
+    /// `canAgeUp()`.
+    fn can_age_up(&self) -> bool {
+        self.mob().is_some_and(|m| m.ageable.is_some()) && super::mob::ageable::can_age_up(self.as_dyn())
+    }
+    /// `Animal.isFood(stack)`.
+    fn is_food(&self, _stack: &crate::world::item::ItemStack) -> bool {
+        false
+    }
+    /// `Animal.canFallInLove()`.
+    fn can_fall_in_love(&self) -> bool {
+        super::mob::animal::can_fall_in_love(self.as_dyn())
+    }
+    /// `AgeableMob.getBreedOffspring(level, partner)`.
+    fn get_breed_offspring(&mut self, _level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
+        None
+    }
+    /// `TamableAnimal.applyTamingSideEffects()`.
+    fn apply_taming_side_effects(&mut self) {}
+    /// `TamableAnimal.canFlyToOwner()`.
+    fn can_fly_to_owner(&self) -> bool {
+        false
+    }
+    /// `NeutralMob.startPersistentAngerTimer()`.
+    fn start_persistent_anger_timer(&mut self, _level: &mut ServerLevel) {}
+    /// Class-specific part of `ConversionType.convertCommon(from, to)` (zombie door breaking, ...).
+    fn conversion_common_extra(&self, _to: &mut dyn Entity) {}
     // ==== [EntityItems] additions (Entity trait methods) ====
     /// `interact(player, hand, location)`: the player (taken out of the level) uses the entity.
     fn interact(
         &mut self,
-        _level: &mut ServerLevel,
-        _player: &mut super::ServerPlayer,
-        _hand: crate::world::item::InteractionHand,
-        _location: Vec3,
+        level: &mut ServerLevel,
+        player: &mut super::ServerPlayer,
+        hand: crate::world::item::InteractionHand,
+        location: Vec3,
     ) -> crate::world::item::InteractionResult {
-        crate::world::item::InteractionResult::PASS
+        if self.mob().is_some() {
+            super::mob::interact::interact(self.as_dyn_mut(), level, player, hand, location)
+        } else {
+            crate::world::item::InteractionResult::PASS
+        }
     }
     /// `skipAttackInteraction(source)`: the attack on this entity is fully handled (`Player.attack` stops).
     fn skip_attack_interaction(&mut self, _level: &mut ServerLevel, _source: &dyn Entity) -> bool {

@@ -382,6 +382,10 @@ impl ChunkGenerator for NoiseBasedChunkGenerator {
         self.biomes.get(biome).generation_settings()
     }
 
+    fn spawns_original_mobs(&self) -> bool {
+        !self.settings.disable_mob_generation
+    }
+
     fn get_origin(&self, random_state: &Arc<RandomState>) -> ChunkPos {
         let spawn_target = &self.settings.spawn_target;
         if spawn_target.is_empty() {

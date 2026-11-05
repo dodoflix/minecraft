@@ -669,6 +669,7 @@ impl ServerLevel {
             env.tick_raids(self);
         }
 
+        self.publish_spawn_environment(&*env);
         {
             let have_time = std::cell::RefCell::new(&mut *have_time);
             self.tick_chunk_source_with_env(&*env, &|| (have_time.borrow_mut())(), runs);

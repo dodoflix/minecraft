@@ -89,7 +89,7 @@ impl ItemEntity {
 
     /// Vanilla mutates the stored stack object in place (`merge`'s `fromStack.shrink`, `Inventory.add`): the new
     /// value is stored without a dirty flag.
-    fn set_item_in_place(&mut self, stack: ItemStack) {
+    pub fn set_item_in_place(&mut self, stack: ItemStack) {
         self.base.entity_data.set_untracked(DATA_ITEM, stack);
     }
 
@@ -467,7 +467,7 @@ use mc_data::GameEvent;
 #[distributed_slice(ENTITY_FACTORIES)]
 static ITEM_ENTITY_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::ITEM,
-    create: |ty, level| Box::new(ItemEntity::new(ty, level.next_entity_id())),
+    create: |ty, id, _registries| Box::new(ItemEntity::new(ty, id)),
 };
 
 #[cfg(test)]

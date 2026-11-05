@@ -17,25 +17,13 @@ use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::FluidState;
 use mc_world::chunk::ProtoChunk;
+use crate::world::level::spawner::natural_spawner;
 use mc_world::heightmap::HeightmapType;
 use mc_world::palette::PalettedContainerFactory;
 use mc_world::status::ChunkStatus;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
-
-/// Hooks for the per-tick chunk work that belongs to other slices (`ServerLevel.tickChunk`, natural spawning, custom
-/// spawners). `None` = not provided (that part of `ServerChunkCache.tickChunks` is skipped).
-#[derive(Default, Clone, Copy)]
-pub struct ChunkTickHooks {
-    /// `NaturalSpawner.createState(chunkCount, ..)` + `getFilteredSpawningCategories(state, spawnEnemies, spawnPersistent)`:
-    /// returns whether any category may spawn this tick (the spawn state itself stays inside the spawner).
-    pub begin_spawn_state: Option<fn(&mut ServerLevel, i32, bool, bool, bool) -> bool>,
-    /// `NaturalSpawner.spawnForChunk(level, chunk, state, categories)`.
-    pub spawn_for_chunk: Option<fn(&mut ServerLevel, ChunkPos)>,
-    /// `ServerLevel.tickCustomSpawners(spawnEnemies)`.
-    pub tick_custom_spawners: Option<fn(&mut ServerLevel, bool)>,
-}
 
 /// Everything `ServerLevel` needs from the server when it is created (vanilla reads these from `MinecraftServer`,
 /// `LevelStem` and the storage access).
@@ -94,7 +82,6 @@ pub struct ServerLevel {
     pub factory: Arc<PalettedContainerFactory>,
     /// `Level.skyDarken` (maintained by the tick: `updateSkyBrightness`).
     pub sky_darken: i32,
-    pub chunk_tick_hooks: ChunkTickHooks,
     /// `Level.getGameTime()` mirror for saving chunks (set by the tick).
     game_time: i64,
     /// Mutation/ticking state (neighbor updater, scheduled ticks, block events, ...): see `level_tick_state.rs`.
@@ -109,6 +96,12 @@ pub struct ServerLevel {
     /// Operations on entities that were taken out (running) when they were requested: run when put back
     /// (`ServerLevel::with_entity_or_defer`).
     pub deferred_level_ops: std::collections::HashMap<EntityId, Vec<DeferredLevelOp>>,
+    // ==== [PathfinderCore] additions (ServerLevel field) ====
+    /// `pathTypesByPosCache` (`getPathTypeCache()`), invalidated by `send_block_updated`.
+    pub path_type_cache: parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache>,
+    // ==== [SpawnFramework] additions (ServerLevel field) ====
+    /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
+    pub spawning: crate::world::level::spawner::LevelSpawnData,
 }
 
 /// A change to an entity that needs the level (kill credit, stats) and runs once the entity is back in storage.
@@ -119,6 +112,7 @@ impl ServerLevel {
     pub fn new(params: ServerLevelParams) -> Self {
         let region_dir = params.dimension_dir.join("region");
         let data_dir = params.dimension_dir.join("data");
+        let spawning = crate::world::level::spawner::LevelSpawnData::default();
         let gen_context = Arc::new(WorldGenContext {
             dimension: params.dimension.clone(),
             level_height: params.level_height,
@@ -127,6 +121,7 @@ impl ServerLevel {
             hooks: params.hooks,
             generate_structures: params.generate_structures,
             seed: params.seed,
+            live: spawning.gen_live.clone(),
         });
         let chunk_params = ChunkMapParams {
             dimension: params.dimension.clone(),
@@ -162,13 +157,16 @@ impl ServerLevel {
             level_height: params.level_height,
             factory: params.factory,
             sky_darken: 0,
-            chunk_tick_hooks: ChunkTickHooks::default(),
             game_time: 0,
             tick_state,
             gen_env: None,
             worldgen_clock: None,
             // ==== [Damage] additions (ServerLevel::new initializer) ====
             deferred_level_ops: Default::default(),
+            // ==== [PathfinderCore] additions (ServerLevel::new initializer) ====
+            path_type_cache: Default::default(),
+            // ==== [SpawnFramework] additions (ServerLevel::new initializer) ====
+            spawning,
         }
     }
 
@@ -199,6 +197,11 @@ impl ServerLevel {
             is_debug: false,
             level_data: Box::new(super::level_data::PrimaryServerLevelData(super::level_data::default_world_data())),
         })
+    }
+
+    /// `getPathTypeCache()`.
+    pub fn path_type_cache(&self) -> &parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache> {
+        &self.path_type_cache
     }
 
     pub fn chunk_source(&self) -> &ServerChunkCache {
@@ -444,10 +447,10 @@ impl ServerLevel {
             let tick_speed = self.random_tick_speed();
             let spawn_enemies = self.chunk_source.spawn_enemies();
             let spawn_persistent = self.game_time() % 400 == 0;
-            let spawning_categories_available = match self.chunk_tick_hooks.begin_spawn_state {
-                Some(begin) => begin(self, chunk_count as i32, spawn_enemies, spawn_persistent, do_mob_spawning) && do_mob_spawning,
-                None => false,
-            };
+            // `NaturalSpawner.createState` (always) + `getFilteredSpawningCategories` (only while `spawnMobs`)
+            let state = natural_spawner::create_state(chunk_count as i32, self);
+            let categories = if do_mob_spawning { natural_spawner::get_filtered_spawning_categories(&state, spawn_enemies, spawn_persistent) } else { Vec::new() };
+            self.spawning.set_spawn_state(state, categories);
 
             // collectSpawningChunks, Util.shuffle(spawningChunks, level.getRandom())
             let mut spawning: Vec<ChunkPos> = self.chunk_source.chunk_map.collect_spawning_chunks().into_iter().map(ChunkPos::unpack).collect();
@@ -456,7 +459,7 @@ impl ServerLevel {
                 spawning.swap(i - 1, swap_to);
             }
             for pos in spawning {
-                self.tick_spawning_chunk(pos, spawning_categories_available, env);
+                self.tick_spawning_chunk(pos, env);
             }
 
             // tickTickingChunks
@@ -464,22 +467,22 @@ impl ServerLevel {
             for pos in ticking {
                 self.tick_chunk(pos, tick_speed);
             }
-            if do_mob_spawning && let Some(hook) = self.chunk_tick_hooks.tick_custom_spawners {
-                hook(self, spawn_enemies);
+            if do_mob_spawning {
+                self.tick_custom_spawners(spawn_enemies);
             }
         }
         self.chunk_source.broadcast_changed_chunks();
     }
 
     /// `ServerChunkCache.tickSpawningChunk(chunk, spawningCategories, spawnCookie)`.
-    fn tick_spawning_chunk(&mut self, pos: ChunkPos, categories_available: bool, env: &dyn super::level_tick::LevelTickEnv) {
+    fn tick_spawning_chunk(&mut self, pos: ChunkPos, env: &dyn super::level_tick::LevelTickEnv) {
         let Some(chunk) = self.chunk_now_mut(pos.x, pos.z) else { return };
         chunk.data.access.increment_inhabited_time();
         if self.chunk_source.chunk_map.distance_manager.in_entity_ticking_range(pos.pack()) {
             self.tick_thunder(pos, env);
         }
-        if categories_available && self.can_spawn_entities_in_chunk(pos) && let Some(spawn) = self.chunk_tick_hooks.spawn_for_chunk {
-            spawn(self, pos);
+        if self.spawning.has_spawning_categories() && self.can_spawn_entities_in_chunk(pos) {
+            natural_spawner::spawn_for_chunk(self, pos);
         }
     }
 
@@ -624,6 +627,10 @@ impl LevelReader for ServerLevel {
 
     fn can_see_sky(&self, pos: BlockPos) -> bool {
         self.get_brightness(LightLayer::Sky, pos) >= 15
+    }
+
+    fn ambient_light(&self) -> f32 {
+        self.tick_state.ambient_light
     }
 }
 

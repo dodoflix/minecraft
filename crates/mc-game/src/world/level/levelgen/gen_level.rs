@@ -65,6 +65,8 @@ pub struct GenLevel<'a> {
     game_time: i64,
     /// `level.getDifficulty()`, `level.getOverworldClockTime()` and `level.getMoonBrightness(pos)` (a flat value here).
     difficulty: (Difficulty, i64, f32),
+    /// The live level values mob spawning reads (difficulty, `spawnMobs`, registries, dimension type).
+    live: Option<Arc<crate::server::level::gen_live_state::GenLiveState>>,
     /// Heightmaps read while missing from their (writable) chunk: `(chunkX, chunkZ, type)`, primed lazily.
     pending_heightmaps: RefCell<Vec<(i32, i32, HeightmapType)>>,
 }
@@ -88,6 +90,7 @@ impl<'a> GenLevel<'a> {
             max_allowed: None,
             game_time: 0,
             difficulty: (Difficulty::Normal, 0, 0.0),
+            live: None,
             pending_heightmaps: RefCell::new(Vec::new()),
         }
     }
@@ -109,6 +112,13 @@ impl<'a> GenLevel<'a> {
     /// normal difficulty, clock 0, moon 0).
     pub fn with_difficulty(mut self, difficulty: Difficulty, overworld_clock_time: i64, moon_brightness: f32) -> GenLevel<'a> {
         self.difficulty = (difficulty, overworld_clock_time, moon_brightness);
+        self
+    }
+
+    /// Binds the region to the live level values (`getLevel()` reads of mob spawning); also sets the difficulty inputs.
+    pub fn with_live_state(mut self, live: Arc<crate::server::level::gen_live_state::GenLiveState>) -> GenLevel<'a> {
+        self.difficulty = (live.difficulty(), live.overworld_clock_time(), live.moon_brightness());
+        self.live = Some(live);
         self
     }
 
@@ -558,3 +568,123 @@ impl WorldGenLevel for GenLevel<'_> {
         self.region.get_chunk(self.region.center.x, self.region.center.z).is_some_and(ProtoChunk::is_upgrading)
     }
 }
+
+// ==== [SpawnFramework] additions (GenLevel as ServerLevelAccessor) ====
+
+impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLevel<'_> {
+    fn get_difficulty(&self) -> Difficulty {
+        self.difficulty.0
+    }
+
+    fn get_current_difficulty_at(&self, pos: BlockPos) -> DifficultyInstance {
+        WorldGenLevel::get_current_difficulty_at(self, pos)
+    }
+
+    // The worldgen region reads the real level's weather through `getLevel()`; not published to worker threads (spawn
+    // predicates of chunk generation only read it for monsters, which do not spawn while generating).
+    fn is_thundering(&self) -> bool {
+        false
+    }
+
+    fn is_raining(&self) -> bool {
+        false
+    }
+
+    fn has_ceiling(&self) -> bool {
+        self.live.as_ref().and_then(|l| l.dimension_type()).is_some_and(|d| d.has_ceiling)
+    }
+
+    fn monster_spawn_light_test(&self, random: &mut dyn RandomSource) -> i32 {
+        match self.live.as_ref().and_then(|l| l.dimension_type()) {
+            Some(dimension_type) => crate::world::level::server_level_accessor::sample_int_provider(dimension_type.monster_spawn_light_test(), random),
+            None => mc_worldgen::provider::IntProvider::Uniform { min_inclusive: 0, max_inclusive: 7 }.sample(random),
+        }
+    }
+
+    fn monster_spawn_block_light_limit(&self) -> i32 {
+        self.live.as_ref().and_then(|l| l.dimension_type()).map_or(0, |d| d.monster_spawn_block_light_limit())
+    }
+
+    /// `WorldGenRegion.addFreshEntity`: the entity is saved into the chunk's entity list (vanilla `ProtoChunk.addEntity`).
+    fn add_fresh_entity_with_passengers(&mut self, entity: Box<dyn crate::world::entity::Entity>) -> bool {
+        match crate::world::entity::entity::save(&*entity, &|_| None) {
+            Some(tag) => self.add_fresh_entity_nbt(tag),
+            None => false,
+        }
+    }
+
+    fn no_collision_aabb(&self, aabb: &mc_core::phys::AABB) -> bool {
+        use crate::world::level::collision::CollisionGetter as _;
+        self.no_block_collision(None, aabb)
+    }
+
+    fn is_unobstructed_entity(&self, _entity: &dyn crate::world::entity::Entity) -> bool {
+        true // a generation region has no entities
+    }
+
+    fn is_within_world_border(&self, _pos: BlockPos) -> bool {
+        true // the border is not published to worker threads
+    }
+
+    fn contains_any_liquid(&self, aabb: &mc_core::phys::AABB) -> bool {
+        crate::world::entity::movement::contains_any_liquid(self, aabb)
+    }
+
+    fn registry_access(&self) -> &crate::registry::RegistryAccess {
+        static EMPTY: std::sync::LazyLock<crate::registry::RegistryAccess> = std::sync::LazyLock::new(Default::default);
+        self.live.as_ref().map_or(&EMPTY, |l| l.registries())
+    }
+
+    fn get_biome_id(&self, pos: BlockPos) -> Option<BiomeId> {
+        Some(WorldGenLevel::get_biome(self, pos))
+    }
+
+    fn spawn_mobs_rule(&self) -> bool {
+        self.live.as_ref().is_none_or(|l| l.spawn_mobs())
+    }
+
+    fn create_entity(&self, ty: mc_data::EntityType, request: crate::world::entity::factory::EntitySpawnRequest) -> Option<Box<dyn crate::world::entity::Entity>> {
+        let data = ty.data();
+        if !request.ignore_checks {
+            let required: Vec<Identifier> = data.required_features.iter().filter_map(|n| Identifier::try_parse(n)).collect();
+            let enabled = mc_world::level_storage::FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(LevelReader::enabled_features(self));
+            if !enabled || (!data.allowed_in_peaceful && self.difficulty.0 == Difficulty::Peaceful) {
+                return None;
+            }
+        }
+        if ty == mc_data::EntityType::PLAYER {
+            return None;
+        }
+        Some(crate::world::entity::factory::instantiate(ty, crate::server::level::next_detached_entity_id(), self.registry_access()))
+    }
+
+    fn with_random_taken(&mut self, f: &mut dyn FnMut(&dyn crate::world::level::server_level_accessor::ServerLevelAccessor, &mut dyn RandomSource) -> bool) -> bool {
+        let mut random = std::mem::replace(&mut self.random, Box::new(mc_core::random::LegacyRandomSource::new(0)));
+        let result = f(&*self, &mut *random);
+        self.random = random;
+        result
+    }
+
+    fn natural_mob_spawns_at(&self, pos: BlockPos) -> Arc<crate::world::level::spawner::mob_spawn_settings::MobSpawnSettings> {
+        let base = self.spawn_base();
+        crate::world::level::spawner::biome_spawns::BiomeSpawnTable::for_registry(&self.env.biomes).natural_mob_spawns(&base, Some(WorldGenLevel::get_biome(self, pos)))
+    }
+
+    fn creature_world_gen_spawn_probability_at(&self, pos: BlockPos) -> f32 {
+        let base = self.spawn_base();
+        crate::world::level::spawner::biome_spawns::BiomeSpawnTable::for_registry(&self.env.biomes).creature_world_gen_spawn_probability(&base, Some(WorldGenLevel::get_biome(self, pos)))
+    }
+}
+
+impl GenLevel<'_> {
+    /// The dimension type's constant layer of the spawning attributes.
+    fn spawn_base(&self) -> crate::world::level::spawner::biome_spawns::DimensionSpawnBase {
+        match self.live.as_ref().and_then(|l| l.dimension_type()) {
+            Some(dimension_type) => crate::world::level::spawner::biome_spawns::DimensionSpawnBase::from_attributes(&dimension_type.attributes),
+            None => Default::default(),
+        }
+    }
+}
+
+/// A generation region has no entities and no border collision: only the block collisions of `CollisionGetter`.
+impl crate::world::level::collision::CollisionGetter for GenLevel<'_> {}

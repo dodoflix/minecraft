@@ -38,6 +38,9 @@ pub mod player_spawn_finder;
 mod server_level_entities;
 pub mod server_level_features;
 pub mod server_level_worldgen;
+pub use server_level_entities::next_detached_entity_id;
+mod server_level_spawn;
+pub mod gen_live_state;
 pub mod server_entity;
 pub use server_entity::{ServerEntity, UpdateInterval};
 pub mod level_server_state;
@@ -52,7 +55,7 @@ pub use chunk_map::{ChunkMap, ChunkMapEvent, ChunkMapParams, PlayerTrackingInfo,
 pub use chunk_tracking_view::ChunkTrackingView;
 pub use full_chunk_status::FullChunkStatus;
 pub use server_chunk_cache::{ChunkFuture, ServerChunkCache};
-pub use server_level::{ChunkTickHooks, ServerLevel, ServerLevelParams};
+pub use server_level::{ServerLevel, ServerLevelParams};
 pub use ticket::{Ticket, TicketType};
 pub mod server_player_game_mode;
 mod server_level_riding;

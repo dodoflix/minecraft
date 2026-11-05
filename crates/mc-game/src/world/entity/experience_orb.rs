@@ -341,5 +341,5 @@ impl Entity for ExperienceOrb {
 #[distributed_slice(ENTITY_FACTORIES)]
 static EXPERIENCE_ORB_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::EXPERIENCE_ORB,
-    create: |ty, level| Box::new(ExperienceOrb::new(ty, level.next_entity_id())),
+    create: |ty, id, _registries| Box::new(ExperienceOrb::new(ty, id)),
 };

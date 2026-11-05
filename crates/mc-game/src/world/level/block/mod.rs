@@ -11,6 +11,7 @@ pub mod rail_state;
 pub mod sculk_behaviour;
 pub mod sculk_spreader;
 pub mod state;
+pub mod valid_spawn;
 pub mod weathering_copper;
 
 pub use behaviour::*;

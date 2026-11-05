@@ -229,7 +229,7 @@ impl Entity for LightningBolt {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static LIGHTNING_BOLT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::LIGHTNING_BOLT, create: |ty, level| Box::new(LightningBolt::new(ty, level.next_entity_id())) };
+static LIGHTNING_BOLT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::LIGHTNING_BOLT, create: |ty, id, _registries| Box::new(LightningBolt::new(ty, id)) };
 
 /// Spawns the skeleton horse of a lightning trap at `pos` (`SkeletonHorse.setTrap(true); setAge(0)`): installed by the
 /// mob classes (the horse is not an entity class of this slice).

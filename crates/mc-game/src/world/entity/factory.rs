@@ -19,7 +19,8 @@ use std::sync::OnceLock;
 /// `EntityType.EntityFactory<T>`: `create(entityType, level)`.
 pub struct EntityRegistration {
     pub entity_type: EntityType,
-    pub create: fn(EntityType, &ServerLevel) -> Box<dyn Entity>,
+    /// `(type, entity id, registries)`: mob constructors read their default variants from the registries.
+    pub create: fn(EntityType, EntityId, &crate::registry::RegistryAccess) -> Box<dyn Entity>,
 }
 
 #[distributed_slice]
@@ -50,10 +51,16 @@ pub fn create(ty: EntityType, level: &ServerLevel, request: EntitySpawnRequest) 
     if !request.ignore_checks && !level.can_spawn_entity_type(ty) {
         return None;
     }
-    Some(match factories().get(&ty) {
-        Some(reg) => (reg.create)(ty, level),
-        None => Box::new(PlainEntity::new(ty, level.next_entity_id())),
-    })
+    Some(instantiate(ty, level.next_entity_id(), &level.registries))
+}
+
+/// `factory.create(type, level)` with an explicit entity id and the registries: usable without a `ServerLevel`
+/// (worldgen worker threads); no spawn checks.
+pub fn instantiate(ty: EntityType, id: EntityId, registries: &crate::registry::RegistryAccess) -> Box<dyn Entity> {
+    match factories().get(&ty) {
+        Some(reg) => (reg.create)(ty, id, registries),
+        None => Box::new(PlainEntity::new(ty, id)),
+    }
 }
 
 /// `EntityType.by(input)`: the type named by the `id` tag.

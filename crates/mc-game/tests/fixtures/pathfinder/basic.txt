@@ -1,0 +1,137 @@
+MOB z0 type=zombie nav=GroundPathNavigation pos=2.5,64.0,2.5 bb=2.199999988079071,64.0,2.199999988079071,2.800000011920929,65.95000004768372,2.800000011920929 w=0.6 h=1.95 ground=true water=false liquid=false floatable=false step=0.6 fall=3 follow=35.0 followv=35.0 eval=true,false,false,false reqlen=16.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,8.0,8.0,0.0,-1.0,8.0,16.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
+PATH z0 reached=true count=8 dist=1.0 target=10,64,2 next=0 navtarget=10,64,2
+N 0 2 64 2 g=0.0 h=8.0 f=8.0 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 3 64 2 g=1.0 h=10.5 f=11.5 type=WALKABLE walked=1.0 malus=0.0 closed=true
+N 2 4 64 2 g=2.0 h=9.0 f=11.0 type=WALKABLE walked=2.0 malus=0.0 closed=true
+N 3 5 64 2 g=3.0 h=7.5 f=10.5 type=WALKABLE walked=3.0 malus=0.0 closed=true
+N 4 6 64 2 g=4.0 h=6.0 f=10.0 type=WALKABLE walked=4.0 malus=0.0 closed=true
+N 5 7 64 2 g=5.0 h=4.5 f=9.5 type=WALKABLE walked=5.0 malus=0.0 closed=true
+N 6 8 64 2 g=6.0 h=3.0 f=9.0 type=WALKABLE walked=6.0 malus=0.0 closed=true
+N 7 9 64 2 g=7.0 h=1.5 f=8.5 type=WALKABLE walked=7.0 malus=0.0 closed=true
+PATH z0 reached=true count=8 dist=0.0 target=9,64,9 next=0 navtarget=9,64,9
+N 0 2 64 2 g=0.0 h=9.899495 f=9.899495 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 3 64 3 g=1.4142135 h=12.7279215 f=14.142135 type=WALKABLE walked=1.4142135 malus=0.0 closed=true
+N 2 4 64 4 g=2.828427 h=10.606602 f=13.435029 type=WALKABLE walked=2.828427 malus=0.0 closed=true
+N 3 5 64 5 g=4.2426405 h=8.485281 f=12.7279215 type=WALKABLE walked=4.2426405 malus=0.0 closed=true
+N 4 6 64 6 g=5.656854 h=6.3639607 f=12.020815 type=WALKABLE walked=5.656854 malus=0.0 closed=true
+N 5 7 64 7 g=7.071068 h=4.2426405 f=11.313708 type=WALKABLE walked=7.071068 malus=0.0 closed=true
+N 6 8 64 8 g=8.485281 h=2.1213202 f=10.606602 type=WALKABLE walked=8.485281 malus=0.0 closed=true
+N 7 9 64 9 g=9.899494 h=0.0 f=9.899494 type=WALKABLE walked=9.899494 malus=0.0 closed=true
+PATH z0 reached=true count=24 dist=0.0 target=20,64,25 next=0 navtarget=20,64,25
+N 0 2 64 2 g=0.0 h=29.206163 f=29.206163 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 3 64 3 g=1.4142135 h=41.704315 f=43.11853 type=WALKABLE walked=1.4142135 malus=0.0 closed=true
+N 2 4 64 4 g=2.828427 h=39.601135 f=42.42956 type=WALKABLE walked=2.828427 malus=0.0 closed=true
+N 3 5 64 5 g=4.2426405 h=37.5 f=41.74264 type=WALKABLE walked=4.2426405 malus=0.0 closed=true
+N 4 6 64 6 g=5.656854 h=35.40127 f=41.058125 type=WALKABLE walked=5.656854 malus=0.0 closed=true
+N 5 7 64 7 g=7.071068 h=33.305405 f=40.376472 type=WALKABLE walked=7.071068 malus=0.0 closed=true
+N 6 8 64 8 g=8.485281 h=31.212978 f=39.698257 type=WALKABLE walked=8.485281 malus=0.0 closed=true
+N 7 9 64 9 g=9.899494 h=29.124733 f=39.024227 type=WALKABLE walked=9.899494 malus=0.0 closed=true
+N 8 10 64 10 g=11.313707 h=27.041634 f=38.35534 type=WALKABLE walked=11.313707 malus=0.0 closed=true
+N 9 11 64 11 g=12.727921 h=24.964973 f=37.692894 type=WALKABLE walked=12.727921 malus=0.0 closed=true
+N 10 12 64 12 g=14.142134 h=22.896507 f=37.038643 type=WALKABLE walked=14.142134 malus=0.0 closed=true
+N 11 13 64 13 g=15.556347 h=20.838665 f=36.39501 type=WALKABLE walked=15.556347 malus=0.0 closed=true
+N 12 14 64 14 g=16.97056 h=18.794947 f=35.765507 type=WALKABLE walked=16.97056 malus=0.0 closed=true
+N 13 15 64 15 g=18.384773 h=16.77051 f=35.15528 type=WALKABLE walked=18.384773 malus=0.0 closed=true
+N 14 16 64 16 g=19.798986 h=14.773287 f=34.572273 type=WALKABLE walked=19.798986 malus=0.0 closed=true
+N 15 17 64 17 g=21.2132 h=12.816006 f=34.029205 type=WALKABLE walked=21.2132 malus=0.0 closed=true
+N 16 18 64 18 g=22.627413 h=10.920165 f=33.547577 type=WALKABLE walked=22.627413 malus=0.0 closed=true
+N 17 18 64 19 g=23.627413 h=9.486834 f=33.114246 type=WALKABLE walked=23.627413 malus=0.0 closed=true
+N 18 19 64 20 g=25.041626 h=7.648529 f=32.690155 type=WALKABLE walked=25.041626 malus=0.0 closed=true
+N 19 19 64 21 g=26.041626 h=6.184658 f=32.226284 type=WALKABLE walked=26.041626 malus=0.0 closed=true
+N 20 19 64 22 g=27.041626 h=4.743417 f=31.785042 type=WALKABLE walked=27.041626 malus=0.0 closed=true
+N 21 19 64 23 g=28.041626 h=3.3541021 f=31.39573 type=WALKABLE walked=28.041626 malus=0.0 closed=true
+N 22 20 64 24 g=29.45584 h=1.5 f=30.95584 type=WALKABLE walked=29.45584 malus=0.0 closed=true
+N 23 20 64 25 g=30.45584 h=0.0 f=30.45584 type=WALKABLE walked=30.45584 malus=0.0 closed=true
+PATH z0 reached=true count=9 dist=2.0 target=12,64,5 next=0 navtarget=12,64,5
+N 0 2 64 2 g=0.0 h=10.440307 f=10.440307 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 3 64 2 g=1.0 h=14.230249 f=15.230249 type=WALKABLE walked=1.0 malus=0.0 closed=true
+N 2 4 64 3 g=2.4142137 h=12.369316 f=14.783529 type=WALKABLE walked=2.4142137 malus=0.0 closed=true
+N 3 5 64 3 g=3.4142137 h=10.920165 f=14.334379 type=WALKABLE walked=3.4142137 malus=0.0 closed=true
+N 4 6 64 3 g=4.4142137 h=9.486834 f=13.901047 type=WALKABLE walked=4.4142137 malus=0.0 closed=true
+N 5 7 64 4 g=5.8284273 h=7.648529 f=13.476956 type=WALKABLE walked=5.8284273 malus=0.0 closed=true
+N 6 8 64 4 g=6.8284273 h=6.184658 f=13.013085 type=WALKABLE walked=6.8284273 malus=0.0 closed=true
+N 7 9 64 4 g=7.8284273 h=4.743417 f=12.571844 type=WALKABLE walked=7.8284273 malus=0.0 closed=true
+N 8 10 64 5 g=9.2426405 h=3.0 f=12.2426405 type=WALKABLE walked=9.2426405 malus=0.0 closed=false
+PT z0 5,64,5 static=WALKABLE cache=OPEN cache2=OPEN evaluator=WALKABLE
+PT z0 5,63,5 static=BLOCKED cache=BLOCKED cache2=BLOCKED evaluator=BLOCKED
+PT z0 5,65,5 static=OPEN cache=OPEN cache2=OPEN evaluator=OPEN
+MOB v0 type=villager nav=GroundPathNavigation pos=3.5,64.0,3.5 bb=3.199999988079071,64.0,3.199999988079071,3.800000011920929,65.95000004768372,3.800000011920929 w=0.6 h=1.95 ground=true water=false liquid=false floatable=false step=0.6 fall=3 follow=16.0 followv=16.0 eval=true,true,true,false reqlen=48.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,8.0,8.0,0.0,-1.0,16.0,-1.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
+PATH v0 reached=true count=13 dist=0.0 target=15,64,15 next=0 navtarget=15,64,15
+N 0 3 64 3 g=0.0 h=16.970562 f=16.970562 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 4 64 4 g=1.4142135 h=23.334522 f=24.748735 type=WALKABLE walked=1.4142135 malus=0.0 closed=true
+N 2 5 64 5 g=2.828427 h=21.213203 f=24.04163 type=WALKABLE walked=2.828427 malus=0.0 closed=true
+N 3 6 64 6 g=4.2426405 h=19.091885 f=23.334526 type=WALKABLE walked=4.2426405 malus=0.0 closed=true
+N 4 7 64 7 g=5.656854 h=16.970562 f=22.627417 type=WALKABLE walked=5.656854 malus=0.0 closed=true
+N 5 8 64 8 g=7.071068 h=14.849243 f=21.920311 type=WALKABLE walked=7.071068 malus=0.0 closed=true
+N 6 9 64 9 g=8.485281 h=12.7279215 f=21.213203 type=WALKABLE walked=8.485281 malus=0.0 closed=true
+N 7 10 64 10 g=9.899494 h=10.606602 f=20.506096 type=WALKABLE walked=9.899494 malus=0.0 closed=true
+N 8 11 64 11 g=11.313707 h=8.485281 f=19.798988 type=WALKABLE walked=11.313707 malus=0.0 closed=true
+N 9 12 64 12 g=12.727921 h=6.3639607 f=19.09188 type=WALKABLE walked=12.727921 malus=0.0 closed=true
+N 10 13 64 13 g=14.142134 h=4.2426405 f=18.384773 type=WALKABLE walked=14.142134 malus=0.0 closed=true
+N 11 14 64 14 g=15.556347 h=2.1213202 f=17.677668 type=WALKABLE walked=15.556347 malus=0.0 closed=true
+N 12 15 64 15 g=16.97056 h=0.0 f=16.97056 type=WALKABLE walked=16.97056 malus=0.0 closed=true
+MOB z1 type=zombie nav=GroundPathNavigation pos=102.5,64.0,10.5 bb=102.19999998807907,64.0,10.199999988079071,102.80000001192093,65.95000004768372,10.800000011920929 w=0.6 h=1.95 ground=true water=false liquid=false floatable=false step=0.6 fall=3 follow=35.0 followv=35.0 eval=true,false,false,false reqlen=16.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,8.0,8.0,0.0,-1.0,8.0,16.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
+PATH z1 reached=false count=9 dist=11.0 target=120,64,10 next=0 navtarget=120,64,10
+N 0 102 64 10 g=0.0 h=18.0 f=18.0 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 103 64 11 g=1.4142135 h=25.544079 f=26.958292 type=WALKABLE walked=4.0 malus=0.0 closed=true
+N 2 104 64 12 g=2.828427 h=24.186773 f=27.0152 type=WALKABLE walked=5.4142137 malus=0.0 closed=true
+N 3 104 64 13 g=3.828427 h=24.41823 f=28.246656 type=WALKABLE walked=7.8284273 malus=0.0 closed=true
+N 4 105 64 13 g=4.8284273 h=22.945587 f=27.774014 type=WALKABLE walked=8.828427 malus=0.0 closed=true
+N 5 106 64 13 g=5.8284273 h=21.476732 f=27.30516 type=WALKABLE walked=9.828427 malus=0.0 closed=true
+N 6 107 64 12 g=7.242641 h=19.72942 f=26.972061 type=WALKABLE walked=15.828427 malus=0.0 closed=true
+N 7 108 64 11 g=8.656855 h=18.062391 f=26.719246 type=WALKABLE walked=17.242641 malus=0.0 closed=true
+N 8 109 64 10 g=10.071068 h=16.5 f=26.571068 type=WALKABLE walked=18.656855 malus=0.0 closed=true
+PATH z1 reached=true count=8 dist=1.0 target=107,64,10 next=0 navtarget=107,64,10
+N 0 102 64 10 g=0.0 h=5.0 f=5.0 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 103 64 11 g=1.4142135 h=6.184658 f=7.5988717 type=WALKABLE walked=4.0 malus=0.0 closed=true
+N 2 104 64 12 g=2.828427 h=5.408327 f=8.236754 type=WALKABLE walked=5.4142137 malus=0.0 closed=true
+N 3 104 64 13 g=3.828427 h=6.3639607 f=10.192388 type=WALKABLE walked=7.8284273 malus=0.0 closed=true
+N 4 105 64 13 g=4.8284273 h=5.408327 f=10.236754 type=WALKABLE walked=8.828427 malus=0.0 closed=true
+N 5 106 64 13 g=5.8284273 h=4.743417 f=10.571844 type=WALKABLE walked=9.828427 malus=0.0 closed=true
+N 6 106 64 12 g=6.8284273 h=3.3541021 f=10.182529 type=WALKABLE walked=10.828427 malus=0.0 closed=true
+N 7 107 64 11 g=8.2426405 h=1.5 f=9.7426405 type=WALKABLE walked=12.2426405 malus=0.0 closed=true
+PATH z1 reached=true count=21 dist=1.0 target=118,66,26 next=0 navtarget=118,66,26
+N 0 102 64 10 g=0.0 h=22.715633 f=22.715633 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 103 64 11 g=1.4142135 h=31.960915 f=33.37513 type=WALKABLE walked=1.4142135 malus=0.0 closed=true
+N 2 104 64 12 g=2.828427 h=29.84962 f=32.678047 type=WALKABLE walked=2.828427 malus=0.0 closed=true
+N 3 104 64 13 g=3.828427 h=28.81406 f=32.642487 type=WALKABLE walked=3.828427 malus=0.0 closed=true
+N 4 105 64 14 g=5.2426405 h=26.70674 f=31.949379 type=WALKABLE walked=5.2426405 malus=0.0 closed=true
+N 5 106 64 15 g=6.656854 h=24.60183 f=31.258684 type=WALKABLE walked=6.656854 malus=0.0 closed=true
+N 6 107 64 16 g=8.071068 h=22.5 f=30.571068 type=WALKABLE walked=8.071068 malus=0.0 closed=true
+N 7 108 64 17 g=9.485281 h=20.402206 f=29.887487 type=WALKABLE walked=9.485281 malus=0.0 closed=true
+N 8 109 64 18 g=10.899494 h=18.309834 f=29.209328 type=WALKABLE walked=10.899494 malus=0.0 closed=true
+N 9 109 64 19 g=11.899494 h=17.363756 f=29.26325 type=WALKABLE walked=11.899494 malus=0.0 closed=true
+N 10 109 64 20 g=12.899494 h=16.5 f=29.399494 type=WALKABLE walked=12.899494 malus=0.0 closed=true
+N 11 109 64 21 g=13.899494 h=15.732133 f=29.631626 type=WALKABLE walked=13.899494 malus=0.0 closed=true
+N 12 110 64 22 g=15.313707 h=13.747727 f=29.061436 type=WALKABLE walked=15.313707 malus=0.0 closed=true
+N 13 111 64 23 g=16.72792 h=11.811011 f=28.538933 type=WALKABLE walked=16.72792 malus=0.0 closed=true
+N 14 112 64 24 g=18.142134 h=9.949875 f=28.092009 type=WALKABLE walked=18.142134 malus=0.0 closed=true
+N 15 113 64 24 g=19.142134 h=8.616844 f=27.758978 type=WALKABLE walked=19.142134 malus=0.0 closed=true
+N 16 114 64 24 g=20.142134 h=7.3484697 f=27.490604 type=WALKABLE walked=20.142134 malus=0.0 closed=true
+N 17 114 65 25 g=21.556347 h=6.3639607 f=27.920307 type=WALKABLE walked=27.798986 malus=0.0 closed=true
+N 18 115 65 26 g=22.97056 h=4.743417 f=27.713978 type=WALKABLE walked=29.2132 malus=0.0 closed=true
+N 19 116 66 26 g=24.384773 h=3.0 f=27.384773 type=WALKABLE walked=30.627413 malus=0.0 closed=true
+N 20 117 66 26 g=25.384773 h=1.5 f=26.884773 type=WALKABLE walked=31.627413 malus=0.0 closed=true
+MOB z2 type=zombie nav=GroundPathNavigation pos=202.5,64.0,2.5 bb=202.19999998807907,64.0,2.199999988079071,202.80000001192093,65.95000004768372,2.800000011920929 w=0.6 h=1.95 ground=true water=false liquid=false floatable=false step=0.6 fall=3 follow=35.0 followv=35.0 eval=true,false,false,false reqlen=16.0 powder=false passenger=false seed=1 malus=-1.0,0.0,0.0,0.0,0.0,-1.0,0.0,-1.0,-1.0,8.0,8.0,0.0,-1.0,8.0,16.0,8.0,-1.0,0.0,-1.0,-1.0,4.0,-1.0,8.0,0.0,0.0,0.0,4.0
+PATH z2 reached=false count=7 dist=7.0 target=212,64,2 next=0 navtarget=212,64,2
+N 0 202 64 2 g=0.0 h=10.0 f=10.0 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 203 64 2 g=1.0 h=13.5 f=14.5 type=WALKABLE walked=1.0 malus=0.0 closed=true
+N 2 204 64 2 g=2.0 h=12.0 f=14.0 type=WALKABLE walked=2.0 malus=0.0 closed=true
+N 3 205 64 2 g=3.0 h=10.5 f=13.5 type=WALKABLE walked=3.0 malus=0.0 closed=true
+N 4 206 61 2 g=6.1622777 h=10.062305 f=16.224583 type=WALKABLE walked=7.3166246 malus=0.0 closed=true
+N 5 207 61 2 g=7.1622777 h=8.746428 f=15.908705 type=WALKABLE walked=8.316625 malus=0.0 closed=true
+N 6 208 61 2 g=8.162277 h=7.5 f=15.662277 type=WALKABLE walked=9.316625 malus=0.0 closed=true
+PATH z2 reached=false count=7 dist=26.0 target=229,56,2 next=0 navtarget=229,56,2
+N 0 202 64 2 g=0.0 h=28.160255 f=28.160255 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 203 64 2 g=1.0 h=40.804413 f=41.804413 type=WALKABLE walked=1.0 malus=0.0 closed=true
+N 2 204 64 2 g=2.0 h=39.373215 f=41.373215 type=WALKABLE walked=2.0 malus=0.0 closed=true
+N 3 205 64 2 g=3.0 h=37.947334 f=40.947334 type=WALKABLE walked=3.0 malus=0.0 closed=true
+N 4 206 61 2 g=6.1622777 h=35.30581 f=41.468086 type=WALKABLE walked=7.3166246 malus=0.0 closed=true
+N 5 207 61 2 g=7.1622777 h=33.84154 f=41.00382 type=WALKABLE walked=8.316625 malus=0.0 closed=true
+N 6 208 61 2 g=8.162277 h=32.380547 f=40.542824 type=WALKABLE walked=9.316625 malus=0.0 closed=true
+PATH z2 reached=true count=5 dist=1.0 target=207,61,2 next=0 navtarget=207,61,2
+N 0 202 64 2 g=0.0 h=5.8309517 f=5.8309517 type=WALKABLE walked=0.0 malus=0.0 closed=true
+N 1 203 64 2 g=1.0 h=7.5 f=8.5 type=WALKABLE walked=1.0 malus=0.0 closed=true
+N 2 204 64 2 g=2.0 h=6.3639607 f=8.36396 type=WALKABLE walked=2.0 malus=0.0 closed=true
+N 3 205 64 2 g=3.0 h=5.408327 f=8.408327 type=WALKABLE walked=3.0 malus=0.0 closed=true
+N 4 206 61 2 g=6.1622777 h=1.5 f=7.6622777 type=WALKABLE walked=6.1622777 malus=0.0 closed=true

@@ -300,4 +300,4 @@ impl Entity for Cushion {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static CUSHION_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::CUSHION, create: |ty, level| Box::new(Cushion::new(ty, level.next_entity_id())) };
+static CUSHION_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::CUSHION, create: |ty, id, _registries| Box::new(Cushion::new(ty, id)) };

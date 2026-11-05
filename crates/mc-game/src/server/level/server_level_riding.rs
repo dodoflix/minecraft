@@ -62,6 +62,10 @@ impl ServerLevel {
             // `CriteriaTriggers.START_RIDING_TRIGGER` for the players among the vehicle's indirect passengers is not modelled
             // (no advancement triggers in the entity layer yet)
         }
+        // `Mob.startRiding`: a leashed mob drops its leash when it starts riding
+        if rider.mob().is_some() && crate::world::entity::mob::leashable::is_leashed(rider) {
+            crate::world::entity::mob::leashable::drop_leash(rider, self);
+        }
         true
     }
 

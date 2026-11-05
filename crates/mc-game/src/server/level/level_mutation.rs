@@ -80,8 +80,8 @@ impl ServerLevel {
     /// `ServerLevel.sendBlockUpdated(pos, old, current, flags)`.
     pub fn send_block_updated(&mut self, pos: BlockPos, _old: BlockState, _current: BlockState, _flags: u32) {
         self.block_changed(pos);
-        // Path type cache invalidation and navigation recomputation of mobs follow with the AI slice
-        // (`pathTypesByPosCache`, `navigatingMobs`).
+        self.path_type_cache.lock().invalidate(pos);
+        // Navigation recomputation of mobs follows with the mobs (`navigatingMobs`).
     }
 
     /// `updateNeighborsAt(pos, sourceBlock)`.

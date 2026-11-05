@@ -1,0 +1,1443 @@
+category monster 70 false false 128 32
+category creature 10 true true 128 32
+category ambient 15 true false 128 32
+category axolotls 5 true false 128 32
+category underground_water_creature 5 true false 128 32
+category water_creature 5 true false 128 32
+category water_ambient 20 true false 64 32
+category misc -1 true true 128 32
+placement minecraft:acacia_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:acacia_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:allay NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:area_effect_cloud NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:armadillo ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:armor_stand NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:arrow NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:axolotl IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:bamboo_chest_raft NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:bamboo_raft NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:bat ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:bee NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:birch_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:birch_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:blaze ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:block_display NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:bogged ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:breeze ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:breeze_wind_charge NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:camel ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:camel_husk ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:cat ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:cave_spider ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:cherry_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:cherry_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:chest_minecart NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:chicken ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:cod IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:copper_golem NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:command_block_minecart NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:cow ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:creaking ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:creeper ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:cushion NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:dark_oak_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:dark_oak_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:dolphin IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:donkey ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:dragon_fireball NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:drowned IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:egg NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:elder_guardian IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:enderman ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:endermite ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:ender_dragon ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:ender_pearl NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:end_crystal NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:evoker NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:evoker_fangs NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:experience_bottle NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:experience_orb NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:eye_of_ender NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:falling_block NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:fireball NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:firework_rocket NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:fox NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:frog ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:furnace_minecart NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:ghast ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:happy_ghast ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:giant ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:glow_item_frame NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:glow_squid IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:goat ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:guardian IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:hoglin ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:hopper_minecart NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:horse ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:husk ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:illusioner NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:interaction NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:iron_golem ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:item NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:item_display NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:item_frame NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:jungle_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:jungle_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:leash_knot NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:lightning_bolt NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:llama ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:llama_spit NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:magma_cube ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:mangrove_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:mangrove_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:mannequin NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:marker NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:minecart NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:mooshroom ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:mule ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:nautilus IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:oak_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:oak_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:ocelot ON_GROUND MOTION_BLOCKING
+placement minecraft:ominous_item_spawner NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:painting NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:pale_oak_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:pale_oak_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:panda NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:parched ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:parrot ON_GROUND MOTION_BLOCKING
+placement minecraft:phantom NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:pig ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:piglin ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:piglin_brute NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:pillager ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:polar_bear ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:poplar_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:poplar_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:splash_potion NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:lingering_potion NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:pufferfish IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:rabbit ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:ravager ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:salmon IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:sheep ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:shulker NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:shulker_bullet NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:silverfish ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:skeleton ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:skeleton_horse ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:slime ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:small_fireball NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:sniffer NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:snowball NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:snow_golem ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:spawner_minecart NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:spectral_arrow NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:spider ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:spruce_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:spruce_chest_boat NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:squid IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:stray ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:strider IN_LAVA MOTION_BLOCKING_NO_LEAVES
+placement minecraft:sulfur_cube ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:tadpole NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:text_display NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:tnt NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:tnt_minecart NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:trader_llama NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:trident NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:tropical_fish IN_WATER MOTION_BLOCKING_NO_LEAVES
+placement minecraft:turtle ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:vex NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:villager ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:vindicator NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:wandering_trader ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:warden NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:wind_charge NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:witch ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:wither ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:wither_skeleton ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:wither_skull NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:wolf ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:zoglin ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:zombie ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:zombie_horse ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:zombie_nautilus NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:zombie_villager ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:zombified_piglin ON_GROUND MOTION_BLOCKING_NO_LEAVES
+placement minecraft:player NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+placement minecraft:fishing_bobber NO_RESTRICTIONS MOTION_BLOCKING_NO_LEAVES
+charge 8 62 -7 0
+charge -10 62 -11 4605110762971426980
+charge 17 61 18 4604119971053405470
+charge -11 60 -10 4605110762971426980
+charge -13 63 19 0
+probe 6 60 -17 4606822130829827768 4591901590473013741
+probe 9 62 -2 4603039107142836552 4588162904068044642
+probe 6 63 -6 4595653203753948938 4581583864689211264
+probe 13 61 1 0 0
+probe 16 60 -10 4601597955262077993 4585333002340106786
+probe -10 66 -12 0 0
+charge 6 60 -20 -4641950207923317632
+charge 13 66 19 4597454643604897136
+charge -11 65 -4 -4628079121071016509
+charge 8 60 -20 4603399395113026192
+charge -11 66 4 4602949035150289142
+probe 8 62 19 4604750475001237340 4593976324592705136
+probe 16 61 15 4604480259023595110 4597023937584547057
+probe 2 62 -2 4598715651500560876 4587814360344326736
+probe -15 60 8 4603939827068310651 4592741009284198563
+probe -19 60 -3 4576918229304087675 4566763126357864773
+probe -4 64 4 0 0
+charge -10 63 5 4600697235336603893
+charge 11 61 16 -4632222432728197365
+charge -14 66 0 4598895795485655695
+charge -11 65 -12 -4629159984981585428
+charge 11 63 11 -4639067904161800520
+probe 13 64 -13 4602768891165194322 4591143294987698379
+probe 11 60 -15 4576918229304087675 4567149082100380557
+probe -16 62 -14 0 0
+probe -1 63 9 4604480259023595110 4594539297757248615
+probe -1 65 -18 4604390187031047700 4594683541190104056
+probe 6 66 -16 4599796515411129795 4589830631452113335
+charge 16 66 10 -4637446608295947140
+charge 10 65 16 0
+charge 3 66 -12 4600156803381319435
+charge 17 60 -15 4584304132692975288
+charge -12 64 -2 4603669611090668422
+probe -11 67 8 0 0
+probe -4 67 -17 4600336947366414254 4592784044073033833
+probe -6 65 -16 4598715651500560876 4591686002053567507
+probe -8 67 9 4593851763903000740 4586654014543852270
+probe -16 64 -13 4593311331947716280 4586443483770107852
+probe 19 63 14 4596734067664517857 4587920681926637601
+charge 6 61 -15 4581421828931458168
+charge 7 60 4 4600877379321698713
+charge -16 66 -14 0
+charge 11 60 -17 0
+charge -12 66 -5 -4629520272951775068
+probe -1 66 12 4600336947366414254 4591782466980907748
+probe -3 63 -10 4591149604126578442 4585517571930534942
+probe -2 66 19 0 0
+probe -3 61 6 0 0
+probe -7 60 -6 4599616371426034975 4594964601618903636
+probe 17 66 3 4601417811276983173 4591347878362288083
+charge -10 61 6 4600877379321698713
+charge -7 63 2 4601778099247172813
+charge 1 61 -3 -4628439409041206149
+charge -4 62 15 -4628079121071016509
+charge -9 64 13 4601417811276983173
+probe -9 60 -1 4604480259023595110 4601602997700786873
+probe 4 67 -8 4576918229304087675 4571038210044247481
+probe -20 65 0 4605741266919258849 4599916923542176450
+probe 4 60 -18 0 0
+probe 3 60 1 4590429028186199163 4584689117610146956
+probe -9 65 1 4606641986844732948 4604924283045555862
+biome badlands overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:armadillo 1 2 6
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability 1022739087
+biome bamboo_jungle overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:ocelot 1 1 2
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:chicken 4 4 10
+    minecraft:parrot 1 2 40
+    minecraft:panda 1 2 80
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome basalt_deltas overlay
+  category monster 2
+    minecraft:ghast 1 1 40
+    minecraft:magma_cube 2 5 100
+  category creature 1
+    minecraft:strider 1 2 60
+  creature_probability default
+biome beach overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 1
+    minecraft:turtle 2 5 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome birch_forest overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 4
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome cherry_grove overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 3
+    minecraft:pig 1 2 1
+    minecraft:rabbit 2 6 2
+    minecraft:sheep 2 4 2
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome cold_ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 2
+    minecraft:squid 1 4 3
+    minecraft:nautilus 1 1 2
+  category water_ambient 2
+    minecraft:cod 3 6 15
+    minecraft:salmon 1 5 15
+  creature_probability default
+biome crimson_forest overlay
+  category monster 3
+    minecraft:zombified_piglin 2 4 1
+    minecraft:hoglin 3 4 9
+    minecraft:piglin 3 4 5
+  category creature 1
+    minecraft:strider 1 2 60
+  creature_probability default
+biome dappled_forest overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 6
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:rabbit 2 4 4
+    minecraft:fox 2 4 4
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome dark_forest overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 4
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome deep_cold_ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 2
+    minecraft:squid 1 4 3
+    minecraft:nautilus 1 1 2
+  category water_ambient 2
+    minecraft:cod 3 6 15
+    minecraft:salmon 1 5 15
+  creature_probability default
+biome deep_dark overlay
+  category monster 0
+  category creature 0
+  category ambient 0
+  category axolotls 0
+  category underground_water_creature 0
+  category water_creature 0
+  category water_ambient 0
+  category misc 0
+  creature_probability default
+biome deep_frozen_ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category creature 1
+    minecraft:polar_bear 1 2 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 2
+    minecraft:squid 1 4 1
+    minecraft:nautilus 1 1 2
+  category water_ambient 1
+    minecraft:salmon 1 5 15
+  creature_probability default
+biome deep_lukewarm_ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 3
+    minecraft:squid 1 4 8
+    minecraft:dolphin 1 2 2
+    minecraft:nautilus 1 1 5
+  category water_ambient 3
+    minecraft:cod 3 6 8
+    minecraft:pufferfish 1 3 5
+    minecraft:tropical_fish 8 8 25
+  creature_probability default
+biome deep_ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 3
+    minecraft:squid 1 4 1
+    minecraft:dolphin 1 2 1
+    minecraft:nautilus 1 1 5
+  category water_ambient 1
+    minecraft:cod 3 6 10
+  creature_probability default
+biome desert overlay
+  category monster 10
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 19
+    minecraft:zombie_villager 1 1 1
+    minecraft:skeleton 4 4 50
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:husk 4 4 80
+    minecraft:parched 4 4 50
+  category creature 2
+    minecraft:rabbit 2 3 12
+    minecraft:camel 1 1 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome dripstone_caves overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 4 4 95
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome end_barrens overlay
+  category monster 1
+    minecraft:enderman 4 4 10
+  creature_probability default
+biome end_highlands overlay
+  category monster 1
+    minecraft:enderman 4 4 10
+  creature_probability default
+biome end_midlands overlay
+  category monster 1
+    minecraft:enderman 4 4 10
+  creature_probability default
+biome eroded_badlands overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:armadillo 1 2 6
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability 1022739087
+biome flower_forest overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:rabbit 2 3 4
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome forest overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:wolf 4 4 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome frozen_ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category creature 1
+    minecraft:polar_bear 1 2 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 2
+    minecraft:squid 1 4 1
+    minecraft:nautilus 1 1 2
+  category water_ambient 1
+    minecraft:salmon 1 5 15
+  creature_probability default
+biome frozen_peaks overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 1
+    minecraft:goat 1 3 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome frozen_river overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 1
+    minecraft:squid 1 4 2
+  category water_ambient 1
+    minecraft:salmon 1 5 5
+  creature_probability default
+biome grove overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 3
+    minecraft:wolf 1 1 1
+    minecraft:rabbit 2 3 8
+    minecraft:fox 2 4 4
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome ice_spikes overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 20
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:stray 4 4 80
+  category creature 2
+    minecraft:rabbit 2 3 10
+    minecraft:polar_bear 1 2 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability 1032805417
+biome jagged_peaks overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 1
+    minecraft:goat 1 3 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome jungle overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:ocelot 1 3 2
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:chicken 4 4 10
+    minecraft:parrot 1 2 40
+    minecraft:panda 1 2 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome lukewarm_ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 3
+    minecraft:squid 1 2 10
+    minecraft:dolphin 1 2 2
+    minecraft:nautilus 1 1 5
+  category water_ambient 3
+    minecraft:cod 3 6 15
+    minecraft:pufferfish 1 3 5
+    minecraft:tropical_fish 8 8 25
+  creature_probability default
+biome lush_caves overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category axolotls 1
+    minecraft:axolotl 4 6 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_ambient 1
+    minecraft:tropical_fish 8 8 25
+  creature_probability default
+biome mangrove_swamp overlay
+  category monster 10
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 70
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:slime 1 1 1
+    minecraft:bogged 4 4 30
+  category creature 1
+    minecraft:frog 2 5 10
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_ambient 1
+    minecraft:tropical_fish 8 8 25
+  creature_probability default
+biome meadow overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 3
+    minecraft:donkey 1 2 1
+    minecraft:rabbit 2 6 2
+    minecraft:sheep 2 4 2
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome mushroom_fields overlay
+  category creature 1
+    minecraft:mooshroom 4 8 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome nether_wastes overlay
+  category monster 5
+    minecraft:ghast 4 4 50
+    minecraft:zombified_piglin 4 4 100
+    minecraft:magma_cube 4 4 2
+    minecraft:enderman 4 4 1
+    minecraft:piglin 4 4 15
+  category creature 1
+    minecraft:strider 1 2 60
+  creature_probability default
+biome ocean overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 3
+    minecraft:squid 1 4 1
+    minecraft:dolphin 1 2 1
+    minecraft:nautilus 1 1 5
+  category water_ambient 1
+    minecraft:cod 3 6 10
+  creature_probability default
+biome old_growth_birch_forest overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 4
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome old_growth_pine_taiga overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 100
+    minecraft:zombie_villager 1 1 25
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:wolf 4 4 8
+    minecraft:rabbit 2 3 4
+    minecraft:fox 2 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome old_growth_spruce_taiga overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:wolf 4 4 8
+    minecraft:rabbit 2 3 4
+    minecraft:fox 2 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome pale_garden overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome plains overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 90
+    minecraft:zombie_villager 1 1 5
+    minecraft:zombie_horse 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 6
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:horse 2 6 5
+    minecraft:donkey 1 3 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome river overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:drowned 1 1 100
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 1
+    minecraft:squid 1 4 2
+  category water_ambient 1
+    minecraft:salmon 1 5 5
+  creature_probability default
+biome savanna overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 90
+    minecraft:zombie_villager 1 1 5
+    minecraft:zombie_horse 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:horse 2 6 1
+    minecraft:donkey 1 1 1
+    minecraft:armadillo 2 3 10
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome savanna_plateau overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 90
+    minecraft:zombie_villager 1 1 5
+    minecraft:zombie_horse 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 9
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:horse 2 6 1
+    minecraft:donkey 1 1 1
+    minecraft:armadillo 2 3 10
+    minecraft:llama 4 4 8
+    minecraft:wolf 4 8 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome small_end_islands overlay
+  category monster 1
+    minecraft:enderman 4 4 10
+  creature_probability default
+biome snowy_beach overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome snowy_plains overlay
+  category monster 10
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 90
+    minecraft:zombie_villager 1 1 5
+    minecraft:zombie_horse 1 1 5
+    minecraft:skeleton 4 4 20
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:stray 4 4 80
+  category creature 2
+    minecraft:rabbit 2 3 10
+    minecraft:polar_bear 1 2 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability 1032805417
+biome snowy_slopes overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 2
+    minecraft:rabbit 2 3 4
+    minecraft:goat 1 3 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome snowy_taiga overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:wolf 4 4 8
+    minecraft:rabbit 2 3 4
+    minecraft:fox 2 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome soul_sand_valley overlay
+  category monster 3
+    minecraft:skeleton 5 5 20
+    minecraft:ghast 4 4 50
+    minecraft:enderman 4 4 1
+  category creature 1
+    minecraft:strider 1 2 60
+  cost minecraft:enderman 4594572339843380019 4604480259023595110
+  cost minecraft:ghast 4594572339843380019 4604480259023595110
+  cost minecraft:skeleton 4594572339843380019 4604480259023595110
+  cost minecraft:strider 4594572339843380019 4604480259023595110
+  creature_probability default
+biome sparse_jungle overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 6
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:chicken 4 4 10
+    minecraft:wolf 2 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome stony_peaks overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome stony_shore overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome sulfur_caves overlay
+  category monster 9
+    minecraft:sulfur_cube 2 4 100
+    minecraft:creeper 2 2 50
+    minecraft:skeleton 2 2 50
+    minecraft:slime 1 1 25
+    minecraft:cave_spider 1 1 20
+    minecraft:zombie 2 2 50
+    minecraft:enderman 1 1 10
+    minecraft:witch 1 1 1
+    minecraft:zombie_villager 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  creature_probability default
+biome sunflower_plains overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 90
+    minecraft:zombie_villager 1 1 5
+    minecraft:zombie_horse 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 6
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:horse 2 6 5
+    minecraft:donkey 1 3 1
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome swamp overlay
+  category monster 10
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 70
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+    minecraft:slime 1 1 1
+    minecraft:bogged 4 4 30
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:frog 2 5 10
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome taiga overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:wolf 4 4 8
+    minecraft:rabbit 2 3 4
+    minecraft:fox 2 4 8
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome the_end overlay
+  category monster 1
+    minecraft:enderman 4 4 10
+  creature_probability default
+biome the_void overlay
+  category monster 0
+  category creature 0
+  category ambient 0
+  category axolotls 0
+  category underground_water_creature 0
+  category water_creature 0
+  category water_ambient 0
+  category misc 0
+  creature_probability default
+biome warm_ocean overlay
+  category monster 9
+    minecraft:drowned 1 1 5
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  category water_creature 3
+    minecraft:nautilus 1 1 5
+    minecraft:squid 4 4 10
+    minecraft:dolphin 1 2 2
+  category water_ambient 2
+    minecraft:pufferfish 1 3 15
+    minecraft:tropical_fish 8 8 25
+  creature_probability default
+biome warped_forest overlay
+  category monster 1
+    minecraft:enderman 4 4 1
+  category creature 1
+    minecraft:strider 1 2 60
+  cost minecraft:enderman 4593311331947716280 4607182418800017408
+  creature_probability default
+biome windswept_forest overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:llama 4 6 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome windswept_gravelly_hills overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:llama 4 6 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome windswept_hills overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 5
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:llama 4 6 5
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome windswept_savanna overlay
+  category monster 9
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 90
+    minecraft:zombie_villager 1 1 5
+    minecraft:zombie_horse 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 7
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:horse 2 6 1
+    minecraft:donkey 1 1 1
+    minecraft:armadillo 2 3 10
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability default
+biome wooded_badlands overlay
+  category monster 8
+    minecraft:spider 4 4 100
+    minecraft:zombie 4 4 95
+    minecraft:zombie_villager 1 1 5
+    minecraft:skeleton 4 4 100
+    minecraft:creeper 4 4 100
+    minecraft:slime 4 4 100
+    minecraft:enderman 1 4 10
+    minecraft:witch 1 1 5
+  category creature 6
+    minecraft:sheep 4 4 12
+    minecraft:pig 4 4 10
+    minecraft:chicken 4 4 10
+    minecraft:cow 4 4 8
+    minecraft:armadillo 1 2 6
+    minecraft:wolf 4 8 2
+  category ambient 1
+    minecraft:bat 8 8 10
+  category underground_water_creature 1
+    minecraft:glow_squid 4 6 10
+  creature_probability 1025758986

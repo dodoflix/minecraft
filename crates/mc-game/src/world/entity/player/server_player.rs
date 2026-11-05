@@ -620,7 +620,7 @@ impl Entity for ServerPlayer {
     fn drop_equipment(&mut self, level: &mut crate::server::level::ServerLevel) {
         super::damage::drop_equipment(self, level);
     }
-    fn get_base_experience_reward(&self, level: &crate::server::level::ServerLevel) -> i32 {
+    fn get_base_experience_reward(&mut self, level: &crate::server::level::ServerLevel) -> i32 {
         super::damage::get_base_experience_reward(self, level)
     }
     fn is_always_experience_dropper(&self) -> bool {

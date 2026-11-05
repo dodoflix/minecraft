@@ -79,6 +79,8 @@ pub trait BlockStateExt: Copy {
     fn get_face_occlusion_shape(self, direction: Direction) -> VoxelShape;
     fn is_collision_shape_full_block_at(self, level: &dyn BlockGetter, pos: BlockPos) -> bool;
     fn is_face_sturdy_at(self, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> bool;
+    /// `isValidSpawn(level, pos, type)`.
+    fn is_valid_spawn(self, level: &dyn BlockGetter, pos: BlockPos, ty: mc_data::EntityType) -> bool;
     fn is_face_sturdy_support(self, level: &dyn BlockGetter, pos: BlockPos, direction: Direction, support: SupportType) -> bool;
     fn is_suffocating_at(self, level: &dyn BlockGetter, pos: BlockPos) -> bool;
     /// `getOffset(pos)` (the block's `OffsetType`).
@@ -233,6 +235,9 @@ impl BlockStateExt for BlockState {
         } else {
             self.is_collision_shape_full_block()
         }
+    }
+    fn is_valid_spawn(self, level: &dyn BlockGetter, pos: BlockPos, ty: mc_data::EntityType) -> bool {
+        super::valid_spawn::is_valid_spawn(self, level, pos, ty)
     }
     fn is_face_sturdy_at(self, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> bool {
         self.is_face_sturdy_support(level, pos, direction, SupportType::Full)

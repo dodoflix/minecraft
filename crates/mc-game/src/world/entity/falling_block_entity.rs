@@ -340,5 +340,5 @@ impl Entity for FallingBlockEntity {
 #[distributed_slice(ENTITY_FACTORIES)]
 static FALLING_BLOCK_FACTORY: EntityRegistration = EntityRegistration {
     entity_type: EntityType::FALLING_BLOCK,
-    create: |ty, level| Box::new(FallingBlockEntity::new(ty, level.next_entity_id())),
+    create: |ty, id, _registries| Box::new(FallingBlockEntity::new(ty, id)),
 };

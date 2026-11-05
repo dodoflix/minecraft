@@ -294,4 +294,4 @@ impl Entity for Painting {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PAINTING_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::PAINTING, create: |ty, level| Box::new(Painting::new(ty, level.next_entity_id(), &level.registries)) };
+static PAINTING_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::PAINTING, create: |ty, id, registries| Box::new(Painting::new(ty, id, registries)) };

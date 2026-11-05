@@ -13,14 +13,14 @@ use std::sync::{Arc, OnceLock};
 
 /// `ChunkGenerator.spawnOriginalMobs(region)` (`NaturalSpawner.spawnMobsForChunkGeneration`).
 pub trait OriginalMobSpawner: Send + Sync {
-    fn spawn_original_mobs(&self, env: &GenEnv, ctx: &WorldGenContext, region: &mut WorldGenRegion);
+    fn spawn_original_mobs(&self, env: &Arc<GenEnv>, ctx: &WorldGenContext, region: &mut WorldGenRegion);
 }
 
 /// No original mob spawns.
 pub struct NoOriginalMobs;
 
 impl OriginalMobSpawner for NoOriginalMobs {
-    fn spawn_original_mobs(&self, _env: &GenEnv, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {}
+    fn spawn_original_mobs(&self, _env: &Arc<GenEnv>, _ctx: &WorldGenContext, _region: &mut WorldGenRegion) {}
 }
 
 pub struct VanillaWorldGenHooks {
@@ -68,6 +68,43 @@ impl WorldGenHooks for VanillaWorldGenHooks {
 
     fn spawn_original_mobs(&self, ctx: &WorldGenContext, region: &mut WorldGenRegion) {
         self.mobs.spawn_original_mobs(&self.env, ctx, region);
+    }
+
+    fn structure_spawn_override(
+        &self,
+        source: &dyn super::structure::manager::StructureDataSource,
+        pos: mc_core::pos::BlockPos,
+        category: mc_data::enums::MobCategory,
+    ) -> Option<mc_worldgen::provider::WeightedList<super::structure::structure::SpawnerData>> {
+        use super::structure::manager::StructureManager;
+        use super::structure::structure::BoundingBoxType;
+        let manager = StructureManager::new(&self.env);
+        // `getAllStructuresAt(pos)`: the structures referenced by the chunk of `pos`
+        let all = manager.get_all_structures_at(source, pos)?;
+        for (id, references) in all {
+            let Some(identifier) = mc_core::ident::Identifier::try_parse(id) else { continue };
+            let Some(structure) = self.env.structures.get(&identifier) else { continue };
+            let Some(spawn_override) = structure.value().settings().spawn_override(category) else { continue };
+            let mut in_override_box = false;
+            manager.fill_starts_for_structure(source, structure, references, &mut |start| {
+                if !in_override_box {
+                    let mut start = start.lock();
+                    in_override_box = match spawn_override.bounding_box {
+                        BoundingBoxType::Piece => manager.structure_has_piece_at(pos, &start),
+                        BoundingBoxType::Structure => start.get_bounding_box().is_inside(&pos),
+                    };
+                }
+            });
+            if in_override_box {
+                return Some(spawn_override.spawns.clone());
+            }
+        }
+        None
+    }
+
+    fn is_in_nether_fortress(&self, source: &dyn super::structure::manager::StructureDataSource, pos: mc_core::pos::BlockPos) -> bool {
+        let Some(fortress) = mc_core::ident::Identifier::try_parse("minecraft:fortress").and_then(|id| self.env.structures.get(&id).cloned()) else { return false };
+        super::structure::manager::StructureManager::new(&self.env).get_structure_at(source, pos, &fortress).is_some()
     }
 
     fn on_structure_starts_available(&self, chunk: &ProtoChunk) {

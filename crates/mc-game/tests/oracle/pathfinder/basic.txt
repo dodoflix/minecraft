@@ -1,0 +1,36 @@
+# Scenario pathfinder/basic: ground mobs on small terrains (each terrain in its own x range of 100).
+# ---- T0: open flat floor, straight/diagonal, reach, failed target
+fill 0 63 0 30 63 30 minecraft:stone
+mob z0 zombie 2.5 64 2.5
+path z0 10 64 2 1
+path z0 9 64 9 1
+path z0 20 64 25 0
+path z0 12 64 5 3
+pathtype z0 5 64 5
+pathtype z0 5 63 5
+pathtype z0 5 65 5
+mob v0 villager 3.5 64 3.5 doors
+path v0 15 64 15 1
+# ---- T1: wall with a gap, fence line, one-block cliff up, stairs
+fill 100 63 0 130 63 30 minecraft:stone
+fill 110 64 0 110 66 20 minecraft:stone
+fill 105 64 8 105 64 12 minecraft:oak_fence
+mob z1 zombie 102.5 64 10.5
+path z1 120 64 10 1
+path z1 107 64 10 1
+fill 112 64 25 114 64 27 minecraft:stone
+block 115 64 26 minecraft:oak_stairs[facing=east,half=bottom]
+block 116 65 26 minecraft:oak_stairs[facing=east,half=bottom]
+fill 117 65 26 119 65 26 minecraft:stone
+fill 117 64 26 119 64 26 minecraft:stone
+path z1 118 66 26 1
+# ---- T2: gaps and fall distance
+fill 200 63 0 205 63 5 minecraft:stone
+fill 209 63 0 215 63 5 minecraft:stone
+fill 206 60 0 208 60 5 minecraft:stone
+fill 220 63 0 225 63 5 minecraft:stone
+fill 226 55 0 232 55 5 minecraft:stone
+mob z2 zombie 202.5 64 2.5
+path z2 212 64 2 1
+path z2 229 56 2 1
+path z2 207 61 2 1

@@ -214,7 +214,7 @@ impl Entity for PrimedTnt {
 }
 
 #[distributed_slice(ENTITY_FACTORIES)]
-static PRIMED_TNT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::TNT, create: |ty, level| Box::new(PrimedTnt::new(ty, level.next_entity_id())) };
+static PRIMED_TNT_FACTORY: EntityRegistration = EntityRegistration { entity_type: EntityType::TNT, create: |ty, id, _registries| Box::new(PrimedTnt::new(ty, id)) };
 
 #[allow(dead_code)]
 fn _unused(_: Vec3) {}

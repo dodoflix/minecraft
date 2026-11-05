@@ -1,0 +1,94 @@
+# Scenario pathfinder/mobs: one arena per navigation family; the real vanilla mob classes (their attributes, sizes, maluses, navigation).
+# ---- A: ground arena x 0..30, wall with a one-wide and a two-wide gap (large mobs), spider over a 3-high wall
+fill 0 63 0 30 63 30 minecraft:stone
+fill 15 64 0 15 66 9 minecraft:stone
+fill 15 64 11 15 66 14 minecraft:stone
+fill 15 64 17 15 66 30 minecraft:stone
+fill 5 64 20 5 67 22 minecraft:stone
+mob g_zombie zombie 3.5 64 10.5
+path g_zombie 25 64 10 1
+path g_zombie 25 64 15 2
+mob g_golem iron_golem 3.0 64 10.0
+path g_golem 25 64 10 1
+path g_golem 25 64 15 1
+mob g_ravager ravager 3.0 64 15.0
+path g_ravager 25 64 15 1
+path g_ravager 25 64 10 2
+mob g_spider spider 3.0 64 21.0
+path g_spider 10 64 21 1
+path g_spider 10 68 21 1
+mob g_cow cow 3.5 64 5.5
+path g_cow 28 64 28 2
+mob g_baby_zombie baby_zombie 3.5 64 10.5
+mob g_enderman enderman 3.5 64 2.5
+path g_enderman 25 64 10 1
+mob g_silverfish silverfish 3.5 64 8.5
+path g_silverfish 25 64 12 1
+mob g_airborne zombie 6.5 66.0 6.5 air
+path g_airborne 12 64 6 1
+# ---- B: water basin x 100..120, dolphin/cod/guardian/elder guardian/tadpole
+fill 100 55 0 120 55 20 minecraft:stone
+fill 100 56 0 100 66 20 minecraft:stone
+fill 120 56 0 120 66 20 minecraft:stone
+fill 100 56 0 120 66 0 minecraft:stone
+fill 100 56 20 120 66 20 minecraft:stone
+fill 101 56 1 119 62 19 minecraft:water[level=0]
+fill 108 56 5 108 61 15 minecraft:stone
+fill 112 58 1 112 62 10 minecraft:stone
+mob w_dolphin dolphin 103.5 59 10.5
+path w_dolphin 117 59 10 1
+path w_dolphin 117 63 10 1
+path w_dolphin 117 59 3 1
+mob w_cod cod 103.5 59 10.5
+path w_cod 117 59 10 1
+path w_cod 117 63 10 1
+mob w_guardian guardian 103.5 59 10.5
+path w_guardian 117 59 3 1
+mob w_elder elder_guardian 104.5 60 10.5
+path w_elder 117 59 3 2
+mob w_dry_cod cod 103.5 64 10.5 air
+# ---- C: flying arena x 200..230 with pillars and a roof
+fill 200 63 0 230 63 30 minecraft:stone
+fill 200 64 0 200 80 30 minecraft:stone
+fill 230 64 0 230 80 30 minecraft:stone
+fill 200 64 0 230 80 0 minecraft:stone
+fill 200 64 30 230 80 30 minecraft:stone
+fill 200 80 0 230 80 30 minecraft:stone
+fill 215 64 1 215 79 20 minecraft:stone
+fill 210 64 10 210 70 12 minecraft:stone
+fill 220 70 5 225 70 25 minecraft:stone
+mob f_parrot parrot 203.5 66 5.5 air
+path f_parrot 225 66 15 1
+path f_parrot 225 72 15 1
+path f_parrot 205 64 5 1
+mob f_allay allay 203.5 66 5.5 air
+path f_allay 225 66 15 2
+path f_allay 225 75 3 1
+mob f_bee bee 203.5 66 5.5 air seed=7
+path f_bee 225 66 15 1
+mob f_bat bat 203.5 66 5.5 air
+path f_bat 225 66 15 1
+mob f_ground_start parrot 203.5 64 5.5
+path f_ground_start 212 64 20 1
+mob f_wither wither 203.5 70 5.5 air
+path f_wither 225 66 15 2
+# ---- D: amphibious shore x 300..330: land x300..310, shallow water 311..320 (depth 2), deep 321..330 (depth 6)
+fill 300 55 0 330 55 20 minecraft:stone
+fill 300 56 0 310 63 20 minecraft:stone
+fill 311 57 0 320 61 20 minecraft:stone
+fill 311 62 0 320 62 20 minecraft:water[level=0]
+fill 311 63 0 320 63 20 minecraft:air
+fill 321 56 0 330 62 20 minecraft:water[level=0]
+mob a_drowned drowned 303.5 64 10.5
+path a_drowned 325 60 10 1
+path a_drowned 316 63 5 1
+mob a_drowned_w drowned 325.5 60 10.5 air
+path a_drowned_w 303 64 10 1
+mob a_axolotl axolotl 325.5 60 10.5 air
+path a_axolotl 303 64 10 1
+path a_axolotl 318 63 15 1
+mob a_axolotl_land axolotl 303.5 64 10.5
+path a_axolotl_land 325 60 10 1
+pathtype a_drowned 316 63 5
+pathtype a_drowned 321 60 5
+pathtype a_drowned 311 62 5
