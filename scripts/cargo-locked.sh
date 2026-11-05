@@ -41,7 +41,7 @@ with_slot_or_remote() { # cargo args...
     for reg in /tmp/mc-builders/*.ip; do
       [ -e "$reg" ] || continue
       local name ip; name=$(basename "$reg" .ip); ip=$(cat "$reg")
-      for lane in $(seq 1 "${BUILDER_LANES:-3}"); do
+      for lane in $(seq 1 "${BUILDER_LANES:-8}"); do
         exec {fd}>"/tmp/mc-remote.$name.$lane"
         if flock -n "$fd"; then
           rm -f "$qf"; touch "/tmp/mc-builders/$name.last"
