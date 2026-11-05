@@ -90,7 +90,7 @@ pub fn generate(structure: &Holder<dyn Structure>, seed: i64, cx: i32, cz: i32) 
     StructureStart::new(structure.clone(), ChunkPos::new(cx, cz), 0, builder.build())
 }
 
-/// Coverage of a fixture run: counters plus how often each piece id (`P` lines) and block entity / loot table id (`E` lines)
+/// Coverage of a fixture run: counters plus how often each piece id (`P` lines) and block entity / loot table id (`E`/`N` lines)
 /// occurs (and each entity id).
 #[derive(Default)]
 pub struct Stats {
@@ -184,6 +184,9 @@ pub fn run_fixture<'a>(fixture_name: &str, structure_of: &dyn Fn(usize) -> &'a H
             }
             for line in expected.iter().filter(|l| l.starts_with("N ")) {
                 *stats.entity_ids.entry(snbt_string(line, "id", true).unwrap_or("?").to_owned()).or_default() += 1;
+                if let Some(table) = snbt_string(line, "LootTable", false) {
+                    *stats.loot_tables.entry(table.to_owned()).or_default() += 1;
+                }
             }
             if got != expected {
                 let diffs: Vec<String> = got
