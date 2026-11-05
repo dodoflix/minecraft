@@ -2104,6 +2104,14 @@ pub trait Entity: Any {
     /// What `ServerPlayer.removeVehicle()` adds after the base `removeVehicle`: `old_vehicle` (in storage, or `held`
     /// when it is the entity being processed) lost this entity as a passenger.
     fn on_vehicle_removed(&mut self, _level: &mut ServerLevel, _old_vehicle: EntityId, _held: Option<&dyn Entity>) {}
+    /// `isSteppingCarefully()`.
+    fn is_stepping_carefully(&self) -> bool {
+        self.is_shift_key_down()
+    }
+    /// `isDiscrete()`.
+    fn is_discrete(&self) -> bool {
+        self.is_shift_key_down()
+    }
     // ==== [LivingCore] additions (Entity trait methods) ====
     // ---- `LivingEntity` behaviour: defaults are the vanilla methods for every entity whose `living()` is Some;
     // ---- mobs/players override the hooks vanilla overrides (`travel`, `serverAiStep`, `isImmobile`, ...) -----------
