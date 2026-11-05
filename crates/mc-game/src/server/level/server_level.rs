@@ -432,9 +432,8 @@ impl ServerLevel {
         if runs_normally {
             // naturalSpawnCount + NaturalSpawner.createState + spawning categories
             let chunk_count = self.chunk_source.chunk_map.distance_manager.get_natural_spawn_chunk_count();
-            let rules = env.rules();
-            let do_mob_spawning = rules.spawn_mobs;
-            let tick_speed = rules.random_tick_speed;
+            let do_mob_spawning = self.spawn_mobs();
+            let tick_speed = self.random_tick_speed();
             let spawn_enemies = self.chunk_source.spawn_enemies();
             let spawn_persistent = self.game_time() % 400 == 0;
             let spawning_categories_available = match self.chunk_tick_hooks.begin_spawn_state {

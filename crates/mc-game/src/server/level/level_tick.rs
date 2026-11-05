@@ -46,8 +46,6 @@ pub trait LevelTickEnv {
     fn runs_normally(&self) -> bool;
     /// `tickRateManager().isEntityFrozen(entity)`.
     fn is_entity_frozen(&self, entity: &dyn Entity) -> bool;
-    /// The game rules read by the tick.
-    fn rules(&self) -> LevelRules;
     /// `getWeatherData()` read / write.
     fn weather(&self) -> WeatherState;
     fn set_weather(&mut self, weather: WeatherState);
@@ -190,7 +188,7 @@ impl ServerLevel {
         let was_raining = self.is_raining();
         if self.can_have_weather() {
             let mut weather = env.weather();
-            if env.rules().advance_weather {
+            if self.advance_weather() {
                 let (mut clear_weather_time, mut thunder_time, mut rain_time) = (weather.clear_weather_time, weather.thunder_time, weather.rain_time);
                 let (mut thundering, mut raining) = (weather.thundering, weather.raining);
                 if clear_weather_time > 0 {
@@ -365,7 +363,7 @@ impl ServerLevel {
             self.set_block_and_update(below_pos, Block::ICE.default_state());
         }
         if self.is_raining() {
-            let max_height = self.tick_state.rules.max_snow_accumulation_height;
+            let max_height = self.max_snow_accumulation_height();
             let snow = {
                 let biome = self.tick_state.biomes.as_ref().expect("biome registry present").get(biome_id);
                 max_height > 0 && should_snow(biome, self, top_pos)
@@ -416,7 +414,7 @@ impl ServerLevel {
             let pos = self.find_lightning_target_around(random_pos);
             if self.is_raining_at(pos) {
                 let difficulty = self.get_current_difficulty_at(pos, env);
-                let is_trap = env.rules().spawn_mobs
+                let is_trap = self.spawn_mobs()
                     && self.tick_state.random.next_double() < f64::from(difficulty.get_effective_difficulty()) * 0.01
                     && !BlockGetter::get_block_state(self, pos.below()).is_tag("lightning_rods");
                 if let Some(spawn) = self.tick_state.lightning_spawn {
@@ -633,21 +631,19 @@ impl ServerLevel {
         self.tick_state.handling_tick = true;
         self.tick_state.attributes.invalidate_tick_cache();
         let runs = env.runs_normally();
-        let rules = env.rules();
-        self.tick_state.rules = rules;
         if runs {
             self.get_world_border().tick();
             self.advance_weather_cycle(env);
         }
 
-        let percentage = rules.players_sleeping_percentage;
+        let percentage = self.players_sleeping_percentage();
         let infos = self.sleep_infos();
         if self.tick_state.sleep_status.are_enough_sleeping(percentage) && self.tick_state.sleep_status.are_enough_deep_sleeping(percentage, &infos) {
-            if rules.advance_time {
+            if self.advance_time() {
                 env.wake_up_from_sleep();
             }
             self.wake_up_all_players();
-            if rules.advance_weather && self.is_raining() {
+            if self.advance_weather() && self.is_raining() {
                 self.reset_weather_cycle(env);
             }
         }

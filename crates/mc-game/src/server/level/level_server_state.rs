@@ -3,7 +3,7 @@
 //! while it ticks, so everything a level (and its entities) read or send through the server is a shared handle that the
 //! server installs when it creates the level.
 //!
-//! Game rules: `ServerLevel::<rule_name>()` accessors over `tick_state.rules` (`LevelRules`).
+//! Game rules: `ServerLevel::<rule_name>()` accessors over `server_state.rules` (`LiveRules`).
 
 use super::ServerLevel;
 use crate::server::players::PlayerHandle;
@@ -72,6 +72,8 @@ pub struct LevelServerState {
     /// What loot evaluation reads from the server (random sequences, command storage, clocks).
     pub loot: crate::world::level::storage::loot::server_access::LootServices,
     pub spawn_protection: SpawnProtection,
+    /// `getGameRules()`: shared with the server's `GameRules`, always current.
+    pub rules: super::level_rules::LiveRules,
 }
 
 static DEFAULT_BORDER: LazyLock<WorldBorder> = LazyLock::new(WorldBorder::default);

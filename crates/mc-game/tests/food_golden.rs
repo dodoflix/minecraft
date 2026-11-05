@@ -46,7 +46,7 @@ fn replay(name: &str) -> Vec<String> {
             }
             "gamerule" => {
                 assert_eq!(t[1], "natural_health_regeneration");
-                level.tick_state.rules.natural_health_regeneration = t[2] == "true";
+                level.server_state.rules.update(|r| r.natural_health_regeneration = t[2] == "true");
             }
             "spawn_player" => {
                 let profile = GameProfile { id: uuid::Uuid::from_u128(1), name: t[1].into(), properties: vec![] };

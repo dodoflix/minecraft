@@ -1,12 +1,15 @@
 //! The game rules gameplay code reads through `ServerLevel` (`level.getGameRules().get(GameRules.X)`).
 //!
-//! The server refreshes [`LevelRules`] at the start of every level tick from its live `GameRules`
-//! ([`LevelRules::from_game_rules`]); the same values are exposed as `ServerLevel::<rule name>()` accessors.
+//! [`LiveRules`] is a handle shared by the server's `GameRules` and every level: `GameRules` refreshes it the moment a
+//! rule changes, so `ServerLevel::<rule name>()` reads the current value at the point of use like vanilla's
+//! `level.getGameRules().get(...)` (e.g. `/gamerule keepInventory true` then `/kill` in the same tick).
 //! A rule that is disabled by the world's feature flags reads as its default (vanilla throws for such a rule, which
 //! no caller can observe).
 
 use super::ServerLevel;
 use crate::world::level::gamerules::GameRules;
+use parking_lot::RwLock;
+use std::sync::Arc;
 use mc_world::level_storage::FeatureFlagSet;
 
 macro_rules! level_rules {
@@ -34,10 +37,31 @@ macro_rules! level_rules {
         impl ServerLevel {
             $(#[doc = concat!("`getGameRules().get(GameRules.", stringify!($rule), ")`.")]
             pub fn $field(&self) -> $ty {
-                self.tick_state.rules.$field
+                self.server_state.rules.get().$field
             })*
         }
     };
+}
+
+/// The shared, always-current rule values (see the module doc).
+#[derive(Clone, Debug, Default)]
+pub struct LiveRules(Arc<RwLock<LevelRules>>);
+
+impl LiveRules {
+    /// The current values.
+    pub fn get(&self) -> LevelRules {
+        *self.0.read()
+    }
+
+    /// Re-reads every rule from `rules` (called by `GameRules` on each change).
+    pub fn refresh(&self, rules: &GameRules) {
+        *self.0.write() = LevelRules::from_game_rules(rules);
+    }
+
+    /// Mutates the values directly (tests that run a level without a server).
+    pub fn update(&self, f: impl FnOnce(&mut LevelRules)) {
+        f(&mut self.0.write());
+    }
 }
 
 level_rules! {

@@ -20,9 +20,18 @@ macro_rules! rules {
 
 /// `GameRules`: a [`GameRuleMap`] restricted to the rules enabled by the world's feature flags. It is itself the
 /// saved data of `game_rules.dat` (see [`GameRules::type_`]).
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct GameRules {
     rules: GameRuleMap,
+    /// What levels read (`ServerLevel::<rule>()`); refreshed by every mutation.
+    live: crate::server::level::level_rules::LiveRules,
+}
+
+impl Clone for GameRules {
+    /// A copy owns a fresh live view (levels keep following the original).
+    fn clone(&self) -> Self {
+        GameRules::with_map(GameRuleMap::copy_of(&self.rules))
+    }
 }
 
 impl SavedData for GameRules {
@@ -55,7 +64,7 @@ impl GameRules {
 
     /// `new GameRules(enabledFeatures)`: every enabled rule at its default.
     pub fn new(enabled_features: FeatureFlagSet) -> GameRules {
-        GameRules { rules: GameRuleMap::of(AnyGameRule::all().filter(|r| r.is_enabled(enabled_features))) }
+        GameRules::with_map(GameRuleMap::of(AnyGameRule::all().filter(|r| r.is_enabled(enabled_features))))
     }
 
     /// `new GameRules(enabledFeatures, map)`: missing enabled rules are reset to their default, rules whose features
@@ -70,12 +79,24 @@ impl GameRules {
                 map.remove(rule);
             }
         }
-        GameRules { rules: map }
+        GameRules::with_map(map)
     }
 
     /// `new GameRules(List<GameRule<?>>)`.
     pub fn of_rules(rules: impl IntoIterator<Item = AnyGameRule>) -> GameRules {
-        GameRules { rules: GameRuleMap::of(rules) }
+        GameRules::with_map(GameRuleMap::of(rules))
+    }
+
+    fn with_map(rules: GameRuleMap) -> GameRules {
+        let live = crate::server::level::level_rules::LiveRules::default();
+        let this = GameRules { rules, live };
+        this.live.refresh(&this);
+        this
+    }
+
+    /// The always-current rule values shared with the levels.
+    pub fn live(&self) -> crate::server::level::level_rules::LiveRules {
+        self.live.clone()
     }
 
     /// `availableRules()`.
@@ -113,6 +134,7 @@ impl GameRules {
             return false;
         }
         self.rules.set_value(rule, value);
+        self.live.refresh(self);
         true
     }
 

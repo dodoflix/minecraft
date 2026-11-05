@@ -84,8 +84,7 @@ impl Replay {
             }
             "gamerule" => {
                 let v = t[2] == "true";
-                let r = &mut self.level.tick_state.rules;
-                match t[1] {
+                self.level.server_state.rules.update(|r| match t[1] {
                     "keep_inventory" => r.keep_inventory = v,
                     "fall_damage" => r.fall_damage = v,
                     "fire_damage" => r.fire_damage = v,
@@ -94,7 +93,7 @@ impl Replay {
                     "show_death_messages" => r.show_death_messages = v,
                     "forgive_dead_players" => r.forgive_dead_players = v,
                     other => panic!("gamerule {other}"),
-                }
+                });
             }
             "spawn_player" => {
                 let id = self.next_id;

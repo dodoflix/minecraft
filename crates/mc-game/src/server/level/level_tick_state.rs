@@ -66,8 +66,6 @@ pub struct LevelTickState {
     pub can_have_weather: bool,
     /// `tickTime` constructor flag (only the overworld advances the game time).
     pub tick_time: bool,
-    /// The game rules read by the random-tick code, refreshed at the start of every level tick.
-    pub rules: super::level_tick::LevelRules,
     /// `sleepStatus`.
     pub sleep_status: super::sleep_status::SleepStatus,
     /// The biome registry and `BiomeManager` zoom seed (`BiomeManager.obfuscateSeed(seed)`), set by the world loader.
@@ -107,7 +105,6 @@ impl LevelTickState {
             poi_hook: None,
             can_have_weather: false,
             tick_time: false,
-            rules: super::level_rules::LevelRules::default(),
             sleep_status: super::sleep_status::SleepStatus::default(),
             biomes: None,
             biome_zoom_seed: 0,

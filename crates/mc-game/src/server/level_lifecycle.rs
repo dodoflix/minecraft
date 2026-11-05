@@ -234,6 +234,7 @@ impl MinecraftServer {
             roster: self.player_list.roster.clone(),
             loot: self.loot_services(),
             spawn_protection: Default::default(),
+            rules: self.game_rules_ref().live(),
         };
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;

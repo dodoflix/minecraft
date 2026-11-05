@@ -7,7 +7,7 @@
 
 use super::MinecraftServer;
 use crate::server::level::ServerLevel;
-use crate::server::level::level_tick::{LevelRules, LevelTickEnv, WeatherState};
+use crate::server::level::level_tick::{LevelTickEnv, WeatherState};
 use crate::world::entity::Entity;
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::saveddata::weather_data::WeatherData;
@@ -31,10 +31,6 @@ impl LevelTickEnv for ServerTickEnv<'_> {
     fn is_entity_frozen(&self, entity: &dyn Entity) -> bool {
         // `countPlayerPassengers() <= 0`: any passenger might be a player, the entity is only frozen when it has none.
         self.server.tick_rate_manager.is_entity_frozen(entity.is_player(), i32::from(!entity.base().passengers.is_empty()))
-    }
-
-    fn rules(&self) -> LevelRules {
-        LevelRules::from_game_rules(self.server.game_rules_ref())
     }
 
     fn weather(&self) -> WeatherState {
