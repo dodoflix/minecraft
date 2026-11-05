@@ -76,3 +76,29 @@ pub fn find_safe_dismount_location(entity_type: EntityType, level: &ServerLevel,
         None
     }
 }
+
+/// `getCollisionHorizontalEscapeVector(vehicleWidth, passengerWidth, yRot)`.
+pub fn get_collision_horizontal_escape_vector(vehicle_width: f32, passenger_width: f32, y_rot: f32) -> Vec3 {
+    let distance = f64::from(vehicle_width + passenger_width + 1.0E-5f32) / 2.0;
+    let x_dir = -mc_core::math::mth::sin(f64::from(y_rot * (std::f32::consts::PI / 180.0)));
+    let z_dir = mc_core::math::mth::cos(f64::from(y_rot * (std::f32::consts::PI / 180.0)));
+    let max = x_dir.abs().max(z_dir.abs());
+    Vec3::new(f64::from(x_dir) * distance / f64::from(max), 0.0, f64::from(z_dir) * distance / f64::from(max))
+}
+
+/// `canDismountTo(level, passenger, box)`.
+pub fn can_dismount_to(level: &ServerLevel, passenger: &dyn crate::world::entity::Entity, aabb: &AABB) -> bool {
+    let context = crate::world::entity::movement::collision_context(passenger);
+    level.get_block_collisions(Some(&context), aabb).iter().all(|shape| shape.is_empty()) && level.world_border().is_within_bounds_aabb(aabb)
+}
+
+/// `LivingEntity.getDismountPoses()` (`Player` also tries crouching and swimming).
+pub fn get_dismount_poses(passenger: &dyn crate::world::entity::Entity) -> &'static [mc_data::enums::Pose] {
+    use mc_data::enums::Pose;
+    if passenger.is_player() { &[Pose::Standing, Pose::Crouching, Pose::Swimming] } else { &[Pose::Standing] }
+}
+
+/// `LivingEntity.getLocalBoundsForPose(pose)`.
+pub fn get_local_bounds_for_pose(passenger: &dyn crate::world::entity::Entity, pose: mc_data::enums::Pose) -> AABB {
+    passenger.get_dimensions(pose).make_bounding_box_vec(Vec3::ZERO)
+}

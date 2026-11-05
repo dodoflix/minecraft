@@ -20,7 +20,8 @@ pub fn on_equip_item(entity: &mut dyn Entity, level: &mut ServerLevel, slot: Equ
         if !entity.base().is_silent() {
             if let Some(eq) = equippable {
                 if slot == EquipmentSlot::from_protocol(eq.slot) {
-                    if let Some(sound) = eq.equip_sound.name().and_then(|n| SoundEvent::by_name(&n.to_string())) {
+                    let own = eq.equip_sound.name().and_then(|n| SoundEvent::by_name(&n.to_string()));
+                    if let Some(sound) = entity.get_equip_sound_override(slot).or(own) {
                         let seed = entity.base_mut().random.next_long();
                         let p = entity.base().position();
                         let source = if entity.is_player() { SoundSource::Players } else { SoundSource::Neutral };

@@ -1773,28 +1773,7 @@ pub trait Entity: Any {
     }
     /// `Entity.checkFallDamage(ya, onGround, onState, pos)`.
     fn check_fall_damage(&mut self, level: &mut ServerLevel, ya: f64, on_ground: bool, on_state: mc_data::block::BlockState, pos: BlockPos) {
-        use crate::world::level::BlockGetter;
-        if self.living().is_some() {
-            super::living_entity::fall::before_check_fall_damage(self.as_dyn_mut(), level, on_ground, on_state, pos);
-        }
-        if !self.is_in_water() && ya < 0.0 {
-            self.base_mut().fall_distance -= f64::from(ya as f32);
-        }
-        if on_ground {
-            if self.base().fall_distance > 0.0 {
-                let fall_distance = self.base().fall_distance;
-                crate::world::level::block::BlockStateExt::fall_on(on_state, level, pos, self.as_dyn_mut(), fall_distance);
-                let ctx_state = match self.base().main_supporting_block_pos {
-                    Some(p) => level.get_block_state(p),
-                    None => on_state,
-                };
-                level.post_game_event(mc_data::GameEvent::HIT_GROUND, self.base().position(), &crate::world::level::gameevent::GameEventContext::of(Some(self.id()), Some(ctx_state)));
-            }
-            self.reset_fall_distance();
-        }
-        if self.living().is_some() {
-            super::living_entity::fall::after_check_fall_damage(self.as_dyn_mut(), on_ground);
-        }
+        check_fall_damage_base(self.as_dyn_mut(), level, ya, on_ground, on_state, pos);
     }
     /// `onAboveBubbleColumn(dragDown, pos)`.
     fn on_above_bubble_column(&mut self, level: &mut ServerLevel, drag_down: bool, pos: BlockPos) {
@@ -3543,6 +3522,15 @@ pub trait Entity: Any {
     fn thrown_potion_hurts_water_sensitive(&self) -> Option<bool> {
         None
     }
+    /// `getEquipSound(slot, stack, equippable)` override (`Strider`: `STRIDER_SADDLE` for the saddle slot); `None` = the
+    /// equippable's own sound.
+    fn get_equip_sound_override(&self, _slot: super::equipment::EquipmentSlot) -> Option<mc_data::SoundEvent> {
+        None
+    }
+    /// `LivingEntity.getLiquidCollisionShape()` (`LiquidBlock.getCollisionShape` for mobs standing on fluid: `Strider`).
+    fn get_liquid_collision_shape(&self) -> mc_core::phys::shapes::VoxelShape {
+        mc_core::phys::shapes::Shapes::empty()
+    }
     // ==== [Blocks:TechnicalA] additions (Entity trait methods) ====
     /// `this instanceof Bee`: the `Bee` methods `BeehiveBlockEntity` / `BeehiveBlock` call (implemented by the bee entity).
     fn as_bee_access(&mut self) -> Option<&mut dyn crate::world::block_entity::BeeAccess> {
@@ -3593,6 +3581,32 @@ pub trait Entity: Any {
     /// `Entity.updateDynamicGameEventListener(action)`: run by the level on tracking start (`Add`), tracking end (`Remove`)
     /// and section change (`Move`) of the entity (entities with a `DynamicGameEventListener`: warden, allay).
     fn update_dynamic_game_event_listener(&mut self, _level: &mut ServerLevel, _action: crate::world::level::gameevent::DynamicListenerAction) {}
+}
+
+/// `Entity.checkFallDamage(ya, onGround, onState, pos)` (the `super` call of overriding classes).
+pub fn check_fall_damage_base(this: &mut dyn Entity, level: &mut ServerLevel, ya: f64, on_ground: bool, on_state: mc_data::block::BlockState, pos: BlockPos) {
+    use crate::world::level::BlockGetter;
+    if this.living().is_some() {
+        super::living_entity::fall::before_check_fall_damage(this, level, on_ground, on_state, pos);
+    }
+    if !this.is_in_water() && ya < 0.0 {
+        this.base_mut().fall_distance -= f64::from(ya as f32);
+    }
+    if on_ground {
+        if this.base().fall_distance > 0.0 {
+            let fall_distance = this.base().fall_distance;
+            crate::world::level::block::BlockStateExt::fall_on(on_state, level, pos, this, fall_distance);
+            let ctx_state = match this.base().main_supporting_block_pos {
+                Some(p) => level.get_block_state(p),
+                None => on_state,
+            };
+            level.post_game_event(mc_data::GameEvent::HIT_GROUND, this.base().position(), &crate::world::level::gameevent::GameEventContext::of(Some(this.id()), Some(ctx_state)));
+        }
+        this.reset_fall_distance();
+    }
+    if this.living().is_some() {
+        super::living_entity::fall::after_check_fall_damage(this, on_ground);
+    }
 }
 
 /// `Entity.push(entity)` / `LivingEntity.push(entity)`: separates two overlapping entities (`other` is the entity `this`

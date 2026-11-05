@@ -14,6 +14,7 @@ pub mod phantom;
 pub mod silverfish;
 pub mod skeleton;
 pub mod spider;
+pub mod strider;
 pub mod vex;
 pub mod zombie;
 pub mod hoglin;
