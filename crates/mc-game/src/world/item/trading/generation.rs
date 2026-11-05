@@ -3,7 +3,7 @@
 use mc_core::ident::Identifier;
 
 use super::merchant_offer::MerchantOffers;
-use super::trade_set::{get_trade, get_trade_set};
+use super::trade_set::{TradeSet, get_trade, get_trade_set};
 use crate::server::level::ServerLevel;
 use crate::world::entity::entity::Entity;
 use crate::world::level::storage::loot::context::LootContext;
@@ -23,12 +23,18 @@ pub fn add_offers_from_trade_set(level: &ServerLevel, merchant: &dyn Entity, off
         .additional_cost_component_allowed()
         .create(&LootContextParamSets::VILLAGER_TRADE);
     let mut context = LootContext::builder(&params).create(set.random_sequence.as_ref());
-    let number_of_offers = set.calculate_number_of_trades(&mut context);
-    let ids = set.trade_ids(&level.registries);
+    add_offers_from_trade_set_in(&mut context, offers, &set);
+}
+
+/// The body of `addOffersFromTradeSet` once the loot context exists (callers that need a specific random source build the
+/// context themselves: `LootContext::builder(&params).with_optional_random_seed(..).create(None)`).
+pub fn add_offers_from_trade_set_in(context: &mut LootContext, offers: &mut MerchantOffers, set: &TradeSet) {
+    let number_of_offers = set.calculate_number_of_trades(context);
+    let ids = set.trade_ids(context.get_resolver());
     if set.allow_duplicates {
-        add_offers_from_item_listings(&mut context, offers, ids, number_of_offers);
+        add_offers_from_item_listings(context, offers, ids, number_of_offers);
     } else {
-        add_offers_from_item_listings_without_duplicates(&mut context, offers, ids, number_of_offers);
+        add_offers_from_item_listings_without_duplicates(context, offers, ids, number_of_offers);
     }
 }
 

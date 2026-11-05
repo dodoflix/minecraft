@@ -35,7 +35,7 @@ pub mod trade_set;
 pub mod trade_sets;
 pub mod villager_trade;
 
-pub use generation::{add_offers_from_item_listings, add_offers_from_item_listings_without_duplicates, add_offers_from_trade_set, generate_offers};
+pub use generation::{add_offers_from_item_listings, add_offers_from_trade_set_in, add_offers_from_item_listings_without_duplicates, add_offers_from_trade_set, generate_offers};
 pub use item_cost::ItemCost;
 pub use merchant_offer::{MerchantOffer, MerchantOffers};
 pub use trade_cost::TradeCost;
