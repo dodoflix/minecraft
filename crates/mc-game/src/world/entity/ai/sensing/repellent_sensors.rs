@@ -7,6 +7,7 @@ use crate::world::entity::ai::memory::{EntityRef, MemoryTypeId, NearestVisibleLi
 use crate::world::entity::entity::Entity;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::item::ItemStack;
+use crate::world::level::level_access::BlockGetter as _;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 use mc_data::{EntityType, Item};
