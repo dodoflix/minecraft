@@ -1,5 +1,6 @@
 //! `ItemStack` (value type: item, count, patched component map) and `ItemStackTemplate`.
 
+use crate::codec::EncodeResult;
 use super::map::{DataComponentGetter, DataComponentMap, DataComponentPatch, PatchedDataComponentMap};
 use super::registry::try_def;
 use super::values::{DAMAGE, MAX_DAMAGE, MAX_STACK_SIZE, UNBREAKABLE};
@@ -279,15 +280,16 @@ impl ItemStack {
 
     // ---- stream codecs ---------------------------------------------------------------------------------------
 
-    fn encode_with(&self, out: &mut Vec<u8>, delimited: bool) {
+    fn encode_with(&self, out: &mut Vec<u8>, delimited: bool) -> EncodeResult<()> {
         if self.is_empty() {
             write_varint(out, 0);
         } else {
             write_varint(out, self.count);
-            self.item.encode(out);
+            self.item.encode(out)?;
             let patch = self.components.as_patch();
-            if delimited { patch.encode_delimited(out) } else { patch.encode(out) }
-        }
+            if delimited { patch.encode_delimited(out)? } else { patch.encode(out)? }
+        };
+        Ok(())
     }
 
     fn decode_with(input: &mut &[u8], delimited: bool) -> DecodeResult<ItemStack> {
@@ -301,8 +303,10 @@ impl ItemStack {
     }
 
     /// `ItemStack.STREAM_CODEC` encode: rejects the empty stack.
-    pub fn encode_non_empty(&self, out: &mut Vec<u8>) {
-        assert!(!self.is_empty(), "Empty ItemStack not allowed");
+    pub fn encode_non_empty(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        if self.is_empty() {
+            return Err(crate::codec::EncodeError::msg("Empty ItemStack not allowed"));
+        }
         self.encode_with(out, false)
     }
     /// `ItemStack.STREAM_CODEC` decode: rejects the empty stack.
@@ -314,8 +318,9 @@ impl ItemStack {
         Ok(s)
     }
     /// `ItemStack.OPTIONAL_UNTRUSTED_STREAM_CODEC` encode (delimited component values).
-    pub fn encode_optional_untrusted(&self, out: &mut Vec<u8>) {
-        self.encode_with(out, true)
+    pub fn encode_optional_untrusted(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.encode_with(out, true)?;
+        Ok(())
     }
     /// `ItemStack.OPTIONAL_UNTRUSTED_STREAM_CODEC` decode.
     pub fn decode_optional_untrusted(input: &mut &[u8]) -> DecodeResult<ItemStack> {
@@ -355,8 +360,9 @@ fn build_codec() -> Codec<ItemStack> {
 
 /// `ItemStack.OPTIONAL_STREAM_CODEC`.
 impl Encode for ItemStack {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.encode_with(out, false)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.encode_with(out, false)?;
+        Ok(())
     }
 }
 impl Decode for ItemStack {
@@ -428,10 +434,11 @@ impl ItemStackTemplate {
 }
 
 impl Encode for ItemStackTemplate {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.item.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.item.encode(out)?;
         write_varint(out, self.count);
-        self.components.encode(out);
+        self.components.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ItemStackTemplate {

@@ -1,4 +1,5 @@
 //! Play packets: group `entity_data` — entity spawn/metadata, particles and explosions.
+use crate::codec::EncodeResult;
 use mc_core::phys::vec3::Vec3;
 use uuid::Uuid;
 
@@ -53,11 +54,12 @@ impl ClientboundSetEntityDataPacket {
 mod packed_items {
     use super::*;
 
-    pub fn encode(items: &Vec<DataValue>, out: &mut Vec<u8>) {
+    pub fn encode(items: &Vec<DataValue>, out: &mut Vec<u8>) -> EncodeResult<()> {
         for item in items {
-            item.encode(out);
+            item.encode(out)?;
         }
         out.push(ClientboundSetEntityDataPacket::EOF_MARKER);
+        Ok(())
     }
 
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<DataValue>> {
@@ -117,12 +119,13 @@ pub struct Weighted<T> {
 pub struct WeightedList<T>(pub Vec<Weighted<T>>);
 
 impl<T: Encode> Encode for WeightedList<T> {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.0.len() as i32);
         for w in &self.0 {
-            w.value.encode(out);
+            w.value.encode(out)?;
             write_varint(out, w.weight);
-        }
+        };
+        Ok(())
     }
 }
 impl<T: Decode> Decode for WeightedList<T> {

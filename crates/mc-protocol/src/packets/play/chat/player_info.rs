@@ -1,4 +1,5 @@
 //! `ClientboundPlayerInfoUpdatePacket` / `ClientboundPlayerInfoRemovePacket`.
+use crate::codec::EncodeResult;
 use mc_text::Component;
 use uuid::Uuid;
 
@@ -93,39 +94,34 @@ pub struct ClientboundPlayerInfoUpdatePacket {
 }
 
 impl Encode for ClientboundPlayerInfoUpdatePacket {
-    /// # Panics
-    /// When `ADD_PLAYER` is set and an entry has no profile (a `NullPointerException` in vanilla).
-    fn encode(&self, out: &mut Vec<u8>) {
+    /// `ADD_PLAYER` without a profile is vanilla's `Objects.requireNonNull` `NullPointerException`.
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         use ClientboundPlayerInfoUpdateAction as A;
-        self.actions.encode(out);
+        self.actions.encode(out)?;
         write_varint(out, self.entries.len() as i32);
         for e in &self.entries {
-            e.profile_id.encode(out);
+            e.profile_id.encode(out)?;
             for action in self.actions.iter() {
                 match action {
                     A::AddPlayer => {
                         let profile = e
                             .profile
                             .as_ref()
-                            .expect("ADD_PLAYER entry without profile");
-                        profile.name.encode(out);
-                        write_varint(out, profile.properties.len() as i32);
-                        for p in &profile.properties {
-                            p.name.encode(out);
-                            p.value.encode(out);
-                            p.signature.encode(out);
-                        }
+                            .ok_or_else(|| crate::codec::EncodeError::msg("java.lang.NullPointerException"))?;
+                        crate::codec::write_utf(out, &profile.name, 16)?;
+                        crate::codec::write_properties(out, &profile.properties)?;
                     }
-                    A::InitializeChat => e.chat_session.encode(out),
-                    A::UpdateGameMode => e.game_mode.encode(out),
-                    A::UpdateListed => e.listed.encode(out),
+                    A::InitializeChat => e.chat_session.encode(out)?,
+                    A::UpdateGameMode => e.game_mode.encode(out)?,
+                    A::UpdateListed => e.listed.encode(out)?,
                     A::UpdateLatency => write_varint(out, e.latency),
-                    A::UpdateDisplayName => e.display_name.encode(out),
+                    A::UpdateDisplayName => e.display_name.encode(out)?,
                     A::UpdateListOrder => write_varint(out, e.list_order),
-                    A::UpdateHat => e.show_hat.encode(out),
+                    A::UpdateHat => e.show_hat.encode(out)?,
                 }
             }
-        }
+        };
+        Ok(())
     }
 }
 

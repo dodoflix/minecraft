@@ -1,5 +1,6 @@
 //! `ClientboundUpdateAdvancementsPacket` and the network form of advancements (rewards and criteria triggers are
 //! data-pack only and never sent; the client learns the criteria names from `requirements`).
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_text::Component;
 
@@ -34,18 +35,19 @@ pub struct DisplayInfo {
 }
 
 impl Encode for DisplayInfo {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.title.encode(out);
-        self.description.encode(out);
-        self.icon.encode(out);
-        self.advancement_type.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.title.encode(out)?;
+        self.description.encode(out)?;
+        self.icon.encode(out)?;
+        self.advancement_type.encode(out)?;
         let flags = self.background.is_some() as i32
             | (self.show_toast as i32) << 1
             | (self.hidden as i32) << 2;
-        flags.encode(out);
+        flags.encode(out)?;
         if let Some(background) = &self.background {
-            background.encode(out);
-        }
+            background.encode(out)?;
+        };
+        Ok(())
     }
 }
 impl Decode for DisplayInfo {

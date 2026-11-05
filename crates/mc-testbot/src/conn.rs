@@ -1,4 +1,5 @@
 //! Connection plumbing: typed packet send/receive with logging, over `mc_protocol::net`.
+use mc_protocol::codec::EncodeResult;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
@@ -32,8 +33,9 @@ macro_rules! wire_packet {
             fn decode_payload(payload: &[u8]) -> Result<Self, ::mc_protocol::codec::DecodeError> {
                 <$ty>::decode_payload(payload)
             }
-            fn encode_payload(&self, out: &mut Vec<u8>) {
-                <$ty>::encode_payload(self, out)
+            fn encode_payload(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+                <$ty>::encode_payload(self, out)?;
+                Ok(())
             }
             fn packet_id(&self) -> i32 {
                 self.id()

@@ -37,7 +37,7 @@ fn check_lenient<P: Packet + Debug>(g: &Golden, label: &str) {
     assert!(input.is_empty(), "{label}: trailing bytes");
     let mut out = Vec::new();
     mc_protocol::codec::write_varint(&mut out, P::ID);
-    p.encode(&mut out);
+    p.encode(&mut out).unwrap();
     assert_eq!(
         hex(&out),
         hex(&g.bytes(&format!("norm_{label}"))[..]),

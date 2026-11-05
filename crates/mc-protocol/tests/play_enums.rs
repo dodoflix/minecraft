@@ -30,8 +30,8 @@ fn golden_payloads_roundtrip_through_the_enums() {
             // Fixture lines are packets (VarInt id + body), nested values or error texts; only packets can decode. A clientbound
             // packet may also decode leniently as a serverbound one (bool/enum bodies), and lenient decoders (ignored flag bits) legitimately re-encode differently: count exact round trips only.
             let reencode = |r: Result<Vec<u8>, _>| r.ok().map(|o: Vec<u8>| o == bytes);
-            let c = reencode(ClientboundPlayPacket::decode_payload(&bytes).map(|p| { let mut o = Vec::new(); p.encode_payload(&mut o); o }));
-            let s = reencode(ServerboundPlayPacket::decode_payload(&bytes).map(|p| { let mut o = Vec::new(); p.encode_payload(&mut o); o }));
+            let c = reencode(ClientboundPlayPacket::decode_payload(&bytes).map(|p| { let mut o = Vec::new(); p.encode_payload(&mut o).unwrap(); o }));
+            let s = reencode(ServerboundPlayPacket::decode_payload(&bytes).map(|p| { let mut o = Vec::new(); p.encode_payload(&mut o).unwrap(); o }));
             cb += usize::from(c == Some(true));
             sb += usize::from(s == Some(true));
         }

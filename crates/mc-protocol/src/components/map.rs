@@ -1,5 +1,6 @@
 //! `DataComponentMap`, `DataComponentPatch`, `PatchedDataComponentMap`, `TypedDataComponent`.
 
+use crate::codec::EncodeResult;
 use super::component::{ComponentKey, Value};
 use super::registry::{def, try_def};
 use crate::codec::{read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode};
@@ -261,34 +262,35 @@ impl DataComponentPatch {
         C.clone()
     }
 
-    fn write_stream(&self, out: &mut Vec<u8>, delimited: bool) {
+    fn write_stream(&self, out: &mut Vec<u8>, delimited: bool) -> EncodeResult<()> {
         if self.is_empty() {
             write_varint(out, 0);
             write_varint(out, 0);
-            return;
+            return Ok(());
         }
         let positive = self.entries.iter().filter(|(_, v)| v.is_some()).count();
         write_varint(out, positive as i32);
         write_varint(out, (self.entries.len() - positive) as i32);
         for (k, v) in self.entries.iter() {
             if let Some(v) = v {
-                k.encode(out);
+                k.encode(out)?;
                 if delimited {
                     let mut scratch = Vec::new();
-                    def(*k).encode_network(v, &mut scratch);
+                    def(*k).encode_network(v, &mut scratch)?;
                     write_varint(out, scratch.len() as i32);
                     out.extend_from_slice(&scratch);
                 } else {
-                    def(*k).encode_network(v, out);
+                    def(*k).encode_network(v, out)?;
                 }
             }
         }
         for (k, v) in self.entries.iter() {
             if v.is_none() {
-                k.encode(out);
+                k.encode(out)?;
             }
-        }
-    }
+        };
+        Ok(())
+}
 
     fn read_stream(input: &mut &[u8], delimited: bool) -> DecodeResult<DataComponentPatch> {
         let positive = read_varint(input)?;
@@ -320,8 +322,9 @@ impl DataComponentPatch {
     }
 
     /// `DataComponentPatch.DELIMITED_STREAM_CODEC` encode: every value is length-prefixed.
-    pub fn encode_delimited(&self, out: &mut Vec<u8>) {
-        self.write_stream(out, true)
+    pub fn encode_delimited(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.write_stream(out, true)?;
+        Ok(())
     }
     /// `DataComponentPatch.DELIMITED_STREAM_CODEC` decode (untrusted sources: client packets).
     pub fn decode_delimited(input: &mut &[u8]) -> DecodeResult<DataComponentPatch> {
@@ -331,8 +334,9 @@ impl DataComponentPatch {
 
 /// `DataComponentPatch.STREAM_CODEC`.
 impl Encode for DataComponentPatch {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.write_stream(out, false)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.write_stream(out, false)?;
+        Ok(())
     }
 }
 impl Decode for DataComponentPatch {
@@ -580,9 +584,10 @@ impl PatchedDataComponentMap {
 
 /// `TypedDataComponent.STREAM_CODEC`: component type id + its network value.
 impl Encode for TypedDataComponent {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.id.encode(out);
-        def(self.id).encode_network(&self.value, out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.id.encode(out)?;
+        def(self.id).encode_network(&self.value, out)?;
+        Ok(())
     }
 }
 impl Decode for TypedDataComponent {
@@ -671,11 +676,12 @@ impl DataComponentExactPredicate {
 
 /// `DataComponentExactPredicate.STREAM_CODEC`: a list of typed components.
 impl Encode for DataComponentExactPredicate {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.expected.len() as i32);
         for e in &self.expected {
-            e.encode(out);
-        }
+            e.encode(out)?;
+        };
+        Ok(())
     }
 }
 impl Decode for DataComponentExactPredicate {

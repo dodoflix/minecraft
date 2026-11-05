@@ -1,5 +1,6 @@
 //! `net.minecraft.advancements.predicates.MinMaxBounds` (`Ints`, `Doubles`, `FloatDegrees`).
 
+use crate::codec::EncodeResult;
 use crate::codec::{take, Decode, DecodeResult, Encode};
 use mc_dfu::{java_double_cmp, java_float_cmp, Codec, DataResult, Either, DOUBLE, FLOAT, INT};
 use std::cmp::Ordering;
@@ -125,14 +126,15 @@ impl<T: BoundNumber> Bounds<T> {
 }
 
 /// `Bounds.createStreamCodec`: a flag byte (`1` = min, `2` = max) then the present numbers.
-fn encode_bounds<T: Copy>(b: &Bounds<T>, out: &mut Vec<u8>, enc: impl Fn(T, &mut Vec<u8>)) {
+fn encode_bounds<T: Copy>(b: &Bounds<T>, out: &mut Vec<u8>, enc: impl Fn(T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
     out.push(u8::from(b.min.is_some()) | (u8::from(b.max.is_some()) << 1));
     if let Some(v) = b.min {
-        enc(v, out);
+        enc(v, out)?;
     }
     if let Some(v) = b.max {
-        enc(v, out);
+        enc(v, out)?;
     }
+    Ok(())
 }
 
 fn decode_bounds<T>(input: &mut &[u8], dec: impl Fn(&mut &[u8]) -> DecodeResult<T>) -> DecodeResult<Bounds<T>> {
@@ -226,8 +228,8 @@ impl FloatDegrees {
 }
 
 impl Encode for Ints {
-    fn encode(&self, out: &mut Vec<u8>) {
-        encode_bounds(&self.bounds, out, |v, o| v.encode(o));
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        encode_bounds(&self.bounds, out, |v, o| v.encode(o))
     }
 }
 impl Decode for Ints {
@@ -236,8 +238,8 @@ impl Decode for Ints {
     }
 }
 impl Encode for Doubles {
-    fn encode(&self, out: &mut Vec<u8>) {
-        encode_bounds(&self.bounds, out, |v, o| v.encode(o));
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        encode_bounds(&self.bounds, out, |v, o| v.encode(o))
     }
 }
 impl Decode for Doubles {
@@ -246,8 +248,8 @@ impl Decode for Doubles {
     }
 }
 impl Encode for FloatDegrees {
-    fn encode(&self, out: &mut Vec<u8>) {
-        encode_bounds(&self.bounds, out, |v, o| v.encode(o));
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        encode_bounds(&self.bounds, out, |v, o| v.encode(o))
     }
 }
 impl Decode for FloatDegrees {

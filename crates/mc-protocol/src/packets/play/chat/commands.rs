@@ -1,4 +1,5 @@
 //! `ClientboundCommandsPacket`: the command tree and the `ArgumentTypeInfo` templates of every argument type.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_data::CommandArgumentType as T;
 
@@ -26,8 +27,9 @@ pub enum StringArgumentType {
 }
 
 impl Encode for StringArgumentType {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, *self as i32)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, *self as i32);
+        Ok(())
     }
 }
 impl Decode for StringArgumentType {
@@ -178,15 +180,16 @@ fn encode_bounds<N: Encode + PartialEq>(
     max: &N,
     lowest: N,
     highest: N,
-) {
+) -> EncodeResult<()> {
     let (has_min, has_max) = (*min != lowest, *max != highest);
     out.push(u8::from(has_min) | u8::from(has_max) << 1);
     if has_min {
-        min.encode(out);
+        min.encode(out)?;
     }
     if has_max {
-        max.encode(out);
-    }
+        max.encode(out)?;
+    };
+    Ok(())
 }
 
 fn decode_bounds<N: Decode>(input: &mut &[u8], lowest: N, highest: N) -> DecodeResult<(N, N)> {
@@ -280,27 +283,28 @@ impl ArgumentTypeTemplate {
     }
 
     /// `ArgumentTypeInfo.serializeToNetwork` (the properties only, not the registry id).
-    pub fn encode_properties(&self, out: &mut Vec<u8>) {
+    pub fn encode_properties(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         use ArgumentTypeTemplate as A;
         match self {
-            A::Float { min, max } => encode_bounds(out, min, max, -f32::MAX, f32::MAX),
-            A::Double { min, max } => encode_bounds(out, min, max, -f64::MAX, f64::MAX),
-            A::Integer { min, max } => encode_bounds(out, min, max, i32::MIN, i32::MAX),
-            A::Long { min, max } => encode_bounds(out, min, max, i64::MIN, i64::MAX),
-            A::String(t) => t.encode(out),
+            A::Float { min, max } => encode_bounds(out, min, max, -f32::MAX, f32::MAX)?,
+            A::Double { min, max } => encode_bounds(out, min, max, -f64::MAX, f64::MAX)?,
+            A::Integer { min, max } => encode_bounds(out, min, max, i32::MIN, i32::MAX)?,
+            A::Long { min, max } => encode_bounds(out, min, max, i64::MIN, i64::MAX)?,
+            A::String(t) => t.encode(out)?,
             A::Entity {
                 single,
                 players_only,
             } => out.push(u8::from(*single) | u8::from(*players_only) << 1),
             A::ScoreHolder { multiple } => out.push(u8::from(*multiple)),
-            A::Time { min } => min.encode(out),
+            A::Time { min } => min.encode(out)?,
             A::ResourceOrTag(r)
             | A::ResourceOrTagKey(r)
             | A::Resource(r)
             | A::ResourceKey(r)
-            | A::ResourceSelector(r) => r.encode(out),
+            | A::ResourceSelector(r) => r.encode(out)?,
             _ => {}
-        }
+        };
+        Ok(())
     }
 }
 
@@ -316,22 +320,23 @@ pub enum ClientboundCommandsNodeStub {
 }
 
 impl Encode for ClientboundCommandsNodeStub {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
-            Self::Literal(id) => id.encode(out),
+            Self::Literal(id) => id.encode(out)?,
             Self::Argument {
                 id,
                 argument_type,
                 suggestion_id,
             } => {
-                id.encode(out);
-                argument_type.argument_type().encode(out);
-                argument_type.encode_properties(out);
+                id.encode(out)?;
+                argument_type.argument_type().encode(out)?;
+                argument_type.encode_properties(out)?;
                 if let Some(s) = suggestion_id {
-                    s.encode(out);
+                    s.encode(out)?;
                 }
             }
-        }
+        };
+        Ok(())
     }
 }
 
@@ -406,8 +411,8 @@ impl ClientboundCommandsEntry {
 }
 
 impl Encode for ClientboundCommandsEntry {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.flags.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.flags.encode(out)?;
         write_varint(out, self.children.len() as i32);
         for c in &self.children {
             write_varint(out, *c);
@@ -416,8 +421,9 @@ impl Encode for ClientboundCommandsEntry {
             write_varint(out, self.redirect);
         }
         if let Some(stub) = &self.stub {
-            stub.encode(out);
-        }
+            stub.encode(out)?;
+        };
+        Ok(())
     }
 }
 
@@ -488,9 +494,10 @@ pub struct ClientboundCommandsPacket {
 }
 
 impl Encode for ClientboundCommandsPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.entries.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.entries.encode(out)?;
         write_varint(out, self.root_index);
+        Ok(())
     }
 }
 

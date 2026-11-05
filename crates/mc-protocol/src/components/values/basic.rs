@@ -1,6 +1,7 @@
 //! Basic components: custom data, names/lore, simple scalars, colours, enchantments, tooltip display and the small
 //! item records (enchantable, repairable, fuels, ...).
 
+use crate::codec::EncodeResult;
 use crate::codec::{
     decode_tag_with, encode_tag, read_count, read_registry_id, read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode, NbtLimit,
 };
@@ -104,8 +105,9 @@ impl CustomData {
 
 /// `CustomData.STREAM_CODEC` (`ByteBufCodecs.COMPOUND_TAG`).
 impl Encode for CustomData {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.0.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.0.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for CustomData {
@@ -117,11 +119,11 @@ impl Decode for CustomData {
 // ---- text components on the wire (`ComponentSerialization.STREAM_CODEC`) -----------------------------------------
 
 /// `ByteBufCodecs.fromCodecWithRegistries(ComponentSerialization.CODEC)` encode.
-fn encode_component(c: &Component, out: &mut Vec<u8>) {
-    match mc_dfu::encode_nbt(&component_codec(), c).into_result() {
-        Ok(tag) => encode_tag(&tag, out),
-        Err(e) => panic!("Failed to encode: {e} {c:?}"),
-    }
+fn encode_component(c: &Component, out: &mut Vec<u8>) -> EncodeResult<()> {
+    let tag = mc_dfu::encode_nbt(&component_codec(), c)
+        .into_result()
+        .map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {c:?}")))?;
+    encode_tag(&tag, out)
 }
 
 /// ... decode (default NBT quota).
@@ -169,11 +171,12 @@ impl ItemLore {
 }
 
 impl Encode for ItemLore {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.lines.len() as i32);
         for l in &self.lines {
-            encode_component(l, out);
-        }
+            encode_component(l, out)?;
+        };
+        Ok(())
     }
 }
 impl Decode for ItemLore {
@@ -204,8 +207,9 @@ impl MapId {
     }
 }
 impl Encode for MapId {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.0)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.0);
+        Ok(())
     }
 }
 impl Decode for MapId {
@@ -228,8 +232,9 @@ impl MapPostProcessing {
     }
 }
 impl Encode for MapPostProcessing {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.id())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.id());
+        Ok(())
     }
 }
 impl Decode for MapPostProcessing {
@@ -251,8 +256,9 @@ impl OminousBottleAmplifier {
     }
 }
 impl Encode for OminousBottleAmplifier {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.value)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.value);
+        Ok(())
     }
 }
 impl Decode for OminousBottleAmplifier {
@@ -295,11 +301,12 @@ impl CustomModelData {
     }
 }
 impl Encode for CustomModelData {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.floats.encode(out);
-        self.flags.encode(out);
-        self.strings.encode(out);
-        self.colors.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.floats.encode(out)?;
+        self.flags.encode(out)?;
+        self.strings.encode(out)?;
+        self.colors.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for CustomModelData {
@@ -325,8 +332,9 @@ impl DyedItemColor {
     }
 }
 impl Encode for DyedItemColor {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.rgb.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.rgb.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for DyedItemColor {
@@ -390,12 +398,13 @@ impl ItemEnchantments {
 }
 
 impl Encode for ItemEnchantments {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.entries.len() as i32);
         for (k, level) in &self.entries {
-            holder::encode_holder_registry(ENCHANTMENT_REGISTRY, k, out);
+            holder::encode_holder_registry(ENCHANTMENT_REGISTRY, k, out)?;
             write_varint(out, *level);
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for ItemEnchantments {
@@ -467,12 +476,13 @@ impl TooltipDisplay {
 }
 
 impl Encode for TooltipDisplay {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.hide_tooltip.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.hide_tooltip.encode(out)?;
         write_varint(out, self.hidden_components.len() as i32);
         for c in &self.hidden_components {
             write_varint(out, c.id() as i32);
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for TooltipDisplay {
@@ -508,8 +518,9 @@ impl Enchantable {
     }
 }
 impl Encode for Enchantable {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.value)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.value);
+        Ok(())
     }
 }
 impl Decode for Enchantable {
@@ -535,8 +546,9 @@ impl Repairable {
     }
 }
 impl Encode for Repairable {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.items.encode_stream(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.items.encode_stream(out)?;
+        Ok(())
     }
 }
 impl Decode for Repairable {
@@ -555,8 +567,9 @@ impl VillagerFood {
     }
 }
 impl Encode for VillagerFood {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.nutrition)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.nutrition);
+        Ok(())
     }
 }
 impl Decode for VillagerFood {
@@ -582,9 +595,10 @@ impl MobVisibility {
     }
 }
 impl Encode for MobVisibility {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.targeting_entity_types.encode_stream(out);
-        self.visibility.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.targeting_entity_types.encode_stream(out)?;
+        self.visibility.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for MobVisibility {
@@ -613,17 +627,18 @@ impl ResolvableInt {
     }
 }
 impl Encode for ResolvableInt {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             ResolvableInt::Constant(v) => {
-                true.encode(out);
-                v.encode(out);
+                true.encode(out)?;
+                v.encode(out)?;
             }
             ResolvableInt::Reference(k) => {
-                false.encode(out);
-                k.encode(out);
+                false.encode(out)?;
+                k.encode(out)?;
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for ResolvableInt {
@@ -654,17 +669,18 @@ impl ResolvableFloat {
     }
 }
 impl Encode for ResolvableFloat {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             ResolvableFloat::Constant(v) => {
-                true.encode(out);
-                v.encode(out);
+                true.encode(out)?;
+                v.encode(out)?;
             }
             ResolvableFloat::Reference(k) => {
-                false.encode(out);
-                k.encode(out);
+                false.encode(out)?;
+                k.encode(out)?;
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for ResolvableFloat {
@@ -687,8 +703,9 @@ impl Compostable {
     }
 }
 impl Encode for Compostable {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.layers.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.layers.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Compostable {
@@ -712,9 +729,10 @@ impl CookingFuel {
     }
 }
 impl Encode for CookingFuel {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.burn_time.encode(out);
-        self.speed_multiplier.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.burn_time.encode(out)?;
+        self.speed_multiplier.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for CookingFuel {
@@ -738,9 +756,10 @@ impl BrewingFuel {
     }
 }
 impl Encode for BrewingFuel {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.uses.encode(out);
-        self.speed_multiplier.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.uses.encode(out)?;
+        self.speed_multiplier.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for BrewingFuel {
@@ -752,7 +771,7 @@ impl Decode for BrewingFuel {
 // ---- definitions -------------------------------------------------------------------------------------------------
 
 fn var_int(key: ComponentKey<i32>, codec: Codec<i32>) -> ComponentDef {
-    ComponentDef::builder(key).persistent(codec).network_with(|v, out| write_varint(out, *v), |i| read_varint(i)).build()
+    ComponentDef::builder(key).persistent(codec).network_with(|v, out| { write_varint(out, *v); Ok(()) }, |i| read_varint(i)).build()
 }
 
 fn float(key: ComponentKey<f32>, codec: Codec<f32>) -> ComponentDef {
@@ -762,7 +781,7 @@ fn float(key: ComponentKey<f32>, codec: Codec<f32>) -> ComponentDef {
 fn unit(key: ComponentKey<()>, persistent: bool) -> ComponentDef {
     let b = ComponentDef::builder(key);
     let b = if persistent { b.persistent(UNIT.clone()) } else { b };
-    b.network_with(|_, _| {}, |_| Ok(())).build()
+    b.network_with(|_, _| Ok(()), |_| Ok(())).build()
 }
 
 fn dye(key: ComponentKey<DyeColor>) -> ComponentDef {
@@ -812,7 +831,7 @@ pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
     out.push(identifier(TOOLTIP_STYLE));
     out.push(
         ComponentDef::builder(ADDITIONAL_TRADE_COST)
-            .network_with(|v, out| write_varint(out, *v), |i| read_varint(i))
+            .network_with(|v, out| { write_varint(out, *v); Ok(()) }, |i| read_varint(i))
             .build(),
     );
     out.push(

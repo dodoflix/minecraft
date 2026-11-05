@@ -1,5 +1,6 @@
 //! Packets shared by the configuration and play states (vanilla `network.protocol.common` and
 //! `network.protocol.cookie`), plus their helper types.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_nbt::Tag;
 use mc_text::Component;
@@ -39,7 +40,7 @@ macro_rules! id_enum {
             }
         }
         impl $crate::codec::Encode for $name {
-            fn encode(&self, out: &mut Vec<u8>) { $crate::codec::write_varint(out, self.id()) }
+            fn encode(&self, out: &mut Vec<u8>) -> $crate::codec::EncodeResult<()> { $crate::codec::write_varint(out, self.id()); Ok(()) }
         }
         impl $crate::codec::Decode for $name {
             fn decode(input: &mut &[u8]) -> $crate::codec::DecodeResult<Self> { $crate::codec::read_varint(input).map(Self::by_id) }
@@ -80,16 +81,17 @@ impl Default for ClientInformation {
 }
 
 impl Encode for ClientInformation {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.language.encode(out);
-        self.view_distance.encode(out);
-        self.chat_visibility.encode(out);
-        self.chat_colors.encode(out);
-        self.model_customisation.encode(out);
-        self.main_hand.encode(out);
-        self.text_filtering_enabled.encode(out);
-        self.allows_listing.encode(out);
-        self.particle_status.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.language.encode(out)?;
+        self.view_distance.encode(out)?;
+        self.chat_visibility.encode(out)?;
+        self.chat_colors.encode(out)?;
+        self.model_customisation.encode(out)?;
+        self.main_hand.encode(out)?;
+        self.text_filtering_enabled.encode(out)?;
+        self.allows_listing.encode(out)?;
+        self.particle_status.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ClientInformation {
@@ -118,8 +120,8 @@ pub struct CustomPayload<const MAX: usize> {
 
 impl<const MAX: usize> CustomPayload<MAX> {
     /// `BrandPayload`
-    pub fn brand(brand: &str) -> Self {
-        Self { id: Identifier::with_default_namespace("brand").expect("valid"), data: crate::codec::to_bytes(brand) }
+    pub fn brand(brand: &str) -> crate::codec::EncodeResult<Self> {
+        Ok(Self { id: Identifier::with_default_namespace("brand").expect("valid"), data: crate::codec::to_bytes(brand)? })
     }
 
     /// The brand string when this is a `minecraft:brand` payload.
@@ -131,9 +133,10 @@ impl<const MAX: usize> CustomPayload<MAX> {
 }
 
 impl<const MAX: usize> Encode for CustomPayload<MAX> {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.id.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.id.encode(out)?;
         out.extend_from_slice(&self.data);
+        Ok(())
     }
 }
 impl<const MAX: usize> Decode for CustomPayload<MAX> {
@@ -180,8 +183,9 @@ impl KnownLinkType {
     ];
 }
 impl Encode for KnownLinkType {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, *self as i32)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, *self as i32);
+        Ok(())
     }
 }
 impl Decode for KnownLinkType {
@@ -206,12 +210,13 @@ pub struct TagNetworkPayload {
 }
 
 impl Encode for TagNetworkPayload {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.tags.len() as i32);
         for (name, ids) in &self.tags {
-            name.encode(out);
+            name.encode(out)?;
             ids.encode_var(out);
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for TagNetworkPayload {
@@ -251,8 +256,9 @@ impl ResourcePackAction {
 pub struct ReportDetails(pub Vec<(String, String)>);
 
 impl Encode for ReportDetails {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.0.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.0.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ReportDetails {
@@ -272,13 +278,14 @@ impl Decode for ReportDetails {
 pub struct ClickPayload(pub Option<Tag>);
 
 impl Encode for ClickPayload {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let mut inner = Vec::new();
         match &self.0 {
-            Some(t) => crate::codec::encode_tag(t, &mut inner),
+            Some(t) => crate::codec::encode_tag(t, &mut inner)?,
             None => inner.push(0),
         }
-        LengthPrefixed::<Raw, 65536>(Raw(inner)).encode(out)
+        LengthPrefixed::<Raw, 65536>(Raw(inner)).encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ClickPayload {
@@ -291,8 +298,9 @@ impl Decode for ClickPayload {
 /// All remaining bytes of the (sub-)buffer.
 struct Raw(Vec<u8>);
 impl Encode for Raw {
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.extend_from_slice(&self.0)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.extend_from_slice(&self.0);
+        Ok(())
     }
 }
 impl Decode for Raw {

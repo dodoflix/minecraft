@@ -1,4 +1,5 @@
 //! `ClientboundMerchantOffersPacket` and its nested types.
+use crate::codec::EncodeResult;
 use super::strict_item;
 use crate::codec::DecodeResult;
 use crate::components::{DataComponentExactPredicate, ItemStack};
@@ -32,17 +33,18 @@ pub struct MerchantOffer {
 }
 
 impl Encode for MerchantOffer {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.base_cost_a.encode(out);
-        self.result.encode_non_empty(out);
-        self.cost_b.encode(out);
-        (self.uses >= self.max_uses).encode(out);
-        self.uses.encode(out);
-        self.max_uses.encode(out);
-        self.xp.encode(out);
-        self.special_price_diff.encode(out);
-        self.price_multiplier.encode(out);
-        self.demand.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.base_cost_a.encode(out)?;
+        self.result.encode_non_empty(out)?;
+        self.cost_b.encode(out)?;
+        (self.uses >= self.max_uses).encode(out)?;
+        self.uses.encode(out)?;
+        self.max_uses.encode(out)?;
+        self.xp.encode(out)?;
+        self.special_price_diff.encode(out)?;
+        self.price_multiplier.encode(out)?;
+        self.demand.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for MerchantOffer {

@@ -1,6 +1,7 @@
 //! `HashedStack` / `HashedPatchMap`: the item stacks a client sends in container clicks, with components reduced to
 //! CRC32C hashes of their codec encoding (`HashOps`).
 
+use crate::codec::EncodeResult;
 use super::item_stack::ItemStack;
 use super::map::{DataComponentPatch, TypedDataComponent};
 use super::registry::def;
@@ -60,16 +61,17 @@ impl HashedPatchMap {
 }
 
 impl Encode for HashedPatchMap {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.added_components.len() as i32);
         for (k, h) in &self.added_components {
-            k.encode(out);
-            h.encode(out);
+            k.encode(out)?;
+            h.encode(out)?;
         }
         write_varint(out, self.removed_components.len() as i32);
         for k in &self.removed_components {
-            k.encode(out);
-        }
+            k.encode(out)?;
+        };
+        Ok(())
     }
 }
 
@@ -131,16 +133,17 @@ impl HashedStack {
 
 /// `HashedStack.STREAM_CODEC`: optional actual item.
 impl Encode for HashedStack {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             HashedStack::Empty => out.push(0),
             HashedStack::ActualItem { item, count, components } => {
                 out.push(1);
-                item.encode(out);
+                item.encode(out)?;
                 write_varint(out, *count);
-                components.encode(out);
+                components.encode(out)?;
             }
-        }
+        };
+        Ok(())
     }
 }
 

@@ -1,5 +1,6 @@
 //! Combat-flavoured components: tools, weapons, blocking, swing animations, equipment.
 
+use crate::codec::EncodeResult;
 use super::effects::{dec_opt, dec_sound_opt, enc_opt, enc_sound_opt, feq, float_field_default, ident};
 use crate::codec::{read_varint, write_varint, DecodeResult};
 use crate::components::common::RegistrySet;
@@ -30,7 +31,7 @@ const DAMAGE_TYPE: &str = "minecraft:damage_type";
 fn damage_type_set_codec() -> Codec<HolderSet<NoDirect>> {
     holder_set_codec(DAMAGE_TYPE, &holder_fixed_codec::<NoDirect>(DAMAGE_TYPE), false)
 }
-fn enc_damage_types(set: &HolderSet<NoDirect>, out: &mut Vec<u8>) {
+fn enc_damage_types(set: &HolderSet<NoDirect>, out: &mut Vec<u8>) -> EncodeResult<()> {
     holder::encode_holder_set(DAMAGE_TYPE, set, out)
 }
 fn dec_damage_types(input: &mut &[u8]) -> DecodeResult<HolderSet<NoDirect>> {
@@ -67,10 +68,11 @@ impl ToolRule {
     }
 }
 impl Encode for ToolRule {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.blocks.encode_stream(out);
-        self.speed.encode(out);
-        self.correct_for_drops.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.blocks.encode_stream(out)?;
+        self.speed.encode(out)?;
+        self.correct_for_drops.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ToolRule {
@@ -107,11 +109,12 @@ impl Tool {
     }
 }
 impl Encode for Tool {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.rules.encode(out);
-        self.default_mining_speed.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.rules.encode(out)?;
+        self.default_mining_speed.encode(out)?;
         write_varint(out, self.damage_per_block);
-        self.can_destroy_blocks_in_creative.encode(out);
+        self.can_destroy_blocks_in_creative.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Tool {
@@ -211,11 +214,12 @@ impl BlocksAttacksDamageReduction {
     }
 }
 impl Encode for BlocksAttacksDamageReduction {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.horizontal_blocking_angle.encode(out);
-        enc_opt(out, &self.r#type, |s, o| enc_damage_types(s, o));
-        self.base.encode(out);
-        self.factor.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.horizontal_blocking_angle.encode(out)?;
+        enc_opt(out, &self.r#type, |s, o| enc_damage_types(s, o))?;
+        self.base.encode(out)?;
+        self.factor.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for BlocksAttacksDamageReduction {
@@ -292,14 +296,15 @@ impl BlocksAttacks {
     }
 }
 impl Encode for BlocksAttacks {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.block_delay_seconds.encode(out);
-        self.disable_cooldown_scale.encode(out);
-        self.damage_reductions.encode(out);
-        self.item_damage.encode(out);
-        enc_opt(out, &self.bypassed_by, |s, o| enc_damage_types(s, o));
-        enc_sound_opt(&self.block_sound, out);
-        enc_sound_opt(&self.disable_sound, out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.block_delay_seconds.encode(out)?;
+        self.disable_cooldown_scale.encode(out)?;
+        self.damage_reductions.encode(out)?;
+        self.item_damage.encode(out)?;
+        enc_opt(out, &self.bypassed_by, |s, o| enc_damage_types(s, o))?;
+        enc_sound_opt(&self.block_sound, out)?;
+        enc_sound_opt(&self.disable_sound, out)?;
+        Ok(())
     }
 }
 impl Decode for BlocksAttacks {
@@ -341,10 +346,11 @@ impl KineticWeaponCondition {
     }
 }
 impl Encode for KineticWeaponCondition {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.max_duration_ticks);
-        self.min_speed.encode(out);
-        self.min_relative_speed.encode(out);
+        self.min_speed.encode(out)?;
+        self.min_relative_speed.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for KineticWeaponCondition {
@@ -397,16 +403,17 @@ impl KineticWeapon {
     }
 }
 impl Encode for KineticWeapon {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.contact_cooldown_ticks);
         write_varint(out, self.delay_ticks);
-        self.dismount_conditions.encode(out);
-        self.knockback_conditions.encode(out);
-        self.damage_conditions.encode(out);
-        self.forward_movement.encode(out);
-        self.damage_multiplier.encode(out);
-        enc_sound_opt(&self.sound, out);
-        enc_sound_opt(&self.hit_sound, out);
+        self.dismount_conditions.encode(out)?;
+        self.knockback_conditions.encode(out)?;
+        self.damage_conditions.encode(out)?;
+        self.forward_movement.encode(out)?;
+        self.damage_multiplier.encode(out)?;
+        enc_sound_opt(&self.sound, out)?;
+        enc_sound_opt(&self.hit_sound, out)?;
+        Ok(())
     }
 }
 impl Decode for KineticWeapon {
@@ -445,11 +452,12 @@ impl PiercingWeapon {
     }
 }
 impl Encode for PiercingWeapon {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.deals_knockback.encode(out);
-        self.dismounts.encode(out);
-        enc_sound_opt(&self.sound, out);
-        enc_sound_opt(&self.hit_sound, out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.deals_knockback.encode(out)?;
+        self.dismounts.encode(out)?;
+        enc_sound_opt(&self.sound, out)?;
+        enc_sound_opt(&self.hit_sound, out)?;
+        Ok(())
     }
 }
 impl Decode for PiercingWeapon {
@@ -492,8 +500,9 @@ impl DamageResistant {
     }
 }
 impl Encode for DamageResistant {
-    fn encode(&self, out: &mut Vec<u8>) {
-        enc_damage_types(&self.types, out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        enc_damage_types(&self.types, out)?;
+        Ok(())
     }
 }
 impl Decode for DamageResistant {
@@ -554,18 +563,19 @@ impl Equippable {
     }
 }
 impl Encode for Equippable {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.slot.encode(out);
-        SoundEvent::encode_holder(&self.equip_sound, out);
-        self.asset_id.encode(out);
-        self.camera_overlay.encode(out);
-        enc_opt(out, &self.allowed_entities, |s, o| s.encode_stream(o));
-        self.dispensable.encode(out);
-        self.swappable.encode(out);
-        self.damage_on_hurt.encode(out);
-        self.equip_on_interact.encode(out);
-        self.can_be_sheared.encode(out);
-        SoundEvent::encode_holder(&self.shearing_sound, out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.slot.encode(out)?;
+        SoundEvent::encode_holder(&self.equip_sound, out)?;
+        self.asset_id.encode(out)?;
+        self.camera_overlay.encode(out)?;
+        enc_opt(out, &self.allowed_entities, |s, o| s.encode_stream(o))?;
+        self.dispensable.encode(out)?;
+        self.swappable.encode(out)?;
+        self.damage_on_hurt.encode(out)?;
+        self.equip_on_interact.encode(out)?;
+        self.can_be_sheared.encode(out)?;
+        SoundEvent::encode_holder(&self.shearing_sound, out)?;
+        Ok(())
     }
 }
 impl Decode for Equippable {

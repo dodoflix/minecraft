@@ -79,7 +79,7 @@ async fn play_state_decodes_everything_vanilla_sends() {
     let port = server.port;
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Login).await;
-    send!(c, login::ServerboundLoginPacket::Hello(login::ServerboundHelloPacket { name: "PlayBot".into(), profile_id: Uuid::nil() }));
+    send!(c, login::ServerboundLoginPacket::Hello(login::ServerboundHelloPacket { name: "PlayBot".into(), profile_id: Uuid::nil() })).unwrap();
     loop {
         let payload = read(&mut c).await;
         match login::ClientboundLoginPacket::decode_payload(&payload).unwrap() {
@@ -88,20 +88,20 @@ async fn play_state_decodes_everything_vanilla_sends() {
             other => panic!("unexpected login packet {other:?}"),
         }
     }
-    send!(c, login::ServerboundLoginPacket::LoginAcknowledged(login::ServerboundLoginAcknowledgedPacket));
-    send!(c, cfg::ServerboundConfigurationPacket::ClientInformation(cfg::ServerboundClientInformationPacket { information: Default::default() }));
+    send!(c, login::ServerboundLoginPacket::LoginAcknowledged(login::ServerboundLoginAcknowledgedPacket)).unwrap();
+    send!(c, cfg::ServerboundConfigurationPacket::ClientInformation(cfg::ServerboundClientInformationPacket { information: Default::default() })).unwrap();
     loop {
         let payload = read(&mut c).await;
         match cfg::ClientboundConfigurationPacket::decode_payload(&payload).unwrap() {
             cfg::ClientboundConfigurationPacket::SelectKnownPacks(_) => {
-                send!(c, cfg::ServerboundConfigurationPacket::SelectKnownPacks(cfg::ServerboundSelectKnownPacks { known_packs: vec![] }))
+                send!(c, cfg::ServerboundConfigurationPacket::SelectKnownPacks(cfg::ServerboundSelectKnownPacks { known_packs: vec![] })).unwrap()
             }
             cfg::ClientboundConfigurationPacket::KeepAlive(p) => {
-                send!(c, cfg::ServerboundConfigurationPacket::KeepAlive(cfg::ServerboundKeepAlivePacket { id: p.id }))
+                send!(c, cfg::ServerboundConfigurationPacket::KeepAlive(cfg::ServerboundKeepAlivePacket { id: p.id })).unwrap()
             }
-            cfg::ClientboundConfigurationPacket::Ping(p) => send!(c, cfg::ServerboundConfigurationPacket::Pong(cfg::ServerboundPongPacket { id: p.id })),
+            cfg::ClientboundConfigurationPacket::Ping(p) => send!(c, cfg::ServerboundConfigurationPacket::Pong(cfg::ServerboundPongPacket { id: p.id })).unwrap(),
             cfg::ClientboundConfigurationPacket::FinishConfiguration(_) => {
-                send!(c, cfg::ServerboundConfigurationPacket::FinishConfiguration(cfg::ServerboundFinishConfigurationPacket));
+                send!(c, cfg::ServerboundConfigurationPacket::FinishConfiguration(cfg::ServerboundFinishConfigurationPacket)).unwrap();
                 break;
             }
             _ => {}
@@ -131,15 +131,15 @@ async fn play_state_decodes_everything_vanilla_sends() {
         };
         *counts.entry(packet.name()).or_default() += 1;
         let mut again = Vec::new();
-        packet.encode_payload(&mut again);
+        packet.encode_payload(&mut again).unwrap();
         if again != payload {
             failures.push(format!("re-encode mismatch {} ({} vs {} bytes)", packet.name(), again.len(), payload.len()));
         }
         match packet {
-            play::ClientboundPlayPacket::KeepAlive(p) => send!(c, play::ServerboundPlayPacket::KeepAlive(play::ServerboundKeepAlivePacket { id: p.id })),
-            play::ClientboundPlayPacket::Ping(p) => send!(c, play::ServerboundPlayPacket::Pong(play::ServerboundPongPacket { id: p.id })),
+            play::ClientboundPlayPacket::KeepAlive(p) => send!(c, play::ServerboundPlayPacket::KeepAlive(play::ServerboundKeepAlivePacket { id: p.id })).unwrap(),
+            play::ClientboundPlayPacket::Ping(p) => send!(c, play::ServerboundPlayPacket::Pong(play::ServerboundPongPacket { id: p.id })).unwrap(),
             play::ClientboundPlayPacket::ChunkBatchFinished(_) => {
-                send!(c, play::ServerboundPlayPacket::ChunkBatchReceived(play::ServerboundChunkBatchReceivedPacket { desired_chunks_per_tick: 20.0 }))
+                send!(c, play::ServerboundPlayPacket::ChunkBatchReceived(play::ServerboundChunkBatchReceivedPacket { desired_chunks_per_tick: 20.0 })).unwrap()
             }
             play::ClientboundPlayPacket::PlayerPosition(p) => send!(
                 c,
@@ -151,8 +151,8 @@ async fn play_state_decodes_everything_vanilla_sends() {
                     y_rot: p.change.y_rot,
                     x_rot: p.change.x_rot,
                 })
-            ),
-            play::ClientboundPlayPacket::Login(_) => send!(c, play::ServerboundPlayPacket::PlayerLoaded(play::ServerboundPlayerLoadedPacket)),
+            ).unwrap(),
+            play::ClientboundPlayPacket::Login(_) => send!(c, play::ServerboundPlayPacket::PlayerLoaded(play::ServerboundPlayerLoadedPacket)).unwrap(),
             play::ClientboundPlayPacket::Disconnect(d) => panic!("kicked: {}", d.reason.get_string()),
             _ => {}
         }

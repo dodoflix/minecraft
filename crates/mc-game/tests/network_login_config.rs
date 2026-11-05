@@ -1,6 +1,7 @@
 //! Login (offline + online-mode encryption against a mock session server), configuration sequence, and the
 //! per-connection failure isolation of `ConnectionSender::send`.
 mod net_common;
+use mc_protocol::codec::EncodeResult;
 use net_common as common;
 
 use common::*;
@@ -406,8 +407,9 @@ async fn online_mode_rejects_unverified_sessions_and_bad_keys() {
 /// A packet whose encoder refuses its data like vanilla codecs that throw (mc-protocol panics there).
 struct Unencodable;
 impl Encode for Unencodable {
-    fn encode(&self, _out: &mut Vec<u8>) {
+    fn encode(&self, _out: &mut Vec<u8>) -> EncodeResult<()> {
         panic!("Cannot serialize this component");
+        Ok(())
     }
 }
 impl Decode for Unencodable {

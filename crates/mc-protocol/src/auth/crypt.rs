@@ -1,3 +1,4 @@
+use crate::codec::EncodeResult;
 use rand_core::{OsRng, RngCore};
 use rsa::pkcs8::{DecodePrivateKey, DecodePublicKey, EncodePublicKey};
 use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey, traits::PublicKeyParts};
@@ -115,9 +116,10 @@ pub fn generate_secret() -> [u8; 16] {
 }
 
 impl Encode for PublicKey {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.der.len() as i32);
         out.extend_from_slice(&self.der);
+        Ok(())
     }
 }
 

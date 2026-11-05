@@ -1,4 +1,5 @@
 //! Scoreboard packets: objectives, scores, teams, display slots.
+use crate::codec::EncodeResult;
 use mc_text::{Component, Style};
 
 use crate::codec::{
@@ -51,21 +52,20 @@ pub enum NumberFormat {
 }
 
 impl Encode for NumberFormat {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Blank => write_varint(out, 0),
             Self::Styled(style) => {
                 write_varint(out, 1);
-                match style.to_nbt() {
-                    Ok(tag) => encode_tag(&tag, out),
-                    Err(e) => panic!("Failed to encode: {e} {style}"),
-                }
+                let tag = style.to_nbt().map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {style}")))?;
+                encode_tag(&tag, out)?;
             }
             Self::Fixed(value) => {
                 write_varint(out, 2);
-                value.encode(out)
+                value.encode(out)?;
             }
         }
+        Ok(())
     }
 }
 impl Decode for NumberFormat {
@@ -112,19 +112,20 @@ pub enum ObjectiveMethod {
 }
 
 impl Encode for ObjectiveMethod {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Add(s) => {
-                0i8.encode(out);
-                s.encode(out)
+                0i8.encode(out)?;
+                s.encode(out)?
             }
-            Self::Remove => 1i8.encode(out),
+            Self::Remove => 1i8.encode(out)?,
             Self::Change(s) => {
-                2i8.encode(out);
-                s.encode(out)
+                2i8.encode(out)?;
+                s.encode(out)?
             }
-            Self::Other(m) => m.encode(out),
-        }
+            Self::Other(m) => m.encode(out)?,
+        };
+        Ok(())
     }
 }
 impl Decode for ObjectiveMethod {
@@ -201,31 +202,32 @@ pub enum TeamMethod {
 }
 
 impl Encode for TeamMethod {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Add {
                 parameters,
                 players,
             } => {
-                0i8.encode(out);
-                parameters.encode(out);
-                players.encode(out)
+                0i8.encode(out)?;
+                parameters.encode(out)?;
+                players.encode(out)?
             }
-            Self::Remove => 1i8.encode(out),
+            Self::Remove => 1i8.encode(out)?,
             Self::Change { parameters } => {
-                2i8.encode(out);
-                parameters.encode(out)
+                2i8.encode(out)?;
+                parameters.encode(out)?
             }
             Self::Join { players } => {
-                3i8.encode(out);
-                players.encode(out)
+                3i8.encode(out)?;
+                players.encode(out)?
             }
             Self::Leave { players } => {
-                4i8.encode(out);
-                players.encode(out)
+                4i8.encode(out)?;
+                players.encode(out)?
             }
-            Self::Other(m) => m.encode(out),
-        }
+            Self::Other(m) => m.encode(out)?,
+        };
+        Ok(())
     }
 }
 impl Decode for TeamMethod {

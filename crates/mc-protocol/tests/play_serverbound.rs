@@ -94,12 +94,12 @@ fn check_bits<P: Packet + PartialEq + std::fmt::Debug>(g: &Golden, label: &str, 
     let expected = g.bytes(label);
     let mut ours = Vec::new();
     mc_protocol::codec::write_varint(&mut ours, P::ID);
-    p.encode(&mut ours);
+    p.encode(&mut ours).unwrap();
     assert_eq!(hex(&ours), hex(expected), "encode {label}");
     let decoded = decode_body::<P>(expected);
     let mut again = Vec::new();
     mc_protocol::codec::write_varint(&mut again, P::ID);
-    decoded.encode(&mut again);
+    decoded.encode(&mut again).unwrap();
     assert_eq!(hex(&again), hex(expected), "re-encode {label}");
 }
 
@@ -309,7 +309,7 @@ fn simple(g: &Golden) {
             // `OptionalInt.of(-1)` encodes as 0 (= empty): lossy in vanilla too.
             let bytes = g.bytes("spectator_action_-1");
             assert_eq!(
-                hex(&mc_protocol::codec::to_bytes(&p)),
+                hex(&mc_protocol::codec::to_bytes(&p).unwrap()),
                 hex(&bytes[1..]),
                 "encode spectator_action_-1"
             );
@@ -361,7 +361,7 @@ fn interact(g: &Golden) {
                 let bytes = g.bytes(&label);
                 let mut ours = Vec::new();
                 mc_protocol::codec::write_varint(&mut ours, ServerboundInteractPacket::ID);
-                p.encode(&mut ours);
+                p.encode(&mut ours).unwrap();
                 assert_eq!(hex(&ours), hex(bytes), "encode {label}");
                 let d = g.bytes(&format!("{label}.dec"));
                 let want: Vec<u64> = d

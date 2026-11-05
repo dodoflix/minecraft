@@ -1,9 +1,11 @@
 //! Composite codecs: `Either`, holders, angles, UUID, GameProfile, instants, signatures.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use uuid::Uuid;
 
 use super::{
-    read_count, read_varint, take, take_array, write_varint, Decode, DecodeBounded, DecodeError, DecodeResult, Encode,
+    read_varint, take, take_array, write_count, write_utf, write_varint, Decode, DecodeBounded, DecodeError, DecodeResult,
+    Encode, EncodeBounded,
 };
 
 /// `ByteBufCodecs.either`: `true` = left.
@@ -14,17 +16,18 @@ pub enum Either<L, R> {
 }
 
 impl<L: Encode, R: Encode> Encode for Either<L, R> {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Left(l) => {
                 out.push(1);
-                l.encode(out)
+                l.encode(out)?
             }
             Self::Right(r) => {
                 out.push(0);
-                r.encode(out)
+                r.encode(out)?
             }
-        }
+        };
+        Ok(())
     }
 }
 impl<L: Decode, R: Decode> Decode for Either<L, R> {
@@ -42,14 +45,15 @@ pub enum Holder<T> {
 }
 
 impl<T: Encode> Encode for Holder<T> {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Reference(id) => write_varint(out, id.wrapping_add(1)),
             Self::Direct(v) => {
                 write_varint(out, 0);
-                v.encode(out)
+                v.encode(out)?
             }
-        }
+        };
+        Ok(())
     }
 }
 impl<T: Decode> Decode for Holder<T> {
@@ -69,11 +73,11 @@ pub enum HolderSet {
 }
 
 impl Encode for HolderSet {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Named(tag) => {
                 write_varint(out, 0);
-                tag.encode(out)
+                tag.encode(out)?
             }
             Self::Direct(ids) => {
                 write_varint(out, ids.len() as i32 + 1);
@@ -81,7 +85,8 @@ impl Encode for HolderSet {
                     write_varint(out, *id);
                 }
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for HolderSet {
@@ -116,8 +121,9 @@ impl Angle {
     }
 }
 impl Encode for Angle {
-    fn encode(&self, out: &mut Vec<u8>) {
-        Self::pack(self.0).encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        Self::pack(self.0).encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Angle {
@@ -131,8 +137,9 @@ impl Decode for Angle {
 pub struct Instant(pub i64);
 
 impl Encode for Instant {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.0.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.0.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Instant {
@@ -142,8 +149,9 @@ impl Decode for Instant {
 }
 
 impl Encode for Uuid {
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.extend_from_slice(self.as_bytes())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.extend_from_slice(self.as_bytes());
+        Ok(())
     }
 }
 impl Decode for Uuid {
@@ -169,16 +177,21 @@ pub struct GameProfile {
 }
 
 impl Encode for GameProfile {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.id.encode(out);
-        self.name.encode(out);
-        write_varint(out, self.properties.len() as i32);
-        for p in &self.properties {
-            p.name.encode(out);
-            p.value.encode(out);
-            p.signature.encode(out);
-        }
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.id.encode(out)?;
+        write_utf(out, &self.name, 16)?;
+        write_properties(out, &self.properties)
     }
+}
+/// `ByteBufCodecs.GAME_PROFILE_PROPERTIES` encode: at most 16 properties (name <= 64, value <= 32767, signature <= 1024).
+pub fn write_properties(out: &mut Vec<u8>, properties: &[Property]) -> EncodeResult<()> {
+    write_count(out, properties.len(), 16)?;
+    for p in properties {
+        write_utf(out, &p.name, 64)?;
+        write_utf(out, &p.value, 32767)?;
+        p.signature.encode_bounded(out, 1024)?;
+    }
+    Ok(())
 }
 /// `ByteBufCodecs.GAME_PROFILE_PROPERTIES` count: at most 16; a negative count (accepted by vanilla) reads no properties.
 pub(crate) fn read_property_count(input: &mut &[u8]) -> DecodeResult<usize> {
@@ -228,8 +241,9 @@ impl std::fmt::Debug for MessageSignature {
     }
 }
 impl Encode for MessageSignature {
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.extend_from_slice(&self.0)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.extend_from_slice(&self.0);
+        Ok(())
     }
 }
 impl Decode for MessageSignature {
@@ -250,13 +264,13 @@ mod tests {
         assert_eq!(Angle::pack(180.0), -128);
         assert_eq!(Angle::pack(359.9), 255u8 as i8);
         assert_eq!(Angle::unpack(-128), -180.0);
-        assert_eq!(from_bytes::<Angle>(&to_bytes(&Angle(45.0))).unwrap(), Angle(45.0));
+        assert_eq!(from_bytes::<Angle>(&to_bytes(&Angle(45.0)).unwrap()).unwrap(), Angle(45.0));
     }
 
     #[test]
     fn holder_ids() {
-        assert_eq!(to_bytes(&Holder::<u8>::Reference(4)), [5]);
-        assert_eq!(to_bytes(&Holder::Direct(9u8)), [0, 9]);
+        assert_eq!(to_bytes(&Holder::<u8>::Reference(4)).unwrap(), [5]);
+        assert_eq!(to_bytes(&Holder::Direct(9u8)).unwrap(), [0, 9]);
         assert_eq!(from_bytes::<Holder<u8>>(&[0, 9]).unwrap(), Holder::Direct(9));
         assert_eq!(from_bytes::<Holder<u8>>(&[5]).unwrap(), Holder::Reference(4));
     }
@@ -267,8 +281,9 @@ mod tests {
 pub struct Rest<const MAX: usize>(pub Vec<u8>);
 
 impl<const MAX: usize> Encode for Rest<MAX> {
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.extend_from_slice(&self.0)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.extend_from_slice(&self.0);
+        Ok(())
     }
 }
 impl<const MAX: usize> Decode for Rest<MAX> {
@@ -285,8 +300,9 @@ impl<const MAX: usize> Decode for Rest<MAX> {
 pub struct OptionalVarInt(pub Option<i32>);
 
 impl Encode for OptionalVarInt {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.0.map_or(0, |v| v.wrapping_add(1)))
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.0.map_or(0, |v| v.wrapping_add(1)));
+        Ok(())
     }
 }
 impl Decode for OptionalVarInt {
@@ -303,8 +319,9 @@ impl Decode for OptionalVarInt {
 pub struct RgbColor(pub i32);
 
 impl Encode for RgbColor {
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.extend_from_slice(&[(self.0 >> 16) as u8, (self.0 >> 8) as u8, self.0 as u8])
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.extend_from_slice(&[(self.0 >> 16) as u8, (self.0 >> 8) as u8, self.0 as u8]);
+        Ok(())
     }
 }
 impl Decode for RgbColor {
@@ -322,9 +339,10 @@ pub struct GlobalPos {
 }
 
 impl Encode for GlobalPos {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.dimension.encode(out);
-        self.pos.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.dimension.encode(out)?;
+        self.pos.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for GlobalPos {
@@ -342,11 +360,12 @@ pub type ContainerId = super::VarInt;
 pub struct LengthPrefixed<T, const MAX: usize>(pub T);
 
 impl<T: Encode, const MAX: usize> Encode for LengthPrefixed<T, MAX> {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let mut inner = Vec::new();
-        self.0.encode(&mut inner);
+        self.0.encode(&mut inner)?;
         write_varint(out, inner.len() as i32);
         out.extend_from_slice(&inner);
+        Ok(())
     }
 }
 impl<T: Decode, const MAX: usize> Decode for LengthPrefixed<T, MAX> {

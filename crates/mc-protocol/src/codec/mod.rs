@@ -1,9 +1,9 @@
 //! Wire codec: the Rust form of vanilla's `FriendlyByteBuf` / `ByteBufCodecs`.
 //!
-//! Encoding appends to a `Vec<u8>` and cannot fail; decoding consumes a `&mut &[u8]` and returns
-//! [`DecodeError`] whose messages follow the vanilla `DecoderException`s. Limits that vanilla checks
-//! on *write* (string/array maxima) are the caller's responsibility; every limit vanilla checks on
-//! *read* is enforced by `Decode`.
+//! Encoding appends to a `Vec<u8>` and returns [`EncodeError`] (vanilla's `EncoderException`) where
+//! vanilla's encoder throws: over-limit strings/arrays/collections, NBT/Component that cannot be
+//! written, ...; on error the buffer holds a partial write and must be discarded. Decoding consumes a
+//! `&mut &[u8]` and returns [`DecodeError`] whose messages follow the vanilla `DecoderException`s.
 
 mod bits;
 mod misc;
@@ -17,7 +17,7 @@ mod varint;
 pub use bits::{BitSet, BitSetBytes, EnumSet, EnumValues, FixedBitSet};
 pub use misc::*;
 pub use nbt::{decode_tag, decode_tag_with, encode_tag, NbtLimit};
-pub use prim::{read_utf, utf16_len, write_utf, LongArray, MAX_STRING_LENGTH};
+pub use prim::{read_utf, utf16_len, write_count, write_utf, LongArray, MAX_STRING_LENGTH};
 pub use registry::{read_registry_id, read_registry_value};
 pub use text::JsonComponent;
 pub use types::*;
@@ -45,18 +45,48 @@ impl DecodeError {
 
 pub type DecodeResult<T> = Result<T, DecodeError>;
 
+/// Error while encoding. The message is that of the vanilla `EncoderException` (for exceptions of
+/// another class, `Throwable.toString()` of the cause, like `new EncoderException(cause)`).
+#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
+#[error("{0}")]
+pub struct EncodeError(pub String);
+
+impl EncodeError {
+    pub fn msg(s: impl Into<String>) -> Self {
+        Self(s.into())
+    }
+}
+
+pub type EncodeResult<T> = Result<T, EncodeError>;
+
 pub trait Encode {
-    fn encode(&self, out: &mut Vec<u8>);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()>;
 
     #[doc(hidden)]
-    fn encode_slice(items: &[Self], out: &mut Vec<u8>)
+    fn encode_slice(items: &[Self], out: &mut Vec<u8>) -> EncodeResult<()>
     where
         Self: Sized,
     {
         for i in items {
-            i.encode(out);
+            i.encode(out)?;
         }
+        Ok(())
     }
+
+    /// `ByteBufCodecs.collection(.., maxSize)`: `writeCount` (rejected above `max`), then the elements.
+    #[doc(hidden)]
+    fn encode_vec_bounded(items: &[Self], out: &mut Vec<u8>, max: usize) -> EncodeResult<()>
+    where
+        Self: Sized,
+    {
+        write_count(out, items.len(), max)?;
+        Self::encode_slice(items, out)
+    }
+}
+
+/// Encoding with a vanilla-style maximum (string length in UTF-16 units, collection element count).
+pub trait EncodeBounded {
+    fn encode_bounded(&self, out: &mut Vec<u8>, max: usize) -> EncodeResult<()>;
 }
 
 pub trait Decode: Sized {
@@ -86,13 +116,13 @@ pub trait VarEncode: Sized {
 }
 
 impl<T: Encode + ?Sized> Encode for &T {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         (**self).encode(out)
     }
 }
 
 impl<T: Encode + ?Sized> Encode for Box<T> {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         (**self).encode(out)
     }
 }
@@ -131,10 +161,10 @@ pub fn read_count(input: &mut &[u8], max: usize) -> DecodeResult<usize> {
 }
 
 /// Encode a value into a fresh buffer.
-pub fn to_bytes<T: Encode + ?Sized>(v: &T) -> Vec<u8> {
+pub fn to_bytes<T: Encode + ?Sized>(v: &T) -> EncodeResult<Vec<u8>> {
     let mut out = Vec::new();
-    v.encode(&mut out);
-    out
+    v.encode(&mut out)?;
+    Ok(out)
 }
 
 /// Decode a value from `bytes`, requiring that all bytes are consumed.

@@ -47,8 +47,9 @@ string_enum! {
 }
 
 impl Encode for DyeColor {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.id())
+    fn encode(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        write_varint(out, self.id());
+        Ok(())
     }
 }
 impl Decode for DyeColor {
@@ -63,8 +64,9 @@ string_enum! {
 }
 
 impl Encode for Rarity {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.id())
+    fn encode(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        write_varint(out, self.id());
+        Ok(())
     }
 }
 impl Decode for Rarity {
@@ -204,15 +206,16 @@ impl SoundEvent {
     pub fn holder_codec() -> Codec<Holder<SoundEvent>> {
         holder::holder_file_codec("minecraft:sound_event", &Self::direct_codec(), true)
     }
-    pub fn encode_direct(&self, out: &mut Vec<u8>) {
-        self.location.encode(out);
+    pub fn encode_direct(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        self.location.encode(out)?;
         match self.fixed_range {
             Some(r) => {
                 out.push(1);
-                r.encode(out);
+                r.encode(out)?;
             }
             None => out.push(0),
-        }
+        };
+        Ok(())
     }
     pub fn decode_direct(input: &mut &[u8]) -> DecodeResult<SoundEvent> {
         let location = Identifier::decode(input)?;
@@ -220,8 +223,9 @@ impl SoundEvent {
         Ok(SoundEvent { location, fixed_range })
     }
     /// `SoundEvent.STREAM_CODEC`.
-    pub fn encode_holder(h: &Holder<SoundEvent>, out: &mut Vec<u8>) {
-        holder::encode_holder("minecraft:sound_event", h, out, |v, o| v.encode_direct(o))
+    pub fn encode_holder(h: &Holder<SoundEvent>, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        holder::encode_holder("minecraft:sound_event", h, out, |v, o| v.encode_direct(o))?;
+        Ok(())
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<SoundEvent>> {
         holder::decode_holder("minecraft:sound_event", input, SoundEvent::decode_direct)
@@ -280,11 +284,11 @@ impl<T: RegistryId> RegistrySet<T> {
     }
 
     /// `ByteBufCodecs.holderSet(key)`.
-    pub fn encode_stream(&self, out: &mut Vec<u8>) {
+    pub fn encode_stream(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
         match self {
             RegistrySet::Tag(t) => {
                 write_varint(out, 0);
-                t.encode(out);
+                t.encode(out)?;
             }
             RegistrySet::Entries(v) => {
                 write_varint(out, v.len() as i32 + 1);
@@ -292,7 +296,8 @@ impl<T: RegistryId> RegistrySet<T> {
                     write_varint(out, e.id() as i32);
                 }
             }
-        }
+        };
+        Ok(())
     }
     pub fn decode_stream(input: &mut &[u8]) -> DecodeResult<RegistrySet<T>> {
         let count = i64::from(read_varint(input)?) - 1;

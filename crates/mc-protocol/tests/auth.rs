@@ -116,7 +116,7 @@ fn public_key_codec() {
     let key = PublicKey::decode(&mut &wire[..]).unwrap();
     assert_eq!(key.der(), golden("public_der"));
     let mut out = Vec::new();
-    key.encode(&mut out);
+    key.encode(&mut out).unwrap();
     assert_eq!(out, wire);
     assert_eq!(key, public_key_from_der(&golden("public_der")).unwrap());
 

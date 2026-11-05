@@ -1,4 +1,5 @@
 //! Play packets: group `entity` (see packets/play/mod.rs for the split).
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_core::phys::vec3::Vec3;
 
@@ -56,8 +57,9 @@ pub struct PositionAndRotation {
 mod optional_entity_id {
     use super::*;
 
-    pub fn encode(id: &i32, out: &mut Vec<u8>) {
-        write_varint(out, id.wrapping_add(1))
+    pub fn encode(id: &i32, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, id.wrapping_add(1));
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<i32> {
         read_varint(input).map(|v| v.wrapping_sub(1))
@@ -68,11 +70,12 @@ mod optional_entity_id {
 mod var_int_array {
     use super::*;
 
-    pub fn encode(ids: &Vec<i32>, out: &mut Vec<u8>) {
+    pub fn encode(ids: &Vec<i32>, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, ids.len() as i32);
         for id in ids {
             write_varint(out, *id);
-        }
+        };
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<i32>> {
         let max = input.len();
@@ -175,15 +178,20 @@ impl VecDelta {
     }
 
     /// `VecDelta.write`
-    fn write(&self, out: &mut Vec<u8>) {
+    fn write(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Linear { xa, ya, za } => {
-                xa.encode(out);
-                ya.encode(out);
-                za.encode(out);
+                xa.encode(out)?;
+                ya.encode(out)?;
+                za.encode(out)?;
             }
-            Self::Stepped(steps) => steps.iter().for_each(|s| s.encode(out)),
+            Self::Stepped(steps) => {
+                for s in steps {
+                    s.encode(out)?;
+                }
+            }
         }
+        Ok(())
     }
 
     /// `VecDelta.read`: a step count of 0 reads a `Linear`, otherwise that many steps (at least 7 bytes each).
@@ -230,13 +238,14 @@ pub struct ClientboundMoveEntityPosPacket {
 }
 
 impl Encode for ClientboundMoveEntityPosPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.entity_id);
         write_varint(
             out,
             pack_properties(self.on_ground, self.delta.step_count()),
         );
-        self.delta.write(out);
+        self.delta.write(out)?;
+        Ok(())
     }
 }
 impl Decode for ClientboundMoveEntityPosPacket {
@@ -262,15 +271,16 @@ pub struct ClientboundMoveEntityPosRotPacket {
 }
 
 impl Encode for ClientboundMoveEntityPosRotPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.entity_id);
         write_varint(
             out,
             pack_properties(self.on_ground, self.delta.step_count()),
         );
-        self.delta.write(out);
-        self.y_rot.encode(out);
-        self.x_rot.encode(out);
+        self.delta.write(out)?;
+        self.y_rot.encode(out)?;
+        self.x_rot.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ClientboundMoveEntityPosRotPacket {
@@ -297,11 +307,12 @@ pub struct ClientboundMoveEntityRotPacket {
 }
 
 impl Encode for ClientboundMoveEntityRotPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.entity_id);
-        self.on_ground.encode(out);
-        self.y_rot.encode(out);
-        self.x_rot.encode(out);
+        self.on_ground.encode(out)?;
+        self.y_rot.encode(out)?;
+        self.x_rot.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ClientboundMoveEntityRotPacket {
@@ -351,17 +362,18 @@ pub enum PositionPath {
 }
 
 impl Encode for PositionPath {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Linear(end) => {
                 write_varint(out, 0);
-                end.encode(out);
+                end.encode(out)?;
             }
             Self::Stepped(steps) => {
                 write_varint(out, 1);
-                steps.encode(out);
+                steps.encode(out)?;
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for PositionPath {
@@ -606,14 +618,15 @@ pub struct ClientboundPlayerAbilitiesPacket {
 }
 
 impl Encode for ClientboundPlayerAbilitiesPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let flags = u8::from(self.invulnerable)
             | u8::from(self.is_flying) << 1
             | u8::from(self.can_fly) << 2
             | u8::from(self.instabuild) << 3;
-        flags.encode(out);
-        self.flying_speed.encode(out);
-        self.walking_speed.encode(out);
+        flags.encode(out)?;
+        self.flying_speed.encode(out)?;
+        self.walking_speed.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ClientboundPlayerAbilitiesPacket {
@@ -652,7 +665,7 @@ pub struct ClientboundSetEquipmentPacket {
 }
 
 impl Encode for ClientboundSetEquipmentPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.entity);
         for (i, (slot, stack)) in self.slots.iter().enumerate() {
             let ordinal = EQUIPMENT_SLOT_ORDINALS
@@ -664,9 +677,10 @@ impl Encode for ClientboundSetEquipmentPacket {
             } else {
                 ordinal
             })
-            .encode(out);
-            stack.encode(out);
-        }
+            .encode(out)?;
+            stack.encode(out)?;
+        };
+        Ok(())
     }
 }
 impl Decode for ClientboundSetEquipmentPacket {

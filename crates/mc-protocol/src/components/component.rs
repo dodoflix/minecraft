@@ -1,5 +1,6 @@
 //! Type erasure for component values and the per-component definition (`DataComponentType`).
 
+use crate::codec::EncodeResult;
 use crate::codec::{DecodeResult, NbtLimit};
 use mc_data::DataComponentType;
 use mc_dfu::{Codec, DataResult};
@@ -74,7 +75,7 @@ impl<T> ComponentKey<T> {
     }
 }
 
-type NetEncode = Box<dyn Fn(&Value, &mut Vec<u8>) + Send + Sync>;
+type NetEncode = Box<dyn Fn(&Value, &mut Vec<u8>) -> EncodeResult<()> + Send + Sync>;
 type NetDecode = Box<dyn Fn(&mut &[u8]) -> DecodeResult<Value> + Send + Sync>;
 
 /// Everything vanilla's `DataComponentType.Builder` holds: persistent codec (None = transient), the network stream
@@ -102,7 +103,7 @@ impl ComponentDef {
     pub fn codec_or_throw(&self) -> &Codec<Value> {
         self.codec.as_ref().unwrap_or_else(|| panic!("{} is not a persistent component", self.name()))
     }
-    pub fn encode_network(&self, value: &Value, out: &mut Vec<u8>) {
+    pub fn encode_network(&self, value: &Value, out: &mut Vec<u8>) -> EncodeResult<()> {
         (self.net_encode)(value, out)
     }
     pub fn decode_network(&self, input: &mut &[u8]) -> DecodeResult<Value> {
@@ -145,7 +146,7 @@ impl<T: ComponentValue + Clone> ComponentDefBuilder<T> {
     /// `networkSynchronized(streamCodec)` with explicit functions.
     pub fn network_with(
         mut self,
-        encode: impl Fn(&T, &mut Vec<u8>) + Send + Sync + 'static,
+        encode: impl Fn(&T, &mut Vec<u8>) -> EncodeResult<()> + Send + Sync + 'static,
         decode: impl Fn(&mut &[u8]) -> DecodeResult<T> + Send + Sync + 'static,
     ) -> Self {
         self.net = Some((
@@ -172,7 +173,7 @@ impl<T: ComponentValue + Clone> ComponentDefBuilder<T> {
                         let tag = mc_dfu::encode_nbt(&c, &v.cloned::<T>());
                         match tag.into_result() {
                             Ok(t) => crate::codec::encode_tag(&t, out),
-                            Err(e) => panic!("Failed to encode: {e}"),
+                            Err(e) => Err(crate::codec::EncodeError(format!("Failed to encode: {e}"))),
                         }
                     }) as NetEncode,
                     Box::new(move |input: &mut &[u8]| {

@@ -4,6 +4,7 @@
 //! Vanilla distinguishes `Static` and `Dynamic` profiles; `ResolvableProfile.create` makes that split canonical (a
 //! partial with exactly one of name/id and no properties is `Dynamic`), so `contents` + `skin_patch` carry the same
 //! information and the same equality.
+use crate::codec::EncodeResult;
 use crate::components::common::uuid_codec;
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::codec::{group_properties_by_name, read_property_count, write_varint, DecodeBounded, DecodeResult, Either, GameProfile, Property};
@@ -24,8 +25,9 @@ string_enum! {
 
 /// `PlayerModelType.STREAM_CODEC`: a bool, `true` = slim.
 impl Encode for PlayerModelType {
-    fn encode(&self, out: &mut Vec<u8>) {
-        (*self == Self::Slim).encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        (*self == Self::Slim).encode(out)?;
+        Ok(())
     }
 }
 impl Decode for PlayerModelType {
@@ -60,13 +62,8 @@ impl PlayerSkinPatch {
 mod properties {
     use super::*;
 
-    pub fn encode(props: &Vec<Property>, out: &mut Vec<u8>) {
-        write_varint(out, props.len() as i32);
-        for p in props {
-            p.name.encode(out);
-            p.value.encode(out);
-            p.signature.encode(out);
-        }
+    pub fn encode(props: &Vec<Property>, out: &mut Vec<u8>) -> EncodeResult<()> {
+        crate::codec::write_properties(out, props)
     }
 
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<Property>> {

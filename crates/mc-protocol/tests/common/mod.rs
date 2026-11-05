@@ -46,7 +46,7 @@ impl Golden {
         let expected = self.bytes(label);
         let mut ours = Vec::new();
         write_varint(&mut ours, P::ID);
-        p.encode(&mut ours);
+        p.encode(&mut ours).unwrap();
         assert_eq!(hex(&ours), hex(expected), "encode {label}");
         let mut input = expected;
         let id = read_varint(&mut input).unwrap();
@@ -59,7 +59,7 @@ impl Golden {
     /// Like [`check`](Self::check) for nested (non-packet) values: bytes without packet id.
     pub fn check_value<T: mc_protocol::Encode + mc_protocol::Decode + PartialEq + Debug>(&self, label: &str, v: &T) {
         let expected = self.bytes(label);
-        assert_eq!(hex(&mc_protocol::codec::to_bytes(v)), hex(expected), "encode {label}");
+        assert_eq!(hex(&mc_protocol::codec::to_bytes(v).unwrap()), hex(expected), "encode {label}");
         assert_eq!(&mc_protocol::codec::from_bytes::<T>(expected).unwrap_or_else(|e| panic!("decode {label}: {e}")), v, "decode {label}");
     }
 

@@ -67,7 +67,7 @@ fn angle(deg: f32) -> Angle {
 
 /// What an `LpVec3` field holds after a round trip (the encoding is lossy).
 fn lp(x: f64, y: f64, z: f64) -> LpVec3 {
-    from_bytes(&to_bytes(&LpVec3(Vec3::new(x, y, z)))).unwrap()
+    from_bytes(&to_bytes(&LpVec3(Vec3::new(x, y, z))).unwrap()).unwrap()
 }
 
 fn id(s: &str) -> Identifier {
@@ -259,7 +259,7 @@ fn swing_and_damage(g: &Golden) {
         source_cause_id: -1,
         source_direct_id: -1,
         source_position: None,
-    });
+    }).unwrap();
     assert_eq!(b, [1, 0, 0, 0, 0]);
     b[3] = 0x80; // truncated VarInt
     assert!(from_bytes::<ClientboundDamageEventPacket>(&b).is_err());
@@ -340,7 +340,7 @@ fn move_entity(g: &Golden) {
     };
     let mut ours = Vec::new();
     write_varint(&mut ours, ClientboundMoveEntityPosPacket::ID);
-    mc_protocol::Encode::encode(&empty, &mut ours);
+    mc_protocol::Encode::encode(&empty, &mut ours).unwrap();
     assert_eq!(hex(&ours), hex(g.bytes("move_entity_pos/stepped_empty")));
     let mut n = 0;
     for ground in [false, true] {
@@ -469,7 +469,7 @@ fn minecart_and_position_sync(g: &Golden) {
 
     // unknown path type ids are Linear (ByIdMap ZERO); a Stepped path needs at least one step
     let mut linear = vec![9];
-    linear.extend(to_bytes(&v(1)));
+    linear.extend(to_bytes(&v(1)).unwrap());
     assert_eq!(
         from_bytes::<PositionPath>(&linear).unwrap(),
         PositionPath::Linear(v(1))
@@ -652,7 +652,7 @@ fn mob_effects(g: &Golden) {
     );
     // the wire field itself is a plain VarInt
     let neg = ClientboundUpdateMobEffectPacket { entity_id: 3, effect: MobEffect::SPEED, effect_amplifier: -5, effect_duration_ticks: 20, flags: 6 };
-    assert_eq!(from_bytes::<ClientboundUpdateMobEffectPacket>(&to_bytes(&neg)).unwrap(), neg);
+    assert_eq!(from_bytes::<ClientboundUpdateMobEffectPacket>(&to_bytes(&neg).unwrap()).unwrap(), neg);
     // unknown flag bits are carried through (vanilla stores the raw byte)
     let p = ClientboundUpdateMobEffectPacket {
         entity_id: 1,
@@ -662,7 +662,7 @@ fn mob_effects(g: &Golden) {
         flags: 0xf3,
     };
     assert_eq!(
-        from_bytes::<ClientboundUpdateMobEffectPacket>(&to_bytes(&p)).unwrap(),
+        from_bytes::<ClientboundUpdateMobEffectPacket>(&to_bytes(&p).unwrap()).unwrap(),
         p
     );
     assert_eq!(
@@ -747,7 +747,7 @@ fn attributes(g: &Golden) {
                 entity_id: 1,
                 attributes: over
             }
-        )),
+        ).unwrap()),
         Err(DecodeError::msg("129 elements exceeded max size of: 128"))
     );
     // operation ids out of range are ADD_VALUE
@@ -878,7 +878,7 @@ fn equipment(g: &Golden) {
     // An empty list writes only the entity id; vanilla's do/while cannot read it back: encode-only comparison.
     let mut ours = Vec::new();
     write_varint(&mut ours, ClientboundSetEquipmentPacket::ID);
-    mc_protocol::Encode::encode(&ClientboundSetEquipmentPacket { entity: 5, slots: vec![] }, &mut ours);
+    mc_protocol::Encode::encode(&ClientboundSetEquipmentPacket { entity: 5, slots: vec![] }, &mut ours).unwrap();
     assert_eq!(hex(&ours), hex(g.bytes("set_equipment/none")));
     assert!(matches!(ClientboundSetEquipmentPacket::decode(&mut &[5u8][..]), Err(DecodeError::Eof { .. })));
     // slot ordinals 8..=127 index past `EquipmentSlot.VALUES`; bit 7 only means "continue"

@@ -1,6 +1,7 @@
 //! Decoration-like components: books, fireworks, banner patterns, pot decorations, sign text, instruments, jukebox
 //! songs, armor trims, `provides_*`.
 
+use crate::codec::EncodeResult;
 use super::containers::{read_list, read_optional, write_list, write_optional};
 use crate::codec::{
     Decode, DecodeError, DecodeResult, Encode, MAX_STRING_LENGTH, NbtLimit, decode_tag_with,
@@ -57,11 +58,9 @@ const DECORATED_POT_PATTERN: &str = "minecraft:decorated_pot_pattern";
 // ---- stream helpers ----------------------------------------------------------------------------------------------
 
 /// `ComponentSerialization.STREAM_CODEC` (`fromCodecWithRegistries`: default NBT quota).
-fn encode_component(c: &Component, out: &mut Vec<u8>) {
-    match c.to_nbt() {
-        Ok(tag) => encode_tag(&tag, out),
-        Err(e) => panic!("Failed to encode: {e} {c:?}"),
-    }
+fn encode_component(c: &Component, out: &mut Vec<u8>) -> EncodeResult<()> {
+    let tag = c.to_nbt().map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {c:?}")))?;
+    encode_tag(&tag, out)
 }
 fn decode_component(input: &mut &[u8]) -> DecodeResult<Component> {
     let tag = decode_tag_with(input, NbtLimit::DEFAULT)?
@@ -70,9 +69,6 @@ fn decode_component(input: &mut &[u8]) -> DecodeResult<Component> {
         .map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {tag}")))
 }
 
-fn encode_utf(s: &String, out: &mut Vec<u8>) {
-    write_utf(out, s)
-}
 
 /// `ComponentSerialization.flatRestrictedCodec(max)`.
 fn flat_restricted_codec(max: usize) -> Codec<Component> {
@@ -139,9 +135,9 @@ impl<T: Clone + Send + Sync + 'static> Filterable<T> {
 
 impl<T> Filterable<T> {
     /// `Filterable.streamCodec(valueCodec)`.
-    pub fn encode_stream(&self, out: &mut Vec<u8>, f: impl Fn(&T, &mut Vec<u8>)) {
-        f(&self.raw, out);
-        write_optional(out, &self.filtered, |v, o| f(v, o));
+    pub fn encode_stream(&self, out: &mut Vec<u8>, f: impl Fn(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
+        f(&self.raw, out)?;
+        write_optional(out, &self.filtered, |v, o| f(v, o))
     }
     pub fn decode_stream(
         input: &mut &[u8],
@@ -183,8 +179,8 @@ impl WritableBookContent {
 }
 
 impl Encode for WritableBookContent {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_list(out, &self.pages, |p, o| p.encode_stream(o, encode_utf));
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_list(out, &self.pages, |p, o| p.encode_stream(o, |s, o| write_utf(o, s, 1024)))
     }
 }
 impl Decode for WritableBookContent {
@@ -242,14 +238,13 @@ impl WrittenBookContent {
 }
 
 impl Encode for WrittenBookContent {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.title.encode_stream(out, encode_utf);
-        write_utf(out, &self.author);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.title.encode_stream(out, |s, o| write_utf(o, s, 32))?;
+        write_utf(out, &self.author, MAX_STRING_LENGTH)?;
         write_varint(out, self.generation);
-        write_list(out, &self.pages, |p, o| {
-            p.encode_stream(o, encode_component)
-        });
-        self.resolved.encode(out);
+        write_list(out, &self.pages, |p, o| p.encode_stream(o, encode_component))?;
+        self.resolved.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for WrittenBookContent {
@@ -319,20 +314,21 @@ impl FireworkExplosion {
     }
 }
 
-fn write_colors(v: &[i32], out: &mut Vec<u8>) {
-    write_list(out, v, |c, o| c.encode(o));
+fn write_colors(v: &[i32], out: &mut Vec<u8>) -> EncodeResult<()> {
+    write_list(out, v, |c, o| c.encode(o))
 }
 fn read_colors(input: &mut &[u8]) -> DecodeResult<Vec<i32>> {
     read_list(input, i32::MAX as usize, i32::decode)
 }
 
 impl Encode for FireworkExplosion {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.shape.id());
-        write_colors(&self.colors, out);
-        write_colors(&self.fade_colors, out);
-        self.has_trail.encode(out);
-        self.has_twinkle.encode(out);
+        write_colors(&self.colors, out)?;
+        write_colors(&self.fade_colors, out)?;
+        self.has_trail.encode(out)?;
+        self.has_twinkle.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for FireworkExplosion {
@@ -368,9 +364,10 @@ impl Fireworks {
 }
 
 impl Encode for Fireworks {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.flight_duration);
-        write_list(out, &self.explosions, |e, o| e.encode(o));
+        write_list(out, &self.explosions, |e, o| e.encode(o))?;
+        Ok(())
     }
 }
 impl Decode for Fireworks {
@@ -404,10 +401,10 @@ impl BannerPattern {
     pub fn codec() -> Codec<Holder<BannerPattern>> {
         holder::holder_file_codec(BANNER_PATTERN, &Self::direct_codec(), true)
     }
-    pub fn encode_holder(h: &Holder<BannerPattern>, out: &mut Vec<u8>) {
+    pub fn encode_holder(h: &Holder<BannerPattern>, out: &mut Vec<u8>) -> EncodeResult<()> {
         holder::encode_holder(BANNER_PATTERN, h, out, |p, o| {
-            p.asset_id.encode(o);
-            write_utf(o, &p.translation_key);
+            p.asset_id.encode(o)?;
+            write_utf(o, &p.translation_key, MAX_STRING_LENGTH)
         })
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<BannerPattern>> {
@@ -447,11 +444,11 @@ impl BannerPatternLayers {
 }
 
 impl Encode for BannerPatternLayers {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_list(out, &self.layers, |l, o| {
-            BannerPattern::encode_holder(&l.pattern, o);
-            l.color.encode(o);
-        });
+            BannerPattern::encode_holder(&l.pattern, o)?;
+            l.color.encode(o)
+        })
     }
 }
 impl Decode for BannerPatternLayers {
@@ -490,10 +487,11 @@ impl PotDecorations {
 }
 
 impl Encode for PotDecorations {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         for side in [&self.back, &self.left, &self.right, &self.front] {
-            write_optional(out, side, |t, o| t.encode(o));
+            write_optional(out, side, |t, o| t.encode(o))?;
         }
+        Ok(())
     }
 }
 impl Decode for PotDecorations {
@@ -571,24 +569,22 @@ impl SignText {
     }
 }
 
-fn write_lines(lines: &[Component], out: &mut Vec<u8>) {
-    assert_eq!(
-        lines.len(),
-        4,
-        "Invalid list size, expected 4, but got {}",
-        lines.len()
-    );
-    for l in lines {
-        encode_component(l, out);
+fn write_lines(lines: &[Component], out: &mut Vec<u8>) -> EncodeResult<()> {
+    if lines.len() != 4 {
+        return Err(crate::codec::EncodeError(format!("Invalid list size, expected 4, but got {}", lines.len())));
     }
+    for l in lines {
+        encode_component(l, out)?;
+    }
+    Ok(())
 }
 fn read_lines(input: &mut &[u8]) -> DecodeResult<Vec<Component>> {
     (0..4).map(|_| decode_component(input)).collect()
 }
 
 impl Encode for SignText {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_lines(&self.messages, out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_lines(&self.messages, out)?;
         write_optional(
             out,
             &if self.filtered_messages == self.messages {
@@ -597,9 +593,10 @@ impl Encode for SignText {
                 Some(self.filtered_messages.clone())
             },
             |l, o| write_lines(l, o),
-        );
-        self.color.encode(out);
-        self.has_glowing_text.encode(out);
+        )?;
+        self.color.encode(out)?;
+        self.has_glowing_text.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for SignText {
@@ -641,12 +638,13 @@ impl Instrument {
     pub fn codec() -> Codec<Holder<Instrument>> {
         holder::holder_file_codec(INSTRUMENT_REG, &Self::direct_codec(), true)
     }
-    fn encode_direct(&self, out: &mut Vec<u8>) {
-        SoundEvent::encode_holder(&self.sound_event, out);
-        self.use_duration.encode(out);
-        self.range.encode(out);
+    fn encode_direct(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        SoundEvent::encode_holder(&self.sound_event, out)?;
+        self.use_duration.encode(out)?;
+        self.range.encode(out)?;
         write_varint(out, self.durability_damage);
-        encode_component(&self.description, out);
+        encode_component(&self.description, out)?;
+        Ok(())
     }
     fn decode_direct(input: &mut &[u8]) -> DecodeResult<Instrument> {
         Ok(Instrument {
@@ -657,7 +655,7 @@ impl Instrument {
             description: decode_component(input)?,
         })
     }
-    pub fn encode_holder(h: &Holder<Instrument>, out: &mut Vec<u8>) {
+    pub fn encode_holder(h: &Holder<Instrument>, out: &mut Vec<u8>) -> EncodeResult<()> {
         holder::encode_holder(INSTRUMENT_REG, h, out, |v, o| v.encode_direct(o))
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<Instrument>> {
@@ -680,8 +678,9 @@ impl InstrumentComponent {
 }
 
 impl Encode for InstrumentComponent {
-    fn encode(&self, out: &mut Vec<u8>) {
-        Instrument::encode_holder(&self.instrument, out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        Instrument::encode_holder(&self.instrument, out)?;
+        Ok(())
     }
 }
 impl Decode for InstrumentComponent {
@@ -713,11 +712,12 @@ impl JukeboxSong {
     pub fn codec() -> Codec<Holder<JukeboxSong>> {
         holder::holder_fixed_codec(JUKEBOX_SONG_REG)
     }
-    fn encode_direct(&self, out: &mut Vec<u8>) {
-        SoundEvent::encode_holder(&self.sound_event, out);
-        encode_component(&self.description, out);
-        self.length_in_seconds.encode(out);
+    fn encode_direct(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        SoundEvent::encode_holder(&self.sound_event, out)?;
+        encode_component(&self.description, out)?;
+        self.length_in_seconds.encode(out)?;
         write_varint(out, self.comparator_output);
+        Ok(())
     }
     fn decode_direct(input: &mut &[u8]) -> DecodeResult<JukeboxSong> {
         Ok(JukeboxSong {
@@ -727,7 +727,7 @@ impl JukeboxSong {
             comparator_output: read_varint(input)?,
         })
     }
-    pub fn encode_holder(h: &Holder<JukeboxSong>, out: &mut Vec<u8>) {
+    pub fn encode_holder(h: &Holder<JukeboxSong>, out: &mut Vec<u8>) -> EncodeResult<()> {
         holder::encode_holder(JUKEBOX_SONG_REG, h, out, |v, o| v.encode_direct(o))
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<JukeboxSong>> {
@@ -750,8 +750,9 @@ impl JukeboxPlayable {
 }
 
 impl Encode for JukeboxPlayable {
-    fn encode(&self, out: &mut Vec<u8>) {
-        JukeboxSong::encode_holder(&self.song, out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        JukeboxSong::encode_holder(&self.song, out)?;
+        Ok(())
     }
 }
 impl Decode for JukeboxPlayable {
@@ -780,10 +781,10 @@ impl TrimMaterial {
     pub fn codec() -> Codec<Holder<TrimMaterial>> {
         holder::holder_file_codec(TRIM_MATERIAL_REG, &Self::direct_codec(), true)
     }
-    pub fn encode_holder(h: &Holder<TrimMaterial>, out: &mut Vec<u8>) {
+    pub fn encode_holder(h: &Holder<TrimMaterial>, out: &mut Vec<u8>) -> EncodeResult<()> {
         holder::encode_holder(TRIM_MATERIAL_REG, h, out, |v, o| {
-            v.palette_id.encode(o);
-            encode_component(&v.description, o);
+            v.palette_id.encode(o)?;
+            encode_component(&v.description, o)
         })
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<TrimMaterial>> {
@@ -816,11 +817,11 @@ impl TrimPattern {
     pub fn codec() -> Codec<Holder<TrimPattern>> {
         holder::holder_file_codec(TRIM_PATTERN_REG, &Self::direct_codec(), true)
     }
-    pub fn encode_holder(h: &Holder<TrimPattern>, out: &mut Vec<u8>) {
+    pub fn encode_holder(h: &Holder<TrimPattern>, out: &mut Vec<u8>) -> EncodeResult<()> {
         holder::encode_holder(TRIM_PATTERN_REG, h, out, |v, o| {
-            v.asset_id.encode(o);
-            encode_component(&v.description, o);
-            v.decal.encode(o);
+            v.asset_id.encode(o)?;
+            encode_component(&v.description, o)?;
+            v.decal.encode(o)
         })
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<TrimPattern>> {
@@ -851,9 +852,10 @@ impl ArmorTrim {
 }
 
 impl Encode for ArmorTrim {
-    fn encode(&self, out: &mut Vec<u8>) {
-        TrimMaterial::encode_holder(&self.material, out);
-        TrimPattern::encode_holder(&self.pattern, out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        TrimMaterial::encode_holder(&self.material, out)?;
+        TrimPattern::encode_holder(&self.pattern, out)?;
+        Ok(())
     }
 }
 impl Decode for ArmorTrim {

@@ -2,8 +2,8 @@
 //!
 //! Field attributes (`#[mc(...)]`):
 //! * `var` – encode with `VarEncode` (VarInt for `i32`, VarLong for `i64`, also `Vec<i32>`, `Option<i32>`, …)
-//! * `max = N` – decode with `DecodeBounded` (string length in UTF-16 units / collection size)
-//! * `with = path` – `path::encode(&T, &mut Vec<u8>)` and `path::decode(&mut &[u8]) -> Result<T, DecodeError>`
+//! * `max = N` – decode with `DecodeBounded` / encode with `EncodeBounded` (string length in UTF-16 units / collection size)
+//! * `with = path` – `path::encode(&T, &mut Vec<u8>) -> Result<(), EncodeError>` and `path::decode(&mut &[u8]) -> Result<T, DecodeError>`
 //!
 //! Enum attributes: `#[mc(repr = "varint" | "u8" | "i8" | "u16" | "i16" | "i32" | "i64")]` (default `varint`),
 //! `#[mc(error = "Unknown thing: {}")]`; variant attribute `#[mc(id = N)]` (default: previous id + 1, starting at 0).
@@ -56,11 +56,13 @@ fn encode_expr(f: &Field, access: TokenStream2) -> Result<TokenStream2> {
     let k = krate();
     let a = field_attrs(f)?;
     Ok(if let Some(w) = a.with {
-        quote!(#w::encode(#access, out);)
+        quote!(#w::encode(#access, out)?;)
     } else if a.var {
         quote!(#k::codec::VarEncode::encode_var(#access, out);)
+    } else if let Some(max) = a.max {
+        quote!(#k::codec::EncodeBounded::encode_bounded(#access, out, #max)?;)
     } else {
-        quote!(#k::codec::Encode::encode(#access, out);)
+        quote!(#k::codec::Encode::encode(#access, out)?;)
     })
 }
 
@@ -188,7 +190,7 @@ fn with_bounds(input: &DeriveInput, bound: TokenStream2) -> (TokenStream2, Token
 }
 
 fn write_repr(repr: &str, k: &TokenStream2, id: i64) -> Result<TokenStream2> {
-    let lit = |t: TokenStream2| quote!(#k::codec::Encode::encode(&(#id as #t), out););
+    let lit = |t: TokenStream2| quote!(#k::codec::Encode::encode(&(#id as #t), out)?;);
     Ok(match repr {
         "varint" => quote!(#k::codec::write_varint(out, #id as i32);),
         "u8" => lit(quote!(u8)),
@@ -222,7 +224,7 @@ fn expand_encode(input: &DeriveInput) -> Result<TokenStream2> {
     let body = match &input.data {
         Data::Struct(s) => {
             let (pat, stmts) = fields_encode(&s.fields)?;
-            quote!(let Self #pat = self; #stmts)
+            quote!(let Self #pat = self; #stmts ::std::result::Result::Ok(()))
         }
         Data::Enum(e) => {
             let attrs = enum_attrs(input)?;
@@ -232,7 +234,7 @@ fn expand_encode(input: &DeriveInput) -> Result<TokenStream2> {
                 let vn = &v.ident;
                 let (pat, stmts) = fields_encode(&v.fields)?;
                 let w = write_repr(&attrs.repr, &k, id)?;
-                arms.push(quote!(Self::#vn #pat => { #w #stmts }));
+                arms.push(quote!(Self::#vn #pat => { #w #stmts ::std::result::Result::Ok(()) }));
             }
             if arms.is_empty() {
                 quote!(match *self {})
@@ -245,7 +247,7 @@ fn expand_encode(input: &DeriveInput) -> Result<TokenStream2> {
     Ok(quote! {
         impl #impl_g #k::codec::Encode for #name #ty_g #where_c {
             #[allow(unused_variables)]
-            fn encode(&self, out: &mut ::std::vec::Vec<u8>) { #body }
+            fn encode(&self, out: &mut ::std::vec::Vec<u8>) -> ::std::result::Result<(), #k::codec::EncodeError> { #body }
         }
     })
 }

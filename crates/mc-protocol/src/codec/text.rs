@@ -1,18 +1,15 @@
 //! `Component` codecs: NBT (`ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC`) and JSON text.
 use mc_text::Component;
 
-use super::{read_utf, write_utf, Decode, DecodeError, DecodeResult, Encode, NbtLimit};
+use super::{read_utf, write_utf, Decode, DecodeError, DecodeResult, Encode, EncodeError, EncodeResult, NbtLimit};
 
-/// Component as NBT in network form (text-only components are a bare string tag).
-///
-/// # Panics
-/// On a component vanilla refuses to serialize (e.g. a failing validator or an over-long string).
+/// Component as NBT in network form (text-only components are a bare string tag). Fails like
+/// `codec.encodeStart(..).getOrThrow(EncoderException)` for a component vanilla refuses to serialize
+/// (e.g. a failing validator or an over-long string).
 impl Encode for Component {
-    fn encode(&self, out: &mut Vec<u8>) {
-        match self.to_nbt() {
-            Ok(tag) => super::encode_tag(&tag, out),
-            Err(e) => panic!("Failed to encode: {e} {self:?}"),
-        }
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        let tag = self.to_nbt().map_err(|e| EncodeError(format!("Failed to encode: {e} {self:?}")))?;
+        super::encode_tag(&tag, out)
     }
 }
 impl Decode for Component {
@@ -34,11 +31,9 @@ pub struct JsonComponent(pub Component);
 const JSON_MAX: usize = 262144;
 
 impl Encode for JsonComponent {
-    fn encode(&self, out: &mut Vec<u8>) {
-        match self.0.to_json_string() {
-            Ok(s) => write_utf(out, &s),
-            Err(e) => panic!("Failed to encode: {e} {:?}", self.0),
-        }
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        let s = self.0.to_json_string().map_err(|e| EncodeError(format!("Failed to encode: {e} {:?}", self.0)))?;
+        write_utf(out, &s, JSON_MAX)
     }
 }
 impl Decode for JsonComponent {

@@ -1,12 +1,14 @@
 //! `Item.STREAM_CODEC` is `ByteBufCodecs.holderRegistry`: unlike `registry(..)` it rejects unknown ids even though the
 //! item registry is a defaulted one. For `#[mc(with = ..)]`.
+use crate::codec::EncodeResult;
 use mc_data::Item;
 
 use crate::Encode;
 use crate::codec::{DecodeResult, read_count, read_registry_id};
 
-pub fn encode(item: &Item, out: &mut Vec<u8>) {
-    item.encode(out)
+pub fn encode(item: &Item, out: &mut Vec<u8>) -> EncodeResult<()> {
+    item.encode(out)?;
+    Ok(())
 }
 pub fn decode(input: &mut &[u8]) -> DecodeResult<Item> {
     read_registry_id(input)

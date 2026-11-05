@@ -1,5 +1,6 @@
 //! `net.minecraft.advancements.predicates.BlockPredicate`.
 
+use crate::codec::EncodeResult;
 use super::matchers::DataComponentMatchers;
 use super::state::{NbtPredicate, StatePropertiesPredicate};
 use crate::codec::{Decode, DecodeResult, Encode};
@@ -45,17 +46,18 @@ impl BlockPredicate {
 
 /// `BlockPredicate.STREAM_CODEC`.
 impl Encode for BlockPredicate {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match &self.blocks {
-            None => false.encode(out),
+            None => false.encode(out)?,
             Some(b) => {
-                true.encode(out);
-                b.encode_stream(out);
+                true.encode(out)?;
+                b.encode_stream(out)?;
             }
         }
-        self.properties.encode(out);
-        self.nbt.encode(out);
-        self.components.encode(out);
+        self.properties.encode(out)?;
+        self.nbt.encode(out)?;
+        self.components.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for BlockPredicate {

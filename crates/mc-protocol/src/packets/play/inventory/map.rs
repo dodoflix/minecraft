@@ -1,4 +1,5 @@
 //! `ClientboundMapItemDataPacket` and its nested types.
+use crate::codec::EncodeResult;
 use mc_text::Component;
 
 use super::untrusted_text;
@@ -50,14 +51,15 @@ pub struct MapItemSavedDataMapPatch {
 mod map_patch {
     use super::*;
 
-    pub fn encode(patch: &Option<MapItemSavedDataMapPatch>, out: &mut Vec<u8>) {
+    pub fn encode(patch: &Option<MapItemSavedDataMapPatch>, out: &mut Vec<u8>) -> EncodeResult<()> {
         match patch {
             Some(p) => {
                 out.extend_from_slice(&[p.width, p.height, p.start_x, p.start_y]);
-                p.map_colors.encode(out);
+                p.map_colors.encode(out)?;
             }
             None => out.push(0),
-        }
+        };
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Option<MapItemSavedDataMapPatch>> {
         let width = u8::decode(input)?;

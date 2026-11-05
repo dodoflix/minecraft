@@ -1,4 +1,5 @@
 //! Container, hotbar-selection, book/sign and cooldown packets.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
 use mc_text::Component;
@@ -78,9 +79,10 @@ pub struct ServerboundSelectBundleItemPacket {
 }
 
 impl Encode for ServerboundSelectBundleItemPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.slot_id);
         write_varint(out, self.selected_item_index);
+        Ok(())
     }
 }
 impl Decode for ServerboundSelectBundleItemPacket {
@@ -143,8 +145,9 @@ pub struct ServerboundEditBookPacket {
 mod edit_book_pages {
     use super::*;
 
-    pub fn encode(pages: &[String], out: &mut Vec<u8>) {
-        pages.encode(out)
+    pub fn encode(pages: &[String], out: &mut Vec<u8>) -> EncodeResult<()> {
+        pages.encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<String>> {
         let count = read_count(input, 100)?;

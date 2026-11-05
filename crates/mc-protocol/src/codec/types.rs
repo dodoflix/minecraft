@@ -1,4 +1,5 @@
 //! Codecs for `mc-core` value types.
+use crate::codec::EncodeResult;
 use mc_core::{
     ident::Identifier,
     phys::vec3::Vec3,
@@ -11,8 +12,9 @@ use super::{
 
 /// `Identifier.STREAM_CODEC`: the `namespace:path` string.
 impl Encode for Identifier {
-    fn encode(&self, out: &mut Vec<u8>) {
-        super::write_utf(out, &self.to_string())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        super::write_utf(out, &self.to_string(), MAX_STRING_LENGTH)?;
+        Ok(())
     }
 }
 impl Decode for Identifier {
@@ -24,10 +26,11 @@ impl Decode for Identifier {
 
 /// `Vec3.STREAM_CODEC`: three doubles.
 impl Encode for Vec3 {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.x.encode(out);
-        self.y.encode(out);
-        self.z.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.x.encode(out)?;
+        self.y.encode(out)?;
+        self.z.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Vec3 {
@@ -57,12 +60,12 @@ impl LpVec3 {
 }
 
 impl Encode for LpVec3 {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let (x, y, z) = (Self::sanitize(self.0.x), Self::sanitize(self.0.y), Self::sanitize(self.0.z));
         let chessboard = x.abs().max(y.abs().max(z.abs()));
         if chessboard < Self::ABS_MIN_VALUE {
             out.push(0);
-            return;
+            return Ok(());
         }
         // Mth.ceilLong
         let scale = {
@@ -77,10 +80,11 @@ impl Encode for LpVec3 {
             | Self::pack(z / scale as f64) << 33;
         out.push(buffer as u8);
         out.push((buffer >> 8) as u8);
-        ((buffer >> 16) as i32).encode(out);
+        ((buffer >> 16) as i32).encode(out)?;
         if partial {
             write_varint(out, (scale >> 2) as i32);
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for LpVec3 {
@@ -103,8 +107,9 @@ impl Decode for LpVec3 {
 
 /// `BlockPos.STREAM_CODEC`: packed long.
 impl Encode for BlockPos {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.as_long().encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.as_long().encode(out)?;
+        Ok(())
     }
 }
 impl Decode for BlockPos {
@@ -115,8 +120,9 @@ impl Decode for BlockPos {
 
 /// `ChunkPos.STREAM_CODEC`: packed long.
 impl Encode for ChunkPos {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.pack().encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.pack().encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ChunkPos {
@@ -127,8 +133,9 @@ impl Decode for ChunkPos {
 
 /// `SectionPos.STREAM_CODEC`: packed long.
 impl Encode for SectionPos {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.as_long().encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.as_long().encode(out)?;
+        Ok(())
     }
 }
 impl Decode for SectionPos {
@@ -139,10 +146,11 @@ impl Decode for SectionPos {
 
 /// `Vec3i.STREAM_CODEC`: three VarInts.
 impl Encode for Vec3i {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.x);
         write_varint(out, self.y);
         write_varint(out, self.z);
+        Ok(())
     }
 }
 impl Decode for Vec3i {
@@ -153,8 +161,9 @@ impl Decode for Vec3i {
 
 /// `Direction.STREAM_CODEC`: VarInt 3D data value (`ByIdMap.continuous`, WRAP).
 impl Encode for mc_core::direction::Direction {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.get_3d_data_value() as i32)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.get_3d_data_value() as i32);
+        Ok(())
     }
 }
 impl Decode for mc_core::direction::Direction {

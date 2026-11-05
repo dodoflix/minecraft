@@ -1,6 +1,7 @@
 //! Container-like components: `container`, `bundle_contents`, `charged_projectiles`, `container_loot`, `block_state`,
 //! `sulfur_cube_content`, `debug_stick_state`, `recipes`, `lodestone_tracker`, `map_decorations`.
 
+use crate::codec::EncodeResult;
 use super::entity::TypedEntityData;
 use super::predicates::ItemPredicate;
 use crate::codec::{
@@ -57,11 +58,12 @@ pub(crate) fn read_list<T>(
 }
 
 /// `ByteBufCodecs.list(..)` encode.
-pub(crate) fn write_list<T>(out: &mut Vec<u8>, items: &[T], mut f: impl FnMut(&T, &mut Vec<u8>)) {
+pub(crate) fn write_list<T>(out: &mut Vec<u8>, items: &[T], mut f: impl FnMut(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
     write_varint(out, items.len() as i32);
     for i in items {
-        f(i, out);
+        f(i, out)?;
     }
+    Ok(())
 }
 
 /// `ByteBufCodecs.optional(codec)` decode.
@@ -80,15 +82,16 @@ pub(crate) fn read_optional<T>(
 pub(crate) fn write_optional<T>(
     out: &mut Vec<u8>,
     v: &Option<T>,
-    f: impl FnOnce(&T, &mut Vec<u8>),
-) {
+    f: impl FnOnce(&T, &mut Vec<u8>) -> EncodeResult<()>,
+) -> EncodeResult<()> {
     match v {
         Some(v) => {
             out.push(1);
-            f(v, out);
+            f(v, out)?;
         }
         None => out.push(0),
     }
+    Ok(())
 }
 
 // ---- Fraction (commons-lang3) ------------------------------------------------------------------------------------
@@ -408,10 +411,8 @@ impl ItemContainerContents {
 }
 
 impl Encode for ItemContainerContents {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_list(out, &self.items, |t, o| {
-            write_optional(o, t, |t, o| t.encode(o))
-        });
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_list(out, &self.items, |t, o| write_optional(o, t, |t, o| t.encode(o)))
     }
 }
 impl Decode for ItemContainerContents {
@@ -534,8 +535,9 @@ impl BundleContents {
 }
 
 impl Encode for BundleContents {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_list(out, &self.items, |t, o| t.encode(o));
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_list(out, &self.items, |t, o| t.encode(o))?;
+        Ok(())
     }
 }
 impl Decode for BundleContents {
@@ -564,8 +566,9 @@ impl ChargedProjectiles {
 }
 
 impl Encode for ChargedProjectiles {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_list(out, &self.items, |t, o| t.encode(o));
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_list(out, &self.items, |t, o| t.encode(o))?;
+        Ok(())
     }
 }
 impl Decode for ChargedProjectiles {
@@ -624,11 +627,11 @@ impl BlockItemStateProperties {
 }
 
 impl Encode for BlockItemStateProperties {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_list(out, &self.properties, |(k, v), o| {
-            write_utf(o, k);
-            write_utf(o, v);
-        });
+            write_utf(o, k, MAX_STRING_LENGTH)?;
+            write_utf(o, v, MAX_STRING_LENGTH)
+        })
     }
 }
 impl Decode for BlockItemStateProperties {
@@ -666,8 +669,9 @@ impl SulfurCubeContent {
 }
 
 impl Encode for SulfurCubeContent {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.absorbed_block_item_stack.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.absorbed_block_item_stack.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for SulfurCubeContent {
@@ -781,9 +785,10 @@ impl LodestoneTracker {
 }
 
 impl Encode for LodestoneTracker {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_optional(out, &self.target, |t, o| t.encode(o));
-        self.tracked.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_optional(out, &self.target, |t, o| t.encode(o))?;
+        self.tracked.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for LodestoneTracker {
@@ -856,10 +861,11 @@ impl BeeOccupant {
 }
 
 impl Encode for BeeOccupant {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.entity_data.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.entity_data.encode(out)?;
         write_varint(out, self.ticks_in_hive);
         write_varint(out, self.min_ticks_in_hive);
+        Ok(())
     }
 }
 impl Decode for BeeOccupant {
@@ -886,8 +892,8 @@ impl Bees {
 }
 
 impl Encode for Bees {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_list(out, &self.bees, |b, o| b.encode(o));
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_list(out, &self.bees, |b, o| b.encode(o))
     }
 }
 impl Decode for Bees {

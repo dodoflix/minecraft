@@ -1,4 +1,5 @@
 //! `VarInt` / `VarLong` (vanilla `net.minecraft.network.VarInt` / `VarLong`).
+use crate::codec::EncodeResult;
 use super::{take, Decode, DecodeError, DecodeResult, Encode, VarEncode};
 
 pub fn write_varint(out: &mut Vec<u8>, value: i32) {
@@ -70,8 +71,9 @@ pub struct VarInt(pub i32);
 pub struct VarLong(pub i64);
 
 impl Encode for VarInt {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.0)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.0);
+        Ok(())
     }
 }
 impl Decode for VarInt {
@@ -80,8 +82,9 @@ impl Decode for VarInt {
     }
 }
 impl Encode for VarLong {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varlong(out, self.0)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varlong(out, self.0);
+        Ok(())
     }
 }
 impl Decode for VarLong {

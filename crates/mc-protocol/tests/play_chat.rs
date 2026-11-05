@@ -96,7 +96,7 @@ fn expect_lossy<T: Encode + Decode + Debug>(g: &Golden, label: &str) -> T {
     let bytes = g.bytes(label);
     let v = from_bytes::<T>(bytes).unwrap_or_else(|e| panic!("{label}: {e}"));
     assert_eq!(
-        hex(&to_bytes(&v)),
+        hex(&to_bytes(&v).unwrap()),
         hex(g.bytes(&format!("{label}_re"))),
         "{label}"
     );

@@ -1,6 +1,7 @@
 //! Play packets: group `serverbound` (movement, actions, block-entity editors, interaction).
 //! Enums read with `FriendlyByteBuf.readEnum` are VarInt ordinals that fail like Java's array access
 //! (`Index N out of bounds for length L`); `ByIdMap` enums wrap/zero (see `id_enum!`).
+use crate::codec::EncodeResult;
 use mc_core::direction::Direction;
 use mc_core::mirror::Mirror;
 use mc_core::phys::vec3::Vec3;
@@ -23,8 +24,9 @@ use crate::{Decode, Encode, Packet};
 /// `Vec3.LP_STREAM_CODEC`.
 mod lp_vec3 {
     use super::*;
-    pub fn encode(v: &Vec3, out: &mut Vec<u8>) {
-        LpVec3(*v).encode(out)
+    pub fn encode(v: &Vec3, out: &mut Vec<u8>) -> EncodeResult<()> {
+        LpVec3(*v).encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec3> {
         LpVec3::decode(input).map(|l| l.0)
@@ -34,8 +36,9 @@ mod lp_vec3 {
 /// `ByteBufCodecs.OPTIONAL_VAR_INT` as an `Option<i32>`.
 mod optional_var_int {
     use super::*;
-    pub fn encode(v: &Option<i32>, out: &mut Vec<u8>) {
-        OptionalVarInt(*v).encode(out)
+    pub fn encode(v: &Option<i32>, out: &mut Vec<u8>) -> EncodeResult<()> {
+        OptionalVarInt(*v).encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Option<i32>> {
         OptionalVarInt::decode(input).map(|v| v.0)
@@ -45,8 +48,9 @@ mod optional_var_int {
 /// `writeByte(direction.get3DDataValue())` / `Direction.from3DDataValue(readUnsignedByte())`.
 mod direction_u8 {
     use super::*;
-    pub fn encode(d: &Direction, out: &mut Vec<u8>) {
-        out.push(d.get_3d_data_value() as u8)
+    pub fn encode(d: &Direction, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.push(d.get_3d_data_value() as u8);
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Direction> {
         u8::decode(input).map(|v| Direction::from_3d_data_value(i32::from(v)))
@@ -56,8 +60,9 @@ mod direction_u8 {
 /// `readEnum(Mirror.class)`.
 mod mirror_enum {
     use super::*;
-    pub fn encode(m: &Mirror, out: &mut Vec<u8>) {
-        write_varint(out, *m as i32)
+    pub fn encode(m: &Mirror, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, *m as i32);
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Mirror> {
         let id = read_varint(input)?;
@@ -71,8 +76,9 @@ mod mirror_enum {
 /// `Rotation.STREAM_CODEC` (`ByIdMap`, WRAP).
 mod rotation_id {
     use super::*;
-    pub fn encode(r: &Rotation, out: &mut Vec<u8>) {
-        write_varint(out, r.get_index())
+    pub fn encode(r: &Rotation, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, r.get_index());
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Rotation> {
         read_varint(input).map(Rotation::by_id)
@@ -82,10 +88,11 @@ mod rotation_id {
 /// `stringUtf8(384).apply(fixedSizeList(4))`: four strings, no length prefix.
 mod sign_lines {
     use super::*;
-    pub fn encode(lines: &[String; 4], out: &mut Vec<u8>) {
+    pub fn encode(lines: &[String; 4], out: &mut Vec<u8>) -> EncodeResult<()> {
         for l in lines {
-            write_utf(out, l)
+            write_utf(out, l, 384)?;
         }
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<[String; 4]> {
         Ok([
@@ -247,8 +254,9 @@ pub struct ServerboundPlayerAbilitiesPacket {
 }
 
 impl Encode for ServerboundPlayerAbilitiesPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.push(if self.is_flying { 2 } else { 0 })
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.push(if self.is_flying { 2 } else { 0 });
+        Ok(())
     }
 }
 impl Decode for ServerboundPlayerAbilitiesPacket {
@@ -323,7 +331,7 @@ pub struct Input {
 }
 
 impl Encode for Input {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let bits = [
             self.forward,
             self.backward,
@@ -337,7 +345,8 @@ impl Encode for Input {
             bits.iter()
                 .enumerate()
                 .fold(0, |acc, (i, &b)| acc | u8::from(b) << i),
-        )
+        );
+        Ok(())
     }
 }
 impl Decode for Input {
@@ -387,9 +396,10 @@ macro_rules! move_player {
         }
 
         impl Encode for $name {
-            fn encode(&self, out: &mut Vec<u8>) {
-                $(self.$field.encode(out);)*
-                out.push(u8::from(self.on_ground) | u8::from(self.horizontal_collision) << 1)
+            fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+                $(self.$field.encode(out)?;)*
+                out.push(u8::from(self.on_ground) | u8::from(self.horizontal_collision) << 1);
+                Ok(())
             }
         }
         impl Decode for $name {
@@ -503,15 +513,16 @@ pub struct ServerboundSetCommandBlockPacket {
 }
 
 impl Encode for ServerboundSetCommandBlockPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.pos.encode(out);
-        self.command.encode(out);
-        self.mode.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.pos.encode(out)?;
+        self.command.encode(out)?;
+        self.mode.encode(out)?;
         out.push(
             u8::from(self.track_output)
                 | u8::from(self.conditional) << 1
                 | u8::from(self.automatic) << 2,
-        )
+        );
+        Ok(())
     }
 }
 impl Decode for ServerboundSetCommandBlockPacket {
@@ -549,13 +560,14 @@ pub enum JigsawBlockEntityJointType {
 }
 
 impl Encode for JigsawBlockEntityJointType {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_utf(
             out,
             match self {
                 Self::Rollable => "rollable",
                 Self::Aligned => "aligned",
             },
+            crate::codec::MAX_STRING_LENGTH,
         )
     }
 }
@@ -627,11 +639,11 @@ pub struct ServerboundSetStructureBlockPacket {
 }
 
 impl Encode for ServerboundSetStructureBlockPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.pos.encode(out);
-        self.update_type.encode(out);
-        self.mode.encode(out);
-        self.name.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.pos.encode(out)?;
+        self.update_type.encode(out)?;
+        self.mode.encode(out)?;
+        self.name.encode(out)?;
         out.extend(
             [
                 self.offset.x(),
@@ -643,17 +655,18 @@ impl Encode for ServerboundSetStructureBlockPacket {
             ]
             .map(|v| v as u8),
         );
-        mirror_enum::encode(&self.mirror, out);
-        rotation_id::encode(&self.rotation, out);
-        self.data.encode(out);
-        self.integrity.encode(out);
+        mirror_enum::encode(&self.mirror, out)?;
+        rotation_id::encode(&self.rotation, out)?;
+        self.data.encode(out)?;
+        self.integrity.encode(out)?;
         crate::codec::VarEncode::encode_var(&self.seed, out);
         out.push(
             u8::from(self.ignore_entities)
                 | u8::from(self.show_air) << 1
                 | u8::from(self.show_bounding_box) << 2
                 | u8::from(self.strict) << 3,
-        )
+        );
+        Ok(())
     }
 }
 impl Decode for ServerboundSetStructureBlockPacket {

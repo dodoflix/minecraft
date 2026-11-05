@@ -1,4 +1,5 @@
 //! `ClientboundTrackedWaypointPacket` and `TrackedWaypoint`.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_core::pos::{chunk_pos::ChunkPos, vec3i::Vec3i};
 use uuid::Uuid;
@@ -59,14 +60,14 @@ impl TrackedWaypoint {
 }
 
 impl Encode for TrackedWaypoint {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.identifier.encode(out);
-        self.icon.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.identifier.encode(out)?;
+        self.icon.encode(out)?;
         match &self.data {
             TrackedWaypointData::Empty => write_varint(out, 0),
             TrackedWaypointData::Vec3i(v) => {
                 write_varint(out, 1);
-                v.encode(out)
+                v.encode(out)?
             }
             TrackedWaypointData::Chunk(c) => {
                 write_varint(out, 2);
@@ -75,9 +76,10 @@ impl Encode for TrackedWaypoint {
             }
             TrackedWaypointData::Azimuth(angle) => {
                 write_varint(out, 3);
-                angle.encode(out)
+                angle.encode(out)?
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for TrackedWaypoint {

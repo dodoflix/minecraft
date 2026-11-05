@@ -3,6 +3,7 @@
 //! Chunk/biome section buffers stay raw bytes: `mc-world` serialises the sections (`LevelChunkSection.write`, one
 //! after another in section order) into `ClientboundLevelChunkPacketData::buffer` and the biome containers into
 //! `ChunkBiomeData::buffer`.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
 use mc_core::pos::chunk_pos::ChunkPos;
@@ -55,8 +56,9 @@ pub enum SoundSource {
 mod trusted_compound {
     use super::*;
 
-    pub fn encode(tag: &CompoundTag, out: &mut Vec<u8>) {
-        tag.encode(out)
+    pub fn encode(tag: &CompoundTag, out: &mut Vec<u8>) -> EncodeResult<()> {
+        tag.encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<CompoundTag> {
         match decode_tag_with(input, NbtLimit::UNLIMITED)? {
@@ -71,11 +73,12 @@ mod trusted_compound {
 mod optional_compound {
     use super::*;
 
-    pub fn encode(tag: &Option<CompoundTag>, out: &mut Vec<u8>) {
+    pub fn encode(tag: &Option<CompoundTag>, out: &mut Vec<u8>) -> EncodeResult<()> {
         match tag {
-            Some(c) => c.encode(out),
+            Some(c) => c.encode(out)?,
             None => out.push(0),
-        }
+        };
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Option<CompoundTag>> {
         match decode_tag_with(input, NbtLimit::DEFAULT)? {
@@ -90,8 +93,9 @@ mod optional_compound {
 mod bit_set_bytes {
     use super::*;
 
-    pub fn encode(bits: &BitSet, out: &mut Vec<u8>) {
-        bits.to_bytes().encode(out)
+    pub fn encode(bits: &BitSet, out: &mut Vec<u8>) -> EncodeResult<()> {
+        bits.to_bytes().encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<BitSet> {
         BitSetBytes::decode(input).map(|b| b.0)
@@ -102,11 +106,12 @@ mod bit_set_bytes {
 mod light_layers {
     use super::*;
 
-    pub fn encode(layers: &Vec<Vec<u8>>, out: &mut Vec<u8>) {
+    pub fn encode(layers: &Vec<Vec<u8>>, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, layers.len() as i32);
         for l in layers {
-            l.encode(out);
-        }
+            l.encode(out)?;
+        };
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<Vec<u8>>> {
         let count = read_count(input, i32::MAX as usize)?;
@@ -122,15 +127,16 @@ mod light_layers {
 mod heightmaps {
     use super::*;
 
-    pub fn encode(maps: &Vec<(HeightmapTypes, Vec<i64>)>, out: &mut Vec<u8>) {
+    pub fn encode(maps: &Vec<(HeightmapTypes, Vec<i64>)>, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, maps.len() as i32);
         for (t, longs) in maps {
-            t.encode(out);
+            t.encode(out)?;
             write_varint(out, longs.len() as i32);
             for l in longs {
-                l.encode(out);
+                l.encode(out)?;
             }
-        }
+        };
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(HeightmapTypes, Vec<i64>)>> {
         let count = read_count(input, i32::MAX as usize)?;
@@ -147,12 +153,13 @@ mod heightmaps {
 mod clock_updates {
     use super::*;
 
-    pub fn encode(updates: &Vec<(i32, ClockNetworkState)>, out: &mut Vec<u8>) {
+    pub fn encode(updates: &Vec<(i32, ClockNetworkState)>, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, updates.len() as i32);
         for (id, state) in updates {
             write_varint(out, *id);
-            state.encode(out);
-        }
+            state.encode(out)?;
+        };
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(i32, ClockNetworkState)>> {
         let count = read_count(input, i32::MAX as usize)?;
@@ -168,8 +175,9 @@ mod clock_updates {
 mod optional_game_type {
     use super::*;
 
-    pub fn encode(t: &Option<GameType>, out: &mut Vec<u8>) {
-        OptionalVarInt(t.map(GameType::id)).encode(out)
+    pub fn encode(t: &Option<GameType>, out: &mut Vec<u8>) -> EncodeResult<()> {
+        OptionalVarInt(t.map(GameType::id)).encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Option<GameType>> {
         Ok(OptionalVarInt::decode(input)?.0.map(GameType::by_id))
@@ -242,12 +250,13 @@ pub struct ClientboundSectionBlocksUpdatePacket {
 }
 
 impl Encode for ClientboundSectionBlocksUpdatePacket {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.section_pos.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.section_pos.encode(out)?;
         write_varint(out, self.changes.len() as i32);
         for (pos, state) in &self.changes {
             write_varlong(out, i64::from(state.id()) << 12 | i64::from(*pos));
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for ClientboundSectionBlocksUpdatePacket {
@@ -668,14 +677,15 @@ pub struct ClientboundStopSoundPacket {
 }
 
 impl Encode for ClientboundStopSoundPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         out.push(u8::from(self.source.is_some()) | u8::from(self.name.is_some()) << 1);
         if let Some(s) = &self.source {
-            s.encode(out);
+            s.encode(out)?;
         }
         if let Some(n) = &self.name {
-            n.encode(out);
-        }
+            n.encode(out)?;
+        };
+        Ok(())
     }
 }
 impl Decode for ClientboundStopSoundPacket {

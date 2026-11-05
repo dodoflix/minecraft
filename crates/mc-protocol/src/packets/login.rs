@@ -1,4 +1,5 @@
 //! `login` state.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use uuid::Uuid;
 
@@ -63,7 +64,7 @@ pub struct ServerboundCustomQueryAnswerPacket {
 }
 
 impl Encode for ServerboundCustomQueryAnswerPacket {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.transaction_id);
         match &self.payload {
             Some(p) => {
@@ -71,7 +72,8 @@ impl Encode for ServerboundCustomQueryAnswerPacket {
                 out.extend_from_slice(p);
             }
             None => out.push(0),
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for ServerboundCustomQueryAnswerPacket {

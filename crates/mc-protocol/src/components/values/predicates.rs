@@ -2,6 +2,7 @@
 //! `StatePropertiesPredicate`, `NbtPredicate`, `DataComponentMatchers`, the `data_component_predicate_type`
 //! predicates, `ItemPredicate`, `CollectionPredicate`, `MinMaxBounds`.
 
+use crate::codec::EncodeResult;
 use crate::codec::{Decode, DecodeResult, Encode};
 use crate::components::component::{ComponentDef, ComponentKey};
 use mc_data::DataComponentType;
@@ -47,8 +48,9 @@ impl AdventureModePredicate {
 }
 
 impl Encode for AdventureModePredicate {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.predicates.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.predicates.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for AdventureModePredicate {

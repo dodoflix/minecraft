@@ -6,6 +6,7 @@
 mod commands;
 mod player_info;
 
+use crate::codec::EncodeResult;
 use mc_text::{Component, Style};
 use uuid::Uuid;
 
@@ -29,14 +30,15 @@ pub enum MessageSignaturePacked {
 }
 
 impl Encode for MessageSignaturePacked {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Cached(id) => write_varint(out, id.wrapping_add(1)),
             Self::Full(signature) => {
                 write_varint(out, 0);
-                signature.encode(out)
+                signature.encode(out)?
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for MessageSignaturePacked {
@@ -86,15 +88,16 @@ pub enum FilterMask {
 }
 
 impl Encode for FilterMask {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::PassThrough => write_varint(out, 0),
             Self::FullyFiltered => write_varint(out, 1),
             Self::PartiallyFiltered(mask) => {
                 write_varint(out, 2);
-                BitSetBytes(mask.clone()).encode(out)
+                BitSetBytes(mask.clone()).encode(out)?
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for FilterMask {
@@ -118,11 +121,9 @@ id_enum!(
 mod style_nbt {
     use super::*;
 
-    pub fn encode(style: &Style, out: &mut Vec<u8>) {
-        match style.to_nbt() {
-            Ok(tag) => encode_tag(&tag, out),
-            Err(e) => panic!("Failed to encode: {e} {style:?}"),
-        }
+    pub fn encode(style: &Style, out: &mut Vec<u8>) -> EncodeResult<()> {
+        let tag = style.to_nbt().map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e} {style:?}")))?;
+        encode_tag(&tag, out)
     }
 
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Style> {

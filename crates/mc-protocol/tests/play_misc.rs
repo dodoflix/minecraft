@@ -54,7 +54,7 @@ fn check_nan<P: Packet + std::fmt::Debug>(g: &Golden, label: &str, p: &P) {
     let expected = g.bytes(label);
     let mut ours = Vec::new();
     mc_protocol::codec::write_varint(&mut ours, P::ID);
-    p.encode(&mut ours);
+    p.encode(&mut ours).unwrap();
     assert_eq!(hex(&ours), hex(expected), "encode {label}");
     let mut input = expected;
     assert_eq!(mc_protocol::codec::read_varint(&mut input).unwrap(), P::ID);
@@ -62,7 +62,7 @@ fn check_nan<P: Packet + std::fmt::Debug>(g: &Golden, label: &str, p: &P) {
     assert!(input.is_empty());
     let mut again = Vec::new();
     mc_protocol::codec::write_varint(&mut again, P::ID);
-    decoded.encode(&mut again);
+    decoded.encode(&mut again).unwrap();
     assert_eq!(hex(&again), hex(expected), "re-encode {label}");
 }
 
@@ -1140,7 +1140,7 @@ fn err<T: Decode + std::fmt::Debug>(bytes: &[u8]) -> String {
 }
 
 fn utf(s: &str) -> Vec<u8> {
-    to_bytes(s)
+    to_bytes(s).unwrap()
 }
 
 #[test]
@@ -1170,7 +1170,7 @@ fn string_limits() {
         "The received string length is longer than maximum allowed (32768 > 32767)"
     );
     // encoded byte length above 3 * max is rejected before reading
-    let mut bytes = mc_protocol::codec::to_bytes(&VarInt(98302));
+    let mut bytes = mc_protocol::codec::to_bytes(&VarInt(98302)).unwrap();
     bytes.extend(std::iter::repeat(b'a').take(98302));
     assert_eq!(
         err::<ClientboundSetDisplayObjectivePacket>(&[vec![0], bytes].concat()),
@@ -1220,7 +1220,7 @@ fn enum_and_registry_ids() {
     // ObjectiveCriteria.RenderType through set_objective(add): name, method 0, display name "", render type 2
     let mut b = utf("o");
     b.push(0); // method add
-    b.extend(to_bytes(&Component::empty()));
+    b.extend(to_bytes(&Component::empty()).unwrap());
     b.push(2);
     assert_eq!(
         err::<ClientboundSetObjectivePacket>(&b),
@@ -1229,7 +1229,7 @@ fn enum_and_registry_ids() {
     // NumberFormat registry id
     let mut b = utf("n");
     b.push(0); // method add
-    b.extend(to_bytes(&Component::empty()));
+    b.extend(to_bytes(&Component::empty()).unwrap());
     b.extend([0, 1, 3]); // render type integer, number format present, format type 3
     assert_eq!(
         err::<ClientboundSetObjectivePacket>(&b),
@@ -1252,8 +1252,8 @@ fn enum_and_registry_ids() {
         vec![(Stat::Mined(blk("air")), VarInt(5))]
     );
     // waypoint type
-    let mut b = to_bytes(&Either::<Uuid, String>::Left(u1()));
-    b.extend(to_bytes(&WaypointIcon::null()));
+    let mut b = to_bytes(&Either::<Uuid, String>::Left(u1())).unwrap();
+    b.extend(to_bytes(&WaypointIcon::null()).unwrap());
     b.push(4);
     assert_eq!(
         err::<TrackedWaypoint>(&b),
@@ -1269,7 +1269,7 @@ fn by_id_map_strategies() {
     assert_eq!(
         from_bytes::<ClientboundTrackedWaypointPacket>(&{
             let mut b = vec![4]; // 4 mod 3 = 1 = UNTRACK
-            b.extend(to_bytes(&TrackedWaypoint::empty(u1())));
+            b.extend(to_bytes(&TrackedWaypoint::empty(u1())).unwrap());
             b
         })
         .unwrap()
@@ -1287,7 +1287,7 @@ fn by_id_map_strategies() {
 fn nbt_and_collections() {
     // a non-compound tag in tag_query
     let mut b = vec![1];
-    b.extend(to_bytes(&Tag::Int(5)));
+    b.extend(to_bytes(&Tag::Int(5)).unwrap());
     assert_eq!(
         err::<ClientboundTagQueryPacket>(&b),
         "Not a compound tag: 5"
@@ -1309,7 +1309,7 @@ fn nbt_and_collections() {
         "Illegal Capacity: -1"
     );
     // server icon larger than the remaining frame
-    let mut b = to_bytes(&Component::empty());
+    let mut b = to_bytes(&Component::empty()).unwrap();
     b.extend([1, 100, 1, 2, 3]);
     assert_eq!(
         err::<ClientboundServerDataPacket>(&b),

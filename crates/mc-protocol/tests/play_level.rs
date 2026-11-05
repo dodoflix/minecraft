@@ -1044,15 +1044,15 @@ fn check_bits<P: mc_protocol::Packet>(g: &Golden, label: &str, p: &P) {
     let expected = g.bytes(label);
     let mut ours = Vec::new();
     mc_protocol::codec::write_varint(&mut ours, P::ID);
-    p.encode(&mut ours);
+    p.encode(&mut ours).unwrap();
     assert_eq!(hex(&ours), hex(expected), "encode {label}");
     let mut input = expected;
     assert_eq!(mc_protocol::codec::read_varint(&mut input).unwrap(), P::ID);
     let decoded = P::decode(&mut input).unwrap_or_else(|e| panic!("decode {label}: {e}"));
     assert!(input.is_empty());
     assert_eq!(
-        hex(&to_bytes(&decoded)),
-        hex(&to_bytes(p)),
+        hex(&to_bytes(&decoded).unwrap()),
+        hex(&to_bytes(p).unwrap()),
         "re-encode {label}"
     );
 }
@@ -1068,7 +1068,7 @@ fn decode_limits() {
     // chunk data / biome buffer: byteArray(2097152)
     let over = bytes(2097153, 1);
     let mut chunk = vec![0u8]; // no heightmaps
-    chunk.extend(to_bytes(&over));
+    chunk.extend(to_bytes(&over).unwrap());
     chunk.push(0);
     assert_eq!(
         from_bytes::<ClientboundLevelChunkPacketData>(&chunk).map(|_| ()),
@@ -1076,7 +1076,7 @@ fn decode_limits() {
     );
     let at_limit = bytes(2097152, 1);
     let mut ok = vec![0u8];
-    ok.extend(to_bytes(&at_limit));
+    ok.extend(to_bytes(&at_limit).unwrap());
     ok.push(0);
     assert_eq!(
         from_bytes::<ClientboundLevelChunkPacketData>(&ok)
@@ -1085,8 +1085,8 @@ fn decode_limits() {
             .len(),
         2097152
     );
-    let mut biomes = to_bytes(&ChunkPos::new(1, 2));
-    biomes.extend(to_bytes(&over));
+    let mut biomes = to_bytes(&ChunkPos::new(1, 2)).unwrap();
+    biomes.extend(to_bytes(&over).unwrap());
     assert_eq!(
         from_bytes::<ChunkBiomeData>(&biomes).map(|_| ()),
         msg("ByteArray with size 2097153 is bigger than allowed 2097152")
@@ -1094,14 +1094,14 @@ fn decode_limits() {
 
     // light layers: byteArray(2048)
     let mut light = vec![0u8, 0, 0, 0, 1];
-    light.extend(to_bytes(&bytes(2049, 1)));
+    light.extend(to_bytes(&bytes(2049, 1)).unwrap());
     light.push(0);
     assert_eq!(
         from_bytes::<ClientboundLightUpdatePacketData>(&light).map(|_| ()),
         msg("ByteArray with size 2049 is bigger than allowed 2048")
     );
     let mut light_ok = vec![0u8, 0, 0, 0, 1];
-    light_ok.extend(to_bytes(&bytes(2048, 1)));
+    light_ok.extend(to_bytes(&bytes(2048, 1)).unwrap());
     light_ok.push(0);
     assert_eq!(
         from_bytes::<ClientboundLightUpdatePacketData>(&light_ok)
@@ -1125,7 +1125,7 @@ fn decode_limits() {
     let full = to_bytes(&ClientboundSectionBlocksUpdatePacket {
         section_pos: SectionPos::of(1, 2, 3),
         changes: vec![(1, state(2)), (3, state(4))],
-    });
+    }).unwrap();
     for n in 0..full.len() {
         assert!(from_bytes::<ClientboundSectionBlocksUpdatePacket>(&full[..n]).is_err());
     }
@@ -1134,26 +1134,26 @@ fn decode_limits() {
 #[test]
 fn bad_ids() {
     // unknown registry ids: `No value with id N`
-    let mut b = to_bytes(&BlockPos::ZERO);
+    let mut b = to_bytes(&BlockPos::ZERO).unwrap();
     b.extend_from_slice(&[0, 0]);
-    b.extend(to_bytes(&mc_protocol::codec::VarInt(BLOCK_COUNT as i32)));
+    b.extend(to_bytes(&mc_protocol::codec::VarInt(BLOCK_COUNT as i32)).unwrap());
     // `ByteBufCodecs.registry(BLOCK)` on the defaulted block registry: unknown ids read as air
     assert_eq!(from_bytes::<ClientboundBlockEventPacket>(&b).unwrap().block, mc_data::Block::AIR);
-    let mut b = to_bytes(&BlockPos::ZERO);
-    b.extend(to_bytes(&mc_protocol::codec::VarInt(STATE_COUNT as i32)));
+    let mut b = to_bytes(&BlockPos::ZERO).unwrap();
+    b.extend(to_bytes(&mc_protocol::codec::VarInt(STATE_COUNT as i32)).unwrap());
     assert_eq!(
         from_bytes::<ClientboundBlockUpdatePacket>(&b).map(|_| ()),
         msg(format!("No value with id {STATE_COUNT}"))
     );
-    let mut b = to_bytes(&BlockPos::ZERO);
-    b.extend(to_bytes(&mc_protocol::codec::VarInt(-1)));
+    let mut b = to_bytes(&BlockPos::ZERO).unwrap();
+    b.extend(to_bytes(&mc_protocol::codec::VarInt(-1)).unwrap());
     assert_eq!(
         from_bytes::<ClientboundAddTransientBlockPacket>(&b).map(|_| ()),
         msg("No value with id -1")
     );
     let n = BlockEntityType::registry().len() as i32;
-    let mut b = to_bytes(&BlockPos::ZERO);
-    b.extend(to_bytes(&mc_protocol::codec::VarInt(n)));
+    let mut b = to_bytes(&BlockPos::ZERO).unwrap();
+    b.extend(to_bytes(&mc_protocol::codec::VarInt(n)).unwrap());
     b.push(10);
     b.push(0);
     assert_eq!(
@@ -1161,7 +1161,7 @@ fn bad_ids() {
         msg(format!("No value with id {n}"))
     );
     // an unknown state id inside a section update
-    let mut b = to_bytes(&SectionPos::of(0, 0, 0));
+    let mut b = to_bytes(&SectionPos::of(0, 0, 0)).unwrap();
     b.push(1);
     mc_protocol::codec::write_varlong(&mut b, (STATE_COUNT as i64) << 12);
     assert_eq!(
@@ -1178,7 +1178,7 @@ fn bad_ids() {
     // unknown sound registry id (`id - 1`)
     let mut b = to_bytes(&mc_protocol::codec::VarInt(
         SoundEvent::registry().len() as i32 + 1,
-    ));
+    )).unwrap();
     b.push(0);
     assert_eq!(
         from_bytes::<ClientboundSoundEntityPacket>(&b).map(|_| ()),
@@ -1202,7 +1202,7 @@ fn bad_ids() {
             .event,
         200
     );
-    let mut b = to_bytes(&BlockPos::ZERO);
+    let mut b = to_bytes(&BlockPos::ZERO).unwrap();
     b.push(0);
     b.push(8); // a string tag as the root
     assert!(from_bytes::<ClientboundBlockEntityDataPacket>(&b).is_err());
@@ -1219,7 +1219,7 @@ fn nbt_quota() {
         tag: big.clone(),
     };
     assert_eq!(
-        from_bytes::<ClientboundBlockEntityDataPacket>(&to_bytes(&packet))
+        from_bytes::<ClientboundBlockEntityDataPacket>(&to_bytes(&packet).unwrap())
             .unwrap()
             .tag,
         big
@@ -1230,5 +1230,5 @@ fn nbt_quota() {
         r#type: BlockEntityType::from_id(0).unwrap(),
         tag: Some(big),
     };
-    assert!(from_bytes::<BlockEntityInfo>(&to_bytes(&info)).is_err());
+    assert!(from_bytes::<BlockEntityInfo>(&to_bytes(&info).unwrap()).is_err());
 }

@@ -5,7 +5,7 @@ use mc_text::Component;
 use serde_json::{Map, Number, Value};
 use uuid::Uuid;
 
-use crate::codec::{read_utf, write_utf, DecodeError, DecodeResult};
+use crate::codec::{read_utf, write_utf, DecodeError, DecodeResult, EncodeError, EncodeResult, MAX_STRING_LENGTH};
 use crate::gson::{self, JsonElement, JsonObject};
 use crate::{packet_enum, Decode, Encode, Packet};
 
@@ -108,10 +108,10 @@ fn codec_string(e: &JsonElement) -> Option<&str> {
 impl ServerStatus {
     /// `ServerStatus.CODEC` encode (`JsonOps`): fields equal to their defaults (empty description, empty `sample`,
     /// `enforcesSecureChat == false`) are omitted, in declaration order.
-    pub fn to_json(&self) -> JsonElement {
+    pub fn to_json(&self) -> EncodeResult<JsonElement> {
         let mut o = JsonObject::new();
         if self.description != Component::empty() {
-            let d = self.description.to_json().unwrap_or_else(|e| panic!("Failed to encode: {e}"));
+            let d = self.description.to_json().map_err(|e| EncodeError(format!("Failed to encode: {e}")))?;
             o.add("description", value_to_element(&d));
         }
         if let Some(p) = &self.players {
@@ -145,13 +145,13 @@ impl ServerStatus {
         if self.enforces_secure_chat {
             o.add_property_bool("enforcesSecureChat", true);
         }
-        JsonElement::Object(o)
+        Ok(JsonElement::Object(o))
     }
 
     /// The text of the status response: `ByteBufCodecs.lenientJson` writes it with a Gson that has HTML escaping
     /// disabled.
-    pub fn to_json_string(&self) -> String {
-        self.to_json().to_gson_string_unescaped()
+    pub fn to_json_string(&self) -> EncodeResult<String> {
+        Ok(self.to_json()?.to_gson_string_unescaped())
     }
 
     /// `ServerStatus.CODEC` decode. Optional fields (`lenientOptionalFieldOf`) that are missing or malformed fall back
@@ -305,8 +305,9 @@ pub struct ClientboundStatusResponsePacket {
 }
 
 impl Encode for ClientboundStatusResponsePacket {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_utf(out, &self.status.to_json_string())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        // `ByteBufCodecs.lenientJson(32767)`
+        write_utf(out, &self.status.to_json_string()?, MAX_STRING_LENGTH)
     }
 }
 impl Decode for ClientboundStatusResponsePacket {

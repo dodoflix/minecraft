@@ -1,4 +1,5 @@
 //! Small wire types shared by several play packet groups.
+use crate::codec::EncodeResult;
 use mc_core::phys::vec3::Vec3;
 
 use mc_core::ident::Identifier;
@@ -93,8 +94,9 @@ impl FromIterator<Relative> for Relatives {
 }
 
 impl Encode for Relatives {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.pack().encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.pack().encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Relatives {
@@ -118,14 +120,15 @@ pub enum SoundEventHolder {
 }
 
 impl Encode for SoundEventHolder {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Reference(s) => write_varint(out, s.id() as i32 + 1),
             Self::Direct(d) => {
                 write_varint(out, 0);
-                d.encode(out)
+                d.encode(out)?
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for SoundEventHolder {

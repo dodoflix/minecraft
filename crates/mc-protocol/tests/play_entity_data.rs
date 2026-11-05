@@ -63,13 +63,13 @@ fn add_entity(
     let expected = g.bytes(&label);
     let mut ours = Vec::new();
     mc_protocol::codec::write_varint(&mut ours, ClientboundAddEntityPacket::ID);
-    p.encode(&mut ours);
+    p.encode(&mut ours).unwrap();
     assert_eq!(hex(&ours), hex(expected), "encode {label}");
     // the low-precision movement does not survive a round trip: compare against its own quantisation
     let mut input = &expected[1..];
     let decoded = ClientboundAddEntityPacket::decode(&mut input).unwrap();
     assert!(input.is_empty());
-    let quantised: LpVec3 = mc_protocol::codec::from_bytes(&to_bytes(&p.movement)).unwrap();
+    let quantised: LpVec3 = mc_protocol::codec::from_bytes(&to_bytes(&p.movement).unwrap()).unwrap();
     assert_eq!(decoded, ClientboundAddEntityPacket { movement: quantised, ..p }, "decode {label}");
 }
 
@@ -196,7 +196,7 @@ fn optional_block_state_air_reads_back_empty(g: &Golden) {
     let p = ClientboundSetEntityDataPacket { id: 7, packed_items: vec![DataValue { id: 5, value: EntityDataValue::OptionalBlockState(Some(state(0))) }] };
     let mut ours = Vec::new();
     mc_protocol::codec::write_varint(&mut ours, ClientboundSetEntityDataPacket::ID);
-    p.encode(&mut ours);
+    p.encode(&mut ours).unwrap();
     assert_eq!(hex(&ours), hex(g.bytes(label)));
     let decoded = ClientboundSetEntityDataPacket::decode(&mut &g.bytes(label)[1..]).unwrap();
     assert_eq!(decoded.packed_items[0].value, EntityDataValue::OptionalBlockState(None));
@@ -406,15 +406,15 @@ fn particle_types(g: &Golden) {
     // the constructor clamps the scale to [0.01, 4]: vanilla's bytes hold the clamped scale, also when encoding the raw one
     dust("dust_clamp_hi", 0, 4.0);
     dust("dust_clamp_lo", 0, 0.01);
-    assert_eq!(to_bytes(&ParticleOptions::Dust { color: 0, scale: 100.0 }), g.bytes("particle_dust_clamp_hi"));
-    assert_eq!(to_bytes(&ParticleOptions::Dust { color: 0, scale: -3.0 }), g.bytes("particle_dust_clamp_lo"));
+    assert_eq!(to_bytes(&ParticleOptions::Dust { color: 0, scale: 100.0 }).unwrap(), g.bytes("particle_dust_clamp_hi"));
+    assert_eq!(to_bytes(&ParticleOptions::Dust { color: 0, scale: -3.0 }).unwrap(), g.bytes("particle_dust_clamp_lo"));
     let transition = |l: &str, from_color, to_color, scale| g.check_value(&format!("particle_{l}"), &ParticleOptions::DustColorTransition { from_color, to_color, scale });
     transition("dust_color_transition_a", 0x3A0AE0, 0xFF0000, 1.0);
     transition("dust_color_transition_b", 0, -1, 0.5);
     transition("dust_color_transition_clamp_hi", 1, 2, 4.0);
     transition("dust_color_transition_clamp_lo", 1, 2, 0.01);
-    assert_eq!(to_bytes(&ParticleOptions::DustColorTransition { from_color: 1, to_color: 2, scale: 50.0 }), g.bytes("particle_dust_color_transition_clamp_hi"));
-    assert_eq!(to_bytes(&ParticleOptions::DustColorTransition { from_color: 1, to_color: 2, scale: 0.0 }), g.bytes("particle_dust_color_transition_clamp_lo"));
+    assert_eq!(to_bytes(&ParticleOptions::DustColorTransition { from_color: 1, to_color: 2, scale: 50.0 }).unwrap(), g.bytes("particle_dust_color_transition_clamp_hi"));
+    assert_eq!(to_bytes(&ParticleOptions::DustColorTransition { from_color: 1, to_color: 2, scale: 0.0 }).unwrap(), g.bytes("particle_dust_color_transition_clamp_lo"));
     for (i, roll) in [0.0f32, -1.5, 3.14159].into_iter().enumerate() {
         g.check_value(&format!("particle_sculk_charge_{i}"), &ParticleOptions::SculkCharge { roll });
     }
@@ -623,7 +623,7 @@ fn redecode<P: Packet + Encode + Decode + std::fmt::Debug>(g: &Golden, label: &s
         (Ok(p), None) => {
             let mut ours = Vec::new();
             mc_protocol::codec::write_varint(&mut ours, P::ID);
-            p.encode(&mut ours);
+            p.encode(&mut ours).unwrap();
             assert_eq!(hex(&ours), hex(expected), "re-encode {label}");
         }
         (Err(e), Some(msg)) => {

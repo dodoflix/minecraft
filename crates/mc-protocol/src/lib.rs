@@ -1,3 +1,4 @@
+#![deny(unused_must_use)]
 //! Minecraft Java Edition 26.3 (protocol 777) wire protocol: codecs, framing, compression,
 //! encryption, authentication helpers and the handshake/status/login/configuration packets.
 

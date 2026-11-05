@@ -1,5 +1,6 @@
 //! Effect-flavoured components: attribute modifiers, potions, stews, food and consumables, use effects.
 
+use crate::codec::EncodeResult;
 use crate::codec::{read_registry_id, write_varint, DecodeResult};
 use crate::{Decode, Encode};
 use crate::components::common::{read_enum_zero, RegistrySet};
@@ -53,19 +54,20 @@ pub(crate) fn ident(s: &str) -> Identifier {
     Identifier::parse(s).expect("valid identifier")
 }
 
-pub(crate) fn enc_opt<T>(out: &mut Vec<u8>, v: &Option<T>, f: impl FnOnce(&T, &mut Vec<u8>)) {
+pub(crate) fn enc_opt<T>(out: &mut Vec<u8>, v: &Option<T>, f: impl FnOnce(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
     match v {
         Some(v) => {
             out.push(1);
-            f(v, out);
+            f(v, out)?;
         }
         None => out.push(0),
     }
+    Ok(())
 }
 pub(crate) fn dec_opt<T>(input: &mut &[u8], f: impl FnOnce(&mut &[u8]) -> DecodeResult<T>) -> DecodeResult<Option<T>> {
     if bool::decode(input)? { f(input).map(Some) } else { Ok(None) }
 }
-pub(crate) fn enc_sound_opt(v: &Option<Holder<SoundEvent>>, out: &mut Vec<u8>) {
+pub(crate) fn enc_sound_opt(v: &Option<Holder<SoundEvent>>, out: &mut Vec<u8>) -> EncodeResult<()> {
     enc_opt(out, v, |h, o| SoundEvent::encode_holder(h, o))
 }
 pub(crate) fn dec_sound_opt(input: &mut &[u8]) -> DecodeResult<Option<Holder<SoundEvent>>> {
@@ -86,8 +88,9 @@ string_enum! {
     }
 }
 impl Encode for EquipmentSlotGroup {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.id())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.id());
+        Ok(())
     }
 }
 impl Decode for EquipmentSlotGroup {
@@ -164,11 +167,12 @@ impl ItemAttributeModifiersDisplay {
     }
 }
 impl Encode for ItemAttributeModifiersDisplay {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.kind().id());
         if let Self::OverrideText(c) = self {
-            c.encode(out);
-        }
+            c.encode(out)?;
+        };
+        Ok(())
     }
 }
 impl Decode for ItemAttributeModifiersDisplay {
@@ -206,11 +210,12 @@ impl ItemAttributeModifiersEntry {
     }
 }
 impl Encode for ItemAttributeModifiersEntry {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.attribute.id() as i32);
-        self.modifier.encode(out);
-        self.slot.encode(out);
-        self.display.encode(out);
+        self.modifier.encode(out)?;
+        self.slot.encode(out)?;
+        self.display.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for ItemAttributeModifiersEntry {
@@ -297,13 +302,14 @@ impl Details {
     }
 }
 impl Encode for Details {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.amplifier);
         write_varint(out, self.duration);
-        self.ambient.encode(out);
-        self.show_particles.encode(out);
-        self.show_icon.encode(out);
-        enc_opt(out, &self.hidden_effect, |d, o| d.encode(o));
+        self.ambient.encode(out)?;
+        self.show_particles.encode(out)?;
+        self.show_icon.encode(out)?;
+        enc_opt(out, &self.hidden_effect, |d, o| d.encode(o))?;
+        Ok(())
     }
 }
 impl Decode for Details {
@@ -384,9 +390,10 @@ impl MobEffectInstance {
     }
 }
 impl Encode for MobEffectInstance {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.effect.id() as i32);
-        self.as_details().encode(out);
+        self.as_details().encode(out)?;
+        Ok(())
     }
 }
 impl Decode for MobEffectInstance {
@@ -429,11 +436,15 @@ fn without_hidden(v: &[MobEffectInstance]) -> Vec<MobEffectInstance> {
 }
 
 impl Encode for PotionContents {
-    fn encode(&self, out: &mut Vec<u8>) {
-        enc_opt(out, &self.potion, |p, o| write_varint(o, p.id() as i32));
-        self.custom_color.encode(out);
-        without_hidden(&self.custom_effects).encode(out);
-        self.custom_name.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        enc_opt(out, &self.potion, |p, o| {
+            write_varint(o, p.id() as i32);
+            Ok(())
+        })?;
+        self.custom_color.encode(out)?;
+        without_hidden(&self.custom_effects).encode(out)?;
+        self.custom_name.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for PotionContents {
@@ -465,9 +476,10 @@ impl SuspiciousStewEffectsEntry {
     }
 }
 impl Encode for SuspiciousStewEffectsEntry {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.effect.id() as i32);
         write_varint(out, self.duration);
+        Ok(())
     }
 }
 impl Decode for SuspiciousStewEffectsEntry {
@@ -587,21 +599,22 @@ impl ConsumeEffect {
     }
 }
 impl Encode for ConsumeEffect {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.kind().id() as i32);
         match self {
             Self::ApplyStatusEffects(e) => {
-                e.effects.encode(out);
-                e.probability.encode(out);
+                e.effects.encode(out)?;
+                e.probability.encode(out)?;
             }
-            Self::RemoveStatusEffects(e) => e.effects.encode_stream(out),
+            Self::RemoveStatusEffects(e) => e.effects.encode_stream(out)?,
             Self::ClearAllStatusEffects => {}
             Self::TeleportRandomly(e) => {
-                e.diameter.encode(out);
-                e.directional_particles.encode(out);
+                e.diameter.encode(out)?;
+                e.directional_particles.encode(out)?;
             }
-            Self::PlaySound(e) => SoundEvent::encode_holder(&e.sound, out),
-        }
+            Self::PlaySound(e) => SoundEvent::encode_holder(&e.sound, out)?,
+        };
+        Ok(())
     }
 }
 impl Decode for ConsumeEffect {
@@ -631,8 +644,9 @@ string_enum! {
     }
 }
 impl Encode for ItemUseAnimation {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.id())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.id());
+        Ok(())
     }
 }
 impl Decode for ItemUseAnimation {
@@ -672,12 +686,13 @@ impl Consumable {
     }
 }
 impl Encode for Consumable {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.consume_seconds.encode(out);
-        self.animation.encode(out);
-        SoundEvent::encode_holder(&self.sound, out);
-        self.has_consume_particles.encode(out);
-        self.on_consume_effects.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.consume_seconds.encode(out)?;
+        self.animation.encode(out)?;
+        SoundEvent::encode_holder(&self.sound, out)?;
+        self.has_consume_particles.encode(out)?;
+        self.on_consume_effects.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Consumable {
@@ -727,10 +742,11 @@ impl FoodProperties {
     }
 }
 impl Encode for FoodProperties {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.nutrition);
-        self.saturation.encode(out);
-        self.can_always_eat.encode(out);
+        self.saturation.encode(out)?;
+        self.can_always_eat.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for FoodProperties {

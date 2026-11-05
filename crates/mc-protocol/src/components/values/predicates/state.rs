@@ -1,5 +1,6 @@
 //! `StatePropertiesPredicate` and `NbtPredicate`.
 
+use crate::codec::EncodeResult;
 use crate::codec::{Decode, DecodeResult, Encode};
 use crate::components::common::lenient_compound_codec;
 use mc_dfu::{Codec, DataResult, Either, STRING};
@@ -47,18 +48,19 @@ impl ValueMatcher {
 }
 
 impl Encode for ValueMatcher {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             ValueMatcher::Exact(v) => {
                 out.push(1);
-                v.encode(out);
+                v.encode(out)?;
             }
             ValueMatcher::Ranged { min, max } => {
                 out.push(0);
-                min.encode(out);
-                max.encode(out);
+                min.encode(out)?;
+                max.encode(out)?;
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for ValueMatcher {
@@ -71,9 +73,10 @@ impl Decode for ValueMatcher {
     }
 }
 impl Encode for PropertyMatcher {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.name.encode(out);
-        self.value_matcher.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.name.encode(out)?;
+        self.value_matcher.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for PropertyMatcher {
@@ -115,8 +118,9 @@ impl StatePropertiesPredicate {
 }
 
 impl Encode for StatePropertiesPredicate {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.properties.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.properties.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for StatePropertiesPredicate {
@@ -146,8 +150,9 @@ impl NbtPredicate {
 }
 
 impl Encode for NbtPredicate {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.tag.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.tag.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for NbtPredicate {

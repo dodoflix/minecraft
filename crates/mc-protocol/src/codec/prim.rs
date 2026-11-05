@@ -1,13 +1,14 @@
 //! Primitive codecs: numbers, strings, options, collections.
 use super::{
     read_count, read_varint, take, take_array, write_varint, Decode, DecodeBounded, DecodeError, DecodeResult, Encode,
+    EncodeBounded, EncodeError, EncodeResult,
 };
 
 macro_rules! be_num {
     ($($t:ty),*) => {$(
         impl Encode for $t {
             #[inline]
-            fn encode(&self, out: &mut Vec<u8>) { out.extend_from_slice(&self.to_be_bytes()) }
+            fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> { out.extend_from_slice(&self.to_be_bytes()); Ok(()) }
         }
         impl Decode for $t {
             #[inline]
@@ -19,11 +20,22 @@ be_num!(i16, u16, i32, u32, i64, u64, f32, f64);
 
 impl Encode for u8 {
     #[inline]
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.push(*self)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.push(*self);
+        Ok(())
     }
-    fn encode_slice(items: &[Self], out: &mut Vec<u8>) {
-        out.extend_from_slice(items)
+    fn encode_slice(items: &[Self], out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.extend_from_slice(items);
+        Ok(())
+    }
+    /// `ByteBufCodecs.byteArray(max)` encode: the check, then `FriendlyByteBuf.writeByteArray`.
+    fn encode_vec_bounded(items: &[Self], out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
+        if items.len() > max {
+            return Err(EncodeError(format!("ByteArray with size {} is bigger than allowed {max}", items.len())));
+        }
+        write_varint(out, items.len() as i32);
+        out.extend_from_slice(items);
+        Ok(())
     }
 }
 impl Decode for u8 {
@@ -46,8 +58,9 @@ impl Decode for u8 {
 }
 impl Encode for i8 {
     #[inline]
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.push(*self as u8)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.push(*self as u8);
+        Ok(())
     }
 }
 impl Decode for i8 {
@@ -58,8 +71,9 @@ impl Decode for i8 {
 }
 impl Encode for bool {
     #[inline]
-    fn encode(&self, out: &mut Vec<u8>) {
-        out.push(*self as u8)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        out.push(*self as u8);
+        Ok(())
     }
 }
 impl Decode for bool {
@@ -69,7 +83,9 @@ impl Decode for bool {
     }
 }
 impl Encode for () {
-    fn encode(&self, _: &mut Vec<u8>) {}
+    fn encode(&self, _: &mut Vec<u8>) -> EncodeResult<()> {
+        Ok(())
+    }
 }
 impl Decode for () {
     fn decode(_: &mut &[u8]) -> DecodeResult<Self> {
@@ -81,7 +97,7 @@ macro_rules! tuple {
     ($($n:ident),+) => {
         impl<$($n: Encode),+> Encode for ($($n,)+) {
             #[allow(non_snake_case)]
-            fn encode(&self, out: &mut Vec<u8>) { let ($($n,)+) = self; $($n.encode(out);)+ }
+            fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> { let ($($n,)+) = self; $($n.encode(out)?;)+ Ok(()) }
         }
         impl<$($n: Decode),+> Decode for ($($n,)+) {
             fn decode(input: &mut &[u8]) -> DecodeResult<Self> { Ok(($($n::decode(input)?,)+)) }
@@ -102,10 +118,29 @@ pub fn utf16_len(s: &str) -> usize {
     s.encode_utf16().count()
 }
 
-/// `Utf8String.write` without the length check (see module docs).
-pub fn write_utf(out: &mut Vec<u8>, s: &str) {
+/// `Utf8String.write`: `max_length` in UTF-16 code units; the encoded size is bounded by `3 * max_length` bytes
+/// (`ByteBufUtil.utf8MaxBytes`). Nothing is written on error.
+pub fn write_utf(out: &mut Vec<u8>, s: &str, max_length: usize) -> EncodeResult<()> {
+    let chars = utf16_len(s);
+    if chars > max_length {
+        return Err(EncodeError(format!("String too big (was {chars} characters, max {max_length})")));
+    }
+    let max_encoded = max_length as i64 * 3;
+    if s.len() as i64 > max_encoded {
+        return Err(EncodeError(format!("String too big (was {} bytes encoded, max {max_encoded})", s.len())));
+    }
     write_varint(out, s.len() as i32);
     out.extend_from_slice(s.as_bytes());
+    Ok(())
+}
+
+/// `ByteBufCodecs.writeCount`: VarInt element count, rejected when above `max`.
+pub fn write_count(out: &mut Vec<u8>, count: usize, max: usize) -> EncodeResult<()> {
+    if count > max {
+        return Err(EncodeError(format!("{count} elements exceeded max size of: {max}")));
+    }
+    write_varint(out, count as i32);
+    Ok(())
 }
 
 /// `Utf8String.read`: `max_length` in UTF-16 code units.
@@ -135,13 +170,23 @@ pub fn read_utf(input: &mut &[u8], max_length: usize) -> DecodeResult<String> {
 }
 
 impl Encode for str {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_utf(out, self)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_utf(out, self, MAX_STRING_LENGTH)
     }
 }
 impl Encode for String {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_utf(out, self)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_utf(out, self, MAX_STRING_LENGTH)
+    }
+}
+impl EncodeBounded for str {
+    fn encode_bounded(&self, out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
+        write_utf(out, self, max)
+    }
+}
+impl EncodeBounded for String {
+    fn encode_bounded(&self, out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
+        write_utf(out, self, max)
     }
 }
 impl Decode for String {
@@ -158,13 +203,30 @@ impl DecodeBounded for String {
 // ---- option / collections ------------------------------------------------------------------
 
 impl<T: Encode> Encode for Option<T> {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Some(v) => {
                 out.push(1);
                 v.encode(out)
             }
-            None => out.push(0),
+            None => {
+                out.push(0);
+                Ok(())
+            }
+        }
+    }
+}
+impl<T: EncodeBounded> EncodeBounded for Option<T> {
+    fn encode_bounded(&self, out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
+        match self {
+            Some(v) => {
+                out.push(1);
+                v.encode_bounded(out, max)
+            }
+            None => {
+                out.push(0);
+                Ok(())
+            }
         }
     }
 }
@@ -180,14 +242,24 @@ impl<T: DecodeBounded> DecodeBounded for Option<T> {
 }
 
 impl<T: Encode> Encode for [T] {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.len() as i32);
-        T::encode_slice(self, out);
+        T::encode_slice(self, out)
     }
 }
 impl<T: Encode> Encode for Vec<T> {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         self.as_slice().encode(out)
+    }
+}
+impl<T: Encode> EncodeBounded for [T] {
+    fn encode_bounded(&self, out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
+        T::encode_vec_bounded(self, out, max)
+    }
+}
+impl<T: Encode> EncodeBounded for Vec<T> {
+    fn encode_bounded(&self, out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
+        T::encode_vec_bounded(self, out, max)
     }
 }
 impl<T: Decode> Decode for Vec<T> {
@@ -203,7 +275,7 @@ impl<T: Decode> DecodeBounded for Vec<T> {
 
 /// `fixedSizeCollection`: no length prefix.
 impl<T: Encode, const N: usize> Encode for [T; N] {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         T::encode_slice(self, out)
     }
 }
@@ -222,11 +294,12 @@ impl<T: Decode, const N: usize> Decode for [T; N] {
 pub struct LongArray(pub Vec<i64>);
 
 impl Encode for LongArray {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.0.len() as i32);
         for l in &self.0 {
-            l.encode(out);
+            l.encode(out)?;
         }
+        Ok(())
     }
 }
 impl Decode for LongArray {
@@ -249,7 +322,7 @@ mod tests {
     fn utf16_limits() {
         // U+1F600 is 2 UTF-16 units, 4 UTF-8 bytes.
         let s = "\u{1F600}\u{1F600}";
-        let b = to_bytes(s);
+        let b = to_bytes(s).unwrap();
         assert_eq!(b[0], 8);
         assert_eq!(read_utf(&mut &b[..], 4).unwrap(), s);
         assert_eq!(
@@ -273,7 +346,7 @@ mod tests {
     #[test]
     fn collections() {
         let v: Vec<u8> = vec![1, 2, 3];
-        assert_eq!(to_bytes(&v), [3, 1, 2, 3]);
+        assert_eq!(to_bytes(&v).unwrap(), [3, 1, 2, 3]);
         assert_eq!(from_bytes::<Vec<u8>>(&[3, 1, 2, 3]).unwrap(), v);
         assert_eq!(
             <Vec<u8>>::decode_bounded(&mut &[3u8, 1, 2, 3][..], 2),
@@ -284,7 +357,7 @@ mod tests {
             Err(DecodeError::msg("3 elements exceeded max size of: 2"))
         );
         assert_eq!(from_bytes::<Option<i16>>(&[1, 0, 5]).unwrap(), Some(5));
-        assert_eq!(to_bytes(&None::<i16>), [0]);
+        assert_eq!(to_bytes(&None::<i16>).unwrap(), [0]);
         assert_eq!(from_bytes::<[u8; 2]>(&[7, 8]).unwrap(), [7, 8]);
     }
 }

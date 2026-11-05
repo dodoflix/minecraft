@@ -1,4 +1,5 @@
 //! `ParticleOptions` and `ParticleTypes.STREAM_CODEC` (registry id, then the payload of that particle type).
+use crate::codec::EncodeResult;
 use mc_core::math::mth::clamp_f32;
 use mc_core::phys::vec3::Vec3;
 use mc_core::pos::block_pos::BlockPos;
@@ -128,47 +129,47 @@ impl ParticleOptions {
 }
 
 impl Encode for ParticleOptions {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.particle_type().id() as i32);
         match self {
             Self::Simple(_) => {}
-            Self::Block { state, .. } => state.encode(out),
-            Self::Color { color, .. } => color.encode(out),
-            Self::Power { power, .. } => power.encode(out),
+            Self::Block { state, .. } => state.encode(out)?,
+            Self::Color { color, .. } => color.encode(out)?,
+            Self::Power { power, .. } => power.encode(out)?,
             Self::Spell { color, power, .. } => {
-                color.encode(out);
-                power.encode(out);
+                color.encode(out)?;
+                power.encode(out)?;
             }
-            Self::Geyser { water_blocks, .. } => water_blocks.encode(out),
+            Self::Geyser { water_blocks, .. } => water_blocks.encode(out)?,
             Self::GeyserBase {
                 water_blocks,
                 burst_impulse_base,
                 ..
             } => {
-                water_blocks.encode(out);
-                burst_impulse_base.encode(out);
+                water_blocks.encode(out)?;
+                burst_impulse_base.encode(out)?;
             }
             Self::Dust { color, scale } => {
-                color.encode(out);
-                clamp_scale(*scale).encode(out);
+                color.encode(out)?;
+                clamp_scale(*scale).encode(out)?;
             }
             Self::DustColorTransition {
                 from_color,
                 to_color,
                 scale,
             } => {
-                from_color.encode(out);
-                to_color.encode(out);
-                clamp_scale(*scale).encode(out);
+                from_color.encode(out)?;
+                to_color.encode(out)?;
+                clamp_scale(*scale).encode(out)?;
             }
-            Self::Item(item) => item.encode(out),
-            Self::SculkCharge { roll } => roll.encode(out),
+            Self::Item(item) => item.encode(out)?,
+            Self::SculkCharge { roll } => roll.encode(out)?,
             Self::Shriek { delay } => write_varint(out, *delay),
             Self::Vibration {
                 destination,
                 arrival_in_ticks,
             } => {
-                destination.encode(out);
+                destination.encode(out)?;
                 write_varint(out, *arrival_in_ticks);
             }
             Self::Trail {
@@ -176,11 +177,12 @@ impl Encode for ParticleOptions {
                 color,
                 duration,
             } => {
-                target.encode(out);
-                color.encode(out);
+                target.encode(out)?;
+                color.encode(out)?;
                 write_varint(out, *duration);
             }
-        }
+        };
+        Ok(())
     }
 }
 

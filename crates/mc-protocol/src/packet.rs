@@ -107,14 +107,16 @@ macro_rules! packet_enum {
             }
 
             /// Append the packet body (no id).
-            pub fn encode_body(&self, out: &mut ::std::vec::Vec<u8>) {
-                match self { $(Self::$variant(p) => $crate::codec::Encode::encode(p, out)),* }
+            pub fn encode_body(&self, out: &mut ::std::vec::Vec<u8>) -> $crate::codec::EncodeResult<()> {
+                match self { $(Self::$variant(p) => $crate::codec::Encode::encode(p, out)?),* };
+                Ok(())
             }
 
             /// Append `VarInt id` + body: the uncompressed, unframed packet payload.
-            pub fn encode_payload(&self, out: &mut ::std::vec::Vec<u8>) {
+            pub fn encode_payload(&self, out: &mut ::std::vec::Vec<u8>) -> $crate::codec::EncodeResult<()> {
                 $crate::codec::write_varint(out, self.id());
-                self.encode_body(out);
+                self.encode_body(out)?;
+                Ok(())
             }
 
             /// Decode a body whose id is already known.

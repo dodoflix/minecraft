@@ -1,4 +1,5 @@
 //! Recipe/slot display model and the packets carrying it (recipe book add, ghost recipe, update recipes).
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_text::Component;
 
@@ -12,8 +13,9 @@ mod optional_var_int {
     use crate::codec::OptionalVarInt;
     use crate::{Decode, Encode};
 
-    pub fn encode(v: &Option<i32>, out: &mut Vec<u8>) {
-        OptionalVarInt(*v).encode(out)
+    pub fn encode(v: &Option<i32>, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        OptionalVarInt(*v).encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> crate::codec::DecodeResult<Option<i32>> {
         OptionalVarInt::decode(input).map(|v| v.0)
@@ -26,8 +28,9 @@ mod item_holder_set {
     use crate::codec::{DecodeError, DecodeResult, HolderSet};
     use crate::{Decode, Encode};
 
-    pub fn encode(set: &HolderSet, out: &mut Vec<u8>) {
-        set.encode(out)
+    pub fn encode(set: &HolderSet, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
+        set.encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<HolderSet> {
         // Vanilla resolves each id while reading; here the ids are checked after the whole set was read.
@@ -265,8 +268,9 @@ pub struct RecipePropertySet {
 }
 
 impl Encode for RecipePropertySet {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.items.encode(out)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.items.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for RecipePropertySet {
@@ -310,8 +314,9 @@ pub struct ClientboundUpdateRecipesPacket {
 mod item_sets {
     use super::*;
 
-    pub fn encode(sets: &[(Identifier, RecipePropertySet)], out: &mut Vec<u8>) {
-        sets.encode(out)
+    pub fn encode(sets: &[(Identifier, RecipePropertySet)], out: &mut Vec<u8>) -> EncodeResult<()> {
+        sets.encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(Identifier, RecipePropertySet)>> {
         let count = read_count(input, i32::MAX as usize)?;

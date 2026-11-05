@@ -142,7 +142,7 @@ fn configuration_clientbound() {
     let g = golden();
     type Cb = ClientboundConfigurationPacket;
     check!(g, "config/cb_cookie_request", Cb, ClientboundCookieRequestPacket { key: id("minecraft:c") });
-    check!(g, "config/cb_custom_payload_brand", Cb, ClientboundCustomPayloadPacket { payload: CustomPayload::brand("vanilla") });
+    check!(g, "config/cb_custom_payload_brand", Cb, ClientboundCustomPayloadPacket { payload: CustomPayload::brand("vanilla").unwrap() });
     check!(g, "config/cb_custom_payload_discarded", Cb, ClientboundCustomPayloadPacket { payload: CustomPayload { id: id("mod:x"), data: vec![] } });
     let mut kicked = Component::translatable("multiplayer.disconnect.kicked", vec![]);
     kicked = kicked.with_formats(&[ChatFormatting::Red, ChatFormatting::Bold]);
@@ -255,7 +255,7 @@ fn configuration_serverbound() {
         }
     );
     check!(g, "config/sb_cookie_response", Sb, ServerboundCookieResponsePacket { key: id("minecraft:c"), payload: Some(vec![]) });
-    check!(g, "config/sb_custom_payload_brand", Sb, ServerboundCustomPayloadPacket { payload: CustomPayload::brand("fabric") });
+    check!(g, "config/sb_custom_payload_brand", Sb, ServerboundCustomPayloadPacket { payload: CustomPayload::brand("fabric").unwrap() });
     check!(g, "config/sb_finish_configuration", Sb, ServerboundFinishConfigurationPacket);
     check!(g, "config/sb_keep_alive", Sb, ServerboundKeepAlivePacket { id: -1 });
     check!(g, "config/sb_pong", Sb, ServerboundPongPacket { id: 123456 });

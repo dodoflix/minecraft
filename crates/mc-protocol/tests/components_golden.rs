@@ -32,14 +32,11 @@ fn install_registries() {
     let _ = registry_context::set(ctx);
 }
 
-fn wire(f: impl FnOnce(&mut Vec<u8>)) -> String {
+fn wire(f: impl FnOnce(&mut Vec<u8>) -> mc_protocol::codec::EncodeResult<()>) -> String {
     let mut out = Vec::new();
-    match catch_unwind(AssertUnwindSafe(|| {
-        f(&mut out);
-        out
-    })) {
-        Ok(o) => hex(&o),
-        Err(_) => "ENCERR".into(),
+    match catch_unwind(AssertUnwindSafe(|| f(&mut out).map(|()| out))) {
+        Ok(Ok(o)) => hex(&o),
+        Ok(Err(_)) | Err(_) => "ENCERR".into(),
     }
 }
 

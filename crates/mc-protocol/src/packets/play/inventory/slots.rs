@@ -1,4 +1,5 @@
 //! Packets that carry item stacks: container contents, cursor/inventory slots, clicks, creative slot.
+use crate::codec::EncodeResult;
 use crate::codec::{DecodeError, DecodeResult, read_varint};
 use crate::components::{HashedStack, ItemStack};
 use crate::packets::common::id_enum;
@@ -68,8 +69,9 @@ pub struct ServerboundContainerClickPacket {
 mod changed_slots {
     use super::*;
 
-    pub fn encode(slots: &[(i16, HashedStack)], out: &mut Vec<u8>) {
-        slots.encode(out)
+    pub fn encode(slots: &[(i16, HashedStack)], out: &mut Vec<u8>) -> EncodeResult<()> {
+        slots.encode(out)?;
+        Ok(())
     }
     /// `ByteBufCodecs.map(Int2ObjectOpenHashMap::new, .., 128)`: a repeated key replaces the earlier value.
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<(i16, HashedStack)>> {
@@ -109,8 +111,9 @@ pub struct ServerboundSetCreativeModeSlotPacket {
 mod creative_stack {
     use super::*;
 
-    pub fn encode(stack: &ItemStack, out: &mut Vec<u8>) {
-        stack.encode_optional_untrusted(out)
+    pub fn encode(stack: &ItemStack, out: &mut Vec<u8>) -> EncodeResult<()> {
+        stack.encode_optional_untrusted(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<ItemStack> {
         ItemStack::decode_validated_untrusted(input)

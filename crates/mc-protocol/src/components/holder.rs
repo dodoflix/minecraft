@@ -4,6 +4,7 @@
 //! Registry entries are referenced by *name*; the protocol ids come from [`crate::registry_context`] (data-driven
 //! registries) or `mc_data` (built-in ones). Tags are never resolved here: a named set is just the tag id.
 
+use crate::codec::EncodeResult;
 use crate::codec::{read_varint, write_varint, DecodeError, DecodeResult, Decode, Encode};
 use crate::registry_context as ctx;
 use mc_core::ident::Identifier;
@@ -157,8 +158,10 @@ pub fn holder_set_codec<T: Clone + Send + Sync + 'static>(
 
 // ---- stream codecs ------------------------------------------------------------------------------------------
 
-fn id_or_panic(registry: &str, name: &Identifier) -> i32 {
-    ctx::registry_id(registry, name).unwrap_or_else(|| panic!("Can't find id for '{name}' in registry {registry}"))
+/// `Registry.getIdOrThrow` (`IllegalArgumentException` in vanilla, an `EncoderException` once the packet codec wraps it).
+fn id_or_err(registry: &str, name: &Identifier) -> EncodeResult<i32> {
+    ctx::registry_id(registry, name)
+        .ok_or_else(|| crate::codec::EncodeError(format!("Can't find id for '{name}' in registry {registry}")))
 }
 
 fn name_or_err(registry: &str, id: i32) -> DecodeResult<Identifier> {
@@ -166,8 +169,9 @@ fn name_or_err(registry: &str, id: i32) -> DecodeResult<Identifier> {
 }
 
 /// `ByteBufCodecs.registry(key)` for a reference by name: the plain VarInt id.
-pub fn encode_registry_name(registry: &str, name: &Identifier, out: &mut Vec<u8>) {
-    write_varint(out, id_or_panic(registry, name));
+pub fn encode_registry_name(registry: &str, name: &Identifier, out: &mut Vec<u8>) -> EncodeResult<()> {
+    write_varint(out, id_or_err(registry, name)?);
+    Ok(())
 }
 pub fn decode_registry_name(registry: &str, input: &mut &[u8]) -> DecodeResult<Identifier> {
     let id = read_varint(input)?;
@@ -175,10 +179,12 @@ pub fn decode_registry_name(registry: &str, input: &mut &[u8]) -> DecodeResult<I
 }
 
 /// `ByteBufCodecs.holderRegistry(key)`: VarInt id of a reference.
-pub fn encode_holder_registry<T>(registry: &str, holder: &Holder<T>, out: &mut Vec<u8>) {
+pub fn encode_holder_registry<T>(registry: &str, holder: &Holder<T>, out: &mut Vec<u8>) -> EncodeResult<()> {
     match holder {
         Holder::Reference(n) => encode_registry_name(registry, n, out),
-        Holder::Direct(_) => panic!("Can't serialize a direct holder through holderRegistry({registry})"),
+        Holder::Direct(_) => {
+            Err(crate::codec::EncodeError(format!("Can't serialize a direct holder through holderRegistry({registry})")))
+        }
     }
 }
 pub fn decode_holder_registry<T>(registry: &str, input: &mut &[u8]) -> DecodeResult<Holder<T>> {
@@ -186,14 +192,15 @@ pub fn decode_holder_registry<T>(registry: &str, input: &mut &[u8]) -> DecodeRes
 }
 
 /// `ByteBufCodecs.holder(key, directCodec)`: `0` + inline value, or `id + 1`.
-pub fn encode_holder<T>(registry: &str, holder: &Holder<T>, out: &mut Vec<u8>, direct: impl FnOnce(&T, &mut Vec<u8>)) {
+pub fn encode_holder<T>(registry: &str, holder: &Holder<T>, out: &mut Vec<u8>, direct: impl FnOnce(&T, &mut Vec<u8>) -> EncodeResult<()>) -> EncodeResult<()> {
     match holder {
-        Holder::Reference(n) => write_varint(out, id_or_panic(registry, n).wrapping_add(1)),
+        Holder::Reference(n) => write_varint(out, id_or_err(registry, n)?.wrapping_add(1)),
         Holder::Direct(v) => {
             write_varint(out, 0);
-            direct(v, out);
+            direct(v, out)?;
         }
     }
+    Ok(())
 }
 pub fn decode_holder<T>(
     registry: &str,
@@ -209,19 +216,20 @@ pub fn decode_holder<T>(
 }
 
 /// `ByteBufCodecs.holderSet(key)`.
-pub fn encode_holder_set<T>(registry: &str, set: &HolderSet<T>, out: &mut Vec<u8>) {
+pub fn encode_holder_set<T>(registry: &str, set: &HolderSet<T>, out: &mut Vec<u8>) -> EncodeResult<()> {
     match set {
         HolderSet::Named(tag) => {
             write_varint(out, 0);
-            tag.encode(out);
+            tag.encode(out)?;
         }
         HolderSet::Direct(v) => {
             write_varint(out, v.len() as i32 + 1);
             for h in v {
-                encode_holder_registry(registry, h, out);
+                encode_holder_registry(registry, h, out)?;
             }
         }
-    }
+    };
+    Ok(())
 }
 pub fn decode_holder_set<T>(registry: &str, input: &mut &[u8]) -> DecodeResult<HolderSet<T>> {
     let count = i64::from(read_varint(input)?) - 1;

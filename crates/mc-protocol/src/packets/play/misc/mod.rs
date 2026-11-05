@@ -1,4 +1,5 @@
 //! Play packets, group `misc`: stats, boss bars, combat events, scoreboard, advancements, waypoints, tag queries.
+use crate::codec::EncodeResult;
 use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::{Block, CustomStat, EntityType, Item, StatType};
@@ -49,20 +50,21 @@ impl Stat {
 }
 
 impl Encode for Stat {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         StatType::by_name(self.type_name())
             .expect("vanilla stat type")
-            .encode(out);
+            .encode(out)?;
         match self {
-            Self::Mined(v) => v.encode(out),
+            Self::Mined(v) => v.encode(out)?,
             Self::Crafted(v)
             | Self::Used(v)
             | Self::Broken(v)
             | Self::PickedUp(v)
-            | Self::Dropped(v) => v.encode(out),
-            Self::Killed(v) | Self::KilledBy(v) => v.encode(out),
-            Self::Custom(v) => v.encode(out),
-        }
+            | Self::Dropped(v) => v.encode(out)?,
+            Self::Killed(v) | Self::KilledBy(v) => v.encode(out)?,
+            Self::Custom(v) => v.encode(out)?,
+        };
+        Ok(())
     }
 }
 impl Decode for Stat {
@@ -129,12 +131,13 @@ pub struct BossEventProperties {
 }
 
 impl Encode for BossEventProperties {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         out.push(
             self.darken_screen as u8
                 | (self.play_music as u8) << 1
                 | (self.create_world_fog as u8) << 2,
-        )
+        );
+        Ok(())
     }
 }
 impl Decode for BossEventProperties {
@@ -245,11 +248,12 @@ pub struct ClientboundSetHealthPacket {
 mod nullable_compound {
     use super::*;
 
-    pub fn encode(tag: &Option<CompoundTag>, out: &mut Vec<u8>) {
+    pub fn encode(tag: &Option<CompoundTag>, out: &mut Vec<u8>) -> EncodeResult<()> {
         match tag {
-            Some(c) => encode_tag(&Tag::Compound(c.clone()), out),
+            Some(c) => encode_tag(&Tag::Compound(c.clone()), out)?,
             None => out.push(0),
-        }
+        };
+        Ok(())
     }
 
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Option<CompoundTag>> {

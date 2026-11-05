@@ -885,7 +885,7 @@ fn golden() {
 // ---- decode limits and unknown ids ---------------------------------------------------------------------------
 
 fn body<T: Encode>(v: &T) -> Vec<u8> {
-    to_bytes(v)
+    to_bytes(v).unwrap()
 }
 
 fn varint(v: i32) -> Vec<u8> {

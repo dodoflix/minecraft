@@ -1,4 +1,5 @@
 //! `SynchedEntityData.DataValue` and every `EntityDataSerializers` type (serializer ids = registration order).
+use crate::codec::EncodeResult;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::pos::block_pos::BlockPos;
@@ -37,11 +38,12 @@ impl Rotations {
 }
 
 impl Encode for Rotations {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let n = Self::new(self.x, self.y, self.z);
-        n.x.encode(out);
-        n.y.encode(out);
-        n.z.encode(out);
+        n.x.encode(out)?;
+        n.y.encode(out)?;
+        n.z.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for Rotations {
@@ -63,10 +65,11 @@ pub struct VillagerData {
 }
 
 impl Encode for VillagerData {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.r#type.encode(out);
-        self.profession.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.r#type.encode(out)?;
+        self.profession.encode(out)?;
         write_varint(out, self.level.max(1));
+        Ok(())
     }
 }
 impl Decode for VillagerData {
@@ -130,8 +133,9 @@ impl WeatheringCopperState {
     ];
 }
 impl Encode for WeatheringCopperState {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, *self as i32)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, *self as i32);
+        Ok(())
     }
 }
 impl Decode for WeatheringCopperState {
@@ -144,8 +148,9 @@ impl Decode for WeatheringCopperState {
 mod pose {
     use super::*;
 
-    pub fn encode(p: &Pose, out: &mut Vec<u8>) {
-        write_varint(out, p.ordinal() as i32)
+    pub fn encode(p: &Pose, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, p.ordinal() as i32);
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Pose> {
         let id = read_varint(input)?;
@@ -161,8 +166,9 @@ mod pose {
 mod optional_block_state {
     use super::*;
 
-    pub fn encode(s: &Option<BlockState>, out: &mut Vec<u8>) {
-        write_varint(out, s.map_or(0, |s| s.id() as i32))
+    pub fn encode(s: &Option<BlockState>, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, s.map_or(0, |s| s.id() as i32));
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Option<BlockState>> {
         Ok(match read_varint(input)? {
@@ -182,8 +188,9 @@ mod optional_block_state {
 mod optional_unsigned_int {
     use super::*;
 
-    pub fn encode(v: &Option<i32>, out: &mut Vec<u8>) {
-        OptionalVarInt(*v).encode(out)
+    pub fn encode(v: &Option<i32>, out: &mut Vec<u8>) -> EncodeResult<()> {
+        OptionalVarInt(*v).encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Option<i32>> {
         OptionalVarInt::decode(input).map(|v| v.0)

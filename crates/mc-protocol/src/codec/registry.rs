@@ -1,6 +1,7 @@
 //! Registry ids of the built-in registries (`ByteBufCodecs.registry(..)` / `idMapper`): a VarInt
 //! protocol id, resolved against `mc_data`'s tables. `Decode` follows `ByteBufCodecs.registry`; strict (holder) decoding is
 //! [`read_registry_id`].
+use crate::codec::EncodeResult;
 use mc_data::registry::RegistryId;
 
 use super::{read_varint, write_varint, Decode, DecodeError, DecodeResult, Encode};
@@ -23,7 +24,7 @@ pub fn read_registry_value<T: RegistryId>(input: &mut &[u8]) -> DecodeResult<T> 
 macro_rules! registry_codecs {
     ($($ty:ident),* $(,)?) => {$(
         impl Encode for mc_data::$ty {
-            fn encode(&self, out: &mut Vec<u8>) { write_varint(out, self.id() as i32) }
+            fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> { write_varint(out, self.id() as i32); Ok(()) }
         }
         impl Decode for mc_data::$ty {
             fn decode(input: &mut &[u8]) -> DecodeResult<Self> { read_registry_value(input) }
@@ -53,8 +54,9 @@ registry_codecs!(
 
 /// `Block.BLOCK_STATE_REGISTRY` (`ByteBufCodecs.idMapper`): the global block state id as a VarInt.
 impl Encode for mc_data::block::BlockState {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.id() as i32)
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.id() as i32);
+        Ok(())
     }
 }
 impl Decode for mc_data::block::BlockState {

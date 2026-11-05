@@ -1,6 +1,7 @@
 //! `DataComponentPredicate` (the `data_component_predicate_type` registry and `AnyValue`) and
 //! `DataComponentMatchers` (`exact` components + `partial` predicates).
 
+use crate::codec::EncodeResult;
 use super::component_predicates::*;
 use crate::codec::{read_count, Decode, DecodeError, DecodeResult, Encode, NbtLimit};
 use crate::components::holder::registry_by_name_codec;
@@ -111,17 +112,18 @@ impl PredicateType {
     }
 
     /// `Type.STREAM_CODEC`: `either(registry(predicate type), registry(component type))`.
-    fn encode_stream(self, out: &mut Vec<u8>) {
+    fn encode_stream(self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             PredicateType::Concrete(t) => {
-                true.encode(out);
-                t.encode(out);
+                true.encode(out)?;
+                t.encode(out)?;
             }
             PredicateType::AnyValue(c) => {
-                false.encode(out);
-                c.encode(out);
+                false.encode(out)?;
+                c.encode(out)?;
             }
-        }
+        };
+        Ok(())
     }
     fn decode_stream(input: &mut &[u8]) -> DecodeResult<PredicateType> {
         if bool::decode(input)? {
@@ -135,13 +137,13 @@ impl PredicateType {
 impl DataComponentPredicate {
     /// `DataComponentPredicate.SINGLE_STREAM_CODEC`: the type, then the predicate as an NBT tag
     /// (`ByteBufCodecs.fromCodecWithRegistries(codec)`).
-    pub fn encode_single(&self, out: &mut Vec<u8>) {
+    pub fn encode_single(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         let ty = self.predicate_type();
-        ty.encode_stream(out);
-        match mc_dfu::encode_nbt(&ty.value_codec(), self).into_result() {
-            Ok(tag) => crate::codec::encode_tag(&tag, out),
-            Err(e) => panic!("Failed to encode: {e}"),
-        }
+        ty.encode_stream(out)?;
+        let tag = mc_dfu::encode_nbt(&ty.value_codec(), self)
+            .into_result()
+            .map_err(|e| crate::codec::EncodeError(format!("Failed to encode: {e}")))?;
+        crate::codec::encode_tag(&tag, out)
     }
 
     pub fn decode_single(input: &mut &[u8]) -> DecodeResult<DataComponentPredicate> {
@@ -181,14 +183,12 @@ impl PredicateMap {
 /// `ByteBufCodecs.list(64)` of singles, folded by `Collectors.toMap` (duplicate types fail; `AnyValueType`s are
 /// distinct objects and never collide).
 impl Encode for PredicateMap {
-    fn encode(&self, out: &mut Vec<u8>) {
-        if self.0.len() > 64 {
-            panic!("{} elements exceeded max size of: 64", self.0.len());
-        }
-        crate::codec::write_varint(out, self.0.len() as i32);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        crate::codec::write_count(out, self.0.len(), 64)?;
         for p in &self.0 {
-            p.encode_single(out);
+            p.encode_single(out)?;
         }
+        Ok(())
     }
 }
 impl Decode for PredicateMap {
@@ -233,9 +233,10 @@ impl DataComponentMatchers {
 }
 
 impl Encode for DataComponentMatchers {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.exact.encode(out);
-        self.partial.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.exact.encode(out)?;
+        self.partial.encode(out)?;
+        Ok(())
     }
 }
 impl Decode for DataComponentMatchers {

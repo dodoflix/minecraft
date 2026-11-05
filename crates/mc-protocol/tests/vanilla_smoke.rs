@@ -18,16 +18,16 @@ async fn status_and_offline_login_to_configuration() {
     // ---- status
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Status).await;
-    send!(c, ServerboundStatusPacket::StatusRequest(ServerboundStatusRequestPacket));
+    send!(c, ServerboundStatusPacket::StatusRequest(ServerboundStatusRequestPacket)).unwrap();
     let payload = read(&mut c).await;
     log_id(ConnectionState::Status, &payload);
     let ClientboundStatusPacket::StatusResponse(resp) = ClientboundStatusPacket::decode_payload(&payload).unwrap() else {
         panic!("expected status response")
     };
-    println!("status: {}", resp.status.to_json_string());
+    println!("status: {}", resp.status.to_json_string().unwrap());
     assert_eq!(resp.status.version.as_ref().unwrap().protocol, PROTOCOL_VERSION);
     assert_eq!(resp.status.players.as_ref().unwrap().online, 0);
-    send!(c, ServerboundStatusPacket::PingRequest(ServerboundPingRequestPacket { time: 0x1234_5678_9abc }));
+    send!(c, ServerboundStatusPacket::PingRequest(ServerboundPingRequestPacket { time: 0x1234_5678_9abc })).unwrap();
     let payload = read(&mut c).await;
     log_id(ConnectionState::Status, &payload);
     assert_eq!(
@@ -40,7 +40,7 @@ async fn status_and_offline_login_to_configuration() {
     handshake(&mut c, port, ClientIntent::Login).await;
     let name = "SmokeBot";
     let uuid = Uuid::from_u128(0x1234_5678_9abc_def0_1234_5678_9abc_def0);
-    send!(c, ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: name.into(), profile_id: uuid }));
+    send!(c, ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: name.into(), profile_id: uuid })).unwrap();
     let profile = loop {
         let payload = read(&mut c).await;
         log_id(ConnectionState::Login, &payload);
@@ -54,12 +54,12 @@ async fn status_and_offline_login_to_configuration() {
         }
     };
     assert_eq!(profile.name, name);
-    send!(c, ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket));
+    send!(c, ServerboundLoginPacket::LoginAcknowledged(ServerboundLoginAcknowledgedPacket)).unwrap();
 
     send!(
         c,
         ServerboundConfigurationPacket::ClientInformation(ServerboundClientInformationPacket { information: Default::default() })
-    );
+    ).unwrap();
     let mut seen = Vec::new();
     loop {
         let payload = read(&mut c).await;
@@ -68,16 +68,16 @@ async fn status_and_offline_login_to_configuration() {
         seen.push(packet.name());
         match packet {
             ClientboundConfigurationPacket::SelectKnownPacks(_) => {
-                send!(c, ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: vec![] }))
+                send!(c, ServerboundConfigurationPacket::SelectKnownPacks(ServerboundSelectKnownPacks { known_packs: vec![] })).unwrap()
             }
             ClientboundConfigurationPacket::KeepAlive(p) => {
-                send!(c, ServerboundConfigurationPacket::KeepAlive(ServerboundKeepAlivePacket { id: p.id }))
+                send!(c, ServerboundConfigurationPacket::KeepAlive(ServerboundKeepAlivePacket { id: p.id })).unwrap()
             }
             ClientboundConfigurationPacket::Ping(p) => {
-                send!(c, ServerboundConfigurationPacket::Pong(ServerboundPongPacket { id: p.id }))
+                send!(c, ServerboundConfigurationPacket::Pong(ServerboundPongPacket { id: p.id })).unwrap()
             }
             ClientboundConfigurationPacket::FinishConfiguration(_) => {
-                send!(c, ServerboundConfigurationPacket::FinishConfiguration(ServerboundFinishConfigurationPacket));
+                send!(c, ServerboundConfigurationPacket::FinishConfiguration(ServerboundFinishConfigurationPacket)).unwrap();
                 break;
             }
             _ => {}
@@ -98,7 +98,7 @@ async fn online_mode_encryption_handshake() {
     let port = server.port;
     let mut c = connect(port).await;
     handshake(&mut c, port, ClientIntent::Login).await;
-    send!(c, ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: "SmokeBot".into(), profile_id: Uuid::nil() }));
+    send!(c, ServerboundLoginPacket::Hello(ServerboundHelloPacket { name: "SmokeBot".into(), profile_id: Uuid::nil() })).unwrap();
     let payload = read(&mut c).await;
     log_id(ConnectionState::Login, &payload);
     let ClientboundLoginPacket::Hello(hello) = ClientboundLoginPacket::decode_payload(&payload).unwrap() else { panic!("expected hello") };
@@ -109,7 +109,7 @@ async fn online_mode_encryption_handshake() {
         keybytes: encrypt_with_public_key(&hello.public_key, &secret).unwrap(),
         encrypted_challenge: encrypt_with_public_key(&hello.public_key, &hello.challenge).unwrap(),
     };
-    send!(c, ServerboundLoginPacket::Key(key));
+    send!(c, ServerboundLoginPacket::Key(key)).unwrap();
     c.enable_encryption(secret);
     // The server accepted our key (challenge + secret) iff it can talk to us over the encrypted
     // stream: it then fails the session-server check (no real Mojang account) with a login disconnect,

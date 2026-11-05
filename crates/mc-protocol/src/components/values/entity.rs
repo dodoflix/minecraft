@@ -1,5 +1,6 @@
 //! Entity-related components: `entity_data` / `block_entity_data` (`TypedEntityData`) and the variant components of
 //! mobs (registry-backed `Holder`s and the `StringRepresentable` variant enums with their `ByIdMap` stream forms).
+use crate::codec::EncodeResult;
 use crate::codec::{read_varint, write_varint, Decode, DecodeResult, Encode};
 use crate::components::common::{custom_data_compound_tag_codec, read_enum_zero};
 use crate::components::component::{ComponentDef, ComponentKey};
@@ -63,9 +64,10 @@ impl<T: Clone + Send + Sync + 'static> TypedEntityData<T> {
 
 /// `TypedEntityData.streamCodec(typeCodec)` with the type's own `Encode`/`Decode`.
 impl<T: Encode> Encode for TypedEntityData<T> {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.ty.encode(out);
-        self.tag.encode(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.ty.encode(out)?;
+        self.tag.encode(out)?;
+        Ok(())
     }
 }
 impl<T: Decode> Decode for TypedEntityData<T> {
@@ -142,8 +144,9 @@ macro_rules! id_mapped {
     };
     (@impl $ty:ident, $read:expr) => {
         impl Encode for $ty {
-            fn encode(&self, out: &mut Vec<u8>) {
-                write_varint(out, self.id())
+            fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+                write_varint(out, self.id());
+                Ok(())
             }
         }
         impl Decode for $ty {
@@ -214,8 +217,9 @@ impl RabbitVariant {
     }
 }
 impl Encode for RabbitVariant {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.wire_id())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.wire_id());
+        Ok(())
     }
 }
 impl Decode for RabbitVariant {
@@ -244,8 +248,9 @@ impl TropicalFishPattern {
     }
 }
 impl Encode for TropicalFishPattern {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.packed_id())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.packed_id());
+        Ok(())
     }
 }
 impl Decode for TropicalFishPattern {

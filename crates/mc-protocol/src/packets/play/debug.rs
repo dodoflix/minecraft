@@ -1,4 +1,5 @@
 //! Play packets: group `debug` (debug subscriptions, debug samples, game rules, game tests).
+use crate::codec::EncodeResult;
 use mc_core::direction::{Axis, AxisDirection, Direction};
 use mc_core::ident::Identifier;
 use mc_core::phys::vec3::Vec3;
@@ -157,9 +158,10 @@ mod bounding_box {
 
     use super::*;
 
-    pub fn encode(b: &BoundingBox, out: &mut Vec<u8>) {
-        BlockPos::new(b.min_x(), b.min_y(), b.min_z()).encode(out);
-        BlockPos::new(b.max_x(), b.max_y(), b.max_z()).encode(out);
+    pub fn encode(b: &BoundingBox, out: &mut Vec<u8>) -> EncodeResult<()> {
+        BlockPos::new(b.min_x(), b.min_y(), b.min_z()).encode(out)?;
+        BlockPos::new(b.max_x(), b.max_y(), b.max_z()).encode(out)?;
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<BoundingBox> {
         let (min, max) = (BlockPos::decode(input)?, BlockPos::decode(input)?);
@@ -251,8 +253,9 @@ impl RedstoneOrientation {
 }
 
 impl Encode for RedstoneOrientation {
-    fn encode(&self, out: &mut Vec<u8>) {
-        write_varint(out, self.index())
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, self.index());
+        Ok(())
     }
 }
 impl Decode for RedstoneOrientation {
@@ -284,8 +287,9 @@ macro_rules! debug_subscriptions {
                 mc_data::DebugSubscription::from_id(id).expect("debug subscription ids are fixed by the registry")
             }
 
-            fn encode_value(&self, out: &mut Vec<u8>) {
-                match self { $(Self::$variant(v) => v.encode(out)),+ }
+            fn encode_value(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+                match self { $(Self::$variant(v) => v.encode(out)?),+ };
+                Ok(())
             }
 
             fn decode_value(subscription: mc_data::DebugSubscription, input: &mut &[u8]) -> DecodeResult<Self> {
@@ -332,9 +336,10 @@ fn read_subscription(input: &mut &[u8]) -> DecodeResult<mc_data::DebugSubscripti
 }
 
 impl Encode for DebugSubscriptionEvent {
-    fn encode(&self, out: &mut Vec<u8>) {
-        self.subscription().encode(out);
-        self.encode_value(out);
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        self.subscription().encode(out)?;
+        self.encode_value(out)?;
+        Ok(())
     }
 }
 impl Decode for DebugSubscriptionEvent {
@@ -354,18 +359,19 @@ pub enum DebugSubscriptionUpdate {
 }
 
 impl Encode for DebugSubscriptionUpdate {
-    fn encode(&self, out: &mut Vec<u8>) {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         match self {
             Self::Empty(subscription) => {
-                subscription.encode(out);
-                false.encode(out);
+                subscription.encode(out)?;
+                false.encode(out)?;
             }
             Self::Value(event) => {
-                event.subscription().encode(out);
-                true.encode(out);
-                event.encode_value(out);
+                event.subscription().encode(out)?;
+                true.encode(out)?;
+                event.encode_value(out)?;
             }
-        }
+        };
+        Ok(())
     }
 }
 impl Decode for DebugSubscriptionUpdate {
@@ -426,11 +432,12 @@ mod long_array {
 
     use super::*;
 
-    pub fn encode(v: &[i64], out: &mut Vec<u8>) {
+    pub fn encode(v: &[i64], out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, v.len() as i32);
         for l in v {
-            l.encode(out);
-        }
+            l.encode(out)?;
+        };
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Vec<i64>> {
         LongArray::decode(input).map(|a| a.0)
@@ -524,8 +531,9 @@ mod rotation {
 
     use super::*;
 
-    pub fn encode(r: &Rotation, out: &mut Vec<u8>) {
-        write_varint(out, r.get_index())
+    pub fn encode(r: &Rotation, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_varint(out, r.get_index());
+        Ok(())
     }
     pub fn decode(input: &mut &[u8]) -> DecodeResult<Rotation> {
         read_varint(input).map(Rotation::by_id)

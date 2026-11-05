@@ -107,7 +107,7 @@ pub async fn handshake(conn: &mut Connection<TcpStream>, port: u16, intention: C
             port,
             intention,
         })
-    );
+    ).unwrap();
 }
 
 pub async fn read(conn: &mut Connection<TcpStream>) -> Vec<u8> {

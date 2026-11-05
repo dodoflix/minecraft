@@ -24,7 +24,7 @@ fn golden() -> HashMap<String, Vec<u8>> {
 /// Encode `v`, compare with vanilla's bytes, decode vanilla's bytes back and compare with `v`.
 fn check<T: Encode + Decode + PartialEq + std::fmt::Debug>(g: &HashMap<String, Vec<u8>>, label: &str, v: T) {
     let expected = &g[label];
-    assert_eq!(to_bytes(&v), *expected, "encode {label}");
+    assert_eq!(to_bytes(&v).unwrap(), *expected, "encode {label}");
     assert_eq!(from_bytes::<T>(expected).unwrap_or_else(|e| panic!("decode {label}: {e}")), v, "decode {label}");
 }
 
@@ -53,7 +53,7 @@ fn lp_vec3() {
     ];
     for (i, v) in inputs.iter().enumerate() {
         let bytes = &g[&format!("lpvec3/{i}")];
-        assert_eq!(to_bytes(&LpVec3(Vec3::new(v[0], v[1], v[2]))), *bytes, "encode {i}");
+        assert_eq!(to_bytes(&LpVec3(Vec3::new(v[0], v[1], v[2]))).unwrap(), *bytes, "encode {i}");
         // the decoded doubles, bit for bit
         let d = from_bytes::<LpVec3>(bytes).unwrap().0;
         let want = &g[&format!("lpvec3_decoded/{i}")];
@@ -82,7 +82,7 @@ fn angles() {
     let ang = [0.0f32, 90.0, -90.0, 180.0, 359.9, 360.0, -0.1, 1000.0, 1.4, -720.5];
     for (i, a) in ang.iter().enumerate() {
         let bytes = &g[&format!("angle/{i}")];
-        assert_eq!(to_bytes(&Angle(*a)), *bytes, "encode {a}");
+        assert_eq!(to_bytes(&Angle(*a)).unwrap(), *bytes, "encode {a}");
         let unpacked = from_bytes::<Angle>(bytes).unwrap().0;
         assert_eq!(unpacked, Angle::unpack(bytes[0] as i8));
     }
