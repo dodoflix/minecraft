@@ -48,6 +48,7 @@ impl<T: Clone + PartialEq + Send + Sync + 'static> ModelAndTexture<T> {
 }
 
 /// A `StringRepresentable` enum with a `fromEnum` codec (the animal `ModelType`s).
+#[macro_export]
 macro_rules! model_type {
     ($(#[$m:meta])* $name:ident { $($variant:ident = $text:literal),+ $(,)? }) => {
         $(#[$m])*
@@ -71,4 +72,4 @@ macro_rules! model_type {
         }
     };
 }
-pub(crate) use model_type;
+pub use model_type;

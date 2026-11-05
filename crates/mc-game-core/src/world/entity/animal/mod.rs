@@ -3,24 +3,7 @@
 
 // pub mod bee; // needs GoalsB + PoiManager
 
-pub mod axolotl;
 pub mod chicken;
-pub mod cow;
-pub mod dolphin;
-pub mod feline;
-pub mod fish;
-pub mod fox;
-pub mod golem;
 pub mod equine;
-pub mod frog;
-pub mod nautilus;
-pub mod panda;
 pub mod parrot;
-pub mod pig;
-pub mod polarbear;
-pub mod rabbit;
-pub mod squid;
-pub mod sheep;
 pub mod temperature_variants;
-pub mod turtle;
-pub mod wolf;

@@ -5,7 +5,7 @@ use mc_core::pos::BlockPos;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PoiRecord {
-    pos: BlockPos,
+    pub pos: BlockPos,
     poi_type: PoiTypeHolder,
     free_tickets: i32,
 }

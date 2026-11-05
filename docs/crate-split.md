@@ -76,7 +76,24 @@ What stays in `core` on purpose (referenced from the spine, so it cannot sit abo
 
 (Filled in while landing; each is a reference that could not be resolved by moving files.)
 
-* none yet
+* `monsters`: `macro_rules! block_entity_base` / `update_shape` made `#[macro_export]` (+ `impls::prelude` and `block_entity::read_codec` `pub`) so
+  the creaking heart files import them by path across the crate boundary.
+* `animals`: `macro_rules! model_type` made `#[macro_export]`; the generated `animal/mod.rs` shim does not declare `bee` (its
+  `pub mod bee;` is commented out in the original: the file is dead code that never compiled).
+
+### Pins (files held back in `core` against `assignment.txt`)
+
+`assignment.txt` followed `crate::` paths only; references by local name (`drowned::..`, `pub use villager::Villager`,
+`super::yield_job_site`) from files that stay in `core`, and orphan-rule violations, were missed. These files are therefore `core`
+(the lowest crate that compiles); they block a later carve-out of the listed users from `core`.
+
+| files (`world/entity/..`) | pinned because |
+|---|---|
+| `monster/zombie/{base,drowned,goals,husk,zombie_villager,zombified_piglin}.rs` | `monster/zombie/mod.rs` (core: the `Zombie` type behind `as_zombie`) calls them by local module name |
+| `npc/villager/{villager,abstract_villager,villager_type}.rs`, `npc/inventory_carrier.rs` | `npc/villager/mod.rs::villager_ref/villager_mut` (used by ai behaviors and the core `SecondaryPoiSensor`) name `Villager`; `villager.rs` uses `inventory_carrier` |
+| `ai/behavior/{villager_goal_packages,poi_competitor_scan,trade_with_villager,villager_make_love,yield_job_site}.rs` | `villager.rs` builds its brain from `villager_goal_packages`, which pulls the other four |
+| `animal/chicken/*`, `animal/temperature_variants.rs` | `zombie/base.rs` (chicken jockey) downcasts to `Chicken`; `chicken_variant` uses `temperature_variants` |
+| `animal/equine/{abstract_horse,mod}.rs` | `abstract_horse.rs` has blanket `impl<T: AbstractHorse> MountInventory/AbstractHorseAccess for T` (core traits): an orphan-rule violation unless the `AbstractHorse` trait lives in the same crate as those traits; `mod.rs` follows (parent module must not be above its child) |
 
 ## linkme
 
