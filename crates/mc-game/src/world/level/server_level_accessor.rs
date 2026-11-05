@@ -79,6 +79,13 @@ pub trait ServerLevelAccessor: LevelAccessor + crate::world::entity::variant::Sp
     fn world_gen_seed(&self) -> Option<i64> {
         self.as_server_level().map(crate::world::level::levelgen::WorldGenLevel::get_seed)
     }
+    // ==== [Undead] additions (ServerLevelAccessor methods) ====
+    /// `getBiome(pos).is(tag)` for a biome tag (`BiomeTags.*`, the tag's path under `tags/worldgen/biome`).
+    fn biome_is_tag(&self, pos: BlockPos, tag: &str) -> bool {
+        let Some(id) = self.get_biome_id(pos) else { return false };
+        let Ok(tag) = mc_core::ident::Identifier::parse(tag) else { return false };
+        self.registry_access().registry("worldgen/biome").is_some_and(|r| r.is_in_tag(id.0, &tag))
+    }
 }
 
 /// `IntProvider.sample(random)` of a data-loaded provider (`dimensionType().monsterSpawnLightTest()`): the modelled

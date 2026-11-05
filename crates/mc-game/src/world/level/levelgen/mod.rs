@@ -23,6 +23,7 @@ pub mod geode_crack_settings;
 pub mod geode_layer_settings;
 pub mod holder;
 pub mod hooks;
+pub mod phantom_spawner;
 pub mod placement;
 pub mod registries;
 pub mod stateproviders;

@@ -1677,7 +1677,7 @@ pub trait Entity: Any {
     }
     /// `Entity.getSoundSource()`.
     fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {
-        mc_protocol::packets::play::SoundSource::Neutral
+        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::SOUND_SOURCE } else { mc_protocol::packets::play::SoundSource::Neutral }
     }
     /// `playSound(sound, volume, pitch)` (silent entities make no sound).
     fn play_sound(&self, level: &mut ServerLevel, sound: mc_data::SoundEvent, volume: f32, pitch: f32) {
@@ -1698,11 +1698,11 @@ pub trait Entity: Any {
     }
     /// `getSwimSound()`.
     fn get_swim_sound(&self) -> mc_data::SoundEvent {
-        mc_data::SoundEvent::ENTITY_GENERIC_SWIM
+        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::SWIM_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_SWIM }
     }
     /// `getSwimSplashSound()`.
     fn get_swim_splash_sound(&self) -> mc_data::SoundEvent {
-        mc_data::SoundEvent::ENTITY_GENERIC_SPLASH
+        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::SWIM_SPLASH_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_SPLASH }
     }
     /// `getSwimHighSpeedSplashSound()`.
     fn get_swim_high_speed_splash_sound(&self) -> mc_data::SoundEvent {
@@ -2352,7 +2352,7 @@ pub trait Entity: Any {
     }
     /// `getFallSounds()` as `(small, big)`.
     fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
-        (mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL, mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL)
+        if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::FALL_SOUNDS } else { (mc_data::SoundEvent::ENTITY_GENERIC_SMALL_FALL, mc_data::SoundEvent::ENTITY_GENERIC_BIG_FALL) }
     }
     /// `canInteractWithLevel()`.
     fn can_interact_with_level(&self) -> bool {
@@ -2539,12 +2539,12 @@ pub trait Entity: Any {
 
     /// `getHurtSound(source)` (`Player`: the damage type's `effects` sound).
     fn get_hurt_sound(&self, _source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
-        Some(mc_data::SoundEvent::ENTITY_GENERIC_HURT)
+        Some(if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::HURT_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_HURT })
     }
 
     /// `getDeathSound()`.
     fn get_death_sound(&self) -> Option<mc_data::SoundEvent> {
-        Some(mc_data::SoundEvent::ENTITY_GENERIC_DEATH)
+        Some(if super::mob::monster::is_monster(self.as_dyn()) { super::mob::monster::DEATH_SOUND } else { mc_data::SoundEvent::ENTITY_GENERIC_DEATH })
     }
 
     /// `getSoundVolume()`.
@@ -3339,6 +3339,41 @@ pub trait Entity: Any {
     fn start_persistent_anger_timer(&mut self, _level: &mut ServerLevel) {}
     /// Class-specific part of `ConversionType.convertCommon(from, to)` (zombie door breaking, ...).
     fn conversion_common_extra(&self, _to: &mut dyn Entity) {}
+    // ==== [Undead] additions (Entity trait methods) ====
+    /// `Mob.setTarget(target)` (overridden by `ZombifiedPiglin`, ...).
+    fn set_target(&mut self, level: &ServerLevel, target: Option<EntityId>) {
+        if self.mob().is_some() {
+            super::mob::tick::set_target(self.as_dyn_mut(), level, target);
+        }
+    }
+    /// `LivingEntity.setBaby(baby)` (`AgeableMob` sets its age; `Zombie` its own flag).
+    fn set_baby(&mut self, baby: bool) {
+        if self.mob().is_some_and(|m| m.ageable.is_some()) {
+            super::mob::ageable::set_baby(self.as_dyn_mut(), baby);
+        }
+    }
+    /// `this instanceof Zombie` (the zombie family).
+    fn as_zombie(&self) -> Option<&super::monster::zombie::Zombie> {
+        None
+    }
+    fn as_zombie_mut(&mut self) -> Option<&mut super::monster::zombie::Zombie> {
+        None
+    }
+    /// `PerformRangedAttack`: `RangedAttackMob.performRangedAttack(target, power)` (the target is in the level).
+    fn perform_ranged_attack(&mut self, _level: &mut ServerLevel, _target: EntityId, _power: f32) {}
+    /// `RangedAttackMob.rangedAttackUncertainty(level)`.
+    fn ranged_attack_uncertainty(&self, level: &ServerLevel) -> f32 {
+        14.0 - (level.difficulty() as i32 * 4) as f32
+    }
+    // TEMP-EC2ATTACK: replaced by EC2Attack's `do_hurt_target` on rebase
+    fn do_hurt_target(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) -> bool {
+        false
+    }
+    /// `Cat.hiss()` (a phantom swooping near cats); `Cat` overrides.
+    fn hiss(&mut self, _level: &mut ServerLevel) {}
+    /// What a class's `rideTick()` override does after `super.rideTick()` (`Zombie`/`AbstractSkeleton`: the body follows a
+    /// controlled `PathfinderMob` vehicle).
+    fn after_ride_tick(&mut self, _level: &ServerLevel) {}
     // ==== [EntityItems] additions (Entity trait methods) ====
     /// `interact(player, hand, location)`: the player (taken out of the level) uses the entity.
     fn interact(

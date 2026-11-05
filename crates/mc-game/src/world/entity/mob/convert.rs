@@ -158,7 +158,7 @@ fn convert_common(from: &mut dyn Entity, to: &mut dyn Entity, level: &mut Server
         to.add_effect(level, effect, None);
     }
     if from.is_baby() {
-        ageable::set_baby(to, true);
+        to.set_baby(true);
     }
     if from.mob().is_some_and(|m| m.ageable.is_some()) && to.mob().is_some_and(|m| m.ageable.is_some()) {
         let (age, forced_age, forced_age_timer) = {

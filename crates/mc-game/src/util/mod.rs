@@ -8,6 +8,7 @@ pub mod java_hash_order;
 pub mod java_uuid_hash_set;
 pub mod long_open_hash_set;
 pub mod profiling;
+pub mod special_dates;
 pub mod object_open_hash_map;
 pub mod tick_throttler;
 pub mod time_util;

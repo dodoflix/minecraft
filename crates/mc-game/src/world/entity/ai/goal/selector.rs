@@ -86,6 +86,15 @@ impl GoalSelector {
         self.available_goals.retain(|g| !predicate(&*g.goal));
     }
 
+    /// `removeGoal(goal)` for the goal object matching `predicate` (identity in vanilla): hands the goal back so its state
+    /// survives a later `addGoal` of the same object, and whether it was running. A running goal is NOT stopped here (no
+    /// level at hand); the caller stops it.
+    pub fn take_goal_where(&mut self, mut predicate: impl FnMut(&dyn Goal) -> bool) -> Option<(Box<dyn Goal>, bool)> {
+        let index = self.available_goals.iter().position(|g| predicate(&*g.goal))?;
+        let wrapped = self.available_goals.remove(index);
+        Some((wrapped.goal, wrapped.running))
+    }
+
     /// `getAvailableGoals()`.
     pub fn get_available_goals(&self) -> &[WrappedGoal] {
         &self.available_goals

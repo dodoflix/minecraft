@@ -54,6 +54,7 @@
 pub mod ageable;
 pub mod combat;
 pub mod animal;
+pub mod conversion_tracker;
 pub mod convert;
 pub mod drop_chances;
 pub mod equipment;

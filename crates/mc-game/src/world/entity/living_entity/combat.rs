@@ -26,3 +26,8 @@ pub fn recheck_status(entity: &mut dyn Entity, level: &mut ServerLevel) {
         entity.on_leave_combat(level);
     }
 }
+
+// TEMP-EC2ATTACK: replaced by EC2Attack's `mob_do_hurt_target` on rebase
+pub fn mob_do_hurt_target(_attacker: &mut dyn Entity, _level: &mut ServerLevel, _target: &mut dyn Entity) -> bool {
+    false
+}

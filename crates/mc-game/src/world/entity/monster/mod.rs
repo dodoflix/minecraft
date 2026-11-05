@@ -1,6 +1,10 @@
 //! `net.minecraft.world.entity.monster.*` (the Cubes slice: cube mobs, ravager, warden, creaking, breeze).
 
 pub mod cubemob;
+pub mod giant;
+pub mod phantom;
+pub mod skeleton;
+pub mod zombie;
 
 // Monsters slice: spider, creeper, silverfish, endermite, blaze, ghast, guardian, vex are written but NOT yet declared here
 // (`pub mod spider;` ...): they await the Entity/MobData hooks listed in STATUS.md `### Monsters`.

@@ -303,5 +303,6 @@ impl ServerLevel {
                 vehicle.position_rider(passenger);
             }
         }
+        passenger.after_ride_tick(self);
     }
 }
