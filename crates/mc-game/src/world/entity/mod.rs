@@ -13,6 +13,7 @@ pub mod dimensions;
 pub mod effect;
 pub mod entity;
 pub mod equipment;
+pub mod equipment_table;
 pub mod factory;
 pub mod interpolation;
 pub mod item;
