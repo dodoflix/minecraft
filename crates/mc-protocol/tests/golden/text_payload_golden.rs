@@ -7,7 +7,7 @@ use mc_nbt::{nbt_io, NbtAccounter, Tag};
 use mc_text::{set_validators, Component, Validators};
 use serde_json::Value;
 
-const GOLDEN: &str = include_str!("fixtures/components/text/golden.jsonl");
+const GOLDEN: &str = include_str!("../fixtures/components/text/golden.jsonl");
 
 fn item_exists(id: &mc_core::ident::Identifier) -> bool {
     mc_data::Item::by_name(&id.to_string()).is_some()

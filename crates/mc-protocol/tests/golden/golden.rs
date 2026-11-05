@@ -12,7 +12,7 @@ use mc_text::{ChatFormatting, Component};
 use uuid::Uuid;
 
 fn golden() -> HashMap<String, Vec<u8>> {
-    include_str!("fixtures/packets.golden")
+    include_str!("../fixtures/packets.golden")
         .lines()
         .map(|l| {
             let (label, hex) = l.split_once(':').expect("label:hex");

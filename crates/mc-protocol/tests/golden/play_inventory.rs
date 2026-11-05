@@ -1,6 +1,5 @@
 //! Golden tests for the `inventory` play packets against vanilla's `GameProtocols` (generator: fixtures/play/GenInventory.java).
-mod common;
-use common::*;
+use crate::common::*;
 use std::fmt::Debug;
 
 use mc_core::ident::Identifier;

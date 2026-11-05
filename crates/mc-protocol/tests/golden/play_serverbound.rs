@@ -1,8 +1,7 @@
 //! Serverbound play packets (group `Serverbound`) against the real vanilla `GameProtocols` codecs.
 //! Fixture: `tests/fixtures/play/serverbound.golden` (generator: `GenServerbound.java`).
-mod common;
 
-use common::*;
+use crate::common::*;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
 use mc_core::mirror::Mirror;

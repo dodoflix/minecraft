@@ -12,7 +12,7 @@ use mc_protocol::components::{ItemStack, Value};
 use mc_protocol::registry_context::{self, RegistryContext};
 use std::panic::{catch_unwind, AssertUnwindSafe};
 
-const REGISTRIES: &str = include_str!("fixtures/components/registries.golden");
+const REGISTRIES: &str = include_str!("../fixtures/components/registries.golden");
 
 fn hex(b: &[u8]) -> String {
     b.iter().map(|x| format!("{x:02x}")).collect()

@@ -1,6 +1,5 @@
 //! Play packets of the `debug` group against the real vanilla codecs (`fixtures/play/GenDebug.java` -> `debug.golden`).
-mod common;
-use common::*;
+use crate::common::*;
 use mc_core::bounding_box::BoundingBox;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;

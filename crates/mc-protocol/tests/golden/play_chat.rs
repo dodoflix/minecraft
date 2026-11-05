@@ -1,6 +1,5 @@
 //! Play packet group `chat` against the real vanilla codecs (`tests/fixtures/play/GenChat.java` -> `chat.golden`).
-mod common;
-use common::*;
+use crate::common::*;
 
 use std::fmt::Debug;
 

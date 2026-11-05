@@ -1,9 +1,8 @@
 //! Real-network smoke test against the vanilla server (`ref/server.jar`): status ping, offline login
 //! through configuration, and an online-mode encryption handshake. Needs java, `ref/server.jar` and `MC_ACCEPT_EULA=1`.
 //! Run with `-- --nocapture` to see the packet-id log.
-mod common;
 
-use common::vanilla::*;
+use crate::common::vanilla::*;
 use mc_protocol::auth::{digest_server_id, encrypt_with_public_key, generate_secret};
 use mc_protocol::packet::ConnectionState;
 use mc_protocol::packets::{configuration::*, handshake::*, login::*, status::*};

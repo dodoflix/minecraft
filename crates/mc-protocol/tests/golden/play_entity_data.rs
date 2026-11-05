@@ -1,7 +1,6 @@
 //! Golden tests for the entity_data play group against vanilla's real `GameProtocols` codecs
 //! (generator: tests/fixtures/play/GenEntityData.java).
-mod common;
-use common::*;
+use crate::common::*;
 
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;

@@ -12,7 +12,7 @@ use mc_protocol::codec::*;
 use uuid::Uuid;
 
 fn golden() -> HashMap<String, Vec<u8>> {
-    include_str!("fixtures/codec.golden")
+    include_str!("../fixtures/codec.golden")
         .lines()
         .map(|l| {
             let (label, hex) = l.split_once(':').unwrap();

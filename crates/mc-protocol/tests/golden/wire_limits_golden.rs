@@ -29,7 +29,7 @@ enum Verdict {
 }
 
 fn golden() -> BTreeMap<String, Verdict> {
-    include_str!("fixtures/wire_limits.golden")
+    include_str!("../fixtures/wire_limits.golden")
         .lines()
         .map(|l| {
             let mut f = l.split('\t');

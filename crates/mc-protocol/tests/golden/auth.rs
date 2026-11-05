@@ -9,7 +9,7 @@ use mc_protocol::codec::{Decode, DecodeError, Encode, Property};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpListener;
 
-const GOLDEN: &str = include_str!("fixtures/auth_golden.txt");
+const GOLDEN: &str = include_str!("../fixtures/auth_golden.txt");
 
 fn hex(s: &str) -> Vec<u8> {
     (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).expect("hex")).collect()

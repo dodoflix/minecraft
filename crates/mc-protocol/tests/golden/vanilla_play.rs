@@ -3,12 +3,11 @@
 //! must decode (and re-encode to the same bytes); only packets carrying a not-yet-implemented data component may fail.
 //! Needs java, `ref/server.jar` and `MC_ACCEPT_EULA=1`.
 //! Run with `-- --nocapture` for the per-packet-type counts.
-mod common;
 
 use std::collections::BTreeMap;
 use std::time::{Duration, Instant};
 
-use common::vanilla::*;
+use crate::common::vanilla::*;
 use mc_protocol::packets::{configuration as cfg, handshake::ClientIntent, login, play};
 use uuid::Uuid;
 

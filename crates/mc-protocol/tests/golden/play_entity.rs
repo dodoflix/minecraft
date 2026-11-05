@@ -1,6 +1,5 @@
 //! Play `entity` packet group against vanilla's `GameProtocols` bytes (generator: fixtures/play/GenEntity.java).
-mod common;
-use common::*;
+use crate::common::*;
 use mc_core::ident::Identifier;
 use mc_core::phys::vec3::Vec3;
 use mc_data::{Attribute, Item, MobEffect};

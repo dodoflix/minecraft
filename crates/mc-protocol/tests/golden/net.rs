@@ -6,7 +6,7 @@ use mc_protocol::codec::write_varint;
 use mc_protocol::net::{Connection, FrameDecoder, FrameEncoder, NetError, PacketReader};
 use std::io::{Read, Write};
 
-const FIXTURE: &str = include_str!("fixtures/net_framing.txt");
+const FIXTURE: &str = include_str!("../fixtures/net_framing.txt");
 
 fn unhex(s: &str) -> Vec<u8> {
     (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap()).collect()

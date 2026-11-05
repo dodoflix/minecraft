@@ -1,6 +1,5 @@
 //! Golden tests for the `misc` play packets against the real vanilla codecs (fixtures/play/GenMisc.java).
-mod common;
-use common::*;
+use crate::common::*;
 
 use mc_core::ident::Identifier;
 use mc_core::pos::{block_pos::BlockPos, chunk_pos::ChunkPos, vec3i::Vec3i};
