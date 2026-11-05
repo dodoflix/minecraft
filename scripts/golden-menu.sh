@@ -11,3 +11,5 @@ java -cp "$EXTRACTOR:$CP" "$F/ItemGolden.java" 2>/dev/null | grep -E '^(tool|use
 wc -l "$F/item_golden.txt"
 java -cp "$EXTRACTOR:$CP" "$F/ContainerMenuGolden.java" > "$F/container_menu_golden.txt"
 wc -l "$F/container_menu_golden.txt"
+java -cp "$EXTRACTOR:$CP" "$F/BeaconGolden.java" > "$F/beacon_golden.txt" 2>/dev/null
+wc -l "$F/beacon_golden.txt"
