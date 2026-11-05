@@ -1,5 +1,5 @@
 # Full build + test on GitHub's runners (public repo: unlimited minutes).
-# - every push to main: catches a broken main within minutes and names the commit
+# - scheduled: a complete run of main's tip every 2 hours
 # - on demand for any branch: `gh workflow run ci.yml --ref <branch>` then `gh run watch`
 #   (optionally `-f test_filter='-p mc-game --test foo'` or `-p mc-game-core --test foo` to run a subset)
 name: ci

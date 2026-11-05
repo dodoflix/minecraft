@@ -26,7 +26,7 @@ if you touch registries. **Use this to produce golden values for tests** (random
 samples, shapes, codecs, …) instead of guessing. Golden outputs are committed as test fixtures under
 the crate's `tests/fixtures/`; keep the generating `.java` next to them.
 
-The real vanilla server: `java -jar ref/server.jar nogui` in a scratch dir (accept EULA, set
+The real vanilla server: `java -jar ref/server.jar nogui` in a scratch dir (you accept the EULA yourself, set
 `online-mode=false`). Used for differential tests (worldgen, protocol).
 
 ## Workspace layout
@@ -38,6 +38,7 @@ crates/
   mc-text             Chat Component model + JSON and NBT codecs
   mc-brigadier        Port of com.mojang.brigadier
   mc-dfu              Port of the DFU Codec/DataResult/DynamicOps framework (NBT, JSON, CRC32C-hash ops) for vanilla data codecs
+  mc-datafix          Port of the vanilla data fixers (schemas, fixes, DataFixTypes) on top of mc-dfu
   mc-data             Generated static data (blocks/states/items/entities/registries/packet ids) + vanilla data pack access
   mc-protocol         Wire codec primitives, framing, compression, encryption, packet structs (all states);
                       module `components`: all data component types + DataComponentMap/Patch + ItemStack value type,
@@ -60,12 +61,12 @@ crates/
   mc-game             thin: merges the module trees of the crates above so `mc_game::...` stays the public API; tests, examples
   mc-server           thin binary: CLI args, server.properties, console, JSON-RPC management, starts mc-game
   mc-testbot          headless protocol client (scriptable bot) used by integration/E2E tests
-tools/                non-Rust tooling (e.g. Java data extractor)
-scripts/              helper scripts (vanilla oracle, real client harness, setup-ref)
+tools/                tools/extractor (Java data extractor), tools/worldcmp (chunk-by-chunk comparison of two world directories)
+scripts/              helper scripts (setup-ref, vanilla oracle, real client harness, check.sh)
 ```
 
 Dependency direction (lower never imports higher):
-`mc-core, mc-nbt, mc-brigadier` → `mc-text, mc-data` → `mc-protocol, mc-world` → `mc-light, mc-worldgen`
+`mc-core, mc-nbt, mc-brigadier` → `mc-text, mc-data, mc-dfu` → `mc-datafix, mc-protocol, mc-world` → `mc-light, mc-worldgen`
 → `mc-game-core` → `mc-game-{blocks,levelgen,cmds,ai}` → `mc-game-animals` → `mc-game-monsters` → `mc-game` → `mc-server`;
 `mc-testbot` → `mc-protocol`. Sibling area crates (`blocks`, `levelgen`, `cmds`, `ai`) never depend on each other; the area crates
 never depend on `mc-game`. Rule for gameplay code: it goes into the area crate that owns it (see docs/crate-split.md); code that
@@ -94,7 +95,7 @@ still `crate::world::...`; module paths stay vanilla-shaped). Everything below a
   slot and put back afterwards (lookups during its own tick exclude it, as vanilla queries do).
 - **Block entities** likewise `Box<dyn BlockEntity>` in the chunk, same take-out pattern while ticking.
 - **Items.** `trait ItemBehaviour` static per item (vanilla `Item` subclasses); `ItemStack` value type comes from
-  `mc-components`; behavior functions take `&mut ServerLevel`, player, hand, …
+  `mc-protocol` (`components`); behavior functions take `&mut ServerLevel`, player, hand, …
 - **Level access traits** mirror vanilla interfaces (`BlockGetter`, `LevelReader`, `LevelAccessor`, `WorldGenLevel`)
   so block/feature code runs against both `ServerLevel` and `WorldGenRegion`.
 - **Registration without central lists:** blocks/items/entities/commands/argument types/menus/etc. register through
@@ -103,28 +104,11 @@ still `crate::world::...`; module paths stay vanilla-shaped). Everything below a
   dimension types, …) is loaded from the vanilla data pack + world data packs through one `ReloadableServerResources`
   / registry-loading path, with vanilla codec semantics (unknown/invalid entries rejected or logged like vanilla).
 
-## Contributing workflow
+## Contributing
 
-Work on a topic branch and open a pull request against `main`. Before pushing, `cargo check --workspace --tests` must be
-green and the tests of the crates you touched must pass (prefer `-p <crate>`; do not run workspace-wide `fmt`/`clippy`
-rewrites in a feature change). Builds read `ref/extracted`, `ref/generated`, ... so `ref/` must be set up in every
-checkout (`scripts/setup-ref.sh`). Resolve rebase conflicts keeping both sides' intent; never force-push `main`.
-
-Compiling the whole workspace is memory-hungry: running many `mc-game` builds at once can exhaust RAM, so limit
-parallel cargo jobs (`CARGO_BUILD_JOBS`) on small machines. Stop any vanilla server or client you start for differential
-tests. Build caches (`target/`) of old checkouts are large; delete them when a checkout is no longer needed.
-
-**CI (GitHub Actions):** `.github/workflows/ci.yml` builds + tests the whole workspace (with Java and a cached `ref/`) on
-every push to `main`, and on demand for any branch:
-`gh workflow run ci.yml -R dodoflix/minecraft --ref <branch> [-f test_filter='-p mc-game --test foo']`, then
-`gh run list -R dodoflix/minecraft --branch <branch> --limit 1` + `gh run watch <id> -R dodoflix/minecraft --exit-status`.
-Use CI for full suites and long vanilla-oracle tests; use local builds for fast compile iteration. If `main`'s CI turns
-red, the author of the breaking commit fixes it first.
-
-**Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
-`feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
-(e.g. `feat(protocol): add play packets`, `fix(worldgen): aquifer lava level`, `test(world): region differential`).
-Imperative, lowercase summary, no trailing period; body explains why when non-obvious.
+Workflow, commit format, local checks and the review checklist are in [CONTRIBUTING.md](CONTRIBUTING.md); code
+standards are in [docs/standards.md](docs/standards.md) and test tiers in [docs/testing.md](docs/testing.md). Builds read
+`ref/extracted`, `ref/generated`, ... so `ref/` must be set up in every checkout (`scripts/setup-ref.sh`).
 
 ## Conventions
 
@@ -144,7 +128,7 @@ Imperative, lowercase summary, no trailing period; body explains why when non-ob
    tautological tests.
 5. **Shared spine files** (ServerLevel, the Entity trait, BlockBehaviour, ServerPlayer) are touched by many changes:
    keep edits to them small and prefer putting new code in its own module.
-6. Edition 2024, stable toolchain. `unsafe` only with a justified comment. No `unwrap()` on
+6. Edition 2024, stable toolchain. `unsafe` only with a `// SAFETY:` comment (docs/standards.md). No `unwrap()` on
    network/disk input — malformed input must produce the same outcome as vanilla (usually a
    disconnect with vanilla's message).
 7. Read only the vanilla ranges you need; run targeted tests while iterating and the full suite once before pushing.
