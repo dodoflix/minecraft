@@ -43,6 +43,9 @@ pub struct CollisionContext {
     can_stand_on_fluid: Option<CanStandOnFluid>,
     /// `MinecartCollisionContext.ingoreBelow` / `slopeIgnore`.
     ignored_positions: [Option<BlockPos>; 2],
+    entity_fall_distance: f64,
+    entity_is_falling_block: bool,
+    entity_can_walk_on_powder_snow: bool,
 }
 
 impl CollisionContext {
@@ -57,6 +60,9 @@ impl CollisionContext {
             entity: None,
             can_stand_on_fluid: None,
             ignored_positions: [None, None],
+            entity_fall_distance: 0.0,
+            entity_is_falling_block: false,
+            entity_can_walk_on_powder_snow: false,
         }
     }
 
@@ -162,6 +168,29 @@ impl CollisionContext {
     /// `getEntity()`.
     pub fn entity(&self) -> Option<EntityId> {
         self.entity
+    }
+
+    /// `entity.fallDistance` of the context's entity (`PowderSnowBlock.getCollisionShape`).
+    pub fn entity_fall_distance(&self) -> f64 {
+        self.entity_fall_distance
+    }
+
+    /// `entity instanceof FallingBlockEntity` (`PowderSnowBlock.getCollisionShape`).
+    pub fn entity_is_falling_block(&self) -> bool {
+        self.entity_is_falling_block
+    }
+
+    /// `PowderSnowBlock.canEntityWalkOnPowderSnow(entity)`.
+    pub fn entity_can_walk_on_powder_snow(&self) -> bool {
+        self.entity_can_walk_on_powder_snow
+    }
+
+    /// Entity state read by block collision shapes: fall distance, falling block, powder snow walker.
+    pub fn with_entity_state(mut self, fall_distance: f64, is_falling_block: bool, can_walk_on_powder_snow: bool) -> Self {
+        self.entity_fall_distance = fall_distance;
+        self.entity_is_falling_block = is_falling_block;
+        self.entity_can_walk_on_powder_snow = can_walk_on_powder_snow;
+        self
     }
 
     /// `getCollisionShape(state, collisionGetter, pos)`.

@@ -1,0 +1,38 @@
+# Items (zero velocity) dropped into air / water / flowing water / lava / cobweb / slime / honey / powder snow / bubble columns.
+# Fluids are enclosed in stone so the (unported) fluid spreading cannot change the world while the vanilla server runs.
+level flat
+fill -2 -60 -2 40 -40 6 minecraft:air
+# water pool (sources)
+fill 4 -60 -2 8 -57 2 minecraft:stone
+fill 5 -60 -1 7 -57 1 minecraft:water[level=0]
+# flowing water on flat ground: source, then flowing levels 1..4 eastwards, walled in
+fill 12 -60 -1 18 -60 1 minecraft:stone
+block 13 -60 0 minecraft:water[level=0]
+block 14 -60 0 minecraft:water[level=1]
+block 15 -60 0 minecraft:water[level=2]
+block 16 -60 0 minecraft:water[level=3]
+block 17 -60 0 minecraft:water[level=4]
+# lava pool
+fill 19 -60 -2 23 -58 2 minecraft:stone
+fill 20 -60 -1 22 -58 1 minecraft:lava[level=0]
+# cobweb, slime, honey, powder snow
+block 26 -59 0 minecraft:cobweb
+block 29 -61 0 minecraft:slime_block
+block 32 -60 0 minecraft:honey_block
+block 35 -60 0 minecraft:powder_snow
+# bubble column: a 1x1 water shaft over soul sand (drag=false pushes up)
+fill 37 -61 -2 39 -52 2 minecraft:stone
+fill 38 -60 0 38 -52 0 minecraft:water[level=0]
+block 38 -61 0 minecraft:soul_sand
+fill 38 -60 0 38 -53 0 minecraft:bubble_column[drag=false]
+spawn_item air minecraft:stone 0.5 -50 0.5 0 0 0
+spawn_item pool minecraft:dirt 6.5 -55.5 0.5 0 0 0
+spawn_item flow minecraft:cobblestone 15.5 -59.4 0.5 0 0 0
+spawn_item lava minecraft:oak_log 21.5 -56 0.5 0 0 0
+spawn_item web minecraft:sand 26.5 -55 0.5 0 0 0
+spawn_item slime minecraft:gravel 29.5 -55 0.5 0 0 0
+spawn_item honey minecraft:clay_ball 32.5 -55 0.5 0 0 0
+spawn_item powder minecraft:stick 35.5 -55 0.5 0 0 0
+spawn_item bubble minecraft:diamond 38.5 -56 0.5 0 0 0
+watch entities
+tick 60

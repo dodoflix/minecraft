@@ -1,0 +1,31 @@
+# Items shot along +x at obstacle shapes (collision corpus of Entity.move/collide with stairs, slabs, fences, walls, trapdoors, ...).
+level flat
+fill -2 -60 -2 30 -50 40 minecraft:air
+block 3 -60 0 minecraft:oak_stairs[facing=east,half=bottom,shape=straight]
+block 3 -60 3 minecraft:stone_slab[type=bottom]
+block 3 -60 6 minecraft:stone_slab[type=top]
+block 3 -60 9 minecraft:oak_fence
+block 3 -60 12 minecraft:cobblestone_wall[up=true,east=none,north=none,south=none,west=none]
+block 3 -60 15 minecraft:oak_trapdoor[facing=east,half=bottom,open=false]
+block 3 -60 18 minecraft:oak_trapdoor[facing=east,half=bottom,open=true]
+block 3 -60 21 minecraft:snow[layers=3]
+block 3 -60 24 minecraft:anvil[facing=north]
+block 3 -60 27 minecraft:oak_fence_gate[facing=east,open=false]
+block 3 -60 30 minecraft:soul_sand
+block 3 -60 33 minecraft:chest[facing=east,type=single]
+block 3 -60 36 minecraft:cauldron
+spawn_item a0 minecraft:stone 0.5 -59.9 0.5 0.9 0.1 0
+spawn_item a3 minecraft:dirt 0.5 -59.9 3.5 0.9 0.1 0
+spawn_item a6 minecraft:sand 0.5 -59.9 6.5 0.9 0.1 0
+spawn_item a9 minecraft:gravel 0.5 -59.9 9.5 0.9 0.1 0
+spawn_item a12 minecraft:clay_ball 0.5 -59.9 12.5 0.9 0.1 0
+spawn_item a15 minecraft:stick 0.5 -59.9 15.5 0.9 0.1 0
+spawn_item a18 minecraft:diamond 0.5 -59.9 18.5 0.9 0.1 0
+spawn_item a21 minecraft:emerald 0.5 -59.9 21.5 0.9 0.1 0
+spawn_item a24 minecraft:coal 0.5 -59.9 24.5 0.9 0.1 0
+spawn_item a27 minecraft:apple 0.5 -59.9 27.5 0.9 0.1 0
+spawn_item a30 minecraft:bone 0.5 -59.9 30.5 0.9 0.1 0
+spawn_item a33 minecraft:feather 0.5 -59.9 33.5 0.9 0.1 0
+spawn_item a36 minecraft:string 0.5 -59.9 36.5 0.9 0.1 0
+watch entities
+tick 40

@@ -4,6 +4,18 @@ use super::prelude::*;
 pub struct CactusBlock;
 
 impl BlockBehaviour for CactusBlock {
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        level: &mut crate::server::level::ServerLevel,
+        _pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        let source = level.damage_sources().cactus();
+        entity.hurt_server(level, &source, 1.0);
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if !state.can_survive(&*level, pos) {
             helpers::schedule_block_tick(level, pos, state.block(), 1);

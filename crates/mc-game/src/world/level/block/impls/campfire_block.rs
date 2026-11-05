@@ -34,6 +34,22 @@ impl CampfireBlock {
 }
 
 impl BlockBehaviour for CampfireBlock {
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut crate::server::level::ServerLevel,
+        _pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        if state.get(props::LIT) && entity.living().is_some() {
+            // `fireDamage`: 1 for campfires, 2 for soul campfires
+            let fire_damage = if state.block() == Block::SOUL_CAMPFIRE { 2.0 } else { 1.0 };
+            let source = level.damage_sources().campfire();
+            entity.hurt_server(level, &source, fire_damage);
+        }
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {
             helpers::schedule_water_tick(level, pos);
