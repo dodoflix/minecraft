@@ -146,7 +146,7 @@ fn structure_data(level: &mut ServerLevel, pos: ChunkPos) -> StructureData {
 }
 
 #[test]
-#[ignore = "needs the full vanilla feature/structure registries to decode"]
+#[ignore = "needs the vanilla structure registry to decode (jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city)"]
 fn overworld_has_trees_ores_flowers_and_structure_data_round_trips() {
     let world = load_world();
     let dir = scratch("overworld");
@@ -203,7 +203,7 @@ fn start_ids(level: &mut ServerLevel, x0: i32, z0: i32, n: i32) -> BTreeSet<Stri
 }
 
 #[test]
-#[ignore = "needs the full vanilla feature/structure registries to decode"]
+#[ignore = "needs the vanilla structure registry to decode (jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city)"]
 fn nether_records_fortress_and_bastion_starts_and_has_features() {
     let world = load_world();
     let dir = scratch("nether");
@@ -224,7 +224,7 @@ fn nether_records_fortress_and_bastion_starts_and_has_features() {
 }
 
 #[test]
-#[ignore = "needs the full vanilla feature/structure registries to decode"]
+#[ignore = "needs the vanilla structure registry to decode (jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city)"]
 fn end_has_spikes_islands_and_end_cities() {
     let world = load_world();
     let dir = scratch("end");

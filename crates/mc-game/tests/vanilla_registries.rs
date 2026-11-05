@@ -27,9 +27,9 @@ fn golden() -> String {
     text
 }
 
-// Fails until every feature/placement/structure type is ported (`level_factory` then stops falling back to terrain only).
+// Fails until every structure type is ported (`level_factory` then stops falling back to terrain only).
 #[test]
-#[ignore = "feature/structure types missing: simple_block, ..."]
+#[ignore = "structure types missing: jigsaw, mineshaft, fortress, stronghold, ocean_monument, woodland_mansion, end_city"]
 fn vanilla_data_pack_registries_match_vanilla() {
     let text = golden();
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data");
