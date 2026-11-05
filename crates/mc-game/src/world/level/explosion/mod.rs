@@ -5,6 +5,7 @@
 //! (callers already hold it), entities are referenced by [`EntityId`], and the explosion's indirect source /
 //! "can trigger blocks" / "affect blocklike entities" answers are computed once when the explosion is created.
 
+pub mod java_hash_set;
 pub mod server_explosion;
 
 use crate::world::entity::{Entity, EntityId};
