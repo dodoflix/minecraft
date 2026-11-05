@@ -105,6 +105,8 @@ rebase if main moved). Never force-push/reset main; never discard others' work.
 push your branch (`git push -q origin <name>`; branch force-push only after your own rebase, never main).
 **Disk:** after your branch is merged and you're done, delete your worktree's build cache
 (`rm -rf /home/dodo/Projects/mc-wt/<name>/target`); `/home` filled up once with stale per-worktree targets.
+**Machine load:** at most 3 helper agents per scope; every cargo call uses `nice -n 10` and `CARGO_BUILD_JOBS=4`
+(~14 parallel mc-game builds drove load to 50 and the session crashed twice).
 
 **Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
 `feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
