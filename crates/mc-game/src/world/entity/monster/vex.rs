@@ -238,7 +238,7 @@ impl Goal for VexChargeAttackGoal {
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if let Some(target) = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t)) {
-            let eye = target.get_eye_position(1.0);
+            let eye = target.get_eye_position_partial(1.0);
             mob.mob_mut().expect("mob").move_control_mut().set_wanted_position(eye.x, eye.y, eye.z, 1.0);
         }
         vex_mut(mob).set_is_charging(true);
@@ -262,7 +262,7 @@ impl Goal for VexChargeAttackGoal {
         } else {
             let distance = mob.base().distance_to_sqr_vec(target.position());
             if distance < 9.0 {
-                let eye = target.get_eye_position(1.0);
+                let eye = target.get_eye_position_partial(1.0);
                 mob.mob_mut().expect("mob").move_control_mut().set_wanted_position(eye.x, eye.y, eye.z, 1.0);
             }
         }

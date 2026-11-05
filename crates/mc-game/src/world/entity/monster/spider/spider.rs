@@ -231,7 +231,7 @@ impl Goal for SpiderAttackGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let br = mob::ext::get_light_level_dependent_magic_value_at_entity(level, mob);
+        let br = mob.get_light_level_dependent_magic_value(level);
         if br >= 0.5 && mob.base_mut().random.next_int_bounded(100) == 0 {
             mob.set_target(level, None);
             false
@@ -274,7 +274,7 @@ impl SpiderTargetGoal {
 
 impl Goal for SpiderTargetGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let br = mob::ext::get_light_level_dependent_magic_value_at_entity(level, mob);
+        let br = mob.get_light_level_dependent_magic_value(level);
         if br >= 0.5 { false } else { self.target.can_use_impl(mob, level) }
     }
 

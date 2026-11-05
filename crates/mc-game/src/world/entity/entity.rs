@@ -3472,6 +3472,19 @@ pub trait Entity: Any {
     fn is_preventing_player_rest(&self, _level: &ServerLevel, _player: &dyn Entity) -> bool {
         true
     }
+    // ==== [Monsters2] additions (Entity trait methods) ====
+    /// `Entity.getLightLevelDependentMagicValue()` (`Blaze`, `Vex` override with 1.0).
+    fn get_light_level_dependent_magic_value(&self, level: &ServerLevel) -> f32 {
+        super::mob::ext::get_light_level_dependent_magic_value_at_entity(level, self.as_dyn())
+    }
+    /// `this instanceof Armadillo a && a.isScared()` (`Spider`'s armadillo avoidance); the armadillo overrides.
+    fn armadillo_is_scared(&self) -> bool {
+        false
+    }
+    /// `LivingEntity.canRandomlyTeleportTo(x, y, z)` (`Enderman` overrides).
+    fn can_randomly_teleport_to(&self, _level: &ServerLevel, _x: f64, _y: f64, _z: f64) -> bool {
+        true
+    }
     // ==== [Blocks:TechnicalA] additions (Entity trait methods) ====
     /// `this instanceof Bee`: the `Bee` methods `BeehiveBlockEntity` / `BeehiveBlock` call (implemented by the bee entity).
     fn as_bee_access(&mut self) -> Option<&mut dyn crate::world::block_entity::BeeAccess> {

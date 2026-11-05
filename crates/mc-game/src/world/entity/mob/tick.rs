@@ -201,7 +201,7 @@ fn burn_undead(e: &mut dyn Entity, level: &mut ServerLevel) {
 /// `isSunBurnTick()`.
 pub fn is_sun_burn_tick(e: &mut dyn Entity, level: &ServerLevel) -> bool {
     if ext::monsters_burn_at(level, e.position()) {
-        let br = ext::get_light_level_dependent_magic_value_at_entity(level, e);
+        let br = e.get_light_level_dependent_magic_value(level);
         let rounded_pos = BlockPos::containing(e.base().x(), e.base().get_eye_y(), e.base().z());
         let in_non_burnable_block = is_in_water_or_rain(e, level) || e.base().is_in_powder_snow || e.base().was_in_powder_snow;
         if br > 0.5 && e.base_mut().random.next_float() * 30.0 < (br - 0.4) * 2.0 && !in_non_burnable_block && level_can_see_sky(level, rounded_pos) {
@@ -218,7 +218,7 @@ fn level_can_see_sky(level: &ServerLevel, pos: BlockPos) -> bool {
 
 /// `Monster.updateNoActionTime()`.
 pub fn monster_update_no_action_time(e: &mut dyn Entity, level: &ServerLevel) {
-    let br = ext::get_light_level_dependent_magic_value_at_entity(level, e);
+    let br = e.get_light_level_dependent_magic_value(level);
     if br > 0.5 {
         lm(e).no_action_time = l(e).no_action_time.wrapping_add(2);
     }

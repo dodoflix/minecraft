@@ -19,6 +19,7 @@ use crate::world::entity::monster::WithFlags;
 use crate::world::entity::{Entity, EntityId, MoverType};
 use crate::world::level::pathfinder::PathType;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use crate::world::level::material::FluidStateExt as _;
 use crate::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::math::mth;
@@ -164,7 +165,7 @@ impl Entity for Guardian {
     fn ai_step(&mut self, level: &mut ServerLevel) {
         if self.is_alive() {
             if self.is_in_water() {
-                self.base_mut().air_supply = 300;
+                self.base_mut().set_air_supply(300);
             } else if self.base().on_ground() {
                 let random = &mut self.mob.living.entity.random;
                 let (dx, dz) = ((random.next_float() * 2.0 - 1.0) * 0.4, (random.next_float() * 2.0 - 1.0) * 0.4);
@@ -172,7 +173,7 @@ impl Entity for Guardian {
                 self.base_mut().set_delta_movement(m.add_xyz(f64::from(dx), 0.5, f64::from(dz)));
                 let y_rot = self.base_mut().random.next_float() * 360.0;
                 self.base_mut().set_y_rot(y_rot);
-                self.base_mut().set_on_ground(false);
+                crate::world::entity::movement::set_on_ground(self, &*level, false);
                 self.base_mut().needs_sync = true;
             }
             if self.has_active_attack_target() {
@@ -453,11 +454,11 @@ impl MoveControl for GuardianMoveControl {
             let new_speed = mth::lerp_f32(0.125, mob.get_speed(), target_speed);
             mob.set_speed(new_speed);
             let tick_id = f64::from(mob.base().tick_count + mob.id());
-            let push = mth::sin_f64(tick_id * 0.5) * 0.05;
+            let push = (tick_id * 0.5).sin() * 0.05;
             let y_rot = mob.base().y_rot();
-            let cos = f64::from(mth::cos(f64::from(y_rot * (pi / 180.0))));
-            let sin = f64::from(mth::sin(f64::from(y_rot * (pi / 180.0))));
-            let y_push = mth::sin_f64(tick_id * 0.75) * 0.05;
+            let cos = f64::from(y_rot * (pi / 180.0)).cos();
+            let sin = f64::from(y_rot * (pi / 180.0)).sin();
+            let y_push = (tick_id * 0.75).sin() * 0.05;
             let m = mob.base().delta_movement();
             mob.base_mut().set_delta_movement(m.add_xyz(push * cos, y_push * (sin + cos) * 0.25 + f64::from(new_speed) * yd * 0.1, push * sin));
             let (old_x, old_y, old_z, looking) = {

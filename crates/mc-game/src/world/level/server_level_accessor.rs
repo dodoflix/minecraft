@@ -70,6 +70,11 @@ pub trait ServerLevelAccessor: LevelAccessor + crate::world::entity::variant::Sp
     /// `environmentAttributes().getValue(CREATURE_WORLD_GEN_SPAWN_PROBABILITY, pos)`.
     fn creature_world_gen_spawn_probability_at(&self, pos: BlockPos) -> f32;
     // ==== [MobSpine] additions (ServerLevelAccessor methods) ====
+    // ==== [Monsters2] additions (ServerLevelAccessor methods) ====
+    /// `getNearestPlayer(x, y, z, distance, true)` (`EntitySelector.NO_CREATIVE_OR_SPECTATOR`); a generation region has no players.
+    fn get_nearest_player_ignoring_creative(&self, x: f64, y: f64, z: f64, distance: f64) -> Option<crate::world::entity::EntityId> {
+        self.as_server_level().and_then(|level| level.get_nearest_player(x, y, z, distance, crate::world::entity::mob::ext::no_creative_or_spectator))
+    }
     // ==== [Cubes] additions (ServerLevelAccessor methods) ====
     /// `environmentAttributes().getValue(SURFACE_SLIME_SPAWN_CHANCE, pos)`.
     fn surface_slime_spawn_chance_at(&self, pos: BlockPos) -> f32 {

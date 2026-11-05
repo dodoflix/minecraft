@@ -49,8 +49,16 @@ impl ServerLevel {
             log::warn!("Tried to add entity {} but it was marked as removed already", entity.get_type().data().name);
             return false;
         }
+        let mut entity = entity;
+        // `addFreshEntityWithPassengers`: passengers created by `finalizeSpawn` (spider jockey) follow their vehicle
+        let passengers = entity.mob_mut().map(|m| std::mem::take(&mut m.pending_passengers)).unwrap_or_default();
         let ok = self.entity_manager.add_new_entity(entity).is_ok();
         self.process_entity_events();
+        if ok {
+            for passenger in passengers {
+                self.add_fresh_entity(passenger);
+            }
+        }
         ok
     }
 

@@ -639,7 +639,10 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
 
     /// `WorldGenRegion.addFreshEntity`: the entity is saved into the chunk's entity list (vanilla `ProtoChunk.addEntity`).
     fn add_fresh_entity_with_passengers(&mut self, entity: Box<dyn crate::world::entity::Entity>) -> bool {
-        match crate::world::entity::entity::save(&*entity, &|_| None) {
+        let mut entity = entity;
+        let pending = entity.mob_mut().map(|m| std::mem::take(&mut m.pending_passengers)).unwrap_or_default();
+        let lookup = |id| pending.iter().find(|p| p.id() == id).map(|p| &**p);
+        match crate::world::entity::entity::save(&*entity, &lookup) {
             Some(tag) => self.add_fresh_entity_nbt(tag),
             None => false,
         }

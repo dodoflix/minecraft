@@ -180,6 +180,9 @@ pub struct MobData {
     pub tamable: Option<TamableData>,
     /// `NeutralMob` state (wolves, bees, piglins, ...), present for mobs that implement the interface.
     pub neutral: Option<NeutralData>,
+    /// Passengers created together with this mob in `finalizeSpawn` (spider jockey skeleton): they are added to the level
+    /// together with it (`addFreshEntityWithPassengers`).
+    pub pending_passengers: Vec<Box<dyn Entity>>,
 }
 
 impl MobData {
@@ -234,6 +237,7 @@ impl MobData {
             animal: kind.is_animal().then(AnimalData::default),
             tamable: (kind == MobKind::TamableAnimal).then(TamableData::default),
             neutral: None,
+            pending_passengers: Vec::new(),
         };
         if kind.is_animal() {
             // `Animal.<init>`

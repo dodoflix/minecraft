@@ -64,10 +64,15 @@ fn check_position_and_teleport(entity: &mut dyn Entity, level: &mut ServerLevel,
     if BlockPos::between_closed_aabb(&aabb).any(|p| invalid(level.get_block_state(p))) {
         return false;
     }
-    // `canRandomlyTeleportTo(x, y, z)`: true for every entity but a few mobs
+    if !entity.can_randomly_teleport_to(level, xx, y, zz) {
+        return false;
+    }
     entity.teleport_to(level, xx, y, zz);
     if show_particles {
         super::util::broadcast_entity_event(level, entity.id(), 46);
+    }
+    if entity.mob().is_some_and(|m| m.kind.is_pathfinder()) {
+        crate::world::entity::mob::navigation::stop(entity, level);
     }
     true
 }

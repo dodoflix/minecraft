@@ -381,16 +381,18 @@ impl Goal for GhastShootFireballGoal {
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let Some(target_id) = mob::tick::get_target_checked(mob, level) else { return };
         let Some(target) = level.get_entity(target_id) else { return };
-        if target.base().distance_to_sqr_vec(mob.position()) < 4096.0 && mob::ext::has_line_of_sight(level, mob, target) {
+        let in_sight = target.base().distance_to_sqr_vec(mob.position()) < 4096.0 && mob::ext::has_line_of_sight(level, mob, target);
+        let (target_x, target_y_half, target_z) = (target.base().x(), target.base().get_y_progress(0.5), target.base().z());
+        if in_sight {
             self.charge_time += 1;
             if self.charge_time == 10 && !mob.base().is_silent() {
                 level.level_event(None, 1015, mob.block_position(), 0);
             }
             if self.charge_time == 20 {
                 let view_vector = mob.get_view_vector(1.0);
-                let xdd = target.base().x() - (mob.base().x() + view_vector.x * 4.0);
-                let ydd = target.base().get_y_progress(0.5) - (0.5 + mob.base().get_y_progress(0.5));
-                let zdd = target.base().z() - (mob.base().z() + view_vector.z * 4.0);
+                let xdd = target_x - (mob.base().x() + view_vector.x * 4.0);
+                let ydd = target_y_half - (0.5 + mob.base().get_y_progress(0.5));
+                let zdd = target_z - (mob.base().z() + view_vector.z * 4.0);
                 let direction = Vec3::new(xdd, ydd, zdd);
                 if !mob.base().is_silent() {
                     level.level_event(None, 1016, mob.block_position(), 0);
