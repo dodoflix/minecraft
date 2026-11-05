@@ -6,6 +6,7 @@
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::mob::ext;
+use crate::world::entity::synched_data::{EntityDataAccessor, serializer};
 use crate::world::entity::{Entity, EntityId};
 use mc_nbt::CompoundTag;
 use mc_world::level_storage::Difficulty;
@@ -16,13 +17,16 @@ pub const NO_ANGER_END_TIME: i64 = -1;
 #[derive(Debug)]
 pub struct NeutralData {
     pub persistent_anger_end_time: i64,
+    /// `DATA_ANGER_END_TIME` of the classes that keep the end time in synched data (`Wolf`, `Bee`); when set it is the
+    /// source of truth instead of `persistent_anger_end_time`.
+    pub end_time_accessor: Option<EntityDataAccessor<serializer::Long>>,
     /// `EntityReference<LivingEntity>` persistent anger target.
     pub persistent_anger_target: Option<Uuid>,
 }
 
 impl Default for NeutralData {
     fn default() -> Self {
-        Self { persistent_anger_end_time: NO_ANGER_END_TIME, persistent_anger_target: None }
+        Self { persistent_anger_end_time: NO_ANGER_END_TIME, end_time_accessor: None, persistent_anger_target: None }
     }
 }
 
@@ -36,12 +40,20 @@ fn ndm(e: &mut dyn Entity) -> &mut NeutralData {
 
 /// `getPersistentAngerEndTime()`.
 pub fn get_persistent_anger_end_time(e: &dyn Entity) -> i64 {
-    nd(e).persistent_anger_end_time
+    match nd(e).end_time_accessor {
+        Some(accessor) => e.base().entity_data.get(accessor),
+        None => nd(e).persistent_anger_end_time,
+    }
 }
 
 /// `setPersistentAngerEndTime(endTime)`.
 pub fn set_persistent_anger_end_time(e: &mut dyn Entity, end_time: i64) {
-    ndm(e).persistent_anger_end_time = end_time;
+    match nd(e).end_time_accessor {
+        Some(accessor) => {
+            e.base_mut().entity_data.set(accessor, end_time);
+        }
+        None => ndm(e).persistent_anger_end_time = end_time,
+    };
 }
 
 /// `setTimeToRemainAngry(remainingTime)`.

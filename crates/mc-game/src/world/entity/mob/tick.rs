@@ -68,7 +68,7 @@ pub fn reset_ambient_sound_time(e: &mut dyn Entity) {
 
 /// `playAmbientSound()`.
 pub fn play_ambient_sound(e: &mut dyn Entity, level: &mut ServerLevel) {
-    if let Some(sound) = e.get_ambient_sound() {
+    if let Some(sound) = e.get_ambient_sound_in(level) {
         living_entity::damage::make_sound(e, level, sound);
     }
 }

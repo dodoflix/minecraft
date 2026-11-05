@@ -148,7 +148,7 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
             entity.die(level, source);
         }
     } else if took_full_damage {
-        if let Some(sound) = entity.get_hurt_sound(source) {
+        if let Some(sound) = entity.get_hurt_sound_in(level, source) {
             make_sound(entity, level, sound);
         }
         play_secondary_hurt_sound(entity, level, source);

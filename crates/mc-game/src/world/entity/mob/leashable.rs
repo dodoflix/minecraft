@@ -134,11 +134,11 @@ pub fn leash_distance_to(e: &dyn Entity, other: &dyn Entity) -> f64 {
 }
 
 /// `canHaveALeashAttachedTo(entity)`.
-pub fn can_have_a_leash_attached_to(e: &dyn Entity, other: &dyn Entity) -> bool {
+pub fn can_have_a_leash_attached_to(level: &ServerLevel, e: &dyn Entity, other: &dyn Entity) -> bool {
     if e.id() == other.id() {
         return false;
     }
-    if leash_distance_to(e, other) > e.leash_snap_distance() { false } else { e.can_be_leashed() }
+    if leash_distance_to(e, other) > e.leash_snap_distance() { false } else { e.can_be_leashed_in(level) }
 }
 
 /// `setDelayedLeashHolderId(entityId)`.

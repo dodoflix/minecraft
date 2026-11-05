@@ -75,6 +75,39 @@ impl TemptGoal {
         self.is_running
     }
 
+    /// `player` (the tempting player of the current `canUse`).
+    pub fn player(&self) -> Option<EntityId> {
+        self.player
+    }
+
+    /// `canContinueToUse()` up to the final `return this.canUse()` (subclasses override `canScare()`/`canUse()`):
+    /// `false` when the scare conditions end the goal.
+    pub fn scare_check(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel, can_scare: bool) -> bool {
+        if can_scare {
+            let Some(player) = self.player.and_then(|p| level.get_entity(p)) else { return false };
+            if mob.base().distance_to_sqr_vec(player.position()) < 36.0 {
+                if player.base().distance_to_sqr_xyz(self.px, self.py, self.pz) > 0.010000000000000002 {
+                    return false;
+                }
+                if (f64::from(player.base().x_rot()) - self.p_rot_x).abs() > 5.0 || (f64::from(player.base().y_rot()) - self.p_rot_y).abs() > 5.0 {
+                    return false;
+                }
+            } else {
+                self.px = player.base().x();
+                self.py = player.base().y();
+                self.pz = player.base().z();
+            }
+            self.p_rot_x = f64::from(player.base().x_rot());
+            self.p_rot_y = f64::from(player.base().y_rot());
+        }
+        true
+    }
+
+    /// `canScare()`.
+    pub fn can_scare(&self) -> bool {
+        self.can_scare
+    }
+
     fn stop_navigation(&self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if self.non_pathfinder {
             if let Some(m) = mob.mob_mut() {
@@ -115,24 +148,7 @@ impl Goal for TemptGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if self.can_scare {
-            let Some(player) = self.player.and_then(|p| level.get_entity(p)) else { return false };
-            if mob.base().distance_to_sqr_vec(player.position()) < 36.0 {
-                if player.base().distance_to_sqr_xyz(self.px, self.py, self.pz) > 0.010000000000000002 {
-                    return false;
-                }
-                if (f64::from(player.base().x_rot()) - self.p_rot_x).abs() > 5.0 || (f64::from(player.base().y_rot()) - self.p_rot_y).abs() > 5.0 {
-                    return false;
-                }
-            } else {
-                self.px = player.base().x();
-                self.py = player.base().y();
-                self.pz = player.base().z();
-            }
-            self.p_rot_x = f64::from(player.base().x_rot());
-            self.p_rot_y = f64::from(player.base().y_rot());
-        }
-        self.can_use(mob, level)
+        self.scare_check(mob, level, self.can_scare) && self.can_use(mob, level)
     }
 
     fn start(&mut self, _mob: &mut dyn Entity, level: &mut ServerLevel) {

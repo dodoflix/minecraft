@@ -95,6 +95,12 @@ impl GoalSelector {
         Some((wrapped.goal, wrapped.running))
     }
 
+    /// `removeGoal(goal)` for goals that cannot be running (construction time, NBT load): no `stop()` is called.
+    pub fn remove_all_goals_not_running(&mut self, mut predicate: impl FnMut(&dyn Goal) -> bool) {
+        debug_assert!(!self.available_goals.iter().any(|g| g.running && predicate(&*g.goal)), "goal is running: use remove_all_goals");
+        self.available_goals.retain(|g| !predicate(&*g.goal));
+    }
+
     /// `getAvailableGoals()`.
     pub fn get_available_goals(&self) -> &[WrappedGoal] {
         &self.available_goals

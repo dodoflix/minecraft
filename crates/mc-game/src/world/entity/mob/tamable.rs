@@ -99,7 +99,7 @@ pub fn is_owned_by(e: &dyn Entity, level: &ServerLevel, entity: &dyn Entity) -> 
 
 /// `tame(player)`.
 pub fn tame(e: &mut dyn Entity, level: &mut ServerLevel, player: &ServerPlayer) {
-    set_tame(e, true, true);
+    e.set_tame(Some(&mut *level), true, true);
     set_owner(e, Some(player));
     let _ = level;
     // CriteriaTriggers.TAME_ANIMAL.trigger(serverPlayer, this): SEAM(ImAdvancements) via `ext::trigger_tame_animal`
@@ -130,11 +130,11 @@ pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
     match owner {
         Some(owner) => {
             set_owner_reference(e, Some(owner));
-            set_tame(e, true, false);
+            e.set_tame(None, true, false);
         }
         None => {
             set_owner_reference(e, None);
-            set_tame(e, false, true);
+            e.set_tame(None, false, true);
         }
     }
     let sitting = input.get_boolean_or("Sitting", false);
@@ -196,4 +196,33 @@ fn can_teleport_to(e: &mut dyn Entity, level: &ServerLevel, pos: BlockPos) -> bo
     }
     let delta = pos.subtract(&e.block_position());
     level.no_collision(Some(e.id()), Some(&crate::world::entity::movement::collision_context(e)), &e.base().bounding_box().move_(f64::from(delta.x()), f64::from(delta.y()), f64::from(delta.z())))
+}
+
+// ==== [Pets] additions ====
+
+/// `TamableAnimal.die(source)`: the combat tracker's death message goes to a player owner (`SHOW_DEATH_MESSAGES`).
+pub fn die(e: &mut dyn Entity, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource) {
+    if level.show_death_messages() {
+        if let Some(owner) = get_owner(e, level).filter(|o| level.get_entity(*o).is_some_and(|o| o.is_player())) {
+            let message = e.living().expect("living").combat_tracker.get_death_message(level, e);
+            level.with_player(owner, |_, p| p.send_system_message(message.clone()));
+        }
+    }
+    crate::world::entity::living_entity::damage::die(e, level, source);
+}
+
+/// `TamableAnimal.feed(player, hand, itemStack, healingFactor, defaultHeal)`.
+pub fn feed(
+    e: &mut dyn Entity,
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    hand: crate::world::item::InteractionHand,
+    stack: &crate::world::item::ItemStack,
+    healing_factor: f32,
+    default_heal: f32,
+) {
+    let nutrition = stack.get(&mc_protocol::components::FOOD).map(|f| f.nutrition);
+    super::interact::use_player_item(level, player, hand);
+    e.heal(level, nutrition.map_or(default_heal, |n| healing_factor * n as f32));
+    e.play_eating_sound(level);
 }

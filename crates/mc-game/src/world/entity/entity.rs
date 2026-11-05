@@ -3066,6 +3066,11 @@ pub trait Entity: Any {
     fn get_ambient_sound(&self) -> Option<mc_data::SoundEvent> {
         None
     }
+    /// `getAmbientSound()` for classes that draw random numbers or read level state (`Wolf`, `Cat`): the sound played by
+    /// `playAmbientSound`; defaults to the plain [`Entity::get_ambient_sound`].
+    fn get_ambient_sound_in(&mut self, _level: &ServerLevel) -> Option<mc_data::SoundEvent> {
+        self.get_ambient_sound()
+    }
     /// `getAmbientSoundInterval()` (`Animal`: 120).
     fn get_ambient_sound_interval(&self) -> i32 {
         if self.mob().is_some_and(|m| m.animal.is_some()) { 120 } else { 80 }
@@ -3398,6 +3403,41 @@ pub trait Entity: Any {
     /// What a class's `rideTick()` override does after `super.rideTick()` (`Zombie`/`AbstractSkeleton`: the body follows a
     /// controlled `PathfinderMob` vehicle).
     fn after_ride_tick(&mut self, _level: &ServerLevel) {}
+    // ==== [Pets] additions (Entity trait methods) ====
+    /// `Animal.canMate(partner)` (`Wolf`, `Cat`, ... override).
+    fn can_mate(&self, partner: &dyn Entity) -> bool {
+        super::mob::animal::can_mate(self.as_dyn(), partner)
+    }
+    /// `TamableAnimal.wantsToAttack(target, owner)`.
+    fn wants_to_attack(&self, _level: &ServerLevel, _target: &dyn Entity, _owner: &dyn Entity) -> bool {
+        true
+    }
+    /// `getLeashOffset()`.
+    fn get_leash_offset(&self) -> Vec3 {
+        super::mob::leashable::get_leash_offset(self.as_dyn())
+    }
+    /// `TamableAnimal.setTame(isTame, includeSideEffects)` (virtual: `Cat` reassesses its goals). `level` is given when the
+    /// caller has one (running goals can then be stopped).
+    fn set_tame(&mut self, level: Option<&mut ServerLevel>, is_tame: bool, include_side_effects: bool) {
+        let _ = level;
+        super::mob::tamable::set_tame(self.as_dyn_mut(), is_tame, include_side_effects);
+    }
+    /// `canBeLeashed()` for classes whose answer depends on level state (`Wolf`: not while angry); callers use this one.
+    fn can_be_leashed_in(&self, _level: &ServerLevel) -> bool {
+        self.can_be_leashed()
+    }
+    /// `getHurtSound(source)` for classes whose answer needs level state (`Wolf`: armor absorbs by damage type tag).
+    fn get_hurt_sound_in(&self, _level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
+        self.get_hurt_sound(source)
+    }
+    /// `Llama.getStrength()`; `None` for entities that are not llamas (implemented by the llama class).
+    fn llama_strength(&self) -> Option<i32> {
+        None
+    }
+    /// `AbstractHorse.isTamed()`; `None` for entities that are not horses (implemented by the horse classes).
+    fn horse_is_tamed(&self) -> Option<bool> {
+        None
+    }
     // ==== [EntityItems] additions (Entity trait methods) ====
     /// `interact(player, hand, location)`: the player (taken out of the level) uses the entity.
     fn interact(

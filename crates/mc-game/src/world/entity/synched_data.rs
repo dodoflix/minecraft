@@ -96,6 +96,11 @@ impl<S: Serializer> Clone for EntityDataAccessor<S> {
     }
 }
 impl<S: Serializer> Copy for EntityDataAccessor<S> {}
+impl<S: Serializer> std::fmt::Debug for EntityDataAccessor<S> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "EntityDataAccessor<{}>({})", S::NAME, self.id)
+    }
+}
 
 impl<S: Serializer> EntityDataAccessor<S> {
     pub const fn new(id: u8) -> Self {

@@ -46,6 +46,14 @@ impl ServerPlayer {
     }
 }
 
+// ==== [Pets] additions ====
+impl ServerPlayer {
+    /// `ServerPlayer.canHarmPlayer(target)` (`this` hurts `target`): `isPvpAllowed() && doTeamsAllowDamage(target)`.
+    pub fn can_harm_player(&self, level: &ServerLevel, target_scoreboard_name: &str) -> bool {
+        level.pvp() && self.do_teams_allow_damage(level, target_scoreboard_name)
+    }
+}
+
 /// `Player.isInvulnerableTo` + `ServerPlayer.isInvulnerableTo`.
 pub fn is_invulnerable_to(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSource) -> bool {
     // Player: LivingEntity (base + enchantment immunity), then the game rules

@@ -16,4 +16,5 @@ pub mod rabbit;
 pub mod squid;
 pub mod sheep;
 pub mod temperature_variants;
+pub mod turtle;
 pub mod wolf;

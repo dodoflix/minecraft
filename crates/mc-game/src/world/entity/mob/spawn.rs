@@ -2,7 +2,6 @@
 
 use mc_core::random::RandomSource;
 use super::MobData;
-use crate::impl_spawn_group_data;
 use crate::server::level::ServerLevel;
 use crate::world::difficulty_instance::DifficultyInstance;
 use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};

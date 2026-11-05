@@ -24,6 +24,7 @@ mod consumable;
 pub mod entity_items;
 mod context;
 pub mod crafting;
+pub mod dye_color;
 mod cooldowns;
 pub mod enchantment;
 pub mod enchantment_helper;

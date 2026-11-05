@@ -393,3 +393,17 @@ pub fn take(level: &mut ServerLevel, taker: &dyn Entity, item_id: EntityId, org_
         level.entity_tracker.send_to_tracking_players(item_id, &crate::server::level::server_entity::encode_payload(&packet));
     }
 }
+
+// ==== [Pets] additions ====
+
+/// `LivingEntity.getLastDamageSource(timeout)`.
+pub fn get_last_damage_source(level: &ServerLevel, e: &dyn Entity, damage_source_timeout: i32) -> Option<crate::world::damagesource::DamageSource> {
+    let l = e.living()?;
+    if level.game_time() - l.last_damage_stamp > i64::from(damage_source_timeout) { None } else { l.last_damage_source.clone() }
+}
+
+/// `ChestBlockEntity.getOpenCount(level, pos)`. SEAM(BxContainers): the chest block entity lands with the containers
+/// slice; they replace this body.
+pub fn chest_open_count(_level: &ServerLevel, _pos: mc_core::pos::BlockPos) -> i32 {
+    0
+}

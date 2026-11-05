@@ -85,14 +85,14 @@ pub fn shear_off_all_leash_connections(e: &mut dyn Entity, level: &mut ServerLev
 
 /// `Entity.interact(player, hand, location)` for mobs (the `Leashable` parts and shearing of equipment).
 pub fn entity_interact(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut ServerPlayer, hand: InteractionHand) -> InteractionResult {
-    if player.is_shift_key_down() && e.can_be_leashed() && e.is_alive() && !e.is_baby() {
+    if player.is_shift_key_down() && e.can_be_leashed_in(level) && e.is_alive() && !e.is_baby() {
         let player_id = player.id();
         let mobs_to_leash = leashable::leashable_in_area(level, e.base().bounding_box().get_center(), |l| leashable::get_leash_holder(l) == Some(player_id));
         if !mobs_to_leash.is_empty() {
             let mut any_leashed = false;
             let holder = LeashHolder::of(e);
             for id in mobs_to_leash {
-                let can = level.get_entity(id).is_some_and(|m| leashable::can_have_a_leash_attached_to(m, e.as_dyn()));
+                let can = level.get_entity(id).is_some_and(|m| leashable::can_have_a_leash_attached_to(level, m, e.as_dyn()));
                 if can {
                     level.with_entity(id, |level, m| leashable::set_leashed_to(m, level, holder, true));
                     any_leashed = true;
@@ -132,7 +132,7 @@ pub fn entity_interact(e: &mut dyn Entity, level: &mut ServerLevel, player: &mut
         }
         let item_stack = player.get_item_in_hand(hand);
         let holder_is_player = leashable::get_leash_holder(e).and_then(|h| level.get_entity(h)).is_some_and(|h| h.is_player());
-        if item_stack.is(Item::LEAD) && !holder_is_player && leashable::can_have_a_leash_attached_to(e, &*player) {
+        if item_stack.is(Item::LEAD) && !holder_is_player && leashable::can_have_a_leash_attached_to(level, e, &*player) {
             if leashable::is_leashed(e) {
                 leashable::drop_leash(e, level);
             }
