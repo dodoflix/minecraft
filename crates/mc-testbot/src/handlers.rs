@@ -197,6 +197,7 @@ impl State {
                 m.menu_type = Some(p.menu_type.name().to_string());
                 self.open_menu = Some(m);
             }
+            P::MerchantOffers(p) => self.merchant_offers = Some(p),
             P::ContainerClose(p) => {
                 if self.open_menu.as_ref().is_some_and(|m| m.container_id == p.container_id) {
                     self.open_menu = None;

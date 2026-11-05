@@ -1,0 +1,18 @@
+# Villager trading: right click opens the merchant menu (open_screen + merchant_offers), select a trade, observe offers; seeded offers
+# are only comparable when the villager's random is the same on both servers, so the summon pins it via the Brain-free NBT (profession+level;
+# offers are generated at first interaction: compare structure with `OFFER` lines, exact values come from the oracle `trades` goldens).
+cmd gamerule advance_time false
+cmd gamerule spawn_mobs false
+cmd kill @e[type=!minecraft:player]
+cmd gamemode survival @s
+cmd tp @s 0.5 -60 0.5 0 0
+wait_ticks 5
+cmd summon minecraft:villager 1.5 -60 3.5 {NoAI:1b,PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1},Offers:{Recipes:[{buy:{id:"minecraft:wheat",count:20},sell:{id:"minecraft:emerald",count:1},maxUses:16,xp:2,rewardExp:1b},{buy:{id:"minecraft:emerald",count:1},sell:{id:"minecraft:bread",count:6},maxUses:16,xp:1,rewardExp:1b}]}}
+wait_entity villager
+wait_ticks 10
+interact villager#1
+wait_ticks 10
+observe trading_screen
+trade_select 1
+wait_ticks 5
+observe selected_trade

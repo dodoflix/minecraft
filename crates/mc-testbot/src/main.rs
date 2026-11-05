@@ -3,6 +3,7 @@
 //! ```text
 //! mc-testbot status HOST[:PORT]
 //! mc-testbot join HOST[:PORT] [--name Bot] [--seconds 30] [--walk] [--chat TEXT] [--command CMD]... [--log FILE.jsonl] [--text]
+//! mc-testbot run HOST[:PORT] SCENARIO.scn [--name Bot] [--log FILE.jsonl] [--obs FILE.txt]   (see src/scenario.rs for the scenario commands)
 //! mc-testbot diff A.jsonl B.jsonl [--ignore NAME]... [--state play] [--dir in|out] [--all-fields] [--field NAME=FIELD,FIELD]...
 //! mc-testbot text FILE.jsonl
 //! ```
@@ -15,7 +16,7 @@ use mc_testbot::Bot;
 
 fn usage() -> ! {
     eprintln!(
-        "usage:\n  mc-testbot status HOST[:PORT]\n  mc-testbot join HOST[:PORT] [--name N] [--seconds S] [--walk] [--chat T] [--command C]... [--log F] [--text]\n  \
+        "usage:\n  mc-testbot run HOST[:PORT] SCENARIO.scn [--name N] [--log F] [--obs F]\n  mc-testbot status HOST[:PORT]\n  mc-testbot join HOST[:PORT] [--name N] [--seconds S] [--walk] [--chat T] [--command C]... [--log F] [--text]\n  \
          mc-testbot diff A.jsonl B.jsonl [--ignore NAME]... [--state S] [--dir in|out] [--all-fields] [--field NAME=F1,F2]...\n  mc-testbot text F.jsonl"
     );
     std::process::exit(2)
@@ -35,6 +36,7 @@ async fn main() {
     let code = match cmd.as_str() {
         "status" => status(&args[1..]).await,
         "join" => join(&args[1..]).await,
+        "run" => run(&args[1..]).await,
         "diff" => diff(&args[1..]),
         "text" => {
             let Some(f) = args.get(1) else { usage() };
@@ -131,6 +133,51 @@ async fn join(args: &[String]) -> i32 {
     bot.disconnect().await;
     match result {
         Ok(()) => 0,
+        Err(e) => {
+            eprintln!("failed: {e}");
+            1
+        }
+    }
+}
+
+/// `run HOST SCENARIO [--name N] [--log F] [--obs F]`: join, run the scenario file, print/write the observation lines.
+async fn run(args: &[String]) -> i32 {
+    let (Some(target), Some(file)) = (args.first(), args.get(1)) else { usage() };
+    let (host, port) = host_port(target);
+    let (mut name, mut log, mut obs) = ("Bot".to_string(), None, None);
+    let mut it = args[2..].iter();
+    while let Some(a) = it.next() {
+        let mut val = || it.next().cloned().unwrap_or_else(|| usage());
+        match a.as_str() {
+            "--name" => name = val(),
+            "--log" => log = Some(val()),
+            "--obs" => obs = Some(val()),
+            _ => usage(),
+        }
+    }
+    let text = std::fs::read_to_string(file).unwrap_or_else(|e| fatal(&format!("{file}: {e}")));
+    let bot = Bot::connect(BotOptions::new(host, port, name)).await.unwrap_or_else(|e| fatal(&e.to_string()));
+    let result = async {
+        bot.wait_joined(Duration::from_secs(60)).await?;
+        bot.wait_ready(Duration::from_secs(90)).await?;
+        mc_testbot::scenario::run(&bot, &text).await
+    }
+    .await;
+    if let Some(f) = &log
+        && let Err(e) = bot.write_log(f)
+    {
+        eprintln!("cannot write log: {e}");
+    }
+    bot.disconnect().await;
+    match result {
+        Ok(lines) => {
+            let body = lines.join("\n") + "\n";
+            match obs {
+                Some(f) => std::fs::write(&f, body).unwrap_or_else(|e| fatal(&format!("{f}: {e}"))),
+                None => print!("{body}"),
+            }
+            0
+        }
         Err(e) => {
             eprintln!("failed: {e}");
             1

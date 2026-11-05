@@ -1,0 +1,16 @@
+# Template for a mob scenario (copy, rename, edit). Run: scripts/mob-e2e.sh tests/e2e/mobs/NAME.scn   (README.md next to this file).
+# The bot is op'd by the script, stands at the flat-world spawn (surface y=-61, standing y=-60), difficulty normal, no natural spawning,
+# frozen clock. Everything observable by a vanilla client is written to the packet log (diffed) and by `observe` to the obs file (diffed).
+cmd gamerule advance_time false
+cmd gamerule advance_weather false
+cmd gamerule spawn_mobs false
+cmd gamerule mob_drops false
+cmd kill @e[type=!minecraft:player]
+cmd tp @s 0.5 -60 0.5 0 0
+wait_ticks 5
+# --- act ---
+cmd summon minecraft:pig 3.5 -60 3.5 {NoAI:1b,PersistenceRequired:1b}
+wait_entity pig
+wait_ticks 10
+# --- observe (positions, velocity, rotation, entity metadata by accessor id, trading offers) ---
+observe summoned

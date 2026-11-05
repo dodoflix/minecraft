@@ -1,0 +1,18 @@
+# Breeding through the real interaction path: wheat on two cows (use on entity), love particles/event, baby spawn, parents' age.
+cmd gamerule advance_time false
+cmd gamerule spawn_mobs false
+cmd gamerule mob_drops false
+cmd kill @e[type=!minecraft:player]
+cmd gamemode survival @s
+cmd give @s minecraft:wheat 8
+cmd tp @s 0.5 -60 0.5 0 0
+wait_ticks 5
+cmd summon minecraft:cow 1.5 -60 3.5 {NoAI:1b,PersistenceRequired:1b}
+cmd summon minecraft:cow 2.5 -60 3.5 {NoAI:1b,PersistenceRequired:1b}
+wait_entity cow
+wait_ticks 10
+interact cow#1
+wait_ticks 3
+interact cow#2
+wait_ticks 60
+observe after_breeding

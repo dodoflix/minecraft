@@ -8,6 +8,7 @@ pub mod inventory;
 pub mod join;
 pub mod log;
 pub mod physics;
+pub mod scenario;
 pub mod state;
 pub mod tracking;
 pub mod world;

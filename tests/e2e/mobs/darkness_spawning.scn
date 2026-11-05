@@ -1,0 +1,17 @@
+# Natural spawning observed through add_entity packets: night, monsters + animals allowed, bot standing still. Counts and kinds are
+# compared loosely by the observer (random placement differs between servers unless both run the same seeds): use `spawnpass` goldens
+# (tests/oracle/scenarios/mob_spawnpass_*.txt) for exactness; this scenario checks that spawning happens at all and what the client sees.
+cmd gamerule advance_time false
+cmd gamerule spawn_mobs true
+cmd gamerule spawn_monsters true
+cmd gamerule mob_drops false
+cmd gamerule random_tick_speed 0
+cmd difficulty hard
+cmd time set 18000
+cmd kill @e[type=!minecraft:player]
+cmd tp @s 0.5 -60 0.5 0 0
+# a dark box roof is not needed: the flat world is dark at night (sky light follows the clock)
+wait_ticks 400
+observe after_400_ticks
+wait_ticks 400
+observe after_800_ticks

@@ -347,6 +347,76 @@ impl Bot {
         }));
     }
 
+    /// `ServerboundSelectTradePacket` (the merchant menu must be open: interact with the villager first).
+    pub fn select_trade(&self, index: i32) {
+        self.send(ServerboundPlayPacket::SelectTrade(ServerboundSelectTradePacket { item: index }));
+    }
+
+    /// Ids of the tracked entities of `entity_type` (ascending id = spawn order on both servers).
+    pub fn entities_of(&self, entity_type: mc_data::EntityType) -> Vec<i32> {
+        self.with_state(|s| {
+            let mut ids: Vec<i32> = s.entities.values().filter(|e| e.entity_type == entity_type).map(|e| e.id).collect();
+            ids.sort_unstable();
+            ids
+        })
+    }
+
+    /// Wait for an entity of `entity_type` whose id is not in `known` (an `add_entity` packet after the action that should spawn it).
+    pub async fn wait_entity(&self, entity_type: mc_data::EntityType, known: &[i32], timeout: Duration) -> Result<i32> {
+        self.wait_for(timeout, |s| {
+            let mut ids: Vec<i32> = s.entities.values().filter(|e| e.entity_type == entity_type && !known.contains(&e.id)).map(|e| e.id).collect();
+            ids.sort_unstable();
+            ids.first().copied()
+        })
+        .await
+    }
+
+    /// One observation line per tracked entity (ids are not stable across servers: lines are sorted by id and identified by type/index).
+    /// Format: `ENT type#n pos=x,y,z vel=x,y,z rot=yaw,pitch head=yaw og=0|1 vehicle=- data=ID:VALUE;...` (entity metadata by accessor id).
+    pub fn entity_lines(&self) -> Vec<String> {
+        self.with_state(|s| {
+            let own = s.entity_id;
+            let mut ents: Vec<&crate::tracking::TrackedEntity> = s.entities.values().filter(|e| e.id != own).collect();
+            ents.sort_by_key(|e| e.id);
+            let mut counter: std::collections::BTreeMap<&'static str, usize> = Default::default();
+            ents.iter()
+                .map(|e| {
+                    let name = e.entity_type.name();
+                    let n = counter.entry(name).or_insert(0);
+                    *n += 1;
+                    let data: Vec<String> = e.data.iter().map(|(k, v)| format!("{k}:{v:?}")).collect();
+                    format!(
+                        "ENT {name}#{n} pos={:?},{:?},{:?} vel={:?},{:?},{:?} rot={:?},{:?} head={:?} og={} vehicle={} data={}",
+                        e.pos.x, e.pos.y, e.pos.z, e.vel.x, e.vel.y, e.vel.z, e.yaw, e.pitch, e.head_yaw, u8::from(e.on_ground),
+                        e.vehicle.map_or("-".to_string(), |v| v.to_string()),
+                        if data.is_empty() { "-".to_string() } else { data.join(";") }
+                    )
+                })
+                .collect()
+        })
+    }
+
+    /// `OFFER i buyA=item*count buyB=item*count|- sell=item*count uses=U max=M xp=X mult=F demand=D special=S` per offer of the last
+    /// `merchant_offers` packet (plus a `OFFERS level= xp=` header); empty when no trading screen was opened.
+    pub fn merchant_offer_lines(&self) -> Vec<String> {
+        self.with_state(|s| {
+            let Some(p) = &s.merchant_offers else { return Vec::new() };
+            let mut out = vec![format!("OFFERS count={} level={} xp={} progress={} restock={}", p.offers.len(), p.villager_level, p.villager_xp, u8::from(p.show_progress), u8::from(p.can_restock))];
+            for (i, o) in p.offers.iter().enumerate() {
+                let cost = |c: &mc_protocol::packets::play::ItemCost| format!("{}*{}", c.item.name(), c.count);
+                out.push(format!(
+                    "OFFER {i} buyA={} buyB={} sell={}*{} uses={} max={} xp={} mult={:?} demand={} special={}",
+                    cost(&o.base_cost_a),
+                    o.cost_b.as_ref().map_or("-".to_string(), cost),
+                    o.result.item().name(),
+                    o.result.count(),
+                    o.uses, o.max_uses, o.xp, o.price_multiplier, o.demand, o.special_price_diff
+                ));
+            }
+            out
+        })
+    }
+
     // ---- chat / commands ----------------------------------------------------------------------
 
     fn epoch_millis() -> i64 {

@@ -196,6 +196,8 @@ pub struct State {
     pub events: Vec<Observed>,
     /// Own attribute snapshots from `update_attributes` (base, modifiers); see [`State::attribute_value`].
     pub attributes: HashMap<mc_data::Attribute, (f64, Vec<AttributeModifier>)>,
+    /// Last `merchant_offers` packet (villager / wandering trader trading screen).
+    pub merchant_offers: Option<ClientboundMerchantOffersPacket>,
 }
 
 /// Server events a scenario can wait for / compare (the log only grows; take `events.len()` as a mark before an action).
@@ -297,6 +299,7 @@ impl State {
             errors: Vec::new(),
             events: Vec::new(),
             attributes: HashMap::new(),
+            merchant_offers: None,
         }
     }
 

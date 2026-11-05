@@ -1,0 +1,22 @@
+# /summon of passive, hostile and ageable mobs: add_entity packets, initial metadata (flags, pose, health, age/baby, variants), rotations.
+cmd gamerule advance_time false
+cmd gamerule spawn_mobs false
+cmd gamerule mob_drops false
+cmd time set 18000
+cmd kill @e[type=!minecraft:player]
+cmd tp @s 0.5 -60 0.5 0 0
+wait_ticks 5
+cmd summon minecraft:pig 4 -60 4 {NoAI:1b,PersistenceRequired:1b}
+wait_entity pig
+cmd summon minecraft:sheep -4 -60 4 {NoAI:1b,PersistenceRequired:1b,Color:5b}
+wait_entity sheep
+cmd summon minecraft:zombie 4 -60 -4 {NoAI:1b,PersistenceRequired:1b,IsBaby:1b}
+wait_entity zombie
+cmd summon minecraft:cow -4 -60 -4 {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+wait_entity cow
+cmd summon minecraft:villager 0 -60 6 {NoAI:1b,PersistenceRequired:1b,VillagerData:{type:"minecraft:desert",profession:"minecraft:librarian",level:2}}
+wait_entity villager
+cmd summon minecraft:creeper 0 -60 -6 {NoAI:1b,PersistenceRequired:1b,powered:1b}
+wait_entity creeper
+wait_ticks 20
+observe summoned

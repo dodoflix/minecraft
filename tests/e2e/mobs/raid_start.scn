@@ -1,0 +1,21 @@
+# Raid start: a bell + beds make a village, the bot gets Raid Omen and the raid begins (boss bar, raid horn sound, raiders spawning).
+cmd gamerule advance_time false
+cmd gamerule spawn_mobs false
+cmd gamerule raids true
+cmd gamerule mob_drops false
+cmd difficulty normal
+cmd time set 6000
+cmd kill @e[type=!minecraft:player]
+cmd fill -12 -60 -12 12 -52 12 minecraft:air
+cmd setblock 0 -60 0 minecraft:bell
+cmd setblock 3 -60 0 minecraft:red_bed[facing=south,part=foot]
+cmd setblock 3 -60 -1 minecraft:red_bed[facing=south,part=head]
+cmd setblock -3 -60 0 minecraft:red_bed[facing=south,part=foot]
+cmd setblock -3 -60 -1 minecraft:red_bed[facing=south,part=head]
+cmd summon minecraft:villager 1.5 -60 2.5 {PersistenceRequired:1b}
+cmd gamemode survival @s
+cmd tp @s 0.5 -60 6.5 0 0
+wait_ticks 40
+cmd effect give @s minecraft:raid_omen 30 0
+wait_ticks 600
+observe raid_running
