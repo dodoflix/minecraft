@@ -45,11 +45,6 @@ impl PanicGoal {
         Self { speed_modifier, pos_x: 0.0, pos_y: 0.0, pos_z: 0.0, is_running: false, panic_causing_damage_types: PanicTag::Func(panic_causing_damage_types) }
     }
 
-    /// Replaces the damage type tag (`PanicGoal(mob, speed, Function<mob, tag>)`: re-evaluated before every `shouldPanic`).
-    pub fn set_panic_causing_damage_types(&mut self, tag: &'static str) {
-        self.panic_causing_damage_types = tag;
-    }
-
     /// `shouldPanic()`.
     pub fn should_panic(&self, mob: &dyn Entity, level: &ServerLevel) -> bool {
         mob.living().and_then(|l| l.last_damage_source.as_ref()).is_some_and(|s| s.is_tag(level, match self.panic_causing_damage_types { PanicTag::Fixed(t) => t, PanicTag::Func(f) => f(mob) }))

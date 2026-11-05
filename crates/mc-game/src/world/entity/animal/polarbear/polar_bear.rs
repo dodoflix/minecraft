@@ -41,33 +41,6 @@ fn bear_mut(e: &mut dyn Entity) -> &mut PolarBear {
     e.as_any_mut().downcast_mut::<PolarBear>().expect("PolarBear")
 }
 
-/// `PanicGoal(this, 2.0, bear -> bear.isBaby() ? PANIC_CAUSES : PANIC_ENVIRONMENTAL_CAUSES)`.
-struct PolarBearPanicGoal {
-    panic: PanicGoal,
-}
-
-impl Goal for PolarBearPanicGoal {
-    fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        self.panic.set_panic_causing_damage_types(if mob.is_baby() { DamageTypeTags::PANIC_CAUSES } else { DamageTypeTags::PANIC_ENVIRONMENTAL_CAUSES });
-        self.panic.can_use(mob, level)
-    }
-    fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        self.panic.can_continue_to_use(mob, level)
-    }
-    fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        self.panic.start(mob, level);
-    }
-    fn stop(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        self.panic.stop(mob, level);
-    }
-    fn flags(&self) -> GoalFlags {
-        self.panic.flags()
-    }
-    fn as_panic_goal(&self) -> Option<&PanicGoal> {
-        Some(&self.panic)
-    }
-}
-
 /// `PolarBear.PolarBearMeleeAttackGoal`.
 struct PolarBearMeleeAttackGoal {
     melee: MeleeAttackGoal,
@@ -226,7 +199,7 @@ impl PolarBear {
         let goals = &mut self.mob.goal_selector;
         goals.add_goal(0, Box::new(float));
         goals.add_goal(1, Box::new(PolarBearMeleeAttackGoal { melee: MeleeAttackGoal::new(1.25, true) }));
-        goals.add_goal(1, Box::new(PolarBearPanicGoal { panic: PanicGoal::new(2.0) }));
+        goals.add_goal(1, Box::new(PanicGoal::with_tag_fn(2.0, |bear| if bear.is_baby() { DamageTypeTags::PANIC_CAUSES } else { DamageTypeTags::PANIC_ENVIRONMENTAL_CAUSES })));
         goals.add_goal(4, Box::new(follow_parent));
         goals.add_goal(5, Box::new(RandomStrollGoal::new(1.0)));
         goals.add_goal(6, Box::new(look_at));
