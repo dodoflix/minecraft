@@ -12,15 +12,16 @@ fn pack(values: &[u32], bits: usize) -> Vec<i64> {
 }
 
 fn state(name: &str, props: &[(&str, &str)]) -> Tag {
-    let mut c = CompoundTag::new();
-    c.put_string("Name", name);
-    if !props.is_empty() {
-        let mut p = CompoundTag::new();
-        for (k, v) in props {
-            p.put_string(*k, *v);
-        }
-        c.put("Properties", Tag::Compound(p));
+    if props.is_empty() {
+        return Tag::String(name.into());
     }
+    let mut c = CompoundTag::new();
+    c.put_string("id", name);
+    let mut p = CompoundTag::new();
+    for (k, v) in props {
+        p.put_string(*k, *v);
+    }
+    c.put("properties", Tag::Compound(p));
     Tag::Compound(c)
 }
 

@@ -12,6 +12,7 @@
 #             --view-distance N (6)  --simulation-distance N (6)  --gamemode M (creative)  --difficulty D (peaceful)
 #             --reset (wipe the whole scratch dir first)  --xmx 2G
 # Trailing `key=value` args override/add any server.properties entry.
+# Env VANILLA_JVM_OPTS: extra JVM flags (e.g. "-Dmax.bg.threads=1").
 # Defaults: online-mode=false, enforce-secure-profile=false, white-list=false, eula accepted, spawn-protection=0.
 set -euo pipefail
 
@@ -72,7 +73,7 @@ start)
   (cd "$D" && setsid bash -c '
       exec 3<>stdin.fifo
       echo $$ > server.pid
-      exec java -Xms512M -Xmx'"$xmx"' -jar "$1" nogui <&3 >server.out 2>&1
+      exec java -Xms512M -Xmx'"$xmx"' '"${VANILLA_JVM_OPTS:-}"' -jar "$1" nogui <&3 >server.out 2>&1
     ' _ "$ROOT/ref/server.jar" &) 
   for _ in $(seq 100); do [[ -s "$D/server.pid" ]] && break; sleep 0.1; done
   # readiness: "Done (1.2s)! For help, type "help""; also fail fast if the process dies

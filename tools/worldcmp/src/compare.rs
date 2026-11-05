@@ -231,10 +231,14 @@ fn ceil_log2(n: usize) -> usize {
     if n <= 1 { 0 } else { (usize::BITS - (n - 1).leading_zeros()) as usize }
 }
 
+/// A palette entry in the 26.x layout: a bare string for property-less states, else `{id, properties:{..}}`.
 fn state_string(tag: &Tag) -> String {
+    if let Some(name) = tag.as_string() {
+        return name.to_owned();
+    }
     let Some(c) = tag.as_compound() else { return canon(tag) };
-    let name = c.get_string_or("Name", "?");
-    match c.get_compound("Properties") {
+    let name = c.get_string_or("id", "?");
+    match c.get_compound("properties") {
         Some(p) if !p.is_empty() => {
             let props: BTreeMap<&String, String> =
                 p.iter().map(|(k, v)| (k, v.as_string().map(str::to_owned).unwrap_or_else(|| canon(v)))).collect();

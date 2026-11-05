@@ -1,0 +1,83 @@
+# Curated worldgen-diff areas: `seed dim structure x z` (x z = BLOCK coordinates; use as `--seed S --dims D --center X,Z`).
+# Found with the real vanilla 26.3 server's `/locate structure` from (0,0) in each dimension (scripts/worldgen-locate.sh;
+# tag searches report the concrete structure id). Lines starting with # are comments.
+# The end main island is at 0,0 (dragon island, obsidian pillars, exit portal). `chorus_plant` lines: chorus plants only
+# generate on the outer islands; the point is the nearest end_city (outer-island region), radius a few chunks around it.
+
+# seed 12345
+12345 overworld minecraft:village_plains 160 880
+12345 overworld minecraft:stronghold -560 -1648
+12345 overworld minecraft:mansion 4656 7056
+12345 overworld minecraft:ancient_city -288 -288
+12345 overworld minecraft:trial_chambers 0 224
+12345 overworld minecraft:pillager_outpost 272 -960
+12345 overworld minecraft:monument 1760 -1360
+12345 overworld minecraft:shipwreck 176 160
+12345 overworld minecraft:ruined_portal 16 0
+12345 overworld minecraft:mineshaft -64 16
+12345 overworld minecraft:desert_pyramid -5120 -4864
+12345 overworld minecraft:jungle_pyramid -1520 32
+12345 overworld minecraft:swamp_hut -2016 -1696
+12345 overworld minecraft:igloo 576 656
+12345 overworld minecraft:abandoned_camp_taiga 624 -448
+12345 overworld minecraft:buried_treasure 761 409
+12345 overworld minecraft:ocean_ruin_cold 112 80
+12345 the_nether minecraft:fortress 112 672
+12345 the_nether minecraft:bastion_remnant 192 320
+12345 the_nether minecraft:nether_fossil -352 96
+12345 the_nether minecraft:ruined_portal_nether 16 0
+12345 the_end minecraft:end_city 992 384
+12345 the_end minecraft:chorus_plant 992 384
+12345 the_end minecraft:main_island 0 0
+
+# seed 1
+1 overworld minecraft:village_plains 640 816
+1 overworld minecraft:stronghold -1136 848
+1 overworld minecraft:mansion 1888 240
+1 overworld minecraft:ancient_city -1840 1232
+1 overworld minecraft:trial_chambers 288 224
+1 overworld minecraft:pillager_outpost -1904 -1328
+1 overworld minecraft:monument 816 -272
+1 overworld minecraft:shipwreck -208 -320
+1 overworld minecraft:ruined_portal 304 288
+1 overworld minecraft:mineshaft -64 0
+1 overworld minecraft:desert_pyramid 272 9552
+1 overworld minecraft:jungle_pyramid 64 1776
+1 overworld minecraft:swamp_hut 3184 1888
+1 overworld minecraft:igloo -880 -1024
+1 overworld minecraft:abandoned_camp_forest 304 192
+1 overworld minecraft:buried_treasure -439 -343
+1 overworld minecraft:ocean_ruin_cold -144 -272
+1 the_nether minecraft:fortress -96 144
+1 the_nether minecraft:bastion_remnant 192 0
+1 the_nether minecraft:nether_fossil 64 64
+1 the_nether minecraft:ruined_portal_nether 304 288
+1 the_end minecraft:end_city -1168 -240
+1 the_end minecraft:chorus_plant -1168 -240
+1 the_end minecraft:main_island 0 0
+
+# seed 777
+777 overworld minecraft:village_plains 608 352
+777 overworld minecraft:stronghold -464 -1680
+777 overworld minecraft:mansion -2400 1920
+777 overworld minecraft:ancient_city 448 2080
+777 overworld minecraft:trial_chambers 64 32
+777 overworld minecraft:pillager_outpost 1536 -1216
+777 overworld minecraft:monument 624 -896
+777 overworld minecraft:shipwreck -192 464
+777 overworld minecraft:ruined_portal 224 176
+777 overworld minecraft:mineshaft 256 160
+777 overworld minecraft:desert_pyramid 1904 -1216
+777 overworld minecraft:jungle_pyramid -2464 1216
+777 overworld minecraft:swamp_hut 800 96
+777 overworld minecraft:igloo -208 1664
+777 overworld minecraft:abandoned_camp_forest 176 224
+777 overworld minecraft:buried_treasure 73 -199
+777 overworld minecraft:ocean_ruin_cold 176 -208
+777 the_nether minecraft:fortress 304 64
+777 the_nether minecraft:bastion_remnant -176 -240
+777 the_nether minecraft:nether_fossil 0 0
+777 the_nether minecraft:ruined_portal_nether 224 176
+777 the_end minecraft:end_city -848 -896
+777 the_end minecraft:chorus_plant -848 -896
+777 the_end minecraft:main_island 0 0
