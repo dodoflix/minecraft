@@ -3,9 +3,8 @@
 //! lets vanilla re-save the chunks it loaded and checks that vanilla's NBT equals ours (so vanilla read the very same
 //! blocks, biomes, heightmaps, ticks and structures we wrote).
 
-mod chunk_common;
 
-use chunk_common::*;
+use crate::chunk_common::*;
 use mc_nbt::Tag;
 use mc_world::data_layer::DataLayer;
 use mc_world::serial::{LoadedChunk, ReadContext, SerializableChunkData};

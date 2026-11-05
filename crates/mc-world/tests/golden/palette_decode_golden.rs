@@ -1,7 +1,8 @@
 //! Decoding of block-state containers (valid, partial, broken NBT) vs the real vanilla codec
 //! (`fixtures/palette/PaletteDecodeGolden.java`).
 
-mod chunk_common;
+
+use crate::chunk_common;
 
 use mc_nbt::{Tag, snbt};
 use mc_world::palette::BlockStateCodec;

@@ -1,9 +1,8 @@
 //! LZ4Block framing vs lz4-java golden fixtures (`fixtures/region/Lz4Tool.java`).
 
-mod region_common;
 use mc_world::region::lz4;
 use mc_world::region::region_file_version::VERSION_LZ4;
-use region_common::*;
+use crate::region_common::*;
 use std::io::Read;
 
 const NAMES: [&str; 6] = ["empty", "one", "short", "repeat", "random", "mixed"];

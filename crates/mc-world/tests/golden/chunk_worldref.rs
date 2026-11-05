@@ -1,9 +1,8 @@
 //! Differential test: every chunk of the vanilla-generated world `run/servers/worldref` must parse, load into the
 //! chunk data model and serialize back to the same NBT (hash-set orderings aside). Skips when the world is absent.
 
-mod chunk_common;
 
-use chunk_common::*;
+use crate::chunk_common::*;
 use mc_nbt::Tag;
 use mc_world::data_layer::DataLayer;
 use mc_world::serial::{LoadedChunk, ReadContext, SerializableChunkData};

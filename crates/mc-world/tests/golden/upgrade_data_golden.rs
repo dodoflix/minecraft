@@ -13,8 +13,8 @@ use mc_world::ticks::TickPriority;
 use mc_world::upgrade_data::*;
 use std::collections::{BTreeSet, HashMap, HashSet};
 
-const SAVED_TICK_GOLDEN: &str = include_str!("fixtures/ticks/saved_tick_golden.txt");
-const FIXER_GOLDEN: &str = include_str!("fixtures/upgrade_data/fixer_golden.txt");
+const SAVED_TICK_GOLDEN: &str = include_str!("../fixtures/ticks/saved_tick_golden.txt");
+const FIXER_GOLDEN: &str = include_str!("../fixtures/upgrade_data/fixer_golden.txt");
 
 fn compound(s: &str) -> CompoundTag {
     snbt::parse_compound(s).unwrap_or_else(|e| panic!("bad snbt {s}: {}", e.message()))

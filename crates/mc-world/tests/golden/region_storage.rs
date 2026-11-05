@@ -1,13 +1,12 @@
 //! `RegionFileStorage` (region cache, NBT IO), `SimpleRegionStorage` (pending writes) and the
 //! `EntityStorage` IO layer.
 
-mod region_common;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_nbt::{CompoundTag, ListTag};
 use mc_world::region::entity_storage::{ChunkEntities, PositionProblem};
 use mc_world::region::region_file_version::VERSION_NONE;
 use mc_world::region::{EntityStorage, RegionFile, RegionFileStorage, SimpleRegionStorage};
-use region_common::*;
+use crate::region_common::*;
 
 fn sample(n: i32) -> CompoundTag {
     let mut t = CompoundTag::new();

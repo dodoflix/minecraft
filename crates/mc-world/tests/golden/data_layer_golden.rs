@@ -19,7 +19,7 @@ fn state(d: &DataLayer) -> String {
 
 #[test]
 fn matches_vanilla_data_layer() {
-    let golden = include_str!("fixtures/data_layer/golden.txt");
+    let golden = include_str!("../fixtures/data_layer/golden.txt");
     let mut layer = DataLayer::new();
     let mut last_filled = DataLayer::new();
     let mut in_fill = false;

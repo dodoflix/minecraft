@@ -13,7 +13,7 @@ fn keys(types: &[HeightmapType]) -> String {
 
 #[test]
 fn matches_vanilla_chunk_status() {
-    let golden = include_str!("fixtures/status/golden.txt");
+    let golden = include_str!("../fixtures/status/golden.txt");
     let (mut statuses, mut cmps, mut ins) = (0, 0, 0);
     for line in golden.lines() {
         let (kind, rest) = line.split_once([' ', '\t']).unwrap_or((line, ""));

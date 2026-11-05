@@ -1,11 +1,10 @@
 //! `RegionFile`: sector allocation, header validation, corrupt-file handling, oversized external
 //! chunks, every compression version, and differential checks against the vanilla Java `RegionFile`.
 
-mod region_common;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_world::region::region_file_version::{self as v, RegionFileVersion};
 use mc_world::region::RegionFile;
-use region_common::*;
+use crate::region_common::*;
 use std::io::Read;
 use std::path::Path;
 

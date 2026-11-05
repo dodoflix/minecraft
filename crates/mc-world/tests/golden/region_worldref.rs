@@ -4,11 +4,10 @@
 //! compression version must read back identically through vanilla, and vanilla-written lz4 files must
 //! read back through us. Skips (passes) when the world or the Java oracle is absent.
 
-mod region_common;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_world::region::region_file_version::{self as v, RegionFileVersion};
 use mc_world::region::{RegionFile, RegionFileStorage};
-use region_common::*;
+use crate::region_common::*;
 use std::path::{Path, PathBuf};
 
 fn region_dirs(world: &Path) -> Vec<PathBuf> {

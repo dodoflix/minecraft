@@ -1,8 +1,7 @@
 //! Behaviour of the chunk data model (heights, proto/level chunk block updates, offsets, section counts).
 
-mod chunk_common;
 
-use chunk_common::factory;
+use crate::chunk_common::factory;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::Block;
 use mc_world::chunk::*;

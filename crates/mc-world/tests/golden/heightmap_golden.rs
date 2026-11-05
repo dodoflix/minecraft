@@ -1,9 +1,8 @@
 //! Heightmap vs. the real vanilla `Heightmap` on a real `ProtoChunk` (`tests/fixtures/heightmap/HeightmapGolden.java`),
 //! plus unit checks of `HeightmapType`.
 
-mod height_status_common;
 
-use height_status_common::TestChunk;
+use crate::height_status_common::TestChunk;
 use mc_data::block::BlockState;
 use mc_data::Block;
 use mc_world::heightmap::{Heightmap, HeightmapChunk, HeightmapMap, HeightmapType, SizeMismatch};
@@ -38,7 +37,7 @@ fn set_block_state(chunk: &mut TestChunk, maps: &mut HeightmapMap, status: Chunk
 
 #[test]
 fn matches_vanilla_heightmap_on_proto_chunk() {
-    let text = include_str!("fixtures/heightmap/golden.txt");
+    let text = include_str!("../fixtures/heightmap/golden.txt");
     let mut chunk = TestChunk::new(0, 16);
     let mut maps = HeightmapMap::new();
     let mut status = ChunkStatus::Empty;

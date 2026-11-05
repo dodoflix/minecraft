@@ -4,7 +4,7 @@ use mc_world::carving_mask::{CarverOutput, CarvingMask};
 
 #[test]
 fn matches_vanilla_carving_mask() {
-    let golden = include_str!("fixtures/carving_mask/golden.txt");
+    let golden = include_str!("../fixtures/carving_mask/golden.txt");
     let mut mask = CarvingMask::new(0, 0);
     let mut visited: Vec<String> = Vec::new();
     let (mut cfgs, mut visits) = (0, 0);

@@ -5,7 +5,7 @@
 use mc_nbt::snbt;
 use mc_world::level_storage::{FeatureFlagSet, PrimaryLevelData, SpecialWorldProperty};
 
-const GOLDEN: &str = include_str!("fixtures/level_storage/level_dat_golden.txt");
+const GOLDEN: &str = include_str!("../fixtures/level_storage/level_dat_golden.txt");
 
 fn list(items: &[String]) -> String {
     format!("[{}]", items.join(", "))

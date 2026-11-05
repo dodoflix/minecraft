@@ -8,7 +8,7 @@ use mc_world::status::ChunkStatus;
 
 #[test]
 fn below_zero_retrogen_codec_matches_vanilla() {
-    let golden = include_str!("fixtures/below_zero_retrogen/golden.txt");
+    let golden = include_str!("../fixtures/below_zero_retrogen/golden.txt");
     let (mut ok, mut none) = (0, 0);
     for line in golden.lines() {
         let f: Vec<&str> = line.split('\t').collect();
@@ -46,7 +46,7 @@ fn below_zero_retrogen_codec_matches_vanilla() {
 
 #[test]
 fn blending_data_codec_and_pack_unpack_match_vanilla() {
-    let golden = include_str!("fixtures/blending_data/golden.txt");
+    let golden = include_str!("../fixtures/blending_data/golden.txt");
     let (mut ok, mut none) = (0, 0);
     for line in golden.lines() {
         let f: Vec<&str> = line.split('\t').collect();

@@ -3,12 +3,11 @@
 //! round-trips through `Heightmap::set_raw_data`. The status / retrogen tags of the same chunks must decode as vanilla.
 //! Passes (printing a note) when the world is absent.
 
-mod height_status_common;
 
 use std::io::Read;
 use std::path::{Path, PathBuf};
 
-use height_status_common::TestChunk;
+use crate::height_status_common::TestChunk;
 use mc_core::bits::{BitStorage, SimpleBitStorage};
 use mc_core::math::mth;
 use mc_data::block::BlockState;
