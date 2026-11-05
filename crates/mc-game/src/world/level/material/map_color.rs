@@ -1,13 +1,11 @@
 //! `net.minecraft.world.level.material.MapColor`: the 64 map color ids and `MapColor.Brightness`. Only what the server
 //! observes is modelled (ids and packed ids); the RGB values are client rendering.
 
-/// `MapColor.id` of the colors the server code names (the id of any block's color comes from `BlockState::get_map_color`).
-pub mod map_color {
-    pub const NONE: u8 = 0;
-    pub const WATER: u8 = 12;
-    pub const COLOR_ORANGE: u8 = 15;
-    pub const COLOR_BROWN: u8 = 26;
-}
+// `MapColor.id` of the colors the server code names (the id of any block's color comes from `BlockState::get_map_color`).
+pub const NONE: u8 = 0;
+pub const WATER: u8 = 12;
+pub const COLOR_ORANGE: u8 = 15;
+pub const COLOR_BROWN: u8 = 26;
 
 /// `MapColor.Brightness`.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]

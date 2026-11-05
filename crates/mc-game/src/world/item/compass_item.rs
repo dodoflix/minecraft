@@ -51,7 +51,7 @@ impl ItemBehaviour for CompassItem {
         if level.get_block_state(pos).block() != Block::LODESTONE {
             return PlainItem.use_on(context, level, player);
         }
-        level.play_sound(None, pos, SoundEvent::LODESTONE_COMPASS_LOCK, SoundSource::Players, 1.0, 1.0);
+        level.play_sound(None, pos, SoundEvent::ITEM_LODESTONE_COMPASS_LOCK, SoundSource::Players, 1.0, 1.0);
         let infinite = player.player.abilities.instabuild;
         let replace_existing_stack = !infinite && context.item_stack.count() == 1;
         let target = LodestoneTracker { target: Some(GlobalPos { dimension: level.dimension.clone(), pos }), tracked: true };

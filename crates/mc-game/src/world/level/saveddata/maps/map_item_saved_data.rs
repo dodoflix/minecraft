@@ -102,7 +102,6 @@ impl HoldingPlayer {
     }
 }
 
-#[derive(Debug)]
 pub struct MapItemSavedData {
     dirty: bool,
     pub center_x: i32,

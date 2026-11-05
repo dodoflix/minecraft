@@ -59,7 +59,7 @@ public final class MapGolden {
          case 8 -> b = y == h ? Blocks.GLASS : y >= 50 && y < h ? Blocks.STONE : null;
          case 9 -> b = y >= h - 2 && y <= h ? Blocks.LAVA : y >= 50 && y < h - 2 ? Blocks.STONE : null;
          case 10 -> b = null;
-         default -> b = y >= 50 && y <= h ? Blocks.ORANGE_TERRACOTTA : null;
+         default -> b = y >= 50 && y <= h ? Blocks.TERRACOTTA : null;
       }
       return b == null ? Blocks.AIR.defaultBlockState() : b.defaultBlockState();
    }
