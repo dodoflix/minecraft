@@ -10,7 +10,6 @@ use crate::stats::Stat;
 use crate::world::entity::{Entity, ServerPlayer};
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
-use mc_core::random::RandomSource;
 use mc_data::GameEvent;
 use mc_dfu::JSON;
 use mc_protocol::components::common::serde_to_dyn;
@@ -63,8 +62,7 @@ impl InstrumentItem {
         let Some(sound) = holder_sound(&instrument.sound_event) else { return };
         let volume = instrument.range / 16.0;
         // `level.playSound(player, player, sound, RECORDS, volume, 1.0F)`: the source entity is the player (taken out of the level)
-        let seed = level.tick_state.sound_seed_generator.next_long();
-        level.play_seeded_sound_from_entity_at(Some(player.id()), player.id(), player.position(), sound, SoundSource::Records, volume, 1.0, seed);
+        level.play_sound_from_entity_at(Some(player.id()), player.id(), player.position(), sound, SoundSource::Records, volume, 1.0);
         level.game_event_from_entity(Some(player.id()), GameEvent::INSTRUMENT_PLAY, player.position());
     }
 }
