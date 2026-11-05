@@ -27,7 +27,7 @@ impl TemptingSensor {
 
     /// `TemptingSensor.forAnimal()`: `m instanceof Animal animal ? animal.isFood(i) : false`.
     pub const fn for_animal() -> Self {
-        Self::new(|mob, stack| mob.is_animal() && mob.is_food(stack))
+        Self::new(|mob, stack| mob.mob().is_some_and(|m| m.animal.is_some()) && mob.is_food(stack))
     }
 
     /// `FrogAi.getTemptations()`.
