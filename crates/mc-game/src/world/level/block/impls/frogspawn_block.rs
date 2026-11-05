@@ -42,6 +42,19 @@ fn spawn_tadpoles(level: &mut ServerLevel, pos: BlockPos) {
 }
 
 impl BlockBehaviour for FrogspawnBlock {
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        if entity.get_type() == EntityType::FALLING_BLOCK {
+            destroy_block(level, pos);
+        }
+    }
     fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, _old_state: BlockState, _moved_by_piston: bool) {
         let delay = DEFAULT_MIN_HATCH_TICK_DELAY + level.random().next_int_bounded(DEFAULT_MAX_HATCH_TICK_DELAY - DEFAULT_MIN_HATCH_TICK_DELAY);
         helpers::schedule_block_tick(level, pos, state.block(), delay);

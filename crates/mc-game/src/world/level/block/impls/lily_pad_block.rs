@@ -1,6 +1,6 @@
 //! `net.minecraft.world.level.block.LilyPadBlock` (extends `VegetationBlock`).
 use super::prelude::*;
-use super::vegetation_block::{MayPlaceOn, vegetation_behaviour};
+use super::vegetation_block::MayPlaceOn;
 
 pub struct LilyPadBlock;
 
@@ -11,6 +11,33 @@ impl MayPlaceOn for LilyPadBlock {
         (fluid_state.is_tag("supports_lily_pad") || state.is_tag("supports_lily_pad")) && fluid_above.is_empty()
     }
 }
-vegetation_behaviour!(LilyPadBlock);
+
+/// `entity instanceof AbstractBoat` (`Boat`, `ChestBoat`, `Raft`, `ChestRaft`).
+fn is_abstract_boat(ty: mc_data::EntityType) -> bool {
+    let name = ty.name();
+    name.ends_with("_boat") || name.ends_with("_raft")
+}
+
+impl BlockBehaviour for LilyPadBlock {
+    fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
+        super::vegetation_block::can_survive(self, level, pos)
+    }
+    update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
+        super::vegetation_block::update_shape(state, &*level, pos)
+    });
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        level: &mut crate::server::level::ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        if is_abstract_boat(entity.get_type()) {
+            level.destroy_block(pos, true, Some(entity.id()), 512);
+        }
+    }
+}
 
 register_block_class!("LilyPadBlock", |_| Box::new(LilyPadBlock));

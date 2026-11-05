@@ -1,7 +1,7 @@
-//! `net.minecraft.world.level.block.TurtleEggBlock`. The trample hooks (`stepOn`, `fallOn`) are the entity-side wiring
-//! of `EntitiesCore2`: they call [`destroy_egg`] with the entity's `canDestroyEgg` verdict.
+//! `net.minecraft.world.level.block.TurtleEggBlock`.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
+use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::item::BlockPlaceContext;
 use crate::world::level::block::hatch_spawns;
 use crate::world::level::gameevent::GameEventContext;
@@ -40,15 +40,53 @@ pub fn decrease_eggs(level: &mut ServerLevel, pos: BlockPos, state: BlockState) 
     }
 }
 
-/// `destroyEgg(level, state, pos, entity, randomness)` once `canDestroyEgg(level, pos, entity)` (entity-dependent,
-/// evaluated by the caller) allowed it.
-pub fn destroy_egg(level: &mut ServerLevel, state: BlockState, pos: BlockPos, can_destroy_egg: bool, randomness: i32) {
-    if state.is_block(Block::TURTLE_EGG) && can_destroy_egg && level.random().next_int_bounded(randomness) == 0 {
+/// `canDestroyEgg(level, pos, entity)`.
+fn can_destroy_egg(level: &ServerLevel, pos: BlockPos, entity: &dyn Entity) -> bool {
+    if matches!(entity.get_type(), EntityType::TURTLE | EntityType::BAT) {
+        false
+    } else if entity.is_player() {
+        entity.as_any().downcast_ref::<ServerPlayer>().is_some_and(|player| !level.is_under_spawn_protection(player, pos))
+    } else if entity.living().is_some() {
+        level.mob_griefing()
+    } else {
+        false
+    }
+}
+
+/// `destroyEgg(level, state, pos, entity, randomness)`.
+fn destroy_egg(level: &mut ServerLevel, state: BlockState, pos: BlockPos, entity: &dyn Entity, randomness: i32) {
+    if state.is_block(Block::TURTLE_EGG) && can_destroy_egg(level, pos, entity) && level.random().next_int_bounded(randomness) == 0 {
         decrease_eggs(level, pos, state);
     }
 }
 
 impl BlockBehaviour for TurtleEggBlock {
+    fn step_on(&self, level: &mut ServerLevel, pos: BlockPos, on_state: BlockState, entity: &mut dyn Entity) {
+        if !entity.is_stepping_carefully() {
+            destroy_egg(level, on_state, pos, &*entity, 100);
+        }
+    }
+    fn fall_on(&self, level: &mut ServerLevel, state: BlockState, pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
+        if entity.get_type() != EntityType::ZOMBIE {
+            destroy_egg(level, state, pos, &*entity, 3);
+        }
+        // `super.fallOn`
+        let reduced_fall_distance = fall_distance * f64::from(1.0f32 - state.block().data().fall_distance_reduction);
+        let source = level.damage_sources().fall();
+        entity.cause_fall_damage(level, reduced_fall_distance, 1.0, &source);
+    }
+    fn player_destroy(
+        &self,
+        level: &mut ServerLevel,
+        player: &mut ServerPlayer,
+        pos: BlockPos,
+        state: BlockState,
+        block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
+        destroyed_with: &crate::world::item::ItemStack,
+    ) {
+        crate::server::level::block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
+        decrease_eggs(level, pos, state);
+    }
     fn random_tick(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos) {
         if should_update_hatch_level(level, pos) && on_sand(&*level, pos) {
             let hatch = state.get(props::HATCH);
