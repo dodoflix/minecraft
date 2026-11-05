@@ -5,9 +5,9 @@
 mod command_common;
 
 use mc_brigadier::arguments::integer;
-use mc_brigadier::{CommandDispatcher, SimpleCommandExceptionType, literal as lit};
+use mc_brigadier::{ArgumentBuilder, CommandDispatcher, SimpleCommandExceptionType, literal as lit};
 use mc_game::commands::{
-    BrigadierExceptions, CommandBuildContext, CommandRegistrationContext, CommandSelection, CommandSource, CommandSourceStack, Commands, argument,
+    BrigadierExceptions, CommandRegistrationContext, CommandSelection, CommandSource, CommandSourceStack, Commands, argument,
     literal,
 };
 use mc_game::server::MinecraftServer;
@@ -26,10 +26,11 @@ fn execute_tree_matches_vanilla() {
     use mc_protocol::packets::play::ClientboundCommandsPacket;
 
     let commands = command_common::vanilla_commands();
-    let subset_root = mc_brigadier::CommandNode::<CommandSourceStack>::new_root();
-    for child in commands.get_dispatcher().get_root().get_children() {
+    let real_root = commands.get_dispatcher().get_root().clone();
+    let only_execute = mc_brigadier::CommandNode::<CommandSourceStack>::new_root();
+    for child in real_root.get_children() {
         if child.get_name() == "execute" {
-            subset_root.add_child(child);
+            only_execute.add_child(child);
         }
     }
     let mut checked = 0;
@@ -38,7 +39,11 @@ fn execute_tree_matches_vanilla() {
         let (_, level, _, hex) = (it.next().unwrap(), it.next().unwrap(), it.next().unwrap(), it.next().unwrap());
         let bytes: Vec<u8> = (0..hex.len()).step_by(2).map(|i| u8::from_str_radix(&hex[i..i + 2], 16).unwrap()).collect();
         let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level.parse().unwrap())));
-        let root = command_tree::usable_root(&subset_root, &CommandSourceStack::compilation_context(permissions));
+        // `run` redirects to the dispatcher root: map it to the pruned root like `Commands.sendCommands` does
+        let root = mc_brigadier::CommandNode::<CommandSourceStack>::new_root();
+        let mut converted = std::collections::HashMap::new();
+        converted.insert(Arc::as_ptr(&real_root) as usize, root.clone());
+        command_tree::fill_usable_commands(&only_execute, &root, &CommandSourceStack::compilation_context(permissions), &mut converted);
         let mut out = Vec::new();
         command_tree::commands_packet(&root).encode(&mut out);
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
@@ -76,7 +81,7 @@ fn test_commands(log: Arc<Mutex<Vec<String>>>) -> Commands {
     use mc_game::commands::COMMANDS;
     BrigadierExceptions::install();
     let dispatcher: CommandDispatcher<CommandSourceStack> = CommandDispatcher::new();
-    let build_context = CommandBuildContext::simple(Arc::new(mc_game::commands::command_build_context::StaticRegistries), mc_world::level_storage::FeatureFlagSet::ALL);
+    let build_context = command_common::vanilla_build_context();
     let context = CommandRegistrationContext { dispatcher: &dispatcher, build_context: &build_context, selection: CommandSelection::Dedicated };
     let registration = COMMANDS.iter().find(|r| r.name == "ExecuteCommand").expect("ExecuteCommand registered");
     (registration.register)(&context);

@@ -3,9 +3,16 @@
 /// The vanilla command tree: all features enabled like the golden generator (`createValidationContext`), built-in
 /// registries plus empty data-driven ones (the tree only needs registry existence).
 pub fn vanilla_commands() -> mc_game::commands::Commands {
+    use mc_game::commands::{CommandSelection, Commands};
+    mc_game::commands::BrigadierExceptions::install();
+    Commands::new(CommandSelection::Dedicated, &vanilla_build_context())
+}
+
+/// The build context of [`vanilla_commands`].
+pub fn vanilla_build_context() -> mc_game::commands::CommandBuildContext {
     use mc_game::commands::HolderLookupProvider as _;
+    use mc_game::commands::CommandBuildContext;
     use mc_game::commands::command_build_context::StaticRegistries;
-    use mc_game::commands::{CommandBuildContext, CommandSelection, Commands};
     use std::sync::Arc;
 
     struct WithEmptyDynamic;
@@ -35,12 +42,7 @@ pub fn vanilla_commands() -> mc_game::commands::Commands {
             StaticRegistries.list_registry_keys()
         }
     }
-    mc_game::commands::BrigadierExceptions::install();
-    let commands = Commands::new(
-        CommandSelection::Dedicated,
-        &CommandBuildContext::simple(Arc::new(WithEmptyDynamic), mc_world::level_storage::FeatureFlagSet::ALL),
-    );
-    commands
+    CommandBuildContext::simple(Arc::new(WithEmptyDynamic), mc_world::level_storage::FeatureFlagSet::ALL)
 }
 
 /// A real `MinecraftServer` over a fresh world in a temporary directory (nothing is started: no levels are loaded,

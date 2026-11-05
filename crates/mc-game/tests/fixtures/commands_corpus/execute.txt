@@ -1,0 +1,401 @@
+# /execute: every subcommand with success and error cases (flat world, creative, peaceful; Bot = op, Bot0 = level 0).
+# The world is flat: bedrock y=-64, dirt -63..-62, grass block -61, air from -60.
+
+# ---- setup ----
+scoreboard objectives add o dummy
+scoreboard objectives add p dummy
+scoreboard players set #a o 5
+scoreboard players set #b o 9
+scoreboard players set #a p 5
+fill 0 -60 0 2 -60 2 minecraft:stone
+fill 10 -60 0 12 -60 2 minecraft:stone
+setblock 20 -60 20 minecraft:air
+summon minecraft:armor_stand 4 -60 4 {NoGravity:1b,CustomName:'"One"'}
+summon minecraft:armor_stand 6 -60 4 {NoGravity:1b,CustomName:'"Two"'}
+summon minecraft:armor_stand 8 -60 4 {NoGravity:1b,CustomName:'"Three"'}
+summon minecraft:item 5 -60 8 {Item:{id:"minecraft:stone",count:1},Passengers:[{id:"minecraft:item",Item:{id:"minecraft:dirt",count:1}}]}
+
+# ---- syntax / permissions ----
+execute
+execute run
+execute foo
+execute run say hi
+execute run execute run say twice
+@bot execute run say as bot
+@bot0 execute run say denied
+
+# ---- as / at / positioned / rotated / facing / align / anchored / in ----
+execute as @a run say as
+execute as @e[type=minecraft:armor_stand] run say stand
+execute as @e[type=minecraft:armor_stand] at @s run summon minecraft:marker ~ ~1 ~
+execute as @e[type=minecraft:cow] run say none
+execute as @e[type=minecraft:armor_stand,limit=1] run say limited
+execute as nope run say x
+execute as @a[ run say x
+execute as @e[type=minecraft:armor_stand] at @s run say at
+execute at @e[type=minecraft:armor_stand] run setblock ~ ~-1 ~ minecraft:gold_block
+execute positioned 1 2 3 run summon minecraft:marker ~ ~ ~
+execute positioned 1.5 2 3.25 run summon minecraft:marker ~ ~ ~
+execute positioned ~ ~1 ~ run say pos
+execute positioned as @e[type=minecraft:armor_stand,limit=1] run summon minecraft:marker ~ ~ ~
+execute positioned over world_surface run summon minecraft:marker ~ ~ ~
+execute positioned 3.5 0 3.5 over motion_blocking run summon minecraft:marker ~ ~ ~
+execute positioned 3.5 0 3.5 over ocean_floor run summon minecraft:marker ~ ~ ~
+execute positioned 100000 0 100000 over world_surface run say unloaded
+execute positioned 0 0 0 over foo run say x
+execute positioned 1 2 run say x
+execute rotated 90 0 run summon minecraft:armor_stand ~ ~ ~ {NoGravity:1b}
+execute rotated ~10 ~-5 run say rot
+execute rotated as @e[type=minecraft:armor_stand,limit=1] run say rotated as
+execute rotated 1 run say x
+execute facing 0 0 0 run say facing
+execute facing entity @e[type=minecraft:armor_stand,limit=1] eyes run say facing entity
+execute facing entity @e[type=minecraft:armor_stand,limit=1] feet run say facing entity
+execute facing entity @e[type=minecraft:armor_stand,limit=1] nope run say x
+execute align xyz run say align
+execute align x positioned 1.7 2.7 3.7 run summon minecraft:marker ~ ~ ~
+execute positioned 1.7 2.7 3.7 align xz run summon minecraft:marker ~ ~ ~
+execute align q run say x
+execute anchored eyes run say eyes
+execute anchored feet run say feet
+execute anchored nope run say x
+execute in minecraft:overworld run say overworld
+execute in minecraft:the_nether run say nether
+execute in minecraft:nope run say x
+execute in run say x
+
+# ---- summon ----
+execute summon minecraft:marker run say summoned
+execute summon minecraft:player run say x
+execute summon minecraft:nope run say x
+execute summon minecraft:armor_stand run say again
+
+# ---- on ----
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on passengers run say passenger
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:dirt"}},limit=1] on vehicle run say vehicle
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on vehicle run say none
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on controller run say none
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on owner run say none
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on leasher run say none
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on target run say none
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on attacker run say none
+execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:stone"}},limit=1] on origin run say none
+execute on vehicle run say console has no entity
+execute on nope run say x
+@bot execute on vehicle run say bot not riding
+
+# ---- if / unless: score ----
+execute if score #a o = #a p
+execute if score #a o = #b o
+execute unless score #a o = #b o
+execute if score #a o < #b o
+execute if score #a o <= #a o
+execute if score #b o > #a o
+execute if score #b o >= #b o
+execute unless score #b o >= #a o
+execute if score #a o matches 5
+execute if score #a o matches 1..5
+execute if score #a o matches ..4
+execute if score #a o matches 6..
+execute if score #a o matches -3..2
+execute unless score #a o matches 6..
+execute if score #none o matches 0..
+execute unless score #none o matches 0..
+execute if score #none o = #a o
+execute unless score #none o = #a o
+execute if score #a nope matches 1
+execute if score #a o matches 5..1
+execute if score #a o matches x
+execute if score @e[type=minecraft:armor_stand] o = #a o
+execute if score #a o = @e[type=minecraft:armor_stand] o
+execute if score #a o ~ #b o
+execute if score #a o matches 1 run say passed
+execute unless score #a o matches 1 run say passed
+
+# ---- if / unless: block ----
+execute if block 0 -61 0 minecraft:grass_block
+execute if block 0 -61 0 minecraft:stone
+execute unless block 0 -61 0 minecraft:stone
+execute if block 0 -60 0 minecraft:stone
+execute if block 0 -61 0 #minecraft:dirt
+execute if block 0 -61 0 minecraft:grass_block[snowy=false]
+execute if block 0 -61 0 minecraft:grass_block[snowy=true]
+execute if block 0 -61 0 minecraft:grass_block[
+execute if block 0 -61 0 minecraft:nope
+execute if block 0 -61 0 #minecraft:nope
+execute if block 100000 0 0 minecraft:stone
+execute unless block 100000 0 0 minecraft:stone
+execute if block ~ ~-1 ~ minecraft:grass_block
+@bot execute if block ~ ~-1 ~ minecraft:grass_block
+@bot execute at @s unless block ~ ~-1 ~ minecraft:air run say standing
+execute if block 0 -61 0 minecraft:grass_block{}
+execute if block 1 2 minecraft:stone
+
+# ---- if / unless: blocks ----
+execute if blocks 0 -60 0 2 -60 2 10 -60 0 all
+execute if blocks 0 -60 0 2 -60 2 10 -60 0 masked
+execute unless blocks 0 -60 0 2 -60 2 10 -60 0 all
+execute if blocks 0 -60 0 2 -60 2 0 -61 0 all
+execute unless blocks 0 -60 0 2 -60 2 0 -61 0 all
+execute if blocks 0 -61 0 2 -60 2 0 -59 0 masked
+execute unless blocks 0 -61 0 2 -60 2 0 -59 0 masked
+execute if blocks 0 -60 0 0 -60 0 0 -60 0 all
+execute if blocks 0 -60 0 40 5 40 0 10 0 all
+execute unless blocks 0 -60 0 40 5 40 0 10 0 masked
+execute if blocks 0 -60 0 31 -29 31 40 -60 40 all
+execute if blocks 100000 0 0 0 0 0 0 0 0 all
+execute if blocks 0 0 0 0 0 0 100000 0 0 all
+execute if blocks 0 0 0 0 0 0 0 0 0 none
+execute if blocks 0 0 0 0 0 0 0 0 all
+
+# ---- if / unless: biome, loaded, dimension, entity ----
+execute if biome 0 -60 0 minecraft:plains
+execute if biome 0 -60 0 minecraft:desert
+execute unless biome 0 -60 0 minecraft:desert
+execute if biome 0 -60 0 #minecraft:is_overworld
+execute if biome 0 -60 0 #minecraft:is_nether
+execute if biome 0 -60 0 minecraft:nope
+execute if biome 100000 0 0 minecraft:plains
+execute if loaded 0 0 0
+execute unless loaded 0 0 0
+execute if loaded 100000 0 100000
+execute unless loaded 100000 0 100000
+execute if dimension minecraft:overworld
+execute unless dimension minecraft:overworld
+execute if dimension minecraft:the_nether
+execute in minecraft:the_nether if dimension minecraft:the_nether
+execute if dimension minecraft:nope
+execute if entity @a
+execute unless entity @a
+execute if entity @e[type=minecraft:armor_stand]
+execute unless entity @e[type=minecraft:armor_stand]
+execute if entity @e[type=minecraft:armor_stand,limit=1]
+execute if entity @e[type=minecraft:cow]
+execute unless entity @e[type=minecraft:cow]
+execute if entity @s
+execute unless entity @s
+@bot execute if entity @s
+@bot execute unless entity @s
+execute if entity @e[type=minecraft:armor_stand] run say armor stands
+execute unless entity @e[type=minecraft:cow] run say no cows
+execute if entity @e[type=minecraft:cow] run say cows
+execute if entity nope
+execute if entity @e[
+
+# ---- if / unless: data ----
+data merge storage test:s {x:5,l:[1,2,3],c:{a:1b}}
+execute if data storage test:s x
+execute unless data storage test:s x
+execute if data storage test:s l[]
+execute unless data storage test:s l[]
+execute if data storage test:s nothing
+execute unless data storage test:s nothing
+execute if data storage test:s c.a
+execute if data storage test:s l[5]
+execute if data storage test:s l[{}]
+execute if data entity @e[type=minecraft:armor_stand,limit=1] NoGravity
+execute if data entity @e[type=minecraft:armor_stand,limit=1] Nope
+execute unless data entity @e[type=minecraft:armor_stand,limit=1] Invulnerable
+execute if data entity @e[type=minecraft:armor_stand] NoGravity
+execute if data entity @e[type=minecraft:cow] NoGravity
+execute if data block 0 -60 0 Items
+execute if data block 0 -61 0 x
+execute if data storage test:s [
+execute if data storage test:s x run say has x
+execute unless data storage test:s nothing run say no nothing
+execute if data nope
+
+# ---- if / unless: predicate ----
+execute if predicate {condition:"minecraft:random_chance",chance:1}
+execute if predicate {condition:"minecraft:random_chance",chance:0}
+execute unless predicate {condition:"minecraft:random_chance",chance:0}
+execute if predicate {condition:"minecraft:inverted",term:{condition:"minecraft:random_chance",chance:0}}
+execute if predicate {condition:"minecraft:time_check",value:{min:0,max:24000},period:24000}
+execute if predicate {condition:"minecraft:nope"}
+execute if predicate {condition:"minecraft:random_chance",chance:5}
+execute if predicate {}
+execute if predicate foo:bar
+execute if predicate 5
+@bot execute if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}
+@bot execute unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}
+execute if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:player"}}
+execute as @e[type=minecraft:armor_stand,limit=1] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type:"minecraft:armor_stand"}} run say stand predicate
+
+# ---- if / unless: function, items, slots, stopwatch ----
+execute if function foo:bar
+execute unless function foo:bar
+execute if function #foo:bar
+execute if function
+give @a minecraft:stone 5
+@bot execute if items entity @s container.* minecraft:stone
+@bot execute unless items entity @s container.* minecraft:stone
+@bot execute if items entity @s container.* minecraft:diamond
+@bot execute unless items entity @s container.* minecraft:diamond
+@bot execute if items entity @s container.0 *
+@bot execute if items entity @s weapon.mainhand *
+@bot execute if items entity @s armor.head *
+@bot execute if items entity @s nope *
+@bot execute if items entity @s container.* minecraft:nope
+@bot execute if items entity @s container.* #minecraft:logs
+@bot execute if items entity @s container.* minecraft:stone[count=1..]
+@bot execute if items entity @s container.* minecraft:stone[count=6..]
+@bot execute if slots entity @s container.*
+@bot execute unless slots entity @s container.*
+@bot execute if slots entity @s armor.*
+@bot execute if items entity @s container.* minecraft:stone run say has stone
+execute if items entity @e[type=minecraft:cow] container.* *
+execute if items block 0 -60 0 container.* *
+execute if slots block 0 -60 0 container.*
+execute if items block 100000 0 0 container.* *
+execute if slots entity @e[type=minecraft:armor_stand,limit=1] weapon.mainhand
+execute if slots entity @e[type=minecraft:armor_stand,limit=1] container.*
+stopwatch create test:sw
+execute if stopwatch test:sw 0..1000
+execute unless stopwatch test:sw 0..1000
+execute if stopwatch test:sw 1000..
+execute if stopwatch test:sw ..0
+execute if stopwatch test:nope 0..1
+execute if stopwatch test:sw x
+
+# ---- store: scores ----
+execute store result score #r o run scoreboard players get #a o
+scoreboard players get #r o
+execute store success score #s o run scoreboard players get #a o
+scoreboard players get #s o
+execute store result score #r o run scoreboard players get #none o
+scoreboard players get #r o
+execute store success score #s o run scoreboard players get #none o
+scoreboard players get #s o
+execute store result score #r o store success score #s o run scoreboard players get #b o
+scoreboard players get #r o
+scoreboard players get #s o
+execute store result score #r o store result score #s o run scoreboard players get #a o
+scoreboard players get #r o
+scoreboard players get #s o
+execute store result score #r o store success score #r o run scoreboard players get #b o
+scoreboard players get #r o
+execute store result score #x o #y o #z o run say x
+execute store result score #x nope run say x
+execute store result score @e[type=minecraft:armor_stand] o run scoreboard players get #a o
+scoreboard players get @e[type=minecraft:armor_stand,limit=1] o
+execute store success score #r o run say fine
+scoreboard players get #r o
+execute store result score #r o run say result
+scoreboard players get #r o
+execute store result score #r o as @e[type=minecraft:armor_stand] run scoreboard players get #b o
+scoreboard players get #r o
+execute store success score #r o as @e[type=minecraft:cow] run say x
+scoreboard players get #r o
+execute as @e[type=minecraft:armor_stand] store result score @s o run scoreboard players get #b o
+scoreboard players get @e[type=minecraft:armor_stand] o
+execute store result score * o run scoreboard players get #a o
+scoreboard players list
+execute store result score #r o run
+execute store
+execute store result
+execute store result score
+execute store nope score #r o run say x
+
+# ---- store: bossbar ----
+bossbar add test:b "B"
+execute store result bossbar test:b value run scoreboard players get #a o
+bossbar get test:b value
+execute store result bossbar test:b max run scoreboard players get #b o
+bossbar get test:b max
+execute store success bossbar test:b value run say x
+bossbar get test:b value
+execute store success bossbar test:b max run scoreboard players get #none o
+bossbar get test:b max
+execute store result bossbar test:nope value run say x
+execute store result bossbar test:b nope run say x
+execute store result bossbar test:b run say x
+
+# ---- store: storage / entity / block with every numeric type and scale ----
+execute store result storage test:s i int 1 run scoreboard players get #b o
+data get storage test:s i
+execute store result storage test:s i int 2 run scoreboard players get #b o
+data get storage test:s i
+execute store result storage test:s i int 0.5 run scoreboard players get #b o
+data get storage test:s i
+execute store result storage test:s i int -1 run scoreboard players get #b o
+data get storage test:s i
+execute store result storage test:s f float 0.1 run scoreboard players get #b o
+data get storage test:s f
+execute store result storage test:s s short 1000 run scoreboard players get #b o
+data get storage test:s s
+execute store result storage test:s s short 10000 run scoreboard players get #b o
+data get storage test:s s
+execute store result storage test:s l long 100000000000 run scoreboard players get #b o
+data get storage test:s l
+execute store result storage test:s d double 0.25 run scoreboard players get #b o
+data get storage test:s d
+execute store result storage test:s b byte 100 run scoreboard players get #b o
+data get storage test:s b
+execute store result storage test:s b byte 1 run scoreboard players get #b o
+data get storage test:s b
+execute store success storage test:s ok byte 1 run scoreboard players get #b o
+data get storage test:s ok
+execute store success storage test:s ok byte 1 run scoreboard players get #none o
+data get storage test:s ok
+execute store result storage test:s new.nested.value int 1 run scoreboard players get #b o
+data get storage test:s new
+execute store result storage test:s l[0] int 1 run scoreboard players get #b o
+data get storage test:s l
+execute store result storage test:s c.a int 1 run scoreboard players get #b o
+data get storage test:s c
+execute store result storage test:s x[0] int 1 run scoreboard players get #b o
+data get storage test:s x
+execute store result storage test:s l[{}] int 1 run scoreboard players get #b o
+execute store result storage test:s i int nope run say x
+execute store result storage test:s i nope 1 run say x
+execute store result storage test:s i int run say x
+execute store result storage test:s [ int 1 run say x
+execute store result storage test:s i int 1 run say x
+execute store result storage test:s i int 1 as @e[type=minecraft:armor_stand] run scoreboard players get #b o
+data get storage test:s i
+execute store result entity @e[type=minecraft:armor_stand,limit=1] Pos[1] double 1 run scoreboard players get #b o
+data get entity @e[type=minecraft:armor_stand,limit=1] Pos
+execute store result entity @e[type=minecraft:armor_stand,limit=1] Invulnerable byte 1 run scoreboard players get #a o
+data get entity @e[type=minecraft:armor_stand,limit=1] Invulnerable
+execute store success entity @e[type=minecraft:armor_stand,limit=1] NoGravity byte 1 run scoreboard players get #none o
+data get entity @e[type=minecraft:armor_stand,limit=1] NoGravity
+execute store result entity @a Health float 1 run scoreboard players get #a o
+execute store result entity @e[type=minecraft:cow] Health float 1 run scoreboard players get #a o
+execute store result entity @e[type=minecraft:armor_stand] Health float 1 run scoreboard players get #a o
+@bot execute store result entity @s Health float 1 run scoreboard players get #a o
+execute store result block 0 -60 0 x int 1 run scoreboard players get #a o
+execute store result block 0 -60 0 x int 1 run say x
+execute store result block 100000 0 0 x int 1 run say x
+setblock 0 -59 0 minecraft:chest
+execute store result block 0 -59 0 CustomName string 1 run say x
+execute store result block 0 -59 0 lock int 1 run scoreboard players get #a o
+data get block 0 -59 0 lock
+
+# ---- chains of everything ----
+execute as @e[type=minecraft:armor_stand] at @s if block ~ ~-1 ~ minecraft:gold_block run say gold below
+execute as @e[type=minecraft:armor_stand] at @s unless block ~ ~-1 ~ minecraft:gold_block run say no gold below
+execute as @e[type=minecraft:armor_stand] at @s positioned ~ ~-1 ~ if block ~ ~ ~ minecraft:gold_block run say shifted
+execute as @e[type=minecraft:armor_stand] at @s store result score @s o if block ~ ~-1 ~ minecraft:gold_block
+scoreboard players get @e[type=minecraft:armor_stand] o
+execute as @e[type=minecraft:armor_stand] at @s store success score @s p if block ~ ~-1 ~ minecraft:gold_block
+scoreboard players get @e[type=minecraft:armor_stand] p
+execute if score #a o matches 1.. if score #b o matches 1.. if entity @e[type=minecraft:armor_stand] run say all pass
+execute if score #a o matches 1.. if score #b o matches 100.. if entity @e[type=minecraft:armor_stand] run say never
+execute as @e[type=minecraft:armor_stand] if entity @s[name="Two"] run say two
+execute as @e[type=minecraft:armor_stand] if entity @s[name="Nobody"] run say nobody
+execute as @e[type=minecraft:armor_stand] run execute as @e[type=minecraft:armor_stand] run execute store result score #n o if entity @e[type=minecraft:armor_stand]
+scoreboard players get #n o
+execute as @e[type=minecraft:armor_stand] at @s facing entity @e[type=minecraft:armor_stand,limit=1] feet rotated as @s run say rotated
+execute in minecraft:the_nether as @a run say nope
+execute in minecraft:the_nether if entity @a
+execute as @e[type=minecraft:marker] run say marker
+kill @e[type=minecraft:marker]
+execute store result score #cnt o if entity @e[type=minecraft:marker]
+scoreboard players get #cnt o
+
+# ---- cleanup ----
+kill @e[type=minecraft:armor_stand]
+kill @e[type=minecraft:item]
+bossbar remove test:b
+stopwatch remove test:sw
+data remove storage test:s x
