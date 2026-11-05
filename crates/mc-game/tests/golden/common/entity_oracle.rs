@@ -20,7 +20,7 @@
 //! (`NaN` equals `NaN`, `-0.0 != 0.0`) or, with [`Options::float_tolerance`], within that absolute difference.
 //! Write `f32` fields with `{}` of the f32 (shortest round trip), `f64` with `{}`/`{:?}` of the f64, exactly as the driver prints
 //! the Java `float`/`double`.
-#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
+#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
 
 use std::collections::BTreeMap;
 use std::path::PathBuf;

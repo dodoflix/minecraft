@@ -23,7 +23,7 @@ fn selection_round_trips_through_level_dat() {
     common::init_logger();
     let dir = tempfile::tempdir().unwrap();
     let world = dir.path().join("world");
-    common::write_custom_packs(&world);
+    common::test_packs::write_custom_packs(&world);
     let (config, stem) = common::load_world(&world, WorldDataConfiguration::DEFAULT, true).unwrap();
     stem.close();
     let first_logs = common::take_logs();
@@ -51,7 +51,7 @@ fn disabled_missing_and_feature_packs() {
     common::init_logger();
     let dir = tempfile::tempdir().unwrap();
     let world = dir.path().join("world");
-    common::write_custom_packs(&world);
+    common::test_packs::write_custom_packs(&world);
     let mut repo = ServerPacksSource::create_pack_repository(world.join("datapacks"), DirectoryValidator::no_symlinks_allowed());
     let _ = common::take_logs();
 
@@ -144,7 +144,7 @@ fn zip_pack_is_read_like_a_directory_pack() {
     let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
     let world = dir.path().join("world");
-    common::write_custom_packs(&world);
+    common::test_packs::write_custom_packs(&world);
     let mut repo = ServerPacksSource::create_pack_repository(world.join("datapacks"), DirectoryValidator::no_symlinks_allowed());
     repo.reload();
     let zip = repo.get_pack("file/zipped.zip").expect("zip pack discovered");
@@ -169,7 +169,7 @@ fn reload_with_new_selection_and_failure_keeps_old_resources() {
     let _s = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let dir = tempfile::tempdir().unwrap();
     let world = dir.path().join("world");
-    common::write_custom_packs(&world);
+    common::test_packs::write_custom_packs(&world);
     let (_, stem) = common::load_world(&world, WorldDataConfiguration::DEFAULT, true).unwrap();
     let mut repo = ServerPacksSource::create_pack_repository(world.join("datapacks"), DirectoryValidator::no_symlinks_allowed());
     repo.reload();

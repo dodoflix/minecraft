@@ -1,5 +1,5 @@
 //! Shared by the decoration goldens: the fixture, the generators it names and the placed feature names.
-#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
+#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
 
 use flate2::read::GzDecoder;
 use mc_core::ident::Identifier;
