@@ -4,7 +4,7 @@ use super::{FEATURE_TYPES, Feature};
 use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::java_util::shuffle;
+use crate::world::level::levelgen::feature::tree::shuffle;
 use crate::world::level::levelgen::placement::PlacedFeature;
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;

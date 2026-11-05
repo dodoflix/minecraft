@@ -7,7 +7,7 @@ use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::codec::{BlockSet, Fields, LoadResult, TypeEntry, parse_float_range, parse_int_range};
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::holder::Holder;
-use crate::world::level::levelgen::java_util::JavaHashSet;
+use crate::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 use crate::world::level::levelgen::placement::PlacedFeature;
 use crate::world::level::levelgen::placement::cave_surface::CaveSurface;
 use crate::world::level::levelgen::registries::DecodeCtx;
@@ -60,10 +60,10 @@ impl VegetationPatchFeature {
         origin: BlockPos,
         x_radius: i32,
         z_radius: i32,
-    ) -> JavaHashSet {
+    ) -> BlockPosHashSet {
         let inwards = self.surface.get_direction();
         let outwards = inwards.get_opposite();
-        let mut surface = JavaHashSet::new();
+        let mut surface = BlockPosHashSet::new();
 
         for dx in -x_radius..=x_radius {
             let is_x_edge = dx == -x_radius || dx == x_radius;
@@ -95,7 +95,7 @@ impl VegetationPatchFeature {
                         let ground_pos = below_pos;
                         let ground_placed = self.place_ground(level, random, &mut below_pos, depth);
                         if ground_placed {
-                            surface.add(ground_pos);
+                            surface.insert(ground_pos);
                         }
                     }
                 }
@@ -129,7 +129,7 @@ pub trait VegetationPatch {
     fn config(&self) -> &VegetationPatchFeature;
 
     /// `placeGroundPatch(level, random, origin, replaceable, xRadius, zRadius)`.
-    fn place_ground_patch(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, x_radius: i32, z_radius: i32) -> JavaHashSet {
+    fn place_ground_patch(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, x_radius: i32, z_radius: i32) -> BlockPosHashSet {
         self.config().base_place_ground_patch(level, random, origin, x_radius, z_radius)
     }
 
@@ -147,7 +147,7 @@ pub fn place(this: &dyn VegetationPatch, level: &mut dyn WorldGenLevel, generato
     let surface = this.place_ground_patch(level, random, origin, x_radius, z_radius);
     for surface_pos in surface.iter() {
         if config.vegetation_chance > 0.0 && random.next_float() < config.vegetation_chance {
-            this.place_vegetation(level, generator, random, *surface_pos);
+            this.place_vegetation(level, generator, random, surface_pos);
         }
     }
     !surface.is_empty()

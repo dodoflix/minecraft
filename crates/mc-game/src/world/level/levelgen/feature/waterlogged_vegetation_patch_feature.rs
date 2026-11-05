@@ -5,7 +5,7 @@ use super::{FEATURE_TYPES, Feature};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
 use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::java_util::JavaHashSet;
+use crate::world::level::levelgen::feature::tree::java_hash_set::BlockPosHashSet;
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use crate::world::level::{BlockGetter};
@@ -48,16 +48,16 @@ impl VegetationPatch for WaterloggedVegetationPatchFeature {
         &self.base
     }
 
-    fn place_ground_patch(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, x_radius: i32, z_radius: i32) -> JavaHashSet {
+    fn place_ground_patch(&self, level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, origin: BlockPos, x_radius: i32, z_radius: i32) -> BlockPosHashSet {
         let surface = self.base.place_ground_patch(level, random, origin, x_radius, z_radius);
-        let mut water_surface = JavaHashSet::new();
+        let mut water_surface = BlockPosHashSet::new();
         for surface_pos in surface.iter() {
-            if !is_exposed(&*level, *surface_pos) {
-                water_surface.add(*surface_pos);
+            if !is_exposed(&*level, surface_pos) {
+                water_surface.insert(surface_pos);
             }
         }
         for surface_pos in water_surface.iter() {
-            level.set_block_flags(*surface_pos, Block::WATER.default_state(), 2);
+            level.set_block_flags(surface_pos, Block::WATER.default_state(), 2);
         }
         water_surface
     }

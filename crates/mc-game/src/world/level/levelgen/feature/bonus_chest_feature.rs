@@ -2,10 +2,10 @@
 
 use super::{FEATURE_TYPES, Feature};
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::levelgen::block_entity_data::set_block_entity_loot_table;
+use crate::world::level::levelgen::block_entity_data::{base_tag, set_block_entity_loot_table};
 use crate::world::level::levelgen::codec::TypeEntry;
 use crate::world::level::levelgen::env::GenEnv;
-use crate::world::level::levelgen::java_util::shuffle;
+use crate::world::level::levelgen::feature::tree::shuffle;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use mc_core::direction::Plane;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -35,6 +35,8 @@ impl Feature for BonusChestFeature {
                 let chest_pos = BlockPos::new(x, level.get_height_at(HeightmapType::MotionBlockingNoLeaves, x, z), z);
                 if level.is_empty_block(chest_pos) || level.get_block_state(chest_pos).get_collision_shape(&*level, chest_pos).is_empty() {
                     level.set_block_flags(chest_pos, Block::CHEST.default_state(), 2);
+                    // vanilla's `getBlockEntity` turns the `DUMMY` stub of `setBlock` into the real (empty) chest block entity
+                    level.set_block_entity_nbt(base_tag("minecraft:chest", chest_pos));
                     set_block_entity_loot_table(level, random, chest_pos, SPAWN_BONUS_CHEST);
                     let torch = Block::TORCH.default_state();
 
