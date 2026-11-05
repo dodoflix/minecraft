@@ -8,20 +8,9 @@ use crate::world::entity::ai::behavior::position_tracker::PositionTracker;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_protocol::codec::GlobalPos;
-use parking_lot::Mutex;
+use crate::world::level::pathfinder::Path as NavPath;
 use std::sync::Arc;
 use uuid::Uuid;
-
-/// A `Path` shared between a `PathNavigation` and the `PATH` memory (vanilla aliases the same object); equality
-/// is identity like `Path` without `equals` in `isMemoryValue`.
-#[derive(Clone, Debug)]
-pub struct SharedPath(pub Arc<Mutex<crate::world::level::pathfinder::Path>>);
-
-impl PartialEq for SharedPath {
-    fn eq(&self, other: &Self) -> bool {
-        Arc::ptr_eq(&self.0, &other.0)
-    }
-}
 
 /// A shared `DamageSource` (`HURT_BY`); equality is identity (vanilla `DamageSource` has no `equals`).
 #[derive(Clone, Debug)]
@@ -130,7 +119,7 @@ pub enum MemoryValue {
     DamageSource(SharedDamageSource),
     WalkTarget(WalkTarget),
     PositionTracker(PositionTracker),
-    Path(SharedPath),
+    Path(NavPath),
     NearestVisibleLivingEntities(NearestVisibleLivingEntities),
     SpearStatus(SpearStatus),
 }
@@ -222,7 +211,7 @@ memory_data! {
     EntityRef => Entity;
     Vec<EntityRef> => EntityList;
     SharedDamageSource => DamageSource;
-    SharedPath => Path;
+    NavPath => Path;
     WalkTarget => WalkTarget;
     PositionTracker => PositionTracker;
     NearestVisibleLivingEntities => NearestVisibleLivingEntities;

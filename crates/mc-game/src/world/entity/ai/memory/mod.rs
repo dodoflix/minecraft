@@ -5,7 +5,7 @@
 //! * [`MemoryValue`] / [`MemoryData`] — the closed set of value kinds a memory can hold; `U` of a typed memory
 //!   type is one of the `MemoryData` implementors (`bool`, `i32`, `i64`, [`Unit`], `GlobalPos`, `BlockPos`, `Vec3`,
 //!   `Uuid`, [`EntityRef`], `Vec<EntityRef>`, `Vec<GlobalPos>`, [`GlobalPosSet`], `Vec<Uuid>`, [`WalkTarget`],
-//!   [`PositionTracker`], [`SharedDamageSource`], [`SharedPath`], [`NearestVisibleLivingEntities`], [`SpearStatus`]).
+//!   [`PositionTracker`], [`SharedDamageSource`], `Path`, [`NearestVisibleLivingEntities`], [`SpearStatus`]).
 //!   Entity-valued memories hold an [`EntityRef`] (an entity id), resolved through the level; a reference to a
 //!   removed entity simply fails to resolve.
 //! * [`MemorySlot`] — value + time to live (`Long.MAX_VALUE` = never expires), ticked once per brain tick.
@@ -23,7 +23,7 @@ pub use memory_map::{BrainPacked, MemoryMap};
 pub use memory_module_type::{MemoryModuleType, MemoryTypeId};
 pub use nearest_visible_living_entities::NearestVisibleLivingEntities;
 pub use slot::MemorySlot;
-pub use value::{EntityRef, GlobalPosSet, MemoryData, MemoryValue, SharedDamageSource, SharedPath, SpearStatus, Unit, Void};
+pub use value::{EntityRef, GlobalPosSet, MemoryData, MemoryValue, SharedDamageSource, SpearStatus, Unit, Void};
 pub use walk_target::WalkTarget;
 
 pub use crate::world::entity::ai::behavior::position_tracker::PositionTracker;

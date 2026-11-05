@@ -1,10 +1,11 @@
 //! `MemoryModuleType<U>`: every vanilla memory type as a typed constant, in registry order
 //! (`BuiltInRegistries.MEMORY_MODULE_TYPE`). Use them as `memory_module_type::HOME`, `&memory_module_type::WALK_TARGET`.
 
-use super::value::{EntityRef, GlobalPosSet, MemoryData, SharedDamageSource, SharedPath, SpearStatus, Unit, Void};
+use super::value::{EntityRef, GlobalPosSet, MemoryData, SharedDamageSource, SpearStatus, Unit, Void};
 use super::walk_target::WalkTarget;
 use super::NearestVisibleLivingEntities;
 use crate::world::entity::ai::behavior::position_tracker::PositionTracker;
+use crate::world::level::pathfinder::Path;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -157,7 +158,7 @@ memory_types! {
     INTERACTION_TARGET: EntityRef = "interaction_target", None;
     BREED_TARGET: EntityRef = "breed_target", None;
     RIDE_TARGET: EntityRef = "ride_target", None;
-    PATH: SharedPath = "path", None;
+    PATH: Path = "path", None;
     DOORS_TO_CLOSE: GlobalPosSet = "doors_to_close", None;
     NEAREST_BED: BlockPos = "nearest_bed", None;
     HURT_BY: SharedDamageSource = "hurt_by", None;
