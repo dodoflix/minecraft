@@ -105,8 +105,8 @@ pub fn swing_for_attack(e: &mut dyn Entity, level: &mut ServerLevel, hand: Inter
 /// `mob.doHurtTarget(level, target)`: the target is taken out of the level while the attack runs.
 /// SEAM(EC2Attack): becomes `level.with_entity(target, |level, t| e.do_hurt_target(level, t))` when `Entity::do_hurt_target` /
 /// `mob_do_hurt_target` land on main.
-pub fn do_hurt_target(_e: &mut dyn Entity, _level: &mut ServerLevel, _target: EntityId) -> bool {
-    false
+pub fn do_hurt_target(e: &mut dyn Entity, level: &mut ServerLevel, target: EntityId) -> bool {
+    level.with_entity(target, |level, t| e.do_hurt_target(level, t)).unwrap_or(false)
 }
 
 /// `Entity.getTeam()` as the team's name (`Team` identity): the team of the scoreboard member `e` plays for (a tamed pet's

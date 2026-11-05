@@ -2341,8 +2341,12 @@ pub trait Entity: Any {
     }
     /// `EntityEquipment.tick(this)` (`Item.inventoryTick` of the equipped stacks); items run on a `ServerPlayer` owner.
     fn tick_equipment(&mut self, _level: &mut ServerLevel) {}
-    /// `updatingUsingItem()` (`LivingEntity.tick`); the item state machine is `ServerPlayer`'s.
-    fn updating_using_item(&mut self, _level: &mut ServerLevel) {}
+    /// `updatingUsingItem()` (`LivingEntity.tick`); `ServerPlayer` has its own copy of the item state machine.
+    fn updating_using_item(&mut self, level: &mut ServerLevel) {
+        if self.living().is_some() {
+            super::living_entity::using_item::updating_using_item(self.as_dyn_mut(), level);
+        }
+    }
     /// `getRiddenInput(controller, selfInput)`.
     fn get_ridden_input(&self, _level: &ServerLevel, _controller: EntityId, self_input: Vec3) -> Vec3 {
         self_input
@@ -2917,6 +2921,26 @@ pub trait Entity: Any {
     // ==== [BehaviorsA] additions (Entity trait methods) ====
     /// `Villager.releasePoi(memoryType)` (the villager overrides; `SetWalkTargetFromBlockMemory` calls it on its body).
     fn release_poi(&mut self, _level: &mut ServerLevel, _memory: super::ai::memory::MemoryTypeId) {}
+
+    // ==== [Piglins] additions (Entity trait methods) ====
+    /// `LivingEntity.doHurtTarget(level, target)` (`Mob` overrides: damage, knockback, item effects). The target is out of the level.
+    fn do_hurt_target(&mut self, _level: &mut ServerLevel, _target: &mut dyn Entity) -> bool {
+        false
+    }
+    /// `LivingEntity.setBaby(baby)` (`AgeableMob` sets its age; `Zombie`, `Piglin`, `Zoglin` their own flag).
+    fn set_baby(&mut self, baby: bool) {
+        if self.mob().is_some_and(|m| m.ageable.is_some()) {
+            super::mob::ageable::set_baby(self.as_dyn_mut(), baby);
+        }
+    }
+    /// `canReplaceCurrentItem(newItemStack, currentItemStack, slot)`.
+    fn can_replace_current_item(&self, level: &ServerLevel, new: &crate::world::item::ItemStack, current: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) -> bool {
+        super::mob::equipment::can_replace_current_item(self.as_dyn(), level, new, current, slot)
+    }
+    /// The vehicle `startRiding(vehicle)` actually boards (`Piglin.startRiding`: a baby piglin takes the top free seat of a hoglin).
+    fn adjust_vehicle_to_ride(&self, _level: &ServerLevel, vehicle: EntityId) -> EntityId {
+        vehicle
+    }
     // ==== [Loot] additions (Entity trait methods) ====
     /// `this instanceof SlotProvider` (entities whose slots `slot_range` loot sources read).
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {

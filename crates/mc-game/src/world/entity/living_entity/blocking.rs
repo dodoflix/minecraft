@@ -149,10 +149,8 @@ pub fn disable(user: &mut dyn Entity, level: &mut ServerLevel, blocks_attacks: &
 pub fn stop_using_item(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if let Some(player) = as_server_player(entity) {
         player.stop_using_item(level);
-    } else if let Some(living) = entity.living_mut() {
-        living.set_living_entity_flag(super::super::living::LIVING_ENTITY_FLAG_IS_USING, false);
-        living.use_item = ItemStack::empty();
-        living.use_item_remaining = 0;
+    } else if entity.living().is_some() {
+        super::using_item::stop_using_item(entity, level);
     }
 }
 

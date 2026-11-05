@@ -1,7 +1,9 @@
-//! `net.minecraft.world.entity.monster.*` (the Cubes slice: cube mobs, ravager, warden, creaking, breeze).
+//! `net.minecraft.world.entity.monster.*` (the Cubes slice: cube mobs, ravager, warden, creaking, breeze; the Piglins
+//! slice: piglin, hoglin, zoglin).
 
 pub mod blaze;
 pub mod creeper;
+pub mod crossbow_attack_mob;
 pub mod cubemob;
 pub mod endermite;
 pub mod ghast;
@@ -13,6 +15,9 @@ pub mod skeleton;
 pub mod spider;
 pub mod vex;
 pub mod zombie;
+pub mod hoglin;
+pub mod piglin;
+pub mod zoglin;
 
 use crate::world::entity::Entity;
 

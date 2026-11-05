@@ -367,3 +367,29 @@ pub fn is_looking_at_me(level: &ServerLevel, me: &dyn Entity, target: &dyn Entit
     }
     false
 }
+
+// ==== [Piglins] additions ====
+
+/// Runs `f` with the living entity that caused `source` (`source.getEntity()`): the entity is taken out of the level for
+/// the call when it is in it (so `f` may mutate the level), or is the snapshot the source captured when the attacker
+/// is the running, taken-out entity.
+pub fn with_causing_entity(level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource, f: impl FnOnce(&mut ServerLevel, &dyn Entity)) {
+    let Some(id) = source.get_entity() else { return };
+    if level.get_entity(id).is_some() {
+        level.with_entity(id, |level, e| f(level, &*e));
+    } else if let Some(snapshot) = source.causing_snapshot(level) {
+        f(level, &**snapshot);
+    }
+}
+
+/// `LivingEntity.take(entity, orgCount)`: the pick-up animation of an item entity to the players tracking it.
+pub fn take(level: &mut ServerLevel, taker: &dyn Entity, item_id: EntityId, org_count: i32) {
+    use mc_protocol::packets::play::ClientboundTakeItemEntityPacket;
+    let pickable = level.get_entity(item_id).is_some_and(|e| {
+        !e.is_removed() && matches!(e.get_type(), EntityType::ITEM | EntityType::EXPERIENCE_ORB | EntityType::ARROW | EntityType::SPECTRAL_ARROW | EntityType::TRIDENT)
+    });
+    if pickable {
+        let packet = ClientboundTakeItemEntityPacket { item_id, player_id: taker.id(), amount: org_count };
+        level.entity_tracker.send_to_tracking_players(item_id, &crate::server::level::server_entity::encode_payload(&packet));
+    }
+}

@@ -260,6 +260,13 @@ fn set_crossbow_hit_sound(entity: &mut dyn Entity) {
 }
 
 impl CrossbowItem {
+    // ==== [Piglins] additions ====
+    /// The `CrossbowItem` singleton for callers without an item registry handle (mobs shooting their crossbow: only the
+    /// loading-sound flags are instance state, `performShooting` does not touch them).
+    pub fn singleton() -> Self {
+        CrossbowItem { item: Item::CROSSBOW, start_sound_played: AtomicBool::new(false), mid_load_sound_played: AtomicBool::new(false) }
+    }
+
     /// `performShooting(level, shooter, hand, weapon, power, uncertainty, targetOverride)`.
     pub fn perform_shooting(&self, level: &mut ServerLevel, shooter: &mut dyn Entity, hand: InteractionHand, weapon: &mut ItemStack, power: f32, uncertainty: f32, target_override: Option<EntityId>) {
         let charged = weapon.set(CHARGED_PROJECTILES, ChargedProjectiles::default()).and_then(|v| v.downcast_ref::<ChargedProjectiles>().cloned());

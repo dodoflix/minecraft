@@ -144,3 +144,21 @@ pub fn play_sound_from_entity(level: &mut ServerLevel, entity: EntityId, sound: 
     let seed = level.tick_state.sound_seed_generator.next_long();
     level.play_seeded_sound_from_entity(None, entity, sound, source, volume, pitch, seed);
 }
+
+// ==== [Piglins] additions ====
+
+/// `isWithinAttackRange(body, target, projectileAttackRangeMargin)`.
+pub fn is_within_attack_range(level: &ServerLevel, body: &dyn Entity, target: EntityId, projectile_attack_range_margin: i32) -> bool {
+    use crate::world::entity::equipment::EquipmentSlot;
+    let Some(target) = level.get_entity(target) else { return false };
+    let main_hand = body.get_item_by_slot(EquipmentSlot::MainHand);
+    let default_range = match main_hand.item() {
+        mc_data::Item::BOW => Some(crate::world::item::bow_item::DEFAULT_RANGE),
+        mc_data::Item::CROSSBOW => Some(crate::world::item::crossbow_item::DEFAULT_RANGE),
+        _ => None,
+    };
+    match default_range {
+        Some(range) if body.can_use_non_melee_weapon(&main_hand) => crate::world::entity::ai::sensing::closer_than(body, target, f64::from(range - projectile_attack_range_margin)),
+        _ => crate::world::entity::mob::combat::is_within_melee_attack_range(body, level, target),
+    }
+}

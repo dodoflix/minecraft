@@ -21,6 +21,7 @@ pub mod teleport;
 pub mod tick;
 pub mod totem;
 pub mod travel;
+pub mod using_item;
 pub mod util;
 
 use crate::world::entity::Entity;

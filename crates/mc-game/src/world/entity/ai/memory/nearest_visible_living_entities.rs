@@ -78,6 +78,11 @@ impl NearestVisibleLivingEntities {
         self.nearby.contains(&EntityRef(target)) && level.get_entity(target).is_some_and(|e| self.line_of_sight(level, body, e))
     }
 
+    /// `contains(LivingEntity)` for a target that is out of the level (the running entity): the entity itself is given.
+    pub fn contains_entity(&self, level: &ServerLevel, body: &dyn Entity, target: &dyn Entity) -> bool {
+        self.nearby.contains(&EntityRef(target.id())) && self.line_of_sight(level, body, target)
+    }
+
     /// `contains(Predicate)`.
     pub fn contains_matching(&self, level: &ServerLevel, body: &dyn Entity, filter: impl FnMut(&dyn Entity) -> bool) -> bool {
         self.find_closest(level, body, filter).is_some()

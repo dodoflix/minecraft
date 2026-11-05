@@ -21,6 +21,7 @@ use mc_data::enums::Pose;
 impl ServerLevel {
     /// `Entity.startRiding(vehicle, force, sendEventAndTriggers)`.
     pub fn start_riding(&mut self, rider: &mut dyn Entity, vehicle_id: EntityId, force: bool, send_event_and_triggers: bool) -> bool {
+        let vehicle_id = rider.adjust_vehicle_to_ride(self, vehicle_id);
         self.start_riding_impl(rider, vehicle_id, None, force, send_event_and_triggers)
     }
 

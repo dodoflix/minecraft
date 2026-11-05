@@ -13,6 +13,11 @@ use mc_data::enums::{DoorHingeSide, DoubleBlockHalf};
 use mc_data::GameEvent;
 use mc_protocol::packets::play::level::SoundSource;
 
+/// `DoorBlock.setOpen` for the door block of `state` (callers check that it is a door).
+pub fn set_open_at(source_entity: Option<EntityId>, level: &mut ServerLevel, state: BlockState, pos: BlockPos, should_open: bool) {
+    DoorBlock::new(state.block()).set_open(source_entity, level, state, pos, should_open);
+}
+
 pub struct DoorBlock {
     block: Block,
     pub set_type: &'static BlockSetType,

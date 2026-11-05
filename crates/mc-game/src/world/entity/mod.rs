@@ -33,6 +33,7 @@ pub mod lightning_bolt;
 pub mod living_entity;
 pub mod mob;
 pub mod monster;
+pub mod npc;
 pub mod dismount_helper;
 pub mod movement;
 pub mod ominous_item_spawner;
