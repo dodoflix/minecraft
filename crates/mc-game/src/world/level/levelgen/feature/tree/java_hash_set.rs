@@ -76,4 +76,21 @@ impl BlockPosHashSet {
     pub fn iter(&self) -> impl Iterator<Item = BlockPos> + '_ {
         self.table.iter().flatten().copied()
     }
+
+    /// `remove(pos)`: whether the set changed (the table never shrinks).
+    pub fn remove(&mut self, pos: &BlockPos) -> bool {
+        if self.table.is_empty() {
+            return false;
+        }
+        let index = hash(pos) as usize & (self.table.len() - 1);
+        let bin = &mut self.table[index];
+        match bin.iter().position(|p| p == pos) {
+            Some(i) => {
+                bin.remove(i);
+                self.size -= 1;
+                true
+            }
+            None => false,
+        }
+    }
 }

@@ -297,14 +297,17 @@ impl Placer<'_> {
             let mut source_jigsaw_base_height = UNSET_HEIGHT;
             let pool_name = pool_alias_lookup.lookup(&source_jigsaw.pool);
             let Some(target_pool) = self.pools.get(&pool_name) else {
+                log::warn!("Empty or non-existent pool: {pool_name}");
                 continue;
             };
             let is_empty_pool = |holder: &Holder<StructureTemplatePool>| holder.id() == Some(&empty_pool_id());
             if target_pool.value().size() == 0 && !is_empty_pool(target_pool) {
+                log::warn!("Empty or non-existent pool: {pool_name}");
                 continue;
             }
             let fallback = target_pool.value().get_fallback();
             if fallback.value().size() == 0 && !is_empty_pool(fallback) {
+                log::warn!("Empty or non-existent fallback pool: {}", fallback.id().map_or_else(|| "<unregistered>".to_owned(), ToString::to_string));
                 continue;
             }
             let attach_inside_source = source_bb.is_inside(&target_jigsaw_pos);

@@ -9,6 +9,7 @@
 //! * [`structure`]: structure sets/starts/pieces/templates/jigsaw.
 
 pub mod block_entity_data;
+pub mod block_entity_load;
 pub mod blockpredicates;
 pub mod codec;
 pub mod column;

@@ -471,13 +471,16 @@ impl StructureTemplate {
                 if is_randomizable_container(state.block()) {
                     nbt.put_long("LootTableSeed", random.next_long());
                 }
-                // `blockEntity.loadWithComponents(nbt)`: the level stores the block entity data (`id`, `x`, `y`, `z`
-                // are the metadata `saveWithFullMetadata` adds)
-                let mut tag = nbt.clone();
-                tag.put_int("x", block_pos.x());
-                tag.put_int("y", block_pos.y());
-                tag.put_int("z", block_pos.z());
-                level.set_block_entity_nbt(crate::world::level::levelgen::block_entity_data::load_and_save_template_block_entity(tag));
+                // `blockEntity.loadWithComponents(nbt)`: the level stores what the block entity saves afterwards; types
+                // that are not modelled keep the template NBT (plus the `x`/`y`/`z` metadata) normalised generically
+                let tag = crate::world::level::levelgen::block_entity_load::load_with_components(state, block_pos, nbt).unwrap_or_else(|| {
+                    let mut tag = nbt.clone();
+                    tag.put_int("x", block_pos.x());
+                    tag.put_int("y", block_pos.y());
+                    tag.put_int("z", block_pos.z());
+                    crate::world::level::levelgen::block_entity_data::load_and_save_template_block_entity(tag)
+                });
+                level.set_block_entity_nbt(tag);
             }
             if let Some(previous_fluid_state) = previous_fluid_state {
                 if state.get_fluid_state().is_source() {

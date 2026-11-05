@@ -128,7 +128,13 @@ fn first_diff<T: PartialEq>(a: &[T], b: &[T]) -> usize {
 #[test]
 fn jigsaw_structures_match_vanilla() {
     let mut text = String::new();
-    GzDecoder::new(&include_bytes!("fixtures/jigsaw_structures.txt.gz")[..]).read_to_string(&mut text).expect("fixture present");
+    // JIGSAW_FIXTURE=<plain text file> (+ JIGSAW_NOFOLD=1, JIGSAW_ONLY=<id substring>): debugging with an unfolded oracle run
+    match std::env::var("JIGSAW_FIXTURE") {
+        Ok(path) => text = std::fs::read_to_string(path).expect("JIGSAW_FIXTURE"),
+        Err(_) => {
+            GzDecoder::new(&include_bytes!("fixtures/jigsaw_structures.txt.gz")[..]).read_to_string(&mut text).expect("fixture present");
+        }
+    }
     let only = std::env::var("JIGSAW_ONLY").ok();
     let mut lines = text.lines().peekable();
     let (mut starts, mut placements, mut pieces, mut dump_lines, mut beards) = (0, 0, 0, 0, 0);
@@ -183,20 +189,34 @@ fn jigsaw_structures_match_vanilla() {
             skip_rest(&mut lines);
             continue;
         }
-        // the persisted form: save the start and load it again like a chunk does
-        let mut start = if start.is_valid() {
+        // the persisted form: save the start and load it again like a chunk does; vanilla recomputes some of the state
+        // (the piece bounding box from the element), the oracle lists the pieces whose tag changed (`RD index tag`)
+        let mut start = start;
+        if start.is_valid() {
             let tag = start.create_tag(&context, ChunkPos::new(cx, cz));
             let reloaded = StructureStart::load_static_start(&context, &tag, seed).unwrap_or_else(|e| panic!("{id}: reload: {e}"));
-            let again: Vec<String> = reloaded.piece_container.pieces.iter().map(|p| canon(&Tag::Compound(p.create_tag(&context)))).collect();
-            if again != want_pieces {
-                failures.push(describe("reloaded pieces", &again));
+            let header = lines.next().expect("reload header");
+            assert_eq!(header, format!("R {count}"), "{id}");
+            let mut want_changed = Vec::new();
+            while let Some(rd) = lines.peek().and_then(|l| l.strip_prefix("RD ")) {
+                let (index, canon_tag) = rd.split_once(' ').unwrap();
+                want_changed.push((index.parse::<usize>().unwrap(), canon_tag.to_owned()));
+                lines.next();
+            }
+            let got_changed: Vec<(usize, String)> = reloaded
+                .piece_container
+                .pieces
+                .iter()
+                .enumerate()
+                .map(|(i, p)| (i, canon(&Tag::Compound(p.create_tag(&context)))))
+                .filter(|(i, again)| *again != want_pieces[*i])
+                .collect();
+            if got_changed != want_changed {
+                failures.push(format!("{id} {seed} {cx} {cz}: reloaded pieces: ours {:?}, vanilla {:?}", got_changed.iter().take(1).collect::<Vec<_>>(), want_changed.iter().take(1).collect::<Vec<_>>()));
                 skip_rest(&mut lines);
                 continue;
             }
-            reloaded
-        } else {
-            start
-        };
+        }
         while lines.peek().is_some_and(|l| l.starts_with("BEARD") || l.starts_with("PLACE")) {
             let line = lines.next().unwrap();
             let t: Vec<&str> = line.split(' ').collect();
@@ -229,7 +249,11 @@ fn jigsaw_structures_match_vanilla() {
             let writable = BoundingBox::new(min_x, MIN_Y + 1, min_z, min_x + 15, MIN_Y + HEIGHT - 1, min_z + 15);
             let manager = StructureManager::new(&env);
             start.place_in_chunk(&mut level, &manager, &env, &mut random, &writable, ChunkPos::new(px, pz));
-            let got = fold(dump(&mut level, &before));
+            // Entities (`N` lines: armor stands, cushions, ...) cannot be created by the oracle: vanilla builds them through a
+            // `ServerLevel` (`EntityType.create(..., level.getLevel(), ...)`), which the oracle's `WorldGenRegion` does not have, so
+            // `StructureTemplate.placeEntities` places none there. Compared: everything else.
+            let dumped: Vec<String> = dump(&mut level, &before).into_iter().filter(|l| !l.starts_with("N ")).collect();
+            let got = if std::env::var_os("JIGSAW_NOFOLD").is_some() { dumped } else { fold(dumped) };
             placements += 1;
             dump_lines += expected.len();
             chests += expected.iter().filter(|l| l.contains("chest")).count();
@@ -243,6 +267,15 @@ fn jigsaw_structures_match_vanilla() {
                     got.len(),
                     expected.len()
                 ));
+                if std::env::var_os("JIGSAW_DIFFS").is_some() {
+                    let (ours, theirs): (std::collections::HashSet<&String>, std::collections::HashSet<&String>) = (got.iter().collect(), expected.iter().collect());
+                    for l in got.iter().filter(|l| !theirs.contains(l)) {
+                        eprintln!("  {id} {seed} place {px} {pz} OURS    {l}");
+                    }
+                    for l in expected.iter().filter(|l| !ours.contains(l)) {
+                        eprintln!("  {id} {seed} place {px} {pz} VANILLA {l}");
+                    }
+                }
             }
         }
     }

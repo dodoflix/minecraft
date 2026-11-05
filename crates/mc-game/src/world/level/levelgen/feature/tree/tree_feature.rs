@@ -207,7 +207,7 @@ fn update_leaves(
 ) -> DiscreteVoxelShape {
     let mut shape = BitSetDiscreteVoxelShape::new(bounds.get_x_span(), bounds.get_y_span(), bounds.get_z_span());
     let fill = |shape: &mut BitSetDiscreteVoxelShape, pos: &BlockPos| shape.fill(pos.x() - bounds.min_x(), pos.y() - bounds.min_y(), pos.z() - bounds.min_z());
-    let mut to_check: Vec<HashSet<BlockPos>> = (0..7).map(|_| HashSet::new()).collect();
+    let mut to_check: Vec<BlockPosHashSet> = (0..7).map(|_| BlockPosHashSet::new()).collect();
 
     for pos in decoration_set.iter().chain(root_positions.iter()) {
         if bounds.is_inside(&pos) {
@@ -216,15 +216,18 @@ fn update_leaves(
     }
 
     let mut smallest_distance = 0usize;
-    to_check[0].extend(logs.iter());
+    for log in logs.iter() {
+        to_check[0].insert(log);
+    }
 
-    // The order inside one distance bucket does not matter: every position of a bucket gets the bucket's distance.
+    // The order inside one distance bucket matters: a position queued at a higher distance too (by a neighbour popped before
+    // it) is set again with the larger distance when that bucket is reached, so the iteration order of Java's HashSet decides.
     loop {
         while smallest_distance >= 7 || !to_check[smallest_distance].is_empty() {
             if smallest_distance >= 7 {
                 return shape.into();
             }
-            let pos = *to_check[smallest_distance].iter().next().expect("checked non-empty");
+            let pos = to_check[smallest_distance].iter().next().expect("checked non-empty");
             to_check[smallest_distance].remove(&pos);
             if bounds.is_inside(&pos) {
                 if smallest_distance != 0 {

@@ -14,6 +14,7 @@ use mc_game::world::level::levelgen::structure::pools::structure_pool_element::{
 use mc_game::world::level::levelgen::structure::pools::structure_template_pool::{StructureTemplatePool, load_template_pools};
 use mc_game::world::level::levelgen::structure::structure::STRUCTURE_TYPES;
 use mc_game::world::level::levelgen::structure::templatesystem::structure_processor_list::load_processor_lists;
+use mc_game::world::level::levelgen::structure::registries::StructureRegistries;
 use mc_nbt::Tag;
 use mc_worldgen::data::{FsDataSource, WorldgenDataSource};
 use std::sync::Arc;
@@ -103,4 +104,31 @@ fn vanilla_template_pools_match() {
         }
     }
     assert!(wrong.is_empty(), "{} pools differ:\n{}", wrong.len(), wrong.join("\n"));
+}
+
+/// `StructureRegistries::load` decodes every vanilla structure JSON whose type is registered: all jigsaw ones must be
+/// there, and the skipped ones (types not ported yet) must really have no registered type.
+#[test]
+fn vanilla_structures_decode() {
+    let (worldgen, biomes, _) = load_vanilla_data();
+    let registries = StructureRegistries::load(vanilla_source(), &worldgen, &biomes).expect("vanilla structures decode");
+    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data/minecraft/worldgen/structure");
+    let mut total = 0;
+    for entry in std::fs::read_dir(dir).unwrap() {
+        let path = entry.unwrap().path();
+        let id = mc_core::ident::Identifier::parse(&format!("minecraft:{}", path.file_stem().unwrap().to_str().unwrap())).unwrap();
+        let json: serde_json::Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        let ty = json["type"].as_str().unwrap().strip_prefix("minecraft:").unwrap().to_owned();
+        total += 1;
+        if ty == "jigsaw" {
+            assert!(registries.get(&id).is_some(), "{id} is a jigsaw structure and must decode");
+        }
+        assert_eq!(
+            registries.get(&id).is_none(),
+            !STRUCTURE_TYPES.iter().any(|e| e.name == ty),
+            "{id} (type {ty}): decoded iff its type is registered"
+        );
+    }
+    assert_eq!(total, registries.structures.len() + registries.unported.len());
+    eprintln!("structure types not ported yet: {:?}", registries.unported);
 }

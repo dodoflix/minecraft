@@ -113,8 +113,10 @@ public class JigsawStructureOracle {
         return new StructureTemplateManager(resources, access, DataFixers.getDataFixer(), BuiltInRegistries.BLOCK);
     }
 
+    static StructureTemplateManager TEMPLATES;
+
     static StructurePieceSerializationContext pieceContext() {
-        return new StructurePieceSerializationContext(null, FeatureOracleBase.ACCESS, null);
+        return new StructurePieceSerializationContext(null, FeatureOracleBase.ACCESS, TEMPLATES);
     }
 
     /** A {@code ServerLevel} that only knows its seed (`level.getLevel().getSeed()`, e.g. `CappedProcessor`): allocated without construction. */
@@ -195,8 +197,10 @@ public class JigsawStructureOracle {
         FeatureOracleBase.setup();
         PrintWriter out = new PrintWriter(new FileWriter(args[0]));
         int perStructure = args.length > 1 ? Integer.parseInt(args[1]) : 6;
-        Set<String> filter = args.length > 2 ? new HashSet<>(Arrays.asList(args[2].split(","))) : null;
-        StructureTemplateManager templates = templateManager();
+        Set<String> filter = args.length > 2 && !args[2].isEmpty() ? new HashSet<>(Arrays.asList(args[2].split(","))) : null;
+        boolean noFold = args.length > 3 && args[3].equals("nofold"); // debugging: unfolded block lines (the Rust test: JIGSAW_NOFOLD=1 JIGSAW_FIXTURE=<file>)
+        TEMPLATES = templateManager();
+        StructureTemplateManager templates = TEMPLATES;
         // what ReloadableServerResources.updateComponentsAndStaticRegistryTags does: items need components to load block entity inventories
         BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(FeatureOracleBase.ACCESS).forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
         NoiseBasedChunkGenerator generator = FeatureOracleBase.generator();
@@ -223,6 +227,13 @@ public class JigsawStructureOracle {
                 starts++;
                 for (StructurePiece p : pieces) out.println("P " + canon(p.createTag(pieceContext())));
                 if (pieces.isEmpty()) continue;
+                // the persisted form: the start as the chunk stores it, loaded again (e.g. the bounding box is recomputed from the element)
+                List<StructurePiece> reloaded = StructureStart.loadStaticStart(pieceContext(), start.createTag(pieceContext(), new ChunkPos(cx, cz)), seed).getPieces();
+                out.println("R " + reloaded.size());
+                for (int k = 0; k < reloaded.size(); k++) {
+                    String again = canon(reloaded.get(k).createTag(pieceContext()));
+                    if (!again.equals(canon(pieces.get(k).createTag(pieceContext())))) out.println("RD " + k + " " + again);
+                }
                 // chunks to place / sample: the first piece's, and random points of random pieces
                 LinkedHashSet<Long> centers = new LinkedHashSet<>();
                 BoundingBox first = pieces.get(0).getBoundingBox();
@@ -248,7 +259,8 @@ public class JigsawStructureOracle {
                     );
                     start.placeInChunk(region, null, generator, random, writable, chunkPos);
                     out.println("PLACE " + px + " " + pz);
-                    for (String line : fold(FeatureOracleBase.dump(region, before))) out.println("D " + line);
+                    List<String> dumped = FeatureOracleBase.dump(region, before);
+                    for (String line : noFold ? dumped : fold(dumped)) out.println("D " + line);
                     out.println("END");
                     placements++;
                 }

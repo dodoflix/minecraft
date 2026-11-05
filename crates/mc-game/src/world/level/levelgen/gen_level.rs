@@ -348,13 +348,18 @@ impl LevelAccessor for GenLevel<'_> {
             // (`updatePOIOnBlockStateChange` has no effect on proto chunks' generation output)
             let old_state = chunk.set_block_state(pos, state, None);
             if state.has_block_entity() {
-                // A ProtoChunk never has the LEVELCHUNK type: the placeholder the real block entity NBT replaces.
-                let mut tag = CompoundTag::new();
-                tag.put_int("x", pos.x());
-                tag.put_int("y", pos.y());
-                tag.put_int("z", pos.z());
-                tag.put_string("id", "DUMMY");
-                chunk.access.set_block_entity_nbt(tag);
+                // A ProtoChunk never has the LEVELCHUNK type: the placeholder the real block entity NBT replaces. A live
+                // block entity (anything but the placeholder: vanilla keeps the instance in `ProtoChunk.blockEntities`, the
+                // placeholder only goes to the pending NBT) survives the block being set again.
+                let live = chunk.access.get_block_entity_nbt(pos).is_some_and(|tag| tag.get_string("id") != Some("DUMMY"));
+                if !live {
+                    let mut tag = CompoundTag::new();
+                    tag.put_int("x", pos.x());
+                    tag.put_int("y", pos.y());
+                    tag.put_int("z", pos.z());
+                    tag.put_string("id", "DUMMY");
+                    chunk.access.set_block_entity_nbt(tag);
+                }
             } else if old_state.has_block_entity() {
                 chunk.access.remove_block_entity(pos);
             }

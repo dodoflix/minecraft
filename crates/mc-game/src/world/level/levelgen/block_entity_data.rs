@@ -28,7 +28,7 @@ fn is_randomizable_container(id: &str) -> bool {
 }
 
 /// The block entity type of a block (`EntityBlock.newBlockEntity` -> `BlockEntityType.isValid`).
-fn block_entity_type_of(block: mc_data::block::Block) -> Option<BlockEntityType> {
+pub(super) fn block_entity_type_of(block: mc_data::block::Block) -> Option<BlockEntityType> {
     BlockEntityType::iter().find(|ty| ty.data().valid_blocks.contains(&block))
 }
 
