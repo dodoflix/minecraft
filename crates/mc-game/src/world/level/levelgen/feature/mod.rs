@@ -34,14 +34,18 @@ use serde_json::Value;
 use std::sync::Arc;
 
 pub mod fill_layer_feature;
+pub mod abstract_ore_feature;
 pub mod block_blob_feature;
+pub mod block_replacement;
 pub mod cuboid_placement;
 pub mod disk_feature;
 pub mod iceberg_feature;
 pub mod lake_feature;
+pub mod ore_feature;
 pub mod random_boolean_selector_feature;
 pub mod random_selector_feature;
 pub mod replace_blobs_feature;
+pub mod scattered_ore_feature;
 pub mod simple_random_selector_feature;
 pub mod single_block_pillar_feature;
 pub mod spring_feature;
