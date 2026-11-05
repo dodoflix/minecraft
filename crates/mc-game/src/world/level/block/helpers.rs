@@ -199,3 +199,9 @@ pub fn mirror_sides<P: mc_data::props::Property>(state: BlockState, mirror: mc_c
         Mirror::None => state,
     }
 }
+
+// ==== [Blocks:TechnicalA] ====
+/// `BaseEntityBlock.triggerEvent`: forwards the block event to the block entity at `pos`.
+pub fn base_entity_trigger_event(level: &mut crate::server::level::ServerLevel, pos: BlockPos, b0: i32, b1: i32) -> bool {
+    level.with_block_entity(pos, |level, be| be.trigger_event(level, b0, b1)).unwrap_or(false)
+}
