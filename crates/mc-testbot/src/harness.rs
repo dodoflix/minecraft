@@ -91,6 +91,7 @@ pub struct OurServer {
     child: std::process::Child,
     stdin: std::sync::Mutex<Option<std::process::ChildStdin>>,
     out: std::sync::Arc<std::sync::Mutex<String>>,
+    keep: bool,
 }
 
 impl OurServer {
@@ -114,8 +115,13 @@ impl OurServer {
     /// Like [`Self::start`]; `props` are `key=value` entries replacing the defaults of the same key (e.g. `difficulty=normal`,
     /// `level-type=minecraft:flat`).
     pub fn start_with_props(bin: &Path, seed: i64, gamemode: &str, props: &[&str]) -> std::io::Result<Self> {
+        Self::start_in(bin, seed, gamemode, props, None, false)
+    }
+
+    /// [`Self::start_with_props`] in `dir` (default: a fresh temp dir; the caller wipes/prepares it); `keep` leaves it on drop.
+    pub fn start_in(bin: &Path, seed: i64, gamemode: &str, props: &[&str], dir: Option<PathBuf>, keep: bool) -> std::io::Result<Self> {
         let port = free_port();
-        let dir = std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id()));
+        let dir = dir.unwrap_or_else(|| std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id())));
         std::fs::create_dir_all(&dir)?;
         std::fs::write(dir.join("eula.txt"), "eula=true\n")?;
         let mut entries: Vec<(String, String)> = [
@@ -147,7 +153,7 @@ impl OurServer {
         let text: String = entries.iter().map(|(k, v)| format!("{k}={v}\n")).collect();
         std::fs::write(dir.join("server.properties"), text)?;
         let (child, stdin, out) = Self::spawn(bin, &dir)?;
-        let server = Self { port, dir, child, stdin: std::sync::Mutex::new(stdin), out };
+        let server = Self { port, dir, child, stdin: std::sync::Mutex::new(stdin), out, keep };
         server.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not start:\n{}", server.log())))?;
         std::thread::sleep(std::time::Duration::from_secs(1));
         Ok(server)
@@ -220,6 +226,11 @@ impl OurServer {
         self.out.lock().map(|s| s.clone()).unwrap_or_default()
     }
 
+    /// `logs/latest.log` of our server (same format as vanilla's).
+    pub fn log_path(&self) -> PathBuf {
+        self.dir.join("logs/latest.log")
+    }
+
     pub fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
         let re = regex::Regex::new(regex).ok()?;
         for _ in 0..timeout_s * 5 {
@@ -242,6 +253,8 @@ impl Drop for OurServer {
             std::thread::sleep(std::time::Duration::from_millis(100));
         }
         let _ = self.child.kill();
-        let _ = std::fs::remove_dir_all(&self.dir);
+        if !self.keep {
+            let _ = std::fs::remove_dir_all(&self.dir);
+        }
     }
 }

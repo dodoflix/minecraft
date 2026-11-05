@@ -12,6 +12,11 @@ fn text(c: &mc_text::Component) -> String {
     c.get_string()
 }
 
+/// The component as JSON (styles, click/hover events, translation keys kept).
+fn json(c: &mc_text::Component) -> String {
+    c.to_json_string().unwrap_or_default()
+}
+
 impl State {
     pub(crate) fn on_other(&mut self, packet: ClientboundPlayPacket, _out: &mut Out) {
         use ClientboundPlayPacket as P;
@@ -246,6 +251,7 @@ impl State {
                     tick: self.tick,
                     kind: "player_chat",
                     text: content,
+                    json: p.unsigned_content.as_ref().map(json).unwrap_or_default(),
                     overlay: false,
                     sender: Some(text(&p.chat_type.name)),
                 });
@@ -254,11 +260,12 @@ impl State {
                 tick: self.tick,
                 kind: "disguised_chat",
                 text: text(&p.message),
+                json: json(&p.message),
                 overlay: false,
                 sender: Some(text(&p.chat_type.name)),
             }),
             P::SystemChat(p) => {
-                self.chat.push(ChatLine { tick: self.tick, kind: "system_chat", text: text(&p.content), overlay: p.overlay, sender: None })
+                self.chat.push(ChatLine { tick: self.tick, kind: "system_chat", text: text(&p.content), json: json(&p.content), overlay: p.overlay, sender: None })
             }
             P::ClearTitles(p) => {
                 let t = &mut self.social.titles;

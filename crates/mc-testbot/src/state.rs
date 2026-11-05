@@ -73,6 +73,8 @@ pub struct ChatLine {
     pub kind: &'static str,
     /// Plain text (translations resolved with en_us).
     pub text: String,
+    /// The message component as JSON (empty for a `player_chat` without unsigned content).
+    pub json: String,
     /// True for system messages shown on the action bar.
     pub overlay: bool,
     /// Sender display name for chat messages.

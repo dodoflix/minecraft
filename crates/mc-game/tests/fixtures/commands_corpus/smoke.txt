@@ -1,0 +1,5 @@
+say hello
+time query daytime
+@bot time set 1000
+@bot0 time set 1000
+@bot0 say nope

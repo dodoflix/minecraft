@@ -34,53 +34,82 @@ fn vanilla_full_trees_roundtrip() {
 }
 
 
-
-const SUBSET: &[&str] = &[
-    "stop", "save-all", "save-on", "save-off", "say", "list", "op", "deop", "kick", "ban", "ban-ip", "pardon", "pardon-ip", "banlist",
-    "whitelist", "tp", "teleport", "gamemode", "time", "weather", "difficulty", "help", "seed", "msg", "tell", "w", "me",
-    "tellraw", "setblock",
-];
-
-/// (`gamerule` is left out: vanilla iterates its rules in `Reference2ObjectOpenHashMap` (identity hash) order, which
-/// differs between JVM runs; `gamerule_tree_has_vanilla_literals` checks its content.)
-///
-/// The Rust command tree of the implemented top-level commands encodes to the bytes of the real vanilla
-/// `ClientboundCommandsPacket` for the same commands, at every permission level.
-#[test]
-fn subset_tree_matches_vanilla() {
-    use mc_game::commands::HolderLookupProvider as _;
-    use mc_game::commands::command_build_context::StaticRegistries;
-    use mc_game::commands::{CommandBuildContext, CommandSelection, CommandSourceStack, Commands, command_tree};
+/// Our pruned command tree for a permission level, as the client would receive it (encoded, decoded again).
+fn ours_packet(commands: &mc_game::commands::Commands, level: u32) -> ClientboundCommandsPacket {
+    use mc_game::commands::{CommandSourceStack, command_tree};
     use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel, PermissionSet};
-    use std::sync::Arc;
+
+    let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level as i32)));
+    let root = command_tree::usable_root(&commands.get_dispatcher().get_root(), &CommandSourceStack::compilation_context(permissions));
+    let mut out = Vec::new();
+    command_tree::commands_packet(&root).encode(&mut out);
+    ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap()
+}
+
+/// The vanilla packet of the DEDICATED `full` golden (`CommandTreeGolden.java`) for a permission level.
+fn vanilla_packet(level: u32) -> ClientboundCommandsPacket {
+    let (.., bytes) = golden().into_iter().find(|(sel, l, kind, _)| sel == "DEDICATED" && *l == level && kind == "full").expect("golden entry");
+    ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap()
+}
+
+/// EVERY top-level command our dispatcher registers equals vanilla's subtree for the same command at every permission
+/// level (name, flags, parser template, suggestion provider, children order, redirect target by path; `gamerule`'s
+/// children as a set). Commands we do not register are only coverage (`tree_coverage_report`), but a command we DO
+/// register must be visible at exactly the permission levels where vanilla shows it.
+#[test]
+fn tree_matches_vanilla_per_command() {
+    use mc_protocol::command_tree_diff::diff_trees;
 
     let commands = vanilla_commands();
-    let subset_root = mc_brigadier::CommandNode::<CommandSourceStack>::new_root();
-    for child in commands.get_dispatcher().get_root().get_children() {
-        if SUBSET.contains(&child.get_name()) {
-            subset_root.add_child(child);
+    let registered: Vec<String> = commands.get_dispatcher().get_root().get_children().iter().map(|c| c.get_name().to_owned()).collect();
+    let mut failures = String::new();
+    for level in 0..=4 {
+        let (ours, vanilla) = (ours_packet(&commands, level), vanilla_packet(level));
+        let report = diff_trees(&vanilla, &ours);
+        let hidden: Vec<&String> = report.missing_in_b.iter().filter(|n| registered.contains(n)).collect();
+        if !report.common_equal() || !hidden.is_empty() {
+            failures += &format!("--- permission level {level}\n{}", report.render());
+            if !hidden.is_empty() {
+                failures += &format!("registered but not sent where vanilla sends them: {hidden:?}\n");
+            }
         }
     }
-    let mut checked = 0;
-    for (sel, level, kind, bytes) in golden() {
-        if sel != "DEDICATED" || kind != "subset" {
-            continue;
-        }
-        let permissions = PermissionSet::from(LevelBasedPermissionSet::for_level(PermissionLevel::by_id(level as i32)));
-        let root = command_tree::usable_root(&subset_root, &CommandSourceStack::compilation_context(permissions));
-        let mut out = Vec::new();
-        command_tree::commands_packet(&root).encode(&mut out);
-        let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
-        let theirs = ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap();
-        for (i, (a, b)) in ours.entries.iter().zip(&theirs.entries).enumerate() {
-            assert_eq!(a, b, "permission level {level}: node {i}");
-        }
-        assert_eq!(ours.entries.len(), theirs.entries.len(), "permission level {level}: node count");
-        assert_eq!(ours, theirs, "permission level {level}");
-        assert_eq!(out, bytes, "permission level {level}");
-        checked += 1;
+    assert!(failures.is_empty(), "{failures}");
+}
+
+/// Prints the vanilla top-level commands that are not registered yet (per permission level 4 = everything).
+/// Run: `scripts/cargo-locked.sh test -p mc-game --test command_tree_golden tree_coverage_report -- --ignored --nocapture`.
+#[test]
+#[ignore = "report only"]
+fn tree_coverage_report() {
+    use mc_protocol::command_tree_diff::{diff_trees, top_level};
+
+    let commands = vanilla_commands();
+    let (ours, vanilla) = (ours_packet(&commands, 4), vanilla_packet(4));
+    let report = diff_trees(&vanilla, &ours);
+    let total = top_level(&vanilla).len();
+    println!("registered {}/{} vanilla top-level commands (permission level 4)", report.equal.len() + report.differing.len(), total);
+    println!("not registered yet ({}): {}", report.missing_in_b.len(), report.missing_in_b.join(" "));
+    if !report.differing.is_empty() || !report.extra_in_b.is_empty() {
+        println!("{}", report.render());
     }
-    assert_eq!(checked, 5);
+}
+
+/// The whole packet equals vanilla's byte for byte (DEDICATED, permission level 0..=4); `gamerule`'s children are put
+/// in name order on both sides first (identity-hash order in vanilla, see `gamerule_tree_has_vanilla_literals`).
+#[test]
+#[ignore = "enable when all commands land"]
+fn tree_equals_vanilla_full() {
+    use mc_protocol::command_tree_diff::{canonical, diff_trees};
+
+    let commands = vanilla_commands();
+    for level in 0..=4 {
+        let (ours, vanilla) = (ours_packet(&commands, level), vanilla_packet(level));
+        let (mut a, mut b) = (Vec::new(), Vec::new());
+        canonical(&vanilla).encode(&mut a);
+        canonical(&ours).encode(&mut b);
+        assert!(a == b, "permission level {level}: tree differs from vanilla\n{}", diff_trees(&vanilla, &ours).render());
+    }
 }
 
 /// `/gamerule` has one unqualified and one qualified literal per enabled rule (order is arbitrary in vanilla).
