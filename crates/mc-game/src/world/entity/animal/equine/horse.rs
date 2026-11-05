@@ -192,7 +192,7 @@ impl Entity for Horse {
         super::item_in_tag(stack, "horse_food")
     }
 
-    fn get_ambient_sound(&mut self, _level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound(&self) -> Option<SoundEvent> {
         Some(if self.is_baby() { SoundEvent::ENTITY_HORSE_AMBIENT_BABY } else { SoundEvent::ENTITY_HORSE_AMBIENT })
     }
 
@@ -231,7 +231,7 @@ impl Entity for Horse {
         if !is_donkey_or_horse {
             return false;
         }
-        abstract_horse::can_parent(self) && partner.as_abstract_horse().is_some_and(abstract_horse::can_parent)
+        abstract_horse::can_parent(self) && partner.as_abstract_horse().is_some_and(|h| h.can_parent())
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, partner: EntityId) -> Option<Box<dyn Entity>> {

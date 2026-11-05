@@ -185,7 +185,7 @@ impl Entity for SkeletonHorse {
         super::item_in_tag(stack, "horse_food")
     }
 
-    fn get_ambient_sound(&mut self, _level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound(&self) -> Option<SoundEvent> {
         Some(if self.is_eye_in_fluid("water") { SoundEvent::ENTITY_SKELETON_HORSE_AMBIENT_WATER } else { SoundEvent::ENTITY_SKELETON_HORSE_AMBIENT })
     }
 

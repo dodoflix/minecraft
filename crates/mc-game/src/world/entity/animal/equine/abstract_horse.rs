@@ -145,6 +145,11 @@ impl Default for AbstractHorseData {
 
 /// `AbstractHorse` (the virtual members; see the module docs).
 pub trait AbstractHorse: Entity {
+    /// `getAmbientStandInterval()`.
+    fn get_ambient_stand_interval(&self) -> i32 {
+        self.get_ambient_sound_interval()
+    }
+
     fn horse(&self) -> &AbstractHorseData;
     fn horse_mut(&mut self) -> &mut AbstractHorseData;
 
@@ -187,8 +192,8 @@ pub trait AbstractHorse: Entity {
         self.play_sound(level, SoundEvent::ENTITY_HORSE_GALLOP, sound_type.volume * 0.15, sound_type.pitch);
     }
     /// `getAmbientStandSound()`.
-    fn get_ambient_stand_sound(&mut self, level: &ServerLevel) -> Option<SoundEvent> {
-        self.get_ambient_sound(level)
+    fn get_ambient_stand_sound(&self) -> Option<SoundEvent> {
+        self.get_ambient_sound()
     }
     /// `handleEating(player, itemStack)`.
     fn handle_eating(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, stack: &ItemStack) -> bool {
@@ -205,6 +210,53 @@ pub trait AbstractHorse: Entity {
     /// `createInventory()` (the chested horses and llamas resize it with their columns).
     fn create_inventory(&mut self) {
         create_inventory(self);
+    }
+}
+
+impl<T: AbstractHorse + ?Sized> crate::world::entity::ai::goal::AbstractHorseAccess for T {
+    fn is_mob_controlled(&self, _level: &ServerLevel) -> bool {
+        AbstractHorse::is_mob_controlled(self)
+    }
+    fn is_tamed(&self) -> bool {
+        is_tamed(self)
+    }
+    fn stand_if_possible(&mut self, _level: &mut ServerLevel) {
+        stand_if_possible(self);
+    }
+    fn get_ambient_stand_sound(&self) -> Option<SoundEvent> {
+        AbstractHorse::get_ambient_stand_sound(self)
+    }
+    fn get_ambient_stand_interval(&self) -> i32 {
+        AbstractHorse::get_ambient_stand_interval(self)
+    }
+    fn get_temper(&self) -> i32 {
+        self.horse().temper
+    }
+    fn get_max_temper(&self) -> i32 {
+        AbstractHorse::get_max_temper(self)
+    }
+    fn modify_temper(&mut self, amount: i32) -> i32 {
+        modify_temper(self, amount)
+    }
+    fn tame_with_name(&mut self, level: &mut ServerLevel, player: EntityId) {
+        if let Some((uuid, id)) = level.get_entity(player).map(|p| (p.uuid(), p.id())) {
+            tame_with_name(self, level, uuid, id);
+        }
+    }
+    fn make_mad(&mut self, level: &mut ServerLevel) {
+        make_mad(self, level);
+    }
+    fn is_bred(&self) -> bool {
+        is_bred(self)
+    }
+    fn can_parent(&self) -> bool {
+        can_parent(self)
+    }
+    fn set_tamed(&mut self, flag: bool) {
+        set_tamed(self, flag);
+    }
+    fn get_inventory_columns(&self) -> i32 {
+        AbstractHorse::get_inventory_columns(self)
     }
 }
 
@@ -311,6 +363,7 @@ pub fn register_goals<E: AbstractHorse + Sized>(e: &mut E, add_behaviour_goals: 
     let follow_parent = FollowParentGoal::new(e, 1.0);
     let look_at = LookAtPlayerGoal::new_player(e, 6.0);
     let can_rear = e.can_perform_rearing();
+    let random_stand = RandomStandGoal::new(e.as_dyn());
     {
         let goals = &mut e.mob_mut().expect("mob").goal_selector;
         goals.add_goal(1, Box::new(RunAroundLikeCrazyGoal::new(1.2)));
@@ -320,7 +373,7 @@ pub fn register_goals<E: AbstractHorse + Sized>(e: &mut E, add_behaviour_goals: 
         goals.add_goal(7, Box::new(look_at));
         goals.add_goal(8, Box::new(RandomLookAroundGoal::new()));
         if can_rear {
-            goals.add_goal(9, Box::new(RandomStandGoal::new()));
+            goals.add_goal(9, Box::new(random_stand));
         }
     }
     add_behaviour_goals(e);
@@ -348,7 +401,7 @@ impl MountPanicGoal {
 
 impl crate::world::entity::ai::goal::Goal for MountPanicGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if mob.as_abstract_horse().is_some_and(|h| h.is_mob_controlled()) {
+        if mob.as_abstract_horse().is_some_and(|h| h.is_mob_controlled(level)) {
             return false;
         }
         self.inner.can_use_impl(mob, level)
@@ -624,7 +677,7 @@ pub fn follow_mommy(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLev
         let conditions = TargetingConditions::for_non_combat()
             .range(16.0)
             .ignore_line_of_sight()
-            .selector(Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.as_abstract_horse().is_some_and(|h| is_bred(h)))));
+            .selector(Some(Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.as_abstract_horse().is_some_and(|h| h.is_bred()))));
         let p = e.position();
         let bb = e.base().bounding_box().inflate_scalar(16.0);
         let candidates = ext::get_nearby_entities(level, |t| t.as_abstract_horse().is_some(), &conditions, e.as_dyn(), &bb);
@@ -768,10 +821,10 @@ pub fn make_mad(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel) 
 }
 
 /// `tameWithName(player)`.
-pub fn tame_with_name(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, player: &dyn Entity) -> bool {
-    set_owner(e, Some(player.uuid()));
+pub fn tame_with_name(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, player_uuid: Uuid, player: EntityId) -> bool {
+    set_owner(e, Some(player_uuid));
     set_tamed(e, true);
-    ext::trigger_tame_animal(level, player.id(), e.id());
+    ext::trigger_tame_animal(level, player, e.id());
     level.broadcast_entity_event(e.id(), 7);
     true
 }
@@ -1066,10 +1119,10 @@ fn get_dismount_location_in_direction(e: &(impl AbstractHorse + ?Sized), level: 
 #[macro_export]
 macro_rules! abstract_horse_entity {
     () => {
-        fn as_abstract_horse(&self) -> Option<&dyn $crate::world::entity::animal::equine::AbstractHorse> {
+        fn as_abstract_horse(&self) -> Option<&dyn $crate::world::entity::ai::goal::AbstractHorseAccess> {
             Some(self)
         }
-        fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn $crate::world::entity::animal::equine::AbstractHorse> {
+        fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn $crate::world::entity::ai::goal::AbstractHorseAccess> {
             Some(self)
         }
         fn tick(&mut self, level: &mut $crate::server::level::ServerLevel) {

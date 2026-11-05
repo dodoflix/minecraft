@@ -32,7 +32,7 @@ impl SkeletonTrapGoal {
         other.base_mut().invulnerable_time = LIGHTNING_INVULNERABLE_TICKS;
         other.mob_mut()?.persistence_required = true;
         if let Some(h) = other.as_abstract_horse_mut() {
-            super::abstract_horse::set_tamed(h, true);
+            h.set_tamed(true);
         }
         ageable::set_age_in_level(other.as_mut(), level, 0);
         Some(other)
@@ -85,7 +85,7 @@ impl Goal for SkeletonTrapGoal {
             h.set_trap(false);
         }
         if let Some(h) = horse.as_abstract_horse_mut() {
-            super::abstract_horse::set_tamed(h, true);
+            h.set_tamed(true);
         }
         ageable::set_age_in_level(horse, level, 0);
         let Some(mut bolt) = factory::create(EntityType::LIGHTNING_BOLT, level, EntitySpawnRequest { reason: EntitySpawnReason::Triggered, ignore_checks: false }) else { return };

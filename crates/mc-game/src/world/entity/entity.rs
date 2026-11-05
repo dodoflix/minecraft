@@ -2772,13 +2772,6 @@ pub trait Entity: Any {
     }
     /// `addPassenger(passenger)`'s effect on the new rider (`AbstractHorse`/`Camel`: `passenger.absSnapRotationTo(...)`).
     fn after_add_passenger(&self, _passenger: &mut dyn Entity) {}
-    /// `this instanceof AbstractHorse` (horses, donkeys, mules, llamas, skeleton/zombie horses).
-    fn as_abstract_horse(&self) -> Option<&dyn super::animal::equine::AbstractHorse> {
-        None
-    }
-    fn as_abstract_horse_mut(&mut self) -> Option<&mut dyn super::animal::equine::AbstractHorse> {
-        None
-    }
     /// `this instanceof HasCustomInventoryScreen` (`ServerboundPlayerCommandPacket.OPEN_INVENTORY`).
     fn has_custom_inventory_screen(&self) -> bool {
         false

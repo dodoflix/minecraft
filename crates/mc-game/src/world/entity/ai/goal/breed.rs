@@ -6,9 +6,16 @@ use crate::world::entity::ai::targeting::TargetingConditions;
 use crate::world::entity::mob::{self, animal, ext, navigation};
 use crate::world::entity::{Entity, EntityId};
 use std::any::TypeId;
+use std::sync::Arc;
+
+/// The class of the partners: the animal's own concrete type, or an arbitrary `instanceof` test.
+enum PartnerClass {
+    Exact(TypeId),
+    Test(Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>),
+}
 
 pub struct BreedGoal {
-    partner_class: TypeId,
+    partner_class: PartnerClass,
     partner: Option<EntityId>,
     love_time: i32,
     speed_modifier: f64,
@@ -23,6 +30,15 @@ impl BreedGoal {
 
     /// `BreedGoal(animal, speedModifier, clazz)`.
     pub fn with_class(speed_modifier: f64, partner_class: TypeId) -> Self {
+        Self::build(speed_modifier, PartnerClass::Exact(partner_class))
+    }
+
+    /// `BreedGoal(animal, speedModifier, clazz)` for a class that spans several Rust types (`AbstractHorse`).
+    pub fn with_class_test(speed_modifier: f64, partner_class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>) -> Self {
+        Self::build(speed_modifier, PartnerClass::Test(partner_class))
+    }
+
+    fn build(speed_modifier: f64, partner_class: PartnerClass) -> Self {
         Self {
             partner_class,
             partner: None,
@@ -34,9 +50,18 @@ impl BreedGoal {
 
     /// `getFreePartner()`.
     fn get_free_partner(&self, animal: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
-        let class = self.partner_class;
+        let class = &self.partner_class;
         let bb = animal.base().bounding_box().inflate_scalar(8.0);
-        let animals = ext::get_nearby_entities(level, |e| e.as_any().type_id() == class, &self.partner_targeting, animal, &bb);
+        let animals = ext::get_nearby_entities(
+            level,
+            |e| match class {
+                PartnerClass::Exact(type_id) => e.as_any().type_id() == *type_id,
+                PartnerClass::Test(test) => test(e),
+            },
+            &self.partner_targeting,
+            animal,
+            &bb,
+        );
         let mut dist = f64::MAX;
         let mut partner = None;
         for id in animals {

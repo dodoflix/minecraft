@@ -444,7 +444,7 @@ impl Entity for Llama {
         super::item_in_tag(stack, "llama_food")
     }
 
-    fn get_ambient_sound(&mut self, _level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound(&self) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_LLAMA_AMBIENT)
     }
 

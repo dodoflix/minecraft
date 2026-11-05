@@ -5,6 +5,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::mob::{ageable, navigation};
 use crate::world::entity::{Entity, EntityId};
 use std::any::TypeId;
+use std::sync::Arc;
 
 pub const HORIZONTAL_SCAN_RANGE: i32 = 8;
 pub const VERTICAL_SCAN_RANGE: i32 = 4;
@@ -14,13 +15,24 @@ pub struct FollowParentGoal {
     parent: Option<EntityId>,
     speed_modifier: f64,
     time_to_recalc_path: i32,
-    class: TypeId,
+    class: ParentClass,
+}
+
+/// The class of the parents: the animal's own concrete type, or an arbitrary `instanceof` test.
+enum ParentClass {
+    Exact(TypeId),
+    Test(Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>),
 }
 
 impl FollowParentGoal {
     /// `FollowParentGoal(animal, speedModifier)`: parents are animals of `animal`'s own class.
     pub fn new(animal: &dyn Entity, speed_modifier: f64) -> Self {
-        Self { parent: None, speed_modifier, time_to_recalc_path: 0, class: animal.as_any().type_id() }
+        Self { parent: None, speed_modifier, time_to_recalc_path: 0, class: ParentClass::Exact(animal.as_any().type_id()) }
+    }
+
+    /// `FollowParentGoal(animal, speedModifier)` for a class that spans several Rust types or entity types (`Llama`/`TraderLlama`).
+    pub fn with_class_test(speed_modifier: f64, class: Arc<dyn Fn(&dyn Entity) -> bool + Send + Sync>) -> Self {
+        Self { parent: None, speed_modifier, time_to_recalc_path: 0, class: ParentClass::Test(class) }
     }
 }
 
@@ -30,8 +42,15 @@ impl Goal for FollowParentGoal {
             return false;
         }
         let bb = animal.base().bounding_box().inflate(8.0, 4.0, 8.0);
-        let class = self.class;
-        let parents = level.get_entities_of_class(&bb, |e| e.as_any().type_id() == class, |_| true);
+        let class = &self.class;
+        let parents = level.get_entities_of_class(
+            &bb,
+            |e| match class {
+                ParentClass::Exact(type_id) => e.as_any().type_id() == *type_id,
+                ParentClass::Test(test) => test(e),
+            },
+            |_| true,
+        );
         let mut closest: Option<EntityId> = None;
         let mut closest_dist_sqr = f64::MAX;
         for id in parents {

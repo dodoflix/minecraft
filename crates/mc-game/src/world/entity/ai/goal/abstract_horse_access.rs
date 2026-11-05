@@ -27,4 +27,12 @@ pub trait AbstractHorseAccess {
     fn tame_with_name(&mut self, level: &mut ServerLevel, player: EntityId);
     /// `makeMad()`.
     fn make_mad(&mut self, level: &mut ServerLevel);
+    /// `isBred()`.
+    fn is_bred(&self) -> bool;
+    /// `canParent()`.
+    fn can_parent(&self) -> bool;
+    /// `setTamed(flag)`.
+    fn set_tamed(&mut self, flag: bool);
+    /// `getInventoryColumns()`.
+    fn get_inventory_columns(&self) -> i32;
 }

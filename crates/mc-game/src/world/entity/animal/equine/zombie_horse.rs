@@ -158,7 +158,7 @@ impl Entity for ZombieHorse {
         super::item_in_tag(stack, "zombie_horse_food")
     }
 
-    fn get_ambient_sound(&mut self, _level: &ServerLevel) -> Option<SoundEvent> {
+    fn get_ambient_sound(&self) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_ZOMBIE_HORSE_AMBIENT)
     }
 
