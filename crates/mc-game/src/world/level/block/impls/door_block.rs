@@ -40,8 +40,7 @@ impl DoorBlock {
         }
     }
 
-    /// `DoorBlock.onExplosionHit` (`canTriggerBlocks` = `explosion.canTriggerBlocks()`).
-    pub fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, can_trigger_blocks: bool) {
+        fn on_explosion_hit_inner(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, can_trigger_blocks: bool) {
         if can_trigger_blocks && state.get(props::DOUBLE_BLOCK_HALF) == DoubleBlockHalf::Lower && self.set_type.can_open_by_wind_charge && !state.get(props::POWERED) {
             self.set_open(None, level, state, pos, !state.get(props::OPEN));
         }
@@ -108,6 +107,10 @@ pub fn is_wooden_door(state: BlockState) -> bool {
 }
 
 impl BlockBehaviour for DoorBlock {
+    fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, explosion: &dyn crate::world::level::explosion::Explosion, on_hit: &mut dyn FnMut(ItemStack, BlockPos)) {
+        self.on_explosion_hit_inner(state, level, pos, explosion.can_trigger_blocks());
+        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below = pos.below();
         let below_state = level.get_block_state(below);
@@ -131,7 +134,7 @@ impl BlockBehaviour for DoorBlock {
         if player.player.abilities.instabuild || !player.has_correct_tool_for_drops(state) {
             prevent_drop_from_bottom_part(level, pos, state, player);
         }
-        state
+        crate::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
     fn is_pathfindable(&self, state: BlockState, ty: PathComputationType) -> bool {
         match ty {

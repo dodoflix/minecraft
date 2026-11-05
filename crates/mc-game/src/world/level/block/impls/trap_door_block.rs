@@ -2,7 +2,7 @@
 use super::prelude::*;
 use crate::server::level::ServerLevel;
 use crate::world::entity::{EntityId, ServerPlayer};
-use crate::world::item::{BlockPlaceContext, InteractionResult};
+use crate::world::item::{ItemStack, BlockPlaceContext, InteractionResult};
 use crate::world::level::block::block_set_type::BlockSetType;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::Orientation;
@@ -42,8 +42,7 @@ impl TrapDoorBlock {
         self.play_sound(player, level, pos, updated.get(props::OPEN));
     }
 
-    /// `TrapDoorBlock.onExplosionHit` (`canTriggerBlocks` = `explosion.canTriggerBlocks()`).
-    pub fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, can_trigger_blocks: bool) {
+        fn on_explosion_hit_inner(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, can_trigger_blocks: bool) {
         if can_trigger_blocks && self.set_type.can_open_by_wind_charge && !state.get(props::POWERED) {
             self.toggle(state, level, pos, None);
         }
@@ -51,6 +50,10 @@ impl TrapDoorBlock {
 }
 
 impl BlockBehaviour for TrapDoorBlock {
+    fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, explosion: &dyn crate::world::level::explosion::Explosion, on_hit: &mut dyn FnMut(ItemStack, BlockPos)) {
+        self.on_explosion_hit_inner(state, level, pos, explosion.can_trigger_blocks());
+        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+    }
     crate::simple_waterlogged!();
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if state.get(props::WATERLOGGED) {

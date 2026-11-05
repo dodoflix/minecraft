@@ -1,0 +1,219 @@
+# DoorBlock: placement (facing, hinge by neighbours/solid balance/click fallback), use, redstone, door types, destroy
+level flat
+preload 3
+spawn_player Steve creative 0.5 -60 -6.5 0 0
+give Steve hotbar0 minecraft:oak_door 64
+give Steve hotbar1 minecraft:iron_door 64
+give Steve hotbar2 minecraft:stone 64
+give Steve hotbar3 minecraft:redstone_block 64
+give Steve hotbar4 minecraft:crimson_door 64
+give Steve hotbar5 minecraft:copper_door 64
+give Steve hotbar6 minecraft:bamboo_door 64
+give Steve hotbar7 minecraft:lever 64
+watch events
+tp Steve 0.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 0 -61 0 up main 0.2 1.0 0.2
+tick 1
+tp Steve 3.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 3 -61 0 up main 0.8 1.0 0.8
+tick 1
+tp Steve 6.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 6 -61 0 up main 0.2 1.0 0.8
+tick 1
+tp Steve 9.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 9 -61 0 up main 0.8 1.0 0.2
+tick 1
+tp Steve 15.5 -60 0.5 90 0
+select Steve 0
+use_on Steve 12 -61 0 up main 0.2 1.0 0.2
+tick 1
+tp Steve 18.5 -60 0.5 90 0
+select Steve 0
+use_on Steve 15 -61 0 up main 0.8 1.0 0.8
+tick 1
+tp Steve 21.5 -60 0.5 90 0
+select Steve 0
+use_on Steve 18 -61 0 up main 0.2 1.0 0.8
+tick 1
+tp Steve 24.5 -60 0.5 90 0
+select Steve 0
+use_on Steve 21 -61 0 up main 0.8 1.0 0.2
+tick 1
+tp Steve 24.5 -60 3.5 180 0
+select Steve 0
+use_on Steve 24 -61 0 up main 0.2 1.0 0.2
+tick 1
+tp Steve 27.5 -60 3.5 180 0
+select Steve 0
+use_on Steve 27 -61 0 up main 0.8 1.0 0.8
+tick 1
+tp Steve 30.5 -60 3.5 180 0
+select Steve 0
+use_on Steve 30 -61 0 up main 0.2 1.0 0.8
+tick 1
+tp Steve 33.5 -60 3.5 180 0
+select Steve 0
+use_on Steve 33 -61 0 up main 0.8 1.0 0.2
+tick 1
+tp Steve 33.5 -60 0.5 270 0
+select Steve 0
+use_on Steve 36 -61 0 up main 0.2 1.0 0.2
+tick 1
+tp Steve 36.5 -60 0.5 270 0
+select Steve 0
+use_on Steve 39 -61 0 up main 0.8 1.0 0.8
+tick 1
+tp Steve 39.5 -60 0.5 270 0
+select Steve 0
+use_on Steve 42 -61 0 up main 0.2 1.0 0.8
+tick 1
+tp Steve 42.5 -60 0.5 270 0
+select Steve 0
+use_on Steve 45 -61 0 up main 0.8 1.0 0.2
+tick 1
+dump blocks:0,-60,0,48,-59,0
+fill 0 -60 6 12 -58 6 minecraft:air
+tp Steve 2.5 -60 3.5 0 0
+select Steve 0
+use_on Steve 2 -61 6 up main 0.5 1.0 0.5
+tick 1
+tp Steve 0.5 -60 3.5 0 0
+select Steve 0
+use_on Steve 0 -61 6 up main 0.5 1.0 0.5
+tick 1
+tp Steve 1.5 -60 3.5 0 0
+select Steve 0
+use_on Steve 1 -61 6 up main 0.5 1.0 0.5
+tick 1
+tp Steve 5.5 -60 3.5 0 0
+select Steve 0
+use_on Steve 5 -61 6 up main 0.5 1.0 0.5
+tick 1
+tp Steve 8.5 -60 3.5 0 0
+select Steve 0
+use_on Steve 8 -61 6 up main 0.5 1.0 0.5
+tick 1
+tp Steve 7.5 -60 3.5 0 0
+select Steve 0
+use_on Steve 7 -61 6 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-60,6,9,-59,6
+block 11 -60 9 minecraft:stone
+block 11 -59 9 minecraft:stone
+tp Steve 12.5 -60 6.5 0 0
+select Steve 0
+use_on Steve 12 -61 9 up main 0.5 1.0 0.5
+tick 1
+block 14 -59 9 minecraft:stone
+tp Steve 15.5 -60 6.5 0 0
+select Steve 0
+use_on Steve 15 -61 9 up main 0.9 1.0 0.1
+tick 1
+block 17 -59 9 minecraft:stone
+block 19 -60 9 minecraft:stone
+tp Steve 18.5 -60 6.5 0 0
+select Steve 0
+use_on Steve 18 -61 9 up main 0.5 1.0 0.5
+tick 1
+dump blocks:10,-60,9,19,-59,9
+fill 0 -60 12 12 -58 12 minecraft:air
+tp Steve 0.5 -60 9.5 0 0
+select Steve 0
+use_on Steve 0 -61 12 up main 0.5 1.0 0.5
+tick 1
+tp Steve 3.5 -60 9.5 0 0
+select Steve 1
+use_on Steve 3 -61 12 up main 0.5 1.0 0.5
+tick 1
+tp Steve 6.5 -60 9.5 0 0
+select Steve 5
+use_on Steve 6 -61 12 up main 0.5 1.0 0.5
+tick 1
+tp Steve 9.5 -60 9.5 0 0
+select Steve 4
+use_on Steve 9 -61 12 up main 0.5 1.0 0.5
+tick 1
+tp Steve 12.5 -60 9.5 0 0
+select Steve 6
+use_on Steve 12 -61 12 up main 0.5 1.0 0.5
+tick 1
+tp Steve 0.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 0 -60 12 south
+tick 1
+tp Steve 3.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 3 -60 12 south
+tick 1
+tp Steve 6.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 6 -60 12 south
+tick 1
+tp Steve 9.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 9 -60 12 south
+tick 1
+tp Steve 12.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 12 -60 12 south
+tick 1
+dump blocks:0,-60,12,13,-59,12
+tp Steve 0.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 0 -59 12 south
+tick 1
+tp Steve 3.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 3 -59 12 south
+tick 1
+tp Steve 6.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 6 -59 12 south
+tick 1
+tp Steve 9.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 9 -59 12 south
+tick 1
+tp Steve 12.5 -60 9.5 0 0
+select Steve 8
+use_on Steve 12 -59 12 south
+tick 1
+dump blocks:0,-60,12,13,-59,12
+fill 0 -60 16 14 -57 16 minecraft:air
+block 0 -59 17 minecraft:redstone_block
+block 3 -60 17 minecraft:redstone_block
+tp Steve 0.5 -60 13.5 0 0
+select Steve 0
+use_on Steve 0 -61 16 up main 0.5 1.0 0.5
+tick 1
+tp Steve 3.5 -60 13.5 0 0
+select Steve 0
+use_on Steve 3 -61 16 up main 0.5 1.0 0.5
+tick 1
+tp Steve 6.5 -60 13.5 0 0
+select Steve 1
+use_on Steve 6 -61 16 up main 0.5 1.0 0.5
+tick 1
+tp Steve 9.5 -60 13.5 0 0
+select Steve 0
+use_on Steve 9 -61 16 up main 0.5 1.0 0.5
+tick 1
+block 6 -60 17 minecraft:redstone_block
+block 9 -59 17 minecraft:redstone_block
+tick 2
+dump blocks:0,-60,16,10,-59,17
+block 6 -60 17 minecraft:air
+block 9 -59 17 minecraft:air
+block 3 -60 17 minecraft:air
+tick 2
+dump blocks:0,-60,16,10,-59,17
+block 9 -61 16 minecraft:air
+tick 2
+dump blocks:8,-61,16,10,-59,16
+block 6 -59 16 minecraft:air
+tick 2
+dump blocks:5,-61,16,7,-59,16

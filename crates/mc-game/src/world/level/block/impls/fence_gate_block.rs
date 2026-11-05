@@ -2,7 +2,7 @@
 use super::prelude::*;
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, ServerPlayer};
-use crate::world::item::{BlockPlaceContext, InteractionResult};
+use crate::world::item::{ItemStack, BlockPlaceContext, InteractionResult};
 use crate::world::level::block::block_set_type::WoodType;
 use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::redstone::Orientation;
@@ -33,8 +33,7 @@ impl FenceGateBlock {
         level.play_sound(except, pos, sound, SoundSource::Blocks, 1.0, pitch);
     }
 
-    /// `FenceGateBlock.onExplosionHit` (`canTriggerBlocks` = `explosion.canTriggerBlocks()`).
-    pub fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, can_trigger_blocks: bool) {
+        fn on_explosion_hit_inner(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, can_trigger_blocks: bool) {
         if can_trigger_blocks && !state.get(props::POWERED) {
             let open = state.get(props::OPEN);
             level.set_block_and_update(pos, state.set(props::OPEN, !open));
@@ -46,6 +45,10 @@ impl FenceGateBlock {
 }
 
 impl BlockBehaviour for FenceGateBlock {
+    fn on_explosion_hit(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, explosion: &dyn crate::world::level::explosion::Explosion, on_hit: &mut dyn FnMut(ItemStack, BlockPos)) {
+        self.on_explosion_hit_inner(state, level, pos, explosion.can_trigger_blocks());
+        crate::world::level::explosion::default_on_explosion_hit(state, level, pos, explosion, on_hit);
+    }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         let axis = direction.get_axis();
         if state.get(props::HORIZONTAL_FACING).get_clockwise().get_axis() != axis {

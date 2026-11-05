@@ -1,0 +1,38 @@
+# DoorBlock destroy: survival with/without tool (drops), creative upper half (bottom removed silently)
+level flat
+preload 3
+spawn_player Steve creative 0.5 -60 -6.5 0 0
+give Steve hotbar0 minecraft:oak_door 64
+give Steve hotbar1 minecraft:iron_door 64
+spawn_player Alex survival 3.5 -60 -3.5 0 0
+give Alex hotbar0 minecraft:iron_pickaxe
+tp Steve 2.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 2 -61 0 up main 0.5 1.0 0.5
+tick 1
+tp Steve 5.5 -60 -2.5 0 0
+select Steve 1
+use_on Steve 5 -61 0 up main 0.5 1.0 0.5
+tick 1
+tp Steve 8.5 -60 -2.5 0 0
+select Steve 0
+use_on Steve 8 -61 0 up main 0.5 1.0 0.5
+tick 1
+tp Steve 11.5 -60 -2.5 0 0
+select Steve 1
+use_on Steve 11 -61 0 up main 0.5 1.0 0.5
+tick 1
+dump blocks:0,-60,0,12,-59,0
+dig Steve 2 -59 0
+dump blocks:0,-60,0,12,-59,0 entities
+dig Steve 8 -60 0
+dump blocks:0,-60,0,12,-59,0 entities
+snap Alex 5.5 -60 -3.5 0 0
+dig Alex 5 -60 0
+dump blocks:0,-60,0,12,-59,0 entities
+snap Alex 11.5 -60 -3.5 0 0
+select Alex 1
+dig Alex 11 -59 0
+dump blocks:0,-60,0,12,-59,0 entities
+tick 3
+dump entities
