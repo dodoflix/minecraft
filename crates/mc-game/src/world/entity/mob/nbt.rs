@@ -58,6 +58,8 @@ pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) {
         l.absorption_amount = absorption;
         l.equipment = equipment;
     }
+    // `this.brain = this.makeBrain(packed)` (the Brain step of `LivingEntity.readAdditionalSaveData`)
+    crate::world::entity::ai::brain::read_brain(e, input);
     mob_read_additional_save_data(e, input);
     if e.mob().is_some_and(|m| m.ageable.is_some()) {
         ageable::read_additional_save_data(e, input);
