@@ -2073,6 +2073,55 @@ pub trait Entity: Any {
     // ==== [Player] additions (Entity trait methods) ====
     // ==== [Level] additions (Entity trait methods) ====
     // ==== [Items] additions (Entity trait methods) ====
+    // ==== [Predicates] additions (Entity trait methods) ====
+    /// `SlotProvider.getSlot(slot).get()`: the stack in the numbered slot (`SlotRanges`), `None` when the entity has no
+    /// such slot. Default = `LivingEntity`/`Player` slots; mobs with their own inventory override.
+    fn get_slot(&self, slot: i32) -> Option<crate::world::item::ItemStack> {
+        crate::advancements::predicates::entity::support::get_slot(self.as_dyn(), slot)
+    }
+    /// `Entity.get(DataComponentType)` as a map (`CUSTOM_NAME`, `CUSTOM_DATA`); subclasses add their components.
+    fn entity_components(&self) -> mc_protocol::components::DataComponentMap {
+        crate::advancements::predicates::entity::support::base_entity_components(self.base())
+    }
+    /// `LivingEntity.isBaby()`.
+    fn is_baby(&self) -> bool {
+        false
+    }
+    /// `Mob.getTarget()` (`None` for non-mobs). SEAM(Mob): overridden by the mob slice.
+    fn get_target(&self) -> Option<EntityId> {
+        None
+    }
+    /// `Sheep.isSheared()`; `None` when the entity is not a `Sheep`. SEAM(Sheep).
+    fn sheep_sheared(&self) -> Option<bool> {
+        None
+    }
+    /// `AbstractCubeMob.getSize()`; `None` when the entity is not a cube mob. SEAM(AbstractCubeMob).
+    fn cube_mob_size(&self) -> Option<i32> {
+        None
+    }
+    /// `(Raider.hasRaid(), Raider.isCaptain())`; `None` when the entity is not a `Raider`. SEAM(Raider).
+    fn raider_state(&self) -> Option<(bool, bool)> {
+        None
+    }
+    /// `FishingHook.isOpenWaterFishing()`; `None` when the entity is not a `FishingHook`. SEAM(FishingHook).
+    fn fishing_hook_open_water(&self) -> Option<bool> {
+        None
+    }
+    /// `(LightningBolt.getBlocksSetOnFire(), LightningBolt.getHitEntities())`; `None` when the entity is not a
+    /// `LightningBolt`. SEAM(LightningBolt): implemented by the explosions/lightning slice.
+    fn lightning_bolt_state(&self) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {
+        None
+    }
+    /// `ServerPlayer.getStats().getValue(statType.get(stat))` for the stat type / stat registry ids. SEAM(stats): the
+    /// player statistics slice implements it for `ServerPlayer`.
+    fn get_stat_value(&self, _stat_type: &mc_core::ident::Identifier, _stat: &mc_core::ident::Identifier) -> i32 {
+        0
+    }
+    /// `PlayerAdvancements.getOrStartProgress(advancement)` as data; `None` when the advancement does not exist.
+    /// SEAM(advancements): implemented once player advancements are modelled.
+    fn advancement_progress(&self, _advancement: &mc_core::ident::Identifier) -> Option<crate::advancements::predicates::entity::support::AdvancementProgressSnapshot> {
+        None
+    }
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

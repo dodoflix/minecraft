@@ -3,6 +3,7 @@
 //! `net.minecraft.world.*` -> `world`, `net.minecraft.commands` -> `commands`, registries/tags/holders ->
 //! `registry`). See `ARCHITECTURE.md` ("mc-game design") for the threading/ownership contract.
 
+pub mod advancements;
 pub mod commands;
 pub mod crash_report;
 pub mod registry;

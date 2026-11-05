@@ -64,7 +64,8 @@ fn rank(def: &PropertyDef, index: usize) -> usize {
 }
 
 impl ValueMatcher {
-    fn matches(&self, def: &PropertyDef, actual: usize) -> bool {
+    /// `matches(property, value)` against the value at index `actual` of `def`.
+    pub fn matches(&self, def: &PropertyDef, actual: usize) -> bool {
         let actual = rank(def, actual);
         match self {
             ValueMatcher::Exact(v) => typed_index(def, v).is_some_and(|e| rank(def, e) == actual),

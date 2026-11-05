@@ -286,7 +286,13 @@ impl ServerLevel {
 
     /// `getBiome(pos)`: the fuzzy block-resolution biome (`BiomeManager.getBiome`) from the loaded chunks' noise biomes.
     pub fn get_biome(&self, pos: BlockPos) -> Option<&mc_worldgen::biome::Biome> {
-        let registry = self.tick_state.biomes.as_ref()?;
+        let id = self.get_biome_id(pos)?;
+        Some(self.tick_state.biomes.as_ref()?.get(id))
+    }
+
+    /// `getBiome(pos)` as the registry id of the biome (`None` while a needed chunk is missing).
+    pub fn get_biome_id(&self, pos: BlockPos) -> Option<mc_world::palette::BiomeId> {
+        self.tick_state.biomes.as_ref()?;
         let resolver = |qx: i32, qy: i32, qz: i32| {
             self.chunk_now(qx >> 2, qz >> 2).map(|c| c.data.access.get_noise_biome(qx, qy, qz))
         };
@@ -300,7 +306,7 @@ impl ServerLevel {
             }
         };
         let id = mc_worldgen::biome::BiomeManager::new(&total, self.tick_state.biome_zoom_seed).get_biome(pos);
-        if missing.get() { None } else { Some(registry.get(id)) }
+        if missing.get() { None } else { Some(id) }
     }
 
     // ----------------------------------------------------------------------------------------------- random ticks
