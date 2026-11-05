@@ -1,12 +1,8 @@
 //! `SpikeFeature` (`spike`): ice spikes.
 
-<<<<<<< HEAD
 use super::{FEATURE_TYPES, Feature, set_block};
 use crate::world::level::levelgen::GenEnv;
 use crate::world::level::levelgen::WorldGenLevel;
-=======
-use super::{FEATURE_TYPES, Feature};
->>>>>>> 5e3207a (feat(game): vegetation, coral, mushroom, fungus, pile, delta, spike, magma, snow features)
 use crate::world::level::levelgen::blockpredicates::{self, BlockPredicate};
 use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry, parse_block_state};
 use crate::world::level::levelgen::registries::DecodeCtx;
