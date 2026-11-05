@@ -2,6 +2,7 @@
 mod args_common;
 
 use mc_game::commands::arguments::*;
+use mc_game::commands::arguments::coordinates::vec3_argument::Vec3Argument;
 use std::sync::Arc;
 
 #[test]
