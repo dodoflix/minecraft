@@ -580,14 +580,6 @@ impl Entity for ServerPlayer {
     fn updating_using_item(&mut self, level: &mut crate::server::level::ServerLevel) {
         ServerPlayer::updating_using_item(self, level);
     }
-    /// `ServerPlayer.onExplosionHit(explosionCausedBy)`.
-    fn on_explosion_hit(&mut self, explosion_caused_by: Option<&dyn Entity>) {
-        let position = self.base().position();
-        self.current_explosion_impact_pos = Some(position);
-        self.current_explosion_cause = explosion_caused_by.map(|e| e.id());
-        let wind_charge = explosion_caused_by.is_some_and(|e| e.get_type() == mc_data::EntityType::WIND_CHARGE);
-        crate::world::entity::living_entity::damage::set_ignore_fall_damage_from_current_impulse(self, wind_charge, position);
-    }
     /// `Player.getFallSounds()`.
     fn get_fall_sounds(&self) -> (mc_data::SoundEvent, mc_data::SoundEvent) {
         (mc_data::SoundEvent::ENTITY_PLAYER_SMALL_FALL, mc_data::SoundEvent::ENTITY_PLAYER_BIG_FALL)

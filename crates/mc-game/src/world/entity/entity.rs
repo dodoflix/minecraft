@@ -664,9 +664,6 @@ pub trait Entity: Any {
         self.living().map(|_| self.id())
     }
 
-    /// `onExplosionHit(explosionCausedBy)`: runs after an explosion hurt/pushed this entity (`ServerPlayer` tracks the impact).
-    fn on_explosion_hit(&mut self, _explosion_caused_by: Option<&dyn Entity>) {}
-
     /// `ignoreExplosion(explosion)`.
     fn ignore_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
         false
