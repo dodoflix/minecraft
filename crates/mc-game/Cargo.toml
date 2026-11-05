@@ -10,6 +10,8 @@ publish.workspace = true
 
 [dependencies]
 mc-game-core = { path = "../mc-game-core" }
+mc-game-ai = { path = "../mc-game-ai" }
+mc-game-animals = { path = "../mc-game-animals" }
 mc-game-blocks = { path = "../mc-game-blocks" }
 mc-game-cmds = { path = "../mc-game-cmds" }
 mc-game-levelgen = { path = "../mc-game-levelgen" }

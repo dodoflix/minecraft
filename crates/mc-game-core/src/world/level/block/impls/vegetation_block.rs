@@ -28,7 +28,7 @@ pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos) -
 macro_rules! vegetation_behaviour_methods {
     () => {
         fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-            super::vegetation_block::can_survive(self, level, pos)
+            $crate::world::level::block::impls::vegetation_block::can_survive(self, level, pos)
         }
         fn update_shape(
             &self,
@@ -39,7 +39,7 @@ macro_rules! vegetation_behaviour_methods {
             _neighbour_pos: BlockPos,
             _neighbour_state: BlockState,
         ) -> BlockState {
-            super::vegetation_block::update_shape(state, &*level, pos)
+            $crate::world::level::block::impls::vegetation_block::update_shape(state, &*level, pos)
         }
     };
 }
@@ -50,7 +50,7 @@ pub use vegetation_behaviour_methods;
 macro_rules! vegetation_behaviour {
     ($ty:ty) => {
         impl BlockBehaviour for $ty {
-            super::vegetation_block::vegetation_behaviour_methods!();
+            $crate::world::level::block::impls::vegetation_block::vegetation_behaviour_methods!();
         }
     };
 }
@@ -69,18 +69,18 @@ macro_rules! spreading_bonemeal_methods {
             level: &dyn LevelReader,
             pos: BlockPos,
             state: BlockState,
-            _source: crate::world::level::block::bonemeal::BonemealSource,
+            _source: $crate::world::level::block::bonemeal::BonemealSource,
         ) -> bool {
-            crate::world::level::block::bonemeal::has_spreadable_neighbour_pos(level, pos, state)
+            $crate::world::level::block::bonemeal::has_spreadable_neighbour_pos(level, pos, state)
         }
         fn perform_bonemeal(
             &self,
-            level: &mut crate::server::level::ServerLevel,
+            level: &mut $crate::server::level::ServerLevel,
             pos: BlockPos,
             state: BlockState,
-            _source: crate::world::level::block::bonemeal::BonemealSource,
+            _source: $crate::world::level::block::bonemeal::BonemealSource,
         ) {
-            if let Some(target) = crate::world::level::block::bonemeal::find_spreadable_neighbour_pos(level, pos, state) {
+            if let Some(target) = $crate::world::level::block::bonemeal::find_spreadable_neighbour_pos(level, pos, state) {
                 level.set_block_and_update(target, state.block().default_state());
             }
         }

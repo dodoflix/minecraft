@@ -135,35 +135,35 @@ macro_rules! sign_block_common {
         }
         fn use_item_on(
             &self,
-            stack: &crate::world::item::ItemStack,
+            stack: &$crate::world::item::ItemStack,
             _state: BlockState,
-            level: &mut crate::server::level::ServerLevel,
+            level: &mut $crate::server::level::ServerLevel,
             pos: BlockPos,
-            player: &mut crate::world::entity::ServerPlayer,
-            hand: crate::world::item::InteractionHand,
+            player: &mut $crate::world::entity::ServerPlayer,
+            hand: $crate::world::item::InteractionHand,
             _hit: &mc_core::phys::BlockHitResult,
-        ) -> crate::world::item::InteractionResult {
-            super::sign_block::use_item_on(stack, level, pos, player, hand)
+        ) -> $crate::world::item::InteractionResult {
+            $crate::world::level::block::impls::sign_block::use_item_on(stack, level, pos, player, hand)
         }
         fn use_without_item(
             &self,
             _state: BlockState,
-            level: &mut crate::server::level::ServerLevel,
+            level: &mut $crate::server::level::ServerLevel,
             pos: BlockPos,
-            player: &mut crate::world::entity::ServerPlayer,
+            player: &mut $crate::world::entity::ServerPlayer,
             _hit: &mc_core::phys::BlockHitResult,
-        ) -> crate::world::item::InteractionResult {
-            super::sign_block::use_without_item(level, pos, player)
+        ) -> $crate::world::item::InteractionResult {
+            $crate::world::level::block::impls::sign_block::use_without_item(level, pos, player)
         }
         fn set_placed_by(
             &self,
             _state: BlockState,
-            level: &mut crate::server::level::ServerLevel,
+            level: &mut $crate::server::level::ServerLevel,
             pos: BlockPos,
-            placer: Option<&mut crate::world::entity::ServerPlayer>,
-            _stack: &crate::world::item::ItemStack,
+            placer: Option<&mut $crate::world::entity::ServerPlayer>,
+            _stack: &$crate::world::item::ItemStack,
         ) {
-            super::sign_block::set_placed_by(level, pos, placer)
+            $crate::world::level::block::impls::sign_block::set_placed_by(level, pos, placer)
         }
     };
 }

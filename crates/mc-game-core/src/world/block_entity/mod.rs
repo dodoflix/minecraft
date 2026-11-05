@@ -28,7 +28,7 @@ macro_rules! block_entity_base {
 #[macro_export]
 macro_rules! impl_items_container {
     ($ty:ty, $items:ident $({ $($extra:tt)* })?) => {
-        impl crate::world::container::Container for $ty {
+        impl $crate::world::container::Container for $ty {
             fn as_any(&self) -> &dyn std::any::Any {
                 self
             }
@@ -41,38 +41,38 @@ macro_rules! impl_items_container {
             fn is_empty(&self) -> bool {
                 self.$items.iter().all(|s| s.is_empty())
             }
-            fn get_item(&self, slot: usize) -> &crate::world::item::ItemStack {
-                self.$items.get(slot).unwrap_or_else(|| crate::world::container::empty_stack())
+            fn get_item(&self, slot: usize) -> &$crate::world::item::ItemStack {
+                self.$items.get(slot).unwrap_or_else(|| $crate::world::container::empty_stack())
             }
-            fn get_item_mut(&mut self, slot: usize) -> Option<&mut crate::world::item::ItemStack> {
+            fn get_item_mut(&mut self, slot: usize) -> Option<&mut $crate::world::item::ItemStack> {
                 self.$items.get_mut(slot)
             }
-            fn remove_item(&mut self, slot: usize, count: i32) -> crate::world::item::ItemStack {
-                let result = crate::world::container::helper::remove_item(&mut self.$items, slot, count);
+            fn remove_item(&mut self, slot: usize, count: i32) -> $crate::world::item::ItemStack {
+                let result = $crate::world::container::helper::remove_item(&mut self.$items, slot, count);
                 if !result.is_empty() {
-                    crate::world::container::Container::set_changed(self);
+                    $crate::world::container::Container::set_changed(self);
                 }
                 result
             }
-            fn remove_item_no_update(&mut self, slot: usize) -> crate::world::item::ItemStack {
-                crate::world::container::helper::take_item(&mut self.$items, slot)
+            fn remove_item_no_update(&mut self, slot: usize) -> $crate::world::item::ItemStack {
+                $crate::world::container::helper::take_item(&mut self.$items, slot)
             }
-            fn set_item(&mut self, slot: usize, mut stack: crate::world::item::ItemStack) {
+            fn set_item(&mut self, slot: usize, mut stack: $crate::world::item::ItemStack) {
                 if slot < self.$items.len() {
-                    let max = crate::world::container::Container::get_max_stack_size_for(self, &stack);
+                    let max = $crate::world::container::Container::get_max_stack_size_for(self, &stack);
                     stack.limit_size(max);
                     self.$items[slot] = stack;
                 }
-                crate::world::container::Container::set_changed(self);
+                $crate::world::container::Container::set_changed(self);
             }
             fn clear_content(&mut self) {
-                self.$items.iter_mut().for_each(|s| *s = crate::world::item::ItemStack::empty());
+                self.$items.iter_mut().for_each(|s| *s = $crate::world::item::ItemStack::empty());
             }
             fn set_changed(&mut self) {
                 self.base.changed = true;
             }
-            fn still_valid(&self, player: &dyn crate::world::inventory::MenuPlayer) -> bool {
-                crate::world::container::still_valid_block_entity(self.base.pos, player)
+            fn still_valid(&self, player: &dyn $crate::world::inventory::MenuPlayer) -> bool {
+                $crate::world::container::still_valid_block_entity(self.base.pos, player)
             }
             $($($extra)*)?
         }

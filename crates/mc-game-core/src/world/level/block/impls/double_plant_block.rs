@@ -111,46 +111,46 @@ pub fn get_seed(state: BlockState, pos: BlockPos) -> i64 {
 macro_rules! double_plant_behaviour_methods {
     () => {
         fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-            super::double_plant_block::can_survive(self, state, level, pos)
+            $crate::world::level::block::impls::double_plant_block::can_survive(self, state, level, pos)
         }
         update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-            super::double_plant_block::update_shape(state, &*level, pos, direction, neighbour_state)
+            $crate::world::level::block::impls::double_plant_block::update_shape(state, &*level, pos, direction, neighbour_state)
         });
-        fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
-            super::double_plant_block::get_state_for_placement(block, level, context)
+        fn get_state_for_placement(&self, block: Block, level: &mut $crate::server::level::ServerLevel, context: &$crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+            $crate::world::level::block::impls::double_plant_block::get_state_for_placement(block, level, context)
         }
         fn set_placed_by(
             &self,
             state: BlockState,
-            level: &mut crate::server::level::ServerLevel,
+            level: &mut $crate::server::level::ServerLevel,
             pos: BlockPos,
-            _placer: Option<&mut crate::world::entity::ServerPlayer>,
-            _stack: &crate::world::item::ItemStack,
+            _placer: Option<&mut $crate::world::entity::ServerPlayer>,
+            _stack: &$crate::world::item::ItemStack,
         ) {
-            super::double_plant_block::set_placed_by(state.block(), level, pos);
+            $crate::world::level::block::impls::double_plant_block::set_placed_by(state.block(), level, pos);
         }
         fn player_will_destroy(
             &self,
             state: BlockState,
-            level: &mut crate::server::level::ServerLevel,
+            level: &mut $crate::server::level::ServerLevel,
             pos: BlockPos,
-            player: &mut crate::world::entity::ServerPlayer,
+            player: &mut $crate::world::entity::ServerPlayer,
         ) -> BlockState {
-            super::double_plant_block::player_will_destroy(level, pos, state, player)
+            $crate::world::level::block::impls::double_plant_block::player_will_destroy(level, pos, state, player)
         }
         fn player_destroy(
             &self,
-            level: &mut crate::server::level::ServerLevel,
-            player: &mut crate::world::entity::ServerPlayer,
+            level: &mut $crate::server::level::ServerLevel,
+            player: &mut $crate::world::entity::ServerPlayer,
             pos: BlockPos,
             _state: BlockState,
-            block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
-            destroyed_with: &crate::world::item::ItemStack,
+            block_entity: Option<&dyn $crate::world::block_entity::BlockEntity>,
+            destroyed_with: &$crate::world::item::ItemStack,
         ) {
-            super::double_plant_block::player_destroy(level, player, pos, block_entity, destroyed_with);
+            $crate::world::level::block::impls::double_plant_block::player_destroy(level, player, pos, block_entity, destroyed_with);
         }
         fn get_seed(&self, state: BlockState, pos: BlockPos) -> i64 {
-            super::double_plant_block::get_seed(state, pos)
+            $crate::world::level::block::impls::double_plant_block::get_seed(state, pos)
         }
     };
 }

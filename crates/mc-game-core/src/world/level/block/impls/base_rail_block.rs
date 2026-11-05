@@ -205,32 +205,32 @@ pub fn affect_neighbors_after_removal(state: BlockState, level: &mut ServerLevel
 macro_rules! rail_behaviour {
     ($ty:ty, $update_state:expr, $on_place:path $(, $($extra:tt)*)?) => {
         impl BlockBehaviour for $ty {
-            crate::simple_waterlogged!();
+            $crate::simple_waterlogged!();
             fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-                super::base_rail_block::can_survive(level, pos)
+                $crate::world::level::block::impls::base_rail_block::can_survive(level, pos)
             }
             update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
-                super::base_rail_block::update_shape(state, level, pos)
+                $crate::world::level::block::impls::base_rail_block::update_shape(state, level, pos)
             });
-            fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
-                Some(super::base_rail_block::get_state_for_placement(block, &*level, context))
+            fn get_state_for_placement(&self, block: Block, level: &mut $crate::server::level::ServerLevel, context: &$crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+                Some($crate::world::level::block::impls::base_rail_block::get_state_for_placement(block, &*level, context))
             }
-            fn on_place(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, old_state: BlockState, moved_by_piston: bool) {
+            fn on_place(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos, old_state: BlockState, moved_by_piston: bool) {
                 $on_place(state, level, pos, old_state, moved_by_piston);
             }
-            fn neighbor_changed(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, block: Block, _orientation: Option<crate::world::level::redstone::Orientation>, moved_by_piston: bool) {
-                super::base_rail_block::neighbor_changed($update_state, state, level, pos, block, moved_by_piston);
+            fn neighbor_changed(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos, block: Block, _orientation: Option<$crate::world::level::redstone::Orientation>, moved_by_piston: bool) {
+                $crate::world::level::block::impls::base_rail_block::neighbor_changed($update_state, state, level, pos, block, moved_by_piston);
             }
-            fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut crate::server::level::ServerLevel, pos: BlockPos, moved_by_piston: bool) {
-                super::base_rail_block::affect_neighbors_after_removal(state, level, pos, moved_by_piston);
+            fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut $crate::server::level::ServerLevel, pos: BlockPos, moved_by_piston: bool) {
+                $crate::world::level::block::impls::base_rail_block::affect_neighbors_after_removal(state, level, pos, moved_by_piston);
             }
             fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
-                let shape = super::base_rail_block::shape_property(state);
-                state.set(shape, super::base_rail_block::rotate_shape(state.get(shape), rotation))
+                let shape = $crate::world::level::block::impls::base_rail_block::shape_property(state);
+                state.set(shape, $crate::world::level::block::impls::base_rail_block::rotate_shape(state.get(shape), rotation))
             }
             fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
-                let shape = super::base_rail_block::shape_property(state);
-                state.set(shape, super::base_rail_block::mirror_shape(state.get(shape), mirror))
+                let shape = $crate::world::level::block::impls::base_rail_block::shape_property(state);
+                state.set(shape, $crate::world::level::block::impls::base_rail_block::mirror_shape(state.get(shape), mirror))
             }
             $($($extra)*)?
         }
