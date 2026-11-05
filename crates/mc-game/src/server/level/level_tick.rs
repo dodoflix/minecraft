@@ -636,11 +636,6 @@ impl ServerLevel {
             .collect()
     }
 
-    /// `canSleepThroughNights()`.
-    pub fn can_sleep_through_nights(&self) -> bool {
-        self.players_sleeping_percentage() <= 100
-    }
-
     /// `announceSleepStatus()` (a dedicated server is never singleplayer): the overlay message to every player.
     fn announce_sleep_status(&self, current: Option<&crate::world::entity::ServerPlayer>) {
         if !self.can_sleep_through_nights() {

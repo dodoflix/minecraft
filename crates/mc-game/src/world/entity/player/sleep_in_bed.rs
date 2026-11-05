@@ -122,7 +122,7 @@ impl ServerPlayer {
         if !level.can_sleep_through_nights() {
             self.send_overlay_message(Component::translatable("sleep.not_possible", Vec::new()));
         }
-        level.update_sleeping_player_list();
+        level.update_sleeping_player_list_with(Some(self));
         Ok(())
     }
 
@@ -161,7 +161,7 @@ impl ServerPlayer {
         // `Player.stopSleepInBed`
         sleeping::stop_sleeping(self.as_dyn_mut(), level);
         if update_level_list {
-            level.update_sleeping_player_list();
+            level.update_sleeping_player_list_with(Some(self));
         }
         self.player.sleep_counter = if forceful_wake_up { 0 } else { 100 };
         if self.listener.is_some() {
