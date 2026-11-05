@@ -12,6 +12,7 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::inventory::PlayerMenus;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
+use mc_core::random::RandomSource;
 use mc_protocol::packets::play::{ClientboundSetExperiencePacket, ClientboundSetHealthPacket};
 
 impl ServerPlayer {
