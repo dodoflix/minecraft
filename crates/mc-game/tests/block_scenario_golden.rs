@@ -24,3 +24,9 @@ fn waterlogged_stairs_schedule_water_ticks() {
 fn redstone_block_dust_lamp_15_ticks() {
     check("blk_harness_redstone");
 }
+
+#[test]
+fn player_item_entity_dig_and_events() {
+    // `fire`: a fresh Rust entity starts at 0, vanilla's player at -20 (EntitiesCore's replays ignore it too)
+    common::block_scenario::check_with("blk_harness_actors", &common::entity_oracle::Options { ignore_fields: vec!["fire"], ..Default::default() });
+}

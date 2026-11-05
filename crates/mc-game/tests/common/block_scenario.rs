@@ -25,6 +25,8 @@
 //! `gamerule` goes through the real `GameRules` (all rules).
 #![allow(dead_code)]
 
+#[path = "block_scenario_actors.rs"]
+mod actors;
 use super::entity_oracle::{Fixture, Options, compare, fixture_dir, scenario_dir};
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -235,6 +237,7 @@ pub struct Scenario {
     watches: Vec<Vec<String>>,
     opts: Options_,
     log: Arc<Mutex<Vec<BroadcastRecord>>>,
+    actors: actors::Actors,
     line_no: usize,
     line: String,
 }
@@ -256,6 +259,7 @@ impl Scenario {
             opts: Options_ { flat: true, difficulty: Difficulty::Normal, preload: 6, features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS },
             log: Arc::new(Mutex::new(Vec::new())),
             line_no: 0,
+            actors: Default::default(),
             line: String::new(),
         }
     }
@@ -331,7 +335,10 @@ impl Scenario {
     fn run(&mut self, a: &[String]) {
         let line = self.line.clone();
         let ctx = format!("scenario line {}: {}", self.line_no, line);
-        let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| self.run_command(a)));
+        let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            self.run_command(a);
+            self.name_new_entities();
+        }));
         if let Err(e) = result {
             eprintln!("{ctx}");
             std::panic::resume_unwind(e);
@@ -438,9 +445,10 @@ impl Scenario {
             }
             "dump" => {
                 self.world();
-                let what: Vec<String> = if a.len() > 1 { a[1..].to_vec() } else { panic!("`dump` alone needs entities, which the block replay does not have: name the WHATs") };
+                let what: Vec<String> = if a.len() > 1 { a[1..].to_vec() } else { vec!["entities".to_string(), "all_players".to_string()] };
                 self.dump(&what);
             }
+            _ if self.actor_command(a) => {}
             other => panic!("command `{other}` is not supported by tests/common/block_scenario.rs yet"),
         }
     }
@@ -455,6 +463,8 @@ impl Scenario {
         let mut level = self.level.take().expect("world");
         level.tick(&mut self.env, &mut || true);
         self.level = Some(level);
+        self.tick_players();
+        self.name_new_entities();
         self.ticks += 1;
         if !self.watches.is_empty() {
             self.out.push(format!("T {}", self.ticks));
@@ -544,6 +554,7 @@ impl Scenario {
                     self.out.push(format!("BEU {} {} {} {text}", c[0], c[1], c[2]));
                 }
                 "ticks" => self.dump_ticks(),
+                _ if self.dump_actor(kind, arg) => {}
                 "events" => self.dump_events(),
                 other => panic!("dump {other} is not supported by tests/common/block_scenario.rs"),
             }

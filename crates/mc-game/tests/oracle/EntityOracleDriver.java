@@ -108,7 +108,7 @@ import net.minecraft.util.RandomSource;
  * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
  * -- entities --
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
- * spawn_item REF STACK X Y Z [vx vy vz] [count]  ItemEntity (constructor random motion unless vx vy vz given)
+ * spawn_item REF STACK X Y Z [vx vy vz] [count] [rot=YAW]  ItemEntity (constructor random motion unless vx vy vz given; rot= overrides the random yaw)
  * entity_seed REF N           entity.getRandom().setSeed(N)
  * spawn_player NAME survival|creative|adventure|spectator X Y Z [yaw pitch] [sim]
  *                             joins a real ServerPlayer through PlayerList.placeNewPlayer; `sim` = the server simulates its
@@ -440,9 +440,19 @@ public final class EntityOracleDriver {
          case "spawn_item" -> {
             world();
             VanillaLevel.reseed(hash(a.get(1)));
+            Float rot = null;
+            a = new ArrayList<>(a);
+            for (int i = a.size() - 1; i > 2; i--) {
+               if (a.get(i).startsWith("rot=")) {
+                  rot = Float.parseFloat(a.remove(i).substring(4)); // the constructor draws a random yaw that Rust cannot reproduce
+               }
+            }
             ItemStack st = stack(a.get(2), a.size() > 9 ? Integer.parseInt(a.get(9)) : 1);
             double x = d(a.get(3)), y = d(a.get(4)), z = d(a.get(5));
             ItemEntity ie = a.size() >= 9 ? new ItemEntity(v.level, x, y, z, st, d(a.get(6)), d(a.get(7)), d(a.get(8))) : new ItemEntity(v.level, x, y, z, st);
+            if (rot != null) {
+               ie.setYRot(rot);
+            }
             v.level.addFreshEntity(ie);
             refs.put(a.get(1), ie);
          }
