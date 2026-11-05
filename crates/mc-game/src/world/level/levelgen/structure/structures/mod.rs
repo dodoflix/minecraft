@@ -20,3 +20,5 @@ pub mod shipwreck_pieces;
 pub mod shipwreck_structure;
 pub mod nether_fortress_pieces;
 pub mod nether_fortress_structure;
+pub mod mineshaft_pieces;
+pub mod mineshaft_structure;
