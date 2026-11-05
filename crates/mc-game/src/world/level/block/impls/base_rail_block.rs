@@ -204,6 +204,7 @@ pub fn affect_neighbors_after_removal(state: BlockState, level: &mut ServerLevel
 macro_rules! rail_behaviour {
     ($ty:ty, $update_state:expr, $on_place:path $(, $($extra:tt)*)?) => {
         impl BlockBehaviour for $ty {
+            crate::simple_waterlogged!();
             fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
                 super::base_rail_block::can_survive(level, pos)
             }
