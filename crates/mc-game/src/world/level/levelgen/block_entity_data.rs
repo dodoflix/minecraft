@@ -4,6 +4,7 @@
 
 use super::world_gen_level::WorldGenLevel;
 use mc_core::pos::BlockPos;
+use mc_data::BlockEntityType;
 use mc_core::random::RandomSource;
 use mc_nbt::{CompoundTag, ListTag};
 
@@ -22,24 +23,58 @@ pub fn base_tag(id: &str, pos: BlockPos) -> CompoundTag {
 fn is_randomizable_container(id: &str) -> bool {
     matches!(
         id,
-        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" | "minecraft:dispenser" | "minecraft:dropper" | "minecraft:hopper" | "minecraft:crafter"
-    ) || id == "minecraft:shulker_box"
+        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" | "minecraft:dispenser" | "minecraft:dropper" | "minecraft:hopper" | "minecraft:crafter" | "minecraft:shulker_box"
+    )
+}
+
+/// The block entity type of a block (`EntityBlock.newBlockEntity` -> `BlockEntityType.isValid`).
+fn block_entity_type_of(block: mc_data::block::Block) -> Option<BlockEntityType> {
+    BlockEntityType::iter().find(|ty| ty.data().valid_blocks.contains(&block))
+}
+
+/// `new XBlockEntity(pos, state).saveWithFullMetadata()` for the types worldgen features configure (`None`: not modelled).
+fn default_tag(id: &str, pos: BlockPos) -> Option<CompoundTag> {
+    match id {
+        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" => {
+            let mut tag = base_tag(id, pos);
+            tag.put("Items", ListTag::new());
+            Some(tag)
+        }
+        "minecraft:mob_spawner" => {
+            let mut tag = spawner_tag(pos, "");
+            tag.remove("SpawnData");
+            Some(tag)
+        }
+        "minecraft:end_gateway" => Some(end_gateway_tag(pos, None)),
+        _ => None,
+    }
+}
+
+/// `WorldGenRegion.getBlockEntity(pos)`: the chunk only holds raw NBT; a `DUMMY` entry (written by `setBlock` for block
+/// entity states) turns into the block's fresh block entity the first time it is fetched. Returns the NBT of the (now
+/// real) block entity, `None` without one (and for types whose fresh NBT is not modelled, which stay `DUMMY`).
+pub fn get_block_entity_nbt(level: &mut dyn WorldGenLevel, pos: BlockPos) -> Option<CompoundTag> {
+    let existing = level.get_block_entity_nbt(pos)?;
+    if existing.get_string("id") != Some("DUMMY") {
+        return Some(existing.clone());
+    }
+    let state = level.get_block_state(pos);
+    let ty = block_entity_type_of(state.block())?;
+    let tag = default_tag(ty.name(), pos)?;
+    level.set_block_entity_nbt(tag.clone());
+    Some(tag)
 }
 
 /// `RandomizableContainer.setBlockEntityLootTable(level, random, pos, lootTable)`: when the block entity at `pos` is a
 /// randomizable container it gets the loot table and `random.nextLong()` as seed (`trySaveLootTable`: the seed is only
 /// saved when non-zero, and a container with a loot table saves no `Items`).
 pub fn set_block_entity_loot_table(level: &mut dyn WorldGenLevel, random: &mut dyn RandomSource, pos: BlockPos, loot_table: &str) {
-    let Some(existing) = level.get_block_entity_nbt(pos) else {
+    let Some(mut tag) = get_block_entity_nbt(level, pos) else {
         return;
     };
-    let Some(id) = existing.get_string("id").map(str::to_owned) else {
-        return;
-    };
-    if !is_randomizable_container(&id) {
+    if !tag.get_string("id").is_some_and(is_randomizable_container) {
         return;
     }
-    let mut tag = existing.clone();
     let seed = random.next_long();
     tag.remove("Items");
     tag.put_string("LootTable", loot_table);

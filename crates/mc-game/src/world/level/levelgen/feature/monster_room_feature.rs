@@ -4,7 +4,7 @@ use super::{FEATURE_TYPES, Feature, safe_set_block};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::GenEnv;
 use crate::world::level::levelgen::WorldGenLevel;
-use crate::world::level::levelgen::block_entity_data::{set_block_entity_loot_table, spawner_tag};
+use crate::world::level::levelgen::block_entity_data::{get_block_entity_nbt, set_block_entity_loot_table, spawner_tag};
 use crate::world::level::levelgen::codec::{Fields, LoadResult, TypeEntry};
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::BlockGetter;
@@ -141,7 +141,7 @@ impl Feature for MonsterRoomFeature {
         }
 
         safe_set_block(level, origin, Block::SPAWNER.default_state(), replaceable_tag);
-        if level.get_block_state(origin).is_block(Block::SPAWNER) {
+        if get_block_entity_nbt(level, origin).is_some_and(|tag| tag.get_string("id") == Some("minecraft:mob_spawner")) {
             let entity = MOBS[random.next_int_bounded(MOBS.len() as i32) as usize];
             level.set_block_entity_nbt(spawner_tag(origin, entity));
         }
