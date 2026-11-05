@@ -1,9 +1,7 @@
 //! Loot rolls of the spawner family that draw from the level's own random like vanilla (`Level.random`).
 //!
 //! `LootTable.getRandomItems(params)` draws from the table's `random_sequence`, or from `level.getRandom()` when it has
-//! none; `getRandomItems(params, random)` draws from the given random. The loot module only has `&ServerLevel`, so it
-//! rolls on a copy of the level random; these helpers roll on a shared handle instead and return the advanced state for
-//! the caller to store back once its `LootParams` (which borrow the level) are dropped.
+//! none; `getRandomItems(params, random)` draws from the given random.
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
@@ -13,61 +11,15 @@ use crate::world::level::storage::loot::{LootParams, LootTable};
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_core::random::{LegacyRandomSource, PositionalRandomFactory, RandomSource};
-use parking_lot::Mutex;
-use std::sync::Arc;
 
-/// A handle on the level's random that several owners can draw from.
-struct SharedRandom(Arc<Mutex<LegacyRandomSource>>);
-
-macro_rules! draw {
-    ($self:ident . $m:ident ( $($a:expr),* )) => { $self.0.lock().$m($($a),*) };
-}
-
-impl RandomSource for SharedRandom {
-    fn fork(&mut self) -> Box<dyn RandomSource> {
-        draw!(self.fork())
+/// Rolls `table` with `params`: `explicit_level_random` is `getRandomItems(params, level.getRandom())`, otherwise the
+/// table's own random sequence / the level random decide (`LevelRandom` is a shared handle, so the level's stream advances).
+pub fn roll(params: &LootParams, table: &LootTable, explicit_level_random: bool) -> Vec<ItemStack> {
+    if explicit_level_random {
+        table.get_random_items_with_random(params, Box::new(params.level().tick_state.random.clone()))
+    } else {
+        table.get_random_items(params)
     }
-    fn fork_positional(&mut self) -> Box<dyn PositionalRandomFactory> {
-        draw!(self.fork_positional())
-    }
-    fn set_seed(&mut self, seed: i64) {
-        draw!(self.set_seed(seed))
-    }
-    fn next_int(&mut self) -> i32 {
-        draw!(self.next_int())
-    }
-    fn next_int_bounded(&mut self, bound: i32) -> i32 {
-        draw!(self.next_int_bounded(bound))
-    }
-    fn next_long(&mut self) -> i64 {
-        draw!(self.next_long())
-    }
-    fn next_boolean(&mut self) -> bool {
-        draw!(self.next_boolean())
-    }
-    fn next_float(&mut self) -> f32 {
-        draw!(self.next_float())
-    }
-    fn next_double(&mut self) -> f64 {
-        draw!(self.next_double())
-    }
-    fn next_gaussian(&mut self) -> f64 {
-        draw!(self.next_gaussian())
-    }
-}
-
-/// Rolls `table` with `params`. With `explicit_level_random` (`getRandomItems(params, level.getRandom())`) or when the
-/// table has no random sequence, the roll consumes the level random: the advanced state is returned and must be stored
-/// into `level.tick_state.random` by the caller.
-pub fn roll(params: &LootParams, table: &LootTable, explicit_level_random: bool) -> (Vec<ItemStack>, Option<LegacyRandomSource>) {
-    if !explicit_level_random && table.random_sequence().is_some() {
-        return (table.get_random_items(params), None);
-    }
-    let shared = Arc::new(Mutex::new(params.level().tick_state.random.clone()));
-    let items = table.get_random_items_with_random(params, Box::new(SharedRandom(shared.clone())));
-    let advanced = shared.lock().clone();
-    (items, Some(advanced))
 }
 
 /// `DefaultDispenseItemBehavior.spawnItem(level, stack, accuracy, direction, position)`.

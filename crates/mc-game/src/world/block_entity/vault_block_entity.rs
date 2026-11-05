@@ -171,13 +171,10 @@ pub fn cycle_display_item_from_loot_table(level: &mut ServerLevel, vault_state: 
 /// `getRandomDisplayItemFromLootTable(level, pos, lootTableId)`.
 fn get_random_display_item_from_loot_table(level: &mut ServerLevel, pos: BlockPos, loot_table_id: &mc_core::ident::Identifier) -> ItemStack {
     let table = get_loot_table(&level.registries, loot_table_id);
-    let (results, advanced) = {
+    let results = {
         let params = LootParams::builder(level).origin(Vec3::at_center_of(&pos)).create(&LootContextParamSets::VAULT);
         roll(&params, &table, true)
     };
-    if let Some(random) = advanced {
-        level.tick_state.random = random;
-    }
     if results.is_empty() {
         return ItemStack::empty();
     }
@@ -198,7 +195,7 @@ fn unlock(level: &mut ServerLevel, block_state: BlockState, pos: BlockPos, confi
 fn resolve_items_to_eject(level: &mut ServerLevel, config: &VaultConfig, pos: BlockPos, player: &ServerPlayer, inserted_stack: &ItemStack) -> Vec<ItemStack> {
     let table = get_loot_table(&level.registries, &config.loot_table);
     let luck = player.living().map_or(0.0, |l| l.get_attribute_value(mc_data::Attribute::LUCK) as f32);
-    let (items, advanced) = {
+    let items = {
         let params = LootParams::builder(level)
             .origin(Vec3::at_center_of(&pos))
             .luck(luck)
@@ -207,9 +204,6 @@ fn resolve_items_to_eject(level: &mut ServerLevel, config: &VaultConfig, pos: Bl
             .create(&LootContextParamSets::VAULT);
         roll(&params, &table, false)
     };
-    if let Some(random) = advanced {
-        level.tick_state.random = random;
-    }
     items
 }
 
