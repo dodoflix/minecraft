@@ -22,7 +22,6 @@ use super::{
 };
 use crate::world::level::storage::loot::codec_ext::dispatch_optional_value;
 use crate::world::level::storage::loot::context::{ContextKey, EntityTarget, LootContext};
-use crate::world::level::storage::loot::enchant_api;
 use crate::world::level::storage::loot::holder::{lift, registry_ref_codec};
 use crate::world::level::storage::loot::predicates::ConditionHolder;
 use crate::world::level::storage::loot::providers::nbt::{NbtProvider, nbt_path_codec, nbt_provider_codec};
@@ -241,7 +240,7 @@ impl ConditionalFunction for ApplyBonusCount {
     }
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         if let Some(tool) = context.params().tool.clone() {
-            let level = enchant_api::get_item_enchantment_level(&self.enchantment, &tool);
+            let level = crate::world::item::enchantment_helper::get_item_enchantment_level(&self.enchantment, &tool);
             let new_count = self.formula.calculate_new_count(context.get_random(), stack.count(), level);
             stack.set_count(new_count);
         }
@@ -289,7 +288,7 @@ impl ConditionalFunction for EnchantedCountIncreaseFunction {
     fn run(&self, mut stack: ItemStack, context: &mut LootContext) -> ItemStack {
         if let Some(killer) = context.params().attacking_entity {
             if killer.living().is_some() {
-                let level = enchant_api::get_enchantment_level(context.get_level(), &self.enchantment, killer);
+                let level = crate::world::item::enchantment_helper::get_enchantment_level(context.get_resolver(), &self.enchantment, killer);
                 if level == 0 {
                     return stack;
                 }

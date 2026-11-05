@@ -14,7 +14,9 @@ use crate::world::level::storage::loot::codec_ext::OptionalDefaultWith;
 use super::{ConditionalFunction, LootItemFunctionRef, condition_field};
 use crate::registry::keys;
 use crate::world::level::storage::loot::context::{ContextKey, LootContext};
-use crate::world::level::storage::loot::enchant_api;
+use crate::world::item::enchantment::enchantment::Enchantment;
+use crate::world::item::enchantment::item_enchantments;
+use crate::world::item::enchantment_helper;
 use crate::world::level::storage::loot::holder::{lift, registry_ref_codec};
 use crate::world::level::storage::loot::predicates::ConditionHolder;
 use crate::world::level::storage::loot::providers::number::{IntHolder, int_holder_codec};
@@ -55,7 +57,7 @@ impl ConditionalFunction for EnchantWithLevelsFunction {
     fn run(&self, stack: ItemStack, context: &mut LootContext) -> ItemStack {
         let enchantment_cost = self.levels.value(context.get_resolver()).get_int(context);
         let registries = context.get_resolver();
-        let mut result = enchant_api::enchant_item(context.get_random(), stack, enchantment_cost, registries, self.options.as_ref());
+        let mut result = enchantment_helper::enchant_item(context.get_random(), stack, enchantment_cost, registries, self.options.as_ref());
         if self.include_additional_cost_component
             && context.has_parameter(ContextKey::AdditionalCostComponentAllowed)
             && !result.is_empty()
@@ -89,12 +91,9 @@ impl ConditionalFunction for EnchantRandomlyFunction {
         let target_is_book = stack.is(Item::BOOK);
         let should_check_compatibility = !target_is_book && self.only_compatible;
         let registries = context.get_resolver();
-        let candidates: Vec<Identifier> = match &self.options {
-            Some(set) => enchant_api::holder_set_ids(registries, keys::ENCHANTMENT, set),
-            None => registries.registry(keys::ENCHANTMENT).map(|r| r.names()).unwrap_or_default(),
-        };
+        let candidates: Vec<Identifier> = enchantment_helper::candidates_of(registries, self.options.as_ref());
         let compatible: Vec<Identifier> =
-            candidates.into_iter().filter(|c| !should_check_compatibility || enchant_api::can_enchant(registries, c, &stack)).collect();
+            candidates.into_iter().filter(|c| !should_check_compatibility || registries.get::<Enchantment>(keys::ENCHANTMENT, c).is_some_and(|e| e.can_enchant(registries, &stack))).collect();
         let Some(enchantment) = random_safe(&compatible, context.get_random()) else {
             log::warn!("Couldn't find a compatible enchantment for {stack:?}");
             return stack;
@@ -105,12 +104,15 @@ impl ConditionalFunction for EnchantRandomlyFunction {
 
 impl EnchantRandomlyFunction {
     fn enchant_item(&self, mut stack: ItemStack, enchantment: &Identifier, context: &mut LootContext) -> ItemStack {
-        let (min, max) = enchant_api::min_max_level(context.get_resolver(), enchantment);
+        let (min, max) = context
+            .get_resolver()
+            .get::<Enchantment>(keys::ENCHANTMENT, enchantment)
+            .map_or((1, 1), |e| (e.get_min_level(), e.get_max_level()));
         let level = mth::next_int(context.get_random(), min, max);
         if stack.is(Item::BOOK) {
             stack = ItemStack::new(Item::ENCHANTED_BOOK);
         }
-        enchant_api::enchant(&mut stack, enchantment, level);
+        item_enchantments::enchant(&mut stack, enchantment, level);
         if self.include_additional_cost_component && context.has_parameter(ContextKey::AdditionalCostComponentAllowed) {
             let random = context.get_random();
             let cost = 2 + random.next_int_bounded(5 + level * 10) + 3 * level;
@@ -149,13 +151,13 @@ impl ConditionalFunction for SetEnchantmentsFunction {
         let mut levels: Vec<(Identifier, i32)> = Vec::new();
         for (enchantment, provider) in &self.enchantments {
             let value = provider.value(context.get_resolver()).get_int(context);
-            let current = enchant_api::get_stack_enchantments(&stack).iter().find(|(e, _)| e == enchantment).map_or(0, |(_, l)| *l);
+            let current = enchantment_helper::get_enchantments_for_crafting(&stack).get_level(&mc_protocol::components::Holder::Reference(enchantment.clone()));
             let level = if self.add { mth::clamp_i32(current + value, 0, 255) } else { mth::clamp_i32(value, 0, 255) };
             levels.push((enchantment.clone(), level));
         }
-        enchant_api::update_enchantments(&mut stack, |e| {
+        enchantment_helper::update_enchantments(&mut stack, |e| {
             for (enchantment, level) in &levels {
-                e.set(enchantment, *level);
+                e.set(&mc_protocol::components::Holder::Reference(enchantment.clone()), *level);
             }
         });
         stack

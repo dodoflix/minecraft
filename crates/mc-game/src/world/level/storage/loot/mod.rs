@@ -5,7 +5,6 @@
 pub mod block_drops;
 pub mod codec_ext;
 pub mod context;
-pub mod enchant_api;
 pub mod entries;
 pub mod functions;
 pub mod holder;

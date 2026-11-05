@@ -275,3 +275,14 @@ pub fn registry_ref_codec(registry: &'static str) -> Codec<Identifier> {
         |id: &Identifier| DataResult::success(id.clone()),
     )
 }
+
+/// The ids of a reference-only holder set (`HolderSet.stream()`) of `registry`, tags expanded in tag order.
+pub fn holder_set_ids(registries: &RegistryAccess, registry: &str, set: &mc_protocol::components::HolderSet<mc_protocol::components::NoDirect>) -> Vec<Identifier> {
+    match set {
+        mc_protocol::components::HolderSet::Named(tag) => {
+            let Some(r) = registries.registry(registry) else { return Vec::new() };
+            r.tag(tag).unwrap_or(&[]).iter().filter_map(|id| r.name_of(*id)).collect()
+        }
+        mc_protocol::components::HolderSet::Direct(v) => v.iter().filter_map(|h| h.name().cloned()).collect(),
+    }
+}
