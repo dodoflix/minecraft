@@ -141,6 +141,19 @@ impl StructurePiecesBuilder {
         &mut *self.pieces[index]
     }
 
+    /// Takes the piece at `index` out of the builder (a stand-in with the same box/orientation/depth stays, as in
+    /// [`Self::add_piece_and_children`]) so it can be used mutably next to the builder; hand it back with
+    /// [`Self::put_back`]. For generators that keep the pieces they still have to expand (`pendingChildren`).
+    pub fn take_out(&mut self, index: usize) -> Box<dyn StructurePiece> {
+        let stand_in = Box::new(TakenOutPiece { base: self.pieces[index].base().clone() });
+        std::mem::replace(&mut self.pieces[index], stand_in)
+    }
+
+    /// Puts a piece taken out with [`Self::take_out`] back at its index.
+    pub fn put_back(&mut self, index: usize, piece: Box<dyn StructurePiece>) {
+        self.pieces[index] = piece;
+    }
+
     pub fn len(&self) -> usize {
         self.pieces.len()
     }
