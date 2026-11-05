@@ -1,7 +1,6 @@
 //! Collision pushing between entities: `LivingEntity.pushEntities` (incl. cramming damage), `doPush`, `isPushable`.
 
-use super::seams::{self, LivingDamage};
-use super::util::is_position_entity_ticking;
+use super::util::{self, is_position_entity_ticking};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use mc_core::random::RandomSource;
@@ -53,7 +52,7 @@ pub fn push_entities(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if max_cramming > 0 && pushable.len() as i32 > max_cramming - 1 && entity.base_mut().random.next_int_bounded(4) == 0 {
         let count = pushable.iter().filter(|&&id| level.get_entity(id).is_some_and(|e| !e.base().is_passenger())).count() as i32;
         if count > max_cramming - 1 {
-            seams::hurt(level, entity, LivingDamage::Cramming, 6.0);
+            util::hurt(level, entity, |sources| sources.cramming(), 6.0);
         }
     }
     for id in pushable {

@@ -198,3 +198,9 @@ pub fn is_in_water_or_rain(entity: &dyn Entity, level: &ServerLevel) -> bool {
     let pos = entity.base().block_position();
     level.is_raining_at(pos) || level.is_raining_at(BlockPos::containing(f64::from(pos.x()), entity.base().bounding_box().max_y, f64::from(pos.z())))
 }
+
+/// `entity.hurtServer(level, level.damageSources().<kind>(), amount)`.
+pub fn hurt(level: &mut ServerLevel, entity: &mut dyn Entity, kind: impl FnOnce(&crate::world::damagesource::DamageSources<'_>) -> crate::world::damagesource::DamageSource, amount: f32) {
+    let source = kind(&level.damage_sources());
+    entity.hurt_server(level, &source, amount);
+}

@@ -1,8 +1,8 @@
 //! The `LivingEntity.checkFallDamage` override around `Entity.checkFallDamage`.
 
-use super::seams;
-use super::util::{l, lm};
+use super::util::{self, l, lm};
 use crate::server::level::ServerLevel;
+use crate::world::item::enchantment::actors::Actors;
 use crate::world::entity::Entity;
 use mc_core::math::mth;
 use mc_core::pos::BlockPos;
@@ -22,7 +22,10 @@ pub fn before_check_fall_damage(entity: &mut dyn Entity, level: &mut ServerLevel
         entity.update_fluid_interaction(level);
     }
     if on_ground && entity.base().fall_distance > 0.0 {
-        seams::run_location_changed_effects(level, entity);
+        {
+            let id = entity.id();
+            crate::world::item::enchantment_helper::run_location_changed_effects(level, &mut Actors::of(entity), id);
+        }
         let power = f64::from(0.max(mth::floor_f64(calculate_fall_power(entity, entity.base().fall_distance))));
         if power > 0.0 && !on_state.is_air() {
             let p = entity.base().position();

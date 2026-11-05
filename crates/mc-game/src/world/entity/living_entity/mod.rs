@@ -15,7 +15,6 @@ pub mod fall;
 pub mod fall_flying;
 pub mod jump;
 pub mod push;
-pub mod seams;
 pub mod sleeping;
 pub mod teleport;
 pub mod tick;

@@ -1,6 +1,5 @@
 //! `LivingEntity.tick()`: using-item tick, swim amount, arrow/stinger decay, equipment detection, body/head turn.
 
-use super::seams;
 use super::util::{l, lm};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
@@ -55,7 +54,7 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
             entity.base_mut().entity_data.set(DATA_STINGER_COUNT_ID, stinger_count - 1);
         }
     }
-    seams::detect_equipment_updates(level, entity);
+    super::equipment_changes::detect_equipment_updates(entity, level);
     if entity.base().tick_count % 20 == 0 {
         super::combat::recheck_status(entity, level);
     }
@@ -115,7 +114,7 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     if l(entity).is_sleeping() {
         entity.set_x_rot(0.0);
     }
-    seams::refresh_dirty_attributes(level, entity);
+    super::effects::refresh_dirty_attributes(entity, level);
     if l(entity).current_impulse_context_reset_grace_time > 0 {
         lm(entity).current_impulse_context_reset_grace_time -= 1;
     }

@@ -1,8 +1,8 @@
 //! `LivingEntity.baseTick()`: counters, drowning/air supply, death animation.
 
-use super::seams::{self, LivingDamage};
 use super::util::{self, FluidKind, has_effect, is_eye_in_fluid, l, lm};
 use crate::server::level::ServerLevel;
+use crate::world::item::enchantment::actors::Actors;
 use crate::world::entity::{Entity, RemovalReason};
 use crate::world::level::BlockGetter;
 use mc_core::math::mth;
@@ -32,7 +32,7 @@ pub fn tick_death(entity: &mut dyn Entity, level: &mut ServerLevel) {
     lm(entity).death_time += 1;
     if l(entity).death_time >= 20 && !entity.is_removed() {
         util::broadcast_entity_event(level, entity.id(), 60);
-        seams::trigger_on_death_mob_effects(level, entity, RemovalReason::Killed);
+        super::effects::trigger_on_death_mob_effects(entity, level, RemovalReason::Killed);
         entity.remove(RemovalReason::Killed);
     }
 }
@@ -47,12 +47,15 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
             }
         }
     }
-    seams::enchantment_tick_effects(level, entity);
+    {
+        let id = entity.id();
+        crate::world::item::enchantment_helper::tick_effects(level, &mut Actors::of(entity), id);
+    }
     crate::world::entity::entity::base_tick(entity, level);
     if entity.is_alive() {
         let is_player = entity.is_player();
         if util::is_in_wall(entity, level) {
-            seams::hurt(level, entity, LivingDamage::InWall, 1.0);
+            util::hurt(level, entity, |sources| sources.in_wall(), 1.0);
         } else if is_player && !level.world_border().is_within_bounds_aabb(&entity.base().bounding_box()) {
             let border = level.world_border();
             let dist = border.get_distance_to_border(entity.base().x(), entity.base().z()) + border.get_safe_zone();
@@ -60,7 +63,7 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
                 let damage_per_block = border.get_damage_per_block();
                 if damage_per_block > 0.0 {
                     let amount = 1.max(mth::floor_f64(-dist * damage_per_block)) as f32;
-                    seams::hurt(level, entity, LivingDamage::OutOfBorder, amount);
+                    util::hurt(level, entity, |sources| sources.out_of_border(), amount);
                 }
             }
         }
@@ -75,7 +78,7 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
                 if entity.should_take_drowning_damage() {
                     entity.base_mut().set_air_supply(0);
                     util::broadcast_entity_event(level, entity.id(), 67);
-                    seams::hurt(level, entity, LivingDamage::Drown, 2.0);
+                    util::hurt(level, entity, |sources| sources.drown(), 2.0);
                 }
             } else if entity.base().get_air_supply() < entity.get_max_air_supply() && should_effects_refill_airsupply(entity) {
                 let supply = entity.base().get_air_supply();
@@ -95,7 +98,10 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
         let pos = entity.base().block_position();
         if l(entity).last_pos != Some(pos) {
             lm(entity).last_pos = Some(pos);
-            seams::run_location_changed_effects(level, entity);
+            {
+            let id = entity.id();
+            crate::world::item::enchantment_helper::run_location_changed_effects(level, &mut Actors::of(entity), id);
+        }
         }
     }
     if l(entity).hurt_time > 0 {
@@ -129,7 +135,7 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
             }
         }
     }
-    seams::tick_effects(level, entity);
+    super::effects::tick_effects(entity, level);
     let living = lm(entity);
     living.y_head_rot_o = living.y_head_rot;
     living.y_body_rot_o = living.y_body_rot;

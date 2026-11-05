@@ -280,7 +280,7 @@ fn handle_fall_flying_collisions(entity: &mut dyn Entity, level: &mut ServerLeve
         let dmg = (diff * 10.0 - 3.0) as f32;
         if dmg > 0.0 {
             util::play_sound(level, entity, util::fall_damage_sound(entity, dmg as i32), 1.0, 1.0);
-            super::seams::hurt(level, entity, super::seams::LivingDamage::FlyIntoWall, dmg);
+            util::hurt(level, entity, |sources| sources.fly_into_wall(), dmg);
         }
     }
 }

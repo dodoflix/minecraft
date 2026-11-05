@@ -1,6 +1,5 @@
 //! `LivingEntity.aiStep()`: jump input, travel, freezing, pushing.
 
-use super::seams::{self, LivingDamage};
 use super::travel::{is_in_shallow_fluid, travel_ridden};
 use super::util::{self, FluidKind, has_effect, is_in_lava, is_in_water, l, lm};
 use crate::server::level::ServerLevel;
@@ -151,7 +150,7 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
     } else if entity.can_simulate_movement() && entity.is_effective_ai() {
         entity.travel(level, input);
     }
-    seams::apply_effects_from_blocks(level, entity);
+    entity.apply_effects_from_blocks(level);
     // freezing
     if !entity.base().is_in_powder_snow || !entity.can_freeze() {
         let frozen = (entity.base().get_ticks_frozen() - 2).max(0);
@@ -160,7 +159,7 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
     remove_frost(entity);
     try_add_frost(entity, level);
     if entity.base().tick_count % 40 == 0 && entity.base().get_ticks_frozen() >= entity.get_ticks_required_to_freeze() && entity.can_freeze() {
-        seams::hurt(level, entity, LivingDamage::Freeze, 1.0);
+        util::hurt(level, entity, |sources| sources.freeze(), 1.0);
     }
     // push
     if l(entity).auto_spin_attack_ticks > 0 {
@@ -170,6 +169,6 @@ pub fn ai_step(entity: &mut dyn Entity, level: &mut ServerLevel) {
     }
     entity.push_entities(level);
     if entity.is_sensitive_to_water() && util::is_in_water_or_rain(entity, level) {
-        seams::hurt(level, entity, LivingDamage::Drown, 1.0);
+        util::hurt(level, entity, |sources| sources.drown(), 1.0);
     }
 }
