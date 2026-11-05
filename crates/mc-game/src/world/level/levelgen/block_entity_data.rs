@@ -35,7 +35,7 @@ pub(super) fn block_entity_type_of(block: mc_data::block::Block) -> Option<Block
 /// `new XBlockEntity(pos, state).saveWithFullMetadata()` for the types worldgen features configure (`None`: not modelled).
 fn default_tag(id: &str, pos: BlockPos) -> Option<CompoundTag> {
     match id {
-        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" => {
+        "minecraft:chest" | "minecraft:trapped_chest" | "minecraft:barrel" | "minecraft:dispenser" | "minecraft:dropper" => {
             let mut tag = base_tag(id, pos);
             tag.put("Items", ListTag::new());
             Some(tag)
