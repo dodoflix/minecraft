@@ -123,6 +123,9 @@ pub trait LevelAccessor: LevelReader {
     }
     /// `gameEvent(event, position, context)` (no listeners outside server levels).
     fn game_event(&mut self, _event: GameEvent, _position: Vec3, _context: &GameEventContext) {}
+    /// `getChunk(pos).markPosForPostProcessing(pos)` (`MultifaceSpreader` with `postProcess`); only world generation
+    /// regions record it, a server level ignores it.
+    fn mark_pos_for_post_processing(&mut self, _pos: BlockPos) {}
     /// `levelEvent(source, type, pos, data)` (no-op outside server levels).
     fn level_event(&mut self, _source: Option<EntityId>, _event_type: i32, _pos: BlockPos, _data: i32) {}
     /// `playSound(except, pos, sound, source, volume, pitch)` (no-op outside server levels; a world generation region
