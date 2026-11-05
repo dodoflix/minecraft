@@ -1,0 +1,1882 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all xyz
+R 3
+A 0-3 [x, y, z]
+E ok
+S -2--2 0 0 
+@ all x
+R 1
+A 0-1 [x]
+E ok
+S -2--2 0 0 
+@ all y
+R 1
+A 0-1 [y]
+E ok
+S -2--2 0 0 
+@ all z
+R 1
+A 0-1 [z]
+E ok
+S -2--2 0 0 
+@ all xz
+R 2
+A 0-2 [x, z]
+E ok
+S -2--2 0 0 
+@ all zx
+R 2
+A 0-2 [x, z]
+E ok
+S -2--2 0 0 
+@ all yx
+R 2
+A 0-2 [x, y]
+E ok
+S -2--2 0 0 
+@ all xx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all xyzx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+S -2--2 0 0 
+@ all w
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all X
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all x y
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all xy 
+R 2
+A 0-2 [x, y]
+E Incorrect argument for command at position 4: t xy<--[HERE]@2
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all xyz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all xy
+R 2
+A 0-2 [x, y]
+E ok
+S -2--2 0 0 
+@ all x 
+R 1
+A 0-1 [x]
+E Incorrect argument for command at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all yz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yz!<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yz!<--[HERE]@3
+S -2--2 0 0 
+@ all -é
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t -<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all x"yz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x"<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x"<--[HERE]@2
+S -2--2 0 0 
+@ all éd
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all y0
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y0<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y0<--[HERE]@2
+S -2--2 0 0 
+@ all #z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t #<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all x,
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x,<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x,<--[HERE]@2
+S -2--2 0 0 
+@ all ww
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all xyzxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+S -2--2 0 0 
+@ all x y 
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all xyzz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzz<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzz<--[HERE]@4
+S -2--2 0 0 
+@ all yzxz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t yzxz<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t yzxz<--[HERE]@4
+S -2--2 0 0 
+@ all _z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t _<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all ))
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t )<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t )<--[HERE]@1
+S -2--2 0 0 
+@ all 7
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all z^z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z^<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z^<--[HERE]@2
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t a<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all x@
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x@<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x@<--[HERE]@2
+S -2--2 0 0 
+@ all 8X
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 8<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all xxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all byz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t b<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all zx]z!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zx]<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zx]<--[HERE]@3
+S -2--2 0 0 
+@ all yy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+S -2--2 0 0 
+@ all xyz!x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all ￿
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ￿<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ￿<--[HERE]@1
+S -2--2 0 0 
+@ all 8
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 8<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all xyz!y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all xyz!4
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all  xz
+R 1
+A 0-0 []
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all x>y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x><--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x><--[HERE]@2
+S -2--2 0 0 
+@ all xyz!!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all xy!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy!<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy!<--[HERE]@3
+S -2--2 0 0 
+@ all x6yz6
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x6<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x6<--[HERE]@2
+S -2--2 0 0 
+@ all xyzZ]
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzZ<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzZ<--[HERE]@4
+S -2--2 0 0 
+@ all yxxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxx<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxx<--[HERE]@3
+S -2--2 0 0 
+@ all ​
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+S -2--2 0 0 
+@ all xyz*
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz*<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz*<--[HERE]@4
+S -2--2 0 0 
+@ all x^x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x^<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x^<--[HERE]@2
+S -2--2 0 0 
+@ all y6
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y6<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y6<--[HERE]@2
+S -2--2 0 0 
+@ all éé
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all 4
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 4<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 4<--[HERE]@1
+S -2--2 0 0 
+@ all xzz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xzz<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xzz<--[HERE]@3
+S -2--2 0 0 
+@ all x/
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x/<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x/<--[HERE]@2
+S -2--2 0 0 
+@ all y<x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y<<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y<<--[HERE]@2
+S -2--2 0 0 
+@ all zxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zxx<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zxx<--[HERE]@3
+S -2--2 0 0 
+@ all /9
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all b
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t b<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all 7x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all yxB
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxB<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxB<--[HERE]@3
+S -2--2 0 0 
+@ all 5xx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 5<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all ^ y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ^<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ^<--[HERE]@1
+S -2--2 0 0 
+@ all xy f
+R 3
+A 0-2 [x, y]
+E Incorrect argument for command at position 5: t xy <--[HERE]@3
+S -2--2 0 0 
+@ all b&yx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t b<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all xxc
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all Yxyzxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Y<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ all xyzİ
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzİ<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzİ<--[HERE]@4
+S -2--2 0 0 
+@ all x2 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x2<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x2<--[HERE]@2
+S -2--2 0 0 
+@ all XX
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all yf
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yf<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yf<--[HERE]@2
+S -2--2 0 0 
+@ all zx,
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zx,<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zx,<--[HERE]@3
+S -2--2 0 0 
+@ all ]) y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ]<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ]<--[HERE]@1
+S -2--2 0 0 
+@ all xyx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyx<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyx<--[HERE]@3
+S -2--2 0 0 
+@ all 'xx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ all w{
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all 8x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 8<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all ez
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t e<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all x}
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x}<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x}<--[HERE]@2
+S -2--2 0 0 
+@ all >x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ><--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ><--[HERE]@1
+S -2--2 0 0 
+@ all 6 y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 6<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all \u0009\u0009
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u0009<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u0009<--[HERE]@1
+S -2--2 0 0 
+@ all x0
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x0<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x0<--[HERE]@2
+S -2--2 0 0 
+@ all xßz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xß<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xß<--[HERE]@2
+S -2--2 0 0 
+@ all 'y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ all x yy
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all 2
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 2<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all z2
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z2<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z2<--[HERE]@2
+S -2--2 0 0 
+@ all x[
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x[<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x[<--[HERE]@2
+S -2--2 0 0 
+@ all A
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all xzzz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xzz<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xzz<--[HERE]@3
+S -2--2 0 0 
+@ all \\yx\\
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \\<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \\<--[HERE]@1
+S -2--2 0 0 
+@ all xC<
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xC<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xC<--[HERE]@2
+S -2--2 0 0 
+@ all *X
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t *<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all xy中z!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy中<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy中<--[HERE]@3
+S -2--2 0 0 
+@ all )
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t )<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t )<--[HERE]@1
+S -2--2 0 0 
+@ all xyzx%x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t "<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t "<--[HERE]@1
+S -2--2 0 0 
+@ all 7x y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all xyz!z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all xy]zx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy]<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy]<--[HERE]@3
+S -2--2 0 0 
+@ all x[z,
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x[<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x[<--[HERE]@2
+S -2--2 0 0 
+@ all =xyzy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+S -2--2 0 0 
+@ all xy x
+R 3
+A 0-2 [x, y]
+E Incorrect argument for command at position 5: t xy <--[HERE]@3
+S -2--2 0 0 
+@ all xy Y
+R 3
+A 0-2 [x, y]
+E Incorrect argument for command at position 5: t xy <--[HERE]@3
+S -2--2 0 0 
+@ all y/
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y/<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y/<--[HERE]@2
+S -2--2 0 0 
+@ all <y 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+S -2--2 0 0 
+@ all Aéé
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all zz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t zz<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t zz<--[HERE]@2
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t *<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+S -2--2 0 0 
+@ all y)
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y)<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y)<--[HERE]@2
+S -2--2 0 0 
+@ all xx8+
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all xy%x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy%<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy%<--[HERE]@3
+S -2--2 0 0 
+@ all y5
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y5<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y5<--[HERE]@2
+S -2--2 0 0 
+@ all  +
+R 1
+A 0-0 []
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all z7
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z7<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z7<--[HERE]@2
+S -2--2 0 0 
+@ all xyxy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyx<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyx<--[HERE]@3
+S -2--2 0 0 
+@ all yxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxx<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxx<--[HERE]@3
+S -2--2 0 0 
+@ all yax
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t ya<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t ya<--[HERE]@2
+S -2--2 0 0 
+@ all x /
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all  
+R 0
+A 0-0 []
+E Incorrect argument for command at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all xyz^
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz^<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz^<--[HERE]@4
+S -2--2 0 0 
+@ all  y
+R 1
+A 0-0 []
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all xy8zx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy8<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy8<--[HERE]@3
+S -2--2 0 0 
+@ all $xy 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+S -2--2 0 0 
+@ all y*z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y*<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y*<--[HERE]@2
+S -2--2 0 0 
+@ all ​y 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+S -2--2 0 0 
+@ all <xy ß
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+S -2--2 0 0 
+@ all yzy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yzy<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yzy<--[HERE]@3
+S -2--2 0 0 
+@ all ée
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ~<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all \u0009
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u0009<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u0009<--[HERE]@1
+S -2--2 0 0 
+@ all é 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all xy 3
+R 3
+A 0-2 [x, y]
+E Incorrect argument for command at position 5: t xy <--[HERE]@3
+S -2--2 0 0 
+@ all x-yz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x-<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x-<--[HERE]@2
+S -2--2 0 0 
+@ all x+ y+
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x+<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x+<--[HERE]@2
+S -2--2 0 0 
+@ all y^
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y^<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y^<--[HERE]@2
+S -2--2 0 0 
+@ all aXX
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t a<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all x^ 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x^<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x^<--[HERE]@2
+S -2--2 0 0 
+@ all z-
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z-<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z-<--[HERE]@2
+S -2--2 0 0 
+@ all wew
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all xyzX
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzX<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzX<--[HERE]@4
+S -2--2 0 0 
+@ all Bz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t B<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t B<--[HERE]@1
+S -2--2 0 0 
+@ all ayzx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t a<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all xy​
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy​<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy​<--[HERE]@3
+S -2--2 0 0 
+@ all />z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all éX
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all xyz!A
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all xy y
+R 3
+A 0-2 [x, y]
+E Incorrect argument for command at position 5: t xy <--[HERE]@3
+S -2--2 0 0 
+@ all 4z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 4<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 4<--[HERE]@1
+S -2--2 0 0 
+@ all Yéyz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Y<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ all x!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x!<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x!<--[HERE]@2
+S -2--2 0 0 
+@ all =xyzx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+S -2--2 0 0 
+@ all <x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+S -2--2 0 0 
+@ all x x
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all xyZéz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyZ<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyZ<--[HERE]@3
+S -2--2 0 0 
+@ all Ax
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all ßx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ß<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ß<--[HERE]@1
+S -2--2 0 0 
+@ all wß
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all y*!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y*<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y*<--[HERE]@2
+S -2--2 0 0 
+@ all 3
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 3<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all --yzx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t -<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all x\u000a
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x\u000a<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x\u000a<--[HERE]@2
+S -2--2 0 0 
+@ all xyaz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xya<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xya<--[HERE]@3
+S -2--2 0 0 
+@ all x z 
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all 中zx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 中<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 中<--[HERE]@1
+S -2--2 0 0 
+@ all xe
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xe<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xe<--[HERE]@2
+S -2--2 0 0 
+@ all x6
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x6<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x6<--[HERE]@2
+S -2--2 0 0 
+@ all x=z!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x=<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x=<--[HERE]@2
+S -2--2 0 0 
+@ all Xy2
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all z\\
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z\\<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z\\<--[HERE]@2
+S -2--2 0 0 
+@ all xyzxy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+S -2--2 0 0 
+@ all Azx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all ￿é
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ￿<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ￿<--[HERE]@1
+S -2--2 0 0 
+@ all y中'x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y中<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y中<--[HERE]@2
+S -2--2 0 0 
+@ all xxxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all X'
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all x:yz!z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x:<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x:<--[HERE]@2
+S -2--2 0 0 
+@ all X1
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all +é
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t +<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t +<--[HERE]@1
+S -2--2 0 0 
+@ all wé
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+S -2--2 0 0 
+@ all x5
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x5<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x5<--[HERE]@2
+S -2--2 0 0 
+@ all z)xY
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z)<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z)<--[HERE]@2
+S -2--2 0 0 
+@ all ,
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ,<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ,<--[HERE]@1
+S -2--2 0 0 
+@ all $x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+S -2--2 0 0 
+@ all xyzx8
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+S -2--2 0 0 
+@ all Bz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t B<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t B<--[HERE]@1
+S -2--2 0 0 
+@ all x^y 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x^<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x^<--[HERE]@2
+S -2--2 0 0 
+@ all z3
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z3<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z3<--[HERE]@2
+S -2--2 0 0 
+@ all Y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Y<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ all x\u0009 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x\u0009<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x\u0009<--[HERE]@2
+S -2--2 0 0 
+@ all 5x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 5<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all 4y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 4<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 4<--[HERE]@1
+S -2--2 0 0 
+@ all x y7
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all x}yzxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x}<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x}<--[HERE]@2
+S -2--2 0 0 
+@ all xZ 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xZ<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xZ<--[HERE]@2
+S -2--2 0 0 
+@ all z😀
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z\ud83d<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z\ud83d<--[HERE]@2
+S -2--2 0 0 
+@ all x"yy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x"<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x"<--[HERE]@2
+S -2--2 0 0 
+@ all <
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t <<--[HERE]@1
+S -2--2 0 0 
+@ all ,w
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ,<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ,<--[HERE]@1
+S -2--2 0 0 
+@ all 7中x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all z!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z!<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z!<--[HERE]@2
+S -2--2 0 0 
+@ all  yz
+R 1
+A 0-0 []
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all yz
+R 2
+A 0-2 [y, z]
+E ok
+S -2--2 0 0 
+@ all yzx
+R 3
+A 0-3 [x, y, z]
+E ok
+S -2--2 0 0 
+@ all xx\u000ax
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all xay
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xa<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xa<--[HERE]@2
+S -2--2 0 0 
+@ all x 0
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all !xy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t !<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t !<--[HERE]@1
+S -2--2 0 0 
+@ all ^^
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ^<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ^<--[HERE]@1
+S -2--2 0 0 
+@ all 6
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 6<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t -<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all 9z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 9<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all xezz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xe<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xe<--[HERE]@2
+S -2--2 0 0 
+@ all 9
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 9<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all xy\\x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy\\<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy\\<--[HERE]@3
+S -2--2 0 0 
+@ all ßİyzx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ß<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ß<--[HERE]@1
+S -2--2 0 0 
+@ all Z%zx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Z<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t Z<--[HERE]@1
+S -2--2 0 0 
+@ all x9
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x9<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x9<--[HERE]@2
+S -2--2 0 0 
+@ all xdx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xd<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xd<--[HERE]@2
+S -2--2 0 0 
+@ all y&x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y&<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y&<--[HERE]@2
+S -2--2 0 0 
+@ all yxy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxy<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yxy<--[HERE]@3
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t :<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all www
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all X^
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t @<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t @<--[HERE]@1
+S -2--2 0 0 
+@ all !w
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t !<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t !<--[HERE]@1
+S -2--2 0 0 
+@ all y 
+R 1
+A 0-1 [y]
+E Incorrect argument for command at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all wA
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all 6yx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 6<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all \u000ax
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u000a<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u000a<--[HERE]@1
+S -2--2 0 0 
+@ all zxy  
+R 4
+A 0-3 [x, y, z]
+E Incorrect argument for command at position 6: t zxy <--[HERE]@4
+S -2--2 0 0 
+@ all 9z/
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 9<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all [xx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t [<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all xyz!-
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all xf
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xf<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xf<--[HERE]@2
+S -2--2 0 0 
+@ all x y)
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all zxxx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zxx<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zxx<--[HERE]@3
+S -2--2 0 0 
+@ all {X
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t {<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all ééé
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t é<--[HERE]@1
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t c<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all x y  
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all x yx
+R 2
+A 0-1 [x]
+E Incorrect argument for command at position 4: t x <--[HERE]@2
+S -2--2 0 0 
+@ all $yz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t $<--[HERE]@1
+S -2--2 0 0 
+@ all 'z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ all y2
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y2<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y2<--[HERE]@2
+S -2--2 0 0 
+@ all ==
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+S -2--2 0 0 
+@ all xyzxxy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+S -2--2 0 0 
+@ all zx]
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zx]<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zx]<--[HERE]@3
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t f<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all ​z\u000a
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+S -2--2 0 0 
+@ all \u000a
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u000a<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \u000a<--[HERE]@1
+S -2--2 0 0 
+@ all yyy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+S -2--2 0 0 
+@ all xyy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyy<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyy<--[HERE]@3
+S -2--2 0 0 
+@ all x5y 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x5<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x5<--[HERE]@2
+S -2--2 0 0 
+@ all ​xy
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ​<--[HERE]@1
+S -2--2 0 0 
+@ all xyz1
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz1<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz1<--[HERE]@4
+S -2--2 0 0 
+@ all 0x y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 0<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all [z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t [<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t {<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t {<--[HERE]@1
+S -2--2 0 0 
+@ all x$x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x$<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x$<--[HERE]@2
+S -2--2 0 0 
+@ all >z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ><--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ><--[HERE]@1
+S -2--2 0 0 
+@ all x{yzx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x{<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x{<--[HERE]@2
+S -2--2 0 0 
+@ all yyAz!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+S -2--2 0 0 
+@ all }x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t }<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t }<--[HERE]@1
+S -2--2 0 0 
+@ all x$z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x$<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x$<--[HERE]@2
+S -2--2 0 0 
+@ all /xz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all X​
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all xyz(x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz(<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz(<--[HERE]@4
+S -2--2 0 0 
+@ all y\u000a
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y\u000a<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y\u000a<--[HERE]@2
+S -2--2 0 0 
+@ all zxz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zxz<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t zxz<--[HERE]@3
+S -2--2 0 0 
+@ all y+
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y+<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y+<--[HERE]@2
+S -2--2 0 0 
+@ all xy\\
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy\\<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy\\<--[HERE]@3
+S -2--2 0 0 
+@ all 1X
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 1<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all [[
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t [<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t [<--[HERE]@1
+S -2--2 0 0 
+@ all  y 
+R 1
+A 0-0 []
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all XyX
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all }}
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t }<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t }<--[HERE]@1
+S -2--2 0 0 
+@ all \\
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \\<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t \\<--[HERE]@1
+S -2--2 0 0 
+@ all xİz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xİ<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xİ<--[HERE]@2
+S -2--2 0 0 
+@ all ydx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yd<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yd<--[HERE]@2
+S -2--2 0 0 
+@ all =xy x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t =<--[HERE]@1
+S -2--2 0 0 
+@ all *y 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t *<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all xyA
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyA<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xyA<--[HERE]@3
+S -2--2 0 0 
+@ all x9y
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x9<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x9<--[HERE]@2
+S -2--2 0 0 
+@ all ^
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ^<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t ^<--[HERE]@1
+S -2--2 0 0 
+@ all xé
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xé<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xé<--[HERE]@2
+S -2--2 0 0 
+@ all "y 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t "<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t "<--[HERE]@1
+S -2--2 0 0 
+@ all /
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all x6z!!
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x6<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x6<--[HERE]@2
+S -2--2 0 0 
+@ all .xy 
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t .<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t .<--[HERE]@1
+S -2--2 0 0 
+@ all Cx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t C<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t C<--[HERE]@1
+S -2--2 0 0 
+@ all xx'
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all y​
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y​<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t y​<--[HERE]@2
+S -2--2 0 0 
+@ all xy  
+R 3
+A 0-2 [x, y]
+E Incorrect argument for command at position 5: t xy <--[HERE]@3
+S -2--2 0 0 
+@ all %X%
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t %<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t %<--[HERE]@1
+S -2--2 0 0 
+@ all w￿
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all xza
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xza<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xza<--[HERE]@3
+S -2--2 0 0 
+@ all yX
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yX<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yX<--[HERE]@2
+S -2--2 0 0 
+@ all z&
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z&<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t z&<--[HERE]@2
+S -2--2 0 0 
+@ all X}}
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all 1]x
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 1<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all x]%z
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x]<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x]<--[HERE]@2
+S -2--2 0 0 
+@ all x￿y =
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x￿<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x￿<--[HERE]@2
+S -2--2 0 0 
+@ all xyzxxz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyzx<--[HERE]@4
+S -2--2 0 0 
+@ all yzax
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yza<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t yza<--[HERE]@3
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t '<--[HERE]@1
+S -2--2 0 0 
+@ all xy0
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy0<--[HERE]@3
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 5: t xy0<--[HERE]@3
+S -2--2 0 0 
+@ all yyz4
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t yy<--[HERE]@2
+S -2--2 0 0 
+@ all x5xx
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x5<--[HERE]@2
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 4: t x5<--[HERE]@2
+S -2--2 0 0 
+@ all xyz!9
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 6: t xyz!<--[HERE]@4
+S -2--2 0 0 
+@ all Axz
+R 0
+A -
+X Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+E Invalid swizzle: expected combination of 'x', 'y' and 'z' at position 3: t A<--[HERE]@1
+S -2--2 0 0 

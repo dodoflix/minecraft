@@ -1,0 +1,1903 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 16 1022611401 aqua	black	blue	dark_aqua	dark_blue	dark_gray	dark_green	dark_purple	dark_red	gold	gray	green	light_purple	red	white	yellow
+@ all black
+R 5
+A 0-5 black
+E ok
+S -2--2 0 0 
+@ all dark_blue
+R 9
+A 0-9 dark_blue
+E ok
+S -2--2 0 0 
+@ all dark_green
+R 10
+A 0-10 dark_green
+E ok
+S -2--2 0 0 
+@ all dark_aqua
+R 9
+A 0-9 dark_aqua
+E ok
+S -2--2 0 0 
+@ all dark_red
+R 8
+A 0-8 dark_red
+E ok
+S -2--2 0 0 
+@ all dark_purple
+R 11
+A 0-11 dark_purple
+E ok
+S -2--2 0 0 
+@ all gold
+R 4
+A 0-4 gold
+E ok
+S -2--2 0 0 
+@ all gray
+R 4
+A 0-4 gray
+E ok
+S 0-4 1 -1591991299 dark_gray
+@ all dark_gray
+R 9
+A 0-9 dark_gray
+E ok
+S -2--2 0 0 
+@ all blue
+R 4
+A 0-4 blue
+E ok
+S 0-4 1 -1596769050 dark_blue
+@ all green
+R 5
+A 0-5 green
+E ok
+S 0-5 1 -2106986929 dark_green
+@ all aqua
+R 4
+A 0-4 aqua
+E ok
+S 0-4 1 -1597543740 dark_aqua
+@ all red
+R 3
+A 0-3 red
+E ok
+S 0-3 1 -1852154687 dark_red
+@ all light_purple
+R 12
+A 0-12 light_purple
+E ok
+S -2--2 0 0 
+@ all yellow
+R 6
+A 0-6 yellow
+E ok
+S -2--2 0 0 
+@ all white
+R 5
+A 0-5 white
+E ok
+S -2--2 0 0 
+@ all reset
+R 0
+A -
+X Unknown color 'reset' at position 7: t reset<--[HERE]@5
+E Unknown color 'reset' at position 7: t reset<--[HERE]@5
+S -2--2 0 0 
+@ all bold
+R 0
+A -
+X Unknown color 'bold' at position 6: t bold<--[HERE]@4
+E Unknown color 'bold' at position 6: t bold<--[HERE]@4
+S -2--2 0 0 
+@ all Red
+R 0
+A -
+X Unknown color 'Red' at position 5: t Red<--[HERE]@3
+E Unknown color 'Red' at position 5: t Red<--[HERE]@3
+S 0-3 2 1340173785 dark_red	red
+@ all pink
+R 0
+A -
+X Unknown color 'pink' at position 6: t pink<--[HERE]@4
+E Unknown color 'pink' at position 6: t pink<--[HERE]@4
+S -2--2 0 0 
+@ all re
+R 0
+A -
+X Unknown color 're' at position 4: t re<--[HERE]@2
+E Unknown color 're' at position 4: t re<--[HERE]@2
+S 0-2 2 1340173785 dark_red	red
+@ all dark_
+R 0
+A -
+X Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+E Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+S 0-5 6 -1576544139 dark_aqua	dark_blue	dark_gray	dark_green	dark_purple	dark_red
+@ all b
+R 0
+A -
+X Unknown color 'b' at position 3: t b<--[HERE]@1
+E Unknown color 'b' at position 3: t b<--[HERE]@1
+S 0-1 3 -1185679381 black	blue	dark_blue
+@ all bl
+R 0
+A -
+X Unknown color 'bl' at position 4: t bl<--[HERE]@2
+E Unknown color 'bl' at position 4: t bl<--[HERE]@2
+S 0-2 3 -1185679381 black	blue	dark_blue
+@ all bla
+R 0
+A -
+X Unknown color 'bla' at position 5: t bla<--[HERE]@3
+E Unknown color 'bla' at position 5: t bla<--[HERE]@3
+S 0-3 1 -1386582038 black
+@ all blac
+R 0
+A -
+X Unknown color 'blac' at position 6: t blac<--[HERE]@4
+E Unknown color 'blac' at position 6: t blac<--[HERE]@4
+S 0-4 1 -1386582038 black
+@ all d
+R 0
+A -
+X Unknown color 'd' at position 3: t d<--[HERE]@1
+E Unknown color 'd' at position 3: t d<--[HERE]@1
+S 0-1 6 -1576544139 dark_aqua	dark_blue	dark_gray	dark_green	dark_purple	dark_red
+@ all da
+R 0
+A -
+X Unknown color 'da' at position 4: t da<--[HERE]@2
+E Unknown color 'da' at position 4: t da<--[HERE]@2
+S 0-2 6 -1576544139 dark_aqua	dark_blue	dark_gray	dark_green	dark_purple	dark_red
+@ all dar
+R 0
+A -
+X Unknown color 'dar' at position 5: t dar<--[HERE]@3
+E Unknown color 'dar' at position 5: t dar<--[HERE]@3
+S 0-3 6 -1576544139 dark_aqua	dark_blue	dark_gray	dark_green	dark_purple	dark_red
+@ all dark
+R 0
+A -
+X Unknown color 'dark' at position 6: t dark<--[HERE]@4
+E Unknown color 'dark' at position 6: t dark<--[HERE]@4
+S 0-4 6 -1576544139 dark_aqua	dark_blue	dark_gray	dark_green	dark_purple	dark_red
+@ all dark_b
+R 0
+A -
+X Unknown color 'dark_b' at position 8: t dark_b<--[HERE]@6
+E Unknown color 'dark_b' at position 8: t dark_b<--[HERE]@6
+S 0-6 1 -1596769050 dark_blue
+@ all dark_bl
+R 0
+A -
+X Unknown color 'dark_bl' at position 9: t dark_bl<--[HERE]@7
+E Unknown color 'dark_bl' at position 9: t dark_bl<--[HERE]@7
+S 0-7 1 -1596769050 dark_blue
+@ all dark_blu
+R 0
+A -
+X Unknown color 'dark_blu' at position 10: t dark_blu<--[HERE]@8
+E Unknown color 'dark_blu' at position 10: t dark_blu<--[HERE]@8
+S 0-8 1 -1596769050 dark_blue
+@ all dark_g
+R 0
+A -
+X Unknown color 'dark_g' at position 8: t dark_g<--[HERE]@6
+E Unknown color 'dark_g' at position 8: t dark_g<--[HERE]@6
+S 0-6 2 1006262834 dark_gray	dark_green
+@ all dark_gr
+R 0
+A -
+X Unknown color 'dark_gr' at position 9: t dark_gr<--[HERE]@7
+E Unknown color 'dark_gr' at position 9: t dark_gr<--[HERE]@7
+S 0-7 2 1006262834 dark_gray	dark_green
+@ all dark_gre
+R 0
+A -
+X Unknown color 'dark_gre' at position 10: t dark_gre<--[HERE]@8
+E Unknown color 'dark_gre' at position 10: t dark_gre<--[HERE]@8
+S 0-8 1 -2106986929 dark_green
+@ all dark_gree
+R 0
+A -
+X Unknown color 'dark_gree' at position 11: ... dark_gree<--[HERE]@9
+E Unknown color 'dark_gree' at position 11: ... dark_gree<--[HERE]@9
+S 0-9 1 -2106986929 dark_green
+@ all dark_a
+R 0
+A -
+X Unknown color 'dark_a' at position 8: t dark_a<--[HERE]@6
+E Unknown color 'dark_a' at position 8: t dark_a<--[HERE]@6
+S 0-6 1 -1597543740 dark_aqua
+@ all dark_aq
+R 0
+A -
+X Unknown color 'dark_aq' at position 9: t dark_aq<--[HERE]@7
+E Unknown color 'dark_aq' at position 9: t dark_aq<--[HERE]@7
+S 0-7 1 -1597543740 dark_aqua
+@ all dark_aqu
+R 0
+A -
+X Unknown color 'dark_aqu' at position 10: t dark_aqu<--[HERE]@8
+E Unknown color 'dark_aqu' at position 10: t dark_aqu<--[HERE]@8
+S 0-8 1 -1597543740 dark_aqua
+@ all dark_r
+R 0
+A -
+X Unknown color 'dark_r' at position 8: t dark_r<--[HERE]@6
+E Unknown color 'dark_r' at position 8: t dark_r<--[HERE]@6
+S 0-6 1 -1852154687 dark_red
+@ all dark_re
+R 0
+A -
+X Unknown color 'dark_re' at position 9: t dark_re<--[HERE]@7
+E Unknown color 'dark_re' at position 9: t dark_re<--[HERE]@7
+S 0-7 1 -1852154687 dark_red
+@ all dark_p
+R 0
+A -
+X Unknown color 'dark_p' at position 8: t dark_p<--[HERE]@6
+E Unknown color 'dark_p' at position 8: t dark_p<--[HERE]@6
+S 0-6 1 -1396264956 dark_purple
+@ all dark_pu
+R 0
+A -
+X Unknown color 'dark_pu' at position 9: t dark_pu<--[HERE]@7
+E Unknown color 'dark_pu' at position 9: t dark_pu<--[HERE]@7
+S 0-7 1 -1396264956 dark_purple
+@ all dark_pur
+R 0
+A -
+X Unknown color 'dark_pur' at position 10: t dark_pur<--[HERE]@8
+E Unknown color 'dark_pur' at position 10: t dark_pur<--[HERE]@8
+S 0-8 1 -1396264956 dark_purple
+@ all dark_purp
+R 0
+A -
+X Unknown color 'dark_purp' at position 11: ... dark_purp<--[HERE]@9
+E Unknown color 'dark_purp' at position 11: ... dark_purp<--[HERE]@9
+S 0-9 1 -1396264956 dark_purple
+@ all dark_purpl
+R 0
+A -
+X Unknown color 'dark_purpl' at position 12: ...dark_purpl<--[HERE]@10
+E Unknown color 'dark_purpl' at position 12: ...dark_purpl<--[HERE]@10
+S 0-10 1 -1396264956 dark_purple
+@ all g
+R 0
+A -
+X Unknown color 'g' at position 3: t g<--[HERE]@1
+E Unknown color 'g' at position 3: t g<--[HERE]@1
+S 0-1 5 2104176085 dark_gray	dark_green	gold	gray	green
+@ all go
+R 0
+A -
+X Unknown color 'go' at position 4: t go<--[HERE]@2
+E Unknown color 'go' at position 4: t go<--[HERE]@2
+S 0-2 1 98536361 gold
+@ all gol
+R 0
+A -
+X Unknown color 'gol' at position 5: t gol<--[HERE]@3
+E Unknown color 'gol' at position 5: t gol<--[HERE]@3
+S 0-3 1 98536361 gold
+@ all gr
+R 0
+A -
+X Unknown color 'gr' at position 4: t gr<--[HERE]@2
+E Unknown color 'gr' at position 4: t gr<--[HERE]@2
+S 0-2 4 -486446726 dark_gray	dark_green	gray	green
+@ all gra
+R 0
+A -
+X Unknown color 'gra' at position 5: t gra<--[HERE]@3
+E Unknown color 'gra' at position 5: t gra<--[HERE]@3
+S 0-3 2 530355241 dark_gray	gray
+@ all dark_gra
+R 0
+A -
+X Unknown color 'dark_gra' at position 10: t dark_gra<--[HERE]@8
+E Unknown color 'dark_gra' at position 10: t dark_gra<--[HERE]@8
+S 0-8 1 -1591991299 dark_gray
+@ all blu
+R 0
+A -
+X Unknown color 'blu' at position 5: t blu<--[HERE]@3
+E Unknown color 'blu' at position 5: t blu<--[HERE]@3
+S 0-3 2 -1754957547 blue	dark_blue
+@ all gre
+R 0
+A -
+X Unknown color 'gre' at position 5: t gre<--[HERE]@3
+E Unknown color 'gre' at position 5: t gre<--[HERE]@3
+S 0-3 2 1678035061 dark_green	green
+@ all gree
+R 0
+A -
+X Unknown color 'gree' at position 6: t gree<--[HERE]@4
+E Unknown color 'gree' at position 6: t gree<--[HERE]@4
+S 0-4 2 1678035061 dark_green	green
+@ all a
+R 0
+A -
+X Unknown color 'a' at position 3: t a<--[HERE]@1
+E Unknown color 'a' at position 3: t a<--[HERE]@1
+S 0-1 2 -2012440751 aqua	dark_aqua
+@ all aq
+R 0
+A -
+X Unknown color 'aq' at position 4: t aq<--[HERE]@2
+E Unknown color 'aq' at position 4: t aq<--[HERE]@2
+S 0-2 2 -2012440751 aqua	dark_aqua
+@ all aqu
+R 0
+A -
+X Unknown color 'aqu' at position 5: t aqu<--[HERE]@3
+E Unknown color 'aqu' at position 5: t aqu<--[HERE]@3
+S 0-3 2 -2012440751 aqua	dark_aqua
+@ all r
+R 0
+A -
+X Unknown color 'r' at position 3: t r<--[HERE]@1
+E Unknown color 'r' at position 3: t r<--[HERE]@1
+S 0-1 2 1340173785 dark_red	red
+@ all l
+R 0
+A -
+X Unknown color 'l' at position 3: t l<--[HERE]@1
+E Unknown color 'l' at position 3: t l<--[HERE]@1
+S 0-1 1 -1687464540 light_purple
+@ all li
+R 0
+A -
+X Unknown color 'li' at position 4: t li<--[HERE]@2
+E Unknown color 'li' at position 4: t li<--[HERE]@2
+S 0-2 1 -1687464540 light_purple
+@ all lig
+R 0
+A -
+X Unknown color 'lig' at position 5: t lig<--[HERE]@3
+E Unknown color 'lig' at position 5: t lig<--[HERE]@3
+S 0-3 1 -1687464540 light_purple
+@ all ligh
+R 0
+A -
+X Unknown color 'ligh' at position 6: t ligh<--[HERE]@4
+E Unknown color 'ligh' at position 6: t ligh<--[HERE]@4
+S 0-4 1 -1687464540 light_purple
+@ all light
+R 0
+A -
+X Unknown color 'light' at position 7: t light<--[HERE]@5
+E Unknown color 'light' at position 7: t light<--[HERE]@5
+S 0-5 1 -1687464540 light_purple
+@ all light_
+R 0
+A -
+X Unknown color 'light_' at position 8: t light_<--[HERE]@6
+E Unknown color 'light_' at position 8: t light_<--[HERE]@6
+S 0-6 1 -1687464540 light_purple
+@ all light_p
+R 0
+A -
+X Unknown color 'light_p' at position 9: t light_p<--[HERE]@7
+E Unknown color 'light_p' at position 9: t light_p<--[HERE]@7
+S 0-7 1 -1687464540 light_purple
+@ all light_pu
+R 0
+A -
+X Unknown color 'light_pu' at position 10: t light_pu<--[HERE]@8
+E Unknown color 'light_pu' at position 10: t light_pu<--[HERE]@8
+S 0-8 1 -1687464540 light_purple
+@ all light_pur
+R 0
+A -
+X Unknown color 'light_pur' at position 11: ... light_pur<--[HERE]@9
+E Unknown color 'light_pur' at position 11: ... light_pur<--[HERE]@9
+S 0-9 1 -1687464540 light_purple
+@ all light_purp
+R 0
+A -
+X Unknown color 'light_purp' at position 12: ...light_purp<--[HERE]@10
+E Unknown color 'light_purp' at position 12: ...light_purp<--[HERE]@10
+S 0-10 1 -1687464540 light_purple
+@ all light_purpl
+R 0
+A -
+X Unknown color 'light_purpl' at position 13: ...ight_purpl<--[HERE]@11
+E Unknown color 'light_purpl' at position 13: ...ight_purpl<--[HERE]@11
+S 0-11 1 -1687464540 light_purple
+@ all y
+R 0
+A -
+X Unknown color 'y' at position 3: t y<--[HERE]@1
+E Unknown color 'y' at position 3: t y<--[HERE]@1
+S 0-1 1 -1286591979 yellow
+@ all ye
+R 0
+A -
+X Unknown color 'ye' at position 4: t ye<--[HERE]@2
+E Unknown color 'ye' at position 4: t ye<--[HERE]@2
+S 0-2 1 -1286591979 yellow
+@ all yel
+R 0
+A -
+X Unknown color 'yel' at position 5: t yel<--[HERE]@3
+E Unknown color 'yel' at position 5: t yel<--[HERE]@3
+S 0-3 1 -1286591979 yellow
+@ all yell
+R 0
+A -
+X Unknown color 'yell' at position 6: t yell<--[HERE]@4
+E Unknown color 'yell' at position 6: t yell<--[HERE]@4
+S 0-4 1 -1286591979 yellow
+@ all yello
+R 0
+A -
+X Unknown color 'yello' at position 7: t yello<--[HERE]@5
+E Unknown color 'yello' at position 7: t yello<--[HERE]@5
+S 0-5 1 -1286591979 yellow
+@ all w
+R 0
+A -
+X Unknown color 'w' at position 3: t w<--[HERE]@1
+E Unknown color 'w' at position 3: t w<--[HERE]@1
+S 0-1 1 -788809472 white
+@ all wh
+R 0
+A -
+X Unknown color 'wh' at position 4: t wh<--[HERE]@2
+E Unknown color 'wh' at position 4: t wh<--[HERE]@2
+S 0-2 1 -788809472 white
+@ all whi
+R 0
+A -
+X Unknown color 'whi' at position 5: t whi<--[HERE]@3
+E Unknown color 'whi' at position 5: t whi<--[HERE]@3
+S 0-3 1 -788809472 white
+@ all whit
+R 0
+A -
+X Unknown color 'whit' at position 6: t whit<--[HERE]@4
+E Unknown color 'whit' at position 6: t whit<--[HERE]@4
+S 0-4 1 -788809472 white
+@ all res
+R 0
+A -
+X Unknown color 'res' at position 5: t res<--[HERE]@3
+E Unknown color 'res' at position 5: t res<--[HERE]@3
+S -2--2 0 0 
+@ all rese
+R 0
+A -
+X Unknown color 'rese' at position 6: t rese<--[HERE]@4
+E Unknown color 'rese' at position 6: t rese<--[HERE]@4
+S -2--2 0 0 
+@ all bo
+R 0
+A -
+X Unknown color 'bo' at position 4: t bo<--[HERE]@2
+E Unknown color 'bo' at position 4: t bo<--[HERE]@2
+S -2--2 0 0 
+@ all bol
+R 0
+A -
+X Unknown color 'bol' at position 5: t bol<--[HERE]@3
+E Unknown color 'bol' at position 5: t bol<--[HERE]@3
+S -2--2 0 0 
+@ all R
+R 0
+A -
+X Unknown color 'R' at position 3: t R<--[HERE]@1
+E Unknown color 'R' at position 3: t R<--[HERE]@1
+S 0-1 2 1340173785 dark_red	red
+@ all Re
+R 0
+A -
+X Unknown color 'Re' at position 4: t Re<--[HERE]@2
+E Unknown color 'Re' at position 4: t Re<--[HERE]@2
+S 0-2 2 1340173785 dark_red	red
+@ all p
+R 0
+A -
+X Unknown color 'p' at position 3: t p<--[HERE]@1
+E Unknown color 'p' at position 3: t p<--[HERE]@1
+S 0-1 2 1652149280 dark_purple	light_purple
+@ all pi
+R 0
+A -
+X Unknown color 'pi' at position 4: t pi<--[HERE]@2
+E Unknown color 'pi' at position 4: t pi<--[HERE]@2
+S -2--2 0 0 
+@ all pin
+R 0
+A -
+X Unknown color 'pin' at position 5: t pin<--[HERE]@3
+E Unknown color 'pin' at position 5: t pin<--[HERE]@3
+S -2--2 0 0 
+@ all dark_grayk
+R 0
+A -
+X Unknown color 'dark_grayk' at position 12: ...dark_grayk<--[HERE]@10
+E Unknown color 'dark_grayk' at position 12: ...dark_grayk<--[HERE]@10
+S -2--2 0 0 
+@ all dark\u000a_aqua
+R 0
+A -
+X Unknown color 'dark' at position 6: t dark<--[HERE]@4
+E Unknown color 'dark' at position 6: t dark<--[HERE]@4
+S -2--2 0 0 
+@ all ark_gre\\en
+R 0
+A -
+X Unknown color 'ark_gre' at position 9: t ark_gre<--[HERE]@7
+E Unknown color 'ark_gre' at position 9: t ark_gre<--[HERE]@7
+S -2--2 0 0 
+@ all dar*_
+R 0
+A -
+X Unknown color 'dar' at position 5: t dar<--[HERE]@3
+E Unknown color 'dar' at position 5: t dar<--[HERE]@3
+S -2--2 0 0 
+@ all dark_pup\u000ale
+R 0
+A -
+X Unknown color 'dark_pup' at position 10: t dark_pup<--[HERE]@8
+E Unknown color 'dark_pup' at position 10: t dark_pup<--[HERE]@8
+S -2--2 0 0 
+@ all rer
+R 0
+A -
+X Unknown color 'rer' at position 5: t rer<--[HERE]@3
+E Unknown color 'rer' at position 5: t rer<--[HERE]@3
+S -2--2 0 0 
+@ all Re 4
+R 0
+A -
+X Unknown color 'Re' at position 4: t Re<--[HERE]@2
+E Unknown color 'Re' at position 4: t Re<--[HERE]@2
+S -2--2 0 0 
+@ all rk_
+R 0
+A -
+X Unknown color 'rk_' at position 5: t rk_<--[HERE]@3
+E Unknown color 'rk_' at position 5: t rk_<--[HERE]@3
+S -2--2 0 0 
+@ all re8a
+R 0
+A -
+X Unknown color 're8a' at position 6: t re8a<--[HERE]@4
+E Unknown color 're8a' at position 6: t re8a<--[HERE]@4
+S -2--2 0 0 
+@ all go^ld
+R 0
+A -
+X Unknown color 'go' at position 4: t go<--[HERE]@2
+E Unknown color 'go' at position 4: t go<--[HERE]@2
+S -2--2 0 0 
+@ all aquau
+R 0
+A -
+X Unknown color 'aquau' at position 7: t aquau<--[HERE]@5
+E Unknown color 'aquau' at position 7: t aquau<--[HERE]@5
+S -2--2 0 0 
+@ all dark_redk
+R 0
+A -
+X Unknown color 'dark_redk' at position 11: ... dark_redk<--[HERE]@9
+E Unknown color 'dark_redk' at position 11: ... dark_redk<--[HERE]@9
+S -2--2 0 0 
+@ all 0e
+R 0
+A -
+X Unknown color '0e' at position 4: t 0e<--[HERE]@2
+E Unknown color '0e' at position 4: t 0e<--[HERE]@2
+S -2--2 0 0 
+@ all lih_purple
+R 0
+A -
+X Unknown color 'lih_purple' at position 12: ...lih_purple<--[HERE]@10
+E Unknown color 'lih_purple' at position 12: ...lih_purple<--[HERE]@10
+S -2--2 0 0 
+@ all ld
+R 0
+A -
+X Unknown color 'ld' at position 4: t ld<--[HERE]@2
+E Unknown color 'ld' at position 4: t ld<--[HERE]@2
+S -2--2 0 0 
+@ all dark_aquau
+R 0
+A -
+X Unknown color 'dark_aquau' at position 12: ...dark_aquau<--[HERE]@10
+E Unknown color 'dark_aquau' at position 12: ...dark_aquau<--[HERE]@10
+S -2--2 0 0 
+@ all redr
+R 0
+A -
+X Unknown color 'redr' at position 6: t redr<--[HERE]@4
+E Unknown color 'redr' at position 6: t redr<--[HERE]@4
+S -2--2 0 0 
+@ all light_purpleu
+R 0
+A -
+X Unknown color 'light_purpleu' at position 15: ...ht_purpleu<--[HERE]@13
+E Unknown color 'light_purpleu' at position 15: ...ht_purpleu<--[HERE]@13
+S -2--2 0 0 
+@ all darkCrd
+R 0
+A -
+X Unknown color 'darkCrd' at position 9: t darkCrd<--[HERE]@7
+E Unknown color 'darkCrd' at position 9: t darkCrd<--[HERE]@7
+S -2--2 0 0 
+@ all whiteeh
+R 0
+A -
+X Unknown color 'whiteeh' at position 9: t whiteeh<--[HERE]@7
+E Unknown color 'whiteeh' at position 9: t whiteeh<--[HERE]@7
+S -2--2 0 0 
+@ all blu#
+R 0
+A -
+X Unknown color 'blu' at position 5: t blu<--[HERE]@3
+E Unknown color 'blu' at position 5: t blu<--[HERE]@3
+S -2--2 0 0 
+@ all ark_
+R 0
+A -
+X Unknown color 'ark_' at position 6: t ark_<--[HERE]@4
+E Unknown color 'ark_' at position 6: t ark_<--[HERE]@4
+S -2--2 0 0 
+@ all eset
+R 0
+A -
+X Unknown color 'eset' at position 6: t eset<--[HERE]@4
+E Unknown color 'eset' at position 6: t eset<--[HERE]@4
+S -2--2 0 0 
+@ all dark_greenna
+R 0
+A -
+X Unknown color 'dark_greenna' at position 14: ...rk_greenna<--[HERE]@12
+E Unknown color 'dark_greenna' at position 14: ...rk_greenna<--[HERE]@12
+S -2--2 0 0 
+@ all $ee
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all dark_g,rcen
+R 0
+A -
+X Unknown color 'dark_g' at position 8: t dark_g<--[HERE]@6
+E Unknown color 'dark_g' at position 8: t dark_g<--[HERE]@6
+S -2--2 0 0 
+@ all r4ed
+R 0
+A -
+X Unknown color 'r4ed' at position 6: t r4ed<--[HERE]@4
+E Unknown color 'r4ed' at position 6: t r4ed<--[HERE]@4
+S -2--2 0 0 
+@ all dark_purpled
+R 0
+A -
+X Unknown color 'dark_purpled' at position 14: ...rk_purpled<--[HERE]@12
+E Unknown color 'dark_purpled' at position 14: ...rk_purpled<--[HERE]@12
+S -2--2 0 0 
+@ all dark_blu>e
+R 0
+A -
+X Unknown color 'dark_blu' at position 10: t dark_blu<--[HERE]@8
+E Unknown color 'dark_blu' at position 10: t dark_blu<--[HERE]@8
+S -2--2 0 0 
+@ all re\\
+R 0
+A -
+X Unknown color 're' at position 4: t re<--[HERE]@2
+E Unknown color 're' at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all aq$ua
+R 0
+A -
+X Unknown color 'aq' at position 4: t aq<--[HERE]@2
+E Unknown color 'aq' at position 4: t aq<--[HERE]@2
+S -2--2 0 0 
+@ all rZd
+R 0
+A -
+X Unknown color 'rZd' at position 5: t rZd<--[HERE]@3
+E Unknown color 'rZd' at position 5: t rZd<--[HERE]@3
+S -2--2 0 0 
+@ all dark_b!luek
+R 0
+A -
+X Unknown color 'dark_b' at position 8: t dark_b<--[HERE]@6
+E Unknown color 'dark_b' at position 8: t dark_b<--[HERE]@6
+S -2--2 0 0 
+@ all gr￿een
+R 0
+A -
+X Unknown color 'gr' at position 4: t gr<--[HERE]@2
+E Unknown color 'gr' at position 4: t gr<--[HERE]@2
+S -2--2 0 0 
+@ all dark_aquaa
+R 0
+A -
+X Unknown color 'dark_aquaa' at position 12: ...dark_aquaa<--[HERE]@10
+E Unknown color 'dark_aquaa' at position 12: ...dark_aquaa<--[HERE]@10
+S -2--2 0 0 
+@ all dark_purp1le
+R 0
+A -
+X Unknown color 'dark_purp1le' at position 14: ...rk_purp1le<--[HERE]@12
+E Unknown color 'dark_purp1le' at position 14: ...rk_purp1le<--[HERE]@12
+S -2--2 0 0 
+@ all pinki
+R 0
+A -
+X Unknown color 'pinki' at position 7: t pinki<--[HERE]@5
+E Unknown color 'pinki' at position 7: t pinki<--[HERE]@5
+S -2--2 0 0 
+@ all q=a
+R 0
+A -
+X Unknown color 'q' at position 3: t q<--[HERE]@1
+E Unknown color 'q' at position 3: t q<--[HERE]@1
+S -2--2 0 0 
+@ all ark_blue
+R 0
+A -
+X Unknown color 'ark_blue' at position 10: t ark_blue<--[HERE]@8
+E Unknown color 'ark_blue' at position 10: t ark_blue<--[HERE]@8
+S -2--2 0 0 
+@ all en
+R 0
+A -
+X Unknown color 'en' at position 4: t en<--[HERE]@2
+E Unknown color 'en' at position 4: t en<--[HERE]@2
+S -2--2 0 0 
+@ all dark_aquaad
+R 0
+A -
+X Unknown color 'dark_aquaad' at position 13: ...ark_aquaad<--[HERE]@11
+E Unknown color 'dark_aquaad' at position 13: ...ark_aquaad<--[HERE]@11
+S -2--2 0 0 
+@ all old
+R 0
+A -
+X Unknown color 'old' at position 5: t old<--[HERE]@3
+E Unknown color 'old' at position 5: t old<--[HERE]@3
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Unknown color 'e' at position 3: t e<--[HERE]@1
+E Unknown color 'e' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all e中d
+R 0
+A -
+X Unknown color 'e' at position 3: t e<--[HERE]@1
+E Unknown color 'e' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all light_pu中ple
+R 0
+A -
+X Unknown color 'light_pu' at position 10: t light_pu<--[HERE]@8
+E Unknown color 'light_pu' at position 10: t light_pu<--[HERE]@8
+S -2--2 0 0 
+@ all bo+ld
+R 0
+A -
+X Unknown color 'bo+ld' at position 7: t bo+ld<--[HERE]@5
+E Unknown color 'bo+ld' at position 7: t bo+ld<--[HERE]@5
+S -2--2 0 0 
+@ all Rede
+R 0
+A -
+X Unknown color 'Rede' at position 6: t Rede<--[HERE]@4
+E Unknown color 'Rede' at position 6: t Rede<--[HERE]@4
+S -2--2 0 0 
+@ all dark_￿reda
+R 0
+A -
+X Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+E Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+S -2--2 0 0 
+@ all da3k_red
+R 0
+A -
+X Unknown color 'da3k_red' at position 10: t da3k_red<--[HERE]@8
+E Unknown color 'da3k_red' at position 10: t da3k_red<--[HERE]@8
+S -2--2 0 0 
+@ all lu
+R 0
+A -
+X Unknown color 'lu' at position 4: t lu<--[HERE]@2
+E Unknown color 'lu' at position 4: t lu<--[HERE]@2
+S -2--2 0 0 
+@ all nk
+R 0
+A -
+X Unknown color 'nk' at position 4: t nk<--[HERE]@2
+E Unknown color 'nk' at position 4: t nk<--[HERE]@2
+S -2--2 0 0 
+@ all [o1d
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all w*itew
+R 0
+A -
+X Unknown color 'w' at position 3: t w<--[HERE]@1
+E Unknown color 'w' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all pik
+R 0
+A -
+X Unknown color 'pik' at position 5: t pik<--[HERE]@3
+E Unknown color 'pik' at position 5: t pik<--[HERE]@3
+S -2--2 0 0 
+@ all Ryd
+R 0
+A -
+X Unknown color 'Ryd' at position 5: t Ryd<--[HERE]@3
+E Unknown color 'Ryd' at position 5: t Ryd<--[HERE]@3
+S -2--2 0 0 
+@ all eed
+R 0
+A -
+X Unknown color 'eed' at position 5: t eed<--[HERE]@3
+E Unknown color 'eed' at position 5: t eed<--[HERE]@3
+S -2--2 0 0 
+@ all aqua{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t aqua<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t aqua<--[HERE]@4
+S -2--2 0 0 
+@ all lac
+R 0
+A -
+X Unknown color 'lac' at position 5: t lac<--[HERE]@3
+E Unknown color 'lac' at position 5: t lac<--[HERE]@3
+S -2--2 0 0 
+@ all gre 
+R 0
+A -
+X Unknown color 'gre' at position 5: t gre<--[HERE]@3
+E Unknown color 'gre' at position 5: t gre<--[HERE]@3
+S -2--2 0 0 
+@ all t_purple
+R 0
+A -
+X Unknown color 't_purple' at position 10: t t_purple<--[HERE]@8
+E Unknown color 't_purple' at position 10: t t_purple<--[HERE]@8
+S -2--2 0 0 
+@ all r'
+R 0
+A -
+X Unknown color 'r' at position 3: t r<--[HERE]@1
+E Unknown color 'r' at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all d￿rkx_
+R 0
+A -
+X Unknown color 'd' at position 3: t d<--[HERE]@1
+E Unknown color 'd' at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all p@ik
+R 0
+A -
+X Unknown color 'p' at position 3: t p<--[HERE]@1
+E Unknown color 'p' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all k_
+R 0
+A -
+X Unknown color 'k_' at position 4: t k_<--[HERE]@2
+E Unknown color 'k_' at position 4: t k_<--[HERE]@2
+S -2--2 0 0 
+@ all dar_purple
+R 0
+A -
+X Unknown color 'dar_purple' at position 12: ...dar_purple<--[HERE]@10
+E Unknown color 'dar_purple' at position 12: ...dar_purple<--[HERE]@10
+S -2--2 0 0 
+@ all grene
+R 0
+A -
+X Unknown color 'grene' at position 7: t grene<--[HERE]@5
+E Unknown color 'grene' at position 7: t grene<--[HERE]@5
+S -2--2 0 0 
+@ all do
+R 0
+A -
+X Unknown color 'do' at position 4: t do<--[HERE]@2
+E Unknown color 'do' at position 4: t do<--[HERE]@2
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all g/reen
+R 0
+A -
+X Unknown color 'g' at position 3: t g<--[HERE]@1
+E Unknown color 'g' at position 3: t g<--[HERE]@1
+S -2--2 0 0 
+@ all pinkn
+R 0
+A -
+X Unknown color 'pinkn' at position 7: t pinkn<--[HERE]@5
+E Unknown color 'pinkn' at position 7: t pinkn<--[HERE]@5
+S -2--2 0 0 
+@ all light_prple
+R 0
+A -
+X Unknown color 'light_prple' at position 13: ...ight_prple<--[HERE]@11
+E Unknown color 'light_prple' at position 13: ...ight_prple<--[HERE]@11
+S -2--2 0 0 
+@ all boldb
+R 0
+A -
+X Unknown color 'boldb' at position 7: t boldb<--[HERE]@5
+E Unknown color 'boldb' at position 7: t boldb<--[HERE]@5
+S -2--2 0 0 
+@ all res.
+R 0
+A -
+X Unknown color 'res.' at position 6: t res.<--[HERE]@4
+E Unknown color 'res.' at position 6: t res.<--[HERE]@4
+S -2--2 0 0 
+@ all dark_greec
+R 0
+A -
+X Unknown color 'dark_greec' at position 12: ...dark_greec<--[HERE]@10
+E Unknown color 'dark_greec' at position 12: ...dark_greec<--[HERE]@10
+S -2--2 0 0 
+@ all elloww
+R 0
+A -
+X Unknown color 'elloww' at position 8: t elloww<--[HERE]@6
+E Unknown color 'elloww' at position 8: t elloww<--[HERE]@6
+S -2--2 0 0 
+@ all liht_purpl
+R 0
+A -
+X Unknown color 'liht_purpl' at position 12: ...liht_purpl<--[HERE]@10
+E Unknown color 'liht_purpl' at position 12: ...liht_purpl<--[HERE]@10
+S -2--2 0 0 
+@ all reen
+R 0
+A -
+X Unknown color 'reen' at position 6: t reen<--[HERE]@4
+E Unknown color 'reen' at position 6: t reen<--[HERE]@4
+S -2--2 0 0 
+@ all r\u0009d
+R 0
+A -
+X Unknown color 'r' at position 3: t r<--[HERE]@1
+E Unknown color 'r' at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all rede
+R 0
+A -
+X Unknown color 'rede' at position 6: t rede<--[HERE]@4
+E Unknown color 'rede' at position 6: t rede<--[HERE]@4
+S -2--2 0 0 
+@ all lightpurplel
+R 0
+A -
+X Unknown color 'lightpurplel' at position 14: ...ghtpurplel<--[HERE]@12
+E Unknown color 'lightpurplel' at position 14: ...ghtpurplel<--[HERE]@12
+S -2--2 0 0 
+@ all daİrk_aquad
+R 0
+A -
+X Unknown color 'da' at position 4: t da<--[HERE]@2
+E Unknown color 'da' at position 4: t da<--[HERE]@2
+S -2--2 0 0 
+@ all da[k_中
+R 0
+A -
+X Unknown color 'da' at position 4: t da<--[HERE]@2
+E Unknown color 'da' at position 4: t da<--[HERE]@2
+S -2--2 0 0 
+@ all dark_bluel
+R 0
+A -
+X Unknown color 'dark_bluel' at position 12: ...dark_bluel<--[HERE]@10
+E Unknown color 'dark_bluel' at position 12: ...dark_bluel<--[HERE]@10
+S -2--2 0 0 
+@ all yellowe
+R 0
+A -
+X Unknown color 'yellowe' at position 9: t yellowe<--[HERE]@7
+E Unknown color 'yellowe' at position 9: t yellowe<--[HERE]@7
+S -2--2 0 0 
+@ all dark/gra
+R 0
+A -
+X Unknown color 'dark' at position 6: t dark<--[HERE]@4
+E Unknown color 'dark' at position 6: t dark<--[HERE]@4
+S -2--2 0 0 
+@ all 0yello=
+R 0
+A -
+X Unknown color '0yello' at position 8: t 0yello<--[HERE]@6
+E Unknown color '0yello' at position 8: t 0yello<--[HERE]@6
+S -2--2 0 0 
+@ all RAed
+R 0
+A -
+X Unknown color 'RAed' at position 6: t RAed<--[HERE]@4
+E Unknown color 'RAed' at position 6: t RAed<--[HERE]@4
+S -2--2 0 0 
+@ all ligh%t_purple
+R 0
+A -
+X Unknown color 'ligh' at position 6: t ligh<--[HERE]@4
+E Unknown color 'ligh' at position 6: t ligh<--[HERE]@4
+S -2--2 0 0 
+@ all dark_greenn
+R 0
+A -
+X Unknown color 'dark_greenn' at position 13: ...ark_greenn<--[HERE]@11
+E Unknown color 'dark_greenn' at position 13: ...ark_greenn<--[HERE]@11
+S -2--2 0 0 
+@ all $dark_purple
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all dark_blu\\e
+R 0
+A -
+X Unknown color 'dark_blu' at position 10: t dark_blu<--[HERE]@8
+E Unknown color 'dark_blu' at position 10: t dark_blu<--[HERE]@8
+S -2--2 0 0 
+@ all dark_pur/@le
+R 0
+A -
+X Unknown color 'dark_pur' at position 10: t dark_pur<--[HERE]@8
+E Unknown color 'dark_pur' at position 10: t dark_pur<--[HERE]@8
+S -2--2 0 0 
+@ all dark'_aqua
+R 0
+A -
+X Unknown color 'dark' at position 6: t dark<--[HERE]@4
+E Unknown color 'dark' at position 6: t dark<--[HERE]@4
+S -2--2 0 0 
+@ all dark_purpler
+R 0
+A -
+X Unknown color 'dark_purpler' at position 14: ...rk_purpler<--[HERE]@12
+E Unknown color 'dark_purpler' at position 14: ...rk_purpler<--[HERE]@12
+S -2--2 0 0 
+@ all whitei
+R 0
+A -
+X Unknown color 'whitei' at position 8: t whitei<--[HERE]@6
+E Unknown color 'whitei' at position 8: t whitei<--[HERE]@6
+S -2--2 0 0 
+@ all g\\ay
+R 0
+A -
+X Unknown color 'g' at position 3: t g<--[HERE]@1
+E Unknown color 'g' at position 3: t g<--[HERE]@1
+S -2--2 0 0 
+@ all Re"Bd
+R 0
+A -
+X Unknown color 'Re' at position 4: t Re<--[HERE]@2
+E Unknown color 'Re' at position 4: t Re<--[HERE]@2
+S -2--2 0 0 
+@ all dark}_redr
+R 0
+A -
+X Unknown color 'dark' at position 6: t dark<--[HERE]@4
+E Unknown color 'dark' at position 6: t dark<--[HERE]@4
+S -2--2 0 0 
+@ all light_purpleg
+R 0
+A -
+X Unknown color 'light_purpleg' at position 15: ...ht_purpleg<--[HERE]@13
+E Unknown color 'light_purpleg' at position 15: ...ht_purpleg<--[HERE]@13
+S -2--2 0 0 
+@ all oldd
+R 0
+A -
+X Unknown color 'oldd' at position 6: t oldd<--[HERE]@4
+E Unknown color 'oldd' at position 6: t oldd<--[HERE]@4
+S -2--2 0 0 
+@ all deark_bl{e
+R 0
+A -
+X Unknown color 'deark_bl' at position 10: t deark_bl<--[HERE]@8
+E Unknown color 'deark_bl' at position 10: t deark_bl<--[HERE]@8
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all dark_gr-ay
+R 0
+A -
+X Unknown color 'dark_gr-ay' at position 12: ...dark_gr-ay<--[HERE]@10
+E Unknown color 'dark_gr-ay' at position 12: ...dark_gr-ay<--[HERE]@10
+S -2--2 0 0 
+@ all dCark_
+R 0
+A -
+X Unknown color 'dCark_' at position 8: t dCark_<--[HERE]@6
+E Unknown color 'dCark_' at position 8: t dCark_<--[HERE]@6
+S -2--2 0 0 
+@ all dark_@e
+R 0
+A -
+X Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+E Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+S -2--2 0 0 
+@ all Clu
+R 0
+A -
+X Unknown color 'Clu' at position 5: t Clu<--[HERE]@3
+E Unknown color 'Clu' at position 5: t Clu<--[HERE]@3
+S -2--2 0 0 
+@ all ee
+R 0
+A -
+X Unknown color 'ee' at position 4: t ee<--[HERE]@2
+E Unknown color 'ee' at position 4: t ee<--[HERE]@2
+S -2--2 0 0 
+@ all light_urple
+R 0
+A -
+X Unknown color 'light_urple' at position 13: ...ight_urple<--[HERE]@11
+E Unknown color 'light_urple' at position 13: ...ight_urple<--[HERE]@11
+S -2--2 0 0 
+@ all 'nk
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aquaa
+R 0
+A -
+X Unknown color 'aquaa' at position 7: t aquaa<--[HERE]@5
+E Unknown color 'aquaa' at position 7: t aquaa<--[HERE]@5
+S -2--2 0 0 
+@ all rk_red
+R 0
+A -
+X Unknown color 'rk_red' at position 8: t rk_red<--[HERE]@6
+E Unknown color 'rk_red' at position 8: t rk_red<--[HERE]@6
+S -2--2 0 0 
+@ all 9
+R 0
+A -
+X Unknown color '9' at position 3: t 9<--[HERE]@1
+E Unknown color '9' at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all ddark_gray
+R 0
+A -
+X Unknown color 'ddark_gray' at position 12: ...ddark_gray<--[HERE]@10
+E Unknown color 'ddark_gray' at position 12: ...ddark_gray<--[HERE]@10
+S -2--2 0 0 
+@ all light_purple__
+R 0
+A -
+X Unknown color 'light_purple__' at position 16: ...t_purple__<--[HERE]@14
+E Unknown color 'light_purple__' at position 16: ...t_purple__<--[HERE]@14
+S -2--2 0 0 
+@ all dark_bluea
+R 0
+A -
+X Unknown color 'dark_bluea' at position 12: ...dark_bluea<--[HERE]@10
+E Unknown color 'dark_bluea' at position 12: ...dark_bluea<--[HERE]@10
+S -2--2 0 0 
+@ all dark_red_
+R 0
+A -
+X Unknown color 'dark_red_' at position 11: ... dark_red_<--[HERE]@9
+E Unknown color 'dark_red_' at position 11: ... dark_red_<--[HERE]@9
+S -2--2 0 0 
+@ all lu%e
+R 0
+A -
+X Unknown color 'lu' at position 4: t lu<--[HERE]@2
+E Unknown color 'lu' at position 4: t lu<--[HERE]@2
+S -2--2 0 0 
+@ all reset+
+R 0
+A -
+X Unknown color 'reset+' at position 8: t reset+<--[HERE]@6
+E Unknown color 'reset+' at position 8: t reset+<--[HERE]@6
+S -2--2 0 0 
+@ all Re{d
+R 0
+A -
+X Unknown color 'Re' at position 4: t Re<--[HERE]@2
+E Unknown color 'Re' at position 4: t Re<--[HERE]@2
+S -2--2 0 0 
+@ all oldo
+R 0
+A -
+X Unknown color 'oldo' at position 6: t oldo<--[HERE]@4
+E Unknown color 'oldo' at position 6: t oldo<--[HERE]@4
+S -2--2 0 0 
+@ all yllow
+R 0
+A -
+X Unknown color 'yllow' at position 7: t yllow<--[HERE]@5
+E Unknown color 'yllow' at position 7: t yllow<--[HERE]@5
+S -2--2 0 0 
+@ all whitee
+R 0
+A -
+X Unknown color 'whitee' at position 8: t whitee<--[HERE]@6
+E Unknown color 'whitee' at position 8: t whitee<--[HERE]@6
+S -2--2 0 0 
+@ all whi1te
+R 0
+A -
+X Unknown color 'whi1te' at position 8: t whi1te<--[HERE]@6
+E Unknown color 'whi1te' at position 8: t whi1te<--[HERE]@6
+S -2--2 0 0 
+@ all dark]_
+R 0
+A -
+X Unknown color 'dark' at position 6: t dark<--[HERE]@4
+E Unknown color 'dark' at position 6: t dark<--[HERE]@4
+S -2--2 0 0 
+@ all drk_green
+R 0
+A -
+X Unknown color 'drk_green' at position 11: ... drk_green<--[HERE]@9
+E Unknown color 'drk_green' at position 11: ... drk_green<--[HERE]@9
+S -2--2 0 0 
+@ all yellww
+R 0
+A -
+X Unknown color 'yellww' at position 8: t yellww<--[HERE]@6
+E Unknown color 'yellww' at position 8: t yellww<--[HERE]@6
+S -2--2 0 0 
+@ all golbd
+R 0
+A -
+X Unknown color 'golbd' at position 7: t golbd<--[HERE]@5
+E Unknown color 'golbd' at position 7: t golbd<--[HERE]@5
+S -2--2 0 0 
+@ all go_ldd
+R 0
+A -
+X Unknown color 'go_ldd' at position 8: t go_ldd<--[HERE]@6
+E Unknown color 'go_ldd' at position 8: t go_ldd<--[HERE]@6
+S -2--2 0 0 
+@ all dark_aqu}a
+R 0
+A -
+X Unknown color 'dark_aqu' at position 10: t dark_aqu<--[HERE]@8
+E Unknown color 'dark_aqu' at position 10: t dark_aqu<--[HERE]@8
+S -2--2 0 0 
+@ all rB
+R 0
+A -
+X Unknown color 'rB' at position 4: t rB<--[HERE]@2
+E Unknown color 'rB' at position 4: t rB<--[HERE]@2
+S -2--2 0 0 
+@ all blu\u0009
+R 0
+A -
+X Unknown color 'blu' at position 5: t blu<--[HERE]@3
+E Unknown color 'blu' at position 5: t blu<--[HERE]@3
+S -2--2 0 0 
+@ all dak_blue
+R 0
+A -
+X Unknown color 'dak_blue' at position 10: t dak_blue<--[HERE]@8
+E Unknown color 'dak_blue' at position 10: t dak_blue<--[HERE]@8
+S -2--2 0 0 
+@ all yeelow
+R 0
+A -
+X Unknown color 'yeelow' at position 8: t yeelow<--[HERE]@6
+E Unknown color 'yeelow' at position 8: t yeelow<--[HERE]@6
+S -2--2 0 0 
+@ all gree​g
+R 0
+A -
+X Unknown color 'gree' at position 6: t gree<--[HERE]@4
+E Unknown color 'gree' at position 6: t gree<--[HERE]@4
+S -2--2 0 0 
+@ all yelloww
+R 0
+A -
+X Unknown color 'yelloww' at position 9: t yelloww<--[HERE]@7
+E Unknown color 'yelloww' at position 9: t yelloww<--[HERE]@7
+S -2--2 0 0 
+@ all d7ark_aqua
+R 0
+A -
+X Unknown color 'd7ark_aqua' at position 12: ...d7ark_aqua<--[HERE]@10
+E Unknown color 'd7ark_aqua' at position 12: ...d7ark_aqua<--[HERE]@10
+S -2--2 0 0 
+@ all res^t
+R 0
+A -
+X Unknown color 'res' at position 5: t res<--[HERE]@3
+E Unknown color 'res' at position 5: t res<--[HERE]@3
+S -2--2 0 0 
+@ all gre[e
+R 0
+A -
+X Unknown color 'gre' at position 5: t gre<--[HERE]@3
+E Unknown color 'gre' at position 5: t gre<--[HERE]@3
+S -2--2 0 0 
+@ all dark_purplİ
+R 0
+A -
+X Unknown color 'dark_purpl' at position 12: ...dark_purpl<--[HERE]@10
+E Unknown color 'dark_purpl' at position 12: ...dark_purpl<--[HERE]@10
+S -2--2 0 0 
+@ all gren
+R 0
+A -
+X Unknown color 'gren' at position 6: t gren<--[HERE]@4
+E Unknown color 'gren' at position 6: t gren<--[HERE]@4
+S -2--2 0 0 
+@ all dark_gry
+R 0
+A -
+X Unknown color 'dark_gry' at position 10: t dark_gry<--[HERE]@8
+E Unknown color 'dark_gry' at position 10: t dark_gry<--[HERE]@8
+S -2--2 0 0 
+@ all @rk_purple
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all whit1ee
+R 0
+A -
+X Unknown color 'whit1ee' at position 9: t whit1ee<--[HERE]@7
+E Unknown color 'whit1ee' at position 9: t whit1ee<--[HERE]@7
+S -2--2 0 0 
+@ all rcec
+R 0
+A -
+X Unknown color 'rcec' at position 6: t rcec<--[HERE]@4
+E Unknown color 'rcec' at position 6: t rcec<--[HERE]@4
+S -2--2 0 0 
+@ all grée
+R 0
+A -
+X Unknown color 'gr' at position 4: t gr<--[HERE]@2
+E Unknown color 'gr' at position 4: t gr<--[HERE]@2
+S -2--2 0 0 
+@ all whitet
+R 0
+A -
+X Unknown color 'whitet' at position 8: t whitet<--[HERE]@6
+E Unknown color 'whitet' at position 8: t whitet<--[HERE]@6
+S -2--2 0 0 
+@ all llo&
+R 0
+A -
+X Unknown color 'llo' at position 5: t llo<--[HERE]@3
+E Unknown color 'llo' at position 5: t llo<--[HERE]@3
+S -2--2 0 0 
+@ all dark_*ed
+R 0
+A -
+X Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+E Unknown color 'dark_' at position 7: t dark_<--[HERE]@5
+S -2--2 0 0 
+@ all g_old
+R 0
+A -
+X Unknown color 'g_old' at position 7: t g_old<--[HERE]@5
+E Unknown color 'g_old' at position 7: t g_old<--[HERE]@5
+S -2--2 0 0 
+@ all ree
+R 0
+A -
+X Unknown color 'ree' at position 5: t ree<--[HERE]@3
+E Unknown color 'ree' at position 5: t ree<--[HERE]@3
+S -2--2 0 0 
+@ all da\\rk_red
+R 0
+A -
+X Unknown color 'da' at position 4: t da<--[HERE]@2
+E Unknown color 'da' at position 4: t da<--[HERE]@2
+S -2--2 0 0 
+@ all gry
+R 0
+A -
+X Unknown color 'gry' at position 5: t gry<--[HERE]@3
+E Unknown color 'gry' at position 5: t gry<--[HERE]@3
+S -2--2 0 0 
+@ all "black
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all d&ark_gray
+R 0
+A -
+X Unknown color 'd' at position 3: t d<--[HERE]@1
+E Unknown color 'd' at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all dark_aquca
+R 0
+A -
+X Unknown color 'dark_aquca' at position 12: ...dark_aquca<--[HERE]@10
+E Unknown color 'dark_aquca' at position 12: ...dark_aquca<--[HERE]@10
+S -2--2 0 0 
+@ all dark_blueea
+R 0
+A -
+X Unknown color 'dark_blueea' at position 13: ...ark_blueea<--[HERE]@11
+E Unknown color 'dark_blueea' at position 13: ...ark_blueea<--[HERE]@11
+S -2--2 0 0 
+@ all }r=
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all dak<
+R 0
+A -
+X Unknown color 'dak' at position 5: t dak<--[HERE]@3
+E Unknown color 'dak' at position 5: t dak<--[HERE]@3
+S -2--2 0 0 
+@ all da&rk_red
+R 0
+A -
+X Unknown color 'da' at position 4: t da<--[HERE]@2
+E Unknown color 'da' at position 4: t da<--[HERE]@2
+S -2--2 0 0 
+@ all >k
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ligh_purple
+R 0
+A -
+X Unknown color 'ligh_purple' at position 13: ...igh_purple<--[HERE]@11
+E Unknown color 'ligh_purple' at position 13: ...igh_purple<--[HERE]@11
+S -2--2 0 0 
+@ all X
+R 0
+A -
+X Unknown color 'X' at position 3: t X<--[HERE]@1
+E Unknown color 'X' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all "rk_gray
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all dar_blue\u0000
+R 0
+A -
+X Unknown color 'dar_blue' at position 10: t dar_blue<--[HERE]@8
+E Unknown color 'dar_blue' at position 10: t dar_blue<--[HERE]@8
+S -2--2 0 0 
+@ all greenn
+R 0
+A -
+X Unknown color 'greenn' at position 8: t greenn<--[HERE]@6
+E Unknown color 'greenn' at position 8: t greenn<--[HERE]@6
+S -2--2 0 0 
+@ all whiteé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t white<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t white<--[HERE]@5
+S -2--2 0 0 
+@ all pi[k
+R 0
+A -
+X Unknown color 'pi' at position 4: t pi<--[HERE]@2
+E Unknown color 'pi' at position 4: t pi<--[HERE]@2
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ckk
+R 0
+A -
+X Unknown color 'ckk' at position 5: t ckk<--[HERE]@3
+E Unknown color 'ckk' at position 5: t ckk<--[HERE]@3
+S -2--2 0 0 
+@ all llow
+R 0
+A -
+X Unknown color 'llow' at position 6: t llow<--[HERE]@4
+E Unknown color 'llow' at position 6: t llow<--[HERE]@4
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Unknown color '-' at position 3: t -<--[HERE]@1
+E Unknown color '-' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all dar\u0000k_
+R 0
+A -
+X Unknown color 'dar' at position 5: t dar<--[HERE]@3
+E Unknown color 'dar' at position 5: t dar<--[HERE]@3
+S -2--2 0 0 
+@ all =green
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all bluea
+R 0
+A -
+X Unknown color 'bluea' at position 7: t bluea<--[HERE]@5
+E Unknown color 'bluea' at position 7: t bluea<--[HERE]@5
+S -2--2 0 0 
+@ all dark_aua
+R 0
+A -
+X Unknown color 'dark_aua' at position 10: t dark_aua<--[HERE]@8
+E Unknown color 'dark_aua' at position 10: t dark_aua<--[HERE]@8
+S -2--2 0 0 
+@ all 中pi\u000ak
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all bylue
+R 0
+A -
+X Unknown color 'bylue' at position 7: t bylue<--[HERE]@5
+E Unknown color 'bylue' at position 7: t bylue<--[HERE]@5
+S -2--2 0 0 
+@ all bl~ck
+R 0
+A -
+X Unknown color 'bl' at position 4: t bl<--[HERE]@2
+E Unknown color 'bl' at position 4: t bl<--[HERE]@2
+S -2--2 0 0 
+@ all ReXe
+R 0
+A -
+X Unknown color 'ReXe' at position 6: t ReXe<--[HERE]@4
+E Unknown color 'ReXe' at position 6: t ReXe<--[HERE]@4
+S -2--2 0 0 
+@ all qua
+R 0
+A -
+X Unknown color 'qua' at position 5: t qua<--[HERE]@3
+E Unknown color 'qua' at position 5: t qua<--[HERE]@3
+S -2--2 0 0 
+@ all ​qa
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zaXrk_
+R 0
+A -
+X Unknown color 'zaXrk_' at position 8: t zaXrk_<--[HERE]@6
+E Unknown color 'zaXrk_' at position 8: t zaXrk_<--[HERE]@6
+S -2--2 0 0 
+@ all "ray
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all d$rk_aqua
+R 0
+A -
+X Unknown color 'd' at position 3: t d<--[HERE]@1
+E Unknown color 'd' at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all 'ar=k_
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all gld
+R 0
+A -
+X Unknown color 'gld' at position 5: t gld<--[HERE]@3
+E Unknown color 'gld' at position 5: t gld<--[HERE]@3
+S -2--2 0 0 
+@ all r-en
+R 0
+A -
+X Unknown color 'r-en' at position 6: t r-en<--[HERE]@4
+E Unknown color 'r-en' at position 6: t r-en<--[HERE]@4
+S -2--2 0 0 
+@ all _green_
+R 0
+A -
+X Unknown color '_green_' at position 9: t _green_<--[HERE]@7
+E Unknown color '_green_' at position 9: t _green_<--[HERE]@7
+S -2--2 0 0 
+@ all 中fe
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all backl
+R 0
+A -
+X Unknown color 'backl' at position 7: t backl<--[HERE]@5
+E Unknown color 'backl' at position 7: t backl<--[HERE]@5
+S -2--2 0 0 
+@ all R$8d
+R 0
+A -
+X Unknown color 'R' at position 3: t R<--[HERE]@1
+E Unknown color 'R' at position 3: t R<--[HERE]@1
+S -2--2 0 0 
+@ all ua
+R 0
+A -
+X Unknown color 'ua' at position 4: t ua<--[HERE]@2
+E Unknown color 'ua' at position 4: t ua<--[HERE]@2
+S -2--2 0 0 
+@ all a1ua
+R 0
+A -
+X Unknown color 'a1ua' at position 6: t a1ua<--[HERE]@4
+E Unknown color 'a1ua' at position 6: t a1ua<--[HERE]@4
+S -2--2 0 0 
+@ all resdt
+R 0
+A -
+X Unknown color 'resdt' at position 7: t resdt<--[HERE]@5
+E Unknown color 'resdt' at position 7: t resdt<--[HERE]@5
+S -2--2 0 0 
+@ all k_green
+R 0
+A -
+X Unknown color 'k_green' at position 9: t k_green<--[HERE]@7
+E Unknown color 'k_green' at position 9: t k_green<--[HERE]@7
+S -2--2 0 0 
+@ all Red2
+R 0
+A -
+X Unknown color 'Red2' at position 6: t Red2<--[HERE]@4
+E Unknown color 'Red2' at position 6: t Red2<--[HERE]@4
+S -2--2 0 0 
+@ all dark_a中qua
+R 0
+A -
+X Unknown color 'dark_a' at position 8: t dark_a<--[HERE]@6
+E Unknown color 'dark_a' at position 8: t dark_a<--[HERE]@6
+S -2--2 0 0 
+@ all go中d
+R 0
+A -
+X Unknown color 'go' at position 4: t go<--[HERE]@2
+E Unknown color 'go' at position 4: t go<--[HERE]@2
+S -2--2 0 0 
+@ all -ray
+R 0
+A -
+X Unknown color '-ray' at position 6: t -ray<--[HERE]@4
+E Unknown color '-ray' at position 6: t -ray<--[HERE]@4
+S -2--2 0 0 
+@ all RedRR
+R 0
+A -
+X Unknown color 'RedRR' at position 7: t RedRR<--[HERE]@5
+E Unknown color 'RedRR' at position 7: t RedRR<--[HERE]@5
+S -2--2 0 0 
+@ all p\u000aik
+R 0
+A -
+X Unknown color 'p' at position 3: t p<--[HERE]@1
+E Unknown color 'p' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all auaq
+R 0
+A -
+X Unknown color 'auaq' at position 6: t auaq<--[HERE]@4
+E Unknown color 'auaq' at position 6: t auaq<--[HERE]@4
+S -2--2 0 0 
+@ all blacl
+R 0
+A -
+X Unknown color 'blacl' at position 7: t blacl<--[HERE]@5
+E Unknown color 'blacl' at position 7: t blacl<--[HERE]@5
+S -2--2 0 0 
+@ all re~e
+R 0
+A -
+X Unknown color 're' at position 4: t re<--[HERE]@2
+E Unknown color 're' at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all dar~_
+R 0
+A -
+X Unknown color 'dar' at position 5: t dar<--[HERE]@3
+E Unknown color 'dar' at position 5: t dar<--[HERE]@3
+S -2--2 0 0 
+@ all gre/en
+R 0
+A -
+X Unknown color 'gre' at position 5: t gre<--[HERE]@3
+E Unknown color 'gre' at position 5: t gre<--[HERE]@3
+S -2--2 0 0 
+@ all idk
+R 0
+A -
+X Unknown color 'idk' at position 5: t idk<--[HERE]@3
+E Unknown color 'idk' at position 5: t idk<--[HERE]@3
+S -2--2 0 0 
+@ all ay
+R 0
+A -
+X Unknown color 'ay' at position 4: t ay<--[HERE]@2
+E Unknown color 'ay' at position 4: t ay<--[HERE]@2
+S -2--2 0 0 
+@ all b8old
+R 0
+A -
+X Unknown color 'b8old' at position 7: t b8old<--[HERE]@5
+E Unknown color 'b8old' at position 7: t b8old<--[HERE]@5
+S -2--2 0 0 
+@ all 7greene
+R 0
+A -
+X Unknown color '7greene' at position 9: t 7greene<--[HERE]@7
+E Unknown color '7greene' at position 9: t 7greene<--[HERE]@7
+S -2--2 0 0 
+@ all k_aqua
+R 0
+A -
+X Unknown color 'k_aqua' at position 8: t k_aqua<--[HERE]@6
+E Unknown color 'k_aqua' at position 8: t k_aqua<--[HERE]@6
+S -2--2 0 0 
+@ all R}ed
+R 0
+A -
+X Unknown color 'R' at position 3: t R<--[HERE]@1
+E Unknown color 'R' at position 3: t R<--[HERE]@1
+S -2--2 0 0 
+@ all ble
+R 0
+A -
+X Unknown color 'ble' at position 5: t ble<--[HERE]@3
+E Unknown color 'ble' at position 5: t ble<--[HERE]@3
+S -2--2 0 0 
+@ all dark_purpea
+R 0
+A -
+X Unknown color 'dark_purpea' at position 13: ...ark_purpea<--[HERE]@11
+E Unknown color 'dark_purpea' at position 13: ...ark_purpea<--[HERE]@11
+S -2--2 0 0 
+@ all ye8llow
+R 0
+A -
+X Unknown color 'ye8llow' at position 9: t ye8llow<--[HERE]@7
+E Unknown color 'ye8llow' at position 9: t ye8llow<--[HERE]@7
+S -2--2 0 0 
+@ all rpla
+R 0
+A -
+X Unknown color 'rpla' at position 6: t rpla<--[HERE]@4
+E Unknown color 'rpla' at position 6: t rpla<--[HERE]@4
+S -2--2 0 0 
+@ all dark_aquad
+R 0
+A -
+X Unknown color 'dark_aquad' at position 12: ...dark_aquad<--[HERE]@10
+E Unknown color 'dark_aquad' at position 12: ...dark_aquad<--[HERE]@10
+S -2--2 0 0 
+@ all boldl
+R 0
+A -
+X Unknown color 'boldl' at position 7: t boldl<--[HERE]@5
+E Unknown color 'boldl' at position 7: t boldl<--[HERE]@5
+S -2--2 0 0 
+@ all g​reen
+R 0
+A -
+X Unknown color 'g' at position 3: t g<--[HERE]@1
+E Unknown color 'g' at position 3: t g<--[HERE]@1
+S -2--2 0 0 
+@ all dare_
+R 0
+A -
+X Unknown color 'dare_' at position 7: t dare_<--[HERE]@5
+E Unknown color 'dare_' at position 7: t dare_<--[HERE]@5
+S -2--2 0 0 
+@ all dgray
+R 0
+A -
+X Unknown color 'dgray' at position 7: t dgray<--[HERE]@5
+E Unknown color 'dgray' at position 7: t dgray<--[HERE]@5
+S -2--2 0 0 
+@ all pin2
+R 0
+A -
+X Unknown color 'pin2' at position 6: t pin2<--[HERE]@4
+E Unknown color 'pin2' at position 6: t pin2<--[HERE]@4
+S -2--2 0 0 
+@ all drk_greena
+R 0
+A -
+X Unknown color 'drk_greena' at position 12: ...drk_greena<--[HERE]@10
+E Unknown color 'drk_greena' at position 12: ...drk_greena<--[HERE]@10
+S -2--2 0 0 
+@ all bray
+R 0
+A -
+X Unknown color 'bray' at position 6: t bray<--[HERE]@4
+E Unknown color 'bray' at position 6: t bray<--[HERE]@4
+S -2--2 0 0 
+@ all dar^_purple
+R 0
+A -
+X Unknown color 'dar' at position 5: t dar<--[HERE]@3
+E Unknown color 'dar' at position 5: t dar<--[HERE]@3
+S -2--2 0 0 
+@ all d😀ark_purple
+R 0
+A -
+X Unknown color 'd' at position 3: t d<--[HERE]@1
+E Unknown color 'd' at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all bolo
+R 0
+A -
+X Unknown color 'bolo' at position 6: t bolo<--[HERE]@4
+E Unknown color 'bolo' at position 6: t bolo<--[HERE]@4
+S -2--2 0 0 
+@ all l😀ow
+R 0
+A -
+X Unknown color 'l' at position 3: t l<--[HERE]@1
+E Unknown color 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all !hite
+R 0
+A -
+X Unknown color '' at position 2: t <--[HERE]@0
+E Unknown color '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all gray8-
+R 0
+A -
+X Unknown color 'gray8-' at position 8: t gray8-<--[HERE]@6
+E Unknown color 'gray8-' at position 8: t gray8-<--[HERE]@6
+S -2--2 0 0 

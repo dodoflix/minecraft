@@ -1,0 +1,1809 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all 0..5.2
+R 6
+A 0-6 0.0..5.2 sq=0.0..27.040000000000003
+E ok
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all -5.4
+R 4
+A 0-4 -5.4..-5.4 sq=29.160000000000004..29.160000000000004
+E ok
+S -2--2 0 0 
+@ all -100.76..
+R 9
+A 0-9 -100.76..- sq=10152.5776..-
+E ok
+S -2--2 0 0 
+@ all ..100
+R 5
+A 0-5 -..100.0 sq=-..10000.0
+E ok
+S -2--2 0 0 
+@ all ..
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5..1.5
+R 8
+A 0-8 1.5..1.5 sq=2.25..2.25
+E ok
+S -2--2 0 0 
+@ all 5..1
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5
+R 3
+A 0-3 1.5..1.5 sq=2.25..2.25
+E ok
+S -2--2 0 0 
+@ all .5
+R 2
+A 0-2 0.5..0.5 sq=0.25..0.25
+E ok
+S -2--2 0 0 
+@ all 5.
+R 2
+A 0-2 5.0..5.0 sq=25.0..25.0
+E ok
+S -2--2 0 0 
+@ all ..-1.5
+R 6
+A 0-6 -..-1.5 sq=-..2.25
+E ok
+S -2--2 0 0 
+@ all 1e2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1e400
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all NaN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all 0.1..0.2
+R 8
+A 0-8 0.1..0.2 sq=0.010000000000000002..0.04000000000000001
+E ok
+S -2--2 0 0 
+@ all -0..0
+R 5
+A 0-5 -0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all 1.0E10
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+S -2--2 0 0 
+@ all 1 
+R 1
+A 0-1 1.0..1.0 sq=1.0..1.0
+E Incorrect argument for command at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 0.
+R 2
+A 0-2 0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all 0..
+R 3
+A 0-3 0.0..- sq=0.0..-
+E ok
+S -2--2 0 0 
+@ all 0..5
+R 4
+A 0-4 0.0..5.0 sq=0.0..25.0
+E ok
+S -2--2 0 0 
+@ all 0..5.
+R 5
+A 0-5 0.0..5.0 sq=0.0..25.0
+E ok
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -5
+R 2
+A 0-2 -5.0..-5.0 sq=25.0..25.0
+E ok
+S -2--2 0 0 
+@ all -5.
+R 3
+A 0-3 -5.0..-5.0 sq=25.0..25.0
+E ok
+S -2--2 0 0 
+@ all -1
+R 2
+A 0-2 -1.0..-1.0 sq=1.0..1.0
+E ok
+S -2--2 0 0 
+@ all -10
+R 3
+A 0-3 -10.0..-10.0 sq=100.0..100.0
+E ok
+S -2--2 0 0 
+@ all -100
+R 4
+A 0-4 -100.0..-100.0 sq=10000.0..10000.0
+E ok
+S -2--2 0 0 
+@ all -100.
+R 5
+A 0-5 -100.0..-100.0 sq=10000.0..10000.0
+E ok
+S -2--2 0 0 
+@ all -100.7
+R 6
+A 0-6 -100.7..-100.7 sq=10140.49..10140.49
+E ok
+S -2--2 0 0 
+@ all -100.76
+R 7
+A 0-7 -100.76..-100.76 sq=10152.5776..10152.5776
+E ok
+S -2--2 0 0 
+@ all -100.76.
+R 0
+A -
+X Invalid double '-100.76.' at position 2: t <--[HERE]@0
+E Invalid double '-100.76.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..1
+R 3
+A 0-3 -..1.0 sq=-..1.0
+E ok
+S -2--2 0 0 
+@ all ..10
+R 4
+A 0-4 -..10.0 sq=-..100.0
+E ok
+S -2--2 0 0 
+@ all 1
+R 1
+A 0-1 1.0..1.0 sq=1.0..1.0
+E ok
+S -2--2 0 0 
+@ all 1.
+R 2
+A 0-2 1.0..1.0 sq=1.0..1.0
+E ok
+S -2--2 0 0 
+@ all 1.5.
+R 0
+A -
+X Invalid double '1.5.' at position 2: t <--[HERE]@0
+E Invalid double '1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5..
+R 5
+A 0-5 1.5..- sq=2.25..-
+E ok
+S -2--2 0 0 
+@ all 1.5..1
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5..1.
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5
+R 1
+A 0-1 5.0..5.0 sq=25.0..25.0
+E ok
+S -2--2 0 0 
+@ all 5..
+R 3
+A 0-3 5.0..- sq=25.0..-
+E ok
+S -2--2 0 0 
+@ all ..-
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..-1
+R 4
+A 0-4 -..-1.0 sq=-..1.0
+E ok
+S -2--2 0 0 
+@ all ..-1.
+R 5
+A 0-5 -..-1.0 sq=-..1.0
+E ok
+S -2--2 0 0 
+@ all 1e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1e4
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1e40
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all N
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Na
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..
+R 3
+A 0-3 1.0..- sq=1.0..-
+E ok
+S -2--2 0 0 
+@ all 0.1
+R 3
+A 0-3 0.1..0.1 sq=0.010000000000000002..0.010000000000000002
+E ok
+S -2--2 0 0 
+@ all 0.1.
+R 0
+A -
+X Invalid double '0.1.' at position 2: t <--[HERE]@0
+E Invalid double '0.1.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1..
+R 5
+A 0-5 0.1..- sq=0.010000000000000002..-
+E ok
+S -2--2 0 0 
+@ all 0.1..0
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1..0.
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0
+R 2
+A 0-2 -0.0..-0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all -0.
+R 3
+A 0-3 -0.0..-0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all -0..
+R 4
+A 0-4 -0.0..- sq=0.0..-
+E ok
+S -2--2 0 0 
+@ all 1.0
+R 3
+A 0-3 1.0..1.0 sq=1.0..1.0
+E ok
+S -2--2 0 0 
+@ all 1.0E
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+S -2--2 0 0 
+@ all 1.0E1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+S -2--2 0 0 
+@ all .-1.5
+R 0
+A -
+X Invalid double '.-1.5' at position 2: t <--[HERE]@0
+E Invalid double '.-1.5' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 170E101
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 170<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 170<--[HERE]@3
+S -2--2 0 0 
+@ all ..11
+R 4
+A 0-4 -..11.0 sq=-..121.0
+E ok
+S -2--2 0 0 
+@ all ..1.
+R 4
+A 0-4 -..1.0 sq=-..1.0
+E ok
+S -2--2 0 0 
+@ all 195
+R 3
+A 0-3 195.0..195.0 sq=38025.0..38025.0
+E ok
+S -2--2 0 0 
+@ all Y
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @aa
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .y
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .0EY10
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t .0<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t .0<--[HERE]@2
+S -2--2 0 0 
+@ all -10076..6
+R 9
+A 0-9 -10076.0..6.0 sq=1.01525776E8..36.0
+E ok
+S -2--2 0 0 
+@ all 1.5"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all 1eY40\u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all -..00
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..aa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all -0.%.0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+S -2--2 0 0 
+@ all Ze
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 中1e2
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 62100.76..
+R 10
+A 0-10 62100.76..- sq=3.8565043925776005E9..-
+E ok
+S -2--2 0 0 
+@ all .)
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1..0​2
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5..1.5\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t 1.5..1.5<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t 1.5..1.5<--[HERE]@8
+S -2--2 0 0 
+@ all .@
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1(,2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ...
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1..B0.<2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t 0.1..<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t 0.1..<--[HERE]@5
+S -2--2 0 0 
+@ all 9NaN
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all .\u0009.
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all c.55
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .4.
+R 0
+A -
+X Invalid double '.4.' at position 2: t <--[HERE]@0
+E Invalid double '.4.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aa
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5..1\u0009.
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 14
+R 2
+A 0-2 14.0..14.0 sq=196.0..196.0
+E ok
+S -2--2 0 0 
+@ all -} .4
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1..0.21
+R 9
+A 0-9 0.1..0.21 sq=0.010000000000000002..0.04409999999999999
+E ok
+S -2--2 0 0 
+@ all 1A0E}0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 6..6
+R 4
+A 0-4 6.0..6.0 sq=36.0..36.0
+E ok
+S -2--2 0 0 
+@ all 1.51
+R 4
+A 0-4 1.51..1.51 sq=2.2801..2.2801
+E ok
+S -2--2 0 0 
+@ all \u0000.
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 55
+R 2
+A 0-2 55.0..55.0 sq=3025.0..3025.0
+E ok
+S -2--2 0 0 
+@ all 7e2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 7<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all .1.5
+R 0
+A -
+X Invalid double '.1.5' at position 2: t <--[HERE]@0
+E Invalid double '.1.5' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.@0E101
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+S -2--2 0 0 
+@ all 0.{76..
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+S -2--2 0 0 
+@ all \\NaN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1.5.
+R 0
+A -
+X Invalid double '-1.5.' at position 2: t <--[HERE]@0
+E Invalid double '-1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0..5.2.
+R 0
+A -
+X Invalid double '5.2.' at position 2: t <--[HERE]@0
+E Invalid double '5.2.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..1.5
+R 5
+A 0-5 -..1.5 sq=-..2.25
+E ok
+S -2--2 0 0 
+@ all 0..00
+R 5
+A 0-5 0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all -0..0.
+R 6
+A 0-6 -0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all İ.100
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 15.1.5
+R 0
+A -
+X Invalid double '15.1.5' at position 2: t <--[HERE]@0
+E Invalid double '15.1.5' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e￿2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1e,"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1.5..z.5.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t 1.5..<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t 1.5..<--[HERE]@5
+S -2--2 0 0 
+@ all ..1005
+R 6
+A 0-6 -..1005.0 sq=-..1010025.0
+E ok
+S -2--2 0 0 
+@ all 06
+R 2
+A 0-2 6.0..6.0 sq=36.0..36.0
+E ok
+S -2--2 0 0 
+@ all ..X~1.5
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .=.
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Z0
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..B
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all ^1e40
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 1
+R 2
+A 0-1 1.0..1.0 sq=1.0..1.0
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 1eE10
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 4
+R 1
+A 0-1 4.0..4.0 sq=16.0..16.0
+E ok
+S -2--2 0 0 
+@ all .:
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .76..-
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -'..0
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1..0.20
+R 9
+A 0-9 0.1..0.2 sq=0.010000000000000002..0.04000000000000001
+E ok
+S -2--2 0 0 
+@ all 1\u00004004
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all .0
+R 2
+A 0-2 0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all 1C5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all -100.76￿.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t -100.76<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t -100.76<--[HERE]@7
+S -2--2 0 0 
+@ all a8
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "aN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.31..0.2
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e22e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all .5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+S -2--2 0 0 
+@ all z5
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.a..1.5.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+S -2--2 0 0 
+@ all 1..a(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all 0.1.0.2
+R 0
+A -
+X Invalid double '0.1.0.2' at position 2: t <--[HERE]@0
+E Invalid double '0.1.0.2' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .aa
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5..1.
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1.5
+R 4
+A 0-4 -1.5..-1.5 sq=2.25..2.25
+E ok
+S -2--2 0 0 
+@ all ..-1.95
+R 7
+A 0-7 -..-1.95 sq=-..3.8024999999999998
+E ok
+S -2--2 0 0 
+@ all -0.ß.0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+S -2--2 0 0 
+@ all 0.5
+R 3
+A 0-3 0.5..0.5 sq=0.25..0.25
+E ok
+S -2--2 0 0 
+@ all -0\\.0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t -0<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t -0<--[HERE]@2
+S -2--2 0 0 
+@ all 1e400a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1.010.
+R 0
+A -
+X Invalid double '1.010.' at position 2: t <--[HERE]@0
+E Invalid double '1.010.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.0E0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+S -2--2 0 0 
+@ all 0.1..0x.2
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1..0&2.
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..a.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all 1 Y
+R 2
+A 0-1 1.0..1.0 sq=1.0..1.0
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all ..10.
+R 5
+A 0-5 -..10.0 sq=-..100.0
+E ok
+S -2--2 0 0 
+@ all 14004
+R 5
+A 0-5 14004.0..14004.0 sq=1.96112016E8..1.96112016E8
+E ok
+S -2--2 0 0 
+@ all aNN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..10011
+R 7
+A 0-7 -..10011.0 sq=-..1.00220121E8
+E ok
+S -2--2 0 0 
+@ all }5.
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..1000
+R 6
+A 0-6 -..1000.0 sq=-..1000000.0
+E ok
+S -2--2 0 0 
+@ all 1c 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 0yd
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 1@e2e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all @..
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3-0..0
+R 0
+A -
+X Invalid double '3-0' at position 2: t <--[HERE]@0
+E Invalid double '3-0' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5]0.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all ..100.
+R 6
+A 0-6 -..100.0 sq=-..10000.0
+E ok
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a..%-1.5
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -10.76..
+R 8
+A 0-8 -10.76..- sq=115.77759999999999..-
+E ok
+S -2--2 0 0 
+@ all .:.10c
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 )
+R 2
+A 0-1 1.0..1.0 sq=1.0..1.0
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all .z.10￿
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 100.76..
+R 8
+A 0-8 100.76..- sq=10152.5776..-
+E ok
+S -2--2 0 0 
+@ all 2
+R 1
+A 0-1 2.0..2.0 sq=4.0..4.0
+E ok
+S -2--2 0 0 
+@ all 00
+R 2
+A 0-2 0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all 1.y0E100
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+S -2--2 0 0 
+@ all ..-1 5
+R 5
+A 0-4 -..-1.0 sq=-..1.0
+E Incorrect argument for command at position 7: t ..-1 <--[HERE]@5
+S -2--2 0 0 
+@ all 1e140
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all Naa
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5ß.1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all 0..5.25.
+R 0
+A -
+X Invalid double '5.25.' at position 2: t <--[HERE]@0
+E Invalid double '5.25.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 22
+R 2
+A 0-2 22.0..22.0 sq=484.0..484.0
+E ok
+S -2--2 0 0 
+@ all d+1..a
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -.4
+R 3
+A 0-3 -0.4..-0.4 sq=0.16000000000000003..0.16000000000000003
+E ok
+S -2--2 0 0 
+@ all .b.
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ]..1x0
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .2
+R 2
+A 0-2 0.2..0.2 sq=0.04000000000000001..0.04000000000000001
+E ok
+S -2--2 0 0 
+@ all 1.5.f
+R 0
+A -
+X Invalid double '1.5.' at position 2: t <--[HERE]@0
+E Invalid double '1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0-..0
+R 0
+A -
+X Invalid double '-0-' at position 2: t <--[HERE]@0
+E Invalid double '-0-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..81001
+R 7
+A 0-7 -..81001.0 sq=-..6.561162001E9
+E ok
+S -2--2 0 0 
+@ all 1.0.2
+R 0
+A -
+X Invalid double '1.0.2' at position 2: t <--[HERE]@0
+E Invalid double '1.0.2' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NaNN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0..5.20
+R 7
+A 0-7 0.0..5.2 sq=0.0..27.040000000000003
+E ok
+S -2--2 0 0 
+@ all 1._
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 1.<--[HERE]@2
+S -2--2 0 0 
+@ all .1001
+R 5
+A 0-5 0.1001..0.1001 sq=0.01002001..0.01002001
+E ok
+S -2--2 0 0 
+@ all 5..11
+R 5
+A 0-5 5.0..11.0 sq=25.0..121.0
+E ok
+S -2--2 0 0 
+@ all 94..
+R 4
+A 0-4 94.0..- sq=8836.0..-
+E ok
+S -2--2 0 0 
+@ all -0..00
+R 6
+A 0-6 -0.0..0.0 sq=0.0..0.0
+E ok
+S -2--2 0 0 
+@ all -5.}
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -5.<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -5.<--[HERE]@3
+S -2--2 0 0 
+@ all %-5.
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all 0.1(.0.2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 0.1<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 0.1<--[HERE]@3
+S -2--2 0 0 
+@ all 0.1...2
+R 7
+A 0-7 0.1..0.2 sq=0.010000000000000002..0.04000000000000001
+E ok
+S -2--2 0 0 
+@ all 01.0E10
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t 01.0<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t 01.0<--[HERE]@4
+S -2--2 0 0 
+@ all 5..X.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 5..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 5..<--[HERE]@3
+S -2--2 0 0 
+@ all 1.5..1.5C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t 1.5..1.5<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t 1.5..1.5<--[HERE]@8
+S -2--2 0 0 
+@ all )
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .3.-1.5
+R 0
+A -
+X Invalid double '.3.-1.5' at position 2: t <--[HERE]@0
+E Invalid double '.3.-1.5' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5...
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1  
+R 2
+A 0-1 1.0..1.0 sq=1.0..1.0
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all   
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .52
+R 3
+A 0-3 0.52..0.52 sq=0.27040000000000003..0.27040000000000003
+E ok
+S -2--2 0 0 
+@ all -15
+R 3
+A 0-3 -15.0..-15.0 sq=225.0..225.0
+E ok
+S -2--2 0 0 
+@ all !aNN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0(1..0.<2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 70
+R 2
+A 0-2 70.0..70.0 sq=4900.0..4900.0
+E ok
+S -2--2 0 0 
+@ all ~5
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all 5.5
+R 3
+A 0-3 5.5..5.5 sq=30.25..30.25
+E ok
+S -2--2 0 0 
+@ all 53
+R 2
+A 0-2 53.0..53.0 sq=2809.0..2809.0
+E ok
+S -2--2 0 0 
+@ all 5'4
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all 8
+R 1
+A 0-1 8.0..8.0 sq=64.0..64.0
+E ok
+S -2--2 0 0 
+@ all ..500
+R 5
+A 0-5 -..500.0 sq=-..250000.0
+E ok
+S -2--2 0 0 
+@ all 7a"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 7<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all 1.5.￿é1.5
+R 0
+A -
+X Invalid double '1.5.' at position 2: t <--[HERE]@0
+E Invalid double '1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0E10
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 0..5.\u00092
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t 0..5.<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t 0..5.<--[HERE]@5
+S -2--2 0 0 
+@ all Na<NN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 31.5..1.5.
+R 0
+A -
+X Invalid double '1.5.' at position 2: t <--[HERE]@0
+E Invalid double '1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1,.a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all -100.6..
+R 8
+A 0-8 -100.6..- sq=10120.359999999999..-
+E ok
+S -2--2 0 0 
+@ all 16.0E10
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t 16.0<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t 16.0<--[HERE]@4
+S -2--2 0 0 
+@ all 101
+R 3
+A 0-3 101.0..101.0 sq=10201.0..10201.0
+E ok
+S -2--2 0 0 
+@ all 15
+R 2
+A 0-2 15.0..15.0 sq=225.0..225.0
+E ok
+S -2--2 0 0 
+@ all 1e000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all .1
+R 2
+A 0-2 0.1..0.1 sq=0.010000000000000002..0.010000000000000002
+E ok
+S -2--2 0 0 
+@ all -100.76..33
+R 11
+A 0-11 -100.76..33.0 sq=10152.5776..1089.0
+E ok
+S -2--2 0 0 
+@ all .3100.
+R 0
+A -
+X Invalid double '.3100.' at position 2: t <--[HERE]@0
+E Invalid double '.3100.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -100.76..0
+R 10
+A 0-10 -100.76..0.0 sq=10152.5776..0.0
+E ok
+S -2--2 0 0 
+@ all 0N3aN
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 1 11
+R 2
+A 0-1 1.0..1.0 sq=1.0..1.0
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 1.0E1#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+S -2--2 0 0 
+@ all de2
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1_e2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 5..1.5
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -5.z4
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -5.<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -5.<--[HERE]@3
+S -2--2 0 0 
+@ all 0.1.{0.2
+R 0
+A -
+X Invalid double '0.1.' at position 2: t <--[HERE]@0
+E Invalid double '0.1.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .0.
+R 0
+A -
+X Invalid double '.0.' at position 2: t <--[HERE]@0
+E Invalid double '.0.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\41..a
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1  1
+R 2
+A 0-1 1.0..1.0 sq=1.0..1.0
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 1e40001
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ..-1.5.
+R 0
+A -
+X Invalid double '-1.5.' at position 2: t <--[HERE]@0
+E Invalid double '-1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all 100
+R 3
+A 0-3 100.0..100.0 sq=10000.0..10000.0
+E ok
+S -2--2 0 0 
+@ all N7N
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..aaa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1..<--[HERE]@3
+S -2--2 0 0 
+@ all 1e4Y00
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..*
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .100
+R 4
+A 0-4 0.1..0.1 sq=0.010000000000000002..0.010000000000000002
+E ok
+S -2--2 0 0 
+@ all -0\u00008.0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t -0<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t -0<--[HERE]@2
+S -2--2 0 0 
+@ all .a
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a 
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..a
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 56
+R 2
+A 0-2 56.0..56.0 sq=3136.0..3136.0
+E ok
+S -2--2 0 0 
+@ all .55
+R 3
+A 0-3 0.55..0.55 sq=0.30250000000000005..0.30250000000000005
+E ok
+S -2--2 0 0 
+@ all -0...
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1..0.2
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1Y5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all >1.
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -5\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t -5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t -5<--[HERE]@2
+S -2--2 0 0 
+@ all e2
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .x-1.5.
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -100.7]..
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t -100.7<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t -100.7<--[HERE]@6
+S -2--2 0 0 
+@ all 0.1..0.2.
+R 0
+A -
+X Invalid double '0.2.' at position 2: t <--[HERE]@0
+E Invalid double '0.2.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~a
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .5\u000a(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+S -2--2 0 0 
+@ all 0.1.Z.0.2
+R 0
+A -
+X Invalid double '0.1.' at position 2: t <--[HERE]@0
+E Invalid double '0.1.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1+400+
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all -10Z0.73..
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -10<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -10<--[HERE]@3
+S -2--2 0 0 
+@ all 10E10
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 10<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 10<--[HERE]@2
+S -2--2 0 0 
+@ all 12
+R 2
+A 0-2 12.0..12.0 sq=144.0..144.0
+E ok
+S -2--2 0 0 
+@ all -54*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -54<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -54<--[HERE]@3
+S -2--2 0 0 
+@ all -a0..
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0..\\0-
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t -0..<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t -0..<--[HERE]@4
+S -2--2 0 0 
+@ all ..-\u000a.
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all 1.0E10.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.0<--[HERE]@3
+S -2--2 0 0 
+@ all ,
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all +
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5..15
+R 5
+A 0-5 5.0..15.0 sq=25.0..225.0
+E ok
+S -2--2 0 0 
+@ all e..
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1400
+R 4
+A 0-4 1400.0..1400.0 sq=1960000.0..1960000.0
+E ok
+S -2--2 0 0 
+@ all 5..[5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 5..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 5..<--[HERE]@3
+S -2--2 0 0 
+@ all .1..0.2.
+R 0
+A -
+X Invalid double '0.2.' at position 2: t <--[HERE]@0
+E Invalid double '0.2.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..5
+R 3
+A 0-3 -..5.0 sq=-..25.0
+E ok
+S -2--2 0 0 
+@ all 57..1.
+R 0
+A -
+X Min cannot be bigger than max at position 2: t <--[HERE]@0
+E Min cannot be bigger than max at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 100.76...
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0<.1..0.2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all CNaN
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Na,
+R 0
+A -
+X Expected value or range of values at position 2: t <--[HERE]@0
+E Expected value or range of values at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ..-1&.5.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ..-1<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ..-1<--[HERE]@4
+S -2--2 0 0 
+@ all 5..#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 5..<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 5..<--[HERE]@3
+S -2--2 0 0 
+@ all 0..520
+R 6
+A 0-6 0.0..520.0 sq=0.0..270400.0
+E ok
+S -2--2 0 0 
+@ all 1e40Yb
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all -0..3中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t -0..3<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t -0..3<--[HERE]@5
+S -2--2 0 0 
+@ all .0.1..0.2
+R 0
+A -
+X Invalid double '.0.1' at position 2: t <--[HERE]@0
+E Invalid double '.0.1' at position 2: t <--[HERE]@0
+S -2--2 0 0 

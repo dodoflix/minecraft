@@ -1,0 +1,1911 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 2 1237178516 eyes	feet
+@ all feet
+R 4
+A 0-4 FEET
+E ok
+S -2--2 0 0 
+@ all eyes
+R 4
+A 0-4 EYES
+E ok
+S -2--2 0 0 
+@ all Feet
+R 0
+A -
+X Invalid entity anchor position Feet at position 2: t <--[HERE]@0
+E Invalid entity anchor position Feet at position 2: t <--[HERE]@0
+S 0-4 1 97308699 feet
+@ all head
+R 0
+A -
+X Invalid entity anchor position head at position 2: t <--[HERE]@0
+E Invalid entity anchor position head at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Invalid entity anchor position e at position 2: t <--[HERE]@0
+E Invalid entity anchor position e at position 2: t <--[HERE]@0
+S 0-1 1 96980967 eyes
+@ all feet 
+R 4
+A 0-4 FEET
+E Incorrect argument for command at position 6: t feet<--[HERE]@4
+S -2--2 0 0 
+@ all eyes_
+R 0
+A -
+X Invalid entity anchor position eyes_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Invalid entity anchor position f at position 2: t <--[HERE]@0
+E Invalid entity anchor position f at position 2: t <--[HERE]@0
+S 0-1 1 97308699 feet
+@ all fe
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S 0-2 1 97308699 feet
+@ all fee
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S 0-3 1 97308699 feet
+@ all ey
+R 0
+A -
+X Invalid entity anchor position ey at position 2: t <--[HERE]@0
+E Invalid entity anchor position ey at position 2: t <--[HERE]@0
+S 0-2 1 96980967 eyes
+@ all eye
+R 0
+A -
+X Invalid entity anchor position eye at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye at position 2: t <--[HERE]@0
+S 0-3 1 96980967 eyes
+@ all F
+R 0
+A -
+X Invalid entity anchor position F at position 2: t <--[HERE]@0
+E Invalid entity anchor position F at position 2: t <--[HERE]@0
+S 0-1 1 97308699 feet
+@ all Fe
+R 0
+A -
+X Invalid entity anchor position Fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fe at position 2: t <--[HERE]@0
+S 0-2 1 97308699 feet
+@ all Fee
+R 0
+A -
+X Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+S 0-3 1 97308699 feet
+@ all h
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all he
+R 0
+A -
+X Invalid entity anchor position he at position 2: t <--[HERE]@0
+E Invalid entity anchor position he at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all hea
+R 0
+A -
+X Invalid entity anchor position hea at position 2: t <--[HERE]@0
+E Invalid entity anchor position hea at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eet
+R 0
+A -
+X Invalid entity anchor position eet at position 2: t <--[HERE]@0
+E Invalid entity anchor position eet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X Invalid entity anchor position t at position 2: t <--[HERE]@0
+E Invalid entity anchor position t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all tt
+R 0
+A -
+X Invalid entity anchor position tt at position 2: t <--[HERE]@0
+E Invalid entity anchor position tt at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes_y
+R 0
+A -
+X Invalid entity anchor position eyes_y at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes_y at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes3
+R 0
+A -
+X Invalid entity anchor position eyes3 at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes3 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all hexad
+R 0
+A -
+X Invalid entity anchor position hexad at position 2: t <--[HERE]@0
+E Invalid entity anchor position hexad at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all yes_e
+R 0
+A -
+X Invalid entity anchor position yes_e at position 2: t <--[HERE]@0
+E Invalid entity anchor position yes_e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {eet
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all he@ad
+R 0
+A -
+X Invalid entity anchor position he at position 2: t <--[HERE]@0
+E Invalid entity anchor position he at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee*F
+R 0
+A -
+X Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all efyes
+R 0
+A -
+X Invalid entity anchor position efyes at position 2: t <--[HERE]@0
+E Invalid entity anchor position efyes at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all heade
+R 0
+A -
+X Invalid entity anchor position heade at position 2: t <--[HERE]@0
+E Invalid entity anchor position heade at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eye$
+R 0
+A -
+X Invalid entity anchor position eye at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe\u0009ete
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyez_e
+R 0
+A -
+X Invalid entity anchor position eyez_e at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyez_e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all es
+R 0
+A -
+X Invalid entity anchor position es at position 2: t <--[HERE]@0
+E Invalid entity anchor position es at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all }s_
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fe'tt
+R 0
+A -
+X Invalid entity anchor position Fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee[e
+R 0
+A -
+X Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all b
+R 0
+A -
+X Invalid entity anchor position b at position 2: t <--[HERE]@0
+E Invalid entity anchor position b at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~feet
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feCetY
+R 0
+A -
+X Invalid entity anchor position feCetY at position 2: t <--[HERE]@0
+E Invalid entity anchor position feCetY at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes_e_
+R 0
+A -
+X Invalid entity anchor position eyes_e_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes_e_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ett
+R 0
+A -
+X Invalid entity anchor position ett at position 2: t <--[HERE]@0
+E Invalid entity anchor position ett at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eet  
+R 0
+A -
+X Invalid entity anchor position eet at position 2: t <--[HERE]@0
+E Invalid entity anchor position eet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all B
+R 0
+A -
+X Invalid entity anchor position B at position 2: t <--[HERE]@0
+E Invalid entity anchor position B at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Invalid entity anchor position - at position 2: t <--[HERE]@0
+E Invalid entity anchor position - at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyese
+R 0
+A -
+X Invalid entity anchor position eyese at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyese at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyess
+R 0
+A -
+X Invalid entity anchor position eyess at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyess at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h}ead
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ee
+R 0
+A -
+X Invalid entity anchor position ee at position 2: t <--[HERE]@0
+E Invalid entity anchor position ee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyey
+R 0
+A -
+X Invalid entity anchor position eyey at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyey at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $é
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ead
+R 0
+A -
+X Invalid entity anchor position ead at position 2: t <--[HERE]@0
+E Invalid entity anchor position ead at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ey<es_
+R 0
+A -
+X Invalid entity anchor position ey at position 2: t <--[HERE]@0
+E Invalid entity anchor position ey at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t t
+R 0
+A -
+X Invalid entity anchor position t at position 2: t <--[HERE]@0
+E Invalid entity anchor position t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feetb
+R 0
+A -
+X Invalid entity anchor position feetb at position 2: t <--[HERE]@0
+E Invalid entity anchor position feetb at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feete
+R 0
+A -
+X Invalid entity anchor position feete at position 2: t <--[HERE]@0
+E Invalid entity anchor position feete at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Feet@
+R 0
+A -
+X Invalid entity anchor position Feet at position 2: t <--[HERE]@0
+E Invalid entity anchor position Feet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes__
+R 0
+A -
+X Invalid entity anchor position eyes__ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes__ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all yeB
+R 0
+A -
+X Invalid entity anchor position yeB at position 2: t <--[HERE]@0
+E Invalid entity anchor position yeB at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fet t
+R 0
+A -
+X Invalid entity anchor position fet at position 2: t <--[HERE]@0
+E Invalid entity anchor position fet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all et
+R 0
+A -
+X Invalid entity anchor position et at position 2: t <--[HERE]@0
+E Invalid entity anchor position et at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h​ead
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all headee
+R 0
+A -
+X Invalid entity anchor position headee at position 2: t <--[HERE]@0
+E Invalid entity anchor position headee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eye1
+R 0
+A -
+X Invalid entity anchor position eye1 at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye1 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​e
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e.ye
+R 0
+A -
+X Invalid entity anchor position e.ye at position 2: t <--[HERE]@0
+E Invalid entity anchor position e.ye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e_
+R 0
+A -
+X Invalid entity anchor position e_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position e_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X Invalid entity anchor position s at position 2: t <--[HERE]@0
+E Invalid entity anchor position s at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Cee
+R 0
+A -
+X Invalid entity anchor position Cee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Cee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ees_
+R 0
+A -
+X Invalid entity anchor position ees_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position ees_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fet
+R 0
+A -
+X Invalid entity anchor position Fet at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes_4
+R 0
+A -
+X Invalid entity anchor position eyes_4 at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes_4 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyßes_
+R 0
+A -
+X Invalid entity anchor position ey at position 2: t <--[HERE]@0
+E Invalid entity anchor position ey at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all et 
+R 0
+A -
+X Invalid entity anchor position et at position 2: t <--[HERE]@0
+E Invalid entity anchor position et at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all FeetF
+R 0
+A -
+X Invalid entity anchor position FeetF at position 2: t <--[HERE]@0
+E Invalid entity anchor position FeetF at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ]es
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t 
+R 0
+A -
+X Invalid entity anchor position t at position 2: t <--[HERE]@0
+E Invalid entity anchor position t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe9t 
+R 0
+A -
+X Invalid entity anchor position fe9t at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe9t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all __
+R 0
+A -
+X Invalid entity anchor position __ at position 2: t <--[HERE]@0
+E Invalid entity anchor position __ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyeZ@_
+R 0
+A -
+X Invalid entity anchor position eyeZ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyeZ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F4eet
+R 0
+A -
+X Invalid entity anchor position F4eet at position 2: t <--[HERE]@0
+E Invalid entity anchor position F4eet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes_e
+R 0
+A -
+X Invalid entity anchor position eyes_e at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes_e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ey4es_
+R 0
+A -
+X Invalid entity anchor position ey4es_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position ey4es_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #ee
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eee
+R 0
+A -
+X Invalid entity anchor position eee at position 2: t <--[HERE]@0
+E Invalid entity anchor position eee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fet_
+R 0
+A -
+X Invalid entity anchor position fet_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position fet_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fet
+R 0
+A -
+X Invalid entity anchor position fet at position 2: t <--[HERE]@0
+E Invalid entity anchor position fet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyesey
+R 0
+A -
+X Invalid entity anchor position eyesey at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyesey at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all d
+R 0
+A -
+X Invalid entity anchor position d at position 2: t <--[HERE]@0
+E Invalid entity anchor position d at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all he中ad
+R 0
+A -
+X Invalid entity anchor position he at position 2: t <--[HERE]@0
+E Invalid entity anchor position he at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e<
+R 0
+A -
+X Invalid entity anchor position e at position 2: t <--[HERE]@0
+E Invalid entity anchor position e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eye#
+R 0
+A -
+X Invalid entity anchor position eye at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X Invalid entity anchor position c at position 2: t <--[HERE]@0
+E Invalid entity anchor position c at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fete
+R 0
+A -
+X Invalid entity anchor position Fete at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fete at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Invalid entity anchor position a at position 2: t <--[HERE]@0
+E Invalid entity anchor position a at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e 
+R 0
+A -
+X Invalid entity anchor position e at position 2: t <--[HERE]@0
+E Invalid entity anchor position e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee]t 
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all yes
+R 0
+A -
+X Invalid entity anchor position yes at position 2: t <--[HERE]@0
+E Invalid entity anchor position yes at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\eadd
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all _eet
+R 0
+A -
+X Invalid entity anchor position _eet at position 2: t <--[HERE]@0
+E Invalid entity anchor position _eet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feetY
+R 0
+A -
+X Invalid entity anchor position feetY at position 2: t <--[HERE]@0
+E Invalid entity anchor position feetY at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet}
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+S -2--2 0 0 
+@ all 6eete
+R 0
+A -
+X Invalid entity anchor position 6eete at position 2: t <--[HERE]@0
+E Invalid entity anchor position 6eete at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 4yes_e
+R 0
+A -
+X Invalid entity anchor position 4yes_e at position 2: t <--[HERE]@0
+E Invalid entity anchor position 4yes_e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet  
+R 5
+A 0-4 FEET
+E Incorrect argument for command at position 7: t feet <--[HERE]@5
+S -2--2 0 0 
+@ all Fee8
+R 0
+A -
+X Invalid entity anchor position Fee8 at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee8 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eye"s_
+R 0
+A -
+X Invalid entity anchor position eye at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  et
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all FeeF
+R 0
+A -
+X Invalid entity anchor position FeeF at position 2: t <--[HERE]@0
+E Invalid entity anchor position FeeF at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feette
+R 0
+A -
+X Invalid entity anchor position feette at position 2: t <--[HERE]@0
+E Invalid entity anchor position feette at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyCs_
+R 0
+A -
+X Invalid entity anchor position eyCs_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyCs_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Feete
+R 0
+A -
+X Invalid entity anchor position Feete at position 2: t <--[HERE]@0
+E Invalid entity anchor position Feete at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f\u000aet 
+R 0
+A -
+X Invalid entity anchor position f at position 2: t <--[HERE]@0
+E Invalid entity anchor position f at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h\\ad
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e^e
+R 0
+A -
+X Invalid entity anchor position e at position 2: t <--[HERE]@0
+E Invalid entity anchor position e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe]e_ 
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fet 
+R 0
+A -
+X Invalid entity anchor position fet at position 2: t <--[HERE]@0
+E Invalid entity anchor position fet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F+eet8
+R 0
+A -
+X Invalid entity anchor position F+eet8 at position 2: t <--[HERE]@0
+E Invalid entity anchor position F+eet8 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all yezs_
+R 0
+A -
+X Invalid entity anchor position yezs_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position yezs_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe:etf
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ey%s
+R 0
+A -
+X Invalid entity anchor position ey at position 2: t <--[HERE]@0
+E Invalid entity anchor position ey at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 4{et 
+R 0
+A -
+X Invalid entity anchor position 4 at position 2: t <--[HERE]@0
+E Invalid entity anchor position 4 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes\u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+S -2--2 0 0 
+@ all )feet 
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all /hea>d
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ce8t
+R 0
+A -
+X Invalid entity anchor position ce8t at position 2: t <--[HERE]@0
+E Invalid entity anchor position ce8t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all hea=
+R 0
+A -
+X Invalid entity anchor position hea at position 2: t <--[HERE]@0
+E Invalid entity anchor position hea at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 中
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all héad
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Invalid entity anchor position 1 at position 2: t <--[HERE]@0
+E Invalid entity anchor position 1 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Feect
+R 0
+A -
+X Invalid entity anchor position Feect at position 2: t <--[HERE]@0
+E Invalid entity anchor position Feect at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee++
+R 0
+A -
+X Invalid entity anchor position Fee++ at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee++ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet te
+R 5
+A 0-4 FEET
+E Incorrect argument for command at position 7: t feet <--[HERE]@5
+S -2--2 0 0 
+@ all +feet
+R 0
+A -
+X Invalid entity anchor position +feet at position 2: t <--[HERE]@0
+E Invalid entity anchor position +feet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3ee
+R 0
+A -
+X Invalid entity anchor position 3ee at position 2: t <--[HERE]@0
+E Invalid entity anchor position 3ee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h^.ad
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3
+R 0
+A -
+X Invalid entity anchor position 3 at position 2: t <--[HERE]@0
+E Invalid entity anchor position 3 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyesss
+R 0
+A -
+X Invalid entity anchor position eyesss at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyesss at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes:0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+S -2--2 0 0 
+@ all x
+R 0
+A -
+X Invalid entity anchor position x at position 2: t <--[HERE]@0
+E Invalid entity anchor position x at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ese
+R 0
+A -
+X Invalid entity anchor position ese at position 2: t <--[HERE]@0
+E Invalid entity anchor position ese at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all %
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F\u0009t
+R 0
+A -
+X Invalid entity anchor position F at position 2: t <--[HERE]@0
+E Invalid entity anchor position F at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f!et 
+R 0
+A -
+X Invalid entity anchor position f at position 2: t <--[HERE]@0
+E Invalid entity anchor position f at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s_
+R 0
+A -
+X Invalid entity anchor position s_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position s_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyXss
+R 0
+A -
+X Invalid entity anchor position eyXss at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyXss at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all yes_s
+R 0
+A -
+X Invalid entity anchor position yes_s at position 2: t <--[HERE]@0
+E Invalid entity anchor position yes_s at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​​
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ee 
+R 0
+A -
+X Invalid entity anchor position ee at position 2: t <--[HERE]@0
+E Invalid entity anchor position ee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eye_
+R 0
+A -
+X Invalid entity anchor position eye_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Feett
+R 0
+A -
+X Invalid entity anchor position Feett at position 2: t <--[HERE]@0
+E Invalid entity anchor position Feett at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  eet f
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all A
+R 0
+A -
+X Invalid entity anchor position A at position 2: t <--[HERE]@0
+E Invalid entity anchor position A at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀ead
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes^
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+S -2--2 0 0 
+@ all ada
+R 0
+A -
+X Invalid entity anchor position ada at position 2: t <--[HERE]@0
+E Invalid entity anchor position ada at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feft
+R 0
+A -
+X Invalid entity anchor position feft at position 2: t <--[HERE]@0
+E Invalid entity anchor position feft at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee)
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ye/s
+R 0
+A -
+X Invalid entity anchor position ye at position 2: t <--[HERE]@0
+E Invalid entity anchor position ye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee 
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #yes
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ￿feet
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet. 
+R 0
+A -
+X Invalid entity anchor position feet. at position 2: t <--[HERE]@0
+E Invalid entity anchor position feet. at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all <<
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyzes_e
+R 0
+A -
+X Invalid entity anchor position eyzes_e at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyzes_e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feetf
+R 0
+A -
+X Invalid entity anchor position feetf at position 2: t <--[HERE]@0
+E Invalid entity anchor position feetf at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e\u0000t
+R 0
+A -
+X Invalid entity anchor position e at position 2: t <--[HERE]@0
+E Invalid entity anchor position e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s_e
+R 0
+A -
+X Invalid entity anchor position s_e at position 2: t <--[HERE]@0
+E Invalid entity anchor position s_e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ed
+R 0
+A -
+X Invalid entity anchor position ed at position 2: t <--[HERE]@0
+E Invalid entity anchor position ed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fett
+R 0
+A -
+X Invalid entity anchor position Fett at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fett at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İe
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fe t
+R 0
+A -
+X Invalid entity anchor position Fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @.et 
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fet  
+R 0
+A -
+X Invalid entity anchor position fet at position 2: t <--[HERE]@0
+E Invalid entity anchor position fet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee*t
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all he5dh
+R 0
+A -
+X Invalid entity anchor position he5dh at position 2: t <--[HERE]@0
+E Invalid entity anchor position he5dh at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a^
+R 0
+A -
+X Invalid entity anchor position a at position 2: t <--[HERE]@0
+E Invalid entity anchor position a at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e}
+R 0
+A -
+X Invalid entity anchor position e at position 2: t <--[HERE]@0
+E Invalid entity anchor position e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee<te
+R 0
+A -
+X Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fBet 
+R 0
+A -
+X Invalid entity anchor position fBet at position 2: t <--[HERE]@0
+E Invalid entity anchor position fBet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe]t)
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ffeet
+R 0
+A -
+X Invalid entity anchor position ffeet at position 2: t <--[HERE]@0
+E Invalid entity anchor position ffeet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyec
+R 0
+A -
+X Invalid entity anchor position eyec at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyec at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Feettt
+R 0
+A -
+X Invalid entity anchor position Feettt at position 2: t <--[HERE]@0
+E Invalid entity anchor position Feettt at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eybs_
+R 0
+A -
+X Invalid entity anchor position eybs_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eybs_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e3
+R 0
+A -
+X Invalid entity anchor position e3 at position 2: t <--[HERE]@0
+E Invalid entity anchor position e3 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee9
+R 0
+A -
+X Invalid entity anchor position Fee9 at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee9 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyeY_
+R 0
+A -
+X Invalid entity anchor position eyeY_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyeY_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $ee
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~~
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes~~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+S -2--2 0 0 
+@ all fee8t 
+R 0
+A -
+X Invalid entity anchor position fee8t at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee8t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h&ad
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee>
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all [yesX
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee1  
+R 0
+A -
+X Invalid entity anchor position fee1 at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee1 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 4eet
+R 0
+A -
+X Invalid entity anchor position 4eet at position 2: t <--[HERE]@0
+E Invalid entity anchor position 4eet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee[ Z
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all hea\u0000
+R 0
+A -
+X Invalid entity anchor position hea at position 2: t <--[HERE]@0
+E Invalid entity anchor position hea at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İeet
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f,eeft
+R 0
+A -
+X Invalid entity anchor position f at position 2: t <--[HERE]@0
+E Invalid entity anchor position f at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Invalid entity anchor position . at position 2: t <--[HERE]@0
+E Invalid entity anchor position . at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eye$B
+R 0
+A -
+X Invalid entity anchor position eye at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all headd
+R 0
+A -
+X Invalid entity anchor position headd at position 2: t <--[HERE]@0
+E Invalid entity anchor position headd at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 中e
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet-e
+R 0
+A -
+X Invalid entity anchor position feet-e at position 2: t <--[HERE]@0
+E Invalid entity anchor position feet-e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #eet
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sc
+R 0
+A -
+X Invalid entity anchor position sc at position 2: t <--[HERE]@0
+E Invalid entity anchor position sc at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eadd
+R 0
+A -
+X Invalid entity anchor position eadd at position 2: t <--[HERE]@0
+E Invalid entity anchor position eadd at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee"
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eet 
+R 0
+A -
+X Invalid entity anchor position eet at position 2: t <--[HERE]@0
+E Invalid entity anchor position eet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eys_
+R 0
+A -
+X Invalid entity anchor position eys_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eys_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F'eet
+R 0
+A -
+X Invalid entity anchor position F at position 2: t <--[HERE]@0
+E Invalid entity anchor position F at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet e
+R 5
+A 0-4 FEET
+E Incorrect argument for command at position 7: t feet <--[HERE]@5
+S -2--2 0 0 
+@ all eC
+R 0
+A -
+X Invalid entity anchor position eC at position 2: t <--[HERE]@0
+E Invalid entity anchor position eC at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Beyes_
+R 0
+A -
+X Invalid entity anchor position Beyes_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position Beyes_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Bet 
+R 0
+A -
+X Invalid entity anchor position Bet at position 2: t <--[HERE]@0
+E Invalid entity anchor position Bet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f:eet
+R 0
+A -
+X Invalid entity anchor position f at position 2: t <--[HERE]@0
+E Invalid entity anchor position f at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe:t t
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\feet e
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X Invalid entity anchor position y at position 2: t <--[HERE]@0
+E Invalid entity anchor position y at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ss
+R 0
+A -
+X Invalid entity anchor position ss at position 2: t <--[HERE]@0
+E Invalid entity anchor position ss at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all FeetFF
+R 0
+A -
+X Invalid entity anchor position FeetFF at position 2: t <--[HERE]@0
+E Invalid entity anchor position FeetFF at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe)t
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 6
+R 0
+A -
+X Invalid entity anchor position 6 at position 2: t <--[HERE]@0
+E Invalid entity anchor position 6 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Cet
+R 0
+A -
+X Invalid entity anchor position Cet at position 2: t <--[HERE]@0
+E Invalid entity anchor position Cet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee*
+R 0
+A -
+X Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all head"d
+R 0
+A -
+X Invalid entity anchor position head at position 2: t <--[HERE]@0
+E Invalid entity anchor position head at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee:t
+R 0
+A -
+X Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet0
+R 0
+A -
+X Invalid entity anchor position feet0 at position 2: t <--[HERE]@0
+E Invalid entity anchor position feet0 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all yesA
+R 0
+A -
+X Invalid entity anchor position yesA at position 2: t <--[HERE]@0
+E Invalid entity anchor position yesA at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all >eet 
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F5ee_t
+R 0
+A -
+X Invalid entity anchor position F5ee_t at position 2: t <--[HERE]@0
+E Invalid entity anchor position F5ee_t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe-
+R 0
+A -
+X Invalid entity anchor position fe- at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe- at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {feet 
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe.t
+R 0
+A -
+X Invalid entity anchor position fe.t at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe.t at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe​e}
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &/
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *e
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all head=
+R 0
+A -
+X Invalid entity anchor position head at position 2: t <--[HERE]@0
+E Invalid entity anchor position head at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 6Fee
+R 0
+A -
+X Invalid entity anchor position 6Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position 6Fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all =t 
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all hed
+R 0
+A -
+X Invalid entity anchor position hed at position 2: t <--[HERE]@0
+E Invalid entity anchor position hed at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fey
+R 0
+A -
+X Invalid entity anchor position Fey at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fey at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all (ee
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe~aet 
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all y#es
+R 0
+A -
+X Invalid entity anchor position y at position 2: t <--[HERE]@0
+E Invalid entity anchor position y at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyesd
+R 0
+A -
+X Invalid entity anchor position eyesd at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyesd at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet t
+R 5
+A 0-4 FEET
+E Incorrect argument for command at position 7: t feet <--[HERE]@5
+S -2--2 0 0 
+@ all feeté 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+S -2--2 0 0 
+@ all eyesy
+R 0
+A -
+X Invalid entity anchor position eyesy at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyesy at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ey\u000a_
+R 0
+A -
+X Invalid entity anchor position ey at position 2: t <--[HERE]@0
+E Invalid entity anchor position ey at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h😀ad
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0feet  
+R 0
+A -
+X Invalid entity anchor position 0feet at position 2: t <--[HERE]@0
+E Invalid entity anchor position 0feet at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Fee:e
+R 0
+A -
+X Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position Fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyeA
+R 0
+A -
+X Invalid entity anchor position eyeA at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyeA at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all head'
+R 0
+A -
+X Invalid entity anchor position head at position 2: t <--[HERE]@0
+E Invalid entity anchor position head at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ea:
+R 0
+A -
+X Invalid entity anchor position ea at position 2: t <--[HERE]@0
+E Invalid entity anchor position ea at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ahea
+R 0
+A -
+X Invalid entity anchor position Ahea at position 2: t <--[HERE]@0
+E Invalid entity anchor position Ahea at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ee2
+R 0
+A -
+X Invalid entity anchor position ee2 at position 2: t <--[HERE]@0
+E Invalid entity anchor position ee2 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet f
+R 5
+A 0-4 FEET
+E Incorrect argument for command at position 7: t feet <--[HERE]@5
+S -2--2 0 0 
+@ all eyes___
+R 0
+A -
+X Invalid entity anchor position eyes___ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes___ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all hea:
+R 0
+A -
+X Invalid entity anchor position hea at position 2: t <--[HERE]@0
+E Invalid entity anchor position hea at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Feezb
+R 0
+A -
+X Invalid entity anchor position Feezb at position 2: t <--[HERE]@0
+E Invalid entity anchor position Feezb at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all had"
+R 0
+A -
+X Invalid entity anchor position had at position 2: t <--[HERE]@0
+E Invalid entity anchor position had at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all )
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all hßead
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h%a~d
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eye5s_
+R 0
+A -
+X Invalid entity anchor position eye5s_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye5s_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feetc
+R 0
+A -
+X Invalid entity anchor position feetc at position 2: t <--[HERE]@0
+E Invalid entity anchor position feetc at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all heaa
+R 0
+A -
+X Invalid entity anchor position heaa at position 2: t <--[HERE]@0
+E Invalid entity anchor position heaa at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ye
+R 0
+A -
+X Invalid entity anchor position ye at position 2: t <--[HERE]@0
+E Invalid entity anchor position ye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ey_es
+R 0
+A -
+X Invalid entity anchor position ey_es at position 2: t <--[HERE]@0
+E Invalid entity anchor position ey_es at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+S -2--2 0 0 
+@ all )~e
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all he\u000add
+R 0
+A -
+X Invalid entity anchor position he at position 2: t <--[HERE]@0
+E Invalid entity anchor position he at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ees
+R 0
+A -
+X Invalid entity anchor position ees at position 2: t <--[HERE]@0
+E Invalid entity anchor position ees at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 8
+R 0
+A -
+X Invalid entity anchor position 8 at position 2: t <--[HERE]@0
+E Invalid entity anchor position 8 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feeCt
+R 0
+A -
+X Invalid entity anchor position feeCt at position 2: t <--[HERE]@0
+E Invalid entity anchor position feeCt at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f,eet 
+R 0
+A -
+X Invalid entity anchor position f at position 2: t <--[HERE]@0
+E Invalid entity anchor position f at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ye=_
+R 0
+A -
+X Invalid entity anchor position ye at position 2: t <--[HERE]@0
+E Invalid entity anchor position ye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ye$
+R 0
+A -
+X Invalid entity anchor position ye at position 2: t <--[HERE]@0
+E Invalid entity anchor position ye at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ebyes_'
+R 0
+A -
+X Invalid entity anchor position ebyes_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position ebyes_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all h,ead
+R 0
+A -
+X Invalid entity anchor position h at position 2: t <--[HERE]@0
+E Invalid entity anchor position h at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feeét e
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyyes
+R 0
+A -
+X Invalid entity anchor position eyyes at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyyes at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes[y
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+S -2--2 0 0 
+@ all eyes:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t eyes<--[HERE]@4
+S -2--2 0 0 
+@ all ef
+R 0
+A -
+X Invalid entity anchor position ef at position 2: t <--[HERE]@0
+E Invalid entity anchor position ef at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 8head
+R 0
+A -
+X Invalid entity anchor position 8head at position 2: t <--[HERE]@0
+E Invalid entity anchor position 8head at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀head
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all heada
+R 0
+A -
+X Invalid entity anchor position heada at position 2: t <--[HERE]@0
+E Invalid entity anchor position heada at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eade
+R 0
+A -
+X Invalid entity anchor position eade at position 2: t <--[HERE]@0
+E Invalid entity anchor position eade at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f#eet
+R 0
+A -
+X Invalid entity anchor position f at position 2: t <--[HERE]@0
+E Invalid entity anchor position f at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyzes_
+R 0
+A -
+X Invalid entity anchor position eyzes_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyzes_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eetF
+R 0
+A -
+X Invalid entity anchor position eetF at position 2: t <--[HERE]@0
+E Invalid entity anchor position eetF at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e😀
+R 0
+A -
+X Invalid entity anchor position e at position 2: t <--[HERE]@0
+E Invalid entity anchor position e at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fee\\
+R 0
+A -
+X Invalid entity anchor position fee at position 2: t <--[HERE]@0
+E Invalid entity anchor position fee at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aee_
+R 0
+A -
+X Invalid entity anchor position aee_ at position 2: t <--[HERE]@0
+E Invalid entity anchor position aee_ at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 中0eyes
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ft
+R 0
+A -
+X Invalid entity anchor position ft at position 2: t <--[HERE]@0
+E Invalid entity anchor position ft at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fe=et7
+R 0
+A -
+X Invalid entity anchor position fe at position 2: t <--[HERE]@0
+E Invalid entity anchor position fe at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all %eY
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyes8
+R 0
+A -
+X Invalid entity anchor position eyes8 at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyes8 at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eyss
+R 0
+A -
+X Invalid entity anchor position eyss at position 2: t <--[HERE]@0
+E Invalid entity anchor position eyss at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #eé
+R 0
+A -
+X Invalid entity anchor position  at position 2: t <--[HERE]@0
+E Invalid entity anchor position  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fett
+R 0
+A -
+X Invalid entity anchor position fett at position 2: t <--[HERE]@0
+E Invalid entity anchor position fett at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all feet&
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t feet<--[HERE]@4
+S -2--2 0 0 
+@ all eye中s
+R 0
+A -
+X Invalid entity anchor position eye at position 2: t <--[HERE]@0
+E Invalid entity anchor position eye at position 2: t <--[HERE]@0
+S -2--2 0 0 

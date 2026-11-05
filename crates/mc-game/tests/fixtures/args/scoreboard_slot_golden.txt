@@ -1,0 +1,1910 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 19 -806652775 below_name	list	sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all list
+R 4
+A 0-4 list
+E ok
+S -2--2 0 0 
+@ all sidebar
+R 7
+A 0-7 sidebar
+E ok
+S 0-7 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all below_name
+R 10
+A 0-10 below_name
+E ok
+S -2--2 0 0 
+@ all sidebar.team.red
+R 16
+A 0-16 sidebar.team.red
+E ok
+S -2--2 0 0 
+@ all sidebar.team.dark_blue
+R 22
+A 0-22 sidebar.team.dark_blue
+E ok
+S -2--2 0 0 
+@ all sidebar.team.
+R 0
+A -
+X Unknown display slot 'sidebar.team.' at position 15: ...ebar.team.<--[HERE]@13
+E Unknown display slot 'sidebar.team.' at position 15: ...ebar.team.<--[HERE]@13
+S 0-13 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sidebar.team.pink
+R 0
+A -
+X Unknown display slot 'sidebar.team.pink' at position 19: ....team.pink<--[HERE]@17
+E Unknown display slot 'sidebar.team.pink' at position 19: ....team.pink<--[HERE]@17
+S -2--2 0 0 
+@ all team.red
+R 0
+A -
+X Unknown display slot 'team.red' at position 10: t team.red<--[HERE]@8
+E Unknown display slot 'team.red' at position 10: t team.red<--[HERE]@8
+S 0-8 1 1437474423 sidebar.team.red
+@ all foo
+R 0
+A -
+X Unknown display slot 'foo' at position 5: t foo<--[HERE]@3
+E Unknown display slot 'foo' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all Sidebar
+R 0
+A -
+X Unknown display slot 'Sidebar' at position 9: t Sidebar<--[HERE]@7
+E Unknown display slot 'Sidebar' at position 9: t Sidebar<--[HERE]@7
+S 0-7 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all side
+R 0
+A -
+X Unknown display slot 'side' at position 6: t side<--[HERE]@4
+E Unknown display slot 'side' at position 6: t side<--[HERE]@4
+S 0-4 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all belowName
+R 0
+A -
+X Unknown display slot 'belowName' at position 11: ... belowName<--[HERE]@9
+E Unknown display slot 'belowName' at position 11: ... belowName<--[HERE]@9
+S -2--2 0 0 
+@ all sidebar.team.white
+R 18
+A 0-18 sidebar.team.white
+E ok
+S -2--2 0 0 
+@ all sidebar.team.reset
+R 0
+A -
+X Unknown display slot 'sidebar.team.reset' at position 20: ...team.reset<--[HERE]@18
+E Unknown display slot 'sidebar.team.reset' at position 20: ...team.reset<--[HERE]@18
+S -2--2 0 0 
+@ all sidebar 
+R 7
+A 0-7 sidebar
+E Incorrect argument for command at position 9: t sidebar<--[HERE]@7
+S -2--2 0 0 
+@ all l
+R 0
+A -
+X Unknown display slot 'l' at position 3: t l<--[HERE]@1
+E Unknown display slot 'l' at position 3: t l<--[HERE]@1
+S 0-1 2 -1107030256 list	sidebar.team.light_purple
+@ all li
+R 0
+A -
+X Unknown display slot 'li' at position 4: t li<--[HERE]@2
+E Unknown display slot 'li' at position 4: t li<--[HERE]@2
+S 0-2 2 -1107030256 list	sidebar.team.light_purple
+@ all lis
+R 0
+A -
+X Unknown display slot 'lis' at position 5: t lis<--[HERE]@3
+E Unknown display slot 'lis' at position 5: t lis<--[HERE]@3
+S 0-3 1 102982443 list
+@ all s
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S 0-1 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all si
+R 0
+A -
+X Unknown display slot 'si' at position 4: t si<--[HERE]@2
+E Unknown display slot 'si' at position 4: t si<--[HERE]@2
+S 0-2 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sid
+R 0
+A -
+X Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+E Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+S 0-3 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sideb
+R 0
+A -
+X Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+E Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+S 0-5 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sideba
+R 0
+A -
+X Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+E Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+S 0-6 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all b
+R 0
+A -
+X Unknown display slot 'b' at position 3: t b<--[HERE]@1
+E Unknown display slot 'b' at position 3: t b<--[HERE]@1
+S 0-1 4 -1060566788 below_name	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_blue
+@ all be
+R 0
+A -
+X Unknown display slot 'be' at position 4: t be<--[HERE]@2
+E Unknown display slot 'be' at position 4: t be<--[HERE]@2
+S 0-2 1 929373520 below_name
+@ all bel
+R 0
+A -
+X Unknown display slot 'bel' at position 5: t bel<--[HERE]@3
+E Unknown display slot 'bel' at position 5: t bel<--[HERE]@3
+S 0-3 1 929373520 below_name
+@ all belo
+R 0
+A -
+X Unknown display slot 'belo' at position 6: t belo<--[HERE]@4
+E Unknown display slot 'belo' at position 6: t belo<--[HERE]@4
+S 0-4 1 929373520 below_name
+@ all below
+R 0
+A -
+X Unknown display slot 'below' at position 7: t below<--[HERE]@5
+E Unknown display slot 'below' at position 7: t below<--[HERE]@5
+S 0-5 1 929373520 below_name
+@ all below_
+R 0
+A -
+X Unknown display slot 'below_' at position 8: t below_<--[HERE]@6
+E Unknown display slot 'below_' at position 8: t below_<--[HERE]@6
+S 0-6 1 929373520 below_name
+@ all below_n
+R 0
+A -
+X Unknown display slot 'below_n' at position 9: t below_n<--[HERE]@7
+E Unknown display slot 'below_n' at position 9: t below_n<--[HERE]@7
+S 0-7 1 929373520 below_name
+@ all below_na
+R 0
+A -
+X Unknown display slot 'below_na' at position 10: t below_na<--[HERE]@8
+E Unknown display slot 'below_na' at position 10: t below_na<--[HERE]@8
+S 0-8 1 929373520 below_name
+@ all below_nam
+R 0
+A -
+X Unknown display slot 'below_nam' at position 11: ... below_nam<--[HERE]@9
+E Unknown display slot 'below_nam' at position 11: ... below_nam<--[HERE]@9
+S 0-9 1 929373520 below_name
+@ all sidebar.
+R 0
+A -
+X Unknown display slot 'sidebar.' at position 10: t sidebar.<--[HERE]@8
+E Unknown display slot 'sidebar.' at position 10: t sidebar.<--[HERE]@8
+S 0-8 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sidebar.t
+R 0
+A -
+X Unknown display slot 'sidebar.t' at position 11: ... sidebar.t<--[HERE]@9
+E Unknown display slot 'sidebar.t' at position 11: ... sidebar.t<--[HERE]@9
+S 0-9 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sidebar.te
+R 0
+A -
+X Unknown display slot 'sidebar.te' at position 12: ...sidebar.te<--[HERE]@10
+E Unknown display slot 'sidebar.te' at position 12: ...sidebar.te<--[HERE]@10
+S 0-10 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sidebar.tea
+R 0
+A -
+X Unknown display slot 'sidebar.tea' at position 13: ...idebar.tea<--[HERE]@11
+E Unknown display slot 'sidebar.tea' at position 13: ...idebar.tea<--[HERE]@11
+S 0-11 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sidebar.team
+R 0
+A -
+X Unknown display slot 'sidebar.team' at position 14: ...debar.team<--[HERE]@12
+E Unknown display slot 'sidebar.team' at position 14: ...debar.team<--[HERE]@12
+S 0-12 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all sidebar.team.r
+R 0
+A -
+X Unknown display slot 'sidebar.team.r' at position 16: ...bar.team.r<--[HERE]@14
+E Unknown display slot 'sidebar.team.r' at position 16: ...bar.team.r<--[HERE]@14
+S 0-14 1 1437474423 sidebar.team.red
+@ all sidebar.team.re
+R 0
+A -
+X Unknown display slot 'sidebar.team.re' at position 17: ...ar.team.re<--[HERE]@15
+E Unknown display slot 'sidebar.team.re' at position 17: ...ar.team.re<--[HERE]@15
+S 0-15 1 1437474423 sidebar.team.red
+@ all sidebar.team.d
+R 0
+A -
+X Unknown display slot 'sidebar.team.d' at position 16: ...bar.team.d<--[HERE]@14
+E Unknown display slot 'sidebar.team.d' at position 16: ...bar.team.d<--[HERE]@14
+S 0-14 6 -831571845 sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red
+@ all sidebar.team.da
+R 0
+A -
+X Unknown display slot 'sidebar.team.da' at position 17: ...ar.team.da<--[HERE]@15
+E Unknown display slot 'sidebar.team.da' at position 17: ...ar.team.da<--[HERE]@15
+S 0-15 6 -831571845 sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red
+@ all sidebar.team.dar
+R 0
+A -
+X Unknown display slot 'sidebar.team.dar' at position 18: ...r.team.dar<--[HERE]@16
+E Unknown display slot 'sidebar.team.dar' at position 18: ...r.team.dar<--[HERE]@16
+S 0-16 6 -831571845 sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red
+@ all sidebar.team.dark
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark' at position 19: ....team.dark<--[HERE]@17
+E Unknown display slot 'sidebar.team.dark' at position 19: ....team.dark<--[HERE]@17
+S 0-17 6 -831571845 sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red
+@ all sidebar.team.dark_
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_' at position 20: ...team.dark_<--[HERE]@18
+E Unknown display slot 'sidebar.team.dark_' at position 20: ...team.dark_<--[HERE]@18
+S 0-18 6 -831571845 sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red
+@ all sidebar.team.dark_b
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_b' at position 21: ...eam.dark_b<--[HERE]@19
+E Unknown display slot 'sidebar.team.dark_b' at position 21: ...eam.dark_b<--[HERE]@19
+S 0-19 1 1446420101 sidebar.team.dark_blue
+@ all sidebar.team.dark_bl
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_bl' at position 22: ...am.dark_bl<--[HERE]@20
+E Unknown display slot 'sidebar.team.dark_bl' at position 22: ...am.dark_bl<--[HERE]@20
+S 0-20 1 1446420101 sidebar.team.dark_blue
+@ all sidebar.team.dark_blu
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_blu' at position 23: ...m.dark_blu<--[HERE]@21
+E Unknown display slot 'sidebar.team.dark_blu' at position 23: ...m.dark_blu<--[HERE]@21
+S 0-21 1 1446420101 sidebar.team.dark_blue
+@ all sidebar.team.p
+R 0
+A -
+X Unknown display slot 'sidebar.team.p' at position 16: ...bar.team.p<--[HERE]@14
+E Unknown display slot 'sidebar.team.p' at position 16: ...bar.team.p<--[HERE]@14
+S -2--2 0 0 
+@ all sidebar.team.pi
+R 0
+A -
+X Unknown display slot 'sidebar.team.pi' at position 17: ...ar.team.pi<--[HERE]@15
+E Unknown display slot 'sidebar.team.pi' at position 17: ...ar.team.pi<--[HERE]@15
+S -2--2 0 0 
+@ all sidebar.team.pin
+R 0
+A -
+X Unknown display slot 'sidebar.team.pin' at position 18: ...r.team.pin<--[HERE]@16
+E Unknown display slot 'sidebar.team.pin' at position 18: ...r.team.pin<--[HERE]@16
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X Unknown display slot 't' at position 3: t t<--[HERE]@1
+E Unknown display slot 't' at position 3: t t<--[HERE]@1
+S 0-1 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all te
+R 0
+A -
+X Unknown display slot 'te' at position 4: t te<--[HERE]@2
+E Unknown display slot 'te' at position 4: t te<--[HERE]@2
+S 0-2 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all tea
+R 0
+A -
+X Unknown display slot 'tea' at position 5: t tea<--[HERE]@3
+E Unknown display slot 'tea' at position 5: t tea<--[HERE]@3
+S 0-3 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all team
+R 0
+A -
+X Unknown display slot 'team' at position 6: t team<--[HERE]@4
+E Unknown display slot 'team' at position 6: t team<--[HERE]@4
+S 0-4 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all team.
+R 0
+A -
+X Unknown display slot 'team.' at position 7: t team.<--[HERE]@5
+E Unknown display slot 'team.' at position 7: t team.<--[HERE]@5
+S 0-5 16 -370895983 sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all team.r
+R 0
+A -
+X Unknown display slot 'team.r' at position 8: t team.r<--[HERE]@6
+E Unknown display slot 'team.r' at position 8: t team.r<--[HERE]@6
+S 0-6 1 1437474423 sidebar.team.red
+@ all team.re
+R 0
+A -
+X Unknown display slot 'team.re' at position 9: t team.re<--[HERE]@7
+E Unknown display slot 'team.re' at position 9: t team.re<--[HERE]@7
+S 0-7 1 1437474423 sidebar.team.red
+@ all f
+R 0
+A -
+X Unknown display slot 'f' at position 3: t f<--[HERE]@1
+E Unknown display slot 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all fo
+R 0
+A -
+X Unknown display slot 'fo' at position 4: t fo<--[HERE]@2
+E Unknown display slot 'fo' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X Unknown display slot 'S' at position 3: t S<--[HERE]@1
+E Unknown display slot 'S' at position 3: t S<--[HERE]@1
+S 0-1 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all Si
+R 0
+A -
+X Unknown display slot 'Si' at position 4: t Si<--[HERE]@2
+E Unknown display slot 'Si' at position 4: t Si<--[HERE]@2
+S 0-2 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all Sid
+R 0
+A -
+X Unknown display slot 'Sid' at position 5: t Sid<--[HERE]@3
+E Unknown display slot 'Sid' at position 5: t Sid<--[HERE]@3
+S 0-3 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all Side
+R 0
+A -
+X Unknown display slot 'Side' at position 6: t Side<--[HERE]@4
+E Unknown display slot 'Side' at position 6: t Side<--[HERE]@4
+S 0-4 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all Sideb
+R 0
+A -
+X Unknown display slot 'Sideb' at position 7: t Sideb<--[HERE]@5
+E Unknown display slot 'Sideb' at position 7: t Sideb<--[HERE]@5
+S 0-5 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all Sideba
+R 0
+A -
+X Unknown display slot 'Sideba' at position 8: t Sideba<--[HERE]@6
+E Unknown display slot 'Sideba' at position 8: t Sideba<--[HERE]@6
+S 0-6 17 162041918 sidebar	sidebar.team.aqua	sidebar.team.black	sidebar.team.blue	sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red	sidebar.team.gold	sidebar.team.gray	sidebar.team.green	sidebar.team.light_purple	sidebar.team.red	sidebar.team.white	sidebar.team.yellow
+@ all belowN
+R 0
+A -
+X Unknown display slot 'belowN' at position 8: t belowN<--[HERE]@6
+E Unknown display slot 'belowN' at position 8: t belowN<--[HERE]@6
+S -2--2 0 0 
+@ all belowNa
+R 0
+A -
+X Unknown display slot 'belowNa' at position 9: t belowNa<--[HERE]@7
+E Unknown display slot 'belowNa' at position 9: t belowNa<--[HERE]@7
+S -2--2 0 0 
+@ all belowNam
+R 0
+A -
+X Unknown display slot 'belowNam' at position 10: t belowNam<--[HERE]@8
+E Unknown display slot 'belowNam' at position 10: t belowNam<--[HERE]@8
+S -2--2 0 0 
+@ all sidebar.team.w
+R 0
+A -
+X Unknown display slot 'sidebar.team.w' at position 16: ...bar.team.w<--[HERE]@14
+E Unknown display slot 'sidebar.team.w' at position 16: ...bar.team.w<--[HERE]@14
+S 0-14 1 -1420377569 sidebar.team.white
+@ all sidebar.team.wh
+R 0
+A -
+X Unknown display slot 'sidebar.team.wh' at position 17: ...ar.team.wh<--[HERE]@15
+E Unknown display slot 'sidebar.team.wh' at position 17: ...ar.team.wh<--[HERE]@15
+S 0-15 1 -1420377569 sidebar.team.white
+@ all sidebar.team.whi
+R 0
+A -
+X Unknown display slot 'sidebar.team.whi' at position 18: ...r.team.whi<--[HERE]@16
+E Unknown display slot 'sidebar.team.whi' at position 18: ...r.team.whi<--[HERE]@16
+S 0-16 1 -1420377569 sidebar.team.white
+@ all sidebar.team.whit
+R 0
+A -
+X Unknown display slot 'sidebar.team.whit' at position 19: ....team.whit<--[HERE]@17
+E Unknown display slot 'sidebar.team.whit' at position 19: ....team.whit<--[HERE]@17
+S 0-17 1 -1420377569 sidebar.team.white
+@ all sidebar.team.res
+R 0
+A -
+X Unknown display slot 'sidebar.team.res' at position 18: ...r.team.res<--[HERE]@16
+E Unknown display slot 'sidebar.team.res' at position 18: ...r.team.res<--[HERE]@16
+S -2--2 0 0 
+@ all sidebar.team.rese
+R 0
+A -
+X Unknown display slot 'sidebar.team.rese' at position 19: ....team.rese<--[HERE]@17
+E Unknown display slot 'sidebar.team.rese' at position 19: ....team.rese<--[HERE]@17
+S -2--2 0 0 
+@ all s1dee
+R 0
+A -
+X Unknown display slot 's1dee' at position 7: t s1dee<--[HERE]@5
+E Unknown display slot 's1dee' at position 7: t s1dee<--[HERE]@5
+S -2--2 0 0 
+@ all beow_nameo
+R 0
+A -
+X Unknown display slot 'beow_nameo' at position 12: ...beow_nameo<--[HERE]@10
+E Unknown display slot 'beow_nameo' at position 12: ...beow_nameo<--[HERE]@10
+S -2--2 0 0 
+@ all eam.reda
+R 0
+A -
+X Unknown display slot 'eam.reda' at position 10: t eam.reda<--[HERE]@8
+E Unknown display slot 'eam.reda' at position 10: t eam.reda<--[HERE]@8
+S -2--2 0 0 
+@ all team.rİede
+R 0
+A -
+X Unknown display slot 'team.r' at position 8: t team.r<--[HERE]@6
+E Unknown display slot 'team.r' at position 8: t team.r<--[HERE]@6
+S -2--2 0 0 
+@ all éside
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sideb@ar
+R 0
+A -
+X Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+E Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+S -2--2 0 0 
+@ all d
+R 0
+A -
+X Unknown display slot 'd' at position 3: t d<--[HERE]@1
+E Unknown display slot 'd' at position 3: t d<--[HERE]@1
+S 0-1 6 -831571845 sidebar.team.dark_aqua	sidebar.team.dark_blue	sidebar.team.dark_gray	sidebar.team.dark_green	sidebar.team.dark_purple	sidebar.team.dark_red
+@ all lst
+R 0
+A -
+X Unknown display slot 'lst' at position 5: t lst<--[HERE]@3
+E Unknown display slot 'lst' at position 5: t lst<--[HERE]@3
+S -2--2 0 0 
+@ all bar.team.pink
+R 0
+A -
+X Unknown display slot 'bar.team.pink' at position 15: ....team.pink<--[HERE]@13
+E Unknown display slot 'bar.team.pink' at position 15: ....team.pink<--[HERE]@13
+S -2--2 0 0 
+@ all sidei
+R 0
+A -
+X Unknown display slot 'sidei' at position 7: t sidei<--[HERE]@5
+E Unknown display slot 'sidei' at position 7: t sidei<--[HERE]@5
+S -2--2 0 0 
+@ all res[t
+R 0
+A -
+X Unknown display slot 'res' at position 5: t res<--[HERE]@3
+E Unknown display slot 'res' at position 5: t res<--[HERE]@3
+S -2--2 0 0 
+@ all Yide
+R 0
+A -
+X Unknown display slot 'Yide' at position 6: t Yide<--[HERE]@4
+E Unknown display slot 'Yide' at position 6: t Yide<--[HERE]@4
+S -2--2 0 0 
+@ all am..
+R 0
+A -
+X Unknown display slot 'am..' at position 6: t am..<--[HERE]@4
+E Unknown display slot 'am..' at position 6: t am..<--[HERE]@4
+S -2--2 0 0 
+@ all sid[ebar￿
+R 0
+A -
+X Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+E Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+S -2--2 0 0 
+@ all sideb*r.team.
+R 0
+A -
+X Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+E Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+S -2--2 0 0 
+@ all sidebar.team re~d
+R 0
+A -
+X Unknown display slot 'sidebar.team' at position 14: ...debar.team<--[HERE]@12
+E Unknown display slot 'sidebar.team' at position 14: ...debar.team<--[HERE]@12
+S -2--2 0 0 
+@ all istl
+R 0
+A -
+X Unknown display slot 'istl' at position 6: t istl<--[HERE]@4
+E Unknown display slot 'istl' at position 6: t istl<--[HERE]@4
+S -2--2 0 0 
+@ all sidebr.team.dar]k_blue
+R 0
+A -
+X Unknown display slot 'sidebr.team.dar' at position 17: ...r.team.dar<--[HERE]@15
+E Unknown display slot 'sidebr.team.dar' at position 17: ...r.team.dar<--[HERE]@15
+S -2--2 0 0 
+@ all side2ar 
+R 0
+A -
+X Unknown display slot 'side2ar' at position 9: t side2ar<--[HERE]@7
+E Unknown display slot 'side2ar' at position 9: t side2ar<--[HERE]@7
+S -2--2 0 0 
+@ all ideba<
+R 0
+A -
+X Unknown display slot 'ideba' at position 7: t ideba<--[HERE]@5
+E Unknown display slot 'ideba' at position 7: t ideba<--[HERE]@5
+S -2--2 0 0 
+@ all sidebar b
+R 8
+A 0-7 sidebar
+E Incorrect argument for command at position 10: t sidebar <--[HERE]@8
+S -2--2 0 0 
+@ all Sidebare
+R 0
+A -
+X Unknown display slot 'Sidebare' at position 10: t Sidebare<--[HERE]@8
+E Unknown display slot 'Sidebare' at position 10: t Sidebare<--[HERE]@8
+S -2--2 0 0 
+@ all sidebar.team.wit
+R 0
+A -
+X Unknown display slot 'sidebar.team.wit' at position 18: ...r.team.wit<--[HERE]@16
+E Unknown display slot 'sidebar.team.wit' at position 18: ...r.team.wit<--[HERE]@16
+S -2--2 0 0 
+@ all belowN￿ame
+R 0
+A -
+X Unknown display slot 'belowN' at position 8: t belowN<--[HERE]@6
+E Unknown display slot 'belowN' at position 8: t belowN<--[HERE]@6
+S -2--2 0 0 
+@ all s$ide
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all sidebarteYm.dark_blue
+R 0
+A -
+X Unknown display slot 'sidebarteYm.dark_blue' at position 23: ....dark_blue<--[HERE]@21
+E Unknown display slot 'sidebarteYm.dark_blue' at position 23: ....dark_blue<--[HERE]@21
+S -2--2 0 0 
+@ all sifdear.team.
+R 0
+A -
+X Unknown display slot 'sifdear.team.' at position 15: ...dear.team.<--[HERE]@13
+E Unknown display slot 'sifdear.team.' at position 15: ...dear.team.<--[HERE]@13
+S -2--2 0 0 
+@ all sidebr.team.
+R 0
+A -
+X Unknown display slot 'sidebr.team.' at position 14: ...debr.team.<--[HERE]@12
+E Unknown display slot 'sidebr.team.' at position 14: ...debr.team.<--[HERE]@12
+S -2--2 0 0 
+@ all deba r.team.
+R 0
+A -
+X Unknown display slot 'deba' at position 6: t deba<--[HERE]@4
+E Unknown display slot 'deba' at position 6: t deba<--[HERE]@4
+S -2--2 0 0 
+@ all idebar.team.white
+R 0
+A -
+X Unknown display slot 'idebar.team.white' at position 19: ...team.white<--[HERE]@17
+E Unknown display slot 'idebar.team.white' at position 19: ...team.white<--[HERE]@17
+S -2--2 0 0 
+@ all sidebar.t(eam.pink
+R 0
+A -
+X Unknown display slot 'sidebar.t' at position 11: ... sidebar.t<--[HERE]@9
+E Unknown display slot 'sidebar.t' at position 11: ... sidebar.t<--[HERE]@9
+S -2--2 0 0 
+@ all debar
+R 0
+A -
+X Unknown display slot 'debar' at position 7: t debar<--[HERE]@5
+E Unknown display slot 'debar' at position 7: t debar<--[HERE]@5
+S -2--2 0 0 
+@ all sidebr 
+R 0
+A -
+X Unknown display slot 'sidebr' at position 8: t sidebr<--[HERE]@6
+E Unknown display slot 'sidebr' at position 8: t sidebr<--[HERE]@6
+S -2--2 0 0 
+@ all sidebarx
+R 0
+A -
+X Unknown display slot 'sidebarx' at position 10: t sidebarx<--[HERE]@8
+E Unknown display slot 'sidebarx' at position 10: t sidebarx<--[HERE]@8
+S -2--2 0 0 
+@ all sideba.team.
+R 0
+A -
+X Unknown display slot 'sideba.team.' at position 14: ...deba.team.<--[HERE]@12
+E Unknown display slot 'sideba.team.' at position 14: ...deba.team.<--[HERE]@12
+S -2--2 0 0 
+@ all sidebar.teYam.reset
+R 0
+A -
+X Unknown display slot 'sidebar.teYam.reset' at position 21: ...eYam.reset<--[HERE]@19
+E Unknown display slot 'sidebar.teYam.reset' at position 21: ...eYam.reset<--[HERE]@19
+S -2--2 0 0 
+@ all belo\u000awNameb
+R 0
+A -
+X Unknown display slot 'belo' at position 6: t belo<--[HERE]@4
+E Unknown display slot 'belo' at position 6: t belo<--[HERE]@4
+S -2--2 0 0 
+@ all team.redd
+R 0
+A -
+X Unknown display slot 'team.redd' at position 11: ... team.redd<--[HERE]@9
+E Unknown display slot 'team.redd' at position 11: ... team.redd<--[HERE]@9
+S -2--2 0 0 
+@ all istt
+R 0
+A -
+X Unknown display slot 'istt' at position 6: t istt<--[HERE]@4
+E Unknown display slot 'istt' at position 6: t istt<--[HERE]@4
+S -2--2 0 0 
+@ all sidebar.team.resetß
+R 0
+A -
+X Unknown display slot 'sidebar.team.reset' at position 20: ...team.reset<--[HERE]@18
+E Unknown display slot 'sidebar.team.reset' at position 20: ...team.reset<--[HERE]@18
+S -2--2 0 0 
+@ all si2ebar.team.wite
+R 0
+A -
+X Unknown display slot 'si2ebar.team.wite' at position 19: ....team.wite<--[HERE]@17
+E Unknown display slot 'si2ebar.team.wite' at position 19: ....team.wite<--[HERE]@17
+S -2--2 0 0 
+@ all &'de
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all am.pin!
+R 0
+A -
+X Unknown display slot 'am.pin' at position 8: t am.pin<--[HERE]@6
+E Unknown display slot 'am.pin' at position 8: t am.pin<--[HERE]@6
+S -2--2 0 0 
+@ all b-low0Name
+R 0
+A -
+X Unknown display slot 'b-low0Name' at position 12: ...b-low0Name<--[HERE]@10
+E Unknown display slot 'b-low0Name' at position 12: ...b-low0Name<--[HERE]@10
+S -2--2 0 0 
+@ all sidebarteam.!dark_blue
+R 0
+A -
+X Unknown display slot 'sidebarteam.' at position 14: ...debarteam.<--[HERE]@12
+E Unknown display slot 'sidebarteam.' at position 14: ...debarteam.<--[HERE]@12
+S -2--2 0 0 
+@ all sidebar.team.dark_!blue
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_' at position 20: ...team.dark_<--[HERE]@18
+E Unknown display slot 'sidebar.team.dark_' at position 20: ...team.dark_<--[HERE]@18
+S -2--2 0 0 
+@ all team.redr
+R 0
+A -
+X Unknown display slot 'team.redr' at position 11: ... team.redr<--[HERE]@9
+E Unknown display slot 'team.redr' at position 11: ... team.redr<--[HERE]@9
+S -2--2 0 0 
+@ all below_namew'
+R 0
+A -
+X Unknown display slot 'below_namew' at position 13: ...elow_namew<--[HERE]@11
+E Unknown display slot 'below_namew' at position 13: ...elow_namew<--[HERE]@11
+S -2--2 0 0 
+@ all sideba-.team.
+R 0
+A -
+X Unknown display slot 'sideba-.team.' at position 15: ...eba-.team.<--[HERE]@13
+E Unknown display slot 'sideba-.team.' at position 15: ...eba-.team.<--[HERE]@13
+S -2--2 0 0 
+@ all ooo
+R 0
+A -
+X Unknown display slot 'ooo' at position 5: t ooo<--[HERE]@3
+E Unknown display slot 'ooo' at position 5: t ooo<--[HERE]@3
+S -2--2 0 0 
+@ all s\\de
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all si@debar.team.pink
+R 0
+A -
+X Unknown display slot 'si' at position 4: t si<--[HERE]@2
+E Unknown display slot 'si' at position 4: t si<--[HERE]@2
+S -2--2 0 0 
+@ all ßfo 
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all idee
+R 0
+A -
+X Unknown display slot 'idee' at position 6: t idee<--[HERE]@4
+E Unknown display slot 'idee' at position 6: t idee<--[HERE]@4
+S -2--2 0 0 
+@ all Si<ebar
+R 0
+A -
+X Unknown display slot 'Si' at position 4: t Si<--[HERE]@2
+E Unknown display slot 'Si' at position 4: t Si<--[HERE]@2
+S -2--2 0 0 
+@ all bfoo
+R 0
+A -
+X Unknown display slot 'bfoo' at position 6: t bfoo<--[HERE]@4
+E Unknown display slot 'bfoo' at position 6: t bfoo<--[HERE]@4
+S -2--2 0 0 
+@ all sidebar.team.dark_blued
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_blued' at position 25: ...dark_blued<--[HERE]@23
+E Unknown display slot 'sidebar.team.dark_blued' at position 25: ...dark_blued<--[HERE]@23
+S -2--2 0 0 
+@ all Zide
+R 0
+A -
+X Unknown display slot 'Zide' at position 6: t Zide<--[HERE]@4
+E Unknown display slot 'Zide' at position 6: t Zide<--[HERE]@4
+S -2--2 0 0 
+@ all ​ide
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all team.中ed
+R 0
+A -
+X Unknown display slot 'team.' at position 7: t team.<--[HERE]@5
+E Unknown display slot 'team.' at position 7: t team.<--[HERE]@5
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Unknown display slot 'e' at position 3: t e<--[HERE]@1
+E Unknown display slot 'e' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all r  
+R 0
+A -
+X Unknown display slot 'r' at position 3: t r<--[HERE]@1
+E Unknown display slot 'r' at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all listts
+R 0
+A -
+X Unknown display slot 'listts' at position 8: t listts<--[HERE]@6
+E Unknown display slot 'listts' at position 8: t listts<--[HERE]@6
+S -2--2 0 0 
+@ all sidebar.team.pik
+R 0
+A -
+X Unknown display slot 'sidebar.team.pik' at position 18: ...r.team.pik<--[HERE]@16
+E Unknown display slot 'sidebar.team.pik' at position 18: ...r.team.pik<--[HERE]@16
+S -2--2 0 0 
+@ all deba 
+R 0
+A -
+X Unknown display slot 'deba' at position 6: t deba<--[HERE]@4
+E Unknown display slot 'deba' at position 6: t deba<--[HERE]@4
+S -2--2 0 0 
+@ all bar.team.
+R 0
+A -
+X Unknown display slot 'bar.team.' at position 11: ... bar.team.<--[HERE]@9
+E Unknown display slot 'bar.team.' at position 11: ... bar.team.<--[HERE]@9
+S -2--2 0 0 
+@ all belwName
+R 0
+A -
+X Unknown display slot 'belwName' at position 10: t belwName<--[HERE]@8
+E Unknown display slot 'belwName' at position 10: t belwName<--[HERE]@8
+S -2--2 0 0 
+@ all sidebr.team.white
+R 0
+A -
+X Unknown display slot 'sidebr.team.white' at position 19: ...team.white<--[HERE]@17
+E Unknown display slot 'sidebr.team.white' at position 19: ...team.white<--[HERE]@17
+S -2--2 0 0 
+@ all ar 
+R 0
+A -
+X Unknown display slot 'ar' at position 4: t ar<--[HERE]@2
+E Unknown display slot 'ar' at position 4: t ar<--[HERE]@2
+S -2--2 0 0 
+@ all (below_namen
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ide
+R 0
+A -
+X Unknown display slot 'ide' at position 5: t ide<--[HERE]@3
+E Unknown display slot 'ide' at position 5: t ide<--[HERE]@3
+S -2--2 0 0 
+@ all team.red_
+R 0
+A -
+X Unknown display slot 'team.red_' at position 11: ... team.red_<--[HERE]@9
+E Unknown display slot 'team.red_' at position 11: ... team.red_<--[HERE]@9
+S -2--2 0 0 
+@ all sidebar.team.wh-te
+R 0
+A -
+X Unknown display slot 'sidebar.team.wh-te' at position 20: ...team.wh-te<--[HERE]@18
+E Unknown display slot 'sidebar.team.wh-te' at position 20: ...team.wh-te<--[HERE]@18
+S -2--2 0 0 
+@ all debar 
+R 0
+A -
+X Unknown display slot 'debar' at position 7: t debar<--[HERE]@5
+E Unknown display slot 'debar' at position 7: t debar<--[HERE]@5
+S -2--2 0 0 
+@ all sidebr i
+R 0
+A -
+X Unknown display slot 'sidebr' at position 8: t sidebr<--[HERE]@6
+E Unknown display slot 'sidebr' at position 8: t sidebr<--[HERE]@6
+S -2--2 0 0 
+@ all m.red
+R 0
+A -
+X Unknown display slot 'm.red' at position 7: t m.red<--[HERE]@5
+E Unknown display slot 'm.red' at position 7: t m.red<--[HERE]@5
+S -2--2 0 0 
+@ all be&lowaname
+R 0
+A -
+X Unknown display slot 'be' at position 4: t be<--[HERE]@2
+E Unknown display slot 'be' at position 4: t be<--[HERE]@2
+S -2--2 0 0 
+@ all sidebar.team.reseta
+R 0
+A -
+X Unknown display slot 'sidebar.team.reseta' at position 21: ...eam.reseta<--[HERE]@19
+E Unknown display slot 'sidebar.team.reseta' at position 21: ...eam.reseta<--[HERE]@19
+S -2--2 0 0 
+@ all sidebar.team.resets
+R 0
+A -
+X Unknown display slot 'sidebar.team.resets' at position 21: ...eam.resets<--[HERE]@19
+E Unknown display slot 'sidebar.team.resets' at position 21: ...eam.resets<--[HERE]@19
+S -2--2 0 0 
+@ all li{st
+R 0
+A -
+X Unknown display slot 'li' at position 4: t li<--[HERE]@2
+E Unknown display slot 'li' at position 4: t li<--[HERE]@2
+S -2--2 0 0 
+@ all below_nae
+R 0
+A -
+X Unknown display slot 'below_nae' at position 11: ... below_nae<--[HERE]@9
+E Unknown display slot 'below_nae' at position 11: ... below_nae<--[HERE]@9
+S -2--2 0 0 
+@ all s_debar a
+R 0
+A -
+X Unknown display slot 's_debar' at position 9: t s_debar<--[HERE]@7
+E Unknown display slot 's_debar' at position 9: t s_debar<--[HERE]@7
+S -2--2 0 0 
+@ all s =debar 
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all sidebar.team.dar{k_😀blue
+R 0
+A -
+X Unknown display slot 'sidebar.team.dar' at position 18: ...r.team.dar<--[HERE]@16
+E Unknown display slot 'sidebar.team.dar' at position 18: ...r.team.dar<--[HERE]@16
+S -2--2 0 0 
+@ all sidebar.team.eset
+R 0
+A -
+X Unknown display slot 'sidebar.team.eset' at position 19: ....team.eset<--[HERE]@17
+E Unknown display slot 'sidebar.team.eset' at position 19: ....team.eset<--[HERE]@17
+S -2--2 0 0 
+@ all nk
+R 0
+A -
+X Unknown display slot 'nk' at position 4: t nk<--[HERE]@2
+E Unknown display slot 'nk' at position 4: t nk<--[HERE]@2
+S -2--2 0 0 
+@ all sidebarr
+R 0
+A -
+X Unknown display slot 'sidebarr' at position 10: t sidebarr<--[HERE]@8
+E Unknown display slot 'sidebarr' at position 10: t sidebarr<--[HERE]@8
+S -2--2 0 0 
+@ all li￿]t
+R 0
+A -
+X Unknown display slot 'li' at position 4: t li<--[HERE]@2
+E Unknown display slot 'li' at position 4: t li<--[HERE]@2
+S -2--2 0 0 
+@ all sidebar@team.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t sidebar<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t sidebar<--[HERE]@7
+S -2--2 0 0 
+@ all Xde
+R 0
+A -
+X Unknown display slot 'Xde' at position 5: t Xde<--[HERE]@3
+E Unknown display slot 'Xde' at position 5: t Xde<--[HERE]@3
+S -2--2 0 0 
+@ all below_namee
+R 0
+A -
+X Unknown display slot 'below_namee' at position 13: ...elow_namee<--[HERE]@11
+E Unknown display slot 'below_namee' at position 13: ...elow_namee<--[HERE]@11
+S -2--2 0 0 
+@ all Sidea1
+R 0
+A -
+X Unknown display slot 'Sidea1' at position 8: t Sidea1<--[HERE]@6
+E Unknown display slot 'Sidea1' at position 8: t Sidea1<--[HERE]@6
+S -2--2 0 0 
+@ all sidebar.team.whiteh
+R 0
+A -
+X Unknown display slot 'sidebar.team.whiteh' at position 21: ...eam.whiteh<--[HERE]@19
+E Unknown display slot 'sidebar.team.whiteh' at position 21: ...eam.whiteh<--[HERE]@19
+S -2--2 0 0 
+@ all eba.team.red
+R 0
+A -
+X Unknown display slot 'eba.team.red' at position 14: ...a.team.red<--[HERE]@12
+E Unknown display slot 'eba.team.red' at position 14: ...a.team.red<--[HERE]@12
+S -2--2 0 0 
+@ all sideba].team.t
+R 0
+A -
+X Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+E Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+S -2--2 0 0 
+@ all sidebbar.team.white
+R 0
+A -
+X Unknown display slot 'sidebbar.team.white' at position 21: ...team.white<--[HERE]@19
+E Unknown display slot 'sidebbar.team.white' at position 21: ...team.white<--[HERE]@19
+S -2--2 0 0 
+@ all lue
+R 0
+A -
+X Unknown display slot 'lue' at position 5: t lue<--[HERE]@3
+E Unknown display slot 'lue' at position 5: t lue<--[HERE]@3
+S -2--2 0 0 
+@ all s\u0009debar.team.dark_blue
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all iebar.team.
+R 0
+A -
+X Unknown display slot 'iebar.team.' at position 13: ...ebar.team.<--[HERE]@11
+E Unknown display slot 'iebar.team.' at position 13: ...ebar.team.<--[HERE]@11
+S -2--2 0 0 
+@ all be)ow<_name
+R 0
+A -
+X Unknown display slot 'be' at position 4: t be<--[HERE]@2
+E Unknown display slot 'be' at position 4: t be<--[HERE]@2
+S -2--2 0 0 
+@ all de
+R 0
+A -
+X Unknown display slot 'de' at position 4: t de<--[HERE]@2
+E Unknown display slot 'de' at position 4: t de<--[HERE]@2
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Unknown display slot '.' at position 3: t .<--[HERE]@1
+E Unknown display slot '.' at position 3: t .<--[HERE]@1
+S -2--2 0 0 
+@ all belowNam!e
+R 0
+A -
+X Unknown display slot 'belowNam' at position 10: t belowNam<--[HERE]@8
+E Unknown display slot 'belowNam' at position 10: t belowNam<--[HERE]@8
+S -2--2 0 0 
+@ all fooB
+R 0
+A -
+X Unknown display slot 'fooB' at position 6: t fooB<--[HERE]@4
+E Unknown display slot 'fooB' at position 6: t fooB<--[HERE]@4
+S -2--2 0 0 
+@ all 0
+R 0
+A -
+X Unknown display slot '0' at position 3: t 0<--[HERE]@1
+E Unknown display slot '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all sideb#ar.team2
+R 0
+A -
+X Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+E Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+S -2--2 0 0 
+@ all sidebar.team.w)ite
+R 0
+A -
+X Unknown display slot 'sidebar.team.w' at position 16: ...bar.team.w<--[HERE]@14
+E Unknown display slot 'sidebar.team.w' at position 16: ...bar.team.w<--[HERE]@14
+S -2--2 0 0 
+@ all belownamee
+R 0
+A -
+X Unknown display slot 'belownamee' at position 12: ...belownamee<--[HERE]@10
+E Unknown display slot 'belownamee' at position 12: ...belownamee<--[HERE]@10
+S -2--2 0 0 
+@ all team red
+R 0
+A -
+X Unknown display slot 'team' at position 6: t team<--[HERE]@4
+E Unknown display slot 'team' at position 6: t team<--[HERE]@4
+S -2--2 0 0 
+@ all sdeba#.team.red
+R 0
+A -
+X Unknown display slot 'sdeba' at position 7: t sdeba<--[HERE]@5
+E Unknown display slot 'sdeba' at position 7: t sdeba<--[HERE]@5
+S -2--2 0 0 
+@ all listl
+R 0
+A -
+X Unknown display slot 'listl' at position 7: t listl<--[HERE]@5
+E Unknown display slot 'listl' at position 7: t listl<--[HERE]@5
+S -2--2 0 0 
+@ all sidebarteam.whitem
+R 0
+A -
+X Unknown display slot 'sidebarteam.whitem' at position 20: ...eam.whitem<--[HERE]@18
+E Unknown display slot 'sidebarteam.whitem' at position 20: ...eam.whitem<--[HERE]@18
+S -2--2 0 0 
+@ all .ist
+R 0
+A -
+X Unknown display slot '.ist' at position 6: t .ist<--[HERE]@4
+E Unknown display slot '.ist' at position 6: t .ist<--[HERE]@4
+S -2--2 0 0 
+@ all below_name<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...below_name<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...below_name<--[HERE]@10
+S -2--2 0 0 
+@ all tt
+R 0
+A -
+X Unknown display slot 'tt' at position 4: t tt<--[HERE]@2
+E Unknown display slot 'tt' at position 4: t tt<--[HERE]@2
+S -2--2 0 0 
+@ all tam.red
+R 0
+A -
+X Unknown display slot 'tam.red' at position 9: t tam.red<--[HERE]@7
+E Unknown display slot 'tam.red' at position 9: t tam.red<--[HERE]@7
+S -2--2 0 0 
+@ all sidebar.team.dark_lue
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_lue' at position 23: ...m.dark_lue<--[HERE]@21
+E Unknown display slot 'sidebar.team.dark_lue' at position 23: ...m.dark_lue<--[HERE]@21
+S -2--2 0 0 
+@ all sidebar.team.dar=k_blue
+R 0
+A -
+X Unknown display slot 'sidebar.team.dar' at position 18: ...r.team.dar<--[HERE]@16
+E Unknown display slot 'sidebar.team.dar' at position 18: ...r.team.dar<--[HERE]@16
+S -2--2 0 0 
+@ all sidebar.team.whitee
+R 0
+A -
+X Unknown display slot 'sidebar.team.whitee' at position 21: ...eam.whitee<--[HERE]@19
+E Unknown display slot 'sidebar.team.whitee' at position 21: ...eam.whitee<--[HERE]@19
+S -2--2 0 0 
+@ all fo😀Y
+R 0
+A -
+X Unknown display slot 'fo' at position 4: t fo<--[HERE]@2
+E Unknown display slot 'fo' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all sidebar.teaCm.dark_blue
+R 0
+A -
+X Unknown display slot 'sidebar.teaCm.dark_blue' at position 25: ....dark_blue<--[HERE]@23
+E Unknown display slot 'sidebar.teaCm.dark_blue' at position 25: ....dark_blue<--[HERE]@23
+S -2--2 0 0 
+@ all sidebaar
+R 0
+A -
+X Unknown display slot 'sidebaar' at position 10: t sidebaar<--[HERE]@8
+E Unknown display slot 'sidebaar' at position 10: t sidebaar<--[HERE]@8
+S -2--2 0 0 
+@ all sideb.r.teae.red
+R 0
+A -
+X Unknown display slot 'sideb.r.teae.red' at position 18: ...r.teae.red<--[HERE]@16
+E Unknown display slot 'sideb.r.teae.red' at position 18: ...r.teae.red<--[HERE]@16
+S -2--2 0 0 
+@ all ebar.team.reset
+R 0
+A -
+X Unknown display slot 'ebar.team.reset' at position 17: ...team.reset<--[HERE]@15
+E Unknown display slot 'ebar.team.reset' at position 17: ...team.reset<--[HERE]@15
+S -2--2 0 0 
+@ all sid^ebar 
+R 0
+A -
+X Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+E Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+S -2--2 0 0 
+@ all sidbar.tam.white
+R 0
+A -
+X Unknown display slot 'sidbar.tam.white' at position 18: ....tam.white<--[HERE]@16
+E Unknown display slot 'sidbar.tam.white' at position 18: ....tam.white<--[HERE]@16
+S -2--2 0 0 
+@ all belowNae
+R 0
+A -
+X Unknown display slot 'belowNae' at position 10: t belowNae<--[HERE]@8
+E Unknown display slot 'belowNae' at position 10: t belowNae<--[HERE]@8
+S -2--2 0 0 
+@ all sideb中r
+R 0
+A -
+X Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+E Unknown display slot 'sideb' at position 7: t sideb<--[HERE]@5
+S -2--2 0 0 
+@ all .white
+R 0
+A -
+X Unknown display slot '.white' at position 8: t .white<--[HERE]@6
+E Unknown display slot '.white' at position 8: t .white<--[HERE]@6
+S -2--2 0 0 
+@ all s=idebar.tam.
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all set
+R 0
+A -
+X Unknown display slot 'set' at position 5: t set<--[HERE]@3
+E Unknown display slot 'set' at position 5: t set<--[HERE]@3
+S -2--2 0 0 
+@ all 9elowName
+R 0
+A -
+X Unknown display slot '9elowName' at position 11: ... 9elowName<--[HERE]@9
+E Unknown display slot '9elowName' at position 11: ... 9elowName<--[HERE]@9
+S -2--2 0 0 
+@ all s-idebar 
+R 0
+A -
+X Unknown display slot 's-idebar' at position 10: t s-idebar<--[HERE]@8
+E Unknown display slot 's-idebar' at position 10: t s-idebar<--[HERE]@8
+S -2--2 0 0 
+@ all }istt
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sidebar.team.dark_ble
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_ble' at position 23: ...m.dark_ble<--[HERE]@21
+E Unknown display slot 'sidebar.team.dark_ble' at position 23: ...m.dark_ble<--[HERE]@21
+S -2--2 0 0 
+@ all sidebaİ.team.ed
+R 0
+A -
+X Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+E Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+S -2--2 0 0 
+@ all wN>ame
+R 0
+A -
+X Unknown display slot 'wN' at position 4: t wN<--[HERE]@2
+E Unknown display slot 'wN' at position 4: t wN<--[HERE]@2
+S -2--2 0 0 
+@ all s0debar 
+R 0
+A -
+X Unknown display slot 's0debar' at position 9: t s0debar<--[HERE]@7
+E Unknown display slot 's0debar' at position 9: t s0debar<--[HERE]@7
+S -2--2 0 0 
+@ all sideba-rateam.
+R 0
+A -
+X Unknown display slot 'sideba-rateam.' at position 16: ...ba-rateam.<--[HERE]@14
+E Unknown display slot 'sideba-rateam.' at position 16: ...ba-rateam.<--[HERE]@14
+S -2--2 0 0 
+@ all team.fed
+R 0
+A -
+X Unknown display slot 'team.fed' at position 10: t team.fed<--[HERE]@8
+E Unknown display slot 'team.fed' at position 10: t team.fed<--[HERE]@8
+S -2--2 0 0 
+@ all oo
+R 0
+A -
+X Unknown display slot 'oo' at position 4: t oo<--[HERE]@2
+E Unknown display slot 'oo' at position 4: t oo<--[HERE]@2
+S -2--2 0 0 
+@ all li7<t
+R 0
+A -
+X Unknown display slot 'li7' at position 5: t li7<--[HERE]@3
+E Unknown display slot 'li7' at position 5: t li7<--[HERE]@3
+S -2--2 0 0 
+@ all belo4Name
+R 0
+A -
+X Unknown display slot 'belo4Name' at position 11: ... belo4Name<--[HERE]@9
+E Unknown display slot 'belo4Name' at position 11: ... belo4Name<--[HERE]@9
+S -2--2 0 0 
+@ all }}
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sidebarai
+R 0
+A -
+X Unknown display slot 'sidebarai' at position 11: ... sidebarai<--[HERE]@9
+E Unknown display slot 'sidebarai' at position 11: ... sidebarai<--[HERE]@9
+S -2--2 0 0 
+@ all bar.team.red
+R 0
+A -
+X Unknown display slot 'bar.team.red' at position 14: ...r.team.red<--[HERE]@12
+E Unknown display slot 'bar.team.red' at position 14: ...r.team.red<--[HERE]@12
+S -2--2 0 0 
+@ all ar.team.pink
+R 0
+A -
+X Unknown display slot 'ar.team.pink' at position 14: ....team.pink<--[HERE]@12
+E Unknown display slot 'ar.team.pink' at position 14: ....team.pink<--[HERE]@12
+S -2--2 0 0 
+@ all bel=wame
+R 0
+A -
+X Unknown display slot 'bel' at position 5: t bel<--[HERE]@3
+E Unknown display slot 'bel' at position 5: t bel<--[HERE]@3
+S -2--2 0 0 
+@ all ar.team.\\dark_blue
+R 0
+A -
+X Unknown display slot 'ar.team.' at position 10: t ar.team.<--[HERE]@8
+E Unknown display slot 'ar.team.' at position 10: t ar.team.<--[HERE]@8
+S -2--2 0 0 
+@ all ]ideba'.team.white
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all _blue
+R 0
+A -
+X Unknown display slot '_blue' at position 7: t _blue<--[HERE]@5
+E Unknown display slot '_blue' at position 7: t _blue<--[HERE]@5
+S -2--2 0 0 
+@ all sidebar.team.whit)
+R 0
+A -
+X Unknown display slot 'sidebar.team.whit' at position 19: ....team.whit<--[HERE]@17
+E Unknown display slot 'sidebar.team.whit' at position 19: ....team.whit<--[HERE]@17
+S -2--2 0 0 
+@ all lis 
+R 0
+A -
+X Unknown display slot 'lis' at position 5: t lis<--[HERE]@3
+E Unknown display slot 'lis' at position 5: t lis<--[HERE]@3
+S -2--2 0 0 
+@ all sidebar.team.yed
+R 0
+A -
+X Unknown display slot 'sidebar.team.yed' at position 18: ...r.team.yed<--[HERE]@16
+E Unknown display slot 'sidebar.team.yed' at position 18: ...r.team.yed<--[HERE]@16
+S -2--2 0 0 
+@ all hite
+R 0
+A -
+X Unknown display slot 'hite' at position 6: t hite<--[HERE]@4
+E Unknown display slot 'hite' at position 6: t hite<--[HERE]@4
+S -2--2 0 0 
+@ all sidexba r 
+R 0
+A -
+X Unknown display slot 'sidexba' at position 9: t sidexba<--[HERE]@7
+E Unknown display slot 'sidexba' at position 9: t sidexba<--[HERE]@7
+S -2--2 0 0 
+@ all sßdebar.t$eam.dark_blue
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all eam.reset
+R 0
+A -
+X Unknown display slot 'eam.reset' at position 11: ... eam.reset<--[HERE]@9
+E Unknown display slot 'eam.reset' at position 11: ... eam.reset<--[HERE]@9
+S -2--2 0 0 
+@ all belowNa￿e
+R 0
+A -
+X Unknown display slot 'belowNa' at position 9: t belowNa<--[HERE]@7
+E Unknown display slot 'belowNa' at position 9: t belowNa<--[HERE]@7
+S -2--2 0 0 
+@ all sid=ebar.team.resetm
+R 0
+A -
+X Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+E Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+S -2--2 0 0 
+@ all sidebar.team.Bed
+R 0
+A -
+X Unknown display slot 'sidebar.team.Bed' at position 18: ...r.team.Bed<--[HERE]@16
+E Unknown display slot 'sidebar.team.Bed' at position 18: ...r.team.Bed<--[HERE]@16
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sidebarteam.pink
+R 0
+A -
+X Unknown display slot 'sidebarteam.pink' at position 18: ...rteam.pink<--[HERE]@16
+E Unknown display slot 'sidebarteam.pink' at position 18: ...rteam.pink<--[HERE]@16
+S -2--2 0 0 
+@ all lis中t
+R 0
+A -
+X Unknown display slot 'lis' at position 5: t lis<--[HERE]@3
+E Unknown display slot 'lis' at position 5: t lis<--[HERE]@3
+S -2--2 0 0 
+@ all sidebar.t^eam.
+R 0
+A -
+X Unknown display slot 'sidebar.t' at position 11: ... sidebar.t<--[HERE]@9
+E Unknown display slot 'sidebar.t' at position 11: ... sidebar.t<--[HERE]@9
+S -2--2 0 0 
+@ all hitet
+R 0
+A -
+X Unknown display slot 'hitet' at position 7: t hitet<--[HERE]@5
+E Unknown display slot 'hitet' at position 7: t hitet<--[HERE]@5
+S -2--2 0 0 
+@ all sidebar.team.p$ink
+R 0
+A -
+X Unknown display slot 'sidebar.team.p' at position 16: ...bar.team.p<--[HERE]@14
+E Unknown display slot 'sidebar.team.p' at position 16: ...bar.team.p<--[HERE]@14
+S -2--2 0 0 
+@ all sidebar.team.p>nki
+R 0
+A -
+X Unknown display slot 'sidebar.team.p' at position 16: ...bar.team.p<--[HERE]@14
+E Unknown display slot 'sidebar.team.p' at position 16: ...bar.team.p<--[HERE]@14
+S -2--2 0 0 
+@ all ame
+R 0
+A -
+X Unknown display slot 'ame' at position 5: t ame<--[HERE]@3
+E Unknown display slot 'ame' at position 5: t ame<--[HERE]@3
+S -2--2 0 0 
+@ all sidebar.team.~ark_blue
+R 0
+A -
+X Unknown display slot 'sidebar.team.' at position 15: ...ebar.team.<--[HERE]@13
+E Unknown display slot 'sidebar.team.' at position 15: ...ebar.team.<--[HERE]@13
+S -2--2 0 0 
+@ all sidebar.team.redi
+R 0
+A -
+X Unknown display slot 'sidebar.team.redi' at position 19: ....team.redi<--[HERE]@17
+E Unknown display slot 'sidebar.team.redi' at position 19: ....team.redi<--[HERE]@17
+S -2--2 0 0 
+@ all sidebar.team.white.
+R 0
+A -
+X Unknown display slot 'sidebar.team.white.' at position 21: ...eam.white.<--[HERE]@19
+E Unknown display slot 'sidebar.team.white.' at position 21: ...eam.white.<--[HERE]@19
+S -2--2 0 0 
+@ all Sidebarr
+R 0
+A -
+X Unknown display slot 'Sidebarr' at position 10: t Sidebarr<--[HERE]@8
+E Unknown display slot 'Sidebarr' at position 10: t Sidebarr<--[HERE]@8
+S -2--2 0 0 
+@ all sidebar.team.e
+R 0
+A -
+X Unknown display slot 'sidebar.team.e' at position 16: ...bar.team.e<--[HERE]@14
+E Unknown display slot 'sidebar.team.e' at position 16: ...bar.team.e<--[HERE]@14
+S -2--2 0 0 
+@ all side​arteam.
+R 0
+A -
+X Unknown display slot 'side' at position 6: t side<--[HERE]@4
+E Unknown display slot 'side' at position 6: t side<--[HERE]@4
+S -2--2 0 0 
+@ all sidebar.team.pinks
+R 0
+A -
+X Unknown display slot 'sidebar.team.pinks' at position 20: ...team.pinks<--[HERE]@18
+E Unknown display slot 'sidebar.team.pinks' at position 20: ...team.pinks<--[HERE]@18
+S -2--2 0 0 
+@ all Aidebar 
+R 0
+A -
+X Unknown display slot 'Aidebar' at position 9: t Aidebar<--[HERE]@7
+E Unknown display slot 'Aidebar' at position 9: t Aidebar<--[HERE]@7
+S -2--2 0 0 
+@ all sidebar d
+R 8
+A 0-7 sidebar
+E Incorrect argument for command at position 10: t sidebar <--[HERE]@8
+S -2--2 0 0 
+@ all sidebar.team.ar_blue
+R 0
+A -
+X Unknown display slot 'sidebar.team.ar_blue' at position 22: ...am.ar_blue<--[HERE]@20
+E Unknown display slot 'sidebar.team.ar_blue' at position 22: ...am.ar_blue<--[HERE]@20
+S -2--2 0 0 
+@ all eam.redm
+R 0
+A -
+X Unknown display slot 'eam.redm' at position 10: t eam.redm<--[HERE]@8
+E Unknown display slot 'eam.redm' at position 10: t eam.redm<--[HERE]@8
+S -2--2 0 0 
+@ all sideba中.team.whiteB
+R 0
+A -
+X Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+E Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+S -2--2 0 0 
+@ all lit
+R 0
+A -
+X Unknown display slot 'lit' at position 5: t lit<--[HERE]@3
+E Unknown display slot 'lit' at position 5: t lit<--[HERE]@3
+S -2--2 0 0 
+@ all s(de
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all sidebar.team.dark_blu"
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_blu' at position 23: ...m.dark_blu<--[HERE]@21
+E Unknown display slot 'sidebar.team.dark_blu' at position 23: ...m.dark_blu<--[HERE]@21
+S -2--2 0 0 
+@ all Sdebar
+R 0
+A -
+X Unknown display slot 'Sdebar' at position 8: t Sdebar<--[HERE]@6
+E Unknown display slot 'Sdebar' at position 8: t Sdebar<--[HERE]@6
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Unknown display slot 'a' at position 3: t a<--[HERE]@1
+E Unknown display slot 'a' at position 3: t a<--[HERE]@1
+S 0-1 2 995427541 sidebar.team.aqua	sidebar.team.dark_aqua
+@ all team.reda
+R 0
+A -
+X Unknown display slot 'team.reda' at position 11: ... team.reda<--[HERE]@9
+E Unknown display slot 'team.reda' at position 11: ... team.reda<--[HERE]@9
+S -2--2 0 0 
+@ all sidebar.team.reddd
+R 0
+A -
+X Unknown display slot 'sidebar.team.reddd' at position 20: ...team.reddd<--[HERE]@18
+E Unknown display slot 'sidebar.team.reddd' at position 20: ...team.reddd<--[HERE]@18
+S -2--2 0 0 
+@ all belowNßme
+R 0
+A -
+X Unknown display slot 'belowN' at position 8: t belowN<--[HERE]@6
+E Unknown display slot 'belowN' at position 8: t belowN<--[HERE]@6
+S -2--2 0 0 
+@ all sidß
+R 0
+A -
+X Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+E Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+S -2--2 0 0 
+@ all siebar.team.dark_blue
+R 0
+A -
+X Unknown display slot 'siebar.team.dark_blue' at position 23: ....dark_blue<--[HERE]@21
+E Unknown display slot 'siebar.team.dark_blue' at position 23: ....dark_blue<--[HERE]@21
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s0ßde
+R 0
+A -
+X Unknown display slot 's0' at position 4: t s0<--[HERE]@2
+E Unknown display slot 's0' at position 4: t s0<--[HERE]@2
+S -2--2 0 0 
+@ all ßside
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all si+ebİr 
+R 0
+A -
+X Unknown display slot 'si+eb' at position 7: t si+eb<--[HERE]@5
+E Unknown display slot 'si+eb' at position 7: t si+eb<--[HERE]@5
+S -2--2 0 0 
+@ all =eam.red
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all listt
+R 0
+A -
+X Unknown display slot 'listt' at position 7: t listt<--[HERE]@5
+E Unknown display slot 'listt' at position 7: t listt<--[HERE]@5
+S -2--2 0 0 
+@ all sidebar.te^m.whitb
+R 0
+A -
+X Unknown display slot 'sidebar.te' at position 12: ...sidebar.te<--[HERE]@10
+E Unknown display slot 'sidebar.te' at position 12: ...sidebar.te<--[HERE]@10
+S -2--2 0 0 
+@ all sid!bar.team.reset
+R 0
+A -
+X Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+E Unknown display slot 'sid' at position 5: t sid<--[HERE]@3
+S -2--2 0 0 
+@ all elow_namee
+R 0
+A -
+X Unknown display slot 'elow_namee' at position 12: ...elow_namee<--[HERE]@10
+E Unknown display slot 'elow_namee' at position 12: ...elow_namee<--[HERE]@10
+S -2--2 0 0 
+@ all ebar.eam.
+R 0
+A -
+X Unknown display slot 'ebar.eam.' at position 11: ... ebar.eam.<--[HERE]@9
+E Unknown display slot 'ebar.eam.' at position 11: ... ebar.eam.<--[HERE]@9
+S -2--2 0 0 
+@ all beloAwN\u0009ame
+R 0
+A -
+X Unknown display slot 'beloAwN' at position 9: t beloAwN<--[HERE]@7
+E Unknown display slot 'beloAwN' at position 9: t beloAwN<--[HERE]@7
+S -2--2 0 0 
+@ all sidebar.team.dark_bluea
+R 0
+A -
+X Unknown display slot 'sidebar.team.dark_bluea' at position 25: ...dark_bluea<--[HERE]@23
+E Unknown display slot 'sidebar.team.dark_bluea' at position 25: ...dark_bluea<--[HERE]@23
+S -2--2 0 0 
+@ all listi
+R 0
+A -
+X Unknown display slot 'listi' at position 7: t listi<--[HERE]@5
+E Unknown display slot 'listi' at position 7: t listi<--[HERE]@5
+S -2--2 0 0 
+@ all blowName
+R 0
+A -
+X Unknown display slot 'blowName' at position 10: t blowName<--[HERE]@8
+E Unknown display slot 'blowName' at position 10: t blowName<--[HERE]@8
+S -2--2 0 0 
+@ all .team.reset
+R 0
+A -
+X Unknown display slot '.team.reset' at position 13: ...team.reset<--[HERE]@11
+E Unknown display slot '.team.reset' at position 13: ...team.reset<--[HERE]@11
+S -2--2 0 0 
+@ all sidebar.team.redd
+R 0
+A -
+X Unknown display slot 'sidebar.team.redd' at position 19: ....team.redd<--[HERE]@17
+E Unknown display slot 'sidebar.team.redd' at position 19: ....team.redd<--[HERE]@17
+S -2--2 0 0 
+@ all si0ebar.team.redi
+R 0
+A -
+X Unknown display slot 'si0ebar.team.redi' at position 19: ....team.redi<--[HERE]@17
+E Unknown display slot 'si0ebar.team.redi' at position 19: ....team.redi<--[HERE]@17
+S -2--2 0 0 
+@ all siebar.teamwhite
+R 0
+A -
+X Unknown display slot 'siebar.teamwhite' at position 18: ....teamwhite<--[HERE]@16
+E Unknown display slot 'siebar.teamwhite' at position 18: ....teamwhite<--[HERE]@16
+S -2--2 0 0 
+@ all sideb8ar.team.reset
+R 0
+A -
+X Unknown display slot 'sideb8ar.team.reset' at position 21: ...team.reset<--[HERE]@19
+E Unknown display slot 'sideb8ar.team.reset' at position 21: ...team.reset<--[HERE]@19
+S -2--2 0 0 
+@ all sidebae.team.whitee
+R 0
+A -
+X Unknown display slot 'sidebae.team.whitee' at position 21: ...eam.whitee<--[HERE]@19
+E Unknown display slot 'sidebae.team.whitee' at position 21: ...eam.whitee<--[HERE]@19
+S -2--2 0 0 
+@ all Siebar
+R 0
+A -
+X Unknown display slot 'Siebar' at position 8: t Siebar<--[HERE]@6
+E Unknown display slot 'Siebar' at position 8: t Siebar<--[HERE]@6
+S -2--2 0 0 
+@ all sidbar.team.white
+R 0
+A -
+X Unknown display slot 'sidbar.team.white' at position 19: ...team.white<--[HERE]@17
+E Unknown display slot 'sidbar.team.white' at position 19: ...team.white<--[HERE]@17
+S -2--2 0 0 
+@ all bel^w_name
+R 0
+A -
+X Unknown display slot 'bel' at position 5: t bel<--[HERE]@3
+E Unknown display slot 'bel' at position 5: t bel<--[HERE]@3
+S -2--2 0 0 
+@ all belowamea
+R 0
+A -
+X Unknown display slot 'belowamea' at position 11: ... belowamea<--[HERE]@9
+E Unknown display slot 'belowamea' at position 11: ... belowamea<--[HERE]@9
+S -2--2 0 0 
+@ all team. red
+R 0
+A -
+X Unknown display slot 'team.' at position 7: t team.<--[HERE]@5
+E Unknown display slot 'team.' at position 7: t team.<--[HERE]@5
+S -2--2 0 0 
+@ all sidebar.te!m.reset
+R 0
+A -
+X Unknown display slot 'sidebar.te' at position 12: ...sidebar.te<--[HERE]@10
+E Unknown display slot 'sidebar.te' at position 12: ...sidebar.te<--[HERE]@10
+S -2--2 0 0 
+@ all ebar
+R 0
+A -
+X Unknown display slot 'ebar' at position 6: t ebar<--[HERE]@4
+E Unknown display slot 'ebar' at position 6: t ebar<--[HERE]@4
+S -2--2 0 0 
+@ all ow_na.e
+R 0
+A -
+X Unknown display slot 'ow_na.e' at position 9: t ow_na.e<--[HERE]@7
+E Unknown display slot 'ow_na.e' at position 9: t ow_na.e<--[HERE]@7
+S -2--2 0 0 
+@ all Si\u000adebara
+R 0
+A -
+X Unknown display slot 'Si' at position 4: t Si<--[HERE]@2
+E Unknown display slot 'Si' at position 4: t Si<--[HERE]@2
+S -2--2 0 0 
+@ all Si_6bar
+R 0
+A -
+X Unknown display slot 'Si_6bar' at position 9: t Si_6bar<--[HERE]@7
+E Unknown display slot 'Si_6bar' at position 9: t Si_6bar<--[HERE]@7
+S -2--2 0 0 
+@ all bar
+R 0
+A -
+X Unknown display slot 'bar' at position 5: t bar<--[HERE]@3
+E Unknown display slot 'bar' at position 5: t bar<--[HERE]@3
+S -2--2 0 0 
+@ all idebar.team.redd
+R 0
+A -
+X Unknown display slot 'idebar.team.redd' at position 18: ....team.redd<--[HERE]@16
+E Unknown display slot 'idebar.team.redd' at position 18: ....team.redd<--[HERE]@16
+S -2--2 0 0 
+@ all belowNamez
+R 0
+A -
+X Unknown display slot 'belowNamez' at position 12: ...belowNamez<--[HERE]@10
+E Unknown display slot 'belowNamez' at position 12: ...belowNamez<--[HERE]@10
+S -2--2 0 0 
+@ all s deb'ar 
+R 0
+A -
+X Unknown display slot 's' at position 3: t s<--[HERE]@1
+E Unknown display slot 's' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all \u000a
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sidebar.teBm.reset
+R 0
+A -
+X Unknown display slot 'sidebar.teBm.reset' at position 20: ...teBm.reset<--[HERE]@18
+E Unknown display slot 'sidebar.teBm.reset' at position 20: ...teBm.reset<--[HERE]@18
+S -2--2 0 0 
+@ all siAebar.team.resetd
+R 0
+A -
+X Unknown display slot 'siAebar.team.resetd' at position 21: ...eam.resetd<--[HERE]@19
+E Unknown display slot 'siAebar.team.resetd' at position 21: ...eam.resetd<--[HERE]@19
+S -2--2 0 0 
+@ all Name
+R 0
+A -
+X Unknown display slot 'Name' at position 6: t Name<--[HERE]@4
+E Unknown display slot 'Name' at position 6: t Name<--[HERE]@4
+S 0-4 1 929373520 below_name
+@ all sie
+R 0
+A -
+X Unknown display slot 'sie' at position 5: t sie<--[HERE]@3
+E Unknown display slot 'sie' at position 5: t sie<--[HERE]@3
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Unknown display slot '' at position 2: t <--[HERE]@0
+E Unknown display slot '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all des
+R 0
+A -
+X Unknown display slot 'des' at position 5: t des<--[HERE]@3
+E Unknown display slot 'des' at position 5: t des<--[HERE]@3
+S -2--2 0 0 
+@ all sidebar.team.pi>nk
+R 0
+A -
+X Unknown display slot 'sidebar.team.pi' at position 17: ...ar.team.pi<--[HERE]@15
+E Unknown display slot 'sidebar.team.pi' at position 17: ...ar.team.pi<--[HERE]@15
+S -2--2 0 0 
+@ all sidebarteam.9pink
+R 0
+A -
+X Unknown display slot 'sidebarteam.9pink' at position 19: ...team.9pink<--[HERE]@17
+E Unknown display slot 'sidebarteam.9pink' at position 19: ...team.9pink<--[HERE]@17
+S -2--2 0 0 
+@ all sidebar.tam.white.
+R 0
+A -
+X Unknown display slot 'sidebar.tam.white.' at position 20: ...tam.white.<--[HERE]@18
+E Unknown display slot 'sidebar.tam.white.' at position 20: ...tam.white.<--[HERE]@18
+S -2--2 0 0 
+@ all below_nameß]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...below_name<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...below_name<--[HERE]@10
+S -2--2 0 0 
+@ all sidebar.team.whitei
+R 0
+A -
+X Unknown display slot 'sidebar.team.whitei' at position 21: ...eam.whitei<--[HERE]@19
+E Unknown display slot 'sidebar.team.whitei' at position 21: ...eam.whitei<--[HERE]@19
+S -2--2 0 0 
+@ all Sßidebarb
+R 0
+A -
+X Unknown display slot 'S' at position 3: t S<--[HERE]@1
+E Unknown display slot 'S' at position 3: t S<--[HERE]@1
+S -2--2 0 0 
+@ all ebar.t_eam.red
+R 0
+A -
+X Unknown display slot 'ebar.t_eam.red' at position 16: ....t_eam.red<--[HERE]@14
+E Unknown display slot 'ebar.t_eam.red' at position 16: ....t_eam.red<--[HERE]@14
+S -2--2 0 0 
+@ all -idebar
+R 0
+A -
+X Unknown display slot '-idebar' at position 9: t -idebar<--[HERE]@7
+E Unknown display slot '-idebar' at position 9: t -idebar<--[HERE]@7
+S -2--2 0 0 
+@ all b中lowNam[
+R 0
+A -
+X Unknown display slot 'b' at position 3: t b<--[HERE]@1
+E Unknown display slot 'b' at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all sideba d
+R 0
+A -
+X Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+E Unknown display slot 'sideba' at position 8: t sideba<--[HERE]@6
+S -2--2 0 0 
+@ all bar.team.resete
+R 0
+A -
+X Unknown display slot 'bar.team.resete' at position 17: ...eam.resete<--[HERE]@15
+E Unknown display slot 'bar.team.resete' at position 17: ...eam.resete<--[HERE]@15
+S -2--2 0 0 
+@ all te￿m.red
+R 0
+A -
+X Unknown display slot 'te' at position 4: t te<--[HERE]@2
+E Unknown display slot 'te' at position 4: t te<--[HERE]@2
+S -2--2 0 0 

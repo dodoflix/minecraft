@@ -1,0 +1,1836 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 0.0
+E ok
+S -2--2 0 0 
+@ all ~
+R 1
+A 0-1 40.0
+E ok
+S -2--2 0 0 
+@ all ~-5
+R 3
+A 0-3 35.0
+E ok
+S -2--2 0 0 
+@ all ~5
+R 2
+A 0-2 45.0
+E ok
+S -2--2 0 0 
+@ all 90
+R 2
+A 0-2 90.0
+E ok
+S -2--2 0 0 
+@ all 180
+R 3
+A 0-3 -180.0
+E ok
+S -2--2 0 0 
+@ all -180
+R 4
+A 0-4 -180.0
+E ok
+S -2--2 0 0 
+@ all 540
+R 3
+A 0-3 -180.0
+E ok
+S -2--2 0 0 
+@ all -.5
+R 3
+A 0-3 -0.5
+E ok
+S -2--2 0 0 
+@ all ~.5
+R 3
+A 0-3 40.5
+E ok
+S -2--2 0 0 
+@ all 1e3
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all NaN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infinity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~NaN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 5 
+R 1
+A 0-1 5.0
+E Incorrect argument for command at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all ~ 
+R 1
+A 0-1 40.0
+E Incorrect argument for command at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~-
+R 0
+A -
+X Invalid float '-' at position 3: t ~<--[HERE]@1
+E Invalid float '-' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 1.5.2
+R 0
+A -
+X Invalid float '1.5.2' at position 2: t <--[HERE]@0
+E Invalid float '1.5.2' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9
+R 1
+A 0-1 9.0
+E ok
+S -2--2 0 0 
+@ all 1
+R 1
+A 0-1 1.0
+E ok
+S -2--2 0 0 
+@ all 18
+R 2
+A 0-2 18.0
+E ok
+S -2--2 0 0 
+@ all -1
+R 2
+A 0-2 -1.0
+E ok
+S -2--2 0 0 
+@ all -18
+R 3
+A 0-3 -18.0
+E ok
+S -2--2 0 0 
+@ all 5
+R 1
+A 0-1 5.0
+E ok
+S -2--2 0 0 
+@ all 54
+R 2
+A 0-2 54.0
+E ok
+S -2--2 0 0 
+@ all -.
+R 0
+A -
+X Invalid float '-.' at position 2: t <--[HERE]@0
+E Invalid float '-.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~.
+R 0
+A -
+X Invalid float '.' at position 3: t ~<--[HERE]@1
+E Invalid float '.' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 1e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all N
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Na
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all I
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all In
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Inf
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infi
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infin
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infini
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infinit
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~N
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~Na
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 1.
+R 2
+A 0-2 1.0
+E ok
+S -2--2 0 0 
+@ all 1.5
+R 3
+A 0-3 1.5
+E ok
+S -2--2 0 0 
+@ all 1.5.
+R 0
+A -
+X Invalid float '1.5.' at position 2: t <--[HERE]@0
+E Invalid float '1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5.22
+R 0
+A -
+X Invalid float '1.5.22' at position 2: t <--[HERE]@0
+E Invalid float '1.5.22' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~￿
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all é~
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~-(
+R 0
+A -
+X Invalid float '-' at position 3: t ~<--[HERE]@1
+E Invalid float '-' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all &1e^3
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~  
+R 2
+A 0-1 40.0
+E Incorrect argument for command at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all 3~-5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 3<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all Infinit\\
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 25N
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 25<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 25<--[HERE]@2
+S -2--2 0 0 
+@ all >
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1~3
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all \u0000$5
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all finiBy
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ."5
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all InZinityi
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5400
+R 4
+A 0-4 0.0
+E ok
+S -2--2 0 0 
+@ all YaN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1800
+R 4
+A 0-4 0.0
+E ok
+S -2--2 0 0 
+@ all 54$0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+S -2--2 0 0 
+@ all 1801
+R 4
+A 0-4 1.0
+E ok
+S -2--2 0 0 
+@ all ^
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all InfinityI
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5   
+R 2
+A 0-1 5.0
+E Incorrect argument for command at position 4: t 5 <--[HERE]@2
+S -2--2 0 0 
+@ all  ~Na6
+R 1
+A 0-0 0.0
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all Infi{ity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5{.2[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all nfinity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e3
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1808
+R 4
+A 0-4 8.0
+E ok
+S -2--2 0 0 
+@ all NaNN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all B
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3
+R 1
+A 0-1 3.0
+E ok
+S -2--2 0 0 
+@ all 5.25
+R 4
+A 0-4 5.25
+E ok
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~<5
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 80
+R 2
+A 0-2 80.0
+E ok
+S -2--2 0 0 
+@ all ',
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infinityy
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 15e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 15<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 15<--[HERE]@2
+S -2--2 0 0 
+@ all ~ \u000a
+R 2
+A 0-1 40.0
+E Incorrect argument for command at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all 1.5.62
+R 0
+A -
+X Invalid float '1.5.62' at position 2: t <--[HERE]@0
+E Invalid float '1.5.62' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  
+R 0
+A 0-0 0.0
+E Incorrect argument for command at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 7
+R 1
+A 0-1 7.0
+E ok
+S -2--2 0 0 
+@ all ~.X
+R 0
+A -
+X Invalid float '.' at position 3: t ~<--[HERE]@1
+E Invalid float '.' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all NN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 10
+R 2
+A 0-2 10.0
+E ok
+S -2--2 0 0 
+@ all 5404
+R 4
+A 0-4 4.0
+E ok
+S -2--2 0 0 
+@ all ~NaßN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~552
+R 4
+A 0-4 -128.0
+E ok
+S -2--2 0 0 
+@ all ~A5
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~55
+R 3
+A 0-3 95.0
+E ok
+S -2--2 0 0 
+@ all -$
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~\u0000~
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all &-180
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infi&ityI
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Y~N>aN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~,~
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all x
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NaNNN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e￿
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all -!
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~^5
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 1ea
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all b=
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 00
+R 2
+A 0-2 0.0
+E ok
+S -2--2 0 0 
+@ all <~
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -18\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -18<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -18<--[HERE]@3
+S -2--2 0 0 
+@ all ~~
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~88
+R 3
+A 0-3 128.0
+E ok
+S -2--2 0 0 
+@ all -"d180
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &0Z
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0  
+R 2
+A 0-1 0.0
+E Incorrect argument for command at position 4: t 0 <--[HERE]@2
+S -2--2 0 0 
+@ all 61806
+R 5
+A 0-5 -114.0
+E ok
+S -2--2 0 0 
+@ all ~xNaNN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all <
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~   
+R 2
+A 0-1 40.0
+E Incorrect argument for command at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all -.A
+R 0
+A -
+X Invalid float '-.' at position 2: t <--[HERE]@0
+E Invalid float '-.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 13
+R 2
+A 0-2 13.0
+E ok
+S -2--2 0 0 
+@ all Infin+ity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -.a
+R 0
+A -
+X Invalid float '-.' at position 2: t <--[HERE]@0
+E Invalid float '-.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 900
+R 3
+A 0-3 -180.0
+E ok
+S -2--2 0 0 
+@ all 180:0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 180<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 180<--[HERE]@3
+S -2--2 0 0 
+@ all  1e3
+R 1
+A 0-0 0.0
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all ~-~
+R 0
+A -
+X Invalid float '-' at position 3: t ~<--[HERE]@1
+E Invalid float '-' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all -1899
+R 5
+A 0-5 -99.0
+E ok
+S -2--2 0 0 
+@ all 1C0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all Na$N
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5.2.
+R 0
+A -
+X Invalid float '1.5.2.' at position 2: t <--[HERE]@0
+E Invalid float '1.5.2.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~NeaN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~-b
+R 0
+A -
+X Invalid float '-' at position 3: t ~<--[HERE]@1
+E Invalid float '-' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~_
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all NaN4
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5  5
+R 2
+A 0-1 5.0
+E Incorrect argument for command at position 4: t 5 <--[HERE]@2
+S -2--2 0 0 
+@ all 1$0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all %0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1800-
+R 0
+A -
+X Invalid float '-1800-' at position 2: t <--[HERE]@0
+E Invalid float '-1800-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~--
+R 0
+A -
+X Invalid float '--' at position 3: t ~<--[HERE]@1
+E Invalid float '--' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all \\180
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1ef
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all >1"0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -80
+R 3
+A 0-3 -80.0
+E ok
+S -2--2 0 0 
+@ all a￿N
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​180
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e3e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ~-Zx
+R 0
+A -
+X Invalid float '-' at position 3: t ~<--[HERE]@1
+E Invalid float '-' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all )B
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 90​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+S -2--2 0 0 
+@ all CNaN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1].5.2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 2180
+R 4
+A 0-4 20.0
+E ok
+S -2--2 0 0 
+@ all -'5İ
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ininity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aNN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 54>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+S -2--2 0 0 
+@ all ~NaNa
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all Infnity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all C~-
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -5
+R 2
+A 0-2 -5.0
+E ok
+S -2--2 0 0 
+@ all (0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ5
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -101
+R 4
+A 0-4 -101.0
+E ok
+S -2--2 0 0 
+@ all 33
+R 2
+A 0-2 33.0
+E ok
+S -2--2 0 0 
+@ all f75 
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ98
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ty
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~Na~
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all y~
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5 5
+R 2
+A 0-1 5.0
+E Incorrect argument for command at position 4: t 5 <--[HERE]@2
+S -2--2 0 0 
+@ all 0a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 0{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 4
+R 1
+A 0-1 4.0
+E ok
+S -2--2 0 0 
+@ all x~
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ---
+R 0
+A -
+X Invalid float '---' at position 2: t <--[HERE]@0
+E Invalid float '---' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all [=80
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -.5.
+R 0
+A -
+X Invalid float '-.5.' at position 2: t <--[HERE]@0
+E Invalid float '-.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -10
+R 3
+A 0-3 -10.0
+E ok
+S -2--2 0 0 
+@ all ~@
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 1X5.2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ~-8
+R 3
+A 0-3 32.0
+E ok
+S -2--2 0 0 
+@ all 6
+R 1
+A 0-1 6.0
+E ok
+S -2--2 0 0 
+@ all 540中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 540<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 540<--[HERE]@3
+S -2--2 0 0 
+@ all ​​
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~6 
+R 2
+A 0-2 46.0
+E Incorrect argument for command at position 4: t ~6<--[HERE]@2
+S -2--2 0 0 
+@ all ​1e
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all - .5
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all AInfinity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 中A40
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all [~
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ-
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ß.5
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all A.
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Inéfinity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !-
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~*-
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 5.4b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 5.4<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 5.4<--[HERE]@3
+S -2--2 0 0 
+@ all --
+R 0
+A -
+X Invalid float '--' at position 2: t <--[HERE]@0
+E Invalid float '--' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 180😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 180<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 180<--[HERE]@3
+S -2--2 0 0 
+@ all ~é
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~=-5
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~~~
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all I2finity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~5$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ~5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ~5<--[HERE]@2
+S -2--2 0 0 
+@ all 54c0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+S -2--2 0 0 
+@ all 590
+R 3
+A 0-3 -130.0
+E ok
+S -2--2 0 0 
+@ all ~>~
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all e7
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1800
+R 5
+A 0-5 -0.0
+E ok
+S -2--2 0 0 
+@ all Infinit{y
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infiniy
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0000
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all   
+R 1
+A 0-0 0.0
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all ~NN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 2
+R 1
+A 0-1 2.0
+E ok
+S -2--2 0 0 
+@ all ß5 
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1😀5.21
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all Naé#
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .5.2.
+R 0
+A -
+X Invalid float '.5.2.' at position 2: t <--[HERE]@0
+E Invalid float '.5.2.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5"2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all 2900
+R 4
+A 0-4 20.0
+E ok
+S -2--2 0 0 
+@ all ~N/N
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 55
+R 2
+A 0-2 55.0
+E ok
+S -2--2 0 0 
+@ all B~5
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 6~-5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 6<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all 1-180
+R 0
+A -
+X Invalid float '1-180' at position 2: t <--[HERE]@0
+E Invalid float '1-180' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ ~
+R 2
+A 0-1 40.0
+E Incorrect argument for command at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all 90,
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+S -2--2 0 0 
+@ all ].5).2
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aN3
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 40
+R 2
+A 0-2 40.0
+E ok
+S -2--2 0 0 
+@ all B-180-
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 90f
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+S -2--2 0 0 
+@ all 3~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 3<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all 5_
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all 057
+R 3
+A 0-3 57.0
+E ok
+S -2--2 0 0 
+@ all City
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~(*5
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 54^
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+S -2--2 0 0 
+@ all 1.5.2,
+R 0
+A -
+X Invalid float '1.5.2' at position 2: t <--[HERE]@0
+E Invalid float '1.5.2' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .5.2
+R 0
+A -
+X Invalid float '.5.2' at position 2: t <--[HERE]@0
+E Invalid float '.5.2' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all X0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all /4 
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 000
+R 3
+A 0-3 0.0
+E ok
+S -2--2 0 0 
+@ all Infinityyn
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -'80
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1808
+R 5
+A 0-5 -8.0
+E ok
+S -2--2 0 0 
+@ all 1e31
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 93
+R 2
+A 0-2 93.0
+E ok
+S -2--2 0 0 
+@ all -.55
+R 4
+A 0-4 -0.55
+E ok
+S -2--2 0 0 
+@ all 180\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 180<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 180<--[HERE]@3
+S -2--2 0 0 
+@ all İ180
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .5.25
+R 0
+A -
+X Invalid float '.5.25' at position 2: t <--[HERE]@0
+E Invalid float '.5.25' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5 é 
+R 2
+A 0-1 5.0
+E Incorrect argument for command at position 4: t 5 <--[HERE]@2
+S -2--2 0 0 
+@ all f540
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all C 
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all )~
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 909
+R 3
+A 0-3 -171.0
+E ok
+S -2--2 0 0 
+@ all ~}-
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all \u000a-
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e%]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1.5.>
+R 0
+A -
+X Invalid float '1.5.' at position 2: t <--[HERE]@0
+E Invalid float '1.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~-55
+R 4
+A 0-4 -15.0
+E ok
+S -2--2 0 0 
+@ all Infinit<
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eß
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9c
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all ~5~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ~5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ~5<--[HERE]@2
+S -2--2 0 0 
+@ all -X
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~N9Ne
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 😀40 
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~.5.
+R 0
+A -
+X Invalid float '.5.' at position 3: t ~<--[HERE]@1
+E Invalid float '.5.' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all N.
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 400
+R 3
+A 0-3 40.0
+E ok
+S -2--2 0 0 
+@ all .5
+R 2
+A 0-2 0.5
+E ok
+S -2--2 0 0 
+@ all ~ 中
+R 2
+A 0-1 40.0
+E Incorrect argument for command at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all <180
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all -180\u00091
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t -180<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t -180<--[HERE]@4
+S -2--2 0 0 
+@ all -#
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5 XX
+R 2
+A 0-1 5.0
+E Incorrect argument for command at position 4: t 5 <--[HERE]@2
+S -2--2 0 0 
+@ all [--
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all __
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5.6
+R 0
+A -
+X Invalid float '1.5.6' at position 2: t <--[HERE]@0
+E Invalid float '1.5.6' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -5~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t -5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t -5<--[HERE]@2
+S -2--2 0 0 
+@ all Infiityi
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~NaC
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 9\u000a\u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all 90\u000a=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 90<--[HERE]@2
+S -2--2 0 0 
+@ all ~  ~
+R 2
+A 0-1 40.0
+E Incorrect argument for command at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all 1^0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ~^NaN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~6
+R 2
+A 0-2 46.0
+E ok
+S -2--2 0 0 
+@ all z@NaN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1\u000a00
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ~.5~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ~.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ~.5<--[HERE]@3
+S -2--2 0 0 
+@ all ~NaNN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all İ0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5.2
+R 3
+A 0-3 5.2
+E ok
+S -2--2 0 0 
+@ all ~!aN
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all f-
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~2-6
+R 0
+A -
+X Invalid float '2-6' at position 3: t ~<--[HERE]@1
+E Invalid float '2-6' at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 5c40
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all -,
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infi%ity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~x5
+R 0
+A -
+X Expected float at position 3: t ~<--[HERE]@1
+E Expected float at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all -.,
+R 0
+A -
+X Invalid float '-.' at position 2: t <--[HERE]@0
+E Invalid float '-.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 54​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 54<--[HERE]@2
+S -2--2 0 0 
+@ all -0
+R 2
+A 0-2 -0.0
+E ok
+S -2--2 0 0 
+@ all -1\\00
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t -1<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t -1<--[HERE]@2
+S -2--2 0 0 

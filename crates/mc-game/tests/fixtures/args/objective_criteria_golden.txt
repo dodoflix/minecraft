@@ -1,0 +1,2188 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 10019 -573267486 air	armor	deathCount	dummy	food	health	killedByTeam.aqua	killedByTeam.black
+@ all dummy
+R 5
+A 0-5 dummy|false|integer
+E ok
+S -2--2 0 0 
+@ all trigger
+R 7
+A 0-7 trigger|false|integer
+E ok
+S 0-7 2 1683145240 minecraft.custom:minecraft.raid_trigger	minecraft.custom:minecraft.trigger_trapped_chest
+@ all deathCount
+R 10
+A 0-10 deathCount|false|integer
+E ok
+S -2--2 0 0 
+@ all playerKillCount
+R 15
+A 0-15 playerKillCount|false|integer
+E ok
+S -2--2 0 0 
+@ all totalKillCount
+R 14
+A 0-14 totalKillCount|false|integer
+E ok
+S -2--2 0 0 
+@ all health
+R 6
+A 0-6 health|true|hearts
+E ok
+S -2--2 0 0 
+@ all food
+R 4
+A 0-4 food|true|integer
+E ok
+S -2--2 0 0 
+@ all air
+R 3
+A 0-3 air|true|integer
+E ok
+S 0-3 8 957228317 minecraft.broken:minecraft.air	minecraft.crafted:minecraft.air	minecraft.dropped:minecraft.air	minecraft.mined:minecraft.air	minecraft.mined:minecraft.cave_air	minecraft.mined:minecraft.void_air	minecraft.picked_up:minecraft.air	minecraft.used:minecraft.air
+@ all armor
+R 5
+A 0-5 armor|true|integer
+E ok
+S 0-5 158 57782316 minecraft.broken:minecraft.armor_stand	minecraft.broken:minecraft.bolt_armor_trim_smithing_template	minecraft.broken:minecraft.coast_armor_trim_smithing_template	minecraft.broken:minecraft.copper_horse_armor	minecraft.broken:minecraft.copper_nautilus_armor	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.dune_armor_trim_smithing_template
+@ all xp
+R 2
+A 0-2 xp|true|integer
+E ok
+S -2--2 0 0 
+@ all level
+R 5
+A 0-5 level|true|integer
+E ok
+S -2--2 0 0 
+@ all teamkill.red
+R 12
+A 0-12 teamkill.red|false|integer
+E ok
+S -2--2 0 0 
+@ all killedByTeam.dark_blue
+R 22
+A 0-22 killedByTeam.dark_blue|false|integer
+E ok
+S -2--2 0 0 
+@ all teamkill.
+R 0
+A -
+X Unknown criterion 'teamkill.' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill.' at position 2: t <--[HERE]@0
+S 0-9 16 -1859381871 teamkill.aqua	teamkill.black	teamkill.blue	teamkill.dark_aqua	teamkill.dark_blue	teamkill.dark_gray	teamkill.dark_green	teamkill.dark_purple	teamkill.dark_red	teamkill.gold	teamkill.gray	teamkill.green	teamkill.light_purple	teamkill.red	teamkill.white	teamkill.yellow
+@ all teamkill.pink
+R 0
+A -
+X Unknown criterion 'teamkill.pink' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill.pink' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft.mined:minecraft.stone
+R 31
+A 0-31 minecraft.mined:minecraft.stone|false|integer
+E ok
+S 0-31 9 1310474972 minecraft.mined:minecraft.stone_brick_slab	minecraft.mined:minecraft.stone_brick_stairs	minecraft.mined:minecraft.stone_brick_wall	minecraft.mined:minecraft.stone_bricks	minecraft.mined:minecraft.stone_button	minecraft.mined:minecraft.stone_pressure_plate	minecraft.mined:minecraft.stone_slab	minecraft.mined:minecraft.stone_stairs	minecraft.mined:minecraft.stonecutter
+@ all minecraft.crafted:minecraft.stick
+R 33
+A 0-33 minecraft.crafted:minecraft.stick|false|integer
+E ok
+S 0-33 1 -412560329 minecraft.crafted:minecraft.sticky_piston
+@ all minecraft.custom:minecraft.jump
+R 31
+A 0-31 minecraft.custom:minecraft.jump|false|integer
+E ok
+S -2--2 0 0 
+@ all minecraft.killed:minecraft.zombie
+R 33
+A 0-33 minecraft.killed:minecraft.zombie|false|integer
+E ok
+S 0-33 3 -243153323 minecraft.killed:minecraft.zombie_horse	minecraft.killed:minecraft.zombie_nautilus	minecraft.killed:minecraft.zombie_villager
+@ all minecraft.killed_by:minecraft.creeper
+R 37
+A 0-37 minecraft.killed_by:minecraft.creeper|false|integer
+E ok
+S -2--2 0 0 
+@ all minecraft.used:minecraft.bow
+R 28
+A 0-28 minecraft.used:minecraft.bow|false|integer
+E ok
+S 0-28 1 1032218826 minecraft.used:minecraft.bowl
+@ all minecraft.broken:minecraft.diamond_pickaxe
+R 42
+A 0-42 minecraft.broken:minecraft.diamond_pickaxe|false|integer
+E ok
+S -2--2 0 0 
+@ all minecraft.picked_up:minecraft.diamond
+R 37
+A 0-37 minecraft.picked_up:minecraft.diamond|false|integer
+E ok
+S 0-37 14 1654399164 minecraft.picked_up:minecraft.diamond_axe	minecraft.picked_up:minecraft.diamond_block	minecraft.picked_up:minecraft.diamond_boots	minecraft.picked_up:minecraft.diamond_chestplate	minecraft.picked_up:minecraft.diamond_helmet	minecraft.picked_up:minecraft.diamond_hoe	minecraft.picked_up:minecraft.diamond_horse_armor	minecraft.picked_up:minecraft.diamond_leggings	minecraft.picked_up:minecraft.diamond_nautilus_armor	minecraft.picked_up:minecraft.diamond_ore	minecraft.picked_up:minecraft.diamond_pickaxe	minecraft.picked_up:minecraft.diamond_shovel	minecraft.picked_up:minecraft.diamond_spear	minecraft.picked_up:minecraft.diamond_sword
+@ all minecraft.dropped:minecraft.dirt
+R 32
+A 0-32 minecraft.dropped:minecraft.dirt|false|integer
+E ok
+S 0-32 1 53319368 minecraft.dropped:minecraft.dirt_path
+@ all minecraft.mined:minecraft.nope
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.nope' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.nope' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft.mined:stone
+R 21
+A 0-21 minecraft.mined:minecraft.stone|false|integer
+E ok
+S -2--2 0 0 
+@ all minecraft:mined:minecraft:stone
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraft:stone' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraft:stone' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Dummy
+R 0
+A -
+X Unknown criterion 'Dummy' at position 2: t <--[HERE]@0
+E Unknown criterion 'Dummy' at position 2: t <--[HERE]@0
+S 0-5 1 -1320644511 dummy
+@ all foo
+R 0
+A -
+X Unknown criterion 'foo' at position 2: t <--[HERE]@0
+E Unknown criterion 'foo' at position 2: t <--[HERE]@0
+S 0-3 6 -893598330 food	minecraft.broken:minecraft.rabbit_foot	minecraft.crafted:minecraft.rabbit_foot	minecraft.dropped:minecraft.rabbit_foot	minecraft.picked_up:minecraft.rabbit_foot	minecraft.used:minecraft.rabbit_foot
+@ all foo bar
+R 0
+A -
+X Unknown criterion 'foo' at position 2: t <--[HERE]@0
+E Unknown criterion 'foo' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.' at position 2: t <--[HERE]@0
+S 0-10 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.custom:
+R 0
+A -
+X Unknown criterion 'minecraft.custom:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:' at position 2: t <--[HERE]@0
+S 0-17 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.mined:minecraft.stone 
+R 31
+A 0-31 minecraft.mined:minecraft.stone|false|integer
+E Incorrect argument for command at position 33: ...raft.stone<--[HERE]@31
+S -2--2 0 0 
+@ all minecraft.mined:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.' at position 2: t <--[HERE]@0
+S 0-26 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all d
+R 0
+A -
+X Unknown criterion 'd' at position 2: t <--[HERE]@0
+E Unknown criterion 'd' at position 2: t <--[HERE]@0
+S 0-1 2587 -285202832 deathCount	dummy	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red
+@ all du
+R 0
+A -
+X Unknown criterion 'du' at position 2: t <--[HERE]@0
+E Unknown criterion 'du' at position 2: t <--[HERE]@0
+S 0-2 11 -1189083084 dummy	minecraft.broken:minecraft.dune_armor_trim_smithing_template	minecraft.broken:minecraft.glowstone_dust	minecraft.crafted:minecraft.dune_armor_trim_smithing_template	minecraft.crafted:minecraft.glowstone_dust	minecraft.dropped:minecraft.dune_armor_trim_smithing_template	minecraft.dropped:minecraft.glowstone_dust	minecraft.picked_up:minecraft.dune_armor_trim_smithing_template	minecraft.picked_up:minecraft.glowstone_dust	minecraft.used:minecraft.dune_armor_trim_smithing_template	minecraft.used:minecraft.glowstone_dust
+@ all dum
+R 0
+A -
+X Unknown criterion 'dum' at position 2: t <--[HERE]@0
+E Unknown criterion 'dum' at position 2: t <--[HERE]@0
+S 0-3 1 -1320644511 dummy
+@ all dumm
+R 0
+A -
+X Unknown criterion 'dumm' at position 2: t <--[HERE]@0
+E Unknown criterion 'dumm' at position 2: t <--[HERE]@0
+S 0-4 1 -1320644511 dummy
+@ all t
+R 0
+A -
+X Unknown criterion 't' at position 2: t <--[HERE]@0
+E Unknown criterion 't' at position 2: t <--[HERE]@0
+S 0-1 924 -1314595779 minecraft.broken:minecraft.acacia_trapdoor	minecraft.broken:minecraft.bamboo_trapdoor	minecraft.broken:minecraft.birch_trapdoor	minecraft.broken:minecraft.black_glazed_terracotta	minecraft.broken:minecraft.black_terracotta	minecraft.broken:minecraft.blue_glazed_terracotta	minecraft.broken:minecraft.blue_terracotta	minecraft.broken:minecraft.bolt_armor_trim_smithing_template
+@ all tr
+R 0
+A -
+X Unknown criterion 'tr' at position 2: t <--[HERE]@0
+E Unknown criterion 'tr' at position 2: t <--[HERE]@0
+S 0-2 303 1997369309 minecraft.broken:minecraft.acacia_trapdoor	minecraft.broken:minecraft.bamboo_trapdoor	minecraft.broken:minecraft.birch_trapdoor	minecraft.broken:minecraft.bolt_armor_trim_smithing_template	minecraft.broken:minecraft.buried_treasure_map	minecraft.broken:minecraft.buried_trial_chambers_map	minecraft.broken:minecraft.cherry_trapdoor	minecraft.broken:minecraft.coast_armor_trim_smithing_template
+@ all tri
+R 0
+A -
+X Unknown criterion 'tri' at position 2: t <--[HERE]@0
+E Unknown criterion 'tri' at position 2: t <--[HERE]@0
+S 0-3 128 191833603 minecraft.broken:minecraft.bolt_armor_trim_smithing_template	minecraft.broken:minecraft.buried_trial_chambers_map	minecraft.broken:minecraft.coast_armor_trim_smithing_template	minecraft.broken:minecraft.dune_armor_trim_smithing_template	minecraft.broken:minecraft.eye_armor_trim_smithing_template	minecraft.broken:minecraft.flow_armor_trim_smithing_template	minecraft.broken:minecraft.host_armor_trim_smithing_template	minecraft.broken:minecraft.ominous_trial_key
+@ all trig
+R 0
+A -
+X Unknown criterion 'trig' at position 2: t <--[HERE]@0
+E Unknown criterion 'trig' at position 2: t <--[HERE]@0
+S 0-4 3 242387817 minecraft.custom:minecraft.raid_trigger	minecraft.custom:minecraft.trigger_trapped_chest	trigger
+@ all trigg
+R 0
+A -
+X Unknown criterion 'trigg' at position 2: t <--[HERE]@0
+E Unknown criterion 'trigg' at position 2: t <--[HERE]@0
+S 0-5 3 242387817 minecraft.custom:minecraft.raid_trigger	minecraft.custom:minecraft.trigger_trapped_chest	trigger
+@ all trigge
+R 0
+A -
+X Unknown criterion 'trigge' at position 2: t <--[HERE]@0
+E Unknown criterion 'trigge' at position 2: t <--[HERE]@0
+S 0-6 3 242387817 minecraft.custom:minecraft.raid_trigger	minecraft.custom:minecraft.trigger_trapped_chest	trigger
+@ all de
+R 0
+A -
+X Unknown criterion 'de' at position 2: t <--[HERE]@0
+E Unknown criterion 'de' at position 2: t <--[HERE]@0
+S 0-2 327 -2127566450 deathCount	minecraft.broken:minecraft.ancient_debris	minecraft.broken:minecraft.chiseled_deepslate	minecraft.broken:minecraft.cobbled_deepslate	minecraft.broken:minecraft.cobbled_deepslate_slab	minecraft.broken:minecraft.cobbled_deepslate_stairs	minecraft.broken:minecraft.cobbled_deepslate_wall	minecraft.broken:minecraft.cracked_deepslate_bricks
+@ all dea
+R 0
+A -
+X Unknown criterion 'dea' at position 2: t <--[HERE]@0
+E Unknown criterion 'dea' at position 2: t <--[HERE]@0
+S 0-3 108 300164466 deathCount	minecraft.broken:minecraft.dead_brain_coral	minecraft.broken:minecraft.dead_brain_coral_block	minecraft.broken:minecraft.dead_brain_coral_fan	minecraft.broken:minecraft.dead_bubble_coral	minecraft.broken:minecraft.dead_bubble_coral_block	minecraft.broken:minecraft.dead_bubble_coral_fan	minecraft.broken:minecraft.dead_bush
+@ all deat
+R 0
+A -
+X Unknown criterion 'deat' at position 2: t <--[HERE]@0
+E Unknown criterion 'deat' at position 2: t <--[HERE]@0
+S 0-4 3 -2098010574 deathCount	minecraft.custom:minecraft.deaths	minecraft.custom:minecraft.time_since_death
+@ all death
+R 0
+A -
+X Unknown criterion 'death' at position 2: t <--[HERE]@0
+E Unknown criterion 'death' at position 2: t <--[HERE]@0
+S 0-5 3 -2098010574 deathCount	minecraft.custom:minecraft.deaths	minecraft.custom:minecraft.time_since_death
+@ all deathC
+R 0
+A -
+X Unknown criterion 'deathC' at position 2: t <--[HERE]@0
+E Unknown criterion 'deathC' at position 2: t <--[HERE]@0
+S 0-6 1 -1066030994 deathCount
+@ all deathCo
+R 0
+A -
+X Unknown criterion 'deathCo' at position 2: t <--[HERE]@0
+E Unknown criterion 'deathCo' at position 2: t <--[HERE]@0
+S 0-7 1 -1066030994 deathCount
+@ all deathCou
+R 0
+A -
+X Unknown criterion 'deathCou' at position 2: t <--[HERE]@0
+E Unknown criterion 'deathCou' at position 2: t <--[HERE]@0
+S 0-8 1 -1066030994 deathCount
+@ all deathCoun
+R 0
+A -
+X Unknown criterion 'deathCoun' at position 2: t <--[HERE]@0
+E Unknown criterion 'deathCoun' at position 2: t <--[HERE]@0
+S 0-9 1 -1066030994 deathCount
+@ all p
+R 0
+A -
+X Unknown criterion 'p' at position 2: t <--[HERE]@0
+E Unknown criterion 'p' at position 2: t <--[HERE]@0
+S 0-1 3167 208781598 killedByTeam.dark_purple	killedByTeam.light_purple	minecraft.broken:minecraft.acacia_planks	minecraft.broken:minecraft.acacia_pressure_plate	minecraft.broken:minecraft.angler_pottery_sherd	minecraft.broken:minecraft.archer_pottery_sherd	minecraft.broken:minecraft.arms_up_pottery_sherd	minecraft.broken:minecraft.baked_potato
+@ all pl
+R 0
+A -
+X Unknown criterion 'pl' at position 2: t <--[HERE]@0
+E Unknown criterion 'pl' at position 2: t <--[HERE]@0
+S 0-2 220 -776798526 minecraft.broken:minecraft.acacia_planks	minecraft.broken:minecraft.acacia_pressure_plate	minecraft.broken:minecraft.bamboo_planks	minecraft.broken:minecraft.bamboo_pressure_plate	minecraft.broken:minecraft.birch_planks	minecraft.broken:minecraft.birch_pressure_plate	minecraft.broken:minecraft.cherry_planks	minecraft.broken:minecraft.cherry_pressure_plate
+@ all pla
+R 0
+A -
+X Unknown criterion 'pla' at position 2: t <--[HERE]@0
+E Unknown criterion 'pla' at position 2: t <--[HERE]@0
+S 0-3 215 1779267903 minecraft.broken:minecraft.acacia_planks	minecraft.broken:minecraft.acacia_pressure_plate	minecraft.broken:minecraft.bamboo_planks	minecraft.broken:minecraft.bamboo_pressure_plate	minecraft.broken:minecraft.birch_planks	minecraft.broken:minecraft.birch_pressure_plate	minecraft.broken:minecraft.cherry_planks	minecraft.broken:minecraft.cherry_pressure_plate
+@ all play
+R 0
+A -
+X Unknown criterion 'play' at position 2: t <--[HERE]@0
+E Unknown criterion 'play' at position 2: t <--[HERE]@0
+S 0-4 14 -428325343 minecraft.broken:minecraft.player_head	minecraft.crafted:minecraft.player_head	minecraft.custom:minecraft.play_noteblock	minecraft.custom:minecraft.play_record	minecraft.custom:minecraft.play_time	minecraft.custom:minecraft.player_kills	minecraft.dropped:minecraft.player_head	minecraft.killed:minecraft.player	minecraft.killed_by:minecraft.player	minecraft.mined:minecraft.player_head	minecraft.mined:minecraft.player_wall_head	minecraft.picked_up:minecraft.player_head	minecraft.used:minecraft.player_head	playerKillCount
+@ all playe
+R 0
+A -
+X Unknown criterion 'playe' at position 2: t <--[HERE]@0
+E Unknown criterion 'playe' at position 2: t <--[HERE]@0
+S 0-5 11 1419531637 minecraft.broken:minecraft.player_head	minecraft.crafted:minecraft.player_head	minecraft.custom:minecraft.player_kills	minecraft.dropped:minecraft.player_head	minecraft.killed:minecraft.player	minecraft.killed_by:minecraft.player	minecraft.mined:minecraft.player_head	minecraft.mined:minecraft.player_wall_head	minecraft.picked_up:minecraft.player_head	minecraft.used:minecraft.player_head	playerKillCount
+@ all player
+R 0
+A -
+X Unknown criterion 'player' at position 2: t <--[HERE]@0
+E Unknown criterion 'player' at position 2: t <--[HERE]@0
+S 0-6 11 1419531637 minecraft.broken:minecraft.player_head	minecraft.crafted:minecraft.player_head	minecraft.custom:minecraft.player_kills	minecraft.dropped:minecraft.player_head	minecraft.killed:minecraft.player	minecraft.killed_by:minecraft.player	minecraft.mined:minecraft.player_head	minecraft.mined:minecraft.player_wall_head	minecraft.picked_up:minecraft.player_head	minecraft.used:minecraft.player_head	playerKillCount
+@ all playerK
+R 0
+A -
+X Unknown criterion 'playerK' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerK' at position 2: t <--[HERE]@0
+S 0-7 1 1050971033 playerKillCount
+@ all playerKi
+R 0
+A -
+X Unknown criterion 'playerKi' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerKi' at position 2: t <--[HERE]@0
+S 0-8 1 1050971033 playerKillCount
+@ all playerKil
+R 0
+A -
+X Unknown criterion 'playerKil' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerKil' at position 2: t <--[HERE]@0
+S 0-9 1 1050971033 playerKillCount
+@ all playerKill
+R 0
+A -
+X Unknown criterion 'playerKill' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerKill' at position 2: t <--[HERE]@0
+S 0-10 1 1050971033 playerKillCount
+@ all playerKillC
+R 0
+A -
+X Unknown criterion 'playerKillC' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerKillC' at position 2: t <--[HERE]@0
+S 0-11 1 1050971033 playerKillCount
+@ all playerKillCo
+R 0
+A -
+X Unknown criterion 'playerKillCo' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerKillCo' at position 2: t <--[HERE]@0
+S 0-12 1 1050971033 playerKillCount
+@ all playerKillCou
+R 0
+A -
+X Unknown criterion 'playerKillCou' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerKillCou' at position 2: t <--[HERE]@0
+S 0-13 1 1050971033 playerKillCount
+@ all playerKillCoun
+R 0
+A -
+X Unknown criterion 'playerKillCoun' at position 2: t <--[HERE]@0
+E Unknown criterion 'playerKillCoun' at position 2: t <--[HERE]@0
+S 0-14 1 1050971033 playerKillCount
+@ all to
+R 0
+A -
+X Unknown criterion 'to' at position 2: t <--[HERE]@0
+E Unknown criterion 'to' at position 2: t <--[HERE]@0
+S 0-2 49 1143147310 minecraft.broken:minecraft.copper_torch	minecraft.broken:minecraft.redstone_torch	minecraft.broken:minecraft.soul_torch	minecraft.broken:minecraft.torch	minecraft.broken:minecraft.torchflower	minecraft.broken:minecraft.torchflower_seeds	minecraft.broken:minecraft.totem_of_undying	minecraft.crafted:minecraft.copper_torch
+@ all tot
+R 0
+A -
+X Unknown criterion 'tot' at position 2: t <--[HERE]@0
+E Unknown criterion 'tot' at position 2: t <--[HERE]@0
+S 0-3 7 1848530381 minecraft.broken:minecraft.totem_of_undying	minecraft.crafted:minecraft.totem_of_undying	minecraft.custom:minecraft.total_world_time	minecraft.dropped:minecraft.totem_of_undying	minecraft.picked_up:minecraft.totem_of_undying	minecraft.used:minecraft.totem_of_undying	totalKillCount
+@ all tota
+R 0
+A -
+X Unknown criterion 'tota' at position 2: t <--[HERE]@0
+E Unknown criterion 'tota' at position 2: t <--[HERE]@0
+S 0-4 2 26994705 minecraft.custom:minecraft.total_world_time	totalKillCount
+@ all total
+R 0
+A -
+X Unknown criterion 'total' at position 2: t <--[HERE]@0
+E Unknown criterion 'total' at position 2: t <--[HERE]@0
+S 0-5 2 26994705 minecraft.custom:minecraft.total_world_time	totalKillCount
+@ all totalK
+R 0
+A -
+X Unknown criterion 'totalK' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalK' at position 2: t <--[HERE]@0
+S 0-6 1 1931340860 totalKillCount
+@ all totalKi
+R 0
+A -
+X Unknown criterion 'totalKi' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalKi' at position 2: t <--[HERE]@0
+S 0-7 1 1931340860 totalKillCount
+@ all totalKil
+R 0
+A -
+X Unknown criterion 'totalKil' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalKil' at position 2: t <--[HERE]@0
+S 0-8 1 1931340860 totalKillCount
+@ all totalKill
+R 0
+A -
+X Unknown criterion 'totalKill' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalKill' at position 2: t <--[HERE]@0
+S 0-9 1 1931340860 totalKillCount
+@ all totalKillC
+R 0
+A -
+X Unknown criterion 'totalKillC' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalKillC' at position 2: t <--[HERE]@0
+S 0-10 1 1931340860 totalKillCount
+@ all totalKillCo
+R 0
+A -
+X Unknown criterion 'totalKillCo' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalKillCo' at position 2: t <--[HERE]@0
+S 0-11 1 1931340860 totalKillCount
+@ all totalKillCou
+R 0
+A -
+X Unknown criterion 'totalKillCou' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalKillCou' at position 2: t <--[HERE]@0
+S 0-12 1 1931340860 totalKillCount
+@ all totalKillCoun
+R 0
+A -
+X Unknown criterion 'totalKillCoun' at position 2: t <--[HERE]@0
+E Unknown criterion 'totalKillCoun' at position 2: t <--[HERE]@0
+S 0-13 1 1931340860 totalKillCount
+@ all h
+R 0
+A -
+X Unknown criterion 'h' at position 2: t <--[HERE]@0
+E Unknown criterion 'h' at position 2: t <--[HERE]@0
+S 0-1 545 309862664 health	minecraft.broken:minecraft.acacia_hanging_sign	minecraft.broken:minecraft.bamboo_hanging_sign	minecraft.broken:minecraft.birch_hanging_sign	minecraft.broken:minecraft.black_harness	minecraft.broken:minecraft.blue_harness	minecraft.broken:minecraft.brown_harness	minecraft.broken:minecraft.camel_husk_spawn_egg
+@ all he
+R 0
+A -
+X Unknown criterion 'he' at position 2: t <--[HERE]@0
+E Unknown criterion 'he' at position 2: t <--[HERE]@0
+S 0-2 110 -1883228314 health	minecraft.broken:minecraft.chainmail_helmet	minecraft.broken:minecraft.copper_helmet	minecraft.broken:minecraft.creaking_heart	minecraft.broken:minecraft.creeper_head	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.dragon_head	minecraft.broken:minecraft.golden_helmet
+@ all hea
+R 0
+A -
+X Unknown criterion 'hea' at position 2: t <--[HERE]@0
+E Unknown criterion 'hea' at position 2: t <--[HERE]@0
+S 0-3 70 -880443193 health	minecraft.broken:minecraft.creaking_heart	minecraft.broken:minecraft.creeper_head	minecraft.broken:minecraft.dragon_head	minecraft.broken:minecraft.heart_of_the_sea	minecraft.broken:minecraft.heart_pottery_sherd	minecraft.broken:minecraft.heartbreak_pottery_sherd	minecraft.broken:minecraft.heavy_core
+@ all heal
+R 0
+A -
+X Unknown criterion 'heal' at position 2: t <--[HERE]@0
+E Unknown criterion 'heal' at position 2: t <--[HERE]@0
+S 0-4 1 795560237 health
+@ all healt
+R 0
+A -
+X Unknown criterion 'healt' at position 2: t <--[HERE]@0
+E Unknown criterion 'healt' at position 2: t <--[HERE]@0
+S 0-5 1 795560237 health
+@ all f
+R 0
+A -
+X Unknown criterion 'f' at position 2: t <--[HERE]@0
+E Unknown criterion 'f' at position 2: t <--[HERE]@0
+S 0-1 561 2042521696 food	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.bamboo_fence	minecraft.broken:minecraft.bamboo_fence_gate	minecraft.broken:minecraft.birch_fence	minecraft.broken:minecraft.birch_fence_gate	minecraft.broken:minecraft.blast_furnace
+@ all fo
+R 0
+A -
+X Unknown criterion 'fo' at position 2: t <--[HERE]@0
+E Unknown criterion 'fo' at position 2: t <--[HERE]@0
+S 0-2 13 -1489590931 food	minecraft.broken:minecraft.fox_spawn_egg	minecraft.broken:minecraft.rabbit_foot	minecraft.crafted:minecraft.fox_spawn_egg	minecraft.crafted:minecraft.rabbit_foot	minecraft.dropped:minecraft.fox_spawn_egg	minecraft.dropped:minecraft.rabbit_foot	minecraft.killed:minecraft.fox	minecraft.killed_by:minecraft.fox	minecraft.picked_up:minecraft.fox_spawn_egg	minecraft.picked_up:minecraft.rabbit_foot	minecraft.used:minecraft.fox_spawn_egg	minecraft.used:minecraft.rabbit_foot
+@ all a
+R 0
+A -
+X Unknown criterion 'a' at position 2: t <--[HERE]@0
+E Unknown criterion 'a' at position 2: t <--[HERE]@0
+S 0-1 605 -1558857857 air	armor	killedByTeam.aqua	killedByTeam.dark_aqua	minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat
+@ all ai
+R 0
+A -
+X Unknown criterion 'ai' at position 2: t <--[HERE]@0
+E Unknown criterion 'ai' at position 2: t <--[HERE]@0
+S 0-2 9 -1911951012 air	minecraft.broken:minecraft.air	minecraft.crafted:minecraft.air	minecraft.dropped:minecraft.air	minecraft.mined:minecraft.air	minecraft.mined:minecraft.cave_air	minecraft.mined:minecraft.void_air	minecraft.picked_up:minecraft.air	minecraft.used:minecraft.air
+@ all ar
+R 0
+A -
+X Unknown criterion 'ar' at position 2: t <--[HERE]@0
+E Unknown criterion 'ar' at position 2: t <--[HERE]@0
+S 0-2 202 750363998 armor	minecraft.broken:minecraft.archer_pottery_sherd	minecraft.broken:minecraft.armadillo_scute	minecraft.broken:minecraft.armadillo_spawn_egg	minecraft.broken:minecraft.armor_stand	minecraft.broken:minecraft.arms_up_pottery_sherd	minecraft.broken:minecraft.arrow	minecraft.broken:minecraft.bolt_armor_trim_smithing_template
+@ all arm
+R 0
+A -
+X Unknown criterion 'arm' at position 2: t <--[HERE]@0
+E Unknown criterion 'arm' at position 2: t <--[HERE]@0
+S 0-3 176 294076247 armor	minecraft.broken:minecraft.armadillo_scute	minecraft.broken:minecraft.armadillo_spawn_egg	minecraft.broken:minecraft.armor_stand	minecraft.broken:minecraft.arms_up_pottery_sherd	minecraft.broken:minecraft.bolt_armor_trim_smithing_template	minecraft.broken:minecraft.coast_armor_trim_smithing_template	minecraft.broken:minecraft.copper_horse_armor
+@ all armo
+R 0
+A -
+X Unknown criterion 'armo' at position 2: t <--[HERE]@0
+E Unknown criterion 'armo' at position 2: t <--[HERE]@0
+S 0-4 159 476622294 armor	minecraft.broken:minecraft.armor_stand	minecraft.broken:minecraft.bolt_armor_trim_smithing_template	minecraft.broken:minecraft.coast_armor_trim_smithing_template	minecraft.broken:minecraft.copper_horse_armor	minecraft.broken:minecraft.copper_nautilus_armor	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_nautilus_armor
+@ all x
+R 0
+A -
+X Unknown criterion 'x' at position 2: t <--[HERE]@0
+E Unknown criterion 'x' at position 2: t <--[HERE]@0
+S 0-1 1 118801 xp
+@ all l
+R 0
+A -
+X Unknown criterion 'l' at position 2: t <--[HERE]@0
+E Unknown criterion 'l' at position 2: t <--[HERE]@0
+S 0-1 902 -1027404624 killedByTeam.light_purple	level	minecraft.broken:minecraft.acacia_leaves	minecraft.broken:minecraft.acacia_log	minecraft.broken:minecraft.azalea_leaves	minecraft.broken:minecraft.birch_leaves	minecraft.broken:minecraft.birch_log	minecraft.broken:minecraft.chainmail_leggings
+@ all le
+R 0
+A -
+X Unknown criterion 'le' at position 2: t <--[HERE]@0
+E Unknown criterion 'le' at position 2: t <--[HERE]@0
+S 0-2 172 -603995199 level	minecraft.broken:minecraft.acacia_leaves	minecraft.broken:minecraft.azalea_leaves	minecraft.broken:minecraft.birch_leaves	minecraft.broken:minecraft.chainmail_leggings	minecraft.broken:minecraft.cherry_leaves	minecraft.broken:minecraft.copper_leggings	minecraft.broken:minecraft.dark_oak_leaves
+@ all lev
+R 0
+A -
+X Unknown criterion 'lev' at position 2: t <--[HERE]@0
+E Unknown criterion 'lev' at position 2: t <--[HERE]@0
+S 0-3 7 1133275163 level	minecraft.broken:minecraft.lever	minecraft.crafted:minecraft.lever	minecraft.dropped:minecraft.lever	minecraft.mined:minecraft.lever	minecraft.picked_up:minecraft.lever	minecraft.used:minecraft.lever
+@ all leve
+R 0
+A -
+X Unknown criterion 'leve' at position 2: t <--[HERE]@0
+E Unknown criterion 'leve' at position 2: t <--[HERE]@0
+S 0-4 7 1133275163 level	minecraft.broken:minecraft.lever	minecraft.crafted:minecraft.lever	minecraft.dropped:minecraft.lever	minecraft.mined:minecraft.lever	minecraft.picked_up:minecraft.lever	minecraft.used:minecraft.lever
+@ all te
+R 0
+A -
+X Unknown criterion 'te' at position 2: t <--[HERE]@0
+E Unknown criterion 'te' at position 2: t <--[HERE]@0
+S 0-2 333 -1512678376 minecraft.broken:minecraft.black_glazed_terracotta	minecraft.broken:minecraft.black_terracotta	minecraft.broken:minecraft.blue_glazed_terracotta	minecraft.broken:minecraft.blue_terracotta	minecraft.broken:minecraft.bolt_armor_trim_smithing_template	minecraft.broken:minecraft.brown_glazed_terracotta	minecraft.broken:minecraft.brown_terracotta	minecraft.broken:minecraft.coast_armor_trim_smithing_template
+@ all tea
+R 0
+A -
+X Unknown criterion 'tea' at position 2: t <--[HERE]@0
+E Unknown criterion 'tea' at position 2: t <--[HERE]@0
+S 0-3 26 -1435669396 minecraft.broken:minecraft.ghast_tear	minecraft.broken:minecraft.music_disc_tears	minecraft.crafted:minecraft.ghast_tear	minecraft.crafted:minecraft.music_disc_tears	minecraft.dropped:minecraft.ghast_tear	minecraft.dropped:minecraft.music_disc_tears	minecraft.picked_up:minecraft.ghast_tear	minecraft.picked_up:minecraft.music_disc_tears	minecraft.used:minecraft.ghast_tear	minecraft.used:minecraft.music_disc_tears	teamkill.aqua	teamkill.black	teamkill.blue	teamkill.dark_aqua	teamkill.dark_blue	teamkill.dark_gray	teamkill.dark_green	teamkill.dark_purple	teamkill.dark_red	teamkill.gold	teamkill.gray	teamkill.green	teamkill.light_purple	teamkill.red	teamkill.white	teamkill.yellow
+@ all team
+R 0
+A -
+X Unknown criterion 'team' at position 2: t <--[HERE]@0
+E Unknown criterion 'team' at position 2: t <--[HERE]@0
+S 0-4 16 -1859381871 teamkill.aqua	teamkill.black	teamkill.blue	teamkill.dark_aqua	teamkill.dark_blue	teamkill.dark_gray	teamkill.dark_green	teamkill.dark_purple	teamkill.dark_red	teamkill.gold	teamkill.gray	teamkill.green	teamkill.light_purple	teamkill.red	teamkill.white	teamkill.yellow
+@ all teamk
+R 0
+A -
+X Unknown criterion 'teamk' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamk' at position 2: t <--[HERE]@0
+S 0-5 16 -1859381871 teamkill.aqua	teamkill.black	teamkill.blue	teamkill.dark_aqua	teamkill.dark_blue	teamkill.dark_gray	teamkill.dark_green	teamkill.dark_purple	teamkill.dark_red	teamkill.gold	teamkill.gray	teamkill.green	teamkill.light_purple	teamkill.red	teamkill.white	teamkill.yellow
+@ all teamki
+R 0
+A -
+X Unknown criterion 'teamki' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamki' at position 2: t <--[HERE]@0
+S 0-6 16 -1859381871 teamkill.aqua	teamkill.black	teamkill.blue	teamkill.dark_aqua	teamkill.dark_blue	teamkill.dark_gray	teamkill.dark_green	teamkill.dark_purple	teamkill.dark_red	teamkill.gold	teamkill.gray	teamkill.green	teamkill.light_purple	teamkill.red	teamkill.white	teamkill.yellow
+@ all teamkil
+R 0
+A -
+X Unknown criterion 'teamkil' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkil' at position 2: t <--[HERE]@0
+S 0-7 16 -1859381871 teamkill.aqua	teamkill.black	teamkill.blue	teamkill.dark_aqua	teamkill.dark_blue	teamkill.dark_gray	teamkill.dark_green	teamkill.dark_purple	teamkill.dark_red	teamkill.gold	teamkill.gray	teamkill.green	teamkill.light_purple	teamkill.red	teamkill.white	teamkill.yellow
+@ all teamkill
+R 0
+A -
+X Unknown criterion 'teamkill' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill' at position 2: t <--[HERE]@0
+S 0-8 16 -1859381871 teamkill.aqua	teamkill.black	teamkill.blue	teamkill.dark_aqua	teamkill.dark_blue	teamkill.dark_gray	teamkill.dark_green	teamkill.dark_purple	teamkill.dark_red	teamkill.gold	teamkill.gray	teamkill.green	teamkill.light_purple	teamkill.red	teamkill.white	teamkill.yellow
+@ all teamkill.r
+R 0
+A -
+X Unknown criterion 'teamkill.r' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill.r' at position 2: t <--[HERE]@0
+S 0-10 1 713152619 teamkill.red
+@ all teamkill.re
+R 0
+A -
+X Unknown criterion 'teamkill.re' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill.re' at position 2: t <--[HERE]@0
+S 0-11 1 713152619 teamkill.red
+@ all k
+R 0
+A -
+X Unknown criterion 'k' at position 2: t <--[HERE]@0
+E Unknown criterion 'k' at position 2: t <--[HERE]@0
+S 0-1 373 -1569617178 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple
+@ all ki
+R 0
+A -
+X Unknown criterion 'ki' at position 2: t <--[HERE]@0
+E Unknown criterion 'ki' at position 2: t <--[HERE]@0
+S 0-2 340 1385004510 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple
+@ all kil
+R 0
+A -
+X Unknown criterion 'kil' at position 2: t <--[HERE]@0
+E Unknown criterion 'kil' at position 2: t <--[HERE]@0
+S 0-3 340 1385004510 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple
+@ all kill
+R 0
+A -
+X Unknown criterion 'kill' at position 2: t <--[HERE]@0
+E Unknown criterion 'kill' at position 2: t <--[HERE]@0
+S 0-4 340 1385004510 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple
+@ all kille
+R 0
+A -
+X Unknown criterion 'kille' at position 2: t <--[HERE]@0
+E Unknown criterion 'kille' at position 2: t <--[HERE]@0
+S 0-5 338 2007020225 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple
+@ all killed
+R 0
+A -
+X Unknown criterion 'killed' at position 2: t <--[HERE]@0
+E Unknown criterion 'killed' at position 2: t <--[HERE]@0
+S 0-6 338 2007020225 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple
+@ all killedB
+R 0
+A -
+X Unknown criterion 'killedB' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedB' at position 2: t <--[HERE]@0
+S 0-7 16 -1609245551 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red	killedByTeam.gold	killedByTeam.gray	killedByTeam.green	killedByTeam.light_purple	killedByTeam.red	killedByTeam.white	killedByTeam.yellow
+@ all killedBy
+R 0
+A -
+X Unknown criterion 'killedBy' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedBy' at position 2: t <--[HERE]@0
+S 0-8 16 -1609245551 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red	killedByTeam.gold	killedByTeam.gray	killedByTeam.green	killedByTeam.light_purple	killedByTeam.red	killedByTeam.white	killedByTeam.yellow
+@ all killedByT
+R 0
+A -
+X Unknown criterion 'killedByT' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByT' at position 2: t <--[HERE]@0
+S 0-9 16 -1609245551 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red	killedByTeam.gold	killedByTeam.gray	killedByTeam.green	killedByTeam.light_purple	killedByTeam.red	killedByTeam.white	killedByTeam.yellow
+@ all killedByTe
+R 0
+A -
+X Unknown criterion 'killedByTe' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTe' at position 2: t <--[HERE]@0
+S 0-10 16 -1609245551 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red	killedByTeam.gold	killedByTeam.gray	killedByTeam.green	killedByTeam.light_purple	killedByTeam.red	killedByTeam.white	killedByTeam.yellow
+@ all killedByTea
+R 0
+A -
+X Unknown criterion 'killedByTea' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTea' at position 2: t <--[HERE]@0
+S 0-11 16 -1609245551 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red	killedByTeam.gold	killedByTeam.gray	killedByTeam.green	killedByTeam.light_purple	killedByTeam.red	killedByTeam.white	killedByTeam.yellow
+@ all killedByTeam
+R 0
+A -
+X Unknown criterion 'killedByTeam' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam' at position 2: t <--[HERE]@0
+S 0-12 16 -1609245551 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red	killedByTeam.gold	killedByTeam.gray	killedByTeam.green	killedByTeam.light_purple	killedByTeam.red	killedByTeam.white	killedByTeam.yellow
+@ all killedByTeam.
+R 0
+A -
+X Unknown criterion 'killedByTeam.' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.' at position 2: t <--[HERE]@0
+S 0-13 16 -1609245551 killedByTeam.aqua	killedByTeam.black	killedByTeam.blue	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red	killedByTeam.gold	killedByTeam.gray	killedByTeam.green	killedByTeam.light_purple	killedByTeam.red	killedByTeam.white	killedByTeam.yellow
+@ all killedByTeam.d
+R 0
+A -
+X Unknown criterion 'killedByTeam.d' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.d' at position 2: t <--[HERE]@0
+S 0-14 6 379937595 killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red
+@ all killedByTeam.da
+R 0
+A -
+X Unknown criterion 'killedByTeam.da' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.da' at position 2: t <--[HERE]@0
+S 0-15 6 379937595 killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red
+@ all killedByTeam.dar
+R 0
+A -
+X Unknown criterion 'killedByTeam.dar' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.dar' at position 2: t <--[HERE]@0
+S 0-16 6 379937595 killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red
+@ all killedByTeam.dark
+R 0
+A -
+X Unknown criterion 'killedByTeam.dark' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.dark' at position 2: t <--[HERE]@0
+S 0-17 6 379937595 killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red
+@ all killedByTeam.dark_
+R 0
+A -
+X Unknown criterion 'killedByTeam.dark_' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.dark_' at position 2: t <--[HERE]@0
+S 0-18 6 379937595 killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red
+@ all killedByTeam.dark_b
+R 0
+A -
+X Unknown criterion 'killedByTeam.dark_b' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.dark_b' at position 2: t <--[HERE]@0
+S 0-19 1 805847235 killedByTeam.dark_blue
+@ all killedByTeam.dark_bl
+R 0
+A -
+X Unknown criterion 'killedByTeam.dark_bl' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.dark_bl' at position 2: t <--[HERE]@0
+S 0-20 1 805847235 killedByTeam.dark_blue
+@ all killedByTeam.dark_blu
+R 0
+A -
+X Unknown criterion 'killedByTeam.dark_blu' at position 2: t <--[HERE]@0
+E Unknown criterion 'killedByTeam.dark_blu' at position 2: t <--[HERE]@0
+S 0-21 1 805847235 killedByTeam.dark_blue
+@ all teamkill.p
+R 0
+A -
+X Unknown criterion 'teamkill.p' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill.p' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all teamkill.pi
+R 0
+A -
+X Unknown criterion 'teamkill.pi' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill.pi' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all teamkill.pin
+R 0
+A -
+X Unknown criterion 'teamkill.pin' at position 2: t <--[HERE]@0
+E Unknown criterion 'teamkill.pin' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Unknown criterion 'm' at position 2: t <--[HERE]@0
+E Unknown criterion 'm' at position 2: t <--[HERE]@0
+S 0-1 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all mi
+R 0
+A -
+X Unknown criterion 'mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'mi' at position 2: t <--[HERE]@0
+S 0-2 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all min
+R 0
+A -
+X Unknown criterion 'min' at position 2: t <--[HERE]@0
+E Unknown criterion 'min' at position 2: t <--[HERE]@0
+S 0-3 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all mine
+R 0
+A -
+X Unknown criterion 'mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'mine' at position 2: t <--[HERE]@0
+S 0-4 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minec
+R 0
+A -
+X Unknown criterion 'minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minec' at position 2: t <--[HERE]@0
+S 0-5 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecr
+R 0
+A -
+X Unknown criterion 'minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecr' at position 2: t <--[HERE]@0
+S 0-6 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecra
+R 0
+A -
+X Unknown criterion 'minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecra' at position 2: t <--[HERE]@0
+S 0-7 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraf
+R 0
+A -
+X Unknown criterion 'minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraf' at position 2: t <--[HERE]@0
+S 0-8 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft
+R 0
+A -
+X Unknown criterion 'minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft' at position 2: t <--[HERE]@0
+S 0-9 9976 -2011146090 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.m
+R 0
+A -
+X Unknown criterion 'minecraft.m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.m' at position 2: t <--[HERE]@0
+S 0-11 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mi
+R 0
+A -
+X Unknown criterion 'minecraft.mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mi' at position 2: t <--[HERE]@0
+S 0-12 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.min
+R 0
+A -
+X Unknown criterion 'minecraft.min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.min' at position 2: t <--[HERE]@0
+S 0-13 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mine
+R 0
+A -
+X Unknown criterion 'minecraft.mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mine' at position 2: t <--[HERE]@0
+S 0-14 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined
+R 0
+A -
+X Unknown criterion 'minecraft.mined' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined' at position 2: t <--[HERE]@0
+S 0-15 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:
+R 0
+A -
+X Unknown criterion 'minecraft.mined:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:' at position 2: t <--[HERE]@0
+S 0-16 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:m
+R 0
+A -
+X Unknown criterion 'minecraft.mined:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:m' at position 2: t <--[HERE]@0
+S 0-17 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:mi
+R 0
+A -
+X Unknown criterion 'minecraft.mined:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:mi' at position 2: t <--[HERE]@0
+S 0-18 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:min
+R 0
+A -
+X Unknown criterion 'minecraft.mined:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:min' at position 2: t <--[HERE]@0
+S 0-19 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:mine
+R 0
+A -
+X Unknown criterion 'minecraft.mined:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:mine' at position 2: t <--[HERE]@0
+S 0-20 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:minec
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minec' at position 2: t <--[HERE]@0
+S 0-21 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecr' at position 2: t <--[HERE]@0
+S 0-22 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecra' at position 2: t <--[HERE]@0
+S 0-23 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraf' at position 2: t <--[HERE]@0
+S 0-24 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft' at position 2: t <--[HERE]@0
+S 0-25 1286 -1595173874 minecraft.mined:minecraft.acacia_button	minecraft.mined:minecraft.acacia_door	minecraft.mined:minecraft.acacia_fence	minecraft.mined:minecraft.acacia_fence_gate	minecraft.mined:minecraft.acacia_hanging_sign	minecraft.mined:minecraft.acacia_leaves	minecraft.mined:minecraft.acacia_log	minecraft.mined:minecraft.acacia_planks
+@ all minecraft.mined:minecraft.s
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.s' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.s' at position 2: t <--[HERE]@0
+S 0-27 122 364268347 minecraft.mined:minecraft.sand	minecraft.mined:minecraft.sandstone	minecraft.mined:minecraft.sandstone_slab	minecraft.mined:minecraft.sandstone_stairs	minecraft.mined:minecraft.sandstone_wall	minecraft.mined:minecraft.scaffolding	minecraft.mined:minecraft.sculk	minecraft.mined:minecraft.sculk_catalyst
+@ all minecraft.mined:minecraft.st
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.st' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.st' at position 2: t <--[HERE]@0
+S 0-28 39 1436560950 minecraft.mined:minecraft.sticky_piston	minecraft.mined:minecraft.stone	minecraft.mined:minecraft.stone_brick_slab	minecraft.mined:minecraft.stone_brick_stairs	minecraft.mined:minecraft.stone_brick_wall	minecraft.mined:minecraft.stone_bricks	minecraft.mined:minecraft.stone_button	minecraft.mined:minecraft.stone_pressure_plate	minecraft.mined:minecraft.stone_slab	minecraft.mined:minecraft.stone_stairs	minecraft.mined:minecraft.stonecutter	minecraft.mined:minecraft.straw_bed	minecraft.mined:minecraft.stripped_acacia_log	minecraft.mined:minecraft.stripped_acacia_wood	minecraft.mined:minecraft.stripped_bamboo_block	minecraft.mined:minecraft.stripped_birch_log	minecraft.mined:minecraft.stripped_birch_wood	minecraft.mined:minecraft.stripped_cherry_log	minecraft.mined:minecraft.stripped_cherry_wood	minecraft.mined:minecraft.stripped_crimson_hyphae	minecraft.mined:minecraft.stripped_crimson_stem	minecraft.mined:minecraft.stripped_dark_oak_log	minecraft.mined:minecraft.stripped_dark_oak_wood	minecraft.mined:minecraft.stripped_jungle_log	minecraft.mined:minecraft.stripped_jungle_wood	minecraft.mined:minecraft.stripped_mangrove_log	minecraft.mined:minecraft.stripped_mangrove_wood	minecraft.mined:minecraft.stripped_oak_log	minecraft.mined:minecraft.stripped_oak_wood	minecraft.mined:minecraft.stripped_pale_oak_log	minecraft.mined:minecraft.stripped_pale_oak_wood	minecraft.mined:minecraft.stripped_poplar_log	minecraft.mined:minecraft.stripped_poplar_wood	minecraft.mined:minecraft.stripped_spruce_log	minecraft.mined:minecraft.stripped_spruce_wood	minecraft.mined:minecraft.stripped_warped_hyphae	minecraft.mined:minecraft.stripped_warped_stem	minecraft.mined:minecraft.structure_block	minecraft.mined:minecraft.structure_void
+@ all minecraft.mined:minecraft.sto
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.sto' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.sto' at position 2: t <--[HERE]@0
+S 0-29 10 -1701701621 minecraft.mined:minecraft.stone	minecraft.mined:minecraft.stone_brick_slab	minecraft.mined:minecraft.stone_brick_stairs	minecraft.mined:minecraft.stone_brick_wall	minecraft.mined:minecraft.stone_bricks	minecraft.mined:minecraft.stone_button	minecraft.mined:minecraft.stone_pressure_plate	minecraft.mined:minecraft.stone_slab	minecraft.mined:minecraft.stone_stairs	minecraft.mined:minecraft.stonecutter
+@ all minecraft.mined:minecraft.ston
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.ston' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.ston' at position 2: t <--[HERE]@0
+S 0-30 10 -1701701621 minecraft.mined:minecraft.stone	minecraft.mined:minecraft.stone_brick_slab	minecraft.mined:minecraft.stone_brick_stairs	minecraft.mined:minecraft.stone_brick_wall	minecraft.mined:minecraft.stone_bricks	minecraft.mined:minecraft.stone_button	minecraft.mined:minecraft.stone_pressure_plate	minecraft.mined:minecraft.stone_slab	minecraft.mined:minecraft.stone_stairs	minecraft.mined:minecraft.stonecutter
+@ all minecraft.c
+R 0
+A -
+X Unknown criterion 'minecraft.c' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.c' at position 2: t <--[HERE]@0
+S 0-11 1736 -1300442854 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.cr
+R 0
+A -
+X Unknown criterion 'minecraft.cr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.cr' at position 2: t <--[HERE]@0
+S 0-12 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.cra
+R 0
+A -
+X Unknown criterion 'minecraft.cra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.cra' at position 2: t <--[HERE]@0
+S 0-13 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.craf
+R 0
+A -
+X Unknown criterion 'minecraft.craf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.craf' at position 2: t <--[HERE]@0
+S 0-14 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.craft
+R 0
+A -
+X Unknown criterion 'minecraft.craft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.craft' at position 2: t <--[HERE]@0
+S 0-15 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafte
+R 0
+A -
+X Unknown criterion 'minecraft.crafte' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafte' at position 2: t <--[HERE]@0
+S 0-16 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted
+R 0
+A -
+X Unknown criterion 'minecraft.crafted' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted' at position 2: t <--[HERE]@0
+S 0-17 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:' at position 2: t <--[HERE]@0
+S 0-18 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:m
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:m' at position 2: t <--[HERE]@0
+S 0-19 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:mi
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:mi' at position 2: t <--[HERE]@0
+S 0-20 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:min
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:min' at position 2: t <--[HERE]@0
+S 0-21 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:mine
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:mine' at position 2: t <--[HERE]@0
+S 0-22 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:minec
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minec' at position 2: t <--[HERE]@0
+S 0-23 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecr' at position 2: t <--[HERE]@0
+S 0-24 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecra' at position 2: t <--[HERE]@0
+S 0-25 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecraf' at position 2: t <--[HERE]@0
+S 0-26 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecraft' at position 2: t <--[HERE]@0
+S 0-27 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecraft.' at position 2: t <--[HERE]@0
+S 0-28 1658 -232801037 minecraft.crafted:minecraft.abandoned_camp_map	minecraft.crafted:minecraft.acacia_boat	minecraft.crafted:minecraft.acacia_button	minecraft.crafted:minecraft.acacia_chest_boat	minecraft.crafted:minecraft.acacia_door	minecraft.crafted:minecraft.acacia_fence	minecraft.crafted:minecraft.acacia_fence_gate	minecraft.crafted:minecraft.acacia_hanging_sign
+@ all minecraft.crafted:minecraft.s
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecraft.s' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecraft.s' at position 2: t <--[HERE]@0
+S 0-29 170 -1684835828 minecraft.crafted:minecraft.saddle	minecraft.crafted:minecraft.salmon	minecraft.crafted:minecraft.salmon_bucket	minecraft.crafted:minecraft.salmon_spawn_egg	minecraft.crafted:minecraft.sand	minecraft.crafted:minecraft.sandstone	minecraft.crafted:minecraft.sandstone_slab	minecraft.crafted:minecraft.sandstone_stairs
+@ all minecraft.crafted:minecraft.st
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecraft.st' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecraft.st' at position 2: t <--[HERE]@0
+S 0-30 49 1401563009 minecraft.crafted:minecraft.stick	minecraft.crafted:minecraft.sticky_piston	minecraft.crafted:minecraft.stone	minecraft.crafted:minecraft.stone_axe	minecraft.crafted:minecraft.stone_brick_slab	minecraft.crafted:minecraft.stone_brick_stairs	minecraft.crafted:minecraft.stone_brick_wall	minecraft.crafted:minecraft.stone_bricks
+@ all minecraft.crafted:minecraft.sti
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecraft.sti' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecraft.sti' at position 2: t <--[HERE]@0
+S 0-31 2 -1002938867 minecraft.crafted:minecraft.stick	minecraft.crafted:minecraft.sticky_piston
+@ all minecraft.crafted:minecraft.stic
+R 0
+A -
+X Unknown criterion 'minecraft.crafted:minecraft.stic' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.crafted:minecraft.stic' at position 2: t <--[HERE]@0
+S 0-32 2 -1002938867 minecraft.crafted:minecraft.stick	minecraft.crafted:minecraft.sticky_piston
+@ all minecraft.cu
+R 0
+A -
+X Unknown criterion 'minecraft.cu' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.cu' at position 2: t <--[HERE]@0
+S 0-12 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.cus
+R 0
+A -
+X Unknown criterion 'minecraft.cus' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.cus' at position 2: t <--[HERE]@0
+S 0-13 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.cust
+R 0
+A -
+X Unknown criterion 'minecraft.cust' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.cust' at position 2: t <--[HERE]@0
+S 0-14 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custo
+R 0
+A -
+X Unknown criterion 'minecraft.custo' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custo' at position 2: t <--[HERE]@0
+S 0-15 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom
+R 0
+A -
+X Unknown criterion 'minecraft.custom' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom' at position 2: t <--[HERE]@0
+S 0-16 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:m
+R 0
+A -
+X Unknown criterion 'minecraft.custom:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:m' at position 2: t <--[HERE]@0
+S 0-18 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:mi
+R 0
+A -
+X Unknown criterion 'minecraft.custom:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:mi' at position 2: t <--[HERE]@0
+S 0-19 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:min
+R 0
+A -
+X Unknown criterion 'minecraft.custom:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:min' at position 2: t <--[HERE]@0
+S 0-20 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:mine
+R 0
+A -
+X Unknown criterion 'minecraft.custom:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:mine' at position 2: t <--[HERE]@0
+S 0-21 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:minec
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minec' at position 2: t <--[HERE]@0
+S 0-22 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecr' at position 2: t <--[HERE]@0
+S 0-23 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecra' at position 2: t <--[HERE]@0
+S 0-24 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecraf' at position 2: t <--[HERE]@0
+S 0-25 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecraft' at position 2: t <--[HERE]@0
+S 0-26 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecraft.' at position 2: t <--[HERE]@0
+S 0-27 78 1420837479 minecraft.custom:minecraft.animals_bred	minecraft.custom:minecraft.aviate_one_cm	minecraft.custom:minecraft.bell_ring	minecraft.custom:minecraft.boat_one_cm	minecraft.custom:minecraft.clean_armor	minecraft.custom:minecraft.clean_banner	minecraft.custom:minecraft.clean_shulker_box	minecraft.custom:minecraft.climb_one_cm
+@ all minecraft.custom:minecraft.j
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecraft.j' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecraft.j' at position 2: t <--[HERE]@0
+S 0-28 1 242847090 minecraft.custom:minecraft.jump
+@ all minecraft.custom:minecraft.ju
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecraft.ju' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecraft.ju' at position 2: t <--[HERE]@0
+S 0-29 1 242847090 minecraft.custom:minecraft.jump
+@ all minecraft.custom:minecraft.jum
+R 0
+A -
+X Unknown criterion 'minecraft.custom:minecraft.jum' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.custom:minecraft.jum' at position 2: t <--[HERE]@0
+S 0-30 1 242847090 minecraft.custom:minecraft.jump
+@ all minecraft.k
+R 0
+A -
+X Unknown criterion 'minecraft.k' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.k' at position 2: t <--[HERE]@0
+S 0-11 322 1900228786 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.ki
+R 0
+A -
+X Unknown criterion 'minecraft.ki' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.ki' at position 2: t <--[HERE]@0
+S 0-12 322 1900228786 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.kil
+R 0
+A -
+X Unknown criterion 'minecraft.kil' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.kil' at position 2: t <--[HERE]@0
+S 0-13 322 1900228786 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.kill
+R 0
+A -
+X Unknown criterion 'minecraft.kill' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.kill' at position 2: t <--[HERE]@0
+S 0-14 322 1900228786 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.kille
+R 0
+A -
+X Unknown criterion 'minecraft.kille' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.kille' at position 2: t <--[HERE]@0
+S 0-15 322 1900228786 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed
+R 0
+A -
+X Unknown criterion 'minecraft.killed' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed' at position 2: t <--[HERE]@0
+S 0-16 322 1900228786 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:
+R 0
+A -
+X Unknown criterion 'minecraft.killed:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:' at position 2: t <--[HERE]@0
+S 0-17 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:m
+R 0
+A -
+X Unknown criterion 'minecraft.killed:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:m' at position 2: t <--[HERE]@0
+S 0-18 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:mi
+R 0
+A -
+X Unknown criterion 'minecraft.killed:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:mi' at position 2: t <--[HERE]@0
+S 0-19 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:min
+R 0
+A -
+X Unknown criterion 'minecraft.killed:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:min' at position 2: t <--[HERE]@0
+S 0-20 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:mine
+R 0
+A -
+X Unknown criterion 'minecraft.killed:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:mine' at position 2: t <--[HERE]@0
+S 0-21 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:minec
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minec' at position 2: t <--[HERE]@0
+S 0-22 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecr' at position 2: t <--[HERE]@0
+S 0-23 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecra' at position 2: t <--[HERE]@0
+S 0-24 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraf' at position 2: t <--[HERE]@0
+S 0-25 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraft' at position 2: t <--[HERE]@0
+S 0-26 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraft.' at position 2: t <--[HERE]@0
+S 0-27 161 -1815231415 minecraft.killed:minecraft.acacia_boat	minecraft.killed:minecraft.acacia_chest_boat	minecraft.killed:minecraft.allay	minecraft.killed:minecraft.area_effect_cloud	minecraft.killed:minecraft.armadillo	minecraft.killed:minecraft.armor_stand	minecraft.killed:minecraft.arrow	minecraft.killed:minecraft.axolotl
+@ all minecraft.killed:minecraft.z
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraft.z' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraft.z' at position 2: t <--[HERE]@0
+S 0-28 6 1140270259 minecraft.killed:minecraft.zoglin	minecraft.killed:minecraft.zombie	minecraft.killed:minecraft.zombie_horse	minecraft.killed:minecraft.zombie_nautilus	minecraft.killed:minecraft.zombie_villager	minecraft.killed:minecraft.zombified_piglin
+@ all minecraft.killed:minecraft.zo
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraft.zo' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraft.zo' at position 2: t <--[HERE]@0
+S 0-29 6 1140270259 minecraft.killed:minecraft.zoglin	minecraft.killed:minecraft.zombie	minecraft.killed:minecraft.zombie_horse	minecraft.killed:minecraft.zombie_nautilus	minecraft.killed:minecraft.zombie_villager	minecraft.killed:minecraft.zombified_piglin
+@ all minecraft.killed:minecraft.zom
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraft.zom' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraft.zom' at position 2: t <--[HERE]@0
+S 0-30 5 24438182 minecraft.killed:minecraft.zombie	minecraft.killed:minecraft.zombie_horse	minecraft.killed:minecraft.zombie_nautilus	minecraft.killed:minecraft.zombie_villager	minecraft.killed:minecraft.zombified_piglin
+@ all minecraft.killed:minecraft.zomb
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraft.zomb' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraft.zomb' at position 2: t <--[HERE]@0
+S 0-31 5 24438182 minecraft.killed:minecraft.zombie	minecraft.killed:minecraft.zombie_horse	minecraft.killed:minecraft.zombie_nautilus	minecraft.killed:minecraft.zombie_villager	minecraft.killed:minecraft.zombified_piglin
+@ all minecraft.killed:minecraft.zombi
+R 0
+A -
+X Unknown criterion 'minecraft.killed:minecraft.zombi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed:minecraft.zombi' at position 2: t <--[HERE]@0
+S 0-32 5 24438182 minecraft.killed:minecraft.zombie	minecraft.killed:minecraft.zombie_horse	minecraft.killed:minecraft.zombie_nautilus	minecraft.killed:minecraft.zombie_villager	minecraft.killed:minecraft.zombified_piglin
+@ all minecraft.killed_
+R 0
+A -
+X Unknown criterion 'minecraft.killed_' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_' at position 2: t <--[HERE]@0
+S 0-17 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_b
+R 0
+A -
+X Unknown criterion 'minecraft.killed_b' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_b' at position 2: t <--[HERE]@0
+S 0-18 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by' at position 2: t <--[HERE]@0
+S 0-19 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:' at position 2: t <--[HERE]@0
+S 0-20 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:m
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:m' at position 2: t <--[HERE]@0
+S 0-21 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:mi
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:mi' at position 2: t <--[HERE]@0
+S 0-22 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:min
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:min' at position 2: t <--[HERE]@0
+S 0-23 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:mine
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:mine' at position 2: t <--[HERE]@0
+S 0-24 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:minec
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minec' at position 2: t <--[HERE]@0
+S 0-25 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecr' at position 2: t <--[HERE]@0
+S 0-26 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecra' at position 2: t <--[HERE]@0
+S 0-27 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraf' at position 2: t <--[HERE]@0
+S 0-28 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft' at position 2: t <--[HERE]@0
+S 0-29 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft.' at position 2: t <--[HERE]@0
+S 0-30 161 1795673321 minecraft.killed_by:minecraft.acacia_boat	minecraft.killed_by:minecraft.acacia_chest_boat	minecraft.killed_by:minecraft.allay	minecraft.killed_by:minecraft.area_effect_cloud	minecraft.killed_by:minecraft.armadillo	minecraft.killed_by:minecraft.armor_stand	minecraft.killed_by:minecraft.arrow	minecraft.killed_by:minecraft.axolotl
+@ all minecraft.killed_by:minecraft.c
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft.c' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft.c' at position 2: t <--[HERE]@0
+S 0-31 15 -287880780 minecraft.killed_by:minecraft.camel	minecraft.killed_by:minecraft.camel_husk	minecraft.killed_by:minecraft.cat	minecraft.killed_by:minecraft.cave_spider	minecraft.killed_by:minecraft.cherry_boat	minecraft.killed_by:minecraft.cherry_chest_boat	minecraft.killed_by:minecraft.chest_minecart	minecraft.killed_by:minecraft.chicken	minecraft.killed_by:minecraft.cod	minecraft.killed_by:minecraft.command_block_minecart	minecraft.killed_by:minecraft.copper_golem	minecraft.killed_by:minecraft.cow	minecraft.killed_by:minecraft.creaking	minecraft.killed_by:minecraft.creeper	minecraft.killed_by:minecraft.cushion
+@ all minecraft.killed_by:minecraft.cr
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft.cr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft.cr' at position 2: t <--[HERE]@0
+S 0-32 2 277823138 minecraft.killed_by:minecraft.creaking	minecraft.killed_by:minecraft.creeper
+@ all minecraft.killed_by:minecraft.cre
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft.cre' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft.cre' at position 2: t <--[HERE]@0
+S 0-33 2 277823138 minecraft.killed_by:minecraft.creaking	minecraft.killed_by:minecraft.creeper
+@ all minecraft.killed_by:minecraft.cree
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft.cree' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft.cree' at position 2: t <--[HERE]@0
+S 0-34 1 75274718 minecraft.killed_by:minecraft.creeper
+@ all minecraft.killed_by:minecraft.creep
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft.creep' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft.creep' at position 2: t <--[HERE]@0
+S 0-35 1 75274718 minecraft.killed_by:minecraft.creeper
+@ all minecraft.killed_by:minecraft.creepe
+R 0
+A -
+X Unknown criterion 'minecraft.killed_by:minecraft.creepe' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.killed_by:minecraft.creepe' at position 2: t <--[HERE]@0
+S 0-36 1 75274718 minecraft.killed_by:minecraft.creeper
+@ all minecraft.u
+R 0
+A -
+X Unknown criterion 'minecraft.u' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.u' at position 2: t <--[HERE]@0
+S 0-11 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.us
+R 0
+A -
+X Unknown criterion 'minecraft.us' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.us' at position 2: t <--[HERE]@0
+S 0-12 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.use
+R 0
+A -
+X Unknown criterion 'minecraft.use' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.use' at position 2: t <--[HERE]@0
+S 0-13 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used
+R 0
+A -
+X Unknown criterion 'minecraft.used' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used' at position 2: t <--[HERE]@0
+S 0-14 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:
+R 0
+A -
+X Unknown criterion 'minecraft.used:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:' at position 2: t <--[HERE]@0
+S 0-15 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:m
+R 0
+A -
+X Unknown criterion 'minecraft.used:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:m' at position 2: t <--[HERE]@0
+S 0-16 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:mi
+R 0
+A -
+X Unknown criterion 'minecraft.used:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:mi' at position 2: t <--[HERE]@0
+S 0-17 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:min
+R 0
+A -
+X Unknown criterion 'minecraft.used:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:min' at position 2: t <--[HERE]@0
+S 0-18 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:mine
+R 0
+A -
+X Unknown criterion 'minecraft.used:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:mine' at position 2: t <--[HERE]@0
+S 0-19 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:minec
+R 0
+A -
+X Unknown criterion 'minecraft.used:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minec' at position 2: t <--[HERE]@0
+S 0-20 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.used:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minecr' at position 2: t <--[HERE]@0
+S 0-21 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.used:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minecra' at position 2: t <--[HERE]@0
+S 0-22 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.used:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minecraf' at position 2: t <--[HERE]@0
+S 0-23 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.used:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minecraft' at position 2: t <--[HERE]@0
+S 0-24 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.used:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minecraft.' at position 2: t <--[HERE]@0
+S 0-25 1658 1304763905 minecraft.used:minecraft.abandoned_camp_map	minecraft.used:minecraft.acacia_boat	minecraft.used:minecraft.acacia_button	minecraft.used:minecraft.acacia_chest_boat	minecraft.used:minecraft.acacia_door	minecraft.used:minecraft.acacia_fence	minecraft.used:minecraft.acacia_fence_gate	minecraft.used:minecraft.acacia_hanging_sign
+@ all minecraft.used:minecraft.b
+R 0
+A -
+X Unknown criterion 'minecraft.used:minecraft.b' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minecraft.b' at position 2: t <--[HERE]@0
+S 0-26 164 1109175363 minecraft.used:minecraft.baked_potato	minecraft.used:minecraft.bamboo	minecraft.used:minecraft.bamboo_block	minecraft.used:minecraft.bamboo_button	minecraft.used:minecraft.bamboo_chest_raft	minecraft.used:minecraft.bamboo_door	minecraft.used:minecraft.bamboo_fence	minecraft.used:minecraft.bamboo_fence_gate
+@ all minecraft.used:minecraft.bo
+R 0
+A -
+X Unknown criterion 'minecraft.used:minecraft.bo' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.used:minecraft.bo' at position 2: t <--[HERE]@0
+S 0-27 10 -2044628456 minecraft.used:minecraft.bogged_spawn_egg	minecraft.used:minecraft.bolt_armor_trim_smithing_template	minecraft.used:minecraft.bone	minecraft.used:minecraft.bone_block	minecraft.used:minecraft.bone_meal	minecraft.used:minecraft.book	minecraft.used:minecraft.bookshelf	minecraft.used:minecraft.bordure_indented_banner_pattern	minecraft.used:minecraft.bow	minecraft.used:minecraft.bowl
+@ all minecraft.b
+R 0
+A -
+X Unknown criterion 'minecraft.b' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.b' at position 2: t <--[HERE]@0
+S 0-11 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.br
+R 0
+A -
+X Unknown criterion 'minecraft.br' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.br' at position 2: t <--[HERE]@0
+S 0-12 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.bro
+R 0
+A -
+X Unknown criterion 'minecraft.bro' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.bro' at position 2: t <--[HERE]@0
+S 0-13 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.brok
+R 0
+A -
+X Unknown criterion 'minecraft.brok' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.brok' at position 2: t <--[HERE]@0
+S 0-14 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broke
+R 0
+A -
+X Unknown criterion 'minecraft.broke' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broke' at position 2: t <--[HERE]@0
+S 0-15 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken
+R 0
+A -
+X Unknown criterion 'minecraft.broken' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken' at position 2: t <--[HERE]@0
+S 0-16 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:
+R 0
+A -
+X Unknown criterion 'minecraft.broken:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:' at position 2: t <--[HERE]@0
+S 0-17 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:m
+R 0
+A -
+X Unknown criterion 'minecraft.broken:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:m' at position 2: t <--[HERE]@0
+S 0-18 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:mi
+R 0
+A -
+X Unknown criterion 'minecraft.broken:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:mi' at position 2: t <--[HERE]@0
+S 0-19 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:min
+R 0
+A -
+X Unknown criterion 'minecraft.broken:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:min' at position 2: t <--[HERE]@0
+S 0-20 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:mine
+R 0
+A -
+X Unknown criterion 'minecraft.broken:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:mine' at position 2: t <--[HERE]@0
+S 0-21 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:minec
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minec' at position 2: t <--[HERE]@0
+S 0-22 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecr' at position 2: t <--[HERE]@0
+S 0-23 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecra' at position 2: t <--[HERE]@0
+S 0-24 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraf' at position 2: t <--[HERE]@0
+S 0-25 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft' at position 2: t <--[HERE]@0
+S 0-26 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.' at position 2: t <--[HERE]@0
+S 0-27 1658 -1098619807 minecraft.broken:minecraft.abandoned_camp_map	minecraft.broken:minecraft.acacia_boat	minecraft.broken:minecraft.acacia_button	minecraft.broken:minecraft.acacia_chest_boat	minecraft.broken:minecraft.acacia_door	minecraft.broken:minecraft.acacia_fence	minecraft.broken:minecraft.acacia_fence_gate	minecraft.broken:minecraft.acacia_hanging_sign
+@ all minecraft.broken:minecraft.d
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.d' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.d' at position 2: t <--[HERE]@0
+S 0-28 98 -1587270367 minecraft.broken:minecraft.damaged_anvil	minecraft.broken:minecraft.dandelion	minecraft.broken:minecraft.danger_pottery_sherd	minecraft.broken:minecraft.dark_oak_boat	minecraft.broken:minecraft.dark_oak_button	minecraft.broken:minecraft.dark_oak_chest_boat	minecraft.broken:minecraft.dark_oak_door	minecraft.broken:minecraft.dark_oak_fence
+@ all minecraft.broken:minecraft.di
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.di' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.di' at position 2: t <--[HERE]@0
+S 0-29 23 -1089831802 minecraft.broken:minecraft.diamond	minecraft.broken:minecraft.diamond_axe	minecraft.broken:minecraft.diamond_block	minecraft.broken:minecraft.diamond_boots	minecraft.broken:minecraft.diamond_chestplate	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.diamond_hoe	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_leggings	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.diamond_ore	minecraft.broken:minecraft.diamond_pickaxe	minecraft.broken:minecraft.diamond_shovel	minecraft.broken:minecraft.diamond_spear	minecraft.broken:minecraft.diamond_sword	minecraft.broken:minecraft.diorite	minecraft.broken:minecraft.diorite_slab	minecraft.broken:minecraft.diorite_stairs	minecraft.broken:minecraft.diorite_wall	minecraft.broken:minecraft.dirt	minecraft.broken:minecraft.dirt_path	minecraft.broken:minecraft.disc_fragment_5	minecraft.broken:minecraft.dispenser
+@ all minecraft.broken:minecraft.dia
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.dia' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.dia' at position 2: t <--[HERE]@0
+S 0-30 15 -1077836566 minecraft.broken:minecraft.diamond	minecraft.broken:minecraft.diamond_axe	minecraft.broken:minecraft.diamond_block	minecraft.broken:minecraft.diamond_boots	minecraft.broken:minecraft.diamond_chestplate	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.diamond_hoe	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_leggings	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.diamond_ore	minecraft.broken:minecraft.diamond_pickaxe	minecraft.broken:minecraft.diamond_shovel	minecraft.broken:minecraft.diamond_spear	minecraft.broken:minecraft.diamond_sword
+@ all minecraft.broken:minecraft.diam
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diam' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diam' at position 2: t <--[HERE]@0
+S 0-31 15 -1077836566 minecraft.broken:minecraft.diamond	minecraft.broken:minecraft.diamond_axe	minecraft.broken:minecraft.diamond_block	minecraft.broken:minecraft.diamond_boots	minecraft.broken:minecraft.diamond_chestplate	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.diamond_hoe	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_leggings	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.diamond_ore	minecraft.broken:minecraft.diamond_pickaxe	minecraft.broken:minecraft.diamond_shovel	minecraft.broken:minecraft.diamond_spear	minecraft.broken:minecraft.diamond_sword
+@ all minecraft.broken:minecraft.diamo
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamo' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamo' at position 2: t <--[HERE]@0
+S 0-32 15 -1077836566 minecraft.broken:minecraft.diamond	minecraft.broken:minecraft.diamond_axe	minecraft.broken:minecraft.diamond_block	minecraft.broken:minecraft.diamond_boots	minecraft.broken:minecraft.diamond_chestplate	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.diamond_hoe	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_leggings	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.diamond_ore	minecraft.broken:minecraft.diamond_pickaxe	minecraft.broken:minecraft.diamond_shovel	minecraft.broken:minecraft.diamond_spear	minecraft.broken:minecraft.diamond_sword
+@ all minecraft.broken:minecraft.diamon
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamon' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamon' at position 2: t <--[HERE]@0
+S 0-33 15 -1077836566 minecraft.broken:minecraft.diamond	minecraft.broken:minecraft.diamond_axe	minecraft.broken:minecraft.diamond_block	minecraft.broken:minecraft.diamond_boots	minecraft.broken:minecraft.diamond_chestplate	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.diamond_hoe	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_leggings	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.diamond_ore	minecraft.broken:minecraft.diamond_pickaxe	minecraft.broken:minecraft.diamond_shovel	minecraft.broken:minecraft.diamond_spear	minecraft.broken:minecraft.diamond_sword
+@ all minecraft.broken:minecraft.diamond
+R 34
+A 0-34 minecraft.broken:minecraft.diamond|false|integer
+E ok
+S 0-34 14 1354336836 minecraft.broken:minecraft.diamond_axe	minecraft.broken:minecraft.diamond_block	minecraft.broken:minecraft.diamond_boots	minecraft.broken:minecraft.diamond_chestplate	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.diamond_hoe	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_leggings	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.diamond_ore	minecraft.broken:minecraft.diamond_pickaxe	minecraft.broken:minecraft.diamond_shovel	minecraft.broken:minecraft.diamond_spear	minecraft.broken:minecraft.diamond_sword
+@ all minecraft.broken:minecraft.diamond_
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamond_' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamond_' at position 2: t <--[HERE]@0
+S 0-35 14 1354336836 minecraft.broken:minecraft.diamond_axe	minecraft.broken:minecraft.diamond_block	minecraft.broken:minecraft.diamond_boots	minecraft.broken:minecraft.diamond_chestplate	minecraft.broken:minecraft.diamond_helmet	minecraft.broken:minecraft.diamond_hoe	minecraft.broken:minecraft.diamond_horse_armor	minecraft.broken:minecraft.diamond_leggings	minecraft.broken:minecraft.diamond_nautilus_armor	minecraft.broken:minecraft.diamond_ore	minecraft.broken:minecraft.diamond_pickaxe	minecraft.broken:minecraft.diamond_shovel	minecraft.broken:minecraft.diamond_spear	minecraft.broken:minecraft.diamond_sword
+@ all minecraft.broken:minecraft.diamond_p
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamond_p' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamond_p' at position 2: t <--[HERE]@0
+S 0-36 1 -199280180 minecraft.broken:minecraft.diamond_pickaxe
+@ all minecraft.broken:minecraft.diamond_pi
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamond_pi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamond_pi' at position 2: t <--[HERE]@0
+S 0-37 1 -199280180 minecraft.broken:minecraft.diamond_pickaxe
+@ all minecraft.broken:minecraft.diamond_pic
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamond_pic' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamond_pic' at position 2: t <--[HERE]@0
+S 0-38 1 -199280180 minecraft.broken:minecraft.diamond_pickaxe
+@ all minecraft.broken:minecraft.diamond_pick
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamond_pick' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamond_pick' at position 2: t <--[HERE]@0
+S 0-39 1 -199280180 minecraft.broken:minecraft.diamond_pickaxe
+@ all minecraft.broken:minecraft.diamond_picka
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamond_picka' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamond_picka' at position 2: t <--[HERE]@0
+S 0-40 1 -199280180 minecraft.broken:minecraft.diamond_pickaxe
+@ all minecraft.broken:minecraft.diamond_pickax
+R 0
+A -
+X Unknown criterion 'minecraft.broken:minecraft.diamond_pickax' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.broken:minecraft.diamond_pickax' at position 2: t <--[HERE]@0
+S 0-41 1 -199280180 minecraft.broken:minecraft.diamond_pickaxe
+@ all minecraft.p
+R 0
+A -
+X Unknown criterion 'minecraft.p' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.p' at position 2: t <--[HERE]@0
+S 0-11 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.pi
+R 0
+A -
+X Unknown criterion 'minecraft.pi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.pi' at position 2: t <--[HERE]@0
+S 0-12 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.pic
+R 0
+A -
+X Unknown criterion 'minecraft.pic' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.pic' at position 2: t <--[HERE]@0
+S 0-13 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.pick
+R 0
+A -
+X Unknown criterion 'minecraft.pick' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.pick' at position 2: t <--[HERE]@0
+S 0-14 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picke
+R 0
+A -
+X Unknown criterion 'minecraft.picke' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picke' at position 2: t <--[HERE]@0
+S 0-15 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked
+R 0
+A -
+X Unknown criterion 'minecraft.picked' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked' at position 2: t <--[HERE]@0
+S 0-16 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_
+R 0
+A -
+X Unknown criterion 'minecraft.picked_' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_' at position 2: t <--[HERE]@0
+S 0-17 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_u
+R 0
+A -
+X Unknown criterion 'minecraft.picked_u' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_u' at position 2: t <--[HERE]@0
+S 0-18 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up' at position 2: t <--[HERE]@0
+S 0-19 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:' at position 2: t <--[HERE]@0
+S 0-20 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:m
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:m' at position 2: t <--[HERE]@0
+S 0-21 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:mi
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:mi' at position 2: t <--[HERE]@0
+S 0-22 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:min
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:min' at position 2: t <--[HERE]@0
+S 0-23 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:mine
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:mine' at position 2: t <--[HERE]@0
+S 0-24 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:minec
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minec' at position 2: t <--[HERE]@0
+S 0-25 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecr' at position 2: t <--[HERE]@0
+S 0-26 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecra' at position 2: t <--[HERE]@0
+S 0-27 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraf' at position 2: t <--[HERE]@0
+S 0-28 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft' at position 2: t <--[HERE]@0
+S 0-29 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft.' at position 2: t <--[HERE]@0
+S 0-30 1658 -1953628927 minecraft.picked_up:minecraft.abandoned_camp_map	minecraft.picked_up:minecraft.acacia_boat	minecraft.picked_up:minecraft.acacia_button	minecraft.picked_up:minecraft.acacia_chest_boat	minecraft.picked_up:minecraft.acacia_door	minecraft.picked_up:minecraft.acacia_fence	minecraft.picked_up:minecraft.acacia_fence_gate	minecraft.picked_up:minecraft.acacia_hanging_sign
+@ all minecraft.picked_up:minecraft.d
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft.d' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft.d' at position 2: t <--[HERE]@0
+S 0-31 98 -1039400599 minecraft.picked_up:minecraft.damaged_anvil	minecraft.picked_up:minecraft.dandelion	minecraft.picked_up:minecraft.danger_pottery_sherd	minecraft.picked_up:minecraft.dark_oak_boat	minecraft.picked_up:minecraft.dark_oak_button	minecraft.picked_up:minecraft.dark_oak_chest_boat	minecraft.picked_up:minecraft.dark_oak_door	minecraft.picked_up:minecraft.dark_oak_fence
+@ all minecraft.picked_up:minecraft.di
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft.di' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft.di' at position 2: t <--[HERE]@0
+S 0-32 23 2079969149 minecraft.picked_up:minecraft.diamond	minecraft.picked_up:minecraft.diamond_axe	minecraft.picked_up:minecraft.diamond_block	minecraft.picked_up:minecraft.diamond_boots	minecraft.picked_up:minecraft.diamond_chestplate	minecraft.picked_up:minecraft.diamond_helmet	minecraft.picked_up:minecraft.diamond_hoe	minecraft.picked_up:minecraft.diamond_horse_armor	minecraft.picked_up:minecraft.diamond_leggings	minecraft.picked_up:minecraft.diamond_nautilus_armor	minecraft.picked_up:minecraft.diamond_ore	minecraft.picked_up:minecraft.diamond_pickaxe	minecraft.picked_up:minecraft.diamond_shovel	minecraft.picked_up:minecraft.diamond_spear	minecraft.picked_up:minecraft.diamond_sword	minecraft.picked_up:minecraft.diorite	minecraft.picked_up:minecraft.diorite_slab	minecraft.picked_up:minecraft.diorite_stairs	minecraft.picked_up:minecraft.diorite_wall	minecraft.picked_up:minecraft.dirt	minecraft.picked_up:minecraft.dirt_path	minecraft.picked_up:minecraft.disc_fragment_5	minecraft.picked_up:minecraft.dispenser
+@ all minecraft.picked_up:minecraft.dia
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft.dia' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft.dia' at position 2: t <--[HERE]@0
+S 0-33 15 -2081279387 minecraft.picked_up:minecraft.diamond	minecraft.picked_up:minecraft.diamond_axe	minecraft.picked_up:minecraft.diamond_block	minecraft.picked_up:minecraft.diamond_boots	minecraft.picked_up:minecraft.diamond_chestplate	minecraft.picked_up:minecraft.diamond_helmet	minecraft.picked_up:minecraft.diamond_hoe	minecraft.picked_up:minecraft.diamond_horse_armor	minecraft.picked_up:minecraft.diamond_leggings	minecraft.picked_up:minecraft.diamond_nautilus_armor	minecraft.picked_up:minecraft.diamond_ore	minecraft.picked_up:minecraft.diamond_pickaxe	minecraft.picked_up:minecraft.diamond_shovel	minecraft.picked_up:minecraft.diamond_spear	minecraft.picked_up:minecraft.diamond_sword
+@ all minecraft.picked_up:minecraft.diam
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft.diam' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft.diam' at position 2: t <--[HERE]@0
+S 0-34 15 -2081279387 minecraft.picked_up:minecraft.diamond	minecraft.picked_up:minecraft.diamond_axe	minecraft.picked_up:minecraft.diamond_block	minecraft.picked_up:minecraft.diamond_boots	minecraft.picked_up:minecraft.diamond_chestplate	minecraft.picked_up:minecraft.diamond_helmet	minecraft.picked_up:minecraft.diamond_hoe	minecraft.picked_up:minecraft.diamond_horse_armor	minecraft.picked_up:minecraft.diamond_leggings	minecraft.picked_up:minecraft.diamond_nautilus_armor	minecraft.picked_up:minecraft.diamond_ore	minecraft.picked_up:minecraft.diamond_pickaxe	minecraft.picked_up:minecraft.diamond_shovel	minecraft.picked_up:minecraft.diamond_spear	minecraft.picked_up:minecraft.diamond_sword
+@ all minecraft.picked_up:minecraft.diamo
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft.diamo' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft.diamo' at position 2: t <--[HERE]@0
+S 0-35 15 -2081279387 minecraft.picked_up:minecraft.diamond	minecraft.picked_up:minecraft.diamond_axe	minecraft.picked_up:minecraft.diamond_block	minecraft.picked_up:minecraft.diamond_boots	minecraft.picked_up:minecraft.diamond_chestplate	minecraft.picked_up:minecraft.diamond_helmet	minecraft.picked_up:minecraft.diamond_hoe	minecraft.picked_up:minecraft.diamond_horse_armor	minecraft.picked_up:minecraft.diamond_leggings	minecraft.picked_up:minecraft.diamond_nautilus_armor	minecraft.picked_up:minecraft.diamond_ore	minecraft.picked_up:minecraft.diamond_pickaxe	minecraft.picked_up:minecraft.diamond_shovel	minecraft.picked_up:minecraft.diamond_spear	minecraft.picked_up:minecraft.diamond_sword
+@ all minecraft.picked_up:minecraft.diamon
+R 0
+A -
+X Unknown criterion 'minecraft.picked_up:minecraft.diamon' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.picked_up:minecraft.diamon' at position 2: t <--[HERE]@0
+S 0-36 15 -2081279387 minecraft.picked_up:minecraft.diamond	minecraft.picked_up:minecraft.diamond_axe	minecraft.picked_up:minecraft.diamond_block	minecraft.picked_up:minecraft.diamond_boots	minecraft.picked_up:minecraft.diamond_chestplate	minecraft.picked_up:minecraft.diamond_helmet	minecraft.picked_up:minecraft.diamond_hoe	minecraft.picked_up:minecraft.diamond_horse_armor	minecraft.picked_up:minecraft.diamond_leggings	minecraft.picked_up:minecraft.diamond_nautilus_armor	minecraft.picked_up:minecraft.diamond_ore	minecraft.picked_up:minecraft.diamond_pickaxe	minecraft.picked_up:minecraft.diamond_shovel	minecraft.picked_up:minecraft.diamond_spear	minecraft.picked_up:minecraft.diamond_sword
+@ all minecraft.d
+R 0
+A -
+X Unknown criterion 'minecraft.d' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.d' at position 2: t <--[HERE]@0
+S 0-11 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dr
+R 0
+A -
+X Unknown criterion 'minecraft.dr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dr' at position 2: t <--[HERE]@0
+S 0-12 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dro
+R 0
+A -
+X Unknown criterion 'minecraft.dro' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dro' at position 2: t <--[HERE]@0
+S 0-13 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.drop
+R 0
+A -
+X Unknown criterion 'minecraft.drop' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.drop' at position 2: t <--[HERE]@0
+S 0-14 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropp
+R 0
+A -
+X Unknown criterion 'minecraft.dropp' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropp' at position 2: t <--[HERE]@0
+S 0-15 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.droppe
+R 0
+A -
+X Unknown criterion 'minecraft.droppe' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.droppe' at position 2: t <--[HERE]@0
+S 0-16 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped
+R 0
+A -
+X Unknown criterion 'minecraft.dropped' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped' at position 2: t <--[HERE]@0
+S 0-17 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:' at position 2: t <--[HERE]@0
+S 0-18 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:m
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:m' at position 2: t <--[HERE]@0
+S 0-19 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:mi
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:mi' at position 2: t <--[HERE]@0
+S 0-20 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:min
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:min' at position 2: t <--[HERE]@0
+S 0-21 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:mine
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:mine' at position 2: t <--[HERE]@0
+S 0-22 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:minec
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minec' at position 2: t <--[HERE]@0
+S 0-23 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:minecr
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecr' at position 2: t <--[HERE]@0
+S 0-24 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:minecra
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecra' at position 2: t <--[HERE]@0
+S 0-25 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecraf' at position 2: t <--[HERE]@0
+S 0-26 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecraft' at position 2: t <--[HERE]@0
+S 0-27 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:minecraft.
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecraft.' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecraft.' at position 2: t <--[HERE]@0
+S 0-28 1658 296155709 minecraft.dropped:minecraft.abandoned_camp_map	minecraft.dropped:minecraft.acacia_boat	minecraft.dropped:minecraft.acacia_button	minecraft.dropped:minecraft.acacia_chest_boat	minecraft.dropped:minecraft.acacia_door	minecraft.dropped:minecraft.acacia_fence	minecraft.dropped:minecraft.acacia_fence_gate	minecraft.dropped:minecraft.acacia_hanging_sign
+@ all minecraft.dropped:minecraft.d
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecraft.d' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecraft.d' at position 2: t <--[HERE]@0
+S 0-29 98 -2121034835 minecraft.dropped:minecraft.damaged_anvil	minecraft.dropped:minecraft.dandelion	minecraft.dropped:minecraft.danger_pottery_sherd	minecraft.dropped:minecraft.dark_oak_boat	minecraft.dropped:minecraft.dark_oak_button	minecraft.dropped:minecraft.dark_oak_chest_boat	minecraft.dropped:minecraft.dark_oak_door	minecraft.dropped:minecraft.dark_oak_fence
+@ all minecraft.dropped:minecraft.di
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecraft.di' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecraft.di' at position 2: t <--[HERE]@0
+S 0-30 23 1692057679 minecraft.dropped:minecraft.diamond	minecraft.dropped:minecraft.diamond_axe	minecraft.dropped:minecraft.diamond_block	minecraft.dropped:minecraft.diamond_boots	minecraft.dropped:minecraft.diamond_chestplate	minecraft.dropped:minecraft.diamond_helmet	minecraft.dropped:minecraft.diamond_hoe	minecraft.dropped:minecraft.diamond_horse_armor	minecraft.dropped:minecraft.diamond_leggings	minecraft.dropped:minecraft.diamond_nautilus_armor	minecraft.dropped:minecraft.diamond_ore	minecraft.dropped:minecraft.diamond_pickaxe	minecraft.dropped:minecraft.diamond_shovel	minecraft.dropped:minecraft.diamond_spear	minecraft.dropped:minecraft.diamond_sword	minecraft.dropped:minecraft.diorite	minecraft.dropped:minecraft.diorite_slab	minecraft.dropped:minecraft.diorite_stairs	minecraft.dropped:minecraft.diorite_wall	minecraft.dropped:minecraft.dirt	minecraft.dropped:minecraft.dirt_path	minecraft.dropped:minecraft.disc_fragment_5	minecraft.dropped:minecraft.dispenser
+@ all minecraft.dropped:minecraft.dir
+R 0
+A -
+X Unknown criterion 'minecraft.dropped:minecraft.dir' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.dropped:minecraft.dir' at position 2: t <--[HERE]@0
+S 0-31 2 259778862 minecraft.dropped:minecraft.dirt	minecraft.dropped:minecraft.dirt_path
+@ all minecraft.mined:minecraft.n
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.n' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.n' at position 2: t <--[HERE]@0
+S 0-27 14 -1496481204 minecraft.mined:minecraft.nether_brick_fence	minecraft.mined:minecraft.nether_brick_slab	minecraft.mined:minecraft.nether_brick_stairs	minecraft.mined:minecraft.nether_brick_wall	minecraft.mined:minecraft.nether_bricks	minecraft.mined:minecraft.nether_gold_ore	minecraft.mined:minecraft.nether_portal	minecraft.mined:minecraft.nether_quartz_ore	minecraft.mined:minecraft.nether_sprouts	minecraft.mined:minecraft.nether_wart	minecraft.mined:minecraft.nether_wart_block	minecraft.mined:minecraft.netherite_block	minecraft.mined:minecraft.netherrack	minecraft.mined:minecraft.note_block
+@ all minecraft.mined:minecraft.no
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.no' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.no' at position 2: t <--[HERE]@0
+S 0-28 1 -2115287490 minecraft.mined:minecraft.note_block
+@ all minecraft.mined:minecraft.nop
+R 0
+A -
+X Unknown criterion 'minecraft.mined:minecraft.nop' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:minecraft.nop' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft.mined:s
+R 0
+A -
+X Unknown criterion 'minecraft.mined:s' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:s' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft.mined:st
+R 0
+A -
+X Unknown criterion 'minecraft.mined:st' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:st' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft.mined:sto
+R 0
+A -
+X Unknown criterion 'minecraft.mined:sto' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:sto' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft.mined:ston
+R 0
+A -
+X Unknown criterion 'minecraft.mined:ston' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft.mined:ston' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Unknown criterion 'minecraft:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:m
+R 0
+A -
+X Unknown criterion 'minecraft:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:m' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mi
+R 0
+A -
+X Unknown criterion 'minecraft:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mi' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:min
+R 0
+A -
+X Unknown criterion 'minecraft:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:min' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mine
+R 0
+A -
+X Unknown criterion 'minecraft:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mine' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined
+R 0
+A -
+X Unknown criterion 'minecraft:mined' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:
+R 0
+A -
+X Unknown criterion 'minecraft:mined:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:m
+R 0
+A -
+X Unknown criterion 'minecraft:mined:m' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:m' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:mi
+R 0
+A -
+X Unknown criterion 'minecraft:mined:mi' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:mi' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:min
+R 0
+A -
+X Unknown criterion 'minecraft:mined:min' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:min' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:mine
+R 0
+A -
+X Unknown criterion 'minecraft:mined:mine' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:mine' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minec
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minec' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minec' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecr
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecr' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecr' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecra
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecra' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecra' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecraf
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraf' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraf' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecraft
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraft' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraft' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecraft:
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraft:' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraft:' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecraft:s
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraft:s' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraft:s' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecraft:st
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraft:st' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraft:st' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecraft:sto
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraft:sto' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraft:sto' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mined:minecraft:ston
+R 0
+A -
+X Unknown criterion 'minecraft:mined:minecraft:ston' at position 2: t <--[HERE]@0
+E Unknown criterion 'minecraft:mined:minecraft:ston' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all D
+R 0
+A -
+X Unknown criterion 'D' at position 2: t <--[HERE]@0
+E Unknown criterion 'D' at position 2: t <--[HERE]@0
+S 0-1 2587 -285202832 deathCount	dummy	killedByTeam.dark_aqua	killedByTeam.dark_blue	killedByTeam.dark_gray	killedByTeam.dark_green	killedByTeam.dark_purple	killedByTeam.dark_red
+@ all Du
+R 0
+A -
+X Unknown criterion 'Du' at position 2: t <--[HERE]@0
+E Unknown criterion 'Du' at position 2: t <--[HERE]@0
+S 0-2 11 -1189083084 dummy	minecraft.broken:minecraft.dune_armor_trim_smithing_template	minecraft.broken:minecraft.glowstone_dust	minecraft.crafted:minecraft.dune_armor_trim_smithing_template	minecraft.crafted:minecraft.glowstone_dust	minecraft.dropped:minecraft.dune_armor_trim_smithing_template	minecraft.dropped:minecraft.glowstone_dust	minecraft.picked_up:minecraft.dune_armor_trim_smithing_template	minecraft.picked_up:minecraft.glowstone_dust	minecraft.used:minecraft.dune_armor_trim_smithing_template	minecraft.used:minecraft.glowstone_dust
+@ all Dum
+R 0
+A -
+X Unknown criterion 'Dum' at position 2: t <--[HERE]@0
+E Unknown criterion 'Dum' at position 2: t <--[HERE]@0
+S 0-3 1 -1320644511 dummy
+@ all Dumm
+R 0
+A -
+X Unknown criterion 'Dumm' at position 2: t <--[HERE]@0
+E Unknown criterion 'Dumm' at position 2: t <--[HERE]@0
+S 0-4 1 -1320644511 dummy
+@ all foo 
+R 0
+A -
+X Unknown criterion 'foo' at position 2: t <--[HERE]@0
+E Unknown criterion 'foo' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo b
+R 0
+A -
+X Unknown criterion 'foo' at position 2: t <--[HERE]@0
+E Unknown criterion 'foo' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo ba
+R 0
+A -
+X Unknown criterion 'foo' at position 2: t <--[HERE]@0
+E Unknown criterion 'foo' at position 2: t <--[HERE]@0
+S -2--2 0 0 

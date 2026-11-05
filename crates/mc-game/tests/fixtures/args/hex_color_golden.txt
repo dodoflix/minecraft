@@ -1,0 +1,1889 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 2 -382738970 F00	FF0000
+@ all F00
+R 3
+A 0-3 -65536
+E ok
+S -2--2 0 0 
+@ all FF0000
+R 6
+A 0-6 -65536
+E ok
+S -2--2 0 0 
+@ all abc
+R 3
+A 0-3 -5588020
+E ok
+S -2--2 0 0 
+@ all ABCDEF
+R 6
+A 0-6 -5517841
+E ok
+S -2--2 0 0 
+@ all 123456
+R 6
+A 0-6 -15584170
+E ok
+S -2--2 0 0 
+@ all 12345
+R 0
+A -
+X Invalid hex color code '12345' at position 7: t 12345<--[HERE]@5
+E Invalid hex color code '12345' at position 7: t 12345<--[HERE]@5
+S -2--2 0 0 
+@ all 1234567
+R 0
+A -
+X Invalid hex color code '1234567' at position 9: t 1234567<--[HERE]@7
+E Invalid hex color code '1234567' at position 9: t 1234567<--[HERE]@7
+S -2--2 0 0 
+@ all GGG
+R 0
+A -
+X Could not parse command: Error at index 0 in: "G" at position 5: t GGG<--[HERE]@3
+E Could not parse command: Error at index 0 in: "G" at position 5: t GGG<--[HERE]@3
+S -2--2 0 0 
+@ all 00000
+R 0
+A -
+X Invalid hex color code '00000' at position 7: t 00000<--[HERE]@5
+E Invalid hex color code '00000' at position 7: t 00000<--[HERE]@5
+S -2--2 0 0 
+@ all 000000
+R 6
+A 0-6 -16777216
+E ok
+S -2--2 0 0 
+@ all #fff
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fFf
+R 3
+A 0-3 -1
+E ok
+S -2--2 0 0 
+@ all -1
+R 0
+A -
+X Invalid hex color code '-1' at position 4: t -1<--[HERE]@2
+E Invalid hex color code '-1' at position 4: t -1<--[HERE]@2
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ff00ff
+R 6
+A 0-6 -65281
+E ok
+S -2--2 0 0 
+@ all 0g0
+R 0
+A -
+X Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+E Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+S -2--2 0 0 
+@ all ŕ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 000
+R 3
+A 0-3 -16777216
+E ok
+S -2--2 0 0 
+@ all ZZZZZZ
+R 0
+A -
+X Could not parse command: Error at index 0 in: "ZZ" at position 8: t ZZZZZZ<--[HERE]@6
+E Could not parse command: Error at index 0 in: "ZZ" at position 8: t ZZZZZZ<--[HERE]@6
+S -2--2 0 0 
+@ all F
+R 0
+A -
+X Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+E Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+S 0-1 2 -382738970 F00	FF0000
+@ all F0
+R 0
+A -
+X Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+E Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+S 0-2 1 2132995 F00
+@ all FF
+R 0
+A -
+X Invalid hex color code 'FF' at position 4: t FF<--[HERE]@2
+E Invalid hex color code 'FF' at position 4: t FF<--[HERE]@2
+S 0-2 1 -249404599 FF0000
+@ all FF0
+R 3
+A 0-3 -256
+E ok
+S 0-3 1 -249404599 FF0000
+@ all FF00
+R 0
+A -
+X Invalid hex color code 'FF00' at position 6: t FF00<--[HERE]@4
+E Invalid hex color code 'FF00' at position 6: t FF00<--[HERE]@4
+S 0-4 1 -249404599 FF0000
+@ all FF000
+R 0
+A -
+X Invalid hex color code 'FF000' at position 7: t FF000<--[HERE]@5
+E Invalid hex color code 'FF000' at position 7: t FF000<--[HERE]@5
+S 0-5 1 -249404599 FF0000
+@ all a
+R 0
+A -
+X Invalid hex color code 'a' at position 3: t a<--[HERE]@1
+E Invalid hex color code 'a' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all ab
+R 0
+A -
+X Invalid hex color code 'ab' at position 4: t ab<--[HERE]@2
+E Invalid hex color code 'ab' at position 4: t ab<--[HERE]@2
+S -2--2 0 0 
+@ all A
+R 0
+A -
+X Invalid hex color code 'A' at position 3: t A<--[HERE]@1
+E Invalid hex color code 'A' at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all AB
+R 0
+A -
+X Invalid hex color code 'AB' at position 4: t AB<--[HERE]@2
+E Invalid hex color code 'AB' at position 4: t AB<--[HERE]@2
+S -2--2 0 0 
+@ all ABC
+R 3
+A 0-3 -5588020
+E ok
+S -2--2 0 0 
+@ all ABCD
+R 0
+A -
+X Invalid hex color code 'ABCD' at position 6: t ABCD<--[HERE]@4
+E Invalid hex color code 'ABCD' at position 6: t ABCD<--[HERE]@4
+S -2--2 0 0 
+@ all ABCDE
+R 0
+A -
+X Invalid hex color code 'ABCDE' at position 7: t ABCDE<--[HERE]@5
+E Invalid hex color code 'ABCDE' at position 7: t ABCDE<--[HERE]@5
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+E Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 12
+R 0
+A -
+X Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+E Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+S -2--2 0 0 
+@ all 123
+R 3
+A 0-3 -15654349
+E ok
+S -2--2 0 0 
+@ all 1234
+R 0
+A -
+X Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+E Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+S -2--2 0 0 
+@ all G
+R 0
+A -
+X Invalid hex color code 'G' at position 3: t G<--[HERE]@1
+E Invalid hex color code 'G' at position 3: t G<--[HERE]@1
+S -2--2 0 0 
+@ all GG
+R 0
+A -
+X Invalid hex color code 'GG' at position 4: t GG<--[HERE]@2
+E Invalid hex color code 'GG' at position 4: t GG<--[HERE]@2
+S -2--2 0 0 
+@ all 0
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 00
+R 0
+A -
+X Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+E Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+S -2--2 0 0 
+@ all 0000
+R 0
+A -
+X Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+E Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #f
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #ff
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+E Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+S 0-1 2 -382738970 F00	FF0000
+@ all fF
+R 0
+A -
+X Invalid hex color code 'fF' at position 4: t fF<--[HERE]@2
+E Invalid hex color code 'fF' at position 4: t fF<--[HERE]@2
+S 0-2 1 -249404599 FF0000
+@ all -
+R 0
+A -
+X Invalid hex color code '-' at position 3: t -<--[HERE]@1
+E Invalid hex color code '-' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all ff
+R 0
+A -
+X Invalid hex color code 'ff' at position 4: t ff<--[HERE]@2
+E Invalid hex color code 'ff' at position 4: t ff<--[HERE]@2
+S 0-2 1 -249404599 FF0000
+@ all ff0
+R 3
+A 0-3 -256
+E ok
+S 0-3 1 -249404599 FF0000
+@ all ff00
+R 0
+A -
+X Invalid hex color code 'ff00' at position 6: t ff00<--[HERE]@4
+E Invalid hex color code 'ff00' at position 6: t ff00<--[HERE]@4
+S 0-4 1 -249404599 FF0000
+@ all ff00f
+R 0
+A -
+X Invalid hex color code 'ff00f' at position 7: t ff00f<--[HERE]@5
+E Invalid hex color code 'ff00f' at position 7: t ff00f<--[HERE]@5
+S -2--2 0 0 
+@ all 0g
+R 0
+A -
+X Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+E Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Invalid hex color code 'Z' at position 3: t Z<--[HERE]@1
+E Invalid hex color code 'Z' at position 3: t Z<--[HERE]@1
+S -2--2 0 0 
+@ all ZZ
+R 0
+A -
+X Invalid hex color code 'ZZ' at position 4: t ZZ<--[HERE]@2
+E Invalid hex color code 'ZZ' at position 4: t ZZ<--[HERE]@2
+S -2--2 0 0 
+@ all ZZZ
+R 0
+A -
+X Could not parse command: Error at index 0 in: "Z" at position 5: t ZZZ<--[HERE]@3
+E Could not parse command: Error at index 0 in: "Z" at position 5: t ZZZ<--[HERE]@3
+S -2--2 0 0 
+@ all ZZZZ
+R 0
+A -
+X Invalid hex color code 'ZZZZ' at position 6: t ZZZZ<--[HERE]@4
+E Invalid hex color code 'ZZZZ' at position 6: t ZZZZ<--[HERE]@4
+S -2--2 0 0 
+@ all ZZZZZ
+R 0
+A -
+X Invalid hex color code 'ZZZZZ' at position 7: t ZZZZZ<--[HERE]@5
+E Invalid hex color code 'ZZZZZ' at position 7: t ZZZZZ<--[HERE]@5
+S -2--2 0 0 
+@ all @-1
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F!00000
+R 0
+A -
+X Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+E Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+S -2--2 0 0 
+@ all 7GGGG
+R 0
+A -
+X Invalid hex color code '7GGGG' at position 7: t 7GGGG<--[HERE]@5
+E Invalid hex color code '7GGGG' at position 7: t 7GGGG<--[HERE]@5
+S -2--2 0 0 
+@ all ￿f
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F)00
+R 0
+A -
+X Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+E Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+S -2--2 0 0 
+@ all 467
+R 3
+A 0-3 -12294537
+E ok
+S -2--2 0 0 
+@ all 0A
+R 0
+A -
+X Invalid hex color code '0A' at position 4: t 0A<--[HERE]@2
+E Invalid hex color code '0A' at position 4: t 0A<--[HERE]@2
+S -2--2 0 0 
+@ all ABCDE(FA
+R 0
+A -
+X Invalid hex color code 'ABCDE' at position 7: t ABCDE<--[HERE]@5
+E Invalid hex color code 'ABCDE' at position 7: t ABCDE<--[HERE]@5
+S -2--2 0 0 
+@ all Fe
+R 0
+A -
+X Invalid hex color code 'Fe' at position 4: t Fe<--[HERE]@2
+E Invalid hex color code 'Fe' at position 4: t Fe<--[HERE]@2
+S -2--2 0 0 
+@ all 12456
+R 0
+A -
+X Invalid hex color code '12456' at position 7: t 12456<--[HERE]@5
+E Invalid hex color code '12456' at position 7: t 12456<--[HERE]@5
+S -2--2 0 0 
+@ all Fß
+R 0
+A -
+X Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+E Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+S -2--2 0 0 
+@ all 12é34
+R 0
+A -
+X Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+E Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+S -2--2 0 0 
+@ all F0[
+R 0
+A -
+X Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+E Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+S -2--2 0 0 
+@ all 00fff
+R 0
+A -
+X Invalid hex color code '00fff' at position 7: t 00fff<--[HERE]@5
+E Invalid hex color code '00fff' at position 7: t 00fff<--[HERE]@5
+S -2--2 0 0 
+@ all f0_ff
+R 0
+A -
+X Invalid hex color code 'f0_ff' at position 7: t f0_ff<--[HERE]@5
+E Invalid hex color code 'f0_ff' at position 7: t f0_ff<--[HERE]@5
+S -2--2 0 0 
+@ all B0g0
+R 0
+A -
+X Invalid hex color code 'B0g0' at position 6: t B0g0<--[HERE]@4
+E Invalid hex color code 'B0g0' at position 6: t B0g0<--[HERE]@4
+S -2--2 0 0 
+@ all 0+0
+R 0
+A -
+X Could not parse command: Error at index 1 in: "+" at position 5: t 0+0<--[HERE]@3
+E Could not parse command: Error at index 1 in: "+" at position 5: t 0+0<--[HERE]@3
+S -2--2 0 0 
+@ all #ff5
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1234é
+R 0
+A -
+X Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+E Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+S -2--2 0 0 
+@ all 6
+R 0
+A -
+X Invalid hex color code '6' at position 3: t 6<--[HERE]@1
+E Invalid hex color code '6' at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all Fff
+R 3
+A 0-3 -1
+E ok
+S -2--2 0 0 
+@ all 3GGG
+R 0
+A -
+X Invalid hex color code '3GGG' at position 6: t 3GGG<--[HERE]@4
+E Invalid hex color code '3GGG' at position 6: t 3GGG<--[HERE]@4
+S -2--2 0 0 
+@ all FZ0
+R 0
+A -
+X Could not parse command: Error at index 0 in: "Z" at position 5: t FZ0<--[HERE]@3
+E Could not parse command: Error at index 0 in: "Z" at position 5: t FZ0<--[HERE]@3
+S -2--2 0 0 
+@ all f\u0009f
+R 0
+A -
+X Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+E Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all F05
+R 3
+A 0-3 -65451
+E ok
+S -2--2 0 0 
+@ all azcc
+R 0
+A -
+X Invalid hex color code 'azcc' at position 6: t azcc<--[HERE]@4
+E Invalid hex color code 'azcc' at position 6: t azcc<--[HERE]@4
+S -2--2 0 0 
+@ all Y12345
+R 0
+A -
+X Could not parse command: Error at index 0 in: "Y1" at position 8: t Y12345<--[HERE]@6
+E Could not parse command: Error at index 0 in: "Y1" at position 8: t Y12345<--[HERE]@6
+S -2--2 0 0 
+@ all 3456
+R 0
+A -
+X Invalid hex color code '3456' at position 6: t 3456<--[HERE]@4
+E Invalid hex color code '3456' at position 6: t 3456<--[HERE]@4
+S -2--2 0 0 
+@ all FF0$00
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t FF0<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t FF0<--[HERE]@3
+S -2--2 0 0 
+@ all #ff%5
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all =12345[
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all BCDEF
+R 0
+A -
+X Invalid hex color code 'BCDEF' at position 7: t BCDEF<--[HERE]@5
+E Invalid hex color code 'BCDEF' at position 7: t BCDEF<--[HERE]@5
+S -2--2 0 0 
+@ all #fff/
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 67
+R 0
+A -
+X Invalid hex color code '67' at position 4: t 67<--[HERE]@2
+E Invalid hex color code '67' at position 4: t 67<--[HERE]@2
+S -2--2 0 0 
+@ all !F0000
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 12234567
+R 0
+A -
+X Invalid hex color code '12234567' at position 10: t 12234567<--[HERE]@8
+E Invalid hex color code '12234567' at position 10: t 12234567<--[HERE]@8
+S -2--2 0 0 
+@ all 1234/6
+R 0
+A -
+X Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+E Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+S -2--2 0 0 
+@ all [ac
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f00ff
+R 0
+A -
+X Invalid hex color code 'f00ff' at position 7: t f00ff<--[HERE]@5
+E Invalid hex color code 'f00ff' at position 7: t f00ff<--[HERE]@5
+S -2--2 0 0 
+@ all 0g0中中
+R 0
+A -
+X Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+E Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+S -2--2 0 0 
+@ all 0000Y
+R 0
+A -
+X Invalid hex color code '0000Y' at position 7: t 0000Y<--[HERE]@5
+E Invalid hex color code '0000Y' at position 7: t 0000Y<--[HERE]@5
+S -2--2 0 0 
+@ all FF00&
+R 0
+A -
+X Invalid hex color code 'FF00' at position 6: t FF00<--[HERE]@4
+E Invalid hex color code 'FF00' at position 6: t FF00<--[HERE]@4
+S -2--2 0 0 
+@ all  0
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 12345675
+R 0
+A -
+X Invalid hex color code '12345675' at position 10: t 12345675<--[HERE]@8
+E Invalid hex color code '12345675' at position 10: t 12345675<--[HERE]@8
+S -2--2 0 0 
+@ all zF00
+R 0
+A -
+X Invalid hex color code 'zF00' at position 6: t zF00<--[HERE]@4
+E Invalid hex color code 'zF00' at position 6: t zF00<--[HERE]@4
+S -2--2 0 0 
+@ all 123-56
+R 0
+A -
+X Could not parse command: Error at index 1 in: "3-" at position 8: t 123-56<--[HERE]@6
+E Could not parse command: Error at index 1 in: "3-" at position 8: t 123-56<--[HERE]@6
+S -2--2 0 0 
+@ all 1234"67
+R 0
+A -
+X Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+E Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+S -2--2 0 0 
+@ all bc
+R 0
+A -
+X Invalid hex color code 'bc' at position 4: t bc<--[HERE]@2
+E Invalid hex color code 'bc' at position 4: t bc<--[HERE]@2
+S -2--2 0 0 
+@ all 123Y567
+R 0
+A -
+X Invalid hex color code '123Y567' at position 9: t 123Y567<--[HERE]@7
+E Invalid hex color code '123Y567' at position 9: t 123Y567<--[HERE]@7
+S -2--2 0 0 
+@ all >GGG
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0000.
+R 0
+A -
+X Invalid hex color code '0000.' at position 7: t 0000.<--[HERE]@5
+E Invalid hex color code '0000.' at position 7: t 0000.<--[HERE]@5
+S -2--2 0 0 
+@ all 0008
+R 0
+A -
+X Invalid hex color code '0008' at position 6: t 0008<--[HERE]@4
+E Invalid hex color code '0008' at position 6: t 0008<--[HERE]@4
+S -2--2 0 0 
+@ all   
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all '23455
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all F0000
+R 0
+A -
+X Invalid hex color code 'F0000' at position 7: t F0000<--[HERE]@5
+E Invalid hex color code 'F0000' at position 7: t F0000<--[HERE]@5
+S -2--2 0 0 
+@ all fFff
+R 0
+A -
+X Invalid hex color code 'fFff' at position 6: t fFff<--[HERE]@4
+E Invalid hex color code 'fFff' at position 6: t fFff<--[HERE]@4
+S -2--2 0 0 
+@ all 4😀567
+R 0
+A -
+X Invalid hex color code '4' at position 3: t 4<--[HERE]@1
+E Invalid hex color code '4' at position 3: t 4<--[HERE]@1
+S -2--2 0 0 
+@ all ZZZZZZZ
+R 0
+A -
+X Invalid hex color code 'ZZZZZZZ' at position 9: t ZZZZZZZ<--[HERE]@7
+E Invalid hex color code 'ZZZZZZZ' at position 9: t ZZZZZZZ<--[HERE]@7
+S -2--2 0 0 
+@ all 1=3456
+R 0
+A -
+X Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+E Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all \\\\
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5
+R 0
+A -
+X Invalid hex color code '5' at position 3: t 5<--[HERE]@1
+E Invalid hex color code '5' at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all 1-
+R 0
+A -
+X Invalid hex color code '1-' at position 4: t 1-<--[HERE]@2
+E Invalid hex color code '1-' at position 4: t 1-<--[HERE]@2
+S -2--2 0 0 
+@ all -1Y
+R 0
+A -
+X Could not parse command: Error at index 1 in: "-" at position 5: t -1Y<--[HERE]@3
+E Could not parse command: Error at index 1 in: "-" at position 5: t -1Y<--[HERE]@3
+S -2--2 0 0 
+@ all 123567
+R 6
+A 0-6 -15583897
+E ok
+S -2--2 0 0 
+@ all 34$5
+R 0
+A -
+X Invalid hex color code '34' at position 4: t 34<--[HERE]@2
+E Invalid hex color code '34' at position 4: t 34<--[HERE]@2
+S -2--2 0 0 
+@ all ABDEy
+R 0
+A -
+X Invalid hex color code 'ABDEy' at position 7: t ABDEy<--[HERE]@5
+E Invalid hex color code 'ABDEy' at position 7: t ABDEy<--[HERE]@5
+S -2--2 0 0 
+@ all ￿^
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Xg0
+R 0
+A -
+X Could not parse command: Error at index 0 in: "X" at position 5: t Xg0<--[HERE]@3
+E Could not parse command: Error at index 0 in: "X" at position 5: t Xg0<--[HERE]@3
+S -2--2 0 0 
+@ all 0g&0
+R 0
+A -
+X Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+E Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+S -2--2 0 0 
+@ all 123426
+R 6
+A 0-6 -15584218
+E ok
+S -2--2 0 0 
+@ all c6
+R 0
+A -
+X Invalid hex color code 'c6' at position 4: t c6<--[HERE]@2
+E Invalid hex color code 'c6' at position 4: t c6<--[HERE]@2
+S -2--2 0 0 
+@ all 4567
+R 0
+A -
+X Invalid hex color code '4567' at position 6: t 4567<--[HERE]@4
+E Invalid hex color code '4567' at position 6: t 4567<--[HERE]@4
+S -2--2 0 0 
+@ all 0(g00
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1d
+R 0
+A -
+X Could not parse command: Error at index 1 in: "-" at position 5: t -1d<--[HERE]@3
+E Could not parse command: Error at index 1 in: "-" at position 5: t -1d<--[HERE]@3
+S -2--2 0 0 
+@ all }
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 7
+R 0
+A -
+X Invalid hex color code '7' at position 3: t 7<--[HERE]@1
+E Invalid hex color code '7' at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all 6bcc
+R 0
+A -
+X Invalid hex color code '6bcc' at position 6: t 6bcc<--[HERE]@4
+E Invalid hex color code '6bcc' at position 6: t 6bcc<--[HERE]@4
+S -2--2 0 0 
+@ all #ffff
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all }00
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 000<0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 000<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 000<--[HERE]@3
+S -2--2 0 0 
+@ all ZZZZ>Z
+R 0
+A -
+X Invalid hex color code 'ZZZZ' at position 6: t ZZZZ<--[HERE]@4
+E Invalid hex color code 'ZZZZ' at position 6: t ZZZZ<--[HERE]@4
+S -2--2 0 0 
+@ all fF f
+R 0
+A -
+X Invalid hex color code 'fF' at position 4: t fF<--[HERE]@2
+E Invalid hex color code 'fF' at position 4: t fF<--[HERE]@2
+S -2--2 0 0 
+@ all 12\u000a3456
+R 0
+A -
+X Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+E Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+S -2--2 0 0 
+@ all 123'567
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 123<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 123<--[HERE]@3
+S -2--2 0 0 
+@ all -~​
+R 0
+A -
+X Invalid hex color code '-' at position 3: t -<--[HERE]@1
+E Invalid hex color code '-' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all :g0
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f:
+R 0
+A -
+X Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+E Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all FF009000
+R 0
+A -
+X Invalid hex color code 'FF009000' at position 10: t FF009000<--[HERE]@8
+E Invalid hex color code 'FF009000' at position 10: t FF009000<--[HERE]@8
+S -2--2 0 0 
+@ all 234c6
+R 0
+A -
+X Invalid hex color code '234c6' at position 7: t 234c6<--[HERE]@5
+E Invalid hex color code '234c6' at position 7: t 234c6<--[HERE]@5
+S -2--2 0 0 
+@ all ZZZZZB
+R 0
+A -
+X Could not parse command: Error at index 0 in: "ZZ" at position 8: t ZZZZZB<--[HERE]@6
+E Could not parse command: Error at index 0 in: "ZZ" at position 8: t ZZZZZB<--[HERE]@6
+S -2--2 0 0 
+@ all @%
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0*0
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all GG3G
+R 0
+A -
+X Invalid hex color code 'GG3G' at position 6: t GG3G<--[HERE]@4
+E Invalid hex color code 'GG3G' at position 6: t GG3G<--[HERE]@4
+S -2--2 0 0 
+@ all 123中5675
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 123<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 123<--[HERE]@3
+S -2--2 0 0 
+@ all ZZZZZZZZ
+R 0
+A -
+X Invalid hex color code 'ZZZZZZZZ' at position 10: t ZZZZZZZZ<--[HERE]@8
+E Invalid hex color code 'ZZZZZZZZ' at position 10: t ZZZZZZZZ<--[HERE]@8
+S -2--2 0 0 
+@ all ABCDEFF
+R 0
+A -
+X Invalid hex color code 'ABCDEFF' at position 9: t ABCDEFF<--[HERE]@7
+E Invalid hex color code 'ABCDEFF' at position 9: t ABCDEFF<--[HERE]@7
+S -2--2 0 0 
+@ all ab*
+R 0
+A -
+X Invalid hex color code 'ab' at position 4: t ab<--[HERE]@2
+E Invalid hex color code 'ab' at position 4: t ab<--[HERE]@2
+S -2--2 0 0 
+@ all dŕ
+R 0
+A -
+X Invalid hex color code 'd' at position 3: t d<--[HERE]@1
+E Invalid hex color code 'd' at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all 0g0%
+R 0
+A -
+X Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+E Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+S -2--2 0 0 
+@ all fFfF
+R 0
+A -
+X Invalid hex color code 'fFfF' at position 6: t fFfF<--[HERE]@4
+E Invalid hex color code 'fFfF' at position 6: t fFfF<--[HERE]@4
+S -2--2 0 0 
+@ all FF00C0:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t FF00C0<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t FF00C0<--[HERE]@6
+S -2--2 0 0 
+@ all #ff1
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #fff#
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 7-1
+R 0
+A -
+X Could not parse command: Error at index 1 in: "-" at position 5: t 7-1<--[HERE]@3
+E Could not parse command: Error at index 1 in: "-" at position 5: t 7-1<--[HERE]@3
+S -2--2 0 0 
+@ all )-1
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e123456
+R 0
+A -
+X Invalid hex color code 'e123456' at position 9: t e123456<--[HERE]@7
+E Invalid hex color code 'e123456' at position 9: t e123456<--[HERE]@7
+S -2--2 0 0 
+@ all @000000
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1245[7
+R 0
+A -
+X Invalid hex color code '1245' at position 6: t 1245<--[HERE]@4
+E Invalid hex color code '1245' at position 6: t 1245<--[HERE]@4
+S -2--2 0 0 
+@ all 0ff
+R 3
+A 0-3 -16711681
+E ok
+S -2--2 0 0 
+@ all abc*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t abc<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t abc<--[HERE]@3
+S -2--2 0 0 
+@ all >-11
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1234\\617
+R 0
+A -
+X Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+E Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+S -2--2 0 0 
+@ all GGİ
+R 0
+A -
+X Invalid hex color code 'GG' at position 4: t GG<--[HERE]@2
+E Invalid hex color code 'GG' at position 4: t GG<--[HERE]@2
+S -2--2 0 0 
+@ all 123z4567z
+R 0
+A -
+X Invalid hex color code '123z4567z' at position 11: ... 123z4567z<--[HERE]@9
+E Invalid hex color code '123z4567z' at position 11: ... 123z4567z<--[HERE]@9
+S -2--2 0 0 
+@ all BC:EF
+R 0
+A -
+X Invalid hex color code 'BC' at position 4: t BC<--[HERE]@2
+E Invalid hex color code 'BC' at position 4: t BC<--[HERE]@2
+S -2--2 0 0 
+@ all FF000000
+R 0
+A -
+X Invalid hex color code 'FF000000' at position 10: t FF000000<--[HERE]@8
+E Invalid hex color code 'FF000000' at position 10: t FF000000<--[HERE]@8
+S -2--2 0 0 
+@ all ~ 
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aby
+R 0
+A -
+X Could not parse command: Error at index 0 in: "y" at position 5: t aby<--[HERE]@3
+E Could not parse command: Error at index 0 in: "y" at position 5: t aby<--[HERE]@3
+S -2--2 0 0 
+@ all fff
+R 3
+A 0-3 -1
+E ok
+S -2--2 0 0 
+@ all #"ff^
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ) 
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0000000
+R 0
+A -
+X Invalid hex color code '0000000' at position 9: t 0000000<--[HERE]@7
+E Invalid hex color code '0000000' at position 9: t 0000000<--[HERE]@7
+S -2--2 0 0 
+@ all /2345674
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0~0c0
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all #ffx
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Z>ZZZ]Z
+R 0
+A -
+X Invalid hex color code 'Z' at position 3: t Z<--[HERE]@1
+E Invalid hex color code 'Z' at position 3: t Z<--[HERE]@1
+S -2--2 0 0 
+@ all ŕŕ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -11
+R 0
+A -
+X Could not parse command: Error at index 1 in: "-" at position 5: t -11<--[HERE]@3
+E Could not parse command: Error at index 1 in: "-" at position 5: t -11<--[HERE]@3
+S -2--2 0 0 
+@ all ZZZZZ中Z
+R 0
+A -
+X Invalid hex color code 'ZZZZZ' at position 7: t ZZZZZ<--[HERE]@5
+E Invalid hex color code 'ZZZZZ' at position 7: t ZZZZZ<--[HERE]@5
+S -2--2 0 0 
+@ all 000002
+R 6
+A 0-6 -16777214
+E ok
+S -2--2 0 0 
+@ all 0_
+R 0
+A -
+X Invalid hex color code '0_' at position 4: t 0_<--[HERE]@2
+E Invalid hex color code '0_' at position 4: t 0_<--[HERE]@2
+S -2--2 0 0 
+@ all 0^
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 567
+R 3
+A 0-3 -11180425
+E ok
+S -2--2 0 0 
+@ all 0ZZZZZZ
+R 0
+A -
+X Invalid hex color code '0ZZZZZZ' at position 9: t 0ZZZZZZ<--[HERE]@7
+E Invalid hex color code '0ZZZZZZ' at position 9: t 0ZZZZZZ<--[HERE]@7
+S -2--2 0 0 
+@ all abcc
+R 0
+A -
+X Invalid hex color code 'abcc' at position 6: t abcc<--[HERE]@4
+E Invalid hex color code 'abcc' at position 6: t abcc<--[HERE]@4
+S -2--2 0 0 
+@ all 02345
+R 0
+A -
+X Invalid hex color code '02345' at position 7: t 02345<--[HERE]@5
+E Invalid hex color code '02345' at position 7: t 02345<--[HERE]@5
+S -2--2 0 0 
+@ all -1-
+R 0
+A -
+X Could not parse command: Error at index 1 in: "-" at position 5: t -1-<--[HERE]@3
+E Could not parse command: Error at index 1 in: "-" at position 5: t -1-<--[HERE]@3
+S -2--2 0 0 
+@ all ABCDEF\u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t ABCDEF<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t ABCDEF<--[HERE]@6
+S -2--2 0 0 
+@ all xf00ff
+R 0
+A -
+X Could not parse command: Error at index 0 in: "xf" at position 8: t xf00ff<--[HERE]@6
+E Could not parse command: Error at index 0 in: "xf" at position 8: t xf00ff<--[HERE]@6
+S -2--2 0 0 
+@ all F0//
+R 0
+A -
+X Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+E Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+S -2--2 0 0 
+@ all \\ŕ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ff00fef
+R 0
+A -
+X Invalid hex color code 'ff00fef' at position 9: t ff00fef<--[HERE]@7
+E Invalid hex color code 'ff00fef' at position 9: t ff00fef<--[HERE]@7
+S -2--2 0 0 
+@ all 1245
+R 0
+A -
+X Invalid hex color code '1245' at position 6: t 1245<--[HERE]@4
+E Invalid hex color code '1245' at position 6: t 1245<--[HERE]@4
+S -2--2 0 0 
+@ all 00￿0
+R 0
+A -
+X Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+E Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -01
+R 0
+A -
+X Could not parse command: Error at index 1 in: "-" at position 5: t -01<--[HERE]@3
+E Could not parse command: Error at index 1 in: "-" at position 5: t -01<--[HERE]@3
+S -2--2 0 0 
+@ all \u0009f
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0@0
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all ff00f0
+R 6
+A 0-6 -65296
+E ok
+S -2--2 0 0 
+@ all Fa0000
+R 6
+A 0-6 -393216
+E ok
+S -2--2 0 0 
+@ all  -1
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ]ZZZ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aBcc
+R 0
+A -
+X Invalid hex color code 'aBcc' at position 6: t aBcc<--[HERE]@4
+E Invalid hex color code 'aBcc' at position 6: t aBcc<--[HERE]@4
+S -2--2 0 0 
+@ all fF~
+R 0
+A -
+X Invalid hex color code 'fF' at position 4: t fF<--[HERE]@2
+E Invalid hex color code 'fF' at position 4: t fF<--[HERE]@2
+S -2--2 0 0 
+@ all 1234^567
+R 0
+A -
+X Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+E Invalid hex color code '1234' at position 6: t 1234<--[HERE]@4
+S -2--2 0 0 
+@ all GGGG
+R 0
+A -
+X Invalid hex color code 'GGGG' at position 6: t GGGG<--[HERE]@4
+E Invalid hex color code 'GGGG' at position 6: t GGGG<--[HERE]@4
+S -2--2 0 0 
+@ all 132345
+R 6
+A 0-6 -15523003
+E ok
+S -2--2 0 0 
+@ all -1ß
+R 0
+A -
+X Invalid hex color code '-1' at position 4: t -1<--[HERE]@2
+E Invalid hex color code '-1' at position 4: t -1<--[HERE]@2
+S -2--2 0 0 
+@ all  }中
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all _abc
+R 0
+A -
+X Invalid hex color code '_abc' at position 6: t _abc<--[HERE]@4
+E Invalid hex color code '_abc' at position 6: t _abc<--[HERE]@4
+S -2--2 0 0 
+@ all ABBDF
+R 0
+A -
+X Invalid hex color code 'ABBDF' at position 7: t ABBDF<--[HERE]@5
+E Invalid hex color code 'ABBDF' at position 7: t ABBDF<--[HERE]@5
+S -2--2 0 0 
+@ all #ff.)
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all FF00000
+R 0
+A -
+X Invalid hex color code 'FF00000' at position 9: t FF00000<--[HERE]@7
+E Invalid hex color code 'FF00000' at position 9: t FF00000<--[HERE]@7
+S -2--2 0 0 
+@ all AB>C>EF
+R 0
+A -
+X Invalid hex color code 'AB' at position 4: t AB<--[HERE]@2
+E Invalid hex color code 'AB' at position 4: t AB<--[HERE]@2
+S -2--2 0 0 
+@ all a1cc
+R 0
+A -
+X Invalid hex color code 'a1cc' at position 6: t a1cc<--[HERE]@4
+E Invalid hex color code 'a1cc' at position 6: t a1cc<--[HERE]@4
+S -2--2 0 0 
+@ all FF070<0
+R 0
+A -
+X Invalid hex color code 'FF070' at position 7: t FF070<--[HERE]@5
+E Invalid hex color code 'FF070' at position 7: t FF070<--[HERE]@5
+S -2--2 0 0 
+@ all fFf'f
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t fFf<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t fFf<--[HERE]@3
+S -2--2 0 0 
+@ all 0g~~
+R 0
+A -
+X Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+E Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+S -2--2 0 0 
+@ all 😀0000
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3'00
+R 0
+A -
+X Invalid hex color code '3' at position 3: t 3<--[HERE]@1
+E Invalid hex color code '3' at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all 12345673
+R 0
+A -
+X Invalid hex color code '12345673' at position 10: t 12345673<--[HERE]@8
+E Invalid hex color code '12345673' at position 10: t 12345673<--[HERE]@8
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 000+0
+R 0
+A -
+X Invalid hex color code '000+0' at position 7: t 000+0<--[HERE]@5
+E Invalid hex color code '000+0' at position 7: t 000+0<--[HERE]@5
+S -2--2 0 0 
+@ all 123455
+R 6
+A 0-6 -15584171
+E ok
+S -2--2 0 0 
+@ all F0$
+R 0
+A -
+X Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+E Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+S -2--2 0 0 
+@ all 934567
+R 6
+A 0-6 -7125657
+E ok
+S -2--2 0 0 
+@ all 00e000
+R 6
+A 0-6 -16719872
+E ok
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Invalid hex color code '.' at position 3: t .<--[HERE]@1
+E Invalid hex color code '.' at position 3: t .<--[HERE]@1
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all AeBCD>F
+R 0
+A -
+X Invalid hex color code 'AeBCD' at position 7: t AeBCD<--[HERE]@5
+E Invalid hex color code 'AeBCD' at position 7: t AeBCD<--[HERE]@5
+S -2--2 0 0 
+@ all %F0c0
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0000^0
+R 0
+A -
+X Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+E Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+S -2--2 0 0 
+@ all 0İ_000
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all ABCDF
+R 0
+A -
+X Invalid hex color code 'ABCDF' at position 7: t ABCDF<--[HERE]@5
+E Invalid hex color code 'ABCDF' at position 7: t ABCDF<--[HERE]@5
+S -2--2 0 0 
+@ all 0000😀
+R 0
+A -
+X Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+E Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+S -2--2 0 0 
+@ all 0g0g"
+R 0
+A -
+X Invalid hex color code '0g0g' at position 6: t 0g0g<--[HERE]@4
+E Invalid hex color code '0g0g' at position 6: t 0g0g<--[HERE]@4
+S -2--2 0 0 
+@ all F000
+R 0
+A -
+X Invalid hex color code 'F000' at position 6: t F000<--[HERE]@4
+E Invalid hex color code 'F000' at position 6: t F000<--[HERE]@4
+S -2--2 0 0 
+@ all 000中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 000<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 000<--[HERE]@3
+S -2--2 0 0 
+@ all --
+R 0
+A -
+X Invalid hex color code '--' at position 4: t --<--[HERE]@2
+E Invalid hex color code '--' at position 4: t --<--[HERE]@2
+S -2--2 0 0 
+@ all 1B23456
+R 0
+A -
+X Invalid hex color code '1B23456' at position 9: t 1B23456<--[HERE]@7
+E Invalid hex color code '1B23456' at position 9: t 1B23456<--[HERE]@7
+S -2--2 0 0 
+@ all 0g\u00090
+R 0
+A -
+X Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+E Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+S -2--2 0 0 
+@ all F0=
+R 0
+A -
+X Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+E Invalid hex color code 'F0' at position 4: t F0<--[HERE]@2
+S -2--2 0 0 
+@ all fFfİ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t fFf<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t fFf<--[HERE]@3
+S -2--2 0 0 
+@ all  $
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ￿
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ff中
+R 0
+A -
+X Invalid hex color code 'ff' at position 4: t ff<--[HERE]@2
+E Invalid hex color code 'ff' at position 4: t ff<--[HERE]@2
+S -2--2 0 0 
+@ all 12345674
+R 0
+A -
+X Invalid hex color code '12345674' at position 10: t 12345674<--[HERE]@8
+E Invalid hex color code '12345674' at position 10: t 12345674<--[HERE]@8
+S -2--2 0 0 
+@ all B#fff
+R 0
+A -
+X Invalid hex color code 'B' at position 3: t B<--[HERE]@1
+E Invalid hex color code 'B' at position 3: t B<--[HERE]@1
+S -2--2 0 0 
+@ all 123%4
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 123<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 123<--[HERE]@3
+S -2--2 0 0 
+@ all 123A
+R 0
+A -
+X Invalid hex color code '123A' at position 6: t 123A<--[HERE]@4
+E Invalid hex color code '123A' at position 6: t 123A<--[HERE]@4
+S -2--2 0 0 
+@ all x-1
+R 0
+A -
+X Could not parse command: Error at index 0 in: "x" at position 5: t x-1<--[HERE]@3
+E Could not parse command: Error at index 0 in: "x" at position 5: t x-1<--[HERE]@3
+S -2--2 0 0 
+@ all #ff2
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 12^45
+R 0
+A -
+X Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+E Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+S -2--2 0 0 
+@ all Ff
+R 0
+A -
+X Invalid hex color code 'Ff' at position 4: t Ff<--[HERE]@2
+E Invalid hex color code 'Ff' at position 4: t Ff<--[HERE]@2
+S 0-2 1 -249404599 FF0000
+@ all F 00:
+R 0
+A -
+X Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+E Invalid hex color code 'F' at position 3: t F<--[HERE]@1
+S -2--2 0 0 
+@ all Z4ZZZZZ
+R 0
+A -
+X Invalid hex color code 'Z4ZZZZZ' at position 9: t Z4ZZZZZ<--[HERE]@7
+E Invalid hex color code 'Z4ZZZZZ' at position 9: t Z4ZZZZZ<--[HERE]@7
+S -2--2 0 0 
+@ all d
+R 0
+A -
+X Invalid hex color code 'd' at position 3: t d<--[HERE]@1
+E Invalid hex color code 'd' at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all 000d000
+R 0
+A -
+X Invalid hex color code '000d000' at position 9: t 000d000<--[HERE]@7
+E Invalid hex color code '000d000' at position 9: t 000d000<--[HERE]@7
+S -2--2 0 0 
+@ all 00\u00000
+R 0
+A -
+X Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+E Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X Invalid hex color code 'y' at position 3: t y<--[HERE]@1
+E Invalid hex color code 'y' at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all 0000Z000
+R 0
+A -
+X Invalid hex color code '0000Z000' at position 10: t 0000Z000<--[HERE]@8
+E Invalid hex color code '0000Z000' at position 10: t 0000Z000<--[HERE]@8
+S -2--2 0 0 
+@ all G_G
+R 0
+A -
+X Could not parse command: Error at index 0 in: "G" at position 5: t G_G<--[HERE]@3
+E Could not parse command: Error at index 0 in: "G" at position 5: t G_G<--[HERE]@3
+S -2--2 0 0 
+@ all İ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 123+563
+R 0
+A -
+X Invalid hex color code '123+563' at position 9: t 123+563<--[HERE]@7
+E Invalid hex color code '123+563' at position 9: t 123+563<--[HERE]@7
+S -2--2 0 0 
+@ all 0000é
+R 0
+A -
+X Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+E Invalid hex color code '0000' at position 6: t 0000<--[HERE]@4
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 123Z49567
+R 0
+A -
+X Invalid hex color code '123Z49567' at position 11: ... 123Z49567<--[HERE]@9
+E Invalid hex color code '123Z49567' at position 11: ... 123Z49567<--[HERE]@9
+S -2--2 0 0 
+@ all 003
+R 3
+A 0-3 -16777165
+E ok
+S -2--2 0 0 
+@ all ​
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all    
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0g0/0
+R 0
+A -
+X Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+E Could not parse command: Error at index 0 in: "g" at position 5: t 0g0<--[HERE]@3
+S -2--2 0 0 
+@ all féé
+R 0
+A -
+X Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+E Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all 00000000
+R 0
+A -
+X Invalid hex color code '00000000' at position 10: t 00000000<--[HERE]@8
+E Invalid hex color code '00000000' at position 10: t 00000000<--[HERE]@8
+S -2--2 0 0 
+@ all ŕŕŕ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1\u000a34:
+R 0
+A -
+X Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+E Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 😀ŕ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ff0ff
+R 0
+A -
+X Invalid hex color code 'ff0ff' at position 7: t ff0ff<--[HERE]@5
+E Invalid hex color code 'ff0ff' at position 7: t ff0ff<--[HERE]@5
+S -2--2 0 0 
+@ all 000f00
+R 6
+A 0-6 -16773376
+E ok
+S -2--2 0 0 
+@ all \\2356
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*bc
+R 0
+A -
+X Invalid hex color code 'a' at position 3: t a<--[HERE]@1
+E Invalid hex color code 'a' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all 0g^0
+R 0
+A -
+X Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+E Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+S -2--2 0 0 
+@ all fFf[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t fFf<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t fFf<--[HERE]@3
+S -2--2 0 0 
+@ all -2
+R 0
+A -
+X Invalid hex color code '-2' at position 4: t -2<--[HERE]@2
+E Invalid hex color code '-2' at position 4: t -2<--[HERE]@2
+S -2--2 0 0 
+@ all f!Ff
+R 0
+A -
+X Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+E Invalid hex color code 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all ABCDE)FF
+R 0
+A -
+X Invalid hex color code 'ABCDE' at position 7: t ABCDE<--[HERE]@5
+E Invalid hex color code 'ABCDE' at position 7: t ABCDE<--[HERE]@5
+S -2--2 0 0 
+@ all 1ß234567
+R 0
+A -
+X Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+E Invalid hex color code '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ABCDEFb
+R 0
+A -
+X Invalid hex color code 'ABCDEFb' at position 9: t ABCDEFb<--[HERE]@7
+E Invalid hex color code 'ABCDEFb' at position 9: t ABCDEFb<--[HERE]@7
+S -2--2 0 0 
+@ all /ZZZZZ
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.3456
+R 0
+A -
+X Could not parse command: Error at index 1 in: "1." at position 8: t 1.3456<--[HERE]@6
+E Could not parse command: Error at index 1 in: "1." at position 8: t 1.3456<--[HERE]@6
+S -2--2 0 0 
+@ all 0[#0
+R 0
+A -
+X Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+E Invalid hex color code '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all AxCDEF
+R 0
+A -
+X Could not parse command: Error at index 1 in: "Ax" at position 8: t AxCDEF<--[HERE]@6
+E Could not parse command: Error at index 1 in: "Ax" at position 8: t AxCDEF<--[HERE]@6
+S -2--2 0 0 
+@ all ab￿
+R 0
+A -
+X Invalid hex color code 'ab' at position 4: t ab<--[HERE]@2
+E Invalid hex color code 'ab' at position 4: t ab<--[HERE]@2
+S -2--2 0 0 
+@ all dabc
+R 0
+A -
+X Invalid hex color code 'dabc' at position 6: t dabc<--[HERE]@4
+E Invalid hex color code 'dabc' at position 6: t dabc<--[HERE]@4
+S -2--2 0 0 
+@ all ABC/​EF
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ABC<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ABC<--[HERE]@3
+S -2--2 0 0 
+@ all 00​0000
+R 0
+A -
+X Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+E Invalid hex color code '00' at position 4: t 00<--[HERE]@2
+S -2--2 0 0 
+@ all 12%567
+R 0
+A -
+X Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+E Invalid hex color code '12' at position 4: t 12<--[HERE]@2
+S -2--2 0 0 
+@ all B
+R 0
+A -
+X Invalid hex color code 'B' at position 3: t B<--[HERE]@1
+E Invalid hex color code 'B' at position 3: t B<--[HERE]@1
+S -2--2 0 0 
+@ all ]e-1
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all A&CDE
+R 0
+A -
+X Invalid hex color code 'A' at position 3: t A<--[HERE]@1
+E Invalid hex color code 'A' at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all  X 
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0000010
+R 0
+A -
+X Invalid hex color code '0000010' at position 9: t 0000010<--[HERE]@7
+E Invalid hex color code '0000010' at position 9: t 0000010<--[HERE]@7
+S -2--2 0 0 
+@ all 0g#
+R 0
+A -
+X Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+E Invalid hex color code '0g' at position 4: t 0g<--[HERE]@2
+S -2--2 0 0 
+@ all [0"0000
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all FF000yF
+R 0
+A -
+X Invalid hex color code 'FF000yF' at position 9: t FF000yF<--[HERE]@7
+E Invalid hex color code 'FF000yF' at position 9: t FF000yF<--[HERE]@7
+S -2--2 0 0 
+@ all g0
+R 0
+A -
+X Invalid hex color code 'g0' at position 4: t g0<--[HERE]@2
+E Invalid hex color code 'g0' at position 4: t g0<--[HERE]@2
+S -2--2 0 0 
+@ all A0000
+R 0
+A -
+X Invalid hex color code 'A0000' at position 7: t A0000<--[HERE]@5
+E Invalid hex color code 'A0000' at position 7: t A0000<--[HERE]@5
+S -2--2 0 0 
+@ all Xff
+R 0
+A -
+X Could not parse command: Error at index 0 in: "X" at position 5: t Xff<--[HERE]@3
+E Could not parse command: Error at index 0 in: "X" at position 5: t Xff<--[HERE]@3
+S -2--2 0 0 
+@ all #ffff#
+R 0
+A -
+X Invalid hex color code '' at position 2: t <--[HERE]@0
+E Invalid hex color code '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0g00
+R 0
+A -
+X Invalid hex color code '0g00' at position 6: t 0g00<--[HERE]@4
+E Invalid hex color code '0g00' at position 6: t 0g00<--[HERE]@4
+S -2--2 0 0 
+@ all -1::
+R 0
+A -
+X Invalid hex color code '-1' at position 4: t -1<--[HERE]@2
+E Invalid hex color code '-1' at position 4: t -1<--[HERE]@2
+S -2--2 0 0 

@@ -1,0 +1,1845 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 0
+E ok
+S 1-1 3 -1420302288 d	s	t
+@ all 1
+R 1
+A 0-1 1
+E ok
+S 1-1 3 -1420302288 d	s	t
+@ all 1d
+R 2
+A 0-2 24000
+E ok
+S -2--2 0 0 
+@ all 2s
+R 2
+A 0-2 40
+E ok
+S -2--2 0 0 
+@ all 3t
+R 2
+A 0-2 3
+E ok
+S -2--2 0 0 
+@ all 1.5s
+R 4
+A 0-4 30
+E ok
+S -2--2 0 0 
+@ all 0.5d
+R 4
+A 0-4 12000
+E ok
+S -2--2 0 0 
+@ all -1
+R 0
+A -
+X The tick count must not be less than 0: found -1 at position 4: t -1<--[HERE]@2
+E The tick count must not be less than 0: found -1 at position 4: t -1<--[HERE]@2
+S 2-2 3 -1420302288 d	s	t
+@ all -1t
+R 0
+A -
+X The tick count must not be less than 0: found -1 at position 5: t -1t<--[HERE]@3
+E The tick count must not be less than 0: found -1 at position 5: t -1t<--[HERE]@3
+S -2--2 0 0 
+@ all 1x
+R 0
+A -
+X Invalid unit at position 4: t 1x<--[HERE]@2
+E Invalid unit at position 4: t 1x<--[HERE]@2
+S -2--2 0 0 
+@ all d
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e3t
+R 0
+A -
+X Invalid unit at position 6: t 1e3t<--[HERE]@4
+E Invalid unit at position 6: t 1e3t<--[HERE]@4
+S -2--2 0 0 
+@ all 1e30
+R 0
+A -
+X Invalid unit at position 6: t 1e30<--[HERE]@4
+E Invalid unit at position 6: t 1e30<--[HERE]@4
+S -2--2 0 0 
+@ all NaN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infinity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1_0
+R 0
+A -
+X Invalid unit at position 5: t 1_0<--[HERE]@3
+E Invalid unit at position 5: t 1_0<--[HERE]@3
+S -2--2 0 0 
+@ all .5
+R 2
+A 0-2 1
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 5.
+R 2
+A 0-2 5
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 99999999999d
+R 12
+A 0-12 2147483647
+E ok
+S -2--2 0 0 
+@ all 2147483647t
+R 11
+A 0-11 2147483647
+E ok
+S -2--2 0 0 
+@ all 0.5t
+R 4
+A 0-4 1
+E ok
+S -2--2 0 0 
+@ all 1.5t
+R 4
+A 0-4 2
+E ok
+S -2--2 0 0 
+@ all -0.5t
+R 5
+A 0-5 0
+E ok
+S -2--2 0 0 
+@ all 2
+R 1
+A 0-1 2
+E ok
+S 1-1 3 -1420302288 d	s	t
+@ all 3
+R 1
+A 0-1 3
+E ok
+S 1-1 3 -1420302288 d	s	t
+@ all 1.
+R 2
+A 0-2 1
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 1.5
+R 3
+A 0-3 2
+E ok
+S 3-3 3 -1420302288 d	s	t
+@ all 0.
+R 2
+A 0-2 0
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 0.5
+R 3
+A 0-3 1
+E ok
+S 3-3 3 -1420302288 d	s	t
+@ all -
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e
+R 0
+A -
+X Invalid unit at position 4: t 1e<--[HERE]@2
+E Invalid unit at position 4: t 1e<--[HERE]@2
+S -2--2 0 0 
+@ all 1e3
+R 0
+A -
+X Invalid unit at position 5: t 1e3<--[HERE]@3
+E Invalid unit at position 5: t 1e3<--[HERE]@3
+S -2--2 0 0 
+@ all N
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Na
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all I
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all In
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Inf
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infi
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infin
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infini
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infinit
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1_
+R 0
+A -
+X Invalid unit at position 4: t 1_<--[HERE]@2
+E Invalid unit at position 4: t 1_<--[HERE]@2
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5
+R 1
+A 0-1 5
+E ok
+S 1-1 3 -1420302288 d	s	t
+@ all 9
+R 1
+A 0-1 9
+E ok
+S 1-1 3 -1420302288 d	s	t
+@ all 99
+R 2
+A 0-2 99
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 999
+R 3
+A 0-3 999
+E ok
+S 3-3 3 -1420302288 d	s	t
+@ all 9999
+R 4
+A 0-4 9999
+E ok
+S 4-4 3 -1420302288 d	s	t
+@ all 99999
+R 5
+A 0-5 99999
+E ok
+S 5-5 3 -1420302288 d	s	t
+@ all 999999
+R 6
+A 0-6 999999
+E ok
+S 6-6 3 -1420302288 d	s	t
+@ all 9999999
+R 7
+A 0-7 9999999
+E ok
+S 7-7 3 -1420302288 d	s	t
+@ all 99999999
+R 8
+A 0-8 100000000
+E ok
+S 8-8 3 -1420302288 d	s	t
+@ all 999999999
+R 9
+A 0-9 1000000000
+E ok
+S 9-9 3 -1420302288 d	s	t
+@ all 9999999999
+R 10
+A 0-10 2147483647
+E ok
+S 10-10 3 -1420302288 d	s	t
+@ all 99999999999
+R 11
+A 0-11 2147483647
+E ok
+S 11-11 3 -1420302288 d	s	t
+@ all 21
+R 2
+A 0-2 21
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 214
+R 3
+A 0-3 214
+E ok
+S 3-3 3 -1420302288 d	s	t
+@ all 2147
+R 4
+A 0-4 2147
+E ok
+S 4-4 3 -1420302288 d	s	t
+@ all 21474
+R 5
+A 0-5 21474
+E ok
+S 5-5 3 -1420302288 d	s	t
+@ all 214748
+R 6
+A 0-6 214748
+E ok
+S 6-6 3 -1420302288 d	s	t
+@ all 2147483
+R 7
+A 0-7 2147483
+E ok
+S 7-7 3 -1420302288 d	s	t
+@ all 21474836
+R 8
+A 0-8 21474836
+E ok
+S 8-8 3 -1420302288 d	s	t
+@ all 214748364
+R 9
+A 0-9 214748368
+E ok
+S 9-9 3 -1420302288 d	s	t
+@ all 2147483647
+R 10
+A 0-10 2147483647
+E ok
+S 10-10 3 -1420302288 d	s	t
+@ all -0
+R 2
+A 0-2 0
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all -0.
+R 3
+A 0-3 0
+E ok
+S 3-3 3 -1420302288 d	s	t
+@ all -0.5
+R 4
+A 0-4 0
+E ok
+S 4-4 3 -1420302288 d	s	t
+@ all 2\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3y
+R 0
+A -
+X Invalid unit at position 4: t 3y<--[HERE]@2
+E Invalid unit at position 4: t 3y<--[HERE]@2
+S -2--2 0 0 
+@ all Zt
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2s2
+R 0
+A -
+X Invalid unit at position 5: t 2s2<--[HERE]@3
+E Invalid unit at position 5: t 2s2<--[HERE]@3
+S -2--2 0 0 
+@ all 2ss
+R 0
+A -
+X Invalid unit at position 5: t 2ss<--[HERE]@3
+E Invalid unit at position 5: t 2ss<--[HERE]@3
+S -2--2 0 0 
+@ all 21474a83647
+R 0
+A -
+X Invalid unit at position 13: ...1474a83647<--[HERE]@11
+E Invalid unit at position 13: ...1474a83647<--[HERE]@11
+S -2--2 0 0 
+@ all 1e33
+R 0
+A -
+X Invalid unit at position 6: t 1e33<--[HERE]@4
+E Invalid unit at position 6: t 1e33<--[HERE]@4
+S -2--2 0 0 
+@ all 2s(s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+S -2--2 0 0 
+@ all -05t
+R 0
+A -
+X The tick count must not be less than 0: found -5 at position 6: t -05t<--[HERE]@4
+E The tick count must not be less than 0: found -5 at position 6: t -05t<--[HERE]@4
+S -2--2 0 0 
+@ all .57​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t .57<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t .57<--[HERE]@3
+S -2--2 0 0 
+@ all )
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all it"y
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .55
+R 3
+A 0-3 1
+E ok
+S 3-3 3 -1420302288 d	s	t
+@ all 5..
+R 0
+A -
+X Invalid float '5..' at position 2: t <--[HERE]@0
+E Invalid float '5..' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1d1
+R 0
+A -
+X Invalid unit at position 5: t 1d1<--[HERE]@3
+E Invalid unit at position 5: t 1d1<--[HERE]@3
+S -2--2 0 0 
+@ all 999999999d
+R 10
+A 0-10 2147483647
+E ok
+S -2--2 0 0 
+@ all 3 
+R 1
+A 0-1 3
+E Incorrect argument for command at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all \\2ss
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0.5t-
+R 0
+A -
+X Invalid unit at position 8: t -0.5t-<--[HERE]@6
+E Invalid unit at position 8: t -0.5t-<--[HERE]@6
+S -2--2 0 0 
+@ all 3tt
+R 0
+A -
+X Invalid unit at position 5: t 3tt<--[HERE]@3
+E Invalid unit at position 5: t 3tt<--[HERE]@3
+S -2--2 0 0 
+@ all :1
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e30y
+R 0
+A -
+X Invalid unit at position 7: t 1e30y<--[HERE]@5
+E Invalid unit at position 7: t 1e30y<--[HERE]@5
+S -2--2 0 0 
+@ all 1.s.
+R 0
+A -
+X Invalid unit at position 6: t 1.s.<--[HERE]@4
+E Invalid unit at position 6: t 1.s.<--[HERE]@4
+S -2--2 0 0 
+@ all 0.55t
+R 5
+A 0-5 1
+E ok
+S -2--2 0 0 
+@ all 0.5#d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 0.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 0.5<--[HERE]@3
+S -2--2 0 0 
+@ all NyNN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1[dd
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all N6aN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all é5t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all _
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 18e3\u00000
+R 0
+A -
+X Invalid unit at position 6: t 18e3<--[HERE]@4
+E Invalid unit at position 6: t 18e3<--[HERE]@4
+S -2--2 0 0 
+@ all 99999999999d9
+R 0
+A -
+X Invalid unit at position 15: ...99999999d9<--[HERE]@13
+E Invalid unit at position 15: ...99999999d9<--[HERE]@13
+S -2--2 0 0 
+@ all 1)xx
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1d\u000a\u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 1d<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 1d<--[HERE]@2
+S -2--2 0 0 
+@ all 2s%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+S -2--2 0 0 
+@ all _55
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2X
+R 0
+A -
+X Invalid unit at position 4: t 2X<--[HERE]@2
+E Invalid unit at position 4: t 2X<--[HERE]@2
+S -2--2 0 0 
+@ all Infİnity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 90.5t
+R 5
+A 0-5 91
+E ok
+S -2--2 0 0 
+@ all 1e3&
+R 0
+A -
+X Invalid unit at position 5: t 1e3<--[HERE]@3
+E Invalid unit at position 5: t 1e3<--[HERE]@3
+S -2--2 0 0 
+@ all 1e30[
+R 0
+A -
+X Invalid unit at position 6: t 1e30<--[HERE]@4
+E Invalid unit at position 6: t 1e30<--[HERE]@4
+S -2--2 0 0 
+@ all Infini5
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5d.
+R 0
+A -
+X Invalid unit at position 7: t 0.5d.<--[HERE]@5
+E Invalid unit at position 7: t 0.5d.<--[HERE]@5
+S -2--2 0 0 
+@ all 1e3e
+R 0
+A -
+X Invalid unit at position 6: t 1e3e<--[HERE]@4
+E Invalid unit at position 6: t 1e3e<--[HERE]@4
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 8d
+R 2
+A 0-2 192000
+E ok
+S -2--2 0 0 
+@ all 1e0
+R 0
+A -
+X Invalid unit at position 5: t 1e0<--[HERE]@3
+E Invalid unit at position 5: t 1e0<--[HERE]@3
+S -2--2 0 0 
+@ all Xt
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e3t11
+R 0
+A -
+X Invalid unit at position 8: t 1e3t11<--[HERE]@6
+E Invalid unit at position 8: t 1e3t11<--[HERE]@6
+S -2--2 0 0 
+@ all 3-
+R 0
+A -
+X Invalid float '3-' at position 2: t <--[HERE]@0
+E Invalid float '3-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0.5*t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t -0.5<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t -0.5<--[HERE]@4
+S -2--2 0 0 
+@ all 1d\u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 1d<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 1d<--[HERE]@2
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1>t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all dd
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1_00
+R 0
+A -
+X Invalid unit at position 6: t 1_00<--[HERE]@4
+E Invalid unit at position 6: t 1_00<--[HERE]@4
+S -2--2 0 0 
+@ all xx
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 24748364"7t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t 24748364<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t 24748364<--[HERE]@8
+S -2--2 0 0 
+@ all 1.55s.
+R 0
+A -
+X Invalid unit at position 8: t 1.55s.<--[HERE]@6
+E Invalid unit at position 8: t 1.55s.<--[HERE]@6
+S -2--2 0 0 
+@ all -11
+R 0
+A -
+X The tick count must not be less than 0: found -11 at position 5: t -11<--[HERE]@3
+E The tick count must not be less than 0: found -11 at position 5: t -11<--[HERE]@3
+S 3-3 3 -1420302288 d	s	t
+@ all 00
+R 2
+A 0-2 0
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all :t3
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infinty
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all (_0_
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 13t3
+R 0
+A -
+X Invalid unit at position 6: t 13t3<--[HERE]@4
+E Invalid unit at position 6: t 13t3<--[HERE]@4
+S -2--2 0 0 
+@ all -0.5t.
+R 0
+A -
+X Invalid unit at position 8: t -0.5t.<--[HERE]@6
+E Invalid unit at position 8: t -0.5t.<--[HERE]@6
+S -2--2 0 0 
+@ all ity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infinityy
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all )1d
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 22
+R 2
+A 0-2 22
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all N0N
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Infiniy
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5ttC
+R 0
+A -
+X Invalid unit at position 8: t 1.5ttC<--[HERE]@6
+E Invalid unit at position 8: t 1.5ttC<--[HERE]@6
+S -2--2 0 0 
+@ all 5t
+R 2
+A 0-2 5
+E ok
+S -2--2 0 0 
+@ all .5Yd
+R 0
+A -
+X Invalid unit at position 6: t .5Yd<--[HERE]@4
+E Invalid unit at position 6: t .5Yd<--[HERE]@4
+S -2--2 0 0 
+@ all -1ttt
+R 0
+A -
+X Invalid unit at position 7: t -1ttt<--[HERE]@5
+E Invalid unit at position 7: t -1ttt<--[HERE]@5
+S -2--2 0 0 
+@ all Infi9中ty
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​1d
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5t65
+R 0
+A -
+X Invalid unit at position 8: t 1.5t65<--[HERE]@6
+E Invalid unit at position 8: t 1.5t65<--[HERE]@6
+S -2--2 0 0 
+@ all "Z5t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 33
+R 2
+A 0-2 33
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all -B
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1{{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1_01
+R 0
+A -
+X Invalid unit at position 6: t 1_01<--[HERE]@4
+E Invalid unit at position 6: t 1_01<--[HERE]@4
+S -2--2 0 0 
+@ all 1:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 0.xt
+R 0
+A -
+X Invalid unit at position 6: t 0.xt<--[HERE]@4
+E Invalid unit at position 6: t 0.xt<--[HERE]@4
+S -2--2 0 0 
+@ all -1{
+R 0
+A -
+X The tick count must not be less than 0: found -1 at position 4: t -1<--[HERE]@2
+E The tick count must not be less than 0: found -1 at position 4: t -1<--[HERE]@2
+S -2--2 0 0 
+@ all 1.5t1
+R 0
+A -
+X Invalid unit at position 7: t 1.5t1<--[HERE]@5
+E Invalid unit at position 7: t 1.5t1<--[HERE]@5
+S -2--2 0 0 
+@ all NaNNa
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5s
+R 2
+A 0-2 100
+E ok
+S -2--2 0 0 
+@ all tt
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .>
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009B.
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2s'
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+S -2--2 0 0 
+@ all 1(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all Inf#nity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1tt
+R 0
+A -
+X Invalid unit at position 6: t -1tt<--[HERE]@4
+E Invalid unit at position 6: t -1tt<--[HERE]@4
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5tt
+R 0
+A -
+X Invalid unit at position 7: t 1.5tt<--[HERE]@5
+E Invalid unit at position 7: t 1.5tt<--[HERE]@5
+S -2--2 0 0 
+@ all .5.
+R 0
+A -
+X Invalid float '.5.' at position 2: t <--[HERE]@0
+E Invalid float '.5.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5t.
+R 0
+A -
+X Invalid unit at position 7: t 0.5t.<--[HERE]@5
+E Invalid unit at position 7: t 0.5t.<--[HERE]@5
+S -2--2 0 0 
+@ all 2!s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all 111
+R 3
+A 0-3 111
+E ok
+S 3-3 3 -1420302288 d	s	t
+@ all 1ed0
+R 0
+A -
+X Invalid unit at position 6: t 1ed0<--[HERE]@4
+E Invalid unit at position 6: t 1ed0<--[HERE]@4
+S -2--2 0 0 
+@ all .$]
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3t3
+R 0
+A -
+X Invalid unit at position 5: t 3t3<--[HERE]@3
+E Invalid unit at position 5: t 3t3<--[HERE]@3
+S -2--2 0 0 
+@ all 1d$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 1d<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 1d<--[HERE]@2
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2147403647t4
+R 0
+A -
+X Invalid unit at position 14: ...47403647t4<--[HERE]@12
+E Invalid unit at position 14: ...47403647t4<--[HERE]@12
+S -2--2 0 0 
+@ all In中inity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 15t
+R 3
+A 0-3 15
+E ok
+S -2--2 0 0 
+@ all AA
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9999f9999999d
+R 0
+A -
+X Invalid unit at position 15: ...9f9999999d<--[HERE]@13
+E Invalid unit at position 15: ...9f9999999d<--[HERE]@13
+S -2--2 0 0 
+@ all dİİ
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t(
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.55
+R 4
+A 0-4 1
+E ok
+S 4-4 3 -1420302288 d	s	t
+@ all -0.5tt
+R 0
+A -
+X Invalid unit at position 8: t -0.5tt<--[HERE]@6
+E Invalid unit at position 8: t -0.5tt<--[HERE]@6
+S -2--2 0 0 
+@ all 1.5!t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all Z0.5t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NaA
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 13
+R 2
+A 0-2 13
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 0.t
+R 3
+A 0-3 0
+E ok
+S -2--2 0 0 
+@ all .<<
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0.5t"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t -0.5t<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t -0.5t<--[HERE]@5
+S -2--2 0 0 
+@ all 0."5t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+S -2--2 0 0 
+@ all .A5
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀1_0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !.5.
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5dd
+R 0
+A -
+X Invalid unit at position 7: t 0.5dd<--[HERE]@5
+E Invalid unit at position 7: t 0.5dd<--[HERE]@5
+S -2--2 0 0 
+@ all 1,3
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 13t
+R 3
+A 0-3 13
+E ok
+S -2--2 0 0 
+@ all 中1_30
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all et
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ddd
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all d5..
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀Infinityn
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5}
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all 999x
+R 0
+A -
+X Invalid unit at position 6: t 999x<--[HERE]@4
+E Invalid unit at position 6: t 999x<--[HERE]@4
+S -2--2 0 0 
+@ all NaNN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all /NaN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5ss
+R 0
+A -
+X Invalid unit at position 7: t 1.5ss<--[HERE]@5
+E Invalid unit at position 7: t 1.5ss<--[HERE]@5
+S -2--2 0 0 
+@ all 8347t
+R 5
+A 0-5 8347
+E ok
+S -2--2 0 0 
+@ all 2s8
+R 0
+A -
+X Invalid unit at position 5: t 2s8<--[HERE]@3
+E Invalid unit at position 5: t 2s8<--[HERE]@3
+S -2--2 0 0 
+@ all .s
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5t0ß
+R 0
+A -
+X Invalid unit at position 7: t 0.5t0<--[HERE]@5
+E Invalid unit at position 7: t 0.5t0<--[HERE]@5
+S -2--2 0 0 
+@ all 1.5\u0009$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1.5<--[HERE]@3
+S -2--2 0 0 
+@ all -+1
+R 0
+A -
+X Invalid float '-' at position 2: t <--[HERE]@0
+E Invalid float '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+S -2--2 0 0 
+@ all 0=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all t0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0&.5t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 2s😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+S -2--2 0 0 
+@ all InCinity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e357
+R 0
+A -
+X Invalid unit at position 7: t 1e357<--[HERE]@5
+E Invalid unit at position 7: t 1e357<--[HERE]@5
+S -2--2 0 0 
+@ all 1xx
+R 0
+A -
+X Invalid unit at position 5: t 1xx<--[HERE]@3
+E Invalid unit at position 5: t 1xx<--[HERE]@3
+S -2--2 0 0 
+@ all Na}
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e3f
+R 0
+A -
+X Invalid unit at position 6: t 1e3f<--[HERE]@4
+E Invalid unit at position 6: t 1e3f<--[HERE]@4
+S -2--2 0 0 
+@ all 1<e303
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 214C7#83647t
+R 0
+A -
+X Invalid unit at position 7: t 214C7<--[HERE]@5
+E Invalid unit at position 7: t 214C7<--[HERE]@5
+S -2--2 0 0 
+@ all /
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .5~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+S -2--2 0 0 
+@ all _0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 21474836\\47t1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t 21474836<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t 21474836<--[HERE]@8
+S -2--2 0 0 
+@ all 1 5*
+R 2
+A 0-1 1
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all ￿0.5t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all <
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Zy
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -1~
+R 0
+A -
+X The tick count must not be less than 0: found -1 at position 4: t -1<--[HERE]@2
+E The tick count must not be less than 0: found -1 at position 4: t -1<--[HERE]@2
+S -2--2 0 0 
+@ all 1.t
+R 3
+A 0-3 1
+E ok
+S -2--2 0 0 
+@ all <\u000a-1t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2s]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 2s<--[HERE]@2
+S -2--2 0 0 
+@ all e301
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0.\\tt
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+S -2--2 0 0 
+@ all ._
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1+_0
+R 0
+A -
+X Invalid unit at position 6: t 1+_0<--[HERE]@4
+E Invalid unit at position 6: t 1+_0<--[HERE]@4
+S -2--2 0 0 
+@ all -1t1
+R 0
+A -
+X Invalid unit at position 6: t -1t1<--[HERE]@4
+E Invalid unit at position 6: t -1t1<--[HERE]@4
+S -2--2 0 0 
+@ all A0
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5tt
+R 0
+A -
+X Invalid unit at position 7: t 0.5tt<--[HERE]@5
+E Invalid unit at position 7: t 0.5tt<--[HERE]@5
+S -2--2 0 0 
+@ all 61
+R 2
+A 0-2 61
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all dt
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .5s
+R 3
+A 0-3 10
+E ok
+S -2--2 0 0 
+@ all 7.5t
+R 4
+A 0-4 8
+E ok
+S -2--2 0 0 
+@ all 1.51
+R 4
+A 0-4 2
+E ok
+S 4-4 3 -1420302288 d	s	t
+@ all @
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .1/3t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t .1<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t .1<--[HERE]@2
+S -2--2 0 0 
+@ all Infiityi
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 21474983647tt
+R 0
+A -
+X Invalid unit at position 15: ...74983647tt<--[HERE]@13
+E Invalid unit at position 15: ...74983647tt<--[HERE]@13
+S -2--2 0 0 
+@ all 3atd
+R 0
+A -
+X Invalid unit at position 6: t 3atd<--[HERE]@4
+E Invalid unit at position 6: t 3atd<--[HERE]@4
+S -2--2 0 0 
+@ all 1e30e
+R 0
+A -
+X Invalid unit at position 7: t 1e30e<--[HERE]@5
+E Invalid unit at position 7: t 1e30e<--[HERE]@5
+S -2--2 0 0 
+@ all 55
+R 2
+A 0-2 55
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 1_0_
+R 0
+A -
+X Invalid unit at position 6: t 1_0_<--[HERE]@4
+E Invalid unit at position 6: t 1_0_<--[HERE]@4
+S -2--2 0 0 
+@ all 1[5t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 0.5d5.
+R 0
+A -
+X Invalid unit at position 8: t 0.5d5.<--[HERE]@6
+E Invalid unit at position 8: t 0.5d5.<--[HERE]@6
+S -2--2 0 0 
+@ all ￿.
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1).5s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 1t
+R 2
+A 0-2 1
+E ok
+S -2--2 0 0 
+@ all 3t\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 3t<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 3t<--[HERE]@2
+S -2--2 0 0 
+@ all /1.56
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e3t1
+R 0
+A -
+X Invalid unit at position 7: t 1e3t1<--[HERE]@5
+E Invalid unit at position 7: t 1e3t1<--[HERE]@5
+S -2--2 0 0 
+@ all 04
+R 2
+A 0-2 4
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 05t
+R 3
+A 0-3 5
+E ok
+S -2--2 0 0 
+@ all -0.%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t -0.<--[HERE]@3
+S -2--2 0 0 
+@ all )483647t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x"-1
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all >1e303
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9999999<99d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t 9999999<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t 9999999<--[HERE]@7
+S -2--2 0 0 
+@ all 0*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all ^0.5t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5d0
+R 0
+A -
+X Invalid unit at position 7: t 0.5d0<--[HERE]@5
+E Invalid unit at position 7: t 0.5d0<--[HERE]@5
+S -2--2 0 0 
+@ all -3
+R 0
+A -
+X The tick count must not be less than 0: found -3 at position 4: t -3<--[HERE]@2
+E The tick count must not be less than 0: found -3 at position 4: t -3<--[HERE]@2
+S 2-2 3 -1420302288 d	s	t
+@ all 1~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all c1e30
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e.5t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all I.nfinity
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2147+483647t
+R 0
+A -
+X Invalid unit at position 14: ...47+483647t<--[HERE]@12
+E Invalid unit at position 14: ...47+483647t<--[HERE]@12
+S -2--2 0 0 
+@ all 5z
+R 0
+A -
+X Invalid unit at position 4: t 5z<--[HERE]@2
+E Invalid unit at position 4: t 5z<--[HERE]@2
+S -2--2 0 0 
+@ all C0.5d
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e3
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u000ae3t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5sz
+R 0
+A -
+X Invalid unit at position 7: t 1.5sz<--[HERE]@5
+E Invalid unit at position 7: t 1.5sz<--[HERE]@5
+S -2--2 0 0 
+@ all =5-0.5t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1A
+R 0
+A -
+X Invalid unit at position 4: t 1A<--[HERE]@2
+E Invalid unit at position 4: t 1A<--[HERE]@2
+S -2--2 0 0 
+@ all 1_000
+R 0
+A -
+X Invalid unit at position 7: t 1_000<--[HERE]@5
+E Invalid unit at position 7: t 1_000<--[HERE]@5
+S -2--2 0 0 
+@ all NaCN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1_03
+R 0
+A -
+X Invalid unit at position 6: t 1_03<--[HERE]@4
+E Invalid unit at position 6: t 1_03<--[HERE]@4
+S -2--2 0 0 
+@ all 0.,t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 0.<--[HERE]@2
+S -2--2 0 0 
+@ all 2147483@7t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t 2147483<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t 2147483<--[HERE]@7
+S -2--2 0 0 
+@ all 99999d
+R 6
+A 0-6 2147483647
+E ok
+S -2--2 0 0 
+@ all 0B
+R 0
+A -
+X Invalid unit at position 4: t 0B<--[HERE]@2
+E Invalid unit at position 4: t 0B<--[HERE]@2
+S -2--2 0 0 
+@ all 99999999(99d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t 99999999<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t 99999999<--[HERE]@8
+S -2--2 0 0 
+@ all /2
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 214İ7483647t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 214<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 214<--[HERE]@3
+S -2--2 0 0 
+@ all z.5
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aNN
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 10
+R 2
+A 0-2 10
+E ok
+S 2-2 3 -1420302288 d	s	t
+@ all 1-
+R 0
+A -
+X Invalid float '1-' at position 2: t <--[HERE]@0
+E Invalid float '1-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 7-t
+R 0
+A -
+X Invalid float '7-' at position 2: t <--[HERE]@0
+E Invalid float '7-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5@@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 0.5<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 0.5<--[HERE]@3
+S -2--2 0 0 
+@ all 1e0e
+R 0
+A -
+X Invalid unit at position 6: t 1e0e<--[HERE]@4
+E Invalid unit at position 6: t 1e0e<--[HERE]@4
+S -2--2 0 0 
+@ all .y
+R 0
+A -
+X Invalid float '.' at position 2: t <--[HERE]@0
+E Invalid float '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ß3t
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ty
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5t0
+R 0
+A -
+X Invalid unit at position 7: t 0.5t0<--[HERE]@5
+E Invalid unit at position 7: t 0.5t0<--[HERE]@5
+S -2--2 0 0 
+@ all éx
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Expected float at position 2: t <--[HERE]@0
+E Expected float at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3tY
+R 0
+A -
+X Invalid unit at position 5: t 3tY<--[HERE]@3
+E Invalid unit at position 5: t 3tY<--[HERE]@3
+S -2--2 0 0 
+@ all 247#83647t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 247<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 247<--[HERE]@3
+S -2--2 0 0 

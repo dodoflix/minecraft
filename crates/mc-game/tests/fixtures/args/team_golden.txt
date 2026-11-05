@@ -1,0 +1,1767 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 5 -1839467868 blue	red	sp ace	Team Name!	équipe
+@ all red
+R 3
+A 0-3 red
+E ok
+S -2--2 0 0 
+@ all blue
+R 4
+A 0-4 blue
+E ok
+S -2--2 0 0 
+@ all Team Name!
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all foo
+R 3
+A 0-3 foo
+E ok
+S -2--2 0 0 
+@ all r
+R 1
+A 0-1 r
+E ok
+S 0-1 1 3496344 red
+@ all équipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a b
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all "red"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all red 
+R 3
+A 0-3 red
+E Incorrect argument for command at position 5: t red<--[HERE]@3
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #x
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all re
+R 2
+A 0-2 re
+E ok
+S 0-2 1 3496344 red
+@ all b
+R 1
+A 0-1 b
+E ok
+S 0-1 1 93838063 blue
+@ all bl
+R 2
+A 0-2 bl
+E ok
+S 0-2 1 93838063 blue
+@ all blu
+R 3
+A 0-3 blu
+E ok
+S 0-3 1 93838063 blue
+@ all T
+R 1
+A 0-1 T
+E ok
+S 0-1 1 -868364554 Team Name!
+@ all Te
+R 2
+A 0-2 Te
+E ok
+S 0-2 1 -868364554 Team Name!
+@ all Tea
+R 3
+A 0-3 Tea
+E ok
+S 0-3 1 -868364554 Team Name!
+@ all Team
+R 4
+A 0-4 Team
+E ok
+S 0-4 1 -868364554 Team Name!
+@ all Team 
+R 4
+A 0-4 Team
+E Incorrect argument for command at position 6: t Team<--[HERE]@4
+S -2--2 0 0 
+@ all Team N
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all Team Na
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all Team Nam
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all Team Name
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all f
+R 1
+A 0-1 f
+E ok
+S -2--2 0 0 
+@ all fo
+R 2
+A 0-2 fo
+E ok
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-1 1 -318654984 équipe
+@ all éq
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-2 1 -318654984 équipe
+@ all équ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-3 1 -318654984 équipe
+@ all équi
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-4 1 -318654984 équipe
+@ all équip
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-5 1 -318654984 équipe
+@ all a
+R 1
+A 0-1 a
+E ok
+S -2--2 0 0 
+@ all a 
+R 1
+A 0-1 a
+E Incorrect argument for command at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "r
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "re
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "red
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Te-am8Name!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...Te-am8Name<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...Te-am8Name<--[HERE]@10
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all <x
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Team Name^
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all foooo
+R 5
+A 0-5 foooo
+E ok
+S -2--2 0 0 
+@ all 3red
+R 4
+A 0-4 3red
+E ok
+S -2--2 0 0 
+@ all B b
+R 2
+A 0-1 B
+E Incorrect argument for command at position 4: t B <--[HERE]@2
+S -2--2 0 0 
+@ all xx
+R 2
+A 0-2 xx
+E ok
+S -2--2 0 0 
+@ all équpe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all am Name!
+R 3
+A 0-2 am
+E Incorrect argument for command at position 5: t am <--[HERE]@3
+S -2--2 0 0 
+@ all fco
+R 3
+A 0-3 fco
+E ok
+S -2--2 0 0 
+@ all rYed 
+R 4
+A 0-4 rYed
+E Incorrect argument for command at position 6: t rYed<--[HERE]@4
+S -2--2 0 0 
+@ all #,x
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all +"red"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t +<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t +<--[HERE]@1
+S -2--2 0 0 
+@ all c
+R 1
+A 0-1 c
+E ok
+S -2--2 0 0 
+@ all "d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "￿rd"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rAed r
+R 5
+A 0-4 rAed
+E Incorrect argument for command at position 7: t rAed <--[HERE]@5
+S -2--2 0 0 
+@ all reC
+R 3
+A 0-3 reC
+E ok
+S -2--2 0 0 
+@ all reddd
+R 5
+A 0-5 reddd
+E ok
+S -2--2 0 0 
+@ all #foo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ' b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all red 6
+R 4
+A 0-3 red
+E Incorrect argument for command at position 6: t red <--[HERE]@4
+S -2--2 0 0 
+@ all 中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rr
+R 2
+A 0-2 rr
+E ok
+S -2--2 0 0 
+@ all /éqßuipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all équipee
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a bb 
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all #@@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all blu"b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t blu<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t blu<--[HERE]@3
+S -2--2 0 0 
+@ all x
+R 1
+A 0-1 x
+E ok
+S -2--2 0 0 
+@ all Tea​ Namez!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t Tea<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t Tea<--[HERE]@3
+S -2--2 0 0 
+@ all @2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all blu\\el
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t blu<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t blu<--[HERE]@3
+S -2--2 0 0 
+@ all 5x
+R 2
+A 0-2 5x
+E ok
+S -2--2 0 0 
+@ all b\u0009ue
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all équipİ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rede
+R 4
+A 0-4 rede
+E ok
+S -2--2 0 0 
+@ all re@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all rced 
+R 4
+A 0-4 rced
+E Incorrect argument for command at position 6: t rced<--[HERE]@4
+S -2--2 0 0 
+@ all 7a b
+R 3
+A 0-2 7a
+E Incorrect argument for command at position 5: t 7a <--[HERE]@3
+S -2--2 0 0 
+@ all @a#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all éq(ipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all red￿
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+S -2--2 0 0 
+@ all @**
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  bb
+R 1
+A 0-0 
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all 😀中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1red  
+R 5
+A 0-4 1red
+E Incorrect argument for command at position 7: t 1red <--[HERE]@5
+S -2--2 0 0 
+@ all e
+R 1
+A 0-1 e
+E ok
+S -2--2 0 0 
+@ all éuipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a b 
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all !*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5e
+R 2
+A 0-2 5e
+E ok
+S -2--2 0 0 
+@ all C
+R 1
+A 0-1 C
+E ok
+S -2--2 0 0 
+@ all 😀😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all bluee
+R 5
+A 0-5 bluee
+E ok
+S -2--2 0 0 
+@ all "0red"0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "recd"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  b
+R 1
+A 0-0 
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all xz
+R 2
+A 0-2 xz
+E ok
+S -2--2 0 0 
+@ all red6
+R 4
+A 0-4 red6
+E ok
+S -2--2 0 0 
+@ all Tea N-me!
+R 4
+A 0-3 Tea
+E Incorrect argument for command at position 6: t Tea <--[HERE]@4
+S -2--2 0 0 
+@ all Tem Name!
+R 4
+A 0-3 Tem
+E Incorrect argument for command at position 6: t Tem <--[HERE]@4
+S -2--2 0 0 
+@ all 😀1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all éqipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ]C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a (
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all fyoo
+R 4
+A 0-4 fyoo
+E ok
+S -2--2 0 0 
+@ all r'ed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all *3
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all red  
+R 4
+A 0-3 red
+E Incorrect argument for command at position 6: t red <--[HERE]@4
+S -2--2 0 0 
+@ all lue
+R 3
+A 0-3 lue
+E ok
+S -2--2 0 0 
+@ all r{ 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all d"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all ree
+R 3
+A 0-3 ree
+E ok
+S -2--2 0 0 
+@ all >
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all (
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5lue
+R 4
+A 0-4 5lue
+E ok
+S -2--2 0 0 
+@ all Tam ,ame!
+R 4
+A 0-3 Tam
+E Incorrect argument for command at position 6: t Tam <--[HERE]@4
+S -2--2 0 0 
+@ all @<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all b)lue
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all 8e_d 
+R 4
+A 0-4 8e_d
+E Incorrect argument for command at position 6: t 8e_d<--[HERE]@4
+S -2--2 0 0 
+@ all a7
+R 2
+A 0-2 a7
+E ok
+S -2--2 0 0 
+@ all @@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a d
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @Ya1
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Team Name! 
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all red""
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+S -2--2 0 0 
+@ all ed
+R 2
+A 0-2 ed
+E ok
+S -2--2 0 0 
+@ all o
+R 1
+A 0-1 o
+E ok
+S -2--2 0 0 
+@ all a ba
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all #x>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foof
+R 4
+A 0-4 foof
+E ok
+S -2--2 0 0 
+@ all red"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+S -2--2 0 0 
+@ all @a@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all blueu7
+R 6
+A 0-6 blueu7
+E ok
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all B
+R 1
+A 0-1 B
+E ok
+S 0-1 1 93838063 blue
+@ all  b 
+R 1
+A 0-0 
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all oo[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t oo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t oo<--[HERE]@2
+S -2--2 0 0 
+@ all uee
+R 3
+A 0-3 uee
+E ok
+S -2--2 0 0 
+@ all ￿
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all re}d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all #x[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @)aa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 中ed 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ca
+R 2
+A 0-2 Ca
+E ok
+S -2--2 0 0 
+@ all Name
+R 4
+A 0-4 Name
+E ok
+S -2--2 0 0 
+@ all équ\u000ape
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rd 
+R 2
+A 0-2 rd
+E Incorrect argument for command at position 4: t rd<--[HERE]@2
+S -2--2 0 0 
+@ all aquipe
+R 6
+A 0-6 aquipe
+E ok
+S -2--2 0 0 
+@ all a ^
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all re3d 
+R 4
+A 0-4 re3d
+E Incorrect argument for command at position 6: t re3d<--[HERE]@4
+S -2--2 0 0 
+@ all refé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ref<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ref<--[HERE]@3
+S -2--2 0 0 
+@ all -équip😀e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all ##x
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ed"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ed<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ed<--[HERE]@2
+S -2--2 0 0 
+@ all ed"d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ed<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ed<--[HERE]@2
+S -2--2 0 0 
+@ all "Yr7d"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all **0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *)
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "ryd"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rz
+R 2
+A 0-2 rz
+E ok
+S -2--2 0 0 
+@ all 6r
+R 2
+A 0-2 6r
+E ok
+S -2--2 0 0 
+@ all a bA
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all @ea
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Name!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t Name<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t Name<--[HERE]@4
+S -2--2 0 0 
+@ all edd
+R 3
+A 0-3 edd
+E ok
+S -2--2 0 0 
+@ all  Name!
+R 1
+A 0-0 
+E Incorrect argument for command at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all d+
+R 2
+A 0-2 d+
+E ok
+S -2--2 0 0 
+@ all **
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a2
+R 2
+A 0-2 a2
+E ok
+S -2--2 0 0 
+@ all %ed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5İ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all ß
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @Xa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rez
+R 3
+A 0-3 rez
+E ok
+S -2--2 0 0 
+@ all C@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t C<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t C<--[HERE]@1
+S -2--2 0 0 
+@ all fo7
+R 3
+A 0-3 fo7
+E ok
+S -2--2 0 0 
+@ all Te>am Name
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t Te<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t Te<--[HERE]@2
+S -2--2 0 0 
+@ all Team .ame!
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all équipe\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all redB
+R 4
+A 0-4 redB
+E ok
+S -2--2 0 0 
+@ all 2
+R 1
+A 0-1 2
+E ok
+S -2--2 0 0 
+@ all raed d
+R 5
+A 0-4 raed
+E Incorrect argument for command at position 7: t raed <--[HERE]@5
+S -2--2 0 0 
+@ all a A
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all de
+R 2
+A 0-2 de
+E ok
+S -2--2 0 0 
+@ all red 8d
+R 4
+A 0-3 red
+E Incorrect argument for command at position 6: t red <--[HERE]@4
+S -2--2 0 0 
+@ all r#ed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all réede
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all Nae!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t Nae<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t Nae<--[HERE]@3
+S -2--2 0 0 
+@ all bl,ue
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t bl<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t bl<--[HERE]@2
+S -2--2 0 0 
+@ all "red""
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all équipepe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a& ~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all r+
+R 2
+A 0-2 r+
+E ok
+S -2--2 0 0 
+@ all d
+R 1
+A 0-1 d
+E ok
+S -2--2 0 0 
+@ all @a@😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all redr$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t redr<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t redr<--[HERE]@4
+S -2--2 0 0 
+@ all Team Nace#
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all 1 bb
+R 2
+A 0-1 1
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 7
+R 1
+A 0-1 7
+E ok
+S -2--2 0 0 
+@ all rdr
+R 3
+A 0-3 rdr
+E ok
+S -2--2 0 0 
+@ all #xx
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Team Name!e
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all "red"@d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all / b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all TeZm Name!
+R 5
+A 0-4 TeZm
+E Incorrect argument for command at position 7: t TeZm <--[HERE]@5
+S -2--2 0 0 
+@ all 😀\u000a😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all red 8
+R 4
+A 0-3 red
+E Incorrect argument for command at position 6: t red <--[HERE]@4
+S -2--2 0 0 
+@ all 8b b
+R 3
+A 0-2 8b
+E Incorrect argument for command at position 5: t 8b <--[HERE]@3
+S -2--2 0 0 
+@ all rße{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all fo o
+R 3
+A 0-2 fo
+E Incorrect argument for command at position 5: t fo <--[HERE]@3
+S -2--2 0 0 
+@ all * 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀ß5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all oo
+R 2
+A 0-2 oo
+E ok
+S -2--2 0 0 
+@ all fooo
+R 4
+A 0-4 fooo
+E ok
+S -2--2 0 0 
+@ all -#xz
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all @a@@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Team Name!m
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all redd
+R 4
+A 0-4 redd
+E ok
+S -2--2 0 0 
+@ all XX
+R 2
+A 0-2 XX
+E ok
+S -2--2 0 0 
+@ all re,d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all Team Name!Na
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all 22
+R 2
+A 0-2 22
+E ok
+S -2--2 0 0 
+@ all foZo
+R 4
+A 0-4 foZo
+E ok
+S -2--2 0 0 
+@ all r]\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all C中x
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t C<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t C<--[HERE]@1
+S -2--2 0 0 
+@ all 2$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all équipef
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @aaa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Team NaZme!a
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all bl\u0000ueb
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t bl<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t bl<--[HERE]@2
+S -2--2 0 0 
+@ all eam Name!
+R 4
+A 0-3 eam
+E Incorrect argument for command at position 6: t eam <--[HERE]@4
+S -2--2 0 0 
+@ all #İ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all équ5ipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rd
+R 2
+A 0-2 rd
+E ok
+S -2--2 0 0 
+@ all re 
+R 2
+A 0-2 re
+E Incorrect argument for command at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all /équipee
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all qui'pe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t qui<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t qui<--[HERE]@3
+S -2--2 0 0 
+@ all "re😀"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all équ(ipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .a b
+R 3
+A 0-2 .a
+E Incorrect argument for command at position 5: t .a <--[HERE]@3
+S -2--2 0 0 
+@ all red^
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+S -2--2 0 0 
+@ all Tea N8me!
+R 4
+A 0-3 Tea
+E Incorrect argument for command at position 6: t Tea <--[HERE]@4
+S -2--2 0 0 
+@ all 中red
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @aa6
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all =a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all blu[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t blu<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t blu<--[HERE]@3
+S -2--2 0 0 
+@ all ipe
+R 3
+A 0-3 ipe
+E ok
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 0
+E ok
+S -2--2 0 0 
+@ all @aA
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all T4eam Name!-
+R 6
+A 0-5 T4eam
+E Incorrect argument for command at position 8: t T4eam <--[HERE]@6
+S -2--2 0 0 
+@ all @aa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all éq~pe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #3
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {lue
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9rfed"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t 9rfed<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t 9rfed<--[HERE]@5
+S -2--2 0 0 
+@ all z
+R 1
+A 0-1 z
+E ok
+S -2--2 0 0 
+@ all le
+R 2
+A 0-2 le
+E ok
+S -2--2 0 0 
+@ all rB
+R 2
+A 0-2 rB
+E ok
+S -2--2 0 0 
+@ all -red
+R 4
+A 0-4 -red
+E ok
+S -2--2 0 0 
+@ all *<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all équpeu
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all r<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all ab
+R 2
+A 0-2 ab
+E ok
+S -2--2 0 0 
+@ all équipe#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aa
+R 2
+A 0-2 aa
+E ok
+S -2--2 0 0 
+@ all 2#x
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all Xa
+R 2
+A 0-2 Xa
+E ok
+S -2--2 0 0 
+@ all redİ 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t red<--[HERE]@3
+S -2--2 0 0 
+@ all 4
+R 1
+A 0-1 4
+E ok
+S -2--2 0 0 
+@ all ^ble
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all équ\\ipe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @5a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all redZA 
+R 5
+A 0-5 redZA
+E Incorrect argument for command at position 7: t redZA<--[HERE]@5
+S -2--2 0 0 
+@ all Team NameY 
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all \\😀\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Team Nae!
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all m ame!
+R 2
+A 0-1 m
+E Incorrect argument for command at position 4: t m <--[HERE]@2
+S -2--2 0 0 
+@ all Z
+R 1
+A 0-1 Z
+E ok
+S -2--2 0 0 
+@ all #+
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fo&
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all re​d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all red 😀
+R 4
+A 0-3 red
+E Incorrect argument for command at position 6: t red <--[HERE]@4
+S -2--2 0 0 
+@ all ￿2 b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀,
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ed"(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ed<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ed<--[HERE]@2
+S -2--2 0 0 
+@ all red .
+R 4
+A 0-3 red
+E Incorrect argument for command at position 6: t red <--[HERE]@4
+S -2--2 0 0 
+@ all a 'b
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all "Ced
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all %@İ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ca b
+R 3
+A 0-2 Ca
+E Incorrect argument for command at position 5: t Ca <--[HERE]@3
+S -2--2 0 0 
+@ all aX2b
+R 4
+A 0-4 aX2b
+E ok
+S -2--2 0 0 
+@ all r)!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all _re
+R 3
+A 0-3 _re
+E ok
+S -2--2 0 0 
+@ all ipae
+R 4
+A 0-4 ipae
+E ok
+S -2--2 0 0 
+@ all a 9
+R 2
+A 0-1 a
+E Incorrect argument for command at position 4: t a <--[HERE]@2
+S -2--2 0 0 
+@ all İ)a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all red #
+R 4
+A 0-3 red
+E Incorrect argument for command at position 6: t red <--[HERE]@4
+S -2--2 0 0 
+@ all ~)
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Tem Name!N
+R 4
+A 0-3 Tem
+E Incorrect argument for command at position 6: t Tem <--[HERE]@4
+S -2--2 0 0 
+@ all e2oo
+R 4
+A 0-4 e2oo
+E ok
+S -2--2 0 0 
+@ all "ér&ed"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "rİed"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all d  
+R 2
+A 0-1 d
+E Incorrect argument for command at position 4: t d <--[HERE]@2
+S -2--2 0 0 
+@ all Team Na&e! 
+R 5
+A 0-4 Team
+E Incorrect argument for command at position 7: t Team <--[HERE]@5
+S -2--2 0 0 
+@ all "r=ed"e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all redr
+R 4
+A 0-4 redr
+E ok
+S -2--2 0 0 

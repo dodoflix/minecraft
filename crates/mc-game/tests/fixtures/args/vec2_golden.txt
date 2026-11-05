@@ -1,0 +1,1835 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 2 -675594248 ~	~ ~
+@ all 1 2
+R 3
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E ok
+S -2--2 0 0 
+@ all ~ ~
+R 3
+A 0-3 ~~~ pos=1.5,64.25,-2.75 rot=12.5,40.0 block=1,64,-3
+E ok
+S -2--2 0 0 
+@ all ~1 ~-2
+R 6
+A 0-6 ~~~ pos=2.5,64.25,-4.75 rot=13.5,40.0 block=2,64,-5
+E ok
+S -2--2 0 0 
+@ all ^ ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1 ^2
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1 ~
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 0.1 -0.5
+R 8
+A 0-8 a~a pos=0.1,64.25,-0.5 rot=0.1,40.0 block=0,64,-1
+E ok
+S -2--2 0 0 
+@ all .5 .5
+R 5
+A 0-5 a~a pos=0.5,64.25,0.5 rot=0.5,40.0 block=0,64,0
+E ok
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-1 1 1494426 1 ~
+@ all ~
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-1 1 3788333 ~ ~
+@ all 1 2 3
+R 4
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E Incorrect argument for command at position 6: t 1 2 <--[HERE]@4
+S -2--2 0 0 
+@ all NaN 1
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e400 1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Expected a coordinate at position 3: t  <--[HERE]@1
+E Expected a coordinate at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all x y
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0 0
+R 4
+A 0-4 a~a pos=0.5,64.25,0.5 rot=0.5,40.0 block=0,64,0
+E ok
+S -2--2 0 0 
+@ all 30000000 30000000
+R 17
+A 0-17 a~a pos=3.00000005E7,64.25,3.00000005E7 rot=3.0E7,40.0 block=30000000,64,30000000
+E ok
+S -2--2 0 0 
+@ all 1.5 2.5
+R 7
+A 0-7 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E ok
+S -2--2 0 0 
+@ all ~0.5 ~-5
+R 8
+A 0-8 ~~~ pos=2.0,64.25,-7.75 rot=13.0,40.0 block=2,64,-8
+E ok
+S -2--2 0 0 
+@ all 1  2
+R 3
+A 0-2 a~a pos=1.5,64.25,0.5 rot=1.5,40.0 block=1,64,0
+E Incorrect argument for command at position 5: t 1  <--[HERE]@3
+S -2--2 0 0 
+@ all ^ ^ ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ ~ ~
+R 4
+A 0-3 ~~~ pos=1.5,64.25,-2.75 rot=12.5,40.0 block=1,64,-3
+E Incorrect argument for command at position 6: t ~ ~ <--[HERE]@4
+S -2--2 0 0 
+@ all 1 
+R 0
+A -
+X Expected a coordinate at position 4: t 1 <--[HERE]@2
+E Expected a coordinate at position 4: t 1 <--[HERE]@2
+S 0-2 1 1494426 1 ~
+@ all ~ 
+R 0
+A -
+X Expected a coordinate at position 4: t ~ <--[HERE]@2
+E Expected a coordinate at position 4: t ~ <--[HERE]@2
+S 0-2 1 3788333 ~ ~
+@ all ~1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 117858072 ~1 ~
+@ all ~1 
+R 0
+A -
+X Expected a coordinate at position 5: t ~1 <--[HERE]@3
+E Expected a coordinate at position 5: t ~1 <--[HERE]@3
+S 0-3 1 117858072 ~1 ~
+@ all ~1 ~
+R 4
+A 0-4 ~~~ pos=2.5,64.25,-2.75 rot=13.5,40.0 block=2,64,-3
+E ok
+S -2--2 0 0 
+@ all ~1 ~-
+R 0
+A -
+X Invalid double '-' at position 6: t ~1 ~<--[HERE]@4
+E Invalid double '-' at position 6: t ~1 ~<--[HERE]@4
+S -2--2 0 0 
+@ all ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^ 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1 ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-1 1 1464635 0 ~
+@ all 0.
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 45734061 0. ~
+@ all 0.1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-3 1 1418175640 0.1 ~
+@ all 0.1 
+R 0
+A -
+X Expected a coordinate at position 6: t 0.1 <--[HERE]@4
+E Expected a coordinate at position 6: t 0.1 <--[HERE]@4
+S 0-4 1 1418175640 0.1 ~
+@ all 0.1 -
+R 0
+A -
+X Invalid double '-' at position 6: t 0.1 <--[HERE]@4
+E Invalid double '-' at position 6: t 0.1 <--[HERE]@4
+S -2--2 0 0 
+@ all 0.1 -0
+R 6
+A 0-6 a~a pos=0.1,64.25,0.5 rot=0.1,40.0 block=0,64,0
+E ok
+S -2--2 0 0 
+@ all 0.1 -0.
+R 7
+A 0-7 a~a pos=0.1,64.25,-0.0 rot=0.1,40.0 block=0,64,0
+E ok
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 44095556 .5 ~
+@ all .5 
+R 0
+A -
+X Expected a coordinate at position 5: t .5 <--[HERE]@3
+E Expected a coordinate at position 5: t .5 <--[HERE]@3
+S 0-3 1 44095556 .5 ~
+@ all .5 .
+R 0
+A -
+X Invalid double '.' at position 5: t .5 <--[HERE]@3
+E Invalid double '.' at position 5: t .5 <--[HERE]@3
+S -2--2 0 0 
+@ all 1 2 
+R 3
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E Incorrect argument for command at position 5: t 1 2<--[HERE]@3
+S -2--2 0 0 
+@ all N
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Na
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NaN
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NaN 
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e4
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e40
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e400
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e400 
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x 
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 43023080 -0 ~
+@ all -0 
+R 0
+A -
+X Expected a coordinate at position 5: t -0 <--[HERE]@3
+E Expected a coordinate at position 5: t -0 <--[HERE]@3
+S 0-3 1 43023080 -0 ~
+@ all 3
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-1 1 1554008 3 ~
+@ all 30
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 48564206 30 ~
+@ all 300
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-3 1 1505880344 300 ~
+@ all 3000
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-4 1 -561959634 3000 ~
+@ all 30000
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-5 1 -240489512 30000 ~
+@ all 300000
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-6 1 1135149678 300000 ~
+@ all 3000000
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-7 1 830291608 3000000 ~
+@ all 30000000
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-8 1 -30373970 30000000 ~
+@ all 30000000 
+R 0
+A -
+X Expected a coordinate at position 11: ... 30000000 <--[HERE]@9
+E Expected a coordinate at position 11: ... 30000000 <--[HERE]@9
+S 0-9 1 -30373970 30000000 ~
+@ all 30000000 3
+R 10
+A 0-10 a~a pos=3.00000005E7,64.25,3.5 rot=3.0E7,40.0 block=30000000,64,3
+E ok
+S -2--2 0 0 
+@ all 30000000 30
+R 11
+A 0-11 a~a pos=3.00000005E7,64.25,30.5 rot=3.0E7,40.0 block=30000000,64,30
+E ok
+S -2--2 0 0 
+@ all 30000000 300
+R 12
+A 0-12 a~a pos=3.00000005E7,64.25,300.5 rot=3.0E7,40.0 block=30000000,64,300
+E ok
+S -2--2 0 0 
+@ all 30000000 3000
+R 13
+A 0-13 a~a pos=3.00000005E7,64.25,3000.5 rot=3.0E7,40.0 block=30000000,64,3000
+E ok
+S -2--2 0 0 
+@ all 30000000 30000
+R 14
+A 0-14 a~a pos=3.00000005E7,64.25,30000.5 rot=3.0E7,40.0 block=30000000,64,30000
+E ok
+S -2--2 0 0 
+@ all 30000000 300000
+R 15
+A 0-15 a~a pos=3.00000005E7,64.25,300000.5 rot=3.0E7,40.0 block=30000000,64,300000
+E ok
+S -2--2 0 0 
+@ all 30000000 3000000
+R 16
+A 0-16 a~a pos=3.00000005E7,64.25,3000000.5 rot=3.0E7,40.0 block=30000000,64,3000000
+E ok
+S -2--2 0 0 
+@ all 1.
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 46657582 1. ~
+@ all 1.5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-3 1 1446923955 1.5 ~
+@ all 1.5 
+R 0
+A -
+X Expected a coordinate at position 6: t 1.5 <--[HERE]@4
+E Expected a coordinate at position 6: t 1.5 <--[HERE]@4
+S 0-4 1 1446923955 1.5 ~
+@ all 1.5 2
+R 5
+A 0-5 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E ok
+S -2--2 0 0 
+@ all 1.5 2.
+R 6
+A 0-6 a~a pos=1.5,64.25,2.0 rot=1.5,40.0 block=1,64,2
+E ok
+S -2--2 0 0 
+@ all ~0
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 117828281 ~0 ~
+@ all ~0.
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-3 1 -641960209 ~0. ~
+@ all ~0.5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-4 1 1574608914 ~0.5 ~
+@ all ~0.5 
+R 0
+A -
+X Expected a coordinate at position 7: t ~0.5 <--[HERE]@5
+E Expected a coordinate at position 7: t ~0.5 <--[HERE]@5
+S 0-5 1 1574608914 ~0.5 ~
+@ all ~0.5 ~
+R 6
+A 0-6 ~~~ pos=2.0,64.25,-2.75 rot=13.0,40.0 block=2,64,-3
+E ok
+S -2--2 0 0 
+@ all ~0.5 ~-
+R 0
+A -
+X Invalid double '-' at position 8: t ~0.5 ~<--[HERE]@6
+E Invalid double '-' at position 8: t ~0.5 ~<--[HERE]@6
+S -2--2 0 0 
+@ all 1  
+R 2
+A 0-2 a~a pos=1.5,64.25,0.5 rot=1.5,40.0 block=1,64,0
+E Incorrect argument for command at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all ^ ^ 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ ~ 
+R 3
+A 0-3 ~~~ pos=1.5,64.25,-2.75 rot=12.5,40.0 block=1,64,-3
+E Incorrect argument for command at position 5: t ~ ~<--[HERE]@3
+S -2--2 0 0 
+@ all 0 0
+R 3
+A 0-3 a~a pos=0.5,64.25,0.5 rot=0.5,40.0 block=0,64,0
+E ok
+S -2--2 0 0 
+@ all 1#21
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5 ~-5
+R 7
+A 0-7 a~~ pos=0.5,64.25,-7.75 rot=0.5,40.0 block=0,64,-8
+E ok
+S -2--2 0 0 
+@ all ^1 ^=
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z.5 .5.
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0 0 
+R 4
+A 0-4 a~a pos=0.5,64.25,0.5 rot=0.5,40.0 block=0,64,0
+E Incorrect argument for command at position 6: t -0 0<--[HERE]@4
+S -2--2 0 0 
+@ all ~0.5 ~5
+R 7
+A 0-7 ~~~ pos=2.0,64.25,2.25 rot=13.0,40.0 block=2,64,2
+E ok
+S -2--2 0 0 
+@ all ~0.5 ~-5-
+R 0
+A -
+X Invalid double '-5-' at position 8: t ~0.5 ~<--[HERE]@6
+E Invalid double '-5-' at position 8: t ~0.5 ~<--[HERE]@6
+S -2--2 0 0 
+@ all ^1 ~~
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~0.5 ~5-
+R 0
+A -
+X Invalid double '5-' at position 8: t ~0.5 ~<--[HERE]@6
+E Invalid double '5-' at position 8: t ~0.5 ~<--[HERE]@6
+S -2--2 0 0 
+@ all 3.5 .5
+R 6
+A 0-6 a~a pos=3.5,64.25,0.5 rot=3.5,40.0 block=3,64,0
+E ok
+S -2--2 0 0 
+@ all ,
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 22
+R 4
+A 0-4 a~a pos=1.5,64.25,22.5 rot=1.5,40.0 block=1,64,22
+E ok
+S -2--2 0 0 
+@ all ^1  
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 12 
+R 0
+A -
+X Expected a coordinate at position 5: t 12 <--[HERE]@3
+E Expected a coordinate at position 5: t 12 <--[HERE]@3
+S 0-3 1 46776746 12 ~
+@ all -0.{5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~0.5 Z~-5
+R 0
+A -
+X Expected double at position 7: t ~0.5 <--[HERE]@5
+E Expected double at position 7: t ~0.5 <--[HERE]@5
+S -2--2 0 0 
+@ all -0 04
+R 5
+A 0-5 a~a pos=0.5,64.25,4.5 rot=0.5,40.0 block=0,64,4
+E ok
+S -2--2 0 0 
+@ all 00 1
+R 4
+A 0-4 a~a pos=0.5,64.25,1.5 rot=0.5,40.0 block=0,64,1
+E ok
+S -2--2 0 0 
+@ all - 0
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e)400 1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1​~
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1 -05
+R 7
+A 0-7 a~a pos=0.1,64.25,-4.5 rot=0.1,40.0 block=0,64,-5
+E ok
+S -2--2 0 0 
+@ all é11
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~12
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-3 1 -640917524 ~12 ~
+@ all -0 0-
+R 0
+A -
+X Invalid double '0-' at position 5: t -0 <--[HERE]@3
+E Invalid double '0-' at position 5: t -0 <--[HERE]@3
+S -2--2 0 0 
+@ all ~0.5 ~-5~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t ~0.5 ~-5<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t ~0.5 ~-5<--[HERE]@8
+S -2--2 0 0 
+@ all 1d5 .5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 ) 3)
+R 0
+A -
+X Expected double at position 4: t 1 <--[HERE]@2
+E Expected double at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 1.5 2b.5\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t 1.5 2<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t 1.5 2<--[HERE]@5
+S -2--2 0 0 
+@ all ^] ^%
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^C ^^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1İ 2
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 12
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 46776746 12 ~
+@ all 1 ^^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 1 -0.5
+R 6
+A 0-6 a~a pos=1.5,64.25,-0.5 rot=1.5,40.0 block=1,64,-1
+E ok
+S -2--2 0 0 
+@ all ^)1 ~
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "1 8~
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $ 
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all b
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 ^22
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all ^^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  2 
+R 2
+A 0-2 a~a pos=0.5,64.25,2.5 rot=0.5,40.0 block=0,64,2
+E Incorrect argument for command at position 4: t  2<--[HERE]@2
+S -2--2 0 0 
+@ all x y$ 
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @1 ^
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ￿~ \u0000~ ~
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 8~ ~~
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1^
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  😀
+R 0
+A -
+X Expected double at position 3: t  <--[HERE]@1
+E Expected double at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all 7~
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~1 ~-21
+R 7
+A 0-7 ~~~ pos=2.5,64.25,-23.75 rot=13.5,40.0 block=2,64,-24
+E ok
+S -2--2 0 0 
+@ all  ~ ~~
+R 3
+A 0-2 a~~ pos=0.5,64.25,-2.75 rot=0.5,40.0 block=0,64,-3
+E Incorrect argument for command at position 5: t  ~ <--[HERE]@3
+S -2--2 0 0 
+@ all 2
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-1 1 1524217 2 ~
+@ all 00 10
+R 5
+A 0-5 a~a pos=0.5,64.25,10.5 rot=0.5,40.0 block=0,64,10
+E ok
+S -2--2 0 0 
+@ all ~ $~
+R 0
+A -
+X Expected double at position 4: t ~ <--[HERE]@2
+E Expected double at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all c1 2 
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 ^}
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all ^  ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0 0\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t -0 0<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t -0 0<--[HERE]@4
+S -2--2 0 0 
+@ all ~0.5 ~-5.
+R 9
+A 0-9 ~~~ pos=2.0,64.25,-7.75 rot=13.0,40.0 block=2,64,-8
+E ok
+S -2--2 0 0 
+@ all .5<5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0 00
+R 5
+A 0-5 a~a pos=0.5,64.25,0.5 rot=0.5,40.0 block=0,64,0
+E ok
+S -2--2 0 0 
+@ all 1   2
+R 3
+A 0-2 a~a pos=1.5,64.25,0.5 rot=1.5,40.0 block=1,64,0
+E Incorrect argument for command at position 5: t 1  <--[HERE]@3
+S -2--2 0 0 
+@ all 5 !5
+R 0
+A -
+X Expected double at position 4: t 5 <--[HERE]@2
+E Expected double at position 4: t 5 <--[HERE]@2
+S -2--2 0 0 
+@ all  2😀.5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t  2<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t  2<--[HERE]@2
+S -2--2 0 0 
+@ all ^17 ~
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^ ^& ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0 +
+R 0
+A -
+X Expected double at position 5: t -0 <--[HERE]@3
+E Expected double at position 5: t -0 <--[HERE]@3
+S -2--2 0 0 
+@ all x5 .5
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 ^2
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all ~-2
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-3 1 -644611608 ~-2 ~
+@ all ~0\u00005 ~-5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2.5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-3 1 1475553106 2.5 ~
+@ all ~B.5 ~-5
+R 0
+A -
+X Expected double at position 3: t ~<--[HERE]@1
+E Expected double at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ~b~ ~
+R 0
+A -
+X Expected double at position 3: t ~<--[HERE]@1
+E Expected double at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ^,^ ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~1 ￿-2 
+R 0
+A -
+X Expected double at position 5: t ~1 <--[HERE]@3
+E Expected double at position 5: t ~1 <--[HERE]@3
+S -2--2 0 0 
+@ all 11
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 46746955 11 ~
+@ all  -0.55
+R 6
+A 0-6 a~a pos=0.5,64.25,-0.55 rot=0.5,40.0 block=0,64,-1
+E ok
+S -2--2 0 0 
+@ all 1 00.5
+R 6
+A 0-6 a~a pos=1.5,64.25,0.5 rot=1.5,40.0 block=1,64,0
+E ok
+S -2--2 0 0 
+@ all  ^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all .5 5 
+R 4
+A 0-4 a~a pos=0.5,64.25,5.5 rot=0.5,40.0 block=0,64,5
+E Incorrect argument for command at position 6: t .5 5<--[HERE]@4
+S -2--2 0 0 
+@ all :1 ^2 
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 2 3C
+R 4
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E Incorrect argument for command at position 6: t 1 2 <--[HERE]@4
+S -2--2 0 0 
+@ all 1.5 .5.
+R 0
+A -
+X Invalid double '.5.' at position 6: t 1.5 <--[HERE]@4
+E Invalid double '.5.' at position 6: t 1.5 <--[HERE]@4
+S -2--2 0 0 
+@ all 1-  2
+R 0
+A -
+X Invalid double '1-' at position 2: t <--[HERE]@0
+E Invalid double '1-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all - 0 
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x ​
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all C~
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3000000 30000000
+R 16
+A 0-16 a~a pos=3000000.5,64.25,3.00000005E7 rot=3000000.5,40.0 block=3000000,64,30000000
+E ok
+S -2--2 0 0 
+@ all ~1 ~@-2~
+R 0
+A -
+X Expected double at position 6: t ~1 ~<--[HERE]@4
+E Expected double at position 6: t ~1 ~<--[HERE]@4
+S -2--2 0 0 
+@ all -2
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 43082662 -2 ~
+@ all 1-2
+R 0
+A -
+X Invalid double '1-2' at position 2: t <--[HERE]@0
+E Invalid double '1-2' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 .
+R 0
+A -
+X Invalid double '.' at position 4: t 1 <--[HERE]@2
+E Invalid double '.' at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 1*2 33
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ((
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 30000000 300000000
+R 18
+A 0-18 a~a pos=3.00000005E7,64.25,3.000000005E8 rot=3.0E7,40.0 block=30000000,64,300000000
+E ok
+S -2--2 0 0 
+@ all 3000000 3000000
+R 15
+A 0-15 a~a pos=3000000.5,64.25,3000000.5 rot=3000000.5,40.0 block=3000000,64,3000000
+E ok
+S -2--2 0 0 
+@ all 1%^1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  ^ x^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all aN 1
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a.5 2.5
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^ $^$^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0- 0
+R 0
+A -
+X Invalid double '-0-' at position 2: t <--[HERE]@0
+E Invalid double '-0-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1 @
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ,1.5 2.5
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e40011
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x3y
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Y ^ ^
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 2 '
+R 4
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E Incorrect argument for command at position 6: t 1 2 <--[HERE]@4
+S -2--2 0 0 
+@ all aN1
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all >
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~8 ~-
+R 0
+A -
+X Invalid double '-' at position 6: t ~8 ~<--[HERE]@4
+E Invalid double '-' at position 6: t ~8 ~<--[HERE]@4
+S -2--2 0 0 
+@ all \u0000.5 .5
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~~
+R 0
+A -
+X Expected double at position 3: t ~<--[HERE]@1
+E Expected double at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all .1 -0.5
+R 7
+A 0-7 a~a pos=0.1,64.25,-0.5 rot=0.1,40.0 block=0,64,-1
+E ok
+S -2--2 0 0 
+@ all  00
+R 3
+A 0-3 a~a pos=0.5,64.25,0.5 rot=0.5,40.0 block=0,64,0
+E ok
+S -2--2 0 0 
+@ all 1 ,^
+R 0
+A -
+X Expected double at position 4: t 1 <--[HERE]@2
+E Expected double at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all .> .5
+R 0
+A -
+X Invalid double '.' at position 2: t <--[HERE]@0
+E Invalid double '.' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^^ c
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^ }
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9.5 2.5
+R 7
+A 0-7 a~a pos=9.5,64.25,2.5 rot=9.5,40.0 block=9,64,2
+E ok
+S -2--2 0 0 
+@ all .5 ~-5
+R 6
+A 0-6 a~~ pos=0.5,64.25,-7.75 rot=0.5,40.0 block=0,64,-8
+E ok
+S -2--2 0 0 
+@ all ~ ~ \u0009~
+R 4
+A 0-3 ~~~ pos=1.5,64.25,-2.75 rot=12.5,40.0 block=1,64,-3
+E Incorrect argument for command at position 6: t ~ ~ <--[HERE]@4
+S -2--2 0 0 
+@ all ^1 ^<2^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~1 ~-'2
+R 0
+A -
+X Invalid double '-' at position 6: t ~1 ~<--[HERE]@4
+E Invalid double '-' at position 6: t ~1 ~<--[HERE]@4
+S -2--2 0 0 
+@ all 1e_400 11
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^ +
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^😀7^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ ~ ~~
+R 4
+A 0-3 ~~~ pos=1.5,64.25,-2.75 rot=12.5,40.0 block=1,64,-3
+E Incorrect argument for command at position 6: t ~ ~ <--[HERE]@4
+S -2--2 0 0 
+@ all - Zy
+R 0
+A -
+X Invalid double '-' at position 2: t <--[HERE]@0
+E Invalid double '-' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 2 ￿￿
+R 4
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E Incorrect argument for command at position 6: t 1 2 <--[HERE]@4
+S -2--2 0 0 
+@ all 1  2d 
+R 3
+A 0-2 a~a pos=1.5,64.25,0.5 rot=1.5,40.0 block=1,64,0
+E Incorrect argument for command at position 5: t 1  <--[HERE]@3
+S -2--2 0 0 
+@ all 3-0000000 300000000
+R 0
+A -
+X Invalid double '3-0000000' at position 2: t <--[HERE]@0
+E Invalid double '3-0000000' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 -0%.5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t 1 -0<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t 1 -0<--[HERE]@4
+S -2--2 0 0 
+@ all .5 .*
+R 0
+A -
+X Invalid double '.' at position 5: t .5 <--[HERE]@3
+E Invalid double '.' at position 5: t .5 <--[HERE]@3
+S -2--2 0 0 
+@ all 8 8
+R 3
+A 0-3 a~a pos=8.5,64.25,8.5 rot=8.5,40.0 block=8,64,8
+E ok
+S -2--2 0 0 
+@ all 1😀
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NN 1
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $~
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.5 2.5.
+R 0
+A -
+X Invalid double '2.5.' at position 6: t 1.5 <--[HERE]@4
+E Invalid double '2.5.' at position 6: t 1.5 <--[HERE]@4
+S -2--2 0 0 
+@ all .1 -0😀5
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t .1 -0<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t .1 -0<--[HERE]@5
+S -2--2 0 0 
+@ all 1İ23
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &1
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1-0.5
+R 0
+A -
+X Invalid double '0.1-0.5' at position 2: t <--[HERE]@0
+E Invalid double '0.1-0.5' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1  2c 
+R 3
+A 0-2 a~a pos=1.5,64.25,0.5 rot=1.5,40.0 block=1,64,0
+E Incorrect argument for command at position 5: t 1  <--[HERE]@3
+S -2--2 0 0 
+@ all ^  
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e400 ~ 
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -2 0
+R 4
+A 0-4 a~a pos=-1.5,64.25,0.5 rot=-1.5,40.0 block=-2,64,0
+E ok
+S -2--2 0 0 
+@ all ^-^^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1.C 2.5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ b3 ~
+R 0
+A -
+X Expected double at position 4: t ~ <--[HERE]@2
+E Expected double at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all ^1 ~ 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 300000003000000*
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5 .55
+R 5
+A 0-5 a~a pos=5.5,64.25,0.55 rot=5.5,40.0 block=5,64,0
+E ok
+S -2--2 0 0 
+@ all ^ ^ ß
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1 ^2^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x#y
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^_1 ~
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1'-0.5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1 _-0.5
+R 0
+A -
+X Expected double at position 6: t 0.1 <--[HERE]@4
+E Expected double at position 6: t 0.1 <--[HERE]@4
+S -2--2 0 0 
+@ all 1e400x 1e
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u000a ~ ~
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e400 10
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^^1 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1 f^2
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ^1@^2^
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ1 ^^2
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all (1.5 25
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e$400 1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 2 3 {
+R 4
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E Incorrect argument for command at position 6: t 1 2 <--[HERE]@4
+S -2--2 0 0 
+@ all .5 -.55
+R 7
+A 0-7 a~a pos=0.5,64.25,-0.55 rot=0.5,40.0 block=0,64,-1
+E ok
+S -2--2 0 0 
+@ all 00
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 45793643 00 ~
+@ all ~0.5 a~-5
+R 0
+A -
+X Expected double at position 7: t ~0.5 <--[HERE]@5
+E Expected double at position 7: t ~0.5 <--[HERE]@5
+S -2--2 0 0 
+@ all 0 2 3
+R 4
+A 0-3 a~a pos=0.5,64.25,2.5 rot=0.5,40.0 block=0,64,2
+E Incorrect argument for command at position 6: t 0 2 <--[HERE]@4
+S -2--2 0 0 
+@ all ^1 %2
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.5 ~-55
+R 8
+A 0-8 a~~ pos=0.5,64.25,-57.75 rot=0.5,40.0 block=0,64,-58
+E ok
+S -2--2 0 0 
+@ all  ^2
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all 1  2 
+R 3
+A 0-2 a~a pos=1.5,64.25,0.5 rot=1.5,40.0 block=1,64,0
+E Incorrect argument for command at position 5: t 1  <--[HERE]@3
+S -2--2 0 0 
+@ all  ~-2
+R 4
+A 0-4 a~~ pos=0.5,64.25,-4.75 rot=0.5,40.0 block=0,64,-5
+E ok
+S -2--2 0 0 
+@ all ^1 2
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all xB y
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  ~ 
+R 2
+A 0-2 a~~ pos=0.5,64.25,-2.75 rot=0.5,40.0 block=0,64,-3
+E Incorrect argument for command at position 4: t  ~<--[HERE]@2
+S -2--2 0 0 
+@ all ^^ ^ 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 A
+R 0
+A -
+X Expected double at position 4: t 1 <--[HERE]@2
+E Expected double at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all 1 ￿
+R 0
+A -
+X Expected double at position 4: t 1 <--[HERE]@2
+E Expected double at position 4: t 1 <--[HERE]@2
+S -2--2 0 0 
+@ all ^ ^^ 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  ^ ^ 
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all 1C5 2.52
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ &~
+R 0
+A -
+X Expected double at position 4: t ~ <--[HERE]@2
+E Expected double at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all 1 2 31
+R 4
+A 0-3 a~a pos=1.5,64.25,2.5 rot=1.5,40.0 block=1,64,2
+E Incorrect argument for command at position 6: t 1 2 <--[HERE]@4
+S -2--2 0 0 
+@ all 40.5 ~-5
+R 8
+A 0-8 a~~ pos=40.5,64.25,-7.75 rot=40.5,40.0 block=40,64,-8
+E ok
+S -2--2 0 0 
+@ all ~ X~ ~
+R 0
+A -
+X Expected double at position 4: t ~ <--[HERE]@2
+E Expected double at position 4: t ~ <--[HERE]@2
+S -2--2 0 0 
+@ all 0000300 30000000
+R 16
+A 0-16 a~a pos=300.5,64.25,3.00000005E7 rot=300.5,40.0 block=300,64,30000000
+E ok
+S -2--2 0 0 
+@ all 1e4+0 1
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1 -/.5
+R 0
+A -
+X Invalid double '-' at position 6: t 0.1 <--[HERE]@4
+E Invalid double '-' at position 6: t 0.1 <--[HERE]@4
+S -2--2 0 0 
+@ all 400 1
+R 5
+A 0-5 a~a pos=400.5,64.25,1.5 rot=400.5,40.0 block=400,64,1
+E ok
+S -2--2 0 0 
+@ all ~0.5 ~-5 
+R 8
+A 0-8 ~~~ pos=2.0,64.25,-7.75 rot=13.0,40.0 block=2,64,-8
+E Incorrect argument for command at position 10: t ~0.5 ~-5<--[HERE]@8
+S -2--2 0 0 
+@ all  1
+R 2
+A 0-2 a~a pos=0.5,64.25,1.5 rot=0.5,40.0 block=0,64,1
+E ok
+S -2--2 0 0 
+@ all +-0 0
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0.1 -0f50
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t 0.1 -0<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t 0.1 -0<--[HERE]@6
+S -2--2 0 0 
+@ all ~$~
+R 0
+A -
+X Expected double at position 3: t ~<--[HERE]@1
+E Expected double at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all ^1 \u000a
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ ~ 9~
+R 4
+A 0-3 ~~~ pos=1.5,64.25,-2.75 rot=12.5,40.0 block=1,64,-3
+E Incorrect argument for command at position 6: t ~ ~ <--[HERE]@4
+S -2--2 0 0 
+@ all ~03.5 ~-
+R 0
+A -
+X Invalid double '-' at position 9: t ~03.5 ~<--[HERE]@7
+E Invalid double '-' at position 9: t ~03.5 ~<--[HERE]@7
+S -2--2 0 0 
+@ all "^1 ^2
+R 0
+A -
+X Expected double at position 2: t <--[HERE]@0
+E Expected double at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1 32 
+R 4
+A 0-4 a~a pos=1.5,64.25,32.5 rot=1.5,40.0 block=1,64,32
+E Incorrect argument for command at position 6: t 1 32<--[HERE]@4
+S -2--2 0 0 
+@ all .16-0.5
+R 0
+A -
+X Invalid double '.16-0.5' at position 2: t <--[HERE]@0
+E Invalid double '.16-0.5' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  ~
+R 2
+A 0-2 a~~ pos=0.5,64.25,-2.75 rot=0.5,40.0 block=0,64,-3
+E ok
+S -2--2 0 0 
+@ all 1中^
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 30000000 3.000000
+R 17
+A 0-17 a~a pos=3.00000005E7,64.25,3.0 rot=3.0E7,40.0 block=30000000,64,3
+E ok
+S -2--2 0 0 
+@ all  ^1
+R 0
+A -
+X Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+E Cannot mix world and local coordinates (everything must either use ^ or not) at position 3: t  <--[HERE]@1
+S -2--2 0 0 
+@ all 5 .5
+R 4
+A 0-4 a~a pos=5.5,64.25,0.5 rot=5.5,40.0 block=5,64,0
+E ok
+S -2--2 0 0 
+@ all 1 ~
+R 3
+A 0-3 a~~ pos=1.5,64.25,-2.75 rot=1.5,40.0 block=1,64,-3
+E ok
+S -2--2 0 0 
+@ all 1e400 14
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0 0中0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t -0 0<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t -0 0<--[HERE]@4
+S -2--2 0 0 
+@ all 81.<5 2.5
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -0 0*0
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t -0 0<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t -0 0<--[HERE]@4
+S -2--2 0 0 
+@ all 1e400 1 
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~ ~b ~
+R 0
+A -
+X Expected double at position 5: t ~ ~<--[HERE]@3
+E Expected double at position 5: t ~ ~<--[HERE]@3
+S -2--2 0 0 
+@ all ~1a '-2
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1e400 b
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 15 2.@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t 15 2.<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t 15 2.<--[HERE]@5
+S -2--2 0 0 
+@ all ~C9
+R 0
+A -
+X Expected double at position 3: t ~<--[HERE]@1
+E Expected double at position 3: t ~<--[HERE]@1
+S -2--2 0 0 
+@ all 30000000 (0000000
+R 0
+A -
+X Expected double at position 11: ... 30000000 <--[HERE]@9
+E Expected double at position 11: ... 30000000 <--[HERE]@9
+S -2--2 0 0 
+@ all 22
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S 0-2 1 47700267 22 ~
+@ all 11z
+R 0
+A -
+X Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+E Incomplete (expected 2 coordinates) at position 2: t <--[HERE]@0
+S -2--2 0 0 

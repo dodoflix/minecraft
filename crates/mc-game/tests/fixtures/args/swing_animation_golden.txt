@@ -1,0 +1,1905 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 3 -2109594809 none	stab	whack
+@ all none
+R 4
+A 0-4 none
+E ok
+S -2--2 0 0 
+@ all whack
+R 5
+A 0-5 whack
+E ok
+S -2--2 0 0 
+@ all stab
+R 4
+A 0-4 stab
+E ok
+S -2--2 0 0 
+@ all Whack
+R 0
+A -
+X Unknown swing animation type: Whack at position 7: t Whack<--[HERE]@5
+E Unknown swing animation type: Whack at position 7: t Whack<--[HERE]@5
+S 0-5 1 -789063951 whack
+@ all slash
+R 0
+A -
+X Unknown swing animation type: slash at position 7: t slash<--[HERE]@5
+E Unknown swing animation type: slash at position 7: t slash<--[HERE]@5
+S -2--2 0 0 
+@ all w
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S 0-1 1 -789063951 whack
+@ all stab 
+R 4
+A 0-4 stab
+E Incorrect argument for command at position 6: t stab<--[HERE]@4
+S -2--2 0 0 
+@ all n
+R 0
+A -
+X Unknown swing animation type: n at position 3: t n<--[HERE]@1
+E Unknown swing animation type: n at position 3: t n<--[HERE]@1
+S 0-1 1 105002961 none
+@ all no
+R 0
+A -
+X Unknown swing animation type: no at position 4: t no<--[HERE]@2
+E Unknown swing animation type: no at position 4: t no<--[HERE]@2
+S 0-2 1 105002961 none
+@ all non
+R 0
+A -
+X Unknown swing animation type: non at position 5: t non<--[HERE]@3
+E Unknown swing animation type: non at position 5: t non<--[HERE]@3
+S 0-3 1 105002961 none
+@ all wh
+R 0
+A -
+X Unknown swing animation type: wh at position 4: t wh<--[HERE]@2
+E Unknown swing animation type: wh at position 4: t wh<--[HERE]@2
+S 0-2 1 -789063951 whack
+@ all wha
+R 0
+A -
+X Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+E Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+S 0-3 1 -789063951 whack
+@ all whac
+R 0
+A -
+X Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+E Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+S 0-4 1 -789063951 whack
+@ all s
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S 0-1 1 109756935 stab
+@ all st
+R 0
+A -
+X Unknown swing animation type: st at position 4: t st<--[HERE]@2
+E Unknown swing animation type: st at position 4: t st<--[HERE]@2
+S 0-2 1 109756935 stab
+@ all sta
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S 0-3 1 109756935 stab
+@ all W
+R 0
+A -
+X Unknown swing animation type: W at position 3: t W<--[HERE]@1
+E Unknown swing animation type: W at position 3: t W<--[HERE]@1
+S 0-1 1 -789063951 whack
+@ all Wh
+R 0
+A -
+X Unknown swing animation type: Wh at position 4: t Wh<--[HERE]@2
+E Unknown swing animation type: Wh at position 4: t Wh<--[HERE]@2
+S 0-2 1 -789063951 whack
+@ all Wha
+R 0
+A -
+X Unknown swing animation type: Wha at position 5: t Wha<--[HERE]@3
+E Unknown swing animation type: Wha at position 5: t Wha<--[HERE]@3
+S 0-3 1 -789063951 whack
+@ all Whac
+R 0
+A -
+X Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+E Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+S 0-4 1 -789063951 whack
+@ all sl
+R 0
+A -
+X Unknown swing animation type: sl at position 4: t sl<--[HERE]@2
+E Unknown swing animation type: sl at position 4: t sl<--[HERE]@2
+S -2--2 0 0 
+@ all sla
+R 0
+A -
+X Unknown swing animation type: sla at position 5: t sla<--[HERE]@3
+E Unknown swing animation type: sla at position 5: t sla<--[HERE]@3
+S -2--2 0 0 
+@ all slas
+R 0
+A -
+X Unknown swing animation type: slas at position 6: t slas<--[HERE]@4
+E Unknown swing animation type: slas at position 6: t slas<--[HERE]@4
+S -2--2 0 0 
+@ all A
+R 0
+A -
+X Unknown swing animation type: A at position 3: t A<--[HERE]@1
+E Unknown swing animation type: A at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all non<e
+R 0
+A -
+X Unknown swing animation type: non at position 5: t non<--[HERE]@3
+E Unknown swing animation type: non at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ack
+R 0
+A -
+X Unknown swing animation type: ack at position 5: t ack<--[HERE]@3
+E Unknown swing animation type: ack at position 5: t ack<--[HERE]@3
+S -2--2 0 0 
+@ all Wxack
+R 0
+A -
+X Unknown swing animation type: Wxack at position 7: t Wxack<--[HERE]@5
+E Unknown swing animation type: Wxack at position 7: t Wxack<--[HERE]@5
+S -2--2 0 0 
+@ all stabb
+R 0
+A -
+X Unknown swing animation type: stabb at position 7: t stabb<--[HERE]@5
+E Unknown swing animation type: stabb at position 7: t stabb<--[HERE]@5
+S -2--2 0 0 
+@ all  z
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all slashh
+R 0
+A -
+X Unknown swing animation type: slashh at position 8: t slashh<--[HERE]@6
+E Unknown swing animation type: slashh at position 8: t slashh<--[HERE]@6
+S -2--2 0 0 
+@ all wha k
+R 0
+A -
+X Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+E Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+S -2--2 0 0 
+@ all =tab 
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all lash
+R 0
+A -
+X Unknown swing animation type: lash at position 6: t lash<--[HERE]@4
+E Unknown swing animation type: lash at position 6: t lash<--[HERE]@4
+S -2--2 0 0 
+@ all kh
+R 0
+A -
+X Unknown swing animation type: kh at position 4: t kh<--[HERE]@2
+E Unknown swing animation type: kh at position 4: t kh<--[HERE]@2
+S -2--2 0 0 
+@ all ta￿b
+R 0
+A -
+X Unknown swing animation type: ta at position 4: t ta<--[HERE]@2
+E Unknown swing animation type: ta at position 4: t ta<--[HERE]@2
+S -2--2 0 0 
+@ all non1e6
+R 0
+A -
+X Unknown swing animation type: non1e6 at position 8: t non1e6<--[HERE]@6
+E Unknown swing animation type: non1e6 at position 8: t non1e6<--[HERE]@6
+S -2--2 0 0 
+@ all slashfa
+R 0
+A -
+X Unknown swing animation type: slashfa at position 9: t slashfa<--[HERE]@7
+E Unknown swing animation type: slashfa at position 9: t slashfa<--[HERE]@7
+S -2--2 0 0 
+@ all nonex
+R 0
+A -
+X Unknown swing animation type: nonex at position 7: t nonex<--[HERE]@5
+E Unknown swing animation type: nonex at position 7: t nonex<--[HERE]@5
+S -2--2 0 0 
+@ all sYa[sh
+R 0
+A -
+X Unknown swing animation type: sYa at position 5: t sYa<--[HERE]@3
+E Unknown swing animation type: sYa at position 5: t sYa<--[HERE]@3
+S -2--2 0 0 
+@ all sctab
+R 0
+A -
+X Unknown swing animation type: sctab at position 7: t sctab<--[HERE]@5
+E Unknown swing animation type: sctab at position 7: t sctab<--[HERE]@5
+S -2--2 0 0 
+@ all stb
+R 0
+A -
+X Unknown swing animation type: stb at position 5: t stb<--[HERE]@3
+E Unknown swing animation type: stb at position 5: t stb<--[HERE]@3
+S -2--2 0 0 
+@ all Whac~
+R 0
+A -
+X Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+E Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+S -2--2 0 0 
+@ all Whac#k
+R 0
+A -
+X Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+E Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all whackw
+R 0
+A -
+X Unknown swing animation type: whackw at position 8: t whackw<--[HERE]@6
+E Unknown swing animation type: whackw at position 8: t whackw<--[HERE]@6
+S -2--2 0 0 
+@ all sİtab 
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all néne
+R 0
+A -
+X Unknown swing animation type: n at position 3: t n<--[HERE]@1
+E Unknown swing animation type: n at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all slascha
+R 0
+A -
+X Unknown swing animation type: slascha at position 9: t slascha<--[HERE]@7
+E Unknown swing animation type: slascha at position 9: t slascha<--[HERE]@7
+S -2--2 0 0 
+@ all Whackh
+R 0
+A -
+X Unknown swing animation type: Whackh at position 8: t Whackh<--[HERE]@6
+E Unknown swing animation type: Whackh at position 8: t Whackh<--[HERE]@6
+S -2--2 0 0 
+@ all slshh
+R 0
+A -
+X Unknown swing animation type: slshh at position 7: t slshh<--[HERE]@5
+E Unknown swing animation type: slshh at position 7: t slshh<--[HERE]@5
+S -2--2 0 0 
+@ all one
+R 0
+A -
+X Unknown swing animation type: one at position 5: t one<--[HERE]@3
+E Unknown swing animation type: one at position 5: t one<--[HERE]@3
+S -2--2 0 0 
+@ all Whackkh
+R 0
+A -
+X Unknown swing animation type: Whackkh at position 9: t Whackkh<--[HERE]@7
+E Unknown swing animation type: Whackkh at position 9: t Whackkh<--[HERE]@7
+S -2--2 0 0 
+@ all nonen
+R 0
+A -
+X Unknown swing animation type: nonen at position 7: t nonen<--[HERE]@5
+E Unknown swing animation type: nonen at position 7: t nonen<--[HERE]@5
+S -2--2 0 0 
+@ all slah
+R 0
+A -
+X Unknown swing animation type: slah at position 6: t slah<--[HERE]@4
+E Unknown swing animation type: slah at position 6: t slah<--[HERE]@4
+S -2--2 0 0 
+@ all staß
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all stab y
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all Y
+R 0
+A -
+X Unknown swing animation type: Y at position 3: t Y<--[HERE]@1
+E Unknown swing animation type: Y at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ all ,
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all w#ack
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all slasA
+R 0
+A -
+X Unknown swing animation type: slasA at position 7: t slasA<--[HERE]@5
+E Unknown swing animation type: slasA at position 7: t slasA<--[HERE]@5
+S -2--2 0 0 
+@ all n e
+R 0
+A -
+X Unknown swing animation type: n at position 3: t n<--[HERE]@1
+E Unknown swing animation type: n at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all ,ack
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ta<
+R 0
+A -
+X Unknown swing animation type: ta at position 4: t ta<--[HERE]@2
+E Unknown swing animation type: ta at position 4: t ta<--[HERE]@2
+S -2--2 0 0 
+@ all stb 
+R 0
+A -
+X Unknown swing animation type: stb at position 5: t stb<--[HERE]@3
+E Unknown swing animation type: stb at position 5: t stb<--[HERE]@3
+S -2--2 0 0 
+@ all tab 
+R 0
+A -
+X Unknown swing animation type: tab at position 5: t tab<--[HERE]@3
+E Unknown swing animation type: tab at position 5: t tab<--[HERE]@3
+S -2--2 0 0 
+@ all sta%
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all tab  
+R 0
+A -
+X Unknown swing animation type: tab at position 5: t tab<--[HERE]@3
+E Unknown swing animation type: tab at position 5: t tab<--[HERE]@3
+S -2--2 0 0 
+@ all sab 
+R 0
+A -
+X Unknown swing animation type: sab at position 5: t sab<--[HERE]@3
+E Unknown swing animation type: sab at position 5: t sab<--[HERE]@3
+S -2--2 0 0 
+@ all \\
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all w(
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all Whaak
+R 0
+A -
+X Unknown swing animation type: Whaak at position 7: t Whaak<--[HERE]@5
+E Unknown swing animation type: Whaak at position 7: t Whaak<--[HERE]@5
+S -2--2 0 0 
+@ all ww
+R 0
+A -
+X Unknown swing animation type: ww at position 4: t ww<--[HERE]@2
+E Unknown swing animation type: ww at position 4: t ww<--[HERE]@2
+S -2--2 0 0 
+@ all whackkz
+R 0
+A -
+X Unknown swing animation type: whackkz at position 9: t whackkz<--[HERE]@7
+E Unknown swing animation type: whackkz at position 9: t whackkz<--[HERE]@7
+S -2--2 0 0 
+@ all ]w
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ￿stab 
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all %
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all stab\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t stab<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t stab<--[HERE]@4
+S -2--2 0 0 
+@ all s[taba
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all stİb
+R 0
+A -
+X Unknown swing animation type: st at position 4: t st<--[HERE]@2
+E Unknown swing animation type: st at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all +[
+R 0
+A -
+X Unknown swing animation type: + at position 3: t +<--[HERE]@1
+E Unknown swing animation type: + at position 3: t +<--[HERE]@1
+S -2--2 0 0 
+@ all s5lash
+R 0
+A -
+X Unknown swing animation type: s5lash at position 8: t s5lash<--[HERE]@6
+E Unknown swing animation type: s5lash at position 8: t s5lash<--[HERE]@6
+S -2--2 0 0 
+@ all s[ash
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all Whackk
+R 0
+A -
+X Unknown swing animation type: Whackk at position 8: t Whackk<--[HERE]@6
+E Unknown swing animation type: Whackk at position 8: t Whackk<--[HERE]@6
+S -2--2 0 0 
+@ all t+b
+R 0
+A -
+X Unknown swing animation type: t+b at position 5: t t+b<--[HERE]@3
+E Unknown swing animation type: t+b at position 5: t t+b<--[HERE]@3
+S -2--2 0 0 
+@ all no#ne
+R 0
+A -
+X Unknown swing animation type: no at position 4: t no<--[HERE]@2
+E Unknown swing animation type: no at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all non)e
+R 0
+A -
+X Unknown swing animation type: non at position 5: t non<--[HERE]@3
+E Unknown swing animation type: non at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all slashsl
+R 0
+A -
+X Unknown swing animation type: slashsl at position 9: t slashsl<--[HERE]@7
+E Unknown swing animation type: slashsl at position 9: t slashsl<--[HERE]@7
+S -2--2 0 0 
+@ all w7ack
+R 0
+A -
+X Unknown swing animation type: w7ack at position 7: t w7ack<--[HERE]@5
+E Unknown swing animation type: w7ack at position 7: t w7ack<--[HERE]@5
+S -2--2 0 0 
+@ all WhackA
+R 0
+A -
+X Unknown swing animation type: WhackA at position 8: t WhackA<--[HERE]@6
+E Unknown swing animation type: WhackA at position 8: t WhackA<--[HERE]@6
+S -2--2 0 0 
+@ all wack
+R 0
+A -
+X Unknown swing animation type: wack at position 6: t wack<--[HERE]@4
+E Unknown swing animation type: wack at position 6: t wack<--[HERE]@4
+S -2--2 0 0 
+@ all   
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a sh
+R 0
+A -
+X Unknown swing animation type: a at position 3: t a<--[HERE]@1
+E Unknown swing animation type: a at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all whacdk
+R 0
+A -
+X Unknown swing animation type: whacdk at position 8: t whacdk<--[HERE]@6
+E Unknown swing animation type: whacdk at position 8: t whacdk<--[HERE]@6
+S -2--2 0 0 
+@ all s​tb
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all slasb
+R 0
+A -
+X Unknown swing animation type: slasb at position 7: t slasb<--[HERE]@5
+E Unknown swing animation type: slasb at position 7: t slasb<--[HERE]@5
+S -2--2 0 0 
+@ all \\stab
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s:ash
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all Bash
+R 0
+A -
+X Unknown swing animation type: Bash at position 6: t Bash<--[HERE]@4
+E Unknown swing animation type: Bash at position 6: t Bash<--[HERE]@4
+S -2--2 0 0 
+@ all stabbb
+R 0
+A -
+X Unknown swing animation type: stabbb at position 8: t stabbb<--[HERE]@6
+E Unknown swing animation type: stabbb at position 8: t stabbb<--[HERE]@6
+S -2--2 0 0 
+@ all Whac\u0000k
+R 0
+A -
+X Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+E Unknown swing animation type: Whac at position 6: t Whac<--[HERE]@4
+S -2--2 0 0 
+@ all s!tabf 
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all !w
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sashs
+R 0
+A -
+X Unknown swing animation type: sashs at position 7: t sashs<--[HERE]@5
+E Unknown swing animation type: sashs at position 7: t sashs<--[HERE]@5
+S -2--2 0 0 
+@ all nonee
+R 0
+A -
+X Unknown swing animation type: nonee at position 7: t nonee<--[HERE]@5
+E Unknown swing animation type: nonee at position 7: t nonee<--[HERE]@5
+S -2--2 0 0 
+@ all nonenn
+R 0
+A -
+X Unknown swing animation type: nonenn at position 8: t nonenn<--[HERE]@6
+E Unknown swing animation type: nonenn at position 8: t nonenn<--[HERE]@6
+S -2--2 0 0 
+@ all stab ba
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all slash😀
+R 0
+A -
+X Unknown swing animation type: slash at position 7: t slash<--[HERE]@5
+E Unknown swing animation type: slash at position 7: t slash<--[HERE]@5
+S -2--2 0 0 
+@ all s\u0000lsh
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all n%3one
+R 0
+A -
+X Unknown swing animation type: n at position 3: t n<--[HERE]@1
+E Unknown swing animation type: n at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all non中
+R 0
+A -
+X Unknown swing animation type: non at position 5: t non<--[HERE]@3
+E Unknown swing animation type: non at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all ckk
+R 0
+A -
+X Unknown swing animation type: ckk at position 5: t ckk<--[HERE]@3
+E Unknown swing animation type: ckk at position 5: t ckk<--[HERE]@3
+S -2--2 0 0 
+@ all whackc
+R 0
+A -
+X Unknown swing animation type: whackc at position 8: t whackc<--[HERE]@6
+E Unknown swing animation type: whackc at position 8: t whackc<--[HERE]@6
+S -2--2 0 0 
+@ all hac4k
+R 0
+A -
+X Unknown swing animation type: hac4k at position 7: t hac4k<--[HERE]@5
+E Unknown swing animation type: hac4k at position 7: t hac4k<--[HERE]@5
+S -2--2 0 0 
+@ all slashs
+R 0
+A -
+X Unknown swing animation type: slashs at position 8: t slashs<--[HERE]@6
+E Unknown swing animation type: slashs at position 8: t slashs<--[HERE]@6
+S -2--2 0 0 
+@ all whacka
+R 0
+A -
+X Unknown swing animation type: whacka at position 8: t whacka<--[HERE]@6
+E Unknown swing animation type: whacka at position 8: t whacka<--[HERE]@6
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @ab
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Wha6k
+R 0
+A -
+X Unknown swing animation type: Wha6k at position 7: t Wha6k<--[HERE]@5
+E Unknown swing animation type: Wha6k at position 7: t Wha6k<--[HERE]@5
+S -2--2 0 0 
+@ all bb
+R 0
+A -
+X Unknown swing animation type: bb at position 4: t bb<--[HERE]@2
+E Unknown swing animation type: bb at position 4: t bb<--[HERE]@2
+S -2--2 0 0 
+@ all sla[s
+R 0
+A -
+X Unknown swing animation type: sla at position 5: t sla<--[HERE]@3
+E Unknown swing animation type: sla at position 5: t sla<--[HERE]@3
+S -2--2 0 0 
+@ all stabb7
+R 0
+A -
+X Unknown swing animation type: stabb7 at position 8: t stabb7<--[HERE]@6
+E Unknown swing animation type: stabb7 at position 8: t stabb7<--[HERE]@6
+S -2--2 0 0 
+@ all sasf
+R 0
+A -
+X Unknown swing animation type: sasf at position 6: t sasf<--[HERE]@4
+E Unknown swing animation type: sasf at position 6: t sasf<--[HERE]@4
+S -2--2 0 0 
+@ all sash
+R 0
+A -
+X Unknown swing animation type: sash at position 6: t sash<--[HERE]@4
+E Unknown swing animation type: sash at position 6: t sash<--[HERE]@4
+S -2--2 0 0 
+@ all slasy
+R 0
+A -
+X Unknown swing animation type: slasy at position 7: t slasy<--[HERE]@5
+E Unknown swing animation type: slasy at position 7: t slasy<--[HERE]@5
+S -2--2 0 0 
+@ all b 
+R 0
+A -
+X Unknown swing animation type: b at position 3: t b<--[HERE]@1
+E Unknown swing animation type: b at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all 中
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all st!bt
+R 0
+A -
+X Unknown swing animation type: st at position 4: t st<--[HERE]@2
+E Unknown swing animation type: st at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all non]e#
+R 0
+A -
+X Unknown swing animation type: non at position 5: t non<--[HERE]@3
+E Unknown swing animation type: non at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all <none5
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Wha9ck
+R 0
+A -
+X Unknown swing animation type: Wha9ck at position 8: t Wha9ck<--[HERE]@6
+E Unknown swing animation type: Wha9ck at position 8: t Wha9ck<--[HERE]@6
+S -2--2 0 0 
+@ all ^Yack
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all stab ​
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all hacZ
+R 0
+A -
+X Unknown swing animation type: hacZ at position 6: t hacZ<--[HERE]@4
+E Unknown swing animation type: hacZ at position 6: t hacZ<--[HERE]@4
+S -2--2 0 0 
+@ all stab s
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all whackh
+R 0
+A -
+X Unknown swing animation type: whackh at position 8: t whackh<--[HERE]@6
+E Unknown swing animation type: whackh at position 8: t whackh<--[HERE]@6
+S -2--2 0 0 
+@ all st6a
+R 0
+A -
+X Unknown swing animation type: st6a at position 6: t st6a<--[HERE]@4
+E Unknown swing animation type: st6a at position 6: t st6a<--[HERE]@4
+S -2--2 0 0 
+@ all sb
+R 0
+A -
+X Unknown swing animation type: sb at position 4: t sb<--[HERE]@2
+E Unknown swing animation type: sb at position 4: t sb<--[HERE]@2
+S -2--2 0 0 
+@ all no:nee
+R 0
+A -
+X Unknown swing animation type: no at position 4: t no<--[HERE]@2
+E Unknown swing animation type: no at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all sta 
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all 😀w
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İhack
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all b
+R 0
+A -
+X Unknown swing animation type: b at position 3: t b<--[HERE]@1
+E Unknown swing animation type: b at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all ab
+R 0
+A -
+X Unknown swing animation type: ab at position 4: t ab<--[HERE]@2
+E Unknown swing animation type: ab at position 4: t ab<--[HERE]@2
+S -2--2 0 0 
+@ all Wha￿ck
+R 0
+A -
+X Unknown swing animation type: Wha at position 5: t Wha<--[HERE]@3
+E Unknown swing animation type: Wha at position 5: t Wha<--[HERE]@3
+S -2--2 0 0 
+@ all s😀tab 
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all whackk
+R 0
+A -
+X Unknown swing animation type: whackk at position 8: t whackk<--[HERE]@6
+E Unknown swing animation type: whackk at position 8: t whackk<--[HERE]@6
+S -2--2 0 0 
+@ all ß
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Wh5ack
+R 0
+A -
+X Unknown swing animation type: Wh5ack at position 8: t Wh5ack<--[HERE]@6
+E Unknown swing animation type: Wh5ack at position 8: t Wh5ack<--[HERE]@6
+S -2--2 0 0 
+@ all .w
+R 0
+A -
+X Unknown swing animation type: .w at position 4: t .w<--[HERE]@2
+E Unknown swing animation type: .w at position 4: t .w<--[HERE]@2
+S -2--2 0 0 
+@ all whzack
+R 0
+A -
+X Unknown swing animation type: whzack at position 8: t whzack<--[HERE]@6
+E Unknown swing animation type: whzack at position 8: t whzack<--[HERE]@6
+S -2--2 0 0 
+@ all "one"
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all WhacA
+R 0
+A -
+X Unknown swing animation type: WhacA at position 7: t WhacA<--[HERE]@5
+E Unknown swing animation type: WhacA at position 7: t WhacA<--[HERE]@5
+S -2--2 0 0 
+@ all s&asha
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all stabaa
+R 0
+A -
+X Unknown swing animation type: stabaa at position 8: t stabaa<--[HERE]@6
+E Unknown swing animation type: stabaa at position 8: t stabaa<--[HERE]@6
+S -2--2 0 0 
+@ all sta:
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all non 
+R 0
+A -
+X Unknown swing animation type: non at position 5: t non<--[HERE]@3
+E Unknown swing animation type: non at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all noYe
+R 0
+A -
+X Unknown swing animation type: noYe at position 6: t noYe<--[HERE]@4
+E Unknown swing animation type: noYe at position 6: t noYe<--[HERE]@4
+S -2--2 0 0 
+@ all Ala~h
+R 0
+A -
+X Unknown swing animation type: Ala at position 5: t Ala<--[HERE]@3
+E Unknown swing animation type: Ala at position 5: t Ala<--[HERE]@3
+S -2--2 0 0 
+@ all *stab
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all whaéck
+R 0
+A -
+X Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+E Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+S -2--2 0 0 
+@ all 4
+R 0
+A -
+X Unknown swing animation type: 4 at position 3: t 4<--[HERE]@1
+E Unknown swing animation type: 4 at position 3: t 4<--[HERE]@1
+S -2--2 0 0 
+@ all ackc
+R 0
+A -
+X Unknown swing animation type: ackc at position 6: t ackc<--[HERE]@4
+E Unknown swing animation type: ackc at position 6: t ackc<--[HERE]@4
+S -2--2 0 0 
+@ all n\u0009on'
+R 0
+A -
+X Unknown swing animation type: n at position 3: t n<--[HERE]@1
+E Unknown swing animation type: n at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all ]b
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 7hacka
+R 0
+A -
+X Unknown swing animation type: 7hacka at position 8: t 7hacka<--[HERE]@6
+E Unknown swing animation type: 7hacka at position 8: t 7hacka<--[HERE]@6
+S -2--2 0 0 
+@ all slashl
+R 0
+A -
+X Unknown swing animation type: slashl at position 8: t slashl<--[HERE]@6
+E Unknown swing animation type: slashl at position 8: t slashl<--[HERE]@6
+S -2--2 0 0 
+@ all hack
+R 0
+A -
+X Unknown swing animation type: hack at position 6: t hack<--[HERE]@4
+E Unknown swing animation type: hack at position 6: t hack<--[HERE]@4
+S -2--2 0 0 
+@ all stb b
+R 0
+A -
+X Unknown swing animation type: stb at position 5: t stb<--[HERE]@3
+E Unknown swing animation type: stb at position 5: t stb<--[HERE]@3
+S -2--2 0 0 
+@ all ff
+R 0
+A -
+X Unknown swing animation type: ff at position 4: t ff<--[HERE]@2
+E Unknown swing animation type: ff at position 4: t ff<--[HERE]@2
+S -2--2 0 0 
+@ all tBb
+R 0
+A -
+X Unknown swing animation type: tBb at position 5: t tBb<--[HERE]@3
+E Unknown swing animation type: tBb at position 5: t tBb<--[HERE]@3
+S -2--2 0 0 
+@ all sta\u0000 
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all *6
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all stabs
+R 0
+A -
+X Unknown swing animation type: stabs at position 7: t stabs<--[HERE]@5
+E Unknown swing animation type: stabs at position 7: t stabs<--[HERE]@5
+S -2--2 0 0 
+@ all Wha​ck
+R 0
+A -
+X Unknown swing animation type: Wha at position 5: t Wha<--[HERE]@3
+E Unknown swing animation type: Wha at position 5: t Wha<--[HERE]@3
+S -2--2 0 0 
+@ all ack}
+R 0
+A -
+X Unknown swing animation type: ack at position 5: t ack<--[HERE]@3
+E Unknown swing animation type: ack at position 5: t ack<--[HERE]@3
+S -2--2 0 0 
+@ all whck
+R 0
+A -
+X Unknown swing animation type: whck at position 6: t whck<--[HERE]@4
+E Unknown swing animation type: whck at position 6: t whck<--[HERE]@4
+S -2--2 0 0 
+@ all c9k
+R 0
+A -
+X Unknown swing animation type: c9k at position 5: t c9k<--[HERE]@3
+E Unknown swing animation type: c9k at position 5: t c9k<--[HERE]@3
+S -2--2 0 0 
+@ all www
+R 0
+A -
+X Unknown swing animation type: www at position 5: t www<--[HERE]@3
+E Unknown swing animation type: www at position 5: t www<--[HERE]@3
+S -2--2 0 0 
+@ all sh
+R 0
+A -
+X Unknown swing animation type: sh at position 4: t sh<--[HERE]@2
+E Unknown swing animation type: sh at position 4: t sh<--[HERE]@2
+S -2--2 0 0 
+@ all 'tab 
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ck
+R 0
+A -
+X Unknown swing animation type: ck at position 4: t ck<--[HERE]@2
+E Unknown swing animation type: ck at position 4: t ck<--[HERE]@2
+S -2--2 0 0 
+@ all stabt
+R 0
+A -
+X Unknown swing animation type: stabt at position 7: t stabt<--[HERE]@5
+E Unknown swing animation type: stabt at position 7: t stabt<--[HERE]@5
+S -2--2 0 0 
+@ all s*a5
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all Wh2ck
+R 0
+A -
+X Unknown swing animation type: Wh2ck at position 7: t Wh2ck<--[HERE]@5
+E Unknown swing animation type: Wh2ck at position 7: t Wh2ck<--[HERE]@5
+S -2--2 0 0 
+@ all stab b
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all (Whackh
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all k
+R 0
+A -
+X Unknown swing animation type: k at position 3: t k<--[HERE]@1
+E Unknown swing animation type: k at position 3: t k<--[HERE]@1
+S -2--2 0 0 
+@ all wha8k
+R 0
+A -
+X Unknown swing animation type: wha8k at position 7: t wha8k<--[HERE]@5
+E Unknown swing animation type: wha8k at position 7: t wha8k<--[HERE]@5
+S -2--2 0 0 
+@ all whdck
+R 0
+A -
+X Unknown swing animation type: whdck at position 7: t whdck<--[HERE]@5
+E Unknown swing animation type: whdck at position 7: t whdck<--[HERE]@5
+S -2--2 0 0 
+@ all 8hac
+R 0
+A -
+X Unknown swing animation type: 8hac at position 6: t 8hac<--[HERE]@4
+E Unknown swing animation type: 8hac at position 6: t 8hac<--[HERE]@4
+S -2--2 0 0 
+@ all whac(
+R 0
+A -
+X Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+E Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+S -2--2 0 0 
+@ all Whak
+R 0
+A -
+X Unknown swing animation type: Whak at position 6: t Whak<--[HERE]@4
+E Unknown swing animation type: Whak at position 6: t Whak<--[HERE]@4
+S -2--2 0 0 
+@ all sl#ash
+R 0
+A -
+X Unknown swing animation type: sl at position 4: t sl<--[HERE]@2
+E Unknown swing animation type: sl at position 4: t sl<--[HERE]@2
+S -2--2 0 0 
+@ all n.ne
+R 0
+A -
+X Unknown swing animation type: n.ne at position 6: t n.ne<--[HERE]@4
+E Unknown swing animation type: n.ne at position 6: t n.ne<--[HERE]@4
+S -2--2 0 0 
+@ all wyhck
+R 0
+A -
+X Unknown swing animation type: wyhck at position 7: t wyhck<--[HERE]@5
+E Unknown swing animation type: wyhck at position 7: t wyhck<--[HERE]@5
+S -2--2 0 0 
+@ all nn
+R 0
+A -
+X Unknown swing animation type: nn at position 4: t nn<--[HERE]@2
+E Unknown swing animation type: nn at position 4: t nn<--[HERE]@2
+S -2--2 0 0 
+@ all kZ
+R 0
+A -
+X Unknown swing animation type: kZ at position 4: t kZ<--[HERE]@2
+E Unknown swing animation type: kZ at position 4: t kZ<--[HERE]@2
+S -2--2 0 0 
+@ all wha)
+R 0
+A -
+X Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+E Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+S -2--2 0 0 
+@ all whackck
+R 0
+A -
+X Unknown swing animation type: whackck at position 9: t whackck<--[HERE]@7
+E Unknown swing animation type: whackck at position 9: t whackck<--[HERE]@7
+S -2--2 0 0 
+@ all sab
+R 0
+A -
+X Unknown swing animation type: sab at position 5: t sab<--[HERE]@3
+E Unknown swing animation type: sab at position 5: t sab<--[HERE]@3
+S -2--2 0 0 
+@ all sha
+R 0
+A -
+X Unknown swing animation type: sha at position 5: t sha<--[HERE]@3
+E Unknown swing animation type: sha at position 5: t sha<--[HERE]@3
+S -2--2 0 0 
+@ all whack{c
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t whack<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t whack<--[HERE]@5
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Unknown swing animation type: e at position 3: t e<--[HERE]@1
+E Unknown swing animation type: e at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all wha￿ck
+R 0
+A -
+X Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+E Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+S -2--2 0 0 
+@ all Whßck
+R 0
+A -
+X Unknown swing animation type: Wh at position 4: t Wh<--[HERE]@2
+E Unknown swing animation type: Wh at position 4: t Wh<--[HERE]@2
+S -2--2 0 0 
+@ all stab s 
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all wha{k
+R 0
+A -
+X Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+E Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+S -2--2 0 0 
+@ all WhackW
+R 0
+A -
+X Unknown swing animation type: WhackW at position 8: t WhackW<--[HERE]@6
+E Unknown swing animation type: WhackW at position 8: t WhackW<--[HERE]@6
+S -2--2 0 0 
+@ all ssh
+R 0
+A -
+X Unknown swing animation type: ssh at position 5: t ssh<--[HERE]@3
+E Unknown swing animation type: ssh at position 5: t ssh<--[HERE]@3
+S -2--2 0 0 
+@ all ta5
+R 0
+A -
+X Unknown swing animation type: ta5 at position 5: t ta5<--[HERE]@3
+E Unknown swing animation type: ta5 at position 5: t ta5<--[HERE]@3
+S -2--2 0 0 
+@ all x
+R 0
+A -
+X Unknown swing animation type: x at position 3: t x<--[HERE]@1
+E Unknown swing animation type: x at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all las
+R 0
+A -
+X Unknown swing animation type: las at position 5: t las<--[HERE]@3
+E Unknown swing animation type: las at position 5: t las<--[HERE]@3
+S -2--2 0 0 
+@ all no[ne
+R 0
+A -
+X Unknown swing animation type: no at position 4: t no<--[HERE]@2
+E Unknown swing animation type: no at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all ^Z
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all stab  
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all stab t
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all tabb
+R 0
+A -
+X Unknown swing animation type: tabb at position 6: t tabb<--[HERE]@4
+E Unknown swing animation type: tabb at position 6: t tabb<--[HERE]@4
+S -2--2 0 0 
+@ all -e
+R 0
+A -
+X Unknown swing animation type: -e at position 4: t -e<--[HERE]@2
+E Unknown swing animation type: -e at position 4: t -e<--[HERE]@2
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Unknown swing animation type: a at position 3: t a<--[HERE]@1
+E Unknown swing animation type: a at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all wha(ckw
+R 0
+A -
+X Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+E Unknown swing animation type: wha at position 5: t wha<--[HERE]@3
+S -2--2 0 0 
+@ all ne
+R 0
+A -
+X Unknown swing animation type: ne at position 4: t ne<--[HERE]@2
+E Unknown swing animation type: ne at position 4: t ne<--[HERE]@2
+S -2--2 0 0 
+@ all n😀one
+R 0
+A -
+X Unknown swing animation type: n at position 3: t n<--[HERE]@1
+E Unknown swing animation type: n at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all sa
+R 0
+A -
+X Unknown swing animation type: sa at position 4: t sa<--[HERE]@2
+E Unknown swing animation type: sa at position 4: t sa<--[HERE]@2
+S -2--2 0 0 
+@ all waa
+R 0
+A -
+X Unknown swing animation type: waa at position 5: t waa<--[HERE]@3
+E Unknown swing animation type: waa at position 5: t waa<--[HERE]@3
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Whackhc
+R 0
+A -
+X Unknown swing animation type: Whackhc at position 9: t Whackhc<--[HERE]@7
+E Unknown swing animation type: Whackhc at position 9: t Whackhc<--[HERE]@7
+S -2--2 0 0 
+@ all ac)
+R 0
+A -
+X Unknown swing animation type: ac at position 4: t ac<--[HERE]@2
+E Unknown swing animation type: ac at position 4: t ac<--[HERE]@2
+S -2--2 0 0 
+@ all lasha
+R 0
+A -
+X Unknown swing animation type: lasha at position 7: t lasha<--[HERE]@5
+E Unknown swing animation type: lasha at position 7: t lasha<--[HERE]@5
+S -2--2 0 0 
+@ all Whcackk
+R 0
+A -
+X Unknown swing animation type: Whcackk at position 9: t Whcackk<--[HERE]@7
+E Unknown swing animation type: Whcackk at position 9: t Whcackk<--[HERE]@7
+S -2--2 0 0 
+@ all whack￿
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t whack<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t whack<--[HERE]@5
+S -2--2 0 0 
+@ all stybb
+R 0
+A -
+X Unknown swing animation type: stybb at position 7: t stybb<--[HERE]@5
+E Unknown swing animation type: stybb at position 7: t stybb<--[HERE]@5
+S -2--2 0 0 
+@ all kW
+R 0
+A -
+X Unknown swing animation type: kW at position 4: t kW<--[HERE]@2
+E Unknown swing animation type: kW at position 4: t kW<--[HERE]@2
+S -2--2 0 0 
+@ all ew$hack
+R 0
+A -
+X Unknown swing animation type: ew at position 4: t ew<--[HERE]@2
+E Unknown swing animation type: ew at position 4: t ew<--[HERE]@2
+S -2--2 0 0 
+@ all no￿ne
+R 0
+A -
+X Unknown swing animation type: no at position 4: t no<--[HERE]@2
+E Unknown swing animation type: no at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all Wack
+R 0
+A -
+X Unknown swing animation type: Wack at position 6: t Wack<--[HERE]@4
+E Unknown swing animation type: Wack at position 6: t Wack<--[HERE]@4
+S -2--2 0 0 
+@ all whacc
+R 0
+A -
+X Unknown swing animation type: whacc at position 7: t whacc<--[HERE]@5
+E Unknown swing animation type: whacc at position 7: t whacc<--[HERE]@5
+S -2--2 0 0 
+@ all ak
+R 0
+A -
+X Unknown swing animation type: ak at position 4: t ak<--[HERE]@2
+E Unknown swing animation type: ak at position 4: t ak<--[HERE]@2
+S -2--2 0 0 
+@ all ewhack<
+R 0
+A -
+X Unknown swing animation type: ewhack at position 8: t ewhack<--[HERE]@6
+E Unknown swing animation type: ewhack at position 8: t ewhack<--[HERE]@6
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Unknown swing animation type: C at position 3: t C<--[HERE]@1
+E Unknown swing animation type: C at position 3: t C<--[HERE]@1
+S -2--2 0 0 
+@ all 中中
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1st.b
+R 0
+A -
+X Unknown swing animation type: 1st.b at position 7: t 1st.b<--[HERE]@5
+E Unknown swing animation type: 1st.b at position 7: t 1st.b<--[HERE]@5
+S -2--2 0 0 
+@ all stabß
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t stab<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t stab<--[HERE]@4
+S -2--2 0 0 
+@ all stab a
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Unknown swing animation type: Z at position 3: t Z<--[HERE]@1
+E Unknown swing animation type: Z at position 3: t Z<--[HERE]@1
+S -2--2 0 0 
+@ all stabsa
+R 0
+A -
+X Unknown swing animation type: stabsa at position 8: t stabsa<--[HERE]@6
+E Unknown swing animation type: stabsa at position 8: t stabsa<--[HERE]@6
+S -2--2 0 0 
+@ all w￿w
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all noneen
+R 0
+A -
+X Unknown swing animation type: noneen at position 8: t noneen<--[HERE]@6
+E Unknown swing animation type: noneen at position 8: t noneen<--[HERE]@6
+S -2--2 0 0 
+@ all 4stb 
+R 0
+A -
+X Unknown swing animation type: 4stb at position 6: t 4stb<--[HERE]@4
+E Unknown swing animation type: 4stb at position 6: t 4stb<--[HERE]@4
+S -2--2 0 0 
+@ all none8
+R 0
+A -
+X Unknown swing animation type: none8 at position 7: t none8<--[HERE]@5
+E Unknown swing animation type: none8 at position 7: t none8<--[HERE]@5
+S -2--2 0 0 
+@ all Whacka!
+R 0
+A -
+X Unknown swing animation type: Whacka at position 8: t Whacka<--[HERE]@6
+E Unknown swing animation type: Whacka at position 8: t Whacka<--[HERE]@6
+S -2--2 0 0 
+@ all > 
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all no~e
+R 0
+A -
+X Unknown swing animation type: no at position 4: t no<--[HERE]@2
+E Unknown swing animation type: no at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all w^
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all stab c
+R 5
+A 0-4 stab
+E Incorrect argument for command at position 7: t stab <--[HERE]@5
+S -2--2 0 0 
+@ all sta\\b 
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all sl@sh
+R 0
+A -
+X Unknown swing animation type: sl at position 4: t sl<--[HERE]@2
+E Unknown swing animation type: sl at position 4: t sl<--[HERE]@2
+S -2--2 0 0 
+@ all )one
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all st!abb
+R 0
+A -
+X Unknown swing animation type: st at position 4: t st<--[HERE]@2
+E Unknown swing animation type: st at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all [stab s
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u000a
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all whac$
+R 0
+A -
+X Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+E Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+S -2--2 0 0 
+@ all (onY
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ctab c
+R 0
+A -
+X Unknown swing animation type: ctab at position 6: t ctab<--[HERE]@4
+E Unknown swing animation type: ctab at position 6: t ctab<--[HERE]@4
+S -2--2 0 0 
+@ all sta@ s
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all w@acé
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all whac!
+R 0
+A -
+X Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+E Unknown swing animation type: whac at position 6: t whac<--[HERE]@4
+S -2--2 0 0 
+@ all Whackkk
+R 0
+A -
+X Unknown swing animation type: Whackkk at position 9: t Whackkk<--[HERE]@7
+E Unknown swing animation type: Whackkk at position 9: t Whackkk<--[HERE]@7
+S -2--2 0 0 
+@ all s!ftab
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all whacw
+R 0
+A -
+X Unknown swing animation type: whacw at position 7: t whacw<--[HERE]@5
+E Unknown swing animation type: whacw at position 7: t whacw<--[HERE]@5
+S -2--2 0 0 
+@ all non)
+R 0
+A -
+X Unknown swing animation type: non at position 5: t non<--[HERE]@3
+E Unknown swing animation type: non at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all wh^a(ck
+R 0
+A -
+X Unknown swing animation type: wh at position 4: t wh<--[HERE]@2
+E Unknown swing animation type: wh at position 4: t wh<--[HERE]@2
+S -2--2 0 0 
+@ all s\u000atab
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all 1none
+R 0
+A -
+X Unknown swing animation type: 1none at position 7: t 1none<--[HERE]@5
+E Unknown swing animation type: 1none at position 7: t 1none<--[HERE]@5
+S -2--2 0 0 
+@ all n￿o\u0000e
+R 0
+A -
+X Unknown swing animation type: n at position 3: t n<--[HERE]@1
+E Unknown swing animation type: n at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all las​
+R 0
+A -
+X Unknown swing animation type: las at position 5: t las<--[HERE]@3
+E Unknown swing animation type: las at position 5: t las<--[HERE]@3
+S -2--2 0 0 
+@ all slashb
+R 0
+A -
+X Unknown swing animation type: slashb at position 8: t slashb<--[HERE]@6
+E Unknown swing animation type: slashb at position 8: t slashb<--[HERE]@6
+S -2--2 0 0 
+@ all Ctab 
+R 0
+A -
+X Unknown swing animation type: Ctab at position 6: t Ctab<--[HERE]@4
+E Unknown swing animation type: Ctab at position 6: t Ctab<--[HERE]@4
+S -2--2 0 0 
+@ all wha+k
+R 0
+A -
+X Unknown swing animation type: wha+k at position 7: t wha+k<--[HERE]@5
+E Unknown swing animation type: wha+k at position 7: t wha+k<--[HERE]@5
+S -2--2 0 0 
+@ all sXash
+R 0
+A -
+X Unknown swing animation type: sXash at position 7: t sXash<--[HERE]@5
+E Unknown swing animation type: sXash at position 7: t sXash<--[HERE]@5
+S -2--2 0 0 
+@ all ta 
+R 0
+A -
+X Unknown swing animation type: ta at position 4: t ta<--[HERE]@2
+E Unknown swing animation type: ta at position 4: t ta<--[HERE]@2
+S -2--2 0 0 
+@ all İslash
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ab 
+R 0
+A -
+X Unknown swing animation type: ab at position 4: t ab<--[HERE]@2
+E Unknown swing animation type: ab at position 4: t ab<--[HERE]@2
+S -2--2 0 0 
+@ all wa\u000ak
+R 0
+A -
+X Unknown swing animation type: wa at position 4: t wa<--[HERE]@2
+E Unknown swing animation type: wa at position 4: t wa<--[HERE]@2
+S -2--2 0 0 
+@ all noe
+R 0
+A -
+X Unknown swing animation type: noe at position 5: t noe<--[HERE]@3
+E Unknown swing animation type: noe at position 5: t noe<--[HERE]@3
+S -2--2 0 0 
+@ all tabß
+R 0
+A -
+X Unknown swing animation type: tab at position 5: t tab<--[HERE]@3
+E Unknown swing animation type: tab at position 5: t tab<--[HERE]@3
+S -2--2 0 0 
+@ all whak
+R 0
+A -
+X Unknown swing animation type: whak at position 6: t whak<--[HERE]@4
+E Unknown swing animation type: whak at position 6: t whak<--[HERE]@4
+S -2--2 0 0 
+@ all w ack
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all oneo
+R 0
+A -
+X Unknown swing animation type: oneo at position 6: t oneo<--[HERE]@4
+E Unknown swing animation type: oneo at position 6: t oneo<--[HERE]@4
+S -2--2 0 0 
+@ all stab\u0000 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t stab<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t stab<--[HERE]@4
+S -2--2 0 0 
+@ all wh￿ac
+R 0
+A -
+X Unknown swing animation type: wh at position 4: t wh<--[HERE]@2
+E Unknown swing animation type: wh at position 4: t wh<--[HERE]@2
+S -2--2 0 0 
+@ all s%ab) 
+R 0
+A -
+X Unknown swing animation type: s at position 3: t s<--[HERE]@1
+E Unknown swing animation type: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all /
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all noneoo
+R 0
+A -
+X Unknown swing animation type: noneoo at position 8: t noneoo<--[HERE]@6
+E Unknown swing animation type: noneoo at position 8: t noneoo<--[HERE]@6
+S -2--2 0 0 
+@ all stab+ b
+R 0
+A -
+X Unknown swing animation type: stab+ at position 7: t stab+<--[HERE]@5
+E Unknown swing animation type: stab+ at position 7: t stab+<--[HERE]@5
+S -2--2 0 0 
+@ all hacka
+R 0
+A -
+X Unknown swing animation type: hacka at position 7: t hacka<--[HERE]@5
+E Unknown swing animation type: hacka at position 7: t hacka<--[HERE]@5
+S -2--2 0 0 
+@ all \u0000ta 
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &on
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all slaséhs
+R 0
+A -
+X Unknown swing animation type: slas at position 6: t slas<--[HERE]@4
+E Unknown swing animation type: slas at position 6: t slas<--[HERE]@4
+S -2--2 0 0 
+@ all st"b 
+R 0
+A -
+X Unknown swing animation type: st at position 4: t st<--[HERE]@2
+E Unknown swing animation type: st at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all s3tab
+R 0
+A -
+X Unknown swing animation type: s3tab at position 7: t s3tab<--[HERE]@5
+E Unknown swing animation type: s3tab at position 7: t s3tab<--[HERE]@5
+S -2--2 0 0 
+@ all w~
+R 0
+A -
+X Unknown swing animation type: w at position 3: t w<--[HERE]@1
+E Unknown swing animation type: w at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all st"ab "
+R 0
+A -
+X Unknown swing animation type: st at position 4: t st<--[HERE]@2
+E Unknown swing animation type: st at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all ck^
+R 0
+A -
+X Unknown swing animation type: ck at position 4: t ck<--[HERE]@2
+E Unknown swing animation type: ck at position 4: t ck<--[HERE]@2
+S -2--2 0 0 
+@ all nyn]e
+R 0
+A -
+X Unknown swing animation type: nyn at position 5: t nyn<--[HERE]@3
+E Unknown swing animation type: nyn at position 5: t nyn<--[HERE]@3
+S -2--2 0 0 
+@ all st中b 
+R 0
+A -
+X Unknown swing animation type: st at position 4: t st<--[HERE]@2
+E Unknown swing animation type: st at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all sdab
+R 0
+A -
+X Unknown swing animation type: sdab at position 6: t sdab<--[HERE]@4
+E Unknown swing animation type: sdab at position 6: t sdab<--[HERE]@4
+S -2--2 0 0 
+@ all W:ha6k
+R 0
+A -
+X Unknown swing animation type: W at position 3: t W<--[HERE]@1
+E Unknown swing animation type: W at position 3: t W<--[HERE]@1
+S -2--2 0 0 
+@ all sta:X
+R 0
+A -
+X Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+E Unknown swing animation type: sta at position 5: t sta<--[HERE]@3
+S -2--2 0 0 
+@ all sta_5
+R 0
+A -
+X Unknown swing animation type: sta_5 at position 7: t sta_5<--[HERE]@5
+E Unknown swing animation type: sta_5 at position 7: t sta_5<--[HERE]@5
+S -2--2 0 0 
+@ all $one
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all slasha
+R 0
+A -
+X Unknown swing animation type: slasha at position 8: t slasha<--[HERE]@6
+E Unknown swing animation type: slasha at position 8: t slasha<--[HERE]@6
+S -2--2 0 0 
+@ all whac3
+R 0
+A -
+X Unknown swing animation type: whac3 at position 7: t whac3<--[HERE]@5
+E Unknown swing animation type: whac3 at position 7: t whac3<--[HERE]@5
+S -2--2 0 0 
+@ all nnee
+R 0
+A -
+X Unknown swing animation type: nnee at position 6: t nnee<--[HERE]@4
+E Unknown swing animation type: nnee at position 6: t nnee<--[HERE]@4
+S -2--2 0 0 
+@ all 5w
+R 0
+A -
+X Unknown swing animation type: 5w at position 4: t 5w<--[HERE]@2
+E Unknown swing animation type: 5w at position 4: t 5w<--[HERE]@2
+S -2--2 0 0 
+@ all taa
+R 0
+A -
+X Unknown swing animation type: taa at position 5: t taa<--[HERE]@3
+E Unknown swing animation type: taa at position 5: t taa<--[HERE]@3
+S -2--2 0 0 
+@ all é&
+R 0
+A -
+X Unknown swing animation type:  at position 2: t <--[HERE]@0
+E Unknown swing animation type:  at position 2: t <--[HERE]@0
+S -2--2 0 0 

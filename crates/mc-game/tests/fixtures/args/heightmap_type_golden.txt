@@ -1,0 +1,1915 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 4 1085150914 motion_blocking	motion_blocking_no_leaves	ocean_floor	world_surface
+@ all world_surface_wg
+R 0
+A -
+X Invalid value 'world_surface_wg' at position 18: ...surface_wg<--[HERE]@16
+E Invalid value 'world_surface_wg' at position 18: ...surface_wg<--[HERE]@16
+S -2--2 0 0 
+@ all world_surface
+R 13
+A 0-13 WORLD_SURFACE
+E ok
+S -2--2 0 0 
+@ all ocean_floor_wg
+R 0
+A -
+X Invalid value 'ocean_floor_wg' at position 16: ...n_floor_wg<--[HERE]@14
+E Invalid value 'ocean_floor_wg' at position 16: ...n_floor_wg<--[HERE]@14
+S -2--2 0 0 
+@ all ocean_floor
+R 11
+A 0-11 OCEAN_FLOOR
+E ok
+S -2--2 0 0 
+@ all motion_blocking
+R 15
+A 0-15 MOTION_BLOCKING
+E ok
+S 0-15 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no_leaves
+R 25
+A 0-25 MOTION_BLOCKING_NO_LEAVES
+E ok
+S -2--2 0 0 
+@ all WORLD_SURFACE
+R 0
+A -
+X Invalid value 'WORLD_SURFACE' at position 15: ...LD_SURFACE<--[HERE]@13
+E Invalid value 'WORLD_SURFACE' at position 15: ...LD_SURFACE<--[HERE]@13
+S 0-13 1 -1203199223 world_surface
+@ all foo
+R 0
+A -
+X Invalid value 'foo' at position 5: t foo<--[HERE]@3
+E Invalid value 'foo' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all ocean
+R 0
+A -
+X Invalid value 'ocean' at position 7: t ocean<--[HERE]@5
+E Invalid value 'ocean' at position 7: t ocean<--[HERE]@5
+S 0-5 1 1908746206 ocean_floor
+@ all motion
+R 0
+A -
+X Invalid value 'motion' at position 8: t motion<--[HERE]@6
+E Invalid value 'motion' at position 8: t motion<--[HERE]@6
+S 0-6 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all w
+R 0
+A -
+X Invalid value 'w' at position 3: t w<--[HERE]@1
+E Invalid value 'w' at position 3: t w<--[HERE]@1
+S 0-1 1 -1203199223 world_surface
+@ all wo
+R 0
+A -
+X Invalid value 'wo' at position 4: t wo<--[HERE]@2
+E Invalid value 'wo' at position 4: t wo<--[HERE]@2
+S 0-2 1 -1203199223 world_surface
+@ all wor
+R 0
+A -
+X Invalid value 'wor' at position 5: t wor<--[HERE]@3
+E Invalid value 'wor' at position 5: t wor<--[HERE]@3
+S 0-3 1 -1203199223 world_surface
+@ all worl
+R 0
+A -
+X Invalid value 'worl' at position 6: t worl<--[HERE]@4
+E Invalid value 'worl' at position 6: t worl<--[HERE]@4
+S 0-4 1 -1203199223 world_surface
+@ all world
+R 0
+A -
+X Invalid value 'world' at position 7: t world<--[HERE]@5
+E Invalid value 'world' at position 7: t world<--[HERE]@5
+S 0-5 1 -1203199223 world_surface
+@ all world_
+R 0
+A -
+X Invalid value 'world_' at position 8: t world_<--[HERE]@6
+E Invalid value 'world_' at position 8: t world_<--[HERE]@6
+S 0-6 1 -1203199223 world_surface
+@ all world_s
+R 0
+A -
+X Invalid value 'world_s' at position 9: t world_s<--[HERE]@7
+E Invalid value 'world_s' at position 9: t world_s<--[HERE]@7
+S 0-7 1 -1203199223 world_surface
+@ all world_su
+R 0
+A -
+X Invalid value 'world_su' at position 10: t world_su<--[HERE]@8
+E Invalid value 'world_su' at position 10: t world_su<--[HERE]@8
+S 0-8 1 -1203199223 world_surface
+@ all world_sur
+R 0
+A -
+X Invalid value 'world_sur' at position 11: ... world_sur<--[HERE]@9
+E Invalid value 'world_sur' at position 11: ... world_sur<--[HERE]@9
+S 0-9 1 -1203199223 world_surface
+@ all world_surf
+R 0
+A -
+X Invalid value 'world_surf' at position 12: ...world_surf<--[HERE]@10
+E Invalid value 'world_surf' at position 12: ...world_surf<--[HERE]@10
+S 0-10 1 -1203199223 world_surface
+@ all world_surfa
+R 0
+A -
+X Invalid value 'world_surfa' at position 13: ...orld_surfa<--[HERE]@11
+E Invalid value 'world_surfa' at position 13: ...orld_surfa<--[HERE]@11
+S 0-11 1 -1203199223 world_surface
+@ all world_surfac
+R 0
+A -
+X Invalid value 'world_surfac' at position 14: ...rld_surfac<--[HERE]@12
+E Invalid value 'world_surfac' at position 14: ...rld_surfac<--[HERE]@12
+S 0-12 1 -1203199223 world_surface
+@ all world_surface_
+R 0
+A -
+X Invalid value 'world_surface_' at position 16: ...d_surface_<--[HERE]@14
+E Invalid value 'world_surface_' at position 16: ...d_surface_<--[HERE]@14
+S -2--2 0 0 
+@ all world_surface_w
+R 0
+A -
+X Invalid value 'world_surface_w' at position 17: ..._surface_w<--[HERE]@15
+E Invalid value 'world_surface_w' at position 17: ..._surface_w<--[HERE]@15
+S -2--2 0 0 
+@ all o
+R 0
+A -
+X Invalid value 'o' at position 3: t o<--[HERE]@1
+E Invalid value 'o' at position 3: t o<--[HERE]@1
+S 0-1 1 1908746206 ocean_floor
+@ all oc
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S 0-2 1 1908746206 ocean_floor
+@ all oce
+R 0
+A -
+X Invalid value 'oce' at position 5: t oce<--[HERE]@3
+E Invalid value 'oce' at position 5: t oce<--[HERE]@3
+S 0-3 1 1908746206 ocean_floor
+@ all ocea
+R 0
+A -
+X Invalid value 'ocea' at position 6: t ocea<--[HERE]@4
+E Invalid value 'ocea' at position 6: t ocea<--[HERE]@4
+S 0-4 1 1908746206 ocean_floor
+@ all ocean_
+R 0
+A -
+X Invalid value 'ocean_' at position 8: t ocean_<--[HERE]@6
+E Invalid value 'ocean_' at position 8: t ocean_<--[HERE]@6
+S 0-6 1 1908746206 ocean_floor
+@ all ocean_f
+R 0
+A -
+X Invalid value 'ocean_f' at position 9: t ocean_f<--[HERE]@7
+E Invalid value 'ocean_f' at position 9: t ocean_f<--[HERE]@7
+S 0-7 1 1908746206 ocean_floor
+@ all ocean_fl
+R 0
+A -
+X Invalid value 'ocean_fl' at position 10: t ocean_fl<--[HERE]@8
+E Invalid value 'ocean_fl' at position 10: t ocean_fl<--[HERE]@8
+S 0-8 1 1908746206 ocean_floor
+@ all ocean_flo
+R 0
+A -
+X Invalid value 'ocean_flo' at position 11: ... ocean_flo<--[HERE]@9
+E Invalid value 'ocean_flo' at position 11: ... ocean_flo<--[HERE]@9
+S 0-9 1 1908746206 ocean_floor
+@ all ocean_floo
+R 0
+A -
+X Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+E Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+S 0-10 1 1908746206 ocean_floor
+@ all ocean_floor_
+R 0
+A -
+X Invalid value 'ocean_floor_' at position 14: ...ean_floor_<--[HERE]@12
+E Invalid value 'ocean_floor_' at position 14: ...ean_floor_<--[HERE]@12
+S -2--2 0 0 
+@ all ocean_floor_w
+R 0
+A -
+X Invalid value 'ocean_floor_w' at position 15: ...an_floor_w<--[HERE]@13
+E Invalid value 'ocean_floor_w' at position 15: ...an_floor_w<--[HERE]@13
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Invalid value 'm' at position 3: t m<--[HERE]@1
+E Invalid value 'm' at position 3: t m<--[HERE]@1
+S 0-1 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all mo
+R 0
+A -
+X Invalid value 'mo' at position 4: t mo<--[HERE]@2
+E Invalid value 'mo' at position 4: t mo<--[HERE]@2
+S 0-2 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all mot
+R 0
+A -
+X Invalid value 'mot' at position 5: t mot<--[HERE]@3
+E Invalid value 'mot' at position 5: t mot<--[HERE]@3
+S 0-3 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all moti
+R 0
+A -
+X Invalid value 'moti' at position 6: t moti<--[HERE]@4
+E Invalid value 'moti' at position 6: t moti<--[HERE]@4
+S 0-4 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motio
+R 0
+A -
+X Invalid value 'motio' at position 7: t motio<--[HERE]@5
+E Invalid value 'motio' at position 7: t motio<--[HERE]@5
+S 0-5 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_
+R 0
+A -
+X Invalid value 'motion_' at position 9: t motion_<--[HERE]@7
+E Invalid value 'motion_' at position 9: t motion_<--[HERE]@7
+S 0-7 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_b
+R 0
+A -
+X Invalid value 'motion_b' at position 10: t motion_b<--[HERE]@8
+E Invalid value 'motion_b' at position 10: t motion_b<--[HERE]@8
+S 0-8 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_bl
+R 0
+A -
+X Invalid value 'motion_bl' at position 11: ... motion_bl<--[HERE]@9
+E Invalid value 'motion_bl' at position 11: ... motion_bl<--[HERE]@9
+S 0-9 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_blo
+R 0
+A -
+X Invalid value 'motion_blo' at position 12: ...motion_blo<--[HERE]@10
+E Invalid value 'motion_blo' at position 12: ...motion_blo<--[HERE]@10
+S 0-10 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_bloc
+R 0
+A -
+X Invalid value 'motion_bloc' at position 13: ...otion_bloc<--[HERE]@11
+E Invalid value 'motion_bloc' at position 13: ...otion_bloc<--[HERE]@11
+S 0-11 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_block
+R 0
+A -
+X Invalid value 'motion_block' at position 14: ...tion_block<--[HERE]@12
+E Invalid value 'motion_block' at position 14: ...tion_block<--[HERE]@12
+S 0-12 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_blocki
+R 0
+A -
+X Invalid value 'motion_blocki' at position 15: ...ion_blocki<--[HERE]@13
+E Invalid value 'motion_blocki' at position 15: ...ion_blocki<--[HERE]@13
+S 0-13 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_blockin
+R 0
+A -
+X Invalid value 'motion_blockin' at position 16: ...on_blockin<--[HERE]@14
+E Invalid value 'motion_blockin' at position 16: ...on_blockin<--[HERE]@14
+S 0-14 2 102933531 motion_blocking	motion_blocking_no_leaves
+@ all motion_blocking_
+R 0
+A -
+X Invalid value 'motion_blocking_' at position 18: ..._blocking_<--[HERE]@16
+E Invalid value 'motion_blocking_' at position 18: ..._blocking_<--[HERE]@16
+S 0-16 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_n
+R 0
+A -
+X Invalid value 'motion_blocking_n' at position 19: ...blocking_n<--[HERE]@17
+E Invalid value 'motion_blocking_n' at position 19: ...blocking_n<--[HERE]@17
+S 0-17 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no
+R 0
+A -
+X Invalid value 'motion_blocking_no' at position 20: ...locking_no<--[HERE]@18
+E Invalid value 'motion_blocking_no' at position 20: ...locking_no<--[HERE]@18
+S 0-18 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no_
+R 0
+A -
+X Invalid value 'motion_blocking_no_' at position 21: ...ocking_no_<--[HERE]@19
+E Invalid value 'motion_blocking_no_' at position 21: ...ocking_no_<--[HERE]@19
+S 0-19 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no_l
+R 0
+A -
+X Invalid value 'motion_blocking_no_l' at position 22: ...cking_no_l<--[HERE]@20
+E Invalid value 'motion_blocking_no_l' at position 22: ...cking_no_l<--[HERE]@20
+S 0-20 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no_le
+R 0
+A -
+X Invalid value 'motion_blocking_no_le' at position 23: ...king_no_le<--[HERE]@21
+E Invalid value 'motion_blocking_no_le' at position 23: ...king_no_le<--[HERE]@21
+S 0-21 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no_lea
+R 0
+A -
+X Invalid value 'motion_blocking_no_lea' at position 24: ...ing_no_lea<--[HERE]@22
+E Invalid value 'motion_blocking_no_lea' at position 24: ...ing_no_lea<--[HERE]@22
+S 0-22 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no_leav
+R 0
+A -
+X Invalid value 'motion_blocking_no_leav' at position 25: ...ng_no_leav<--[HERE]@23
+E Invalid value 'motion_blocking_no_leav' at position 25: ...ng_no_leav<--[HERE]@23
+S 0-23 1 591653552 motion_blocking_no_leaves
+@ all motion_blocking_no_leave
+R 0
+A -
+X Invalid value 'motion_blocking_no_leave' at position 26: ...g_no_leave<--[HERE]@24
+E Invalid value 'motion_blocking_no_leave' at position 26: ...g_no_leave<--[HERE]@24
+S 0-24 1 591653552 motion_blocking_no_leaves
+@ all W
+R 0
+A -
+X Invalid value 'W' at position 3: t W<--[HERE]@1
+E Invalid value 'W' at position 3: t W<--[HERE]@1
+S 0-1 1 -1203199223 world_surface
+@ all WO
+R 0
+A -
+X Invalid value 'WO' at position 4: t WO<--[HERE]@2
+E Invalid value 'WO' at position 4: t WO<--[HERE]@2
+S 0-2 1 -1203199223 world_surface
+@ all WOR
+R 0
+A -
+X Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+E Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+S 0-3 1 -1203199223 world_surface
+@ all WORL
+R 0
+A -
+X Invalid value 'WORL' at position 6: t WORL<--[HERE]@4
+E Invalid value 'WORL' at position 6: t WORL<--[HERE]@4
+S 0-4 1 -1203199223 world_surface
+@ all WORLD
+R 0
+A -
+X Invalid value 'WORLD' at position 7: t WORLD<--[HERE]@5
+E Invalid value 'WORLD' at position 7: t WORLD<--[HERE]@5
+S 0-5 1 -1203199223 world_surface
+@ all WORLD_
+R 0
+A -
+X Invalid value 'WORLD_' at position 8: t WORLD_<--[HERE]@6
+E Invalid value 'WORLD_' at position 8: t WORLD_<--[HERE]@6
+S 0-6 1 -1203199223 world_surface
+@ all WORLD_S
+R 0
+A -
+X Invalid value 'WORLD_S' at position 9: t WORLD_S<--[HERE]@7
+E Invalid value 'WORLD_S' at position 9: t WORLD_S<--[HERE]@7
+S 0-7 1 -1203199223 world_surface
+@ all WORLD_SU
+R 0
+A -
+X Invalid value 'WORLD_SU' at position 10: t WORLD_SU<--[HERE]@8
+E Invalid value 'WORLD_SU' at position 10: t WORLD_SU<--[HERE]@8
+S 0-8 1 -1203199223 world_surface
+@ all WORLD_SUR
+R 0
+A -
+X Invalid value 'WORLD_SUR' at position 11: ... WORLD_SUR<--[HERE]@9
+E Invalid value 'WORLD_SUR' at position 11: ... WORLD_SUR<--[HERE]@9
+S 0-9 1 -1203199223 world_surface
+@ all WORLD_SURF
+R 0
+A -
+X Invalid value 'WORLD_SURF' at position 12: ...WORLD_SURF<--[HERE]@10
+E Invalid value 'WORLD_SURF' at position 12: ...WORLD_SURF<--[HERE]@10
+S 0-10 1 -1203199223 world_surface
+@ all WORLD_SURFA
+R 0
+A -
+X Invalid value 'WORLD_SURFA' at position 13: ...ORLD_SURFA<--[HERE]@11
+E Invalid value 'WORLD_SURFA' at position 13: ...ORLD_SURFA<--[HERE]@11
+S 0-11 1 -1203199223 world_surface
+@ all WORLD_SURFAC
+R 0
+A -
+X Invalid value 'WORLD_SURFAC' at position 14: ...RLD_SURFAC<--[HERE]@12
+E Invalid value 'WORLD_SURFAC' at position 14: ...RLD_SURFAC<--[HERE]@12
+S 0-12 1 -1203199223 world_surface
+@ all f
+R 0
+A -
+X Invalid value 'f' at position 3: t f<--[HERE]@1
+E Invalid value 'f' at position 3: t f<--[HERE]@1
+S 0-1 1 1908746206 ocean_floor
+@ all fo
+R 0
+A -
+X Invalid value 'fo' at position 4: t fo<--[HERE]@2
+E Invalid value 'fo' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all oean[
+R 0
+A -
+X Invalid value 'oean' at position 6: t oean<--[HERE]@4
+E Invalid value 'oean' at position 6: t oean<--[HERE]@4
+S -2--2 0 0 
+@ all motio_blo￿king
+R 0
+A -
+X Invalid value 'motio_blo' at position 11: ... motio_blo<--[HERE]@9
+E Invalid value 'motio_blo' at position 11: ... motio_blo<--[HERE]@9
+S -2--2 0 0 
+@ all ocean_flooZ_w
+R 0
+A -
+X Invalid value 'ocean_flooZ_w' at position 15: ...an_flooZ_w<--[HERE]@13
+E Invalid value 'ocean_flooZ_w' at position 15: ...an_flooZ_w<--[HERE]@13
+S -2--2 0 0 
+@ all fo.
+R 0
+A -
+X Invalid value 'fo.' at position 5: t fo.<--[HERE]@3
+E Invalid value 'fo.' at position 5: t fo.<--[HERE]@3
+S -2--2 0 0 
+@ all motion_blockingl
+R 0
+A -
+X Invalid value 'motion_blockingl' at position 18: ..._blockingl<--[HERE]@16
+E Invalid value 'motion_blockingl' at position 18: ..._blockingl<--[HERE]@16
+S -2--2 0 0 
+@ all motion_blocking_no_leav\u000aes
+R 0
+A -
+X Invalid value 'motion_blocking_no_leav' at position 25: ...ng_no_leav<--[HERE]@23
+E Invalid value 'motion_blocking_no_leav' at position 25: ...ng_no_leav<--[HERE]@23
+S -2--2 0 0 
+@ all leaves
+R 0
+A -
+X Invalid value 'leaves' at position 8: t leaves<--[HERE]@6
+E Invalid value 'leaves' at position 8: t leaves<--[HERE]@6
+S 0-6 1 591653552 motion_blocking_no_leaves
+@ all WORLD_SURFACEE
+R 0
+A -
+X Invalid value 'WORLD_SURFACEE' at position 16: ...D_SURFACEE<--[HERE]@14
+E Invalid value 'WORLD_SURFACEE' at position 16: ...D_SURFACEE<--[HERE]@14
+S -2--2 0 0 
+@ all tion_blocking_no_leaves
+R 0
+A -
+X Invalid value 'tion_blocking_no_leaves' at position 25: ..._no_leaves<--[HERE]@23
+E Invalid value 'tion_blocking_no_leaves' at position 25: ..._no_leaves<--[HERE]@23
+S -2--2 0 0 
+@ all world_surface_gw
+R 0
+A -
+X Invalid value 'world_surface_gw' at position 18: ...surface_gw<--[HERE]@16
+E Invalid value 'world_surface_gw' at position 18: ...surface_gw<--[HERE]@16
+S -2--2 0 0 
+@ all on
+R 0
+A -
+X Invalid value 'on' at position 4: t on<--[HERE]@2
+E Invalid value 'on' at position 4: t on<--[HERE]@2
+S -2--2 0 0 
+@ all ocen_floor
+R 0
+A -
+X Invalid value 'ocen_floor' at position 12: ...ocen_floor<--[HERE]@10
+E Invalid value 'ocen_floor' at position 12: ...ocen_floor<--[HERE]@10
+S -2--2 0 0 
+@ all ng_no_leave
+R 0
+A -
+X Invalid value 'ng_no_leave' at position 13: ...g_no_leave<--[HERE]@11
+E Invalid value 'ng_no_leave' at position 13: ...g_no_leave<--[HERE]@11
+S -2--2 0 0 
+@ all oceanfloor
+R 0
+A -
+X Invalid value 'oceanfloor' at position 12: ...oceanfloor<--[HERE]@10
+E Invalid value 'oceanfloor' at position 12: ...oceanfloor<--[HERE]@10
+S -2--2 0 0 
+@ all motion_blockingk_
+R 0
+A -
+X Invalid value 'motion_blockingk_' at position 19: ...blockingk_<--[HERE]@17
+E Invalid value 'motion_blockingk_' at position 19: ...blockingk_<--[HERE]@17
+S -2--2 0 0 
+@ all otion_blocking_no_leaveso
+R 0
+A -
+X Invalid value 'otion_blocking_no_leaveso' at position 27: ...no_leaveso<--[HERE]@25
+E Invalid value 'otion_blocking_no_leaveso' at position 27: ...no_leaveso<--[HERE]@25
+S -2--2 0 0 
+@ all WORLD_SURFACEW
+R 0
+A -
+X Invalid value 'WORLD_SURFACEW' at position 16: ...D_SURFACEW<--[HERE]@14
+E Invalid value 'WORLD_SURFACEW' at position 16: ...D_SURFACEW<--[HERE]@14
+S -2--2 0 0 
+@ all motion_blocking_no_leaves_
+R 0
+A -
+X Invalid value 'motion_blocking_no_leaves_' at position 28: ...no_leaves_<--[HERE]@26
+E Invalid value 'motion_blocking_no_leaves_' at position 28: ...no_leaves_<--[HERE]@26
+S -2--2 0 0 
+@ all world_surßface
+R 0
+A -
+X Invalid value 'world_sur' at position 11: ... world_sur<--[HERE]@9
+E Invalid value 'world_sur' at position 11: ... world_sur<--[HERE]@9
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Invalid value 'a' at position 3: t a<--[HERE]@1
+E Invalid value 'a' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all oc)a3
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all fooo
+R 0
+A -
+X Invalid value 'fooo' at position 6: t fooo<--[HERE]@4
+E Invalid value 'fooo' at position 6: t fooo<--[HERE]@4
+S -2--2 0 0 
+@ all océan
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all mot:on_blocking
+R 0
+A -
+X Invalid value 'mot' at position 5: t mot<--[HERE]@3
+E Invalid value 'mot' at position 5: t mot<--[HERE]@3
+S -2--2 0 0 
+@ all obean_floor_wg
+R 0
+A -
+X Invalid value 'obean_floor_wg' at position 16: ...n_floor_wg<--[HERE]@14
+E Invalid value 'obean_floor_wg' at position 16: ...n_floor_wg<--[HERE]@14
+S -2--2 0 0 
+@ all ooo
+R 0
+A -
+X Invalid value 'ooo' at position 5: t ooo<--[HERE]@3
+E Invalid value 'ooo' at position 5: t ooo<--[HERE]@3
+S -2--2 0 0 
+@ all n&_blocking_no_leaves
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all motion_blockig_no_eaves
+R 0
+A -
+X Invalid value 'motion_blockig_no_eaves' at position 25: ...g_no_eaves<--[HERE]@23
+E Invalid value 'motion_blockig_no_eaves' at position 25: ...g_no_eaves<--[HERE]@23
+S -2--2 0 0 
+@ all ocßean_floorr
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all 6fooo
+R 0
+A -
+X Invalid value '6fooo' at position 7: t 6fooo<--[HERE]@5
+E Invalid value '6fooo' at position 7: t 6fooo<--[HERE]@5
+S -2--2 0 0 
+@ all motion_blockin%g_no_leaves
+R 0
+A -
+X Invalid value 'motion_blockin' at position 16: ...on_blockin<--[HERE]@14
+E Invalid value 'motion_blockin' at position 16: ...on_blockin<--[HERE]@14
+S -2--2 0 0 
+@ all ion_blocking_
+R 0
+A -
+X Invalid value 'ion_blocking_' at position 15: ..._blocking_<--[HERE]@13
+E Invalid value 'ion_blocking_' at position 15: ..._blocking_<--[HERE]@13
+S -2--2 0 0 
+@ all WORLD_SURFACEF
+R 0
+A -
+X Invalid value 'WORLD_SURFACEF' at position 16: ...D_SURFACEF<--[HERE]@14
+E Invalid value 'WORLD_SURFACEF' at position 16: ...D_SURFACEF<--[HERE]@14
+S -2--2 0 0 
+@ all world_surfacea
+R 0
+A -
+X Invalid value 'world_surfacea' at position 16: ...d_surfacea<--[HERE]@14
+E Invalid value 'world_surfacea' at position 16: ...d_surfacea<--[HERE]@14
+S -2--2 0 0 
+@ all r_wg
+R 0
+A -
+X Invalid value 'r_wg' at position 6: t r_wg<--[HERE]@4
+E Invalid value 'r_wg' at position 6: t r_wg<--[HERE]@4
+S -2--2 0 0 
+@ all yr
+R 0
+A -
+X Invalid value 'yr' at position 4: t yr<--[HERE]@2
+E Invalid value 'yr' at position 4: t yr<--[HERE]@2
+S -2--2 0 0 
+@ all i8ng
+R 0
+A -
+X Invalid value 'i8ng' at position 6: t i8ng<--[HERE]@4
+E Invalid value 'i8ng' at position 6: t i8ng<--[HERE]@4
+S -2--2 0 0 
+@ all ace
+R 0
+A -
+X Invalid value 'ace' at position 5: t ace<--[HERE]@3
+E Invalid value 'ace' at position 5: t ace<--[HERE]@3
+S -2--2 0 0 
+@ all otio
+R 0
+A -
+X Invalid value 'otio' at position 6: t otio<--[HERE]@4
+E Invalid value 'otio' at position 6: t otio<--[HERE]@4
+S -2--2 0 0 
+@ all ocean[_floor_w$
+R 0
+A -
+X Invalid value 'ocean' at position 7: t ocean<--[HERE]@5
+E Invalid value 'ocean' at position 7: t ocean<--[HERE]@5
+S -2--2 0 0 
+@ all motiontt
+R 0
+A -
+X Invalid value 'motiontt' at position 10: t motiontt<--[HERE]@8
+E Invalid value 'motiontt' at position 10: t motiontt<--[HERE]@8
+S -2--2 0 0 
+@ all world_surfßc@
+R 0
+A -
+X Invalid value 'world_surf' at position 12: ...world_surf<--[HERE]@10
+E Invalid value 'world_surf' at position 12: ...world_surf<--[HERE]@10
+S -2--2 0 0 
+@ all FACE
+R 0
+A -
+X Invalid value 'FACE' at position 6: t FACE<--[HERE]@4
+E Invalid value 'FACE' at position 6: t FACE<--[HERE]@4
+S -2--2 0 0 
+@ all ocean_Yloor_wg
+R 0
+A -
+X Invalid value 'ocean_Yloor_wg' at position 16: ...n_Yloor_wg<--[HERE]@14
+E Invalid value 'ocean_Yloor_wg' at position 16: ...n_Yloor_wg<--[HERE]@14
+S -2--2 0 0 
+@ all ocean_f@oor_wg
+R 0
+A -
+X Invalid value 'ocean_f' at position 9: t ocean_f<--[HERE]@7
+E Invalid value 'ocean_f' at position 9: t ocean_f<--[HERE]@7
+S -2--2 0 0 
+@ all WORLD_SURFACEDO
+R 0
+A -
+X Invalid value 'WORLD_SURFACEDO' at position 17: ..._SURFACEDO<--[HERE]@15
+E Invalid value 'WORLD_SURFACEDO' at position 17: ..._SURFACEDO<--[HERE]@15
+S -2--2 0 0 
+@ all !oo
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all motio*
+R 0
+A -
+X Invalid value 'motio' at position 7: t motio<--[HERE]@5
+E Invalid value 'motio' at position 7: t motio<--[HERE]@5
+S -2--2 0 0 
+@ all motio>n_blocking
+R 0
+A -
+X Invalid value 'motio' at position 7: t motio<--[HERE]@5
+E Invalid value 'motio' at position 7: t motio<--[HERE]@5
+S -2--2 0 0 
+@ all )
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ing_no_leaves
+R 0
+A -
+X Invalid value 'ing_no_leaves' at position 15: ..._no_leaves<--[HERE]@13
+E Invalid value 'ing_no_leaves' at position 15: ..._no_leaves<--[HERE]@13
+S -2--2 0 0 
+@ all ocAacn
+R 0
+A -
+X Invalid value 'ocAacn' at position 8: t ocAacn<--[HERE]@6
+E Invalid value 'ocAacn' at position 8: t ocAacn<--[HERE]@6
+S -2--2 0 0 
+@ all ocba
+R 0
+A -
+X Invalid value 'ocba' at position 6: t ocba<--[HERE]@4
+E Invalid value 'ocba' at position 6: t ocba<--[HERE]@4
+S -2--2 0 0 
+@ all mot]ont
+R 0
+A -
+X Invalid value 'mot' at position 5: t mot<--[HERE]@3
+E Invalid value 'mot' at position 5: t mot<--[HERE]@3
+S -2--2 0 0 
+@ all fo7
+R 0
+A -
+X Invalid value 'fo7' at position 5: t fo7<--[HERE]@3
+E Invalid value 'fo7' at position 5: t fo7<--[HERE]@3
+S -2--2 0 0 
+@ all oc&ean_floor
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all surface<
+R 0
+A -
+X Invalid value 'surface' at position 9: t surface<--[HERE]@7
+E Invalid value 'surface' at position 9: t surface<--[HERE]@7
+S -2--2 0 0 
+@ all n
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S 0-1 1 591653552 motion_blocking_no_leaves
+@ all ld_sur\u000aace
+R 0
+A -
+X Invalid value 'ld_sur' at position 8: t ld_sur<--[HERE]@6
+E Invalid value 'ld_sur' at position 8: t ld_sur<--[HERE]@6
+S -2--2 0 0 
+@ all oo
+R 0
+A -
+X Invalid value 'oo' at position 4: t oo<--[HERE]@2
+E Invalid value 'oo' at position 4: t oo<--[HERE]@2
+S -2--2 0 0 
+@ all W-ORLD_SURFAC
+R 0
+A -
+X Invalid value 'W-ORLD_SURFAC' at position 15: ...RLD_SURFAC<--[HERE]@13
+E Invalid value 'W-ORLD_SURFAC' at position 15: ...RLD_SURFAC<--[HERE]@13
+S -2--2 0 0 
+@ all word_surface_
+R 0
+A -
+X Invalid value 'word_surface_' at position 15: ...d_surface_<--[HERE]@13
+E Invalid value 'word_surface_' at position 15: ...d_surface_<--[HERE]@13
+S -2--2 0 0 
+@ all m\\tion_blocking_no_leaves
+R 0
+A -
+X Invalid value 'm' at position 3: t m<--[HERE]@1
+E Invalid value 'm' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all fob
+R 0
+A -
+X Invalid value 'fob' at position 5: t fob<--[HERE]@3
+E Invalid value 'fob' at position 5: t fob<--[HERE]@3
+S -2--2 0 0 
+@ all W[RLD_SURFACE
+R 0
+A -
+X Invalid value 'W' at position 3: t W<--[HERE]@1
+E Invalid value 'W' at position 3: t W<--[HERE]@1
+S -2--2 0 0 
+@ all m/tion_:locking
+R 0
+A -
+X Invalid value 'm' at position 3: t m<--[HERE]@1
+E Invalid value 'm' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all oc 1an
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all motion_blocki"g_no_leaveso
+R 0
+A -
+X Invalid value 'motion_blocki' at position 15: ...ion_blocki<--[HERE]@13
+E Invalid value 'motion_blocki' at position 15: ...ion_blocki<--[HERE]@13
+S -2--2 0 0 
+@ all world_sfurface
+R 0
+A -
+X Invalid value 'world_sfurface' at position 16: ...d_sfurface<--[HERE]@14
+E Invalid value 'world_sfurface' at position 16: ...d_sfurface<--[HERE]@14
+S -2--2 0 0 
+@ all wrld_surface_wgg
+R 0
+A -
+X Invalid value 'wrld_surface_wgg' at position 18: ...urface_wgg<--[HERE]@16
+E Invalid value 'wrld_surface_wgg' at position 18: ...urface_wgg<--[HERE]@16
+S -2--2 0 0 
+@ all ocean_flor
+R 0
+A -
+X Invalid value 'ocean_flor' at position 12: ...ocean_flor<--[HERE]@10
+E Invalid value 'ocean_flor' at position 12: ...ocean_flor<--[HERE]@10
+S -2--2 0 0 
+@ all AC<
+R 0
+A -
+X Invalid value 'AC' at position 4: t AC<--[HERE]@2
+E Invalid value 'AC' at position 4: t AC<--[HERE]@2
+S -2--2 0 0 
+@ all wo0rld_surface_wg
+R 0
+A -
+X Invalid value 'wo0rld_surface_wg' at position 19: ...surface_wg<--[HERE]@17
+E Invalid value 'wo0rld_surface_wg' at position 19: ...surface_wg<--[HERE]@17
+S -2--2 0 0 
+@ all world_surface_w/
+R 0
+A -
+X Invalid value 'world_surface_w' at position 17: ..._surface_w<--[HERE]@15
+E Invalid value 'world_surface_w' at position 17: ..._surface_w<--[HERE]@15
+S -2--2 0 0 
+@ all oceanao
+R 0
+A -
+X Invalid value 'oceanao' at position 9: t oceanao<--[HERE]@7
+E Invalid value 'oceanao' at position 9: t oceanao<--[HERE]@7
+S -2--2 0 0 
+@ all world_s-rface
+R 0
+A -
+X Invalid value 'world_s-rface' at position 15: ...ld_s-rface<--[HERE]@13
+E Invalid value 'world_s-rface' at position 15: ...ld_s-rface<--[HERE]@13
+S -2--2 0 0 
+@ all ce
+R 0
+A -
+X Invalid value 'ce' at position 4: t ce<--[HERE]@2
+E Invalid value 'ce' at position 4: t ce<--[HERE]@2
+S -2--2 0 0 
+@ all otion
+R 0
+A -
+X Invalid value 'otion' at position 7: t otion<--[HERE]@5
+E Invalid value 'otion' at position 7: t otion<--[HERE]@5
+S -2--2 0 0 
+@ all ]URFACE
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all world_s8rface
+R 0
+A -
+X Invalid value 'world_s8rface' at position 15: ...ld_s8rface<--[HERE]@13
+E Invalid value 'world_s8rface' at position 15: ...ld_s8rface<--[HERE]@13
+S -2--2 0 0 
+@ all ocean_floo{r_wg
+R 0
+A -
+X Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+E Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+S -2--2 0 0 
+@ all o9eane
+R 0
+A -
+X Invalid value 'o9eane' at position 8: t o9eane<--[HERE]@6
+E Invalid value 'o9eane' at position 8: t o9eane<--[HERE]@6
+S -2--2 0 0 
+@ all ocyan
+R 0
+A -
+X Invalid value 'ocyan' at position 7: t ocyan<--[HERE]@5
+E Invalid value 'ocyan' at position 7: t ocyan<--[HERE]@5
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all _wg
+R 0
+A -
+X Invalid value '_wg' at position 5: t _wg<--[HERE]@3
+E Invalid value '_wg' at position 5: t _wg<--[HERE]@3
+S -2--2 0 0 
+@ all RLD_SURFACE
+R 0
+A -
+X Invalid value 'RLD_SURFACE' at position 13: ...LD_SURFACE<--[HERE]@11
+E Invalid value 'RLD_SURFACE' at position 13: ...LD_SURFACE<--[HERE]@11
+S -2--2 0 0 
+@ all worl_sur'ace_wg
+R 0
+A -
+X Invalid value 'worl_sur' at position 10: t worl_sur<--[HERE]@8
+E Invalid value 'worl_sur' at position 10: t worl_sur<--[HERE]@8
+S -2--2 0 0 
+@ all WORLD_SURFA(CEC
+R 0
+A -
+X Invalid value 'WORLD_SURFA' at position 13: ...ORLD_SURFA<--[HERE]@11
+E Invalid value 'WORLD_SURFA' at position 13: ...ORLD_SURFA<--[HERE]@11
+S -2--2 0 0 
+@ all motion_blocking_no4leavese
+R 0
+A -
+X Invalid value 'motion_blocking_no4leavese' at position 28: ...no4leavese<--[HERE]@26
+E Invalid value 'motion_blocking_no4leavese' at position 28: ...no4leavese<--[HERE]@26
+S -2--2 0 0 
+@ all WORLD_SURF1CE
+R 0
+A -
+X Invalid value 'WORLD_SURF1CE' at position 15: ...LD_SURF1CE<--[HERE]@13
+E Invalid value 'WORLD_SURF1CE' at position 15: ...LD_SURF1CE<--[HERE]@13
+S -2--2 0 0 
+@ all /oo<
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all o9ean
+R 0
+A -
+X Invalid value 'o9ean' at position 7: t o9ean<--[HERE]@5
+E Invalid value 'o9ean' at position 7: t o9ean<--[HERE]@5
+S -2--2 0 0 
+@ all ce_wg
+R 0
+A -
+X Invalid value 'ce_wg' at position 7: t ce_wg<--[HERE]@5
+E Invalid value 'ce_wg' at position 7: t ce_wg<--[HERE]@5
+S -2--2 0 0 
+@ all n_blocking_no_leaves
+R 0
+A -
+X Invalid value 'n_blocking_no_leaves' at position 22: ..._no_leaves<--[HERE]@20
+E Invalid value 'n_blocking_no_leaves' at position 22: ..._no_leaves<--[HERE]@20
+S -2--2 0 0 
+@ all oceac
+R 0
+A -
+X Invalid value 'oceac' at position 7: t oceac<--[HERE]@5
+E Invalid value 'oceac' at position 7: t oceac<--[HERE]@5
+S -2--2 0 0 
+@ all motion_blockingo
+R 0
+A -
+X Invalid value 'motion_blockingo' at position 18: ..._blockingo<--[HERE]@16
+E Invalid value 'motion_blockingo' at position 18: ..._blockingo<--[HERE]@16
+S -2--2 0 0 
+@ all 3ocean_floor_wg
+R 0
+A -
+X Invalid value '3ocean_floor_wg' at position 17: ...n_floor_wg<--[HERE]@15
+E Invalid value '3ocean_floor_wg' at position 17: ...n_floor_wg<--[HERE]@15
+S -2--2 0 0 
+@ all \\foo>
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ocea_floor_wgg
+R 0
+A -
+X Invalid value 'ocea_floor_wgg' at position 16: ..._floor_wgg<--[HERE]@14
+E Invalid value 'ocea_floor_wgg' at position 16: ..._floor_wgg<--[HERE]@14
+S -2--2 0 0 
+@ all world_surf\\acef
+R 0
+A -
+X Invalid value 'world_surf' at position 12: ...world_surf<--[HERE]@10
+E Invalid value 'world_surf' at position 12: ...world_surf<--[HERE]@10
+S -2--2 0 0 
+@ all _surface_wgx
+R 0
+A -
+X Invalid value '_surface_wgx' at position 14: ...urface_wgx<--[HERE]@12
+E Invalid value '_surface_wgx' at position 14: ...urface_wgx<--[HERE]@12
+S -2--2 0 0 
+@ all o1ean_floorr
+R 0
+A -
+X Invalid value 'o1ean_floorr' at position 14: ...ean_floorr<--[HERE]@12
+E Invalid value 'o1ean_floorr' at position 14: ...ean_floorr<--[HERE]@12
+S -2--2 0 0 
+@ all SURFACE
+R 0
+A -
+X Invalid value 'SURFACE' at position 9: t SURFACE<--[HERE]@7
+E Invalid value 'SURFACE' at position 9: t SURFACE<--[HERE]@7
+S 0-7 1 -1203199223 world_surface
+@ all world_surface_w@g
+R 0
+A -
+X Invalid value 'world_surface_w' at position 17: ..._surface_w<--[HERE]@15
+E Invalid value 'world_surface_w' at position 17: ..._surface_w<--[HERE]@15
+S -2--2 0 0 
+@ all ocean_fl@oor_wg
+R 0
+A -
+X Invalid value 'ocean_fl' at position 10: t ocean_fl<--[HERE]@8
+E Invalid value 'ocean_fl' at position 10: t ocean_fl<--[HERE]@8
+S -2--2 0 0 
+@ all motiont
+R 0
+A -
+X Invalid value 'motiont' at position 9: t motiont<--[HERE]@7
+E Invalid value 'motiont' at position 9: t motiont<--[HERE]@7
+S -2--2 0 0 
+@ all world_surfacec
+R 0
+A -
+X Invalid value 'world_surfacec' at position 16: ...d_surfacec<--[HERE]@14
+E Invalid value 'world_surfacec' at position 16: ...d_surfacec<--[HERE]@14
+S -2--2 0 0 
+@ all world_surfacee
+R 0
+A -
+X Invalid value 'world_surfacee' at position 16: ...d_surfacee<--[HERE]@14
+E Invalid value 'world_surfacee' at position 16: ...d_surfacee<--[HERE]@14
+S -2--2 0 0 
+@ all world_s&rface_wg
+R 0
+A -
+X Invalid value 'world_s' at position 9: t world_s<--[HERE]@7
+E Invalid value 'world_s' at position 9: t world_s<--[HERE]@7
+S -2--2 0 0 
+@ all fxo
+R 0
+A -
+X Invalid value 'fxo' at position 5: t fxo<--[HERE]@3
+E Invalid value 'fxo' at position 5: t fxo<--[HERE]@3
+S -2--2 0 0 
+@ all ocean_foor_wg
+R 0
+A -
+X Invalid value 'ocean_foor_wg' at position 15: ...an_foor_wg<--[HERE]@13
+E Invalid value 'ocean_foor_wg' at position 15: ...an_foor_wg<--[HERE]@13
+S -2--2 0 0 
+@ all oce+an
+R 0
+A -
+X Invalid value 'oce+an' at position 8: t oce+an<--[HERE]@6
+E Invalid value 'oce+an' at position 8: t oce+an<--[HERE]@6
+S -2--2 0 0 
+@ all ocean_floor_wgo
+R 0
+A -
+X Invalid value 'ocean_floor_wgo' at position 17: ..._floor_wgo<--[HERE]@15
+E Invalid value 'ocean_floor_wgo' at position 17: ..._floor_wgo<--[HERE]@15
+S -2--2 0 0 
+@ all /
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1motio>
+R 0
+A -
+X Invalid value '1motio' at position 8: t 1motio<--[HERE]@6
+E Invalid value '1motio' at position 8: t 1motio<--[HERE]@6
+S -2--2 0 0 
+@ all w-rld_sur2face
+R 0
+A -
+X Invalid value 'w-rld_sur2face' at position 16: ...d_sur2face<--[HERE]@14
+E Invalid value 'w-rld_sur2face' at position 16: ...d_sur2face<--[HERE]@14
+S -2--2 0 0 
+@ all ean_floor_wg
+R 0
+A -
+X Invalid value 'ean_floor_wg' at position 14: ...n_floor_wg<--[HERE]@12
+E Invalid value 'ean_floor_wg' at position 14: ...n_floor_wg<--[HERE]@12
+S -2--2 0 0 
+@ all fo~
+R 0
+A -
+X Invalid value 'fo' at position 4: t fo<--[HERE]@2
+E Invalid value 'fo' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all &ocean_foor
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all océan_floor_wg
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all w<orfd_surface_wg
+R 0
+A -
+X Invalid value 'w' at position 3: t w<--[HERE]@1
+E Invalid value 'w' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all motioa_blocking
+R 0
+A -
+X Invalid value 'motioa_blocking' at position 17: ...a_blocking<--[HERE]@15
+E Invalid value 'motioa_blocking' at position 17: ...a_blocking<--[HERE]@15
+S -2--2 0 0 
+@ all worldsurface
+R 0
+A -
+X Invalid value 'worldsurface' at position 14: ...rldsurface<--[HERE]@12
+E Invalid value 'worldsurface' at position 14: ...rldsurface<--[HERE]@12
+S -2--2 0 0 
+@ all wo5ld_surface_wg
+R 0
+A -
+X Invalid value 'wo5ld_surface_wg' at position 18: ...surface_wg<--[HERE]@16
+E Invalid value 'wo5ld_surface_wg' at position 18: ...surface_wg<--[HERE]@16
+S -2--2 0 0 
+@ all loor_wg
+R 0
+A -
+X Invalid value 'loor_wg' at position 9: t loor_wg<--[HERE]@7
+E Invalid value 'loor_wg' at position 9: t loor_wg<--[HERE]@7
+S -2--2 0 0 
+@ all oce7n_floorr
+R 0
+A -
+X Invalid value 'oce7n_floorr' at position 14: ...e7n_floorr<--[HERE]@12
+E Invalid value 'oce7n_floorr' at position 14: ...e7n_floorr<--[HERE]@12
+S -2--2 0 0 
+@ all wo中rld_surface
+R 0
+A -
+X Invalid value 'wo' at position 4: t wo<--[HERE]@2
+E Invalid value 'wo' at position 4: t wo<--[HERE]@2
+S -2--2 0 0 
+@ all o"cean
+R 0
+A -
+X Invalid value 'o' at position 3: t o<--[HERE]@1
+E Invalid value 'o' at position 3: t o<--[HERE]@1
+S -2--2 0 0 
+@ all oceann
+R 0
+A -
+X Invalid value 'oceann' at position 8: t oceann<--[HERE]@6
+E Invalid value 'oceann' at position 8: t oceann<--[HERE]@6
+S -2--2 0 0 
+@ all oc]ean
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all xeoo
+R 0
+A -
+X Invalid value 'xeoo' at position 6: t xeoo<--[HERE]@4
+E Invalid value 'xeoo' at position 6: t xeoo<--[HERE]@4
+S -2--2 0 0 
+@ all world_surfae_wg
+R 0
+A -
+X Invalid value 'world_surfae_wg' at position 17: ..._surfae_wg<--[HERE]@15
+E Invalid value 'world_surfae_wg' at position 17: ..._surfae_wg<--[HERE]@15
+S -2--2 0 0 
+@ all foe
+R 0
+A -
+X Invalid value 'foe' at position 5: t foe<--[HERE]@3
+E Invalid value 'foe' at position 5: t foe<--[HERE]@3
+S -2--2 0 0 
+@ all moion_blocking
+R 0
+A -
+X Invalid value 'moion_blocking' at position 16: ...n_blocking<--[HERE]@14
+E Invalid value 'moion_blocking' at position 16: ...n_blocking<--[HERE]@14
+S -2--2 0 0 
+@ all foo!
+R 0
+A -
+X Invalid value 'foo' at position 5: t foo<--[HERE]@3
+E Invalid value 'foo' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all rfce_wg
+R 0
+A -
+X Invalid value 'rfce_wg' at position 9: t rfce_wg<--[HERE]@7
+E Invalid value 'rfce_wg' at position 9: t rfce_wg<--[HERE]@7
+S -2--2 0 0 
+@ all RLD_SURFACEL
+R 0
+A -
+X Invalid value 'RLD_SURFACEL' at position 14: ...D_SURFACEL<--[HERE]@12
+E Invalid value 'RLD_SURFACEL' at position 14: ...D_SURFACEL<--[HERE]@12
+S -2--2 0 0 
+@ all !orld_surface
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @cean
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all motion_blocking_no_leaveZ
+R 0
+A -
+X Invalid value 'motion_blocking_no_leaveZ' at position 27: ..._no_leaveZ<--[HERE]@25
+E Invalid value 'motion_blocking_no_leaveZ' at position 27: ..._no_leaveZ<--[HERE]@25
+S -2--2 0 0 
+@ all motion_blockinec
+R 0
+A -
+X Invalid value 'motion_blockinec' at position 18: ..._blockinec<--[HERE]@16
+E Invalid value 'motion_blockinec' at position 18: ..._blockinec<--[HERE]@16
+S -2--2 0 0 
+@ all motion_blocking_no_leavesl
+R 0
+A -
+X Invalid value 'motion_blocking_no_leavesl' at position 28: ...no_leavesl<--[HERE]@26
+E Invalid value 'motion_blocking_no_leavesl' at position 28: ...no_leavesl<--[HERE]@26
+S -2--2 0 0 
+@ all word_)surface
+R 0
+A -
+X Invalid value 'word_' at position 7: t word_<--[HERE]@5
+E Invalid value 'word_' at position 7: t word_<--[HERE]@5
+S -2--2 0 0 
+@ all WOaLD_SURFAC
+R 0
+A -
+X Invalid value 'WOaLD_SURFAC' at position 14: ...aLD_SURFAC<--[HERE]@12
+E Invalid value 'WOaLD_SURFAC' at position 14: ...aLD_SURFAC<--[HERE]@12
+S -2--2 0 0 
+@ all WOR*D_SURFACE
+R 0
+A -
+X Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+E Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+S -2--2 0 0 
+@ all WORLD_SURFACE_
+R 0
+A -
+X Invalid value 'WORLD_SURFACE_' at position 16: ...D_SURFACE_<--[HERE]@14
+E Invalid value 'WORLD_SURFACE_' at position 16: ...D_SURFACE_<--[HERE]@14
+S -2--2 0 0 
+@ all WORL+_SURFACE
+R 0
+A -
+X Invalid value 'WORL+_SURFACE' at position 15: ...L+_SURFACE<--[HERE]@13
+E Invalid value 'WORL+_SURFACE' at position 15: ...L+_SURFACE<--[HERE]@13
+S -2--2 0 0 
+@ all ocean_floor_\u000awg
+R 0
+A -
+X Invalid value 'ocean_floor_' at position 14: ...ean_floor_<--[HERE]@12
+E Invalid value 'ocean_floor_' at position 14: ...ean_floor_<--[HERE]@12
+S -2--2 0 0 
+@ all world_surfacc
+R 0
+A -
+X Invalid value 'world_surfacc' at position 15: ...ld_surfacc<--[HERE]@13
+E Invalid value 'world_surfacc' at position 15: ...ld_surfacc<--[HERE]@13
+S -2--2 0 0 
+@ all cean_floor_w<
+R 0
+A -
+X Invalid value 'cean_floor_w' at position 14: ...an_floor_w<--[HERE]@12
+E Invalid value 'cean_floor_w' at position 14: ...an_floor_w<--[HERE]@12
+S -2--2 0 0 
+@ all world_sur(face
+R 0
+A -
+X Invalid value 'world_sur' at position 11: ... world_sur<--[HERE]@9
+E Invalid value 'world_sur' at position 11: ... world_sur<--[HERE]@9
+S -2--2 0 0 
+@ all ocean_flooée
+R 0
+A -
+X Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+E Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+S -2--2 0 0 
+@ all _ywg
+R 0
+A -
+X Invalid value '_ywg' at position 6: t _ywg<--[HERE]@4
+E Invalid value '_ywg' at position 6: t _ywg<--[HERE]@4
+S -2--2 0 0 
+@ all oceanc
+R 0
+A -
+X Invalid value 'oceanc' at position 8: t oceanc<--[HERE]@6
+E Invalid value 'oceanc' at position 8: t oceanc<--[HERE]@6
+S -2--2 0 0 
+@ all moton_blocking
+R 0
+A -
+X Invalid value 'moton_blocking' at position 16: ...n_blocking<--[HERE]@14
+E Invalid value 'moton_blocking' at position 16: ...n_blocking<--[HERE]@14
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ORLD_SURFACER
+R 0
+A -
+X Invalid value 'ORLD_SURFACER' at position 15: ...D_SURFACER<--[HERE]@13
+E Invalid value 'ORLD_SURFACER' at position 15: ...D_SURFACER<--[HERE]@13
+S -2--2 0 0 
+@ all 6ocean_floo
+R 0
+A -
+X Invalid value '6ocean_floo' at position 13: ...ocean_floo<--[HERE]@11
+E Invalid value '6ocean_floo' at position 13: ...ocean_floo<--[HERE]@11
+S -2--2 0 0 
+@ all WOLD_'SURFACE
+R 0
+A -
+X Invalid value 'WOLD_' at position 7: t WOLD_<--[HERE]@5
+E Invalid value 'WOLD_' at position 7: t WOLD_<--[HERE]@5
+S -2--2 0 0 
+@ all wor_d_surface
+R 0
+A -
+X Invalid value 'wor_d_surface' at position 15: ..._d_surface<--[HERE]@13
+E Invalid value 'wor_d_surface' at position 15: ..._d_surface<--[HERE]@13
+S -2--2 0 0 
+@ all ocean_loor
+R 0
+A -
+X Invalid value 'ocean_loor' at position 12: ...ocean_loor<--[HERE]@10
+E Invalid value 'ocean_loor' at position 12: ...ocean_loor<--[HERE]@10
+S -2--2 0 0 
+@ all king
+R 0
+A -
+X Invalid value 'king' at position 6: t king<--[HERE]@4
+E Invalid value 'king' at position 6: t king<--[HERE]@4
+S -2--2 0 0 
+@ all motion_bocking
+R 0
+A -
+X Invalid value 'motion_bocking' at position 16: ...on_bocking<--[HERE]@14
+E Invalid value 'motion_bocking' at position 16: ...on_bocking<--[HERE]@14
+S -2--2 0 0 
+@ all motion_blocking_no_leavesn
+R 0
+A -
+X Invalid value 'motion_blocking_no_leavesn' at position 28: ...no_leavesn<--[HERE]@26
+E Invalid value 'motion_blocking_no_leavesn' at position 28: ...no_leavesn<--[HERE]@26
+S -2--2 0 0 
+@ all ld_surface_wg
+R 0
+A -
+X Invalid value 'ld_surface_wg' at position 15: ...surface_wg<--[HERE]@13
+E Invalid value 'ld_surface_wg' at position 15: ...surface_wg<--[HERE]@13
+S -2--2 0 0 
+@ all oceano
+R 0
+A -
+X Invalid value 'oceano' at position 8: t oceano<--[HERE]@6
+E Invalid value 'oceano' at position 8: t oceano<--[HERE]@6
+S -2--2 0 0 
+@ all ce\u000a
+R 0
+A -
+X Invalid value 'ce' at position 4: t ce<--[HERE]@2
+E Invalid value 'ce' at position 4: t ce<--[HERE]@2
+S -2--2 0 0 
+@ all @ocean_floor_wg
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all w8orld_surfacee
+R 0
+A -
+X Invalid value 'w8orld_surfacee' at position 17: ...d_surfacee<--[HERE]@15
+E Invalid value 'w8orld_surfacee' at position 17: ...d_surfacee<--[HERE]@15
+S -2--2 0 0 
+@ all motiéon_blockingb
+R 0
+A -
+X Invalid value 'moti' at position 6: t moti<--[HERE]@4
+E Invalid value 'moti' at position 6: t moti<--[HERE]@4
+S -2--2 0 0 
+@ all WOR0D_SURFACER
+R 0
+A -
+X Invalid value 'WOR0D_SURFACER' at position 16: ...D_SURFACER<--[HERE]@14
+E Invalid value 'WOR0D_SURFACER' at position 16: ...D_SURFACER<--[HERE]@14
+S -2--2 0 0 
+@ all motion_b😀locking_no_laaves
+R 0
+A -
+X Invalid value 'motion_b' at position 10: t motion_b<--[HERE]@8
+E Invalid value 'motion_b' at position 10: t motion_b<--[HERE]@8
+S -2--2 0 0 
+@ all WORLDa_URFACE
+R 0
+A -
+X Invalid value 'WORLDa_URFACE' at position 15: ...LDa_URFACE<--[HERE]@13
+E Invalid value 'WORLDa_URFACE' at position 15: ...LDa_URFACE<--[HERE]@13
+S -2--2 0 0 
+@ all o&r
+R 0
+A -
+X Invalid value 'o' at position 3: t o<--[HERE]@1
+E Invalid value 'o' at position 3: t o<--[HERE]@1
+S -2--2 0 0 
+@ all fof
+R 0
+A -
+X Invalid value 'fof' at position 5: t fof<--[HERE]@3
+E Invalid value 'fof' at position 5: t fof<--[HERE]@3
+S -2--2 0 0 
+@ all locking_no_0eaves
+R 0
+A -
+X Invalid value 'locking_no_0eaves' at position 19: ..._no_0eaves<--[HERE]@17
+E Invalid value 'locking_no_0eaves' at position 19: ..._no_0eaves<--[HERE]@17
+S -2--2 0 0 
+@ all moion
+R 0
+A -
+X Invalid value 'moion' at position 7: t moion<--[HERE]@5
+E Invalid value 'moion' at position 7: t moion<--[HERE]@5
+S -2--2 0 0 
+@ all motionİ_blXcking
+R 0
+A -
+X Invalid value 'motion' at position 8: t motion<--[HERE]@6
+E Invalid value 'motion' at position 8: t motion<--[HERE]@6
+S -2--2 0 0 
+@ all oc]an
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all WORL_SURFACE_
+R 0
+A -
+X Invalid value 'WORL_SURFACE_' at position 15: ...L_SURFACE_<--[HERE]@13
+E Invalid value 'WORL_SURFACE_' at position 15: ...L_SURFACE_<--[HERE]@13
+S -2--2 0 0 
+@ all motion_blockig_no_leaves
+R 0
+A -
+X Invalid value 'motion_blockig_no_leaves' at position 26: ..._no_leaves<--[HERE]@24
+E Invalid value 'motion_blockig_no_leaves' at position 26: ..._no_leaves<--[HERE]@24
+S -2--2 0 0 
+@ all an
+R 0
+A -
+X Invalid value 'an' at position 4: t an<--[HERE]@2
+E Invalid value 'an' at position 4: t an<--[HERE]@2
+S -2--2 0 0 
+@ all \u000a
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all motion._blocking
+R 0
+A -
+X Invalid value 'motion._blocking' at position 18: ...._blocking<--[HERE]@16
+E Invalid value 'motion._blocking' at position 18: ...._blocking<--[HERE]@16
+S -2--2 0 0 
+@ all or_g
+R 0
+A -
+X Invalid value 'or_g' at position 6: t or_g<--[HERE]@4
+E Invalid value 'or_g' at position 6: t or_g<--[HERE]@4
+S -2--2 0 0 
+@ all oc\\ea
+R 0
+A -
+X Invalid value 'oc' at position 4: t oc<--[HERE]@2
+E Invalid value 'oc' at position 4: t oc<--[HERE]@2
+S -2--2 0 0 
+@ all motdiyon
+R 0
+A -
+X Invalid value 'motdiyon' at position 10: t motdiyon<--[HERE]@8
+E Invalid value 'motdiyon' at position 10: t motdiyon<--[HERE]@8
+S -2--2 0 0 
+@ all world_surfac)e
+R 0
+A -
+X Invalid value 'world_surfac' at position 14: ...rld_surfac<--[HERE]@12
+E Invalid value 'world_surfac' at position 14: ...rld_surfac<--[HERE]@12
+S -2--2 0 0 
+@ all WORLD_SURFAC\u0000
+R 0
+A -
+X Invalid value 'WORLD_SURFAC' at position 14: ...RLD_SURFAC<--[HERE]@12
+E Invalid value 'WORLD_SURFAC' at position 14: ...RLD_SURFAC<--[HERE]@12
+S -2--2 0 0 
+@ all world_surfa_ce
+R 0
+A -
+X Invalid value 'world_surfa_ce' at position 16: ...d_surfa_ce<--[HERE]@14
+E Invalid value 'world_surfa_ce' at position 16: ...d_surfa_ce<--[HERE]@14
+S -2--2 0 0 
+@ all word_surface_wg
+R 0
+A -
+X Invalid value 'word_surface_wg' at position 17: ...surface_wg<--[HERE]@15
+E Invalid value 'word_surface_wg' at position 17: ...surface_wg<--[HERE]@15
+S -2--2 0 0 
+@ all WORLD_SUR中ACE
+R 0
+A -
+X Invalid value 'WORLD_SUR' at position 11: ... WORLD_SUR<--[HERE]@9
+E Invalid value 'WORLD_SUR' at position 11: ... WORLD_SUR<--[HERE]@9
+S -2--2 0 0 
+@ all world_surface_wgu
+R 0
+A -
+X Invalid value 'world_surface_wgu' at position 19: ...urface_wgu<--[HERE]@17
+E Invalid value 'world_surface_wgu' at position 19: ...urface_wgu<--[HERE]@17
+S -2--2 0 0 
+@ all =otion_blocking
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rld_surface_wg
+R 0
+A -
+X Invalid value 'rld_surface_wg' at position 16: ...surface_wg<--[HERE]@14
+E Invalid value 'rld_surface_wg' at position 16: ...surface_wg<--[HERE]@14
+S -2--2 0 0 
+@ all w^rld_surface_wg
+R 0
+A -
+X Invalid value 'w' at position 3: t w<--[HERE]@1
+E Invalid value 'w' at position 3: t w<--[HERE]@1
+S -2--2 0 0 
+@ all world_urface
+R 0
+A -
+X Invalid value 'world_urface' at position 14: ...rld_urface<--[HERE]@12
+E Invalid value 'world_urface' at position 14: ...rld_urface<--[HERE]@12
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ocean_floo(_wg
+R 0
+A -
+X Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+E Invalid value 'ocean_floo' at position 12: ...ocean_floo<--[HERE]@10
+S -2--2 0 0 
+@ all d_surface_wg
+R 0
+A -
+X Invalid value 'd_surface_wg' at position 14: ...surface_wg<--[HERE]@12
+E Invalid value 'd_surface_wg' at position 14: ...surface_wg<--[HERE]@12
+S -2--2 0 0 
+@ all 9otiont
+R 0
+A -
+X Invalid value '9otiont' at position 9: t 9otiont<--[HERE]@7
+E Invalid value '9otiont' at position 9: t 9otiont<--[HERE]@7
+S -2--2 0 0 
+@ all fm1otion
+R 0
+A -
+X Invalid value 'fm1otion' at position 10: t fm1otion<--[HERE]@8
+E Invalid value 'fm1otion' at position 10: t fm1otion<--[HERE]@8
+S -2--2 0 0 
+@ all world_surfaced
+R 0
+A -
+X Invalid value 'world_surfaced' at position 16: ...d_surfaced<--[HERE]@14
+E Invalid value 'world_surfaced' at position 16: ...d_surfaced<--[HERE]@14
+S -2--2 0 0 
+@ all wor!d_surface_wg
+R 0
+A -
+X Invalid value 'wor' at position 5: t wor<--[HERE]@3
+E Invalid value 'wor' at position 5: t wor<--[HERE]@3
+S -2--2 0 0 
+@ all ocean_İfl"or
+R 0
+A -
+X Invalid value 'ocean_' at position 8: t ocean_<--[HERE]@6
+E Invalid value 'ocean_' at position 8: t ocean_<--[HERE]@6
+S -2--2 0 0 
+@ all WORLD_SURFACEL
+R 0
+A -
+X Invalid value 'WORLD_SURFACEL' at position 16: ...D_SURFACEL<--[HERE]@14
+E Invalid value 'WORLD_SURFACEL' at position 16: ...D_SURFACEL<--[HERE]@14
+S -2--2 0 0 
+@ all rl_surface
+R 0
+A -
+X Invalid value 'rl_surface' at position 12: ...rl_surface<--[HERE]@10
+E Invalid value 'rl_surface' at position 12: ...rl_surface<--[HERE]@10
+S -2--2 0 0 
+@ all motin_blocking_no_leaves
+R 0
+A -
+X Invalid value 'motin_blocking_no_leaves' at position 26: ..._no_leaves<--[HERE]@24
+E Invalid value 'motin_blocking_no_leaves' at position 26: ..._no_leaves<--[HERE]@24
+S -2--2 0 0 
+@ all world_surfaceyf
+R 0
+A -
+X Invalid value 'world_surfaceyf' at position 17: ..._surfaceyf<--[HERE]@15
+E Invalid value 'world_surfaceyf' at position 17: ..._surfaceyf<--[HERE]@15
+S -2--2 0 0 
+@ all n_foor
+R 0
+A -
+X Invalid value 'n_foor' at position 8: t n_foor<--[HERE]@6
+E Invalid value 'n_foor' at position 8: t n_foor<--[HERE]@6
+S -2--2 0 0 
+@ all rld_surface_
+R 0
+A -
+X Invalid value 'rld_surface_' at position 14: ...d_surface_<--[HERE]@12
+E Invalid value 'rld_surface_' at position 14: ...d_surface_<--[HERE]@12
+S -2--2 0 0 
+@ all fo-
+R 0
+A -
+X Invalid value 'fo-' at position 5: t fo-<--[HERE]@3
+E Invalid value 'fo-' at position 5: t fo-<--[HERE]@3
+S -2--2 0 0 
+@ all W_RLD_SURFACEL
+R 0
+A -
+X Invalid value 'W_RLD_SURFACEL' at position 16: ...D_SURFACEL<--[HERE]@14
+E Invalid value 'W_RLD_SURFACEL' at position 16: ...D_SURFACEL<--[HERE]@14
+S -2--2 0 0 
+@ all oce,n_floo\u0000r
+R 0
+A -
+X Invalid value 'oce' at position 5: t oce<--[HERE]@3
+E Invalid value 'oce' at position 5: t oce<--[HERE]@3
+S -2--2 0 0 
+@ all ORLD_SUR\u0000FACE
+R 0
+A -
+X Invalid value 'ORLD_SUR' at position 10: t ORLD_SUR<--[HERE]@8
+E Invalid value 'ORLD_SUR' at position 10: t ORLD_SUR<--[HERE]@8
+S -2--2 0 0 
+@ all _4urface_wg
+R 0
+A -
+X Invalid value '_4urface_wg' at position 13: ...4urface_wg<--[HERE]@11
+E Invalid value '_4urface_wg' at position 13: ...4urface_wg<--[HERE]@11
+S -2--2 0 0 
+@ all motio6_locking_no_leaves
+R 0
+A -
+X Invalid value 'motio6_locking_no_leaves' at position 26: ..._no_leaves<--[HERE]@24
+E Invalid value 'motio6_locking_no_leaves' at position 26: ..._no_leaves<--[HERE]@24
+S -2--2 0 0 
+@ all world_s"urfa>e
+R 0
+A -
+X Invalid value 'world_s' at position 9: t world_s<--[HERE]@7
+E Invalid value 'world_s' at position 9: t world_s<--[HERE]@7
+S -2--2 0 0 
+@ all WOR LD_SURFACE
+R 0
+A -
+X Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+E Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+S -2--2 0 0 
+@ all world_surCaBe
+R 0
+A -
+X Invalid value 'world_surCaBe' at position 15: ...ld_surCaBe<--[HERE]@13
+E Invalid value 'world_surCaBe' at position 15: ...ld_surCaBe<--[HERE]@13
+S -2--2 0 0 
+@ all ocean#
+R 0
+A -
+X Invalid value 'ocean' at position 7: t ocean<--[HERE]@5
+E Invalid value 'ocean' at position 7: t ocean<--[HERE]@5
+S -2--2 0 0 
+@ all tin
+R 0
+A -
+X Invalid value 'tin' at position 5: t tin<--[HERE]@3
+E Invalid value 'tin' at position 5: t tin<--[HERE]@3
+S -2--2 0 0 
+@ all tion
+R 0
+A -
+X Invalid value 'tion' at position 6: t tion<--[HERE]@4
+E Invalid value 'tion' at position 6: t tion<--[HERE]@4
+S -2--2 0 0 
+@ all wor,ld_surface_wgr
+R 0
+A -
+X Invalid value 'wor' at position 5: t wor<--[HERE]@3
+E Invalid value 'wor' at position 5: t wor<--[HERE]@3
+S -2--2 0 0 
+@ all fZoo
+R 0
+A -
+X Invalid value 'fZoo' at position 6: t fZoo<--[HERE]@4
+E Invalid value 'fZoo' at position 6: t fZoo<--[HERE]@4
+S -2--2 0 0 
+@ all world_surdaced
+R 0
+A -
+X Invalid value 'world_surdaced' at position 16: ...d_surdaced<--[HERE]@14
+E Invalid value 'world_surdaced' at position 16: ...d_surdaced<--[HERE]@14
+S -2--2 0 0 
+@ all oen
+R 0
+A -
+X Invalid value 'oen' at position 5: t oen<--[HERE]@3
+E Invalid value 'oen' at position 5: t oen<--[HERE]@3
+S -2--2 0 0 
+@ all motion_blocking_=no_4leaves
+R 0
+A -
+X Invalid value 'motion_blocking_' at position 18: ..._blocking_<--[HERE]@16
+E Invalid value 'motion_blocking_' at position 18: ..._blocking_<--[HERE]@16
+S -2--2 0 0 
+@ all WOR}D_SURFACE
+R 0
+A -
+X Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+E Invalid value 'WOR' at position 5: t WOR<--[HERE]@3
+S -2--2 0 0 
+@ all motion_blockng_no_leaves_
+R 0
+A -
+X Invalid value 'motion_blockng_no_leaves_' at position 27: ...no_leaves_<--[HERE]@25
+E Invalid value 'motion_blockng_no_leaves_' at position 27: ...no_leaves_<--[HERE]@25
+S -2--2 0 0 
+@ all ,o9o
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ocean_floora
+R 0
+A -
+X Invalid value 'ocean_floora' at position 14: ...ean_floora<--[HERE]@12
+E Invalid value 'ocean_floora' at position 14: ...ean_floora<--[HERE]@12
+S -2--2 0 0 
+@ all ocean__floor_wg
+R 0
+A -
+X Invalid value 'ocean__floor_wg' at position 17: ...__floor_wg<--[HERE]@15
+E Invalid value 'ocean__floor_wg' at position 17: ...__floor_wg<--[HERE]@15
+S -2--2 0 0 
+@ all SURFACEW
+R 0
+A -
+X Invalid value 'SURFACEW' at position 10: t SURFACEW<--[HERE]@8
+E Invalid value 'SURFACEW' at position 10: t SURFACEW<--[HERE]@8
+S -2--2 0 0 
+@ all ion
+R 0
+A -
+X Invalid value 'ion' at position 5: t ion<--[HERE]@3
+E Invalid value 'ion' at position 5: t ion<--[HERE]@3
+S -2--2 0 0 
+@ all ocn
+R 0
+A -
+X Invalid value 'ocn' at position 5: t ocn<--[HERE]@3
+E Invalid value 'ocn' at position 5: t ocn<--[HERE]@3
+S -2--2 0 0 
+@ all nn
+R 0
+A -
+X Invalid value 'nn' at position 4: t nn<--[HERE]@2
+E Invalid value 'nn' at position 4: t nn<--[HERE]@2
+S -2--2 0 0 
+@ all ocean_floor_wC
+R 0
+A -
+X Invalid value 'ocean_floor_wC' at position 16: ...n_floor_wC<--[HERE]@14
+E Invalid value 'ocean_floor_wC' at position 16: ...n_floor_wC<--[HERE]@14
+S -2--2 0 0 
+@ all world_😀surface
+R 0
+A -
+X Invalid value 'world_' at position 8: t world_<--[HERE]@6
+E Invalid value 'world_' at position 8: t world_<--[HERE]@6
+S -2--2 0 0 
+@ all WORLD_SU)F#ACE
+R 0
+A -
+X Invalid value 'WORLD_SU' at position 10: t WORLD_SU<--[HERE]@8
+E Invalid value 'WORLD_SU' at position 10: t WORLD_SU<--[HERE]@8
+S -2--2 0 0 
+@ all ga
+R 0
+A -
+X Invalid value 'ga' at position 4: t ga<--[HERE]@2
+E Invalid value 'ga' at position 4: t ga<--[HERE]@2
+S -2--2 0 0 
+@ all ocean_floorfwgw
+R 0
+A -
+X Invalid value 'ocean_floorfwgw' at position 17: ..._floorfwgw<--[HERE]@15
+E Invalid value 'ocean_floorfwgw' at position 17: ..._floorfwgw<--[HERE]@15
+S -2--2 0 0 
+@ all motionn
+R 0
+A -
+X Invalid value 'motionn' at position 9: t motionn<--[HERE]@7
+E Invalid value 'motionn' at position 9: t motionn<--[HERE]@7
+S -2--2 0 0 
+@ all rld_surfacer
+R 0
+A -
+X Invalid value 'rld_surfacer' at position 14: ...d_surfacer<--[HERE]@12
+E Invalid value 'rld_surfacer' at position 14: ...d_surfacer<--[HERE]@12
+S -2--2 0 0 
+@ all motion_blcking_no_leaveso
+R 0
+A -
+X Invalid value 'motion_blcking_no_leaveso' at position 27: ...no_leaveso<--[HERE]@25
+E Invalid value 'motion_blcking_no_leaveso' at position 27: ...no_leaveso<--[HERE]@25
+S -2--2 0 0 
+@ all urface
+R 0
+A -
+X Invalid value 'urface' at position 8: t urface<--[HERE]@6
+E Invalid value 'urface' at position 8: t urface<--[HERE]@6
+S -2--2 0 0 
+@ all floor
+R 0
+A -
+X Invalid value 'floor' at position 7: t floor<--[HERE]@5
+E Invalid value 'floor' at position 7: t floor<--[HERE]@5
+S 0-5 1 1908746206 ocean_floor

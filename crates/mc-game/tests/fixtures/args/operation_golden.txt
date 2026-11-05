@@ -1,0 +1,1892 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 9 215097939 %=	*=	+=	-=	/=	<	=	>	><
+@ all =
+R 1
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E ok
+S 0-1 1 47067 /=
+@ all +=
+R 2
+A 0-2 22,5;-4,3;5,0;-2147483648,1;2147483647,-1;0,0;
+E ok
+S -2--2 0 0 
+@ all -=
+R 2
+A 0-2 12,5;-10,3;5,0;2147483646,1;-2147483647,-1;0,0;
+E ok
+S -2--2 0 0 
+@ all *=
+R 2
+A 0-2 85,5;-21,3;0,0;2147483647,1;-2147483648,-1;0,0;
+E ok
+S -2--2 0 0 
+@ all /=
+R 2
+A 0-2 3,5;-3,3;Cannot divide by zero;2147483647,1;-2147483648,-1;Cannot divide by zero;
+E ok
+S -2--2 0 0 
+@ all %=
+R 2
+A 0-2 2,5;2,3;Cannot divide by zero;0,1;0,-1;Cannot divide by zero;
+E ok
+S -2--2 0 0 
+@ all <
+R 1
+A 0-1 5,5;-7,3;0,0;1,1;-2147483648,-1;0,0;
+E ok
+S -2--2 0 0 
+@ all >
+R 1
+A 0-1 17,5;3,3;5,0;2147483647,1;-1,-1;0,0;
+E ok
+S 0-1 1 61451 ><
+@ all ><
+R 2
+A 0-2 5,17;3,-7;0,5;1,2147483647;-1,-2147483648;0,0;
+E ok
+S -2--2 0 0 
+@ all ==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S 0-1 1 43223 +=
+@ all -
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S 0-1 1 45145 -=
+@ all *
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S 0-1 1 42262 *=
+@ all /
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S 0-1 1 47067 /=
+@ all %
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S 0-1 1 37457 %=
+@ all <=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all += 
+R 2
+A 0-2 22,5;-4,3;5,0;-2147483648,1;2147483647,-1;0,0;
+E Incorrect argument for command at position 4: t +=<--[HERE]@2
+S -2--2 0 0 
+@ all = =
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all = 
+R 1
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 3: t =<--[HERE]@1
+S -2--2 0 0 
+@ all +*=[
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >@
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all [=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all d)
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all @>>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -=-
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all --
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >b
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *='
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all a6
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -=e
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 7*=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \\
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >7
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all a>>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -=)$
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ==6
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +d= 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all //
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -,=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \\= 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all {=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all **
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = 0
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all éé
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +=  \u000a
+R 3
+A 0-2 22,5;-4,3;5,0;-2147483648,1;2147483647,-1;0,0;
+E Incorrect argument for command at position 5: t += <--[HERE]@3
+S -2--2 0 0 
+@ all aa
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >>>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all x
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /0
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all {%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ><<<
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %/
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *=*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ,
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \u0009%\u0009
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 😀=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +4= 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =-
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 5
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 0
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all b
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *&=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >>é
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ***
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ==,
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all C(
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = = 
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all ​*=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <=Y
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *c=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all (
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ===
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /&
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -a
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /=ß
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all x<=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %3=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all a中
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ---
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %x
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = Z 
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all -===
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all &
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /d
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ~= 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all d
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \\-
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 1==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %@
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -#=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \u0000\u0000
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 9*=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ><​
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \u0000<
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >\u0009
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *]
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +=+
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all y[
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 5>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ￿
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >&<
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <<
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %=7
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -e
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <""
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all a>#
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =>==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 1-=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ^
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +_= 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ++=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ß
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = {=
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all =44
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =中e
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <0
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 1%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 😀*=😀
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %ee
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all += =)
+R 3
+A 0-2 22,5;-4,3;5,0;-2147483648,1;2147483647,-1;0,0;
+E Incorrect argument for command at position 5: t += <--[HERE]@3
+S -2--2 0 0 
+@ all =+=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >d=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 中
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all x><>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all B+😀=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /b=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 3
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /b
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +=2 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all aa3
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ><<>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >+>+
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all  =Y
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 3*X
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = (^
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all = =(
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =]
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >​
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all  %=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 3>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >4=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all }é
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all z=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 😀= =
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ))
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %{
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all (=>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ==a
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all İ=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /7
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \u0009>>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all B
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all é@
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >a>a
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >İ>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >~<~
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +/= =
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all é =
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all #a
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >>>>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /_
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =9İ =
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all )=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >Z
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all d=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +=b
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <*=6
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ='>'
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =A^>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %\u0000\u0000
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +66
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >Y
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 7
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 6 '=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >%%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 0=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +=~ 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %d
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all  =
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =\u0009=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -\u0009
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \u0009
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = ==
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all -\u000a​
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *==*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all (*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all c=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -#=#
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = é
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all >￿=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +é+
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =2
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all é\u0009é
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all A+= 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /=\u000a
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ~é
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <-
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 8=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /"=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all += +
+R 3
+A 0-2 22,5;-4,3;5,0;-2147483648,1;2147483647,-1;0,0;
+E Incorrect argument for command at position 5: t += <--[HERE]@3
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = x=
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all +=  
+R 3
+A 0-2 22,5;-4,3;5,0;-2147483648,1;2147483647,-1;0,0;
+E Incorrect argument for command at position 5: t += <--[HERE]@3
+S -2--2 0 0 
+@ all >{
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all </=A
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all a-=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all  /=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ++
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all  :=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ><.
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =\u0000 =
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ß%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >.
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =é
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all _
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all e=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all XéX
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all y=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all @>=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ^= ==
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >C=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +￿
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >￿
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =>=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =% =
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all -X=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *]*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ====
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +~=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >x
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all y*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >)>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /C
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <+
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ééé
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all B+
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all * 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +aa
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %f
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +中7
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all %:
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all <=4
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >><
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all xß
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ..
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +1
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *,*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 7> 
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >/
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ]$>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ß=ß
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all +\\
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all C<
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 6
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all '%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all "=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ~%=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >=>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =%
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all [6
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *46
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ]%=
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all d>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all A><
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /3
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all *~
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all /6
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ~><
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all {/}
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ><b
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all 9*9
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =>>>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all x*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ​\u0009
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =>*
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all \\+=\\
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all &\u000a
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all = *
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all *__
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =>>
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all =  
+R 2
+A 0-1 5,5;3,3;0,0;1,1;-1,-1;0,0;
+E Incorrect argument for command at position 4: t = <--[HERE]@2
+S -2--2 0 0 
+@ all )
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all ]]
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all >=d
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 
+@ all aaa
+R 0
+A -
+X Invalid operation@-3
+E Invalid operation@-3
+S -2--2 0 0 

@@ -1,0 +1,1915 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 4 1028485187 180	clockwise_90	counterclockwise_90	none
+@ all none
+R 4
+A 0-4 none
+E ok
+S -2--2 0 0 
+@ all clockwise_90
+R 12
+A 0-12 clockwise_90
+E ok
+S -2--2 0 0 
+@ all 180
+R 3
+A 0-3 180
+E ok
+S -2--2 0 0 
+@ all counterclockwise_90
+R 19
+A 0-19 counterclockwise_90
+E ok
+S -2--2 0 0 
+@ all clockwise_180
+R 0
+A -
+X Invalid value 'clockwise_180' at position 15: ...ckwise_180<--[HERE]@13
+E Invalid value 'clockwise_180' at position 15: ...ckwise_180<--[HERE]@13
+S -2--2 0 0 
+@ all CLOCKWISE_90
+R 0
+A -
+X Invalid value 'CLOCKWISE_90' at position 14: ...OCKWISE_90<--[HERE]@12
+E Invalid value 'CLOCKWISE_90' at position 14: ...OCKWISE_90<--[HERE]@12
+S 0-12 1 1104852933 clockwise_90
+@ all x
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all clock
+R 0
+A -
+X Invalid value 'clock' at position 7: t clock<--[HERE]@5
+E Invalid value 'clock' at position 7: t clock<--[HERE]@5
+S 0-5 1 1104852933 clockwise_90
+@ all n
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S 0-1 1 105002961 none
+@ all no
+R 0
+A -
+X Invalid value 'no' at position 4: t no<--[HERE]@2
+E Invalid value 'no' at position 4: t no<--[HERE]@2
+S 0-2 1 105002961 none
+@ all non
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S 0-3 1 105002961 none
+@ all c
+R 0
+A -
+X Invalid value 'c' at position 3: t c<--[HERE]@1
+E Invalid value 'c' at position 3: t c<--[HERE]@1
+S 0-1 2 -1703534962 clockwise_90	counterclockwise_90
+@ all cl
+R 0
+A -
+X Invalid value 'cl' at position 4: t cl<--[HERE]@2
+E Invalid value 'cl' at position 4: t cl<--[HERE]@2
+S 0-2 1 1104852933 clockwise_90
+@ all clo
+R 0
+A -
+X Invalid value 'clo' at position 5: t clo<--[HERE]@3
+E Invalid value 'clo' at position 5: t clo<--[HERE]@3
+S 0-3 1 1104852933 clockwise_90
+@ all cloc
+R 0
+A -
+X Invalid value 'cloc' at position 6: t cloc<--[HERE]@4
+E Invalid value 'cloc' at position 6: t cloc<--[HERE]@4
+S 0-4 1 1104852933 clockwise_90
+@ all clockw
+R 0
+A -
+X Invalid value 'clockw' at position 8: t clockw<--[HERE]@6
+E Invalid value 'clockw' at position 8: t clockw<--[HERE]@6
+S 0-6 1 1104852933 clockwise_90
+@ all clockwi
+R 0
+A -
+X Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+E Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+S 0-7 1 1104852933 clockwise_90
+@ all clockwis
+R 0
+A -
+X Invalid value 'clockwis' at position 10: t clockwis<--[HERE]@8
+E Invalid value 'clockwis' at position 10: t clockwis<--[HERE]@8
+S 0-8 1 1104852933 clockwise_90
+@ all clockwise
+R 0
+A -
+X Invalid value 'clockwise' at position 11: ... clockwise<--[HERE]@9
+E Invalid value 'clockwise' at position 11: ... clockwise<--[HERE]@9
+S 0-9 1 1104852933 clockwise_90
+@ all clockwise_
+R 0
+A -
+X Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+E Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+S 0-10 1 1104852933 clockwise_90
+@ all clockwise_9
+R 0
+A -
+X Invalid value 'clockwise_9' at position 13: ...lockwise_9<--[HERE]@11
+E Invalid value 'clockwise_9' at position 13: ...lockwise_9<--[HERE]@11
+S 0-11 1 1104852933 clockwise_90
+@ all 1
+R 0
+A -
+X Invalid value '1' at position 3: t 1<--[HERE]@1
+E Invalid value '1' at position 3: t 1<--[HERE]@1
+S 0-1 1 1515072 180
+@ all 18
+R 0
+A -
+X Invalid value '18' at position 4: t 18<--[HERE]@2
+E Invalid value '18' at position 4: t 18<--[HERE]@2
+S 0-2 1 1515072 180
+@ all co
+R 0
+A -
+X Invalid value 'co' at position 4: t co<--[HERE]@2
+E Invalid value 'co' at position 4: t co<--[HERE]@2
+S 0-2 1 -1066927287 counterclockwise_90
+@ all cou
+R 0
+A -
+X Invalid value 'cou' at position 5: t cou<--[HERE]@3
+E Invalid value 'cou' at position 5: t cou<--[HERE]@3
+S 0-3 1 -1066927287 counterclockwise_90
+@ all coun
+R 0
+A -
+X Invalid value 'coun' at position 6: t coun<--[HERE]@4
+E Invalid value 'coun' at position 6: t coun<--[HERE]@4
+S 0-4 1 -1066927287 counterclockwise_90
+@ all count
+R 0
+A -
+X Invalid value 'count' at position 7: t count<--[HERE]@5
+E Invalid value 'count' at position 7: t count<--[HERE]@5
+S 0-5 1 -1066927287 counterclockwise_90
+@ all counte
+R 0
+A -
+X Invalid value 'counte' at position 8: t counte<--[HERE]@6
+E Invalid value 'counte' at position 8: t counte<--[HERE]@6
+S 0-6 1 -1066927287 counterclockwise_90
+@ all counter
+R 0
+A -
+X Invalid value 'counter' at position 9: t counter<--[HERE]@7
+E Invalid value 'counter' at position 9: t counter<--[HERE]@7
+S 0-7 1 -1066927287 counterclockwise_90
+@ all counterc
+R 0
+A -
+X Invalid value 'counterc' at position 10: t counterc<--[HERE]@8
+E Invalid value 'counterc' at position 10: t counterc<--[HERE]@8
+S 0-8 1 -1066927287 counterclockwise_90
+@ all countercl
+R 0
+A -
+X Invalid value 'countercl' at position 11: ... countercl<--[HERE]@9
+E Invalid value 'countercl' at position 11: ... countercl<--[HERE]@9
+S 0-9 1 -1066927287 counterclockwise_90
+@ all counterclo
+R 0
+A -
+X Invalid value 'counterclo' at position 12: ...counterclo<--[HERE]@10
+E Invalid value 'counterclo' at position 12: ...counterclo<--[HERE]@10
+S 0-10 1 -1066927287 counterclockwise_90
+@ all countercloc
+R 0
+A -
+X Invalid value 'countercloc' at position 13: ...ountercloc<--[HERE]@11
+E Invalid value 'countercloc' at position 13: ...ountercloc<--[HERE]@11
+S 0-11 1 -1066927287 counterclockwise_90
+@ all counterclock
+R 0
+A -
+X Invalid value 'counterclock' at position 14: ...unterclock<--[HERE]@12
+E Invalid value 'counterclock' at position 14: ...unterclock<--[HERE]@12
+S 0-12 1 -1066927287 counterclockwise_90
+@ all counterclockw
+R 0
+A -
+X Invalid value 'counterclockw' at position 15: ...nterclockw<--[HERE]@13
+E Invalid value 'counterclockw' at position 15: ...nterclockw<--[HERE]@13
+S 0-13 1 -1066927287 counterclockwise_90
+@ all counterclockwi
+R 0
+A -
+X Invalid value 'counterclockwi' at position 16: ...terclockwi<--[HERE]@14
+E Invalid value 'counterclockwi' at position 16: ...terclockwi<--[HERE]@14
+S 0-14 1 -1066927287 counterclockwise_90
+@ all counterclockwis
+R 0
+A -
+X Invalid value 'counterclockwis' at position 17: ...erclockwis<--[HERE]@15
+E Invalid value 'counterclockwis' at position 17: ...erclockwis<--[HERE]@15
+S 0-15 1 -1066927287 counterclockwise_90
+@ all counterclockwise
+R 0
+A -
+X Invalid value 'counterclockwise' at position 18: ...rclockwise<--[HERE]@16
+E Invalid value 'counterclockwise' at position 18: ...rclockwise<--[HERE]@16
+S 0-16 1 -1066927287 counterclockwise_90
+@ all counterclockwise_
+R 0
+A -
+X Invalid value 'counterclockwise_' at position 19: ...clockwise_<--[HERE]@17
+E Invalid value 'counterclockwise_' at position 19: ...clockwise_<--[HERE]@17
+S 0-17 1 -1066927287 counterclockwise_90
+@ all counterclockwise_9
+R 0
+A -
+X Invalid value 'counterclockwise_9' at position 20: ...lockwise_9<--[HERE]@18
+E Invalid value 'counterclockwise_9' at position 20: ...lockwise_9<--[HERE]@18
+S 0-18 1 -1066927287 counterclockwise_90
+@ all clockwise_1
+R 0
+A -
+X Invalid value 'clockwise_1' at position 13: ...lockwise_1<--[HERE]@11
+E Invalid value 'clockwise_1' at position 13: ...lockwise_1<--[HERE]@11
+S -2--2 0 0 
+@ all clockwise_18
+R 0
+A -
+X Invalid value 'clockwise_18' at position 14: ...ockwise_18<--[HERE]@12
+E Invalid value 'clockwise_18' at position 14: ...ockwise_18<--[HERE]@12
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Invalid value 'C' at position 3: t C<--[HERE]@1
+E Invalid value 'C' at position 3: t C<--[HERE]@1
+S 0-1 2 -1703534962 clockwise_90	counterclockwise_90
+@ all CL
+R 0
+A -
+X Invalid value 'CL' at position 4: t CL<--[HERE]@2
+E Invalid value 'CL' at position 4: t CL<--[HERE]@2
+S 0-2 1 1104852933 clockwise_90
+@ all CLO
+R 0
+A -
+X Invalid value 'CLO' at position 5: t CLO<--[HERE]@3
+E Invalid value 'CLO' at position 5: t CLO<--[HERE]@3
+S 0-3 1 1104852933 clockwise_90
+@ all CLOC
+R 0
+A -
+X Invalid value 'CLOC' at position 6: t CLOC<--[HERE]@4
+E Invalid value 'CLOC' at position 6: t CLOC<--[HERE]@4
+S 0-4 1 1104852933 clockwise_90
+@ all CLOCK
+R 0
+A -
+X Invalid value 'CLOCK' at position 7: t CLOCK<--[HERE]@5
+E Invalid value 'CLOCK' at position 7: t CLOCK<--[HERE]@5
+S 0-5 1 1104852933 clockwise_90
+@ all CLOCKW
+R 0
+A -
+X Invalid value 'CLOCKW' at position 8: t CLOCKW<--[HERE]@6
+E Invalid value 'CLOCKW' at position 8: t CLOCKW<--[HERE]@6
+S 0-6 1 1104852933 clockwise_90
+@ all CLOCKWI
+R 0
+A -
+X Invalid value 'CLOCKWI' at position 9: t CLOCKWI<--[HERE]@7
+E Invalid value 'CLOCKWI' at position 9: t CLOCKWI<--[HERE]@7
+S 0-7 1 1104852933 clockwise_90
+@ all CLOCKWIS
+R 0
+A -
+X Invalid value 'CLOCKWIS' at position 10: t CLOCKWIS<--[HERE]@8
+E Invalid value 'CLOCKWIS' at position 10: t CLOCKWIS<--[HERE]@8
+S 0-8 1 1104852933 clockwise_90
+@ all CLOCKWISE
+R 0
+A -
+X Invalid value 'CLOCKWISE' at position 11: ... CLOCKWISE<--[HERE]@9
+E Invalid value 'CLOCKWISE' at position 11: ... CLOCKWISE<--[HERE]@9
+S 0-9 1 1104852933 clockwise_90
+@ all CLOCKWISE_
+R 0
+A -
+X Invalid value 'CLOCKWISE_' at position 12: ...CLOCKWISE_<--[HERE]@10
+E Invalid value 'CLOCKWISE_' at position 12: ...CLOCKWISE_<--[HERE]@10
+S 0-10 1 1104852933 clockwise_90
+@ all CLOCKWISE_9
+R 0
+A -
+X Invalid value 'CLOCKWISE_9' at position 13: ...LOCKWISE_9<--[HERE]@11
+E Invalid value 'CLOCKWISE_9' at position 13: ...LOCKWISE_9<--[HERE]@11
+S 0-11 1 1104852933 clockwise_90
+@ all ounterclockwise_90
+R 0
+A -
+X Invalid value 'ounterclockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+E Invalid value 'ounterclockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+S -2--2 0 0 
+@ all lockwise_90
+R 0
+A -
+X Invalid value 'lockwise_90' at position 13: ...ockwise_90<--[HERE]@11
+E Invalid value 'lockwise_90' at position 13: ...ockwise_90<--[HERE]@11
+S -2--2 0 0 
+@ all &cloc
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1808
+R 0
+A -
+X Invalid value '1808' at position 6: t 1808<--[HERE]@4
+E Invalid value '1808' at position 6: t 1808<--[HERE]@4
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Invalid value 'e' at position 3: t e<--[HERE]@1
+E Invalid value 'e' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all cock
+R 0
+A -
+X Invalid value 'cock' at position 6: t cock<--[HERE]@4
+E Invalid value 'cock' at position 6: t cock<--[HERE]@4
+S -2--2 0 0 
+@ all CL2C\u0009KWISE_90
+R 0
+A -
+X Invalid value 'CL2C' at position 6: t CL2C<--[HERE]@4
+E Invalid value 'CL2C' at position 6: t CL2C<--[HERE]@4
+S -2--2 0 0 
+@ all nee
+R 0
+A -
+X Invalid value 'nee' at position 5: t nee<--[HERE]@3
+E Invalid value 'nee' at position 5: t nee<--[HERE]@3
+S -2--2 0 0 
+@ all clck
+R 0
+A -
+X Invalid value 'clck' at position 6: t clck<--[HERE]@4
+E Invalid value 'clck' at position 6: t clck<--[HERE]@4
+S -2--2 0 0 
+@ all ise_1801
+R 0
+A -
+X Invalid value 'ise_1801' at position 10: t ise_1801<--[HERE]@8
+E Invalid value 'ise_1801' at position 10: t ise_1801<--[HERE]@8
+S -2--2 0 0 
+@ all CLOCKWISE_90W
+R 0
+A -
+X Invalid value 'CLOCKWISE_90W' at position 15: ...CKWISE_90W<--[HERE]@13
+E Invalid value 'CLOCKWISE_90W' at position 15: ...CKWISE_90W<--[HERE]@13
+S -2--2 0 0 
+@ all ,\u0000
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0
+R 0
+A -
+X Invalid value '0' at position 3: t 0<--[HERE]@1
+E Invalid value '0' at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all <clock
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Xİone
+R 0
+A -
+X Invalid value 'X' at position 3: t X<--[HERE]@1
+E Invalid value 'X' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all 8
+R 0
+A -
+X Invalid value '8' at position 3: t 8<--[HERE]@1
+E Invalid value '8' at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all x=x
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all x3
+R 0
+A -
+X Invalid value 'x3' at position 4: t x3<--[HERE]@2
+E Invalid value 'x3' at position 4: t x3<--[HERE]@2
+S -2--2 0 0 
+@ all clockwise_180k
+R 0
+A -
+X Invalid value 'clockwise_180k' at position 16: ...kwise_180k<--[HERE]@14
+E Invalid value 'clockwise_180k' at position 16: ...kwise_180k<--[HERE]@14
+S -2--2 0 0 
+@ all \u0009nofe
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009ounterclockwise_90
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all co\u0000nterclockwise_90
+R 0
+A -
+X Invalid value 'co' at position 4: t co<--[HERE]@2
+E Invalid value 'co' at position 4: t co<--[HERE]@2
+S -2--2 0 0 
+@ all ​>x
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all non]
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all clockwis_18!
+R 0
+A -
+X Invalid value 'clockwis_18' at position 13: ...lockwis_18<--[HERE]@11
+E Invalid value 'clockwis_18' at position 13: ...lockwis_18<--[HERE]@11
+S -2--2 0 0 
+@ all xx
+R 0
+A -
+X Invalid value 'xx' at position 4: t xx<--[HERE]@2
+E Invalid value 'xx' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all counteclockwise_909
+R 0
+A -
+X Invalid value 'counteclockwise_909' at position 21: ...ckwise_909<--[HERE]@19
+E Invalid value 'counteclockwise_909' at position 21: ...ckwise_909<--[HERE]@19
+S -2--2 0 0 
+@ all _180
+R 0
+A -
+X Invalid value '_180' at position 6: t _180<--[HERE]@4
+E Invalid value '_180' at position 6: t _180<--[HERE]@4
+S -2--2 0 0 
+@ all LOCKWISE_9
+R 0
+A -
+X Invalid value 'LOCKWISE_9' at position 12: ...LOCKWISE_9<--[HERE]@10
+E Invalid value 'LOCKWISE_9' at position 12: ...LOCKWISE_9<--[HERE]@10
+S -2--2 0 0 
+@ all e_180
+R 0
+A -
+X Invalid value 'e_180' at position 7: t e_180<--[HERE]@5
+E Invalid value 'e_180' at position 7: t e_180<--[HERE]@5
+S -2--2 0 0 
+@ all A
+R 0
+A -
+X Invalid value 'A' at position 3: t A<--[HERE]@1
+E Invalid value 'A' at position 3: t A<--[HERE]@1
+S -2--2 0 0 
+@ all clockwise_80
+R 0
+A -
+X Invalid value 'clockwise_80' at position 14: ...ockwise_80<--[HERE]@12
+E Invalid value 'clockwise_80' at position 14: ...ockwise_80<--[HERE]@12
+S -2--2 0 0 
+@ all z 
+R 0
+A -
+X Invalid value 'z' at position 3: t z<--[HERE]@1
+E Invalid value 'z' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all counterclckwise_900
+R 0
+A -
+X Invalid value 'counterclckwise_900' at position 21: ...ckwise_900<--[HERE]@19
+E Invalid value 'counterclckwise_900' at position 21: ...ckwise_900<--[HERE]@19
+S -2--2 0 0 
+@ all 18<
+R 0
+A -
+X Invalid value '18' at position 4: t 18<--[HERE]@2
+E Invalid value '18' at position 4: t 18<--[HERE]@2
+S -2--2 0 0 
+@ all /
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all counterclockwise_9b
+R 0
+A -
+X Invalid value 'counterclockwise_9b' at position 21: ...ockwise_9b<--[HERE]@19
+E Invalid value 'counterclockwise_9b' at position 21: ...ockwise_9b<--[HERE]@19
+S -2--2 0 0 
+@ all c5
+R 0
+A -
+X Invalid value 'c5' at position 4: t c5<--[HERE]@2
+E Invalid value 'c5' at position 4: t c5<--[HERE]@2
+S -2--2 0 0 
+@ all &x
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all cloc,k
+R 0
+A -
+X Invalid value 'cloc' at position 6: t cloc<--[HERE]@4
+E Invalid value 'cloc' at position 6: t cloc<--[HERE]@4
+S -2--2 0 0 
+@ all KWISE_90
+R 0
+A -
+X Invalid value 'KWISE_90' at position 10: t KWISE_90<--[HERE]@8
+E Invalid value 'KWISE_90' at position 10: t KWISE_90<--[HERE]@8
+S -2--2 0 0 
+@ all 3
+R 0
+A -
+X Invalid value '3' at position 3: t 3<--[HERE]@1
+E Invalid value '3' at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all lockwise_180
+R 0
+A -
+X Invalid value 'lockwise_180' at position 14: ...ckwise_180<--[HERE]@12
+E Invalid value 'lockwise_180' at position 14: ...ckwise_180<--[HERE]@12
+S -2--2 0 0 
+@ all WISE_90
+R 0
+A -
+X Invalid value 'WISE_90' at position 9: t WISE_90<--[HERE]@7
+E Invalid value 'WISE_90' at position 9: t WISE_90<--[HERE]@7
+S -2--2 0 0 
+@ all non]e
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all CLOCKWIE_90
+R 0
+A -
+X Invalid value 'CLOCKWIE_90' at position 13: ...LOCKWIE_90<--[HERE]@11
+E Invalid value 'CLOCKWIE_90' at position 13: ...LOCKWIE_90<--[HERE]@11
+S -2--2 0 0 
+@ all e180
+R 0
+A -
+X Invalid value 'e180' at position 6: t e180<--[HERE]@4
+E Invalid value 'e180' at position 6: t e180<--[HERE]@4
+S -2--2 0 0 
+@ all clocwise_80
+R 0
+A -
+X Invalid value 'clocwise_80' at position 13: ...locwise_80<--[HERE]@11
+E Invalid value 'clocwise_80' at position 13: ...locwise_80<--[HERE]@11
+S -2--2 0 0 
+@ all CLOCWIE_90
+R 0
+A -
+X Invalid value 'CLOCWIE_90' at position 12: ...CLOCWIE_90<--[HERE]@10
+E Invalid value 'CLOCWIE_90' at position 12: ...CLOCWIE_90<--[HERE]@10
+S -2--2 0 0 
+@ all ! 
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all cl_ckwise_80
+R 0
+A -
+X Invalid value 'cl_ckwise_80' at position 14: ..._ckwise_80<--[HERE]@12
+E Invalid value 'cl_ckwise_80' at position 14: ..._ckwise_80<--[HERE]@12
+S -2--2 0 0 
+@ all clofckwise_90
+R 0
+A -
+X Invalid value 'clofckwise_90' at position 15: ...fckwise_90<--[HERE]@13
+E Invalid value 'clofckwise_90' at position 15: ...fckwise_90<--[HERE]@13
+S -2--2 0 0 
+@ all 5
+R 0
+A -
+X Invalid value '5' at position 3: t 5<--[HERE]@1
+E Invalid value '5' at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all clokwise1180
+R 0
+A -
+X Invalid value 'clokwise1180' at position 14: ...okwise1180<--[HERE]@12
+E Invalid value 'clokwise1180' at position 14: ...okwise1180<--[HERE]@12
+S -2--2 0 0 
+@ all clock<
+R 0
+A -
+X Invalid value 'clock' at position 7: t clock<--[HERE]@5
+E Invalid value 'clock' at position 7: t clock<--[HERE]@5
+S -2--2 0 0 
+@ all _9f
+R 0
+A -
+X Invalid value '_9f' at position 5: t _9f<--[HERE]@3
+E Invalid value '_9f' at position 5: t _9f<--[HERE]@3
+S -2--2 0 0 
+@ all clocwise_X180
+R 0
+A -
+X Invalid value 'clocwise_X180' at position 15: ...cwise_X180<--[HERE]@13
+E Invalid value 'clocwise_X180' at position 15: ...cwise_X180<--[HERE]@13
+S -2--2 0 0 
+@ all nbone
+R 0
+A -
+X Invalid value 'nbone' at position 7: t nbone<--[HERE]@5
+E Invalid value 'nbone' at position 7: t nbone<--[HERE]@5
+S -2--2 0 0 
+@ all clockwise_1800
+R 0
+A -
+X Invalid value 'clockwise_1800' at position 16: ...kwise_1800<--[HERE]@14
+E Invalid value 'clockwise_1800' at position 16: ...kwise_1800<--[HERE]@14
+S -2--2 0 0 
+@ all CKaISE_90
+R 0
+A -
+X Invalid value 'CKaISE_90' at position 11: ... CKaISE_90<--[HERE]@9
+E Invalid value 'CKaISE_90' at position 11: ... CKaISE_90<--[HERE]@9
+S -2--2 0 0 
+@ all Xoe
+R 0
+A -
+X Invalid value 'Xoe' at position 5: t Xoe<--[HERE]@3
+E Invalid value 'Xoe' at position 5: t Xoe<--[HERE]@3
+S -2--2 0 0 
+@ all clocc
+R 0
+A -
+X Invalid value 'clocc' at position 7: t clocc<--[HERE]@5
+E Invalid value 'clocc' at position 7: t clocc<--[HERE]@5
+S -2--2 0 0 
+@ all counterclockwise_90n
+R 0
+A -
+X Invalid value 'counterclockwise_90n' at position 22: ...ckwise_90n<--[HERE]@20
+E Invalid value 'counterclockwise_90n' at position 22: ...ckwise_90n<--[HERE]@20
+S -2--2 0 0 
+@ all countercloc<kwise_90
+R 0
+A -
+X Invalid value 'countercloc' at position 13: ...ountercloc<--[HERE]@11
+E Invalid value 'countercloc' at position 13: ...ountercloc<--[HERE]@11
+S -2--2 0 0 
+@ all clckwis_180
+R 0
+A -
+X Invalid value 'clckwis_180' at position 13: ...lckwis_180<--[HERE]@11
+E Invalid value 'clckwis_180' at position 13: ...lckwis_180<--[HERE]@11
+S -2--2 0 0 
+@ all CL2OCKWIE_90
+R 0
+A -
+X Invalid value 'CL2OCKWIE_90' at position 14: ...2OCKWIE_90<--[HERE]@12
+E Invalid value 'CL2OCKWIE_90' at position 14: ...2OCKWIE_90<--[HERE]@12
+S -2--2 0 0 
+@ all C^OCKWISE_900
+R 0
+A -
+X Invalid value 'C' at position 3: t C<--[HERE]@1
+E Invalid value 'C' at position 3: t C<--[HERE]@1
+S -2--2 0 0 
+@ all clockwise_1801
+R 0
+A -
+X Invalid value 'clockwise_1801' at position 16: ...kwise_1801<--[HERE]@14
+E Invalid value 'clockwise_1801' at position 16: ...kwise_1801<--[HERE]@14
+S -2--2 0 0 
+@ all non/n
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all !ockwise_90
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all clock9ise_90
+R 0
+A -
+X Invalid value 'clock9ise_90' at position 14: ...ock9ise_90<--[HERE]@12
+E Invalid value 'clock9ise_90' at position 14: ...ock9ise_90<--[HERE]@12
+S -2--2 0 0 
+@ all onZ
+R 0
+A -
+X Invalid value 'onZ' at position 5: t onZ<--[HERE]@3
+E Invalid value 'onZ' at position 5: t onZ<--[HERE]@3
+S -2--2 0 0 
+@ all counteclockwise_90
+R 0
+A -
+X Invalid value 'counteclockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+E Invalid value 'counteclockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+S -2--2 0 0 
+@ all CLOCKWISE90
+R 0
+A -
+X Invalid value 'CLOCKWISE90' at position 13: ...LOCKWISE90<--[HERE]@11
+E Invalid value 'CLOCKWISE90' at position 13: ...LOCKWISE90<--[HERE]@11
+S -2--2 0 0 
+@ all clo(@
+R 0
+A -
+X Invalid value 'clo' at position 5: t clo<--[HERE]@3
+E Invalid value 'clo' at position 5: t clo<--[HERE]@3
+S -2--2 0 0 
+@ all 1b0
+R 0
+A -
+X Invalid value '1b0' at position 5: t 1b0<--[HERE]@3
+E Invalid value '1b0' at position 5: t 1b0<--[HERE]@3
+S -2--2 0 0 
+@ all lockk
+R 0
+A -
+X Invalid value 'lockk' at position 7: t lockk<--[HERE]@5
+E Invalid value 'lockk' at position 7: t lockk<--[HERE]@5
+S -2--2 0 0 
+@ all [lock
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all LOCKWISE_9&
+R 0
+A -
+X Invalid value 'LOCKWISE_9' at position 12: ...LOCKWISE_9<--[HERE]@10
+E Invalid value 'LOCKWISE_9' at position 12: ...LOCKWISE_9<--[HERE]@10
+S -2--2 0 0 
+@ all CLOCKWISE_90E
+R 0
+A -
+X Invalid value 'CLOCKWISE_90E' at position 15: ...CKWISE_90E<--[HERE]@13
+E Invalid value 'CLOCKWISE_90E' at position 15: ...CKWISE_90E<--[HERE]@13
+S -2--2 0 0 
+@ all lock
+R 0
+A -
+X Invalid value 'lock' at position 6: t lock<--[HERE]@4
+E Invalid value 'lock' at position 6: t lock<--[HERE]@4
+S -2--2 0 0 
+@ all nonee
+R 0
+A -
+X Invalid value 'nonee' at position 7: t nonee<--[HERE]@5
+E Invalid value 'nonee' at position 7: t nonee<--[HERE]@5
+S -2--2 0 0 
+@ all CKWISE_90
+R 0
+A -
+X Invalid value 'CKWISE_90' at position 11: ... CKWISE_90<--[HERE]@9
+E Invalid value 'CKWISE_90' at position 11: ... CKWISE_90<--[HERE]@9
+S -2--2 0 0 
+@ all ock
+R 0
+A -
+X Invalid value 'ock' at position 5: t ock<--[HERE]@3
+E Invalid value 'ock' at position 5: t ock<--[HERE]@3
+S -2--2 0 0 
+@ all CLOCKISE_90
+R 0
+A -
+X Invalid value 'CLOCKISE_90' at position 13: ...LOCKISE_90<--[HERE]@11
+E Invalid value 'CLOCKISE_90' at position 13: ...LOCKISE_90<--[HERE]@11
+S -2--2 0 0 
+@ all ise_0
+R 0
+A -
+X Invalid value 'ise_0' at position 7: t ise_0<--[HERE]@5
+E Invalid value 'ise_0' at position 7: t ise_0<--[HERE]@5
+S -2--2 0 0 
+@ all lock0ise_90
+R 0
+A -
+X Invalid value 'lock0ise_90' at position 13: ...ock0ise_90<--[HERE]@11
+E Invalid value 'lock0ise_90' at position 13: ...ock0ise_90<--[HERE]@11
+S -2--2 0 0 
+@ all clockwisXe_180😀
+R 0
+A -
+X Invalid value 'clockwisXe_180' at position 16: ...kwisXe_180<--[HERE]@14
+E Invalid value 'clockwisXe_180' at position 16: ...kwisXe_180<--[HERE]@14
+S -2--2 0 0 
+@ all CLOCKWISE_90I
+R 0
+A -
+X Invalid value 'CLOCKWISE_90I' at position 15: ...CKWISE_90I<--[HERE]@13
+E Invalid value 'CLOCKWISE_90I' at position 15: ...CKWISE_90I<--[HERE]@13
+S -2--2 0 0 
+@ all clockl
+R 0
+A -
+X Invalid value 'clockl' at position 8: t clockl<--[HERE]@6
+E Invalid value 'clockl' at position 8: t clockl<--[HERE]@6
+S -2--2 0 0 
+@ all LOCKWISXE_90
+R 0
+A -
+X Invalid value 'LOCKWISXE_90' at position 14: ...CKWISXE_90<--[HERE]@12
+E Invalid value 'LOCKWISXE_90' at position 14: ...CKWISXE_90<--[HERE]@12
+S -2--2 0 0 
+@ all nonAn
+R 0
+A -
+X Invalid value 'nonAn' at position 7: t nonAn<--[HERE]@5
+E Invalid value 'nonAn' at position 7: t nonAn<--[HERE]@5
+S -2--2 0 0 
+@ all se_90
+R 0
+A -
+X Invalid value 'se_90' at position 7: t se_90<--[HERE]@5
+E Invalid value 'se_90' at position 7: t se_90<--[HERE]@5
+S -2--2 0 0 
+@ all clxockwise_180
+R 0
+A -
+X Invalid value 'clxockwise_180' at position 16: ...ckwise_180<--[HERE]@14
+E Invalid value 'clxockwise_180' at position 16: ...ckwise_180<--[HERE]@14
+S -2--2 0 0 
+@ all clc]
+R 0
+A -
+X Invalid value 'clc' at position 5: t clc<--[HERE]@3
+E Invalid value 'clc' at position 5: t clc<--[HERE]@3
+S -2--2 0 0 
+@ all ockwise_90
+R 0
+A -
+X Invalid value 'ockwise_90' at position 12: ...ockwise_90<--[HERE]@10
+E Invalid value 'ockwise_90' at position 12: ...ockwise_90<--[HERE]@10
+S -2--2 0 0 
+@ all non0
+R 0
+A -
+X Invalid value 'non0' at position 6: t non0<--[HERE]@4
+E Invalid value 'non0' at position 6: t non0<--[HERE]@4
+S -2--2 0 0 
+@ all +x
+R 0
+A -
+X Invalid value '+x' at position 4: t +x<--[HERE]@2
+E Invalid value '+x' at position 4: t +x<--[HERE]@2
+S -2--2 0 0 
+@ all CKWIE_90
+R 0
+A -
+X Invalid value 'CKWIE_90' at position 10: t CKWIE_90<--[HERE]@8
+E Invalid value 'CKWIE_90' at position 10: t CKWIE_90<--[HERE]@8
+S -2--2 0 0 
+@ all 6x
+R 0
+A -
+X Invalid value '6x' at position 4: t 6x<--[HERE]@2
+E Invalid value '6x' at position 4: t 6x<--[HERE]@2
+S -2--2 0 0 
+@ all X
+R 0
+A -
+X Invalid value 'X' at position 3: t X<--[HERE]@1
+E Invalid value 'X' at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all clockwi{e_100
+R 0
+A -
+X Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+E Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+S -2--2 0 0 
+@ all clockwise_0
+R 0
+A -
+X Invalid value 'clockwise_0' at position 13: ...lockwise_0<--[HERE]@11
+E Invalid value 'clockwise_0' at position 13: ...lockwise_0<--[HERE]@11
+S -2--2 0 0 
+@ all CLOCWISE_90
+R 0
+A -
+X Invalid value 'CLOCWISE_90' at position 13: ...LOCWISE_90<--[HERE]@11
+E Invalid value 'CLOCWISE_90' at position 13: ...LOCWISE_90<--[HERE]@11
+S -2--2 0 0 
+@ all clockwis>e_90
+R 0
+A -
+X Invalid value 'clockwis' at position 10: t clockwis<--[HERE]@8
+E Invalid value 'clockwis' at position 10: t clockwis<--[HERE]@8
+S -2--2 0 0 
+@ all clockwise_180co
+R 0
+A -
+X Invalid value 'clockwise_180co' at position 17: ...wise_180co<--[HERE]@15
+E Invalid value 'clockwise_180co' at position 17: ...wise_180co<--[HERE]@15
+S -2--2 0 0 
+@ all c3lock
+R 0
+A -
+X Invalid value 'c3lock' at position 8: t c3lock<--[HERE]@6
+E Invalid value 'c3lock' at position 8: t c3lock<--[HERE]@6
+S -2--2 0 0 
+@ all ise_90
+R 0
+A -
+X Invalid value 'ise_90' at position 8: t ise_90<--[HERE]@6
+E Invalid value 'ise_90' at position 8: t ise_90<--[HERE]@6
+S -2--2 0 0 
+@ all nxone
+R 0
+A -
+X Invalid value 'nxone' at position 7: t nxone<--[HERE]@5
+E Invalid value 'nxone' at position 7: t nxone<--[HERE]@5
+S -2--2 0 0 
+@ all CLOCKWISE_90S
+R 0
+A -
+X Invalid value 'CLOCKWISE_90S' at position 15: ...CKWISE_90S<--[HERE]@13
+E Invalid value 'CLOCKWISE_90S' at position 15: ...CKWISE_90S<--[HERE]@13
+S -2--2 0 0 
+@ all clockw\u0009ise_180
+R 0
+A -
+X Invalid value 'clockw' at position 8: t clockw<--[HERE]@6
+E Invalid value 'clockw' at position 8: t clockw<--[HERE]@6
+S -2--2 0 0 
+@ all clokwise_90
+R 0
+A -
+X Invalid value 'clokwise_90' at position 13: ...lokwise_90<--[HERE]@11
+E Invalid value 'clokwise_90' at position 13: ...lokwise_90<--[HERE]@11
+S -2--2 0 0 
+@ all İ
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2
+R 0
+A -
+X Invalid value '2' at position 3: t 2<--[HERE]@1
+E Invalid value '2' at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all clockwi\\se_80
+R 0
+A -
+X Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+E Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+S -2--2 0 0 
+@ all ^clock,
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all lokwise_180
+R 0
+A -
+X Invalid value 'lokwise_180' at position 13: ...okwise_180<--[HERE]@11
+E Invalid value 'lokwise_180' at position 13: ...okwise_180<--[HERE]@11
+S -2--2 0 0 
+@ all erclockwise_90
+R 0
+A -
+X Invalid value 'erclockwise_90' at position 16: ...ockwise_90<--[HERE]@14
+E Invalid value 'erclockwise_90' at position 16: ...ockwise_90<--[HERE]@14
+S -2--2 0 0 
+@ all nne
+R 0
+A -
+X Invalid value 'nne' at position 5: t nne<--[HERE]@3
+E Invalid value 'nne' at position 5: t nne<--[HERE]@3
+S -2--2 0 0 
+@ all CLOCKWISE_9$
+R 0
+A -
+X Invalid value 'CLOCKWISE_9' at position 13: ...LOCKWISE_9<--[HERE]@11
+E Invalid value 'CLOCKWISE_9' at position 13: ...LOCKWISE_9<--[HERE]@11
+S -2--2 0 0 
+@ all nn
+R 0
+A -
+X Invalid value 'nn' at position 4: t nn<--[HERE]@2
+E Invalid value 'nn' at position 4: t nn<--[HERE]@2
+S -2--2 0 0 
+@ all clockk
+R 0
+A -
+X Invalid value 'clockk' at position 8: t clockk<--[HERE]@6
+E Invalid value 'clockk' at position 8: t clockk<--[HERE]@6
+S -2--2 0 0 
+@ all cl$ck
+R 0
+A -
+X Invalid value 'cl' at position 4: t cl<--[HERE]@2
+E Invalid value 'cl' at position 4: t cl<--[HERE]@2
+S -2--2 0 0 
+@ all clockwise_18x8
+R 0
+A -
+X Invalid value 'clockwise_18x8' at position 16: ...kwise_18x8<--[HERE]@14
+E Invalid value 'clockwise_18x8' at position 16: ...kwise_18x8<--[HERE]@14
+S -2--2 0 0 
+@ all clockwise_d
+R 0
+A -
+X Invalid value 'clockwise_d' at position 13: ...lockwise_d<--[HERE]@11
+E Invalid value 'clockwise_d' at position 13: ...lockwise_d<--[HERE]@11
+S -2--2 0 0 
+@ all .clockwise_90
+R 0
+A -
+X Invalid value '.clockwise_90' at position 15: ...ockwise_90<--[HERE]@13
+E Invalid value '.clockwise_90' at position 15: ...ockwise_90<--[HERE]@13
+S -2--2 0 0 
+@ all 1ß80
+R 0
+A -
+X Invalid value '1' at position 3: t 1<--[HERE]@1
+E Invalid value '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all counterclockwise_\\90k
+R 0
+A -
+X Invalid value 'counterclockwise_' at position 19: ...clockwise_<--[HERE]@17
+E Invalid value 'counterclockwise_' at position 19: ...clockwise_<--[HERE]@17
+S -2--2 0 0 
+@ all non=
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all counterclockwise_90u
+R 0
+A -
+X Invalid value 'counterclockwise_90u' at position 22: ...ckwise_90u<--[HERE]@20
+E Invalid value 'counterclockwise_90u' at position 22: ...ckwise_90u<--[HERE]@20
+S -2--2 0 0 
+@ all non.
+R 0
+A -
+X Invalid value 'non.' at position 6: t non.<--[HERE]@4
+E Invalid value 'non.' at position 6: t non.<--[HERE]@4
+S -2--2 0 0 
+@ all [cl.ck
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all counterclockwise_900
+R 0
+A -
+X Invalid value 'counterclockwise_900' at position 22: ...ckwise_900<--[HERE]@20
+E Invalid value 'counterclockwise_900' at position 22: ...ckwise_900<--[HERE]@20
+S -2--2 0 0 
+@ all CLOCKWISE9_.90
+R 0
+A -
+X Invalid value 'CLOCKWISE9_.90' at position 16: ...KWISE9_.90<--[HERE]@14
+E Invalid value 'CLOCKWISE9_.90' at position 16: ...KWISE9_.90<--[HERE]@14
+S -2--2 0 0 
+@ all E_90
+R 0
+A -
+X Invalid value 'E_90' at position 6: t E_90<--[HERE]@4
+E Invalid value 'E_90' at position 6: t E_90<--[HERE]@4
+S -2--2 0 0 
+@ all ockwise_90i
+R 0
+A -
+X Invalid value 'ockwise_90i' at position 13: ...ckwise_90i<--[HERE]@11
+E Invalid value 'ockwise_90i' at position 13: ...ckwise_90i<--[HERE]@11
+S -2--2 0 0 
+@ all 80^
+R 0
+A -
+X Invalid value '80' at position 4: t 80<--[HERE]@2
+E Invalid value '80' at position 4: t 80<--[HERE]@2
+S -2--2 0 0 
+@ all 1801
+R 0
+A -
+X Invalid value '1801' at position 6: t 1801<--[HERE]@4
+E Invalid value '1801' at position 6: t 1801<--[HERE]@4
+S -2--2 0 0 
+@ all \u000a
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 90
+R 0
+A -
+X Invalid value '90' at position 4: t 90<--[HERE]@2
+E Invalid value '90' at position 4: t 90<--[HERE]@2
+S 0-2 2 -1703534962 clockwise_90	counterclockwise_90
+@ all clockwiCse_90"
+R 0
+A -
+X Invalid value 'clockwiCse_90' at position 15: ...ckwiCse_90<--[HERE]@13
+E Invalid value 'clockwiCse_90' at position 15: ...ckwiCse_90<--[HERE]@13
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all clockoc
+R 0
+A -
+X Invalid value 'clockoc' at position 9: t clockoc<--[HERE]@7
+E Invalid value 'clockoc' at position 9: t clockoc<--[HERE]@7
+S -2--2 0 0 
+@ all clockwise_180_
+R 0
+A -
+X Invalid value 'clockwise_180_' at position 16: ...kwise_180_<--[HERE]@14
+E Invalid value 'clockwise_180_' at position 16: ...kwise_180_<--[HERE]@14
+S -2--2 0 0 
+@ all 1~😀0
+R 0
+A -
+X Invalid value '1' at position 3: t 1<--[HERE]@1
+E Invalid value '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all ckwise_90
+R 0
+A -
+X Invalid value 'ckwise_90' at position 11: ... ckwise_90<--[HERE]@9
+E Invalid value 'ckwise_90' at position 11: ... ckwise_90<--[HERE]@9
+S -2--2 0 0 
+@ all clockwi\\e_90
+R 0
+A -
+X Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+E Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+S -2--2 0 0 
+@ all c<ock
+R 0
+A -
+X Invalid value 'c' at position 3: t c<--[HERE]@1
+E Invalid value 'c' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all ￿180
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all CLOCKWI1SE_90
+R 0
+A -
+X Invalid value 'CLOCKWI1SE_90' at position 15: ...CKWI1SE_90<--[HERE]@13
+E Invalid value 'CLOCKWI1SE_90' at position 15: ...CKWI1SE_90<--[HERE]@13
+S -2--2 0 0 
+@ all :CLOCWISE_90
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zclockwise_180
+R 0
+A -
+X Invalid value 'zclockwise_180' at position 16: ...ckwise_180<--[HERE]@14
+E Invalid value 'zclockwise_180' at position 16: ...ckwise_180<--[HERE]@14
+S -2--2 0 0 
+@ all LO&CKWISE_90
+R 0
+A -
+X Invalid value 'LO' at position 4: t LO<--[HERE]@2
+E Invalid value 'LO' at position 4: t LO<--[HERE]@2
+S -2--2 0 0 
+@ all 7
+R 0
+A -
+X Invalid value '7' at position 3: t 7<--[HERE]@1
+E Invalid value '7' at position 3: t 7<--[HERE]@1
+S -2--2 0 0 
+@ all CLOCKWISE490I
+R 0
+A -
+X Invalid value 'CLOCKWISE490I' at position 15: ...CKWISE490I<--[HERE]@13
+E Invalid value 'CLOCKWISE490I' at position 15: ...CKWISE490I<--[HERE]@13
+S -2--2 0 0 
+@ all WISE90
+R 0
+A -
+X Invalid value 'WISE90' at position 8: t WISE90<--[HERE]@6
+E Invalid value 'WISE90' at position 8: t WISE90<--[HERE]@6
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all CLOCZKWISE_90
+R 0
+A -
+X Invalid value 'CLOCZKWISE_90' at position 15: ...CZKWISE_90<--[HERE]@13
+E Invalid value 'CLOCZKWISE_90' at position 15: ...CZKWISE_90<--[HERE]@13
+S -2--2 0 0 
+@ all CLOCKWISE_90\u0000
+R 0
+A -
+X Invalid value 'CLOCKWISE_90' at position 14: ...OCKWISE_90<--[HERE]@12
+E Invalid value 'CLOCKWISE_90' at position 14: ...OCKWISE_90<--[HERE]@12
+S -2--2 0 0 
+@ all 18é
+R 0
+A -
+X Invalid value '18' at position 4: t 18<--[HERE]@2
+E Invalid value '18' at position 4: t 18<--[HERE]@2
+S -2--2 0 0 
+@ all clockwis5_90
+R 0
+A -
+X Invalid value 'clockwis5_90' at position 14: ...ockwis5_90<--[HERE]@12
+E Invalid value 'clockwis5_90' at position 14: ...ockwis5_90<--[HERE]@12
+S -2--2 0 0 
+@ all nonen
+R 0
+A -
+X Invalid value 'nonen' at position 7: t nonen<--[HERE]@5
+E Invalid value 'nonen' at position 7: t nonen<--[HERE]@5
+S -2--2 0 0 
+@ all counterclo{ckwse_90
+R 0
+A -
+X Invalid value 'counterclo' at position 12: ...counterclo<--[HERE]@10
+E Invalid value 'counterclo' at position 12: ...counterclo<--[HERE]@10
+S -2--2 0 0 
+@ all nYnee
+R 0
+A -
+X Invalid value 'nYnee' at position 7: t nYnee<--[HERE]@5
+E Invalid value 'nYnee' at position 7: t nYnee<--[HERE]@5
+S -2--2 0 0 
+@ all 80
+R 0
+A -
+X Invalid value '80' at position 4: t 80<--[HERE]@2
+E Invalid value '80' at position 4: t 80<--[HERE]@2
+S -2--2 0 0 
+@ all CLOCKWISE_90SC
+R 0
+A -
+X Invalid value 'CLOCKWISE_90SC' at position 16: ...KWISE_90SC<--[HERE]@14
+E Invalid value 'CLOCKWISE_90SC' at position 16: ...KWISE_90SC<--[HERE]@14
+S -2--2 0 0 
+@ all CLOCKWISE_90L
+R 0
+A -
+X Invalid value 'CLOCKWISE_90L' at position 15: ...CKWISE_90L<--[HERE]@13
+E Invalid value 'CLOCKWISE_90L' at position 15: ...CKWISE_90L<--[HERE]@13
+S -2--2 0 0 
+@ all counterclockwise_0r
+R 0
+A -
+X Invalid value 'counterclockwise_0r' at position 21: ...ockwise_0r<--[HERE]@19
+E Invalid value 'counterclockwise_0r' at position 21: ...ockwise_0r<--[HERE]@19
+S -2--2 0 0 
+@ all e_9=
+R 0
+A -
+X Invalid value 'e_9' at position 5: t e_9<--[HERE]@3
+E Invalid value 'e_9' at position 5: t e_9<--[HERE]@3
+S -2--2 0 0 
+@ all kwise_90e
+R 0
+A -
+X Invalid value 'kwise_90e' at position 11: ... kwise_90e<--[HERE]@9
+E Invalid value 'kwise_90e' at position 11: ... kwise_90e<--[HERE]@9
+S -2--2 0 0 
+@ all counterclockwise_(0.
+R 0
+A -
+X Invalid value 'counterclockwise_' at position 19: ...clockwise_<--[HERE]@17
+E Invalid value 'counterclockwise_' at position 19: ...clockwise_<--[HERE]@17
+S -2--2 0 0 
+@ all clockwise1801
+R 0
+A -
+X Invalid value 'clockwise1801' at position 15: ...ckwise1801<--[HERE]@13
+E Invalid value 'clockwise1801' at position 15: ...ckwise1801<--[HERE]@13
+S -2--2 0 0 
+@ all cl$ockwise_90
+R 0
+A -
+X Invalid value 'cl' at position 4: t cl<--[HERE]@2
+E Invalid value 'cl' at position 4: t cl<--[HERE]@2
+S -2--2 0 0 
+@ all ne
+R 0
+A -
+X Invalid value 'ne' at position 4: t ne<--[HERE]@2
+E Invalid value 'ne' at position 4: t ne<--[HERE]@2
+S -2--2 0 0 
+@ all cunterclockwise_90
+R 0
+A -
+X Invalid value 'cunterclockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+E Invalid value 'cunterclockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+S -2--2 0 0 
+@ all CLOCKWISE_0
+R 0
+A -
+X Invalid value 'CLOCKWISE_0' at position 13: ...LOCKWISE_0<--[HERE]@11
+E Invalid value 'CLOCKWISE_0' at position 13: ...LOCKWISE_0<--[HERE]@11
+S -2--2 0 0 
+@ all counterclock中wise_90
+R 0
+A -
+X Invalid value 'counterclock' at position 14: ...unterclock<--[HERE]@12
+E Invalid value 'counterclock' at position 14: ...unterclock<--[HERE]@12
+S -2--2 0 0 
+@ all cloc/
+R 0
+A -
+X Invalid value 'cloc' at position 6: t cloc<--[HERE]@4
+E Invalid value 'cloc' at position 6: t cloc<--[HERE]@4
+S -2--2 0 0 
+@ all ~<
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all clockwise_[0
+R 0
+A -
+X Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+E Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+S -2--2 0 0 
+@ all clocko
+R 0
+A -
+X Invalid value 'clocko' at position 8: t clocko<--[HERE]@6
+E Invalid value 'clocko' at position 8: t clocko<--[HERE]@6
+S -2--2 0 0 
+@ all x]
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all clockwise_%0
+R 0
+A -
+X Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+E Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+S -2--2 0 0 
+@ all no-e
+R 0
+A -
+X Invalid value 'no-e' at position 6: t no-e<--[HERE]@4
+E Invalid value 'no-e' at position 6: t no-e<--[HERE]@4
+S -2--2 0 0 
+@ all clockll
+R 0
+A -
+X Invalid value 'clockll' at position 9: t clockll<--[HERE]@7
+E Invalid value 'clockll' at position 9: t clockll<--[HERE]@7
+S -2--2 0 0 
+@ all no ne
+R 0
+A -
+X Invalid value 'no' at position 4: t no<--[HERE]@2
+E Invalid value 'no' at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all 800
+R 0
+A -
+X Invalid value '800' at position 5: t 800<--[HERE]@3
+E Invalid value '800' at position 5: t 800<--[HERE]@3
+S -2--2 0 0 
+@ all CLCKISE_90
+R 0
+A -
+X Invalid value 'CLCKISE_90' at position 12: ...CLCKISE_90<--[HERE]@10
+E Invalid value 'CLCKISE_90' at position 12: ...CLCKISE_90<--[HERE]@10
+S -2--2 0 0 
+@ all 18~
+R 0
+A -
+X Invalid value '18' at position 4: t 18<--[HERE]@2
+E Invalid value '18' at position 4: t 18<--[HERE]@2
+S -2--2 0 0 
+@ all 99
+R 0
+A -
+X Invalid value '99' at position 4: t 99<--[HERE]@2
+E Invalid value '99' at position 4: t 99<--[HERE]@2
+S -2--2 0 0 
+@ all clackwise_180
+R 0
+A -
+X Invalid value 'clackwise_180' at position 15: ...ckwise_180<--[HERE]@13
+E Invalid value 'clackwise_180' at position 15: ...ckwise_180<--[HERE]@13
+S -2--2 0 0 
+@ all c_lock
+R 0
+A -
+X Invalid value 'c_lock' at position 8: t c_lock<--[HERE]@6
+E Invalid value 'c_lock' at position 8: t c_lock<--[HERE]@6
+S -2--2 0 0 
+@ all ​801
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all cloéckwise_180c
+R 0
+A -
+X Invalid value 'clo' at position 5: t clo<--[HERE]@3
+E Invalid value 'clo' at position 5: t clo<--[HERE]@3
+S -2--2 0 0 
+@ all clockwis_180
+R 0
+A -
+X Invalid value 'clockwis_180' at position 14: ...ockwis_180<--[HERE]@12
+E Invalid value 'clockwis_180' at position 14: ...ockwis_180<--[HERE]@12
+S -2--2 0 0 
+@ all clockwse_180l
+R 0
+A -
+X Invalid value 'clockwse_180l' at position 15: ...ckwse_180l<--[HERE]@13
+E Invalid value 'clockwse_180l' at position 15: ...ckwse_180l<--[HERE]@13
+S -2--2 0 0 
+@ all clockc
+R 0
+A -
+X Invalid value 'clockc' at position 8: t clockc<--[HERE]@6
+E Invalid value 'clockc' at position 8: t clockc<--[HERE]@6
+S -2--2 0 0 
+@ all counterclockwise_9~
+R 0
+A -
+X Invalid value 'counterclockwise_9' at position 20: ...lockwise_9<--[HERE]@18
+E Invalid value 'counterclockwise_9' at position 20: ...lockwise_9<--[HERE]@18
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1_801
+R 0
+A -
+X Invalid value '1_801' at position 7: t 1_801<--[HERE]@5
+E Invalid value '1_801' at position 7: t 1_801<--[HERE]@5
+S -2--2 0 0 
+@ all nz
+R 0
+A -
+X Invalid value 'nz' at position 4: t nz<--[HERE]@2
+E Invalid value 'nz' at position 4: t nz<--[HERE]@2
+S -2--2 0 0 
+@ all :o]e
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all cl中ck
+R 0
+A -
+X Invalid value 'cl' at position 4: t cl<--[HERE]@2
+E Invalid value 'cl' at position 4: t cl<--[HERE]@2
+S -2--2 0 0 
+@ all 18500
+R 0
+A -
+X Invalid value '18500' at position 7: t 18500<--[HERE]@5
+E Invalid value '18500' at position 7: t 18500<--[HERE]@5
+S -2--2 0 0 
+@ all céounterclockwise_90c
+R 0
+A -
+X Invalid value 'c' at position 3: t c<--[HERE]@1
+E Invalid value 'c' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all CLOCK￿ISE_90E
+R 0
+A -
+X Invalid value 'CLOCK' at position 7: t CLOCK<--[HERE]@5
+E Invalid value 'CLOCK' at position 7: t CLOCK<--[HERE]@5
+S -2--2 0 0 
+@ all %82
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all clockwise_90s
+R 0
+A -
+X Invalid value 'clockwise_90s' at position 15: ...ckwise_90s<--[HERE]@13
+E Invalid value 'clockwise_90s' at position 15: ...ckwise_90s<--[HERE]@13
+S -2--2 0 0 
+@ all one
+R 0
+A -
+X Invalid value 'one' at position 5: t one<--[HERE]@3
+E Invalid value 'one' at position 5: t one<--[HERE]@3
+S -2--2 0 0 
+@ all clockwse_90
+R 0
+A -
+X Invalid value 'clockwse_90' at position 13: ...lockwse_90<--[HERE]@11
+E Invalid value 'clockwse_90' at position 13: ...lockwse_90<--[HERE]@11
+S -2--2 0 0 
+@ all x"
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all noneee
+R 0
+A -
+X Invalid value 'noneee' at position 8: t noneee<--[HERE]@6
+E Invalid value 'noneee' at position 8: t noneee<--[HERE]@6
+S -2--2 0 0 
+@ all counter(lockwise_9}0
+R 0
+A -
+X Invalid value 'counter' at position 9: t counter<--[HERE]@7
+E Invalid value 'counter' at position 9: t counter<--[HERE]@7
+S -2--2 0 0 
+@ all no,ee
+R 0
+A -
+X Invalid value 'no' at position 4: t no<--[HERE]@2
+E Invalid value 'no' at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all _ock
+R 0
+A -
+X Invalid value '_ock' at position 6: t _ock<--[HERE]@4
+E Invalid value '_ock' at position 6: t _ock<--[HERE]@4
+S -2--2 0 0 
+@ all 1'8f
+R 0
+A -
+X Invalid value '1' at position 3: t 1<--[HERE]@1
+E Invalid value '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all C{LOCKWISE_90
+R 0
+A -
+X Invalid value 'C' at position 3: t C<--[HERE]@1
+E Invalid value 'C' at position 3: t C<--[HERE]@1
+S -2--2 0 0 
+@ all cYloc
+R 0
+A -
+X Invalid value 'cYloc' at position 7: t cYloc<--[HERE]@5
+E Invalid value 'cYloc' at position 7: t cYloc<--[HERE]@5
+S -2--2 0 0 
+@ all 280
+R 0
+A -
+X Invalid value '280' at position 5: t 280<--[HERE]@3
+E Invalid value '280' at position 5: t 280<--[HERE]@3
+S -2--2 0 0 
+@ all counterclo~ckwise_90
+R 0
+A -
+X Invalid value 'counterclo' at position 12: ...counterclo<--[HERE]@10
+E Invalid value 'counterclo' at position 12: ...counterclo<--[HERE]@10
+S -2--2 0 0 
+@ all }}
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all noe
+R 0
+A -
+X Invalid value 'noe' at position 5: t noe<--[HERE]@3
+E Invalid value 'noe' at position 5: t noe<--[HERE]@3
+S -2--2 0 0 
+@ all cobk
+R 0
+A -
+X Invalid value 'cobk' at position 6: t cobk<--[HERE]@4
+E Invalid value 'cobk' at position 6: t cobk<--[HERE]@4
+S -2--2 0 0 
+@ all terclockwise_90l
+R 0
+A -
+X Invalid value 'terclockwise_90l' at position 18: ...ckwise_90l<--[HERE]@16
+E Invalid value 'terclockwise_90l' at position 18: ...ckwise_90l<--[HERE]@16
+S -2--2 0 0 
+@ all ]c^lock
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all clockwis+e_90
+R 0
+A -
+X Invalid value 'clockwis+e_90' at position 15: ...ckwis+e_90<--[HERE]@13
+E Invalid value 'clockwis+e_90' at position 15: ...ckwis+e_90<--[HERE]@13
+S -2--2 0 0 
+@ all wise_90
+R 0
+A -
+X Invalid value 'wise_90' at position 9: t wise_90<--[HERE]@7
+E Invalid value 'wise_90' at position 9: t wise_90<--[HERE]@7
+S -2--2 0 0 
+@ all clockwi"e_90]
+R 0
+A -
+X Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+E Invalid value 'clockwi' at position 9: t clockwi<--[HERE]@7
+S -2--2 0 0 
+@ all OCKWISE_90E
+R 0
+A -
+X Invalid value 'OCKWISE_90E' at position 13: ...CKWISE_90E<--[HERE]@11
+E Invalid value 'OCKWISE_90E' at position 13: ...CKWISE_90E<--[HERE]@11
+S -2--2 0 0 
+@ all c&ockwise_90
+R 0
+A -
+X Invalid value 'c' at position 3: t c<--[HERE]@1
+E Invalid value 'c' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all lockl
+R 0
+A -
+X Invalid value 'lockl' at position 7: t lockl<--[HERE]@5
+E Invalid value 'lockl' at position 7: t lockl<--[HERE]@5
+S -2--2 0 0 
+@ all x1
+R 0
+A -
+X Invalid value 'x1' at position 4: t x1<--[HERE]@2
+E Invalid value 'x1' at position 4: t x1<--[HERE]@2
+S -2--2 0 0 
+@ all clockwise~_90
+R 0
+A -
+X Invalid value 'clockwise' at position 11: ... clockwise<--[HERE]@9
+E Invalid value 'clockwise' at position 11: ... clockwise<--[HERE]@9
+S -2--2 0 0 
+@ all noneeo
+R 0
+A -
+X Invalid value 'noneeo' at position 8: t noneeo<--[HERE]@6
+E Invalid value 'noneeo' at position 8: t noneeo<--[HERE]@6
+S -2--2 0 0 
+@ all 1:{0
+R 0
+A -
+X Invalid value '1' at position 3: t 1<--[HERE]@1
+E Invalid value '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all nonAe
+R 0
+A -
+X Invalid value 'nonAe' at position 7: t nonAe<--[HERE]@5
+E Invalid value 'nonAe' at position 7: t nonAe<--[HERE]@5
+S -2--2 0 0 
+@ all CLOC\\\\WISE_90
+R 0
+A -
+X Invalid value 'CLOC' at position 6: t CLOC<--[HERE]@4
+E Invalid value 'CLOC' at position 6: t CLOC<--[HERE]@4
+S -2--2 0 0 
+@ all 1/0
+R 0
+A -
+X Invalid value '1' at position 3: t 1<--[HERE]@1
+E Invalid value '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all counterfclockwise_90
+R 0
+A -
+X Invalid value 'counterfclockwise_90' at position 22: ...ockwise_90<--[HERE]@20
+E Invalid value 'counterfclockwise_90' at position 22: ...ockwise_90<--[HERE]@20
+S -2--2 0 0 
+@ all >80>
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ckwise_909
+R 0
+A -
+X Invalid value 'ckwise_909' at position 12: ...ckwise_909<--[HERE]@10
+E Invalid value 'ckwise_909' at position 12: ...ckwise_909<--[HERE]@10
+S -2--2 0 0 
+@ all clockwise_4180
+R 0
+A -
+X Invalid value 'clockwise_4180' at position 16: ...kwise_4180<--[HERE]@14
+E Invalid value 'clockwise_4180' at position 16: ...kwise_4180<--[HERE]@14
+S -2--2 0 0 
+@ all 1none
+R 0
+A -
+X Invalid value '1none' at position 7: t 1none<--[HERE]@5
+E Invalid value '1none' at position 7: t 1none<--[HERE]@5
+S -2--2 0 0 
+@ all nonn
+R 0
+A -
+X Invalid value 'nonn' at position 6: t nonn<--[HERE]@4
+E Invalid value 'nonn' at position 6: t nonn<--[HERE]@4
+S -2--2 0 0 
+@ all _9
+R 0
+A -
+X Invalid value '_9' at position 4: t _9<--[HERE]@2
+E Invalid value '_9' at position 4: t _9<--[HERE]@2
+S -2--2 0 0 
+@ all LOCKWISE_90
+R 0
+A -
+X Invalid value 'LOCKWISE_90' at position 13: ...OCKWISE_90<--[HERE]@11
+E Invalid value 'LOCKWISE_90' at position 13: ...OCKWISE_90<--[HERE]@11
+S -2--2 0 0 
+@ all clckl
+R 0
+A -
+X Invalid value 'clckl' at position 7: t clckl<--[HERE]@5
+E Invalid value 'clckl' at position 7: t clckl<--[HERE]@5
+S -2--2 0 0 
+@ all counterclockwise_90t
+R 0
+A -
+X Invalid value 'counterclockwise_90t' at position 22: ...ckwise_90t<--[HERE]@20
+E Invalid value 'counterclockwise_90t' at position 22: ...ckwise_90t<--[HERE]@20
+S -2--2 0 0 
+@ all clockwise_=90
+R 0
+A -
+X Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+E Invalid value 'clockwise_' at position 12: ...clockwise_<--[HERE]@10
+S -2--2 0 0 
+@ all 1!
+R 0
+A -
+X Invalid value '1' at position 3: t 1<--[HERE]@1
+E Invalid value '1' at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all xxx
+R 0
+A -
+X Invalid value 'xxx' at position 5: t xxx<--[HERE]@3
+E Invalid value 'xxx' at position 5: t xxx<--[HERE]@3
+S -2--2 0 0 
+@ all CLOCKWISE_900
+R 0
+A -
+X Invalid value 'CLOCKWISE_900' at position 15: ...CKWISE_900<--[HERE]@13
+E Invalid value 'CLOCKWISE_900' at position 15: ...CKWISE_900<--[HERE]@13
+S -2--2 0 0 
+@ all clyckk
+R 0
+A -
+X Invalid value 'clyckk' at position 8: t clyckk<--[HERE]@6
+E Invalid value 'clyckk' at position 8: t clyckk<--[HERE]@6
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all countercockwise_90
+R 0
+A -
+X Invalid value 'countercockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+E Invalid value 'countercockwise_90' at position 20: ...ockwise_90<--[HERE]@18
+S -2--2 0 0 
+@ all noeo
+R 0
+A -
+X Invalid value 'noeo' at position 6: t noeo<--[HERE]@4
+E Invalid value 'noeo' at position 6: t noeo<--[HERE]@4
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1800
+R 0
+A -
+X Invalid value '1800' at position 6: t 1800<--[HERE]@4
+E Invalid value '1800' at position 6: t 1800<--[HERE]@4
+S -2--2 0 0 
+@ all _90
+R 0
+A -
+X Invalid value '_90' at position 5: t _90<--[HERE]@3
+E Invalid value '_90' at position 5: t _90<--[HERE]@3
+S -2--2 0 0 
+@ all clockwise_180c8
+R 0
+A -
+X Invalid value 'clockwise_180c8' at position 17: ...wise_180c8<--[HERE]@15
+E Invalid value 'clockwise_180c8' at position 17: ...wise_180c8<--[HERE]@15
+S -2--2 0 0 
+@ all clockbwise_180e
+R 0
+A -
+X Invalid value 'clockbwise_180e' at position 17: ...bwise_180e<--[HERE]@15
+E Invalid value 'clockbwise_180e' at position 17: ...bwise_180e<--[HERE]@15
+S -2--2 0 0 
+@ all (1800
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 01580
+R 0
+A -
+X Invalid value '01580' at position 7: t 01580<--[HERE]@5
+E Invalid value '01580' at position 7: t 01580<--[HERE]@5
+S -2--2 0 0 
+@ all 0none
+R 0
+A -
+X Invalid value '0none' at position 7: t 0none<--[HERE]@5
+E Invalid value '0none' at position 7: t 0none<--[HERE]@5
+S -2--2 0 0 

@@ -1,0 +1,1913 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 4 -102837296 adventure	creative	spectator	survival
+@ all survival
+R 8
+A 0-8 survival
+E ok
+S -2--2 0 0 
+@ all creative
+R 8
+A 0-8 creative
+E ok
+S -2--2 0 0 
+@ all adventure
+R 9
+A 0-9 adventure
+E ok
+S -2--2 0 0 
+@ all spectator
+R 9
+A 0-9 spectator
+E ok
+S -2--2 0 0 
+@ all Survival
+R 0
+A -
+X Unknown game mode: Survival at position 10: t Survival<--[HERE]@8
+E Unknown game mode: Survival at position 10: t Survival<--[HERE]@8
+S 0-8 1 1921539211 survival
+@ all s
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S 0-1 2 2124045521 spectator	survival
+@ all 0
+R 0
+A -
+X Unknown game mode: 0 at position 3: t 0<--[HERE]@1
+E Unknown game mode: 0 at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all 1
+R 0
+A -
+X Unknown game mode: 1 at position 3: t 1<--[HERE]@1
+E Unknown game mode: 1 at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all creative 
+R 8
+A 0-8 creative
+E Incorrect argument for command at position 10: t creative<--[HERE]@8
+S -2--2 0 0 
+@ all survival_
+R 0
+A -
+X Unknown game mode: survival_ at position 11: ... survival_<--[HERE]@9
+E Unknown game mode: survival_ at position 11: ... survival_<--[HERE]@9
+S -2--2 0 0 
+@ all hardcore
+R 0
+A -
+X Unknown game mode: hardcore at position 10: t hardcore<--[HERE]@8
+E Unknown game mode: hardcore at position 10: t hardcore<--[HERE]@8
+S -2--2 0 0 
+@ all spec
+R 0
+A -
+X Unknown game mode: spec at position 6: t spec<--[HERE]@4
+E Unknown game mode: spec at position 6: t spec<--[HERE]@4
+S 0-4 1 -682788614 spectator
+@ all é
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all su
+R 0
+A -
+X Unknown game mode: su at position 4: t su<--[HERE]@2
+E Unknown game mode: su at position 4: t su<--[HERE]@2
+S 0-2 1 1921539211 survival
+@ all sur
+R 0
+A -
+X Unknown game mode: sur at position 5: t sur<--[HERE]@3
+E Unknown game mode: sur at position 5: t sur<--[HERE]@3
+S 0-3 1 1921539211 survival
+@ all surv
+R 0
+A -
+X Unknown game mode: surv at position 6: t surv<--[HERE]@4
+E Unknown game mode: surv at position 6: t surv<--[HERE]@4
+S 0-4 1 1921539211 survival
+@ all survi
+R 0
+A -
+X Unknown game mode: survi at position 7: t survi<--[HERE]@5
+E Unknown game mode: survi at position 7: t survi<--[HERE]@5
+S 0-5 1 1921539211 survival
+@ all surviv
+R 0
+A -
+X Unknown game mode: surviv at position 8: t surviv<--[HERE]@6
+E Unknown game mode: surviv at position 8: t surviv<--[HERE]@6
+S 0-6 1 1921539211 survival
+@ all surviva
+R 0
+A -
+X Unknown game mode: surviva at position 9: t surviva<--[HERE]@7
+E Unknown game mode: surviva at position 9: t surviva<--[HERE]@7
+S 0-7 1 1921539211 survival
+@ all c
+R 0
+A -
+X Unknown game mode: c at position 3: t c<--[HERE]@1
+E Unknown game mode: c at position 3: t c<--[HERE]@1
+S 0-1 1 598509114 creative
+@ all cr
+R 0
+A -
+X Unknown game mode: cr at position 4: t cr<--[HERE]@2
+E Unknown game mode: cr at position 4: t cr<--[HERE]@2
+S 0-2 1 598509114 creative
+@ all cre
+R 0
+A -
+X Unknown game mode: cre at position 5: t cre<--[HERE]@3
+E Unknown game mode: cre at position 5: t cre<--[HERE]@3
+S 0-3 1 598509114 creative
+@ all crea
+R 0
+A -
+X Unknown game mode: crea at position 6: t crea<--[HERE]@4
+E Unknown game mode: crea at position 6: t crea<--[HERE]@4
+S 0-4 1 598509114 creative
+@ all creat
+R 0
+A -
+X Unknown game mode: creat at position 7: t creat<--[HERE]@5
+E Unknown game mode: creat at position 7: t creat<--[HERE]@5
+S 0-5 1 598509114 creative
+@ all creati
+R 0
+A -
+X Unknown game mode: creati at position 8: t creati<--[HERE]@6
+E Unknown game mode: creati at position 8: t creati<--[HERE]@6
+S 0-6 1 598509114 creative
+@ all creativ
+R 0
+A -
+X Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+E Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+S 0-7 1 598509114 creative
+@ all a
+R 0
+A -
+X Unknown game mode: a at position 3: t a<--[HERE]@1
+E Unknown game mode: a at position 3: t a<--[HERE]@1
+S 0-1 1 -42079495 adventure
+@ all ad
+R 0
+A -
+X Unknown game mode: ad at position 4: t ad<--[HERE]@2
+E Unknown game mode: ad at position 4: t ad<--[HERE]@2
+S 0-2 1 -42079495 adventure
+@ all adv
+R 0
+A -
+X Unknown game mode: adv at position 5: t adv<--[HERE]@3
+E Unknown game mode: adv at position 5: t adv<--[HERE]@3
+S 0-3 1 -42079495 adventure
+@ all adve
+R 0
+A -
+X Unknown game mode: adve at position 6: t adve<--[HERE]@4
+E Unknown game mode: adve at position 6: t adve<--[HERE]@4
+S 0-4 1 -42079495 adventure
+@ all adven
+R 0
+A -
+X Unknown game mode: adven at position 7: t adven<--[HERE]@5
+E Unknown game mode: adven at position 7: t adven<--[HERE]@5
+S 0-5 1 -42079495 adventure
+@ all advent
+R 0
+A -
+X Unknown game mode: advent at position 8: t advent<--[HERE]@6
+E Unknown game mode: advent at position 8: t advent<--[HERE]@6
+S 0-6 1 -42079495 adventure
+@ all adventu
+R 0
+A -
+X Unknown game mode: adventu at position 9: t adventu<--[HERE]@7
+E Unknown game mode: adventu at position 9: t adventu<--[HERE]@7
+S 0-7 1 -42079495 adventure
+@ all adventur
+R 0
+A -
+X Unknown game mode: adventur at position 10: t adventur<--[HERE]@8
+E Unknown game mode: adventur at position 10: t adventur<--[HERE]@8
+S 0-8 1 -42079495 adventure
+@ all sp
+R 0
+A -
+X Unknown game mode: sp at position 4: t sp<--[HERE]@2
+E Unknown game mode: sp at position 4: t sp<--[HERE]@2
+S 0-2 1 -682788614 spectator
+@ all spe
+R 0
+A -
+X Unknown game mode: spe at position 5: t spe<--[HERE]@3
+E Unknown game mode: spe at position 5: t spe<--[HERE]@3
+S 0-3 1 -682788614 spectator
+@ all spect
+R 0
+A -
+X Unknown game mode: spect at position 7: t spect<--[HERE]@5
+E Unknown game mode: spect at position 7: t spect<--[HERE]@5
+S 0-5 1 -682788614 spectator
+@ all specta
+R 0
+A -
+X Unknown game mode: specta at position 8: t specta<--[HERE]@6
+E Unknown game mode: specta at position 8: t specta<--[HERE]@6
+S 0-6 1 -682788614 spectator
+@ all spectat
+R 0
+A -
+X Unknown game mode: spectat at position 9: t spectat<--[HERE]@7
+E Unknown game mode: spectat at position 9: t spectat<--[HERE]@7
+S 0-7 1 -682788614 spectator
+@ all spectato
+R 0
+A -
+X Unknown game mode: spectato at position 10: t spectato<--[HERE]@8
+E Unknown game mode: spectato at position 10: t spectato<--[HERE]@8
+S 0-8 1 -682788614 spectator
+@ all S
+R 0
+A -
+X Unknown game mode: S at position 3: t S<--[HERE]@1
+E Unknown game mode: S at position 3: t S<--[HERE]@1
+S 0-1 2 2124045521 spectator	survival
+@ all Su
+R 0
+A -
+X Unknown game mode: Su at position 4: t Su<--[HERE]@2
+E Unknown game mode: Su at position 4: t Su<--[HERE]@2
+S 0-2 1 1921539211 survival
+@ all Sur
+R 0
+A -
+X Unknown game mode: Sur at position 5: t Sur<--[HERE]@3
+E Unknown game mode: Sur at position 5: t Sur<--[HERE]@3
+S 0-3 1 1921539211 survival
+@ all Surv
+R 0
+A -
+X Unknown game mode: Surv at position 6: t Surv<--[HERE]@4
+E Unknown game mode: Surv at position 6: t Surv<--[HERE]@4
+S 0-4 1 1921539211 survival
+@ all Survi
+R 0
+A -
+X Unknown game mode: Survi at position 7: t Survi<--[HERE]@5
+E Unknown game mode: Survi at position 7: t Survi<--[HERE]@5
+S 0-5 1 1921539211 survival
+@ all Surviv
+R 0
+A -
+X Unknown game mode: Surviv at position 8: t Surviv<--[HERE]@6
+E Unknown game mode: Surviv at position 8: t Surviv<--[HERE]@6
+S 0-6 1 1921539211 survival
+@ all Surviva
+R 0
+A -
+X Unknown game mode: Surviva at position 9: t Surviva<--[HERE]@7
+E Unknown game mode: Surviva at position 9: t Surviva<--[HERE]@7
+S 0-7 1 1921539211 survival
+@ all h
+R 0
+A -
+X Unknown game mode: h at position 3: t h<--[HERE]@1
+E Unknown game mode: h at position 3: t h<--[HERE]@1
+S -2--2 0 0 
+@ all ha
+R 0
+A -
+X Unknown game mode: ha at position 4: t ha<--[HERE]@2
+E Unknown game mode: ha at position 4: t ha<--[HERE]@2
+S -2--2 0 0 
+@ all har
+R 0
+A -
+X Unknown game mode: har at position 5: t har<--[HERE]@3
+E Unknown game mode: har at position 5: t har<--[HERE]@3
+S -2--2 0 0 
+@ all hard
+R 0
+A -
+X Unknown game mode: hard at position 6: t hard<--[HERE]@4
+E Unknown game mode: hard at position 6: t hard<--[HERE]@4
+S -2--2 0 0 
+@ all hardc
+R 0
+A -
+X Unknown game mode: hardc at position 7: t hardc<--[HERE]@5
+E Unknown game mode: hardc at position 7: t hardc<--[HERE]@5
+S -2--2 0 0 
+@ all hardco
+R 0
+A -
+X Unknown game mode: hardco at position 8: t hardco<--[HERE]@6
+E Unknown game mode: hardco at position 8: t hardco<--[HERE]@6
+S -2--2 0 0 
+@ all hardcor
+R 0
+A -
+X Unknown game mode: hardcor at position 9: t hardcor<--[HERE]@7
+E Unknown game mode: hardcor at position 9: t hardcor<--[HERE]@7
+S -2--2 0 0 
+@ all hadcore
+R 0
+A -
+X Unknown game mode: hadcore at position 9: t hadcore<--[HERE]@7
+E Unknown game mode: hadcore at position 9: t hadcore<--[HERE]@7
+S -2--2 0 0 
+@ all ééé
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sur)val_
+R 0
+A -
+X Unknown game mode: sur at position 5: t sur<--[HERE]@3
+E Unknown game mode: sur at position 5: t sur<--[HERE]@3
+S -2--2 0 0 
+@ all "
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all spe5cs
+R 0
+A -
+X Unknown game mode: spe5cs at position 8: t spe5cs<--[HERE]@6
+E Unknown game mode: spe5cs at position 8: t spe5cs<--[HERE]@6
+S -2--2 0 0 
+@ all ha\u000ardcor
+R 0
+A -
+X Unknown game mode: ha at position 4: t ha<--[HERE]@2
+E Unknown game mode: ha at position 4: t ha<--[HERE]@2
+S -2--2 0 0 
+@ all spece
+R 0
+A -
+X Unknown game mode: spece at position 7: t spece<--[HERE]@5
+E Unknown game mode: spece at position 7: t spece<--[HERE]@5
+S -2--2 0 0 
+@ all \\pe(
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all '1
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all surviv9l_9
+R 0
+A -
+X Unknown game mode: surviv9l_9 at position 12: ...surviv9l_9<--[HERE]@10
+E Unknown game mode: surviv9l_9 at position 12: ...surviv9l_9<--[HERE]@10
+S -2--2 0 0 
+@ all urviva
+R 0
+A -
+X Unknown game mode: urviva at position 8: t urviva<--[HERE]@6
+E Unknown game mode: urviva at position 8: t urviva<--[HERE]@6
+S -2--2 0 0 
+@ all 6
+R 0
+A -
+X Unknown game mode: 6 at position 3: t 6<--[HERE]@1
+E Unknown game mode: 6 at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all hardcor<
+R 0
+A -
+X Unknown game mode: hardcor at position 9: t hardcor<--[HERE]@7
+E Unknown game mode: hardcor at position 9: t hardcor<--[HERE]@7
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all harcore
+R 0
+A -
+X Unknown game mode: harcore at position 9: t harcore<--[HERE]@7
+E Unknown game mode: harcore at position 9: t harcore<--[HERE]@7
+S -2--2 0 0 
+@ all creativet
+R 0
+A -
+X Unknown game mode: creativet at position 11: ... creativet<--[HERE]@9
+E Unknown game mode: creativet at position 11: ... creativet<--[HERE]@9
+S -2--2 0 0 
+@ all _1
+R 0
+A -
+X Unknown game mode: _1 at position 4: t _1<--[HERE]@2
+E Unknown game mode: _1 at position 4: t _1<--[HERE]@2
+S -2--2 0 0 
+@ all hardcor​ec
+R 0
+A -
+X Unknown game mode: hardcor at position 9: t hardcor<--[HERE]@7
+E Unknown game mode: hardcor at position 9: t hardcor<--[HERE]@7
+S -2--2 0 0 
+@ all creativß
+R 0
+A -
+X Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+E Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+S -2--2 0 0 
+@ all spectators
+R 0
+A -
+X Unknown game mode: spectators at position 12: ...spectators<--[HERE]@10
+E Unknown game mode: spectators at position 12: ...spectators<--[HERE]@10
+S -2--2 0 0 
+@ all ,survival_
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all spexctator
+R 0
+A -
+X Unknown game mode: spexctator at position 12: ...spexctator<--[HERE]@10
+E Unknown game mode: spexctator at position 12: ...spexctator<--[HERE]@10
+S -2--2 0 0 
+@ all surviva_
+R 0
+A -
+X Unknown game mode: surviva_ at position 10: t surviva_<--[HERE]@8
+E Unknown game mode: surviva_ at position 10: t surviva_<--[HERE]@8
+S -2--2 0 0 
+@ all Survivall
+R 0
+A -
+X Unknown game mode: Survivall at position 11: ... Survivall<--[HERE]@9
+E Unknown game mode: Survivall at position 11: ... Survivall<--[HERE]@9
+S -2--2 0 0 
+@ all pec
+R 0
+A -
+X Unknown game mode: pec at position 5: t pec<--[HERE]@3
+E Unknown game mode: pec at position 5: t pec<--[HERE]@3
+S -2--2 0 0 
+@ all crCafive
+R 0
+A -
+X Unknown game mode: crCafive at position 10: t crCafive<--[HERE]@8
+E Unknown game mode: crCafive at position 10: t crCafive<--[HERE]@8
+S -2--2 0 0 
+@ all ival
+R 0
+A -
+X Unknown game mode: ival at position 6: t ival<--[HERE]@4
+E Unknown game mode: ival at position 6: t ival<--[HERE]@4
+S -2--2 0 0 
+@ all survivfl
+R 0
+A -
+X Unknown game mode: survivfl at position 10: t survivfl<--[HERE]@8
+E Unknown game mode: survivfl at position 10: t survivfl<--[HERE]@8
+S -2--2 0 0 
+@ all \u0000
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all survival_iİ
+R 0
+A -
+X Unknown game mode: survival_i at position 12: ...survival_i<--[HERE]@10
+E Unknown game mode: survival_i at position 12: ...survival_i<--[HERE]@10
+S -2--2 0 0 
+@ all SurivalS
+R 0
+A -
+X Unknown game mode: SurivalS at position 10: t SurivalS<--[HERE]@8
+E Unknown game mode: SurivalS at position 10: t SurivalS<--[HERE]@8
+S -2--2 0 0 
+@ all sur.vival
+R 0
+A -
+X Unknown game mode: sur.vival at position 11: ... sur.vival<--[HERE]@9
+E Unknown game mode: sur.vival at position 11: ... sur.vival<--[HERE]@9
+S -2--2 0 0 
+@ all }1
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Unknown game mode: e at position 3: t e<--[HERE]@1
+E Unknown game mode: e at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all dc!ore
+R 0
+A -
+X Unknown game mode: dc at position 4: t dc<--[HERE]@2
+E Unknown game mode: dc at position 4: t dc<--[HERE]@2
+S -2--2 0 0 
+@ all sz
+R 0
+A -
+X Unknown game mode: sz at position 4: t sz<--[HERE]@2
+E Unknown game mode: sz at position 4: t sz<--[HERE]@2
+S -2--2 0 0 
+@ all 11
+R 0
+A -
+X Unknown game mode: 11 at position 4: t 11<--[HERE]@2
+E Unknown game mode: 11 at position 4: t 11<--[HERE]@2
+S -2--2 0 0 
+@ all Sur/vivali
+R 0
+A -
+X Unknown game mode: Sur at position 5: t Sur<--[HERE]@3
+E Unknown game mode: Sur at position 5: t Sur<--[HERE]@3
+S -2--2 0 0 
+@ all spect[atoro
+R 0
+A -
+X Unknown game mode: spect at position 7: t spect<--[HERE]@5
+E Unknown game mode: spect at position 7: t spect<--[HERE]@5
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 00
+R 0
+A -
+X Unknown game mode: 00 at position 4: t 00<--[HERE]@2
+E Unknown game mode: 00 at position 4: t 00<--[HERE]@2
+S -2--2 0 0 
+@ all spectat0r
+R 0
+A -
+X Unknown game mode: spectat0r at position 11: ... spectat0r<--[HERE]@9
+E Unknown game mode: spectat0r at position 11: ... spectat0r<--[HERE]@9
+S -2--2 0 0 
+@ all al
+R 0
+A -
+X Unknown game mode: al at position 4: t al<--[HERE]@2
+E Unknown game mode: al at position 4: t al<--[HERE]@2
+S -2--2 0 0 
+@ all ss
+R 0
+A -
+X Unknown game mode: ss at position 4: t ss<--[HERE]@2
+E Unknown game mode: ss at position 4: t ss<--[HERE]@2
+S -2--2 0 0 
+@ all viva
+R 0
+A -
+X Unknown game mode: viva at position 6: t viva<--[HERE]@4
+E Unknown game mode: viva at position 6: t viva<--[HERE]@4
+S -2--2 0 0 
+@ all a\u0000venturx
+R 0
+A -
+X Unknown game mode: a at position 3: t a<--[HERE]@1
+E Unknown game mode: a at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all l
+R 0
+A -
+X Unknown game mode: l at position 3: t l<--[HERE]@1
+E Unknown game mode: l at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all Yhardcore
+R 0
+A -
+X Unknown game mode: Yhardcore at position 11: ... Yhardcore<--[HERE]@9
+E Unknown game mode: Yhardcore at position 11: ... Yhardcore<--[HERE]@9
+S -2--2 0 0 
+@ all cre-tive 
+R 0
+A -
+X Unknown game mode: cre-tive at position 10: t cre-tive<--[HERE]@8
+E Unknown game mode: cre-tive at position 10: t cre-tive<--[HERE]@8
+S -2--2 0 0 
+@ all \u0009
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all S=rvivalr
+R 0
+A -
+X Unknown game mode: S at position 3: t S<--[HERE]@1
+E Unknown game mode: S at position 3: t S<--[HERE]@1
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all >
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ive
+R 0
+A -
+X Unknown game mode: ive at position 5: t ive<--[HERE]@3
+E Unknown game mode: ive at position 5: t ive<--[HERE]@3
+S -2--2 0 0 
+@ all SurvCiva
+R 0
+A -
+X Unknown game mode: SurvCiva at position 10: t SurvCiva<--[HERE]@8
+E Unknown game mode: SurvCiva at position 10: t SurvCiva<--[HERE]@8
+S -2--2 0 0 
+@ all s^urv​ival_
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all survival_aa
+R 0
+A -
+X Unknown game mode: survival_aa at position 13: ...urvival_aa<--[HERE]@11
+E Unknown game mode: survival_aa at position 13: ...urvival_aa<--[HERE]@11
+S -2--2 0 0 
+@ all +
+R 0
+A -
+X Unknown game mode: + at position 3: t +<--[HERE]@1
+E Unknown game mode: + at position 3: t +<--[HERE]@1
+S -2--2 0 0 
+@ all \u000a
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all creat>ive 
+R 0
+A -
+X Unknown game mode: creat at position 7: t creat<--[HERE]@5
+E Unknown game mode: creat at position 7: t creat<--[HERE]@5
+S -2--2 0 0 
+@ all rvival
+R 0
+A -
+X Unknown game mode: rvival at position 8: t rvival<--[HERE]@6
+E Unknown game mode: rvival at position 8: t rvival<--[HERE]@6
+S -2--2 0 0 
+@ all spec{
+R 0
+A -
+X Unknown game mode: spec at position 6: t spec<--[HERE]@4
+E Unknown game mode: spec at position 6: t spec<--[HERE]@4
+S -2--2 0 0 
+@ all creatie 9
+R 0
+A -
+X Unknown game mode: creatie at position 9: t creatie<--[HERE]@7
+E Unknown game mode: creatie at position 9: t creatie<--[HERE]@7
+S -2--2 0 0 
+@ all adventu中re\u000a
+R 0
+A -
+X Unknown game mode: adventu at position 9: t adventu<--[HERE]@7
+E Unknown game mode: adventu at position 9: t adventu<--[HERE]@7
+S -2--2 0 0 
+@ all ad.ventu>e
+R 0
+A -
+X Unknown game mode: ad.ventu at position 10: t ad.ventu<--[HERE]@8
+E Unknown game mode: ad.ventu at position 10: t ad.ventu<--[HERE]@8
+S -2--2 0 0 
+@ all spectato 
+R 0
+A -
+X Unknown game mode: spectato at position 10: t spectato<--[HERE]@8
+E Unknown game mode: spectato at position 10: t spectato<--[HERE]@8
+S -2--2 0 0 
+@ all adventuree
+R 0
+A -
+X Unknown game mode: adventuree at position 12: ...adventuree<--[HERE]@10
+E Unknown game mode: adventuree at position 12: ...adventuree<--[HERE]@10
+S -2--2 0 0 
+@ all sur中vivl
+R 0
+A -
+X Unknown game mode: sur at position 5: t sur<--[HERE]@3
+E Unknown game mode: sur at position 5: t sur<--[HERE]@3
+S -2--2 0 0 
+@ all crea\\tivB 
+R 0
+A -
+X Unknown game mode: crea at position 6: t crea<--[HERE]@4
+E Unknown game mode: crea at position 6: t crea<--[HERE]@4
+S -2--2 0 0 
+@ all pece
+R 0
+A -
+X Unknown game mode: pece at position 6: t pece<--[HERE]@4
+E Unknown game mode: pece at position 6: t pece<--[HERE]@4
+S -2--2 0 0 
+@ all éé
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all creative.
+R 0
+A -
+X Unknown game mode: creative. at position 11: ... creative.<--[HERE]@9
+E Unknown game mode: creative. at position 11: ... creative.<--[HERE]@9
+S -2--2 0 0 
+@ all cretivee
+R 0
+A -
+X Unknown game mode: cretivee at position 10: t cretivee<--[HERE]@8
+E Unknown game mode: cretivee at position 10: t cretivee<--[HERE]@8
+S -2--2 0 0 
+@ all Surviv@l
+R 0
+A -
+X Unknown game mode: Surviv at position 8: t Surviv<--[HERE]@6
+E Unknown game mode: Surviv at position 8: t Surviv<--[HERE]@6
+S -2--2 0 0 
+@ all adv7nture
+R 0
+A -
+X Unknown game mode: adv7nture at position 11: ... adv7nture<--[HERE]@9
+E Unknown game mode: adv7nture at position 11: ... adv7nture<--[HERE]@9
+S -2--2 0 0 
+@ all spectat"r
+R 0
+A -
+X Unknown game mode: spectat at position 9: t spectat<--[HERE]@7
+E Unknown game mode: spectat at position 9: t spectat<--[HERE]@7
+S -2--2 0 0 
+@ all adventured
+R 0
+A -
+X Unknown game mode: adventured at position 12: ...adventured<--[HERE]@10
+E Unknown game mode: adventured at position 12: ...adventured<--[HERE]@10
+S -2--2 0 0 
+@ all reativbe
+R 0
+A -
+X Unknown game mode: reativbe at position 10: t reativbe<--[HERE]@8
+E Unknown game mode: reativbe at position 10: t reativbe<--[HERE]@8
+S -2--2 0 0 
+@ all specbtator
+R 0
+A -
+X Unknown game mode: specbtator at position 12: ...specbtator<--[HERE]@10
+E Unknown game mode: specbtator at position 12: ...specbtator<--[HERE]@10
+S -2--2 0 0 
+@ all Survivar
+R 0
+A -
+X Unknown game mode: Survivar at position 10: t Survivar<--[HERE]@8
+E Unknown game mode: Survivar at position 10: t Survivar<--[HERE]@8
+S -2--2 0 0 
+@ all pectato 
+R 0
+A -
+X Unknown game mode: pectato at position 9: t pectato<--[HERE]@7
+E Unknown game mode: pectato at position 9: t pectato<--[HERE]@7
+S -2--2 0 0 
+@ all spdc
+R 0
+A -
+X Unknown game mode: spdc at position 6: t spdc<--[HERE]@4
+E Unknown game mode: spdc at position 6: t spdc<--[HERE]@4
+S -2--2 0 0 
+@ all _pectator
+R 0
+A -
+X Unknown game mode: _pectator at position 11: ... _pectator<--[HERE]@9
+E Unknown game mode: _pectator at position 11: ... _pectator<--[HERE]@9
+S -2--2 0 0 
+@ all spect tor
+R 0
+A -
+X Unknown game mode: spect at position 7: t spect<--[HERE]@5
+E Unknown game mode: spect at position 7: t spect<--[HERE]@5
+S -2--2 0 0 
+@ all spectatorp
+R 0
+A -
+X Unknown game mode: spectatorp at position 12: ...spectatorp<--[HERE]@10
+E Unknown game mode: spectatorp at position 12: ...spectatorp<--[HERE]@10
+S -2--2 0 0 
+@ all hardcoree
+R 0
+A -
+X Unknown game mode: hardcoree at position 11: ... hardcoree<--[HERE]@9
+E Unknown game mode: hardcoree at position 11: ... hardcoree<--[HERE]@9
+S -2--2 0 0 
+@ all $sp#ec
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all creativer
+R 0
+A -
+X Unknown game mode: creativer at position 11: ... creativer<--[HERE]@9
+E Unknown game mode: creativer at position 11: ... creativer<--[HERE]@9
+S -2--2 0 0 
+@ all creatdve 
+R 0
+A -
+X Unknown game mode: creatdve at position 10: t creatdve<--[HERE]@8
+E Unknown game mode: creatdve at position 10: t creatdve<--[HERE]@8
+S -2--2 0 0 
+@ all s5ectator
+R 0
+A -
+X Unknown game mode: s5ectator at position 11: ... s5ectator<--[HERE]@9
+E Unknown game mode: s5ectator at position 11: ... s5ectator<--[HERE]@9
+S -2--2 0 0 
+@ all secY
+R 0
+A -
+X Unknown game mode: secY at position 6: t secY<--[HERE]@4
+E Unknown game mode: secY at position 6: t secY<--[HERE]@4
+S -2--2 0 0 
+@ all creati/e 
+R 0
+A -
+X Unknown game mode: creati at position 8: t creati<--[HERE]@6
+E Unknown game mode: creati at position 8: t creati<--[HERE]@6
+S -2--2 0 0 
+@ all s:pec
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all ctato^
+R 0
+A -
+X Unknown game mode: ctato at position 7: t ctato<--[HERE]@5
+E Unknown game mode: ctato at position 7: t ctato<--[HERE]@5
+S -2--2 0 0 
+@ all Survi&vala
+R 0
+A -
+X Unknown game mode: Survi at position 7: t Survi<--[HERE]@5
+E Unknown game mode: Survi at position 7: t Survi<--[HERE]@5
+S -2--2 0 0 
+@ all é中
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $]é
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all adventur.
+R 0
+A -
+X Unknown game mode: adventur. at position 11: ... adventur.<--[HERE]@9
+E Unknown game mode: adventur. at position 11: ... adventur.<--[HERE]@9
+S -2--2 0 0 
+@ all spe=c
+R 0
+A -
+X Unknown game mode: spe at position 5: t spe<--[HERE]@3
+E Unknown game mode: spe at position 5: t spe<--[HERE]@3
+S -2--2 0 0 
+@ all pe
+R 0
+A -
+X Unknown game mode: pe at position 4: t pe<--[HERE]@2
+E Unknown game mode: pe at position 4: t pe<--[HERE]@2
+S -2--2 0 0 
+@ all survival8_
+R 0
+A -
+X Unknown game mode: survival8_ at position 12: ...survival8_<--[HERE]@10
+E Unknown game mode: survival8_ at position 12: ...survival8_<--[HERE]@10
+S -2--2 0 0 
+@ all survi/al
+R 0
+A -
+X Unknown game mode: survi at position 7: t survi<--[HERE]@5
+E Unknown game mode: survi at position 7: t survi<--[HERE]@5
+S -2--2 0 0 
+@ all ardcore
+R 0
+A -
+X Unknown game mode: ardcore at position 9: t ardcore<--[HERE]@7
+E Unknown game mode: ardcore at position 9: t ardcore<--[HERE]@7
+S -2--2 0 0 
+@ all Survivalv
+R 0
+A -
+X Unknown game mode: Survivalv at position 11: ... Survivalv<--[HERE]@9
+E Unknown game mode: Survivalv at position 11: ... Survivalv<--[HERE]@9
+S -2--2 0 0 
+@ all s(rvival_
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all har6dcorer
+R 0
+A -
+X Unknown game mode: har6dcorer at position 12: ...har6dcorer<--[HERE]@10
+E Unknown game mode: har6dcorer at position 12: ...har6dcorer<--[HERE]@10
+S -2--2 0 0 
+@ all {{
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s=
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all survival7
+R 0
+A -
+X Unknown game mode: survival7 at position 11: ... survival7<--[HERE]@9
+E Unknown game mode: survival7 at position 11: ... survival7<--[HERE]@9
+S -2--2 0 0 
+@ all aventure
+R 0
+A -
+X Unknown game mode: aventure at position 10: t aventure<--[HERE]@8
+E Unknown game mode: aventure at position 10: t aventure<--[HERE]@8
+S -2--2 0 0 
+@ all sp>😀c
+R 0
+A -
+X Unknown game mode: sp at position 4: t sp<--[HERE]@2
+E Unknown game mode: sp at position 4: t sp<--[HERE]@2
+S -2--2 0 0 
+@ all dcoe
+R 0
+A -
+X Unknown game mode: dcoe at position 6: t dcoe<--[HERE]@4
+E Unknown game mode: dcoe at position 6: t dcoe<--[HERE]@4
+S -2--2 0 0 
+@ all s2
+R 0
+A -
+X Unknown game mode: s2 at position 4: t s2<--[HERE]@2
+E Unknown game mode: s2 at position 4: t s2<--[HERE]@2
+S -2--2 0 0 
+@ all 111
+R 0
+A -
+X Unknown game mode: 111 at position 5: t 111<--[HERE]@3
+E Unknown game mode: 111 at position 5: t 111<--[HERE]@3
+S -2--2 0 0 
+@ all creatie
+R 0
+A -
+X Unknown game mode: creatie at position 9: t creatie<--[HERE]@7
+E Unknown game mode: creatie at position 9: t creatie<--[HERE]@7
+S -2--2 0 0 
+@ all adv:enturet
+R 0
+A -
+X Unknown game mode: adv at position 5: t adv<--[HERE]@3
+E Unknown game mode: adv at position 5: t adv<--[HERE]@3
+S -2--2 0 0 
+@ all cr<ative 
+R 0
+A -
+X Unknown game mode: cr at position 4: t cr<--[HERE]@2
+E Unknown game mode: cr at position 4: t cr<--[HERE]@2
+S -2--2 0 0 
+@ all creative ci
+R 9
+A 0-8 creative
+E Incorrect argument for command at position 11: ... creative <--[HERE]@9
+S -2--2 0 0 
+@ all ival__
+R 0
+A -
+X Unknown game mode: ival__ at position 8: t ival__<--[HERE]@6
+E Unknown game mode: ival__ at position 8: t ival__<--[HERE]@6
+S -2--2 0 0 
+@ all ture
+R 0
+A -
+X Unknown game mode: ture at position 6: t ture<--[HERE]@4
+E Unknown game mode: ture at position 6: t ture<--[HERE]@4
+S -2--2 0 0 
+@ all %
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all or
+R 0
+A -
+X Unknown game mode: or at position 4: t or<--[HERE]@2
+E Unknown game mode: or at position 4: t or<--[HERE]@2
+S -2--2 0 0 
+@ all nture
+R 0
+A -
+X Unknown game mode: nture at position 7: t nture<--[HERE]@5
+E Unknown game mode: nture at position 7: t nture<--[HERE]@5
+S -2--2 0 0 
+@ all survival_u
+R 0
+A -
+X Unknown game mode: survival_u at position 12: ...survival_u<--[HERE]@10
+E Unknown game mode: survival_u at position 12: ...survival_u<--[HERE]@10
+S -2--2 0 0 
+@ all ß
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all creativc 
+R 0
+A -
+X Unknown game mode: creativc at position 10: t creativc<--[HERE]@8
+E Unknown game mode: creativc at position 10: t creativc<--[HERE]@8
+S -2--2 0 0 
+@ all spectaBtor
+R 0
+A -
+X Unknown game mode: spectaBtor at position 12: ...spectaBtor<--[HERE]@10
+E Unknown game mode: spectaBtor at position 12: ...spectaBtor<--[HERE]@10
+S -2--2 0 0 
+@ all Survvalv
+R 0
+A -
+X Unknown game mode: Survvalv at position 10: t Survvalv<--[HERE]@8
+E Unknown game mode: Survvalv at position 10: t Survvalv<--[HERE]@8
+S -2--2 0 0 
+@ all s<ec
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all ^*é
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sİurvivl_
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all /
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rdcore
+R 0
+A -
+X Unknown game mode: rdcore at position 8: t rdcore<--[HERE]@6
+E Unknown game mode: rdcore at position 8: t rdcore<--[HERE]@6
+S -2--2 0 0 
+@ all ivalv
+R 0
+A -
+X Unknown game mode: ivalv at position 7: t ivalv<--[HERE]@5
+E Unknown game mode: ivalv at position 7: t ivalv<--[HERE]@5
+S -2--2 0 0 
+@ all specs
+R 0
+A -
+X Unknown game mode: specs at position 7: t specs<--[HERE]@5
+E Unknown game mode: specs at position 7: t specs<--[HERE]@5
+S -2--2 0 0 
+@ all hardore
+R 0
+A -
+X Unknown game mode: hardore at position 9: t hardore<--[HERE]@7
+E Unknown game mode: hardore at position 9: t hardore<--[HERE]@7
+S -2--2 0 0 
+@ all Srv2val
+R 0
+A -
+X Unknown game mode: Srv2val at position 9: t Srv2val<--[HERE]@7
+E Unknown game mode: Srv2val at position 9: t Srv2val<--[HERE]@7
+S -2--2 0 0 
+@ all xspectaor
+R 0
+A -
+X Unknown game mode: xspectaor at position 11: ... xspectaor<--[HERE]@9
+E Unknown game mode: xspectaor at position 11: ... xspectaor<--[HERE]@9
+S -2--2 0 0 
+@ all 1X
+R 0
+A -
+X Unknown game mode: 1X at position 4: t 1X<--[HERE]@2
+E Unknown game mode: 1X at position 4: t 1X<--[HERE]@2
+S -2--2 0 0 
+@ all surviv~al__
+R 0
+A -
+X Unknown game mode: surviv at position 8: t surviv<--[HERE]@6
+E Unknown game mode: surviv at position 8: t surviv<--[HERE]@6
+S -2--2 0 0 
+@ all surviva2l_
+R 0
+A -
+X Unknown game mode: surviva2l_ at position 12: ...surviva2l_<--[HERE]@10
+E Unknown game mode: surviva2l_ at position 12: ...surviva2l_<--[HERE]@10
+S -2--2 0 0 
+@ all aival
+R 0
+A -
+X Unknown game mode: aival at position 7: t aival<--[HERE]@5
+E Unknown game mode: aival at position 7: t aival<--[HERE]@5
+S -2--2 0 0 
+@ all s<
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all 33
+R 0
+A -
+X Unknown game mode: 33 at position 4: t 33<--[HERE]@2
+E Unknown game mode: 33 at position 4: t 33<--[HERE]@2
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ectato<
+R 0
+A -
+X Unknown game mode: ectato at position 8: t ectato<--[HERE]@6
+E Unknown game mode: ectato at position 8: t ectato<--[HERE]@6
+S -2--2 0 0 
+@ all 'és
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &1
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s)pectator
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all spectatCort
+R 0
+A -
+X Unknown game mode: spectatCort at position 13: ...pectatCort<--[HERE]@11
+E Unknown game mode: spectatCort at position 13: ...pectatCort<--[HERE]@11
+S -2--2 0 0 
+@ all survivl_
+R 0
+A -
+X Unknown game mode: survivl_ at position 10: t survivl_<--[HERE]@8
+E Unknown game mode: survivl_ at position 10: t survivl_<--[HERE]@8
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all cre3tive
+R 0
+A -
+X Unknown game mode: cre3tive at position 10: t cre3tive<--[HERE]@8
+E Unknown game mode: cre3tive at position 10: t cre3tive<--[HERE]@8
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s{rvivala
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all adventure!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... adventure<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... adventure<--[HERE]@9
+S -2--2 0 0 
+@ all har]dcored
+R 0
+A -
+X Unknown game mode: har at position 5: t har<--[HERE]@3
+E Unknown game mode: har at position 5: t har<--[HERE]@3
+S -2--2 0 0 
+@ all _
+R 0
+A -
+X Unknown game mode: _ at position 3: t _<--[HERE]@1
+E Unknown game mode: _ at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all survivalv
+R 0
+A -
+X Unknown game mode: survivalv at position 11: ... survivalv<--[HERE]@9
+E Unknown game mode: survivalv at position 11: ... survivalv<--[HERE]@9
+S -2--2 0 0 
+@ all 66
+R 0
+A -
+X Unknown game mode: 66 at position 4: t 66<--[HERE]@2
+E Unknown game mode: 66 at position 4: t 66<--[HERE]@2
+S -2--2 0 0 
+@ all Survivalu
+R 0
+A -
+X Unknown game mode: Survivalu at position 11: ... Survivalu<--[HERE]@9
+E Unknown game mode: Survivalu at position 11: ... Survivalu<--[HERE]@9
+S -2--2 0 0 
+@ all creatife f
+R 0
+A -
+X Unknown game mode: creatife at position 10: t creatife<--[HERE]@8
+E Unknown game mode: creatife at position 10: t creatife<--[HERE]@8
+S -2--2 0 0 
+@ all 84pec
+R 0
+A -
+X Unknown game mode: 84pec at position 7: t 84pec<--[HERE]@5
+E Unknown game mode: 84pec at position 7: t 84pec<--[HERE]@5
+S -2--2 0 0 
+@ all re
+R 0
+A -
+X Unknown game mode: re at position 4: t re<--[HERE]@2
+E Unknown game mode: re at position 4: t re<--[HERE]@2
+S -2--2 0 0 
+@ all surviv5alv
+R 0
+A -
+X Unknown game mode: surviv5alv at position 12: ...surviv5alv<--[HERE]@10
+E Unknown game mode: surviv5alv at position 12: ...surviv5alv<--[HERE]@10
+S -2--2 0 0 
+@ all tive
+R 0
+A -
+X Unknown game mode: tive at position 6: t tive<--[HERE]@4
+E Unknown game mode: tive at position 6: t tive<--[HERE]@4
+S -2--2 0 0 
+@ all atort
+R 0
+A -
+X Unknown game mode: atort at position 7: t atort<--[HERE]@5
+E Unknown game mode: atort at position 7: t atort<--[HERE]@5
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İ
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all haBrdcore
+R 0
+A -
+X Unknown game mode: haBrdcore at position 11: ... haBrdcore<--[HERE]@9
+E Unknown game mode: haBrdcore at position 11: ... haBrdcore<--[HERE]@9
+S -2--2 0 0 
+@ all dventure
+R 0
+A -
+X Unknown game mode: dventure at position 10: t dventure<--[HERE]@8
+E Unknown game mode: dventure at position 10: t dventure<--[HERE]@8
+S -2--2 0 0 
+@ all e 
+R 0
+A -
+X Unknown game mode: e at position 3: t e<--[HERE]@1
+E Unknown game mode: e at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all ardcor
+R 0
+A -
+X Unknown game mode: ardcor at position 8: t ardcor<--[HERE]@6
+E Unknown game mode: ardcor at position 8: t ardcor<--[HERE]@6
+S -2--2 0 0 
+@ all )ec
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all specator
+R 0
+A -
+X Unknown game mode: specator at position 10: t specator<--[HERE]@8
+E Unknown game mode: specator at position 10: t specator<--[HERE]@8
+S -2--2 0 0 
+@ all hardcorea
+R 0
+A -
+X Unknown game mode: hardcorea at position 11: ... hardcorea<--[HERE]@9
+E Unknown game mode: hardcorea at position 11: ... hardcorea<--[HERE]@9
+S -2--2 0 0 
+@ all creatiAv3
+R 0
+A -
+X Unknown game mode: creatiAv3 at position 11: ... creatiAv3<--[HERE]@9
+E Unknown game mode: creatiAv3 at position 11: ... creatiAv3<--[HERE]@9
+S -2--2 0 0 
+@ all yé
+R 0
+A -
+X Unknown game mode: y at position 3: t y<--[HERE]@1
+E Unknown game mode: y at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all 3é
+R 0
+A -
+X Unknown game mode: 3 at position 3: t 3<--[HERE]@1
+E Unknown game mode: 3 at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all Su#vivl
+R 0
+A -
+X Unknown game mode: Su at position 4: t Su<--[HERE]@2
+E Unknown game mode: Su at position 4: t Su<--[HERE]@2
+S -2--2 0 0 
+@ all iva7_
+R 0
+A -
+X Unknown game mode: iva7_ at position 7: t iva7_<--[HERE]@5
+E Unknown game mode: iva7_ at position 7: t iva7_<--[HERE]@5
+S -2--2 0 0 
+@ all Y
+R 0
+A -
+X Unknown game mode: Y at position 3: t Y<--[HERE]@1
+E Unknown game mode: Y at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ all ceativeİ
+R 0
+A -
+X Unknown game mode: ceative at position 9: t ceative<--[HERE]@7
+E Unknown game mode: ceative at position 9: t ceative<--[HERE]@7
+S -2--2 0 0 
+@ all spectatB
+R 0
+A -
+X Unknown game mode: spectatB at position 10: t spectatB<--[HERE]@8
+E Unknown game mode: spectatB at position 10: t spectatB<--[HERE]@8
+S -2--2 0 0 
+@ all eaXtive
+R 0
+A -
+X Unknown game mode: eaXtive at position 9: t eaXtive<--[HERE]@7
+E Unknown game mode: eaXtive at position 9: t eaXtive<--[HERE]@7
+S -2--2 0 0 
+@ all surviv(al
+R 0
+A -
+X Unknown game mode: surviv at position 8: t surviv<--[HERE]@6
+E Unknown game mode: surviv at position 8: t surviv<--[HERE]@6
+S -2--2 0 0 
+@ all specp
+R 0
+A -
+X Unknown game mode: specp at position 7: t specp<--[HERE]@5
+E Unknown game mode: specp at position 7: t specp<--[HERE]@5
+S -2--2 0 0 
+@ all ß0
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all core
+R 0
+A -
+X Unknown game mode: core at position 6: t core<--[HERE]@4
+E Unknown game mode: core at position 6: t core<--[HERE]@4
+S -2--2 0 0 
+@ all hardcr
+R 0
+A -
+X Unknown game mode: hardcr at position 8: t hardcr<--[HERE]@6
+E Unknown game mode: hardcr at position 8: t hardcr<--[HERE]@6
+S -2--2 0 0 
+@ all creativee
+R 0
+A -
+X Unknown game mode: creativee at position 11: ... creativee<--[HERE]@9
+E Unknown game mode: creativee at position 11: ... creativee<--[HERE]@9
+S -2--2 0 0 
+@ all sİ
+R 0
+A -
+X Unknown game mode: s at position 3: t s<--[HERE]@1
+E Unknown game mode: s at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all crea{ive i
+R 0
+A -
+X Unknown game mode: crea at position 6: t crea<--[HERE]@4
+E Unknown game mode: crea at position 6: t crea<--[HERE]@4
+S -2--2 0 0 
+@ all survivals
+R 0
+A -
+X Unknown game mode: survivals at position 11: ... survivals<--[HERE]@9
+E Unknown game mode: survivals at position 11: ... survivals<--[HERE]@9
+S -2--2 0 0 
+@ all survi}val
+R 0
+A -
+X Unknown game mode: survi at position 7: t survi<--[HERE]@5
+E Unknown game mode: survi at position 7: t survi<--[HERE]@5
+S -2--2 0 0 
+@ all crative
+R 0
+A -
+X Unknown game mode: crative at position 9: t crative<--[HERE]@7
+E Unknown game mode: crative at position 9: t crative<--[HERE]@7
+S -2--2 0 0 
+@ all adventurea
+R 0
+A -
+X Unknown game mode: adventurea at position 12: ...adventurea<--[HERE]@10
+E Unknown game mode: adventurea at position 12: ...adventurea<--[HERE]@10
+S -2--2 0 0 
+@ all su,rvival_
+R 0
+A -
+X Unknown game mode: su at position 4: t su<--[HERE]@2
+E Unknown game mode: su at position 4: t su<--[HERE]@2
+S -2--2 0 0 
+@ all rvivl
+R 0
+A -
+X Unknown game mode: rvivl at position 7: t rvivl<--[HERE]@5
+E Unknown game mode: rvivl at position 7: t rvivl<--[HERE]@5
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Unknown game mode: Z at position 3: t Z<--[HERE]@1
+E Unknown game mode: Z at position 3: t Z<--[HERE]@1
+S -2--2 0 0 
+@ all spec(
+R 0
+A -
+X Unknown game mode: spec at position 6: t spec<--[HERE]@4
+E Unknown game mode: spec at position 6: t spec<--[HERE]@4
+S -2--2 0 0 
+@ all 11[
+R 0
+A -
+X Unknown game mode: 11 at position 4: t 11<--[HERE]@2
+E Unknown game mode: 11 at position 4: t 11<--[HERE]@2
+S -2--2 0 0 
+@ all r
+R 0
+A -
+X Unknown game mode: r at position 3: t r<--[HERE]@1
+E Unknown game mode: r at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all adven=ure
+R 0
+A -
+X Unknown game mode: adven at position 7: t adven<--[HERE]@5
+E Unknown game mode: adven at position 7: t adven<--[HERE]@5
+S -2--2 0 0 
+@ all creativea
+R 0
+A -
+X Unknown game mode: creativea at position 11: ... creativea<--[HERE]@9
+E Unknown game mode: creativea at position 11: ... creativea<--[HERE]@9
+S -2--2 0 0 
+@ all spe%e
+R 0
+A -
+X Unknown game mode: spe at position 5: t spe<--[HERE]@3
+E Unknown game mode: spe at position 5: t spe<--[HERE]@3
+S -2--2 0 0 
+@ all survivala
+R 0
+A -
+X Unknown game mode: survivala at position 11: ... survivala<--[HERE]@9
+E Unknown game mode: survivala at position 11: ... survivala<--[HERE]@9
+S -2--2 0 0 
+@ all srv\u0000val
+R 0
+A -
+X Unknown game mode: srv at position 5: t srv<--[HERE]@3
+E Unknown game mode: srv at position 5: t srv<--[HERE]@3
+S -2--2 0 0 
+@ all cr3eative İ
+R 0
+A -
+X Unknown game mode: cr3eative at position 11: ... cr3eative<--[HERE]@9
+E Unknown game mode: cr3eative at position 11: ... cr3eative<--[HERE]@9
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all surviva8
+R 0
+A -
+X Unknown game mode: surviva8 at position 10: t surviva8<--[HERE]@8
+E Unknown game mode: surviva8 at position 10: t surviva8<--[HERE]@8
+S -2--2 0 0 
+@ all reative 
+R 0
+A -
+X Unknown game mode: reative at position 9: t reative<--[HERE]@7
+E Unknown game mode: reative at position 9: t reative<--[HERE]@7
+S -2--2 0 0 
+@ all urvival_v
+R 0
+A -
+X Unknown game mode: urvival_v at position 11: ... urvival_v<--[HERE]@9
+E Unknown game mode: urvival_v at position 11: ... urvival_v<--[HERE]@9
+S -2--2 0 0 
+@ all >hardcore~
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all X
+R 0
+A -
+X Unknown game mode: X at position 3: t X<--[HERE]@1
+E Unknown game mode: X at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all spec\u0000tator
+R 0
+A -
+X Unknown game mode: spec at position 6: t spec<--[HERE]@4
+E Unknown game mode: spec at position 6: t spec<--[HERE]@4
+S -2--2 0 0 
+@ all advent3dre
+R 0
+A -
+X Unknown game mode: advent3dre at position 12: ...advent3dre<--[HERE]@10
+E Unknown game mode: advent3dre at position 12: ...advent3dre<--[HERE]@10
+S -2--2 0 0 
+@ all Su#vival
+R 0
+A -
+X Unknown game mode: Su at position 4: t Su<--[HERE]@2
+E Unknown game mode: Su at position 4: t Su<--[HERE]@2
+S -2--2 0 0 
+@ all h8rdcore
+R 0
+A -
+X Unknown game mode: h8rdcore at position 10: t h8rdcore<--[HERE]@8
+E Unknown game mode: h8rdcore at position 10: t h8rdcore<--[HERE]@8
+S -2--2 0 0 
+@ all hardcre
+R 0
+A -
+X Unknown game mode: hardcre at position 9: t hardcre<--[HERE]@7
+E Unknown game mode: hardcre at position 9: t hardcre<--[HERE]@7
+S -2--2 0 0 
+@ all viYal
+R 0
+A -
+X Unknown game mode: viYal at position 7: t viYal<--[HERE]@5
+E Unknown game mode: viYal at position 7: t viYal<--[HERE]@5
+S -2--2 0 0 
+@ all suvival
+R 0
+A -
+X Unknown game mode: suvival at position 9: t suvival<--[HERE]@7
+E Unknown game mode: suvival at position 9: t suvival<--[HERE]@7
+S -2--2 0 0 
+@ all ative c
+R 0
+A -
+X Unknown game mode: ative at position 7: t ative<--[HERE]@5
+E Unknown game mode: ative at position 7: t ative<--[HERE]@5
+S -2--2 0 0 
+@ all srvival*
+R 0
+A -
+X Unknown game mode: srvival at position 9: t srvival<--[HERE]@7
+E Unknown game mode: srvival at position 9: t srvival<--[HERE]@7
+S -2--2 0 0 
+@ all spectatort
+R 0
+A -
+X Unknown game mode: spectatort at position 12: ...spectatort<--[HERE]@10
+E Unknown game mode: spectatort at position 12: ...spectatort<--[HERE]@10
+S -2--2 0 0 
+@ all ore
+R 0
+A -
+X Unknown game mode: ore at position 5: t ore<--[HERE]@3
+E Unknown game mode: ore at position 5: t ore<--[HERE]@3
+S -2--2 0 0 
+@ all SurvAval
+R 0
+A -
+X Unknown game mode: SurvAval at position 10: t SurvAval<--[HERE]@8
+E Unknown game mode: SurvAval at position 10: t SurvAval<--[HERE]@8
+S -2--2 0 0 
+@ all creativ:e
+R 0
+A -
+X Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+E Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+S -2--2 0 0 
+@ all cAreativee
+R 0
+A -
+X Unknown game mode: cAreativee at position 12: ...cAreativee<--[HERE]@10
+E Unknown game mode: cAreativee at position 12: ...cAreativee<--[HERE]@10
+S -2--2 0 0 
+@ all survivall7
+R 0
+A -
+X Unknown game mode: survivall7 at position 12: ...survivall7<--[HERE]@10
+E Unknown game mode: survivall7 at position 12: ...survivall7<--[HERE]@10
+S -2--2 0 0 
+@ all 中
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Survival}
+R 0
+A -
+X Unknown game mode: Survival at position 10: t Survival<--[HERE]@8
+E Unknown game mode: Survival at position 10: t Survival<--[HERE]@8
+S -2--2 0 0 
+@ all AB
+R 0
+A -
+X Unknown game mode: AB at position 4: t AB<--[HERE]@2
+E Unknown game mode: AB at position 4: t AB<--[HERE]@2
+S -2--2 0 0 
+@ all 6hardcoree
+R 0
+A -
+X Unknown game mode: 6hardcoree at position 12: ...6hardcoree<--[HERE]@10
+E Unknown game mode: 6hardcoree at position 12: ...6hardcoree<--[HERE]@10
+S -2--2 0 0 
+@ all 'urvival_v
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1\u0000
+R 0
+A -
+X Unknown game mode: 1 at position 3: t 1<--[HERE]@1
+E Unknown game mode: 1 at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all  urvival
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9urival_
+R 0
+A -
+X Unknown game mode: 9urival_ at position 10: t 9urival_<--[HERE]@8
+E Unknown game mode: 9urival_ at position 10: t 9urival_<--[HERE]@8
+S -2--2 0 0 
+@ all hardcoerer
+R 0
+A -
+X Unknown game mode: hardcoerer at position 12: ...hardcoerer<--[HERE]@10
+E Unknown game mode: hardcoerer at position 12: ...hardcoerer<--[HERE]@10
+S -2--2 0 0 
+@ all spectatorr
+R 0
+A -
+X Unknown game mode: spectatorr at position 12: ...spectatorr<--[HERE]@10
+E Unknown game mode: spectatorr at position 12: ...spectatorr<--[HERE]@10
+S -2--2 0 0 
+@ all creative] 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t creative<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t creative<--[HERE]@8
+S -2--2 0 0 
+@ all advenYure
+R 0
+A -
+X Unknown game mode: advenYure at position 11: ... advenYure<--[HERE]@9
+E Unknown game mode: advenYure at position 11: ... advenYure<--[HERE]@9
+S -2--2 0 0 
+@ all vival_a
+R 0
+A -
+X Unknown game mode: vival_a at position 9: t vival_a<--[HERE]@7
+E Unknown game mode: vival_a at position 9: t vival_a<--[HERE]@7
+S -2--2 0 0 
+@ all spectatér
+R 0
+A -
+X Unknown game mode: spectat at position 9: t spectat<--[HERE]@7
+E Unknown game mode: spectat at position 9: t spectat<--[HERE]@7
+S -2--2 0 0 
+@ all survia
+R 0
+A -
+X Unknown game mode: survia at position 8: t survia<--[HERE]@6
+E Unknown game mode: survia at position 8: t survia<--[HERE]@6
+S -2--2 0 0 
+@ all creativert
+R 0
+A -
+X Unknown game mode: creativert at position 12: ...creativert<--[HERE]@10
+E Unknown game mode: creativert at position 12: ...creativert<--[HERE]@10
+S -2--2 0 0 
+@ all creatie 
+R 0
+A -
+X Unknown game mode: creatie at position 9: t creatie<--[HERE]@7
+E Unknown game mode: creatie at position 9: t creatie<--[HERE]@7
+S -2--2 0 0 
+@ all surviva^
+R 0
+A -
+X Unknown game mode: surviva at position 9: t surviva<--[HERE]@7
+E Unknown game mode: surviva at position 9: t surviva<--[HERE]@7
+S -2--2 0 0 
+@ all creativée
+R 0
+A -
+X Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+E Unknown game mode: creativ at position 9: t creativ<--[HERE]@7
+S -2--2 0 0 
+@ all surviva9
+R 0
+A -
+X Unknown game mode: surviva9 at position 10: t surviva9<--[HERE]@8
+E Unknown game mode: surviva9 at position 10: t surviva9<--[HERE]@8
+S -2--2 0 0 
+@ all yy
+R 0
+A -
+X Unknown game mode: yy at position 4: t yy<--[HERE]@2
+E Unknown game mode: yy at position 4: t yy<--[HERE]@2
+S -2--2 0 0 
+@ all syrvival
+R 0
+A -
+X Unknown game mode: syrvival at position 10: t syrvival<--[HERE]@8
+E Unknown game mode: syrvival at position 10: t syrvival<--[HERE]@8
+S -2--2 0 0 
+@ all eative
+R 0
+A -
+X Unknown game mode: eative at position 8: t eative<--[HERE]@6
+E Unknown game mode: eative at position 8: t eative<--[HERE]@6
+S -2--2 0 0 
+@ all spect%ator
+R 0
+A -
+X Unknown game mode: spect at position 7: t spect<--[HERE]@5
+E Unknown game mode: spect at position 7: t spect<--[HERE]@5
+S -2--2 0 0 
+@ all survivl'
+R 0
+A -
+X Unknown game mode: survivl at position 9: t survivl<--[HERE]@7
+E Unknown game mode: survivl at position 9: t survivl<--[HERE]@7
+S -2--2 0 0 
+@ all suvival_v
+R 0
+A -
+X Unknown game mode: suvival_v at position 11: ... suvival_v<--[HERE]@9
+E Unknown game mode: suvival_v at position 11: ... suvival_v<--[HERE]@9
+S -2--2 0 0 
+@ all creatve 
+R 0
+A -
+X Unknown game mode: creatve at position 9: t creatve<--[HERE]@7
+E Unknown game mode: creatve at position 9: t creatve<--[HERE]@7
+S -2--2 0 0 
+@ all zpec
+R 0
+A -
+X Unknown game mode: zpec at position 6: t zpec<--[HERE]@4
+E Unknown game mode: zpec at position 6: t zpec<--[HERE]@4
+S -2--2 0 0 
+@ all ive c
+R 0
+A -
+X Unknown game mode: ive at position 5: t ive<--[HERE]@3
+E Unknown game mode: ive at position 5: t ive<--[HERE]@3
+S -2--2 0 0 
+@ all spect\u0009ator
+R 0
+A -
+X Unknown game mode: spect at position 7: t spect<--[HERE]@5
+E Unknown game mode: spect at position 7: t spect<--[HERE]@5
+S -2--2 0 0 
+@ all }
+R 0
+A -
+X Unknown game mode:  at position 2: t <--[HERE]@0
+E Unknown game mode:  at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X Unknown game mode: y at position 3: t y<--[HERE]@1
+E Unknown game mode: y at position 3: t y<--[HERE]@1
+S -2--2 0 0 

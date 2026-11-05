@@ -1,0 +1,1907 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 3 -567329608 front_back	left_right	none
+@ all none
+R 4
+A 0-4 none
+E ok
+S -2--2 0 0 
+@ all left_right
+R 10
+A 0-10 left_right
+E ok
+S -2--2 0 0 
+@ all front_back
+R 10
+A 0-10 front_back
+E ok
+S -2--2 0 0 
+@ all NONE
+R 0
+A -
+X Invalid value 'NONE' at position 6: t NONE<--[HERE]@4
+E Invalid value 'NONE' at position 6: t NONE<--[HERE]@4
+S 0-4 1 105002961 none
+@ all left
+R 0
+A -
+X Invalid value 'left' at position 6: t left<--[HERE]@4
+E Invalid value 'left' at position 6: t left<--[HERE]@4
+S 0-4 1 -1062070107 left_right
+@ all x
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all front_back 
+R 10
+A 0-10 front_back
+E Incorrect argument for command at position 12: ...front_back<--[HERE]@10
+S -2--2 0 0 
+@ all n
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S 0-1 1 105002961 none
+@ all no
+R 0
+A -
+X Invalid value 'no' at position 4: t no<--[HERE]@2
+E Invalid value 'no' at position 4: t no<--[HERE]@2
+S 0-2 1 105002961 none
+@ all non
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S 0-3 1 105002961 none
+@ all l
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S 0-1 1 -1062070107 left_right
+@ all le
+R 0
+A -
+X Invalid value 'le' at position 4: t le<--[HERE]@2
+E Invalid value 'le' at position 4: t le<--[HERE]@2
+S 0-2 1 -1062070107 left_right
+@ all lef
+R 0
+A -
+X Invalid value 'lef' at position 5: t lef<--[HERE]@3
+E Invalid value 'lef' at position 5: t lef<--[HERE]@3
+S 0-3 1 -1062070107 left_right
+@ all left_
+R 0
+A -
+X Invalid value 'left_' at position 7: t left_<--[HERE]@5
+E Invalid value 'left_' at position 7: t left_<--[HERE]@5
+S 0-5 1 -1062070107 left_right
+@ all left_r
+R 0
+A -
+X Invalid value 'left_r' at position 8: t left_r<--[HERE]@6
+E Invalid value 'left_r' at position 8: t left_r<--[HERE]@6
+S 0-6 1 -1062070107 left_right
+@ all left_ri
+R 0
+A -
+X Invalid value 'left_ri' at position 9: t left_ri<--[HERE]@7
+E Invalid value 'left_ri' at position 9: t left_ri<--[HERE]@7
+S 0-7 1 -1062070107 left_right
+@ all left_rig
+R 0
+A -
+X Invalid value 'left_rig' at position 10: t left_rig<--[HERE]@8
+E Invalid value 'left_rig' at position 10: t left_rig<--[HERE]@8
+S 0-8 1 -1062070107 left_right
+@ all left_righ
+R 0
+A -
+X Invalid value 'left_righ' at position 11: ... left_righ<--[HERE]@9
+E Invalid value 'left_righ' at position 11: ... left_righ<--[HERE]@9
+S 0-9 1 -1062070107 left_right
+@ all f
+R 0
+A -
+X Invalid value 'f' at position 3: t f<--[HERE]@1
+E Invalid value 'f' at position 3: t f<--[HERE]@1
+S 0-1 1 -1472014740 front_back
+@ all fr
+R 0
+A -
+X Invalid value 'fr' at position 4: t fr<--[HERE]@2
+E Invalid value 'fr' at position 4: t fr<--[HERE]@2
+S 0-2 1 -1472014740 front_back
+@ all fro
+R 0
+A -
+X Invalid value 'fro' at position 5: t fro<--[HERE]@3
+E Invalid value 'fro' at position 5: t fro<--[HERE]@3
+S 0-3 1 -1472014740 front_back
+@ all fron
+R 0
+A -
+X Invalid value 'fron' at position 6: t fron<--[HERE]@4
+E Invalid value 'fron' at position 6: t fron<--[HERE]@4
+S 0-4 1 -1472014740 front_back
+@ all front
+R 0
+A -
+X Invalid value 'front' at position 7: t front<--[HERE]@5
+E Invalid value 'front' at position 7: t front<--[HERE]@5
+S 0-5 1 -1472014740 front_back
+@ all front_
+R 0
+A -
+X Invalid value 'front_' at position 8: t front_<--[HERE]@6
+E Invalid value 'front_' at position 8: t front_<--[HERE]@6
+S 0-6 1 -1472014740 front_back
+@ all front_b
+R 0
+A -
+X Invalid value 'front_b' at position 9: t front_b<--[HERE]@7
+E Invalid value 'front_b' at position 9: t front_b<--[HERE]@7
+S 0-7 1 -1472014740 front_back
+@ all front_ba
+R 0
+A -
+X Invalid value 'front_ba' at position 10: t front_ba<--[HERE]@8
+E Invalid value 'front_ba' at position 10: t front_ba<--[HERE]@8
+S 0-8 1 -1472014740 front_back
+@ all front_bac
+R 0
+A -
+X Invalid value 'front_bac' at position 11: ... front_bac<--[HERE]@9
+E Invalid value 'front_bac' at position 11: ... front_bac<--[HERE]@9
+S 0-9 1 -1472014740 front_back
+@ all N
+R 0
+A -
+X Invalid value 'N' at position 3: t N<--[HERE]@1
+E Invalid value 'N' at position 3: t N<--[HERE]@1
+S 0-1 1 105002961 none
+@ all NO
+R 0
+A -
+X Invalid value 'NO' at position 4: t NO<--[HERE]@2
+E Invalid value 'NO' at position 4: t NO<--[HERE]@2
+S 0-2 1 105002961 none
+@ all NON
+R 0
+A -
+X Invalid value 'NON' at position 5: t NON<--[HERE]@3
+E Invalid value 'NON' at position 5: t NON<--[HERE]@3
+S 0-3 1 105002961 none
+@ all l/t
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all lef@t
+R 0
+A -
+X Invalid value 'lef' at position 5: t lef<--[HERE]@3
+E Invalid value 'lef' at position 5: t lef<--[HERE]@3
+S -2--2 0 0 
+@ all _rightg
+R 0
+A -
+X Invalid value '_rightg' at position 9: t _rightg<--[HERE]@7
+E Invalid value '_rightg' at position 9: t _rightg<--[HERE]@7
+S -2--2 0 0 
+@ all front_back) 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...front_back<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...front_back<--[HERE]@10
+S -2--2 0 0 
+@ all left_right_g
+R 0
+A -
+X Invalid value 'left_right_g' at position 14: ...ft_right_g<--[HERE]@12
+E Invalid value 'left_right_g' at position 14: ...ft_right_g<--[HERE]@12
+S -2--2 0 0 
+@ all ON4
+R 0
+A -
+X Invalid value 'ON4' at position 5: t ON4<--[HERE]@3
+E Invalid value 'ON4' at position 5: t ON4<--[HERE]@3
+S -2--2 0 0 
+@ all eft_righ2t
+R 0
+A -
+X Invalid value 'eft_righ2t' at position 12: ...eft_righ2t<--[HERE]@10
+E Invalid value 'eft_righ2t' at position 12: ...eft_righ2t<--[HERE]@10
+S -2--2 0 0 
+@ all le*tt
+R 0
+A -
+X Invalid value 'le' at position 4: t le<--[HERE]@2
+E Invalid value 'le' at position 4: t le<--[HERE]@2
+S -2--2 0 0 
+@ all frCont_back 
+R 0
+A -
+X Invalid value 'frCont_back' at position 13: ...rCont_back<--[HERE]@11
+E Invalid value 'frCont_back' at position 13: ...rCont_back<--[HERE]@11
+S -2--2 0 0 
+@ all lceft
+R 0
+A -
+X Invalid value 'lceft' at position 7: t lceft<--[HERE]@5
+E Invalid value 'lceft' at position 7: t lceft<--[HERE]@5
+S -2--2 0 0 
+@ all left_rightg
+R 0
+A -
+X Invalid value 'left_rightg' at position 13: ...eft_rightg<--[HERE]@11
+E Invalid value 'left_rightg' at position 13: ...eft_rightg<--[HERE]@11
+S -2--2 0 0 
+@ all N\u0000NE
+R 0
+A -
+X Invalid value 'N' at position 3: t N<--[HERE]@1
+E Invalid value 'N' at position 3: t N<--[HERE]@1
+S -2--2 0 0 
+@ all left_rigtt
+R 0
+A -
+X Invalid value 'left_rigtt' at position 12: ...left_rigtt<--[HERE]@10
+E Invalid value 'left_rigtt' at position 12: ...left_rigtt<--[HERE]@10
+S -2--2 0 0 
+@ all NON😀EE
+R 0
+A -
+X Invalid value 'NON' at position 5: t NON<--[HERE]@3
+E Invalid value 'NON' at position 5: t NON<--[HERE]@3
+S -2--2 0 0 
+@ all x+
+R 0
+A -
+X Invalid value 'x+' at position 4: t x+<--[HERE]@2
+E Invalid value 'x+' at position 4: t x+<--[HERE]@2
+S -2--2 0 0 
+@ all yleft_right
+R 0
+A -
+X Invalid value 'yleft_right' at position 13: ...left_right<--[HERE]@11
+E Invalid value 'yleft_right' at position 13: ...left_right<--[HERE]@11
+S -2--2 0 0 
+@ all EE
+R 0
+A -
+X Invalid value 'EE' at position 4: t EE<--[HERE]@2
+E Invalid value 'EE' at position 4: t EE<--[HERE]@2
+S -2--2 0 0 
+@ all ne}
+R 0
+A -
+X Invalid value 'ne' at position 4: t ne<--[HERE]@2
+E Invalid value 'ne' at position 4: t ne<--[HERE]@2
+S -2--2 0 0 
+@ all lef>
+R 0
+A -
+X Invalid value 'lef' at position 5: t lef<--[HERE]@3
+E Invalid value 'lef' at position 5: t lef<--[HERE]@3
+S -2--2 0 0 
+@ all lefte
+R 0
+A -
+X Invalid value 'lefte' at position 7: t lefte<--[HERE]@5
+E Invalid value 'lefte' at position 7: t lefte<--[HERE]@5
+S -2--2 0 0 
+@ all x##
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all l\u000aft_right
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all t_right
+R 0
+A -
+X Invalid value 't_right' at position 9: t t_right<--[HERE]@7
+E Invalid value 't_right' at position 9: t t_right<--[HERE]@7
+S -2--2 0 0 
+@ all ee
+R 0
+A -
+X Invalid value 'ee' at position 4: t ee<--[HERE]@2
+E Invalid value 'ee' at position 4: t ee<--[HERE]@2
+S -2--2 0 0 
+@ all 7NONE
+R 0
+A -
+X Invalid value '7NONE' at position 7: t 7NONE<--[HERE]@5
+E Invalid value '7NONE' at position 7: t 7NONE<--[HERE]@5
+S -2--2 0 0 
+@ all ]ft
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all l{eft
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all front_bck 
+R 0
+A -
+X Invalid value 'front_bck' at position 11: ... front_bck<--[HERE]@9
+E Invalid value 'front_bck' at position 11: ... front_bck<--[HERE]@9
+S -2--2 0 0 
+@ all f*ront_back 
+R 0
+A -
+X Invalid value 'f' at position 3: t f<--[HERE]@1
+E Invalid value 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all fro.nt_back
+R 0
+A -
+X Invalid value 'fro.nt_back' at position 13: ...ro.nt_back<--[HERE]@11
+E Invalid value 'fro.nt_back' at position 13: ...ro.nt_back<--[HERE]@11
+S -2--2 0 0 
+@ all noneze
+R 0
+A -
+X Invalid value 'noneze' at position 8: t noneze<--[HERE]@6
+E Invalid value 'noneze' at position 8: t noneze<--[HERE]@6
+S -2--2 0 0 
+@ all nonen
+R 0
+A -
+X Invalid value 'nonen' at position 7: t nonen<--[HERE]@5
+E Invalid value 'nonen' at position 7: t nonen<--[HERE]@5
+S -2--2 0 0 
+@ all front_back k
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all left_rightt
+R 0
+A -
+X Invalid value 'left_rightt' at position 13: ...eft_rightt<--[HERE]@11
+E Invalid value 'left_rightt' at position 13: ...eft_rightt<--[HERE]@11
+S -2--2 0 0 
+@ all left_rightet
+R 0
+A -
+X Invalid value 'left_rightet' at position 14: ...ft_rightet<--[HERE]@12
+E Invalid value 'left_rightet' at position 14: ...ft_rightet<--[HERE]@12
+S -2--2 0 0 
+@ all ONE
+R 0
+A -
+X Invalid value 'ONE' at position 5: t ONE<--[HERE]@3
+E Invalid value 'ONE' at position 5: t ONE<--[HERE]@3
+S -2--2 0 0 
+@ all $1x
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ont_back7 
+R 0
+A -
+X Invalid value 'ont_back7' at position 11: ... ont_back7<--[HERE]@9
+E Invalid value 'ont_back7' at position 11: ... ont_back7<--[HERE]@9
+S -2--2 0 0 
+@ all N\\N
+R 0
+A -
+X Invalid value 'N' at position 3: t N<--[HERE]@1
+E Invalid value 'N' at position 3: t N<--[HERE]@1
+S -2--2 0 0 
+@ all eft
+R 0
+A -
+X Invalid value 'eft' at position 5: t eft<--[HERE]@3
+E Invalid value 'eft' at position 5: t eft<--[HERE]@3
+S -2--2 0 0 
+@ all &left_right+
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all lf+
+R 0
+A -
+X Invalid value 'lf+' at position 5: t lf+<--[HERE]@3
+E Invalid value 'lf+' at position 5: t lf+<--[HERE]@3
+S -2--2 0 0 
+@ all leftt
+R 0
+A -
+X Invalid value 'leftt' at position 7: t leftt<--[HERE]@5
+E Invalid value 'leftt' at position 7: t leftt<--[HERE]@5
+S -2--2 0 0 
+@ all &ront_back
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all éonen
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zCNONE
+R 0
+A -
+X Invalid value 'zCNONE' at position 8: t zCNONE<--[HERE]@6
+E Invalid value 'zCNONE' at position 8: t zCNONE<--[HERE]@6
+S -2--2 0 0 
+@ all n)ney
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all f4ro\u0009nt_back 
+R 0
+A -
+X Invalid value 'f4ro' at position 6: t f4ro<--[HERE]@4
+E Invalid value 'f4ro' at position 6: t f4ro<--[HERE]@4
+S -2--2 0 0 
+@ all front_bac7
+R 0
+A -
+X Invalid value 'front_bac7' at position 12: ...front_bac7<--[HERE]@10
+E Invalid value 'front_bac7' at position 12: ...front_bac7<--[HERE]@10
+S -2--2 0 0 
+@ all front_bacn
+R 0
+A -
+X Invalid value 'front_bacn' at position 12: ...front_bacn<--[HERE]@10
+E Invalid value 'front_bacn' at position 12: ...front_bacn<--[HERE]@10
+S -2--2 0 0 
+@ all front_bayck
+R 0
+A -
+X Invalid value 'front_bayck' at position 13: ...ront_bayck<--[HERE]@11
+E Invalid value 'front_bayck' at position 13: ...ront_bayck<--[HERE]@11
+S -2--2 0 0 
+@ all N"NEN
+R 0
+A -
+X Invalid value 'N' at position 3: t N<--[HERE]@1
+E Invalid value 'N' at position 3: t N<--[HERE]@1
+S -2--2 0 0 
+@ all front*_back 
+R 0
+A -
+X Invalid value 'front' at position 7: t front<--[HERE]@5
+E Invalid value 'front' at position 7: t front<--[HERE]@5
+S -2--2 0 0 
+@ all front_backb
+R 0
+A -
+X Invalid value 'front_backb' at position 13: ...ront_backb<--[HERE]@11
+E Invalid value 'front_backb' at position 13: ...ront_backb<--[HERE]@11
+S -2--2 0 0 
+@ all x.
+R 0
+A -
+X Invalid value 'x.' at position 4: t x.<--[HERE]@2
+E Invalid value 'x.' at position 4: t x.<--[HERE]@2
+S -2--2 0 0 
+@ all front_back n
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all c 
+R 0
+A -
+X Invalid value 'c' at position 3: t c<--[HERE]@1
+E Invalid value 'c' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all front_bZck
+R 0
+A -
+X Invalid value 'front_bZck' at position 12: ...front_bZck<--[HERE]@10
+E Invalid value 'front_bZck' at position 12: ...front_bZck<--[HERE]@10
+S -2--2 0 0 
+@ all ba,ck 
+R 0
+A -
+X Invalid value 'ba' at position 4: t ba<--[HERE]@2
+E Invalid value 'ba' at position 4: t ba<--[HERE]@2
+S -2--2 0 0 
+@ all E
+R 0
+A -
+X Invalid value 'E' at position 3: t E<--[HERE]@1
+E Invalid value 'E' at position 3: t E<--[HERE]@1
+S -2--2 0 0 
+@ all leßft
+R 0
+A -
+X Invalid value 'le' at position 4: t le<--[HERE]@2
+E Invalid value 'le' at position 4: t le<--[HERE]@2
+S -2--2 0 0 
+@ all ft
+R 0
+A -
+X Invalid value 'ft' at position 4: t ft<--[HERE]@2
+E Invalid value 'ft' at position 4: t ft<--[HERE]@2
+S -2--2 0 0 
+@ all left_ right
+R 0
+A -
+X Invalid value 'left_' at position 7: t left_<--[HERE]@5
+E Invalid value 'left_' at position 7: t left_<--[HERE]@5
+S -2--2 0 0 
+@ all NONEN
+R 0
+A -
+X Invalid value 'NONEN' at position 7: t NONEN<--[HERE]@5
+E Invalid value 'NONEN' at position 7: t NONEN<--[HERE]@5
+S -2--2 0 0 
+@ all front_back  
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all =ront_back 
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ne
+R 0
+A -
+X Invalid value 'ne' at position 4: t ne<--[HERE]@2
+E Invalid value 'ne' at position 4: t ne<--[HERE]@2
+S -2--2 0 0 
+@ all ON]
+R 0
+A -
+X Invalid value 'ON' at position 4: t ON<--[HERE]@2
+E Invalid value 'ON' at position 4: t ON<--[HERE]@2
+S -2--2 0 0 
+@ all l^eft
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all NONzzE
+R 0
+A -
+X Invalid value 'NONzzE' at position 8: t NONzzE<--[HERE]@6
+E Invalid value 'NONzzE' at position 8: t NONzzE<--[HERE]@6
+S -2--2 0 0 
+@ all none$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t none<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t none<--[HERE]@4
+S -2--2 0 0 
+@ all fr*nt_back 
+R 0
+A -
+X Invalid value 'fr' at position 4: t fr<--[HERE]@2
+E Invalid value 'fr' at position 4: t fr<--[HERE]@2
+S -2--2 0 0 
+@ all fron_back 
+R 0
+A -
+X Invalid value 'fron_back' at position 11: ... fron_back<--[HERE]@9
+E Invalid value 'fron_back' at position 11: ... fron_back<--[HERE]@9
+S -2--2 0 0 
+@ all fro{t_back f
+R 0
+A -
+X Invalid value 'fro' at position 5: t fro<--[HERE]@3
+E Invalid value 'fro' at position 5: t fro<--[HERE]@3
+S -2--2 0 0 
+@ all eft_rght
+R 0
+A -
+X Invalid value 'eft_rght' at position 10: t eft_rght<--[HERE]@8
+E Invalid value 'eft_rght' at position 10: t eft_rght<--[HERE]@8
+S -2--2 0 0 
+@ all fron4_back
+R 0
+A -
+X Invalid value 'fron4_back' at position 12: ...fron4_back<--[HERE]@10
+E Invalid value 'fron4_back' at position 12: ...fron4_back<--[HERE]@10
+S -2--2 0 0 
+@ all 中none
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all front_0bac 
+R 0
+A -
+X Invalid value 'front_0bac' at position 12: ...front_0bac<--[HERE]@10
+E Invalid value 'front_0bac' at position 12: ...front_0bac<--[HERE]@10
+S -2--2 0 0 
+@ all l<ft
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all ]nne
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f ront_/ack
+R 0
+A -
+X Invalid value 'f' at position 3: t f<--[HERE]@1
+E Invalid value 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all front_bacß
+R 0
+A -
+X Invalid value 'front_bac' at position 11: ... front_bac<--[HERE]@9
+E Invalid value 'front_bac' at position 11: ... front_bac<--[HERE]@9
+S -2--2 0 0 
+@ all left_righti
+R 0
+A -
+X Invalid value 'left_righti' at position 13: ...eft_righti<--[HERE]@11
+E Invalid value 'left_righti' at position 13: ...eft_righti<--[HERE]@11
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all {ront_back 
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NN4
+R 0
+A -
+X Invalid value 'NN4' at position 5: t NN4<--[HERE]@3
+E Invalid value 'NN4' at position 5: t NN4<--[HERE]@3
+S -2--2 0 0 
+@ all let_\u0000right
+R 0
+A -
+X Invalid value 'let_' at position 6: t let_<--[HERE]@4
+E Invalid value 'let_' at position 6: t let_<--[HERE]@4
+S -2--2 0 0 
+@ all left_ri\u000ah
+R 0
+A -
+X Invalid value 'left_ri' at position 9: t left_ri<--[HERE]@7
+E Invalid value 'left_ri' at position 9: t left_ri<--[HERE]@7
+S -2--2 0 0 
+@ all ft_right
+R 0
+A -
+X Invalid value 'ft_right' at position 10: t ft_right<--[HERE]@8
+E Invalid value 'ft_right' at position 10: t ft_right<--[HERE]@8
+S -2--2 0 0 
+@ all font_back 
+R 0
+A -
+X Invalid value 'font_back' at position 11: ... font_back<--[HERE]@9
+E Invalid value 'font_back' at position 11: ... font_back<--[HERE]@9
+S -2--2 0 0 
+@ all xß
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all 8
+R 0
+A -
+X Invalid value '8' at position 3: t 8<--[HERE]@1
+E Invalid value '8' at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all NO}NcE
+R 0
+A -
+X Invalid value 'NO' at position 4: t NO<--[HERE]@2
+E Invalid value 'NO' at position 4: t NO<--[HERE]@2
+S -2--2 0 0 
+@ all aa
+R 0
+A -
+X Invalid value 'aa' at position 4: t aa<--[HERE]@2
+E Invalid value 'aa' at position 4: t aa<--[HERE]@2
+S -2--2 0 0 
+@ all eront_backk
+R 0
+A -
+X Invalid value 'eront_backk' at position 13: ...ront_backk<--[HERE]@11
+E Invalid value 'eront_backk' at position 13: ...ront_backk<--[HERE]@11
+S -2--2 0 0 
+@ all front_backr
+R 0
+A -
+X Invalid value 'front_backr' at position 13: ...ront_backr<--[HERE]@11
+E Invalid value 'front_backr' at position 13: ...ront_backr<--[HERE]@11
+S -2--2 0 0 
+@ all none=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t none<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t none<--[HERE]@4
+S -2--2 0 0 
+@ all let_right
+R 0
+A -
+X Invalid value 'let_right' at position 11: ... let_right<--[HERE]@9
+E Invalid value 'let_right' at position 11: ... let_right<--[HERE]@9
+S -2--2 0 0 
+@ all t_righti
+R 0
+A -
+X Invalid value 't_righti' at position 10: t t_righti<--[HERE]@8
+E Invalid value 't_righti' at position 10: t t_righti<--[HERE]@8
+S -2--2 0 0 
+@ all fréont_backr
+R 0
+A -
+X Invalid value 'fr' at position 4: t fr<--[HERE]@2
+E Invalid value 'fr' at position 4: t fr<--[HERE]@2
+S -2--2 0 0 
+@ all Xront_back 
+R 0
+A -
+X Invalid value 'Xront_back' at position 12: ...Xront_back<--[HERE]@10
+E Invalid value 'Xront_back' at position 12: ...Xront_back<--[HERE]@10
+S -2--2 0 0 
+@ all NONENN
+R 0
+A -
+X Invalid value 'NONENN' at position 8: t NONENN<--[HERE]@6
+E Invalid value 'NONENN' at position 8: t NONENN<--[HERE]@6
+S -2--2 0 0 
+@ all front_bck
+R 0
+A -
+X Invalid value 'front_bck' at position 11: ... front_bck<--[HERE]@9
+E Invalid value 'front_bck' at position 11: ... front_bck<--[HERE]@9
+S -2--2 0 0 
+@ all igt
+R 0
+A -
+X Invalid value 'igt' at position 5: t igt<--[HERE]@3
+E Invalid value 'igt' at position 5: t igt<--[HERE]@3
+S -2--2 0 0 
+@ all nCon6
+R 0
+A -
+X Invalid value 'nCon6' at position 7: t nCon6<--[HERE]@5
+E Invalid value 'nCon6' at position 7: t nCon6<--[HERE]@5
+S -2--2 0 0 
+@ all on"e
+R 0
+A -
+X Invalid value 'on' at position 4: t on<--[HERE]@2
+E Invalid value 'on' at position 4: t on<--[HERE]@2
+S -2--2 0 0 
+@ all ON
+R 0
+A -
+X Invalid value 'ON' at position 4: t ON<--[HERE]@2
+E Invalid value 'ON' at position 4: t ON<--[HERE]@2
+S -2--2 0 0 
+@ all no1neo
+R 0
+A -
+X Invalid value 'no1neo' at position 8: t no1neo<--[HERE]@6
+E Invalid value 'no1neo' at position 8: t no1neo<--[HERE]@6
+S -2--2 0 0 
+@ all ck
+R 0
+A -
+X Invalid value 'ck' at position 4: t ck<--[HERE]@2
+E Invalid value 'ck' at position 4: t ck<--[HERE]@2
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Invalid value 'e' at position 3: t e<--[HERE]@1
+E Invalid value 'e' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all le.
+R 0
+A -
+X Invalid value 'le.' at position 5: t le.<--[HERE]@3
+E Invalid value 'le.' at position 5: t le.<--[HERE]@3
+S -2--2 0 0 
+@ all n~ne
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all $onx
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1nonee
+R 0
+A -
+X Invalid value '1nonee' at position 8: t 1nonee<--[HERE]@6
+E Invalid value '1nonee' at position 8: t 1nonee<--[HERE]@6
+S -2--2 0 0 
+@ all left_righ>
+R 0
+A -
+X Invalid value 'left_righ' at position 11: ... left_righ<--[HERE]@9
+E Invalid value 'left_righ' at position 11: ... left_righ<--[HERE]@9
+S -2--2 0 0 
+@ all lef_riht
+R 0
+A -
+X Invalid value 'lef_riht' at position 10: t lef_riht<--[HERE]@8
+E Invalid value 'lef_riht' at position 10: t lef_riht<--[HERE]@8
+S -2--2 0 0 
+@ all axx
+R 0
+A -
+X Invalid value 'axx' at position 5: t axx<--[HERE]@3
+E Invalid value 'axx' at position 5: t axx<--[HERE]@3
+S -2--2 0 0 
+@ all 5
+R 0
+A -
+X Invalid value '5' at position 3: t 5<--[HERE]@1
+E Invalid value '5' at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all left)_right
+R 0
+A -
+X Invalid value 'left' at position 6: t left<--[HERE]@4
+E Invalid value 'left' at position 6: t left<--[HERE]@4
+S -2--2 0 0 
+@ all *
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fr[onİt_back 
+R 0
+A -
+X Invalid value 'fr' at position 4: t fr<--[HERE]@2
+E Invalid value 'fr' at position 4: t fr<--[HERE]@2
+S -2--2 0 0 
+@ all NO1中NE
+R 0
+A -
+X Invalid value 'NO1' at position 5: t NO1<--[HERE]@3
+E Invalid value 'NO1' at position 5: t NO1<--[HERE]@3
+S -2--2 0 0 
+@ all l￿eft
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all x^
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Invalid value 'C' at position 3: t C<--[HERE]@1
+E Invalid value 'C' at position 3: t C<--[HERE]@1
+S -2--2 0 0 
+@ all Bx
+R 0
+A -
+X Invalid value 'Bx' at position 4: t Bx<--[HERE]@2
+E Invalid value 'Bx' at position 4: t Bx<--[HERE]@2
+S -2--2 0 0 
+@ all nne
+R 0
+A -
+X Invalid value 'nne' at position 5: t nne<--[HERE]@3
+E Invalid value 'nne' at position 5: t nne<--[HERE]@3
+S -2--2 0 0 
+@ all no5
+R 0
+A -
+X Invalid value 'no5' at position 5: t no5<--[HERE]@3
+E Invalid value 'no5' at position 5: t no5<--[HERE]@3
+S -2--2 0 0 
+@ all no\u000ae
+R 0
+A -
+X Invalid value 'no' at position 4: t no<--[HERE]@2
+E Invalid value 'no' at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all ^
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NON0O
+R 0
+A -
+X Invalid value 'NON0O' at position 7: t NON0O<--[HERE]@5
+E Invalid value 'NON0O' at position 7: t NON0O<--[HERE]@5
+S -2--2 0 0 
+@ all bacy 
+R 0
+A -
+X Invalid value 'bacy' at position 6: t bacy<--[HERE]@4
+E Invalid value 'bacy' at position 6: t bacy<--[HERE]@4
+S -2--2 0 0 
+@ all fro[t_backf
+R 0
+A -
+X Invalid value 'fro' at position 5: t fro<--[HERE]@3
+E Invalid value 'fro' at position 5: t fro<--[HERE]@3
+S -2--2 0 0 
+@ all faon#t_back 
+R 0
+A -
+X Invalid value 'faon' at position 6: t faon<--[HERE]@4
+E Invalid value 'faon' at position 6: t faon<--[HERE]@4
+S -2--2 0 0 
+@ all 6eft_right
+R 0
+A -
+X Invalid value '6eft_right' at position 12: ...6eft_right<--[HERE]@10
+E Invalid value '6eft_right' at position 12: ...6eft_right<--[HERE]@10
+S -2--2 0 0 
+@ all front_b(ckf
+R 0
+A -
+X Invalid value 'front_b' at position 9: t front_b<--[HERE]@7
+E Invalid value 'front_b' at position 9: t front_b<--[HERE]@7
+S -2--2 0 0 
+@ all ￿
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all [ront_back
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all front_back %
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all le.te
+R 0
+A -
+X Invalid value 'le.te' at position 7: t le.te<--[HERE]@5
+E Invalid value 'le.te' at position 7: t le.te<--[HERE]@5
+S -2--2 0 0 
+@ all NbONE
+R 0
+A -
+X Invalid value 'NbONE' at position 7: t NbONE<--[HERE]@5
+E Invalid value 'NbONE' at position 7: t NbONE<--[HERE]@5
+S -2--2 0 0 
+@ all front_ac​
+R 0
+A -
+X Invalid value 'front_ac' at position 10: t front_ac<--[HERE]@8
+E Invalid value 'front_ac' at position 10: t front_ac<--[HERE]@8
+S -2--2 0 0 
+@ all no"e
+R 0
+A -
+X Invalid value 'no' at position 4: t no<--[HERE]@2
+E Invalid value 'no' at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all ))
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fro_nt_9back 
+R 0
+A -
+X Invalid value 'fro_nt_9back' at position 14: ...o_nt_9back<--[HERE]@12
+E Invalid value 'fro_nt_9back' at position 14: ...o_nt_9back<--[HERE]@12
+S -2--2 0 0 
+@ all let
+R 0
+A -
+X Invalid value 'let' at position 5: t let<--[HERE]@3
+E Invalid value 'let' at position 5: t let<--[HERE]@3
+S -2--2 0 0 
+@ all n>one
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all {NOBNE
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all é[x
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all le[ftt
+R 0
+A -
+X Invalid value 'le' at position 4: t le<--[HERE]@2
+E Invalid value 'le' at position 4: t le<--[HERE]@2
+S -2--2 0 0 
+@ all 6
+R 0
+A -
+X Invalid value '6' at position 3: t 6<--[HERE]@1
+E Invalid value '6' at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all front_back c
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all \\ONE
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all left_right_
+R 0
+A -
+X Invalid value 'left_right_' at position 13: ...eft_right_<--[HERE]@11
+E Invalid value 'left_right_' at position 13: ...eft_right_<--[HERE]@11
+S -2--2 0 0 
+@ all NOfNEN
+R 0
+A -
+X Invalid value 'NOfNEN' at position 8: t NOfNEN<--[HERE]@6
+E Invalid value 'NOfNEN' at position 8: t NOfNEN<--[HERE]@6
+S -2--2 0 0 
+@ all N\u000aOE
+R 0
+A -
+X Invalid value 'N' at position 3: t N<--[HERE]@1
+E Invalid value 'N' at position 3: t N<--[HERE]@1
+S -2--2 0 0 
+@ all ledfdt
+R 0
+A -
+X Invalid value 'ledfdt' at position 8: t ledfdt<--[HERE]@6
+E Invalid value 'ledfdt' at position 8: t ledfdt<--[HERE]@6
+S -2--2 0 0 
+@ all f\\
+R 0
+A -
+X Invalid value 'f' at position 3: t f<--[HERE]@1
+E Invalid value 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all left_rightte
+R 0
+A -
+X Invalid value 'left_rightte' at position 14: ...ft_rightte<--[HERE]@12
+E Invalid value 'left_rightte' at position 14: ...ft_rightte<--[HERE]@12
+S -2--2 0 0 
+@ all NONEE
+R 0
+A -
+X Invalid value 'NONEE' at position 7: t NONEE<--[HERE]@5
+E Invalid value 'NONEE' at position 7: t NONEE<--[HERE]@5
+S -2--2 0 0 
+@ all 4x
+R 0
+A -
+X Invalid value '4x' at position 4: t 4x<--[HERE]@2
+E Invalid value '4x' at position 4: t 4x<--[HERE]@2
+S -2--2 0 0 
+@ all front_/back 
+R 0
+A -
+X Invalid value 'front_' at position 8: t front_<--[HERE]@6
+E Invalid value 'front_' at position 8: t front_<--[HERE]@6
+S -2--2 0 0 
+@ all dnoneo
+R 0
+A -
+X Invalid value 'dnoneo' at position 8: t dnoneo<--[HERE]@6
+E Invalid value 'dnoneo' at position 8: t dnoneo<--[HERE]@6
+S -2--2 0 0 
+@ all non6n
+R 0
+A -
+X Invalid value 'non6n' at position 7: t non6n<--[HERE]@5
+E Invalid value 'non6n' at position 7: t non6n<--[HERE]@5
+S -2--2 0 0 
+@ all non+e
+R 0
+A -
+X Invalid value 'non+e' at position 7: t non+e<--[HERE]@5
+E Invalid value 'non+e' at position 7: t non+e<--[HERE]@5
+S -2--2 0 0 
+@ all left_r8igZht
+R 0
+A -
+X Invalid value 'left_r8igZht' at position 14: ...ft_r8igZht<--[HERE]@12
+E Invalid value 'left_r8igZht' at position 14: ...ft_r8igZht<--[HERE]@12
+S -2--2 0 0 
+@ all NON￿N
+R 0
+A -
+X Invalid value 'NON' at position 5: t NON<--[HERE]@3
+E Invalid value 'NON' at position 5: t NON<--[HERE]@3
+S -2--2 0 0 
+@ all f1on]t_back
+R 0
+A -
+X Invalid value 'f1on' at position 6: t f1on<--[HERE]@4
+E Invalid value 'f1on' at position 6: t f1on<--[HERE]@4
+S -2--2 0 0 
+@ all ftf
+R 0
+A -
+X Invalid value 'ftf' at position 5: t ftf<--[HERE]@3
+E Invalid value 'ftf' at position 5: t ftf<--[HERE]@3
+S -2--2 0 0 
+@ all NO"NE
+R 0
+A -
+X Invalid value 'NO' at position 4: t NO<--[HERE]@2
+E Invalid value 'NO' at position 4: t NO<--[HERE]@2
+S -2--2 0 0 
+@ all _right\\
+R 0
+A -
+X Invalid value '_right' at position 8: t _right<--[HERE]@6
+E Invalid value '_right' at position 8: t _right<--[HERE]@6
+S -2--2 0 0 
+@ all 6ONEd
+R 0
+A -
+X Invalid value '6ONEd' at position 7: t 6ONEd<--[HERE]@5
+E Invalid value '6ONEd' at position 7: t 6ONEd<--[HERE]@5
+S -2--2 0 0 
+@ all x]
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all noneee
+R 0
+A -
+X Invalid value 'noneee' at position 8: t noneee<--[HERE]@6
+E Invalid value 'noneee' at position 8: t noneee<--[HERE]@6
+S -2--2 0 0 
+@ all NE
+R 0
+A -
+X Invalid value 'NE' at position 4: t NE<--[HERE]@2
+E Invalid value 'NE' at position 4: t NE<--[HERE]@2
+S -2--2 0 0 
+@ all frony_backb
+R 0
+A -
+X Invalid value 'frony_backb' at position 13: ...rony_backb<--[HERE]@11
+E Invalid value 'frony_backb' at position 13: ...rony_backb<--[HERE]@11
+S -2--2 0 0 
+@ all f%on_back 
+R 0
+A -
+X Invalid value 'f' at position 3: t f<--[HERE]@1
+E Invalid value 'f' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all front_back1 
+R 0
+A -
+X Invalid value 'front_back1' at position 13: ...ront_back1<--[HERE]@11
+E Invalid value 'front_back1' at position 13: ...ront_back1<--[HERE]@11
+S -2--2 0 0 
+@ all letf
+R 0
+A -
+X Invalid value 'letf' at position 6: t letf<--[HERE]@4
+E Invalid value 'letf' at position 6: t letf<--[HERE]@4
+S -2--2 0 0 
+@ all fron7t_back 
+R 0
+A -
+X Invalid value 'fron7t_back' at position 13: ...ron7t_back<--[HERE]@11
+E Invalid value 'fron7t_back' at position 13: ...ron7t_back<--[HERE]@11
+S -2--2 0 0 
+@ all ghtt
+R 0
+A -
+X Invalid value 'ghtt' at position 6: t ghtt<--[HERE]@4
+E Invalid value 'ghtt' at position 6: t ghtt<--[HERE]@4
+S -2--2 0 0 
+@ all no0ne
+R 0
+A -
+X Invalid value 'no0ne' at position 7: t no0ne<--[HERE]@5
+E Invalid value 'no0ne' at position 7: t no0ne<--[HERE]@5
+S -2--2 0 0 
+@ all NONaE
+R 0
+A -
+X Invalid value 'NONaE' at position 7: t NONaE<--[HERE]@5
+E Invalid value 'NONaE' at position 7: t NONaE<--[HERE]@5
+S -2--2 0 0 
+@ all frot_back
+R 0
+A -
+X Invalid value 'frot_back' at position 11: ... frot_back<--[HERE]@9
+E Invalid value 'frot_back' at position 11: ... frot_back<--[HERE]@9
+S -2--2 0 0 
+@ all *non
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all l\\ft\\
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all lefét_right
+R 0
+A -
+X Invalid value 'lef' at position 5: t lef<--[HERE]@3
+E Invalid value 'lef' at position 5: t lef<--[HERE]@3
+S -2--2 0 0 
+@ all ront_back k
+R 0
+A -
+X Invalid value 'ront_back' at position 11: ... ront_back<--[HERE]@9
+E Invalid value 'ront_back' at position 11: ... ront_back<--[HERE]@9
+S -2--2 0 0 
+@ all ont_back 
+R 0
+A -
+X Invalid value 'ont_back' at position 10: t ont_back<--[HERE]@8
+E Invalid value 'ont_back' at position 10: t ont_back<--[HERE]@8
+S -2--2 0 0 
+@ all l]efzt
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all left_rigt
+R 0
+A -
+X Invalid value 'left_rigt' at position 11: ... left_rigt<--[HERE]@9
+E Invalid value 'left_rigt' at position 11: ... left_rigt<--[HERE]@9
+S -2--2 0 0 
+@ all nfone
+R 0
+A -
+X Invalid value 'nfone' at position 7: t nfone<--[HERE]@5
+E Invalid value 'nfone' at position 7: t nfone<--[HERE]@5
+S -2--2 0 0 
+@ all \\NNE
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all frot_back 
+R 0
+A -
+X Invalid value 'frot_back' at position 11: ... frot_back<--[HERE]@9
+E Invalid value 'frot_back' at position 11: ... frot_back<--[HERE]@9
+S -2--2 0 0 
+@ all +
+R 0
+A -
+X Invalid value '+' at position 3: t +<--[HERE]@1
+E Invalid value '+' at position 3: t +<--[HERE]@1
+S -2--2 0 0 
+@ all fron._ack 
+R 0
+A -
+X Invalid value 'fron._ack' at position 11: ... fron._ack<--[HERE]@9
+E Invalid value 'fron._ack' at position 11: ... fron._ack<--[HERE]@9
+S -2--2 0 0 
+@ all lefzf
+R 0
+A -
+X Invalid value 'lefzf' at position 7: t lefzf<--[HERE]@5
+E Invalid value 'lefzf' at position 7: t lefzf<--[HERE]@5
+S -2--2 0 0 
+@ all nt_back 
+R 0
+A -
+X Invalid value 'nt_back' at position 9: t nt_back<--[HERE]@7
+E Invalid value 'nt_back' at position 9: t nt_back<--[HERE]@7
+S -2--2 0 0 
+@ all ft_}right
+R 0
+A -
+X Invalid value 'ft_' at position 5: t ft_<--[HERE]@3
+E Invalid value 'ft_' at position 5: t ft_<--[HERE]@3
+S -2--2 0 0 
+@ all feont_back f
+R 0
+A -
+X Invalid value 'feont_back' at position 12: ...feont_back<--[HERE]@10
+E Invalid value 'feont_back' at position 12: ...feont_back<--[HERE]@10
+S -2--2 0 0 
+@ all x5
+R 0
+A -
+X Invalid value 'x5' at position 4: t x5<--[HERE]@2
+E Invalid value 'x5' at position 4: t x5<--[HERE]@2
+S -2--2 0 0 
+@ all NON\\N
+R 0
+A -
+X Invalid value 'NON' at position 5: t NON<--[HERE]@3
+E Invalid value 'NON' at position 5: t NON<--[HERE]@3
+S -2--2 0 0 
+@ all front_back r
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all front_back r_
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all noneo
+R 0
+A -
+X Invalid value 'noneo' at position 7: t noneo<--[HERE]@5
+E Invalid value 'noneo' at position 7: t noneo<--[HERE]@5
+S -2--2 0 0 
+@ all frnt_back
+R 0
+A -
+X Invalid value 'frnt_back' at position 11: ... frnt_back<--[HERE]@9
+E Invalid value 'frnt_back' at position 11: ... frnt_back<--[HERE]@9
+S -2--2 0 0 
+@ all }x
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x<
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all _back
+R 0
+A -
+X Invalid value '_back' at position 7: t _back<--[HERE]@5
+E Invalid value '_back' at position 7: t _back<--[HERE]@5
+S -2--2 0 0 
+@ all l@eft_right
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all non e
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all nonee
+R 0
+A -
+X Invalid value 'nonee' at position 7: t nonee<--[HERE]@5
+E Invalid value 'nonee' at position 7: t nonee<--[HERE]@5
+S -2--2 0 0 
+@ all x0\u0000
+R 0
+A -
+X Invalid value 'x0' at position 4: t x0<--[HERE]@2
+E Invalid value 'x0' at position 4: t x0<--[HERE]@2
+S -2--2 0 0 
+@ all left_righbh
+R 0
+A -
+X Invalid value 'left_righbh' at position 13: ...eft_righbh<--[HERE]@11
+E Invalid value 'left_righbh' at position 13: ...eft_righbh<--[HERE]@11
+S -2--2 0 0 
+@ all left_riX中t
+R 0
+A -
+X Invalid value 'left_riX' at position 10: t left_riX<--[HERE]@8
+E Invalid value 'left_riX' at position 10: t left_riX<--[HERE]@8
+S -2--2 0 0 
+@ all ldft
+R 0
+A -
+X Invalid value 'ldft' at position 6: t ldft<--[HERE]@4
+E Invalid value 'ldft' at position 6: t ldft<--[HERE]@4
+S -2--2 0 0 
+@ all front_bac￿k
+R 0
+A -
+X Invalid value 'front_bac' at position 11: ... front_bac<--[HERE]@9
+E Invalid value 'front_bac' at position 11: ... front_bac<--[HERE]@9
+S -2--2 0 0 
+@ all eNNE
+R 0
+A -
+X Invalid value 'eNNE' at position 6: t eNNE<--[HERE]@4
+E Invalid value 'eNNE' at position 6: t eNNE<--[HERE]@4
+S -2--2 0 0 
+@ all xx
+R 0
+A -
+X Invalid value 'xx' at position 4: t xx<--[HERE]@2
+E Invalid value 'xx' at position 4: t xx<--[HERE]@2
+S -2--2 0 0 
+@ all 😀leftf
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all one[
+R 0
+A -
+X Invalid value 'one' at position 5: t one<--[HERE]@3
+E Invalid value 'one' at position 5: t one<--[HERE]@3
+S -2--2 0 0 
+@ all "none
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all nt_bacb 
+R 0
+A -
+X Invalid value 'nt_bacb' at position 9: t nt_bacb<--[HERE]@7
+E Invalid value 'nt_bacb' at position 9: t nt_bacb<--[HERE]@7
+S -2--2 0 0 
+@ all 2x
+R 0
+A -
+X Invalid value '2x' at position 4: t 2x<--[HERE]@2
+E Invalid value '2x' at position 4: t 2x<--[HERE]@2
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X Invalid value 'c' at position 3: t c<--[HERE]@1
+E Invalid value 'c' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all front_ba5ck 
+R 0
+A -
+X Invalid value 'front_ba5ck' at position 13: ...ront_ba5ck<--[HERE]@11
+E Invalid value 'front_ba5ck' at position 13: ...ront_ba5ck<--[HERE]@11
+S -2--2 0 0 
+@ all nonea
+R 0
+A -
+X Invalid value 'nonea' at position 7: t nonea<--[HERE]@5
+E Invalid value 'nonea' at position 7: t nonea<--[HERE]@5
+S -2--2 0 0 
+@ all 2Zone
+R 0
+A -
+X Invalid value '2Zone' at position 7: t 2Zone<--[HERE]@5
+E Invalid value '2Zone' at position 7: t 2Zone<--[HERE]@5
+S -2--2 0 0 
+@ all front_ba"ck z
+R 0
+A -
+X Invalid value 'front_ba' at position 10: t front_ba<--[HERE]@8
+E Invalid value 'front_ba' at position 10: t front_ba<--[HERE]@8
+S -2--2 0 0 
+@ all rightl
+R 0
+A -
+X Invalid value 'rightl' at position 8: t rightl<--[HERE]@6
+E Invalid value 'rightl' at position 8: t rightl<--[HERE]@6
+S -2--2 0 0 
+@ all none)o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t none<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t none<--[HERE]@4
+S -2--2 0 0 
+@ all eft_rightt
+R 0
+A -
+X Invalid value 'eft_rightt' at position 12: ...eft_rightt<--[HERE]@10
+E Invalid value 'eft_rightt' at position 12: ...eft_rightt<--[HERE]@10
+S -2--2 0 0 
+@ all NyONd
+R 0
+A -
+X Invalid value 'NyONd' at position 7: t NyONd<--[HERE]@5
+E Invalid value 'NyONd' at position 7: t NyONd<--[HERE]@5
+S -2--2 0 0 
+@ all ef
+R 0
+A -
+X Invalid value 'ef' at position 4: t ef<--[HERE]@2
+E Invalid value 'ef' at position 4: t ef<--[HERE]@2
+S -2--2 0 0 
+@ all x\u0000
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all lftf
+R 0
+A -
+X Invalid value 'lftf' at position 6: t lftf<--[HERE]@4
+E Invalid value 'lftf' at position 6: t lftf<--[HERE]@4
+S -2--2 0 0 
+@ all İ
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all frontbac
+R 0
+A -
+X Invalid value 'frontbac' at position 10: t frontbac<--[HERE]@8
+E Invalid value 'frontbac' at position 10: t frontbac<--[HERE]@8
+S -2--2 0 0 
+@ all lef_
+R 0
+A -
+X Invalid value 'lef_' at position 6: t lef_<--[HERE]@4
+E Invalid value 'lef_' at position 6: t lef_<--[HERE]@4
+S -2--2 0 0 
+@ all ront_bİack 
+R 0
+A -
+X Invalid value 'ront_b' at position 8: t ront_b<--[HERE]@6
+E Invalid value 'ront_b' at position 8: t ront_b<--[HERE]@6
+S -2--2 0 0 
+@ all l​ftl
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all NO\\NE
+R 0
+A -
+X Invalid value 'NO' at position 4: t NO<--[HERE]@2
+E Invalid value 'NO' at position 4: t NO<--[HERE]@2
+S -2--2 0 0 
+@ all 9one
+R 0
+A -
+X Invalid value '9one' at position 6: t 9one<--[HERE]@4
+E Invalid value '9one' at position 6: t 9one<--[HERE]@4
+S -2--2 0 0 
+@ all left_righ"
+R 0
+A -
+X Invalid value 'left_righ' at position 11: ... left_righ<--[HERE]@9
+E Invalid value 'left_righ' at position 11: ... left_righ<--[HERE]@9
+S -2--2 0 0 
+@ all NONE/
+R 0
+A -
+X Invalid value 'NONE' at position 6: t NONE<--[HERE]@4
+E Invalid value 'NONE' at position 6: t NONE<--[HERE]@4
+S -2--2 0 0 
+@ all leftf
+R 0
+A -
+X Invalid value 'leftf' at position 7: t leftf<--[HERE]@5
+E Invalid value 'leftf' at position 7: t leftf<--[HERE]@5
+S -2--2 0 0 
+@ all frodnt_back 
+R 0
+A -
+X Invalid value 'frodnt_back' at position 13: ...rodnt_back<--[HERE]@11
+E Invalid value 'frodnt_back' at position 13: ...rodnt_back<--[HERE]@11
+S -2--2 0 0 
+@ all le9f
+R 0
+A -
+X Invalid value 'le9f' at position 6: t le9f<--[HERE]@4
+E Invalid value 'le9f' at position 6: t le9f<--[HERE]@4
+S -2--2 0 0 
+@ all left_righ9
+R 0
+A -
+X Invalid value 'left_righ9' at position 12: ...left_righ9<--[HERE]@10
+E Invalid value 'left_righ9' at position 12: ...left_righ9<--[HERE]@10
+S -2--2 0 0 
+@ all xf
+R 0
+A -
+X Invalid value 'xf' at position 4: t xf<--[HERE]@2
+E Invalid value 'xf' at position 4: t xf<--[HERE]@2
+S -2--2 0 0 
+@ all ,ront_back
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9ONE
+R 0
+A -
+X Invalid value '9ONE' at position 6: t 9ONE<--[HERE]@4
+E Invalid value '9ONE' at position 6: t 9ONE<--[HERE]@4
+S -2--2 0 0 
+@ all front_back o
+R 11
+A 0-10 front_back
+E Incorrect argument for command at position 13: ...ront_back <--[HERE]@11
+S -2--2 0 0 
+@ all N￿,E
+R 0
+A -
+X Invalid value 'N' at position 3: t N<--[HERE]@1
+E Invalid value 'N' at position 3: t N<--[HERE]@1
+S -2--2 0 0 
+@ all fonY_back 
+R 0
+A -
+X Invalid value 'fonY_back' at position 11: ... fonY_back<--[HERE]@9
+E Invalid value 'fonY_back' at position 11: ... fonY_back<--[HERE]@9
+S -2--2 0 0 
+@ all 2left
+R 0
+A -
+X Invalid value '2left' at position 7: t 2left<--[HERE]@5
+E Invalid value '2left' at position 7: t 2left<--[HERE]@5
+S -2--2 0 0 
+@ all Xr<ont_back
+R 0
+A -
+X Invalid value 'Xr' at position 4: t Xr<--[HERE]@2
+E Invalid value 'Xr' at position 4: t Xr<--[HERE]@2
+S -2--2 0 0 
+@ all le4t
+R 0
+A -
+X Invalid value 'le4t' at position 6: t le4t<--[HERE]@4
+E Invalid value 'le4t' at position 6: t le4t<--[HERE]@4
+S -2--2 0 0 
+@ all front%ack
+R 0
+A -
+X Invalid value 'front' at position 7: t front<--[HERE]@5
+E Invalid value 'front' at position 7: t front<--[HERE]@5
+S -2--2 0 0 
+@ all htt
+R 0
+A -
+X Invalid value 'htt' at position 5: t htt<--[HERE]@3
+E Invalid value 'htt' at position 5: t htt<--[HERE]@3
+S -2--2 0 0 
+@ all back
+R 0
+A -
+X Invalid value 'back' at position 6: t back<--[HERE]@4
+E Invalid value 'back' at position 6: t back<--[HERE]@4
+S 0-4 1 -1472014740 front_back
+@ all NON.
+R 0
+A -
+X Invalid value 'NON.' at position 6: t NON.<--[HERE]@4
+E Invalid value 'NON.' at position 6: t NON.<--[HERE]@4
+S -2--2 0 0 
+@ all front_ba$ck
+R 0
+A -
+X Invalid value 'front_ba' at position 10: t front_ba<--[HERE]@8
+E Invalid value 'front_ba' at position 10: t front_ba<--[HERE]@8
+S -2--2 0 0 
+@ all front_bak
+R 0
+A -
+X Invalid value 'front_bak' at position 11: ... front_bak<--[HERE]@9
+E Invalid value 'front_bak' at position 11: ... front_bak<--[HERE]@9
+S -2--2 0 0 
+@ all lİt
+R 0
+A -
+X Invalid value 'l' at position 3: t l<--[HERE]@1
+E Invalid value 'l' at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all iXht
+R 0
+A -
+X Invalid value 'iXht' at position 6: t iXht<--[HERE]@4
+E Invalid value 'iXht' at position 6: t iXht<--[HERE]@4
+S -2--2 0 0 
+@ all ]oneo
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all (no7ne
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Zlefe
+R 0
+A -
+X Invalid value 'Zlefe' at position 7: t Zlefe<--[HERE]@5
+E Invalid value 'Zlefe' at position 7: t Zlefe<--[HERE]@5
+S -2--2 0 0 
+@ all front_eack b
+R 0
+A -
+X Invalid value 'front_eack' at position 12: ...front_eack<--[HERE]@10
+E Invalid value 'front_eack' at position 12: ...front_eack<--[HERE]@10
+S -2--2 0 0 
+@ all ackk
+R 0
+A -
+X Invalid value 'ackk' at position 6: t ackk<--[HERE]@4
+E Invalid value 'ackk' at position 6: t ackk<--[HERE]@4
+S -2--2 0 0 
+@ all n#one
+R 0
+A -
+X Invalid value 'n' at position 3: t n<--[HERE]@1
+E Invalid value 'n' at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all front_b ckn
+R 0
+A -
+X Invalid value 'front_b' at position 9: t front_b<--[HERE]@7
+E Invalid value 'front_b' at position 9: t front_b<--[HERE]@7
+S -2--2 0 0 
+@ all noaee
+R 0
+A -
+X Invalid value 'noaee' at position 7: t noaee<--[HERE]@5
+E Invalid value 'noaee' at position 7: t noaee<--[HERE]@5
+S -2--2 0 0 
+@ all ont_back
+R 0
+A -
+X Invalid value 'ont_back' at position 10: t ont_back<--[HERE]@8
+E Invalid value 'ont_back' at position 10: t ont_back<--[HERE]@8
+S -2--2 0 0 
+@ all Xlef
+R 0
+A -
+X Invalid value 'Xlef' at position 6: t Xlef<--[HERE]@4
+E Invalid value 'Xlef' at position 6: t Xlef<--[HERE]@4
+S -2--2 0 0 
+@ all fro\u0009nt_back
+R 0
+A -
+X Invalid value 'fro' at position 5: t fro<--[HERE]@3
+E Invalid value 'fro' at position 5: t fro<--[HERE]@3
+S -2--2 0 0 
+@ all fronZ_back
+R 0
+A -
+X Invalid value 'fronZ_back' at position 12: ...fronZ_back<--[HERE]@10
+E Invalid value 'fronZ_back' at position 12: ...fronZ_back<--[HERE]@10
+S -2--2 0 0 
+@ all xY
+R 0
+A -
+X Invalid value 'xY' at position 4: t xY<--[HERE]@2
+E Invalid value 'xY' at position 4: t xY<--[HERE]@2
+S -2--2 0 0 
+@ all front_backo
+R 0
+A -
+X Invalid value 'front_backo' at position 13: ...ront_backo<--[HERE]@11
+E Invalid value 'front_backo' at position 13: ...ront_backo<--[HERE]@11
+S -2--2 0 0 
+@ all non￿e
+R 0
+A -
+X Invalid value 'non' at position 5: t non<--[HERE]@3
+E Invalid value 'non' at position 5: t non<--[HERE]@3
+S -2--2 0 0 
+@ all k
+R 0
+A -
+X Invalid value 'k' at position 3: t k<--[HERE]@1
+E Invalid value 'k' at position 3: t k<--[HERE]@1
+S -2--2 0 0 
+@ all leff
+R 0
+A -
+X Invalid value 'leff' at position 6: t leff<--[HERE]@4
+E Invalid value 'leff' at position 6: t leff<--[HERE]@4
+S -2--2 0 0 
+@ all fron3_back
+R 0
+A -
+X Invalid value 'fron3_back' at position 12: ...fron3_back<--[HERE]@10
+E Invalid value 'fron3_back' at position 12: ...fron3_back<--[HERE]@10
+S -2--2 0 0 
+@ all xİx
+R 0
+A -
+X Invalid value 'x' at position 3: t x<--[HERE]@1
+E Invalid value 'x' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all fron8t__ack
+R 0
+A -
+X Invalid value 'fron8t__ack' at position 13: ...ron8t__ack<--[HERE]@11
+E Invalid value 'fron8t__ack' at position 13: ...ron8t__ack<--[HERE]@11
+S -2--2 0 0 
+@ all =front_baAk
+R 0
+A -
+X Invalid value '' at position 2: t <--[HERE]@0
+E Invalid value '' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all NOE
+R 0
+A -
+X Invalid value 'NOE' at position 5: t NOE<--[HERE]@3
+E Invalid value 'NOE' at position 5: t NOE<--[HERE]@3
+S -2--2 0 0 
+@ all le0f\u0000t
+R 0
+A -
+X Invalid value 'le0f' at position 6: t le0f<--[HERE]@4
+E Invalid value 'le0f' at position 6: t le0f<--[HERE]@4
+S -2--2 0 0 
