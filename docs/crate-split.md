@@ -128,6 +128,23 @@ live there); moved tests include the helpers with `#[path = "../../mc-game/tests
 `../mc-game/tests/..`. Each moved test starts with `extern crate mc_game_core as mc_game;`, so its text is otherwise unchanged.
 Fixtures used only by `src/` unit tests (`include_str!`) live in `crates/mc-game-core/tests/fixtures`.
 
+## Further carve-outs of `core` (not done)
+
+`core` is 210k lines (69%): an edit there recompiles all of it. Measured on the file-level reference graph (files of `core` outside the
+candidate that name it; "refs" = distinct referencing files):
+
+| candidate | lines | refs | what blocks it | seam it would need |
+|---|---|---|---|---|
+| items + menus + recipes (`world/item`, `world/inventory`, `world/container*`) | 23.5k | 186 (blocks 37, projectile 19, player 15, living_entity 13, mob 9, loot 9) | `ItemStack` extensions/`UseOnContext`/`InteractionResult` are used by player, living, mob, block base and `server/level/server_player_game_mode`; recipes/menus are named by `ServerPlayer` | keep the item *base* (`stack_ext`, `context`, `interaction`, `behaviour`) in core and move only recipes/trading/enchantment-effect evaluators behind the existing `ITEM_SYSTEMS`/`PLAYER_SYSTEMS` hook slices (`server/network/game_packets/hooks.rs`) |
+| loot (`world/level/storage/loot`) | 7.6k | 54 | `LootParams` is built by blocks/entities/commands/advancements; `LootContext` holds `&ServerLevel` | trait `LootTableSource` in core implemented by loot; drop callers call it through `ServerLevel` |
+| advancements (+ triggers, predicates) | 7.2k | 41 (player 10, living_entity 3) | `ServerPlayer`/living call `trigger_*` directly; predicates need `Entity`/`ServerLevel` | `AdvancementHooks` trait object on the level/player; triggers already register through the `TRIGGER_TYPES` slice |
+| scoreboard (`world/scores`) | 2.4k | 13 | `ServerPlayer`, `MinecraftServer` state glue, command arguments | trait for the few score reads/writes used by entities |
+| raids (`world/entity/raid`) | 2.3k | 7 | `Entity::{raider, apply_raid_buffs}` accessors name `RaiderData`/`Raid`; `level_tick::tick_raids`; one advancement predicate | `dyn Any` accessors on `Entity` + a `LEVEL_TICK` hook slice; unpins `patrolling_monster`/illagers |
+| projectile + decoration + vehicle | 8.9k | 21 (block 7) | `Projectile` is named by block base and enchantment code; arrow/bow items | move the `Projectile`/`Hanging` traits to core, rest above |
+| pathfinder | 2.6k | 15 | `PathNavigation` in `Mob` | navigation behind a trait object |
+| network + players + chat | 13.3k | 49 | `ServerPlayer.connection`, `MinecraftServer` fields | none cheap: it is the spine |
+| pinned mob code (zombie, villager, chicken, equine, ~60 concrete goals/behaviors) | ~15k | see Pins | `Entity` trait accessors (`as_zombie`, `villager_ref`, ...) and core brain/POI sensors name concrete types; orphan blanket impls | `dyn Any` accessors instead of concrete types in the `Entity` trait; blanket impls re-homed with their traits |
+
 ## Removal
 
 This layout is a bridge that keeps the ~180 feature branches rebasable (files keep their paths and text). The end state is plain
