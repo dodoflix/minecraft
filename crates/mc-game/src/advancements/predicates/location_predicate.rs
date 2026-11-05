@@ -67,6 +67,11 @@ impl StructureDataSource for LoadedChunks<'_> {
     }
 }
 
+/// `level.structureManager().getStructureWithPieceAt(pos, matcher).isValid()` over the loaded chunks of `level`.
+pub fn has_structure_piece_at(level: &ServerLevel, pos: BlockPos, matcher: &dyn Fn(&Identifier) -> bool) -> bool {
+    level.is_loaded(pos) && level.chunk_source.chunk_map.gen_context.hooks.has_structure_piece_at(&LoadedChunks(level), pos, matcher)
+}
+
 impl LocationPredicate {
     pub fn codec() -> Codec<LocationPredicate> {
         static C: LazyLock<Codec<LocationPredicate>> = LazyLock::new(|| {

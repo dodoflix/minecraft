@@ -571,6 +571,29 @@ impl WorldGenLevel for GenLevel<'_> {
 
 // ==== [SpawnFramework] additions (GenLevel as ServerLevelAccessor) ====
 
+// ==== [Variants] additions (GenLevel as SpawnContextLevel) ====
+
+impl crate::world::entity::variant::SpawnContextLevel for GenLevel<'_> {
+    fn variant_registries(&self) -> &crate::registry::RegistryAccess {
+        crate::world::level::server_level_accessor::ServerLevelAccessor::registry_access(self)
+    }
+
+    fn biome_at(&self, pos: BlockPos) -> Option<Identifier> {
+        Some(self.env.biomes.key(WorldGenLevel::get_biome(self, pos)).clone())
+    }
+
+    /// The moon brightness the live level published for generation (`with_difficulty`).
+    fn moon_brightness_at(&self, _pos: BlockPos) -> f32 {
+        self.difficulty.2
+    }
+
+    /// Vanilla reads the real level's chunks at `STRUCTURE_REFERENCES` without loading them (`getChunk(.., false)`); the
+    /// chunks of a generation region are not published to the level yet, so nothing is found.
+    fn has_structure_piece_at(&self, _pos: BlockPos, _matcher: &dyn Fn(&Identifier) -> bool) -> bool {
+        false
+    }
+}
+
 impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLevel<'_> {
     fn get_difficulty(&self) -> Difficulty {
         self.difficulty.0

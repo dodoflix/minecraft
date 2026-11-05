@@ -1,15 +1,23 @@
-//! `ChickenSoundVariant` (`chicken_sound_variant` registry).
+//! `ChickenSoundVariant` (the `chicken_sound_variant` registry): the adult and baby sound sets of a mob.
 
+use std::sync::LazyLock;
+
+use mc_data::SoundEvent;
+use mc_dfu::{Codec, record};
+use serde_json::Value;
+
+use crate::registry::codec::RegistryDecodeContext;
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
-use mc_data::SoundEvent;
-use serde_json::Value;
+use crate::world::entity::variant::{decode_variant, sound_event_codec};
 
 /// `ChickenSoundVariants.CLASSIC`.
 pub const CLASSIC: &str = "minecraft:classic";
+/// `ChickenSoundVariants.PICKY`.
+pub const PICKY: &str = "minecraft:picky";
 
 /// `ChickenSoundVariant.ChickenSoundSet`.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ChickenSoundSet {
     pub ambient_sound: SoundEvent,
     pub hurt_sound: SoundEvent,
@@ -17,29 +25,45 @@ pub struct ChickenSoundSet {
     pub step_sound: SoundEvent,
 }
 
-#[derive(Clone, Copy, Debug)]
+impl ChickenSoundSet {
+    /// `ChickenSoundSet.CODEC`.
+    pub fn codec() -> Codec<ChickenSoundSet> {
+        static C: LazyLock<Codec<ChickenSoundSet>> = LazyLock::new(|| {
+            record!(ChickenSoundSet {
+            ambient_sound: sound_event_codec().field_of("ambient_sound"),
+            hurt_sound: sound_event_codec().field_of("hurt_sound"),
+            death_sound: sound_event_codec().field_of("death_sound"),
+            step_sound: sound_event_codec().field_of("step_sound"),
+            })
+            .codec()
+        });
+        C.clone()
+    }
+}
+
+/// `ChickenSoundVariant`.
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct ChickenSoundVariant {
     pub adult_sounds: ChickenSoundSet,
     pub baby_sounds: ChickenSoundSet,
 }
 
-fn sound(v: &Value, key: &str) -> Result<SoundEvent, String> {
-    let name = v.get(key).and_then(Value::as_str).ok_or_else(|| format!("missing {key}"))?;
-    SoundEvent::by_name(name).ok_or_else(|| format!("unknown sound event {name}"))
-}
-
-fn sound_set(v: &Value) -> Result<ChickenSoundSet, String> {
-    Ok(ChickenSoundSet { ambient_sound: sound(v, "ambient_sound")?, hurt_sound: sound(v, "hurt_sound")?, death_sound: sound(v, "death_sound")?, step_sound: sound(v, "step_sound")? })
-}
-
 impl ChickenSoundVariant {
-    pub fn from_json(json: &Value) -> Result<Self, String> {
-        Ok(Self { adult_sounds: sound_set(json.get("adult_sounds").ok_or("missing adult_sounds")?)?, baby_sounds: sound_set(json.get("baby_sounds").ok_or("missing baby_sounds")?)? })
+    /// `DIRECT_CODEC` = `NETWORK_CODEC`.
+    pub fn codec() -> Codec<ChickenSoundVariant> {
+        static C: LazyLock<Codec<ChickenSoundVariant>> = LazyLock::new(|| {
+            record!(ChickenSoundVariant {
+                adult_sounds: ChickenSoundSet::codec().field_of("adult_sounds"),
+                baby_sounds: ChickenSoundSet::codec().field_of("baby_sounds"),
+            })
+            .codec()
+        });
+        C.clone()
     }
 }
 
-fn decode(json: &Value, _ctx: &crate::registry::codec::RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    Ok(DecodedEntry::new(ChickenSoundVariant::from_json(json)?))
+fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
+    decode_variant(&ChickenSoundVariant::codec(), &ChickenSoundVariant::codec(), json, ctx)
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]

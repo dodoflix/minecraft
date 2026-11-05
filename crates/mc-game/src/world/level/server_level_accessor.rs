@@ -22,7 +22,7 @@ use mc_world::level_storage::Difficulty;
 use super::spawner::mob_spawn_settings::MobSpawnSettings;
 use std::sync::Arc;
 
-pub trait ServerLevelAccessor: LevelAccessor {
+pub trait ServerLevelAccessor: LevelAccessor + crate::world::entity::variant::SpawnContextLevel {
     /// `getDifficulty()`.
     fn get_difficulty(&self) -> Difficulty;
     /// `getCurrentDifficultyAt(pos)`.
