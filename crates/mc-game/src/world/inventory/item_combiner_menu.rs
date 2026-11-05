@@ -219,7 +219,7 @@ pub trait ItemCombinerMenu: AbstractContainerMenu {
 
     /// `slotsChanged(container)`: `super.slotsChanged` (broadcast), then `createResult` for the input container.
     fn combiner_slots_changed(&mut self, player: &mut dyn MenuPlayer, container: &ContainerKey) {
-        self.core_mut().base.broadcast_changes(player);
+        self.broadcast_changes(player);
         if matches!(container, ContainerKey::Local(i) if *i == self.core().input_local) {
             self.create_result(player);
         }

@@ -358,7 +358,7 @@ impl ItemCombinerMenu for AnvilMenu {
                 set_enchantments(&mut result, enchantments.to_immutable());
             }
             self.set_result(result);
-            self.core.base.broadcast_changes(player);
+            self.broadcast_changes(player);
         } else {
             self.set_result(ItemStack::empty());
             self.state.set_cost(0);

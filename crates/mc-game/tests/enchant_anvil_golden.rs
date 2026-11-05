@@ -250,7 +250,7 @@ impl Session {
         };
         self.packets.borrow_mut().clear();
         self.packets.borrow_mut().push(format!("PKT open {id} {type_name}"));
-        menu.base_mut().add_slot_listener(Box::new(NoListener), &mut self.player);
+        menu.add_slot_listener(Box::new(NoListener), &mut self.player);
         menu.base_mut().set_synchronizer(Box::new(Sync(self.packets.clone())), &mut self.player);
         self.menu = Some(menu);
         Vec::new()
@@ -358,7 +358,7 @@ fn run_op(s: &mut Session, op: &str) -> Vec<String> {
             let menu = menu.as_mut().unwrap();
             menu.base_mut().with_slot(player, slot, |sl, e| sl.set(e, stack));
             menu.flush_container_events(player);
-            menu.base_mut().broadcast_changes(player);
+            menu.broadcast_changes(player);
             s.dump()
         }
         "GIVE" => {
@@ -366,7 +366,7 @@ fn run_op(s: &mut Session, op: &str) -> Vec<String> {
             let slot: usize = slot.parse().unwrap();
             s.player.inv.set_item(slot, parse_stack(stack));
             let Session { player, menu, .. } = s;
-            menu.as_mut().unwrap().base_mut().broadcast_changes(player);
+            menu.as_mut().unwrap().broadcast_changes(player);
             s.dump()
         }
         "CLICK" => {
@@ -376,7 +376,7 @@ fn run_op(s: &mut Session, op: &str) -> Vec<String> {
             menu.base_mut().suppress_remote_updates();
             menu.clicked(parts[0].parse().unwrap(), parts[1].parse().unwrap(), input(parts[2]), player).expect("click in range");
             menu.base_mut().resume_remote_updates();
-            menu.base_mut().broadcast_changes(player);
+            menu.broadcast_changes(player);
             s.dump()
         }
         "BUTTON" => {
@@ -384,7 +384,7 @@ fn run_op(s: &mut Session, op: &str) -> Vec<String> {
             let menu = menu.as_mut().unwrap();
             let r = menu.click_menu_button(player, rest.parse().unwrap());
             if r {
-                menu.base_mut().broadcast_changes(player);
+                menu.broadcast_changes(player);
             }
             let mut out = vec![format!("R {r}")];
             out.append(&mut s.dump());

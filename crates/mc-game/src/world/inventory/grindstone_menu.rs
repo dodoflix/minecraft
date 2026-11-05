@@ -119,7 +119,7 @@ impl GrindstoneMenu {
         let registries = player.registries();
         let result = self.compute_result(&registries, &self.repair_stack(0), &self.repair_stack(1));
         self.base.locals[RESULT_LOCAL].set_item(0, result);
-        self.base.broadcast_changes(player);
+        self.broadcast_changes(player);
     }
 
     fn compute_result(&self, registries: &RegistryAccess, input: &ItemStack, additional: &ItemStack) -> ItemStack {
@@ -207,7 +207,7 @@ impl AbstractContainerMenu for GrindstoneMenu {
     }
 
     fn slots_changed(&mut self, player: &mut dyn MenuPlayer, container: &ContainerKey) {
-        self.base.broadcast_changes(player);
+        self.broadcast_changes(player);
         if matches!(container, ContainerKey::Local(REPAIR_LOCAL)) {
             self.create_result(player);
         }

@@ -187,7 +187,7 @@ impl AbstractContainerMenu for EnchantmentMenu {
                     }
                 }
             }
-            self.base.broadcast_changes(player);
+            self.broadcast_changes(player);
         } else {
             self.reset_options();
         }
