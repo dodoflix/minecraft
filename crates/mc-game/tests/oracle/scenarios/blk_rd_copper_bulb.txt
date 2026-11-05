@@ -1,0 +1,23 @@
+# Copper bulb: toggles LIT on each rising signal edge (sound), keeps POWERED, comparator-readable.
+level flat
+preload 2
+watch blocks:-1,-60,-1,6,-60,4 events
+block 1 -60 0 minecraft:copper_bulb
+tick 1
+block 0 -60 0 minecraft:redstone_block
+tick 2
+block 0 -60 0 minecraft:air
+tick 2
+block 0 -60 0 minecraft:redstone_block
+tick 2
+block 0 -60 0 minecraft:air
+tick 2
+block 4 -60 2 minecraft:exposed_copper_bulb
+block 3 -60 2 minecraft:redstone_block
+tick 2
+block 3 -60 2 minecraft:air
+block 5 -60 2 minecraft:oxidized_copper_bulb[lit=true]
+tick 2
+block 6 -60 2 minecraft:waxed_copper_bulb[lit=true,powered=true]
+block 7 -60 2 minecraft:redstone_block
+tick 2

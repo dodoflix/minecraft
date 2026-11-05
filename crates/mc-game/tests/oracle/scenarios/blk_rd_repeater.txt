@@ -1,0 +1,42 @@
+# Repeater: delays 1-4, powered by a redstone block, output lamp; removal; lock by side repeater; chain into dust.
+level flat
+preload 2
+watch blocks:-1,-60,-1,6,-60,12 ticks events
+block 1 -60 0 minecraft:repeater[facing=east,delay=1]
+block 2 -60 0 minecraft:redstone_lamp
+block 1 -60 2 minecraft:repeater[facing=east,delay=2]
+block 2 -60 2 minecraft:redstone_lamp
+block 1 -60 4 minecraft:repeater[facing=east,delay=3]
+block 2 -60 4 minecraft:redstone_lamp
+block 1 -60 6 minecraft:repeater[facing=east,delay=4]
+block 2 -60 6 minecraft:redstone_lamp
+block 0 -60 0 minecraft:redstone_block
+block 0 -60 2 minecraft:redstone_block
+block 0 -60 4 minecraft:redstone_block
+block 0 -60 6 minecraft:redstone_block
+tick 12
+block 0 -60 0 minecraft:air
+block 0 -60 2 minecraft:air
+block 0 -60 4 minecraft:air
+block 0 -60 6 minecraft:air
+tick 12
+# lock: side repeater at (1,-60,9) facing south powers (1,-60,10)'s side; the locked repeater ignores its input
+block 1 -60 10 minecraft:repeater[facing=east,delay=1]
+block 2 -60 10 minecraft:redstone_lamp
+block 1 -60 8 minecraft:redstone_block
+block 1 -60 9 minecraft:repeater[facing=south,delay=1]
+tick 4
+block 0 -60 10 minecraft:redstone_block
+tick 4
+block 1 -60 8 minecraft:air
+tick 4
+block 0 -60 10 minecraft:air
+tick 6
+# repeater chain
+block 3 -60 11 minecraft:repeater[facing=east,delay=1]
+block 4 -60 11 minecraft:repeater[facing=east,delay=1]
+block 5 -60 11 minecraft:redstone_wire
+block 2 -60 11 minecraft:redstone_block
+tick 8
+block 2 -60 11 minecraft:air
+tick 8

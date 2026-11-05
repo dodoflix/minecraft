@@ -1,0 +1,39 @@
+# Right/left clicks: repeater delay cycling, comparator mode toggle (sound), note block tuning + punching, daylight detector inversion.
+level flat
+preload 2
+level_seed 5
+time 6000
+watch blocks:-1,-60,-1,12,-60,12 events
+spawn_player p creative 5.5 -60 5.5 0 0
+block 1 -60 0 minecraft:repeater[facing=east,delay=1]
+use_on p 1 -60 0 up main
+use_on p 1 -60 0 up main
+use_on p 1 -60 0 up main
+use_on p 1 -60 0 up main
+use_on p 1 -60 0 up main
+dump blocks:1,-60,0,1,-60,0
+block 3 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+use_on p 3 -60 0 up main
+tick 3
+dump blocks:3,-60,0,3,-60,0 be:3,-60,0 events
+use_on p 3 -60 0 up main
+tick 3
+dump blocks:3,-60,0,3,-60,0 be:3,-60,0 events
+block 5 -60 0 minecraft:note_block[note=0]
+use_on p 5 -60 0 up main
+use_on p 5 -60 0 up main
+tick 2
+dump blocks:5,-60,0,5,-60,0 events
+swing p
+attack p 5 -60 0
+dig p 5 -60 0 1
+tick 2
+dump events
+block 7 -60 0 minecraft:daylight_detector
+tick 20
+dump blocks:7,-60,0,7,-60,0 be:7,-60,0
+use_on p 7 -60 0 up main
+dump blocks:7,-60,0,7,-60,0 be:7,-60,0 events
+tick 20
+use_on p 7 -60 0 up main
+dump blocks:7,-60,0,7,-60,0 events

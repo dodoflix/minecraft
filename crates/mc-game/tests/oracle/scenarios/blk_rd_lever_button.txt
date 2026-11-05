@@ -1,0 +1,58 @@
+# Lever (wall/floor/ceiling) and buttons (stone 20 ticks, oak 30 ticks) pressed by a player; lamps lit through the attached block.
+level flat
+preload 2
+level_seed 99
+watch blocks:-1,-60,-1,10,-58,10 ticks events
+spawn_player p creative 5.5 -60 5.5 0 0
+# wall lever on stone, lamp beside the stone
+block 1 -60 0 minecraft:stone
+block 1 -60 1 minecraft:lever[face=wall,facing=south,powered=false]
+block 2 -60 0 minecraft:redstone_lamp
+tick 1
+use_on p 1 -60 1 south main
+tick 3
+use_on p 1 -60 1 south main
+tick 3
+# floor lever: powers the block below
+block 4 -60 0 minecraft:lever[face=floor,facing=north,powered=false]
+block 4 -61 1 minecraft:air
+block 5 -61 0 minecraft:redstone_lamp
+block 3 -61 0 minecraft:redstone_lamp
+tick 1
+use_on p 4 -60 0 up main
+tick 3
+use_on p 4 -60 0 up main
+tick 3
+# ceiling lever
+block 7 -59 0 minecraft:stone
+block 7 -60 0 minecraft:lever[face=ceiling,facing=east,powered=false]
+block 8 -60 0 minecraft:redstone_lamp
+tick 1
+use_on p 7 -60 0 down main
+tick 3
+# stone button 20 ticks
+block 1 -60 4 minecraft:stone
+block 1 -60 5 minecraft:stone_button[face=wall,facing=south,powered=false]
+block 2 -60 4 minecraft:redstone_lamp
+tick 1
+use_on p 1 -60 5 south main
+tick 3
+# pressing again while pressed
+use_on p 1 -60 5 south main
+tick 20
+# oak button 30 ticks
+block 4 -60 4 minecraft:stone
+block 4 -60 5 minecraft:oak_button[face=wall,facing=south,powered=false]
+block 5 -60 4 minecraft:redstone_lamp
+tick 1
+use_on p 4 -60 5 south main
+tick 32
+# breaking a powered lever / button updates neighbours
+use_on p 1 -60 1 south main
+tick 2
+dig p 1 -60 1
+tick 3
+use_on p 4 -60 5 south main
+tick 2
+dig p 4 -60 5
+tick 3

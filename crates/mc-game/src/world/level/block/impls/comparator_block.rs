@@ -111,9 +111,14 @@ impl Diode for ComparatorBlock {
 /// `getItemFrame(level, direction, pos)` + `ItemFrame.getAnalogOutput()`: the single item frame in `pos` facing
 /// `direction`, if any.
 fn item_frame_analog_output(level: &ServerLevel, direction: Direction, pos: BlockPos) -> Option<i32> {
-    let _ = (level, direction, pos);
-    // Item frames are not implemented yet (entities slice): no frame can exist, so `itemFrame == null`.
-    None
+    use crate::world::entity::decoration::item_frame::analog_output_of;
+    let bb = mc_core::phys::AABB::new(f64::from(pos.x()), f64::from(pos.y()), f64::from(pos.z()), f64::from(pos.x() + 1), f64::from(pos.y() + 1), f64::from(pos.z() + 1));
+    let frames: Vec<i32> = level
+        .get_entities_of_class(&bb, |e| analog_output_of(e).is_some(), |e| analog_output_of(e).is_some_and(|(frame_direction, _)| frame_direction == direction))
+        .into_iter()
+        .filter_map(|id| level.get_entity(id).and_then(analog_output_of).map(|(_, output)| output))
+        .collect();
+    if frames.len() == 1 { Some(frames[0]) } else { None }
 }
 
 impl BlockBehaviour for ComparatorBlock {

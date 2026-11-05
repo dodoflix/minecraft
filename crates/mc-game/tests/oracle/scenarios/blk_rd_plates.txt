@@ -1,0 +1,43 @@
+# Pressure plates: oak (everything), stone (mobs only), weighted light (15) / heavy (150) with several entities, release delay.
+level flat
+preload 2
+level_seed 11
+watch blocks:-1,-60,-1,12,-60,12 ticks events
+block 1 -60 1 minecraft:oak_pressure_plate
+block 1 -61 1 minecraft:redstone_lamp
+block 3 -60 1 minecraft:stone_pressure_plate
+block 3 -61 1 minecraft:redstone_lamp
+block 5 -60 1 minecraft:light_weighted_pressure_plate
+block 5 -61 1 minecraft:redstone_lamp
+block 7 -60 1 minecraft:heavy_weighted_pressure_plate
+block 7 -61 1 minecraft:redstone_lamp
+tick 2
+# an item: triggers oak and the weighted plates, not the stone plate
+spawn_item i1 minecraft:stick 1.5 -60 1.5 0 0 0
+spawn_item i2 minecraft:stick 3.5 -60 1.5 0 0 0
+spawn_item i3 minecraft:stick 5.5 -60 1.5 0 0 0
+spawn_item i4 minecraft:stick 7.5 -60 1.5 0 0 0
+tick 4
+dump entities
+# more items on the light weighted plate: strength grows with the count
+spawn_item i5 minecraft:apple 5.5 -60 1.5 0 0 0
+spawn_item i6 minecraft:bread 5.5 -60 1.5 0 0 0
+spawn_item i7 minecraft:carrot 5.5 -60 1.5 0 0 0
+spawn_item i8 minecraft:cookie 5.5 -60 1.5 0 0 0
+tick 4
+kill i2
+kill i5
+kill i6
+tick 4
+# a mob triggers the stone plate
+spawn pig1 minecraft:pig 3.5 -60 1.5
+tick 6
+kill i1
+kill i3
+kill i4
+kill i7
+kill i8
+kill i2
+tick 24
+kill pig1
+tick 24

@@ -1,0 +1,109 @@
+# Note block: instrument from the block below / the head above (updateShape), every instrument sounds when powered; note states; muted by a block above.
+level flat
+preload 2
+level_seed 777
+watch off
+block 0 -60 0 minecraft:note_block[note=0]
+block 2 -60 0 minecraft:note_block[note=1]
+block 4 -60 0 minecraft:note_block[note=2]
+block 6 -60 0 minecraft:note_block[note=3]
+block 8 -60 0 minecraft:note_block[note=4]
+block 10 -60 0 minecraft:note_block[note=5]
+block 12 -60 0 minecraft:note_block[note=6]
+block 14 -60 0 minecraft:note_block[note=7]
+block 16 -60 0 minecraft:note_block[note=8]
+block 18 -60 0 minecraft:note_block[note=9]
+block 20 -60 0 minecraft:note_block[note=10]
+block 22 -60 0 minecraft:note_block[note=11]
+block 24 -60 0 minecraft:note_block[note=12]
+block 26 -60 0 minecraft:note_block[note=13]
+block 28 -60 0 minecraft:note_block[note=14]
+block 30 -60 0 minecraft:note_block[note=15]
+block 32 -60 0 minecraft:note_block[note=16]
+block 34 -60 0 minecraft:note_block[note=17]
+block 36 -60 0 minecraft:note_block[note=18]
+block 38 -60 0 minecraft:note_block[note=19]
+block 0 -61 0 minecraft:stone
+block 2 -61 0 minecraft:sand
+block 4 -61 0 minecraft:glass
+block 6 -61 0 minecraft:oak_planks
+block 8 -61 0 minecraft:clay
+block 10 -61 0 minecraft:packed_ice
+block 12 -61 0 minecraft:white_wool
+block 14 -61 0 minecraft:bone_block
+block 16 -61 0 minecraft:iron_block
+block 18 -61 0 minecraft:soul_sand
+block 20 -61 0 minecraft:pumpkin
+block 22 -61 0 minecraft:emerald_block
+block 24 -61 0 minecraft:hay_block
+block 26 -61 0 minecraft:glowstone
+block 28 -61 0 minecraft:copper_block
+block 30 -61 0 minecraft:exposed_copper
+block 32 -61 0 minecraft:weathered_copper
+block 34 -61 0 minecraft:oxidized_copper
+block 36 -61 0 minecraft:dirt
+block 38 -61 0 minecraft:gold_block
+dump blocks:0,-60,0,40,-60,0
+block 0 -60 1 minecraft:redstone_block
+block 2 -60 1 minecraft:redstone_block
+block 4 -60 1 minecraft:redstone_block
+block 6 -60 1 minecraft:redstone_block
+block 8 -60 1 minecraft:redstone_block
+block 10 -60 1 minecraft:redstone_block
+block 12 -60 1 minecraft:redstone_block
+block 14 -60 1 minecraft:redstone_block
+block 16 -60 1 minecraft:redstone_block
+block 18 -60 1 minecraft:redstone_block
+block 20 -60 1 minecraft:redstone_block
+block 22 -60 1 minecraft:redstone_block
+block 24 -60 1 minecraft:redstone_block
+block 26 -60 1 minecraft:redstone_block
+block 28 -60 1 minecraft:redstone_block
+block 30 -60 1 minecraft:redstone_block
+block 32 -60 1 minecraft:redstone_block
+block 34 -60 1 minecraft:redstone_block
+block 36 -60 1 minecraft:redstone_block
+block 38 -60 1 minecraft:redstone_block
+tick 3
+dump blocks:0,-60,0,40,-60,1 events
+# heads above override the instrument below; blocks above a non-top instrument mute the note
+block 0 -60 4 minecraft:note_block[note=0]
+block 0 -59 4 minecraft:zombie_head
+block 2 -60 4 minecraft:note_block[note=3]
+block 2 -59 4 minecraft:skeleton_skull
+block 4 -60 4 minecraft:note_block[note=6]
+block 4 -59 4 minecraft:creeper_head
+block 6 -60 4 minecraft:note_block[note=9]
+block 6 -59 4 minecraft:dragon_head
+block 8 -60 4 minecraft:note_block[note=12]
+block 8 -59 4 minecraft:piglin_head
+block 10 -60 4 minecraft:note_block[note=15]
+block 10 -59 4 minecraft:wither_skeleton_skull
+block 12 -60 4 minecraft:note_block[note=18]
+block 12 -59 4 minecraft:player_head
+block 14 -60 4 minecraft:note_block[note=21]
+block 14 -59 4 minecraft:zombie_wall_head[facing=north]
+dump blocks:0,-60,4,20,-59,4
+block 0 -60 5 minecraft:redstone_block
+block 2 -60 5 minecraft:redstone_block
+block 4 -60 5 minecraft:redstone_block
+block 6 -60 5 minecraft:redstone_block
+block 8 -60 5 minecraft:redstone_block
+block 10 -60 5 minecraft:redstone_block
+block 12 -60 5 minecraft:redstone_block
+block 14 -60 5 minecraft:redstone_block
+tick 3
+dump blocks:0,-60,4,20,-59,5 events
+block 30 -60 8 minecraft:note_block
+block 30 -59 8 minecraft:stone
+block 30 -61 8 minecraft:stone
+block 30 -60 9 minecraft:redstone_block
+tick 3
+dump blocks:30,-61,8,30,-59,9 events
+# power off and on again (only the rising edge plays), note 24 wraps
+block 30 -60 9 minecraft:air
+block 30 -59 8 minecraft:air
+tick 2
+block 30 -60 9 minecraft:redstone_block
+tick 2
+dump events

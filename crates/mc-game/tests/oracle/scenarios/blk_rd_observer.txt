@@ -1,0 +1,31 @@
+# Observer: pulse on a block change in front, no pulse on other sides, powered observer replaced, clock of two observers facing each other.
+level flat
+preload 2
+watch blocks:-1,-60,-1,8,-60,10 ticks events
+block 1 -60 0 minecraft:observer[facing=east]
+block 0 -60 0 minecraft:redstone_lamp
+block 3 -60 0 minecraft:air
+tick 2
+block 2 -60 0 minecraft:stone
+tick 5
+block 2 -60 0 minecraft:air
+tick 5
+# change at the back / side does not trigger
+block 0 -60 1 minecraft:stone
+block 1 -60 1 minecraft:stone
+tick 4
+# observer powering a repeater chain through a block
+block 1 -60 4 minecraft:observer[facing=east]
+block 2 -60 4 minecraft:repeater[facing=east,delay=1]
+block 3 -60 4 minecraft:redstone_lamp
+block 0 -60 4 minecraft:dirt
+tick 2
+block 0 -60 4 minecraft:cobblestone
+tick 8
+# clock: observers facing each other
+block 1 -60 8 minecraft:observer[facing=east]
+block 2 -60 8 minecraft:observer[facing=west]
+tick 12
+# placing a powered observer without a scheduled tick resets it
+block 5 -60 8 minecraft:observer[facing=up,powered=true]
+tick 6
