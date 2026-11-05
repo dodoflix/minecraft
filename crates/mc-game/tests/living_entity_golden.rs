@@ -67,7 +67,12 @@ fn pose_name(pose: Pose) -> String {
 
 impl Replay {
     fn new() -> Self {
-        Replay { level: ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap()), players: Vec::new(), watched: Vec::new(), out: Vec::new(), tick: 0, next_id: 1 }
+        let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+        let dir = tempfile::tempdir().unwrap();
+        let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+        let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+        level.registries = stem.registries.composite_access().clone();
+        Replay { level, players: Vec::new(), watched: Vec::new(), out: Vec::new(), tick: 0, next_id: 1 }
     }
 
     fn set(&mut self, x: i32, y: i32, z: i32, state: BlockState) {
@@ -243,67 +248,56 @@ fn check(name: &str) {
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn ground_walk_sprint_jump_sneak() {
     check("ll_ground");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn ground_turned_strafe() {
     check("ll_ground_turned");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn ice_blue_ice_slime_friction() {
     check("ll_ice");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn soul_sand_honey_movement_efficiency() {
     check("ll_sticky");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn water_swimming_efficiency_dolphins_grace() {
     check("ll_water");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn lava() {
     check("ll_lava");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn ladder_vine_scaffolding() {
     check("ll_climb");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn speed_slowness_jump_boost_levitation_slow_falling() {
     check("ll_effects");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn elytra_glide() {
     check("ll_elytra");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn air_supply_under_water() {
     check("ll_air");
 }
 
 #[test]
-#[ignore = "needs a level with the vanilla damage_type registry (landing damage); detached test levels have none"]
 fn cobweb_and_bubble_column() {
     check("ll_cobweb");
 }

@@ -8,6 +8,7 @@ pub mod damage;
 pub mod effects;
 pub mod equipment_changes;
 pub mod equipment;
+pub mod fall;
 pub mod fall_flying;
 pub mod jump;
 pub mod push;

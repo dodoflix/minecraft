@@ -1706,6 +1706,9 @@ pub trait Entity: Any {
     /// `Entity.checkFallDamage(ya, onGround, onState, pos)`.
     fn check_fall_damage(&mut self, level: &mut ServerLevel, ya: f64, on_ground: bool, on_state: mc_data::block::BlockState, pos: BlockPos) {
         use crate::world::level::BlockGetter;
+        if self.living().is_some() {
+            super::living_entity::fall::before_check_fall_damage(self.as_dyn_mut(), level, on_ground, on_state, pos);
+        }
         if !self.is_in_water() && ya < 0.0 {
             self.base_mut().fall_distance -= f64::from(ya as f32);
         }
@@ -1720,6 +1723,9 @@ pub trait Entity: Any {
                 level.post_game_event(mc_data::GameEvent::HIT_GROUND, self.base().position(), &crate::world::level::gameevent::GameEventContext::of(Some(self.id()), Some(ctx_state)));
             }
             self.reset_fall_distance();
+        }
+        if self.living().is_some() {
+            super::living_entity::fall::after_check_fall_damage(self.as_dyn_mut(), on_ground);
         }
     }
     /// `onAboveBubbleColumn(dragDown, pos)`.

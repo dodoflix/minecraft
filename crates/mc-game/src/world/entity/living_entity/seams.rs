@@ -56,4 +56,6 @@ pub fn refresh_dirty_attributes(level: &mut ServerLevel, entity: &mut dyn Entity
 pub fn combat_tracker_recheck_status(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
 
 /// SEAM(EcEntityBase): `applyEffectsFromBlocks()`.
-pub fn apply_effects_from_blocks(_level: &mut ServerLevel, _entity: &mut dyn Entity) {}
+pub fn apply_effects_from_blocks(level: &mut ServerLevel, entity: &mut dyn Entity) {
+    entity.apply_effects_from_blocks(level);
+}
