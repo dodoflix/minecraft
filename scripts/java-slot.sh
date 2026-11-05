@@ -18,7 +18,7 @@ case "$*" in *net.minecraft.client.main.Main*|*E2eMain*) need=2 ;; esac
 # streams I/O and syncs written files back). Servers (they listen on local ports), the real client, custom JDKs
 # (MC_REAL_JAVA, e.g. old-version servers) and JVMs already on a builder stay local.
 REG=/tmp/mc-builders
-if [ -z "${MC_ON_BUILDER:-}" ] && [ -z "${MC_REAL_JAVA:-}" ] && [ "$need" = 1 ] && [ -z "${MC_JAVA_LOCAL:-}" ]; then
+if [ -z "${MC_ON_BUILDER:-}" ] && [ -z "${MC_REAL_JAVA:-}" ] && [ "$need" = 1 ] && [ -n "${MC_JAVA_REMOTE:-}" ]; then
   case "$*" in *server.jar*|*nogui*|*paper*.jar*) ;; *)
     rj="$(dirname "$(readlink -f "$0")")/builders/remote-java.sh"
     deadline=$(( $(date +%s) + ${MC_REMOTE_JVM_WAIT_S:-1800} ))
