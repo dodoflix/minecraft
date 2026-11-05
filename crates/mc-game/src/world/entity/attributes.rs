@@ -85,6 +85,11 @@ impl AttributeInstance {
         self.modifier_by_id.values()
     }
 
+    /// `getModifiers(operation)` (`@VisibleForTesting`): the per-operation map in its iteration order.
+    pub fn get_modifiers_for_operation(&self, operation: AttributeModifierOperation) -> impl Iterator<Item = &AttributeModifier> {
+        self.modifiers_by_operation[operation_index(operation)].values()
+    }
+
     pub fn get_permanent_modifiers(&self) -> impl Iterator<Item = &AttributeModifier> {
         self.permanent_modifiers.values()
     }

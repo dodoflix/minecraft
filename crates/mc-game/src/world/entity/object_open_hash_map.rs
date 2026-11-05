@@ -42,6 +42,7 @@ pub struct IdentifierOpenHashMap<V> {
     n: usize,
     max_fill: usize,
     size: usize,
+    min_n: usize,
 }
 
 impl<V> Default for IdentifierOpenHashMap<V> {
@@ -54,7 +55,7 @@ impl<V> IdentifierOpenHashMap<V> {
     /// `new Object2ObjectOpenHashMap<>()`.
     pub fn new() -> Self {
         let n = array_size(DEFAULT_INITIAL_SIZE);
-        Self { key: vec![None; n], value: (0..n).map(|_| None).collect(), mask: n - 1, n, max_fill: max_fill(n), size: 0 }
+        Self { key: vec![None; n], value: (0..n).map(|_| None).collect(), mask: n - 1, n, max_fill: max_fill(n), size: 0, min_n: n }
     }
 
     pub fn len(&self) -> usize {
@@ -97,7 +98,7 @@ impl<V> IdentifierOpenHashMap<V> {
         let Ok(pos) = self.find(k) else { return };
         self.size -= 1;
         self.shift_keys(pos);
-        if self.n > DEFAULT_INITIAL_SIZE && self.size < self.max_fill / 4 {
+        if self.n > self.min_n && self.size < self.max_fill / 4 && self.n > DEFAULT_INITIAL_SIZE {
             self.rehash(self.n / 2);
         }
     }

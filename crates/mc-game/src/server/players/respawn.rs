@@ -115,9 +115,13 @@ fn find_respawn_transition(server: &mut MinecraftServer, level: &mut ServerLevel
 }
 
 /// `restoreFrom(oldPlayer, restoreAll)` + the field copies of `PlayerList.respawn` (`oldPlayer` is consumed).
-fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool, keep_inventory: bool) {
+/// Returns the old player's active effects (copies) that `restoreFrom` re-adds with `addEffect`, which needs the new
+/// level: the caller applies them right after this call.
+fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool, keep_inventory: bool) -> Vec<crate::world::entity::effect::MobEffectInstance> {
     new.warden_spawn_tracker = old.warden_spawn_tracker;
     new.set_game_mode_for_player(old.game_mode.game_mode_for_player, old.game_mode.previous_game_mode_for_player);
+    new.player.living.attributes.assign_base_values(&old.player.living.attributes);
+    let mut effects = Vec::new();
     let transfer_inventory = |new: &mut ServerPlayer, old: &mut ServerPlayer| {
         new.player.inventory = std::mem::replace(&mut old.player.inventory, Inventory::new());
         new.player.experience_level = old.player.experience_level;
@@ -130,7 +134,8 @@ fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool
         let health = old.player.living.get_health();
         new.player.living.set_health(health);
         new.player.food_data = std::mem::replace(&mut old.player.food_data, FoodData::default());
-        new.player.living.active_effects = std::mem::take(&mut old.player.living.active_effects);
+        new.player.living.attributes.assign_permanent_modifiers(&old.player.living.attributes);
+        effects = old.player.living.active_effects.values().map(|e| e.copy()).collect();
         transfer_inventory(new, &mut old);
     } else {
         let max = new.player.living.get_max_health();
@@ -153,6 +158,7 @@ fn restore_from(new: &mut ServerPlayer, mut old: ServerPlayer, restore_all: bool
     new.shoulder_entity_left = std::mem::take(&mut old.shoulder_entity_left);
     new.shoulder_entity_right = std::mem::take(&mut old.shoulder_entity_right);
     new.player.last_death_location = old.player.last_death_location.take();
+    effects
 }
 
 /// `PlayerList.respawn`: replaces the player `id` of `old_dimension` by a fresh `ServerPlayer` placed at its respawn
@@ -198,7 +204,13 @@ pub fn respawn(
     }
     new.player.post_effects = old.player.post_effects.clone();
     let old_respawn_config = old.respawn_config.clone();
-    restore_from(&mut new, old, keep_all_player_data, keep_inventory);
+    let restored_effects = restore_from(&mut new, old, keep_all_player_data, keep_inventory);
+    // `restoreFrom`: `addEffect(new MobEffectInstance(effect))` in the new level (sends the effect packets before the respawn packet)
+    server.with_level(&transition.level, |_, level| {
+        for effect in restored_effects {
+            crate::world::entity::Entity::add_effect(&mut new, level, effect, None);
+        }
+    })?;
     new.snap_to(transition.position.x, transition.position.y, transition.position.z, transition.y_rot, transition.x_rot);
     new.dimension = transition.level.clone();
     new.sync_handle();
