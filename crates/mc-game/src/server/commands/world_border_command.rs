@@ -1,4 +1,5 @@
 //! `WorldBorderCommand`.
+use mc_brigadier::ArgumentBuilder;
 use crate::commands::arguments::TimeArgument;
 use crate::commands::arguments::coordinates::Vec2Argument;
 use crate::commands::message::{message, simple_translatable};

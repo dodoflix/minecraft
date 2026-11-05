@@ -1,4 +1,5 @@
 //! `SpreadPlayersCommand`.
+use mc_brigadier::ArgumentBuilder;
 use crate::commands::arguments::coordinates::Vec2Argument;
 use crate::commands::arguments::selector::entity_selector::EntityRef;
 use crate::commands::message::message;

@@ -1,4 +1,5 @@
 //! `TickCommand`.
+use mc_brigadier::ArgumentBuilder;
 use crate::commands::arguments::TimeArgument;
 use crate::commands::message::simple_translatable;
 use crate::commands::shared_suggestion_provider::suggest;

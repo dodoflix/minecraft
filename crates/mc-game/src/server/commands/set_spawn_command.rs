@@ -1,4 +1,5 @@
 //! `SetSpawnCommand` (`/spawnpoint`).
+use mc_brigadier::ArgumentBuilder;
 use crate::commands::arguments::EntityArgument;
 use crate::commands::arguments::coordinates::{BlockPosArgument, Coordinates, RotationArgument, WorldCoordinates};
 use crate::commands::arguments::selector::entity_selector::EntityRef;
