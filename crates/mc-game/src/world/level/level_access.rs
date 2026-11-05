@@ -125,4 +125,11 @@ pub trait LevelAccessor: LevelReader {
     fn game_event(&mut self, _event: GameEvent, _position: Vec3, _context: &GameEventContext) {}
     /// `levelEvent(source, type, pos, data)` (no-op outside server levels).
     fn level_event(&mut self, _source: Option<EntityId>, _event_type: i32, _pos: BlockPos, _data: i32) {}
+    /// `playSound(except, pos, sound, source, volume, pitch)` (no-op outside server levels; a world generation region
+    /// never plays sounds).
+    fn play_sound(&mut self, _except: Option<EntityId>, _pos: BlockPos, _sound: mc_data::SoundEvent, _source: mc_protocol::packets::play::level::SoundSource, _volume: f32, _pitch: f32) {}
+    /// `ServerLevel.shouldTickBlocksAt(pos)` (`false` for anything that is not a server level).
+    fn should_tick_blocks_at_pos(&self, _pos: BlockPos) -> bool {
+        false
+    }
 }
