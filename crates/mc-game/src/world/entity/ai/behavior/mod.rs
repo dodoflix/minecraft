@@ -71,7 +71,7 @@
 //! // BehaviorBase::with_duration(entry_condition, 45, 90, LookAtTargetSink)  (vanilla: super(ImmutableMap.of(LOOK_TARGET, VALUE_PRESENT), minDuration, maxDuration))
 //! ```
 //!
-//! Both examples are implemented for real in [`set_walk_target_from_look_target`] and `look_at_target_sink`.
+//! Both examples are implemented for real in [`set_walk_target_from_look_target`] and [`look_at_target_sink`].
 //!
 //! ## 3. Register with an activity
 //!
@@ -84,6 +84,7 @@ pub mod behaviors;
 pub mod declarative;
 pub mod do_nothing;
 pub mod gate_behavior;
+pub mod look_at_target_sink;
 pub mod one_shot;
 pub mod position_tracker;
 pub mod set_walk_target_from_look_target;

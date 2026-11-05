@@ -110,7 +110,7 @@ impl SensorInstance {
     }
 
     /// The `--timeToTick <= 0` step of `tick`: `true` when the sensor is due (the countdown is reset).
-    pub(crate) fn due(&mut self) -> bool {
+    pub fn due(&mut self) -> bool {
         self.time_to_tick -= 1;
         if self.time_to_tick <= 0 {
             self.time_to_tick = i64::from(self.scan_rate);

@@ -1,0 +1,397 @@
+brain_random_after_construct 722429
+ev 1001 core_a start
+ev 1001 gate_a start
+ev 1001 idle_a start
+ev 1001 core_a tick
+ev 1001 gate_a tick
+ev 1001 idle_a tick
+tick 1 active=[core, idle] walk=false look=false cool=false jump=- panic=false bell=false rand=22145
+ev 1002 core_a tick
+ev 1002 gate_a tick
+ev 1002 idle_a tick
+tick 2 active=[core, idle] walk=false look=false cool=false jump=- panic=false bell=false rand=204885
+ev 1003 idle_b start
+ev 1003 core_a tick
+ev 1003 gate_a stop
+ev 1003 idle_a tick
+ev 1003 idle_b tick
+tick 3 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=false rand=89800
+ev 1004 gate_c start
+ev 1004 core_a tick
+ev 1004 gate_c tick
+ev 1004 idle_a tick
+ev 1004 idle_b tick
+tick 4 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=false rand=981315
+ev 1005 core_a stop
+ev 1005 gate_c stop
+ev 1005 idle_a tick
+ev 1005 idle_b tick
+tick 5 active=[core, idle] walk=true look=true cool=true/5 jump=- panic=false bell=false rand=114
+ev 1006 core_a start
+ev 1006 gate_c start
+ev 1006 core_a tick
+ev 1006 gate_c tick
+ev 1006 idle_a stop
+ev 1006 idle_b stop
+tick 6 active=[core, idle] walk=true look=true cool=true/4 jump=- panic=false bell=false rand=1358
+ev 1007 idle_a start
+ev 1007 core_a tick
+ev 1007 gate_c stop
+ev 1007 idle_a tick
+tick 7 active=[core, idle] walk=true look=true cool=true/3 jump=- panic=false bell=false rand=118127
+ev 1008 gate_b start
+ev 1008 core_a tick
+ev 1008 gate_b tick
+ev 1008 idle_a tick
+tick 8 active=[core, idle] walk=true look=true cool=true/2 jump=- panic=false bell=false rand=544130
+ev 1009 panic_a start
+ev 1009 panic_b start
+ev 1009 core_a tick
+ev 1009 gate_b tick
+ev 1009 panic_a tick
+ev 1009 idle_a tick
+ev 1009 panic_b tick
+tick 9 active=[core, panic] walk=true look=true cool=true/1 jump=- panic=true bell=false rand=355390
+ev 1010 core_a stop
+ev 1010 gate_b tick
+ev 1010 panic_a tick
+ev 1010 idle_a tick
+ev 1010 panic_b tick
+tick 10 active=[core, panic] walk=true look=true cool=true/0 jump=- panic=true bell=false rand=87371
+ev 1011 core_a start
+ev 1011 core_a tick
+ev 1011 gate_b stop
+ev 1011 panic_a tick
+ev 1011 idle_a tick
+ev 1011 panic_b stop
+tick 11 active=[core, panic] walk=true look=true cool=false jump=- panic=true bell=false rand=875672
+ev 1012 gate_a start
+ev 1012 panic_b start
+ev 1012 core_a tick
+ev 1012 gate_a tick
+ev 1012 panic_a stop
+ev 1012 idle_a stop
+ev 1012 panic_b tick
+tick 12 active=[core, panic] walk=true look=true cool=false jump=- panic=false bell=false rand=818360
+ev 1013 panic_a start
+ev 1013 core_a tick
+ev 1013 gate_a tick
+ev 1013 panic_a tick
+ev 1013 panic_b tick
+tick 13 active=[core, panic] walk=true look=true cool=false jump=- panic=false bell=false rand=339568
+ev 1014 core_a tick
+ev 1014 gate_a stop
+ev 1014 panic_a tick
+ev 1014 panic_b stop
+tick 14 active=[core, panic] walk=true look=true cool=false jump=- panic=false bell=false rand=48058
+ev 1015 gate_a start
+ev 1015 work_a start
+ev 1015 core_a stop
+ev 1015 gate_a tick
+ev 1015 panic_a tick
+ev 1015 work_a tick
+tick 15 active=[core, work] walk=true look=true cool=true/4 jump=- panic=false bell=false rand=193650
+ev 1016 core_a start
+ev 1016 core_a tick
+ev 1016 gate_a tick
+ev 1016 panic_a stop
+ev 1016 work_a tick
+tick 16 active=[core, work] walk=true look=true cool=true/3 jump=- panic=false bell=false rand=384602
+ev 1017 core_a tick
+ev 1017 gate_a stop
+ev 1017 work_a tick
+tick 17 active=[core, work] walk=true look=true cool=true/2 jump=- panic=false bell=false rand=716536
+ev 1018 gate_c start
+ev 1018 core_a tick
+ev 1018 gate_c tick
+ev 1018 work_a tick
+tick 18 active=[core, work] walk=true look=true cool=true/1 jump=- panic=false bell=false rand=50868
+ev 1019 core_a tick
+ev 1019 gate_c stop
+ev 1019 work_a tick
+tick 19 active=[core, work] walk=true look=true cool=true/0 jump=- panic=false bell=false rand=23639
+ev 1020 gate_c start
+ev 1020 idle_a start
+ev 1020 idle_b start
+ev 1020 core_a stop
+ev 1020 gate_c tick
+ev 1020 idle_a tick
+ev 1020 idle_b tick
+ev 1020 work_a stop
+tick 20 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=false rand=643255
+ev 1021 core_a start
+ev 1021 core_a tick
+ev 1021 gate_c stop
+ev 1021 idle_a tick
+ev 1021 idle_b tick
+tick 21 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=false rand=247300
+ev 1022 gate_b start
+ev 1022 core_a tick
+ev 1022 gate_b tick
+ev 1022 idle_a tick
+ev 1022 idle_b tick
+tick 22 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=false rand=271515
+ev 1023 core_a tick
+ev 1023 gate_b tick
+ev 1023 idle_a tick
+ev 1023 idle_b stop
+tick 23 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=false rand=231203
+ev 1024 core_a tick
+ev 1024 gate_b tick
+ev 1024 idle_a tick
+tick 24 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=false rand=377258
+ev 1025 meet_a start
+ev 1025 core_a stop
+ev 1025 gate_b stop
+ev 1025 meet_a tick
+ev 1025 idle_a stop
+tick 25 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=false rand=232468
+ev 1026 core_a start
+ev 1026 gate_c start
+ev 1026 core_a tick
+ev 1026 gate_c tick
+ev 1026 meet_a tick
+tick 26 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=false rand=768717
+ev 1027 core_a tick
+ev 1027 gate_c stop
+ev 1027 meet_a tick
+tick 27 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=false rand=444708
+ev 1028 gate_c start
+ev 1028 core_a tick
+ev 1028 gate_c tick
+ev 1028 meet_a stop
+tick 28 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=false rand=808258
+ev 1029 meet_a start
+ev 1029 core_a tick
+ev 1029 gate_c stop
+ev 1029 meet_a tick
+tick 29 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=false rand=18127
+ev 1030 gate_c start
+ev 1030 core_a stop
+ev 1030 gate_c tick
+ev 1030 meet_a tick
+tick 30 active=[core, meet] walk=true look=true cool=false jump=7 panic=false bell=false rand=512783
+ev 1031 core_a start
+ev 1031 core_a tick
+ev 1031 gate_c stop
+ev 1031 meet_a tick
+tick 31 active=[core, meet] walk=true look=true cool=false jump=7 panic=false bell=false rand=985376
+ev 1032 gate_c start
+ev 1032 core_a tick
+ev 1032 gate_c tick
+ev 1032 meet_a stop
+tick 32 active=[core, meet] walk=true look=true cool=false jump=7 panic=false bell=false rand=231165
+ev 1033 meet_a start
+ev 1033 core_a tick
+ev 1033 gate_c stop
+ev 1033 meet_a tick
+tick 33 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=981118
+ev 1034 gate_b start
+ev 1034 idle_a start
+ev 1034 core_a tick
+ev 1034 gate_b tick
+ev 1034 meet_a tick
+ev 1034 idle_a tick
+tick 34 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=true rand=550997
+ev 1035 idle_b start
+ev 1035 core_a stop
+ev 1035 gate_b tick
+ev 1035 meet_a tick
+ev 1035 idle_a tick
+ev 1035 idle_b tick
+tick 35 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=true rand=246866
+ev 1036 core_a start
+ev 1036 core_a tick
+ev 1036 gate_b tick
+ev 1036 meet_a stop
+ev 1036 idle_a tick
+ev 1036 idle_b tick
+tick 36 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=true rand=597511
+ev 1037 core_a tick
+ev 1037 gate_b stop
+ev 1037 idle_a tick
+ev 1037 idle_b tick
+tick 37 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=true rand=915155
+ev 1038 gate_c start
+ev 1038 core_a tick
+ev 1038 gate_c tick
+ev 1038 idle_a tick
+ev 1038 idle_b stop
+tick 38 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=true rand=323426
+ev 1039 core_a tick
+ev 1039 gate_c stop
+ev 1039 idle_a stop
+tick 39 active=[core, idle] walk=true look=true cool=false jump=- panic=false bell=true rand=385663
+ev 1040 gate_b start
+ev 1040 meet_a start
+ev 1040 core_a stop
+ev 1040 gate_b tick
+ev 1040 meet_a tick
+tick 40 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=346132
+ev 1041 core_a start
+ev 1041 core_a tick
+ev 1041 gate_b tick
+ev 1041 meet_a tick
+tick 41 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=444005
+ev 1042 core_a tick
+ev 1042 gate_b tick
+ev 1042 meet_a tick
+tick 42 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=425777
+ev 1043 core_a tick
+ev 1043 gate_b stop
+ev 1043 meet_a stop
+tick 43 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=272602
+ev 1044 gate_c start
+ev 1044 meet_a start
+ev 1044 core_a tick
+ev 1044 gate_c tick
+ev 1044 meet_a tick
+tick 44 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=102884
+ev 1045 core_a stop
+ev 1045 gate_c stop
+ev 1045 meet_a tick
+tick 45 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=88478
+ev 1046 core_a start
+ev 1046 gate_c start
+ev 1046 core_a tick
+ev 1046 gate_c tick
+ev 1046 meet_a tick
+tick 46 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=819948
+ev 1047 core_a tick
+ev 1047 gate_c stop
+ev 1047 meet_a stop
+tick 47 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=876108
+ev 1048 gate_c start
+ev 1048 meet_a start
+ev 1048 core_a tick
+ev 1048 gate_c tick
+ev 1048 meet_a tick
+tick 48 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=275897
+ev 1049 core_a tick
+ev 1049 gate_c stop
+ev 1049 meet_a tick
+tick 49 active=[core, meet] walk=true look=true cool=false jump=- panic=false bell=true rand=425394
+ev 1050 gate_c start
+ev 1050 core_a stop
+ev 1050 gate_c tick
+ev 1050 meet_a tick
+tick 50 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=950674
+ev 1051 core_a start
+ev 1051 core_a tick
+ev 1051 gate_c stop
+ev 1051 meet_a stop
+tick 51 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=667612
+ev 1052 gate_c start
+ev 1052 meet_a start
+ev 1052 core_a tick
+ev 1052 gate_c tick
+ev 1052 meet_a tick
+tick 52 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=204238
+ev 1053 core_a tick
+ev 1053 gate_c stop
+ev 1053 meet_a tick
+tick 53 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=707054
+ev 1054 gate_c start
+ev 1054 core_a tick
+ev 1054 gate_c tick
+ev 1054 meet_a tick
+tick 54 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=735905
+ev 1055 core_a stop
+ev 1055 gate_c stop
+ev 1055 meet_a stop
+ev 1055 core_a start
+ev 1055 gate_a start
+ev 1055 meet_a start
+ev 1055 core_a tick
+ev 1055 gate_a tick
+ev 1055 meet_a tick
+tick 55 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=64724
+ev 1056 core_a tick
+ev 1056 gate_a tick
+ev 1056 meet_a tick
+tick 56 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=743734
+ev 1057 core_a tick
+ev 1057 gate_a stop
+ev 1057 meet_a tick
+tick 57 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=979943
+ev 1058 gate_a start
+ev 1058 core_a tick
+ev 1058 gate_a tick
+ev 1058 meet_a stop
+tick 58 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=376648
+ev 1059 meet_a start
+ev 1059 core_a stop
+ev 1059 gate_a tick
+ev 1059 meet_a tick
+tick 59 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=646557
+ev 1060 core_a start
+ev 1060 core_a tick
+ev 1060 gate_a stop
+ev 1060 meet_a tick
+tick 60 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=741892
+ev 1061 gate_b start
+ev 1061 core_a tick
+ev 1061 gate_b tick
+ev 1061 meet_a tick
+tick 61 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=503243
+ev 1062 core_a tick
+ev 1062 gate_b tick
+ev 1062 meet_a stop
+tick 62 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=571951
+ev 1063 meet_a start
+ev 1063 core_a tick
+ev 1063 gate_b tick
+ev 1063 meet_a tick
+tick 63 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=340833
+ev 1064 core_a stop
+ev 1064 gate_b stop
+ev 1064 meet_a tick
+tick 64 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=699323
+ev 1065 core_a start
+ev 1065 gate_a start
+ev 1065 core_a tick
+ev 1065 gate_a tick
+ev 1065 meet_a tick
+tick 65 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=154268
+ev 1066 core_a tick
+ev 1066 gate_a tick
+ev 1066 meet_a stop
+tick 66 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=610075
+ev 1067 meet_a start
+ev 1067 core_a tick
+ev 1067 gate_a stop
+ev 1067 meet_a tick
+tick 67 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=920658
+ev 1068 gate_c start
+ev 1068 core_a tick
+ev 1068 gate_c tick
+ev 1068 meet_a tick
+tick 68 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=306861
+ev 1069 core_a stop
+ev 1069 gate_c stop
+ev 1069 meet_a tick
+tick 69 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=785124
+ev 1070 core_a start
+ev 1070 gate_c start
+ev 1070 core_a tick
+ev 1070 gate_c tick
+ev 1070 meet_a stop
+tick 70 active=[core, meet] walk=true look=false cool=false jump=- panic=false bell=true rand=956172
+sensor 1 1 next=588 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+sensor 1 42 next=763 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+sensor 1 987654321 next=927 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+sensor 2 1 next=588 [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23]
+sensor 2 42 next=763 [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23]
+sensor 2 987654321 next=927 [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23]
+sensor 5 1 next=588 [1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56]
+sensor 5 42 next=763 [1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56]
+sensor 5 987654321 next=927 [1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56]
+sensor 20 1 next=588 [5, 25, 45, 65, 85, 105, 125, 145, 165, 185, 205, 225]
+sensor 20 42 next=763 [10, 30, 50, 70, 90, 110, 130, 150, 170, 190, 210, 230]
+sensor 20 987654321 next=927 [16, 36, 56, 76, 96, 116, 136, 156, 176, 196, 216, 236]
+sensor 40 1 next=588 [25, 65, 105, 145, 185, 225, 265, 305, 345, 385, 425, 465]
+sensor 40 42 next=763 [10, 50, 90, 130, 170, 210, 250, 290, 330, 370, 410, 450]
+sensor 40 987654321 next=927 [16, 56, 96, 136, 176, 216, 256, 296, 336, 376, 416, 456]
+sensor 200 1 next=588 [185, 385]
+sensor 200 42 next=763 [130, 330]
+sensor 200 987654321 next=927 [136, 336]

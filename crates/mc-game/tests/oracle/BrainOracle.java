@@ -76,7 +76,7 @@ public class BrainOracle {
       VanillaLevel vl = VanillaLevel.boot(o);
       level = vl.level;
       level.getRandom().setSeed(424242L);
-      LivingEntity pig = (LivingEntity) EntityType.PIG.create(level, EntitySpawnReason.COMMAND);
+      LivingEntity pig = (LivingEntity) net.minecraft.world.entity.EntityTypes.PIG.create(level, EntitySpawnReason.COMMAND);
       LegacyRandomSource brainRandom = new LegacyRandomSource(99L);
 
       Fake coreA = new Fake("core_a", cond(), 3, 5, 4, 1, null, null);

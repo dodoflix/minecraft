@@ -2805,6 +2805,22 @@ pub trait Entity: Any {
     fn make_brain(&mut self, _packed: &super::ai::memory::BrainPacked) -> super::ai::brain::Brain {
         super::ai::brain::Brain::new()
     }
+    /// `Armadillo.isScaredBy(entity)` (the armadillo scare sensor).
+    fn is_scared_by(&self, _entity: &dyn Entity) -> bool {
+        false
+    }
+    /// `Armadillo.canStayRolledUp()`.
+    fn can_stay_rolled_up(&self) -> bool {
+        false
+    }
+    /// `Hoglin.canBeHunted()`.
+    fn can_be_hunted(&self) -> bool {
+        false
+    }
+    /// `Warden.canTargetEntity(entity)`.
+    fn can_target_entity(&self, _level: &ServerLevel, _entity: &dyn Entity) -> bool {
+        false
+    }
     // ==== [Loot] additions (Entity trait methods) ====
     /// `this instanceof SlotProvider` (entities whose slots `slot_range` loot sources read).
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
