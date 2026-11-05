@@ -66,17 +66,15 @@ pub fn update_fall_flying(entity: &mut dyn Entity, level: &mut ServerLevel) {
 
 /// `ItemStack.hurtAndBreak(amount, this, slot)` for a non-player owner (players: `ServerPlayer`'s override).
 pub fn hurt_and_break_equipment(entity: &mut dyn Entity, level: &mut ServerLevel, slot: EquipmentSlot, amount: i32) {
-    let stack = util::lm(entity).equipment.get_mut(slot);
+    let Some(mut stack) = entity.item_by_slot_mut(slot).map(|s| s.clone()) else { return };
     if !stack.is_damageable_item() || amount <= 0 {
         return;
     }
-    let new_amount = crate::world::item::enchantment_helper::process_durability_change(stack, amount);
-    if new_amount != 0 {
-        let new_damage = stack.get_damage_value() + new_amount;
-        stack.set_damage_value(new_damage);
-        if stack.is_broken() {
-            stack.shrink(1);
-            util::broadcast_entity_event(level, entity.id(), util::equipment_break_event(slot));
-        }
+    let broken = crate::world::item::hurt_and_break_stack(&mut stack, amount, level, false);
+    if let Some(live) = entity.item_by_slot_mut(slot) {
+        *live = stack;
+    }
+    if let Some(broken) = broken {
+        entity.on_equipped_item_broken(level, &broken, slot);
     }
 }
