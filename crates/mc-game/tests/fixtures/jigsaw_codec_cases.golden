@@ -1,0 +1,429 @@
+alias	{"type":"minecraft:direct","alias":"minecraft:a","target":"minecraft:b"}	ok
+alias	{"type":"minecraft:direct","alias":"a","target":"b"}	ok
+alias	{"type":"direct","alias":"minecraft:a","target":"minecraft:b"}	ok
+alias	{"type":"foo:direct","alias":"minecraft:a","target":"minecraft:b"}	err
+alias	{"type":"minecraft:unknown","alias":"minecraft:a","target":"minecraft:b"}	err
+alias	{"alias":"minecraft:a","target":"minecraft:b"}	err
+alias	{"type":"minecraft:direct","alias":"minecraft:a"}	err
+alias	{"type":"minecraft:direct","target":"minecraft:b"}	err
+alias	{"type":"minecraft:direct","alias":5,"target":"minecraft:b"}	err
+alias	{"type":"minecraft:direct","alias":"Bad Id","target":"minecraft:b"}	err
+alias	{"type":"minecraft:direct","alias":"minecraft:a","target":null}	err
+alias	[]	err
+alias	"minecraft:direct"	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"data":"minecraft:x","weight":1},{"data":"minecraft:y","weight":3}]}	ok
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"data":"minecraft:x","weight":0}]}	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"data":"minecraft:x","weight":0},{"data":"minecraft:y","weight":2}]}	ok
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[]}	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"data":"minecraft:x","weight":-1}]}	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"data":5,"weight":1}]}	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"data":"minecraft:x"}]}	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"weight":1}]}	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":"minecraft:x"}	err
+alias	{"type":"minecraft:random","alias":"minecraft:a","targets":[{"data":"minecraft:x","weight":2147483647},{"data":"minecraft:y","weight":1}]}	err
+alias	{"type":"minecraft:random","targets":[{"data":"minecraft:x","weight":1}]}	err
+alias	{"type":"minecraft:random_group","groups":[{"data":[{"type":"minecraft:direct","alias":"minecraft:a","target":"minecraft:b"}],"weight":1}]}	ok
+alias	{"type":"minecraft:random_group","groups":[{"data":[{"type":"minecraft:direct","alias":"minecraft:a","target":"minecraft:b"},{"type":"minecraft:random","alias":"minecraft:c","targets":[{"data":"minecraft:x","weight":1}]}],"weight":2},{"data":[],"weight":1}]}	ok
+alias	{"type":"minecraft:random_group","groups":[]}	err
+alias	{"type":"minecraft:random_group","groups":[{"data":[],"weight":0}]}	err
+alias	{"type":"minecraft:random_group","groups":[{"data":[{"type":"minecraft:direct"}],"weight":1}]}	err
+alias	{"type":"minecraft:random_group","groups":[{"data":[{"type":"minecraft:random_group","groups":[{"data":[{"type":"minecraft:direct","alias":"minecraft:a","target":"minecraft:b"}],"weight":1}]}],"weight":1}]}	ok
+alias	{"type":"minecraft:random_group","groups":[{"data":"minecraft:a","weight":1}]}	err
+alias	{"type":"minecraft:random_group"}	err
+padding	5	ok
+padding	0	ok
+padding	-1	err
+padding	1.5	ok
+padding	2147483647	ok
+padding	a	err
+padding	true	err
+padding	null	err
+padding	[]	err
+padding	{}	ok
+padding	{"bottom":3}	ok
+padding	{"top":4}	ok
+padding	{"bottom":3,"top":4}	ok
+padding	{"bottom":-1,"top":2}	ok
+padding	{"bottom":"x"}	ok
+padding	{"bottom":1.5,"top":2.9}	ok
+padding	{"bottom":2147483648}	ok
+padding	{"bottom":0,"top":0}	ok
+maxdist	80	ok
+maxdist	1	ok
+maxdist	128	ok
+maxdist	0	err
+maxdist	129	err
+maxdist	-5	err
+maxdist	80.7	ok
+maxdist	x	err
+maxdist	true	err
+maxdist	{"horizontal":50}	ok
+maxdist	{"horizontal":50,"vertical":20}	ok
+maxdist	{"horizontal":50,"vertical":0}	err
+maxdist	{"horizontal":50,"vertical":4096}	err
+maxdist	{"horizontal":50,"vertical":4097}	err
+maxdist	{"horizontal":0}	err
+maxdist	{"horizontal":129}	err
+maxdist	{"vertical":5}	err
+maxdist	{"horizontal":50,"vertical":"a"}	err
+maxdist	{"horizontal":"a"}	err
+maxdist	[]	err
+maxdist	{}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:empty",projection:"rigid"}
+element	{"element_type":"minecraft:legacy_single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}	ok	{element_type:"minecraft:legacy_single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:empty",projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"terrain_matching"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:empty",projection:"terrain_matching"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"bogus"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"RIGID"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":{"processors":[]},"projection":"rigid"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:{processors:[]},projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":[],"projection":"rigid"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:{processors:[]},projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":{"processors":[{"processor_type":"minecraft:nop"}]},"projection":"rigid"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:{processors:[{processor_type:"minecraft:nop"}]},projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":[{"processor_type":"minecraft:nop"}],"projection":"rigid"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:{processors:[{processor_type:"minecraft:nop"}]},projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":{"processors":[{"processor_type":"minecraft:bogus"}]},"projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:street_plains","projection":"rigid"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:street_plains",projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:does_not_exist","projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":5,"projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid","override_liquid_settings":"ignore_waterlogging"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",override_liquid_settings:"ignore_waterlogging",processors:"minecraft:empty",projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid","override_liquid_settings":"apply_waterlogging"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",override_liquid_settings:"apply_waterlogging",processors:"minecraft:empty",projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid","override_liquid_settings":"bogus"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid","override_liquid_settings":null}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:empty",projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}	ok	{element_type:"minecraft:single_pool_element",location:"minecraft:plains_lamp_1",processors:"minecraft:empty",projection:"rigid"}
+element	{"element_type":"minecraft:single_pool_element","location":"Not Valid","processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","location":5,"processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","location":null,"processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","projection":"rigid"}	err
+element	{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty"}	err
+element	{"element_type":"minecraft:single_pool_element"}	err
+element	{"location":"minecraft:a","processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":"minecraft:nope","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":"x:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":5,"location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}	err
+element	{"element_type":"minecraft:empty_pool_element"}	ok	{element_type:"minecraft:empty_pool_element"}
+element	{"element_type":"minecraft:empty_pool_element","projection":"rigid"}	ok	{element_type:"minecraft:empty_pool_element"}
+element	{"element_type":"minecraft:feature_pool_element","feature":"minecraft:oak","projection":"rigid"}	ok	{element_type:"minecraft:feature_pool_element",feature:"minecraft:oak",projection:"rigid"}
+element	{"element_type":"minecraft:feature_pool_element","feature":"minecraft:oak","projection":"terrain_matching"}	ok	{element_type:"minecraft:feature_pool_element",feature:"minecraft:oak",projection:"terrain_matching"}
+element	{"element_type":"minecraft:feature_pool_element","feature":"minecraft:does_not_exist","projection":"rigid"}	err
+element	{"element_type":"minecraft:feature_pool_element","feature":5,"projection":"rigid"}	err
+element	{"element_type":"minecraft:feature_pool_element","projection":"rigid"}	err
+element	{"element_type":"minecraft:feature_pool_element","feature":"minecraft:oak"}	err
+element	{"element_type":"minecraft:list_pool_element","elements":[{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},{"element_type":"minecraft:feature_pool_element","feature":"minecraft:oak","projection":"rigid"}],"projection":"rigid"}	ok	{element_type:"minecraft:list_pool_element",elements:[{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:empty",projection:"rigid"},{element_type:"minecraft:feature_pool_element",feature:"minecraft:oak",projection:"rigid"}],projection:"rigid"}
+element	{"element_type":"minecraft:list_pool_element","elements":[{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},{"element_type":"minecraft:empty_pool_element"}],"projection":"terrain_matching"}	ok	{element_type:"minecraft:list_pool_element",elements:[{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:empty",projection:"terrain_matching"},{element_type:"minecraft:empty_pool_element"}],projection:"terrain_matching"}
+element	{"element_type":"minecraft:list_pool_element","elements":[],"projection":"rigid"}	err
+element	{"element_type":"minecraft:list_pool_element","elements":[{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"bogus"}],"projection":"rigid"}	err
+element	{"element_type":"minecraft:list_pool_element","elements":[{"element_type":"minecraft:list_pool_element","elements":[{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}],"projection":"rigid"}],"projection":"rigid"}	ok	{element_type:"minecraft:list_pool_element",elements:[{element_type:"minecraft:list_pool_element",elements:[{element_type:"minecraft:single_pool_element",location:"minecraft:village/plains/plains_lamp_1",processors:"minecraft:empty",projection:"rigid"}],projection:"rigid"}],projection:"rigid"}
+element	{"element_type":"minecraft:list_pool_element","elements":"x","projection":"rigid"}	err
+element	{"element_type":"minecraft:list_pool_element","elements":[{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},5],"projection":"rigid"}	err
+element	{"element_type":"minecraft:list_pool_element","elements":[{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}]}	err
+element	{"element_type":"minecraft:list_pool_element","projection":"rigid"}	err
+element	"minecraft:single_pool_element"	err
+element	[]	err
+pool	{"fallback":"minecraft:empty","elements":[]}	ok
+pool	{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},"weight":1}]}	ok
+pool	{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},"weight":150},{"element":{"element_type":"minecraft:empty_pool_element"},"weight":3}]}	ok
+pool	{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},"weight":151}]}	err
+pool	{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},"weight":0}]}	err
+pool	{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},"weight":-1}]}	err
+pool	{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},"weight":2.5}]}	ok
+pool	{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"}}]}	err
+pool	{"fallback":"minecraft:empty","elements":[{"weight":1}]}	err
+pool	{"fallback":"minecraft:empty","elements":[{"element":5,"weight":1}]}	err
+pool	{"fallback":"minecraft:does_not_exist","elements":[]}	err
+pool	{"fallback":"minecraft:village/plains/streets","elements":[]}	ok
+pool	{"fallback":{"fallback":"minecraft:empty","elements":[]},"elements":[]}	ok
+pool	{"fallback":{"elements":[]},"elements":[]}	err
+pool	{"elements":[]}	err
+pool	{"fallback":"minecraft:empty"}	err
+pool	{"fallback":5,"elements":[]}	err
+pool	{"fallback":"minecraft:empty","elements":{}}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":0,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":20,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":21,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":-1,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":116,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":117,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":117,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"none","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":128,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":129,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"none","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":{"horizontal":100,"vertical":40},"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"none","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":{"horizontal":100},"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"bury","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:does_not_exist","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":{"fallback":"minecraft:empty","elements":[{"element":{"element_type":"minecraft:single_pool_element","location":"minecraft:village/plains/plains_lamp_1","processors":"minecraft:empty","projection":"rigid"},"weight":1}]},"step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"start_jigsaw_name":"minecraft:bottom"}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"start_jigsaw_name":"Bad Id"}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"start_jigsaw_name":5}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"OCEAN_FLOOR_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"MOTION_BLOCKING_NO_LEAVES","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"world_surface_wg","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"bogus","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin"}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":"true"}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":1}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":"x"},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"type":"minecraft:uniform","min_inclusive":{"absolute":33},"max_inclusive":{"absolute":100}},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"pool_aliases":[{"type":"minecraft:direct","alias":"minecraft:a","target":"minecraft:b"}]}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"pool_aliases":[{"type":"minecraft:direct","alias":"minecraft:a","target":"minecraft:b"},{"type":"minecraft:bogus"}]}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"pool_aliases":{}}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"pool_aliases":null}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"dimension_padding":10}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"dimension_padding":{"bottom":2,"top":3}}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"dimension_padding":-2}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"liquid_settings":"ignore_waterlogging"}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"liquid_settings":"bogus"}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"underground_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	ok
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"bogus","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:nope","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"bogus","use_expansion_hack":true}	err
+structure	{"type":"minecraft:jigsaw","biomes":"#minecraft:has_structure/village_plains","max_distance_from_center":80,"project_start_to_heightmap":"WORLD_SURFACE_WG","size":6,"spawn_overrides":{},"start_height":{"absolute":0},"start_pool":"minecraft:village/plains/town_centers","step":"surface_structures","terrain_adaptation":"beard_thin","use_expansion_hack":true,"extra_field":1}	ok
+POOL	minecraft:abandoned_camp/camp/bamboo_jungle	minecraft:empty	49	349e35bc8c08846c
+POOL	minecraft:abandoned_camp/camp/birch_forest	minecraft:empty	49	be54690a4a0a5fc
+POOL	minecraft:abandoned_camp/camp/cherry_grove	minecraft:empty	49	dda92034722d8b9c
+POOL	minecraft:abandoned_camp/camp/dappled_forest	minecraft:empty	49	6ece15a7a6d94714
+POOL	minecraft:abandoned_camp/camp/flower_forest	minecraft:empty	49	fa15a68874ba9830
+POOL	minecraft:abandoned_camp/camp/forest	minecraft:empty	49	9f96c3543739442c
+POOL	minecraft:abandoned_camp/camp/meadow	minecraft:empty	49	415e79e9a44247fc
+POOL	minecraft:abandoned_camp/camp/old_growth_birch_forest	minecraft:empty	49	3e9246aaab9ee3fc
+POOL	minecraft:abandoned_camp/camp/old_growth_pine_taiga	minecraft:empty	49	3d57302f97026d48
+POOL	minecraft:abandoned_camp/camp/old_growth_spruce_taiga	minecraft:empty	49	f7f1db7c4d4d8640
+POOL	minecraft:abandoned_camp/camp/pale_garden	minecraft:empty	49	3062a677107a04ac
+POOL	minecraft:abandoned_camp/camp/savanna	minecraft:empty	49	65b88cbd039e6ecc
+POOL	minecraft:abandoned_camp/camp/snowy_taiga	minecraft:empty	49	77930d7476051f20
+POOL	minecraft:abandoned_camp/camp/sparse_jungle	minecraft:empty	49	1e60c8592bd30164
+POOL	minecraft:abandoned_camp/camp/swamp	minecraft:empty	49	f9d6ae2c5c10901c
+POOL	minecraft:abandoned_camp/camp/taiga	minecraft:empty	49	c15628b4ffe333cc
+POOL	minecraft:abandoned_camp/camp/windswept_forest	minecraft:empty	49	4798db3be5b107ec
+POOL	minecraft:abandoned_camp/camp/wooded_badlands	minecraft:empty	49	1894f16c5a591ddc
+POOL	minecraft:abandoned_camp/tent/bamboo_jungle	minecraft:empty	10	67d4b9eddfca5e9f
+POOL	minecraft:abandoned_camp/tent/birch_forest	minecraft:empty	10	f3f6b43786609ddf
+POOL	minecraft:abandoned_camp/tent/cherry_grove	minecraft:empty	10	a09f443e5dcc10af
+POOL	minecraft:abandoned_camp/tent/dappled_forest	minecraft:empty	10	bc94fa7821727b1f
+POOL	minecraft:abandoned_camp/tent/flower_forest	minecraft:empty	10	c9030ce21be76caf
+POOL	minecraft:abandoned_camp/tent/forest	minecraft:empty	10	c215b0b834c704bf
+POOL	minecraft:abandoned_camp/tent/meadow	minecraft:empty	10	55c9b4a71eed09cf
+POOL	minecraft:abandoned_camp/tent/old_growth_birch_forest	minecraft:empty	10	c6362b827892e0ef
+POOL	minecraft:abandoned_camp/tent/old_growth_pine_taiga	minecraft:empty	10	a5296ac4f6b69f37
+POOL	minecraft:abandoned_camp/tent/old_growth_spruce_taiga	minecraft:empty	10	2e8932483aaa97f7
+POOL	minecraft:abandoned_camp/tent/pale_garden	minecraft:empty	10	54addc145386077f
+POOL	minecraft:abandoned_camp/tent/savanna	minecraft:empty	10	c3c621f6be5079c7
+POOL	minecraft:abandoned_camp/tent/snowy_taiga	minecraft:empty	10	3271d485737c897
+POOL	minecraft:abandoned_camp/tent/sparse_jungle	minecraft:empty	10	e97dee455407c737
+POOL	minecraft:abandoned_camp/tent/swamp	minecraft:empty	10	835cbc1e594e000f
+POOL	minecraft:abandoned_camp/tent/taiga	minecraft:empty	10	20b8569b50a3c9ef
+POOL	minecraft:abandoned_camp/tent/windswept_forest	minecraft:empty	10	10a74618b8d6530f
+POOL	minecraft:abandoned_camp/tent/wooded_badlands	minecraft:empty	10	9642ca5c0f089d97
+POOL	minecraft:abandoned_camp/trees/acacia	minecraft:empty	1	5e04587b3c5bea00
+POOL	minecraft:abandoned_camp/trees/bamboo	minecraft:empty	1	f7d9bb7075089b20
+POOL	minecraft:abandoned_camp/trees/birch	minecraft:empty	1	30a33195f847b078
+POOL	minecraft:abandoned_camp/trees/birch_bees	minecraft:empty	1	6bb203c40a131687
+POOL	minecraft:abandoned_camp/trees/cherry	minecraft:empty	1	5e7f0cbc847e572f
+POOL	minecraft:abandoned_camp/trees/cherry_bees	minecraft:empty	1	37f9b4e03d6bff73
+POOL	minecraft:abandoned_camp/trees/fancy_oak	minecraft:empty	1	e4750f731553df01
+POOL	minecraft:abandoned_camp/trees/fancy_oak_bees	minecraft:empty	1	d7b7afab00079614
+POOL	minecraft:abandoned_camp/trees/jungle	minecraft:empty	1	50e67d779f8b28c6
+POOL	minecraft:abandoned_camp/trees/mega_jungle	minecraft:empty	1	5a4474eb5fd94cdd
+POOL	minecraft:abandoned_camp/trees/mega_pine	minecraft:empty	1	e96108221c58ac67
+POOL	minecraft:abandoned_camp/trees/oak	minecraft:empty	1	49c72d37c767ab5f
+POOL	minecraft:abandoned_camp/trees/orange_poplar	minecraft:empty	1	e8f3f440bfebff6d
+POOL	minecraft:abandoned_camp/trees/pale_oak	minecraft:empty	1	7722a7d94043a6d4
+POOL	minecraft:abandoned_camp/trees/pine	minecraft:empty	1	f665e91bd76a8ca0
+POOL	minecraft:abandoned_camp/trees/red_poplar	minecraft:empty	1	c1397112f59eb0c6
+POOL	minecraft:abandoned_camp/trees/spruce	minecraft:empty	1	5f76ce8d4ee7684c
+POOL	minecraft:abandoned_camp/trees/spruce_on_snow	minecraft:empty	1	baaac8e418358a20
+POOL	minecraft:abandoned_camp/trees/super_birch_bees	minecraft:empty	1	3b7ade0fe33e39fd
+POOL	minecraft:abandoned_camp/trees/thick_spruce	minecraft:empty	1	18d34c2466add3fb
+POOL	minecraft:abandoned_camp/trees/yellow_poplar	minecraft:empty	1	967b1c1417d1788f
+POOL	minecraft:ancient_city/city/entrance	minecraft:empty	6	3ac0e649d599f9c9
+POOL	minecraft:ancient_city/city_center	minecraft:empty	3	9fad6c2658ae04fc
+POOL	minecraft:ancient_city/city_center/walls	minecraft:empty	10	831b6497dca6ae53
+POOL	minecraft:ancient_city/sculk	minecraft:empty	2	2679d6fb447fc280
+POOL	minecraft:ancient_city/structures	minecraft:empty	20	650cfcdcb91d4b1
+POOL	minecraft:ancient_city/walls	minecraft:empty	16	1e918e60da21acdc
+POOL	minecraft:ancient_city/walls/no_corners	minecraft:empty	8	2f2ddcd686f499d9
+POOL	minecraft:bastion/blocks/gold	minecraft:empty	2	31ae8afe5eb68ad7
+POOL	minecraft:bastion/bridge/bridge_pieces	minecraft:empty	1	d4fa44314e725a6
+POOL	minecraft:bastion/bridge/connectors	minecraft:empty	2	3a90b2373c60b0ff
+POOL	minecraft:bastion/bridge/legs	minecraft:empty	2	bf2a4cf9be7f048c
+POOL	minecraft:bastion/bridge/rampart_plates	minecraft:empty	1	bccc880d9299519f
+POOL	minecraft:bastion/bridge/ramparts	minecraft:empty	2	94a191fa2dc456c0
+POOL	minecraft:bastion/bridge/starting_pieces	minecraft:empty	2	73b3a7c82793401b
+POOL	minecraft:bastion/bridge/walls	minecraft:empty	2	30a12e460aa4562c
+POOL	minecraft:bastion/hoglin_stable/connectors	minecraft:empty	1	207faa016fb0f82d
+POOL	minecraft:bastion/hoglin_stable/large_stables/inner	minecraft:empty	5	c0ebbb31f3adb688
+POOL	minecraft:bastion/hoglin_stable/large_stables/outer	minecraft:empty	5	60886b4e2b941d7b
+POOL	minecraft:bastion/hoglin_stable/mirrored_starting_pieces	minecraft:empty	5	b114fa9284ba1e85
+POOL	minecraft:bastion/hoglin_stable/posts	minecraft:empty	2	86d168acf86ab0dd
+POOL	minecraft:bastion/hoglin_stable/rampart_plates	minecraft:empty	1	5724c8f6eab450e2
+POOL	minecraft:bastion/hoglin_stable/ramparts	minecraft:empty	3	6ab96e8c45842e14
+POOL	minecraft:bastion/hoglin_stable/small_stables/inner	minecraft:empty	4	33db790f129d7235
+POOL	minecraft:bastion/hoglin_stable/small_stables/outer	minecraft:empty	4	ec7e2721f6f79e71
+POOL	minecraft:bastion/hoglin_stable/stairs	minecraft:empty	15	d906959ef3a44905
+POOL	minecraft:bastion/hoglin_stable/starting_pieces	minecraft:empty	5	e7accad99b9ea5ed
+POOL	minecraft:bastion/hoglin_stable/wall_bases	minecraft:empty	1	368a039d1e6f302
+POOL	minecraft:bastion/hoglin_stable/walls	minecraft:empty	2	56cb624842973514
+POOL	minecraft:bastion/mobs/hoglin	minecraft:empty	2	4779d40ef341e614
+POOL	minecraft:bastion/mobs/piglin	minecraft:empty	4	f3d3ac050bda42e7
+POOL	minecraft:bastion/mobs/piglin_melee	minecraft:empty	3	fb9a522fae2681ff
+POOL	minecraft:bastion/starts	minecraft:empty	4	96cb1bb645c5a005
+POOL	minecraft:bastion/treasure/bases	minecraft:empty	1	6e7536fba546bd45
+POOL	minecraft:bastion/treasure/bases/centers	minecraft:empty	4	9773444169ed81dd
+POOL	minecraft:bastion/treasure/brains	minecraft:empty	1	6b426f66fbbe736a
+POOL	minecraft:bastion/treasure/connectors	minecraft:empty	3	e5427203c2bcf684
+POOL	minecraft:bastion/treasure/corners/bottom	minecraft:empty	2	a14d117c01bc55de
+POOL	minecraft:bastion/treasure/corners/edges	minecraft:empty	3	cfb6e9612a441eca
+POOL	minecraft:bastion/treasure/corners/middle	minecraft:empty	2	51d66ca4e3646602
+POOL	minecraft:bastion/treasure/corners/top	minecraft:empty	2	26d18a734dd3beda
+POOL	minecraft:bastion/treasure/entrances	minecraft:empty	1	5278d6cceb8f689b
+POOL	minecraft:bastion/treasure/extensions/houses	minecraft:empty	2	a92c52a3cda913a0
+POOL	minecraft:bastion/treasure/extensions/large_pool	minecraft:empty	9	c0a223e87311bfb1
+POOL	minecraft:bastion/treasure/extensions/small_pool	minecraft:empty	7	95f44a5d45799561
+POOL	minecraft:bastion/treasure/ramparts	minecraft:empty	6	d0eb8116729f52e1
+POOL	minecraft:bastion/treasure/roofs	minecraft:empty	3	f52b972b864f3425
+POOL	minecraft:bastion/treasure/stairs	minecraft:empty	1	8b3867209920b205
+POOL	minecraft:bastion/treasure/walls	minecraft:empty	2	d8fde29a5e4b5e40
+POOL	minecraft:bastion/treasure/walls/bottom	minecraft:empty	4	81cf764d1f0f116d
+POOL	minecraft:bastion/treasure/walls/mid	minecraft:empty	3	49b03f6a5c40f421
+POOL	minecraft:bastion/treasure/walls/outer	minecraft:empty	6	2cc692e11adaf1b9
+POOL	minecraft:bastion/treasure/walls/top	minecraft:empty	3	489f5af93a3a3ee7
+POOL	minecraft:bastion/units/center_pieces	minecraft:empty	3	96f7e7ce87b071fc
+POOL	minecraft:bastion/units/edge_wall_units	minecraft:empty	1	5ebc709fd3a5ab18
+POOL	minecraft:bastion/units/edges	minecraft:empty	1	d2ac502aebbe639a
+POOL	minecraft:bastion/units/fillers/stage_0	minecraft:empty	1	f2203f3eb9d2a0de
+POOL	minecraft:bastion/units/large_ramparts	minecraft:empty	1	a139dfe27bd8c24f
+POOL	minecraft:bastion/units/pathways	minecraft:empty	2	2403773cb58df7ca
+POOL	minecraft:bastion/units/rampart_plates	minecraft:empty	1	c8e93d1fc6cf614c
+POOL	minecraft:bastion/units/ramparts	minecraft:empty	3	6a3de47c46791740
+POOL	minecraft:bastion/units/stages/rot/stage_1	minecraft:empty	1	50732ccbc7dd5940
+POOL	minecraft:bastion/units/stages/stage_0	minecraft:empty	4	72c8e84e2134a4f9
+POOL	minecraft:bastion/units/stages/stage_1	minecraft:empty	4	fc735fe94508526d
+POOL	minecraft:bastion/units/stages/stage_2	minecraft:empty	2	825ad91330612100
+POOL	minecraft:bastion/units/stages/stage_3	minecraft:empty	4	3863e0b0ab68bf89
+POOL	minecraft:bastion/units/wall_units	minecraft:empty	1	72cf519999a426a9
+POOL	minecraft:bastion/units/walls/wall_bases	minecraft:empty	2	b262d551aed250d1
+POOL	minecraft:empty	minecraft:empty	0	cbf29ce484222325
+POOL	minecraft:pillager_outpost/base_plates	minecraft:empty	1	7d2c0b90358c61bb
+POOL	minecraft:pillager_outpost/feature_plates	minecraft:empty	1	2b79dfae32db730
+POOL	minecraft:pillager_outpost/features	minecraft:empty	8	6552756f01e312bd
+POOL	minecraft:pillager_outpost/towers	minecraft:empty	1	361830e50e038afc
+POOL	minecraft:trail_ruins/buildings	minecraft:empty	15	b255a350dfedc343
+POOL	minecraft:trail_ruins/buildings/grouped	minecraft:empty	20	4fec8c8f1838cef4
+POOL	minecraft:trail_ruins/decor	minecraft:empty	7	51d50d25303fda5f
+POOL	minecraft:trail_ruins/roads	minecraft:empty	7	75ed30ae9219ad5
+POOL	minecraft:trail_ruins/tower	minecraft:empty	5	5a1672dbfca0b944
+POOL	minecraft:trail_ruins/tower/additions	minecraft:empty	25	54f93d578d10696b
+POOL	minecraft:trail_ruins/tower/tower_top	minecraft:empty	5	a2303b3930a92bc0
+POOL	minecraft:trial_chambers/atrium	minecraft:empty	7	262f1b4d956650c8
+POOL	minecraft:trial_chambers/chamber/addon	minecraft:empty	10	71533050a68d2542
+POOL	minecraft:trial_chambers/chamber/assembly	minecraft:empty	21	50960de537a04f60
+POOL	minecraft:trial_chambers/chamber/end	minecraft:empty	2	25f49be4ebb53430
+POOL	minecraft:trial_chambers/chamber/entrance_cap	minecraft:empty	1	a388e9929c4a04f7
+POOL	minecraft:trial_chambers/chamber/eruption	minecraft:empty	10	cdebe1f4897c16e1
+POOL	minecraft:trial_chambers/chamber/pedestal	minecraft:empty	14	e33d11ea722aa12c
+POOL	minecraft:trial_chambers/chamber/slanted	minecraft:empty	13	252148c8b662d83d
+POOL	minecraft:trial_chambers/chambers/end	minecraft:trial_chambers/hallway/fallback	4	10f45c9c7e0874c8
+POOL	minecraft:trial_chambers/chests/contents/supply	minecraft:empty	1	e0f726b6447935b8
+POOL	minecraft:trial_chambers/chests/supply	minecraft:empty	1	3b34d4e1f5247eb9
+POOL	minecraft:trial_chambers/corridor	minecraft:empty	9	e1fcdf0633fe30ae
+POOL	minecraft:trial_chambers/corridor/slices	minecraft:empty	8	5501577e4f339189
+POOL	minecraft:trial_chambers/corridors/addon/lower	minecraft:empty	6	c1cb30b2f941c914
+POOL	minecraft:trial_chambers/corridors/addon/middle	minecraft:empty	3	2d36e1114c62380f
+POOL	minecraft:trial_chambers/corridors/addon/middle_upper	minecraft:empty	6	b8d622dc4772cd63
+POOL	minecraft:trial_chambers/decor	minecraft:empty	12	5650e08235330f23
+POOL	minecraft:trial_chambers/decor/bed	minecraft:empty	16	8311d712390141c6
+POOL	minecraft:trial_chambers/decor/chamber	minecraft:empty	2	598661c3a6b29848
+POOL	minecraft:trial_chambers/decor/disposal	minecraft:empty	1	8a4d6a554bd98a33
+POOL	minecraft:trial_chambers/dispensers/chamber	minecraft:empty	4	9f529c5dc75e621e
+POOL	minecraft:trial_chambers/entrance	minecraft:empty	3	a5a9cf414f1a027
+POOL	minecraft:trial_chambers/hallway	minecraft:trial_chambers/hallway/fallback	30	f7b8de8b81baef3b
+POOL	minecraft:trial_chambers/hallway/fallback	minecraft:empty	4	ff958a9b1f275b87
+POOL	minecraft:trial_chambers/reward/all	minecraft:empty	1	d98fe7340fe65c14
+POOL	minecraft:trial_chambers/reward/contents/default	minecraft:empty	1	d98fe7340fe65c14
+POOL	minecraft:trial_chambers/reward/ominous_vault	minecraft:empty	1	459f6839d6e83155
+POOL	minecraft:trial_chambers/spawner/all	minecraft:empty	3	9da2426fef713777
+POOL	minecraft:trial_chambers/spawner/breeze	minecraft:empty	1	6a92daf774eb3bc3
+POOL	minecraft:trial_chambers/spawner/contents/breeze	minecraft:empty	1	f155a2042450694c
+POOL	minecraft:trial_chambers/spawner/melee	minecraft:empty	1	69f3a08a9aa64f52
+POOL	minecraft:trial_chambers/spawner/melee/husk	minecraft:empty	1	8572b26e5f4efbe7
+POOL	minecraft:trial_chambers/spawner/melee/spider	minecraft:empty	1	1e2f7ad3d7a1d21b
+POOL	minecraft:trial_chambers/spawner/melee/zombie	minecraft:empty	1	b13978543bab156a
+POOL	minecraft:trial_chambers/spawner/ranged	minecraft:empty	1	defdae71230ee81f
+POOL	minecraft:trial_chambers/spawner/ranged/poison_skeleton	minecraft:empty	1	3d0dc4898484c29
+POOL	minecraft:trial_chambers/spawner/ranged/skeleton	minecraft:empty	1	517e2f902a740db8
+POOL	minecraft:trial_chambers/spawner/ranged/stray	minecraft:empty	1	b6d4ffba7b6ad9f8
+POOL	minecraft:trial_chambers/spawner/slow_ranged	minecraft:empty	1	9a7c7f2c804df111
+POOL	minecraft:trial_chambers/spawner/slow_ranged/poison_skeleton	minecraft:empty	1	2723804377e3c1ad
+POOL	minecraft:trial_chambers/spawner/slow_ranged/skeleton	minecraft:empty	1	435ada7a5e10a0e4
+POOL	minecraft:trial_chambers/spawner/slow_ranged/stray	minecraft:empty	1	b0b96e13b9fe78f4
+POOL	minecraft:trial_chambers/spawner/small_melee	minecraft:empty	1	6e4b412d71bffe8a
+POOL	minecraft:trial_chambers/spawner/small_melee/baby_zombie	minecraft:empty	1	f817791b8316ecad
+POOL	minecraft:trial_chambers/spawner/small_melee/cave_spider	minecraft:empty	1	254b0a04c40bbfb5
+POOL	minecraft:trial_chambers/spawner/small_melee/silverfish	minecraft:empty	1	d0d3f782628690b1
+POOL	minecraft:trial_chambers/spawner/small_melee/slime	minecraft:empty	1	bbc8ffc843d8ce80
+POOL	minecraft:village/common/animals	minecraft:empty	10	b48c56d14260b077
+POOL	minecraft:village/common/butcher_animals	minecraft:empty	4	89a6b964f56e433b
+POOL	minecraft:village/common/cats	minecraft:empty	11	b55c7b0b414a9a7e
+POOL	minecraft:village/common/iron_golem	minecraft:empty	1	e0f8ec45eee31abb
+POOL	minecraft:village/common/sheep	minecraft:empty	2	f341eadcc30e2ece
+POOL	minecraft:village/common/well_bottoms	minecraft:empty	1	3a1ccae347505f3e
+POOL	minecraft:village/desert/camel	minecraft:empty	1	cf3a3723129faf7a
+POOL	minecraft:village/desert/decor	minecraft:empty	4	58d257a6b2269d2e
+POOL	minecraft:village/desert/houses	minecraft:village/desert/terminators	29	67d8e4c3fd8de60b
+POOL	minecraft:village/desert/streets	minecraft:village/desert/terminators	11	de6f3823077edc3a
+POOL	minecraft:village/desert/terminators	minecraft:empty	2	fbd5dd0aef652976
+POOL	minecraft:village/desert/town_centers	minecraft:empty	6	a7697821f9884dc0
+POOL	minecraft:village/desert/villagers	minecraft:empty	3	d50bf583c5f3fb97
+POOL	minecraft:village/desert/zombie/decor	minecraft:empty	4	6c47de7894905b02
+POOL	minecraft:village/desert/zombie/houses	minecraft:village/desert/zombie/terminators	29	fdec1d13b0b91e8c
+POOL	minecraft:village/desert/zombie/streets	minecraft:village/desert/zombie/terminators	11	eff8ca927a45d32d
+POOL	minecraft:village/desert/zombie/terminators	minecraft:empty	2	8abe534fc7ab2e75
+POOL	minecraft:village/desert/zombie/villagers	minecraft:empty	2	e5e6751bba8bf760
+POOL	minecraft:village/plains/decor	minecraft:empty	5	638efcb3f1f7436e
+POOL	minecraft:village/plains/houses	minecraft:village/plains/terminators	37	11d3464c58e41522
+POOL	minecraft:village/plains/streets	minecraft:village/plains/terminators	16	6be966d00b22336d
+POOL	minecraft:village/plains/terminators	minecraft:empty	4	aba99ebb87eb0259
+POOL	minecraft:village/plains/town_centers	minecraft:empty	8	ae61aad78caedd69
+POOL	minecraft:village/plains/trees	minecraft:empty	1	b7cb105794404aa1
+POOL	minecraft:village/plains/villagers	minecraft:empty	3	1242674eabb310f7
+POOL	minecraft:village/plains/zombie/decor	minecraft:empty	5	576a7cca799183e7
+POOL	minecraft:village/plains/zombie/houses	minecraft:village/plains/terminators	36	c4a51e4e0ee9beb6
+POOL	minecraft:village/plains/zombie/streets	minecraft:village/plains/terminators	16	e34a9354b3927065
+POOL	minecraft:village/plains/zombie/villagers	minecraft:empty	2	bfa535874daeedfc
+POOL	minecraft:village/savanna/decor	minecraft:empty	5	eea6a432d7395c58
+POOL	minecraft:village/savanna/houses	minecraft:village/savanna/terminators	32	f5784f421f1581ef
+POOL	minecraft:village/savanna/streets	minecraft:village/savanna/terminators	19	8dea314fd708cb9d
+POOL	minecraft:village/savanna/terminators	minecraft:empty	5	9ad8ffd8f8605c19
+POOL	minecraft:village/savanna/town_centers	minecraft:empty	8	87ce2976f4e48fcc
+POOL	minecraft:village/savanna/trees	minecraft:empty	1	a5dc944461e08686
+POOL	minecraft:village/savanna/villagers	minecraft:empty	3	2ae5394de16fa7ac
+POOL	minecraft:village/savanna/zombie/decor	minecraft:empty	5	805ff79120d51753
+POOL	minecraft:village/savanna/zombie/houses	minecraft:village/savanna/zombie/terminators	32	3c9cce0db10df725
+POOL	minecraft:village/savanna/zombie/streets	minecraft:village/savanna/zombie/terminators	19	2662e3dc11c1c4c6
+POOL	minecraft:village/savanna/zombie/terminators	minecraft:empty	5	8432951e4884e00
+POOL	minecraft:village/savanna/zombie/villagers	minecraft:empty	2	eca648b9dfcdf16a
+POOL	minecraft:village/snowy/decor	minecraft:empty	7	f74bcaa0135fafd6
+POOL	minecraft:village/snowy/houses	minecraft:village/snowy/terminators	31	6e55e6d00080f569
+POOL	minecraft:village/snowy/streets	minecraft:village/snowy/terminators	16	e970ec148da3584d
+POOL	minecraft:village/snowy/terminators	minecraft:empty	4	71962120484873ad
+POOL	minecraft:village/snowy/town_centers	minecraft:empty	6	7fc34e029f031c78
+POOL	minecraft:village/snowy/trees	minecraft:empty	1	9b1a9501fe00f3e2
+POOL	minecraft:village/snowy/villagers	minecraft:empty	3	121b6ba6651ca826
+POOL	minecraft:village/snowy/zombie/decor	minecraft:empty	7	9d3de18e441542ce
+POOL	minecraft:village/snowy/zombie/houses	minecraft:village/snowy/terminators	31	89039880a7d188c5
+POOL	minecraft:village/snowy/zombie/streets	minecraft:village/snowy/terminators	16	60fdbc14016d403f
+POOL	minecraft:village/snowy/zombie/villagers	minecraft:empty	2	193bb34520e2647a
+POOL	minecraft:village/taiga/decor	minecraft:empty	13	6edd73410545bf4a
+POOL	minecraft:village/taiga/houses	minecraft:village/taiga/terminators	28	e97d8050de96f03b
+POOL	minecraft:village/taiga/streets	minecraft:village/taiga/terminators	16	b5846a56545d607d
+POOL	minecraft:village/taiga/terminators	minecraft:empty	4	71962120484873ad
+POOL	minecraft:village/taiga/town_centers	minecraft:empty	4	8623c99a77d91e11
+POOL	minecraft:village/taiga/villagers	minecraft:empty	3	931b8bb4e50a597a
+POOL	minecraft:village/taiga/zombie/decor	minecraft:empty	10	b07ef8b9e1f01076
+POOL	minecraft:village/taiga/zombie/houses	minecraft:village/taiga/terminators	27	ac1e1ce2ad3e3793
+POOL	minecraft:village/taiga/zombie/streets	minecraft:village/taiga/terminators	16	851af9674243095d
+POOL	minecraft:village/taiga/zombie/villagers	minecraft:empty	2	558584f141039a3e

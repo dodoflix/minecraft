@@ -6,6 +6,7 @@ use super::dimension_padding::DimensionPadding;
 use super::jigsaw_junction::JigsawJunction;
 use super::structure_pool_element::StructurePoolElement;
 use super::structure_template_pool::{Projection, StructureTemplatePool, empty_pool_id};
+use crate::world::level::levelgen::codec::*;
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::registries::TypedRegistry;
@@ -23,6 +24,7 @@ use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
 use mc_world::chunk::LevelHeight;
 use mc_world::heightmap::HeightmapType;
+use serde_json::Value;
 use std::cell::RefCell;
 use std::collections::{BTreeMap, VecDeque};
 use std::rc::Rc;
@@ -37,10 +39,33 @@ pub struct MaxDistance {
     pub vertical: i32,
 }
 
+/// `JigsawStructure.MAX_TOTAL_STRUCTURE_RANGE`.
+pub const MAX_TOTAL_STRUCTURE_RANGE: i32 = 128;
+/// `DimensionType.Y_SIZE`.
+const Y_SIZE: i32 = 4096;
+
 impl MaxDistance {
     /// `new MaxDistance(value)`.
     pub const fn new(value: i32) -> MaxDistance {
         MaxDistance { horizontal: value, vertical: value }
+    }
+
+    /// `MaxDistance.CODEC`: `Codec.either(FULL_CODEC, HORIZONTAL_VALUE_CODEC)`.
+    pub fn from_json(value: &Value) -> LoadResult<MaxDistance> {
+        let first = Fields::new(value).and_then(|f| {
+            Ok(MaxDistance {
+                horizontal: f.required("horizontal", |v| parse_int_range(v, 1, MAX_TOTAL_STRUCTURE_RANGE))?,
+                vertical: f.optional("vertical", |v| parse_int_range(v, 1, Y_SIZE))?.unwrap_or(Y_SIZE),
+            })
+        });
+        let first = match first {
+            Ok(distance) => return Ok(distance),
+            Err(e) => e,
+        };
+        match parse_int_range(value, 1, MAX_TOTAL_STRUCTURE_RANGE) {
+            Ok(horizontal) => Ok(MaxDistance::new(horizontal)),
+            Err(second) => Err(LoadError::new(format!("Failed to parse either. First: {first}; Second: {second}"))),
+        }
     }
 }
 

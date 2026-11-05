@@ -19,10 +19,7 @@ use mc_worldgen::provider::HeightProvider;
 use serde_json::Value;
 use std::sync::Arc;
 
-/// `JigsawStructure.MAX_TOTAL_STRUCTURE_RANGE`.
-const MAX_TOTAL_STRUCTURE_RANGE: i32 = 128;
-/// `DimensionType.Y_SIZE`.
-const Y_SIZE: i32 = 4096;
+use crate::world::level::levelgen::structure::pools::jigsaw_placement::MAX_TOTAL_STRUCTURE_RANGE;
 
 pub struct JigsawStructure {
     settings: StructureSettings,
@@ -44,24 +41,6 @@ fn parse_heightmap(value: &Value) -> LoadResult<HeightmapType> {
     HeightmapType::from_serialization_key(name).ok_or_else(|| LoadError::new(format!("Unknown element name:{name}")))
 }
 
-/// `JigsawStructure.MaxDistance.CODEC`: `Codec.either(FULL_CODEC, HORIZONTAL_VALUE_CODEC)`.
-fn parse_max_distance(value: &Value) -> LoadResult<MaxDistance> {
-    let first = Fields::new(value).and_then(|f| {
-        Ok(MaxDistance {
-            horizontal: f.required("horizontal", |v| parse_int_range(v, 1, MAX_TOTAL_STRUCTURE_RANGE))?,
-            vertical: f.optional("vertical", |v| parse_int_range(v, 1, Y_SIZE))?.unwrap_or(Y_SIZE),
-        })
-    });
-    let first = match first {
-        Ok(distance) => return Ok(distance),
-        Err(e) => e,
-    };
-    match parse_int_range(value, 1, MAX_TOTAL_STRUCTURE_RANGE) {
-        Ok(horizontal) => Ok(MaxDistance::new(horizontal)),
-        Err(second) => Err(LoadError::new(format!("Failed to parse either. First: {first}; Second: {second}"))),
-    }
-}
-
 impl JigsawStructure {
     /// `JigsawStructure.CODEC`.
     pub fn decode(fields: &Fields<'_>, ctx: &DecodeCtx<'_>) -> LoadResult<Arc<dyn Structure>> {
@@ -72,7 +51,7 @@ impl JigsawStructure {
         let start_height = fields.required("start_height", HeightProvider::from_json)?;
         let use_expansion_hack = fields.required("use_expansion_hack", parse_bool)?;
         let project_start_to_heightmap = fields.optional("project_start_to_heightmap", parse_heightmap)?;
-        let max_distance_from_center = fields.required("max_distance_from_center", parse_max_distance)?;
+        let max_distance_from_center = fields.required("max_distance_from_center", MaxDistance::from_json)?;
         let pool_aliases = fields.optional("pool_aliases", |v| parse_list(v, PoolAliasBinding::from_json))?.unwrap_or_default();
         let dimension_padding = fields.optional("dimension_padding", DimensionPadding::from_json)?.unwrap_or(DimensionPadding::ZERO);
         let liquid_settings = fields
