@@ -6,7 +6,7 @@
 //!
 //! Replay subset: `level`, `difficulty`, `gamerule`, `spawn_player`, `give` (plain item ids), `effect`, `set health|absorption`,
 //! `hurt` (no `by=`/`direct=`/`at=`), `tick`, `dump player:`. Scenarios needing mobs, item components, the connection packets
-//! (`PKT` lines), inventories or respawn are not replayed yet (see STATUS: EcDamage known gaps).
+//! (`PKT` lines), inventories or respawn are not replayed yet.
 mod common;
 use common::entity_oracle::*;
 use mc_core::ident::Identifier;

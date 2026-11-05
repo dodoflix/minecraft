@@ -11,7 +11,7 @@
 //!
 //! The signatures follow vanilla (`protected` methods are public here). `ServerLevel` replaces vanilla's `Level`
 //! because the dedicated server only ever runs server levels. Methods that need `ItemStack`/`Player`/loot types are
-//! added by the block slice as those types land (additive: defaults exist for every method).
+//! added by the block code as those types land (additive: defaults exist for every method).
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
@@ -311,7 +311,7 @@ pub trait BlockBehaviour: Send + Sync + 'static {
         None
     }
 
-    // ==== [Items] additions: `Fallable` (FallingBlock, BrushableBlock, SpeleothemBlock) ====
+    // `Fallable` (FallingBlock, BrushableBlock, SpeleothemBlock)
     /// `FallingBlock.falling(entity)`: configures the entity before it enters the level.
     fn falling(&self, _entity: &mut crate::world::entity::falling_block_entity::FallingBlockEntity) {}
     /// `Fallable.onLand(level, pos, state, replacedBlock, entity)`.

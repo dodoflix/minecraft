@@ -12,7 +12,7 @@
 //!   ```
 //!   `spawn_placements::missing_predicates()` lists the types still unregistered. Shared statics to call from your own
 //!   predicates: `world::entity::spawn_predicates` (`check_monster_spawn_rules`, `is_dark_enough_to_spawn`, ...).
-//! * **Entity hooks** (`Entity` trait, `[SpawnFramework]` section; `Mob` and subclasses override): `is_mob`,
+//! * **Entity hooks** (`Entity` trait, spawn framework section; `Mob` and subclasses override): `is_mob`,
 //!   `is_persistence_required`, `requires_custom_persistence`, `check_spawn_rules(level, reason)`,
 //!   `check_spawn_obstruction(level)`, `get_max_spawn_cluster_size`, `is_max_group_size_reached(n)`,
 //!   `remove_when_far_away(dist_sqr)` and `finalize_spawn(level, difficulty, reason, group_data)`. `level` is a

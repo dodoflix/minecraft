@@ -47,5 +47,5 @@ fn try_get_player(level: &ServerLevel, entity: &dyn Entity, is_server_player: bo
 }
 
 /// `CriteriaTriggers.AVOID_VIBRATION.trigger(player)`.
-// SEAM(advancements): `CriteriaTriggers::AVOID_VIBRATION.trigger(level, player)` once the trigger API is on main.
+// SEAM(advancements): `CriteriaTriggers::AVOID_VIBRATION.trigger(level, player)` once the trigger API exists.
 pub fn trigger_avoid_vibration(_level: &mut ServerLevel, _player: EntityId) {}

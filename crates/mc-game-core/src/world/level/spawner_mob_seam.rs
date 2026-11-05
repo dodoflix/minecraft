@@ -1,9 +1,8 @@
 //! SEAM(Mob): the `Mob`-only calls the block spawners make on a freshly created entity, in vanilla's order
 //! (`Mob.checkSpawnRules`, `checkSpawnObstruction`, `finalizeSpawn`, `setPersistenceRequired`, `equip`, `spawnAnim`,
-//! `dropPreservedEquipment`) and `SpawnPlacements.checkSpawnRules`. The mob slice (`MobsScope.MobSpine` /
-//! `MobsScope.SpawnFramework`) does not exist on this branch yet, so no entity is a `Mob` and every entity passes
-//! these checks untouched. When the mob slice lands, replace the bodies with the `Entity`-trait hooks and
-//! `SpawnPlacements::check_spawn_rules`; callers do not change.
+//! `dropPreservedEquipment`) and `SpawnPlacements.checkSpawnRules`. The mob spine and the spawn framework do not
+//! exist yet, so no entity is a `Mob` and every entity passes these checks untouched. Once they exist, replace the
+//! bodies with the `Entity`-trait hooks and `SpawnPlacements::check_spawn_rules`; callers do not change.
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::equipment_table::EquipmentTable;

@@ -85,7 +85,6 @@ pub struct LivingEntityData {
     pub last_hurt_by_mob: Option<uuid::Uuid>,
     /// `brain` (`getBrain()`); `new Brain<>()` until the mob's constructor / `read_brain` runs `makeBrain`.
     pub brain: super::ai::brain::Brain,
-    // ==== [LivingCore] additions (LivingEntityData field) ====
     /// `lastClimbablePos` (set by `onClimbable()` of this entity's own movement).
     pub last_climbable_pos: Option<BlockPos>,
     /// `discardFriction` (`shouldDiscardFriction()`).
@@ -94,7 +93,6 @@ pub struct LivingEntityData {
     pub last_hurt_mob: Option<super::EntityId>,
     /// `autoSpinAttackItemStack`.
     pub auto_spin_attack_item_stack: Option<crate::world::item::ItemStack>,
-    // ==== [Damage] additions (LivingEntityData field) ====
     /// `combatTracker`.
     pub combat_tracker: crate::world::damagesource::CombatTracker,
     /// `lastDamageSource` / `lastDamageStamp` (`getLastDamageSource()`).
@@ -102,14 +100,11 @@ pub struct LivingEntityData {
     pub last_damage_stamp: i64,
     /// `skipDropExperience`.
     pub skip_drop_experience: bool,
-    // ==== [Effects] additions (LivingEntityData field) ====
     /// `activeEffects.modCount`: bumped by every structural modification, `tickEffects` detects its own iterator being
     /// invalidated (`ConcurrentModificationException`) with it.
     pub effects_mod_count: u32,
     /// `lastEquipmentItems` (indexed by `EquipmentSlot` ordinal).
     pub last_equipment_items: [crate::world::item::ItemStack; 8],
-    // ==== [Player] additions (LivingEntityData field) ====
-    // ==== [Enchant] additions (LivingEntityData field) ====
     /// `activeLocationDependentEnchantments`: per equipment slot (index = `EquipmentSlot` ordinal) the enchantments (registry key)
     /// with the active effects, as indices into their `location_changed` list.
     pub active_location_dependent_enchantments: [Vec<(mc_core::ident::Identifier, Vec<u16>)>; 8],
@@ -179,21 +174,16 @@ impl LivingEntityData {
             last_hurt_by_player: None,
             last_hurt_by_mob: None,
             brain: super::ai::brain::Brain::new(),
-            // ==== [LivingCore] additions (LivingEntityData::new initializer) ====
             last_climbable_pos: None,
             discard_friction: false,
             last_hurt_mob: None,
             auto_spin_attack_item_stack: None,
-            // ==== [Damage] additions (LivingEntityData::new initializer) ====
             combat_tracker: Default::default(),
             last_damage_source: None,
             last_damage_stamp: 0,
             skip_drop_experience: false,
-            // ==== [Effects] additions (LivingEntityData::new initializer) ====
             effects_mod_count: 0,
             last_equipment_items: std::array::from_fn(|_| crate::world::item::ItemStack::empty()),
-            // ==== [Player] additions (LivingEntityData::new initializer) ====
-            // ==== [Enchant] additions (LivingEntityData::new initializer) ====
             active_location_dependent_enchantments: Default::default(),
         };
         let max_health = data.get_max_health();

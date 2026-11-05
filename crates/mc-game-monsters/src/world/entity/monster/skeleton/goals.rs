@@ -48,7 +48,7 @@ pub fn register_goals(skeleton: &mut AbstractSkeleton) {
     t.add_goal(3, Box::new(NearestAttackableTargetGoal::build(TargetType::of_type(EntityType::TURTLE), 10, true, false, Some(baby_on_land))));
 }
 
-/// The `bowGoal` / `meleeGoal` field initializers. NOT YET: `bowGoal` (`RangedBowAttackGoal` is not on main).
+/// The `bowGoal` / `meleeGoal` field initializers. NOT YET: `bowGoal` (`RangedBowAttackGoal` is not ported yet).
 pub fn create_weapon_goals(skeleton: &mut AbstractSkeleton) {
     skeleton.parked_melee_goal = Some(Box::new(SkeletonMeleeAttackGoal { melee: MeleeAttackGoal::new(1.2, false) }));
 }

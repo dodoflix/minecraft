@@ -196,9 +196,6 @@ fn can_teleport_to(e: &mut dyn Entity, level: &ServerLevel, pos: BlockPos) -> bo
     let delta = pos.subtract(&e.block_position());
     level.no_collision(Some(e.id()), Some(&crate::world::entity::movement::collision_context(e)), &e.base().bounding_box().move_(f64::from(delta.x()), f64::from(delta.y()), f64::from(delta.z())))
 }
-
-// ==== [Pets] additions ====
-
 /// `TamableAnimal.die(source)`: the combat tracker's death message goes to a player owner (`SHOW_DEATH_MESSAGES`).
 pub fn die(e: &mut dyn Entity, level: &mut ServerLevel, source: &crate::world::damagesource::DamageSource) {
     if level.show_death_messages() {

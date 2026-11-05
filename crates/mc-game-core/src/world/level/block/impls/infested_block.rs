@@ -2,7 +2,7 @@
 //! (`infestedStateByHost`, `hostStateByInfested`, `isCompatibleHostBlock`).
 //!
 //! The silverfish that comes out when an infested block is broken (`spawnAfterBreak`) is created through the entity
-//! factory; until MobsScope registers the `Silverfish` type nothing is spawned (see STATUS.md).
+//! factory; until the `Silverfish` type is registered nothing is spawned.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
 use crate::world::entity::factory::{self, EntitySpawnRequest};

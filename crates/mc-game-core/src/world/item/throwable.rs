@@ -2,7 +2,7 @@
 //! `LingeringPotionItem.use`, `ExperienceBottleItem.use`.
 //!
 //! The projectile entities (`ThrownSplashPotion`, `ThrownLingeringPotion`, `ThrownExperienceBottle`) belong to the
-//! throwables slice. It installs one [`ThrownSpawner`] per [`ThrowKind`] with [`set_thrown_spawner`]; the spawner is the
+//! throwables code. It installs one [`ThrownSpawner`] per [`ThrowKind`] with [`set_thrown_spawner`]; the spawner is the
 //! vanilla `Projectile.spawnProjectileFromRotation(Thrown*::new, level, stack, owner, yOffset, power, uncertainty)` call
 //! (create the entity for `owner` and `stack`, `shootFromRotation`, `addFreshEntity`, `applyOnProjectileSpawned`).
 //! Without a spawner the item is still used up (sound, stat, consumption), exactly the part of vanilla that does not

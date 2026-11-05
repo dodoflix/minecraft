@@ -221,7 +221,7 @@ impl ServerLevel {
             let entities = crate::world::entity::factory::load_entities_recursive(chunk.get_entities(), self, mc_data::enums::EntitySpawnReason::Load);
             let loaded_ids: Vec<EntityId> = entities.iter().filter(|e| e.raider().is_some()).map(|e| e.id()).collect();
             self.entity_manager.add_legacy_chunk_entities(entities);
-            // ==== [Raids] additions: `Raider.readAdditionalSaveData` joins the saved raid ====
+            // `Raider.readAdditionalSaveData` joins the saved raid
             for id in loaded_ids {
                 self.with_entity(id, |level, e| e.after_loaded_to_level(level));
             }
@@ -331,9 +331,6 @@ impl ServerLevel {
         // a removed entity's slot is gone: `put_back` parks it in the limbo again
         self.entity_manager.put_back(id, entity);
     }
-
-    // ==== [WardenMobs] additions ====
-
     /// `getEntity(uuid).getId()` that also finds an entity that is currently taken out of its slot (it is ticking).
     pub fn entity_id_by_uuid(&self, uuid: Uuid) -> Option<EntityId> {
         self.entity_manager.id_by_uuid(uuid)
@@ -404,8 +401,6 @@ impl ServerLevel {
         });
         out
     }
-
-    // ==== [Aquatic] additions ====
     /// `getEntitiesOfClass(...)` issued by the ticking (taken-out) entity `stand_in`: it is returned too, at its slot
     /// position, like vanilla. `selector` also sees the stand-in.
     pub fn get_entities_of_class_with_stand_in(

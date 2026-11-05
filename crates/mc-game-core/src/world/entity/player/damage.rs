@@ -45,8 +45,6 @@ impl ServerPlayer {
         level.pvp() && self.do_teams_allow_damage(level, &attacker.scoreboard_name)
     }
 }
-
-// ==== [Pets] additions ====
 impl ServerPlayer {
     /// `ServerPlayer.canHarmPlayer(target)` (`this` hurts `target`): `isPvpAllowed() && doTeamsAllowDamage(target)`.
     pub fn can_harm_player(&self, level: &ServerLevel, target_scoreboard_name: &str) -> bool {
@@ -300,7 +298,7 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
 
     player.remove_entities_on_shoulder(level);
     if level.forgive_dead_players() {
-        // `tellNeutralMobsThatIDied()`: neutral mobs (`NeutralMob.playerDied`) belong to the mob slice.
+        // `tellNeutralMobsThatIDied()`: neutral mobs (`NeutralMob.playerDied`) belong to the mob code.
     }
     if !player.is_spectator() {
         player.drop_all_death_loot(level, source);

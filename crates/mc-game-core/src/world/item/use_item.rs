@@ -171,7 +171,7 @@ pub fn on_use_tick(stack: &mut ItemStack, level: &mut ServerLevel, entity: &mut 
             super::consumable::emit_particles_and_sounds(&consumable, level, entity, stack, 5);
         }
     }
-    // `KineticWeapon.damageEntities` (spear lunge) belongs to the combat slice.
+    // `KineticWeapon.damageEntities` (spear lunge) belongs to the combat code.
     behaviour(stack.item()).on_use_tick(level, entity, stack, ticks_remaining);
 }
 

@@ -195,9 +195,6 @@ pub trait ItemBehaviour: Send + Sync + 'static {
     fn as_sign_applicator(&self) -> Option<&dyn super::sign_applicator::SignApplicator> {
         None
     }
-
-    // ==== [ImThrowables] additions ====
-
     /// `item instanceof ProjectileItem`.
     fn as_projectile_item(&self) -> Option<&dyn super::ProjectileItem> {
         None

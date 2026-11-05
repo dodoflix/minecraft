@@ -177,7 +177,6 @@ pub struct EntityData {
     pub moved_since_sync: bool,
     /// Dimensions grew in `refresh_dimensions` and `fudgePositionAfterSizeChange` still has to run (it needs the level).
     pub pending_fudge_from: Option<EntityDimensions>,
-    // ==== [EntityBase] additions (EntityData field) ====
     /// `fluidInteraction` (trackers + current accumulators; `fluid_height`/`eye_in_fluid` mirror it for water and lava).
     pub fluid_interaction: super::fluid_interaction::EntityFluidInteraction,
     /// `portalProcess`.
@@ -188,12 +187,8 @@ pub struct EntityData {
     pub in_block_state: Option<mc_data::block::BlockState>,
     /// `insideEffectCollector`.
     pub inside_effect_collector: super::inside_block_effects::StepBasedCollector,
-    // ==== [Monsters2] additions (EntityData field) ====
     /// `Shulker` overrides `getDeltaMovement()` (always zero) and `setDeltaMovement(..)` (ignored).
     pub delta_movement_frozen: bool,
-    // ==== [Damage] additions (EntityData field) ====
-    // ==== [Effects] additions (EntityData field) ====
-    // ==== [Level] additions (EntityData field) ====
 }
 
 impl EntityData {
@@ -286,18 +281,13 @@ impl EntityData {
             custom_data: CompoundTag::new(),
             moved_since_sync: false,
             pending_fudge_from: None,
-            // ==== [EntityBase] additions (EntityData::new initializer) ====
             fluid_interaction: Default::default(),
             portal_process: None,
             crystal_sound_intensity: 0.0,
             last_crystal_sound_play_tick: 0,
             in_block_state: None,
             inside_effect_collector: Default::default(),
-            // ==== [Monsters2] additions (EntityData::new initializer) ====
             delta_movement_frozen: false,
-            // ==== [Damage] additions (EntityData::new initializer) ====
-            // ==== [Effects] additions (EntityData::new initializer) ====
-            // ==== [Level] additions (EntityData::new initializer) ====
         };
         data.set_pos_raw_and_box(0.0, 0.0, 0.0);
         data
@@ -652,9 +642,6 @@ pub trait Entity: Any {
     fn get_bounding_box(&self) -> AABB {
         self.base().bounding_box()
     }
-
-    // ==== [Explosions] additions (Entity trait methods) ====
-
     /// `Explosion.getIndirectSourceEntity(this)` when this entity is an explosion source: a living entity is its own
     /// indirect source, a projectile's is its living owner (`PrimedTnt` overrides with its owner).
     fn explosion_indirect_source(&self, level: &ServerLevel) -> Option<EntityId> {
@@ -999,7 +986,7 @@ pub trait Entity: Any {
     }
 
     /// `OwnableEntity.getOwnerReference()`: the owner's UUID for tameable animals, horses and the like (`None` for
-    /// everything else). SEAM(MobsScope): overridden by the mob classes that are `OwnableEntity`.
+    /// everything else). SEAM(mobs): overridden by the mob classes that are `OwnableEntity`.
     fn ownable_owner_uuid(&self) -> Option<uuid::Uuid> {
         None
     }
@@ -1387,8 +1374,6 @@ pub trait Entity: Any {
     fn save_without_id(&self, out: &mut CompoundTag, lookup: &EntityLookupFn<'_>) {
         save_without_id(self, out, lookup);
     }
-    // ==== [EntityBase] additions (Entity trait methods) ====
-
     // ---- fluids / water state ---------------------------------------------------------------------------------
 
     /// `isInWater()`.
@@ -1895,7 +1880,7 @@ pub trait Entity: Any {
         }
         true
     }
-    /// `Leashable.removeLeash()` of `removeAfterChangingDimensions` (the mob slice overrides it for leashable mobs).
+    /// `Leashable.removeLeash()` of `removeAfterChangingDimensions` (the mob classes override it for leashable mobs).
     fn remove_leash(&mut self, _level: &mut ServerLevel) {}
     /// `setAsInsidePortal(portal, pos)`.
     fn set_as_inside_portal(&mut self, level: &ServerLevel, portal: &'static dyn super::portal::Portal, pos: BlockPos) {
@@ -2182,7 +2167,6 @@ pub trait Entity: Any {
     fn is_discrete(&self) -> bool {
         self.is_shift_key_down()
     }
-    // ==== [LivingCore] additions (Entity trait methods) ====
     // ---- `LivingEntity` behaviour: defaults are the vanilla methods for every entity whose `living()` is Some;
     // ---- mobs/players override the hooks vanilla overrides (`travel`, `serverAiStep`, `isImmobile`, ...) -----------
 
@@ -2426,7 +2410,6 @@ pub trait Entity: Any {
     fn get_bed_orientation(&self, level: &ServerLevel) -> Option<mc_core::direction::Direction> {
         super::living_entity::sleeping::get_bed_orientation(self.as_dyn(), level)
     }
-    // ==== [Damage] additions (Entity trait methods) ====
     // Defaults implement `Entity`/`LivingEntity`; `Player`/`ServerPlayer` and mobs override and call the free
     // functions of `living_entity::damage` as their `super` call.
 
@@ -2665,8 +2648,6 @@ pub trait Entity: Any {
 
     /// `awardKillScore(victim, killingBlow)` (`ServerPlayer`: scoreboard + stats).
     fn award_kill_score(&mut self, _level: &mut ServerLevel, _victim: &crate::world::damagesource::DamageEntity, _victim_entity: Option<&dyn Entity>, _source: &crate::world::damagesource::DamageSource) {}
-
-    // ==== [Effects] additions (Entity trait methods) ====
     /// `LivingEntity.addEffect(newEffect, source)`.
     fn add_effect(&mut self, level: &mut ServerLevel, effect: super::effect::MobEffectInstance, source: Option<EntityId>) -> bool {
         super::living_entity::effects::add_effect(self.as_dyn_mut(), level, effect, source)
@@ -2751,10 +2732,6 @@ pub trait Entity: Any {
             l.absorption_amount = amount;
         }
     }
-    // ==== [Player] additions (Entity trait methods) ====
-    // ==== [Level] additions (Entity trait methods) ====
-    // ==== [Items] additions (Entity trait methods) ====
-    // ==== [Predicates] additions (Entity trait methods) ====
     /// `SlotProvider.getSlot(slot).get()`: the stack in the numbered slot (`SlotRanges`), `None` when the entity has no
     /// such slot. Default = `LivingEntity`/`Player` slots; mobs with their own inventory override.
     fn get_slot(&self, slot: i32) -> Option<crate::world::item::ItemStack> {
@@ -2768,7 +2745,7 @@ pub trait Entity: Any {
     fn is_baby(&self) -> bool {
         self.mob().is_some_and(|m| m.ageable.is_some()) && super::mob::ageable::is_baby(self.as_dyn())
     }
-    /// `Mob.getTarget()` (`None` for non-mobs). SEAM(Mob): overridden by the mob slice.
+    /// `Mob.getTarget()` (`None` for non-mobs). SEAM(Mob): overridden by the mob classes.
     fn get_target(&self) -> Option<EntityId> {
         self.mob().and_then(|m| m.target)
     }
@@ -2776,7 +2753,6 @@ pub trait Entity: Any {
     fn sheep_sheared(&self) -> Option<bool> {
         None
     }
-    // ==== [FarmAnimals] additions (Entity trait methods) ====
     /// `this instanceof Shearable` (`Sheep`, `MushroomCow`, `SnowGolem`, `Bogged`).
     fn is_shearable(&self) -> bool {
         false
@@ -2841,7 +2817,6 @@ pub trait Entity: Any {
     fn cube_mob_size(&self) -> Option<i32> {
         None
     }
-    // ==== [Cubes] additions (Entity trait methods) ====
     /// `getFluidJumpThreshold()` (`SulfurCube` overrides it).
     fn get_fluid_jump_threshold(&self) -> f64 {
         self.base().get_fluid_jump_threshold()
@@ -2863,11 +2838,10 @@ pub trait Entity: Any {
     fn fishing_hook_open_water(&self) -> Option<bool> {
         None
     }
-    // ==== [ImThrowables] additions ====
     /// `Axolotl.rehydrate()` (water bottles splashed on axolotls); a no-op for everything else. Overridden by the Axolotl.
     fn rehydrate(&mut self) {}
     /// `(LightningBolt.getBlocksSetOnFire(), LightningBolt.getHitEntities())`; `None` when the entity is not a
-    /// `LightningBolt`. SEAM(LightningBolt): implemented by the explosions/lightning slice.
+    /// `LightningBolt`. SEAM(LightningBolt): implemented by the lightning entity.
     fn lightning_bolt_state(&self) -> Option<crate::advancements::predicates::entity::support::LightningBoltState> {
         None
     }
@@ -2880,8 +2854,6 @@ pub trait Entity: Any {
     fn advancement_progress(&self, _advancement: &mc_core::ident::Identifier) -> Option<crate::advancements::predicates::entity::support::AdvancementProgressSnapshot> {
         None
     }
-    // ==== [Enchant] additions (Entity trait methods) ====
-
     /// The live stack of `slot` (`getItemBySlot(slot)` by reference), `None` for non-living entities. Enchantment effects
     /// write their durability changes back through it.
     fn item_by_slot_mut(&mut self, slot: super::equipment::EquipmentSlot) -> Option<&mut crate::world::item::ItemStack> {
@@ -2893,7 +2865,6 @@ pub trait Entity: Any {
     fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, broken: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) {
         crate::world::item::enchantment::broken_item::on_equipped_item_broken(self.as_dyn_mut(), level, broken, slot);
     }
-    // ==== [BrainFramework] additions (Entity trait methods) ====
     /// `getBrain()` of a living entity (a brain-less `new Brain<>()` unless the mob made one); panics for non-living entities.
     fn brain(&self) -> &super::ai::brain::Brain {
         &self.living().expect("brain() on a non-living entity").brain
@@ -2922,26 +2893,20 @@ pub trait Entity: Any {
     fn can_target_entity(&self, _level: &ServerLevel, _entity: &dyn Entity) -> bool {
         false
     }
-    // ==== [BehaviorsA] additions (Entity trait methods) ====
     /// `Villager.releasePoi(memoryType)` (the villager overrides; `SetWalkTargetFromBlockMemory` calls it on its body).
     fn release_poi(&mut self, _level: &mut ServerLevel, _memory: super::ai::memory::MemoryTypeId) {}
-
-    // ==== [Piglins] additions (Entity trait methods) ====
     /// The vehicle `startRiding(vehicle)` actually boards (`Piglin.startRiding`: a baby piglin takes the top free seat of a hoglin).
     fn adjust_vehicle_to_ride(&self, _level: &ServerLevel, vehicle: EntityId) -> EntityId {
         vehicle
     }
-    // ==== [Loot] additions (Entity trait methods) ====
     /// `this instanceof SlotProvider` (entities whose slots `slot_range` loot sources read).
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
         None
     }
-    // ==== [Blocks:Containers] additions (Entity trait methods) ====
     /// `TamableAnimal.isInSittingPose()` (cats sitting on chests block them: `ChestBlock.isCatSittingOnChest`).
     fn is_in_sitting_pose(&self) -> bool {
         false
     }
-    // ==== [PathfinderCore] additions (Entity trait methods) ====
     // Mob hooks the pathfinder/navigation call; the defaults are the behavior of an entity that is not a `Mob`
     // (`Mob` types override them: malus map, move control, ...).
     /// `Mob.getPathfindingMalus(type)` (incl. the controlled-vehicle redirect; `level` resolves the vehicle).
@@ -2974,7 +2939,6 @@ pub trait Entity: Any {
     fn move_control_speed_modifier(&self) -> f64 {
         super::mob::move_control_speed_modifier(self.as_dyn())
     }
-    // ==== [GoalsA] additions (Entity trait methods) ====
     /// `this instanceof AbstractHorse` (the surface the generic horse goals use; implemented by `AbstractHorse` mobs).
     fn as_abstract_horse(&self) -> Option<&dyn crate::world::entity::ai::goal::AbstractHorseAccess> {
         None
@@ -3001,12 +2965,11 @@ pub trait Entity: Any {
     fn villager_wants_to_spawn_golem(&self, _game_time: i64) -> bool {
         false
     }
-    // ==== [Golems] additions (Entity trait methods) ====
     /// `Villager.getPlayerReputation(player)` (read for `EntityType.VILLAGER` by `DefendVillageTargetGoal`; the villager overrides it).
     fn get_player_reputation(&self, _player: &uuid::Uuid) -> i32 {
         0
     }
-    // ==== [MobSpine] additions (Entity trait methods) ====
+    // ==== mob spine additions (Entity trait methods) ====
     // `Mob` and its generic subclasses. Every default is the vanilla behavior and dispatches on `mob()` (the `MobData`
     // of mob types); concrete mobs override what their Java class overrides and call the `world::entity::mob` function
     // of the layer they extend as their `super` call (see the module docs of `world/entity/mob/mod.rs`).
@@ -3018,7 +2981,7 @@ pub trait Entity: Any {
     fn mob_mut(&mut self) -> Option<&mut super::mob::MobData> {
         None
     }
-    // ---- SEAM(SpawnFramework): removed when its hooks land (identical names and signatures) ----
+    // ---- spawn framework hooks (identical names and signatures) ----
     /// `this instanceof Mob`.
     fn is_mob(&self) -> bool {
         self.mob().is_some()
@@ -3226,7 +3189,6 @@ pub trait Entity: Any {
     fn is_panicking_by_brain(&self) -> Option<bool> {
         None
     }
-    // ==== [GoalsB] additions (Entity trait methods) ====
     /// `RangedAttackMob.performRangedAttack(target, power)` (default: not a ranged-attack mob). `target` is in the level.
     fn perform_ranged_attack(&mut self, _level: &mut ServerLevel, _target: EntityId, _power: f32) {}
     /// `RangedAttackMob.rangedAttackUncertainty(level)`.
@@ -3380,7 +3342,6 @@ pub trait Entity: Any {
     fn start_persistent_anger_timer(&mut self, _level: &mut ServerLevel) {}
     /// Class-specific part of `ConversionType.convertCommon(from, to)` (zombie door breaking, ...).
     fn conversion_common_extra(&self, _to: &mut dyn Entity) {}
-    // ==== [Undead] additions (Entity trait methods) ====
     /// `LivingEntity.setBaby(baby)` (`AgeableMob` sets its age; `Zombie` its own flag).
     fn set_baby(&mut self, baby: bool) {
         if self.mob().is_some_and(|m| m.ageable.is_some()) {
@@ -3403,7 +3364,6 @@ pub trait Entity: Any {
     /// What a class's `rideTick()` override does after `super.rideTick()` (`Zombie`/`AbstractSkeleton`: the body follows a
     /// controlled `PathfinderMob` vehicle).
     fn after_ride_tick(&mut self, _level: &ServerLevel) {}
-    // ==== [Pets] additions (Entity trait methods) ====
     /// `LivingEntity.setRecordPlayingNearby(jukebox, isPlaying)` (`Parrot` dances to jukebox music).
     fn set_record_playing_nearby(&mut self, _jukebox: BlockPos, _is_playing: bool) {}
     /// `AgeableMob.getAgeScale()` (`Turtle`: 0.3 for babies).
@@ -3432,7 +3392,6 @@ pub trait Entity: Any {
     fn get_hurt_sound_in(&self, _level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
         self.get_hurt_sound(source)
     }
-    // ==== [EntityItems] additions (Entity trait methods) ====
     /// `interact(player, hand, location)`: the player (taken out of the level) uses the entity.
     fn interact(
         &mut self,
@@ -3522,13 +3481,11 @@ pub trait Entity: Any {
     fn is_rideable_minecart(&self) -> bool {
         false
     }
-    // ==== [Blocks:FireBedCauldron] additions (Entity trait methods) ====
     /// `Monster.isPreventingPlayerRest(level, player)` (read for the monster entity types only; `true` is the `Monster`
     /// default, `ZombifiedPiglin` overrides it with `isAngryAt(player)`).
     fn is_preventing_player_rest(&self, _level: &ServerLevel, _player: &dyn Entity) -> bool {
         true
     }
-    // ==== [Monsters2] additions (Entity trait methods) ====
     /// `Entity.getLightLevelDependentMagicValue()` (`Blaze`, `Vex` override with 1.0).
     fn get_light_level_dependent_magic_value(&self, level: &ServerLevel) -> f32 {
         super::mob::ext::get_light_level_dependent_magic_value_at_entity(level, self.as_dyn())
@@ -3560,7 +3517,6 @@ pub trait Entity: Any {
     fn on_moved_by_shulker_box(&mut self, _level: &mut ServerLevel) -> bool {
         false
     }
-    // ==== [Blocks:TechnicalA] additions (Entity trait methods) ====
     /// `this instanceof Bee`: the `Bee` methods `BeehiveBlockEntity` / `BeehiveBlock` call (implemented by the bee entity).
     fn as_bee_access(&mut self) -> Option<&mut dyn crate::world::block_entity::BeeAccess> {
         None
@@ -3568,7 +3524,6 @@ pub trait Entity: Any {
     /// `getBrain().setMemory(MemoryModuleType.HEARD_BELL_TIME, gameTime)` (`BellBlockEntity.updateEntities`): entities whose
     /// brain registers the memory (villagers, ...) override this; the memory write is a no-op for brains without it.
     fn set_heard_bell_time(&mut self, _game_time: i64) {}
-    // ==== [Raids] additions (Entity trait methods) ====
     /// The `Raider` (`PatrollingMonster`) data of raiders (`this instanceof Raider`).
     fn raider(&self) -> Option<&super::raid::raider::RaiderData> {
         None
@@ -3604,7 +3559,6 @@ pub trait Entity: Any {
     fn spellcaster_mut(&mut self) -> Option<&mut super::monster::illager::spellcaster_illager::SpellcasterData> {
         None
     }
-    // ==== [Villagers] additions (Entity trait methods) ====
     /// `AgeableMob.canBreed()` (villagers: enough food, awake, age 0).
     fn can_breed(&self) -> bool {
         false
@@ -3626,7 +3580,6 @@ pub trait Entity: Any {
     fn was_hurt_recently(&self) -> bool {
         self.living().is_some_and(|l| l.hurt_time > 0)
     }
-    // ==== [Attack] additions (Entity trait methods) ====
     /// `LivingEntity.doHurtTarget(level, target)` (`Mob` overrides: damage, knockback, item effects). The target is out of the level.
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
         if self.mob().is_some() {
@@ -3650,7 +3603,6 @@ pub trait Entity: Any {
     }
     /// `onAttack()` (`Player`: resets the attack strength ticker).
     fn on_attack(&mut self) {}
-    // ==== [Amphibians] additions (Entity trait methods) ====
     /// `Animal.spawnChildFromBreeding(level, partner)` (virtual: `Frog` and `Sniffer` override it).
     fn spawn_child_from_breeding(&mut self, level: &mut ServerLevel, partner: EntityId) {
         super::mob::animal::spawn_child_from_breeding_super(self.as_dyn_mut(), level, partner);
@@ -3664,7 +3616,6 @@ pub trait Entity: Any {
     fn calculate_fall_damage(&self, fall_distance: f64, damage_modifier: f32) -> i32 {
         super::living_entity::damage::calculate_fall_damage(self.as_dyn(), fall_distance, damage_modifier)
     }
-    // ==== [Vehicles] additions (Entity trait methods) ====
     /// `ignoreExplosion(explosion)` where the level is needed (the `mobGriefing` rule of vehicles).
     fn ignore_explosion_in_level(&self, _level: &ServerLevel, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
         false
@@ -3692,7 +3643,6 @@ pub trait Entity: Any {
             if open { c.start_open(user) } else { c.stop_open(user) }
         }
     }
-    // ==== [FoxPanda] additions (Entity trait methods) ====
     /// `LivingEntity.isSleeping()` (virtual: `Fox` keeps it in a synched flag instead of the sleeping position).
     fn is_sleeping(&self) -> bool {
         self.living().is_some_and(|l| l.is_sleeping())
@@ -3701,7 +3651,6 @@ pub trait Entity: Any {
     fn is_aggressive(&self) -> bool {
         self.mob().is_some_and(|m| m.is_aggressive())
     }
-    // ==== [WardenMobs] additions (Entity trait methods) ====
     /// `Entity.updateDynamicGameEventListener(action)`: run by the level on tracking start (`Add`), tracking end (`Remove`)
     /// and section change (`Move`) of the entity (entities with a `DynamicGameEventListener`: warden, allay).
     fn update_dynamic_game_event_listener(&mut self, _level: &mut ServerLevel, _action: crate::world::level::gameevent::DynamicListenerAction) {}

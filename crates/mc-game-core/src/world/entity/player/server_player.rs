@@ -16,7 +16,7 @@ use mc_protocol::packets::play::Input;
 use crate::world::entity::respawn::RespawnConfig;
 use std::any::Any;
 
-/// `WardenSpawnTracker` state (the tracker logic belongs to the warden slice).
+/// `WardenSpawnTracker` state (the tracker logic belongs to the warden code).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct WardenSpawnTracker {
     pub ticks_since_last_warning: i32,
@@ -86,7 +86,7 @@ pub struct ServerPlayer {
     pub camera: Option<EntityId>,
     pub is_changing_dimension: bool,
     pub seen_credits: bool,
-    /// `recipeBook` (`ServerRecipeBook.Packed`), kept as the saved tag until the recipe slice models it.
+    /// `recipeBook` (`ServerRecipeBook.Packed`), kept as the saved tag until the recipe book is modelled.
     pub recipe_book: crate::world::item::crafting::ServerRecipeBook,
     pub levitation_start_pos: Option<Vec3>,
     pub levitation_start_time: i32,
@@ -127,19 +127,15 @@ pub struct ServerPlayer {
     pub dimension: Identifier,
     /// `RootVehicle` tag read from the saved data (`loadAndSpawnParentVehicle` consumes it).
     pub saved_root_vehicle: Option<CompoundTag>,
-    // ==== [Player] additions (ServerPlayer field) ====
     /// `stats`: the player's statistics (shared with `PlayerList.stats`).
     pub stats: crate::stats::SharedStats,
     /// `advancements`: the player's advancement progress (shared with `PlayerList.advancements`).
     pub advancements: crate::advancements::SharedAdvancements,
     /// `timeEntitySatOnShoulder` (game time).
     pub time_entity_sat_on_shoulder: i64,
-    // ==== [Level] additions (ServerPlayer field) ====
-    // ==== [LivingCore] additions (ServerPlayer field) ====
     /// The server simulates this player's physics like a locally controlled `LocalPlayer` from `last_client_input` (the
     /// oracle/test mode; real vanilla players are client-authoritative and the server only validates their movement).
     pub simulate_local_player: bool,
-    // ==== [Damage] additions (ServerPlayer field) ====
 }
 
 impl ServerPlayer {
@@ -205,14 +201,10 @@ impl ServerPlayer {
             saved_dimension: None,
             dimension,
             saved_root_vehicle: None,
-            // ==== [Player] additions (ServerPlayer::new initializer) ====
             stats: crate::stats::SharedStats::new(crate::stats::ServerStatsCounter::detached()),
             advancements: crate::advancements::SharedAdvancements::detached(),
             time_entity_sat_on_shoulder: 0,
-            // ==== [Level] additions (ServerPlayer::new initializer) ====
-            // ==== [LivingCore] additions (ServerPlayer::new initializer) ====
             simulate_local_player: false,
-            // ==== [Damage] additions (ServerPlayer::new initializer) ====
         };
         p.update_options(client_information);
         p
@@ -445,7 +437,6 @@ impl Entity for ServerPlayer {
         l.jumping = input.jump;
         self.set_sprinting(input.sprint && input.forward);
     }
-    // ==== [LivingCore] additions (impl Entity for ServerPlayer) ====
     /// `ServerPlayer.onInsideBlock(state)`.
     fn on_inside_block(&mut self, level: &mut crate::server::level::ServerLevel, state: mc_data::block::BlockState) {
         crate::advancements::triggers::CriteriaTriggers::ENTER_BLOCK.trigger(level, self, state);
@@ -623,13 +614,11 @@ impl Entity for ServerPlayer {
     fn get_scoreboard_name(&self) -> String {
         self.player.game_profile.name.clone()
     }
-    // ==== [Player] additions (Entity impl) ====
     /// `ServerPlayer.jumpFromGround()`: the jump stat and the exhaustion after `LivingEntity.jumpFromGround`.
     fn jump_from_ground(&mut self, level: &crate::server::level::ServerLevel) {
         crate::world::entity::living_entity::jump::jump_from_ground(self, level);
         self.after_jump_from_ground(level);
     }
-    // ==== [Effects] additions (Entity impl) ====
     /// `ServerPlayer.updateInvisibilityStatus()`: spectators are invisible and show no effect particles.
     fn update_invisibility_status(&mut self) {
         if self.is_spectator() {

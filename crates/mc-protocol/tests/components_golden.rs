@@ -236,7 +236,7 @@ fn run(kind: &str, name: &str, payload: &str) -> String {
 //
 // Vanilla iterates `ItemEnchantments` (`Object2IntOpenHashMap<Holder>`), decoded predicate maps (`HashMap<Type>`), the
 // client-side `HashedPatchMap` (`IdentityHashMap<DataComponentType>`) and `DataComponentExactPredicate`'s JSON encoding
-// (`Collectors.toMap`) in `Object.hashCode()` order, which differs from JVM run to run (STATUS.md "Hash-order findings").
+// (`Collectors.toMap`) in `Object.hashCode()` order, which differs from JVM run to run.
 // Their golden fields are compared as sets: JSON/SNBT with unordered maps, wire bytes by decoding both sides.
 
 /// Fields of `file` whose vanilla output order is JVM-run dependent (`hashed` is client-side and always unordered).

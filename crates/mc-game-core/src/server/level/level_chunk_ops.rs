@@ -542,7 +542,7 @@ impl UpgradeChunk for ChunkUpgrade<'_> {
         state.update_shape(&mut *self.level, *pos, direction, *neighbour_pos, neighbour_state)
     }
     fn swap_chest_contents(&mut self, _a: &BlockPos, _b: &BlockPos) {
-        // `ChestBlockEntity.swapContents`: handled by the chest block entity slice (no chest implementation registered).
+        // `ChestBlockEntity.swapContents`: handled by the chest block entity (no chest implementation registered).
     }
     fn schedule_block_tick(&mut self, pos: &BlockPos, block: Block, delay: i32, priority: TickPriority) {
         LevelAccessor::schedule_block_tick(&mut *self.level, *pos, block, delay, priority);

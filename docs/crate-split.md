@@ -1,11 +1,11 @@
 # Splitting `mc-game` into crates
 
-Why: `mc-game` was ~305k lines in one crate, so every gameplay edit recompiled all of it (this capped parallel agents at ~2).
+Why: `mc-game` was ~305k lines in one crate, so every gameplay edit recompiled all of it.
 After the split, an edit to one block / mob / command / feature recompiles one 10-25k line crate plus the thin `mc-game` on top.
 
 Rules of the split: no behavior change, no renamed concepts, every historical `mc_game::...` path keeps working,
 files keep their relative paths (`crates/mc-game/src/world/entity/animal/sheep/..` becomes
-`crates/mc-game-animals/src/world/entity/animal/sheep/..`), so git rename detection carries the ~180 feature branches over.
+`crates/mc-game-animals/src/world/entity/animal/sheep/..`), so git rename detection carries in-flight branches over.
 
 ## Crates
 
@@ -147,8 +147,8 @@ candidate that name it; "refs" = distinct referencing files):
 
 ## Removal
 
-This layout is a bridge that keeps the ~180 feature branches rebasable (files keep their paths and text). The end state is plain
-Rust: explicit dependencies and imports, no mirror. Mechanical steps, once the branches are migrated:
+This layout is a bridge that keeps in-flight branches rebasable (files keep their paths and text). The end state is plain
+Rust: explicit dependencies and imports, no mirror. Mechanical steps, once the in-flight branches are migrated:
 
 1. In each area crate delete every shim (`mod.rs`/`lib.rs` carrying the `// bridge:` header), drop the `parent` dependency and depend
    on the real crates (`mc-game-core`, `mc-game-ai`, ...) by name; the crate roots declare only the crate's own modules.
@@ -169,4 +169,4 @@ Rust: explicit dependencies and imports, no mirror. Mechanical steps, once the b
 2. `mc-game` -> `mc-game-core` rename (pure move), thin `mc-game`, empty area crates and the merged `mc-game/src/lib.rs`;
 3. per area crate: `git mv` commit, then a shim/visibility/seam commit, `check --workspace --tests`, merge (`cmds`, `levelgen`,
    `blocks`, then the chain `monsters`, `animals`, `ai`: a crate can only be carved once everything above it is out of `core`);
-4. tests relocation; scripts/CI; ARCHITECTURE.md + STATUS.md.
+4. tests relocation; scripts/CI; ARCHITECTURE.md.

@@ -1,5 +1,5 @@
-//! Seams to sibling slices' state (levels, entities, player list): every place where a command needs something owned
-//! by another slice goes through here, so the adaptation to their final APIs is confined to this file.
+//! Seams to other subsystems' state (levels, entities, player list): every place where a command needs something owned
+//! by another subsystem goes through here, so the adaptation to their final APIs is confined to this file.
 //! Each function documents the vanilla call it stands for.
 
 use crate::server::MinecraftServer;
@@ -137,7 +137,7 @@ pub fn get_entity<'a>(server: &'a MinecraftServer, entity: &EntityRef) -> Option
 }
 
 /// `PlayerList.getPlayers()` as entity references, in join order.
-/// SEAM(GameLifecycle): `MinecraftServer.player_list`; until the field exists the players of every level are listed
+/// SEAM(server lifecycle): `MinecraftServer.player_list`; until the field exists the players of every level are listed
 /// (dimension order, then level order).
 pub fn server_players(server: &MinecraftServer) -> Vec<EntityRef> {
     let mut out = Vec::new();
@@ -176,7 +176,7 @@ pub fn level_enabled_features_ref(server: &MinecraftServer, level: &DimensionKey
     server.level(level).map_or(mc_world::level_storage::FeatureFlagSet::VANILLA, |l| l.enabled_features())
 }
 
-// ---- selector option predicates that need other slices' state ----
+// ---- selector option predicates that need other subsystems' state ----
 
 /// The `scores` option: every `(objective name, bounds)` matches the entity's score.
 pub fn entity_scores_match(server: &MinecraftServer, entity: &dyn Entity, expected: &[(String, crate::commands::arguments::min_max_bounds::Ints)]) -> bool {
@@ -211,7 +211,7 @@ pub fn loot_predicate_matches(server: &MinecraftServer, dimension: &DimensionKey
 }
 
 /// The `SelectedItem` the `nbt` option adds for players (`ItemStack.CODEC` of the selected hotbar item).
-/// SEAM(items slice).
+/// SEAM(items).
 pub fn player_selected_item_nbt(entity: &dyn Entity) -> Option<mc_nbt::Tag> {
     let _ = entity;
     None
@@ -508,7 +508,7 @@ pub fn teleport_entity(
 /// `TeleportCommand.performTeleport`'s tail for a successfully teleported `victim`: keeps only horizontal momentum and
 /// `setOnGround(true)` (with the supporting-block check) unless it is fall flying.
 ///
-/// SEAM(MobsScope): `if (victim instanceof PathfinderMob mob) mob.getNavigation().stop()` once `PathfinderMob` exists.
+/// SEAM(mobs): `if (victim instanceof PathfinderMob mob) mob.getNavigation().stop()` once `PathfinderMob` exists.
 pub fn after_teleport(server: &mut MinecraftServer, victim: &EntityRef) {
     let Some(level) = server.level_mut(&victim.dimension) else { return };
     level.with_entity(victim.id, |level, entity| {
@@ -694,49 +694,49 @@ pub struct AdvancementProgressRef {
 }
 
 /// `server.getAdvancements().get(id)`.
-/// SEAM(ItemsMenusScope.ImAdvancements): `ServerAdvancementManager` is not on main yet, so nothing is found.
+/// SEAM(advancements): `ServerAdvancementManager` is not ported yet, so nothing is found.
 pub fn advancement_get(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementRef> {
     let _ = (server, id);
     None
 }
 
 /// `server.getAdvancements().getAllAdvancements()`.
-/// SEAM(ItemsMenusScope.ImAdvancements).
+/// SEAM(advancements).
 pub fn advancement_all(server: &MinecraftServer) -> Vec<AdvancementRef> {
     let _ = server;
     Vec::new()
 }
 
 /// `server.getAdvancements().tree().get(holder)`.
-/// SEAM(ItemsMenusScope.ImAdvancements).
+/// SEAM(advancements).
 pub fn advancement_node(server: &MinecraftServer, id: &Identifier) -> Option<AdvancementNodeRef> {
     let _ = (server, id);
     None
 }
 
 /// `player.getAdvancements().getOrStartProgress(holder)`.
-/// SEAM(ItemsMenusScope.ImAdvancements).
+/// SEAM(advancements).
 pub fn player_advancement_progress(server: &mut MinecraftServer, player: &EntityRef, id: &Identifier) -> AdvancementProgressRef {
     let _ = (server, player, id);
     AdvancementProgressRef { done: false, has_progress: false, remaining: Vec::new(), completed: Vec::new() }
 }
 
 /// `player.getAdvancements().award(holder, criterion)`.
-/// SEAM(ItemsMenusScope.ImAdvancements).
+/// SEAM(advancements).
 pub fn player_advancement_award(server: &mut MinecraftServer, player: &EntityRef, id: &Identifier, criterion: &str) -> bool {
     let _ = (server, player, id, criterion);
     false
 }
 
 /// `player.getAdvancements().revoke(holder, criterion)`.
-/// SEAM(ItemsMenusScope.ImAdvancements).
+/// SEAM(advancements).
 pub fn player_advancement_revoke(server: &mut MinecraftServer, player: &EntityRef, id: &Identifier, criterion: &str) -> bool {
     let _ = (server, player, id, criterion);
     false
 }
 
 /// `player.getAdvancements().flushDirty(player, showAdvancements)`.
-/// SEAM(ItemsMenusScope.ImAdvancements).
+/// SEAM(advancements).
 pub fn player_advancements_flush_dirty(server: &mut MinecraftServer, player: &EntityRef, show_advancements: bool) {
     let _ = (server, player, show_advancements);
 }
@@ -922,7 +922,7 @@ pub enum EntityRelation {
 /// `OwnableEntity.getOwner`, `Leashable.getLeashHolder`, `Targeting.getTarget`, `Attackable.getLastAttacker`,
 /// `getVehicle`, `getControllingPassenger`, `TraceableEntity.getOwner`, `getPassengers`.
 /// `TraceableEntity` covers the projectiles, item entities and primed TNT that exist so far; `OwnableEntity` goes
-/// through [`Entity::ownable_owner_uuid`] (SEAM(MobsScope): the tameable/horse classes implement it).
+/// through [`Entity::ownable_owner_uuid`] (SEAM(mobs): the tameable/horse classes implement it).
 pub fn entity_relation(server: &MinecraftServer, entity: &EntityRef, relation: EntityRelation) -> Vec<EntityRef> {
     use crate::world::entity::item::ItemEntity;
     use crate::world::entity::item::primed_tnt::PrimedTnt;

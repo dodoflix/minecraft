@@ -1,7 +1,7 @@
 //! The goal registration of the zombie family (`registerGoals()`'s egg goal and `addBehaviourGoals()` of `Zombie`,
 //! `Drowned`, `ZombifiedPiglin`).
 //!
-//! NOT YET WIRED (their goals are not on main): `SpearUseGoal`,
+//! NOT YET WIRED (their goals are not ported yet): `SpearUseGoal`,
 //! `ResetUniversalAngerTargetGoal`.
 
 use super::drowned::{self, DrownedGoToWaterGoal, DrownedSwimUpGoal};

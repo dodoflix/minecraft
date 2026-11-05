@@ -90,7 +90,7 @@ impl PlayerScoreEntry {
     }
 }
 
-/// `ScoreHolder`: anything that can own scores (entities implement it in the entity slice).
+/// `ScoreHolder`: anything that can own scores (entities implement it in the entity code).
 pub trait ScoreHolder {
     fn get_scoreboard_name(&self) -> String;
 

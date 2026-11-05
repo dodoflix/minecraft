@@ -1,6 +1,6 @@
 //! Code generator for mc-data. Reads the vanilla reference material produced by `scripts/setup-ref.sh`
 //! (`ref/extracted/*.json` from tools/extractor, `ref/src/{data,assets}`) and writes Rust tables to `OUT_DIR`.
-//! The generated files are `include!`d by the modules of the crate; the extract schema is documented in STATUS.md.
+//! The generated files are `include!`d by the modules of the crate; the extract schema is defined by `tools/extractor`.
 
 use serde_json::Value;
 use std::collections::{BTreeMap, HashMap};

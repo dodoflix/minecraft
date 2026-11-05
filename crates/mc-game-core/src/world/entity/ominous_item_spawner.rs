@@ -1,7 +1,7 @@
 //! `net.minecraft.world.entity.OminousItemSpawner`: spawned above a player by an ominous trial spawner, it drops its item
 //! 60-120 ticks later.
 //! shortcut: items that are `ProjectileItem`s (lingering potions, arrows, ...) are dropped as plain `ItemEntity`s until
-//! `world::item::projectile_item` (BxDispensers) lands; wire `spawnProjectile` there.
+//! `world::item::projectile_item` exists; wire `spawnProjectile` there.
 
 use super::entity::{self, Entity, EntityData};
 use super::factory::{ENTITY_FACTORIES, EntityRegistration};

@@ -1,4 +1,4 @@
-//! `Leashable` (leash data, tick, elastic force, NBT). The knot entity and the lead item belong to the items slice;
+//! `Leashable` (leash data, tick, elastic force, NBT). The knot entity and the lead item belong to the item code;
 //! this is the mob side. `LeashData.leashHolder` is an entity id resolved through the level.
 
 use crate::server::level::ServerLevel;

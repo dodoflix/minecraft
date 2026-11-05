@@ -100,7 +100,7 @@ impl BlockBehaviour for TntBlock {
             return;
         }
         // `owner instanceof LivingEntity` (a non-living owner is no source); `AbstractArrow.getPickupItemStackOrigin()` is
-        // only read for the adventure-mode check of a player source, and arrows are not ported yet (see STATUS.md).
+        // only read for the adventure-mode check of a player source, and arrows are not ported yet.
         let source = projectile.get_owner(level).filter(|o| o.living().is_some()).map(|o| (o.id(), o.uuid()));
         let blocked = source.is_some_and(|(id, _)| {
             level.get_entity(id).and_then(|o| o.as_any().downcast_ref::<ServerPlayer>()).is_some_and(|p| p.game_mode.game_mode_for_player == GameType::Adventure)

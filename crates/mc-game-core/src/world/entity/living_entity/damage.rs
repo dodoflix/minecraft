@@ -168,7 +168,7 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
         let l = entity.living_mut().expect("living");
         l.last_damage_source = Some(source.clone());
         l.last_damage_stamp = game_time;
-        // `effect.onMobHurt(level, this, source, damage)` for every active effect (EcEffects).
+        // `effect.onMobHurt(level, this, source, damage)` for every active effect.
         crate::world::entity::living_entity::effects::on_mob_hurt(entity, level);
     }
 

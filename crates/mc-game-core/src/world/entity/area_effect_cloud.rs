@@ -116,9 +116,6 @@ impl AreaEffectCloud {
     pub fn set_potion_duration_scale(&mut self, scale: f32) {
         self.potion_duration_scale = scale;
     }
-
-    // ==== [ImThrowables] additions ====
-
     /// `applyComponentsFromItemStack(stack)`: `Entity` takes the custom name and data, the cloud the potion contents
     /// and the duration scale.
     pub fn apply_components_from_item_stack(&mut self, stack: &crate::world::item::ItemStack) {

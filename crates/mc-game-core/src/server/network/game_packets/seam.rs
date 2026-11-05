@@ -1,6 +1,6 @@
 //! Vanilla-named accessors the listener uses on `ServerPlayer`, the level and the server, expressed over the data the
 //! entity/level/server slices expose. Everything the listener reads or does to *its own* player lives here so a rename
-//! in a sibling slice is a one-file fix.
+//! in another module is a one-file fix.
 
 use super::PlayCtx;
 use crate::server::level::ServerLevel;

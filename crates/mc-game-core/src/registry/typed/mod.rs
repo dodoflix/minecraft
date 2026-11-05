@@ -1,4 +1,4 @@
-//! Typed values for the registries this slice owns (`dimension_type`, `worldgen/biome`, `damage_type`, `chat_type`,
+//! Typed values for the registries this module owns (`dimension_type`, `worldgen/biome`, `damage_type`, `chat_type`,
 //! `dimension` (level stems) and the `noise` / `density_function` / `noise_settings` worldgen registries). Other registries
 //! register their own decoder through [`super::decoders::DYNAMIC_REGISTRY_DECODERS`].
 

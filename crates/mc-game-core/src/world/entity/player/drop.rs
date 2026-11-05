@@ -55,7 +55,7 @@ impl ServerPlayer {
         }
         self.swing(level, crate::world::item::InteractionHand::MainHand, super::item_use::SWING_ANIMATION_DEFAULT, prediction != Prediction::Predicted);
         let Some(entity) = self.create_item_stack_to_drop(level, stack, false, thrown_from_hand) else { return false };
-        // `awardStat(ITEM_DROPPED, DROP)`: statistics are a later wave
+        // `awardStat(ITEM_DROPPED, DROP)`: statistics are not ported yet
         level.add_fresh_entity(Box::new(entity))
     }
 

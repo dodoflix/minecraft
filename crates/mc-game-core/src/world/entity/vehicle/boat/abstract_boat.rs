@@ -7,7 +7,7 @@
 //! `ServerboundMoveVehiclePacket` and `ServerboundPaddleBoatPacket`. `tickLerp` / the interpolation handler, `animateHurt`,
 //! `handleEntityEvent` (bubble wobble) and the particles are client-only and not modelled.
 //!
-//! Leash data (`Leashable`) is kept as the raw `leash` tag; the leash mechanics belong to the mob slice.
+//! Leash data (`Leashable`) is kept as the raw `leash` tag; the leash mechanics belong to the mob code.
 
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
@@ -849,7 +849,7 @@ impl Entity for AbstractBoat {
 
     /// `AbstractBoat.interact` (+ `AbstractChestBoat.interact`).
     fn interact(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer, _hand: InteractionHand, _location: Vec3) -> InteractionResult {
-        // SEAM(MobsScope): `Entity.interact` leash handling (lead item, shears, `Leashable`)
+        // SEAM(mobs): `Entity.interact` leash handling (lead item, shears, `Leashable`)
         let secondary = player.is_shift_key_down();
         let boarded = if secondary || !(self.out_of_control_ticks < TIME_TO_EJECT) { false } else { level.start_riding_held(player, self, false, true) };
         if boarded {
@@ -864,7 +864,7 @@ impl Entity for AbstractBoat {
         let result = self.interact_with_container_vehicle(level, player);
         if result.consumes_action() {
             level.game_event_from_entity(Some(player.id()), GameEvent::CONTAINER_OPEN, self.base.position());
-            // SEAM(MobsScope): `PiglinAi.angerNearbyPiglins(level, player, true)`
+            // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
         }
         result
     }
@@ -875,7 +875,7 @@ impl Entity for AbstractBoat {
             if self.chest.is_some() {
                 self.drop_chest_contents(level);
             }
-            // SEAM(MobsScope): `if (isLeashed()) dropLeash()`
+            // SEAM(mobs): `if (isLeashed()) dropLeash()`
         }
     }
 

@@ -6,7 +6,6 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CP="$("$ROOT/scripts/vanilla-cp.sh")"
 EXTRACTOR="${EXTRACTOR_BUILD:-$ROOT/tools/extractor/build}"
-[ -d "$EXTRACTOR" ] || EXTRACTOR=./tools/extractor/build
 T="$ROOT/crates/mc-game/tests"
 if [ "${1:-}" = verbose ]; then
   java -cp "$EXTRACTOR:$CP" "$T/oracle/BlockBehaviourOracle.java" "$T/fixtures/block_behaviour_pool.txt" verbose "$2"

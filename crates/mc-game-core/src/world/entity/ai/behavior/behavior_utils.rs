@@ -144,9 +144,6 @@ pub fn play_sound_from_entity(level: &mut ServerLevel, entity: EntityId, sound: 
     let seed = level.tick_state.sound_seed_generator.next_long();
     level.play_seeded_sound_from_entity(None, entity, sound, source, volume, pitch, seed);
 }
-
-// ==== [Piglins] additions ====
-
 /// `isWithinAttackRange(body, target, projectileAttackRangeMargin)`.
 pub fn is_within_attack_range(level: &ServerLevel, body: &dyn Entity, target: EntityId, projectile_attack_range_margin: i32) -> bool {
     use crate::world::entity::equipment::EquipmentSlot;

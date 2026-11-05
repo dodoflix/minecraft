@@ -1,4 +1,4 @@
-// Evidence generator for STATUS.md "Hash-order findings": run it several times (scripts/vanilla-java.sh style, extractor.Setup on the classpath)
+// Evidence generator for the hash-order findings (vanilla iterates these maps in Object.hashCode() order, which differs per JVM run): run it several times (scripts/vanilla-java.sh style, extractor.Setup on the classpath)
 // and compare the ENCH_JSON / ENCH_WIRE (identity-hashed Holder map) and HASHED / COMPS (identity-hashed DataComponentType) lines.
 import com.google.gson.JsonElement;
 import com.mojang.serialization.*;

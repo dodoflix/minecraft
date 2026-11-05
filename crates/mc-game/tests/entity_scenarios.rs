@@ -22,7 +22,7 @@ fn jump() {
     run_scenario_test_with("jump", &gaps());
 }
 
-/// Rust gap (EntitiesCore2): from tick 68 (player at the water surface, eye y=-50.2 vs surface -50) vanilla keeps draining the air supply
+/// Rust gap: from tick 68 (player at the water surface, eye y=-50.2 vs surface -50) vanilla keeps draining the air supply
 /// while our `LivingEntity` starts refilling it (eye-in-fluid evaluation), which changes the whole trajectory afterwards.
 #[test]
 #[ignore = "known Rust gap: eyeInFluid/air supply at the water surface diverges from tick 68"]
@@ -64,7 +64,7 @@ fn plain_entities_and_notes_replay() {
     assert_eq!(lines.iter().filter(|l| l.starts_with("T ")).count(), 0, "no watch: no T headers");
 }
 
-/// Example mob golden (the ten minute recipe in the harness header): needs the zombie of the mob slice, until then it only documents
+/// Example mob golden (the ten minute recipe in the harness header): needs the zombie, until then it only documents
 /// the three steps (scenario + fixture exist already, comparison fails on the missing mob fields).
 #[test]
 #[ignore = "example: enable when ZOMBIE + the mob dump registrations exist"]
@@ -105,10 +105,10 @@ fn mob_command_arms_run() {
     assert!(lines.iter().any(|l| l.starts_with("G P1 goal ")) && lines.iter().any(|l| l.starts_with("ATTR W ")) && lines.iter().any(|l| l.starts_with("N W {")));
 }
 
-/// Path goldens of the mob slice (need the mob dump registrations of the mob spine, `SCENARIO_DUMP_EXTRA` order 10, and its
-/// `SCENARIO_FINALIZE_SPAWN` hook; PathfinderCore owns the diffs).
+/// Path goldens of the mobs (need the mob dump registrations of the mob spine, `SCENARIO_DUMP_EXTRA` order 10, and its
+/// `SCENARIO_FINALIZE_SPAWN` hook).
 #[test]
-#[ignore = "enable when the mob dump registrations are on main; owner: PathfinderCore"]
+#[ignore = "enable when the mob dump registrations exist"]
 fn mob_path_ground() {
     run_scenario_test("mob_path_ground");
 }

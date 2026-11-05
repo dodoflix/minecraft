@@ -211,7 +211,7 @@ impl MinecraftServer {
         level.tick_state.infiniburn = dimension_type.infiniburn.clone();
         level.tick_state.ambient_light = dimension_type.ambient_light;
         level.tick_state.attributes = self.build_attribute_system(&dimension_type, &factory.biomes, level.tick_state.can_have_weather);
-        // ==== [SpawnFramework] additions (level creation) ====
+        // ==== spawn framework additions (level creation) ====
         level.spawning.install_dimension_type(dimension_type.clone());
         level.spawning.gen_live.install(level.registries.clone(), dimension_type.clone());
         level.install_custom_spawners();

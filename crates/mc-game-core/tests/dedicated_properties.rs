@@ -1,6 +1,6 @@
 //! Differential test: `server.properties` written by the real vanilla server (`--initSettings`) vs ours.
-//! Fixtures: `tests/fixtures/dedicated/{default_out,edited_in,edited_out}.properties` (see `README` in STATUS.md for
-//! how they were produced).
+//! Fixtures: `tests/fixtures/dedicated/{default_out,edited_in,edited_out}.properties` (produced by the vanilla server
+//! with `--initSettings`).
 
 extern crate mc_game_core as mc_game;
 use mc_game::server::dedicated::java_properties::Properties;

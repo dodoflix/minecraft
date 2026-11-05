@@ -14,25 +14,25 @@ fn block_entity_nbt_merge_round_trip() {
 }
 
 #[test]
-#[ignore = "until BxFluids: WaterFluid.getTickDelay (waterlogged shape updates schedule water ticks)"]
+#[ignore = "until fluids are ported: WaterFluid.getTickDelay (waterlogged shape updates schedule water ticks)"]
 fn waterlogged_stairs_schedule_water_ticks() {
     check("blk_harness_waterlog");
 }
 
 #[test]
-#[ignore = "until BxRedstoneWire (RedStoneWireBlock) and BxRedstoneDevices (RedstoneLampBlock) land"]
+#[ignore = "until RedStoneWireBlock and RedstoneLampBlock are ported"]
 fn redstone_block_dust_lamp_15_ticks() {
     check("blk_harness_redstone");
 }
 
 #[test]
 fn player_item_entity_dig_and_events() {
-    // `fire`: a fresh Rust entity starts at 0, vanilla's player at -20 (EntitiesCore's replays ignore it too)
+    // `fire`: a fresh Rust entity starts at 0, vanilla's player at -20 (the other entity replays ignore it too)
     common::block_scenario::check_with("blk_harness_actors", &common::entity_oracle::Options { ignore_fields: vec!["fire"], ..Default::default() });
 }
 
 #[test]
-#[ignore = "explosion drops: Rust merges the dirt items into dirt*16 where vanilla has dirt*11 (EntitiesCore2: ServerExplosion drop stacking / item merge order)"]
+#[ignore = "explosion drops: Rust merges the dirt items into dirt*16 where vanilla has dirt*11 (ServerExplosion drop stacking / item merge order)"]
 fn explosion_destroys_blocks_with_level_random() {
     check("blk_harness_explode");
 }

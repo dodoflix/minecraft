@@ -49,7 +49,7 @@
 //! 9. **Sounds.** `entity.play_sound(level, SoundEvent::X, volume, pitch)`; override `get_ambient_sound`, `get_hurt_sound`,
 //!    `get_death_sound`, `play_step_sound`, `get_fall_sounds`.
 //! 10. **Spawning.** `finalize_spawn` is the `Entity::finalize_spawn` hook (override and call [`spawn::finalize_spawn`]);
-//!     spawn predicates are registered with SpawnFramework's `register_spawn_placement!`.
+//!     spawn predicates are registered with the spawn framework's `register_spawn_placement!`.
 
 pub mod ageable;
 pub mod combat;
@@ -192,8 +192,6 @@ impl MobData {
     pub fn new(entity_type: EntityType, id: EntityId, kind: MobKind, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {
         Self::new_with_air_supply(entity_type, id, kind, super::entity::TOTAL_AIR_SUPPLY, define_synched_data)
     }
-
-    // ==== [Aquatic] additions ====
     /// `Mob(type, level)` of a class whose `getMaxAirSupply()` override is not 300 (dolphin 4800, axolotl 6000): the
     /// virtual call in `Entity.<init>` / `defineSynchedData` makes it the initial air supply.
     pub fn new_with_air_supply(entity_type: EntityType, id: EntityId, kind: MobKind, max_air_supply: i32, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {

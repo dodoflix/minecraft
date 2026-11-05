@@ -65,7 +65,7 @@ impl BlockBehaviour for FlowerPotBlock {
         }
         level.set_block_and_update(pos, new_contents.default_state());
         level.game_event_at_block(GameEvent::BLOCK_CHANGE, pos, &GameEventContext::of(Some(player.base_id()), None));
-        // `awardStat(Stats.POT_FLOWER)`: statistics are a later wave
+        // `awardStat(Stats.POT_FLOWER)`: statistics are not ported yet
         let mut held = player.get_item_in_hand(hand);
         held.consume(1, player.player.abilities.instabuild);
         player.set_item_in_hand(hand, held);

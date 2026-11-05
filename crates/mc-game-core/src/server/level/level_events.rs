@@ -181,9 +181,6 @@ impl ServerLevel {
             &ClientboundSoundEntityPacket { sound: SoundEventHolder::Reference(sound), source, id: source_entity, volume, pitch, seed },
         );
     }
-
-    // ==== [ImThrowables] additions ====
-
     /// `playSound(except, sourceEntity, sound, source, volume, pitch)` for an entity that is out of the level's storage
     /// (`position` is its position): draws the seed like `playSound`, sends the `ClientboundSoundEntityPacket`.
     #[allow(clippy::too_many_arguments)]

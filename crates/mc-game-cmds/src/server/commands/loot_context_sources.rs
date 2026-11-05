@@ -2,7 +2,7 @@
 //!
 //! SEAM(loot): there is no loot system (`LootContext`/`LootParams`/loot number providers) yet, so a decorator resolves its
 //! command arguments exactly like vanilla (loaded position, entity selector) and then fails: [`LootContext`] cannot be
-//! constructed. Replace the enum with the real `LootContext` and fill [`ContextDecorator`] when the loot slice lands.
+//! constructed. Replace the enum with the real `LootContext` and fill [`ContextDecorator`] once loot contexts exist.
 use crate::commands::arguments::EntityArgument;
 use crate::commands::arguments::coordinates::block_pos_argument::BlockPosArgument;
 use crate::commands::message::literal_message;

@@ -1,5 +1,5 @@
 //! `CraftingContainer`/`TransientCraftingContainer`, `ResultContainer`, `ResultSlot`, `CraftingInput` and the recipe
-//! seam. Recipes are a later wave: [`set_crafting_recipe_source`] is the single hook the recipe manager installs;
+//! seam. Recipes are not ported yet: [`set_crafting_recipe_source`] is the single hook the recipe manager installs;
 //! without it no recipe ever matches (the result slot stays empty), exactly like a server with zero crafting recipes.
 
 use super::{ContainerKey, MenuPlayer, Prediction, Slot, SlotBehavior, SlotEnv};
@@ -151,7 +151,7 @@ impl Container for TransientCraftingContainer {
     }
 }
 
-/// `ResultContainer` (one slot; the `recipeUsed` bookkeeping belongs to the recipe wave).
+/// `ResultContainer` (one slot; the `recipeUsed` bookkeeping is not ported yet).
 #[derive(Default)]
 pub struct ResultContainer {
     item: ItemStack,

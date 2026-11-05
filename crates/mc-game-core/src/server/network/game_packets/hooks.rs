@@ -1,4 +1,4 @@
-//! Extension points of the play-state dispatcher for subsystems of later waves.
+//! Extension points of the play-state dispatcher for subsystems that are not ported yet.
 //!
 //! Vanilla's listener methods for these packets are thin: a `resetLastActionTime()`/permission check followed by a call
 //! into the subsystem (menus, recipe book, advancements, block entities, entities, inventory). The listener-level part
@@ -87,7 +87,7 @@ pub trait PlayerSystems: Sync {
     }
 }
 
-/// Item/hand related player systems the listener calls into (implemented by the item slice, `world::item::player_systems`).
+/// Item/hand related player systems the listener calls into (implemented by the item code, `world::item::player_systems`).
 #[distributed_slice]
 pub static ITEM_SYSTEMS: [&'static dyn ItemSystems] = [..];
 

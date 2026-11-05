@@ -546,12 +546,12 @@ impl BookCloningRecipe {
     }
 }
 
-/// `MapItem.getSavedData(map, level).scale`: the map slice installs it (`None` when the map data does not exist).
+/// `MapItem.getSavedData(map, level).scale`: map code installs it (`None` when the map data does not exist).
 pub type MapScaleLookup = fn(&ServerLevel, &ItemStack) -> Option<i32>;
 
 static MAP_SCALE_LOOKUP: OnceLock<MapScaleLookup> = OnceLock::new();
 
-/// Installed by the maps slice (`MapItemSavedData.scale`); without it no map can be extended.
+/// Installed by the map code (`MapItemSavedData.scale`); without it no map can be extended.
 pub fn set_map_scale_lookup(lookup: MapScaleLookup) {
     let _ = MAP_SCALE_LOOKUP.set(lookup);
 }

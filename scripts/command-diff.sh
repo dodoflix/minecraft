@@ -14,7 +14,7 @@
 # server through mc-testbot: `Bot` (opped, level 4, `op Bot` runs before it joins) and `Bot0` (not opped, level 0).
 # `--keep` leaves the server directories (run/servers/cmddiff-*, run/cmd-diff/<id>/*/ours) for inspection; normalized
 # transcripts of both sides always land in run/cmd-diff/<id>/<corpus>.{vanilla,ours}.txt.
-# Needs java (ref/server.jar) and builds mc-server + mc-command-diff with scripts/cargo-locked.sh (unless --no-build /
+# Needs java (ref/server.jar) and builds mc-server + mc-command-diff with cargo (unless --no-build /
 # --ours-bin). Vanilla JVMs are always stopped on exit (Ctrl-C included).
 #
 # CORPUS FORMAT (line based; blank lines and `#` comment lines ignored)
@@ -70,7 +70,7 @@ while (($#)); do
 done
 TARGET="${CARGO_TARGET_DIR:-$ROOT/target}"
 if ((BUILD)); then
-  (cd "$ROOT" && "$ROOT/scripts/cargo-locked.sh" build -q -p mc-server -p mc-testbot) >&2 || { echo "command-diff: build failed" >&2; exit 2; }
+  (cd "$ROOT" && cargo build -q -p mc-server -p mc-testbot) >&2 || { echo "command-diff: build failed" >&2; exit 2; }
 fi
 [[ -n "$BIN" ]] || BIN="$TARGET/debug/mc-server"
 RUNNER="$TARGET/debug/mc-command-diff"

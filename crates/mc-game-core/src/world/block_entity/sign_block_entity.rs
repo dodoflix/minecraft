@@ -330,7 +330,7 @@ fn create_command_source_stack(player: Option<&ServerPlayer>, level: &ServerLeve
 /// `performPrefixedCommand(createCommandSourceStack(player, level, pos), command)`.
 fn run_click_command(level: &mut ServerLevel, player: &ServerPlayer, pos: BlockPos, command: &str) {
     let source = create_command_source_stack(Some(player), level, pos);
-    let _ = (source, command); // PENDING-BxTechnicalB: level.perform_prefixed_command(source, command)
+    let _ = (source, command); // PENDING: level.perform_prefixed_command(source, command)
 }
 
 /// `player.openDialog(holder)`: the click event's dialog (registry id or inline definition) as `ClientboundShowDialogPacket`.

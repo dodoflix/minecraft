@@ -1,4 +1,4 @@
-//! Block-oracle goldens of the speleothem / amethyst / copper weathering slice (BxSpeleothemCopper).
+//! Block-oracle goldens of the speleothem / amethyst / copper weathering blocks.
 mod common;
 
 #[test]

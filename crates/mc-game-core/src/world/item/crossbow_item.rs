@@ -258,7 +258,6 @@ fn set_crossbow_hit_sound(entity: &mut dyn Entity) {
 }
 
 impl CrossbowItem {
-    // ==== [Piglins] additions ====
     /// The `CrossbowItem` singleton for callers without an item registry handle (mobs shooting their crossbow: only the
     /// loading-sound flags are instance state, `performShooting` does not touch them).
     pub fn singleton() -> Self {

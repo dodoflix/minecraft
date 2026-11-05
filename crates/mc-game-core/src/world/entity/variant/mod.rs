@@ -276,7 +276,7 @@ pub fn select_entries<K: Clone>(entries: impl IntoIterator<Item = (K, Vec<Select
     result
 }
 
-/// [`select_entries`] over registry ids (the entry type of the MobSpine draft).
+/// [`select_entries`] over registry ids (`u32` entry type).
 pub fn select(entries: impl Iterator<Item = (u32, SpawnPrioritySelectors)>, context: &SpawnContext<'_>) -> Vec<u32> {
     select_entries(entries.map(|(id, s)| (id, s.selectors)), context)
 }

@@ -394,7 +394,7 @@ fn release_occupant(
 }
 
 /// `CampfireBlock.isSmokeyPos(level, pos)`.
-// TEMP: replaced by `CampfireBlock::is_smokey_pos` once BxFireBedCauldron's campfire lands on main
+// TEMP: replaced by `CampfireBlock::is_smokey_pos` once the campfire block exists
 fn is_smokey_pos(level: &dyn BlockGetter, pos: BlockPos) -> bool {
     use crate::world::level::collision::CollisionContext;
     use mc_core::phys::shapes::{BooleanOp, Shapes};

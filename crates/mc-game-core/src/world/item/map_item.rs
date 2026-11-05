@@ -293,7 +293,7 @@ impl ItemBehaviour for EmptyMapItem {
         let mut stack = player.get_item_in_hand(hand);
         let infinite = player.player.abilities.instabuild;
         stack.consume(1, infinite);
-        // `player.awardStat(Stats.ITEM_USED.get(this))`: statistics are a later wave
+        // `player.awardStat(Stats.ITEM_USED.get(this))`: statistics are not ported yet
         let position = player.position();
         level.play_sound_at(None, position.x, position.y, position.z, mc_data::SoundEvent::UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundSource::Players, 1.0, 1.0);
         let (block_x, block_z) = (position.x.floor() as i32, position.z.floor() as i32);

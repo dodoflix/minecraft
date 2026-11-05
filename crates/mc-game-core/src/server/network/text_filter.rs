@@ -1,6 +1,6 @@
 //! `TextFilter`, `FilteredText`, `Filterable`: the chat/sign/book text filtering model. The dedicated server uses
 //! [`DummyTextFilter`] unless `text-filtering-config` names a moderation endpoint (the HTTP-backed
-//! `ServerTextFilter` implementations are not ported, see STATUS.md).
+//! `ServerTextFilter` implementations are not ported).
 
 use mc_protocol::packets::play::FilterMask;
 

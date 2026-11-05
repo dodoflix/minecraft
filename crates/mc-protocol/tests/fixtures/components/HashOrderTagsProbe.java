@@ -1,4 +1,4 @@
-// Evidence generator for STATUS.md (UpdateTags row): inner tag order of TagNetworkSerialization.serializeToNetwork over several runs.
+// Evidence generator for the UpdateTags packet: inner tag order of TagNetworkSerialization.serializeToNetwork over several runs.
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.tags.*;

@@ -13,7 +13,7 @@ edition = "2024"
 version = "0.1.0"
 license = "MIT"
 
-# Many parallel worktrees each keep a target/: full debuginfo + incremental caches made them 25-47 GB apiece.
+# Full debuginfo + incremental caches made each checkout's target/ 25-47 GB, so keep them small.
 [profile.dev]
 opt-level = 1
 debug = "line-tables-only"

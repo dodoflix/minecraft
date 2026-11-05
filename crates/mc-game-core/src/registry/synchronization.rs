@@ -1,4 +1,4 @@
-//! `core.RegistrySynchronization` + `tags.TagNetworkSerialization` as plain data for the network slice: what the
+//! `core.RegistrySynchronization` + `tags.TagNetworkSerialization` as plain data for the network layer: what the
 //! configuration phase sends (`registry_data`, `update_tags`).
 
 use std::collections::HashSet;

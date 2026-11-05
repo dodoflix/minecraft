@@ -103,7 +103,7 @@ fn block_transformers_and_honeycomb_match_vanilla() {
     for (index, case) in cases().into_iter().enumerate() {
         // doors, trapdoors and copper chests consume the use themselves (`Block.useItemOn`/`useWithoutItem` run before the
         // item's `useOn` in `ServerPlayerGameMode.useItemOn`): the vanilla fixture shows the block's own interaction, which
-        // belongs to the block slice, not to the item behaviours replayed here.
+        // belongs to the block behaviours, not to the item behaviours replayed here.
         if ["_door", "trapdoor", "copper_chest"].iter().any(|k| case.block.contains(k)) {
             continue;
         }

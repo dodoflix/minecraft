@@ -572,9 +572,9 @@ impl WorldGenLevel for GenLevel<'_> {
     }
 }
 
-// ==== [SpawnFramework] additions (GenLevel as ServerLevelAccessor) ====
+// ==== spawn framework additions (GenLevel as ServerLevelAccessor) ====
 
-// ==== [Variants] additions (GenLevel as SpawnContextLevel) ====
+// ==== variant additions (GenLevel as SpawnContextLevel) ====
 
 impl crate::world::entity::variant::SpawnContextLevel for GenLevel<'_> {
     fn variant_registries(&self) -> &crate::registry::RegistryAccess {

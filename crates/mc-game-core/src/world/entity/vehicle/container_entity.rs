@@ -89,7 +89,7 @@ impl ChestVehicleData {
     pub fn unpack_chest_vehicle_loot_table(&mut self, level: &ServerLevel, origin: Vec3, player: Option<&dyn Entity>) {
         let Some(table_id) = self.loot_table.take() else { return };
         let table = loading::get_loot_table(&level.registries, &table_id);
-        // SEAM(ImAdvancements): `CriteriaTriggers.GENERATE_LOOT.trigger(player, lootTable)` when a player opened it
+        // SEAM(advancements): `CriteriaTriggers.GENERATE_LOOT.trigger(player, lootTable)` when a player opened it
         let seed = self.loot_table_seed;
         let mut builder = LootParams::builder(level).origin(origin);
         if let Some(p) = player {
@@ -209,7 +209,7 @@ pub trait ContainerEntity: Entity {
         if level.entity_drops() {
             self.drop_chest_contents(level);
             if source.direct_is_player() {
-                // SEAM(MobsScope): `PiglinAi.angerNearbyPiglins(level, player, true)`
+                // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
             }
         }
     }

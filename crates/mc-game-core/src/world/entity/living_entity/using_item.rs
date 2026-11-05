@@ -76,7 +76,7 @@ pub fn start_using_item(e: &mut dyn Entity, level: &mut ServerLevel, hand: Inter
         living.set_living_entity_flag(LIVING_ENTITY_FLAG_OFF_HAND, hand == InteractionHand::OffHand);
     }
     cause_use_vibration(e, level, &stack, GameEvent::ITEM_INTERACT_START);
-    // `recentKineticEnemies = new Object2LongOpenHashMap()` for a kinetic weapon: owned by the combat slice.
+    // `recentKineticEnemies = new Object2LongOpenHashMap()` for a kinetic weapon: owned by the combat code.
 }
 
 /// `stopUsingItem()`.

@@ -225,7 +225,7 @@ pub fn finalize_spawn(
     base::finalize_spawn(zombie, level, difficulty, reason, group_data)
 }
 
-// ==== PENDING(Villagers): the functions below need the Villager class (MobsScope.Villagers) ====
+// ==== PENDING(villagers): the functions below need the Villager class (villagers) ====
 
 /// `VillagerDataHolder.finalizeVillagerType(level, pos)`.
 fn finalize_villager_type(_zombie: &mut Zombie, _level: &mut dyn ServerLevelAccessor, _pos: BlockPos) {}

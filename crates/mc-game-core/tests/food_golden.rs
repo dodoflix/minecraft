@@ -2,7 +2,7 @@
 //! fixtures `tests/fixtures/entity_oracle/food_*.txt`, regenerate with `scripts/entity-oracle.sh --regen`): health, food level,
 //! saturation and exhaustion of a resting survival player per tick, for the natural regeneration branches, the exhaustion
 //! thresholds, peaceful regeneration, the `natural_health_regeneration` rule and the hunger / regeneration effects.
-//! Starvation damage needs `hurt_server` (EcDamage) and is not part of these scenarios.
+//! Starvation damage needs `hurt_server` and is not part of these scenarios.
 extern crate mc_game_core as mc_game;
 #[path = "../../mc-game/tests/common/mod.rs"]
 mod common;

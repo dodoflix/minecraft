@@ -1,4 +1,4 @@
-//! `SpyglassItem`, `ShieldItem` (the item classes of the books/instruments/banners/misc slice that only need the item API).
+//! `SpyglassItem`, `ShieldItem` (the item classes of the books/instruments/banners/misc items that only need the item API).
 
 use super::{InteractionHand, InteractionResult, ItemBehaviour, ItemStack, PlainItem};
 use crate::register_item_class;

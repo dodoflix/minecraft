@@ -1,5 +1,5 @@
 //! The player part of the play-packet dispatcher's `PlayerSystems` (vanilla's `this.player.xxx(...)` calls of
-//! `ServerGamePacketListenerImpl`). Exactly one implementor is used (`PLAYER_SYSTEMS.first()`), so every slice that owns
+//! `ServerGamePacketListenerImpl`). Exactly one implementor is used (`PLAYER_SYSTEMS.first()`), so every module that owns
 //! one of these methods adds its delegation here.
 
 use crate::server::network::game_packets::PlayCtx;
@@ -64,7 +64,7 @@ impl PlayerSystems for ServerPlayerSystems {
         };
         ctx.player.open_menu(ctx.level, &ChestVehicleMenuProvider::new(vehicle, title));
         ctx.level.game_event_from_entity(Some(ctx.player.base_id()), mc_data::GameEvent::CONTAINER_OPEN, position);
-        // SEAM(MobsScope): `PiglinAi.angerNearbyPiglins(level, player, true)`
+        // SEAM(mobs): `PiglinAi.angerNearbyPiglins(level, player, true)`
     }
 
     /// `Player.tryToStartFallFlying()`.

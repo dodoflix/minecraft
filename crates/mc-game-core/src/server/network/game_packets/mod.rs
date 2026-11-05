@@ -11,7 +11,7 @@
 //! ordering for the batch of packets that arrived since the previous tick: first the netty-thread packets in arrival
 //! order, then the main-thread ones in arrival order.
 //!
-//! # Extension points for later waves
+//! # Extension points for subsystems that are not ported yet
 //! Packets whose subsystem is not part of the listener (containers, recipe book, advancements, command blocks,
 //! structure blocks, signs, books, pick item, tag queries, ...) call into [`hooks::PlayHandlers`] after the listener
 //! level checks vanilla does itself.
@@ -269,7 +269,7 @@ impl PlayCtx<'_> {
             P::ChangeGameMode(p) => self.handle_change_game_mode(&p),
             P::LockDifficulty(p) => self.handle_lock_difficulty(&p),
             P::ConfigurationAcknowledged(p) => self.handle_configuration_acknowledged(&p),
-            // later waves (listener-level checks first, then the hook)
+            // subsystems that are not ported yet (listener-level checks first, then the hook)
             other => self.dispatch_hook(other),
         }));
         if let Err(panic) = result {

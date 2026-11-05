@@ -1,5 +1,5 @@
 //! `net.minecraft.world.level.block.ComposterBlock`. The hopper-facing `WorldlyContainerHolder` containers are not
-//! implemented here (see STATUS.md).
+//! implemented here.
 use super::prelude::*;
 use crate::server::level::ServerLevel;
 use crate::stats::Stat;

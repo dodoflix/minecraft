@@ -71,7 +71,7 @@ Dependency direction (lower never imports higher):
 never depend on `mc-game`. Rule for gameplay code: it goes into the area crate that owns it (see docs/crate-split.md); code that
 `mc-game-core` itself calls must live in `core`.
 
-## mc-game design (contract for all gameplay work)
+## mc-game design (contract for gameplay code)
 
 Vanilla's gameplay code is one tightly coupled object graph. It mirrors vanilla structure and is split over `mc-game-core` + the area
 crates (docs/crate-split.md: a bridge layout where every area crate mirrors the module tree of its parent, so all paths are
@@ -98,48 +98,35 @@ still `crate::world::...`; module paths stay vanilla-shaped). Everything below a
 - **Level access traits** mirror vanilla interfaces (`BlockGetter`, `LevelReader`, `LevelAccessor`, `WorldGenLevel`)
   so block/feature code runs against both `ServerLevel` and `WorldGenRegion`.
 - **Registration without central lists:** blocks/items/entities/commands/argument types/menus/etc. register through
-  `linkme` distributed slices from the module that implements them, so parallel work never edits one shared table.
+  `linkme` distributed slices from the module that implements them, so contributors never edit one shared table.
 - **Data-driven content** (recipes, loot tables, advancements, worldgen JSON, tags, damage types, enchantments,
   dimension types, …) is loaded from the vanilla data pack + world data packs through one `ReloadableServerResources`
   / registry-loading path, with vanilla codec semantics (unknown/invalid entries rejected or logged like vanilla).
 
-## Parallel workflow (from wave 2 on)
+## Contributing workflow
 
-**The main checkout `/home/dodo/Projects/minecraft` is READ-ONLY for every agent, helpers included.** A guard moves any
-uncommitted edit found there to a `stray-main-<time>` branch every minute. Every agent works in its own git worktree:
-`git worktree add /home/dodo/Projects/mc-wt/<name> -b <name> main && ln -s ./ref /home/dodo/Projects/mc-wt/<name>/ref`
-(the `ref/` symlink is required: builds read `ref/extracted`, `ref/generated`, …), builds only there, runs its tests,
-then integrates ONLY via `./scripts/merge-to-main.sh` (from the worktree): it rebases on
-main, runs `cargo check --workspace --tests` (incremental), then under the merge lock rebases again, re-checks on a
-dedicated slot and fast-forwards + pushes main (serialized, no retries/livelock). Resolve rebase conflicts keeping both sides' intent. Never merge by hand (a
-hand merge broke main once), never force-push/reset main, never discard others' work.
+Work on a topic branch and open a pull request against `main`. Before pushing, `cargo check --workspace --tests` must be
+green and the tests of the crates you touched must pass (prefer `-p <crate>`; do not run workspace-wide `fmt`/`clippy`
+rewrites in a feature change). Builds read `ref/extracted`, `ref/generated`, ... so `ref/` must be set up in every
+checkout (`scripts/setup-ref.sh`). Resolve rebase conflicts keeping both sides' intent; never force-push `main`.
 
-**Backup:** remote `origin` = public GitHub repo `dodoflix/minecraft`. After merging to main run
-`flock /tmp/mc-merge.lock git -C /home/dodo/Projects/minecraft push -q origin main`; after WIP/checkpoint commits
-push your branch (`git push -q origin <name>`; branch force-push only after your own rebase, never main).
-**Disk:** after your branch is merged and you're done, delete your worktree's build cache
-(`rm -rf /home/dodo/Projects/mc-wt/<name>/target`); `/home` filled up once with stale per-worktree targets.
-**Machine memory (hard rule):** systemd-oomd killed the whole session twice (RAM+swap >90%) when many mc-game builds ran
-at once. Helper agents are not limited, but every cargo invocation by every agent goes through
-`./scripts/cargo-locked.sh <subcommand> …` (absolute path works from any worktree):
-compilation takes one of `MC_BUILD_SLOTS` (default 4) machine-wide slots at low priority; test execution runs outside
-the slot. Never call `cargo` directly. JVMs are throttled automatically: `~/.local/bin/java` → `scripts/java-slot.sh`
-gives project JVMs (vanilla servers, oracle programs, real client = 2 slots) one of `MC_JVM_SLOTS` (default 3) slots for
-their whole lifetime — so always stop vanilla servers/clients you start, or you block everyone.
+Compiling the whole workspace is memory-hungry: running many `mc-game` builds at once can exhaust RAM, so limit
+parallel cargo jobs (`CARGO_BUILD_JOBS`) on small machines. Stop any vanilla server or client you start for differential
+tests. Build caches (`target/`) of old checkouts are large; delete them when a checkout is no longer needed.
 
-**CI (GitHub Actions, public repo, free):** `.github/workflows/ci.yml` builds + tests the whole workspace (with Java and
-a cached `ref/`) on every push to main, and on demand for any branch:
+**CI (GitHub Actions):** `.github/workflows/ci.yml` builds + tests the whole workspace (with Java and a cached `ref/`) on
+every push to `main`, and on demand for any branch:
 `gh workflow run ci.yml -R dodoflix/minecraft --ref <branch> [-f test_filter='-p mc-game --test foo']`, then
 `gh run list -R dodoflix/minecraft --branch <branch> --limit 1` + `gh run watch <id> -R dodoflix/minecraft --exit-status`.
-Use CI for full suites and long vanilla-oracle tests; use local `cargo-locked.sh` for fast compile iteration. If main's
-CI turns red, the author of the breaking commit fixes it first.
+Use CI for full suites and long vanilla-oracle tests; use local builds for fast compile iteration. If `main`'s CI turns
+red, the author of the breaking commit fixes it first.
 
 **Commits use Conventional Commits**: `<type>(<scope>): <summary>` with type in
 `feat|fix|refactor|perf|test|docs|build|chore`, scope = crate without the `mc-` prefix or area
 (e.g. `feat(protocol): add play packets`, `fix(worldgen): aquifer lava level`, `test(world): region differential`).
 Imperative, lowercase summary, no trailing period; body explains why when non-obvious.
 
-## Conventions (all agents)
+## Conventions
 
 1. **Naming mirrors vanilla.** Types keep vanilla class names (`BlockPos`, `LegacyRandomSource`,
    `NormalNoise`), methods/fields are vanilla names in snake_case (`next_int`, `get_x`→`x()` is fine
@@ -155,17 +142,13 @@ Imperative, lowercase summary, no trailing period; body explains why when non-ob
    Java strings are UTF-16: lengths/limits measured by vanilla in UTF-16 code units must be too.
 4. **Tests.** Unit tests per crate. Prefer golden values generated by the vanilla oracle. No
    tautological tests.
-5. **Isolation:** work only in your worktree/branch; prefer your own modules; coordinate edits to shared spine files
-   (ServerLevel, Entity trait, BlockBehaviour, ServerPlayer) with the scope that owns them. Build/test through
-   `scripts/cargo-locked.sh` for the crates you touched; never run workspace-wide `fmt`/`clippy` rewrites.
+5. **Shared spine files** (ServerLevel, the Entity trait, BlockBehaviour, ServerPlayer) are touched by many changes:
+   keep edits to them small and prefer putting new code in its own module.
 6. Edition 2024, stable toolchain. `unsafe` only with a justified comment. No `unwrap()` on
    network/disk input — malformed input must produce the same outcome as vanilla (usually a
    disconnect with vanilla's message).
-7. Keep `STATUS.md` updated with what your slice covers and what is known missing.
-8. **Pace.** Any number of scopes and helper agents may run in parallel (the only shared limit is the build
-   slots of `scripts/cargo-locked.sh`). No polling loops. Read only the vanilla ranges you need; run targeted tests
-   while iterating and the full suite once. Paused scopes leave a committed `RESUME-<Name>.md` on their branch.
-9. **Java gotchas that leak into observable output:** `Math.round` is `floor(x + 0.5)` (Rust `round` differs at
+7. Read only the vanilla ranges you need; run targeted tests while iterating and the full suite once before pushing.
+8. **Java gotchas that leak into observable output:** `Math.round` is `floor(x + 0.5)` (Rust `round` differs at
    .5); `Double/Float.toString` → `mc_core::math::java::{java_double_to_string, java_float_to_string}` (never `{}`);
    `String.hashCode` → `mc_core::math::java`; `Mth.sin/cos` use the lookup table; Java `HashMap`/`HashSet`
    iteration order can be observable (vanilla code that iterates them must be reproduced, `LinkedHashMap` = insertion order).

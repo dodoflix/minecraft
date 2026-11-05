@@ -1,7 +1,6 @@
 //! Iteration order of the hash-based Java collections vanilla encodes/iterates, for keys whose `hashCode()` is stable
 //! (`String`, `Identifier`, `Integer`, ...). Keys hashed by `Object.hashCode()` (registry holders, `DataComponentType`,
-//! `ResourceKey`, `TagKey`, enums) iterate in a per-JVM-run random order and cannot be modelled; see STATUS.md
-//! "Hash-order findings".
+//! `ResourceKey`, `TagKey`, enums) iterate in a per-JVM-run random order and cannot be modelled.
 //!
 //! Tested against the real `java.util.HashMap` / fastutil classes (`tests/java_collections.rs`, `HashOrderGolden.java`).
 

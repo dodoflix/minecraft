@@ -1,4 +1,4 @@
-# Block entity data through setblock/data (needs the chest block entity: BlocksScope).
+# Block entity data through setblock/data (needs the chest block entity).
 # scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/block_entities.txt
 setblock 0 -50 0 chest{Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
 data get block 0 -50 0

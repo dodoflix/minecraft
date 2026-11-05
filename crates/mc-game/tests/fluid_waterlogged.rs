@@ -12,9 +12,9 @@ const SIMPLE_WATERLOGGED: [&str; 39] = [
     "SmallDripleafBlock", "SpeleothemBlock", "StairBlock", "TrapDoorBlock", "WallBlock", "WaterloggedTransparentBlock",
 ];
 
-/// Classes whose owning slice has not wired the macro yet (its owner removes the entry together with adding
-/// `crate::simple_waterlogged!();` / its own override: coral, sea pickle, conduit, dried ghast [Aquatic]; rails [Rails];
-/// campfire, candle [FireBedCauldron], which override `placeLiquid` to extinguish).
+/// Classes that have not wired the macro yet (the entry is removed together with adding
+/// `crate::simple_waterlogged!();` / its own override: coral, sea pickle, conduit, dried ghast; rails;
+/// campfire, candle, which override `placeLiquid` to extinguish).
 const PENDING_OWNERS: [&str; 7] = ["BaseCoralPlantTypeBlock", "SeaPickleBlock", "ConduitBlock", "DriedGhastBlock", "BaseRailBlock", "CampfireBlock", "CandleBlock"];
 
 #[test]

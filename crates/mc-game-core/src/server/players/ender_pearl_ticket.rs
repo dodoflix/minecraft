@@ -1,5 +1,5 @@
 //! `ServerPlayer.registerAndUpdateEnderPearlTicket` / `placeEnderPearlTicket`: the chunk loading tickets that keep an
-//! in-flight ender pearl's surroundings loaded. The pearl entity (projectile slice) calls these.
+//! in-flight ender pearl's surroundings loaded. The pearl entity (projectile code) calls these.
 
 use crate::server::level::{ServerLevel, TicketType};
 use mc_core::pos::ChunkPos;

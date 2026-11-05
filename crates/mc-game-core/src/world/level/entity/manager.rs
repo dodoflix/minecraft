@@ -691,8 +691,6 @@ impl PersistentEntitySectionManager {
             ControlFlow::Continue(())
         });
     }
-
-    // ==== [Aquatic] additions ====
     /// `for_each_in_aabb` for a class query issued BY the ticking entity (taken out of its slot): vanilla's
     /// `getEntitiesOfClass` also returns the querying entity itself, so `stand_in` is visited at its slot position.
     pub fn for_each_in_aabb_with_stand_in(&self, bb: &AABB, stand_in: &dyn Entity, mut consumer: impl FnMut(EntityId, &dyn Entity) -> ControlFlow<()>) {

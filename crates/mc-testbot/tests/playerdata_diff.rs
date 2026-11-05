@@ -139,8 +139,8 @@ const EXPECTED: &[&str] = &[
     ".foodSaturationLevel",
     ".foodExhaustionLevel",
     ".warden_spawn_tracker.ticks_since_last_warning",
-    // known gaps, remove the entry when fixed: fresh player `Fire` is -20 in vanilla (`applyEffectsFromBlocks`; EntitiesCore2),
-    // `recipeBook` needs the recipe manager (vanilla unlocks `crafting_table` on join; ItemsMenusScope.ImRecipes)
+    // known gaps, remove the entry when fixed: fresh player `Fire` is -20 in vanilla (`applyEffectsFromBlocks`),
+    // `recipeBook` needs the recipe manager (vanilla unlocks `crafting_table` on join)
     ".Fire:",
     ".recipeBook.",
 ];

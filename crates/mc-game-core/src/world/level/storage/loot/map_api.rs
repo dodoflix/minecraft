@@ -1,4 +1,4 @@
-//! SEAM(Maps): `exploration_map` (`level.findNearestMapStructure` + `MapItem.applyNewSavedData` /
+//! SEAM(maps): `exploration_map` (`level.findNearestMapStructure` + `MapItem.applyNewSavedData` /
 //! `renderBiomePreviewMap` / `addTargetDecoration`). Map items and map saved data are not ported, so the stack is left
 //! untouched (vanilla also returns it unchanged when no structure is found).
 

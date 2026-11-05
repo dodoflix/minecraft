@@ -13,7 +13,7 @@ pub struct DetectorRailBlock;
 const PRESSED_CHECK_PERIOD: i32 = 20;
 
 /// What the comparator output of a detector rail reads from the minecart entity classes, which live in the entity
-/// slice (`MinecartCommandBlock`, `AbstractMinecartContainer`/`Container`): registered once at startup by it.
+/// code (`MinecartCommandBlock`, `AbstractMinecartContainer`/`Container`): registered once at startup by it.
 pub struct MinecartRedstoneAccess {
     /// `MinecartCommandBlock.getCommandBlock().getSuccessCount()`; `None` if the entity is not a command block minecart.
     pub command_block_success_count: fn(&dyn Entity) -> Option<i32>,

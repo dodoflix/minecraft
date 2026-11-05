@@ -9,7 +9,7 @@ desktop's `DISPLAY`/`WAYLAND_DISPLAY` are never used: the client renders on the 
 |---|---|
 | `scripts/vanilla-server.sh` | Run `ref/server.jar` as an oracle: `start NAME [--port --seed --level-type --view-distance --gamemode --reset] [key=value…]`, `cmd NAME "say hi"`, `wait NAME REGEX [s]`, `status`, `log`, `stop`. Scratch dir `run/servers/NAME`, offline mode, EULA accepted. `start` blocks until `Done (`. |
 | `scripts/real-client.sh` | Run the real client: `prepare` (downloads jar/libs/assets into `run/client-cache`, sha1-verified, ~1 min first time, sound files skipped), `start NAME USER HOST:PORT`, `status`, `screenshot NAME [out.png]`, `key NAME KEYSYM…`, `wait NAME REGEX`, `log`, `stop`. |
-| `scripts/e2e-join-check.sh` | One-shot: client joins `HOST PORT`, stays N seconds, screenshots, stops; prints a JSON verdict, exit 0 iff OK. **This is what later waves point at our server.** |
+| `scripts/e2e-join-check.sh` | One-shot: client joins `HOST PORT`, stays N seconds, screenshots, stops; prints a JSON verdict, exit 0 iff OK. Point it at our server to check that a real client can join. |
 | `scripts/e2e/E2eMain.java` | Tiny wrapper around the stock `Main` (compiled automatically into `run/client-cache/e2e-shim`). A daemon thread prints `[E2E] {json}` state lines (current screen, in-level, disconnect-screen text, client game time, chunks received). Needed because the stock client logs *nothing* for a login/config-phase kick, for "joined", or for the tick count. Read-only. |
 | `scripts/mc-client-status.py` | Parses `run/clients/NAME/client.out` (+ crash reports) into the JSON used above. |
 
@@ -21,7 +21,7 @@ scripts/vanilla-server.sh start demo --port 25571 --seed 777 --reset
 scripts/e2e-join-check.sh 127.0.0.1 25571 --seconds 20 --username Steve --out run/e2e/demo
 scripts/vanilla-server.sh stop demo
 
-# against our server (wave 2+): just point it at host/port
+# against our server: just point it at host/port
 scripts/e2e-join-check.sh 127.0.0.1 25565 --seconds 30
 ```
 
@@ -72,5 +72,5 @@ post-processing, ticks, entities per chunk; light/UUID/timestamps ignored; exit 
 residuals, `--report x.json` for a machine-readable summary). Output: `DIR/{A,B}/world`, `DIR/report.{txt,json}` (default
 `run/wgdiff/<seed>-<dim>-<cx>_<cz>`). `--sides vanilla,vanilla` is the determinism sanity run. Preset cases:
 `scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases.txt [--only REGEX]`; new structure locations for a seed:
-`scripts/worldgen-locate.sh SEED...` (real `/locate`). Details/limits: header of `scripts/worldgen-diff.sh`, STATUS.md "FeatDiffHarness".
+`scripts/worldgen-locate.sh SEED...` (real `/locate`). Details/limits: header of `scripts/worldgen-diff.sh`.
 Standalone: `cargo run -p worldcmp -- WORLD_A WORLD_B --dim overworld --chunks -4,-4,4,4`.

@@ -1,4 +1,4 @@
-//! The only file of the mob slice that talks to `PathNavigation` objects: `getNavigation()` (with the controlled-vehicle
+//! The only file of the mob code that talks to `PathNavigation` objects: `getNavigation()` (with the controlled-vehicle
 //! redirect), taking the navigation out of its mob while it runs, and the `moveTo`/`isDone`/... call shorthands goals use.
 
 use crate::server::level::ServerLevel;
@@ -139,9 +139,6 @@ pub fn with_own_navigation_stop(mob: &mut dyn Entity) {
 pub fn own_is_done(mob: &dyn Entity) -> bool {
     mob.mob().and_then(|m| m.navigation.as_deref()).is_none_or(|n| n.is_done())
 }
-
-// ==== [GoalsB] additions ====
-
 /// `getNavigation().moveTo(target, reachRange, speedModifier)` (the target's `blockPosition()`).
 pub fn move_to_entity_reach(mob: &mut dyn Entity, level: &mut ServerLevel, target_pos: BlockPos, reach_range: i32, speed_modifier: f64) -> bool {
     with_navigation(mob, level, |n, m, l| n.move_to_entity_reach(m, &*l, target_pos, reach_range, speed_modifier)).unwrap_or(false)

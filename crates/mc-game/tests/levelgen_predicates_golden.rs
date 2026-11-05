@@ -139,7 +139,7 @@ fn predicates_and_providers_match_vanilla() {
     run(false);
 }
 
-/// The cases with a `would_survive` predicate: need `canSurvive` of the concrete block classes (WorldgenBlocks, not on main yet).
+/// The cases with a `would_survive` predicate: need `canSurvive` of the concrete block classes (not ported yet).
 #[test]
 fn would_survive_predicates_match_vanilla() {
     run(true);

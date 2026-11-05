@@ -52,8 +52,6 @@ impl ServerLevel {
         }
     }
 }
-
-// ==== [GoalsA] additions ====
 impl ServerLevel {
     /// `holder.is(PoiTypeTags.VILLAGE)`.
     pub fn poi_type_is_village(&self, t: PoiTypeHolder) -> bool {

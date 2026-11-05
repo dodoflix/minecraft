@@ -199,8 +199,8 @@ pub fn trigger_bred_animals(level: &mut ServerLevel, cause: EntityId, parent: &d
     level.with_player(cause, |level, player| matches.award(level, player));
 }
 
-/// `LeashFenceKnotEntity.getOrCreateKnot(level, pos)`. SEAM(ItemsMenusScope): the knot entity belongs to the items slice;
-/// they replace this body.
+/// `LeashFenceKnotEntity.getOrCreateKnot(level, pos)`. SEAM(items): the knot entity is not ported yet;
+/// it replaces this body.
 pub fn get_or_create_leash_knot(_level: &mut ServerLevel, _pos: mc_core::pos::BlockPos) -> Option<EntityId> {
     None
 }
@@ -212,8 +212,8 @@ pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &d
     });
 }
 
-/// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. SEAM(BrainFramework): the brain memories are
-/// owned by the brain slice; they replace this body once `Brain` lands.
+/// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. SEAM(brain): the brain memories are
+/// not wired up here yet; they replace this body once `Brain` is available.
 pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
 
 /// `CriteriaTriggers.PLAYER_SHEARED_EQUIPMENT.trigger(player, itemStackToShear, mob)`; `mob` is the running entity.
@@ -234,16 +234,10 @@ pub fn spawn_offspring_from_spawn_egg(level: &mut ServerLevel, player: &mut crat
     let ty = mob.get_type();
     Some(crate::world::item::spawn_egg_item::spawn_offspring_from_spawn_egg(player, mob, ty, level, position, stack))
 }
-
-// ==== [GoalsA] additions ====
-
 /// `EntitySelector.NO_CREATIVE_OR_SPECTATOR`.
 pub fn no_creative_or_spectator(e: &dyn Entity) -> bool {
     !(e.is_player() && (e.is_spectator() || is_creative_player(e)))
 }
-
-// ==== [Cubes] additions ====
-
 /// `Mob.lookAt(entity, yMax, xMax)`: turns the mob's own rotation toward `entity` (not through the look control).
 pub fn mob_look_at(mob: &mut dyn Entity, entity: &dyn Entity, y_max: f32, x_max: f32) {
     let xd = entity.base().x() - mob.base().x();
@@ -331,9 +325,6 @@ pub fn distance_to(a: &dyn Entity, b: &dyn Entity) -> f32 {
 pub fn has_moved_horizontally_recently(level: &ServerLevel, e: &dyn Entity) -> bool {
     e.get_known_speed(level).horizontal_distance().abs() > f64::from(1.0E-5f32)
 }
-
-// ==== [FarmAnimals] additions ====
-
 /// `Level.playSound(except, entity, sound, source, volume, pitch)`: the entity-bound sound packet with the level's sound seed.
 pub fn play_sound_from_entity(level: &mut ServerLevel, except: Option<EntityId>, entity: EntityId, sound: mc_data::SoundEvent, source: mc_protocol::packets::play::SoundSource, volume: f32, pitch: f32) {
     use mc_core::random::RandomSource;
@@ -364,9 +355,6 @@ pub fn drop_from_shearing_loot_table(
     }
     true
 }
-
-// ==== [Monsters2] additions ====
-
 /// `me.isLookingAtMe(target, coneSize, adjustForDistance, seeThroughTransparentBlocks, gazeHeights...)`: whether `target` (a
 /// living entity, e.g. the player) looks at `me`.
 pub fn is_looking_at_me(level: &ServerLevel, me: &dyn Entity, target: &dyn Entity, cone_size: f64, adjust_for_distance: bool, see_through_transparent_blocks: bool, gaze_heights: &[f64]) -> bool {
@@ -383,9 +371,6 @@ pub fn is_looking_at_me(level: &ServerLevel, me: &dyn Entity, target: &dyn Entit
     }
     false
 }
-
-// ==== [Piglins] additions ====
-
 /// Runs `f` with the living entity that caused `source` (`source.getEntity()`): the entity is taken out of the level for
 /// the call when it is in it (so `f` may mutate the level), or is the snapshot the source captured when the attacker
 /// is the running, taken-out entity.
@@ -409,23 +394,17 @@ pub fn take(level: &mut ServerLevel, taker: &dyn Entity, item_id: EntityId, org_
         level.entity_tracker.send_to_tracking_players(item_id, &crate::server::level::server_entity::encode_payload(&packet));
     }
 }
-
-// ==== [Pets] additions ====
-
 /// `LivingEntity.getLastDamageSource(timeout)`.
 pub fn get_last_damage_source(level: &ServerLevel, e: &dyn Entity, damage_source_timeout: i32) -> Option<crate::world::damagesource::DamageSource> {
     let l = e.living()?;
     if level.game_time() - l.last_damage_stamp > i64::from(damage_source_timeout) { None } else { l.last_damage_source.clone() }
 }
 
-/// `ChestBlockEntity.getOpenCount(level, pos)`. SEAM(BxContainers): the chest block entity lands with the containers
-/// slice; they replace this body.
+/// `ChestBlockEntity.getOpenCount(level, pos)`. SEAM(containers): the chest block entity is not ported yet;
+/// it replaces this body.
 pub fn chest_open_count(_level: &ServerLevel, _pos: mc_core::pos::BlockPos) -> i32 {
     0
 }
-
-// ==== [WardenMobs] additions ====
-
 /// `LivingEntity.PLAYER_NOT_WEARING_DISGUISE_ITEM.test(entity)`.
 pub fn player_not_wearing_disguise_item(entity: &dyn Entity) -> bool {
     if entity.is_player() {
@@ -435,9 +414,6 @@ pub fn player_not_wearing_disguise_item(entity: &dyn Entity) -> bool {
         true
     }
 }
-
-// ==== [Raids] additions ====
-
 /// `Entity::can_attack` default (`LivingEntity.canAttack` + `Mob`: not a ghast, `TamableAnimal`: not its owner): the `super`
 /// call of classes that override `canAttack`.
 pub fn can_attack_default(e: &dyn Entity, level: &ServerLevel, target: &dyn Entity) -> bool {

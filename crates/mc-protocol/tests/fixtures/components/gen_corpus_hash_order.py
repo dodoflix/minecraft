@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Multi-entry corpora for the maps vanilla iterates in hash order (see STATUS.md "Hash-order findings").
+"""Multi-entry corpora for the maps vanilla iterates in hash order (Object.hashCode() order, which differs per JVM run).
 
   90-hash-order-identity.txt  identity-hashed maps (ItemEnchantments, decoded predicate maps): JVM-run-random order in
                               vanilla's json/snbt/wire output, compared semantically (components_golden.rs `relaxed_fields`)

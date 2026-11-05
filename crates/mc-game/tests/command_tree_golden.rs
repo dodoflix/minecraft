@@ -78,7 +78,7 @@ fn tree_matches_vanilla_per_command() {
 }
 
 /// Prints the vanilla top-level commands that are not registered yet (per permission level 4 = everything).
-/// Run: `scripts/cargo-locked.sh test -p mc-game --test command_tree_golden tree_coverage_report -- --ignored --nocapture`.
+/// Run: `cargo test -p mc-game --test command_tree_golden tree_coverage_report -- --ignored --nocapture`.
 #[test]
 #[ignore = "report only"]
 fn tree_coverage_report() {

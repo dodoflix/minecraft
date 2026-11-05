@@ -78,7 +78,7 @@ fn get_y_offset(level: &ServerLevel, spawn_pos: BlockPos, moved_up: bool, entity
 }
 
 /// `EntityType.create(level, postSpawnConfig, spawnPos, reason, tryMoveDown, movedUp)` for entities that are not mobs
-/// (mobs additionally get `yHeadRot`/`yBodyRot` and `finalizeSpawn`, owned by the mob slice through `Entity::finalize_spawn_on_create`).
+/// (mobs additionally get `yHeadRot`/`yBodyRot` and `finalizeSpawn`, owned by the mob code through `Entity::finalize_spawn_on_create`).
 pub fn create_at(
     level: &mut ServerLevel,
     ty: EntityType,

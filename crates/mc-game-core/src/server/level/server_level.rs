@@ -102,18 +102,15 @@ pub struct ServerLevel {
     pub worldgen_clock: Option<super::server_level_worldgen::WorldGenClock>,
     /// `waypointManager`
     pub waypoint_manager: crate::server::waypoints::ServerWaypointManager,
-    // ==== [Damage] additions (ServerLevel field) ====
     /// Operations on entities that were taken out (running) when they were requested: run when put back
     /// (`ServerLevel::with_entity_or_defer`).
     pub deferred_level_ops: std::collections::HashMap<EntityId, Vec<DeferredLevelOp>>,
-    // ==== [MobOracle] additions (ServerLevel field) ====
     /// A private `ENTITY_COUNTER` for this level (the scenario replay harness gives its level the oracle's id sequence 1, 2, 3, ...
     /// regardless of other levels created by tests running in parallel); `None` = the process wide counter.
     pub entity_id_counter: Option<std::sync::atomic::AtomicI32>,
-    // ==== [PathfinderCore] additions (ServerLevel field) ====
     /// `pathTypesByPosCache` (`getPathTypeCache()`), invalidated by `send_block_updated`.
     pub path_type_cache: parking_lot::Mutex<crate::world::level::pathfinder::PathTypeCache>,
-    // ==== [SpawnFramework] additions (ServerLevel field) ====
+    // ==== spawn framework additions (ServerLevel field) ====
     /// Natural spawning state: spawn state of the tick, custom spawners, dimension attribute base (see `world::level::spawner`).
     pub spawning: crate::world::level::spawner::LevelSpawnData,
 }
@@ -181,13 +178,10 @@ impl ServerLevel {
             worldgen_data: None,
             worldgen_clock: None,
             waypoint_manager: Default::default(),
-            // ==== [Damage] additions (ServerLevel::new initializer) ====
             deferred_level_ops: Default::default(),
-            // ==== [MobOracle] additions (ServerLevel::new initializer) ====
             entity_id_counter: None,
-            // ==== [PathfinderCore] additions (ServerLevel::new initializer) ====
             path_type_cache: Default::default(),
-            // ==== [SpawnFramework] additions (ServerLevel::new initializer) ====
+            // ==== spawn framework additions (ServerLevel::new initializer) ====
             spawning,
         }
     }
@@ -283,7 +277,7 @@ impl ServerLevel {
                 let Some(slot) = self.chunk_source.chunk_map.take_chunk_for_full(pos) else { return };
                 let chunk = match slot {
                     ChunkSlot::Proto(proto) => {
-                        // `postLoadProtoChunk`: legacy entity NBT of the proto chunk is loaded with the entity slice.
+                        // `postLoadProtoChunk`: legacy entity NBT of the proto chunk is loaded with the entity code.
                         Box::new(LevelChunk::from_proto(*proto, &self.factory))
                     }
                     ChunkSlot::Level(chunk) => chunk,
@@ -304,7 +298,7 @@ impl ServerLevel {
                 self.register_tick_container_in_level(pos);
             }
             ChunkMapEvent::StartTicking(pos) => {
-                // `postProcessGeneration(level)` and `startTickingChunk` belong to the LevelChunk/tick slice; the chunk
+                // `postProcessGeneration(level)` and `startTickingChunk` belong to the LevelChunk/tick code; the chunk
                 // map only needs to know the chunk is now ticking.
                 self.post_process_generation(pos);
                 self.start_ticking_chunk(pos);

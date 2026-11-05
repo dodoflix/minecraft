@@ -11,7 +11,7 @@ Two oracles, two jobs:
 ## Recipe (one scenario, both servers, sequentially)
 
 ```sh
-scripts/cargo-locked.sh build -p mc-testbot -p mc-server        # once (binaries under target/debug)
+cargo build -p mc-testbot -p mc-server                          # once (binaries under target/debug)
 scripts/mob-e2e.sh tests/e2e/mobs/summon_mobs.scn               # vanilla, then ours, then diff
 scripts/mob-e2e.sh tests/e2e/mobs/combat.scn --sides vanilla    # only record the oracle (run/mob-e2e/combat/vanilla.{jsonl,obs})
 scripts/mob-e2e.sh tests/e2e/mobs/breeding.scn --ignore update_attributes --ignore set_entity_data   # drop noisy packets from the diff

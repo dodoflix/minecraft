@@ -475,7 +475,7 @@ pub fn save_test(server: &mut MinecraftServer, dimension: &DimensionKey, pos: Bl
 }
 
 /// `StructureBlockEntity.saveStructure(level, id, pos, size, ignoreEntities, "", true, [AIR])`: fills a fresh template from the
-/// world and saves it. Entities are not collected (the structure block slice owns `StructureBlockEntity.saveStructure`;
+/// world and saves it. Entities are not collected (the structure block code owns `StructureBlockEntity.saveStructure`;
 /// switch to it when it lands), so saved test structures carry blocks only.
 fn save_structure(level: &mut crate::server::level::ServerLevel, id: &Identifier, pos: BlockPos, size: Vec3i) -> bool {
     use crate::world::level::levelgen::structure::templatesystem::structure_template::StructureTemplate;

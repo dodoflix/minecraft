@@ -3,7 +3,7 @@
 //! entity types, the small code-defined registries, plus the embedded vanilla data pack, tags and the `en_us` language file.
 //!
 //! Everything is generated at build time by `build.rs` from `ref/extracted` (see `tools/extractor`) — run
-//! `scripts/setup-ref.sh` before building. The extract schema is documented in `STATUS.md`.
+//! `scripts/setup-ref.sh` before building. The extract schema is defined by `tools/extractor`.
 
 #[macro_use]
 pub mod registry;

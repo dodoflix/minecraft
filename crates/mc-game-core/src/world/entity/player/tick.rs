@@ -88,7 +88,7 @@ impl ServerPlayer {
 
     /// `ServerPlayer.tick()`: game mode tick, damage cooldown, menu broadcast + validity, falling/lava tracking, attributes,
     /// post effects, the `tick`/`levitation` triggers and `advancements.flushDirty`. The camera follow-up belongs to the level
-    /// slice's spectator camera.
+    /// level's spectator camera.
     pub fn tick_server_player(&mut self, level: &mut ServerLevel) {
         self.tick_game_mode(level);
         self.warden_spawn_tracker.tick();

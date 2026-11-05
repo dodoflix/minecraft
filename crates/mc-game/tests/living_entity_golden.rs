@@ -7,7 +7,7 @@
 //! The replay understands the subset of the driver DSL these scenarios use (`level flat`, `fill`, `block`, `spawn_player`, `give`,
 //! `effect`, `attribute`, `set`, `nbt {FallFlying}`, `entity_seed`, `velocity`, `input`, `tick`, `watch`, `cmd effect clear`).
 //! Effects are added to the active-effect map together with the attribute modifiers the vanilla `MobEffect` registers
-//! (effect ticking/expiry belongs to the effects slice; durations here never run out).
+//! (effect ticking/expiry is not covered here; durations here never run out).
 mod common;
 use common::entity_oracle::*;
 use mc_core::ident::Identifier;

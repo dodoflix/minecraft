@@ -1,5 +1,4 @@
-//! `net.minecraft.world.entity.monster.*` (the Cubes slice: cube mobs, ravager, warden, creaking, breeze; the Piglins
-//! slice: piglin, hoglin, zoglin).
+//! `net.minecraft.world.entity.monster.*` (cube mobs, ravager, warden, creaking, breeze; piglin, hoglin, zoglin).
 
 pub mod cubemob;
 pub mod illager;

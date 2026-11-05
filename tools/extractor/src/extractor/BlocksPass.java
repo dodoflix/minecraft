@@ -29,7 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * blocks.json — see STATUS.md "mc-data extract schema". Block-level values come from Block / BlockBehaviour.Properties,
+ * blocks.json — block-level values come from Block / BlockBehaviour.Properties,
  * per-state values from BlockStateBase exactly as vanilla evaluates them (shapes with EmptyBlockGetter at BlockPos.ZERO and
  * CollisionContext.empty()).
  */

@@ -1,7 +1,7 @@
 //! Concrete block classes (`net.minecraft.world.level.block.*Block`), one file per Java class, each registering itself
 //! with [`register_block_class!`](crate::register_block_class) / [`register_block!`](crate::register_block).
 //! They hold the logic relevant to world generation and structure placement (`can_survive`, `update_shape`,
-//! `rotate`/`mirror`, post-processing); gameplay methods are added to the same files by the gameplay block slice.
+//! `rotate`/`mirror`, post-processing); gameplay methods are added to the same files by the gameplay block code.
 
 /// Defines `BlockBehaviour::update_shape` from a closure-like header:
 /// `update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| { .. })` (`level: &mut dyn LevelAccessor`).

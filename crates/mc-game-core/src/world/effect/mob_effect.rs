@@ -335,7 +335,7 @@ impl MobEffectExt for MobEffect {
         }
         match self.class() {
             "WeavingMobEffect" => reactions::weaving(level, mob),
-            // `OozingMobEffect`: spawns `Slime` (size 2) offspring; needs the slime class (mobs slice)
+            // `OozingMobEffect`: spawns `Slime` (size 2) offspring; needs the slime class (mobs)
             _ => {}
         }
     }

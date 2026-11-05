@@ -214,7 +214,6 @@ pub trait BlockEntity: Any {
         self.load_additional(tag);
         self.base_mut().components = read_codec(tag, "components", &mc_protocol::components::DataComponentMap::codec()).unwrap_or_default();
     }
-    // ==== [Loot] additions (BlockEntity trait methods) ====
     /// `collectImplicitComponents(builder)`: the components a block entity derives from its own state (container contents,
     /// custom name, banner patterns, ...), written on top of `components` by `collectComponents`.
     fn collect_implicit_components(&self, _builder: &mut mc_protocol::components::map::DataComponentMapBuilder) {}

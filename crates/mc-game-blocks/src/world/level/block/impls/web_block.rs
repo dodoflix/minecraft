@@ -14,7 +14,7 @@ impl BlockBehaviour for WebBlock {
         _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
         _is_precise: bool,
     ) {
-        // `MobEffects.WEAVING` (0.5, 0.25, 0.5) needs the effects slice (`Entity::has_effect`)
+        // `MobEffects.WEAVING` (0.5, 0.25, 0.5) needs the mob effects (`Entity::has_effect`)
         entity.make_stuck_in_block(state, Vec3::new(0.25, f64::from(0.05f32), 0.25));
     }
 }

@@ -2,7 +2,7 @@
 //! `getOnPos`, `checkFallDamage`, ...), generic over the level so it can be tested against a mock world.
 //!
 //! The server needs this for `MoverType.PLAYER` movement validation and for every ticking entity. Sounds, game events
-//! and block `entityInside` effects of movement are not part of this module (see `STATUS.md` gaps).
+//! and block `entityInside` effects of movement are not part of this module.
 
 use super::entity::{Entity, Movement, MovementEmission, MAX_MOVEMENTS_HANDLED_PER_TICK};
 use super::MoverType;

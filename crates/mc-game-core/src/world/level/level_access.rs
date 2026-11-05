@@ -80,7 +80,7 @@ pub trait LevelReader: BlockGetter {
     fn enabled_features(&self) -> FeatureFlagSet {
         FeatureFlagSet::DEFAULT_FLAGS
     }
-    // ==== [MobSpine] additions (LevelReader methods) ====
+    // ==== mob spine additions (LevelReader methods) ====
     /// `dimensionType().ambientLight()`.
     fn ambient_light(&self) -> f32 {
         0.0

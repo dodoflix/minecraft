@@ -1,4 +1,4 @@
-# show_dialog is intentionally not covered: dialogs are normalised by the dialog codec (mc-server wave); mc-text keeps them opaque.
+# show_dialog is intentionally not covered: dialogs are normalised by the dialog codec (in mc-server); mc-text keeps them opaque.
 J{"text":"a","extra":[]}
 J{"text":"a","extra":5}
 J{"text":"a","bold":"true"}

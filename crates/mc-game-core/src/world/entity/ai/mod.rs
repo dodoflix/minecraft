@@ -1,5 +1,5 @@
 //! `net.minecraft.world.entity.ai`: the Brain stack (memories, sensors, behaviors, activities, gossip, village types).
-//! The goal framework, controls, util and targeting (MobSpine) and navigation (PathfinderCore) are siblings (`goal`, `control`, `util`, `targeting`, `navigation`).
+//! The goal framework, controls, util and targeting and navigation are siblings (`goal`, `control`, `util`, `targeting`, `navigation`).
 //!
 //! # Architecture
 //!

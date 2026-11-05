@@ -34,7 +34,7 @@ import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.MapColor;
 
-/** misc.json: other code-defined tables (not in the data pack) that later waves need. Each section is independent. */
+/** misc.json: other code-defined tables (not in the data pack) that the server needs. Each section is independent. */
 public final class MiscPass implements Pass {
    @Override
    public String name() {

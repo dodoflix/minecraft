@@ -4,7 +4,7 @@
 //! `setItem`. Rust containers have no level at hand there, so the unpacking happens at the entry points that do have it
 //! ([`BlockEntity::unpack_loot_table`]: hopper/dropper container resolution, `createMenu`, ...). Observable behavior is
 //! the same: every vanilla access path unpacks before it reads, and the fill uses its own seeded random.
-//! Known gap: the `GENERATE_LOOT` criterion trigger of a player's unpack is not fired (advancements not on main).
+//! Known gap: the `GENERATE_LOOT` criterion trigger of a player's unpack is not fired (advancements are not ported yet).
 
 use crate::server::level::ServerLevel;
 use crate::world::container::Container;

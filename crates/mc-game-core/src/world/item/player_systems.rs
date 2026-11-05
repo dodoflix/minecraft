@@ -188,7 +188,7 @@ impl PlayHandlers for MenuHandlers {
     }
 
     fn handle_pick_item_from_entity(&self, _ctx: &mut PlayCtx, _packet: &ServerboundPickItemFromEntityPacket) {
-        // `Entity.getPickResult()` (spawn egg / boat / minecart item per entity type) belongs to the entity slice.
+        // `Entity.getPickResult()` (spawn egg / boat / minecart item per entity type) belongs to the entity code.
     }
 }
 

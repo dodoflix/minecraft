@@ -1,4 +1,4 @@
-# Rust build output at any depth (workspace target/, per-agent target/<crate>/, stray crate-local target/)
+# Rust build output at any depth (workspace target/, per-crate target/<crate>/, stray crate-local target/)
 target/
 **/*.rs.bk
 
