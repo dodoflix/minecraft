@@ -132,6 +132,8 @@ public class FeatureOracleBase {
         ACCESS = layers.replaceFrom(RegistryLayer.WORLD, world, dims).compositeAccess();
         BIOMES = ACCESS.lookupOrThrow(Registries.BIOME);
         FACTORY = PalettedContainerFactory.create(ACCESS);
+        // items/entity types of structures that equip mobs need their default components (ReloadableServerResources does this)
+        BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(ACCESS).forEach(net.minecraft.core.component.DataComponentInitializers.PendingComponents::apply);
     }
 
     // ---- generator / random state (the real overworld ones; the terrain of the chunks is synthetic) ----
@@ -289,6 +291,24 @@ public class FeatureOracleBase {
             Field debugSubscribers = net.minecraft.server.MinecraftServer.class.getDeclaredField("debugSubscribers");
             debugSubscribers.setAccessible(true);
             debugSubscribers.set(server, unsafe.allocateInstance(net.minecraft.util.debug.ServerDebugSubscribers.class));
+            Field worldData = net.minecraft.server.MinecraftServer.class.getDeclaredField("worldData");
+            worldData.setAccessible(true);
+            worldData.set(server, java.lang.reflect.Proxy.newProxyInstance(FeatureOracleBase.class.getClassLoader(), new Class<?>[]{net.minecraft.world.level.storage.WorldData.class},
+                (proxy, method, args) -> method.getName().equals("enabledFeatures") ? FeatureFlags.VANILLA_SET : null));
+            Field levelData = net.minecraft.world.level.Level.class.getDeclaredField("levelData");
+            levelData.setAccessible(true);
+            levelData.set(level, java.lang.reflect.Proxy.newProxyInstance(FeatureOracleBase.class.getClassLoader(), new Class<?>[]{net.minecraft.world.level.storage.ServerLevelData.class},
+                (proxy, method, args) -> method.getName().equals("getDifficulty") ? net.minecraft.world.Difficulty.NORMAL : null));
+            Field soundSeed = net.minecraft.world.level.Level.class.getDeclaredField("soundSeedGenerator");
+            soundSeed.setAccessible(true);
+            soundSeed.set(level, RandomSource.create(0L));
+            Object playerList = unsafe.allocateInstance(net.minecraft.server.dedicated.DedicatedPlayerList.class);
+            Field players = net.minecraft.server.players.PlayerList.class.getDeclaredField("players");
+            players.setAccessible(true);
+            players.set(playerList, new ArrayList<>());
+            Field playerListField = net.minecraft.server.MinecraftServer.class.getDeclaredField("playerList");
+            playerListField.setAccessible(true);
+            playerListField.set(server, playerList);
             Field serverField = net.minecraft.server.level.ServerLevel.class.getDeclaredField("server");
             serverField.setAccessible(true);
             serverField.set(level, server);
