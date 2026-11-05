@@ -1,0 +1,396 @@
+T 1
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+T 2
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+T 3
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 2 -60 0 minecraft:stone
+TICK block 1 -60 0 minecraft:observer delay=1 prio=0
+T 4
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=true]
+B 2 -60 0 minecraft:stone
+TICK block 1 -60 0 minecraft:observer delay=2 prio=0
+T 5
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=true]
+B 2 -60 0 minecraft:stone
+TICK block 1 -60 0 minecraft:observer delay=1 prio=0
+T 6
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 2 -60 0 minecraft:stone
+TICK block 0 -60 0 minecraft:redstone_lamp delay=4 prio=0
+T 7
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 2 -60 0 minecraft:stone
+TICK block 0 -60 0 minecraft:redstone_lamp delay=3 prio=0
+T 8
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+TICK block 1 -60 0 minecraft:observer delay=1 prio=0
+TICK block 0 -60 0 minecraft:redstone_lamp delay=2 prio=0
+T 9
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=true]
+TICK block 0 -60 0 minecraft:redstone_lamp delay=1 prio=0
+TICK block 1 -60 0 minecraft:observer delay=2 prio=0
+T 10
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=true]
+TICK block 1 -60 0 minecraft:observer delay=1 prio=0
+T 11
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+TICK block 0 -60 0 minecraft:redstone_lamp delay=4 prio=0
+T 12
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+TICK block 0 -60 0 minecraft:redstone_lamp delay=3 prio=0
+T 13
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 0 -60 1 minecraft:stone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+TICK block 0 -60 0 minecraft:redstone_lamp delay=2 prio=0
+T 14
+B 0 -60 0 minecraft:redstone_lamp[lit=true]
+B 0 -60 1 minecraft:stone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+TICK block 0 -60 0 minecraft:redstone_lamp delay=1 prio=0
+T 15
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+T 16
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+T 17
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:dirt
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 4 minecraft:observer delay=1 prio=0
+T 18
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:dirt
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 4 minecraft:observer delay=2 prio=0
+T 19
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 4 minecraft:observer delay=1 prio=0
+T 20
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+T 21
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+T 22
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+T 23
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+T 24
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+T 25
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+T 26
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+T 27
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 8 minecraft:observer delay=1 prio=0
+T 28
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=2 prio=0
+TICK block 1 -60 8 minecraft:observer delay=2 prio=0
+T 29
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=1 prio=0
+TICK block 1 -60 8 minecraft:observer delay=1 prio=0
+T 30
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=true]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=2 prio=0
+T 31
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=true]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=1 prio=0
+T 32
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 8 minecraft:observer delay=2 prio=0
+T 33
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 8 minecraft:observer delay=1 prio=0
+T 34
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=2 prio=0
+TICK block 1 -60 8 minecraft:observer delay=2 prio=0
+T 35
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=1 prio=0
+TICK block 1 -60 8 minecraft:observer delay=1 prio=0
+T 36
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=true]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=2 prio=0
+T 37
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=true]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:observer delay=1 prio=0
+T 38
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 8 minecraft:observer delay=2 prio=0
+T 39
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+B 5 -60 8 minecraft:observer[facing=up,powered=false]
+TICK block 1 -60 8 minecraft:observer delay=1 prio=0
+T 40
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+B 5 -60 8 minecraft:observer[facing=up,powered=false]
+TICK block 2 -60 8 minecraft:observer delay=2 prio=0
+TICK block 1 -60 8 minecraft:observer delay=2 prio=0
+T 41
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=true]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+B 5 -60 8 minecraft:observer[facing=up,powered=false]
+TICK block 2 -60 8 minecraft:observer delay=1 prio=0
+TICK block 1 -60 8 minecraft:observer delay=1 prio=0
+T 42
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=true]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+B 5 -60 8 minecraft:observer[facing=up,powered=false]
+TICK block 2 -60 8 minecraft:observer delay=2 prio=0
+T 43
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=true]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+B 5 -60 8 minecraft:observer[facing=up,powered=false]
+TICK block 2 -60 8 minecraft:observer delay=1 prio=0
+T 44
+B 0 -60 0 minecraft:redstone_lamp[lit=false]
+B 0 -60 1 minecraft:stone
+B 0 -60 4 minecraft:cobblestone
+B 1 -60 0 minecraft:observer[facing=east,powered=false]
+B 1 -60 1 minecraft:stone
+B 1 -60 4 minecraft:observer[facing=east,powered=false]
+B 1 -60 8 minecraft:observer[facing=east,powered=false]
+B 2 -60 4 minecraft:repeater[delay=1,facing=east,locked=false,powered=false]
+B 2 -60 8 minecraft:observer[facing=west,powered=false]
+B 3 -60 4 minecraft:redstone_lamp[lit=false]
+B 5 -60 8 minecraft:observer[facing=up,powered=false]
+TICK block 1 -60 8 minecraft:observer delay=2 prio=0

@@ -2,9 +2,9 @@
 level flat
 preload 2
 watch blocks:-1,-60,-2,6,-60,14 ticks events
-block 0 -60 0 minecraft:composter[level=5]
-block 1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
 block 2 -60 0 minecraft:redstone_lamp
+block 0 -60 0 minecraft:composter[level=5]
 tick 6
 dump be:1,-60,0
 # side input stronger than rear: compare mode turns off
@@ -13,7 +13,7 @@ tick 6
 dump be:1,-60,0
 # subtract: 5 - 15 -> 0; weaker side input
 block 1 -60 -1 minecraft:redstone_wire[power=3]
-block 1 -60 0 minecraft:comparator[facing=east,mode=subtract,powered=false]
+block 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=false]
 tick 6
 dump be:1,-60,0
 block 0 -60 0 minecraft:composter[level=8]
@@ -23,28 +23,28 @@ block 1 -60 -1 minecraft:air
 tick 6
 dump be:1,-60,0
 # container (barrel with one full stack) as rear input, comparator in compare mode
+block 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 2 -60 4 minecraft:redstone_lamp
 block 0 -60 4 minecraft:barrel[facing=up]
 be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:stone",count:64}]}
-block 1 -60 4 minecraft:comparator[facing=east,mode=compare,powered=false]
-block 2 -60 4 minecraft:redstone_lamp
 tick 6
 dump be:1,-60,4
 be_nbt 0 -60 4 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64},{Slot:5b,id:"minecraft:stone",count:64}]}
 tick 6
 dump be:1,-60,4
 # rear input read through a solid block (redstone conductor) from the container behind it
+block 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=false]
+block 3 -60 8 minecraft:redstone_lamp
 block 0 -60 8 minecraft:barrel[facing=up]
 be_nbt 0 -60 8 {Items:[{Slot:0b,id:"minecraft:stone",count:64},{Slot:1b,id:"minecraft:stone",count:64}]}
 block 1 -60 8 minecraft:stone
-block 2 -60 8 minecraft:comparator[facing=east,mode=compare,powered=false]
-block 3 -60 8 minecraft:redstone_lamp
 tick 6
 dump be:2,-60,8
 # redstone dust rear input with power 15 (through a repeater), comparator keeps the BE output
-block 0 -60 12 minecraft:redstone_block
-block 1 -60 12 minecraft:redstone_wire
-block 2 -60 12 minecraft:comparator[facing=east,mode=compare,powered=false]
+block 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
 block 3 -60 12 minecraft:redstone_lamp
+block 1 -60 12 minecraft:redstone_wire
+block 0 -60 12 minecraft:redstone_block
 tick 6
 dump be:2,-60,12
 block 0 -60 12 minecraft:air

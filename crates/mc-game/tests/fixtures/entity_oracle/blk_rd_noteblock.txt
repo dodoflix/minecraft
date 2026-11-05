@@ -1,0 +1,159 @@
+B 0 -60 0 minecraft:note_block[instrument=basedrum,note=0,powered=false]
+B 2 -60 0 minecraft:note_block[instrument=snare,note=1,powered=false]
+B 4 -60 0 minecraft:note_block[instrument=hat,note=2,powered=false]
+B 6 -60 0 minecraft:note_block[instrument=bass,note=3,powered=false]
+B 8 -60 0 minecraft:note_block[instrument=flute,note=4,powered=false]
+B 10 -60 0 minecraft:note_block[instrument=chime,note=5,powered=false]
+B 12 -60 0 minecraft:note_block[instrument=guitar,note=6,powered=false]
+B 14 -60 0 minecraft:note_block[instrument=xylophone,note=7,powered=false]
+B 16 -60 0 minecraft:note_block[instrument=iron_xylophone,note=8,powered=false]
+B 18 -60 0 minecraft:note_block[instrument=cow_bell,note=9,powered=false]
+B 20 -60 0 minecraft:note_block[instrument=didgeridoo,note=10,powered=false]
+B 22 -60 0 minecraft:note_block[instrument=bit,note=11,powered=false]
+B 24 -60 0 minecraft:note_block[instrument=banjo,note=12,powered=false]
+B 26 -60 0 minecraft:note_block[instrument=pling,note=13,powered=false]
+B 28 -60 0 minecraft:note_block[instrument=trumpet,note=14,powered=false]
+B 30 -60 0 minecraft:note_block[instrument=trumpet_exposed,note=15,powered=false]
+B 32 -60 0 minecraft:note_block[instrument=trumpet_weathered,note=16,powered=false]
+B 34 -60 0 minecraft:note_block[instrument=trumpet_oxidized,note=17,powered=false]
+B 36 -60 0 minecraft:note_block[instrument=harp,note=18,powered=false]
+B 38 -60 0 minecraft:note_block[instrument=bell,note=19,powered=false]
+B 0 -60 0 minecraft:note_block[instrument=basedrum,note=0,powered=true]
+B 0 -60 1 minecraft:redstone_block
+B 2 -60 0 minecraft:note_block[instrument=snare,note=1,powered=true]
+B 2 -60 1 minecraft:redstone_block
+B 4 -60 0 minecraft:note_block[instrument=hat,note=2,powered=true]
+B 4 -60 1 minecraft:redstone_block
+B 6 -60 0 minecraft:note_block[instrument=bass,note=3,powered=true]
+B 6 -60 1 minecraft:redstone_block
+B 8 -60 0 minecraft:note_block[instrument=flute,note=4,powered=true]
+B 8 -60 1 minecraft:redstone_block
+B 10 -60 0 minecraft:note_block[instrument=chime,note=5,powered=true]
+B 10 -60 1 minecraft:redstone_block
+B 12 -60 0 minecraft:note_block[instrument=guitar,note=6,powered=true]
+B 12 -60 1 minecraft:redstone_block
+B 14 -60 0 minecraft:note_block[instrument=xylophone,note=7,powered=true]
+B 14 -60 1 minecraft:redstone_block
+B 16 -60 0 minecraft:note_block[instrument=iron_xylophone,note=8,powered=true]
+B 16 -60 1 minecraft:redstone_block
+B 18 -60 0 minecraft:note_block[instrument=cow_bell,note=9,powered=true]
+B 18 -60 1 minecraft:redstone_block
+B 20 -60 0 minecraft:note_block[instrument=didgeridoo,note=10,powered=true]
+B 20 -60 1 minecraft:redstone_block
+B 22 -60 0 minecraft:note_block[instrument=bit,note=11,powered=true]
+B 22 -60 1 minecraft:redstone_block
+B 24 -60 0 minecraft:note_block[instrument=banjo,note=12,powered=true]
+B 24 -60 1 minecraft:redstone_block
+B 26 -60 0 minecraft:note_block[instrument=pling,note=13,powered=true]
+B 26 -60 1 minecraft:redstone_block
+B 28 -60 0 minecraft:note_block[instrument=trumpet,note=14,powered=true]
+B 28 -60 1 minecraft:redstone_block
+B 30 -60 0 minecraft:note_block[instrument=trumpet_exposed,note=15,powered=true]
+B 30 -60 1 minecraft:redstone_block
+B 32 -60 0 minecraft:note_block[instrument=trumpet_weathered,note=16,powered=true]
+B 32 -60 1 minecraft:redstone_block
+B 34 -60 0 minecraft:note_block[instrument=trumpet_oxidized,note=17,powered=true]
+B 34 -60 1 minecraft:redstone_block
+B 36 -60 0 minecraft:note_block[instrument=harp,note=18,powered=true]
+B 36 -60 1 minecraft:redstone_block
+B 38 -60 0 minecraft:note_block[instrument=bell,note=19,powered=true]
+B 38 -60 1 minecraft:redstone_block
+EV sound at=0.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.basedrum source=record vol=3.0 pitch=0.5
+EV block_event r=64.0 ex=0 pos=0,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=2.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.snare source=record vol=3.0 pitch=0.5297316
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=4.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.hat source=record vol=3.0 pitch=0.561231
+EV block_event r=64.0 ex=0 pos=4,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=6.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.bass source=record vol=3.0 pitch=0.59460354
+EV block_event r=64.0 ex=0 pos=6,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=8.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.flute source=record vol=3.0 pitch=0.62996054
+EV block_event r=64.0 ex=0 pos=8,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=10.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.chime source=record vol=3.0 pitch=0.6674199
+EV block_event r=64.0 ex=0 pos=10,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=12.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.guitar source=record vol=3.0 pitch=0.70710677
+EV block_event r=64.0 ex=0 pos=12,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=14.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.xylophone source=record vol=3.0 pitch=0.74915355
+EV block_event r=64.0 ex=0 pos=14,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=16.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.iron_xylophone source=record vol=3.0 pitch=0.7937005
+EV block_event r=64.0 ex=0 pos=16,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=18.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.cow_bell source=record vol=3.0 pitch=0.8408964
+EV block_event r=64.0 ex=0 pos=18,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=20.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.didgeridoo source=record vol=3.0 pitch=0.8908987
+EV block_event r=64.0 ex=0 pos=20,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=22.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.bit source=record vol=3.0 pitch=0.9438743
+EV block_event r=64.0 ex=0 pos=22,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=24.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.banjo source=record vol=3.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=24,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=26.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.pling source=record vol=3.0 pitch=1.0594631
+EV block_event r=64.0 ex=0 pos=26,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=28.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.trumpet source=record vol=3.0 pitch=1.122462
+EV block_event r=64.0 ex=0 pos=28,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=30.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.trumpet_exposed source=record vol=3.0 pitch=1.1892071
+EV block_event r=64.0 ex=0 pos=30,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=32.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.trumpet_weathered source=record vol=3.0 pitch=1.2599211
+EV block_event r=64.0 ex=0 pos=32,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=34.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.trumpet_oxidized source=record vol=3.0 pitch=1.3348398
+EV block_event r=64.0 ex=0 pos=34,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=36.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.harp source=record vol=3.0 pitch=1.4142135
+EV block_event r=64.0 ex=0 pos=36,-60,0 block=minecraft:note_block b0=0 b1=0
+EV sound at=38.5,-59.5,0.5 r=48.0 ex=0 event=minecraft:block.note_block.bell source=record vol=3.0 pitch=1.4983071
+EV block_event r=64.0 ex=0 pos=38,-60,0 block=minecraft:note_block b0=0 b1=0
+B 0 -60 4 minecraft:note_block[instrument=zombie,note=0,powered=false]
+B 0 -59 4 minecraft:zombie_head[powered=false,rotation=0]
+B 2 -60 4 minecraft:note_block[instrument=skeleton,note=3,powered=false]
+B 2 -59 4 minecraft:skeleton_skull[powered=false,rotation=0]
+B 4 -60 4 minecraft:note_block[instrument=creeper,note=6,powered=false]
+B 4 -59 4 minecraft:creeper_head[powered=false,rotation=0]
+B 6 -60 4 minecraft:note_block[instrument=dragon,note=9,powered=false]
+B 6 -59 4 minecraft:dragon_head[powered=false,rotation=0]
+B 8 -60 4 minecraft:note_block[instrument=piglin,note=12,powered=false]
+B 8 -59 4 minecraft:piglin_head[powered=false,rotation=0]
+B 10 -60 4 minecraft:note_block[instrument=wither_skeleton,note=15,powered=false]
+B 10 -59 4 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 12 -60 4 minecraft:note_block[instrument=custom_head,note=18,powered=false]
+B 12 -59 4 minecraft:player_head[powered=false,rotation=0]
+B 14 -60 4 minecraft:note_block[instrument=harp,note=21,powered=false]
+B 14 -59 4 minecraft:zombie_wall_head[facing=north,powered=false]
+B 0 -60 4 minecraft:note_block[instrument=zombie,note=0,powered=true]
+B 0 -60 5 minecraft:redstone_block
+B 0 -59 4 minecraft:zombie_head[powered=false,rotation=0]
+B 2 -60 4 minecraft:note_block[instrument=skeleton,note=3,powered=true]
+B 2 -60 5 minecraft:redstone_block
+B 2 -59 4 minecraft:skeleton_skull[powered=false,rotation=0]
+B 4 -60 4 minecraft:note_block[instrument=creeper,note=6,powered=true]
+B 4 -60 5 minecraft:redstone_block
+B 4 -59 4 minecraft:creeper_head[powered=false,rotation=0]
+B 6 -60 4 minecraft:note_block[instrument=dragon,note=9,powered=true]
+B 6 -60 5 minecraft:redstone_block
+B 6 -59 4 minecraft:dragon_head[powered=false,rotation=0]
+B 8 -60 4 minecraft:note_block[instrument=piglin,note=12,powered=true]
+B 8 -60 5 minecraft:redstone_block
+B 8 -59 4 minecraft:piglin_head[powered=false,rotation=0]
+B 10 -60 4 minecraft:note_block[instrument=wither_skeleton,note=15,powered=true]
+B 10 -60 5 minecraft:redstone_block
+B 10 -59 4 minecraft:wither_skeleton_skull[powered=false,rotation=0]
+B 12 -60 4 minecraft:note_block[instrument=custom_head,note=18,powered=true]
+B 12 -60 5 minecraft:redstone_block
+B 12 -59 4 minecraft:player_head[powered=false,rotation=0]
+B 14 -60 4 minecraft:note_block[instrument=harp,note=21,powered=true]
+B 14 -60 5 minecraft:redstone_block
+B 14 -59 4 minecraft:zombie_wall_head[facing=north,powered=false]
+EV sound at=0.5,-59.5,4.5 r=48.0 ex=0 event=minecraft:block.note_block.imitate.zombie source=record vol=3.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=0,-60,4 block=minecraft:note_block b0=0 b1=0
+EV sound at=2.5,-59.5,4.5 r=48.0 ex=0 event=minecraft:block.note_block.imitate.skeleton source=record vol=3.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=2,-60,4 block=minecraft:note_block b0=0 b1=0
+EV sound at=4.5,-59.5,4.5 r=48.0 ex=0 event=minecraft:block.note_block.imitate.creeper source=record vol=3.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=4,-60,4 block=minecraft:note_block b0=0 b1=0
+EV sound at=6.5,-59.5,4.5 r=48.0 ex=0 event=minecraft:block.note_block.imitate.ender_dragon source=record vol=3.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=6,-60,4 block=minecraft:note_block b0=0 b1=0
+EV sound at=8.5,-59.5,4.5 r=48.0 ex=0 event=minecraft:block.note_block.imitate.piglin source=record vol=3.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=8,-60,4 block=minecraft:note_block b0=0 b1=0
+EV sound at=10.5,-59.5,4.5 r=48.0 ex=0 event=minecraft:block.note_block.imitate.wither_skeleton source=record vol=3.0 pitch=1.0
+EV block_event r=64.0 ex=0 pos=10,-60,4 block=minecraft:note_block b0=0 b1=0
+B 30 -61 8 minecraft:stone
+B 30 -61 9 minecraft:grass_block[snowy=false]
+B 30 -60 8 minecraft:note_block[instrument=basedrum,note=0,powered=true]
+B 30 -60 9 minecraft:redstone_block
+B 30 -59 8 minecraft:stone
+EV sound at=30.5,-59.5,8.5 r=48.0 ex=0 event=minecraft:block.note_block.basedrum source=record vol=3.0 pitch=0.5
+EV block_event r=64.0 ex=0 pos=30,-60,8 block=minecraft:note_block b0=0 b1=0

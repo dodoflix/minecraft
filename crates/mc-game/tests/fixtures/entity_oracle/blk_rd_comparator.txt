@@ -1,0 +1,489 @@
+T 1
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 0 minecraft:comparator delay=1 prio=0
+T 2
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 3
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 4
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 5
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 6
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 1 -60 0 {OutputSignal:5,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+T 7
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 0 minecraft:comparator delay=1 prio=0
+T 8
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=4 prio=0
+T 9
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=3 prio=0
+T 10
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=2 prio=0
+T 11
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 0 minecraft:redstone_lamp delay=1 prio=0
+T 12
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+BE 1 -60 0 {OutputSignal:0,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+T 13
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 0 minecraft:comparator delay=1 prio=0
+T 14
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 15
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 16
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 17
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 18
+B 0 -60 0 minecraft:composter[level=5]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 1 -60 0 {OutputSignal:5,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+T 19
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 0 minecraft:comparator delay=1 prio=0
+T 20
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 21
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 22
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 23
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 24
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 -1 minecraft:redstone_wire[east=none,north=side,power=0,south=side,west=none]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 1 -60 0 {OutputSignal:8,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+T 25
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 26
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 27
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 28
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 29
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+T 30
+B 0 -60 0 minecraft:composter[level=8]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+BE 1 -60 0 {OutputSignal:8,components:{},id:"minecraft:comparator",x:1,y:-60,z:0}
+T 31
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=false]
+TICK block 1 -60 4 minecraft:comparator delay=1 prio=0
+T 32
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 33
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 34
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 35
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 36
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+BE 1 -60 4 {OutputSignal:1,components:{},id:"minecraft:comparator",x:1,y:-60,z:4}
+T 37
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+TICK block 1 -60 4 minecraft:comparator delay=1 prio=0
+T 38
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 39
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 40
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 41
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+T 42
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+BE 1 -60 4 {OutputSignal:2,components:{},id:"minecraft:comparator",x:1,y:-60,z:4}
+T 43
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 3 -60 8 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 8 minecraft:comparator delay=1 prio=0
+T 44
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+T 45
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+T 46
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+T 47
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+T 48
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+BE 2 -60 8 {OutputSignal:2,components:{},id:"minecraft:comparator",x:2,y:-60,z:8}
+T 49
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 0 -60 12 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=false]
+TICK block 2 -60 12 minecraft:comparator delay=1 prio=0
+T 50
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 0 -60 12 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+T 51
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 0 -60 12 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+T 52
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 0 -60 12 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+T 53
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 0 -60 12 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+T 54
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 0 -60 12 minecraft:redstone_block
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=15,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+BE 2 -60 12 {OutputSignal:15,components:{},id:"minecraft:comparator",x:2,y:-60,z:12}
+T 55
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+TICK block 2 -60 12 minecraft:comparator delay=1 prio=0
+T 56
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+TICK block 3 -60 12 minecraft:redstone_lamp delay=4 prio=0
+T 57
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+TICK block 3 -60 12 minecraft:redstone_lamp delay=3 prio=0
+T 58
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+TICK block 3 -60 12 minecraft:redstone_lamp delay=2 prio=0
+T 59
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=true]
+TICK block 3 -60 12 minecraft:redstone_lamp delay=1 prio=0
+T 60
+B 0 -60 0 minecraft:composter[level=8]
+B 0 -60 4 minecraft:barrel[facing=up,open=false]
+B 0 -60 8 minecraft:barrel[facing=up,open=false]
+B 1 -60 0 minecraft:comparator[facing=west,mode=subtract,powered=true]
+B 1 -60 4 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 1 -60 8 minecraft:stone
+B 1 -60 12 minecraft:redstone_wire[east=side,north=none,power=0,south=none,west=side]
+B 2 -60 0 minecraft:redstone_lamp[lit=true]
+B 2 -60 4 minecraft:redstone_lamp[lit=true]
+B 2 -60 8 minecraft:comparator[facing=west,mode=compare,powered=true]
+B 2 -60 12 minecraft:comparator[facing=west,mode=compare,powered=false]
+B 3 -60 8 minecraft:redstone_lamp[lit=true]
+B 3 -60 12 minecraft:redstone_lamp[lit=false]
+BE 2 -60 12 {OutputSignal:0,components:{},id:"minecraft:comparator",x:2,y:-60,z:12}

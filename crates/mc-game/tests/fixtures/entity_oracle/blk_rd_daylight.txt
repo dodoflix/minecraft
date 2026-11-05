@@ -1,0 +1,33 @@
+C Clock minecraft:overworld is already set to 0 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=7]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=7]
+BE 1 -60 0 {components:{},id:"minecraft:daylight_detector",x:1,y:-60,z:0}
+C Set minecraft:overworld to 2000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=12]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=12]
+C Set minecraft:overworld to 6000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=15]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=15]
+C Set minecraft:overworld to 10000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=12]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=12]
+C Set minecraft:overworld to 12000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=7]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=7]
+C Set minecraft:overworld to 13000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=2]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=6]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=2]
+C Set minecraft:overworld to 18000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=0]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=11]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=0]
+C Set minecraft:overworld to 23000 tick(s)
+B 1 -60 0 minecraft:daylight_detector[inverted=false,power=2]
+B 3 -60 0 minecraft:daylight_detector[inverted=true,power=6]
+B 5 -60 0 minecraft:daylight_detector[inverted=false,power=2]
