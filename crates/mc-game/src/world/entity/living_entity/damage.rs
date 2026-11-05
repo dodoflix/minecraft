@@ -295,7 +295,8 @@ pub fn get_damage_after_armor_absorb(entity: &mut dyn Entity, level: &mut Server
     if !source.is_tag(level, DamageTypeTags::BYPASSES_ARMOR) {
         entity.hurt_armor(level, source, damage);
         let toughness = entity.living().expect("living").get_attribute_value(Attribute::ARMOR_TOUGHNESS) as f32;
-        damage = combat_rules::get_damage_after_absorb(level, entity, damage, source, entity.get_armor_value() as f32, toughness);
+        let armor = entity.get_armor_value() as f32;
+        damage = combat_rules::get_damage_after_absorb(level, entity, damage, source, armor, toughness);
     }
     damage
 }

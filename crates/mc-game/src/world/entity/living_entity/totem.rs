@@ -47,7 +47,7 @@ pub fn check_totem_death_protection(entity: &mut dyn Entity, level: &mut ServerL
     }
     entity.living_mut().expect("living").set_health(1.0);
     for effect in &protection.death_effects {
-        crate::world::item::consumable::apply_consume_effect(effect, level, entity);
+        crate::world::item::apply_consume_effect(effect, level, entity);
     }
     broadcast_entity_event(level, entity.id(), 35);
     true

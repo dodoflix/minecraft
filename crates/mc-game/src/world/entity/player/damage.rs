@@ -11,7 +11,8 @@ use mc_world::level_storage::Difficulty;
 use super::ServerPlayer;
 use crate::registry::typed::damage_type::DamageEffects;
 use crate::server::level::ServerLevel;
-use crate::stats::Stats;
+use crate::stats::Stat;
+use crate::stats::stats::Stats;
 use crate::world::damagesource::{DamageEntity, DamageSource, DamageTypeTags, DamageTypes};
 use crate::world::entity::Entity;
 use crate::world::entity::equipment::EquipmentSlot;
@@ -265,7 +266,7 @@ fn handle_team_kill(level: &ServerLevel, source: &str, target: &str, team_kill: 
 
 /// `Player.killedEntity(level, victim, source)`: counts the kill, the victim's death proceeds.
 pub fn killed_entity(player: &mut ServerPlayer, level: &mut ServerLevel, victim: &DamageEntity) -> bool {
-    player.award_stat(level, Stats::killed(victim.entity_type), 1);
+    player.award_stat(level, Stat::Killed(victim.entity_type), 1);
     true
 }
 
@@ -300,7 +301,7 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
     }
     let killer = death::resolve_kill_credit(level, player, Some(source));
     if let Some(killer) = &killer {
-        player.award_stat(level, Stats::killed_by(killer.entity_type), 1);
+        player.award_stat(level, Stat::KilledBy(killer.entity_type), 1);
         let (victim, s) = (DamageEntity::of(player), source.clone());
         level.with_entity_or_defer(killer.id, move |level, e| e.award_kill_score(level, &victim, &s));
         death::create_wither_rose(player, level, Some(killer));
