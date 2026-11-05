@@ -170,7 +170,7 @@ struct BookHandlers;
 impl PlayHandlers for BookHandlers {
     /// `handleEditBook`: the dedicated server's `TextFilter` passes everything through (see `text_filter.rs`).
     fn handle_edit_book(&self, ctx: &mut PlayCtx, packet: &ServerboundEditBookPacket) {
-        edit_book(ctx.player, packet, FilteredText::pass_through);
+        edit_book(ctx.player, packet, |s| FilteredText::pass_through(s));
     }
 }
 
@@ -235,11 +235,11 @@ mod tests {
         p.player.inventory.set_item(2, ItemStack::new(Item::WRITABLE_BOOK));
         p.player.inventory.set_item(3, ItemStack::new(Item::STONE));
         let packet = ServerboundEditBookPacket { slot: 2, pages: vec!["a".into(), "b".into()], title: None };
-        edit_book(&mut p, &packet, FilteredText::pass_through);
+        edit_book(&mut p, &packet, |s| FilteredText::pass_through(s));
         let content = p.player.inventory.get_item(2).get(&WRITABLE_BOOK_CONTENT).unwrap().clone();
         assert_eq!(content.pages, vec![Filterable::pass_through("a".to_owned()), Filterable::pass_through("b".to_owned())]);
         // a slot without a writable book is left alone
-        edit_book(&mut p, &ServerboundEditBookPacket { slot: 3, ..packet }, FilteredText::pass_through);
+        edit_book(&mut p, &ServerboundEditBookPacket { slot: 3, ..packet }, |s| FilteredText::pass_through(s));
         assert_eq!(p.player.inventory.get_item(3), &ItemStack::new(Item::STONE));
     }
 
@@ -250,7 +250,7 @@ mod tests {
         book.set(mc_protocol::components::CUSTOM_NAME, Component::literal("mine"));
         p.player.inventory.set_item(40, book);
         let packet = ServerboundEditBookPacket { slot: 40, pages: vec!["page one".into()], title: Some("Title".into()) };
-        edit_book(&mut p, &packet, FilteredText::pass_through);
+        edit_book(&mut p, &packet, |s| FilteredText::pass_through(s));
         let signed = p.player.inventory.get_item(40);
         assert_eq!(signed.item(), Item::WRITTEN_BOOK);
         assert!(!signed.has(DataComponentType::WRITABLE_BOOK_CONTENT));

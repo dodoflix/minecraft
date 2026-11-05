@@ -50,7 +50,7 @@ fn books_match_vanilla() {
                     json => Some(serde_json::from_str::<String>(json).unwrap()),
                 };
                 let pages: Vec<String> = serde_json::from_str(parts.next().unwrap()).unwrap();
-                edit_book(&mut player, &ServerboundEditBookPacket { slot: slot as i32, pages, title }, FilteredText::pass_through);
+                edit_book(&mut player, &ServerboundEditBookPacket { slot: slot as i32, pages, title }, |s| FilteredText::pass_through(s));
             }
             "USE" => {
                 slot = rest.parse().unwrap();
