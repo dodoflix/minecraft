@@ -1,0 +1,1916 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraft:zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:attribute' at position 18: ...aft:zombie<--[HERE]@16
+E Can't find element 'minecraft:zombie' of type 'minecraft:attribute' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:attribute' at position 8: t zombie<--[HERE]@6
+E Can't find element 'minecraft:zombie' of type 'minecraft:attribute' at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:player
+R 0
+A -
+X Can't find element 'minecraft:player' of type 'minecraft:attribute' at position 18: ...aft:player<--[HERE]@16
+E Can't find element 'minecraft:player' of type 'minecraft:attribute' at position 18: ...aft:player<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:attribute' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'minecraft:nope' of type 'minecraft:attribute' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all #minecraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speed
+R 0
+A -
+X Can't find element 'minecraft:speed' of type 'minecraft:attribute' at position 17: ...raft:speed<--[HERE]@15
+E Can't find element 'minecraft:speed' of type 'minecraft:attribute' at position 17: ...raft:speed<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 0
+A -
+X Can't find element 'minecraft:sharpness' of type 'minecraft:attribute' at position 21: ...:sharpness<--[HERE]@19
+E Can't find element 'minecraft:sharpness' of type 'minecraft:attribute' at position 21: ...:sharpness<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:fortune
+R 0
+A -
+X Can't find element 'minecraft:fortune' of type 'minecraft:attribute' at position 19: ...ft:fortune<--[HERE]@17
+E Can't find element 'minecraft:fortune' of type 'minecraft:attribute' at position 19: ...ft:fortune<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 0
+A -
+X Can't find element 'minecraft:village_plains' of type 'minecraft:attribute' at position 26: ...age_plains<--[HERE]@24
+E Can't find element 'minecraft:village_plains' of type 'minecraft:attribute' at position 26: ...age_plains<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 0
+A -
+X Can't find element 'minecraft:mineshaft' of type 'minecraft:attribute' at position 21: ...:mineshaft<--[HERE]@19
+E Can't find element 'minecraft:mineshaft' of type 'minecraft:attribute' at position 21: ...:mineshaft<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:ancient_city' of type 'minecraft:attribute' at position 24: ...cient_city<--[HERE]@22
+E Can't find element 'minecraft:ancient_city' of type 'minecraft:attribute' at position 24: ...cient_city<--[HERE]@22
+S -2--2 0 0 
+@ all foo:bar
+R 0
+A -
+X Can't find element 'foo:bar' of type 'minecraft:attribute' at position 9: t foo:bar<--[HERE]@7
+E Can't find element 'foo:bar' of type 'minecraft:attribute' at position 9: t foo:bar<--[HERE]@7
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 15
+A 0-15 minecraft:armor
+E ok
+S 0-15 1 1973208804 minecraft:armor_toughness
+@ all minecraft:max_health
+R 20
+A 0-20 minecraft:max_health
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 0
+A -
+X Can't find element 'minecraft:generic.max_health' of type 'minecraft:attribute' at position 30: ...max_health<--[HERE]@28
+E Can't find element 'minecraft:generic.max_health' of type 'minecraft:attribute' at position 30: ...max_health<--[HERE]@28
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:attribute' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:attribute' at position 3: t m<--[HERE]@1
+S 0-1 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+S 0-2 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+S 0-3 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:attribute' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:attribute' at position 6: t mine<--[HERE]@4
+S 0-4 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:attribute' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:attribute' at position 7: t minec<--[HERE]@5
+S 0-5 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+S 0-6 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+S 0-7 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+S 0-8 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+S 0-9 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraft:z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:attribute' at position 13: ...inecraft:z<--[HERE]@11
+E Can't find element 'minecraft:z' of type 'minecraft:attribute' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:attribute' at position 14: ...necraft:zo<--[HERE]@12
+E Can't find element 'minecraft:zo' of type 'minecraft:attribute' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:attribute' at position 15: ...ecraft:zom<--[HERE]@13
+E Can't find element 'minecraft:zom' of type 'minecraft:attribute' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:attribute' at position 16: ...craft:zomb<--[HERE]@14
+E Can't find element 'minecraft:zomb' of type 'minecraft:attribute' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+E Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:attribute' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:attribute' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:attribute' at position 4: t zo<--[HERE]@2
+E Can't find element 'minecraft:zo' of type 'minecraft:attribute' at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:attribute' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:attribute' at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:attribute' at position 6: t zomb<--[HERE]@4
+E Can't find element 'minecraft:zomb' of type 'minecraft:attribute' at position 6: t zomb<--[HERE]@4
+S -2--2 0 0 
+@ all zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:p
+R 0
+A -
+X Can't find element 'minecraft:p' of type 'minecraft:attribute' at position 13: ...inecraft:p<--[HERE]@11
+E Can't find element 'minecraft:p' of type 'minecraft:attribute' at position 13: ...inecraft:p<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:pl
+R 0
+A -
+X Can't find element 'minecraft:pl' of type 'minecraft:attribute' at position 14: ...necraft:pl<--[HERE]@12
+E Can't find element 'minecraft:pl' of type 'minecraft:attribute' at position 14: ...necraft:pl<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:pla
+R 0
+A -
+X Can't find element 'minecraft:pla' of type 'minecraft:attribute' at position 15: ...ecraft:pla<--[HERE]@13
+E Can't find element 'minecraft:pla' of type 'minecraft:attribute' at position 15: ...ecraft:pla<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:play
+R 0
+A -
+X Can't find element 'minecraft:play' of type 'minecraft:attribute' at position 16: ...craft:play<--[HERE]@14
+E Can't find element 'minecraft:play' of type 'minecraft:attribute' at position 16: ...craft:play<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:playe
+R 0
+A -
+X Can't find element 'minecraft:playe' of type 'minecraft:attribute' at position 17: ...raft:playe<--[HERE]@15
+E Can't find element 'minecraft:playe' of type 'minecraft:attribute' at position 17: ...raft:playe<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:n' of type 'minecraft:attribute' at position 13: ...inecraft:n<--[HERE]@11
+E Can't find element 'minecraft:n' of type 'minecraft:attribute' at position 13: ...inecraft:n<--[HERE]@11
+S 0-11 1 15162504 minecraft:name_tag_distance
+@ all minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:attribute' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:attribute' at position 14: ...necraft:no<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:attribute' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:attribute' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:attribute' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:attribute' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 7 -1843890794 minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio
+@ all minecraft:sp
+R 0
+A -
+X Can't find element 'minecraft:sp' of type 'minecraft:attribute' at position 14: ...necraft:sp<--[HERE]@12
+E Can't find element 'minecraft:sp' of type 'minecraft:attribute' at position 14: ...necraft:sp<--[HERE]@12
+S 0-12 1 -2097787370 minecraft:spawn_reinforcements
+@ all minecraft:spe
+R 0
+A -
+X Can't find element 'minecraft:spe' of type 'minecraft:attribute' at position 15: ...ecraft:spe<--[HERE]@13
+E Can't find element 'minecraft:spe' of type 'minecraft:attribute' at position 15: ...ecraft:spe<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:spee
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:attribute' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:attribute' at position 16: ...craft:spee<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sh
+R 0
+A -
+X Can't find element 'minecraft:sh' of type 'minecraft:attribute' at position 14: ...necraft:sh<--[HERE]@12
+E Can't find element 'minecraft:sh' of type 'minecraft:attribute' at position 14: ...necraft:sh<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:sha
+R 0
+A -
+X Can't find element 'minecraft:sha' of type 'minecraft:attribute' at position 15: ...ecraft:sha<--[HERE]@13
+E Can't find element 'minecraft:sha' of type 'minecraft:attribute' at position 15: ...ecraft:sha<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:shar
+R 0
+A -
+X Can't find element 'minecraft:shar' of type 'minecraft:attribute' at position 16: ...craft:shar<--[HERE]@14
+E Can't find element 'minecraft:shar' of type 'minecraft:attribute' at position 16: ...craft:shar<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sharp
+R 0
+A -
+X Can't find element 'minecraft:sharp' of type 'minecraft:attribute' at position 17: ...raft:sharp<--[HERE]@15
+E Can't find element 'minecraft:sharp' of type 'minecraft:attribute' at position 17: ...raft:sharp<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 0
+A -
+X Can't find element 'minecraft:sharpn' of type 'minecraft:attribute' at position 18: ...aft:sharpn<--[HERE]@16
+E Can't find element 'minecraft:sharpn' of type 'minecraft:attribute' at position 18: ...aft:sharpn<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 0
+A -
+X Can't find element 'minecraft:sharpne' of type 'minecraft:attribute' at position 19: ...ft:sharpne<--[HERE]@17
+E Can't find element 'minecraft:sharpne' of type 'minecraft:attribute' at position 19: ...ft:sharpne<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 0
+A -
+X Can't find element 'minecraft:sharpnes' of type 'minecraft:attribute' at position 20: ...t:sharpnes<--[HERE]@18
+E Can't find element 'minecraft:sharpnes' of type 'minecraft:attribute' at position 20: ...t:sharpnes<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:attribute' at position 13: ...inecraft:f<--[HERE]@11
+E Can't find element 'minecraft:f' of type 'minecraft:attribute' at position 13: ...inecraft:f<--[HERE]@11
+S 0-11 4 -1654557679 minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier
+@ all minecraft:fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:attribute' at position 14: ...necraft:fo<--[HERE]@12
+E Can't find element 'minecraft:fo' of type 'minecraft:attribute' at position 14: ...necraft:fo<--[HERE]@12
+S 0-12 1 823790509 minecraft:follow_range
+@ all minecraft:for
+R 0
+A -
+X Can't find element 'minecraft:for' of type 'minecraft:attribute' at position 15: ...ecraft:for<--[HERE]@13
+E Can't find element 'minecraft:for' of type 'minecraft:attribute' at position 15: ...ecraft:for<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:fort
+R 0
+A -
+X Can't find element 'minecraft:fort' of type 'minecraft:attribute' at position 16: ...craft:fort<--[HERE]@14
+E Can't find element 'minecraft:fort' of type 'minecraft:attribute' at position 16: ...craft:fort<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:fortu
+R 0
+A -
+X Can't find element 'minecraft:fortu' of type 'minecraft:attribute' at position 17: ...raft:fortu<--[HERE]@15
+E Can't find element 'minecraft:fortu' of type 'minecraft:attribute' at position 17: ...raft:fortu<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:fortun
+R 0
+A -
+X Can't find element 'minecraft:fortun' of type 'minecraft:attribute' at position 18: ...aft:fortun<--[HERE]@16
+E Can't find element 'minecraft:fortun' of type 'minecraft:attribute' at position 18: ...aft:fortun<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:v
+R 0
+A -
+X Can't find element 'minecraft:v' of type 'minecraft:attribute' at position 13: ...inecraft:v<--[HERE]@11
+E Can't find element 'minecraft:v' of type 'minecraft:attribute' at position 13: ...inecraft:v<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:vi
+R 0
+A -
+X Can't find element 'minecraft:vi' of type 'minecraft:attribute' at position 14: ...necraft:vi<--[HERE]@12
+E Can't find element 'minecraft:vi' of type 'minecraft:attribute' at position 14: ...necraft:vi<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:vil
+R 0
+A -
+X Can't find element 'minecraft:vil' of type 'minecraft:attribute' at position 15: ...ecraft:vil<--[HERE]@13
+E Can't find element 'minecraft:vil' of type 'minecraft:attribute' at position 15: ...ecraft:vil<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:vill
+R 0
+A -
+X Can't find element 'minecraft:vill' of type 'minecraft:attribute' at position 16: ...craft:vill<--[HERE]@14
+E Can't find element 'minecraft:vill' of type 'minecraft:attribute' at position 16: ...craft:vill<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:villa
+R 0
+A -
+X Can't find element 'minecraft:villa' of type 'minecraft:attribute' at position 17: ...raft:villa<--[HERE]@15
+E Can't find element 'minecraft:villa' of type 'minecraft:attribute' at position 17: ...raft:villa<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:villag
+R 0
+A -
+X Can't find element 'minecraft:villag' of type 'minecraft:attribute' at position 18: ...aft:villag<--[HERE]@16
+E Can't find element 'minecraft:villag' of type 'minecraft:attribute' at position 18: ...aft:villag<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:village
+R 0
+A -
+X Can't find element 'minecraft:village' of type 'minecraft:attribute' at position 19: ...ft:village<--[HERE]@17
+E Can't find element 'minecraft:village' of type 'minecraft:attribute' at position 19: ...ft:village<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_
+R 0
+A -
+X Can't find element 'minecraft:village_' of type 'minecraft:attribute' at position 20: ...t:village_<--[HERE]@18
+E Can't find element 'minecraft:village_' of type 'minecraft:attribute' at position 20: ...t:village_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:village_p
+R 0
+A -
+X Can't find element 'minecraft:village_p' of type 'minecraft:attribute' at position 21: ...:village_p<--[HERE]@19
+E Can't find element 'minecraft:village_p' of type 'minecraft:attribute' at position 21: ...:village_p<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 0
+A -
+X Can't find element 'minecraft:village_pl' of type 'minecraft:attribute' at position 22: ...village_pl<--[HERE]@20
+E Can't find element 'minecraft:village_pl' of type 'minecraft:attribute' at position 22: ...village_pl<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 0
+A -
+X Can't find element 'minecraft:village_pla' of type 'minecraft:attribute' at position 23: ...illage_pla<--[HERE]@21
+E Can't find element 'minecraft:village_pla' of type 'minecraft:attribute' at position 23: ...illage_pla<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 0
+A -
+X Can't find element 'minecraft:village_plai' of type 'minecraft:attribute' at position 24: ...llage_plai<--[HERE]@22
+E Can't find element 'minecraft:village_plai' of type 'minecraft:attribute' at position 24: ...llage_plai<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 0
+A -
+X Can't find element 'minecraft:village_plain' of type 'minecraft:attribute' at position 25: ...lage_plain<--[HERE]@23
+E Can't find element 'minecraft:village_plain' of type 'minecraft:attribute' at position 25: ...lage_plain<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:attribute' at position 13: ...inecraft:m<--[HERE]@11
+E Can't find element 'minecraft:m' of type 'minecraft:attribute' at position 13: ...inecraft:m<--[HERE]@11
+S 0-11 5 927411191 minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed
+@ all minecraft:mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 14: ...necraft:mi<--[HERE]@12
+E Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 14: ...necraft:mi<--[HERE]@12
+S 0-12 1 1718161470 minecraft:mining_efficiency
+@ all minecraft:min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 15: ...ecraft:min<--[HERE]@13
+E Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 15: ...ecraft:min<--[HERE]@13
+S 0-13 1 1718161470 minecraft:mining_efficiency
+@ all minecraft:mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:attribute' at position 16: ...craft:mine<--[HERE]@14
+E Can't find element 'minecraft:mine' of type 'minecraft:attribute' at position 16: ...craft:mine<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:mines
+R 0
+A -
+X Can't find element 'minecraft:mines' of type 'minecraft:attribute' at position 17: ...raft:mines<--[HERE]@15
+E Can't find element 'minecraft:mines' of type 'minecraft:attribute' at position 17: ...raft:mines<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:minesh
+R 0
+A -
+X Can't find element 'minecraft:minesh' of type 'minecraft:attribute' at position 18: ...aft:minesh<--[HERE]@16
+E Can't find element 'minecraft:minesh' of type 'minecraft:attribute' at position 18: ...aft:minesh<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:minesha
+R 0
+A -
+X Can't find element 'minecraft:minesha' of type 'minecraft:attribute' at position 19: ...ft:minesha<--[HERE]@17
+E Can't find element 'minecraft:minesha' of type 'minecraft:attribute' at position 19: ...ft:minesha<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 0
+A -
+X Can't find element 'minecraft:mineshaf' of type 'minecraft:attribute' at position 20: ...t:mineshaf<--[HERE]@18
+E Can't find element 'minecraft:mineshaf' of type 'minecraft:attribute' at position 20: ...t:mineshaf<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:attribute' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:attribute' at position 13: ...inecraft:a<--[HERE]@11
+S 0-11 6 1870179880 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed
+@ all minecraft:an
+R 0
+A -
+X Can't find element 'minecraft:an' of type 'minecraft:attribute' at position 14: ...necraft:an<--[HERE]@12
+E Can't find element 'minecraft:an' of type 'minecraft:attribute' at position 14: ...necraft:an<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:anc
+R 0
+A -
+X Can't find element 'minecraft:anc' of type 'minecraft:attribute' at position 15: ...ecraft:anc<--[HERE]@13
+E Can't find element 'minecraft:anc' of type 'minecraft:attribute' at position 15: ...ecraft:anc<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:anci
+R 0
+A -
+X Can't find element 'minecraft:anci' of type 'minecraft:attribute' at position 16: ...craft:anci<--[HERE]@14
+E Can't find element 'minecraft:anci' of type 'minecraft:attribute' at position 16: ...craft:anci<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:ancie
+R 0
+A -
+X Can't find element 'minecraft:ancie' of type 'minecraft:attribute' at position 17: ...raft:ancie<--[HERE]@15
+E Can't find element 'minecraft:ancie' of type 'minecraft:attribute' at position 17: ...raft:ancie<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:ancien
+R 0
+A -
+X Can't find element 'minecraft:ancien' of type 'minecraft:attribute' at position 18: ...aft:ancien<--[HERE]@16
+E Can't find element 'minecraft:ancien' of type 'minecraft:attribute' at position 18: ...aft:ancien<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:ancient
+R 0
+A -
+X Can't find element 'minecraft:ancient' of type 'minecraft:attribute' at position 19: ...ft:ancient<--[HERE]@17
+E Can't find element 'minecraft:ancient' of type 'minecraft:attribute' at position 19: ...ft:ancient<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 0
+A -
+X Can't find element 'minecraft:ancient_' of type 'minecraft:attribute' at position 20: ...t:ancient_<--[HERE]@18
+E Can't find element 'minecraft:ancient_' of type 'minecraft:attribute' at position 20: ...t:ancient_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 0
+A -
+X Can't find element 'minecraft:ancient_c' of type 'minecraft:attribute' at position 21: ...:ancient_c<--[HERE]@19
+E Can't find element 'minecraft:ancient_c' of type 'minecraft:attribute' at position 21: ...:ancient_c<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 0
+A -
+X Can't find element 'minecraft:ancient_ci' of type 'minecraft:attribute' at position 22: ...ancient_ci<--[HERE]@20
+E Can't find element 'minecraft:ancient_ci' of type 'minecraft:attribute' at position 22: ...ancient_ci<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 0
+A -
+X Can't find element 'minecraft:ancient_cit' of type 'minecraft:attribute' at position 23: ...ncient_cit<--[HERE]@21
+E Can't find element 'minecraft:ancient_cit' of type 'minecraft:attribute' at position 23: ...ncient_cit<--[HERE]@21
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+S 0-1 5 1281642020 minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:safe_fall_distance
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:attribute' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:attribute' at position 4: t fo<--[HERE]@2
+S 0-2 1 823790509 minecraft:follow_range
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:attribute' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:attribute' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X Can't find element 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+E Can't find element 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:b
+R 0
+A -
+X Can't find element 'foo:b' of type 'minecraft:attribute' at position 7: t foo:b<--[HERE]@5
+E Can't find element 'foo:b' of type 'minecraft:attribute' at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all foo:ba
+R 0
+A -
+X Can't find element 'foo:ba' of type 'minecraft:attribute' at position 8: t foo:ba<--[HERE]@6
+E Can't find element 'foo:ba' of type 'minecraft:attribute' at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 0
+A -
+X Can't find element 'minecraft:ar' of type 'minecraft:attribute' at position 14: ...necraft:ar<--[HERE]@12
+E Can't find element 'minecraft:ar' of type 'minecraft:attribute' at position 14: ...necraft:ar<--[HERE]@12
+S 0-12 2 49509691 minecraft:armor	minecraft:armor_toughness
+@ all minecraft:arm
+R 0
+A -
+X Can't find element 'minecraft:arm' of type 'minecraft:attribute' at position 15: ...ecraft:arm<--[HERE]@13
+E Can't find element 'minecraft:arm' of type 'minecraft:attribute' at position 15: ...ecraft:arm<--[HERE]@13
+S 0-13 2 49509691 minecraft:armor	minecraft:armor_toughness
+@ all minecraft:armo
+R 0
+A -
+X Can't find element 'minecraft:armo' of type 'minecraft:attribute' at position 16: ...craft:armo<--[HERE]@14
+E Can't find element 'minecraft:armo' of type 'minecraft:attribute' at position 16: ...craft:armo<--[HERE]@14
+S 0-14 2 49509691 minecraft:armor	minecraft:armor_toughness
+@ all minecraft:ma
+R 0
+A -
+X Can't find element 'minecraft:ma' of type 'minecraft:attribute' at position 14: ...necraft:ma<--[HERE]@12
+E Can't find element 'minecraft:ma' of type 'minecraft:attribute' at position 14: ...necraft:ma<--[HERE]@12
+S 0-12 2 -1706013357 minecraft:max_absorption	minecraft:max_health
+@ all minecraft:max
+R 0
+A -
+X Can't find element 'minecraft:max' of type 'minecraft:attribute' at position 15: ...ecraft:max<--[HERE]@13
+E Can't find element 'minecraft:max' of type 'minecraft:attribute' at position 15: ...ecraft:max<--[HERE]@13
+S 0-13 2 -1706013357 minecraft:max_absorption	minecraft:max_health
+@ all minecraft:max_
+R 0
+A -
+X Can't find element 'minecraft:max_' of type 'minecraft:attribute' at position 16: ...craft:max_<--[HERE]@14
+E Can't find element 'minecraft:max_' of type 'minecraft:attribute' at position 16: ...craft:max_<--[HERE]@14
+S 0-14 2 -1706013357 minecraft:max_absorption	minecraft:max_health
+@ all minecraft:max_h
+R 0
+A -
+X Can't find element 'minecraft:max_h' of type 'minecraft:attribute' at position 17: ...raft:max_h<--[HERE]@15
+E Can't find element 'minecraft:max_h' of type 'minecraft:attribute' at position 17: ...raft:max_h<--[HERE]@15
+S 0-15 1 -45201659 minecraft:max_health
+@ all minecraft:max_he
+R 0
+A -
+X Can't find element 'minecraft:max_he' of type 'minecraft:attribute' at position 18: ...aft:max_he<--[HERE]@16
+E Can't find element 'minecraft:max_he' of type 'minecraft:attribute' at position 18: ...aft:max_he<--[HERE]@16
+S 0-16 1 -45201659 minecraft:max_health
+@ all minecraft:max_hea
+R 0
+A -
+X Can't find element 'minecraft:max_hea' of type 'minecraft:attribute' at position 19: ...ft:max_hea<--[HERE]@17
+E Can't find element 'minecraft:max_hea' of type 'minecraft:attribute' at position 19: ...ft:max_hea<--[HERE]@17
+S 0-17 1 -45201659 minecraft:max_health
+@ all minecraft:max_heal
+R 0
+A -
+X Can't find element 'minecraft:max_heal' of type 'minecraft:attribute' at position 20: ...t:max_heal<--[HERE]@18
+E Can't find element 'minecraft:max_heal' of type 'minecraft:attribute' at position 20: ...t:max_heal<--[HERE]@18
+S 0-18 1 -45201659 minecraft:max_health
+@ all minecraft:max_healt
+R 0
+A -
+X Can't find element 'minecraft:max_healt' of type 'minecraft:attribute' at position 21: ...:max_healt<--[HERE]@19
+E Can't find element 'minecraft:max_healt' of type 'minecraft:attribute' at position 21: ...:max_healt<--[HERE]@19
+S 0-19 1 -45201659 minecraft:max_health
+@ all minecraft:g
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:attribute' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:attribute' at position 13: ...inecraft:g<--[HERE]@11
+S 0-11 1 1135777448 minecraft:gravity
+@ all minecraft:ge
+R 0
+A -
+X Can't find element 'minecraft:ge' of type 'minecraft:attribute' at position 14: ...necraft:ge<--[HERE]@12
+E Can't find element 'minecraft:ge' of type 'minecraft:attribute' at position 14: ...necraft:ge<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:gen
+R 0
+A -
+X Can't find element 'minecraft:gen' of type 'minecraft:attribute' at position 15: ...ecraft:gen<--[HERE]@13
+E Can't find element 'minecraft:gen' of type 'minecraft:attribute' at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:gene
+R 0
+A -
+X Can't find element 'minecraft:gene' of type 'minecraft:attribute' at position 16: ...craft:gene<--[HERE]@14
+E Can't find element 'minecraft:gene' of type 'minecraft:attribute' at position 16: ...craft:gene<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:gener
+R 0
+A -
+X Can't find element 'minecraft:gener' of type 'minecraft:attribute' at position 17: ...raft:gener<--[HERE]@15
+E Can't find element 'minecraft:gener' of type 'minecraft:attribute' at position 17: ...raft:gener<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:generi
+R 0
+A -
+X Can't find element 'minecraft:generi' of type 'minecraft:attribute' at position 18: ...aft:generi<--[HERE]@16
+E Can't find element 'minecraft:generi' of type 'minecraft:attribute' at position 18: ...aft:generi<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:generic
+R 0
+A -
+X Can't find element 'minecraft:generic' of type 'minecraft:attribute' at position 19: ...ft:generic<--[HERE]@17
+E Can't find element 'minecraft:generic' of type 'minecraft:attribute' at position 19: ...ft:generic<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:generic.
+R 0
+A -
+X Can't find element 'minecraft:generic.' of type 'minecraft:attribute' at position 20: ...t:generic.<--[HERE]@18
+E Can't find element 'minecraft:generic.' of type 'minecraft:attribute' at position 20: ...t:generic.<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 0
+A -
+X Can't find element 'minecraft:generic.m' of type 'minecraft:attribute' at position 21: ...:generic.m<--[HERE]@19
+E Can't find element 'minecraft:generic.m' of type 'minecraft:attribute' at position 21: ...:generic.m<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 0
+A -
+X Can't find element 'minecraft:generic.ma' of type 'minecraft:attribute' at position 22: ...generic.ma<--[HERE]@20
+E Can't find element 'minecraft:generic.ma' of type 'minecraft:attribute' at position 22: ...generic.ma<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 0
+A -
+X Can't find element 'minecraft:generic.max' of type 'minecraft:attribute' at position 23: ...eneric.max<--[HERE]@21
+E Can't find element 'minecraft:generic.max' of type 'minecraft:attribute' at position 23: ...eneric.max<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 0
+A -
+X Can't find element 'minecraft:generic.max_' of type 'minecraft:attribute' at position 24: ...neric.max_<--[HERE]@22
+E Can't find element 'minecraft:generic.max_' of type 'minecraft:attribute' at position 24: ...neric.max_<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 0
+A -
+X Can't find element 'minecraft:generic.max_h' of type 'minecraft:attribute' at position 25: ...eric.max_h<--[HERE]@23
+E Can't find element 'minecraft:generic.max_h' of type 'minecraft:attribute' at position 25: ...eric.max_h<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 0
+A -
+X Can't find element 'minecraft:generic.max_he' of type 'minecraft:attribute' at position 26: ...ric.max_he<--[HERE]@24
+E Can't find element 'minecraft:generic.max_he' of type 'minecraft:attribute' at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 0
+A -
+X Can't find element 'minecraft:generic.max_hea' of type 'minecraft:attribute' at position 27: ...ic.max_hea<--[HERE]@25
+E Can't find element 'minecraft:generic.max_hea' of type 'minecraft:attribute' at position 27: ...ic.max_hea<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 0
+A -
+X Can't find element 'minecraft:generic.max_heal' of type 'minecraft:attribute' at position 28: ...c.max_heal<--[HERE]@26
+E Can't find element 'minecraft:generic.max_heal' of type 'minecraft:attribute' at position 28: ...c.max_heal<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healt' of type 'minecraft:attribute' at position 29: ....max_healt<--[HERE]@27
+E Can't find element 'minecraft:generic.max_healt' of type 'minecraft:attribute' at position 29: ....max_healt<--[HERE]@27
+S -2--2 0 0 
+@ all o:xar
+R 0
+A -
+X Can't find element 'o:xar' of type 'minecraft:attribute' at position 7: t o:xar<--[HERE]@5
+E Can't find element 'o:xar' of type 'minecraft:attribute' at position 7: t o:xar<--[HERE]@5
+S -2--2 0 0 
+@ all minec>aft:pla3yer
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:attribute' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:attribute' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all ed
+R 0
+A -
+X Can't find element 'minecraft:ed' of type 'minecraft:attribute' at position 4: t ed<--[HERE]@2
+E Can't find element 'minecraft:ed' of type 'minecraft:attribute' at position 4: t ed<--[HERE]@2
+S -2--2 0 0 
+@ all ZOMBIBE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all oo:bar
+R 0
+A -
+X Can't find element 'oo:bar' of type 'minecraft:attribute' at position 8: t oo:bar<--[HERE]@6
+E Can't find element 'oo:bar' of type 'minecraft:attribute' at position 8: t oo:bar<--[HERE]@6
+S -2--2 0 0 
+@ all t:zombiea
+R 0
+A -
+X Can't find element 't:zombiea' of type 'minecraft:attribute' at position 11: ... t:zombiea<--[HERE]@9
+E Can't find element 't:zombiea' of type 'minecraft:attribute' at position 11: ... t:zombiea<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:arm.or
+R 0
+A -
+X Can't find element 'minecraft:arm.or' of type 'minecraft:attribute' at position 18: ...aft:arm.or<--[HERE]@16
+E Can't find element 'minecraft:arm.or' of type 'minecraft:attribute' at position 18: ...aft:arm.or<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:mine_ha!ft
+R 0
+A -
+X Can't find element 'minecraft:mine_ha' of type 'minecraft:attribute' at position 19: ...ft:mine_ha<--[HERE]@17
+E Can't find element 'minecraft:mine_ha' of type 'minecraft:attribute' at position 19: ...ft:mine_ha<--[HERE]@17
+S -2--2 0 0 
+@ all c#m=inecraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:c' of type 'minecraft:attribute' at position 3: t c<--[HERE]@1
+E Can't find element 'minecraft:c' of type 'minecraft:attribute' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:geİeric.max_health
+R 0
+A -
+X Can't find element 'minecraft:ge' of type 'minecraft:attribute' at position 14: ...necraft:ge<--[HERE]@12
+E Can't find element 'minecraft:ge' of type 'minecraft:attribute' at position 14: ...necraft:ge<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:vilage_plains
+R 0
+A -
+X Can't find element 'minecraft:vilage_plains' of type 'minecraft:attribute' at position 25: ...age_plains<--[HERE]@23
+E Can't find element 'minecraft:vilage_plains' of type 'minecraft:attribute' at position 25: ...age_plains<--[HERE]@23
+S -2--2 0 0 
+@ all z7mbie
+R 0
+A -
+X Can't find element 'minecraft:z7mbie' of type 'minecraft:attribute' at position 8: t z7mbie<--[HERE]@6
+E Can't find element 'minecraft:z7mbie' of type 'minecraft:attribute' at position 8: t z7mbie<--[HERE]@6
+S -2--2 0 0 
+@ all foo:ar
+R 0
+A -
+X Can't find element 'foo:ar' of type 'minecraft:attribute' at position 8: t foo:ar<--[HERE]@6
+E Can't find element 'foo:ar' of type 'minecraft:attribute' at position 8: t foo:ar<--[HERE]@6
+S -2--2 0 0 
+@ all ZOMBE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miaecraft:
+R 0
+A -
+X Can't find element 'miaecraft:' of type 'minecraft:attribute' at position 12: ...miaecraft:<--[HERE]@10
+E Can't find element 'miaecraft:' of type 'minecraft:attribute' at position 12: ...miaecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all zom_iez
+R 0
+A -
+X Can't find element 'minecraft:zom_iez' of type 'minecraft:attribute' at position 9: t zom_iez<--[HERE]@7
+E Can't find element 'minecraft:zom_iez' of type 'minecraft:attribute' at position 9: t zom_iez<--[HERE]@7
+S -2--2 0 0 
+@ all minecr$ft:fortune
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecrat:fortune
+R 0
+A -
+X Can't find element 'minecrat:fortune' of type 'minecraft:attribute' at position 18: ...at:fortune<--[HERE]@16
+E Can't find element 'minecrat:fortune' of type 'minecraft:attribute' at position 18: ...at:fortune<--[HERE]@16
+S -2--2 0 0 
+@ all pe
+R 0
+A -
+X Can't find element 'minecraft:pe' of type 'minecraft:attribute' at position 4: t pe<--[HERE]@2
+E Can't find element 'minecraft:pe' of type 'minecraft:attribute' at position 4: t pe<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:zombiee
+R 0
+A -
+X Can't find element 'minecraft:zombiee' of type 'minecraft:attribute' at position 19: ...ft:zombiee<--[HERE]@17
+E Can't find element 'minecraft:zombiee' of type 'minecraft:attribute' at position 19: ...ft:zombiee<--[HERE]@17
+S -2--2 0 0 
+@ all :ancient1city
+R 0
+A -
+X Can't find element 'minecraft:ancient1city' of type 'minecraft:attribute' at position 15: ...cient1city<--[HERE]@13
+E Can't find element 'minecraft:ancient1city' of type 'minecraft:attribute' at position 15: ...cient1city<--[HERE]@13
+S -2--2 0 0 
+@ all #minecrat:no/e
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Abar
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombief
+R 0
+A -
+X Can't find element 'minecraft:zombief' of type 'minecraft:attribute' at position 19: ...ft:zombief<--[HERE]@17
+E Can't find element 'minecraft:zombief' of type 'minecraft:attribute' at position 19: ...ft:zombief<--[HERE]@17
+S -2--2 0 0 
+@ all mnecraft:generic.max_health
+R 0
+A -
+X Can't find element 'mnecraft:generic.max_health' of type 'minecraft:attribute' at position 29: ...max_health<--[HERE]@27
+E Can't find element 'mnecraft:generic.max_health' of type 'minecraft:attribute' at position 29: ...max_health<--[HERE]@27
+S -2--2 0 0 
+@ all minecraft:playerny
+R 0
+A -
+X Can't find element 'minecraft:playerny' of type 'minecraft:attribute' at position 20: ...t:playerny<--[HERE]@18
+E Can't find element 'minecraft:playerny' of type 'minecraft:attribute' at position 20: ...t:playerny<--[HERE]@18
+S -2--2 0 0 
+@ all minecr5aft:nope
+R 0
+A -
+X Can't find element 'minecr5aft:nope' of type 'minecraft:attribute' at position 17: ...r5aft:nope<--[HERE]@15
+E Can't find element 'minecr5aft:nope' of type 'minecraft:attribute' at position 17: ...r5aft:nope<--[HERE]@15
+S -2--2 0 0 
+@ all minecrafZt:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all inecraft:zombiet
+R 0
+A -
+X Can't find element 'inecraft:zombiet' of type 'minecraft:attribute' at position 18: ...ft:zombiet<--[HERE]@16
+E Can't find element 'inecraft:zombiet' of type 'minecraft:attribute' at position 18: ...ft:zombiet<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:max_he\u0000altht
+R 0
+A -
+X Can't find element 'minecraft:max_he' of type 'minecraft:attribute' at position 18: ...aft:max_he<--[HERE]@16
+E Can't find element 'minecraft:max_he' of type 'minecraft:attribute' at position 18: ...aft:max_he<--[HERE]@16
+S -2--2 0 0 
+@ all 8ZOM5BIE
+R 0
+A -
+X Can't find element 'minecraft:8' of type 'minecraft:attribute' at position 3: t 8<--[HERE]@1
+E Can't find element 'minecraft:8' of type 'minecraft:attribute' at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:minesaft
+R 0
+A -
+X Can't find element 'minecraft:minesaft' of type 'minecraft:attribute' at position 20: ...t:minesaft<--[HERE]@18
+E Can't find element 'minecraft:minesaft' of type 'minecraft:attribute' at position 20: ...t:minesaft<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:plaer
+R 0
+A -
+X Can't find element 'minecraft:plaer' of type 'minecraft:attribute' at position 17: ...raft:plaer<--[HERE]@15
+E Can't find element 'minecraft:plaer' of type 'minecraft:attribute' at position 17: ...raft:plaer<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:plyer
+R 0
+A -
+X Can't find element 'minecraft:plyer' of type 'minecraft:attribute' at position 17: ...raft:plyer<--[HERE]@15
+E Can't find element 'minecraft:plyer' of type 'minecraft:attribute' at position 17: ...raft:plyer<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:playere
+R 0
+A -
+X Can't find element 'minecraft:playere' of type 'minecraft:attribute' at position 19: ...ft:playere<--[HERE]@17
+E Can't find element 'minecraft:playere' of type 'minecraft:attribute' at position 19: ...ft:playere<--[HERE]@17
+S -2--2 0 0 
+@ all mineraft:zombief
+R 0
+A -
+X Can't find element 'mineraft:zombief' of type 'minecraft:attribute' at position 18: ...ft:zombief<--[HERE]@16
+E Can't find element 'mineraft:zombief' of type 'minecraft:attribute' at position 18: ...ft:zombief<--[HERE]@16
+S -2--2 0 0 
+@ all mine4raft:
+R 0
+A -
+X Can't find element 'mine4raft:' of type 'minecraft:attribute' at position 12: ...mine4raft:<--[HERE]@10
+E Can't find element 'mine4raft:' of type 'minecraft:attribute' at position 12: ...mine4raft:<--[HERE]@10
+S -2--2 0 0 
+@ all mi(necraf4t:village_plains
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all A:mineshaft
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zombiY
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraft:😀keletonsf
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minYecraft:nope:
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all raft:skeletonsk
+R 0
+A -
+X Can't find element 'raft:skeletonsk' of type 'minecraft:attribute' at position 17: ...skeletonsk<--[HERE]@15
+E Can't find element 'raft:skeletonsk' of type 'minecraft:attribute' at position 17: ...skeletonsk<--[HERE]@15
+S -2--2 0 0 
+@ all mfinecraft:ancient_cityt
+R 0
+A -
+X Can't find element 'mfinecraft:ancient_cityt' of type 'minecraft:attribute' at position 26: ...ient_cityt<--[HERE]@24
+E Can't find element 'mfinecraft:ancient_cityt' of type 'minecraft:attribute' at position 26: ...ient_cityt<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:generic.max_healthh
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healthh' of type 'minecraft:attribute' at position 31: ...ax_healthh<--[HERE]@29
+E Can't find element 'minecraft:generic.max_healthh' of type 'minecraft:attribute' at position 31: ...ax_healthh<--[HERE]@29
+S -2--2 0 0 
+@ all inecraft:armo
+R 0
+A -
+X Can't find element 'inecraft:armo' of type 'minecraft:attribute' at position 15: ...craft:armo<--[HERE]@13
+E Can't find element 'inecraft:armo' of type 'minecraft:attribute' at position 15: ...craft:armo<--[HERE]@13
+S -2--2 0 0 
+@ all #mincraft:skeletZns
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec0aft:nop
+R 0
+A -
+X Can't find element 'minec0aft:nop' of type 'minecraft:attribute' at position 15: ...ec0aft:nop<--[HERE]@13
+E Can't find element 'minec0aft:nop' of type 'minecraft:attribute' at position 15: ...ec0aft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all zombif
+R 0
+A -
+X Can't find element 'minecraft:zombif' of type 'minecraft:attribute' at position 8: t zombif<--[HERE]@6
+E Can't find element 'minecraft:zombif' of type 'minecraft:attribute' at position 8: t zombif<--[HERE]@6
+S -2--2 0 0 
+@ all zombi%
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:sharpnessc
+R 0
+A -
+X Can't find element 'minecraft:sharpnessc' of type 'minecraft:attribute' at position 22: ...sharpnessc<--[HERE]@20
+E Can't find element 'minecraft:sharpnessc' of type 'minecraft:attribute' at position 22: ...sharpnessc<--[HERE]@20
+S -2--2 0 0 
+@ all minecradft:speede
+R 0
+A -
+X Can't find element 'minecradft:speede' of type 'minecraft:attribute' at position 19: ...dft:speede<--[HERE]@17
+E Can't find element 'minecradft:speede' of type 'minecraft:attribute' at position 19: ...dft:speede<--[HERE]@17
+S -2--2 0 0 
+@ all z5mbie
+R 0
+A -
+X Can't find element 'minecraft:z5mbie' of type 'minecraft:attribute' at position 8: t z5mbie<--[HERE]@6
+E Can't find element 'minecraft:z5mbie' of type 'minecraft:attribute' at position 8: t z5mbie<--[HERE]@6
+S -2--2 0 0 
+@ all necrat:nope
+R 0
+A -
+X Can't find element 'necrat:nope' of type 'minecraft:attribute' at position 13: ...ecrat:nope<--[HERE]@11
+E Can't find element 'necrat:nope' of type 'minecraft:attribute' at position 13: ...ecrat:nope<--[HERE]@11
+S -2--2 0 0 
+@ all midecraft:armor
+R 0
+A -
+X Can't find element 'midecraft:armor' of type 'minecraft:attribute' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'midecraft:armor' of type 'minecraft:attribute' at position 17: ...raft:armor<--[HERE]@15
+S -2--2 0 0 
+@ all miecraft:ancent_city
+R 0
+A -
+X Can't find element 'miecraft:ancent_city' of type 'minecraft:attribute' at position 22: ...ncent_city<--[HERE]@20
+E Can't find element 'miecraft:ancent_city' of type 'minecraft:attribute' at position 22: ...ncent_city<--[HERE]@20
+S -2--2 0 0 
+@ all min]ecraft:nopea
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all zom]ie
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:attribute' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:attribute' at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:ancient_cityt
+R 0
+A -
+X Can't find element 'minecraft:ancient_cityt' of type 'minecraft:attribute' at position 25: ...ient_cityt<--[HERE]@23
+E Can't find element 'minecraft:ancient_cityt' of type 'minecraft:attribute' at position 25: ...ient_cityt<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:pla,ea
+R 0
+A -
+X Can't find element 'minecraft:pla' of type 'minecraft:attribute' at position 15: ...ecraft:pla<--[HERE]@13
+E Can't find element 'minecraft:pla' of type 'minecraft:attribute' at position 15: ...ecraft:pla<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:ancient_cty
+R 0
+A -
+X Can't find element 'minecraft:ancient_cty' of type 'minecraft:attribute' at position 23: ...ncient_cty<--[HERE]@21
+E Can't find element 'minecraft:ancient_cty' of type 'minecraft:attribute' at position 23: ...ncient_cty<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:\u0009ombie
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all mi^ecraf.:fortune
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:ineshaft
+R 0
+A -
+X Can't find element 'minecraft:ineshaft' of type 'minecraft:attribute' at position 20: ...t:ineshaft<--[HERE]@18
+E Can't find element 'minecraft:ineshaft' of type 'minecraft:attribute' at position 20: ...t:ineshaft<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:max_healthi
+R 0
+A -
+X Can't find element 'minecraft:max_healthi' of type 'minecraft:attribute' at position 23: ...ax_healthi<--[HERE]@21
+E Can't find element 'minecraft:max_healthi' of type 'minecraft:attribute' at position 23: ...ax_healthi<--[HERE]@21
+S -2--2 0 0 
+@ all minecra@t:
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all ecraft:mineshaftn
+R 0
+A -
+X Can't find element 'ecraft:mineshaftn' of type 'minecraft:attribute' at position 19: ...mineshaftn<--[HERE]@17
+E Can't find element 'ecraft:mineshaftn' of type 'minecraft:attribute' at position 19: ...mineshaftn<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:ancient_citya
+R 0
+A -
+X Can't find element 'minecraft:ancient_citya' of type 'minecraft:attribute' at position 25: ...ient_citya<--[HERE]@23
+E Can't find element 'minecraft:ancient_citya' of type 'minecraft:attribute' at position 25: ...ient_citya<--[HERE]@23
+S -2--2 0 0 
+@ all ea
+R 0
+A -
+X Can't find element 'minecraft:ea' of type 'minecraft:attribute' at position 4: t ea<--[HERE]@2
+E Can't find element 'minecraft:ea' of type 'minecraft:attribute' at position 4: t ea<--[HERE]@2
+S -2--2 0 0 
+@ all mincraftarmor
+R 0
+A -
+X Can't find element 'minecraft:mincraftarmor' of type 'minecraft:attribute' at position 15: ...craftarmor<--[HERE]@13
+E Can't find element 'minecraft:mincraftarmor' of type 'minecraft:attribute' at position 15: ...craftarmor<--[HERE]@13
+S -2--2 0 0 
+@ all inecraft:armor
+R 0
+A -
+X Can't find element 'inecraft:armor' of type 'minecraft:attribute' at position 16: ...raft:armor<--[HERE]@14
+E Can't find element 'inecraft:armor' of type 'minecraft:attribute' at position 16: ...raft:armor<--[HERE]@14
+S -2--2 0 0 
+@ all inecraft:nope
+R 0
+A -
+X Can't find element 'inecraft:nope' of type 'minecraft:attribute' at position 15: ...craft:nope<--[HERE]@13
+E Can't find element 'inecraft:nope' of type 'minecraft:attribute' at position 15: ...craft:nope<--[HERE]@13
+S -2--2 0 0 
+@ all une
+R 0
+A -
+X Can't find element 'minecraft:une' of type 'minecraft:attribute' at position 5: t une<--[HERE]@3
+E Can't find element 'minecraft:une' of type 'minecraft:attribute' at position 5: t une<--[HERE]@3
+S -2--2 0 0 
+@ all llage_plains
+R 0
+A -
+X Can't find element 'minecraft:llage_plains' of type 'minecraft:attribute' at position 14: ...age_plains<--[HERE]@12
+E Can't find element 'minecraft:llage_plains' of type 'minecraft:attribute' at position 14: ...age_plains<--[HERE]@12
+S -2--2 0 0 
+@ all aft:skeletonsf
+R 0
+A -
+X Can't find element 'aft:skeletonsf' of type 'minecraft:attribute' at position 16: ...skeletonsf<--[HERE]@14
+E Can't find element 'aft:skeletonsf' of type 'minecraft:attribute' at position 16: ...skeletonsf<--[HERE]@14
+S -2--2 0 0 
+@ all miecraft:armora
+R 0
+A -
+X Can't find element 'miecraft:armora' of type 'minecraft:attribute' at position 17: ...aft:armora<--[HERE]@15
+E Can't find element 'miecraft:armora' of type 'minecraft:attribute' at position 17: ...aft:armora<--[HERE]@15
+S -2--2 0 0 
+@ all ric.max_health
+R 0
+A -
+X Can't find element 'minecraft:ric.max_health' of type 'minecraft:attribute' at position 16: ...max_health<--[HERE]@14
+E Can't find element 'minecraft:ric.max_health' of type 'minecraft:attribute' at position 16: ...max_health<--[HERE]@14
+S -2--2 0 0 
+@ all minecr>ft:&
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all craft:
+R 0
+A -
+X Can't find element 'craft:' of type 'minecraft:attribute' at position 8: t craft:<--[HERE]@6
+E Can't find element 'craft:' of type 'minecraft:attribute' at position 8: t craft:<--[HERE]@6
+S -2--2 0 0 
+@ all #minecraft:nop/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all AA
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z3ombieo
+R 0
+A -
+X Can't find element 'minecraft:z3ombieo' of type 'minecraft:attribute' at position 10: t z3ombieo<--[HERE]@8
+E Can't find element 'minecraft:z3ombieo' of type 'minecraft:attribute' at position 10: t z3ombieo<--[HERE]@8
+S -2--2 0 0 
+@ all #minecraft:skeletonsst
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO8BIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s}peed
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:attribute' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:attribute' at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:village4_plains
+R 0
+A -
+X Can't find element 'minecraft:village4_plains' of type 'minecraft:attribute' at position 27: ...ge4_plains<--[HERE]@25
+E Can't find element 'minecraft:village4_plains' of type 'minecraft:attribute' at position 27: ...ge4_plains<--[HERE]@25
+S -2--2 0 0 
+@ all aft:mineshaft
+R 0
+A -
+X Can't find element 'aft:mineshaft' of type 'minecraft:attribute' at position 15: ...:mineshaft<--[HERE]@13
+E Can't find element 'aft:mineshaft' of type 'minecraft:attribute' at position 15: ...:mineshaft<--[HERE]@13
+S -2--2 0 0 
+@ all minecaft:mx_health
+R 0
+A -
+X Can't find element 'minecaft:mx_health' of type 'minecraft:attribute' at position 20: ...:mx_health<--[HERE]@18
+E Can't find element 'minecaft:mx_health' of type 'minecraft:attribute' at position 20: ...:mx_health<--[HERE]@18
+S -2--2 0 0 
+@ all inecraft:arm!or
+R 0
+A -
+X Can't find element 'inecraft:arm' of type 'minecraft:attribute' at position 14: ...ecraft:arm<--[HERE]@12
+E Can't find element 'inecraft:arm' of type 'minecraft:attribute' at position 14: ...ecraft:arm<--[HERE]@12
+S -2--2 0 0 
+@ all foo:9ar
+R 0
+A -
+X Can't find element 'foo:9ar' of type 'minecraft:attribute' at position 9: t foo:9ar<--[HERE]@7
+E Can't find element 'foo:9ar' of type 'minecraft:attribute' at position 9: t foo:9ar<--[HERE]@7
+S -2--2 0 0 
+@ all #minecraft:seleétons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t:fortune
+R 0
+A -
+X Can't find element 't:fortune' of type 'minecraft:attribute' at position 11: ... t:fortune<--[HERE]@9
+E Can't find element 't:fortune' of type 'minecraft:attribute' at position 11: ... t:fortune<--[HERE]@9
+S -2--2 0 0 
+@ all minecrft8
+R 0
+A -
+X Can't find element 'minecraft:minecrft8' of type 'minecraft:attribute' at position 11: ... minecrft8<--[HERE]@9
+E Can't find element 'minecraft:minecrft8' of type 'minecraft:attribute' at position 11: ... minecrft8<--[HERE]@9
+S -2--2 0 0 
+@ all mnecraft:sharpness
+R 0
+A -
+X Can't find element 'mnecraft:sharpness' of type 'minecraft:attribute' at position 20: ...:sharpness<--[HERE]@18
+E Can't find element 'mnecraft:sharpness' of type 'minecraft:attribute' at position 20: ...:sharpness<--[HERE]@18
+S -2--2 0 0 
+@ all #minecrfft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBIEE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zomabie
+R 0
+A -
+X Can't find element 'minecraft:zomabie' of type 'minecraft:attribute' at position 9: t zomabie<--[HERE]@7
+E Can't find element 'minecraft:zomabie' of type 'minecraft:attribute' at position 9: t zomabie<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:sharness
+R 0
+A -
+X Can't find element 'minecraft:sharness' of type 'minecraft:attribute' at position 20: ...t:sharness<--[HERE]@18
+E Can't find element 'minecraft:sharness' of type 'minecraft:attribute' at position 20: ...t:sharness<--[HERE]@18
+S -2--2 0 0 
+@ all BIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:village_pl\\ains
+R 0
+A -
+X Can't find element 'minecraft:village_pl' of type 'minecraft:attribute' at position 22: ...village_pl<--[HERE]@20
+E Can't find element 'minecraft:village_pl' of type 'minecraft:attribute' at position 22: ...village_pl<--[HERE]@20
+S -2--2 0 0 
+@ all mine$cr​aft:
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:attribute' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:attribute' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:peed
+R 0
+A -
+X Can't find element 'minecraft:peed' of type 'minecraft:attribute' at position 16: ...craft:peed<--[HERE]@14
+E Can't find element 'minecraft:peed' of type 'minecraft:attribute' at position 16: ...craft:peed<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:nopet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zombİie
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:attribute' at position 6: t zomb<--[HERE]@4
+E Can't find element 'minecraft:zomb' of type 'minecraft:attribute' at position 6: t zomb<--[HERE]@4
+S -2--2 0 0 
+@ all zo6mbieo
+R 0
+A -
+X Can't find element 'minecraft:zo6mbieo' of type 'minecraft:attribute' at position 10: t zo6mbieo<--[HERE]@8
+E Can't find element 'minecraft:zo6mbieo' of type 'minecraft:attribute' at position 10: t zo6mbieo<--[HERE]@8
+S -2--2 0 0 
+@ all minecaft:foYrtune
+R 0
+A -
+X Can't find element 'minecaft:fo' of type 'minecraft:attribute' at position 13: ...inecaft:fo<--[HERE]@11
+E Can't find element 'minecaft:fo' of type 'minecraft:attribute' at position 13: ...inecaft:fo<--[HERE]@11
+S -2--2 0 0 
+@ all zomcbixe
+R 0
+A -
+X Can't find element 'minecraft:zomcbixe' of type 'minecraft:attribute' at position 10: t zomcbixe<--[HERE]@8
+E Can't find element 'minecraft:zomcbixe' of type 'minecraft:attribute' at position 10: t zomcbixe<--[HERE]@8
+S -2--2 0 0 
+@ all ZO*MBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ealtha
+R 0
+A -
+X Can't find element 'minecraft:ealtha' of type 'minecraft:attribute' at position 8: t ealtha<--[HERE]@6
+E Can't find element 'minecraft:ealtha' of type 'minecraft:attribute' at position 8: t ealtha<--[HERE]@6
+S -2--2 0 0 
+@ all ient_ity
+R 0
+A -
+X Can't find element 'minecraft:ient_ity' of type 'minecraft:attribute' at position 10: t ient_ity<--[HERE]@8
+E Can't find element 'minecraft:ient_ity' of type 'minecraft:attribute' at position 10: t ient_ity<--[HERE]@8
+S -2--2 0 0 
+@ all #minecraft:nopec
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo=:barr
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:attribute' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:attribute' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraf6:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all CZOMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:generic.mxax_health
+R 0
+A -
+X Can't find element 'minecraft:generic.mxax_health' of type 'minecraft:attribute' at position 31: ...xax_health<--[HERE]@29
+E Can't find element 'minecraft:generic.mxax_health' of type 'minecraft:attribute' at position 31: ...xax_health<--[HERE]@29
+S -2--2 0 0 
+@ all craft:sharpness
+R 0
+A -
+X Can't find element 'craft:sharpness' of type 'minecraft:attribute' at position 17: ...:sharpness<--[HERE]@15
+E Can't find element 'craft:sharpness' of type 'minecraft:attribute' at position 17: ...:sharpness<--[HERE]@15
+S -2--2 0 0 
+@ all ßm,necraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aft:max_health
+R 0
+A -
+X Can't find element 'aft:max_health' of type 'minecraft:attribute' at position 16: ...max_health<--[HERE]@14
+E Can't find element 'aft:max_health' of type 'minecraft:attribute' at position 16: ...max_health<--[HERE]@14
+S -2--2 0 0 
+@ all IE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk~el1etons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mincraft:player
+R 0
+A -
+X Can't find element 'mincraft:player' of type 'minecraft:attribute' at position 17: ...aft:player<--[HERE]@15
+E Can't find element 'mincraft:player' of type 'minecraft:attribute' at position 17: ...aft:player<--[HERE]@15
+S -2--2 0 0 
+@ all aft:player
+R 0
+A -
+X Can't find element 'aft:player' of type 'minecraft:attribute' at position 12: ...aft:player<--[HERE]@10
+E Can't find element 'aft:player' of type 'minecraft:attribute' at position 12: ...aft:player<--[HERE]@10
+S -2--2 0 0 
+@ all minecr😀aft:armor
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all raft:nope}
+R 0
+A -
+X Can't find element 'raft:nope' of type 'minecraft:attribute' at position 11: ... raft:nope<--[HERE]@9
+E Can't find element 'raft:nope' of type 'minecraft:attribute' at position 11: ... raft:nope<--[HERE]@9
+S -2--2 0 0 
+@ all minecraf@t:speed
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:m*ax_healt\u0009h
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:attribute' at position 13: ...inecraft:m<--[HERE]@11
+E Can't find element 'minecraft:m' of type 'minecraft:attribute' at position 13: ...inecraft:m<--[HERE]@11
+S -2--2 0 0 
+@ all min8ec中aft:
+R 0
+A -
+X Can't find element 'minecraft:min8ec' of type 'minecraft:attribute' at position 8: t min8ec<--[HERE]@6
+E Can't find element 'minecraft:min8ec' of type 'minecraft:attribute' at position 8: t min8ec<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:pl}ayer
+R 0
+A -
+X Can't find element 'minecraft:pl' of type 'minecraft:attribute' at position 14: ...necraft:pl<--[HERE]@12
+E Can't find element 'minecraft:pl' of type 'minecraft:attribute' at position 14: ...necraft:pl<--[HERE]@12
+S -2--2 0 0 
+@ all skeletons
+R 0
+A -
+X Can't find element 'minecraft:skeletons' of type 'minecraft:attribute' at position 11: ... skeletons<--[HERE]@9
+E Can't find element 'minecraft:skeletons' of type 'minecraft:attribute' at position 11: ... skeletons<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft%generic.max_healthc
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:cc
+R 0
+A -
+X Can't find element 'minecraft:cc' of type 'minecraft:attribute' at position 14: ...necraft:cc<--[HERE]@12
+E Can't find element 'minecraft:cc' of type 'minecraft:attribute' at position 14: ...necraft:cc<--[HERE]@12
+S -2--2 0 0 
+@ all #minecraft:skele>tons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:max_healthmn
+R 0
+A -
+X Can't find element 'minecraft:max_healthmn' of type 'minecraft:attribute' at position 24: ...x_healthmn<--[HERE]@22
+E Can't find element 'minecraft:max_healthmn' of type 'minecraft:attribute' at position 24: ...x_healthmn<--[HERE]@22
+S -2--2 0 0 
+@ all bie
+R 0
+A -
+X Can't find element 'minecraft:bie' of type 'minecraft:attribute' at position 5: t bie<--[HERE]@3
+E Can't find element 'minecraft:bie' of type 'minecraft:attribute' at position 5: t bie<--[HERE]@3
+S -2--2 0 0 
+@ all minecraf_t
+R 0
+A -
+X Can't find element 'minecraft:minecraf_t' of type 'minecraft:attribute' at position 12: ...minecraf_t<--[HERE]@10
+E Can't find element 'minecraft:minecraf_t' of type 'minecraft:attribute' at position 12: ...minecraf_t<--[HERE]@10
+S -2--2 0 0 
+@ all foo:barf
+R 0
+A -
+X Can't find element 'foo:barf' of type 'minecraft:attribute' at position 10: t foo:barf<--[HERE]@8
+E Can't find element 'foo:barf' of type 'minecraft:attribute' at position 10: t foo:barf<--[HERE]@8
+S -2--2 0 0 
+@ all :max_health
+R 11
+A 0-11 minecraft:max_health
+E ok
+S -2--2 0 0 
+@ all ped
+R 0
+A -
+X Can't find element 'minecraft:ped' of type 'minecraft:attribute' at position 5: t ped<--[HERE]@3
+E Can't find element 'minecraft:ped' of type 'minecraft:attribute' at position 5: t ped<--[HERE]@3
+S -2--2 0 0 
+@ all ba4
+R 0
+A -
+X Can't find element 'minecraft:ba4' of type 'minecraft:attribute' at position 5: t ba4<--[HERE]@3
+E Can't find element 'minecraft:ba4' of type 'minecraft:attribute' at position 5: t ba4<--[HERE]@3
+S -2--2 0 0 
+@ all aftf
+R 0
+A -
+X Can't find element 'minecraft:aftf' of type 'minecraft:attribute' at position 6: t aftf<--[HERE]@4
+E Can't find element 'minecraft:aftf' of type 'minecraft:attribute' at position 6: t aftf<--[HERE]@4
+S -2--2 0 0 
+@ all #minecaft:npe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBIEZ
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:aZciedt_city
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:attribute' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:attribute' at position 13: ...inecraft:a<--[HERE]@11
+S -2--2 0 0 
+@ all :nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:attribute' at position 7: t :nope<--[HERE]@5
+E Can't find element 'minecraft:nope' of type 'minecraft:attribute' at position 7: t :nope<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:playerle
+R 0
+A -
+X Can't find element 'minecraft:playerle' of type 'minecraft:attribute' at position 20: ...t:playerle<--[HERE]@18
+E Can't find element 'minecraft:playerle' of type 'minecraft:attribute' at position 20: ...t:playerle<--[HERE]@18
+S -2--2 0 0 
+@ all \\zombie
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all gene4ric.max_health
+R 0
+A -
+X Can't find element 'minecraft:gene4ric.max_health' of type 'minecraft:attribute' at position 21: ...max_health<--[HERE]@19
+E Can't find element 'minecraft:gene4ric.max_health' of type 'minecraft:attribute' at position 21: ...max_health<--[HERE]@19
+S -2--2 0 0 
+@ all #minecraft:nopem
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t:zombie
+R 0
+A -
+X Can't find element 't:zombie' of type 'minecraft:attribute' at position 10: t t:zombie<--[HERE]@8
+E Can't find element 't:zombie' of type 'minecraft:attribute' at position 10: t t:zombie<--[HERE]@8
+S -2--2 0 0 
+@ all foo:bar(
+R 0
+A -
+X Can't find element 'foo:bar' of type 'minecraft:attribute' at position 9: t foo:bar<--[HERE]@7
+E Can't find element 'foo:bar' of type 'minecraft:attribute' at position 9: t foo:bar<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:minesha%ft
+R 0
+A -
+X Can't find element 'minecraft:minesha' of type 'minecraft:attribute' at position 19: ...ft:minesha<--[HERE]@17
+E Can't find element 'minecraft:minesha' of type 'minecraft:attribute' at position 19: ...ft:minesha<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_plains\u0000
+R 0
+A -
+X Can't find element 'minecraft:village_plains' of type 'minecraft:attribute' at position 26: ...age_plains<--[HERE]@24
+E Can't find element 'minecraft:village_plains' of type 'minecraft:attribute' at position 26: ...age_plains<--[HERE]@24
+S -2--2 0 0 
+@ all ecraft:fortune
+R 0
+A -
+X Can't find element 'ecraft:fortune' of type 'minecraft:attribute' at position 16: ...ft:fortune<--[HERE]@14
+E Can't find element 'ecraft:fortune' of type 'minecraft:attribute' at position 16: ...ft:fortune<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:village_plainsp
+R 0
+A -
+X Can't find element 'minecraft:village_plainsp' of type 'minecraft:attribute' at position 27: ...ge_plainsp<--[HERE]@25
+E Can't find element 'minecraft:village_plainsp' of type 'minecraft:attribute' at position 27: ...ge_plainsp<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:zombi)eo
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+E Can't find element 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all #minecAaft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:shar-nesss
+R 0
+A -
+X Can't find element 'minecraft:shar-nesss' of type 'minecraft:attribute' at position 22: ...shar-nesss<--[HERE]@20
+E Can't find element 'minecraft:shar-nesss' of type 'minecraft:attribute' at position 22: ...shar-nesss<--[HERE]@20
+S -2--2 0 0 
+@ all #minecrft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:Cskeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all dd
+R 0
+A -
+X Can't find element 'minecraft:dd' of type 'minecraft:attribute' at position 4: t dd<--[HERE]@2
+E Can't find element 'minecraft:dd' of type 'minecraft:attribute' at position 4: t dd<--[HERE]@2
+S -2--2 0 0 
+@ all ecraft:speedf
+R 0
+A -
+X Can't find element 'ecraft:speedf' of type 'minecraft:attribute' at position 15: ...aft:speedf<--[HERE]@13
+E Can't find element 'ecraft:speedf' of type 'minecraft:attribute' at position 15: ...aft:speedf<--[HERE]@13
+S -2--2 0 0 
+@ all miecraft:mineshaft
+R 0
+A -
+X Can't find element 'miecraft:mineshaft' of type 'minecraft:attribute' at position 20: ...:mineshaft<--[HERE]@18
+E Can't find element 'miecraft:mineshaft' of type 'minecraft:attribute' at position 20: ...:mineshaft<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:fortunerc
+R 0
+A -
+X Can't find element 'minecraft:fortunerc' of type 'minecraft:attribute' at position 21: ...:fortunerc<--[HERE]@19
+E Can't find element 'minecraft:fortunerc' of type 'minecraft:attribute' at position 21: ...:fortunerc<--[HERE]@19
+S -2--2 0 0 
+@ all minecr9aft:sharpness
+R 0
+A -
+X Can't find element 'minecr9aft:sharpness' of type 'minecraft:attribute' at position 22: ...:sharpness<--[HERE]@20
+E Can't find element 'minecr9aft:sharpness' of type 'minecraft:attribute' at position 22: ...:sharpness<--[HERE]@20
+S -2--2 0 0 

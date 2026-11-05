@@ -1,0 +1,1904 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 1894 -1993702616 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all minecraft:stone
+R 15
+A 0-15 minecraft:stone|resource minecraft:item
+E ok
+S 0-15 15 2010224756 minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all stone
+R 5
+A 0-5 minecraft:stone|resource minecraft:item
+E ok
+S 0-5 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:Stone
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S 0-15 16 -1821863837 minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all :stone
+R 6
+A 0-6 minecraft:stone|resource minecraft:item
+E ok
+S -2--2 0 0 
+@ all minecraft:diamond_sword
+R 23
+A 0-23 minecraft:diamond_sword|resource minecraft:item
+E ok
+S -2--2 0 0 
+@ all diamond
+R 7
+A 0-7 minecraft:diamond|resource minecraft:item
+E ok
+S 0-7 16 -1035116601 minecraft:deepslate_diamond_ore	minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:item' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'minecraft:nope' of type 'minecraft:item' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all foo:bar
+R 0
+A -
+X Can't find element 'foo:bar' of type 'minecraft:item' at position 9: t foo:bar<--[HERE]@7
+E Can't find element 'foo:bar' of type 'minecraft:item' at position 9: t foo:bar<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:stone 
+R 15
+A 0-15 minecraft:stone|resource minecraft:item
+E Incorrect argument for command at position 17: ...raft:stone<--[HERE]@15
+S -2--2 0 0 
+@ all #minecraft:logs
+R 15
+A 0-15 #minecraft:logs|tag ResourceKey[minecraft:root / minecraft:item] n=48
+E ok
+S 0-15 1 880385410 #minecraft:logs_that_burn
+@ all minecraft:stick
+R 15
+A 0-15 minecraft:stick|resource minecraft:item
+E ok
+S 0-15 1 -1151039801 minecraft:sticky_piston
+@ all minecraft:oak_log
+R 17
+A 0-17 minecraft:oak_log|resource minecraft:item
+E ok
+S -2--2 0 0 
+@ all a b
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all mé
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:é
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 170 -1033733652 minecraft:saddle	minecraft:salmon	minecraft:salmon_bucket	minecraft:salmon_spawn_egg	minecraft:sand	minecraft:sandstone	minecraft:sandstone_slab	minecraft:sandstone_stairs
+@ all sto
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+E Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+S 0-3 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:dia
+R 0
+A -
+X Can't find element 'minecraft:dia' of type 'minecraft:item' at position 15: ...ecraft:dia<--[HERE]@13
+E Can't find element 'minecraft:dia' of type 'minecraft:item' at position 15: ...ecraft:dia<--[HERE]@13
+S 0-13 15 -68807784 minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all _
+R 0
+A -
+X Can't find element 'minecraft:_' of type 'minecraft:item' at position 3: t _<--[HERE]@1
+E Can't find element 'minecraft:_' of type 'minecraft:item' at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:white_wool
+R 20
+A 0-20 minecraft:white_wool|resource minecraft:item
+E ok
+S 0-20 2 2057369536 minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all wool
+R 0
+A -
+X Can't find element 'minecraft:wool' of type 'minecraft:item' at position 6: t wool<--[HERE]@4
+E Can't find element 'minecraft:wool' of type 'minecraft:item' at position 6: t wool<--[HERE]@4
+S 0-4 48 -828936661 minecraft:black_wool	minecraft:black_wool_slab	minecraft:black_wool_stairs	minecraft:blue_wool	minecraft:blue_wool_slab	minecraft:blue_wool_stairs	minecraft:brown_wool	minecraft:brown_wool_slab
+@ all minecraft:/
+R 0
+A -
+X Can't find element 'minecraft:/' of type 'minecraft:item' at position 13: ...inecraft:/<--[HERE]@11
+E Can't find element 'minecraft:/' of type 'minecraft:item' at position 13: ...inecraft:/<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:a/b
+R 0
+A -
+X Can't find element 'minecraft:a/b' of type 'minecraft:item' at position 15: ...ecraft:a/b<--[HERE]@13
+E Can't find element 'minecraft:a/b' of type 'minecraft:item' at position 15: ...ecraft:a/b<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:air
+R 13
+A 0-13 minecraft:air|resource minecraft:item
+E ok
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+S 0-1 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minecraft:
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+S 0-11 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minecraft:nope
+R 0
+A -
+X Can't find tag 'minecraft:nope' of type 'minecraft:item' at position 17: ...craft:nope<--[HERE]@15
+E Can't find tag 'minecraft:nope' of type 'minecraft:item' at position 17: ...craft:nope<--[HERE]@15
+S -2--2 0 0 
+@ all #foo
+R 0
+A -
+X Can't find tag 'minecraft:foo' of type 'minecraft:item' at position 6: t #foo<--[HERE]@4
+E Can't find tag 'minecraft:foo' of type 'minecraft:item' at position 6: t #foo<--[HERE]@4
+S 0-4 33 -462302197 #minecraft:armadillo_food	#minecraft:axolotl_food	#minecraft:bee_food	#minecraft:camel_food	#minecraft:camel_husk_food	#minecraft:cat_food	#minecraft:chicken_food	#minecraft:cow_food	#minecraft:enchantable/foot_armor	#minecraft:foot_armor	#minecraft:fox_food	#minecraft:frog_food	#minecraft:goat_food	#minecraft:happy_ghast_food	#minecraft:hoglin_food	#minecraft:horse_food	#minecraft:llama_food	#minecraft:nautilus_bucket_food	#minecraft:nautilus_food	#minecraft:ocelot_food	#minecraft:panda_food	#minecraft:parrot_food	#minecraft:parrot_poisonous_food	#minecraft:pig_food	#minecraft:piglin_food	#minecraft:rabbit_food	#minecraft:sheep_food	#minecraft:sniffer_food	#minecraft:strider_food	#minecraft:sulfur_cube_food	#minecraft:turtle_food	#minecraft:wolf_food	#minecraft:zombie_horse_food
+@ all #minecraft:planks
+R 17
+A 0-17 #minecraft:planks|tag ResourceKey[minecraft:root / minecraft:item] n=13
+E ok
+S -2--2 0 0 
+@ all #minecraft:Logs
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+S 0-15 2 373955244 #minecraft:logs	#minecraft:logs_that_burn
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S 0-1 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+S 0-2 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+S 0-3 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+S 0-4 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+S 0-5 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+S 0-6 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+S 0-7 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:item' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:item' at position 10: t minecraf<--[HERE]@8
+S 0-8 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+S 0-9 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecraft:st
+R 0
+A -
+X Can't find element 'minecraft:st' of type 'minecraft:item' at position 14: ...necraft:st<--[HERE]@12
+E Can't find element 'minecraft:st' of type 'minecraft:item' at position 14: ...necraft:st<--[HERE]@12
+S 0-12 49 -888476943 minecraft:stick	minecraft:sticky_piston	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks
+@ all minecraft:sto
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:item' at position 15: ...ecraft:sto<--[HERE]@13
+E Can't find element 'minecraft:sto' of type 'minecraft:item' at position 15: ...ecraft:sto<--[HERE]@13
+S 0-13 16 -1821863837 minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:ston
+R 0
+A -
+X Can't find element 'minecraft:ston' of type 'minecraft:item' at position 16: ...craft:ston<--[HERE]@14
+E Can't find element 'minecraft:ston' of type 'minecraft:item' at position 16: ...craft:ston<--[HERE]@14
+S 0-14 16 -1821863837 minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:item' at position 3: t s<--[HERE]@1
+E Can't find element 'minecraft:s' of type 'minecraft:item' at position 3: t s<--[HERE]@1
+S 0-1 638 1560166507 minecraft:acacia_hanging_sign	minecraft:acacia_sapling	minecraft:acacia_shelf	minecraft:acacia_sign	minecraft:acacia_slab	minecraft:acacia_stairs	minecraft:allay_spawn_egg	minecraft:amethyst_shard
+@ all st
+R 0
+A -
+X Can't find element 'minecraft:st' of type 'minecraft:item' at position 4: t st<--[HERE]@2
+E Can't find element 'minecraft:st' of type 'minecraft:item' at position 4: t st<--[HERE]@2
+S 0-2 216 -829096766 minecraft:acacia_stairs	minecraft:andesite_stairs	minecraft:armor_stand	minecraft:bamboo_mosaic_stairs	minecraft:bamboo_stairs	minecraft:birch_stairs	minecraft:black_concrete_stairs	minecraft:black_stained_glass
+@ all ston
+R 0
+A -
+X Can't find element 'minecraft:ston' of type 'minecraft:item' at position 6: t ston<--[HERE]@4
+E Can't find element 'minecraft:ston' of type 'minecraft:item' at position 6: t ston<--[HERE]@4
+S 0-4 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:S
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S 0-11 170 -1033733652 minecraft:saddle	minecraft:salmon	minecraft:salmon_bucket	minecraft:salmon_spawn_egg	minecraft:sand	minecraft:sandstone	minecraft:sandstone_slab	minecraft:sandstone_stairs
+@ all minecraft:St
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S 0-12 49 -888476943 minecraft:stick	minecraft:sticky_piston	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks
+@ all minecraft:Sto
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S 0-13 16 -1821863837 minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:Ston
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S 0-14 16 -1821863837 minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all :
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 3: t :<--[HERE]@1
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all :s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:item' at position 4: t :s<--[HERE]@2
+E Can't find element 'minecraft:s' of type 'minecraft:item' at position 4: t :s<--[HERE]@2
+S -2--2 0 0 
+@ all :st
+R 0
+A -
+X Can't find element 'minecraft:st' of type 'minecraft:item' at position 5: t :st<--[HERE]@3
+E Can't find element 'minecraft:st' of type 'minecraft:item' at position 5: t :st<--[HERE]@3
+S -2--2 0 0 
+@ all :sto
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:item' at position 6: t :sto<--[HERE]@4
+E Can't find element 'minecraft:sto' of type 'minecraft:item' at position 6: t :sto<--[HERE]@4
+S -2--2 0 0 
+@ all :ston
+R 0
+A -
+X Can't find element 'minecraft:ston' of type 'minecraft:item' at position 7: t :ston<--[HERE]@5
+E Can't find element 'minecraft:ston' of type 'minecraft:item' at position 7: t :ston<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:d
+R 0
+A -
+X Can't find element 'minecraft:d' of type 'minecraft:item' at position 13: ...inecraft:d<--[HERE]@11
+E Can't find element 'minecraft:d' of type 'minecraft:item' at position 13: ...inecraft:d<--[HERE]@11
+S 0-11 98 2017279255 minecraft:damaged_anvil	minecraft:dandelion	minecraft:danger_pottery_sherd	minecraft:dark_oak_boat	minecraft:dark_oak_button	minecraft:dark_oak_chest_boat	minecraft:dark_oak_door	minecraft:dark_oak_fence
+@ all minecraft:di
+R 0
+A -
+X Can't find element 'minecraft:di' of type 'minecraft:item' at position 14: ...necraft:di<--[HERE]@12
+E Can't find element 'minecraft:di' of type 'minecraft:item' at position 14: ...necraft:di<--[HERE]@12
+S 0-12 23 -9298148 minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword	minecraft:diorite	minecraft:diorite_slab	minecraft:diorite_stairs	minecraft:diorite_wall	minecraft:dirt	minecraft:dirt_path	minecraft:disc_fragment_5	minecraft:dispenser
+@ all minecraft:diam
+R 0
+A -
+X Can't find element 'minecraft:diam' of type 'minecraft:item' at position 16: ...craft:diam<--[HERE]@14
+E Can't find element 'minecraft:diam' of type 'minecraft:item' at position 16: ...craft:diam<--[HERE]@14
+S 0-14 15 -68807784 minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:diamo
+R 0
+A -
+X Can't find element 'minecraft:diamo' of type 'minecraft:item' at position 17: ...raft:diamo<--[HERE]@15
+E Can't find element 'minecraft:diamo' of type 'minecraft:item' at position 17: ...raft:diamo<--[HERE]@15
+S 0-15 15 -68807784 minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:diamon
+R 0
+A -
+X Can't find element 'minecraft:diamon' of type 'minecraft:item' at position 18: ...aft:diamon<--[HERE]@16
+E Can't find element 'minecraft:diamon' of type 'minecraft:item' at position 18: ...aft:diamon<--[HERE]@16
+S 0-16 15 -68807784 minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:diamond
+R 17
+A 0-17 minecraft:diamond|resource minecraft:item
+E ok
+S 0-17 14 2027001530 minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:diamond_
+R 0
+A -
+X Can't find element 'minecraft:diamond_' of type 'minecraft:item' at position 20: ...t:diamond_<--[HERE]@18
+E Can't find element 'minecraft:diamond_' of type 'minecraft:item' at position 20: ...t:diamond_<--[HERE]@18
+S 0-18 14 2027001530 minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:diamond_s
+R 0
+A -
+X Can't find element 'minecraft:diamond_s' of type 'minecraft:item' at position 21: ...:diamond_s<--[HERE]@19
+E Can't find element 'minecraft:diamond_s' of type 'minecraft:item' at position 21: ...:diamond_s<--[HERE]@19
+S 0-19 3 -1906611590 minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:diamond_sw
+R 0
+A -
+X Can't find element 'minecraft:diamond_sw' of type 'minecraft:item' at position 22: ...diamond_sw<--[HERE]@20
+E Can't find element 'minecraft:diamond_sw' of type 'minecraft:item' at position 22: ...diamond_sw<--[HERE]@20
+S 0-20 1 -625096604 minecraft:diamond_sword
+@ all minecraft:diamond_swo
+R 0
+A -
+X Can't find element 'minecraft:diamond_swo' of type 'minecraft:item' at position 23: ...iamond_swo<--[HERE]@21
+E Can't find element 'minecraft:diamond_swo' of type 'minecraft:item' at position 23: ...iamond_swo<--[HERE]@21
+S 0-21 1 -625096604 minecraft:diamond_sword
+@ all minecraft:diamond_swor
+R 0
+A -
+X Can't find element 'minecraft:diamond_swor' of type 'minecraft:item' at position 24: ...amond_swor<--[HERE]@22
+E Can't find element 'minecraft:diamond_swor' of type 'minecraft:item' at position 24: ...amond_swor<--[HERE]@22
+S 0-22 1 -625096604 minecraft:diamond_sword
+@ all d
+R 0
+A -
+X Can't find element 'minecraft:d' of type 'minecraft:item' at position 3: t d<--[HERE]@1
+E Can't find element 'minecraft:d' of type 'minecraft:item' at position 3: t d<--[HERE]@1
+S 0-1 187 964069866 minecraft:acacia_door	minecraft:ancient_debris	minecraft:bamboo_door	minecraft:big_dripleaf	minecraft:birch_door	minecraft:black_dye	minecraft:blue_dye	minecraft:brown_dye
+@ all di
+R 0
+A -
+X Can't find element 'minecraft:di' of type 'minecraft:item' at position 4: t di<--[HERE]@2
+E Can't find element 'minecraft:di' of type 'minecraft:item' at position 4: t di<--[HERE]@2
+S 0-2 51 734598342 minecraft:coarse_dirt	minecraft:deepslate_diamond_ore	minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet
+@ all dia
+R 0
+A -
+X Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+E Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+S 0-3 16 -1035116601 minecraft:deepslate_diamond_ore	minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all diam
+R 0
+A -
+X Can't find element 'minecraft:diam' of type 'minecraft:item' at position 6: t diam<--[HERE]@4
+E Can't find element 'minecraft:diam' of type 'minecraft:item' at position 6: t diam<--[HERE]@4
+S 0-4 16 -1035116601 minecraft:deepslate_diamond_ore	minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all diamo
+R 0
+A -
+X Can't find element 'minecraft:diamo' of type 'minecraft:item' at position 7: t diamo<--[HERE]@5
+E Can't find element 'minecraft:diamo' of type 'minecraft:item' at position 7: t diamo<--[HERE]@5
+S 0-5 16 -1035116601 minecraft:deepslate_diamond_ore	minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all diamon
+R 0
+A -
+X Can't find element 'minecraft:diamon' of type 'minecraft:item' at position 8: t diamon<--[HERE]@6
+E Can't find element 'minecraft:diamon' of type 'minecraft:item' at position 8: t diamon<--[HERE]@6
+S 0-6 16 -1035116601 minecraft:deepslate_diamond_ore	minecraft:diamond	minecraft:diamond_axe	minecraft:diamond_block	minecraft:diamond_boots	minecraft:diamond_chestplate	minecraft:diamond_helmet	minecraft:diamond_hoe	minecraft:diamond_horse_armor	minecraft:diamond_leggings	minecraft:diamond_nautilus_armor	minecraft:diamond_ore	minecraft:diamond_pickaxe	minecraft:diamond_shovel	minecraft:diamond_spear	minecraft:diamond_sword
+@ all minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:n' of type 'minecraft:item' at position 13: ...inecraft:n<--[HERE]@11
+E Can't find element 'minecraft:n' of type 'minecraft:item' at position 13: ...inecraft:n<--[HERE]@11
+S 0-11 33 2096259024 minecraft:name_tag	minecraft:nautilus_shell	minecraft:nautilus_spawn_egg	minecraft:nether_brick	minecraft:nether_brick_fence	minecraft:nether_brick_slab	minecraft:nether_brick_stairs	minecraft:nether_brick_wall	minecraft:nether_bricks	minecraft:nether_gold_ore	minecraft:nether_quartz_ore	minecraft:nether_sprouts	minecraft:nether_star	minecraft:nether_wart	minecraft:nether_wart_block	minecraft:netherite_axe	minecraft:netherite_block	minecraft:netherite_boots	minecraft:netherite_chestplate	minecraft:netherite_helmet	minecraft:netherite_hoe	minecraft:netherite_horse_armor	minecraft:netherite_ingot	minecraft:netherite_leggings	minecraft:netherite_nautilus_armor	minecraft:netherite_pickaxe	minecraft:netherite_scrap	minecraft:netherite_shovel	minecraft:netherite_spear	minecraft:netherite_sword	minecraft:netherite_upgrade_smithing_template	minecraft:netherrack	minecraft:note_block
+@ all minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:item' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:item' at position 14: ...necraft:no<--[HERE]@12
+S 0-12 1 735181756 minecraft:note_block
+@ all minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:item' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:item' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:item' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:item' at position 3: t f<--[HERE]@1
+S 0-1 90 -1355583312 minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:bamboo_fence	minecraft:bamboo_fence_gate	minecraft:birch_fence	minecraft:birch_fence_gate	minecraft:blast_furnace	minecraft:brain_coral_fan
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+S 0-2 2 2123824552 minecraft:fox_spawn_egg	minecraft:rabbit_foot
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:item' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:item' at position 5: t foo<--[HERE]@3
+S 0-3 1 252621219 minecraft:rabbit_foot
+@ all foo:
+R 0
+A -
+X Can't find element 'foo:' of type 'minecraft:item' at position 6: t foo:<--[HERE]@4
+E Can't find element 'foo:' of type 'minecraft:item' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:b
+R 0
+A -
+X Can't find element 'foo:b' of type 'minecraft:item' at position 7: t foo:b<--[HERE]@5
+E Can't find element 'foo:b' of type 'minecraft:item' at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all foo:ba
+R 0
+A -
+X Can't find element 'foo:ba' of type 'minecraft:item' at position 8: t foo:ba<--[HERE]@6
+E Can't find element 'foo:ba' of type 'minecraft:item' at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Can't find tag 'minecraft:m' of type 'minecraft:item' at position 4: t #m<--[HERE]@2
+E Can't find tag 'minecraft:m' of type 'minecraft:item' at position 4: t #m<--[HERE]@2
+S 0-2 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #mi
+R 0
+A -
+X Can't find tag 'minecraft:mi' of type 'minecraft:item' at position 5: t #mi<--[HERE]@3
+E Can't find tag 'minecraft:mi' of type 'minecraft:item' at position 5: t #mi<--[HERE]@3
+S 0-3 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #min
+R 0
+A -
+X Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+E Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+S 0-4 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #mine
+R 0
+A -
+X Can't find tag 'minecraft:mine' of type 'minecraft:item' at position 7: t #mine<--[HERE]@5
+E Can't find tag 'minecraft:mine' of type 'minecraft:item' at position 7: t #mine<--[HERE]@5
+S 0-5 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minec
+R 0
+A -
+X Can't find tag 'minecraft:minec' of type 'minecraft:item' at position 8: t #minec<--[HERE]@6
+E Can't find tag 'minecraft:minec' of type 'minecraft:item' at position 8: t #minec<--[HERE]@6
+S 0-6 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minecr
+R 0
+A -
+X Can't find tag 'minecraft:minecr' of type 'minecraft:item' at position 9: t #minecr<--[HERE]@7
+E Can't find tag 'minecraft:minecr' of type 'minecraft:item' at position 9: t #minecr<--[HERE]@7
+S 0-7 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minecra
+R 0
+A -
+X Can't find tag 'minecraft:minecra' of type 'minecraft:item' at position 10: t #minecra<--[HERE]@8
+E Can't find tag 'minecraft:minecra' of type 'minecraft:item' at position 10: t #minecra<--[HERE]@8
+S 0-8 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minecraf
+R 0
+A -
+X Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+E Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+S 0-9 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minecraft
+R 0
+A -
+X Can't find tag 'minecraft:minecraft' of type 'minecraft:item' at position 12: ...#minecraft<--[HERE]@10
+E Can't find tag 'minecraft:minecraft' of type 'minecraft:item' at position 12: ...#minecraft<--[HERE]@10
+S 0-10 236 -1470178219 #minecraft:acacia_logs	#minecraft:anvil	#minecraft:armadillo_food	#minecraft:arrows	#minecraft:axes	#minecraft:axolotl_food	#minecraft:bamboo_blocks	#minecraft:banners
+@ all #minecraft:l
+R 0
+A -
+X Can't find tag 'minecraft:l' of type 'minecraft:item' at position 14: ...inecraft:l<--[HERE]@12
+E Can't find tag 'minecraft:l' of type 'minecraft:item' at position 14: ...inecraft:l<--[HERE]@12
+S 0-12 12 643060442 #minecraft:lanterns	#minecraft:lapis_ores	#minecraft:leaves	#minecraft:lectern_books	#minecraft:leg_armor	#minecraft:lightning_rods	#minecraft:llama_food	#minecraft:llama_tempt_items	#minecraft:logs	#minecraft:logs_that_burn	#minecraft:loom_dyes	#minecraft:loom_patterns
+@ all #minecraft:lo
+R 0
+A -
+X Can't find tag 'minecraft:lo' of type 'minecraft:item' at position 15: ...necraft:lo<--[HERE]@13
+E Can't find tag 'minecraft:lo' of type 'minecraft:item' at position 15: ...necraft:lo<--[HERE]@13
+S 0-13 4 -1143102260 #minecraft:logs	#minecraft:logs_that_burn	#minecraft:loom_dyes	#minecraft:loom_patterns
+@ all #minecraft:log
+R 0
+A -
+X Can't find tag 'minecraft:log' of type 'minecraft:item' at position 16: ...ecraft:log<--[HERE]@14
+E Can't find tag 'minecraft:log' of type 'minecraft:item' at position 16: ...ecraft:log<--[HERE]@14
+S 0-14 2 373955244 #minecraft:logs	#minecraft:logs_that_burn
+@ all minecraft:sti
+R 0
+A -
+X Can't find element 'minecraft:sti' of type 'minecraft:item' at position 15: ...ecraft:sti<--[HERE]@13
+E Can't find element 'minecraft:sti' of type 'minecraft:item' at position 15: ...ecraft:sti<--[HERE]@13
+S 0-13 2 -1187869523 minecraft:stick	minecraft:sticky_piston
+@ all minecraft:stic
+R 0
+A -
+X Can't find element 'minecraft:stic' of type 'minecraft:item' at position 16: ...craft:stic<--[HERE]@14
+E Can't find element 'minecraft:stic' of type 'minecraft:item' at position 16: ...craft:stic<--[HERE]@14
+S 0-14 2 -1187869523 minecraft:stick	minecraft:sticky_piston
+@ all minecraft:o
+R 0
+A -
+X Can't find element 'minecraft:o' of type 'minecraft:item' at position 13: ...inecraft:o<--[HERE]@11
+E Can't find element 'minecraft:o' of type 'minecraft:item' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 64 1354611260 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves
+@ all minecraft:oa
+R 0
+A -
+X Can't find element 'minecraft:oa' of type 'minecraft:item' at position 14: ...necraft:oa<--[HERE]@12
+E Can't find element 'minecraft:oa' of type 'minecraft:item' at position 14: ...necraft:oa<--[HERE]@12
+S 0-12 18 -214470288 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wood
+@ all minecraft:oak
+R 0
+A -
+X Can't find element 'minecraft:oak' of type 'minecraft:item' at position 15: ...ecraft:oak<--[HERE]@13
+E Can't find element 'minecraft:oak' of type 'minecraft:item' at position 15: ...ecraft:oak<--[HERE]@13
+S 0-13 18 -214470288 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wood
+@ all minecraft:oak_
+R 0
+A -
+X Can't find element 'minecraft:oak_' of type 'minecraft:item' at position 16: ...craft:oak_<--[HERE]@14
+E Can't find element 'minecraft:oak_' of type 'minecraft:item' at position 16: ...craft:oak_<--[HERE]@14
+S 0-14 18 -214470288 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wood
+@ all minecraft:oak_l
+R 0
+A -
+X Can't find element 'minecraft:oak_l' of type 'minecraft:item' at position 17: ...raft:oak_l<--[HERE]@15
+E Can't find element 'minecraft:oak_l' of type 'minecraft:item' at position 17: ...raft:oak_l<--[HERE]@15
+S 0-15 2 -856137518 minecraft:oak_leaves	minecraft:oak_log
+@ all minecraft:oak_lo
+R 0
+A -
+X Can't find element 'minecraft:oak_lo' of type 'minecraft:item' at position 18: ...aft:oak_lo<--[HERE]@16
+E Can't find element 'minecraft:oak_lo' of type 'minecraft:item' at position 18: ...aft:oak_lo<--[HERE]@16
+S 0-16 1 255832088 minecraft:oak_log
+@ all a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S 0-1 104 -2030071139 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all a 
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:w
+R 0
+A -
+X Can't find element 'minecraft:w' of type 'minecraft:item' at position 13: ...inecraft:w<--[HERE]@11
+E Can't find element 'minecraft:w' of type 'minecraft:item' at position 13: ...inecraft:w<--[HERE]@11
+S 0-11 144 -1334919157 minecraft:wandering_trader_spawn_egg	minecraft:ward_armor_trim_smithing_template	minecraft:warden_spawn_egg	minecraft:warm_ocean_ruins_map	minecraft:warped_button	minecraft:warped_door	minecraft:warped_fence	minecraft:warped_fence_gate
+@ all minecraft:wh
+R 0
+A -
+X Can't find element 'minecraft:wh' of type 'minecraft:item' at position 14: ...necraft:wh<--[HERE]@12
+E Can't find element 'minecraft:wh' of type 'minecraft:item' at position 14: ...necraft:wh<--[HERE]@12
+S 0-12 23 1483543505 minecraft:wheat	minecraft:wheat_seeds	minecraft:white_banner	minecraft:white_bed	minecraft:white_bundle	minecraft:white_candle	minecraft:white_carpet	minecraft:white_concrete	minecraft:white_concrete_powder	minecraft:white_concrete_slab	minecraft:white_concrete_stairs	minecraft:white_cushion	minecraft:white_dye	minecraft:white_glazed_terracotta	minecraft:white_harness	minecraft:white_shulker_box	minecraft:white_stained_glass	minecraft:white_stained_glass_pane	minecraft:white_terracotta	minecraft:white_tulip	minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all minecraft:whi
+R 0
+A -
+X Can't find element 'minecraft:whi' of type 'minecraft:item' at position 15: ...ecraft:whi<--[HERE]@13
+E Can't find element 'minecraft:whi' of type 'minecraft:item' at position 15: ...ecraft:whi<--[HERE]@13
+S 0-13 21 8802230 minecraft:white_banner	minecraft:white_bed	minecraft:white_bundle	minecraft:white_candle	minecraft:white_carpet	minecraft:white_concrete	minecraft:white_concrete_powder	minecraft:white_concrete_slab	minecraft:white_concrete_stairs	minecraft:white_cushion	minecraft:white_dye	minecraft:white_glazed_terracotta	minecraft:white_harness	minecraft:white_shulker_box	minecraft:white_stained_glass	minecraft:white_stained_glass_pane	minecraft:white_terracotta	minecraft:white_tulip	minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all minecraft:whit
+R 0
+A -
+X Can't find element 'minecraft:whit' of type 'minecraft:item' at position 16: ...craft:whit<--[HERE]@14
+E Can't find element 'minecraft:whit' of type 'minecraft:item' at position 16: ...craft:whit<--[HERE]@14
+S 0-14 21 8802230 minecraft:white_banner	minecraft:white_bed	minecraft:white_bundle	minecraft:white_candle	minecraft:white_carpet	minecraft:white_concrete	minecraft:white_concrete_powder	minecraft:white_concrete_slab	minecraft:white_concrete_stairs	minecraft:white_cushion	minecraft:white_dye	minecraft:white_glazed_terracotta	minecraft:white_harness	minecraft:white_shulker_box	minecraft:white_stained_glass	minecraft:white_stained_glass_pane	minecraft:white_terracotta	minecraft:white_tulip	minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all minecraft:white
+R 0
+A -
+X Can't find element 'minecraft:white' of type 'minecraft:item' at position 17: ...raft:white<--[HERE]@15
+E Can't find element 'minecraft:white' of type 'minecraft:item' at position 17: ...raft:white<--[HERE]@15
+S 0-15 21 8802230 minecraft:white_banner	minecraft:white_bed	minecraft:white_bundle	minecraft:white_candle	minecraft:white_carpet	minecraft:white_concrete	minecraft:white_concrete_powder	minecraft:white_concrete_slab	minecraft:white_concrete_stairs	minecraft:white_cushion	minecraft:white_dye	minecraft:white_glazed_terracotta	minecraft:white_harness	minecraft:white_shulker_box	minecraft:white_stained_glass	minecraft:white_stained_glass_pane	minecraft:white_terracotta	minecraft:white_tulip	minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all minecraft:white_
+R 0
+A -
+X Can't find element 'minecraft:white_' of type 'minecraft:item' at position 18: ...aft:white_<--[HERE]@16
+E Can't find element 'minecraft:white_' of type 'minecraft:item' at position 18: ...aft:white_<--[HERE]@16
+S 0-16 21 8802230 minecraft:white_banner	minecraft:white_bed	minecraft:white_bundle	minecraft:white_candle	minecraft:white_carpet	minecraft:white_concrete	minecraft:white_concrete_powder	minecraft:white_concrete_slab	minecraft:white_concrete_stairs	minecraft:white_cushion	minecraft:white_dye	minecraft:white_glazed_terracotta	minecraft:white_harness	minecraft:white_shulker_box	minecraft:white_stained_glass	minecraft:white_stained_glass_pane	minecraft:white_terracotta	minecraft:white_tulip	minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all minecraft:white_w
+R 0
+A -
+X Can't find element 'minecraft:white_w' of type 'minecraft:item' at position 19: ...ft:white_w<--[HERE]@17
+E Can't find element 'minecraft:white_w' of type 'minecraft:item' at position 19: ...ft:white_w<--[HERE]@17
+S 0-17 3 1366700817 minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all minecraft:white_wo
+R 0
+A -
+X Can't find element 'minecraft:white_wo' of type 'minecraft:item' at position 20: ...t:white_wo<--[HERE]@18
+E Can't find element 'minecraft:white_wo' of type 'minecraft:item' at position 20: ...t:white_wo<--[HERE]@18
+S 0-18 3 1366700817 minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all minecraft:white_woo
+R 0
+A -
+X Can't find element 'minecraft:white_woo' of type 'minecraft:item' at position 21: ...:white_woo<--[HERE]@19
+E Can't find element 'minecraft:white_woo' of type 'minecraft:item' at position 21: ...:white_woo<--[HERE]@19
+S 0-19 3 1366700817 minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all w
+R 0
+A -
+X Can't find element 'minecraft:w' of type 'minecraft:item' at position 3: t w<--[HERE]@1
+E Can't find element 'minecraft:w' of type 'minecraft:item' at position 3: t w<--[HERE]@1
+S 0-1 249 -2113879882 minecraft:acacia_wood	minecraft:andesite_wall	minecraft:birch_wood	minecraft:black_wool	minecraft:black_wool_slab	minecraft:black_wool_stairs	minecraft:blackstone_wall	minecraft:blue_wool
+@ all wo
+R 0
+A -
+X Can't find element 'minecraft:wo' of type 'minecraft:item' at position 4: t wo<--[HERE]@2
+E Can't find element 'minecraft:wo' of type 'minecraft:item' at position 4: t wo<--[HERE]@2
+S 0-2 77 -342160428 minecraft:acacia_wood	minecraft:birch_wood	minecraft:black_wool	minecraft:black_wool_slab	minecraft:black_wool_stairs	minecraft:blue_wool	minecraft:blue_wool_slab	minecraft:blue_wool_stairs
+@ all woo
+R 0
+A -
+X Can't find element 'minecraft:woo' of type 'minecraft:item' at position 5: t woo<--[HERE]@3
+E Can't find element 'minecraft:woo' of type 'minecraft:item' at position 5: t woo<--[HERE]@3
+S 0-3 75 206617366 minecraft:acacia_wood	minecraft:birch_wood	minecraft:black_wool	minecraft:black_wool_slab	minecraft:black_wool_stairs	minecraft:blue_wool	minecraft:blue_wool_slab	minecraft:blue_wool_stairs
+@ all minecraft:a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 13: ...inecraft:a<--[HERE]@11
+S 0-11 45 -294179710 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecraft:a/
+R 0
+A -
+X Can't find element 'minecraft:a/' of type 'minecraft:item' at position 14: ...necraft:a/<--[HERE]@12
+E Can't find element 'minecraft:a/' of type 'minecraft:item' at position 14: ...necraft:a/<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:ai
+R 0
+A -
+X Can't find element 'minecraft:ai' of type 'minecraft:item' at position 14: ...necraft:ai<--[HERE]@12
+E Can't find element 'minecraft:ai' of type 'minecraft:item' at position 14: ...necraft:ai<--[HERE]@12
+S 0-12 1 -1006957140 minecraft:air
+@ all #minecraft:n
+R 0
+A -
+X Can't find tag 'minecraft:n' of type 'minecraft:item' at position 14: ...inecraft:n<--[HERE]@12
+E Can't find tag 'minecraft:n' of type 'minecraft:item' at position 14: ...inecraft:n<--[HERE]@12
+S 0-12 6 115772615 #minecraft:nautilus_bucket_food	#minecraft:nautilus_food	#minecraft:nautilus_taming_items	#minecraft:netherite_tool_materials	#minecraft:non_flammable_wood	#minecraft:noteblock_top_instruments
+@ all #minecraft:no
+R 0
+A -
+X Can't find tag 'minecraft:no' of type 'minecraft:item' at position 15: ...necraft:no<--[HERE]@13
+E Can't find tag 'minecraft:no' of type 'minecraft:item' at position 15: ...necraft:no<--[HERE]@13
+S 0-13 2 563463147 #minecraft:non_flammable_wood	#minecraft:noteblock_top_instruments
+@ all #minecraft:nop
+R 0
+A -
+X Can't find tag 'minecraft:nop' of type 'minecraft:item' at position 16: ...ecraft:nop<--[HERE]@14
+E Can't find tag 'minecraft:nop' of type 'minecraft:item' at position 16: ...ecraft:nop<--[HERE]@14
+S -2--2 0 0 
+@ all #f
+R 0
+A -
+X Can't find tag 'minecraft:f' of type 'minecraft:item' at position 4: t #f<--[HERE]@2
+E Can't find tag 'minecraft:f' of type 'minecraft:item' at position 4: t #f<--[HERE]@2
+S 0-2 52 940094958 #minecraft:armadillo_food	#minecraft:axolotl_food	#minecraft:bee_food	#minecraft:camel_food	#minecraft:camel_husk_food	#minecraft:cat_food	#minecraft:chicken_food	#minecraft:completes_find_tree_tutorial
+@ all #fo
+R 0
+A -
+X Can't find tag 'minecraft:fo' of type 'minecraft:item' at position 5: t #fo<--[HERE]@3
+E Can't find tag 'minecraft:fo' of type 'minecraft:item' at position 5: t #fo<--[HERE]@3
+S 0-3 33 -462302197 #minecraft:armadillo_food	#minecraft:axolotl_food	#minecraft:bee_food	#minecraft:camel_food	#minecraft:camel_husk_food	#minecraft:cat_food	#minecraft:chicken_food	#minecraft:cow_food	#minecraft:enchantable/foot_armor	#minecraft:foot_armor	#minecraft:fox_food	#minecraft:frog_food	#minecraft:goat_food	#minecraft:happy_ghast_food	#minecraft:hoglin_food	#minecraft:horse_food	#minecraft:llama_food	#minecraft:nautilus_bucket_food	#minecraft:nautilus_food	#minecraft:ocelot_food	#minecraft:panda_food	#minecraft:parrot_food	#minecraft:parrot_poisonous_food	#minecraft:pig_food	#minecraft:piglin_food	#minecraft:rabbit_food	#minecraft:sheep_food	#minecraft:sniffer_food	#minecraft:strider_food	#minecraft:sulfur_cube_food	#minecraft:turtle_food	#minecraft:wolf_food	#minecraft:zombie_horse_food
+@ all #minecraft:p
+R 0
+A -
+X Can't find tag 'minecraft:p' of type 'minecraft:item' at position 14: ...inecraft:p<--[HERE]@12
+E Can't find tag 'minecraft:p' of type 'minecraft:item' at position 14: ...inecraft:p<--[HERE]@12
+S 0-12 15 -580821569 #minecraft:pale_oak_logs	#minecraft:panda_eats_from_ground	#minecraft:panda_food	#minecraft:parrot_food	#minecraft:parrot_poisonous_food	#minecraft:pickaxes	#minecraft:pig_food	#minecraft:piglin_food	#minecraft:piglin_loved	#minecraft:piglin_preferred_weapons	#minecraft:piglin_repellents	#minecraft:piglin_safe_armor	#minecraft:pillager_preferred_weapons	#minecraft:planks	#minecraft:poplar_logs
+@ all #minecraft:pl
+R 0
+A -
+X Can't find tag 'minecraft:pl' of type 'minecraft:item' at position 15: ...necraft:pl<--[HERE]@13
+E Can't find tag 'minecraft:pl' of type 'minecraft:item' at position 15: ...necraft:pl<--[HERE]@13
+S 0-13 1 2049567048 #minecraft:planks
+@ all #minecraft:pla
+R 0
+A -
+X Can't find tag 'minecraft:pla' of type 'minecraft:item' at position 16: ...ecraft:pla<--[HERE]@14
+E Can't find tag 'minecraft:pla' of type 'minecraft:item' at position 16: ...ecraft:pla<--[HERE]@14
+S 0-14 1 2049567048 #minecraft:planks
+@ all #minecraft:plan
+R 0
+A -
+X Can't find tag 'minecraft:plan' of type 'minecraft:item' at position 17: ...craft:plan<--[HERE]@15
+E Can't find tag 'minecraft:plan' of type 'minecraft:item' at position 17: ...craft:plan<--[HERE]@15
+S 0-15 1 2049567048 #minecraft:planks
+@ all #minecraft:plank
+R 0
+A -
+X Can't find tag 'minecraft:plank' of type 'minecraft:item' at position 18: ...raft:plank<--[HERE]@16
+E Can't find tag 'minecraft:plank' of type 'minecraft:item' at position 18: ...raft:plank<--[HERE]@16
+S 0-16 1 2049567048 #minecraft:planks
+@ all #minecraft:L
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+S 0-12 12 643060442 #minecraft:lanterns	#minecraft:lapis_ores	#minecraft:leaves	#minecraft:lectern_books	#minecraft:leg_armor	#minecraft:lightning_rods	#minecraft:llama_food	#minecraft:llama_tempt_items	#minecraft:logs	#minecraft:logs_that_burn	#minecraft:loom_dyes	#minecraft:loom_patterns
+@ all #minecraft:Lo
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+S 0-13 4 -1143102260 #minecraft:logs	#minecraft:logs_that_burn	#minecraft:loom_dyes	#minecraft:loom_patterns
+@ all #minecraft:Log
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+S 0-14 2 373955244 #minecraft:logs	#minecraft:logs_that_burn
+@ all minecraft\\:/
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecaft:diamond_sworda
+R 0
+A -
+X Can't find element 'minecaft:diamond_sworda' of type 'minecraft:item' at position 25: ...ond_sworda<--[HERE]@23
+E Can't find element 'minecaft:diamond_sworda' of type 'minecraft:item' at position 25: ...ond_sworda<--[HERE]@23
+S -2--2 0 0 
+@ all aba
+R 0
+A -
+X Can't find element 'minecraft:aba' of type 'minecraft:item' at position 5: t aba<--[HERE]@3
+E Can't find element 'minecraft:aba' of type 'minecraft:item' at position 5: t aba<--[HERE]@3
+S 0-3 1 -60263629 minecraft:abandoned_camp_map
+@ all #o
+R 0
+A -
+X Can't find tag 'minecraft:o' of type 'minecraft:item' at position 4: t #o<--[HERE]@2
+E Can't find tag 'minecraft:o' of type 'minecraft:item' at position 4: t #o<--[HERE]@2
+S 0-2 13 -1951580619 #minecraft:coal_ores	#minecraft:copper_ores	#minecraft:dark_oak_logs	#minecraft:diamond_ores	#minecraft:emerald_ores	#minecraft:gold_ores	#minecraft:iron_ores	#minecraft:lapis_ores	#minecraft:oak_logs	#minecraft:ocelot_food	#minecraft:ores	#minecraft:pale_oak_logs	#minecraft:redstone_ores
+@ all e 
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:item' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:item' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all c_
+R 0
+A -
+X Can't find element 'minecraft:c_' of type 'minecraft:item' at position 4: t c_<--[HERE]@2
+E Can't find element 'minecraft:c_' of type 'minecraft:item' at position 4: t c_<--[HERE]@2
+S -2--2 0 0 
+@ all mineraft:planks
+R 0
+A -
+X Can't find element 'mineraft:planks' of type 'minecraft:item' at position 17: ...aft:planks<--[HERE]@15
+E Can't find element 'mineraft:planks' of type 'minecraft:item' at position 17: ...aft:planks<--[HERE]@15
+S -2--2 0 0 
+@ all mi￿ecraft:stone
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecrİaft:di1
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all in"craft:dia
+R 0
+A -
+X Can't find element 'minecraft:in' of type 'minecraft:item' at position 4: t in<--[HERE]@2
+E Can't find element 'minecraft:in' of type 'minecraft:item' at position 4: t in<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:/f
+R 0
+A -
+X Can't find element 'minecraft:/f' of type 'minecraft:item' at position 14: ...necraft:/f<--[HERE]@12
+E Can't find element 'minecraft:/f' of type 'minecraft:item' at position 14: ...necraft:/f<--[HERE]@12
+S -2--2 0 0 
+@ all #minecraft:nope:
+R 0
+A -
+X Invalid ID at position 3: t #<--[HERE]@1
+E Invalid ID at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all _1_
+R 0
+A -
+X Can't find element 'minecraft:_1_' of type 'minecraft:item' at position 5: t _1_<--[HERE]@3
+E Can't find element 'minecraft:_1_' of type 'minecraft:item' at position 5: t _1_<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:nopei
+R 0
+A -
+X Can't find element 'minecraft:nopei' of type 'minecraft:item' at position 17: ...raft:nopei<--[HERE]@15
+E Can't find element 'minecraft:nopei' of type 'minecraft:item' at position 17: ...raft:nopei<--[HERE]@15
+S -2--2 0 0 
+@ all -=minecraft:stone
+R 0
+A -
+X Can't find element 'minecraft:-' of type 'minecraft:item' at position 3: t -<--[HERE]@1
+E Can't find element 'minecraft:-' of type 'minecraft:item' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:white_wool:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mİinecraft\u0009:
+R 0
+A -
+X Can't find tag 'minecraft:m' of type 'minecraft:item' at position 4: t #m<--[HERE]@2
+E Can't find tag 'minecraft:m' of type 'minecraft:item' at position 4: t #m<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:no%pe
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:item' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:item' at position 14: ...necraft:no<--[HERE]@12
+S -2--2 0 0 
+@ all *stone
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min￿ecraft:/
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all on
+R 0
+A -
+X Can't find element 'minecraft:on' of type 'minecraft:item' at position 4: t on<--[HERE]@2
+E Can't find element 'minecraft:on' of type 'minecraft:item' at position 4: t on<--[HERE]@2
+S 0-2 2 613937153 minecraft:carrot_on_a_stick	minecraft:warped_fungus_on_a_stick
+@ all 1tonee
+R 0
+A -
+X Can't find element 'minecraft:1tonee' of type 'minecraft:item' at position 8: t 1tonee<--[HERE]@6
+E Can't find element 'minecraft:1tonee' of type 'minecraft:item' at position 8: t 1tonee<--[HERE]@6
+S -2--2 0 0 
+@ all ar
+R 0
+A -
+X Can't find element 'minecraft:ar' of type 'minecraft:item' at position 4: t ar<--[HERE]@2
+E Can't find element 'minecraft:ar' of type 'minecraft:item' at position 4: t ar<--[HERE]@2
+S 0-2 38 -49508861 minecraft:archer_pottery_sherd	minecraft:armadillo_scute	minecraft:armadillo_spawn_egg	minecraft:armor_stand	minecraft:arms_up_pottery_sherd	minecraft:arrow	minecraft:bolt_armor_trim_smithing_template	minecraft:coast_armor_trim_smithing_template	minecraft:copper_horse_armor	minecraft:copper_nautilus_armor	minecraft:diamond_horse_armor	minecraft:diamond_nautilus_armor	minecraft:dune_armor_trim_smithing_template	minecraft:eye_armor_trim_smithing_template	minecraft:flow_armor_trim_smithing_template	minecraft:golden_horse_armor	minecraft:golden_nautilus_armor	minecraft:host_armor_trim_smithing_template	minecraft:iron_horse_armor	minecraft:iron_nautilus_armor	minecraft:leather_horse_armor	minecraft:netherite_horse_armor	minecraft:netherite_nautilus_armor	minecraft:raiser_armor_trim_smithing_template	minecraft:rib_armor_trim_smithing_template	minecraft:sentry_armor_trim_smithing_template	minecraft:shaper_armor_trim_smithing_template	minecraft:silence_armor_trim_smithing_template	minecraft:snout_armor_trim_smithing_template	minecraft:spectral_arrow	minecraft:spire_armor_trim_smithing_template	minecraft:tide_armor_trim_smithing_template	minecraft:tipped_arrow	minecraft:vex_armor_trim_smithing_template	minecraft:ward_armor_trim_smithing_template	minecraft:wayfinder_armor_trim_smithing_template	minecraft:wild_armor_trim_smithing_template	minecraft:wolf_armor
+@ all a @b
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all ft:stone
+R 0
+A -
+X Can't find element 'ft:stone' of type 'minecraft:item' at position 10: t ft:stone<--[HERE]@8
+E Can't find element 'ft:stone' of type 'minecraft:item' at position 10: t ft:stone<--[HERE]@8
+S -2--2 0 0 
+@ all a éé
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all wolw
+R 0
+A -
+X Can't find element 'minecraft:wolw' of type 'minecraft:item' at position 6: t wolw<--[HERE]@4
+E Can't find element 'minecraft:wolw' of type 'minecraft:item' at position 6: t wolw<--[HERE]@4
+S -2--2 0 0 
+@ all mnecraft:Stone
+R 0
+A -
+X Can't find element 'mnecraft:' of type 'minecraft:item' at position 11: ... mnecraft:<--[HERE]@9
+E Can't find element 'mnecraft:' of type 'minecraft:item' at position 11: ... mnecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all #minecfaft:planks
+R 0
+A -
+X Can't find tag 'minecfaft:planks' of type 'minecraft:item' at position 19: ...aft:planks<--[HERE]@17
+E Can't find tag 'minecfaft:planks' of type 'minecraft:item' at position 19: ...aft:planks<--[HERE]@17
+S -2--2 0 0 
+@ all minecrafet:air
+R 0
+A -
+X Can't find element 'minecrafet:air' of type 'minecraft:item' at position 16: ...crafet:air<--[HERE]@14
+E Can't find element 'minecrafet:air' of type 'minecraft:item' at position 16: ...crafet:air<--[HERE]@14
+S -2--2 0 0 
+@ all a b 
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all méé
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all sto<
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+E Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all amond_sword
+R 0
+A -
+X Can't find element 'minecraft:amond_sword' of type 'minecraft:item' at position 13: ...mond_sword<--[HERE]@11
+E Can't find element 'minecraft:amond_sword' of type 'minecraft:item' at position 13: ...mond_sword<--[HERE]@11
+S -2--2 0 0 
+@ all minecr5ft:nope
+R 0
+A -
+X Can't find element 'minecr5ft:nope' of type 'minecraft:item' at position 16: ...cr5ft:nope<--[HERE]@14
+E Can't find element 'minecr5ft:nope' of type 'minecraft:item' at position 16: ...cr5ft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all fo}:bar
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft\\air
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all craft:s
+R 0
+A -
+X Can't find element 'craft:s' of type 'minecraft:item' at position 9: t craft:s<--[HERE]@7
+E Can't find element 'craft:s' of type 'minecraft:item' at position 9: t craft:s<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:stickt
+R 0
+A -
+X Can't find element 'minecraft:stickt' of type 'minecraft:item' at position 18: ...aft:stickt<--[HERE]@16
+E Can't find element 'minecraft:stickt' of type 'minecraft:item' at position 18: ...aft:stickt<--[HERE]@16
+S -2--2 0 0 
+@ all #minecraft:nop\u000af
+R 0
+A -
+X Can't find tag 'minecraft:nop' of type 'minecraft:item' at position 16: ...ecraft:nop<--[HERE]@14
+E Can't find tag 'minecraft:nop' of type 'minecraft:item' at position 16: ...ecraft:nop<--[HERE]@14
+S -2--2 0 0 
+@ all necaraft:s
+R 0
+A -
+X Can't find element 'necaraft:s' of type 'minecraft:item' at position 12: ...necaraft:s<--[HERE]@10
+E Can't find element 'necaraft:s' of type 'minecraft:item' at position 12: ...necaraft:s<--[HERE]@10
+S -2--2 0 0 
+@ all m<necraft:ss
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all m-
+R 0
+A -
+X Can't find element 'minecraft:m-' of type 'minecraft:item' at position 4: t m-<--[HERE]@2
+E Can't find element 'minecraft:m-' of type 'minecraft:item' at position 4: t m-<--[HERE]@2
+S -2--2 0 0 
+@ all minecr%afts
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all wooİ
+R 0
+A -
+X Can't find element 'minecraft:woo' of type 'minecraft:item' at position 5: t woo<--[HERE]@3
+E Can't find element 'minecraft:woo' of type 'minecraft:item' at position 5: t woo<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:Stonet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:wh\u0000tce_wool
+R 0
+A -
+X Can't find element 'minecraft:wh' of type 'minecraft:item' at position 14: ...necraft:wh<--[HERE]@12
+E Can't find element 'minecraft:wh' of type 'minecraft:item' at position 14: ...necraft:wh<--[HERE]@12
+S -2--2 0 0 
+@ all diaßondd
+R 0
+A -
+X Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+E Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:ar
+R 0
+A -
+X Can't find element 'minecraft:ar' of type 'minecraft:item' at position 14: ...necraft:ar<--[HERE]@12
+E Can't find element 'minecraft:ar' of type 'minecraft:item' at position 14: ...necraft:ar<--[HERE]@12
+S 0-12 6 2084808608 minecraft:archer_pottery_sherd	minecraft:armadillo_scute	minecraft:armadillo_spawn_egg	minecraft:armor_stand	minecraft:arms_up_pottery_sherd	minecraft:arrow
+@ all dia[monx
+R 0
+A -
+X Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+E Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:airn
+R 0
+A -
+X Can't find element 'minecraft:airn' of type 'minecraft:item' at position 16: ...craft:airn<--[HERE]@14
+E Can't find element 'minecraft:airn' of type 'minecraft:item' at position 16: ...craft:airn<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sn
+R 0
+A -
+X Can't find element 'minecraft:sn' of type 'minecraft:item' at position 14: ...necraft:sn<--[HERE]@12
+E Can't find element 'minecraft:sn' of type 'minecraft:item' at position 14: ...necraft:sn<--[HERE]@12
+S 0-12 9 -453941266 minecraft:sniffer_egg	minecraft:sniffer_spawn_egg	minecraft:snort_pottery_sherd	minecraft:snout_armor_trim_smithing_template	minecraft:snow	minecraft:snow_block	minecraft:snow_golem_spawn_egg	minecraft:snowball	minecraft:snowy_village_map
+@ all dminecraft:diamond_-word
+R 0
+A -
+X Can't find element 'dminecraft:diamond_-word' of type 'minecraft:item' at position 26: ...mond_-word<--[HERE]@24
+E Can't find element 'dminecraft:diamond_-word' of type 'minecraft:item' at position 26: ...mond_-word<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:nop$
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:item' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:item' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all minecraf:é
+R 0
+A -
+X Can't find element 'minecraf:' of type 'minecraft:item' at position 11: ... minecraf:<--[HERE]@9
+E Can't find element 'minecraf:' of type 'minecraft:item' at position 11: ... minecraf:<--[HERE]@9
+S -2--2 0 0 
+@ all a/bi
+R 0
+A -
+X Can't find element 'minecraft:a/bi' of type 'minecraft:item' at position 6: t a/bi<--[HERE]@4
+E Can't find element 'minecraft:a/bi' of type 'minecraft:item' at position 6: t a/bi<--[HERE]@4
+S -2--2 0 0 
+@ all m=inecrft:diamond_sword
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecrdft:st=one
+R 0
+A -
+X Can't find element 'minecrdft:st' of type 'minecraft:item' at position 14: ...necrdft:st<--[HERE]@12
+E Can't find element 'minecrdft:st' of type 'minecraft:item' at position 14: ...necrdft:st<--[HERE]@12
+S -2--2 0 0 
+@ all ne
+R 0
+A -
+X Can't find element 'minecraft:ne' of type 'minecraft:item' at position 4: t ne<--[HERE]@2
+E Can't find element 'minecraft:ne' of type 'minecraft:item' at position 4: t ne<--[HERE]@2
+S 0-2 36 1303513378 minecraft:bee_nest	minecraft:chiseled_nether_bricks	minecraft:cracked_nether_bricks	minecraft:nether_brick	minecraft:nether_brick_fence	minecraft:nether_brick_slab	minecraft:nether_brick_stairs	minecraft:nether_brick_wall	minecraft:nether_bricks	minecraft:nether_gold_ore	minecraft:nether_quartz_ore	minecraft:nether_sprouts	minecraft:nether_star	minecraft:nether_wart	minecraft:nether_wart_block	minecraft:netherite_axe	minecraft:netherite_block	minecraft:netherite_boots	minecraft:netherite_chestplate	minecraft:netherite_helmet	minecraft:netherite_hoe	minecraft:netherite_horse_armor	minecraft:netherite_ingot	minecraft:netherite_leggings	minecraft:netherite_nautilus_armor	minecraft:netherite_pickaxe	minecraft:netherite_scrap	minecraft:netherite_shovel	minecraft:netherite_spear	minecraft:netherite_sword	minecraft:netherite_upgrade_smithing_template	minecraft:netherrack	minecraft:red_nether_brick_slab	minecraft:red_nether_brick_stairs	minecraft:red_nether_brick_wall	minecraft:red_nether_bricks
+@ all on中e
+R 0
+A -
+X Can't find element 'minecraft:on' of type 'minecraft:item' at position 4: t on<--[HERE]@2
+E Can't find element 'minecraft:on' of type 'minecraft:item' at position 4: t on<--[HERE]@2
+S -2--2 0 0 
+@ all wooll
+R 0
+A -
+X Can't find element 'minecraft:wooll' of type 'minecraft:item' at position 7: t wooll<--[HERE]@5
+E Can't find element 'minecraft:wooll' of type 'minecraft:item' at position 7: t wooll<--[HERE]@5
+S -2--2 0 0 
+@ all :nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:item' at position 7: t :nope<--[HERE]@5
+E Can't find element 'minecraft:nope' of type 'minecraft:item' at position 7: t :nope<--[HERE]@5
+S -2--2 0 0 
+@ all #​foo
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #minAcrat:nope
+R 0
+A -
+X Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+E Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+S -2--2 0 0 
+@ all mi@ecraft:oak_logk
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all inecraft:
+R 0
+A -
+X Can't find element 'inecraft:' of type 'minecraft:item' at position 11: ... inecraft:<--[HERE]@9
+E Can't find element 'inecraft:' of type 'minecraft:item' at position 11: ... inecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all minec8raft:
+R 0
+A -
+X Can't find element 'minec8raft:' of type 'minecraft:item' at position 13: ...inec8raft:<--[HERE]@11
+E Can't find element 'minec8raft:' of type 'minecraft:item' at position 13: ...inec8raft:<--[HERE]@11
+S -2--2 0 0 
+@ all dia,Zmond
+R 0
+A -
+X Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+E Can't find element 'minecraft:dia' of type 'minecraft:item' at position 5: t dia<--[HERE]@3
+S -2--2 0 0 
+@ all #mincraft:
+R 0
+A -
+X Can't find tag 'mincraft:' of type 'minecraft:item' at position 12: ...#mincraft:<--[HERE]@10
+E Can't find tag 'mincraft:' of type 'minecraft:item' at position 12: ...#mincraft:<--[HERE]@10
+S -2--2 0 0 
+@ all ^:stdone
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all raft:é
+R 0
+A -
+X Can't find element 'raft:' of type 'minecraft:item' at position 7: t raft:<--[HERE]@5
+E Can't find element 'raft:' of type 'minecraft:item' at position 7: t raft:<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:^stick
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all éé
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ￿to!ne
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s3to
+R 0
+A -
+X Can't find element 'minecraft:s3to' of type 'minecraft:item' at position 6: t s3to<--[HERE]@4
+E Can't find element 'minecraft:s3to' of type 'minecraft:item' at position 6: t s3to<--[HERE]@4
+S -2--2 0 0 
+@ all ab 
+R 0
+A -
+X Can't find element 'minecraft:ab' of type 'minecraft:item' at position 4: t ab<--[HERE]@2
+E Can't find element 'minecraft:ab' of type 'minecraft:item' at position 4: t ab<--[HERE]@2
+S -2--2 0 0 
+@ all woolw
+R 0
+A -
+X Can't find element 'minecraft:woolw' of type 'minecraft:item' at position 7: t woolw<--[HERE]@5
+E Can't find element 'minecraft:woolw' of type 'minecraft:item' at position 7: t woolw<--[HERE]@5
+S -2--2 0 0 
+@ all mém
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minBecraft:dia
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all :ston<eo
+R 0
+A -
+X Can't find element 'minecraft:ston' of type 'minecraft:item' at position 7: t :ston<--[HERE]@5
+E Can't find element 'minecraft:ston' of type 'minecraft:item' at position 7: t :ston<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft"
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all white_wool
+R 10
+A 0-10 minecraft:white_wool|resource minecraft:item
+E ok
+S 0-10 3 1366700817 minecraft:white_wool	minecraft:white_wool_slab	minecraft:white_wool_stairs
+@ all stick
+R 5
+A 0-5 minecraft:stick|resource minecraft:item
+E ok
+S 0-5 5 -338875038 minecraft:carrot_on_a_stick	minecraft:debug_stick	minecraft:stick	minecraft:sticky_piston	minecraft:warped_fungus_on_a_stick
+@ all f4:dia
+R 0
+A -
+X Can't find element 'f4:dia' of type 'minecraft:item' at position 8: t f4:dia<--[HERE]@6
+E Can't find element 'f4:dia' of type 'minecraft:item' at position 8: t f4:dia<--[HERE]@6
+S -2--2 0 0 
+@ all minecraf,t::
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:item' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:item' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all dbia
+R 0
+A -
+X Can't find element 'minecraft:dbia' of type 'minecraft:item' at position 6: t dbia<--[HERE]@4
+E Can't find element 'minecraft:dbia' of type 'minecraft:item' at position 6: t dbia<--[HERE]@4
+S -2--2 0 0 
+@ all _ß
+R 0
+A -
+X Can't find element 'minecraft:_' of type 'minecraft:item' at position 3: t _<--[HERE]@1
+E Can't find element 'minecraft:_' of type 'minecraft:item' at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all ^#minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf}:nope
+R 0
+A -
+X Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+E Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+S -2--2 0 0 
+@ all #minecr>ft:planks
+R 0
+A -
+X Can't find tag 'minecraft:minecr' of type 'minecraft:item' at position 9: t #minecr<--[HERE]@7
+E Can't find tag 'minecraft:minecr' of type 'minecraft:item' at position 9: t #minecr<--[HERE]@7
+S -2--2 0 0 
+@ all \u000araft:é
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:da
+R 0
+A -
+X Can't find element 'minecraft:da' of type 'minecraft:item' at position 14: ...necraft:da<--[HERE]@12
+E Can't find element 'minecraft:da' of type 'minecraft:item' at position 14: ...necraft:da<--[HERE]@12
+S 0-12 25 1616280166 minecraft:damaged_anvil	minecraft:dandelion	minecraft:danger_pottery_sherd	minecraft:dark_oak_boat	minecraft:dark_oak_button	minecraft:dark_oak_chest_boat	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate	minecraft:dark_oak_hanging_sign	minecraft:dark_oak_leaves	minecraft:dark_oak_log	minecraft:dark_oak_planks	minecraft:dark_oak_pressure_plate	minecraft:dark_oak_sapling	minecraft:dark_oak_shelf	minecraft:dark_oak_sign	minecraft:dark_oak_slab	minecraft:dark_oak_stairs	minecraft:dark_oak_trapdoor	minecraft:dark_oak_wood	minecraft:dark_prismarine	minecraft:dark_prismarine_slab	minecraft:dark_prismarine_stairs	minecraft:daylight_detector
+@ all minecraft:Stonem
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all *é
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all diamond>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t diamond<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t diamond<--[HERE]@7
+S -2--2 0 0 
+@ all -sto
+R 0
+A -
+X Can't find element 'minecraft:-sto' of type 'minecraft:item' at position 6: t -sto<--[HERE]@4
+E Can't find element 'minecraft:-sto' of type 'minecraft:item' at position 6: t -sto<--[HERE]@4
+S -2--2 0 0 
+@ all minecr,aft:white_wool
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all inecraft:air
+R 0
+A -
+X Can't find element 'inecraft:air' of type 'minecraft:item' at position 14: ...ecraft:air<--[HERE]@12
+E Can't find element 'inecraft:air' of type 'minecraft:item' at position 14: ...ecraft:air<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:white_wo.l
+R 0
+A -
+X Can't find element 'minecraft:white_wo.l' of type 'minecraft:item' at position 22: ...white_wo.l<--[HERE]@20
+E Can't find element 'minecraft:white_wo.l' of type 'minecraft:item' at position 22: ...white_wo.l<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:diae
+R 0
+A -
+X Can't find element 'minecraft:diae' of type 'minecraft:item' at position 16: ...craft:diae<--[HERE]@14
+E Can't find element 'minecraft:diae' of type 'minecraft:item' at position 16: ...craft:diae<--[HERE]@14
+S -2--2 0 0 
+@ all minecrat:white_w~ol
+R 0
+A -
+X Can't find element 'minecrat:white_w' of type 'minecraft:item' at position 18: ...at:white_w<--[HERE]@16
+E Can't find element 'minecrat:white_w' of type 'minecraft:item' at position 18: ...at:white_w<--[HERE]@16
+S -2--2 0 0 
+@ all "é
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sto[ne
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+E Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all wool>
+R 0
+A -
+X Can't find element 'minecraft:wool' of type 'minecraft:item' at position 6: t wool<--[HERE]@4
+E Can't find element 'minecraft:wool' of type 'minecraft:item' at position 6: t wool<--[HERE]@4
+S -2--2 0 0 
+@ all mine#craft:stone 
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all ßméé
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine{crft:planks
+R 0
+A -
+X Can't find tag 'minecraft:mine' of type 'minecraft:item' at position 7: t #mine<--[HERE]@5
+E Can't find tag 'minecraft:mine' of type 'minecraft:item' at position 7: t #mine<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraftBnopen
+R 0
+A -
+X Can't find tag 'minecraft:minecraft' of type 'minecraft:item' at position 12: ...#minecraft<--[HERE]@10
+E Can't find tag 'minecraft:minecraft' of type 'minecraft:item' at position 12: ...#minecraft<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:sto(ne 
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:item' at position 15: ...ecraft:sto<--[HERE]@13
+E Can't find element 'minecraft:sto' of type 'minecraft:item' at position 15: ...ecraft:sto<--[HERE]@13
+S -2--2 0 0 
+@ all minecrat:nope
+R 0
+A -
+X Can't find element 'minecrat:nope' of type 'minecraft:item' at position 15: ...ecrat:nope<--[HERE]@13
+E Can't find element 'minecrat:nope' of type 'minecraft:item' at position 15: ...ecrat:nope<--[HERE]@13
+S -2--2 0 0 
+@ all #minecrafétnope
+R 0
+A -
+X Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+E Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+S -2--2 0 0 
+@ all inecraf%:a/b
+R 0
+A -
+X Can't find element 'minecraft:inecraf' of type 'minecraft:item' at position 9: t inecraf<--[HERE]@7
+E Can't find element 'minecraft:inecraf' of type 'minecraft:item' at position 9: t inecraf<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:diamond_swordo
+R 0
+A -
+X Can't find element 'minecraft:diamond_swordo' of type 'minecraft:item' at position 26: ...ond_swordo<--[HERE]@24
+E Can't find element 'minecraft:diamond_swordo' of type 'minecraft:item' at position 26: ...ond_swordo<--[HERE]@24
+S -2--2 0 0 
+@ all ft:éf
+R 0
+A -
+X Can't find element 'ft:' of type 'minecraft:item' at position 5: t ft:<--[HERE]@3
+E Can't find element 'ft:' of type 'minecraft:item' at position 5: t ft:<--[HERE]@3
+S -2--2 0 0 
+@ all mine0raftcdia
+R 0
+A -
+X Can't find element 'minecraft:mine0raftcdia' of type 'minecraft:item' at position 15: ...e0raftcdia<--[HERE]@13
+E Can't find element 'minecraft:mine0raftcdia' of type 'minecraft:item' at position 15: ...e0raftcdia<--[HERE]@13
+S -2--2 0 0 
+@ all e_wool 
+R 0
+A -
+X Can't find element 'minecraft:e_wool' of type 'minecraft:item' at position 8: t e_wool<--[HERE]@6
+E Can't find element 'minecraft:e_wool' of type 'minecraft:item' at position 8: t e_wool<--[HERE]@6
+S -2--2 0 0 
+@ all to
+R 0
+A -
+X Can't find element 'minecraft:to' of type 'minecraft:item' at position 4: t to<--[HERE]@2
+E Can't find element 'minecraft:to' of type 'minecraft:item' at position 4: t to<--[HERE]@2
+S 0-2 7 -1655595562 minecraft:copper_torch	minecraft:redstone_torch	minecraft:soul_torch	minecraft:torch	minecraft:torchflower	minecraft:torchflower_seeds	minecraft:totem_of_undying
+@ all minecraft:nopep
+R 0
+A -
+X Can't find element 'minecraft:nopep' of type 'minecraft:item' at position 17: ...raft:nopep<--[HERE]@15
+E Can't find element 'minecraft:nopep' of type 'minecraft:item' at position 17: ...raft:nopep<--[HERE]@15
+S -2--2 0 0 
+@ all ecraft:white_wool
+R 0
+A -
+X Can't find element 'ecraft:white_wool' of type 'minecraft:item' at position 19: ...white_wool<--[HERE]@17
+E Can't find element 'ecraft:white_wool' of type 'minecraft:item' at position 19: ...white_wool<--[HERE]@17
+S -2--2 0 0 
+@ all diamonm
+R 0
+A -
+X Can't find element 'minecraft:diamonm' of type 'minecraft:item' at position 9: t diamonm<--[HERE]@7
+E Can't find element 'minecraft:diamonm' of type 'minecraft:item' at position 9: t diamonm<--[HERE]@7
+S -2--2 0 0 
+@ all minecr6ft:stone
+R 0
+A -
+X Can't find element 'minecr6ft:stone' of type 'minecraft:item' at position 17: ...r6ft:stone<--[HERE]@15
+E Can't find element 'minecr6ft:stone' of type 'minecraft:item' at position 17: ...r6ft:stone<--[HERE]@15
+S -2--2 0 0 
+@ all #min&ecraft.:nope
+R 0
+A -
+X Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+E Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+S -2--2 0 0 
+@ all ,8
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:stone
+R 0
+A -
+X Can't find element 'necraft:stone' of type 'minecraft:item' at position 15: ...raft:stone<--[HERE]@13
+E Can't find element 'necraft:stone' of type 'minecraft:item' at position 15: ...raft:stone<--[HERE]@13
+S -2--2 0 0 
+@ all #minecraft:lanksl
+R 0
+A -
+X Can't find tag 'minecraft:lanksl' of type 'minecraft:item' at position 19: ...aft:lanksl<--[HERE]@17
+E Can't find tag 'minecraft:lanksl' of type 'minecraft:item' at position 19: ...aft:lanksl<--[HERE]@17
+S -2--2 0 0 
+@ all inecraft:t
+R 0
+A -
+X Can't find element 'inecraft:t' of type 'minecraft:item' at position 12: ...inecraft:t<--[HERE]@10
+E Can't find element 'inecraft:t' of type 'minecraft:item' at position 12: ...inecraft:t<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:sticks
+R 0
+A -
+X Can't find element 'minecraft:sticks' of type 'minecraft:item' at position 18: ...aft:sticks<--[HERE]@16
+E Can't find element 'minecraft:sticks' of type 'minecraft:item' at position 18: ...aft:sticks<--[HERE]@16
+S -2--2 0 0 
+@ all son6
+R 0
+A -
+X Can't find element 'minecraft:son6' of type 'minecraft:item' at position 6: t son6<--[HERE]@4
+E Can't find element 'minecraft:son6' of type 'minecraft:item' at position 6: t son6<--[HERE]@4
+S -2--2 0 0 
+@ all minec&aft:oak_log
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all mincraft:éc
+R 0
+A -
+X Can't find element 'mincraft:' of type 'minecraft:item' at position 11: ... mincraft:<--[HERE]@9
+E Can't find element 'mincraft:' of type 'minecraft:item' at position 11: ... mincraft:<--[HERE]@9
+S -2--2 0 0 
+@ all minec^6raft:/
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:én
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all stonen
+R 0
+A -
+X Can't find element 'minecraft:stonen' of type 'minecraft:item' at position 8: t stonen<--[HERE]@6
+E Can't find element 'minecraft:stonen' of type 'minecraft:item' at position 8: t stonen<--[HERE]@6
+S -2--2 0 0 
+@ all z_
+R 0
+A -
+X Can't find element 'minecraft:z_' of type 'minecraft:item' at position 4: t z_<--[HERE]@2
+E Can't find element 'minecraft:z_' of type 'minecraft:item' at position 4: t z_<--[HERE]@2
+S -2--2 0 0 
+@ all #minecraft:e
+R 0
+A -
+X Can't find tag 'minecraft:e' of type 'minecraft:item' at position 14: ...inecraft:e<--[HERE]@12
+E Can't find tag 'minecraft:e' of type 'minecraft:item' at position 14: ...inecraft:e<--[HERE]@12
+S 0-12 24 729542851 #minecraft:eggs	#minecraft:emerald_ores	#minecraft:enchantable/armor	#minecraft:enchantable/bow	#minecraft:enchantable/chest_armor	#minecraft:enchantable/crossbow	#minecraft:enchantable/durability	#minecraft:enchantable/equippable	#minecraft:enchantable/fire_aspect	#minecraft:enchantable/fishing	#minecraft:enchantable/foot_armor	#minecraft:enchantable/head_armor	#minecraft:enchantable/leg_armor	#minecraft:enchantable/lunge	#minecraft:enchantable/mace	#minecraft:enchantable/melee_weapon	#minecraft:enchantable/mining	#minecraft:enchantable/mining_loot	#minecraft:enchantable/sharp_weapon	#minecraft:enchantable/sweeping	#minecraft:enchantable/trident	#minecraft:enchantable/vanishing	#minecraft:enchantable/weapon	#minecraft:extendable_maps
+@ all #mineraft:Logs
+R 0
+A -
+X Can't find tag 'mineraft:' of type 'minecraft:item' at position 12: ...#mineraft:<--[HERE]@10
+E Can't find tag 'mineraft:' of type 'minecraft:item' at position 12: ...#mineraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:s[
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all inecraft:/
+R 0
+A -
+X Can't find element 'inecraft:/' of type 'minecraft:item' at position 12: ...inecraft:/<--[HERE]@10
+E Can't find element 'inecraft:/' of type 'minecraft:item' at position 12: ...inecraft:/<--[HERE]@10
+S -2--2 0 0 
+@ all minerafft:a/b
+R 0
+A -
+X Can't find element 'minerafft:a/b' of type 'minecraft:item' at position 15: ...erafft:a/b<--[HERE]@13
+E Can't find element 'minerafft:a/b' of type 'minecraft:item' at position 15: ...erafft:a/b<--[HERE]@13
+S -2--2 0 0 
+@ all sto\u0000e
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+E Can't find element 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all necraft:stick
+R 0
+A -
+X Can't find element 'necraft:stick' of type 'minecraft:item' at position 15: ...raft:stick<--[HERE]@13
+E Can't find element 'necraft:stick' of type 'minecraft:item' at position 15: ...raft:stick<--[HERE]@13
+S -2--2 0 0 
+@ all foo:ba2
+R 0
+A -
+X Can't find element 'foo:ba2' of type 'minecraft:item' at position 9: t foo:ba2<--[HERE]@7
+E Can't find element 'foo:ba2' of type 'minecraft:item' at position 9: t foo:ba2<--[HERE]@7
+S -2--2 0 0 
+@ all _wool
+R 0
+A -
+X Can't find element 'minecraft:_wool' of type 'minecraft:item' at position 7: t _wool<--[HERE]@5
+E Can't find element 'minecraft:_wool' of type 'minecraft:item' at position 7: t _wool<--[HERE]@5
+S -2--2 0 0 
+@ all foX:barX
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all {ß#
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a bab
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all #minecraft:no{ei
+R 0
+A -
+X Can't find tag 'minecraft:no' of type 'minecraft:item' at position 15: ...necraft:no<--[HERE]@13
+E Can't find tag 'minecraft:no' of type 'minecraft:item' at position 15: ...necraft:no<--[HERE]@13
+S -2--2 0 0 
+@ all craft:Logs
+R 0
+A -
+X Can't find element 'craft:' of type 'minecraft:item' at position 8: t craft:<--[HERE]@6
+E Can't find element 'craft:' of type 'minecraft:item' at position 8: t craft:<--[HERE]@6
+S -2--2 0 0 
+@ all diamnA
+R 0
+A -
+X Can't find element 'minecraft:diamn' of type 'minecraft:item' at position 7: t diamn<--[HERE]@5
+E Can't find element 'minecraft:diamn' of type 'minecraft:item' at position 7: t diamn<--[HERE]@5
+S -2--2 0 0 
+@ all #]#
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #mi:ecraft:logsa
+R 0
+A -
+X Invalid ID at position 3: t #<--[HERE]@1
+E Invalid ID at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #minecrft:
+R 0
+A -
+X Can't find tag 'minecrft:' of type 'minecraft:item' at position 12: ...#minecrft:<--[HERE]@10
+E Can't find tag 'minecrft:' of type 'minecraft:item' at position 12: ...#minecrft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft9s
+R 0
+A -
+X Can't find element 'minecraft:minecraft9s' of type 'minecraft:item' at position 13: ...inecraft9s<--[HERE]@11
+E Can't find element 'minecraft:minecraft9s' of type 'minecraft:item' at position 13: ...inecraft9s<--[HERE]@11
+S -2--2 0 0 
+@ all inecr😀aft:air
+R 0
+A -
+X Can't find element 'minecraft:inecr' of type 'minecraft:item' at position 7: t inecr<--[HERE]@5
+E Can't find element 'minecraft:inecr' of type 'minecraft:item' at position 7: t inecr<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraZft:eope
+R 0
+A -
+X Can't find tag 'minecraft:minecra' of type 'minecraft:item' at position 10: t #minecra<--[HERE]@8
+E Can't find tag 'minecraft:minecra' of type 'minecraft:item' at position 10: t #minecra<--[HERE]@8
+S -2--2 0 0 
+@ all craft:logs
+R 0
+A -
+X Can't find element 'craft:logs' of type 'minecraft:item' at position 12: ...craft:logs<--[HERE]@10
+E Can't find element 'craft:logs' of type 'minecraft:item' at position 12: ...craft:logs<--[HERE]@10
+S -2--2 0 0 
+@ all #7oo
+R 0
+A -
+X Can't find tag 'minecraft:7oo' of type 'minecraft:item' at position 6: t #7oo<--[HERE]@4
+E Can't find tag 'minecraft:7oo' of type 'minecraft:item' at position 6: t #7oo<--[HERE]@4
+S -2--2 0 0 
+@ all #minecraf@:logs
+R 0
+A -
+X Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+E Can't find tag 'minecraft:minecraf' of type 'minecraft:item' at position 11: ... #minecraf<--[HERE]@9
+S -2--2 0 0 
+@ all minecaft:ai
+R 0
+A -
+X Can't find element 'minecaft:ai' of type 'minecraft:item' at position 13: ...inecaft:ai<--[HERE]@11
+E Can't find element 'minecaft:ai' of type 'minecraft:item' at position 13: ...inecaft:ai<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:s😀tick
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all craft:nope
+R 0
+A -
+X Can't find element 'craft:nope' of type 'minecraft:item' at position 12: ...craft:nope<--[HERE]@10
+E Can't find element 'craft:nope' of type 'minecraft:item' at position 12: ...craft:nope<--[HERE]@10
+S -2--2 0 0 
+@ all #foof
+R 0
+A -
+X Can't find tag 'minecraft:foof' of type 'minecraft:item' at position 7: t #foof<--[HERE]@5
+E Can't find tag 'minecraft:foof' of type 'minecraft:item' at position 7: t #foof<--[HERE]@5
+S -2--2 0 0 
+@ all a bZZ
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all #inecraft:
+R 0
+A -
+X Can't find tag 'inecraft:' of type 'minecraft:item' at position 12: ...#inecraft:<--[HERE]@10
+E Can't find tag 'inecraft:' of type 'minecraft:item' at position 12: ...#inecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all ope
+R 0
+A -
+X Can't find element 'minecraft:ope' of type 'minecraft:item' at position 5: t ope<--[HERE]@3
+E Can't find element 'minecraft:ope' of type 'minecraft:item' at position 5: t ope<--[HERE]@3
+S 0-3 1 1600523823 minecraft:open_eyeblossom
+@ all min%craft:planks
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:Stoßnet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all diamon中d
+R 0
+A -
+X Can't find element 'minecraft:diamon' of type 'minecraft:item' at position 8: t diamon<--[HERE]@6
+E Can't find element 'minecraft:diamon' of type 'minecraft:item' at position 8: t diamon<--[HERE]@6
+S -2--2 0 0 
+@ all minecrat:
+R 0
+A -
+X Can't find element 'minecrat:' of type 'minecraft:item' at position 11: ... minecrat:<--[HERE]@9
+E Can't find element 'minecrat:' of type 'minecraft:item' at position 11: ... minecrat:<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:no<pe
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:item' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:item' at position 14: ...necraft:no<--[HERE]@12
+S -2--2 0 0 
+@ all m6necraft:oak_log
+R 0
+A -
+X Can't find element 'm6necraft:oak_log' of type 'minecraft:item' at position 19: ...ft:oak_log<--[HERE]@17
+E Can't find element 'm6necraft:oak_log' of type 'minecraft:item' at position 19: ...ft:oak_log<--[HERE]@17
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:item' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:item' at position 3: t e<--[HERE]@1
+S 0-1 151 899767840 minecraft:allay_spawn_egg	minecraft:armadillo_spawn_egg	minecraft:axolotl_spawn_egg	minecraft:bat_spawn_egg	minecraft:bee_spawn_egg	minecraft:blaze_spawn_egg	minecraft:blue_egg	minecraft:bogged_spawn_egg
+@ all minecraft_oak_log
+R 0
+A -
+X Can't find element 'minecraft:minecraft_oak_log' of type 'minecraft:item' at position 19: ...ft_oak_log<--[HERE]@17
+E Can't find element 'minecraft:minecraft_oak_log' of type 'minecraft:item' at position 19: ...ft_oak_log<--[HERE]@17
+S -2--2 0 0 
+@ all noe
+R 0
+A -
+X Can't find element 'minecraft:noe' of type 'minecraft:item' at position 5: t noe<--[HERE]@3
+E Can't find element 'minecraft:noe' of type 'minecraft:item' at position 5: t noe<--[HERE]@3
+S -2--2 0 0 
+@ all #minecrft:logs
+R 0
+A -
+X Can't find tag 'minecrft:logs' of type 'minecraft:item' at position 16: ...ecrft:logs<--[HERE]@14
+E Can't find tag 'minecrft:logs' of type 'minecraft:item' at position 16: ...ecrft:logs<--[HERE]@14
+S -2--2 0 0 
+@ all #min^ecraft:nopA
+R 0
+A -
+X Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+E Can't find tag 'minecraft:min' of type 'minecraft:item' at position 6: t #min<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:di#mondsword
+R 0
+A -
+X Can't find element 'minecraft:di' of type 'minecraft:item' at position 14: ...necraft:di<--[HERE]@12
+E Can't find element 'minecraft:di' of type 'minecraft:item' at position 14: ...necraft:di<--[HERE]@12
+S -2--2 0 0 
+@ all minecra3t:sm
+R 0
+A -
+X Can't find element 'minecra3t:sm' of type 'minecraft:item' at position 14: ...necra3t:sm<--[HERE]@12
+E Can't find element 'minecra3t:sm' of type 'minecraft:item' at position 14: ...necra3t:sm<--[HERE]@12
+S -2--2 0 0 
+@ all ft:planks
+R 0
+A -
+X Can't find element 'ft:planks' of type 'minecraft:item' at position 11: ... ft:planks<--[HERE]@9
+E Can't find element 'ft:planks' of type 'minecraft:item' at position 11: ... ft:planks<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:sc
+R 0
+A -
+X Can't find element 'minecraft:sc' of type 'minecraft:item' at position 14: ...necraft:sc<--[HERE]@12
+E Can't find element 'minecraft:sc' of type 'minecraft:item' at position 14: ...necraft:sc<--[HERE]@12
+S 0-12 7 456425481 minecraft:scaffolding	minecraft:scrape_pottery_sherd	minecraft:sculk	minecraft:sculk_catalyst	minecraft:sculk_sensor	minecraft:sculk_shrieker	minecraft:sculk_vein
+@ all mineraft:Stone
+R 0
+A -
+X Can't find element 'mineraft:' of type 'minecraft:item' at position 11: ... mineraft:<--[HERE]@9
+E Can't find element 'mineraft:' of type 'minecraft:item' at position 11: ... mineraft:<--[HERE]@9
+S -2--2 0 0 
+@ all mindecraft:a/
+R 0
+A -
+X Can't find element 'mindecraft:a/' of type 'minecraft:item' at position 15: ...decraft:a/<--[HERE]@13
+E Can't find element 'mindecraft:a/' of type 'minecraft:item' at position 15: ...decraft:a/<--[HERE]@13
+S -2--2 0 0 
+@ all /b
+R 0
+A -
+X Can't find element 'minecraft:/b' of type 'minecraft:item' at position 4: t /b<--[HERE]@2
+E Can't find element 'minecraft:/b' of type 'minecraft:item' at position 4: t /b<--[HERE]@2
+S -2--2 0 0 
+@ all minecraAft:dia
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all #oo$
+R 0
+A -
+X Can't find tag 'minecraft:oo' of type 'minecraft:item' at position 5: t #oo<--[HERE]@3
+E Can't find tag 'minecraft:oo' of type 'minecraft:item' at position 5: t #oo<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraft:L!ogsn
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+E Can't find tag 'minecraft:' of type 'minecraft:item' at position 13: ...minecraft:<--[HERE]@11
+S -2--2 0 0 
+@ all mßinecraft:stone 
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 

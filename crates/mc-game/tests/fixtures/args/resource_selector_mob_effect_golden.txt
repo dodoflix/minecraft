@@ -1,0 +1,1902 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all *
+R 1
+A 0-1 40:minecraft:speed,minecraft:slowness,minecraft:haste,minecraft:mining_fatigue,minecraft:strength:1137505263
+E ok
+S -2--2 0 0 
+@ all minecraft:*
+R 11
+A 0-11 40:minecraft:speed,minecraft:slowness,minecraft:haste,minecraft:mining_fatigue,minecraft:strength:1137505263
+E ok
+S -2--2 0 0 
+@ all *:asset
+R 0
+A -
+X No matches for selector '*:asset' of type 'minecraft:mob_effect' at position 9: t *:asset<--[HERE]@7
+E No matches for selector '*:asset' of type 'minecraft:mob_effect' at position 9: t *:asset<--[HERE]@7
+S -2--2 0 0 
+@ all ?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:mob_effect' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:mob_effect' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all stone
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:mob_effect' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:mob_effect' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:s*
+R 12
+A 0-12 5:minecraft:speed,minecraft:slowness,minecraft:strength,minecraft:saturation,minecraft:slow_falling:659943898
+E ok
+S -2--2 0 0 
+@ all *_log
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:mob_effect' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:mob_effect' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *stone*
+R 0
+A -
+X No matches for selector 'minecraft:*stone*' of type 'minecraft:mob_effect' at position 9: t *stone*<--[HERE]@7
+E No matches for selector 'minecraft:*stone*' of type 'minecraft:mob_effect' at position 9: t *stone*<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:oak_*' of type 'minecraft:mob_effect' at position 17: ...raft:oak_*<--[HERE]@15
+E No matches for selector 'minecraft:oak_*' of type 'minecraft:mob_effect' at position 17: ...raft:oak_*<--[HERE]@15
+S -2--2 0 0 
+@ all z*
+R 0
+A -
+X No matches for selector 'minecraft:z*' of type 'minecraft:mob_effect' at position 4: t z*<--[HERE]@2
+E No matches for selector 'minecraft:z*' of type 'minecraft:mob_effect' at position 4: t z*<--[HERE]@2
+S -2--2 0 0 
+@ all **
+R 2
+A 0-2 40:minecraft:speed,minecraft:slowness,minecraft:haste,minecraft:mining_fatigue,minecraft:strength:1137505263
+E ok
+S -2--2 0 0 
+@ all *?
+R 0
+A -
+X No matches for selector 'minecraft:*?' of type 'minecraft:mob_effect' at position 4: t *?<--[HERE]@2
+E No matches for selector 'minecraft:*?' of type 'minecraft:mob_effect' at position 4: t *?<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all :*
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:mob_effect' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:mob_effect' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*
+R 0
+A -
+X No matches for selector 'foo:*' of type 'minecraft:mob_effect' at position 7: t foo:*<--[HERE]@5
+E No matches for selector 'foo:*' of type 'minecraft:mob_effect' at position 7: t foo:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*
+R 3
+A 0-3 40:minecraft:speed,minecraft:slowness,minecraft:haste,minecraft:mining_fatigue,minecraft:strength:1137505263
+E ok
+S -2--2 0 0 
+@ all minecraft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:zombie*' of type 'minecraft:mob_effect' at position 19: ...ft:zombie*<--[HERE]@17
+E No matches for selector 'minecraft:zombie*' of type 'minecraft:mob_effect' at position 19: ...ft:zombie*<--[HERE]@17
+S -2--2 0 0 
+@ all plains
+R 0
+A -
+X No matches for selector 'minecraft:plains' of type 'minecraft:mob_effect' at position 8: t plains<--[HERE]@6
+E No matches for selector 'minecraft:plains' of type 'minecraft:mob_effect' at position 8: t plains<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:?????
+R 15
+A 0-15 2:minecraft:speed,minecraft:haste:1662659471
+E ok
+S -2--2 0 0 
+@ all *e
+R 2
+A 0-2 7:minecraft:haste,minecraft:mining_fatigue,minecraft:instant_damage,minecraft:resistance,minecraft:fire_resistance:-1625522143
+E ok
+S -2--2 0 0 
+@ all a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c' of type 'minecraft:mob_effect' at position 7: t a*b*c<--[HERE]@5
+E No matches for selector 'minecraft:a*b*c' of type 'minecraft:mob_effect' at position 7: t a*b*c<--[HERE]@5
+S -2--2 0 0 
+@ all Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:mob_effect' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:mob_effect' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:mob_effect' at position 15: ...ecraft:*/*<--[HERE]@13
+E No matches for selector 'minecraft:*/*' of type 'minecraft:mob_effect' at position 15: ...ecraft:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all m*
+R 2
+A 0-2 1:minecraft:mining_fatigue:634739525
+E ok
+S -2--2 0 0 
+@ all mine*
+R 0
+A -
+X No matches for selector 'minecraft:mine*' of type 'minecraft:mob_effect' at position 7: t mine*<--[HERE]@5
+E No matches for selector 'minecraft:mine*' of type 'minecraft:mob_effect' at position 7: t mine*<--[HERE]@5
+S -2--2 0 0 
+@ all *effect
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:mob_effect' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:mob_effect' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *sharp*
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*' of type 'minecraft:mob_effect' at position 9: t *sharp*<--[HERE]@7
+E No matches for selector 'minecraft:*sharp*' of type 'minecraft:mob_effect' at position 9: t *sharp*<--[HERE]@7
+S -2--2 0 0 
+@ all *dirt*
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*' of type 'minecraft:mob_effect' at position 8: t *dirt*<--[HERE]@6
+E No matches for selector 'minecraft:*dirt*' of type 'minecraft:mob_effect' at position 8: t *dirt*<--[HERE]@6
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S 0-1 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all mi
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:mob_effect' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:mob_effect' at position 4: t mi<--[HERE]@2
+S 0-2 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all min
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S 0-3 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all mine
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:mob_effect' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:mob_effect' at position 6: t mine<--[HERE]@4
+S 0-4 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minec
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+S 0-5 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecr
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+S 0-6 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecra
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+S 0-7 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraf
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+S 0-8 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraft
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:mob_effect' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:mob_effect' at position 11: ... minecraft<--[HERE]@9
+S 0-9 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all *:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:mob_effect' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:mob_effect' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all *:a
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:mob_effect' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:mob_effect' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *:as
+R 0
+A -
+X No matches for selector '*:as' of type 'minecraft:mob_effect' at position 6: t *:as<--[HERE]@4
+E No matches for selector '*:as' of type 'minecraft:mob_effect' at position 6: t *:as<--[HERE]@4
+S -2--2 0 0 
+@ all *:ass
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:mob_effect' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:mob_effect' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:mob_effect' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:mob_effect' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+S 0-1 5 -2158991 minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength
+@ all st
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:mob_effect' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:mob_effect' at position 4: t st<--[HERE]@2
+S 0-2 1 1545592411 minecraft:strength
+@ all sto
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:mob_effect' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:mob_effect' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all ston
+R 0
+A -
+X No matches for selector 'minecraft:ston' of type 'minecraft:mob_effect' at position 6: t ston<--[HERE]@4
+E No matches for selector 'minecraft:ston' of type 'minecraft:mob_effect' at position 6: t ston<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 5 -2158991 minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength
+@ all *_
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:mob_effect' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:mob_effect' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all *_l
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:mob_effect' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:mob_effect' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *_lo
+R 0
+A -
+X No matches for selector 'minecraft:*_lo' of type 'minecraft:mob_effect' at position 6: t *_lo<--[HERE]@4
+E No matches for selector 'minecraft:*_lo' of type 'minecraft:mob_effect' at position 6: t *_lo<--[HERE]@4
+S -2--2 0 0 
+@ all *s
+R 2
+A 0-2 5:minecraft:slowness,minecraft:blindness,minecraft:weakness,minecraft:darkness,minecraft:breath_of_the_nautilus:1446317735
+E ok
+S -2--2 0 0 
+@ all *st
+R 3
+A 0-3 2:minecraft:jump_boost,minecraft:health_boost:-2007729961
+E ok
+S -2--2 0 0 
+@ all *sto
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:mob_effect' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:mob_effect' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all *ston
+R 0
+A -
+X No matches for selector 'minecraft:*ston' of type 'minecraft:mob_effect' at position 7: t *ston<--[HERE]@5
+E No matches for selector 'minecraft:*ston' of type 'minecraft:mob_effect' at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all *stone
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:mob_effect' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:mob_effect' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:mob_effect' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:mob_effect' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 1 1808686388 minecraft:oozing
+@ all minecraft:oa
+R 0
+A -
+X No matches for selector 'minecraft:oa' of type 'minecraft:mob_effect' at position 14: ...necraft:oa<--[HERE]@12
+E No matches for selector 'minecraft:oa' of type 'minecraft:mob_effect' at position 14: ...necraft:oa<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:oak
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:mob_effect' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:mob_effect' at position 15: ...ecraft:oak<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:oak_' of type 'minecraft:mob_effect' at position 16: ...craft:oak_<--[HERE]@14
+E No matches for selector 'minecraft:oak_' of type 'minecraft:mob_effect' at position 16: ...craft:oak_<--[HERE]@14
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:mob_effect' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:mob_effect' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:mob_effect' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:mob_effect' at position 3: t f<--[HERE]@1
+S 0-1 3 -1703705981 minecraft:fire_resistance	minecraft:mining_fatigue	minecraft:slow_falling
+@ all fo
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:mob_effect' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:mob_effect' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all foo
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:mob_effect' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:mob_effect' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:mob_effect' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:mob_effect' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X No matches for selector 'minecraft:zo' of type 'minecraft:mob_effect' at position 14: ...necraft:zo<--[HERE]@12
+E No matches for selector 'minecraft:zo' of type 'minecraft:mob_effect' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X No matches for selector 'minecraft:zom' of type 'minecraft:mob_effect' at position 15: ...ecraft:zom<--[HERE]@13
+E No matches for selector 'minecraft:zom' of type 'minecraft:mob_effect' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:mob_effect' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:mob_effect' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:mob_effect' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:mob_effect' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:zombie
+R 0
+A -
+X No matches for selector 'minecraft:zombie' of type 'minecraft:mob_effect' at position 18: ...aft:zombie<--[HERE]@16
+E No matches for selector 'minecraft:zombie' of type 'minecraft:mob_effect' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all p
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:mob_effect' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:mob_effect' at position 3: t p<--[HERE]@1
+S 0-1 2 -1460350718 minecraft:conduit_power	minecraft:poison
+@ all pl
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:mob_effect' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:mob_effect' at position 4: t pl<--[HERE]@2
+S -2--2 0 0 
+@ all pla
+R 0
+A -
+X No matches for selector 'minecraft:pla' of type 'minecraft:mob_effect' at position 5: t pla<--[HERE]@3
+E No matches for selector 'minecraft:pla' of type 'minecraft:mob_effect' at position 5: t pla<--[HERE]@3
+S -2--2 0 0 
+@ all plai
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:mob_effect' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:mob_effect' at position 6: t plai<--[HERE]@4
+S -2--2 0 0 
+@ all plain
+R 0
+A -
+X No matches for selector 'minecraft:plain' of type 'minecraft:mob_effect' at position 7: t plain<--[HERE]@5
+E No matches for selector 'minecraft:plain' of type 'minecraft:mob_effect' at position 7: t plain<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:mob_effect' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:mob_effect' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:mob_effect' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:mob_effect' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:???
+R 0
+A -
+X No matches for selector 'minecraft:???' of type 'minecraft:mob_effect' at position 15: ...ecraft:???<--[HERE]@13
+E No matches for selector 'minecraft:???' of type 'minecraft:mob_effect' at position 15: ...ecraft:???<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:????
+R 14
+A 0-14 1:minecraft:luck:-1006618274
+E ok
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X No matches for selector 'minecraft:a' of type 'minecraft:mob_effect' at position 3: t a<--[HERE]@1
+E No matches for selector 'minecraft:a' of type 'minecraft:mob_effect' at position 3: t a<--[HERE]@1
+S 0-1 1 -1268127539 minecraft:absorption
+@ all a*
+R 2
+A 0-2 1:minecraft:absorption:236187324
+E ok
+S -2--2 0 0 
+@ all a*b
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:mob_effect' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:mob_effect' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all a*b*
+R 4
+A 0-4 1:minecraft:absorption:236187324
+E ok
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S 0-1 5 -2158991 minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength
+@ all St
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S 0-2 1 1545592411 minecraft:strength
+@ all Sto
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ston
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:mob_effect' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:mob_effect' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:mob_effect' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:mob_effect' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all *ef
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:mob_effect' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:mob_effect' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all *eff
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:mob_effect' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:mob_effect' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *effe
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:mob_effect' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:mob_effect' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *effec
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:mob_effect' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:mob_effect' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *sh
+R 0
+A -
+X No matches for selector 'minecraft:*sh' of type 'minecraft:mob_effect' at position 5: t *sh<--[HERE]@3
+E No matches for selector 'minecraft:*sh' of type 'minecraft:mob_effect' at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all *sha
+R 0
+A -
+X No matches for selector 'minecraft:*sha' of type 'minecraft:mob_effect' at position 6: t *sha<--[HERE]@4
+E No matches for selector 'minecraft:*sha' of type 'minecraft:mob_effect' at position 6: t *sha<--[HERE]@4
+S -2--2 0 0 
+@ all *shar
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:mob_effect' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:mob_effect' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *sharp
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:mob_effect' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:mob_effect' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all *d
+R 2
+A 0-2 3:minecraft:speed,minecraft:wind_charged,minecraft:infested:191018181
+E ok
+S -2--2 0 0 
+@ all *di
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:mob_effect' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:mob_effect' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all *dir
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:mob_effect' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:mob_effect' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all *dirt
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:mob_effect' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:mob_effect' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:t
+R 0
+A -
+X No matches for selector 'minecraft:t' of type 'minecraft:mob_effect' at position 13: ...inecraft:t<--[HERE]@11
+E No matches for selector 'minecraft:t' of type 'minecraft:mob_effect' at position 13: ...inecraft:t<--[HERE]@11
+S 0-11 1 844162348 minecraft:trial_omen
+@ all rft:*
+R 0
+A -
+X No matches for selector 'rft:*' of type 'minecraft:mob_effect' at position 7: t rft:*<--[HERE]@5
+E No matches for selector 'rft:*' of type 'minecraft:mob_effect' at position 7: t rft:*<--[HERE]@5
+S -2--2 0 0 
+@ all min,ecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all min*
+R 4
+A 0-4 1:minecraft:mining_fatigue:634739525
+E ok
+S -2--2 0 0 
+@ all minecraf^:?????c
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all s~ton
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all :**
+R 0
+A -
+X No matches for selector ':**' of type 'minecraft:mob_effect' at position 5: t :**<--[HERE]@3
+E No matches for selector ':**' of type 'minecraft:mob_effect' at position 5: t :**<--[HERE]@3
+S -2--2 0 0 
+@ all mine*ee
+R 0
+A -
+X No matches for selector 'minecraft:mine*ee' of type 'minecraft:mob_effect' at position 9: t mine*ee<--[HERE]@7
+E No matches for selector 'minecraft:mine*ee' of type 'minecraft:mob_effect' at position 9: t mine*ee<--[HERE]@7
+S -2--2 0 0 
+@ all *s#rp*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+S -2--2 0 0 
+@ all *dir\u000a*
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:mob_effect' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:mob_effect' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all plainsi
+R 0
+A -
+X No matches for selector 'minecraft:plainsi' of type 'minecraft:mob_effect' at position 9: t plainsi<--[HERE]@7
+E No matches for selector 'minecraft:plainsi' of type 'minecraft:mob_effect' at position 9: t plainsi<--[HERE]@7
+S -2--2 0 0 
+@ all mine*n
+R 0
+A -
+X No matches for selector 'minecraft:mine*n' of type 'minecraft:mob_effect' at position 8: t mine*n<--[HERE]@6
+E No matches for selector 'minecraft:mine*n' of type 'minecraft:mob_effect' at position 8: t mine*n<--[HERE]@6
+S -2--2 0 0 
+@ all boo:*
+R 0
+A -
+X No matches for selector 'boo:*' of type 'minecraft:mob_effect' at position 7: t boo:*<--[HERE]@5
+E No matches for selector 'boo:*' of type 'minecraft:mob_effect' at position 7: t boo:*<--[HERE]@5
+S -2--2 0 0 
+@ all sCone
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all lo
+R 0
+A -
+X No matches for selector 'minecraft:lo' of type 'minecraft:mob_effect' at position 4: t lo<--[HERE]@2
+E No matches for selector 'minecraft:lo' of type 'minecraft:mob_effect' at position 4: t lo<--[HERE]@2
+S -2--2 0 0 
+@ all *s￿one*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*:
+R 0
+A -
+X No matches for selector 'minecraft:*:' of type 'minecraft:mob_effect' at position 14: ...necraft:*:<--[HERE]@12
+E No matches for selector 'minecraft:*:' of type 'minecraft:mob_effect' at position 14: ...necraft:*:<--[HERE]@12
+S -2--2 0 0 
+@ all *d7rtY
+R 0
+A -
+X No matches for selector 'minecraft:*d7rt' of type 'minecraft:mob_effect' at position 7: t *d7rt<--[HERE]@5
+E No matches for selector 'minecraft:*d7rt' of type 'minecraft:mob_effect' at position 7: t *d7rt<--[HERE]@5
+S -2--2 0 0 
+@ all *éé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all pldins
+R 0
+A -
+X No matches for selector 'minecraft:pldins' of type 'minecraft:mob_effect' at position 8: t pldins<--[HERE]@6
+E No matches for selector 'minecraft:pldins' of type 'minecraft:mob_effect' at position 8: t pldins<--[HERE]@6
+S -2--2 0 0 
+@ all Y\\*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *harp*%
+R 0
+A -
+X No matches for selector 'minecraft:*harp*' of type 'minecraft:mob_effect' at position 8: t *harp*<--[HERE]@6
+E No matches for selector 'minecraft:*harp*' of type 'minecraft:mob_effect' at position 8: t *harp*<--[HERE]@6
+S -2--2 0 0 
+@ all Stonß
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m*m
+R 0
+A -
+X No matches for selector 'minecraft:m*m' of type 'minecraft:mob_effect' at position 5: t m*m<--[HERE]@3
+E No matches for selector 'minecraft:m*m' of type 'minecraft:mob_effect' at position 5: t m*m<--[HERE]@3
+S -2--2 0 0 
+@ all mineczraft::
+R 0
+A -
+X No matches for selector 'mineczraft::' of type 'minecraft:mob_effect' at position 14: ...neczraft::<--[HERE]@12
+E No matches for selector 'mineczraft::' of type 'minecraft:mob_effect' at position 14: ...neczraft::<--[HERE]@12
+S -2--2 0 0 
+@ all *sharp*4
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*4' of type 'minecraft:mob_effect' at position 10: t *sharp*4<--[HERE]@8
+E No matches for selector 'minecraft:*sharp*4' of type 'minecraft:mob_effect' at position 10: t *sharp*4<--[HERE]@8
+S -2--2 0 0 
+@ all lainsl
+R 0
+A -
+X No matches for selector 'minecraft:lainsl' of type 'minecraft:mob_effect' at position 8: t lainsl<--[HERE]@6
+E No matches for selector 'minecraft:lainsl' of type 'minecraft:mob_effect' at position 8: t lainsl<--[HERE]@6
+S -2--2 0 0 
+@ all sharp*
+R 0
+A -
+X No matches for selector 'minecraft:sharp*' of type 'minecraft:mob_effect' at position 8: t sharp*<--[HERE]@6
+E No matches for selector 'minecraft:sharp*' of type 'minecraft:mob_effect' at position 8: t sharp*<--[HERE]@6
+S -2--2 0 0 
+@ all minecrdft:????
+R 0
+A -
+X No matches for selector 'minecrdft:????' of type 'minecraft:mob_effect' at position 16: ...crdft:????<--[HERE]@14
+E No matches for selector 'minecrdft:????' of type 'minecraft:mob_effect' at position 16: ...crdft:????<--[HERE]@14
+S -2--2 0 0 
+@ all Sone@
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *dirt.
+R 0
+A -
+X No matches for selector 'minecraft:*dirt.' of type 'minecraft:mob_effect' at position 8: t *dirt.<--[HERE]@6
+E No matches for selector 'minecraft:*dirt.' of type 'minecraft:mob_effect' at position 8: t *dirt.<--[HERE]@6
+S -2--2 0 0 
+@ all mnecraft:s**
+R 0
+A -
+X No matches for selector 'mnecraft:s**' of type 'minecraft:mob_effect' at position 14: ...ecraft:s**<--[HERE]@12
+E No matches for selector 'mnecraft:s**' of type 'minecraft:mob_effect' at position 14: ...ecraft:s**<--[HERE]@12
+S -2--2 0 0 
+@ all ft:s*
+R 0
+A -
+X No matches for selector 'ft:s*' of type 'minecraft:mob_effect' at position 7: t ft:s*<--[HERE]@5
+E No matches for selector 'ft:s*' of type 'minecraft:mob_effect' at position 7: t ft:s*<--[HERE]@5
+S -2--2 0 0 
+@ all oak_*
+R 0
+A -
+X No matches for selector 'minecraft:oak_*' of type 'minecraft:mob_effect' at position 7: t oak_*<--[HERE]@5
+E No matches for selector 'minecraft:oak_*' of type 'minecraft:mob_effect' at position 7: t oak_*<--[HERE]@5
+S -2--2 0 0 
+@ all menec6raft:
+R 0
+A -
+X No matches for selector 'menec6raft:' of type 'minecraft:mob_effect' at position 13: ...enec6raft:<--[HERE]@11
+E No matches for selector 'menec6raft:' of type 'minecraft:mob_effect' at position 13: ...enec6raft:<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:?????im
+R 0
+A -
+X No matches for selector 'minecraft:?????im' of type 'minecraft:mob_effect' at position 19: ...ft:?????im<--[HERE]@17
+E No matches for selector 'minecraft:?????im' of type 'minecraft:mob_effect' at position 19: ...ft:?????im<--[HERE]@17
+S -2--2 0 0 
+@ all one*
+R 0
+A -
+X No matches for selector 'minecraft:one*' of type 'minecraft:mob_effect' at position 6: t one*<--[HERE]@4
+E No matches for selector 'minecraft:one*' of type 'minecraft:mob_effect' at position 6: t one*<--[HERE]@4
+S -2--2 0 0 
+@ all St~ne
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Aeffect
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr>ft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:mob_effect' at position 3: t e<--[HERE]@1
+E No matches for selector 'minecraft:e' of type 'minecraft:mob_effect' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all 4og
+R 0
+A -
+X No matches for selector 'minecraft:4og' of type 'minecraft:mob_effect' at position 5: t 4og<--[HERE]@3
+E No matches for selector 'minecraft:4og' of type 'minecraft:mob_effect' at position 5: t 4og<--[HERE]@3
+S -2--2 0 0 
+@ all */**
+R 0
+A -
+X No matches for selector 'minecraft:*/**' of type 'minecraft:mob_effect' at position 6: t */**<--[HERE]@4
+E No matches for selector 'minecraft:*/**' of type 'minecraft:mob_effect' at position 6: t */**<--[HERE]@4
+S -2--2 0 0 
+@ all 3é
+R 0
+A -
+X No matches for selector 'minecraft:3' of type 'minecraft:mob_effect' at position 3: t 3<--[HERE]@1
+E No matches for selector 'minecraft:3' of type 'minecraft:mob_effect' at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all mi2e*
+R 0
+A -
+X No matches for selector 'minecraft:mi2e*' of type 'minecraft:mob_effect' at position 7: t mi2e*<--[HERE]@5
+E No matches for selector 'minecraft:mi2e*' of type 'minecraft:mob_effect' at position 7: t mi2e*<--[HERE]@5
+S -2--2 0 0 
+@ all m inecraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all *efféect*
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:mob_effect' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:mob_effect' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all Sone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all craft:
+R 0
+A -
+X No matches for selector 'craft:' of type 'minecraft:mob_effect' at position 8: t craft:<--[HERE]@6
+E No matches for selector 'craft:' of type 'minecraft:mob_effect' at position 8: t craft:<--[HERE]@6
+S -2--2 0 0 
+@ all _
+R 0
+A -
+X No matches for selector 'minecraft:_' of type 'minecraft:mob_effect' at position 3: t _<--[HERE]@1
+E No matches for selector 'minecraft:_' of type 'minecraft:mob_effect' at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all *3log
+R 0
+A -
+X No matches for selector 'minecraft:*3log' of type 'minecraft:mob_effect' at position 7: t *3log<--[HERE]@5
+E No matches for selector 'minecraft:*3log' of type 'minecraft:mob_effect' at position 7: t *3log<--[HERE]@5
+S -2--2 0 0 
+@ all *eff8c,
+R 0
+A -
+X No matches for selector 'minecraft:*eff8c' of type 'minecraft:mob_effect' at position 8: t *eff8c<--[HERE]@6
+E No matches for selector 'minecraft:*eff8c' of type 'minecraft:mob_effect' at position 8: t *eff8c<--[HERE]@6
+S -2--2 0 0 
+@ all tone
+R 0
+A -
+X No matches for selector 'minecraft:tone' of type 'minecraft:mob_effect' at position 6: t tone<--[HERE]@4
+E No matches for selector 'minecraft:tone' of type 'minecraft:mob_effect' at position 6: t tone<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:s'c
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all ​:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *@%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:zomb>ie*
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:mob_effect' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:mob_effect' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all Zlains
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5
+R 0
+A -
+X No matches for selector 'minecraft:5' of type 'minecraft:mob_effect' at position 3: t 5<--[HERE]@1
+E No matches for selector 'minecraft:5' of type 'minecraft:mob_effect' at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all ine*
+R 0
+A -
+X No matches for selector 'minecraft:ine*' of type 'minecraft:mob_effect' at position 6: t ine*<--[HERE]@4
+E No matches for selector 'minecraft:ine*' of type 'minecraft:mob_effect' at position 6: t ine*<--[HERE]@4
+S -2--2 0 0 
+@ all minycraft:oak~_*
+R 0
+A -
+X No matches for selector 'minycraft:oak' of type 'minecraft:mob_effect' at position 15: ...ycraft:oak<--[HERE]@13
+E No matches for selector 'minycraft:oak' of type 'minecraft:mob_effect' at position 15: ...ycraft:oak<--[HERE]@13
+S -2--2 0 0 
+@ all *\u0000*/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraf￿:*/*
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:*a
+R 12
+A 0-12 1:minecraft:nausea:-953184678
+E ok
+S -2--2 0 0 
+@ all m*m*
+R 0
+A -
+X No matches for selector 'minecraft:m*m*' of type 'minecraft:mob_effect' at position 6: t m*m*<--[HERE]@4
+E No matches for selector 'minecraft:m*m*' of type 'minecraft:mob_effect' at position 6: t m*m*<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:oak_*t:
+R 0
+A -
+X No matches for selector 'minecraft:oak_*t:' of type 'minecraft:mob_effect' at position 19: ...ft:oak_*t:<--[HERE]@17
+E No matches for selector 'minecraft:oak_*t:' of type 'minecraft:mob_effect' at position 19: ...ft:oak_*t:<--[HERE]@17
+S -2--2 0 0 
+@ all S1one
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m\u0000ine*n
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all oo:*o
+R 0
+A -
+X No matches for selector 'oo:*o' of type 'minecraft:mob_effect' at position 7: t oo:*o<--[HERE]@5
+E No matches for selector 'oo:*o' of type 'minecraft:mob_effect' at position 7: t oo:*o<--[HERE]@5
+S -2--2 0 0 
+@ all p#lains
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:mob_effect' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:mob_effect' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all effct
+R 0
+A -
+X No matches for selector 'minecraft:effct' of type 'minecraft:mob_effect' at position 7: t effct<--[HERE]@5
+E No matches for selector 'minecraft:effct' of type 'minecraft:mob_effect' at position 7: t effct<--[HERE]@5
+S -2--2 0 0 
+@ all minecrat:s*
+R 0
+A -
+X No matches for selector 'minecrat:s*' of type 'minecraft:mob_effect' at position 13: ...inecrat:s*<--[HERE]@11
+E No matches for selector 'minecrat:s*' of type 'minecraft:mob_effect' at position 13: ...inecrat:s*<--[HERE]@11
+S -2--2 0 0 
+@ all *sh中arp*
+R 0
+A -
+X No matches for selector 'minecraft:*sh' of type 'minecraft:mob_effect' at position 5: t *sh<--[HERE]@3
+E No matches for selector 'minecraft:*sh' of type 'minecraft:mob_effect' at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all ??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:mob_effect' at position 4: t ??<--[HERE]@2
+E No matches for selector 'minecraft:??' of type 'minecraft:mob_effect' at position 4: t ??<--[HERE]@2
+S -2--2 0 0 
+@ all Stoneİe
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m中inecrafZt:*/*
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:ok_**
+R 0
+A -
+X No matches for selector 'minecraft:ok_**' of type 'minecraft:mob_effect' at position 17: ...raft:ok_**<--[HERE]@15
+E No matches for selector 'minecraft:ok_**' of type 'minecraft:mob_effect' at position 17: ...raft:ok_**<--[HERE]@15
+S -2--2 0 0 
+@ all *é**
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all StoneS
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m 
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all a*bc
+R 0
+A -
+X No matches for selector 'minecraft:a*bc' of type 'minecraft:mob_effect' at position 6: t a*bc<--[HERE]@4
+E No matches for selector 'minecraft:a*bc' of type 'minecraft:mob_effect' at position 6: t a*bc<--[HERE]@4
+S -2--2 0 0 
+@ all _mine*
+R 0
+A -
+X No matches for selector 'minecraft:_mine*' of type 'minecraft:mob_effect' at position 8: t _mine*<--[HERE]@6
+E No matches for selector 'minecraft:_mine*' of type 'minecraft:mob_effect' at position 8: t _mine*<--[HERE]@6
+S -2--2 0 0 
+@ all min:craft:??'???
+R 0
+A -
+X No matches for selector 'min:craft:??' of type 'minecraft:mob_effect' at position 14: ...n:craft:??<--[HERE]@12
+E No matches for selector 'min:craft:??' of type 'minecraft:mob_effect' at position 14: ...n:craft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecra+ft:
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all *effectc
+R 0
+A -
+X No matches for selector 'minecraft:*effectc' of type 'minecraft:mob_effect' at position 10: t *effectc<--[HERE]@8
+E No matches for selector 'minecraft:*effectc' of type 'minecraft:mob_effect' at position 10: t *effectc<--[HERE]@8
+S -2--2 0 0 
+@ all mixne*
+R 0
+A -
+X No matches for selector 'minecraft:mixne*' of type 'minecraft:mob_effect' at position 8: t mixne*<--[HERE]@6
+E No matches for selector 'minecraft:mixne*' of type 'minecraft:mob_effect' at position 8: t mixne*<--[HERE]@6
+S -2--2 0 0 
+@ all ^*b*cb
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .f
+R 0
+A -
+X No matches for selector 'minecraft:.f' of type 'minecraft:mob_effect' at position 4: t .f<--[HERE]@2
+E No matches for selector 'minecraft:.f' of type 'minecraft:mob_effect' at position 4: t .f<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:3?????e
+R 0
+A -
+X No matches for selector 'minecraft:3?????e' of type 'minecraft:mob_effect' at position 19: ...ft:3?????e<--[HERE]@17
+E No matches for selector 'minecraft:3?????e' of type 'minecraft:mob_effect' at position 19: ...ft:3?????e<--[HERE]@17
+S -2--2 0 0 
+@ all min^ecraft:??.???
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all A*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mie*e
+R 0
+A -
+X No matches for selector 'minecraft:mie*e' of type 'minecraft:mob_effect' at position 7: t mie*e<--[HERE]@5
+E No matches for selector 'minecraft:mie*e' of type 'minecraft:mob_effect' at position 7: t mie*e<--[HERE]@5
+S -2--2 0 0 
+@ all raft:????,
+R 0
+A -
+X No matches for selector 'raft:????' of type 'minecraft:mob_effect' at position 11: ... raft:????<--[HERE]@9
+E No matches for selector 'raft:????' of type 'minecraft:mob_effect' at position 11: ... raft:????<--[HERE]@9
+S -2--2 0 0 
+@ all inecraft:*
+R 0
+A -
+X No matches for selector 'inecraft:*' of type 'minecraft:mob_effect' at position 12: ...inecraft:*<--[HERE]@10
+E No matches for selector 'inecraft:*' of type 'minecraft:mob_effect' at position 12: ...inecraft:*<--[HERE]@10
+S -2--2 0 0 
+@ all *"sone*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all foo:**
+R 0
+A -
+X No matches for selector 'foo:**' of type 'minecraft:mob_effect' at position 8: t foo:**<--[HERE]@6
+E No matches for selector 'foo:**' of type 'minecraft:mob_effect' at position 8: t foo:**<--[HERE]@6
+S -2--2 0 0 
+@ all Cz=
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aft:*e
+R 0
+A -
+X No matches for selector 'aft:*e' of type 'minecraft:mob_effect' at position 8: t aft:*e<--[HERE]@6
+E No matches for selector 'aft:*e' of type 'minecraft:mob_effect' at position 8: t aft:*e<--[HERE]@6
+S -2--2 0 0 
+@ all ***
+R 3
+A 0-3 40:minecraft:speed,minecraft:slowness,minecraft:haste,minecraft:mining_fatigue,minecraft:strength:1137505263
+E ok
+S -2--2 0 0 
+@ all *stfne*
+R 0
+A -
+X No matches for selector 'minecraft:*stfne*' of type 'minecraft:mob_effect' at position 9: t *stfne*<--[HERE]@7
+E No matches for selector 'minecraft:*stfne*' of type 'minecraft:mob_effect' at position 9: t *stfne*<--[HERE]@7
+S -2--2 0 0 
+@ all one
+R 0
+A -
+X No matches for selector 'minecraft:one' of type 'minecraft:mob_effect' at position 5: t one<--[HERE]@3
+E No matches for selector 'minecraft:one' of type 'minecraft:mob_effect' at position 5: t one<--[HERE]@3
+S -2--2 0 0 
+@ all İ?
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all st}}one
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:mob_effect' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:mob_effect' at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ß
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all # 5
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z*b
+R 0
+A -
+X No matches for selector 'minecraft:z*b' of type 'minecraft:mob_effect' at position 5: t z*b<--[HERE]@3
+E No matches for selector 'minecraft:z*b' of type 'minecraft:mob_effect' at position 5: t z*b<--[HERE]@3
+S -2--2 0 0 
+@ all effect
+R 0
+A -
+X No matches for selector 'minecraft:effect' of type 'minecraft:mob_effect' at position 8: t effect<--[HERE]@6
+E No matches for selector 'minecraft:effect' of type 'minecraft:mob_effect' at position 8: t effect<--[HERE]@6
+S -2--2 0 0 
+@ all xtonet
+R 0
+A -
+X No matches for selector 'minecraft:xtonet' of type 'minecraft:mob_effect' at position 8: t xtonet<--[HERE]@6
+E No matches for selector 'minecraft:xtonet' of type 'minecraft:mob_effect' at position 8: t xtonet<--[HERE]@6
+S -2--2 0 0 
+@ all *:a1ss@t
+R 0
+A -
+X No matches for selector '*:a1ss' of type 'minecraft:mob_effect' at position 8: t *:a1ss<--[HERE]@6
+E No matches for selector '*:a1ss' of type 'minecraft:mob_effect' at position 8: t *:a1ss<--[HERE]@6
+S -2--2 0 0 
+@ all mie,raft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:mie' of type 'minecraft:mob_effect' at position 5: t mie<--[HERE]@3
+E No matches for selector 'minecraft:mie' of type 'minecraft:mob_effect' at position 5: t mie<--[HERE]@3
+S -2--2 0 0 
+@ all Stonet
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *?2?
+R 0
+A -
+X No matches for selector 'minecraft:*?2?' of type 'minecraft:mob_effect' at position 6: t *?2?<--[HERE]@4
+E No matches for selector 'minecraft:*?2?' of type 'minecraft:mob_effect' at position 6: t *?2?<--[HERE]@4
+S -2--2 0 0 
+@ all plaiéns
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:mob_effect' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:mob_effect' at position 6: t plai<--[HERE]@4
+S -2--2 0 0 
+@ all :\u000a
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all (
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *,tone*s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all [:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min=craft:*6*
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all ec
+R 0
+A -
+X No matches for selector 'minecraft:ec' of type 'minecraft:mob_effect' at position 4: t ec<--[HERE]@2
+E No matches for selector 'minecraft:ec' of type 'minecraft:mob_effect' at position 4: t ec<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/>
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:mob_effect' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:mob_effect' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all $in>craft:s*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all >*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miner😀aft:?????
+R 0
+A -
+X No matches for selector 'minecraft:miner' of type 'minecraft:mob_effect' at position 7: t miner<--[HERE]@5
+E No matches for selector 'minecraft:miner' of type 'minecraft:mob_effect' at position 7: t miner<--[HERE]@5
+S -2--2 0 0 
+@ all Y*c
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *@stone*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraét:*é
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all ne*
+R 0
+A -
+X No matches for selector 'minecraft:ne*' of type 'minecraft:mob_effect' at position 5: t ne*<--[HERE]@3
+E No matches for selector 'minecraft:ne*' of type 'minecraft:mob_effect' at position 5: t ne*<--[HERE]@3
+S -2--2 0 0 
+@ all foo:*o
+R 0
+A -
+X No matches for selector 'foo:*o' of type 'minecraft:mob_effect' at position 8: t foo:*o<--[HERE]@6
+E No matches for selector 'foo:*o' of type 'minecraft:mob_effect' at position 8: t foo:*o<--[HERE]@6
+S -2--2 0 0 
+@ all mbie*+
+R 0
+A -
+X No matches for selector 'minecraft:mbie*' of type 'minecraft:mob_effect' at position 7: t mbie*<--[HERE]@5
+E No matches for selector 'minecraft:mbie*' of type 'minecraft:mob_effect' at position 7: t mbie*<--[HERE]@5
+S -2--2 0 0 
+@ all mi1ecrft:*
+R 0
+A -
+X No matches for selector 'mi1ecrft:*' of type 'minecraft:mob_effect' at position 12: ...mi1ecrft:*<--[HERE]@10
+E No matches for selector 'mi1ecrft:*' of type 'minecraft:mob_effect' at position 12: ...mi1ecrft:*<--[HERE]@10
+S -2--2 0 0 
+@ all _+log
+R 0
+A -
+X No matches for selector 'minecraft:_' of type 'minecraft:mob_effect' at position 3: t _<--[HERE]@1
+E No matches for selector 'minecraft:_' of type 'minecraft:mob_effect' at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all Stoneo
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *stoXe*
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:mob_effect' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:mob_effect' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all a7b*c
+R 0
+A -
+X No matches for selector 'minecraft:a7b*c' of type 'minecraft:mob_effect' at position 7: t a7b*c<--[HERE]@5
+E No matches for selector 'minecraft:a7b*c' of type 'minecraft:mob_effect' at position 7: t a7b*c<--[HERE]@5
+S -2--2 0 0 
+@ all z**
+R 0
+A -
+X No matches for selector 'minecraft:z**' of type 'minecraft:mob_effect' at position 5: t z**<--[HERE]@3
+E No matches for selector 'minecraft:z**' of type 'minecraft:mob_effect' at position 5: t z**<--[HERE]@3
+S -2--2 0 0 
+@ all *effct
+R 0
+A -
+X No matches for selector 'minecraft:*effct' of type 'minecraft:mob_effect' at position 8: t *effct<--[HERE]@6
+E No matches for selector 'minecraft:*effct' of type 'minecraft:mob_effect' at position 8: t *effct<--[HERE]@6
+S -2--2 0 0 
+@ all :asset
+R 0
+A -
+X No matches for selector ':asset' of type 'minecraft:mob_effect' at position 8: t :asset<--[HERE]@6
+E No matches for selector ':asset' of type 'minecraft:mob_effect' at position 8: t :asset<--[HERE]@6
+S -2--2 0 0 
+@ all mne*
+R 0
+A -
+X No matches for selector 'minecraft:mne*' of type 'minecraft:mob_effect' at position 6: t mne*<--[HERE]@4
+E No matches for selector 'minecraft:mne*' of type 'minecraft:mob_effect' at position 6: t mne*<--[HERE]@4
+S -2--2 0 0 
+@ all Stonb
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:e
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:mob_effect' at position 13: ...inecraft:e<--[HERE]@11
+E No matches for selector 'minecraft:e' of type 'minecraft:mob_effect' at position 13: ...inecraft:e<--[HERE]@11
+S -2--2 0 0 
+@ all *dirt**
+R 0
+A -
+X No matches for selector 'minecraft:*dirt**' of type 'minecraft:mob_effect' at position 9: t *dirt**<--[HERE]@7
+E No matches for selector 'minecraft:*dirt**' of type 'minecraft:mob_effect' at position 9: t *dirt**<--[HERE]@7
+S -2--2 0 0 
+@ all *stone*/
+R 0
+A -
+X No matches for selector 'minecraft:*stone*/' of type 'minecraft:mob_effect' at position 10: t *stone*/<--[HERE]@8
+E No matches for selector 'minecraft:*stone*/' of type 'minecraft:mob_effect' at position 10: t *stone*/<--[HERE]@8
+S -2--2 0 0 
+@ all '**
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min/craft:
+R 0
+A -
+X No matches for selector 'min/craft:' of type 'minecraft:mob_effect' at position 12: ...min/craft:<--[HERE]@10
+E No matches for selector 'min/craft:' of type 'minecraft:mob_effect' at position 12: ...min/craft:<--[HERE]@10
+S -2--2 0 0 
+@ all Y
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *sonée*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t *son<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t *son<--[HERE]@4
+S -2--2 0 0 
+@ all ​*é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec\u0000aft:s*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all :asse
+R 0
+A -
+X No matches for selector ':asse' of type 'minecraft:mob_effect' at position 7: t :asse<--[HERE]@5
+E No matches for selector ':asse' of type 'minecraft:mob_effect' at position 7: t :asse<--[HERE]@5
+S -2--2 0 0 
+@ all *: 
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:mob_effect' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:mob_effect' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all Stonee
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecra<ft:s*
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all *sBarp*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:.oak_*
+R 0
+A -
+X No matches for selector 'minecraft:.oak_*' of type 'minecraft:mob_effect' at position 18: ...aft:.oak_*<--[HERE]@16
+E No matches for selector 'minecraft:.oak_*' of type 'minecraft:mob_effect' at position 18: ...aft:.oak_*<--[HERE]@16
+S -2--2 0 0 
+@ all &:*/
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:?????cf
+R 0
+A -
+X No matches for selector 'minecraft:?????cf' of type 'minecraft:mob_effect' at position 19: ...ft:?????cf<--[HERE]@17
+E No matches for selector 'minecraft:?????cf' of type 'minecraft:mob_effect' at position 19: ...ft:?????cf<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:*中*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:*<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:*<--[HERE]@11
+S -2--2 0 0 
+@ all m*CC
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t m*<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t m*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*oo
+R 0
+A -
+X No matches for selector 'foo:*oo' of type 'minecraft:mob_effect' at position 9: t foo:*oo<--[HERE]@7
+E No matches for selector 'foo:*oo' of type 'minecraft:mob_effect' at position 9: t foo:*oo<--[HERE]@7
+S -2--2 0 0 
+@ all stone5
+R 0
+A -
+X No matches for selector 'minecraft:stone5' of type 'minecraft:mob_effect' at position 8: t stone5<--[HERE]@6
+E No matches for selector 'minecraft:stone5' of type 'minecraft:mob_effect' at position 8: t stone5<--[HERE]@6
+S -2--2 0 0 
+@ all stone*o
+R 0
+A -
+X No matches for selector 'minecraft:stone*o' of type 'minecraft:mob_effect' at position 9: t stone*o<--[HERE]@7
+E No matches for selector 'minecraft:stone*o' of type 'minecraft:mob_effect' at position 9: t stone*o<--[HERE]@7
+S -2--2 0 0 
+@ all cra>ft:*
+R 0
+A -
+X No matches for selector 'minecraft:cra' of type 'minecraft:mob_effect' at position 5: t cra<--[HERE]@3
+E No matches for selector 'minecraft:cra' of type 'minecraft:mob_effect' at position 5: t cra<--[HERE]@3
+S -2--2 0 0 
+@ all minecxr!ft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:minecxr' of type 'minecraft:mob_effect' at position 9: t minecxr<--[HERE]@7
+E No matches for selector 'minecraft:minecxr' of type 'minecraft:mob_effect' at position 9: t minecxr<--[HERE]@7
+S -2--2 0 0 
+@ all *dirtİ
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:mob_effect' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:mob_effect' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all :￿Y
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all */2*
+R 0
+A -
+X No matches for selector 'minecraft:*/2*' of type 'minecraft:mob_effect' at position 6: t */2*<--[HERE]@4
+E No matches for selector 'minecraft:*/2*' of type 'minecraft:mob_effect' at position 6: t */2*<--[HERE]@4
+S -2--2 0 0 
+@ all [[
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s*m
+R 0
+A -
+X No matches for selector 'minecraft:s*m' of type 'minecraft:mob_effect' at position 15: ...ecraft:s*m<--[HERE]@13
+E No matches for selector 'minecraft:s*m' of type 'minecraft:mob_effect' at position 15: ...ecraft:s*m<--[HERE]@13
+S -2--2 0 0 
+@ all foo:*fo
+R 0
+A -
+X No matches for selector 'foo:*fo' of type 'minecraft:mob_effect' at position 9: t foo:*fo<--[HERE]@7
+E No matches for selector 'foo:*fo' of type 'minecraft:mob_effect' at position 9: t foo:*fo<--[HERE]@7
+S -2--2 0 0 
+@ all miecraft:zombi^*
+R 0
+A -
+X No matches for selector 'miecraft:zombi' of type 'minecraft:mob_effect' at position 16: ...raft:zombi<--[HERE]@14
+E No matches for selector 'miecraft:zombi' of type 'minecraft:mob_effect' at position 16: ...raft:zombi<--[HERE]@14
+S -2--2 0 0 
+@ all *sh9rp**
+R 0
+A -
+X No matches for selector 'minecraft:*sh9rp**' of type 'minecraft:mob_effect' at position 10: t *sh9rp**<--[HERE]@8
+E No matches for selector 'minecraft:*sh9rp**' of type 'minecraft:mob_effect' at position 10: t *sh9rp**<--[HERE]@8
+S -2--2 0 0 
+@ all arp3
+R 0
+A -
+X No matches for selector 'minecraft:arp3' of type 'minecraft:mob_effect' at position 6: t arp3<--[HERE]@4
+E No matches for selector 'minecraft:arp3' of type 'minecraft:mob_effect' at position 6: t arp3<--[HERE]@4
+S -2--2 0 0 
+@ all [*??
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:ass+ett
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:mob_effect' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:mob_effect' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all minecrft.:?????
+R 0
+A -
+X No matches for selector 'minecrft.:?????' of type 'minecraft:mob_effect' at position 17: ...rft.:?????<--[HERE]@15
+E No matches for selector 'minecrft.:?????' of type 'minecraft:mob_effect' at position 17: ...rft.:?????<--[HERE]@15
+S -2--2 0 0 
+@ all &*:/asset
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *lo<g
+R 0
+A -
+X No matches for selector 'minecraft:*lo' of type 'minecraft:mob_effect' at position 5: t *lo<--[HERE]@3
+E No matches for selector 'minecraft:*lo' of type 'minecraft:mob_effect' at position 5: t *lo<--[HERE]@3
+S -2--2 0 0 
+@ all a*￿b*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t a*<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t a*<--[HERE]@2
+S -2--2 0 0 
+@ all mnecraft:/
+R 0
+A -
+X No matches for selector 'mnecraft:/' of type 'minecraft:mob_effect' at position 12: ...mnecraft:/<--[HERE]@10
+E No matches for selector 'mnecraft:/' of type 'minecraft:mob_effect' at position 12: ...mnecraft:/<--[HERE]@10
+S -2--2 0 0 
+@ all &
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:a}sst
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:mob_effect' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:mob_effect' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all foo<*
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all minBecraftB:s*
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all {a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ft:oak_**
+R 0
+A -
+X No matches for selector 'ft:oak_**' of type 'minecraft:mob_effect' at position 11: ... ft:oak_**<--[HERE]@9
+E No matches for selector 'ft:oak_**' of type 'minecraft:mob_effect' at position 11: ... ft:oak_**<--[HERE]@9
+S -2--2 0 0 
+@ all *shZarp*
+R 0
+A -
+X No matches for selector 'minecraft:*sh' of type 'minecraft:mob_effect' at position 5: t *sh<--[HERE]@3
+E No matches for selector 'minecraft:*sh' of type 'minecraft:mob_effect' at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all minCecraft:zombi*
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all *￿:asset
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all 0sharp*0
+R 0
+A -
+X No matches for selector 'minecraft:0sharp*0' of type 'minecraft:mob_effect' at position 10: t 0sharp*0<--[HERE]@8
+E No matches for selector 'minecraft:0sharp*0' of type 'minecraft:mob_effect' at position 10: t 0sharp*0<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:?B???
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:mob_effect' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:mob_effect' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecXaft:oak_*i
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sZcne
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:mob_effect' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all cZaft:
+R 0
+A -
+X No matches for selector 'minecraft:c' of type 'minecraft:mob_effect' at position 3: t c<--[HERE]@1
+E No matches for selector 'minecraft:c' of type 'minecraft:mob_effect' at position 3: t c<--[HERE]@1
+S -2--2 0 0 
+@ all inecraft:
+R 0
+A -
+X No matches for selector 'inecraft:' of type 'minecraft:mob_effect' at position 11: ... inecraft:<--[HERE]@9
+E No matches for selector 'inecraft:' of type 'minecraft:mob_effect' at position 11: ... inecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all minec\u0000raft:s*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all *:{asse
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:mob_effect' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:mob_effect' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *dit*
+R 0
+A -
+X No matches for selector 'minecraft:*dit*' of type 'minecraft:mob_effect' at position 7: t *dit*<--[HERE]@5
+E No matches for selector 'minecraft:*dit*' of type 'minecraft:mob_effect' at position 7: t *dit*<--[HERE]@5
+S -2--2 0 0 
+@ all sto6ne
+R 0
+A -
+X No matches for selector 'minecraft:sto6ne' of type 'minecraft:mob_effect' at position 8: t sto6ne<--[HERE]@6
+E No matches for selector 'minecraft:sto6ne' of type 'minecraft:mob_effect' at position 8: t sto6ne<--[HERE]@6
+S -2--2 0 0 
+@ all stone*
+R 0
+A -
+X No matches for selector 'minecraft:stone*' of type 'minecraft:mob_effect' at position 8: t stone*<--[HERE]@6
+E No matches for selector 'minecraft:stone*' of type 'minecraft:mob_effect' at position 8: t stone*<--[HERE]@6
+S -2--2 0 0 
+@ all minecrafCt:*
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:s*t
+R 0
+A -
+X No matches for selector 'minecraft:s*t' of type 'minecraft:mob_effect' at position 15: ...ecraft:s*t<--[HERE]@13
+E No matches for selector 'minecraft:s*t' of type 'minecraft:mob_effect' at position 15: ...ecraft:s*t<--[HERE]@13
+S -2--2 0 0 
+@ all *effect7
+R 0
+A -
+X No matches for selector 'minecraft:*effect7' of type 'minecraft:mob_effect' at position 10: t *effect7<--[HERE]@8
+E No matches for selector 'minecraft:*effect7' of type 'minecraft:mob_effect' at position 10: t *effect7<--[HERE]@8
+S -2--2 0 0 
+@ all minecrat:??a??
+R 0
+A -
+X No matches for selector 'minecrat:??a??' of type 'minecraft:mob_effect' at position 16: ...crat:??a??<--[HERE]@14
+E No matches for selector 'minecrat:??a??' of type 'minecraft:mob_effect' at position 16: ...crat:??a??<--[HERE]@14
+S -2--2 0 0 
+@ all /'
+R 0
+A -
+X No matches for selector 'minecraft:/' of type 'minecraft:mob_effect' at position 3: t /<--[HERE]@1
+E No matches for selector 'minecraft:/' of type 'minecraft:mob_effect' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all a*9*cc
+R 0
+A -
+X No matches for selector 'minecraft:a*9*cc' of type 'minecraft:mob_effect' at position 8: t a*9*cc<--[HERE]@6
+E No matches for selector 'minecraft:a*9*cc' of type 'minecraft:mob_effect' at position 8: t a*9*cc<--[HERE]@6
+S -2--2 0 0 
+@ all ft:
+R 0
+A -
+X No matches for selector 'ft:' of type 'minecraft:mob_effect' at position 5: t ft:<--[HERE]@3
+E No matches for selector 'ft:' of type 'minecraft:mob_effect' at position 5: t ft:<--[HERE]@3
+S -2--2 0 0 
+@ all *b
+R 0
+A -
+X No matches for selector 'minecraft:*b' of type 'minecraft:mob_effect' at position 4: t *b<--[HERE]@2
+E No matches for selector 'minecraft:*b' of type 'minecraft:mob_effect' at position 4: t *b<--[HERE]@2
+S -2--2 0 0 
+@ all *1
+R 0
+A -
+X No matches for selector 'minecraft:*1' of type 'minecraft:mob_effect' at position 4: t *1<--[HERE]@2
+E No matches for selector 'minecraft:*1' of type 'minecraft:mob_effect' at position 4: t *1<--[HERE]@2
+S -2--2 0 0 

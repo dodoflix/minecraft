@@ -1,0 +1,1895 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all *
+R 1
+A 0-1 52:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:-1694813160
+E ok
+S -2--2 0 0 
+@ all minecraft:*
+R 11
+A 0-11 52:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:-1694813160
+E ok
+S -2--2 0 0 
+@ all *:asset
+R 0
+A -
+X No matches for selector '*:asset' of type 'minecraft:worldgen/structure' at position 9: t *:asset<--[HERE]@7
+E No matches for selector '*:asset' of type 'minecraft:worldgen/structure' at position 9: t *:asset<--[HERE]@7
+S -2--2 0 0 
+@ all ?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:worldgen/structure' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:worldgen/structure' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all stone
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/structure' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/structure' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:s*
+R 12
+A 0-12 4:minecraft:shipwreck,minecraft:shipwreck_beached,minecraft:stronghold,minecraft:swamp_hut:-293804334
+E ok
+S -2--2 0 0 
+@ all *_log
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:worldgen/structure' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:worldgen/structure' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *stone*
+R 0
+A -
+X No matches for selector 'minecraft:*stone*' of type 'minecraft:worldgen/structure' at position 9: t *stone*<--[HERE]@7
+E No matches for selector 'minecraft:*stone*' of type 'minecraft:worldgen/structure' at position 9: t *stone*<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:oak_*' of type 'minecraft:worldgen/structure' at position 17: ...raft:oak_*<--[HERE]@15
+E No matches for selector 'minecraft:oak_*' of type 'minecraft:worldgen/structure' at position 17: ...raft:oak_*<--[HERE]@15
+S -2--2 0 0 
+@ all z*
+R 0
+A -
+X No matches for selector 'minecraft:z*' of type 'minecraft:worldgen/structure' at position 4: t z*<--[HERE]@2
+E No matches for selector 'minecraft:z*' of type 'minecraft:worldgen/structure' at position 4: t z*<--[HERE]@2
+S -2--2 0 0 
+@ all **
+R 2
+A 0-2 52:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:-1694813160
+E ok
+S -2--2 0 0 
+@ all *?
+R 0
+A -
+X No matches for selector 'minecraft:*?' of type 'minecraft:worldgen/structure' at position 4: t *?<--[HERE]@2
+E No matches for selector 'minecraft:*?' of type 'minecraft:worldgen/structure' at position 4: t *?<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all :*
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:worldgen/structure' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:worldgen/structure' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*
+R 0
+A -
+X No matches for selector 'foo:*' of type 'minecraft:worldgen/structure' at position 7: t foo:*<--[HERE]@5
+E No matches for selector 'foo:*' of type 'minecraft:worldgen/structure' at position 7: t foo:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*
+R 3
+A 0-3 52:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:-1694813160
+E ok
+S -2--2 0 0 
+@ all minecraft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:zombie*' of type 'minecraft:worldgen/structure' at position 19: ...ft:zombie*<--[HERE]@17
+E No matches for selector 'minecraft:zombie*' of type 'minecraft:worldgen/structure' at position 19: ...ft:zombie*<--[HERE]@17
+S -2--2 0 0 
+@ all plains
+R 0
+A -
+X No matches for selector 'minecraft:plains' of type 'minecraft:worldgen/structure' at position 8: t plains<--[HERE]@6
+E No matches for selector 'minecraft:plains' of type 'minecraft:worldgen/structure' at position 8: t plains<--[HERE]@6
+S 0-6 1 366461152 minecraft:village_plains
+@ all minecraft:?????
+R 15
+A 0-15 1:minecraft:igloo:-1143574175
+E ok
+S -2--2 0 0 
+@ all *e
+R 2
+A 0-2 5:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_sparse_jungle,minecraft:buried_treasure,minecraft:ruined_portal_jungle:-183179188
+E ok
+S -2--2 0 0 
+@ all a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c' of type 'minecraft:worldgen/structure' at position 7: t a*b*c<--[HERE]@5
+E No matches for selector 'minecraft:a*b*c' of type 'minecraft:worldgen/structure' at position 7: t a*b*c<--[HERE]@5
+S -2--2 0 0 
+@ all Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/structure' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/structure' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:*/*<--[HERE]@13
+E No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all m*
+R 2
+A 0-2 4:minecraft:mansion,minecraft:mineshaft,minecraft:mineshaft_mesa,minecraft:monument:158006588
+E ok
+S -2--2 0 0 
+@ all mine*
+R 5
+A 0-5 2:minecraft:mineshaft,minecraft:mineshaft_mesa:-1134410662
+E ok
+S -2--2 0 0 
+@ all *effect
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:worldgen/structure' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:worldgen/structure' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *sharp*
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*' of type 'minecraft:worldgen/structure' at position 9: t *sharp*<--[HERE]@7
+E No matches for selector 'minecraft:*sharp*' of type 'minecraft:worldgen/structure' at position 9: t *sharp*<--[HERE]@7
+S -2--2 0 0 
+@ all *dirt*
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*' of type 'minecraft:worldgen/structure' at position 8: t *dirt*<--[HERE]@6
+E No matches for selector 'minecraft:*dirt*' of type 'minecraft:worldgen/structure' at position 8: t *dirt*<--[HERE]@6
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S 0-1 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all mi
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+S 0-2 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all min
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+S 0-3 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all mine
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+S 0-4 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minec
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+S 0-5 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecr
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+S 0-6 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecra
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+S 0-7 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraf
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+S 0-8 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraft
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+S 0-9 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all *:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:worldgen/structure' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:worldgen/structure' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all *:a
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:worldgen/structure' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:worldgen/structure' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *:as
+R 0
+A -
+X No matches for selector '*:as' of type 'minecraft:worldgen/structure' at position 6: t *:as<--[HERE]@4
+E No matches for selector '*:as' of type 'minecraft:worldgen/structure' at position 6: t *:as<--[HERE]@4
+S -2--2 0 0 
+@ all *:ass
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:worldgen/structure' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:worldgen/structure' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:worldgen/structure' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:worldgen/structure' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:worldgen/structure' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:worldgen/structure' at position 3: t s<--[HERE]@1
+S 0-1 12 -761007539 minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:abandoned_camp_savanna	minecraft:abandoned_camp_snowy_taiga	minecraft:abandoned_camp_sparse_jungle	minecraft:abandoned_camp_swamp	minecraft:ruined_portal_swamp	minecraft:shipwreck	minecraft:shipwreck_beached	minecraft:stronghold	minecraft:swamp_hut	minecraft:village_savanna	minecraft:village_snowy
+@ all st
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:worldgen/structure' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:worldgen/structure' at position 4: t st<--[HERE]@2
+S 0-2 1 -506918746 minecraft:stronghold
+@ all sto
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:worldgen/structure' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:worldgen/structure' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all ston
+R 0
+A -
+X No matches for selector 'minecraft:ston' of type 'minecraft:worldgen/structure' at position 6: t ston<--[HERE]@4
+E No matches for selector 'minecraft:ston' of type 'minecraft:worldgen/structure' at position 6: t ston<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 4 -517999753 minecraft:shipwreck	minecraft:shipwreck_beached	minecraft:stronghold	minecraft:swamp_hut
+@ all *_
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:worldgen/structure' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:worldgen/structure' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all *_l
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:worldgen/structure' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:worldgen/structure' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *_lo
+R 0
+A -
+X No matches for selector 'minecraft:*_lo' of type 'minecraft:worldgen/structure' at position 6: t *_lo<--[HERE]@4
+E No matches for selector 'minecraft:*_lo' of type 'minecraft:worldgen/structure' at position 6: t *_lo<--[HERE]@4
+S -2--2 0 0 
+@ all *s
+R 2
+A 0-2 5:minecraft:abandoned_camp_wooded_badlands,minecraft:fortress,minecraft:trail_ruins,minecraft:trial_chambers,minecraft:village_plains:2099151454
+E ok
+S -2--2 0 0 
+@ all *st
+R 3
+A 0-3 7:minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest,minecraft:abandoned_camp_forest,minecraft:abandoned_camp_old_growth_birch_forest:122180551
+E ok
+S -2--2 0 0 
+@ all *sto
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:worldgen/structure' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:worldgen/structure' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all *ston
+R 0
+A -
+X No matches for selector 'minecraft:*ston' of type 'minecraft:worldgen/structure' at position 7: t *ston<--[HERE]@5
+E No matches for selector 'minecraft:*ston' of type 'minecraft:worldgen/structure' at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all *stone
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:worldgen/structure' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:worldgen/structure' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 2 -1442688969 minecraft:ocean_ruin_cold	minecraft:ocean_ruin_warm
+@ all minecraft:oa
+R 0
+A -
+X No matches for selector 'minecraft:oa' of type 'minecraft:worldgen/structure' at position 14: ...necraft:oa<--[HERE]@12
+E No matches for selector 'minecraft:oa' of type 'minecraft:worldgen/structure' at position 14: ...necraft:oa<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:oak
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:oak<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:oak_' of type 'minecraft:worldgen/structure' at position 16: ...craft:oak_<--[HERE]@14
+E No matches for selector 'minecraft:oak_' of type 'minecraft:worldgen/structure' at position 16: ...craft:oak_<--[HERE]@14
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:worldgen/structure' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:worldgen/structure' at position 3: t f<--[HERE]@1
+S 0-1 8 724407138 minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_windswept_forest	minecraft:fortress	minecraft:nether_fossil
+@ all fo
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:worldgen/structure' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:worldgen/structure' at position 4: t fo<--[HERE]@2
+S 0-2 8 724407138 minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_windswept_forest	minecraft:fortress	minecraft:nether_fossil
+@ all foo
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:worldgen/structure' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:worldgen/structure' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:worldgen/structure' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:worldgen/structure' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X No matches for selector 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 14: ...necraft:zo<--[HERE]@12
+E No matches for selector 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X No matches for selector 'minecraft:zom' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:zom<--[HERE]@13
+E No matches for selector 'minecraft:zom' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:worldgen/structure' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:worldgen/structure' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:zombie
+R 0
+A -
+X No matches for selector 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 18: ...aft:zombie<--[HERE]@16
+E No matches for selector 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all p
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:worldgen/structure' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:worldgen/structure' at position 3: t p<--[HERE]@1
+S 0-1 13 -1933626415 minecraft:abandoned_camp_old_growth_pine_taiga	minecraft:abandoned_camp_pale_garden	minecraft:desert_pyramid	minecraft:jungle_pyramid	minecraft:pillager_outpost	minecraft:ruined_portal	minecraft:ruined_portal_desert	minecraft:ruined_portal_jungle	minecraft:ruined_portal_mountain	minecraft:ruined_portal_nether	minecraft:ruined_portal_ocean	minecraft:ruined_portal_swamp	minecraft:village_plains
+@ all pl
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:worldgen/structure' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:worldgen/structure' at position 4: t pl<--[HERE]@2
+S 0-2 1 366461152 minecraft:village_plains
+@ all pla
+R 0
+A -
+X No matches for selector 'minecraft:pla' of type 'minecraft:worldgen/structure' at position 5: t pla<--[HERE]@3
+E No matches for selector 'minecraft:pla' of type 'minecraft:worldgen/structure' at position 5: t pla<--[HERE]@3
+S 0-3 1 366461152 minecraft:village_plains
+@ all plai
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:worldgen/structure' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:worldgen/structure' at position 6: t plai<--[HERE]@4
+S 0-4 1 366461152 minecraft:village_plains
+@ all plain
+R 0
+A -
+X No matches for selector 'minecraft:plain' of type 'minecraft:worldgen/structure' at position 7: t plain<--[HERE]@5
+E No matches for selector 'minecraft:plain' of type 'minecraft:worldgen/structure' at position 7: t plain<--[HERE]@5
+S 0-5 1 366461152 minecraft:village_plains
+@ all minecraft:?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:worldgen/structure' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:worldgen/structure' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:???
+R 0
+A -
+X No matches for selector 'minecraft:???' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:???<--[HERE]@13
+E No matches for selector 'minecraft:???' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:???<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:????
+R 0
+A -
+X No matches for selector 'minecraft:????' of type 'minecraft:worldgen/structure' at position 16: ...craft:????<--[HERE]@14
+E No matches for selector 'minecraft:????' of type 'minecraft:worldgen/structure' at position 16: ...craft:????<--[HERE]@14
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X No matches for selector 'minecraft:a' of type 'minecraft:worldgen/structure' at position 3: t a<--[HERE]@1
+E No matches for selector 'minecraft:a' of type 'minecraft:worldgen/structure' at position 3: t a<--[HERE]@1
+S 0-1 19 -2052960456 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_old_growth_pine_taiga	minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:abandoned_camp_pale_garden	minecraft:abandoned_camp_savanna	minecraft:abandoned_camp_snowy_taiga	minecraft:abandoned_camp_sparse_jungle	minecraft:abandoned_camp_swamp	minecraft:abandoned_camp_taiga	minecraft:abandoned_camp_windswept_forest	minecraft:abandoned_camp_wooded_badlands	minecraft:ancient_city
+@ all a*
+R 2
+A 0-2 19:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:72322801
+E ok
+S -2--2 0 0 
+@ all a*b
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:worldgen/structure' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:worldgen/structure' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all a*b*
+R 4
+A 0-4 18:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:18586039
+E ok
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S 0-1 12 -761007539 minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:abandoned_camp_savanna	minecraft:abandoned_camp_snowy_taiga	minecraft:abandoned_camp_sparse_jungle	minecraft:abandoned_camp_swamp	minecraft:ruined_portal_swamp	minecraft:shipwreck	minecraft:shipwreck_beached	minecraft:stronghold	minecraft:swamp_hut	minecraft:village_savanna	minecraft:village_snowy
+@ all St
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S 0-2 1 -506918746 minecraft:stronghold
+@ all Sto
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ston
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/structure' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/structure' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/structure' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/structure' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all *ef
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/structure' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/structure' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all *eff
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:worldgen/structure' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:worldgen/structure' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *effe
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/structure' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/structure' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *effec
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:worldgen/structure' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:worldgen/structure' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *sh
+R 0
+A -
+X No matches for selector 'minecraft:*sh' of type 'minecraft:worldgen/structure' at position 5: t *sh<--[HERE]@3
+E No matches for selector 'minecraft:*sh' of type 'minecraft:worldgen/structure' at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all *sha
+R 0
+A -
+X No matches for selector 'minecraft:*sha' of type 'minecraft:worldgen/structure' at position 6: t *sha<--[HERE]@4
+E No matches for selector 'minecraft:*sha' of type 'minecraft:worldgen/structure' at position 6: t *sha<--[HERE]@4
+S -2--2 0 0 
+@ all *shar
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:worldgen/structure' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:worldgen/structure' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *sharp
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/structure' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/structure' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all *d
+R 2
+A 0-2 5:minecraft:desert_pyramid,minecraft:jungle_pyramid,minecraft:ocean_ruin_cold,minecraft:shipwreck_beached,minecraft:stronghold:1937169844
+E ok
+S -2--2 0 0 
+@ all *di
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:worldgen/structure' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:worldgen/structure' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all *dir
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:worldgen/structure' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:worldgen/structure' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all *dirt
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:worldgen/structure' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:worldgen/structure' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all *éİ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all e9*
+R 0
+A -
+X No matches for selector 'minecraft:e9*' of type 'minecraft:worldgen/structure' at position 5: t e9*<--[HERE]@3
+E No matches for selector 'minecraft:e9*' of type 'minecraft:worldgen/structure' at position 5: t e9*<--[HERE]@3
+S -2--2 0 0 
+@ all ft:
+R 0
+A -
+X No matches for selector 'ft:' of type 'minecraft:worldgen/structure' at position 5: t ft:<--[HERE]@3
+E No matches for selector 'ft:' of type 'minecraft:worldgen/structure' at position 5: t ft:<--[HERE]@3
+S -2--2 0 0 
+@ all X*effec
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *sto-e*t
+R 0
+A -
+X No matches for selector 'minecraft:*sto-e*t' of type 'minecraft:worldgen/structure' at position 10: t *sto-e*t<--[HERE]@8
+E No matches for selector 'minecraft:*sto-e*t' of type 'minecraft:worldgen/structure' at position 10: t *sto-e*t<--[HERE]@8
+S -2--2 0 0 
+@ all harp*
+R 0
+A -
+X No matches for selector 'minecraft:harp*' of type 'minecraft:worldgen/structure' at position 7: t harp*<--[HERE]@5
+E No matches for selector 'minecraft:harp*' of type 'minecraft:worldgen/structure' at position 7: t harp*<--[HERE]@5
+S -2--2 0 0 
+@ all *_​og
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:worldgen/structure' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:worldgen/structure' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all ￿*é*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min.craft:*
+R 0
+A -
+X No matches for selector 'min.craft:*' of type 'minecraft:worldgen/structure' at position 13: ...in.craft:*<--[HERE]@11
+E No matches for selector 'min.craft:*' of type 'minecraft:worldgen/structure' at position 13: ...in.craft:*<--[HERE]@11
+S -2--2 0 0 
+@ all *B
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all Stonet
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all )??
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a* *c
+R 3
+A 0-2 19:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:72322801
+E Incorrect argument for command at position 5: t a* <--[HERE]@3
+S -2--2 0 0 
+@ all */*b
+R 0
+A -
+X No matches for selector 'minecraft:*/*b' of type 'minecraft:worldgen/structure' at position 6: t */*b<--[HERE]@4
+E No matches for selector 'minecraft:*/*b' of type 'minecraft:worldgen/structure' at position 6: t */*b<--[HERE]@4
+S -2--2 0 0 
+@ all */**
+R 0
+A -
+X No matches for selector 'minecraft:*/**' of type 'minecraft:worldgen/structure' at position 6: t */**<--[HERE]@4
+E No matches for selector 'minecraft:*/**' of type 'minecraft:worldgen/structure' at position 6: t */**<--[HERE]@4
+S -2--2 0 0 
+@ all a**c
+R 0
+A -
+X No matches for selector 'minecraft:a**c' of type 'minecraft:worldgen/structure' at position 6: t a**c<--[HERE]@4
+E No matches for selector 'minecraft:a**c' of type 'minecraft:worldgen/structure' at position 6: t a**c<--[HERE]@4
+S -2--2 0 0 
+@ all +**4
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all * ?\u000a
+R 2
+A 0-1 52:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:-1694813160
+E Incorrect argument for command at position 4: t * <--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:e
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:e<--[HERE]@11
+E No matches for selector 'minecraft:e' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:e<--[HERE]@11
+S 0-11 1 -508799475 minecraft:end_city
+@ all ee
+R 0
+A -
+X No matches for selector 'minecraft:ee' of type 'minecraft:worldgen/structure' at position 4: t ee<--[HERE]@2
+E No matches for selector 'minecraft:ee' of type 'minecraft:worldgen/structure' at position 4: t ee<--[HERE]@2
+S -2--2 0 0 
+@ all 😀minecraft:s*i
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :*/*
+R 0
+A -
+X No matches for selector ':*/*' of type 'minecraft:worldgen/structure' at position 6: t :*/*<--[HERE]@4
+E No matches for selector ':*/*' of type 'minecraft:worldgen/structure' at position 6: t :*/*<--[HERE]@4
+S -2--2 0 0 
+@ all minec]aft:oa￿_*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all :ee
+R 0
+A -
+X No matches for selector ':ee' of type 'minecraft:worldgen/structure' at position 5: t :ee<--[HERE]@3
+E No matches for selector ':ee' of type 'minecraft:worldgen/structure' at position 5: t :ee<--[HERE]@3
+S -2--2 0 0 
+@ all ???m
+R 0
+A -
+X No matches for selector 'minecraft:???m' of type 'minecraft:worldgen/structure' at position 6: t ???m<--[HERE]@4
+E No matches for selector 'minecraft:???m' of type 'minecraft:worldgen/structure' at position 6: t ???m<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:oak_3
+R 0
+A -
+X No matches for selector 'minecraft:oak_3' of type 'minecraft:worldgen/structure' at position 17: ...raft:oak_3<--[HERE]@15
+E No matches for selector 'minecraft:oak_3' of type 'minecraft:worldgen/structure' at position 17: ...raft:oak_3<--[HERE]@15
+S -2--2 0 0 
+@ all *sone*s
+R 0
+A -
+X No matches for selector 'minecraft:*sone*s' of type 'minecraft:worldgen/structure' at position 9: t *sone*s<--[HERE]@7
+E No matches for selector 'minecraft:*sone*s' of type 'minecraft:worldgen/structure' at position 9: t *sone*s<--[HERE]@7
+S -2--2 0 0 
+@ all b
+R 0
+A -
+X No matches for selector 'minecraft:b' of type 'minecraft:worldgen/structure' at position 3: t b<--[HERE]@1
+E No matches for selector 'minecraft:b' of type 'minecraft:worldgen/structure' at position 3: t b<--[HERE]@1
+S 0-1 7 -1554873380 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_wooded_badlands	minecraft:bastion_remnant	minecraft:buried_treasure	minecraft:shipwreck_beached
+@ all *shar*
+R 0
+A -
+X No matches for selector 'minecraft:*shar*' of type 'minecraft:worldgen/structure' at position 8: t *shar*<--[HERE]@6
+E No matches for selector 'minecraft:*shar*' of type 'minecraft:worldgen/structure' at position 8: t *shar*<--[HERE]@6
+S -2--2 0 0 
+@ all *C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all one
+R 0
+A -
+X No matches for selector 'minecraft:one' of type 'minecraft:worldgen/structure' at position 5: t one<--[HERE]@3
+E No matches for selector 'minecraft:one' of type 'minecraft:worldgen/structure' at position 5: t one<--[HERE]@3
+S -2--2 0 0 
+@ all *d,rt*d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *d<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *d<--[HERE]@2
+S -2--2 0 0 
+@ all a*b*x
+R 0
+A -
+X No matches for selector 'minecraft:a*b*x' of type 'minecraft:worldgen/structure' at position 7: t a*b*x<--[HERE]@5
+E No matches for selector 'minecraft:a*b*x' of type 'minecraft:worldgen/structure' at position 7: t a*b*x<--[HERE]@5
+S -2--2 0 0 
+@ all #9
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *":*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all mine*m
+R 0
+A -
+X No matches for selector 'minecraft:mine*m' of type 'minecraft:worldgen/structure' at position 8: t mine*m<--[HERE]@6
+E No matches for selector 'minecraft:mine*m' of type 'minecraft:worldgen/structure' at position 8: t mine*m<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:*ef
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:*ef<--[HERE]@13
+E No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:*ef<--[HERE]@13
+S -2--2 0 0 
+@ all miBec}aft:*
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all *sharp[*
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/structure' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/structure' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:a*
+R 12
+A 0-12 19:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:72322801
+E ok
+S -2--2 0 0 
+@ all cc
+R 0
+A -
+X No matches for selector 'minecraft:cc' of type 'minecraft:worldgen/structure' at position 4: t cc<--[HERE]@2
+E No matches for selector 'minecraft:cc' of type 'minecraft:worldgen/structure' at position 4: t cc<--[HERE]@2
+S -2--2 0 0 
+@ all Stone-o
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraf:s*
+R 0
+A -
+X No matches for selector 'minecraf:s*' of type 'minecraft:worldgen/structure' at position 13: ...inecraf:s*<--[HERE]@11
+E No matches for selector 'minecraf:s*' of type 'minecraft:worldgen/structure' at position 13: ...inecraf:s*<--[HERE]@11
+S -2--2 0 0 
+@ all :&
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all mine*!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t mine*<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t mine*<--[HERE]@5
+S -2--2 0 0 
+@ all *sto1e*
+R 0
+A -
+X No matches for selector 'minecraft:*sto1e*' of type 'minecraft:worldgen/structure' at position 9: t *sto1e*<--[HERE]@7
+E No matches for selector 'minecraft:*sto1e*' of type 'minecraft:worldgen/structure' at position 9: t *sto1e*<--[HERE]@7
+S -2--2 0 0 
+@ all #\\
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z88
+R 0
+A -
+X No matches for selector 'minecraft:z88' of type 'minecraft:worldgen/structure' at position 5: t z88<--[HERE]@3
+E No matches for selector 'minecraft:z88' of type 'minecraft:worldgen/structure' at position 5: t z88<--[HERE]@3
+S -2--2 0 0 
+@ all *&
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all stnes
+R 0
+A -
+X No matches for selector 'minecraft:stnes' of type 'minecraft:worldgen/structure' at position 7: t stnes<--[HERE]@5
+E No matches for selector 'minecraft:stnes' of type 'minecraft:worldgen/structure' at position 7: t stnes<--[HERE]@5
+S -2--2 0 0 
+@ all *]:asseta
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:*m
+R 12
+A 0-12 1:minecraft:ocean_ruin_warm:1855647726
+E ok
+S -2--2 0 0 
+@ all */6*/
+R 0
+A -
+X No matches for selector 'minecraft:*/6*/' of type 'minecraft:worldgen/structure' at position 7: t */6*/<--[HERE]@5
+E No matches for selector 'minecraft:*/6*/' of type 'minecraft:worldgen/structure' at position 7: t */6*/<--[HERE]@5
+S -2--2 0 0 
+@ all *5/*
+R 0
+A -
+X No matches for selector 'minecraft:*5/*' of type 'minecraft:worldgen/structure' at position 6: t *5/*<--[HERE]@4
+E No matches for selector 'minecraft:*5/*' of type 'minecraft:worldgen/structure' at position 6: t *5/*<--[HERE]@4
+S -2--2 0 0 
+@ all mi\u0009nec+raft:
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all )effectf
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:**
+R 12
+A 0-12 52:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:-1694813160
+E ok
+S -2--2 0 0 
+@ all =*:asset
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombie*b
+R 0
+A -
+X No matches for selector 'minecraft:zombie*b' of type 'minecraft:worldgen/structure' at position 20: ...t:zombie*b<--[HERE]@18
+E No matches for selector 'minecraft:zombie*b' of type 'minecraft:worldgen/structure' at position 20: ...t:zombie*b<--[HERE]@18
+S -2--2 0 0 
+@ all *sharAp6
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:worldgen/structure' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:worldgen/structure' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all minerat:s*
+R 0
+A -
+X No matches for selector 'minerat:s*' of type 'minecraft:worldgen/structure' at position 12: ...minerat:s*<--[HERE]@10
+E No matches for selector 'minerat:s*' of type 'minecraft:worldgen/structure' at position 12: ...minerat:s*<--[HERE]@10
+S -2--2 0 0 
+@ all m 
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all *dir[**
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:worldgen/structure' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:worldgen/structure' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all 6a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:6a*b*c' of type 'minecraft:worldgen/structure' at position 8: t 6a*b*c<--[HERE]@6
+E No matches for selector 'minecraft:6a*b*c' of type 'minecraft:worldgen/structure' at position 8: t 6a*b*c<--[HERE]@6
+S -2--2 0 0 
+@ all 2*0e
+R 0
+A -
+X No matches for selector 'minecraft:2*0e' of type 'minecraft:worldgen/structure' at position 6: t 2*0e<--[HERE]@4
+E No matches for selector 'minecraft:2*0e' of type 'minecraft:worldgen/structure' at position 6: t 2*0e<--[HERE]@4
+S -2--2 0 0 
+@ all ?2
+R 0
+A -
+X No matches for selector 'minecraft:?2' of type 'minecraft:worldgen/structure' at position 4: t ?2<--[HERE]@2
+E No matches for selector 'minecraft:?2' of type 'minecraft:worldgen/structure' at position 4: t ?2<--[HERE]@2
+S -2--2 0 0 
+@ all Sonen
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fo:**
+R 0
+A -
+X No matches for selector 'fo:**' of type 'minecraft:worldgen/structure' at position 7: t fo:**<--[HERE]@5
+E No matches for selector 'fo:**' of type 'minecraft:worldgen/structure' at position 7: t fo:**<--[HERE]@5
+S -2--2 0 0 
+@ all *sne*
+R 0
+A -
+X No matches for selector 'minecraft:*sne*' of type 'minecraft:worldgen/structure' at position 7: t *sne*<--[HERE]@5
+E No matches for selector 'minecraft:*sne*' of type 'minecraft:worldgen/structure' at position 7: t *sne*<--[HERE]@5
+S -2--2 0 0 
+@ all # #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m4**
+R 0
+A -
+X No matches for selector 'minecraft:m4**' of type 'minecraft:worldgen/structure' at position 6: t m4**<--[HERE]@4
+E No matches for selector 'minecraft:m4**' of type 'minecraft:worldgen/structure' at position 6: t m4**<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:>
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraİft::
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:?????m
+R 0
+A -
+X No matches for selector 'minecraft:?????m' of type 'minecraft:worldgen/structure' at position 18: ...aft:?????m<--[HERE]@16
+E No matches for selector 'minecraft:?????m' of type 'minecraft:worldgen/structure' at position 18: ...aft:?????m<--[HERE]@16
+S -2--2 0 0 
+@ all craft:*
+R 0
+A -
+X No matches for selector 'craft:*' of type 'minecraft:worldgen/structure' at position 9: t craft:*<--[HERE]@7
+E No matches for selector 'craft:*' of type 'minecraft:worldgen/structure' at position 9: t craft:*<--[HERE]@7
+S -2--2 0 0 
+@ all é<
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombie*a
+R 0
+A -
+X No matches for selector 'minecraft:zombie*a' of type 'minecraft:worldgen/structure' at position 20: ...t:zombie*a<--[HERE]@18
+E No matches for selector 'minecraft:zombie*a' of type 'minecraft:worldgen/structure' at position 20: ...t:zombie*a<--[HERE]@18
+S -2--2 0 0 
+@ all :*:
+R 0
+A -
+X No matches for selector ':*:' of type 'minecraft:worldgen/structure' at position 5: t :*:<--[HERE]@3
+E No matches for selector ':*:' of type 'minecraft:worldgen/structure' at position 5: t :*:<--[HERE]@3
+S -2--2 0 0 
+@ all o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:worldgen/structure' at position 3: t o<--[HERE]@1
+E No matches for selector 'minecraft:o' of type 'minecraft:worldgen/structure' at position 3: t o<--[HERE]@1
+S 0-1 7 -1798423860 minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_old_growth_pine_taiga	minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:ocean_ruin_cold	minecraft:ocean_ruin_warm	minecraft:pillager_outpost	minecraft:ruined_portal_ocean
+@ all İ
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*b*cc
+R 0
+A -
+X No matches for selector 'minecraft:a*b*cc' of type 'minecraft:worldgen/structure' at position 8: t a*b*cc<--[HERE]@6
+E No matches for selector 'minecraft:a*b*cc' of type 'minecraft:worldgen/structure' at position 8: t a*b*cc<--[HERE]@6
+S -2--2 0 0 
+@ all 6/$*
+R 0
+A -
+X No matches for selector 'minecraft:6/' of type 'minecraft:worldgen/structure' at position 4: t 6/<--[HERE]@2
+E No matches for selector 'minecraft:6/' of type 'minecraft:worldgen/structure' at position 4: t 6/<--[HERE]@2
+S -2--2 0 0 
+@ all # ##
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *😀og
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all mine*n*
+R 0
+A -
+X No matches for selector 'minecraft:mine*n*' of type 'minecraft:worldgen/structure' at position 9: t mine*n*<--[HERE]@7
+E No matches for selector 'minecraft:mine*n*' of type 'minecraft:worldgen/structure' at position 9: t mine*n*<--[HERE]@7
+S -2--2 0 0 
+@ all ains
+R 0
+A -
+X No matches for selector 'minecraft:ains' of type 'minecraft:worldgen/structure' at position 6: t ains<--[HERE]@4
+E No matches for selector 'minecraft:ains' of type 'minecraft:worldgen/structure' at position 6: t ains<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:sf
+R 0
+A -
+X No matches for selector 'minecraft:sf' of type 'minecraft:worldgen/structure' at position 14: ...necraft:sf<--[HERE]@12
+E No matches for selector 'minecraft:sf' of type 'minecraft:worldgen/structure' at position 14: ...necraft:sf<--[HERE]@12
+S -2--2 0 0 
+@ all *???
+R 0
+A -
+X No matches for selector 'minecraft:*???' of type 'minecraft:worldgen/structure' at position 6: t *???<--[HERE]@4
+E No matches for selector 'minecraft:*???' of type 'minecraft:worldgen/structure' at position 6: t *???<--[HERE]@4
+S -2--2 0 0 
+@ all :**
+R 0
+A -
+X No matches for selector ':**' of type 'minecraft:worldgen/structure' at position 5: t :**<--[HERE]@3
+E No matches for selector ':**' of type 'minecraft:worldgen/structure' at position 5: t :**<--[HERE]@3
+S -2--2 0 0 
+@ all raft:*/*
+R 0
+A -
+X No matches for selector 'raft:*/*' of type 'minecraft:worldgen/structure' at position 10: t raft:*/*<--[HERE]@8
+E No matches for selector 'raft:*/*' of type 'minecraft:worldgen/structure' at position 10: t raft:*/*<--[HERE]@8
+S -2--2 0 0 
+@ all afts*
+R 0
+A -
+X No matches for selector 'minecraft:afts*' of type 'minecraft:worldgen/structure' at position 7: t afts*<--[HERE]@5
+E No matches for selector 'minecraft:afts*' of type 'minecraft:worldgen/structure' at position 7: t afts*<--[HERE]@5
+S -2--2 0 0 
+@ all y*
+R 0
+A -
+X No matches for selector 'minecraft:y*' of type 'minecraft:worldgen/structure' at position 4: t y*<--[HERE]@2
+E No matches for selector 'minecraft:y*' of type 'minecraft:worldgen/structure' at position 4: t y*<--[HERE]@2
+S -2--2 0 0 
+@ all og_
+R 0
+A -
+X No matches for selector 'minecraft:og_' of type 'minecraft:worldgen/structure' at position 5: t og_<--[HERE]@3
+E No matches for selector 'minecraft:og_' of type 'minecraft:worldgen/structure' at position 5: t og_<--[HERE]@3
+S -2--2 0 0 
+@ all minecaft:
+R 0
+A -
+X No matches for selector 'minecaft:' of type 'minecraft:worldgen/structure' at position 11: ... minecaft:<--[HERE]@9
+E No matches for selector 'minecaft:' of type 'minecraft:worldgen/structure' at position 11: ... minecaft:<--[HERE]@9
+S -2--2 0 0 
+@ all one*
+R 0
+A -
+X No matches for selector 'minecraft:one*' of type 'minecraft:worldgen/structure' at position 6: t one*<--[HERE]@4
+E No matches for selector 'minecraft:one*' of type 'minecraft:worldgen/structure' at position 6: t one*<--[HERE]@4
+S -2--2 0 0 
+@ all *,
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all raft:?????
+R 0
+A -
+X No matches for selector 'raft:?????' of type 'minecraft:worldgen/structure' at position 12: ...raft:?????<--[HERE]@10
+E No matches for selector 'raft:?????' of type 'minecraft:worldgen/structure' at position 12: ...raft:?????<--[HERE]@10
+S -2--2 0 0 
+@ all tone**
+R 0
+A -
+X No matches for selector 'minecraft:tone**' of type 'minecraft:worldgen/structure' at position 8: t tone**<--[HERE]@6
+E No matches for selector 'minecraft:tone**' of type 'minecraft:worldgen/structure' at position 8: t tone**<--[HERE]@6
+S -2--2 0 0 
+@ all StoneS
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mincraft:
+R 0
+A -
+X No matches for selector 'mincraft:' of type 'minecraft:worldgen/structure' at position 11: ... mincraft:<--[HERE]@9
+E No matches for selector 'mincraft:' of type 'minecraft:worldgen/structure' at position 11: ... mincraft:<--[HERE]@9
+S -2--2 0 0 
+@ all *\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all (
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sone
+R 0
+A -
+X No matches for selector 'minecraft:sone' of type 'minecraft:worldgen/structure' at position 6: t sone<--[HERE]@4
+E No matches for selector 'minecraft:sone' of type 'minecraft:worldgen/structure' at position 6: t sone<--[HERE]@4
+S -2--2 0 0 
+@ all :\\*
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all ft:c
+R 0
+A -
+X No matches for selector 'ft:c' of type 'minecraft:worldgen/structure' at position 6: t ft:c<--[HERE]@4
+E No matches for selector 'ft:c' of type 'minecraft:worldgen/structure' at position 6: t ft:c<--[HERE]@4
+S -2--2 0 0 
+@ all lains
+R 0
+A -
+X No matches for selector 'minecraft:lains' of type 'minecraft:worldgen/structure' at position 7: t lains<--[HERE]@5
+E No matches for selector 'minecraft:lains' of type 'minecraft:worldgen/structure' at position 7: t lains<--[HERE]@5
+S -2--2 0 0 
+@ all a*b*Z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t a*b*<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t a*b*<--[HERE]@4
+S -2--2 0 0 
+@ all *stone*n
+R 0
+A -
+X No matches for selector 'minecraft:*stone*n' of type 'minecraft:worldgen/structure' at position 10: t *stone*n<--[HERE]@8
+E No matches for selector 'minecraft:*stone*n' of type 'minecraft:worldgen/structure' at position 10: t *stone*n<--[HERE]@8
+S -2--2 0 0 
+@ all mnecraft:oak_*_
+R 0
+A -
+X No matches for selector 'mnecraft:oak_*_' of type 'minecraft:worldgen/structure' at position 17: ...aft:oak_*_<--[HERE]@15
+E No matches for selector 'mnecraft:oak_*_' of type 'minecraft:worldgen/structure' at position 17: ...aft:oak_*_<--[HERE]@15
+S -2--2 0 0 
+@ all dir9*
+R 0
+A -
+X No matches for selector 'minecraft:dir9*' of type 'minecraft:worldgen/structure' at position 7: t dir9*<--[HERE]@5
+E No matches for selector 'minecraft:dir9*' of type 'minecraft:worldgen/structure' at position 7: t dir9*<--[HERE]@5
+S -2--2 0 0 
+@ all aft:?????
+R 0
+A -
+X No matches for selector 'aft:?????' of type 'minecraft:worldgen/structure' at position 11: ... aft:?????<--[HERE]@9
+E No matches for selector 'aft:?????' of type 'minecraft:worldgen/structure' at position 11: ... aft:?????<--[HERE]@9
+S -2--2 0 0 
+@ all log
+R 0
+A -
+X No matches for selector 'minecraft:log' of type 'minecraft:worldgen/structure' at position 5: t log<--[HERE]@3
+E No matches for selector 'minecraft:log' of type 'minecraft:worldgen/structure' at position 5: t log<--[HERE]@3
+S -2--2 0 0 
+@ all yine*
+R 0
+A -
+X No matches for selector 'minecraft:yine*' of type 'minecraft:worldgen/structure' at position 7: t yine*<--[HERE]@5
+E No matches for selector 'minecraft:yine*' of type 'minecraft:worldgen/structure' at position 7: t yine*<--[HERE]@5
+S -2--2 0 0 
+@ all plai\u000a
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:worldgen/structure' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:worldgen/structure' at position 6: t plai<--[HERE]@4
+S -2--2 0 0 
+@ all minecaft:*/*
+R 0
+A -
+X No matches for selector 'minecaft:*/*' of type 'minecraft:worldgen/structure' at position 14: ...necaft:*/*<--[HERE]@12
+E No matches for selector 'minecaft:*/*' of type 'minecraft:worldgen/structure' at position 14: ...necaft:*/*<--[HERE]@12
+S -2--2 0 0 
+@ all *s(one*o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+S -2--2 0 0 
+@ all mi:necraft:?????t
+R 0
+A -
+X No matches for selector 'mi:necraft:?????t' of type 'minecraft:worldgen/structure' at position 19: ...aft:?????t<--[HERE]@17
+E No matches for selector 'mi:necraft:?????t' of type 'minecraft:worldgen/structure' at position 19: ...aft:?????t<--[HERE]@17
+S -2--2 0 0 
+@ all *z/*
+R 0
+A -
+X No matches for selector 'minecraft:*z/*' of type 'minecraft:worldgen/structure' at position 6: t *z/*<--[HERE]@4
+E No matches for selector 'minecraft:*z/*' of type 'minecraft:worldgen/structure' at position 6: t *z/*<--[HERE]@4
+S -2--2 0 0 
+@ all z\u0000
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :7
+R 0
+A -
+X No matches for selector ':7' of type 'minecraft:worldgen/structure' at position 4: t :7<--[HERE]@2
+E No matches for selector ':7' of type 'minecraft:worldgen/structure' at position 4: t :7<--[HERE]@2
+S -2--2 0 0 
+@ all Stdne
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0m*
+R 0
+A -
+X No matches for selector 'minecraft:0m*' of type 'minecraft:worldgen/structure' at position 5: t 0m*<--[HERE]@3
+E No matches for selector 'minecraft:0m*' of type 'minecraft:worldgen/structure' at position 5: t 0m*<--[HERE]@3
+S -2--2 0 0 
+@ all minec=raft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all ]{
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombibe*
+R 0
+A -
+X No matches for selector 'minecraft:zombibe*' of type 'minecraft:worldgen/structure' at position 20: ...t:zombibe*<--[HERE]@18
+E No matches for selector 'minecraft:zombibe*' of type 'minecraft:worldgen/structure' at position 20: ...t:zombibe*<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:oak_*t
+R 0
+A -
+X No matches for selector 'minecraft:oak_*t' of type 'minecraft:worldgen/structure' at position 18: ...aft:oak_*t<--[HERE]@16
+E No matches for selector 'minecraft:oak_*t' of type 'minecraft:worldgen/structure' at position 18: ...aft:oak_*t<--[HERE]@16
+S -2--2 0 0 
+@ all *_og
+R 0
+A -
+X No matches for selector 'minecraft:*_og' of type 'minecraft:worldgen/structure' at position 6: t *_og<--[HERE]@4
+E No matches for selector 'minecraft:*_og' of type 'minecraft:worldgen/structure' at position 6: t *_og<--[HERE]@4
+S -2--2 0 0 
+@ all b*c
+R 0
+A -
+X No matches for selector 'minecraft:b*c' of type 'minecraft:worldgen/structure' at position 5: t b*c<--[HERE]@3
+E No matches for selector 'minecraft:b*c' of type 'minecraft:worldgen/structure' at position 5: t b*c<--[HERE]@3
+S -2--2 0 0 
+@ all zß
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :é
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:worldgen/structure' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all tonee
+R 0
+A -
+X No matches for selector 'minecraft:tonee' of type 'minecraft:worldgen/structure' at position 7: t tonee<--[HERE]@5
+E No matches for selector 'minecraft:tonee' of type 'minecraft:worldgen/structure' at position 7: t tonee<--[HERE]@5
+S -2--2 0 0 
+@ all ffo>:*
+R 0
+A -
+X No matches for selector 'minecraft:ffo' of type 'minecraft:worldgen/structure' at position 5: t ffo<--[HERE]@3
+E No matches for selector 'minecraft:ffo' of type 'minecraft:worldgen/structure' at position 5: t ffo<--[HERE]@3
+S -2--2 0 0 
+@ all *??
+R 0
+A -
+X No matches for selector 'minecraft:*??' of type 'minecraft:worldgen/structure' at position 5: t *??<--[HERE]@3
+E No matches for selector 'minecraft:*??' of type 'minecraft:worldgen/structure' at position 5: t *??<--[HERE]@3
+S -2--2 0 0 
+@ all #5#
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:worldgen/structure' at position 4: t ??<--[HERE]@2
+E No matches for selector 'minecraft:??' of type 'minecraft:worldgen/structure' at position 4: t ??<--[HERE]@2
+S -2--2 0 0 
+@ all mxin2craft:*
+R 0
+A -
+X No matches for selector 'mxin2craft:*' of type 'minecraft:worldgen/structure' at position 14: ...in2craft:*<--[HERE]@12
+E No matches for selector 'mxin2craft:*' of type 'minecraft:worldgen/structure' at position 14: ...in2craft:*<--[HERE]@12
+S -2--2 0 0 
+@ all miecraft:zombie6
+R 0
+A -
+X No matches for selector 'miecraft:zombie6' of type 'minecraft:worldgen/structure' at position 18: ...ft:zombie6<--[HERE]@16
+E No matches for selector 'miecraft:zombie6' of type 'minecraft:worldgen/structure' at position 18: ...ft:zombie6<--[HERE]@16
+S -2--2 0 0 
+@ all mnecraft:????
+R 0
+A -
+X No matches for selector 'mnecraft:????' of type 'minecraft:worldgen/structure' at position 15: ...craft:????<--[HERE]@13
+E No matches for selector 'mnecraft:????' of type 'minecraft:worldgen/structure' at position 15: ...craft:????<--[HERE]@13
+S -2--2 0 0 
+@ all 1*Basset
+R 0
+A -
+X No matches for selector 'minecraft:1*' of type 'minecraft:worldgen/structure' at position 4: t 1*<--[HERE]@2
+E No matches for selector 'minecraft:1*' of type 'minecraft:worldgen/structure' at position 4: t 1*<--[HERE]@2
+S -2--2 0 0 
+@ all x*
+R 0
+A -
+X No matches for selector 'minecraft:x*' of type 'minecraft:worldgen/structure' at position 4: t x*<--[HERE]@2
+E No matches for selector 'minecraft:x*' of type 'minecraft:worldgen/structure' at position 4: t x*<--[HERE]@2
+S -2--2 0 0 
+@ all ]*/*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​o:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *_loa
+R 0
+A -
+X No matches for selector 'minecraft:*_loa' of type 'minecraft:worldgen/structure' at position 7: t *_loa<--[HERE]@5
+E No matches for selector 'minecraft:*_loa' of type 'minecraft:worldgen/structure' at position 7: t *_loa<--[HERE]@5
+S -2--2 0 0 
+@ all *:*e
+R 4
+A 0-4 5:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_sparse_jungle,minecraft:buried_treasure,minecraft:ruined_portal_jungle:-183179188
+E ok
+S -2--2 0 0 
+@ all oo:*
+R 0
+A -
+X No matches for selector 'oo:*' of type 'minecraft:worldgen/structure' at position 6: t oo:*<--[HERE]@4
+E No matches for selector 'oo:*' of type 'minecraft:worldgen/structure' at position 6: t oo:*<--[HERE]@4
+S -2--2 0 0 
+@ all min=craft:*/*:
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:ak_*
+R 0
+A -
+X No matches for selector 'minecraft:ak_*' of type 'minecraft:worldgen/structure' at position 16: ...craft:ak_*<--[HERE]@14
+E No matches for selector 'minecraft:ak_*' of type 'minecraft:worldgen/structure' at position 16: ...craft:ak_*<--[HERE]@14
+S -2--2 0 0 
+@ all e*
+R 2
+A 0-2 1:minecraft:end_city:-1540433540
+E ok
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:z1ombie*c
+R 0
+A -
+X No matches for selector 'minecraft:z1ombie*c' of type 'minecraft:worldgen/structure' at position 21: ...:z1ombie*c<--[HERE]@19
+E No matches for selector 'minecraft:z1ombie*c' of type 'minecraft:worldgen/structure' at position 21: ...:z1ombie*c<--[HERE]@19
+S -2--2 0 0 
+@ all  =
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s*t
+R 13
+A 0-13 1:minecraft:swamp_hut:507026331
+E ok
+S -2--2 0 0 
+@ all minecraft:zomie*
+R 0
+A -
+X No matches for selector 'minecraft:zomie*' of type 'minecraft:worldgen/structure' at position 18: ...aft:zomie*<--[HERE]@16
+E No matches for selector 'minecraft:zomie*' of type 'minecraft:worldgen/structure' at position 18: ...aft:zomie*<--[HERE]@16
+S -2--2 0 0 
+@ all mine*i
+R 0
+A -
+X No matches for selector 'minecraft:mine*i' of type 'minecraft:worldgen/structure' at position 8: t mine*i<--[HERE]@6
+E No matches for selector 'minecraft:mine*i' of type 'minecraft:worldgen/structure' at position 8: t mine*i<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:?????i
+R 0
+A -
+X No matches for selector 'minecraft:?????i' of type 'minecraft:worldgen/structure' at position 18: ...aft:?????i<--[HERE]@16
+E No matches for selector 'minecraft:?????i' of type 'minecraft:worldgen/structure' at position 18: ...aft:?????i<--[HERE]@16
+S -2--2 0 0 
+@ all *:ass<et
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:worldgen/structure' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:worldgen/structure' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all minecra>ft:*
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all */*/
+R 0
+A -
+X No matches for selector 'minecraft:*/*/' of type 'minecraft:worldgen/structure' at position 6: t */*/<--[HERE]@4
+E No matches for selector 'minecraft:*/*/' of type 'minecraft:worldgen/structure' at position 6: t */*/<--[HERE]@4
+S -2--2 0 0 
+@ all >zf
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all x]m*
+R 0
+A -
+X No matches for selector 'minecraft:x' of type 'minecraft:worldgen/structure' at position 3: t x<--[HERE]@1
+E No matches for selector 'minecraft:x' of type 'minecraft:worldgen/structure' at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all /*
+R 0
+A -
+X No matches for selector 'minecraft:/*' of type 'minecraft:worldgen/structure' at position 4: t /*<--[HERE]@2
+E No matches for selector 'minecraft:/*' of type 'minecraft:worldgen/structure' at position 4: t /*<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:nn
+R 0
+A -
+X No matches for selector 'minecraft:nn' of type 'minecraft:worldgen/structure' at position 14: ...necraft:nn<--[HERE]@12
+E No matches for selector 'minecraft:nn' of type 'minecraft:worldgen/structure' at position 14: ...necraft:nn<--[HERE]@12
+S -2--2 0 0 
+@ all foo*
+R 0
+A -
+X No matches for selector 'minecraft:foo*' of type 'minecraft:worldgen/structure' at position 6: t foo*<--[HERE]@4
+E No matches for selector 'minecraft:foo*' of type 'minecraft:worldgen/structure' at position 6: t foo*<--[HERE]@4
+S -2--2 0 0 
+@ all *é*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *e*
+R 3
+A 0-3 47:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:-406759793
+E ok
+S -2--2 0 0 
+@ all m*m
+R 0
+A -
+X No matches for selector 'minecraft:m*m' of type 'minecraft:worldgen/structure' at position 5: t m*m<--[HERE]@3
+E No matches for selector 'minecraft:m*m' of type 'minecraft:worldgen/structure' at position 5: t m*m<--[HERE]@3
+S -2--2 0 0 
+@ all stn
+R 0
+A -
+X No matches for selector 'minecraft:stn' of type 'minecraft:worldgen/structure' at position 5: t stn<--[HERE]@3
+E No matches for selector 'minecraft:stn' of type 'minecraft:worldgen/structure' at position 5: t stn<--[HERE]@3
+S -2--2 0 0 
+@ all *:asset3A
+R 0
+A -
+X No matches for selector '*:asset3' of type 'minecraft:worldgen/structure' at position 10: t *:asset3<--[HERE]@8
+E No matches for selector '*:asset3' of type 'minecraft:worldgen/structure' at position 10: t *:asset3<--[HERE]@8
+S -2--2 0 0 
+@ all /￿
+R 0
+A -
+X No matches for selector 'minecraft:/' of type 'minecraft:worldgen/structure' at position 3: t /<--[HERE]@1
+E No matches for selector 'minecraft:/' of type 'minecraft:worldgen/structure' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all *effec5
+R 0
+A -
+X No matches for selector 'minecraft:*effec5' of type 'minecraft:worldgen/structure' at position 9: t *effec5<--[HERE]@7
+E No matches for selector 'minecraft:*effec5' of type 'minecraft:worldgen/structure' at position 9: t *effec5<--[HERE]@7
+S -2--2 0 0 
+@ all mi/ec1raft:?????
+R 0
+A -
+X No matches for selector 'mi/ec1raft:?????' of type 'minecraft:worldgen/structure' at position 18: ...raft:?????<--[HERE]@16
+E No matches for selector 'mi/ec1raft:?????' of type 'minecraft:worldgen/structure' at position 18: ...raft:?????<--[HERE]@16
+S -2--2 0 0 
+@ all e6t
+R 0
+A -
+X No matches for selector 'minecraft:e6t' of type 'minecraft:worldgen/structure' at position 5: t e6t<--[HERE]@3
+E No matches for selector 'minecraft:e6t' of type 'minecraft:worldgen/structure' at position 5: t e6t<--[HERE]@3
+S -2--2 0 0 
+@ all *:中
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:worldgen/structure' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:worldgen/structure' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all mf*
+R 0
+A -
+X No matches for selector 'minecraft:mf*' of type 'minecraft:worldgen/structure' at position 5: t mf*<--[HERE]@3
+E No matches for selector 'minecraft:mf*' of type 'minecraft:worldgen/structure' at position 5: t mf*<--[HERE]@3
+S -2--2 0 0 
+@ all *dirt**
+R 0
+A -
+X No matches for selector 'minecraft:*dirt**' of type 'minecraft:worldgen/structure' at position 9: t *dirt**<--[HERE]@7
+E No matches for selector 'minecraft:*dirt**' of type 'minecraft:worldgen/structure' at position 9: t *dirt**<--[HERE]@7
+S -2--2 0 0 
+@ all ​*é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Stone11
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi0ne*
+R 0
+A -
+X No matches for selector 'minecraft:mi0ne*' of type 'minecraft:worldgen/structure' at position 8: t mi0ne*<--[HERE]@6
+E No matches for selector 'minecraft:mi0ne*' of type 'minecraft:worldgen/structure' at position 8: t mi0ne*<--[HERE]@6
+S -2--2 0 0 
+@ all *dirt*i
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*i' of type 'minecraft:worldgen/structure' at position 9: t *dirt*i<--[HERE]@7
+E No matches for selector 'minecraft:*dirt*i' of type 'minecraft:worldgen/structure' at position 9: t *dirt*i<--[HERE]@7
+S -2--2 0 0 
+@ all plainss
+R 0
+A -
+X No matches for selector 'minecraft:plainss' of type 'minecraft:worldgen/structure' at position 9: t plainss<--[HERE]@7
+E No matches for selector 'minecraft:plainss' of type 'minecraft:worldgen/structure' at position 9: t plainss<--[HERE]@7
+S -2--2 0 0 
+@ all m\u000aiBe*
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all *éyé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:zmbie*
+R 0
+A -
+X No matches for selector 'minecraft:zmbie*' of type 'minecraft:worldgen/structure' at position 18: ...aft:zmbie*<--[HERE]@16
+E No matches for selector 'minecraft:zmbie*' of type 'minecraft:worldgen/structure' at position 18: ...aft:zmbie*<--[HERE]@16
+S -2--2 0 0 
+@ all 7e
+R 0
+A -
+X No matches for selector 'minecraft:7e' of type 'minecraft:worldgen/structure' at position 4: t 7e<--[HERE]@2
+E No matches for selector 'minecraft:7e' of type 'minecraft:worldgen/structure' at position 4: t 7e<--[HERE]@2
+S -2--2 0 0 
+@ all *effeXct
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/structure' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/structure' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:??????
+R 0
+A -
+X No matches for selector 'minecraft:??????' of type 'minecraft:worldgen/structure' at position 18: ...aft:??????<--[HERE]@16
+E No matches for selector 'minecraft:??????' of type 'minecraft:worldgen/structure' at position 18: ...aft:??????<--[HERE]@16
+S -2--2 0 0 
+@ all *st8one*
+R 0
+A -
+X No matches for selector 'minecraft:*st8one*' of type 'minecraft:worldgen/structure' at position 10: t *st8one*<--[HERE]@8
+E No matches for selector 'minecraft:*st8one*' of type 'minecraft:worldgen/structure' at position 10: t *st8one*<--[HERE]@8
+S -2--2 0 0 
+@ all m\\
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecrft:*/*
+R 0
+A -
+X No matches for selector 'minecrft:*/*' of type 'minecraft:worldgen/structure' at position 14: ...necrft:*/*<--[HERE]@12
+E No matches for selector 'minecrft:*/*' of type 'minecraft:worldgen/structure' at position 14: ...necrft:*/*<--[HERE]@12
+S -2--2 0 0 
+@ all n
+R 0
+A -
+X No matches for selector 'minecraft:n' of type 'minecraft:worldgen/structure' at position 3: t n<--[HERE]@1
+E No matches for selector 'minecraft:n' of type 'minecraft:worldgen/structure' at position 3: t n<--[HERE]@1
+S 0-1 2 -16492762 minecraft:nether_fossil	minecraft:ruined_portal_nether
+@ all minecraft:o]ak_*
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:o<--[HERE]@11
+S -2--2 0 0 
+@ all *effecf
+R 0
+A -
+X No matches for selector 'minecraft:*effecf' of type 'minecraft:worldgen/structure' at position 9: t *effecf<--[HERE]@7
+E No matches for selector 'minecraft:*effecf' of type 'minecraft:worldgen/structure' at position 9: t *effecf<--[HERE]@7
+S -2--2 0 0 
+@ all ect
+R 0
+A -
+X No matches for selector 'minecraft:ect' of type 'minecraft:worldgen/structure' at position 5: t ect<--[HERE]@3
+E No matches for selector 'minecraft:ect' of type 'minecraft:worldgen/structure' at position 5: t ect<--[HERE]@3
+S -2--2 0 0 
+@ all stonent
+R 0
+A -
+X No matches for selector 'minecraft:stonent' of type 'minecraft:worldgen/structure' at position 9: t stonent<--[HERE]@7
+E No matches for selector 'minecraft:stonent' of type 'minecraft:worldgen/structure' at position 9: t stonent<--[HERE]@7
+S -2--2 0 0 
+@ all minecraftyzmbie*
+R 0
+A -
+X No matches for selector 'minecraft:minecraftyzmbie*' of type 'minecraft:worldgen/structure' at position 18: ...aftyzmbie*<--[HERE]@16
+E No matches for selector 'minecraft:minecraftyzmbie*' of type 'minecraft:worldgen/structure' at position 18: ...aftyzmbie*<--[HERE]@16
+S -2--2 0 0 
+@ all zombie*
+R 0
+A -
+X No matches for selector 'minecraft:zombie*' of type 'minecraft:worldgen/structure' at position 9: t zombie*<--[HERE]@7
+E No matches for selector 'minecraft:zombie*' of type 'minecraft:worldgen/structure' at position 9: t zombie*<--[HERE]@7
+S -2--2 0 0 
+@ all o:]
+R 0
+A -
+X No matches for selector 'o:' of type 'minecraft:worldgen/structure' at position 4: t o:<--[HERE]@2
+E No matches for selector 'o:' of type 'minecraft:worldgen/structure' at position 4: t o:<--[HERE]@2
+S -2--2 0 0 
+@ all =e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ecraft:zombie*
+R 0
+A -
+X No matches for selector 'ecraft:zombie*' of type 'minecraft:worldgen/structure' at position 16: ...ft:zombie*<--[HERE]@14
+E No matches for selector 'ecraft:zombie*' of type 'minecraft:worldgen/structure' at position 16: ...ft:zombie*<--[HERE]@14
+S -2--2 0 0 
+@ all *Csharp/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:*i
+R 0
+A -
+X No matches for selector 'minecraft:*i' of type 'minecraft:worldgen/structure' at position 14: ...necraft:*i<--[HERE]@12
+E No matches for selector 'minecraft:*i' of type 'minecraft:worldgen/structure' at position 14: ...necraft:*i<--[HERE]@12
+S -2--2 0 0 
+@ all *effec}
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:worldgen/structure' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:worldgen/structure' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *x*
+R 0
+A -
+X No matches for selector 'minecraft:*x*' of type 'minecraft:worldgen/structure' at position 5: t *x*<--[HERE]@3
+E No matches for selector 'minecraft:*x*' of type 'minecraft:worldgen/structure' at position 5: t *x*<--[HERE]@3
+S -2--2 0 0 
+@ all   
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */2
+R 0
+A -
+X No matches for selector 'minecraft:*/2' of type 'minecraft:worldgen/structure' at position 5: t */2<--[HERE]@3
+E No matches for selector 'minecraft:*/2' of type 'minecraft:worldgen/structure' at position 5: t */2<--[HERE]@3
+S -2--2 0 0 
+@ all a*b*c*
+R 6
+A 0-6 18:minecraft:abandoned_camp_bamboo_jungle,minecraft:abandoned_camp_birch_forest,minecraft:abandoned_camp_cherry_grove,minecraft:abandoned_camp_dappled_forest,minecraft:abandoned_camp_flower_forest:18586039
+E ok
+S -2--2 0 0 
+@ all İminecraft:s*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *é​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all s中tone*
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:worldgen/structure' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:worldgen/structure' at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all minecra=t:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all mined*7
+R 0
+A -
+X No matches for selector 'minecraft:mined*7' of type 'minecraft:worldgen/structure' at position 9: t mined*7<--[HERE]@7
+E No matches for selector 'minecraft:mined*7' of type 'minecraft:worldgen/structure' at position 9: t mined*7<--[HERE]@7
+S -2--2 0 0 
+@ all mineca[ft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:mineca' of type 'minecraft:worldgen/structure' at position 8: t mineca<--[HERE]@6
+E No matches for selector 'minecraft:mineca' of type 'minecraft:worldgen/structure' at position 8: t mineca<--[HERE]@6
+S -2--2 0 0 

@@ -1,0 +1,1675 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 85 -1118844240 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle
+@ all minecraft:zombie
+R 16
+A 0-16 minecraft:zombie|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all zombie
+R 6
+A 0-6 minecraft:zombie|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:player
+R 16
+A 0-16 minecraft:player|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:nope
+R 14
+A 0-14 minecraft:nope|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:
+R 10
+A 0-10 minecraft:|resource minecraft:worldgen/structure
+E ok
+S 0-10 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all #minecraft:skeletons
+R 20
+A 0-20 #minecraft:skeletons|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:nope
+R 15
+A 0-15 #minecraft:nope|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all minecraft:speed
+R 15
+A 0-15 minecraft:speed|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 19
+A 0-19 minecraft:sharpness|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:fortune
+R 17
+A 0-17 minecraft:fortune|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 24
+A 0-24 minecraft:village_plains|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 19
+A 0-19 minecraft:mineshaft|resource minecraft:worldgen/structure
+E ok
+S 0-19 1 1154568926 minecraft:mineshaft_mesa
+@ all minecraft:ancient_city
+R 22
+A 0-22 minecraft:ancient_city|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all foo:bar
+R 7
+A 0-7 foo:bar|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 15
+A 0-15 minecraft:armor|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_health
+R 20
+A 0-20 minecraft:max_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 28
+A 0-28 minecraft:generic.max_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all m
+R 1
+A 0-1 minecraft:m|resource minecraft:worldgen/structure
+E ok
+S 0-1 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all mi
+R 2
+A 0-2 minecraft:mi|resource minecraft:worldgen/structure
+E ok
+S 0-2 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all min
+R 3
+A 0-3 minecraft:min|resource minecraft:worldgen/structure
+E ok
+S 0-3 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all mine
+R 4
+A 0-4 minecraft:mine|resource minecraft:worldgen/structure
+E ok
+S 0-4 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minec
+R 5
+A 0-5 minecraft:minec|resource minecraft:worldgen/structure
+E ok
+S 0-5 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecr
+R 6
+A 0-6 minecraft:minecr|resource minecraft:worldgen/structure
+E ok
+S 0-6 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecra
+R 7
+A 0-7 minecraft:minecra|resource minecraft:worldgen/structure
+E ok
+S 0-7 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraf
+R 8
+A 0-8 minecraft:minecraf|resource minecraft:worldgen/structure
+E ok
+S 0-8 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraft
+R 9
+A 0-9 minecraft:minecraft|resource minecraft:worldgen/structure
+E ok
+S 0-9 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraft:z
+R 11
+A 0-11 minecraft:z|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:zo
+R 12
+A 0-12 minecraft:zo|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:zom
+R 13
+A 0-13 minecraft:zom|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:zomb
+R 14
+A 0-14 minecraft:zomb|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:zombi
+R 15
+A 0-15 minecraft:zombi|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all z
+R 1
+A 0-1 minecraft:z|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all zo
+R 2
+A 0-2 minecraft:zo|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all zom
+R 3
+A 0-3 minecraft:zom|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all zomb
+R 4
+A 0-4 minecraft:zomb|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all zombi
+R 5
+A 0-5 minecraft:zombi|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:p
+R 11
+A 0-11 minecraft:p|resource minecraft:worldgen/structure
+E ok
+S 0-11 1 -799454431 minecraft:pillager_outpost
+@ all minecraft:pl
+R 12
+A 0-12 minecraft:pl|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:pla
+R 13
+A 0-13 minecraft:pla|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:play
+R 14
+A 0-14 minecraft:play|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:playe
+R 15
+A 0-15 minecraft:playe|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:n
+R 11
+A 0-11 minecraft:n|resource minecraft:worldgen/structure
+E ok
+S 0-11 1 -954051005 minecraft:nether_fossil
+@ all minecraft:no
+R 12
+A 0-12 minecraft:no|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:nop
+R 13
+A 0-13 minecraft:nop|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #
+R 1
+A 0-1 #minecraft:|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-1 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #m
+R 2
+A 0-2 #minecraft:m|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-2 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #mi
+R 3
+A 0-3 #minecraft:mi|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-3 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #min
+R 4
+A 0-4 #minecraft:min|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-4 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #mine
+R 5
+A 0-5 #minecraft:mine|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-5 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #minec
+R 6
+A 0-6 #minecraft:minec|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-6 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #minecr
+R 7
+A 0-7 #minecraft:minecr|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-7 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #minecra
+R 8
+A 0-8 #minecraft:minecra|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-8 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #minecraf
+R 9
+A 0-9 #minecraft:minecraf|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-9 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #minecraft
+R 10
+A 0-10 #minecraft:minecraft|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-10 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #minecraft:
+R 11
+A 0-11 #minecraft:|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-11 33 -2033480513 #minecraft:abandoned_camp	#minecraft:cats_spawn_as_black	#minecraft:cats_spawn_in	#minecraft:dolphin_located	#minecraft:eye_of_ender_located	#minecraft:mineshaft	#minecraft:ocean_ruin	#minecraft:on_abandoned_camp_bamboo_jungle	#minecraft:on_abandoned_camp_birch_forest	#minecraft:on_abandoned_camp_cherry_grove	#minecraft:on_abandoned_camp_dappled_forest	#minecraft:on_abandoned_camp_flower_forest	#minecraft:on_abandoned_camp_pale_garden	#minecraft:on_abandoned_camp_swamp	#minecraft:on_abandoned_camp_windswept_forest	#minecraft:on_ancient_city_maps	#minecraft:on_buried_trial_chambers_maps	#minecraft:on_desert_pyramid_maps	#minecraft:on_desert_village_maps	#minecraft:on_jungle_pyramid_maps	#minecraft:on_mineshaft_maps	#minecraft:on_ocean_monument_maps	#minecraft:on_ocean_ruin_warm_maps	#minecraft:on_plains_village_maps	#minecraft:on_savanna_village_maps	#minecraft:on_snowy_village_maps	#minecraft:on_swamp_hut_maps	#minecraft:on_taiga_village_maps	#minecraft:on_treasure_maps	#minecraft:on_woodland_mansion_maps	#minecraft:ruined_portal	#minecraft:shipwreck	#minecraft:village
+@ all #minecraft:s
+R 12
+A 0-12 #minecraft:s|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S 0-12 1 -1669723837 #minecraft:shipwreck
+@ all #minecraft:sk
+R 13
+A 0-13 #minecraft:sk|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:ske
+R 14
+A 0-14 #minecraft:ske|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skel
+R 15
+A 0-15 #minecraft:skel|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skele
+R 16
+A 0-16 #minecraft:skele|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 17
+A 0-17 #minecraft:skelet|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 18
+A 0-18 #minecraft:skeleto|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 19
+A 0-19 #minecraft:skeleton|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:n
+R 12
+A 0-12 #minecraft:n|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:no
+R 13
+A 0-13 #minecraft:no|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all #minecraft:nop
+R 14
+A 0-14 #minecraft:nop|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all minecraft:s
+R 11
+A 0-11 minecraft:s|resource minecraft:worldgen/structure
+E ok
+S 0-11 4 -517999753 minecraft:shipwreck	minecraft:shipwreck_beached	minecraft:stronghold	minecraft:swamp_hut
+@ all minecraft:sp
+R 12
+A 0-12 minecraft:sp|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:spe
+R 13
+A 0-13 minecraft:spe|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:spee
+R 14
+A 0-14 minecraft:spee|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:sh
+R 12
+A 0-12 minecraft:sh|resource minecraft:worldgen/structure
+E ok
+S 0-12 2 1613296285 minecraft:shipwreck	minecraft:shipwreck_beached
+@ all minecraft:sha
+R 13
+A 0-13 minecraft:sha|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:shar
+R 14
+A 0-14 minecraft:shar|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:sharp
+R 15
+A 0-15 minecraft:sharp|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 16
+A 0-16 minecraft:sharpn|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 17
+A 0-17 minecraft:sharpne|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 18
+A 0-18 minecraft:sharpnes|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:f
+R 11
+A 0-11 minecraft:f|resource minecraft:worldgen/structure
+E ok
+S 0-11 1 -418349282 minecraft:fortress
+@ all minecraft:fo
+R 12
+A 0-12 minecraft:fo|resource minecraft:worldgen/structure
+E ok
+S 0-12 1 -418349282 minecraft:fortress
+@ all minecraft:for
+R 13
+A 0-13 minecraft:for|resource minecraft:worldgen/structure
+E ok
+S 0-13 1 -418349282 minecraft:fortress
+@ all minecraft:fort
+R 14
+A 0-14 minecraft:fort|resource minecraft:worldgen/structure
+E ok
+S 0-14 1 -418349282 minecraft:fortress
+@ all minecraft:fortu
+R 15
+A 0-15 minecraft:fortu|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:fortun
+R 16
+A 0-16 minecraft:fortun|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:v
+R 11
+A 0-11 minecraft:v|resource minecraft:worldgen/structure
+E ok
+S 0-11 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:vi
+R 12
+A 0-12 minecraft:vi|resource minecraft:worldgen/structure
+E ok
+S 0-12 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:vil
+R 13
+A 0-13 minecraft:vil|resource minecraft:worldgen/structure
+E ok
+S 0-13 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:vill
+R 14
+A 0-14 minecraft:vill|resource minecraft:worldgen/structure
+E ok
+S 0-14 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:villa
+R 15
+A 0-15 minecraft:villa|resource minecraft:worldgen/structure
+E ok
+S 0-15 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:villag
+R 16
+A 0-16 minecraft:villag|resource minecraft:worldgen/structure
+E ok
+S 0-16 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:village
+R 17
+A 0-17 minecraft:village|resource minecraft:worldgen/structure
+E ok
+S 0-17 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:village_
+R 18
+A 0-18 minecraft:village_|resource minecraft:worldgen/structure
+E ok
+S 0-18 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:village_p
+R 19
+A 0-19 minecraft:village_p|resource minecraft:worldgen/structure
+E ok
+S 0-19 1 366461152 minecraft:village_plains
+@ all minecraft:village_pl
+R 20
+A 0-20 minecraft:village_pl|resource minecraft:worldgen/structure
+E ok
+S 0-20 1 366461152 minecraft:village_plains
+@ all minecraft:village_pla
+R 21
+A 0-21 minecraft:village_pla|resource minecraft:worldgen/structure
+E ok
+S 0-21 1 366461152 minecraft:village_plains
+@ all minecraft:village_plai
+R 22
+A 0-22 minecraft:village_plai|resource minecraft:worldgen/structure
+E ok
+S 0-22 1 366461152 minecraft:village_plains
+@ all minecraft:village_plain
+R 23
+A 0-23 minecraft:village_plain|resource minecraft:worldgen/structure
+E ok
+S 0-23 1 366461152 minecraft:village_plains
+@ all minecraft:m
+R 11
+A 0-11 minecraft:m|resource minecraft:worldgen/structure
+E ok
+S 0-11 4 603236941 minecraft:mansion	minecraft:mineshaft	minecraft:mineshaft_mesa	minecraft:monument
+@ all minecraft:mi
+R 12
+A 0-12 minecraft:mi|resource minecraft:worldgen/structure
+E ok
+S 0-12 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:min
+R 13
+A 0-13 minecraft:min|resource minecraft:worldgen/structure
+E ok
+S 0-13 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:mine
+R 14
+A 0-14 minecraft:mine|resource minecraft:worldgen/structure
+E ok
+S 0-14 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:mines
+R 15
+A 0-15 minecraft:mines|resource minecraft:worldgen/structure
+E ok
+S 0-15 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:minesh
+R 16
+A 0-16 minecraft:minesh|resource minecraft:worldgen/structure
+E ok
+S 0-16 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:minesha
+R 17
+A 0-17 minecraft:minesha|resource minecraft:worldgen/structure
+E ok
+S 0-17 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:mineshaf
+R 18
+A 0-18 minecraft:mineshaf|resource minecraft:worldgen/structure
+E ok
+S 0-18 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:a
+R 11
+A 0-11 minecraft:a|resource minecraft:worldgen/structure
+E ok
+S 0-11 19 -2052960456 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_old_growth_pine_taiga	minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:abandoned_camp_pale_garden	minecraft:abandoned_camp_savanna	minecraft:abandoned_camp_snowy_taiga	minecraft:abandoned_camp_sparse_jungle	minecraft:abandoned_camp_swamp	minecraft:abandoned_camp_taiga	minecraft:abandoned_camp_windswept_forest	minecraft:abandoned_camp_wooded_badlands	minecraft:ancient_city
+@ all minecraft:an
+R 12
+A 0-12 minecraft:an|resource minecraft:worldgen/structure
+E ok
+S 0-12 1 753706154 minecraft:ancient_city
+@ all minecraft:anc
+R 13
+A 0-13 minecraft:anc|resource minecraft:worldgen/structure
+E ok
+S 0-13 1 753706154 minecraft:ancient_city
+@ all minecraft:anci
+R 14
+A 0-14 minecraft:anci|resource minecraft:worldgen/structure
+E ok
+S 0-14 1 753706154 minecraft:ancient_city
+@ all minecraft:ancie
+R 15
+A 0-15 minecraft:ancie|resource minecraft:worldgen/structure
+E ok
+S 0-15 1 753706154 minecraft:ancient_city
+@ all minecraft:ancien
+R 16
+A 0-16 minecraft:ancien|resource minecraft:worldgen/structure
+E ok
+S 0-16 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient
+R 17
+A 0-17 minecraft:ancient|resource minecraft:worldgen/structure
+E ok
+S 0-17 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_
+R 18
+A 0-18 minecraft:ancient_|resource minecraft:worldgen/structure
+E ok
+S 0-18 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_c
+R 19
+A 0-19 minecraft:ancient_c|resource minecraft:worldgen/structure
+E ok
+S 0-19 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_ci
+R 20
+A 0-20 minecraft:ancient_ci|resource minecraft:worldgen/structure
+E ok
+S 0-20 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_cit
+R 21
+A 0-21 minecraft:ancient_cit|resource minecraft:worldgen/structure
+E ok
+S 0-21 1 753706154 minecraft:ancient_city
+@ all f
+R 1
+A 0-1 minecraft:f|resource minecraft:worldgen/structure
+E ok
+S 0-1 8 724407138 minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_windswept_forest	minecraft:fortress	minecraft:nether_fossil
+@ all fo
+R 2
+A 0-2 minecraft:fo|resource minecraft:worldgen/structure
+E ok
+S 0-2 8 724407138 minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_windswept_forest	minecraft:fortress	minecraft:nether_fossil
+@ all foo
+R 3
+A 0-3 minecraft:foo|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all foo:
+R 4
+A 0-4 foo:|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all foo:b
+R 5
+A 0-5 foo:b|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all foo:ba
+R 6
+A 0-6 foo:ba|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 12
+A 0-12 minecraft:ar|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:arm
+R 13
+A 0-13 minecraft:arm|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:armo
+R 14
+A 0-14 minecraft:armo|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:ma
+R 12
+A 0-12 minecraft:ma|resource minecraft:worldgen/structure
+E ok
+S 0-12 1 1169447431 minecraft:mansion
+@ all minecraft:max
+R 13
+A 0-13 minecraft:max|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_
+R 14
+A 0-14 minecraft:max_|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_h
+R 15
+A 0-15 minecraft:max_h|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_he
+R 16
+A 0-16 minecraft:max_he|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 17
+A 0-17 minecraft:max_hea|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 18
+A 0-18 minecraft:max_heal|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 19
+A 0-19 minecraft:max_healt|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:g
+R 11
+A 0-11 minecraft:g|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:ge
+R 12
+A 0-12 minecraft:ge|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:gen
+R 13
+A 0-13 minecraft:gen|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:gene
+R 14
+A 0-14 minecraft:gene|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:gener
+R 15
+A 0-15 minecraft:gener|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generi
+R 16
+A 0-16 minecraft:generi|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic
+R 17
+A 0-17 minecraft:generic|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.
+R 18
+A 0-18 minecraft:generic.|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 19
+A 0-19 minecraft:generic.m|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 20
+A 0-20 minecraft:generic.ma|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 21
+A 0-21 minecraft:generic.max|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 22
+A 0-22 minecraft:generic.max_|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 23
+A 0-23 minecraft:generic.max_h|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 24
+A 0-24 minecraft:generic.max_he|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 25
+A 0-25 minecraft:generic.max_hea|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 26
+A 0-26 minecraft:generic.max_heal|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 27
+A 0-27 minecraft:generic.max_healt|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all Zminecraft:nope:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all layer
+R 5
+A 0-5 minecraft:layer|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:~ineyhaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all <
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all MBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all İinecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:genericcmax_health
+R 28
+A 0-28 minecraft:genericcmax_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all noBe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t no<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t no<--[HERE]@2
+S -2--2 0 0 
+@ all minecrft:mineshaft)
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 20: ...:mineshaft<--[HERE]@18
+E Expected whitespace to end one argument, but found trailing data at position 20: ...:mineshaft<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:max_healthah
+R 22
+A 0-22 minecraft:max_healthah|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraf:
+R 9
+A 0-9 minecraf:|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all mfinecrafİt:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... mfinecraf<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... mfinecraf<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:mines5haft
+R 20
+A 0-20 minecraft:mines5haft|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healYh
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 20: ...t:max_heal<--[HERE]@18
+E Expected whitespace to end one argument, but found trailing data at position 20: ...t:max_heal<--[HERE]@18
+S -2--2 0 0 
+@ all minecraf:armor
+R 14
+A 0-14 minecraf:armor|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all raft:zombie
+R 11
+A 0-11 raft:zombie|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:g'neric.max_healthg
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:g<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:g<--[HERE]@11
+S -2--2 0 0 
+@ all bar
+R 3
+A 0-3 minecraft:bar|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all miecraft:mineshaftt
+R 19
+A 0-19 miecraft:mineshaftt|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ZOMBIEE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all r
+R 1
+A 0-1 minecraft:r|resource minecraft:worldgen/structure
+E ok
+S 0-1 11 1147094296 minecraft:bastion_remnant	minecraft:ocean_ruin_cold	minecraft:ocean_ruin_warm	minecraft:ruined_portal	minecraft:ruined_portal_desert	minecraft:ruined_portal_jungle	minecraft:ruined_portal_mountain	minecraft:ruined_portal_nether	minecraft:ruined_portal_ocean	minecraft:ruined_portal_swamp	minecraft:trail_ruins
+@ all minecraft:minesaft
+R 18
+A 0-18 minecraft:minesaft|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ZOİBIEE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel-etons
+R 21
+A 0-21 #minecraft:skel-etons|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all ZOMB+,
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all }inecraft:ancien_city
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:nopen
+R 15
+A 0-15 minecraft:nopen|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -ons
+R 4
+A 0-4 minecraft:-ons|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all _health
+R 7
+A 0-7 minecraft:_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:zombiem
+R 17
+A 0-17 minecraft:zombiem|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all t
+R 1
+A 0-1 minecraft:t|resource minecraft:worldgen/structure
+E ok
+S 0-1 8 -342203209 minecraft:abandoned_camp_old_growth_pine_taiga	minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:abandoned_camp_snowy_taiga	minecraft:abandoned_camp_taiga	minecraft:buried_treasure	minecraft:trail_ruins	minecraft:trial_chambers	minecraft:village_taiga
+@ all zombiem
+R 7
+A 0-7 minecraft:zombiem|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all bie
+R 3
+A 0-3 minecraft:bie|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:minesha]t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 19: ...ft:minesha<--[HERE]@17
+E Expected whitespace to end one argument, but found trailing data at position 19: ...ft:minesha<--[HERE]@17
+S -2--2 0 0 
+@ all nt_city
+R 7
+A 0-7 minecraft:nt_city|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minecaft:skeletons
+R 19
+A 0-19 #minecaft:skeletons|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all minecraft:n<pe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:n<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:n<--[HERE]@11
+S -2--2 0 0 
+@ all mi2ecraft:zombie
+R 16
+A 0-16 mi2ecraft:zombie|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #inecraft:nopei
+R 15
+A 0-15 #inecraft:nopei|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all 4zombi
+R 6
+A 0-6 minecraft:4zombi|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pains
+R 23
+A 0-23 minecraft:village_pains|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:zombief
+R 17
+A 0-17 minecraft:zombief|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all zombieii
+R 8
+A 0-8 minecraft:zombieii|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #mi7ecraft:nopen
+R 16
+A 0-16 #mi7ecraft:nopen|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all minecraft:X
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all mine😀raft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:rmorm
+R 15
+A 0-15 minecraft:rmorm|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ^minecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #'inecraft:noper
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all #minecrat:nope
+R 14
+A 0-14 #minecrat:nope|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all raft:speed
+R 10
+A 0-10 raft:speed|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ]incraft:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :generic.max_health
+R 19
+A 0-19 minecraft:generic.max_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:plyer
+R 15
+A 0-15 minecraft:plyer|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healthi
+R 29
+A 0-29 minecraft:generic.max_healthi|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all aftt
+R 4
+A 0-4 minecraft:aftt|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecrz~aft:max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t minecrz<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t minecrz<--[HERE]@7
+S -2--2 0 0 
+@ all BIEZ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombiero
+R 18
+A 0-18 minecraft:zombiero|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plcins
+R 24
+A 0-24 minecraft:village_plcins|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all inecraft:generic.max_health
+R 27
+A 0-27 inecraft:generic.max_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_ci2yc
+R 23
+A 0-23 minecraft:ancient_ci2yc|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healt中hm
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 29: ....max_healt<--[HERE]@27
+E Expected whitespace to end one argument, but found trailing data at position 29: ....max_healt<--[HERE]@27
+S -2--2 0 0 
+@ all tarmor
+R 6
+A 0-6 minecraft:tarmor|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaftma
+R 21
+A 0-21 minecraft:mineshaftma|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all 😀inecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ortune
+R 6
+A 0-6 minecraft:ortune|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all aft:speedd
+R 10
+A 0-10 aft:speedd|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minecraft:ske~etons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...ecraft:ske<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...ecraft:ske<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:%nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+S -2--2 0 0 
+@ all ZOM\u000aIEE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi.necraft:skeletons>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 23: ...:skeletons<--[HERE]@21
+E Expected whitespace to end one argument, but found trailing data at position 23: ...:skeletons<--[HERE]@21
+S -2--2 0 0 
+@ all foo:br
+R 6
+A 0-6 foo:br|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecaf:nope
+R 12
+A 0-12 minecaf:nope|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all mine(ra*t:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all #minecrafd: ope
+R 12
+A 0-11 #minecrafd:|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E Incorrect argument for command at position 14: ...inecrafd: <--[HERE]@12
+S -2--2 0 0 
+@ all mineraft:player
+R 15
+A 0-15 mineraft:player|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ménexcraft:sharpness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all ZbMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all inecraft:sharp\u0009ness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...raft:sharp<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...raft:sharp<--[HERE]@14
+S -2--2 0 0 
+@ all un\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t un<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t un<--[HERE]@2
+S -2--2 0 0 
+@ all OMBIEO
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mineshaftmn
+R 21
+A 0-21 minecraft:mineshaftmn|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ed
+R 2
+A 0-2 minecraft:ed|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:generic_.max_healthm
+R 30
+A 0-30 minecraft:generic_.max_healthm|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecéaft:ortune
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all minecraf$:playera
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all :skeletons
+R 10
+A 0-10 minecraft:skeletons|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all ​inecraft:playeri
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec7aft:zombie
+R 16
+A 0-16 minec7aft:zombie|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnessr
+R 20
+A 0-20 minecraft:sharpnessr|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all zo@mbie@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all minecraftsharp:ess
+R 18
+A 0-18 minecraftsharp:ess|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minecr<aft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t #minecr<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t #minecr<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:shaness
+R 17
+A 0-17 minecraft:shaness|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeletones
+R 21
+A 0-21 #minecraft:skeletones|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all ZOMBE*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeletonsn
+R 21
+A 0-21 #minecraft:skeletonsn|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all minecraf:fortune
+R 16
+A 0-16 minecraf:fortune|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minecraft:(seletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+S -2--2 0 0 
+@ all minecrZft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:armoro
+R 16
+A 0-16 minecraft:armoro|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecrZaft:max_healthh
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all :<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t :<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all OMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraftsharpness
+R 18
+A 0-18 minecraft:minecraftsharpness|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecrat:nope
+R 13
+A 0-13 minecrat:nope|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all e
+R 1
+A 0-1 minecraft:e|resource minecraft:worldgen/structure
+E ok
+S 0-1 1 -508799475 minecraft:end_city
+@ all minecrat)
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecrat<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecrat<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:layer
+R 15
+A 0-15 minecraft:layer|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeletonsa
+R 21
+A 0-21 #minecraft:skeletonsa|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all ​zobie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr*aft:player
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all ZOBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mor
+R 3
+A 0-3 minecraft:mor|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all mineczraft:m
+R 12
+A 0-12 mineczraft:m|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:nopee
+R 15
+A 0-15 minecraft:nopee|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all z@mbie3
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minec#raft:mineshafta
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all -#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all t:mineshaYt
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... t:minesha<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... t:minesha<--[HERE]@9
+S -2--2 0 0 
+@ all zobie
+R 5
+A 0-5 minecraft:zobie|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all mineraft:minshaft
+R 17
+A 0-17 mineraft:minshaft|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecr4aft:fortune
+R 18
+A 0-18 minecr4aft:fortune|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #mi2necrayt:nope
+R 16
+A 0-16 #mi2necrayt:nope|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all Y
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrBaft:fortune
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all :bar
+R 4
+A 0-4 minecraft:bar|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minec]aft:skeletans
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t #minec<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t #minec<--[HERE]@6
+S -2--2 0 0 
+@ all minec0raft:
+R 11
+A 0-11 minec0raft:|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeletonse
+R 21
+A 0-21 #minecraft:skeletonse|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all minecraft:fortne
+R 16
+A 0-16 minecraft:fortne|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all #}inecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all illage_plains
+R 13
+A 0-13 minecraft:illage_plains|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all 8
+R 1
+A 0-1 minecraft:8|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecrat:max_health
+R 19
+A 0-19 minecrat:max_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:ancbient_citye
+R 24
+A 0-24 minecraft:ancbient_citye|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all lth
+R 3
+A 0-3 minecraft:lth|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all d\u000a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all #minecraft:seleto9s
+R 19
+A 0-19 #minecraft:seleto9s|tag ResourceKey[minecraft:root / minecraft:worldgen/structure]
+E ok
+S -2--2 0 0 
+@ all minec\u000aaft:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all miecraft:generic.ma_health
+R 26
+A 0-26 miecraft:generic.ma_health|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all o
+R 1
+A 0-1 minecraft:o|resource minecraft:worldgen/structure
+E ok
+S 0-1 7 -1798423860 minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_old_growth_pine_taiga	minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:ocean_ruin_cold	minecraft:ocean_ruin_warm	minecraft:pillager_outpost	minecraft:ruined_portal_ocean
+@ all minecraft:village_plain!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 25: ...lage_plain<--[HERE]@23
+E Expected whitespace to end one argument, but found trailing data at position 25: ...lage_plain<--[HERE]@23
+S -2--2 0 0 
+@ all anciet_city
+R 11
+A 0-11 minecraft:anciet_city|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all mineraft:mineshafd
+R 18
+A 0-18 mineraft:mineshafd|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all e<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all raft:Zspeed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t raft:<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t raft:<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:village_plains:n
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zom%bie​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t zom<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all h
+R 1
+A 0-1 minecraft:h|resource minecraft:worldgen/structure
+E ok
+S 0-1 1 -1462052914 minecraft:swamp_hut
+@ all eed
+R 3
+A 0-3 minecraft:eed|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:zombiez
+R 17
+A 0-17 minecraft:zombiez|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healt[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 21: ...:max_healt<--[HERE]@19
+E Expected whitespace to end one argument, but found trailing data at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all minecraftgeneric.max_healthl
+R 28
+A 0-28 minecraft:minecraftgeneric.max_healthl|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minCcraft:armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all raft:village_plains
+R 19
+A 0-19 raft:village_plains|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all mincraft:sharpnesse
+R 19
+A 0-19 mincraft:sharpnesse|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecr5ft:villag_plains
+R 23
+A 0-23 minecr5ft:villag_plains|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecraft~nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:vllage_plains
+R 23
+A 0-23 minecraft:vllage_plains|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all minecratnope
+R 12
+A 0-12 minecraft:minecratnope|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 
+@ all raft:nopee
+R 10
+A 0-10 raft:nopee|resource minecraft:worldgen/structure
+E ok
+S -2--2 0 0 

@@ -106,7 +106,137 @@ final class ArgsSpecs {
       });
    }
 
+
+   // ------------------------------------------------------------------------------------------------ registry arguments
+
+   static String refId(Object o) {
+      return ((net.minecraft.core.Holder.Reference<?>) o).key().identifier().toString();
+   }
+
+   static String hash(java.util.List<String> ids) {
+      return ids.size() + ":" + String.join(",", ids.subList(0, Math.min(5, ids.size()))) + ":" + String.join("\t", ids).hashCode();
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   static void registerRegistries() {
+      String[] ITEM = {"minecraft:stone", "stone", "minecraft:Stone", "minecraft:", ":stone", "minecraft:diamond_sword", "diamond", "minecraft:nope", "foo:bar", "minecraft:stone ", "#minecraft:logs", "minecraft:stick", "minecraft:oak_log",
+         "a b", "m\u00e9", "minecraft:\u00e9", "minecraft:s", "sto", "minecraft:dia", "_", "minecraft:white_wool", "wool", "minecraft:/", "minecraft:a/b", "minecraft:air", "#", "#minecraft:", "#minecraft:nope", "#foo", "#minecraft:planks", "#minecraft:Logs"};
+      String[] BLOCK = {"minecraft:stone", "oak_planks", "minecraft:grass_block", "minecraft:water", "minecraft:fire", "#minecraft:logs", "#minecraft:mineable/pickaxe", "#minecraft:leaves", "#minecraft:nope", "minecraft:nope", "minecraft:", "", "#", "minecraft:air", "lava", "foo:stone", "minecraft:oak_s", "#minecraft:mineable/", "minecraft:stone[", "#minecraft:logs "};
+      String[] BIOME = {"minecraft:plains", "plains", "minecraft:the_void", "minecraft:desert", "#minecraft:is_forest", "#minecraft:is_overworld", "#minecraft:is_nether", "#minecraft:nope", "minecraft:nope", "minecraft:", "#minecraft:", "", "#", "minecraft:old_growth_pine_taiga", "badlands", "minecraft:cherry_grove", "forest", "minecraft:Plains", "minecraft:plains ", "#minecraft:has_structure/village_plains"};
+      String[] OTHER = {"minecraft:zombie", "zombie", "minecraft:player", "minecraft:nope", "minecraft:", "", "#minecraft:skeletons", "#minecraft:nope", "minecraft:speed", "minecraft:sharpness", "minecraft:fortune", "minecraft:village_plains", "minecraft:mineshaft", "minecraft:ancient_city", "foo:bar", "ZOMBIE", "minecraft:armor", "minecraft:max_health", "minecraft:generic.max_health"};
+      var reg = new java.util.LinkedHashMap<String, net.minecraft.resources.ResourceKey>();
+      reg.put("item", net.minecraft.core.registries.Registries.ITEM);
+      reg.put("block", net.minecraft.core.registries.Registries.BLOCK);
+      reg.put("entity_type", net.minecraft.core.registries.Registries.ENTITY_TYPE);
+      reg.put("mob_effect", net.minecraft.core.registries.Registries.MOB_EFFECT);
+      reg.put("biome", net.minecraft.core.registries.Registries.BIOME);
+      reg.put("enchantment", net.minecraft.core.registries.Registries.ENCHANTMENT);
+      reg.put("structure", net.minecraft.core.registries.Registries.STRUCTURE);
+      reg.put("attribute", net.minecraft.core.registries.Registries.ATTRIBUTE);
+      java.util.function.Function<String, String[]> seedsOf = r -> switch (r) {
+         case "item" -> ITEM; case "block" -> BLOCK; case "biome" -> BIOME; default -> OTHER; };
+      for (var e : reg.entrySet()) {
+         String r = e.getKey();
+         var key = e.getValue();
+         add("resource_" + r, () -> ResourceArgument.resource(ArgsGolden.ctx, key), ArgsSpecs::refId, seedsOf.apply(r));
+         add("resource_key_" + r, () -> ResourceKeyArgument.key(key), v -> {
+            var k = (net.minecraft.resources.ResourceKey<?>) v;
+            return k.registry() + "|" + k.identifier();
+         }, seedsOf.apply(r));
+         add("resource_or_tag_" + r, () -> ResourceOrTagArgument.resourceOrTag(ArgsGolden.ctx, key), v -> {
+            var res = (ResourceOrTagArgument.Result<?>) v;
+            var u = res.unwrap();
+            return res.asPrintable() + "|" + u.map(h -> "resource " + h.key().registry(), t -> "tag " + t.key().registry() + " n=" + t.size());
+         }, seedsOf.apply(r));
+         add("resource_or_tag_key_" + r, () -> ResourceOrTagKeyArgument.resourceOrTagKey(key), v -> {
+            var res = (ResourceOrTagKeyArgument.Result<?>) v;
+            return res.asPrintable() + "|" + res.unwrap().map(k -> "resource " + k.registry(), t -> "tag " + t.registry());
+         }, seedsOf.apply(r));
+         add("resource_selector_" + r, () -> ResourceSelectorArgument.resourceSelector(ArgsGolden.ctx, key), v -> {
+            var l = ((java.util.Collection<net.minecraft.core.Holder.Reference<?>>) v).stream().map(h -> h.key().identifier().toString()).toList();
+            return hash(l);
+         }, "*", "minecraft:*", "*:asset", "?", "stone", "minecraft:s*", "*_log", "*stone*", "minecraft:oak_*", "z*", "**", "*?", "minecraft:", ":*", "foo:*", "*:*", "minecraft:zombie*", "plains", "minecraft:?????", "*e", "a*b*c", "Stone", "*\u00e9", "# ", "*/*", "minecraft:*/*", "m*", "mine*", "*effect", "*sharp*", "*dirt*");
+      }
+   }
+
+
+   // ------------------------------------------------------------------------------------------------ entity selectors
+
+   static Object field(Object o, String name) {
+      try {
+         var f = o.getClass().getDeclaredField(name);
+         f.setAccessible(true);
+         return f.get(o);
+      } catch (ReflectiveOperationException e) {
+         throw new RuntimeException(e);
+      }
+   }
+
+   /** Rendering mirrored by `EntitySelector::describe` in Rust. */
+   static String selector(Object v) {
+      var sel = (net.minecraft.commands.arguments.selector.EntitySelector) v;
+      Object order = field(sel, "order");
+      String orderName = order == net.minecraft.commands.arguments.selector.EntitySelector.ORDER_ARBITRARY ? "arbitrary"
+         : order == net.minecraft.commands.arguments.selector.EntitySelectorParser.ORDER_NEAREST ? "nearest"
+         : order == net.minecraft.commands.arguments.selector.EntitySelectorParser.ORDER_FURTHEST ? "furthest"
+         : order == net.minecraft.commands.arguments.selector.EntitySelectorParser.ORDER_RANDOM ? "random" : "unknown";
+      @SuppressWarnings("unchecked")
+      var position = (java.util.function.Function<Vec3, Vec3>) field(sel, "position");
+      Vec3 moved = position.apply(new Vec3(10.5, 20.25, 30.125));
+      var range = (net.minecraft.advancements.predicates.MinMaxBounds.Doubles) field(sel, "range");
+      var aabb = (net.minecraft.world.phys.AABB) field(sel, "aabb");
+      Object type = field(sel, "type");
+      String typeName = type instanceof net.minecraft.world.entity.EntityType<?> t ? net.minecraft.world.entity.EntityType.getKey(t).toString() : "any";
+      return "max=" + sel.getMaxResults() + " ent=" + sel.includesEntities() + " wl=" + sel.isWorldLimited() + " us=" + sel.usesSelector() + " cur=" + sel.isSelfSelector()
+         + " name=" + field(sel, "playerName") + " uuid=" + field(sel, "entityUUID") + " type=" + typeName
+         + " range=" + (range == null ? "-" : bounds(range) + " sq=" + opt(range.boundsSqr().min()) + ".." + opt(range.boundsSqr().max()))
+         + " pos=" + moved.x + "," + moved.y + "," + moved.z
+         + " aabb=" + (aabb == null ? "-" : aabb.minX + "," + aabb.minY + "," + aabb.minZ + "," + aabb.maxX + "," + aabb.maxY + "," + aabb.maxZ)
+         + " order=" + orderName + " preds=" + ((java.util.List<?>) field(sel, "contextFreePredicates")).size();
+   }
+
+   static final String[] SELECTORS = {
+      "@e", "@a", "@p", "@r", "@s", "@n", "@x", "@", "@E", "@e ", "@e[", "@e[]", "@e[ ]", "@e[,]", "@e[type=zombie]", "@e[type=minecraft:zombie]", "@e[type=!zombie]", "@e[type=#minecraft:skeletons]", "@e[type=!#minecraft:skeletons]",
+      "@e[type=!#minecraft:skeletons,type=!zombie]", "@e[type=zombie,type=skeleton]", "@e[type=!zombie,type=zombie]", "@e[type=player]", "@e[type=!player]", "@e[type=foo]", "@e[type=#foo]", "@e[type=#]", "@e[type=]", "@e[type=minecraft:]", "@a[type=zombie]", "@a[type=player]", "@p[type=player]", "@r[type=zombie]",
+      "@s[type=zombie]", "@e[type=item]", "@e[type=!item]", "@e[type=marker]", "@e[type=ender_dragon]", "@e[type=Zombie]", "@e[type=zombie,]", "@e[type=zombie", "@e[type=zombie,type", "@e[type", "@e[=", "@e[=zombie]", "@e[type=zombie]]", "@e[type=zombie]x", "@e[type=zombie] ",
+      "@e[name=Foo]", "@e[name=!Foo]", "@e[name=\"Foo Bar\"]", "@e[name='Foo Bar']", "@e[name=Foo,name=Bar]", "@e[name=Foo,name=!Foo]", "@e[name=!Foo,name=!Bar]", "@e[name=!Foo,name=Foo]", "@e[name=]", "@e[name=!]", "@e[name=\"\"]", "@e[name=\u00e9]", "@e[name=\ud83d\ude00]",
+      "@e[distance=..5]", "@e[distance=5]", "@e[distance=1..2]", "@e[distance=-1]", "@e[distance=-1..]", "@e[distance=..-1]", "@e[distance=1..2,distance=3]", "@e[distance=5..1]", "@e[distance=a]", "@e[distance=]", "@e[distance=1.5..2.5]", "@e[distance=1e3]", "@e[distance=..]", "@e[distance=0]", "@e[distance=0..0]",
+      "@e[level=5]", "@e[level=..5]", "@e[level=1..]", "@e[level=-1]", "@e[level=1.5]", "@e[level=1,level=2]", "@a[level=3]", "@e[level=]", "@e[level=a]", "@e[level=5..1]", "@e[level=2147483647]", "@e[level=2147483648]",
+      "@e[x=1,y=2,z=3]", "@e[x=1]", "@e[y=2]", "@e[z=3]", "@e[x=~1]", "@e[x=1.5,x=2]", "@e[x=a]", "@e[x=]", "@e[x=1e3]", "@e[x=-0]", "@e[x=NaN]", "@e[y=1e400]", "@e[x=1,y=2,z=3,distance=..5]",
+      "@e[dx=1,dy=2,dz=3]", "@e[dx=1]", "@e[dy=1]", "@e[dz=1]", "@e[dx=-1.5,dy=0,dz=0]", "@e[dx=0]", "@e[dx=0,dy=0,dz=0]", "@e[dx=1,dx=2]", "@e[dx=a]", "@e[dx=]", "@e[x=1,y=2,z=3,dx=4,dy=5,dz=6]", "@e[dx=-0.0]", "@e[dx=1e400]",
+      "@e[x_rotation=..90]", "@e[x_rotation=-45..45]", "@e[x_rotation=5]", "@e[y_rotation=5]", "@e[y_rotation=-180..180]", "@e[y_rotation=1..2,y_rotation=3]", "@e[x_rotation=a]", "@e[x_rotation=]", "@e[x_rotation=5..1]", "@e[y_rotation=370]", "@e[x_rotation=..]",
+      "@e[scores={a=1}]", "@e[scores={a=1..2,b=..3}]", "@e[scores={}]", "@e[scores={a=}]", "@e[scores={a}]", "@e[scores={a=1}", "@e[scores={a=1,}]", "@e[scores={a=1,b=2}]", "@e[scores={a=1,a=2}]", "@e[scores=a]", "@e[scores=]", "@e[scores={=1}]", "@e[scores={a=1},scores={b=2}]",
+      "@e[scores={a=-1}]", "@e[scores={a=1.5}]", "@e[scores={a=..}]", "@e[scores={a=5..1}]", "@e[scores={a=1 }]", "@e[scores={ a=1 }]", "@e[scores={\u00e9=1}]", "@e[scores={Obj 1=1}]", "@e[scores={\"a b\"=1}]",
+      "@e[tag=foo]", "@e[tag=!foo]", "@e[tag=]", "@e[tag=!]", "@e[tag=foo,tag=bar]", "@e[tag=foo,tag=!bar]", "@e[tag=!foo,tag=foo]", "@e[tag=\"a b\"]", "@e[tag=\u00e9]", "@e[tag=a.b-c_d+e]", "@e[tag=foo,tag=foo]",
+      "@e[team=red]", "@e[team=!red]", "@e[team=]", "@e[team=!]", "@e[team=red,team=blue]", "@e[team=!red,team=!blue]", "@e[team=red,team=!blue]", "@e[team=!red,team=red]", "@e[team=\"Team Name!\"]", "@e[team=nope]",
+      "@e[sort=nearest]", "@e[sort=furthest]", "@e[sort=random]", "@e[sort=arbitrary]", "@e[sort=foo]", "@e[sort=]", "@e[sort=nearest,sort=furthest]", "@e[sort=Nearest]", "@a[sort=nearest]", "@p[sort=random]", "@r[sort=nearest]", "@s[sort=nearest]", "@n[sort=furthest]", "@e[sort=nea",
+      "@e[limit=1]", "@e[limit=0]", "@e[limit=-1]", "@e[limit=1,limit=2]", "@e[limit=a]", "@e[limit=]", "@e[limit=1.5]", "@e[limit=2147483647]", "@e[limit=2147483648]", "@p[limit=2]", "@r[limit=2]", "@s[limit=1]", "@s[limit=2]", "@a[limit=1]", "@n[limit=3]", "@e[limit=1e2]", "@e[limit=+1]",
+      "@e[gamemode=creative]", "@e[gamemode=!creative]", "@e[gamemode=foo]", "@e[gamemode=]", "@e[gamemode=survival,gamemode=creative]", "@e[gamemode=!survival,gamemode=!creative]", "@e[gamemode=survival,gamemode=!creative]", "@e[gamemode=!creative,gamemode=creative]", "@a[gamemode=spectator]", "@e[gamemode=adventure]", "@e[gamemode=Creative]",
+      "@e[nbt={a:1}]", "@e[nbt=!{a:1}]", "@e[nbt={}]", "@e[nbt={a:1},nbt={b:2}]", "@e[nbt={a:1},nbt=!{b:2}]", "@e[nbt=]", "@e[nbt=a]", "@e[nbt={a:}]", "@e[nbt={a:1]", "@e[nbt={a:{b:[1,2]}}]", "@e[nbt={Tags:[\"x\"]}]", "@e[nbt={a:'x]'}]", "@e[nbt=[]]", "@e[nbt=1]", "@e[nbt=!]",
+      "@e[advancements={minecraft:story/root=true}]", "@e[advancements={story/root=false}]", "@e[advancements={minecraft:story/root={a=true}}]", "@e[advancements={}]", "@e[advancements={a=}]", "@e[advancements={a=maybe}]", "@e[advancements={a=true,b=false}]", "@e[advancements={a={b=true,c=false}}]", "@e[advancements={a={}}]", "@e[advancements={a={b=}}]",
+      "@e[advancements={a=true},advancements={b=true}]", "@e[advancements=a]", "@e[advancements=]", "@e[advancements={a=true", "@e[advancements={a={b=true]", "@e[advancements={:=true}]", "@e[advancements={A=true}]",
+      "@e[predicate=foo:bar]", "@e[predicate=!foo:bar]", "@e[predicate=foo]", "@e[predicate=]", "@e[predicate=foo:bar,predicate=foo:baz]", "@e[predicate=!foo:bar,predicate=foo:bar]", "@e[predicate=Foo:Bar]", "@e[predicate=!]",
+      "@e[foo=1]", "@e[Type=zombie]", "@e[limit=1,foo=1]", "@e[ type=zombie]", "@e[type =zombie]", "@e[type= zombie]", "@e[type=zombie ]", "@e[ type = zombie ]", "@e[type=zombie, limit=1]", "@e[type=zombie ,limit=1]",
+      "@e[distance=..5,limit=1,sort=nearest]", "@a[gamemode=survival,distance=..10,limit=3]", "@e[type=!player,tag=boss,scores={hp=1..},team=!red,limit=5,sort=random,name=!X,level=1..,x_rotation=..0,y_rotation=0..,x=1,y=2,z=3,dx=4,dy=5,dz=6]",
+      "@e[x=1,y=2,z=3,dx=4,dy=5,dz=6,distance=1..]", "@p[x=1,y=2,z=3]", "@r[distance=..5]", "@e[limit=1,sort=furthest]", "@s[tag=a]", "@n", "@n[type=zombie]", "@n[limit=1]", "@n[sort=random]", "@e[sort=random,limit=1]",
+      "Steve", "Steve Jr", "012", "dd12be42-52a9-4a91-a8a1-11c01849e498", "DD12BE42-52A9-4A91-A8A1-11C01849E498", "dd12be42-52a9-4a91-a8a1-11c01849e49", "dd12be42-52a9-4a91-a8a1-11c01849e498x", "1-1-1-1-1", "\u00e9", "\ud83d\ude00", "A_B-c.d", "abcdefghijklmnopqrstuvwxyz0123456789", "a,b", "a[b]", "a=b", "x@y", "#", "~", "\"a\"",
+      "@e[type=zombie][limit=1]", "@e[limit=1][limit=1]", "@e[type=zombie],", "@e,", "@e@e", "@e[type=zombie]@e",
+   };
+
+   static void registerEntities() {
+      for (var e : new Object[][] {{"entity", (java.util.function.Supplier<ArgumentType<?>>) () -> EntityArgument.entity()}, {"entities", (java.util.function.Supplier<ArgumentType<?>>) () -> EntityArgument.entities()},
+         {"player", (java.util.function.Supplier<ArgumentType<?>>) () -> EntityArgument.player()}, {"players", (java.util.function.Supplier<ArgumentType<?>>) () -> EntityArgument.players()}}) {
+         @SuppressWarnings("unchecked")
+         var sup = (java.util.function.Supplier<ArgumentType<?>>) e[1];
+         var spec = new ArgsGolden.Spec("entity_" + e[0], sup, SELECTORS).render(ArgsSpecs::selector);
+         if (e[0].equals("entities")) spec.variants("all", "none").target(2200); else spec.noPrefixes().target(700);
+         ArgsGolden.add(spec);
+      }
+   }
+
    static void register() {
+      registerEntities();
+      registerRegistries();
       registerCoordinates();
       registerScoreboard();
       add("time", () -> TimeArgument.time(), Object::toString,

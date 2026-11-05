@@ -146,6 +146,38 @@ impl EntitySelector {
         self.uses_selector
     }
 
+    /// The parsed state as one line, in the format of the vanilla argument golden generator (`ArgsSpecs.selector`).
+    pub fn describe(&self) -> String {
+        use mc_core::math::java::java_double_to_string as d;
+        let show = |b: &crate::commands::arguments::min_max_bounds::Bounds<f64>| {
+            format!("{}..{}", b.min.map_or("-".to_owned(), d), b.max.map_or("-".to_owned(), d))
+        };
+        let moved = self.position(Vec3::new(10.5, 20.25, 30.125));
+        format!(
+            "max={} ent={} wl={} us={} cur={} name={} uuid={} type={} range={} pos={},{},{} aabb={} order={} preds={}",
+            self.max_results,
+            self.includes_entities,
+            self.world_limited,
+            self.uses_selector,
+            self.current_entity,
+            self.player_name.as_deref().unwrap_or("null"),
+            self.entity_uuid.map_or("null".to_owned(), |u| u.to_string()),
+            self.entity_type.map_or("any", |t| t.name()),
+            self.range.map_or("-".to_owned(), |r| format!("{} sq={}", show(&r.bounds), show(&r.bounds_sqr))),
+            d(moved.x),
+            d(moved.y),
+            d(moved.z),
+            self.aabb.map_or("-".to_owned(), |b| [b.min_x, b.min_y, b.min_z, b.max_x, b.max_y, b.max_z].map(d).join(",")),
+            match self.order {
+                Order::Arbitrary => "arbitrary",
+                Order::Nearest => "nearest",
+                Order::Furthest => "furthest",
+                Order::Random => "random",
+            },
+            self.context_free_predicates.len()
+        )
+    }
+
     fn check_permissions(&self, sender: &CommandSourceStack) -> Result<(), CommandSyntaxException> {
         if self.uses_selector && !sender.permissions().has_permission(&permissions::COMMANDS_ENTITY_SELECTORS) {
             return Err(ERROR_SELECTORS_NOT_ALLOWED.create());

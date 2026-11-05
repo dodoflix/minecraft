@@ -1,0 +1,4135 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-2 1 2830 [
+@ all @a
+R 2
+A 0-2 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S 2-2 1 2830 [
+@ all @p
+R 2
+A 0-2 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=0
+E ok
+S 2-2 1 2830 [
+@ all @r
+R 2
+A 0-2 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=random preds=0
+E ok
+S 2-2 1 2830 [
+@ all @s
+R 2
+A 0-2 max=1 ent=true wl=false us=true cur=true name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S 2-2 1 2830 [
+@ all @n
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-2 1 2830 [
+@ all @x
+R 0
+A -
+X Unknown selector type '@x' at position 3: t @<--[HERE]@1
+E Unknown selector type '@x' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @
+R 0
+A -
+X Missing selector type at position 3: t @<--[HERE]@1
+E Missing selector type at position 3: t @<--[HERE]@1
+S 0-1 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @E
+R 0
+A -
+X Unknown selector type '@E' at position 3: t @<--[HERE]@1
+E Unknown selector type '@E' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e 
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-3 1 2830 [
+@ all @e[
+R 0
+A -
+X Expected end of options at position 5: t @e[<--[HERE]@3
+E Expected end of options at position 5: t @e[<--[HERE]@3
+S 3-3 21 1629532605 advancements=Players with advancements	distance=Distance to entity	dx=Entities between x and x + dx	dy=Entities between y and y + dy	dz=Entities between z and z + dz	gamemode=Players with game mode	level=Experience level	limit=Maximum number of entities to return	name=Entity name	nbt=Entities with NBT	predicate=Custom predicate	scores=Entities with scores	sort=Sort the entities	tag=Entities with tag	team=Entities on team	type=Entities of type	x=x position	x_rotation=Entity's x rotation	y=y position	y_rotation=Entity's y rotation	z=z position
+@ all @e[]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[ ]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[,]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=minecraft:zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=#minecraft:skeletons]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!#minecraft:skeletons]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!#minecraft:skeletons,type=!zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie,type=skeleton]
+R 0
+A -
+X Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+E Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[type=!zombie,type=zombie]
+R 0
+A -
+X Option 'type' isn't applicable here at position 23: ...mbie,type=<--[HERE]@21
+E Option 'type' isn't applicable here at position 23: ...mbie,type=<--[HERE]@21
+S -2--2 0 0 
+@ all @e[type=player]
+R 15
+A 0-15 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[type=!player]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=foo]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:foo' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:foo' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=#foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=#]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=minecraft:]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @a[type=zombie]
+R 15
+A 0-15 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:zombie range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @a[type=player]
+R 15
+A 0-15 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @p[type=player]
+R 15
+A 0-15 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=1
+E ok
+S -2--2 0 0 
+@ all @r[type=zombie]
+R 15
+A 0-15 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:zombie range=- pos=10.5,20.25,30.125 aabb=- order=random preds=1
+E ok
+S -2--2 0 0 
+@ all @s[type=zombie]
+R 15
+A 0-15 max=1 ent=true wl=false us=true cur=true name=null uuid=null type=minecraft:zombie range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @e[type=item]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!item]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=marker]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=ender_dragon]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=Zombie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=zombie,]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie
+R 0
+A -
+X Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+E Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+S 14-14 2 1322345 ,	]
+@ all @e[type=zombie,type
+R 0
+A -
+X Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+E Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[type
+R 0
+A -
+X Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+S 3-7 1 -2146480761 type=Entities of type
+@ all @e[=
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[=zombie]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=zombie]]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie]x
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie] 
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=Foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=!Foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name="Foo Bar"]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name='Foo Bar']
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=Foo,name=Bar]
+R 0
+A -
+X Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+E Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[name=Foo,name=!Foo]
+R 0
+A -
+X Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+E Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[name=!Foo,name=!Bar]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=!Foo,name=Foo]
+R 0
+A -
+X Option 'name' isn't applicable here at position 20: ...!Foo,name=<--[HERE]@18
+E Option 'name' isn't applicable here at position 20: ...!Foo,name=<--[HERE]@18
+S -2--2 0 0 
+@ all @e[name=]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=!]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=""]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=é]
+R 0
+A -
+X Expected end of options at position 10: t @e[name=<--[HERE]@8
+E Expected end of options at position 10: t @e[name=<--[HERE]@8
+S 8-10 2 1322345 ,	]
+@ all @e[name=😀]
+R 0
+A -
+X Expected end of options at position 10: t @e[name=<--[HERE]@8
+E Expected end of options at position 10: t @e[name=<--[HERE]@8
+S 8-11 2 1322345 ,	]
+@ all @e[distance=..5]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=5]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=1..2]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=-1]
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=-1..]
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=..-1]
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=1..2,distance=3]
+R 0
+A -
+X Option 'distance' isn't applicable here at position 19: ...ance=1..2,<--[HERE]@17
+E Option 'distance' isn't applicable here at position 19: ...ance=1..2,<--[HERE]@17
+S -2--2 0 0 
+@ all @e[distance=5..1]
+R 0
+A -
+X Min cannot be bigger than max at position 14: ...[distance=<--[HERE]@12
+E Min cannot be bigger than max at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=a]
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=]
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=1.5..2.5]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=1e3]
+R 0
+A -
+X Expected end of options at position 15: ...distance=1<--[HERE]@13
+E Expected end of options at position 15: ...distance=1<--[HERE]@13
+S 13-16 2 1322345 ,	]
+@ all @e[distance=..]
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=0]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=0..0]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=5]
+R 11
+A 0-11 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[level=..5]
+R 13
+A 0-13 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[level=1..]
+R 13
+A 0-13 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[level=-1]
+R 0
+A -
+X Level shouldn't be negative at position 11: ... @e[level=<--[HERE]@9
+E Level shouldn't be negative at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=1.5]
+R 0
+A -
+X Invalid integer '1.5' at position 11: ... @e[level=<--[HERE]@9
+E Invalid integer '1.5' at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=1,level=2]
+R 0
+A -
+X Option 'level' isn't applicable here at position 13: ...e[level=1,<--[HERE]@11
+E Option 'level' isn't applicable here at position 13: ...e[level=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @a[level=3]
+R 11
+A 0-11 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @e[level=]
+R 0
+A -
+X Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+E Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=a]
+R 0
+A -
+X Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+E Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=5..1]
+R 0
+A -
+X Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+E Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=2147483647]
+R 20
+A 0-20 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[level=2147483648]
+R 0
+A -
+X Invalid integer '2147483648' at position 11: ... @e[level=<--[HERE]@9
+E Invalid integer '2147483648' at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y=2]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[z=3]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x=~1]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[x=1.5,x=2]
+R 0
+A -
+X Option 'x' isn't applicable here at position 11: ... @e[x=1.5,<--[HERE]@9
+E Option 'x' isn't applicable here at position 11: ... @e[x=1.5,<--[HERE]@9
+S -2--2 0 0 
+@ all @e[x=a]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[x=]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[x=1e3]
+R 0
+A -
+X Expected end of options at position 8: t @e[x=1<--[HERE]@6
+E Expected end of options at position 8: t @e[x=1<--[HERE]@6
+S 6-9 2 1322345 ,	]
+@ all @e[x=-0]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x=NaN]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[y=1e400]
+R 0
+A -
+X Expected end of options at position 8: t @e[y=1<--[HERE]@6
+E Expected end of options at position 8: t @e[y=1<--[HERE]@6
+S 6-11 2 1322345 ,	]
+@ all @e[x=1,y=2,z=3,distance=..5]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1,dy=2,dz=3]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dy=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dz=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=-1.5,dy=0,dz=0]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=0]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=0,dy=0,dz=0]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1,dx=2]
+R 0
+A -
+X Option 'dx' isn't applicable here at position 10: t @e[dx=1,<--[HERE]@8
+E Option 'dx' isn't applicable here at position 10: t @e[dx=1,<--[HERE]@8
+S -2--2 0 0 
+@ all @e[dx=a]
+R 0
+A -
+X Expected double at position 8: t @e[dx=<--[HERE]@6
+E Expected double at position 8: t @e[dx=<--[HERE]@6
+S -2--2 0 0 
+@ all @e[dx=]
+R 0
+A -
+X Expected double at position 8: t @e[dx=<--[HERE]@6
+E Expected double at position 8: t @e[dx=<--[HERE]@6
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,dx=4,dy=5,dz=6]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=-0.0]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1e400]
+R 0
+A -
+X Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+E Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+S 7-12 2 1322345 ,	]
+@ all @e[x_rotation=..90]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x_rotation=-45..45]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x_rotation=5]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=5]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=-180..180]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=1..2,y_rotation=3]
+R 0
+A -
+X Option 'y_rotation' isn't applicable here at position 21: ...tion=1..2,<--[HERE]@19
+E Option 'y_rotation' isn't applicable here at position 21: ...tion=1..2,<--[HERE]@19
+S -2--2 0 0 
+@ all @e[x_rotation=a]
+R 0
+A -
+X Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+E Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+S -2--2 0 0 
+@ all @e[x_rotation=]
+R 0
+A -
+X Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+E Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+S -2--2 0 0 
+@ all @e[x_rotation=5..1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=370]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x_rotation=..]
+R 0
+A -
+X Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+E Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+S -2--2 0 0 
+@ all @e[scores={a=1}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1..2,b=..3}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=}]
+R 0
+A -
+X Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+E Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a}]
+R 0
+A -
+X Expected '=' at position 14: ...[scores={a<--[HERE]@12
+E Expected '=' at position 14: ...[scores={a<--[HERE]@12
+S -2--2 0 0 
+@ all @e[scores={a=1}
+R 0
+A -
+X Expected end of options at position 17: ...ores={a=1}<--[HERE]@15
+E Expected end of options at position 17: ...ores={a=1}<--[HERE]@15
+S 15-15 2 1322345 ,	]
+@ all @e[scores={a=1,}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1,b=2}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1,a=2}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores=a]
+R 0
+A -
+X Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+E Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+S -2--2 0 0 
+@ all @e[scores=]
+R 0
+A -
+X Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+E Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+S -2--2 0 0 
+@ all @e[scores={=1}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1},scores={b=2}]
+R 0
+A -
+X Option 'scores' isn't applicable here at position 18: ...res={a=1},<--[HERE]@16
+E Option 'scores' isn't applicable here at position 18: ...res={a=1},<--[HERE]@16
+S -2--2 0 0 
+@ all @e[scores={a=-1}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1.5}]
+R 0
+A -
+X Invalid integer '1.5' at position 15: ...scores={a=<--[HERE]@13
+E Invalid integer '1.5' at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a=..}]
+R 0
+A -
+X Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+E Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a=5..1}]
+R 0
+A -
+X Min cannot be bigger than max at position 15: ...scores={a=<--[HERE]@13
+E Min cannot be bigger than max at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a=1 }]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={ a=1 }]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={é=1}]
+R 0
+A -
+X Expected '=' at position 13: ...e[scores={<--[HERE]@11
+E Expected '=' at position 13: ...e[scores={<--[HERE]@11
+S -2--2 0 0 
+@ all @e[scores={Obj 1=1}]
+R 0
+A -
+X Expected '=' at position 17: ...ores={Obj <--[HERE]@15
+E Expected '=' at position 17: ...ores={Obj <--[HERE]@15
+S -2--2 0 0 
+@ all @e[scores={"a b"=1}]
+R 0
+A -
+X Expected '=' at position 13: ...e[scores={<--[HERE]@11
+E Expected '=' at position 13: ...e[scores={<--[HERE]@11
+S -2--2 0 0 
+@ all @e[tag=foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=!foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=!]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=foo,tag=bar]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=foo,tag=!bar]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=!foo,tag=foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag="a b"]
+R 0
+A -
+X Expected end of options at position 9: t @e[tag=<--[HERE]@7
+E Expected end of options at position 9: t @e[tag=<--[HERE]@7
+S 7-13 2 1322345 ,	]
+@ all @e[tag=é]
+R 0
+A -
+X Expected end of options at position 9: t @e[tag=<--[HERE]@7
+E Expected end of options at position 9: t @e[tag=<--[HERE]@7
+S 7-9 2 1322345 ,	]
+@ all @e[tag=a.b-c_d+e]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=foo,tag=foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=red]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=!red]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=!]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=red,team=blue]
+R 0
+A -
+X Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+E Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[team=!red,team=!blue]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=red,team=!blue]
+R 0
+A -
+X Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+E Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[team=!red,team=red]
+R 0
+A -
+X Option 'team' isn't applicable here at position 20: ...!red,team=<--[HERE]@18
+E Option 'team' isn't applicable here at position 20: ...!red,team=<--[HERE]@18
+S -2--2 0 0 
+@ all @e[team="Team Name!"]
+R 0
+A -
+X Expected end of options at position 10: t @e[team=<--[HERE]@8
+E Expected end of options at position 10: t @e[team=<--[HERE]@8
+S 8-21 2 1322345 ,	]
+@ all @e[team=nope]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=nearest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=furthest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=random]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=arbitrary]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=foo]
+R 0
+A -
+X Invalid or unknown sort type 'foo' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'foo' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[sort=]
+R 0
+A -
+X Invalid or unknown sort type '' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type '' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[sort=nearest,sort=furthest]
+R 0
+A -
+X Option 'sort' isn't applicable here at position 18: ...t=nearest,<--[HERE]@16
+E Option 'sort' isn't applicable here at position 18: ...t=nearest,<--[HERE]@16
+S -2--2 0 0 
+@ all @e[sort=Nearest]
+R 0
+A -
+X Invalid or unknown sort type 'Nearest' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'Nearest' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @a[sort=nearest]
+R 16
+A 0-16 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=0
+E ok
+S -2--2 0 0 
+@ all @p[sort=random]
+R 15
+A 0-15 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=random preds=0
+E ok
+S -2--2 0 0 
+@ all @r[sort=nearest]
+R 16
+A 0-16 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=0
+E ok
+S -2--2 0 0 
+@ all @s[sort=nearest]
+R 0
+A -
+X Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @n[sort=furthest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=nea
+R 0
+A -
+X Invalid or unknown sort type 'nea' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'nea' at position 10: t @e[sort=<--[HERE]@8
+S 8-11 1 764599147 nearest
+@ all @e[limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=0]
+R 0
+A -
+X Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+E Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=-1]
+R 0
+A -
+X Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+E Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=1,limit=2]
+R 0
+A -
+X Option 'limit' isn't applicable here at position 13: ...e[limit=1,<--[HERE]@11
+E Option 'limit' isn't applicable here at position 13: ...e[limit=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @e[limit=a]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=1.5]
+R 0
+A -
+X Invalid integer '1.5' at position 11: ... @e[limit=<--[HERE]@9
+E Invalid integer '1.5' at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=2147483647]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=2147483648]
+R 0
+A -
+X Invalid integer '2147483648' at position 11: ... @e[limit=<--[HERE]@9
+E Invalid integer '2147483648' at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @p[limit=2]
+R 11
+A 0-11 max=2 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=0
+E ok
+S -2--2 0 0 
+@ all @r[limit=2]
+R 11
+A 0-11 max=2 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=random preds=0
+E ok
+S -2--2 0 0 
+@ all @s[limit=1]
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limit=2]
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[limit=1]
+R 11
+A 0-11 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @n[limit=3]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=1e2]
+R 0
+A -
+X Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+E Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+S 10-13 2 1322345 ,	]
+@ all @e[limit=+1]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[gamemode=creative]
+R 21
+A 0-21 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[gamemode=!creative]
+R 22
+A 0-22 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[gamemode=foo]
+R 0
+A -
+X Invalid or unknown game mode 'foo' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'foo' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[gamemode=]
+R 0
+A -
+X Invalid or unknown game mode '' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode '' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[gamemode=survival,gamemode=creative]
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+E Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all @e[gamemode=!survival,gamemode=!creative]
+R 41
+A 0-41 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=3
+E ok
+S -2--2 0 0 
+@ all @e[gamemode=survival,gamemode=!creative]
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+E Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all @e[gamemode=!creative,gamemode=creative]
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 33: ...,gamemode=<--[HERE]@31
+E Option 'gamemode' isn't applicable here at position 33: ...,gamemode=<--[HERE]@31
+S -2--2 0 0 
+@ all @a[gamemode=spectator]
+R 22
+A 0-22 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @e[gamemode=adventure]
+R 22
+A 0-22 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[gamemode=Creative]
+R 0
+A -
+X Invalid or unknown game mode 'Creative' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'Creative' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[nbt={a:1}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt=!{a:1}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={a:1},nbt={b:2}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={a:1},nbt=!{b:2}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt=]
+R 0
+A -
+X Expected a valid unquoted string at position 9: t @e[nbt=<--[HERE]@7
+E Expected a valid unquoted string at position 9: t @e[nbt=<--[HERE]@7
+S -2--2 0 0 
+@ all @e[nbt=a]
+R 0
+A -
+X Expected compound tag at position 10: t @e[nbt=a<--[HERE]@8
+E Expected compound tag at position 10: t @e[nbt=a<--[HERE]@8
+S -2--2 0 0 
+@ all @e[nbt={a:}]
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...@e[nbt={a:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...@e[nbt={a:<--[HERE]@10
+S -2--2 0 0 
+@ all @e[nbt={a:1]
+R 0
+A -
+X Expected literal . at position 13: ...e[nbt={a:1<--[HERE]@11
+E Expected literal . at position 13: ...e[nbt={a:1<--[HERE]@11
+S -2--2 0 0 
+@ all @e[nbt={a:{b:[1,2]}}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={Tags:["x"]}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={a:'x]'}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt=[]]
+R 0
+A -
+X Expected compound tag at position 11: ... @e[nbt=[]<--[HERE]@9
+E Expected compound tag at position 11: ... @e[nbt=[]<--[HERE]@9
+S -2--2 0 0 
+@ all @e[nbt=1]
+R 0
+A -
+X Expected compound tag at position 10: t @e[nbt=1<--[HERE]@8
+E Expected compound tag at position 10: t @e[nbt=1<--[HERE]@8
+S -2--2 0 0 
+@ all @e[nbt=!]
+R 0
+A -
+X Expected a valid unquoted string at position 10: t @e[nbt=!<--[HERE]@8
+E Expected a valid unquoted string at position 10: t @e[nbt=!<--[HERE]@8
+S -2--2 0 0 
+@ all @e[advancements={minecraft:story/root=true}]
+R 44
+A 0-44 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[advancements={story/root=false}]
+R 35
+A 0-35 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[advancements={minecraft:story/root={a=true}}]
+R 48
+A 0-48 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[advancements={}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={a=}]
+R 0
+A -
+X Expected boolean at position 21: ...ements={a=<--[HERE]@19
+E Expected boolean at position 21: ...ements={a=<--[HERE]@19
+S -2--2 0 0 
+@ all @e[advancements={a=maybe}]
+R 0
+A -
+X Invalid boolean: expected 'true' or 'false' but found 'maybe' at position 21: ...ements={a=<--[HERE]@19
+E Invalid boolean: expected 'true' or 'false' but found 'maybe' at position 21: ...ements={a=<--[HERE]@19
+S -2--2 0 0 
+@ all @e[advancements={a=true,b=false}]
+R 33
+A 0-33 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[advancements={a={b=true,c=false}}]
+R 37
+A 0-37 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[advancements={a={}}]
+R 23
+A 0-23 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[advancements={a={b=}}]
+R 0
+A -
+X Expected boolean at position 24: ...nts={a={b=<--[HERE]@22
+E Expected boolean at position 24: ...nts={a={b=<--[HERE]@22
+S -2--2 0 0 
+@ all @e[advancements={a=true},advancements={b=true}]
+R 0
+A -
+X Option 'advancements' isn't applicable here at position 27: ...={a=true},<--[HERE]@25
+E Option 'advancements' isn't applicable here at position 27: ...={a=true},<--[HERE]@25
+S -2--2 0 0 
+@ all @e[advancements=a]
+R 0
+A -
+X Expected '{' at position 18: ...ancements=<--[HERE]@16
+E Expected '{' at position 18: ...ancements=<--[HERE]@16
+S -2--2 0 0 
+@ all @e[advancements=]
+R 0
+A -
+X Expected '{' at position 18: ...ancements=<--[HERE]@16
+E Expected '{' at position 18: ...ancements=<--[HERE]@16
+S -2--2 0 0 
+@ all @e[advancements={a=true
+R 0
+A -
+X Expected '}' at position 25: ...ts={a=true<--[HERE]@23
+E Expected '}' at position 25: ...ts={a=true<--[HERE]@23
+S -2--2 0 0 
+@ all @e[advancements={a={b=true]
+R 0
+A -
+X Expected '=' at position 28: ...{a={b=true<--[HERE]@26
+E Expected '=' at position 28: ...{a={b=true<--[HERE]@26
+S -2--2 0 0 
+@ all @e[advancements={:=true}]
+R 25
+A 0-25 max=2147483647 ent=false wl=false us=true cur=false name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=2
+E ok
+S -2--2 0 0 
+@ all @e[advancements={A=true}]
+R 0
+A -
+X Expected '=' at position 19: ...ncements={<--[HERE]@17
+E Expected '=' at position 19: ...ncements={<--[HERE]@17
+S -2--2 0 0 
+@ all @e[predicate=foo:bar]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=!foo:bar]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=foo]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=foo:bar,predicate=foo:baz]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=!foo:bar,predicate=foo:bar]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=Foo:Bar]
+R 0
+A -
+X Expected end of options at position 15: ...predicate=<--[HERE]@13
+E Expected end of options at position 15: ...predicate=<--[HERE]@13
+S 13-21 2 1322345 ,	]
+@ all @e[predicate=!]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[foo=1]
+R 0
+A -
+X Unknown option 'foo' at position 5: t @e[<--[HERE]@3
+E Unknown option 'foo' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[Type=zombie]
+R 0
+A -
+X Unknown option 'Type' at position 5: t @e[<--[HERE]@3
+E Unknown option 'Type' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[limit=1,foo=1]
+R 0
+A -
+X Unknown option 'foo' at position 13: ...e[limit=1,<--[HERE]@11
+E Unknown option 'foo' at position 13: ...e[limit=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @e[ type=zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type =zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type= zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie ]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[ type = zombie ]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie, limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie ,limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=..5,limit=1,sort=nearest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @a[gamemode=survival,distance=..10,limit=3]
+R 43
+A 0-43 max=3 ent=false wl=true us=true cur=false name=null uuid=null type=minecraft:player range=-..10.0 sq=-..100.0 pos=10.5,20.25,30.125 aabb=-10.0,-10.0,-10.0,11.0,11.0,11.0 order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @e[type=!player,tag=boss,scores={hp=1..},team=!red,limit=5,sort=random,name=!X,level=1..,x_rotation=..0,y_rotation=0..,x=1,y=2,z=3,dx=4,dy=5,dz=6]
+R 146
+A 0-146 max=5 ent=false wl=true us=true cur=false name=null uuid=null type=any range=- pos=1.0,2.0,3.0 aabb=0.0,0.0,0.0,5.0,6.0,7.0 order=random preds=9
+E ok
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,dx=4,dy=5,dz=6,distance=1..]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @p[x=1,y=2,z=3]
+R 15
+A 0-15 max=1 ent=false wl=true us=true cur=false name=null uuid=null type=minecraft:player range=- pos=1.0,2.0,3.0 aabb=- order=nearest preds=0
+E ok
+S -2--2 0 0 
+@ all @r[distance=..5]
+R 16
+A 0-16 max=1 ent=false wl=true us=true cur=false name=null uuid=null type=minecraft:player range=-..5.0 sq=-..25.0 pos=10.5,20.25,30.125 aabb=-5.0,-5.0,-5.0,6.0,6.0,6.0 order=random preds=0
+E ok
+S -2--2 0 0 
+@ all @e[limit=1,sort=furthest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @s[tag=a]
+R 9
+A 0-9 max=1 ent=true wl=false us=true cur=true name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @n[type=zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @n[limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @n[sort=random]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=random,limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all Steve
+R 5
+A 0-5 max=1 ent=false wl=false us=false cur=false name=Steve uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all Steve Jr
+R 6
+A 0-5 max=1 ent=false wl=false us=false cur=false name=Steve uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E Incorrect argument for command at position 8: t Steve <--[HERE]@6
+S -2--2 0 0 
+@ all 012
+R 3
+A 0-3 max=1 ent=false wl=false us=false cur=false name=012 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e498
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all DD12BE42-52A9-4A91-A8A1-11C01849E498
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e49
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e498x
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1-1-1-1-1
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all A_B-c.d
+R 7
+A 0-7 max=1 ent=false wl=false us=false cur=false name=A_B-c.d uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all abcdefghijklmnopqrstuvwxyz0123456789
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a,b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all a[b]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all a=b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all x@y
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "a"
+R 3
+A 0-3 max=1 ent=false wl=false us=false cur=false name=a uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[type=zombie][limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=1][limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie],
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e,
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-3 1 2830 [
+@ all @e@e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-4 1 2830 [
+@ all @e[type=zombie]@e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all 0]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 0<--[HERE]@1
+S -2--2 0 0 
+@ all ..2.5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t ..2.5<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t ..2.5<--[HERE]@5
+S -2--2 0 0 
+@ all @e[scrées={é=1}]
+R 0
+A -
+X Unknown option 'scr' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scr' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[typ=zombie] m
+R 0
+A -
+X Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e,,
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-4 1 2830 [
+@ all [x=~1]]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[gamemode=f*o]
+R 0
+A -
+X Invalid or unknown game mode 'f' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'f' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[ tye=zombie]
+R 0
+A -
+X Unknown option 'tye' at position 6: t @e[ <--[HERE]@4
+E Unknown option 'tye' at position 6: t @e[ <--[HERE]@4
+S -2--2 0 0 
+@ all @e[team=!ed,team=bred]
+R 0
+A -
+X Option 'team' isn't applicable here at position 19: ...=!ed,team=<--[HERE]@17
+E Option 'team' isn't applicable here at position 19: ...=!ed,team=<--[HERE]@17
+S -2--2 0 0 
+@ all 01
+R 2
+A 0-2 max=1 ent=false wl=false us=false cur=false name=01 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[nam"=!]
+R 0
+A -
+X Unknown option 'nam' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nam' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[na😀me=Foo~,name=!Foo]
+R 0
+A -
+X Unknown option 'na' at position 5: t @e[<--[HERE]@3
+E Unknown option 'na' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=0 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @s[sort=nerest]n
+R 0
+A -
+X Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[s&cores={a=1-,}]
+R 0
+A -
+X Unknown option 's' at position 5: t @e[<--[HERE]@3
+E Unknown option 's' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=!#mi=ecraft:skel​etons]
+R 0
+A -
+X Expected end of options at position 14: ...[type=!#mi<--[HERE]@12
+E Expected end of options at position 14: ...[type=!#mi<--[HERE]@12
+S 12-31 2 1322345 ,	]
+@ all @e[t&ag=foo,tag=foo]
+R 0
+A -
+X Unknown option 't' at position 5: t @e[<--[HERE]@3
+E Unknown option 't' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e​type=zoZmbie
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-15 1 2830 [
+@ all @e[type=zombi'e,]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombi' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombi' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[predi7cate=!foo:bar,predicate=foo:bar]
+R 0
+A -
+X Unknown option 'predi7cate' at position 5: t @e[<--[HERE]@3
+E Unknown option 'predi7cate' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all A_B-c..
+R 7
+A 0-7 max=1 ent=false wl=false us=false cur=false name=A_B-c.. uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all ee
+R 2
+A 0-2 max=1 ent=false wl=false us=false cur=false name=ee uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all limit=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t limit<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t limit<--[HERE]@5
+S -2--2 0 0 
+@ all an.ce=..5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t an.ce<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t an.ce<--[HERE]@5
+S -2--2 0 0 
+@ all ce=1.5..2.5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ce<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ce<--[HERE]@2
+S -2--2 0 0 
+@ all 6e[foo=@]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 6e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 6e<--[HERE]@2
+S -2--2 0 0 
+@ all @e[t3ag=!foo][
+R 0
+A -
+X Unknown option 't3ag' at position 5: t @e[<--[HERE]@3
+E Unknown option 't3ag' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all a~b]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all @e[dx=1,dy=2,[z=3]
+R 0
+A -
+X Unknown option '' at position 15: ...dx=1,dy=2,<--[HERE]@13
+E Unknown option '' at position 15: ...dx=1,dy=2,<--[HERE]@13
+S -2--2 0 0 
+@ all @e[tag=!]!
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt=X!{a:1}]
+R 0
+A -
+X Expected compound tag at position 10: t @e[nbt=X<--[HERE]@8
+E Expected compound tag at position 10: t @e[nbt=X<--[HERE]@8
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849eY498
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[tag=foo,tag=foo]]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={}]X
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=arbitrary
+R 0
+A -
+X Expected end of options at position 19: ...=arbitrary<--[HERE]@17
+E Expected end of options at position 19: ...=arbitrary<--[HERE]@17
+S 17-17 2 1322345 ,	]
+@ all ance=./.]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ance<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ance<--[HERE]@4
+S -2--2 0 0 
+@ all e[limit=-1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type=zombie,5type=s%keleton]
+R 0
+A -
+X Unknown option '5type' at position 17: ...pe=zombie,<--[HERE]@15
+E Unknown option '5type' at position 17: ...pe=zombie,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[nbt={a:1},nbtz={b:2}]=
+R 0
+A -
+X Unknown option 'nbtz' at position 15: ...nbt={a:1},<--[HERE]@13
+E Unknown option 'nbtz' at position 15: ...nbt={a:1},<--[HERE]@13
+S -2--2 0 0 
+@ all tizn=5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t tizn<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t tizn<--[HERE]@4
+S -2--2 0 0 
+@ all lue]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t lue<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t lue<--[HERE]@3
+S -2--2 0 0 
+@ all syt]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t syt<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t syt<--[HERE]@3
+S -2--2 0 0 
+@ all @[team=red,t8am=blue]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-21 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[scores={a=1 }A
+R 0
+A -
+X Expected end of options at position 18: ...res={a=1 }<--[HERE]@16
+E Expected end of options at position 18: ...res={a=1 }<--[HERE]@16
+S 16-17 2 1322345 ,	]
+@ all @e[y_rotation=1..2,y_rotation=3]t.
+R 0
+A -
+X Option 'y_rotation' isn't applicable here at position 21: ...tion=1..2,<--[HERE]@19
+E Option 'y_rotation' isn't applicable here at position 21: ...tion=1..2,<--[HERE]@19
+S -2--2 0 0 
+@ all @\u0009[\u0000=
+R 0
+A -
+X Unknown selector type '@\u0009' at position 3: t @<--[HERE]@1
+E Unknown selector type '@\u0009' at position 3: t @<--[HERE]@1
+S 0-5 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[x=1,y=2,z=3,dxy=4,dy=5,dz=6,distance=1..]
+R 0
+A -
+X Unknown option 'dxy' at position 17: ...1,y=2,z=3,<--[HERE]@15
+E Unknown option 'dxy' at position 17: ...1,y=2,z=3,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[team=Team Name!"]
+R 0
+A -
+X Expected end of options at position 15: ...team=Team <--[HERE]@13
+E Expected end of options at position 15: ...team=Team <--[HERE]@13
+S 13-20 2 1322345 ,	]
+@ all t={a:1}/]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type=[ombie,type
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[ditance=1e3]1
+R 0
+A -
+X Unknown option 'ditance' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ditance' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all limit=3]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t limit<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t limit<--[HERE]@5
+S -2--2 0 0 
+@ all @e[nbt😀={a:1},nb={b:2}]
+R 0
+A -
+X Expected value for option 'nbt' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'nbt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[name='Fo_o Ba']
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all e]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @a[sort=nearest]o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 18: ...t=nearest]<--[HERE]@16
+E Expected whitespace to end one argument, but found trailing data at position 18: ...t=nearest]<--[HERE]@16
+S -2--2 0 0 
+@ all DD12BE4*-52A9-4A91-A8A1-11C01849E498
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t DD12BE4<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t DD12BE4<--[HERE]@7
+S -2--2 0 0 
+@ all @e[scores={é=1}]e
+R 0
+A -
+X Expected '=' at position 13: ...e[scores={<--[HERE]@11
+E Expected '=' at position 13: ...e[scores={<--[HERE]@11
+S -2--2 0 0 
+@ all ags:["x"]}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ags<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ags<--[HERE]@3
+S -2--2 0 0 
+@ all +]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t +<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t +<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type=\u0009zombie][limit=1]i
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all ie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ie<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ie<--[HERE]@2
+S -2--2 0 0 
+@ all @ee[evel=]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-10 1 2830 [
+@ all =!bar]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[d==1]
+R 0
+A -
+X Unknown option 'd' at position 5: t @e[<--[HERE]@3
+E Unknown option 'd' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[level=2147483648"
+R 0
+A -
+X Invalid integer '2147483648' at position 11: ... @e[level=<--[HERE]@9
+E Invalid integer '2147483648' at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all #]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[gamemode=survival,gamemode=creativ"e]
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+E Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all ]]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @a[limit=]
+R 0
+A -
+X Expected integer at position 11: ... @a[limit=<--[HERE]@9
+E Expected integer at position 11: ... @a[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all .5]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t .5<--[HERE]@2
+S -2--2 0 0 
+@ all @e[level=1..]=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...level=1..]<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...level=1..]<--[HERE]@13
+S -2--2 0 0 
+@ all @_e[gamemode=]]
+R 0
+A -
+X Unknown selector type '@_' at position 3: t @<--[HERE]@1
+E Unknown selector type '@_' at position 3: t @<--[HERE]@1
+S 0-15 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all ae[x=a]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ae<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ae<--[HERE]@2
+S -2--2 0 0 
+@ all imit=1,foo=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t imit<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t imit<--[HERE]@4
+S -2--2 0 0 
+@ all @e[typezmbie ,limit=1]
+R 0
+A -
+X Unknown option 'typezmbie' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typezmbie' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[level=..1].
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...level=..1]<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...level=..1]<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={=1,b=2}]=
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie ,imit=1]
+R 0
+A -
+X Unknown option 'imit' at position 18: ...e=zombie ,<--[HERE]@16
+E Unknown option 'imit' at position 18: ...e=zombie ,<--[HERE]@16
+S -2--2 0 0 
+@ all @e[name=Fo],na^me=Bar]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advance6enxs={a=true
+R 0
+A -
+X Unknown option 'advance6enxs' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advance6enxs' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[nbt={Tags\u000a:["x"]}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x_rot=tion=..90]
+R 0
+A -
+X Unknown option 'x_rot' at position 5: t @e[<--[HERE]@3
+E Unknown option 'x_rot' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @@e@
+R 0
+A -
+X Unknown selector type '@@' at position 3: t @<--[HERE]@1
+E Unknown selector type '@@' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[scores&é=1}]
+R 0
+A -
+X Expected value for option 'scores' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'scores' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,d\u0000istanc=..5]
+R 0
+A -
+X Unknown option 'd' at position 17: ...1,y=2,z=3,<--[HERE]@15
+E Unknown option 'd' at position 17: ...1,y=2,z=3,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[nbt={a:1},nbt={b:2}]}
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dista(nce=..5]
+R 0
+A -
+X Unknown option 'dista' at position 5: t @e[<--[HERE]@3
+E Unknown option 'dista' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[name=""&]
+R 0
+A -
+X Expected end of options at position 12: ...@e[name=""<--[HERE]@10
+E Expected end of options at position 12: ...@e[name=""<--[HERE]@10
+S 10-12 2 1322345 ,	]
+@ all @e[lezveİ=-1]
+R 0
+A -
+X Unknown option 'lezve' at position 5: t @e[<--[HERE]@3
+E Unknown option 'lezve' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[Bdx=0][
+R 0
+A -
+X Unknown option 'Bdx' at position 5: t @e[<--[HERE]@3
+E Unknown option 'Bdx' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[team="Team Na!dme!"]
+R 0
+A -
+X Expected end of options at position 10: t @e[team=<--[HERE]@8
+E Expected end of options at position 10: t @e[team=<--[HERE]@8
+S 8-23 2 1322345 ,	]
+@ all type=zombie]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+S -2--2 0 0 
+@ all 1}é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all dx=-1.5,dy=0,dz=0]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t dx<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t dx<--[HERE]@2
+S -2--2 0 0 
+@ all @e[distance=a]d
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all ance=-1..]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ance<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ance<--[HERE]@4
+S -2--2 0 0 
+@ all @e[\u000aevel=a]]
+R 0
+A -
+X Unknown option 'evel' at position 6: t @e[\u000a<--[HERE]@4
+E Unknown option 'evel' at position 6: t @e[\u000a<--[HERE]@4
+S -2--2 0 0 
+@ all @e[nbt={:{b:[1,2]}}]]
+R 0
+A -
+X Expected literal " at position 10: t @e[nbt={<--[HERE]@8
+E Expected literal " at position 10: t @e[nbt={<--[HERE]@8
+S -2--2 0 0 
+@ all @e[scCores={a=1$.2,b=..3}]
+R 0
+A -
+X Unknown option 'scCores' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scCores' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[name='Foo%B!ar']
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=..55
+R 0
+A -
+X Expected end of options at position 15: ...level=..55<--[HERE]@13
+E Expected end of options at position 15: ...level=..55<--[HERE]@13
+S 13-13 2 1322345 ,	]
+@ all =nearest]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @_[advancements={a=true},advancements={b=true}]r
+R 0
+A -
+X Unknown selector type '@_' at position 3: t @<--[HERE]@1
+E Unknown selector type '@_' at position 3: t @<--[HERE]@1
+S 0-48 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @eA
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-3 1 2830 [
+@ all >@yx
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,dx=4,dy=5,dz=6,distance=1._.]
+R 0
+A -
+X Expected end of options at position 43: ...istance=1.<--[HERE]@41
+E Expected end of options at position 43: ...istance=1.<--[HERE]@41
+S 41-44 2 1322345 ,	]
+@ all @e[nbt={a:1},nbt={b:2}]e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limi=a]
+R 0
+A -
+X Unknown option 'limi' at position 5: t @e[<--[HERE]@3
+E Unknown option 'limi' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @r[limit=2][
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...r[limit=2]<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...r[limit=2]<--[HERE]@11
+S -2--2 0 0 
+@ all @e[type=!item]é
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advanceents={story/root=false}]f
+R 0
+A -
+X Unknown option 'advanceents' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advanceents' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all /foo]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Y@e[type=zombie][limit=1,
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t Y<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t Y<--[HERE]@1
+S -2--2 0 0 
+@ all @e[distance=5.1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all o Bar']
+R 2
+A 0-1 max=1 ent=false wl=false us=false cur=false name=o uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E Incorrect argument for command at position 4: t o <--[HERE]@2
+S -2--2 0 0 
+@ all @e[tag=a.b-c_d+e
+R 0
+A -
+X Expected end of options at position 18: ...=a.b-c_d+e<--[HERE]@16
+E Expected end of options at position 18: ...=a.b-c_d+e<--[HERE]@16
+S 16-16 2 1322345 ,	]
+@ all @e[advancements={a=}]s
+R 0
+A -
+X Expected boolean at position 21: ...ements={a=<--[HERE]@19
+E Expected boolean at position 21: ...ements={a=<--[HERE]@19
+S -2--2 0 0 
+@ all @e[x=1e3]e
+R 0
+A -
+X Expected end of options at position 8: t @e[x=1<--[HERE]@6
+E Expected end of options at position 8: t @e[x=1<--[HERE]@6
+S 6-10 2 1322345 ,	]
+@ all @elimit=]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-9 1 2830 [
+@ all 1-1-11-1
+R 8
+A 0-8 max=1 ent=false wl=false us=false cur=false name=1-1-11-1 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @rtype=zombie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @r<--[HERE]@2
+S 2-14 1 2830 [
+@ all DD12BE42-52A9-4A91-A8A1-11%C01849E498
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all =1]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[advan'ements={a=true
+R 0
+A -
+X Unknown option 'advan' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advan' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[scores={a=1..2,b=..3},
+R 0
+A -
+X Expected end of options at position 27: ....2,b=..3},<--[HERE]@25
+E Expected end of options at position 27: ....2,b=..3},<--[HERE]@25
+S 25-25 20 312934217 advancements=Players with advancements	distance=Distance to entity	dx=Entities between x and x + dx	dy=Entities between y and y + dy	dz=Entities between z and z + dz	gamemode=Players with game mode	level=Experience level	limit=Maximum number of entities to return	name=Entity name	nbt=Entities with NBT	predicate=Custom predicate	sort=Sort the entities	tag=Entities with tag	team=Entities on team	type=Entities of type	x=x position	x_rotation=Entity's x rotation	y=y position	y_rotation=Entity's y rotation	z=z position
+@ all @n[limi4t=3]3
+R 0
+A -
+X Unknown option 'limi4t' at position 5: t @n[<--[HERE]@3
+E Unknown option 'limi4t' at position 5: t @n[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[predicate=foo:bar,predi8ate=foo:baz]
+R 0
+A -
+X Unknown option 'predi8ate' at position 23: ...e=foo:bar,<--[HERE]@21
+E Unknown option 'predi8ate' at position 23: ...e=foo:bar,<--[HERE]@21
+S -2--2 0 0 
+@ all @e[predicate=foo:bar,pred0cate=foo:baz]
+R 0
+A -
+X Unknown option 'pred0cate' at position 23: ...e=foo:bar,<--[HERE]@21
+E Unknown option 'pred0cate' at position 23: ...e=foo:bar,<--[HERE]@21
+S -2--2 0 0 
+@ all @e[nbt=!{a:1}]:
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=!foobar,predicate=foo@bar]
+R 0
+A -
+X Expected end of options at position 36: ...dicate=foo<--[HERE]@34
+E Expected end of options at position 36: ...dicate=foo<--[HERE]@34
+S 34-39 2 1322345 ,	]
+@ all }]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[game=ode=!survival,gamemode=!creative]
+R 0
+A -
+X Unknown option 'game' at position 5: t @e[<--[HERE]@3
+E Unknown option 'game' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[score8={a=1,}]
+R 0
+A -
+X Unknown option 'score8' at position 5: t @e[<--[HERE]@3
+E Unknown option 'score8' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=ombie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:ombie' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:ombie' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all }e[level=..5]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @nsort=furthst]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-15 1 2830 [
+@ all @s[lim~t=2]s
+R 0
+A -
+X Unknown option 'lim' at position 5: t @s[<--[HERE]@3
+E Unknown option 'lim' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[scores={8}]]
+R 0
+A -
+X Expected '=' at position 14: ...[scores={8<--[HERE]@12
+E Expected '=' at position 14: ...[scores={8<--[HERE]@12
+S -2--2 0 0 
+@ all @e[xname=😀]
+R 0
+A -
+X Unknown option 'xname' at position 5: t @e[<--[HERE]@3
+E Unknown option 'xname' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[name=Foo,name=Bar]e
+R 0
+A -
+X Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+E Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+S -2--2 0 0 
+@ all @[=
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-3 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[distance=..5,l\u0009imit=1,sort=nearest]r
+R 0
+A -
+X Unknown option 'l' at position 18: ...tance=..5,<--[HERE]@16
+E Unknown option 'l' at position 18: ...tance=..5,<--[HERE]@16
+S -2--2 0 0 
+@ all e=!#minecraft:skeletons]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[nbt!{<}]
+R 0
+A -
+X Expected value for option 'nbt' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'nbt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 4A91-A8A1-11C01849E498E
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[d}y=1]
+R 0
+A -
+X Unknown option 'd' at position 5: t @e[<--[HERE]@3
+E Unknown option 'd' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=#][
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=#minecraft:skeletons]e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[ type = zoİbie ]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zo' at position 13: ...e[ type = <--[HERE]@11
+E Invalid or unknown entity type 'minecraft:zo' at position 13: ...e[ type = <--[HERE]@11
+S -2--2 0 0 
+@ all {a={}}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[predcate=]b
+R 0
+A -
+X Unknown option 'predcate' at position 5: t @e[<--[HERE]@3
+E Unknown option 'predcate' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 4a91-a8a1-11c01849e498x
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[level5]
+R 0
+A -
+X Unknown option 'level5' at position 5: t @e[<--[HERE]@3
+E Unknown option 'level5' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all bt={a​:'x]'}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t bt<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t bt<--[HERE]@2
+S -2--2 0 0 
+@ all @e[advancement=&{}]
+R 0
+A -
+X Unknown option 'advancement' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advancement' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[advancements={minecraft:story/root=true}]f
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 46: ...oot=true}]<--[HERE]@44
+E Expected whitespace to end one argument, but found trailing data at position 46: ...oot=true}]<--[HERE]@44
+S -2--2 0 0 
+@ all @e[ty%pe=zombie ,limit=-1]
+R 0
+A -
+X Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[ type=zombe]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombe' at position 11: ... @e[ type=<--[HERE]@9
+E Invalid or unknown entity type 'minecraft:zombe' at position 11: ... @e[ type=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[advanceents={a=maybe}]
+R 0
+A -
+X Unknown option 'advanceents' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advanceents' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[gamemode=]ea
+R 0
+A -
+X Invalid or unknown game mode '' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode '' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all abcdefghjklmnopqrstuvwxyz0123456789
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[adv8ancements={a=}]
+R 0
+A -
+X Unknown option 'adv8ancements' at position 5: t @e[<--[HERE]@3
+E Unknown option 'adv8ancements' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[distance=a]s
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @s[so=nearest]
+R 0
+A -
+X Unknown option 'so' at position 5: t @s[<--[HERE]@3
+E Unknown option 'so' at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all -\u00004a91-a8a1-11c01849e49
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all @e[advancements={a={b=}}]}n
+R 0
+A -
+X Expected boolean at position 24: ...nts={a={b=<--[HERE]@22
+E Expected boolean at position 24: ...nts={a={b=<--[HERE]@22
+S -2--2 0 0 
+@ all @e[gamemode=adventure]rr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 24: ...adventure]<--[HERE]@22
+E Expected whitespace to end one argument, but found trailing data at position 24: ...adventure]<--[HERE]@22
+S -2--2 0 0 
+@ all 7
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=7 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[scores=a]s
+R 0
+A -
+X Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+E Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+S -2--2 0 0 
+@ all @e5[x=~1]@
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-10 1 2830 [
+@ all f>oo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all @e[adanc2ments={A=true}]
+R 0
+A -
+X Unknown option 'adanc2ments' at position 5: t @e[<--[HERE]@3
+E Unknown option 'adanc2ments' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all e[advancements={a={b=}}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[gamemode=Creative]o
+R 0
+A -
+X Invalid or unknown game mode 'Creative' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'Creative' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all İ@s[limit=1]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[nb=t=[]]
+R 0
+A -
+X Unknown option 'nb' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nb' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all gamemode=survval,gamemode=creative]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t gamemode<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t gamemode<--[HERE]@8
+S -2--2 0 0 
+@ all [level=5]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[type=ender_dragon]a
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements=d{minecraft:story/root={a=true}}]
+R 0
+A -
+X Expected '{' at position 18: ...ancements=<--[HERE]@16
+E Expected '{' at position 18: ...ancements=<--[HERE]@16
+S -2--2 0 0 
+@ all @e[dx=!,dy=0,dz=0]
+R 0
+A -
+X Expected double at position 8: t @e[dx=<--[HERE]@6
+E Expected double at position 8: t @e[dx=<--[HERE]@6
+S -2--2 0 0 
+@ all @p[sort=radndom]
+R 0
+A -
+X Invalid or unknown sort type 'radndom' at position 10: t @p[sort=<--[HERE]@8
+E Invalid or unknown sort type 'radndom' at position 10: t @p[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all Foo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t Foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t Foo<--[HERE]@3
+S -2--2 0 0 
+@ all @e[t4pe=pla]yer]
+R 0
+A -
+X Unknown option 't4pe' at position 5: t @e[<--[HERE]@3
+E Unknown option 't4pe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all zA_B-c.d
+R 8
+A 0-8 max=1 ent=false wl=false us=false cur=false name=zA_B-c.d uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[typ=zombi😀]
+R 0
+A -
+X Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all a=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all @escores={a=1},scores={b=2}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-28 1 2830 [
+@ all @e[iİmit=1]
+R 0
+A -
+X Unknown option 'i' at position 5: t @e[<--[HERE]@3
+E Unknown option 'i' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[gamemo<e=Creativ-]
+R 0
+A -
+X Unknown option 'gamemo' at position 5: t @e[<--[HERE]@3
+E Unknown option 'gamemo' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e\\team=red,team='blue]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-23 1 2830 [
+@ all @é8type=#]
+R 0
+A -
+X Unknown selector type '@é' at position 3: t @<--[HERE]@1
+E Unknown selector type '@é' at position 3: t @<--[HERE]@1
+S 0-10 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[distance=5[..1]
+R 0
+A -
+X Expected end of options at position 15: ...distance=5<--[HERE]@13
+E Expected end of options at position 15: ...distance=5<--[HERE]@13
+S 13-18 2 1322345 ,	]
+@ all @e[distance=..5,liit=1,sort=nearet]
+R 0
+A -
+X Unknown option 'liit' at position 18: ...tance=..5,<--[HERE]@16
+E Unknown option 'liit' at position 18: ...tance=..5,<--[HERE]@16
+S -2--2 0 0 
+@ all name1!Foo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t name1<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t name1<--[HERE]@5
+S -2--2 0 0 
+@ all ag=é]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ag<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ag<--[HERE]@2
+S -2--2 0 0 
+@ all @e[type=2zombie
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:2zombie' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:2zombie' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[nt={a:1},4bt=!{b:2}]
+R 0
+A -
+X Unknown option 'nt' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[scoes={é=1}]o
+R 0
+A -
+X Unknown option 'scoes' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scoes' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all [limit*1]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[x_rfotatin=..]
+R 0
+A -
+X Unknown option 'x_rfotatin' at position 5: t @e[<--[HERE]@3
+E Unknown option 'x_rfotatin' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[limit=0]m
+R 0
+A -
+X Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+E Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[advancements={a=true,b=falCse}]
+R 0
+A -
+X Invalid boolean: expected 'true' or 'false' but found 'falCse' at position 28: ...{a=true,b=<--[HERE]@26
+E Invalid boolean: expected 'true' or 'false' but found 'falCse' at position 28: ...{a=true,b=<--[HERE]@26
+S -2--2 0 0 
+@ all 1-1-1--1
+R 8
+A 0-8 max=1 ent=false wl=false us=false cur=false name=1-1-1--1 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all oot=fase}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t oot<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t oot<--[HERE]@3
+S -2--2 0 0 
+@ all @n[sort=furt\\est]@
+R 0
+A -
+X Invalid or unknown sort type 'furt' at position 10: t @n[sort=<--[HERE]@8
+E Invalid or unknown sort type 'furt' at position 10: t @n[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all -1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t -1<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t -1<--[HERE]@2
+S -2--2 0 0 
+@ all @e[x=1.5,x=2],
+R 0
+A -
+X Option 'x' isn't applicable here at position 11: ... @e[x=1.5,<--[HERE]@9
+E Option 'x' isn't applicable here at position 11: ... @e[x=1.5,<--[HERE]@9
+S -2--2 0 0 
+@ all bar]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t bar<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t bar<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=!zombi\u0009eAtype=zombie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombi' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombi' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all imit=2147483648
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t imit<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t imit<--[HERE]@4
+S -2--2 0 0 
+@ all a
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=a uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @s@@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @s<--[HERE]@2
+S 2-4 1 2830 [
+@ all evel=5​]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t evel<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t evel<--[HERE]@4
+S -2--2 0 0 
+@ all @{[sort=nearest,sort=furthest]
+R 0
+A -
+X Unknown selector type '@{' at position 3: t @<--[HERE]@1
+E Unknown selector type '@{' at position 3: t @<--[HERE]@1
+S 0-30 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[gaemode=]
+R 0
+A -
+X Unknown option 'gaemode' at position 5: t @e[<--[HERE]@3
+E Unknown option 'gaemode' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all =..5]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e$[scores={a=1 }]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-18 1 2830 [
+@ all @e[ßype=&ombie]@e
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[namCe="Fo7 Bar"]
+R 0
+A -
+X Unknown option 'namCe' at position 5: t @e[<--[HERE]@3
+E Unknown option 'namCe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[distance=-1]]
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[sort=random,limit=1{]
+R 0
+A -
+X Expected end of options at position 24: ...om,limit=1<--[HERE]@22
+E Expected end of options at position 24: ...om,limit=1<--[HERE]@22
+S 22-24 2 1322345 ,	]
+@ all @e[distance=1..2]&e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @etype=zombie]@e]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-17 1 2830 [
+@ all 8e[tag=é]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 8e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 8e<--[HERE]@2
+S -2--2 0 0 
+@ all x=0,dy=0,dz=0]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all @e[,d]d
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[level3]
+R 0
+A -
+X Unknown option 'level3' at position 5: t @a[<--[HERE]@3
+E Unknown option 'level3' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[prediXcate=foo]
+R 0
+A -
+X Unknown option 'prediXcate' at position 5: t @e[<--[HERE]@3
+E Unknown option 'prediXcate' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[dx=/,dy=0,dz=0]
+R 0
+A -
+X Expected double at position 8: t @e[dx=<--[HERE]@6
+E Expected double at position 8: t @e[dx=<--[HERE]@6
+S -2--2 0 0 
+@ all "a["
+R 4
+A 0-4 max=1 ent=false wl=false us=false cur=false name=a[ uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @n[sor￿t=İrandom]
+R 0
+A -
+X Unknown option 'sor' at position 5: t @n[<--[HERE]@3
+E Unknown option 'sor' at position 5: t @n[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[distance=1.5._.2.-]
+R 0
+A -
+X Invalid double '1.5.' at position 14: ...[distance=<--[HERE]@12
+E Invalid double '1.5.' at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all d@e[x=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all @d[tag=a.b-c_d+e<
+R 0
+A -
+X Unknown selector type '@d' at position 3: t @<--[HERE]@1
+E Unknown selector type '@d' at position 3: t @<--[HERE]@1
+S 0-17 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all l=3]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all @7e[nbt={}]
+R 0
+A -
+X Unknown selector type '@7' at position 3: t @<--[HERE]@1
+E Unknown selector type '@7' at position 3: t @<--[HERE]@1
+S 0-11 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @n[type=zombie-[
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombie-' at position 10: t @n[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombie-' at position 10: t @n[type=<--[HERE]@8
+S -2--2 0 0 
+@ all bie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t bie<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t bie<--[HERE]@3
+S -2--2 0 0 
+@ all @e[x=a]]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all xx
+R 2
+A 0-2 max=1 ent=false wl=false us=false cur=false name=xx uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[lev0İl=5]
+R 0
+A -
+X Unknown option 'lev0' at position 5: t @e[<--[HERE]@3
+E Unknown option 'lev0' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[gamemode=spetator]
+R 0
+A -
+X Invalid or unknown game mode 'spetator' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'spetator' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[scor}es={"a b"=1}]
+R 0
+A -
+X Unknown option 'scor' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scor' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[advancements={mi\u000anecraft:story/root=a=true}}]
+R 0
+A -
+X Expected '=' at position 22: ...ments={mi\u000a<--[HERE]@20
+E Expected '=' at position 22: ...ments={mi\u000a<--[HERE]@20
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=4,dx=4,dy=5,dz=6,distance=1..]t
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all ~ee
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all %
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[limit=2147:836\u000a8]
+R 0
+A -
+X Expected end of options at position 15: ...limit=2147<--[HERE]@13
+E Expected end of options at position 15: ...limit=2147<--[HERE]@13
+S 13-20 2 1322345 ,	]
+@ all @e[type=zombie,Climit=1]
+R 0
+A -
+X Unknown option 'Climit' at position 17: ...pe=zombie,<--[HERE]@15
+E Unknown option 'Climit' at position 17: ...pe=zombie,<--[HERE]@15
+S -2--2 0 0 
+@ all =random]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all el=a]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t el<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t el<--[HERE]@2
+S -2--2 0 0 
+@ all 2
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=2 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[name%😀]😀
+R 0
+A -
+X Expected value for option 'name' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'name' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type= zombie])
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all m=e=é]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all @e[limit=1e2
+R 0
+A -
+X Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+E Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+S 10-12 2 1322345 ,	]
+@ all rr
+R 2
+A 0-2 max=1 ent=false wl=false us=false cur=false name=rr uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @elevel=5..1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-13 1 2830 [
+@ all 5,x=2],
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all @e[tab=]a
+R 0
+A -
+X Unknown option 'tab' at position 5: t @e[<--[HERE]@3
+E Unknown option 'tab' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[advancements={minec/raft:story/root=tİrue}]
+R 0
+A -
+X Invalid ID at position 19: ...ncements={<--[HERE]@17
+E Invalid ID at position 19: ...ncements={<--[HERE]@17
+S -2--2 0 0 
+@ all @e7leel=5]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-10 1 2830 [
+@ all ombie ,limit=1]
+R 6
+A 0-5 max=1 ent=false wl=false us=false cur=false name=ombie uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E Incorrect argument for command at position 8: t ombie <--[HERE]@6
+S -2--2 0 0 
+@ all @e[team=nope]e
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=Zombi+e]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all x_rotation=-45..45]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...x_rotation<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...x_rotation<--[HERE]@10
+S -2--2 0 0 
+@ all @e[limit41e2]@
+R 0
+A -
+X Unknown option 'limit41e2' at position 5: t @e[<--[HERE]@3
+E Unknown option 'limit41e2' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type😀zombie]x
+R 0
+A -
+X Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all cate=f*oo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t cate<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t cate<--[HERE]@4
+S -2--2 0 0 
+@ all 4E
+R 2
+A 0-2 max=1 ent=false wl=false us=false cur=false name=4E uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all 1e2]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 1e2<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 1e2<--[HERE]@3
+S -2--2 0 0 
+@ all [d=0]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[scores={a=1}Z
+R 0
+A -
+X Expected end of options at position 17: ...ores={a=1}<--[HERE]@15
+E Expected end of options at position 17: ...ores={a=1}<--[HERE]@15
+S 15-16 2 1322345 ,	]
+@ all @e[type=zo7bie
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zo7bie' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zo7bie' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all e= zombie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[nme=!Foo]o
+R 0
+A -
+X Unknown option 'nme' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nme' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 5e[name(""]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 5e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 5e<--[HERE]@2
+S -2--2 0 0 
+@ all =0
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @eétype=#foo]]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-14 1 2830 [
+@ all @e[nbt={a:{b:[1,2]}}]}
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type^=zombie] 
+R 0
+A -
+X Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @,e 
+R 0
+A -
+X Unknown selector type '@,' at position 3: t @<--[HERE]@1
+E Unknown selector type '@,' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[scoresa@
+R 0
+A -
+X Unknown option 'scoresa' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scoresa' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[scoİres={=1}]r
+R 0
+A -
+X Unknown option 'sco' at position 5: t @e[<--[HERE]@3
+E Unknown option 'sco' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 1}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type=zombie] ei
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all /root=false}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[limit=a]i
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[advancements={a=true=a
+R 0
+A -
+X Invalid boolean: expected 'true' or 'false' but found 'a' at position 26: ...s={a=true=<--[HERE]@24
+E Invalid boolean: expected 'true' or 'false' but found 'a' at position 26: ...s={a=true=<--[HERE]@24
+S -2--2 0 0 
+@ all @e[x=1.'5,x￿2]
+R 0
+A -
+X Expected end of options at position 9: t @e[x=1.<--[HERE]@7
+E Expected end of options at position 9: t @e[x=1.<--[HERE]@7
+S 7-14 2 1322345 ,	]
+@ all @e[ag=foo,tag=~!bar]
+R 0
+A -
+X Unknown option 'ag' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ag' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all a9]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t a9<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t a9<--[HERE]@2
+S -2--2 0 0 
+@ all [1,2]}}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[predicate=foo:bar,predicate=fo:baz]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={a:{b:[,2]}}]b
+R 0
+A -
+X Expected literal B at position 16: ...bt={a:{b:[<--[HERE]@14
+E Expected literal B at position 16: ...bt={a:{b:[<--[HERE]@14
+S -2--2 0 0 
+@ all @e[name='Foo Bßr']
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all .1-1-61-1-1
+R 11
+A 0-11 max=1 ent=false wl=false us=false cur=false name=.1-1-61-1-1 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all [x=]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @edy=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-7 1 2830 [
+@ all @e[Cnbt={e:'x]'}]
+R 0
+A -
+X Unknown option 'Cnbt' at position 5: t @e[<--[HERE]@3
+E Unknown option 'Cnbt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e​[[
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-5 1 2830 [
+@ all @e[teaA="Team Name!"]
+R 0
+A -
+X Unknown option 'teaA' at position 5: t @e[<--[HERE]@3
+E Unknown option 'teaA' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[distance=..5e
+R 0
+A -
+X Expected end of options at position 17: ...stance=..5<--[HERE]@15
+E Expected end of options at position 17: ...stance=..5<--[HERE]@15
+S 15-16 2 1322345 ,	]
+@ all @e[advancem5nts={:=true}]
+R 0
+A -
+X Unknown option 'advancem5nts' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advancem5nts' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[gam\u0009emode=creative]o
+R 0
+A -
+X Unknown option 'gam' at position 5: t @e[<--[HERE]@3
+E Unknown option 'gam' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=player]l
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...pe=player]<--[HERE]@15
+S -2--2 0 0 
+@ all =3]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @n[sort=random]o
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @n[limit=1]t
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=0,dy=0,dz=0]*
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all scores=]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t scores<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t scores<--[HERE]@6
+S -2--2 0 0 
+@ all @e[level=😀..5]
+R 0
+A -
+X Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+E Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all $e[distance=0]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @p[sort=rand&#]
+R 0
+A -
+X Invalid or unknown sort type 'rand' at position 10: t @p[sort=<--[HERE]@8
+E Invalid or unknown sort type 'rand' at position 10: t @p[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[dista中nce=0..0
+R 0
+A -
+X Unknown option 'dista' at position 5: t @e[<--[HERE]@3
+E Unknown option 'dista' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=!￿layer]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all x
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=x uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all ombie ]
+R 6
+A 0-5 max=1 ent=false wl=false us=false cur=false name=ombie uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E Incorrect argument for command at position 8: t ombie <--[HERE]@6
+S -2--2 0 0 
+@ all e[type= zombie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[distanced-1]d
+R 0
+A -
+X Unknown option 'distanced-1' at position 5: t @e[<--[HERE]@3
+E Unknown option 'distanced-1' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 27e
+R 3
+A 0-3 max=1 ent=false wl=false us=false cur=false name=27e uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[level=1,level=2]e
+R 0
+A -
+X Option 'level' isn't applicable here at position 13: ...e[level=1,<--[HERE]@11
+E Option 'level' isn't applicable here at position 13: ...e[level=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @e[predica^e=]
+R 0
+A -
+X Unknown option 'predica' at position 5: t @e[<--[HERE]@3
+E Unknown option 'predica' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all =1]=
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @Ae[p]redicate=foo:bar]
+R 0
+A -
+X Unknown selector type '@A' at position 3: t @<--[HERE]@1
+E Unknown selector type '@A' at position 3: t @<--[HERE]@1
+S 0-23 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[limit=-12]
+R 0
+A -
+X Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+E Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @B[scores={a=1}]s
+R 0
+A -
+X Unknown selector type '@B' at position 3: t @<--[HERE]@1
+E Unknown selector type '@B' at position 3: t @<--[HERE]@1
+S 0-17 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[sor^es={=1}]
+R 0
+A -
+X Unknown option 'sor' at position 5: t @e[<--[HERE]@3
+E Unknown option 'sor' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all eCam=!red,team=red]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t eCam<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t eCam<--[HERE]@4
+S -2--2 0 0 
+@ all mit=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t mit<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t mit<--[HERE]@3
+S -2--2 0 0 
+@ all @e[level=5..1]1
+R 0
+A -
+X Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+E Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all rthest]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t rthest<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t rthest<--[HERE]@6
+S -2--2 0 0 
+@ all @r[disance=..65]
+R 0
+A -
+X Unknown option 'disance' at position 5: t @r[<--[HERE]@3
+E Unknown option 'disance' at position 5: t @r[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[distance=]]
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[limit=1,limit2]
+R 0
+A -
+X Unknown option 'limit2' at position 13: ...e[limit=1,<--[HERE]@11
+E Unknown option 'limit2' at position 13: ...e[limit=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @e[limit=,limit=2]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e<[=zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-12 1 2830 [
+@ all @e[gamemode=survival,gamemode=!creative]a
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+E Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all ￿e[limit=1
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e[sc%res={Obj 1=1}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @eİ[dx=]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-8 1 2830 [
+@ all @e[type=!player,tag=boss,scores={hp=1..},team=!red,limit=5,sort=random,.ame=!X,level=1..,x_rotation=..0,y_rotation=0..,x=1,y=2,z=3,dx=4,dy=5,dz=6]
+R 0
+A -
+X Unknown option '.ame' at position 73: ...rt=random,<--[HERE]@71
+E Unknown option '.ame' at position 73: ...rt=random,<--[HERE]@71
+S -2--2 0 0 
+@ all @e[tag=é]@
+R 0
+A -
+X Expected end of options at position 9: t @e[tag=<--[HERE]@7
+E Expected end of options at position 9: t @e[tag=<--[HERE]@7
+S 7-10 2 1322345 ,	]
+@ all @r[distane=..5]
+R 0
+A -
+X Unknown option 'distane' at position 5: t @r[<--[HERE]@3
+E Unknown option 'distane' at position 5: t @r[<--[HERE]@3
+S -2--2 0 0 
+@ all @!e[scores={a=1}]
+R 0
+A -
+X Unknown selector type '@!' at position 3: t @<--[HERE]@1
+E Unknown selector type '@!' at position 3: t @<--[HERE]@1
+S 0-17 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[type=zombie ,li it=1]
+R 0
+A -
+X Unknown option 'li' at position 18: ...e=zombie ,<--[HERE]@16
+E Unknown option 'li' at position 18: ...e=zombie ,<--[HERE]@16
+S -2--2 0 0 
+@ all amemode=!survival,gamemode=!creative]v
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t amemode<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t amemode<--[HERE]@7
+S -2--2 0 0 
+@ all @e{sort=arbitrary]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-18 1 2830 [
+@ all @e[distance=1.5..2.5]s
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @p[sort=randox]
+R 0
+A -
+X Invalid or unknown sort type 'randox' at position 10: t @p[sort=<--[HERE]@8
+E Invalid or unknown sort type 'randox' at position 10: t @p[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[nbtB=]1]
+R 0
+A -
+X Unknown option 'nbtB' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nbtB' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @"e[name=""]
+R 0
+A -
+X Unknown selector type '@"' at position 3: t @<--[HERE]@1
+E Unknown selector type '@"' at position 3: t @<--[HERE]@1
+S 0-12 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @ssort=nearest]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t @s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t @s<--[HERE]@2
+S 2-15 1 2830 [
+@ all @'e[limit=102]
+R 0
+A -
+X Unknown selector type '@'' at position 3: t @<--[HERE]@1
+E Unknown selector type '@'' at position 3: t @<--[HERE]@1
+S 0-14 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @Z[gamemode=!creative]e
+R 0
+A -
+X Unknown selector type '@Z' at position 3: t @<--[HERE]@1
+E Unknown selector type '@Z' at position 3: t @<--[HERE]@1
+S 0-23 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[=zoébie]=
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all e[type=zombie,type=skeleton]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[distance=1..2,distance=3]c
+R 0
+A -
+X Option 'distance' isn't applicable here at position 19: ...ance=1..2,<--[HERE]@17
+E Option 'distance' isn't applicable here at position 19: ...ance=1..2,<--[HERE]@17
+S -2--2 0 0 
+@ all @e[distance=..,limit=1,sort=nearest]=
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all ,e[advancements=a=true},advancements={b=true}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @r[sort=neaest]
+R 0
+A -
+X Invalid or unknown sort type 'neaest' at position 10: t @r[sort=<--[HERE]@8
+E Invalid or unknown sort type 'neaest' at position 10: t @r[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all ée[type=!#minecraft:skeletons,type=!zombie]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zombie,type=skeleton]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all type=!player]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+S -2--2 0 0 
+@ all evel=3]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t evel<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t evel<--[HERE]@4
+S -2--2 0 0 
+@ all ("a"a
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[nbt=!{a^:1}]
+R 0
+A -
+X Expected literal : at position 12: ...@e[nbt=!{a<--[HERE]@10
+E Expected literal : at position 12: ...@e[nbt=!{a<--[HERE]@10
+S -2--2 0 0 
+@ all [gamemode=creative]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[sort=ra.ndom,liit=1]
+R 0
+A -
+X Invalid or unknown sort type 'ra.ndom' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'ra.ndom' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=#foo,e
+R 0
+A -
+X Unknown option 'e' at position 15: ...type=#foo,<--[HERE]@13
+E Unknown option 'e' at position 15: ...type=#foo,<--[HERE]@13
+S -2--2 0 0 
+@ all @e[nfbt={Tags:["x"]}9]
+R 0
+A -
+X Unknown option 'nfbt' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nfbt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @ef[scores={é=1}]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-17 1 2830 [
+@ all @e[ type=z*mbie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:z' at position 11: ... @e[ type=<--[HERE]@9
+E Invalid or unknown entity type 'minecraft:z' at position 11: ... @e[ type=<--[HERE]@9
+S -2--2 0 0 
+@ all [limi=a]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[limiC=214748<3648]
+R 0
+A -
+X Unknown option 'limiC' at position 5: t @e[<--[HERE]@3
+E Unknown option 'limiC' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e,:d
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-5 1 2830 [
+@ all @e[dx=1e400]0
+R 0
+A -
+X Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+E Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+S 7-13 2 1322345 ,	]
+@ all @e[limit=2~7483647]
+R 0
+A -
+X Expected end of options at position 12: ...@e[limit=2<--[HERE]@10
+E Expected end of options at position 12: ...@e[limit=2<--[HERE]@10
+S 10-19 2 1322345 ,	]
+@ all @e[na.me=Foo,name=!Foo]
+R 0
+A -
+X Unknown option 'na.me' at position 5: t @e[<--[HERE]@3
+E Unknown option 'na.me' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e498x6
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e%[limit=+1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-13 1 2830 [
+@ all @r[distance=..45]
+R 17
+A 0-17 max=1 ent=false wl=true us=true cur=false name=null uuid=null type=minecraft:player range=-..45.0 sq=-..2025.0 pos=10.5,20.25,30.125 aabb=-45.0,-45.0,-45.0,46.0,46.0,46.0 order=random preds=0
+E ok
+S -2--2 0 0 
+@ all @e[ type=zombie]o
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!zombie]]!
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!zombie,typefzombie]
+R 0
+A -
+X Unknown option 'typefzombie' at position 18: ...e=!zombie,<--[HERE]@16
+E Unknown option 'typefzombie' at position 18: ...e=!zombie,<--[HERE]@16
+S -2--2 0 0 
+@ all @e[typed!item]
+R 0
+A -
+X Unknown option 'typed' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typed' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all cores={a=1.5}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t cores<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t cores<--[HERE]@5
+S -2--2 0 0 
+@ all @e[}ort=]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[typ=zombie]]
+R 0
+A -
+X Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+E Unknown option 'typ' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=zombie]b
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distane=5]e
+R 0
+A -
+X Unknown option 'distane' at position 5: t @e[<--[HERE]@3
+E Unknown option 'distane' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @nlmit=3]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-9 1 2830 [
+@ all @e[team=!red,team=!blue]b
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all "a""
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t "a"<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t "a"<--[HERE]@3
+S -2--2 0 0 
+@ all @a[type=1ombie]]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:1ombie' at position 10: t @a[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:1ombie' at position 10: t @a[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[tag=a.b-c_d^+e]
+R 0
+A -
+X Expected end of options at position 16: ...ag=a.b-c_d<--[HERE]@14
+E Expected end of options at position 16: ...ag=a.b-c_d<--[HERE]@14
+S 14-18 2 1322345 ,	]
+@ all @{[]]
+R 0
+A -
+X Unknown selector type '@{' at position 3: t @<--[HERE]@1
+E Unknown selector type '@{' at position 3: t @<--[HERE]@1
+S 0-5 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all p]layer]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t p<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all e[team=nope]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 

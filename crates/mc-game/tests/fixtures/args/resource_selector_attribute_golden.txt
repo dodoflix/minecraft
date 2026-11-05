@@ -1,0 +1,1897 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all *
+R 1
+A 0-1 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all minecraft:*
+R 11
+A 0-11 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all *:asset
+R 0
+A -
+X No matches for selector '*:asset' of type 'minecraft:attribute' at position 9: t *:asset<--[HERE]@7
+E No matches for selector '*:asset' of type 'minecraft:attribute' at position 9: t *:asset<--[HERE]@7
+S -2--2 0 0 
+@ all ?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:attribute' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:attribute' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all stone
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:attribute' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:attribute' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:s*
+R 12
+A 0-12 7:minecraft:safe_fall_distance,minecraft:scale,minecraft:sneaking_speed,minecraft:spawn_reinforcements,minecraft:step_height:-613669677
+E ok
+S -2--2 0 0 
+@ all *_log
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:attribute' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:attribute' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *stone*
+R 0
+A -
+X No matches for selector 'minecraft:*stone*' of type 'minecraft:attribute' at position 9: t *stone*<--[HERE]@7
+E No matches for selector 'minecraft:*stone*' of type 'minecraft:attribute' at position 9: t *stone*<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:oak_*' of type 'minecraft:attribute' at position 17: ...raft:oak_*<--[HERE]@15
+E No matches for selector 'minecraft:oak_*' of type 'minecraft:attribute' at position 17: ...raft:oak_*<--[HERE]@15
+S -2--2 0 0 
+@ all z*
+R 0
+A -
+X No matches for selector 'minecraft:z*' of type 'minecraft:attribute' at position 4: t z*<--[HERE]@2
+E No matches for selector 'minecraft:z*' of type 'minecraft:attribute' at position 4: t z*<--[HERE]@2
+S -2--2 0 0 
+@ all **
+R 2
+A 0-2 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all *?
+R 0
+A -
+X No matches for selector 'minecraft:*?' of type 'minecraft:attribute' at position 4: t *?<--[HERE]@2
+E No matches for selector 'minecraft:*?' of type 'minecraft:attribute' at position 4: t *?<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all :*
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:attribute' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:attribute' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*
+R 0
+A -
+X No matches for selector 'foo:*' of type 'minecraft:attribute' at position 7: t foo:*<--[HERE]@5
+E No matches for selector 'foo:*' of type 'minecraft:attribute' at position 7: t foo:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*
+R 3
+A 0-3 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all minecraft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:zombie*' of type 'minecraft:attribute' at position 19: ...ft:zombie*<--[HERE]@17
+E No matches for selector 'minecraft:zombie*' of type 'minecraft:attribute' at position 19: ...ft:zombie*<--[HERE]@17
+S -2--2 0 0 
+@ all plains
+R 0
+A -
+X No matches for selector 'minecraft:plains' of type 'minecraft:attribute' at position 8: t plains<--[HERE]@6
+E No matches for selector 'minecraft:plains' of type 'minecraft:attribute' at position 8: t plains<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:?????
+R 15
+A 0-15 2:minecraft:armor,minecraft:scale:-729267386
+E ok
+S -2--2 0 0 
+@ all *e
+R 2
+A 0-2 15:minecraft:attack_damage,minecraft:below_name_distance,minecraft:block_interaction_range,minecraft:burning_time,minecraft:camera_distance:467980991
+E ok
+S -2--2 0 0 
+@ all a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c' of type 'minecraft:attribute' at position 7: t a*b*c<--[HERE]@5
+E No matches for selector 'minecraft:a*b*c' of type 'minecraft:attribute' at position 7: t a*b*c<--[HERE]@5
+S -2--2 0 0 
+@ all Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:attribute' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:attribute' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:attribute' at position 15: ...ecraft:*/*<--[HERE]@13
+E No matches for selector 'minecraft:*/*' of type 'minecraft:attribute' at position 15: ...ecraft:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all m*
+R 2
+A 0-2 5:minecraft:max_absorption,minecraft:max_health,minecraft:mining_efficiency,minecraft:movement_efficiency,minecraft:movement_speed:307011154
+E ok
+S -2--2 0 0 
+@ all mine*
+R 0
+A -
+X No matches for selector 'minecraft:mine*' of type 'minecraft:attribute' at position 7: t mine*<--[HERE]@5
+E No matches for selector 'minecraft:mine*' of type 'minecraft:attribute' at position 7: t mine*<--[HERE]@5
+S -2--2 0 0 
+@ all *effect
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:attribute' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:attribute' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *sharp*
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*' of type 'minecraft:attribute' at position 9: t *sharp*<--[HERE]@7
+E No matches for selector 'minecraft:*sharp*' of type 'minecraft:attribute' at position 9: t *sharp*<--[HERE]@7
+S -2--2 0 0 
+@ all *dirt*
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*' of type 'minecraft:attribute' at position 8: t *dirt*<--[HERE]@6
+E No matches for selector 'minecraft:*dirt*' of type 'minecraft:attribute' at position 8: t *dirt*<--[HERE]@6
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:attribute' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:attribute' at position 3: t m<--[HERE]@1
+S 0-1 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all mi
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+S 0-2 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all min
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+S 0-3 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all mine
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:attribute' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:attribute' at position 6: t mine<--[HERE]@4
+S 0-4 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minec
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:attribute' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:attribute' at position 7: t minec<--[HERE]@5
+S 0-5 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecr
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+S 0-6 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecra
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+S 0-7 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraf
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+S 0-8 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraft
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+S 0-9 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all *:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:attribute' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:attribute' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all *:a
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:attribute' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:attribute' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *:as
+R 0
+A -
+X No matches for selector '*:as' of type 'minecraft:attribute' at position 6: t *:as<--[HERE]@4
+E No matches for selector '*:as' of type 'minecraft:attribute' at position 6: t *:as<--[HERE]@4
+S -2--2 0 0 
+@ all *:ass
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:attribute' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:attribute' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:attribute' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:attribute' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:attribute' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:attribute' at position 3: t s<--[HERE]@1
+S 0-1 12 -443353729 minecraft:attack_speed	minecraft:block_break_speed	minecraft:flying_speed	minecraft:jump_strength	minecraft:movement_speed	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio
+@ all st
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:attribute' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:attribute' at position 4: t st<--[HERE]@2
+S 0-2 2 1970686336 minecraft:jump_strength	minecraft:step_height
+@ all sto
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:attribute' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:attribute' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all ston
+R 0
+A -
+X No matches for selector 'minecraft:ston' of type 'minecraft:attribute' at position 6: t ston<--[HERE]@4
+E No matches for selector 'minecraft:ston' of type 'minecraft:attribute' at position 6: t ston<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:attribute' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:attribute' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 7 -1843890794 minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio
+@ all *_
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:attribute' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:attribute' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all *_l
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:attribute' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:attribute' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *_lo
+R 0
+A -
+X No matches for selector 'minecraft:*_lo' of type 'minecraft:attribute' at position 6: t *_lo<--[HERE]@4
+E No matches for selector 'minecraft:*_lo' of type 'minecraft:attribute' at position 6: t *_lo<--[HERE]@4
+S -2--2 0 0 
+@ all *s
+R 2
+A 0-2 4:minecraft:armor_toughness,minecraft:bounciness,minecraft:oxygen_bonus,minecraft:spawn_reinforcements:-244662310
+E ok
+S -2--2 0 0 
+@ all *st
+R 0
+A -
+X No matches for selector 'minecraft:*st' of type 'minecraft:attribute' at position 5: t *st<--[HERE]@3
+E No matches for selector 'minecraft:*st' of type 'minecraft:attribute' at position 5: t *st<--[HERE]@3
+S -2--2 0 0 
+@ all *sto
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:attribute' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:attribute' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all *ston
+R 0
+A -
+X No matches for selector 'minecraft:*ston' of type 'minecraft:attribute' at position 7: t *ston<--[HERE]@5
+E No matches for selector 'minecraft:*ston' of type 'minecraft:attribute' at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all *stone
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:attribute' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:attribute' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:attribute' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:attribute' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 1 386072636 minecraft:oxygen_bonus
+@ all minecraft:oa
+R 0
+A -
+X No matches for selector 'minecraft:oa' of type 'minecraft:attribute' at position 14: ...necraft:oa<--[HERE]@12
+E No matches for selector 'minecraft:oa' of type 'minecraft:attribute' at position 14: ...necraft:oa<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:oak
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:attribute' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:attribute' at position 15: ...ecraft:oak<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:oak_' of type 'minecraft:attribute' at position 16: ...craft:oak_<--[HERE]@14
+E No matches for selector 'minecraft:oak_' of type 'minecraft:attribute' at position 16: ...craft:oak_<--[HERE]@14
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:attribute' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:attribute' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:attribute' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:attribute' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+S 0-1 5 1281642020 minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:safe_fall_distance
+@ all fo
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:attribute' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:attribute' at position 4: t fo<--[HERE]@2
+S 0-2 1 823790509 minecraft:follow_range
+@ all foo
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:attribute' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:attribute' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:attribute' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:attribute' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X No matches for selector 'minecraft:zo' of type 'minecraft:attribute' at position 14: ...necraft:zo<--[HERE]@12
+E No matches for selector 'minecraft:zo' of type 'minecraft:attribute' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X No matches for selector 'minecraft:zom' of type 'minecraft:attribute' at position 15: ...ecraft:zom<--[HERE]@13
+E No matches for selector 'minecraft:zom' of type 'minecraft:attribute' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:attribute' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:attribute' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:zombie
+R 0
+A -
+X No matches for selector 'minecraft:zombie' of type 'minecraft:attribute' at position 18: ...aft:zombie<--[HERE]@16
+E No matches for selector 'minecraft:zombie' of type 'minecraft:attribute' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all p
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:attribute' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:attribute' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all pl
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:attribute' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:attribute' at position 4: t pl<--[HERE]@2
+S -2--2 0 0 
+@ all pla
+R 0
+A -
+X No matches for selector 'minecraft:pla' of type 'minecraft:attribute' at position 5: t pla<--[HERE]@3
+E No matches for selector 'minecraft:pla' of type 'minecraft:attribute' at position 5: t pla<--[HERE]@3
+S -2--2 0 0 
+@ all plai
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:attribute' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:attribute' at position 6: t plai<--[HERE]@4
+S -2--2 0 0 
+@ all plain
+R 0
+A -
+X No matches for selector 'minecraft:plain' of type 'minecraft:attribute' at position 7: t plain<--[HERE]@5
+E No matches for selector 'minecraft:plain' of type 'minecraft:attribute' at position 7: t plain<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:attribute' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:attribute' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:attribute' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:attribute' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:???
+R 0
+A -
+X No matches for selector 'minecraft:???' of type 'minecraft:attribute' at position 15: ...ecraft:???<--[HERE]@13
+E No matches for selector 'minecraft:???' of type 'minecraft:attribute' at position 15: ...ecraft:???<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:????
+R 14
+A 0-14 1:minecraft:luck:-1006618274
+E ok
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X No matches for selector 'minecraft:a' of type 'minecraft:attribute' at position 3: t a<--[HERE]@1
+E No matches for selector 'minecraft:a' of type 'minecraft:attribute' at position 3: t a<--[HERE]@1
+S 0-1 7 1448801226 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:max_absorption
+@ all a*
+R 2
+A 0-2 6:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2017881599
+E ok
+S -2--2 0 0 
+@ all a*b
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:attribute' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:attribute' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all a*b*
+R 4
+A 0-4 1:minecraft:attack_knockback:1053224113
+E ok
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S 0-1 12 -443353729 minecraft:attack_speed	minecraft:block_break_speed	minecraft:flying_speed	minecraft:jump_strength	minecraft:movement_speed	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio
+@ all St
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S 0-2 2 1970686336 minecraft:jump_strength	minecraft:step_height
+@ all Sto
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ston
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:attribute' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:attribute' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:attribute' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:attribute' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all *ef
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:attribute' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:attribute' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all *eff
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:attribute' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:attribute' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *effe
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:attribute' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:attribute' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *effec
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:attribute' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:attribute' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *sh
+R 0
+A -
+X No matches for selector 'minecraft:*sh' of type 'minecraft:attribute' at position 5: t *sh<--[HERE]@3
+E No matches for selector 'minecraft:*sh' of type 'minecraft:attribute' at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all *sha
+R 0
+A -
+X No matches for selector 'minecraft:*sha' of type 'minecraft:attribute' at position 6: t *sha<--[HERE]@4
+E No matches for selector 'minecraft:*sha' of type 'minecraft:attribute' at position 6: t *sha<--[HERE]@4
+S -2--2 0 0 
+@ all *shar
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:attribute' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:attribute' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *sharp
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:attribute' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:attribute' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all *d
+R 2
+A 0-2 6:minecraft:attack_speed,minecraft:block_break_speed,minecraft:flying_speed,minecraft:movement_speed,minecraft:sneaking_speed:-2055901935
+E ok
+S -2--2 0 0 
+@ all *di
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:attribute' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:attribute' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all *dir
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:attribute' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:attribute' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all *dirt
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:attribute' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:attribute' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all *sone*
+R 0
+A -
+X No matches for selector 'minecraft:*sone*' of type 'minecraft:attribute' at position 8: t *sone*<--[HERE]@6
+E No matches for selector 'minecraft:*sone*' of type 'minecraft:attribute' at position 8: t *sone*<--[HERE]@6
+S -2--2 0 0 
+@ all # %
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ze*
+R 0
+A -
+X No matches for selector 'minecraft:ze*' of type 'minecraft:attribute' at position 5: t ze*<--[HERE]@3
+E No matches for selector 'minecraft:ze*' of type 'minecraft:attribute' at position 5: t ze*<--[HERE]@3
+S -2--2 0 0 
+@ all minecrİaft:?????
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:**
+R 12
+A 0-12 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all >**
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #2#
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */5
+R 0
+A -
+X No matches for selector 'minecraft:*/5' of type 'minecraft:attribute' at position 5: t */5<--[HERE]@3
+E No matches for selector 'minecraft:*/5' of type 'minecraft:attribute' at position 5: t */5<--[HERE]@3
+S -2--2 0 0 
+@ all stonett
+R 0
+A -
+X No matches for selector 'minecraft:stonett' of type 'minecraft:attribute' at position 9: t stonett<--[HERE]@7
+E No matches for selector 'minecraft:stonett' of type 'minecraft:attribute' at position 9: t stonett<--[HERE]@7
+S -2--2 0 0 
+@ all pl￿ains
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:attribute' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:attribute' at position 4: t pl<--[HERE]@2
+S -2--2 0 0 
+@ all mincra!ft:s*
+R 0
+A -
+X No matches for selector 'minecraft:mincra' of type 'minecraft:attribute' at position 8: t mincra<--[HERE]@6
+E No matches for selector 'minecraft:mincra' of type 'minecraft:attribute' at position 8: t mincra<--[HERE]@6
+S -2--2 0 0 
+@ all *eff>ect
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:attribute' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:attribute' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *_log\u0009
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:attribute' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:attribute' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *z
+R 0
+A -
+X No matches for selector 'minecraft:*z' of type 'minecraft:attribute' at position 4: t *z<--[HERE]@2
+E No matches for selector 'minecraft:*z' of type 'minecraft:attribute' at position 4: t *z<--[HERE]@2
+S -2--2 0 0 
+@ all minecr=t:s*
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:attribute' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all plcins2
+R 0
+A -
+X No matches for selector 'minecraft:plcins2' of type 'minecraft:attribute' at position 9: t plcins2<--[HERE]@7
+E No matches for selector 'minecraft:plcins2' of type 'minecraft:attribute' at position 9: t plcins2<--[HERE]@7
+S -2--2 0 0 
+@ all ****
+R 4
+A 0-4 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all minecraft:n
+R 0
+A -
+X No matches for selector 'minecraft:n' of type 'minecraft:attribute' at position 13: ...inecraft:n<--[HERE]@11
+E No matches for selector 'minecraft:n' of type 'minecraft:attribute' at position 13: ...inecraft:n<--[HERE]@11
+S 0-11 1 15162504 minecraft:name_tag_distance
+@ all *￿*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all dirt*
+R 0
+A -
+X No matches for selector 'minecraft:dirt*' of type 'minecraft:attribute' at position 7: t dirt*<--[HERE]@5
+E No matches for selector 'minecraft:dirt*' of type 'minecraft:attribute' at position 7: t dirt*<--[HERE]@5
+S -2--2 0 0 
+@ all *di2rBt*
+R 0
+A -
+X No matches for selector 'minecraft:*di2r' of type 'minecraft:attribute' at position 7: t *di2r<--[HERE]@5
+E No matches for selector 'minecraft:*di2r' of type 'minecraft:attribute' at position 7: t *di2r<--[HERE]@5
+S -2--2 0 0 
+@ all 2eff*ct
+R 0
+A -
+X No matches for selector 'minecraft:2eff*ct' of type 'minecraft:attribute' at position 9: t 2eff*ct<--[HERE]@7
+E No matches for selector 'minecraft:2eff*ct' of type 'minecraft:attribute' at position 9: t 2eff*ct<--[HERE]@7
+S -2--2 0 0 
+@ all ecraft:s*
+R 0
+A -
+X No matches for selector 'ecraft:s*' of type 'minecraft:attribute' at position 11: ... ecraft:s*<--[HERE]@9
+E No matches for selector 'ecraft:s*' of type 'minecraft:attribute' at position 11: ... ecraft:s*<--[HERE]@9
+S -2--2 0 0 
+@ all minecaéft:
+R 0
+A -
+X No matches for selector 'minecraft:mineca' of type 'minecraft:attribute' at position 8: t mineca<--[HERE]@6
+E No matches for selector 'minecraft:mineca' of type 'minecraft:attribute' at position 8: t mineca<--[HERE]@6
+S -2--2 0 0 
+@ all *2
+R 0
+A -
+X No matches for selector 'minecraft:*2' of type 'minecraft:attribute' at position 4: t *2<--[HERE]@2
+E No matches for selector 'minecraft:*2' of type 'minecraft:attribute' at position 4: t *2<--[HERE]@2
+S -2--2 0 0 
+@ all 1/*
+R 0
+A -
+X No matches for selector 'minecraft:1/*' of type 'minecraft:attribute' at position 5: t 1/*<--[HERE]@3
+E No matches for selector 'minecraft:1/*' of type 'minecraft:attribute' at position 5: t 1/*<--[HERE]@3
+S -2--2 0 0 
+@ all mine/i
+R 0
+A -
+X No matches for selector 'minecraft:mine/i' of type 'minecraft:attribute' at position 8: t mine/i<--[HERE]@6
+E No matches for selector 'minecraft:mine/i' of type 'minecraft:attribute' at position 8: t mine/i<--[HERE]@6
+S -2--2 0 0 
+@ all *sharp**
+R 0
+A -
+X No matches for selector 'minecraft:*sharp**' of type 'minecraft:attribute' at position 10: t *sharp**<--[HERE]@8
+E No matches for selector 'minecraft:*sharp**' of type 'minecraft:attribute' at position 10: t *sharp**<--[HERE]@8
+S -2--2 0 0 
+@ all plainsnp
+R 0
+A -
+X No matches for selector 'minecraft:plainsnp' of type 'minecraft:attribute' at position 10: t plainsnp<--[HERE]@8
+E No matches for selector 'minecraft:plainsnp' of type 'minecraft:attribute' at position 10: t plainsnp<--[HERE]@8
+S -2--2 0 0 
+@ all e*
+R 2
+A 0-2 2:minecraft:explosion_knockback_resistance,minecraft:entity_interaction_range:954836054
+E ok
+S -2--2 0 0 
+@ all _og
+R 0
+A -
+X No matches for selector 'minecraft:_og' of type 'minecraft:attribute' at position 5: t _og<--[HERE]@3
+E No matches for selector 'minecraft:_og' of type 'minecraft:attribute' at position 5: t _og<--[HERE]@3
+S -2--2 0 0 
+@ all #  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eone
+R 0
+A -
+X No matches for selector 'minecraft:eone' of type 'minecraft:attribute' at position 6: t eone<--[HERE]@4
+E No matches for selector 'minecraft:eone' of type 'minecraft:attribute' at position 6: t eone<--[HERE]@4
+S -2--2 0 0 
+@ all a*b\u000ac
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:attribute' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:attribute' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all /*
+R 0
+A -
+X No matches for selector 'minecraft:/*' of type 'minecraft:attribute' at position 4: t /*<--[HERE]@2
+E No matches for selector 'minecraft:/*' of type 'minecraft:attribute' at position 4: t /*<--[HERE]@2
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft::
+R 0
+A -
+X No matches for selector 'minecraft::' of type 'minecraft:attribute' at position 13: ...inecraft::<--[HERE]@11
+E No matches for selector 'minecraft::' of type 'minecraft:attribute' at position 13: ...inecraft::<--[HERE]@11
+S -2--2 0 0 
+@ all */​*
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:attribute' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:attribute' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all c*>e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t c*<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t c*<--[HERE]@2
+S -2--2 0 0 
+@ all *effectf
+R 0
+A -
+X No matches for selector 'minecraft:*effectf' of type 'minecraft:attribute' at position 10: t *effectf<--[HERE]@8
+E No matches for selector 'minecraft:*effectf' of type 'minecraft:attribute' at position 10: t *effectf<--[HERE]@8
+S -2--2 0 0 
+@ all *eff*ect
+R 0
+A -
+X No matches for selector 'minecraft:*eff*ect' of type 'minecraft:attribute' at position 10: t *eff*ect<--[HERE]@8
+E No matches for selector 'minecraft:*eff*ect' of type 'minecraft:attribute' at position 10: t *eff*ect<--[HERE]@8
+S -2--2 0 0 
+@ all *e*
+R 3
+A 0-3 35:minecraft:air_drag_modifier,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_speed,minecraft:below_name_distance:1399225003
+E ok
+S -2--2 0 0 
+@ all necraft:s*
+R 0
+A -
+X No matches for selector 'necraft:s*' of type 'minecraft:attribute' at position 12: ...necraft:s*<--[HERE]@10
+E No matches for selector 'necraft:s*' of type 'minecraft:attribute' at position 12: ...necraft:s*<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:zombi*
+R 0
+A -
+X No matches for selector 'minecraft:zombi*' of type 'minecraft:attribute' at position 18: ...aft:zombi*<--[HERE]@16
+E No matches for selector 'minecraft:zombi*' of type 'minecraft:attribute' at position 18: ...aft:zombi*<--[HERE]@16
+S -2--2 0 0 
+@ all _log
+R 0
+A -
+X No matches for selector 'minecraft:_log' of type 'minecraft:attribute' at position 6: t _log<--[HERE]@4
+E No matches for selector 'minecraft:_log' of type 'minecraft:attribute' at position 6: t _log<--[HERE]@4
+S -2--2 0 0 
+@ all o8:*
+R 0
+A -
+X No matches for selector 'o8:*' of type 'minecraft:attribute' at position 6: t o8:*<--[HERE]@4
+E No matches for selector 'o8:*' of type 'minecraft:attribute' at position 6: t o8:*<--[HERE]@4
+S -2--2 0 0 
+@ all ~_log
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 6:6
+R 0
+A -
+X No matches for selector '6:6' of type 'minecraft:attribute' at position 5: t 6:6<--[HERE]@3
+E No matches for selector '6:6' of type 'minecraft:attribute' at position 5: t 6:6<--[HERE]@3
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:attribute' at position 3: t e<--[HERE]@1
+E No matches for selector 'minecraft:e' of type 'minecraft:attribute' at position 3: t e<--[HERE]@1
+S 0-1 5 -183821811 minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:water_movement_efficiency
+@ all A
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S 0-1 7 1448801226 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:max_absorption
+@ all mine*$
+R 0
+A -
+X No matches for selector 'minecraft:mine*' of type 'minecraft:attribute' at position 7: t mine*<--[HERE]@5
+E No matches for selector 'minecraft:mine*' of type 'minecraft:attribute' at position 7: t mine*<--[HERE]@5
+S -2--2 0 0 
+@ all Stoneo
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &f9oo:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *sharp*h
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*h' of type 'minecraft:attribute' at position 10: t *sharp*h<--[HERE]@8
+E No matches for selector 'minecraft:*sharp*h' of type 'minecraft:attribute' at position 10: t *sharp*h<--[HERE]@8
+S -2--2 0 0 
+@ all \\*\\
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:oak_
+R 0
+A -
+X No matches for selector 'necraft:oak_' of type 'minecraft:attribute' at position 14: ...craft:oak_<--[HERE]@12
+E No matches for selector 'necraft:oak_' of type 'minecraft:attribute' at position 14: ...craft:oak_<--[HERE]@12
+S -2--2 0 0 
+@ all fins
+R 0
+A -
+X No matches for selector 'minecraft:fins' of type 'minecraft:attribute' at position 6: t fins<--[HERE]@4
+E No matches for selector 'minecraft:fins' of type 'minecraft:attribute' at position 6: t fins<--[HERE]@4
+S -2--2 0 0 
+@ all # + 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f,o:)*
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all min😀craft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all stne
+R 0
+A -
+X No matches for selector 'minecraft:stne' of type 'minecraft:attribute' at position 6: t stne<--[HERE]@4
+E No matches for selector 'minecraft:stne' of type 'minecraft:attribute' at position 6: t stne<--[HERE]@4
+S -2--2 0 0 
+@ all c1
+R 0
+A -
+X No matches for selector 'minecraft:c1' of type 'minecraft:attribute' at position 4: t c1<--[HERE]@2
+E No matches for selector 'minecraft:c1' of type 'minecraft:attribute' at position 4: t c1<--[HERE]@2
+S -2--2 0 0 
+@ all og
+R 0
+A -
+X No matches for selector 'minecraft:og' of type 'minecraft:attribute' at position 4: t og<--[HERE]@2
+E No matches for selector 'minecraft:og' of type 'minecraft:attribute' at position 4: t og<--[HERE]@2
+S -2--2 0 0 
+@ all ab*c
+R 0
+A -
+X No matches for selector 'minecraft:ab*c' of type 'minecraft:attribute' at position 6: t ab*c<--[HERE]@4
+E No matches for selector 'minecraft:ab*c' of type 'minecraft:attribute' at position 6: t ab*c<--[HERE]@4
+S -2--2 0 0 
+@ all [e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ***
+R 3
+A 0-3 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all minecraft:zombié*m
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:attribute' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all 😀*éé
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *i
+R 0
+A -
+X No matches for selector 'minecraft:*i' of type 'minecraft:attribute' at position 4: t *i<--[HERE]@2
+E No matches for selector 'minecraft:*i' of type 'minecraft:attribute' at position 4: t *i<--[HERE]@2
+S -2--2 0 0 
+@ all # 99
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *tone*
+R 0
+A -
+X No matches for selector 'minecraft:*tone*' of type 'minecraft:attribute' at position 8: t *tone*<--[HERE]@6
+E No matches for selector 'minecraft:*tone*' of type 'minecraft:attribute' at position 8: t *tone*<--[HERE]@6
+S -2--2 0 0 
+@ all *irt*
+R 0
+A -
+X No matches for selector 'minecraft:*irt*' of type 'minecraft:attribute' at position 7: t *irt*<--[HERE]@5
+E No matches for selector 'minecraft:*irt*' of type 'minecraft:attribute' at position 7: t *irt*<--[HERE]@5
+S -2--2 0 0 
+@ all minecraf:*
+R 0
+A -
+X No matches for selector 'minecraf:*' of type 'minecraft:attribute' at position 12: ...minecraf:*<--[HERE]@10
+E No matches for selector 'minecraf:*' of type 'minecraft:attribute' at position 12: ...minecraf:*<--[HERE]@10
+S -2--2 0 0 
+@ all minecr-ßt:s*
+R 0
+A -
+X No matches for selector 'minecraft:minecr-' of type 'minecraft:attribute' at position 9: t minecr-<--[HERE]@7
+E No matches for selector 'minecraft:minecr-' of type 'minecraft:attribute' at position 9: t minecr-<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:*/a
+R 0
+A -
+X No matches for selector 'minecraft:*/a' of type 'minecraft:attribute' at position 15: ...ecraft:*/a<--[HERE]@13
+E No matches for selector 'minecraft:*/a' of type 'minecraft:attribute' at position 15: ...ecraft:*/a<--[HERE]@13
+S -2--2 0 0 
+@ all :'B
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:attribute' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:attribute' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all *eeß
+R 0
+A -
+X No matches for selector 'minecraft:*ee' of type 'minecraft:attribute' at position 5: t *ee<--[HERE]@3
+E No matches for selector 'minecraft:*ee' of type 'minecraft:attribute' at position 5: t *ee<--[HERE]@3
+S -2--2 0 0 
+@ all */y
+R 0
+A -
+X No matches for selector 'minecraft:*/y' of type 'minecraft:attribute' at position 5: t */y<--[HERE]@3
+E No matches for selector 'minecraft:*/y' of type 'minecraft:attribute' at position 5: t */y<--[HERE]@3
+S -2--2 0 0 
+@ all mine*n
+R 0
+A -
+X No matches for selector 'minecraft:mine*n' of type 'minecraft:attribute' at position 8: t mine*n<--[HERE]@6
+E No matches for selector 'minecraft:mine*n' of type 'minecraft:attribute' at position 8: t mine*n<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:oak*
+R 0
+A -
+X No matches for selector 'minecraft:oak*' of type 'minecraft:attribute' at position 16: ...craft:oak*<--[HERE]@14
+E No matches for selector 'minecraft:oak*' of type 'minecraft:attribute' at position 16: ...craft:oak*<--[HERE]@14
+S -2--2 0 0 
+@ all plainss
+R 0
+A -
+X No matches for selector 'minecraft:plainss' of type 'minecraft:attribute' at position 9: t plainss<--[HERE]@7
+E No matches for selector 'minecraft:plainss' of type 'minecraft:attribute' at position 9: t plainss<--[HERE]@7
+S -2--2 0 0 
+@ all *stonec*
+R 0
+A -
+X No matches for selector 'minecraft:*stonec*' of type 'minecraft:attribute' at position 10: t *stonec*<--[HERE]@8
+E No matches for selector 'minecraft:*stonec*' of type 'minecraft:attribute' at position 10: t *stonec*<--[HERE]@8
+S -2--2 0 0 
+@ all #A
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *s>arp*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+S -2--2 0 0 
+@ all *??
+R 0
+A -
+X No matches for selector 'minecraft:*??' of type 'minecraft:attribute' at position 5: t *??<--[HERE]@3
+E No matches for selector 'minecraft:*??' of type 'minecraft:attribute' at position 5: t *??<--[HERE]@3
+S -2--2 0 0 
+@ all *?*?
+R 0
+A -
+X No matches for selector 'minecraft:*?*?' of type 'minecraft:attribute' at position 6: t *?*?<--[HERE]@4
+E No matches for selector 'minecraft:*?*?' of type 'minecraft:attribute' at position 6: t *?*?<--[HERE]@4
+S -2--2 0 0 
+@ all *a
+R 0
+A -
+X No matches for selector 'minecraft:*a' of type 'minecraft:attribute' at position 4: t *a<--[HERE]@2
+E No matches for selector 'minecraft:*a' of type 'minecraft:attribute' at position 4: t *a<--[HERE]@2
+S -2--2 0 0 
+@ all a*b~*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:attribute' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:attribute' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all minecraf:*/*
+R 0
+A -
+X No matches for selector 'minecraf:*/*' of type 'minecraft:attribute' at position 14: ...necraf:*/*<--[HERE]@12
+E No matches for selector 'minecraf:*/*' of type 'minecraft:attribute' at position 14: ...necraf:*/*<--[HERE]@12
+S -2--2 0 0 
+@ all Stoe
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sset
+R 0
+A -
+X No matches for selector 'minecraft:sset' of type 'minecraft:attribute' at position 6: t sset<--[HERE]@4
+E No matches for selector 'minecraft:sset' of type 'minecraft:attribute' at position 6: t sset<--[HERE]@4
+S -2--2 0 0 
+@ all ff
+R 0
+A -
+X No matches for selector 'minecraft:ff' of type 'minecraft:attribute' at position 4: t ff<--[HERE]@2
+E No matches for selector 'minecraft:ff' of type 'minecraft:attribute' at position 4: t ff<--[HERE]@2
+S -2--2 0 0 
+@ all %
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *st*ne*
+R 0
+A -
+X No matches for selector 'minecraft:*st*ne*' of type 'minecraft:attribute' at position 9: t *st*ne*<--[HERE]@7
+E No matches for selector 'minecraft:*st*ne*' of type 'minecraft:attribute' at position 9: t *st*ne*<--[HERE]@7
+S -2--2 0 0 
+@ all *stone 
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:attribute' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:attribute' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all inecraft:oak_$
+R 0
+A -
+X No matches for selector 'inecraft:oak_' of type 'minecraft:attribute' at position 15: ...craft:oak_<--[HERE]@13
+E No matches for selector 'inecraft:oak_' of type 'minecraft:attribute' at position 15: ...craft:oak_<--[HERE]@13
+S -2--2 0 0 
+@ all plains'
+R 0
+A -
+X No matches for selector 'minecraft:plains' of type 'minecraft:attribute' at position 8: t plains<--[HERE]@6
+E No matches for selector 'minecraft:plains' of type 'minecraft:attribute' at position 8: t plains<--[HERE]@6
+S -2--2 0 0 
+@ all minecraf+t:s*
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:attribute' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all *stfon:e*
+R 0
+A -
+X No matches for selector '*stfon:e*' of type 'minecraft:attribute' at position 11: ... *stfon:e*<--[HERE]@9
+E No matches for selector '*stfon:e*' of type 'minecraft:attribute' at position 11: ... *stfon:e*<--[HERE]@9
+S -2--2 0 0 
+@ all i3e*
+R 0
+A -
+X No matches for selector 'minecraft:i3e*' of type 'minecraft:attribute' at position 6: t i3e*<--[HERE]@4
+E No matches for selector 'minecraft:i3e*' of type 'minecraft:attribute' at position 6: t i3e*<--[HERE]@4
+S -2--2 0 0 
+@ all / :
+R 0
+A -
+X No matches for selector 'minecraft:/' of type 'minecraft:attribute' at position 3: t /<--[HERE]@1
+E No matches for selector 'minecraft:/' of type 'minecraft:attribute' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all *sbarp*s
+R 0
+A -
+X No matches for selector 'minecraft:*sbarp*s' of type 'minecraft:attribute' at position 10: t *sbarp*s<--[HERE]@8
+E No matches for selector 'minecraft:*sbarp*s' of type 'minecraft:attribute' at position 10: t *sbarp*s<--[HERE]@8
+S -2--2 0 0 
+@ all 9*
+R 0
+A -
+X No matches for selector 'minecraft:9*' of type 'minecraft:attribute' at position 4: t 9*<--[HERE]@2
+E No matches for selector 'minecraft:9*' of type 'minecraft:attribute' at position 4: t 9*<--[HERE]@2
+S -2--2 0 0 
+@ all z*$
+R 0
+A -
+X No matches for selector 'minecraft:z*' of type 'minecraft:attribute' at position 4: t z*<--[HERE]@2
+E No matches for selector 'minecraft:z*' of type 'minecraft:attribute' at position 4: t z*<--[HERE]@2
+S -2--2 0 0 
+@ all ^*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *dirtX
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:attribute' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:attribute' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all *effect*
+R 0
+A -
+X No matches for selector 'minecraft:*effect*' of type 'minecraft:attribute' at position 10: t *effect*<--[HERE]@8
+E No matches for selector 'minecraft:*effect*' of type 'minecraft:attribute' at position 10: t *effect*<--[HERE]@8
+S -2--2 0 0 
+@ all foo:**
+R 0
+A -
+X No matches for selector 'foo:**' of type 'minecraft:attribute' at position 8: t foo:**<--[HERE]@6
+E No matches for selector 'foo:**' of type 'minecraft:attribute' at position 8: t foo:**<--[HERE]@6
+S -2--2 0 0 
+@ all *:ass-ets
+R 0
+A -
+X No matches for selector '*:ass-ets' of type 'minecraft:attribute' at position 11: ... *:ass-ets<--[HERE]@9
+E No matches for selector '*:ass-ets' of type 'minecraft:attribute' at position 11: ... *:ass-ets<--[HERE]@9
+S -2--2 0 0 
+@ all *effctt
+R 0
+A -
+X No matches for selector 'minecraft:*effctt' of type 'minecraft:attribute' at position 9: t *effctt<--[HERE]@7
+E No matches for selector 'minecraft:*effctt' of type 'minecraft:attribute' at position 9: t *effctt<--[HERE]@7
+S -2--2 0 0 
+@ all f<o:*
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:attribute' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all stonet
+R 0
+A -
+X No matches for selector 'minecraft:stonet' of type 'minecraft:attribute' at position 8: t stonet<--[HERE]@6
+E No matches for selector 'minecraft:stonet' of type 'minecraft:attribute' at position 8: t stonet<--[HERE]@6
+S -2--2 0 0 
+@ all foo**
+R 0
+A -
+X No matches for selector 'minecraft:foo**' of type 'minecraft:attribute' at position 7: t foo**<--[HERE]@5
+E No matches for selector 'minecraft:foo**' of type 'minecraft:attribute' at position 7: t foo**<--[HERE]@5
+S -2--2 0 0 
+@ all "*stone*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ston@
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all one
+R 0
+A -
+X No matches for selector 'minecraft:one' of type 'minecraft:attribute' at position 5: t one<--[HERE]@3
+E No matches for selector 'minecraft:one' of type 'minecraft:attribute' at position 5: t one<--[HERE]@3
+S -2--2 0 0 
+@ all !!
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minCe*e
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all m*#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t m*<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t m*<--[HERE]@2
+S -2--2 0 0 
+@ all craft:s*s
+R 0
+A -
+X No matches for selector 'craft:s*s' of type 'minecraft:attribute' at position 11: ... craft:s*s<--[HERE]@9
+E No matches for selector 'craft:s*s' of type 'minecraft:attribute' at position 11: ... craft:s*s<--[HERE]@9
+S -2--2 0 0 
+@ all mi(necraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all *sh7arp*
+R 0
+A -
+X No matches for selector 'minecraft:*sh7arp*' of type 'minecraft:attribute' at position 10: t *sh7arp*<--[HERE]@8
+E No matches for selector 'minecraft:*sh7arp*' of type 'minecraft:attribute' at position 10: t *sh7arp*<--[HERE]@8
+S -2--2 0 0 
+@ all g
+R 0
+A -
+X No matches for selector 'minecraft:g' of type 'minecraft:attribute' at position 3: t g<--[HERE]@1
+E No matches for selector 'minecraft:g' of type 'minecraft:attribute' at position 3: t g<--[HERE]@1
+S 0-1 1 1135777448 minecraft:gravity
+@ all *\u0000*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all harpe
+R 0
+A -
+X No matches for selector 'minecraft:harpe' of type 'minecraft:attribute' at position 7: t harpe<--[HERE]@5
+E No matches for selector 'minecraft:harpe' of type 'minecraft:attribute' at position 7: t harpe<--[HERE]@5
+S -2--2 0 0 
+@ all *6
+R 0
+A -
+X No matches for selector 'minecraft:*6' of type 'minecraft:attribute' at position 4: t *6<--[HERE]@2
+E No matches for selector 'minecraft:*6' of type 'minecraft:attribute' at position 4: t *6<--[HERE]@2
+S -2--2 0 0 
+@ all minecrafbt:
+R 0
+A -
+X No matches for selector 'minecrafbt:' of type 'minecraft:attribute' at position 13: ...inecrafbt:<--[HERE]@11
+E No matches for selector 'minecrafbt:' of type 'minecraft:attribute' at position 13: ...inecrafbt:<--[HERE]@11
+S -2--2 0 0 
+@ all *effebcy
+R 0
+A -
+X No matches for selector 'minecraft:*effebcy' of type 'minecraft:attribute' at position 10: t *effebcy<--[HERE]@8
+E No matches for selector 'minecraft:*effebcy' of type 'minecraft:attribute' at position 10: t *effebcy<--[HERE]@8
+S -2--2 0 0 
+@ all minecrafe:*/*
+R 0
+A -
+X No matches for selector 'minecrafe:*/*' of type 'minecraft:attribute' at position 15: ...ecrafe:*/*<--[HERE]@13
+E No matches for selector 'minecrafe:*/*' of type 'minecraft:attribute' at position 15: ...ecrafe:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all *stonZ*
+R 0
+A -
+X No matches for selector 'minecraft:*ston' of type 'minecraft:attribute' at position 7: t *ston<--[HERE]@5
+E No matches for selector 'minecraft:*ston' of type 'minecraft:attribute' at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all effect
+R 0
+A -
+X No matches for selector 'minecraft:effect' of type 'minecraft:attribute' at position 8: t effect<--[HERE]@6
+E No matches for selector 'minecraft:effect' of type 'minecraft:attribute' at position 8: t effect<--[HERE]@6
+S -2--2 0 0 
+@ all ##
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *ß*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *:**
+R 4
+A 0-4 40:minecraft:air_drag_modifier,minecraft:armor,minecraft:armor_toughness,minecraft:attack_damage,minecraft:attack_knockback:-2122694669
+E ok
+S -2--2 0 0 
+@ all 8toİne
+R 0
+A -
+X No matches for selector 'minecraft:8to' of type 'minecraft:attribute' at position 5: t 8to<--[HERE]@3
+E No matches for selector 'minecraft:8to' of type 'minecraft:attribute' at position 5: t 8to<--[HERE]@3
+S -2--2 0 0 
+@ all  *
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:zombie*t
+R 0
+A -
+X No matches for selector 'necraft:zombie*t' of type 'minecraft:attribute' at position 18: ...t:zombie*t<--[HERE]@16
+E No matches for selector 'necraft:zombie*t' of type 'minecraft:attribute' at position 18: ...t:zombie*t<--[HERE]@16
+S -2--2 0 0 
+@ all Stnen
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:\u0000
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all  m>ine*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *éé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all foo:中^
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:attribute' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:oak_**
+R 0
+A -
+X No matches for selector 'minecraft:oak_**' of type 'minecraft:attribute' at position 18: ...aft:oak_**<--[HERE]@16
+E No matches for selector 'minecraft:oak_**' of type 'minecraft:attribute' at position 18: ...aft:oak_**<--[HERE]@16
+S -2--2 0 0 
+@ all /*éé
+R 0
+A -
+X No matches for selector 'minecraft:/*' of type 'minecraft:attribute' at position 4: t /*<--[HERE]@2
+E No matches for selector 'minecraft:/*' of type 'minecraft:attribute' at position 4: t /*<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:???*??
+R 16
+A 0-16 2:minecraft:armor,minecraft:scale:-729267386
+E ok
+S -2--2 0 0 
+@ all pain*
+R 0
+A -
+X No matches for selector 'minecraft:pain*' of type 'minecraft:attribute' at position 7: t pain*<--[HERE]@5
+E No matches for selector 'minecraft:pain*' of type 'minecraft:attribute' at position 7: t pain*<--[HERE]@5
+S -2--2 0 0 
+@ all m**
+R 3
+A 0-3 5:minecraft:max_absorption,minecraft:max_health,minecraft:mining_efficiency,minecraft:movement_efficiency,minecraft:movement_speed:307011154
+E ok
+S -2--2 0 0 
+@ all *s$tone*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+S -2--2 0 0 
+@ all *_log}
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:attribute' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:attribute' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all # #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ) 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*cb*c*
+R 0
+A -
+X No matches for selector 'minecraft:a*cb*c*' of type 'minecraft:attribute' at position 9: t a*cb*c*<--[HERE]@7
+E No matches for selector 'minecraft:a*cb*c*' of type 'minecraft:attribute' at position 9: t a*cb*c*<--[HERE]@7
+S -2--2 0 0 
+@ all lains
+R 0
+A -
+X No matches for selector 'minecraft:lains' of type 'minecraft:attribute' at position 7: t lains<--[HERE]@5
+E No matches for selector 'minecraft:lains' of type 'minecraft:attribute' at position 7: t lains<--[HERE]@5
+S -2--2 0 0 
+@ all minecrafft:*e
+R 0
+A -
+X No matches for selector 'minecrafft:*e' of type 'minecraft:attribute' at position 15: ...ecrafft:*e<--[HERE]@13
+E No matches for selector 'minecrafft:*e' of type 'minecraft:attribute' at position 15: ...ecrafft:*e<--[HERE]@13
+S -2--2 0 0 
+@ all *logo
+R 0
+A -
+X No matches for selector 'minecraft:*logo' of type 'minecraft:attribute' at position 7: t *logo<--[HERE]@5
+E No matches for selector 'minecraft:*logo' of type 'minecraft:attribute' at position 7: t *logo<--[HERE]@5
+S -2--2 0 0 
+@ all n)
+R 0
+A -
+X No matches for selector 'minecraft:n' of type 'minecraft:attribute' at position 3: t n<--[HERE]@1
+E No matches for selector 'minecraft:n' of type 'minecraft:attribute' at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all miZecraft:*m
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all Stonet
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t*
+R 2
+A 0-2 1:minecraft:tempt_range:-651144943
+E ok
+S -2--2 0 0 
+@ all irt*
+R 0
+A -
+X No matches for selector 'minecraft:irt*' of type 'minecraft:attribute' at position 6: t irt*<--[HERE]@4
+E No matches for selector 'minecraft:irt*' of type 'minecraft:attribute' at position 6: t irt*<--[HERE]@4
+S -2--2 0 0 
+@ all *ffecte
+R 0
+A -
+X No matches for selector 'minecraft:*ffecte' of type 'minecraft:attribute' at position 9: t *ffecte<--[HERE]@7
+E No matches for selector 'minecraft:*ffecte' of type 'minecraft:attribute' at position 9: t *ffecte<--[HERE]@7
+S -2--2 0 0 
+@ all plainsn
+R 0
+A -
+X No matches for selector 'minecraft:plainsn' of type 'minecraft:attribute' at position 9: t plainsn<--[HERE]@7
+E No matches for selector 'minecraft:plainsn' of type 'minecraft:attribute' at position 9: t plainsn<--[HERE]@7
+S -2--2 0 0 
+@ all raft:*
+R 0
+A -
+X No matches for selector 'raft:*' of type 'minecraft:attribute' at position 8: t raft:*<--[HERE]@6
+E No matches for selector 'raft:*' of type 'minecraft:attribute' at position 8: t raft:*<--[HERE]@6
+S -2--2 0 0 
+@ all *dirt**
+R 0
+A -
+X No matches for selector 'minecraft:*dirt**' of type 'minecraft:attribute' at position 9: t *dirt**<--[HERE]@7
+E No matches for selector 'minecraft:*dirt**' of type 'minecraft:attribute' at position 9: t *dirt**<--[HERE]@7
+S -2--2 0 0 
+@ all 中*e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​z*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fect
+R 0
+A -
+X No matches for selector 'minecraft:fect' of type 'minecraft:attribute' at position 6: t fect<--[HERE]@4
+E No matches for selector 'minecraft:fect' of type 'minecraft:attribute' at position 6: t fect<--[HERE]@4
+S -2--2 0 0 
+@ all m*m
+R 0
+A -
+X No matches for selector 'minecraft:m*m' of type 'minecraft:attribute' at position 5: t m*m<--[HERE]@3
+E No matches for selector 'minecraft:m*m' of type 'minecraft:attribute' at position 5: t m*m<--[HERE]@3
+S -2--2 0 0 
+@ all {i1e*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:ß*:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:attribute' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:attribute' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all m/
+R 0
+A -
+X No matches for selector 'minecraft:m/' of type 'minecraft:attribute' at position 4: t m/<--[HERE]@2
+E No matches for selector 'minecraft:m/' of type 'minecraft:attribute' at position 4: t m/<--[HERE]@2
+S -2--2 0 0 
+@ all ,*ee
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *bé
+R 0
+A -
+X No matches for selector 'minecraft:*b' of type 'minecraft:attribute' at position 4: t *b<--[HERE]@2
+E No matches for selector 'minecraft:*b' of type 'minecraft:attribute' at position 4: t *b<--[HERE]@2
+S -2--2 0 0 
+@ all *effec99
+R 0
+A -
+X No matches for selector 'minecraft:*effec99' of type 'minecraft:attribute' at position 10: t *effec99<--[HERE]@8
+E No matches for selector 'minecraft:*effec99' of type 'minecraft:attribute' at position 10: t *effec99<--[HERE]@8
+S -2--2 0 0 
+@ all ecraf:s*
+R 0
+A -
+X No matches for selector 'ecraf:s*' of type 'minecraft:attribute' at position 10: t ecraf:s*<--[HERE]@8
+E No matches for selector 'ecraf:s*' of type 'minecraft:attribute' at position 10: t ecraf:s*<--[HERE]@8
+S -2--2 0 0 
+@ all *asset
+R 0
+A -
+X No matches for selector 'minecraft:*asset' of type 'minecraft:attribute' at position 8: t *asset<--[HERE]@6
+E No matches for selector 'minecraft:*asset' of type 'minecraft:attribute' at position 8: t *asset<--[HERE]@6
+S -2--2 0 0 
+@ all mYinecr!aft:
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:attribute' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:attribute' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all *: 
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:attribute' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:attribute' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:s*{s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:s*<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:s*<--[HERE]@12
+S -2--2 0 0 
+@ all 2*
+R 0
+A -
+X No matches for selector 'minecraft:2*' of type 'minecraft:attribute' at position 4: t 2*<--[HERE]@2
+E No matches for selector 'minecraft:2*' of type 'minecraft:attribute' at position 4: t 2*<--[HERE]@2
+S -2--2 0 0 
+@ all *_0g
+R 0
+A -
+X No matches for selector 'minecraft:*_0g' of type 'minecraft:attribute' at position 6: t *_0g<--[HERE]@4
+E No matches for selector 'minecraft:*_0g' of type 'minecraft:attribute' at position 6: t *_0g<--[HERE]@4
+S -2--2 0 0 
+@ all #.
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:0
+R 0
+A -
+X No matches for selector '*:0' of type 'minecraft:attribute' at position 5: t *:0<--[HERE]@3
+E No matches for selector '*:0' of type 'minecraft:attribute' at position 5: t *:0<--[HERE]@3
+S -2--2 0 0 
+@ all ßmine**
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:attribute' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all asset
+R 0
+A -
+X No matches for selector 'minecraft:asset' of type 'minecraft:attribute' at position 7: t asset<--[HERE]@5
+E No matches for selector 'minecraft:asset' of type 'minecraft:attribute' at position 7: t asset<--[HERE]@5
+S -2--2 0 0 
+@ all *effectt
+R 0
+A -
+X No matches for selector 'minecraft:*effectt' of type 'minecraft:attribute' at position 10: t *effectt<--[HERE]@8
+E No matches for selector 'minecraft:*effectt' of type 'minecraft:attribute' at position 10: t *effectt<--[HERE]@8
+S -2--2 0 0 
+@ all minecra\\ft:*
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:attribute' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all *st(ne*
+R 0
+A -
+X No matches for selector 'minecraft:*st' of type 'minecraft:attribute' at position 5: t *st<--[HERE]@3
+E No matches for selector 'minecraft:*st' of type 'minecraft:attribute' at position 5: t *st<--[HERE]@3
+S -2--2 0 0 
+@ all *_&og
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:attribute' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:attribute' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all _*
+R 0
+A -
+X No matches for selector 'minecraft:_*' of type 'minecraft:attribute' at position 4: t _*<--[HERE]@2
+E No matches for selector 'minecraft:_*' of type 'minecraft:attribute' at position 4: t _*<--[HERE]@2
+S -2--2 0 0 
+@ all gg
+R 0
+A -
+X No matches for selector 'minecraft:gg' of type 'minecraft:attribute' at position 4: t gg<--[HERE]@2
+E No matches for selector 'minecraft:gg' of type 'minecraft:attribute' at position 4: t gg<--[HERE]@2
+S -2--2 0 0 
+@ all mne[craft:s*
+R 0
+A -
+X No matches for selector 'minecraft:mne' of type 'minecraft:attribute' at position 5: t mne<--[HERE]@3
+E No matches for selector 'minecraft:mne' of type 'minecraft:attribute' at position 5: t mne<--[HERE]@3
+S -2--2 0 0 
+@ all foxo:*
+R 0
+A -
+X No matches for selector 'foxo:*' of type 'minecraft:attribute' at position 8: t foxo:*<--[HERE]@6
+E No matches for selector 'foxo:*' of type 'minecraft:attribute' at position 8: t foxo:*<--[HERE]@6
+S -2--2 0 0 
+@ all min[ecraft:
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:attribute' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all f3o:**
+R 0
+A -
+X No matches for selector 'f3o:**' of type 'minecraft:attribute' at position 8: t f3o:**<--[HERE]@6
+E No matches for selector 'f3o:**' of type 'minecraft:attribute' at position 8: t f3o:**<--[HERE]@6
+S -2--2 0 0 
+@ all m*m0
+R 0
+A -
+X No matches for selector 'minecraft:m*m0' of type 'minecraft:attribute' at position 6: t m*m0<--[HERE]@4
+E No matches for selector 'minecraft:m*m0' of type 'minecraft:attribute' at position 6: t m*m0<--[HERE]@4
+S -2--2 0 0 
+@ all e_log
+R 0
+A -
+X No matches for selector 'minecraft:e_log' of type 'minecraft:attribute' at position 7: t e_log<--[HERE]@5
+E No matches for selector 'minecraft:e_log' of type 'minecraft:attribute' at position 7: t e_log<--[HERE]@5
+S -2--2 0 0 
+@ all inecraft:zo￿bie*
+R 0
+A -
+X No matches for selector 'inecraft:zo' of type 'minecraft:attribute' at position 13: ...necraft:zo<--[HERE]@11
+E No matches for selector 'inecraft:zo' of type 'minecraft:attribute' at position 13: ...necraft:zo<--[HERE]@11
+S -2--2 0 0 
+@ all m*ineraft:
+R 0
+A -
+X No matches for selector 'm*ineraft:' of type 'minecraft:attribute' at position 12: ...m*ineraft:<--[HERE]@10
+E No matches for selector 'm*ineraft:' of type 'minecraft:attribute' at position 12: ...m*ineraft:<--[HERE]@10
+S -2--2 0 0 
+@ all *shar*
+R 0
+A -
+X No matches for selector 'minecraft:*shar*' of type 'minecraft:attribute' at position 8: t *shar*<--[HERE]@6
+E No matches for selector 'minecraft:*shar*' of type 'minecraft:attribute' at position 8: t *shar*<--[HERE]@6
+S -2--2 0 0 
+@ all *4*
+R 0
+A -
+X No matches for selector 'minecraft:*4*' of type 'minecraft:attribute' at position 5: t *4*<--[HERE]@3
+E No matches for selector 'minecraft:*4*' of type 'minecraft:attribute' at position 5: t *4*<--[HERE]@3
+S -2--2 0 0 
+@ all *:*😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*i
+R 0
+A -
+X No matches for selector 'minecraft:*/*i' of type 'minecraft:attribute' at position 16: ...craft:*/*i<--[HERE]@14
+E No matches for selector 'minecraft:*/*i' of type 'minecraft:attribute' at position 16: ...craft:*/*i<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:r
+R 0
+A -
+X No matches for selector 'minecraft:r' of type 'minecraft:attribute' at position 13: ...inecraft:r<--[HERE]@11
+E No matches for selector 'minecraft:r' of type 'minecraft:attribute' at position 13: ...inecraft:r<--[HERE]@11
+S -2--2 0 0 
+@ all ee
+R 0
+A -
+X No matches for selector 'minecraft:ee' of type 'minecraft:attribute' at position 4: t ee<--[HERE]@2
+E No matches for selector 'minecraft:ee' of type 'minecraft:attribute' at position 4: t ee<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:o$ak_*
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:attribute' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:attribute' at position 13: ...inecraft:o<--[HERE]@11
+S -2--2 0 0 
+@ all mi%ecraft:s*
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:attribute' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all mineraft:*/*e
+R 0
+A -
+X No matches for selector 'mineraft:*/*e' of type 'minecraft:attribute' at position 15: ...eraft:*/*e<--[HERE]@13
+E No matches for selector 'mineraft:*/*e' of type 'minecraft:attribute' at position 15: ...eraft:*/*e<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:oak￿*
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:attribute' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:attribute' at position 15: ...ecraft:oak<--[HERE]@13
+S -2--2 0 0 
+@ all tx
+R 0
+A -
+X No matches for selector 'minecraft:tx' of type 'minecraft:attribute' at position 4: t tx<--[HERE]@2
+E No matches for selector 'minecraft:tx' of type 'minecraft:attribute' at position 4: t tx<--[HERE]@2
+S -2--2 0 0 
+@ all *😀\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft😀:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:attribute' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 

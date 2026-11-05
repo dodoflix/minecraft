@@ -1,0 +1,1917 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 65 565638879 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining
+@ all minecraft:zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:enchantment' at position 18: ...aft:zombie<--[HERE]@16
+E Can't find element 'minecraft:zombie' of type 'minecraft:enchantment' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:enchantment' at position 8: t zombie<--[HERE]@6
+E Can't find element 'minecraft:zombie' of type 'minecraft:enchantment' at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:player
+R 0
+A -
+X Can't find element 'minecraft:player' of type 'minecraft:enchantment' at position 18: ...aft:player<--[HERE]@16
+E Can't find element 'minecraft:player' of type 'minecraft:enchantment' at position 18: ...aft:player<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:enchantment' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'minecraft:nope' of type 'minecraft:enchantment' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all #minecraft:skeletons
+R 0
+A -
+X Can't find tag 'minecraft:skeletons' of type 'minecraft:enchantment' at position 22: ...:skeletons<--[HERE]@20
+E Can't find tag 'minecraft:skeletons' of type 'minecraft:enchantment' at position 22: ...:skeletons<--[HERE]@20
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Can't find tag 'minecraft:nope' of type 'minecraft:enchantment' at position 17: ...craft:nope<--[HERE]@15
+E Can't find tag 'minecraft:nope' of type 'minecraft:enchantment' at position 17: ...craft:nope<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:speed
+R 0
+A -
+X Can't find element 'minecraft:speed' of type 'minecraft:enchantment' at position 17: ...raft:speed<--[HERE]@15
+E Can't find element 'minecraft:speed' of type 'minecraft:enchantment' at position 17: ...raft:speed<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 19
+A 0-19 minecraft:sharpness|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:fortune
+R 17
+A 0-17 minecraft:fortune|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 0
+A -
+X Can't find element 'minecraft:village_plains' of type 'minecraft:enchantment' at position 26: ...age_plains<--[HERE]@24
+E Can't find element 'minecraft:village_plains' of type 'minecraft:enchantment' at position 26: ...age_plains<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 0
+A -
+X Can't find element 'minecraft:mineshaft' of type 'minecraft:enchantment' at position 21: ...:mineshaft<--[HERE]@19
+E Can't find element 'minecraft:mineshaft' of type 'minecraft:enchantment' at position 21: ...:mineshaft<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:ancient_city' of type 'minecraft:enchantment' at position 24: ...cient_city<--[HERE]@22
+E Can't find element 'minecraft:ancient_city' of type 'minecraft:enchantment' at position 24: ...cient_city<--[HERE]@22
+S -2--2 0 0 
+@ all foo:bar
+R 0
+A -
+X Can't find element 'foo:bar' of type 'minecraft:enchantment' at position 9: t foo:bar<--[HERE]@7
+E Can't find element 'foo:bar' of type 'minecraft:enchantment' at position 9: t foo:bar<--[HERE]@7
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 0
+A -
+X Can't find element 'minecraft:armor' of type 'minecraft:enchantment' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'minecraft:armor' of type 'minecraft:enchantment' at position 17: ...raft:armor<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:max_health
+R 0
+A -
+X Can't find element 'minecraft:max_health' of type 'minecraft:enchantment' at position 22: ...max_health<--[HERE]@20
+E Can't find element 'minecraft:max_health' of type 'minecraft:enchantment' at position 22: ...max_health<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 0
+A -
+X Can't find element 'minecraft:generic.max_health' of type 'minecraft:enchantment' at position 30: ...max_health<--[HERE]@28
+E Can't find element 'minecraft:generic.max_health' of type 'minecraft:enchantment' at position 30: ...max_health<--[HERE]@28
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+S 0-1 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S 0-2 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+S 0-3 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S 0-4 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+S 0-5 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+S 0-6 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:enchantment' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:enchantment' at position 9: t minecra<--[HERE]@7
+S 0-7 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:enchantment' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:enchantment' at position 10: t minecraf<--[HERE]@8
+S 0-8 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+S 0-9 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraft:z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:enchantment' at position 13: ...inecraft:z<--[HERE]@11
+E Can't find element 'minecraft:z' of type 'minecraft:enchantment' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:enchantment' at position 14: ...necraft:zo<--[HERE]@12
+E Can't find element 'minecraft:zo' of type 'minecraft:enchantment' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:enchantment' at position 15: ...ecraft:zom<--[HERE]@13
+E Can't find element 'minecraft:zom' of type 'minecraft:enchantment' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:enchantment' at position 16: ...craft:zomb<--[HERE]@14
+E Can't find element 'minecraft:zomb' of type 'minecraft:enchantment' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:enchantment' at position 17: ...raft:zombi<--[HERE]@15
+E Can't find element 'minecraft:zombi' of type 'minecraft:enchantment' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:enchantment' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:enchantment' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:enchantment' at position 4: t zo<--[HERE]@2
+E Can't find element 'minecraft:zo' of type 'minecraft:enchantment' at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:enchantment' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:enchantment' at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:enchantment' at position 6: t zomb<--[HERE]@4
+E Can't find element 'minecraft:zomb' of type 'minecraft:enchantment' at position 6: t zomb<--[HERE]@4
+S -2--2 0 0 
+@ all zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:enchantment' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:enchantment' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:p
+R 0
+A -
+X Can't find element 'minecraft:p' of type 'minecraft:enchantment' at position 13: ...inecraft:p<--[HERE]@11
+E Can't find element 'minecraft:p' of type 'minecraft:enchantment' at position 13: ...inecraft:p<--[HERE]@11
+S 0-11 5 -398043172 minecraft:piercing	minecraft:power	minecraft:projectile_protection	minecraft:protection	minecraft:punch
+@ all minecraft:pl
+R 0
+A -
+X Can't find element 'minecraft:pl' of type 'minecraft:enchantment' at position 14: ...necraft:pl<--[HERE]@12
+E Can't find element 'minecraft:pl' of type 'minecraft:enchantment' at position 14: ...necraft:pl<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:pla
+R 0
+A -
+X Can't find element 'minecraft:pla' of type 'minecraft:enchantment' at position 15: ...ecraft:pla<--[HERE]@13
+E Can't find element 'minecraft:pla' of type 'minecraft:enchantment' at position 15: ...ecraft:pla<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:play
+R 0
+A -
+X Can't find element 'minecraft:play' of type 'minecraft:enchantment' at position 16: ...craft:play<--[HERE]@14
+E Can't find element 'minecraft:play' of type 'minecraft:enchantment' at position 16: ...craft:play<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:playe
+R 0
+A -
+X Can't find element 'minecraft:playe' of type 'minecraft:enchantment' at position 17: ...raft:playe<--[HERE]@15
+E Can't find element 'minecraft:playe' of type 'minecraft:enchantment' at position 17: ...raft:playe<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:n' of type 'minecraft:enchantment' at position 13: ...inecraft:n<--[HERE]@11
+E Can't find element 'minecraft:n' of type 'minecraft:enchantment' at position 13: ...inecraft:n<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:enchantment' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:enchantment' at position 14: ...necraft:no<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:enchantment' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:enchantment' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:enchantment' at position 3: t #<--[HERE]@1
+E Can't find tag 'minecraft:' of type 'minecraft:enchantment' at position 3: t #<--[HERE]@1
+S 0-1 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #m
+R 0
+A -
+X Can't find tag 'minecraft:m' of type 'minecraft:enchantment' at position 4: t #m<--[HERE]@2
+E Can't find tag 'minecraft:m' of type 'minecraft:enchantment' at position 4: t #m<--[HERE]@2
+S 0-2 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #mi
+R 0
+A -
+X Can't find tag 'minecraft:mi' of type 'minecraft:enchantment' at position 5: t #mi<--[HERE]@3
+E Can't find tag 'minecraft:mi' of type 'minecraft:enchantment' at position 5: t #mi<--[HERE]@3
+S 0-3 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #min
+R 0
+A -
+X Can't find tag 'minecraft:min' of type 'minecraft:enchantment' at position 6: t #min<--[HERE]@4
+E Can't find tag 'minecraft:min' of type 'minecraft:enchantment' at position 6: t #min<--[HERE]@4
+S 0-4 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #mine
+R 0
+A -
+X Can't find tag 'minecraft:mine' of type 'minecraft:enchantment' at position 7: t #mine<--[HERE]@5
+E Can't find tag 'minecraft:mine' of type 'minecraft:enchantment' at position 7: t #mine<--[HERE]@5
+S 0-5 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minec
+R 0
+A -
+X Can't find tag 'minecraft:minec' of type 'minecraft:enchantment' at position 8: t #minec<--[HERE]@6
+E Can't find tag 'minecraft:minec' of type 'minecraft:enchantment' at position 8: t #minec<--[HERE]@6
+S 0-6 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecr
+R 0
+A -
+X Can't find tag 'minecraft:minecr' of type 'minecraft:enchantment' at position 9: t #minecr<--[HERE]@7
+E Can't find tag 'minecraft:minecr' of type 'minecraft:enchantment' at position 9: t #minecr<--[HERE]@7
+S 0-7 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecra
+R 0
+A -
+X Can't find tag 'minecraft:minecra' of type 'minecraft:enchantment' at position 10: t #minecra<--[HERE]@8
+E Can't find tag 'minecraft:minecra' of type 'minecraft:enchantment' at position 10: t #minecra<--[HERE]@8
+S 0-8 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraf
+R 0
+A -
+X Can't find tag 'minecraft:minecraf' of type 'minecraft:enchantment' at position 11: ... #minecraf<--[HERE]@9
+E Can't find tag 'minecraft:minecraf' of type 'minecraft:enchantment' at position 11: ... #minecraf<--[HERE]@9
+S 0-9 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraft
+R 0
+A -
+X Can't find tag 'minecraft:minecraft' of type 'minecraft:enchantment' at position 12: ...#minecraft<--[HERE]@10
+E Can't find tag 'minecraft:minecraft' of type 'minecraft:enchantment' at position 12: ...#minecraft<--[HERE]@10
+S 0-10 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraft:
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:enchantment' at position 13: ...minecraft:<--[HERE]@11
+E Can't find tag 'minecraft:' of type 'minecraft:enchantment' at position 13: ...minecraft:<--[HERE]@11
+S 0-11 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraft:s
+R 0
+A -
+X Can't find tag 'minecraft:s' of type 'minecraft:enchantment' at position 14: ...inecraft:s<--[HERE]@12
+E Can't find tag 'minecraft:s' of type 'minecraft:enchantment' at position 14: ...inecraft:s<--[HERE]@12
+S 0-12 1 535073970 #minecraft:smelts_loot
+@ all #minecraft:sk
+R 0
+A -
+X Can't find tag 'minecraft:sk' of type 'minecraft:enchantment' at position 15: ...necraft:sk<--[HERE]@13
+E Can't find tag 'minecraft:sk' of type 'minecraft:enchantment' at position 15: ...necraft:sk<--[HERE]@13
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Can't find tag 'minecraft:ske' of type 'minecraft:enchantment' at position 16: ...ecraft:ske<--[HERE]@14
+E Can't find tag 'minecraft:ske' of type 'minecraft:enchantment' at position 16: ...ecraft:ske<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Can't find tag 'minecraft:skel' of type 'minecraft:enchantment' at position 17: ...craft:skel<--[HERE]@15
+E Can't find tag 'minecraft:skel' of type 'minecraft:enchantment' at position 17: ...craft:skel<--[HERE]@15
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Can't find tag 'minecraft:skele' of type 'minecraft:enchantment' at position 18: ...raft:skele<--[HERE]@16
+E Can't find tag 'minecraft:skele' of type 'minecraft:enchantment' at position 18: ...raft:skele<--[HERE]@16
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Can't find tag 'minecraft:skelet' of type 'minecraft:enchantment' at position 19: ...aft:skelet<--[HERE]@17
+E Can't find tag 'minecraft:skelet' of type 'minecraft:enchantment' at position 19: ...aft:skelet<--[HERE]@17
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Can't find tag 'minecraft:skeleto' of type 'minecraft:enchantment' at position 20: ...ft:skeleto<--[HERE]@18
+E Can't find tag 'minecraft:skeleto' of type 'minecraft:enchantment' at position 20: ...ft:skeleto<--[HERE]@18
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Can't find tag 'minecraft:skeleton' of type 'minecraft:enchantment' at position 21: ...t:skeleton<--[HERE]@19
+E Can't find tag 'minecraft:skeleton' of type 'minecraft:enchantment' at position 21: ...t:skeleton<--[HERE]@19
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Can't find tag 'minecraft:n' of type 'minecraft:enchantment' at position 14: ...inecraft:n<--[HERE]@12
+E Can't find tag 'minecraft:n' of type 'minecraft:enchantment' at position 14: ...inecraft:n<--[HERE]@12
+S 0-12 1 -624182856 #minecraft:non_treasure
+@ all #minecraft:no
+R 0
+A -
+X Can't find tag 'minecraft:no' of type 'minecraft:enchantment' at position 15: ...necraft:no<--[HERE]@13
+E Can't find tag 'minecraft:no' of type 'minecraft:enchantment' at position 15: ...necraft:no<--[HERE]@13
+S 0-13 1 -624182856 #minecraft:non_treasure
+@ all #minecraft:nop
+R 0
+A -
+X Can't find tag 'minecraft:nop' of type 'minecraft:enchantment' at position 16: ...ecraft:nop<--[HERE]@14
+E Can't find tag 'minecraft:nop' of type 'minecraft:enchantment' at position 16: ...ecraft:nop<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:enchantment' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:enchantment' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 6 -1021836233 minecraft:sharpness	minecraft:silk_touch	minecraft:smite	minecraft:soul_speed	minecraft:sweeping_edge	minecraft:swift_sneak
+@ all minecraft:sp
+R 0
+A -
+X Can't find element 'minecraft:sp' of type 'minecraft:enchantment' at position 14: ...necraft:sp<--[HERE]@12
+E Can't find element 'minecraft:sp' of type 'minecraft:enchantment' at position 14: ...necraft:sp<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:spe
+R 0
+A -
+X Can't find element 'minecraft:spe' of type 'minecraft:enchantment' at position 15: ...ecraft:spe<--[HERE]@13
+E Can't find element 'minecraft:spe' of type 'minecraft:enchantment' at position 15: ...ecraft:spe<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:spee
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:enchantment' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:enchantment' at position 16: ...craft:spee<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sh
+R 0
+A -
+X Can't find element 'minecraft:sh' of type 'minecraft:enchantment' at position 14: ...necraft:sh<--[HERE]@12
+E Can't find element 'minecraft:sh' of type 'minecraft:enchantment' at position 14: ...necraft:sh<--[HERE]@12
+S 0-12 1 36272853 minecraft:sharpness
+@ all minecraft:sha
+R 0
+A -
+X Can't find element 'minecraft:sha' of type 'minecraft:enchantment' at position 15: ...ecraft:sha<--[HERE]@13
+E Can't find element 'minecraft:sha' of type 'minecraft:enchantment' at position 15: ...ecraft:sha<--[HERE]@13
+S 0-13 1 36272853 minecraft:sharpness
+@ all minecraft:shar
+R 0
+A -
+X Can't find element 'minecraft:shar' of type 'minecraft:enchantment' at position 16: ...craft:shar<--[HERE]@14
+E Can't find element 'minecraft:shar' of type 'minecraft:enchantment' at position 16: ...craft:shar<--[HERE]@14
+S 0-14 1 36272853 minecraft:sharpness
+@ all minecraft:sharp
+R 0
+A -
+X Can't find element 'minecraft:sharp' of type 'minecraft:enchantment' at position 17: ...raft:sharp<--[HERE]@15
+E Can't find element 'minecraft:sharp' of type 'minecraft:enchantment' at position 17: ...raft:sharp<--[HERE]@15
+S 0-15 1 36272853 minecraft:sharpness
+@ all minecraft:sharpn
+R 0
+A -
+X Can't find element 'minecraft:sharpn' of type 'minecraft:enchantment' at position 18: ...aft:sharpn<--[HERE]@16
+E Can't find element 'minecraft:sharpn' of type 'minecraft:enchantment' at position 18: ...aft:sharpn<--[HERE]@16
+S 0-16 1 36272853 minecraft:sharpness
+@ all minecraft:sharpne
+R 0
+A -
+X Can't find element 'minecraft:sharpne' of type 'minecraft:enchantment' at position 19: ...ft:sharpne<--[HERE]@17
+E Can't find element 'minecraft:sharpne' of type 'minecraft:enchantment' at position 19: ...ft:sharpne<--[HERE]@17
+S 0-17 1 36272853 minecraft:sharpness
+@ all minecraft:sharpnes
+R 0
+A -
+X Can't find element 'minecraft:sharpnes' of type 'minecraft:enchantment' at position 20: ...t:sharpnes<--[HERE]@18
+E Can't find element 'minecraft:sharpnes' of type 'minecraft:enchantment' at position 20: ...t:sharpnes<--[HERE]@18
+S 0-18 1 36272853 minecraft:sharpness
+@ all minecraft:f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:enchantment' at position 13: ...inecraft:f<--[HERE]@11
+E Can't find element 'minecraft:f' of type 'minecraft:enchantment' at position 13: ...inecraft:f<--[HERE]@11
+S 0-11 6 -1039229985 minecraft:feather_falling	minecraft:fire_aspect	minecraft:fire_protection	minecraft:flame	minecraft:fortune	minecraft:frost_walker
+@ all minecraft:fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:enchantment' at position 14: ...necraft:fo<--[HERE]@12
+E Can't find element 'minecraft:fo' of type 'minecraft:enchantment' at position 14: ...necraft:fo<--[HERE]@12
+S 0-12 1 1510622997 minecraft:fortune
+@ all minecraft:for
+R 0
+A -
+X Can't find element 'minecraft:for' of type 'minecraft:enchantment' at position 15: ...ecraft:for<--[HERE]@13
+E Can't find element 'minecraft:for' of type 'minecraft:enchantment' at position 15: ...ecraft:for<--[HERE]@13
+S 0-13 1 1510622997 minecraft:fortune
+@ all minecraft:fort
+R 0
+A -
+X Can't find element 'minecraft:fort' of type 'minecraft:enchantment' at position 16: ...craft:fort<--[HERE]@14
+E Can't find element 'minecraft:fort' of type 'minecraft:enchantment' at position 16: ...craft:fort<--[HERE]@14
+S 0-14 1 1510622997 minecraft:fortune
+@ all minecraft:fortu
+R 0
+A -
+X Can't find element 'minecraft:fortu' of type 'minecraft:enchantment' at position 17: ...raft:fortu<--[HERE]@15
+E Can't find element 'minecraft:fortu' of type 'minecraft:enchantment' at position 17: ...raft:fortu<--[HERE]@15
+S 0-15 1 1510622997 minecraft:fortune
+@ all minecraft:fortun
+R 0
+A -
+X Can't find element 'minecraft:fortun' of type 'minecraft:enchantment' at position 18: ...aft:fortun<--[HERE]@16
+E Can't find element 'minecraft:fortun' of type 'minecraft:enchantment' at position 18: ...aft:fortun<--[HERE]@16
+S 0-16 1 1510622997 minecraft:fortune
+@ all minecraft:v
+R 0
+A -
+X Can't find element 'minecraft:v' of type 'minecraft:enchantment' at position 13: ...inecraft:v<--[HERE]@11
+E Can't find element 'minecraft:v' of type 'minecraft:enchantment' at position 13: ...inecraft:v<--[HERE]@11
+S 0-11 1 477836188 minecraft:vanishing_curse
+@ all minecraft:vi
+R 0
+A -
+X Can't find element 'minecraft:vi' of type 'minecraft:enchantment' at position 14: ...necraft:vi<--[HERE]@12
+E Can't find element 'minecraft:vi' of type 'minecraft:enchantment' at position 14: ...necraft:vi<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:vil
+R 0
+A -
+X Can't find element 'minecraft:vil' of type 'minecraft:enchantment' at position 15: ...ecraft:vil<--[HERE]@13
+E Can't find element 'minecraft:vil' of type 'minecraft:enchantment' at position 15: ...ecraft:vil<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:vill
+R 0
+A -
+X Can't find element 'minecraft:vill' of type 'minecraft:enchantment' at position 16: ...craft:vill<--[HERE]@14
+E Can't find element 'minecraft:vill' of type 'minecraft:enchantment' at position 16: ...craft:vill<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:villa
+R 0
+A -
+X Can't find element 'minecraft:villa' of type 'minecraft:enchantment' at position 17: ...raft:villa<--[HERE]@15
+E Can't find element 'minecraft:villa' of type 'minecraft:enchantment' at position 17: ...raft:villa<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:villag
+R 0
+A -
+X Can't find element 'minecraft:villag' of type 'minecraft:enchantment' at position 18: ...aft:villag<--[HERE]@16
+E Can't find element 'minecraft:villag' of type 'minecraft:enchantment' at position 18: ...aft:villag<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:village
+R 0
+A -
+X Can't find element 'minecraft:village' of type 'minecraft:enchantment' at position 19: ...ft:village<--[HERE]@17
+E Can't find element 'minecraft:village' of type 'minecraft:enchantment' at position 19: ...ft:village<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_
+R 0
+A -
+X Can't find element 'minecraft:village_' of type 'minecraft:enchantment' at position 20: ...t:village_<--[HERE]@18
+E Can't find element 'minecraft:village_' of type 'minecraft:enchantment' at position 20: ...t:village_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:village_p
+R 0
+A -
+X Can't find element 'minecraft:village_p' of type 'minecraft:enchantment' at position 21: ...:village_p<--[HERE]@19
+E Can't find element 'minecraft:village_p' of type 'minecraft:enchantment' at position 21: ...:village_p<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 0
+A -
+X Can't find element 'minecraft:village_pl' of type 'minecraft:enchantment' at position 22: ...village_pl<--[HERE]@20
+E Can't find element 'minecraft:village_pl' of type 'minecraft:enchantment' at position 22: ...village_pl<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 0
+A -
+X Can't find element 'minecraft:village_pla' of type 'minecraft:enchantment' at position 23: ...illage_pla<--[HERE]@21
+E Can't find element 'minecraft:village_pla' of type 'minecraft:enchantment' at position 23: ...illage_pla<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 0
+A -
+X Can't find element 'minecraft:village_plai' of type 'minecraft:enchantment' at position 24: ...llage_plai<--[HERE]@22
+E Can't find element 'minecraft:village_plai' of type 'minecraft:enchantment' at position 24: ...llage_plai<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 0
+A -
+X Can't find element 'minecraft:village_plain' of type 'minecraft:enchantment' at position 25: ...lage_plain<--[HERE]@23
+E Can't find element 'minecraft:village_plain' of type 'minecraft:enchantment' at position 25: ...lage_plain<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 13: ...inecraft:m<--[HERE]@11
+E Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 13: ...inecraft:m<--[HERE]@11
+S 0-11 2 1434570629 minecraft:mending	minecraft:multishot
+@ all minecraft:mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 14: ...necraft:mi<--[HERE]@12
+E Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 14: ...necraft:mi<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 15: ...ecraft:min<--[HERE]@13
+E Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 15: ...ecraft:min<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 16: ...craft:mine<--[HERE]@14
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 16: ...craft:mine<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:mines
+R 0
+A -
+X Can't find element 'minecraft:mines' of type 'minecraft:enchantment' at position 17: ...raft:mines<--[HERE]@15
+E Can't find element 'minecraft:mines' of type 'minecraft:enchantment' at position 17: ...raft:mines<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:minesh
+R 0
+A -
+X Can't find element 'minecraft:minesh' of type 'minecraft:enchantment' at position 18: ...aft:minesh<--[HERE]@16
+E Can't find element 'minecraft:minesh' of type 'minecraft:enchantment' at position 18: ...aft:minesh<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:minesha
+R 0
+A -
+X Can't find element 'minecraft:minesha' of type 'minecraft:enchantment' at position 19: ...ft:minesha<--[HERE]@17
+E Can't find element 'minecraft:minesha' of type 'minecraft:enchantment' at position 19: ...ft:minesha<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 0
+A -
+X Can't find element 'minecraft:mineshaf' of type 'minecraft:enchantment' at position 20: ...t:mineshaf<--[HERE]@18
+E Can't find element 'minecraft:mineshaf' of type 'minecraft:enchantment' at position 20: ...t:mineshaf<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:enchantment' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:enchantment' at position 13: ...inecraft:a<--[HERE]@11
+S 0-11 1 -1395625077 minecraft:aqua_affinity
+@ all minecraft:an
+R 0
+A -
+X Can't find element 'minecraft:an' of type 'minecraft:enchantment' at position 14: ...necraft:an<--[HERE]@12
+E Can't find element 'minecraft:an' of type 'minecraft:enchantment' at position 14: ...necraft:an<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:anc
+R 0
+A -
+X Can't find element 'minecraft:anc' of type 'minecraft:enchantment' at position 15: ...ecraft:anc<--[HERE]@13
+E Can't find element 'minecraft:anc' of type 'minecraft:enchantment' at position 15: ...ecraft:anc<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:anci
+R 0
+A -
+X Can't find element 'minecraft:anci' of type 'minecraft:enchantment' at position 16: ...craft:anci<--[HERE]@14
+E Can't find element 'minecraft:anci' of type 'minecraft:enchantment' at position 16: ...craft:anci<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:ancie
+R 0
+A -
+X Can't find element 'minecraft:ancie' of type 'minecraft:enchantment' at position 17: ...raft:ancie<--[HERE]@15
+E Can't find element 'minecraft:ancie' of type 'minecraft:enchantment' at position 17: ...raft:ancie<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:ancien
+R 0
+A -
+X Can't find element 'minecraft:ancien' of type 'minecraft:enchantment' at position 18: ...aft:ancien<--[HERE]@16
+E Can't find element 'minecraft:ancien' of type 'minecraft:enchantment' at position 18: ...aft:ancien<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:ancient
+R 0
+A -
+X Can't find element 'minecraft:ancient' of type 'minecraft:enchantment' at position 19: ...ft:ancient<--[HERE]@17
+E Can't find element 'minecraft:ancient' of type 'minecraft:enchantment' at position 19: ...ft:ancient<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 0
+A -
+X Can't find element 'minecraft:ancient_' of type 'minecraft:enchantment' at position 20: ...t:ancient_<--[HERE]@18
+E Can't find element 'minecraft:ancient_' of type 'minecraft:enchantment' at position 20: ...t:ancient_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 0
+A -
+X Can't find element 'minecraft:ancient_c' of type 'minecraft:enchantment' at position 21: ...:ancient_c<--[HERE]@19
+E Can't find element 'minecraft:ancient_c' of type 'minecraft:enchantment' at position 21: ...:ancient_c<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 0
+A -
+X Can't find element 'minecraft:ancient_ci' of type 'minecraft:enchantment' at position 22: ...ancient_ci<--[HERE]@20
+E Can't find element 'minecraft:ancient_ci' of type 'minecraft:enchantment' at position 22: ...ancient_ci<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 0
+A -
+X Can't find element 'minecraft:ancient_cit' of type 'minecraft:enchantment' at position 23: ...ncient_cit<--[HERE]@21
+E Can't find element 'minecraft:ancient_cit' of type 'minecraft:enchantment' at position 23: ...ncient_cit<--[HERE]@21
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:enchantment' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:enchantment' at position 3: t f<--[HERE]@1
+S 0-1 6 -1039229985 minecraft:feather_falling	minecraft:fire_aspect	minecraft:fire_protection	minecraft:flame	minecraft:fortune	minecraft:frost_walker
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+S 0-2 1 1510622997 minecraft:fortune
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:enchantment' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:enchantment' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X Can't find element 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+E Can't find element 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:b
+R 0
+A -
+X Can't find element 'foo:b' of type 'minecraft:enchantment' at position 7: t foo:b<--[HERE]@5
+E Can't find element 'foo:b' of type 'minecraft:enchantment' at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all foo:ba
+R 0
+A -
+X Can't find element 'foo:ba' of type 'minecraft:enchantment' at position 8: t foo:ba<--[HERE]@6
+E Can't find element 'foo:ba' of type 'minecraft:enchantment' at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 0
+A -
+X Can't find element 'minecraft:ar' of type 'minecraft:enchantment' at position 14: ...necraft:ar<--[HERE]@12
+E Can't find element 'minecraft:ar' of type 'minecraft:enchantment' at position 14: ...necraft:ar<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:arm
+R 0
+A -
+X Can't find element 'minecraft:arm' of type 'minecraft:enchantment' at position 15: ...ecraft:arm<--[HERE]@13
+E Can't find element 'minecraft:arm' of type 'minecraft:enchantment' at position 15: ...ecraft:arm<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:armo
+R 0
+A -
+X Can't find element 'minecraft:armo' of type 'minecraft:enchantment' at position 16: ...craft:armo<--[HERE]@14
+E Can't find element 'minecraft:armo' of type 'minecraft:enchantment' at position 16: ...craft:armo<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:ma
+R 0
+A -
+X Can't find element 'minecraft:ma' of type 'minecraft:enchantment' at position 14: ...necraft:ma<--[HERE]@12
+E Can't find element 'minecraft:ma' of type 'minecraft:enchantment' at position 14: ...necraft:ma<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:max
+R 0
+A -
+X Can't find element 'minecraft:max' of type 'minecraft:enchantment' at position 15: ...ecraft:max<--[HERE]@13
+E Can't find element 'minecraft:max' of type 'minecraft:enchantment' at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:max_
+R 0
+A -
+X Can't find element 'minecraft:max_' of type 'minecraft:enchantment' at position 16: ...craft:max_<--[HERE]@14
+E Can't find element 'minecraft:max_' of type 'minecraft:enchantment' at position 16: ...craft:max_<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:max_h
+R 0
+A -
+X Can't find element 'minecraft:max_h' of type 'minecraft:enchantment' at position 17: ...raft:max_h<--[HERE]@15
+E Can't find element 'minecraft:max_h' of type 'minecraft:enchantment' at position 17: ...raft:max_h<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:max_he
+R 0
+A -
+X Can't find element 'minecraft:max_he' of type 'minecraft:enchantment' at position 18: ...aft:max_he<--[HERE]@16
+E Can't find element 'minecraft:max_he' of type 'minecraft:enchantment' at position 18: ...aft:max_he<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 0
+A -
+X Can't find element 'minecraft:max_hea' of type 'minecraft:enchantment' at position 19: ...ft:max_hea<--[HERE]@17
+E Can't find element 'minecraft:max_hea' of type 'minecraft:enchantment' at position 19: ...ft:max_hea<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 0
+A -
+X Can't find element 'minecraft:max_heal' of type 'minecraft:enchantment' at position 20: ...t:max_heal<--[HERE]@18
+E Can't find element 'minecraft:max_heal' of type 'minecraft:enchantment' at position 20: ...t:max_heal<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 0
+A -
+X Can't find element 'minecraft:max_healt' of type 'minecraft:enchantment' at position 21: ...:max_healt<--[HERE]@19
+E Can't find element 'minecraft:max_healt' of type 'minecraft:enchantment' at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:g
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:enchantment' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:enchantment' at position 13: ...inecraft:g<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:ge
+R 0
+A -
+X Can't find element 'minecraft:ge' of type 'minecraft:enchantment' at position 14: ...necraft:ge<--[HERE]@12
+E Can't find element 'minecraft:ge' of type 'minecraft:enchantment' at position 14: ...necraft:ge<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:gen
+R 0
+A -
+X Can't find element 'minecraft:gen' of type 'minecraft:enchantment' at position 15: ...ecraft:gen<--[HERE]@13
+E Can't find element 'minecraft:gen' of type 'minecraft:enchantment' at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:gene
+R 0
+A -
+X Can't find element 'minecraft:gene' of type 'minecraft:enchantment' at position 16: ...craft:gene<--[HERE]@14
+E Can't find element 'minecraft:gene' of type 'minecraft:enchantment' at position 16: ...craft:gene<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:gener
+R 0
+A -
+X Can't find element 'minecraft:gener' of type 'minecraft:enchantment' at position 17: ...raft:gener<--[HERE]@15
+E Can't find element 'minecraft:gener' of type 'minecraft:enchantment' at position 17: ...raft:gener<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:generi
+R 0
+A -
+X Can't find element 'minecraft:generi' of type 'minecraft:enchantment' at position 18: ...aft:generi<--[HERE]@16
+E Can't find element 'minecraft:generi' of type 'minecraft:enchantment' at position 18: ...aft:generi<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:generic
+R 0
+A -
+X Can't find element 'minecraft:generic' of type 'minecraft:enchantment' at position 19: ...ft:generic<--[HERE]@17
+E Can't find element 'minecraft:generic' of type 'minecraft:enchantment' at position 19: ...ft:generic<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:generic.
+R 0
+A -
+X Can't find element 'minecraft:generic.' of type 'minecraft:enchantment' at position 20: ...t:generic.<--[HERE]@18
+E Can't find element 'minecraft:generic.' of type 'minecraft:enchantment' at position 20: ...t:generic.<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 0
+A -
+X Can't find element 'minecraft:generic.m' of type 'minecraft:enchantment' at position 21: ...:generic.m<--[HERE]@19
+E Can't find element 'minecraft:generic.m' of type 'minecraft:enchantment' at position 21: ...:generic.m<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 0
+A -
+X Can't find element 'minecraft:generic.ma' of type 'minecraft:enchantment' at position 22: ...generic.ma<--[HERE]@20
+E Can't find element 'minecraft:generic.ma' of type 'minecraft:enchantment' at position 22: ...generic.ma<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 0
+A -
+X Can't find element 'minecraft:generic.max' of type 'minecraft:enchantment' at position 23: ...eneric.max<--[HERE]@21
+E Can't find element 'minecraft:generic.max' of type 'minecraft:enchantment' at position 23: ...eneric.max<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 0
+A -
+X Can't find element 'minecraft:generic.max_' of type 'minecraft:enchantment' at position 24: ...neric.max_<--[HERE]@22
+E Can't find element 'minecraft:generic.max_' of type 'minecraft:enchantment' at position 24: ...neric.max_<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 0
+A -
+X Can't find element 'minecraft:generic.max_h' of type 'minecraft:enchantment' at position 25: ...eric.max_h<--[HERE]@23
+E Can't find element 'minecraft:generic.max_h' of type 'minecraft:enchantment' at position 25: ...eric.max_h<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 0
+A -
+X Can't find element 'minecraft:generic.max_he' of type 'minecraft:enchantment' at position 26: ...ric.max_he<--[HERE]@24
+E Can't find element 'minecraft:generic.max_he' of type 'minecraft:enchantment' at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 0
+A -
+X Can't find element 'minecraft:generic.max_hea' of type 'minecraft:enchantment' at position 27: ...ic.max_hea<--[HERE]@25
+E Can't find element 'minecraft:generic.max_hea' of type 'minecraft:enchantment' at position 27: ...ic.max_hea<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 0
+A -
+X Can't find element 'minecraft:generic.max_heal' of type 'minecraft:enchantment' at position 28: ...c.max_heal<--[HERE]@26
+E Can't find element 'minecraft:generic.max_heal' of type 'minecraft:enchantment' at position 28: ...c.max_heal<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healt' of type 'minecraft:enchantment' at position 29: ....max_healt<--[HERE]@27
+E Can't find element 'minecraft:generic.max_healt' of type 'minecraft:enchantment' at position 29: ....max_healt<--[HERE]@27
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:enchantment' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:enchantment' at position 3: t e<--[HERE]@1
+S 0-1 2 -1902851389 minecraft:efficiency	minecraft:sweeping_edge
+@ all minecraft:anient_city
+R 0
+A -
+X Can't find element 'minecraft:anient_city' of type 'minecraft:enchantment' at position 23: ...nient_city<--[HERE]@21
+E Can't find element 'minecraft:anient_city' of type 'minecraft:enchantment' at position 23: ...nient_city<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:max_healthc
+R 0
+A -
+X Can't find element 'minecraft:max_healthc' of type 'minecraft:enchantment' at position 23: ...ax_healthc<--[HERE]@21
+E Can't find element 'minecraft:max_healthc' of type 'minecraft:enchantment' at position 23: ...ax_healthc<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:max_hYalth
+R 0
+A -
+X Can't find element 'minecraft:max_h' of type 'minecraft:enchantment' at position 17: ...raft:max_h<--[HERE]@15
+E Can't find element 'minecraft:max_h' of type 'minecraft:enchantment' at position 17: ...raft:max_h<--[HERE]@15
+S -2--2 0 0 
+@ all #}minecraft:skeletonst
+R 0
+A -
+X Can't find tag 'minecraft:' of type 'minecraft:enchantment' at position 3: t #<--[HERE]@1
+E Can't find tag 'minecraft:' of type 'minecraft:enchantment' at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:shrpnessa
+R 0
+A -
+X Can't find element 'minecraft:shrpnessa' of type 'minecraft:enchantment' at position 21: ...:shrpnessa<--[HERE]@19
+E Can't find element 'minecraft:shrpnessa' of type 'minecraft:enchantment' at position 21: ...:shrpnessa<--[HERE]@19
+S -2--2 0 0 
+@ all ft:skelet6ons
+R 0
+A -
+X Can't find element 'ft:skelet6ons' of type 'minecraft:enchantment' at position 15: ...skelet6ons<--[HERE]@13
+E Can't find element 'ft:skelet6ons' of type 'minecraft:enchantment' at position 15: ...skelet6ons<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:e
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:enchantment' at position 13: ...inecraft:e<--[HERE]@11
+E Can't find element 'minecraft:e' of type 'minecraft:enchantment' at position 13: ...inecraft:e<--[HERE]@11
+S 0-11 1 -1138680717 minecraft:efficiency
+@ all minecraft:armr
+R 0
+A -
+X Can't find element 'minecraft:armr' of type 'minecraft:enchantment' at position 16: ...craft:armr<--[HERE]@14
+E Can't find element 'minecraft:armr' of type 'minecraft:enchantment' at position 16: ...craft:armr<--[HERE]@14
+S -2--2 0 0 
+@ all bie
+R 0
+A -
+X Can't find element 'minecraft:bie' of type 'minecraft:enchantment' at position 5: t bie<--[HERE]@3
+E Can't find element 'minecraft:bie' of type 'minecraft:enchantment' at position 5: t bie<--[HERE]@3
+S -2--2 0 0 
+@ all mine'raft:fortune
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:enchantment' at position 6: t nope<--[HERE]@4
+E Can't find element 'minecraft:nope' of type 'minecraft:enchantment' at position 6: t nope<--[HERE]@4
+S -2--2 0 0 
+@ all #min6craft:skeletons
+R 0
+A -
+X Can't find tag 'min6craft:skeletons' of type 'minecraft:enchantment' at position 22: ...:skeletons<--[HERE]@20
+E Can't find tag 'min6craft:skeletons' of type 'minecraft:enchantment' at position 22: ...:skeletons<--[HERE]@20
+S -2--2 0 0 
+@ all miecraft:mineshaft
+R 0
+A -
+X Can't find element 'miecraft:mineshaft' of type 'minecraft:enchantment' at position 20: ...:mineshaft<--[HERE]@18
+E Can't find element 'miecraft:mineshaft' of type 'minecraft:enchantment' at position 20: ...:mineshaft<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:min0eshaft
+R 0
+A -
+X Can't find element 'minecraft:min0eshaft' of type 'minecraft:enchantment' at position 22: ...min0eshaft<--[HERE]@20
+E Can't find element 'minecraft:min0eshaft' of type 'minecraft:enchantment' at position 22: ...min0eshaft<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:armorn
+R 0
+A -
+X Can't find element 'minecraft:armorn' of type 'minecraft:enchantment' at position 18: ...aft:armorn<--[HERE]@16
+E Can't find element 'minecraft:armorn' of type 'minecraft:enchantment' at position 18: ...aft:armorn<--[HERE]@16
+S -2--2 0 0 
+@ all minecaft:mineshaf
+R 0
+A -
+X Can't find element 'minecaft:mineshaf' of type 'minecraft:enchantment' at position 19: ...t:mineshaf<--[HERE]@17
+E Can't find element 'minecaft:mineshaf' of type 'minecraft:enchantment' at position 19: ...t:mineshaf<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:generic.max_health_
+R 0
+A -
+X Can't find element 'minecraft:generic.max_health_' of type 'minecraft:enchantment' at position 31: ...ax_health_<--[HERE]@29
+E Can't find element 'minecraft:generic.max_health_' of type 'minecraft:enchantment' at position 31: ...ax_health_<--[HERE]@29
+S -2--2 0 0 
+@ all mincraft:fortune
+R 0
+A -
+X Can't find element 'mincraft:fortune' of type 'minecraft:enchantment' at position 18: ...ft:fortune<--[HERE]@16
+E Can't find element 'mincraft:fortune' of type 'minecraft:enchantment' at position 18: ...ft:fortune<--[HERE]@16
+S -2--2 0 0 
+@ all zomie
+R 0
+A -
+X Can't find element 'minecraft:zomie' of type 'minecraft:enchantment' at position 7: t zomie<--[HERE]@5
+E Can't find element 'minecraft:zomie' of type 'minecraft:enchantment' at position 7: t zomie<--[HERE]@5
+S -2--2 0 0 
+@ all :bar
+R 0
+A -
+X Can't find element 'minecraft:bar' of type 'minecraft:enchantment' at position 6: t :bar<--[HERE]@4
+E Can't find element 'minecraft:bar' of type 'minecraft:enchantment' at position 6: t :bar<--[HERE]@4
+S -2--2 0 0 
+@ all inecraft:ancient_city
+R 0
+A -
+X Can't find element 'inecraft:ancient_city' of type 'minecraft:enchantment' at position 23: ...cient_city<--[HERE]@21
+E Can't find element 'inecraft:ancient_city' of type 'minecraft:enchantment' at position 23: ...cient_city<--[HERE]@21
+S -2--2 0 0 
+@ all minecr\\ft:nope
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:sharpnesn
+R 0
+A -
+X Can't find element 'minecraft:sharpnesn' of type 'minecraft:enchantment' at position 21: ...:sharpnesn<--[HERE]@19
+E Can't find element 'minecraft:sharpnesn' of type 'minecraft:enchantment' at position 21: ...:sharpnesn<--[HERE]@19
+S -2--2 0 0 
+@ all arr
+R 0
+A -
+X Can't find element 'minecraft:arr' of type 'minecraft:enchantment' at position 5: t arr<--[HERE]@3
+E Can't find element 'minecraft:arr' of type 'minecraft:enchantment' at position 5: t arr<--[HERE]@3
+S -2--2 0 0 
+@ all m😀inecraft:village_plainsa
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all ecraft:armor
+R 0
+A -
+X Can't find element 'ecraft:armor' of type 'minecraft:enchantment' at position 14: ...raft:armor<--[HERE]@12
+E Can't find element 'ecraft:armor' of type 'minecraft:enchantment' at position 14: ...raft:armor<--[HERE]@12
+S -2--2 0 0 
+@ all foo:barr
+R 0
+A -
+X Can't find element 'foo:barr' of type 'minecraft:enchantment' at position 10: t foo:barr<--[HERE]@8
+E Can't find element 'foo:barr' of type 'minecraft:enchantment' at position 10: t foo:barr<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:)
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:fort u\u000ae
+R 0
+A -
+X Can't find element 'minecraft:fort' of type 'minecraft:enchantment' at position 16: ...craft:fort<--[HERE]@14
+E Can't find element 'minecraft:fort' of type 'minecraft:enchantment' at position 16: ...craft:fort<--[HERE]@14
+S -2--2 0 0 
+@ all minecrat:
+R 0
+A -
+X Can't find element 'minecrat:' of type 'minecraft:enchantment' at position 11: ... minecrat:<--[HERE]@9
+E Can't find element 'minecrat:' of type 'minecraft:enchantment' at position 11: ... minecrat:<--[HERE]@9
+S -2--2 0 0 
+@ all ZOMBIEZ
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armoro
+R 0
+A -
+X Can't find element 'minecraft:armoro' of type 'minecraft:enchantment' at position 18: ...aft:armoro<--[HERE]@16
+E Can't find element 'minecraft:armoro' of type 'minecraft:enchantment' at position 18: ...aft:armoro<--[HERE]@16
+S -2--2 0 0 
+@ all #minecraft:n9pe
+R 0
+A -
+X Can't find tag 'minecraft:n9pe' of type 'minecraft:enchantment' at position 17: ...craft:n9pe<--[HERE]@15
+E Can't find tag 'minecraft:n9pe' of type 'minecraft:enchantment' at position 17: ...craft:n9pe<--[HERE]@15
+S -2--2 0 0 
+@ all minecra/t7:speed
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zombie'
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:enchantment' at position 8: t zombie<--[HERE]@6
+E Can't find element 'minecraft:zombie' of type 'minecraft:enchantment' at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all inecraft:mineshaftf
+R 0
+A -
+X Can't find element 'inecraft:mineshaftf' of type 'minecraft:enchantment' at position 21: ...mineshaftf<--[HERE]@19
+E Can't find element 'inecraft:mineshaftf' of type 'minecraft:enchantment' at position 21: ...mineshaftf<--[HERE]@19
+S -2--2 0 0 
+@ all bie4
+R 0
+A -
+X Can't find element 'minecraft:bie4' of type 'minecraft:enchantment' at position 6: t bie4<--[HERE]@4
+E Can't find element 'minecraft:bie4' of type 'minecraft:enchantment' at position 6: t bie4<--[HERE]@4
+S -2--2 0 0 
+@ all pe
+R 0
+A -
+X Can't find element 'minecraft:pe' of type 'minecraft:enchantment' at position 4: t pe<--[HERE]@2
+E Can't find element 'minecraft:pe' of type 'minecraft:enchantment' at position 4: t pe<--[HERE]@2
+S -2--2 0 0 
+@ all fo[o:^bar
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all mine,craft:Ygeneric.max_health
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all  :zombie
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBIEI
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X Can't find element 'minecraft:t' of type 'minecraft:enchantment' at position 3: t t<--[HERE]@1
+E Can't find element 'minecraft:t' of type 'minecraft:enchantment' at position 3: t t<--[HERE]@1
+S 0-1 3 193614888 minecraft:luck_of_the_sea	minecraft:silk_touch	minecraft:thorns
+@ all minecraft:max_halt￿
+R 0
+A -
+X Can't find element 'minecraft:max_halt' of type 'minecraft:enchantment' at position 20: ...t:max_halt<--[HERE]@18
+E Can't find element 'minecraft:max_halt' of type 'minecraft:enchantment' at position 20: ...t:max_halt<--[HERE]@18
+S -2--2 0 0 
+@ all EE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mine+craft:nopeo
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all E
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S 0-1 2 -1902851389 minecraft:efficiency	minecraft:sweeping_edge
+@ all mnecraft:max_health
+R 0
+A -
+X Can't find element 'mnecraft:max_health' of type 'minecraft:enchantment' at position 21: ...max_health<--[HERE]@19
+E Can't find element 'mnecraft:max_health' of type 'minecraft:enchantment' at position 21: ...max_health<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:gen\u0009ric.max_healthh
+R 0
+A -
+X Can't find element 'minecraft:gen' of type 'minecraft:enchantment' at position 15: ...ecraft:gen<--[HERE]@13
+E Can't find element 'minecraft:gen' of type 'minecraft:enchantment' at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all zombi$
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:enchantment' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:enchantment' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:bminesaft
+R 0
+A -
+X Can't find element 'minecraft:bminesaft' of type 'minecraft:enchantment' at position 21: ...:bminesaft<--[HERE]@19
+E Can't find element 'minecraft:bminesaft' of type 'minecraft:enchantment' at position 21: ...:bminesaft<--[HERE]@19
+S -2--2 0 0 
+@ all m_necraft:max_healh
+R 0
+A -
+X Can't find element 'm_necraft:max_healh' of type 'minecraft:enchantment' at position 21: ...:max_healh<--[HERE]@19
+E Can't find element 'm_necraft:max_healh' of type 'minecraft:enchantment' at position 21: ...:max_healh<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:3speedf
+R 0
+A -
+X Can't find element 'minecraft:3speedf' of type 'minecraft:enchantment' at position 19: ...ft:3speedf<--[HERE]@17
+E Can't find element 'minecraft:3speedf' of type 'minecraft:enchantment' at position 19: ...ft:3speedf<--[HERE]@17
+S -2--2 0 0 
+@ all minecaft:
+R 0
+A -
+X Can't find element 'minecaft:' of type 'minecraft:enchantment' at position 11: ... minecaft:<--[HERE]@9
+E Can't find element 'minecaft:' of type 'minecraft:enchantment' at position 11: ... minecaft:<--[HERE]@9
+S -2--2 0 0 
+@ all "inecraft:player
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrft::
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all r
+R 0
+A -
+X Can't find element 'minecraft:r' of type 'minecraft:enchantment' at position 3: t r<--[HERE]@1
+E Can't find element 'minecraft:r' of type 'minecraft:enchantment' at position 3: t r<--[HERE]@1
+S 0-1 2 -1889543455 minecraft:respiration	minecraft:riptide
+@ all m[necrat:speed
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:s￿arpness
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:enchantment' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:enchantment' at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all #minecraft:skexetons
+R 0
+A -
+X Can't find tag 'minecraft:skexetons' of type 'minecraft:enchantment' at position 22: ...:skexetons<--[HERE]@20
+E Can't find tag 'minecraft:skexetons' of type 'minecraft:enchantment' at position 22: ...:skexetons<--[HERE]@20
+S -2--2 0 0 
+@ all t_city
+R 0
+A -
+X Can't find element 'minecraft:t_city' of type 'minecraft:enchantment' at position 8: t t_city<--[HERE]@6
+E Can't find element 'minecraft:t_city' of type 'minecraft:enchantment' at position 8: t t_city<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:8
+R 0
+A -
+X Can't find element 'minecraft:8' of type 'minecraft:enchantment' at position 13: ...inecraft:8<--[HERE]@11
+E Can't find element 'minecraft:8' of type 'minecraft:enchantment' at position 13: ...inecraft:8<--[HERE]@11
+S -2--2 0 0 
+@ all ZOMBI$8E
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ombiea
+R 0
+A -
+X Can't find element 'minecraft:ombiea' of type 'minecraft:enchantment' at position 18: ...aft:ombiea<--[HERE]@16
+E Can't find element 'minecraft:ombiea' of type 'minecraft:enchantment' at position 18: ...aft:ombiea<--[HERE]@16
+S -2--2 0 0 
+@ all minecrft:generic.max_health
+R 0
+A -
+X Can't find element 'minecrft:generic.max_health' of type 'minecraft:enchantment' at position 29: ...max_health<--[HERE]@27
+E Can't find element 'minecrft:generic.max_health' of type 'minecraft:enchantment' at position 29: ...max_health<--[HERE]@27
+S -2--2 0 0 
+@ all minecraft:speedp
+R 0
+A -
+X Can't find element 'minecraft:speedp' of type 'minecraft:enchantment' at position 18: ...aft:speedp<--[HERE]@16
+E Can't find element 'minecraft:speedp' of type 'minecraft:enchantment' at position 18: ...aft:speedp<--[HERE]@16
+S -2--2 0 0 
+@ all /mi)necraft:nope
+R 0
+A -
+X Can't find element 'minecraft:/mi' of type 'minecraft:enchantment' at position 5: t /mi<--[HERE]@3
+E Can't find element 'minecraft:/mi' of type 'minecraft:enchantment' at position 5: t /mi<--[HERE]@3
+S -2--2 0 0 
+@ all foobar
+R 0
+A -
+X Can't find element 'minecraft:foobar' of type 'minecraft:enchantment' at position 8: t foobar<--[HERE]@6
+E Can't find element 'minecraft:foobar' of type 'minecraft:enchantment' at position 8: t foobar<--[HERE]@6
+S -2--2 0 0 
+@ all \u0000ar
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk*letocns
+R 0
+A -
+X Can't find tag 'minecraft:sk' of type 'minecraft:enchantment' at position 15: ...necraft:sk<--[HERE]@13
+E Can't find tag 'minecraft:sk' of type 'minecraft:enchantment' at position 15: ...necraft:sk<--[HERE]@13
+S -2--2 0 0 
+@ all ZOBIEE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miynecraft:armor
+R 0
+A -
+X Can't find element 'miynecraft:armor' of type 'minecraft:enchantment' at position 18: ...raft:armor<--[HERE]@16
+E Can't find element 'miynecraft:armor' of type 'minecraft:enchantment' at position 18: ...raft:armor<--[HERE]@16
+S -2--2 0 0 
+@ all min\u0009craft:village_plains
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:armorc
+R 0
+A -
+X Can't find element 'minecraft:armorc' of type 'minecraft:enchantment' at position 18: ...aft:armorc<--[HERE]@16
+E Can't find element 'minecraft:armorc' of type 'minecraft:enchantment' at position 18: ...aft:armorc<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:playerp
+R 0
+A -
+X Can't find element 'minecraft:playerp' of type 'minecraft:enchantment' at position 19: ...ft:playerp<--[HERE]@17
+E Can't find element 'minecraft:playerp' of type 'minecraft:enchantment' at position 19: ...ft:playerp<--[HERE]@17
+S -2--2 0 0 
+@ all mine]craft:village_plainsv
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all keletons
+R 0
+A -
+X Can't find element 'minecraft:keletons' of type 'minecraft:enchantment' at position 10: t keletons<--[HERE]@8
+E Can't find element 'minecraft:keletons' of type 'minecraft:enchantment' at position 10: t keletons<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:fortun}
+R 0
+A -
+X Can't find element 'minecraft:fortun' of type 'minecraft:enchantment' at position 18: ...aft:fortun<--[HERE]@16
+E Can't find element 'minecraft:fortun' of type 'minecraft:enchantment' at position 18: ...aft:fortun<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:generic.ax_5health
+R 0
+A -
+X Can't find element 'minecraft:generic.ax_5health' of type 'minecraft:enchantment' at position 30: ...ax_5health<--[HERE]@28
+E Can't find element 'minecraft:generic.ax_5health' of type 'minecraft:enchantment' at position 30: ...ax_5health<--[HERE]@28
+S -2--2 0 0 
+@ all minecraft:anc:ent_city_
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min')raft:
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all zob,e
+R 0
+A -
+X Can't find element 'minecraft:zob' of type 'minecraft:enchantment' at position 5: t zob<--[HERE]@3
+E Can't find element 'minecraft:zob' of type 'minecraft:enchantment' at position 5: t zob<--[HERE]@3
+S -2--2 0 0 
+@ all 2s
+R 0
+A -
+X Can't find element 'minecraft:2s' of type 'minecraft:enchantment' at position 4: t 2s<--[HERE]@2
+E Can't find element 'minecraft:2s' of type 'minecraft:enchantment' at position 4: t 2s<--[HERE]@2
+S -2--2 0 0 
+@ all minecraftAfortune
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all #minecraf\u0000t:no=e
+R 0
+A -
+X Can't find tag 'minecraft:minecraf' of type 'minecraft:enchantment' at position 11: ... #minecraf<--[HERE]@9
+E Can't find tag 'minecraft:minecraf' of type 'minecraft:enchantment' at position 11: ... #minecraf<--[HERE]@9
+S -2--2 0 0 
+@ all minecraftgeneric.max_health
+R 0
+A -
+X Can't find element 'minecraft:minecraftgeneric.max_health' of type 'minecraft:enchantment' at position 29: ...max_health<--[HERE]@27
+E Can't find element 'minecraft:minecraftgeneric.max_health' of type 'minecraft:enchantment' at position 29: ...max_health<--[HERE]@27
+S -2--2 0 0 
+@ all cient_city
+R 0
+A -
+X Can't find element 'minecraft:cient_city' of type 'minecraft:enchantment' at position 12: ...cient_city<--[HERE]@10
+E Can't find element 'minecraft:cient_city' of type 'minecraft:enchantment' at position 12: ...cient_city<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:generic.m~x_health
+R 0
+A -
+X Can't find element 'minecraft:generic.m' of type 'minecraft:enchantment' at position 21: ...:generic.m<--[HERE]@19
+E Can't find element 'minecraft:generic.m' of type 'minecraft:enchantment' at position 21: ...:generic.m<--[HERE]@19
+S -2--2 0 0 
+@ all mine\\craft:village_pla_ins
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraftarmore
+R 0
+A -
+X Can't find element 'minecraft:minecraftarmore' of type 'minecraft:enchantment' at position 17: ...raftarmore<--[HERE]@15
+E Can't find element 'minecraft:minecraftarmore' of type 'minecraft:enchantment' at position 17: ...raftarmore<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:spee\u0000e
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:enchantment' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:enchantment' at position 16: ...craft:spee<--[HERE]@14
+S -2--2 0 0 
+@ all foo:barb
+R 0
+A -
+X Can't find element 'foo:barb' of type 'minecraft:enchantment' at position 10: t foo:barb<--[HERE]@8
+E Can't find element 'foo:barb' of type 'minecraft:enchantment' at position 10: t foo:barb<--[HERE]@8
+S -2--2 0 0 
+@ all mnecraft:sharpness
+R 0
+A -
+X Can't find element 'mnecraft:sharpness' of type 'minecraft:enchantment' at position 20: ...:sharpness<--[HERE]@18
+E Can't find element 'mnecraft:sharpness' of type 'minecraft:enchantment' at position 20: ...:sharpness<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:ancint_city
+R 0
+A -
+X Can't find element 'minecraft:ancint_city' of type 'minecraft:enchantment' at position 23: ...ncint_city<--[HERE]@21
+E Can't find element 'minecraft:ancint_city' of type 'minecraft:enchantment' at position 23: ...ncint_city<--[HERE]@21
+S -2--2 0 0 
+@ all minecraf:player
+R 0
+A -
+X Can't find element 'minecraf:player' of type 'minecraft:enchantment' at position 17: ...raf:player<--[HERE]@15
+E Can't find element 'minecraf:player' of type 'minecraft:enchantment' at position 17: ...raf:player<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:speedf
+R 0
+A -
+X Can't find element 'minecraft:speedf' of type 'minecraft:enchantment' at position 18: ...aft:speedf<--[HERE]@16
+E Can't find element 'minecraft:speedf' of type 'minecraft:enchantment' at position 18: ...aft:speedf<--[HERE]@16
+S -2--2 0 0 
+@ all !inecraft:zombie
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:max_health:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mieshaft
+R 0
+A -
+X Can't find element 'minecraft:mieshaft' of type 'minecraft:enchantment' at position 20: ...t:mieshaft<--[HERE]@18
+E Can't find element 'minecraft:mieshaft' of type 'minecraft:enchantment' at position 20: ...t:mieshaft<--[HERE]@18
+S -2--2 0 0 
+@ all #minecrft:nopem
+R 0
+A -
+X Can't find tag 'minecrft:nopem' of type 'minecraft:enchantment' at position 17: ...crft:nopem<--[HERE]@15
+E Can't find tag 'minecrft:nopem' of type 'minecraft:enchantment' at position 17: ...crft:nopem<--[HERE]@15
+S -2--2 0 0 
+@ all miCnec!aft:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:​player
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraf:max_healthc
+R 0
+A -
+X Can't find element 'minecraf:max_healthc' of type 'minecraft:enchantment' at position 22: ...ax_healthc<--[HERE]@20
+E Can't find element 'minecraf:max_healthc' of type 'minecraft:enchantment' at position 22: ...ax_healthc<--[HERE]@20
+S -2--2 0 0 
+@ all inecraft:plaer
+R 0
+A -
+X Can't find element 'inecraft:plaer' of type 'minecraft:enchantment' at position 16: ...raft:plaer<--[HERE]@14
+E Can't find element 'inecraft:plaer' of type 'minecraft:enchantment' at position 16: ...raft:plaer<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:max_ealth
+R 0
+A -
+X Can't find element 'minecraft:max_ealth' of type 'minecraft:enchantment' at position 21: ...:max_ealth<--[HERE]@19
+E Can't find element 'minecraft:max_ealth' of type 'minecraft:enchantment' at position 21: ...:max_ealth<--[HERE]@19
+S -2--2 0 0 
+@ all ft:zombie
+R 0
+A -
+X Can't find element 'ft:zombie' of type 'minecraft:enchantment' at position 11: ... ft:zombie<--[HERE]@9
+E Can't find element 'ft:zombie' of type 'minecraft:enchantment' at position 11: ... ft:zombie<--[HERE]@9
+S -2--2 0 0 
+@ all BIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "zombiez
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all einecraft:nope
+R 0
+A -
+X Can't find element 'einecraft:nope' of type 'minecraft:enchantment' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'einecraft:nope' of type 'minecraft:enchantment' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 3: t :<--[HERE]@1
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all ,#minecraft:skeletonss
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft_:fortune
+R 0
+A -
+X Can't find element 'minecraft_:fortune' of type 'minecraft:enchantment' at position 20: ...t_:fortune<--[HERE]@18
+E Can't find element 'minecraft_:fortune' of type 'minecraft:enchantment' at position 20: ...t_:fortune<--[HERE]@18
+S -2--2 0 0 
+@ all max_healt
+R 0
+A -
+X Can't find element 'minecraft:max_healt' of type 'minecraft:enchantment' at position 11: ... max_healt<--[HERE]@9
+E Can't find element 'minecraft:max_healt' of type 'minecraft:enchantment' at position 11: ... max_healt<--[HERE]@9
+S -2--2 0 0 
+@ all min9craft:sharpnesss
+R 0
+A -
+X Can't find element 'min9craft:sharpnesss' of type 'minecraft:enchantment' at position 22: ...sharpnesss<--[HERE]@20
+E Can't find element 'min9craft:sharpnesss' of type 'minecraft:enchantment' at position 22: ...sharpnesss<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:m^x_healt
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 13: ...inecraft:m<--[HERE]@11
+E Can't find element 'minecraft:m' of type 'minecraft:enchantment' at position 13: ...inecraft:m<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:yvillage_plains
+R 0
+A -
+X Can't find element 'minecraft:yvillage_plains' of type 'minecraft:enchantment' at position 27: ...age_plains<--[HERE]@25
+E Can't find element 'minecraft:yvillage_plains' of type 'minecraft:enchantment' at position 27: ...age_plains<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:zombieit
+R 0
+A -
+X Can't find element 'minecraft:zombieit' of type 'minecraft:enchantment' at position 20: ...t:zombieit<--[HERE]@18
+E Can't find element 'minecraft:zombieit' of type 'minecraft:enchantment' at position 20: ...t:zombieit<--[HERE]@18
+S -2--2 0 0 
+@ all neric.ma6_health
+R 0
+A -
+X Can't find element 'minecraft:neric.ma6_health' of type 'minecraft:enchantment' at position 18: ...ma6_health<--[HERE]@16
+E Can't find element 'minecraft:neric.ma6_health' of type 'minecraft:enchantment' at position 18: ...ma6_health<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:minehaftn
+R 0
+A -
+X Can't find element 'minecraft:minehaftn' of type 'minecraft:enchantment' at position 21: ...:minehaftn<--[HERE]@19
+E Can't find element 'minecraft:minehaftn' of type 'minecraft:enchantment' at position 21: ...:minehaftn<--[HERE]@19
+S -2--2 0 0 
+@ all _plains
+R 0
+A -
+X Can't find element 'minecraft:_plains' of type 'minecraft:enchantment' at position 9: t _plains<--[HERE]@7
+E Can't find element 'minecraft:_plains' of type 'minecraft:enchantment' at position 9: t _plains<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:max_healt中
+R 0
+A -
+X Can't find element 'minecraft:max_healt' of type 'minecraft:enchantment' at position 21: ...:max_healt<--[HERE]@19
+E Can't find element 'minecraft:max_healt' of type 'minecraft:enchantment' at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all İminecraft:skeetons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:nopemf
+R 0
+A -
+X Can't find element 'minecraft:nopemf' of type 'minecraft:enchantment' at position 18: ...aft:nopemf<--[HERE]@16
+E Can't find element 'minecraft:nopemf' of type 'minecraft:enchantment' at position 18: ...aft:nopemf<--[HERE]@16
+S -2--2 0 0 
+@ all raft:player
+R 0
+A -
+X Can't find element 'raft:player' of type 'minecraft:enchantment' at position 13: ...aft:player<--[HERE]@11
+E Can't find element 'raft:player' of type 'minecraft:enchantment' at position 13: ...aft:player<--[HERE]@11
+S -2--2 0 0 
+@ all nesse
+R 0
+A -
+X Can't find element 'minecraft:nesse' of type 'minecraft:enchantment' at position 7: t nesse<--[HERE]@5
+E Can't find element 'minecraft:nesse' of type 'minecraft:enchantment' at position 7: t nesse<--[HERE]@5
+S -2--2 0 0 
+@ all z"ombie
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:enchantment' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:enchantment' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:fortuneno
+R 0
+A -
+X Can't find element 'minecraft:fortuneno' of type 'minecraft:enchantment' at position 21: ...:fortuneno<--[HERE]@19
+E Can't find element 'minecraft:fortuneno' of type 'minecraft:enchantment' at position 21: ...:fortuneno<--[HERE]@19
+S -2--2 0 0 
+@ all mi)necr#aft:nope
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:nopec
+R 0
+A -
+X Can't find element 'minecraft:nopec' of type 'minecraft:enchantment' at position 17: ...raft:nopec<--[HERE]@15
+E Can't find element 'minecraft:nopec' of type 'minecraft:enchantment' at position 17: ...raft:nopec<--[HERE]@15
+S -2--2 0 0 
+@ all +foo:barr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBIEE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombiee
+R 0
+A -
+X Can't find element 'minecraft:zombiee' of type 'minecraft:enchantment' at position 19: ...ft:zombiee<--[HERE]@17
+E Can't find element 'minecraft:zombiee' of type 'minecraft:enchantment' at position 19: ...ft:zombiee<--[HERE]@17
+S -2--2 0 0 
+@ all minyecraft:ancient_city
+R 0
+A -
+X Can't find element 'minyecraft:ancient_city' of type 'minecraft:enchantment' at position 25: ...cient_city<--[HERE]@23
+E Can't find element 'minyecraft:ancient_city' of type 'minecraft:enchantment' at position 25: ...cient_city<--[HERE]@23
+S -2--2 0 0 
+@ all raf:speed
+R 0
+A -
+X Can't find element 'raf:speed' of type 'minecraft:enchantment' at position 11: ... raf:speed<--[HERE]@9
+E Can't find element 'raf:speed' of type 'minecraft:enchantment' at position 11: ... raf:speed<--[HERE]@9
+S -2--2 0 0 
+@ all nt_city
+R 0
+A -
+X Can't find element 'minecraft:nt_city' of type 'minecraft:enchantment' at position 9: t nt_city<--[HERE]@7
+E Can't find element 'minecraft:nt_city' of type 'minecraft:enchantment' at position 9: t nt_city<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:playerr
+R 0
+A -
+X Can't find element 'minecraft:playerr' of type 'minecraft:enchantment' at position 19: ...ft:playerr<--[HERE]@17
+E Can't find element 'minecraft:playerr' of type 'minecraft:enchantment' at position 19: ...ft:playerr<--[HERE]@17
+S -2--2 0 0 
+@ all minecfa"t:fortune
+R 0
+A -
+X Can't find element 'minecraft:minecfa' of type 'minecraft:enchantment' at position 9: t minecfa<--[HERE]@7
+E Can't find element 'minecraft:minecfa' of type 'minecraft:enchantment' at position 9: t minecfa<--[HERE]@7
+S -2--2 0 0 
+@ all ecraft:generic.max_health
+R 0
+A -
+X Can't find element 'ecraft:generic.max_health' of type 'minecraft:enchantment' at position 27: ...max_health<--[HERE]@25
+E Can't find element 'ecraft:generic.max_health' of type 'minecraft:enchantment' at position 27: ...max_health<--[HERE]@25
+S -2--2 0 0 
+@ all :nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:enchantment' at position 7: t :nope<--[HERE]@5
+E Can't find element 'minecraft:nope' of type 'minecraft:enchantment' at position 7: t :nope<--[HERE]@5
+S -2--2 0 0 
+@ all ins
+R 0
+A -
+X Can't find element 'minecraft:ins' of type 'minecraft:enchantment' at position 5: t ins<--[HERE]@3
+E Can't find element 'minecraft:ins' of type 'minecraft:enchantment' at position 5: t ins<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:miyneshaft
+R 0
+A -
+X Can't find element 'minecraft:miyneshaft' of type 'minecraft:enchantment' at position 22: ...miyneshaft<--[HERE]@20
+E Can't find element 'minecraft:miyneshaft' of type 'minecraft:enchantment' at position 22: ...miyneshaft<--[HERE]@20
+S -2--2 0 0 
+@ all min=ecraft:fortune
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all :max_health
+R 0
+A -
+X Can't find element 'minecraft:max_health' of type 'minecraft:enchantment' at position 13: ...max_health<--[HERE]@11
+E Can't find element 'minecraft:max_health' of type 'minecraft:enchantment' at position 13: ...max_health<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:generic.max_healt2h.
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healt2h.' of type 'minecraft:enchantment' at position 32: ...x_healt2h.<--[HERE]@30
+E Can't find element 'minecraft:generic.max_healt2h.' of type 'minecraft:enchantment' at position 32: ...x_healt2h.<--[HERE]@30
+S -2--2 0 0 
+@ all tons
+R 0
+A -
+X Can't find element 'minecraft:tons' of type 'minecraft:enchantment' at position 6: t tons<--[HERE]@4
+E Can't find element 'minecraft:tons' of type 'minecraft:enchantment' at position 6: t tons<--[HERE]@4
+S -2--2 0 0 
+@ all minecr7aft:ancient_citya
+R 0
+A -
+X Can't find element 'minecr7aft:ancient_citya' of type 'minecraft:enchantment' at position 26: ...ient_citya<--[HERE]@24
+E Can't find element 'minecr7aft:ancient_citya' of type 'minecraft:enchantment' at position 26: ...ient_citya<--[HERE]@24
+S -2--2 0 0 
+@ all mine\\craft:zombie8
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minzecraft:sharpness
+R 0
+A -
+X Can't find element 'minzecraft:sharpness' of type 'minecraft:enchantment' at position 22: ...:sharpness<--[HERE]@20
+E Can't find element 'minzecraft:sharpness' of type 'minecraft:enchantment' at position 22: ...:sharpness<--[HERE]@20
+S -2--2 0 0 
+@ all minecraf~t:generic.max_\u0000health
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:enchantment' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:enchantment' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all zom\u0009bie
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:enchantment' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:enchantment' at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all minec>aft:for1tune
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all _citya
+R 0
+A -
+X Can't find element 'minecraft:_citya' of type 'minecraft:enchantment' at position 8: t _citya<--[HERE]@6
+E Can't find element 'minecraft:_citya' of type 'minecraft:enchantment' at position 8: t _citya<--[HERE]@6
+S -2--2 0 0 
+@ all [minecraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi+necraft:mineshaft
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all zmbie
+R 0
+A -
+X Can't find element 'minecraft:zmbie' of type 'minecraft:enchantment' at position 7: t zmbie<--[HERE]@5
+E Can't find element 'minecraft:zmbie' of type 'minecraft:enchantment' at position 7: t zmbie<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraft5nope
+R 0
+A -
+X Can't find tag 'minecraft:minecraft5nope' of type 'minecraft:enchantment' at position 17: ...craft5nope<--[HERE]@15
+E Can't find tag 'minecraft:minecraft5nope' of type 'minecraft:enchantment' at position 17: ...craft5nope<--[HERE]@15
+S -2--2 0 0 
+@ all mincraft:generic.max_healtha
+R 0
+A -
+X Can't find element 'mincraft:generic.max_healtha' of type 'minecraft:enchantment' at position 30: ...ax_healtha<--[HERE]@28
+E Can't find element 'mincraft:generic.max_healtha' of type 'minecraft:enchantment' at position 30: ...ax_healtha<--[HERE]@28
+S -2--2 0 0 
+@ all minecraft}zomb!e
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:fortunee
+R 0
+A -
+X Can't find element 'minecraft:fortunee' of type 'minecraft:enchantment' at position 20: ...t:fortunee<--[HERE]@18
+E Can't find element 'minecraft:fortunee' of type 'minecraft:enchantment' at position 20: ...t:fortunee<--[HERE]@18
+S -2--2 0 0 
+@ all #inecraft:nope
+R 0
+A -
+X Can't find tag 'inecraft:nope' of type 'minecraft:enchantment' at position 16: ...craft:nope<--[HERE]@14
+E Can't find tag 'inecraft:nope' of type 'minecraft:enchantment' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all f@oo:b9ar
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:enchantment' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:enchantment' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all manecraft:armor
+R 0
+A -
+X Can't find element 'manecraft:armor' of type 'minecraft:enchantment' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'manecraft:armor' of type 'minecraft:enchantment' at position 17: ...raft:armor<--[HERE]@15
+S -2--2 0 0 
+@ all #inecraft:skeletons
+R 0
+A -
+X Can't find tag 'inecraft:skeletons' of type 'minecraft:enchantment' at position 21: ...:skeletons<--[HERE]@19
+E Can't find tag 'inecraft:skeletons' of type 'minecraft:enchantment' at position 21: ...:skeletons<--[HERE]@19
+S -2--2 0 0 

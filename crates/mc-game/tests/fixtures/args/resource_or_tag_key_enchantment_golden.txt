@@ -1,0 +1,1679 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 65 565638879 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining
+@ all minecraft:zombie
+R 16
+A 0-16 minecraft:zombie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all zombie
+R 6
+A 0-6 minecraft:zombie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:player
+R 16
+A 0-16 minecraft:player|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:nope
+R 14
+A 0-14 minecraft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:
+R 10
+A 0-10 minecraft:|resource minecraft:enchantment
+E ok
+S 0-10 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all #minecraft:skeletons
+R 20
+A 0-20 #minecraft:skeletons|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:nope
+R 15
+A 0-15 #minecraft:nope|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all minecraft:speed
+R 15
+A 0-15 minecraft:speed|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 19
+A 0-19 minecraft:sharpness|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:fortune
+R 17
+A 0-17 minecraft:fortune|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 24
+A 0-24 minecraft:village_plains|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 19
+A 0-19 minecraft:mineshaft|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 22
+A 0-22 minecraft:ancient_city|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all foo:bar
+R 7
+A 0-7 foo:bar|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 15
+A 0-15 minecraft:armor|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_health
+R 20
+A 0-20 minecraft:max_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 28
+A 0-28 minecraft:generic.max_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all m
+R 1
+A 0-1 minecraft:m|resource minecraft:enchantment
+E ok
+S 0-1 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all mi
+R 2
+A 0-2 minecraft:mi|resource minecraft:enchantment
+E ok
+S 0-2 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all min
+R 3
+A 0-3 minecraft:min|resource minecraft:enchantment
+E ok
+S 0-3 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all mine
+R 4
+A 0-4 minecraft:mine|resource minecraft:enchantment
+E ok
+S 0-4 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minec
+R 5
+A 0-5 minecraft:minec|resource minecraft:enchantment
+E ok
+S 0-5 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecr
+R 6
+A 0-6 minecraft:minecr|resource minecraft:enchantment
+E ok
+S 0-6 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecra
+R 7
+A 0-7 minecraft:minecra|resource minecraft:enchantment
+E ok
+S 0-7 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraf
+R 8
+A 0-8 minecraft:minecraf|resource minecraft:enchantment
+E ok
+S 0-8 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraft
+R 9
+A 0-9 minecraft:minecraft|resource minecraft:enchantment
+E ok
+S 0-9 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraft:z
+R 11
+A 0-11 minecraft:z|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:zo
+R 12
+A 0-12 minecraft:zo|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:zom
+R 13
+A 0-13 minecraft:zom|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:zomb
+R 14
+A 0-14 minecraft:zomb|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:zombi
+R 15
+A 0-15 minecraft:zombi|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all z
+R 1
+A 0-1 minecraft:z|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all zo
+R 2
+A 0-2 minecraft:zo|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all zom
+R 3
+A 0-3 minecraft:zom|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all zomb
+R 4
+A 0-4 minecraft:zomb|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all zombi
+R 5
+A 0-5 minecraft:zombi|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:p
+R 11
+A 0-11 minecraft:p|resource minecraft:enchantment
+E ok
+S 0-11 5 -398043172 minecraft:piercing	minecraft:power	minecraft:projectile_protection	minecraft:protection	minecraft:punch
+@ all minecraft:pl
+R 12
+A 0-12 minecraft:pl|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:pla
+R 13
+A 0-13 minecraft:pla|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:play
+R 14
+A 0-14 minecraft:play|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:playe
+R 15
+A 0-15 minecraft:playe|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:n
+R 11
+A 0-11 minecraft:n|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:no
+R 12
+A 0-12 minecraft:no|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:nop
+R 13
+A 0-13 minecraft:nop|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all #
+R 1
+A 0-1 #minecraft:|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-1 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #m
+R 2
+A 0-2 #minecraft:m|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-2 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #mi
+R 3
+A 0-3 #minecraft:mi|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-3 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #min
+R 4
+A 0-4 #minecraft:min|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-4 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #mine
+R 5
+A 0-5 #minecraft:mine|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-5 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minec
+R 6
+A 0-6 #minecraft:minec|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-6 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecr
+R 7
+A 0-7 #minecraft:minecr|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-7 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecra
+R 8
+A 0-8 #minecraft:minecra|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-8 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraf
+R 9
+A 0-9 #minecraft:minecraf|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-9 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraft
+R 10
+A 0-10 #minecraft:minecraft|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-10 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraft:
+R 11
+A 0-11 #minecraft:|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-11 22 1880853822 #minecraft:curse	#minecraft:double_trade_price	#minecraft:exclusive_set/armor	#minecraft:exclusive_set/boots	#minecraft:exclusive_set/bow	#minecraft:exclusive_set/crossbow	#minecraft:exclusive_set/damage	#minecraft:exclusive_set/mining	#minecraft:exclusive_set/riptide	#minecraft:in_enchanting_table	#minecraft:non_treasure	#minecraft:on_mob_spawn_equipment	#minecraft:on_random_loot	#minecraft:on_traded_equipment	#minecraft:prevents_bee_spawns_when_mining	#minecraft:prevents_decorated_pot_shattering	#minecraft:prevents_ice_melting	#minecraft:prevents_infested_spawns	#minecraft:smelts_loot	#minecraft:tooltip_order	#minecraft:tradeable	#minecraft:treasure
+@ all #minecraft:s
+R 12
+A 0-12 #minecraft:s|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-12 1 535073970 #minecraft:smelts_loot
+@ all #minecraft:sk
+R 13
+A 0-13 #minecraft:sk|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:ske
+R 14
+A 0-14 #minecraft:ske|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skel
+R 15
+A 0-15 #minecraft:skel|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skele
+R 16
+A 0-16 #minecraft:skele|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 17
+A 0-17 #minecraft:skelet|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 18
+A 0-18 #minecraft:skeleto|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 19
+A 0-19 #minecraft:skeleton|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all #minecraft:n
+R 12
+A 0-12 #minecraft:n|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-12 1 -624182856 #minecraft:non_treasure
+@ all #minecraft:no
+R 13
+A 0-13 #minecraft:no|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S 0-13 1 -624182856 #minecraft:non_treasure
+@ all #minecraft:nop
+R 14
+A 0-14 #minecraft:nop|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all minecraft:s
+R 11
+A 0-11 minecraft:s|resource minecraft:enchantment
+E ok
+S 0-11 6 -1021836233 minecraft:sharpness	minecraft:silk_touch	minecraft:smite	minecraft:soul_speed	minecraft:sweeping_edge	minecraft:swift_sneak
+@ all minecraft:sp
+R 12
+A 0-12 minecraft:sp|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:spe
+R 13
+A 0-13 minecraft:spe|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:spee
+R 14
+A 0-14 minecraft:spee|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:sh
+R 12
+A 0-12 minecraft:sh|resource minecraft:enchantment
+E ok
+S 0-12 1 36272853 minecraft:sharpness
+@ all minecraft:sha
+R 13
+A 0-13 minecraft:sha|resource minecraft:enchantment
+E ok
+S 0-13 1 36272853 minecraft:sharpness
+@ all minecraft:shar
+R 14
+A 0-14 minecraft:shar|resource minecraft:enchantment
+E ok
+S 0-14 1 36272853 minecraft:sharpness
+@ all minecraft:sharp
+R 15
+A 0-15 minecraft:sharp|resource minecraft:enchantment
+E ok
+S 0-15 1 36272853 minecraft:sharpness
+@ all minecraft:sharpn
+R 16
+A 0-16 minecraft:sharpn|resource minecraft:enchantment
+E ok
+S 0-16 1 36272853 minecraft:sharpness
+@ all minecraft:sharpne
+R 17
+A 0-17 minecraft:sharpne|resource minecraft:enchantment
+E ok
+S 0-17 1 36272853 minecraft:sharpness
+@ all minecraft:sharpnes
+R 18
+A 0-18 minecraft:sharpnes|resource minecraft:enchantment
+E ok
+S 0-18 1 36272853 minecraft:sharpness
+@ all minecraft:f
+R 11
+A 0-11 minecraft:f|resource minecraft:enchantment
+E ok
+S 0-11 6 -1039229985 minecraft:feather_falling	minecraft:fire_aspect	minecraft:fire_protection	minecraft:flame	minecraft:fortune	minecraft:frost_walker
+@ all minecraft:fo
+R 12
+A 0-12 minecraft:fo|resource minecraft:enchantment
+E ok
+S 0-12 1 1510622997 minecraft:fortune
+@ all minecraft:for
+R 13
+A 0-13 minecraft:for|resource minecraft:enchantment
+E ok
+S 0-13 1 1510622997 minecraft:fortune
+@ all minecraft:fort
+R 14
+A 0-14 minecraft:fort|resource minecraft:enchantment
+E ok
+S 0-14 1 1510622997 minecraft:fortune
+@ all minecraft:fortu
+R 15
+A 0-15 minecraft:fortu|resource minecraft:enchantment
+E ok
+S 0-15 1 1510622997 minecraft:fortune
+@ all minecraft:fortun
+R 16
+A 0-16 minecraft:fortun|resource minecraft:enchantment
+E ok
+S 0-16 1 1510622997 minecraft:fortune
+@ all minecraft:v
+R 11
+A 0-11 minecraft:v|resource minecraft:enchantment
+E ok
+S 0-11 1 477836188 minecraft:vanishing_curse
+@ all minecraft:vi
+R 12
+A 0-12 minecraft:vi|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:vil
+R 13
+A 0-13 minecraft:vil|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:vill
+R 14
+A 0-14 minecraft:vill|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:villa
+R 15
+A 0-15 minecraft:villa|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:villag
+R 16
+A 0-16 minecraft:villag|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village
+R 17
+A 0-17 minecraft:village|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_
+R 18
+A 0-18 minecraft:village_|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_p
+R 19
+A 0-19 minecraft:village_p|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 20
+A 0-20 minecraft:village_pl|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 21
+A 0-21 minecraft:village_pla|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 22
+A 0-22 minecraft:village_plai|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 23
+A 0-23 minecraft:village_plain|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:m
+R 11
+A 0-11 minecraft:m|resource minecraft:enchantment
+E ok
+S 0-11 2 1434570629 minecraft:mending	minecraft:multishot
+@ all minecraft:mi
+R 12
+A 0-12 minecraft:mi|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:min
+R 13
+A 0-13 minecraft:min|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mine
+R 14
+A 0-14 minecraft:mine|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mines
+R 15
+A 0-15 minecraft:mines|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:minesh
+R 16
+A 0-16 minecraft:minesh|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:minesha
+R 17
+A 0-17 minecraft:minesha|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 18
+A 0-18 minecraft:mineshaf|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:a
+R 11
+A 0-11 minecraft:a|resource minecraft:enchantment
+E ok
+S 0-11 1 -1395625077 minecraft:aqua_affinity
+@ all minecraft:an
+R 12
+A 0-12 minecraft:an|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:anc
+R 13
+A 0-13 minecraft:anc|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:anci
+R 14
+A 0-14 minecraft:anci|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancie
+R 15
+A 0-15 minecraft:ancie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancien
+R 16
+A 0-16 minecraft:ancien|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient
+R 17
+A 0-17 minecraft:ancient|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 18
+A 0-18 minecraft:ancient_|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 19
+A 0-19 minecraft:ancient_c|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 20
+A 0-20 minecraft:ancient_ci|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 21
+A 0-21 minecraft:ancient_cit|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all f
+R 1
+A 0-1 minecraft:f|resource minecraft:enchantment
+E ok
+S 0-1 6 -1039229985 minecraft:feather_falling	minecraft:fire_aspect	minecraft:fire_protection	minecraft:flame	minecraft:fortune	minecraft:frost_walker
+@ all fo
+R 2
+A 0-2 minecraft:fo|resource minecraft:enchantment
+E ok
+S 0-2 1 1510622997 minecraft:fortune
+@ all foo
+R 3
+A 0-3 minecraft:foo|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all foo:
+R 4
+A 0-4 foo:|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all foo:b
+R 5
+A 0-5 foo:b|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all foo:ba
+R 6
+A 0-6 foo:ba|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 12
+A 0-12 minecraft:ar|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:arm
+R 13
+A 0-13 minecraft:arm|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:armo
+R 14
+A 0-14 minecraft:armo|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ma
+R 12
+A 0-12 minecraft:ma|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max
+R 13
+A 0-13 minecraft:max|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_
+R 14
+A 0-14 minecraft:max_|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_h
+R 15
+A 0-15 minecraft:max_h|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_he
+R 16
+A 0-16 minecraft:max_he|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 17
+A 0-17 minecraft:max_hea|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 18
+A 0-18 minecraft:max_heal|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 19
+A 0-19 minecraft:max_healt|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:g
+R 11
+A 0-11 minecraft:g|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ge
+R 12
+A 0-12 minecraft:ge|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:gen
+R 13
+A 0-13 minecraft:gen|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:gene
+R 14
+A 0-14 minecraft:gene|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:gener
+R 15
+A 0-15 minecraft:gener|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generi
+R 16
+A 0-16 minecraft:generi|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic
+R 17
+A 0-17 minecraft:generic|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.
+R 18
+A 0-18 minecraft:generic.|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 19
+A 0-19 minecraft:generic.m|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 20
+A 0-20 minecraft:generic.ma|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 21
+A 0-21 minecraft:generic.max|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 22
+A 0-22 minecraft:generic.max_|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 23
+A 0-23 minecraft:generic.max_h|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 24
+A 0-24 minecraft:generic.max_he|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 25
+A 0-25 minecraft:generic.max_hea|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 26
+A 0-26 minecraft:generic.max_heal|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 27
+A 0-27 minecraft:generic.max_healt|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ains
+R 4
+A 0-4 minecraft:ains|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all m)inecraft:generic.max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:gfeneric.max_healt
+R 28
+A 0-28 minecraft:gfeneric.max_healt|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ns
+R 2
+A 0-2 minecraft:ns|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all OMZBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi>ecraft:zombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all #inecraft:nope
+R 14
+A 0-14 #inecraft:nope|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all b
+R 1
+A 0-1 minecraft:b|resource minecraft:enchantment
+E ok
+S 0-1 5 -2078268039 minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:wind_burst
+@ all .maxa_health
+R 12
+A 0-12 minecraft:.maxa_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all X
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Zinecraft:npe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t:skeletons
+R 11
+A 0-11 t:skeletons|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all nas
+R 3
+A 0-3 minecraft:nas|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:fortune"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 19: ...ft:fortune<--[HERE]@17
+E Expected whitespace to end one argument, but found trailing data at position 19: ...ft:fortune<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_pla,ins:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 23: ...illage_pla<--[HERE]@21
+E Expected whitespace to end one argument, but found trailing data at position 23: ...illage_pla<--[HERE]@21
+S -2--2 0 0 
+@ all raft:frtune
+R 11
+A 0-11 raft:frtune|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all :generic.max_healbh
+R 19
+A 0-19 minecraft:generic.max_healbh|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:speedr
+R 16
+A 0-16 minecraft:speedr|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all foo:.ar
+R 7
+A 0-7 foo:.ar|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ft:nope
+R 7
+A 0-7 ft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ons
+R 3
+A 0-3 minecraft:ons|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all inecrİft:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t inecr<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t inecr<--[HERE]@5
+S -2--2 0 0 
+@ all t:fortune
+R 9
+A 0-9 t:fortune|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ZO>MBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ft:skeletons
+R 12
+A 0-12 ft:skeletons|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minec,rafCt:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all mine,craft:speedn
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all pe
+R 2
+A 0-2 minecraft:pe|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:playert
+R 17
+A 0-17 minecraft:playert|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all 7inecraft:fotune
+R 16
+A 0-16 7inecraft:fotune|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:speei
+R 15
+A 0-15 minecraft:speei|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mx_health
+R 19
+A 0-19 minecraft:mx_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all x_health
+R 8
+A 0-8 minecraft:x_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all inecrft:
+R 8
+A 0-8 inecrft:|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minYecraft:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft$minehaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all #mine~raft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t #mine<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t #mine<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:armoZ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:armo<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:armo<--[HERE]@14
+S -2--2 0 0 
+@ all mine(craft:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all foo:bara
+R 8
+A 0-8 foo:bara|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecrat:ancient_city
+R 21
+A 0-21 minecrat:ancient_city|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecr{ft:nop
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all #minecraft:skeletonsk
+R 21
+A 0-21 #minecraft:skeletonsk|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all ZOMBIEB
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #ombie
+R 6
+A 0-6 #minecraft:ombie|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all minecrafat:ancient_city@
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 25: ...cient_city<--[HERE]@23
+E Expected whitespace to end one argument, but found trailing data at position 25: ...cient_city<--[HERE]@23
+S -2--2 0 0 
+@ all minecrft:nope
+R 13
+A 0-13 minecrft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cityf
+R 23
+A 0-23 minecraft:ancient_cityf|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all miecraft:armor
+R 14
+A 0-14 miecraft:armor|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:nopei
+R 15
+A 0-15 minecraft:nopei|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraf8:
+R 10
+A 0-10 minecraf8:|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all #minecraft:npe
+R 14
+A 0-14 #minecraft:npe|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all minecraft:shapness
+R 18
+A 0-18 minecraft:shapness|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ne
+R 2
+A 0-2 minecraft:ne|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ZOMBIY
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeletonst
+R 21
+A 0-21 #minecraft:skeletonst|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all ent_cityy
+R 9
+A 0-9 minecraft:ent_cityy|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:sha#pness:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:sha<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:sha<--[HERE]@13
+S -2--2 0 0 
+@ all miecraft:max_health
+R 19
+A 0-19 miecraft:max_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:pYayer
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:p<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:p<--[HERE]@11
+S -2--2 0 0 
+@ all m!inecraft:village_plains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:pla5er
+R 16
+A 0-16 minecraft:pla5er|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all zobie
+R 5
+A 0-5 minecraft:zobie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all foo:ßb,ar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-1 4 2036417587 minecraft:binding_curse	minecraft:channeling	minecraft:quick_charge	minecraft:vanishing_curse
+@ all minecraf​:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all Z^MBE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft{armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:ancient_cityy
+R 23
+A 0-23 minecraft:ancient_cityy|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecaft:s￿eed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecaft:s<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecaft:s<--[HERE]@10
+S -2--2 0 0 
+@ all ZOMBIEE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraf-:armor
+R 15
+A 0-15 minecraf-:armor|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ie
+R 2
+A 0-2 minecraft:ie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all #minecraf:t:nope
+R 0
+A -
+X Invalid ID at position 3: t #<--[HERE]@1
+E Invalid ID at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all mineYraft:max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:vi5llge_plains
+R 24
+A 0-24 minecraft:vi5llge_plains|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all mine0craft:armorm
+R 17
+A 0-17 mine0craft:armorm|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft<:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:speedn
+R 16
+A 0-16 minecraft:speedn|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all aft:nope
+R 8
+A 0-8 aft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all +
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi~necraft:fortune
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecrat:arm:r
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armorm
+R 16
+A 0-16 minecraft:armorm|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:ancie]nt_city
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:ancie<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:ancie<--[HERE]@15
+S -2--2 0 0 
+@ all minecrAftmax_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all #minecraft:skeetons
+R 19
+A 0-19 #minecraft:skeetons|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all minecraft:ar\\or
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:ar<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:ar<--[HERE]@12
+S -2--2 0 0 
+@ all ertune
+R 6
+A 0-6 minecraft:ertune|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all mnecraft:ancient_cit\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 22: ...ncient_cit<--[HERE]@20
+E Expected whitespace to end one argument, but found trailing data at position 22: ...ncient_cit<--[HERE]@20
+S -2--2 0 0 
+@ all ZOMB"IE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombief
+R 17
+A 0-17 minecraft:zombief|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all mbie
+R 4
+A 0-4 minecraft:mbie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecr&aft:armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all ZOMIEM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:\u0009ope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+S -2--2 0 0 
+@ all nope
+R 4
+A 0-4 minecraft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all necraft:nope
+R 12
+A 0-12 necraft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all 7
+R 1
+A 0-1 minecraft:7|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all :nope
+R 5
+A 0-5 minecraft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all raft:nope
+R 9
+A 0-9 raft:nope|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpne6s
+R 19
+A 0-19 minecraft:sharpne6s|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all nt_city
+R 7
+A 0-7 minecraft:nt_city|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all mxnecraft:max_health{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 22: ...max_health<--[HERE]@20
+E Expected whitespace to end one argument, but found trailing data at position 22: ...max_health<--[HERE]@20
+S -2--2 0 0 
+@ all minecr!ft:zombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all \u0009\u0009
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all inecraft:sharpness
+R 18
+A 0-18 inecraft:sharpness|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mineéshaftt
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:mine<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:mine<--[HERE]@14
+S -2--2 0 0 
+@ all zo"mbie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all inecraft:speed
+R 14
+A 0-14 inecraft:speed|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:max_he/alth
+R 21
+A 0-21 minecraft:max_he/alth|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:illage_pla-ns
+R 23
+A 0-23 minecraft:illage_pla-ns|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all min"craft:fo<rtune
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all zcmbie
+R 6
+A 0-6 minecraft:zcmbie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all #mincraft:n%pe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...mincraft:n<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...mincraft:n<--[HERE]@11
+S -2--2 0 0 
+@ all ar$pness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ar<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ar<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft%:village_plainst
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all foof:bar
+R 8
+A 0-8 foof:bar|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all rt@une
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t rt<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t rt<--[HERE]@2
+S -2--2 0 0 
+@ all minecra_t:generic.max_health
+R 28
+A 0-28 minecra_t:generic.max_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all craft:armor
+R 11
+A 0-11 craft:armor|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healthcc
+R 30
+A 0-30 minecraft:generic.max_healthcc|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecrzaft:nop
+R 14
+A 0-14 minecrzaft:nop|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:villcage_plains
+R 25
+A 0-25 minecraft:villcage_plains|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:villYage_plainsl
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:vill<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:vill<--[HERE]@14
+S -2--2 0 0 
+@ all ft:max_health
+R 13
+A 0-13 ft:max_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all 6r
+R 2
+A 0-2 minecraft:6r|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:armorr
+R 16
+A 0-16 minecraft:armorr|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all OMBI^E
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:gen(ric.max_healt
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:gen<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft0:plyer
+R 16
+A 0-16 minecraft0:plyer|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mine[haf[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:mine<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:mine<--[HERE]@14
+S -2--2 0 0 
+@ all ZOMBEM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #Zinecraft:skeletons:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t #<--[HERE]@1
+S -2--2 0 0 
+@ all h
+R 1
+A 0-1 minecraft:h|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaftei
+R 21
+A 0-21 minecraft:mineshaftei|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:villageC_plainss
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 19: ...ft:village<--[HERE]@17
+E Expected whitespace to end one argument, but found trailing data at position 19: ...ft:village<--[HERE]@17
+S -2--2 0 0 
+@ all r
+R 1
+A 0-1 minecraft:r|resource minecraft:enchantment
+E ok
+S 0-1 2 -1889543455 minecraft:respiration	minecraft:riptide
+@ all minecraft:spe]d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:spe<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:spe<--[HERE]@13
+S -2--2 0 0 
+@ all minbcraft:
+R 10
+A 0-10 minbcraft:|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:armore
+R 16
+A 0-16 minecraft:armore|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:noper
+R 15
+A 0-15 minecraft:noper|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all max_health
+R 10
+A 0-10 minecraft:max_health|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ecraBft:generic.max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ecra<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ecra<--[HERE]@4
+S -2--2 0 0 
+@ all mi#necraft:ancient_city
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all mnecraft:zombie
+R 15
+A 0-15 mnecraft:zombie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all aft:fortunef
+R 12
+A 0-12 aft:fortunef|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:arorr
+R 15
+A 0-15 minecraft:arorr|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all z'ßombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minecraf:nop
+R 12
+A 0-12 minecraf:nop|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all ZOMBIEZ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t_ci$y
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t t_ci<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t t_ci<--[HERE]@4
+S -2--2 0 0 
+@ all ZOMBE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all E
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-1 2 -1902851389 minecraft:efficiency	minecraft:sweeping_edge
+@ all minecraft:spee/d
+R 16
+A 0-16 minecraft:spee/d|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecrfft:armor:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all (
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :anient_city
+R 12
+A 0-12 minecraft:anient_city|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all mineraft:fortune
+R 16
+A 0-16 mineraft:fortune|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all mi\\ecraft:zombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:nopee
+R 15
+A 0-15 minecraft:nopee|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healthie
+R 30
+A 0-30 minecraft:generic.max_healthie|resource minecraft:enchantment
+E ok
+S -2--2 0 0 
+@ all #mincraft:nope
+R 14
+A 0-14 #mincraft:nope|tag ResourceKey[minecraft:root / minecraft:enchantment]
+E ok
+S -2--2 0 0 
+@ all minecraft:中layer
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 

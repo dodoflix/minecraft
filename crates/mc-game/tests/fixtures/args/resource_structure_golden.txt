@@ -1,0 +1,1915 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraft:zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 18: ...aft:zombie<--[HERE]@16
+E Can't find element 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 8: t zombie<--[HERE]@6
+E Can't find element 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:player
+R 0
+A -
+X Can't find element 'minecraft:player' of type 'minecraft:worldgen/structure' at position 18: ...aft:player<--[HERE]@16
+E Can't find element 'minecraft:player' of type 'minecraft:worldgen/structure' at position 18: ...aft:player<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:worldgen/structure' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'minecraft:nope' of type 'minecraft:worldgen/structure' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all #minecraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speed
+R 0
+A -
+X Can't find element 'minecraft:speed' of type 'minecraft:worldgen/structure' at position 17: ...raft:speed<--[HERE]@15
+E Can't find element 'minecraft:speed' of type 'minecraft:worldgen/structure' at position 17: ...raft:speed<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 0
+A -
+X Can't find element 'minecraft:sharpness' of type 'minecraft:worldgen/structure' at position 21: ...:sharpness<--[HERE]@19
+E Can't find element 'minecraft:sharpness' of type 'minecraft:worldgen/structure' at position 21: ...:sharpness<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:fortune
+R 0
+A -
+X Can't find element 'minecraft:fortune' of type 'minecraft:worldgen/structure' at position 19: ...ft:fortune<--[HERE]@17
+E Can't find element 'minecraft:fortune' of type 'minecraft:worldgen/structure' at position 19: ...ft:fortune<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 24
+A 0-24 minecraft:village_plains
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 19
+A 0-19 minecraft:mineshaft
+E ok
+S 0-19 1 1154568926 minecraft:mineshaft_mesa
+@ all minecraft:ancient_city
+R 22
+A 0-22 minecraft:ancient_city
+E ok
+S -2--2 0 0 
+@ all foo:bar
+R 0
+A -
+X Can't find element 'foo:bar' of type 'minecraft:worldgen/structure' at position 9: t foo:bar<--[HERE]@7
+E Can't find element 'foo:bar' of type 'minecraft:worldgen/structure' at position 9: t foo:bar<--[HERE]@7
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 0
+A -
+X Can't find element 'minecraft:armor' of type 'minecraft:worldgen/structure' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'minecraft:armor' of type 'minecraft:worldgen/structure' at position 17: ...raft:armor<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:max_health
+R 0
+A -
+X Can't find element 'minecraft:max_health' of type 'minecraft:worldgen/structure' at position 22: ...max_health<--[HERE]@20
+E Can't find element 'minecraft:max_health' of type 'minecraft:worldgen/structure' at position 22: ...max_health<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 0
+A -
+X Can't find element 'minecraft:generic.max_health' of type 'minecraft:worldgen/structure' at position 30: ...max_health<--[HERE]@28
+E Can't find element 'minecraft:generic.max_health' of type 'minecraft:worldgen/structure' at position 30: ...max_health<--[HERE]@28
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S 0-1 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+S 0-2 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+S 0-3 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+S 0-4 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+S 0-5 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+S 0-6 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+S 0-7 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+S 0-8 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+S 0-9 52 -999600399 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest
+@ all minecraft:z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:z<--[HERE]@11
+E Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 14: ...necraft:zo<--[HERE]@12
+E Can't find element 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:zom<--[HERE]@13
+E Can't find element 'minecraft:zom' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 16: ...craft:zomb<--[HERE]@14
+E Can't find element 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:worldgen/structure' at position 17: ...raft:zombi<--[HERE]@15
+E Can't find element 'minecraft:zombi' of type 'minecraft:worldgen/structure' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 4: t zo<--[HERE]@2
+E Can't find element 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:worldgen/structure' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:worldgen/structure' at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 6: t zomb<--[HERE]@4
+E Can't find element 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 6: t zomb<--[HERE]@4
+S -2--2 0 0 
+@ all zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:worldgen/structure' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:worldgen/structure' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:p
+R 0
+A -
+X Can't find element 'minecraft:p' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:p<--[HERE]@11
+E Can't find element 'minecraft:p' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:p<--[HERE]@11
+S 0-11 1 -799454431 minecraft:pillager_outpost
+@ all minecraft:pl
+R 0
+A -
+X Can't find element 'minecraft:pl' of type 'minecraft:worldgen/structure' at position 14: ...necraft:pl<--[HERE]@12
+E Can't find element 'minecraft:pl' of type 'minecraft:worldgen/structure' at position 14: ...necraft:pl<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:pla
+R 0
+A -
+X Can't find element 'minecraft:pla' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:pla<--[HERE]@13
+E Can't find element 'minecraft:pla' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:pla<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:play
+R 0
+A -
+X Can't find element 'minecraft:play' of type 'minecraft:worldgen/structure' at position 16: ...craft:play<--[HERE]@14
+E Can't find element 'minecraft:play' of type 'minecraft:worldgen/structure' at position 16: ...craft:play<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:playe
+R 0
+A -
+X Can't find element 'minecraft:playe' of type 'minecraft:worldgen/structure' at position 17: ...raft:playe<--[HERE]@15
+E Can't find element 'minecraft:playe' of type 'minecraft:worldgen/structure' at position 17: ...raft:playe<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:n' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:n<--[HERE]@11
+E Can't find element 'minecraft:n' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:n<--[HERE]@11
+S 0-11 1 -954051005 minecraft:nether_fossil
+@ all minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:worldgen/structure' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:worldgen/structure' at position 14: ...necraft:no<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 4 -517999753 minecraft:shipwreck	minecraft:shipwreck_beached	minecraft:stronghold	minecraft:swamp_hut
+@ all minecraft:sp
+R 0
+A -
+X Can't find element 'minecraft:sp' of type 'minecraft:worldgen/structure' at position 14: ...necraft:sp<--[HERE]@12
+E Can't find element 'minecraft:sp' of type 'minecraft:worldgen/structure' at position 14: ...necraft:sp<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:spe
+R 0
+A -
+X Can't find element 'minecraft:spe' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:spe<--[HERE]@13
+E Can't find element 'minecraft:spe' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:spe<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:spee
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:worldgen/structure' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:worldgen/structure' at position 16: ...craft:spee<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sh
+R 0
+A -
+X Can't find element 'minecraft:sh' of type 'minecraft:worldgen/structure' at position 14: ...necraft:sh<--[HERE]@12
+E Can't find element 'minecraft:sh' of type 'minecraft:worldgen/structure' at position 14: ...necraft:sh<--[HERE]@12
+S 0-12 2 1613296285 minecraft:shipwreck	minecraft:shipwreck_beached
+@ all minecraft:sha
+R 0
+A -
+X Can't find element 'minecraft:sha' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:sha<--[HERE]@13
+E Can't find element 'minecraft:sha' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:sha<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:shar
+R 0
+A -
+X Can't find element 'minecraft:shar' of type 'minecraft:worldgen/structure' at position 16: ...craft:shar<--[HERE]@14
+E Can't find element 'minecraft:shar' of type 'minecraft:worldgen/structure' at position 16: ...craft:shar<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sharp
+R 0
+A -
+X Can't find element 'minecraft:sharp' of type 'minecraft:worldgen/structure' at position 17: ...raft:sharp<--[HERE]@15
+E Can't find element 'minecraft:sharp' of type 'minecraft:worldgen/structure' at position 17: ...raft:sharp<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 0
+A -
+X Can't find element 'minecraft:sharpn' of type 'minecraft:worldgen/structure' at position 18: ...aft:sharpn<--[HERE]@16
+E Can't find element 'minecraft:sharpn' of type 'minecraft:worldgen/structure' at position 18: ...aft:sharpn<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 0
+A -
+X Can't find element 'minecraft:sharpne' of type 'minecraft:worldgen/structure' at position 19: ...ft:sharpne<--[HERE]@17
+E Can't find element 'minecraft:sharpne' of type 'minecraft:worldgen/structure' at position 19: ...ft:sharpne<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 0
+A -
+X Can't find element 'minecraft:sharpnes' of type 'minecraft:worldgen/structure' at position 20: ...t:sharpnes<--[HERE]@18
+E Can't find element 'minecraft:sharpnes' of type 'minecraft:worldgen/structure' at position 20: ...t:sharpnes<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:f<--[HERE]@11
+E Can't find element 'minecraft:f' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:f<--[HERE]@11
+S 0-11 1 -418349282 minecraft:fortress
+@ all minecraft:fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:worldgen/structure' at position 14: ...necraft:fo<--[HERE]@12
+E Can't find element 'minecraft:fo' of type 'minecraft:worldgen/structure' at position 14: ...necraft:fo<--[HERE]@12
+S 0-12 1 -418349282 minecraft:fortress
+@ all minecraft:for
+R 0
+A -
+X Can't find element 'minecraft:for' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:for<--[HERE]@13
+E Can't find element 'minecraft:for' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:for<--[HERE]@13
+S 0-13 1 -418349282 minecraft:fortress
+@ all minecraft:fort
+R 0
+A -
+X Can't find element 'minecraft:fort' of type 'minecraft:worldgen/structure' at position 16: ...craft:fort<--[HERE]@14
+E Can't find element 'minecraft:fort' of type 'minecraft:worldgen/structure' at position 16: ...craft:fort<--[HERE]@14
+S 0-14 1 -418349282 minecraft:fortress
+@ all minecraft:fortu
+R 0
+A -
+X Can't find element 'minecraft:fortu' of type 'minecraft:worldgen/structure' at position 17: ...raft:fortu<--[HERE]@15
+E Can't find element 'minecraft:fortu' of type 'minecraft:worldgen/structure' at position 17: ...raft:fortu<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:fortun
+R 0
+A -
+X Can't find element 'minecraft:fortun' of type 'minecraft:worldgen/structure' at position 18: ...aft:fortun<--[HERE]@16
+E Can't find element 'minecraft:fortun' of type 'minecraft:worldgen/structure' at position 18: ...aft:fortun<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:v
+R 0
+A -
+X Can't find element 'minecraft:v' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:v<--[HERE]@11
+E Can't find element 'minecraft:v' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:v<--[HERE]@11
+S 0-11 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:vi
+R 0
+A -
+X Can't find element 'minecraft:vi' of type 'minecraft:worldgen/structure' at position 14: ...necraft:vi<--[HERE]@12
+E Can't find element 'minecraft:vi' of type 'minecraft:worldgen/structure' at position 14: ...necraft:vi<--[HERE]@12
+S 0-12 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:vil
+R 0
+A -
+X Can't find element 'minecraft:vil' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:vil<--[HERE]@13
+E Can't find element 'minecraft:vil' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:vil<--[HERE]@13
+S 0-13 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:vill
+R 0
+A -
+X Can't find element 'minecraft:vill' of type 'minecraft:worldgen/structure' at position 16: ...craft:vill<--[HERE]@14
+E Can't find element 'minecraft:vill' of type 'minecraft:worldgen/structure' at position 16: ...craft:vill<--[HERE]@14
+S 0-14 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:villa
+R 0
+A -
+X Can't find element 'minecraft:villa' of type 'minecraft:worldgen/structure' at position 17: ...raft:villa<--[HERE]@15
+E Can't find element 'minecraft:villa' of type 'minecraft:worldgen/structure' at position 17: ...raft:villa<--[HERE]@15
+S 0-15 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:villag
+R 0
+A -
+X Can't find element 'minecraft:villag' of type 'minecraft:worldgen/structure' at position 18: ...aft:villag<--[HERE]@16
+E Can't find element 'minecraft:villag' of type 'minecraft:worldgen/structure' at position 18: ...aft:villag<--[HERE]@16
+S 0-16 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:village
+R 0
+A -
+X Can't find element 'minecraft:village' of type 'minecraft:worldgen/structure' at position 19: ...ft:village<--[HERE]@17
+E Can't find element 'minecraft:village' of type 'minecraft:worldgen/structure' at position 19: ...ft:village<--[HERE]@17
+S 0-17 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:village_
+R 0
+A -
+X Can't find element 'minecraft:village_' of type 'minecraft:worldgen/structure' at position 20: ...t:village_<--[HERE]@18
+E Can't find element 'minecraft:village_' of type 'minecraft:worldgen/structure' at position 20: ...t:village_<--[HERE]@18
+S 0-18 5 440338323 minecraft:village_desert	minecraft:village_plains	minecraft:village_savanna	minecraft:village_snowy	minecraft:village_taiga
+@ all minecraft:village_p
+R 0
+A -
+X Can't find element 'minecraft:village_p' of type 'minecraft:worldgen/structure' at position 21: ...:village_p<--[HERE]@19
+E Can't find element 'minecraft:village_p' of type 'minecraft:worldgen/structure' at position 21: ...:village_p<--[HERE]@19
+S 0-19 1 366461152 minecraft:village_plains
+@ all minecraft:village_pl
+R 0
+A -
+X Can't find element 'minecraft:village_pl' of type 'minecraft:worldgen/structure' at position 22: ...village_pl<--[HERE]@20
+E Can't find element 'minecraft:village_pl' of type 'minecraft:worldgen/structure' at position 22: ...village_pl<--[HERE]@20
+S 0-20 1 366461152 minecraft:village_plains
+@ all minecraft:village_pla
+R 0
+A -
+X Can't find element 'minecraft:village_pla' of type 'minecraft:worldgen/structure' at position 23: ...illage_pla<--[HERE]@21
+E Can't find element 'minecraft:village_pla' of type 'minecraft:worldgen/structure' at position 23: ...illage_pla<--[HERE]@21
+S 0-21 1 366461152 minecraft:village_plains
+@ all minecraft:village_plai
+R 0
+A -
+X Can't find element 'minecraft:village_plai' of type 'minecraft:worldgen/structure' at position 24: ...llage_plai<--[HERE]@22
+E Can't find element 'minecraft:village_plai' of type 'minecraft:worldgen/structure' at position 24: ...llage_plai<--[HERE]@22
+S 0-22 1 366461152 minecraft:village_plains
+@ all minecraft:village_plain
+R 0
+A -
+X Can't find element 'minecraft:village_plain' of type 'minecraft:worldgen/structure' at position 25: ...lage_plain<--[HERE]@23
+E Can't find element 'minecraft:village_plain' of type 'minecraft:worldgen/structure' at position 25: ...lage_plain<--[HERE]@23
+S 0-23 1 366461152 minecraft:village_plains
+@ all minecraft:m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:m<--[HERE]@11
+E Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:m<--[HERE]@11
+S 0-11 4 603236941 minecraft:mansion	minecraft:mineshaft	minecraft:mineshaft_mesa	minecraft:monument
+@ all minecraft:mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 14: ...necraft:mi<--[HERE]@12
+E Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 14: ...necraft:mi<--[HERE]@12
+S 0-12 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:min<--[HERE]@13
+E Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:min<--[HERE]@13
+S 0-13 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 16: ...craft:mine<--[HERE]@14
+E Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 16: ...craft:mine<--[HERE]@14
+S 0-14 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:mines
+R 0
+A -
+X Can't find element 'minecraft:mines' of type 'minecraft:worldgen/structure' at position 17: ...raft:mines<--[HERE]@15
+E Can't find element 'minecraft:mines' of type 'minecraft:worldgen/structure' at position 17: ...raft:mines<--[HERE]@15
+S 0-15 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:minesh
+R 0
+A -
+X Can't find element 'minecraft:minesh' of type 'minecraft:worldgen/structure' at position 18: ...aft:minesh<--[HERE]@16
+E Can't find element 'minecraft:minesh' of type 'minecraft:worldgen/structure' at position 18: ...aft:minesh<--[HERE]@16
+S 0-16 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:minesha
+R 0
+A -
+X Can't find element 'minecraft:minesha' of type 'minecraft:worldgen/structure' at position 19: ...ft:minesha<--[HERE]@17
+E Can't find element 'minecraft:minesha' of type 'minecraft:worldgen/structure' at position 19: ...ft:minesha<--[HERE]@17
+S 0-17 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:mineshaf
+R 0
+A -
+X Can't find element 'minecraft:mineshaf' of type 'minecraft:worldgen/structure' at position 20: ...t:mineshaf<--[HERE]@18
+E Can't find element 'minecraft:mineshaf' of type 'minecraft:worldgen/structure' at position 20: ...t:mineshaf<--[HERE]@18
+S 0-18 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecraft:a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:a<--[HERE]@11
+S 0-11 19 -2052960456 minecraft:abandoned_camp_bamboo_jungle	minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_cherry_grove	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_meadow	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_old_growth_pine_taiga	minecraft:abandoned_camp_old_growth_spruce_taiga	minecraft:abandoned_camp_pale_garden	minecraft:abandoned_camp_savanna	minecraft:abandoned_camp_snowy_taiga	minecraft:abandoned_camp_sparse_jungle	minecraft:abandoned_camp_swamp	minecraft:abandoned_camp_taiga	minecraft:abandoned_camp_windswept_forest	minecraft:abandoned_camp_wooded_badlands	minecraft:ancient_city
+@ all minecraft:an
+R 0
+A -
+X Can't find element 'minecraft:an' of type 'minecraft:worldgen/structure' at position 14: ...necraft:an<--[HERE]@12
+E Can't find element 'minecraft:an' of type 'minecraft:worldgen/structure' at position 14: ...necraft:an<--[HERE]@12
+S 0-12 1 753706154 minecraft:ancient_city
+@ all minecraft:anc
+R 0
+A -
+X Can't find element 'minecraft:anc' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:anc<--[HERE]@13
+E Can't find element 'minecraft:anc' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:anc<--[HERE]@13
+S 0-13 1 753706154 minecraft:ancient_city
+@ all minecraft:anci
+R 0
+A -
+X Can't find element 'minecraft:anci' of type 'minecraft:worldgen/structure' at position 16: ...craft:anci<--[HERE]@14
+E Can't find element 'minecraft:anci' of type 'minecraft:worldgen/structure' at position 16: ...craft:anci<--[HERE]@14
+S 0-14 1 753706154 minecraft:ancient_city
+@ all minecraft:ancie
+R 0
+A -
+X Can't find element 'minecraft:ancie' of type 'minecraft:worldgen/structure' at position 17: ...raft:ancie<--[HERE]@15
+E Can't find element 'minecraft:ancie' of type 'minecraft:worldgen/structure' at position 17: ...raft:ancie<--[HERE]@15
+S 0-15 1 753706154 minecraft:ancient_city
+@ all minecraft:ancien
+R 0
+A -
+X Can't find element 'minecraft:ancien' of type 'minecraft:worldgen/structure' at position 18: ...aft:ancien<--[HERE]@16
+E Can't find element 'minecraft:ancien' of type 'minecraft:worldgen/structure' at position 18: ...aft:ancien<--[HERE]@16
+S 0-16 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient
+R 0
+A -
+X Can't find element 'minecraft:ancient' of type 'minecraft:worldgen/structure' at position 19: ...ft:ancient<--[HERE]@17
+E Can't find element 'minecraft:ancient' of type 'minecraft:worldgen/structure' at position 19: ...ft:ancient<--[HERE]@17
+S 0-17 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_
+R 0
+A -
+X Can't find element 'minecraft:ancient_' of type 'minecraft:worldgen/structure' at position 20: ...t:ancient_<--[HERE]@18
+E Can't find element 'minecraft:ancient_' of type 'minecraft:worldgen/structure' at position 20: ...t:ancient_<--[HERE]@18
+S 0-18 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_c
+R 0
+A -
+X Can't find element 'minecraft:ancient_c' of type 'minecraft:worldgen/structure' at position 21: ...:ancient_c<--[HERE]@19
+E Can't find element 'minecraft:ancient_c' of type 'minecraft:worldgen/structure' at position 21: ...:ancient_c<--[HERE]@19
+S 0-19 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_ci
+R 0
+A -
+X Can't find element 'minecraft:ancient_ci' of type 'minecraft:worldgen/structure' at position 22: ...ancient_ci<--[HERE]@20
+E Can't find element 'minecraft:ancient_ci' of type 'minecraft:worldgen/structure' at position 22: ...ancient_ci<--[HERE]@20
+S 0-20 1 753706154 minecraft:ancient_city
+@ all minecraft:ancient_cit
+R 0
+A -
+X Can't find element 'minecraft:ancient_cit' of type 'minecraft:worldgen/structure' at position 23: ...ncient_cit<--[HERE]@21
+E Can't find element 'minecraft:ancient_cit' of type 'minecraft:worldgen/structure' at position 23: ...ncient_cit<--[HERE]@21
+S 0-21 1 753706154 minecraft:ancient_city
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:worldgen/structure' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:worldgen/structure' at position 3: t f<--[HERE]@1
+S 0-1 8 724407138 minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_windswept_forest	minecraft:fortress	minecraft:nether_fossil
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:worldgen/structure' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:worldgen/structure' at position 4: t fo<--[HERE]@2
+S 0-2 8 724407138 minecraft:abandoned_camp_birch_forest	minecraft:abandoned_camp_dappled_forest	minecraft:abandoned_camp_flower_forest	minecraft:abandoned_camp_forest	minecraft:abandoned_camp_old_growth_birch_forest	minecraft:abandoned_camp_windswept_forest	minecraft:fortress	minecraft:nether_fossil
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:worldgen/structure' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:worldgen/structure' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X Can't find element 'foo:' of type 'minecraft:worldgen/structure' at position 6: t foo:<--[HERE]@4
+E Can't find element 'foo:' of type 'minecraft:worldgen/structure' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:b
+R 0
+A -
+X Can't find element 'foo:b' of type 'minecraft:worldgen/structure' at position 7: t foo:b<--[HERE]@5
+E Can't find element 'foo:b' of type 'minecraft:worldgen/structure' at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all foo:ba
+R 0
+A -
+X Can't find element 'foo:ba' of type 'minecraft:worldgen/structure' at position 8: t foo:ba<--[HERE]@6
+E Can't find element 'foo:ba' of type 'minecraft:worldgen/structure' at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 0
+A -
+X Can't find element 'minecraft:ar' of type 'minecraft:worldgen/structure' at position 14: ...necraft:ar<--[HERE]@12
+E Can't find element 'minecraft:ar' of type 'minecraft:worldgen/structure' at position 14: ...necraft:ar<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:arm
+R 0
+A -
+X Can't find element 'minecraft:arm' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:arm<--[HERE]@13
+E Can't find element 'minecraft:arm' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:arm<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:armo
+R 0
+A -
+X Can't find element 'minecraft:armo' of type 'minecraft:worldgen/structure' at position 16: ...craft:armo<--[HERE]@14
+E Can't find element 'minecraft:armo' of type 'minecraft:worldgen/structure' at position 16: ...craft:armo<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:ma
+R 0
+A -
+X Can't find element 'minecraft:ma' of type 'minecraft:worldgen/structure' at position 14: ...necraft:ma<--[HERE]@12
+E Can't find element 'minecraft:ma' of type 'minecraft:worldgen/structure' at position 14: ...necraft:ma<--[HERE]@12
+S 0-12 1 1169447431 minecraft:mansion
+@ all minecraft:max
+R 0
+A -
+X Can't find element 'minecraft:max' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:max<--[HERE]@13
+E Can't find element 'minecraft:max' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:max_
+R 0
+A -
+X Can't find element 'minecraft:max_' of type 'minecraft:worldgen/structure' at position 16: ...craft:max_<--[HERE]@14
+E Can't find element 'minecraft:max_' of type 'minecraft:worldgen/structure' at position 16: ...craft:max_<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:max_h
+R 0
+A -
+X Can't find element 'minecraft:max_h' of type 'minecraft:worldgen/structure' at position 17: ...raft:max_h<--[HERE]@15
+E Can't find element 'minecraft:max_h' of type 'minecraft:worldgen/structure' at position 17: ...raft:max_h<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:max_he
+R 0
+A -
+X Can't find element 'minecraft:max_he' of type 'minecraft:worldgen/structure' at position 18: ...aft:max_he<--[HERE]@16
+E Can't find element 'minecraft:max_he' of type 'minecraft:worldgen/structure' at position 18: ...aft:max_he<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 0
+A -
+X Can't find element 'minecraft:max_hea' of type 'minecraft:worldgen/structure' at position 19: ...ft:max_hea<--[HERE]@17
+E Can't find element 'minecraft:max_hea' of type 'minecraft:worldgen/structure' at position 19: ...ft:max_hea<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 0
+A -
+X Can't find element 'minecraft:max_heal' of type 'minecraft:worldgen/structure' at position 20: ...t:max_heal<--[HERE]@18
+E Can't find element 'minecraft:max_heal' of type 'minecraft:worldgen/structure' at position 20: ...t:max_heal<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 0
+A -
+X Can't find element 'minecraft:max_healt' of type 'minecraft:worldgen/structure' at position 21: ...:max_healt<--[HERE]@19
+E Can't find element 'minecraft:max_healt' of type 'minecraft:worldgen/structure' at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:g
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:g<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:ge
+R 0
+A -
+X Can't find element 'minecraft:ge' of type 'minecraft:worldgen/structure' at position 14: ...necraft:ge<--[HERE]@12
+E Can't find element 'minecraft:ge' of type 'minecraft:worldgen/structure' at position 14: ...necraft:ge<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:gen
+R 0
+A -
+X Can't find element 'minecraft:gen' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:gen<--[HERE]@13
+E Can't find element 'minecraft:gen' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:gene
+R 0
+A -
+X Can't find element 'minecraft:gene' of type 'minecraft:worldgen/structure' at position 16: ...craft:gene<--[HERE]@14
+E Can't find element 'minecraft:gene' of type 'minecraft:worldgen/structure' at position 16: ...craft:gene<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:gener
+R 0
+A -
+X Can't find element 'minecraft:gener' of type 'minecraft:worldgen/structure' at position 17: ...raft:gener<--[HERE]@15
+E Can't find element 'minecraft:gener' of type 'minecraft:worldgen/structure' at position 17: ...raft:gener<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:generi
+R 0
+A -
+X Can't find element 'minecraft:generi' of type 'minecraft:worldgen/structure' at position 18: ...aft:generi<--[HERE]@16
+E Can't find element 'minecraft:generi' of type 'minecraft:worldgen/structure' at position 18: ...aft:generi<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:generic
+R 0
+A -
+X Can't find element 'minecraft:generic' of type 'minecraft:worldgen/structure' at position 19: ...ft:generic<--[HERE]@17
+E Can't find element 'minecraft:generic' of type 'minecraft:worldgen/structure' at position 19: ...ft:generic<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:generic.
+R 0
+A -
+X Can't find element 'minecraft:generic.' of type 'minecraft:worldgen/structure' at position 20: ...t:generic.<--[HERE]@18
+E Can't find element 'minecraft:generic.' of type 'minecraft:worldgen/structure' at position 20: ...t:generic.<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 0
+A -
+X Can't find element 'minecraft:generic.m' of type 'minecraft:worldgen/structure' at position 21: ...:generic.m<--[HERE]@19
+E Can't find element 'minecraft:generic.m' of type 'minecraft:worldgen/structure' at position 21: ...:generic.m<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 0
+A -
+X Can't find element 'minecraft:generic.ma' of type 'minecraft:worldgen/structure' at position 22: ...generic.ma<--[HERE]@20
+E Can't find element 'minecraft:generic.ma' of type 'minecraft:worldgen/structure' at position 22: ...generic.ma<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 0
+A -
+X Can't find element 'minecraft:generic.max' of type 'minecraft:worldgen/structure' at position 23: ...eneric.max<--[HERE]@21
+E Can't find element 'minecraft:generic.max' of type 'minecraft:worldgen/structure' at position 23: ...eneric.max<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 0
+A -
+X Can't find element 'minecraft:generic.max_' of type 'minecraft:worldgen/structure' at position 24: ...neric.max_<--[HERE]@22
+E Can't find element 'minecraft:generic.max_' of type 'minecraft:worldgen/structure' at position 24: ...neric.max_<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 0
+A -
+X Can't find element 'minecraft:generic.max_h' of type 'minecraft:worldgen/structure' at position 25: ...eric.max_h<--[HERE]@23
+E Can't find element 'minecraft:generic.max_h' of type 'minecraft:worldgen/structure' at position 25: ...eric.max_h<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 0
+A -
+X Can't find element 'minecraft:generic.max_he' of type 'minecraft:worldgen/structure' at position 26: ...ric.max_he<--[HERE]@24
+E Can't find element 'minecraft:generic.max_he' of type 'minecraft:worldgen/structure' at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 0
+A -
+X Can't find element 'minecraft:generic.max_hea' of type 'minecraft:worldgen/structure' at position 27: ...ic.max_hea<--[HERE]@25
+E Can't find element 'minecraft:generic.max_hea' of type 'minecraft:worldgen/structure' at position 27: ...ic.max_hea<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 0
+A -
+X Can't find element 'minecraft:generic.max_heal' of type 'minecraft:worldgen/structure' at position 28: ...c.max_heal<--[HERE]@26
+E Can't find element 'minecraft:generic.max_heal' of type 'minecraft:worldgen/structure' at position 28: ...c.max_heal<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healt' of type 'minecraft:worldgen/structure' at position 29: ....max_healt<--[HERE]@27
+E Can't find element 'minecraft:generic.max_healt' of type 'minecraft:worldgen/structure' at position 29: ....max_healt<--[HERE]@27
+S -2--2 0 0 
+@ all ecraft:ancient_city
+R 0
+A -
+X Can't find element 'ecraft:ancient_city' of type 'minecraft:worldgen/structure' at position 21: ...cient_city<--[HERE]@19
+E Can't find element 'ecraft:ancient_city' of type 'minecraft:worldgen/structure' at position 21: ...cient_city<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient__city
+R 0
+A -
+X Can't find element 'minecraft:ancient__city' of type 'minecraft:worldgen/structure' at position 25: ...ient__city<--[HERE]@23
+E Can't find element 'minecraft:ancient__city' of type 'minecraft:worldgen/structure' at position 25: ...ient__city<--[HERE]@23
+S -2--2 0 0 
+@ all 7minecraft:armor
+R 0
+A -
+X Can't find element '7minecraft:armor' of type 'minecraft:worldgen/structure' at position 18: ...raft:armor<--[HERE]@16
+E Can't find element '7minecraft:armor' of type 'minecraft:worldgen/structure' at position 18: ...raft:armor<--[HERE]@16
+S -2--2 0 0 
+@ all tYzombie
+R 0
+A -
+X Can't find element 'minecraft:t' of type 'minecraft:worldgen/structure' at position 3: t t<--[HERE]@1
+E Can't find element 'minecraft:t' of type 'minecraft:worldgen/structure' at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all minec中raft:max_health
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:worldgen/structure' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all 2
+R 0
+A -
+X Can't find element 'minecraft:2' of type 'minecraft:worldgen/structure' at position 3: t 2<--[HERE]@1
+E Can't find element 'minecraft:2' of type 'minecraft:worldgen/structure' at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all m!necraft:village_plains
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all foo:br
+R 0
+A -
+X Can't find element 'foo:br' of type 'minecraft:worldgen/structure' at position 8: t foo:br<--[HERE]@6
+E Can't find element 'foo:br' of type 'minecraft:worldgen/structure' at position 8: t foo:br<--[HERE]@6
+S -2--2 0 0 
+@ all minecr}aft:zombie
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all min ecraft:armor
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:village_+lains
+R 0
+A -
+X Can't find element 'minecraft:village_' of type 'minecraft:worldgen/structure' at position 20: ...t:village_<--[HERE]@18
+E Can't find element 'minecraft:village_' of type 'minecraft:worldgen/structure' at position 20: ...t:village_<--[HERE]@18
+S -2--2 0 0 
+@ all #minecraft:seletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrafß:plyer
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all ZMBAIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:generi.max_health
+R 0
+A -
+X Can't find element 'minecraft:generi.max_health' of type 'minecraft:worldgen/structure' at position 29: ...max_health<--[HERE]@27
+E Can't find element 'minecraft:generi.max_health' of type 'minecraft:worldgen/structure' at position 29: ...max_health<--[HERE]@27
+S -2--2 0 0 
+@ all fo:bar:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:fortu​ne
+R 0
+A -
+X Can't find element 'minecraft:fortu' of type 'minecraft:worldgen/structure' at position 17: ...raft:fortu<--[HERE]@15
+E Can't find element 'minecraft:fortu' of type 'minecraft:worldgen/structure' at position 17: ...raft:fortu<--[HERE]@15
+S -2--2 0 0 
+@ all ZOBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :bar
+R 0
+A -
+X Can't find element 'minecraft:bar' of type 'minecraft:worldgen/structure' at position 6: t :bar<--[HERE]@4
+E Can't find element 'minecraft:bar' of type 'minecraft:worldgen/structure' at position 6: t :bar<--[HERE]@4
+S -2--2 0 0 
+@ all ft:
+R 0
+A -
+X Can't find element 'ft:' of type 'minecraft:worldgen/structure' at position 5: t ft:<--[HERE]@3
+E Can't find element 'ft:' of type 'minecraft:worldgen/structure' at position 5: t ft:<--[HERE]@3
+S -2--2 0 0 
+@ all bar
+R 0
+A -
+X Can't find element 'minecraft:bar' of type 'minecraft:worldgen/structure' at position 5: t bar<--[HERE]@3
+E Can't find element 'minecraft:bar' of type 'minecraft:worldgen/structure' at position 5: t bar<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraftseletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z\u0000ombie
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:zombie&z
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 18: ...aft:zombie<--[HERE]@16
+E Can't find element 'minecraft:zombie' of type 'minecraft:worldgen/structure' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:nopeo
+R 0
+A -
+X Can't find element 'minecraft:nopeo' of type 'minecraft:worldgen/structure' at position 17: ...raft:nopeo<--[HERE]@15
+E Can't find element 'minecraft:nopeo' of type 'minecraft:worldgen/structure' at position 17: ...raft:nopeo<--[HERE]@15
+S -2--2 0 0 
+@ all mine0raft:fortunen
+R 0
+A -
+X Can't find element 'mine0raft:fortunen' of type 'minecraft:worldgen/structure' at position 20: ...t:fortunen<--[HERE]@18
+E Can't find element 'mine0raft:fortunen' of type 'minecraft:worldgen/structure' at position 20: ...t:fortunen<--[HERE]@18
+S -2--2 0 0 
+@ all minec9aft:ancient_city
+R 0
+A -
+X Can't find element 'minec9aft:ancient_city' of type 'minecraft:worldgen/structure' at position 24: ...cient_city<--[HERE]@22
+E Can't find element 'minec9aft:ancient_city' of type 'minecraft:worldgen/structure' at position 24: ...cient_city<--[HERE]@22
+S -2--2 0 0 
+@ all foo:ba:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:t
+R 0
+A -
+X Can't find element 'minecraft:t' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:t<--[HERE]@11
+E Can't find element 'minecraft:t' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:t<--[HERE]@11
+S 0-11 2 284635450 minecraft:trail_ruins	minecraft:trial_chambers
+@ all r:
+R 0
+A -
+X Can't find element 'r:' of type 'minecraft:worldgen/structure' at position 4: t r:<--[HERE]@2
+E Can't find element 'r:' of type 'minecraft:worldgen/structure' at position 4: t r:<--[HERE]@2
+S -2--2 0 0 
+@ all biee
+R 0
+A -
+X Can't find element 'minecraft:biee' of type 'minecraft:worldgen/structure' at position 6: t biee<--[HERE]@4
+E Can't find element 'minecraft:biee' of type 'minecraft:worldgen/structure' at position 6: t biee<--[HERE]@4
+S -2--2 0 0 
+@ all zombixe
+R 0
+A -
+X Can't find element 'minecraft:zombixe' of type 'minecraft:worldgen/structure' at position 9: t zombixe<--[HERE]@7
+E Can't find element 'minecraft:zombixe' of type 'minecraft:worldgen/structure' at position 9: t zombixe<--[HERE]@7
+S -2--2 0 0 
+@ all zmb_e
+R 0
+A -
+X Can't find element 'minecraft:zmb_e' of type 'minecraft:worldgen/structure' at position 7: t zmb_e<--[HERE]@5
+E Can't find element 'minecraft:zmb_e' of type 'minecraft:worldgen/structure' at position 7: t zmb_e<--[HERE]@5
+S -2--2 0 0 
+@ all mbi(e
+R 0
+A -
+X Can't find element 'minecraft:mbi' of type 'minecraft:worldgen/structure' at position 5: t mbi<--[HERE]@3
+E Can't find element 'minecraft:mbi' of type 'minecraft:worldgen/structure' at position 5: t mbi<--[HERE]@3
+S -2--2 0 0 
+@ all minecr ft:mineshaft
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:max_éealth
+R 0
+A -
+X Can't find element 'minecraft:max_' of type 'minecraft:worldgen/structure' at position 16: ...craft:max_<--[HERE]@14
+E Can't find element 'minecraft:max_' of type 'minecraft:worldgen/structure' at position 16: ...craft:max_<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:nopet
+R 0
+A -
+X Can't find element 'minecraft:nopet' of type 'minecraft:worldgen/structure' at position 17: ...raft:nopet<--[HERE]@15
+E Can't find element 'minecraft:nopet' of type 'minecraft:worldgen/structure' at position 17: ...raft:nopet<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sherpness
+R 0
+A -
+X Can't find element 'minecraft:sherpness' of type 'minecraft:worldgen/structure' at position 21: ...:sherpness<--[HERE]@19
+E Can't find element 'minecraft:sherpness' of type 'minecraft:worldgen/structure' at position 21: ...:sherpness<--[HERE]@19
+S -2--2 0 0 
+@ all mi0ecraft:player
+R 0
+A -
+X Can't find element 'mi0ecraft:player' of type 'minecraft:worldgen/structure' at position 18: ...aft:player<--[HERE]@16
+E Can't find element 'mi0ecraft:player' of type 'minecraft:worldgen/structure' at position 18: ...aft:player<--[HERE]@16
+S -2--2 0 0 
+@ all inecr(aft:
+R 0
+A -
+X Can't find element 'minecraft:inecr' of type 'minecraft:worldgen/structure' at position 7: t inecr<--[HERE]@5
+E Can't find element 'minecraft:inecr' of type 'minecraft:worldgen/structure' at position 7: t inecr<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft😀:zombie
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all ménecraft:ancient_ciy
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all alth
+R 0
+A -
+X Can't find element 'minecraft:alth' of type 'minecraft:worldgen/structure' at position 6: t alth<--[HERE]@4
+E Can't find element 'minecraft:alth' of type 'minecraft:worldgen/structure' at position 6: t alth<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:genric.max_healthe
+R 0
+A -
+X Can't find element 'minecraft:genric.max_healthe' of type 'minecraft:worldgen/structure' at position 30: ...ax_healthe<--[HERE]@28
+E Can't find element 'minecraft:genric.max_healthe' of type 'minecraft:worldgen/structure' at position 30: ...ax_healthe<--[HERE]@28
+S -2--2 0 0 
+@ all minecraft:village_plain\u0009sp
+R 0
+A -
+X Can't find element 'minecraft:village_plain' of type 'minecraft:worldgen/structure' at position 25: ...lage_plain<--[HERE]@23
+E Can't find element 'minecraft:village_plain' of type 'minecraft:worldgen/structure' at position 25: ...lage_plain<--[HERE]@23
+S -2--2 0 0 
+@ all ity
+R 0
+A -
+X Can't find element 'minecraft:ity' of type 'minecraft:worldgen/structure' at position 5: t ity<--[HERE]@3
+E Can't find element 'minecraft:ity' of type 'minecraft:worldgen/structure' at position 5: t ity<--[HERE]@3
+S -2--2 0 0 
+@ all ombie]
+R 0
+A -
+X Can't find element 'minecraft:ombie' of type 'minecraft:worldgen/structure' at position 7: t ombie<--[HERE]@5
+E Can't find element 'minecraft:ombie' of type 'minecraft:worldgen/structure' at position 7: t ombie<--[HERE]@5
+S -2--2 0 0 
+@ all nt_cityy
+R 0
+A -
+X Can't find element 'minecraft:nt_cityy' of type 'minecraft:worldgen/structure' at position 10: t nt_cityy<--[HERE]@8
+E Can't find element 'minecraft:nt_cityy' of type 'minecraft:worldgen/structure' at position 10: t nt_cityy<--[HERE]@8
+S -2--2 0 0 
+@ all fortune
+R 0
+A -
+X Can't find element 'minecraft:fortune' of type 'minecraft:worldgen/structure' at position 9: t fortune<--[HERE]@7
+E Can't find element 'minecraft:fortune' of type 'minecraft:worldgen/structure' at position 9: t fortune<--[HERE]@7
+S -2--2 0 0 
+@ all E
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S 0-1 1 -508799475 minecraft:end_city
+@ all nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:worldgen/structure' at position 6: t nope<--[HERE]@4
+E Can't find element 'minecraft:nope' of type 'minecraft:worldgen/structure' at position 6: t nope<--[HERE]@4
+S -2--2 0 0 
+@ all ecraft:speedr
+R 0
+A -
+X Can't find element 'ecraft:speedr' of type 'minecraft:worldgen/structure' at position 15: ...aft:speedr<--[HERE]@13
+E Can't find element 'ecraft:speedr' of type 'minecraft:worldgen/structure' at position 15: ...aft:speedr<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:sharpne@s
+R 0
+A -
+X Can't find element 'minecraft:sharpne' of type 'minecraft:worldgen/structure' at position 19: ...ft:sharpne<--[HERE]@17
+E Can't find element 'minecraft:sharpne' of type 'minecraft:worldgen/structure' at position 19: ...ft:sharpne<--[HERE]@17
+S -2--2 0 0 
+@ all minecr😀af:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:worldgen/structure' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecaft:mineshaft
+R 0
+A -
+X Can't find element 'minecaft:mineshaft' of type 'minecraft:worldgen/structure' at position 20: ...:mineshaft<--[HERE]@18
+E Can't find element 'minecaft:mineshaft' of type 'minecraft:worldgen/structure' at position 20: ...:mineshaft<--[HERE]@18
+S -2--2 0 0 
+@ all :sharpness
+R 0
+A -
+X Can't find element 'minecraft:sharpness' of type 'minecraft:worldgen/structure' at position 12: ...:sharpness<--[HERE]@10
+E Can't find element 'minecraft:sharpness' of type 'minecraft:worldgen/structure' at position 12: ...:sharpness<--[HERE]@10
+S -2--2 0 0 
+@ all neshaft
+R 0
+A -
+X Can't find element 'minecraft:neshaft' of type 'minecraft:worldgen/structure' at position 9: t neshaft<--[HERE]@7
+E Can't find element 'minecraft:neshaft' of type 'minecraft:worldgen/structure' at position 9: t neshaft<--[HERE]@7
+S -2--2 0 0 
+@ all mineraft:playeZ
+R 0
+A -
+X Can't find element 'mineraft:playe' of type 'minecraft:worldgen/structure' at position 16: ...raft:playe<--[HERE]@14
+E Can't find element 'mineraft:playe' of type 'minecraft:worldgen/structure' at position 16: ...raft:playe<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraaft:skeletonss
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope#m
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo-bar
+R 0
+A -
+X Can't find element 'minecraft:foo-bar' of type 'minecraft:worldgen/structure' at position 9: t foo-bar<--[HERE]@7
+E Can't find element 'minecraft:foo-bar' of type 'minecraft:worldgen/structure' at position 9: t foo-bar<--[HERE]@7
+S -2--2 0 0 
+@ all #minecraft:skeletonsm
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ombe
+R 0
+A -
+X Can't find element 'minecraft:ombe' of type 'minecraft:worldgen/structure' at position 6: t ombe<--[HERE]@4
+E Can't find element 'minecraft:ombe' of type 'minecraft:worldgen/structure' at position 6: t ombe<--[HERE]@4
+S -2--2 0 0 
+@ all generic.maxzhealth
+R 0
+A -
+X Can't find element 'minecraft:generic.maxzhealth' of type 'minecraft:worldgen/structure' at position 20: ...maxzhealth<--[HERE]@18
+E Can't find element 'minecraft:generic.maxzhealth' of type 'minecraft:worldgen/structure' at position 20: ...maxzhealth<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:village_pAains
+R 0
+A -
+X Can't find element 'minecraft:village_p' of type 'minecraft:worldgen/structure' at position 21: ...:village_p<--[HERE]@19
+E Can't find element 'minecraft:village_p' of type 'minecraft:worldgen/structure' at position 21: ...:village_p<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:fo3tun
+R 0
+A -
+X Can't find element 'minecraft:fo3tun' of type 'minecraft:worldgen/structure' at position 18: ...aft:fo3tun<--[HERE]@16
+E Can't find element 'minecraft:fo3tun' of type 'minecraft:worldgen/structure' at position 18: ...aft:fo3tun<--[HERE]@16
+S -2--2 0 0 
+@ all m*necrafb:
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:worldgen/structure' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all aft:fortune
+R 0
+A -
+X Can't find element 'aft:fortune' of type 'minecraft:worldgen/structure' at position 13: ...ft:fortune<--[HERE]@11
+E Can't find element 'aft:fortune' of type 'minecraft:worldgen/structure' at position 13: ...ft:fortune<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:fortunenf
+R 0
+A -
+X Can't find element 'minecraft:fortunenf' of type 'minecraft:worldgen/structure' at position 21: ...:fortunenf<--[HERE]@19
+E Can't find element 'minecraft:fortunenf' of type 'minecraft:worldgen/structure' at position 21: ...:fortunenf<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:playéerl
+R 0
+A -
+X Can't find element 'minecraft:play' of type 'minecraft:worldgen/structure' at position 16: ...craft:play<--[HERE]@14
+E Can't find element 'minecraft:play' of type 'minecraft:worldgen/structure' at position 16: ...craft:play<--[HERE]@14
+S -2--2 0 0 
+@ all zo+bie
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 4: t zo<--[HERE]@2
+E Can't find element 'minecraft:zo' of type 'minecraft:worldgen/structure' at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all minecraf:armor
+R 0
+A -
+X Can't find element 'minecraf:armor' of type 'minecraft:worldgen/structure' at position 16: ...craf:armor<--[HERE]@14
+E Can't find element 'minecraf:armor' of type 'minecraft:worldgen/structure' at position 16: ...craf:armor<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:nope\u000a
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X Can't find element 'minecraft:.' of type 'minecraft:worldgen/structure' at position 3: t .<--[HERE]@1
+E Can't find element 'minecraft:.' of type 'minecraft:worldgen/structure' at position 3: t .<--[HERE]@1
+S -2--2 0 0 
+@ all raft:a~cient_city
+R 0
+A -
+X Can't find element 'raft:a' of type 'minecraft:worldgen/structure' at position 8: t raft:a<--[HERE]@6
+E Can't find element 'raft:a' of type 'minecraft:worldgen/structure' at position 8: t raft:a<--[HERE]@6
+S -2--2 0 0 
+@ all craft:max_health
+R 0
+A -
+X Can't find element 'craft:max_health' of type 'minecraft:worldgen/structure' at position 18: ...max_health<--[HERE]@16
+E Can't find element 'craft:max_health' of type 'minecraft:worldgen/structure' at position 18: ...max_health<--[HERE]@16
+S -2--2 0 0 
+@ all minzecraft:speed
+R 0
+A -
+X Can't find element 'minzecraft:speed' of type 'minecraft:worldgen/structure' at position 18: ...raft:speed<--[HERE]@16
+E Can't find element 'minzecraft:speed' of type 'minecraft:worldgen/structure' at position 18: ...raft:speed<--[HERE]@16
+S -2--2 0 0 
+@ all #minecraft:nopee
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:village_plains:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minbecraft:
+R 0
+A -
+X Can't find element 'minbecraft:' of type 'minecraft:worldgen/structure' at position 13: ...inbecraft:<--[HERE]@11
+E Can't find element 'minbecraft:' of type 'minecraft:worldgen/structure' at position 13: ...inbecraft:<--[HERE]@11
+S -2--2 0 0 
+@ all ec&aft:nope
+R 0
+A -
+X Can't find element 'minecraft:ec' of type 'minecraft:worldgen/structure' at position 4: t ec<--[HERE]@2
+E Can't find element 'minecraft:ec' of type 'minecraft:worldgen/structure' at position 4: t ec<--[HERE]@2
+S -2--2 0 0 
+@ all minecaft:anceient_city
+R 0
+A -
+X Can't find element 'minecaft:anceient_city' of type 'minecraft:worldgen/structure' at position 24: ...eient_city<--[HERE]@22
+E Can't find element 'minecaft:anceient_city' of type 'minecraft:worldgen/structure' at position 24: ...eient_city<--[HERE]@22
+S -2--2 0 0 
+@ all éminecraft:max_healtha
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mincraft:skeletonsr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min@craft:ancient_cityc
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:worldgen/structure' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:village_plainsst
+R 0
+A -
+X Can't find element 'minecraft:village_plainsst' of type 'minecraft:worldgen/structure' at position 28: ...e_plainsst<--[HERE]@26
+E Can't find element 'minecraft:village_plainsst' of type 'minecraft:worldgen/structure' at position 28: ...e_plainsst<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:ancie1t_city:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all raft:skeletonsa
+R 0
+A -
+X Can't find element 'raft:skeletonsa' of type 'minecraft:worldgen/structure' at position 17: ...skeletonsa<--[HERE]@15
+E Can't find element 'raft:skeletonsa' of type 'minecraft:worldgen/structure' at position 17: ...skeletonsa<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:mineshaftr:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:worldgen/structure' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:worldgen/structure' at position 3: t e<--[HERE]@1
+S 0-1 1 -508799475 minecraft:end_city
+@ all mincraft:
+R 0
+A -
+X Can't find element 'mincraft:' of type 'minecraft:worldgen/structure' at position 11: ... mincraft:<--[HERE]@9
+E Can't find element 'mincraft:' of type 'minecraft:worldgen/structure' at position 11: ... mincraft:<--[HERE]@9
+S -2--2 0 0 
+@ all fo:ba2
+R 0
+A -
+X Can't find element 'fo:ba2' of type 'minecraft:worldgen/structure' at position 8: t fo:ba2<--[HERE]@6
+E Can't find element 'fo:ba2' of type 'minecraft:worldgen/structure' at position 8: t fo:ba2<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:armoc
+R 0
+A -
+X Can't find element 'minecraft:armoc' of type 'minecraft:worldgen/structure' at position 17: ...raft:armoc<--[HERE]@15
+E Can't find element 'minecraft:armoc' of type 'minecraft:worldgen/structure' at position 17: ...raft:armoc<--[HERE]@15
+S -2--2 0 0 
+@ all #minecraft:sk\u000aletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ecraft:sh:arpness
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all r>ft:nope
+R 0
+A -
+X Can't find element 'minecraft:r' of type 'minecraft:worldgen/structure' at position 3: t r<--[HERE]@1
+E Can't find element 'minecraft:r' of type 'minecraft:worldgen/structure' at position 3: t r<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:2ineshaft
+R 0
+A -
+X Can't find element 'minecraft:2ineshaft' of type 'minecraft:worldgen/structure' at position 21: ...:2ineshaft<--[HERE]@19
+E Can't find element 'minecraft:2ineshaft' of type 'minecraft:worldgen/structure' at position 21: ...:2ineshaft<--[HERE]@19
+S -2--2 0 0 
+@ all @ombie6
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:nop2
+R 0
+A -
+X Can't find element 'minecraft:nop2' of type 'minecraft:worldgen/structure' at position 16: ...craft:nop2<--[HERE]@14
+E Can't find element 'minecraft:nop2' of type 'minecraft:worldgen/structure' at position 16: ...craft:nop2<--[HERE]@14
+S -2--2 0 0 
+@ all mine\u0000aft:sharpness
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all layer
+R 0
+A -
+X Can't find element 'minecraft:layer' of type 'minecraft:worldgen/structure' at position 7: t layer<--[HERE]@5
+E Can't find element 'minecraft:layer' of type 'minecraft:worldgen/structure' at position 7: t layer<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraft:skeltons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:armoro
+R 0
+A -
+X Can't find element 'necraft:armoro' of type 'minecraft:worldgen/structure' at position 16: ...aft:armoro<--[HERE]@14
+E Can't find element 'necraft:armoro' of type 'minecraft:worldgen/structure' at position 16: ...aft:armoro<--[HERE]@14
+S -2--2 0 0 
+@ all ecraf#:fortune
+R 0
+A -
+X Can't find element 'minecraft:ecraf' of type 'minecraft:worldgen/structure' at position 7: t ecraf<--[HERE]@5
+E Can't find element 'minecraft:ecraf' of type 'minecraft:worldgen/structure' at position 7: t ecraf<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraft:skeletonsa
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:z=mb:ie
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:z<--[HERE]@11
+E Can't find element 'minecraft:z' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:playern
+R 0
+A -
+X Can't find element 'minecraft:playern' of type 'minecraft:worldgen/structure' at position 19: ...ft:playern<--[HERE]@17
+E Can't find element 'minecraft:playern' of type 'minecraft:worldgen/structure' at position 19: ...ft:playern<--[HERE]@17
+S -2--2 0 0 
+@ all minecrft:generic.max_health
+R 0
+A -
+X Can't find element 'minecrft:generic.max_health' of type 'minecraft:worldgen/structure' at position 29: ...max_health<--[HERE]@27
+E Can't find element 'minecrft:generic.max_health' of type 'minecraft:worldgen/structure' at position 29: ...max_health<--[HERE]@27
+S -2--2 0 0 
+@ all mine￿raft:genric.max_health
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all oo:bar]
+R 0
+A -
+X Can't find element 'oo:bar' of type 'minecraft:worldgen/structure' at position 8: t oo:bar<--[HERE]@6
+E Can't find element 'oo:bar' of type 'minecraft:worldgen/structure' at position 8: t oo:bar<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:generic.maxchealth
+R 0
+A -
+X Can't find element 'minecraft:generic.maxchealth' of type 'minecraft:worldgen/structure' at position 30: ...maxchealth<--[HERE]@28
+E Can't find element 'minecraft:generic.maxchealth' of type 'minecraft:worldgen/structure' at position 30: ...maxchealth<--[HERE]@28
+S -2--2 0 0 
+@ all minecraft:generic.max_he&lth
+R 0
+A -
+X Can't find element 'minecraft:generic.max_he' of type 'minecraft:worldgen/structure' at position 26: ...ric.max_he<--[HERE]@24
+E Can't find element 'minecraft:generic.max_he' of type 'minecraft:worldgen/structure' at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all mineshaft
+R 9
+A 0-9 minecraft:mineshaft
+E ok
+S 0-9 2 -806992145 minecraft:mineshaft	minecraft:mineshaft_mesa
+@ all minecrft:sharpness
+R 0
+A -
+X Can't find element 'minecrft:sharpness' of type 'minecraft:worldgen/structure' at position 20: ...:sharpness<--[HERE]@18
+E Can't find element 'minecrft:sharpness' of type 'minecraft:worldgen/structure' at position 20: ...:sharpness<--[HERE]@18
+S -2--2 0 0 
+@ all mincraft:generic.max_healt
+R 0
+A -
+X Can't find element 'mincraft:generic.max_healt' of type 'minecraft:worldgen/structure' at position 28: ....max_healt<--[HERE]@26
+E Can't find element 'mincraft:generic.max_healt' of type 'minecraft:worldgen/structure' at position 28: ....max_healt<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:nop.
+R 0
+A -
+X Can't find element 'minecraft:nop.' of type 'minecraft:worldgen/structure' at position 16: ...craft:nop.<--[HERE]@14
+E Can't find element 'minecraft:nop.' of type 'minecraft:worldgen/structure' at position 16: ...craft:nop.<--[HERE]@14
+S -2--2 0 0 
+@ all miecraft:zo0mbie
+R 0
+A -
+X Can't find element 'miecraft:zo0mbie' of type 'minecraft:worldgen/structure' at position 18: ...ft:zo0mbie<--[HERE]@16
+E Can't find element 'miecraft:zo0mbie' of type 'minecraft:worldgen/structure' at position 18: ...ft:zo0mbie<--[HERE]@16
+S -2--2 0 0 
+@ all #minecraftskelet4ons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all lyer
+R 0
+A -
+X Can't find element 'minecraft:lyer' of type 'minecraft:worldgen/structure' at position 6: t lyer<--[HERE]@4
+E Can't find element 'minecraft:lyer' of type 'minecraft:worldgen/structure' at position 6: t lyer<--[HERE]@4
+S -2--2 0 0 
+@ all &
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miecraft:armo\u0009r
+R 0
+A -
+X Can't find element 'miecraft:armo' of type 'minecraft:worldgen/structure' at position 15: ...craft:armo<--[HERE]@13
+E Can't find element 'miecraft:armo' of type 'minecraft:worldgen/structure' at position 15: ...craft:armo<--[HERE]@13
+S -2--2 0 0 
+@ all #minecraft:skeleons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zomb<e
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 16: ...craft:zomb<--[HERE]@14
+E Can't find element 'minecraft:zomb' of type 'minecraft:worldgen/structure' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:p>laer
+R 0
+A -
+X Can't find element 'minecraft:p' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:p<--[HERE]@11
+E Can't find element 'minecraft:p' of type 'minecraft:worldgen/structure' at position 13: ...inecraft:p<--[HERE]@11
+S -2--2 0 0 
+@ all minecraf=t:village_plains
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:worldgen/structure' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all mincraft:armor
+R 0
+A -
+X Can't find element 'mincraft:armor' of type 'minecraft:worldgen/structure' at position 16: ...raft:armor<--[HERE]@14
+E Can't find element 'mincraft:armor' of type 'minecraft:worldgen/structure' at position 16: ...raft:armor<--[HERE]@14
+S -2--2 0 0 
+@ all miecr😀aft:armor
+R 0
+A -
+X Can't find element 'minecraft:miecr' of type 'minecraft:worldgen/structure' at position 7: t miecr<--[HERE]@5
+E Can't find element 'minecraft:miecr' of type 'minecraft:worldgen/structure' at position 7: t miecr<--[HERE]@5
+S -2--2 0 0 
+@ all raft:speed
+R 0
+A -
+X Can't find element 'raft:speed' of type 'minecraft:worldgen/structure' at position 12: ...raft:speed<--[HERE]@10
+E Can't find element 'raft:speed' of type 'minecraft:worldgen/structure' at position 12: ...raft:speed<--[HERE]@10
+S -2--2 0 0 
+@ all _plZins
+R 0
+A -
+X Can't find element 'minecraft:_pl' of type 'minecraft:worldgen/structure' at position 5: t _pl<--[HERE]@3
+E Can't find element 'minecraft:_pl' of type 'minecraft:worldgen/structure' at position 5: t _pl<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:playert:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi&ecraf:player
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:aspeed
+R 0
+A -
+X Can't find element 'minecraft:aspeed' of type 'minecraft:worldgen/structure' at position 18: ...aft:aspeed<--[HERE]@16
+E Can't find element 'minecraft:aspeed' of type 'minecraft:worldgen/structure' at position 18: ...aft:aspeed<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:arm<or
+R 0
+A -
+X Can't find element 'minecraft:arm' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:arm<--[HERE]@13
+E Can't find element 'minecraft:arm' of type 'minecraft:worldgen/structure' at position 15: ...ecraft:arm<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft]village_plainsc
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:worldgen/structure' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all -MBIE
+R 0
+A -
+X Can't find element 'minecraft:-' of type 'minecraft:worldgen/structure' at position 3: t -<--[HERE]@1
+E Can't find element 'minecraft:-' of type 'minecraft:worldgen/structure' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all mine$raft\\sharpness
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:worldgen/structure' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft::
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi\u0000ecraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miecraft:
+R 0
+A -
+X Can't find element 'miecraft:' of type 'minecraft:worldgen/structure' at position 11: ... miecraft:<--[HERE]@9
+E Can't find element 'miecraft:' of type 'minecraft:worldgen/structure' at position 11: ... miecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:ancbent_city
+R 0
+A -
+X Can't find element 'minecraft:ancbent_city' of type 'minecraft:worldgen/structure' at position 24: ...cbent_city<--[HERE]@22
+E Can't find element 'minecraft:ancbent_city' of type 'minecraft:worldgen/structure' at position 24: ...cbent_city<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:ancient_ity
+R 0
+A -
+X Can't find element 'minecraft:ancient_ity' of type 'minecraft:worldgen/structure' at position 23: ...ncient_ity<--[HERE]@21
+E Can't find element 'minecraft:ancient_ity' of type 'minecraft:worldgen/structure' at position 23: ...ncient_ity<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:sharpnes%
+R 0
+A -
+X Can't find element 'minecraft:sharpnes' of type 'minecraft:worldgen/structure' at position 20: ...t:sharpnes<--[HERE]@18
+E Can't find element 'minecraft:sharpnes' of type 'minecraft:worldgen/structure' at position 20: ...t:sharpnes<--[HERE]@18
+S -2--2 0 0 
+@ all ßzombie
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :player
+R 0
+A -
+X Can't find element 'minecraft:player' of type 'minecraft:worldgen/structure' at position 9: t :player<--[HERE]@7
+E Can't find element 'minecraft:player' of type 'minecraft:worldgen/structure' at position 9: t :player<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:mineshafts
+R 0
+A -
+X Can't find element 'minecraft:mineshafts' of type 'minecraft:worldgen/structure' at position 22: ...mineshafts<--[HERE]@20
+E Can't find element 'minecraft:mineshafts' of type 'minecraft:worldgen/structure' at position 22: ...mineshafts<--[HERE]@20
+S -2--2 0 0 
+@ all :barb
+R 0
+A -
+X Can't find element 'minecraft:barb' of type 'minecraft:worldgen/structure' at position 7: t :barb<--[HERE]@5
+E Can't find element 'minecraft:barb' of type 'minecraft:worldgen/structure' at position 7: t :barb<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:villae_plains
+R 0
+A -
+X Can't find element 'minecraft:villae_plains' of type 'minecraft:worldgen/structure' at position 25: ...lae_plains<--[HERE]@23
+E Can't find element 'minecraft:villae_plains' of type 'minecraft:worldgen/structure' at position 25: ...lae_plains<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:fortun0
+R 0
+A -
+X Can't find element 'minecraft:fortun0' of type 'minecraft:worldgen/structure' at position 19: ...ft:fortun0<--[HERE]@17
+E Can't find element 'minecraft:fortun0' of type 'minecraft:worldgen/structure' at position 19: ...ft:fortun0<--[HERE]@17
+S -2--2 0 0 
+@ all ecraft:generic.max_heal~h
+R 0
+A -
+X Can't find element 'ecraft:generic.max_heal' of type 'minecraft:worldgen/structure' at position 25: ...c.max_heal<--[HERE]@23
+E Can't find element 'ecraft:generic.max_heal' of type 'minecraft:worldgen/structure' at position 25: ...c.max_heal<--[HERE]@23
+S -2--2 0 0 
+@ all mineeraft:max_healtht
+R 0
+A -
+X Can't find element 'mineeraft:max_healtht' of type 'minecraft:worldgen/structure' at position 23: ...ax_healtht<--[HERE]@21
+E Can't find element 'mineeraft:max_healtht' of type 'minecraft:worldgen/structure' at position 23: ...ax_healtht<--[HERE]@21
+S -2--2 0 0 
+@ all minecra%tfortune
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:worldgen/structure' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all mi%ecraft:t
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:worldgen/structure' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all #minecraft:skeletonsn
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:)
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraf:village_plains
+R 0
+A -
+X Can't find element 'minecraf:village_plains' of type 'minecraft:worldgen/structure' at position 25: ...age_plains<--[HERE]@23
+E Can't find element 'minecraf:village_plains' of type 'minecraft:worldgen/structure' at position 25: ...age_plains<--[HERE]@23
+S -2--2 0 0 
+@ all minecraftb:ope
+R 0
+A -
+X Can't find element 'minecraftb:ope' of type 'minecraft:worldgen/structure' at position 16: ...craftb:ope<--[HERE]@14
+E Can't find element 'minecraftb:ope' of type 'minecraft:worldgen/structure' at position 16: ...craftb:ope<--[HERE]@14
+S -2--2 0 0 
+@ all mineraft:
+R 0
+A -
+X Can't find element 'mineraft:' of type 'minecraft:worldgen/structure' at position 11: ... mineraft:<--[HERE]@9
+E Can't find element 'mineraft:' of type 'minecraft:worldgen/structure' at position 11: ... mineraft:<--[HERE]@9
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X Can't find element 'minecraft:y' of type 'minecraft:worldgen/structure' at position 3: t y<--[HERE]@1
+E Can't find element 'minecraft:y' of type 'minecraft:worldgen/structure' at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:7sharpnessn
+R 0
+A -
+X Can't find element 'minecraft:7sharpnessn' of type 'minecraft:worldgen/structure' at position 23: ...sharpnessn<--[HERE]@21
+E Can't find element 'minecraft:7sharpnessn' of type 'minecraft:worldgen/structure' at position 23: ...sharpnessn<--[HERE]@21
+S -2--2 0 0 
+@ all mixecraft:ancient_cityn
+R 0
+A -
+X Can't find element 'mixecraft:ancient_cityn' of type 'minecraft:worldgen/structure' at position 25: ...ient_cityn<--[HERE]@23
+E Can't find element 'mixecraft:ancient_cityn' of type 'minecraft:worldgen/structure' at position 25: ...ient_cityn<--[HERE]@23
+S -2--2 0 0 
+@ all foo:baa
+R 0
+A -
+X Can't find element 'foo:baa' of type 'minecraft:worldgen/structure' at position 9: t foo:baa<--[HERE]@7
+E Can't find element 'foo:baa' of type 'minecraft:worldgen/structure' at position 9: t foo:baa<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:{ineshaf0
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all zom4bie
+R 0
+A -
+X Can't find element 'minecraft:zom4bie' of type 'minecraft:worldgen/structure' at position 9: t zom4bie<--[HERE]@7
+E Can't find element 'minecraft:zom4bie' of type 'minecraft:worldgen/structure' at position 9: t zom4bie<--[HERE]@7
+S -2--2 0 0 
+@ all ZMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:worldgen/structure' at position 2: t <--[HERE]@0
+S -2--2 0 0 

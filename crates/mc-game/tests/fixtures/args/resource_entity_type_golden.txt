@@ -1,0 +1,1916 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft:zombie
+R 16
+A 0-16 minecraft:zombie
+E ok
+S 0-16 3 -304826503 minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager
+@ all zombie
+R 6
+A 0-6 minecraft:zombie
+E ok
+S 0-6 4 150540259 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager
+@ all minecraft:player
+R 16
+A 0-16 minecraft:player
+E ok
+S -2--2 0 0 
+@ all minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:entity_type' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'minecraft:nope' of type 'minecraft:entity_type' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all #minecraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speed
+R 0
+A -
+X Can't find element 'minecraft:speed' of type 'minecraft:entity_type' at position 17: ...raft:speed<--[HERE]@15
+E Can't find element 'minecraft:speed' of type 'minecraft:entity_type' at position 17: ...raft:speed<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 0
+A -
+X Can't find element 'minecraft:sharpness' of type 'minecraft:entity_type' at position 21: ...:sharpness<--[HERE]@19
+E Can't find element 'minecraft:sharpness' of type 'minecraft:entity_type' at position 21: ...:sharpness<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:fortune
+R 0
+A -
+X Can't find element 'minecraft:fortune' of type 'minecraft:entity_type' at position 19: ...ft:fortune<--[HERE]@17
+E Can't find element 'minecraft:fortune' of type 'minecraft:entity_type' at position 19: ...ft:fortune<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 0
+A -
+X Can't find element 'minecraft:village_plains' of type 'minecraft:entity_type' at position 26: ...age_plains<--[HERE]@24
+E Can't find element 'minecraft:village_plains' of type 'minecraft:entity_type' at position 26: ...age_plains<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 0
+A -
+X Can't find element 'minecraft:mineshaft' of type 'minecraft:entity_type' at position 21: ...:mineshaft<--[HERE]@19
+E Can't find element 'minecraft:mineshaft' of type 'minecraft:entity_type' at position 21: ...:mineshaft<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:ancient_city' of type 'minecraft:entity_type' at position 24: ...cient_city<--[HERE]@22
+E Can't find element 'minecraft:ancient_city' of type 'minecraft:entity_type' at position 24: ...cient_city<--[HERE]@22
+S -2--2 0 0 
+@ all foo:bar
+R 0
+A -
+X Can't find element 'foo:bar' of type 'minecraft:entity_type' at position 9: t foo:bar<--[HERE]@7
+E Can't find element 'foo:bar' of type 'minecraft:entity_type' at position 9: t foo:bar<--[HERE]@7
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-6 4 150540259 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager
+@ all minecraft:armor
+R 0
+A -
+X Can't find element 'minecraft:armor' of type 'minecraft:entity_type' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'minecraft:armor' of type 'minecraft:entity_type' at position 17: ...raft:armor<--[HERE]@15
+S 0-15 1 -386163040 minecraft:armor_stand
+@ all minecraft:max_health
+R 0
+A -
+X Can't find element 'minecraft:max_health' of type 'minecraft:entity_type' at position 22: ...max_health<--[HERE]@20
+E Can't find element 'minecraft:max_health' of type 'minecraft:entity_type' at position 22: ...max_health<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 0
+A -
+X Can't find element 'minecraft:generic.max_health' of type 'minecraft:entity_type' at position 30: ...max_health<--[HERE]@28
+E Can't find element 'minecraft:generic.max_health' of type 'minecraft:entity_type' at position 30: ...max_health<--[HERE]@28
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S 0-1 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+S 0-2 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+S 0-3 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+S 0-4 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+S 0-5 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+S 0-6 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+S 0-7 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+S 0-8 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+S 0-9 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft:z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:entity_type' at position 13: ...inecraft:z<--[HERE]@11
+E Can't find element 'minecraft:z' of type 'minecraft:entity_type' at position 13: ...inecraft:z<--[HERE]@11
+S 0-11 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:entity_type' at position 14: ...necraft:zo<--[HERE]@12
+E Can't find element 'minecraft:zo' of type 'minecraft:entity_type' at position 14: ...necraft:zo<--[HERE]@12
+S 0-12 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:entity_type' at position 15: ...ecraft:zom<--[HERE]@13
+E Can't find element 'minecraft:zom' of type 'minecraft:entity_type' at position 15: ...ecraft:zom<--[HERE]@13
+S 0-13 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 16: ...craft:zomb<--[HERE]@14
+E Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 16: ...craft:zomb<--[HERE]@14
+S 0-14 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:entity_type' at position 17: ...raft:zombi<--[HERE]@15
+E Can't find element 'minecraft:zombi' of type 'minecraft:entity_type' at position 17: ...raft:zombi<--[HERE]@15
+S 0-15 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+S 0-1 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:entity_type' at position 4: t zo<--[HERE]@2
+E Can't find element 'minecraft:zo' of type 'minecraft:entity_type' at position 4: t zo<--[HERE]@2
+S 0-2 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:entity_type' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:entity_type' at position 5: t zom<--[HERE]@3
+S 0-3 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 6: t zomb<--[HERE]@4
+E Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 6: t zomb<--[HERE]@4
+S 0-4 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:entity_type' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:entity_type' at position 7: t zombi<--[HERE]@5
+S 0-5 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:p
+R 0
+A -
+X Can't find element 'minecraft:p' of type 'minecraft:entity_type' at position 13: ...inecraft:p<--[HERE]@11
+E Can't find element 'minecraft:p' of type 'minecraft:entity_type' at position 13: ...inecraft:p<--[HERE]@11
+S 0-11 16 -1494488079 minecraft:painting	minecraft:pale_oak_boat	minecraft:pale_oak_chest_boat	minecraft:panda	minecraft:parched	minecraft:parrot	minecraft:phantom	minecraft:pig	minecraft:piglin	minecraft:piglin_brute	minecraft:pillager	minecraft:player	minecraft:polar_bear	minecraft:poplar_boat	minecraft:poplar_chest_boat	minecraft:pufferfish
+@ all minecraft:pl
+R 0
+A -
+X Can't find element 'minecraft:pl' of type 'minecraft:entity_type' at position 14: ...necraft:pl<--[HERE]@12
+E Can't find element 'minecraft:pl' of type 'minecraft:entity_type' at position 14: ...necraft:pl<--[HERE]@12
+S 0-12 1 -1707284357 minecraft:player
+@ all minecraft:pla
+R 0
+A -
+X Can't find element 'minecraft:pla' of type 'minecraft:entity_type' at position 15: ...ecraft:pla<--[HERE]@13
+E Can't find element 'minecraft:pla' of type 'minecraft:entity_type' at position 15: ...ecraft:pla<--[HERE]@13
+S 0-13 1 -1707284357 minecraft:player
+@ all minecraft:play
+R 0
+A -
+X Can't find element 'minecraft:play' of type 'minecraft:entity_type' at position 16: ...craft:play<--[HERE]@14
+E Can't find element 'minecraft:play' of type 'minecraft:entity_type' at position 16: ...craft:play<--[HERE]@14
+S 0-14 1 -1707284357 minecraft:player
+@ all minecraft:playe
+R 0
+A -
+X Can't find element 'minecraft:playe' of type 'minecraft:entity_type' at position 17: ...raft:playe<--[HERE]@15
+E Can't find element 'minecraft:playe' of type 'minecraft:entity_type' at position 17: ...raft:playe<--[HERE]@15
+S 0-15 1 -1707284357 minecraft:player
+@ all minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:n' of type 'minecraft:entity_type' at position 13: ...inecraft:n<--[HERE]@11
+E Can't find element 'minecraft:n' of type 'minecraft:entity_type' at position 13: ...inecraft:n<--[HERE]@11
+S 0-11 1 2031785801 minecraft:nautilus
+@ all minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:entity_type' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:entity_type' at position 14: ...necraft:no<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:entity_type' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:entity_type' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:entity_type' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:entity_type' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 22 678047646 minecraft:salmon	minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet	minecraft:silverfish	minecraft:skeleton	minecraft:skeleton_horse	minecraft:slime	minecraft:small_fireball	minecraft:sniffer	minecraft:snow_golem	minecraft:snowball	minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat	minecraft:squid	minecraft:stray	minecraft:strider	minecraft:sulfur_cube
+@ all minecraft:sp
+R 0
+A -
+X Can't find element 'minecraft:sp' of type 'minecraft:entity_type' at position 14: ...necraft:sp<--[HERE]@12
+E Can't find element 'minecraft:sp' of type 'minecraft:entity_type' at position 14: ...necraft:sp<--[HERE]@12
+S 0-12 6 -451231078 minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat
+@ all minecraft:spe
+R 0
+A -
+X Can't find element 'minecraft:spe' of type 'minecraft:entity_type' at position 15: ...ecraft:spe<--[HERE]@13
+E Can't find element 'minecraft:spe' of type 'minecraft:entity_type' at position 15: ...ecraft:spe<--[HERE]@13
+S 0-13 1 1457856654 minecraft:spectral_arrow
+@ all minecraft:spee
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:entity_type' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:entity_type' at position 16: ...craft:spee<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sh
+R 0
+A -
+X Can't find element 'minecraft:sh' of type 'minecraft:entity_type' at position 14: ...necraft:sh<--[HERE]@12
+E Can't find element 'minecraft:sh' of type 'minecraft:entity_type' at position 14: ...necraft:sh<--[HERE]@12
+S 0-12 3 60905410 minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet
+@ all minecraft:sha
+R 0
+A -
+X Can't find element 'minecraft:sha' of type 'minecraft:entity_type' at position 15: ...ecraft:sha<--[HERE]@13
+E Can't find element 'minecraft:sha' of type 'minecraft:entity_type' at position 15: ...ecraft:sha<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:shar
+R 0
+A -
+X Can't find element 'minecraft:shar' of type 'minecraft:entity_type' at position 16: ...craft:shar<--[HERE]@14
+E Can't find element 'minecraft:shar' of type 'minecraft:entity_type' at position 16: ...craft:shar<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sharp
+R 0
+A -
+X Can't find element 'minecraft:sharp' of type 'minecraft:entity_type' at position 17: ...raft:sharp<--[HERE]@15
+E Can't find element 'minecraft:sharp' of type 'minecraft:entity_type' at position 17: ...raft:sharp<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 0
+A -
+X Can't find element 'minecraft:sharpn' of type 'minecraft:entity_type' at position 18: ...aft:sharpn<--[HERE]@16
+E Can't find element 'minecraft:sharpn' of type 'minecraft:entity_type' at position 18: ...aft:sharpn<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 0
+A -
+X Can't find element 'minecraft:sharpne' of type 'minecraft:entity_type' at position 19: ...ft:sharpne<--[HERE]@17
+E Can't find element 'minecraft:sharpne' of type 'minecraft:entity_type' at position 19: ...ft:sharpne<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 0
+A -
+X Can't find element 'minecraft:sharpnes' of type 'minecraft:entity_type' at position 20: ...t:sharpnes<--[HERE]@18
+E Can't find element 'minecraft:sharpnes' of type 'minecraft:entity_type' at position 20: ...t:sharpnes<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:entity_type' at position 13: ...inecraft:f<--[HERE]@11
+E Can't find element 'minecraft:f' of type 'minecraft:entity_type' at position 13: ...inecraft:f<--[HERE]@11
+S 0-11 7 773695374 minecraft:falling_block	minecraft:fireball	minecraft:firework_rocket	minecraft:fishing_bobber	minecraft:fox	minecraft:frog	minecraft:furnace_minecart
+@ all minecraft:fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:entity_type' at position 14: ...necraft:fo<--[HERE]@12
+E Can't find element 'minecraft:fo' of type 'minecraft:entity_type' at position 14: ...necraft:fo<--[HERE]@12
+S 0-12 1 -1006802233 minecraft:fox
+@ all minecraft:for
+R 0
+A -
+X Can't find element 'minecraft:for' of type 'minecraft:entity_type' at position 15: ...ecraft:for<--[HERE]@13
+E Can't find element 'minecraft:for' of type 'minecraft:entity_type' at position 15: ...ecraft:for<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:fort
+R 0
+A -
+X Can't find element 'minecraft:fort' of type 'minecraft:entity_type' at position 16: ...craft:fort<--[HERE]@14
+E Can't find element 'minecraft:fort' of type 'minecraft:entity_type' at position 16: ...craft:fort<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:fortu
+R 0
+A -
+X Can't find element 'minecraft:fortu' of type 'minecraft:entity_type' at position 17: ...raft:fortu<--[HERE]@15
+E Can't find element 'minecraft:fortu' of type 'minecraft:entity_type' at position 17: ...raft:fortu<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:fortun
+R 0
+A -
+X Can't find element 'minecraft:fortun' of type 'minecraft:entity_type' at position 18: ...aft:fortun<--[HERE]@16
+E Can't find element 'minecraft:fortun' of type 'minecraft:entity_type' at position 18: ...aft:fortun<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:v
+R 0
+A -
+X Can't find element 'minecraft:v' of type 'minecraft:entity_type' at position 13: ...inecraft:v<--[HERE]@11
+E Can't find element 'minecraft:v' of type 'minecraft:entity_type' at position 13: ...inecraft:v<--[HERE]@11
+S 0-11 3 565899386 minecraft:vex	minecraft:villager	minecraft:vindicator
+@ all minecraft:vi
+R 0
+A -
+X Can't find element 'minecraft:vi' of type 'minecraft:entity_type' at position 14: ...necraft:vi<--[HERE]@12
+E Can't find element 'minecraft:vi' of type 'minecraft:entity_type' at position 14: ...necraft:vi<--[HERE]@12
+S 0-12 2 37082701 minecraft:villager	minecraft:vindicator
+@ all minecraft:vil
+R 0
+A -
+X Can't find element 'minecraft:vil' of type 'minecraft:entity_type' at position 15: ...ecraft:vil<--[HERE]@13
+E Can't find element 'minecraft:vil' of type 'minecraft:entity_type' at position 15: ...ecraft:vil<--[HERE]@13
+S 0-13 1 1880448502 minecraft:villager
+@ all minecraft:vill
+R 0
+A -
+X Can't find element 'minecraft:vill' of type 'minecraft:entity_type' at position 16: ...craft:vill<--[HERE]@14
+E Can't find element 'minecraft:vill' of type 'minecraft:entity_type' at position 16: ...craft:vill<--[HERE]@14
+S 0-14 1 1880448502 minecraft:villager
+@ all minecraft:villa
+R 0
+A -
+X Can't find element 'minecraft:villa' of type 'minecraft:entity_type' at position 17: ...raft:villa<--[HERE]@15
+E Can't find element 'minecraft:villa' of type 'minecraft:entity_type' at position 17: ...raft:villa<--[HERE]@15
+S 0-15 1 1880448502 minecraft:villager
+@ all minecraft:villag
+R 0
+A -
+X Can't find element 'minecraft:villag' of type 'minecraft:entity_type' at position 18: ...aft:villag<--[HERE]@16
+E Can't find element 'minecraft:villag' of type 'minecraft:entity_type' at position 18: ...aft:villag<--[HERE]@16
+S 0-16 1 1880448502 minecraft:villager
+@ all minecraft:village
+R 0
+A -
+X Can't find element 'minecraft:village' of type 'minecraft:entity_type' at position 19: ...ft:village<--[HERE]@17
+E Can't find element 'minecraft:village' of type 'minecraft:entity_type' at position 19: ...ft:village<--[HERE]@17
+S 0-17 1 1880448502 minecraft:villager
+@ all minecraft:village_
+R 0
+A -
+X Can't find element 'minecraft:village_' of type 'minecraft:entity_type' at position 20: ...t:village_<--[HERE]@18
+E Can't find element 'minecraft:village_' of type 'minecraft:entity_type' at position 20: ...t:village_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:village_p
+R 0
+A -
+X Can't find element 'minecraft:village_p' of type 'minecraft:entity_type' at position 21: ...:village_p<--[HERE]@19
+E Can't find element 'minecraft:village_p' of type 'minecraft:entity_type' at position 21: ...:village_p<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 0
+A -
+X Can't find element 'minecraft:village_pl' of type 'minecraft:entity_type' at position 22: ...village_pl<--[HERE]@20
+E Can't find element 'minecraft:village_pl' of type 'minecraft:entity_type' at position 22: ...village_pl<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 0
+A -
+X Can't find element 'minecraft:village_pla' of type 'minecraft:entity_type' at position 23: ...illage_pla<--[HERE]@21
+E Can't find element 'minecraft:village_pla' of type 'minecraft:entity_type' at position 23: ...illage_pla<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 0
+A -
+X Can't find element 'minecraft:village_plai' of type 'minecraft:entity_type' at position 24: ...llage_plai<--[HERE]@22
+E Can't find element 'minecraft:village_plai' of type 'minecraft:entity_type' at position 24: ...llage_plai<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 0
+A -
+X Can't find element 'minecraft:village_plain' of type 'minecraft:entity_type' at position 25: ...lage_plain<--[HERE]@23
+E Can't find element 'minecraft:village_plain' of type 'minecraft:entity_type' at position 25: ...lage_plain<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 13: ...inecraft:m<--[HERE]@11
+E Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 13: ...inecraft:m<--[HERE]@11
+S 0-11 8 1774237646 minecraft:magma_cube	minecraft:mangrove_boat	minecraft:mangrove_chest_boat	minecraft:mannequin	minecraft:marker	minecraft:minecart	minecraft:mooshroom	minecraft:mule
+@ all minecraft:mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 14: ...necraft:mi<--[HERE]@12
+E Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 14: ...necraft:mi<--[HERE]@12
+S 0-12 1 -1751013655 minecraft:minecart
+@ all minecraft:min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 15: ...ecraft:min<--[HERE]@13
+E Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 15: ...ecraft:min<--[HERE]@13
+S 0-13 1 -1751013655 minecraft:minecart
+@ all minecraft:mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:entity_type' at position 16: ...craft:mine<--[HERE]@14
+E Can't find element 'minecraft:mine' of type 'minecraft:entity_type' at position 16: ...craft:mine<--[HERE]@14
+S 0-14 1 -1751013655 minecraft:minecart
+@ all minecraft:mines
+R 0
+A -
+X Can't find element 'minecraft:mines' of type 'minecraft:entity_type' at position 17: ...raft:mines<--[HERE]@15
+E Can't find element 'minecraft:mines' of type 'minecraft:entity_type' at position 17: ...raft:mines<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:minesh
+R 0
+A -
+X Can't find element 'minecraft:minesh' of type 'minecraft:entity_type' at position 18: ...aft:minesh<--[HERE]@16
+E Can't find element 'minecraft:minesh' of type 'minecraft:entity_type' at position 18: ...aft:minesh<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:minesha
+R 0
+A -
+X Can't find element 'minecraft:minesha' of type 'minecraft:entity_type' at position 19: ...ft:minesha<--[HERE]@17
+E Can't find element 'minecraft:minesha' of type 'minecraft:entity_type' at position 19: ...ft:minesha<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 0
+A -
+X Can't find element 'minecraft:mineshaf' of type 'minecraft:entity_type' at position 20: ...t:mineshaf<--[HERE]@18
+E Can't find element 'minecraft:mineshaf' of type 'minecraft:entity_type' at position 20: ...t:mineshaf<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:entity_type' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:entity_type' at position 13: ...inecraft:a<--[HERE]@11
+S 0-11 8 730787555 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft:an
+R 0
+A -
+X Can't find element 'minecraft:an' of type 'minecraft:entity_type' at position 14: ...necraft:an<--[HERE]@12
+E Can't find element 'minecraft:an' of type 'minecraft:entity_type' at position 14: ...necraft:an<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:anc
+R 0
+A -
+X Can't find element 'minecraft:anc' of type 'minecraft:entity_type' at position 15: ...ecraft:anc<--[HERE]@13
+E Can't find element 'minecraft:anc' of type 'minecraft:entity_type' at position 15: ...ecraft:anc<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:anci
+R 0
+A -
+X Can't find element 'minecraft:anci' of type 'minecraft:entity_type' at position 16: ...craft:anci<--[HERE]@14
+E Can't find element 'minecraft:anci' of type 'minecraft:entity_type' at position 16: ...craft:anci<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:ancie
+R 0
+A -
+X Can't find element 'minecraft:ancie' of type 'minecraft:entity_type' at position 17: ...raft:ancie<--[HERE]@15
+E Can't find element 'minecraft:ancie' of type 'minecraft:entity_type' at position 17: ...raft:ancie<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:ancien
+R 0
+A -
+X Can't find element 'minecraft:ancien' of type 'minecraft:entity_type' at position 18: ...aft:ancien<--[HERE]@16
+E Can't find element 'minecraft:ancien' of type 'minecraft:entity_type' at position 18: ...aft:ancien<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:ancient
+R 0
+A -
+X Can't find element 'minecraft:ancient' of type 'minecraft:entity_type' at position 19: ...ft:ancient<--[HERE]@17
+E Can't find element 'minecraft:ancient' of type 'minecraft:entity_type' at position 19: ...ft:ancient<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 0
+A -
+X Can't find element 'minecraft:ancient_' of type 'minecraft:entity_type' at position 20: ...t:ancient_<--[HERE]@18
+E Can't find element 'minecraft:ancient_' of type 'minecraft:entity_type' at position 20: ...t:ancient_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 0
+A -
+X Can't find element 'minecraft:ancient_c' of type 'minecraft:entity_type' at position 21: ...:ancient_c<--[HERE]@19
+E Can't find element 'minecraft:ancient_c' of type 'minecraft:entity_type' at position 21: ...:ancient_c<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 0
+A -
+X Can't find element 'minecraft:ancient_ci' of type 'minecraft:entity_type' at position 22: ...ancient_ci<--[HERE]@20
+E Can't find element 'minecraft:ancient_ci' of type 'minecraft:entity_type' at position 22: ...ancient_ci<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 0
+A -
+X Can't find element 'minecraft:ancient_cit' of type 'minecraft:entity_type' at position 23: ...ncient_cit<--[HERE]@21
+E Can't find element 'minecraft:ancient_cit' of type 'minecraft:entity_type' at position 23: ...ncient_cit<--[HERE]@21
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:entity_type' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:entity_type' at position 3: t f<--[HERE]@1
+S 0-1 13 996539157 minecraft:dragon_fireball	minecraft:evoker_fangs	minecraft:falling_block	minecraft:fireball	minecraft:firework_rocket	minecraft:fishing_bobber	minecraft:fox	minecraft:frog	minecraft:furnace_minecart	minecraft:glow_item_frame	minecraft:item_frame	minecraft:small_fireball	minecraft:tropical_fish
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+S 0-2 1 -1006802233 minecraft:fox
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:entity_type' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:entity_type' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X Can't find element 'foo:' of type 'minecraft:entity_type' at position 6: t foo:<--[HERE]@4
+E Can't find element 'foo:' of type 'minecraft:entity_type' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:b
+R 0
+A -
+X Can't find element 'foo:b' of type 'minecraft:entity_type' at position 7: t foo:b<--[HERE]@5
+E Can't find element 'foo:b' of type 'minecraft:entity_type' at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all foo:ba
+R 0
+A -
+X Can't find element 'foo:ba' of type 'minecraft:entity_type' at position 8: t foo:ba<--[HERE]@6
+E Can't find element 'foo:ba' of type 'minecraft:entity_type' at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-1 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZO
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-2 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZOM
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-3 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZOMB
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-4 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZOMBI
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-5 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:ar
+R 0
+A -
+X Can't find element 'minecraft:ar' of type 'minecraft:entity_type' at position 14: ...necraft:ar<--[HERE]@12
+E Can't find element 'minecraft:ar' of type 'minecraft:entity_type' at position 14: ...necraft:ar<--[HERE]@12
+S 0-12 4 -1429774469 minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow
+@ all minecraft:arm
+R 0
+A -
+X Can't find element 'minecraft:arm' of type 'minecraft:entity_type' at position 15: ...ecraft:arm<--[HERE]@13
+E Can't find element 'minecraft:arm' of type 'minecraft:entity_type' at position 15: ...ecraft:arm<--[HERE]@13
+S 0-13 2 -211381615 minecraft:armadillo	minecraft:armor_stand
+@ all minecraft:armo
+R 0
+A -
+X Can't find element 'minecraft:armo' of type 'minecraft:entity_type' at position 16: ...craft:armo<--[HERE]@14
+E Can't find element 'minecraft:armo' of type 'minecraft:entity_type' at position 16: ...craft:armo<--[HERE]@14
+S 0-14 1 -386163040 minecraft:armor_stand
+@ all minecraft:ma
+R 0
+A -
+X Can't find element 'minecraft:ma' of type 'minecraft:entity_type' at position 14: ...necraft:ma<--[HERE]@12
+E Can't find element 'minecraft:ma' of type 'minecraft:entity_type' at position 14: ...necraft:ma<--[HERE]@12
+S 0-12 5 -645145387 minecraft:magma_cube	minecraft:mangrove_boat	minecraft:mangrove_chest_boat	minecraft:mannequin	minecraft:marker
+@ all minecraft:max
+R 0
+A -
+X Can't find element 'minecraft:max' of type 'minecraft:entity_type' at position 15: ...ecraft:max<--[HERE]@13
+E Can't find element 'minecraft:max' of type 'minecraft:entity_type' at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:max_
+R 0
+A -
+X Can't find element 'minecraft:max_' of type 'minecraft:entity_type' at position 16: ...craft:max_<--[HERE]@14
+E Can't find element 'minecraft:max_' of type 'minecraft:entity_type' at position 16: ...craft:max_<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:max_h
+R 0
+A -
+X Can't find element 'minecraft:max_h' of type 'minecraft:entity_type' at position 17: ...raft:max_h<--[HERE]@15
+E Can't find element 'minecraft:max_h' of type 'minecraft:entity_type' at position 17: ...raft:max_h<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:max_he
+R 0
+A -
+X Can't find element 'minecraft:max_he' of type 'minecraft:entity_type' at position 18: ...aft:max_he<--[HERE]@16
+E Can't find element 'minecraft:max_he' of type 'minecraft:entity_type' at position 18: ...aft:max_he<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 0
+A -
+X Can't find element 'minecraft:max_hea' of type 'minecraft:entity_type' at position 19: ...ft:max_hea<--[HERE]@17
+E Can't find element 'minecraft:max_hea' of type 'minecraft:entity_type' at position 19: ...ft:max_hea<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 0
+A -
+X Can't find element 'minecraft:max_heal' of type 'minecraft:entity_type' at position 20: ...t:max_heal<--[HERE]@18
+E Can't find element 'minecraft:max_heal' of type 'minecraft:entity_type' at position 20: ...t:max_heal<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 0
+A -
+X Can't find element 'minecraft:max_healt' of type 'minecraft:entity_type' at position 21: ...:max_healt<--[HERE]@19
+E Can't find element 'minecraft:max_healt' of type 'minecraft:entity_type' at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:g
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:entity_type' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:entity_type' at position 13: ...inecraft:g<--[HERE]@11
+S 0-11 6 1588277245 minecraft:ghast	minecraft:giant	minecraft:glow_item_frame	minecraft:glow_squid	minecraft:goat	minecraft:guardian
+@ all minecraft:ge
+R 0
+A -
+X Can't find element 'minecraft:ge' of type 'minecraft:entity_type' at position 14: ...necraft:ge<--[HERE]@12
+E Can't find element 'minecraft:ge' of type 'minecraft:entity_type' at position 14: ...necraft:ge<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:gen
+R 0
+A -
+X Can't find element 'minecraft:gen' of type 'minecraft:entity_type' at position 15: ...ecraft:gen<--[HERE]@13
+E Can't find element 'minecraft:gen' of type 'minecraft:entity_type' at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:gene
+R 0
+A -
+X Can't find element 'minecraft:gene' of type 'minecraft:entity_type' at position 16: ...craft:gene<--[HERE]@14
+E Can't find element 'minecraft:gene' of type 'minecraft:entity_type' at position 16: ...craft:gene<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:gener
+R 0
+A -
+X Can't find element 'minecraft:gener' of type 'minecraft:entity_type' at position 17: ...raft:gener<--[HERE]@15
+E Can't find element 'minecraft:gener' of type 'minecraft:entity_type' at position 17: ...raft:gener<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:generi
+R 0
+A -
+X Can't find element 'minecraft:generi' of type 'minecraft:entity_type' at position 18: ...aft:generi<--[HERE]@16
+E Can't find element 'minecraft:generi' of type 'minecraft:entity_type' at position 18: ...aft:generi<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:generic
+R 0
+A -
+X Can't find element 'minecraft:generic' of type 'minecraft:entity_type' at position 19: ...ft:generic<--[HERE]@17
+E Can't find element 'minecraft:generic' of type 'minecraft:entity_type' at position 19: ...ft:generic<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:generic.
+R 0
+A -
+X Can't find element 'minecraft:generic.' of type 'minecraft:entity_type' at position 20: ...t:generic.<--[HERE]@18
+E Can't find element 'minecraft:generic.' of type 'minecraft:entity_type' at position 20: ...t:generic.<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 0
+A -
+X Can't find element 'minecraft:generic.m' of type 'minecraft:entity_type' at position 21: ...:generic.m<--[HERE]@19
+E Can't find element 'minecraft:generic.m' of type 'minecraft:entity_type' at position 21: ...:generic.m<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 0
+A -
+X Can't find element 'minecraft:generic.ma' of type 'minecraft:entity_type' at position 22: ...generic.ma<--[HERE]@20
+E Can't find element 'minecraft:generic.ma' of type 'minecraft:entity_type' at position 22: ...generic.ma<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 0
+A -
+X Can't find element 'minecraft:generic.max' of type 'minecraft:entity_type' at position 23: ...eneric.max<--[HERE]@21
+E Can't find element 'minecraft:generic.max' of type 'minecraft:entity_type' at position 23: ...eneric.max<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 0
+A -
+X Can't find element 'minecraft:generic.max_' of type 'minecraft:entity_type' at position 24: ...neric.max_<--[HERE]@22
+E Can't find element 'minecraft:generic.max_' of type 'minecraft:entity_type' at position 24: ...neric.max_<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 0
+A -
+X Can't find element 'minecraft:generic.max_h' of type 'minecraft:entity_type' at position 25: ...eric.max_h<--[HERE]@23
+E Can't find element 'minecraft:generic.max_h' of type 'minecraft:entity_type' at position 25: ...eric.max_h<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 0
+A -
+X Can't find element 'minecraft:generic.max_he' of type 'minecraft:entity_type' at position 26: ...ric.max_he<--[HERE]@24
+E Can't find element 'minecraft:generic.max_he' of type 'minecraft:entity_type' at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 0
+A -
+X Can't find element 'minecraft:generic.max_hea' of type 'minecraft:entity_type' at position 27: ...ic.max_hea<--[HERE]@25
+E Can't find element 'minecraft:generic.max_hea' of type 'minecraft:entity_type' at position 27: ...ic.max_hea<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 0
+A -
+X Can't find element 'minecraft:generic.max_heal' of type 'minecraft:entity_type' at position 28: ...c.max_heal<--[HERE]@26
+E Can't find element 'minecraft:generic.max_heal' of type 'minecraft:entity_type' at position 28: ...c.max_heal<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healt' of type 'minecraft:entity_type' at position 29: ....max_healt<--[HERE]@27
+E Can't find element 'minecraft:generic.max_healt' of type 'minecraft:entity_type' at position 29: ....max_healt<--[HERE]@27
+S -2--2 0 0 
+@ all mineéra￿ft:
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:genyric.max_healthh
+R 0
+A -
+X Can't find element 'minecraft:genyric.max_healthh' of type 'minecraft:entity_type' at position 31: ...ax_healthh<--[HERE]@29
+E Can't find element 'minecraft:genyric.max_healthh' of type 'minecraft:entity_type' at position 31: ...ax_healthh<--[HERE]@29
+S -2--2 0 0 
+@ all foobar
+R 0
+A -
+X Can't find element 'minecraft:foobar' of type 'minecraft:entity_type' at position 8: t foobar<--[HERE]@6
+E Can't find element 'minecraft:foobar' of type 'minecraft:entity_type' at position 8: t foobar<--[HERE]@6
+S -2--2 0 0 
+@ all mi{necraft:player
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all mineraft:mineshaf}
+R 0
+A -
+X Can't find element 'mineraft:mineshaf' of type 'minecraft:entity_type' at position 19: ...t:mineshaf<--[HERE]@17
+E Can't find element 'mineraft:mineshaf' of type 'minecraft:entity_type' at position 19: ...t:mineshaf<--[HERE]@17
+S -2--2 0 0 
+@ all t:zombi:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min!craft:
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all shaft
+R 0
+A -
+X Can't find element 'minecraft:shaft' of type 'minecraft:entity_type' at position 7: t shaft<--[HERE]@5
+E Can't find element 'minecraft:shaft' of type 'minecraft:entity_type' at position 7: t shaft<--[HERE]@5
+S -2--2 0 0 
+@ all minecaft:zombie
+R 0
+A -
+X Can't find element 'minecaft:zombie' of type 'minecraft:entity_type' at position 17: ...aft:zombie<--[HERE]@15
+E Can't find element 'minecaft:zombie' of type 'minecraft:entity_type' at position 17: ...aft:zombie<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:6ncient_city
+R 0
+A -
+X Can't find element 'minecraft:6ncient_city' of type 'minecraft:entity_type' at position 24: ...cient_city<--[HERE]@22
+E Can't find element 'minecraft:6ncient_city' of type 'minecraft:entity_type' at position 24: ...cient_city<--[HERE]@22
+S -2--2 0 0 
+@ all :generic.max_health
+R 0
+A -
+X Can't find element 'minecraft:generic.max_health' of type 'minecraft:entity_type' at position 21: ...max_health<--[HERE]@19
+E Can't find element 'minecraft:generic.max_health' of type 'minecraft:entity_type' at position 21: ...max_health<--[HERE]@19
+S -2--2 0 0 
+@ all eshafta
+R 0
+A -
+X Can't find element 'minecraft:eshafta' of type 'minecraft:entity_type' at position 9: t eshafta<--[HERE]@7
+E Can't find element 'minecraft:eshafta' of type 'minecraft:entity_type' at position 9: t eshafta<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:fortuneem
+R 0
+A -
+X Can't find element 'minecraft:fortuneem' of type 'minecraft:entity_type' at position 21: ...:fortuneem<--[HERE]@19
+E Can't find element 'minecraft:fortuneem' of type 'minecraft:entity_type' at position 21: ...:fortuneem<--[HERE]@19
+S -2--2 0 0 
+@ all craft:skeletons
+R 0
+A -
+X Can't find element 'craft:skeletons' of type 'minecraft:entity_type' at position 17: ...:skeletons<--[HERE]@15
+E Can't find element 'craft:skeletons' of type 'minecraft:entity_type' at position 17: ...:skeletons<--[HERE]@15
+S -2--2 0 0 
+@ all t:zombie-
+R 0
+A -
+X Can't find element 't:zombie-' of type 'minecraft:entity_type' at position 11: ... t:zombie-<--[HERE]@9
+E Can't find element 't:zombie-' of type 'minecraft:entity_type' at position 11: ... t:zombie-<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:generic.ma_health
+R 0
+A -
+X Can't find element 'minecraft:generic.ma_health' of type 'minecraft:entity_type' at position 29: ....ma_health<--[HERE]@27
+E Can't find element 'minecraft:generic.ma_health' of type 'minecraft:entity_type' at position 29: ....ma_health<--[HERE]@27
+S -2--2 0 0 
+@ all minedcraft:spee~d
+R 0
+A -
+X Can't find element 'minedcraft:spee' of type 'minecraft:entity_type' at position 17: ...craft:spee<--[HERE]@15
+E Can't find element 'minedcraft:spee' of type 'minecraft:entity_type' at position 17: ...craft:spee<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:village_plainsl
+R 0
+A -
+X Can't find element 'minecraft:village_plainsl' of type 'minecraft:entity_type' at position 27: ...ge_plainsl<--[HERE]@25
+E Can't find element 'minecraft:village_plainsl' of type 'minecraft:entity_type' at position 27: ...ge_plainsl<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:nape
+R 0
+A -
+X Can't find element 'minecraft:nape' of type 'minecraft:entity_type' at position 16: ...craft:nape<--[HERE]@14
+E Can't find element 'minecraft:nape' of type 'minecraft:entity_type' at position 16: ...craft:nape<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:max中health
+R 0
+A -
+X Can't find element 'minecraft:max' of type 'minecraft:entity_type' at position 15: ...ecraft:max<--[HERE]@13
+E Can't find element 'minecraft:max' of type 'minecraft:entity_type' at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:maxhealth
+R 0
+A -
+X Can't find element 'minecraft:maxhealth' of type 'minecraft:entity_type' at position 21: ...:maxhealth<--[HERE]@19
+E Can't find element 'minecraft:maxhealth' of type 'minecraft:entity_type' at position 21: ...:maxhealth<--[HERE]@19
+S -2--2 0 0 
+@ all &minecraft:speed
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speede
+R 0
+A -
+X Can't find element 'minecraft:speede' of type 'minecraft:entity_type' at position 18: ...aft:speede<--[HERE]@16
+E Can't find element 'minecraft:speede' of type 'minecraft:entity_type' at position 18: ...aft:speede<--[HERE]@16
+S -2--2 0 0 
+@ all ZOMB0[
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrat:zombie
+R 0
+A -
+X Can't find element 'minecrat:zombie' of type 'minecraft:entity_type' at position 17: ...rat:zombie<--[HERE]@15
+E Can't find element 'minecrat:zombie' of type 'minecraft:entity_type' at position 17: ...rat:zombie<--[HERE]@15
+S -2--2 0 0 
+@ all raft:anciet_city
+R 0
+A -
+X Can't find element 'raft:anciet_city' of type 'minecraft:entity_type' at position 18: ...nciet_city<--[HERE]@16
+E Can't find element 'raft:anciet_city' of type 'minecraft:entity_type' at position 18: ...nciet_city<--[HERE]@16
+S -2--2 0 0 
+@ all #minecraft:nop/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mnecraft:generic.max_healthh
+R 0
+A -
+X Can't find element 'mnecraft:generic.max_healthh' of type 'minecraft:entity_type' at position 30: ...ax_healthh<--[HERE]@28
+E Can't find element 'mnecraft:generic.max_healthh' of type 'minecraft:entity_type' at position 30: ...ax_healthh<--[HERE]@28
+S -2--2 0 0 
+@ all minecraft:playerX
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 18: ...aft:player<--[HERE]@16
+E Expected whitespace to end one argument, but found trailing data at position 18: ...aft:player<--[HERE]@16
+S -2--2 0 0 
+@ all ie
+R 0
+A -
+X Can't find element 'minecraft:ie' of type 'minecraft:entity_type' at position 4: t ie<--[HERE]@2
+E Can't find element 'minecraft:ie' of type 'minecraft:entity_type' at position 4: t ie<--[HERE]@2
+S -2--2 0 0 
+@ all #minecraft:nop&e
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:9ombie:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:
+R 0
+A -
+X Can't find element 'necraft:' of type 'minecraft:entity_type' at position 10: t necraft:<--[HERE]@8
+E Can't find element 'necraft:' of type 'minecraft:entity_type' at position 10: t necraft:<--[HERE]@8
+S -2--2 0 0 
+@ all minec$aft:
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:spee￿d
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:entity_type' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:entity_type' at position 16: ...craft:spee<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:m6neshaft
+R 0
+A -
+X Can't find element 'minecraft:m6neshaft' of type 'minecraft:entity_type' at position 21: ...:m6neshaft<--[HERE]@19
+E Can't find element 'minecraft:m6neshaft' of type 'minecraft:entity_type' at position 21: ...:m6neshaft<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:mineshafthf
+R 0
+A -
+X Can't find element 'minecraft:mineshafthf' of type 'minecraft:entity_type' at position 23: ...ineshafthf<--[HERE]@21
+E Can't find element 'minecraft:mineshafthf' of type 'minecraft:entity_type' at position 23: ...ineshafthf<--[HERE]@21
+S -2--2 0 0 
+@ all IE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all inecraft:zombie
+R 0
+A -
+X Can't find element 'inecraft:zombie' of type 'minecraft:entity_type' at position 17: ...aft:zombie<--[HERE]@15
+E Can't find element 'inecraft:zombie' of type 'minecraft:entity_type' at position 17: ...aft:zombie<--[HERE]@15
+S -2--2 0 0 
+@ all zomb\\iee
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 6: t zomb<--[HERE]@4
+E Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 6: t zomb<--[HERE]@4
+S -2--2 0 0 
+@ all nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:entity_type' at position 6: t nope<--[HERE]@4
+E Can't find element 'minecraft:nope' of type 'minecraft:entity_type' at position 6: t nope<--[HERE]@4
+S -2--2 0 0 
+@ all minecraf^:zomie
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:entity_type' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:entity_type' at position 3: t e<--[HERE]@1
+S 0-1 13 -689624011 minecraft:area_effect_cloud	minecraft:egg	minecraft:elder_guardian	minecraft:end_crystal	minecraft:ender_dragon	minecraft:ender_pearl	minecraft:enderman	minecraft:endermite	minecraft:evoker	minecraft:evoker_fangs	minecraft:experience_bottle	minecraft:experience_orb	minecraft:eye_of_ender
+@ all minecraft:gene(ric.max_ealth
+R 0
+A -
+X Can't find element 'minecraft:gene' of type 'minecraft:entity_type' at position 16: ...craft:gene<--[HERE]@14
+E Can't find element 'minecraft:gene' of type 'minecraft:entity_type' at position 16: ...craft:gene<--[HERE]@14
+S -2--2 0 0 
+@ all m>inecraft:village_plains
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all inecraf:armor
+R 0
+A -
+X Can't find element 'inecraf:armor' of type 'minecraft:entity_type' at position 15: ...craf:armor<--[HERE]@13
+E Can't find element 'inecraf:armor' of type 'minecraft:entity_type' at position 15: ...craf:armor<--[HERE]@13
+S -2--2 0 0 
+@ all OMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mnecraft:mineshaft
+R 0
+A -
+X Can't find element 'mnecraft:mineshaft' of type 'minecraft:entity_type' at position 20: ...:mineshaft<--[HERE]@18
+E Can't find element 'mnecraft:mineshaft' of type 'minecraft:entity_type' at position 20: ...:mineshaft<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:generic.max_healthh
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healthh' of type 'minecraft:entity_type' at position 31: ...ax_healthh<--[HERE]@29
+E Can't find element 'minecraft:generic.max_healthh' of type 'minecraft:entity_type' at position 31: ...ax_healthh<--[HERE]@29
+S -2--2 0 0 
+@ all minecraßt:playern
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all #minecra>t:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel+tons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:villae_plains
+R 0
+A -
+X Can't find element 'minecraft:villae_plains' of type 'minecraft:entity_type' at position 25: ...lae_plains<--[HERE]@23
+E Can't find element 'minecraft:villae_plains' of type 'minecraft:entity_type' at position 25: ...lae_plains<--[HERE]@23
+S -2--2 0 0 
+@ all min\u0009ecraf$t:
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraft:nopet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all inecraft:s<eed
+R 0
+A -
+X Can't find element 'inecraft:s' of type 'minecraft:entity_type' at position 12: ...inecraft:s<--[HERE]@10
+E Can't find element 'inecraft:s' of type 'minecraft:entity_type' at position 12: ...inecraft:s<--[HERE]@10
+S -2--2 0 0 
+@ all #minecraft:sk3eletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecra​t:player
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:armoe
+R 0
+A -
+X Can't find element 'minecraft:armoe' of type 'minecraft:entity_type' at position 17: ...raft:armoe<--[HERE]@15
+E Can't find element 'minecraft:armoe' of type 'minecraft:entity_type' at position 17: ...raft:armoe<--[HERE]@15
+S -2--2 0 0 
+@ all pness
+R 0
+A -
+X Can't find element 'minecraft:pness' of type 'minecraft:entity_type' at position 7: t pness<--[HERE]@5
+E Can't find element 'minecraft:pness' of type 'minecraft:entity_type' at position 7: t pness<--[HERE]@5
+S -2--2 0 0 
+@ all ains
+R 0
+A -
+X Can't find element 'minecraft:ains' of type 'minecraft:entity_type' at position 6: t ains<--[HERE]@4
+E Can't find element 'minecraft:ains' of type 'minecraft:entity_type' at position 6: t ains<--[HERE]@4
+S -2--2 0 0 
+@ all #minecraft:nopee
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:}ope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mineraft:mineshaftt
+R 0
+A -
+X Can't find element 'mineraft:mineshaftt' of type 'minecraft:entity_type' at position 21: ...mineshaftt<--[HERE]@19
+E Can't find element 'mineraft:mineshaftt' of type 'minecraft:entity_type' at position 21: ...mineshaftt<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:g&eneric.max_healtht
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:entity_type' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:entity_type' at position 13: ...inecraft:g<--[HERE]@11
+S -2--2 0 0 
+@ all ecraftarmor
+R 0
+A -
+X Can't find element 'minecraft:ecraftarmor' of type 'minecraft:entity_type' at position 13: ...craftarmor<--[HERE]@11
+E Can't find element 'minecraft:ecraftarmor' of type 'minecraft:entity_type' at position 13: ...craftarmor<--[HERE]@11
+S -2--2 0 0 
+@ all mincraft:zombie9
+R 0
+A -
+X Can't find element 'mincraft:zombie9' of type 'minecraft:entity_type' at position 18: ...ft:zombie9<--[HERE]@16
+E Can't find element 'mincraft:zombie9' of type 'minecraft:entity_type' at position 18: ...ft:zombie9<--[HERE]@16
+S -2--2 0 0 
+@ all raft:max_h alth
+R 0
+A -
+X Can't find element 'raft:max_h' of type 'minecraft:entity_type' at position 12: ...raft:max_h<--[HERE]@10
+E Can't find element 'raft:max_h' of type 'minecraft:entity_type' at position 12: ...raft:max_h<--[HERE]@10
+S -2--2 0 0 
+@ all foo:baro
+R 0
+A -
+X Can't find element 'foo:baro' of type 'minecraft:entity_type' at position 10: t foo:baro<--[HERE]@8
+E Can't find element 'foo:baro' of type 'minecraft:entity_type' at position 10: t foo:baro<--[HERE]@8
+S -2--2 0 0 
+@ all mineraft:zobie
+R 0
+A -
+X Can't find element 'mineraft:zobie' of type 'minecraft:entity_type' at position 16: ...raft:zobie<--[HERE]@14
+E Can't find element 'mineraft:zobie' of type 'minecraft:entity_type' at position 16: ...raft:zobie<--[HERE]@14
+S -2--2 0 0 
+@ all aft6:
+R 0
+A -
+X Can't find element 'aft6:' of type 'minecraft:entity_type' at position 7: t aft6:<--[HERE]@5
+E Can't find element 'aft6:' of type 'minecraft:entity_type' at position 7: t aft6:<--[HERE]@5
+S -2--2 0 0 
+@ all inecraft:spee{
+R 0
+A -
+X Can't find element 'inecraft:spee' of type 'minecraft:entity_type' at position 15: ...craft:spee<--[HERE]@13
+E Can't find element 'inecraft:spee' of type 'minecraft:entity_type' at position 15: ...craft:spee<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:speedt
+R 0
+A -
+X Can't find element 'minecraft:speedt' of type 'minecraft:entity_type' at position 18: ...aft:speedt<--[HERE]@16
+E Can't find element 'minecraft:speedt' of type 'minecraft:entity_type' at position 18: ...aft:speedt<--[HERE]@16
+S -2--2 0 0 
+@ all zom中b:e
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:entity_type' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:entity_type' at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:ma&x_health
+R 0
+A -
+X Can't find element 'minecraft:ma' of type 'minecraft:entity_type' at position 14: ...necraft:ma<--[HERE]@12
+E Can't find element 'minecraft:ma' of type 'minecraft:entity_type' at position 14: ...necraft:ma<--[HERE]@12
+S -2--2 0 0 
+@ all mi.ecraft:playery
+R 0
+A -
+X Can't find element 'mi.ecraft:playery' of type 'minecraft:entity_type' at position 19: ...ft:playery<--[HERE]@17
+E Can't find element 'mi.ecraft:playery' of type 'minecraft:entity_type' at position 19: ...ft:playery<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:generc.max_health
+R 0
+A -
+X Can't find element 'minecraft:generc.max_health' of type 'minecraft:entity_type' at position 29: ...max_health<--[HERE]@27
+E Can't find element 'minecraft:generc.max_health' of type 'minecraft:entity_type' at position 29: ...max_health<--[HERE]@27
+S -2--2 0 0 
+@ all minecraft:anci9nt_city
+R 0
+A -
+X Can't find element 'minecraft:anci9nt_city' of type 'minecraft:entity_type' at position 24: ...ci9nt_city<--[HERE]@22
+E Can't find element 'minecraft:anci9nt_city' of type 'minecraft:entity_type' at position 24: ...ci9nt_city<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:armormm
+R 0
+A -
+X Can't find element 'minecraft:armormm' of type 'minecraft:entity_type' at position 19: ...ft:armormm<--[HERE]@17
+E Can't find element 'minecraft:armormm' of type 'minecraft:entity_type' at position 19: ...ft:armormm<--[HERE]@17
+S -2--2 0 0 
+@ all 中minecraft:armorr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foobr
+R 0
+A -
+X Can't find element 'minecraft:foobr' of type 'minecraft:entity_type' at position 7: t foobr<--[HERE]@5
+E Can't find element 'minecraft:foobr' of type 'minecraft:entity_type' at position 7: t foobr<--[HERE]@5
+S -2--2 0 0 
+@ all méinecraft:generic.max_health
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all #minecraft\u0000:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:Aope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:v/illage_plains
+R 0
+A -
+X Can't find element 'minecraft:v/illage_plains' of type 'minecraft:entity_type' at position 27: ...age_plains<--[HERE]@25
+E Can't find element 'minecraft:v/illage_plains' of type 'minecraft:entity_type' at position 27: ...age_plains<--[HERE]@25
+S -2--2 0 0 
+@ all ecraft:nopec
+R 0
+A -
+X Can't find element 'ecraft:nopec' of type 'minecraft:entity_type' at position 14: ...raft:nopec<--[HERE]@12
+E Can't find element 'ecraft:nopec' of type 'minecraft:entity_type' at position 14: ...raft:nopec<--[HERE]@12
+S -2--2 0 0 
+@ all #minecrazft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minezraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:7ancient_city
+R 0
+A -
+X Can't find element 'minecraft:7ancient_city' of type 'minecraft:entity_type' at position 25: ...cient_city<--[HERE]@23
+E Can't find element 'minecraft:7ancient_city' of type 'minecraft:entity_type' at position 25: ...cient_city<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:gen\u0000eric.max_he​lth
+R 0
+A -
+X Can't find element 'minecraft:gen' of type 'minecraft:entity_type' at position 15: ...ecraft:gen<--[HERE]@13
+E Can't find element 'minecraft:gen' of type 'minecraft:entity_type' at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb&iea
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 16: ...craft:zomb<--[HERE]@14
+E Can't find element 'minecraft:zomb' of type 'minecraft:entity_type' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:playerp
+R 0
+A -
+X Can't find element 'minecraft:playerp' of type 'minecraft:entity_type' at position 19: ...ft:playerp<--[HERE]@17
+E Can't find element 'minecraft:playerp' of type 'minecraft:entity_type' at position 19: ...ft:playerp<--[HERE]@17
+S -2--2 0 0 
+@ all eA
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:entity_type' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:entity_type' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all foXo:barb
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:r
+R 0
+A -
+X Can't find element 'minecraft:r' of type 'minecraft:entity_type' at position 13: ...inecraft:r<--[HERE]@11
+E Can't find element 'minecraft:r' of type 'minecraft:entity_type' at position 13: ...inecraft:r<--[HERE]@11
+S 0-11 2 9893982 minecraft:rabbit	minecraft:ravager
+@ all 4inecraft:nope
+R 0
+A -
+X Can't find element '4inecraft:nope' of type 'minecraft:entity_type' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element '4inecraft:nope' of type 'minecraft:entity_type' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:skeletonss
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mibecraft:
+R 0
+A -
+X Can't find element 'mibecraft:' of type 'minecraft:entity_type' at position 12: ...mibecraft:<--[HERE]@10
+E Can't find element 'mibecraft:' of type 'minecraft:entity_type' at position 12: ...mibecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all mi\u0009ecraft:shapness
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all zombiez
+R 0
+A -
+X Can't find element 'minecraft:zombiez' of type 'minecraft:entity_type' at position 9: t zombiez<--[HERE]@7
+E Can't find element 'minecraft:zombiez' of type 'minecraft:entity_type' at position 9: t zombiez<--[HERE]@7
+S -2--2 0 0 
+@ all zombie\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X Can't find element 'minecraft:y' of type 'minecraft:entity_type' at position 3: t y<--[HERE]@1
+E Can't find element 'minecraft:y' of type 'minecraft:entity_type' at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:entity_type' at position 3: t a<--[HERE]@1
+E Can't find element 'minecraft:a' of type 'minecraft:entity_type' at position 3: t a<--[HERE]@1
+S 0-1 9 1444062987 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl	minecraft:spectral_arrow
+@ all ZOM@Ib
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:max_healthm
+R 0
+A -
+X Can't find element 'minecraft:max_healthm' of type 'minecraft:entity_type' at position 23: ...ax_healthm<--[HERE]@21
+E Can't find element 'minecraft:max_healthm' of type 'minecraft:entity_type' at position 23: ...ax_healthm<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:max_healthn
+R 0
+A -
+X Can't find element 'minecraft:max_healthn' of type 'minecraft:entity_type' at position 23: ...ax_healthn<--[HERE]@21
+E Can't find element 'minecraft:max_healthn' of type 'minecraft:entity_type' at position 23: ...ax_healthn<--[HERE]@21
+S -2--2 0 0 
+@ all craft:skeleton
+R 0
+A -
+X Can't find element 'craft:skeleton' of type 'minecraft:entity_type' at position 16: ...t:skeleton<--[HERE]@14
+E Can't find element 'craft:skeleton' of type 'minecraft:entity_type' at position 16: ...t:skeleton<--[HERE]@14
+S -2--2 0 0 
+@ all #m+inecraft:ske@etons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:fortunem
+R 0
+A -
+X Can't find element 'minecraft:fortunem' of type 'minecraft:entity_type' at position 20: ...t:fortunem<--[HERE]@18
+E Can't find element 'minecraft:fortunem' of type 'minecraft:entity_type' at position 20: ...t:fortunem<--[HERE]@18
+S -2--2 0 0 
+@ all foo:baroo
+R 0
+A -
+X Can't find element 'foo:baroo' of type 'minecraft:entity_type' at position 11: ... foo:baroo<--[HERE]@9
+E Can't find element 'foo:baroo' of type 'minecraft:entity_type' at position 11: ... foo:baroo<--[HERE]@9
+S -2--2 0 0 
+@ all minecraaft:mineshaft
+R 0
+A -
+X Can't find element 'minecraaft:mineshaft' of type 'minecraft:entity_type' at position 22: ...:mineshaft<--[HERE]@20
+E Can't find element 'minecraaft:mineshaft' of type 'minecraft:entity_type' at position 22: ...:mineshaft<--[HERE]@20
+S -2--2 0 0 
+@ all minecra\u0009t:no~e
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all >minecraf:armor
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :bar
+R 0
+A -
+X Can't find element 'minecraft:bar' of type 'minecraft:entity_type' at position 6: t :bar<--[HERE]@4
+E Can't find element 'minecraft:bar' of type 'minecraft:entity_type' at position 6: t :bar<--[HERE]@4
+S -2--2 0 0 
+@ all inecraft:mineshaft
+R 0
+A -
+X Can't find element 'inecraft:mineshaft' of type 'minecraft:entity_type' at position 20: ...:mineshaft<--[HERE]@18
+E Can't find element 'inecraft:mineshaft' of type 'minecraft:entity_type' at position 20: ...:mineshaft<--[HERE]@18
+S -2--2 0 0 
+@ all minecraftmax_health
+R 0
+A -
+X Can't find element 'minecraft:minecraftmax_health' of type 'minecraft:entity_type' at position 21: ...max_health<--[HERE]@19
+E Can't find element 'minecraft:minecraftmax_health' of type 'minecraft:entity_type' at position 21: ...max_health<--[HERE]@19
+S -2--2 0 0 
+@ all ]inecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:village_pl3ins
+R 0
+A -
+X Can't find element 'minecraft:village_pl3ins' of type 'minecraft:entity_type' at position 26: ...age_pl3ins<--[HERE]@24
+E Can't find element 'minecraft:village_pl3ins' of type 'minecraft:entity_type' at position 26: ...age_pl3ins<--[HERE]@24
+S -2--2 0 0 
+@ all mi>necraft::
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all #minecaft:nop￿
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecrazt:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:t
+R 0
+A -
+X Can't find element 'minecraft:t' of type 'minecraft:entity_type' at position 13: ...inecraft:t<--[HERE]@11
+E Can't find element 'minecraft:t' of type 'minecraft:entity_type' at position 13: ...inecraft:t<--[HERE]@11
+S 0-11 8 -1763681724 minecraft:tadpole	minecraft:text_display	minecraft:tnt	minecraft:tnt_minecart	minecraft:trader_llama	minecraft:trident	minecraft:tropical_fish	minecraft:turtle
+@ all ZOMBE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ft:max_healtha
+R 0
+A -
+X Can't find element 'ft:max_healtha' of type 'minecraft:entity_type' at position 16: ...ax_healtha<--[HERE]@14
+E Can't find element 'ft:max_healtha' of type 'minecraft:entity_type' at position 16: ...ax_healtha<--[HERE]@14
+S -2--2 0 0 
+@ all ZBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:nopep
+R 0
+A -
+X Can't find element 'minecraft:nopep' of type 'minecraft:entity_type' at position 17: ...raft:nopep<--[HERE]@15
+E Can't find element 'minecraft:nopep' of type 'minecraft:entity_type' at position 17: ...raft:nopep<--[HERE]@15
+S -2--2 0 0 
+@ all minecraf~:max_health
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all ZOXBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft1:village_plainst
+R 0
+A -
+X Can't find element 'minecraft1:village_plainst' of type 'minecraft:entity_type' at position 28: ...ge_plainst<--[HERE]@26
+E Can't find element 'minecraft1:village_plainst' of type 'minecraft:entity_type' at position 28: ...ge_plainst<--[HERE]@26
+S -2--2 0 0 
+@ all oo:ar
+R 0
+A -
+X Can't find element 'oo:ar' of type 'minecraft:entity_type' at position 7: t oo:ar<--[HERE]@5
+E Can't find element 'oo:ar' of type 'minecraft:entity_type' at position 7: t oo:ar<--[HERE]@5
+S -2--2 0 0 
+@ all ecraft:skeletons
+R 0
+A -
+X Can't find element 'ecraft:skeletons' of type 'minecraft:entity_type' at position 18: ...:skeletons<--[HERE]@16
+E Can't find element 'ecraft:skeletons' of type 'minecraft:entity_type' at position 18: ...:skeletons<--[HERE]@16
+S -2--2 0 0 
+@ all p中ed
+R 0
+A -
+X Can't find element 'minecraft:p' of type 'minecraft:entity_type' at position 3: t p<--[HERE]@1
+E Can't find element 'minecraft:p' of type 'minecraft:entity_type' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all :armor
+R 0
+A -
+X Can't find element 'minecraft:armor' of type 'minecraft:entity_type' at position 8: t :armor<--[HERE]@6
+E Can't find element 'minecraft:armor' of type 'minecraft:entity_type' at position 8: t :armor<--[HERE]@6
+S -2--2 0 0 
+@ all tons
+R 0
+A -
+X Can't find element 'minecraft:tons' of type 'minecraft:entity_type' at position 6: t tons<--[HERE]@4
+E Can't find element 'minecraft:tons' of type 'minecraft:entity_type' at position 6: t tons<--[HERE]@4
+S -2--2 0 0 
+@ all #minecraftxnope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi￿necraft:aİmor
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all yer
+R 0
+A -
+X Can't find element 'minecraft:yer' of type 'minecraft:entity_type' at position 5: t yer<--[HERE]@3
+E Can't find element 'minecraft:yer' of type 'minecraft:entity_type' at position 5: t yer<--[HERE]@3
+S -2--2 0 0 
+@ all etons
+R 0
+A -
+X Can't find element 'minecraft:etons' of type 'minecraft:entity_type' at position 7: t etons<--[HERE]@5
+E Can't find element 'minecraft:etons' of type 'minecraft:entity_type' at position 7: t etons<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:generic.maxC_health
+R 0
+A -
+X Can't find element 'minecraft:generic.max' of type 'minecraft:entity_type' at position 23: ...eneric.max<--[HERE]@21
+E Can't find element 'minecraft:generic.max' of type 'minecraft:entity_type' at position 23: ...eneric.max<--[HERE]@21
+S -2--2 0 0 
+@ all #minecéaft:keletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :incraft:nope
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecra8t:speeda
+R 0
+A -
+X Can't find element 'minecra8t:speeda' of type 'minecraft:entity_type' at position 18: ...a8t:speeda<--[HERE]@16
+E Can't find element 'minecra8t:speeda' of type 'minecraft:entity_type' at position 18: ...a8t:speeda<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:xombi
+R 0
+A -
+X Can't find element 'minecraft:xombi' of type 'minecraft:entity_type' at position 17: ...raft:xombi<--[HERE]@15
+E Can't find element 'minecraft:xombi' of type 'minecraft:entity_type' at position 17: ...raft:xombi<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:generic.max_ea{th
+R 0
+A -
+X Can't find element 'minecraft:generic.max_ea' of type 'minecraft:entity_type' at position 26: ...ric.max_ea<--[HERE]@24
+E Can't find element 'minecraft:generic.max_ea' of type 'minecraft:entity_type' at position 26: ...ric.max_ea<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:*player
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all z>mbie
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:village_plainss
+R 0
+A -
+X Can't find element 'minecraft:village_plainss' of type 'minecraft:entity_type' at position 27: ...ge_plainss<--[HERE]@25
+E Can't find element 'minecraft:village_plainss' of type 'minecraft:entity_type' at position 27: ...ge_plainss<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:fspeed
+R 0
+A -
+X Can't find element 'minecraft:fspeed' of type 'minecraft:entity_type' at position 18: ...aft:fspeed<--[HERE]@16
+E Can't find element 'minecraft:fspeed' of type 'minecraft:entity_type' at position 18: ...aft:fspeed<--[HERE]@16
+S -2--2 0 0 
+@ all foo:br
+R 0
+A -
+X Can't find element 'foo:br' of type 'minecraft:entity_type' at position 8: t foo:br<--[HERE]@6
+E Can't find element 'foo:br' of type 'minecraft:entity_type' at position 8: t foo:br<--[HERE]@6
+S -2--2 0 0 
+@ all #minecraft:skeletonsmc
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:sharpZness<
+R 0
+A -
+X Can't find element 'minecraft:sharp' of type 'minecraft:entity_type' at position 17: ...raft:sharp<--[HERE]@15
+E Can't find element 'minecraft:sharp' of type 'minecraft:entity_type' at position 17: ...raft:sharp<--[HERE]@15
+S -2--2 0 0 
+@ all #minecryft:skeleton
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !inecraft:ancient_cityt
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all letonss
+R 0
+A -
+X Can't find element 'minecraft:letonss' of type 'minecraft:entity_type' at position 9: t letonss<--[HERE]@7
+E Can't find element 'minecraft:letonss' of type 'minecraft:entity_type' at position 9: t letonss<--[HERE]@7
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:entity_type' at position 3: t s<--[HERE]@1
+E Can't find element 'minecraft:s' of type 'minecraft:entity_type' at position 3: t s<--[HERE]@1
+S 0-1 29 1431009806 minecraft:armor_stand	minecraft:cave_spider	minecraft:glow_squid	minecraft:llama_spit	minecraft:ominous_item_spawner	minecraft:salmon	minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet	minecraft:silverfish	minecraft:skeleton	minecraft:skeleton_horse	minecraft:slime	minecraft:small_fireball	minecraft:sniffer	minecraft:snow_golem	minecraft:snowball	minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat	minecraft:squid	minecraft:stray	minecraft:strider	minecraft:sulfur_cube	minecraft:wither_skeleton	minecraft:wither_skull
+@ all neric.max_health
+R 0
+A -
+X Can't find element 'minecraft:neric.max_health' of type 'minecraft:entity_type' at position 18: ...max_health<--[HERE]@16
+E Can't find element 'minecraft:neric.max_health' of type 'minecraft:entity_type' at position 18: ...max_health<--[HERE]@16
+S -2--2 0 0 
+@ all ft:armor
+R 0
+A -
+X Can't find element 'ft:armor' of type 'minecraft:entity_type' at position 10: t ft:armor<--[HERE]@8
+E Can't find element 'ft:armor' of type 'minecraft:entity_type' at position 10: t ft:armor<--[HERE]@8
+S -2--2 0 0 
+@ all in中shaft
+R 0
+A -
+X Can't find element 'minecraft:in' of type 'minecraft:entity_type' at position 4: t in<--[HERE]@2
+E Can't find element 'minecraft:in' of type 'minecraft:entity_type' at position 4: t in<--[HERE]@2
+S -2--2 0 0 
+@ all mineraft:village_plains
+R 0
+A -
+X Can't find element 'mineraft:village_plains' of type 'minecraft:entity_type' at position 25: ...age_plains<--[HERE]@23
+E Can't find element 'mineraft:village_plains' of type 'minecraft:entity_type' at position 25: ...age_plains<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:ancie}nt_ci3ty
+R 0
+A -
+X Can't find element 'minecraft:ancie' of type 'minecraft:entity_type' at position 17: ...raft:ancie<--[HERE]@15
+E Can't find element 'minecraft:ancie' of type 'minecraft:entity_type' at position 17: ...raft:ancie<--[HERE]@15
+S -2--2 0 0 
+@ all :skeletons
+R 0
+A -
+X Can't find element 'minecraft:skeletons' of type 'minecraft:entity_type' at position 12: ...:skeletons<--[HERE]@10
+E Can't find element 'minecraft:skeletons' of type 'minecraft:entity_type' at position 12: ...:skeletons<--[HERE]@10
+S -2--2 0 0 
+@ all minecraftİ:fortune
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:minshaft
+R 0
+A -
+X Can't find element 'minecraft:minshaft' of type 'minecraft:entity_type' at position 20: ...t:minshaft<--[HERE]@18
+E Can't find element 'minecraft:minshaft' of type 'minecraft:entity_type' at position 20: ...t:minshaft<--[HERE]@18
+S -2--2 0 0 
+@ all z6bie
+R 0
+A -
+X Can't find element 'minecraft:z6bie' of type 'minecraft:entity_type' at position 7: t z6bie<--[HERE]@5
+E Can't find element 'minecraft:z6bie' of type 'minecraft:entity_type' at position 7: t z6bie<--[HERE]@5
+S -2--2 0 0 

@@ -1,0 +1,1698 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft:zombie
+R 16
+A 0-16 minecraft:entity_type|minecraft:zombie
+E ok
+S 0-16 3 -304826503 minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager
+@ all zombie
+R 6
+A 0-6 minecraft:entity_type|minecraft:zombie
+E ok
+S 0-6 4 150540259 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager
+@ all minecraft:player
+R 16
+A 0-16 minecraft:entity_type|minecraft:player
+E ok
+S -2--2 0 0 
+@ all minecraft:nope
+R 14
+A 0-14 minecraft:entity_type|minecraft:nope
+E ok
+S -2--2 0 0 
+@ all minecraft:
+R 10
+A 0-10 minecraft:entity_type|minecraft:
+E ok
+S 0-10 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all #minecraft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speed
+R 15
+A 0-15 minecraft:entity_type|minecraft:speed
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 19
+A 0-19 minecraft:entity_type|minecraft:sharpness
+E ok
+S -2--2 0 0 
+@ all minecraft:fortune
+R 17
+A 0-17 minecraft:entity_type|minecraft:fortune
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 24
+A 0-24 minecraft:entity_type|minecraft:village_plains
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 19
+A 0-19 minecraft:entity_type|minecraft:mineshaft
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 22
+A 0-22 minecraft:entity_type|minecraft:ancient_city
+E ok
+S -2--2 0 0 
+@ all foo:bar
+R 7
+A 0-7 minecraft:entity_type|foo:bar
+E ok
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-6 4 150540259 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager
+@ all minecraft:armor
+R 15
+A 0-15 minecraft:entity_type|minecraft:armor
+E ok
+S 0-15 1 -386163040 minecraft:armor_stand
+@ all minecraft:max_health
+R 20
+A 0-20 minecraft:entity_type|minecraft:max_health
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 28
+A 0-28 minecraft:entity_type|minecraft:generic.max_health
+E ok
+S -2--2 0 0 
+@ all m
+R 1
+A 0-1 minecraft:entity_type|minecraft:m
+E ok
+S 0-1 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all mi
+R 2
+A 0-2 minecraft:entity_type|minecraft:mi
+E ok
+S 0-2 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all min
+R 3
+A 0-3 minecraft:entity_type|minecraft:min
+E ok
+S 0-3 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all mine
+R 4
+A 0-4 minecraft:entity_type|minecraft:mine
+E ok
+S 0-4 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minec
+R 5
+A 0-5 minecraft:entity_type|minecraft:minec
+E ok
+S 0-5 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecr
+R 6
+A 0-6 minecraft:entity_type|minecraft:minecr
+E ok
+S 0-6 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecra
+R 7
+A 0-7 minecraft:entity_type|minecraft:minecra
+E ok
+S 0-7 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraf
+R 8
+A 0-8 minecraft:entity_type|minecraft:minecraf
+E ok
+S 0-8 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft
+R 9
+A 0-9 minecraft:entity_type|minecraft:minecraft
+E ok
+S 0-9 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft:z
+R 11
+A 0-11 minecraft:entity_type|minecraft:z
+E ok
+S 0-11 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zo
+R 12
+A 0-12 minecraft:entity_type|minecraft:zo
+E ok
+S 0-12 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zom
+R 13
+A 0-13 minecraft:entity_type|minecraft:zom
+E ok
+S 0-13 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zomb
+R 14
+A 0-14 minecraft:entity_type|minecraft:zomb
+E ok
+S 0-14 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zombi
+R 15
+A 0-15 minecraft:entity_type|minecraft:zombi
+E ok
+S 0-15 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all z
+R 1
+A 0-1 minecraft:entity_type|minecraft:z
+E ok
+S 0-1 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zo
+R 2
+A 0-2 minecraft:entity_type|minecraft:zo
+E ok
+S 0-2 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zom
+R 3
+A 0-3 minecraft:entity_type|minecraft:zom
+E ok
+S 0-3 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zomb
+R 4
+A 0-4 minecraft:entity_type|minecraft:zomb
+E ok
+S 0-4 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all zombi
+R 5
+A 0-5 minecraft:entity_type|minecraft:zombi
+E ok
+S 0-5 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:p
+R 11
+A 0-11 minecraft:entity_type|minecraft:p
+E ok
+S 0-11 16 -1494488079 minecraft:painting	minecraft:pale_oak_boat	minecraft:pale_oak_chest_boat	minecraft:panda	minecraft:parched	minecraft:parrot	minecraft:phantom	minecraft:pig	minecraft:piglin	minecraft:piglin_brute	minecraft:pillager	minecraft:player	minecraft:polar_bear	minecraft:poplar_boat	minecraft:poplar_chest_boat	minecraft:pufferfish
+@ all minecraft:pl
+R 12
+A 0-12 minecraft:entity_type|minecraft:pl
+E ok
+S 0-12 1 -1707284357 minecraft:player
+@ all minecraft:pla
+R 13
+A 0-13 minecraft:entity_type|minecraft:pla
+E ok
+S 0-13 1 -1707284357 minecraft:player
+@ all minecraft:play
+R 14
+A 0-14 minecraft:entity_type|minecraft:play
+E ok
+S 0-14 1 -1707284357 minecraft:player
+@ all minecraft:playe
+R 15
+A 0-15 minecraft:entity_type|minecraft:playe
+E ok
+S 0-15 1 -1707284357 minecraft:player
+@ all minecraft:n
+R 11
+A 0-11 minecraft:entity_type|minecraft:n
+E ok
+S 0-11 1 2031785801 minecraft:nautilus
+@ all minecraft:no
+R 12
+A 0-12 minecraft:entity_type|minecraft:no
+E ok
+S -2--2 0 0 
+@ all minecraft:nop
+R 13
+A 0-13 minecraft:entity_type|minecraft:nop
+E ok
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s
+R 11
+A 0-11 minecraft:entity_type|minecraft:s
+E ok
+S 0-11 22 678047646 minecraft:salmon	minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet	minecraft:silverfish	minecraft:skeleton	minecraft:skeleton_horse	minecraft:slime	minecraft:small_fireball	minecraft:sniffer	minecraft:snow_golem	minecraft:snowball	minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat	minecraft:squid	minecraft:stray	minecraft:strider	minecraft:sulfur_cube
+@ all minecraft:sp
+R 12
+A 0-12 minecraft:entity_type|minecraft:sp
+E ok
+S 0-12 6 -451231078 minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat
+@ all minecraft:spe
+R 13
+A 0-13 minecraft:entity_type|minecraft:spe
+E ok
+S 0-13 1 1457856654 minecraft:spectral_arrow
+@ all minecraft:spee
+R 14
+A 0-14 minecraft:entity_type|minecraft:spee
+E ok
+S -2--2 0 0 
+@ all minecraft:sh
+R 12
+A 0-12 minecraft:entity_type|minecraft:sh
+E ok
+S 0-12 3 60905410 minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet
+@ all minecraft:sha
+R 13
+A 0-13 minecraft:entity_type|minecraft:sha
+E ok
+S -2--2 0 0 
+@ all minecraft:shar
+R 14
+A 0-14 minecraft:entity_type|minecraft:shar
+E ok
+S -2--2 0 0 
+@ all minecraft:sharp
+R 15
+A 0-15 minecraft:entity_type|minecraft:sharp
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 16
+A 0-16 minecraft:entity_type|minecraft:sharpn
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 17
+A 0-17 minecraft:entity_type|minecraft:sharpne
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 18
+A 0-18 minecraft:entity_type|minecraft:sharpnes
+E ok
+S -2--2 0 0 
+@ all minecraft:f
+R 11
+A 0-11 minecraft:entity_type|minecraft:f
+E ok
+S 0-11 7 773695374 minecraft:falling_block	minecraft:fireball	minecraft:firework_rocket	minecraft:fishing_bobber	minecraft:fox	minecraft:frog	minecraft:furnace_minecart
+@ all minecraft:fo
+R 12
+A 0-12 minecraft:entity_type|minecraft:fo
+E ok
+S 0-12 1 -1006802233 minecraft:fox
+@ all minecraft:for
+R 13
+A 0-13 minecraft:entity_type|minecraft:for
+E ok
+S -2--2 0 0 
+@ all minecraft:fort
+R 14
+A 0-14 minecraft:entity_type|minecraft:fort
+E ok
+S -2--2 0 0 
+@ all minecraft:fortu
+R 15
+A 0-15 minecraft:entity_type|minecraft:fortu
+E ok
+S -2--2 0 0 
+@ all minecraft:fortun
+R 16
+A 0-16 minecraft:entity_type|minecraft:fortun
+E ok
+S -2--2 0 0 
+@ all minecraft:v
+R 11
+A 0-11 minecraft:entity_type|minecraft:v
+E ok
+S 0-11 3 565899386 minecraft:vex	minecraft:villager	minecraft:vindicator
+@ all minecraft:vi
+R 12
+A 0-12 minecraft:entity_type|minecraft:vi
+E ok
+S 0-12 2 37082701 minecraft:villager	minecraft:vindicator
+@ all minecraft:vil
+R 13
+A 0-13 minecraft:entity_type|minecraft:vil
+E ok
+S 0-13 1 1880448502 minecraft:villager
+@ all minecraft:vill
+R 14
+A 0-14 minecraft:entity_type|minecraft:vill
+E ok
+S 0-14 1 1880448502 minecraft:villager
+@ all minecraft:villa
+R 15
+A 0-15 minecraft:entity_type|minecraft:villa
+E ok
+S 0-15 1 1880448502 minecraft:villager
+@ all minecraft:villag
+R 16
+A 0-16 minecraft:entity_type|minecraft:villag
+E ok
+S 0-16 1 1880448502 minecraft:villager
+@ all minecraft:village
+R 17
+A 0-17 minecraft:entity_type|minecraft:village
+E ok
+S 0-17 1 1880448502 minecraft:villager
+@ all minecraft:village_
+R 18
+A 0-18 minecraft:entity_type|minecraft:village_
+E ok
+S -2--2 0 0 
+@ all minecraft:village_p
+R 19
+A 0-19 minecraft:entity_type|minecraft:village_p
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 20
+A 0-20 minecraft:entity_type|minecraft:village_pl
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 21
+A 0-21 minecraft:entity_type|minecraft:village_pla
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 22
+A 0-22 minecraft:entity_type|minecraft:village_plai
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 23
+A 0-23 minecraft:entity_type|minecraft:village_plain
+E ok
+S -2--2 0 0 
+@ all minecraft:m
+R 11
+A 0-11 minecraft:entity_type|minecraft:m
+E ok
+S 0-11 8 1774237646 minecraft:magma_cube	minecraft:mangrove_boat	minecraft:mangrove_chest_boat	minecraft:mannequin	minecraft:marker	minecraft:minecart	minecraft:mooshroom	minecraft:mule
+@ all minecraft:mi
+R 12
+A 0-12 minecraft:entity_type|minecraft:mi
+E ok
+S 0-12 1 -1751013655 minecraft:minecart
+@ all minecraft:min
+R 13
+A 0-13 minecraft:entity_type|minecraft:min
+E ok
+S 0-13 1 -1751013655 minecraft:minecart
+@ all minecraft:mine
+R 14
+A 0-14 minecraft:entity_type|minecraft:mine
+E ok
+S 0-14 1 -1751013655 minecraft:minecart
+@ all minecraft:mines
+R 15
+A 0-15 minecraft:entity_type|minecraft:mines
+E ok
+S -2--2 0 0 
+@ all minecraft:minesh
+R 16
+A 0-16 minecraft:entity_type|minecraft:minesh
+E ok
+S -2--2 0 0 
+@ all minecraft:minesha
+R 17
+A 0-17 minecraft:entity_type|minecraft:minesha
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 18
+A 0-18 minecraft:entity_type|minecraft:mineshaf
+E ok
+S -2--2 0 0 
+@ all minecraft:a
+R 11
+A 0-11 minecraft:entity_type|minecraft:a
+E ok
+S 0-11 8 730787555 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft:an
+R 12
+A 0-12 minecraft:entity_type|minecraft:an
+E ok
+S -2--2 0 0 
+@ all minecraft:anc
+R 13
+A 0-13 minecraft:entity_type|minecraft:anc
+E ok
+S -2--2 0 0 
+@ all minecraft:anci
+R 14
+A 0-14 minecraft:entity_type|minecraft:anci
+E ok
+S -2--2 0 0 
+@ all minecraft:ancie
+R 15
+A 0-15 minecraft:entity_type|minecraft:ancie
+E ok
+S -2--2 0 0 
+@ all minecraft:ancien
+R 16
+A 0-16 minecraft:entity_type|minecraft:ancien
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient
+R 17
+A 0-17 minecraft:entity_type|minecraft:ancient
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 18
+A 0-18 minecraft:entity_type|minecraft:ancient_
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 19
+A 0-19 minecraft:entity_type|minecraft:ancient_c
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 20
+A 0-20 minecraft:entity_type|minecraft:ancient_ci
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 21
+A 0-21 minecraft:entity_type|minecraft:ancient_cit
+E ok
+S -2--2 0 0 
+@ all f
+R 1
+A 0-1 minecraft:entity_type|minecraft:f
+E ok
+S 0-1 13 996539157 minecraft:dragon_fireball	minecraft:evoker_fangs	minecraft:falling_block	minecraft:fireball	minecraft:firework_rocket	minecraft:fishing_bobber	minecraft:fox	minecraft:frog	minecraft:furnace_minecart	minecraft:glow_item_frame	minecraft:item_frame	minecraft:small_fireball	minecraft:tropical_fish
+@ all fo
+R 2
+A 0-2 minecraft:entity_type|minecraft:fo
+E ok
+S 0-2 1 -1006802233 minecraft:fox
+@ all foo
+R 3
+A 0-3 minecraft:entity_type|minecraft:foo
+E ok
+S -2--2 0 0 
+@ all foo:
+R 4
+A 0-4 minecraft:entity_type|foo:
+E ok
+S -2--2 0 0 
+@ all foo:b
+R 5
+A 0-5 minecraft:entity_type|foo:b
+E ok
+S -2--2 0 0 
+@ all foo:ba
+R 6
+A 0-6 minecraft:entity_type|foo:ba
+E ok
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-1 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZO
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-2 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZOM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-3 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZOMB
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-4 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all ZOMBI
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-5 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:ar
+R 12
+A 0-12 minecraft:entity_type|minecraft:ar
+E ok
+S 0-12 4 -1429774469 minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow
+@ all minecraft:arm
+R 13
+A 0-13 minecraft:entity_type|minecraft:arm
+E ok
+S 0-13 2 -211381615 minecraft:armadillo	minecraft:armor_stand
+@ all minecraft:armo
+R 14
+A 0-14 minecraft:entity_type|minecraft:armo
+E ok
+S 0-14 1 -386163040 minecraft:armor_stand
+@ all minecraft:ma
+R 12
+A 0-12 minecraft:entity_type|minecraft:ma
+E ok
+S 0-12 5 -645145387 minecraft:magma_cube	minecraft:mangrove_boat	minecraft:mangrove_chest_boat	minecraft:mannequin	minecraft:marker
+@ all minecraft:max
+R 13
+A 0-13 minecraft:entity_type|minecraft:max
+E ok
+S -2--2 0 0 
+@ all minecraft:max_
+R 14
+A 0-14 minecraft:entity_type|minecraft:max_
+E ok
+S -2--2 0 0 
+@ all minecraft:max_h
+R 15
+A 0-15 minecraft:entity_type|minecraft:max_h
+E ok
+S -2--2 0 0 
+@ all minecraft:max_he
+R 16
+A 0-16 minecraft:entity_type|minecraft:max_he
+E ok
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 17
+A 0-17 minecraft:entity_type|minecraft:max_hea
+E ok
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 18
+A 0-18 minecraft:entity_type|minecraft:max_heal
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 19
+A 0-19 minecraft:entity_type|minecraft:max_healt
+E ok
+S -2--2 0 0 
+@ all minecraft:g
+R 11
+A 0-11 minecraft:entity_type|minecraft:g
+E ok
+S 0-11 6 1588277245 minecraft:ghast	minecraft:giant	minecraft:glow_item_frame	minecraft:glow_squid	minecraft:goat	minecraft:guardian
+@ all minecraft:ge
+R 12
+A 0-12 minecraft:entity_type|minecraft:ge
+E ok
+S -2--2 0 0 
+@ all minecraft:gen
+R 13
+A 0-13 minecraft:entity_type|minecraft:gen
+E ok
+S -2--2 0 0 
+@ all minecraft:gene
+R 14
+A 0-14 minecraft:entity_type|minecraft:gene
+E ok
+S -2--2 0 0 
+@ all minecraft:gener
+R 15
+A 0-15 minecraft:entity_type|minecraft:gener
+E ok
+S -2--2 0 0 
+@ all minecraft:generi
+R 16
+A 0-16 minecraft:entity_type|minecraft:generi
+E ok
+S -2--2 0 0 
+@ all minecraft:generic
+R 17
+A 0-17 minecraft:entity_type|minecraft:generic
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.
+R 18
+A 0-18 minecraft:entity_type|minecraft:generic.
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 19
+A 0-19 minecraft:entity_type|minecraft:generic.m
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 20
+A 0-20 minecraft:entity_type|minecraft:generic.ma
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 21
+A 0-21 minecraft:entity_type|minecraft:generic.max
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 22
+A 0-22 minecraft:entity_type|minecraft:generic.max_
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 23
+A 0-23 minecraft:entity_type|minecraft:generic.max_h
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 24
+A 0-24 minecraft:entity_type|minecraft:generic.max_he
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 25
+A 0-25 minecraft:entity_type|minecraft:generic.max_hea
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 26
+A 0-26 minecraft:entity_type|minecraft:generic.max_heal
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 27
+A 0-27 minecraft:entity_type|minecraft:generic.max_healt
+E ok
+S -2--2 0 0 
+@ all minec8aft:sharpness
+R 19
+A 0-19 minecraft:entity_type|minec8aft:sharpness
+E ok
+S -2--2 0 0 
+@ all ZOMBIEEZ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mİnecrİaft:armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraf:forune
+R 15
+A 0-15 minecraft:entity_type|minecraf:forune
+E ok
+S -2--2 0 0 
+@ all minecraft:zombiete
+R 18
+A 0-18 minecraft:entity_type|minecraft:zombiete
+E ok
+S -2--2 0 0 
+@ all minecraft:zombieb
+R 17
+A 0-17 minecraft:entity_type|minecraft:zombieb
+E ok
+S -2--2 0 0 
+@ all minecraft:noper
+R 15
+A 0-15 minecraft:entity_type|minecraft:noper
+E ok
+S -2--2 0 0 
+@ all minecraft:zombi2em
+R 18
+A 0-18 minecraft:entity_type|minecraft:zombi2em
+E ok
+S -2--2 0 0 
+@ all #+minecrat:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombiez
+R 17
+A 0-17 minecraft:entity_type|minecraft:zombiez
+E ok
+S -2--2 0 0 
+@ all minecr6aft:player
+R 17
+A 0-17 minecraft:entity_type|minecr6aft:player
+E ok
+S -2--2 0 0 
+@ all minecraf\\t:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all f0o:ba3
+R 7
+A 0-7 minecraft:entity_type|f0o:ba3
+E ok
+S -2--2 0 0 
+@ all miecraft:village_plains
+R 23
+A 0-23 minecraft:entity_type|miecraft:village_plains
+E ok
+S -2--2 0 0 
+@ all skeletons
+R 9
+A 0-9 minecraft:entity_type|minecraft:skeletons
+E ok
+S -2--2 0 0 
+@ all ineshft
+R 7
+A 0-7 minecraft:entity_type|minecraft:ineshft
+E ok
+S -2--2 0 0 
+@ all miecraft:fortune
+R 16
+A 0-16 minecraft:entity_type|miecraft:fortune
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeletonse
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:max_heath
+R 19
+A 0-19 minecraft:entity_type|minecraft:max_heath
+E ok
+S -2--2 0 0 
+@ all minecraft:playerr
+R 17
+A 0-17 minecraft:entity_type|minecraft:playerr
+E ok
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ss
+R 2
+A 0-2 minecraft:entity_type|minecraft:ss
+E ok
+S -2--2 0 0 
+@ all min7craft:speedd
+R 16
+A 0-16 minecraft:entity_type|min7craft:speedd
+E ok
+S -2--2 0 0 
+@ all min￿ecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all mine>raftA
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:mineshafta
+R 20
+A 0-20 minecraft:entity_type|minecraft:mineshafta
+E ok
+S -2--2 0 0 
+@ all mi2ecraftfancient_city
+R 22
+A 0-22 minecraft:entity_type|minecraft:mi2ecraftfancient_city
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healthr
+R 21
+A 0-21 minecraft:entity_type|minecraft:max_healthr
+E ok
+S -2--2 0 0 
+@ all #minecraft:s!keletonsf
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-1 31 -2124312621 minecraft:acacia_chest_boat	minecraft:area_effect_cloud	minecraft:bamboo_chest_raft	minecraft:birch_chest_boat	minecraft:breeze_wind_charge	minecraft:camel	minecraft:camel_husk	minecraft:cat	minecraft:cave_spider	minecraft:cherry_boat	minecraft:cherry_chest_boat	minecraft:chest_minecart	minecraft:chicken	minecraft:cod	minecraft:command_block_minecart	minecraft:copper_golem	minecraft:cow	minecraft:creaking	minecraft:creeper	minecraft:cushion	minecraft:dark_oak_chest_boat	minecraft:end_crystal	minecraft:jungle_chest_boat	minecraft:magma_cube	minecraft:mangrove_chest_boat	minecraft:oak_chest_boat	minecraft:pale_oak_chest_boat	minecraft:poplar_chest_boat	minecraft:spruce_chest_boat	minecraft:sulfur_cube	minecraft:wind_charge
+@ all minecraft:generic.max_healtr
+R 28
+A 0-28 minecraft:entity_type|minecraft:generic.max_healtr
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cityi
+R 23
+A 0-23 minecraft:entity_type|minecraft:ancient_cityi
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnesİ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 20: ...t:sharpnes<--[HERE]@18
+E Expected whitespace to end one argument, but found trailing data at position 20: ...t:sharpnes<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:village_plZains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 22: ...village_pl<--[HERE]@20
+E Expected whitespace to end one argument, but found trailing data at position 22: ...village_pl<--[HERE]@20
+S -2--2 0 0 
+@ all #}mXinecraft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:m+x_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:m<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:m<--[HERE]@11
+S -2--2 0 0 
+@ all minec2aft:-armor
+R 16
+A 0-16 minecraft:entity_type|minec2aft:-armor
+E ok
+S -2--2 0 0 
+@ all minecreaft:8ortune
+R 18
+A 0-18 minecraft:entity_type|minecreaft:8ortune
+E ok
+S -2--2 0 0 
+@ all minecraf~t:max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all ##inecraf,:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft!
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minec}aft:player
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all zo😀mbie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all ombe
+R 4
+A 0-4 minecraft:entity_type|minecraft:ombe
+E ok
+S -2--2 0 0 
+@ all minecraft:pla6yer
+R 17
+A 0-17 minecraft:entity_type|minecraft:pla6yer
+E ok
+S -2--2 0 0 
+@ all minecraft:sxharpness
+R 20
+A 0-20 minecraft:entity_type|minecraft:sxharpness
+E ok
+S -2--2 0 0 
+@ all ee
+R 2
+A 0-2 minecraft:entity_type|minecraft:ee
+E ok
+S -2--2 0 0 
+@ all minecraft<player
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all oo:barb
+R 7
+A 0-7 minecraft:entity_type|oo:barb
+E ok
+S -2--2 0 0 
+@ all minecraft:ma~_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:ma<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:ma<--[HERE]@12
+S -2--2 0 0 
+@ all mine4craft:speed
+R 16
+A 0-16 minecraft:entity_type|mine4craft:speed
+E ok
+S -2--2 0 0 
+@ all e
+R 1
+A 0-1 minecraft:entity_type|minecraft:e
+E ok
+S 0-1 13 -689624011 minecraft:area_effect_cloud	minecraft:egg	minecraft:elder_guardian	minecraft:end_crystal	minecraft:ender_dragon	minecraft:ender_pearl	minecraft:enderman	minecraft:endermite	minecraft:evoker	minecraft:evoker_fangs	minecraft:experience_bottle	minecraft:experience_orb	minecraft:eye_of_ender
+@ all minecraft:nopee
+R 15
+A 0-15 minecraft:entity_type|minecraft:nopee
+E ok
+S -2--2 0 0 
+@ all minecraft:ancßent_citym
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:anc<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:anc<--[HERE]@13
+S -2--2 0 0 
+@ all #minec>raft:nopen
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ancient_citA
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 23: ...ncient_cit<--[HERE]@21
+E Expected whitespace to end one argument, but found trailing data at position 23: ...ncient_cit<--[HERE]@21
+S -2--2 0 0 
+@ all minecAraft:spee~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all minecraftn
+R 10
+A 0-10 minecraft:entity_type|minecraft:minecraftn
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_he&lth
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 26: ...ric.max_he<--[HERE]@24
+E Expected whitespace to end one argument, but found trailing data at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all ft:t
+R 4
+A 0-4 minecraft:entity_type|ft:t
+E ok
+S -2--2 0 0 
+@ all minecraf:
+R 9
+A 0-9 minecraft:entity_type|minecraf:
+E ok
+S -2--2 0 0 
+@ all pe
+R 2
+A 0-2 minecraft:entity_type|minecraft:pe
+E ok
+S 0-2 1 1291599495 minecraft:ender_pearl
+@ all harpness
+R 8
+A 0-8 minecraft:entity_type|minecraft:harpness
+E ok
+S -2--2 0 0 
+@ all a
+R 1
+A 0-1 minecraft:entity_type|minecraft:a
+E ok
+S 0-1 9 1444062987 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl	minecraft:spectral_arrow
+@ all eneri.max_health
+R 16
+A 0-16 minecraft:entity_type|minecraft:eneri.max_health
+E ok
+S -2--2 0 0 
+@ all t:minesßaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t t:mines<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t t:mines<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all or
+R 2
+A 0-2 minecraft:entity_type|minecraft:or
+E ok
+S 0-2 1 78455538 minecraft:experience_orb
+@ all ncient_city
+R 11
+A 0-11 minecraft:entity_type|minecraft:ncient_city
+E ok
+S -2--2 0 0 
+@ all minecraft:nopemi
+R 16
+A 0-16 minecraft:entity_type|minecraft:nopemi
+E ok
+S -2--2 0 0 
+@ all minecraft:fortu\u0000ne
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:fortu<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:fortu<--[HERE]@15
+S -2--2 0 0 
+@ all inecraft:nope
+R 13
+A 0-13 minecraft:entity_type|inecraft:nope
+E ok
+S -2--2 0 0 
+@ all minecraf6:speed
+R 15
+A 0-15 minecraft:entity_type|minecraf6:speed
+E ok
+S -2--2 0 0 
+@ all althc
+R 5
+A 0-5 minecraft:entity_type|minecraft:althc
+E ok
+S -2--2 0 0 
+@ all minecraft:playera
+R 17
+A 0-17 minecraft:entity_type|minecraft:playera
+E ok
+S -2--2 0 0 
+@ all rtunet
+R 6
+A 0-6 minecraft:entity_type|minecraft:rtunet
+E ok
+S -2--2 0 0 
+@ all ZOMBIEOI
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraftzombiem
+R 16
+A 0-16 minecraft:entity_type|minecraft:minecraftzombiem
+E ok
+S -2--2 0 0 
+@ all z)ombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :speed
+R 6
+A 0-6 minecraft:entity_type|minecraft:speed
+E ok
+S -2--2 0 0 
+@ all raXft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ra<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ra<--[HERE]@2
+S -2--2 0 0 
+@ all mi😀ecraft:zombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecr😀ft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all keletons
+R 8
+A 0-8 minecraft:entity_type|minecraft:keletons
+E ok
+S -2--2 0 0 
+@ all zombiee
+R 7
+A 0-7 minecraft:entity_type|minecraft:zombiee
+E ok
+S -2--2 0 0 
+@ all minecraft:sharne-s
+R 18
+A 0-18 minecraft:entity_type|minecraft:sharne-s
+E ok
+S -2--2 0 0 
+@ all inecraft:shrpness
+R 17
+A 0-17 minecraft:entity_type|inecraft:shrpness
+E ok
+S -2--2 0 0 
+@ all minecraft:speedf
+R 16
+A 0-16 minecraft:entity_type|minecraft:speedf
+E ok
+S -2--2 0 0 
+@ all mi~necraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all zombiem
+R 7
+A 0-7 minecraft:entity_type|minecraft:zombiem
+E ok
+S -2--2 0 0 
+@ all minecraft:frtune
+R 16
+A 0-16 minecraft:entity_type|minecraft:frtune
+E ok
+S -2--2 0 0 
+@ all aft:zombie
+R 10
+A 0-10 minecraft:entity_type|aft:zombie
+E ok
+S -2--2 0 0 
+@ all necraft:armor
+R 13
+A 0-13 minecraft:entity_type|necraft:armor
+E ok
+S -2--2 0 0 
+@ all mnecraft:mineshaftt
+R 19
+A 0-19 minecraft:entity_type|mnecraft:mineshaftt
+E ok
+S -2--2 0 0 
+@ all e_plainsa
+R 9
+A 0-9 minecraft:entity_type|minecraft:e_plainsa
+E ok
+S -2--2 0 0 
+@ all minecraf':max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:fo￿tune
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:fo<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:fo<--[HERE]@12
+S -2--2 0 0 
+@ all raft:village_p)ains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...:village_p<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...:village_p<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:3zombiei
+R 18
+A 0-18 minecraft:entity_type|minecraft:3zombiei
+E ok
+S -2--2 0 0 
+@ all Z&OMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all raft:fort)ne
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... raft:fort<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... raft:fort<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft,:fortune
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all mine}craft:player:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:minedshaftc
+R 21
+A 0-21 minecraft:entity_type|minecraft:minedshaftc
+E ok
+S -2--2 0 0 
+@ all ft:fortune
+R 10
+A 0-10 minecraft:entity_type|ft:fortune
+E ok
+S -2--2 0 0 
+@ all minecra%t:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all nopZ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t nop<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t nop<--[HERE]@3
+S -2--2 0 0 
+@ all necraft:max_health
+R 18
+A 0-18 minecraft:entity_type|necraft:max_health
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cityr
+R 23
+A 0-23 minecraft:entity_type|minecraft:ancient_cityr
+E ok
+S -2--2 0 0 
+@ all minecra5t:
+R 10
+A 0-10 minecraft:entity_type|minecra5t:
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healthah
+R 30
+A 0-30 minecraft:entity_type|minecraft:generic.max_healthah
+E ok
+S -2--2 0 0 
+@ all minecraft:spee2dt
+R 17
+A 0-17 minecraft:entity_type|minecraft:spee2dt
+E ok
+S -2--2 0 0 
+@ all cityy
+R 5
+A 0-5 minecraft:entity_type|minecraft:cityy
+E ok
+S -2--2 0 0 
+@ all :barr
+R 5
+A 0-5 minecraft:entity_type|minecraft:barr
+E ok
+S -2--2 0 0 
+@ all craft:zombie
+R 12
+A 0-12 minecraft:entity_type|craft:zombie
+E ok
+S -2--2 0 0 
+@ all #minecraft9:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 7
+R 1
+A 0-1 minecraft:entity_type|minecraft:7
+E ok
+S -2--2 0 0 
+@ all foo:2ar
+R 7
+A 0-7 minecraft:entity_type|foo:2ar
+E ok
+S -2--2 0 0 
+@ all necraftxmax_health
+R 18
+A 0-18 minecraft:entity_type|minecraft:necraftxmax_health
+E ok
+S -2--2 0 0 
+@ all p<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t p<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all o:baro
+R 6
+A 0-6 minecraft:entity_type|o:baro
+E ok
+S -2--2 0 0 
+@ all t:sharpness
+R 11
+A 0-11 minecraft:entity_type|t:sharpness
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeleto$s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:playe￿
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:playe<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:playe<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:village3_plains
+R 25
+A 0-25 minecraft:entity_type|minecraft:village3_plains
+E ok
+S -2--2 0 0 
+@ all minecr\u0000aft:armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all eletons
+R 7
+A 0-7 minecraft:entity_type|minecraft:eletons
+E ok
+S -2--2 0 0 
+@ all t:ar=or
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t t:ar<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t t:ar<--[HERE]@4
+S -2--2 0 0 
+@ all minfcraft:armor
+R 15
+A 0-15 minecraft:entity_type|minfcraft:armor
+E ok
+S -2--2 0 0 
+@ all min<ecraft:peed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraft:skeleto'nsn
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrCft:zombiei
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all i5ecraft:
+R 9
+A 0-9 minecraft:entity_type|i5ecraft:
+E ok
+S -2--2 0 0 
+@ all minecrat:mineshafti
+R 19
+A 0-19 minecraft:entity_type|minecrat:mineshafti
+E ok
+S -2--2 0 0 
+@ all mi)ecraft:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all ecraft:village_plains_
+R 22
+A 0-22 minecraft:entity_type|ecraft:village_plains_
+E ok
+S -2--2 0 0 
+@ all #minec{raft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:ar
+R 6
+A 0-6 minecraft:entity_type|foo:ar
+E ok
+S -2--2 0 0 
+@ all :inecraft
+R 9
+A 0-9 minecraft:entity_type|minecraft:inecraft
+E ok
+S -2--2 0 0 
+@ all :
+R 1
+A 0-1 minecraft:entity_type|minecraft:
+E ok
+S -2--2 0 0 
+@ all minecraft:village_p4ains
+R 24
+A 0-24 minecraft:entity_type|minecraft:village_p4ains
+E ok
+S -2--2 0 0 
+@ all #minecraft:nop))
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:İspeed:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all raft:speed
+R 10
+A 0-10 minecraft:entity_type|raft:speed
+E ok
+S -2--2 0 0 
+@ all minecraft:^ncient_city
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all bi}
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t bi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t bi<--[HERE]@2
+S -2--2 0 0 
+@ all mi[necraft:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all mnecraft:nop
+R 12
+A 0-12 minecraft:entity_type|mnecraft:nop
+E ok
+S -2--2 0 0 
+@ all minecraft:minbshafti
+R 20
+A 0-20 minecraft:entity_type|minecraft:minbshafti
+E ok
+S -2--2 0 0 
+@ all #minecaft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ynecraft:armor
+R 14
+A 0-14 minecraft:entity_type|ynecraft:armor
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.ma<_healthn
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 22: ...generic.ma<--[HERE]@20
+E Expected whitespace to end one argument, but found trailing data at position 22: ...generic.ma<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:playerl
+R 17
+A 0-17 minecraft:entity_type|minecraft:playerl
+E ok
+S -2--2 0 0 
+@ all minecraft:playrl
+R 16
+A 0-16 minecraft:entity_type|minecraft:playrl
+E ok
+S -2--2 0 0 
+@ all ecraft:generic.max_he$alth
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 23: ...ric.max_he<--[HERE]@21
+E Expected whitespace to end one argument, but found trailing data at position 23: ...ric.max_he<--[HERE]@21
+S -2--2 0 0 
+@ all crft:nope
+R 9
+A 0-9 minecraft:entity_type|crft:nope
+E ok
+S -2--2 0 0 
+@ all )oo:bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f~oo@:bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all mine/craft:armor
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:playef
+R 16
+A 0-16 minecraft:entity_type|minecraft:playef
+E ok
+S -2--2 0 0 
+@ all I
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-1 8 818557733 minecraft:glow_item_frame	minecraft:illusioner	minecraft:interaction	minecraft:iron_golem	minecraft:item	minecraft:item_display	minecraft:item_frame	minecraft:ominous_item_spawner
+@ all minecraft:mineshaftt
+R 20
+A 0-20 minecraft:entity_type|minecraft:mineshaftt
+E ok
+S -2--2 0 0 
+@ all minecraft:fortuneu
+R 18
+A 0-18 minecraft:entity_type|minecraft:fortuneu
+E ok
+S -2--2 0 0 
+@ all mAnecraft:sharpness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 

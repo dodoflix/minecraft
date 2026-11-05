@@ -1,0 +1,1918 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraft:zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:mob_effect' at position 18: ...aft:zombie<--[HERE]@16
+E Can't find element 'minecraft:zombie' of type 'minecraft:mob_effect' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all zombie
+R 0
+A -
+X Can't find element 'minecraft:zombie' of type 'minecraft:mob_effect' at position 8: t zombie<--[HERE]@6
+E Can't find element 'minecraft:zombie' of type 'minecraft:mob_effect' at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:player
+R 0
+A -
+X Can't find element 'minecraft:player' of type 'minecraft:mob_effect' at position 18: ...aft:player<--[HERE]@16
+E Can't find element 'minecraft:player' of type 'minecraft:mob_effect' at position 18: ...aft:player<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:mob_effect' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'minecraft:nope' of type 'minecraft:mob_effect' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all #minecraft:skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speed
+R 15
+A 0-15 minecraft:speed
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 0
+A -
+X Can't find element 'minecraft:sharpness' of type 'minecraft:mob_effect' at position 21: ...:sharpness<--[HERE]@19
+E Can't find element 'minecraft:sharpness' of type 'minecraft:mob_effect' at position 21: ...:sharpness<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:fortune
+R 0
+A -
+X Can't find element 'minecraft:fortune' of type 'minecraft:mob_effect' at position 19: ...ft:fortune<--[HERE]@17
+E Can't find element 'minecraft:fortune' of type 'minecraft:mob_effect' at position 19: ...ft:fortune<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 0
+A -
+X Can't find element 'minecraft:village_plains' of type 'minecraft:mob_effect' at position 26: ...age_plains<--[HERE]@24
+E Can't find element 'minecraft:village_plains' of type 'minecraft:mob_effect' at position 26: ...age_plains<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 0
+A -
+X Can't find element 'minecraft:mineshaft' of type 'minecraft:mob_effect' at position 21: ...:mineshaft<--[HERE]@19
+E Can't find element 'minecraft:mineshaft' of type 'minecraft:mob_effect' at position 21: ...:mineshaft<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:ancient_city' of type 'minecraft:mob_effect' at position 24: ...cient_city<--[HERE]@22
+E Can't find element 'minecraft:ancient_city' of type 'minecraft:mob_effect' at position 24: ...cient_city<--[HERE]@22
+S -2--2 0 0 
+@ all foo:bar
+R 0
+A -
+X Can't find element 'foo:bar' of type 'minecraft:mob_effect' at position 9: t foo:bar<--[HERE]@7
+E Can't find element 'foo:bar' of type 'minecraft:mob_effect' at position 9: t foo:bar<--[HERE]@7
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 0
+A -
+X Can't find element 'minecraft:armor' of type 'minecraft:mob_effect' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'minecraft:armor' of type 'minecraft:mob_effect' at position 17: ...raft:armor<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:max_health
+R 0
+A -
+X Can't find element 'minecraft:max_health' of type 'minecraft:mob_effect' at position 22: ...max_health<--[HERE]@20
+E Can't find element 'minecraft:max_health' of type 'minecraft:mob_effect' at position 22: ...max_health<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 0
+A -
+X Can't find element 'minecraft:generic.max_health' of type 'minecraft:mob_effect' at position 30: ...max_health<--[HERE]@28
+E Can't find element 'minecraft:generic.max_health' of type 'minecraft:mob_effect' at position 30: ...max_health<--[HERE]@28
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S 0-1 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:mob_effect' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:mob_effect' at position 4: t mi<--[HERE]@2
+S 0-2 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S 0-3 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:mob_effect' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:mob_effect' at position 6: t mine<--[HERE]@4
+S 0-4 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+S 0-5 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+S 0-6 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:mob_effect' at position 9: t minecra<--[HERE]@7
+S 0-7 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+S 0-8 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:mob_effect' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:mob_effect' at position 11: ... minecraft<--[HERE]@9
+S 0-9 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraft:z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:mob_effect' at position 13: ...inecraft:z<--[HERE]@11
+E Can't find element 'minecraft:z' of type 'minecraft:mob_effect' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:mob_effect' at position 14: ...necraft:zo<--[HERE]@12
+E Can't find element 'minecraft:zo' of type 'minecraft:mob_effect' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:mob_effect' at position 15: ...ecraft:zom<--[HERE]@13
+E Can't find element 'minecraft:zom' of type 'minecraft:mob_effect' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:mob_effect' at position 16: ...craft:zomb<--[HERE]@14
+E Can't find element 'minecraft:zomb' of type 'minecraft:mob_effect' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:mob_effect' at position 17: ...raft:zombi<--[HERE]@15
+E Can't find element 'minecraft:zombi' of type 'minecraft:mob_effect' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:mob_effect' at position 3: t z<--[HERE]@1
+E Can't find element 'minecraft:z' of type 'minecraft:mob_effect' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all zo
+R 0
+A -
+X Can't find element 'minecraft:zo' of type 'minecraft:mob_effect' at position 4: t zo<--[HERE]@2
+E Can't find element 'minecraft:zo' of type 'minecraft:mob_effect' at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all zom
+R 0
+A -
+X Can't find element 'minecraft:zom' of type 'minecraft:mob_effect' at position 5: t zom<--[HERE]@3
+E Can't find element 'minecraft:zom' of type 'minecraft:mob_effect' at position 5: t zom<--[HERE]@3
+S -2--2 0 0 
+@ all zomb
+R 0
+A -
+X Can't find element 'minecraft:zomb' of type 'minecraft:mob_effect' at position 6: t zomb<--[HERE]@4
+E Can't find element 'minecraft:zomb' of type 'minecraft:mob_effect' at position 6: t zomb<--[HERE]@4
+S -2--2 0 0 
+@ all zombi
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:mob_effect' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:mob_effect' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:p
+R 0
+A -
+X Can't find element 'minecraft:p' of type 'minecraft:mob_effect' at position 13: ...inecraft:p<--[HERE]@11
+E Can't find element 'minecraft:p' of type 'minecraft:mob_effect' at position 13: ...inecraft:p<--[HERE]@11
+S 0-11 1 -1614177996 minecraft:poison
+@ all minecraft:pl
+R 0
+A -
+X Can't find element 'minecraft:pl' of type 'minecraft:mob_effect' at position 14: ...necraft:pl<--[HERE]@12
+E Can't find element 'minecraft:pl' of type 'minecraft:mob_effect' at position 14: ...necraft:pl<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:pla
+R 0
+A -
+X Can't find element 'minecraft:pla' of type 'minecraft:mob_effect' at position 15: ...ecraft:pla<--[HERE]@13
+E Can't find element 'minecraft:pla' of type 'minecraft:mob_effect' at position 15: ...ecraft:pla<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:play
+R 0
+A -
+X Can't find element 'minecraft:play' of type 'minecraft:mob_effect' at position 16: ...craft:play<--[HERE]@14
+E Can't find element 'minecraft:play' of type 'minecraft:mob_effect' at position 16: ...craft:play<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:playe
+R 0
+A -
+X Can't find element 'minecraft:playe' of type 'minecraft:mob_effect' at position 17: ...raft:playe<--[HERE]@15
+E Can't find element 'minecraft:playe' of type 'minecraft:mob_effect' at position 17: ...raft:playe<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:n' of type 'minecraft:mob_effect' at position 13: ...inecraft:n<--[HERE]@11
+E Can't find element 'minecraft:n' of type 'minecraft:mob_effect' at position 13: ...inecraft:n<--[HERE]@11
+S 0-11 2 -1578963170 minecraft:nausea	minecraft:night_vision
+@ all minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:mob_effect' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:mob_effect' at position 14: ...necraft:no<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:mob_effect' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:mob_effect' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:mob_effect' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:mob_effect' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 5 -2158991 minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength
+@ all minecraft:sp
+R 0
+A -
+X Can't find element 'minecraft:sp' of type 'minecraft:mob_effect' at position 14: ...necraft:sp<--[HERE]@12
+E Can't find element 'minecraft:sp' of type 'minecraft:mob_effect' at position 14: ...necraft:sp<--[HERE]@12
+S 0-12 1 -796676337 minecraft:speed
+@ all minecraft:spe
+R 0
+A -
+X Can't find element 'minecraft:spe' of type 'minecraft:mob_effect' at position 15: ...ecraft:spe<--[HERE]@13
+E Can't find element 'minecraft:spe' of type 'minecraft:mob_effect' at position 15: ...ecraft:spe<--[HERE]@13
+S 0-13 1 -796676337 minecraft:speed
+@ all minecraft:spee
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:mob_effect' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:mob_effect' at position 16: ...craft:spee<--[HERE]@14
+S 0-14 1 -796676337 minecraft:speed
+@ all minecraft:sh
+R 0
+A -
+X Can't find element 'minecraft:sh' of type 'minecraft:mob_effect' at position 14: ...necraft:sh<--[HERE]@12
+E Can't find element 'minecraft:sh' of type 'minecraft:mob_effect' at position 14: ...necraft:sh<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:sha
+R 0
+A -
+X Can't find element 'minecraft:sha' of type 'minecraft:mob_effect' at position 15: ...ecraft:sha<--[HERE]@13
+E Can't find element 'minecraft:sha' of type 'minecraft:mob_effect' at position 15: ...ecraft:sha<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:shar
+R 0
+A -
+X Can't find element 'minecraft:shar' of type 'minecraft:mob_effect' at position 16: ...craft:shar<--[HERE]@14
+E Can't find element 'minecraft:shar' of type 'minecraft:mob_effect' at position 16: ...craft:shar<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:sharp
+R 0
+A -
+X Can't find element 'minecraft:sharp' of type 'minecraft:mob_effect' at position 17: ...raft:sharp<--[HERE]@15
+E Can't find element 'minecraft:sharp' of type 'minecraft:mob_effect' at position 17: ...raft:sharp<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 0
+A -
+X Can't find element 'minecraft:sharpn' of type 'minecraft:mob_effect' at position 18: ...aft:sharpn<--[HERE]@16
+E Can't find element 'minecraft:sharpn' of type 'minecraft:mob_effect' at position 18: ...aft:sharpn<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 0
+A -
+X Can't find element 'minecraft:sharpne' of type 'minecraft:mob_effect' at position 19: ...ft:sharpne<--[HERE]@17
+E Can't find element 'minecraft:sharpne' of type 'minecraft:mob_effect' at position 19: ...ft:sharpne<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 0
+A -
+X Can't find element 'minecraft:sharpnes' of type 'minecraft:mob_effect' at position 20: ...t:sharpnes<--[HERE]@18
+E Can't find element 'minecraft:sharpnes' of type 'minecraft:mob_effect' at position 20: ...t:sharpnes<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:mob_effect' at position 13: ...inecraft:f<--[HERE]@11
+E Can't find element 'minecraft:f' of type 'minecraft:mob_effect' at position 13: ...inecraft:f<--[HERE]@11
+S 0-11 1 -125328236 minecraft:fire_resistance
+@ all minecraft:fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:mob_effect' at position 14: ...necraft:fo<--[HERE]@12
+E Can't find element 'minecraft:fo' of type 'minecraft:mob_effect' at position 14: ...necraft:fo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:for
+R 0
+A -
+X Can't find element 'minecraft:for' of type 'minecraft:mob_effect' at position 15: ...ecraft:for<--[HERE]@13
+E Can't find element 'minecraft:for' of type 'minecraft:mob_effect' at position 15: ...ecraft:for<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:fort
+R 0
+A -
+X Can't find element 'minecraft:fort' of type 'minecraft:mob_effect' at position 16: ...craft:fort<--[HERE]@14
+E Can't find element 'minecraft:fort' of type 'minecraft:mob_effect' at position 16: ...craft:fort<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:fortu
+R 0
+A -
+X Can't find element 'minecraft:fortu' of type 'minecraft:mob_effect' at position 17: ...raft:fortu<--[HERE]@15
+E Can't find element 'minecraft:fortu' of type 'minecraft:mob_effect' at position 17: ...raft:fortu<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:fortun
+R 0
+A -
+X Can't find element 'minecraft:fortun' of type 'minecraft:mob_effect' at position 18: ...aft:fortun<--[HERE]@16
+E Can't find element 'minecraft:fortun' of type 'minecraft:mob_effect' at position 18: ...aft:fortun<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:v
+R 0
+A -
+X Can't find element 'minecraft:v' of type 'minecraft:mob_effect' at position 13: ...inecraft:v<--[HERE]@11
+E Can't find element 'minecraft:v' of type 'minecraft:mob_effect' at position 13: ...inecraft:v<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:vi
+R 0
+A -
+X Can't find element 'minecraft:vi' of type 'minecraft:mob_effect' at position 14: ...necraft:vi<--[HERE]@12
+E Can't find element 'minecraft:vi' of type 'minecraft:mob_effect' at position 14: ...necraft:vi<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:vil
+R 0
+A -
+X Can't find element 'minecraft:vil' of type 'minecraft:mob_effect' at position 15: ...ecraft:vil<--[HERE]@13
+E Can't find element 'minecraft:vil' of type 'minecraft:mob_effect' at position 15: ...ecraft:vil<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:vill
+R 0
+A -
+X Can't find element 'minecraft:vill' of type 'minecraft:mob_effect' at position 16: ...craft:vill<--[HERE]@14
+E Can't find element 'minecraft:vill' of type 'minecraft:mob_effect' at position 16: ...craft:vill<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:villa
+R 0
+A -
+X Can't find element 'minecraft:villa' of type 'minecraft:mob_effect' at position 17: ...raft:villa<--[HERE]@15
+E Can't find element 'minecraft:villa' of type 'minecraft:mob_effect' at position 17: ...raft:villa<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:villag
+R 0
+A -
+X Can't find element 'minecraft:villag' of type 'minecraft:mob_effect' at position 18: ...aft:villag<--[HERE]@16
+E Can't find element 'minecraft:villag' of type 'minecraft:mob_effect' at position 18: ...aft:villag<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:village
+R 0
+A -
+X Can't find element 'minecraft:village' of type 'minecraft:mob_effect' at position 19: ...ft:village<--[HERE]@17
+E Can't find element 'minecraft:village' of type 'minecraft:mob_effect' at position 19: ...ft:village<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:village_
+R 0
+A -
+X Can't find element 'minecraft:village_' of type 'minecraft:mob_effect' at position 20: ...t:village_<--[HERE]@18
+E Can't find element 'minecraft:village_' of type 'minecraft:mob_effect' at position 20: ...t:village_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:village_p
+R 0
+A -
+X Can't find element 'minecraft:village_p' of type 'minecraft:mob_effect' at position 21: ...:village_p<--[HERE]@19
+E Can't find element 'minecraft:village_p' of type 'minecraft:mob_effect' at position 21: ...:village_p<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 0
+A -
+X Can't find element 'minecraft:village_pl' of type 'minecraft:mob_effect' at position 22: ...village_pl<--[HERE]@20
+E Can't find element 'minecraft:village_pl' of type 'minecraft:mob_effect' at position 22: ...village_pl<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 0
+A -
+X Can't find element 'minecraft:village_pla' of type 'minecraft:mob_effect' at position 23: ...illage_pla<--[HERE]@21
+E Can't find element 'minecraft:village_pla' of type 'minecraft:mob_effect' at position 23: ...illage_pla<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 0
+A -
+X Can't find element 'minecraft:village_plai' of type 'minecraft:mob_effect' at position 24: ...llage_plai<--[HERE]@22
+E Can't find element 'minecraft:village_plai' of type 'minecraft:mob_effect' at position 24: ...llage_plai<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 0
+A -
+X Can't find element 'minecraft:village_plain' of type 'minecraft:mob_effect' at position 25: ...lage_plain<--[HERE]@23
+E Can't find element 'minecraft:village_plain' of type 'minecraft:mob_effect' at position 25: ...lage_plain<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 13: ...inecraft:m<--[HERE]@11
+E Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 13: ...inecraft:m<--[HERE]@11
+S 0-11 1 -1797911196 minecraft:mining_fatigue
+@ all minecraft:mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:mob_effect' at position 14: ...necraft:mi<--[HERE]@12
+E Can't find element 'minecraft:mi' of type 'minecraft:mob_effect' at position 14: ...necraft:mi<--[HERE]@12
+S 0-12 1 -1797911196 minecraft:mining_fatigue
+@ all minecraft:min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:mob_effect' at position 15: ...ecraft:min<--[HERE]@13
+E Can't find element 'minecraft:min' of type 'minecraft:mob_effect' at position 15: ...ecraft:min<--[HERE]@13
+S 0-13 1 -1797911196 minecraft:mining_fatigue
+@ all minecraft:mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:mob_effect' at position 16: ...craft:mine<--[HERE]@14
+E Can't find element 'minecraft:mine' of type 'minecraft:mob_effect' at position 16: ...craft:mine<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:mines
+R 0
+A -
+X Can't find element 'minecraft:mines' of type 'minecraft:mob_effect' at position 17: ...raft:mines<--[HERE]@15
+E Can't find element 'minecraft:mines' of type 'minecraft:mob_effect' at position 17: ...raft:mines<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:minesh
+R 0
+A -
+X Can't find element 'minecraft:minesh' of type 'minecraft:mob_effect' at position 18: ...aft:minesh<--[HERE]@16
+E Can't find element 'minecraft:minesh' of type 'minecraft:mob_effect' at position 18: ...aft:minesh<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:minesha
+R 0
+A -
+X Can't find element 'minecraft:minesha' of type 'minecraft:mob_effect' at position 19: ...ft:minesha<--[HERE]@17
+E Can't find element 'minecraft:minesha' of type 'minecraft:mob_effect' at position 19: ...ft:minesha<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 0
+A -
+X Can't find element 'minecraft:mineshaf' of type 'minecraft:mob_effect' at position 20: ...t:mineshaf<--[HERE]@18
+E Can't find element 'minecraft:mineshaf' of type 'minecraft:mob_effect' at position 20: ...t:mineshaf<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:mob_effect' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:mob_effect' at position 13: ...inecraft:a<--[HERE]@11
+S 0-11 1 -1268127539 minecraft:absorption
+@ all minecraft:an
+R 0
+A -
+X Can't find element 'minecraft:an' of type 'minecraft:mob_effect' at position 14: ...necraft:an<--[HERE]@12
+E Can't find element 'minecraft:an' of type 'minecraft:mob_effect' at position 14: ...necraft:an<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:anc
+R 0
+A -
+X Can't find element 'minecraft:anc' of type 'minecraft:mob_effect' at position 15: ...ecraft:anc<--[HERE]@13
+E Can't find element 'minecraft:anc' of type 'minecraft:mob_effect' at position 15: ...ecraft:anc<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:anci
+R 0
+A -
+X Can't find element 'minecraft:anci' of type 'minecraft:mob_effect' at position 16: ...craft:anci<--[HERE]@14
+E Can't find element 'minecraft:anci' of type 'minecraft:mob_effect' at position 16: ...craft:anci<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:ancie
+R 0
+A -
+X Can't find element 'minecraft:ancie' of type 'minecraft:mob_effect' at position 17: ...raft:ancie<--[HERE]@15
+E Can't find element 'minecraft:ancie' of type 'minecraft:mob_effect' at position 17: ...raft:ancie<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:ancien
+R 0
+A -
+X Can't find element 'minecraft:ancien' of type 'minecraft:mob_effect' at position 18: ...aft:ancien<--[HERE]@16
+E Can't find element 'minecraft:ancien' of type 'minecraft:mob_effect' at position 18: ...aft:ancien<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:ancient
+R 0
+A -
+X Can't find element 'minecraft:ancient' of type 'minecraft:mob_effect' at position 19: ...ft:ancient<--[HERE]@17
+E Can't find element 'minecraft:ancient' of type 'minecraft:mob_effect' at position 19: ...ft:ancient<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 0
+A -
+X Can't find element 'minecraft:ancient_' of type 'minecraft:mob_effect' at position 20: ...t:ancient_<--[HERE]@18
+E Can't find element 'minecraft:ancient_' of type 'minecraft:mob_effect' at position 20: ...t:ancient_<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 0
+A -
+X Can't find element 'minecraft:ancient_c' of type 'minecraft:mob_effect' at position 21: ...:ancient_c<--[HERE]@19
+E Can't find element 'minecraft:ancient_c' of type 'minecraft:mob_effect' at position 21: ...:ancient_c<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 0
+A -
+X Can't find element 'minecraft:ancient_ci' of type 'minecraft:mob_effect' at position 22: ...ancient_ci<--[HERE]@20
+E Can't find element 'minecraft:ancient_ci' of type 'minecraft:mob_effect' at position 22: ...ancient_ci<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 0
+A -
+X Can't find element 'minecraft:ancient_cit' of type 'minecraft:mob_effect' at position 23: ...ncient_cit<--[HERE]@21
+E Can't find element 'minecraft:ancient_cit' of type 'minecraft:mob_effect' at position 23: ...ncient_cit<--[HERE]@21
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:mob_effect' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:mob_effect' at position 3: t f<--[HERE]@1
+S 0-1 3 -1703705981 minecraft:fire_resistance	minecraft:mining_fatigue	minecraft:slow_falling
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:mob_effect' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:mob_effect' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X Can't find element 'foo:' of type 'minecraft:mob_effect' at position 6: t foo:<--[HERE]@4
+E Can't find element 'foo:' of type 'minecraft:mob_effect' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:b
+R 0
+A -
+X Can't find element 'foo:b' of type 'minecraft:mob_effect' at position 7: t foo:b<--[HERE]@5
+E Can't find element 'foo:b' of type 'minecraft:mob_effect' at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all foo:ba
+R 0
+A -
+X Can't find element 'foo:ba' of type 'minecraft:mob_effect' at position 8: t foo:ba<--[HERE]@6
+E Can't find element 'foo:ba' of type 'minecraft:mob_effect' at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 0
+A -
+X Can't find element 'minecraft:ar' of type 'minecraft:mob_effect' at position 14: ...necraft:ar<--[HERE]@12
+E Can't find element 'minecraft:ar' of type 'minecraft:mob_effect' at position 14: ...necraft:ar<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:arm
+R 0
+A -
+X Can't find element 'minecraft:arm' of type 'minecraft:mob_effect' at position 15: ...ecraft:arm<--[HERE]@13
+E Can't find element 'minecraft:arm' of type 'minecraft:mob_effect' at position 15: ...ecraft:arm<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:armo
+R 0
+A -
+X Can't find element 'minecraft:armo' of type 'minecraft:mob_effect' at position 16: ...craft:armo<--[HERE]@14
+E Can't find element 'minecraft:armo' of type 'minecraft:mob_effect' at position 16: ...craft:armo<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:ma
+R 0
+A -
+X Can't find element 'minecraft:ma' of type 'minecraft:mob_effect' at position 14: ...necraft:ma<--[HERE]@12
+E Can't find element 'minecraft:ma' of type 'minecraft:mob_effect' at position 14: ...necraft:ma<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:max
+R 0
+A -
+X Can't find element 'minecraft:max' of type 'minecraft:mob_effect' at position 15: ...ecraft:max<--[HERE]@13
+E Can't find element 'minecraft:max' of type 'minecraft:mob_effect' at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:max_
+R 0
+A -
+X Can't find element 'minecraft:max_' of type 'minecraft:mob_effect' at position 16: ...craft:max_<--[HERE]@14
+E Can't find element 'minecraft:max_' of type 'minecraft:mob_effect' at position 16: ...craft:max_<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:max_h
+R 0
+A -
+X Can't find element 'minecraft:max_h' of type 'minecraft:mob_effect' at position 17: ...raft:max_h<--[HERE]@15
+E Can't find element 'minecraft:max_h' of type 'minecraft:mob_effect' at position 17: ...raft:max_h<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:max_he
+R 0
+A -
+X Can't find element 'minecraft:max_he' of type 'minecraft:mob_effect' at position 18: ...aft:max_he<--[HERE]@16
+E Can't find element 'minecraft:max_he' of type 'minecraft:mob_effect' at position 18: ...aft:max_he<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 0
+A -
+X Can't find element 'minecraft:max_hea' of type 'minecraft:mob_effect' at position 19: ...ft:max_hea<--[HERE]@17
+E Can't find element 'minecraft:max_hea' of type 'minecraft:mob_effect' at position 19: ...ft:max_hea<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 0
+A -
+X Can't find element 'minecraft:max_heal' of type 'minecraft:mob_effect' at position 20: ...t:max_heal<--[HERE]@18
+E Can't find element 'minecraft:max_heal' of type 'minecraft:mob_effect' at position 20: ...t:max_heal<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 0
+A -
+X Can't find element 'minecraft:max_healt' of type 'minecraft:mob_effect' at position 21: ...:max_healt<--[HERE]@19
+E Can't find element 'minecraft:max_healt' of type 'minecraft:mob_effect' at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:g
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:mob_effect' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:mob_effect' at position 13: ...inecraft:g<--[HERE]@11
+S 0-11 1 507447969 minecraft:glowing
+@ all minecraft:ge
+R 0
+A -
+X Can't find element 'minecraft:ge' of type 'minecraft:mob_effect' at position 14: ...necraft:ge<--[HERE]@12
+E Can't find element 'minecraft:ge' of type 'minecraft:mob_effect' at position 14: ...necraft:ge<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:gen
+R 0
+A -
+X Can't find element 'minecraft:gen' of type 'minecraft:mob_effect' at position 15: ...ecraft:gen<--[HERE]@13
+E Can't find element 'minecraft:gen' of type 'minecraft:mob_effect' at position 15: ...ecraft:gen<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:gene
+R 0
+A -
+X Can't find element 'minecraft:gene' of type 'minecraft:mob_effect' at position 16: ...craft:gene<--[HERE]@14
+E Can't find element 'minecraft:gene' of type 'minecraft:mob_effect' at position 16: ...craft:gene<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:gener
+R 0
+A -
+X Can't find element 'minecraft:gener' of type 'minecraft:mob_effect' at position 17: ...raft:gener<--[HERE]@15
+E Can't find element 'minecraft:gener' of type 'minecraft:mob_effect' at position 17: ...raft:gener<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:generi
+R 0
+A -
+X Can't find element 'minecraft:generi' of type 'minecraft:mob_effect' at position 18: ...aft:generi<--[HERE]@16
+E Can't find element 'minecraft:generi' of type 'minecraft:mob_effect' at position 18: ...aft:generi<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:generic
+R 0
+A -
+X Can't find element 'minecraft:generic' of type 'minecraft:mob_effect' at position 19: ...ft:generic<--[HERE]@17
+E Can't find element 'minecraft:generic' of type 'minecraft:mob_effect' at position 19: ...ft:generic<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:generic.
+R 0
+A -
+X Can't find element 'minecraft:generic.' of type 'minecraft:mob_effect' at position 20: ...t:generic.<--[HERE]@18
+E Can't find element 'minecraft:generic.' of type 'minecraft:mob_effect' at position 20: ...t:generic.<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 0
+A -
+X Can't find element 'minecraft:generic.m' of type 'minecraft:mob_effect' at position 21: ...:generic.m<--[HERE]@19
+E Can't find element 'minecraft:generic.m' of type 'minecraft:mob_effect' at position 21: ...:generic.m<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 0
+A -
+X Can't find element 'minecraft:generic.ma' of type 'minecraft:mob_effect' at position 22: ...generic.ma<--[HERE]@20
+E Can't find element 'minecraft:generic.ma' of type 'minecraft:mob_effect' at position 22: ...generic.ma<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 0
+A -
+X Can't find element 'minecraft:generic.max' of type 'minecraft:mob_effect' at position 23: ...eneric.max<--[HERE]@21
+E Can't find element 'minecraft:generic.max' of type 'minecraft:mob_effect' at position 23: ...eneric.max<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 0
+A -
+X Can't find element 'minecraft:generic.max_' of type 'minecraft:mob_effect' at position 24: ...neric.max_<--[HERE]@22
+E Can't find element 'minecraft:generic.max_' of type 'minecraft:mob_effect' at position 24: ...neric.max_<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 0
+A -
+X Can't find element 'minecraft:generic.max_h' of type 'minecraft:mob_effect' at position 25: ...eric.max_h<--[HERE]@23
+E Can't find element 'minecraft:generic.max_h' of type 'minecraft:mob_effect' at position 25: ...eric.max_h<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 0
+A -
+X Can't find element 'minecraft:generic.max_he' of type 'minecraft:mob_effect' at position 26: ...ric.max_he<--[HERE]@24
+E Can't find element 'minecraft:generic.max_he' of type 'minecraft:mob_effect' at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 0
+A -
+X Can't find element 'minecraft:generic.max_hea' of type 'minecraft:mob_effect' at position 27: ...ic.max_hea<--[HERE]@25
+E Can't find element 'minecraft:generic.max_hea' of type 'minecraft:mob_effect' at position 27: ...ic.max_hea<--[HERE]@25
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 0
+A -
+X Can't find element 'minecraft:generic.max_heal' of type 'minecraft:mob_effect' at position 28: ...c.max_heal<--[HERE]@26
+E Can't find element 'minecraft:generic.max_heal' of type 'minecraft:mob_effect' at position 28: ...c.max_heal<--[HERE]@26
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healt' of type 'minecraft:mob_effect' at position 29: ....max_healt<--[HERE]@27
+E Can't find element 'minecraft:generic.max_healt' of type 'minecraft:mob_effect' at position 29: ....max_healt<--[HERE]@27
+S -2--2 0 0 
+@ all ZMBI\u000aE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ie
+R 0
+A -
+X Can't find element 'minecraft:ie' of type 'minecraft:mob_effect' at position 4: t ie<--[HERE]@2
+E Can't find element 'minecraft:ie' of type 'minecraft:mob_effect' at position 4: t ie<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:generic.max_xhealth
+R 0
+A -
+X Can't find element 'minecraft:generic.max_xhealth' of type 'minecraft:mob_effect' at position 31: ...ax_xhealth<--[HERE]@29
+E Can't find element 'minecraft:generic.max_xhealth' of type 'minecraft:mob_effect' at position 31: ...ax_xhealth<--[HERE]@29
+S -2--2 0 0 
+@ all minecraf5t:sha8pness
+R 0
+A -
+X Can't find element 'minecraf5t:sha8pness' of type 'minecraft:mob_effect' at position 22: ...:sha8pness<--[HERE]@20
+E Can't find element 'minecraf5t:sha8pness' of type 'minecraft:mob_effect' at position 22: ...:sha8pness<--[HERE]@20
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minycraft:max_healt^h
+R 0
+A -
+X Can't find element 'minycraft:max_healt' of type 'minecraft:mob_effect' at position 21: ...:max_healt<--[HERE]@19
+E Can't find element 'minycraft:max_healt' of type 'minecraft:mob_effect' at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:ancien_city
+R 0
+A -
+X Can't find element 'minecraft:ancien_city' of type 'minecraft:mob_effect' at position 23: ...ncien_city<--[HERE]@21
+E Can't find element 'minecraft:ancien_city' of type 'minecraft:mob_effect' at position 23: ...ncien_city<--[HERE]@21
+S -2--2 0 0 
+@ all mincra:t:armor
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all fzoo:b+ar
+R 0
+A -
+X Can't find element 'fzoo:b' of type 'minecraft:mob_effect' at position 8: t fzoo:b<--[HERE]@6
+E Can't find element 'fzoo:b' of type 'minecraft:mob_effect' at position 8: t fzoo:b<--[HERE]@6
+S -2--2 0 0 
+@ all miecraft:armoZ
+R 0
+A -
+X Can't find element 'miecraft:armo' of type 'minecraft:mob_effect' at position 15: ...craft:armo<--[HERE]@13
+E Can't find element 'miecraft:armo' of type 'minecraft:mob_effect' at position 15: ...craft:armo<--[HERE]@13
+S -2--2 0 0 
+@ all +er
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ecraft:zo9mbie
+R 0
+A -
+X Can't find element 'ecraft:zo9mbie' of type 'minecraft:mob_effect' at position 16: ...ft:zo9mbie<--[HERE]@14
+E Can't find element 'ecraft:zo9mbie' of type 'minecraft:mob_effect' at position 16: ...ft:zo9mbie<--[HERE]@14
+S -2--2 0 0 
+@ all mineraft:ancient_c>ity
+R 0
+A -
+X Can't find element 'mineraft:ancient_c' of type 'minecraft:mob_effect' at position 20: ...:ancient_c<--[HERE]@18
+E Can't find element 'mineraft:ancient_c' of type 'minecraft:mob_effect' at position 20: ...:ancient_c<--[HERE]@18
+S -2--2 0 0 
+@ all minecraf[:play]er
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:max_heal!
+R 0
+A -
+X Can't find element 'minecraft:max_heal' of type 'minecraft:mob_effect' at position 20: ...t:max_heal<--[HERE]@18
+E Can't find element 'minecraft:max_heal' of type 'minecraft:mob_effect' at position 20: ...t:max_heal<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:spee{
+R 0
+A -
+X Can't find element 'minecraft:spee' of type 'minecraft:mob_effect' at position 16: ...craft:spee<--[HERE]@14
+E Can't find element 'minecraft:spee' of type 'minecraft:mob_effect' at position 16: ...craft:spee<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:villege_plains
+R 0
+A -
+X Can't find element 'minecraft:villege_plains' of type 'minecraft:mob_effect' at position 26: ...ege_plains<--[HERE]@24
+E Can't find element 'minecraft:villege_plains' of type 'minecraft:mob_effect' at position 26: ...ege_plains<--[HERE]@24
+S -2--2 0 0 
+@ all #minecraft:skeleto~ns
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all )
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecrXft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:generic.m=x_health
+R 0
+A -
+X Can't find element 'minecraft:generic.m' of type 'minecraft:mob_effect' at position 21: ...:generic.m<--[HERE]@19
+E Can't find element 'minecraft:generic.m' of type 'minecraft:mob_effect' at position 21: ...:generic.m<--[HERE]@19
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:mob_effect' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:mob_effect' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all fxoo:ba5
+R 0
+A -
+X Can't find element 'fxoo:ba5' of type 'minecraft:mob_effect' at position 10: t fxoo:ba5<--[HERE]@8
+E Can't find element 'fxoo:ba5' of type 'minecraft:mob_effect' at position 10: t fxoo:ba5<--[HERE]@8
+S -2--2 0 0 
+@ all -foo:bar
+R 0
+A -
+X Can't find element '-foo:bar' of type 'minecraft:mob_effect' at position 10: t -foo:bar<--[HERE]@8
+E Can't find element '-foo:bar' of type 'minecraft:mob_effect' at position 10: t -foo:bar<--[HERE]@8
+S -2--2 0 0 
+@ all #minecrft:nopen
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecArft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mincraft:player
+R 0
+A -
+X Can't find element 'mincraft:player' of type 'minecraft:mob_effect' at position 17: ...aft:player<--[HERE]@15
+E Can't find element 'mincraft:player' of type 'minecraft:mob_effect' at position 17: ...aft:player<--[HERE]@15
+S -2--2 0 0 
+@ all :ancient_city
+R 0
+A -
+X Can't find element 'minecraft:ancient_city' of type 'minecraft:mob_effect' at position 15: ...cient_city<--[HERE]@13
+E Can't find element 'minecraft:ancient_city' of type 'minecraft:mob_effect' at position 15: ...cient_city<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:generic.ma}_health
+R 0
+A -
+X Can't find element 'minecraft:generic.ma' of type 'minecraft:mob_effect' at position 22: ...generic.ma<--[HERE]@20
+E Can't find element 'minecraft:generic.ma' of type 'minecraft:mob_effect' at position 22: ...generic.ma<--[HERE]@20
+S -2--2 0 0 
+@ all minecr^ft:
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:mob_effect' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all t:
+R 0
+A -
+X Can't find element 't:' of type 'minecraft:mob_effect' at position 4: t t:<--[HERE]@2
+E Can't find element 't:' of type 'minecraft:mob_effect' at position 4: t t:<--[HERE]@2
+S -2--2 0 0 
+@ all inecraft:
+R 0
+A -
+X Can't find element 'inecraft:' of type 'minecraft:mob_effect' at position 11: ... inecraft:<--[HERE]@9
+E Can't find element 'inecraft:' of type 'minecraft:mob_effect' at position 11: ... inecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:mineshaftt
+R 0
+A -
+X Can't find element 'minecraft:mineshaftt' of type 'minecraft:mob_effect' at position 22: ...mineshaftt<--[HERE]@20
+E Can't find element 'minecraft:mineshaftt' of type 'minecraft:mob_effect' at position 22: ...mineshaftt<--[HERE]@20
+S -2--2 0 0 
+@ all mineraft:playerm
+R 0
+A -
+X Can't find element 'mineraft:playerm' of type 'minecraft:mob_effect' at position 18: ...ft:playerm<--[HERE]@16
+E Can't find element 'mineraft:playerm' of type 'minecraft:mob_effect' at position 18: ...ft:playerm<--[HERE]@16
+S -2--2 0 0 
+@ all raft:fortunef
+R 0
+A -
+X Can't find element 'raft:fortunef' of type 'minecraft:mob_effect' at position 15: ...t:fortunef<--[HERE]@13
+E Can't find element 'raft:fortunef' of type 'minecraft:mob_effect' at position 15: ...t:fortunef<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:spe]e
+R 0
+A -
+X Can't find element 'minecraft:spe' of type 'minecraft:mob_effect' at position 15: ...ecraft:spe<--[HERE]@13
+E Can't find element 'minecraft:spe' of type 'minecraft:mob_effect' at position 15: ...ecraft:spe<--[HERE]@13
+S -2--2 0 0 
+@ all ax
+R 0
+A -
+X Can't find element 'minecraft:ax' of type 'minecraft:mob_effect' at position 4: t ax<--[HERE]@2
+E Can't find element 'minecraft:ax' of type 'minecraft:mob_effect' at position 4: t ax<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:fortu=ei
+R 0
+A -
+X Can't find element 'minecraft:fortu' of type 'minecraft:mob_effect' at position 17: ...raft:fortu<--[HERE]@15
+E Can't find element 'minecraft:fortu' of type 'minecraft:mob_effect' at position 17: ...raft:fortu<--[HERE]@15
+S -2--2 0 0 
+@ all minecraftspeed
+R 0
+A -
+X Can't find element 'minecraft:minecraftspeed' of type 'minecraft:mob_effect' at position 16: ...craftspeed<--[HERE]@14
+E Can't find element 'minecraft:minecraftspeed' of type 'minecraft:mob_effect' at position 16: ...craftspeed<--[HERE]@14
+S -2--2 0 0 
+@ all _health
+R 0
+A -
+X Can't find element 'minecraft:_health' of type 'minecraft:mob_effect' at position 9: t _health<--[HERE]@7
+E Can't find element 'minecraft:_health' of type 'minecraft:mob_effect' at position 9: t _health<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:play*er
+R 0
+A -
+X Can't find element 'minecraft:play' of type 'minecraft:mob_effect' at position 16: ...craft:play<--[HERE]@14
+E Can't find element 'minecraft:play' of type 'minecraft:mob_effect' at position 16: ...craft:play<--[HERE]@14
+S -2--2 0 0 
+@ all minecaft:village_plains
+R 0
+A -
+X Can't find element 'minecaft:village_plains' of type 'minecraft:mob_effect' at position 25: ...age_plains<--[HERE]@23
+E Can't find element 'minecaft:village_plains' of type 'minecraft:mob_effect' at position 25: ...age_plains<--[HERE]@23
+S -2--2 0 0 
+@ all minecraf:sp3ed
+R 0
+A -
+X Can't find element 'minecraf:sp3ed' of type 'minecraft:mob_effect' at position 16: ...craf:sp3ed<--[HERE]@14
+E Can't find element 'minecraf:sp3ed' of type 'minecraft:mob_effect' at position 16: ...craf:sp3ed<--[HERE]@14
+S -2--2 0 0 
+@ all ￿inecraft:armor
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOBIy
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rr
+R 0
+A -
+X Can't find element 'minecraft:rr' of type 'minecraft:mob_effect' at position 4: t rr<--[HERE]@2
+E Can't find element 'minecraft:rr' of type 'minecraft:mob_effect' at position 4: t rr<--[HERE]@2
+S -2--2 0 0 
+@ all E
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all <minecraf :sharpness
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB^E
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombiec
+R 0
+A -
+X Can't find element 'minecraft:zombiec' of type 'minecraft:mob_effect' at position 19: ...ft:zombiec<--[HERE]@17
+E Can't find element 'minecraft:zombiec' of type 'minecraft:mob_effect' at position 19: ...ft:zombiec<--[HERE]@17
+S -2--2 0 0 
+@ all minecraaft:nop
+R 0
+A -
+X Can't find element 'minecraaft:nop' of type 'minecraft:mob_effect' at position 16: ...craaft:nop<--[HERE]@14
+E Can't find element 'minecraaft:nop' of type 'minecraft:mob_effect' at position 16: ...craaft:nop<--[HERE]@14
+S -2--2 0 0 
+@ all necraft:armo2
+R 0
+A -
+X Can't find element 'necraft:armo2' of type 'minecraft:mob_effect' at position 15: ...raft:armo2<--[HERE]@13
+E Can't find element 'necraft:armo2' of type 'minecraft:mob_effect' at position 15: ...raft:armo2<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:g中eneric.max_health
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:mob_effect' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:mob_effect' at position 13: ...inecraft:g<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:mineshft
+R 0
+A -
+X Can't find element 'minecraft:mineshft' of type 'minecraft:mob_effect' at position 20: ...t:mineshft<--[HERE]@18
+E Can't find element 'minecraft:mineshft' of type 'minecraft:mob_effect' at position 20: ...t:mineshft<--[HERE]@18
+S -2--2 0 0 
+@ all minecradft:armorr
+R 0
+A -
+X Can't find element 'minecradft:armorr' of type 'minecraft:mob_effect' at position 19: ...dft:armorr<--[HERE]@17
+E Can't find element 'minecradft:armorr' of type 'minecraft:mob_effect' at position 19: ...dft:armorr<--[HERE]@17
+S -2--2 0 0 
+@ all mi1ecraft:playerc
+R 0
+A -
+X Can't find element 'mi1ecraft:playerc' of type 'minecraft:mob_effect' at position 19: ...ft:playerc<--[HERE]@17
+E Can't find element 'mi1ecraft:playerc' of type 'minecraft:mob_effect' at position 19: ...ft:playerc<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:pl￿~yer
+R 0
+A -
+X Can't find element 'minecraft:pl' of type 'minecraft:mob_effect' at position 14: ...necraft:pl<--[HERE]@12
+E Can't find element 'minecraft:pl' of type 'minecraft:mob_effect' at position 14: ...necraft:pl<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:village_plainsv
+R 0
+A -
+X Can't find element 'minecraft:village_plainsv' of type 'minecraft:mob_effect' at position 27: ...ge_plainsv<--[HERE]@25
+E Can't find element 'minecraft:village_plainsv' of type 'minecraft:mob_effect' at position 27: ...ge_plainsv<--[HERE]@25
+S -2--2 0 0 
+@ all ec中aft:armor
+R 0
+A -
+X Can't find element 'minecraft:ec' of type 'minecraft:mob_effect' at position 4: t ec<--[HERE]@2
+E Can't find element 'minecraft:ec' of type 'minecraft:mob_effect' at position 4: t ec<--[HERE]@2
+S -2--2 0 0 
+@ all zombi\u0000i
+R 0
+A -
+X Can't find element 'minecraft:zombi' of type 'minecraft:mob_effect' at position 7: t zombi<--[HERE]@5
+E Can't find element 'minecraft:zombi' of type 'minecraft:mob_effect' at position 7: t zombi<--[HERE]@5
+S -2--2 0 0 
+@ all ZOM(IE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft::
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ma(_health
+R 0
+A -
+X Can't find element 'minecraft:ma' of type 'minecraft:mob_effect' at position 14: ...necraft:ma<--[HERE]@12
+E Can't find element 'minecraft:ma' of type 'minecraft:mob_effect' at position 14: ...necraft:ma<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:ancient_c\u0000tCy
+R 0
+A -
+X Can't find element 'minecraft:ancient_c' of type 'minecraft:mob_effect' at position 21: ...:ancient_c<--[HERE]@19
+E Can't find element 'minecraft:ancient_c' of type 'minecraft:mob_effect' at position 21: ...:ancient_c<--[HERE]@19
+S -2--2 0 0 
+@ all #minecraft:skletonsk
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecra8ft:fortune
+R 0
+A -
+X Can't find element 'minecra8ft:fortune' of type 'minecraft:mob_effect' at position 20: ...ft:fortune<--[HERE]@18
+E Can't find element 'minecra8ft:fortune' of type 'minecraft:mob_effect' at position 20: ...ft:fortune<--[HERE]@18
+S -2--2 0 0 
+@ all minecra3ft:nope
+R 0
+A -
+X Can't find element 'minecra3ft:nope' of type 'minecraft:mob_effect' at position 17: ...ra3ft:nope<--[HERE]@15
+E Can't find element 'minecra3ft:nope' of type 'minecraft:mob_effect' at position 17: ...ra3ft:nope<--[HERE]@15
+S -2--2 0 0 
+@ all foo:bearr
+R 0
+A -
+X Can't find element 'foo:bearr' of type 'minecraft:mob_effect' at position 11: ... foo:bearr<--[HERE]@9
+E Can't find element 'foo:bearr' of type 'minecraft:mob_effect' at position 11: ... foo:bearr<--[HERE]@9
+S -2--2 0 0 
+@ all m￿necraft:armor
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all foo:bara
+R 0
+A -
+X Can't find element 'foo:bara' of type 'minecraft:mob_effect' at position 10: t foo:bara<--[HERE]@8
+E Can't find element 'foo:bara' of type 'minecraft:mob_effect' at position 10: t foo:bara<--[HERE]@8
+S -2--2 0 0 
+@ all #minecraftnope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minacraft:armor
+R 0
+A -
+X Can't find element 'minacraft:armor' of type 'minecraft:mob_effect' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'minacraft:armor' of type 'minecraft:mob_effect' at position 17: ...raft:armor<--[HERE]@15
+S -2--2 0 0 
+@ all ax_hea=lth
+R 0
+A -
+X Can't find element 'minecraft:ax_hea' of type 'minecraft:mob_effect' at position 8: t ax_hea<--[HERE]@6
+E Can't find element 'minecraft:ax_hea' of type 'minecraft:mob_effect' at position 8: t ax_hea<--[HERE]@6
+S -2--2 0 0 
+@ all İ/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all inecraft:nope
+R 0
+A -
+X Can't find element 'inecraft:nope' of type 'minecraft:mob_effect' at position 15: ...craft:nope<--[HERE]@13
+E Can't find element 'inecraft:nope' of type 'minecraft:mob_effect' at position 15: ...craft:nope<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:ancie\u000at_city
+R 0
+A -
+X Can't find element 'minecraft:ancie' of type 'minecraft:mob_effect' at position 17: ...raft:ancie<--[HERE]@15
+E Can't find element 'minecraft:ancie' of type 'minecraft:mob_effect' at position 17: ...raft:ancie<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:shrpn}ess
+R 0
+A -
+X Can't find element 'minecraft:shrpn' of type 'minecraft:mob_effect' at position 17: ...raft:shrpn<--[HERE]@15
+E Can't find element 'minecraft:shrpn' of type 'minecraft:mob_effect' at position 17: ...raft:shrpn<--[HERE]@15
+S -2--2 0 0 
+@ all :zßombie
+R 0
+A -
+X Can't find element 'minecraft:z' of type 'minecraft:mob_effect' at position 4: t :z<--[HERE]@2
+E Can't find element 'minecraft:z' of type 'minecraft:mob_effect' at position 4: t :z<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:"ortun​
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all ZOMBIEB
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min​ecraft:armor
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:mob_effect' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all necraft:max_health
+R 0
+A -
+X Can't find element 'necraft:max_health' of type 'minecraft:mob_effect' at position 20: ...max_health<--[HERE]@18
+E Can't find element 'necraft:max_health' of type 'minecraft:mob_effect' at position 20: ...max_health<--[HERE]@18
+S -2--2 0 0 
+@ all ient_city
+R 0
+A -
+X Can't find element 'minecraft:ient_city' of type 'minecraft:mob_effect' at position 11: ... ient_city<--[HERE]@9
+E Can't find element 'minecraft:ient_city' of type 'minecraft:mob_effect' at position 11: ... ient_city<--[HERE]@9
+S -2--2 0 0 
+@ all :player
+R 0
+A -
+X Can't find element 'minecraft:player' of type 'minecraft:mob_effect' at position 9: t :player<--[HERE]@7
+E Can't find element 'minecraft:player' of type 'minecraft:mob_effect' at position 9: t :player<--[HERE]@7
+S -2--2 0 0 
+@ all inecraft:fortuner
+R 0
+A -
+X Can't find element 'inecraft:fortuner' of type 'minecraft:mob_effect' at position 19: ...t:fortuner<--[HERE]@17
+E Can't find element 'inecraft:fortuner' of type 'minecraft:mob_effect' at position 19: ...t:fortuner<--[HERE]@17
+S -2--2 0 0 
+@ all fooC:br
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:mob_effect' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:forİune
+R 0
+A -
+X Can't find element 'minecraft:for' of type 'minecraft:mob_effect' at position 15: ...ecraft:for<--[HERE]@13
+E Can't find element 'minecraft:for' of type 'minecraft:mob_effect' at position 15: ...ecraft:for<--[HERE]@13
+S -2--2 0 0 
+@ all necraft:armor
+R 0
+A -
+X Can't find element 'necraft:armor' of type 'minecraft:mob_effect' at position 15: ...raft:armor<--[HERE]@13
+E Can't find element 'necraft:armor' of type 'minecraft:mob_effect' at position 15: ...raft:armor<--[HERE]@13
+S -2--2 0 0 
+@ all bi5e
+R 0
+A -
+X Can't find element 'minecraft:bi5e' of type 'minecraft:mob_effect' at position 6: t bi5e<--[HERE]@4
+E Can't find element 'minecraft:bi5e' of type 'minecraft:mob_effect' at position 6: t bi5e<--[HERE]@4
+S -2--2 0 0 
+@ all zobie
+R 0
+A -
+X Can't find element 'minecraft:zobie' of type 'minecraft:mob_effect' at position 7: t zobie<--[HERE]@5
+E Can't find element 'minecraft:zobie' of type 'minecraft:mob_effect' at position 7: t zobie<--[HERE]@5
+S -2--2 0 0 
+@ all minecrat:generic.max_health
+R 0
+A -
+X Can't find element 'minecrat:generic.max_health' of type 'minecraft:mob_effect' at position 29: ...max_health<--[HERE]@27
+E Can't find element 'minecrat:generic.max_health' of type 'minecraft:mob_effect' at position 29: ...max_health<--[HERE]@27
+S -2--2 0 0 
+@ all z5mbie
+R 0
+A -
+X Can't find element 'minecraft:z5mbie' of type 'minecraft:mob_effect' at position 8: t z5mbie<--[HERE]@6
+E Can't find element 'minecraft:z5mbie' of type 'minecraft:mob_effect' at position 8: t z5mbie<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:fortune:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miecraft:^harpness
+R 0
+A -
+X Can't find element 'miecraft:' of type 'minecraft:mob_effect' at position 11: ... miecraft:<--[HERE]@9
+E Can't find element 'miecraft:' of type 'minecraft:mob_effect' at position 11: ... miecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all alt
+R 0
+A -
+X Can't find element 'minecraft:alt' of type 'minecraft:mob_effect' at position 5: t alt<--[HERE]@3
+E Can't find element 'minecraft:alt' of type 'minecraft:mob_effect' at position 5: t alt<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:mines<aft
+R 0
+A -
+X Can't find element 'minecraft:mines' of type 'minecraft:mob_effect' at position 17: ...raft:mines<--[HERE]@15
+E Can't find element 'minecraft:mines' of type 'minecraft:mob_effect' at position 17: ...raft:mines<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:maxY_healthr
+R 0
+A -
+X Can't find element 'minecraft:max' of type 'minecraft:mob_effect' at position 15: ...ecraft:max<--[HERE]@13
+E Can't find element 'minecraft:max' of type 'minecraft:mob_effect' at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all #minecraft:no=pe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necrat:nope
+R 0
+A -
+X Can't find element 'necrat:nope' of type 'minecraft:mob_effect' at position 13: ...ecrat:nope<--[HERE]@11
+E Can't find element 'necrat:nope' of type 'minecraft:mob_effect' at position 13: ...ecrat:nope<--[HERE]@11
+S -2--2 0 0 
+@ all minecraf{6:
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:mob_effect' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecrat:noper
+R 0
+A -
+X Can't find element 'minecrat:noper' of type 'minecraft:mob_effect' at position 16: ...crat:noper<--[HERE]@14
+E Can't find element 'minecrat:noper' of type 'minecraft:mob_effect' at position 16: ...crat:noper<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:village_plaine
+R 0
+A -
+X Can't find element 'minecraft:village_plaine' of type 'minecraft:mob_effect' at position 26: ...age_plaine<--[HERE]@24
+E Can't find element 'minecraft:village_plaine' of type 'minecraft:mob_effect' at position 26: ...age_plaine<--[HERE]@24
+S -2--2 0 0 
+@ all minecraft:village_pains
+R 0
+A -
+X Can't find element 'minecraft:village_pains' of type 'minecraft:mob_effect' at position 25: ...lage_pains<--[HERE]@23
+E Can't find element 'minecraft:village_pains' of type 'minecraft:mob_effect' at position 25: ...lage_pains<--[HERE]@23
+S -2--2 0 0 
+@ all minecraft:mines+aft
+R 0
+A -
+X Can't find element 'minecraft:mines' of type 'minecraft:mob_effect' at position 17: ...raft:mines<--[HERE]@15
+E Can't find element 'minecraft:mines' of type 'minecraft:mob_effect' at position 17: ...raft:mines<--[HERE]@15
+S -2--2 0 0 
+@ all aft:s3eed
+R 0
+A -
+X Can't find element 'aft:s3eed' of type 'minecraft:mob_effect' at position 11: ... aft:s3eed<--[HERE]@9
+E Can't find element 'aft:s3eed' of type 'minecraft:mob_effect' at position 11: ... aft:s3eed<--[HERE]@9
+S -2--2 0 0 
+@ all rpness
+R 0
+A -
+X Can't find element 'minecraft:rpness' of type 'minecraft:mob_effect' at position 8: t rpness<--[HERE]@6
+E Can't find element 'minecraft:rpness' of type 'minecraft:mob_effect' at position 8: t rpness<--[HERE]@6
+S -2--2 0 0 
+@ all bie
+R 0
+A -
+X Can't find element 'minecraft:bie' of type 'minecraft:mob_effect' at position 5: t bie<--[HERE]@3
+E Can't find element 'minecraft:bie' of type 'minecraft:mob_effect' at position 5: t bie<--[HERE]@3
+S -2--2 0 0 
+@ all m*necraft:fortune:
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:mob_effect' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all aft:zombief
+R 0
+A -
+X Can't find element 'aft:zombief' of type 'minecraft:mob_effect' at position 13: ...ft:zombief<--[HERE]@11
+E Can't find element 'aft:zombief' of type 'minecraft:mob_effect' at position 13: ...ft:zombief<--[HERE]@11
+S -2--2 0 0 
+@ all ft:generic.max_health.
+R 0
+A -
+X Can't find element 'ft:generic.max_health.' of type 'minecraft:mob_effect' at position 24: ...ax_health.<--[HERE]@22
+E Can't find element 'ft:generic.max_health.' of type 'minecraft:mob_effect' at position 24: ...ax_health.<--[HERE]@22
+S -2--2 0 0 
+@ all minecraft:villaeeplains
+R 0
+A -
+X Can't find element 'minecraft:villaeeplains' of type 'minecraft:mob_effect' at position 25: ...laeeplains<--[HERE]@23
+E Can't find element 'minecraft:villaeeplains' of type 'minecraft:mob_effect' at position 25: ...laeeplains<--[HERE]@23
+S -2--2 0 0 
+@ all #min/ecraft:n9pe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all or
+R 0
+A -
+X Can't find element 'minecraft:or' of type 'minecraft:mob_effect' at position 4: t or<--[HERE]@2
+E Can't find element 'minecraft:or' of type 'minecraft:mob_effect' at position 4: t or<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:ancient_citye
+R 0
+A -
+X Can't find element 'minecraft:ancient_citye' of type 'minecraft:mob_effect' at position 25: ...ient_citye<--[HERE]@23
+E Can't find element 'minecraft:ancient_citye' of type 'minecraft:mob_effect' at position 25: ...ient_citye<--[HERE]@23
+S -2--2 0 0 
+@ all t:village_plainsi
+R 0
+A -
+X Can't find element 't:village_plainsi' of type 'minecraft:mob_effect' at position 19: ...ge_plainsi<--[HERE]@17
+E Can't find element 't:village_plainsi' of type 'minecraft:mob_effect' at position 19: ...ge_plainsi<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:}skeletons
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all mnecraft:sharpnessh
+R 0
+A -
+X Can't find element 'mnecraft:sharpnessh' of type 'minecraft:mob_effect' at position 21: ...sharpnessh<--[HERE]@19
+E Can't find element 'mnecraft:sharpnessh' of type 'minecraft:mob_effect' at position 21: ...sharpnessh<--[HERE]@19
+S -2--2 0 0 
+@ all t:village_plains
+R 0
+A -
+X Can't find element 't:village_plains' of type 'minecraft:mob_effect' at position 18: ...age_plains<--[HERE]@16
+E Can't find element 't:village_plains' of type 'minecraft:mob_effect' at position 18: ...age_plains<--[HERE]@16
+S -2--2 0 0 
+@ all foo:ba￿r
+R 0
+A -
+X Can't find element 'foo:ba' of type 'minecraft:mob_effect' at position 8: t foo:ba<--[HERE]@6
+E Can't find element 'foo:ba' of type 'minecraft:mob_effect' at position 8: t foo:ba<--[HERE]@6
+S -2--2 0 0 
+@ all ZOM&IE
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mineshaftm
+R 0
+A -
+X Can't find element 'minecraft:mineshaftm' of type 'minecraft:mob_effect' at position 22: ...mineshaftm<--[HERE]@20
+E Can't find element 'minecraft:mineshaftm' of type 'minecraft:mob_effect' at position 22: ...mineshaftm<--[HERE]@20
+S -2--2 0 0 
+@ all minecraft:armor'
+R 0
+A -
+X Can't find element 'minecraft:armor' of type 'minecraft:mob_effect' at position 17: ...raft:armor<--[HERE]@15
+E Can't find element 'minecraft:armor' of type 'minecraft:mob_effect' at position 17: ...raft:armor<--[HERE]@15
+S -2--2 0 0 
+@ all aft:armor
+R 0
+A -
+X Can't find element 'aft:armor' of type 'minecraft:mob_effect' at position 11: ... aft:armor<--[HERE]@9
+E Can't find element 'aft:armor' of type 'minecraft:mob_effect' at position 11: ... aft:armor<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:player:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all l7th
+R 0
+A -
+X Can't find element 'minecraft:l7th' of type 'minecraft:mob_effect' at position 6: t l7th<--[HERE]@4
+E Can't find element 'minecraft:l7th' of type 'minecraft:mob_effect' at position 6: t l7th<--[HERE]@4
+S -2--2 0 0 
+@ all mznecraft:fortune
+R 0
+A -
+X Can't find element 'mznecraft:fortune' of type 'minecraft:mob_effect' at position 19: ...ft:fortune<--[HERE]@17
+E Can't find element 'mznecraft:fortune' of type 'minecraft:mob_effect' at position 19: ...ft:fortune<--[HERE]@17
+S -2--2 0 0 
+@ all Cinecraft:fortune
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ineshafts
+R 0
+A -
+X Can't find element 'minecraft:ineshafts' of type 'minecraft:mob_effect' at position 21: ...:ineshafts<--[HERE]@19
+E Can't find element 'minecraft:ineshafts' of type 'minecraft:mob_effect' at position 21: ...:ineshafts<--[HERE]@19
+S -2--2 0 0 
+@ all minedcraft:
+R 0
+A -
+X Can't find element 'minedcraft:' of type 'minecraft:mob_effect' at position 13: ...inedcraft:<--[HERE]@11
+E Can't find element 'minedcraft:' of type 'minecraft:mob_effect' at position 13: ...inedcraft:<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:arm,r
+R 0
+A -
+X Can't find element 'minecraft:arm' of type 'minecraft:mob_effect' at position 15: ...ecraft:arm<--[HERE]@13
+E Can't find element 'minecraft:arm' of type 'minecraft:mob_effect' at position 15: ...ecraft:arm<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:generic.m/ax_health
+R 0
+A -
+X Can't find element 'minecraft:generic.m/ax_health' of type 'minecraft:mob_effect' at position 31: .../ax_health<--[HERE]@29
+E Can't find element 'minecraft:generic.m/ax_health' of type 'minecraft:mob_effect' at position 31: .../ax_health<--[HERE]@29
+S -2--2 0 0 
+@ all ecraft:ancient_city
+R 0
+A -
+X Can't find element 'ecraft:ancient_city' of type 'minecraft:mob_effect' at position 21: ...cient_city<--[HERE]@19
+E Can't find element 'ecraft:ancient_city' of type 'minecraft:mob_effect' at position 21: ...cient_city<--[HERE]@19
+S -2--2 0 0 
+@ all minecraft:fortunei
+R 0
+A -
+X Can't find element 'minecraft:fortunei' of type 'minecraft:mob_effect' at position 20: ...t:fortunei<--[HERE]@18
+E Can't find element 'minecraft:fortunei' of type 'minecraft:mob_effect' at position 20: ...t:fortunei<--[HERE]@18
+S -2--2 0 0 
+@ all mnecraft:zombiem
+R 0
+A -
+X Can't find element 'mnecraft:zombiem' of type 'minecraft:mob_effect' at position 18: ...ft:zombiem<--[HERE]@16
+E Can't find element 'mnecraft:zombiem' of type 'minecraft:mob_effect' at position 18: ...ft:zombiem<--[HERE]@16
+S -2--2 0 0 
+@ all peed
+R 0
+A -
+X Can't find element 'minecraft:peed' of type 'minecraft:mob_effect' at position 6: t peed<--[HERE]@4
+E Can't find element 'minecraft:peed' of type 'minecraft:mob_effect' at position 6: t peed<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:villge_plains
+R 0
+A -
+X Can't find element 'minecraft:villge_plains' of type 'minecraft:mob_effect' at position 25: ...lge_plains<--[HERE]@23
+E Can't find element 'minecraft:villge_plains' of type 'minecraft:mob_effect' at position 25: ...lge_plains<--[HERE]@23
+S -2--2 0 0 
+@ all fYoo:ba
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:mob_effect' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:mob_effect' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:generic.max_healthne
+R 0
+A -
+X Can't find element 'minecraft:generic.max_healthne' of type 'minecraft:mob_effect' at position 32: ...x_healthne<--[HERE]@30
+E Can't find element 'minecraft:generic.max_healthne' of type 'minecraft:mob_effect' at position 32: ...x_healthne<--[HERE]@30
+S -2--2 0 0 
+@ all #minecraft:nopen
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mineraft:nope
+R 0
+A -
+X Can't find element 'mineraft:nope' of type 'minecraft:mob_effect' at position 15: ...eraft:nope<--[HERE]@13
+E Can't find element 'mineraft:nope' of type 'minecraft:mob_effect' at position 15: ...eraft:nope<--[HERE]@13
+S -2--2 0 0 
+@ all ombie
+R 0
+A -
+X Can't find element 'minecraft:ombie' of type 'minecraft:mob_effect' at position 7: t ombie<--[HERE]@5
+E Can't find element 'minecraft:ombie' of type 'minecraft:mob_effect' at position 7: t ombie<--[HERE]@5
+S -2--2 0 0 
+@ all #yminecra(ft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:noe
+R 0
+A -
+X Can't find element 'minecraft:noe' of type 'minecraft:mob_effect' at position 15: ...ecraft:noe<--[HERE]@13
+E Can't find element 'minecraft:noe' of type 'minecraft:mob_effect' at position 15: ...ecraft:noe<--[HERE]@13
+S -2--2 0 0 
+@ all ft
+R 0
+A -
+X Can't find element 'minecraft:ft' of type 'minecraft:mob_effect' at position 4: t ft<--[HERE]@2
+E Can't find element 'minecraft:ft' of type 'minecraft:mob_effect' at position 4: t ft<--[HERE]@2
+S -2--2 0 0 
+@ all #minecra*t:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra2:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necr=ft:ancient_city
+R 0
+A -
+X Can't find element 'minecraft:necr' of type 'minecraft:mob_effect' at position 6: t necr<--[HERE]@4
+E Can't find element 'minecraft:necr' of type 'minecraft:mob_effect' at position 6: t necr<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:miXeshaft
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:mob_effect' at position 14: ...necraft:mi<--[HERE]@12
+E Can't find element 'minecraft:mi' of type 'minecraft:mob_effect' at position 14: ...necraft:mi<--[HERE]@12
+S -2--2 0 0 
+@ all mine.raft:nope
+R 0
+A -
+X Can't find element 'mine.raft:nope' of type 'minecraft:mob_effect' at position 16: ....raft:nope<--[HERE]@14
+E Can't find element 'mine.raft:nope' of type 'minecraft:mob_effect' at position 16: ....raft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all $ombiem
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:fortuneZ:
+R 0
+A -
+X Can't find element 'minecraft:fortune' of type 'minecraft:mob_effect' at position 19: ...ft:fortune<--[HERE]@17
+E Can't find element 'minecraft:fortune' of type 'minecraft:mob_effect' at position 19: ...ft:fortune<--[HERE]@17
+S -2--2 0 0 
+@ all #minecraft:skeletonss
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all midecraft:mineshaft
+R 0
+A -
+X Can't find element 'midecraft:mineshaft' of type 'minecraft:mob_effect' at position 21: ...:mineshaft<--[HERE]@19
+E Can't find element 'midecraft:mineshaft' of type 'minecraft:mob_effect' at position 21: ...:mineshaft<--[HERE]@19
+S -2--2 0 0 
+@ all ombi6e
+R 0
+A -
+X Can't find element 'minecraft:ombi6e' of type 'minecraft:mob_effect' at position 8: t ombi6e<--[HERE]@6
+E Can't find element 'minecraft:ombi6e' of type 'minecraft:mob_effect' at position 8: t ombi6e<--[HERE]@6
+S -2--2 0 0 
+@ all mb[ie
+R 0
+A -
+X Can't find element 'minecraft:mb' of type 'minecraft:mob_effect' at position 4: t mb<--[HERE]@2
+E Can't find element 'minecraft:mb' of type 'minecraft:mob_effect' at position 4: t mb<--[HERE]@2
+S -2--2 0 0 
+@ all miecraft:a
+R 0
+A -
+X Can't find element 'miecraft:a' of type 'minecraft:mob_effect' at position 12: ...miecraft:a<--[HERE]@10
+E Can't find element 'miecraft:a' of type 'minecraft:mob_effect' at position 12: ...miecraft:a<--[HERE]@10
+S -2--2 0 0 
+@ all mindcraft:villa2e_plains
+R 0
+A -
+X Can't find element 'mindcraft:villa2e_plains' of type 'minecraft:mob_effect' at position 26: ...a2e_plains<--[HERE]@24
+E Can't find element 'mindcraft:villa2e_plains' of type 'minecraft:mob_effect' at position 26: ...a2e_plains<--[HERE]@24
+S -2--2 0 0 
+@ all inecraft​:nope
+R 0
+A -
+X Can't find element 'minecraft:inecraft' of type 'minecraft:mob_effect' at position 10: t inecraft<--[HERE]@8
+E Can't find element 'minecraft:inecraft' of type 'minecraft:mob_effect' at position 10: t inecraft<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft😀mineshft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:mob_effect' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:mob_effect' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all foz:bar
+R 0
+A -
+X Can't find element 'foz:bar' of type 'minecraft:mob_effect' at position 9: t foz:bar<--[HERE]@7
+E Can't find element 'foz:bar' of type 'minecraft:mob_effect' at position 9: t foz:bar<--[HERE]@7
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+E Can't find element 'minecraft:' of type 'minecraft:mob_effect' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all minecZZaft:max_health
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:mob_effect' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all minecrft:speed
+R 0
+A -
+X Can't find element 'minecrft:speed' of type 'minecraft:mob_effect' at position 16: ...crft:speed<--[HERE]@14
+E Can't find element 'minecrft:speed' of type 'minecraft:mob_effect' at position 16: ...crft:speed<--[HERE]@14
+S -2--2 0 0 
+@ all tune+
+R 0
+A -
+X Can't find element 'minecraft:tune' of type 'minecraft:mob_effect' at position 6: t tune<--[HERE]@4
+E Can't find element 'minecraft:tune' of type 'minecraft:mob_effect' at position 6: t tune<--[HERE]@4
+S -2--2 0 0 

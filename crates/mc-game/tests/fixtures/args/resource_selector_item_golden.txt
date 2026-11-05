@@ -1,0 +1,1868 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all *
+R 1
+A 0-1 1658:minecraft:air,minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite:381393180
+E ok
+S -2--2 0 0 
+@ all minecraft:*
+R 11
+A 0-11 1658:minecraft:air,minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite:381393180
+E ok
+S -2--2 0 0 
+@ all *:asset
+R 0
+A -
+X No matches for selector '*:asset' of type 'minecraft:item' at position 9: t *:asset<--[HERE]@7
+E No matches for selector '*:asset' of type 'minecraft:item' at position 9: t *:asset<--[HERE]@7
+S -2--2 0 0 
+@ all ?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:item' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:item' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all stone
+R 5
+A 0-5 1:minecraft:stone:-1133948840
+E ok
+S 0-5 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:s*
+R 12
+A 0-12 170:minecraft:stone,minecraft:sulfur,minecraft:sulfur_slab,minecraft:sulfur_stairs,minecraft:sulfur_wall:-58355397
+E ok
+S -2--2 0 0 
+@ all *_log
+R 5
+A 0-5 20:minecraft:oak_log,minecraft:spruce_log,minecraft:birch_log,minecraft:jungle_log,minecraft:acacia_log:642117107
+E ok
+S -2--2 0 0 
+@ all *stone*
+R 7
+A 0-7 92:minecraft:stone,minecraft:dripstone_block,minecraft:cobblestone,minecraft:redstone_ore,minecraft:deepslate_redstone_ore:1805687209
+E ok
+S -2--2 0 0 
+@ all minecraft:oak_*
+R 15
+A 0-15 18:minecraft:oak_planks,minecraft:oak_sapling,minecraft:oak_log,minecraft:oak_wood,minecraft:oak_leaves:1246351015
+E ok
+S -2--2 0 0 
+@ all z*
+R 2
+A 0-2 7:minecraft:zombie_spawn_egg,minecraft:zombie_horse_spawn_egg,minecraft:zombie_nautilus_spawn_egg,minecraft:zombie_villager_spawn_egg,minecraft:zoglin_spawn_egg:-1748649105
+E ok
+S -2--2 0 0 
+@ all **
+R 2
+A 0-2 1658:minecraft:air,minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite:381393180
+E ok
+S -2--2 0 0 
+@ all *?
+R 0
+A -
+X No matches for selector 'minecraft:*?' of type 'minecraft:item' at position 4: t *?<--[HERE]@2
+E No matches for selector 'minecraft:*?' of type 'minecraft:item' at position 4: t *?<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all :*
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:item' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:item' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*
+R 0
+A -
+X No matches for selector 'foo:*' of type 'minecraft:item' at position 7: t foo:*<--[HERE]@5
+E No matches for selector 'foo:*' of type 'minecraft:item' at position 7: t foo:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*
+R 3
+A 0-3 1658:minecraft:air,minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite:381393180
+E ok
+S -2--2 0 0 
+@ all minecraft:zombie*
+R 17
+A 0-17 5:minecraft:zombie_spawn_egg,minecraft:zombie_horse_spawn_egg,minecraft:zombie_nautilus_spawn_egg,minecraft:zombie_villager_spawn_egg,minecraft:zombie_head:2054628621
+E ok
+S -2--2 0 0 
+@ all plains
+R 0
+A -
+X No matches for selector 'minecraft:plains' of type 'minecraft:item' at position 8: t plains<--[HERE]@6
+E No matches for selector 'minecraft:plains' of type 'minecraft:item' at position 8: t plains<--[HERE]@6
+S 0-6 1 416613673 minecraft:plains_village_map
+@ all minecraft:?????
+R 15
+A 0-15 24:minecraft:stone,minecraft:glass,minecraft:poppy,minecraft:torch,minecraft:chest:892819618
+E ok
+S -2--2 0 0 
+@ all *e
+R 2
+A 0-2 303:minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite,minecraft:polished_diorite:-1446460780
+E ok
+S -2--2 0 0 
+@ all a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c' of type 'minecraft:item' at position 7: t a*b*c<--[HERE]@5
+E No matches for selector 'minecraft:a*b*c' of type 'minecraft:item' at position 7: t a*b*c<--[HERE]@5
+S -2--2 0 0 
+@ all Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S 0-5 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all *é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:item' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:item' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:item' at position 15: ...ecraft:*/*<--[HERE]@13
+E No matches for selector 'minecraft:*/*' of type 'minecraft:item' at position 15: ...ecraft:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all m*
+R 2
+A 0-2 97:minecraft:mud,minecraft:mangrove_planks,minecraft:mangrove_propagule,minecraft:mangrove_log,minecraft:mangrove_roots:-1518900623
+E ok
+S -2--2 0 0 
+@ all mine*
+R 5
+A 0-5 2:minecraft:minecart,minecraft:miner_pottery_sherd:857343770
+E ok
+S -2--2 0 0 
+@ all *effect
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:item' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:item' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *sharp*
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*' of type 'minecraft:item' at position 9: t *sharp*<--[HERE]@7
+E No matches for selector 'minecraft:*sharp*' of type 'minecraft:item' at position 9: t *sharp*<--[HERE]@7
+S -2--2 0 0 
+@ all *dirt*
+R 6
+A 0-6 4:minecraft:dirt,minecraft:coarse_dirt,minecraft:rooted_dirt,minecraft:dirt_path:1455742923
+E ok
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S 0-1 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all mi
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+S 0-2 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all min
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:item' at position 5: t min<--[HERE]@3
+S 0-3 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all mine
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+S 0-4 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minec
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+S 0-5 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecr
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+S 0-6 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecra
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+S 0-7 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecraf
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:item' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:item' at position 10: t minecraf<--[HERE]@8
+S 0-8 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all minecraft
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+S 0-9 1658 1729299731 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all *:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:item' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:item' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all *:a
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:item' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:item' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *:as
+R 0
+A -
+X No matches for selector '*:as' of type 'minecraft:item' at position 6: t *:as<--[HERE]@4
+E No matches for selector '*:as' of type 'minecraft:item' at position 6: t *:as<--[HERE]@4
+S -2--2 0 0 
+@ all *:ass
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:item' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:item' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:item' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:item' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:item' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:item' at position 3: t s<--[HERE]@1
+S 0-1 638 1560166507 minecraft:acacia_hanging_sign	minecraft:acacia_sapling	minecraft:acacia_shelf	minecraft:acacia_sign	minecraft:acacia_slab	minecraft:acacia_stairs	minecraft:allay_spawn_egg	minecraft:amethyst_shard
+@ all st
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:item' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:item' at position 4: t st<--[HERE]@2
+S 0-2 216 -829096766 minecraft:acacia_stairs	minecraft:andesite_stairs	minecraft:armor_stand	minecraft:bamboo_mosaic_stairs	minecraft:bamboo_stairs	minecraft:birch_stairs	minecraft:black_concrete_stairs	minecraft:black_stained_glass
+@ all sto
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:item' at position 5: t sto<--[HERE]@3
+S 0-3 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all ston
+R 0
+A -
+X No matches for selector 'minecraft:ston' of type 'minecraft:item' at position 6: t ston<--[HERE]@4
+E No matches for selector 'minecraft:ston' of type 'minecraft:item' at position 6: t ston<--[HERE]@4
+S 0-4 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all minecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:item' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 170 -1033733652 minecraft:saddle	minecraft:salmon	minecraft:salmon_bucket	minecraft:salmon_spawn_egg	minecraft:sand	minecraft:sandstone	minecraft:sandstone_slab	minecraft:sandstone_stairs
+@ all *_
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:item' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:item' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all *_l
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:item' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:item' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *_lo
+R 0
+A -
+X No matches for selector 'minecraft:*_lo' of type 'minecraft:item' at position 6: t *_lo<--[HERE]@4
+E No matches for selector 'minecraft:*_lo' of type 'minecraft:item' at position 6: t *_lo<--[HERE]@4
+S -2--2 0 0 
+@ all *s
+R 2
+A 0-2 245:minecraft:tuff_stairs,minecraft:polished_tuff_stairs,minecraft:tuff_bricks,minecraft:tuff_brick_stairs,minecraft:chiseled_tuff_bricks:1988249765
+E ok
+S -2--2 0 0 
+@ all *st
+R 3
+A 0-3 16:minecraft:budding_amethyst,minecraft:chest,minecraft:sculk_catalyst,minecraft:ender_chest,minecraft:dried_ghast:855260057
+E ok
+S -2--2 0 0 
+@ all *sto
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:item' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:item' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all *ston
+R 5
+A 0-5 2:minecraft:piston,minecraft:sticky_piston:286782783
+E ok
+S -2--2 0 0 
+@ all *stone
+R 6
+A 0-6 24:minecraft:stone,minecraft:cobblestone,minecraft:sandstone,minecraft:chiseled_sandstone,minecraft:cut_sandstone:467299212
+E ok
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:item' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:item' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 64 1354611260 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves
+@ all minecraft:oa
+R 0
+A -
+X No matches for selector 'minecraft:oa' of type 'minecraft:item' at position 14: ...necraft:oa<--[HERE]@12
+E No matches for selector 'minecraft:oa' of type 'minecraft:item' at position 14: ...necraft:oa<--[HERE]@12
+S 0-12 18 -214470288 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wood
+@ all minecraft:oak
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:item' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:item' at position 15: ...ecraft:oak<--[HERE]@13
+S 0-13 18 -214470288 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wood
+@ all minecraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:oak_' of type 'minecraft:item' at position 16: ...craft:oak_<--[HERE]@14
+E No matches for selector 'minecraft:oak_' of type 'minecraft:item' at position 16: ...craft:oak_<--[HERE]@14
+S 0-14 18 -214470288 minecraft:oak_boat	minecraft:oak_button	minecraft:oak_chest_boat	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wood
+@ all z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:item' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:item' at position 3: t z<--[HERE]@1
+S 0-1 7 -1053056746 minecraft:zoglin_spawn_egg	minecraft:zombie_head	minecraft:zombie_horse_spawn_egg	minecraft:zombie_nautilus_spawn_egg	minecraft:zombie_spawn_egg	minecraft:zombie_villager_spawn_egg	minecraft:zombified_piglin_spawn_egg
+@ all :
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:item' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:item' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:item' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:item' at position 3: t f<--[HERE]@1
+S 0-1 90 -1355583312 minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:bamboo_fence	minecraft:bamboo_fence_gate	minecraft:birch_fence	minecraft:birch_fence_gate	minecraft:blast_furnace	minecraft:brain_coral_fan
+@ all fo
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:item' at position 4: t fo<--[HERE]@2
+S 0-2 2 2123824552 minecraft:fox_spawn_egg	minecraft:rabbit_foot
+@ all foo
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:item' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:item' at position 5: t foo<--[HERE]@3
+S 0-3 1 252621219 minecraft:rabbit_foot
+@ all foo:
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:item' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:item' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:item' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:item' at position 13: ...inecraft:z<--[HERE]@11
+S 0-11 7 -1053056746 minecraft:zoglin_spawn_egg	minecraft:zombie_head	minecraft:zombie_horse_spawn_egg	minecraft:zombie_nautilus_spawn_egg	minecraft:zombie_spawn_egg	minecraft:zombie_villager_spawn_egg	minecraft:zombified_piglin_spawn_egg
+@ all minecraft:zo
+R 0
+A -
+X No matches for selector 'minecraft:zo' of type 'minecraft:item' at position 14: ...necraft:zo<--[HERE]@12
+E No matches for selector 'minecraft:zo' of type 'minecraft:item' at position 14: ...necraft:zo<--[HERE]@12
+S 0-12 7 -1053056746 minecraft:zoglin_spawn_egg	minecraft:zombie_head	minecraft:zombie_horse_spawn_egg	minecraft:zombie_nautilus_spawn_egg	minecraft:zombie_spawn_egg	minecraft:zombie_villager_spawn_egg	minecraft:zombified_piglin_spawn_egg
+@ all minecraft:zom
+R 0
+A -
+X No matches for selector 'minecraft:zom' of type 'minecraft:item' at position 15: ...ecraft:zom<--[HERE]@13
+E No matches for selector 'minecraft:zom' of type 'minecraft:item' at position 15: ...ecraft:zom<--[HERE]@13
+S 0-13 6 52510097 minecraft:zombie_head	minecraft:zombie_horse_spawn_egg	minecraft:zombie_nautilus_spawn_egg	minecraft:zombie_spawn_egg	minecraft:zombie_villager_spawn_egg	minecraft:zombified_piglin_spawn_egg
+@ all minecraft:zomb
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:item' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:item' at position 16: ...craft:zomb<--[HERE]@14
+S 0-14 6 52510097 minecraft:zombie_head	minecraft:zombie_horse_spawn_egg	minecraft:zombie_nautilus_spawn_egg	minecraft:zombie_spawn_egg	minecraft:zombie_villager_spawn_egg	minecraft:zombified_piglin_spawn_egg
+@ all minecraft:zombi
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:item' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:item' at position 17: ...raft:zombi<--[HERE]@15
+S 0-15 6 52510097 minecraft:zombie_head	minecraft:zombie_horse_spawn_egg	minecraft:zombie_nautilus_spawn_egg	minecraft:zombie_spawn_egg	minecraft:zombie_villager_spawn_egg	minecraft:zombified_piglin_spawn_egg
+@ all minecraft:zombie
+R 0
+A -
+X No matches for selector 'minecraft:zombie' of type 'minecraft:item' at position 18: ...aft:zombie<--[HERE]@16
+E No matches for selector 'minecraft:zombie' of type 'minecraft:item' at position 18: ...aft:zombie<--[HERE]@16
+S 0-16 5 11370504 minecraft:zombie_head	minecraft:zombie_horse_spawn_egg	minecraft:zombie_nautilus_spawn_egg	minecraft:zombie_spawn_egg	minecraft:zombie_villager_spawn_egg
+@ all p
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:item' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:item' at position 3: t p<--[HERE]@1
+S 0-1 297 836705408 minecraft:acacia_planks	minecraft:acacia_pressure_plate	minecraft:angler_pottery_sherd	minecraft:archer_pottery_sherd	minecraft:arms_up_pottery_sherd	minecraft:baked_potato	minecraft:bamboo_planks	minecraft:bamboo_pressure_plate
+@ all pl
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:item' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:item' at position 4: t pl<--[HERE]@2
+S 0-2 35 703299013 minecraft:acacia_planks	minecraft:acacia_pressure_plate	minecraft:bamboo_planks	minecraft:bamboo_pressure_plate	minecraft:birch_planks	minecraft:birch_pressure_plate	minecraft:cherry_planks	minecraft:cherry_pressure_plate	minecraft:chorus_plant	minecraft:crimson_planks	minecraft:crimson_pressure_plate	minecraft:dark_oak_planks	minecraft:dark_oak_pressure_plate	minecraft:heavy_weighted_pressure_plate	minecraft:jungle_planks	minecraft:jungle_pressure_plate	minecraft:light_weighted_pressure_plate	minecraft:mangrove_planks	minecraft:mangrove_pressure_plate	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:pale_oak_planks	minecraft:pale_oak_pressure_plate	minecraft:pitcher_plant	minecraft:plains_village_map	minecraft:player_head	minecraft:plenty_pottery_sherd	minecraft:polished_blackstone_pressure_plate	minecraft:poplar_planks	minecraft:poplar_pressure_plate	minecraft:spruce_planks	minecraft:spruce_pressure_plate	minecraft:stone_pressure_plate	minecraft:warped_planks	minecraft:warped_pressure_plate
+@ all pla
+R 0
+A -
+X No matches for selector 'minecraft:pla' of type 'minecraft:item' at position 5: t pla<--[HERE]@3
+E No matches for selector 'minecraft:pla' of type 'minecraft:item' at position 5: t pla<--[HERE]@3
+S 0-3 34 1831136926 minecraft:acacia_planks	minecraft:acacia_pressure_plate	minecraft:bamboo_planks	minecraft:bamboo_pressure_plate	minecraft:birch_planks	minecraft:birch_pressure_plate	minecraft:cherry_planks	minecraft:cherry_pressure_plate	minecraft:chorus_plant	minecraft:crimson_planks	minecraft:crimson_pressure_plate	minecraft:dark_oak_planks	minecraft:dark_oak_pressure_plate	minecraft:heavy_weighted_pressure_plate	minecraft:jungle_planks	minecraft:jungle_pressure_plate	minecraft:light_weighted_pressure_plate	minecraft:mangrove_planks	minecraft:mangrove_pressure_plate	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:pale_oak_planks	minecraft:pale_oak_pressure_plate	minecraft:pitcher_plant	minecraft:plains_village_map	minecraft:player_head	minecraft:polished_blackstone_pressure_plate	minecraft:poplar_planks	minecraft:poplar_pressure_plate	minecraft:spruce_planks	minecraft:spruce_pressure_plate	minecraft:stone_pressure_plate	minecraft:warped_planks	minecraft:warped_pressure_plate
+@ all plai
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:item' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:item' at position 6: t plai<--[HERE]@4
+S 0-4 1 416613673 minecraft:plains_village_map
+@ all plain
+R 0
+A -
+X No matches for selector 'minecraft:plain' of type 'minecraft:item' at position 7: t plain<--[HERE]@5
+E No matches for selector 'minecraft:plain' of type 'minecraft:item' at position 7: t plain<--[HERE]@5
+S 0-5 1 416613673 minecraft:plains_village_map
+@ all minecraft:?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:item' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:item' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:item' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:item' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:???
+R 13
+A 0-13 8:minecraft:air,minecraft:mud,minecraft:ice,minecraft:tnt,minecraft:bow:1673783847
+E ok
+S -2--2 0 0 
+@ all minecraft:????
+R 14
+A 0-14 20:minecraft:tuff,minecraft:dirt,minecraft:sand,minecraft:fern,minecraft:bush:1830502438
+E ok
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X No matches for selector 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+E No matches for selector 'minecraft:a' of type 'minecraft:item' at position 3: t a<--[HERE]@1
+S 0-1 104 -2030071139 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all a*
+R 2
+A 0-2 45:minecraft:air,minecraft:andesite,minecraft:acacia_planks,minecraft:acacia_sapling,minecraft:ancient_debris:-630466647
+E ok
+S -2--2 0 0 
+@ all a*b
+R 3
+A 0-3 2:minecraft:acacia_slab,minecraft:andesite_slab:1170855870
+E ok
+S -2--2 0 0 
+@ all a*b*
+R 4
+A 0-4 10:minecraft:ancient_debris,minecraft:amethyst_block,minecraft:azure_bluet,minecraft:acacia_slab,minecraft:andesite_slab:-870174315
+E ok
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S 0-1 638 1560166507 minecraft:acacia_hanging_sign	minecraft:acacia_sapling	minecraft:acacia_shelf	minecraft:acacia_sign	minecraft:acacia_slab	minecraft:acacia_stairs	minecraft:allay_spawn_egg	minecraft:amethyst_shard
+@ all St
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S 0-2 216 -829096766 minecraft:acacia_stairs	minecraft:andesite_stairs	minecraft:armor_stand	minecraft:bamboo_mosaic_stairs	minecraft:bamboo_stairs	minecraft:birch_stairs	minecraft:black_concrete_stairs	minecraft:black_stained_glass
+@ all Sto
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S 0-3 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all Ston
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S 0-4 34 1680403877 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_axe	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_hoe	minecraft:stone_pickaxe	minecraft:stone_pressure_plate	minecraft:stone_shovel	minecraft:stone_slab	minecraft:stone_spear	minecraft:stone_stairs	minecraft:stone_sword	minecraft:stonecutter
+@ all #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all *ef
+R 3
+A 0-3 2:minecraft:beef,minecraft:cooked_beef:-2020372521
+E ok
+S -2--2 0 0 
+@ all *eff
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:item' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:item' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *effe
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:item' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:item' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *effec
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:item' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:item' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *sh
+R 3
+A 0-3 8:minecraft:bush,minecraft:dead_bush,minecraft:firefly_bush,minecraft:rose_bush,minecraft:tropical_fish:344467826
+E ok
+S -2--2 0 0 
+@ all *sha
+R 0
+A -
+X No matches for selector 'minecraft:*sha' of type 'minecraft:item' at position 6: t *sha<--[HERE]@4
+E No matches for selector 'minecraft:*sha' of type 'minecraft:item' at position 6: t *sha<--[HERE]@4
+S -2--2 0 0 
+@ all *shar
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:item' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:item' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *sharp
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:item' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:item' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all *d
+R 2
+A 0-2 113:minecraft:mud,minecraft:sand,minecraft:suspicious_sand,minecraft:red_sand,minecraft:stripped_oak_wood:544768415
+E ok
+S -2--2 0 0 
+@ all *di
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:item' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:item' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all *dir
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:item' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:item' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all *dirt
+R 5
+A 0-5 3:minecraft:dirt,minecraft:coarse_dirt,minecraft:rooted_dirt:576929316
+E ok
+S -2--2 0 0 
+@ all *eİfet
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *e<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:s*r
+R 13
+A 0-13 11:minecraft:sulfur,minecraft:spawner,minecraft:sculk_shrieker,minecraft:sunflower,minecraft:sculk_sensor:1802824037
+E ok
+S -2--2 0 0 
+@ all mi)ncraft:s*
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:item' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all /**
+R 0
+A -
+X No matches for selector 'minecraft:/**' of type 'minecraft:item' at position 5: t /**<--[HERE]@3
+E No matches for selector 'minecraft:/**' of type 'minecraft:item' at position 5: t /**<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:zobie*
+R 0
+A -
+X No matches for selector 'minecraft:zobie*' of type 'minecraft:item' at position 18: ...aft:zobie*<--[HERE]@16
+E No matches for selector 'minecraft:zobie*' of type 'minecraft:item' at position 18: ...aft:zobie*<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft:*c
+R 12
+A 0-12 5:minecraft:bamboo_mosaic,minecraft:lilac,minecraft:ink_sac,minecraft:glow_ink_sac,minecraft:music_disc_relic:-1706448766
+E ok
+S -2--2 0 0 
+@ all 9*
+R 0
+A -
+X No matches for selector 'minecraft:9*' of type 'minecraft:item' at position 4: t 9*<--[HERE]@2
+E No matches for selector 'minecraft:9*' of type 'minecraft:item' at position 4: t 9*<--[HERE]@2
+S -2--2 0 0 
+@ all *:**
+R 4
+A 0-4 1658:minecraft:air,minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite:381393180
+E ok
+S -2--2 0 0 
+@ all *.:assets
+R 0
+A -
+X No matches for selector '*.:assets' of type 'minecraft:item' at position 11: ... *.:assets<--[HERE]@9
+E No matches for selector '*.:assets' of type 'minecraft:item' at position 11: ... *.:assets<--[HERE]@9
+S -2--2 0 0 
+@ all mind*
+R 0
+A -
+X No matches for selector 'minecraft:mind*' of type 'minecraft:item' at position 7: t mind*<--[HERE]@5
+E No matches for selector 'minecraft:mind*' of type 'minecraft:item' at position 7: t mind*<--[HERE]@5
+S -2--2 0 0 
+@ all *effectt
+R 0
+A -
+X No matches for selector 'minecraft:*effectt' of type 'minecraft:item' at position 10: t *effectt<--[HERE]@8
+E No matches for selector 'minecraft:*effectt' of type 'minecraft:item' at position 10: t *effectt<--[HERE]@8
+S -2--2 0 0 
+@ all \u0000/
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombie*i
+R 0
+A -
+X No matches for selector 'minecraft:zombie*i' of type 'minecraft:item' at position 20: ...t:zombie*i<--[HERE]@18
+E No matches for selector 'minecraft:zombie*i' of type 'minecraft:item' at position 20: ...t:zombie*i<--[HERE]@18
+S -2--2 0 0 
+@ all *//
+R 0
+A -
+X No matches for selector 'minecraft:*//' of type 'minecraft:item' at position 5: t *//<--[HERE]@3
+E No matches for selector 'minecraft:*//' of type 'minecraft:item' at position 5: t *//<--[HERE]@3
+S -2--2 0 0 
+@ all */~~
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all S8one
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *?.
+R 0
+A -
+X No matches for selector 'minecraft:*?.' of type 'minecraft:item' at position 5: t *?.<--[HERE]@3
+E No matches for selector 'minecraft:*?.' of type 'minecraft:item' at position 5: t *?.<--[HERE]@3
+S -2--2 0 0 
+@ all $e*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ne
+R 0
+A -
+X No matches for selector 'minecraft:ne' of type 'minecraft:item' at position 4: t ne<--[HERE]@2
+E No matches for selector 'minecraft:ne' of type 'minecraft:item' at position 4: t ne<--[HERE]@2
+S 0-2 36 1303513378 minecraft:bee_nest	minecraft:chiseled_nether_bricks	minecraft:cracked_nether_bricks	minecraft:nether_brick	minecraft:nether_brick_fence	minecraft:nether_brick_slab	minecraft:nether_brick_stairs	minecraft:nether_brick_wall	minecraft:nether_bricks	minecraft:nether_gold_ore	minecraft:nether_quartz_ore	minecraft:nether_sprouts	minecraft:nether_star	minecraft:nether_wart	minecraft:nether_wart_block	minecraft:netherite_axe	minecraft:netherite_block	minecraft:netherite_boots	minecraft:netherite_chestplate	minecraft:netherite_helmet	minecraft:netherite_hoe	minecraft:netherite_horse_armor	minecraft:netherite_ingot	minecraft:netherite_leggings	minecraft:netherite_nautilus_armor	minecraft:netherite_pickaxe	minecraft:netherite_scrap	minecraft:netherite_shovel	minecraft:netherite_spear	minecraft:netherite_sword	minecraft:netherite_upgrade_smithing_template	minecraft:netherrack	minecraft:red_nether_brick_slab	minecraft:red_nether_brick_stairs	minecraft:red_nether_brick_wall	minecraft:red_nether_bricks
+@ all :*e
+R 0
+A -
+X No matches for selector ':*e' of type 'minecraft:item' at position 5: t :*e<--[HERE]@3
+E No matches for selector ':*e' of type 'minecraft:item' at position 5: t :*e<--[HERE]@3
+S -2--2 0 0 
+@ all mine:raft:s*
+R 0
+A -
+X No matches for selector 'mine:raft:s*' of type 'minecraft:item' at position 14: ...ne:raft:s*<--[HERE]@12
+E No matches for selector 'mine:raft:s*' of type 'minecraft:item' at position 14: ...ne:raft:s*<--[HERE]@12
+S -2--2 0 0 
+@ all *1stone*
+R 0
+A -
+X No matches for selector 'minecraft:*1stone*' of type 'minecraft:item' at position 10: t *1stone*<--[HERE]@8
+E No matches for selector 'minecraft:*1stone*' of type 'minecraft:item' at position 10: t *1stone*<--[HERE]@8
+S -2--2 0 0 
+@ all ￿￿
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zmine*
+R 0
+A -
+X No matches for selector 'minecraft:zmine*' of type 'minecraft:item' at position 8: t zmine*<--[HERE]@6
+E No matches for selector 'minecraft:zmine*' of type 'minecraft:item' at position 8: t zmine*<--[HERE]@6
+S -2--2 0 0 
+@ all *sharpér
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:item' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:item' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all m***
+R 4
+A 0-4 97:minecraft:mud,minecraft:mangrove_planks,minecraft:mangrove_propagule,minecraft:mangrove_log,minecraft:mangrove_roots:-1518900623
+E ok
+S -2--2 0 0 
+@ all *:*:
+R 0
+A -
+X No matches for selector '*:*:' of type 'minecraft:item' at position 6: t *:*:<--[HERE]@4
+E No matches for selector '*:*:' of type 'minecraft:item' at position 6: t *:*:<--[HERE]@4
+S -2--2 0 0 
+@ all necraf:t:s*
+R 0
+A -
+X No matches for selector 'necraf:t:s*' of type 'minecraft:item' at position 13: ...ecraf:t:s*<--[HERE]@11
+E No matches for selector 'necraf:t:s*' of type 'minecraft:item' at position 13: ...ecraf:t:s*<--[HERE]@11
+S -2--2 0 0 
+@ all *sharZp*
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:item' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:item' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all .
+R 0
+A -
+X No matches for selector 'minecraft:.' of type 'minecraft:item' at position 3: t .<--[HERE]@1
+E No matches for selector 'minecraft:.' of type 'minecraft:item' at position 3: t .<--[HERE]@1
+S -2--2 0 0 
+@ all minecraf-:?????
+R 0
+A -
+X No matches for selector 'minecraf-:?????' of type 'minecraft:item' at position 17: ...raf-:?????<--[HERE]@15
+E No matches for selector 'minecraf-:?????' of type 'minecraft:item' at position 17: ...raf-:?????<--[HERE]@15
+S -2--2 0 0 
+@ all z**
+R 3
+A 0-3 7:minecraft:zombie_spawn_egg,minecraft:zombie_horse_spawn_egg,minecraft:zombie_nautilus_spawn_egg,minecraft:zombie_villager_spawn_egg,minecraft:zoglin_spawn_egg:-1748649105
+E ok
+S -2--2 0 0 
+@ all mi7ecraft:zombie*
+R 0
+A -
+X No matches for selector 'mi7ecraft:zombie*' of type 'minecraft:item' at position 19: ...ft:zombie*<--[HERE]@17
+E No matches for selector 'mi7ecraft:zombie*' of type 'minecraft:item' at position 19: ...ft:zombie*<--[HERE]@17
+S -2--2 0 0 
+@ all *sharp*r
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*r' of type 'minecraft:item' at position 10: t *sharp*r<--[HERE]@8
+E No matches for selector 'minecraft:*sharp*r' of type 'minecraft:item' at position 10: t *sharp*r<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:s*e
+R 13
+A 0-13 27:minecraft:stone,minecraft:stripped_crimson_hyphae,minecraft:stripped_warped_hyphae,minecraft:sponge,minecraft:sandstone:1925628999
+E ok
+S -2--2 0 0 
+@ all *_lXog
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:item' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:item' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *f*=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t *f*<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t *f*<--[HERE]@3
+S -2--2 0 0 
+@ all Stonet
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z*z
+R 0
+A -
+X No matches for selector 'minecraft:z*z' of type 'minecraft:item' at position 5: t z*z<--[HERE]@3
+E No matches for selector 'minecraft:z*z' of type 'minecraft:item' at position 5: t z*z<--[HERE]@3
+S -2--2 0 0 
+@ all }# 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all /y*
+R 0
+A -
+X No matches for selector 'minecraft:/y*' of type 'minecraft:item' at position 5: t /y*<--[HERE]@3
+E No matches for selector 'minecraft:/y*' of type 'minecraft:item' at position 5: t /y*<--[HERE]@3
+S -2--2 0 0 
+@ all *é*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all y?
+R 0
+A -
+X No matches for selector 'minecraft:y?' of type 'minecraft:item' at position 4: t y?<--[HERE]@2
+E No matches for selector 'minecraft:y?' of type 'minecraft:item' at position 4: t y?<--[HERE]@2
+S -2--2 0 0 
+@ all mincraft:?????
+R 0
+A -
+X No matches for selector 'mincraft:?????' of type 'minecraft:item' at position 16: ...raft:?????<--[HERE]@14
+E No matches for selector 'mincraft:?????' of type 'minecraft:item' at position 16: ...raft:?????<--[HERE]@14
+S -2--2 0 0 
+@ all *effecf
+R 0
+A -
+X No matches for selector 'minecraft:*effecf' of type 'minecraft:item' at position 9: t *effecf<--[HERE]@7
+E No matches for selector 'minecraft:*effecf' of type 'minecraft:item' at position 9: t *effecf<--[HERE]@7
+S -2--2 0 0 
+@ all :x
+R 0
+A -
+X No matches for selector ':x' of type 'minecraft:item' at position 4: t :x<--[HERE]@2
+E No matches for selector ':x' of type 'minecraft:item' at position 4: t :x<--[HERE]@2
+S -2--2 0 0 
+@ all _log
+R 0
+A -
+X No matches for selector 'minecraft:_log' of type 'minecraft:item' at position 6: t _log<--[HERE]@4
+E No matches for selector 'minecraft:_log' of type 'minecraft:item' at position 6: t _log<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:s3*
+R 0
+A -
+X No matches for selector 'minecraft:s3*' of type 'minecraft:item' at position 15: ...ecraft:s3*<--[HERE]@13
+E No matches for selector 'minecraft:s3*' of type 'minecraft:item' at position 15: ...ecraft:s3*<--[HERE]@13
+S -2--2 0 0 
+@ all min2craft:s*s
+R 0
+A -
+X No matches for selector 'min2craft:s*s' of type 'minecraft:item' at position 15: ...2craft:s*s<--[HERE]@13
+E No matches for selector 'min2craft:s*s' of type 'minecraft:item' at position 15: ...2craft:s*s<--[HERE]@13
+S -2--2 0 0 
+@ all minec@raft:
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:item' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all effect
+R 0
+A -
+X No matches for selector 'minecraft:effect' of type 'minecraft:item' at position 8: t effect<--[HERE]@6
+E No matches for selector 'minecraft:effect' of type 'minecraft:item' at position 8: t effect<--[HERE]@6
+S -2--2 0 0 
+@ all g
+R 0
+A -
+X No matches for selector 'minecraft:g' of type 'minecraft:item' at position 3: t g<--[HERE]@1
+E No matches for selector 'minecraft:g' of type 'minecraft:item' at position 3: t g<--[HERE]@1
+S 0-1 195 716184614 minecraft:acacia_fence_gate	minecraft:bamboo_fence_gate	minecraft:birch_fence_gate	minecraft:black_glazed_terracotta	minecraft:black_stained_glass	minecraft:black_stained_glass_pane	minecraft:blue_glazed_terracotta	minecraft:blue_stained_glass
+@ all =#
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:*f
+R 12
+A 0-12 22:minecraft:tuff,minecraft:chiseled_tuff,minecraft:polished_tuff,minecraft:big_dripleaf,minecraft:small_dripleaf:999948959
+E ok
+S -2--2 0 0 
+@ all mine中craft*
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all mine*ei
+R 0
+A -
+X No matches for selector 'minecraft:mine*ei' of type 'minecraft:item' at position 9: t mine*ei<--[HERE]@7
+E No matches for selector 'minecraft:mine*ei' of type 'minecraft:item' at position 9: t mine*ei<--[HERE]@7
+S -2--2 0 0 
+@ all mnecraft:oak_*
+R 0
+A -
+X No matches for selector 'mnecraft:oak_*' of type 'minecraft:item' at position 16: ...raft:oak_*<--[HERE]@14
+E No matches for selector 'mnecraft:oak_*' of type 'minecraft:item' at position 16: ...raft:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombie*:
+R 0
+A -
+X No matches for selector 'minecraft:zombie*:' of type 'minecraft:item' at position 20: ...t:zombie*:<--[HERE]@18
+E No matches for selector 'minecraft:zombie*:' of type 'minecraft:item' at position 20: ...t:zombie*:<--[HERE]@18
+S -2--2 0 0 
+@ all */\u0000*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:item' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all ??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:item' at position 4: t ??<--[HERE]@2
+E No matches for selector 'minecraft:??' of type 'minecraft:item' at position 4: t ??<--[HERE]@2
+S -2--2 0 0 
+@ all :**
+R 0
+A -
+X No matches for selector ':**' of type 'minecraft:item' at position 5: t :**<--[HERE]@3
+E No matches for selector ':**' of type 'minecraft:item' at position 5: t :**<--[HERE]@3
+S -2--2 0 0 
+@ all Coo:~*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sharp*
+R 0
+A -
+X No matches for selector 'minecraft:sharp*' of type 'minecraft:item' at position 8: t sharp*<--[HERE]@6
+E No matches for selector 'minecraft:sharp*' of type 'minecraft:item' at position 8: t sharp*<--[HERE]@6
+S -2--2 0 0 
+@ all *::
+R 0
+A -
+X No matches for selector '*::' of type 'minecraft:item' at position 5: t *::<--[HERE]@3
+E No matches for selector '*::' of type 'minecraft:item' at position 5: t *::<--[HERE]@3
+S -2--2 0 0 
+@ all *éé)
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all plaiyss
+R 0
+A -
+X No matches for selector 'minecraft:plaiyss' of type 'minecraft:item' at position 9: t plaiyss<--[HERE]@7
+E No matches for selector 'minecraft:plaiyss' of type 'minecraft:item' at position 9: t plaiyss<--[HERE]@7
+S -2--2 0 0 
+@ all inecraft:*
+R 0
+A -
+X No matches for selector 'inecraft:*' of type 'minecraft:item' at position 12: ...inecraft:*<--[HERE]@10
+E No matches for selector 'inecraft:*' of type 'minecraft:item' at position 12: ...inecraft:*<--[HERE]@10
+S -2--2 0 0 
+@ all ***a
+R 4
+A 0-4 37:minecraft:azalea,minecraft:flowering_azalea,minecraft:white_terracotta,minecraft:orange_terracotta,minecraft:magenta_terracotta:-1391404245
+E ok
+S -2--2 0 0 
+@ all mi5necraft:?????m
+R 0
+A -
+X No matches for selector 'mi5necraft:?????m' of type 'minecraft:item' at position 19: ...aft:?????m<--[HERE]@17
+E No matches for selector 'mi5necraft:?????m' of type 'minecraft:item' at position 19: ...aft:?????m<--[HERE]@17
+S -2--2 0 0 
+@ all <mi￿necraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ft:oak_*:
+R 0
+A -
+X No matches for selector 'ft:oak_*:' of type 'minecraft:item' at position 11: ... ft:oak_*:<--[HERE]@9
+E No matches for selector 'ft:oak_*:' of type 'minecraft:item' at position 11: ... ft:oak_*:<--[HERE]@9
+S -2--2 0 0 
+@ all <e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all %inecraft:s*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:asseta:
+R 0
+A -
+X No matches for selector '*:asseta:' of type 'minecraft:item' at position 11: ... *:asseta:<--[HERE]@9
+E No matches for selector '*:asseta:' of type 'minecraft:item' at position 11: ... *:asseta:<--[HERE]@9
+S -2--2 0 0 
+@ all #]😀
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m#inecraft:s*i
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all #  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *shérp*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t *sh<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all *efect
+R 0
+A -
+X No matches for selector 'minecraft:*efect' of type 'minecraft:item' at position 8: t *efect<--[HERE]@6
+E No matches for selector 'minecraft:*efect' of type 'minecraft:item' at position 8: t *efect<--[HERE]@6
+S -2--2 0 0 
+@ all :s*
+R 0
+A -
+X No matches for selector ':s*' of type 'minecraft:item' at position 5: t :s*<--[HERE]@3
+E No matches for selector ':s*' of type 'minecraft:item' at position 5: t :s*<--[HERE]@3
+S -2--2 0 0 
+@ all pains
+R 0
+A -
+X No matches for selector 'minecraft:pains' of type 'minecraft:item' at position 7: t pains<--[HERE]@5
+E No matches for selector 'minecraft:pains' of type 'minecraft:item' at position 7: t pains<--[HERE]@5
+S -2--2 0 0 
+@ all t*
+R 2
+A 0-2 43:minecraft:tuff,minecraft:tuff_slab,minecraft:tuff_stairs,minecraft:tuff_wall,minecraft:tuff_bricks:-866312366
+E ok
+S -2--2 0 0 
+@ all 8fect
+R 0
+A -
+X No matches for selector 'minecraft:8fect' of type 'minecraft:item' at position 7: t 8fect<--[HERE]@5
+E No matches for selector 'minecraft:8fect' of type 'minecraft:item' at position 7: t 8fect<--[HERE]@5
+S -2--2 0 0 
+@ all *dir$
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:item' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:item' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all o:*
+R 0
+A -
+X No matches for selector 'o:*' of type 'minecraft:item' at position 5: t o:*<--[HERE]@3
+E No matches for selector 'o:*' of type 'minecraft:item' at position 5: t o:*<--[HERE]@3
+S -2--2 0 0 
+@ all *_lcg
+R 0
+A -
+X No matches for selector 'minecraft:*_lcg' of type 'minecraft:item' at position 7: t *_lcg<--[HERE]@5
+E No matches for selector 'minecraft:*_lcg' of type 'minecraft:item' at position 7: t *_lcg<--[HERE]@5
+S -2--2 0 0 
+@ all :????
+R 0
+A -
+X No matches for selector ':????' of type 'minecraft:item' at position 7: t :????<--[HERE]@5
+E No matches for selector ':????' of type 'minecraft:item' at position 7: t :????<--[HERE]@5
+S -2--2 0 0 
+@ all m*a
+R 3
+A 0-3 2:minecraft:magenta_terracotta,minecraft:magenta_glazed_terracotta:-877222333
+E ok
+S -2--2 0 0 
+@ all \u0000??
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all -plains
+R 0
+A -
+X No matches for selector 'minecraft:-plains' of type 'minecraft:item' at position 9: t -plains<--[HERE]@7
+E No matches for selector 'minecraft:-plains' of type 'minecraft:item' at position 9: t -plains<--[HERE]@7
+S -2--2 0 0 
+@ all cb*
+R 0
+A -
+X No matches for selector 'minecraft:cb*' of type 'minecraft:item' at position 5: t cb*<--[HERE]@3
+E No matches for selector 'minecraft:cb*' of type 'minecraft:item' at position 5: t cb*<--[HERE]@3
+S -2--2 0 0 
+@ all tone
+R 0
+A -
+X No matches for selector 'minecraft:tone' of type 'minecraft:item' at position 6: t tone<--[HERE]@4
+E No matches for selector 'minecraft:tone' of type 'minecraft:item' at position 6: t tone<--[HERE]@4
+S -2--2 0 0 
+@ all Sona
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mineYraft:???}??
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all Ym*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zombie*:c
+R 0
+A -
+X No matches for selector 'minecraft:zombie*:c' of type 'minecraft:item' at position 21: ...:zombie*:c<--[HERE]@19
+E No matches for selector 'minecraft:zombie*:c' of type 'minecraft:item' at position 21: ...:zombie*:c<--[HERE]@19
+S -2--2 0 0 
+@ all *éé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *😀
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all ￿minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:*9
+R 0
+A -
+X No matches for selector '*:*9' of type 'minecraft:item' at position 6: t *:*9<--[HERE]@4
+E No matches for selector '*:*9' of type 'minecraft:item' at position 6: t *:*9<--[HERE]@4
+S -2--2 0 0 
+@ all inecraft:
+R 0
+A -
+X No matches for selector 'inecraft:' of type 'minecraft:item' at position 11: ... inecraft:<--[HERE]@9
+E No matches for selector 'inecraft:' of type 'minecraft:item' at position 11: ... inecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all layns
+R 0
+A -
+X No matches for selector 'minecraft:layns' of type 'minecraft:item' at position 7: t layns<--[HERE]@5
+E No matches for selector 'minecraft:layns' of type 'minecraft:item' at position 7: t layns<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:?????e
+R 16
+A 0-16 5:minecraft:sponge,minecraft:saddle,minecraft:bundle,minecraft:cookie,minecraft:candle:1845476299
+E ok
+S -2--2 0 0 
+@ all minecraft:zomb5e*
+R 0
+A -
+X No matches for selector 'minecraft:zomb5e*' of type 'minecraft:item' at position 19: ...ft:zomb5e*<--[HERE]@17
+E No matches for selector 'minecraft:zomb5e*' of type 'minecraft:item' at position 19: ...ft:zomb5e*<--[HERE]@17
+S -2--2 0 0 
+@ all d*d
+R 3
+A 0-3 5:minecraft:dark_oak_wood,minecraft:diamond,minecraft:diamond_sword,minecraft:dragon_head,minecraft:danger_pottery_sherd:1045683563
+E ok
+S -2--2 0 0 
+@ all *har5p*
+R 0
+A -
+X No matches for selector 'minecraft:*har5p*' of type 'minecraft:item' at position 9: t *har5p*<--[HERE]@7
+E No matches for selector 'minecraft:*har5p*' of type 'minecraft:item' at position 9: t *har5p*<--[HERE]@7
+S -2--2 0 0 
+@ all =effect
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *7tone**
+R 0
+A -
+X No matches for selector 'minecraft:*7tone**' of type 'minecraft:item' at position 10: t *7tone**<--[HERE]@8
+E No matches for selector 'minecraft:*7tone**' of type 'minecraft:item' at position 10: t *7tone**<--[HERE]@8
+S -2--2 0 0 
+@ all craft:s*
+R 0
+A -
+X No matches for selector 'craft:s*' of type 'minecraft:item' at position 10: t craft:s*<--[HERE]@8
+E No matches for selector 'craft:s*' of type 'minecraft:item' at position 10: t craft:s*<--[HERE]@8
+S -2--2 0 0 
+@ all mineraft:oak_*
+R 0
+A -
+X No matches for selector 'mineraft:oak_*' of type 'minecraft:item' at position 16: ...raft:oak_*<--[HERE]@14
+E No matches for selector 'mineraft:oak_*' of type 'minecraft:item' at position 16: ...raft:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all t:oak_*
+R 0
+A -
+X No matches for selector 't:oak_*' of type 'minecraft:item' at position 9: t t:oak_*<--[HERE]@7
+E No matches for selector 't:oak_*' of type 'minecraft:item' at position 9: t t:oak_*<--[HERE]@7
+S -2--2 0 0 
+@ all raft:zombi0e*
+R 0
+A -
+X No matches for selector 'raft:zombi0e*' of type 'minecraft:item' at position 15: ...t:zombi0e*<--[HERE]@13
+E No matches for selector 'raft:zombi0e*' of type 'minecraft:item' at position 15: ...t:zombi0e*<--[HERE]@13
+S -2--2 0 0 
+@ all *​_arp*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all fooe,
+R 0
+A -
+X No matches for selector 'minecraft:fooe' of type 'minecraft:item' at position 6: t fooe<--[HERE]@4
+E No matches for selector 'minecraft:fooe' of type 'minecraft:item' at position 6: t fooe<--[HERE]@4
+S -2--2 0 0 
+@ all a*"*2
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t a*<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t a*<--[HERE]@2
+S -2--2 0 0 
+@ all *stone*nn
+R 0
+A -
+X No matches for selector 'minecraft:*stone*nn' of type 'minecraft:item' at position 11: ... *stone*nn<--[HERE]@9
+E No matches for selector 'minecraft:*stone*nn' of type 'minecraft:item' at position 11: ... *stone*nn<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:?????a?
+R 17
+A 0-17 1:minecraft:ink_sac:735856431
+E ok
+S -2--2 0 0 
+@ all craft:*/**
+R 0
+A -
+X No matches for selector 'craft:*/**' of type 'minecraft:item' at position 12: ...craft:*/**<--[HERE]@10
+E No matches for selector 'craft:*/**' of type 'minecraft:item' at position 12: ...craft:*/**<--[HERE]@10
+S -2--2 0 0 
+@ all minecraftX:s*
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:item' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:*/*n
+R 0
+A -
+X No matches for selector 'minecraft:*/*n' of type 'minecraft:item' at position 16: ...craft:*/*n<--[HERE]@14
+E No matches for selector 'minecraft:*/*n' of type 'minecraft:item' at position 16: ...craft:*/*n<--[HERE]@14
+S -2--2 0 0 
+@ all *+
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all inecraft:s*
+R 0
+A -
+X No matches for selector 'inecraft:s*' of type 'minecraft:item' at position 13: ...necraft:s*<--[HERE]@11
+E No matches for selector 'inecraft:s*' of type 'minecraft:item' at position 13: ...necraft:s*<--[HERE]@11
+S -2--2 0 0 
+@ all insi
+R 0
+A -
+X No matches for selector 'minecraft:insi' of type 'minecraft:item' at position 6: t insi<--[HERE]@4
+E No matches for selector 'minecraft:insi' of type 'minecraft:item' at position 6: t insi<--[HERE]@4
+S -2--2 0 0 
+@ all >*_logo
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:Xsset
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:item' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:item' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ,dirt*i
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr9aft:?x???
+R 0
+A -
+X No matches for selector 'minecr9aft:?x???' of type 'minecraft:item' at position 18: ...9aft:?x???<--[HERE]@16
+E No matches for selector 'minecr9aft:?x???' of type 'minecraft:item' at position 18: ...9aft:?x???<--[HERE]@16
+S -2--2 0 0 
+@ all mineraft:????
+R 0
+A -
+X No matches for selector 'mineraft:????' of type 'minecraft:item' at position 15: ...eraft:????<--[HERE]@13
+E No matches for selector 'mineraft:????' of type 'minecraft:item' at position 15: ...eraft:????<--[HERE]@13
+S -2--2 0 0 
+@ all ze
+R 0
+A -
+X No matches for selector 'minecraft:ze' of type 'minecraft:item' at position 4: t ze<--[HERE]@2
+E No matches for selector 'minecraft:ze' of type 'minecraft:item' at position 4: t ze<--[HERE]@2
+S -2--2 0 0 
+@ all *dirt{
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t *dirt<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all minecract:oa_*
+R 0
+A -
+X No matches for selector 'minecract:oa_*' of type 'minecraft:item' at position 16: ...cract:oa_*<--[HERE]@14
+E No matches for selector 'minecract:oa_*' of type 'minecraft:item' at position 16: ...cract:oa_*<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:tf
+R 0
+A -
+X No matches for selector 'minecraft:tf' of type 'minecraft:item' at position 14: ...necraft:tf<--[HERE]@12
+E No matches for selector 'minecraft:tf' of type 'minecraft:item' at position 14: ...necraft:tf<--[HERE]@12
+S -2--2 0 0 
+@ all **éé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t **<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t **<--[HERE]@2
+S -2--2 0 0 
+@ all A
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S 0-1 104 -2030071139 minecraft:abandoned_camp_map	minecraft:acacia_boat	minecraft:acacia_button	minecraft:acacia_chest_boat	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign
+@ all mixe*e
+R 0
+A -
+X No matches for selector 'minecraft:mixe*e' of type 'minecraft:item' at position 8: t mixe*e<--[HERE]@6
+E No matches for selector 'minecraft:mixe*e' of type 'minecraft:item' at position 8: t mixe*e<--[HERE]@6
+S -2--2 0 0 
+@ all mineCraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:item' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all #<
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :$)
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:item' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:item' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all mincraft:oak_*
+R 0
+A -
+X No matches for selector 'mincraft:oak_*' of type 'minecraft:item' at position 16: ...raft:oak_*<--[HERE]@14
+E No matches for selector 'mincraft:oak_*' of type 'minecraft:item' at position 16: ...raft:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all ?????
+R 5
+A 0-5 24:minecraft:stone,minecraft:glass,minecraft:poppy,minecraft:torch,minecraft:chest:892819618
+E ok
+S -2--2 0 0 
+@ all m**
+R 3
+A 0-3 97:minecraft:mud,minecraft:mangrove_planks,minecraft:mangrove_propagule,minecraft:mangrove_log,minecraft:mangrove_roots:-1518900623
+E ok
+S -2--2 0 0 
+@ all *tone
+R 5
+A 0-5 24:minecraft:stone,minecraft:cobblestone,minecraft:sandstone,minecraft:chiseled_sandstone,minecraft:cut_sandstone:467299212
+E ok
+S -2--2 0 0 
+@ all */***
+R 0
+A -
+X No matches for selector 'minecraft:*/***' of type 'minecraft:item' at position 7: t */***<--[HERE]@5
+E No matches for selector 'minecraft:*/***' of type 'minecraft:item' at position 7: t */***<--[HERE]@5
+S -2--2 0 0 
+@ all *shar1*
+R 0
+A -
+X No matches for selector 'minecraft:*shar1*' of type 'minecraft:item' at position 9: t *shar1*<--[HERE]@7
+E No matches for selector 'minecraft:*shar1*' of type 'minecraft:item' at position 9: t *shar1*<--[HERE]@7
+S -2--2 0 0 
+@ all aft:oak_*
+R 0
+A -
+X No matches for selector 'aft:oak_*' of type 'minecraft:item' at position 11: ... aft:oak_*<--[HERE]@9
+E No matches for selector 'aft:oak_*' of type 'minecraft:item' at position 11: ... aft:oak_*<--[HERE]@9
+S -2--2 0 0 
+@ all *:azset
+R 0
+A -
+X No matches for selector '*:azset' of type 'minecraft:item' at position 9: t *:azset<--[HERE]@7
+E No matches for selector '*:azset' of type 'minecraft:item' at position 9: t *:azset<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:**
+R 12
+A 0-12 1658:minecraft:air,minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite:381393180
+E ok
+S -2--2 0 0 
+@ all mineraf:
+R 0
+A -
+X No matches for selector 'mineraf:' of type 'minecraft:item' at position 10: t mineraf:<--[HERE]@8
+E No matches for selector 'mineraf:' of type 'minecraft:item' at position 10: t mineraf:<--[HERE]@8
+S -2--2 0 0 
+@ all @*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *ee
+R 0
+A -
+X No matches for selector 'minecraft:*ee' of type 'minecraft:item' at position 5: t *ee<--[HERE]@3
+E No matches for selector 'minecraft:*ee' of type 'minecraft:item' at position 5: t *ee<--[HERE]@3
+S -2--2 0 0 
+@ all fo:*
+R 0
+A -
+X No matches for selector 'fo:*' of type 'minecraft:item' at position 6: t fo:*<--[HERE]@4
+E No matches for selector 'fo:*' of type 'minecraft:item' at position 6: t fo:*<--[HERE]@4
+S -2--2 0 0 
+@ all ft:oak_**
+R 0
+A -
+X No matches for selector 'ft:oak_**' of type 'minecraft:item' at position 11: ... ft:oak_**<--[HERE]@9
+E No matches for selector 'ft:oak_**' of type 'minecraft:item' at position 11: ... ft:oak_**<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:doak_*
+R 0
+A -
+X No matches for selector 'minecraft:doak_*' of type 'minecraft:item' at position 18: ...aft:doak_*<--[HERE]@16
+E No matches for selector 'minecraft:doak_*' of type 'minecraft:item' at position 18: ...aft:doak_*<--[HERE]@16
+S -2--2 0 0 
+@ all f:oo:
+R 0
+A -
+X No matches for selector 'f:oo:' of type 'minecraft:item' at position 7: t f:oo:<--[HERE]@5
+E No matches for selector 'f:oo:' of type 'minecraft:item' at position 7: t f:oo:<--[HERE]@5
+S -2--2 0 0 
+@ all */*\u0009
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:item' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:item' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraZt:\u0009*
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:item' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all StoneBe
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mie*
+R 0
+A -
+X No matches for selector 'minecraft:mie*' of type 'minecraft:item' at position 6: t mie*<--[HERE]@4
+E No matches for selector 'minecraft:mie*' of type 'minecraft:item' at position 6: t mie*<--[HERE]@4
+S -2--2 0 0 
+@ all *5**
+R 4
+A 0-4 2:minecraft:music_disc_5,minecraft:disc_fragment_5:-1245866804
+E ok
+S -2--2 0 0 
+@ all *3
+R 2
+A 0-2 1:minecraft:music_disc_13:1678265829
+E ok
+S -2--2 0 0 
+@ all miecfraft:
+R 0
+A -
+X No matches for selector 'miecfraft:' of type 'minecraft:item' at position 12: ...miecfraft:<--[HERE]@10
+E No matches for selector 'miecfraft:' of type 'minecraft:item' at position 12: ...miecfraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:*/*i
+R 0
+A -
+X No matches for selector 'minecraft:*/*i' of type 'minecraft:item' at position 16: ...craft:*/*i<--[HERE]@14
+E No matches for selector 'minecraft:*/*i' of type 'minecraft:item' at position 16: ...craft:*/*i<--[HERE]@14
+S -2--2 0 0 
+@ all #+
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *dir%*
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:item' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:item' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all \u0009e*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrft:*/*
+R 0
+A -
+X No matches for selector 'minecrft:*/*' of type 'minecraft:item' at position 14: ...necrft:*/*<--[HERE]@12
+E No matches for selector 'minecrft:*/*' of type 'minecraft:item' at position 14: ...necrft:*/*<--[HERE]@12
+S -2--2 0 0 
+@ all *stoneX
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t *stone<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all :*:
+R 0
+A -
+X No matches for selector ':*:' of type 'minecraft:item' at position 5: t :*:<--[HERE]@3
+E No matches for selector ':*:' of type 'minecraft:item' at position 5: t :*:<--[HERE]@3
+S -2--2 0 0 
+@ all =
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *e*
+R 3
+A 0-3 1359:minecraft:stone,minecraft:granite,minecraft:polished_granite,minecraft:diorite,minecraft:polished_diorite:1995734983
+E ok
+S -2--2 0 0 
+@ all *stonB*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t *ston<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 5/
+R 0
+A -
+X No matches for selector 'minecraft:5/' of type 'minecraft:item' at position 4: t 5/<--[HERE]@2
+E No matches for selector 'minecraft:5/' of type 'minecraft:item' at position 4: t 5/<--[HERE]@2
+S -2--2 0 0 
+@ all *dirt\\*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t *dirt<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all aft:
+R 0
+A -
+X No matches for selector 'aft:' of type 'minecraft:item' at position 6: t aft:<--[HERE]@4
+E No matches for selector 'aft:' of type 'minecraft:item' at position 6: t aft:<--[HERE]@4
+S -2--2 0 0 
+@ all *efectf
+R 0
+A -
+X No matches for selector 'minecraft:*efectf' of type 'minecraft:item' at position 9: t *efectf<--[HERE]@7
+E No matches for selector 'minecraft:*efectf' of type 'minecraft:item' at position 9: t *efectf<--[HERE]@7
+S -2--2 0 0 
+@ all -Stone
+R 0
+A -
+X No matches for selector 'minecraft:-' of type 'minecraft:item' at position 3: t -<--[HERE]@1
+E No matches for selector 'minecraft:-' of type 'minecraft:item' at position 3: t -<--[HERE]@1
+S -2--2 0 0 
+@ all *(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all SXone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *effect*
+R 0
+A -
+X No matches for selector 'minecraft:*effect*' of type 'minecraft:item' at position 10: t *effect*<--[HERE]@8
+E No matches for selector 'minecraft:*effect*' of type 'minecraft:item' at position 10: t *effect*<--[HERE]@8
+S -2--2 0 0 
+@ all ffectc
+R 0
+A -
+X No matches for selector 'minecraft:ffectc' of type 'minecraft:item' at position 8: t ffectc<--[HERE]@6
+E No matches for selector 'minecraft:ffectc' of type 'minecraft:item' at position 8: t ffectc<--[HERE]@6
+S -2--2 0 0 
+@ all :_l:og
+R 0
+A -
+X No matches for selector ':_l:og' of type 'minecraft:item' at position 8: t :_l:og<--[HERE]@6
+E No matches for selector ':_l:og' of type 'minecraft:item' at position 8: t :_l:og<--[HERE]@6
+S -2--2 0 0 
+@ all *e_
+R 0
+A -
+X No matches for selector 'minecraft:*e_' of type 'minecraft:item' at position 5: t *e_<--[HERE]@3
+E No matches for selector 'minecraft:*e_' of type 'minecraft:item' at position 5: t *e_<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:éak_*e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:item' at position 3: t e<--[HERE]@1
+E No matches for selector 'minecraft:e' of type 'minecraft:item' at position 3: t e<--[HERE]@1
+S 0-1 151 899767840 minecraft:allay_spawn_egg	minecraft:armadillo_spawn_egg	minecraft:axolotl_spawn_egg	minecraft:bat_spawn_egg	minecraft:bee_spawn_egg	minecraft:blaze_spawn_egg	minecraft:blue_egg	minecraft:bogged_spawn_egg
+@ all minecrZaft:
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all a**c
+R 0
+A -
+X No matches for selector 'minecraft:a**c' of type 'minecraft:item' at position 6: t a**c<--[HERE]@4
+E No matches for selector 'minecraft:a**c' of type 'minecraft:item' at position 6: t a**c<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:o​k_*​
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:item' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:item' at position 13: ...inecraft:o<--[HERE]@11
+S -2--2 0 0 
+@ all minecradt:
+R 0
+A -
+X No matches for selector 'minecradt:' of type 'minecraft:item' at position 12: ...minecradt:<--[HERE]@10
+E No matches for selector 'minecradt:' of type 'minecraft:item' at position 12: ...minecradt:<--[HERE]@10
+S -2--2 0 0 
+@ all inecraft:?????
+R 0
+A -
+X No matches for selector 'inecraft:?????' of type 'minecraft:item' at position 16: ...raft:?????<--[HERE]@14
+E No matches for selector 'inecraft:?????' of type 'minecraft:item' at position 16: ...raft:?????<--[HERE]@14
+S -2--2 0 0 
+@ all b*c
+R 3
+A 0-3 1:minecraft:bamboo_mosaic:-829225688
+E ok
+S -2--2 0 0 
+@ all ^*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *\u000atone*-
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all _Z*
+R 0
+A -
+X No matches for selector 'minecraft:_' of type 'minecraft:item' at position 3: t _<--[HERE]@1
+E No matches for selector 'minecraft:_' of type 'minecraft:item' at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all *:assett
+R 0
+A -
+X No matches for selector '*:assett' of type 'minecraft:item' at position 10: t *:assett<--[HERE]@8
+E No matches for selector '*:assett' of type 'minecraft:item' at position 10: t *:assett<--[HERE]@8
+S -2--2 0 0 
+@ all \u000aoo:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:ass0et
+R 0
+A -
+X No matches for selector '*:ass0et' of type 'minecraft:item' at position 10: t *:ass0et<--[HERE]@8
+E No matches for selector '*:ass0et' of type 'minecraft:item' at position 10: t *:ass0et<--[HERE]@8
+S -2--2 0 0 
+@ all +e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr=ft:?????
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:item' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all stnes
+R 0
+A -
+X No matches for selector 'minecraft:stnes' of type 'minecraft:item' at position 7: t stnes<--[HERE]@5
+E No matches for selector 'minecraft:stnes' of type 'minecraft:item' at position 7: t stnes<--[HERE]@5
+S -2--2 0 0 
+@ all $t:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ecraft:
+R 0
+A -
+X No matches for selector 'ecraft:' of type 'minecraft:item' at position 9: t ecraft:<--[HERE]@7
+E No matches for selector 'ecraft:' of type 'minecraft:item' at position 9: t ecraft:<--[HERE]@7
+S -2--2 0 0 
+@ all ecraft:zombie*
+R 0
+A -
+X No matches for selector 'ecraft:zombie*' of type 'minecraft:item' at position 16: ...ft:zombie*<--[HERE]@14
+E No matches for selector 'ecraft:zombie*' of type 'minecraft:item' at position 16: ...ft:zombie*<--[HERE]@14
+S -2--2 0 0 
+@ all *Y*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *stone*e
+R 8
+A 0-8 7:minecraft:redstone_ore,minecraft:deepslate_redstone_ore,minecraft:stone_pressure_plate,minecraft:polished_blackstone_pressure_plate,minecraft:stone_pickaxe:1197079412
+E ok
+S -2--2 0 0 
+@ all Sto\\eS
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m[inecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:item' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all }*é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:item' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*b中c
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t a*b<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all t:??????
+R 0
+A -
+X No matches for selector 't:??????' of type 'minecraft:item' at position 10: t t:??????<--[HERE]@8
+E No matches for selector 't:??????' of type 'minecraft:item' at position 10: t t:??????<--[HERE]@8
+S -2--2 0 0 

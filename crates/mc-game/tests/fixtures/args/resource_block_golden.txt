@@ -1,0 +1,1908 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraft:stone
+R 15
+A 0-15 minecraft:stone
+E ok
+S 0-15 9 216777886 minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter
+@ all oak_planks
+R 10
+A 0-10 minecraft:oak_planks
+E ok
+S 0-10 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all minecraft:grass_block
+R 21
+A 0-21 minecraft:grass_block
+E ok
+S -2--2 0 0 
+@ all minecraft:water
+R 15
+A 0-15 minecraft:water
+E ok
+S 0-15 1 -1882396814 minecraft:water_cauldron
+@ all minecraft:fire
+R 14
+A 0-14 minecraft:fire
+E ok
+S 0-14 5 -652235165 minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush
+@ all #minecraft:logs
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pickaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leaves
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:nope' of type 'minecraft:block' at position 16: ...craft:nope<--[HERE]@14
+E Can't find element 'minecraft:nope' of type 'minecraft:block' at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all #
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:air
+R 13
+A 0-13 minecraft:air
+E ok
+S -2--2 0 0 
+@ all lava
+R 4
+A 0-4 minecraft:lava
+E ok
+S 0-4 2 -1857879983 minecraft:lava	minecraft:lava_cauldron
+@ all foo:stone
+R 0
+A -
+X Can't find element 'foo:stone' of type 'minecraft:block' at position 11: ... foo:stone<--[HERE]@9
+E Can't find element 'foo:stone' of type 'minecraft:block' at position 11: ... foo:stone<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:oak_s
+R 0
+A -
+X Can't find element 'minecraft:oak_s' of type 'minecraft:block' at position 17: ...raft:oak_s<--[HERE]@15
+E Can't find element 'minecraft:oak_s' of type 'minecraft:block' at position 17: ...raft:oak_s<--[HERE]@15
+S 0-15 5 391317555 minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs
+@ all #minecraft:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:stone[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+S -2--2 0 0 
+@ all #minecraft:logs 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:block' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:block' at position 3: t m<--[HERE]@1
+S 0-1 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all mi
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:block' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:block' at position 4: t mi<--[HERE]@2
+S 0-2 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all min
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:block' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:block' at position 5: t min<--[HERE]@3
+S 0-3 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all mine
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+S 0-4 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minec
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+S 0-5 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecr
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:block' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:block' at position 8: t minecr<--[HERE]@6
+S 0-6 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecra
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:block' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:block' at position 9: t minecra<--[HERE]@7
+S 0-7 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraf
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:block' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:block' at position 10: t minecraf<--[HERE]@8
+S 0-8 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraft
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:block' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:block' at position 11: ... minecraft<--[HERE]@9
+S 0-9 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraft:s
+R 0
+A -
+X Can't find element 'minecraft:s' of type 'minecraft:block' at position 13: ...inecraft:s<--[HERE]@11
+E Can't find element 'minecraft:s' of type 'minecraft:block' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 122 836893931 minecraft:sand	minecraft:sandstone	minecraft:sandstone_slab	minecraft:sandstone_stairs	minecraft:sandstone_wall	minecraft:scaffolding	minecraft:sculk	minecraft:sculk_catalyst
+@ all minecraft:st
+R 0
+A -
+X Can't find element 'minecraft:st' of type 'minecraft:block' at position 14: ...necraft:st<--[HERE]@12
+E Can't find element 'minecraft:st' of type 'minecraft:block' at position 14: ...necraft:st<--[HERE]@12
+S 0-12 39 864036912 minecraft:sticky_piston	minecraft:stone	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter	minecraft:straw_bed	minecraft:stripped_acacia_log	minecraft:stripped_acacia_wood	minecraft:stripped_bamboo_block	minecraft:stripped_birch_log	minecraft:stripped_birch_wood	minecraft:stripped_cherry_log	minecraft:stripped_cherry_wood	minecraft:stripped_crimson_hyphae	minecraft:stripped_crimson_stem	minecraft:stripped_dark_oak_log	minecraft:stripped_dark_oak_wood	minecraft:stripped_jungle_log	minecraft:stripped_jungle_wood	minecraft:stripped_mangrove_log	minecraft:stripped_mangrove_wood	minecraft:stripped_oak_log	minecraft:stripped_oak_wood	minecraft:stripped_pale_oak_log	minecraft:stripped_pale_oak_wood	minecraft:stripped_poplar_log	minecraft:stripped_poplar_wood	minecraft:stripped_spruce_log	minecraft:stripped_spruce_wood	minecraft:stripped_warped_hyphae	minecraft:stripped_warped_stem	minecraft:structure_block	minecraft:structure_void
+@ all minecraft:sto
+R 0
+A -
+X Can't find element 'minecraft:sto' of type 'minecraft:block' at position 15: ...ecraft:sto<--[HERE]@13
+E Can't find element 'minecraft:sto' of type 'minecraft:block' at position 15: ...ecraft:sto<--[HERE]@13
+S 0-13 10 1305901839 minecraft:stone	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter
+@ all minecraft:ston
+R 0
+A -
+X Can't find element 'minecraft:ston' of type 'minecraft:block' at position 16: ...craft:ston<--[HERE]@14
+E Can't find element 'minecraft:ston' of type 'minecraft:block' at position 16: ...craft:ston<--[HERE]@14
+S 0-14 10 1305901839 minecraft:stone	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter
+@ all o
+R 0
+A -
+X Can't find element 'minecraft:o' of type 'minecraft:block' at position 3: t o<--[HERE]@1
+E Can't find element 'minecraft:o' of type 'minecraft:block' at position 3: t o<--[HERE]@1
+S 0-1 146 -771997867 minecraft:blue_orchid	minecraft:coal_ore	minecraft:copper_ore	minecraft:crying_obsidian	minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate
+@ all oa
+R 0
+A -
+X Can't find element 'minecraft:oa' of type 'minecraft:block' at position 4: t oa<--[HERE]@2
+E Can't find element 'minecraft:oa' of type 'minecraft:block' at position 4: t oa<--[HERE]@2
+S 0-2 64 630364636 minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate	minecraft:dark_oak_hanging_sign	minecraft:dark_oak_leaves	minecraft:dark_oak_log	minecraft:dark_oak_planks
+@ all oak
+R 0
+A -
+X Can't find element 'minecraft:oak' of type 'minecraft:block' at position 5: t oak<--[HERE]@3
+E Can't find element 'minecraft:oak' of type 'minecraft:block' at position 5: t oak<--[HERE]@3
+S 0-3 64 630364636 minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate	minecraft:dark_oak_hanging_sign	minecraft:dark_oak_leaves	minecraft:dark_oak_log	minecraft:dark_oak_planks
+@ all oak_
+R 0
+A -
+X Can't find element 'minecraft:oak_' of type 'minecraft:block' at position 6: t oak_<--[HERE]@4
+E Can't find element 'minecraft:oak_' of type 'minecraft:block' at position 6: t oak_<--[HERE]@4
+S 0-4 64 630364636 minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate	minecraft:dark_oak_hanging_sign	minecraft:dark_oak_leaves	minecraft:dark_oak_log	minecraft:dark_oak_planks
+@ all oak_p
+R 0
+A -
+X Can't find element 'minecraft:oak_p' of type 'minecraft:block' at position 7: t oak_p<--[HERE]@5
+E Can't find element 'minecraft:oak_p' of type 'minecraft:block' at position 7: t oak_p<--[HERE]@5
+S 0-5 6 2095804383 minecraft:dark_oak_planks	minecraft:dark_oak_pressure_plate	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:pale_oak_planks	minecraft:pale_oak_pressure_plate
+@ all oak_pl
+R 0
+A -
+X Can't find element 'minecraft:oak_pl' of type 'minecraft:block' at position 8: t oak_pl<--[HERE]@6
+E Can't find element 'minecraft:oak_pl' of type 'minecraft:block' at position 8: t oak_pl<--[HERE]@6
+S 0-6 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all oak_pla
+R 0
+A -
+X Can't find element 'minecraft:oak_pla' of type 'minecraft:block' at position 9: t oak_pla<--[HERE]@7
+E Can't find element 'minecraft:oak_pla' of type 'minecraft:block' at position 9: t oak_pla<--[HERE]@7
+S 0-7 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all oak_plan
+R 0
+A -
+X Can't find element 'minecraft:oak_plan' of type 'minecraft:block' at position 10: t oak_plan<--[HERE]@8
+E Can't find element 'minecraft:oak_plan' of type 'minecraft:block' at position 10: t oak_plan<--[HERE]@8
+S 0-8 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all oak_plank
+R 0
+A -
+X Can't find element 'minecraft:oak_plank' of type 'minecraft:block' at position 11: ... oak_plank<--[HERE]@9
+E Can't find element 'minecraft:oak_plank' of type 'minecraft:block' at position 11: ... oak_plank<--[HERE]@9
+S 0-9 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all minecraft:g
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:block' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:block' at position 13: ...inecraft:g<--[HERE]@11
+S 0-11 51 866346768 minecraft:gilded_blackstone	minecraft:glass	minecraft:glass_pane	minecraft:glow_lichen	minecraft:glowstone	minecraft:gold_block	minecraft:gold_ore	minecraft:golden_dandelion
+@ all minecraft:gr
+R 0
+A -
+X Can't find element 'minecraft:gr' of type 'minecraft:block' at position 14: ...necraft:gr<--[HERE]@12
+E Can't find element 'minecraft:gr' of type 'minecraft:block' at position 14: ...necraft:gr<--[HERE]@12
+S 0-12 43 -1655493947 minecraft:granite	minecraft:granite_slab	minecraft:granite_stairs	minecraft:granite_wall	minecraft:grass_block	minecraft:gravel	minecraft:gray_banner	minecraft:gray_bed
+@ all minecraft:gra
+R 0
+A -
+X Can't find element 'minecraft:gra' of type 'minecraft:block' at position 15: ...ecraft:gra<--[HERE]@13
+E Can't find element 'minecraft:gra' of type 'minecraft:block' at position 15: ...ecraft:gra<--[HERE]@13
+S 0-13 24 -1607023262 minecraft:granite	minecraft:granite_slab	minecraft:granite_stairs	minecraft:granite_wall	minecraft:grass_block	minecraft:gravel	minecraft:gray_banner	minecraft:gray_bed	minecraft:gray_candle	minecraft:gray_candle_cake	minecraft:gray_carpet	minecraft:gray_concrete	minecraft:gray_concrete_powder	minecraft:gray_concrete_slab	minecraft:gray_concrete_stairs	minecraft:gray_glazed_terracotta	minecraft:gray_shulker_box	minecraft:gray_stained_glass	minecraft:gray_stained_glass_pane	minecraft:gray_terracotta	minecraft:gray_wall_banner	minecraft:gray_wool	minecraft:gray_wool_slab	minecraft:gray_wool_stairs
+@ all minecraft:gras
+R 0
+A -
+X Can't find element 'minecraft:gras' of type 'minecraft:block' at position 16: ...craft:gras<--[HERE]@14
+E Can't find element 'minecraft:gras' of type 'minecraft:block' at position 16: ...craft:gras<--[HERE]@14
+S 0-14 1 1060778098 minecraft:grass_block
+@ all minecraft:grass
+R 0
+A -
+X Can't find element 'minecraft:grass' of type 'minecraft:block' at position 17: ...raft:grass<--[HERE]@15
+E Can't find element 'minecraft:grass' of type 'minecraft:block' at position 17: ...raft:grass<--[HERE]@15
+S 0-15 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_
+R 0
+A -
+X Can't find element 'minecraft:grass_' of type 'minecraft:block' at position 18: ...aft:grass_<--[HERE]@16
+E Can't find element 'minecraft:grass_' of type 'minecraft:block' at position 18: ...aft:grass_<--[HERE]@16
+S 0-16 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_b
+R 0
+A -
+X Can't find element 'minecraft:grass_b' of type 'minecraft:block' at position 19: ...ft:grass_b<--[HERE]@17
+E Can't find element 'minecraft:grass_b' of type 'minecraft:block' at position 19: ...ft:grass_b<--[HERE]@17
+S 0-17 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_bl
+R 0
+A -
+X Can't find element 'minecraft:grass_bl' of type 'minecraft:block' at position 20: ...t:grass_bl<--[HERE]@18
+E Can't find element 'minecraft:grass_bl' of type 'minecraft:block' at position 20: ...t:grass_bl<--[HERE]@18
+S 0-18 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_blo
+R 0
+A -
+X Can't find element 'minecraft:grass_blo' of type 'minecraft:block' at position 21: ...:grass_blo<--[HERE]@19
+E Can't find element 'minecraft:grass_blo' of type 'minecraft:block' at position 21: ...:grass_blo<--[HERE]@19
+S 0-19 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_bloc
+R 0
+A -
+X Can't find element 'minecraft:grass_bloc' of type 'minecraft:block' at position 22: ...grass_bloc<--[HERE]@20
+E Can't find element 'minecraft:grass_bloc' of type 'minecraft:block' at position 22: ...grass_bloc<--[HERE]@20
+S 0-20 1 1060778098 minecraft:grass_block
+@ all minecraft:w
+R 0
+A -
+X Can't find element 'minecraft:w' of type 'minecraft:block' at position 13: ...inecraft:w<--[HERE]@11
+E Can't find element 'minecraft:w' of type 'minecraft:block' at position 13: ...inecraft:w<--[HERE]@11
+S 0-11 125 -1738613215 minecraft:wall_torch	minecraft:warped_button	minecraft:warped_door	minecraft:warped_fence	minecraft:warped_fence_gate	minecraft:warped_fungus	minecraft:warped_hanging_sign	minecraft:warped_hyphae
+@ all minecraft:wa
+R 0
+A -
+X Can't find element 'minecraft:wa' of type 'minecraft:block' at position 14: ...necraft:wa<--[HERE]@12
+E Can't find element 'minecraft:wa' of type 'minecraft:block' at position 14: ...necraft:wa<--[HERE]@12
+S 0-12 83 -745076581 minecraft:wall_torch	minecraft:warped_button	minecraft:warped_door	minecraft:warped_fence	minecraft:warped_fence_gate	minecraft:warped_fungus	minecraft:warped_hanging_sign	minecraft:warped_hyphae
+@ all minecraft:wat
+R 0
+A -
+X Can't find element 'minecraft:wat' of type 'minecraft:block' at position 15: ...ecraft:wat<--[HERE]@13
+E Can't find element 'minecraft:wat' of type 'minecraft:block' at position 15: ...ecraft:wat<--[HERE]@13
+S 0-13 2 -874883053 minecraft:water	minecraft:water_cauldron
+@ all minecraft:wate
+R 0
+A -
+X Can't find element 'minecraft:wate' of type 'minecraft:block' at position 16: ...craft:wate<--[HERE]@14
+E Can't find element 'minecraft:wate' of type 'minecraft:block' at position 16: ...craft:wate<--[HERE]@14
+S 0-14 2 -874883053 minecraft:water	minecraft:water_cauldron
+@ all minecraft:f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:block' at position 13: ...inecraft:f<--[HERE]@11
+E Can't find element 'minecraft:f' of type 'minecraft:block' at position 13: ...inecraft:f<--[HERE]@11
+S 0-11 15 -586138958 minecraft:farmland	minecraft:fern	minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush	minecraft:fletching_table	minecraft:flower_pot	minecraft:flowering_azalea	minecraft:flowering_azalea_leaves	minecraft:frogspawn	minecraft:frosted_ice	minecraft:furnace
+@ all minecraft:fi
+R 0
+A -
+X Can't find element 'minecraft:fi' of type 'minecraft:block' at position 14: ...necraft:fi<--[HERE]@12
+E Can't find element 'minecraft:fi' of type 'minecraft:block' at position 14: ...necraft:fi<--[HERE]@12
+S 0-12 6 205709417 minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush
+@ all minecraft:fir
+R 0
+A -
+X Can't find element 'minecraft:fir' of type 'minecraft:block' at position 15: ...ecraft:fir<--[HERE]@13
+E Can't find element 'minecraft:fir' of type 'minecraft:block' at position 15: ...ecraft:fir<--[HERE]@13
+S 0-13 6 205709417 minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush
+@ all #m
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:l
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:lo
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:log
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:m
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mi
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:min
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mine
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:minea
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineab
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineabl
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/p
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pi
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pic
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pick
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/picka
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pickax
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:le
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:lea
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leav
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leave
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:n
+R 0
+A -
+X Can't find element 'minecraft:n' of type 'minecraft:block' at position 13: ...inecraft:n<--[HERE]@11
+E Can't find element 'minecraft:n' of type 'minecraft:block' at position 13: ...inecraft:n<--[HERE]@11
+S 0-11 14 -2106918908 minecraft:nether_brick_fence	minecraft:nether_brick_slab	minecraft:nether_brick_stairs	minecraft:nether_brick_wall	minecraft:nether_bricks	minecraft:nether_gold_ore	minecraft:nether_portal	minecraft:nether_quartz_ore	minecraft:nether_sprouts	minecraft:nether_wart	minecraft:nether_wart_block	minecraft:netherite_block	minecraft:netherrack	minecraft:note_block
+@ all minecraft:no
+R 0
+A -
+X Can't find element 'minecraft:no' of type 'minecraft:block' at position 14: ...necraft:no<--[HERE]@12
+E Can't find element 'minecraft:no' of type 'minecraft:block' at position 14: ...necraft:no<--[HERE]@12
+S 0-12 1 735181756 minecraft:note_block
+@ all minecraft:nop
+R 0
+A -
+X Can't find element 'minecraft:nop' of type 'minecraft:block' at position 15: ...ecraft:nop<--[HERE]@13
+E Can't find element 'minecraft:nop' of type 'minecraft:block' at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:a
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:block' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:block' at position 13: ...inecraft:a<--[HERE]@11
+S 0-11 34 -151592181 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks	minecraft:acacia_pressure_plate	minecraft:acacia_sapling	minecraft:acacia_shelf	minecraft:acacia_sign	minecraft:acacia_slab	minecraft:acacia_stairs	minecraft:acacia_trapdoor	minecraft:acacia_wall_hanging_sign	minecraft:acacia_wall_sign	minecraft:acacia_wood	minecraft:activator_rail	minecraft:air	minecraft:allium	minecraft:amethyst_block	minecraft:amethyst_cluster	minecraft:ancient_debris	minecraft:andesite	minecraft:andesite_slab	minecraft:andesite_stairs	minecraft:andesite_wall	minecraft:anvil	minecraft:attached_melon_stem	minecraft:attached_pumpkin_stem	minecraft:azalea	minecraft:azalea_leaves	minecraft:azure_bluet
+@ all minecraft:ai
+R 0
+A -
+X Can't find element 'minecraft:ai' of type 'minecraft:block' at position 14: ...necraft:ai<--[HERE]@12
+E Can't find element 'minecraft:ai' of type 'minecraft:block' at position 14: ...necraft:ai<--[HERE]@12
+S 0-12 1 -1006957140 minecraft:air
+@ all l
+R 0
+A -
+X Can't find element 'minecraft:l' of type 'minecraft:block' at position 3: t l<--[HERE]@1
+E Can't find element 'minecraft:l' of type 'minecraft:block' at position 3: t l<--[HERE]@1
+S 0-1 129 -353726567 minecraft:acacia_leaves	minecraft:acacia_log	minecraft:azalea_leaves	minecraft:birch_leaves	minecraft:birch_log	minecraft:cherry_leaves	minecraft:cherry_log	minecraft:copper_lantern
+@ all la
+R 0
+A -
+X Can't find element 'minecraft:la' of type 'minecraft:block' at position 4: t la<--[HERE]@2
+E Can't find element 'minecraft:la' of type 'minecraft:block' at position 4: t la<--[HERE]@2
+S 0-2 21 -1155171843 minecraft:copper_lantern	minecraft:deepslate_lapis_ore	minecraft:exposed_copper_lantern	minecraft:jack_o_lantern	minecraft:ladder	minecraft:lantern	minecraft:lapis_block	minecraft:lapis_ore	minecraft:large_amethyst_bud	minecraft:large_fern	minecraft:lava	minecraft:lava_cauldron	minecraft:oxidized_copper_lantern	minecraft:redstone_lamp	minecraft:sea_lantern	minecraft:soul_lantern	minecraft:waxed_copper_lantern	minecraft:waxed_exposed_copper_lantern	minecraft:waxed_oxidized_copper_lantern	minecraft:waxed_weathered_copper_lantern	minecraft:weathered_copper_lantern
+@ all lav
+R 0
+A -
+X Can't find element 'minecraft:lav' of type 'minecraft:block' at position 5: t lav<--[HERE]@3
+E Can't find element 'minecraft:lav' of type 'minecraft:block' at position 5: t lav<--[HERE]@3
+S 0-3 2 -1857879983 minecraft:lava	minecraft:lava_cauldron
+@ all f
+R 0
+A -
+X Can't find element 'minecraft:f' of type 'minecraft:block' at position 3: t f<--[HERE]@1
+E Can't find element 'minecraft:f' of type 'minecraft:block' at position 3: t f<--[HERE]@1
+S 0-1 77 222829320 minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:bamboo_fence	minecraft:bamboo_fence_gate	minecraft:birch_fence	minecraft:birch_fence_gate	minecraft:blast_furnace	minecraft:brain_coral_fan
+@ all fo
+R 0
+A -
+X Can't find element 'minecraft:fo' of type 'minecraft:block' at position 4: t fo<--[HERE]@2
+E Can't find element 'minecraft:fo' of type 'minecraft:block' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all foo
+R 0
+A -
+X Can't find element 'minecraft:foo' of type 'minecraft:block' at position 5: t foo<--[HERE]@3
+E Can't find element 'minecraft:foo' of type 'minecraft:block' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X Can't find element 'foo:' of type 'minecraft:block' at position 6: t foo:<--[HERE]@4
+E Can't find element 'foo:' of type 'minecraft:block' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:s
+R 0
+A -
+X Can't find element 'foo:s' of type 'minecraft:block' at position 7: t foo:s<--[HERE]@5
+E Can't find element 'foo:s' of type 'minecraft:block' at position 7: t foo:s<--[HERE]@5
+S -2--2 0 0 
+@ all foo:st
+R 0
+A -
+X Can't find element 'foo:st' of type 'minecraft:block' at position 8: t foo:st<--[HERE]@6
+E Can't find element 'foo:st' of type 'minecraft:block' at position 8: t foo:st<--[HERE]@6
+S -2--2 0 0 
+@ all foo:sto
+R 0
+A -
+X Can't find element 'foo:sto' of type 'minecraft:block' at position 9: t foo:sto<--[HERE]@7
+E Can't find element 'foo:sto' of type 'minecraft:block' at position 9: t foo:sto<--[HERE]@7
+S -2--2 0 0 
+@ all foo:ston
+R 0
+A -
+X Can't find element 'foo:ston' of type 'minecraft:block' at position 10: t foo:ston<--[HERE]@8
+E Can't find element 'foo:ston' of type 'minecraft:block' at position 10: t foo:ston<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X Can't find element 'minecraft:o' of type 'minecraft:block' at position 13: ...inecraft:o<--[HERE]@11
+E Can't find element 'minecraft:o' of type 'minecraft:block' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 58 -2101001784 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks
+@ all minecraft:oa
+R 0
+A -
+X Can't find element 'minecraft:oa' of type 'minecraft:block' at position 14: ...necraft:oa<--[HERE]@12
+E Can't find element 'minecraft:oa' of type 'minecraft:block' at position 14: ...necraft:oa<--[HERE]@12
+S 0-12 18 -1285562959 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wall_hanging_sign	minecraft:oak_wall_sign	minecraft:oak_wood
+@ all minecraft:oak
+R 0
+A -
+X Can't find element 'minecraft:oak' of type 'minecraft:block' at position 15: ...ecraft:oak<--[HERE]@13
+E Can't find element 'minecraft:oak' of type 'minecraft:block' at position 15: ...ecraft:oak<--[HERE]@13
+S 0-13 18 -1285562959 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wall_hanging_sign	minecraft:oak_wall_sign	minecraft:oak_wood
+@ all minecraft:oak_
+R 0
+A -
+X Can't find element 'minecraft:oak_' of type 'minecraft:block' at position 16: ...craft:oak_<--[HERE]@14
+E Can't find element 'minecraft:oak_' of type 'minecraft:block' at position 16: ...craft:oak_<--[HERE]@14
+S 0-14 18 -1285562959 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wall_hanging_sign	minecraft:oak_wall_sign	minecraft:oak_wood
+@ all minecraft:gra中ss_block_
+R 0
+A -
+X Can't find element 'minecraft:gra' of type 'minecraft:block' at position 15: ...ecraft:gra<--[HERE]@13
+E Can't find element 'minecraft:gra' of type 'minecraft:block' at position 15: ...ecraft:gra<--[HERE]@13
+S -2--2 0 0 
+@ all ]$
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all laa
+R 0
+A -
+X Can't find element 'minecraft:laa' of type 'minecraft:block' at position 5: t laa<--[HERE]@3
+E Can't find element 'minecraft:laa' of type 'minecraft:block' at position 5: t laa<--[HERE]@3
+S -2--2 0 0 
+@ all +minecraft:stone
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ieable/pickaxe
+R 0
+A -
+X Can't find element 'minecraft:ieable/pickaxe' of type 'minecraft:block' at position 16: ...le/pickaxe<--[HERE]@14
+E Can't find element 'minecraft:ieable/pickaxe' of type 'minecraft:block' at position 16: ...le/pickaxe<--[HERE]@14
+S -2--2 0 0 
+@ all <#
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineabl2e/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraftgrass_block
+R 0
+A -
+X Can't find element 'minecraft:minecraftgrass_block' of type 'minecraft:block' at position 22: ...rass_block<--[HERE]@20
+E Can't find element 'minecraft:minecraftgrass_block' of type 'minecraft:block' at position 22: ...rass_block<--[HERE]@20
+S -2--2 0 0 
+@ all firet
+R 0
+A -
+X Can't find element 'minecraft:firet' of type 'minecraft:block' at position 7: t firet<--[HERE]@5
+E Can't find element 'minecraft:firet' of type 'minecraft:block' at position 7: t firet<--[HERE]@5
+S -2--2 0 0 
+@ all :air
+R 4
+A 0-4 minecraft:air
+E ok
+S -2--2 0 0 
+@ all aft:ston​e[
+R 0
+A -
+X Can't find element 'aft:ston' of type 'minecraft:block' at position 10: t aft:ston<--[HERE]@8
+E Can't find element 'aft:ston' of type 'minecraft:block' at position 10: t aft:ston<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:waterw
+R 0
+A -
+X Can't find element 'minecraft:waterw' of type 'minecraft:block' at position 18: ...aft:waterw<--[HERE]@16
+E Can't find element 'minecraft:waterw' of type 'minecraft:block' at position 18: ...aft:waterw<--[HERE]@16
+S -2--2 0 0 
+@ all oak_pank
+R 0
+A -
+X Can't find element 'minecraft:oak_pank' of type 'minecraft:block' at position 10: t oak_pank<--[HERE]@8
+E Can't find element 'minecraft:oak_pank' of type 'minecraft:block' at position 10: t oak_pank<--[HERE]@8
+S -2--2 0 0 
+@ all #minecrat:leave😀s
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all oa\u0009k_planks
+R 0
+A -
+X Can't find element 'minecraft:oa' of type 'minecraft:block' at position 4: t oa<--[HERE]@2
+E Can't find element 'minecraft:oa' of type 'minecraft:block' at position 4: t oa<--[HERE]@2
+S -2--2 0 0 
+@ all #minecaft:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:logs e
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leves
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all craft:stone
+R 0
+A -
+X Can't find element 'craft:stone' of type 'minecraft:block' at position 13: ...raft:stone<--[HERE]@11
+E Can't find element 'craft:stone' of type 'minecraft:block' at position 13: ...raft:stone<--[HERE]@11
+S -2--2 0 0 
+@ all !lava
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zminecraft:fire:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min~craft:stone[[
+R 0
+A -
+X Can't find element 'minecraft:min' of type 'minecraft:block' at position 5: t min<--[HERE]@3
+E Can't find element 'minecraft:min' of type 'minecraft:block' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraft:leavese
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ak_plan7s
+R 0
+A -
+X Can't find element 'minecraft:ak_plan7s' of type 'minecraft:block' at position 11: ... ak_plan7s<--[HERE]@9
+E Can't find element 'minecraft:ak_plan7s' of type 'minecraft:block' at position 11: ... ak_plan7s<--[HERE]@9
+S -2--2 0 0 
+@ all fire
+R 4
+A 0-4 minecraft:fire
+E ok
+S 0-4 11 -1011588334 minecraft:dead_fire_coral	minecraft:dead_fire_coral_block	minecraft:dead_fire_coral_fan	minecraft:dead_fire_coral_wall_fan	minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush	minecraft:soul_fire
+@ all minecraft:firee
+R 0
+A -
+X Can't find element 'minecraft:firee' of type 'minecraft:block' at position 17: ...raft:firee<--[HERE]@15
+E Can't find element 'minecraft:firee' of type 'minecraft:block' at position 17: ...raft:firee<--[HERE]@15
+S -2--2 0 0 
+@ all #mineraft:leavesv
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leavesr
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:airce
+R 0
+A -
+X Can't find element 'minecraft:airce' of type 'minecraft:block' at position 17: ...raft:airce<--[HERE]@15
+E Can't find element 'minecraft:airce' of type 'minecraft:block' at position 17: ...raft:airce<--[HERE]@15
+S -2--2 0 0 
+@ all eable/pickaxe
+R 0
+A -
+X Can't find element 'minecraft:eable/pickaxe' of type 'minecraft:block' at position 15: ...le/pickaxe<--[HERE]@13
+E Can't find element 'minecraft:eable/pickaxe' of type 'minecraft:block' at position 15: ...le/pickaxe<--[HERE]@13
+S -2--2 0 0 
+@ all #minecraf :mineabl/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:stondf
+R 0
+A -
+X Can't find element 'foo:stondf' of type 'minecraft:block' at position 12: ...foo:stondf<--[HERE]@10
+E Can't find element 'foo:stondf' of type 'minecraft:block' at position 12: ...foo:stondf<--[HERE]@10
+S -2--2 0 0 
+@ all 1minecraft:logs 
+R 0
+A -
+X Can't find element '1minecraft:logs' of type 'minecraft:block' at position 17: ...craft:logs<--[HERE]@15
+E Can't find element '1minecraft:logs' of type 'minecraft:block' at position 17: ...craft:logs<--[HERE]@15
+S -2--2 0 0 
+@ all minecrft:air
+R 0
+A -
+X Can't find element 'minecrft:air' of type 'minecraft:block' at position 14: ...necrft:air<--[HERE]@12
+E Can't find element 'minecrft:air' of type 'minecraft:block' at position 14: ...necrft:air<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:gras/_block
+R 0
+A -
+X Can't find element 'minecraft:gras/_block' of type 'minecraft:block' at position 23: ...ras/_block<--[HERE]@21
+E Can't find element 'minecraft:gras/_block' of type 'minecraft:block' at position 23: ...ras/_block<--[HERE]@21
+S -2--2 0 0 
+@ all minecraft:air[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:air<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:air<--[HERE]@13
+S -2--2 0 0 
+@ all zmiecraft:air
+R 0
+A -
+X Can't find element 'zmiecraft:air' of type 'minecraft:block' at position 15: ...ecraft:air<--[HERE]@13
+E Can't find element 'zmiecraft:air' of type 'minecraft:block' at position 15: ...ecraft:air<--[HERE]@13
+S -2--2 0 0 
+@ all minecraf^t:water
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:block' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:block' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all #minecraft:mnable/pickaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mnecraft:stone[%
+R 0
+A -
+X Can't find element 'mnecraft:stone' of type 'minecraft:block' at position 16: ...raft:stone<--[HERE]@14
+E Can't find element 'mnecraft:stone' of type 'minecraft:block' at position 16: ...raft:stone<--[HERE]@14
+S -2--2 0 0 
+@ all stone
+R 5
+A 0-5 minecraft:stone
+E ok
+S 0-5 28 -550972147 minecraft:chiseled_stone_bricks	minecraft:cracked_stone_bricks	minecraft:end_stone	minecraft:end_stone_brick_slab	minecraft:end_stone_brick_stairs	minecraft:end_stone_brick_wall	minecraft:end_stone_bricks	minecraft:infested_chiseled_stone_bricks	minecraft:infested_cracked_stone_bricks	minecraft:infested_mossy_stone_bricks	minecraft:infested_stone	minecraft:infested_stone_bricks	minecraft:mossy_stone_brick_slab	minecraft:mossy_stone_brick_stairs	minecraft:mossy_stone_brick_wall	minecraft:mossy_stone_bricks	minecraft:smooth_stone	minecraft:smooth_stone_slab	minecraft:stone	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter
+@ all minecraftz:oak_
+R 0
+A -
+X Can't find element 'minecraftz:oak_' of type 'minecraft:block' at position 17: ...raftz:oak_<--[HERE]@15
+E Can't find element 'minecraftz:oak_' of type 'minecraft:block' at position 17: ...raftz:oak_<--[HERE]@15
+S -2--2 0 0 
+@ all mine4craft:
+R 0
+A -
+X Can't find element 'mine4craft:' of type 'minecraft:block' at position 13: ...ine4craft:<--[HERE]@11
+E Can't find element 'mine4craft:' of type 'minecraft:block' at position 13: ...ine4craft:<--[HERE]@11
+S -2--2 0 0 
+@ all #minecraft:mineable/pickaxe#
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all l5v5a
+R 0
+A -
+X Can't find element 'minecraft:l5v5a' of type 'minecraft:block' at position 7: t l5v5a<--[HERE]@5
+E Can't find element 'minecraft:l5v5a' of type 'minecraft:block' at position 7: t l5v5a<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft&ai
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:block' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:block' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:stne[n
+R 0
+A -
+X Can't find element 'minecraft:stne' of type 'minecraft:block' at position 16: ...craft:stne<--[HERE]@14
+E Can't find element 'minecraft:stne' of type 'minecraft:block' at position 16: ...craft:stne<--[HERE]@14
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:block' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:block' at position 3: t e<--[HERE]@1
+S 0-1 51 -425495612 minecraft:closed_eyeblossom	minecraft:deepslate_emerald_ore	minecraft:dragon_egg	minecraft:emerald_block	minecraft:emerald_ore	minecraft:enchanting_table	minecraft:end_gateway	minecraft:end_portal
+@ all ava
+R 0
+A -
+X Can't find element 'minecraft:ava' of type 'minecraft:block' at position 5: t ava<--[HERE]@3
+E Can't find element 'minecraft:ava' of type 'minecraft:block' at position 5: t ava<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:ston​
+R 0
+A -
+X Can't find element 'minecraft:ston' of type 'minecraft:block' at position 16: ...craft:ston<--[HERE]@14
+E Can't find element 'minecraft:ston' of type 'minecraft:block' at position 16: ...craft:ston<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:logs a
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:t
+R 0
+A -
+X Can't find element 'minecraft:t' of type 'minecraft:block' at position 13: ...inecraft:t<--[HERE]@11
+E Can't find element 'minecraft:t' of type 'minecraft:block' at position 13: ...inecraft:t<--[HERE]@11
+S 0-11 31 -1928009518 minecraft:tall_dry_grass	minecraft:tall_grass	minecraft:tall_seagrass	minecraft:target	minecraft:terracotta	minecraft:test_block	minecraft:test_instance_block	minecraft:tinted_glass	minecraft:tnt	minecraft:torch	minecraft:torchflower	minecraft:torchflower_crop	minecraft:trapped_chest	minecraft:trial_spawner	minecraft:tripwire	minecraft:tripwire_hook	minecraft:tube_coral	minecraft:tube_coral_block	minecraft:tube_coral_fan	minecraft:tube_coral_wall_fan	minecraft:tuff	minecraft:tuff_brick_slab	minecraft:tuff_brick_stairs	minecraft:tuff_brick_wall	minecraft:tuff_bricks	minecraft:tuff_slab	minecraft:tuff_stairs	minecraft:tuff_wall	minecraft:turtle_egg	minecraft:twisting_vines	minecraft:twisting_vines_plant
+@ all #minecraft:mineable/picka\u0000e
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine0craft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:stne
+R 0
+A -
+X Can't find element 'foo:stne' of type 'minecraft:block' at position 10: t foo:stne<--[HERE]@8
+E Can't find element 'foo:stne' of type 'minecraft:block' at position 10: t foo:stne<--[HERE]@8
+S -2--2 0 0 
+@ all #minec raft:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leaves:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m​inecraft:logs
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all er6
+R 0
+A -
+X Can't find element 'minecraft:er6' of type 'minecraft:block' at position 5: t er6<--[HERE]@3
+E Can't find element 'minecraft:er6' of type 'minecraft:block' at position 5: t er6<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:[f
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all #minecraft:minable/pickaxet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec*raft:nope
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all ecraft:ar
+R 0
+A -
+X Can't find element 'ecraft:ar' of type 'minecraft:block' at position 11: ... ecraft:ar<--[HERE]@9
+E Can't find element 'ecraft:ar' of type 'minecraft:block' at position 11: ... ecraft:ar<--[HERE]@9
+S -2--2 0 0 
+@ all oak_plnk*s
+R 0
+A -
+X Can't find element 'minecraft:oak_plnk' of type 'minecraft:block' at position 10: t oak_plnk<--[HERE]@8
+E Can't find element 'minecraft:oak_plnk' of type 'minecraft:block' at position 10: t oak_plnk<--[HERE]@8
+S -2--2 0 0 
+@ all craft#:fire
+R 0
+A -
+X Can't find element 'minecraft:craft' of type 'minecraft:block' at position 7: t craft<--[HERE]@5
+E Can't find element 'minecraft:craft' of type 'minecraft:block' at position 7: t craft<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraftz:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:logsl
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr8+t:fire
+R 0
+A -
+X Can't find element 'minecraft:minecr8' of type 'minecraft:block' at position 9: t minecr8<--[HERE]@7
+E Can't find element 'minecraft:minecr8' of type 'minecraft:block' at position 9: t minecr8<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:a%
+R 0
+A -
+X Can't find element 'minecraft:a' of type 'minecraft:block' at position 13: ...inecraft:a<--[HERE]@11
+E Can't find element 'minecraft:a' of type 'minecraft:block' at position 13: ...inecraft:a<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:stone[o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+S -2--2 0 0 
+@ all 1minecraft:nopec
+R 0
+A -
+X Can't find element '1minecraft:nopec' of type 'minecraft:block' at position 18: ...raft:nopec<--[HERE]@16
+E Can't find element '1minecraft:nopec' of type 'minecraft:block' at position 18: ...raft:nopec<--[HERE]@16
+S -2--2 0 0 
+@ all yoo:stonZe
+R 0
+A -
+X Can't find element 'yoo:ston' of type 'minecraft:block' at position 10: t yoo:ston<--[HERE]@8
+E Can't find element 'yoo:ston' of type 'minecraft:block' at position 10: t yoo:ston<--[HERE]@8
+S -2--2 0 0 
+@ all :grass_block
+R 12
+A 0-12 minecraft:grass_block
+E ok
+S -2--2 0 0 
+@ all #minecraft:mineabl/pickaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009minecraft:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all lanks
+R 0
+A -
+X Can't find element 'minecraft:lanks' of type 'minecraft:block' at position 7: t lanks<--[HERE]@5
+E Can't find element 'minecraft:lanks' of type 'minecraft:block' at position 7: t lanks<--[HERE]@5
+S -2--2 0 0 
+@ all t:leavest
+R 0
+A -
+X Can't find element 't:leavest' of type 'minecraft:block' at position 11: ... t:leavest<--[HERE]@9
+E Can't find element 't:leavest' of type 'minecraft:block' at position 11: ... t:leavest<--[HERE]@9
+S -2--2 0 0 
+@ all ecraft:fir(
+R 0
+A -
+X Can't find element 'ecraft:fir' of type 'minecraft:block' at position 12: ...ecraft:fir<--[HERE]@10
+E Can't find element 'ecraft:fir' of type 'minecraft:block' at position 12: ...ecraft:fir<--[HERE]@10
+S -2--2 0 0 
+@ all #minecrft:logs
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrat:
+R 0
+A -
+X Can't find element 'minecrat:' of type 'minecraft:block' at position 11: ... minecrat:<--[HERE]@9
+E Can't find element 'minecrat:' of type 'minecraft:block' at position 11: ... minecrat:<--[HERE]@9
+S -2--2 0 0 
+@ all minecraft:et
+R 0
+A -
+X Can't find element 'minecraft:et' of type 'minecraft:block' at position 14: ...necraft:et<--[HERE]@12
+E Can't find element 'minecraft:et' of type 'minecraft:block' at position 14: ...necraft:et<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:)-tone[
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:gras_block
+R 0
+A -
+X Can't find element 'minecraft:gras_block' of type 'minecraft:block' at position 22: ...gras_block<--[HERE]@20
+E Can't find element 'minecraft:gras_block' of type 'minecraft:block' at position 22: ...gras_block<--[HERE]@20
+S -2--2 0 0 
+@ all \u000ainecraft:nopet
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all oak_plankc
+R 0
+A -
+X Can't find element 'minecraft:oak_plankc' of type 'minecraft:block' at position 12: ...oak_plankc<--[HERE]@10
+E Can't find element 'minecraft:oak_plankc' of type 'minecraft:block' at position 12: ...oak_plankc<--[HERE]@10
+S -2--2 0 0 
+@ all l5va
+R 0
+A -
+X Can't find element 'minecraft:l5va' of type 'minecraft:block' at position 6: t l5va<--[HERE]@4
+E Can't find element 'minecraft:l5va' of type 'minecraft:block' at position 6: t l5va<--[HERE]@4
+S -2--2 0 0 
+@ all #minecraft:logzs
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:fire~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:fire<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:fire<--[HERE]@14
+S -2--2 0 0 
+@ all oac_p0lanks
+R 0
+A -
+X Can't find element 'minecraft:oac_p0lanks' of type 'minecraft:block' at position 13: ...ac_p0lanks<--[HERE]@11
+E Can't find element 'minecraft:oac_p0lanks' of type 'minecraft:block' at position 13: ...ac_p0lanks<--[HERE]@11
+S -2--2 0 0 
+@ all #minecrft:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec&raft:stoe
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 3: t :<--[HERE]@1
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all minecrafAt:stone[
+R 0
+A -
+X Can't find element 'minecraft:minecraf' of type 'minecraft:block' at position 10: t minecraf<--[HERE]@8
+E Can't find element 'minecraft:minecraf' of type 'minecraft:block' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all ​#minecraft:nopen
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr:aft:mineabe/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:<fire
+R 0
+A -
+X Can't find element 'necraft:' of type 'minecraft:block' at position 10: t necraft:<--[HERE]@8
+E Can't find element 'necraft:' of type 'minecraft:block' at position 10: t necraft:<--[HERE]@8
+S -2--2 0 0 
+@ all t:water
+R 0
+A -
+X Can't find element 't:water' of type 'minecraft:block' at position 9: t t:water<--[HERE]@7
+E Can't find element 't:water' of type 'minecraft:block' at position 9: t t:water<--[HERE]@7
+S -2--2 0 0 
+@ all oa:k_planks
+R 0
+A -
+X Can't find element 'oa:k_planks' of type 'minecraft:block' at position 13: ...a:k_planks<--[HERE]@11
+E Can't find element 'oa:k_planks' of type 'minecraft:block' at position 13: ...a:k_planks<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:gCras]_block
+R 0
+A -
+X Can't find element 'minecraft:g' of type 'minecraft:block' at position 13: ...inecraft:g<--[HERE]@11
+E Can't find element 'minecraft:g' of type 'minecraft:block' at position 13: ...inecraft:g<--[HERE]@11
+S -2--2 0 0 
+@ all miCnecraft:stone
+R 0
+A -
+X Can't find element 'minecraft:mi' of type 'minecraft:block' at position 4: t mi<--[HERE]@2
+E Can't find element 'minecraft:mi' of type 'minecraft:block' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all min8cra!ft:
+R 0
+A -
+X Can't find element 'minecraft:min8cra' of type 'minecraft:block' at position 9: t min8cra<--[HERE]@7
+E Can't find element 'minecraft:min8cra' of type 'minecraft:block' at position 9: t min8cra<--[HERE]@7
+S -2--2 0 0 
+@ all mineécraft:nopen
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all #minecraéft:mineable/pickaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft}:air
+R 0
+A -
+X Can't find element 'minecraft:minecraft' of type 'minecraft:block' at position 11: ... minecraft<--[HERE]@9
+E Can't find element 'minecraft:minecraft' of type 'minecraft:block' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all ecraft:water
+R 0
+A -
+X Can't find element 'ecraft:water' of type 'minecraft:block' at position 14: ...raft:water<--[HERE]@12
+E Can't find element 'ecraft:water' of type 'minecraft:block' at position 14: ...raft:water<--[HERE]@12
+S -2--2 0 0 
+@ all minec~raft:grass_blockk
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraft:~logs 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m^ne1raft:logs
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:stonea
+R 0
+A -
+X Can't find element 'minecraft:stonea' of type 'minecraft:block' at position 18: ...aft:stonea<--[HERE]@16
+E Can't find element 'minecraft:stonea' of type 'minecraft:block' at position 18: ...aft:stonea<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft6ak_s
+R 0
+A -
+X Can't find element 'minecraft:minecraft6ak_s' of type 'minecraft:block' at position 16: ...craft6ak_s<--[HERE]@14
+E Can't find element 'minecraft:minecraft6ak_s' of type 'minecraft:block' at position 16: ...craft6ak_s<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:logs g
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0000air
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eB
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:block' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:block' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all nk1
+R 0
+A -
+X Can't find element 'minecraft:nk1' of type 'minecraft:block' at position 5: t nk1<--[HERE]@3
+E Can't find element 'minecraft:nk1' of type 'minecraft:block' at position 5: t nk1<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:ak_s
+R 0
+A -
+X Can't find element 'minecraft:ak_s' of type 'minecraft:block' at position 16: ...craft:ak_s<--[HERE]@14
+E Can't find element 'minecraft:ak_s' of type 'minecraft:block' at position 16: ...craft:ak_s<--[HERE]@14
+S -2--2 0 0 
+@ all #minecracft:mineab\u0000le/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:los
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aft:fire
+R 0
+A -
+X Can't find element 'aft:fire' of type 'minecraft:block' at position 10: t aft:fire<--[HERE]@8
+E Can't find element 'aft:fire' of type 'minecraft:block' at position 10: t aft:fire<--[HERE]@8
+S -2--2 0 0 
+@ all #min#ecraft:logs
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft :mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ecraft:oak_s
+R 0
+A -
+X Can't find element 'ecraft:oak_s' of type 'minecraft:block' at position 14: ...raft:oak_s<--[HERE]@12
+E Can't find element 'ecraft:oak_s' of type 'minecraft:block' at position 14: ...raft:oak_s<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft5:oak_s
+R 0
+A -
+X Can't find element 'minecraft5:oak_s' of type 'minecraft:block' at position 18: ...aft5:oak_s<--[HERE]@16
+E Can't find element 'minecraft5:oak_s' of type 'minecraft:block' at position 18: ...aft5:oak_s<--[HERE]@16
+S -2--2 0 0 
+@ all inecraft:water
+R 0
+A -
+X Can't find element 'inecraft:water' of type 'minecraft:block' at position 16: ...raft:water<--[HERE]@14
+E Can't find element 'inecraft:water' of type 'minecraft:block' at position 16: ...raft:water<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:wa0tere
+R 0
+A -
+X Can't find element 'minecraft:wa0tere' of type 'minecraft:block' at position 19: ...ft:wa0tere<--[HERE]@17
+E Can't find element 'minecraft:wa0tere' of type 'minecraft:block' at position 19: ...ft:wa0tere<--[HERE]@17
+S -2--2 0 0 
+@ all minecZraft:
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraft:mineable/pikaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e&
+R 0
+A -
+X Can't find element 'minecraft:e' of type 'minecraft:block' at position 3: t e<--[HERE]@1
+E Can't find element 'minecraft:e' of type 'minecraft:block' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all mnecraft:nope
+R 0
+A -
+X Can't find element 'mnecraft:nope' of type 'minecraft:block' at position 15: ...craft:nope<--[HERE]@13
+E Can't find element 'mnecraft:nope' of type 'minecraft:block' at position 15: ...craft:nope<--[HERE]@13
+S -2--2 0 0 
+@ all #m-fecraft:logs 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #cinecraft:nop0
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:l1ogs 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min@crft:leaves
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mineceaft:logs
+R 0
+A -
+X Can't find element 'mineceaft:logs' of type 'minecraft:block' at position 16: ...ceaft:logs<--[HERE]@14
+E Can't find element 'mineceaft:logs' of type 'minecraft:block' at position 16: ...ceaft:logs<--[HERE]@14
+S -2--2 0 0 
+@ all aa
+R 0
+A -
+X Can't find element 'minecraft:aa' of type 'minecraft:block' at position 4: t aa<--[HERE]@2
+E Can't find element 'minecraft:aa' of type 'minecraft:block' at position 4: t aa<--[HERE]@2
+S -2--2 0 0 
+@ all inecraft:stone[
+R 0
+A -
+X Can't find element 'inecraft:stone' of type 'minecraft:block' at position 16: ...raft:stone<--[HERE]@14
+E Can't find element 'inecraft:stone' of type 'minecraft:block' at position 16: ...raft:stone<--[HERE]@14
+S -2--2 0 0 
+@ all #*m~necraft:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nopee
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecbaf:mineable/pickaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all oak_panks
+R 0
+A -
+X Can't find element 'minecraft:oak_panks' of type 'minecraft:block' at position 11: ... oak_panks<--[HERE]@9
+E Can't find element 'minecraft:oak_panks' of type 'minecraft:block' at position 11: ... oak_panks<--[HERE]@9
+S -2--2 0 0 
+@ all mi4ec/aft:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrafdt:fire
+R 0
+A -
+X Can't find element 'minecrafdt:fire' of type 'minecraft:block' at position 17: ...rafdt:fire<--[HERE]@15
+E Can't find element 'minecrafdt:fire' of type 'minecraft:block' at position 17: ...rafdt:fire<--[HERE]@15
+S -2--2 0 0 
+@ all X
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #inecraft:nope
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :mineable/pickaxem
+R 0
+A -
+X Can't find element 'minecraft:mineable/pickaxem' of type 'minecraft:block' at position 20: ...e/pickaxem<--[HERE]@18
+E Can't find element 'minecraft:mineable/pickaxem' of type 'minecraft:block' at position 20: ...e/pickaxem<--[HERE]@18
+S -2--2 0 0 
+@ all #minecraft:lgs 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:grass_blockc
+R 0
+A -
+X Can't find element 'minecraft:grass_blockc' of type 'minecraft:block' at position 24: ...ass_blockc<--[HERE]@22
+E Can't find element 'minecraft:grass_blockc' of type 'minecraft:block' at position 24: ...ass_blockc<--[HERE]@22
+S -2--2 0 0 
+@ all #minecrft:mieeable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ston/e[n
+R 0
+A -
+X Can't find element 'minecraft:ston/e' of type 'minecraft:block' at position 18: ...aft:ston/e<--[HERE]@16
+E Can't find element 'minecraft:ston/e' of type 'minecraft:block' at position 18: ...aft:ston/e<--[HERE]@16
+S -2--2 0 0 
+@ all minecfraft:air
+R 0
+A -
+X Can't find element 'minecfraft:air' of type 'minecraft:block' at position 16: ...cfraft:air<--[HERE]@14
+E Can't find element 'minecfraft:air' of type 'minecraft:block' at position 16: ...cfraft:air<--[HERE]@14
+S -2--2 0 0 
+@ all inecraft:air
+R 0
+A -
+X Can't find element 'inecraft:air' of type 'minecraft:block' at position 14: ...ecraft:air<--[HERE]@12
+E Can't find element 'inecraft:air' of type 'minecraft:block' at position 14: ...ecraft:air<--[HERE]@12
+S -2--2 0 0 
+@ all minec2raft:stone\\
+R 0
+A -
+X Can't find element 'minec2raft:stone' of type 'minecraft:block' at position 18: ...raft:stone<--[HERE]@16
+E Can't find element 'minec2raft:stone' of type 'minecraft:block' at position 18: ...raft:stone<--[HERE]@16
+S -2--2 0 0 
+@ all #mdnecraft:logs
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:min+able/pickaxe/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:airii
+R 0
+A -
+X Can't find element 'minecraft:airii' of type 'minecraft:block' at position 17: ...raft:airii<--[HERE]@15
+E Can't find element 'minecraft:airii' of type 'minecraft:block' at position 17: ...raft:airii<--[HERE]@15
+S -2--2 0 0 
+@ all minecra^f)t:
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:block' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:block' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all #minecrat:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ecraft:
+R 0
+A -
+X Can't find element 'ecraft:' of type 'minecraft:block' at position 9: t ecraft:<--[HERE]@7
+E Can't find element 'ecraft:' of type 'minecraft:block' at position 9: t ecraft:<--[HERE]@7
+S -2--2 0 0 
+@ all minecra)t:air
+R 0
+A -
+X Can't find element 'minecraft:minecra' of type 'minecraft:block' at position 9: t minecra<--[HERE]@7
+E Can't find element 'minecraft:minecra' of type 'minecraft:block' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all #minecraft:mineable/ickaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mineable/pickaxer
+R 0
+A -
+X Can't find element 'minecraft:mineable/pickaxer' of type 'minecraft:block' at position 29: ...e/pickaxer<--[HERE]@27
+E Can't find element 'minecraft:mineable/pickaxer' of type 'minecraft:block' at position 29: ...e/pickaxer<--[HERE]@27
+S -2--2 0 0 
+@ all xe
+R 0
+A -
+X Can't find element 'minecraft:xe' of type 'minecraft:block' at position 4: t xe<--[HERE]@2
+E Can't find element 'minecraft:xe' of type 'minecraft:block' at position 4: t xe<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:tone[
+R 0
+A -
+X Can't find element 'minecraft:tone' of type 'minecraft:block' at position 16: ...craft:tone<--[HERE]@14
+E Can't find element 'minecraft:tone' of type 'minecraft:block' at position 16: ...craft:tone<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:logs l
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft5:leaves
+R 0
+A -
+X Can't find element 'necraft5:leaves' of type 'minecraft:block' at position 17: ...ft5:leaves<--[HERE]@15
+E Can't find element 'necraft5:leaves' of type 'minecraft:block' at position 17: ...ft5:leaves<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:stone[e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+S -2--2 0 0 
+@ all ecraft:los 
+R 0
+A -
+X Can't find element 'ecraft:los' of type 'minecraft:block' at position 12: ...ecraft:los<--[HERE]@10
+E Can't find element 'ecraft:los' of type 'minecraft:block' at position 12: ...ecraft:los<--[HERE]@10
+S -2--2 0 0 
+@ all craft':fire
+R 0
+A -
+X Can't find element 'minecraft:craft' of type 'minecraft:block' at position 7: t craft<--[HERE]@5
+E Can't find element 'minecraft:craft' of type 'minecraft:block' at position 7: t craft<--[HERE]@5
+S -2--2 0 0 
+@ all #minecraft::eaves
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:grass_blocktn
+R 0
+A -
+X Can't find element 'minecraft:grass_blocktn' of type 'minecraft:block' at position 25: ...ss_blocktn<--[HERE]@23
+E Can't find element 'minecraft:grass_blocktn' of type 'minecraft:block' at position 25: ...ss_blocktn<--[HERE]@23
+S -2--2 0 0 
+@ all minecr#ft:aire
+R 0
+A -
+X Can't find element 'minecraft:minecr' of type 'minecraft:block' at position 8: t minecr<--[HERE]@6
+E Can't find element 'minecraft:minecr' of type 'minecraft:block' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all #minecraft:logs\u0000
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mXnecraft:oak_s
+R 0
+A -
+X Can't find element 'minecraft:m' of type 'minecraft:block' at position 3: t m<--[HERE]@1
+E Can't find element 'minecraft:m' of type 'minecraft:block' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:@ater
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all ^#minecraft:mineable/
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mineZraft:grass_block
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all #😀minecraft:log}s 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nopem:
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all oak_planksX
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...oak_planks<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...oak_planks<--[HERE]@10
+S -2--2 0 0 
+@ all minecraf:firef
+R 0
+A -
+X Can't find element 'minecraf:firef' of type 'minecraft:block' at position 16: ...craf:firef<--[HERE]@14
+E Can't find element 'minecraf:firef' of type 'minecraft:block' at position 16: ...craf:firef<--[HERE]@14
+S -2--2 0 0 
+@ all craf.t:mineable/
+R 0
+A -
+X Can't find element 'craf.t:mineable/' of type 'minecraft:block' at position 18: ...:mineable/<--[HERE]@16
+E Can't find element 'craf.t:mineable/' of type 'minecraft:block' at position 18: ...:mineable/<--[HERE]@16
+S -2--2 0 0 
+@ all #minecraft:logsn
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:4ak_s
+R 0
+A -
+X Can't find element 'minecraft:4ak_s' of type 'minecraft:block' at position 17: ...raft:4ak_s<--[HERE]@15
+E Can't find element 'minecraft:4ak_s' of type 'minecraft:block' at position 17: ...raft:4ak_s<--[HERE]@15
+S -2--2 0 0 
+@ all oa_planZs
+R 0
+A -
+X Can't find element 'minecraft:oa_plan' of type 'minecraft:block' at position 9: t oa_plan<--[HERE]@7
+E Can't find element 'minecraft:oa_plan' of type 'minecraft:block' at position 9: t oa_plan<--[HERE]@7
+S -2--2 0 0 
+@ all d
+R 0
+A -
+X Can't find element 'minecraft:d' of type 'minecraft:block' at position 3: t d<--[HERE]@1
+E Can't find element 'minecraft:d' of type 'minecraft:block' at position 3: t d<--[HERE]@1
+S 0-1 135 1497474056 minecraft:acacia_door	minecraft:ancient_debris	minecraft:bamboo_door	minecraft:big_dripleaf	minecraft:big_dripleaf_stem	minecraft:birch_door	minecraft:cherry_door	minecraft:chiseled_deepslate
+@ all !minecraf*:stone
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all nopee
+R 0
+A -
+X Can't find element 'minecraft:nopee' of type 'minecraft:block' at position 7: t nopee<--[HERE]@5
+E Can't find element 'minecraft:nopee' of type 'minecraft:block' at position 7: t nopee<--[HERE]@5
+S -2--2 0 0 
+@ all mincrafdt:nope
+R 0
+A -
+X Can't find element 'mincrafdt:nope' of type 'minecraft:block' at position 16: ...rafdt:nope<--[HERE]@14
+E Can't find element 'mincrafdt:nope' of type 'minecraft:block' at position 16: ...rafdt:nope<--[HERE]@14
+S -2--2 0 0 
+@ all #minecraft:logslc
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr,aft:logs 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mißecraft:leavesl
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #%inecraft:logs 
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mineraft:leavese
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all oak_plXanks
+R 0
+A -
+X Can't find element 'minecraft:oak_pl' of type 'minecraft:block' at position 8: t oak_pl<--[HERE]@6
+E Can't find element 'minecraft:oak_pl' of type 'minecraft:block' at position 8: t oak_pl<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:gras-s_bl中ck
+R 0
+A -
+X Can't find element 'minecraft:gras-s_bl' of type 'minecraft:block' at position 21: ...:gras-s_bl<--[HERE]@19
+E Can't find element 'minecraft:gras-s_bl' of type 'minecraft:block' at position 21: ...:gras-s_bl<--[HERE]@19
+S -2--2 0 0 
+@ all mine￿rft:fire
+R 0
+A -
+X Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+E Can't find element 'minecraft:mine' of type 'minecraft:block' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all pet
+R 0
+A -
+X Can't find element 'minecraft:pet' of type 'minecraft:block' at position 5: t pet<--[HERE]@3
+E Can't find element 'minecraft:pet' of type 'minecraft:block' at position 5: t pet<--[HERE]@3
+S 0-3 2 521995961 minecraft:petrified_oak_slab	minecraft:pink_petals
+@ all minecAraft:
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all cra+t:leaves
+R 0
+A -
+X Can't find element 'minecraft:cra' of type 'minecraft:block' at position 5: t cra<--[HERE]@3
+E Can't find element 'minecraft:cra' of type 'minecraft:block' at position 5: t cra<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraft:nopef
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ne
+R 0
+A -
+X Can't find element 'minecraft:ne' of type 'minecraft:block' at position 4: t ne<--[HERE]@2
+E Can't find element 'minecraft:ne' of type 'minecraft:block' at position 4: t ne<--[HERE]@2
+S 0-2 20 1301153193 minecraft:bee_nest	minecraft:chiseled_nether_bricks	minecraft:cracked_nether_bricks	minecraft:nether_brick_fence	minecraft:nether_brick_slab	minecraft:nether_brick_stairs	minecraft:nether_brick_wall	minecraft:nether_bricks	minecraft:nether_gold_ore	minecraft:nether_portal	minecraft:nether_quartz_ore	minecraft:nether_sprouts	minecraft:nether_wart	minecraft:nether_wart_block	minecraft:netherite_block	minecraft:netherrack	minecraft:red_nether_brick_slab	minecraft:red_nether_brick_stairs	minecraft:red_nether_brick_wall	minecraft:red_nether_bricks
+@ all neraft:oak_s
+R 0
+A -
+X Can't find element 'neraft:oak_s' of type 'minecraft:block' at position 14: ...raft:oak_s<--[HERE]@12
+E Can't find element 'neraft:oak_s' of type 'minecraft:block' at position 14: ...raft:oak_s<--[HERE]@12
+S -2--2 0 0 
+@ all #minecraf8t:mineable/<ickaxe
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec*aft:air[
+R 0
+A -
+X Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+E Can't find element 'minecraft:minec' of type 'minecraft:block' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all la4bva
+R 0
+A -
+X Can't find element 'minecraft:la4bva' of type 'minecraft:block' at position 8: t la4bva<--[HERE]@6
+E Can't find element 'minecraft:la4bva' of type 'minecraft:block' at position 8: t la4bva<--[HERE]@6
+S -2--2 0 0 
+@ all aft:lo8gs
+R 0
+A -
+X Can't find element 'aft:lo8gs' of type 'minecraft:block' at position 11: ... aft:lo8gs<--[HERE]@9
+E Can't find element 'aft:lo8gs' of type 'minecraft:block' at position 11: ... aft:lo8gs<--[HERE]@9
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+E Can't find element 'minecraft:' of type 'minecraft:block' at position 2: t <--[HERE]@0
+S 0-1 433 936029903 minecraft:amethyst_cluster	minecraft:black_candle	minecraft:black_candle_cake	minecraft:black_carpet	minecraft:black_concrete	minecraft:black_concrete_powder	minecraft:black_concrete_slab	minecraft:black_concrete_stairs
+@ all ope
+R 0
+A -
+X Can't find element 'minecraft:ope' of type 'minecraft:block' at position 5: t ope<--[HERE]@3
+E Can't find element 'minecraft:ope' of type 'minecraft:block' at position 5: t ope<--[HERE]@3
+S 0-3 2 1694269799 minecraft:open_eyeblossom	minecraft:potted_open_eyeblossom

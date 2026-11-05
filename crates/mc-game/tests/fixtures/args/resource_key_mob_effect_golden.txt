@@ -1,0 +1,1705 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraft:zombie
+R 16
+A 0-16 minecraft:mob_effect|minecraft:zombie
+E ok
+S -2--2 0 0 
+@ all zombie
+R 6
+A 0-6 minecraft:mob_effect|minecraft:zombie
+E ok
+S -2--2 0 0 
+@ all minecraft:player
+R 16
+A 0-16 minecraft:mob_effect|minecraft:player
+E ok
+S -2--2 0 0 
+@ all minecraft:nope
+R 14
+A 0-14 minecraft:mob_effect|minecraft:nope
+E ok
+S -2--2 0 0 
+@ all minecraft:
+R 10
+A 0-10 minecraft:mob_effect|minecraft:
+E ok
+S 0-10 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all #minecraft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speed
+R 15
+A 0-15 minecraft:mob_effect|minecraft:speed
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 19
+A 0-19 minecraft:mob_effect|minecraft:sharpness
+E ok
+S -2--2 0 0 
+@ all minecraft:fortune
+R 17
+A 0-17 minecraft:mob_effect|minecraft:fortune
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 24
+A 0-24 minecraft:mob_effect|minecraft:village_plains
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 19
+A 0-19 minecraft:mob_effect|minecraft:mineshaft
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 22
+A 0-22 minecraft:mob_effect|minecraft:ancient_city
+E ok
+S -2--2 0 0 
+@ all foo:bar
+R 7
+A 0-7 minecraft:mob_effect|foo:bar
+E ok
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 15
+A 0-15 minecraft:mob_effect|minecraft:armor
+E ok
+S -2--2 0 0 
+@ all minecraft:max_health
+R 20
+A 0-20 minecraft:mob_effect|minecraft:max_health
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 28
+A 0-28 minecraft:mob_effect|minecraft:generic.max_health
+E ok
+S -2--2 0 0 
+@ all m
+R 1
+A 0-1 minecraft:mob_effect|minecraft:m
+E ok
+S 0-1 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all mi
+R 2
+A 0-2 minecraft:mob_effect|minecraft:mi
+E ok
+S 0-2 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all min
+R 3
+A 0-3 minecraft:mob_effect|minecraft:min
+E ok
+S 0-3 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all mine
+R 4
+A 0-4 minecraft:mob_effect|minecraft:mine
+E ok
+S 0-4 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minec
+R 5
+A 0-5 minecraft:mob_effect|minecraft:minec
+E ok
+S 0-5 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecr
+R 6
+A 0-6 minecraft:mob_effect|minecraft:minecr
+E ok
+S 0-6 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecra
+R 7
+A 0-7 minecraft:mob_effect|minecraft:minecra
+E ok
+S 0-7 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraf
+R 8
+A 0-8 minecraft:mob_effect|minecraft:minecraf
+E ok
+S 0-8 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraft
+R 9
+A 0-9 minecraft:mob_effect|minecraft:minecraft
+E ok
+S 0-9 40 95577400 minecraft:absorption	minecraft:bad_omen	minecraft:blindness	minecraft:breath_of_the_nautilus	minecraft:conduit_power	minecraft:darkness	minecraft:dolphins_grace	minecraft:fire_resistance	minecraft:glowing	minecraft:haste	minecraft:health_boost	minecraft:hero_of_the_village	minecraft:hunger	minecraft:infested	minecraft:instant_damage	minecraft:instant_health	minecraft:invisibility	minecraft:jump_boost	minecraft:levitation	minecraft:luck	minecraft:mining_fatigue	minecraft:nausea	minecraft:night_vision	minecraft:oozing	minecraft:poison	minecraft:raid_omen	minecraft:regeneration	minecraft:resistance	minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength	minecraft:trial_omen	minecraft:unluck	minecraft:water_breathing	minecraft:weakness	minecraft:weaving	minecraft:wind_charged	minecraft:wither
+@ all minecraft:z
+R 11
+A 0-11 minecraft:mob_effect|minecraft:z
+E ok
+S -2--2 0 0 
+@ all minecraft:zo
+R 12
+A 0-12 minecraft:mob_effect|minecraft:zo
+E ok
+S -2--2 0 0 
+@ all minecraft:zom
+R 13
+A 0-13 minecraft:mob_effect|minecraft:zom
+E ok
+S -2--2 0 0 
+@ all minecraft:zomb
+R 14
+A 0-14 minecraft:mob_effect|minecraft:zomb
+E ok
+S -2--2 0 0 
+@ all minecraft:zombi
+R 15
+A 0-15 minecraft:mob_effect|minecraft:zombi
+E ok
+S -2--2 0 0 
+@ all z
+R 1
+A 0-1 minecraft:mob_effect|minecraft:z
+E ok
+S -2--2 0 0 
+@ all zo
+R 2
+A 0-2 minecraft:mob_effect|minecraft:zo
+E ok
+S -2--2 0 0 
+@ all zom
+R 3
+A 0-3 minecraft:mob_effect|minecraft:zom
+E ok
+S -2--2 0 0 
+@ all zomb
+R 4
+A 0-4 minecraft:mob_effect|minecraft:zomb
+E ok
+S -2--2 0 0 
+@ all zombi
+R 5
+A 0-5 minecraft:mob_effect|minecraft:zombi
+E ok
+S -2--2 0 0 
+@ all minecraft:p
+R 11
+A 0-11 minecraft:mob_effect|minecraft:p
+E ok
+S 0-11 1 -1614177996 minecraft:poison
+@ all minecraft:pl
+R 12
+A 0-12 minecraft:mob_effect|minecraft:pl
+E ok
+S -2--2 0 0 
+@ all minecraft:pla
+R 13
+A 0-13 minecraft:mob_effect|minecraft:pla
+E ok
+S -2--2 0 0 
+@ all minecraft:play
+R 14
+A 0-14 minecraft:mob_effect|minecraft:play
+E ok
+S -2--2 0 0 
+@ all minecraft:playe
+R 15
+A 0-15 minecraft:mob_effect|minecraft:playe
+E ok
+S -2--2 0 0 
+@ all minecraft:n
+R 11
+A 0-11 minecraft:mob_effect|minecraft:n
+E ok
+S 0-11 2 -1578963170 minecraft:nausea	minecraft:night_vision
+@ all minecraft:no
+R 12
+A 0-12 minecraft:mob_effect|minecraft:no
+E ok
+S -2--2 0 0 
+@ all minecraft:nop
+R 13
+A 0-13 minecraft:mob_effect|minecraft:nop
+E ok
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s
+R 11
+A 0-11 minecraft:mob_effect|minecraft:s
+E ok
+S 0-11 5 -2158991 minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength
+@ all minecraft:sp
+R 12
+A 0-12 minecraft:mob_effect|minecraft:sp
+E ok
+S 0-12 1 -796676337 minecraft:speed
+@ all minecraft:spe
+R 13
+A 0-13 minecraft:mob_effect|minecraft:spe
+E ok
+S 0-13 1 -796676337 minecraft:speed
+@ all minecraft:spee
+R 14
+A 0-14 minecraft:mob_effect|minecraft:spee
+E ok
+S 0-14 1 -796676337 minecraft:speed
+@ all minecraft:sh
+R 12
+A 0-12 minecraft:mob_effect|minecraft:sh
+E ok
+S -2--2 0 0 
+@ all minecraft:sha
+R 13
+A 0-13 minecraft:mob_effect|minecraft:sha
+E ok
+S -2--2 0 0 
+@ all minecraft:shar
+R 14
+A 0-14 minecraft:mob_effect|minecraft:shar
+E ok
+S -2--2 0 0 
+@ all minecraft:sharp
+R 15
+A 0-15 minecraft:mob_effect|minecraft:sharp
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 16
+A 0-16 minecraft:mob_effect|minecraft:sharpn
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 17
+A 0-17 minecraft:mob_effect|minecraft:sharpne
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 18
+A 0-18 minecraft:mob_effect|minecraft:sharpnes
+E ok
+S -2--2 0 0 
+@ all minecraft:f
+R 11
+A 0-11 minecraft:mob_effect|minecraft:f
+E ok
+S 0-11 1 -125328236 minecraft:fire_resistance
+@ all minecraft:fo
+R 12
+A 0-12 minecraft:mob_effect|minecraft:fo
+E ok
+S -2--2 0 0 
+@ all minecraft:for
+R 13
+A 0-13 minecraft:mob_effect|minecraft:for
+E ok
+S -2--2 0 0 
+@ all minecraft:fort
+R 14
+A 0-14 minecraft:mob_effect|minecraft:fort
+E ok
+S -2--2 0 0 
+@ all minecraft:fortu
+R 15
+A 0-15 minecraft:mob_effect|minecraft:fortu
+E ok
+S -2--2 0 0 
+@ all minecraft:fortun
+R 16
+A 0-16 minecraft:mob_effect|minecraft:fortun
+E ok
+S -2--2 0 0 
+@ all minecraft:v
+R 11
+A 0-11 minecraft:mob_effect|minecraft:v
+E ok
+S -2--2 0 0 
+@ all minecraft:vi
+R 12
+A 0-12 minecraft:mob_effect|minecraft:vi
+E ok
+S -2--2 0 0 
+@ all minecraft:vil
+R 13
+A 0-13 minecraft:mob_effect|minecraft:vil
+E ok
+S -2--2 0 0 
+@ all minecraft:vill
+R 14
+A 0-14 minecraft:mob_effect|minecraft:vill
+E ok
+S -2--2 0 0 
+@ all minecraft:villa
+R 15
+A 0-15 minecraft:mob_effect|minecraft:villa
+E ok
+S -2--2 0 0 
+@ all minecraft:villag
+R 16
+A 0-16 minecraft:mob_effect|minecraft:villag
+E ok
+S -2--2 0 0 
+@ all minecraft:village
+R 17
+A 0-17 minecraft:mob_effect|minecraft:village
+E ok
+S -2--2 0 0 
+@ all minecraft:village_
+R 18
+A 0-18 minecraft:mob_effect|minecraft:village_
+E ok
+S -2--2 0 0 
+@ all minecraft:village_p
+R 19
+A 0-19 minecraft:mob_effect|minecraft:village_p
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 20
+A 0-20 minecraft:mob_effect|minecraft:village_pl
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 21
+A 0-21 minecraft:mob_effect|minecraft:village_pla
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 22
+A 0-22 minecraft:mob_effect|minecraft:village_plai
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 23
+A 0-23 minecraft:mob_effect|minecraft:village_plain
+E ok
+S -2--2 0 0 
+@ all minecraft:m
+R 11
+A 0-11 minecraft:mob_effect|minecraft:m
+E ok
+S 0-11 1 -1797911196 minecraft:mining_fatigue
+@ all minecraft:mi
+R 12
+A 0-12 minecraft:mob_effect|minecraft:mi
+E ok
+S 0-12 1 -1797911196 minecraft:mining_fatigue
+@ all minecraft:min
+R 13
+A 0-13 minecraft:mob_effect|minecraft:min
+E ok
+S 0-13 1 -1797911196 minecraft:mining_fatigue
+@ all minecraft:mine
+R 14
+A 0-14 minecraft:mob_effect|minecraft:mine
+E ok
+S -2--2 0 0 
+@ all minecraft:mines
+R 15
+A 0-15 minecraft:mob_effect|minecraft:mines
+E ok
+S -2--2 0 0 
+@ all minecraft:minesh
+R 16
+A 0-16 minecraft:mob_effect|minecraft:minesh
+E ok
+S -2--2 0 0 
+@ all minecraft:minesha
+R 17
+A 0-17 minecraft:mob_effect|minecraft:minesha
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 18
+A 0-18 minecraft:mob_effect|minecraft:mineshaf
+E ok
+S -2--2 0 0 
+@ all minecraft:a
+R 11
+A 0-11 minecraft:mob_effect|minecraft:a
+E ok
+S 0-11 1 -1268127539 minecraft:absorption
+@ all minecraft:an
+R 12
+A 0-12 minecraft:mob_effect|minecraft:an
+E ok
+S -2--2 0 0 
+@ all minecraft:anc
+R 13
+A 0-13 minecraft:mob_effect|minecraft:anc
+E ok
+S -2--2 0 0 
+@ all minecraft:anci
+R 14
+A 0-14 minecraft:mob_effect|minecraft:anci
+E ok
+S -2--2 0 0 
+@ all minecraft:ancie
+R 15
+A 0-15 minecraft:mob_effect|minecraft:ancie
+E ok
+S -2--2 0 0 
+@ all minecraft:ancien
+R 16
+A 0-16 minecraft:mob_effect|minecraft:ancien
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient
+R 17
+A 0-17 minecraft:mob_effect|minecraft:ancient
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 18
+A 0-18 minecraft:mob_effect|minecraft:ancient_
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 19
+A 0-19 minecraft:mob_effect|minecraft:ancient_c
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 20
+A 0-20 minecraft:mob_effect|minecraft:ancient_ci
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 21
+A 0-21 minecraft:mob_effect|minecraft:ancient_cit
+E ok
+S -2--2 0 0 
+@ all f
+R 1
+A 0-1 minecraft:mob_effect|minecraft:f
+E ok
+S 0-1 3 -1703705981 minecraft:fire_resistance	minecraft:mining_fatigue	minecraft:slow_falling
+@ all fo
+R 2
+A 0-2 minecraft:mob_effect|minecraft:fo
+E ok
+S -2--2 0 0 
+@ all foo
+R 3
+A 0-3 minecraft:mob_effect|minecraft:foo
+E ok
+S -2--2 0 0 
+@ all foo:
+R 4
+A 0-4 minecraft:mob_effect|foo:
+E ok
+S -2--2 0 0 
+@ all foo:b
+R 5
+A 0-5 minecraft:mob_effect|foo:b
+E ok
+S -2--2 0 0 
+@ all foo:ba
+R 6
+A 0-6 minecraft:mob_effect|foo:ba
+E ok
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 12
+A 0-12 minecraft:mob_effect|minecraft:ar
+E ok
+S -2--2 0 0 
+@ all minecraft:arm
+R 13
+A 0-13 minecraft:mob_effect|minecraft:arm
+E ok
+S -2--2 0 0 
+@ all minecraft:armo
+R 14
+A 0-14 minecraft:mob_effect|minecraft:armo
+E ok
+S -2--2 0 0 
+@ all minecraft:ma
+R 12
+A 0-12 minecraft:mob_effect|minecraft:ma
+E ok
+S -2--2 0 0 
+@ all minecraft:max
+R 13
+A 0-13 minecraft:mob_effect|minecraft:max
+E ok
+S -2--2 0 0 
+@ all minecraft:max_
+R 14
+A 0-14 minecraft:mob_effect|minecraft:max_
+E ok
+S -2--2 0 0 
+@ all minecraft:max_h
+R 15
+A 0-15 minecraft:mob_effect|minecraft:max_h
+E ok
+S -2--2 0 0 
+@ all minecraft:max_he
+R 16
+A 0-16 minecraft:mob_effect|minecraft:max_he
+E ok
+S -2--2 0 0 
+@ all minecraft:max_hea
+R 17
+A 0-17 minecraft:mob_effect|minecraft:max_hea
+E ok
+S -2--2 0 0 
+@ all minecraft:max_heal
+R 18
+A 0-18 minecraft:mob_effect|minecraft:max_heal
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healt
+R 19
+A 0-19 minecraft:mob_effect|minecraft:max_healt
+E ok
+S -2--2 0 0 
+@ all minecraft:g
+R 11
+A 0-11 minecraft:mob_effect|minecraft:g
+E ok
+S 0-11 1 507447969 minecraft:glowing
+@ all minecraft:ge
+R 12
+A 0-12 minecraft:mob_effect|minecraft:ge
+E ok
+S -2--2 0 0 
+@ all minecraft:gen
+R 13
+A 0-13 minecraft:mob_effect|minecraft:gen
+E ok
+S -2--2 0 0 
+@ all minecraft:gene
+R 14
+A 0-14 minecraft:mob_effect|minecraft:gene
+E ok
+S -2--2 0 0 
+@ all minecraft:gener
+R 15
+A 0-15 minecraft:mob_effect|minecraft:gener
+E ok
+S -2--2 0 0 
+@ all minecraft:generi
+R 16
+A 0-16 minecraft:mob_effect|minecraft:generi
+E ok
+S -2--2 0 0 
+@ all minecraft:generic
+R 17
+A 0-17 minecraft:mob_effect|minecraft:generic
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.
+R 18
+A 0-18 minecraft:mob_effect|minecraft:generic.
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 19
+A 0-19 minecraft:mob_effect|minecraft:generic.m
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 20
+A 0-20 minecraft:mob_effect|minecraft:generic.ma
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 21
+A 0-21 minecraft:mob_effect|minecraft:generic.max
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 22
+A 0-22 minecraft:mob_effect|minecraft:generic.max_
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 23
+A 0-23 minecraft:mob_effect|minecraft:generic.max_h
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 24
+A 0-24 minecraft:mob_effect|minecraft:generic.max_he
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 25
+A 0-25 minecraft:mob_effect|minecraft:generic.max_hea
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 26
+A 0-26 minecraft:mob_effect|minecraft:generic.max_heal
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 27
+A 0-27 minecraft:mob_effect|minecraft:generic.max_healt
+E ok
+S -2--2 0 0 
+@ all miznecraft:
+R 11
+A 0-11 minecraft:mob_effect|miznecraft:
+E ok
+S -2--2 0 0 
+@ all zoXmbi.
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:ancient_cityc
+R 23
+A 0-23 minecraft:mob_effect|minecraft:ancient_cityc
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cZtye
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 21: ...:ancient_c<--[HERE]@19
+E Expected whitespace to end one argument, but found trailing data at position 21: ...:ancient_c<--[HERE]@19
+S -2--2 0 0 
+@ all fooXbar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all mnecreft:zombie
+R 15
+A 0-15 minecraft:mob_effect|mnecreft:zombie
+E ok
+S -2--2 0 0 
+@ all minecraft:nopee
+R 15
+A 0-15 minecraft:mob_effect|minecraft:nopee
+E ok
+S -2--2 0 0 
+@ all minecraft:gneric.max_healthc
+R 28
+A 0-28 minecraft:mob_effect|minecraft:gneric.max_healthc
+E ok
+S -2--2 0 0 
+@ all minecrat:playera
+R 16
+A 0-16 minecraft:mob_effect|minecrat:playera
+E ok
+S -2--2 0 0 
+@ all !
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\inecraftnope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBIEII
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:n}ope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:n<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:n<--[HERE]@11
+S -2--2 0 0 
+@ all ZOM~BIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraf:mineshaft
+R 18
+A 0-18 minecraft:mob_effect|minecraf:mineshaft
+E ok
+S -2--2 0 0 
+@ all ZOMBIEE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:mineshafti
+R 20
+A 0-20 minecraft:mob_effect|minecraft:mineshafti
+E ok
+S -2--2 0 0 
+@ all e
+R 1
+A 0-1 minecraft:mob_effect|minecraft:e
+E ok
+S -2--2 0 0 
+@ all inecraft:ancient_cit-y
+R 22
+A 0-22 minecraft:mob_effect|inecraft:ancient_cit-y
+E ok
+S -2--2 0 0 
+@ all :speed
+R 6
+A 0-6 minecraft:mob_effect|minecraft:speed
+E ok
+S -2--2 0 0 
+@ all minecr,aft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:ancient_city_
+R 23
+A 0-23 minecraft:mob_effect|minecraft:ancient_city_
+E ok
+S -2--2 0 0 
+@ all zomie
+R 5
+A 0-5 minecraft:mob_effect|minecraft:zomie
+E ok
+S -2--2 0 0 
+@ all minecraft:playera
+R 17
+A 0-17 minecraft:mob_effect|minecraft:playera
+E ok
+S -2--2 0 0 
+@ all armor
+R 5
+A 0-5 minecraft:mob_effect|minecraft:armor
+E ok
+S -2--2 0 0 
+@ all #minecraft:nopee
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all pness
+R 5
+A 0-5 minecraft:mob_effect|minecraft:pness
+E ok
+S -2--2 0 0 
+@ all fo:b#r
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t fo:b<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t fo:b<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:nopete
+R 16
+A 0-16 minecraft:mob_effect|minecraft:nopete
+E ok
+S -2--2 0 0 
+@ all mineczraft:village_plains
+R 25
+A 0-25 minecraft:mob_effect|mineczraft:village_plains
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_he​alth
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 26: ...ric.max_he<--[HERE]@24
+E Expected whitespace to end one argument, but found trailing data at position 26: ...ric.max_he<--[HERE]@24
+S -2--2 0 0 
+@ all foo:b=rb
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t foo:b<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:village_plainsl
+R 25
+A 0-25 minecraft:mob_effect|minecraft:village_plainsl
+E ok
+S -2--2 0 0 
+@ all minecr<aft:village_plains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:village_plains:f
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:c
+R 11
+A 0-11 minecraft:mob_effect|minecraft:c
+E ok
+S 0-11 1 81181298 minecraft:conduit_power
+@ all minecraft:plaer
+R 15
+A 0-15 minecraft:mob_effect|minecraft:plaer
+E ok
+S -2--2 0 0 
+@ all minecraft:speedem
+R 17
+A 0-17 minecraft:mob_effect|minecraft:speedem
+E ok
+S -2--2 0 0 
+@ all ZOMIEd
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s}aft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t s<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all mnecraft:village_plainsl
+R 24
+A 0-24 minecraft:mob_effect|mnecraft:village_plainsl
+E ok
+S -2--2 0 0 
+@ all ge_plains
+R 9
+A 0-9 minecraft:mob_effect|minecraft:ge_plains
+E ok
+S -2--2 0 0 
+@ all mbCie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mb<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mb<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:sBarpnessa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all =O}BIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all E
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecdraft:zombie
+R 17
+A 0-17 minecraft:mob_effect|minecdraft:zombie
+E ok
+S -2--2 0 0 
+@ all minecraft:shadrpness
+R 20
+A 0-20 minecraft:mob_effect|minecraft:shadrpness
+E ok
+S -2--2 0 0 
+@ all mine,raft:speeda
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:village_plain8
+R 24
+A 0-24 minecraft:mob_effect|minecraft:village_plain8
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cityi
+R 23
+A 0-23 minecraft:mob_effect|minecraft:ancient_cityi
+E ok
+S -2--2 0 0 
+@ all ZOMBIEM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:fortunef
+R 18
+A 0-18 minecraft:mob_effect|minecraft:fortunef
+E ok
+S -2--2 0 0 
+@ all zombiez
+R 7
+A 0-7 minecraft:mob_effect|minecraft:zombiez
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healthn
+R 29
+A 0-29 minecraft:mob_effect|minecraft:generic.max_healthn
+E ok
+S -2--2 0 0 
+@ all s
+R 1
+A 0-1 minecraft:mob_effect|minecraft:s
+E ok
+S 0-1 5 -2158991 minecraft:saturation	minecraft:slow_falling	minecraft:slowness	minecraft:speed	minecraft:strength
+@ all minecraft:armoYr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:armo<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:armo<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:armo^i
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:armo<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:armo<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:Ysharpness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all mincraft:speed
+R 14
+A 0-14 minecraft:mob_effect|mincraft:speed
+E ok
+S -2--2 0 0 
+@ all d
+R 1
+A 0-1 minecraft:mob_effect|minecraft:d
+E ok
+S 0-1 3 -1861401360 minecraft:darkness	minecraft:dolphins_grace	minecraft:instant_damage
+@ all ]inecraft:sped
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:sha中rp]ness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:sha<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:sha<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:village_plainse
+R 25
+A 0-25 minecraft:mob_effect|minecraft:village_plainse
+E ok
+S -2--2 0 0 
+@ all zoßabie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all minecaft:vi(llage_plains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecaft:vi<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecaft:vi<--[HERE]@11
+S -2--2 0 0 
+@ all inecraft:armorf
+R 15
+A 0-15 minecraft:mob_effect|inecraft:armorf
+E ok
+S -2--2 0 0 
+@ all minecr"aft:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:speedc
+R 16
+A 0-16 minecraft:mob_effect|minecraft:speedc
+E ok
+S -2--2 0 0 
+@ all éinecraft:armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 8zombi0e
+R 8
+A 0-8 minecraft:mob_effect|minecraft:8zombi0e
+E ok
+S -2--2 0 0 
+@ all mnecfraft:fortune
+R 17
+A 0-17 minecraft:mob_effect|mnecfraft:fortune
+E ok
+S -2--2 0 0 
+@ all minecraft:nope:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ft:noXpe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t ft:no<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t ft:no<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:sharpnessa
+R 20
+A 0-20 minecraft:mob_effect|minecraft:sharpnessa
+E ok
+S -2--2 0 0 
+@ all minecr,aft:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all rmor
+R 4
+A 0-4 minecraft:mob_effect|minecraft:rmor
+E ok
+S -2--2 0 0 
+@ all minecraft:-fortune
+R 18
+A 0-18 minecraft:mob_effect|minecraft:-fortune
+E ok
+S -2--2 0 0 
+@ all minecraft:nopen
+R 15
+A 0-15 minecraft:mob_effect|minecraft:nopen
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plins
+R 23
+A 0-23 minecraft:mob_effect|minecraft:village_plins
+E ok
+S -2--2 0 0 
+@ all craft:nopea
+R 11
+A 0-11 minecraft:mob_effect|craft:nopea
+E ok
+S -2--2 0 0 
+@ all minecraftfortune
+R 16
+A 0-16 minecraft:mob_effect|minecraft:minecraftfortune
+E ok
+S -2--2 0 0 
+@ all b3ie
+R 4
+A 0-4 minecraft:mob_effect|minecraft:b3ie
+E ok
+S -2--2 0 0 
+@ all minec@raft:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all minecr'ft:generic.max_healthl
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:nop[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:nop<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:nop<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:mineshaftt
+R 20
+A 0-20 minecraft:mob_effect|minecraft:mineshaftt
+E ok
+S -2--2 0 0 
+@ all ft:generic.max_health
+R 21
+A 0-21 minecraft:mob_effect|ft:generic.max_health
+E ok
+S -2--2 0 0 
+@ all minecraft:playe"r
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:playe<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:playe<--[HERE]@15
+S -2--2 0 0 
+@ all min.ecraft:player
+R 17
+A 0-17 minecraft:mob_effect|min.ecraft:player
+E ok
+S -2--2 0 0 
+@ all #minecraf9:skeletonsl
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:3sha_pness
+R 20
+A 0-20 minecraft:mob_effect|minecraft:3sha_pness
+E ok
+S -2--2 0 0 
+@ all m~necr]ft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all foo:baro8
+R 9
+A 0-9 minecraft:mob_effect|foo:baro8
+E ok
+S -2--2 0 0 
+@ all minecraft:max_helth
+R 19
+A 0-19 minecraft:mob_effect|minecraft:max_helth
+E ok
+S -2--2 0 0 
+@ all :fortune
+R 8
+A 0-8 minecraft:mob_effect|minecraft:fortune
+E ok
+S -2--2 0 0 
+@ all minecraft:speede
+R 16
+A 0-16 minecraft:mob_effect|minecraft:speede
+E ok
+S -2--2 0 0 
+@ all ::
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miYecraft:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all mnecrat:fortune
+R 15
+A 0-15 minecraft:mob_effect|mnecrat:fortune
+E ok
+S -2--2 0 0 
+@ all minecraft:playern
+R 17
+A 0-17 minecraft:mob_effect|minecraft:playern
+E ok
+S -2--2 0 0 
+@ all minecraft:speedii
+R 17
+A 0-17 minecraft:mob_effect|minecraft:speedii
+E ok
+S -2--2 0 0 
+@ all minecraft:speedd
+R 16
+A 0-16 minecraft:mob_effect|minecraft:speedd
+E ok
+S -2--2 0 0 
+@ all mincraft:nopen
+R 14
+A 0-14 minecraft:mob_effect|mincraft:nopen
+E ok
+S -2--2 0 0 
+@ all minecraft:vi#lage_plains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:vi<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...necraft:vi<--[HERE]@12
+S -2--2 0 0 
+@ all minecra[aft:zombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:zombiee
+R 17
+A 0-17 minecraft:mob_effect|minecraft:zombiee
+E ok
+S -2--2 0 0 
+@ all minecraft:shapnes
+R 17
+A 0-17 minecraft:mob_effect|minecraft:shapnes
+E ok
+S -2--2 0 0 
+@ all ZOM+IE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi<ecraft:max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all neshaft
+R 7
+A 0-7 minecraft:mob_effect|minecraft:neshaft
+E ok
+S -2--2 0 0 
+@ all #minecraft:skeletonsc
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all &inecraft:max_healtht
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all craft:sped
+R 10
+A 0-10 minecraft:mob_effect|craft:sped
+E ok
+S -2--2 0 0 
+@ all minecraft:s￿arpnzess
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zmbie
+R 15
+A 0-15 minecraft:mob_effect|minecraft:zmbie
+E ok
+S -2--2 0 0 
+@ all minecraft:fortuea
+R 17
+A 0-17 minecraft:mob_effect|minecraft:fortuea
+E ok
+S -2--2 0 0 
+@ all minecraftspeed
+R 14
+A 0-14 minecraft:mob_effect|minecraft:minecraftspeed
+E ok
+S -2--2 0 0 
+@ all eaXth
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ea<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ea<--[HERE]@2
+S -2--2 0 0 
+@ all rtuze
+R 5
+A 0-5 minecraft:mob_effect|minecraft:rtuze
+E ok
+S -2--2 0 0 
+@ all foo:b&r
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t foo:b<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all :max_he@alth
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t :max_he<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t :max_he<--[HERE]@7
+S -2--2 0 0 
+@ all inecraft:max_health
+R 19
+A 0-19 minecraft:mob_effect|inecraft:max_health
+E ok
+S -2--2 0 0 
+@ all minecrft\u0000:speed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecrft<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecrft<--[HERE]@8
+S -2--2 0 0 
+@ all aft:ancient_cityn
+R 17
+A 0-17 minecraft:mob_effect|aft:ancient_cityn
+E ok
+S -2--2 0 0 
+@ all t
+R 1
+A 0-1 minecraft:mob_effect|minecraft:t
+E ok
+S 0-1 3 1441873343 minecraft:breath_of_the_nautilus	minecraft:hero_of_the_village	minecraft:trial_omen
+@ all minecraft:armor:o
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:br
+R 6
+A 0-6 minecraft:mob_effect|foo:br
+E ok
+S -2--2 0 0 
+@ all minecraf:max_hXalth
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craf:max_h<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craf:max_h<--[HERE]@14
+S -2--2 0 0 
+@ all #mine+raft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zombiee
+R 7
+A 0-7 minecraft:mob_effect|minecraft:zombiee
+E ok
+S -2--2 0 0 
+@ all mincraft:generic.max_health
+R 27
+A 0-27 minecraft:mob_effect|mincraft:generic.max_health
+E ok
+S -2--2 0 0 
+@ all minecraf\\:mineshaftr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:mineshftf
+R 19
+A 0-19 minecraft:mob_effect|minecraft:mineshftf
+E ok
+S -2--2 0 0 
+@ all minec<aft:village_plains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all #mi%ecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eéalth
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all m1inecraft:fortune
+R 18
+A 0-18 minecraft:mob_effect|m1inecraft:fortune
+E ok
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mine9craft:mineshaft
+R 20
+A 0-20 minecraft:mob_effect|mine9craft:mineshaft
+E ok
+S -2--2 0 0 
+@ all #minecraft:nopea
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zomdbXe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t zomdb<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t zomdb<--[HERE]@5
+S -2--2 0 0 
+@ all village_plains
+R 14
+A 0-14 minecraft:mob_effect|minecraft:village_plains
+E ok
+S -2--2 0 0 
+@ all micecraft:ancient_cityc
+R 23
+A 0-23 minecraft:mob_effect|micecraft:ancient_cityc
+E ok
+S -2--2 0 0 
+@ all foé:bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S 0-1 2 70170225 minecraft:conduit_power	minecraft:wind_charged
+@ all m^necraftspeed
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:mineshaf>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 20: ...t:mineshaf<--[HERE]@18
+E Expected whitespace to end one argument, but found trailing data at position 20: ...t:mineshaf<--[HERE]@18
+S -2--2 0 0 
+@ all minecraft:npe
+R 13
+A 0-13 minecraft:mob_effect|minecraft:npe
+E ok
+S -2--2 0 0 
+@ all minecraft:vil]age_plains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:vil<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:vil<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:sharpnesst
+R 20
+A 0-20 minecraft:mob_effect|minecraft:sharpnesst
+E ok
+S -2--2 0 0 
+@ all minecraft:armr
+R 14
+A 0-14 minecraft:mob_effect|minecraft:armr
+E ok
+S -2--2 0 0 
+@ all necr7aft:armor
+R 14
+A 0-14 minecraft:mob_effect|necr7aft:armor
+E ok
+S -2--2 0 0 
+@ all minecraft:playerep
+R 18
+A 0-18 minecraft:mob_effect|minecraft:playerep
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnessm
+R 20
+A 0-20 minecraft:mob_effect|minecraft:sharpnessm
+E ok
+S -2--2 0 0 
+@ all minecraft:armorn
+R 16
+A 0-16 minecraft:mob_effect|minecraft:armorn
+E ok
+S -2--2 0 0 
+@ all #minecraft:sk\\eletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009<minecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:&rmor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all BIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t:seed
+R 6
+A 0-6 minecraft:mob_effect|t:seed
+E ok
+S -2--2 0 0 
+@ all minecraft:nope 
+R 14
+A 0-14 minecraft:mob_effect|minecraft:nope
+E Incorrect argument for command at position 16: ...craft:nope<--[HERE]@14
+S -2--2 0 0 
+@ all -alth
+R 5
+A 0-5 minecraft:mob_effect|minecraft:-alth
+E ok
+S -2--2 0 0 

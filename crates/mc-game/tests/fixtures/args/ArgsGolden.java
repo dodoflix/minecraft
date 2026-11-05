@@ -129,6 +129,7 @@ public class ArgsGolden {
       Function<Object, String> render = v -> String.valueOf(v);
       List<String> variants = List.of("all");
       int target = 320;
+      boolean prefixes = true;
       Spec(String name, java.util.function.Supplier<ArgumentType<?>> type, String... seeds) {
          this.name = name;
          this.type = type;
@@ -137,6 +138,7 @@ public class ArgsGolden {
       Spec render(Function<Object, String> r) { render = r; return this; }
       Spec variants(String... v) { variants = List.of(v); return this; }
       Spec target(int t) { target = t; return this; }
+      Spec noPrefixes() { prefixes = false; return this; }
    }
 
    static final Map<String, Spec> SPECS = new LinkedHashMap<>();
@@ -178,7 +180,7 @@ public class ArgsGolden {
          out.add(seed);
       }
       for (String seed : spec.seeds) {
-         for (int i = 1; i < seed.length(); i++) {
+         for (int i = 1; spec.prefixes && i < seed.length(); i++) {
             if (Character.isHighSurrogate(seed.charAt(i - 1))) continue;
             out.add(seed.substring(0, i));
          }

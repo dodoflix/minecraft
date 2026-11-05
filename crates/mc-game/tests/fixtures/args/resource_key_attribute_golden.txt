@@ -1,0 +1,1702 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraft:zombie
+R 16
+A 0-16 minecraft:attribute|minecraft:zombie
+E ok
+S -2--2 0 0 
+@ all zombie
+R 6
+A 0-6 minecraft:attribute|minecraft:zombie
+E ok
+S -2--2 0 0 
+@ all minecraft:player
+R 16
+A 0-16 minecraft:attribute|minecraft:player
+E ok
+S -2--2 0 0 
+@ all minecraft:nope
+R 14
+A 0-14 minecraft:attribute|minecraft:nope
+E ok
+S -2--2 0 0 
+@ all minecraft:
+R 10
+A 0-10 minecraft:attribute|minecraft:
+E ok
+S 0-10 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all #minecraft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:speed
+R 15
+A 0-15 minecraft:attribute|minecraft:speed
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpness
+R 19
+A 0-19 minecraft:attribute|minecraft:sharpness
+E ok
+S -2--2 0 0 
+@ all minecraft:fortune
+R 17
+A 0-17 minecraft:attribute|minecraft:fortune
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plains
+R 24
+A 0-24 minecraft:attribute|minecraft:village_plains
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaft
+R 19
+A 0-19 minecraft:attribute|minecraft:mineshaft
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_city
+R 22
+A 0-22 minecraft:attribute|minecraft:ancient_city
+E ok
+S -2--2 0 0 
+@ all foo:bar
+R 7
+A 0-7 minecraft:attribute|foo:bar
+E ok
+S -2--2 0 0 
+@ all ZOMBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armor
+R 15
+A 0-15 minecraft:attribute|minecraft:armor
+E ok
+S 0-15 1 1973208804 minecraft:armor_toughness
+@ all minecraft:max_health
+R 20
+A 0-20 minecraft:attribute|minecraft:max_health
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_health
+R 28
+A 0-28 minecraft:attribute|minecraft:generic.max_health
+E ok
+S -2--2 0 0 
+@ all m
+R 1
+A 0-1 minecraft:attribute|minecraft:m
+E ok
+S 0-1 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all mi
+R 2
+A 0-2 minecraft:attribute|minecraft:mi
+E ok
+S 0-2 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all min
+R 3
+A 0-3 minecraft:attribute|minecraft:min
+E ok
+S 0-3 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all mine
+R 4
+A 0-4 minecraft:attribute|minecraft:mine
+E ok
+S 0-4 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minec
+R 5
+A 0-5 minecraft:attribute|minecraft:minec
+E ok
+S 0-5 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecr
+R 6
+A 0-6 minecraft:attribute|minecraft:minecr
+E ok
+S 0-6 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecra
+R 7
+A 0-7 minecraft:attribute|minecraft:minecra
+E ok
+S 0-7 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraf
+R 8
+A 0-8 minecraft:attribute|minecraft:minecraf
+E ok
+S 0-8 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraft
+R 9
+A 0-9 minecraft:attribute|minecraft:minecraft
+E ok
+S 0-9 40 1442294404 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed	minecraft:below_name_distance	minecraft:block_break_speed	minecraft:block_interaction_range	minecraft:bounciness	minecraft:burning_time	minecraft:camera_distance	minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:gravity	minecraft:jump_strength	minecraft:knockback_resistance	minecraft:luck	minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed	minecraft:name_tag_distance	minecraft:oxygen_bonus	minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio	minecraft:tempt_range	minecraft:water_movement_efficiency	minecraft:waypoint_receive_range	minecraft:waypoint_transmit_range
+@ all minecraft:z
+R 11
+A 0-11 minecraft:attribute|minecraft:z
+E ok
+S -2--2 0 0 
+@ all minecraft:zo
+R 12
+A 0-12 minecraft:attribute|minecraft:zo
+E ok
+S -2--2 0 0 
+@ all minecraft:zom
+R 13
+A 0-13 minecraft:attribute|minecraft:zom
+E ok
+S -2--2 0 0 
+@ all minecraft:zomb
+R 14
+A 0-14 minecraft:attribute|minecraft:zomb
+E ok
+S -2--2 0 0 
+@ all minecraft:zombi
+R 15
+A 0-15 minecraft:attribute|minecraft:zombi
+E ok
+S -2--2 0 0 
+@ all z
+R 1
+A 0-1 minecraft:attribute|minecraft:z
+E ok
+S -2--2 0 0 
+@ all zo
+R 2
+A 0-2 minecraft:attribute|minecraft:zo
+E ok
+S -2--2 0 0 
+@ all zom
+R 3
+A 0-3 minecraft:attribute|minecraft:zom
+E ok
+S -2--2 0 0 
+@ all zomb
+R 4
+A 0-4 minecraft:attribute|minecraft:zomb
+E ok
+S -2--2 0 0 
+@ all zombi
+R 5
+A 0-5 minecraft:attribute|minecraft:zombi
+E ok
+S -2--2 0 0 
+@ all minecraft:p
+R 11
+A 0-11 minecraft:attribute|minecraft:p
+E ok
+S -2--2 0 0 
+@ all minecraft:pl
+R 12
+A 0-12 minecraft:attribute|minecraft:pl
+E ok
+S -2--2 0 0 
+@ all minecraft:pla
+R 13
+A 0-13 minecraft:attribute|minecraft:pla
+E ok
+S -2--2 0 0 
+@ all minecraft:play
+R 14
+A 0-14 minecraft:attribute|minecraft:play
+E ok
+S -2--2 0 0 
+@ all minecraft:playe
+R 15
+A 0-15 minecraft:attribute|minecraft:playe
+E ok
+S -2--2 0 0 
+@ all minecraft:n
+R 11
+A 0-11 minecraft:attribute|minecraft:n
+E ok
+S 0-11 1 15162504 minecraft:name_tag_distance
+@ all minecraft:no
+R 12
+A 0-12 minecraft:attribute|minecraft:no
+E ok
+S -2--2 0 0 
+@ all minecraft:nop
+R 13
+A 0-13 minecraft:attribute|minecraft:nop
+E ok
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:sk
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:ske
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skel
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skele
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skelet
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleto
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:skeleton
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:s
+R 11
+A 0-11 minecraft:attribute|minecraft:s
+E ok
+S 0-11 7 -1843890794 minecraft:safe_fall_distance	minecraft:scale	minecraft:sneaking_speed	minecraft:spawn_reinforcements	minecraft:step_height	minecraft:submerged_mining_speed	minecraft:sweeping_damage_ratio
+@ all minecraft:sp
+R 12
+A 0-12 minecraft:attribute|minecraft:sp
+E ok
+S 0-12 1 -2097787370 minecraft:spawn_reinforcements
+@ all minecraft:spe
+R 13
+A 0-13 minecraft:attribute|minecraft:spe
+E ok
+S -2--2 0 0 
+@ all minecraft:spee
+R 14
+A 0-14 minecraft:attribute|minecraft:spee
+E ok
+S -2--2 0 0 
+@ all minecraft:sh
+R 12
+A 0-12 minecraft:attribute|minecraft:sh
+E ok
+S -2--2 0 0 
+@ all minecraft:sha
+R 13
+A 0-13 minecraft:attribute|minecraft:sha
+E ok
+S -2--2 0 0 
+@ all minecraft:shar
+R 14
+A 0-14 minecraft:attribute|minecraft:shar
+E ok
+S -2--2 0 0 
+@ all minecraft:sharp
+R 15
+A 0-15 minecraft:attribute|minecraft:sharp
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpn
+R 16
+A 0-16 minecraft:attribute|minecraft:sharpn
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpne
+R 17
+A 0-17 minecraft:attribute|minecraft:sharpne
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnes
+R 18
+A 0-18 minecraft:attribute|minecraft:sharpnes
+E ok
+S -2--2 0 0 
+@ all minecraft:f
+R 11
+A 0-11 minecraft:attribute|minecraft:f
+E ok
+S 0-11 4 -1654557679 minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier
+@ all minecraft:fo
+R 12
+A 0-12 minecraft:attribute|minecraft:fo
+E ok
+S 0-12 1 823790509 minecraft:follow_range
+@ all minecraft:for
+R 13
+A 0-13 minecraft:attribute|minecraft:for
+E ok
+S -2--2 0 0 
+@ all minecraft:fort
+R 14
+A 0-14 minecraft:attribute|minecraft:fort
+E ok
+S -2--2 0 0 
+@ all minecraft:fortu
+R 15
+A 0-15 minecraft:attribute|minecraft:fortu
+E ok
+S -2--2 0 0 
+@ all minecraft:fortun
+R 16
+A 0-16 minecraft:attribute|minecraft:fortun
+E ok
+S -2--2 0 0 
+@ all minecraft:v
+R 11
+A 0-11 minecraft:attribute|minecraft:v
+E ok
+S -2--2 0 0 
+@ all minecraft:vi
+R 12
+A 0-12 minecraft:attribute|minecraft:vi
+E ok
+S -2--2 0 0 
+@ all minecraft:vil
+R 13
+A 0-13 minecraft:attribute|minecraft:vil
+E ok
+S -2--2 0 0 
+@ all minecraft:vill
+R 14
+A 0-14 minecraft:attribute|minecraft:vill
+E ok
+S -2--2 0 0 
+@ all minecraft:villa
+R 15
+A 0-15 minecraft:attribute|minecraft:villa
+E ok
+S -2--2 0 0 
+@ all minecraft:villag
+R 16
+A 0-16 minecraft:attribute|minecraft:villag
+E ok
+S -2--2 0 0 
+@ all minecraft:village
+R 17
+A 0-17 minecraft:attribute|minecraft:village
+E ok
+S -2--2 0 0 
+@ all minecraft:village_
+R 18
+A 0-18 minecraft:attribute|minecraft:village_
+E ok
+S -2--2 0 0 
+@ all minecraft:village_p
+R 19
+A 0-19 minecraft:attribute|minecraft:village_p
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pl
+R 20
+A 0-20 minecraft:attribute|minecraft:village_pl
+E ok
+S -2--2 0 0 
+@ all minecraft:village_pla
+R 21
+A 0-21 minecraft:attribute|minecraft:village_pla
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plai
+R 22
+A 0-22 minecraft:attribute|minecraft:village_plai
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plain
+R 23
+A 0-23 minecraft:attribute|minecraft:village_plain
+E ok
+S -2--2 0 0 
+@ all minecraft:m
+R 11
+A 0-11 minecraft:attribute|minecraft:m
+E ok
+S 0-11 5 927411191 minecraft:max_absorption	minecraft:max_health	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:movement_speed
+@ all minecraft:mi
+R 12
+A 0-12 minecraft:attribute|minecraft:mi
+E ok
+S 0-12 1 1718161470 minecraft:mining_efficiency
+@ all minecraft:min
+R 13
+A 0-13 minecraft:attribute|minecraft:min
+E ok
+S 0-13 1 1718161470 minecraft:mining_efficiency
+@ all minecraft:mine
+R 14
+A 0-14 minecraft:attribute|minecraft:mine
+E ok
+S -2--2 0 0 
+@ all minecraft:mines
+R 15
+A 0-15 minecraft:attribute|minecraft:mines
+E ok
+S -2--2 0 0 
+@ all minecraft:minesh
+R 16
+A 0-16 minecraft:attribute|minecraft:minesh
+E ok
+S -2--2 0 0 
+@ all minecraft:minesha
+R 17
+A 0-17 minecraft:attribute|minecraft:minesha
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshaf
+R 18
+A 0-18 minecraft:attribute|minecraft:mineshaf
+E ok
+S -2--2 0 0 
+@ all minecraft:a
+R 11
+A 0-11 minecraft:attribute|minecraft:a
+E ok
+S 0-11 6 1870179880 minecraft:air_drag_modifier	minecraft:armor	minecraft:armor_toughness	minecraft:attack_damage	minecraft:attack_knockback	minecraft:attack_speed
+@ all minecraft:an
+R 12
+A 0-12 minecraft:attribute|minecraft:an
+E ok
+S -2--2 0 0 
+@ all minecraft:anc
+R 13
+A 0-13 minecraft:attribute|minecraft:anc
+E ok
+S -2--2 0 0 
+@ all minecraft:anci
+R 14
+A 0-14 minecraft:attribute|minecraft:anci
+E ok
+S -2--2 0 0 
+@ all minecraft:ancie
+R 15
+A 0-15 minecraft:attribute|minecraft:ancie
+E ok
+S -2--2 0 0 
+@ all minecraft:ancien
+R 16
+A 0-16 minecraft:attribute|minecraft:ancien
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient
+R 17
+A 0-17 minecraft:attribute|minecraft:ancient
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_
+R 18
+A 0-18 minecraft:attribute|minecraft:ancient_
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_c
+R 19
+A 0-19 minecraft:attribute|minecraft:ancient_c
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_ci
+R 20
+A 0-20 minecraft:attribute|minecraft:ancient_ci
+E ok
+S -2--2 0 0 
+@ all minecraft:ancient_cit
+R 21
+A 0-21 minecraft:attribute|minecraft:ancient_cit
+E ok
+S -2--2 0 0 
+@ all f
+R 1
+A 0-1 minecraft:attribute|minecraft:f
+E ok
+S 0-1 5 1281642020 minecraft:fall_damage_multiplier	minecraft:flying_speed	minecraft:follow_range	minecraft:friction_modifier	minecraft:safe_fall_distance
+@ all fo
+R 2
+A 0-2 minecraft:attribute|minecraft:fo
+E ok
+S 0-2 1 823790509 minecraft:follow_range
+@ all foo
+R 3
+A 0-3 minecraft:attribute|minecraft:foo
+E ok
+S -2--2 0 0 
+@ all foo:
+R 4
+A 0-4 minecraft:attribute|foo:
+E ok
+S -2--2 0 0 
+@ all foo:b
+R 5
+A 0-5 minecraft:attribute|foo:b
+E ok
+S -2--2 0 0 
+@ all foo:ba
+R 6
+A 0-6 minecraft:attribute|foo:ba
+E ok
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZO
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMB
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBI
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:ar
+R 12
+A 0-12 minecraft:attribute|minecraft:ar
+E ok
+S 0-12 2 49509691 minecraft:armor	minecraft:armor_toughness
+@ all minecraft:arm
+R 13
+A 0-13 minecraft:attribute|minecraft:arm
+E ok
+S 0-13 2 49509691 minecraft:armor	minecraft:armor_toughness
+@ all minecraft:armo
+R 14
+A 0-14 minecraft:attribute|minecraft:armo
+E ok
+S 0-14 2 49509691 minecraft:armor	minecraft:armor_toughness
+@ all minecraft:ma
+R 12
+A 0-12 minecraft:attribute|minecraft:ma
+E ok
+S 0-12 2 -1706013357 minecraft:max_absorption	minecraft:max_health
+@ all minecraft:max
+R 13
+A 0-13 minecraft:attribute|minecraft:max
+E ok
+S 0-13 2 -1706013357 minecraft:max_absorption	minecraft:max_health
+@ all minecraft:max_
+R 14
+A 0-14 minecraft:attribute|minecraft:max_
+E ok
+S 0-14 2 -1706013357 minecraft:max_absorption	minecraft:max_health
+@ all minecraft:max_h
+R 15
+A 0-15 minecraft:attribute|minecraft:max_h
+E ok
+S 0-15 1 -45201659 minecraft:max_health
+@ all minecraft:max_he
+R 16
+A 0-16 minecraft:attribute|minecraft:max_he
+E ok
+S 0-16 1 -45201659 minecraft:max_health
+@ all minecraft:max_hea
+R 17
+A 0-17 minecraft:attribute|minecraft:max_hea
+E ok
+S 0-17 1 -45201659 minecraft:max_health
+@ all minecraft:max_heal
+R 18
+A 0-18 minecraft:attribute|minecraft:max_heal
+E ok
+S 0-18 1 -45201659 minecraft:max_health
+@ all minecraft:max_healt
+R 19
+A 0-19 minecraft:attribute|minecraft:max_healt
+E ok
+S 0-19 1 -45201659 minecraft:max_health
+@ all minecraft:g
+R 11
+A 0-11 minecraft:attribute|minecraft:g
+E ok
+S 0-11 1 1135777448 minecraft:gravity
+@ all minecraft:ge
+R 12
+A 0-12 minecraft:attribute|minecraft:ge
+E ok
+S -2--2 0 0 
+@ all minecraft:gen
+R 13
+A 0-13 minecraft:attribute|minecraft:gen
+E ok
+S -2--2 0 0 
+@ all minecraft:gene
+R 14
+A 0-14 minecraft:attribute|minecraft:gene
+E ok
+S -2--2 0 0 
+@ all minecraft:gener
+R 15
+A 0-15 minecraft:attribute|minecraft:gener
+E ok
+S -2--2 0 0 
+@ all minecraft:generi
+R 16
+A 0-16 minecraft:attribute|minecraft:generi
+E ok
+S -2--2 0 0 
+@ all minecraft:generic
+R 17
+A 0-17 minecraft:attribute|minecraft:generic
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.
+R 18
+A 0-18 minecraft:attribute|minecraft:generic.
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.m
+R 19
+A 0-19 minecraft:attribute|minecraft:generic.m
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.ma
+R 20
+A 0-20 minecraft:attribute|minecraft:generic.ma
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max
+R 21
+A 0-21 minecraft:attribute|minecraft:generic.max
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_
+R 22
+A 0-22 minecraft:attribute|minecraft:generic.max_
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_h
+R 23
+A 0-23 minecraft:attribute|minecraft:generic.max_h
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_he
+R 24
+A 0-24 minecraft:attribute|minecraft:generic.max_he
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_hea
+R 25
+A 0-25 minecraft:attribute|minecraft:generic.max_hea
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_heal
+R 26
+A 0-26 minecraft:attribute|minecraft:generic.max_heal
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healt
+R 27
+A 0-27 minecraft:attribute|minecraft:generic.max_healt
+E ok
+S -2--2 0 0 
+@ all ft:armor
+R 8
+A 0-8 minecraft:attribute|ft:armor
+E ok
+S -2--2 0 0 
+@ all #minecraft:nopem
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:armorr
+R 16
+A 0-16 minecraft:attribute|minecraft:armorr
+E ok
+S -2--2 0 0 
+@ all mine!cryft:sharpness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all :forune
+R 7
+A 0-7 minecraft:attribute|minecraft:forune
+E ok
+S -2--2 0 0 
+@ all mine2craft:armor
+R 16
+A 0-16 minecraft:attribute|mine2craft:armor
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshafte
+R 20
+A 0-20 minecraft:attribute|minecraft:mineshafte
+E ok
+S -2--2 0 0 
+@ all t
+R 1
+A 0-1 minecraft:attribute|minecraft:t
+E ok
+S 0-1 5 1935772361 minecraft:armor_toughness	minecraft:burning_time	minecraft:name_tag_distance	minecraft:tempt_range	minecraft:waypoint_transmit_range
+@ all foo:barra
+R 9
+A 0-9 minecraft:attribute|foo:barra
+E ok
+S -2--2 0 0 
+@ all \u000ainecraft:max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:bab
+R 7
+A 0-7 minecraft:attribute|foo:bab
+E ok
+S -2--2 0 0 
+@ all #minecraft:nopet
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr ft:mineshaft
+R 7
+A 0-6 minecraft:attribute|minecraft:minecr
+E Incorrect argument for command at position 9: t minecr <--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:f2rtunen
+R 18
+A 0-18 minecraft:attribute|minecraft:f2rtunen
+E ok
+S -2--2 0 0 
+@ all minecraft:armori
+R 16
+A 0-16 minecraft:attribute|minecraft:armori
+E ok
+S -2--2 0 0 
+@ all minecraft:ce
+R 12
+A 0-12 minecraft:attribute|minecraft:ce
+E ok
+S -2--2 0 0 
+@ all min:c:aft:ancient_city
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecrafA:player
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecrafxt:armort
+R 17
+A 0-17 minecraft:attribute|minecrafxt:armort
+E ok
+S -2--2 0 0 
+@ all z/ombi
+R 6
+A 0-6 minecraft:attribute|minecraft:z/ombi
+E ok
+S -2--2 0 0 
+@ all t:sarpness
+R 10
+A 0-10 minecraft:attribute|t:sarpness
+E ok
+S -2--2 0 0 
+@ all healt[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t healt<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t healt<--[HERE]@5
+S -2--2 0 0 
+@ all minec>aft:armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all minecraf:nope
+R 13
+A 0-13 minecraft:attribute|minecraf:nope
+E ok
+S -2--2 0 0 
+@ all mbid
+R 4
+A 0-4 minecraft:attribute|minecraft:mbid
+E ok
+S -2--2 0 0 
+@ all z}mbie>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minecra\u000aft:zombieb
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:sharpness:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraf#t:generic.maé_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecrßft:max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:speedc
+R 16
+A 0-16 minecraft:attribute|minecraft:speedc
+E ok
+S -2--2 0 0 
+@ all minecraft:generiİ.max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 18: ...aft:generi<--[HERE]@16
+E Expected whitespace to end one argument, but found trailing data at position 18: ...aft:generi<--[HERE]@16
+S -2--2 0 0 
+@ all minecrafta:cient_city
+R 21
+A 0-21 minecraft:attribute|minecrafta:cient_city
+E ok
+S -2--2 0 0 
+@ all ~minecraft:sharpnessn
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mincraft:player
+R 15
+A 0-15 minecraft:attribute|mincraft:player
+E ok
+S -2--2 0 0 
+@ all minecrafe:armor
+R 15
+A 0-15 minecraft:attribute|minecrafe:armor
+E ok
+S -2--2 0 0 
+@ all ZbOBIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:village_plains
+R 22
+A 0-22 minecraft:attribute|necraft:village_plains
+E ok
+S -2--2 0 0 
+@ all minecraft":nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all d
+R 1
+A 0-1 minecraft:attribute|minecraft:d
+E ok
+S 0-1 8 246590443 minecraft:air_drag_modifier	minecraft:attack_damage	minecraft:below_name_distance	minecraft:camera_distance	minecraft:fall_damage_multiplier	minecraft:name_tag_distance	minecraft:safe_fall_distance	minecraft:sweeping_damage_ratio
+@ all ft:z(mbie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ft:z<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ft:z<--[HERE]@4
+S -2--2 0 0 
+@ all rpnefs
+R 6
+A 0-6 minecraft:attribute|minecraft:rpnefs
+E ok
+S -2--2 0 0 
+@ all ​
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zombieob
+R 8
+A 0-8 minecraft:attribute|minecraft:zombieob
+E ok
+S -2--2 0 0 
+@ all ons
+R 3
+A 0-3 minecraft:attribute|minecraft:ons
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plainsi
+R 25
+A 0-25 minecraft:attribute|minecraft:village_plainsi
+E ok
+S -2--2 0 0 
+@ all foobar
+R 6
+A 0-6 minecraft:attribute|minecraft:foobar
+E ok
+S -2--2 0 0 
+@ all miecraft:zombiem
+R 16
+A 0-16 minecraft:attribute|miecraft:zombiem
+E ok
+S -2--2 0 0 
+@ all #minecraft:keletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf:skeletoZs
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraftZ:mineshafta
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all inecraft:speed
+R 14
+A 0-14 minecraft:attribute|inecraft:speed
+E ok
+S -2--2 0 0 
+@ all #minecraft:dkeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mine\u000acraft:playery
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all #minecra]ft:nopef
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min*ecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all miecraft:zCmbie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...miecraft:z<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...miecraft:z<--[HERE]@10
+S -2--2 0 0 
+@ all #mineraft:nop>
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zombe
+R 5
+A 0-5 minecraft:attribute|minecraft:zombe
+E ok
+S -2--2 0 0 
+@ all mine中raft:zomb>ie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:fortunee
+R 18
+A 0-18 minecraft:attribute|minecraft:fortunee
+E ok
+S -2--2 0 0 
+@ all miecraft:armorr
+R 15
+A 0-15 minecraft:attribute|miecraft:armorr
+E ok
+S -2--2 0 0 
+@ all minecraft:zombi[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:zombi<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all #inecraft:nopae
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:generi~.-max_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 18: ...aft:generi<--[HERE]@16
+E Expected whitespace to end one argument, but found trailing data at position 18: ...aft:generi<--[HERE]@16
+S -2--2 0 0 
+@ all ue
+R 2
+A 0-2 minecraft:attribute|minecraft:ue
+E ok
+S -2--2 0 0 
+@ all mincraft:villag4_plains
+R 23
+A 0-23 minecraft:attribute|mincraft:villag4_plains
+E ok
+S -2--2 0 0 
+@ all minecr5ft:mineshaft
+R 19
+A 0-19 minecraft:attribute|minecr5ft:mineshaft
+E ok
+S -2--2 0 0 
+@ all mi7necraft:armorf
+R 17
+A 0-17 minecraft:attribute|mi7necraft:armorf
+E ok
+S -2--2 0 0 
+@ all minecraft:max\\healt
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:max<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all zo\u0009bie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:mine+haft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...craft:mine<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...craft:mine<--[HERE]@14
+S -2--2 0 0 
+@ all minecrft:
+R 9
+A 0-9 minecraft:attribute|minecrft:
+E ok
+S -2--2 0 0 
+@ all 5mi}necraft:sharpness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t 5mi<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t 5mi<--[HERE]@3
+S -2--2 0 0 
+@ all e_plans
+R 7
+A 0-7 minecraft:attribute|minecraft:e_plans
+E ok
+S -2--2 0 0 
+@ all #$necraft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraftyvillage_plains
+R 24
+A 0-24 minecraft:attribute|minecraft:minecraftyvillage_plains
+E ok
+S -2--2 0 0 
+@ all zoßbie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t zo<--[HERE]@2
+S -2--2 0 0 
+@ all miAnecraft:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all t:
+R 2
+A 0-2 minecraft:attribute|t:
+E ok
+S -2--2 0 0 
+@ all t:speed
+R 7
+A 0-7 minecraft:attribute|t:speed
+E ok
+S -2--2 0 0 
+@ all ZOMBIEM
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOMBIEE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mincraft:playerm
+R 16
+A 0-16 minecraft:attribute|mincraft:playerm
+E ok
+S -2--2 0 0 
+@ all minecraft:ancien_city
+R 21
+A 0-21 minecraft:attribute|minecraft:ancien_city
+E ok
+S -2--2 0 0 
+@ all minecraft:p*layerr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:p<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:p<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:s"harpness
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all miecrat:generic.max_health
+R 26
+A 0-26 minecraft:attribute|miecrat:generic.max_health
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plainsn
+R 25
+A 0-25 minecraft:attribute|minecraft:village_plainsn
+E ok
+S -2--2 0 0 
+@ all {
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft,:player
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all minecr1ft:nope
+R 14
+A 0-14 minecraft:attribute|minecr1ft:nope
+E ok
+S -2--2 0 0 
+@ all minecraft:fortu1e
+R 17
+A 0-17 minecraft:attribute|minecraft:fortu1e
+E ok
+S -2--2 0 0 
+@ all foo:barff
+R 9
+A 0-9 minecraft:attribute|foo:barff
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_ealthn
+R 28
+A 0-28 minecraft:attribute|minecraft:generic.max_ealthn
+E ok
+S -2--2 0 0 
+@ all minecr[aft:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all mißn>ecraft:zombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:village_pl(ains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 22: ...village_pl<--[HERE]@20
+E Expected whitespace to end one argument, but found trailing data at position 22: ...village_pl<--[HERE]@20
+S -2--2 0 0 
+@ all mineraft:ar or
+R 12
+A 0-11 minecraft:attribute|mineraft:ar
+E Incorrect argument for command at position 14: ...neraft:ar <--[HERE]@12
+S -2--2 0 0 
+@ all #inecrft:skeletons
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:baro
+R 8
+A 0-8 minecraft:attribute|foo:baro
+E ok
+S -2--2 0 0 
+@ all raft:r
+R 6
+A 0-6 minecraft:attribute|raft:r
+E ok
+S -2--2 0 0 
+@ all minecraft:mineshafta
+R 20
+A 0-20 minecraft:attribute|minecraft:mineshafta
+E ok
+S -2--2 0 0 
+@ all minecraft:max_healt 
+R 19
+A 0-19 minecraft:attribute|minecraft:max_healt
+E Incorrect argument for command at position 21: ...:max_healt<--[HERE]@19
+S -2--2 0 0 
+@ all inecraft:a6rmor
+R 15
+A 0-15 minecraft:attribute|inecraft:a6rmor
+E ok
+S -2--2 0 0 
+@ all mnecraf1:zombie
+R 15
+A 0-15 minecraft:attribute|mnecraf1:zombie
+E ok
+S -2--2 0 0 
+@ all minecraf\u0000t:village_plainsl
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:fortunem
+R 18
+A 0-18 minecraft:attribute|minecraft:fortunem
+E ok
+S -2--2 0 0 
+@ all minecraft:village_plains_
+R 25
+A 0-25 minecraft:attribute|minecraft:village_plains_
+E ok
+S -2--2 0 0 
+@ all omb3ie
+R 6
+A 0-6 minecraft:attribute|minecraft:omb3ie
+E ok
+S -2--2 0 0 
+@ all raft:nop
+R 8
+A 0-8 minecraft:attribute|raft:nop
+E ok
+S -2--2 0 0 
+@ all minecaft:nope
+R 13
+A 0-13 minecraft:attribute|minecaft:nope
+E ok
+S -2--2 0 0 
+@ all zomb5ie
+R 7
+A 0-7 minecraft:attribute|minecraft:zomb5ie
+E ok
+S -2--2 0 0 
+@ all minecraft_fortune
+R 17
+A 0-17 minecraft:attribute|minecraft:minecraft_fortune
+E ok
+S -2--2 0 0 
+@ all mAinecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:sharpnss
+R 18
+A 0-18 minecraft:attribute|minecraft:sharpnss
+E ok
+S -2--2 0 0 
+@ all mine3raft:fortue
+R 16
+A 0-16 minecraft:attribute|mine3raft:fortue
+E ok
+S -2--2 0 0 
+@ all minecraft:fortuneu
+R 18
+A 0-18 minecraft:attribute|minecraft:fortuneu
+E ok
+S -2--2 0 0 
+@ all minecraft7:nopa
+R 15
+A 0-15 minecraft:attribute|minecraft7:nopa
+E ok
+S -2--2 0 0 
+@ all foo:barf
+R 8
+A 0-8 minecraft:attribute|foo:barf
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healthh
+R 29
+A 0-29 minecraft:attribute|minecraft:generic.max_healthh
+E ok
+S -2--2 0 0 
+@ all minecraft:sharpnesse
+R 20
+A 0-20 minecraft:attribute|minecraft:sharpnesse
+E ok
+S -2--2 0 0 
+@ all minecraft:max_halth
+R 19
+A 0-19 minecraft:attribute|minecraft:max_halth
+E ok
+S -2--2 0 0 
+@ all #mineraft:no5pe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @minecraft:playerm
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:max\u0009_health
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:max<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:max<--[HERE]@13
+S -2--2 0 0 
+@ all @ombie
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m>inecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all zmbi%e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t zmbi<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t zmbi<--[HERE]@4
+S -2--2 0 0 
+@ all minecAraft:sharpnesd
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all iny
+R 3
+A 0-3 minecraft:attribute|minecraft:iny
+E ok
+S -2--2 0 0 
+@ all foo:barb
+R 8
+A 0-8 minecraft:attribute|foo:barb
+E ok
+S -2--2 0 0 
+@ all zombie}
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:armorf
+R 16
+A 0-16 minecraft:attribute|minecraft:armorf
+E ok
+S -2--2 0 0 
+@ all minecraft:generic.max_healthxl
+R 30
+A 0-30 minecraft:attribute|minecraft:generic.max_healthxl
+E ok
+S -2--2 0 0 
+@ all Bminecraft:village_plainsB
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:max_h#ealtha
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:max_h<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:max_h<--[HERE]@15
+S -2--2 0 0 
+@ all _city
+R 5
+A 0-5 minecraft:attribute|minecraft:_city
+E ok
+S -2--2 0 0 
+@ all foo~bar
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all minecra[t:mineshaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all e
+R 1
+A 0-1 minecraft:attribute|minecraft:e
+E ok
+S 0-1 5 -183821811 minecraft:entity_interaction_range	minecraft:explosion_knockback_resistance	minecraft:mining_efficiency	minecraft:movement_efficiency	minecraft:water_movement_efficiency
+@ all min craft:sharpness
+R 4
+A 0-3 minecraft:attribute|minecraft:min
+E Incorrect argument for command at position 6: t min <--[HERE]@4
+S -2--2 0 0 
+@ all oo:bar
+R 6
+A 0-6 minecraft:attribute|oo:bar
+E ok
+S -2--2 0 0 
+@ all minecraf+:armor
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all ft:saeed
+R 8
+A 0-8 minecraft:attribute|ft:saeed
+E ok
+S -2--2 0 0 
+@ all s<
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t s<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t s<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:fortune::
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:village_plainss
+R 25
+A 0-25 minecraft:attribute|minecraft:village_plainss
+E ok
+S -2--2 0 0 
+@ all foo:barrr
+R 9
+A 0-9 minecraft:attribute|foo:barrr
+E ok
+S -2--2 0 0 
+@ all minecraft:speedrt
+R 17
+A 0-17 minecraft:attribute|minecraft:speedrt
+E ok
+S -2--2 0 0 
+@ all zombieb
+R 7
+A 0-7 minecraft:attribute|minecraft:zombieb
+E ok
+S -2--2 0 0 
+@ all minecraCft:mineszaft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all #minecraft:nop"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ZOIE
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:)vil0age_plains
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:pla7yer
+R 17
+A 0-17 minecraft:attribute|minecraft:pla7yer
+E ok
+S -2--2 0 0 
+@ all minecraft:villae_plains
+R 23
+A 0-23 minecraft:attribute|minecraft:villae_plains
+E ok
+S -2--2 0 0 
+@ all #minecraft:keletons#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mincraf:
+R 8
+A 0-8 minecraft:attribute|mincraf:
+E ok
+S -2--2 0 0 
+@ all minecraft:pla yer
+R 14
+A 0-13 minecraft:attribute|minecraft:pla
+E Incorrect argument for command at position 16: ...craft:pla <--[HERE]@14
+S -2--2 0 0 
+@ all t:peed
+R 6
+A 0-6 minecraft:attribute|t:peed
+E ok
+S -2--2 0 0 
+@ all min,cra6ft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:ancient_cityfn
+R 24
+A 0-24 minecraft:attribute|minecraft:ancient_cityfn
+E ok
+S -2--2 0 0 
+@ all necraft:generic.max_healthn
+R 27
+A 0-27 minecraft:attribute|necraft:generic.max_healthn
+E ok
+S -2--2 0 0 

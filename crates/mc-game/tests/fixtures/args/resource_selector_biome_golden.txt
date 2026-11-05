@@ -1,0 +1,1899 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all *
+R 1
+A 0-1 67:minecraft:badlands,minecraft:bamboo_jungle,minecraft:basalt_deltas,minecraft:beach,minecraft:birch_forest:1685386361
+E ok
+S -2--2 0 0 
+@ all minecraft:*
+R 11
+A 0-11 67:minecraft:badlands,minecraft:bamboo_jungle,minecraft:basalt_deltas,minecraft:beach,minecraft:birch_forest:1685386361
+E ok
+S -2--2 0 0 
+@ all *:asset
+R 0
+A -
+X No matches for selector '*:asset' of type 'minecraft:worldgen/biome' at position 9: t *:asset<--[HERE]@7
+E No matches for selector '*:asset' of type 'minecraft:worldgen/biome' at position 9: t *:asset<--[HERE]@7
+S -2--2 0 0 
+@ all ?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:worldgen/biome' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:worldgen/biome' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all stone
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/biome' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/biome' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:s*
+R 12
+A 0-12 14:minecraft:savanna,minecraft:savanna_plateau,minecraft:small_end_islands,minecraft:snowy_beach,minecraft:snowy_plains:529265568
+E ok
+S -2--2 0 0 
+@ all *_log
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:worldgen/biome' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:worldgen/biome' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *stone*
+R 7
+A 0-7 1:minecraft:dripstone_caves:1831224586
+E ok
+S -2--2 0 0 
+@ all minecraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:oak_*' of type 'minecraft:worldgen/biome' at position 17: ...raft:oak_*<--[HERE]@15
+E No matches for selector 'minecraft:oak_*' of type 'minecraft:worldgen/biome' at position 17: ...raft:oak_*<--[HERE]@15
+S -2--2 0 0 
+@ all z*
+R 0
+A -
+X No matches for selector 'minecraft:z*' of type 'minecraft:worldgen/biome' at position 4: t z*<--[HERE]@2
+E No matches for selector 'minecraft:z*' of type 'minecraft:worldgen/biome' at position 4: t z*<--[HERE]@2
+S -2--2 0 0 
+@ all **
+R 2
+A 0-2 67:minecraft:badlands,minecraft:bamboo_jungle,minecraft:basalt_deltas,minecraft:beach,minecraft:birch_forest:1685386361
+E ok
+S -2--2 0 0 
+@ all *?
+R 0
+A -
+X No matches for selector 'minecraft:*?' of type 'minecraft:worldgen/biome' at position 4: t *?<--[HERE]@2
+E No matches for selector 'minecraft:*?' of type 'minecraft:worldgen/biome' at position 4: t *?<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all :*
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:worldgen/biome' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:worldgen/biome' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*
+R 0
+A -
+X No matches for selector 'foo:*' of type 'minecraft:worldgen/biome' at position 7: t foo:*<--[HERE]@5
+E No matches for selector 'foo:*' of type 'minecraft:worldgen/biome' at position 7: t foo:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*
+R 3
+A 0-3 67:minecraft:badlands,minecraft:bamboo_jungle,minecraft:basalt_deltas,minecraft:beach,minecraft:birch_forest:1685386361
+E ok
+S -2--2 0 0 
+@ all minecraft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:zombie*' of type 'minecraft:worldgen/biome' at position 19: ...ft:zombie*<--[HERE]@17
+E No matches for selector 'minecraft:zombie*' of type 'minecraft:worldgen/biome' at position 19: ...ft:zombie*<--[HERE]@17
+S -2--2 0 0 
+@ all plains
+R 6
+A 0-6 1:minecraft:plains:-886372778
+E ok
+S 0-6 3 -64716476 minecraft:plains	minecraft:snowy_plains	minecraft:sunflower_plains
+@ all minecraft:?????
+R 15
+A 0-15 6:minecraft:beach,minecraft:grove,minecraft:ocean,minecraft:river,minecraft:swamp:-54333125
+E ok
+S -2--2 0 0 
+@ all *e
+R 2
+A 0-2 6:minecraft:bamboo_jungle,minecraft:cherry_grove,minecraft:grove,minecraft:jungle,minecraft:sparse_jungle:-922470459
+E ok
+S -2--2 0 0 
+@ all a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c' of type 'minecraft:worldgen/biome' at position 7: t a*b*c<--[HERE]@5
+E No matches for selector 'minecraft:a*b*c' of type 'minecraft:worldgen/biome' at position 7: t a*b*c<--[HERE]@5
+S -2--2 0 0 
+@ all Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/biome' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/biome' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:*/*<--[HERE]@13
+E No matches for selector 'minecraft:*/*' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all m*
+R 2
+A 0-2 3:minecraft:mangrove_swamp,minecraft:meadow,minecraft:mushroom_fields:1094863996
+E ok
+S -2--2 0 0 
+@ all mine*
+R 0
+A -
+X No matches for selector 'minecraft:mine*' of type 'minecraft:worldgen/biome' at position 7: t mine*<--[HERE]@5
+E No matches for selector 'minecraft:mine*' of type 'minecraft:worldgen/biome' at position 7: t mine*<--[HERE]@5
+S -2--2 0 0 
+@ all *effect
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:worldgen/biome' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:worldgen/biome' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *sharp*
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*' of type 'minecraft:worldgen/biome' at position 9: t *sharp*<--[HERE]@7
+E No matches for selector 'minecraft:*sharp*' of type 'minecraft:worldgen/biome' at position 9: t *sharp*<--[HERE]@7
+S -2--2 0 0 
+@ all *dirt*
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*' of type 'minecraft:worldgen/biome' at position 8: t *dirt*<--[HERE]@6
+E No matches for selector 'minecraft:*dirt*' of type 'minecraft:worldgen/biome' at position 8: t *dirt*<--[HERE]@6
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+S 0-1 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all mi
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+S 0-2 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all min
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:worldgen/biome' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:worldgen/biome' at position 5: t min<--[HERE]@3
+S 0-3 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all mine
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:worldgen/biome' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:worldgen/biome' at position 6: t mine<--[HERE]@4
+S 0-4 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all minec
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+S 0-5 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all minecr
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/biome' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/biome' at position 8: t minecr<--[HERE]@6
+S 0-6 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all minecra
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/biome' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/biome' at position 9: t minecra<--[HERE]@7
+S 0-7 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all minecraf
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:worldgen/biome' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:worldgen/biome' at position 10: t minecraf<--[HERE]@8
+S 0-8 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all minecraft
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:worldgen/biome' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:worldgen/biome' at position 11: ... minecraft<--[HERE]@9
+S 0-9 67 707369648 minecraft:badlands	minecraft:bamboo_jungle	minecraft:basalt_deltas	minecraft:beach	minecraft:birch_forest	minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest
+@ all *:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:worldgen/biome' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:worldgen/biome' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all *:a
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:worldgen/biome' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:worldgen/biome' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *:as
+R 0
+A -
+X No matches for selector '*:as' of type 'minecraft:worldgen/biome' at position 6: t *:as<--[HERE]@4
+E No matches for selector '*:as' of type 'minecraft:worldgen/biome' at position 6: t *:as<--[HERE]@4
+S -2--2 0 0 
+@ all *:ass
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:worldgen/biome' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:worldgen/biome' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:worldgen/biome' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:worldgen/biome' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:worldgen/biome' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:worldgen/biome' at position 3: t s<--[HERE]@1
+S 0-1 18 1144258901 minecraft:ice_spikes	minecraft:mangrove_swamp	minecraft:old_growth_spruce_taiga	minecraft:savanna	minecraft:savanna_plateau	minecraft:small_end_islands	minecraft:snowy_beach	minecraft:snowy_plains	minecraft:snowy_slopes	minecraft:snowy_taiga	minecraft:soul_sand_valley	minecraft:sparse_jungle	minecraft:stony_peaks	minecraft:stony_shore	minecraft:sulfur_caves	minecraft:sunflower_plains	minecraft:swamp	minecraft:windswept_savanna
+@ all st
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:worldgen/biome' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:worldgen/biome' at position 4: t st<--[HERE]@2
+S 0-2 2 1071029431 minecraft:stony_peaks	minecraft:stony_shore
+@ all sto
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:worldgen/biome' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:worldgen/biome' at position 5: t sto<--[HERE]@3
+S 0-3 2 1071029431 minecraft:stony_peaks	minecraft:stony_shore
+@ all ston
+R 0
+A -
+X No matches for selector 'minecraft:ston' of type 'minecraft:worldgen/biome' at position 6: t ston<--[HERE]@4
+E No matches for selector 'minecraft:ston' of type 'minecraft:worldgen/biome' at position 6: t ston<--[HERE]@4
+S 0-4 2 1071029431 minecraft:stony_peaks	minecraft:stony_shore
+@ all minecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 14 -772636567 minecraft:savanna	minecraft:savanna_plateau	minecraft:small_end_islands	minecraft:snowy_beach	minecraft:snowy_plains	minecraft:snowy_slopes	minecraft:snowy_taiga	minecraft:soul_sand_valley	minecraft:sparse_jungle	minecraft:stony_peaks	minecraft:stony_shore	minecraft:sulfur_caves	minecraft:sunflower_plains	minecraft:swamp
+@ all *_
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:worldgen/biome' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:worldgen/biome' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all *_l
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:worldgen/biome' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:worldgen/biome' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *_lo
+R 0
+A -
+X No matches for selector 'minecraft:*_lo' of type 'minecraft:worldgen/biome' at position 6: t *_lo<--[HERE]@4
+E No matches for selector 'minecraft:*_lo' of type 'minecraft:worldgen/biome' at position 6: t *_lo<--[HERE]@4
+S -2--2 0 0 
+@ all *s
+R 2
+A 0-2 23:minecraft:badlands,minecraft:basalt_deltas,minecraft:dripstone_caves,minecraft:end_barrens,minecraft:end_highlands:-2092755496
+E ok
+S -2--2 0 0 
+@ all *st
+R 3
+A 0-3 9:minecraft:birch_forest,minecraft:crimson_forest,minecraft:dappled_forest,minecraft:dark_forest,minecraft:flower_forest:-2019741614
+E ok
+S -2--2 0 0 
+@ all *sto
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:worldgen/biome' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:worldgen/biome' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all *ston
+R 0
+A -
+X No matches for selector 'minecraft:*ston' of type 'minecraft:worldgen/biome' at position 7: t *ston<--[HERE]@5
+E No matches for selector 'minecraft:*ston' of type 'minecraft:worldgen/biome' at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all *stone
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:worldgen/biome' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:worldgen/biome' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 4 353482766 minecraft:ocean	minecraft:old_growth_birch_forest	minecraft:old_growth_pine_taiga	minecraft:old_growth_spruce_taiga
+@ all minecraft:oa
+R 0
+A -
+X No matches for selector 'minecraft:oa' of type 'minecraft:worldgen/biome' at position 14: ...necraft:oa<--[HERE]@12
+E No matches for selector 'minecraft:oa' of type 'minecraft:worldgen/biome' at position 14: ...necraft:oa<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:oak
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:oak<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:oak_' of type 'minecraft:worldgen/biome' at position 16: ...craft:oak_<--[HERE]@14
+E No matches for selector 'minecraft:oak_' of type 'minecraft:worldgen/biome' at position 16: ...craft:oak_<--[HERE]@14
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:worldgen/biome' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:worldgen/biome' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:worldgen/biome' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:worldgen/biome' at position 3: t f<--[HERE]@1
+S 0-1 14 -1807334258 minecraft:birch_forest	minecraft:crimson_forest	minecraft:dappled_forest	minecraft:dark_forest	minecraft:deep_frozen_ocean	minecraft:flower_forest	minecraft:forest	minecraft:frozen_ocean	minecraft:frozen_peaks	minecraft:frozen_river	minecraft:mushroom_fields	minecraft:old_growth_birch_forest	minecraft:warped_forest	minecraft:windswept_forest
+@ all fo
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:worldgen/biome' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:worldgen/biome' at position 4: t fo<--[HERE]@2
+S 0-2 9 1812519415 minecraft:birch_forest	minecraft:crimson_forest	minecraft:dappled_forest	minecraft:dark_forest	minecraft:flower_forest	minecraft:forest	minecraft:old_growth_birch_forest	minecraft:warped_forest	minecraft:windswept_forest
+@ all foo
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:worldgen/biome' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:worldgen/biome' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:worldgen/biome' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:worldgen/biome' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X No matches for selector 'minecraft:zo' of type 'minecraft:worldgen/biome' at position 14: ...necraft:zo<--[HERE]@12
+E No matches for selector 'minecraft:zo' of type 'minecraft:worldgen/biome' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X No matches for selector 'minecraft:zom' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:zom<--[HERE]@13
+E No matches for selector 'minecraft:zom' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:worldgen/biome' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:worldgen/biome' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:worldgen/biome' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:worldgen/biome' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:zombie
+R 0
+A -
+X No matches for selector 'minecraft:zombie' of type 'minecraft:worldgen/biome' at position 18: ...aft:zombie<--[HERE]@16
+E No matches for selector 'minecraft:zombie' of type 'minecraft:worldgen/biome' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all p
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:worldgen/biome' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:worldgen/biome' at position 3: t p<--[HERE]@1
+S 0-1 9 1017170106 minecraft:frozen_peaks	minecraft:jagged_peaks	minecraft:old_growth_pine_taiga	minecraft:pale_garden	minecraft:plains	minecraft:savanna_plateau	minecraft:snowy_plains	minecraft:stony_peaks	minecraft:sunflower_plains
+@ all pl
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:worldgen/biome' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:worldgen/biome' at position 4: t pl<--[HERE]@2
+S 0-2 4 445198919 minecraft:plains	minecraft:savanna_plateau	minecraft:snowy_plains	minecraft:sunflower_plains
+@ all pla
+R 0
+A -
+X No matches for selector 'minecraft:pla' of type 'minecraft:worldgen/biome' at position 5: t pla<--[HERE]@3
+E No matches for selector 'minecraft:pla' of type 'minecraft:worldgen/biome' at position 5: t pla<--[HERE]@3
+S 0-3 4 445198919 minecraft:plains	minecraft:savanna_plateau	minecraft:snowy_plains	minecraft:sunflower_plains
+@ all plai
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:worldgen/biome' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:worldgen/biome' at position 6: t plai<--[HERE]@4
+S 0-4 3 -64716476 minecraft:plains	minecraft:snowy_plains	minecraft:sunflower_plains
+@ all plain
+R 0
+A -
+X No matches for selector 'minecraft:plain' of type 'minecraft:worldgen/biome' at position 7: t plain<--[HERE]@5
+E No matches for selector 'minecraft:plain' of type 'minecraft:worldgen/biome' at position 7: t plain<--[HERE]@5
+S 0-5 3 -64716476 minecraft:plains	minecraft:snowy_plains	minecraft:sunflower_plains
+@ all minecraft:?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:worldgen/biome' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:worldgen/biome' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:???
+R 0
+A -
+X No matches for selector 'minecraft:???' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:???<--[HERE]@13
+E No matches for selector 'minecraft:???' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:???<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:????
+R 0
+A -
+X No matches for selector 'minecraft:????' of type 'minecraft:worldgen/biome' at position 16: ...craft:????<--[HERE]@14
+E No matches for selector 'minecraft:????' of type 'minecraft:worldgen/biome' at position 16: ...craft:????<--[HERE]@14
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X No matches for selector 'minecraft:a' of type 'minecraft:worldgen/biome' at position 3: t a<--[HERE]@1
+E No matches for selector 'minecraft:a' of type 'minecraft:worldgen/biome' at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all a*
+R 0
+A -
+X No matches for selector 'minecraft:a*' of type 'minecraft:worldgen/biome' at position 4: t a*<--[HERE]@2
+E No matches for selector 'minecraft:a*' of type 'minecraft:worldgen/biome' at position 4: t a*<--[HERE]@2
+S -2--2 0 0 
+@ all a*b
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:worldgen/biome' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:worldgen/biome' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all a*b*
+R 0
+A -
+X No matches for selector 'minecraft:a*b*' of type 'minecraft:worldgen/biome' at position 6: t a*b*<--[HERE]@4
+E No matches for selector 'minecraft:a*b*' of type 'minecraft:worldgen/biome' at position 6: t a*b*<--[HERE]@4
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S 0-1 18 1144258901 minecraft:ice_spikes	minecraft:mangrove_swamp	minecraft:old_growth_spruce_taiga	minecraft:savanna	minecraft:savanna_plateau	minecraft:small_end_islands	minecraft:snowy_beach	minecraft:snowy_plains	minecraft:snowy_slopes	minecraft:snowy_taiga	minecraft:soul_sand_valley	minecraft:sparse_jungle	minecraft:stony_peaks	minecraft:stony_shore	minecraft:sulfur_caves	minecraft:sunflower_plains	minecraft:swamp	minecraft:windswept_savanna
+@ all St
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S 0-2 2 1071029431 minecraft:stony_peaks	minecraft:stony_shore
+@ all Sto
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S 0-3 2 1071029431 minecraft:stony_peaks	minecraft:stony_shore
+@ all Ston
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S 0-4 2 1071029431 minecraft:stony_peaks	minecraft:stony_shore
+@ all #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/biome' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/biome' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/biome' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/biome' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all *ef
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/biome' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/biome' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all *eff
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:worldgen/biome' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:worldgen/biome' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *effe
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/biome' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/biome' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *effec
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:worldgen/biome' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:worldgen/biome' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *sh
+R 0
+A -
+X No matches for selector 'minecraft:*sh' of type 'minecraft:worldgen/biome' at position 5: t *sh<--[HERE]@3
+E No matches for selector 'minecraft:*sh' of type 'minecraft:worldgen/biome' at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all *sha
+R 0
+A -
+X No matches for selector 'minecraft:*sha' of type 'minecraft:worldgen/biome' at position 6: t *sha<--[HERE]@4
+E No matches for selector 'minecraft:*sha' of type 'minecraft:worldgen/biome' at position 6: t *sha<--[HERE]@4
+S -2--2 0 0 
+@ all *shar
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:worldgen/biome' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:worldgen/biome' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *sharp
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/biome' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/biome' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all *d
+R 2
+A 0-2 2:minecraft:the_end,minecraft:the_void:-1798942632
+E ok
+S -2--2 0 0 
+@ all *di
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:worldgen/biome' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:worldgen/biome' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all *dir
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:worldgen/biome' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:worldgen/biome' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all *dirt
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:worldgen/biome' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:worldgen/biome' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:zombie*im
+R 0
+A -
+X No matches for selector 'minecraft:zombie*im' of type 'minecraft:worldgen/biome' at position 21: ...:zombie*im<--[HERE]@19
+E No matches for selector 'minecraft:zombie*im' of type 'minecraft:worldgen/biome' at position 21: ...:zombie*im<--[HERE]@19
+S -2--2 0 0 
+@ all necraft:??????
+R 0
+A -
+X No matches for selector 'necraft:??????' of type 'minecraft:worldgen/biome' at position 16: ...aft:??????<--[HERE]@14
+E No matches for selector 'necraft:??????' of type 'minecraft:worldgen/biome' at position 16: ...aft:??????<--[HERE]@14
+S -2--2 0 0 
+@ all *:é
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:worldgen/biome' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:worldgen/biome' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all minecraf:t
+R 0
+A -
+X No matches for selector 'minecraf:t' of type 'minecraft:worldgen/biome' at position 12: ...minecraf:t<--[HERE]@10
+E No matches for selector 'minecraf:t' of type 'minecraft:worldgen/biome' at position 12: ...minecraf:t<--[HERE]@10
+S -2--2 0 0 
+@ all *_logg
+R 0
+A -
+X No matches for selector 'minecraft:*_logg' of type 'minecraft:worldgen/biome' at position 8: t *_logg<--[HERE]@6
+E No matches for selector 'minecraft:*_logg' of type 'minecraft:worldgen/biome' at position 8: t *_logg<--[HERE]@6
+S -2--2 0 0 
+@ all *:as5e
+R 0
+A -
+X No matches for selector '*:as5e' of type 'minecraft:worldgen/biome' at position 8: t *:as5e<--[HERE]@6
+E No matches for selector '*:as5e' of type 'minecraft:worldgen/biome' at position 8: t *:as5e<--[HERE]@6
+S -2--2 0 0 
+@ all min e*e
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:worldgen/biome' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:worldgen/biome' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all Y*:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 2
+R 0
+A -
+X No matches for selector 'minecraft:2' of type 'minecraft:worldgen/biome' at position 3: t 2<--[HERE]@1
+E No matches for selector 'minecraft:2' of type 'minecraft:worldgen/biome' at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all 中tone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:*m
+R 0
+A -
+X No matches for selector 'minecraft:*m' of type 'minecraft:worldgen/biome' at position 14: ...necraft:*m<--[HERE]@12
+E No matches for selector 'minecraft:*m' of type 'minecraft:worldgen/biome' at position 14: ...necraft:*m<--[HERE]@12
+S -2--2 0 0 
+@ all one
+R 0
+A -
+X No matches for selector 'minecraft:one' of type 'minecraft:worldgen/biome' at position 5: t one<--[HERE]@3
+E No matches for selector 'minecraft:one' of type 'minecraft:worldgen/biome' at position 5: t one<--[HERE]@3
+S -2--2 0 0 
+@ all o1*
+R 0
+A -
+X No matches for selector 'minecraft:o1*' of type 'minecraft:worldgen/biome' at position 5: t o1*<--[HERE]@3
+E No matches for selector 'minecraft:o1*' of type 'minecraft:worldgen/biome' at position 5: t o1*<--[HERE]@3
+S -2--2 0 0 
+@ all mineraft:zombie*
+R 0
+A -
+X No matches for selector 'mineraft:zombie*' of type 'minecraft:worldgen/biome' at position 18: ...ft:zombie*<--[HERE]@16
+E No matches for selector 'mineraft:zombie*' of type 'minecraft:worldgen/biome' at position 18: ...ft:zombie*<--[HERE]@16
+S -2--2 0 0 
+@ all 3a*b*cc
+R 0
+A -
+X No matches for selector 'minecraft:3a*b*cc' of type 'minecraft:worldgen/biome' at position 9: t 3a*b*cc<--[HERE]@7
+E No matches for selector 'minecraft:3a*b*cc' of type 'minecraft:worldgen/biome' at position 9: t 3a*b*cc<--[HERE]@7
+S -2--2 0 0 
+@ all arp*
+R 0
+A -
+X No matches for selector 'minecraft:arp*' of type 'minecraft:worldgen/biome' at position 6: t arp*<--[HERE]@4
+E No matches for selector 'minecraft:arp*' of type 'minecraft:worldgen/biome' at position 6: t arp*<--[HERE]@4
+S -2--2 0 0 
+@ all stoe
+R 0
+A -
+X No matches for selector 'minecraft:stoe' of type 'minecraft:worldgen/biome' at position 6: t stoe<--[HERE]@4
+E No matches for selector 'minecraft:stoe' of type 'minecraft:worldgen/biome' at position 6: t stoe<--[HERE]@4
+S -2--2 0 0 
+@ all t:*
+R 0
+A -
+X No matches for selector 't:*' of type 'minecraft:worldgen/biome' at position 5: t t:*<--[HERE]@3
+E No matches for selector 't:*' of type 'minecraft:worldgen/biome' at position 5: t t:*<--[HERE]@3
+S -2--2 0 0 
+@ all z_log
+R 0
+A -
+X No matches for selector 'minecraft:z_log' of type 'minecraft:worldgen/biome' at position 7: t z_log<--[HERE]@5
+E No matches for selector 'minecraft:z_log' of type 'minecraft:worldgen/biome' at position 7: t z_log<--[HERE]@5
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z**\u0000
+R 0
+A -
+X No matches for selector 'minecraft:z**' of type 'minecraft:worldgen/biome' at position 5: t z**<--[HERE]@3
+E No matches for selector 'minecraft:z**' of type 'minecraft:worldgen/biome' at position 5: t z**<--[HERE]@3
+S -2--2 0 0 
+@ all *effect\u0009t
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:worldgen/biome' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:worldgen/biome' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *b*c
+R 0
+A -
+X No matches for selector 'minecraft:*b*c' of type 'minecraft:worldgen/biome' at position 6: t *b*c<--[HERE]@4
+E No matches for selector 'minecraft:*b*c' of type 'minecraft:worldgen/biome' at position 6: t *b*c<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:**
+R 12
+A 0-12 67:minecraft:badlands,minecraft:bamboo_jungle,minecraft:basalt_deltas,minecraft:beach,minecraft:birch_forest:1685386361
+E ok
+S -2--2 0 0 
+@ all ecraft:*
+R 0
+A -
+X No matches for selector 'ecraft:*' of type 'minecraft:worldgen/biome' at position 10: t ecraft:*<--[HERE]@8
+E No matches for selector 'ecraft:*' of type 'minecraft:worldgen/biome' at position 10: t ecraft:*<--[HERE]@8
+S -2--2 0 0 
+@ all mine9*B
+R 0
+A -
+X No matches for selector 'minecraft:mine9*' of type 'minecraft:worldgen/biome' at position 8: t mine9*<--[HERE]@6
+E No matches for selector 'minecraft:mine9*' of type 'minecraft:worldgen/biome' at position 8: t mine9*<--[HERE]@6
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Stone+
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:s*
+R 0
+A -
+X No matches for selector 'necraft:s*' of type 'minecraft:worldgen/biome' at position 12: ...necraft:s*<--[HERE]@10
+E No matches for selector 'necraft:s*' of type 'minecraft:worldgen/biome' at position 12: ...necraft:s*<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:oak_**
+R 0
+A -
+X No matches for selector 'minecraft:oak_**' of type 'minecraft:worldgen/biome' at position 18: ...aft:oak_**<--[HERE]@16
+E No matches for selector 'minecraft:oak_**' of type 'minecraft:worldgen/biome' at position 18: ...aft:oak_**<--[HERE]@16
+S -2--2 0 0 
+@ all minecr3aft:??????
+R 0
+A -
+X No matches for selector 'minecr3aft:??????' of type 'minecraft:worldgen/biome' at position 19: ...aft:??????<--[HERE]@17
+E No matches for selector 'minecr3aft:??????' of type 'minecraft:worldgen/biome' at position 19: ...aft:??????<--[HERE]@17
+S -2--2 0 0 
+@ all minecraft:<r
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all *[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *\u0000\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X No matches for selector 'minecraft:t' of type 'minecraft:worldgen/biome' at position 3: t t<--[HERE]@1
+E No matches for selector 'minecraft:t' of type 'minecraft:worldgen/biome' at position 3: t t<--[HERE]@1
+S 0-1 6 1775404924 minecraft:old_growth_pine_taiga	minecraft:old_growth_spruce_taiga	minecraft:snowy_taiga	minecraft:taiga	minecraft:the_end	minecraft:the_void
+@ all X*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:a&Cet
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:worldgen/biome' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:worldgen/biome' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *_o 
+R 0
+A -
+X No matches for selector 'minecraft:*_o' of type 'minecraft:worldgen/biome' at position 5: t *_o<--[HERE]@3
+E No matches for selector 'minecraft:*_o' of type 'minecraft:worldgen/biome' at position 5: t *_o<--[HERE]@3
+S -2--2 0 0 
+@ all 4
+R 0
+A -
+X No matches for selector 'minecraft:4' of type 'minecraft:worldgen/biome' at position 3: t 4<--[HERE]@1
+E No matches for selector 'minecraft:4' of type 'minecraft:worldgen/biome' at position 3: t 4<--[HERE]@1
+S -2--2 0 0 
+@ all stonye
+R 0
+A -
+X No matches for selector 'minecraft:stonye' of type 'minecraft:worldgen/biome' at position 8: t stonye<--[HERE]@6
+E No matches for selector 'minecraft:stonye' of type 'minecraft:worldgen/biome' at position 8: t stonye<--[HERE]@6
+S -2--2 0 0 
+@ all #"  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all z*z
+R 0
+A -
+X No matches for selector 'minecraft:z*z' of type 'minecraft:worldgen/biome' at position 5: t z*z<--[HERE]@3
+E No matches for selector 'minecraft:z*z' of type 'minecraft:worldgen/biome' at position 5: t z*z<--[HERE]@3
+S -2--2 0 0 
+@ all *effeZct
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/biome' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/biome' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:worldgen/biome' at position 3: t e<--[HERE]@1
+E No matches for selector 'minecraft:e' of type 'minecraft:worldgen/biome' at position 3: t e<--[HERE]@1
+S 0-1 6 -1555079961 minecraft:end_barrens	minecraft:end_highlands	minecraft:end_midlands	minecraft:eroded_badlands	minecraft:small_end_islands	minecraft:the_end
+@ all z+y
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:zombie\\*
+R 0
+A -
+X No matches for selector 'minecraft:zombie' of type 'minecraft:worldgen/biome' at position 18: ...aft:zombie<--[HERE]@16
+E No matches for selector 'minecraft:zombie' of type 'minecraft:worldgen/biome' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all mine*ii
+R 0
+A -
+X No matches for selector 'minecraft:mine*ii' of type 'minecraft:worldgen/biome' at position 9: t mine*ii<--[HERE]@7
+E No matches for selector 'minecraft:mine*ii' of type 'minecraft:worldgen/biome' at position 9: t mine*ii<--[HERE]@7
+S -2--2 0 0 
+@ all \u0000Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all f=o:*f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:worldgen/biome' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:worldgen/biome' at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all stonees
+R 0
+A -
+X No matches for selector 'minecraft:stonees' of type 'minecraft:worldgen/biome' at position 9: t stonees<--[HERE]@7
+E No matches for selector 'minecraft:stonees' of type 'minecraft:worldgen/biome' at position 9: t stonees<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:zombie*ii
+R 0
+A -
+X No matches for selector 'minecraft:zombie*ii' of type 'minecraft:worldgen/biome' at position 21: ...:zombie*ii<--[HERE]@19
+E No matches for selector 'minecraft:zombie*ii' of type 'minecraft:worldgen/biome' at position 21: ...:zombie*ii<--[HERE]@19
+S -2--2 0 0 
+@ all minecr=t:*/*
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/biome' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/biome' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all z1
+R 0
+A -
+X No matches for selector 'minecraft:z1' of type 'minecraft:worldgen/biome' at position 4: t z1<--[HERE]@2
+E No matches for selector 'minecraft:z1' of type 'minecraft:worldgen/biome' at position 4: t z1<--[HERE]@2
+S -2--2 0 0 
+@ all *İ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *zshar\u0000p*
+R 0
+A -
+X No matches for selector 'minecraft:*zshar' of type 'minecraft:worldgen/biome' at position 8: t *zshar<--[HERE]@6
+E No matches for selector 'minecraft:*zshar' of type 'minecraft:worldgen/biome' at position 8: t *zshar<--[HERE]@6
+S -2--2 0 0 
+@ all *sharp中
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/biome' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:worldgen/biome' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all :$
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:worldgen/biome' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:worldgen/biome' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:zAombie*
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all stoneX
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/biome' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/biome' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all 4*
+R 0
+A -
+X No matches for selector 'minecraft:4*' of type 'minecraft:worldgen/biome' at position 4: t 4*<--[HERE]@2
+E No matches for selector 'minecraft:4*' of type 'minecraft:worldgen/biome' at position 4: t 4*<--[HERE]@2
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X No matches for selector 'minecraft:y' of type 'minecraft:worldgen/biome' at position 3: t y<--[HERE]@1
+E No matches for selector 'minecraft:y' of type 'minecraft:worldgen/biome' at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X No matches for selector 'minecraft:c' of type 'minecraft:worldgen/biome' at position 3: t c<--[HERE]@1
+E No matches for selector 'minecraft:c' of type 'minecraft:worldgen/biome' at position 3: t c<--[HERE]@1
+S 0-1 7 -1612030087 minecraft:cherry_grove	minecraft:cold_ocean	minecraft:crimson_forest	minecraft:deep_cold_ocean	minecraft:dripstone_caves	minecraft:lush_caves	minecraft:sulfur_caves
+@ all ,minecraft:s*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*b*c**
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c**' of type 'minecraft:worldgen/biome' at position 9: t a*b*c**<--[HERE]@7
+E No matches for selector 'minecraft:a*b*c**' of type 'minecraft:worldgen/biome' at position 9: t a*b*c**<--[HERE]@7
+S -2--2 0 0 
+@ all p}lains
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:worldgen/biome' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:worldgen/biome' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all *c
+R 0
+A -
+X No matches for selector 'minecraft:*c' of type 'minecraft:worldgen/biome' at position 4: t *c<--[HERE]@2
+E No matches for selector 'minecraft:*c' of type 'minecraft:worldgen/biome' at position 4: t *c<--[HERE]@2
+S -2--2 0 0 
+@ all *:*%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+S -2--2 0 0 
+@ all *f
+R 0
+A -
+X No matches for selector 'minecraft:*f' of type 'minecraft:worldgen/biome' at position 4: t *f<--[HERE]@2
+E No matches for selector 'minecraft:*f' of type 'minecraft:worldgen/biome' at position 4: t *f<--[HERE]@2
+S -2--2 0 0 
+@ all *ston5*
+R 0
+A -
+X No matches for selector 'minecraft:*ston5*' of type 'minecraft:worldgen/biome' at position 9: t *ston5*<--[HERE]@7
+E No matches for selector 'minecraft:*ston5*' of type 'minecraft:worldgen/biome' at position 9: t *ston5*<--[HERE]@7
+S -2--2 0 0 
+@ all mi]necraft:s*m
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all *efİfect
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/biome' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:worldgen/biome' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all z*~*
+R 0
+A -
+X No matches for selector 'minecraft:z*' of type 'minecraft:worldgen/biome' at position 4: t z*<--[HERE]@2
+E No matches for selector 'minecraft:z*' of type 'minecraft:worldgen/biome' at position 4: t z*<--[HERE]@2
+S -2--2 0 0 
+@ all m**
+R 3
+A 0-3 3:minecraft:mangrove_swamp,minecraft:meadow,minecraft:mushroom_fields:1094863996
+E ok
+S -2--2 0 0 
+@ all raft:**
+R 0
+A -
+X No matches for selector 'raft:**' of type 'minecraft:worldgen/biome' at position 9: t raft:**<--[HERE]@7
+E No matches for selector 'raft:**' of type 'minecraft:worldgen/biome' at position 9: t raft:**<--[HERE]@7
+S -2--2 0 0 
+@ all ffe8t
+R 0
+A -
+X No matches for selector 'minecraft:ffe8t' of type 'minecraft:worldgen/biome' at position 7: t ffe8t<--[HERE]@5
+E No matches for selector 'minecraft:ffe8t' of type 'minecraft:worldgen/biome' at position 7: t ffe8t<--[HERE]@5
+S -2--2 0 0 
+@ all minecaft::
+R 0
+A -
+X No matches for selector 'minecaft::' of type 'minecraft:worldgen/biome' at position 12: ...minecaft::<--[HERE]@10
+E No matches for selector 'minecaft::' of type 'minecraft:worldgen/biome' at position 12: ...minecaft::<--[HERE]@10
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all stonen
+R 0
+A -
+X No matches for selector 'minecraft:stonen' of type 'minecraft:worldgen/biome' at position 8: t stonen<--[HERE]@6
+E No matches for selector 'minecraft:stonen' of type 'minecraft:worldgen/biome' at position 8: t stonen<--[HERE]@6
+S -2--2 0 0 
+@ all stone*
+R 0
+A -
+X No matches for selector 'minecraft:stone*' of type 'minecraft:worldgen/biome' at position 8: t stone*<--[HERE]@6
+E No matches for selector 'minecraft:stone*' of type 'minecraft:worldgen/biome' at position 8: t stone*<--[HERE]@6
+S -2--2 0 0 
+@ all ecraft:*/*
+R 0
+A -
+X No matches for selector 'ecraft:*/*' of type 'minecraft:worldgen/biome' at position 12: ...ecraft:*/*<--[HERE]@10
+E No matches for selector 'ecraft:*/*' of type 'minecraft:worldgen/biome' at position 12: ...ecraft:*/*<--[HERE]@10
+S -2--2 0 0 
+@ all ombie*
+R 0
+A -
+X No matches for selector 'minecraft:ombie*' of type 'minecraft:worldgen/biome' at position 8: t ombie*<--[HERE]@6
+E No matches for selector 'minecraft:ombie*' of type 'minecraft:worldgen/biome' at position 8: t ombie*<--[HERE]@6
+S -2--2 0 0 
+@ all Stne
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all bie**
+R 0
+A -
+X No matches for selector 'minecraft:bie**' of type 'minecraft:worldgen/biome' at position 7: t bie**<--[HERE]@5
+E No matches for selector 'minecraft:bie**' of type 'minecraft:worldgen/biome' at position 7: t bie**<--[HERE]@5
+S -2--2 0 0 
+@ all gg
+R 0
+A -
+X No matches for selector 'minecraft:gg' of type 'minecraft:worldgen/biome' at position 4: t gg<--[HERE]@2
+E No matches for selector 'minecraft:gg' of type 'minecraft:worldgen/biome' at position 4: t gg<--[HERE]@2
+S -2--2 0 0 
+@ all 中
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a**c
+R 0
+A -
+X No matches for selector 'minecraft:a**c' of type 'minecraft:worldgen/biome' at position 6: t a**c<--[HERE]@4
+E No matches for selector 'minecraft:a**c' of type 'minecraft:worldgen/biome' at position 6: t a**c<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:X
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all Ztone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *effect*
+R 0
+A -
+X No matches for selector 'minecraft:*effect*' of type 'minecraft:worldgen/biome' at position 10: t *effect*<--[HERE]@8
+E No matches for selector 'minecraft:*effect*' of type 'minecraft:worldgen/biome' at position 10: t *effect*<--[HERE]@8
+S -2--2 0 0 
+@ all ecraft:?????
+R 0
+A -
+X No matches for selector 'ecraft:?????' of type 'minecraft:worldgen/biome' at position 14: ...raft:?????<--[HERE]@12
+E No matches for selector 'ecraft:?????' of type 'minecraft:worldgen/biome' at position 14: ...raft:?????<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:*>*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:*<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:*<--[HERE]@11
+S -2--2 0 0 
+@ all mincraft:zombi[e*
+R 0
+A -
+X No matches for selector 'mincraft:zombi' of type 'minecraft:worldgen/biome' at position 16: ...raft:zombi<--[HERE]@14
+E No matches for selector 'mincraft:zombi' of type 'minecraft:worldgen/biome' at position 16: ...raft:zombi<--[HERE]@14
+S -2--2 0 0 
+@ all d8*/*
+R 0
+A -
+X No matches for selector 'minecraft:d8*/*' of type 'minecraft:worldgen/biome' at position 7: t d8*/*<--[HERE]@5
+E No matches for selector 'minecraft:d8*/*' of type 'minecraft:worldgen/biome' at position 7: t d8*/*<--[HERE]@5
+S -2--2 0 0 
+@ all e*
+R 2
+A 0-2 4:minecraft:end_barrens,minecraft:end_highlands,minecraft:end_midlands,minecraft:eroded_badlands:-1487119841
+E ok
+S -2--2 0 0 
+@ all minera4t:*/*
+R 0
+A -
+X No matches for selector 'minera4t:*/*' of type 'minecraft:worldgen/biome' at position 14: ...nera4t:*/*<--[HERE]@12
+E No matches for selector 'minera4t:*/*' of type 'minecraft:worldgen/biome' at position 14: ...nera4t:*/*<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:s*n
+R 0
+A -
+X No matches for selector 'minecraft:s*n' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:s*n<--[HERE]@13
+E No matches for selector 'minecraft:s*n' of type 'minecraft:worldgen/biome' at position 15: ...ecraft:s*n<--[HERE]@13
+S -2--2 0 0 
+@ all *c中
+R 0
+A -
+X No matches for selector 'minecraft:*c' of type 'minecraft:worldgen/biome' at position 4: t *c<--[HERE]@2
+E No matches for selector 'minecraft:*c' of type 'minecraft:worldgen/biome' at position 4: t *c<--[HERE]@2
+S -2--2 0 0 
+@ all B?*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Z#  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m~
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all mnecraft:oak_*
+R 0
+A -
+X No matches for selector 'mnecraft:oak_*' of type 'minecraft:worldgen/biome' at position 16: ...raft:oak_*<--[HERE]@14
+E No matches for selector 'mnecraft:oak_*' of type 'minecraft:worldgen/biome' at position 16: ...raft:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all :*\u000a
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:worldgen/biome' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:worldgen/biome' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all a*sharp*
+R 0
+A -
+X No matches for selector 'minecraft:a*sharp*' of type 'minecraft:worldgen/biome' at position 10: t a*sharp*<--[HERE]@8
+E No matches for selector 'minecraft:a*sharp*' of type 'minecraft:worldgen/biome' at position 10: t a*sharp*<--[HERE]@8
+S -2--2 0 0 
+@ all *a:
+R 0
+A -
+X No matches for selector '*a:' of type 'minecraft:worldgen/biome' at position 5: t *a:<--[HERE]@3
+E No matches for selector '*a:' of type 'minecraft:worldgen/biome' at position 5: t *a:<--[HERE]@3
+S -2--2 0 0 
+@ all ass-t
+R 0
+A -
+X No matches for selector 'minecraft:ass-t' of type 'minecraft:worldgen/biome' at position 7: t ass-t<--[HERE]@5
+E No matches for selector 'minecraft:ass-t' of type 'minecraft:worldgen/biome' at position 7: t ass-t<--[HERE]@5
+S -2--2 0 0 
+@ all :*İ
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:worldgen/biome' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:worldgen/biome' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all z]
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:worldgen/biome' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:s*cm
+R 0
+A -
+X No matches for selector 'minecraft:s*cm' of type 'minecraft:worldgen/biome' at position 16: ...craft:s*cm<--[HERE]@14
+E No matches for selector 'minecraft:s*cm' of type 'minecraft:worldgen/biome' at position 16: ...craft:s*cm<--[HERE]@14
+S -2--2 0 0 
+@ all {:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec​raft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all m*m
+R 0
+A -
+X No matches for selector 'minecraft:m*m' of type 'minecraft:worldgen/biome' at position 5: t m*m<--[HERE]@3
+E No matches for selector 'minecraft:m*m' of type 'minecraft:worldgen/biome' at position 5: t m*m<--[HERE]@3
+S -2--2 0 0 
+@ all mine/raft:*
+R 0
+A -
+X No matches for selector 'mine/raft:*' of type 'minecraft:worldgen/biome' at position 13: ...ine/raft:*<--[HERE]@11
+E No matches for selector 'mine/raft:*' of type 'minecraft:worldgen/biome' at position 13: ...ine/raft:*<--[HERE]@11
+S -2--2 0 0 
+@ all fo:*
+R 0
+A -
+X No matches for selector 'fo:*' of type 'minecraft:worldgen/biome' at position 6: t fo:*<--[HERE]@4
+E No matches for selector 'fo:*' of type 'minecraft:worldgen/biome' at position 6: t fo:*<--[HERE]@4
+S -2--2 0 0 
+@ all craft:s*r
+R 0
+A -
+X No matches for selector 'craft:s*r' of type 'minecraft:worldgen/biome' at position 11: ... craft:s*r<--[HERE]@9
+E No matches for selector 'craft:s*r' of type 'minecraft:worldgen/biome' at position 11: ... craft:s*r<--[HERE]@9
+S -2--2 0 0 
+@ all StonZ^
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecra=ft5:
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/biome' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:worldgen/biome' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all 4.dirt*
+R 0
+A -
+X No matches for selector 'minecraft:4.dirt*' of type 'minecraft:worldgen/biome' at position 9: t 4.dirt*<--[HERE]@7
+E No matches for selector 'minecraft:4.dirt*' of type 'minecraft:worldgen/biome' at position 9: t 4.dirt*<--[HERE]@7
+S -2--2 0 0 
+@ all p_ains
+R 0
+A -
+X No matches for selector 'minecraft:p_ains' of type 'minecraft:worldgen/biome' at position 8: t p_ains<--[HERE]@6
+E No matches for selector 'minecraft:p_ains' of type 'minecraft:worldgen/biome' at position 8: t p_ains<--[HERE]@6
+S -2--2 0 0 
+@ all ee
+R 0
+A -
+X No matches for selector 'minecraft:ee' of type 'minecraft:worldgen/biome' at position 4: t ee<--[HERE]@2
+E No matches for selector 'minecraft:ee' of type 'minecraft:worldgen/biome' at position 4: t ee<--[HERE]@2
+S -2--2 0 0 
+@ all *'*3
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minec>raft:s*f
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all *:%asset
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:worldgen/biome' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:worldgen/biome' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all minecraf:oak_*
+R 0
+A -
+X No matches for selector 'minecraf:oak_*' of type 'minecraft:worldgen/biome' at position 16: ...craf:oak_*<--[HERE]@14
+E No matches for selector 'minecraf:oak_*' of type 'minecraft:worldgen/biome' at position 16: ...craf:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all y*
+R 0
+A -
+X No matches for selector 'minecraft:y*' of type 'minecraft:worldgen/biome' at position 4: t y*<--[HERE]@2
+E No matches for selector 'minecraft:y*' of type 'minecraft:worldgen/biome' at position 4: t y*<--[HERE]@2
+S -2--2 0 0 
+@ all *$
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:*/'
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/biome' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:worldgen/biome' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all ￿minecra.ft:?????
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *:asset*t
+R 0
+A -
+X No matches for selector '*:asset*t' of type 'minecraft:worldgen/biome' at position 11: ... *:asset*t<--[HERE]@9
+E No matches for selector '*:asset*t' of type 'minecraft:worldgen/biome' at position 11: ... *:asset*t<--[HERE]@9
+S -2--2 0 0 
+@ all ***
+R 3
+A 0-3 67:minecraft:badlands,minecraft:bamboo_jungle,minecraft:basalt_deltas,minecraft:beach,minecraft:birch_forest:1685386361
+E ok
+S -2--2 0 0 
+@ all 7?C
+R 0
+A -
+X No matches for selector 'minecraft:7?' of type 'minecraft:worldgen/biome' at position 4: t 7?<--[HERE]@2
+E No matches for selector 'minecraft:7?' of type 'minecraft:worldgen/biome' at position 4: t 7?<--[HERE]@2
+S -2--2 0 0 
+@ all *dir*
+R 0
+A -
+X No matches for selector 'minecraft:*dir*' of type 'minecraft:worldgen/biome' at position 7: t *dir*<--[HERE]@5
+E No matches for selector 'minecraft:*dir*' of type 'minecraft:worldgen/biome' at position 7: t *dir*<--[HERE]@5
+S -2--2 0 0 
+@ all minecrAft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/biome' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:worldgen/biome' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all *:asfet
+R 0
+A -
+X No matches for selector '*:asfet' of type 'minecraft:worldgen/biome' at position 9: t *:asfet<--[HERE]@7
+E No matches for selector '*:asfet' of type 'minecraft:worldgen/biome' at position 9: t *:asfet<--[HERE]@7
+S -2--2 0 0 
+@ all *effeYct
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/biome' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:worldgen/biome' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *dirt**
+R 0
+A -
+X No matches for selector 'minecraft:*dirt**' of type 'minecraft:worldgen/biome' at position 9: t *dirt**<--[HERE]@7
+E No matches for selector 'minecraft:*dirt**' of type 'minecraft:worldgen/biome' at position 9: t *dirt**<--[HERE]@7
+S -2--2 0 0 
+@ all *stone,
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:worldgen/biome' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:worldgen/biome' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all miecraft:*/
+R 0
+A -
+X No matches for selector 'miecraft:*/' of type 'minecraft:worldgen/biome' at position 13: ...iecraft:*/<--[HERE]@11
+E No matches for selector 'miecraft:*/' of type 'minecraft:worldgen/biome' at position 13: ...iecraft:*/<--[HERE]@11
+S -2--2 0 0 
+@ all )??
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi7ecraft:?????f
+R 0
+A -
+X No matches for selector 'mi7ecraft:?????f' of type 'minecraft:worldgen/biome' at position 18: ...aft:?????f<--[HERE]@16
+E No matches for selector 'mi7ecraft:?????f' of type 'minecraft:worldgen/biome' at position 18: ...aft:?????f<--[HERE]@16
+S -2--2 0 0 
+@ all *5
+R 0
+A -
+X No matches for selector 'minecraft:*5' of type 'minecraft:worldgen/biome' at position 4: t *5<--[HERE]@2
+E No matches for selector 'minecraft:*5' of type 'minecraft:worldgen/biome' at position 4: t *5<--[HERE]@2
+S -2--2 0 0 
+@ all minecft:*/*
+R 0
+A -
+X No matches for selector 'minecft:*/*' of type 'minecraft:worldgen/biome' at position 13: ...inecft:*/*<--[HERE]@11
+E No matches for selector 'minecft:*/*' of type 'minecraft:worldgen/biome' at position 13: ...inecft:*/*<--[HERE]@11
+S -2--2 0 0 
+@ all 4minecraft:
+R 0
+A -
+X No matches for selector '4minecraft:' of type 'minecraft:worldgen/biome' at position 13: ...minecraft:<--[HERE]@11
+E No matches for selector '4minecraft:' of type 'minecraft:worldgen/biome' at position 13: ...minecraft:<--[HERE]@11
+S -2--2 0 0 
+@ all *sone*
+R 0
+A -
+X No matches for selector 'minecraft:*sone*' of type 'minecraft:worldgen/biome' at position 8: t *sone*<--[HERE]@6
+E No matches for selector 'minecraft:*sone*' of type 'minecraft:worldgen/biome' at position 8: t *sone*<--[HERE]@6
+S -2--2 0 0 
+@ all ie*
+R 0
+A -
+X No matches for selector 'minecraft:ie*' of type 'minecraft:worldgen/biome' at position 5: t ie*<--[HERE]@3
+E No matches for selector 'minecraft:ie*' of type 'minecraft:worldgen/biome' at position 5: t ie*<--[HERE]@3
+S -2--2 0 0 
+@ all m￿necraft:?????
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all 9tone
+R 0
+A -
+X No matches for selector 'minecraft:9tone' of type 'minecraft:worldgen/biome' at position 7: t 9tone<--[HERE]@5
+E No matches for selector 'minecraft:9tone' of type 'minecraft:worldgen/biome' at position 7: t 9tone<--[HERE]@5
+S -2--2 0 0 
+@ all st3on=
+R 0
+A -
+X No matches for selector 'minecraft:st3on' of type 'minecraft:worldgen/biome' at position 7: t st3on<--[HERE]@5
+E No matches for selector 'minecraft:st3on' of type 'minecraft:worldgen/biome' at position 7: t st3on<--[HERE]@5
+S -2--2 0 0 
+@ all foo:**
+R 0
+A -
+X No matches for selector 'foo:**' of type 'minecraft:worldgen/biome' at position 8: t foo:**<--[HERE]@6
+E No matches for selector 'foo:**' of type 'minecraft:worldgen/biome' at position 8: t foo:**<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:oak_*o
+R 0
+A -
+X No matches for selector 'minecraft:oak_*o' of type 'minecraft:worldgen/biome' at position 18: ...aft:oak_*o<--[HERE]@16
+E No matches for selector 'minecraft:oak_*o' of type 'minecraft:worldgen/biome' at position 18: ...aft:oak_*o<--[HERE]@16
+S -2--2 0 0 
+@ all m&*
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all inecraft:?????
+R 0
+A -
+X No matches for selector 'inecraft:?????' of type 'minecraft:worldgen/biome' at position 16: ...raft:?????<--[HERE]@14
+E No matches for selector 'inecraft:?????' of type 'minecraft:worldgen/biome' at position 16: ...raft:?????<--[HERE]@14
+S -2--2 0 0 
+@ all s*
+R 2
+A 0-2 14:minecraft:savanna,minecraft:savanna_plateau,minecraft:small_end_islands,minecraft:snowy_beach,minecraft:snowy_plains:529265568
+E ok
+S -2--2 0 0 
+@ all #y6
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m:necraft:y
+R 0
+A -
+X No matches for selector 'm:necraft:y' of type 'minecraft:worldgen/biome' at position 13: ...:necraft:y<--[HERE]@11
+E No matches for selector 'm:necraft:y' of type 'minecraft:worldgen/biome' at position 13: ...:necraft:y<--[HERE]@11
+S -2--2 0 0 
+@ all mi{ne
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*9
+R 0
+A -
+X No matches for selector 'foo:*9' of type 'minecraft:worldgen/biome' at position 8: t foo:*9<--[HERE]@6
+E No matches for selector 'foo:*9' of type 'minecraft:worldgen/biome' at position 8: t foo:*9<--[HERE]@6
+S -2--2 0 0 
+@ all :3
+R 0
+A -
+X No matches for selector ':3' of type 'minecraft:worldgen/biome' at position 4: t :3<--[HERE]@2
+E No matches for selector ':3' of type 'minecraft:worldgen/biome' at position 4: t :3<--[HERE]@2
+S -2--2 0 0 
+@ all *\u0000harp
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *:*c
+R 0
+A -
+X No matches for selector '*:*c' of type 'minecraft:worldgen/biome' at position 6: t *:*c<--[HERE]@4
+E No matches for selector '*:*c' of type 'minecraft:worldgen/biome' at position 6: t *:*c<--[HERE]@4
+S -2--2 0 0 
+@ all toe
+R 0
+A -
+X No matches for selector 'minecraft:toe' of type 'minecraft:worldgen/biome' at position 5: t toe<--[HERE]@3
+E No matches for selector 'minecraft:toe' of type 'minecraft:worldgen/biome' at position 5: t toe<--[HERE]@3
+S -2--2 0 0 
+@ all }z^*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *:aAset
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:worldgen/biome' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:worldgen/biome' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all minecraf/t:*/*:
+R 0
+A -
+X No matches for selector 'minecraf/t:*/*:' of type 'minecraft:worldgen/biome' at position 17: ...raf/t:*/*:<--[HERE]@15
+E No matches for selector 'minecraf/t:*/*:' of type 'minecraft:worldgen/biome' at position 17: ...raf/t:*/*:<--[HERE]@15
+S -2--2 0 0 
+@ all mine,craft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:worldgen/biome' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:worldgen/biome' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all a*😀b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*' of type 'minecraft:worldgen/biome' at position 4: t a*<--[HERE]@2
+E No matches for selector 'minecraft:a*' of type 'minecraft:worldgen/biome' at position 4: t a*<--[HERE]@2
+S -2--2 0 0 
+@ all st￿n
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:worldgen/biome' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:worldgen/biome' at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all minecrat:*/*
+R 0
+A -
+X No matches for selector 'minecrat:*/*' of type 'minecraft:worldgen/biome' at position 14: ...necrat:*/*<--[HERE]@12
+E No matches for selector 'minecrat:*/*' of type 'minecraft:worldgen/biome' at position 14: ...necrat:*/*<--[HERE]@12
+S -2--2 0 0 
+@ all *stone*<o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t *stone*<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t *stone*<--[HERE]@7
+S -2--2 0 0 
+@ all :**
+R 0
+A -
+X No matches for selector ':**' of type 'minecraft:worldgen/biome' at position 5: t :**<--[HERE]@3
+E No matches for selector ':**' of type 'minecraft:worldgen/biome' at position 5: t :**<--[HERE]@3
+S -2--2 0 0 
+@ all *:e中
+R 0
+A -
+X No matches for selector '*:e' of type 'minecraft:worldgen/biome' at position 5: t *:e<--[HERE]@3
+E No matches for selector '*:e' of type 'minecraft:worldgen/biome' at position 5: t *:e<--[HERE]@3
+S -2--2 0 0 
+@ all mixnecraft:*/**
+R 0
+A -
+X No matches for selector 'mixnecraft:*/**' of type 'minecraft:worldgen/biome' at position 17: ...craft:*/**<--[HERE]@15
+E No matches for selector 'mixnecraft:*/**' of type 'minecraft:worldgen/biome' at position 17: ...craft:*/**<--[HERE]@15
+S -2--2 0 0 
+@ all *￿asset
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all e**
+R 3
+A 0-3 4:minecraft:end_barrens,minecraft:end_highlands,minecraft:end_midlands,minecraft:eroded_badlands:-1487119841
+E ok
+S -2--2 0 0 
+@ all *sharp***
+R 0
+A -
+X No matches for selector 'minecraft:*sharp***' of type 'minecraft:worldgen/biome' at position 11: ... *sharp***<--[HERE]@9
+E No matches for selector 'minecraft:*sharp***' of type 'minecraft:worldgen/biome' at position 11: ... *sharp***<--[HERE]@9
+S -2--2 0 0 
+@ all @*e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all rt\u000a*
+R 0
+A -
+X No matches for selector 'minecraft:rt' of type 'minecraft:worldgen/biome' at position 4: t rt<--[HERE]@2
+E No matches for selector 'minecraft:rt' of type 'minecraft:worldgen/biome' at position 4: t rt<--[HERE]@2
+S -2--2 0 0 
+@ all min2ecraft:n
+R 0
+A -
+X No matches for selector 'min2ecraft:n' of type 'minecraft:worldgen/biome' at position 14: ...n2ecraft:n<--[HERE]@12
+E No matches for selector 'min2ecraft:n' of type 'minecraft:worldgen/biome' at position 14: ...n2ecraft:n<--[HERE]@12
+S -2--2 0 0 
+@ all minycraft:*ß*
+R 0
+A -
+X No matches for selector 'minycraft:*' of type 'minecraft:worldgen/biome' at position 13: ...inycraft:*<--[HERE]@11
+E No matches for selector 'minycraft:*' of type 'minecraft:worldgen/biome' at position 13: ...inycraft:*<--[HERE]@11
+S -2--2 0 0 
+@ all a*]*c
+R 0
+A -
+X No matches for selector 'minecraft:a*' of type 'minecraft:worldgen/biome' at position 4: t a*<--[HERE]@2
+E No matches for selector 'minecraft:a*' of type 'minecraft:worldgen/biome' at position 4: t a*<--[HERE]@2
+S -2--2 0 0 
+@ all mie*
+R 0
+A -
+X No matches for selector 'minecraft:mie*' of type 'minecraft:worldgen/biome' at position 6: t mie*<--[HERE]@4
+E No matches for selector 'minecraft:mie*' of type 'minecraft:worldgen/biome' at position 6: t mie*<--[HERE]@4
+S -2--2 0 0 
+@ all mnecraft:*/*
+R 0
+A -
+X No matches for selector 'mnecraft:*/*' of type 'minecraft:worldgen/biome' at position 14: ...ecraft:*/*<--[HERE]@12
+E No matches for selector 'mnecraft:*/*' of type 'minecraft:worldgen/biome' at position 14: ...ecraft:*/*<--[HERE]@12
+S -2--2 0 0 
+@ all *effecttt
+R 0
+A -
+X No matches for selector 'minecraft:*effecttt' of type 'minecraft:worldgen/biome' at position 11: ... *effecttt<--[HERE]@9
+E No matches for selector 'minecraft:*effecttt' of type 'minecraft:worldgen/biome' at position 11: ... *effecttt<--[HERE]@9
+S -2--2 0 0 
+@ all foo:f
+R 0
+A -
+X No matches for selector 'foo:f' of type 'minecraft:worldgen/biome' at position 7: t foo:f<--[HERE]@5
+E No matches for selector 'foo:f' of type 'minecraft:worldgen/biome' at position 7: t foo:f<--[HERE]@5
+S -2--2 0 0 
+@ all Y_logl
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Sne
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *4
+R 0
+A -
+X No matches for selector 'minecraft:*4' of type 'minecraft:worldgen/biome' at position 4: t *4<--[HERE]@2
+E No matches for selector 'minecraft:*4' of type 'minecraft:worldgen/biome' at position 4: t *4<--[HERE]@2
+S -2--2 0 0 
+@ all *sarp*r
+R 0
+A -
+X No matches for selector 'minecraft:*sarp*r' of type 'minecraft:worldgen/biome' at position 9: t *sarp*r<--[HERE]@7
+E No matches for selector 'minecraft:*sarp*r' of type 'minecraft:worldgen/biome' at position 9: t *sarp*r<--[HERE]@7
+S -2--2 0 0 
+@ all g
+R 0
+A -
+X No matches for selector 'minecraft:g' of type 'minecraft:worldgen/biome' at position 3: t g<--[HERE]@1
+E No matches for selector 'minecraft:g' of type 'minecraft:worldgen/biome' at position 3: t g<--[HERE]@1
+S 0-1 7 -688131745 minecraft:cherry_grove	minecraft:grove	minecraft:old_growth_birch_forest	minecraft:old_growth_pine_taiga	minecraft:old_growth_spruce_taiga	minecraft:pale_garden	minecraft:windswept_gravelly_hills
+@ all ￿# 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ​minecraft:s*n
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miCne*
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:worldgen/biome' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all *:*:*
+R 0
+A -
+X No matches for selector '*:*:*' of type 'minecraft:worldgen/biome' at position 7: t *:*:*<--[HERE]@5
+E No matches for selector '*:*:*' of type 'minecraft:worldgen/biome' at position 7: t *:*:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*\u0000
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+S -2--2 0 0 
+@ all k_*
+R 0
+A -
+X No matches for selector 'minecraft:k_*' of type 'minecraft:worldgen/biome' at position 5: t k_*<--[HERE]@3
+E No matches for selector 'minecraft:k_*' of type 'minecraft:worldgen/biome' at position 5: t k_*<--[HERE]@3
+S -2--2 0 0 
+@ all minecßraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all ne
+R 0
+A -
+X No matches for selector 'minecraft:ne' of type 'minecraft:worldgen/biome' at position 4: t ne<--[HERE]@2
+E No matches for selector 'minecraft:ne' of type 'minecraft:worldgen/biome' at position 4: t ne<--[HERE]@2
+S 0-2 1 847827734 minecraft:nether_wastes
+@ all minecraft:@*e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecrafİt:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:worldgen/biome' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:worldgen/biome' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:?????m
+R 0
+A -
+X No matches for selector 'minecraft:?????m' of type 'minecraft:worldgen/biome' at position 18: ...aft:?????m<--[HERE]@16
+E No matches for selector 'minecraft:?????m' of type 'minecraft:worldgen/biome' at position 18: ...aft:?????m<--[HERE]@16
+S -2--2 0 0 
+@ all inecraft:i
+R 0
+A -
+X No matches for selector 'inecraft:i' of type 'minecraft:worldgen/biome' at position 12: ...inecraft:i<--[HERE]@10
+E No matches for selector 'inecraft:i' of type 'minecraft:worldgen/biome' at position 12: ...inecraft:i<--[HERE]@10
+S -2--2 0 0 
+@ all ma*
+R 3
+A 0-3 1:minecraft:mangrove_swamp:404768775
+E ok
+S -2--2 0 0 
+@ all #&&
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all pl)ainsa
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:worldgen/biome' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:worldgen/biome' at position 4: t pl<--[HERE]@2
+S -2--2 0 0 
+@ all raft:s*
+R 0
+A -
+X No matches for selector 'raft:s*' of type 'minecraft:worldgen/biome' at position 9: t raft:s*<--[HERE]@7
+E No matches for selector 'raft:s*' of type 'minecraft:worldgen/biome' at position 9: t raft:s*<--[HERE]@7
+S -2--2 0 0 
+@ all minec)3aft:
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:worldgen/biome' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all ^z*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:worldgen/biome' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *sharp*s
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*s' of type 'minecraft:worldgen/biome' at position 10: t *sharp*s<--[HERE]@8
+E No matches for selector 'minecraft:*sharp*s' of type 'minecraft:worldgen/biome' at position 10: t *sharp*s<--[HERE]@8
+S -2--2 0 0 
+@ all stoneß
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/biome' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:worldgen/biome' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all m\u000anecraft:????😀
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:worldgen/biome' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all *sto8ne*
+R 0
+A -
+X No matches for selector 'minecraft:*sto8ne*' of type 'minecraft:worldgen/biome' at position 10: t *sto8ne*<--[HERE]@8
+E No matches for selector 'minecraft:*sto8ne*' of type 'minecraft:worldgen/biome' at position 10: t *sto8ne*<--[HERE]@8
+S -2--2 0 0 

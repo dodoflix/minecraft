@@ -1,0 +1,1885 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all *
+R 1
+A 0-1 161:minecraft:acacia_boat,minecraft:acacia_chest_boat,minecraft:allay,minecraft:area_effect_cloud,minecraft:armadillo:1310808840
+E ok
+S -2--2 0 0 
+@ all minecraft:*
+R 11
+A 0-11 161:minecraft:acacia_boat,minecraft:acacia_chest_boat,minecraft:allay,minecraft:area_effect_cloud,minecraft:armadillo:1310808840
+E ok
+S -2--2 0 0 
+@ all *:asset
+R 0
+A -
+X No matches for selector '*:asset' of type 'minecraft:entity_type' at position 9: t *:asset<--[HERE]@7
+E No matches for selector '*:asset' of type 'minecraft:entity_type' at position 9: t *:asset<--[HERE]@7
+S -2--2 0 0 
+@ all ?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all stone
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:entity_type' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:entity_type' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:s*
+R 12
+A 0-12 22:minecraft:splash_potion,minecraft:salmon,minecraft:sheep,minecraft:shulker,minecraft:shulker_bullet:-1500112667
+E ok
+S -2--2 0 0 
+@ all *_log
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:entity_type' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:entity_type' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *stone*
+R 0
+A -
+X No matches for selector 'minecraft:*stone*' of type 'minecraft:entity_type' at position 9: t *stone*<--[HERE]@7
+E No matches for selector 'minecraft:*stone*' of type 'minecraft:entity_type' at position 9: t *stone*<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:oak_*
+R 15
+A 0-15 2:minecraft:oak_boat,minecraft:oak_chest_boat:846446759
+E ok
+S -2--2 0 0 
+@ all z*
+R 2
+A 0-2 6:minecraft:zoglin,minecraft:zombie,minecraft:zombie_horse,minecraft:zombie_nautilus,minecraft:zombie_villager:1792722734
+E ok
+S -2--2 0 0 
+@ all **
+R 2
+A 0-2 161:minecraft:acacia_boat,minecraft:acacia_chest_boat,minecraft:allay,minecraft:area_effect_cloud,minecraft:armadillo:1310808840
+E ok
+S -2--2 0 0 
+@ all *?
+R 0
+A -
+X No matches for selector 'minecraft:*?' of type 'minecraft:entity_type' at position 4: t *?<--[HERE]@2
+E No matches for selector 'minecraft:*?' of type 'minecraft:entity_type' at position 4: t *?<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all :*
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:entity_type' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:entity_type' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*
+R 0
+A -
+X No matches for selector 'foo:*' of type 'minecraft:entity_type' at position 7: t foo:*<--[HERE]@5
+E No matches for selector 'foo:*' of type 'minecraft:entity_type' at position 7: t foo:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*
+R 3
+A 0-3 161:minecraft:acacia_boat,minecraft:acacia_chest_boat,minecraft:allay,minecraft:area_effect_cloud,minecraft:armadillo:1310808840
+E ok
+S -2--2 0 0 
+@ all minecraft:zombie*
+R 17
+A 0-17 4:minecraft:zombie,minecraft:zombie_horse,minecraft:zombie_nautilus,minecraft:zombie_villager:974687462
+E ok
+S -2--2 0 0 
+@ all plains
+R 0
+A -
+X No matches for selector 'minecraft:plains' of type 'minecraft:entity_type' at position 8: t plains<--[HERE]@6
+E No matches for selector 'minecraft:plains' of type 'minecraft:entity_type' at position 8: t plains<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:?????
+R 15
+A 0-15 14:minecraft:allay,minecraft:arrow,minecraft:blaze,minecraft:camel,minecraft:ghast:1553532486
+E ok
+S -2--2 0 0 
+@ all *e
+R 2
+A 0-2 20:minecraft:bee,minecraft:blaze,minecraft:breeze,minecraft:breeze_wind_charge,minecraft:endermite:997461038
+E ok
+S -2--2 0 0 
+@ all a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c' of type 'minecraft:entity_type' at position 7: t a*b*c<--[HERE]@5
+E No matches for selector 'minecraft:a*b*c' of type 'minecraft:entity_type' at position 7: t a*b*c<--[HERE]@5
+S -2--2 0 0 
+@ all Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:entity_type' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:entity_type' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:entity_type' at position 15: ...ecraft:*/*<--[HERE]@13
+E No matches for selector 'minecraft:*/*' of type 'minecraft:entity_type' at position 15: ...ecraft:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all m*
+R 2
+A 0-2 8:minecraft:magma_cube,minecraft:mangrove_boat,minecraft:mangrove_chest_boat,minecraft:mannequin,minecraft:marker:-1189692517
+E ok
+S -2--2 0 0 
+@ all mine*
+R 5
+A 0-5 1:minecraft:minecart:-333578976
+E ok
+S -2--2 0 0 
+@ all *effect
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:entity_type' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:entity_type' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *sharp*
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*' of type 'minecraft:entity_type' at position 9: t *sharp*<--[HERE]@7
+E No matches for selector 'minecraft:*sharp*' of type 'minecraft:entity_type' at position 9: t *sharp*<--[HERE]@7
+S -2--2 0 0 
+@ all *dirt*
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*' of type 'minecraft:entity_type' at position 8: t *dirt*<--[HERE]@6
+E No matches for selector 'minecraft:*dirt*' of type 'minecraft:entity_type' at position 8: t *dirt*<--[HERE]@6
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S 0-1 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all mi
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+S 0-2 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all min
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+S 0-3 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all mine
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+S 0-4 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minec
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+S 0-5 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecr
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+S 0-6 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecra
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:entity_type' at position 9: t minecra<--[HERE]@7
+S 0-7 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraf
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+S 0-8 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all minecraft
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+S 0-9 161 335216415 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl
+@ all *:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:entity_type' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:entity_type' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all *:a
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:entity_type' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:entity_type' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *:as
+R 0
+A -
+X No matches for selector '*:as' of type 'minecraft:entity_type' at position 6: t *:as<--[HERE]@4
+E No matches for selector '*:as' of type 'minecraft:entity_type' at position 6: t *:as<--[HERE]@4
+S -2--2 0 0 
+@ all *:ass
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:entity_type' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:entity_type' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:entity_type' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:entity_type' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:entity_type' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:entity_type' at position 3: t s<--[HERE]@1
+S 0-1 29 1431009806 minecraft:armor_stand	minecraft:cave_spider	minecraft:glow_squid	minecraft:llama_spit	minecraft:ominous_item_spawner	minecraft:salmon	minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet	minecraft:silverfish	minecraft:skeleton	minecraft:skeleton_horse	minecraft:slime	minecraft:small_fireball	minecraft:sniffer	minecraft:snow_golem	minecraft:snowball	minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat	minecraft:squid	minecraft:stray	minecraft:strider	minecraft:sulfur_cube	minecraft:wither_skeleton	minecraft:wither_skull
+@ all st
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:entity_type' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:entity_type' at position 4: t st<--[HERE]@2
+S 0-2 3 -949544854 minecraft:armor_stand	minecraft:stray	minecraft:strider
+@ all sto
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:entity_type' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:entity_type' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all ston
+R 0
+A -
+X No matches for selector 'minecraft:ston' of type 'minecraft:entity_type' at position 6: t ston<--[HERE]@4
+E No matches for selector 'minecraft:ston' of type 'minecraft:entity_type' at position 6: t ston<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:entity_type' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:entity_type' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 22 678047646 minecraft:salmon	minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet	minecraft:silverfish	minecraft:skeleton	minecraft:skeleton_horse	minecraft:slime	minecraft:small_fireball	minecraft:sniffer	minecraft:snow_golem	minecraft:snowball	minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat	minecraft:squid	minecraft:stray	minecraft:strider	minecraft:sulfur_cube
+@ all *_
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:entity_type' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:entity_type' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all *_l
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:entity_type' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:entity_type' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *_lo
+R 0
+A -
+X No matches for selector 'minecraft:*_lo' of type 'minecraft:entity_type' at position 6: t *_lo<--[HERE]@4
+E No matches for selector 'minecraft:*_lo' of type 'minecraft:entity_type' at position 6: t *_lo<--[HERE]@4
+S -2--2 0 0 
+@ all *s
+R 2
+A 0-2 3:minecraft:evoker_fangs,minecraft:nautilus,minecraft:zombie_nautilus:272040792
+E ok
+S -2--2 0 0 
+@ all *st
+R 3
+A 0-3 2:minecraft:ghast,minecraft:happy_ghast:1772293152
+E ok
+S -2--2 0 0 
+@ all *sto
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:entity_type' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:entity_type' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all *ston
+R 0
+A -
+X No matches for selector 'minecraft:*ston' of type 'minecraft:entity_type' at position 7: t *ston<--[HERE]@5
+E No matches for selector 'minecraft:*ston' of type 'minecraft:entity_type' at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all *stone
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:entity_type' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:entity_type' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:entity_type' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:entity_type' at position 13: ...inecraft:o<--[HERE]@11
+S 0-11 4 -136484655 minecraft:oak_boat	minecraft:oak_chest_boat	minecraft:ocelot	minecraft:ominous_item_spawner
+@ all minecraft:oa
+R 0
+A -
+X No matches for selector 'minecraft:oa' of type 'minecraft:entity_type' at position 14: ...necraft:oa<--[HERE]@12
+E No matches for selector 'minecraft:oa' of type 'minecraft:entity_type' at position 14: ...necraft:oa<--[HERE]@12
+S 0-12 2 470045762 minecraft:oak_boat	minecraft:oak_chest_boat
+@ all minecraft:oak
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:entity_type' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:entity_type' at position 15: ...ecraft:oak<--[HERE]@13
+S 0-13 2 470045762 minecraft:oak_boat	minecraft:oak_chest_boat
+@ all minecraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:oak_' of type 'minecraft:entity_type' at position 16: ...craft:oak_<--[HERE]@14
+E No matches for selector 'minecraft:oak_' of type 'minecraft:entity_type' at position 16: ...craft:oak_<--[HERE]@14
+S 0-14 2 470045762 minecraft:oak_boat	minecraft:oak_chest_boat
+@ all z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+S 0-1 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all :
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:entity_type' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:entity_type' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:entity_type' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:entity_type' at position 3: t f<--[HERE]@1
+S 0-1 13 996539157 minecraft:dragon_fireball	minecraft:evoker_fangs	minecraft:falling_block	minecraft:fireball	minecraft:firework_rocket	minecraft:fishing_bobber	minecraft:fox	minecraft:frog	minecraft:furnace_minecart	minecraft:glow_item_frame	minecraft:item_frame	minecraft:small_fireball	minecraft:tropical_fish
+@ all fo
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+S 0-2 1 -1006802233 minecraft:fox
+@ all foo
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:entity_type' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:entity_type' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:entity_type' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:entity_type' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:entity_type' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:entity_type' at position 13: ...inecraft:z<--[HERE]@11
+S 0-11 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zo
+R 0
+A -
+X No matches for selector 'minecraft:zo' of type 'minecraft:entity_type' at position 14: ...necraft:zo<--[HERE]@12
+E No matches for selector 'minecraft:zo' of type 'minecraft:entity_type' at position 14: ...necraft:zo<--[HERE]@12
+S 0-12 6 -260170085 minecraft:zoglin	minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zom
+R 0
+A -
+X No matches for selector 'minecraft:zom' of type 'minecraft:entity_type' at position 15: ...ecraft:zom<--[HERE]@13
+E No matches for selector 'minecraft:zom' of type 'minecraft:entity_type' at position 15: ...ecraft:zom<--[HERE]@13
+S 0-13 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zomb
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:entity_type' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:entity_type' at position 16: ...craft:zomb<--[HERE]@14
+S 0-14 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zombi
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:entity_type' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:entity_type' at position 17: ...raft:zombi<--[HERE]@15
+S 0-15 5 1468332248 minecraft:zombie	minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager	minecraft:zombified_piglin
+@ all minecraft:zombie
+R 16
+A 0-16 1:minecraft:zombie:-596960109
+E ok
+S 0-16 3 -304826503 minecraft:zombie_horse	minecraft:zombie_nautilus	minecraft:zombie_villager
+@ all p
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:entity_type' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:entity_type' at position 3: t p<--[HERE]@1
+S 0-1 20 72258173 minecraft:ender_pearl	minecraft:lingering_potion	minecraft:painting	minecraft:pale_oak_boat	minecraft:pale_oak_chest_boat	minecraft:panda	minecraft:parched	minecraft:parrot	minecraft:phantom	minecraft:pig	minecraft:piglin	minecraft:piglin_brute	minecraft:pillager	minecraft:player	minecraft:polar_bear	minecraft:poplar_boat	minecraft:poplar_chest_boat	minecraft:pufferfish	minecraft:splash_potion	minecraft:zombified_piglin
+@ all pl
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:entity_type' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:entity_type' at position 4: t pl<--[HERE]@2
+S 0-2 1 -1707284357 minecraft:player
+@ all pla
+R 0
+A -
+X No matches for selector 'minecraft:pla' of type 'minecraft:entity_type' at position 5: t pla<--[HERE]@3
+E No matches for selector 'minecraft:pla' of type 'minecraft:entity_type' at position 5: t pla<--[HERE]@3
+S 0-3 1 -1707284357 minecraft:player
+@ all plai
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:entity_type' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:entity_type' at position 6: t plai<--[HERE]@4
+S -2--2 0 0 
+@ all plain
+R 0
+A -
+X No matches for selector 'minecraft:plain' of type 'minecraft:entity_type' at position 7: t plain<--[HERE]@5
+E No matches for selector 'minecraft:plain' of type 'minecraft:entity_type' at position 7: t plain<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:entity_type' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:entity_type' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:???
+R 13
+A 0-13 10:minecraft:bat,minecraft:bee,minecraft:cat,minecraft:cod,minecraft:cow:1744616194
+E ok
+S -2--2 0 0 
+@ all minecraft:????
+R 14
+A 0-14 6:minecraft:frog,minecraft:goat,minecraft:husk,minecraft:item,minecraft:mule:1075836159
+E ok
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X No matches for selector 'minecraft:a' of type 'minecraft:entity_type' at position 3: t a<--[HERE]@1
+E No matches for selector 'minecraft:a' of type 'minecraft:entity_type' at position 3: t a<--[HERE]@1
+S 0-1 9 1444062987 minecraft:acacia_boat	minecraft:acacia_chest_boat	minecraft:allay	minecraft:area_effect_cloud	minecraft:armadillo	minecraft:armor_stand	minecraft:arrow	minecraft:axolotl	minecraft:spectral_arrow
+@ all a*
+R 2
+A 0-2 8:minecraft:acacia_boat,minecraft:acacia_chest_boat,minecraft:allay,minecraft:area_effect_cloud,minecraft:armadillo:-1916088858
+E ok
+S -2--2 0 0 
+@ all a*b
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:entity_type' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:entity_type' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all a*b*
+R 4
+A 0-4 2:minecraft:acacia_boat,minecraft:acacia_chest_boat:517978689
+E ok
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-1 29 1431009806 minecraft:armor_stand	minecraft:cave_spider	minecraft:glow_squid	minecraft:llama_spit	minecraft:ominous_item_spawner	minecraft:salmon	minecraft:sheep	minecraft:shulker	minecraft:shulker_bullet	minecraft:silverfish	minecraft:skeleton	minecraft:skeleton_horse	minecraft:slime	minecraft:small_fireball	minecraft:sniffer	minecraft:snow_golem	minecraft:snowball	minecraft:spawner_minecart	minecraft:spectral_arrow	minecraft:spider	minecraft:splash_potion	minecraft:spruce_boat	minecraft:spruce_chest_boat	minecraft:squid	minecraft:stray	minecraft:strider	minecraft:sulfur_cube	minecraft:wither_skeleton	minecraft:wither_skull
+@ all St
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-2 3 -949544854 minecraft:armor_stand	minecraft:stray	minecraft:strider
+@ all Sto
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ston
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:entity_type' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:entity_type' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:entity_type' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:entity_type' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all *ef
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:entity_type' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:entity_type' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all *eff
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:entity_type' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:entity_type' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *effe
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:entity_type' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:entity_type' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *effec
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:entity_type' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:entity_type' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *sh
+R 3
+A 0-3 3:minecraft:pufferfish,minecraft:silverfish,minecraft:tropical_fish:1956464353
+E ok
+S -2--2 0 0 
+@ all *sha
+R 0
+A -
+X No matches for selector 'minecraft:*sha' of type 'minecraft:entity_type' at position 6: t *sha<--[HERE]@4
+E No matches for selector 'minecraft:*sha' of type 'minecraft:entity_type' at position 6: t *sha<--[HERE]@4
+S -2--2 0 0 
+@ all *shar
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:entity_type' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:entity_type' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *sharp
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:entity_type' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:entity_type' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all *d
+R 2
+A 0-2 8:minecraft:area_effect_cloud,minecraft:armor_stand,minecraft:bogged,minecraft:cod,minecraft:drowned:833509480
+E ok
+S -2--2 0 0 
+@ all *di
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:entity_type' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:entity_type' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all *dir
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:entity_type' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:entity_type' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all *dirt
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:entity_type' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:entity_type' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all **y
+R 3
+A 0-3 6:minecraft:allay,minecraft:block_display,minecraft:donkey,minecraft:item_display,minecraft:stray:59095379
+E ok
+S -2--2 0 0 
+@ all ombie*
+R 0
+A -
+X No matches for selector 'minecraft:ombie*' of type 'minecraft:entity_type' at position 8: t ombie*<--[HERE]@6
+E No matches for selector 'minecraft:ombie*' of type 'minecraft:entity_type' at position 8: t ombie*<--[HERE]@6
+S -2--2 0 0 
+@ all *:6*
+R 0
+A -
+X No matches for selector '*:6*' of type 'minecraft:entity_type' at position 6: t *:6*<--[HERE]@4
+E No matches for selector '*:6*' of type 'minecraft:entity_type' at position 6: t *:6*<--[HERE]@4
+S -2--2 0 0 
+@ all 7*m
+R 0
+A -
+X No matches for selector 'minecraft:7*m' of type 'minecraft:entity_type' at position 5: t 7*m<--[HERE]@3
+E No matches for selector 'minecraft:7*m' of type 'minecraft:entity_type' at position 5: t 7*m<--[HERE]@3
+S -2--2 0 0 
+@ all *_log,
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:entity_type' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:entity_type' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all b*c
+R 0
+A -
+X No matches for selector 'minecraft:b*c' of type 'minecraft:entity_type' at position 5: t b*c<--[HERE]@3
+E No matches for selector 'minecraft:b*c' of type 'minecraft:entity_type' at position 5: t b*c<--[HERE]@3
+S -2--2 0 0 
+@ all *ef$ect
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:entity_type' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:entity_type' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:?#?/???
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all ??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:entity_type' at position 4: t ??<--[HERE]@2
+E No matches for selector 'minecraft:??' of type 'minecraft:entity_type' at position 4: t ??<--[HERE]@2
+S -2--2 0 0 
+@ all z**4
+R 0
+A -
+X No matches for selector 'minecraft:z**4' of type 'minecraft:entity_type' at position 6: t z**4<--[HERE]@4
+E No matches for selector 'minecraft:z**4' of type 'minecraft:entity_type' at position 6: t z**4<--[HERE]@4
+S -2--2 0 0 
+@ all ft:zombie*
+R 0
+A -
+X No matches for selector 'ft:zombie*' of type 'minecraft:entity_type' at position 12: ...ft:zombie*<--[HERE]@10
+E No matches for selector 'ft:zombie*' of type 'minecraft:entity_type' at position 12: ...ft:zombie*<--[HERE]@10
+S -2--2 0 0 
+@ all plainsi
+R 0
+A -
+X No matches for selector 'minecraft:plainsi' of type 'minecraft:entity_type' at position 9: t plainsi<--[HERE]@7
+E No matches for selector 'minecraft:plainsi' of type 'minecraft:entity_type' at position 9: t plainsi<--[HERE]@7
+S -2--2 0 0 
+@ all st&ne
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:entity_type' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:entity_type' at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all *sh>rp*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t *sh<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all ine*
+R 0
+A -
+X No matches for selector 'minecraft:ine*' of type 'minecraft:entity_type' at position 6: t ine*<--[HERE]@4
+E No matches for selector 'minecraft:ine*' of type 'minecraft:entity_type' at position 6: t ine*<--[HERE]@4
+S -2--2 0 0 
+@ all *shrp
+R 0
+A -
+X No matches for selector 'minecraft:*shrp' of type 'minecraft:entity_type' at position 7: t *shrp<--[HERE]@5
+E No matches for selector 'minecraft:*shrp' of type 'minecraft:entity_type' at position 7: t *shrp<--[HERE]@5
+S -2--2 0 0 
+@ all ​7*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minYecraft:s*
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:entity_type' at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:zombie*f
+R 0
+A -
+X No matches for selector 'minecraft:zombie*f' of type 'minecraft:entity_type' at position 20: ...t:zombie*f<--[HERE]@18
+E No matches for selector 'minecraft:zombie*f' of type 'minecraft:entity_type' at position 20: ...t:zombie*f<--[HERE]@18
+S -2--2 0 0 
+@ all *:asse4s
+R 0
+A -
+X No matches for selector '*:asse4s' of type 'minecraft:entity_type' at position 10: t *:asse4s<--[HERE]@8
+E No matches for selector '*:asse4s' of type 'minecraft:entity_type' at position 10: t *:asse4s<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:*/*m
+R 0
+A -
+X No matches for selector 'minecraft:*/*m' of type 'minecraft:entity_type' at position 16: ...craft:*/*m<--[HERE]@14
+E No matches for selector 'minecraft:*/*m' of type 'minecraft:entity_type' at position 16: ...craft:*/*m<--[HERE]@14
+S -2--2 0 0 
+@ all *'
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *5*
+R 0
+A -
+X No matches for selector 'minecraft:*5*' of type 'minecraft:entity_type' at position 5: t *5*<--[HERE]@3
+E No matches for selector 'minecraft:*5*' of type 'minecraft:entity_type' at position 5: t *5*<--[HERE]@3
+S -2--2 0 0 
+@ all ???
+R 3
+A 0-3 10:minecraft:bat,minecraft:bee,minecraft:cat,minecraft:cod,minecraft:cow:1744616194
+E ok
+S -2--2 0 0 
+@ all foo:b
+R 0
+A -
+X No matches for selector 'foo:b' of type 'minecraft:entity_type' at position 7: t foo:b<--[HERE]@5
+E No matches for selector 'foo:b' of type 'minecraft:entity_type' at position 7: t foo:b<--[HERE]@5
+S -2--2 0 0 
+@ all zXX
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:entity_type' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all *5
+R 0
+A -
+X No matches for selector 'minecraft:*5' of type 'minecraft:entity_type' at position 4: t *5<--[HERE]@2
+E No matches for selector 'minecraft:*5' of type 'minecraft:entity_type' at position 4: t *5<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:zombie*t
+R 0
+A -
+X No matches for selector 'minecraft:zombie*t' of type 'minecraft:entity_type' at position 20: ...t:zombie*t<--[HERE]@18
+E No matches for selector 'minecraft:zombie*t' of type 'minecraft:entity_type' at position 20: ...t:zombie*t<--[HERE]@18
+S -2--2 0 0 
+@ all mine>craft:@/*
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all *B?e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all stone*
+R 0
+A -
+X No matches for selector 'minecraft:stone*' of type 'minecraft:entity_type' at position 8: t stone*<--[HERE]@6
+E No matches for selector 'minecraft:stone*' of type 'minecraft:entity_type' at position 8: t stone*<--[HERE]@6
+S -2--2 0 0 
+@ all */**
+R 0
+A -
+X No matches for selector 'minecraft:*/**' of type 'minecraft:entity_type' at position 6: t */**<--[HERE]@4
+E No matches for selector 'minecraft:*/**' of type 'minecraft:entity_type' at position 6: t */**<--[HERE]@4
+S -2--2 0 0 
+@ all *harp
+R 0
+A -
+X No matches for selector 'minecraft:*harp' of type 'minecraft:entity_type' at position 7: t *harp<--[HERE]@5
+E No matches for selector 'minecraft:*harp' of type 'minecraft:entity_type' at position 7: t *harp<--[HERE]@5
+S -2--2 0 0 
+@ all *%_log
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:oak_*%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:oak_*<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:oak_*<--[HERE]@15
+S -2--2 0 0 
+@ all min*
+R 4
+A 0-4 1:minecraft:minecart:-333578976
+E ok
+S -2--2 0 0 
+@ all oak_*
+R 5
+A 0-5 2:minecraft:oak_boat,minecraft:oak_chest_boat:846446759
+E ok
+S -2--2 0 0 
+@ all *>e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all foo:**
+R 0
+A -
+X No matches for selector 'foo:**' of type 'minecraft:entity_type' at position 8: t foo:**<--[HERE]@6
+E No matches for selector 'foo:**' of type 'minecraft:entity_type' at position 8: t foo:**<--[HERE]@6
+S -2--2 0 0 
+@ all y
+R 0
+A -
+X No matches for selector 'minecraft:y' of type 'minecraft:entity_type' at position 3: t y<--[HERE]@1
+E No matches for selector 'minecraft:y' of type 'minecraft:entity_type' at position 3: t y<--[HERE]@1
+S -2--2 0 0 
+@ all *sharp**
+R 0
+A -
+X No matches for selector 'minecraft:*sharp**' of type 'minecraft:entity_type' at position 10: t *sharp**<--[HERE]@8
+E No matches for selector 'minecraft:*sharp**' of type 'minecraft:entity_type' at position 10: t *sharp**<--[HERE]@8
+S -2--2 0 0 
+@ all *dir}tZ
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:entity_type' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:entity_type' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all Sone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t
+R 0
+A -
+X No matches for selector 'minecraft:t' of type 'minecraft:entity_type' at position 3: t t<--[HERE]@1
+E No matches for selector 'minecraft:t' of type 'minecraft:entity_type' at position 3: t t<--[HERE]@1
+S 0-1 9 -1434929984 minecraft:tadpole	minecraft:text_display	minecraft:tnt	minecraft:tnt_minecart	minecraft:trader_llama	minecraft:trident	minecraft:tropical_fish	minecraft:turtle	minecraft:wandering_trader
+@ all minec中aft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all inecraft:
+R 0
+A -
+X No matches for selector 'inecraft:' of type 'minecraft:entity_type' at position 11: ... inecraft:<--[HERE]@9
+E No matches for selector 'inecraft:' of type 'minecraft:entity_type' at position 11: ... inecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all *sharp*s
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*s' of type 'minecraft:entity_type' at position 10: t *sharp*s<--[HERE]@8
+E No matches for selector 'minecraft:*sharp*s' of type 'minecraft:entity_type' at position 10: t *sharp*s<--[HERE]@8
+S -2--2 0 0 
+@ all Sytonee
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *sharp*h
+R 0
+A -
+X No matches for selector 'minecraft:*sharp*h' of type 'minecraft:entity_type' at position 10: t *sharp*h<--[HERE]@8
+E No matches for selector 'minecraft:*sharp*h' of type 'minecraft:entity_type' at position 10: t *sharp*h<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:o😀k_*
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:entity_type' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:entity_type' at position 13: ...inecraft:o<--[HERE]@11
+S -2--2 0 0 
+@ all :*]
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:entity_type' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:entity_type' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all =~*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ain
+R 0
+A -
+X No matches for selector 'minecraft:ain' of type 'minecraft:entity_type' at position 5: t ain<--[HERE]@3
+E No matches for selector 'minecraft:ain' of type 'minecraft:entity_type' at position 5: t ain<--[HERE]@3
+S -2--2 0 0 
+@ all plainsap
+R 0
+A -
+X No matches for selector 'minecraft:plainsap' of type 'minecraft:entity_type' at position 10: t plainsap<--[HERE]@8
+E No matches for selector 'minecraft:plainsap' of type 'minecraft:entity_type' at position 10: t plainsap<--[HERE]@8
+S -2--2 0 0 
+@ all *effect-
+R 0
+A -
+X No matches for selector 'minecraft:*effect-' of type 'minecraft:entity_type' at position 10: t *effect-<--[HERE]@8
+E No matches for selector 'minecraft:*effect-' of type 'minecraft:entity_type' at position 10: t *effect-<--[HERE]@8
+S -2--2 0 0 
+@ all minecraf3:s*
+R 0
+A -
+X No matches for selector 'minecraf3:s*' of type 'minecraft:entity_type' at position 14: ...necraf3:s*<--[HERE]@12
+E No matches for selector 'minecraf3:s*' of type 'minecraft:entity_type' at position 14: ...necraf3:s*<--[HERE]@12
+S -2--2 0 0 
+@ all *dirt7*
+R 0
+A -
+X No matches for selector 'minecraft:*dirt7*' of type 'minecraft:entity_type' at position 9: t *dirt7*<--[HERE]@7
+E No matches for selector 'minecraft:*dirt7*' of type 'minecraft:entity_type' at position 9: t *dirt7*<--[HERE]@7
+S -2--2 0 0 
+@ all mi~ecrft:s*
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:entity_type' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all foo:^
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:entity_type' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:entity_type' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all min/e
+R 0
+A -
+X No matches for selector 'minecraft:min/e' of type 'minecraft:entity_type' at position 7: t min/e<--[HERE]@5
+E No matches for selector 'minecraft:min/e' of type 'minecraft:entity_type' at position 7: t min/e<--[HERE]@5
+S -2--2 0 0 
+@ all mdine
+R 0
+A -
+X No matches for selector 'minecraft:mdine' of type 'minecraft:entity_type' at position 7: t mdine<--[HERE]@5
+E No matches for selector 'minecraft:mdine' of type 'minecraft:entity_type' at position 7: t mdine<--[HERE]@5
+S -2--2 0 0 
+@ all s.tzne
+R 0
+A -
+X No matches for selector 'minecraft:s.tzne' of type 'minecraft:entity_type' at position 8: t s.tzne<--[HERE]@6
+E No matches for selector 'minecraft:s.tzne' of type 'minecraft:entity_type' at position 8: t s.tzne<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:entity_type' at position 13: ...inecraft:f<--[HERE]@11
+E No matches for selector 'minecraft:f' of type 'minecraft:entity_type' at position 13: ...inecraft:f<--[HERE]@11
+S 0-11 7 773695374 minecraft:falling_block	minecraft:fireball	minecraft:firework_rocket	minecraft:fishing_bobber	minecraft:fox	minecraft:frog	minecraft:furnace_minecart
+@ all mie*
+R 0
+A -
+X No matches for selector 'minecraft:mie*' of type 'minecraft:entity_type' at position 6: t mie*<--[HERE]@4
+E No matches for selector 'minecraft:mie*' of type 'minecraft:entity_type' at position 6: t mie*<--[HERE]@4
+S -2--2 0 0 
+@ all *s￿harp*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *s<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:7s*
+R 0
+A -
+X No matches for selector 'minecraft:7s*' of type 'minecraft:entity_type' at position 15: ...ecraft:7s*<--[HERE]@13
+E No matches for selector 'minecraft:7s*' of type 'minecraft:entity_type' at position 15: ...ecraft:7s*<--[HERE]@13
+S -2--2 0 0 
+@ all :asset
+R 0
+A -
+X No matches for selector ':asset' of type 'minecraft:entity_type' at position 8: t :asset<--[HERE]@6
+E No matches for selector ':asset' of type 'minecraft:entity_type' at position 8: t :asset<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:s*e
+R 13
+A 0-13 3:minecraft:skeleton_horse,minecraft:slime,minecraft:sulfur_cube:840637935
+E ok
+S -2--2 0 0 
+@ all ***
+R 3
+A 0-3 161:minecraft:acacia_boat,minecraft:acacia_chest_boat,minecraft:allay,minecraft:area_effect_cloud,minecraft:armadillo:1310808840
+E ok
+S -2--2 0 0 
+@ all fo5:*
+R 0
+A -
+X No matches for selector 'fo5:*' of type 'minecraft:entity_type' at position 7: t fo5:*<--[HERE]@5
+E No matches for selector 'fo5:*' of type 'minecraft:entity_type' at position 7: t fo5:*<--[HERE]@5
+S -2--2 0 0 
+@ all "*b*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a9*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a9*b*c' of type 'minecraft:entity_type' at position 8: t a9*b*c<--[HERE]@6
+E No matches for selector 'minecraft:a9*b*c' of type 'minecraft:entity_type' at position 8: t a9*b*c<--[HERE]@6
+S -2--2 0 0 
+@ all 2*
+R 0
+A -
+X No matches for selector 'minecraft:2*' of type 'minecraft:entity_type' at position 4: t 2*<--[HERE]@2
+E No matches for selector 'minecraft:2*' of type 'minecraft:entity_type' at position 4: t 2*<--[HERE]@2
+S -2--2 0 0 
+@ all *_l6og
+R 0
+A -
+X No matches for selector 'minecraft:*_l6og' of type 'minecraft:entity_type' at position 8: t *_l6og<--[HERE]@6
+E No matches for selector 'minecraft:*_l6og' of type 'minecraft:entity_type' at position 8: t *_l6og<--[HERE]@6
+S -2--2 0 0 
+@ all rp*
+R 0
+A -
+X No matches for selector 'minecraft:rp*' of type 'minecraft:entity_type' at position 5: t rp*<--[HERE]@3
+E No matches for selector 'minecraft:rp*' of type 'minecraft:entity_type' at position 5: t rp*<--[HERE]@3
+S -2--2 0 0 
+@ all plaidns
+R 0
+A -
+X No matches for selector 'minecraft:plaidns' of type 'minecraft:entity_type' at position 9: t plaidns<--[HERE]@7
+E No matches for selector 'minecraft:plaidns' of type 'minecraft:entity_type' at position 9: t plaidns<--[HERE]@7
+S -2--2 0 0 
+@ all *??
+R 0
+A -
+X No matches for selector 'minecraft:*??' of type 'minecraft:entity_type' at position 5: t *??<--[HERE]@3
+E No matches for selector 'minecraft:*??' of type 'minecraft:entity_type' at position 5: t *??<--[HERE]@3
+S -2--2 0 0 
+@ all minec$aft:
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all *e,
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *e<--[HERE]@2
+S -2--2 0 0 
+@ all rp
+R 0
+A -
+X No matches for selector 'minecraft:rp' of type 'minecraft:entity_type' at position 4: t rp<--[HERE]@2
+E No matches for selector 'minecraft:rp' of type 'minecraft:entity_type' at position 4: t rp<--[HERE]@2
+S -2--2 0 0 
+@ all *9
+R 0
+A -
+X No matches for selector 'minecraft:*9' of type 'minecraft:entity_type' at position 4: t *9<--[HERE]@2
+E No matches for selector 'minecraft:*9' of type 'minecraft:entity_type' at position 4: t *9<--[HERE]@2
+S -2--2 0 0 
+@ all *og
+R 3
+A 0-3 1:minecraft:frog:-1006799535
+E ok
+S -2--2 0 0 
+@ all 8Stone
+R 0
+A -
+X No matches for selector 'minecraft:8' of type 'minecraft:entity_type' at position 3: t 8<--[HERE]@1
+E No matches for selector 'minecraft:8' of type 'minecraft:entity_type' at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all minc<aft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:minc' of type 'minecraft:entity_type' at position 6: t minc<--[HERE]@4
+E No matches for selector 'minecraft:minc' of type 'minecraft:entity_type' at position 6: t minc<--[HERE]@4
+S -2--2 0 0 
+@ all minec9aft:*
+R 0
+A -
+X No matches for selector 'minec9aft:*' of type 'minecraft:entity_type' at position 13: ...inec9aft:*<--[HERE]@11
+E No matches for selector 'minec9aft:*' of type 'minecraft:entity_type' at position 13: ...inec9aft:*<--[HERE]@11
+S -2--2 0 0 
+@ all *di$t*
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:entity_type' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:entity_type' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all asse>
+R 0
+A -
+X No matches for selector 'minecraft:asse' of type 'minecraft:entity_type' at position 6: t asse<--[HERE]@4
+E No matches for selector 'minecraft:asse' of type 'minecraft:entity_type' at position 6: t asse<--[HERE]@4
+S -2--2 0 0 
+@ all minecr"ft:????
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all *effecA
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:entity_type' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:entity_type' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all m,inecraft:?????
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all ^a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:zobie*
+R 0
+A -
+X No matches for selector 'minecraft:zobie*' of type 'minecraft:entity_type' at position 18: ...aft:zobie*<--[HERE]@16
+E No matches for selector 'minecraft:zobie*' of type 'minecraft:entity_type' at position 18: ...aft:zobie*<--[HERE]@16
+S -2--2 0 0 
+@ all *effett
+R 0
+A -
+X No matches for selector 'minecraft:*effett' of type 'minecraft:entity_type' at position 9: t *effett<--[HERE]@7
+E No matches for selector 'minecraft:*effett' of type 'minecraft:entity_type' at position 9: t *effett<--[HERE]@7
+S -2--2 0 0 
+@ all #9( 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ￿foo:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:oak_*k
+R 0
+A -
+X No matches for selector 'minecraft:oak_*k' of type 'minecraft:entity_type' at position 18: ...aft:oak_*k<--[HERE]@16
+E No matches for selector 'minecraft:oak_*k' of type 'minecraft:entity_type' at position 18: ...aft:oak_*k<--[HERE]@16
+S -2--2 0 0 
+@ all minecraft??????
+R 0
+A -
+X No matches for selector 'minecraft:minecraft??????' of type 'minecraft:entity_type' at position 17: ...raft??????<--[HERE]@15
+E No matches for selector 'minecraft:minecraft??????' of type 'minecraft:entity_type' at position 17: ...raft??????<--[HERE]@15
+S -2--2 0 0 
+@ all aset
+R 0
+A -
+X No matches for selector 'minecraft:aset' of type 'minecraft:entity_type' at position 6: t aset<--[HERE]@4
+E No matches for selector 'minecraft:aset' of type 'minecraft:entity_type' at position 6: t aset<--[HERE]@4
+S -2--2 0 0 
+@ all foB*
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:entity_type' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all st"oneo
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:entity_type' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:entity_type' at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all *dbirt*
+R 0
+A -
+X No matches for selector 'minecraft:*dbirt*' of type 'minecraft:entity_type' at position 9: t *dbirt*<--[HERE]@7
+E No matches for selector 'minecraft:*dbirt*' of type 'minecraft:entity_type' at position 9: t *dbirt*<--[HERE]@7
+S -2--2 0 0 
+@ all *b*cc
+R 0
+A -
+X No matches for selector 'minecraft:*b*cc' of type 'minecraft:entity_type' at position 7: t *b*cc<--[HERE]@5
+E No matches for selector 'minecraft:*b*cc' of type 'minecraft:entity_type' at position 7: t *b*cc<--[HERE]@5
+S -2--2 0 0 
+@ all >Z?
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr<ft:*
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft%s*
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all og
+R 0
+A -
+X No matches for selector 'minecraft:og' of type 'minecraft:entity_type' at position 4: t og<--[HERE]@2
+E No matches for selector 'minecraft:og' of type 'minecraft:entity_type' at position 4: t og<--[HERE]@2
+S -2--2 0 0 
+@ all 2one
+R 0
+A -
+X No matches for selector 'minecraft:2one' of type 'minecraft:entity_type' at position 6: t 2one<--[HERE]@4
+E No matches for selector 'minecraft:2one' of type 'minecraft:entity_type' at position 6: t 2one<--[HERE]@4
+S -2--2 0 0 
+@ all biecraft:oak_*
+R 0
+A -
+X No matches for selector 'biecraft:oak_*' of type 'minecraft:entity_type' at position 16: ...raft:oak_*<--[HERE]@14
+E No matches for selector 'biecraft:oak_*' of type 'minecraft:entity_type' at position 16: ...raft:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all minecraf t:*/*c
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:entity_type' at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all pais
+R 0
+A -
+X No matches for selector 'minecraft:pais' of type 'minecraft:entity_type' at position 6: t pais<--[HERE]@4
+E No matches for selector 'minecraft:pais' of type 'minecraft:entity_type' at position 6: t pais<--[HERE]@4
+S -2--2 0 0 
+@ all tone
+R 0
+A -
+X No matches for selector 'minecraft:tone' of type 'minecraft:entity_type' at position 6: t tone<--[HERE]@4
+E No matches for selector 'minecraft:tone' of type 'minecraft:entity_type' at position 6: t tone<--[HERE]@4
+S -2--2 0 0 
+@ all fect
+R 0
+A -
+X No matches for selector 'minecraft:fect' of type 'minecraft:entity_type' at position 6: t fect<--[HERE]@4
+E No matches for selector 'minecraft:fect' of type 'minecraft:entity_type' at position 6: t fect<--[HERE]@4
+S -2--2 0 0 
+@ all *Zé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all iaecraft:
+R 0
+A -
+X No matches for selector 'iaecraft:' of type 'minecraft:entity_type' at position 11: ... iaecraft:<--[HERE]@9
+E No matches for selector 'iaecraft:' of type 'minecraft:entity_type' at position 11: ... iaecraft:<--[HERE]@9
+S -2--2 0 0 
+@ all m**
+R 3
+A 0-3 8:minecraft:magma_cube,minecraft:mangrove_boat,minecraft:mangrove_chest_boat,minecraft:mannequin,minecraft:marker:-1189692517
+E ok
+S -2--2 0 0 
+@ all *b*.
+R 0
+A -
+X No matches for selector 'minecraft:*b*.' of type 'minecraft:entity_type' at position 6: t *b*.<--[HERE]@4
+E No matches for selector 'minecraft:*b*.' of type 'minecraft:entity_type' at position 6: t *b*.<--[HERE]@4
+S -2--2 0 0 
+@ all za*b*c
+R 0
+A -
+X No matches for selector 'minecraft:za*b*c' of type 'minecraft:entity_type' at position 8: t za*b*c<--[HERE]@6
+E No matches for selector 'minecraft:za*b*c' of type 'minecraft:entity_type' at position 8: t za*b*c<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:oak_***
+R 17
+A 0-17 2:minecraft:oak_boat,minecraft:oak_chest_boat:846446759
+E ok
+S -2--2 0 0 
+@ all fo:*
+R 0
+A -
+X No matches for selector 'fo:*' of type 'minecraft:entity_type' at position 6: t fo:*<--[HERE]@4
+E No matches for selector 'fo:*' of type 'minecraft:entity_type' at position 6: t fo:*<--[HERE]@4
+S -2--2 0 0 
+@ all *%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all ne@*
+R 0
+A -
+X No matches for selector 'minecraft:ne' of type 'minecraft:entity_type' at position 4: t ne<--[HERE]@2
+E No matches for selector 'minecraft:ne' of type 'minecraft:entity_type' at position 4: t ne<--[HERE]@2
+S -2--2 0 0 
+@ all z***
+R 4
+A 0-4 6:minecraft:zoglin,minecraft:zombie,minecraft:zombie_horse,minecraft:zombie_nautilus,minecraft:zombie_villager:1792722734
+E ok
+S -2--2 0 0 
+@ all @
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all p,lains
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:entity_type' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:entity_type' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all plainsa
+R 0
+A -
+X No matches for selector 'minecraft:plainsa' of type 'minecraft:entity_type' at position 9: t plainsa<--[HERE]@7
+E No matches for selector 'minecraft:plainsa' of type 'minecraft:entity_type' at position 9: t plainsa<--[HERE]@7
+S -2--2 0 0 
+@ all ]$?
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all =z[*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 中foo:**
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :*:
+R 0
+A -
+X No matches for selector ':*:' of type 'minecraft:entity_type' at position 5: t :*:<--[HERE]@3
+E No matches for selector ':*:' of type 'minecraft:entity_type' at position 5: t :*:<--[HERE]@3
+S -2--2 0 0 
+@ all # 3
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr+ft:s*n
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:entity_type' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all *​dirt6
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all ecraft:
+R 0
+A -
+X No matches for selector 'ecraft:' of type 'minecraft:entity_type' at position 9: t ecraft:<--[HERE]@7
+E No matches for selector 'ecraft:' of type 'minecraft:entity_type' at position 9: t ecraft:<--[HERE]@7
+S -2--2 0 0 
+@ all ????
+R 4
+A 0-4 6:minecraft:frog,minecraft:goat,minecraft:husk,minecraft:item,minecraft:mule:1075836159
+E ok
+S -2--2 0 0 
+@ all minecraft:s)*
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:entity_type' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:entity_type' at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all *:*ß
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t *:*<--[HERE]@3
+S -2--2 0 0 
+@ all c
+R 0
+A -
+X No matches for selector 'minecraft:c' of type 'minecraft:entity_type' at position 3: t c<--[HERE]@1
+E No matches for selector 'minecraft:c' of type 'minecraft:entity_type' at position 3: t c<--[HERE]@1
+S 0-1 31 -2124312621 minecraft:acacia_chest_boat	minecraft:area_effect_cloud	minecraft:bamboo_chest_raft	minecraft:birch_chest_boat	minecraft:breeze_wind_charge	minecraft:camel	minecraft:camel_husk	minecraft:cat	minecraft:cave_spider	minecraft:cherry_boat	minecraft:cherry_chest_boat	minecraft:chest_minecart	minecraft:chicken	minecraft:cod	minecraft:command_block_minecart	minecraft:copper_golem	minecraft:cow	minecraft:creaking	minecraft:creeper	minecraft:cushion	minecraft:dark_oak_chest_boat	minecraft:end_crystal	minecraft:jungle_chest_boat	minecraft:magma_cube	minecraft:mangrove_chest_boat	minecraft:oak_chest_boat	minecraft:pale_oak_chest_boat	minecraft:poplar_chest_boat	minecraft:spruce_chest_boat	minecraft:sulfur_cube	minecraft:wind_charge
+@ all minecraft:?é??
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecra4ft:s*
+R 0
+A -
+X No matches for selector 'minecra4ft:s*' of type 'minecraft:entity_type' at position 15: ...ecra4ft:s*<--[HERE]@13
+E No matches for selector 'minecra4ft:s*' of type 'minecraft:entity_type' at position 15: ...ecra4ft:s*<--[HERE]@13
+S -2--2 0 0 
+@ all *: 
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:entity_type' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:entity_type' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all 4o<o:*
+R 0
+A -
+X No matches for selector 'minecraft:4o' of type 'minecraft:entity_type' at position 4: t 4o<--[HERE]@2
+E No matches for selector 'minecraft:4o' of type 'minecraft:entity_type' at position 4: t 4o<--[HERE]@2
+S -2--2 0 0 
+@ all [minecraft:?????
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all /*:*
+R 0
+A -
+X No matches for selector '/*:*' of type 'minecraft:entity_type' at position 6: t /*:*<--[HERE]@4
+E No matches for selector '/*:*' of type 'minecraft:entity_type' at position 6: t /*:*<--[HERE]@4
+S -2--2 0 0 
+@ all *effectc
+R 0
+A -
+X No matches for selector 'minecraft:*effectc' of type 'minecraft:entity_type' at position 10: t *effectc<--[HERE]@8
+E No matches for selector 'minecraft:*effectc' of type 'minecraft:entity_type' at position 10: t *effectc<--[HERE]@8
+S -2--2 0 0 
+@ all ine*e
+R 0
+A -
+X No matches for selector 'minecraft:ine*e' of type 'minecraft:entity_type' at position 7: t ine*e<--[HERE]@5
+E No matches for selector 'minecraft:ine*e' of type 'minecraft:entity_type' at position 7: t ine*e<--[HERE]@5
+S -2--2 0 0 
+@ all /
+R 0
+A -
+X No matches for selector 'minecraft:/' of type 'minecraft:entity_type' at position 3: t /<--[HERE]@1
+E No matches for selector 'minecraft:/' of type 'minecraft:entity_type' at position 3: t /<--[HERE]@1
+S -2--2 0 0 
+@ all *d_rt*
+R 0
+A -
+X No matches for selector 'minecraft:*d_rt*' of type 'minecraft:entity_type' at position 8: t *d_rt*<--[HERE]@6
+E No matches for selector 'minecraft:*d_rt*' of type 'minecraft:entity_type' at position 8: t *d_rt*<--[HERE]@6
+S -2--2 0 0 
+@ all *éé
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all S\u0009on
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all plin*
+R 0
+A -
+X No matches for selector 'minecraft:plin*' of type 'minecraft:entity_type' at position 7: t plin*<--[HERE]@5
+E No matches for selector 'minecraft:plin*' of type 'minecraft:entity_type' at position 7: t plin*<--[HERE]@5
+S -2--2 0 0 
+@ all b*
+R 2
+A 0-2 11:minecraft:bamboo_chest_raft,minecraft:bamboo_raft,minecraft:bat,minecraft:bee,minecraft:birch_boat:263217460
+E ok
+S -2--2 0 0 
+@ all z**
+R 3
+A 0-3 6:minecraft:zoglin,minecraft:zombie,minecraft:zombie_horse,minecraft:zombie_nautilus,minecraft:zombie_villager:1792722734
+E ok
+S -2--2 0 0 
+@ all *<é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all plainsl
+R 0
+A -
+X No matches for selector 'minecraft:plainsl' of type 'minecraft:entity_type' at position 9: t plainsl<--[HERE]@7
+E No matches for selector 'minecraft:plainsl' of type 'minecraft:entity_type' at position 9: t plainsl<--[HERE]@7
+S -2--2 0 0 
+@ all ine*m
+R 0
+A -
+X No matches for selector 'minecraft:ine*m' of type 'minecraft:entity_type' at position 7: t ine*m<--[HERE]@5
+E No matches for selector 'minecraft:ine*m' of type 'minecraft:entity_type' at position 7: t ine*m<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:re
+R 0
+A -
+X No matches for selector 'minecraft:re' of type 'minecraft:entity_type' at position 14: ...necraft:re<--[HERE]@12
+E No matches for selector 'minecraft:re' of type 'minecraft:entity_type' at position 14: ...necraft:re<--[HERE]@12
+S -2--2 0 0 
+@ all arp*
+R 0
+A -
+X No matches for selector 'minecraft:arp*' of type 'minecraft:entity_type' at position 6: t arp*<--[HERE]@4
+E No matches for selector 'minecraft:arp*' of type 'minecraft:entity_type' at position 6: t arp*<--[HERE]@4
+S -2--2 0 0 
+@ all m)n*
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all *?8
+R 0
+A -
+X No matches for selector 'minecraft:*?8' of type 'minecraft:entity_type' at position 5: t *?8<--[HERE]@3
+E No matches for selector 'minecraft:*?8' of type 'minecraft:entity_type' at position 5: t *?8<--[HERE]@3
+S -2--2 0 0 
+@ all C
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S 0-1 31 -2124312621 minecraft:acacia_chest_boat	minecraft:area_effect_cloud	minecraft:bamboo_chest_raft	minecraft:birch_chest_boat	minecraft:breeze_wind_charge	minecraft:camel	minecraft:camel_husk	minecraft:cat	minecraft:cave_spider	minecraft:cherry_boat	minecraft:cherry_chest_boat	minecraft:chest_minecart	minecraft:chicken	minecraft:cod	minecraft:command_block_minecart	minecraft:copper_golem	minecraft:cow	minecraft:creaking	minecraft:creeper	minecraft:cushion	minecraft:dark_oak_chest_boat	minecraft:end_crystal	minecraft:jungle_chest_boat	minecraft:magma_cube	minecraft:mangrove_chest_boat	minecraft:oak_chest_boat	minecraft:pale_oak_chest_boat	minecraft:poplar_chest_boat	minecraft:spruce_chest_boat	minecraft:sulfur_cube	minecraft:wind_charge
+@ all *xffect
+R 0
+A -
+X No matches for selector 'minecraft:*xffect' of type 'minecraft:entity_type' at position 9: t *xffect<--[HERE]@7
+E No matches for selector 'minecraft:*xffect' of type 'minecraft:entity_type' at position 9: t *xffect<--[HERE]@7
+S -2--2 0 0 
+@ all z*z
+R 0
+A -
+X No matches for selector 'minecraft:z*z' of type 'minecraft:entity_type' at position 5: t z*z<--[HERE]@3
+E No matches for selector 'minecraft:z*z' of type 'minecraft:entity_type' at position 5: t z*z<--[HERE]@3
+S -2--2 0 0 
+@ all #z 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all !*fsharp*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mi.ecraft:?????
+R 0
+A -
+X No matches for selector 'mi.ecraft:?????' of type 'minecraft:entity_type' at position 17: ...raft:?????<--[HERE]@15
+E No matches for selector 'mi.ecraft:?????' of type 'minecraft:entity_type' at position 17: ...raft:?????<--[HERE]@15
+S -2--2 0 0 
+@ all *~asset
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all m*~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t m*<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t m*<--[HERE]@2
+S -2--2 0 0 
+@ all mine*y
+R 0
+A -
+X No matches for selector 'minecraft:mine*y' of type 'minecraft:entity_type' at position 8: t mine*y<--[HERE]@6
+E No matches for selector 'minecraft:mine*y' of type 'minecraft:entity_type' at position 8: t mine*y<--[HERE]@6
+S -2--2 0 0 
+@ all cra~t:s*
+R 0
+A -
+X No matches for selector 'minecraft:cra' of type 'minecraft:entity_type' at position 5: t cra<--[HERE]@3
+E No matches for selector 'minecraft:cra' of type 'minecraft:entity_type' at position 5: t cra<--[HERE]@3
+S -2--2 0 0 
+@ all raft:oak_*
+R 0
+A -
+X No matches for selector 'raft:oak_*' of type 'minecraft:entity_type' at position 12: ...raft:oak_*<--[HERE]@10
+E No matches for selector 'raft:oak_*' of type 'minecraft:entity_type' at position 12: ...raft:oak_*<--[HERE]@10
+S -2--2 0 0 
+@ all sharp
+R 0
+A -
+X No matches for selector 'minecraft:sharp' of type 'minecraft:entity_type' at position 7: t sharp<--[HERE]@5
+E No matches for selector 'minecraft:sharp' of type 'minecraft:entity_type' at position 7: t sharp<--[HERE]@5
+S -2--2 0 0 
+@ all *:aasset
+R 0
+A -
+X No matches for selector '*:aasset' of type 'minecraft:entity_type' at position 10: t *:aasset<--[HERE]@8
+E No matches for selector '*:aasset' of type 'minecraft:entity_type' at position 10: t *:aasset<--[HERE]@8
+S -2--2 0 0 
+@ all <
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecreft:a
+R 0
+A -
+X No matches for selector 'minecreft:a' of type 'minecraft:entity_type' at position 13: ...inecreft:a<--[HERE]@11
+E No matches for selector 'minecreft:a' of type 'minecraft:entity_type' at position 13: ...inecreft:a<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft}:?????
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:entity_type' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all xe
+R 0
+A -
+X No matches for selector 'minecraft:xe' of type 'minecraft:entity_type' at position 4: t xe<--[HERE]@2
+E No matches for selector 'minecraft:xe' of type 'minecraft:entity_type' at position 4: t xe<--[HERE]@2
+S -2--2 0 0 
+@ all a*b*cb
+R 0
+A -
+X No matches for selector 'minecraft:a*b*cb' of type 'minecraft:entity_type' at position 8: t a*b*cb<--[HERE]@6
+E No matches for selector 'minecraft:a*b*cb' of type 'minecraft:entity_type' at position 8: t a*b*cb<--[HERE]@6
+S -2--2 0 0 
+@ all *effXct
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:entity_type' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:entity_type' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all mineßraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:entity_type' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all foo{:*
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:entity_type' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:entity_type' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all a_lo
+R 0
+A -
+X No matches for selector 'minecraft:a_lo' of type 'minecraft:entity_type' at position 6: t a_lo<--[HERE]@4
+E No matches for selector 'minecraft:a_lo' of type 'minecraft:entity_type' at position 6: t a_lo<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:?{????
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all mßnecra)t:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all mi4neccraft:zombie*
+R 0
+A -
+X No matches for selector 'mi4neccraft:zombie*' of type 'minecraft:entity_type' at position 21: ...ft:zombie*<--[HERE]@19
+E No matches for selector 'mi4neccraft:zombie*' of type 'minecraft:entity_type' at position 21: ...ft:zombie*<--[HERE]@19
+S -2--2 0 0 
+@ all *dir\u000a*
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:entity_type' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:entity_type' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all &z
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all set
+R 0
+A -
+X No matches for selector 'minecraft:set' of type 'minecraft:entity_type' at position 5: t set<--[HERE]@3
+E No matches for selector 'minecraft:set' of type 'minecraft:entity_type' at position 5: t set<--[HERE]@3
+S -2--2 0 0 
+@ all ainsl
+R 0
+A -
+X No matches for selector 'minecraft:ainsl' of type 'minecraft:entity_type' at position 7: t ainsl<--[HERE]@5
+E No matches for selector 'minecraft:ainsl' of type 'minecraft:entity_type' at position 7: t ainsl<--[HERE]@5
+S -2--2 0 0 
+@ all !*shrp*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all # #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all é*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all t:zombie,*
+R 0
+A -
+X No matches for selector 't:zombie' of type 'minecraft:entity_type' at position 10: t t:zombie<--[HERE]@8
+E No matches for selector 't:zombie' of type 'minecraft:entity_type' at position 10: t t:zombie<--[HERE]@8
+S -2--2 0 0 
+@ all m&
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:entity_type' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all ?[
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:entity_type' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:t
+R 0
+A -
+X No matches for selector 'minecraft:t' of type 'minecraft:entity_type' at position 13: ...inecraft:t<--[HERE]@11
+E No matches for selector 'minecraft:t' of type 'minecraft:entity_type' at position 13: ...inecraft:t<--[HERE]@11
+S 0-11 8 -1763681724 minecraft:tadpole	minecraft:text_display	minecraft:tnt	minecraft:tnt_minecart	minecraft:trader_llama	minecraft:trident	minecraft:tropical_fish	minecraft:turtle
+@ all 😀tonet
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:oa3k_*
+R 0
+A -
+X No matches for selector 'minecraft:oa3k_*' of type 'minecraft:entity_type' at position 18: ...aft:oa3k_*<--[HERE]@16
+E No matches for selector 'minecraft:oa3k_*' of type 'minecraft:entity_type' at position 18: ...aft:oa3k_*<--[HERE]@16
+S -2--2 0 0 
+@ all irt*
+R 0
+A -
+X No matches for selector 'minecraft:irt*' of type 'minecraft:entity_type' at position 6: t irt*<--[HERE]@4
+E No matches for selector 'minecraft:irt*' of type 'minecraft:entity_type' at position 6: t irt*<--[HERE]@4
+S -2--2 0 0 
+@ all minec&raft:?????
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:entity_type' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse1t
+R 0
+A -
+X No matches for selector '*:asse1t' of type 'minecraft:entity_type' at position 10: t *:asse1t<--[HERE]@8
+E No matches for selector '*:asse1t' of type 'minecraft:entity_type' at position 10: t *:asse1t<--[HERE]@8
+S -2--2 0 0 
+@ all mineczft:oak_*
+R 0
+A -
+X No matches for selector 'mineczft:oak_*' of type 'minecraft:entity_type' at position 16: ...czft:oak_*<--[HERE]@14
+E No matches for selector 'mineczft:oak_*' of type 'minecraft:entity_type' at position 16: ...czft:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all minz*i
+R 0
+A -
+X No matches for selector 'minecraft:minz*i' of type 'minecraft:entity_type' at position 8: t minz*i<--[HERE]@6
+E No matches for selector 'minecraft:minz*i' of type 'minecraft:entity_type' at position 8: t minz*i<--[HERE]@6
+S -2--2 0 0 
+@ all mincraft:s*
+R 0
+A -
+X No matches for selector 'mincraft:s*' of type 'minecraft:entity_type' at position 13: ...incraft:s*<--[HERE]@11
+E No matches for selector 'mincraft:s*' of type 'minecraft:entity_type' at position 13: ...incraft:s*<--[HERE]@11
+S -2--2 0 0 
+@ all X?
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\in*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*b*c**
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c**' of type 'minecraft:entity_type' at position 9: t a*b*c**<--[HERE]@7
+E No matches for selector 'minecraft:a*b*c**' of type 'minecraft:entity_type' at position 9: t a*b*c**<--[HERE]@7
+S -2--2 0 0 
+@ all stoXne
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:entity_type' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:entity_type' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all min2ecraft:a
+R 0
+A -
+X No matches for selector 'min2ecraft:a' of type 'minecraft:entity_type' at position 14: ...n2ecraft:a<--[HERE]@12
+E No matches for selector 'min2ecraft:a' of type 'minecraft:entity_type' at position 14: ...n2ecraft:a<--[HERE]@12
+S -2--2 0 0 
+@ all necraft:s*
+R 0
+A -
+X No matches for selector 'necraft:s*' of type 'minecraft:entity_type' at position 12: ...necraft:s*<--[HERE]@10
+E No matches for selector 'necraft:s*' of type 'minecraft:entity_type' at position 12: ...necraft:s*<--[HERE]@10
+S -2--2 0 0 
+@ all \u0009inecraf3:s*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all k_b*
+R 0
+A -
+X No matches for selector 'minecraft:k_b*' of type 'minecraft:entity_type' at position 6: t k_b*<--[HERE]@4
+E No matches for selector 'minecraft:k_b*' of type 'minecraft:entity_type' at position 6: t k_b*<--[HERE]@4
+S -2--2 0 0 
+@ all Az*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:entity_type' at position 2: t <--[HERE]@0
+S -2--2 0 0 

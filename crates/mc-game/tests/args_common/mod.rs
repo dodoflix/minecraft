@@ -85,6 +85,16 @@ pub fn render_criteria(c: &mc_game::commands::arguments::scores::ObjectiveCriter
     )
 }
 
+/// `ArgsSpecs.hash`.
+pub fn render_id_list(ids: &[String]) -> String {
+    let joined = ids.join("\t");
+    format!("{}:{}:{}", ids.len(), ids[..ids.len().min(5)].join(","), java_hash(&joined))
+}
+
+pub fn render_key(k: &mc_game::commands::arguments::resource_arguments::ResourceKey) -> String {
+    format!("ResourceKey[minecraft:root / {}]|{}", k.registry, k.id)
+}
+
 /// Java `esc` of the generator.
 pub fn esc(s: &str) -> String {
     let mut b = String::new();
@@ -157,11 +167,12 @@ pub fn replay(
     {
         use mc_game::world::scores::{ObjectiveCriteria, RenderType};
         for team in TEAMS {
-            server.scoreboard.add_player_team(team);
+            server.scoreboard.write().add_player_team(team);
         }
         for objective in OBJECTIVES {
             server
                 .scoreboard
+                .write()
                 .add_objective(objective, ObjectiveCriteria::DUMMY, mc_text::Component::literal(objective), RenderType::Integer, false, None)
                 .expect("objective");
         }

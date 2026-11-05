@@ -1,0 +1,1898 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all *
+R 1
+A 0-1 43:minecraft:aqua_affinity,minecraft:bane_of_arthropods,minecraft:binding_curse,minecraft:blast_protection,minecraft:breach:-1153812436
+E ok
+S -2--2 0 0 
+@ all minecraft:*
+R 11
+A 0-11 43:minecraft:aqua_affinity,minecraft:bane_of_arthropods,minecraft:binding_curse,minecraft:blast_protection,minecraft:breach:-1153812436
+E ok
+S -2--2 0 0 
+@ all *:asset
+R 0
+A -
+X No matches for selector '*:asset' of type 'minecraft:enchantment' at position 9: t *:asset<--[HERE]@7
+E No matches for selector '*:asset' of type 'minecraft:enchantment' at position 9: t *:asset<--[HERE]@7
+S -2--2 0 0 
+@ all ?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:enchantment' at position 3: t ?<--[HERE]@1
+E No matches for selector 'minecraft:?' of type 'minecraft:enchantment' at position 3: t ?<--[HERE]@1
+S -2--2 0 0 
+@ all stone
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:enchantment' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:enchantment' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:s*
+R 12
+A 0-12 6:minecraft:sharpness,minecraft:silk_touch,minecraft:smite,minecraft:soul_speed,minecraft:sweeping_edge:1491058194
+E ok
+S -2--2 0 0 
+@ all *_log
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:enchantment' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:enchantment' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *stone*
+R 0
+A -
+X No matches for selector 'minecraft:*stone*' of type 'minecraft:enchantment' at position 9: t *stone*<--[HERE]@7
+E No matches for selector 'minecraft:*stone*' of type 'minecraft:enchantment' at position 9: t *stone*<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:oak_*
+R 0
+A -
+X No matches for selector 'minecraft:oak_*' of type 'minecraft:enchantment' at position 17: ...raft:oak_*<--[HERE]@15
+E No matches for selector 'minecraft:oak_*' of type 'minecraft:enchantment' at position 17: ...raft:oak_*<--[HERE]@15
+S -2--2 0 0 
+@ all z*
+R 0
+A -
+X No matches for selector 'minecraft:z*' of type 'minecraft:enchantment' at position 4: t z*<--[HERE]@2
+E No matches for selector 'minecraft:z*' of type 'minecraft:enchantment' at position 4: t z*<--[HERE]@2
+S -2--2 0 0 
+@ all **
+R 2
+A 0-2 43:minecraft:aqua_affinity,minecraft:bane_of_arthropods,minecraft:binding_curse,minecraft:blast_protection,minecraft:breach:-1153812436
+E ok
+S -2--2 0 0 
+@ all *?
+R 0
+A -
+X No matches for selector 'minecraft:*?' of type 'minecraft:enchantment' at position 4: t *?<--[HERE]@2
+E No matches for selector 'minecraft:*?' of type 'minecraft:enchantment' at position 4: t *?<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+S 0-10 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all :*
+R 0
+A -
+X No matches for selector ':*' of type 'minecraft:enchantment' at position 4: t :*<--[HERE]@2
+E No matches for selector ':*' of type 'minecraft:enchantment' at position 4: t :*<--[HERE]@2
+S -2--2 0 0 
+@ all foo:*
+R 0
+A -
+X No matches for selector 'foo:*' of type 'minecraft:enchantment' at position 7: t foo:*<--[HERE]@5
+E No matches for selector 'foo:*' of type 'minecraft:enchantment' at position 7: t foo:*<--[HERE]@5
+S -2--2 0 0 
+@ all *:*
+R 3
+A 0-3 43:minecraft:aqua_affinity,minecraft:bane_of_arthropods,minecraft:binding_curse,minecraft:blast_protection,minecraft:breach:-1153812436
+E ok
+S -2--2 0 0 
+@ all minecraft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:zombie*' of type 'minecraft:enchantment' at position 19: ...ft:zombie*<--[HERE]@17
+E No matches for selector 'minecraft:zombie*' of type 'minecraft:enchantment' at position 19: ...ft:zombie*<--[HERE]@17
+S -2--2 0 0 
+@ all plains
+R 0
+A -
+X No matches for selector 'minecraft:plains' of type 'minecraft:enchantment' at position 8: t plains<--[HERE]@6
+E No matches for selector 'minecraft:plains' of type 'minecraft:enchantment' at position 8: t plains<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:?????
+R 15
+A 0-15 5:minecraft:flame,minecraft:lunge,minecraft:power,minecraft:punch,minecraft:smite:-1781042652
+E ok
+S -2--2 0 0 
+@ all *e
+R 2
+A 0-2 10:minecraft:binding_curse,minecraft:flame,minecraft:fortune,minecraft:lunge,minecraft:lure:1871081793
+E ok
+S -2--2 0 0 
+@ all a*b*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c' of type 'minecraft:enchantment' at position 7: t a*b*c<--[HERE]@5
+E No matches for selector 'minecraft:a*b*c' of type 'minecraft:enchantment' at position 7: t a*b*c<--[HERE]@5
+S -2--2 0 0 
+@ all Stone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *é
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all # 
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 15: ...ecraft:*/*<--[HERE]@13
+E No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 15: ...ecraft:*/*<--[HERE]@13
+S -2--2 0 0 
+@ all m*
+R 2
+A 0-2 2:minecraft:mending,minecraft:multishot:461918468
+E ok
+S -2--2 0 0 
+@ all mine*
+R 0
+A -
+X No matches for selector 'minecraft:mine*' of type 'minecraft:enchantment' at position 7: t mine*<--[HERE]@5
+E No matches for selector 'minecraft:mine*' of type 'minecraft:enchantment' at position 7: t mine*<--[HERE]@5
+S -2--2 0 0 
+@ all *effect
+R 0
+A -
+X No matches for selector 'minecraft:*effect' of type 'minecraft:enchantment' at position 9: t *effect<--[HERE]@7
+E No matches for selector 'minecraft:*effect' of type 'minecraft:enchantment' at position 9: t *effect<--[HERE]@7
+S -2--2 0 0 
+@ all *sharp*
+R 7
+A 0-7 1:minecraft:sharpness:278264756
+E ok
+S -2--2 0 0 
+@ all *dirt*
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*' of type 'minecraft:enchantment' at position 8: t *dirt*<--[HERE]@6
+E No matches for selector 'minecraft:*dirt*' of type 'minecraft:enchantment' at position 8: t *dirt*<--[HERE]@6
+S -2--2 0 0 
+@ all m
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+S 0-1 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all mi
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S 0-2 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all min
+R 0
+A -
+X No matches for selector 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+E No matches for selector 'minecraft:min' of type 'minecraft:enchantment' at position 5: t min<--[HERE]@3
+S 0-3 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all mine
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S 0-4 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minec
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+S 0-5 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecr
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+S 0-6 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecra
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:enchantment' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:enchantment' at position 9: t minecra<--[HERE]@7
+S 0-7 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraf
+R 0
+A -
+X No matches for selector 'minecraft:minecraf' of type 'minecraft:enchantment' at position 10: t minecraf<--[HERE]@8
+E No matches for selector 'minecraft:minecraf' of type 'minecraft:enchantment' at position 10: t minecraf<--[HERE]@8
+S 0-8 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all minecraft
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+S 0-9 43 -1408447139 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:binding_curse	minecraft:blast_protection	minecraft:breach	minecraft:channeling	minecraft:density	minecraft:depth_strider
+@ all *:
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all *:a
+R 0
+A -
+X No matches for selector '*:a' of type 'minecraft:enchantment' at position 5: t *:a<--[HERE]@3
+E No matches for selector '*:a' of type 'minecraft:enchantment' at position 5: t *:a<--[HERE]@3
+S -2--2 0 0 
+@ all *:as
+R 0
+A -
+X No matches for selector '*:as' of type 'minecraft:enchantment' at position 6: t *:as<--[HERE]@4
+E No matches for selector '*:as' of type 'minecraft:enchantment' at position 6: t *:as<--[HERE]@4
+S -2--2 0 0 
+@ all *:ass
+R 0
+A -
+X No matches for selector '*:ass' of type 'minecraft:enchantment' at position 7: t *:ass<--[HERE]@5
+E No matches for selector '*:ass' of type 'minecraft:enchantment' at position 7: t *:ass<--[HERE]@5
+S -2--2 0 0 
+@ all *:asse
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:enchantment' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:enchantment' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:enchantment' at position 3: t s<--[HERE]@1
+E No matches for selector 'minecraft:s' of type 'minecraft:enchantment' at position 3: t s<--[HERE]@1
+S 0-1 8 1372575103 minecraft:depth_strider	minecraft:luck_of_the_sea	minecraft:sharpness	minecraft:silk_touch	minecraft:smite	minecraft:soul_speed	minecraft:sweeping_edge	minecraft:swift_sneak
+@ all st
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:enchantment' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:enchantment' at position 4: t st<--[HERE]@2
+S 0-2 1 -1293167143 minecraft:depth_strider
+@ all sto
+R 0
+A -
+X No matches for selector 'minecraft:sto' of type 'minecraft:enchantment' at position 5: t sto<--[HERE]@3
+E No matches for selector 'minecraft:sto' of type 'minecraft:enchantment' at position 5: t sto<--[HERE]@3
+S -2--2 0 0 
+@ all ston
+R 0
+A -
+X No matches for selector 'minecraft:ston' of type 'minecraft:enchantment' at position 6: t ston<--[HERE]@4
+E No matches for selector 'minecraft:ston' of type 'minecraft:enchantment' at position 6: t ston<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:s
+R 0
+A -
+X No matches for selector 'minecraft:s' of type 'minecraft:enchantment' at position 13: ...inecraft:s<--[HERE]@11
+E No matches for selector 'minecraft:s' of type 'minecraft:enchantment' at position 13: ...inecraft:s<--[HERE]@11
+S 0-11 6 -1021836233 minecraft:sharpness	minecraft:silk_touch	minecraft:smite	minecraft:soul_speed	minecraft:sweeping_edge	minecraft:swift_sneak
+@ all *_
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:enchantment' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:enchantment' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all *_l
+R 0
+A -
+X No matches for selector 'minecraft:*_l' of type 'minecraft:enchantment' at position 5: t *_l<--[HERE]@3
+E No matches for selector 'minecraft:*_l' of type 'minecraft:enchantment' at position 5: t *_l<--[HERE]@3
+S -2--2 0 0 
+@ all *_lo
+R 0
+A -
+X No matches for selector 'minecraft:*_lo' of type 'minecraft:enchantment' at position 6: t *_lo<--[HERE]@4
+E No matches for selector 'minecraft:*_lo' of type 'minecraft:enchantment' at position 6: t *_lo<--[HERE]@4
+S -2--2 0 0 
+@ all *s
+R 2
+A 0-2 3:minecraft:bane_of_arthropods,minecraft:sharpness,minecraft:thorns:-1827383701
+E ok
+S -2--2 0 0 
+@ all *st
+R 3
+A 0-3 1:minecraft:wind_burst:-1412989418
+E ok
+S -2--2 0 0 
+@ all *sto
+R 0
+A -
+X No matches for selector 'minecraft:*sto' of type 'minecraft:enchantment' at position 6: t *sto<--[HERE]@4
+E No matches for selector 'minecraft:*sto' of type 'minecraft:enchantment' at position 6: t *sto<--[HERE]@4
+S -2--2 0 0 
+@ all *ston
+R 0
+A -
+X No matches for selector 'minecraft:*ston' of type 'minecraft:enchantment' at position 7: t *ston<--[HERE]@5
+E No matches for selector 'minecraft:*ston' of type 'minecraft:enchantment' at position 7: t *ston<--[HERE]@5
+S -2--2 0 0 
+@ all *stone
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:enchantment' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:enchantment' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all minecraft:o
+R 0
+A -
+X No matches for selector 'minecraft:o' of type 'minecraft:enchantment' at position 13: ...inecraft:o<--[HERE]@11
+E No matches for selector 'minecraft:o' of type 'minecraft:enchantment' at position 13: ...inecraft:o<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:oa
+R 0
+A -
+X No matches for selector 'minecraft:oa' of type 'minecraft:enchantment' at position 14: ...necraft:oa<--[HERE]@12
+E No matches for selector 'minecraft:oa' of type 'minecraft:enchantment' at position 14: ...necraft:oa<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:oak
+R 0
+A -
+X No matches for selector 'minecraft:oak' of type 'minecraft:enchantment' at position 15: ...ecraft:oak<--[HERE]@13
+E No matches for selector 'minecraft:oak' of type 'minecraft:enchantment' at position 15: ...ecraft:oak<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:oak_
+R 0
+A -
+X No matches for selector 'minecraft:oak_' of type 'minecraft:enchantment' at position 16: ...craft:oak_<--[HERE]@14
+E No matches for selector 'minecraft:oak_' of type 'minecraft:enchantment' at position 16: ...craft:oak_<--[HERE]@14
+S -2--2 0 0 
+@ all z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:enchantment' at position 3: t z<--[HERE]@1
+E No matches for selector 'minecraft:z' of type 'minecraft:enchantment' at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all :
+R 0
+A -
+X No matches for selector ':' of type 'minecraft:enchantment' at position 3: t :<--[HERE]@1
+E No matches for selector ':' of type 'minecraft:enchantment' at position 3: t :<--[HERE]@1
+S -2--2 0 0 
+@ all f
+R 0
+A -
+X No matches for selector 'minecraft:f' of type 'minecraft:enchantment' at position 3: t f<--[HERE]@1
+E No matches for selector 'minecraft:f' of type 'minecraft:enchantment' at position 3: t f<--[HERE]@1
+S 0-1 6 -1039229985 minecraft:feather_falling	minecraft:fire_aspect	minecraft:fire_protection	minecraft:flame	minecraft:fortune	minecraft:frost_walker
+@ all fo
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+S 0-2 1 1510622997 minecraft:fortune
+@ all foo
+R 0
+A -
+X No matches for selector 'minecraft:foo' of type 'minecraft:enchantment' at position 5: t foo<--[HERE]@3
+E No matches for selector 'minecraft:foo' of type 'minecraft:enchantment' at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all foo:
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all minecraft:z
+R 0
+A -
+X No matches for selector 'minecraft:z' of type 'minecraft:enchantment' at position 13: ...inecraft:z<--[HERE]@11
+E No matches for selector 'minecraft:z' of type 'minecraft:enchantment' at position 13: ...inecraft:z<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:zo
+R 0
+A -
+X No matches for selector 'minecraft:zo' of type 'minecraft:enchantment' at position 14: ...necraft:zo<--[HERE]@12
+E No matches for selector 'minecraft:zo' of type 'minecraft:enchantment' at position 14: ...necraft:zo<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:zom
+R 0
+A -
+X No matches for selector 'minecraft:zom' of type 'minecraft:enchantment' at position 15: ...ecraft:zom<--[HERE]@13
+E No matches for selector 'minecraft:zom' of type 'minecraft:enchantment' at position 15: ...ecraft:zom<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:zomb
+R 0
+A -
+X No matches for selector 'minecraft:zomb' of type 'minecraft:enchantment' at position 16: ...craft:zomb<--[HERE]@14
+E No matches for selector 'minecraft:zomb' of type 'minecraft:enchantment' at position 16: ...craft:zomb<--[HERE]@14
+S -2--2 0 0 
+@ all minecraft:zombi
+R 0
+A -
+X No matches for selector 'minecraft:zombi' of type 'minecraft:enchantment' at position 17: ...raft:zombi<--[HERE]@15
+E No matches for selector 'minecraft:zombi' of type 'minecraft:enchantment' at position 17: ...raft:zombi<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft:zombie
+R 0
+A -
+X No matches for selector 'minecraft:zombie' of type 'minecraft:enchantment' at position 18: ...aft:zombie<--[HERE]@16
+E No matches for selector 'minecraft:zombie' of type 'minecraft:enchantment' at position 18: ...aft:zombie<--[HERE]@16
+S -2--2 0 0 
+@ all p
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:enchantment' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:enchantment' at position 3: t p<--[HERE]@1
+S 0-1 7 849943244 minecraft:blast_protection	minecraft:fire_protection	minecraft:piercing	minecraft:power	minecraft:projectile_protection	minecraft:protection	minecraft:punch
+@ all pl
+R 0
+A -
+X No matches for selector 'minecraft:pl' of type 'minecraft:enchantment' at position 4: t pl<--[HERE]@2
+E No matches for selector 'minecraft:pl' of type 'minecraft:enchantment' at position 4: t pl<--[HERE]@2
+S -2--2 0 0 
+@ all pla
+R 0
+A -
+X No matches for selector 'minecraft:pla' of type 'minecraft:enchantment' at position 5: t pla<--[HERE]@3
+E No matches for selector 'minecraft:pla' of type 'minecraft:enchantment' at position 5: t pla<--[HERE]@3
+S -2--2 0 0 
+@ all plai
+R 0
+A -
+X No matches for selector 'minecraft:plai' of type 'minecraft:enchantment' at position 6: t plai<--[HERE]@4
+E No matches for selector 'minecraft:plai' of type 'minecraft:enchantment' at position 6: t plai<--[HERE]@4
+S -2--2 0 0 
+@ all plain
+R 0
+A -
+X No matches for selector 'minecraft:plain' of type 'minecraft:enchantment' at position 7: t plain<--[HERE]@5
+E No matches for selector 'minecraft:plain' of type 'minecraft:enchantment' at position 7: t plain<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:?
+R 0
+A -
+X No matches for selector 'minecraft:?' of type 'minecraft:enchantment' at position 13: ...inecraft:?<--[HERE]@11
+E No matches for selector 'minecraft:?' of type 'minecraft:enchantment' at position 13: ...inecraft:?<--[HERE]@11
+S -2--2 0 0 
+@ all minecraft:??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:enchantment' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:enchantment' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:???
+R 0
+A -
+X No matches for selector 'minecraft:???' of type 'minecraft:enchantment' at position 15: ...ecraft:???<--[HERE]@13
+E No matches for selector 'minecraft:???' of type 'minecraft:enchantment' at position 15: ...ecraft:???<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:????
+R 14
+A 0-14 1:minecraft:lure:-1006617815
+E ok
+S -2--2 0 0 
+@ all a
+R 0
+A -
+X No matches for selector 'minecraft:a' of type 'minecraft:enchantment' at position 3: t a<--[HERE]@1
+E No matches for selector 'minecraft:a' of type 'minecraft:enchantment' at position 3: t a<--[HERE]@1
+S 0-1 3 1959916407 minecraft:aqua_affinity	minecraft:bane_of_arthropods	minecraft:fire_aspect
+@ all a*
+R 2
+A 0-2 1:minecraft:aqua_affinity:-2123230146
+E ok
+S -2--2 0 0 
+@ all a*b
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:enchantment' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:enchantment' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all a*b*
+R 0
+A -
+X No matches for selector 'minecraft:a*b*' of type 'minecraft:enchantment' at position 6: t a*b*<--[HERE]@4
+E No matches for selector 'minecraft:a*b*' of type 'minecraft:enchantment' at position 6: t a*b*<--[HERE]@4
+S -2--2 0 0 
+@ all S
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S 0-1 8 1372575103 minecraft:depth_strider	minecraft:luck_of_the_sea	minecraft:sharpness	minecraft:silk_touch	minecraft:smite	minecraft:soul_speed	minecraft:sweeping_edge	minecraft:swift_sneak
+@ all St
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S 0-2 1 -1293167143 minecraft:depth_strider
+@ all Sto
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Ston
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:enchantment' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:enchantment' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:*/
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:enchantment' at position 14: ...necraft:*/<--[HERE]@12
+E No matches for selector 'minecraft:*/' of type 'minecraft:enchantment' at position 14: ...necraft:*/<--[HERE]@12
+S -2--2 0 0 
+@ all *ef
+R 0
+A -
+X No matches for selector 'minecraft:*ef' of type 'minecraft:enchantment' at position 5: t *ef<--[HERE]@3
+E No matches for selector 'minecraft:*ef' of type 'minecraft:enchantment' at position 5: t *ef<--[HERE]@3
+S -2--2 0 0 
+@ all *eff
+R 0
+A -
+X No matches for selector 'minecraft:*eff' of type 'minecraft:enchantment' at position 6: t *eff<--[HERE]@4
+E No matches for selector 'minecraft:*eff' of type 'minecraft:enchantment' at position 6: t *eff<--[HERE]@4
+S -2--2 0 0 
+@ all *effe
+R 0
+A -
+X No matches for selector 'minecraft:*effe' of type 'minecraft:enchantment' at position 7: t *effe<--[HERE]@5
+E No matches for selector 'minecraft:*effe' of type 'minecraft:enchantment' at position 7: t *effe<--[HERE]@5
+S -2--2 0 0 
+@ all *effec
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:enchantment' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:enchantment' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all *sh
+R 0
+A -
+X No matches for selector 'minecraft:*sh' of type 'minecraft:enchantment' at position 5: t *sh<--[HERE]@3
+E No matches for selector 'minecraft:*sh' of type 'minecraft:enchantment' at position 5: t *sh<--[HERE]@3
+S -2--2 0 0 
+@ all *sha
+R 0
+A -
+X No matches for selector 'minecraft:*sha' of type 'minecraft:enchantment' at position 6: t *sha<--[HERE]@4
+E No matches for selector 'minecraft:*sha' of type 'minecraft:enchantment' at position 6: t *sha<--[HERE]@4
+S -2--2 0 0 
+@ all *shar
+R 0
+A -
+X No matches for selector 'minecraft:*shar' of type 'minecraft:enchantment' at position 7: t *shar<--[HERE]@5
+E No matches for selector 'minecraft:*shar' of type 'minecraft:enchantment' at position 7: t *shar<--[HERE]@5
+S -2--2 0 0 
+@ all *sharp
+R 0
+A -
+X No matches for selector 'minecraft:*sharp' of type 'minecraft:enchantment' at position 8: t *sharp<--[HERE]@6
+E No matches for selector 'minecraft:*sharp' of type 'minecraft:enchantment' at position 8: t *sharp<--[HERE]@6
+S -2--2 0 0 
+@ all *d
+R 2
+A 0-2 1:minecraft:soul_speed:-746357016
+E ok
+S -2--2 0 0 
+@ all *di
+R 0
+A -
+X No matches for selector 'minecraft:*di' of type 'minecraft:enchantment' at position 5: t *di<--[HERE]@3
+E No matches for selector 'minecraft:*di' of type 'minecraft:enchantment' at position 5: t *di<--[HERE]@3
+S -2--2 0 0 
+@ all *dir
+R 0
+A -
+X No matches for selector 'minecraft:*dir' of type 'minecraft:enchantment' at position 6: t *dir<--[HERE]@4
+E No matches for selector 'minecraft:*dir' of type 'minecraft:enchantment' at position 6: t *dir<--[HERE]@4
+S -2--2 0 0 
+@ all *dirt
+R 0
+A -
+X No matches for selector 'minecraft:*dirt' of type 'minecraft:enchantment' at position 7: t *dirt<--[HERE]@5
+E No matches for selector 'minecraft:*dirt' of type 'minecraft:enchantment' at position 7: t *dirt<--[HERE]@5
+S -2--2 0 0 
+@ all minecraft:s*t
+R 0
+A -
+X No matches for selector 'minecraft:s*t' of type 'minecraft:enchantment' at position 15: ...ecraft:s*t<--[HERE]@13
+E No matches for selector 'minecraft:s*t' of type 'minecraft:enchantment' at position 15: ...ecraft:s*t<--[HERE]@13
+S -2--2 0 0 
+@ all f*
+R 2
+A 0-2 6:minecraft:feather_falling,minecraft:fire_aspect,minecraft:fire_protection,minecraft:flame,minecraft:fortune:-1973186198
+E ok
+S -2--2 0 0 
+@ all stone%
+R 0
+A -
+X No matches for selector 'minecraft:stone' of type 'minecraft:enchantment' at position 7: t stone<--[HERE]@5
+E No matches for selector 'minecraft:stone' of type 'minecraft:enchantment' at position 7: t stone<--[HERE]@5
+S -2--2 0 0 
+@ all minecraf:*
+R 0
+A -
+X No matches for selector 'minecraf:*' of type 'minecraft:enchantment' at position 12: ...minecraf:*<--[HERE]@10
+E No matches for selector 'minecraf:*' of type 'minecraft:enchantment' at position 12: ...minecraf:*<--[HERE]@10
+S -2--2 0 0 
+@ all *stoe*
+R 0
+A -
+X No matches for selector 'minecraft:*stoe*' of type 'minecraft:enchantment' at position 8: t *stoe*<--[HERE]@6
+E No matches for selector 'minecraft:*stoe*' of type 'minecraft:enchantment' at position 8: t *stoe*<--[HERE]@6
+S -2--2 0 0 
+@ all inecraft:*/*a
+R 0
+A -
+X No matches for selector 'inecraft:*/*a' of type 'minecraft:enchantment' at position 15: ...craft:*/*a<--[HERE]@13
+E No matches for selector 'inecraft:*/*a' of type 'minecraft:enchantment' at position 15: ...craft:*/*a<--[HERE]@13
+S -2--2 0 0 
+@ all Sone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all craft:s*
+R 0
+A -
+X No matches for selector 'craft:s*' of type 'minecraft:enchantment' at position 10: t craft:s*<--[HERE]@8
+E No matches for selector 'craft:s*' of type 'minecraft:enchantment' at position 10: t craft:s*<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:mn
+R 0
+A -
+X No matches for selector 'minecraft:mn' of type 'minecraft:enchantment' at position 14: ...necraft:mn<--[HERE]@12
+E No matches for selector 'minecraft:mn' of type 'minecraft:enchantment' at position 14: ...necraft:mn<--[HERE]@12
+S -2--2 0 0 
+@ all _log
+R 0
+A -
+X No matches for selector 'minecraft:_log' of type 'minecraft:enchantment' at position 6: t _log<--[HERE]@4
+E No matches for selector 'minecraft:_log' of type 'minecraft:enchantment' at position 6: t _log<--[HERE]@4
+S -2--2 0 0 
+@ all Ste
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e*t
+R 0
+A -
+X No matches for selector 'minecraft:e*t' of type 'minecraft:enchantment' at position 5: t e*t<--[HERE]@3
+E No matches for selector 'minecraft:e*t' of type 'minecraft:enchantment' at position 5: t e*t<--[HERE]@3
+S -2--2 0 0 
+@ all !***
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all $:**
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecr​ft:
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all a*bec
+R 0
+A -
+X No matches for selector 'minecraft:a*bec' of type 'minecraft:enchantment' at position 7: t a*bec<--[HERE]@5
+E No matches for selector 'minecraft:a*bec' of type 'minecraft:enchantment' at position 7: t a*bec<--[HERE]@5
+S -2--2 0 0 
+@ all 6*
+R 0
+A -
+X No matches for selector 'minecraft:6*' of type 'minecraft:enchantment' at position 4: t 6*<--[HERE]@2
+E No matches for selector 'minecraft:6*' of type 'minecraft:enchantment' at position 4: t 6*<--[HERE]@2
+S -2--2 0 0 
+@ all zy
+R 0
+A -
+X No matches for selector 'minecraft:zy' of type 'minecraft:enchantment' at position 4: t zy<--[HERE]@2
+E No matches for selector 'minecraft:zy' of type 'minecraft:enchantment' at position 4: t zy<--[HERE]@2
+S -2--2 0 0 
+@ all mnecraft:?????
+R 0
+A -
+X No matches for selector 'mnecraft:?????' of type 'minecraft:enchantment' at position 16: ...raft:?????<--[HERE]@14
+E No matches for selector 'mnecraft:?????' of type 'minecraft:enchantment' at position 16: ...raft:?????<--[HERE]@14
+S -2--2 0 0 
+@ all *]/^
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all */**
+R 0
+A -
+X No matches for selector 'minecraft:*/**' of type 'minecraft:enchantment' at position 6: t */**<--[HERE]@4
+E No matches for selector 'minecraft:*/**' of type 'minecraft:enchantment' at position 6: t */**<--[HERE]@4
+S -2--2 0 0 
+@ all ,e
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*b*c*\\
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c*' of type 'minecraft:enchantment' at position 8: t a*b*c*<--[HERE]@6
+E No matches for selector 'minecraft:a*b*c*' of type 'minecraft:enchantment' at position 8: t a*b*c*<--[HERE]@6
+S -2--2 0 0 
+@ all zombie*
+R 0
+A -
+X No matches for selector 'minecraft:zombie*' of type 'minecraft:enchantment' at position 9: t zombie*<--[HERE]@7
+E No matches for selector 'minecraft:zombie*' of type 'minecraft:enchantment' at position 9: t zombie*<--[HERE]@7
+S -2--2 0 0 
+@ all *:*y
+R 4
+A 0-4 5:minecraft:aqua_affinity,minecraft:density,minecraft:efficiency,minecraft:infinity,minecraft:loyalty:-1263087713
+E ok
+S -2--2 0 0 
+@ all minecraft:Aombie*7
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all minecraft:s*mi
+R 0
+A -
+X No matches for selector 'minecraft:s*mi' of type 'minecraft:enchantment' at position 16: ...craft:s*mi<--[HERE]@14
+E No matches for selector 'minecraft:s*mi' of type 'minecraft:enchantment' at position 16: ...craft:s*mi<--[HERE]@14
+S -2--2 0 0 
+@ all *d:asse)
+R 0
+A -
+X No matches for selector '*d:asse' of type 'minecraft:enchantment' at position 9: t *d:asse<--[HERE]@7
+E No matches for selector '*d:asse' of type 'minecraft:enchantment' at position 9: t *d:asse<--[HERE]@7
+S -2--2 0 0 
+@ all mnec<aft:*/*
+R 0
+A -
+X No matches for selector 'minecraft:mnec' of type 'minecraft:enchantment' at position 6: t mnec<--[HERE]@4
+E No matches for selector 'minecraft:mnec' of type 'minecraft:enchantment' at position 6: t mnec<--[HERE]@4
+S -2--2 0 0 
+@ all 😀*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *sharp*s
+R 8
+A 0-8 1:minecraft:sharpness:278264756
+E ok
+S -2--2 0 0 
+@ all t>s*
+R 0
+A -
+X No matches for selector 'minecraft:t' of type 'minecraft:enchantment' at position 3: t t<--[HERE]@1
+E No matches for selector 'minecraft:t' of type 'minecraft:enchantment' at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all minecr8ft:
+R 0
+A -
+X No matches for selector 'minecr8ft:' of type 'minecraft:enchantment' at position 12: ...minecr8ft:<--[HERE]@10
+E No matches for selector 'minecr8ft:' of type 'minecraft:enchantment' at position 12: ...minecr8ft:<--[HERE]@10
+S -2--2 0 0 
+@ all ai1s
+R 0
+A -
+X No matches for selector 'minecraft:ai1s' of type 'minecraft:enchantment' at position 6: t ai1s<--[HERE]@4
+E No matches for selector 'minecraft:ai1s' of type 'minecraft:enchantment' at position 6: t ai1s<--[HERE]@4
+S -2--2 0 0 
+@ all %*e*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *s0arp**
+R 0
+A -
+X No matches for selector 'minecraft:*s0arp**' of type 'minecraft:enchantment' at position 10: t *s0arp**<--[HERE]@8
+E No matches for selector 'minecraft:*s0arp**' of type 'minecraft:enchantment' at position 10: t *s0arp**<--[HERE]@8
+S -2--2 0 0 
+@ all mi4necraft:
+R 0
+A -
+X No matches for selector 'mi4necraft:' of type 'minecraft:enchantment' at position 13: ...i4necraft:<--[HERE]@11
+E No matches for selector 'mi4necraft:' of type 'minecraft:enchantment' at position 13: ...i4necraft:<--[HERE]@11
+S -2--2 0 0 
+@ all *İ/*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:s*m
+R 0
+A -
+X No matches for selector 'minecraft:s*m' of type 'minecraft:enchantment' at position 15: ...ecraft:s*m<--[HERE]@13
+E No matches for selector 'minecraft:s*m' of type 'minecraft:enchantment' at position 15: ...ecraft:s*m<--[HERE]@13
+S -2--2 0 0 
+@ all zd*
+R 0
+A -
+X No matches for selector 'minecraft:zd*' of type 'minecraft:enchantment' at position 5: t zd*<--[HERE]@3
+E No matches for selector 'minecraft:zd*' of type 'minecraft:enchantment' at position 5: t zd*<--[HERE]@3
+S -2--2 0 0 
+@ all minfcraft:
+R 0
+A -
+X No matches for selector 'minfcraft:' of type 'minecraft:enchantment' at position 12: ...minfcraft:<--[HERE]@10
+E No matches for selector 'minfcraft:' of type 'minecraft:enchantment' at position 12: ...minfcraft:<--[HERE]@10
+S -2--2 0 0 
+@ all oo​*
+R 0
+A -
+X No matches for selector 'minecraft:oo' of type 'minecraft:enchantment' at position 4: t oo<--[HERE]@2
+E No matches for selector 'minecraft:oo' of type 'minecraft:enchantment' at position 4: t oo<--[HERE]@2
+S -2--2 0 0 
+@ all st)ne
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:enchantment' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:enchantment' at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all *stone#t
+R 0
+A -
+X No matches for selector 'minecraft:*stone' of type 'minecraft:enchantment' at position 8: t *stone<--[HERE]@6
+E No matches for selector 'minecraft:*stone' of type 'minecraft:enchantment' at position 8: t *stone<--[HERE]@6
+S -2--2 0 0 
+@ all "mi>ne*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0*é
+R 0
+A -
+X No matches for selector 'minecraft:0*' of type 'minecraft:enchantment' at position 4: t 0*<--[HERE]@2
+E No matches for selector 'minecraft:0*' of type 'minecraft:enchantment' at position 4: t 0*<--[HERE]@2
+S -2--2 0 0 
+@ all ?_
+R 0
+A -
+X No matches for selector 'minecraft:?_' of type 'minecraft:enchantment' at position 4: t ?_<--[HERE]@2
+E No matches for selector 'minecraft:?_' of type 'minecraft:enchantment' at position 4: t ?_<--[HERE]@2
+S -2--2 0 0 
+@ all ar.p*
+R 0
+A -
+X No matches for selector 'minecraft:ar.p*' of type 'minecraft:enchantment' at position 7: t ar.p*<--[HERE]@5
+E No matches for selector 'minecraft:ar.p*' of type 'minecraft:enchantment' at position 7: t ar.p*<--[HERE]@5
+S -2--2 0 0 
+@ all *b*c
+R 0
+A -
+X No matches for selector 'minecraft:*b*c' of type 'minecraft:enchantment' at position 6: t *b*c<--[HERE]@4
+E No matches for selector 'minecraft:*b*c' of type 'minecraft:enchantment' at position 6: t *b*c<--[HERE]@4
+S -2--2 0 0 
+@ all *Aeffect
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *dirt*t
+R 0
+A -
+X No matches for selector 'minecraft:*dirt*t' of type 'minecraft:enchantment' at position 9: t *dirt*t<--[HERE]@7
+E No matches for selector 'minecraft:*dirt*t' of type 'minecraft:enchantment' at position 9: t *dirt*t<--[HERE]@7
+S -2--2 0 0 
+@ all *e~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t *e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t *e<--[HERE]@2
+S -2--2 0 0 
+@ all *_log[
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:enchantment' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:enchantment' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all *effect*f
+R 0
+A -
+X No matches for selector 'minecraft:*effect*f' of type 'minecraft:enchantment' at position 11: ... *effect*f<--[HERE]@9
+E No matches for selector 'minecraft:*effect*f' of type 'minecraft:enchantment' at position 11: ... *effect*f<--[HERE]@9
+S -2--2 0 0 
+@ all *:￿sset
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all p>la.ins
+R 0
+A -
+X No matches for selector 'minecraft:p' of type 'minecraft:enchantment' at position 3: t p<--[HERE]@1
+E No matches for selector 'minecraft:p' of type 'minecraft:enchantment' at position 3: t p<--[HERE]@1
+S -2--2 0 0 
+@ all %é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *9sset
+R 0
+A -
+X No matches for selector 'minecraft:*9sset' of type 'minecraft:enchantment' at position 8: t *9sset<--[HERE]@6
+E No matches for selector 'minecraft:*9sset' of type 'minecraft:enchantment' at position 8: t *9sset<--[HERE]@6
+S -2--2 0 0 
+@ all *ß**
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *log
+R 0
+A -
+X No matches for selector 'minecraft:*log' of type 'minecraft:enchantment' at position 6: t *log<--[HERE]@4
+E No matches for selector 'minecraft:*log' of type 'minecraft:enchantment' at position 6: t *log<--[HERE]@4
+S -2--2 0 0 
+@ all necraft:*/*
+R 0
+A -
+X No matches for selector 'necraft:*/*' of type 'minecraft:enchantment' at position 13: ...ecraft:*/*<--[HERE]@11
+E No matches for selector 'necraft:*/*' of type 'minecraft:enchantment' at position 13: ...ecraft:*/*<--[HERE]@11
+S -2--2 0 0 
+@ all *:\u000asset
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:??=??
+R 0
+A -
+X No matches for selector 'minecraft:??' of type 'minecraft:enchantment' at position 14: ...necraft:??<--[HERE]@12
+E No matches for selector 'minecraft:??' of type 'minecraft:enchantment' at position 14: ...necraft:??<--[HERE]@12
+S -2--2 0 0 
+@ all #BB
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all <*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a*b￿*c
+R 0
+A -
+X No matches for selector 'minecraft:a*b' of type 'minecraft:enchantment' at position 5: t a*b<--[HERE]@3
+E No matches for selector 'minecraft:a*b' of type 'minecraft:enchantment' at position 5: t a*b<--[HERE]@3
+S -2--2 0 0 
+@ all pl5insl
+R 0
+A -
+X No matches for selector 'minecraft:pl5insl' of type 'minecraft:enchantment' at position 9: t pl5insl<--[HERE]@7
+E No matches for selector 'minecraft:pl5insl' of type 'minecraft:enchantment' at position 9: t pl5insl<--[HERE]@7
+S -2--2 0 0 
+@ all (
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:s*
+R 0
+A -
+X No matches for selector 'necraft:s*' of type 'minecraft:enchantment' at position 12: ...necraft:s*<--[HERE]@10
+E No matches for selector 'necraft:s*' of type 'minecraft:enchantment' at position 12: ...necraft:s*<--[HERE]@10
+S -2--2 0 0 
+@ all ?????r
+R 0
+A -
+X No matches for selector 'minecraft:?????r' of type 'minecraft:enchantment' at position 8: t ?????r<--[HERE]@6
+E No matches for selector 'minecraft:?????r' of type 'minecraft:enchantment' at position 8: t ?????r<--[HERE]@6
+S -2--2 0 0 
+@ all # \u0000Z
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *asset
+R 0
+A -
+X No matches for selector 'minecraft:*asset' of type 'minecraft:enchantment' at position 8: t *asset<--[HERE]@6
+E No matches for selector 'minecraft:*asset' of type 'minecraft:enchantment' at position 8: t *asset<--[HERE]@6
+S -2--2 0 0 
+@ all *effecİ
+R 0
+A -
+X No matches for selector 'minecraft:*effec' of type 'minecraft:enchantment' at position 8: t *effec<--[HERE]@6
+E No matches for selector 'minecraft:*effec' of type 'minecraft:enchantment' at position 8: t *effec<--[HERE]@6
+S -2--2 0 0 
+@ all !é
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:*/a
+R 0
+A -
+X No matches for selector 'minecraft:*/a' of type 'minecraft:enchantment' at position 15: ...ecraft:*/a<--[HERE]@13
+E No matches for selector 'minecraft:*/a' of type 'minecraft:enchantment' at position 15: ...ecraft:*/a<--[HERE]@13
+S -2--2 0 0 
+@ all *)B:asset
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all pains
+R 0
+A -
+X No matches for selector 'minecraft:pains' of type 'minecraft:enchantment' at position 7: t pains<--[HERE]@5
+E No matches for selector 'minecraft:pains' of type 'minecraft:enchantment' at position 7: t pains<--[HERE]@5
+S -2--2 0 0 
+@ all ect
+R 0
+A -
+X No matches for selector 'minecraft:ect' of type 'minecraft:enchantment' at position 5: t ect<--[HERE]@3
+E No matches for selector 'minecraft:ect' of type 'minecraft:enchantment' at position 5: t ect<--[HERE]@3
+S -2--2 0 0 
+@ all */X<
+R 0
+A -
+X No matches for selector 'minecraft:*/' of type 'minecraft:enchantment' at position 4: t */<--[HERE]@2
+E No matches for selector 'minecraft:*/' of type 'minecraft:enchantment' at position 4: t */<--[HERE]@2
+S -2--2 0 0 
+@ all one*
+R 0
+A -
+X No matches for selector 'minecraft:one*' of type 'minecraft:enchantment' at position 6: t one*<--[HERE]@4
+E No matches for selector 'minecraft:one*' of type 'minecraft:enchantment' at position 6: t one*<--[HERE]@4
+S -2--2 0 0 
+@ all *sharp_
+R 0
+A -
+X No matches for selector 'minecraft:*sharp_' of type 'minecraft:enchantment' at position 9: t *sharp_<--[HERE]@7
+E No matches for selector 'minecraft:*sharp_' of type 'minecraft:enchantment' at position 9: t *sharp_<--[HERE]@7
+S -2--2 0 0 
+@ all 2?
+R 0
+A -
+X No matches for selector 'minecraft:2?' of type 'minecraft:enchantment' at position 4: t 2?<--[HERE]@2
+E No matches for selector 'minecraft:2?' of type 'minecraft:enchantment' at position 4: t 2?<--[HERE]@2
+S -2--2 0 0 
+@ all *_log)
+R 0
+A -
+X No matches for selector 'minecraft:*_log' of type 'minecraft:enchantment' at position 7: t *_log<--[HERE]@5
+E No matches for selector 'minecraft:*_log' of type 'minecraft:enchantment' at position 7: t *_log<--[HERE]@5
+S -2--2 0 0 
+@ all e/
+R 0
+A -
+X No matches for selector 'minecraft:e/' of type 'minecraft:enchantment' at position 4: t e/<--[HERE]@2
+E No matches for selector 'minecraft:e/' of type 'minecraft:enchantment' at position 4: t e/<--[HERE]@2
+S -2--2 0 0 
+@ all fooz*
+R 0
+A -
+X No matches for selector 'minecraft:fooz*' of type 'minecraft:enchantment' at position 7: t fooz*<--[HERE]@5
+E No matches for selector 'minecraft:fooz*' of type 'minecraft:enchantment' at position 7: t fooz*<--[HERE]@5
+S -2--2 0 0 
+@ all  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mineccaft:?????
+R 0
+A -
+X No matches for selector 'mineccaft:?????' of type 'minecraft:enchantment' at position 17: ...caft:?????<--[HERE]@15
+E No matches for selector 'mineccaft:?????' of type 'minecraft:enchantment' at position 17: ...caft:?????<--[HERE]@15
+S -2--2 0 0 
+@ all minecraft\u0009*/*
+R 0
+A -
+X No matches for selector 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+E No matches for selector 'minecraft:minecraft' of type 'minecraft:enchantment' at position 11: ... minecraft<--[HERE]@9
+S -2--2 0 0 
+@ all \u0009
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *drt*
+R 0
+A -
+X No matches for selector 'minecraft:*drt*' of type 'minecraft:enchantment' at position 7: t *drt*<--[HERE]@5
+E No matches for selector 'minecraft:*drt*' of type 'minecraft:enchantment' at position 7: t *drt*<--[HERE]@5
+S -2--2 0 0 
+@ all *stone*n
+R 0
+A -
+X No matches for selector 'minecraft:*stone*n' of type 'minecraft:enchantment' at position 10: t *stone*n<--[HERE]@8
+E No matches for selector 'minecraft:*stone*n' of type 'minecraft:enchantment' at position 10: t *stone*n<--[HERE]@8
+S -2--2 0 0 
+@ all miecraft:*
+R 0
+A -
+X No matches for selector 'miecraft:*' of type 'minecraft:enchantment' at position 12: ...miecraft:*<--[HERE]@10
+E No matches for selector 'miecraft:*' of type 'minecraft:enchantment' at position 12: ...miecraft:*<--[HERE]@10
+S -2--2 0 0 
+@ all z/
+R 0
+A -
+X No matches for selector 'minecraft:z/' of type 'minecraft:enchantment' at position 4: t z/<--[HERE]@2
+E No matches for selector 'minecraft:z/' of type 'minecraft:enchantment' at position 4: t z/<--[HERE]@2
+S -2--2 0 0 
+@ all *dit
+R 0
+A -
+X No matches for selector 'minecraft:*dit' of type 'minecraft:enchantment' at position 6: t *dit<--[HERE]@4
+E No matches for selector 'minecraft:*dit' of type 'minecraft:enchantment' at position 6: t *dit<--[HERE]@4
+S -2--2 0 0 
+@ all z**
+R 0
+A -
+X No matches for selector 'minecraft:z**' of type 'minecraft:enchantment' at position 5: t z**<--[HERE]@3
+E No matches for selector 'minecraft:z**' of type 'minecraft:enchantment' at position 5: t z**<--[HERE]@3
+S -2--2 0 0 
+@ all <4
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *@sto/e*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all \u000a:*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ]dirt*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft?????
+R 0
+A -
+X No matches for selector 'minecraft:minecraft?????' of type 'minecraft:enchantment' at position 16: ...craft?????<--[HERE]@14
+E No matches for selector 'minecraft:minecraft?????' of type 'minecraft:enchantment' at position 16: ...craft?????<--[HERE]@14
+S -2--2 0 0 
+@ all $
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u000aStone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all */*Z
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all *eff2ct
+R 0
+A -
+X No matches for selector 'minecraft:*eff2ct' of type 'minecraft:enchantment' at position 9: t *eff2ct<--[HERE]@7
+E No matches for selector 'minecraft:*eff2ct' of type 'minecraft:enchantment' at position 9: t *eff2ct<--[HERE]@7
+S -2--2 0 0 
+@ all ft:oak_6*
+R 0
+A -
+X No matches for selector 'ft:oak_6*' of type 'minecraft:enchantment' at position 11: ... ft:oak_6*<--[HERE]@9
+E No matches for selector 'ft:oak_6*' of type 'minecraft:enchantment' at position 11: ... ft:oak_6*<--[HERE]@9
+S -2--2 0 0 
+@ all éstone
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all <***
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minexcraft:
+R 0
+A -
+X No matches for selector 'minexcraft:' of type 'minecraft:enchantment' at position 13: ...inexcraft:<--[HERE]@11
+E No matches for selector 'minexcraft:' of type 'minecraft:enchantment' at position 13: ...inexcraft:<--[HERE]@11
+S -2--2 0 0 
+@ all *:**/
+R 0
+A -
+X No matches for selector '*:**/' of type 'minecraft:enchantment' at position 7: t *:**/<--[HERE]@5
+E No matches for selector '*:**/' of type 'minecraft:enchantment' at position 7: t *:**/<--[HERE]@5
+S -2--2 0 0 
+@ all *e4
+R 0
+A -
+X No matches for selector 'minecraft:*e4' of type 'minecraft:enchantment' at position 5: t *e4<--[HERE]@3
+E No matches for selector 'minecraft:*e4' of type 'minecraft:enchantment' at position 5: t *e4<--[HERE]@3
+S -2--2 0 0 
+@ all 'b*c
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *_"
+R 0
+A -
+X No matches for selector 'minecraft:*_' of type 'minecraft:enchantment' at position 4: t *_<--[HERE]@2
+E No matches for selector 'minecraft:*_' of type 'minecraft:enchantment' at position 4: t *_<--[HERE]@2
+S -2--2 0 0 
+@ all **c
+R 0
+A -
+X No matches for selector 'minecraft:**c' of type 'minecraft:enchantment' at position 5: t **c<--[HERE]@3
+E No matches for selector 'minecraft:**c' of type 'minecraft:enchantment' at position 5: t **c<--[HERE]@3
+S -2--2 0 0 
+@ all minec=aft:zomie*
+R 0
+A -
+X No matches for selector 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+E No matches for selector 'minecraft:minec' of type 'minecraft:enchantment' at position 7: t minec<--[HERE]@5
+S -2--2 0 0 
+@ all *féé
+R 0
+A -
+X No matches for selector 'minecraft:*f' of type 'minecraft:enchantment' at position 4: t *f<--[HERE]@2
+E No matches for selector 'minecraft:*f' of type 'minecraft:enchantment' at position 4: t *f<--[HERE]@2
+S -2--2 0 0 
+@ all m**
+R 3
+A 0-3 2:minecraft:mending,minecraft:multishot:461918468
+E ok
+S -2--2 0 0 
+@ all mXinecraft:?????
+R 0
+A -
+X No matches for selector 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+E No matches for selector 'minecraft:m' of type 'minecraft:enchantment' at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all #  
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *sharp*&a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t *sharp*<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t *sharp*<--[HERE]@7
+S -2--2 0 0 
+@ all minecraf:oak_*
+R 0
+A -
+X No matches for selector 'minecraf:oak_*' of type 'minecraft:enchantment' at position 16: ...craf:oak_*<--[HERE]@14
+E No matches for selector 'minecraf:oak_*' of type 'minecraft:enchantment' at position 16: ...craf:oak_*<--[HERE]@14
+S -2--2 0 0 
+@ all g
+R 0
+A -
+X No matches for selector 'minecraft:g' of type 'minecraft:enchantment' at position 3: t g<--[HERE]@1
+E No matches for selector 'minecraft:g' of type 'minecraft:enchantment' at position 3: t g<--[HERE]@1
+S -2--2 0 0 
+@ all *~?
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all a*byc
+R 0
+A -
+X No matches for selector 'minecraft:a*byc' of type 'minecraft:enchantment' at position 7: t a*byc<--[HERE]@5
+E No matches for selector 'minecraft:a*byc' of type 'minecraft:enchantment' at position 7: t a*byc<--[HERE]@5
+S -2--2 0 0 
+@ all minecr{ft:*i
+R 0
+A -
+X No matches for selector 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+E No matches for selector 'minecraft:minecr' of type 'minecraft:enchantment' at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all stones
+R 0
+A -
+X No matches for selector 'minecraft:stones' of type 'minecraft:enchantment' at position 8: t stones<--[HERE]@6
+E No matches for selector 'minecraft:stones' of type 'minecraft:enchantment' at position 8: t stones<--[HERE]@6
+S -2--2 0 0 
+@ all *Ydirt*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all stXonet
+R 0
+A -
+X No matches for selector 'minecraft:st' of type 'minecraft:enchantment' at position 4: t st<--[HERE]@2
+E No matches for selector 'minecraft:st' of type 'minecraft:enchantment' at position 4: t st<--[HERE]@2
+S -2--2 0 0 
+@ all mineccraft:
+R 0
+A -
+X No matches for selector 'mineccraft:' of type 'minecraft:enchantment' at position 13: ...ineccraft:<--[HERE]@11
+E No matches for selector 'mineccraft:' of type 'minecraft:enchantment' at position 13: ...ineccraft:<--[HERE]@11
+S -2--2 0 0 
+@ all stone*
+R 0
+A -
+X No matches for selector 'minecraft:stone*' of type 'minecraft:enchantment' at position 8: t stone*<--[HERE]@6
+E No matches for selector 'minecraft:stone*' of type 'minecraft:enchantment' at position 8: t stone*<--[HERE]@6
+S -2--2 0 0 
+@ all 5
+R 0
+A -
+X No matches for selector 'minecraft:5' of type 'minecraft:enchantment' at position 3: t 5<--[HERE]@1
+E No matches for selector 'minecraft:5' of type 'minecraft:enchantment' at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all *b*cb
+R 0
+A -
+X No matches for selector 'minecraft:*b*cb' of type 'minecraft:enchantment' at position 7: t *b*cb<--[HERE]@5
+E No matches for selector 'minecraft:*b*cb' of type 'minecraft:enchantment' at position 7: t *b*cb<--[HERE]@5
+S -2--2 0 0 
+@ all 6<ffect
+R 0
+A -
+X No matches for selector 'minecraft:6' of type 'minecraft:enchantment' at position 3: t 6<--[HERE]@1
+E No matches for selector 'minecraft:6' of type 'minecraft:enchantment' at position 3: t 6<--[HERE]@1
+S -2--2 0 0 
+@ all craft:zombie*
+R 0
+A -
+X No matches for selector 'craft:zombie*' of type 'minecraft:enchantment' at position 15: ...ft:zombie*<--[HERE]@13
+E No matches for selector 'craft:zombie*' of type 'minecraft:enchantment' at position 15: ...ft:zombie*<--[HERE]@13
+S -2--2 0 0 
+@ all 3ee
+R 0
+A -
+X No matches for selector 'minecraft:3ee' of type 'minecraft:enchantment' at position 5: t 3ee<--[HERE]@3
+E No matches for selector 'minecraft:3ee' of type 'minecraft:enchantment' at position 5: t 3ee<--[HERE]@3
+S -2--2 0 0 
+@ all İ
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecra)t:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:minecra' of type 'minecraft:enchantment' at position 9: t minecra<--[HERE]@7
+E No matches for selector 'minecraft:minecra' of type 'minecraft:enchantment' at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all *C%e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecradtzombie*
+R 0
+A -
+X No matches for selector 'minecraft:minecradtzombie*' of type 'minecraft:enchantment' at position 18: ...adtzombie*<--[HERE]@16
+E No matches for selector 'minecraft:minecradtzombie*' of type 'minecraft:enchantment' at position 18: ...adtzombie*<--[HERE]@16
+S -2--2 0 0 
+@ all a.b*:
+R 0
+A -
+X No matches for selector 'a.b*:' of type 'minecraft:enchantment' at position 7: t a.b*:<--[HERE]@5
+E No matches for selector 'a.b*:' of type 'minecraft:enchantment' at position 7: t a.b*:<--[HERE]@5
+S -2--2 0 0 
+@ all ***
+R 3
+A 0-3 43:minecraft:aqua_affinity,minecraft:bane_of_arthropods,minecraft:binding_curse,minecraft:blast_protection,minecraft:breach:-1153812436
+E ok
+S -2--2 0 0 
+@ all rp*
+R 0
+A -
+X No matches for selector 'minecraft:rp*' of type 'minecraft:enchantment' at position 5: t rp*<--[HERE]@3
+E No matches for selector 'minecraft:rp*' of type 'minecraft:enchantment' at position 5: t rp*<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:zombie2
+R 0
+A -
+X No matches for selector 'minecraft:zombie2' of type 'minecraft:enchantment' at position 19: ...ft:zombie2<--[HERE]@17
+E No matches for selector 'minecraft:zombie2' of type 'minecraft:enchantment' at position 19: ...ft:zombie2<--[HERE]@17
+S -2--2 0 0 
+@ all *:ase
+R 0
+A -
+X No matches for selector '*:ase' of type 'minecraft:enchantment' at position 7: t *:ase<--[HERE]@5
+E No matches for selector '*:ase' of type 'minecraft:enchantment' at position 7: t *:ase<--[HERE]@5
+S -2--2 0 0 
+@ all ct+
+R 0
+A -
+X No matches for selector 'minecraft:ct' of type 'minecraft:enchantment' at position 4: t ct<--[HERE]@2
+E No matches for selector 'minecraft:ct' of type 'minecraft:enchantment' at position 4: t ct<--[HERE]@2
+S -2--2 0 0 
+@ all ???
+R 0
+A -
+X No matches for selector 'minecraft:???' of type 'minecraft:enchantment' at position 5: t ???<--[HERE]@3
+E No matches for selector 'minecraft:???' of type 'minecraft:enchantment' at position 5: t ???<--[HERE]@3
+S -2--2 0 0 
+@ all mi<necraft:zombie*t
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all */aa
+R 0
+A -
+X No matches for selector 'minecraft:*/aa' of type 'minecraft:enchantment' at position 6: t */aa<--[HERE]@4
+E No matches for selector 'minecraft:*/aa' of type 'minecraft:enchantment' at position 6: t */aa<--[HERE]@4
+S -2--2 0 0 
+@ all minecracft:
+R 0
+A -
+X No matches for selector 'minecracft:' of type 'minecraft:enchantment' at position 13: ...inecracft:<--[HERE]@11
+E No matches for selector 'minecracft:' of type 'minecraft:enchantment' at position 13: ...inecracft:<--[HERE]@11
+S -2--2 0 0 
+@ all tonee
+R 0
+A -
+X No matches for selector 'minecraft:tonee' of type 'minecraft:enchantment' at position 7: t tonee<--[HERE]@5
+E No matches for selector 'minecraft:tonee' of type 'minecraft:enchantment' at position 7: t tonee<--[HERE]@5
+S -2--2 0 0 
+@ all Stonet
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 9
+R 0
+A -
+X No matches for selector 'minecraft:9' of type 'minecraft:enchantment' at position 3: t 9<--[HERE]@1
+E No matches for selector 'minecraft:9' of type 'minecraft:enchantment' at position 3: t 9<--[HERE]@1
+S -2--2 0 0 
+@ all *:asse中t
+R 0
+A -
+X No matches for selector '*:asse' of type 'minecraft:enchantment' at position 8: t *:asse<--[HERE]@6
+E No matches for selector '*:asse' of type 'minecraft:enchantment' at position 8: t *:asse<--[HERE]@6
+S -2--2 0 0 
+@ all mi%necraft:zombie*
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all a*İ*cc
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t a*<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t a*<--[HERE]@2
+S -2--2 0 0 
+@ all ay*bXc
+R 0
+A -
+X No matches for selector 'minecraft:ay*b' of type 'minecraft:enchantment' at position 6: t ay*b<--[HERE]@4
+E No matches for selector 'minecraft:ay*b' of type 'minecraft:enchantment' at position 6: t ay*b<--[HERE]@4
+S -2--2 0 0 
+@ all minecrdaft:s￿*
+R 0
+A -
+X No matches for selector 'minecrdaft:s' of type 'minecraft:enchantment' at position 14: ...necrdaft:s<--[HERE]@12
+E No matches for selector 'minecrdaft:s' of type 'minecraft:enchantment' at position 14: ...necrdaft:s<--[HERE]@12
+S -2--2 0 0 
+@ all mnecraft:*/**
+R 0
+A -
+X No matches for selector 'mnecraft:*/**' of type 'minecraft:enchantment' at position 15: ...craft:*/**<--[HERE]@13
+E No matches for selector 'mnecraft:*/**' of type 'minecraft:enchantment' at position 15: ...craft:*/**<--[HERE]@13
+S -2--2 0 0 
+@ all *ee
+R 0
+A -
+X No matches for selector 'minecraft:*ee' of type 'minecraft:enchantment' at position 5: t *ee<--[HERE]@3
+E No matches for selector 'minecraft:*ee' of type 'minecraft:enchantment' at position 5: t *ee<--[HERE]@3
+S -2--2 0 0 
+@ all e
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:enchantment' at position 3: t e<--[HERE]@1
+E No matches for selector 'minecraft:e' of type 'minecraft:enchantment' at position 3: t e<--[HERE]@1
+S 0-1 2 -1902851389 minecraft:efficiency	minecraft:sweeping_edge
+@ all *_loz
+R 0
+A -
+X No matches for selector 'minecraft:*_loz' of type 'minecraft:enchantment' at position 7: t *_loz<--[HERE]@5
+E No matches for selector 'minecraft:*_loz' of type 'minecraft:enchantment' at position 7: t *_loz<--[HERE]@5
+S -2--2 0 0 
+@ all *_l2og
+R 0
+A -
+X No matches for selector 'minecraft:*_l2og' of type 'minecraft:enchantment' at position 8: t *_l2og<--[HERE]@6
+E No matches for selector 'minecraft:*_l2og' of type 'minecraft:enchantment' at position 8: t *_l2og<--[HERE]@6
+S -2--2 0 0 
+@ all n
+R 0
+A -
+X No matches for selector 'minecraft:n' of type 'minecraft:enchantment' at position 3: t n<--[HERE]@1
+E No matches for selector 'minecraft:n' of type 'minecraft:enchantment' at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all */*\\
+R 0
+A -
+X No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 5: t */*<--[HERE]@3
+E No matches for selector 'minecraft:*/*' of type 'minecraft:enchantment' at position 5: t */*<--[HERE]@3
+S -2--2 0 0 
+@ all foo:Xe
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all *0
+R 0
+A -
+X No matches for selector 'minecraft:*0' of type 'minecraft:enchantment' at position 4: t *0<--[HERE]@2
+E No matches for selector 'minecraft:*0' of type 'minecraft:enchantment' at position 4: t *0<--[HERE]@2
+S -2--2 0 0 
+@ all xine*
+R 0
+A -
+X No matches for selector 'minecraft:xine*' of type 'minecraft:enchantment' at position 7: t xine*<--[HERE]@5
+E No matches for selector 'minecraft:xine*' of type 'minecraft:enchantment' at position 7: t xine*<--[HERE]@5
+S -2--2 0 0 
+@ all _g
+R 0
+A -
+X No matches for selector 'minecraft:_g' of type 'minecraft:enchantment' at position 4: t _g<--[HERE]@2
+E No matches for selector 'minecraft:_g' of type 'minecraft:enchantment' at position 4: t _g<--[HERE]@2
+S -2--2 0 0 
+@ all *dirta
+R 0
+A -
+X No matches for selector 'minecraft:*dirta' of type 'minecraft:enchantment' at position 8: t *dirta<--[HERE]@6
+E No matches for selector 'minecraft:*dirta' of type 'minecraft:enchantment' at position 8: t *dirta<--[HERE]@6
+S -2--2 0 0 
+@ all Z
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *stone*e*
+R 0
+A -
+X No matches for selector 'minecraft:*stone*e*' of type 'minecraft:enchantment' at position 11: ... *stone*e*<--[HERE]@9
+E No matches for selector 'minecraft:*stone*e*' of type 'minecraft:enchantment' at position 11: ... *stone*e*<--[HERE]@9
+S -2--2 0 0 
+@ all lains
+R 0
+A -
+X No matches for selector 'minecraft:lains' of type 'minecraft:enchantment' at position 7: t lains<--[HERE]@5
+E No matches for selector 'minecraft:lains' of type 'minecraft:enchantment' at position 7: t lains<--[HERE]@5
+S -2--2 0 0 
+@ all min5*i
+R 0
+A -
+X No matches for selector 'minecraft:min5*i' of type 'minecraft:enchantment' at position 8: t min5*i<--[HERE]@6
+E No matches for selector 'minecraft:min5*i' of type 'minecraft:enchantment' at position 8: t min5*i<--[HERE]@6
+S -2--2 0 0 
+@ all minecaft:9ombie*
+R 0
+A -
+X No matches for selector 'minecaft:9ombie*' of type 'minecraft:enchantment' at position 18: ...ft:9ombie*<--[HERE]@16
+E No matches for selector 'minecaft:9ombie*' of type 'minecraft:enchantment' at position 18: ...ft:9ombie*<--[HERE]@16
+S -2--2 0 0 
+@ all a*b*c*
+R 0
+A -
+X No matches for selector 'minecraft:a*b*c*' of type 'minecraft:enchantment' at position 8: t a*b*c*<--[HERE]@6
+E No matches for selector 'minecraft:a*b*c*' of type 'minecraft:enchantment' at position 8: t a*b*c*<--[HERE]@6
+S -2--2 0 0 
+@ all ne*
+R 0
+A -
+X No matches for selector 'minecraft:ne*' of type 'minecraft:enchantment' at position 5: t ne*<--[HERE]@3
+E No matches for selector 'minecraft:ne*' of type 'minecraft:enchantment' at position 5: t ne*<--[HERE]@3
+S -2--2 0 0 
+@ all fo#o:*
+R 0
+A -
+X No matches for selector 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+E No matches for selector 'minecraft:fo' of type 'minecraft:enchantment' at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all a*ab*c
+R 0
+A -
+X No matches for selector 'minecraft:a*ab*c' of type 'minecraft:enchantment' at position 8: t a*ab*c<--[HERE]@6
+E No matches for selector 'minecraft:a*ab*c' of type 'minecraft:enchantment' at position 8: t a*ab*c<--[HERE]@6
+S -2--2 0 0 
+@ all mine4craft:e
+R 0
+A -
+X No matches for selector 'mine4craft:e' of type 'minecraft:enchantment' at position 14: ...ne4craft:e<--[HERE]@12
+E No matches for selector 'mine4craft:e' of type 'minecraft:enchantment' at position 14: ...ne4craft:e<--[HERE]@12
+S -2--2 0 0 
+@ all **c*
+R 4
+A 0-4 16:minecraft:binding_curse,minecraft:blast_protection,minecraft:breach,minecraft:channeling,minecraft:efficiency:2078303481
+E ok
+S -2--2 0 0 
+@ all foo:[
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all *😀*
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all *d*rt*
+R 0
+A -
+X No matches for selector 'minecraft:*d*rt*' of type 'minecraft:enchantment' at position 8: t *d*rt*<--[HERE]@6
+E No matches for selector 'minecraft:*d*rt*' of type 'minecraft:enchantment' at position 8: t *d*rt*<--[HERE]@6
+S -2--2 0 0 
+@ all *harp*s
+R 7
+A 0-7 1:minecraft:sharpness:278264756
+E ok
+S -2--2 0 0 
+@ all Ston-
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *stone*7
+R 0
+A -
+X No matches for selector 'minecraft:*stone*7' of type 'minecraft:enchantment' at position 10: t *stone*7<--[HERE]@8
+E No matches for selector 'minecraft:*stone*7' of type 'minecraft:enchantment' at position 10: t *stone*7<--[HERE]@8
+S -2--2 0 0 
+@ all plafns
+R 0
+A -
+X No matches for selector 'minecraft:plafns' of type 'minecraft:enchantment' at position 8: t plafns<--[HERE]@6
+E No matches for selector 'minecraft:plafns' of type 'minecraft:enchantment' at position 8: t plafns<--[HERE]@6
+S -2--2 0 0 
+@ all mincraft:*
+R 0
+A -
+X No matches for selector 'mincraft:*' of type 'minecraft:enchantment' at position 12: ...mincraft:*<--[HERE]@10
+E No matches for selector 'mincraft:*' of type 'minecraft:enchantment' at position 12: ...mincraft:*<--[HERE]@10
+S -2--2 0 0 
+@ all 7*
+R 0
+A -
+X No matches for selector 'minecraft:7*' of type 'minecraft:enchantment' at position 4: t 7*<--[HERE]@2
+E No matches for selector 'minecraft:7*' of type 'minecraft:enchantment' at position 4: t 7*<--[HERE]@2
+S -2--2 0 0 
+@ all *:]
+R 0
+A -
+X No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+E No matches for selector '*:' of type 'minecraft:enchantment' at position 4: t *:<--[HERE]@2
+S -2--2 0 0 
+@ all B*?
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all (*ß
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:oak_*a
+R 0
+A -
+X No matches for selector 'minecraft:oak_*a' of type 'minecraft:enchantment' at position 18: ...aft:oak_*a<--[HERE]@16
+E No matches for selector 'minecraft:oak_*a' of type 'minecraft:enchantment' at position 18: ...aft:oak_*a<--[HERE]@16
+S -2--2 0 0 
+@ all mine{raft:
+R 0
+A -
+X No matches for selector 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+E No matches for selector 'minecraft:mine' of type 'minecraft:enchantment' at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all raft:zombie*m
+R 0
+A -
+X No matches for selector 'raft:zombie*m' of type 'minecraft:enchantment' at position 15: ...t:zombie*m<--[HERE]@13
+E No matches for selector 'raft:zombie*m' of type 'minecraft:enchantment' at position 15: ...t:zombie*m<--[HERE]@13
+S -2--2 0 0 
+@ all mbinecraft:zombie*c
+R 0
+A -
+X No matches for selector 'mbinecraft:zombie*c' of type 'minecraft:enchantment' at position 21: ...t:zombie*c<--[HERE]@19
+E No matches for selector 'mbinecraft:zombie*c' of type 'minecraft:enchantment' at position 21: ...t:zombie*c<--[HERE]@19
+S -2--2 0 0 
+@ all *]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all 6?A
+R 0
+A -
+X No matches for selector 'minecraft:6?' of type 'minecraft:enchantment' at position 4: t 6?<--[HERE]@2
+E No matches for selector 'minecraft:6?' of type 'minecraft:enchantment' at position 4: t 6?<--[HERE]@2
+S -2--2 0 0 
+@ all */3
+R 0
+A -
+X No matches for selector 'minecraft:*/3' of type 'minecraft:enchantment' at position 5: t */3<--[HERE]@3
+E No matches for selector 'minecraft:*/3' of type 'minecraft:enchantment' at position 5: t */3<--[HERE]@3
+S -2--2 0 0 
+@ all *ston9*
+R 0
+A -
+X No matches for selector 'minecraft:*ston9*' of type 'minecraft:enchantment' at position 9: t *ston9*<--[HERE]@7
+E No matches for selector 'minecraft:*ston9*' of type 'minecraft:enchantment' at position 9: t *ston9*<--[HERE]@7
+S -2--2 0 0 
+@ all **C
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t **<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t **<--[HERE]@2
+S -2--2 0 0 
+@ all e,
+R 0
+A -
+X No matches for selector 'minecraft:e' of type 'minecraft:enchantment' at position 3: t e<--[HERE]@1
+E No matches for selector 'minecraft:e' of type 'minecraft:enchantment' at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all é**
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all *\u0009effecte
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t *<--[HERE]@1
+S -2--2 0 0 
+@ all minecraf:zombie*c
+R 0
+A -
+X No matches for selector 'minecraf:zombie*c' of type 'minecraft:enchantment' at position 19: ...f:zombie*c<--[HERE]@17
+E No matches for selector 'minecraf:zombie*c' of type 'minecraft:enchantment' at position 19: ...f:zombie*c<--[HERE]@17
+S -2--2 0 0 
+@ all */__
+R 0
+A -
+X No matches for selector 'minecraft:*/__' of type 'minecraft:enchantment' at position 6: t */__<--[HERE]@4
+E No matches for selector 'minecraft:*/__' of type 'minecraft:enchantment' at position 6: t */__<--[HERE]@4
+S -2--2 0 0 
+@ all mineyraf:zombie*
+R 0
+A -
+X No matches for selector 'mineyraf:zombie*' of type 'minecraft:enchantment' at position 18: ...af:zombie*<--[HERE]@16
+E No matches for selector 'mineyraf:zombie*' of type 'minecraft:enchantment' at position 18: ...af:zombie*<--[HERE]@16
+S -2--2 0 0 
+@ all minecyraft:zombi7*
+R 0
+A -
+X No matches for selector 'minecyraft:zombi7*' of type 'minecraft:enchantment' at position 20: ...ft:zombi7*<--[HERE]@18
+E No matches for selector 'minecyraft:zombi7*' of type 'minecraft:enchantment' at position 20: ...ft:zombi7*<--[HERE]@18
+S -2--2 0 0 
+@ all o:*:
+R 0
+A -
+X No matches for selector 'o:*:' of type 'minecraft:enchantment' at position 6: t o:*:<--[HERE]@4
+E No matches for selector 'o:*:' of type 'minecraft:enchantment' at position 6: t o:*:<--[HERE]@4
+S -2--2 0 0 
+@ all foo:￿
+R 0
+A -
+X No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+E No matches for selector 'foo:' of type 'minecraft:enchantment' at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all mi]ne*
+R 0
+A -
+X No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+E No matches for selector 'minecraft:mi' of type 'minecraft:enchantment' at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all x8irt*
+R 0
+A -
+X No matches for selector 'minecraft:x8irt*' of type 'minecraft:enchantment' at position 8: t x8irt*<--[HERE]@6
+E No matches for selector 'minecraft:x8irt*' of type 'minecraft:enchantment' at position 8: t x8irt*<--[HERE]@6
+S -2--2 0 0 
+@ all =*
+R 0
+A -
+X No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+E No matches for selector 'minecraft:' of type 'minecraft:enchantment' at position 2: t <--[HERE]@0
+S -2--2 0 0 

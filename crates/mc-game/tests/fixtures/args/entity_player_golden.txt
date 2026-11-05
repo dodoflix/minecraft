@@ -1,0 +1,4170 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-2 1 2830 [
+@ all @a
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-2 1 2830 [
+@ all @p
+R 2
+A 0-2 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=0
+E ok
+S 2-2 1 2830 [
+@ all @r
+R 2
+A 0-2 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=random preds=0
+E ok
+S 2-2 1 2830 [
+@ all @s
+R 2
+A 0-2 max=1 ent=true wl=false us=true cur=true name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S 2-2 1 2830 [
+@ all @n
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S 2-2 1 2830 [
+@ all @x
+R 0
+A -
+X Unknown selector type '@x' at position 3: t @<--[HERE]@1
+E Unknown selector type '@x' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @
+R 0
+A -
+X Missing selector type at position 3: t @<--[HERE]@1
+E Missing selector type at position 3: t @<--[HERE]@1
+S 0-1 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @E
+R 0
+A -
+X Unknown selector type '@E' at position 3: t @<--[HERE]@1
+E Unknown selector type '@E' at position 3: t @<--[HERE]@1
+S 0-2 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e 
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-3 1 2830 [
+@ all @e[
+R 0
+A -
+X Expected end of options at position 5: t @e[<--[HERE]@3
+E Expected end of options at position 5: t @e[<--[HERE]@3
+S 3-3 21 1629532605 advancements=Players with advancements	distance=Distance to entity	dx=Entities between x and x + dx	dy=Entities between y and y + dy	dz=Entities between z and z + dz	gamemode=Players with game mode	level=Experience level	limit=Maximum number of entities to return	name=Entity name	nbt=Entities with NBT	predicate=Custom predicate	scores=Entities with scores	sort=Sort the entities	tag=Entities with tag	team=Entities on team	type=Entities of type	x=x position	x_rotation=Entity's x rotation	y=y position	y_rotation=Entity's y rotation	z=z position
+@ all @e[]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[ ]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[,]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=minecraft:zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=#minecraft:skeletons]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!#minecraft:skeletons]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!#minecraft:skeletons,type=!zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie,type=skeleton]
+R 0
+A -
+X Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+E Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[type=!zombie,type=zombie]
+R 0
+A -
+X Option 'type' isn't applicable here at position 23: ...mbie,type=<--[HERE]@21
+E Option 'type' isn't applicable here at position 23: ...mbie,type=<--[HERE]@21
+S -2--2 0 0 
+@ all @e[type=player]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!player]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=foo]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:foo' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:foo' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=#foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=#]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=minecraft:]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @a[type=zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @a[type=player]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @p[type=player]
+R 15
+A 0-15 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=1
+E ok
+S -2--2 0 0 
+@ all @r[type=zombie]
+R 15
+A 0-15 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:zombie range=- pos=10.5,20.25,30.125 aabb=- order=random preds=1
+E ok
+S -2--2 0 0 
+@ all @s[type=zombie]
+R 15
+A 0-15 max=1 ent=true wl=false us=true cur=true name=null uuid=null type=minecraft:zombie range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @e[type=item]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!item]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=marker]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=ender_dragon]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=Zombie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=zombie,]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie
+R 0
+A -
+X Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+E Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+S 14-14 2 1322345 ,	]
+@ all @e[type=zombie,type
+R 0
+A -
+X Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+E Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[type
+R 0
+A -
+X Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+S 3-7 1 -2146480761 type=Entities of type
+@ all @e[=
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[=zombie]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=zombie]]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie]x
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie] 
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=Foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=!Foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name="Foo Bar"]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name='Foo Bar']
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=Foo,name=Bar]
+R 0
+A -
+X Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+E Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[name=Foo,name=!Foo]
+R 0
+A -
+X Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+E Option 'name' isn't applicable here at position 14: ...[name=Foo,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[name=!Foo,name=!Bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=!Foo,name=Foo]
+R 0
+A -
+X Option 'name' isn't applicable here at position 20: ...!Foo,name=<--[HERE]@18
+E Option 'name' isn't applicable here at position 20: ...!Foo,name=<--[HERE]@18
+S -2--2 0 0 
+@ all @e[name=]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=!]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=""]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[name=é]
+R 0
+A -
+X Expected end of options at position 10: t @e[name=<--[HERE]@8
+E Expected end of options at position 10: t @e[name=<--[HERE]@8
+S 8-10 2 1322345 ,	]
+@ all @e[name=😀]
+R 0
+A -
+X Expected end of options at position 10: t @e[name=<--[HERE]@8
+E Expected end of options at position 10: t @e[name=<--[HERE]@8
+S 8-11 2 1322345 ,	]
+@ all @e[distance=..5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=1..2]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=-1]
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=-1..]
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=..-1]
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=1..2,distance=3]
+R 0
+A -
+X Option 'distance' isn't applicable here at position 19: ...ance=1..2,<--[HERE]@17
+E Option 'distance' isn't applicable here at position 19: ...ance=1..2,<--[HERE]@17
+S -2--2 0 0 
+@ all @e[distance=5..1]
+R 0
+A -
+X Min cannot be bigger than max at position 14: ...[distance=<--[HERE]@12
+E Min cannot be bigger than max at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=a]
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=]
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=1.5..2.5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=1e3]
+R 0
+A -
+X Expected end of options at position 15: ...distance=1<--[HERE]@13
+E Expected end of options at position 15: ...distance=1<--[HERE]@13
+S 13-16 2 1322345 ,	]
+@ all @e[distance=..]
+R 0
+A -
+X Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+E Expected value or range of values at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distance=0]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=0..0]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=..5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=1..]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=-1]
+R 0
+A -
+X Level shouldn't be negative at position 11: ... @e[level=<--[HERE]@9
+E Level shouldn't be negative at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=1.5]
+R 0
+A -
+X Invalid integer '1.5' at position 11: ... @e[level=<--[HERE]@9
+E Invalid integer '1.5' at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=1,level=2]
+R 0
+A -
+X Option 'level' isn't applicable here at position 13: ...e[level=1,<--[HERE]@11
+E Option 'level' isn't applicable here at position 13: ...e[level=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @a[level=3]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=]
+R 0
+A -
+X Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+E Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=a]
+R 0
+A -
+X Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+E Expected value or range of values at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=5..1]
+R 0
+A -
+X Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+E Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[level=2147483647]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=2147483648]
+R 0
+A -
+X Invalid integer '2147483648' at position 11: ... @e[level=<--[HERE]@9
+E Invalid integer '2147483648' at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x=1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y=2]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[z=3]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x=~1]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[x=1.5,x=2]
+R 0
+A -
+X Option 'x' isn't applicable here at position 11: ... @e[x=1.5,<--[HERE]@9
+E Option 'x' isn't applicable here at position 11: ... @e[x=1.5,<--[HERE]@9
+S -2--2 0 0 
+@ all @e[x=a]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[x=]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[x=1e3]
+R 0
+A -
+X Expected end of options at position 8: t @e[x=1<--[HERE]@6
+E Expected end of options at position 8: t @e[x=1<--[HERE]@6
+S 6-9 2 1322345 ,	]
+@ all @e[x=-0]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x=NaN]
+R 0
+A -
+X Expected double at position 7: t @e[x=<--[HERE]@5
+E Expected double at position 7: t @e[x=<--[HERE]@5
+S -2--2 0 0 
+@ all @e[y=1e400]
+R 0
+A -
+X Expected end of options at position 8: t @e[y=1<--[HERE]@6
+E Expected end of options at position 8: t @e[y=1<--[HERE]@6
+S 6-11 2 1322345 ,	]
+@ all @e[x=1,y=2,z=3,distance=..5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1,dy=2,dz=3]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dy=1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dz=1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=-1.5,dy=0,dz=0]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=0]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=0,dy=0,dz=0]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1,dx=2]
+R 0
+A -
+X Option 'dx' isn't applicable here at position 10: t @e[dx=1,<--[HERE]@8
+E Option 'dx' isn't applicable here at position 10: t @e[dx=1,<--[HERE]@8
+S -2--2 0 0 
+@ all @e[dx=a]
+R 0
+A -
+X Expected double at position 8: t @e[dx=<--[HERE]@6
+E Expected double at position 8: t @e[dx=<--[HERE]@6
+S -2--2 0 0 
+@ all @e[dx=]
+R 0
+A -
+X Expected double at position 8: t @e[dx=<--[HERE]@6
+E Expected double at position 8: t @e[dx=<--[HERE]@6
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,dx=4,dy=5,dz=6]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=-0.0]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=1e400]
+R 0
+A -
+X Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+E Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+S 7-12 2 1322345 ,	]
+@ all @e[x_rotation=..90]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x_rotation=-45..45]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x_rotation=5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=-180..180]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=1..2,y_rotation=3]
+R 0
+A -
+X Option 'y_rotation' isn't applicable here at position 21: ...tion=1..2,<--[HERE]@19
+E Option 'y_rotation' isn't applicable here at position 21: ...tion=1..2,<--[HERE]@19
+S -2--2 0 0 
+@ all @e[x_rotation=a]
+R 0
+A -
+X Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+E Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+S -2--2 0 0 
+@ all @e[x_rotation=]
+R 0
+A -
+X Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+E Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+S -2--2 0 0 
+@ all @e[x_rotation=5..1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[y_rotation=370]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x_rotation=..]
+R 0
+A -
+X Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+E Expected value or range of values at position 16: ..._rotation=<--[HERE]@14
+S -2--2 0 0 
+@ all @e[scores={a=1}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1..2,b=..3}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=}]
+R 0
+A -
+X Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+E Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a}]
+R 0
+A -
+X Expected '=' at position 14: ...[scores={a<--[HERE]@12
+E Expected '=' at position 14: ...[scores={a<--[HERE]@12
+S -2--2 0 0 
+@ all @e[scores={a=1}
+R 0
+A -
+X Expected end of options at position 17: ...ores={a=1}<--[HERE]@15
+E Expected end of options at position 17: ...ores={a=1}<--[HERE]@15
+S 15-15 2 1322345 ,	]
+@ all @e[scores={a=1,}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1,b=2}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1,a=2}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores=a]
+R 0
+A -
+X Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+E Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+S -2--2 0 0 
+@ all @e[scores=]
+R 0
+A -
+X Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+E Expected '{' at position 12: ...@e[scores=<--[HERE]@10
+S -2--2 0 0 
+@ all @e[scores={=1}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1},scores={b=2}]
+R 0
+A -
+X Option 'scores' isn't applicable here at position 18: ...res={a=1},<--[HERE]@16
+E Option 'scores' isn't applicable here at position 18: ...res={a=1},<--[HERE]@16
+S -2--2 0 0 
+@ all @e[scores={a=-1}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={a=1.5}]
+R 0
+A -
+X Invalid integer '1.5' at position 15: ...scores={a=<--[HERE]@13
+E Invalid integer '1.5' at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a=..}]
+R 0
+A -
+X Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+E Expected value or range of values at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a=5..1}]
+R 0
+A -
+X Min cannot be bigger than max at position 15: ...scores={a=<--[HERE]@13
+E Min cannot be bigger than max at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[scores={a=1 }]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={ a=1 }]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={é=1}]
+R 0
+A -
+X Expected '=' at position 13: ...e[scores={<--[HERE]@11
+E Expected '=' at position 13: ...e[scores={<--[HERE]@11
+S -2--2 0 0 
+@ all @e[scores={Obj 1=1}]
+R 0
+A -
+X Expected '=' at position 17: ...ores={Obj <--[HERE]@15
+E Expected '=' at position 17: ...ores={Obj <--[HERE]@15
+S -2--2 0 0 
+@ all @e[scores={"a b"=1}]
+R 0
+A -
+X Expected '=' at position 13: ...e[scores={<--[HERE]@11
+E Expected '=' at position 13: ...e[scores={<--[HERE]@11
+S -2--2 0 0 
+@ all @e[tag=foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=!foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=!]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=foo,tag=bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=foo,tag=!bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=!foo,tag=foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag="a b"]
+R 0
+A -
+X Expected end of options at position 9: t @e[tag=<--[HERE]@7
+E Expected end of options at position 9: t @e[tag=<--[HERE]@7
+S 7-13 2 1322345 ,	]
+@ all @e[tag=é]
+R 0
+A -
+X Expected end of options at position 9: t @e[tag=<--[HERE]@7
+E Expected end of options at position 9: t @e[tag=<--[HERE]@7
+S 7-9 2 1322345 ,	]
+@ all @e[tag=a.b-c_d+e]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=foo,tag=foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=red]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=!red]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=!]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=red,team=blue]
+R 0
+A -
+X Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+E Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[team=!red,team=!blue]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=red,team=!blue]
+R 0
+A -
+X Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+E Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[team=!red,team=red]
+R 0
+A -
+X Option 'team' isn't applicable here at position 20: ...!red,team=<--[HERE]@18
+E Option 'team' isn't applicable here at position 20: ...!red,team=<--[HERE]@18
+S -2--2 0 0 
+@ all @e[team="Team Name!"]
+R 0
+A -
+X Expected end of options at position 10: t @e[team=<--[HERE]@8
+E Expected end of options at position 10: t @e[team=<--[HERE]@8
+S 8-21 2 1322345 ,	]
+@ all @e[team=nope]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=nearest]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=furthest]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=random]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=arbitrary]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=foo]
+R 0
+A -
+X Invalid or unknown sort type 'foo' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'foo' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[sort=]
+R 0
+A -
+X Invalid or unknown sort type '' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type '' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[sort=nearest,sort=furthest]
+R 0
+A -
+X Option 'sort' isn't applicable here at position 18: ...t=nearest,<--[HERE]@16
+E Option 'sort' isn't applicable here at position 18: ...t=nearest,<--[HERE]@16
+S -2--2 0 0 
+@ all @e[sort=Nearest]
+R 0
+A -
+X Invalid or unknown sort type 'Nearest' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'Nearest' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @a[sort=nearest]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @p[sort=random]
+R 15
+A 0-15 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=random preds=0
+E ok
+S -2--2 0 0 
+@ all @r[sort=nearest]
+R 16
+A 0-16 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=nearest preds=0
+E ok
+S -2--2 0 0 
+@ all @s[sort=nearest]
+R 0
+A -
+X Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @n[sort=furthest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=nea
+R 0
+A -
+X Invalid or unknown sort type 'nea' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'nea' at position 10: t @e[sort=<--[HERE]@8
+S 8-11 1 764599147 nearest
+@ all @e[limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=0]
+R 0
+A -
+X Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+E Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=-1]
+R 0
+A -
+X Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+E Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=1,limit=2]
+R 0
+A -
+X Option 'limit' isn't applicable here at position 13: ...e[limit=1,<--[HERE]@11
+E Option 'limit' isn't applicable here at position 13: ...e[limit=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @e[limit=a]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=1.5]
+R 0
+A -
+X Invalid integer '1.5' at position 11: ... @e[limit=<--[HERE]@9
+E Invalid integer '1.5' at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[limit=2147483647]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=2147483648]
+R 0
+A -
+X Invalid integer '2147483648' at position 11: ... @e[limit=<--[HERE]@9
+E Invalid integer '2147483648' at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @p[limit=2]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @r[limit=2]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @s[limit=1]
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limit=2]
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[limit=1]
+R 11
+A 0-11 max=1 ent=false wl=false us=true cur=false name=null uuid=null type=minecraft:player range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @n[limit=3]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=1e2]
+R 0
+A -
+X Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+E Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+S 10-13 2 1322345 ,	]
+@ all @e[limit=+1]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[gamemode=creative]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[gamemode=!creative]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[gamemode=foo]
+R 0
+A -
+X Invalid or unknown game mode 'foo' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'foo' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[gamemode=]
+R 0
+A -
+X Invalid or unknown game mode '' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode '' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[gamemode=survival,gamemode=creative]
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+E Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all @e[gamemode=!survival,gamemode=!creative]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[gamemode=survival,gamemode=!creative]
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+E Option 'gamemode' isn't applicable here at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all @e[gamemode=!creative,gamemode=creative]
+R 0
+A -
+X Option 'gamemode' isn't applicable here at position 33: ...,gamemode=<--[HERE]@31
+E Option 'gamemode' isn't applicable here at position 33: ...,gamemode=<--[HERE]@31
+S -2--2 0 0 
+@ all @a[gamemode=spectator]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[gamemode=adventure]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[gamemode=Creative]
+R 0
+A -
+X Invalid or unknown game mode 'Creative' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'Creative' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[nbt={a:1}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt=!{a:1}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={a:1},nbt={b:2}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={a:1},nbt=!{b:2}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt=]
+R 0
+A -
+X Expected a valid unquoted string at position 9: t @e[nbt=<--[HERE]@7
+E Expected a valid unquoted string at position 9: t @e[nbt=<--[HERE]@7
+S -2--2 0 0 
+@ all @e[nbt=a]
+R 0
+A -
+X Expected compound tag at position 10: t @e[nbt=a<--[HERE]@8
+E Expected compound tag at position 10: t @e[nbt=a<--[HERE]@8
+S -2--2 0 0 
+@ all @e[nbt={a:}]
+R 0
+A -
+X Expected a valid unquoted string at position 12: ...@e[nbt={a:<--[HERE]@10
+E Expected a valid unquoted string at position 12: ...@e[nbt={a:<--[HERE]@10
+S -2--2 0 0 
+@ all @e[nbt={a:1]
+R 0
+A -
+X Expected literal . at position 13: ...e[nbt={a:1<--[HERE]@11
+E Expected literal . at position 13: ...e[nbt={a:1<--[HERE]@11
+S -2--2 0 0 
+@ all @e[nbt={a:{b:[1,2]}}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={Tags:["x"]}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={a:'x]'}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt=[]]
+R 0
+A -
+X Expected compound tag at position 11: ... @e[nbt=[]<--[HERE]@9
+E Expected compound tag at position 11: ... @e[nbt=[]<--[HERE]@9
+S -2--2 0 0 
+@ all @e[nbt=1]
+R 0
+A -
+X Expected compound tag at position 10: t @e[nbt=1<--[HERE]@8
+E Expected compound tag at position 10: t @e[nbt=1<--[HERE]@8
+S -2--2 0 0 
+@ all @e[nbt=!]
+R 0
+A -
+X Expected a valid unquoted string at position 10: t @e[nbt=!<--[HERE]@8
+E Expected a valid unquoted string at position 10: t @e[nbt=!<--[HERE]@8
+S -2--2 0 0 
+@ all @e[advancements={minecraft:story/root=true}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={story/root=false}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={minecraft:story/root={a=true}}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={a=}]
+R 0
+A -
+X Expected boolean at position 21: ...ements={a=<--[HERE]@19
+E Expected boolean at position 21: ...ements={a=<--[HERE]@19
+S -2--2 0 0 
+@ all @e[advancements={a=maybe}]
+R 0
+A -
+X Invalid boolean: expected 'true' or 'false' but found 'maybe' at position 21: ...ements={a=<--[HERE]@19
+E Invalid boolean: expected 'true' or 'false' but found 'maybe' at position 21: ...ements={a=<--[HERE]@19
+S -2--2 0 0 
+@ all @e[advancements={a=true,b=false}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={a={b=true,c=false}}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={a={}}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={a={b=}}]
+R 0
+A -
+X Expected boolean at position 24: ...nts={a={b=<--[HERE]@22
+E Expected boolean at position 24: ...nts={a={b=<--[HERE]@22
+S -2--2 0 0 
+@ all @e[advancements={a=true},advancements={b=true}]
+R 0
+A -
+X Option 'advancements' isn't applicable here at position 27: ...={a=true},<--[HERE]@25
+E Option 'advancements' isn't applicable here at position 27: ...={a=true},<--[HERE]@25
+S -2--2 0 0 
+@ all @e[advancements=a]
+R 0
+A -
+X Expected '{' at position 18: ...ancements=<--[HERE]@16
+E Expected '{' at position 18: ...ancements=<--[HERE]@16
+S -2--2 0 0 
+@ all @e[advancements=]
+R 0
+A -
+X Expected '{' at position 18: ...ancements=<--[HERE]@16
+E Expected '{' at position 18: ...ancements=<--[HERE]@16
+S -2--2 0 0 
+@ all @e[advancements={a=true
+R 0
+A -
+X Expected '}' at position 25: ...ts={a=true<--[HERE]@23
+E Expected '}' at position 25: ...ts={a=true<--[HERE]@23
+S -2--2 0 0 
+@ all @e[advancements={a={b=true]
+R 0
+A -
+X Expected '=' at position 28: ...{a={b=true<--[HERE]@26
+E Expected '=' at position 28: ...{a={b=true<--[HERE]@26
+S -2--2 0 0 
+@ all @e[advancements={:=true}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancements={A=true}]
+R 0
+A -
+X Expected '=' at position 19: ...ncements={<--[HERE]@17
+E Expected '=' at position 19: ...ncements={<--[HERE]@17
+S -2--2 0 0 
+@ all @e[predicate=foo:bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=!foo:bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=foo:bar,predicate=foo:baz]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=!foo:bar,predicate=foo:bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[predicate=Foo:Bar]
+R 0
+A -
+X Expected end of options at position 15: ...predicate=<--[HERE]@13
+E Expected end of options at position 15: ...predicate=<--[HERE]@13
+S 13-21 2 1322345 ,	]
+@ all @e[predicate=!]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[foo=1]
+R 0
+A -
+X Unknown option 'foo' at position 5: t @e[<--[HERE]@3
+E Unknown option 'foo' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[Type=zombie]
+R 0
+A -
+X Unknown option 'Type' at position 5: t @e[<--[HERE]@3
+E Unknown option 'Type' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[limit=1,foo=1]
+R 0
+A -
+X Unknown option 'foo' at position 13: ...e[limit=1,<--[HERE]@11
+E Unknown option 'foo' at position 13: ...e[limit=1,<--[HERE]@11
+S -2--2 0 0 
+@ all @e[ type=zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type =zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type= zombie]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie ]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[ type = zombie ]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie, limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie ,limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=..5,limit=1,sort=nearest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @a[gamemode=survival,distance=..10,limit=3]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=!player,tag=boss,scores={hp=1..},team=!red,limit=5,sort=random,name=!X,level=1..,x_rotation=..0,y_rotation=0..,x=1,y=2,z=3,dx=4,dy=5,dz=6]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,dx=4,dy=5,dz=6,distance=1..]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @p[x=1,y=2,z=3]
+R 15
+A 0-15 max=1 ent=false wl=true us=true cur=false name=null uuid=null type=minecraft:player range=- pos=1.0,2.0,3.0 aabb=- order=nearest preds=0
+E ok
+S -2--2 0 0 
+@ all @r[distance=..5]
+R 16
+A 0-16 max=1 ent=false wl=true us=true cur=false name=null uuid=null type=minecraft:player range=-..5.0 sq=-..25.0 pos=10.5,20.25,30.125 aabb=-5.0,-5.0,-5.0,6.0,6.0,6.0 order=random preds=0
+E ok
+S -2--2 0 0 
+@ all @e[limit=1,sort=furthest]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @s[tag=a]
+R 9
+A 0-9 max=1 ent=true wl=false us=true cur=true name=null uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=1
+E ok
+S -2--2 0 0 
+@ all @n[type=zombie]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @n[limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @n[sort=random]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=random,limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all Steve
+R 5
+A 0-5 max=1 ent=false wl=false us=false cur=false name=Steve uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all Steve Jr
+R 6
+A 0-5 max=1 ent=false wl=false us=false cur=false name=Steve uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E Incorrect argument for command at position 8: t Steve <--[HERE]@6
+S -2--2 0 0 
+@ all 012
+R 3
+A 0-3 max=1 ent=false wl=false us=false cur=false name=012 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e498
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all DD12BE42-52A9-4A91-A8A1-11C01849E498
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e49
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e498x
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1-1-1-1-1
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all é
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 😀
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all A_B-c.d
+R 7
+A 0-7 max=1 ent=false wl=false us=false cur=false name=A_B-c.d uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all abcdefghijklmnopqrstuvwxyz0123456789
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all a,b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all a[b]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all a=b
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all x@y
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all #
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ~
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all "a"
+R 3
+A 0-3 max=1 ent=false wl=false us=false cur=false name=a uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[type=zombie][limit=1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=1][limit=1]
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie],
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e,
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-3 1 2830 [
+@ all @e@e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-4 1 2830 [
+@ all @e[type=zombie]@e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={ad=15}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all ance=5..😀1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ance<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ance<--[HERE]@4
+S -2--2 0 0 
+@ all e[team=nope]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @a[sot=nearest]
+R 0
+A -
+X Unknown option 'sot' at position 5: t @a[<--[HERE]@3
+E Unknown option 'sot' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all ))
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[y_rotatio=5]
+R 0
+A -
+X Unknown option 'y_rotatio' at position 5: t @e[<--[HERE]@3
+E Unknown option 'y_rotatio' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @eélevel=.5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-12 1 2830 [
+@ all @e[advancments={minecraft:story/root={a=true}}]
+R 0
+A -
+X Unknown option 'advancments' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advancments' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @)[team=nope]
+R 0
+A -
+X Unknown selector type '@)' at position 3: t @<--[HERE]@1
+E Unknown selector type '@)' at position 3: t @<--[HERE]@1
+S 0-13 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all x
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=x uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[type=foo]o
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:foo' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:foo' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[advancements={:=true}]t
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[limit=1e2]=
+R 0
+A -
+X Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+E Expected end of options at position 12: ...@e[limit=1<--[HERE]@10
+S 10-14 2 1322345 ,	]
+@ all @n[li*mit=1]
+R 0
+A -
+X Unknown option 'li' at position 5: t @n[<--[HERE]@3
+E Unknown option 'li' at position 5: t @n[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[s-3rt=]
+R 0
+A -
+X Unknown option 's-3rt' at position 5: t @e[<--[HERE]@3
+E Unknown option 's-3rt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[,]@
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[x=1=]1
+R 0
+A -
+X Expected end of options at position 8: t @e[x=1<--[HERE]@6
+E Expected end of options at position 8: t @e[x=1<--[HERE]@6
+S 6-9 2 1322345 ,	]
+@ all ={Obj 1=1}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e,,
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-4 1 2830 [
+@ all @e[di3stane=..-1]
+R 0
+A -
+X Unknown option 'di3stane' at position 5: t @e[<--[HERE]@3
+E Unknown option 'di3stane' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[limit=2147483648]xe
+R 0
+A -
+X Invalid integer '2147483648' at position 11: ... @e[limit=<--[HERE]@9
+E Invalid integer '2147483648' at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[scors={a=1},scores=x{b=2}]
+R 0
+A -
+X Unknown option 'scors' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scors' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @[scores={a=1..2,b=..3}]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-24 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all (p[x=1,y=2,z=3]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[{limit=1]e
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[nt=!{a:1}]]
+R 0
+A -
+X Unknown option 'nt' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all on=-180..180%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t on<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t on<--[HERE]@2
+S -2--2 0 0 
+@ all @e[type=zombie][limit<=1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=1e3]e
+R 0
+A -
+X Expected end of options at position 15: ...distance=1<--[HERE]@13
+E Expected end of options at position 15: ...distance=1<--[HERE]@13
+S 13-17 2 1322345 ,	]
+@ all 1-1-1-1-11
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all x=0]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t x<--[HERE]@1
+S -2--2 0 0 
+@ all @e[{istance=1e3]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[ty.pe=zombie ]e
+R 0
+A -
+X Unknown option 'ty.pe' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ty.pe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[leel=1,level=2]
+R 0
+A -
+X Unknown option 'leel' at position 5: t @e[<--[HERE]@3
+E Unknown option 'leel' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[advancements={a=true{
+R 0
+A -
+X Expected '=' at position 25: ...ts={a=true<--[HERE]@23
+E Expected '=' at position 25: ...ts={a=true<--[HERE]@23
+S -2--2 0 0 
+@ all t=1]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all 8@e[s>ores=]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 8<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type=Zomx@ie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all ,y=2,z=3,dx=4,dy=5,dz=6,distance=1..]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e type =zombie]b
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-17 1 2830 [
+@ all se}]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t se<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t se<--[HERE]@2
+S -2--2 0 0 
+@ all @e[advance<ents=]
+R 0
+A -
+X Unknown option 'advance' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advance' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[g4amemode=]
+R 0
+A -
+X Unknown option 'g4amemode' at position 5: t @e[<--[HERE]@3
+E Unknown option 'g4amemode' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e)  
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-5 1 2830 [
+@ all ts={a={b=true,c=false}}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ts<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ts<--[HERE]@2
+S -2--2 0 0 
+@ all acdefgh4ijklmnopqrstuvwxyz0123456789
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all imit=+1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t imit<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t imit<--[HERE]@4
+S -2--2 0 0 
+@ all @e[ty e=#&
+R 0
+A -
+X Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ty' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all e[name=:!Foo,name=!Bar]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[distance=..5,limit=1,sort=nearest]5
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all e[sort=random]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[name=!​Foo]
+R 0
+A -
+X Expected end of options at position 11: ... @e[name=!<--[HERE]@9
+E Expected end of options at position 11: ... @e[name=!<--[HERE]@9
+S 9-14 2 1322345 ,	]
+@ all mbie,]e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mbie<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mbie<--[HERE]@4
+S -2--2 0 0 
+@ all @s[limit=1Ai
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[x_ro.tation=5..1]
+R 0
+A -
+X Unknown option 'x_ro.tation' at position 5: t @e[<--[HERE]@3
+E Unknown option 'x_ro.tation' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[scoes={a=1,a=2}]1
+R 0
+A -
+X Unknown option 'scoes' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scoes' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[￿ype=!pla\u0000er]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @r[i.stance=..5]
+R 0
+A -
+X Unknown option 'i.stance' at position 5: t @r[<--[HERE]@3
+E Unknown option 'i.stance' at position 5: t @r[<--[HERE]@3
+S -2--2 0 0 
+@ all @e-[scores={a}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-15 1 2830 [
+@ all @e[y_rotation=-%80..180]
+R 0
+A -
+X Invalid float '-' at position 16: ..._rotation=<--[HERE]@14
+E Invalid float '-' at position 16: ..._rotation=<--[HERE]@14
+S -2--2 0 0 
+@ all @e[advancemen^ts={:=tru3}]
+R 0
+A -
+X Unknown option 'advancemen' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advancemen' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[team=red,team=bue]
+R 0
+A -
+X Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+E Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+S -2--2 0 0 
+@ all @etype=zombi.],
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-15 1 2830 [
+@ all @e[tam=red]
+R 0
+A -
+X Unknown option 'tam' at position 5: t @e[<--[HERE]@3
+E Unknown option 'tam' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[type=zombiYe,type=skeleton]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombi' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombi' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[tag=!foo]e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[ta=]
+R 0
+A -
+X Unknown option 'ta' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ta' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[gamemode=!survival,gamemode=!creative] 
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[dx=]e
+R 0
+A -
+X Expected double at position 8: t @e[dx=<--[HERE]@6
+E Expected double at position 8: t @e[dx=<--[HERE]@6
+S -2--2 0 0 
+@ all 6e[x=a]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 6e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 6e<--[HERE]@2
+S -2--2 0 0 
+@ all E
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=E uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all e[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all 2]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 2<--[HERE]@1
+S -2--2 0 0 
+@ all @e[tag=foo,t.ag=+!bar]
+R 0
+A -
+X Unknown option 't.ag' at position 13: ...e[tag=foo,<--[HERE]@11
+E Unknown option 't.ag' at position 13: ...e[tag=foo,<--[HERE]@11
+S -2--2 0 0 
+@ all @n[lit=3]
+R 0
+A -
+X Unknown option 'lit' at position 5: t @n[<--[HERE]@3
+E Unknown option 'lit' at position 5: t @n[<--[HERE]@3
+S -2--2 0 0 
+@ all $e[dx=0#
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @a[limit.]
+R 0
+A -
+X Unknown option 'limit.' at position 5: t @a[<--[HERE]@3
+E Unknown option 'limit.' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all bt={a:1},nbt={:2}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t bt<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t bt<--[HERE]@2
+S -2--2 0 0 
+@ all @e[nbt={a:'x]'}]x
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[\u000azomb4ie]
+R 0
+A -
+X Unknown option 'zomb4ie' at position 6: t @e[\u000a<--[HERE]@4
+E Unknown option 'zomb4ie' at position 6: t @e[\u000a<--[HERE]@4
+S -2--2 0 0 
+@ all ype=player]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ype<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ype<--[HERE]@3
+S -2--2 0 0 
+@ all @e[nbt={a:1},\u000anbt={b:2}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all [name=Z
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[ type  zombie ]
+R 0
+A -
+X Expected value for option 'type' at position 6: t @e[ <--[HERE]@4
+E Expected value for option 'type' at position 6: t @e[ <--[HERE]@4
+S -2--2 0 0 
+@ all @e[ ]@
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[leveßl=5..1a]
+R 0
+A -
+X Unknown option 'leve' at position 5: t @e[<--[HERE]@3
+E Unknown option 'leve' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all ag=]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ag<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ag<--[HERE]@2
+S -2--2 0 0 
+@ all @p[]imit=2]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t @p[]<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t @p[]<--[HERE]@4
+S -2--2 0 0 
+@ all @n[sort=randm]o
+R 0
+A -
+X Invalid or unknown sort type 'randm' at position 10: t @n[sort=<--[HERE]@8
+E Invalid or unknown sort type 'randm' at position 10: t @n[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @s[type=zom,ie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zom' at position 10: t @s[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zom' at position 10: t @s[type=<--[HERE]@8
+S -2--2 0 0 
+@ all ]]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all sort=foo]o
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t sort<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t sort<--[HERE]@4
+S -2--2 0 0 
+@ all 1=1}]c
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all evel=2]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t evel<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t evel<--[HERE]@4
+S -2--2 0 0 
+@ all 3]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 3<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 3<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type=!item]t
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[l2vel=5]
+R 0
+A -
+X Unknown option 'l2vel' at position 5: t @e[<--[HERE]@3
+E Unknown option 'l2vel' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all oo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t oo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t oo<--[HERE]@2
+S -2--2 0 0 
+@ all 1-1-121-1
+R 9
+A 0-9 max=1 ent=false wl=false us=false cur=false name=1-1-121-1 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @​e[dx=1,.dx=2]
+R 0
+A -
+X Unknown selector type '@​' at position 3: t @<--[HERE]@1
+E Unknown selector type '@​' at position 3: t @<--[HERE]@1
+S 0-15 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all e=Foo]F
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[dx7=1,dx=2]=
+R 0
+A -
+X Unknown option 'dx7' at position 5: t @e[<--[HERE]@3
+E Unknown option 'dx7' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all near@est]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t near<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t near<--[HERE]@4
+S -2--2 0 0 
+@ all @e[limit=1.Y]
+R 0
+A -
+X Invalid integer '1.' at position 11: ... @e[limit=<--[HERE]@9
+E Invalid integer '1.' at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[scores={=1}]{
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[na}me="]
+R 0
+A -
+X Unknown option 'na' at position 5: t @e[<--[HERE]@3
+E Unknown option 'na' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all b@e[tag="a b"]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all @e[name="ß"]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[team=!red,team=!blue]@
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all  ]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e[limit=1][limit=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[limit=]]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[type=Zomdie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[team=red,team=!3blue]t
+R 0
+A -
+X Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+E Option 'team' isn't applicable here at position 14: ...[team=red,<--[HERE]@12
+S -2--2 0 0 
+@ all @e[level=..-]
+R 0
+A -
+X Invalid integer '-' at position 11: ... @e[level=<--[HERE]@9
+E Invalid integer '-' at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all e[scor2s={a=5..1}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[scores{a=1'
+R 0
+A -
+X Expected value for option 'scores' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'scores' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all raft:zombYe]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t raft<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t raft<--[HERE]@4
+S -2--2 0 0 
+@ all @e[sc\u000ares={a=-1}]
+R 0
+A -
+X Unknown option 'sc' at position 5: t @e[<--[HERE]@3
+E Unknown option 'sc' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all 1-1-1-11-
+R 9
+A 0-9 max=1 ent=false wl=false us=false cur=false name=1-1-1-11- uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all =furthest]u
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[x%=NaN]
+R 0
+A -
+X Expected value for option 'x' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'x' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[name6é😀]
+R 0
+A -
+X Unknown option 'name6' at position 5: t @e[<--[HERE]@3
+E Unknown option 'name6' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[s/ores={ a=1 }]
+R 0
+A -
+X Unknown option 's' at position 5: t @e[<--[HERE]@3
+E Unknown option 's' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[$scores~a]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[]]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[nbt={Tags:["x"]]
+R 0
+A -
+X Expected literal , at position 20: ...Tags:["x"]<--[HERE]@18
+E Expected literal , at position 20: ...Tags:["x"]<--[HERE]@18
+S -2--2 0 0 
+@ all cores={a=}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t cores<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t cores<--[HERE]@5
+S -2--2 0 0 
+@ all @$[Type=zombie]
+R 0
+A -
+X Unknown selector type '@$' at position 3: t @<--[HERE]@1
+E Unknown selector type '@$' at position 3: t @<--[HERE]@1
+S 0-15 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[lvel=-1]
+R 0
+A -
+X Unknown option 'lvel' at position 5: t @e[<--[HERE]@3
+E Unknown option 'lvel' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[ty9pe=!item]
+R 0
+A -
+X Unknown option 'ty9pe' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ty9pe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[limit=1]=
+R 0
+A -
+X Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'limit' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @p[sort0random]
+R 0
+A -
+X Unknown option 'sort0random' at position 5: t @p[<--[HERE]@3
+E Unknown option 'sort0random' at position 5: t @p[<--[HERE]@3
+S -2--2 0 0 
+@ all e[scores={=1}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[levXl=1..]]
+R 0
+A -
+X Unknown option 'levXl' at position 5: t @e[<--[HERE]@3
+E Unknown option 'levXl' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @\u0000[team=!]
+R 0
+A -
+X Unknown selector type '@\u0000' at position 3: t @<--[HERE]@1
+E Unknown selector type '@\u0000' at position 3: t @<--[HERE]@1
+S 0-10 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all ​
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[team=!red😀team=red]
+R 0
+A -
+X Expected end of options at position 14: ...[team=!red<--[HERE]@12
+E Expected end of options at position 14: ...[team=!red<--[HERE]@12
+S 12-23 2 1322345 ,	]
+@ all @e[z=3]=
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all ombie][limit=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t ombie<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t ombie<--[HERE]@5
+S -2--2 0 0 
+@ all -1..]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t -1..<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t -1..<--[HERE]@4
+S -2--2 0 0 
+@ all @e[dx=1,Xy=2,dz=3]
+R 0
+A -
+X Unknown option 'Xy' at position 10: t @e[dx=1,<--[HERE]@8
+E Unknown option 'Xy' at position 10: t @e[dx=1,<--[HERE]@8
+S -2--2 0 0 
+@ all v
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=v uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all e=zomb!ie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type=.ombie ]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:.ombie' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:.ombie' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all foo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all @n[limi =3][
+R 0
+A -
+X Unknown option 'limi' at position 5: t @n[<--[HERE]@3
+E Unknown option 'limi' at position 5: t @n[<--[HERE]@3
+S -2--2 0 0 
+@ all cements={b=true}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t cements<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t cements<--[HERE]@7
+S -2--2 0 0 
+@ all z$123456789
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t z<--[HERE]@1
+S -2--2 0 0 
+@ all @e=y_rotation=370]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-18 1 2830 [
+@ all @e[team=!redz
+R 0
+A -
+X Expected end of options at position 15: ...team=!redz<--[HERE]@13
+E Expected end of options at position 15: ...team=!redz<--[HERE]@13
+S 13-13 2 1322345 ,	]
+@ all @e[limit=0]]
+R 0
+A -
+X Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+E Limit must be at least 1 at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[type=zombe
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombe' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombe' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[<score{={a=..}]
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all ￿_B-c.d-
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e [type=!item]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-15 1 2830 [
+@ all @e[predcate=foo]
+R 0
+A -
+X Unknown option 'predcate' at position 5: t @e[<--[HERE]@3
+E Unknown option 'predcate' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @n[type=zombie}
+R 0
+A -
+X Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+E Expected end of options at position 16: ...ype=zombie<--[HERE]@14
+S 14-15 2 1322345 ,	]
+@ all @e[t4pe=!item]
+R 0
+A -
+X Unknown option 't4pe' at position 5: t @e[<--[HERE]@3
+E Unknown option 't4pe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[team=!r{d,team=bed]
+R 0
+A -
+X Expected end of options at position 12: ...@e[team=!r<--[HERE]@10
+E Expected end of options at position 12: ...@e[team=!r<--[HERE]@10
+S 10-22 2 1322345 ,	]
+@ all a"
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all @[limit=1]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-10 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[name=!Foo,name=!Bar]oa
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[sort=foo]o
+R 0
+A -
+X Invalid or unknown sort type 'foo' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'foo' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all =player]p
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @n[sort=random]X[
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all n=5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t n<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t n<--[HERE]@1
+S -2--2 0 0 
+@ all @e[tye=!zombie,type=zombie]
+R 0
+A -
+X Unknown option 'tye' at position 5: t @e[<--[HERE]@3
+E Unknown option 'tye' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[ type = zom(bie ]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zom' at position 13: ...e[ type = <--[HERE]@11
+E Invalid or unknown entity type 'minecraft:zom' at position 13: ...e[ type = <--[HERE]@11
+S -2--2 0 0 
+@ all @*scores=a]
+R 0
+A -
+X Unknown selector type '@*' at position 3: t @<--[HERE]@1
+E Unknown selector type '@*' at position 3: t @<--[HERE]@1
+S 0-11 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all e[type=zombie]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[nme=é]e
+R 0
+A -
+X Unknown option 'nme' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nme' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all ,.d
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1-1-1_-1-1
+R 10
+A 0-10 max=1 ent=false wl=false us=false cur=false name=1-1-1_-1-1 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @n[limit=3@]
+R 0
+A -
+X Expected end of options at position 12: ...@n[limit=3<--[HERE]@10
+E Expected end of options at position 12: ...@n[limit=3<--[HERE]@10
+S 10-12 2 1322345 ,	]
+@ all @e[advancements={a=trueYb=false}]
+R 0
+A -
+X Invalid boolean: expected 'true' or 'false' but found 'trueYb' at position 21: ...ements={a=<--[HERE]@19
+E Invalid boolean: expected 'true' or 'false' but found 'trueYb' at position 21: ...ements={a=<--[HERE]@19
+S -2--2 0 0 
+@ all @e[team="Team Na\\e!"]N
+R 0
+A -
+X Expected end of options at position 10: t @e[team=<--[HERE]@8
+E Expected end of options at position 10: t @e[team=<--[HERE]@8
+S 8-22 2 1322345 ,	]
+@ all mbie]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mbie<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mbie<--[HERE]@4
+S -2--2 0 0 
+@ all @e[team=!re,team=red]
+R 0
+A -
+X Option 'team' isn't applicable here at position 19: ...=!re,team=<--[HERE]@17
+E Option 'team' isn't applicable here at position 19: ...=!re,team=<--[HERE]@17
+S -2--2 0 0 
+@ all @e[type=!player,tag=boss,scores={hp=1..},team=!red,limit=5,sort=random,name=!X,level=1..,x_rotation=..0,y_rotation=0..,x=1,y=2,z=3,dx=4,dy=5,dz=6]n
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[scores={ a=1 }
+R 0
+A -
+X Expected end of options at position 19: ...es={ a=1 }<--[HERE]@17
+E Expected end of options at position 19: ...es={ a=1 }<--[HERE]@17
+S 17-17 2 1322345 ,	]
+@ all e[x=]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all type=zombie]@\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+S -2--2 0 0 
+@ all @Ye[nbt={a:1}]n
+R 0
+A -
+X Unknown selector type '@Y' at position 3: t @<--[HERE]@1
+E Unknown selector type '@Y' at position 3: t @<--[HERE]@1
+S 0-15 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[lev,el=a]e
+R 0
+A -
+X Unknown option 'lev' at position 5: t @e[<--[HERE]@3
+E Unknown option 'lev' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @ex_rotation=..90]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-18 1 2830 [
+@ all @e[name=!Fyoo,name=!Bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all [nbt ={}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[sco​0es={a=..}]
+R 0
+A -
+X Unknown option 'sco' at position 5: t @e[<--[HERE]@3
+E Unknown option 'sco' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[scores>{a=1,b=2A]
+R 0
+A -
+X Expected value for option 'scores' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'scores' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[d==1İ
+R 0
+A -
+X Unknown option 'd' at position 5: t @e[<--[HERE]@3
+E Unknown option 'd' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all e]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all alse}}]}
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t alse<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t alse<--[HERE]@4
+S -2--2 0 0 
+@ all [lmit=a]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @[C]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[name=ß)o,name=!Foo]
+R 0
+A -
+X Expected end of options at position 10: t @e[name=<--[HERE]@8
+E Expected end of options at position 10: t @e[name=<--[HERE]@8
+S 8-22 2 1322345 ,	]
+@ all @ e[dz=1]
+R 0
+A -
+X Unknown selector type '@ ' at position 3: t @<--[HERE]@1
+E Unknown selector type '@ ' at position 3: t @<--[HERE]@1
+S 0-9 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all -1-1-1-1
+R 8
+A 0-8 max=1 ent=false wl=false us=false cur=false name=-1-1-1-1 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all !creative]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all eam=!]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t eam<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t eam<--[HERE]@3
+S -2--2 0 0 
+@ all @e6[advancem0ents=]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-19 1 2830 [
+@ all @e[dx=0,dy=0,dz=0]=
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[level=21ß7483648][
+R 0
+A -
+X Expected end of options at position 13: ...e[level=21<--[HERE]@11
+E Expected end of options at position 13: ...e[level=21<--[HERE]@11
+S 11-21 2 1322345 ,	]
+@ all @e[tye= zobie]
+R 0
+A -
+X Unknown option 'tye' at position 5: t @e[<--[HERE]@3
+E Unknown option 'tye' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[dx=1,dy=2,dz=3]1
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all 'x]'}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t 'x]'<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t 'x]'<--[HERE]@4
+S -2--2 0 0 
+@ all @e[name=!F4oo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all }]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[distance=-1]t
+R 0
+A -
+X Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+E Distance cannot be negative at position 14: ...[distance=<--[HERE]@12
+S -2--2 0 0 
+@ all @elimit=1,foo=1]=
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-17 1 2830 [
+@ all e[tag=]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[>type=zombie] 
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[predcate=Foo:Bar]
+R 0
+A -
+X Unknown option 'predcate' at position 5: t @e[<--[HERE]@3
+E Unknown option 'predcate' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[bt=!]
+R 0
+A -
+X Unknown option 'bt' at position 5: t @e[<--[HERE]@3
+E Unknown option 'bt' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all e[tag=foo,tag=foo]f
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e=[type=zombie, limit=1.]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-26 1 2830 [
+@ all @e[x=1,=2,z=3,distance=..5]]
+R 0
+A -
+X Unknown option '' at position 9: t @e[x=1,<--[HERE]@7
+E Unknown option '' at position 9: t @e[x=1,<--[HERE]@7
+S -2--2 0 0 
+@ all @e[type=!#minecraft:yskelet6ons]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @[dx=0]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-7 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @s[type=zombdie]
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombdie' at position 10: t @s[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombdie' at position 10: t @s[type=<--[HERE]@8
+S -2--2 0 0 
+@ all Af._B-c.d
+R 9
+A 0-9 max=1 ent=false wl=false us=false cur=false name=Af._B-c.d uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all random,limit=1]t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t random<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t random<--[HERE]@6
+S -2--2 0 0 
+@ all @[typet
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-7 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @r[sort=nearest{
+R 0
+A -
+X Expected end of options at position 17: ...rt=nearest<--[HERE]@15
+E Expected end of options at position 17: ...rt=nearest<--[HERE]@15
+S 15-16 2 1322345 ,	]
+@ all @eetype=zombix]@e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-17 1 2830 [
+@ all @e[l6mit=0]
+R 0
+A -
+X Unknown option 'l6mit' at position 5: t @e[<--[HERE]@3
+E Unknown option 'l6mit' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @p[x=1,y=2,z=3
+R 0
+A -
+X Expected end of options at position 16: ...=1,y=2,z=3<--[HERE]@14
+E Expected end of options at position 16: ...=1,y=2,z=3<--[HERE]@14
+S 14-14 2 1322345 ,	]
+@ all @e[type=!zombie]]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[tag=]t
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all f]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all @e[l2imit=1,limit=2]
+R 0
+A -
+X Unknown option 'l2imit' at position 5: t @e[<--[HERE]@3
+E Unknown option 'l2imit' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all d
+R 1
+A 0-1 max=1 ent=false wl=false us=false cur=false name=d uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @@e[team=re+d,team=blue]
+R 0
+A -
+X Unknown selector type '@@' at position 3: t @<--[HERE]@1
+E Unknown selector type '@@' at position 3: t @<--[HERE]@1
+S 0-24 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[level=5..1]e
+R 0
+A -
+X Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+E Min cannot be bigger than max at position 11: ... @e[level=<--[HERE]@9
+S -2--2 0 0 
+@ all @e[tag=foo,tg=fo]
+R 0
+A -
+X Unknown option 'tg' at position 13: ...e[tag=foo,<--[HERE]@11
+E Unknown option 'tg' at position 13: ...e[tag=foo,<--[HERE]@11
+S -2--2 0 0 
+@ all @e[nam$=!]e
+R 0
+A -
+X Unknown option 'nam' at position 5: t @e[<--[HERE]@3
+E Unknown option 'nam' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[gamemode=survival,7gamemode=!creative]
+R 0
+A -
+X Unknown option '7gamemode' at position 23: ...=survival,<--[HERE]@21
+E Unknown option '7gamemode' at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all @e[ta=!foo]
+R 0
+A -
+X Unknown option 'ta' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ta' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[ag=!foo\u0009
+R 0
+A -
+X Unknown option 'ag' at position 5: t @e[<--[HERE]@3
+E Unknown option 'ag' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[distace=a]
+R 0
+A -
+X Unknown option 'distace' at position 5: t @e[<--[HERE]@3
+E Unknown option 'distace' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all dd12be42-52a9-491-a8a1-11c01849e492
+R 0
+A -
+X Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+E Only players may be affected by this command, but the provided selector includes entities at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @p[li\u000ait=2]l
+R 0
+A -
+X Unknown option 'li' at position 5: t @p[<--[HERE]@3
+E Unknown option 'li' at position 5: t @p[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[s.Ares={Obj 1=1}]
+R 0
+A -
+X Unknown option 's.Ares' at position 5: t @e[<--[HERE]@3
+E Unknown option 's.Ares' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[name=Fo,name=Bar]
+R 0
+A -
+X Option 'name' isn't applicable here at position 13: ...e[name=Fo,<--[HERE]@11
+E Option 'name' isn't applicable here at position 13: ...e[name=Fo,<--[HERE]@11
+S -2--2 0 0 
+@ all @e<sort=nea
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-11 1 2830 [
+@ all @e[predicatCe=Foo:Bar][
+R 0
+A -
+X Unknown option 'predicatCe' at position 5: t @e[<--[HERE]@3
+E Unknown option 'predicatCe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @p[sort=radom]
+R 0
+A -
+X Invalid or unknown sort type 'radom' at position 10: t @p[sort=<--[HERE]@8
+E Invalid or unknown sort type 'radom' at position 10: t @p[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all type=!zombie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t type<--[HERE]@4
+S -2--2 0 0 
+@ all @edx=a]=
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-8 1 2830 [
+@ all @e[level=1..]$
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all foo(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all @e[y_rotation=1.Y2,y_rotation=3]\u000a
+R 0
+A -
+X Expected end of options at position 18: ...otation=1.<--[HERE]@16
+E Expected end of options at position 18: ...otation=1.<--[HERE]@16
+S 16-33 2 1322345 ,	]
+@ all 5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 5<--[HERE]@1
+S -2--2 0 0 
+@ all @e[type(zombie][limit=1]
+R 0
+A -
+X Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'type' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e@=e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-5 1 2830 [
+@ all @e[level=214748364a]
+R 0
+A -
+X Expected end of options at position 20: ...=214748364<--[HERE]@18
+E Expected end of options at position 20: ...=214748364<--[HERE]@18
+S 18-20 2 1322345 ,	]
+@ all @e[sc-ores={é=1}]
+R 0
+A -
+X Unknown option 'sc-ores' at position 5: t @e[<--[HERE]@3
+E Unknown option 'sc-ores' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all \u0000e[
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[y=1]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[gamemode=!rea.tive]
+R 0
+A -
+X Invalid or unknown game mode 'rea.tive' at position 14: ...[gamemode=<--[HERE]@12
+E Invalid or unknown game mode 'rea.tive' at position 14: ...[gamemode=<--[HERE]@12
+S -2--2 0 0 
+@ all @e[distan0ce=1..2,ditance=3]
+R 0
+A -
+X Unknown option 'distan0ce' at position 5: t @e[<--[HERE]@3
+E Unknown option 'distan0ce' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[ level=3
+R 0
+A -
+X Expected end of options at position 13: ...a[ level=3<--[HERE]@11
+E Expected end of options at position 13: ...a[ level=3<--[HERE]@11
+S 11-11 2 1322345 ,	]
+@ all @e[scores={a=.}]
+R 0
+A -
+X Invalid integer '.' at position 15: ...scores={a=<--[HERE]@13
+E Invalid integer '.' at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[7x=-0.0]
+R 0
+A -
+X Unknown option '7x' at position 5: t @e[<--[HERE]@3
+E Unknown option '7x' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all thest]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t thest<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t thest<--[HERE]@5
+S -2--2 0 0 
+@ all @e[type=zombie ,limit)=1]
+R 0
+A -
+X Expected value for option 'limit' at position 18: ...e=zombie ,<--[HERE]@16
+E Expected value for option 'limit' at position 18: ...e=zombie ,<--[HERE]@16
+S -2--2 0 0 
+@ all @eex=a]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-7 1 2830 [
+@ all t=2]e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all @e[T*pe=zomie]
+R 0
+A -
+X Unknown option 'T' at position 5: t @e[<--[HERE]@3
+E Unknown option 'T' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e-nbt={a:'x]'}]t
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-17 1 2830 [
+@ all @e[nbt={a:1},nbt=!{b:2{]
+R 0
+A -
+X Expected literal . at position 24: ...,nbt=!{b:2<--[HERE]@22
+E Expected literal . at position 24: ...,nbt=!{b:2<--[HERE]@22
+S -2--2 0 0 
+@ all @e[s\u0009ores={Obj 1=1}]o
+R 0
+A -
+X Unknown option 's' at position 5: t @e[<--[HERE]@3
+E Unknown option 's' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all [advancements=story/root=false}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,dx=4,y=5,dz=6,distance=1..]
+R 0
+A -
+X Option 'y' isn't applicable here at position 22: ...,z=3,dx=4,<--[HERE]@20
+E Option 'y' isn't applicable here at position 22: ...,z=3,dx=4,<--[HERE]@20
+S -2--2 0 0 
+@ all ion=5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ion<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ion<--[HERE]@3
+S -2--2 0 0 
+@ all @e[scores={a=5..1}]=
+R 0
+A -
+X Min cannot be bigger than max at position 15: ...scores={a=<--[HERE]@13
+E Min cannot be bigger than max at position 15: ...scores={a=<--[HERE]@13
+S -2--2 0 0 
+@ all @e[advancements=a]e
+R 0
+A -
+X Expected '{' at position 18: ...ancements=<--[HERE]@16
+E Expected '{' at position 18: ...ancements=<--[HERE]@16
+S -2--2 0 0 
+@ all ation=..90]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t ation<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t ation<--[HERE]@5
+S -2--2 0 0 
+@ all @e[gamemode=adventure]e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=Zombie]tm
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[type=zombe\\
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:zombe' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:zombe' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3,distance=.5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[advancemets={A=true}]
+R 0
+A -
+X Unknown option 'advancemets' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advancemets' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[y=1e#400]
+R 0
+A -
+X Expected end of options at position 8: t @e[y=1<--[HERE]@6
+E Expected end of options at position 8: t @e[y=1<--[HERE]@6
+S 6-12 2 1322345 ,	]
+@ all zombie, limit=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t zombie<--[HERE]@6
+S -2--2 0 0 
+@ all pe=zmbie],
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t pe<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t pe<--[HERE]@2
+S -2--2 0 0 
+@ all @r[distance=..5]d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 18: ...tance=..5]<--[HERE]@16
+E Expected whitespace to end one argument, but found trailing data at position 18: ...tance=..5]<--[HERE]@16
+S -2--2 0 0 
+@ all @eY[limit=]Y
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-12 1 2830 [
+@ all @e[avancements={story/root=false}]
+R 0
+A -
+X Unknown option 'avancements' at position 5: t @e[<--[HERE]@3
+E Unknown option 'avancements' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[predicate=coobar,predicate=foo:baz]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all 1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 1<--[HERE]@1
+S -2--2 0 0 
+@ all 147483647]4
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 11: ... 147483647<--[HERE]@9
+E Expected whitespace to end one argument, but found trailing data at position 11: ... 147483647<--[HERE]@9
+S -2--2 0 0 
+@ all e[y=2]]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[name='Foo Bar￿']
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all =1..2,b=..3}]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[tag=!foo,tag=foo😀
+R 0
+A -
+X Expected end of options at position 21: ...oo,tag=foo<--[HERE]@19
+E Expected end of options at position 21: ...oo,tag=foo<--[HERE]@19
+S 19-21 2 1322345 ,	]
+@ all da"d
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t da<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t da<--[HERE]@2
+S -2--2 0 0 
+@ all (
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e#level=5]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-11 1 2830 [
+@ all nearest,sort=furthest]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t nearest<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t nearest<--[HERE]@7
+S -2--2 0 0 
+@ all @e[name='Foo Bar']=
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all cate=]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t cate<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t cate<--[HERE]@4
+S -2--2 0 0 
+@ all ndom]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ndom<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ndom<--[HERE]@4
+S -2--2 0 0 
+@ all @e[type=!minecraft:skeletons,type=!zombie]m
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:skeletons' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:skeletons' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @r[lmit=2]
+R 0
+A -
+X Unknown option 'lmit' at position 5: t @r[<--[HERE]@3
+E Unknown option 'lmit' at position 5: t @r[<--[HERE]@3
+S -2--2 0 0 
+@ all [
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[x=1,y=2,z=3]2
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=zombie,type=skeleton]ft
+R 0
+A -
+X Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+E Option 'type' isn't applicable here at position 17: ...pe=zombie,<--[HERE]@15
+S -2--2 0 0 
+@ all @e[type=!player]^e
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[distance=..5]]=
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @8[l]mit=a]
+R 0
+A -
+X Unknown selector type '@8' at position 3: t @<--[HERE]@1
+E Unknown selector type '@8' at position 3: t @<--[HERE]@1
+S 0-11 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all me=!Fo,name=Foo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t me<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t me<--[HERE]@2
+S -2--2 0 0 
+@ all @p[sor*t=ranom]
+R 0
+A -
+X Unknown option 'sor' at position 5: t @p[<--[HERE]@3
+E Unknown option 'sor' at position 5: t @p[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[sort=n中earest]
+R 0
+A -
+X Invalid or unknown sort type 'n' at position 10: t @a[sort=<--[HERE]@8
+E Invalid or unknown sort type 'n' at position 10: t @a[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all a=:=
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t a<--[HERE]@1
+S -2--2 0 0 
+@ all &,b
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e@+
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all @e[scores={a=1é}]
+R 0
+A -
+X Expected '=' at position 16: ...cores={a=1<--[HERE]@14
+E Expected '=' at position 16: ...cores={a=1<--[HERE]@14
+S -2--2 0 0 
+@ all dd12be42-52a9-4a91-a8a1-11c01849e498dd
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @ée[level=2147483'48]
+R 0
+A -
+X Unknown selector type '@é' at position 3: t @<--[HERE]@1
+E Unknown selector type '@é' at position 3: t @<--[HERE]@1
+S 0-21 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e%advancements={A=true}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-25 1 2830 [
+@ all @e[advancments={minecraft:story/root=true}]
+R 0
+A -
+X Unknown option 'advancments' at position 5: t @e[<--[HERE]@3
+E Unknown option 'advancments' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[predicate=foo<bar,predicate=foo:baz]
+R 0
+A -
+X Expected end of options at position 18: ...dicate=foo<--[HERE]@16
+E Expected end of options at position 18: ...dicate=foo<--[HERE]@16
+S 16-39 2 1322345 ,	]
+@ all @e[sA!cores=]
+R 0
+A -
+X Unknown option 'sA' at position 5: t @e[<--[HERE]@3
+E Unknown option 'sA' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @a[gamemode=survival,dis5ance=..10,limit=3]e
+R 0
+A -
+X Unknown option 'dis5ance' at position 23: ...=survival,<--[HERE]@21
+E Unknown option 'dis5ance' at position 23: ...=survival,<--[HERE]@21
+S -2--2 0 0 
+@ all Creative]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t Creative<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t Creative<--[HERE]@8
+S -2--2 0 0 
+@ all @e[predicate~!]
+R 0
+A -
+X Expected value for option 'predicate' at position 5: t @e[<--[HERE]@3
+E Expected value for option 'predicate' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all é@
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[predicate=Foo:BaB]e
+R 0
+A -
+X Expected end of options at position 15: ...predicate=<--[HERE]@13
+E Expected end of options at position 15: ...predicate=<--[HERE]@13
+S 13-22 2 1322345 ,	]
+@ all @e[scores={Obj 1=1}]]c
+R 0
+A -
+X Expected '=' at position 17: ...ores={Obj <--[HERE]@15
+E Expected '=' at position 17: ...ores={Obj <--[HERE]@15
+S -2--2 0 0 
+@ all @+e[]
+R 0
+A -
+X Unknown selector type '@+' at position 3: t @<--[HERE]@1
+E Unknown selector type '@+' at position 3: t @<--[HERE]@1
+S 0-5 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all e=..5]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all b@y
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t b<--[HERE]@1
+S -2--2 0 0 
+@ all @e[team=red,te3am=blue]
+R 0
+A -
+X Unknown option 'te3am' at position 14: ...[team=red,<--[HERE]@12
+E Unknown option 'te3am' at position 14: ...[team=red,<--[HERE]@12
+S -2--2 0 0 
+@ all eam=red,team!blue]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t eam<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t eam<--[HERE]@3
+S -2--2 0 0 
+@ all @e[t￿g=!f)o,tag=foo]
+R 0
+A -
+X Unknown option 't' at position 5: t @e[<--[HERE]@3
+E Unknown option 't' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[dy=1!]
+R 0
+A -
+X Expected end of options at position 9: t @e[dy=1<--[HERE]@7
+E Expected end of options at position 9: t @e[dy=1<--[HERE]@7
+S 7-9 2 1322345 ,	]
+@ all @e[dAx=-1.5,dy=0,dz=0]
+R 0
+A -
+X Unknown option 'dAx' at position 5: t @e[<--[HERE]@3
+E Unknown option 'dAx' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all =1}]}
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[#ame=!Foo,name=!Bar]a
+R 0
+A -
+X Unknown option '' at position 5: t @e[<--[HERE]@3
+E Unknown option '' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[sort=neaXest,sort=furthe0t]
+R 0
+A -
+X Invalid or unknown sort type 'neaXest' at position 10: t @e[sort=<--[HERE]@8
+E Invalid or unknown sort type 'neaXest' at position 10: t @e[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @[level=1.5][
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-13 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all Stezve
+R 6
+A 0-6 max=1 ent=false wl=false us=false cur=false name=Stezve uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[preßicate=!foo:bar][
+R 0
+A -
+X Unknown option 'pre' at position 5: t @e[<--[HERE]@3
+E Unknown option 'pre' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[tag=..b-c_d+e]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[pr!edicate=]
+R 0
+A -
+X Unknown option 'pr' at position 5: t @e[<--[HERE]@3
+E Unknown option 'pr' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[limit=
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all @r[sort=éneare,st]
+R 0
+A -
+X Invalid or unknown sort type '' at position 10: t @r[sort=<--[HERE]@8
+E Invalid or unknown sort type '' at position 10: t @r[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all t=1]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t t<--[HERE]@1
+S -2--2 0 0 
+@ all @e[limitB=1,limit=2]
+R 0
+A -
+X Unknown option 'limitB' at position 5: t @e[<--[HERE]@3
+E Unknown option 'limitB' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[dx=1e4/0]
+R 0
+A -
+X Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+E Expected end of options at position 9: t @e[dx=1<--[HERE]@7
+S 7-12 2 1322345 ,	]
+@ all @p[sort=rndom]
+R 0
+A -
+X Invalid or unknown sort type 'rndom' at position 10: t @p[sort=<--[HERE]@8
+E Invalid or unknown sort type 'rndom' at position 10: t @p[sort=<--[HERE]@8
+S -2--2 0 0 
+@ all @[ ]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-4 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[scoAres={ a=1 }]
+R 0
+A -
+X Unknown option 'scoAres' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scoAres' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @ex=a
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-5 1 2830 [
+@ all cate=]c
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t cate<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t cate<--[HERE]@4
+S -2--2 0 0 
+@ all @e[3istance=}.]
+R 0
+A -
+X Unknown option '3istance' at position 5: t @e[<--[HERE]@3
+E Unknown option '3istance' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @[=zobie]
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-9 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[scores={a=1,\u000aa=2}]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all =a]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all =1]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 1-1-1:11
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t 1-1-1<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t 1-1-1<--[HERE]@5
+S -2--2 0 0 
+@ all X@etag=foo]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t X<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t X<--[HERE]@1
+S -2--2 0 0 
+@ all @a[aeve=3]
+R 0
+A -
+X Unknown option 'aeve' at position 5: t @a[<--[HERE]@3
+E Unknown option 'aeve' at position 5: t @a[<--[HERE]@3
+S -2--2 0 0 
+@ all @}e^sort=]
+R 0
+A -
+X Unknown selector type '@}' at position 3: t @<--[HERE]@1
+E Unknown selector type '@}' at position 3: t @<--[HERE]@1
+S 0-10 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[scor3s={}
+R 0
+A -
+X Unknown option 'scor3s' at position 5: t @e[<--[HERE]@3
+E Unknown option 'scor3s' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[name=\u0009Foo]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all e[foo=1]f
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t e<--[HERE]@1
+S -2--2 0 0 
+@ all Steve Jre
+R 6
+A 0-5 max=1 ent=false wl=false us=false cur=false name=Steve uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E Incorrect argument for command at position 8: t Steve <--[HERE]@6
+S -2--2 0 0 
+@ all @etype=!player]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-15 1 2830 [
+@ all @etag=foo,tag=!bar]
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-19 1 2830 [
+@ all b8
+R 2
+A 0-2 max=1 ent=false wl=false us=false cur=false name=b8 uuid=null type=any range=- pos=10.5,20.25,30.125 aabb=- order=arbitrary preds=0
+E ok
+S -2--2 0 0 
+@ all @e[team="Team Name!B"]
+R 0
+A -
+X Expected end of options at position 10: t @e[team=<--[HERE]@8
+E Expected end of options at position 10: t @e[team=<--[HERE]@8
+S 8-22 2 1322345 ,	]
+@ all @e[name=Foo,nae=Bar]@
+R 0
+A -
+X Unknown option 'nae' at position 14: ...[name=Foo,<--[HERE]@12
+E Unknown option 'nae' at position 14: ...[name=Foo,<--[HERE]@12
+S -2--2 0 0 
+@ all =!player]e
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 0e[x=NN]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t 0e<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t 0e<--[HERE]@2
+S -2--2 0 0 
+@ all @e[type=zombie ]]b
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[type=]@
+R 0
+A -
+X Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+E Invalid or unknown entity type 'minecraft:' at position 10: t @e[type=<--[HERE]@8
+S -2--2 0 0 
+@ all @e[y_roatio[n=5]
+R 0
+A -
+X Unknown option 'y_roatio' at position 5: t @e[<--[HERE]@3
+E Unknown option 'y_roatio' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @e[dYx=1,dy=2,dz=3]
+R 0
+A -
+X Unknown option 'dYx' at position 5: t @e[<--[HERE]@3
+E Unknown option 'dYx' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all =zombie,type=skeleton]
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @"%dx=]
+R 0
+A -
+X Unknown selector type '@"' at position 3: t @<--[HERE]@1
+E Unknown selector type '@"' at position 3: t @<--[HERE]@1
+S 0-7 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @a[limit=1]\\
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...a[limit=1]<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...a[limit=1]<--[HERE]@11
+S -2--2 0 0 
+@ all @e[limit=\\+1]
+R 0
+A -
+X Expected integer at position 11: ... @e[limit=<--[HERE]@9
+E Expected integer at position 11: ... @e[limit=<--[HERE]@9
+S -2--2 0 0 
+@ all ons]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ons<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ons<--[HERE]@3
+S -2--2 0 0 
+@ all foo:bar]:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t foo<--[HERE]@3
+S -2--2 0 0 
+@ all @e_[advancements={A=true}]}
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-27 1 2830 [
+@ all =3]z
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e[limit=21448364d]
+R 0
+A -
+X Expected end of options at position 19: ...t=21448364<--[HERE]@17
+E Expected end of options at position 19: ...t=21448364<--[HERE]@17
+S 17-19 2 1322345 ,	]
+@ all bie]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t bie<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t bie<--[HERE]@3
+S -2--2 0 0 
+@ all @e[nbt={Tags:["x"]}]=
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S -2--2 0 0 
+@ all @e[gamemoe=Creaive]
+R 0
+A -
+X Unknown option 'gamemoe' at position 5: t @e[<--[HERE]@3
+E Unknown option 'gamemoe' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all @s[sort=nearest]o
+R 0
+A -
+X Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+E Option 'sort' isn't applicable here at position 5: t @s[<--[HERE]@3
+S -2--2 0 0 
+@ all @[level=1..]=
+R 0
+A -
+X Unknown selector type '@[' at position 3: t @<--[HERE]@1
+E Unknown selector type '@[' at position 3: t @<--[HERE]@1
+S 0-13 6 -1832995774 @aAll players	@eAll entities	@nNearest entity	@pNearest player	@rRandom player	@sCurrent entity
+@ all @e[gamemod=Creative]
+R 0
+A -
+X Unknown option 'gamemod' at position 5: t @e[<--[HERE]@3
+E Unknown option 'gamemod' at position 5: t @e[<--[HERE]@3
+S -2--2 0 0 
+@ all ores={a*1..2,b=..3}]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t ores<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t ores<--[HERE]@4
+S -2--2 0 0 
+@ all )eY
+R 0
+A -
+X Invalid name or UUID at position 2: t <--[HERE]@0
+E Invalid name or UUID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all @e>[scores={a=1..2,b=..3}]s
+R 0
+A -
+X Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+E Only one player is allowed, but the provided selector allows more than one at position 0: <--[HERE]@-2
+S 2-27 1 2830 [
+@ all amemode=Creative]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t amemode<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t amemode<--[HERE]@7
+S -2--2 0 0 
+@ all typeb= zombie ]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 7: t typeb<--[HERE]@5
+E Expected whitespace to end one argument, but found trailing data at position 7: t typeb<--[HERE]@5
+S -2--2 0 0 
+@ all bitrary]
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t bitrary<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t bitrary<--[HERE]@7
+S -2--2 0 0 

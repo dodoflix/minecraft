@@ -1,0 +1,1748 @@
+@ all 
+R -1
+A -
+E Incorrect argument for command at position 1: t<--[HERE]@-1
+S 0-0 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraft:stone
+R 15
+A 0-15 minecraft:block|minecraft:stone
+E ok
+S 0-15 9 216777886 minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter
+@ all oak_planks
+R 10
+A 0-10 minecraft:block|minecraft:oak_planks
+E ok
+S 0-10 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all minecraft:grass_block
+R 21
+A 0-21 minecraft:block|minecraft:grass_block
+E ok
+S -2--2 0 0 
+@ all minecraft:water
+R 15
+A 0-15 minecraft:block|minecraft:water
+E ok
+S 0-15 1 -1882396814 minecraft:water_cauldron
+@ all minecraft:fire
+R 14
+A 0-14 minecraft:block|minecraft:fire
+E ok
+S 0-14 5 -652235165 minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush
+@ all #minecraft:logs
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pickaxe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leaves
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:nope
+R 14
+A 0-14 minecraft:block|minecraft:nope
+E ok
+S -2--2 0 0 
+@ all minecraft:
+R 10
+A 0-10 minecraft:block|minecraft:
+E ok
+S 0-10 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all #
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:air
+R 13
+A 0-13 minecraft:block|minecraft:air
+E ok
+S -2--2 0 0 
+@ all lava
+R 4
+A 0-4 minecraft:block|minecraft:lava
+E ok
+S 0-4 2 -1857879983 minecraft:lava	minecraft:lava_cauldron
+@ all foo:stone
+R 9
+A 0-9 minecraft:block|foo:stone
+E ok
+S -2--2 0 0 
+@ all minecraft:oak_s
+R 15
+A 0-15 minecraft:block|minecraft:oak_s
+E ok
+S 0-15 5 391317555 minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs
+@ all #minecraft:mineable/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:stone[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+S -2--2 0 0 
+@ all #minecraft:logs 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m
+R 1
+A 0-1 minecraft:block|minecraft:m
+E ok
+S 0-1 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all mi
+R 2
+A 0-2 minecraft:block|minecraft:mi
+E ok
+S 0-2 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all min
+R 3
+A 0-3 minecraft:block|minecraft:min
+E ok
+S 0-3 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all mine
+R 4
+A 0-4 minecraft:block|minecraft:mine
+E ok
+S 0-4 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minec
+R 5
+A 0-5 minecraft:block|minecraft:minec
+E ok
+S 0-5 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecr
+R 6
+A 0-6 minecraft:block|minecraft:minecr
+E ok
+S 0-6 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecra
+R 7
+A 0-7 minecraft:block|minecraft:minecra
+E ok
+S 0-7 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraf
+R 8
+A 0-8 minecraft:block|minecraft:minecraf
+E ok
+S 0-8 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraft
+R 9
+A 0-9 minecraft:block|minecraft:minecraft
+E ok
+S 0-9 1286 -1935001454 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks
+@ all minecraft:s
+R 11
+A 0-11 minecraft:block|minecraft:s
+E ok
+S 0-11 122 836893931 minecraft:sand	minecraft:sandstone	minecraft:sandstone_slab	minecraft:sandstone_stairs	minecraft:sandstone_wall	minecraft:scaffolding	minecraft:sculk	minecraft:sculk_catalyst
+@ all minecraft:st
+R 12
+A 0-12 minecraft:block|minecraft:st
+E ok
+S 0-12 39 864036912 minecraft:sticky_piston	minecraft:stone	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter	minecraft:straw_bed	minecraft:stripped_acacia_log	minecraft:stripped_acacia_wood	minecraft:stripped_bamboo_block	minecraft:stripped_birch_log	minecraft:stripped_birch_wood	minecraft:stripped_cherry_log	minecraft:stripped_cherry_wood	minecraft:stripped_crimson_hyphae	minecraft:stripped_crimson_stem	minecraft:stripped_dark_oak_log	minecraft:stripped_dark_oak_wood	minecraft:stripped_jungle_log	minecraft:stripped_jungle_wood	minecraft:stripped_mangrove_log	minecraft:stripped_mangrove_wood	minecraft:stripped_oak_log	minecraft:stripped_oak_wood	minecraft:stripped_pale_oak_log	minecraft:stripped_pale_oak_wood	minecraft:stripped_poplar_log	minecraft:stripped_poplar_wood	minecraft:stripped_spruce_log	minecraft:stripped_spruce_wood	minecraft:stripped_warped_hyphae	minecraft:stripped_warped_stem	minecraft:structure_block	minecraft:structure_void
+@ all minecraft:sto
+R 13
+A 0-13 minecraft:block|minecraft:sto
+E ok
+S 0-13 10 1305901839 minecraft:stone	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter
+@ all minecraft:ston
+R 14
+A 0-14 minecraft:block|minecraft:ston
+E ok
+S 0-14 10 1305901839 minecraft:stone	minecraft:stone_brick_slab	minecraft:stone_brick_stairs	minecraft:stone_brick_wall	minecraft:stone_bricks	minecraft:stone_button	minecraft:stone_pressure_plate	minecraft:stone_slab	minecraft:stone_stairs	minecraft:stonecutter
+@ all o
+R 1
+A 0-1 minecraft:block|minecraft:o
+E ok
+S 0-1 146 -771997867 minecraft:blue_orchid	minecraft:coal_ore	minecraft:copper_ore	minecraft:crying_obsidian	minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate
+@ all oa
+R 2
+A 0-2 minecraft:block|minecraft:oa
+E ok
+S 0-2 64 630364636 minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate	minecraft:dark_oak_hanging_sign	minecraft:dark_oak_leaves	minecraft:dark_oak_log	minecraft:dark_oak_planks
+@ all oak
+R 3
+A 0-3 minecraft:block|minecraft:oak
+E ok
+S 0-3 64 630364636 minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate	minecraft:dark_oak_hanging_sign	minecraft:dark_oak_leaves	minecraft:dark_oak_log	minecraft:dark_oak_planks
+@ all oak_
+R 4
+A 0-4 minecraft:block|minecraft:oak_
+E ok
+S 0-4 64 630364636 minecraft:dark_oak_button	minecraft:dark_oak_door	minecraft:dark_oak_fence	minecraft:dark_oak_fence_gate	minecraft:dark_oak_hanging_sign	minecraft:dark_oak_leaves	minecraft:dark_oak_log	minecraft:dark_oak_planks
+@ all oak_p
+R 5
+A 0-5 minecraft:block|minecraft:oak_p
+E ok
+S 0-5 6 2095804383 minecraft:dark_oak_planks	minecraft:dark_oak_pressure_plate	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:pale_oak_planks	minecraft:pale_oak_pressure_plate
+@ all oak_pl
+R 6
+A 0-6 minecraft:block|minecraft:oak_pl
+E ok
+S 0-6 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all oak_pla
+R 7
+A 0-7 minecraft:block|minecraft:oak_pla
+E ok
+S 0-7 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all oak_plan
+R 8
+A 0-8 minecraft:block|minecraft:oak_plan
+E ok
+S 0-8 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all oak_plank
+R 9
+A 0-9 minecraft:block|minecraft:oak_plank
+E ok
+S 0-9 3 -754464039 minecraft:dark_oak_planks	minecraft:oak_planks	minecraft:pale_oak_planks
+@ all minecraft:g
+R 11
+A 0-11 minecraft:block|minecraft:g
+E ok
+S 0-11 51 866346768 minecraft:gilded_blackstone	minecraft:glass	minecraft:glass_pane	minecraft:glow_lichen	minecraft:glowstone	minecraft:gold_block	minecraft:gold_ore	minecraft:golden_dandelion
+@ all minecraft:gr
+R 12
+A 0-12 minecraft:block|minecraft:gr
+E ok
+S 0-12 43 -1655493947 minecraft:granite	minecraft:granite_slab	minecraft:granite_stairs	minecraft:granite_wall	minecraft:grass_block	minecraft:gravel	minecraft:gray_banner	minecraft:gray_bed
+@ all minecraft:gra
+R 13
+A 0-13 minecraft:block|minecraft:gra
+E ok
+S 0-13 24 -1607023262 minecraft:granite	minecraft:granite_slab	minecraft:granite_stairs	minecraft:granite_wall	minecraft:grass_block	minecraft:gravel	minecraft:gray_banner	minecraft:gray_bed	minecraft:gray_candle	minecraft:gray_candle_cake	minecraft:gray_carpet	minecraft:gray_concrete	minecraft:gray_concrete_powder	minecraft:gray_concrete_slab	minecraft:gray_concrete_stairs	minecraft:gray_glazed_terracotta	minecraft:gray_shulker_box	minecraft:gray_stained_glass	minecraft:gray_stained_glass_pane	minecraft:gray_terracotta	minecraft:gray_wall_banner	minecraft:gray_wool	minecraft:gray_wool_slab	minecraft:gray_wool_stairs
+@ all minecraft:gras
+R 14
+A 0-14 minecraft:block|minecraft:gras
+E ok
+S 0-14 1 1060778098 minecraft:grass_block
+@ all minecraft:grass
+R 15
+A 0-15 minecraft:block|minecraft:grass
+E ok
+S 0-15 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_
+R 16
+A 0-16 minecraft:block|minecraft:grass_
+E ok
+S 0-16 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_b
+R 17
+A 0-17 minecraft:block|minecraft:grass_b
+E ok
+S 0-17 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_bl
+R 18
+A 0-18 minecraft:block|minecraft:grass_bl
+E ok
+S 0-18 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_blo
+R 19
+A 0-19 minecraft:block|minecraft:grass_blo
+E ok
+S 0-19 1 1060778098 minecraft:grass_block
+@ all minecraft:grass_bloc
+R 20
+A 0-20 minecraft:block|minecraft:grass_bloc
+E ok
+S 0-20 1 1060778098 minecraft:grass_block
+@ all minecraft:w
+R 11
+A 0-11 minecraft:block|minecraft:w
+E ok
+S 0-11 125 -1738613215 minecraft:wall_torch	minecraft:warped_button	minecraft:warped_door	minecraft:warped_fence	minecraft:warped_fence_gate	minecraft:warped_fungus	minecraft:warped_hanging_sign	minecraft:warped_hyphae
+@ all minecraft:wa
+R 12
+A 0-12 minecraft:block|minecraft:wa
+E ok
+S 0-12 83 -745076581 minecraft:wall_torch	minecraft:warped_button	minecraft:warped_door	minecraft:warped_fence	minecraft:warped_fence_gate	minecraft:warped_fungus	minecraft:warped_hanging_sign	minecraft:warped_hyphae
+@ all minecraft:wat
+R 13
+A 0-13 minecraft:block|minecraft:wat
+E ok
+S 0-13 2 -874883053 minecraft:water	minecraft:water_cauldron
+@ all minecraft:wate
+R 14
+A 0-14 minecraft:block|minecraft:wate
+E ok
+S 0-14 2 -874883053 minecraft:water	minecraft:water_cauldron
+@ all minecraft:f
+R 11
+A 0-11 minecraft:block|minecraft:f
+E ok
+S 0-11 15 -586138958 minecraft:farmland	minecraft:fern	minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush	minecraft:fletching_table	minecraft:flower_pot	minecraft:flowering_azalea	minecraft:flowering_azalea_leaves	minecraft:frogspawn	minecraft:frosted_ice	minecraft:furnace
+@ all minecraft:fi
+R 12
+A 0-12 minecraft:block|minecraft:fi
+E ok
+S 0-12 6 205709417 minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush
+@ all minecraft:fir
+R 13
+A 0-13 minecraft:block|minecraft:fir
+E ok
+S 0-13 6 205709417 minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush
+@ all #m
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mi
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #min
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mine
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecr
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecra
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraf
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:l
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:lo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:log
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:m
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mi
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:min
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mine
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:minea
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineab
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineabl
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/p
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pi
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pic
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pick
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/picka
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pickax
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:le
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:lea
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leav
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:leave
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:n
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:no
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:nop
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:n
+R 11
+A 0-11 minecraft:block|minecraft:n
+E ok
+S 0-11 14 -2106918908 minecraft:nether_brick_fence	minecraft:nether_brick_slab	minecraft:nether_brick_stairs	minecraft:nether_brick_wall	minecraft:nether_bricks	minecraft:nether_gold_ore	minecraft:nether_portal	minecraft:nether_quartz_ore	minecraft:nether_sprouts	minecraft:nether_wart	minecraft:nether_wart_block	minecraft:netherite_block	minecraft:netherrack	minecraft:note_block
+@ all minecraft:no
+R 12
+A 0-12 minecraft:block|minecraft:no
+E ok
+S 0-12 1 735181756 minecraft:note_block
+@ all minecraft:nop
+R 13
+A 0-13 minecraft:block|minecraft:nop
+E ok
+S -2--2 0 0 
+@ all minecraft:a
+R 11
+A 0-11 minecraft:block|minecraft:a
+E ok
+S 0-11 34 -151592181 minecraft:acacia_button	minecraft:acacia_door	minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:acacia_hanging_sign	minecraft:acacia_leaves	minecraft:acacia_log	minecraft:acacia_planks	minecraft:acacia_pressure_plate	minecraft:acacia_sapling	minecraft:acacia_shelf	minecraft:acacia_sign	minecraft:acacia_slab	minecraft:acacia_stairs	minecraft:acacia_trapdoor	minecraft:acacia_wall_hanging_sign	minecraft:acacia_wall_sign	minecraft:acacia_wood	minecraft:activator_rail	minecraft:air	minecraft:allium	minecraft:amethyst_block	minecraft:amethyst_cluster	minecraft:ancient_debris	minecraft:andesite	minecraft:andesite_slab	minecraft:andesite_stairs	minecraft:andesite_wall	minecraft:anvil	minecraft:attached_melon_stem	minecraft:attached_pumpkin_stem	minecraft:azalea	minecraft:azalea_leaves	minecraft:azure_bluet
+@ all minecraft:ai
+R 12
+A 0-12 minecraft:block|minecraft:ai
+E ok
+S 0-12 1 -1006957140 minecraft:air
+@ all l
+R 1
+A 0-1 minecraft:block|minecraft:l
+E ok
+S 0-1 129 -353726567 minecraft:acacia_leaves	minecraft:acacia_log	minecraft:azalea_leaves	minecraft:birch_leaves	minecraft:birch_log	minecraft:cherry_leaves	minecraft:cherry_log	minecraft:copper_lantern
+@ all la
+R 2
+A 0-2 minecraft:block|minecraft:la
+E ok
+S 0-2 21 -1155171843 minecraft:copper_lantern	minecraft:deepslate_lapis_ore	minecraft:exposed_copper_lantern	minecraft:jack_o_lantern	minecraft:ladder	minecraft:lantern	minecraft:lapis_block	minecraft:lapis_ore	minecraft:large_amethyst_bud	minecraft:large_fern	minecraft:lava	minecraft:lava_cauldron	minecraft:oxidized_copper_lantern	minecraft:redstone_lamp	minecraft:sea_lantern	minecraft:soul_lantern	minecraft:waxed_copper_lantern	minecraft:waxed_exposed_copper_lantern	minecraft:waxed_oxidized_copper_lantern	minecraft:waxed_weathered_copper_lantern	minecraft:weathered_copper_lantern
+@ all lav
+R 3
+A 0-3 minecraft:block|minecraft:lav
+E ok
+S 0-3 2 -1857879983 minecraft:lava	minecraft:lava_cauldron
+@ all f
+R 1
+A 0-1 minecraft:block|minecraft:f
+E ok
+S 0-1 77 222829320 minecraft:acacia_fence	minecraft:acacia_fence_gate	minecraft:bamboo_fence	minecraft:bamboo_fence_gate	minecraft:birch_fence	minecraft:birch_fence_gate	minecraft:blast_furnace	minecraft:brain_coral_fan
+@ all fo
+R 2
+A 0-2 minecraft:block|minecraft:fo
+E ok
+S -2--2 0 0 
+@ all foo
+R 3
+A 0-3 minecraft:block|minecraft:foo
+E ok
+S -2--2 0 0 
+@ all foo:
+R 4
+A 0-4 minecraft:block|foo:
+E ok
+S -2--2 0 0 
+@ all foo:s
+R 5
+A 0-5 minecraft:block|foo:s
+E ok
+S -2--2 0 0 
+@ all foo:st
+R 6
+A 0-6 minecraft:block|foo:st
+E ok
+S -2--2 0 0 
+@ all foo:sto
+R 7
+A 0-7 minecraft:block|foo:sto
+E ok
+S -2--2 0 0 
+@ all foo:ston
+R 8
+A 0-8 minecraft:block|foo:ston
+E ok
+S -2--2 0 0 
+@ all minecraft:o
+R 11
+A 0-11 minecraft:block|minecraft:o
+E ok
+S 0-11 58 -2101001784 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks
+@ all minecraft:oa
+R 12
+A 0-12 minecraft:block|minecraft:oa
+E ok
+S 0-12 18 -1285562959 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wall_hanging_sign	minecraft:oak_wall_sign	minecraft:oak_wood
+@ all minecraft:oak
+R 13
+A 0-13 minecraft:block|minecraft:oak
+E ok
+S 0-13 18 -1285562959 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wall_hanging_sign	minecraft:oak_wall_sign	minecraft:oak_wood
+@ all minecraft:oak_
+R 14
+A 0-14 minecraft:block|minecraft:oak_
+E ok
+S 0-14 18 -1285562959 minecraft:oak_button	minecraft:oak_door	minecraft:oak_fence	minecraft:oak_fence_gate	minecraft:oak_hanging_sign	minecraft:oak_leaves	minecraft:oak_log	minecraft:oak_planks	minecraft:oak_pressure_plate	minecraft:oak_sapling	minecraft:oak_shelf	minecraft:oak_sign	minecraft:oak_slab	minecraft:oak_stairs	minecraft:oak_trapdoor	minecraft:oak_wall_hanging_sign	minecraft:oak_wall_sign	minecraft:oak_wood
+@ all la:-a
+R 5
+A 0-5 minecraft:block|la:-a
+E ok
+S -2--2 0 0 
+@ all ft:firef
+R 8
+A 0-8 minecraft:block|ft:firef
+E ok
+S -2--2 0 0 
+@ all menecraft:firee
+R 15
+A 0-15 minecraft:block|menecraft:firee
+E ok
+S -2--2 0 0 
+@ all e0s
+R 3
+A 0-3 minecraft:block|minecraft:e0s
+E ok
+S -2--2 0 0 
+@ all minecraft:nopeca
+R 16
+A 0-16 minecraft:block|minecraft:nopeca
+E ok
+S -2--2 0 0 
+@ all minecraft:stones
+R 16
+A 0-16 minecraft:block|minecraft:stones
+E ok
+S -2--2 0 0 
+@ all #minecraft:nopeo
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #m中inecraft:lo5gs 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all l,avaa
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all #-inecraft:nopee
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e
+R 1
+A 0-1 minecraft:block|minecraft:e
+E ok
+S 0-1 51 -425495612 minecraft:closed_eyeblossom	minecraft:deepslate_emerald_ore	minecraft:dragon_egg	minecraft:emerald_block	minecraft:emerald_ore	minecraft:enchanting_table	minecraft:end_gateway	minecraft:end_portal
+@ all #minecraft:mineablXe/pickaxe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ire
+R 3
+A 0-3 minecraft:block|minecraft:ire
+E ok
+S -2--2 0 0 
+@ all mincraft:
+R 9
+A 0-9 minecraft:block|mincraft:
+E ok
+S -2--2 0 0 
+@ all #minecraf:logst
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:no4e
+R 14
+A 0-14 minecraft:block|minecraft:no4e
+E ok
+S -2--2 0 0 
+@ all minecraft:oa_s
+R 14
+A 0-14 minecraft:block|minecraft:oa_s
+E ok
+S -2--2 0 0 
+@ all oak_plankss
+R 11
+A 0-11 minecraft:block|minecraft:oak_plankss
+E ok
+S -2--2 0 0 
+@ all oaß_planks
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t oa<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t oa<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:st-one~
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 18: ...aft:st-one<--[HERE]@16
+E Expected whitespace to end one argument, but found trailing data at position 18: ...aft:st-one<--[HERE]@16
+S -2--2 0 0 
+@ all :wa.ter
+R 7
+A 0-7 minecraft:block|minecraft:wa.ter
+E ok
+S -2--2 0 0 
+@ all #mineİraft:logs 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ecraft:stone[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 14: ...raft:stone<--[HERE]@12
+E Expected whitespace to end one argument, but found trailing data at position 14: ...raft:stone<--[HERE]@12
+S -2--2 0 0 
+@ all minecraft:grass_blocki
+R 22
+A 0-22 minecraft:block|minecraft:grass_blocki
+E ok
+S -2--2 0 0 
+@ all minecra[ft:fire
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t minecra<--[HERE]@7
+S -2--2 0 0 
+@ all oak_pla#ks
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 9: t oak_pla<--[HERE]@7
+E Expected whitespace to end one argument, but found trailing data at position 9: t oak_pla<--[HERE]@7
+S -2--2 0 0 
+@ all inecraftleaves
+R 14
+A 0-14 minecraft:block|minecraft:inecraftleaves
+E ok
+S -2--2 0 0 
+@ all minecraft:grass_bloc6k
+R 22
+A 0-22 minecraft:block|minecraft:grass_bloc6k
+E ok
+S -2--2 0 0 
+@ all 2minecraft:%rass_block
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...minecraft:<--[HERE]@11
+S -2--2 0 0 
+@ all oo:stoneX
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t oo:stone<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t oo:stone<--[HERE]@8
+S -2--2 0 0 
+@ all minecraft:gra0s_blockl
+R 22
+A 0-22 minecraft:block|minecraft:gra0s_blockl
+E ok
+S -2--2 0 0 
+@ all _##
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t _<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t _<--[HERE]@1
+S -2--2 0 0 
+@ all raft:grass_bloc
+R 15
+A 0-15 minecraft:block|raft:grass_bloc
+E ok
+S -2--2 0 0 
+@ all #minecraft:mineable/pickaxex
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ne
+R 2
+A 0-2 minecraft:block|minecraft:ne
+E ok
+S 0-2 20 1301153193 minecraft:bee_nest	minecraft:chiseled_nether_bricks	minecraft:cracked_nether_bricks	minecraft:nether_brick_fence	minecraft:nether_brick_slab	minecraft:nether_brick_stairs	minecraft:nether_brick_wall	minecraft:nether_bricks	minecraft:nether_gold_ore	minecraft:nether_portal	minecraft:nether_quartz_ore	minecraft:nether_sprouts	minecraft:nether_wart	minecraft:nether_wart_block	minecraft:netherite_block	minecraft:netherrack	minecraft:red_nether_brick_slab	minecraft:red_nether_brick_stairs	minecraft:red_nether_brick_wall	minecraft:red_nether_bricks
+@ all mine2raft:stonem
+R 16
+A 0-16 minecraft:block|mine2raft:stonem
+E ok
+S -2--2 0 0 
+@ all #minecraf}:nopef
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecrft:leavesn
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :fire
+R 5
+A 0-5 minecraft:block|minecraft:fire
+E ok
+S -2--2 0 0 
+@ all f"oo:ston
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t f<--[HERE]@1
+S -2--2 0 0 
+@ all minecraf:air
+R 12
+A 0-12 minecraft:block|minecraf:air
+E ok
+S -2--2 0 0 
+@ all #Yminecraft:logs
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all Aİ
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ##
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:mineable/pickaxe8c
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all o]k_planks
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t o<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t o<--[HERE]@1
+S -2--2 0 0 
+@ all minecraftstone
+R 14
+A 0-14 minecraft:block|minecraft:minecraftstone
+E ok
+S -2--2 0 0 
+@ all minecraft:grass_blockn
+R 22
+A 0-22 minecraft:block|minecraft:grass_blockn
+E ok
+S -2--2 0 0 
+@ all #minecraft:leavess
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 3
+R 1
+A 0-1 minecraft:block|minecraft:3
+E ok
+S -2--2 0 0 
+@ all oak_plaanksn
+R 12
+A 0-12 minecraft:block|minecraft:oak_plaanksn
+E ok
+S -2--2 0 0 
+@ all necraft:firet
+R 13
+A 0-13 minecraft:block|necraft:firet
+E ok
+S -2--2 0 0 
+@ all gs 
+R 2
+A 0-2 minecraft:block|minecraft:gs
+E Incorrect argument for command at position 4: t gs<--[HERE]@2
+S -2--2 0 0 
+@ all #minecryaft:nopea
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #(
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mineceraft:
+R 11
+A 0-11 minecraft:block|mineceraft:
+E ok
+S -2--2 0 0 
+@ all min}raft:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all #minecraft:mineable/i
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min!ecraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all minecraft:nopeic
+R 16
+A 0-16 minecraft:block|minecraft:nopeic
+E ok
+S -2--2 0 0 
+@ all ine(craft:air
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t ine<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t ine<--[HERE]@3
+S -2--2 0 0 
+@ all ft:mineable/pickaxe
+R 19
+A 0-19 minecraft:block|ft:mineable/pickaxe
+E ok
+S -2--2 0 0 
+@ all minecrft:air
+R 12
+A 0-12 minecraft:block|minecrft:air
+E ok
+S -2--2 0 0 
+@ all s
+R 1
+A 0-1 minecraft:block|minecraft:s
+E ok
+S 0-1 477 158064826 minecraft:acacia_hanging_sign	minecraft:acacia_sapling	minecraft:acacia_shelf	minecraft:acacia_sign	minecraft:acacia_slab	minecraft:acacia_stairs	minecraft:acacia_wall_hanging_sign	minecraft:acacia_wall_sign
+@ all #minecraft:mineable//
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all m+necraft:gra4s_block
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all #minecraft:mineable'
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mineBcraft:log$s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009mineraft:logs
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all craft:airt
+R 10
+A 0-10 minecraft:block|craft:airt
+E ok
+S -2--2 0 0 
+@ all #mi*necraft:Bmineable/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :logs 
+R 5
+A 0-5 minecraft:block|minecraft:logs
+E Incorrect argument for command at position 7: t :logs<--[HERE]@5
+S -2--2 0 0 
+@ all 0
+R 1
+A 0-1 minecraft:block|minecraft:0
+E ok
+S -2--2 0 0 
+@ all craft:leaves
+R 12
+A 0-12 minecraft:block|craft:leaves
+E ok
+S -2--2 0 0 
+@ all minecraft:airc
+R 14
+A 0-14 minecraft:block|minecraft:airc
+E ok
+S -2--2 0 0 
+@ all minecraft:grass_lock
+R 20
+A 0-20 minecraft:block|minecraft:grass_lock
+E ok
+S -2--2 0 0 
+@ all min"ecraft:stone
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all fire
+R 4
+A 0-4 minecraft:block|minecraft:fire
+E ok
+S 0-4 11 -1011588334 minecraft:dead_fire_coral	minecraft:dead_fire_coral_block	minecraft:dead_fire_coral_fan	minecraft:dead_fire_coral_wall_fan	minecraft:fire	minecraft:fire_coral	minecraft:fire_coral_block	minecraft:fire_coral_fan	minecraft:fire_coral_wall_fan	minecraft:firefly_bush	minecraft:soul_fire
+@ all v
+R 1
+A 0-1 minecraft:block|minecraft:v
+E ok
+S 0-1 14 243513798 minecraft:cave_vines	minecraft:cave_vines_plant	minecraft:lily_of_the_valley	minecraft:potted_lily_of_the_valley	minecraft:sculk_vein	minecraft:structure_void	minecraft:twisting_vines	minecraft:twisting_vines_plant	minecraft:vault	minecraft:verdant_froglight	minecraft:vine	minecraft:void_air	minecraft:weeping_vines	minecraft:weeping_vines_plant
+@ all t:watere
+R 8
+A 0-8 minecraft:block|t:watere
+E ok
+S -2--2 0 0 
+@ all aft:fire
+R 8
+A 0-8 minecraft:block|aft:fire
+E ok
+S -2--2 0 0 
+@ all minecraft:grass_blockk4
+R 23
+A 0-23 minecraft:block|minecraft:grass_blockk4
+E ok
+S -2--2 0 0 
+@ all minecraft:o/k_s
+R 15
+A 0-15 minecraft:block|minecraft:o/k_s
+E ok
+S -2--2 0 0 
+@ all minecft:
+R 8
+A 0-8 minecraft:block|minecft:
+E ok
+S -2--2 0 0 
+@ all minecrft:wate
+R 13
+A 0-13 minecraft:block|minecrft:wate
+E ok
+S -2--2 0 0 
+@ all #m￿inec]aft:logs
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minec8raft:mineable/pickaxe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all aft:leaves
+R 10
+A 0-10 minecraft:block|aft:leaves
+E ok
+S -2--2 0 0 
+@ all minecraft:airm
+R 14
+A 0-14 minecraft:block|minecraft:airm
+E ok
+S -2--2 0 0 
+@ all foo:ston-
+R 9
+A 0-9 minecraft:block|foo:ston-
+E ok
+S -2--2 0 0 
+@ all minecraft:oak_sa
+R 16
+A 0-16 minecraft:block|minecraft:oak_sa
+E ok
+S 0-16 1 281737604 minecraft:oak_sapling
+@ all #m-inecrft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all craft:water
+R 11
+A 0-11 minecraft:block|craft:water
+E ok
+S -2--2 0 0 
+@ all #minecraft:l6ogs
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all 8##
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t 8<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t 8<--[HERE]@1
+S -2--2 0 0 
+@ all mine{raft-grass_block
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all yinecraft:nope
+R 14
+A 0-14 minecraft:block|yinecraft:nope
+E ok
+S -2--2 0 0 
+@ all #minecraf\u0009t:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraf=:fire
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all #minecraft:mineablé/pickaxe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:stonet
+R 16
+A 0-16 minecraft:block|minecraft:stonet
+E ok
+S -2--2 0 0 
+@ all minecraft:aira
+R 14
+A 0-14 minecraft:block|minecraft:aira
+E ok
+S -2--2 0 0 
+@ all #mneraft:mineable/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft:npe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecat:stone[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecat:stone<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecat:stone<--[HERE]@13
+S -2--2 0 0 
+@ all minecraft:oak_s_
+R 16
+A 0-16 minecraft:block|minecraft:oak_s_
+E ok
+S -2--2 0 0 
+@ all fo#:6tone
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t fo<--[HERE]@2
+S -2--2 0 0 
+@ all zfoo:stoe
+R 9
+A 0-9 minecraft:block|zfoo:stoe
+E ok
+S -2--2 0 0 
+@ all aft:oak_s
+R 9
+A 0-9 minecraft:block|aft:oak_s
+E ok
+S -2--2 0 0 
+@ all minecraft:stonen
+R 16
+A 0-16 minecraft:block|minecraft:stonen
+E ok
+S -2--2 0 0 
+@ all #minecraft:ineable/pickaxe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all :nope
+R 5
+A 0-5 minecraft:block|minecraft:nope
+E ok
+S -2--2 0 0 
+@ all minecr+aft:a"ir
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all #^minecraft:le/aves
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all mincraft:stone[[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 16: ...raft:stone<--[HERE]@14
+E Expected whitespace to end one argument, but found trailing data at position 16: ...raft:stone<--[HERE]@14
+S -2--2 0 0 
+@ all mecraft:fire
+R 12
+A 0-12 minecraft:block|mecraft:fire
+E ok
+S -2--2 0 0 
+@ all minecraf8t:nope
+R 15
+A 0-15 minecraft:block|minecraf8t:nope
+E ok
+S -2--2 0 0 
+@ all 00
+R 2
+A 0-2 minecraft:block|minecraft:00
+E ok
+S -2--2 0 0 
+@ all minecaft:water
+R 14
+A 0-14 minecraft:block|minecaft:water
+E ok
+S -2--2 0 0 
+@ all mAinecraft:#ater
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t m<--[HERE]@1
+S -2--2 0 0 
+@ all minecraft:firem
+R 15
+A 0-15 minecraft:block|minecraft:firem
+E ok
+S -2--2 0 0 
+@ all minecraft:s+one[:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:s<--[HERE]@11
+S -2--2 0 0 
+@ all min1craft:oak_s
+R 15
+A 0-15 minecraft:block|min1craft:oak_s
+E ok
+S -2--2 0 0 
+@ all #minecraf tlogs
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all l&​ava
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all craft:ai:
+R 0
+A -
+X Invalid ID at position 2: t <--[HERE]@0
+E Invalid ID at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all raft:air
+R 8
+A 0-8 minecraft:block|raft:air
+E ok
+S -2--2 0 0 
+@ all ope
+R 3
+A 0-3 minecraft:block|minecraft:ope
+E ok
+S 0-3 2 1694269799 minecraft:open_eyeblossom	minecraft:potted_open_eyeblossom
+@ all minecraft:watere
+R 16
+A 0-16 minecraft:block|minecraft:watere
+E ok
+S -2--2 0 0 
+@ all ak<s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t ak<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t ak<--[HERE]@2
+S -2--2 0 0 
+@ all foo:&stone
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t foo:<--[HERE]@4
+S -2--2 0 0 
+@ all laves
+R 5
+A 0-5 minecraft:block|minecraft:laves
+E ok
+S -2--2 0 0 
+@ all #mineraft:mineable/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e/pickaxe
+R 9
+A 0-9 minecraft:block|minecraft:e/pickaxe
+E ok
+S -2--2 0 0 
+@ all l0a/va
+R 6
+A 0-6 minecraft:block|minecraft:l0a/va
+E ok
+S -2--2 0 0 
+@ all in{craft:oak_s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t in<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t in<--[HERE]@2
+S -2--2 0 0 
+@ all minecraft:stoA/[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:sto<--[HERE]@13
+E Expected whitespace to end one argument, but found trailing data at position 15: ...ecraft:sto<--[HERE]@13
+S -2--2 0 0 
+@ all mine=r+ft:oak_s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all l+va
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t l<--[HERE]@1
+S -2--2 0 0 
+@ all #minecra,&ft:leaves
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all neable/
+R 7
+A 0-7 minecraft:block|minecraft:neable/
+E ok
+S -2--2 0 0 
+@ all #minecİraft:logs 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #mincraft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:w=ter:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:w<--[HERE]@11
+E Expected whitespace to end one argument, but found trailing data at position 13: ...inecraft:w<--[HERE]@11
+S -2--2 0 0 
+@ all #minecraft:leaves:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecrdaft:mineable/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #4
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min<ecraft
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all #mine​craft:logs a
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \u0009#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ass_block
+R 9
+A 0-9 minecraft:block|minecraft:ass_block
+E ok
+S -2--2 0 0 
+@ all mineyraft:stone[e
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...raft:stone<--[HERE]@15
+S -2--2 0 0 
+@ all #minecra\u000aft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all lav4中
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t lav4<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t lav4<--[HERE]@4
+S -2--2 0 0 
+@ all one
+R 3
+A 0-3 minecraft:block|minecraft:one
+E ok
+S -2--2 0 0 
+@ all minecraf]t:grass_block
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all er
+R 2
+A 0-2 minecraft:block|minecraft:er
+E ok
+S -2--2 0 0 
+@ all 7minecraft:nopen
+R 16
+A 0-16 minecraft:block|7minecraft:nopen
+E ok
+S -2--2 0 0 
+@ all #minecxyaft:leaves
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all \\ecraft:mineable/pickaxe
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all s0one
+R 5
+A 0-5 minecraft:block|minecraft:s0one
+E ok
+S -2--2 0 0 
+@ all minecraft:r
+R 11
+A 0-11 minecraft:block|minecraft:r
+E ok
+S 0-11 54 1363536710 minecraft:rail	minecraft:raw_copper_block	minecraft:raw_gold_block	minecraft:raw_iron_block	minecraft:red_banner	minecraft:red_bed	minecraft:red_candle	minecraft:red_candle_cake
+@ all ak_pla8ks
+R 9
+A 0-9 minecraft:block|minecraft:ak_pla8ks
+E ok
+S -2--2 0 0 
+@ all foobstone
+R 9
+A 0-9 minecraft:block|minecraft:foobstone
+E ok
+S -2--2 0 0 
+@ all #minecraft:nİop
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all ra
+R 2
+A 0-2 minecraft:block|minecraft:ra
+E ok
+S 0-2 7 1640601904 minecraft:activator_rail	minecraft:detector_rail	minecraft:powered_rail	minecraft:rail	minecraft:raw_copper_block	minecraft:raw_gold_block	minecraft:raw_iron_block
+@ all ecraft:logs
+R 11
+A 0-11 minecraft:block|ecraft:logs
+E ok
+S -2--2 0 0 
+@ all minecra8ft:ston中[
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 17: ...ra8ft:ston<--[HERE]@15
+E Expected whitespace to end one argument, but found trailing data at position 17: ...ra8ft:ston<--[HERE]@15
+S -2--2 0 0 
+@ all ft:logs 
+R 7
+A 0-7 minecraft:block|ft:logs
+E Incorrect argument for command at position 9: t ft:logs<--[HERE]@7
+S -2--2 0 0 
+@ all minecraft:f5re
+R 14
+A 0-14 minecraft:block|minecraft:f5re
+E ok
+S -2--2 0 0 
+@ all mincraft:firer
+R 14
+A 0-14 minecraft:block|mincraft:firer
+E ok
+S -2--2 0 0 
+@ all oak_plankd
+R 10
+A 0-10 minecraft:block|minecraft:oak_plankd
+E ok
+S -2--2 0 0 
+@ all #minecaft:lgs 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all necraft:logs a
+R 13
+A 0-12 minecraft:block|necraft:logs
+E Incorrect argument for command at position 15: ...raft:logs <--[HERE]@13
+S -2--2 0 0 
+@ all ava
+R 3
+A 0-3 minecraft:block|minecraft:ava
+E ok
+S -2--2 0 0 
+@ all tert
+R 4
+A 0-4 minecraft:block|minecraft:tert
+E ok
+S -2--2 0 0 
+@ all #minecrft:nope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miecr-aft:oak_s
+R 15
+A 0-15 minecraft:block|miecr-aft:oak_s
+E ok
+S -2--2 0 0 
+@ all mincaft:water
+R 13
+A 0-13 minecraft:block|mincaft:water
+E ok
+S -2--2 0 0 
+@ all '
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all d#
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+E Expected whitespace to end one argument, but found trailing data at position 3: t d<--[HERE]@1
+S -2--2 0 0 
+@ all %minecraft:stone
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all miecraft:
+R 9
+A 0-9 minecraft:block|miecraft:
+E ok
+S -2--2 0 0 
+@ all kc_s
+R 4
+A 0-4 minecraft:block|minecraft:kc_s
+E ok
+S -2--2 0 0 
+@ all minecrİat:oak_s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+E Expected whitespace to end one argument, but found trailing data at position 8: t minecr<--[HERE]@6
+S -2--2 0 0 
+@ all minecraf\u000at:nopee
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+E Expected whitespace to end one argument, but found trailing data at position 10: t minecraf<--[HERE]@8
+S -2--2 0 0 
+@ all miYecraft:oak_s
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all lbava
+R 5
+A 0-5 minecraft:block|minecraft:lbava
+E ok
+S -2--2 0 0 
+@ all #minecrazt:nope:
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all e/
+R 2
+A 0-2 minecraft:block|minecraft:e/
+E ok
+S -2--2 0 0 
+@ all #mi(ecraft:leaves
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minec-raft:leaves
+R 17
+A 0-17 minecraft:block|minec-raft:leaves
+E ok
+S -2--2 0 0 
+@ all miZ.necraft:stone
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+E Expected whitespace to end one argument, but found trailing data at position 4: t mi<--[HERE]@2
+S -2--2 0 0 
+@ all #mineraft:leavest
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all min\u000aecrft:air
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+E Expected whitespace to end one argument, but found trailing data at position 5: t min<--[HERE]@3
+S -2--2 0 0 
+@ all ft:leaves
+R 9
+A 0-9 minecraft:block|ft:leaves
+E ok
+S -2--2 0 0 
+@ all #minecraft:mineable/pickaxea
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #minecraft :logs t
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraft:!ir
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+E Expected whitespace to end one argument, but found trailing data at position 12: ...minecraft:<--[HERE]@10
+S -2--2 0 0 
+@ all #inecraf:logs 
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all foo:s-one
+R 9
+A 0-9 minecraft:block|foo:s-one
+E ok
+S -2--2 0 0 
+@ all :air
+R 4
+A 0-4 minecraft:block|minecraft:air
+E ok
+S -2--2 0 0 
+@ all #minecraft:<"ope
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all #😀minecraft:min eable/
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
+@ all minecraf:stone
+R 14
+A 0-14 minecraft:block|minecraf:stone
+E ok
+S -2--2 0 0 
+@ all mine%raft:air%
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+E Expected whitespace to end one argument, but found trailing data at position 6: t mine<--[HERE]@4
+S -2--2 0 0 
+@ all #mine(raft:leaves
+R 0
+A -
+X Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+E Expected whitespace to end one argument, but found trailing data at position 2: t <--[HERE]@0
+S -2--2 0 0 
