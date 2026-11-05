@@ -448,7 +448,7 @@ impl Entity for Rabbit {
         self.was_on_ground = self.base().on_ground();
     }
 
-    fn can_spawn_sprint_particle(&self) -> bool {
+    fn can_spawn_sprint_particle(&mut self) -> bool {
         false
     }
 

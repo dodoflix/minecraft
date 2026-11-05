@@ -1565,7 +1565,7 @@ pub trait Entity: Any {
     // ---- tick parts ------------------------------------------------------------------------------------------------
 
     /// `canSpawnSprintParticle()`.
-    fn can_spawn_sprint_particle(&self) -> bool {
+    fn can_spawn_sprint_particle(&mut self) -> bool {
         self.is_sprinting() && !self.is_in_water() && !self.is_spectator() && !self.is_crouching() && !self.is_in_lava() && self.is_alive()
     }
     /// `spawnSprintParticle()`: the particle itself is client-side; the draws of the entity's random are kept.
@@ -2993,6 +2993,11 @@ pub trait Entity: Any {
     /// overrides it).
     fn villager_wants_to_spawn_golem(&self, _game_time: i64) -> bool {
         false
+    }
+    // ==== [Golems] additions (Entity trait methods) ====
+    /// `Villager.getPlayerReputation(player)` (read for `EntityType.VILLAGER` by `DefendVillageTargetGoal`; the villager overrides it).
+    fn get_player_reputation(&self, _player: &uuid::Uuid) -> i32 {
+        0
     }
     // ==== [MobSpine] additions (Entity trait methods) ====
     // `Mob` and its generic subclasses. Every default is the vanilla behavior and dispatches on `mob()` (the `MobData`

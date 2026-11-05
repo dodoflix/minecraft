@@ -10,6 +10,7 @@ pub mod dolphin;
 pub mod feline;
 pub mod fish;
 pub mod fox;
+pub mod golem;
 pub mod equine;
 pub mod frog;
 pub mod nautilus;

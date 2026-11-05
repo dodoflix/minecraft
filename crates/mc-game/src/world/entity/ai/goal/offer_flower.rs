@@ -14,7 +14,7 @@ use mc_data::{EntityType, Item};
 pub const OFFER_TICKS: i32 = 400;
 
 /// `IronGolem.offerFlower(offering)`: supplied by the golem's constructor (`|golem, offering| ...` downcasting to `IronGolem`).
-pub type OfferFlowerFn = fn(&mut dyn Entity, bool);
+pub type OfferFlowerFn = fn(&mut dyn Entity, &mut ServerLevel, bool);
 
 pub struct OfferFlowerGoal {
     offer_target_context: TargetingConditions,
@@ -64,13 +64,13 @@ impl Goal for OfferFlowerGoal {
         self.tick > 0
     }
 
-    fn start(&mut self, golem: &mut dyn Entity, _level: &mut ServerLevel) {
+    fn start(&mut self, golem: &mut dyn Entity, level: &mut ServerLevel) {
         self.tick = self.adjusted_tick_delay(400);
-        (self.offer_flower)(golem, true);
+        (self.offer_flower)(golem, level, true);
     }
 
     fn stop(&mut self, golem: &mut dyn Entity, level: &mut ServerLevel) {
-        (self.offer_flower)(golem, false);
+        (self.offer_flower)(golem, level, false);
         if self.tick == 0 {
             if let Some(id) = self.entity {
                 let accepts = mc_data::tags::get::<EntityType>("accepts_iron_golem_gift");
