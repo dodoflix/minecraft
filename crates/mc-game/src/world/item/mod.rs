@@ -1,5 +1,9 @@
 //! `net.minecraft.world.item`: `ItemStack` (from `mc_protocol::components`), interaction types, use contexts, the
 //! `ItemBehaviour` trait + registry.
+mod bow_item;
+mod crossbow_item;
+pub mod projectile_weapon_item;
+mod trident_item;
 mod behaviour;
 mod bundle;
 mod block_item;

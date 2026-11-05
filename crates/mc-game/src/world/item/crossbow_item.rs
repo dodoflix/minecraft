@@ -235,7 +235,9 @@ impl ProjectileWeapon for CrossbowItem {
             // `new FireworkRocketEntity(level, projectile, shooter, x, shooter.getEyeY() - 0.15F, z, true)`
             let (x, z) = (shooter.base().x(), shooter.base().z());
             let y = shooter.base().get_eye_y() - f64::from(0.15f32);
-            crate::world::entity::projectile::firework_rocket::FireworkRocketEntity::new_shot_by(level, projectile, shooter, x, y, z, true)
+            // PENDING ImThrowables: FireworkRocketEntity::new_shot_by(level, projectile, shooter, x, y, z, true)
+            let _ = (x, y, z);
+            unreachable!("crossbow firework: waiting for FireworkRocketEntity")
         } else {
             let mut entity = create_arrow_projectile(level, shooter, held_item, projectile, is_crit);
             set_crossbow_hit_sound(&mut *entity);
@@ -260,7 +262,7 @@ fn set_crossbow_hit_sound(entity: &mut dyn Entity) {
 impl CrossbowItem {
     /// `performShooting(level, shooter, hand, weapon, power, uncertainty, targetOverride)`.
     pub fn perform_shooting(&self, level: &mut ServerLevel, shooter: &mut dyn Entity, hand: InteractionHand, weapon: &mut ItemStack, power: f32, uncertainty: f32, target_override: Option<EntityId>) {
-        let charged = weapon.set(&CHARGED_PROJECTILES, ChargedProjectiles::default());
+        let charged = weapon.set(CHARGED_PROJECTILES, ChargedProjectiles::default()).and_then(|v| v.downcast_ref::<ChargedProjectiles>().cloned());
         if let Some(charged) = charged
             && !charged.items.is_empty()
         {
@@ -281,7 +283,7 @@ impl CrossbowItem {
         source.write_back(shooter);
         if !drawn.is_empty() {
             let templates: Vec<ItemStackTemplate> = drawn.iter().filter_map(|s| ItemStackTemplate::from_stack(s).ok()).collect();
-            held_item.set(&CHARGED_PROJECTILES, ChargedProjectiles { items: templates });
+            held_item.set(CHARGED_PROJECTILES, ChargedProjectiles { items: templates });
             true
         } else {
             false

@@ -193,7 +193,7 @@ fn use_ammo(level: &mut ServerLevel, weapon: &ItemStack, projectile: &mut ItemSt
         ItemStack::empty()
     } else if ammo_to_use == 0 {
         let mut copy = projectile.copy_with_count(1);
-        copy.set(&INTANGIBLE_PROJECTILE, ());
+        copy.set(INTANGIBLE_PROJECTILE, ());
         copy
     } else {
         // (`inventory.removeItem(projectile)` of an emptied stack: the caller writes the empty stack back)

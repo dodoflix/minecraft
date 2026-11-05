@@ -18,8 +18,5 @@ impl ItemBehaviour for FixedUse {
     }
 }
 
-register_item_class!("BowItem", |_| Box::new(FixedUse { duration: APPROXIMATELY_INFINITE_USE_DURATION, animation: ItemUseAnimation::Bow }));
-register_item_class!("CrossbowItem", |_| Box::new(FixedUse { duration: APPROXIMATELY_INFINITE_USE_DURATION, animation: ItemUseAnimation::Crossbow }));
-register_item_class!("TridentItem", |_| Box::new(FixedUse { duration: APPROXIMATELY_INFINITE_USE_DURATION, animation: ItemUseAnimation::Trident }));
 register_item_class!("SpyglassItem", |_| Box::new(FixedUse { duration: 1200, animation: ItemUseAnimation::Spyglass }));
 register_item_class!("BrushItem", |_| Box::new(FixedUse { duration: 200, animation: ItemUseAnimation::Brush }));

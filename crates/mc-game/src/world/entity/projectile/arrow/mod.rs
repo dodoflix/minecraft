@@ -29,7 +29,6 @@ use mc_core::phys::{AABB, BlockHitResult, Vec3};
 use mc_data::block::BlockState;
 use mc_data::{EntityType, SoundEvent};
 use mc_nbt::{CompoundTag, Tag};
-use mc_protocol::components::INTANGIBLE_PROJECTILE;
 use mc_protocol::packets::play::ClientboundGameEventPacket;
 
 define_accessor!(pub ID_FLAGS: Byte = AbstractArrow);
@@ -235,7 +234,7 @@ pub trait AbstractArrow: Projectile {
     /// `setBaseDamageFromMob(power)`.
     fn set_base_damage_from_mob(&mut self, level: &ServerLevel, power: f32) {
         use mc_core::random::RandomSource as _;
-        let difficulty = f64::from(level.difficulty_id()) * 0.11;
+        let difficulty = f64::from(level.difficulty().get_id()) * 0.11;
         let damage = f64::from(power * 2.0) + self.base_mut().random.triangle(difficulty, 0.57425);
         self.arrow_data_mut().base_damage = damage;
     }
@@ -255,7 +254,7 @@ pub fn apply_components_from_item_stack(entity: &mut dyn Entity, stack: &ItemSta
 pub fn init_at(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, x: f64, y: f64, z: f64, mut pickup_item_stack: ItemStack, fired_from_weapon: Option<&ItemStack>) {
     arrow.arrow_data_mut().pickup_item_stack = pickup_item_stack.copy();
     apply_components_from_item_stack(arrow, &pickup_item_stack);
-    if pickup_item_stack.remove(&INTANGIBLE_PROJECTILE).is_some() {
+    if pickup_item_stack.remove(mc_data::DataComponentType::INTANGIBLE_PROJECTILE).is_some() {
         arrow.arrow_data_mut().pickup = Pickup::CreativeOnly;
     }
     arrow.set_pos(x, y, z);
@@ -343,7 +342,8 @@ pub fn tick(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel) {
         arrow.arrow_data_mut().in_ground_time = 0;
         let original_position = arrow.position();
         if arrow.is_in_water() {
-            apply_inertia(arrow, arrow.get_water_inertia());
+            let inertia = arrow.get_water_inertia();
+            apply_inertia(arrow, inertia);
         }
         let pi = f64::from(std::f32::consts::PI);
         let y_rot = if !physics_enabled {
@@ -754,7 +754,7 @@ pub fn read_additional_save_data(arrow: &mut dyn AbstractArrow, input: &Compound
     arrow.arrow_data_mut().shake_time = i32::from(input.get_byte_or("shake", 0)) & 255;
     arrow.set_in_ground(input.get_boolean_or("inGround", false));
     arrow.arrow_data_mut().base_damage = input.get_double_or("damage", 2.0);
-    arrow.arrow_data_mut().pickup = input.get("pickup").and_then(Tag::as_i32).map_or(Pickup::Disallowed, Pickup::by_ordinal);
+    arrow.arrow_data_mut().pickup = Pickup::by_ordinal(i32::from(input.get_byte_or("pickup", 0)));
     arrow.set_crit_arrow(input.get_boolean_or("crit", false));
     arrow.set_pierce_level(input.get_byte_or("PierceLevel", 0));
     let default_sound = arrow.get_default_hit_ground_sound_event();

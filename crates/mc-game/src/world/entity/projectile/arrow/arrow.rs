@@ -4,7 +4,6 @@ use super::{AbstractArrow, AbstractArrowData};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::effect::potion_contents;
-use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
 use crate::world::entity::projectile::{Projectile, ProjectileData};
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
@@ -68,7 +67,7 @@ impl Arrow {
     }
 
     fn set_potion_contents(&mut self, contents: PotionContents) {
-        self.arrow.pickup_item_stack.set(&POTION_CONTENTS, contents);
+        self.arrow.pickup_item_stack.set(POTION_CONTENTS, contents);
         self.update_color();
     }
 
@@ -80,7 +79,7 @@ impl Arrow {
     }
 
     /// `addEffect(effect)`: `withEffectAdded`.
-    pub fn add_effect(&mut self, effect: MobEffectInstance) {
+    pub fn add_effect(&mut self, effect: mc_protocol::components::MobEffectInstance) {
         let mut contents = self.get_potion_contents();
         contents.custom_effects.push(effect);
         self.set_potion_contents(contents);

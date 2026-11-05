@@ -9,7 +9,7 @@ use crate::world::entity::projectile::{EntityHitResult, HitResult, Projectile, P
 use crate::world::entity::{Entity, EntityData, EntityId, entity};
 use crate::world::item::ItemStack;
 use crate::world::item::enchantment::actors::Actors;
-use crate::world::level::LevelReader as _;
+use crate::world::level::{BlockGetter as _, LevelReader as _};
 use crate::world::level::explosion::{ExplosionDamageCalculator, ExplosionInteraction, ImmuneBlocks, SimpleExplosionDamageCalculator};
 use linkme::distributed_slice;
 use mc_core::phys::{AABB, BlockHitResult, Vec3};
@@ -45,8 +45,7 @@ fn is_wind_charge(ty: EntityType) -> bool {
 }
 
 /// `AbstractWindCharge.makeBoundingBox(position)`.
-fn make_bounding_box(ty: EntityType, position: Vec3) -> AABB {
-    let dimensions = ty.dimensions();
+fn make_bounding_box(dimensions: &crate::world::entity::EntityDimensions, position: Vec3) -> AABB {
     let width = dimensions.width / 2.0;
     let height = dimensions.height;
     let offset = f64::from(0.15f32);
@@ -199,7 +198,7 @@ macro_rules! wind_charge_entity {
             false
         }
         fn make_bounding_box(&self, position: Vec3) -> AABB {
-            make_bounding_box(self.get_type(), position)
+            make_bounding_box(&self.base.dimensions, position)
         }
         fn can_collide_with(&self, level: &ServerLevel, entity: &dyn Entity) -> bool {
             !is_wind_charge(entity.get_type()) && entity.can_be_collided_with(Some(self.as_dyn())) && !self.is_passenger_of_same_vehicle(level, entity)
