@@ -5,6 +5,7 @@ use mc_testbot::join::*;
 use mc_testbot::log::PacketLog;
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server"]
 async fn status_and_configuration_against_vanilla() {
     let server = vanilla(12345, "creative", &[]).start().expect("start vanilla");
     let opts = BotOptions::new("127.0.0.1", server.port, "Bot");

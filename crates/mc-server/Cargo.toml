@@ -14,8 +14,18 @@ mc-world = { path = "../mc-world" }
 log = { workspace = true }
 
 [dev-dependencies]
+mc-core = { path = "../mc-core" }
+mc-data = { path = "../mc-data" }
 mc-nbt = { path = "../mc-nbt" }
+mc-protocol = { path = "../mc-protocol" }
+mc-testbot = { path = "../mc-testbot" }
+mc-testkit = { path = "../mc-testkit" }
+mc-text = { path = "../mc-text" }
+indexmap = { workspace = true }
+parking_lot = { workspace = true }
 tempfile = { workspace = true }
+tokio = { workspace = true, features = ["io-util", "net", "rt", "macros", "time", "sync", "rt-multi-thread"] }
+uuid = { workspace = true }
 
 [lints]
 workspace = true

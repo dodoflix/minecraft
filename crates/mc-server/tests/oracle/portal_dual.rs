@@ -5,24 +5,14 @@
 //! `portal_dual_vanilla` checks the vanilla observations against `tests/fixtures/portal_dual/*.txt` (`PORTAL_DUAL_UPDATE=1`
 //! rewrites them); `portal_dual_ours` diffs our server's observations against them (`run/portal-dual-ours.diff`,
 //! `PORTAL_DUAL_STRICT=1` makes differences a failure).
-mod common;
 use std::sync::Arc;
 use std::time::Duration;
 
-use common::dual::*;
-use common::*;
+use crate::common::dual::*;
+use crate::common::*;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::Block;
-use mc_testbot::harness::{OurServer, repo_root};
-
-impl Console for OurServer {
-    fn cmd(&self, command: &str) {
-        OurServer::cmd(self, command)
-    }
-    fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
-        OurServer::wait_log(self, regex, timeout_s)
-    }
-}
+use mc_testbot::harness::repo_root;
 
 const PORTAL_PROPS: &[&str] = &[
     "level-type=minecraft:flat",
@@ -36,7 +26,7 @@ const PORTAL_PROPS: &[&str] = &[
 ];
 
 fn fixture_path(scenario: &str) -> std::path::PathBuf {
-    repo_root().join("crates/mc-testbot/tests/fixtures/portal_dual").join(format!("{scenario}.txt"))
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/portal_dual").join(format!("{scenario}.txt"))
 }
 
 const NETHER: &str = "minecraft:the_nether";
@@ -162,6 +152,7 @@ async fn run(bot: &Arc<mc_testbot::Bot>, srv: Arc<dyn Console + Send + Sync>) ->
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server"]
 async fn portal_dual_vanilla() {
     let server = Arc::new(mc_testbot::harness::vanilla(12345, "survival", PORTAL_PROPS).start().expect("start vanilla"));
     let bot = join("127.0.0.1", server.port, "Bot").await;
@@ -187,12 +178,9 @@ async fn portal_dual_vanilla() {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the mc-server binary"]
 async fn portal_dual_ours() {
-    let Some(bin) = OurServer::binary() else {
-        eprintln!("skipping: no mc-server binary");
-        return;
-    };
-    let server = Arc::new(OurServer::start_with_props(&bin, 12345, "survival", PORTAL_PROPS).expect("start our server"));
+    let server = Arc::new(ours(12345, "survival", PORTAL_PROPS).start().expect("start our server"));
     let bot = join("127.0.0.1", server.port, "Bot").await;
     setup(&bot, &*server).await;
     let results = run(&bot, server.clone()).await;

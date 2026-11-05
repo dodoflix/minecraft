@@ -1,28 +1,18 @@
 //! Player `.dat` parity: the same scenario runs against the real vanilla server and ours (offline "Bot", survival,
 //! same seed), the saved `world/players/data/<uuid>.dat` files are diffed key by key (paths, tag types, values, key
-//! order, list order). Needs the `mc-server` binary (`MC_SERVER_BIN`) and the oracle.
-mod common;
+//! order, list order).
 use std::path::Path;
 use std::time::Duration;
 
-use common::*;
+use crate::common::*;
 use mc_nbt::{CompoundTag, Tag};
-use mc_testbot::harness::{OurServer, vanilla};
+use mc_testbot::harness::vanilla;
 
 fn read_dat(dir: &Path) -> CompoundTag {
     let data = dir.join("world/players/data");
     let file = std::fs::read_dir(&data).unwrap_or_else(|e| panic!("{}: {e}", data.display())).flatten().find(|e| e.path().extension().is_some_and(|x| x == "dat")).expect("player file").path();
     let bytes = std::fs::read(file).expect("read dat");
     mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap()).expect("nbt")
-}
-
-impl Console for OurServer {
-    fn cmd(&self, command: &str) {
-        OurServer::cmd(self, command)
-    }
-    fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
-        OurServer::wait_log(self, regex, timeout_s)
-    }
 }
 
 fn kind(t: &Tag) -> &'static str {
@@ -95,24 +85,20 @@ async fn scenario(console: &(dyn Console + Sync), port: u16, walk: bool) {
 }
 
 async fn run_both(walk: bool) -> (CompoundTag, CompoundTag) {
-    let bin = OurServer::binary().expect("MC_SERVER_BIN");
     let van = vanilla(12345, "survival", &[]).start().expect("vanilla");
     scenario(&van, van.port, walk).await;
     van.stop();
     let vanilla = read_dat(van.dir());
-    let mut ours = OurServer::start(&bin, 12345, "survival").expect("ours");
+    let ours = ours(12345, "survival", &[]).start().expect("ours");
     scenario(&ours, ours.port, walk).await;
-    assert!(ours.stop_and_wait(60));
+    assert!(ours.stop());
     let o = read_dat(ours.dir());
     (vanilla, o)
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn playerdata_matches_vanilla() {
-    if OurServer::binary().is_none() {
-        eprintln!("skipping: no mc-server binary");
-        return;
-    }
     let mut report = Vec::new();
     for (walk, name) in [(false, "new"), (true, "walked")] {
         let (mut v, mut o) = run_both(walk).await;

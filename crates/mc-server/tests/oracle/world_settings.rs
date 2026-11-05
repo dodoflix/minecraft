@@ -63,6 +63,7 @@ fn read_dimensions(dir: &Path) -> CompoundTag {
 }
 
 #[test]
+#[ignore = "oracle: starts the mc-server binary"]
 fn inline_biome_flat_world_and_inline_dimension_type_start() {
     let dir = tempfile::tempdir().unwrap();
     let generator_settings = format!(

@@ -1,5 +1,5 @@
-#![allow(dead_code, reason = "each test binary uses a subset of the shared helpers")]
-//! Scenario suite shared by the vanilla and (later) our-server integration tests.
+#![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
+//! Scenario suite shared by the vanilla and our-server oracle tests.
 use std::time::Duration;
 
 pub mod dual;
@@ -13,6 +13,29 @@ use mc_testbot::join::BotOptions;
 use mc_testbot::{Bot, BotError};
 
 pub const T: Duration = Duration::from_secs(30);
+
+/// OUR server (`mc-server`, offline, peaceful, view/simulation distance 4) for `seed` and `gamemode`; counterpart of
+/// `mc_testbot::harness::vanilla`, `props` replace the defaults of the same key. Start it with `.start()`.
+pub fn ours(seed: i64, gamemode: &str, props: &[&str]) -> mc_testkit::Builder {
+    mc_testkit::Server::ours(env!("CARGO_BIN_EXE_mc-server"))
+        .properties([
+            "online-mode=false",
+            "enforce-secure-profile=false",
+            "white-list=false",
+            "generate-structures=false",
+            "spawn-protection=0",
+            "max-tick-time=-1",
+            "view-distance=4",
+            "simulation-distance=4",
+            "enable-rcon=false",
+            "enable-query=false",
+            "rate-limit=0",
+            "difficulty=peaceful",
+        ])
+        .property("level-seed", &seed.to_string())
+        .property("gamemode", gamemode)
+        .properties(props.iter().copied())
+}
 
 /// Console access to the server under test (the oracle script, or ours).
 pub trait Console {

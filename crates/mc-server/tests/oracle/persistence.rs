@@ -1,27 +1,17 @@
 //! Restart persistence (position, inventory, world change survive a restart with the bot still connected to the
 //! stopping server) and world-file compatibility in both directions: the vanilla server opens the world our server
-//! saved, and our server opens the world the vanilla server saved. Needs the `mc-server` binary and the oracle.
-mod common;
+//! saved, and our server opens the world the vanilla server saved.
 use std::path::Path;
 use std::process::Command;
 use std::sync::Arc;
 use std::time::Duration;
 
-use common::*;
+use crate::common::*;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::{Block, Item};
 use mc_protocol::components::ItemStack;
-use mc_testbot::harness::{OurServer, vanilla};
+use mc_testbot::harness::vanilla;
 use mc_testbot::Bot;
-
-impl Console for OurServer {
-    fn cmd(&self, command: &str) {
-        OurServer::cmd(self, command)
-    }
-    fn wait_log(&self, regex: &str, timeout_s: u32) -> Option<String> {
-        OurServer::wait_log(self, regex, timeout_s)
-    }
-}
 
 struct Saved {
     pos: (f64, f64, f64),
@@ -73,28 +63,31 @@ fn copy_world(from: &Path, to: &Path) {
     assert!(st.success());
 }
 
+/// Our server on `dir` (a restart reuses the directory and gets a new port).
+fn start_ours(dir: &Path) -> mc_testkit::Server {
+    ours(12345, "creative", &[]).dir(dir).start().expect("start ours")
+}
+
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn restart_and_cross_server_world_compat() {
-    let Some(bin) = OurServer::binary() else {
-        eprintln!("skipping: no mc-server binary");
-        return;
-    };
     // 1. restart persistence, bot still connected when `stop` arrives
-    let mut ours = OurServer::start(&bin, 12345, "creative").expect("start ours");
-    let bot = join("127.0.0.1", ours.port, "Bot").await;
-    let saved = mutate(&bot, &ours).await;
-    assert!(ours.stop_and_wait(60), "our server did not stop within 60 s with a player online\n{}", ours.log());
-    assert!(ours.log().contains("Stopping server"), "{}", ours.log());
+    let ours_dir = tempfile::tempdir().expect("temp dir");
+    let server = start_ours(ours_dir.path());
+    let bot = join("127.0.0.1", server.port, "Bot").await;
+    let saved = mutate(&bot, &server).await;
+    assert!(server.stop(), "our server did not stop within 60 s with a player online\n{}", server.log());
+    assert!(server.log().contains("Stopping server"), "{}", server.log());
     drop(bot);
-    ours.restart(&bin).expect("restart ours");
-    verify(ours.port, &saved, "ours -> ours").await;
-    assert!(ours.stop_and_wait(60), "stop after rejoin");
+    let server = start_ours(ours_dir.path());
+    verify(server.port, &saved, "ours -> ours").await;
+    assert!(server.stop(), "stop after rejoin");
 
     // 2. vanilla opens the world our server saved
     let tmp_a = tempfile::tempdir().expect("temp dir");
     let van = vanilla(12345, "creative", &[]).dir(tmp_a.path()).start().expect("vanilla");
     van.stop();
-    copy_world(ours.dir(), tmp_a.path());
+    copy_world(ours_dir.path(), tmp_a.path());
     let van = vanilla(12345, "creative", &[]).dir(tmp_a.path()).start().expect("vanilla on our world");
     verify(van.port, &saved, "ours -> vanilla").await;
     van.stop();
@@ -107,7 +100,7 @@ async fn restart_and_cross_server_world_compat() {
     drop(bot);
     van.stop();
     assert!(tmp_b.path().join("world/level.dat").exists());
-    copy_world(van.dir(), ours.dir());
-    ours.restart(&bin).expect("restart ours on vanilla world");
-    verify(ours.port, &saved, "vanilla -> ours").await;
+    copy_world(van.dir(), ours_dir.path());
+    let server = start_ours(ours_dir.path());
+    verify(server.port, &saved, "vanilla -> ours").await;
 }

@@ -36,8 +36,5 @@ thiserror = { workspace = true }
 tokio = { workspace = true, features = ["io-util", "net", "rt", "macros", "time", "sync", "process", "rt-multi-thread", "fs", "signal"] }
 uuid = { workspace = true }
 
-[dev-dependencies]
-tempfile = { workspace = true }
-
 [lints]
 workspace = true

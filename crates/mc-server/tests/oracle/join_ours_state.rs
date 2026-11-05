@@ -1,11 +1,12 @@
-//! Joins OUR server on a world seeded with scoreboard / custom boss event / world border saved data (copied from
-//! `MC_SEED_WORLD_DIR`, the dir that contains `world/`) and checks the matching join packets arrive.
-//! Needs `MC_SERVER_BIN` (path of `mc-server`) and `MC_SEED_WORLD_DIR`; skipped otherwise.
+//! Joins OUR server on a world with scoreboard / custom boss event / world border saved data (saved by the vanilla
+//! server from console commands and copied over) and checks the matching join packets arrive.
 use std::io::{BufRead, BufReader};
 use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
+use crate::common::join;
+use mc_testbot::harness::vanilla;
 use mc_testbot::join::*;
 use mc_testbot::log::PacketLog;
 
@@ -21,12 +22,44 @@ fn copy_dir(from: &std::path::Path, to: &std::path::Path) {
     }
 }
 
+/// Saves a world with two teams, three objectives on the list/sidebar/below-name slots with a score each, a custom boss
+/// bar shown to `Bot` and a world border in `dir` (the vanilla server runs there).
+async fn vanilla_seed_world(dir: &std::path::Path) {
+    let server = vanilla(12345, "survival", &[]).dir(dir).start().expect("start vanilla");
+    let bot = join("127.0.0.1", server.port, "Bot").await;
+    for command in [
+        "team add red",
+        "team add blue",
+        "scoreboard objectives add objA dummy",
+        "scoreboard objectives add objB dummy",
+        "scoreboard objectives add objC dummy",
+        "scoreboard objectives setdisplay list objA",
+        "scoreboard objectives setdisplay sidebar objB",
+        "scoreboard objectives setdisplay below_name objC",
+        "scoreboard players set Bot objA 1",
+        "scoreboard players set Bot objB 2",
+        "scoreboard players set Bot objC 3",
+        "bossbar add minecraft:seed Seed",
+        "bossbar set minecraft:seed players Bot",
+        "worldborder set 100",
+        "save-all flush",
+    ] {
+        server.cmd(command);
+    }
+    server.wait_log("Saved the game", 60).expect("saved");
+    bot.disconnect().await;
+    assert!(server.stop(), "vanilla did not stop\n{}", server.log());
+}
+
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn join_with_scoreboard_boss_bar_and_border() {
-    let (Ok(bin), Ok(seed)) = (std::env::var("MC_SERVER_BIN"), std::env::var("MC_SEED_WORLD_DIR")) else { return };
+    let bin = env!("CARGO_BIN_EXE_mc-server");
+    let seed = tempfile::tempdir().expect("temp dir");
+    vanilla_seed_world(seed.path()).await;
     let port = std::net::TcpListener::bind("127.0.0.1:0").unwrap().local_addr().unwrap().port();
     let dir = std::env::temp_dir().join(format!("mc-join-state-{}-{port}", std::process::id()));
-    copy_dir(std::path::Path::new(&seed), &dir);
+    copy_dir(&seed.path().join("world"), &dir.join("world"));
     std::fs::write(dir.join("eula.txt"), "eula=true\n").unwrap();
     std::fs::write(
         dir.join("server.properties"),

@@ -4,12 +4,11 @@
 //! `world_commands_vanilla`  runs the script on the real server and checks it against `tests/fixtures/world_commands_dual.txt`
 //!                           (`WC_DUAL_UPDATE=1` rewrites the fixture).
 //! `world_commands_ours`     runs it on `mc-server` and fails on any difference from the fixture.
-mod common;
 use std::time::Duration;
 
-use common::dual::PROPS;
-use common::join;
-use mc_testbot::harness::{OurServer, repo_root};
+use crate::common::dual::PROPS;
+use crate::common::{join, ours};
+use mc_testbot::harness::repo_root;
 use mc_testbot::Bot;
 
 const WATCHED: &[&str] = &[
@@ -22,7 +21,7 @@ const WATCHED: &[&str] = &[
 ];
 
 fn fixture() -> std::path::PathBuf {
-    repo_root().join("crates/mc-testbot/tests/fixtures/world_commands_dual.txt")
+    std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/world_commands_dual.txt")
 }
 
 /// The watched clientbound packet lines logged since line `from` (timestamp prefix removed) and the new log length.
@@ -130,6 +129,7 @@ async fn run(bot: &Bot, console: &dyn Fn(&str)) -> Vec<String> {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server"]
 async fn world_commands_vanilla() {
     let server = mc_testbot::harness::vanilla(12345, "survival", PROPS).start().expect("start vanilla");
     let bot = join("127.0.0.1", server.port, "Bot").await;
@@ -145,12 +145,9 @@ async fn world_commands_vanilla() {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the mc-server binary"]
 async fn world_commands_ours() {
-    let Some(bin) = OurServer::binary() else {
-        eprintln!("skipping: no mc-server binary");
-        return;
-    };
-    let server = OurServer::start_with_props(&bin, 12345, "survival", PROPS).expect("start our server");
+    let server = ours(12345, "survival", PROPS).start().expect("start our server");
     let bot = join("127.0.0.1", server.port, "Bot").await;
     let lines = run(&bot, &|c| server.cmd(c)).await;
     bot.disconnect().await;

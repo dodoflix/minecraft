@@ -1,7 +1,7 @@
 //! Differential play scenario: the same scripted client (join, idle, legit movement incl. jump/sprint, speed hack,
 //! teleport confirm, chat, commands, keep-alive) against the real vanilla server and against OUR `mc-server`
-//! (`MC_SERVER_BIN`). Packet name sequences and server logs are written to `/tmp/scenario_{vanilla,ours}.{pkts,log}`
-//! for comparison (`MC_SCENARIO=vanilla|ours`).
+//! (the `mc-server` binary). Packet name sequences and server logs are written to `/tmp/scenario_{vanilla,ours}.{pkts,log}`
+//! for comparison; `MC_SCENARIO=vanilla|ours` runs only one of the two.
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
@@ -131,18 +131,20 @@ async fn scenario(port: u16, op: impl Fn(&str)) -> String {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn play_scenario() {
     let which = std::env::var("MC_SCENARIO").unwrap_or_default();
+    assert!(matches!(which.as_str(), "" | "vanilla" | "ours"), "MC_SCENARIO must be `vanilla` or `ours` (or unset for both), got `{which}`");
     let props = "online-mode=false\nwhite-list=false\nenforce-secure-profile=false\ngenerate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=4\nsimulation-distance=4\nenable-rcon=false\nenable-query=false\nrate-limit=0\nlevel-seed=12345\n";
-    if which == "vanilla" {
+    if which != "ours" {
         let server = mc_testbot::harness::vanilla(12345, "survival", &["enforce-secure-profile=false", "spawn-protection=0", "generate-structures=false"]).start().expect("vanilla");
         let out = scenario(server.port, |c| server.cmd(c)).await;
         std::fs::write("/tmp/scenario_vanilla.pkts", out).unwrap();
         std::fs::write("/tmp/scenario_vanilla.log", server.log()).unwrap();
         server.stop();
-    } else if which == "ours" {
-        let bin = std::env::var("MC_SERVER_BIN").expect("MC_SERVER_BIN");
-        let server = mc_testkit::Server::ours(bin).properties(props.lines()).start().expect("start ours");
+    }
+    if which != "vanilla" {
+        let server = mc_testkit::Server::ours(env!("CARGO_BIN_EXE_mc-server")).properties(props.lines()).start().expect("start ours");
         let out = scenario(server.port, |c| server.cmd(c)).await;
         std::fs::write("/tmp/scenario_ours.pkts", out).unwrap();
         std::fs::write("/tmp/scenario_ours.log", server.log()).unwrap();

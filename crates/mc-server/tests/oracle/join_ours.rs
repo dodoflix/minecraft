@@ -1,5 +1,5 @@
-//! Joins OUR server (`MC_SERVER_BIN` = path of the `mc-server` binary) with the testbot and records the play packets
-//! up to the first chunk; compared with the real server's sequence by the game crate's tests.
+//! Joins OUR server (the `mc-server` binary) with the testbot and records the play packets up to the first chunk;
+//! compared with the real server's sequence by the game crate's tests.
 use std::io::{BufRead, BufReader};
 use std::process::{Command, Stdio};
 use std::sync::{Arc, Mutex};
@@ -9,8 +9,9 @@ use mc_testbot::join::*;
 use mc_testbot::log::PacketLog;
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the mc-server binary"]
 async fn join_our_server() {
-    let Ok(bin) = std::env::var("MC_SERVER_BIN") else { return };
+    let bin = env!("CARGO_BIN_EXE_mc-server");
     let port = std::net::TcpListener::bind("127.0.0.1:0").unwrap().local_addr().unwrap().port();
     let dir = std::env::temp_dir().join(format!("mc-join-ours-{}-{port}", std::process::id()));
     std::fs::create_dir_all(&dir).unwrap();
@@ -57,8 +58,8 @@ async fn join_our_server() {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server"]
 async fn join_vanilla_for_comparison() {
-    if std::env::var("MC_RECORD_VANILLA").is_err() { return; }
     let server = mc_testbot::harness::vanilla(12345, "survival", &[]).start().expect("start vanilla");
     let opts = BotOptions::new("127.0.0.1", server.port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));

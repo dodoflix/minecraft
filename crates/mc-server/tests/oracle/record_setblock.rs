@@ -1,6 +1,7 @@
 //! Records, from the REAL vanilla server, the block-change packets a scripted `/setblock` + `/fill` sequence produces
-//! (fixture `tests/fixtures/setblock_vanilla.txt`, compared with our level mutation by
-//! `mc-game/tests/setblock_differential.rs`). Run with `MC_RECORD_VANILLA=1 cargo test -p mc-testbot --test record_setblock`.
+//! (fixture `mc-game-core/tests/fixtures/setblock_vanilla.txt`, compared with our level mutation by
+//! `mc-game-core/tests/golden/setblock_differential.rs`). Compares with the committed file; `MC_UPDATE_FIXTURES=1` rewrites it:
+//! `MC_UPDATE_FIXTURES=1 cargo test -p mc-server --test oracle record_vanilla_setblock -- --ignored`.
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
@@ -46,10 +47,8 @@ fn in_script_area(line: &str) -> bool {
 }
 
 #[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server"]
 async fn record_vanilla_setblock() {
-    if std::env::var("MC_RECORD_VANILLA").is_err() {
-        return;
-    }
     let server = mc_testbot::harness::vanilla(12345, "survival", &[]).start().expect("start vanilla");
     let opts = BotOptions::new("127.0.0.1", server.port, "Bot");
     let log = Arc::new(Mutex::new(PacketLog::new()));
@@ -68,7 +67,12 @@ async fn record_vanilla_setblock() {
             out.push('\n');
         }
     }
-    std::fs::write(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/setblock_vanilla.txt"), out).unwrap();
+    let fixture = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../mc-game-core/tests/fixtures/setblock_vanilla.txt");
+    if std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
+        std::fs::write(&fixture, out).unwrap();
+    } else {
+        assert_eq!(std::fs::read_to_string(&fixture).expect("setblock_vanilla.txt"), out, "vanilla changed: rerun with MC_UPDATE_FIXTURES=1 to rewrite the fixture");
+    }
 }
 
 async fn drain(conn: &mut Conn, duration: Duration) -> Vec<String> {
