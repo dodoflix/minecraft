@@ -87,3 +87,11 @@ fn mob_command_arms_run() {
     assert!(lines.iter().any(|l| l.starts_with("PATHQ P1 ")) && lines.iter().any(|l| l.starts_with("NAV P2 ")));
     assert!(lines.iter().any(|l| l.starts_with("G P1 goal ")) && lines.iter().any(|l| l.starts_with("ATTR W ")) && lines.iter().any(|l| l.starts_with("N W {")));
 }
+
+/// Path goldens of the mob slice (need the mob dump registrations of the mob spine, `SCENARIO_DUMP_EXTRA` order 10, and its
+/// `SCENARIO_FINALIZE_SPAWN` hook; PathfinderCore owns the diffs).
+#[test]
+#[ignore = "enable when the mob dump registrations are on main; owner: PathfinderCore"]
+fn mob_path_ground() {
+    run_scenario_test("mob_path_ground");
+}

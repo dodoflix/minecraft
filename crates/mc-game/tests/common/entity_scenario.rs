@@ -727,6 +727,7 @@ impl Harness {
             "fall_distance" => e.base_mut().fall_distance = v,
             "absorption" => e.set_absorption_amount(v as f32),
             "no_gravity" => e.base_mut().set_no_gravity(value == "true"),
+            "on_ground" => e.base_mut().set_on_ground_raw(value == "true"),
             "invulnerable" => e.base_mut().permanently_invulnerable = value == "true",
             "tag" => {
                 e.base_mut().add_tag(&value);
