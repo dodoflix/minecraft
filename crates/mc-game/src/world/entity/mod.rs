@@ -9,6 +9,7 @@
 //! `put_back` applies what vanilla's `EntityInLevelCallback` does synchronously (section moves, removal).
 
 pub mod ai;
+pub mod ambient;
 pub mod animal;
 pub mod attributes;
 pub mod bucketable;
