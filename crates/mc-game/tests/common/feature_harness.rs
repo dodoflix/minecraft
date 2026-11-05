@@ -28,6 +28,7 @@ use mc_game::server::level::world_gen::{GenChunk, WorldGenRegion};
 use mc_game::world::level::chunk::status::{ChunkStep, GENERATION_PYRAMID};
 use mc_game::world::level::levelgen::gen_level::GenLevel;
 use mc_game::world::level::levelgen::registries::GenRegistries;
+use mc_game::world::level::levelgen::structure::check::{NoChunkScan, StructureCheck};
 use mc_game::world::level::levelgen::structure::registries::{StartCache, StructureRegistries};
 use mc_game::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
 use mc_game::server::packs::repository::PackSource;
@@ -227,6 +228,8 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
         registries: w.registries.clone(),
         structures: w.structures.clone(),
         start_cache: StartCache::default(),
+        structure_state: None,
+        structure_check: StructureCheck::new(Box::new(NoChunkScan)),
         structure_template_manager: w.templates.clone(),
         generate_structures: true,
         level_height: level_height(),
