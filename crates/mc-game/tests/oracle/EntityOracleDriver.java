@@ -133,7 +133,6 @@ import net.minecraft.util.RandomSource;
  * attack PLAYER REF           ServerboundAttackPacket               swing PLAYER   ServerboundPunchPacket (main hand)
  * client_tick_end PLAYER    ServerboundClientTickEndPacket (re-arms the one position packet per tick; zeroes the known movement without one)
  * mob_attack MOB REF        Mob.doHurtTarget(level, REF); prints "MOBATTACK mob ref -> result"
- * interact PLAYER REF [main|off] [sneak]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat)
  * paddle PLAYER LEFT RIGHT   ServerboundPaddleBoatPacket (true|false)
  * drop PLAYER [all]           DROP_ITEM / DROP_ALL_ITEMS            respawn PLAYER   ServerboundClientCommandPacket
  * pcommand PLAYER ACTION [data]   ServerboundPlayerCommandPacket (START_SPRINTING STOP_SPRINTING START_FALL_FLYING STOP_SLEEPING ...)
@@ -161,7 +160,7 @@ import net.minecraft.util.RandomSource;
  * raid_waves DIFFICULTY OMEN SEED   composition of every Raid wave (+ bonus wave when omen>1) with Raid's own RNG seeded: `RAID_WAVE` lines
  * raid_start PLAYER X Y Z [omen=N]  Raids.createOrExtendRaid (a village = POI blocks (bell, beds) placed by the script; the player needs
  *                             the raid_omen effect to carry an omen level; omen=N overrides)       dump raids   all raids (`RAID` lines)
- * interact PLAYER REF [main|off] [sneak]   ServerboundInteractPacket (location = entity centre relative to its position)
+ * interact PLAYER REF [main|off] [sneak] [center]   ServerboundInteractPacket (use the entity: board a boat, open a chest boat, feed, tame); location = entity origin, `center` = bounding box centre relative to the origin
  * trade_select PLAYER N       ServerboundSelectTradePacket
  * local difficulty / light / time of day: `dump difficulty:X,Y,Z` (`DIFFICULTY ..`), `dump light:X,Y,Z` (`LIGHT x y z block=B sky=S`, after ticks),
  *                             `time N` (day time, `/time set`; the sky darkens on the next tick), `gamerule`.
@@ -584,10 +583,12 @@ public final class EntityOracleDriver {
          }
          case "interact" -> {
             world();
-            // interact PLAYER REF [main|off] [sneak]: ServerboundInteractPacket at the entity origin
-            boolean sneak = a.get(a.size() - 1).equals("sneak");
+            // interact PLAYER REF [main|off] [sneak] [center]: ServerboundInteractPacket at the entity origin (`center`: bounding box centre)
+            boolean sneak = a.contains("sneak");
             int handIdx = a.size() > 3 && (a.get(3).equals("main") || a.get(3).equals("off")) ? 3 : -1;
-            player(a.get(1)).connection.handleInteract(new ServerboundInteractPacket(ref(a.get(2)).getId(), handIdx > 0 ? hand(a, 3) : InteractionHand.MAIN_HAND, Vec3.ZERO, sneak));
+            Entity target = ref(a.get(2));
+            Vec3 loc = a.contains("center") ? target.getBoundingBox().getCenter().subtract(target.position()) : Vec3.ZERO;
+            player(a.get(1)).connection.handleInteract(new ServerboundInteractPacket(target.getId(), handIdx > 0 ? hand(a, 3) : InteractionHand.MAIN_HAND, loc, sneak));
          }
          case "paddle" -> {
             world();
@@ -758,13 +759,6 @@ public final class EntityOracleDriver {
          case "raid_start" -> {
             world();
             raidStart(a);
-         }
-         case "interact" -> {
-            world();
-            ServerPlayer p = player(a.get(1));
-            Entity t = ref(a.get(2));
-            Vec3 loc = t.getBoundingBox().getCenter().subtract(t.position());
-            p.connection.handleInteract(new ServerboundInteractPacket(t.getId(), hand(a, 3), loc, a.contains("sneak")));
          }
          case "trade_select" -> {
             world();

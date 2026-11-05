@@ -59,15 +59,17 @@ pub(super) fn run(h: &mut Harness, a: &[String]) -> bool {
                 with_other(h, &a[1], &a[2], |level, e, holder| leashable::set_leashed_to(e, level, leashable::LeashHolder::of(&*holder), true));
             }
         }
-        // interact PLAYER REF [main|off] [sneak]   ServerboundInteractPacket (location = bounding box centre relative to the entity)
+        // interact PLAYER REF [main|off] [sneak]   ServerboundInteractPacket (location = entity origin; `center` = bounding box centre relative to the entity)
         "interact" => {
             h.world();
             let target = h.entity_ref(&a[2]);
             let hand = if a.get(3).is_some_and(|t| t == "off") { InteractionHand::OffHand } else { InteractionHand::MainHand };
             let sneak = a.iter().any(|t| t == "sneak");
+            let center = a.iter().any(|t| t == "center");
             let (loc, bb) = {
                 let t = h.level.get_entity(target).unwrap_or_else(|| h.fail("interact target is not in the level"));
-                (t.get_bounding_box().get_center().subtract(t.position()), t.get_bounding_box())
+                let loc = if center { t.get_bounding_box().get_center().subtract(t.position()) } else { mc_core::phys::Vec3::ZERO };
+                (loc, t.get_bounding_box())
             };
             h.with_player(&a[1], |level, p| {
                 // handleInteract: setShiftKeyDown(usingSecondaryAction), range check, interactOn, swing
