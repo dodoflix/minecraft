@@ -471,6 +471,11 @@ pub struct EnvironmentAttributeSystem {
 pub type BiomeAttributes<'a> = Vec<Option<&'a Value>>;
 
 impl EnvironmentAttributeSystem {
+    /// `clockManager.getTotalTicks(clock)` of this level's clocks.
+    pub fn clock_total_ticks(&self, clock: &Identifier) -> i64 {
+        self.clocks.total_ticks(clock)
+    }
+
     /// `builder().addDefaultLayers(level)`: the dimension constant layer, one positional layer per attribute any biome
     /// provides, the dimension's timelines (in order), then the weather layers if the level can have weather.
     pub fn build(

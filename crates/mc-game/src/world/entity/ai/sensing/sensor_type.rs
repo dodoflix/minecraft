@@ -13,7 +13,9 @@ use super::villager_babies_sensor::VillagerBabiesSensor;
 use super::villager_hostiles_sensor::VillagerHostilesSensor;
 use super::mob_sensor::MobSensor;
 use super::mob_sensors::{AxolotlAttackablesSensor, BreezeAttackEntitySensor, FrogAttackablesSensor, WardenEntitySensor};
+use super::nearest_bed_sensor::NearestBedSensor;
 use super::nearest_item_sensor::NearestItemSensor;
+use super::secondary_poi_sensor::SecondaryPoiSensor;
 use super::repellent_sensors::{HoglinSpecificSensor, PiglinBruteSpecificSensor, PiglinSpecificSensor};
 use super::tempting_sensor::TemptingSensor;
 use crate::world::entity::ai::memory::memory_module_type::DANGER_DETECTED_RECENTLY;
@@ -50,9 +52,11 @@ pub static DUMMY: SensorType = SensorType::new("dummy", || Box::new(DummySensor)
 pub static NEAREST_ITEMS: SensorType = SensorType::new("nearest_items", || Box::new(NearestItemSensor));
 pub static NEAREST_LIVING_ENTITIES: SensorType = SensorType::new("nearest_living_entities", || Box::new(NearestLivingEntitySensor));
 pub static NEAREST_PLAYERS: SensorType = SensorType::new("nearest_players", || Box::new(PlayerSensor));
+pub static NEAREST_BED: SensorType = SensorType::new("nearest_bed", || Box::new(NearestBedSensor::new()));
 pub static HURT_BY: SensorType = SensorType::new("hurt_by", || Box::new(HurtBySensor));
 pub static VILLAGER_HOSTILES: SensorType = SensorType::new("villager_hostiles", || Box::new(NearestVisibleLivingEntitySensor(VillagerHostilesSensor)));
 pub static VILLAGER_BABIES: SensorType = SensorType::new("villager_babies", || Box::new(VillagerBabiesSensor));
+pub static SECONDARY_POIS: SensorType = SensorType::new("secondary_pois", || Box::new(SecondaryPoiSensor));
 pub static GOLEM_DETECTED: SensorType = SensorType::new("golem_detected", || Box::new(GolemSensor::new()));
 pub static ARMADILLO_SCARE_DETECTED: SensorType = SensorType::new("armadillo_scare_detected", || {
     Box::new(MobSensor::new(5, |body, entity| body.is_scared_by(entity), |body| body.can_stay_rolled_up(), DANGER_DETECTED_RECENTLY, 80))
@@ -71,15 +75,17 @@ pub static IS_IN_WATER: SensorType = SensorType::new("is_in_water", || Box::new(
 pub static WARDEN_ENTITY_SENSOR: SensorType = SensorType::new("warden_entity_sensor", || Box::new(WardenEntitySensor));
 pub static BREEZE_ATTACK_ENTITY_SENSOR: SensorType = SensorType::new("breeze_attack_entity_sensor", || Box::new(BreezeAttackEntitySensor));
 
-/// The registry in declaration order (`NEAREST_BED` and `SECONDARY_POIS` are added with the villager's POI access).
+/// The registry in declaration order .
 pub static SENSOR_TYPES: &[&SensorType] = &[
     &DUMMY,
     &NEAREST_ITEMS,
     &NEAREST_LIVING_ENTITIES,
     &NEAREST_PLAYERS,
+    &NEAREST_BED,
     &HURT_BY,
     &VILLAGER_HOSTILES,
     &VILLAGER_BABIES,
+    &SECONDARY_POIS,
     &GOLEM_DETECTED,
     &ARMADILLO_SCARE_DETECTED,
     &PIGLIN_SPECIFIC_SENSOR,

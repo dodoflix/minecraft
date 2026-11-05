@@ -120,6 +120,14 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
         }
     }
 
+    // [Villagers] the subclass part of `setLastHurtByMob(livingSource)` (reputation event), before the field is set
+    if let Some(causing) = source.causing_info().filter(|c| c.is_living) {
+        let no_anger = source.is_tag(level, DamageTypeTags::NO_ANGER)
+            || (source.is(DamageTypes::WIND_CHARGE) && mc_data::tags::get::<EntityType>("no_anger_from_wind_charge").is_some_and(|t| t.contains(entity.get_type())));
+        if !no_anger {
+            entity.on_set_last_hurt_by_mob(level, causing.uuid, causing.is_player);
+        }
+    }
     resolve_mob_responsible_for_damage(entity, level, source);
     resolve_player_responsible_for_damage(entity, source);
     if took_full_damage {

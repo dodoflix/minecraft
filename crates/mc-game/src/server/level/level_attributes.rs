@@ -31,6 +31,12 @@ impl ServerLevel {
         self.chunk_now(qx >> 2, qz >> 2).map(|c| c.data.access.get_noise_biome(qx, qy, qz))
     }
 
+    /// `Timelines.OVERWORLD_DAY.getPeriodCount(clockManager)` (24000-tick period of the `minecraft:overworld` clock).
+    pub fn overworld_day_period_count(&self) -> i64 {
+        let clock = Identifier::parse("minecraft:overworld").expect("valid clock id");
+        self.tick_state.attributes.clock_total_ticks(&clock) / 24000
+    }
+
     /// `environmentAttributes().getDimensionValue(attribute)`.
     pub fn environment_dimension_value(&self, attribute: &str) -> AttrValue {
         self.with_attribute_env(|system, env| system.get_dimension_value(attribute, env))

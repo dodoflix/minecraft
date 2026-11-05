@@ -2929,6 +2929,11 @@ pub trait Entity: Any {
     fn as_slot_provider(&self) -> Option<&dyn crate::world::item::slot::SlotProvider> {
         None
     }
+    // ==== [Blocks:Containers] additions (Entity trait methods) ====
+    /// `TamableAnimal.isInSittingPose()` (cats sitting on chests block them: `ChestBlock.isCatSittingOnChest`).
+    fn is_in_sitting_pose(&self) -> bool {
+        false
+    }
     // ==== [PathfinderCore] additions (Entity trait methods) ====
     // Mob hooks the pathfinder/navigation call; the defaults are the behavior of an entity that is not a `Mob`
     // (`Mob` types override them: malus map, move control, ...).
@@ -3560,6 +3565,32 @@ pub trait Entity: Any {
     /// `getBrain().setMemory(MemoryModuleType.HEARD_BELL_TIME, gameTime)` (`BellBlockEntity.updateEntities`): entities whose
     /// brain registers the memory (villagers, ...) override this; the memory write is a no-op for brains without it.
     fn set_heard_bell_time(&mut self, _game_time: i64) {}
+    // ==== [Villagers] additions (Entity trait methods) ====
+    /// `AgeableMob.canBreed()` (villagers: enough food, awake, age 0).
+    fn can_breed(&self) -> bool {
+        false
+    }
+    /// `this instanceof ReputationEventHandler` (villagers).
+    fn is_reputation_event_handler(&self) -> bool {
+        false
+    }
+    /// `ReputationEventHandler.onReputationEventFrom(type, source)`; `source` is the UUID of the causing entity.
+    fn on_reputation_event_from(&mut self, _level: &mut ServerLevel, _ty: super::ai::village::ReputationEventType, _source: uuid::Uuid) {}
+    /// The part of `LivingEntity.setLastHurtByMob(hurtBy)` that subclasses add (villagers: reputation event + angry
+    /// particles); called when a damage source with a living cause is resolved.
+    fn on_set_last_hurt_by_mob(&mut self, _level: &mut ServerLevel, _hurt_by: uuid::Uuid, _hurt_by_is_player: bool) {}
+    /// `LivingEntity.isSleeping()`.
+    fn is_sleeping(&self) -> bool {
+        self.living().is_some_and(|l| l.is_sleeping())
+    }
+    /// `getTypeName()` (villagers: the profession name).
+    fn get_type_name(&self) -> mc_text::Component {
+        mc_text::Component::translatable(self.get_type().data().description_id, Vec::new())
+    }
+    /// `LivingEntity.wasHurtRecently()`.
+    fn was_hurt_recently(&self) -> bool {
+        self.living().is_some_and(|l| l.hurt_time > 0)
+    }
     // ==== [Attack] additions (Entity trait methods) ====
     /// `LivingEntity.doHurtTarget(level, target)` (`Mob` overrides: damage, knockback, item effects). The target is out of the level.
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {

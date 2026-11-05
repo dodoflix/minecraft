@@ -3,6 +3,7 @@
 mod behaviour;
 pub mod block_set_type;
 pub mod bonemeal;
+pub mod double_block_combiner;
 pub mod grower;
 pub mod hatch_spawns;
 pub mod helpers;

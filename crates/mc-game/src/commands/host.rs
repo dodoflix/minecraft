@@ -64,7 +64,7 @@ pub fn entity_name(entity: &dyn Entity) -> Component {
     }
     match entity.base().get_custom_name() {
         Some(name) => name,
-        None => Component::translatable(entity.get_type().data().description_id, Vec::new()),
+        None => entity.get_type_name(),
     }
 }
 

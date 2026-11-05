@@ -372,6 +372,15 @@ impl Brain {
         }
     }
 
+    /// `setMemory`/`setMemoryWithExpiry` for an untyped memory (`time_to_live` = `Some` for the expiring variant); used by data-driven
+    /// test scenarios that set memories by registry id.
+    pub fn set_memory_value(&mut self, type_id: MemoryTypeId, value: Option<MemoryValue>, time_to_live: Option<i64>) {
+        match time_to_live {
+            Some(ttl) => self.set_memory_with_expiry_value(type_id, value, ttl),
+            None => self.set_memory_internal(type_id, value),
+        }
+    }
+
     /// `getMemory(type)`; panics (`IllegalStateException`) when the memory is not registered in this brain.
     pub fn get_memory<U: MemoryData>(&self, type_: &MemoryModuleType<U>) -> Option<&U> {
         self.slot_or_panic(type_.id()).value().and_then(U::from_value)

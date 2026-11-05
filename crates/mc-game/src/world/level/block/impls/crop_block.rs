@@ -178,3 +178,13 @@ pub fn next_age_state_if_not_max(state: BlockState) -> Option<BlockState> {
     let crop = crop(class);
     (!crop.is_max_age(state)).then(|| crop.get_state_for_age(state.block(), crop.get_age(state) + 1))
 }
+
+/// `block instanceof CropBlock crop && crop.isMaxAge(state)`: `None` when the state is not a `CropBlock` (or subclass).
+pub fn is_max_age(state: BlockState) -> Option<bool> {
+    match state.block() {
+        Block::WHEAT | Block::CARROTS | Block::POTATOES => Some(state.get(props::AGE_7) >= 7),
+        Block::BEETROOTS => Some(state.get(props::AGE_3) >= 3),
+        Block::TORCHFLOWER_CROP => Some(state.get(props::AGE_1) >= 2),
+        _ => None,
+    }
+}

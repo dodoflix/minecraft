@@ -21,8 +21,66 @@ macro_rules! block_entity_base {
     };
 }
 
+/// `Container` for a block entity backed by `$items: Vec<ItemStack>` with `BaseContainerBlockEntity`'s semantics
+/// (`setChanged` is deferred: it sets the `changed` flag, the level side effects run in `container_accessed`). Extra
+/// trait items go in the trailing braces.
+macro_rules! impl_items_container {
+    ($ty:ty, $items:ident $({ $($extra:tt)* })?) => {
+        impl crate::world::container::Container for $ty {
+            fn as_any(&self) -> &dyn std::any::Any {
+                self
+            }
+            fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
+                self
+            }
+            fn get_container_size(&self) -> usize {
+                self.$items.len()
+            }
+            fn is_empty(&self) -> bool {
+                self.$items.iter().all(|s| s.is_empty())
+            }
+            fn get_item(&self, slot: usize) -> &crate::world::item::ItemStack {
+                self.$items.get(slot).unwrap_or_else(|| crate::world::container::empty_stack())
+            }
+            fn get_item_mut(&mut self, slot: usize) -> Option<&mut crate::world::item::ItemStack> {
+                self.$items.get_mut(slot)
+            }
+            fn remove_item(&mut self, slot: usize, count: i32) -> crate::world::item::ItemStack {
+                let result = crate::world::container::helper::remove_item(&mut self.$items, slot, count);
+                if !result.is_empty() {
+                    crate::world::container::Container::set_changed(self);
+                }
+                result
+            }
+            fn remove_item_no_update(&mut self, slot: usize) -> crate::world::item::ItemStack {
+                crate::world::container::helper::take_item(&mut self.$items, slot)
+            }
+            fn set_item(&mut self, slot: usize, mut stack: crate::world::item::ItemStack) {
+                if slot < self.$items.len() {
+                    let max = crate::world::container::Container::get_max_stack_size_for(self, &stack);
+                    stack.limit_size(max);
+                    self.$items[slot] = stack;
+                }
+                crate::world::container::Container::set_changed(self);
+            }
+            fn clear_content(&mut self) {
+                self.$items.iter_mut().for_each(|s| *s = crate::world::item::ItemStack::empty());
+            }
+            fn set_changed(&mut self) {
+                self.base.changed = true;
+            }
+            fn still_valid(&self, player: &dyn crate::world::inventory::MenuPlayer) -> bool {
+                crate::world::container::still_valid_block_entity(self.base.pos, player)
+            }
+            $($($extra)*)?
+        }
+    };
+}
+
 pub mod base_container;
 pub mod changed_log;
+pub mod deferred;
+pub mod container_openers;
 mod beacon_block_entity;
 mod beehive_block_entity;
 pub mod brewing_stand_block_entity;
@@ -32,6 +90,14 @@ mod brushable_block_entity;
 pub mod container_menu_provider;
 mod banner_block_entity;
 mod calibrated_sculk_sensor_block_entity;
+pub mod barrel_block_entity;
+pub mod chest_block_entity;
+pub mod container_menus;
+pub mod chiseled_book_shelf_block_entity;
+pub mod decorated_pot_block_entity;
+pub mod jukebox_block_entity;
+pub mod shulker_box_block_entity;
+pub mod ender_chest_block_entity;
 mod comparator_block_entity;
 pub mod command_block_entity;
 pub mod jigsaw_block_entity;
@@ -104,11 +170,14 @@ pub struct BlockEntityData {
     pub removed: bool,
     /// `BlockEntity.components` (`DataComponentMap.EMPTY` until set).
     pub components: mc_protocol::components::DataComponentMap,
+    /// `setChanged()` was requested by a container operation that had no level at hand (see
+    /// [`BlockEntity::flush_pending`]).
+    pub changed: bool,
 }
 
 impl BlockEntityData {
     pub fn new(ty: BlockEntityType, pos: BlockPos, block_state: BlockState) -> Self {
-        Self { ty, pos, block_state, removed: false, components: Default::default() }
+        Self { ty, pos, block_state, removed: false, components: Default::default(), changed: false }
     }
 }
 

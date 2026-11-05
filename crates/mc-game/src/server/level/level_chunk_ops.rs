@@ -145,6 +145,7 @@ impl ServerLevel {
     pub fn with_block_entity<R>(&mut self, pos: BlockPos, f: impl FnOnce(&mut ServerLevel, &mut dyn BlockEntity) -> R) -> Option<R> {
         let mut block_entity = self.take_block_entity(pos)?;
         self.tick_state.taken_block_entities.push(super::level_tick_state::TakenBlockEntity { pos, new_state: None, removed: false });
+        crate::world::block_entity::deferred::enter();
         let result = f(self, block_entity.as_mut());
         if let Some(taken) = self.tick_state.taken_block_entities.pop() {
             if taken.removed {
@@ -156,6 +157,7 @@ impl ServerLevel {
                 self.put_back_block_entity(pos, block_entity);
             }
         }
+        crate::world::block_entity::deferred::leave(self);
         Some(result)
     }
 

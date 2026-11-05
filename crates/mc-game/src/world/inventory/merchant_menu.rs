@@ -226,6 +226,53 @@ impl MerchantMenu {
         trade_container(&mut self.base.locals)
     }
 
+    /// `MerchantContainer.updateSellItem()` over offers the caller already holds (the merchant itself is out of the level, so
+    /// `with_merchant` cannot reach it); returns the result item the caller passes to `notifyTradeUpdated`.
+    pub fn update_sell_item_with_offers(&mut self, player: &mut dyn MenuPlayer, offers: &mut super::super::item::trading::MerchantOffers) -> Option<ItemStack> {
+        let _ = &player;
+        let container = self.container();
+        container.active_offer = None;
+        let (buy_a, buy_b) = if container.items[0].is_empty() { (container.items[1].clone(), ItemStack::empty()) } else { (container.items[0].clone(), container.items[1].clone()) };
+        if buy_a.is_empty() {
+            container.set_item(RESULT_SLOT, ItemStack::empty());
+            container.future_xp = 0;
+            return None;
+        }
+        let hint = container.selection_hint;
+        let mut active = None;
+        let mut result = None;
+        if !offers.is_empty() {
+            let mut found = recipe_index_for(offers, &buy_a, &buy_b, hint);
+            if found.is_none_or(|i| offers[i].is_out_of_stock()) {
+                active = found;
+                found = recipe_index_for(offers, &buy_b, &buy_a, hint);
+            }
+            match found {
+                Some(i) if !offers[i].is_out_of_stock() => {
+                    active = Some(i);
+                    result = Some((offers[i].assemble(), offers[i].get_xp()));
+                }
+                _ => {}
+            }
+        }
+        let offers_empty = offers.is_empty();
+        let container = self.container();
+        if !offers_empty {
+            container.active_offer = active;
+            match result {
+                Some((stack, xp)) => {
+                    container.set_item(RESULT_SLOT, stack);
+                    container.future_xp = xp;
+                }
+                None => {
+                    container.set_item(RESULT_SLOT, ItemStack::empty());
+                    container.future_xp = 0;
+                }
+            }
+        }
+        Some(container.items[RESULT_SLOT].clone())
+    }
+
     /// `MerchantContainer.updateSellItem()`.
     pub fn update_sell_item(&mut self, player: &mut dyn MenuPlayer) {
         let trader = self.trader;
