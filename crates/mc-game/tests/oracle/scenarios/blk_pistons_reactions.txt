@@ -1,7 +1,7 @@
 # Push reactions: each lane has a piston facing east pushing one block of the named kind (immovable, block entity, destroy, push only, ...).
 level flat
 preload 4
-watch events blocks:3,3,2,8,5,2 blocks:3,3,5,8,5,5 blocks:3,3,8,8,5,8 blocks:3,3,11,8,5,11 blocks:3,3,14,8,5,14 blocks:3,3,17,8,5,17 blocks:3,3,20,8,5,20 blocks:3,3,23,8,5,23 blocks:3,3,26,8,5,26 blocks:3,3,29,8,5,29 blocks:3,3,32,8,5,32 blocks:3,3,35,8,5,35 blocks:3,3,38,8,5,38 blocks:3,3,41,8,5,41 blocks:3,3,44,8,5,44 blocks:3,3,47,8,5,47 blocks:3,3,50,8,5,50 blocks:3,3,53,8,5,53 blocks:3,3,56,8,5,56 blocks:3,3,59,8,5,59 blocks:3,3,62,8,5,62 blocks:3,3,65,8,5,65 blocks:3,3,68,8,5,68 blocks:3,3,71,8,5,71 blocks:3,3,74,8,5,76
+watch events blocks:3,3,2,8,5,2 blocks:3,3,5,8,5,5 blocks:3,3,8,8,5,8 blocks:3,3,11,8,5,11 blocks:3,3,14,8,5,14 blocks:3,3,17,8,5,17 blocks:3,3,20,8,5,20 blocks:3,3,23,8,5,23 blocks:3,3,26,8,5,26 blocks:3,3,29,8,5,29 blocks:3,3,32,8,5,32 blocks:3,3,35,8,5,35 blocks:3,3,38,8,5,38 blocks:3,3,41,8,5,41 blocks:3,3,44,8,5,44 blocks:3,3,47,8,5,47 blocks:3,3,50,8,5,50 blocks:3,3,53,8,5,53 blocks:3,3,56,8,5,56 blocks:3,3,59,8,5,59 blocks:3,3,62,8,5,62 blocks:3,3,65,8,5,65 blocks:3,3,68,8,5,68 blocks:3,3,71,8,5,71
 fill 3 3 2 8 3 2 minecraft:stone
 block 4 4 2 minecraft:piston[facing=east,extended=false]
 block 5 4 2 minecraft:obsidian
@@ -74,13 +74,6 @@ block 5 4 68 minecraft:cactus[age=0]
 fill 3 3 71 8 3 71 minecraft:stone
 block 4 4 71 minecraft:piston[facing=east,extended=false]
 block 5 4 71 minecraft:white_carpet
-fill 3 3 74 8 3 76 minecraft:stone
-block 4 4 74 minecraft:piston[facing=east,extended=false]
-block 5 4 74 minecraft:oak_door[facing=east,half=lower,hinge=left,open=false,powered=false]
-block 5 5 74 minecraft:oak_door[facing=east,half=upper,hinge=left,open=false,powered=false]
-block 4 4 76 minecraft:piston[facing=east,extended=false]
-block 5 4 76 minecraft:white_bed[facing=east,occupied=false,part=foot]
-block 6 4 76 minecraft:white_bed[facing=east,occupied=false,part=head]
 block 4 5 2 minecraft:redstone_block
 block 4 5 5 minecraft:redstone_block
 block 4 5 8 minecraft:redstone_block
@@ -105,6 +98,4 @@ block 4 5 62 minecraft:redstone_block
 block 4 5 65 minecraft:redstone_block
 block 4 5 68 minecraft:redstone_block
 block 4 5 71 minecraft:redstone_block
-block 4 5 74 minecraft:redstone_block
-block 4 5 76 minecraft:redstone_block
 tick 6

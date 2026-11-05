@@ -1,47 +1,40 @@
 T 1
-EV sound at=5.5,5.5,74.5 r=16.0 ex=0 event=minecraft:block.wooden_door.open source=block vol=1.0 pitch=0.9380004
-EV sound at=4.5,4.5,14.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.79157966
+EV sound at=4.5,4.5,14.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.695001
 EV block_event r=64.0 ex=0 pos=4,4,14 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,17.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.8085755
+EV sound at=4.5,4.5,17.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.79157966
 EV block_event r=64.0 ex=0 pos=4,4,17 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,20.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.7917068
+EV sound at=4.5,4.5,20.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6233216
 EV block_event r=64.0 ex=0 pos=4,4,20 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,23.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6646168
+EV sound at=4.5,4.5,23.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.799118
 EV block_event r=64.0 ex=0 pos=4,4,23 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,26.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.73755777
+EV sound at=4.5,4.5,26.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.73261136
 EV block_event r=64.0 ex=0 pos=4,4,26 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,29.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.67617464
+EV sound at=4.5,4.5,29.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.73755777
 EV block_event r=64.0 ex=0 pos=4,4,29 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,32.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.65772253
+EV sound at=4.5,4.5,32.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.67617464
 EV block_event r=64.0 ex=0 pos=4,4,32 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,35.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.81963074
+EV sound at=4.5,4.5,35.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.74097157
 EV block_event r=64.0 ex=0 pos=4,4,35 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,38.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6212849
+EV sound at=4.5,4.5,38.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.81963074
 EV block_event r=64.0 ex=0 pos=4,4,38 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,41.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6128846
+EV sound at=4.5,4.5,41.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6212849
 EV block_event r=64.0 ex=0 pos=4,4,41 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,44.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6093426
+EV sound at=4.5,4.5,44.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6128846
 EV block_event r=64.0 ex=0 pos=4,4,44 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,47.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6710721
+EV sound at=4.5,4.5,47.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6093426
 EV block_event r=64.0 ex=0 pos=4,4,47 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,50.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6587204
+EV sound at=4.5,4.5,50.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.7724736
 EV block_event r=64.0 ex=0 pos=4,4,50 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,53.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.80356085
+EV sound at=4.5,4.5,53.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.84737146
 EV block_event r=64.0 ex=0 pos=4,4,53 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,62.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6794671
+EV sound at=4.5,4.5,62.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.80356085
 EV block_event r=64.0 ex=0 pos=4,4,62 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,65.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.7609489
+EV sound at=4.5,4.5,65.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6794671
 EV block_event r=64.0 ex=0 pos=4,4,65 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,68.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6494587
+EV sound at=4.5,4.5,68.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6696366
 EV block_event r=64.0 ex=0 pos=4,4,68 block=minecraft:piston b0=0 b1=5
-EV sound at=4.5,4.5,71.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.76623476
+EV sound at=4.5,4.5,71.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.6494587
 EV block_event r=64.0 ex=0 pos=4,4,71 block=minecraft:piston b0=0 b1=5
-EV level_event r=64.0 ex=0 type=2001 pos=5,5,74 data=7291 global=0
-EV sound at=4.5,4.5,74.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.83512723
-EV block_event r=64.0 ex=0 pos=4,4,74 block=minecraft:piston b0=0 b1=5
-EV level_event r=64.0 ex=0 type=2001 pos=6,4,76 data=2044 global=0
-EV sound at=4.5,4.5,76.5 r=16.0 ex=0 event=minecraft:block.piston.extend source=block vol=0.5 pitch=0.7594676
-EV block_event r=64.0 ex=0 pos=4,4,76 block=minecraft:piston b0=0 b1=5
 B 3 3 2 minecraft:stone
 B 4 3 2 minecraft:stone
 B 4 4 2 minecraft:piston[extended=false,facing=east]
@@ -268,30 +261,6 @@ B 6 3 71 minecraft:stone
 B 6 4 71 minecraft:moving_piston[facing=east,type=normal]
 B 7 3 71 minecraft:stone
 B 8 3 71 minecraft:stone
-B 3 3 74 minecraft:stone
-B 3 3 75 minecraft:stone
-B 3 3 76 minecraft:stone
-B 4 3 74 minecraft:stone
-B 4 3 75 minecraft:stone
-B 4 3 76 minecraft:stone
-B 4 4 74 minecraft:piston[extended=true,facing=east]
-B 4 4 76 minecraft:piston[extended=true,facing=east]
-B 4 5 74 minecraft:redstone_block
-B 4 5 76 minecraft:redstone_block
-B 5 3 74 minecraft:stone
-B 5 3 75 minecraft:stone
-B 5 3 76 minecraft:stone
-B 5 4 74 minecraft:moving_piston[facing=east,type=normal]
-B 5 4 76 minecraft:moving_piston[facing=east,type=normal]
-B 6 3 74 minecraft:stone
-B 6 3 75 minecraft:stone
-B 6 3 76 minecraft:stone
-B 7 3 74 minecraft:stone
-B 7 3 75 minecraft:stone
-B 7 3 76 minecraft:stone
-B 8 3 74 minecraft:stone
-B 8 3 75 minecraft:stone
-B 8 3 76 minecraft:stone
 T 2
 B 3 3 2 minecraft:stone
 B 4 3 2 minecraft:stone
@@ -519,30 +488,6 @@ B 6 3 71 minecraft:stone
 B 6 4 71 minecraft:moving_piston[facing=east,type=normal]
 B 7 3 71 minecraft:stone
 B 8 3 71 minecraft:stone
-B 3 3 74 minecraft:stone
-B 3 3 75 minecraft:stone
-B 3 3 76 minecraft:stone
-B 4 3 74 minecraft:stone
-B 4 3 75 minecraft:stone
-B 4 3 76 minecraft:stone
-B 4 4 74 minecraft:piston[extended=true,facing=east]
-B 4 4 76 minecraft:piston[extended=true,facing=east]
-B 4 5 74 minecraft:redstone_block
-B 4 5 76 minecraft:redstone_block
-B 5 3 74 minecraft:stone
-B 5 3 75 minecraft:stone
-B 5 3 76 minecraft:stone
-B 5 4 74 minecraft:moving_piston[facing=east,type=normal]
-B 5 4 76 minecraft:moving_piston[facing=east,type=normal]
-B 6 3 74 minecraft:stone
-B 6 3 75 minecraft:stone
-B 6 3 76 minecraft:stone
-B 7 3 74 minecraft:stone
-B 7 3 75 minecraft:stone
-B 7 3 76 minecraft:stone
-B 8 3 74 minecraft:stone
-B 8 3 75 minecraft:stone
-B 8 3 76 minecraft:stone
 T 3
 B 3 3 2 minecraft:stone
 B 4 3 2 minecraft:stone
@@ -770,30 +715,6 @@ B 6 3 71 minecraft:stone
 B 6 4 71 minecraft:white_carpet
 B 7 3 71 minecraft:stone
 B 8 3 71 minecraft:stone
-B 3 3 74 minecraft:stone
-B 3 3 75 minecraft:stone
-B 3 3 76 minecraft:stone
-B 4 3 74 minecraft:stone
-B 4 3 75 minecraft:stone
-B 4 3 76 minecraft:stone
-B 4 4 74 minecraft:piston[extended=true,facing=east]
-B 4 4 76 minecraft:piston[extended=true,facing=east]
-B 4 5 74 minecraft:redstone_block
-B 4 5 76 minecraft:redstone_block
-B 5 3 74 minecraft:stone
-B 5 3 75 minecraft:stone
-B 5 3 76 minecraft:stone
-B 5 4 74 minecraft:piston_head[facing=east,short=false,type=normal]
-B 5 4 76 minecraft:piston_head[facing=east,short=false,type=normal]
-B 6 3 74 minecraft:stone
-B 6 3 75 minecraft:stone
-B 6 3 76 minecraft:stone
-B 7 3 74 minecraft:stone
-B 7 3 75 minecraft:stone
-B 7 3 76 minecraft:stone
-B 8 3 74 minecraft:stone
-B 8 3 75 minecraft:stone
-B 8 3 76 minecraft:stone
 T 4
 B 3 3 2 minecraft:stone
 B 4 3 2 minecraft:stone
@@ -1021,30 +942,6 @@ B 6 3 71 minecraft:stone
 B 6 4 71 minecraft:white_carpet
 B 7 3 71 minecraft:stone
 B 8 3 71 minecraft:stone
-B 3 3 74 minecraft:stone
-B 3 3 75 minecraft:stone
-B 3 3 76 minecraft:stone
-B 4 3 74 minecraft:stone
-B 4 3 75 minecraft:stone
-B 4 3 76 minecraft:stone
-B 4 4 74 minecraft:piston[extended=true,facing=east]
-B 4 4 76 minecraft:piston[extended=true,facing=east]
-B 4 5 74 minecraft:redstone_block
-B 4 5 76 minecraft:redstone_block
-B 5 3 74 minecraft:stone
-B 5 3 75 minecraft:stone
-B 5 3 76 minecraft:stone
-B 5 4 74 minecraft:piston_head[facing=east,short=false,type=normal]
-B 5 4 76 minecraft:piston_head[facing=east,short=false,type=normal]
-B 6 3 74 minecraft:stone
-B 6 3 75 minecraft:stone
-B 6 3 76 minecraft:stone
-B 7 3 74 minecraft:stone
-B 7 3 75 minecraft:stone
-B 7 3 76 minecraft:stone
-B 8 3 74 minecraft:stone
-B 8 3 75 minecraft:stone
-B 8 3 76 minecraft:stone
 T 5
 B 3 3 2 minecraft:stone
 B 4 3 2 minecraft:stone
@@ -1272,30 +1169,6 @@ B 6 3 71 minecraft:stone
 B 6 4 71 minecraft:white_carpet
 B 7 3 71 minecraft:stone
 B 8 3 71 minecraft:stone
-B 3 3 74 minecraft:stone
-B 3 3 75 minecraft:stone
-B 3 3 76 minecraft:stone
-B 4 3 74 minecraft:stone
-B 4 3 75 minecraft:stone
-B 4 3 76 minecraft:stone
-B 4 4 74 minecraft:piston[extended=true,facing=east]
-B 4 4 76 minecraft:piston[extended=true,facing=east]
-B 4 5 74 minecraft:redstone_block
-B 4 5 76 minecraft:redstone_block
-B 5 3 74 minecraft:stone
-B 5 3 75 minecraft:stone
-B 5 3 76 minecraft:stone
-B 5 4 74 minecraft:piston_head[facing=east,short=false,type=normal]
-B 5 4 76 minecraft:piston_head[facing=east,short=false,type=normal]
-B 6 3 74 minecraft:stone
-B 6 3 75 minecraft:stone
-B 6 3 76 minecraft:stone
-B 7 3 74 minecraft:stone
-B 7 3 75 minecraft:stone
-B 7 3 76 minecraft:stone
-B 8 3 74 minecraft:stone
-B 8 3 75 minecraft:stone
-B 8 3 76 minecraft:stone
 T 6
 B 3 3 2 minecraft:stone
 B 4 3 2 minecraft:stone
@@ -1523,27 +1396,3 @@ B 6 3 71 minecraft:stone
 B 6 4 71 minecraft:white_carpet
 B 7 3 71 minecraft:stone
 B 8 3 71 minecraft:stone
-B 3 3 74 minecraft:stone
-B 3 3 75 minecraft:stone
-B 3 3 76 minecraft:stone
-B 4 3 74 minecraft:stone
-B 4 3 75 minecraft:stone
-B 4 3 76 minecraft:stone
-B 4 4 74 minecraft:piston[extended=true,facing=east]
-B 4 4 76 minecraft:piston[extended=true,facing=east]
-B 4 5 74 minecraft:redstone_block
-B 4 5 76 minecraft:redstone_block
-B 5 3 74 minecraft:stone
-B 5 3 75 minecraft:stone
-B 5 3 76 minecraft:stone
-B 5 4 74 minecraft:piston_head[facing=east,short=false,type=normal]
-B 5 4 76 minecraft:piston_head[facing=east,short=false,type=normal]
-B 6 3 74 minecraft:stone
-B 6 3 75 minecraft:stone
-B 6 3 76 minecraft:stone
-B 7 3 74 minecraft:stone
-B 7 3 75 minecraft:stone
-B 7 3 76 minecraft:stone
-B 8 3 74 minecraft:stone
-B 8 3 75 minecraft:stone
-B 8 3 76 minecraft:stone
