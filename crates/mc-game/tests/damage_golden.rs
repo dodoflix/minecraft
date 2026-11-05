@@ -224,3 +224,22 @@ fn resistance_absorption_fire_resistance() {
 fn damage_sources_by_game_mode_and_rules() {
     check("damage_sources");
 }
+
+/// `/gamerule keepInventory true` then `/kill` in the same tick: levels read the live rule at the point of use (no per-tick
+/// snapshot), so the very next death already keeps the inventory (and a flip back drops it).
+#[test]
+fn keep_inventory_rule_is_live_within_a_tick() {
+    use mc_game::world::level::gamerules::GameRules;
+    let mut rules = GameRules::new(mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS);
+    let mut r = Replay::new();
+    r.level.server_state.rules = rules.live();
+    for (name, keep, expect_kept) in [("A", true, true), ("B", false, false)] {
+        r.run_line(&format!("spawn_player {name} survival 0.5 -60 0.5 0 0"));
+        rules.set(GameRules::KEEP_INVENTORY, keep, None);
+        let mut stack = ItemStack::new(Item::by_name("minecraft:cobblestone").unwrap());
+        r.player(name).player.inventory.add(&mut stack, false);
+        r.run_line(&format!("hurt {name} generic_kill 1000"));
+        let kept = !r.player(name).player.inventory.get_selected_item().is_empty();
+        assert_eq!(kept, expect_kept, "keepInventory={keep}");
+    }
+}

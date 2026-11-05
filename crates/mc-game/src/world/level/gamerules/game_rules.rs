@@ -88,10 +88,8 @@ impl GameRules {
     }
 
     fn with_map(rules: GameRuleMap) -> GameRules {
-        let live = crate::server::level::level_rules::LiveRules::default();
-        let this = GameRules { rules, live };
-        this.live.refresh(&this);
-        this
+        let live = crate::server::level::level_rules::LiveRules::of_map(&rules);
+        GameRules { rules, live }
     }
 
     /// The always-current rule values shared with the levels.

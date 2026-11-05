@@ -7,7 +7,7 @@
 //! no caller can observe).
 
 use super::ServerLevel;
-use crate::world::level::gamerules::GameRules;
+use crate::world::level::gamerules::{AnyGameRule, GameRuleMap, GameRules};
 use parking_lot::RwLock;
 use std::sync::Arc;
 use mc_world::level_storage::FeatureFlagSet;
@@ -23,14 +23,19 @@ macro_rules! level_rules {
         impl LevelRules {
             /// Reads every rule from `rules` (missing = disabled rule = its default).
             pub fn from_game_rules(rules: &GameRules) -> Self {
-                Self { $($field: rules.map().get(GameRules::$rule).unwrap_or_else(|| GameRules::$rule.default_value()),)* }
+                Self::from_map(rules.map())
+            }
+
+            /// Reads every rule from `map` (missing = disabled rule = its default).
+            pub fn from_map(map: &GameRuleMap) -> Self {
+                Self { $($field: map.get(GameRules::$rule).unwrap_or_else(|| GameRules::$rule.default_value()),)* }
             }
         }
 
         impl Default for LevelRules {
             /// Vanilla defaults.
             fn default() -> Self {
-                Self::from_game_rules(&GameRules::new(FeatureFlagSet::DEFAULT_FLAGS))
+                Self::from_map(&GameRuleMap::of(AnyGameRule::all().filter(|r| r.is_enabled(FeatureFlagSet::DEFAULT_FLAGS))))
             }
         }
 
@@ -51,6 +56,11 @@ impl LiveRules {
     /// The current values.
     pub fn get(&self) -> LevelRules {
         *self.0.read()
+    }
+
+    /// A handle holding the values of `map`.
+    pub fn of_map(map: &GameRuleMap) -> Self {
+        Self(Arc::new(RwLock::new(LevelRules::from_map(map))))
     }
 
     /// Re-reads every rule from `rules` (called by `GameRules` on each change).
