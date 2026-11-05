@@ -153,29 +153,25 @@ pub fn tick_effects(entity: &mut dyn Entity, level: &mut ServerLevel) {
         let tick_count = entity.base().tick_count;
         // `MobEffectInstance.tickServer`
         let mut remaining = false;
-        let mut downgraded = false;
-        let mut applied_or_skipped = false;
         if instance.has_remaining_duration() {
             let tick = if instance.is_infinite_duration() { tick_count } else { instance.duration };
-            applied_or_skipped = !(key.should_apply_effect_tick_this_tick(tick, instance.amplifier) && !key.apply_effect_tick(level, entity, instance.amplifier));
-        }
-        if applied_or_skipped {
-            // the effect tick may have replaced/removed the stored instance; vanilla keeps ticking the object it holds
-            let live = entity.living_mut().expect("living").active_effects.get_mut(&key);
-            let target = match live {
-                Some(stored) => stored,
-                None => &mut instance,
-            };
-            target.tick_down_duration();
-            downgraded = target.downgrade_to_hidden_effect();
-            remaining = target.has_remaining_duration();
-            let updated = target.clone();
-            if downgraded {
-                entity.on_effect_updated(level, &updated, true, None);
+            let removed_by_tick = key.should_apply_effect_tick_this_tick(tick, instance.amplifier) && !key.apply_effect_tick(level, entity, instance.amplifier);
+            if !removed_by_tick {
+                // the effect tick may have replaced/removed the stored instance; vanilla keeps ticking the object it holds
+                let target = match entity.living_mut().expect("living").active_effects.get_mut(&key) {
+                    Some(stored) => stored,
+                    None => &mut instance,
+                };
+                target.tick_down_duration();
+                let downgraded = target.downgrade_to_hidden_effect();
+                remaining = target.has_remaining_duration();
+                let updated = target.clone();
+                if downgraded {
+                    entity.on_effect_updated(level, &updated, true, None);
+                }
+                instance = updated;
             }
-            instance = updated;
         }
-        let _ = downgraded;
         if !remaining {
             if entity.living().expect("living").effects_mod_count != expected_mod_count {
                 break; // `iterator.remove()` -> ConcurrentModificationException
