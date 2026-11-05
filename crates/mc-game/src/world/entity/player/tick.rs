@@ -88,14 +88,11 @@ impl ServerPlayer {
             self.player.living.damage_cooldown_time -= 1;
         }
         self.broadcast_menu_changes(level);
-<<<<<<< HEAD
         self.close_container_if_invalid(level);
+        self.tick_camera(level);
         // SEAM(advancements): CriteriaTriggers.TICK / LEVITATION
         self.track_start_falling_position();
         self.track_entered_or_exited_lava_on_vehicle(level);
-=======
-        self.tick_camera(level);
->>>>>>> cbfecbb (feat(game): spectator camera, game mode tick wired into the player tick, entity event broadcast helpers)
         self.update_player_attributes();
         // SEAM(advancements): advancements.flushDirty(this, true)
         if self.post_effects_dirty {
