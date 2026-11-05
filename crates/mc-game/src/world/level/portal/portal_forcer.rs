@@ -27,17 +27,6 @@ impl ServerLevel {
         PortalForcer { level: self }
     }
 
-    /// `isSpawningMonsters()`.
-    pub fn is_spawning_monsters(&self) -> bool {
-        self.spawn_mobs() && self.spawn_monsters()
-    }
-
-    /// `environmentAttributes().getValue(NETHER_PORTAL_SPAWNS_PIGLINS, pos)`: a dimension constant (no biome layer changes it).
-    pub fn nether_portal_spawns_piglins(&self) -> bool {
-        let env = crate::world::attribute::AttributeEnv { clock_total_ticks: &|_| 0, rain_level: 0.0, thunder_level: 0.0 };
-        self.tick_state.attributes.get_bool("gameplay/nether_portal_spawns_piglin", &env)
-    }
-
     /// `DimensionType.getTeleportationScale(this.dimensionType(), other.dimensionType())`.
     pub fn teleportation_scale_to(&self, other: &ServerLevel) -> f64 {
         let scale = |l: &ServerLevel| l.dimension_type.as_ref().map_or(1.0, |t| t.coordinate_scale);
