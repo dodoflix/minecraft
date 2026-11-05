@@ -3404,10 +3404,6 @@ pub trait Entity: Any {
     /// controlled `PathfinderMob` vehicle).
     fn after_ride_tick(&mut self, _level: &ServerLevel) {}
     // ==== [Pets] additions (Entity trait methods) ====
-    /// `Animal.canMate(partner)` (`Wolf`, `Cat`, ... override).
-    fn can_mate(&self, partner: &dyn Entity) -> bool {
-        super::mob::animal::can_mate(self.as_dyn(), partner)
-    }
     /// `TamableAnimal.wantsToAttack(target, owner)`.
     fn wants_to_attack(&self, _level: &ServerLevel, _target: &dyn Entity, _owner: &dyn Entity) -> bool {
         true
@@ -3429,14 +3425,6 @@ pub trait Entity: Any {
     /// `getHurtSound(source)` for classes whose answer needs level state (`Wolf`: armor absorbs by damage type tag).
     fn get_hurt_sound_in(&self, _level: &ServerLevel, source: &crate::world::damagesource::DamageSource) -> Option<mc_data::SoundEvent> {
         self.get_hurt_sound(source)
-    }
-    /// `Llama.getStrength()`; `None` for entities that are not llamas (implemented by the llama class).
-    fn llama_strength(&self) -> Option<i32> {
-        None
-    }
-    /// `AbstractHorse.isTamed()`; `None` for entities that are not horses (implemented by the horse classes).
-    fn horse_is_tamed(&self) -> Option<bool> {
-        None
     }
     // ==== [EntityItems] additions (Entity trait methods) ====
     /// `interact(player, hand, location)`: the player (taken out of the level) uses the entity.

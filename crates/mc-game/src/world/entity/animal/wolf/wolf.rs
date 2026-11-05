@@ -109,10 +109,10 @@ impl WolfAvoidEntityGoal {
 
 impl Goal for WolfAvoidEntityGoal {
     fn can_use(&mut self, wolf: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        if !(self.avoid.can_use_impl(wolf, level) && self.avoid.to_avoid.and_then(|a| level.get_entity(a)).is_some_and(|a| a.llama_strength().is_some())) {
+        if !(self.avoid.can_use_impl(wolf, level) && self.avoid.to_avoid.and_then(|a| level.get_entity(a)).is_some_and(|a| a.as_any().is::<crate::world::entity::animal::equine::Llama>())) {
             return false;
         }
-        let strength = self.avoid.to_avoid.and_then(|a| level.get_entity(a)).and_then(|a| a.llama_strength()).unwrap_or(0);
+        let strength = self.avoid.to_avoid.and_then(|a| level.get_entity(a)).and_then(|a| a.as_any().downcast_ref::<crate::world::entity::animal::equine::Llama>()).map_or(0, |l| l.get_strength());
         !tamable::is_tame(wolf) && strength >= wolf.base_mut().random.next_int_bounded(5)
     }
     fn can_continue_to_use(&mut self, wolf: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
@@ -661,7 +661,7 @@ impl Entity for Wolf {
                 return false;
             }
         }
-        if target.horse_is_tamed() == Some(true) {
+        if target.as_abstract_horse().is_some_and(|h| h.is_tamed()) {
             return false;
         }
         !(target.mob().is_some_and(|m| m.tamable.is_some()) && tamable::is_tame(target))
