@@ -1,21 +1,19 @@
 //! `CreakingAi`.
 
 use super::creaking::{ATTACK_INTERVAL, Creaking, SPEED_MULTIPLIER_WHEN_IDLING, can_move};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::behavior::behaviors::boxed;
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
-use crate::world::entity::ai::behavior::swim::Swim;
-use crate::world::entity::ai::behavior::{
-    Behavior, BehaviorBase, DoNothing, RunOne, melee_attack, random_stroll, set_entity_look_target_sometimes, set_walk_target_from_attack_target_if_target_out_of_reach,
-    set_walk_target_from_look_target, start_attacking, stop_attacking_if_target_invalid,
-};
-use crate::world::entity::ai::brain::ActivityData;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_VISIBLE_ATTACKABLE_PLAYER, NEAREST_VISIBLE_ATTACKABLE_PLAYERS};
-use crate::world::entity::ai::memory::{EntityRef, MemoryStatus};
-use crate::world::entity::schedule::Activity;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_ai::world::entity::ai::behavior::behaviors::boxed;
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_core::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
+use mc_game_core::world::entity::ai::behavior::swim::Swim;
+use mc_game_ai::world::entity::ai::behavior::{melee_attack, random_stroll, set_entity_look_target_sometimes, set_walk_target_from_attack_target_if_target_out_of_reach, start_attacking, stop_attacking_if_target_invalid};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase, DoNothing, RunOne, set_walk_target_from_look_target};
+use mc_game_core::world::entity::ai::brain::ActivityData;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_VISIBLE_ATTACKABLE_PLAYER, NEAREST_VISIBLE_ATTACKABLE_PLAYERS};
+use mc_game_core::world::entity::ai::memory::{EntityRef, MemoryStatus};
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::entity::{Entity, EntityId};
 
 /// `new Swim<Creaking>(0.8F) { checkExtraStartConditions: body.canMove() && super... }`.
 struct CreakingSwim(Swim);

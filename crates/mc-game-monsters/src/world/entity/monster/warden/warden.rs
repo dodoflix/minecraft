@@ -6,32 +6,32 @@
 use super::anger_level::AngerLevel;
 use super::anger_management::AngerManagement;
 use super::warden_ai;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, DIG_COOLDOWN, IS_EMERGING, NEAREST_VISIBLE_NEMESIS, RECENT_PROJECTILE, ROAR_TARGET, TOUCH_COOLDOWN,
     VIBRATION_COOLDOWN,
 };
-use crate::world::entity::ai::memory::{BrainPacked, EntityRef, Unit};
-use crate::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use crate::world::entity::ai::sensing::sensor_type::{NEAREST_PLAYERS, WARDEN_ENTITY_SENSOR};
+use mc_game_core::world::entity::ai::memory::{BrainPacked, EntityRef, Unit};
+use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
+use mc_game_core::world::entity::ai::sensing::sensor_type::{NEAREST_PLAYERS, WARDEN_ENTITY_SENSOR};
 use crate::world::entity::ai::behavior::warden::sonic_boom::SonicBoom;
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::damage;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::gameevent::vibrations::{self, VibrationData, VibrationSystem};
-use crate::world::level::gameevent::{DeliveryMode, DynamicGameEventListener, DynamicListenerAction, GameEventContext, GameEventListener, ListenerOwner, PositionSource, SourceEntityInfo};
-use crate::world::level::pathfinder::PathType;
-use crate::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator};
-use crate::world::level::pathfinder::PathFinder;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::gameevent::vibrations::{self, VibrationData, VibrationSystem};
+use mc_game_core::world::level::gameevent::{DeliveryMode, DynamicGameEventListener, DynamicListenerAction, GameEventContext, GameEventListener, ListenerOwner, PositionSource, SourceEntityInfo};
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator};
+use mc_game_core::world::level::pathfinder::PathFinder;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -143,7 +143,7 @@ impl Warden {
     /// `canTargetEntity(entity)` (`@Contract("null->false")`).
     pub fn can_target_entity_ref(&self, level: &ServerLevel, entity: &dyn Entity) -> bool {
         entity.living().is_some()
-            && crate::world::entity::ai::sensing::mob_sensors::no_creative_or_spectator(entity)
+            && mc_game_core::world::entity::ai::sensing::mob_sensors::no_creative_or_spectator(entity)
             && !mob::ext::is_allied_to(level, self, entity)
             && entity.get_type() != EntityType::ARMOR_STAND
             && entity.get_type() != EntityType::WARDEN
@@ -159,7 +159,7 @@ impl Warden {
 
     /// `applyDarknessAround(level, position, source, darknessRadius)`.
     pub fn apply_darkness_around(level: &mut ServerLevel, position: Vec3, source: Option<&dyn Entity>, darkness_radius: i32) {
-        crate::world::block_entity::apply_darkness_around(level, position, source, darkness_radius);
+        mc_game_core::world::block_entity::apply_darkness_around(level, position, source, darkness_radius);
     }
 
     /// `playListeningSound()`.
@@ -285,7 +285,7 @@ impl PathNavigation for WardenNavigation {
 }
 
 impl Entity for Warden {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:warden")
@@ -295,7 +295,7 @@ impl Entity for Warden {
         BRAIN_PROVIDER.make_brain(self, packed)
     }
 
-    fn get_add_entity_packet(&self, server_entity: &crate::server::level::ServerEntity) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
+    fn get_add_entity_packet(&self, server_entity: &mc_game_core::server::level::ServerEntity) -> mc_protocol::packets::play::ClientboundAddEntityPacket {
         server_entity.add_entity_packet(self.id(), self.uuid(), self.get_type(), i32::from(self.has_pose(Pose::Emerging)))
     }
 
@@ -303,12 +303,12 @@ impl Entity for Warden {
         mob::spawn::check_spawn_obstruction(self, level) && level.no_collision_aabb(&EntityDimensions::of_type(self.get_type()).make_bounding_box_vec(self.position()))
     }
 
-    fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn crate::world::level::LevelReader) -> f32 {
+    fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn mc_game_core::world::level::LevelReader) -> f32 {
         0.0
     }
 
     fn is_invulnerable_to(&mut self, level: &mut ServerLevel, source: &DamageSource) -> bool {
-        if self.is_digging_or_emerging() && !source.is_tag(level, crate::world::damagesource::DamageTypeTags::BYPASSES_INVULNERABILITY) { true } else { damage::is_invulnerable_to(self, level, source) }
+        if self.is_digging_or_emerging() && !source.is_tag(level, mc_game_core::world::damagesource::DamageTypeTags::BYPASSES_INVULNERABILITY) { true } else { damage::is_invulnerable_to(self, level, source) }
     }
 
     fn can_ride(&self, _vehicle: &dyn Entity) -> bool {
@@ -368,7 +368,7 @@ impl Entity for Warden {
         let pitch = self.get_voice_pitch();
         self.play_sound(level, SoundEvent::ENTITY_WARDEN_ATTACK_IMPACT, 10.0, pitch);
         SonicBoom::set_cooldown(self, 40);
-        crate::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
+        mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {
@@ -395,7 +395,7 @@ impl Entity for Warden {
         warden_ai::update_activity(self.brain_mut());
     }
 
-    fn ignore_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
+    fn ignore_explosion(&self, _explosion: &dyn mc_game_core::world::level::explosion::Explosion) -> bool {
         self.is_digging_or_emerging()
     }
 
@@ -432,7 +432,7 @@ impl Entity for Warden {
         // `syncClientAngerLevel()`: no target is known yet (the brain's attack target is not persisted) -> highest anger
         let anger = self.anger_management.get_active_anger(None);
         self.base_mut().entity_data.set(CLIENT_ANGER_LEVEL, anger);
-        self.vibration_data = crate::world::block_entity::read_codec(input, "listener", VibrationData::codec()).unwrap_or_default();
+        self.vibration_data = mc_game_core::world::block_entity::read_codec(input, "listener", VibrationData::codec()).unwrap_or_default();
     }
 
     fn get_target(&self) -> Option<EntityId> {
@@ -469,7 +469,7 @@ impl Entity for Warden {
             if self.brain().get_memory(&ATTACK_TARGET).is_none()
                 && let Some(attacker_id) = attacker
                 && let Some(living_attacker) = level.get_entity(attacker_id).filter(|e| e.living().is_some())
-                && (source.is_direct() || crate::world::entity::ai::sensing::closer_than(self, living_attacker, 5.0))
+                && (source.is_direct() || mc_game_core::world::entity::ai::sensing::closer_than(self, living_attacker, 5.0))
             {
                 self.set_attack_target(attacker_id);
             }
@@ -483,7 +483,7 @@ impl Entity for Warden {
     }
 
     fn is_pushable(&self, level: &ServerLevel) -> bool {
-        !self.is_digging_or_emerging() && crate::world::entity::living_entity::push::living_is_pushable(self, level)
+        !self.is_digging_or_emerging() && mc_game_core::world::entity::living_entity::push::living_is_pushable(self, level)
     }
 
     fn do_push(&mut self, level: &mut ServerLevel, other: &mut dyn Entity) {
@@ -492,7 +492,7 @@ impl Entity for Warden {
             self.increase_anger_at_default(level, Some(other.id()));
             warden_ai::set_disturbance_location(level, self, other.block_position());
         }
-        crate::world::entity::living_entity::push::do_push(level, self, other);
+        mc_game_core::world::entity::living_entity::push::do_push(level, self, other);
     }
 }
 
@@ -564,7 +564,7 @@ impl VibrationSystem for Warden {
         let mut suspicious_pos = pos;
         let projectile_owner_id = projectile_owner.map(|o| o.id);
         if let Some(owner) = projectile_owner_id {
-            if level.get_entity(owner).is_some_and(|e| crate::world::entity::ai::sensing::closer_than(self, e, PROJECTILE_ANGER_DISTANCE)) {
+            if level.get_entity(owner).is_some_and(|e| mc_game_core::world::entity::ai::sensing::closer_than(self, e, PROJECTILE_ANGER_DISTANCE)) {
                 if self.brain().has_memory_value(RECENT_PROJECTILE) {
                     if self.can_target_id(level, Some(owner)) {
                         suspicious_pos = level.get_entity(owner).expect("checked by can_target_id").block_position();

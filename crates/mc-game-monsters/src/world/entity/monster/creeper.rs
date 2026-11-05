@@ -1,23 +1,24 @@
 //! `net.minecraft.world.entity.monster.Creeper`.
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::server::level::level_explode::Explode;
-use crate::world::damagesource::{DamageEntity, DamageSource};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::level::level_explode::Explode;
+use mc_game_core::world::damagesource::{DamageEntity, DamageSource};
 use mc_core::ident::Identifier;
-use crate::world::entity::ServerPlayer;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{AvoidEntityGoal, FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, SwellGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::area_effect_cloud::AreaEffectCloud;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::util::l;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStackExt as _, hurt_and_break};
-use crate::world::level::explosion::ExplosionInteraction;
+use mc_game_core::world::entity::ServerPlayer;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, SwellGoal};
+use mc_game_core::world::entity::ai::goal::{FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::area_effect_cloud::AreaEffectCloud;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::util::l;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStackExt as _, hurt_and_break};
+use mc_game_core::world::level::explosion::ExplosionInteraction;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::random::RandomSource;
@@ -103,7 +104,7 @@ impl Creeper {
         level.explode(Explode::new(Some(&*self), p.x, p.y, p.z, self.explosion_radius as f32 * explosion_multiplier, ExplosionInteraction::Mob), &mut []);
         level.run_deferred_level_ops(self);
         self.spawn_lingering_cloud(level);
-        crate::world::entity::living_entity::effects::trigger_on_death_mob_effects(self, level, crate::world::entity::RemovalReason::Killed);
+        mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(self, level, mc_game_core::world::entity::RemovalReason::Killed);
         self.discard();
     }
 
@@ -129,7 +130,7 @@ impl Creeper {
 }
 
 impl Entity for Creeper {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_max_fall_distance(&self, _level: &ServerLevel) -> i32 {
         if self.get_target().is_none() {
@@ -140,7 +141,7 @@ impl Entity for Creeper {
     }
 
     fn cause_fall_damage(&mut self, level: &mut ServerLevel, fall_distance: f64, damage_modifier: f32, source: &DamageSource) -> bool {
-        let damaged = crate::world::entity::living_entity::damage::cause_fall_damage(self, level, fall_distance, damage_modifier, source);
+        let damaged = mc_game_core::world::entity::living_entity::damage::cause_fall_damage(self, level, fall_distance, damage_modifier, source);
         self.swell += (fall_distance * 1.5) as i32;
         if self.swell > self.max_swell - 5 {
             self.swell = self.max_swell - 5;
@@ -208,10 +209,10 @@ impl Entity for Creeper {
             let Some(table) = Identifier::try_parse("charged_creeper/root") else { return true };
             let dropped = level
                 .with_entity(victim.id, |level, entity| {
-                    let items = crate::world::entity::living_entity::death::loot_table_items(entity, level, source, false, &table);
+                    let items = mc_game_core::world::entity::living_entity::death::loot_table_items(entity, level, source, false, &table);
                     let any = !items.is_empty();
                     for stack in items {
-                        crate::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
+                        mc_game_core::world::entity::item::spawn_at_location(level, entity, stack, mc_core::phys::Vec3::ZERO);
                     }
                     any
                 })

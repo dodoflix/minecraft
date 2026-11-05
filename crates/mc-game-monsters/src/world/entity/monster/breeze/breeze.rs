@@ -7,20 +7,20 @@
 //! so the reversal is returned without the sound; upgrade with a level-aware deflection hook.
 
 use super::breeze_ai;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::memory::BrainPacked;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::sensing::sensor_type::{BREEZE_ATTACK_ENTITY_SENSOR, HURT_BY as HURT_BY_SENSOR, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::damage;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::projectile::{Projectile, ProjectileDeflection};
-use crate::world::entity::schedule::Activity;
-use crate::world::entity::{Entity, EntityId, MovementEmission};
-use crate::world::level::pathfinder::PathType;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::memory::BrainPacked;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{BREEZE_ATTACK_ENTITY_SENSOR, HURT_BY as HURT_BY_SENSOR, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::projectile::{Projectile, ProjectileDeflection};
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::entity::{Entity, EntityId, MovementEmission};
+use mc_game_core::world::level::pathfinder::PathType;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
@@ -69,7 +69,7 @@ impl Breeze {
 }
 
 impl Entity for Breeze {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:breeze")
@@ -161,7 +161,7 @@ impl Entity for Breeze {
     }
 
     fn get_target(&self) -> Option<EntityId> {
-        self.brain().get_memory(&crate::world::entity::ai::memory::memory_module_type::ATTACK_TARGET).map(|r| r.0)
+        self.brain().get_memory(&mc_game_core::world::entity::ai::memory::memory_module_type::ATTACK_TARGET).map(|r| r.0)
     }
 
     fn get_sound_source(&self) -> mc_protocol::packets::play::SoundSource {

@@ -1,20 +1,20 @@
 //! `LongJump` (the breeze's).
 
 use super::breeze_util;
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::long_jump_util;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_ai::world::entity::ai::behavior::long_jump_util;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, BREEZE_JUMP_COOLDOWN, BREEZE_JUMP_INHALING, BREEZE_JUMP_TARGET, BREEZE_LEAVING_WATER, BREEZE_SHOOT, HURT_BY, WALK_TARGET,
 };
-use crate::world::entity::ai::memory::{MemoryStatus, Unit};
-use crate::world::entity::dismount_helper::is_block_dangerous;
-use crate::world::entity::living_entity::jump::get_jump_boost_power;
-use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
-use crate::world::level::BlockGetter;
-use crate::world::level::material::FluidStateExt as _;
+use mc_game_core::world::entity::ai::memory::{MemoryStatus, Unit};
+use mc_game_core::world::entity::dismount_helper::is_block_dangerous;
+use mc_game_core::world::entity::living_entity::jump::get_jump_boost_power;
+use mc_game_core::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::material::FluidStateExt as _;
 use mc_core::direction::Direction;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -103,7 +103,7 @@ fn is_finished_jumping(breeze: &dyn Entity) -> bool {
 
 /// `snapToSurface(entity, target)`.
 fn snap_to_surface(level: &ServerLevel, entity: &dyn Entity, target: Vec3) -> Option<BlockPos> {
-    let ctx = crate::world::entity::movement::collision_context(entity);
+    let ctx = mc_game_core::world::entity::movement::collision_context(entity);
     let below = level.clip(&ClipContext::new(target, target.relative(Direction::Down, 10.0), ClipBlock::Collider, ClipFluid::None, ctx.clone()));
     if !below.miss {
         return Some(BlockPos::containing_position(&below.location).above());
@@ -112,12 +112,12 @@ fn snap_to_surface(level: &ServerLevel, entity: &dyn Entity, target: Vec3) -> Op
     if !above.miss { Some(BlockPos::containing_position(&above.location).above()) } else { None }
 }
 
-fn out_of_aggro_range(level: &ServerLevel, breeze: &dyn Entity, attack_target: crate::world::entity::EntityId) -> bool {
+fn out_of_aggro_range(level: &ServerLevel, breeze: &dyn Entity, attack_target: mc_game_core::world::entity::EntityId) -> bool {
     let range = breeze.living().map_or(0.0, |l| l.get_attribute_value(Attribute::FOLLOW_RANGE));
-    !level.get_entity(attack_target).is_some_and(|t| crate::world::entity::ai::sensing::closer_than(t, breeze, range))
+    !level.get_entity(attack_target).is_some_and(|t| mc_game_core::world::entity::ai::sensing::closer_than(t, breeze, range))
 }
 
-fn too_close_for_jump(level: &ServerLevel, breeze: &dyn Entity, attack_target: crate::world::entity::EntityId) -> bool {
+fn too_close_for_jump(level: &ServerLevel, breeze: &dyn Entity, attack_target: mc_game_core::world::entity::EntityId) -> bool {
     level.get_entity(attack_target).is_some_and(|t| t.base().distance_to_sqr_vec(breeze.position()).sqrt() as f32 - 4.0 <= 0.0)
 }
 
@@ -167,7 +167,7 @@ impl Behavior for LongJump {
         let p = breeze.position();
         level.play_sound_from_entity_at(None, breeze.id(), p, SoundEvent::ENTITY_BREEZE_CHARGE, SoundSource::Hostile, 1.0, 1.0);
         if let Some(target_pos) = breeze.brain().get_memory(&BREEZE_JUMP_TARGET).copied() {
-            breeze.look_at(crate::commands::arguments::entity_anchor_argument::Anchor::Eyes, Vec3::at_center_of(&target_pos));
+            breeze.look_at(mc_game_core::commands::arguments::entity_anchor_argument::Anchor::Eyes, Vec3::at_center_of(&target_pos));
         }
     }
 

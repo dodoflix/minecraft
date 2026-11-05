@@ -3,31 +3,31 @@
 use super::abstract_piglin::{self, AbstractPiglin, DATA_IMMUNE_TO_ZOMBIFICATION};
 use super::piglin_ai::{self, BARTERING_ITEM};
 use super::piglin_arm_pose::PiglinArmPose;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::container::SimpleContainer;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::memory::memory_module_type::{ATE_RECENTLY, SPEAR_CHARGE_POSITION, SPEAR_ENGAGE_TIME, SPEAR_FLEEING_POSITION, SPEAR_FLEEING_TIME, UNIVERSAL_ANGER};
-use crate::world::entity::ai::memory::memory_module_type::ATTACK_TARGET;
-use crate::world::entity::ai::memory::{BrainPacked, MemoryTypeId};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::sensing::sensor_type::{HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_SPECIFIC_SENSOR};
-use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::container::SimpleContainer;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATE_RECENTLY, SPEAR_CHARGE_POSITION, SPEAR_ENGAGE_TIME, SPEAR_FLEEING_POSITION, SPEAR_FLEEING_TIME, UNIVERSAL_ANGER};
+use mc_game_core::world::entity::ai::memory::memory_module_type::ATTACK_TARGET;
+use mc_game_core::world::entity::ai::memory::{BrainPacked, MemoryTypeId};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_SPECIFIC_SENSOR};
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
 use crate::world::entity::monster::crossbow_attack_mob::perform_crossbow_attack;
-use crate::world::entity::npc::inventory_carrier::{self, InventoryCarrier};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::crossbow_item;
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::entity::npc::inventory_carrier::{self, InventoryCarrier};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::crossbow_item;
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -201,7 +201,7 @@ impl AbstractPiglin for Piglin {
     fn finish_conversion(&mut self, level: &mut ServerLevel) {
         piglin_ai::cancel_admiring(level, self);
         for item_stack in self.inventory.remove_all_items() {
-            crate::world::entity::item::spawn_at_location(level, &*self, item_stack, Vec3::ZERO);
+            mc_game_core::world::entity::item::spawn_at_location(level, &*self, item_stack, Vec3::ZERO);
         }
         abstract_piglin::finish_conversion(self, level);
     }
@@ -230,7 +230,7 @@ impl AbstractPiglin for Piglin {
 }
 
 fn piglin_ai_is_loved(stack: &ItemStack) -> bool {
-    crate::world::entity::ai::sensing::repellent_sensors::is_loved_item(stack)
+    mc_game_core::world::entity::ai::sensing::repellent_sensors::is_loved_item(stack)
 }
 
 impl InventoryCarrier for Piglin {
@@ -244,7 +244,7 @@ impl InventoryCarrier for Piglin {
 }
 
 impl Entity for Piglin {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:piglin")
@@ -306,7 +306,7 @@ impl Entity for Piglin {
     fn drop_custom_death_loot(&mut self, level: &mut ServerLevel, source: &DamageSource, killed_by_player: bool) {
         mob::equipment::drop_custom_death_loot(self, level, source, killed_by_player);
         for item_stack in self.inventory.remove_all_items() {
-            crate::world::entity::item::spawn_at_location(level, &*self, item_stack, Vec3::ZERO);
+            mc_game_core::world::entity::item::spawn_at_location(level, &*self, item_stack, Vec3::ZERO);
         }
     }
 
@@ -315,7 +315,7 @@ impl Entity for Piglin {
         if inventory_slot >= 0 && (inventory_slot as usize) < self.inventory.get_items().len() {
             Some(self.inventory.get_items()[inventory_slot as usize].clone())
         } else {
-            crate::advancements::predicates::entity::support::get_slot(self.as_dyn(), slot)
+            mc_game_core::advancements::predicates::entity::support::get_slot(self.as_dyn(), slot)
         }
     }
 
@@ -350,7 +350,7 @@ impl Entity for Piglin {
         }
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut mc_game_core::world::entity::ServerPlayer, hand: InteractionHand) -> InteractionResult {
         let interaction_result = mob::interact::mob_interact(self, level, player, hand);
         if interaction_result.consumes_action() {
             return interaction_result;
@@ -369,7 +369,7 @@ impl Entity for Piglin {
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-        let was_hurt = crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
         if was_hurt && source.causing_is_living() {
             mob::ext::with_causing_entity(level, source, |level, attacker| piglin_ai::was_hurt_by(level, self, attacker));
         }
@@ -389,8 +389,8 @@ impl Entity for Piglin {
     }
 
     fn can_replace_current_item(&self, level: &ServerLevel, new_item_stack: &ItemStack, current_item_stack: &ItemStack, slot: EquipmentSlot) -> bool {
-        use crate::world::item::enchantment::enchantment_effect_components::EffectComponent;
-        if crate::world::item::enchantment_helper::has(&level.registries, current_item_stack, EffectComponent::prevent_armor_change) {
+        use mc_game_core::world::item::enchantment::enchantment_effect_components::EffectComponent;
+        if mc_game_core::world::item::enchantment_helper::has(&level.registries, current_item_stack, EffectComponent::prevent_armor_change) {
             return false;
         }
         let preferred = self.get_preferred_weapon_type();
@@ -408,7 +408,7 @@ impl Entity for Piglin {
     }
 
     fn pick_up_item(&mut self, level: &mut ServerLevel, item: EntityId) {
-        crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item);
+        mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item);
         piglin_ai::pick_up_item(level, self, item);
     }
 
@@ -461,11 +461,11 @@ impl Entity for Piglin {
 
 /// `Piglin.checkPiglinSpawnRules(type, level, spawnReason, pos, random)`.
 fn check_piglin_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    use crate::world::level::BlockGetter;
+    use mc_game_core::world::level::BlockGetter;
     level.get_block_state(pos.below()).block() != Block::NETHER_WART_BLOCK
 }
 
-crate::register_spawn_placement!(EntityType::PIGLIN, check_piglin_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::PIGLIN, check_piglin_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static PIGLIN: EntityRegistration = EntityRegistration { entity_type: EntityType::PIGLIN, create: |ty, id, registries| Box::new(Piglin::new(ty, id, registries)) };

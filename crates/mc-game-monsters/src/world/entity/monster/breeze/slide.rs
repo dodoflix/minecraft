@@ -2,14 +2,14 @@
 
 use super::breeze::Breeze;
 use super::breeze_util;
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::position_tracker::{BlockPosTracker, PositionTracker};
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use crate::world::entity::ai::memory::WalkTarget;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, BREEZE_JUMP_COOLDOWN, BREEZE_SHOOT, WALK_TARGET};
-use crate::world::entity::ai::util::default_random_pos;
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{BlockPosTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::WalkTarget;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, BREEZE_JUMP_COOLDOWN, BREEZE_SHOOT, WALK_TARGET};
+use mc_game_core::world::entity::ai::util::default_random_pos;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;

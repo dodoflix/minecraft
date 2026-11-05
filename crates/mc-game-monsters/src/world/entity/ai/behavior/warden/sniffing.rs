@@ -1,11 +1,11 @@
 //! `Sniffing`.
 
 use super::{warden, warden_mut};
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, DISTURBANCE_LOCATION, IS_SNIFFING, LOOK_TARGET, NEAREST_ATTACKABLE, SNIFF_COOLDOWN, WALK_TARGET,
 };
 use crate::world::entity::monster::warden::warden_ai;

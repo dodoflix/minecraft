@@ -1,26 +1,27 @@
 //! `net.minecraft.world.entity.monster.Guardian` and `ElderGuardian` (a `Guardian` subclass: one struct serves both types).
 
-use crate::define_accessor;
-use crate::register_spawn_placement;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
-use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, MoveTowardsRestrictionGoal, RandomLookAroundGoal, RandomStrollGoal};
-use crate::world::entity::ai::goal::look_at_player::LookAtType;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::entity::MovementEmission;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::monster::WithFlags;
-use crate::world::entity::{Entity, EntityId, MoverType};
-use crate::world::level::pathfinder::PathType;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::material::FluidStateExt as _;
-use crate::world::level::{BlockGetter, LevelReader};
+use mc_game_core::define_accessor;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::MoveTowardsRestrictionGoal;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, RandomStrollGoal};
+use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::entity::MovementEmission;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::monster::WithFlags;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -118,7 +119,7 @@ impl Guardian {
 }
 
 impl Entity for Guardian {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_ambient_sound_interval(&self) -> i32 {
         160
@@ -173,7 +174,7 @@ impl Entity for Guardian {
                 self.base_mut().set_delta_movement(m.add_xyz(f64::from(dx), 0.5, f64::from(dz)));
                 let y_rot = self.base_mut().random.next_float() * 360.0;
                 self.base_mut().set_y_rot(y_rot);
-                crate::world::entity::movement::set_on_ground(self, &*level, false);
+                mc_game_core::world::entity::movement::set_on_ground(self, &*level, false);
                 self.base_mut().needs_sync = true;
             }
             if self.has_active_attack_target() {
@@ -198,7 +199,7 @@ impl Entity for Guardian {
             }
         }
         self.stroll_trigger.store(true, Ordering::Relaxed);
-        crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
+        mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
     }
 
     fn get_max_head_x_rot(&self) -> i32 {
@@ -224,10 +225,10 @@ impl Entity for Guardian {
         if (self.base().tick_count + self.id()) % EFFECT_INTERVAL == 0 {
             let mining_fatigue = MobEffectInstance::of(MobEffect::MINING_FATIGUE, EFFECT_DURATION, EFFECT_AMPLIFIER);
             let position = self.position();
-            let affected = crate::world::effect::mob_effect_util::add_effect_to_players_around(level, Some(self.as_dyn()), position, EFFECT_RADIUS, &mining_fatigue, EFFECT_DISPLAY_LIMIT);
+            let affected = mc_game_core::world::effect::mob_effect_util::add_effect_to_players_around(level, Some(self.as_dyn()), position, EFFECT_RADIUS, &mining_fatigue, EFFECT_DISPLAY_LIMIT);
             let param = if self.base().is_silent() { 0.0 } else { 1.0 };
             for player in affected {
-                if let Some(connection) = level.get_entity(player).and_then(|p| p.as_any().downcast_ref::<crate::world::entity::ServerPlayer>()).and_then(|p| p.connection.as_ref()) {
+                if let Some(connection) = level.get_entity(player).and_then(|p| p.as_any().downcast_ref::<mc_game_core::world::entity::ServerPlayer>()).and_then(|p| p.connection.as_ref()) {
                     connection.send(&mc_protocol::packets::play::ClientboundGameEventPacket { event: mc_protocol::packets::play::ClientboundGameEventPacket::GUARDIAN_ELDER_EFFECT, param });
                 }
             }
@@ -243,7 +244,7 @@ impl Entity for Guardian {
 fn check_guardian_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, reason: EntitySpawnReason, pos: BlockPos, random: &mut dyn RandomSource) -> bool {
     (random.next_int_bounded(20) == 0 || !can_see_sky_from_below_water(level, pos))
         && level.get_difficulty() != Difficulty::Peaceful
-        && (crate::world::entity::spawn_predicates::is_spawner(reason) || level.get_fluid_state(pos).is_tag("water"))
+        && (mc_game_core::world::entity::spawn_predicates::is_spawner(reason) || level.get_fluid_state(pos).is_tag("water"))
         && level.get_fluid_state(pos.below()).is_tag("water")
 }
 
@@ -392,7 +393,7 @@ struct GuardianTargetGoal {
 
 impl GuardianTargetGoal {
     fn new() -> Self {
-        let class: crate::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.living().is_some());
+        let class: mc_game_core::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.living().is_some());
         Self { inner: NearestAttackableTargetGoal::build(TargetType::Class(class), 10, true, false, None) }
     }
 }

@@ -1,9 +1,9 @@
 //! `BreezeUtil`.
 
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::movement::collision_context;
-use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::movement::collision_context;
+use mc_game_core::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;

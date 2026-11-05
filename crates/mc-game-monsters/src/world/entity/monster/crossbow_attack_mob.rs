@@ -1,9 +1,9 @@
-//! `CrossbowAttackMob.performCrossbowAttack` (the interface itself is [`crate::world::entity::mob::ranged::CrossbowAttackMob`]).
+//! `CrossbowAttackMob.performCrossbowAttack` (the interface itself is [`mc_game_core::world::entity::mob::ranged::CrossbowAttackMob`]).
 
-use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::crossbow_item::CrossbowItem;
-use crate::world::item::projectile_weapon_item::get_weapon_holding_hand;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::crossbow_item::CrossbowItem;
+use mc_game_core::world::item::projectile_weapon_item::get_weapon_holding_hand;
 use mc_data::Item;
 
 /// `performCrossbowAttack(body, crossbowPower)`: fires the crossbow of `body` at `target` (`this.getTarget()`); the

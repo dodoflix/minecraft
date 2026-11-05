@@ -10,9 +10,9 @@
 //! when it is a player (vanilla: removal reason `CHANGED_DIMENSION`/`UNLOADED_*`, the reason is not observable here once the
 //! entity is gone); upgrade when the level keeps removal reasons.
 
-use crate::server::level::ServerLevel;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::entity::monster::warden::anger_level::AngerLevel;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_core::math::mth;
 use mc_core::random;
 use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};

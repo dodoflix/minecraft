@@ -1,35 +1,35 @@
 //! `net.minecraft.world.entity.monster.Strider` (+ `StriderGoToLavaGoal`, `StriderPathNavigation`).
 
-use crate::define_accessor;
-use crate::register_spawn_placement;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
-use crate::world::entity::ai::goal::look_at_player::LookAtType;
-use crate::world::entity::ai::goal::{BreedGoal, FollowParentGoal, Goal, GoalFlags, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, RandomStrollGoal, TemptGoal, Flag};
-use crate::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::dismount_helper;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::item_based_steering::ItemBasedSteering;
-use crate::world::entity::living_entity::util::lm;
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::monster::zombie::{ZombieGroupData, get_spawn_as_baby_odds};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::collision::BlockGetterExt as _;
-use crate::world::level::material::FluidStateExt as _;
-use crate::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator};
-use crate::world::level::pathfinder::{PathFinder, PathType};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::define_accessor;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
+use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
+use mc_game_core::world::entity::ai::goal::{BreedGoal, FollowParentGoal, Goal, GoalFlags, LookAtPlayerGoal, PanicGoal, RandomLookAroundGoal, RandomStrollGoal, TemptGoal, Flag};
+use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::dismount_helper;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::item_based_steering::ItemBasedSteering;
+use mc_game_core::world::entity::living_entity::util::lm;
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::monster::zombie::{ZombieGroupData, get_spawn_as_baby_odds};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::collision::BlockGetterExt as _;
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator};
+use mc_game_core::world::level::pathfinder::{PathFinder, PathType};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
@@ -162,10 +162,10 @@ impl Strider {
     /// `floatStrider()`.
     fn float_strider(&mut self, level: &mut ServerLevel) {
         if self.is_in_lava() {
-            let context = crate::world::entity::movement::collision_context(self);
+            let context = mc_game_core::world::entity::movement::collision_context(self);
             let pos = self.block_position();
             if context.is_above(&self.get_liquid_collision_shape(), pos, true) && !level.get_fluid_state(pos.above()).is_tag("lava") {
-                crate::world::entity::movement::set_on_ground(self, &*level, true);
+                mc_game_core::world::entity::movement::set_on_ground(self, &*level, true);
             } else {
                 let m = self.base().delta_movement();
                 self.base_mut().set_delta_movement(m.scale(0.5).add_xyz(0.0, 0.05, 0.0));
@@ -188,7 +188,7 @@ impl Strider {
         if let Some(stack) = jockey_main_hand {
             mob::equipment::set_item_slot_spawn(jockey.as_mut(), EquipmentSlot::MainHand, stack);
         }
-        if crate::world::entity::monster::start_riding_unadded(jockey.as_mut(), self) {
+        if mc_game_core::world::entity::monster::start_riding_unadded(jockey.as_mut(), self) {
             self.mob.pending_passengers.push(jockey);
         }
         Some(Box::new(AgeableMobGroupData::with_chance(0.0)))
@@ -202,7 +202,7 @@ fn holds_warped_fungus_on_a_stick(entity: &dyn Entity) -> bool {
 }
 
 impl Entity for Strider {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn can_use_slot(&self, slot: EquipmentSlot) -> bool {
         if slot != EquipmentSlot::Saddle { true } else { self.is_alive() && !self.is_baby() }
@@ -212,7 +212,7 @@ impl Entity for Strider {
         (slot == EquipmentSlot::Saddle).then_some(SoundEvent::ENTITY_STRIDER_SADDLE)
     }
 
-    fn can_stand_on_fluid_fn(&self) -> Option<crate::world::level::collision::CanStandOnFluid> {
+    fn can_stand_on_fluid_fn(&self) -> Option<mc_game_core::world::level::collision::CanStandOnFluid> {
         Some(is_lava)
     }
 
@@ -323,20 +323,20 @@ impl Entity for Strider {
         if self.is_in_lava() {
             self.reset_fall_distance();
         } else {
-            crate::world::entity::entity::check_fall_damage_base(self, level, ya, on_ground, on_state, pos);
+            mc_game_core::world::entity::entity::check_fall_damage_base(self, level, ya, on_ground, on_state, pos);
         }
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {
         self.refresh_controller(level);
         if self.is_being_tempted() && self.base_mut().random.next_int_bounded(140) == 0 {
-            crate::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_STRIDER_HAPPY);
+            mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_STRIDER_HAPPY);
         } else if mob::pathfinder::is_panicking(self) && self.base_mut().random.next_int_bounded(60) == 0 {
-            crate::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_STRIDER_RETREAT);
+            mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_STRIDER_RETREAT);
         }
         if !self.mob.is_no_ai() {
             let state_inside = level.get_block_state(self.base().block_position());
-            let state_on = level.get_block_state(crate::world::entity::movement::get_on_pos_legacy(self, level));
+            let state_on = level.get_block_state(mc_game_core::world::entity::movement::get_on_pos_legacy(self, level));
             let in_warm_blocks = state_inside.block().is_in_tag("strider_warm_blocks") || state_on.block().is_in_tag("strider_warm_blocks") || self.get_fluid_height("lava") > 0.0;
             let on_warm_strider = self.base().vehicle.and_then(|v| level.get_entity(v)).and_then(|v| v.as_any().downcast_ref::<Strider>()).is_some_and(|s| !s.is_suffocating());
             self.set_suffocating(!in_warm_blocks && !on_warm_strider);
@@ -389,7 +389,7 @@ impl Entity for Strider {
     }
 
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        crate::world::entity::factory::create(EntityType::STRIDER, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+        mc_game_core::world::entity::factory::create(EntityType::STRIDER, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
     }
 
     fn is_food(&self, stack: &ItemStack) -> bool {
@@ -406,7 +406,7 @@ impl Entity for Strider {
         if !result.consumes_action() {
             let item_stack = player.get_item_in_hand(hand);
             if self.is_equippable_in_slot(&item_stack, EquipmentSlot::Saddle) {
-                mob::interact::with_hand_stack(player, hand, |s, p| crate::world::item::interact_living_entity(level, s, p, self.as_dyn_mut(), hand))
+                mob::interact::with_hand_stack(player, hand, |s, p| mc_game_core::world::item::interact_living_entity(level, s, p, self.as_dyn_mut(), hand))
             } else {
                 InteractionResult::PASS
             }
@@ -545,7 +545,7 @@ impl PathNavigation for StriderPathNavigation {
     }
 
     fn is_stable_destination(&self, mob: &dyn Entity, level: &ServerLevel, pos: BlockPos) -> bool {
-        level.get_block_state(pos).block() == Block::LAVA || crate::world::entity::ai::navigation::default_is_stable_destination(self, mob, level, pos)
+        level.get_block_state(pos).block() == Block::LAVA || mc_game_core::world::entity::ai::navigation::default_is_stable_destination(self, mob, level, pos)
     }
 }
 

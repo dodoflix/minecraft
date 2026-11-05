@@ -2,27 +2,27 @@
 
 use super::hoglin_ai::{self, is_pacified};
 use super::hoglin_base::{self, ATTACK_ANIMATION_DURATION, PROBABILITY_OF_SPAWNING_AS_BABY};
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::memory::BrainPacked;
-use crate::world::entity::ai::memory::memory_module_type::ATTACK_TARGET;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::sensing::sensor_type::{HOGLIN_SPECIFIC_SENSOR, NEAREST_ADULT, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::living_entity::util::broadcast_entity_event;
-use crate::world::entity::mob::convert::{self, ConversionParams};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::memory::BrainPacked;
+use mc_game_core::world::entity::ai::memory::memory_module_type::ATTACK_TARGET;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{HOGLIN_SPECIFIC_SENSOR, NEAREST_ADULT, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{self, ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
+use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -87,7 +87,7 @@ impl Hoglin {
     pub fn is_converting(&self, level: &ServerLevel) -> bool {
         !self.is_immune_to_zombification()
             && !self.mob.is_no_ai()
-            && level.attribute_bool_vec(crate::world::attribute::attributes::PIGLINS_ZOMBIFY, &self.position())
+            && level.attribute_bool_vec(mc_game_core::world::attribute::attributes::PIGLINS_ZOMBIFY, &self.position())
     }
 
     fn set_cannot_be_hunted(&mut self, cannot_be_hunted: bool) {
@@ -109,7 +109,7 @@ impl Hoglin {
 }
 
 impl Entity for Hoglin {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:hoglin")
@@ -140,7 +140,7 @@ impl Entity for Hoglin {
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-        let was_hurt = crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
         if was_hurt && source.causing_is_living() {
             mob::ext::with_causing_entity(level, source, |level, attacker| hoglin_ai::was_hurt_by(level, self, attacker));
         }
@@ -195,8 +195,8 @@ impl Entity for Hoglin {
         true
     }
 
-    fn get_walk_target_value(&self, pos: BlockPos, level: &dyn crate::world::level::LevelReader) -> f32 {
-        use crate::world::level::BlockGetter;
+    fn get_walk_target_value(&self, pos: BlockPos, level: &dyn mc_game_core::world::level::LevelReader) -> f32 {
+        use mc_game_core::world::level::BlockGetter;
         if hoglin_ai::is_pos_near_nearest_repellent(self, pos) {
             -1.0
         } else if level.get_block_state(pos.below()).block() == Block::CRIMSON_NYLIUM {
@@ -206,7 +206,7 @@ impl Entity for Hoglin {
         }
     }
 
-    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut crate::world::entity::ServerPlayer, hand: InteractionHand) -> InteractionResult {
+    fn mob_interact(&mut self, level: &mut ServerLevel, player: &mut mc_game_core::world::entity::ServerPlayer, hand: InteractionHand) -> InteractionResult {
         let interaction_succeeded = mob::interact::mob_interact(self, level, player, hand);
         if interaction_succeeded.consumes_action() {
             self.set_persistence_required();
@@ -292,11 +292,11 @@ impl Entity for Hoglin {
 
 /// `Hoglin.checkHoglinSpawnRules(type, level, spawnReason, pos, random)`.
 fn check_hoglin_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAccessor, _reason: EntitySpawnReason, pos: BlockPos, _random: &mut dyn RandomSource) -> bool {
-    use crate::world::level::BlockGetter;
+    use mc_game_core::world::level::BlockGetter;
     level.get_block_state(pos.below()).block() != Block::NETHER_WART_BLOCK
 }
 
-crate::register_spawn_placement!(EntityType::HOGLIN, check_hoglin_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::HOGLIN, check_hoglin_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static HOGLIN: EntityRegistration = EntityRegistration { entity_type: EntityType::HOGLIN, create: |ty, id, registries| Box::new(Hoglin::new(ty, id, registries)) };

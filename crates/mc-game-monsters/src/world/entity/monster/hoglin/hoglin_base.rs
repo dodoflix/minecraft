@@ -1,9 +1,9 @@
 //! `HoglinBase`: the shared attack of hoglins and zoglins (`hurtAndThrowTarget`, `throwTarget`).
 
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::item::enchantment::actors::Actors;
-use crate::world::item::enchantment_helper;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::item::enchantment::actors::Actors;
+use mc_game_core::world::item::enchantment_helper;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::Attribute;

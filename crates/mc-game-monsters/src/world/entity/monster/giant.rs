@@ -1,11 +1,11 @@
 //! `Giant`: the unused giant zombie (a `Monster` without goals).
 
-use crate::registry::RegistryAccess;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{MobData, MobKind};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::LevelReader;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::LevelReader;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_data::EntityType;
@@ -26,7 +26,7 @@ impl Giant {
 }
 
 impl Entity for Giant {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     /// `getWalkTargetValue(pos, level)`: not negated like `Monster`'s.
     fn get_walk_target_value(&self, pos: BlockPos, level: &dyn LevelReader) -> f32 {

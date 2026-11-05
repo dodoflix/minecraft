@@ -5,28 +5,28 @@
 
 mod goals;
 
-use crate::define_accessor;
-use crate::register_spawn_placement;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::Goal;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::util::lm;
-use crate::world::entity::mob::conversion_tracker::{ConversionTracker, ConversionTrackerConfig};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates as sp;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::pathfinder::PathType;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::define_accessor;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::Goal;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::util::lm;
+use mc_game_core::world::entity::mob::conversion_tracker::{ConversionTracker, ConversionTrackerConfig};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates as sp;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -165,7 +165,7 @@ impl AbstractSkeleton {
 }
 
 impl Entity for AbstractSkeleton {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn tick(&mut self, level: &mut ServerLevel) {
         if self.weapon_goal_dirty {
@@ -260,7 +260,7 @@ impl Entity for AbstractSkeleton {
         self.reassess_weapon_goal(difficulty.get_difficulty());
         let can_pick_up = level.random().next_float() < 0.55 * difficulty.get_special_multiplier();
         self.set_can_pick_up_loot(can_pick_up);
-        if self.get_item_by_slot(EquipmentSlot::Head).is_empty() && crate::util::special_dates::is_halloween() && level.random().next_float() < 0.25 {
+        if self.get_item_by_slot(EquipmentSlot::Head).is_empty() && mc_game_core::util::special_dates::is_halloween() && level.random().next_float() < 0.25 {
             let pumpkin = if level.random().next_float() < 0.1 { Item::JACK_O_LANTERN } else { Item::CARVED_PUMPKIN };
             mob::equipment::set_item_slot_spawn(self, EquipmentSlot::Head, ItemStack::new(pumpkin));
             self.set_drop_chance(EquipmentSlot::Head, 0.0);
@@ -301,12 +301,12 @@ impl Entity for AbstractSkeleton {
         match self.kind {
             SkeletonKind::WitherSkeleton if effect.effect == MobEffect::WITHER => false,
             SkeletonKind::Parched if effect.effect == MobEffect::WEAKNESS => false,
-            _ => crate::world::entity::living_entity::effects::can_be_affected(self, level, effect),
+            _ => mc_game_core::world::entity::living_entity::effects::can_be_affected(self, level, effect),
         }
     }
 
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
-        let result = crate::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target);
+        let result = mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target);
         if let SkeletonKind::WitherSkeleton = self.kind {
             if !result {
                 return false;
@@ -321,7 +321,7 @@ impl Entity for AbstractSkeleton {
     }
 
     fn on_equip_item(&mut self, level: &mut ServerLevel, slot: EquipmentSlot, old: &ItemStack, new: &ItemStack) {
-        crate::world::entity::living_entity::equipment::on_equip_item(self, level, slot, old, new);
+        mc_game_core::world::entity::living_entity::equipment::on_equip_item(self, level, slot, old, new);
         let difficulty = level.difficulty();
         self.reassess_weapon_goal(difficulty);
     }

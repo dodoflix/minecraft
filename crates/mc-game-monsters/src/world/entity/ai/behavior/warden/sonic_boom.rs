@@ -1,15 +1,15 @@
 //! `SonicBoom`.
 
 use super::warden;
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use crate::world::entity::ai::memory::Unit;
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::Unit;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_COOLING_DOWN, ATTACK_TARGET, SONIC_BOOM_COOLDOWN, SONIC_BOOM_SOUND_COOLDOWN, SONIC_BOOM_SOUND_DELAY,
 };
-use crate::world::entity::dimensions::EntityAttachment;
+use mc_game_core::world::entity::dimensions::EntityAttachment;
 use crate::world::entity::monster::warden::closer_than_xz_y;
 use mc_core::math::mth;
 use mc_data::{Attribute, ParticleType, SoundEvent};
@@ -71,7 +71,7 @@ impl Behavior for SonicBoom {
         if let Some(target) = body.brain().get_memory(&ATTACK_TARGET).map(|t| t.0)
             && let Some(target_position) = level.get_entity(target).map(|t| t.position())
         {
-            crate::world::entity::mob::look_at_xyz(body, target_position.x, target_position.y, target_position.z);
+            mc_game_core::world::entity::mob::look_at_xyz(body, target_position.x, target_position.y, target_position.z);
         }
         if !body.brain().has_memory_value(SONIC_BOOM_SOUND_DELAY) && !body.brain().has_memory_value(SONIC_BOOM_SOUND_COOLDOWN) {
             body.brain_mut().set_memory_with_expiry(&SONIC_BOOM_SOUND_COOLDOWN, Unit, i64::from(DURATION) - TICKS_BEFORE_PLAYING_SOUND);

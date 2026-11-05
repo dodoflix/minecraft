@@ -1,11 +1,11 @@
 //! `WardenAi`: the warden's brain (activities, activity switching, dig cooldown, disturbance location).
 
 use super::Warden;
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::behavior::behaviors::boxed;
-use crate::world::entity::ai::behavior::position_tracker::{BlockPosTracker, EntityTracker, PositionTracker};
-use crate::world::entity::ai::behavior::swim::Swim;
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_ai::world::entity::ai::behavior::behaviors::boxed;
+use mc_game_core::world::entity::ai::behavior::position_tracker::{BlockPosTracker, EntityTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::swim::Swim;
 use crate::world::entity::ai::behavior::warden::digging::Digging;
 use crate::world::entity::ai::behavior::warden::emerging::Emerging;
 use crate::world::entity::ai::behavior::warden::force_unmount::ForceUnmount;
@@ -13,18 +13,16 @@ use crate::world::entity::ai::behavior::warden::roar::Roar;
 use crate::world::entity::ai::behavior::warden::sniffing::Sniffing;
 use crate::world::entity::ai::behavior::warden::sonic_boom::SonicBoom;
 use crate::world::entity::ai::behavior::warden::{set_roar_target, set_warden_look_target, try_to_sniff, warden, warden_mut};
-use crate::world::entity::ai::behavior::{
-    BehaviorBuilder, DoNothing, OneShot, go_to_target_location, look_at_target_sink::LookAtTargetSink, melee_attack, move_to_target_sink::MoveToTargetSink,
-    random_stroll, set_walk_target_from_attack_target_if_target_out_of_reach, stop_attacking_if_target_invalid,
-};
-use crate::world::entity::ai::behavior::RunOne;
-use crate::world::entity::ai::brain::{ActivityData, Brain};
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_ai::world::entity::ai::behavior::{go_to_target_location, melee_attack, random_stroll, set_walk_target_from_attack_target_if_target_out_of_reach, stop_attacking_if_target_invalid};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, DoNothing, OneShot, look_at_target_sink::LookAtTargetSink, move_to_target_sink::MoveToTargetSink};
+use mc_game_core::world::entity::ai::behavior::RunOne;
+use mc_game_core::world::entity::ai::brain::{ActivityData, Brain};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, DIG_COOLDOWN, DISTURBANCE_LOCATION, IS_EMERGING, IS_SNIFFING, LOOK_TARGET, NEAREST_VISIBLE_LIVING_ENTITIES, ROAR_TARGET, SNIFF_COOLDOWN, WALK_TARGET,
 };
-use crate::world::entity::ai::memory::{MemoryStatus, Unit};
-use crate::world::entity::schedule::Activity;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::world::entity::ai::memory::{MemoryStatus, Unit};
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_core::pos::BlockPos;
 use mc_data::Attribute;
 
@@ -151,7 +149,7 @@ fn set_attack_target_look_target(max_dist: f32) -> OneShot {
         let body: &dyn Entity = &*c.body;
         let attack_target = body.brain().get_memory(&ATTACK_TARGET).map(|r| r.0);
         let target = c.get(&nearest_entities).find_closest(&*c.level, body, |mob| {
-            Some(mob.id()) == attack_target && crate::world::entity::ai::sensing::distance_to_sqr(mob, body) <= max_dist_sqr && !body.base().passengers.contains(&mob.id())
+            Some(mob.id()) == attack_target && mc_game_core::world::entity::ai::sensing::distance_to_sqr(mob, body) <= max_dist_sqr && !body.base().passengers.contains(&mob.id())
         });
         let Some(target) = target else { return false };
         let Some(tracker) = c.level.get_entity(target.0).map(|e| EntityTracker::new(e, true)) else { return false };

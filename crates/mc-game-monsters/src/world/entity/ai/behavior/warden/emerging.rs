@@ -1,10 +1,10 @@
 //! `Emerging`.
 
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use crate::world::entity::ai::memory::memory_module_type::{IS_EMERGING, LOOK_TARGET, WALK_TARGET};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{IS_EMERGING, LOOK_TARGET, WALK_TARGET};
 use mc_data::SoundEvent;
 use mc_data::enums::Pose;
 

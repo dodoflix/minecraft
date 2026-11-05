@@ -1,18 +1,19 @@
 //! `net.minecraft.world.entity.monster.Endermite`.
 
-use crate::register_spawn_placement;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{ClimbOnTopOfPowderSnowGoal, FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::entity::MovementEmission;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_predicates::{check_any_light_monster_spawn_rules, is_spawner};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::ClimbOnTopOfPowderSnowGoal;
+use mc_game_core::world::entity::ai::goal::{FloatGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::entity::MovementEmission;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_predicates::{check_any_light_monster_spawn_rules, is_spawner};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -58,7 +59,7 @@ impl Endermite {
 }
 
 impl Entity for Endermite {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_movement_emission(&self) -> MovementEmission {
         MovementEmission::Events

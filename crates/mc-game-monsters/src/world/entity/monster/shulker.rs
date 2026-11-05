@@ -1,31 +1,31 @@
 //! `net.minecraft.world.entity.monster.Shulker` (+ its goals, look and body-rotation controls).
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::body_rotation_control::{BodyRotationControl, BodyRotationControlBase};
-use crate::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
-use crate::world::entity::ai::goal::look_at_player::LookAtType;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, reduced_tick_delay};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::entity::MovementEmission;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::projectile::shulker_bullet::ShulkerBullet;
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, MoverType};
-use crate::world::item::ItemStack;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::collision::{BlockGetterExt as _, CollisionGetter as _};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::shapes::is_face_full;
-use crate::world::level::level_access::LevelAccessor as _;
-use crate::world::level::{BlockGetter, LevelReader as _};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::body_rotation_control::{BodyRotationControl, BodyRotationControlBase};
+use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::entity::MovementEmission;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::projectile::shulker_bullet::ShulkerBullet;
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, MoverType};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::collision::{BlockGetterExt as _, CollisionGetter as _};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::shapes::is_face_full;
+use mc_game_core::world::level::level_access::LevelAccessor as _;
+use mc_game_core::world::level::{BlockGetter, LevelReader as _};
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::ident::Identifier;
@@ -144,7 +144,7 @@ impl Shulker {
     /// `getColor()`.
     pub fn get_color(&self) -> Option<mc_protocol::components::DyeColor> {
         let color = self.mob.living.entity.entity_data.get(DATA_COLOR_ID);
-        (color != NO_COLOR && color <= 15).then(|| crate::world::item::dye_color::by_id(i32::from(color)))
+        (color != NO_COLOR && color <= 15).then(|| mc_game_core::world::item::dye_color::by_id(i32::from(color)))
     }
 
     /// `setVariant(color)`.
@@ -210,7 +210,7 @@ impl Shulker {
                 let eligible = level.get_entity(id).is_some_and(|e| !self.is_passenger_of_same_vehicle(level, e) && e.get_type() != EntityType::SHULKER && !e.base().no_physics);
                 if eligible {
                     let delta = Vec3::new(f64::from(push) * f64::from(direction.get_step_x()), f64::from(push) * f64::from(direction.get_step_y()), f64::from(push) * f64::from(direction.get_step_z()));
-                    level.with_entity(id, |level, entity| crate::world::entity::movement::move_entity(entity, level, MoverType::Shulker, delta));
+                    level.with_entity(id, |level, entity| mc_game_core::world::entity::movement::move_entity(entity, level, MoverType::Shulker, delta));
                 }
             }
         }
@@ -241,7 +241,7 @@ impl Shulker {
             return false;
         }
         let fully_opened = Self::get_progress_aabb(self.get_scale(), opposite_face, 1.0, Vec3::at_bottom_center_of(&target)).deflate_scalar(1.0E-6);
-        level.no_collision(Some(self.id()), Some(&crate::world::entity::movement::collision_context(self)), &fully_opened)
+        level.no_collision(Some(self.id()), Some(&mc_game_core::world::entity::movement::collision_context(self)), &fully_opened)
     }
 
     /// `isPositionBlocked(target)`.
@@ -270,7 +270,7 @@ impl Shulker {
                 && level.world_border().is_within_bounds_block(&target)
                 && level.no_collision(
                     Some(self.id()),
-                    Some(&crate::world::entity::movement::collision_context(self)),
+                    Some(&mc_game_core::world::entity::movement::collision_context(self)),
                     &AABB::unit_cube_from_lower_corner(Vec3::new(f64::from(target.x()), f64::from(target.y()), f64::from(target.z()))).deflate_scalar(1.0E-6),
                 )
             {
@@ -282,7 +282,7 @@ impl Shulker {
                     self.play_sound(level, SoundEvent::ENTITY_SHULKER_TELEPORT, 1.0, 1.0);
                     self.set_pos(f64::from(target.x()) + 0.5, f64::from(target.y()), f64::from(target.z()) + 0.5);
                     level.game_event_from_entity_ref(&*self, GameEvent::TELEPORT, Vec3::new(f64::from(old_pos.x()), f64::from(old_pos.y()), f64::from(old_pos.z())));
-                    let packed_diff = crate::util::block_util::pack_difference_in_position(old_pos, self.base().block_position(), 8, 8, 8).unwrap_or(0);
+                    let packed_diff = mc_game_core::util::block_util::pack_difference_in_position(old_pos, self.base().block_position(), 8, 8, 8).unwrap_or(0);
                     level.level_event(None, 2016, old_pos, packed_diff);
                     self.mob.living.entity.entity_data.set(DATA_PEEK_ID, 0);
                     self.set_target(level, None);
@@ -306,7 +306,7 @@ impl Shulker {
             }
             let failure_chance = (shulker_count - 1) as f32 / 5.0;
             if !(level.tick_state.random.next_float() < failure_chance)
-                && let Some(mut baby) = crate::world::entity::factory::create(EntityType::SHULKER, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
+                && let Some(mut baby) = mc_game_core::world::entity::factory::create(EntityType::SHULKER, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })
             {
                 if let Some(shulker) = baby.as_any_mut().downcast_mut::<Shulker>() {
                     shulker.set_variant(self.get_color());
@@ -329,16 +329,16 @@ fn loaded_and_entity_can_stand_on_face(level: &ServerLevel, pos: BlockPos, entit
     if !level.is_in_valid_bounds(pos) {
         return false;
     }
-    if !crate::world::level::LevelReader::has_chunk(level, pos.x() >> 4, pos.z() >> 4) {
+    if !mc_game_core::world::level::LevelReader::has_chunk(level, pos.x() >> 4, pos.z() >> 4) {
         return false;
     }
     let state = level.get_block_state(pos);
     // `BlockState.entityCanStandOnFace(level, pos, entity, direction)`
-    is_face_full(&state.get_collision_shape_ctx(level, pos, &crate::world::entity::movement::collision_context(entity)), face_direction)
+    is_face_full(&state.get_collision_shape_ctx(level, pos, &mc_game_core::world::entity::movement::collision_context(entity)), face_direction)
 }
 
 impl Entity for Shulker {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_movement_emission(&self) -> MovementEmission {
         MovementEmission::None
@@ -471,7 +471,7 @@ impl Entity for Shulker {
         {
             return false;
         }
-        if !crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage) {
+        if !mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage) {
             return false;
         }
         if f64::from(self.mob.living.get_health()) < f64::from(self.mob.living.get_max_health()) * 0.5 && self.base_mut().random.next_int_bounded(4) == 0 {
@@ -492,7 +492,7 @@ impl Entity for Shulker {
             let bb = self.make_bounding_box(position);
             self.base_mut().set_bounding_box(bb);
         }
-        if accessor_id == crate::world::entity::entity::DATA_POSE.id() {
+        if accessor_id == mc_game_core::world::entity::entity::DATA_POSE.id() {
             self.refresh_dimensions();
         }
     }
@@ -508,7 +508,7 @@ impl Entity for Shulker {
     fn push_entity(&mut self, _level: &mut ServerLevel, _other: &mut dyn Entity) {}
 
     fn entity_components(&self) -> DataComponentMap {
-        let base = crate::advancements::predicates::entity::support::base_entity_components(self.base());
+        let base = mc_game_core::advancements::predicates::entity::support::base_entity_components(self.base());
         let builder = DataComponentMap::builder().add_all(&base);
         match self.get_color() {
             Some(color) => builder.set(SHULKER_COLOR, color).build(),
@@ -520,7 +520,7 @@ impl Entity for Shulker {
         if let Some(color) = stack.get(&SHULKER_COLOR) {
             self.set_variant(Some(*color));
         }
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
     }
 }
 

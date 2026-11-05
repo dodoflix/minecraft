@@ -1,9 +1,9 @@
 //! `StopAdmiringIfItemTooFarAway`.
 
-use crate::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::memory_module_type::{ADMIRING_ITEM, NEAREST_VISIBLE_WANTED_ITEM};
-use crate::world::entity::ai::sensing::closer_than;
-use crate::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ADMIRING_ITEM, NEAREST_VISIBLE_WANTED_ITEM};
+use mc_game_core::world::entity::ai::sensing::closer_than;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
 
 pub fn create(max_distance_to_item: i32) -> OneShot {
     let mut i = BehaviorBuilder::instance();

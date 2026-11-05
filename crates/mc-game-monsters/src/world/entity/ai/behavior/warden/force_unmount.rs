@@ -1,8 +1,8 @@
 //! `ForceUnmount`.
 
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
 
 /// `ForceUnmount extends Behavior<LivingEntity>`.
 pub struct ForceUnmount;

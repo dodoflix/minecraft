@@ -1,10 +1,10 @@
 //! `StartHuntingHoglin`.
 
 use super::piglin_ai;
-use crate::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::EntityRef;
-use crate::world::entity::ai::memory::memory_module_type::{ANGRY_AT, HUNTED_RECENTLY, NEAREST_VISIBLE_ADULT_PIGLINS, NEAREST_VISIBLE_HUNTABLE_HOGLIN};
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::EntityRef;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ANGRY_AT, HUNTED_RECENTLY, NEAREST_VISIBLE_ADULT_PIGLINS, NEAREST_VISIBLE_HUNTABLE_HOGLIN};
+use mc_game_core::world::entity::Entity;
 
 pub fn create() -> OneShot {
     let mut i = BehaviorBuilder::instance();

@@ -1,20 +1,18 @@
 //! `MagmaCube`.
 
-use super::abstract_cube_mob::{
-    self as acm, CubeMob, CubeMobAttackGoal, CubeMobData, CubeMobFloatGoal, CubeMobKeepOnJumpingGoal, CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE,
-};
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::util::FluidKind;
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::entity::monster::cubemob::abstract_cube_mob::{self as acm, CubeMob, CubeMobAttackGoal, CubeMobData, CubeMobFloatGoal, CubeMobKeepOnJumpingGoal, CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::util::FluidKind;
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -101,7 +99,7 @@ impl CubeMob for MagmaCube {
 }
 
 impl Entity for MagmaCube {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:magma_cube")
@@ -147,7 +145,7 @@ impl Entity for MagmaCube {
             self.base_mut().set_delta_movement_xyz(movement.x, y, movement.z);
             self.base_mut().needs_sync = true;
         } else {
-            crate::world::entity::living_entity::jump::jump_in_liquid(self);
+            mc_game_core::world::entity::living_entity::jump::jump_in_liquid(self);
         }
     }
     fn is_on_fire(&self) -> bool {
@@ -197,7 +195,7 @@ pub fn check_magma_cube_spawn_rules(_ty: EntityType, level: &dyn ServerLevelAcce
     level.get_difficulty() != Difficulty::Peaceful
 }
 
-crate::register_spawn_placement!(EntityType::MAGMA_CUBE, check_magma_cube_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::MAGMA_CUBE, check_magma_cube_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static MAGMA_CUBE: EntityRegistration = EntityRegistration { entity_type: EntityType::MAGMA_CUBE, create: |ty, id, _registries| Box::new(MagmaCube::new(ty, id)) };

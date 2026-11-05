@@ -4,27 +4,27 @@
 //! ported; the server only broadcasts the entity events (4, 66).
 
 use super::creaking_ai;
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
 use crate::world::block_entity::CreakingHeartBlockEntity;
-use crate::world::damagesource::{DamageSource, DamageTypeTags};
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::control::body_rotation_control::{BodyRotationControlBase, base_client_tick};
-use crate::world::entity::ai::control::jump_control::{self, JumpControl, JumpControlBase};
-use crate::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
-use crate::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
-use crate::world::entity::ai::control::BodyRotationControl;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_PLAYERS};
-use crate::world::entity::ai::memory::{BrainPacked, EntityRef};
-use crate::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
-use crate::world::entity::ai::sensing::sensor_type::{NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS as NEAREST_PLAYERS_SENSOR};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::damage;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::{Entity, EntityId, RemovalReason};
-use crate::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type};
-use crate::world::level::pathfinder::{PathFinder, PathType};
+use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::control::body_rotation_control::{BodyRotationControlBase, base_client_tick};
+use mc_game_core::world::entity::ai::control::jump_control::{self, JumpControl, JumpControlBase};
+use mc_game_core::world::entity::ai::control::look_control::{self, LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::control::move_control::{self, MoveControl, MoveControlBase};
+use mc_game_core::world::entity::ai::control::BodyRotationControl;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_PLAYERS};
+use mc_game_core::world::entity::ai::memory::{BrainPacked, EntityRef};
+use mc_game_core::world::entity::ai::navigation::{NavClass, NavigationData, PathNavigation};
+use mc_game_core::world::entity::ai::sensing::sensor_type::{NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS as NEAREST_PLAYERS_SENSOR};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId, RemovalReason};
+use mc_game_core::world::level::pathfinder::node_evaluator::{EvaluatorState, NodeEvaluator, PathEnv, default_get_path_type};
+use mc_game_core::world::level::pathfinder::{PathFinder, PathType};
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -426,15 +426,15 @@ impl PathNavigation for CreakingNavigation {
     fn data_mut(&mut self) -> &mut NavigationData {
         &mut self.data
     }
-    fn tick(&mut self, mob: &mut dyn Entity, level: &crate::server::level::ServerLevel) {
+    fn tick(&mut self, mob: &mut dyn Entity, level: &mc_game_core::server::level::ServerLevel) {
         if can_move(mob) {
-            crate::world::entity::ai::navigation::default_tick(self, mob, level);
+            mc_game_core::world::entity::ai::navigation::default_tick(self, mob, level);
         }
     }
 }
 
 impl Entity for Creaking {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:creaking")
@@ -450,7 +450,7 @@ impl Entity for Creaking {
         }
         self.attack_animation_remaining_ticks = ATTACK_ANIMATION_DURATION;
         level.broadcast_entity_event(self.id(), 4);
-        crate::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
+        mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage_amount: f32) -> bool {
@@ -489,7 +489,7 @@ impl Entity for Creaking {
     }
 
     fn is_pushable(&self, level: &ServerLevel) -> bool {
-        crate::world::entity::living_entity::push::living_is_pushable(self, level) && self.can_move()
+        mc_game_core::world::entity::living_entity::push::living_is_pushable(self, level) && self.can_move()
     }
 
     fn push_xyz(&mut self, xa: f64, ya: f64, za: f64) {
@@ -544,7 +544,7 @@ impl Entity for Creaking {
                 self.tear_down(level);
             }
         } else {
-            crate::world::entity::living_entity::base_tick::tick_death(self, level);
+            mc_game_core::world::entity::living_entity::base_tick::tick_death(self, level);
         }
     }
 
@@ -600,7 +600,7 @@ impl Entity for Creaking {
         }
     }
 
-    fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn crate::world::level::LevelReader) -> f32 {
+    fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn mc_game_core::world::level::LevelReader) -> f32 {
         0.0
     }
 

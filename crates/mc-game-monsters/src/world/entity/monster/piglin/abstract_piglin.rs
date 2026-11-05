@@ -4,15 +4,15 @@
 use super::piglin::Piglin;
 use super::piglin_ai;
 use super::piglin_arm_pose::PiglinArmPose;
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::world::attribute::attributes::PIGLINS_ZOMBIFY;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::mob::convert::{self, ConversionParams};
-use crate::world::entity::mob::MobData;
-use crate::world::entity::Entity;
-use crate::world::level::pathfinder::PathType;
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::attribute::attributes::PIGLINS_ZOMBIFY;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::mob::convert::{self, ConversionParams};
+use mc_game_core::world::entity::mob::MobData;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::level::pathfinder::PathType;
 use mc_data::enums::EntitySpawnReason;
 use mc_world::level_storage::Difficulty;
 use mc_data::{EntityType, MobEffect};
@@ -48,7 +48,7 @@ pub fn init(mob: &mut MobData) {
 }
 
 /// `applyOpenDoorsAbility()` for a freshly created ground navigation (`GoalUtils.hasGroundPathNavigation(this)`).
-pub fn apply_open_doors_ability(navigation: &mut dyn crate::world::entity::ai::navigation::PathNavigation) {
+pub fn apply_open_doors_ability(navigation: &mut dyn mc_game_core::world::entity::ai::navigation::PathNavigation) {
     if navigation.can_navigate_ground() {
         navigation.set_can_open_doors(true);
     }
@@ -66,14 +66,14 @@ pub fn set_immune_to_zombification(e: &mut dyn Entity, immune: bool) {
 
 /// `addAdditionalSaveData(output)` (after `Monster`'s).
 pub fn add_additional_save_data(e: &dyn Entity, time_in_overworld: i32, out: &mut CompoundTag) {
-    crate::world::entity::mob::nbt::add_additional_save_data(e, out);
+    mc_game_core::world::entity::mob::nbt::add_additional_save_data(e, out);
     out.put_boolean("IsImmuneToZombification", is_immune_to_zombification(e));
     out.put_int("TimeInOverworld", time_in_overworld);
 }
 
 /// `readAdditionalSaveData(input)` (after `Monster`'s); returns `timeInOverworld`.
 pub fn read_additional_save_data(e: &mut dyn Entity, input: &CompoundTag) -> i32 {
-    crate::world::entity::mob::nbt::read_additional_save_data(e, input);
+    mc_game_core::world::entity::mob::nbt::read_additional_save_data(e, input);
     e.set_can_pick_up_loot(input.get_boolean_or("CanPickUpLoot", true));
     set_immune_to_zombification(e, input.get_boolean_or("IsImmuneToZombification", false));
     input.get_int_or("TimeInOverworld", 0)
@@ -127,6 +127,6 @@ pub fn can_hunt_entity(e: &dyn Entity) -> bool {
 /// `AbstractPiglin.playAmbientSound()`.
 pub fn play_ambient_sound(e: &mut dyn Entity, level: &mut ServerLevel) {
     if piglin_ai::is_idle(&*e) {
-        crate::world::entity::mob::tick::play_ambient_sound(e, level);
+        mc_game_core::world::entity::mob::tick::play_ambient_sound(e, level);
     }
 }

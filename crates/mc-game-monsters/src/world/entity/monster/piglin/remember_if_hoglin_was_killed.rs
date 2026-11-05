@@ -1,8 +1,8 @@
 //! `RememberIfHoglinWasKilled`.
 
 use super::piglin_ai::TIME_BETWEEN_HUNTS;
-use crate::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, HUNTED_RECENTLY};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, HUNTED_RECENTLY};
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
 

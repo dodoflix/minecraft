@@ -1,18 +1,19 @@
 //! `net.minecraft.world.entity.monster.Blaze`.
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, MoveTowardsRestrictionGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::projectile::hurting::small_fireball::SmallFireball;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::LevelAccessor;
-use crate::world::level::pathfinder::PathType;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::MoveTowardsRestrictionGoal;
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, LookAtPlayerGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::projectile::hurting::small_fireball::SmallFireball;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::LevelAccessor;
+use mc_game_core::world::level::pathfinder::PathType;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
@@ -75,7 +76,7 @@ impl Blaze {
 }
 
 impl Entity for Blaze {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {
         Some(SoundEvent::ENTITY_BLAZE_AMBIENT)

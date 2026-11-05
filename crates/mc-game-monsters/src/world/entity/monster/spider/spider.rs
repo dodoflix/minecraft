@@ -1,21 +1,22 @@
 //! `net.minecraft.world.entity.monster.spider.Spider` and `CaveSpider` (a `Spider` subclass that only overrides
 //! `doHurtTarget`, `finalizeSpawn` and the vehicle attachment point, so one struct serves both entity types).
 
-use crate::define_accessor;
-use crate::impl_spawn_group_data;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::goal::target::{EntityClass, HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
-use crate::world::entity::ai::goal::{AvoidEntityGoal, FloatGoal, Goal, GoalFlags, LeapAtTargetGoal, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::impl_spawn_group_data;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::goal::target::{EntityClass, HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
+use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, LeapAtTargetGoal};
+use mc_game_core::world::entity::ai::goal::{FloatGoal, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::effect::MobEffectInstance;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -112,7 +113,7 @@ impl Spider {
 }
 
 impl Entity for Spider {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn tick(&mut self, level: &mut ServerLevel) {
         mob::tick::tick(self, level);
@@ -147,11 +148,11 @@ impl Entity for Spider {
     }
 
     fn can_be_affected(&self, level: &ServerLevel, effect: &MobEffectInstance) -> bool {
-        if effect.effect == MobEffect::POISON { false } else { crate::world::entity::living_entity::effects::can_be_affected(self, level, effect) }
+        if effect.effect == MobEffect::POISON { false } else { mc_game_core::world::entity::living_entity::effects::can_be_affected(self, level, effect) }
     }
 
     fn do_hurt_target(&mut self, level: &mut ServerLevel, target: &mut dyn Entity) -> bool {
-        if !crate::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target) {
+        if !mc_game_core::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target) {
             return false;
         }
         if self.is_cave_spider() && target.living().is_some() {
@@ -184,7 +185,7 @@ impl Entity for Spider {
                 let b = self.base();
                 skeleton.snap_to(b.x(), b.y(), b.z(), b.y_rot(), 0.0);
                 skeleton.finalize_spawn(level, difficulty, reason, None);
-                if crate::world::entity::monster::start_riding_unadded(skeleton.as_mut(), self) {
+                if mc_game_core::world::entity::monster::start_riding_unadded(skeleton.as_mut(), self) {
                     self.mob.pending_passengers.push(skeleton);
                 }
             }
@@ -209,7 +210,7 @@ impl Entity for Spider {
             let y = if self.is_cave_spider() { 0.21875 } else { 0.3125 };
             Vec3::new(0.0, y * f64::from(scale), 0.0)
         } else {
-            self.get_attachments().get(crate::world::entity::dimensions::EntityAttachment::Vehicle, 0, self.base().y_rot())
+            self.get_attachments().get(mc_game_core::world::entity::dimensions::EntityAttachment::Vehicle, 0, self.base().y_rot())
         }
     }
 }

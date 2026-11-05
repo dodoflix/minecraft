@@ -1,27 +1,27 @@
 //! `net.minecraft.world.entity.monster.Ghast` (+ the shared `GhastMoveControl`, `RandomFloatAroundGoal`, `GhastLookGoal` and
 //! `faceMovementDirection` the happy ghast reuses).
 
-use crate::define_accessor;
-use crate::register_spawn_placement;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
-use crate::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::inside_block_effects::{collided_with_fluid, collided_with_shape_moving_from};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::projectile::hurting::large_fireball::LargeFireball;
-use crate::world::entity::spawn_predicates::check_mob_spawn_rules;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::collision::for_each_block_intersected_between;
-use crate::world::level::material::FluidStateExt as _;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::define_accessor;
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
+use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::inside_block_effects::{collided_with_fluid, collided_with_shape_moving_from};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::projectile::hurting::large_fireball::LargeFireball;
+use mc_game_core::world::entity::spawn_predicates::check_mob_spawn_rules;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::collision::for_each_block_intersected_between;
+use mc_game_core::world::level::material::FluidStateExt as _;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
@@ -93,11 +93,11 @@ fn is_reflected_fireball(source: &DamageSource) -> bool {
 }
 
 impl Entity for Ghast {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn is_invulnerable_to(&mut self, level: &mut ServerLevel, source: &DamageSource) -> bool {
         (self.is_invulnerable() && !source.is_tag(level, "bypasses_invulnerability"))
-            || (!is_reflected_fireball(source) && crate::world::entity::living_entity::damage::is_invulnerable_to(self, level, source))
+            || (!is_reflected_fireball(source) && mc_game_core::world::entity::living_entity::damage::is_invulnerable_to(self, level, source))
     }
 
     fn check_fall_damage(&mut self, _level: &mut ServerLevel, _ya: f64, _on_ground: bool, _on_state: mc_data::block::BlockState, _pos: BlockPos) {}
@@ -107,17 +107,17 @@ impl Entity for Ghast {
     }
 
     fn travel(&mut self, level: &mut ServerLevel, input: Vec3) {
-        crate::world::entity::living_entity::travel::travel_flying(self, level, input, 0.02);
+        mc_game_core::world::entity::living_entity::travel::travel_flying(self, level, input, 0.02);
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
         if is_reflected_fireball(source) {
-            crate::world::entity::living_entity::damage::hurt_server(self, level, source, 1000.0);
+            mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, 1000.0);
             true
         } else if self.is_invulnerable_to(level, source) {
             false
         } else {
-            crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
+            mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
         }
     }
 

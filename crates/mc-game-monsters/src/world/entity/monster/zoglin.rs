@@ -1,33 +1,31 @@
 //! `Zoglin`.
 
 use super::hoglin::hoglin_base::{self, ATTACK_ANIMATION_DURATION, PROBABILITY_OF_SPAWNING_AS_BABY};
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::behavior::behavior_utils;
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
-use crate::world::entity::ai::behavior::{
-    BehaviorBuilder, BehaviorControl, DoNothing, RunOne, melee_attack, random_stroll, set_entity_look_target_sometimes, set_walk_target_from_attack_target_if_target_out_of_reach,
-    set_walk_target_from_look_target, start_attacking, stop_attacking_if_target_invalid,
-};
-use crate::world::entity::ai::brain::{ActivityData, Brain, Provider};
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, NEAREST_VISIBLE_LIVING_ENTITIES};
-use crate::world::entity::ai::memory::{BrainPacked, EntityRef, NearestVisibleLivingEntities};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::sensing::sensor::is_entity_attackable;
-use crate::world::entity::ai::sensing::sensor_type::{NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
-use crate::world::entity::dimensions::{EntityAttachments, EntityDimensions};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::living_entity::util::broadcast_entity_event;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::schedule::Activity;
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_core::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
+use mc_game_ai::world::entity::ai::behavior::{melee_attack, random_stroll, set_entity_look_target_sometimes, set_walk_target_from_attack_target_if_target_out_of_reach, start_attacking, stop_attacking_if_target_invalid};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, BehaviorControl, DoNothing, RunOne, set_walk_target_from_look_target};
+use mc_game_core::world::entity::ai::brain::{ActivityData, Brain, Provider};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, NEAREST_VISIBLE_LIVING_ENTITIES};
+use mc_game_core::world::entity::ai::memory::{BrainPacked, EntityRef, NearestVisibleLivingEntities};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor::is_entity_attackable;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS};
+use mc_game_core::world::entity::dimensions::{EntityAttachments, EntityDimensions};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::living_entity::util::broadcast_entity_event;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -156,7 +154,7 @@ impl Zoglin {
 }
 
 impl Entity for Zoglin {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:zoglin")
@@ -216,7 +214,7 @@ impl Entity for Zoglin {
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-        let was_hurt = crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
         if was_hurt && source.causing_is_living() {
             mob::ext::with_causing_entity(level, source, |level, attacker| {
                 if self.can_attack(level, attacker) && !behavior_utils::is_other_target_much_further_away_than_current_attack_target(level, &*self, attacker, 4.0) {

@@ -1,14 +1,14 @@
 //! Goals, weapon switching, shooting and shearing of the skeleton family.
 
 use super::{AbstractSkeleton, SkeletonKind};
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::goal::{Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::mob;
-use crate::world::entity::projectile::arrow::Arrow;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::projectile_weapon_item::{get_mob_arrow, get_weapon_holding_hand};
-use crate::world::item::{InteractionHand, ItemStack};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::goal::{Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::mob;
+use mc_game_core::world::entity::projectile::arrow::Arrow;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::projectile_weapon_item::{get_mob_arrow, get_weapon_holding_hand};
+use mc_game_core::world::item::{InteractionHand, ItemStack};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
@@ -22,8 +22,8 @@ pub fn item_is_in_tag(stack: &ItemStack, tag: &str) -> bool {
 
 /// `registerGoals()`.
 pub fn register_goals(skeleton: &mut AbstractSkeleton) {
-    use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-    use crate::world::entity::ai::goal::{AvoidEntityGoal, FleeSunGoal, RestrictSunGoal};
+    use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+    use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, FleeSunGoal, RestrictSunGoal};
     use mc_data::EntityType;
     use std::sync::Arc;
     if let SkeletonKind::WitherSkeleton = skeleton.kind {
@@ -43,7 +43,7 @@ pub fn register_goals(skeleton: &mut AbstractSkeleton) {
     t.add_goal(1, Box::new(HurtByTargetGoal::new(Vec::new())));
     t.add_goal(2, Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)));
     t.add_goal(3, Box::new(NearestAttackableTargetGoal::new(TargetType::of_type(EntityType::IRON_GOLEM), true)));
-    let baby_on_land: crate::world::entity::ai::targeting::TargetSelector = Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.is_baby() && !target.is_in_water());
+    let baby_on_land: mc_game_core::world::entity::ai::targeting::TargetSelector = Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.is_baby() && !target.is_in_water());
     t.add_goal(3, Box::new(NearestAttackableTargetGoal::build(TargetType::of_type(EntityType::TURTLE), 10, true, false, Some(baby_on_land))));
 }
 
@@ -158,7 +158,7 @@ pub fn perform_ranged_attack(skeleton: &mut AbstractSkeleton, level: &mut Server
     let zd = tz - skeleton.base().z();
     let distance_to_target = (xd * xd + zd * zd).sqrt();
     let uncertainty = skeleton.ranged_attack_uncertainty(level);
-    crate::world::entity::projectile::spawn::spawn_projectile_using_shoot(level, arrow, &projectile, xd, yd + distance_to_target * f64::from(0.2f32), zd, 1.6, uncertainty);
+    mc_game_core::world::entity::projectile::spawn::spawn_projectile_using_shoot(level, arrow, &projectile, xd, yd + distance_to_target * f64::from(0.2f32), zd, 1.6, uncertainty);
     let pitch = 1.0 / (skeleton.base_mut().random.next_float() * 0.4 + 0.8);
     skeleton.play_sound(level, SoundEvent::ENTITY_SKELETON_SHOOT, 1.0, pitch);
 }
@@ -192,13 +192,13 @@ pub fn shear_bogged(skeleton: &mut AbstractSkeleton, level: &mut ServerLevel, pl
     level.game_event_from_entity_ref(&*player, mc_data::GameEvent::SHEAR, skeleton.position());
     let slot = if hand == InteractionHand::MainHand { EquipmentSlot::MainHand } else { EquipmentSlot::OffHand };
     mob::interact::with_hand_stack(player, hand, |stack, player| {
-        crate::world::item::hurt_and_break(stack, 1, level, player, slot);
+        mc_game_core::world::item::hurt_and_break(stack, 1, level, player, slot);
     });
 }
 
 /// `dropFromShearingLootTable(level, BOGGED_SHEAR, tool, (l, drop) -> spawnAtLocation(l, drop, getBbHeight()))`.
 fn drop_from_shearing_loot_table(skeleton: &mut AbstractSkeleton, level: &mut ServerLevel, tool: &ItemStack) {
-    use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
+    use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
     let table = Identifier::parse("minecraft:shearing/bogged").expect("valid id");
     let loot = loading::get_loot_table(&level.registries, &table);
     let items = {
@@ -208,7 +208,7 @@ fn drop_from_shearing_loot_table(skeleton: &mut AbstractSkeleton, level: &mut Se
     };
     for stack in items {
         let height = skeleton.base().get_bb_height();
-        crate::world::entity::item::spawn_at_location(level, skeleton, stack, Vec3::new(0.0, f64::from(height), 0.0));
+        mc_game_core::world::entity::item::spawn_at_location(level, skeleton, stack, Vec3::new(0.0, f64::from(height), 0.0));
     }
 }
 
@@ -216,7 +216,7 @@ fn drop_from_shearing_loot_table(skeleton: &mut AbstractSkeleton, level: &mut Se
 fn get_mob_projectile(skeleton: &AbstractSkeleton) -> ItemStack {
     for slot in [EquipmentSlot::OffHand, EquipmentSlot::MainHand] {
         let held = skeleton.get_item_by_slot(slot);
-        if crate::world::item::projectile_weapon_item::is_arrow(&held) {
+        if mc_game_core::world::item::projectile_weapon_item::is_arrow(&held) {
             return held;
         }
     }

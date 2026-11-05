@@ -1,30 +1,29 @@
 //! `net.minecraft.world.entity.monster.Enderman` (+ its four goals).
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
-use crate::world::entity::ai::goal::{
-    FloatGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, ResetUniversalAngerTargetGoal, WaterAvoidingRandomStrollGoal, reduced_tick_delay,
-};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::teleport::clamped_pack_difference_in_position;
-use crate::world::entity::living_entity::util::lm;
-use crate::world::entity::mob::{self, MobData, MobKind, NeutralData, neutral};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::block::helpers::update_from_neighbour_shapes;
-use crate::world::level::block::BlockStateExt as _;
-use crate::world::level::collision::{BlockGetterExt as _, ClipBlock, ClipContext, ClipFluid};
-use crate::world::level::server_level_accessor::ServerLevelAccessor as _;
-use crate::world::level::gameevent::GameEventContext;
-use crate::world::level::pathfinder::PathType;
-use crate::world::level::storage::loot::LootParams;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType, class_of_type};
+use mc_game_ai::world::entity::ai::goal::ResetUniversalAngerTargetGoal;
+use mc_game_core::world::entity::ai::goal::{FloatGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::teleport::clamped_pack_difference_in_position;
+use mc_game_core::world::entity::living_entity::util::lm;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, NeutralData, neutral};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::block::helpers::update_from_neighbour_shapes;
+use mc_game_core::world::level::block::BlockStateExt as _;
+use mc_game_core::world::level::collision::{BlockGetterExt as _, ClipBlock, ClipContext, ClipFluid};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor as _;
+use mc_game_core::world::level::gameevent::GameEventContext;
+use mc_game_core::world::level::pathfinder::PathType;
+use mc_game_core::world::level::storage::loot::LootParams;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -188,7 +187,7 @@ fn player_not_wearing_disguise_item(player: &dyn Entity) -> bool {
     if !player.is_player() {
         return true;
     }
-    let helmet = player.get_item_by_slot(crate::world::entity::equipment::EquipmentSlot::Head);
+    let helmet = player.get_item_by_slot(mc_game_core::world::entity::equipment::EquipmentSlot::Head);
     !mc_data::tags::get::<Item>("gaze_disguise_equipment").is_some_and(|t| t.contains(helmet.item()))
 }
 
@@ -202,7 +201,7 @@ fn enderman_mut(mob: &mut dyn Entity) -> &mut Enderman {
 }
 
 impl Entity for Enderman {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn LevelReader) -> f32 {
         0.0
@@ -238,7 +237,7 @@ impl Entity for Enderman {
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
         mob::nbt::add_additional_save_data(self, out);
         if let Some(state) = self.get_carried_block() {
-            out.put("carriedBlockState", crate::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(state));
+            out.put("carriedBlockState", mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::write_block_state(state));
         }
         neutral::add_persistent_anger_save_data(self, out);
     }
@@ -247,7 +246,7 @@ impl Entity for Enderman {
         mob::nbt::read_additional_save_data(self, input);
         let carried = input
             .get_compound("carriedBlockState")
-            .map(crate::world::level::levelgen::structure::templatesystem::structure_template::read_block_state)
+            .map(mc_game_core::world::level::levelgen::structure::templatesystem::structure_template::read_block_state)
             .filter(|s| !s.is_air());
         self.set_carried_block(carried);
         neutral::read_persistent_anger_save_data(self, None, input);
@@ -274,7 +273,7 @@ impl Entity for Enderman {
     }
 
     fn can_randomly_teleport_to(&self, level: &ServerLevel, x: f64, y: f64, z: f64) -> bool {
-        use crate::world::level::material::FluidStateExt as _;
+        use mc_game_core::world::level::material::FluidStateExt as _;
         let pos_below = BlockPos::containing(x, y, z).below();
         let state_below = level.get_block_state(pos_below);
         !state_below.get_fluid_state().is_tag("water")
@@ -297,17 +296,17 @@ impl Entity for Enderman {
         if let Some(carrying_block) = self.get_carried_block() {
             let mut fake_tool = ItemStack::new(Item::DIAMOND_AXE);
             if let Some(provider) = Identifier::try_parse("enderman_loot_drop") {
-                let difficulty = crate::world::level::server_level_accessor::ServerLevelAccessor::get_current_difficulty_at(&*level, self.base().block_position());
+                let difficulty = mc_game_core::world::level::server_level_accessor::ServerLevelAccessor::get_current_difficulty_at(&*level, self.base().block_position());
                 let registries = level.registries.clone();
-                crate::world::item::enchantment_helper::enchant_item_from_provider(&mut fake_tool, &registries, &provider, &difficulty, &mut self.base_mut().random);
+                mc_game_core::world::item::enchantment_helper::enchant_item_from_provider(&mut fake_tool, &registries, &provider, &difficulty, &mut self.base_mut().random);
             }
             let drops = {
                 let this: &dyn Entity = &*self;
                 let builder = LootParams::builder(level).origin(this.position()).tool(&fake_tool).optional_this_entity(Some(this));
-                crate::world::level::storage::loot::block_drops::state_get_drops(carrying_block, this.base().block_position(), builder)
+                mc_game_core::world::level::storage::loot::block_drops::state_get_drops(carrying_block, this.base().block_position(), builder)
             };
             for stack in drops {
-                crate::world::entity::item::spawn_at_location(level, self, stack, Vec3::ZERO);
+                mc_game_core::world::entity::item::spawn_at_location(level, self, stack, Vec3::ZERO);
             }
         }
     }
@@ -321,11 +320,11 @@ impl Entity for Enderman {
             self.repeatedly_try_to_teleport(level);
             false
         } else if let Some(hurts) = thrown_potion {
-            let hurt_with_clean_water = if hurts { crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage) } else { false };
+            let hurt_with_clean_water = if hurts { mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage) } else { false };
             self.repeatedly_try_to_teleport(level);
             hurt_with_clean_water
         } else {
-            let result = crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+            let result = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
             if !source.causing_is_living() && self.base_mut().random.next_int_bounded(10) != 0 {
                 self.teleport_randomly(level);
             }
@@ -460,7 +459,7 @@ impl Goal for EndermanTakeBlockGoal {
         let block_state = level.get_block_state(pos);
         let from = Vec3::new(f64::from(mob.block_position().x()) + 0.5, f64::from(yt) + 0.5, f64::from(mob.block_position().z()) + 0.5);
         let to = Vec3::new(f64::from(xt) + 0.5, f64::from(yt) + 0.5, f64::from(zt) + 0.5);
-        let result = level.clip(&ClipContext::new(from, to, ClipBlock::Outline, ClipFluid::None, crate::world::entity::movement::collision_context(mob)));
+        let result = level.clip(&ClipContext::new(from, to, ClipBlock::Outline, ClipFluid::None, mc_game_core::world::entity::movement::collision_context(mob)));
         let reachable = result.block_pos == pos;
         if block_state.block().is_in_tag("enderman_holdable") && reachable {
             level.remove_block(pos, false);

@@ -1,22 +1,20 @@
 //! `Slime`.
 
-use super::abstract_cube_mob::{
-    self as acm, CubeMob, CubeMobAttackGoal, CubeMobData, CubeMobFloatGoal, CubeMobKeepOnJumpingGoal, CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE,
-};
-use crate::registry::keys;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::spawn::AgeableMobGroupData;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::spawn_predicates::{check_mob_spawn_rules, is_spawner};
-use crate::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::LevelReader as _;
+use mc_game_core::world::entity::monster::cubemob::abstract_cube_mob::{self as acm, CubeMob, CubeMobAttackGoal, CubeMobData, CubeMobFloatGoal, CubeMobKeepOnJumpingGoal, CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE};
+use mc_game_core::registry::keys;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::spawn_predicates::{check_mob_spawn_rules, is_spawner};
+use mc_game_core::world::entity::{Entity, EntityId, RemovalReason, ServerPlayer};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::LevelReader as _;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -91,7 +89,7 @@ impl CubeMob for Slime {
 }
 
 impl Entity for Slime {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:slime")
@@ -197,7 +195,7 @@ fn biome_allows_surface_slime_spawns(level: &dyn ServerLevelAccessor, pos: Block
     registry.is_in_tag(biome.0, &Identifier::parse("minecraft:allows_surface_slime_spawns").expect("valid id"))
 }
 
-crate::register_spawn_placement!(EntityType::SLIME, check_slime_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::SLIME, check_slime_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static SLIME: EntityRegistration = EntityRegistration { entity_type: EntityType::SLIME, create: |ty, id, _registries| Box::new(Slime::new(ty, id)) };

@@ -2,9 +2,9 @@
 
 use super::piglin::Piglin;
 use super::piglin_ai;
-use crate::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::memory_module_type::ADMIRING_ITEM;
-use crate::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::memory_module_type::ADMIRING_ITEM;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
 use mc_protocol::components::BLOCKS_ATTACKS;
 
 pub fn create() -> OneShot {

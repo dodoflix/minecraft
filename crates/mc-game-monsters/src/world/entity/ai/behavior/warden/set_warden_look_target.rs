@@ -1,8 +1,8 @@
 //! `SetWardenLookTarget`.
 
-use crate::world::entity::ai::behavior::position_tracker::{BlockPosTracker, PositionTracker};
-use crate::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, DISTURBANCE_LOCATION, LOOK_TARGET, ROAR_TARGET};
+use mc_game_core::world::entity::ai::behavior::position_tracker::{BlockPosTracker, PositionTracker};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, DISTURBANCE_LOCATION, LOOK_TARGET, ROAR_TARGET};
 
 /// `SetWardenLookTarget.create()`.
 pub fn create() -> OneShot {

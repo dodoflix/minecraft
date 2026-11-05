@@ -1,8 +1,8 @@
 //! `TryToSniff`.
 
-use crate::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::Unit;
-use crate::world::entity::ai::memory::memory_module_type::{DISTURBANCE_LOCATION, IS_SNIFFING, NEAREST_ATTACKABLE, SNIFF_COOLDOWN, WALK_TARGET};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::Unit;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{DISTURBANCE_LOCATION, IS_SNIFFING, NEAREST_ATTACKABLE, SNIFF_COOLDOWN, WALK_TARGET};
 use mc_core::random::RandomSource;
 use mc_data::enums::Pose;
 

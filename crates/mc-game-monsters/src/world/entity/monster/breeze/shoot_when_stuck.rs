@@ -1,11 +1,11 @@
 //! `ShootWhenStuck`.
 
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use crate::world::entity::ai::memory::Unit;
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, BREEZE_JUMP_INHALING, BREEZE_JUMP_TARGET, BREEZE_SHOOT, WALK_TARGET};
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::Unit;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, BREEZE_JUMP_INHALING, BREEZE_JUMP_TARGET, BREEZE_SHOOT, WALK_TARGET};
 use mc_data::MobEffect;
 
 /// `ShootWhenStuck extends Behavior<Breeze>`.

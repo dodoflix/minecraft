@@ -1,22 +1,20 @@
 //! `HoglinAi`.
 
 use super::hoglin::Hoglin;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::behavior::animal_make_love::AnimalMakeLove;
-use crate::world::entity::ai::behavior::behaviors::{become_passive_if_memory_present, erase_memory_if};
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
-use crate::world::entity::ai::behavior::{
-    BehaviorBuilder, BehaviorControl, DoNothing, GateBehavior, RunOne, baby_follow_adult, melee_attack, random_stroll, set_entity_look_target_sometimes, set_walk_target_away_from,
-    set_walk_target_from_attack_target_if_target_out_of_reach, set_walk_target_from_look_target, start_attacking, stop_attacking_if_target_invalid,
-};
-use crate::world::entity::ai::brain::ActivityData;
-use crate::world::entity::ai::memory::EntityRef;
-use crate::world::entity::ai::memory::memory_module_type::*;
-use crate::world::entity::ai::sensing::sensor::is_entity_attackable;
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::schedule::Activity;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_ai::world::entity::ai::behavior::animal_make_love::AnimalMakeLove;
+use mc_game_ai::world::entity::ai::behavior::behaviors::{become_passive_if_memory_present, erase_memory_if};
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_core::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
+use mc_game_ai::world::entity::ai::behavior::{baby_follow_adult, melee_attack, random_stroll, set_entity_look_target_sometimes, set_walk_target_from_attack_target_if_target_out_of_reach, start_attacking, stop_attacking_if_target_invalid};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, BehaviorControl, DoNothing, GateBehavior, RunOne, set_walk_target_away_from, set_walk_target_from_look_target};
+use mc_game_core::world::entity::ai::brain::ActivityData;
+use mc_game_core::world::entity::ai::memory::EntityRef;
+use mc_game_core::world::entity::ai::memory::memory_module_type::*;
+use mc_game_core::world::entity::ai::sensing::sensor::is_entity_attackable;
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -210,7 +208,7 @@ pub fn was_hurt_by(level: &mut ServerLevel, body: &mut Hoglin, attacker: &dyn En
 fn maybe_retaliate(level: &mut ServerLevel, body: &mut Hoglin, attacker: &dyn Entity) {
     if (!body.brain().is_active(Activity::AVOID) || attacker.get_type() != EntityType::PIGLIN)
         && attacker.get_type() != EntityType::HOGLIN
-        && !crate::world::entity::ai::behavior::behavior_utils::is_other_target_much_further_away_than_current_attack_target(level, body, attacker, 4.0)
+        && !mc_game_core::world::entity::ai::behavior::behavior_utils::is_other_target_much_further_away_than_current_attack_target(level, body, attacker, 4.0)
         && is_entity_attackable(level, body, attacker)
     {
         set_attack_target(body, attacker.id());

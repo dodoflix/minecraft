@@ -3,18 +3,16 @@
 use super::abstract_piglin::AbstractPiglin as _;
 use super::piglin_ai;
 use super::piglin_brute::PiglinBrute;
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
-use crate::world::entity::ai::behavior::{
-    BehaviorControl, DoNothing, GateBehavior, RunOne, interact_with, interact_with_door, melee_attack, random_stroll, set_entity_look_target, set_look_and_interact,
-    set_walk_target_from_attack_target_if_target_out_of_reach, start_attacking, stop_attacking_if_target_invalid, stop_being_angry_if_target_dead, stroll_around_poi, stroll_to_poi,
-};
-use crate::world::entity::ai::brain::ActivityData;
-use crate::world::entity::ai::memory::memory_module_type::{ANGRY_AT, ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, HOME, INTERACTION_TARGET, NEAREST_VISIBLE_ATTACKABLE_PLAYER, NEAREST_VISIBLE_NEMESIS};
-use crate::world::entity::ai::sensing::sensor::is_entity_attackable_ignoring_line_of_sight;
-use crate::world::entity::schedule::Activity;
-use crate::world::entity::{Entity, EntityId};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_core::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
+use mc_game_ai::world::entity::ai::behavior::{melee_attack, random_stroll, set_walk_target_from_attack_target_if_target_out_of_reach, start_attacking, stop_attacking_if_target_invalid, stop_being_angry_if_target_dead};
+use mc_game_core::world::entity::ai::behavior::{BehaviorControl, DoNothing, GateBehavior, RunOne, interact_with, interact_with_door, set_entity_look_target, set_look_and_interact, stroll_around_poi, stroll_to_poi};
+use mc_game_core::world::entity::ai::brain::ActivityData;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ANGRY_AT, ATTACK_TARGET, CANT_REACH_WALK_TARGET_SINCE, HOME, INTERACTION_TARGET, NEAREST_VISIBLE_ATTACKABLE_PLAYER, NEAREST_VISIBLE_NEMESIS};
+use mc_game_core::world::entity::ai::sensing::sensor::is_entity_attackable_ignoring_line_of_sight;
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::entity::{Entity, EntityId};
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
 use mc_protocol::codec::GlobalPos;
@@ -114,7 +112,7 @@ fn is_nearest_valid_attack_target(level: &ServerLevel, body: &dyn Entity, target
 
 /// `findNearestValidAttackTarget(level, body)`.
 fn find_nearest_valid_attack_target(level: &ServerLevel, body: &dyn Entity) -> Option<EntityId> {
-    let angry_at = crate::world::entity::ai::behavior::behavior_utils::get_living_entity_from_uuid_memory(level, body, &ANGRY_AT);
+    let angry_at = mc_game_core::world::entity::ai::behavior::behavior_utils::get_living_entity_from_uuid_memory(level, body, &ANGRY_AT);
     if let Some(id) = angry_at {
         if level.get_entity(id).is_some_and(|t| is_entity_attackable_ignoring_line_of_sight(level, body, t)) {
             return Some(id);

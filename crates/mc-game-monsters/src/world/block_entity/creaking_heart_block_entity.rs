@@ -5,17 +5,17 @@
 //! creaking entity itself is always found through the level (it may be out of its slot while it ticks, see
 //! [`ServerLevel::entity_id_by_uuid`]).
 
-use crate::block_entity_base;
-use super::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
+use mc_game_core::block_entity_base;
+use mc_game_core::world::block_entity::{BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
 use crate::world::entity::monster::creaking::Creaking;
-use crate::world::entity::spawn_util::{self, Strategy};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::block::BlockStateExt;
+use mc_game_core::world::entity::spawn_util::{self, Strategy};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::creaking_heart_block::has_required_logs;
-use crate::world::level::block::impls::multiface_block;
-use crate::world::level::{BlockGetter, LevelAccessor as _};
+use mc_game_core::world::level::block::impls::multiface_block;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor as _};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::math::mth;
@@ -136,7 +136,7 @@ impl CreakingHeartBlockEntity {
                     level.play_sound(None, pos, SoundEvent::BLOCK_CREAKING_HEART_SPAWN, SoundSource::Blocks, 1.0, 1.0);
                 }
             } else if let Some(creaking) = self.get_creaking_protector(level) {
-                let still_active = level.attribute_bool(crate::world::attribute::attributes::CREAKING_ACTIVE, pos);
+                let still_active = level.attribute_bool(mc_game_core::world::attribute::attributes::CREAKING_ACTIVE, pos);
                 let (persistent, stuck) = level
                     .with_entity(creaking, |level, e| {
                         e.as_any_mut().downcast_mut::<Creaking>().map(|c| (c.is_persistence_required(), c.player_is_stuck_in_you(level)))
@@ -156,7 +156,7 @@ impl CreakingHeartBlockEntity {
             state.set(props::CREAKING_HEART_STATE, CreakingHeartState::Uprooted)
         } else {
             let heart_state =
-                if level.attribute_bool(crate::world::attribute::attributes::CREAKING_ACTIVE, pos) { CreakingHeartState::Awake } else { CreakingHeartState::Dormant };
+                if level.attribute_bool(mc_game_core::world::attribute::attributes::CREAKING_ACTIVE, pos) { CreakingHeartState::Awake } else { CreakingHeartState::Dormant };
             state.set(props::CREAKING_HEART_STATE, heart_state)
         }
     }
@@ -245,7 +245,7 @@ impl CreakingHeartBlockEntity {
                     if let Some(block_pos) = self.spread_resin(level) {
                         level.play_sound(None, block_pos, SoundEvent::BLOCK_RESIN_PLACE, SoundSource::Blocks, 1.0, 1.0);
                         let state = self.get_block_state();
-                        level.game_event_at_block(GameEvent::BLOCK_PLACE, block_pos, &crate::world::level::gameevent::GameEventContext::of_state(Some(state)));
+                        level.game_event_at_block(GameEvent::BLOCK_PLACE, block_pos, &mc_game_core::world::level::gameevent::GameEventContext::of_state(Some(state)));
                     }
                 }
             }

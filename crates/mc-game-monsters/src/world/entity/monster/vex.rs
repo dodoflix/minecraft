@@ -1,22 +1,22 @@
 //! `net.minecraft.world.entity.monster.Vex` (the evoker's summoned vexes).
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
-use crate::world::entity::ai::goal::look_at_player::LookAtType;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetGoal, TargetType};
-use crate::world::entity::ai::goal::{FloatGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, reduced_tick_delay};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase, Operation};
+use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetGoal, TargetType};
+use mc_game_core::world::entity::ai::goal::{FloatGoal, Flag, Goal, GoalFlags, LookAtPlayerGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -71,7 +71,7 @@ impl Vex {
         goals.add_goal(8, Box::new(VexRandomMoveGoal));
         goals.add_goal(9, Box::new(look_player));
         goals.add_goal(10, Box::new(look_mob));
-        let raider: crate::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.raider().is_some());
+        let raider: mc_game_core::world::entity::ai::goal::target::EntityClass = Arc::new(|e: &dyn Entity| e.raider().is_some());
         let targets = &mut self.mob.target_selector;
         targets.add_goal(1, Box::new(HurtByTargetGoal::new(vec![raider]).set_alert_others(Vec::new())));
         targets.add_goal(2, Box::new(VexCopyOwnerTargetGoal::new()));
@@ -130,7 +130,7 @@ impl Vex {
 }
 
 impl Entity for Vex {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn is_flapping(&self) -> bool {
         self.base().tick_count % TICKS_PER_FLAP == 0
@@ -162,7 +162,7 @@ impl Entity for Vex {
             Some(n) => self.set_limited_life(n.int_value()),
             None => self.has_limited_life = false,
         }
-        self.owner = crate::world::entity::entity::read_uuid(input.get("owner"));
+        self.owner = mc_game_core::world::entity::entity::read_uuid(input.get("owner"));
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {
@@ -199,8 +199,8 @@ impl Entity for Vex {
         level: &mut dyn ServerLevelAccessor,
         difficulty: DifficultyInstance,
         reason: EntitySpawnReason,
-        group_data: Option<Box<dyn crate::world::entity::spawn_group_data::SpawnGroupData>>,
-    ) -> Option<Box<dyn crate::world::entity::spawn_group_data::SpawnGroupData>> {
+        group_data: Option<Box<dyn mc_game_core::world::entity::spawn_group_data::SpawnGroupData>>,
+    ) -> Option<Box<dyn mc_game_core::world::entity::spawn_group_data::SpawnGroupData>> {
         let registries = level.registry_access().clone();
         self.populate_default_equipment_slots(level.random(), &difficulty);
         self.populate_default_equipment_enchantments(&registries, level.random(), &difficulty);
@@ -379,7 +379,7 @@ impl Goal for VexRandomMoveGoal {
             let random = &mut mob.base_mut().random;
             let (dx, dy, dz) = (random.next_int_bounded(15) - 7, random.next_int_bounded(11) - 5, random.next_int_bounded(15) - 7);
             let test_pos = bound_origin.offset(dx, dy, dz);
-            if crate::world::level::LevelReader::is_empty_block(&*level, test_pos) {
+            if mc_game_core::world::level::LevelReader::is_empty_block(&*level, test_pos) {
                 let (x, y, z) = (f64::from(test_pos.x()) + 0.5, f64::from(test_pos.y()) + 0.5, f64::from(test_pos.z()) + 0.5);
                 mob.mob_mut().expect("mob").move_control_mut().set_wanted_position(x, y, z, 0.25);
                 if mob::tick::get_target_checked(mob, level).is_none() {

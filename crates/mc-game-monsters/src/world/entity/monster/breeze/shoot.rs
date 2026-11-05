@@ -1,17 +1,17 @@
 //! `Shoot`.
 
 use super::breeze::Breeze;
-use crate::entry_condition;
-use crate::server::level::ServerLevel;
-use crate::world::entity::Entity;
-use crate::world::entity::ai::behavior::{Behavior, BehaviorBase};
-use crate::world::entity::ai::memory::Unit;
-use crate::world::entity::ai::memory::memory_module_type::{
+use mc_game_core::entry_condition;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::Entity;
+use mc_game_core::world::entity::ai::behavior::{Behavior, BehaviorBase};
+use mc_game_core::world::entity::ai::memory::Unit;
+use mc_game_core::world::entity::ai::memory::memory_module_type::{
     ATTACK_TARGET, BREEZE_JUMP_TARGET, BREEZE_SHOOT, BREEZE_SHOOT_CHARGING, BREEZE_SHOOT_COOLDOWN, BREEZE_SHOOT_RECOVERING, WALK_TARGET,
 };
-use crate::world::entity::projectile::hurting::windcharge::BreezeWindCharge;
-use crate::world::entity::projectile::spawn::spawn_projectile_using_shoot;
-use crate::world::item::ItemStack;
+use mc_game_core::world::entity::projectile::hurting::windcharge::BreezeWindCharge;
+use mc_game_core::world::entity::projectile::spawn::spawn_projectile_using_shoot;
+use mc_game_core::world::item::ItemStack;
 use mc_data::SoundEvent;
 use mc_data::enums::Pose;
 
@@ -83,7 +83,7 @@ impl Behavior for Shoot {
     fn tick(&mut self, level: &mut ServerLevel, breeze: &mut dyn Entity, _timestamp: i64) {
         let Some(target) = breeze.brain().get_memory(&ATTACK_TARGET).map(|r| r.0) else { return };
         let Some(target_position) = level.get_entity(target).map(|t| t.position()) else { return };
-        breeze.look_at(crate::commands::arguments::entity_anchor_argument::Anchor::Eyes, target_position);
+        breeze.look_at(mc_game_core::commands::arguments::entity_anchor_argument::Anchor::Eyes, target_position);
         if !breeze.brain().has_memory_value(BREEZE_SHOOT_CHARGING) && !breeze.brain().has_memory_value(BREEZE_SHOOT_RECOVERING) {
             breeze.brain_mut().set_memory_with_expiry(&BREEZE_SHOOT_RECOVERING, Unit, i64::from(SHOOT_RECOVER_DELAY_TICKS));
             let (xd, yd, zd) = {

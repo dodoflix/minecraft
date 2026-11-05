@@ -1,7 +1,7 @@
 //! `PiglinAi`: the brain of the piglin (activities, sensing helpers, bartering, admiring, anger propagation, hunting).
 //!
 //! Attacker/target entities of the anger functions are passed as `&dyn Entity`: the entity that hurt a piglin is usually
-//! the running (taken-out) entity, see [`crate::world::entity::mob::ext::with_causing_entity`]; entities that are
+//! the running (taken-out) entity, see [`mc_game_core::world::entity::mob::ext::with_causing_entity`]; entities that are
 //! compared by distance are carried as `(id, position)` ([`Located`]) so that they need not resolve in the level.
 
 use super::abstract_piglin::{can_hunt_entity, is_adult};
@@ -10,33 +10,29 @@ use super::{
     remember_if_hoglin_was_killed, start_admiring_item_if_seen, start_hunting_hoglin, stop_admiring_if_item_too_far_away, stop_admiring_if_tired_of_trying_to_reach_item,
     stop_holding_item_if_no_longer_admiring,
 };
-use crate::server::level::ServerLevel;
-use crate::world::entity::ai::behavior::behavior_utils;
-use crate::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
-use crate::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
-use crate::world::entity::ai::behavior::set_entity_look_target_sometimes::Ticker;
-use crate::world::entity::ai::behavior::{
-    BehaviorBuilder, BehaviorControl, DoNothing, GateBehavior, OneShot, RunOne, Trigger, back_up_if_too_close, crossbow_attack::CrossbowAttack, dismount_or_skip_mounting, go_to_target_location,
-    go_to_wanted_item, interact_with, interact_with_door, melee_attack, mount, random_stroll, set_entity_look_target, set_look_and_interact, set_walk_target_away_from,
-    set_walk_target_from_attack_target_if_target_out_of_reach, set_walk_target_from_look_target, spear_approach::SpearApproach, spear_attack::SpearAttack, spear_retreat::SpearRetreat,
-    start_attacking, start_celebrating_if_target_dead, stop_attacking_if_target_invalid, stop_being_angry_if_target_dead, trigger_gate,
-};
-use crate::world::entity::ai::brain::ActivityData;
-use crate::world::entity::ai::memory::memory_module_type::*;
-use crate::world::entity::ai::memory::{EntityRef, MemoryData, MemoryModuleType, MemoryTypeId};
-use crate::world::entity::ai::sensing::closer_than;
-use crate::world::entity::ai::sensing::repellent_sensors::{is_loved_item, is_player_holding_loved_item, is_zombified};
-use crate::world::entity::ai::sensing::sensor::{is_entity_attackable, is_entity_attackable_ignoring_line_of_sight};
-use crate::world::entity::ai::util::land_random_pos;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::mob::equipment as mob_equipment;
-use crate::world::entity::mob::ext::take;
-use crate::world::entity::mob::interact::with_hand_stack;
-use crate::world::entity::schedule::Activity;
-use crate::world::entity::{Entity, EntityId, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::entity::ai::behavior::behavior_utils;
+use mc_game_core::world::entity::ai::behavior::look_at_target_sink::LookAtTargetSink;
+use mc_game_core::world::entity::ai::behavior::move_to_target_sink::MoveToTargetSink;
+use mc_game_ai::world::entity::ai::behavior::set_entity_look_target_sometimes::Ticker;
+use mc_game_ai::world::entity::ai::behavior::{back_up_if_too_close, crossbow_attack::CrossbowAttack, dismount_or_skip_mounting, go_to_target_location, melee_attack, mount, random_stroll, set_walk_target_from_attack_target_if_target_out_of_reach, spear_approach::SpearApproach, spear_attack::SpearAttack, spear_retreat::SpearRetreat, start_attacking, start_celebrating_if_target_dead, stop_attacking_if_target_invalid, stop_being_angry_if_target_dead};
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, BehaviorControl, DoNothing, GateBehavior, OneShot, RunOne, Trigger, go_to_wanted_item, interact_with, interact_with_door, set_entity_look_target, set_look_and_interact, set_walk_target_away_from, set_walk_target_from_look_target, trigger_gate};
+use mc_game_core::world::entity::ai::brain::ActivityData;
+use mc_game_core::world::entity::ai::memory::memory_module_type::*;
+use mc_game_core::world::entity::ai::memory::{EntityRef, MemoryData, MemoryModuleType, MemoryTypeId};
+use mc_game_core::world::entity::ai::sensing::closer_than;
+use mc_game_core::world::entity::ai::sensing::repellent_sensors::{is_loved_item, is_player_holding_loved_item, is_zombified};
+use mc_game_core::world::entity::ai::sensing::sensor::{is_entity_attackable, is_entity_attackable_ignoring_line_of_sight};
+use mc_game_core::world::entity::ai::util::land_random_pos;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::mob::equipment as mob_equipment;
+use mc_game_core::world::entity::mob::ext::take;
+use mc_game_core::world::entity::mob::interact::with_hand_stack;
+use mc_game_core::world::entity::schedule::Activity;
+use mc_game_core::world::entity::{Entity, EntityId, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
@@ -373,7 +369,7 @@ fn is_baby_riding_baby(level: &ServerLevel, body: &Piglin) -> bool {
 
 fn stop_walking(level: &mut ServerLevel, body: &mut dyn Entity) {
     body.brain_mut().erase_memory(&WALK_TARGET);
-    crate::world::entity::mob::navigation::stop(body, level);
+    mc_game_core::world::entity::mob::navigation::stop(body, level);
 }
 
 /// `pickUpItem(level, body, itemEntity)`.
@@ -406,7 +402,7 @@ pub fn pick_up_item(level: &mut ServerLevel, body: &mut Piglin, item_id: EntityI
 fn hold_in_off_hand(level: &mut ServerLevel, body: &mut Piglin, stack: ItemStack) {
     if is_holding_item_in_off_hand(body) {
         let off_hand = body.get_item_by_slot(EquipmentSlot::OffHand);
-        crate::world::entity::item::spawn_at_location(level, &*body, off_hand, Vec3::ZERO);
+        mc_game_core::world::entity::item::spawn_at_location(level, &*body, off_hand, Vec3::ZERO);
     }
     body.hold_in_off_hand(level, stack);
 }
@@ -460,7 +456,7 @@ pub fn stop_holding_off_hand_item(level: &mut ServerLevel, body: &mut Piglin, ba
 pub fn cancel_admiring(level: &mut ServerLevel, body: &mut Piglin) {
     if is_admiring_item(body) && !body.get_item_by_slot(EquipmentSlot::OffHand).is_empty() {
         let off_hand = body.get_item_by_slot(EquipmentSlot::OffHand);
-        crate::world::entity::item::spawn_at_location(level, &*body, off_hand, Vec3::ZERO);
+        mc_game_core::world::entity::item::spawn_at_location(level, &*body, off_hand, Vec3::ZERO);
         body.set_item_slot(level, EquipmentSlot::OffHand, ItemStack::empty());
     }
 }
@@ -485,7 +481,7 @@ fn throw_items_toward_random_pos(level: &mut ServerLevel, body: &mut Piglin, ite
 
 fn throw_items_toward_pos(level: &mut ServerLevel, body: &mut Piglin, item_stacks: Vec<ItemStack>, target_pos: Vec3) {
     if !item_stacks.is_empty() {
-        crate::world::entity::mob::combat::swing(body, level, InteractionHand::OffHand, crate::world::entity::player::item_use::SWING_ANIMATION_DEFAULT);
+        mc_game_core::world::entity::mob::combat::swing(body, level, InteractionHand::OffHand, mc_game_core::world::entity::player::item_use::SWING_ANIMATION_DEFAULT);
         for item_stack in item_stacks {
             behavior_utils::throw_item(level, &*body, item_stack, target_pos.add(Vec3::new(0.0, 1.0, 0.0)));
         }
@@ -494,7 +490,7 @@ fn throw_items_toward_pos(level: &mut ServerLevel, body: &mut Piglin, item_stack
 
 /// `getBarterResponseItems(body)`: `gameplay/piglin_bartering` with the `PIGLIN_BARTER` parameter set.
 fn get_barter_response_items(level: &mut ServerLevel, body: &Piglin) -> Vec<ItemStack> {
-    use crate::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
+    use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams, loading};
     let table = loading::get_loot_table(&level.registries, &Identifier::parse("minecraft:gameplay/piglin_bartering").expect("valid id"));
     let this: &dyn Entity = body;
     let params = LootParams::builder(level).this_entity(this).create(&LootContextParamSets::PIGLIN_BARTER);
@@ -714,7 +710,7 @@ fn is_near_avoid_target(level: &ServerLevel, body: &Piglin) -> bool {
 }
 
 /// `isWearingSafeArmor(entity)`.
-pub use crate::world::entity::ai::sensing::repellent_sensors::is_wearing_safe_armor;
+pub use mc_game_core::world::entity::ai::sensing::repellent_sensors::is_wearing_safe_armor;
 
 // ---- anger propagation -------------------------------------------------------------------------------------------
 
@@ -934,4 +930,4 @@ fn can_hunt(e: &dyn Entity) -> bool {
 }
 
 /// `findNearbyAdultPiglins(brain)`.
-pub use crate::world::entity::ai::sensing::repellent_sensors::find_nearby_adult_piglins;
+pub use mc_game_core::world::entity::ai::sensing::repellent_sensors::find_nearby_adult_piglins;

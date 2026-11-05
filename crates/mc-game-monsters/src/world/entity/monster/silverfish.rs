@@ -1,21 +1,22 @@
 //! `net.minecraft.world.entity.monster.Silverfish`.
 
-use crate::register_spawn_placement;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
-use crate::world::entity::ai::goal::{ClimbOnTopOfPowderSnowGoal, FloatGoal, Flag, Goal, GoalFlags, MeleeAttackGoal, RandomStrollGoal, reduced_tick_delay};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::entity::MovementEmission;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::mob::{self, MobData, MobKind, navigation};
-use crate::world::entity::spawn_predicates::{check_any_light_monster_spawn_rules, is_spawner};
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::block::helpers::is_instance_of;
-use crate::world::level::block::impls::infested_block;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
+use mc_game_core::register_spawn_placement;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+use mc_game_ai::world::entity::ai::goal::ClimbOnTopOfPowderSnowGoal;
+use mc_game_core::world::entity::ai::goal::{FloatGoal, Flag, Goal, GoalFlags, MeleeAttackGoal, RandomStrollGoal, reduced_tick_delay};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::entity::MovementEmission;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind, navigation};
+use mc_game_core::world::entity::spawn_predicates::{check_any_light_monster_spawn_rules, is_spawner};
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::block::helpers::is_instance_of;
+use mc_game_core::world::level::block::impls::infested_block;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
@@ -65,7 +66,7 @@ impl Silverfish {
 }
 
 impl Entity for Silverfish {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_movement_emission(&self) -> MovementEmission {
         MovementEmission::Events
@@ -94,7 +95,7 @@ impl Entity for Silverfish {
         if source.get_entity().is_some() || source.is_tag(level, "always_triggers_silverfish") {
             self.notify_hurt();
         }
-        crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
+        mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {

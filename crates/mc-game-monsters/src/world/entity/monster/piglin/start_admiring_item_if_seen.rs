@@ -1,9 +1,9 @@
 //! `StartAdmiringItemIfSeen`.
 
-use crate::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
-use crate::world::entity::ai::memory::memory_module_type::{ADMIRING_DISABLED, ADMIRING_ITEM, DISABLE_WALK_TO_ADMIRE_ITEM, NEAREST_VISIBLE_WANTED_ITEM};
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::ai::sensing::repellent_sensors::is_loved_item;
+use mc_game_core::world::entity::ai::behavior::{BehaviorBuilder, OneShot};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ADMIRING_DISABLED, ADMIRING_ITEM, DISABLE_WALK_TO_ADMIRE_ITEM, NEAREST_VISIBLE_WANTED_ITEM};
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::ai::sensing::repellent_sensors::is_loved_item;
 
 pub fn create(admire_duration: i32) -> OneShot {
     let mut i = BehaviorBuilder::instance();

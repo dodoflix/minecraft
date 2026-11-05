@@ -1,31 +1,31 @@
 //! `Phantom`: the flying night mob (circle / swoop attack phases, size scaled dimensions and damage).
 
-use crate::define_accessor;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::body_rotation_control::{BodyRotationControl, BodyRotationControlBase};
-use crate::world::entity::ai::control::look_control::{LookControl, LookControlBase};
-use crate::world::entity::ai::control::move_control::{MoveControl, MoveControlBase};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::{TargetingConditions, default_conditions};
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::util::{l, lm};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::BlockGetter;
-use crate::world::level::block::state::BlockStateExt;
+use mc_game_core::define_accessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::body_rotation_control::{BodyRotationControl, BodyRotationControlBase};
+use mc_game_core::world::entity::ai::control::look_control::{LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::control::move_control::{MoveControl, MoveControlBase};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::{TargetingConditions, default_conditions};
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::util::{l, lm};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::BlockGetter;
+use mc_game_core::world::level::block::state::BlockStateExt;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
-use crate::world::level::LevelReader;
+use mc_game_core::world::level::LevelReader;
 use mc_data::enums::{EntitySpawnReason, Pose};
 use mc_data::{Attribute, EntityType, SoundEvent};
 use mc_nbt::CompoundTag;
@@ -112,7 +112,7 @@ impl Phantom {
 }
 
 impl Entity for Phantom {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_dimensions(&self, _pose: Pose) -> EntityDimensions {
         let size = self.get_phantom_size();
@@ -123,7 +123,7 @@ impl Entity for Phantom {
         if accessor_id == ID_SIZE.id() {
             self.update_phantom_size_info();
         }
-        if accessor_id == crate::world::entity::entity::DATA_POSE.id() {
+        if accessor_id == mc_game_core::world::entity::entity::DATA_POSE.id() {
             self.refresh_dimensions();
         }
     }
@@ -135,7 +135,7 @@ impl Entity for Phantom {
     }
 
     fn travel(&mut self, level: &mut ServerLevel, input: Vec3) {
-        crate::world::entity::living_entity::travel::travel_flying(self, level, input, 0.2);
+        mc_game_core::world::entity::living_entity::travel::travel_flying(self, level, input, 0.2);
     }
 
     fn finalize_spawn(

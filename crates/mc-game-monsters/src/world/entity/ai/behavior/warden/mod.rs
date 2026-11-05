@@ -10,7 +10,7 @@ pub mod sniffing;
 pub mod sonic_boom;
 pub mod try_to_sniff;
 
-use crate::world::entity::Entity;
+use mc_game_core::world::entity::Entity;
 use crate::world::entity::monster::warden::Warden;
 
 /// The warden behind a behavior's `body` (every behavior of this package is registered by `WardenAi` only).

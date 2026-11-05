@@ -3,23 +3,23 @@
 use super::abstract_piglin::{self, AbstractPiglin, DATA_IMMUNE_TO_ZOMBIFICATION};
 use super::piglin_arm_pose::PiglinArmPose;
 use super::piglin_brute_ai;
-use crate::registry::RegistryAccess;
-use crate::server::level::ServerLevel;
-use crate::world::damagesource::DamageSource;
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::brain::{Brain, Provider};
-use crate::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_VISIBLE_ADULT_PIGLINS};
-use crate::world::entity::ai::memory::{BrainPacked, MemoryTypeId};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::sensing::sensor_type::{HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_BRUTE_SPECIFIC_SENSOR};
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
-use crate::world::entity::living_entity::damage::make_sound;
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::{Entity, EntityId};
-use crate::world::item::ItemStack;
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::registry::RegistryAccess;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::world::damagesource::DamageSource;
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::brain::{Brain, Provider};
+use mc_game_core::world::entity::ai::memory::memory_module_type::{ATTACK_TARGET, NEAREST_VISIBLE_ADULT_PIGLINS};
+use mc_game_core::world::entity::ai::memory::{BrainPacked, MemoryTypeId};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::sensing::sensor_type::{HURT_BY, NEAREST_ITEMS, NEAREST_LIVING_ENTITIES, NEAREST_PLAYERS, PIGLIN_BRUTE_SPECIFIC_SENSOR};
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
+use mc_game_core::world::entity::living_entity::damage::make_sound;
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::{Entity, EntityId};
+use mc_game_core::world::item::ItemStack;
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
 use linkme::distributed_slice;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -87,7 +87,7 @@ impl AbstractPiglin for PiglinBrute {
 }
 
 impl Entity for PiglinBrute {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:piglin_brute")
@@ -141,7 +141,7 @@ impl Entity for PiglinBrute {
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
-        let was_hurt = crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
+        let was_hurt = mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage);
         if was_hurt && source.causing_is_living() {
             mob::ext::with_causing_entity(level, source, |level, attacker| piglin_brute_ai::was_hurt_by(level, self, attacker));
         }

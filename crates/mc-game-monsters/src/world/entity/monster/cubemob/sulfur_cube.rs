@@ -1,33 +1,31 @@
 //! `SulfurCube`: a cube mob that swallows a block item (archetype: attribute modifiers, buoyancy, explosion, contact
 //! damage, knockback/sound settings), can be bucketed, sheared and primed.
 
-use super::abstract_cube_mob::{
-    self as acm, CubeMob, CubeMobData, CubeMobFloatGoal, CubeMobKeepOnJumpingGoal, CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE,
-};
-use crate::define_accessor;
-use crate::server::level::ServerLevel;
-use crate::server::level::level_explode::Explode;
-use crate::world::damagesource::{DamageSource, DamageTypeTags};
-use crate::world::difficulty_instance::DifficultyInstance;
-use crate::world::entity::ai::control::look_control::{LookControl, LookControlBase};
-use crate::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
-use crate::world::entity::ai::navigation::StandardPathNavigation;
-use crate::world::entity::ai::targeting::TargetingConditions;
-use crate::world::entity::bucketable::{self, Bucketable};
-use crate::world::entity::dimensions::EntityDimensions;
-use crate::world::entity::equipment::EquipmentSlot;
-use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
-use crate::world::entity::item::ItemEntity;
-use crate::world::entity::item::primed_tnt::PrimedTnt;
-use crate::world::entity::living_entity::util::{l, lm};
-use crate::world::entity::mob::{self, MobData, MobKind};
-use crate::world::entity::spawn_group_data::SpawnGroupData;
-use crate::world::entity::sulfur_cube_archetype::{self as archetype, ContactDamage, ExplosionData, KnockbackModifiers, SoundSettings};
-use crate::world::entity::{Entity, EntityAttachment, EntityId, RemovalReason, ServerPlayer};
-use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
-use crate::world::level::explosion::{ExplosionDamageCalculator, ExplosionInteraction};
-use crate::world::level::server_level_accessor::ServerLevelAccessor;
-use crate::world::level::signal_getter::get_best_own_or_neighbour_signal;
+use mc_game_core::world::entity::monster::cubemob::abstract_cube_mob::{self as acm, CubeMob, CubeMobData, CubeMobFloatGoal, CubeMobKeepOnJumpingGoal, CubeMobMoveControl, CubeMobRandomDirectionGoal, ID_SIZE};
+use mc_game_core::define_accessor;
+use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::level::level_explode::Explode;
+use mc_game_core::world::damagesource::{DamageSource, DamageTypeTags};
+use mc_game_core::world::difficulty_instance::DifficultyInstance;
+use mc_game_core::world::entity::ai::control::look_control::{LookControl, LookControlBase};
+use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::world::entity::ai::navigation::StandardPathNavigation;
+use mc_game_core::world::entity::ai::targeting::TargetingConditions;
+use mc_game_core::world::entity::bucketable::{self, Bucketable};
+use mc_game_core::world::entity::dimensions::EntityDimensions;
+use mc_game_core::world::entity::equipment::EquipmentSlot;
+use mc_game_core::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration, EntitySpawnRequest};
+use mc_game_core::world::entity::item::ItemEntity;
+use mc_game_core::world::entity::item::primed_tnt::PrimedTnt;
+use mc_game_core::world::entity::living_entity::util::{l, lm};
+use mc_game_core::world::entity::mob::{self, MobData, MobKind};
+use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
+use mc_game_core::world::entity::sulfur_cube_archetype::{self as archetype, ContactDamage, ExplosionData, KnockbackModifiers, SoundSettings};
+use mc_game_core::world::entity::{Entity, EntityAttachment, EntityId, RemovalReason, ServerPlayer};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt};
+use mc_game_core::world::level::explosion::{ExplosionDamageCalculator, ExplosionInteraction};
+use mc_game_core::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_game_core::world::level::signal_getter::get_best_own_or_neighbour_signal;
 use linkme::distributed_slice;
 use mc_core::math::mth;
 use mc_core::phys::{Vec2, Vec3};
@@ -149,7 +147,7 @@ impl SulfurCube {
         let fuse_time = if imminent { PrimedTnt::get_random_short_fuse(fuse, &mut self.base_mut().random) } else { fuse };
         self.base_mut().permanently_invulnerable = true;
         self.set_max_fuse(fuse_time);
-        crate::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_TNT_PRIMED);
+        mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_TNT_PRIMED);
         self.game_event(level, GameEvent::PRIME_FUSE);
         true
     }
@@ -164,13 +162,13 @@ impl SulfurCube {
                 lm(self).dead = true;
                 if level.tnt_explodes() {
                     let interaction = if level.mob_griefing() { ExplosionInteraction::Tnt } else { ExplosionInteraction::None };
-                    let calculator = (self.base().portal_cooldown > 0).then_some(&crate::world::entity::item::primed_tnt::USED_PORTAL_DAMAGE_CALCULATOR as &dyn ExplosionDamageCalculator);
+                    let calculator = (self.base().portal_cooldown > 0).then_some(&mc_game_core::world::entity::item::primed_tnt::USED_PORTAL_DAMAGE_CALCULATOR as &dyn ExplosionDamageCalculator);
                     let y = self.base().get_y_progress(0.0625);
                     let mut params = Explode::new(Some(self), self.base().x(), y, self.base().z(), data.power as f32, interaction).with_damage_source(None, calculator);
                     params.fire = data.causes_fire;
                     level.explode(params, &mut []);
                 }
-                crate::world::entity::living_entity::effects::trigger_on_death_mob_effects(self, level, RemovalReason::Killed);
+                mc_game_core::world::entity::living_entity::effects::trigger_on_death_mob_effects(self, level, RemovalReason::Killed);
                 self.discard();
             }
         }
@@ -241,7 +239,7 @@ impl SulfurCube {
                 return false;
             }
             let offset = self.get_attachments().get_average(EntityAttachment::Passenger);
-            crate::world::entity::item::spawn_at_location(level, self, swallowed, offset);
+            mc_game_core::world::entity::item::spawn_at_location(level, self, swallowed, offset);
         }
         let previous = self.get_item_by_slot(EquipmentSlot::Body);
         let mut one = held_item.clone();
@@ -260,7 +258,7 @@ impl SulfurCube {
         let offset = self.get_attachments().get_average(EntityAttachment::Passenger);
         let to_shear = self.get_item_by_slot(EquipmentSlot::Body);
         mob::equipment::set_item_slot(self, level, EquipmentSlot::Body, ItemStack::empty());
-        crate::world::entity::item::spawn_at_location(level, self, to_shear, offset);
+        mc_game_core::world::entity::item::spawn_at_location(level, self, to_shear, offset);
         self.play_sound_default(level, SoundEvent::ENTITY_SULFUR_CUBE_EJECT);
         self.pickup_timer = 100;
     }
@@ -386,7 +384,7 @@ impl LookControl for SulfurCubeLookControl {
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let has_body_item = !mob.get_item_by_slot(EquipmentSlot::Body).is_empty();
         if !has_body_item {
-            crate::world::entity::ai::control::look_control::default_tick(self, mob, level);
+            mc_game_core::world::entity::ai::control::look_control::default_tick(self, mob, level);
         } else {
             let close_angle = mth::wrap_degrees90(mob.base().y_rot());
             let y_rot = mob.base().y_rot() - close_angle;
@@ -587,7 +585,7 @@ impl Bucketable for SulfurCube {
 // ---- Entity ----------------------------------------------------------------------------------------------------------
 
 impl Entity for SulfurCube {
-    crate::mob_entity_accessors!(mob);
+    mc_game_core::mob_entity_accessors!(mob);
 
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:sulfur_cube")
@@ -634,7 +632,7 @@ impl Entity for SulfurCube {
         acm::push_entity(self, level, other);
     }
     fn do_push(&mut self, level: &mut ServerLevel, other: &mut dyn Entity) {
-        crate::world::entity::living_entity::push::do_push(level, self, other);
+        mc_game_core::world::entity::living_entity::push::do_push(level, self, other);
         self.apply_contact_damage(level, other);
     }
     fn player_touch(&mut self, level: &mut ServerLevel, player: &mut ServerPlayer) {
@@ -675,7 +673,7 @@ impl Entity for SulfurCube {
         self.has_body_item() || mc_data::tags::get::<EntityType>("can_breathe_under_water").is_some_and(|t| t.contains(self.get_type()))
     }
     fn travel_in_fluid(&mut self, level: &mut ServerLevel, input: Vec3) {
-        crate::world::entity::living_entity::travel::travel_in_fluid(self, level, input);
+        mc_game_core::world::entity::living_entity::travel::travel_in_fluid(self, level, input);
         if self.has_body_item() && self.floats_in_liquids {
             let vibe_amount = 0.2f32 * mth::sin(f64::from(self.base().tick_count as f32 * 0.4f32));
             let fluid = if self.is_in_water() { "water" } else { "lava" };
@@ -722,12 +720,12 @@ impl Entity for SulfurCube {
             }
             if source.is_tag(level, DamageTypeTags::SULFUR_CUBE_WITH_BLOCK_IMMUNE_TO) {
                 if !source.is_tag(level, DamageTypeTags::NO_KNOCKBACK) {
-                    crate::world::entity::living_entity::damage::deal_default_knockback(self, level, source, damage, true);
+                    mc_game_core::world::entity::living_entity::damage::deal_default_knockback(self, level, source, damage, true);
                 }
                 return true;
             }
         }
-        crate::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
+        mc_game_core::world::entity::living_entity::damage::hurt_server(self, level, source, damage)
     }
     fn custom_server_ai_step(&mut self, _level: &mut ServerLevel) {
         if self.pickup_timer > 0 {
@@ -749,7 +747,7 @@ impl Entity for SulfurCube {
                 let age = mob::ageable::get_age(self);
                 mob::interact::use_player_item(level, player, hand);
                 mob::ageable::age_up(self, level, mob::ageable::get_speed_up_seconds_when_feeding(age.wrapping_neg()), true);
-                crate::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_SMALL_SULFUR_CUBE_EAT);
+                mc_game_core::world::entity::living_entity::damage::make_sound(self, level, SoundEvent::ENTITY_SMALL_SULFUR_CUBE_EAT);
                 InteractionResult::SUCCESS
             } else {
                 mob::interact::mob_interact(self, level, player, hand)
@@ -761,7 +759,7 @@ impl Entity for SulfurCube {
                 let sheared = self.get_item_by_slot(EquipmentSlot::Body);
                 self.shear(level);
                 level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
-                mob::interact::with_hand_stack(player, hand, |s, p| crate::world::item::hurt_and_break(s, 1, level, p, hand.as_equipment_slot()));
+                mob::interact::with_hand_stack(player, hand, |s, p| mc_game_core::world::item::hurt_and_break(s, 1, level, p, hand.as_equipment_slot()));
                 mob::ext::trigger_player_sheared_equipment(level, player.id(), &sheared, self.as_dyn());
                 InteractionResult::SUCCESS
             } else if is_swallowable_item(&held) {
@@ -785,11 +783,11 @@ impl Entity for SulfurCube {
             self.prime_time(level, false);
             let infinite = player.has_infinite_materials();
             if held.is(Item::FLINT_AND_STEEL) {
-                mob::interact::with_hand_stack(player, hand, |s, p| crate::world::item::hurt_and_break(s, 1, level, p, hand.as_equipment_slot()));
+                mob::interact::with_hand_stack(player, hand, |s, p| mc_game_core::world::item::hurt_and_break(s, 1, level, p, hand.as_equipment_slot()));
             } else {
                 mob::interact::with_hand_stack(player, hand, |s, _| s.consume(1, infinite));
             }
-            player.award_stat_once(level, crate::stats::Stat::Used(held.item()));
+            player.award_stat_once(level, mc_game_core::stats::Stat::Used(held.item()));
             InteractionResult::SUCCESS_SERVER
         }
     }
@@ -811,7 +809,7 @@ impl Entity for SulfurCube {
     fn pick_up_item(&mut self, level: &mut ServerLevel, item_id: EntityId) {
         let Some(stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).map(|e| e.get_item()) else { return };
         if self.can_hold_item(&stack) && self.pickup_timer <= 0 {
-            crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
+            mc_game_core::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
             let mut taken = ItemStack::empty();
             level.with_entity(item_id, |_, item| {
                 if let Some(ie) = item.as_any_mut().downcast_mut::<ItemEntity>() {
@@ -825,7 +823,7 @@ impl Entity for SulfurCube {
             mob::equipment::set_guaranteed_drop(self, EquipmentSlot::Body);
             let packet = mc_protocol::packets::play::ClientboundTakeItemEntityPacket { item_id, player_id: self.id(), amount: 1 };
             if !level.get_entity(item_id).is_some_and(|x| x.is_removed()) {
-                level.entity_tracker.send_to_tracking_players(item_id, &crate::server::level::server_entity::encode_payload(&packet));
+                level.entity_tracker.send_to_tracking_players(item_id, &mc_game_core::server::level::server_entity::encode_payload(&packet));
             }
         }
     }
@@ -833,7 +831,7 @@ impl Entity for SulfurCube {
         if self.is_baby() { 0 } else { 1 + self.base_mut().random.next_int_bounded(2) }
     }
     fn get_breed_offspring(&mut self, level: &mut ServerLevel, _partner: EntityId) -> Option<Box<dyn Entity>> {
-        let mut baby = crate::world::entity::factory::create(EntityType::SULFUR_CUBE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
+        let mut baby = mc_game_core::world::entity::factory::create(EntityType::SULFUR_CUBE, level, EntitySpawnRequest { reason: EntitySpawnReason::Breeding, ignore_checks: false })?;
         baby.as_cube_mob_mut()?.set_size(1, true);
         Some(baby)
     }
@@ -858,7 +856,7 @@ impl Entity for SulfurCube {
     fn knockback(&mut self, power: f64, xd: f64, zd: f64, source: &DamageSource, damage: f32, comes_from_effect: bool) {
         let attacker = source.causing_info().cloned();
         let Some(attacker) = attacker.filter(|_| self.has_body_item()) else {
-            crate::world::entity::living_entity::damage::knockback(self, power, xd, zd, source, damage, comes_from_effect);
+            mc_game_core::world::entity::living_entity::damage::knockback(self, power, xd, zd, source, damage, comes_from_effect);
             return;
         };
         let mut horizontal_power = self.knockback_modifier.horizontal_power;
@@ -889,7 +887,7 @@ impl Entity for SulfurCube {
         self.pending_sounds.push(hit_sound);
     }
     fn apply_implicit_components(&mut self, stack: &ItemStack) {
-        crate::world::entity::spawn_config::apply_base_implicit_components(self, stack);
+        mc_game_core::world::entity::spawn_config::apply_base_implicit_components(self, stack);
         if let Some(content) = stack.get(&SULFUR_CUBE_CONTENT) {
             let body = content.absorbed_block_item_stack.create();
             mob::equipment::set_item_slot_spawn(self, EquipmentSlot::Body, body);
@@ -917,7 +915,7 @@ pub fn check_sulfur_cube_spawn_rules(_ty: EntityType, _level: &dyn ServerLevelAc
     true
 }
 
-crate::register_spawn_placement!(EntityType::SULFUR_CUBE, check_sulfur_cube_spawn_rules);
+mc_game_core::register_spawn_placement!(EntityType::SULFUR_CUBE, check_sulfur_cube_spawn_rules);
 
 #[distributed_slice(ENTITY_FACTORIES)]
 static SULFUR_CUBE: EntityRegistration = EntityRegistration { entity_type: EntityType::SULFUR_CUBE, create: |ty, id, _registries| Box::new(SulfurCube::new(ty, id)) };
