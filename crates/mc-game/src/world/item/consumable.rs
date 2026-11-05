@@ -184,7 +184,7 @@ fn swap_with_equipment_slot(equippable: &mc_protocol::components::Equippable, le
     }
     let in_slot = player.player.inventory.equipment_get(slot).clone();
     let creative = player.is_creative();
-    if (in_slot.has_enchantment_effect("minecraft:prevent_armor_change") && !creative) || ItemStack::is_same_item_same_components(&in_hand, &in_slot) {
+    if (super::enchantment_helper::has(&level.registries, &in_slot, super::enchantment::enchantment_effect_components::EffectComponent::prevent_armor_change) && !creative) || ItemStack::is_same_item_same_components(&in_hand, &in_slot) {
         return InteractionResult::FAIL;
     }
     // `player.awardStat(ITEM_USED)`

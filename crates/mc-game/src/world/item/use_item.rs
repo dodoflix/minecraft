@@ -198,14 +198,14 @@ pub fn post_hurt_enemy(stack: &mut ItemStack, level: &mut ServerLevel, mob: &mut
     }
 }
 
-/// `ItemStack.processDurabilityChange(amount, level, player)`.
-fn process_durability_change(stack: &ItemStack, amount: i32, player_infinite: bool) -> i32 {
+/// `ItemStack.processDurabilityChange(amount, level, player)`; `player_infinite` = `player != null && hasInfiniteMaterials()`.
+fn process_durability_change(stack: &ItemStack, amount: i32, level: &mut ServerLevel, player_infinite: bool) -> i32 {
     if !stack.is_damageable_item() {
         0
     } else if player_infinite {
         0
     } else if amount > 0 {
-        super::enchantment_helper::process_durability_change(stack, amount)
+        super::enchantment_helper::process_durability_change(level, stack, amount)
     } else {
         amount
     }
@@ -224,20 +224,28 @@ fn apply_damage(stack: &mut ItemStack, new_damage: i32) -> Option<ItemStack> {
     }
 }
 
-/// `ItemStack.hurtAndBreak(amount, owner, slot)` for a player owner (`onEquippedItemBroken` on break).
-pub fn hurt_and_break(stack: &mut ItemStack, amount: i32, level: &mut ServerLevel, owner: &mut ServerPlayer, slot: EquipmentSlot) {
-    let new_amount = process_durability_change(stack, amount, owner.player.abilities.instabuild);
+/// `ItemStack.hurtAndBreak(amount, level, player, onBreak)`: the broken copy is returned for the caller's `onBreak`.
+/// `player_infinite` is `player != null && player.hasInfiniteMaterials()`.
+pub fn hurt_and_break_stack(stack: &mut ItemStack, amount: i32, level: &mut ServerLevel, player_infinite: bool) -> Option<ItemStack> {
+    let new_amount = process_durability_change(stack, amount, level, player_infinite);
     if new_amount != 0 {
         let new_damage = stack.get_damage_value() + new_amount;
-        if let Some(broken) = apply_damage(stack, new_damage) {
-            owner.on_equipped_item_broken(level, &broken, slot);
-        }
+        apply_damage(stack, new_damage)
+    } else {
+        None
+    }
+}
+
+/// `ItemStack.hurtAndBreak(amount, owner, slot)` for a player owner (`onEquippedItemBroken` on break).
+pub fn hurt_and_break(stack: &mut ItemStack, amount: i32, level: &mut ServerLevel, owner: &mut ServerPlayer, slot: EquipmentSlot) {
+    if let Some(broken) = hurt_and_break_stack(stack, amount, level, owner.player.abilities.instabuild) {
+        owner.on_equipped_item_broken(level, &broken, slot);
     }
 }
 
 /// `ItemStack.hurtWithoutBreaking(amount, player)`.
-pub fn hurt_without_breaking(stack: &mut ItemStack, amount: i32, player: &mut ServerPlayer) {
-    let new_amount = process_durability_change(stack, amount, player.player.abilities.instabuild);
+pub fn hurt_without_breaking(stack: &mut ItemStack, amount: i32, level: &mut ServerLevel, player: &mut ServerPlayer) {
+    let new_amount = process_durability_change(stack, amount, level, player.player.abilities.instabuild);
     if new_amount != 0 {
         let new_damage = (stack.get_damage_value() + new_amount).min(stack.get_max_damage() - 1);
         apply_damage(stack, new_damage);

@@ -19,6 +19,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn entity_id(&self) -> i32 {
         self.player.base_id()
     }
+    fn registries(&self) -> crate::registry::RegistryAccess {
+        self.level.registries.clone()
+    }
     fn inventory(&self) -> &Inventory {
         &self.player.player.inventory
     }

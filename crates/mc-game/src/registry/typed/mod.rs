@@ -7,6 +7,7 @@ pub mod biome;
 pub mod chat_type;
 pub mod damage_type;
 pub mod dimension_type;
+pub mod enchantment;
 pub mod int_provider;
 pub mod level_stem;
 pub mod network;

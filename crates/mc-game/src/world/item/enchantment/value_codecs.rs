@@ -806,3 +806,9 @@ pub fn block_state_provider_holder_codec() -> Codec<Holder<BlockStateProviderRef
     holder_file_codec("minecraft:worldgen/block_state_provider", &direct, true)
 }
 
+
+/// The provider of a `worldgen/block_state_provider` registry entry (decoded on demand from its JSON).
+pub fn resolve_block_state_provider(registries: &crate::registry::RegistryAccess, id: &Identifier) -> Option<Arc<dyn BlockStateProvider>> {
+    let entry = registries.registry("minecraft:worldgen/block_state_provider")?.entry_by_key(id)?;
+    with_gen_ctx(|ctx| stateproviders::decode_direct(&entry.json, ctx)).ok()
+}

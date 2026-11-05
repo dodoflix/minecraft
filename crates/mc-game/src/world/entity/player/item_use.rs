@@ -165,23 +165,6 @@ impl ServerPlayer {
         self.on_equip_item(level, slot, &old, &stack);
     }
 
-    /// `LivingEntity.onEquippedItemBroken(brokenItem, slot)`: the break event (`entityEventForEquipmentBreak`); the
-    /// eager attribute-modifier removal happens with the next equipment change detection.
-    pub fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, _broken: &ItemStack, slot: EquipmentSlot) {
-        let event_id: i8 = match slot {
-            EquipmentSlot::MainHand => 47,
-            EquipmentSlot::OffHand => 48,
-            EquipmentSlot::Head => 49,
-            EquipmentSlot::Chest => 50,
-            EquipmentSlot::Feet => 52,
-            EquipmentSlot::Legs => 51,
-            EquipmentSlot::Body => 65,
-            EquipmentSlot::Saddle => 68,
-        };
-        let packet = mc_protocol::packets::play::ClientboundEntityEventPacket { entity_id: self.base_id(), event_id };
-        level.entity_tracker.send_to_tracking_players_and_self(self.base_id(), &encode_packet(&packet));
-    }
-
     /// `doCloseContainer()`.
     pub fn do_close_container(&mut self, level: &mut ServerLevel) {
         use super::menu_ctx::PlayerCtx;

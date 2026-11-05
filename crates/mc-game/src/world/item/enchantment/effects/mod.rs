@@ -1,7 +1,10 @@
 //! `net.minecraft.world.item.enchantment.effects`: the effect types of enchantments and their codecs. Application lives in
 //! [`apply`].
 
+pub mod apply;
 mod attribute_effect;
+mod deferred;
+mod impulse;
 mod value_effect;
 
 pub use attribute_effect::EnchantmentAttributeEffect;

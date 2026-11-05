@@ -28,7 +28,7 @@ impl SlotBehavior for ArmorSlot {
     }
     fn may_pickup(&self, slot: &Slot, env: &mut SlotEnv) -> bool {
         let item = slot.get_item(env);
-        !(!item.is_empty() && !env.player.is_creative() && item.has_enchantment_effect("minecraft:prevent_armor_change"))
+        !(!item.is_empty() && !env.player.is_creative() && crate::world::item::enchantment_helper::has(&env.player.registries(), &item, crate::world::item::enchantment::enchantment_effect_components::EffectComponent::prevent_armor_change))
     }
 }
 

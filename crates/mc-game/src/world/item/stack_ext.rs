@@ -1,7 +1,6 @@
 //! Helpers on top of `mc_protocol::components::ItemStack` that the menu/inventory/item code needs
 //! (`ItemStack` methods that depend on game types, or that the value type does not carry).
 
-use super::enchantment_helper;
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::components::{ENCHANTMENTS, ItemStack};
 use mc_protocol::components::{CUSTOM_NAME, DataComponentPatch, RARITY, Rarity, WRITTEN_BOOK_CONTENT};
@@ -20,8 +19,6 @@ pub trait ItemStackExt {
     fn is_broken(&self) -> bool;
     /// `nextDamageWillBreak()`.
     fn next_damage_will_break(&self) -> bool;
-    /// `EnchantmentHelper.has(stack, effectComponent)` (e.g. `minecraft:prevent_armor_change`).
-    fn has_enchantment_effect(&self, effect_component: &str) -> bool;
     /// `getCustomName()`: `custom_name`, else a non-blank written book title.
     fn get_custom_name(&self) -> Option<Component>;
     /// `getHoverName()`.
@@ -122,9 +119,6 @@ impl ItemStackExt for ItemStack {
         self.is_damageable_item() && self.get_damage_value() >= self.get_max_damage() - 1
     }
 
-    fn has_enchantment_effect(&self, effect_component: &str) -> bool {
-        enchantment_helper::has(self, effect_component)
-    }
 }
 
 /// Decodes the `MAP_CODEC` fields of `tag` (`None` = undecodable entry: unknown item, count outside 1..=99, ...).

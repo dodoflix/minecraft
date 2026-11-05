@@ -330,6 +330,13 @@ impl Entity for ServerPlayer {
     fn is_always_ticking(&self) -> bool {
         true
     }
+    /// `getItemBySlot(slot)`: a player's equipment lives in its inventory (`PlayerEquipment`).
+    fn get_item_by_slot(&self, slot: crate::world::entity::equipment::EquipmentSlot) -> crate::world::item::ItemStack {
+        self.player.inventory.equipment_get(slot).clone()
+    }
+    fn item_by_slot_mut(&mut self, slot: crate::world::entity::equipment::EquipmentSlot) -> Option<&mut crate::world::item::ItemStack> {
+        Some(self.player.inventory.equipment_get_mut(slot))
+    }
     /// `ServerPlayer.tick()`.
     fn tick(&mut self, level: &mut crate::server::level::ServerLevel) {
         self.tick_server_player(level);

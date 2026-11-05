@@ -2456,6 +2456,19 @@ pub trait Entity: Any {
     fn advancement_progress(&self, _advancement: &mc_core::ident::Identifier) -> Option<crate::advancements::predicates::entity::support::AdvancementProgressSnapshot> {
         None
     }
+    // ==== [Enchant] additions (Entity trait methods) ====
+
+    /// The live stack of `slot` (`getItemBySlot(slot)` by reference), `None` for non-living entities. Enchantment effects
+    /// write their durability changes back through it.
+    fn item_by_slot_mut(&mut self, slot: super::equipment::EquipmentSlot) -> Option<&mut crate::world::item::ItemStack> {
+        self.living_mut().map(|l| l.equipment.get_mut(slot))
+    }
+
+    /// `LivingEntity.onEquippedItemBroken(brokenItem, inSlot)`: the break entity event, then the location-based effects of the
+    /// broken stack stop (`stopLocationBasedEffects`: its attribute modifiers are removed, its enchantment effects deactivated).
+    fn on_equipped_item_broken(&mut self, level: &mut ServerLevel, broken: &crate::world::item::ItemStack, slot: super::equipment::EquipmentSlot) {
+        crate::world::item::enchantment::broken_item::on_equipped_item_broken(self.as_dyn_mut(), level, broken, slot);
+    }
 }
 
 /// `Entity.saveAsPassenger(output)`: `None` when the entity isn't saved (removal reason / non-serializable type).

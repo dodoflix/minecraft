@@ -98,6 +98,10 @@ pub struct LivingEntityData {
     /// `lastEquipmentItems` (indexed by `EquipmentSlot` ordinal).
     pub last_equipment_items: [crate::world::item::ItemStack; 8],
     // ==== [Player] additions (LivingEntityData field) ====
+    // ==== [Enchant] additions (LivingEntityData field) ====
+    /// `activeLocationDependentEnchantments`: per equipment slot (index = `EquipmentSlot` ordinal) the enchantments (registry key)
+    /// with the active effects, as indices into their `location_changed` list.
+    pub active_location_dependent_enchantments: [Vec<(mc_core::ident::Identifier, Vec<u16>)>; 8],
 }
 
 impl LivingEntityData {
@@ -172,6 +176,8 @@ impl LivingEntityData {
             effects_mod_count: 0,
             last_equipment_items: std::array::from_fn(|_| crate::world::item::ItemStack::empty()),
             // ==== [Player] additions (LivingEntityData::new initializer) ====
+            // ==== [Enchant] additions (LivingEntityData::new initializer) ====
+            active_location_dependent_enchantments: Default::default(),
         };
         let max_health = data.get_max_health();
         data.set_health(max_health);
