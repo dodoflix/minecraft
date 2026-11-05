@@ -327,6 +327,26 @@ impl ServerLevel {
         out
     }
 
+    // ==== [Aquatic] additions ====
+    /// `getEntitiesOfClass(...)` issued by the ticking (taken-out) entity `stand_in`: it is returned too, at its slot
+    /// position, like vanilla. `selector` also sees the stand-in.
+    pub fn get_entities_of_class_with_stand_in(
+        &self,
+        stand_in: &dyn Entity,
+        bb: &AABB,
+        test: impl Fn(&dyn Entity) -> bool,
+        mut selector: impl FnMut(&dyn Entity) -> bool,
+    ) -> Vec<EntityId> {
+        let mut out = Vec::new();
+        self.entity_manager.for_each_in_aabb_with_stand_in(bb, stand_in, |id, e| {
+            if test(e) && selector(e) {
+                out.push(id);
+            }
+            ControlFlow::Continue(())
+        });
+        out
+    }
+
     /// `getNearestPlayer(x, y, z, range, predicate)`.
     pub fn get_nearest_player(&self, x: f64, y: f64, z: f64, range: f64, predicate: impl Fn(&dyn Entity) -> bool) -> Option<EntityId> {
         let mut best = -1.0;

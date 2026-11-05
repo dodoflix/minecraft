@@ -184,7 +184,14 @@ impl MobData {
     /// `Mob(type, level)` without `createNavigation()` / `registerGoals()` (see the module docs, step 5).
     /// `define_synched_data` defines the concrete class's accessors after all generic layers.
     pub fn new(entity_type: EntityType, id: EntityId, kind: MobKind, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {
-        let living = LivingEntityData::new(entity_type, id, super::entity::TOTAL_AIR_SUPPLY, |b| {
+        Self::new_with_air_supply(entity_type, id, kind, super::entity::TOTAL_AIR_SUPPLY, define_synched_data)
+    }
+
+    // ==== [Aquatic] additions ====
+    /// `Mob(type, level)` of a class whose `getMaxAirSupply()` override is not 300 (dolphin 4800, axolotl 6000): the
+    /// virtual call in `Entity.<init>` / `defineSynchedData` makes it the initial air supply.
+    pub fn new_with_air_supply(entity_type: EntityType, id: EntityId, kind: MobKind, max_air_supply: i32, define_synched_data: impl FnOnce(&mut SynchedEntityDataBuilder)) -> Self {
+        let living = LivingEntityData::new(entity_type, id, max_air_supply, |b| {
             b.define(DATA_MOB_FLAGS_ID, 0);
             if kind.is_ageable() {
                 b.define(DATA_BABY_ID, false);

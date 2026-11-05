@@ -154,8 +154,27 @@ impl BlockBehaviour for CropBlock {
     }
 }
 
-register_block_class!("CropBlock", |_| Box::new(CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::WHEAT_SEEDS }));
-register_block_class!("CarrotBlock", |_| Box::new(CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::CARROT }));
-register_block_class!("PotatoBlock", |_| Box::new(CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::POTATO }));
-register_block_class!("BeetrootBlock", |_| Box::new(CropBlock { kind: Kind::Beetroot, age: props::AGE_3, max_age: 3, seed: Item::BEETROOT_SEEDS }));
-register_block_class!("TorchflowerCropBlock", |_| Box::new(CropBlock { kind: Kind::Torchflower, age: props::AGE_1, max_age: 2, seed: Item::TORCHFLOWER_SEEDS }));
+fn crop(class: &str) -> CropBlock {
+    match class {
+        "CarrotBlock" => CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::CARROT },
+        "PotatoBlock" => CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::POTATO },
+        "BeetrootBlock" => CropBlock { kind: Kind::Beetroot, age: props::AGE_3, max_age: 3, seed: Item::BEETROOT_SEEDS },
+        "TorchflowerCropBlock" => CropBlock { kind: Kind::Torchflower, age: props::AGE_1, max_age: 2, seed: Item::TORCHFLOWER_SEEDS },
+        _ => CropBlock { kind: Kind::Crop, age: props::AGE_7, max_age: 7, seed: Item::WHEAT_SEEDS },
+    }
+}
+
+register_block_class!("CropBlock", |_| Box::new(crop("CropBlock")));
+register_block_class!("CarrotBlock", |_| Box::new(crop("CarrotBlock")));
+register_block_class!("PotatoBlock", |_| Box::new(crop("PotatoBlock")));
+register_block_class!("BeetrootBlock", |_| Box::new(crop("BeetrootBlock")));
+register_block_class!("TorchflowerCropBlock", |_| Box::new(crop("TorchflowerCropBlock")));
+
+/// `Bee.BeeGrowCropGoal`: for a `CropBlock` state that is not at its max age, `cropBlock.getStateForAge(getAge(state) + 1)`;
+/// `None` for max-age crops and for non-crops.
+pub fn next_age_state_if_not_max(state: BlockState) -> Option<BlockState> {
+    let classes = &state.block().data().classes;
+    let class = ["TorchflowerCropBlock", "BeetrootBlock", "CarrotBlock", "PotatoBlock", "CropBlock"].into_iter().find(|c| classes.contains(c))?;
+    let crop = crop(class);
+    (!crop.is_max_age(state)).then(|| crop.get_state_for_age(state.block(), crop.get_age(state) + 1))
+}

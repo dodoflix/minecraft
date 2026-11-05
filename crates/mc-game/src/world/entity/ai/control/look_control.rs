@@ -78,26 +78,31 @@ pub trait LookControl: Any {
 
     /// `tick()`.
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        if self.reset_x_rot_on_tick() {
-            mob.set_x_rot(0.0);
-        }
-        if self.base().look_at_cooldown > 0 {
-            self.base_mut().look_at_cooldown -= 1;
-            if let Some(y_rot_d) = self.get_y_rot_d(mob) {
-                let speed = self.base().y_max_rot_speed;
-                let l = mob.living_mut().expect("mob");
-                l.y_head_rot = rotate_towards(l.y_head_rot, y_rot_d, speed);
-            }
-            if let Some(x_rot_d) = self.get_x_rot_d(mob) {
-                let rot = rotate_towards(mob.base().x_rot(), x_rot_d, self.base().x_max_rot_angle);
-                mob.set_x_rot(rot);
-            }
-        } else {
-            let l = mob.living_mut().expect("mob");
-            l.y_head_rot = rotate_towards(l.y_head_rot, l.y_body_rot, 10.0);
-        }
-        self.clamp_head_rotation_to_body(mob, level);
+        default_tick(self, mob, level);
     }
+}
+
+/// `LookControl.tick()` (for subclasses that wrap it, like `Bee.BeeLookControl`).
+pub fn default_tick<L: LookControl + ?Sized>(this: &mut L, mob: &mut dyn Entity, level: &mut ServerLevel) {
+    if this.reset_x_rot_on_tick() {
+        mob.set_x_rot(0.0);
+    }
+    if this.base().look_at_cooldown > 0 {
+        this.base_mut().look_at_cooldown -= 1;
+        if let Some(y_rot_d) = this.get_y_rot_d(mob) {
+            let speed = this.base().y_max_rot_speed;
+            let l = mob.living_mut().expect("mob");
+            l.y_head_rot = rotate_towards(l.y_head_rot, y_rot_d, speed);
+        }
+        if let Some(x_rot_d) = this.get_x_rot_d(mob) {
+            let rot = rotate_towards(mob.base().x_rot(), x_rot_d, this.base().x_max_rot_angle);
+            mob.set_x_rot(rot);
+        }
+    } else {
+        let l = mob.living_mut().expect("mob");
+        l.y_head_rot = rotate_towards(l.y_head_rot, l.y_body_rot, 10.0);
+    }
+    this.clamp_head_rotation_to_body(mob, level);
 }
 
 /// `LookControl.getXRotD()`.

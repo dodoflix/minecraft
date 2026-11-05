@@ -203,7 +203,7 @@ impl BeehiveBlockEntity {
         level.stop_riding(bee);
         level.eject_passengers(bee);
         if let Some(access) = bee.as_bee_access() {
-            access.drop_leash();
+            access.drop_leash(level);
         }
         let Some(occupant) = occupant_of(bee) else { return };
         self.store_bee(occupant);
@@ -282,7 +282,7 @@ pub trait BeeAccess {
     /// `setInLoveTime(ticks)`.
     fn set_in_love_time(&mut self, ticks: i32);
     /// `dropLeash()` (`Leashable`).
-    fn drop_leash(&mut self);
+    fn drop_leash(&mut self, level: &mut ServerLevel);
 }
 
 /// `BeehiveBlockEntity.Occupant.of(entity)`: the entity's saved data minus [`IGNORED_BEE_TAGS`].
