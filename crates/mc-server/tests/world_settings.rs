@@ -58,7 +58,7 @@ fn world_gen_settings_path(dir: &Path) -> PathBuf {
 }
 
 fn read_dimensions(dir: &Path) -> CompoundTag {
-    let root = mc_nbt::file::read_compressed_file(&world_gen_settings_path(dir), &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
+    let root = mc_nbt::nbt_io::read_compressed_file(&world_gen_settings_path(dir), &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
     root.get_compound("data").unwrap().get_compound("dimensions").unwrap().clone()
 }
 
@@ -91,13 +91,13 @@ fn inline_biome_flat_world_and_inline_dimension_type_start() {
     assert_eq!(overworld.get_string("type"), Some("minecraft:overworld"));
 
     // 2: a stored overworld with an inline dimension type (and the inline-biome flat generator) loads again
-    let mut root = mc_nbt::file::read_compressed_file(&world_gen_settings_path(dir.path()), &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
+    let mut root = mc_nbt::nbt_io::read_compressed_file(&world_gen_settings_path(dir.path()), &mut mc_nbt::NbtAccounter::unlimited_heap()).unwrap();
     let inline_type = mc_nbt::snbt::parse(INLINE_TYPE).unwrap();
     let Some(Tag::Compound(data)) = root.get_mut("data") else { panic!("no data") };
     let Some(Tag::Compound(dims)) = data.get_mut("dimensions") else { panic!("no dimensions") };
     let Some(Tag::Compound(overworld)) = dims.get_mut("minecraft:overworld") else { panic!("no overworld") };
     overworld.put("type", inline_type);
-    mc_nbt::file::write_compressed_file(&root, &world_gen_settings_path(dir.path())).unwrap();
+    mc_nbt::nbt_io::write_compressed_file(&root, &world_gen_settings_path(dir.path())).unwrap();
 
     let log = run_server(dir.path());
     assert!(!log.contains("Unable to read or access the world gen settings file"), "{log}");
