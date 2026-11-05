@@ -8,13 +8,13 @@ use super::feature_size::FeatureSize;
 use super::foliage_placer::FoliagePlacer;
 use super::root_placer::RootPlacer;
 use super::trunk_placer::TrunkPlacer;
-use crate::world::level::block::BlockStateExt;
 use crate::world::level::levelgen::codec::{LoadResult, TypeEntry, decode_dispatch, parse_bool, parse_list};
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::feature::{FEATURE_TYPES, Feature};
 use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::registries::DecodeCtx;
 use crate::world::level::levelgen::stateproviders::BlockStateProvider;
+use crate::world::level::levelgen::structure::templatesystem::structure_template::update_shape_at_edge;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
 use crate::world::level::LevelAccessor;
 use mc_core::bounding_box::BoundingBox;
@@ -250,24 +250,6 @@ fn update_leaves(
         }
         smallest_distance += 1;
     }
-}
-
-/// `StructureTemplate.updateShapeAtEdge(level, updateMode, shape, startX, startY, startZ)`.
-pub fn update_shape_at_edge(level: &mut dyn WorldGenLevel, update_mode: u32, shape: &DiscreteVoxelShape, start_x: i32, start_y: i32, start_z: i32) {
-    shape.for_all_faces(&mut |direction, x, y, z| {
-        let pos = BlockPos::new(start_x + x, start_y + y, start_z + z);
-        let neighbor_pos = pos.relative(direction);
-        let state = level.get_block_state(pos);
-        let neighbor_state = level.get_block_state(neighbor_pos);
-        let new_state = state.update_shape(level, pos, direction, neighbor_pos, neighbor_state);
-        if state != new_state {
-            level.set_block(pos, new_state, update_mode & !1, 512);
-        }
-        let new_neighbor_state = neighbor_state.update_shape(level, neighbor_pos, direction.get_opposite(), pos, new_state);
-        if neighbor_state != new_neighbor_state {
-            level.set_block(neighbor_pos, new_neighbor_state, update_mode & !1, 512);
-        }
-    });
 }
 
 /// `TreeFeature.getLowestTrunkOrRootOfTree(context)`.
