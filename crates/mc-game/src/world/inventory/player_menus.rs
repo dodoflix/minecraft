@@ -106,9 +106,8 @@ impl PlayerMenus {
     /// `initMenu(menu)` + `containerMenu = menu` for a menu already built with `next_container_counter()`'s id.
     /// (The caller sends `ClientboundOpenScreenPacket` first, like `ServerPlayer.openMenu`.)
     pub fn set_container_menu(&mut self, mut menu: Box<dyn AbstractContainerMenu>, init: &dyn MenuInit, player: &mut dyn MenuPlayer) {
-        let base = menu.base_mut();
-        base.add_slot_listener(init.container_listener(), player);
-        base.set_synchronizer(init.container_synchronizer(), player);
+        menu.add_slot_listener(init.container_listener(), player);
+        menu.base_mut().set_synchronizer(init.container_synchronizer(), player);
         self.container_menu = Some(menu);
     }
 
@@ -119,9 +118,9 @@ impl PlayerMenus {
 
     /// `initInventoryMenu()`.
     pub fn init_inventory_menu(&mut self, init: &dyn MenuInit, player: &mut dyn MenuPlayer) {
-        let base = self.inventory_menu_mut().base_mut();
-        base.add_slot_listener(init.container_listener(), player);
-        base.set_synchronizer(init.container_synchronizer(), player);
+        let menu = self.inventory_menu_mut();
+        menu.add_slot_listener(init.container_listener(), player);
+        menu.base_mut().set_synchronizer(init.container_synchronizer(), player);
     }
 
     /// `doCloseContainer()`: `containerMenu.removed(player)`; `inventoryMenu.transferState(containerMenu)`;
@@ -173,9 +172,9 @@ pub fn handle_container_click(menu: &mut dyn AbstractContainerMenu, player: &mut
         menu.base_mut().resume_remote_updates();
         result?;
         if full_resync_needed {
-            menu.base_mut().broadcast_full_state(player);
+            menu.broadcast_full_state(player);
         } else {
-            menu.base_mut().broadcast_changes(player);
+            menu.broadcast_changes(player);
         }
     }
     Ok(())
@@ -187,7 +186,7 @@ pub fn handle_container_button_click(menu: &mut dyn AbstractContainerMenu, playe
         if !menu.still_valid(player) {
             log::debug!("Player {} interacted with invalid menu", player.entity_id());
         } else if menu.click_menu_button(player, button_id) {
-            menu.base_mut().broadcast_changes(player);
+            menu.broadcast_changes(player);
         }
     }
 }
@@ -218,7 +217,7 @@ pub fn handle_set_creative_mode_slot(inventory_menu: &mut dyn AbstractContainerM
         base.with_slot(player, idx, |s, e| s.set_by_player(e, stack.clone()));
         base.set_remote_slot(idx, &stack);
         inventory_menu.flush_container_events(player);
-        inventory_menu.base_mut().broadcast_changes(player);
+        inventory_menu.broadcast_changes(player);
         CreativeSlotResult::Set
     } else if drop && valid_data {
         if drop_throttle_ok {

@@ -70,6 +70,10 @@ pub trait MenuPlayer {
             Some(s) => slot == s && self.can_use_slot(s),
         }
     }
+    /// `getContainerInteractionRange()`: the `BLOCK_INTERACTION_RANGE` attribute value (vanilla default 4.5).
+    fn container_interaction_range(&self) -> f64 {
+        4.5
+    }
     /// `isWithinBlockInteractionRange(pos, buffer)`.
     fn is_within_block_interaction_range(&self, pos: BlockPos, buffer: f64) -> bool;
     /// Runs `f` with the real `ServerLevel`/`ServerPlayer` (advancement triggers, stats, xp, ...); no-op for test

@@ -68,6 +68,16 @@ impl BlockEntityData {
 }
 
 /// Vanilla `BlockEntity` (overridable behavior; defaults = the base class).
+/// `ContainerUser` of the player that opens/closes a block-entity container (the player itself is not reachable
+/// through the level while its packet is handled).
+#[derive(Clone, Copy, Debug)]
+pub struct ContainerUser {
+    pub id: crate::world::entity::EntityId,
+    pub spectator: bool,
+    /// `getContainerInteractionRange()` (`BLOCK_INTERACTION_RANGE` attribute value).
+    pub interaction_range: f64,
+}
+
 pub trait BlockEntity: Any {
     fn base(&self) -> &BlockEntityData;
     fn base_mut(&mut self) -> &mut BlockEntityData;
@@ -213,8 +223,8 @@ pub trait BlockEntity: Any {
     }
     /// Does the level-dependent part of the container operation that just ran (see `container_pending`); clears the flag.
     fn container_accessed(&mut self, _level: &mut crate::server::level::ServerLevel) {}
-    fn start_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: crate::world::entity::EntityId) {}
-    fn stop_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: crate::world::entity::EntityId) {}
+    fn start_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
+    fn stop_open(&mut self, _level: &mut crate::server::level::ServerLevel, _user: &ContainerUser) {}
 }
 
 /// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).

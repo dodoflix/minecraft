@@ -5,6 +5,7 @@
 //! (use `Cell` for mutable slot state such as `ResultSlot.removeCount`).
 
 use super::MenuPlayer;
+use crate::world::block_entity::ContainerUser;
 use crate::world::container::{Container, SimpleContainer};
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
@@ -136,9 +137,10 @@ impl ContainerKey {
 
     fn open_or_close(&self, player: &mut dyn MenuPlayer, open: bool) {
         let user = player.entity_id();
+        let container_user = ContainerUser { id: user, spectator: player.is_spectator(), interaction_range: player.container_interaction_range() };
         let notify_be = |player: &mut dyn MenuPlayer, pos: BlockPos| {
             if let Some(level) = player.level() {
-                level.with_block_entity(pos, |level, be| if open { be.start_open(level, user) } else { be.stop_open(level, user) });
+                level.with_block_entity(pos, |level, be| if open { be.start_open(level, &container_user) } else { be.stop_open(level, &container_user) });
             }
         };
         match self {

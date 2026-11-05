@@ -195,7 +195,7 @@ fn try_pick(ctx: &mut PlayCtx, stack: ItemStack) {
     let slot = try_pick_item(&mut pctx, stack);
     pctx.player.send(&ClientboundSetHeldSlotPacket { slot });
     let mut menus = std::mem::replace(&mut pctx.player.player.menus, PlayerMenus::new());
-    menus.inventory_menu_mut().base_mut().broadcast_changes(&mut pctx);
+    menus.inventory_menu_mut().broadcast_changes(&mut pctx);
     pctx.player.player.menus = menus;
 }
 

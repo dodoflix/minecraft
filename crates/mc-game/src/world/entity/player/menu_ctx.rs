@@ -68,6 +68,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn level(&mut self) -> Option<&mut ServerLevel> {
         Some(self.level)
     }
+    fn container_interaction_range(&self) -> f64 {
+        self.player.player.living.get_attribute_value(mc_data::Attribute::BLOCK_INTERACTION_RANGE)
+    }
     fn with_server_player(&mut self, f: &mut dyn FnMut(&mut ServerLevel, &mut ServerPlayer)) {
         f(&mut *self.level, &mut *self.player);
     }

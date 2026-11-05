@@ -30,7 +30,7 @@ impl ServerPlayer {
     /// `containerMenu.broadcastChanges()`.
     pub fn broadcast_menu_changes(&mut self, level: &mut ServerLevel) {
         let mut ctx = PlayerCtx { player: self, level };
-        PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.base_mut().broadcast_changes(c));
+        PlayerMenus::with_current(&mut ctx, |c| &mut c.player.player.menus, |menu, c| menu.broadcast_changes(c));
     }
 
     /// `isWithinBlockInteractionRange(pos, buffer)`: `BLOCK_INTERACTION_RANGE` attribute + `buffer`.
