@@ -4,6 +4,7 @@
 use mc_core::ident::Identifier;
 use mc_game::commands::component_utils::{LimitBehavior, ResolutionContext};
 use mc_game::server::network::text_filter::FilteredText;
+use mc_game::world::container::Container;
 use mc_game::world::entity::ServerPlayer;
 use mc_game::world::item::{ItemStack, edit_book, resolve_for_item};
 use mc_nbt::Tag;
