@@ -29,6 +29,29 @@ pub fn resolve_kill_credit(level: &ServerLevel, victim: &dyn Entity, source: Opt
     ok.then(|| from_source.clone())
 }
 
+/// `killer.awardKillScore(victim, source)` (`Entity.awardKillScore` = `ENTITY_KILLED_PLAYER`, then `ServerPlayer`'s scoreboard,
+/// stats and `PLAYER_KILLED_ENTITY`). The dying `victim` is out of the level: a killer in the level is handed it directly; a
+/// killer that is the running entity gets the call when it is put back (the victim entity is then looked up by id).
+pub fn award_kill_score_to_killer(level: &mut ServerLevel, killer_id: crate::world::entity::EntityId, victim: &mut dyn Entity, snapshot: &DamageEntity, source: &DamageSource) {
+    let ran = level.with_entity(killer_id, |level, killer| {
+        if let Some(player) = victim.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
+            crate::advancements::triggers::CriteriaTriggers::ENTITY_KILLED_PLAYER.trigger(level, player, &*killer, source);
+        }
+        killer.award_kill_score(level, snapshot, Some(&*victim), source);
+    });
+    if ran.is_none() {
+        let (v, s) = (snapshot.clone(), source.clone());
+        level.with_entity_or_defer(killer_id, move |level, killer| {
+            if v.is_player {
+                level.with_player(v.id, |level, player| {
+                    crate::advancements::triggers::CriteriaTriggers::ENTITY_KILLED_PLAYER.trigger(level, player, &*killer, &s);
+                });
+            }
+            killer.award_kill_score(level, &v, None, &s);
+        });
+    }
+}
+
 /// `LivingEntity.die(source)`.
 pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSource) {
     if entity.living().is_none() || entity.is_removed() || entity.living().is_some_and(|l| l.dead) {
@@ -37,8 +60,7 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
     let victim = DamageEntity::of(entity);
     let killer = resolve_kill_credit(level, entity, Some(source));
     if let Some(killer) = &killer {
-        let (v, s) = (victim.clone(), source.clone());
-        level.with_entity_or_defer(killer.id, move |level, killer_entity| killer_entity.award_kill_score(level, &v, &s));
+        award_kill_score_to_killer(level, killer.id, entity, &victim, source);
     }
     if entity.is_sleeping() {
         super::sleeping::stop_sleeping(entity, level);

@@ -70,7 +70,7 @@ pub fn hurt_and_break_equipment(entity: &mut dyn Entity, level: &mut ServerLevel
     if !stack.is_damageable_item() || amount <= 0 {
         return;
     }
-    let broken = crate::world::item::hurt_and_break_stack(&mut stack, amount, level, false);
+    let broken = crate::world::item::hurt_and_break_stack(&mut stack, amount, level, None);
     if let Some(live) = entity.item_by_slot_mut(slot) {
         *live = stack;
     }

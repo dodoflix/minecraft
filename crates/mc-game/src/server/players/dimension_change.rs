@@ -14,6 +14,7 @@
 
 pub use super::teleport_transition::{PostTeleportTransition, TeleportTransition, place_portal_ticket};
 
+use crate::advancements::triggers::CriteriaTriggers;
 use super::join::{abilities_packet, create_common_spawn_info, send_active_player_effects, send_level_info, send_player_permission_level, send_post_effects};
 use super::server_join_host::{ServerJoinHost, level_join_info};
 use crate::server::MinecraftServer;
@@ -245,8 +246,13 @@ fn teleport_player_cross_dimension(server: &mut MinecraftServer, old_level: &mut
         player.sync_handle();
         new_level.add_player(Box::new(player));
         new_level.with_player(id, |level, player| {
-            // `triggerDimensionChangeTriggers(oldLevel)`: SEAM(advancements) `CHANGED_DIMENSION.trigger(old, new)` and, for
-            // nether -> overworld with `enteredNetherPosition`, `NETHER_TRAVEL.trigger(position)`
+            // `triggerDimensionChangeTriggers(oldLevel)`
+            CriteriaTriggers::CHANGED_DIMENSION.trigger(level, player, &old_dimension, &destination);
+            if old_dimension == nether_key() && destination == overworld_key() {
+                if let Some(entered) = player.entered_nether_position {
+                    CriteriaTriggers::NETHER_TRAVEL.trigger(level, player, entered);
+                }
+            }
             if destination != nether_key() {
                 player.entered_nether_position = None;
             }

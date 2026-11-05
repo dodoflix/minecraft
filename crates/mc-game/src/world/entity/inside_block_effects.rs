@@ -202,7 +202,7 @@ fn check_inside_blocks_step(
                 let is_precise = moved_far || block_intersects_box(&target_box, block_intersection);
                 collector.advance_step(iteration);
                 state.entity_inside(level, block_intersection, entity, collector, is_precise);
-                entity.on_inside_block(state);
+                entity.on_inside_block(level, state);
             }
             if inside_fluid {
                 collector.advance_step(iteration);

@@ -97,9 +97,9 @@ pub fn bucket_mob_pickup_in_place(level: &mut ServerLevel, player: &mut ServerPl
     entity.as_bucketable()?.save_to_bucket_tag(&mut bucket);
     crate::world::entity::mob::leashable::drop_leash(entity, level);
     entity.discard();
-    let result = create_filled_result(stack, &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level }, bucket, false);
+    let result = create_filled_result(stack, &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level }, bucket.clone(), false);
     player.set_item_in_hand(hand, result);
-    // CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &bucket) once ImAdvancements lands
+    crate::advancements::triggers::CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &bucket);
     Some(InteractionResult::SUCCESS)
 }
 
@@ -121,6 +121,6 @@ pub fn bucket_mob_pickup(level: &mut ServerLevel, player: &mut ServerPlayer, han
     })??;
     let result = create_filled_result(stack, &mut crate::world::entity::player::menu_ctx::PlayerCtx { player, level }, bucket.clone(), false);
     player.set_item_in_hand(hand, result);
-    // CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &bucket) once ImAdvancements lands
+    crate::advancements::triggers::CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &bucket);
     Some(InteractionResult::SUCCESS)
 }

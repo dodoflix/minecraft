@@ -28,7 +28,7 @@ pub fn pick_up_item<M: InventoryCarrier>(level: &mut ServerLevel, mob: &mut M, i
         if !has_space {
             return;
         }
-        // `mob.onItemPickup(itemEntity)`: CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_ENTITY (ImAdvancements)
+        crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*mob, item_id);
         let count = item_stack.count();
         let remainder = mob.get_inventory_mut().add_item(&item_stack);
         take(level, &*mob, item_id, count - remainder.count());

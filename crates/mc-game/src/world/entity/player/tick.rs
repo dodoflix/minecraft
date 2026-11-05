@@ -103,6 +103,9 @@ impl ServerPlayer {
             let duration = self.base().tick_count - self.levitation_start_time;
             CriteriaTriggers::LEVITATION.trigger(level, self, start, duration);
         }
+        for start in std::mem::take(&mut self.pending_fall_from_height) {
+            CriteriaTriggers::FALL_FROM_HEIGHT.trigger(level, self, start);
+        }
         self.track_start_falling_position(level);
         self.track_entered_or_exited_lava_on_vehicle(level);
         self.update_player_attributes();

@@ -275,7 +275,7 @@ impl CrossbowItem {
             let is_player = shooter.is_player();
             shoot(self, level, shooter, hand, weapon, &projectiles, power, uncertainty, is_player, target_override);
             if let Some(player) = shooter.as_any_mut().downcast_mut::<ServerPlayer>() {
-                // CriteriaTriggers::SHOT_CROSSBOW.trigger(player, weapon)
+                crate::advancements::triggers::CriteriaTriggers::SHOT_CROSSBOW.trigger(level, player, weapon);
                 player.award_stat_once(level, Stat::Used(weapon.item()));
             }
         }

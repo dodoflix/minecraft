@@ -849,7 +849,7 @@ pub fn make_mad(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel) 
 pub fn tame_with_name(e: &mut (impl AbstractHorse + ?Sized), level: &mut ServerLevel, player_uuid: Uuid, player: EntityId) -> bool {
     set_owner(e, Some(player_uuid));
     set_tamed(e, true);
-    ext::trigger_tame_animal(level, player, e.id());
+    ext::trigger_tame_animal(level, player, e.as_dyn());
     level.broadcast_entity_event(e.id(), 7);
     true
 }

@@ -286,6 +286,7 @@ impl<'a> ServerExplosion<'a> {
         {
             self.hit_players.push((entity.id(), knockback));
         }
+        entity.on_explosion_hit(self.source);
     }
 
     /// `interactWithBlocks(targetBlocks)`.

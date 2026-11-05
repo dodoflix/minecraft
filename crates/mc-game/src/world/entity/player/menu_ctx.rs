@@ -105,9 +105,9 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn on_enchantment_performed(&mut self, _stack: &ItemStack, enchantment_cost: i32) {
         self.player.on_enchantment_performed(enchantment_cost);
     }
-    fn on_item_enchanted(&mut self, _stack: &ItemStack, _enchantment_cost: i32) {
+    fn on_item_enchanted(&mut self, stack: &ItemStack, enchantment_cost: i32) {
         self.player.award_stat_once(self.level, crate::stats::stats::Stats::ENCHANT_ITEM);
-        // CriteriaTriggers.ENCHANTED_ITEM.trigger(player, stack, cost): wired with ImAdvancements' trigger API
+        crate::advancements::triggers::CriteriaTriggers::ENCHANTED_ITEM.trigger(self.level, self.player, stack, enchantment_cost);
     }
     fn player_random_next_float(&mut self) -> f32 {
         use crate::world::entity::Entity;
@@ -122,7 +122,7 @@ pub struct ServerPlayerMenuInit {
 
 struct NoopListener;
 impl ContainerListener for NoopListener {
-    /// vanilla triggers `INVENTORY_CHANGED` advancement criteria here
+    /// `ServerPlayer.containerListener.slotChanged` (INVENTORY_CHANGED) runs in `AbstractContainerMenu::dispatch_slot_events`.
     fn slot_changed(&mut self, _slot: &Slot, _slot_index: usize, _stack: &ItemStack) {}
 }
 

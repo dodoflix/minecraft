@@ -252,8 +252,8 @@ pub fn shoot(
         }
         spawn_projectile_plain(level, entity, projectile);
         // `weapon.hurtAndBreak(getDurabilityUse(projectile), shooter, hand.asEquipmentSlot())`
-        let infinite = shooter.player().is_some_and(|p| p.abilities.instabuild);
-        if let Some(broken) = hurt_and_break_stack(weapon, weapon_impl.get_durability_use(projectile), level, infinite) {
+        let player = shooter.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>();
+        if let Some(broken) = hurt_and_break_stack(weapon, weapon_impl.get_durability_use(projectile), level, player) {
             shooter.on_equipped_item_broken(level, &broken, hand.as_equipment_slot());
         }
         if weapon.is_empty() {

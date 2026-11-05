@@ -3,12 +3,12 @@
 
 use super::ServerPlayer;
 use crate::server::level::ServerLevel;
+use crate::world::item::ItemStack;
 use crate::server::level::server_entity::encode_payload;
 use crate::world::entity::Entity;
 use crate::world::entity::item::ItemEntity;
 use mc_data::EntityType;
 use mc_protocol::packets::play::ClientboundTakeItemEntityPacket;
-use std::sync::OnceLock;
 
 impl ServerPlayer {
     /// `ServerPlayer.take(entity, orgCount)` = `LivingEntity.take` + `containerMenu.broadcastChanges()`: the pickup
@@ -23,25 +23,44 @@ impl ServerPlayer {
         self.broadcast_menu_changes(level);
     }
 
-    /// `ServerPlayer.onItemPickup(entity)` (+ `LivingEntity.onItemPickup`): the `THROWN_ITEM_PICKED_UP_BY_ENTITY` trigger of a
-    /// player owner and `THROWN_ITEM_PICKED_UP_BY_PLAYER` for this player when the item has a thrower.
+    /// `ServerPlayer.onItemPickup(entity)`: `LivingEntity.onItemPickup` (`THROWN_ITEM_PICKED_UP_BY_ENTITY` for a player thrower),
+    /// then `THROWN_ITEM_PICKED_UP_BY_PLAYER` for any thrower. `ItemEntity.thrower` is a UUID: when it is the picker itself
+    /// the picker is out of `level` (taken out while it ticks), so it is resolved from `self` first.
     pub fn on_item_pickup(&mut self, level: &mut ServerLevel, item: &ItemEntity) {
-        if let Some(hooks) = ITEM_PICKUP_HOOKS.get() {
-            hooks.on_item_pickup(level, self, item);
+        use crate::advancements::triggers::CriteriaTriggers;
+        let Some(thrower) = item.thrower else { return };
+        let stack = item.get_item();
+        let stack = &stack;
+        if thrower == self.uuid() {
+            let matches = CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_ENTITY.matches(&*level, &*self, stack, &*self);
+            matches.award(level, self);
+            let matches = CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_PLAYER.matches(&*level, &*self, stack, &*self);
+            matches.award(level, self);
+            return;
+        }
+        living_on_item_pickup(level, &*self, Some(thrower), stack);
+        if let Some(owner) = level.get_entity_by_uuid(thrower) {
+            let matches = CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_PLAYER.matches(&*level, &*self, stack, owner);
+            matches.award(level, self);
         }
     }
 }
 
-/// SEAM(advancements): the criteria triggers of `onItemPickup`. `ItemEntity.thrower` is a UUID: when it is the picker itself the
-/// picker is out of `level` (taken out while it ticks), so the implementation resolves the owner from `picker` first.
-pub trait ItemPickupHooks: Send + Sync {
-    fn on_item_pickup(&self, level: &mut ServerLevel, picker: &mut ServerPlayer, item: &ItemEntity);
+/// `LivingEntity.onItemPickup(entity)`: `THROWN_ITEM_PICKED_UP_BY_ENTITY.trigger(owner, item, this)` when the item's thrower
+/// (`getOwner()`) is a `ServerPlayer` in the level.
+pub fn living_on_item_pickup(level: &mut ServerLevel, picker: &dyn Entity, thrower: Option<uuid::Uuid>, stack: &ItemStack) {
+    let Some(owner) = thrower.and_then(|uuid| level.get_entity_by_uuid(uuid)).filter(|e| e.is_player()).map(|e| e.id()) else { return };
+    level.with_player(owner, |level, owner| {
+        crate::advancements::triggers::CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_ENTITY.trigger(level, owner, stack, picker);
+    });
 }
 
-static ITEM_PICKUP_HOOKS: OnceLock<&'static dyn ItemPickupHooks> = OnceLock::new();
-
-pub fn set_item_pickup_hooks(hooks: &'static dyn ItemPickupHooks) {
-    let _ = ITEM_PICKUP_HOOKS.set(hooks);
+/// `mob.onItemPickup(itemEntity)` for the item entity `item_id` (a mob's `pickUpItem`, before the item is taken).
+pub fn on_item_pickup_by_id(level: &mut ServerLevel, picker: &dyn Entity, item_id: crate::world::entity::EntityId) {
+    let Some((thrower, stack)) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::item::ItemEntity>()).map(|i| (i.thrower, i.get_item())) else {
+        return;
+    };
+    living_on_item_pickup(level, picker, thrower, &stack);
 }
 
 /// `ExperienceOrb.repairPlayerItems(player, amount)`: mending. Returns the experience that is left over.

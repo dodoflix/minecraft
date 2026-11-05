@@ -56,6 +56,29 @@ impl LightningBolt {
         self.cause = cause;
     }
 
+    /// `CriteriaTriggers.LIGHTNING_STRIKE.trigger(player, this, viewers)` for the players within 256 blocks, with the living
+    /// entities within 15 blocks that the bolt did not hit as `viewers`.
+    fn trigger_lightning_strike(&self, level: &mut ServerLevel) {
+        use crate::advancements::triggers::CriteriaTriggers;
+        use crate::world::entity::ServerPlayer;
+        let p = self.base.position();
+        let area = AABB::new(p.x - DETECTION_RADIUS, p.y - DETECTION_RADIUS, p.z - DETECTION_RADIUS, p.x + DETECTION_RADIUS, p.y + 6.0 + DETECTION_RADIUS, p.z + DETECTION_RADIUS);
+        let viewer_ids = level.get_entities(Some(self.base.id), &area, |e| e.is_alive() && !self.hit_entities.contains(&e.id()));
+        for player_id in level.players().to_vec() {
+            let matches = {
+                let Some(player) = level.get_entity(player_id).and_then(|e| e.as_any().downcast_ref::<ServerPlayer>()) else { continue };
+                // `distanceTo(entity) < 256.0F` (float arithmetic)
+                let (dx, dy, dz) = ((p.x - player.base().x()) as f32, (p.y - player.base().y()) as f32, (p.z - player.base().z()) as f32);
+                if (dx * dx + dy * dy + dz * dz).sqrt() >= 256.0 {
+                    continue;
+                }
+                let viewers: Vec<&dyn Entity> = viewer_ids.iter().filter_map(|&id| level.get_entity(id)).collect();
+                CriteriaTriggers::LIGHTNING_STRIKE.matches(&*level, player, self, &viewers)
+            };
+            level.with_player(player_id, |level, player| matches.award(level, player));
+        }
+    }
+
     pub fn get_blocks_set_on_fire(&self) -> i32 {
         self.blocks_set_on_fire
     }
@@ -200,8 +223,7 @@ impl Entity for LightningBolt {
         self.life -= 1;
         if self.life < 0 {
             if self.flashes == 0 {
-                // `CriteriaTriggers.LIGHTNING_STRIKE.trigger(player, this, viewers)` for the players within 256 blocks:
-                // advancements are not ported yet (no criterion triggers exist).
+                self.trigger_lightning_strike(level);
                 self.discard();
             } else if self.life < -self.base.random.next_int_bounded(10) {
                 self.flashes -= 1;
@@ -218,8 +240,19 @@ impl Entity for LightningBolt {
             for &id in &entities {
                 level.with_entity(id, |level, e| e.thunder_hit_by(level, bolt_id));
             }
-            self.hit_entities.extend(entities);
-            // `CriteriaTriggers.CHANNELED_LIGHTNING.trigger(cause, entities)`: advancements are not ported yet.
+            self.hit_entities.extend(entities.iter().copied());
+            if let Some(cause) = self.cause {
+                let matches = {
+                    let victims: Vec<&dyn Entity> = entities.iter().filter_map(|&id| level.get_entity(id)).collect();
+                    level
+                        .get_entity(cause)
+                        .and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())
+                        .map(|player| crate::advancements::triggers::CriteriaTriggers::CHANNELED_LIGHTNING.matches(&*level, player, &victims))
+                };
+                if let Some(matches) = matches {
+                    level.with_player(cause, |level, player| matches.award(level, player));
+                }
+            }
         }
     }
 

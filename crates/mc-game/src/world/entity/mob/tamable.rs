@@ -102,8 +102,7 @@ pub fn tame(e: &mut dyn Entity, level: &mut ServerLevel, player: &ServerPlayer) 
     e.set_tame(Some(&mut *level), true, true);
     set_owner(e, Some(player));
     let _ = level;
-    // CriteriaTriggers.TAME_ANIMAL.trigger(serverPlayer, this): SEAM(ImAdvancements) via `ext::trigger_tame_animal`
-    ext::trigger_tame_animal(level, player.id(), e.id());
+    ext::trigger_tame_animal(level, player.id(), &*e);
 }
 
 /// `isOrderedToSit()`.

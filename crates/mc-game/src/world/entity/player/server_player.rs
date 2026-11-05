@@ -99,6 +99,8 @@ pub struct ServerPlayer {
     pub current_explosion_impact_pos: Option<Vec3>,
     /// `currentExplosionCause`: the entity that caused the explosion that hit this player.
     pub current_explosion_cause: Option<EntityId>,
+    /// `startingToFallPosition`s whose `resetFallDistance()` happened since the last `tick_server_player` (`FALL_FROM_HEIGHT`).
+    pub pending_fall_from_height: Vec<Vec3>,
     pub last_section_pos: SectionPos,
     pub respawn_config: Option<RespawnConfig>,
     pub text_filtering_enabled: bool,
@@ -182,6 +184,7 @@ impl ServerPlayer {
             entered_lava_on_vehicle_position: None,
             current_explosion_impact_pos: None,
             current_explosion_cause: None,
+            pending_fall_from_height: Vec::new(),
             last_section_pos: SectionPos::of(0, 0, 0),
             respawn_config: None,
             text_filtering_enabled: false,
@@ -443,6 +446,35 @@ impl Entity for ServerPlayer {
         self.set_sprinting(input.sprint && input.forward);
     }
     // ==== [LivingCore] additions (impl Entity for ServerPlayer) ====
+    /// `ServerPlayer.onInsideBlock(state)`.
+    fn on_inside_block(&mut self, level: &mut crate::server::level::ServerLevel, state: mc_data::block::BlockState) {
+        crate::advancements::triggers::CriteriaTriggers::ENTER_BLOCK.trigger(level, self, state);
+    }
+    /// `ServerPlayer.resetFallDistance()`: the `FALL_FROM_HEIGHT` trigger is queued (callers have no level to award with) and
+    /// fires in `tick_server_player`.
+    fn reset_fall_distance(&mut self) {
+        if self.get_health() > 0.0 {
+            if let Some(start) = self.starting_to_fall_position {
+                self.pending_fall_from_height.push(start);
+            }
+        }
+        self.starting_to_fall_position = None;
+        self.base_mut().fall_distance = 0.0;
+    }
+    /// `ServerPlayer.onExplosionHit(explosionCausedBy)`.
+    fn on_explosion_hit(&mut self, explosion_caused_by: Option<&dyn Entity>) {
+        let position = self.position();
+        self.current_explosion_impact_pos = Some(position);
+        self.current_explosion_cause = explosion_caused_by.map(|e| e.id());
+        // `setIgnoreFallDamageFromCurrentImpulse(cause is a wind charge, position())`
+        let living = &mut self.player.living;
+        if explosion_caused_by.is_some_and(|e| e.get_type() == mc_data::EntityType::WIND_CHARGE) {
+            living.current_impulse_context_reset_grace_time = living.current_impulse_context_reset_grace_time.max(40);
+            living.current_impulse_impact_pos = Some(position);
+        } else {
+            living.current_impulse_context_reset_grace_time = 0;
+        }
+    }
     /// `ServerPlayer.teleportTo(x, y, z)`: a client teleport (`Relative.DELTA | ROTATION`).
     fn teleport_to(&mut self, level: &mut crate::server::level::ServerLevel, x: f64, y: f64, z: f64) {
         use mc_protocol::packets::play::{PositionMoveRotation, Relatives};
@@ -727,8 +759,14 @@ impl Entity for ServerPlayer {
     fn killed_entity(&mut self, level: &mut crate::server::level::ServerLevel, victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) -> bool {
         super::damage::killed_entity(self, level, victim)
     }
-    fn award_kill_score(&mut self, level: &mut crate::server::level::ServerLevel, victim: &crate::world::damagesource::DamageEntity, source: &crate::world::damagesource::DamageSource) {
-        super::damage::award_kill_score(self, level, victim, source);
+    fn award_kill_score(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        victim: &crate::world::damagesource::DamageEntity,
+        victim_entity: Option<&dyn Entity>,
+        source: &crate::world::damagesource::DamageSource,
+    ) {
+        super::damage::award_kill_score(self, level, victim, victim_entity, source);
     }
 
     fn start_sleeping(&mut self, level: &mut crate::server::level::ServerLevel, bed_position: BlockPos) -> bool {

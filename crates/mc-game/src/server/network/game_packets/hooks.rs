@@ -60,7 +60,7 @@ pub trait PlayerSystems: Sync {
     }
     /// `CriteriaTriggers.ANY_BLOCK_USE` / `PLAYER_INTERACTED_WITH_ENTITY` triggers.
     fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, hand: InteractionHand) {}
-    fn trigger_player_interacted_with_entity(&self, ctx: &mut PlayCtx, item_interaction: bool, hand: InteractionHand, target: crate::world::entity::EntityId) {}
+    fn trigger_player_interacted_with_entity(&self, ctx: &mut PlayCtx, awarded_for_stack: crate::world::item::ItemStack, target: crate::world::entity::EntityId) {}
     /// `ServerPlayer.sendBuildLimitMessage(upper, limit)` / `sendSpawnProtectionMessage(pos)`.
     fn send_build_limit_message(&self, ctx: &mut PlayCtx, upper: bool, limit: i32) {}
     fn send_spawn_protection_message(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos) {}

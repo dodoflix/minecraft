@@ -470,6 +470,12 @@ pub trait AbstractContainerMenu: Any {
         while !self.base().slot_events.is_empty() {
             let events = std::mem::take(&mut self.base_mut().slot_events);
             for (i, stack) in events {
+                // `ServerPlayer.containerListener.slotChanged`: `slot.container == player.getInventory()` -> INVENTORY_CHANGED
+                if matches!(self.base().slots[i].container, ContainerKey::PlayerInventory) {
+                    player.with_server_player(&mut |level, p| {
+                        crate::advancements::triggers::CriteriaTriggers::INVENTORY_CHANGED.trigger(level, p, &stack);
+                    });
+                }
                 self.slot_changed_listener(player, i, &stack);
             }
         }

@@ -143,7 +143,10 @@ impl ItemBehaviour for BottleItem {
             });
             level.play_sound_at(None, x, y, z, SoundEvent::ITEM_BOTTLE_FILL_DRAGONBREATH, SoundSource::Neutral, 1.0, 1.0);
             level.game_event_from_entity(Some(player.id()), GameEvent::FLUID_PICKUP, player.position());
-            // SEAM(ImAdvancements): `CriteriaTriggers.PLAYER_INTERACTED_WITH_ENTITY.trigger(player, itemStack, cloud)`
+            if let Some(cloud_entity) = level.get_entity(cloud) {
+                let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_INTERACTED_WITH_ENTITY.matches(&*level, &*player, &stack, cloud_entity);
+                matches.award(level, player);
+            }
             let InteractionResult::Success(success) = InteractionResult::SUCCESS else { unreachable!() };
             return InteractionResult::Success(success.held_item_transformed_to(self.turn_bottle_into_item(stack, level, player, ItemStack::new(Item::DRAGON_BREATH))));
         }

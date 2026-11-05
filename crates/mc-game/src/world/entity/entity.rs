@@ -1644,7 +1644,9 @@ pub trait Entity: Any {
         !self.is_removed() && !self.base().no_physics
     }
     /// `onInsideBlock(state)`.
-    fn on_inside_block(&mut self, _state: mc_data::block::BlockState) {}
+    fn on_inside_block(&mut self, _level: &mut ServerLevel, _state: mc_data::block::BlockState) {}
+    /// `onExplosionHit(explosionCausedBy)` (`ServerPlayer`: `currentExplosionImpactPos`/`Cause`, wind charge impulse).
+    fn on_explosion_hit(&mut self, _explosion_caused_by: Option<&dyn Entity>) {}
     /// `setIsInPowderSnow(isInPowderSnow)`.
     fn set_is_in_powder_snow(&mut self, is_in_powder_snow: bool) {
         self.base_mut().is_in_powder_snow = is_in_powder_snow;
@@ -2656,7 +2658,7 @@ pub trait Entity: Any {
     }
 
     /// `awardKillScore(victim, killingBlow)` (`ServerPlayer`: scoreboard + stats).
-    fn award_kill_score(&mut self, _level: &mut ServerLevel, _victim: &crate::world::damagesource::DamageEntity, _source: &crate::world::damagesource::DamageSource) {}
+    fn award_kill_score(&mut self, _level: &mut ServerLevel, _victim: &crate::world::damagesource::DamageEntity, _victim_entity: Option<&dyn Entity>, _source: &crate::world::damagesource::DamageSource) {}
 
     // ==== [Effects] additions (Entity trait methods) ====
     /// `LivingEntity.addEffect(newEffect, source)`.

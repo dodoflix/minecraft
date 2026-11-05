@@ -209,7 +209,7 @@ pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: Entity
     let Some(item_stack) = level.get_entity(item_id).and_then(|x| x.as_any().downcast_ref::<ItemEntity>()).map(|x| x.get_item()) else { return };
     let equipped = equip_item_if_possible(e, level, item_stack.copy());
     if !equipped.is_empty() {
-        // onItemPickup(entity) is empty for mobs; take(entity, count)
+        crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*e, item_id);
         if !level.get_entity(item_id).is_some_and(|x| x.is_removed()) {
             let packet = ClientboundTakeItemEntityPacket { item_id, player_id: e.id(), amount: equipped.count() };
             level.entity_tracker.send_to_tracking_players(item_id, &encode_payload(&packet));

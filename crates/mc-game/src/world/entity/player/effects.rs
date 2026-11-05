@@ -2,6 +2,7 @@
 //! `EFFECTS_CHANGED` advancement trigger.
 
 use super::ServerPlayer;
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::server::level::ServerLevel;
 use crate::server::players::join::mob_effect_packet;
 use crate::world::entity::effect::MobEffectInstance;
@@ -9,25 +10,18 @@ use crate::world::entity::living_entity::effects as living_effects;
 use crate::world::entity::{Entity, EntityId};
 use mc_data::MobEffect;
 use mc_protocol::packets::play::ClientboundRemoveMobEffectPacket;
-use std::sync::OnceLock;
 
-/// `CriteriaTriggers.EFFECTS_CHANGED.trigger(player, source)`. SEAM(advancements): installed by the advancement
-/// system; criteria triggers do not exist yet.
-pub trait EffectsChangedTrigger: Send + Sync {
-    fn trigger(&self, level: &mut ServerLevel, player: &mut ServerPlayer, source: Option<EntityId>);
-}
-
-static EFFECTS_CHANGED: OnceLock<&'static dyn EffectsChangedTrigger> = OnceLock::new();
-
-pub fn set_effects_changed_trigger(trigger: &'static dyn EffectsChangedTrigger) {
-    let _ = EFFECTS_CHANGED.set(trigger);
-}
-
+/// `CriteriaTriggers.EFFECTS_CHANGED.trigger(player, source)`: the source is looked up in the level (or is the player itself).
 fn trigger_effects_changed(player: &mut ServerPlayer, level: &mut ServerLevel, source: Option<EntityId>) {
-    if let Some(trigger) = EFFECTS_CHANGED.get() {
-        trigger.trigger(level, player, source);
-    }
+    let source: Option<&dyn Entity> = match source {
+        Some(id) if id == player.base_id() => Some(&*player),
+        Some(id) => level.get_entity(id),
+        None => None,
+    };
+    let matches = CriteriaTriggers::EFFECTS_CHANGED.matches(&*level, &*player, source);
+    matches.award(level, player);
 }
+
 
 impl ServerPlayer {
     /// `ServerPlayer.onEffectAdded(effect, source)`.

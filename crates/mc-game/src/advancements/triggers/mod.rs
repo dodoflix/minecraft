@@ -324,3 +324,26 @@ pub fn holder_matches(holder: &Option<ConditionHolder>, context: &mut LootContex
         Some(h) => h.value(context.get_resolver()).test(context),
     }
 }
+
+/// Fires a trigger of player `player_id` (needs the player mutably to award) that also reads `entity`, which is out of
+/// the level because it is the running entity (a victim being hurt, a projectile ticking). `matcher` is `X.matches(..)`.
+/// When the player is not in the level because it is the running entity (a melee attacker), the firing runs when the player
+/// is put back and `entity` is looked up by id then.
+pub fn fire_with_entity<F>(level: &mut ServerLevel, player_id: crate::world::entity::EntityId, entity: &dyn Entity, matcher: F)
+where
+    F: Fn(&ServerLevel, &ServerPlayer, &dyn Entity) -> TriggerMatches + 'static,
+{
+    let fired = level.with_player(player_id, |level, player| {
+        let matches = matcher(&*level, &*player, entity);
+        matches.award(level, player);
+    });
+    if fired.is_none() {
+        let entity_id = entity.id();
+        level.with_entity_or_defer(player_id, move |level, running| {
+            let Some(player) = running.as_any_mut().downcast_mut::<ServerPlayer>() else { return };
+            let Some(entity) = level.get_entity(entity_id) else { return };
+            let matches = matcher(&*level, &*player, entity);
+            matches.award(level, player);
+        });
+    }
+}

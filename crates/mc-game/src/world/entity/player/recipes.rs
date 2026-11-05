@@ -2,6 +2,7 @@
 //! recipe book packets handlers.
 
 use mc_core::ident::Identifier;
+use crate::advancements::triggers::CriteriaTriggers;
 use mc_protocol::packets::play::inventory::{ServerboundRecipeBookChangeSettingsPacket, ServerboundRecipeBookSeenRecipePacket};
 
 use super::server_player::ServerPlayer;
@@ -17,7 +18,7 @@ impl ServerPlayer {
         let mut entries = Vec::new();
         for recipe in recipes {
             if self.recipe_book.try_add_recipe(recipe, &manager, &mut entries) {
-                // CriteriaTriggers::RECIPE_UNLOCKED.trigger(level, self, &recipe.id)
+                CriteriaTriggers::RECIPE_UNLOCKED.trigger(level, self, &recipe.id);
             }
         }
         let count = entries.len() as i32;
@@ -44,8 +45,8 @@ impl ServerPlayer {
     }
 
     /// `triggerRecipeCrafted(recipe, itemStacks)`.
-    pub fn trigger_recipe_crafted(&mut self, _level: &mut ServerLevel, _recipe: &RecipeHolder, _items: &[ItemStack]) {
-        // CriteriaTriggers::RECIPE_CRAFTED.trigger(level, self, &recipe.id, items)
+    pub fn trigger_recipe_crafted(&mut self, level: &mut ServerLevel, recipe: &RecipeHolder, items: &[ItemStack]) {
+        CriteriaTriggers::RECIPE_CRAFTED.trigger(level, self, &recipe.id, items);
     }
 
     /// `handleRecipeBookSeenRecipePacket`.

@@ -229,11 +229,11 @@ pub fn get_base_experience_reward(player: &ServerPlayer, level: &ServerLevel) ->
 }
 
 /// `ServerPlayer.awardKillScore(victim, killingBlow)`.
-pub fn award_kill_score(player: &mut ServerPlayer, level: &mut ServerLevel, victim: &DamageEntity, _killing_blow: &DamageSource) {
+pub fn award_kill_score(player: &mut ServerPlayer, level: &mut ServerLevel, victim: &DamageEntity, victim_entity: Option<&dyn Entity>, killing_blow: &DamageSource) {
     if victim.id == player.id() {
         return;
     }
-    // `super.awardKillScore`: `CriteriaTriggers.ENTITY_KILLED_PLAYER` is fired by the advancement slice.
+    // `super.awardKillScore` (`ENTITY_KILLED_PLAYER`) runs in `death::award_kill_score_to_killer`.
     {
         use crate::world::scores::ObjectiveCriteria;
         let mut scoreboard = level.scoreboard_mut();
@@ -254,7 +254,10 @@ pub fn award_kill_score(player: &mut ServerPlayer, level: &mut ServerLevel, vict
     let own_name = player.player.game_profile.name.clone();
     handle_team_kill(level, &own_name, &victim.scoreboard_name, true);
     handle_team_kill(level, &victim.scoreboard_name, &own_name, false);
-    // `CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(this, victim, killingBlow)`: advancement slice.
+    if let Some(victim_entity) = victim_entity.or_else(|| level.get_entity(victim.id)) {
+        let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_KILLED_ENTITY.matches(&*level, &*player, victim_entity, killing_blow);
+        matches.award(level, player);
+    }
 }
 
 /// `ServerPlayer.handleTeamKill(source, target, criteriaByTeam)`: `source`/`target` are scoreboard names;
@@ -311,8 +314,8 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
     let killer = death::resolve_kill_credit(level, player, Some(source));
     if let Some(killer) = &killer {
         player.award_stat(level, Stat::KilledBy(killer.entity_type), 1);
-        let (victim, s) = (DamageEntity::of(player), source.clone());
-        level.with_entity_or_defer(killer.id, move |level, e| e.award_kill_score(level, &victim, &s));
+        let snapshot = DamageEntity::of(player);
+        death::award_kill_score_to_killer(level, killer.id, player, &snapshot, source);
         death::create_wither_rose(player, level, Some(killer));
     }
     damage::broadcast_entity_event(level, player.id(), 3);

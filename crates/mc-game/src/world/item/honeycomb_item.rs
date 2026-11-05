@@ -74,7 +74,7 @@ impl ItemBehaviour for HoneycombItem {
         let old_state = level.get_block_state(pos);
         let Some(waxed_state) = get_waxed(old_state) else { return InteractionResult::PASS };
         let player_id = Some(player.base_id());
-        // CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack) (ImAdvancements)
+        crate::advancements::triggers::CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack);
         context.item_stack.shrink(1);
         level.set_block_flags(pos, waxed_state, 11);
         level.game_event(GameEvent::BLOCK_CHANGE, Vec3::at_center_of(&pos), &GameEventContext::of(player_id, Some(waxed_state)));

@@ -168,9 +168,18 @@ fn change_item_damage(level: &mut ServerLevel, actors: &mut Actors<'_>, item: &m
         return;
     }
     // `item.owner() instanceof ServerPlayer`: its creative mode makes the stack unbreakable
-    let owner_is_server_player = item.owner.and_then(|o| actors.get(level, o)).filter(|e| e.is_player()).map(|e| e.player().is_some_and(|p| p.abilities.instabuild));
+    let player_owner = item.owner.filter(|&o| actors.get(level, o).is_some_and(|e| e.is_player()));
     item.modified = true;
-    if let Some(broken) = crate::world::item::hurt_and_break_stack(&mut item.item_stack, change, level, owner_is_server_player.unwrap_or(false)) {
+    let broken = match player_owner {
+        Some(owner) => {
+            let stack = &mut item.item_stack;
+            actors
+                .with(level, owner, |lvl, e| crate::world::item::hurt_and_break_stack(stack, change, lvl, e.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>()))
+                .flatten()
+        }
+        None => crate::world::item::hurt_and_break_stack(&mut item.item_stack, change, level, None),
+    };
+    if let Some(broken) = broken {
         match &mut item.on_break {
             OnBreak::OwnerEquipped => {
                 if let (Some(owner), Some(slot)) = (item.owner, item.in_slot) {

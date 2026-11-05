@@ -583,7 +583,7 @@ impl Entity for Fox {
             }
             let in_mouth = self.get_item_by_slot(EquipmentSlot::MainHand);
             self.spit_out_item(level, in_mouth);
-            // `onItemPickup(entity)` is empty for mobs
+            crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
             let one = stack.split(1);
             self.set_item_slot(level, EquipmentSlot::MainHand, one);
             mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);

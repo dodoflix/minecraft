@@ -297,6 +297,14 @@ fn perform_respawn(server: &mut MinecraftServer, handle: &crate::server::players
             lis.reset_position(pos);
             lis.restart_client_load_timer_after_respawn();
         }
+        if won_game {
+            crate::advancements::triggers::CriteriaTriggers::CHANGED_DIMENSION.trigger(
+                level,
+                player,
+                &crate::server::world_dimensions::end_key(),
+                &crate::server::world_dimensions::overworld_key(),
+            );
+        }
         if !won_game && hardcore {
             player.set_game_mode(level, mc_data::enums::GameType::Spectator);
         }

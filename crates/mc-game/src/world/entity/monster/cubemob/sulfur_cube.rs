@@ -762,9 +762,7 @@ impl Entity for SulfurCube {
                 self.shear(level);
                 level.game_event_from_entity(Some(player.id()), GameEvent::SHEAR, self.position());
                 mob::interact::with_hand_stack(player, hand, |s, p| crate::world::item::hurt_and_break(s, 1, level, p, hand.as_equipment_slot()));
-                let _ = sheared;
-                // CriteriaTriggers::PLAYER_SHEARED_EQUIPMENT.trigger(player, sheared, this)
-                mob::ext::trigger_player_sheared_equipment(level, player.id(), self.id());
+                mob::ext::trigger_player_sheared_equipment(level, player.id(), &sheared, self.as_dyn());
                 InteractionResult::SUCCESS
             } else if is_swallowable_item(&held) {
                 let worked = self.equip_item(level, &held);
@@ -813,6 +811,7 @@ impl Entity for SulfurCube {
     fn pick_up_item(&mut self, level: &mut ServerLevel, item_id: EntityId) {
         let Some(stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).map(|e| e.get_item()) else { return };
         if self.can_hold_item(&stack) && self.pickup_timer <= 0 {
+            crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
             let mut taken = ItemStack::empty();
             level.with_entity(item_id, |_, item| {
                 if let Some(ie) = item.as_any_mut().downcast_mut::<ItemEntity>() {

@@ -178,7 +178,9 @@ impl BlockItem {
             update_custom_block_entity_tag(level, player.as_deref(), pos, &updated.use_on.item_stack);
             update_block_entity_components(level, pos, &updated.use_on.item_stack);
             block_behaviour(placed_state.block()).set_placed_by(placed_state, level, pos, player.as_deref_mut(), &updated.use_on.item_stack);
-            // `CriteriaTriggers.PLACED_BLOCK` once advancements exist
+            if let Some(player) = player.as_deref_mut() {
+                crate::advancements::triggers::CriteriaTriggers::PLACED_BLOCK.trigger(level, player, pos, &updated.use_on.item_stack);
+            }
         }
         let sound_type = placed_state.get_sound_type();
         let player_id = player.as_deref().map(|p| p.base_id());

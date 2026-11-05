@@ -173,12 +173,17 @@ pub fn hurt_server(entity: &mut dyn Entity, level: &mut ServerLevel, source: &Da
     }
 
     if let Some(player) = as_server_player(entity) {
-        // `CriteriaTriggers.ENTITY_HURT_PLAYER.trigger(...)`: advancement criteria are fired by the advancement slice.
+        crate::advancements::triggers::CriteriaTriggers::ENTITY_HURT_PLAYER.trigger(level, player, source, damage, damage, blocked);
         if damage_blocked > 0.0 && damage_blocked < STAT_DAMAGE_LIMIT {
             player.award_stat(level, crate::stats::stats::Stats::DAMAGE_BLOCKED_BY_SHIELD, mc_core::math::java::round_f32(damage_blocked * 10.0));
         }
     }
-    // `CriteriaTriggers.PLAYER_HURT_ENTITY.trigger(sourcePlayer, this, ...)`: same.
+    if let Some(source_player) = source.get_entity().filter(|_| source.causing_is_player()) {
+        let source = source.clone();
+        crate::advancements::triggers::fire_with_entity(level, source_player, &*entity, move |level, player, victim| {
+            crate::advancements::triggers::CriteriaTriggers::PLAYER_HURT_ENTITY.matches(level, player, victim, &source, damage, damage, blocked)
+        });
+    }
     success
 }
 

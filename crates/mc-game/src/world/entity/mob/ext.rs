@@ -188,9 +188,16 @@ pub fn monsters_burn_at(level: &ServerLevel, pos: Vec3) -> bool {
     level.attribute_bool_vec(crate::world::attribute::attributes::MONSTERS_BURN, &pos)
 }
 
-/// `CriteriaTriggers.BRED_ANIMALS.trigger(cause, parent, partner, offspring)`. SEAM(ImAdvancements): the criteria
-/// trigger engine lives in the advancements slice; wired by replacing this body.
-pub fn trigger_bred_animals(_level: &mut ServerLevel, _cause: EntityId, _parent: &dyn Entity, _partner: EntityId, _offspring: Option<&dyn Entity>) {}
+/// `CriteriaTriggers.BRED_ANIMALS.trigger(cause, parent, partner, offspring)` (`cause` is the love-cause player in the level;
+/// `parent` is the running animal).
+pub fn trigger_bred_animals(level: &mut ServerLevel, cause: EntityId, parent: &dyn Entity, partner: EntityId, offspring: Option<&dyn Entity>) {
+    let matches = {
+        let Some(player) = level.get_entity(cause).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>()) else { return };
+        let Some(partner) = level.get_entity(partner) else { return };
+        crate::advancements::triggers::CriteriaTriggers::BRED_ANIMALS.matches(&*level, player, parent, partner, offspring)
+    };
+    level.with_player(cause, |level, player| matches.award(level, player));
+}
 
 /// `LeashFenceKnotEntity.getOrCreateKnot(level, pos)`. SEAM(ItemsMenusScope): the knot entity belongs to the items slice;
 /// they replace this body.
@@ -198,15 +205,24 @@ pub fn get_or_create_leash_knot(_level: &mut ServerLevel, _pos: mc_core::pos::Bl
     None
 }
 
-/// `CriteriaTriggers.TAME_ANIMAL.trigger(player, animal)`. SEAM(ImAdvancements).
-pub fn trigger_tame_animal(_level: &mut ServerLevel, _player: EntityId, _animal: EntityId) {}
+/// `CriteriaTriggers.TAME_ANIMAL.trigger(player, animal)`; `animal` is the running entity (the player may be too).
+pub fn trigger_tame_animal(level: &mut ServerLevel, player: EntityId, animal: &dyn Entity) {
+    crate::advancements::triggers::fire_with_entity(level, player, animal, |level, player, animal| {
+        crate::advancements::triggers::CriteriaTriggers::TAME_ANIMAL.matches(level, player, animal)
+    });
+}
 
 /// `oldBrain` `ANGRY_AT` memory copy of `ConversionType.convertCommon`. SEAM(BrainFramework): the brain memories are
 /// owned by the brain slice; they replace this body once `Brain` lands.
 pub fn copy_angry_at_memory(_from: &dyn Entity, _to: &mut dyn Entity) {}
 
-/// `CriteriaTriggers.PLAYER_SHEARED_EQUIPMENT.trigger(player, item, mob)`. SEAM(ImAdvancements).
-pub fn trigger_player_sheared_equipment(_level: &mut ServerLevel, _player: EntityId, _mob: EntityId) {}
+/// `CriteriaTriggers.PLAYER_SHEARED_EQUIPMENT.trigger(player, itemStackToShear, mob)`; `mob` is the running entity.
+pub fn trigger_player_sheared_equipment(level: &mut ServerLevel, player: EntityId, sheared: &crate::world::item::ItemStack, mob: &dyn Entity) {
+    let sheared = sheared.clone();
+    crate::advancements::triggers::fire_with_entity(level, player, mob, move |level, player, mob| {
+        crate::advancements::triggers::CriteriaTriggers::PLAYER_SHEARED_EQUIPMENT.matches(level, player, &sheared, mob)
+    });
+}
 
 /// `SpawnEggItem.spawnOffspringFromSpawnEgg(...)` when `stack` is a spawn egg: `None` = not a spawn egg, `Some(None)` = no
 /// offspring was created (`stack` is the hand stack: consumed on success).

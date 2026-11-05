@@ -567,9 +567,21 @@ pub fn on_hit_entity(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit
                 {
                     list.push(victim);
                 }
-                // `CriteriaTriggers.KILLED_BY_ARROW.trigger(player, piercedAndKilledEntities | List.of(entity), firedFromWeapon)`
-                // when the owner is a ServerPlayer: wired when advancements land
-                // CriteriaTriggers::KILLED_BY_ARROW
+                // `CriteriaTriggers.KILLED_BY_ARROW` when the owner is a ServerPlayer: the pierced list, or the victim if dead
+                if let Some(owner) = owner_id {
+                    let killed: Option<Vec<EntityId>> = match &arrow.arrow_data().pierced_and_killed_entities {
+                        Some(list) => Some(list.clone()),
+                        None => (!target.is_alive()).then(|| vec![victim]),
+                    };
+                    let matches = killed.and_then(|ids| {
+                        let player = level.get_entity(owner).and_then(|e| e.as_any().downcast_ref::<crate::world::entity::ServerPlayer>())?;
+                        let victims: Vec<&dyn Entity> = ids.iter().filter_map(|&id| if id == victim { Some(&*target) } else { level.get_entity(id) }).collect();
+                        Some(crate::advancements::triggers::CriteriaTriggers::KILLED_BY_ARROW.matches(&*level, player, &victims, weapon.as_ref()))
+                    });
+                    if let Some(matches) = matches {
+                        level.with_player(owner, |level, player| matches.award(level, player));
+                    }
+                }
             }
             outcome = HitOutcome::Hurt;
         } else if target.projectile_receives_side_effects_on_hit(false) {

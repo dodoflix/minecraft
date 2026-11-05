@@ -231,7 +231,7 @@ impl Entity for Dolphin {
         }
         let Some(item_stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).map(|i| i.get_item()) else { return };
         if self.can_hold_item(&item_stack) {
-            // `onItemPickup(entity)` is empty for mobs
+            crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
             self.set_item_slot(level, EquipmentSlot::MainHand, item_stack.clone());
             mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
             // `take(entity, itemStack.getCount())`

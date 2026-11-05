@@ -195,7 +195,9 @@ impl ItemBehaviour for BucketItem {
         let place_pos = if block_behaviour(clicked.block()).is_liquid_block_container() && self.content == Fluid::WATER { pos } else { direction_offset_pos };
         if self.empty_contents_impl(Some(&*player), level, place_pos, Some(&hit)) {
             self.check_extra_content(Some(&*player), level, &stack, place_pos);
-            // CriteriaTriggers::PLACED_BLOCK.trigger(level, player, place_pos, &stack) when content != EMPTY (ImAdvancements)
+            if self.content != Fluid::EMPTY {
+                crate::advancements::triggers::CriteriaTriggers::PLACED_BLOCK.trigger(level, player, place_pos, &stack);
+            }
             player.award_stat_once(level, Stat::Used(stack.item()));
             let replacement = bucket_empty_success_item(&stack, player);
             let empty_result = create_filled_result(stack, &mut PlayerCtx { player, level }, replacement, false);
@@ -213,7 +215,7 @@ impl ItemBehaviour for BucketItem {
                     }
                     level.game_event(GameEvent::FLUID_PICKUP, Vec3::at_center_of(&pos), &GameEventContext::of_entity(Some(player.base_id())));
                     let result = create_filled_result(stack, &mut PlayerCtx { player, level }, taken.clone(), false);
-                    // CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &taken) (ImAdvancements)
+                    crate::advancements::triggers::CriteriaTriggers::FILLED_BUCKET.trigger(level, player, &taken);
                     return InteractionResult::SUCCESS.held_item_transformed_to(result);
                 }
             }

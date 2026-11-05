@@ -33,6 +33,20 @@ impl PlayerSystems for ServerPlayerSystems {
             }
         });
     }
+    /// `CriteriaTriggers.ANY_BLOCK_USE.trigger(player, pos, itemStack)`: the stack is read after the use (vanilla holds the
+    /// in-hand object, which the use mutates in place).
+    fn trigger_any_block_use(&self, ctx: &mut PlayCtx, pos: mc_core::pos::BlockPos, hand: crate::world::item::InteractionHand) {
+        let stack = ctx.player.get_item_in_hand(hand);
+        crate::advancements::triggers::CriteriaTriggers::ANY_BLOCK_USE.trigger(ctx.level, ctx.player, pos, &stack);
+    }
+
+    /// `CriteriaTriggers.PLAYER_INTERACTED_WITH_ENTITY.trigger(player, awardedForStack, target)`.
+    fn trigger_player_interacted_with_entity(&self, ctx: &mut PlayCtx, awarded_for_stack: crate::world::item::ItemStack, target: crate::world::entity::EntityId) {
+        let Some(entity) = ctx.level.get_entity(target) else { return };
+        let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_INTERACTED_WITH_ENTITY.matches(&*ctx.level, &*ctx.player, &awarded_for_stack, entity);
+        matches.award(ctx.level, ctx.player);
+    }
+
 
     /// `OPEN_INVENTORY`: `player.getVehicle() instanceof HasCustomInventoryScreen` (chest boats) -> `openCustomInventoryScreen(player)`.
     fn open_vehicle_inventory(&self, ctx: &mut PlayCtx) {

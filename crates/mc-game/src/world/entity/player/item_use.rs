@@ -125,6 +125,7 @@ impl ServerPlayer {
     /// `updateUsingItem(useItem)`.
     fn update_using_item(&mut self, level: &mut ServerLevel) {
         let mut stack = self.player.living.use_item.clone();
+        crate::advancements::triggers::CriteriaTriggers::USING_ITEM.trigger(level, self, &stack);
         let remaining = self.player.living.use_item_remaining;
         crate::world::item::on_use_tick(&mut stack, level, self, remaining);
         // the hook may have changed the stack (damage, charge): vanilla mutates the shared object

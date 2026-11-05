@@ -5,6 +5,7 @@
 //! `BlockBehaviour` trait methods (`block_break.rs` holds their base behaviour); item hooks are `ItemBehaviour::{use_on, use_item}`.
 
 use super::block_break;
+use crate::advancements::triggers::CriteriaTriggers;
 use crate::world::entity::player::server_player::ServerPlayer;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::behaviour;
@@ -417,13 +418,13 @@ impl ServerPlayer {
         if !suppress_using_block {
             let item_use = behaviour_of_block.use_item_on(&item_stack, state, level, pos, self, hand, hit);
             if item_use.consumes_action() {
-                // SEAM(EcPredicates): `CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(player, pos, usedItemStack)`
+                CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, self, pos, &item_stack);
                 return item_use;
             }
             if item_use == InteractionResult::TRY_WITH_EMPTY_HAND && hand == InteractionHand::MainHand {
                 let r = behaviour_of_block.use_without_item(state, level, pos, self, hit);
                 if r.consumes_action() {
-                    // SEAM(EcPredicates): `CriteriaTriggers.DEFAULT_BLOCK_USE.trigger(player, pos)`
+                    CriteriaTriggers::DEFAULT_BLOCK_USE.trigger(level, self, pos);
                     return r;
                 }
             }
@@ -447,7 +448,9 @@ impl ServerPlayer {
                     self.set_item_in_hand(hand, s);
                 }
             }
-            // SEAM(EcPredicates): `CriteriaTriggers.ITEM_USED_ON_BLOCK` when the result consumes the action
+            if result.consumes_action() {
+                CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, self, pos, &item_stack);
+            }
             return result;
         }
         InteractionResult::PASS

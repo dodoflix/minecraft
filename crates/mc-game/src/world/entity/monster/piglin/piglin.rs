@@ -408,7 +408,7 @@ impl Entity for Piglin {
     }
 
     fn pick_up_item(&mut self, level: &mut ServerLevel, item: EntityId) {
-        // `this.onItemPickup(entity)`: CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_ENTITY (ImAdvancements)
+        crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item);
         piglin_ai::pick_up_item(level, self, item);
     }
 

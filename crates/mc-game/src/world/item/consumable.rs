@@ -91,7 +91,7 @@ pub fn on_consume(consumable: &Consumable, level: &mut ServerLevel, user: &mut d
     emit_particles_and_sounds(consumable, level, user, stack, 16);
     if let Some(player) = user.as_any_mut().downcast_mut::<crate::world::entity::ServerPlayer>() {
         player.award_stat_once(level, crate::stats::Stat::Used(stack.item()));
-        // SEAM(advancements): `CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack)`
+        crate::advancements::triggers::CriteriaTriggers::CONSUME_ITEM.trigger(level, player, stack);
     }
     // ConsumableListeners: `FoodProperties.onConsume`, then the effect-applying ones (potion contents, suspicious
     // stew, ominous bottle)

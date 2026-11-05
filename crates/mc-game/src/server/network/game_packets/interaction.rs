@@ -277,8 +277,10 @@ impl PlayCtx<'_> {
             return;
         }
         let swing_animation = self.item_sys().swing_animation(self, hand, false);
+        let used_item_stack = self.player.get_item_in_hand(hand);
         if let super::hooks::InteractionResult::Success(s) = self.sys().interact_on(self, target.id, hand, packet.location) {
-            self.sys().trigger_player_interacted_with_entity(self, s.was_item_interaction(), hand, target.id);
+            let awarded_for_stack = if s.was_item_interaction() { used_item_stack } else { crate::world::item::ItemStack::empty() };
+            self.sys().trigger_player_interacted_with_entity(self, awarded_for_stack, target.id);
             if s.should_swing() {
                 let send = s.swing_source != crate::world::item::SwingSource::Predicted;
                 self.item_sys().swing_and_reset_attack_strength(self, hand, swing_animation, send);

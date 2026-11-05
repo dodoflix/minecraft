@@ -215,7 +215,7 @@ pub fn transform_block(transformer: &BlockTransformer, context: &mut UseOnContex
         let Some(new_state) = new_state else { continue };
         let updated_shape = if data.update_from_neighbors { helpers::update_from_neighbour_shapes(new_state, level, pos) } else { new_state };
         let player_id = player.base_id();
-        // CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack) once ImAdvancements lands
+        crate::advancements::triggers::CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack);
         let old_state = level.get_block_state(pos);
         if let Some(loot) = &data.loot {
             let drops = drop_from_block_interact_loot_table(level, loot, pos, old_state, &context.item_stack, player);

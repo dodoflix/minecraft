@@ -33,7 +33,7 @@ impl ItemBehaviour for ShearsItem {
         let pos = context.get_clicked_pos();
         let state = level.get_block_state(pos);
         if helpers::is_instance_of(state, "GrowingPlantHeadBlock") && state.get(props::AGE_25) != MAX_AGE {
-            // CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack) (ImAdvancements)
+            crate::advancements::triggers::CriteriaTriggers::ITEM_USED_ON_BLOCK.trigger(level, player, pos, &context.item_stack);
             let player_id = Some(player.base_id());
             level.play_sound(player_id, pos, SoundEvent::BLOCK_GROWING_PLANT_CROP, SoundSource::Blocks, 1.0, 1.0);
             let new_state = state.set(props::AGE_25, MAX_AGE);

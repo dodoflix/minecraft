@@ -39,7 +39,7 @@ pub fn check_totem_death_protection(entity: &mut dyn Entity, level: &mut ServerL
 
     if let Some(player) = as_server_player(entity) {
         player.award_stat(level, crate::stats::Stat::Used(protection_item.item()), 1);
-        // `CriteriaTriggers.USED_TOTEM.trigger(player, protectionItem)`: advancement criteria are fired by the advancement slice.
+        crate::advancements::triggers::CriteriaTriggers::USED_TOTEM.trigger(level, player, &protection_item);
         // `protectionItem.causeUseVibration(this, ITEM_INTERACT_FINISH)`
         if protection_item.get(&USE_EFFECTS).is_some_and(|e| e.interact_vibrations) {
             entity.game_event(level, GameEvent::ITEM_INTERACT_FINISH);

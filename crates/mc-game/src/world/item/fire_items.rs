@@ -32,7 +32,7 @@ impl ItemBehaviour for FlintAndSteelItem {
                 let fire_state = base_fire_block::get_state(&*level, relative_pos);
                 level.set_block_flags(relative_pos, fire_state, 11);
                 level.game_event(GameEvent::BLOCK_PLACE, Vec3::at_center_of(&pos), &GameEventContext::of_entity(Some(player_id)));
-                // CriteriaTriggers::PLACED_BLOCK.trigger(level, player, relative_pos, &context.item_stack) (ImAdvancements)
+                crate::advancements::triggers::CriteriaTriggers::PLACED_BLOCK.trigger(level, player, relative_pos, &context.item_stack);
                 hurt_and_break(&mut context.item_stack, 1, level, player, context.hand.as_equipment_slot());
                 InteractionResult::SUCCESS
             } else {

@@ -546,7 +546,7 @@ impl Entity for Panda {
             return;
         }
         let Some(stack) = level.get_entity(item_id).and_then(|e| e.as_any().downcast_ref::<ItemEntity>()).filter(|i| can_pick_up_and_eat(i)).map(ItemEntity::get_item) else { return };
-        // `onItemPickup(entity)` is empty for mobs
+        crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*self, item_id);
         self.set_item_slot(level, EquipmentSlot::MainHand, stack.clone());
         mob::equipment::set_guaranteed_drop(self, EquipmentSlot::MainHand);
         ext::take(level, &*self, item_id, stack.count());

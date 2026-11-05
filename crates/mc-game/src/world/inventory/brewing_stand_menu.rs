@@ -55,9 +55,10 @@ impl SlotBehavior for PotionSlot {
     }
 
     fn on_take(&self, slot: &Slot, env: &mut SlotEnv, carried: &ItemStack) {
-        if carried.get(&POTION_CONTENTS).is_some() {
-            // SEAM(ImAdvancements): `CriteriaTriggers.BREWED_POTION.trigger(serverPlayer, potionContents)` via
-            // `env.player.with_server_player(..)` once `advancements::triggers` is on main.
+        if let Some(potion_contents) = carried.get(&POTION_CONTENTS).cloned() {
+            env.player.with_server_player(&mut |level, p| {
+                crate::advancements::triggers::CriteriaTriggers::BREWED_POTION.trigger(level, p, &potion_contents);
+            });
         }
         slot.set_changed(env);
     }
