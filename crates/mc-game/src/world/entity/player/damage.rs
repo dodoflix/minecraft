@@ -94,7 +94,7 @@ fn player_hurt_server(player: &mut ServerPlayer, level: &mut ServerLevel, source
     if player.is_dead_or_dying() {
         return false;
     }
-    // `removeEntitiesOnShoulder()`: see the shoulder-entity gap (EcPlayer).
+    player.remove_entities_on_shoulder(level);
     if source.scales_with_difficulty() {
         let difficulty = level.difficulty();
         if difficulty == Difficulty::Peaceful {
@@ -286,7 +286,7 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
         connection.send(&ClientboundPlayerCombatKillPacket { player_id: player.id(), message: Component::empty() });
     }
 
-    // `removeEntitiesOnShoulder()`: see the shoulder-entity gap (EcPlayer).
+    player.remove_entities_on_shoulder(level);
     if level.forgive_dead_players() {
         // `tellNeutralMobsThatIDied()`: neutral mobs (`NeutralMob.playerDied`) belong to the mob slice.
     }

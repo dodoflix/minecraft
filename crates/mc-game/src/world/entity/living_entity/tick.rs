@@ -57,7 +57,7 @@ pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     }
     seams::detect_equipment_updates(level, entity);
     if entity.base().tick_count % 20 == 0 {
-        seams::combat_tracker_recheck_status(level, entity);
+        super::combat::recheck_status(entity, level);
     }
     if l(entity).is_sleeping() && (!entity.can_interact_with_level() || !super::sleeping::check_bed_exists(entity, level)) {
         super::sleeping::stop_sleeping(entity, level);
