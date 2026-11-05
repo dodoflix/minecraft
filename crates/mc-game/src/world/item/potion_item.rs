@@ -14,8 +14,7 @@ impl ItemBehaviour for PotionNamedItem {
     fn get_name(&self, stack: &ItemStack) -> Component {
         match stack.get(&POTION_CONTENTS) {
             Some(contents) => {
-                let suffix = contents.custom_name.clone().or_else(|| contents.potion.map(|p| p.data().base_name.to_owned())).unwrap_or_else(|| "empty".to_owned());
-                Component::translatable(format!("{}.effect.{suffix}", self.description_id), Vec::new())
+                Component::translatable(crate::world::effect::potion_contents::get_name_key(contents, &format!("{}.effect.", self.description_id)), Vec::new())
             }
             None => PlainItem.get_name(stack),
         }

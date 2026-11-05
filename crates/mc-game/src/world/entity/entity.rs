@@ -2127,6 +2127,16 @@ pub trait Entity: Any {
     fn on_attribute_updated(&mut self, level: &mut ServerLevel, attribute: mc_data::Attribute) {
         super::living_entity::effects::on_attribute_updated(self.as_dyn_mut(), level, attribute)
     }
+    /// `LivingEntity.updateInvisibilityStatus()` (`ServerPlayer` overrides it for spectators).
+    fn update_invisibility_status(&mut self) {
+        super::living_entity::effects::update_invisibility_status(self.as_dyn_mut())
+    }
+    /// `LivingEntity.updateEffectVisibility()`: the effect-derived flags are recomputed before the next sync.
+    fn update_effect_visibility(&mut self) {
+        if let Some(l) = self.living_mut() {
+            l.effects_dirty = true;
+        }
+    }
     /// `LivingEntity.getAbsorptionAmount()` (players keep it in synched data).
     fn get_absorption_amount(&self) -> f32 {
         match (self.player(), self.living()) {

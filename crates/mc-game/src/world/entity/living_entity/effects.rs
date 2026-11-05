@@ -277,7 +277,7 @@ pub fn are_all_effects_ambient<'a>(effects: impl IntoIterator<Item = &'a MobEffe
 pub fn update_dirty_effects(entity: &mut dyn Entity) {
     let Some(living) = entity.living() else { return };
     if living.effects_dirty {
-        update_invisibility_status(entity);
+        entity.update_invisibility_status();
         update_glowing_status(entity);
         entity.living_mut().expect("living").effects_dirty = false;
     }

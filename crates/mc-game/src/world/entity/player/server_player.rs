@@ -287,6 +287,8 @@ fn game_type_by_id(id: i32) -> GameType {
     }
 }
 
+use crate::world::entity::living_entity::effects::remove_effect_particles as living_effects_remove_particles;
+
 impl Entity for ServerPlayer {
     fn base(&self) -> &EntityData {
         &self.player.living.entity
@@ -371,6 +373,15 @@ impl Entity for ServerPlayer {
         Some("minecraft:player")
     }
     // ==== [Effects] additions (Entity impl) ====
+    /// `ServerPlayer.updateInvisibilityStatus()`: spectators are invisible and show no effect particles.
+    fn update_invisibility_status(&mut self) {
+        if self.is_spectator() {
+            living_effects_remove_particles(&mut self.player.living);
+            self.player.living.entity.set_shared_flag(crate::world::entity::entity::FLAG_INVISIBLE, true);
+        } else {
+            crate::world::entity::living_entity::effects::update_invisibility_status(self);
+        }
+    }
     fn on_effect_added(&mut self, level: &mut crate::server::level::ServerLevel, effect: &crate::world::entity::effect::MobEffectInstance, source: Option<EntityId>) {
         self.server_player_on_effect_added(level, effect, source);
     }
