@@ -78,8 +78,6 @@ pub struct ServerLevel {
     /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
     /// factory installs them (`detached` levels stay empty).
     pub registries: crate::registry::RegistryAccess,
-    /// `MinecraftServer.isUnderSpawnProtection(level, pos, player)` (installed by the dedicated server).
-    pub spawn_protection_hook: Option<fn(&ServerLevel, &crate::world::entity::ServerPlayer, BlockPos) -> bool>,
 
     /// `chunkSource`.
     pub chunk_source: ServerChunkCache,
@@ -148,7 +146,6 @@ impl ServerLevel {
             server_state: Default::default(),
             taken_out_players: Default::default(),
             registries: Default::default(),
-            spawn_protection_hook: None,
             chunk_source,
             shared: params.shared,
             level_data: params.level_data,

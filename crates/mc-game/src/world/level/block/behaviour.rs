@@ -257,20 +257,22 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     fn set_placed_by(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _placer: Option<&mut crate::world::entity::ServerPlayer>, _stack: &crate::world::item::ItemStack) {}
     /// `BlockBehaviour.attack(state, level, pos, player)` (start of digging).
     fn attack(&self, _state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) {}
-    /// `Block.playerWillDestroy`: the destroy particles/game event are done by the caller; returns the state to use.
-    fn player_will_destroy(&self, state: BlockState, _level: &mut ServerLevel, _pos: BlockPos, _player: &mut crate::world::entity::ServerPlayer) -> BlockState {
-        state
+    /// `Block.playerWillDestroy`: destroy particles, `BLOCK_DESTROY` game event; returns the state to use (overrides call
+    /// `server::level::block_break::player_will_destroy` as their `super`).
+    fn player_will_destroy(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer) -> BlockState {
+        crate::server::level::block_break::player_will_destroy(level, pos, state, player)
     }
-    /// `Block.playerDestroy` (stats, exhaustion, drops). Loot drops are a later wave.
+    /// `Block.playerDestroy` (stats, exhaustion, drops); `block_entity` is the destroyed block's entity (a snapshot).
     fn player_destroy(
         &self,
-        _level: &mut ServerLevel,
-        _player: &mut crate::world::entity::ServerPlayer,
-        _pos: BlockPos,
-        _state: BlockState,
-        _destroyed_with: &crate::world::item::ItemStack,
+        level: &mut ServerLevel,
+        player: &mut crate::world::entity::ServerPlayer,
+        pos: BlockPos,
+        state: BlockState,
+        block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
+        destroyed_with: &crate::world::item::ItemStack,
     ) {
-        _player.player.food_data.add_exhaustion(0.005);
+        crate::server::level::block_break::player_destroy(level, player, pos, state, block_entity, destroyed_with);
     }
     /// `Block.destroy` (called by `LevelChunk`-independent callers such as `ServerPlayerGameMode`).
     fn destroy(&self, _level: &mut dyn LevelAccessor, _pos: BlockPos, _state: BlockState) {}

@@ -1,0 +1,15 @@
+level flat
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Obs survival 6.5 -60 0.5 0 0
+move_packet Steve 0.5 -60 0.5 true
+block 2 -60 0 minecraft:dirt
+give Steve mainhand minecraft:air
+dig Steve 2 -60 0
+dump player:Steve
+block 2 -60 0 minecraft:air
+tick 1
+dump player:Steve
+block 2 -60 0 minecraft:grass_block
+dig Steve 2 -60 0
+dump player:Steve
+cmd list

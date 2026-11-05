@@ -2,23 +2,34 @@
 //! `ServerPlayer.game_mode`; the logic is `impl ServerPlayer` because it needs the player and the level at once.
 //!
 //! Block hooks (`playerWillDestroy`/`destroy`/`playerDestroy`/`attack`/`useItemOn`/`useWithoutItem`) are the
-//! `BlockBehaviour` trait methods; item hooks are `ItemBehaviour::{use_on, use_item}`. Loot drops are a later wave.
+//! `BlockBehaviour` trait methods (`block_break.rs` holds their base behaviour); item hooks are `ItemBehaviour::{use_on, use_item}`.
 
+use super::block_break;
 use crate::world::entity::player::server_player::ServerPlayer;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::behaviour;
 use crate::server::level::ServerLevel;
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt, UseOnContext, ContextPlayer};
 use crate::world::level::block::behaviour as block_behaviour;
-use crate::world::level::{BlockGetter, LevelAccessor};
+use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use crate::world::entity::equipment::EquipmentSlot;
 use mc_core::direction::Direction;
 use mc_core::pos::BlockPos;
-use mc_data::block::BlockState;
+use mc_data::block::{Block, BlockState};
 use mc_data::enums::GameType;
 use mc_data::{Attribute, MobEffect};
-use mc_protocol::packets::play::{ClientboundBlockUpdatePacket, ClientboundGameEventPacket, ClientboundPlayerAbilitiesPacket, ServerboundPlayerActionAction as Action};
+use mc_protocol::packets::common::ChatVisibility;
+use mc_protocol::packets::play::{
+    ClientboundBlockUpdatePacket, ClientboundGameEventPacket, ClientboundPlayerAbilitiesPacket, ClientboundSystemChatPacket, ServerboundPlayerActionAction as Action,
+};
+use mc_text::{ChatFormatting, Component};
+use mc_world::level_storage::FeatureFlagSet;
 
+/// `Block.isEnabled(enabledFeatures)`.
+fn block_is_enabled(block: Block, enabled_features: FeatureFlagSet) -> bool {
+    let required: Vec<mc_core::ident::Identifier> = block.data().required_features.iter().filter_map(|n| mc_core::ident::Identifier::try_parse(n)).collect();
+    FeatureFlagSet::from_names(required.iter(), |_| {}).is_subset_of(enabled_features)
+}
 impl ServerPlayer {
     /// `MobEffectUtil.getDigSpeedAmplification` (haste / conduit power), `None` when neither is active.
     fn dig_speed_amplification(&self) -> Option<i32> {
@@ -69,9 +80,18 @@ impl ServerPlayer {
         }
     }
 
-    /// `ServerPlayerGameMode.handleBlockBreakAction(pos, action, direction, maxY, sequence)`.
-    pub fn handle_block_break_action(&mut self, level: &mut ServerLevel, pos: BlockPos, action: Action, direction: Direction, max_y: i32, _sequence: i32) {
-        let id = self.base_id();
+    /// `ServerPlayerGameMode.handleBlockBreakAction(pos, action, direction, maxY, sequence)`. `under_spawn_protection` is
+    /// `server.isUnderSpawnProtection(level, pos, player)` (only read for `START_DESTROY_BLOCK`; the sequence ack is the
+    /// listener's).
+    pub fn handle_block_break_action(
+        &mut self,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        action: Action,
+        direction: Direction,
+        max_y: i32,
+        under_spawn_protection: bool,
+    ) {
         if !self.is_within_block_interaction_range(pos, 1.0) {
             if self.game_mode.is_destroying_block && action == Action::AbortDestroyBlock {
                 self.abort_destroy_block(level, pos);
@@ -79,31 +99,33 @@ impl ServerPlayer {
             return;
         }
         if pos.y() > max_y {
-            self.send(&ClientboundBlockUpdatePacket { pos, block_state: level.get_block_state(pos) });
+            self.send_block_update(level, pos);
             return;
         }
         match action {
             Action::StartDestroyBlock => {
-                if level.is_under_spawn_protection(self, pos) {
-                    self.pending_spawn_protection_message = Some(pos);
+                if under_spawn_protection {
+                    self.send_spawn_protection_message(pos);
                     return;
                 }
-                if !level.may_interact(id, pos) {
-                    self.send(&ClientboundBlockUpdatePacket { pos, block_state: level.get_block_state(pos) });
+                // `level.mayInteract(player, pos)`: spawn protection (checked above) and the world border
+                if !level.is_within_world_border(pos) {
+                    self.send_block_update(level, pos);
                     return;
                 }
                 if self.player.abilities.instabuild {
                     self.destroy_and_ack(level, pos);
                     return;
                 }
-                if self.block_action_restricted(level, pos) {
-                    self.send(&ClientboundBlockUpdatePacket { pos, block_state: level.get_block_state(pos) });
+                if self.block_action_restricted(level, pos, self.game_mode.game_mode_for_player) {
+                    self.send_block_update(level, pos);
                     return;
                 }
                 self.game_mode.destroy_progress_start = self.game_mode.game_ticks;
                 let mut progress = 1.0f32;
                 let state = level.get_block_state(pos);
                 if !state.is_air() {
+                    // SEAM(EcEnchant): `EnchantmentHelper.onHitBlock(level, mainHand, player, player, MAINHAND, atCenterOf(pos), state, ..)`
                     block_behaviour(state.block()).attack(state, level, pos, self);
                     progress = self.get_destroy_progress(state);
                 }
@@ -111,14 +133,14 @@ impl ServerPlayer {
                     self.destroy_and_ack(level, pos);
                 } else {
                     if self.game_mode.is_destroying_block {
-                        let dp = self.game_mode.destroy_pos;
-                        self.send(&ClientboundBlockUpdatePacket { pos: dp, block_state: level.get_block_state(dp) });
+                        let destroy_pos = self.game_mode.destroy_pos;
+                        self.send_block_update(level, destroy_pos);
                     }
                     self.game_mode.is_destroying_block = true;
                     self.game_mode.destroy_pos = pos;
                     self.game_mode.destroy_direction = direction;
                     let state = (progress * 10.0) as i32;
-                    level.destroy_block_progress(id, pos, state);
+                    level.destroy_block_progress(self.base_id(), pos, state);
                     self.game_mode.last_sent_state = state;
                 }
             }
@@ -131,7 +153,7 @@ impl ServerPlayer {
                         let progress = self.get_destroy_progress(state) * (ticks_spent + 1) as f32;
                         if progress >= 0.7 {
                             self.game_mode.is_destroying_block = false;
-                            level.destroy_block_progress(id, pos, -1);
+                            level.destroy_block_progress(self.base_id(), pos, -1);
                             self.destroy_and_ack(level, pos);
                             return;
                         }
@@ -149,6 +171,11 @@ impl ServerPlayer {
         }
     }
 
+    /// `connection.send(new ClientboundBlockUpdatePacket(pos, level.getBlockState(pos)))`.
+    fn send_block_update(&self, level: &ServerLevel, pos: BlockPos) {
+        self.send(&ClientboundBlockUpdatePacket { pos, block_state: level.get_block_state(pos) });
+    }
+
     fn abort_destroy_block(&mut self, level: &mut ServerLevel, pos: BlockPos) {
         let id = self.base_id();
         self.game_mode.is_destroying_block = false;
@@ -162,59 +189,93 @@ impl ServerPlayer {
     /// `destroyAndAck(pos, sequence, exitId)` (the sequence ack packet is sent by the listener).
     pub fn destroy_and_ack(&mut self, level: &mut ServerLevel, pos: BlockPos) {
         if !self.destroy_block(level, pos) {
-            self.send(&ClientboundBlockUpdatePacket { pos, block_state: level.get_block_state(pos) });
+            self.send_block_update(level, pos);
         }
     }
 
-    /// `Player.blockActionRestricted(level, pos, gameType)` (adventure/spectator rules; the adventure `CAN_BREAK`
-    /// component check is not modelled: adventure players are always restricted when `mayBuild` is false).
-    pub fn block_action_restricted(&self, _level: &ServerLevel, _pos: BlockPos) -> bool {
-        match self.game_mode.game_mode_for_player {
-            GameType::Spectator => true,
-            GameType::Adventure => !self.player.abilities.may_build,
-            _ => false,
+    /// `Player.blockActionRestricted(level, pos, gameType)`: adventure/spectator rules (`CAN_BREAK` predicate of the
+    /// main hand in adventure mode without `mayBuild`).
+    pub fn block_action_restricted(&self, level: &ServerLevel, pos: BlockPos, game_type: GameType) -> bool {
+        if !matches!(game_type, GameType::Adventure | GameType::Spectator) {
+            return false;
         }
+        if game_type == GameType::Spectator {
+            return true;
+        }
+        if self.player.abilities.may_build {
+            return false;
+        }
+        let stack = self.player.inventory.get_selected_item();
+        stack.is_empty() || !crate::world::item::can_break_block_in_adventure_mode(stack, level, pos)
     }
 
-    /// `ServerPlayerGameMode.destroyBlock(pos)` (drops are a later wave: `player_destroy` only exhausts).
+    /// `ServerPlayerGameMode.destroyBlock(pos)`.
     pub fn destroy_block(&mut self, level: &mut ServerLevel, pos: BlockPos) -> bool {
         let state = level.get_block_state(pos);
-        let creative = self.player.abilities.instabuild;
-        let main = self.player.inventory.get_selected_item().clone();
-        if !main.is_empty() && !crate::world::item::behaviour(main.item()).can_destroy_block(&main, state, creative) {
+        let main = self.get_item_in_hand(InteractionHand::MainHand);
+        if !main.is_empty() && !behaviour(main.item()).can_destroy_block(&main, state, self.player.abilities.instabuild) {
             return false;
         }
+        let block_entity = block_break::snapshot_block_entity(level, pos);
         let block = state.block();
         if block.data().classes.iter().any(|c| *c == "GameMasterBlock") && !self.can_use_game_master_blocks() {
-            let st = level.get_block_state(pos);
-            level.send_block_updated(pos, st, st, 3);
+            level.send_block_updated(pos, state, state, 3);
             return false;
         }
-        if self.block_action_restricted(level, pos) {
+        if self.block_action_restricted(level, pos, self.game_mode.game_mode_for_player) {
             return false;
         }
-        // `Block.playerWillDestroy`: particles (level event 2001) + game event
-        level.level_event(Some(self.base_id()), 2001, pos, state.id() as i32);
         let adjusted = block_behaviour(block).player_will_destroy(state, level, pos, self);
         let changed = level.remove_block(pos, false);
         if changed {
             block_behaviour(block).destroy(level, pos, adjusted);
         }
-        if self.player.abilities.instabuild {
+        if self.prevents_block_drops() {
             return true;
         }
         let destroyed_with = main.copy();
         let can_destroy = self.has_correct_tool_for_drops(adjusted);
-        // `destroyedWith.mineBlock(level, adjustedState, pos, player)`: tool durability (on the main hand stack)
+        // `itemStack.mineBlock(level, adjustedState, pos, player)` on the main hand stack itself
         let mut mined_with = self.get_item_in_hand(InteractionHand::MainHand);
-        if !mined_with.is_empty() {
-            crate::world::item::mine_block(&mut mined_with, level, adjusted, pos, self);
-            self.set_item_in_hand(InteractionHand::MainHand, mined_with);
-        }
+        crate::world::item::mine_block(&mut mined_with, level, adjusted, pos, self);
+        self.set_item_in_hand(InteractionHand::MainHand, mined_with);
         if changed && can_destroy {
-            block_behaviour(block).player_destroy(level, self, pos, adjusted, &destroyed_with);
+            block_behaviour(block).player_destroy(level, self, pos, adjusted, block_entity.as_deref(), &destroyed_with);
         }
         true
+    }
+
+    /// `Player.preventsBlockDrops()`.
+    pub fn prevents_block_drops(&self) -> bool {
+        self.player.abilities.instabuild
+    }
+
+    /// `Player.hasInfiniteMaterials()`.
+    pub fn has_infinite_materials(&self) -> bool {
+        self.player.abilities.instabuild
+    }
+
+    /// `ServerPlayer.sendSystemMessage(message, overlay)`: hidden chat only accepts overlay messages.
+    pub fn send_system_message_overlay(&self, message: Component, overlay: bool) {
+        if self.chat_visibility != ChatVisibility::Hidden || overlay {
+            self.send(&ClientboundSystemChatPacket { content: message, overlay });
+        }
+    }
+
+    /// `sendOverlayMessage(message)`.
+    pub fn send_overlay_message(&self, message: Component) {
+        self.send_system_message_overlay(message, true);
+    }
+
+    /// `sendBuildLimitMessage(isTooHigh, limit)`.
+    pub fn send_build_limit_message(&self, is_too_high: bool, limit: i32) {
+        let key = if is_too_high { "build.tooHigh" } else { "build.tooLow" };
+        self.send_overlay_message(Component::translatable(key, vec![limit.into()]).with_format(ChatFormatting::Red));
+    }
+
+    /// `sendSpawnProtectionMessage(pos)`.
+    pub fn send_spawn_protection_message(&self, pos: BlockPos) {
+        self.send_overlay_message(Component::translatable("build.spawn_protection", vec![pos.to_short_string().into()]).with_format(ChatFormatting::Red));
     }
 
     /// `Player.canUseGameMasterBlocks()`: `abilities.instabuild` and op permission (ops are not modelled yet, so
@@ -253,49 +314,82 @@ impl ServerPlayer {
             return InteractionResult::PASS;
         }
         let stack = self.get_item_in_hand(hand);
-        if stack.is_empty() {
+        if self.player.cooldowns.is_on_cooldown(&stack) {
             return InteractionResult::PASS;
         }
         let (old_count, old_damage) = (stack.count(), stack.get_damage_value());
         let result = crate::world::item::item_stack_use(level, self, hand);
-        let result_stack = match &result {
-            InteractionResult::Success(s) => s.item_context.held_item_transformed_to.clone().unwrap_or_else(|| self.get_item_in_hand(hand)),
-            _ => self.get_item_in_hand(hand),
+        // `resultStack == itemStack` (identity) holds unless the use replaced the held stack
+        let transformed = match &result {
+            InteractionResult::Success(s) => s.item_context.held_item_transformed_to.clone(),
+            _ => None,
         };
-        if result_stack == stack && result_stack.count() == old_count && result_stack.get_damage_value() == old_damage {
+        let same_stack = transformed.is_none();
+        let result_stack = transformed.unwrap_or_else(|| self.get_item_in_hand(hand));
+        let use_duration = if result_stack.is_empty() { 0 } else { behaviour(result_stack.item()).get_use_duration(&result_stack) };
+        if same_stack && result_stack.count() == old_count && use_duration <= 0 && result_stack.get_damage_value() == old_damage {
             return result;
         }
-        self.set_item_in_hand(hand, if result_stack.is_empty() { ItemStack::empty() } else { result_stack });
+        if result == InteractionResult::FAIL && use_duration > 0 && !self.is_using_item() {
+            return result;
+        }
+        if !same_stack {
+            self.set_item_in_hand(hand, result_stack.clone());
+        }
+        if result_stack.is_empty() {
+            self.set_item_in_hand(hand, ItemStack::empty());
+        }
+        if !self.is_using_item() {
+            self.send_inventory_menu_all_data(level);
+        }
         result
+    }
+
+    /// `inventoryMenu.sendAllDataToRemote()`.
+    pub fn send_inventory_menu_all_data(&mut self, level: &mut ServerLevel) {
+        use crate::world::entity::player::menu_ctx::PlayerCtx;
+        use crate::world::inventory::PlayerMenus;
+        let mut menus = std::mem::replace(&mut self.player.menus, PlayerMenus::new());
+        {
+            let mut ctx = PlayerCtx { player: self, level };
+            menus.inventory_menu_mut().base_mut().send_all_data_to_remote(&mut ctx);
+        }
+        self.player.menus = menus;
     }
 
     /// `ServerPlayerGameMode.useItemOn(player, level, stack, hand, hitResult)`.
     pub fn use_item_on(&mut self, level: &mut ServerLevel, hand: InteractionHand, hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
         let pos = hit.block_pos;
         let state = level.get_block_state(pos);
+        if !block_is_enabled(state.block(), level.enabled_features()) {
+            return InteractionResult::FAIL;
+        }
         if self.game_mode.game_mode_for_player == GameType::Spectator {
-            // menu providers / portals are not modelled
+            // SEAM(block menus): `state.getMenuProvider(level, pos)` -> `player.openMenu` (CONSUME) and the `Portal`
+            // spectator teleport (`teleportToPortalDestination`): block menu providers and portals are not ported.
             return InteractionResult::PASS;
         }
         let item_stack = self.get_item_in_hand(hand);
         let have_something = !self.player.inventory.get_selected_item().is_empty() || !self.player.inventory.equipment_get(EquipmentSlot::OffHand).is_empty();
         let suppress_using_block = self.is_shift_key_down() && have_something;
-        let behaviour = block_behaviour(state.block());
+        let behaviour_of_block = block_behaviour(state.block());
         if !suppress_using_block {
-            let item_use = behaviour.use_item_on(&item_stack, state, level, pos, self, hand, hit);
+            let item_use = behaviour_of_block.use_item_on(&item_stack, state, level, pos, self, hand, hit);
             if item_use.consumes_action() {
+                // SEAM(EcPredicates): `CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(player, pos, usedItemStack)`
                 return item_use;
             }
             if item_use == InteractionResult::TRY_WITH_EMPTY_HAND && hand == InteractionHand::MainHand {
-                let r = behaviour.use_without_item(state, level, pos, self, hit);
+                let r = behaviour_of_block.use_without_item(state, level, pos, self, hit);
                 if r.consumes_action() {
+                    // SEAM(EcPredicates): `CriteriaTriggers.DEFAULT_BLOCK_USE.trigger(player, pos)`
                     return r;
                 }
             }
         }
-        if !item_stack.is_empty() {
+        if !item_stack.is_empty() && !self.player.cooldowns.is_on_cooldown(&item_stack) {
             let mut context = UseOnContext::new(Some(self.context_player()), hand, item_stack.clone(), *hit);
-            let infinite = self.player.abilities.instabuild;
+            let infinite = self.has_infinite_materials();
             let count = item_stack.count();
             let result = crate::world::item::item_stack_use_on(&mut context, level, self);
             let mut s = context.item_stack;
@@ -312,11 +406,11 @@ impl ServerPlayer {
                     self.set_item_in_hand(hand, s);
                 }
             }
+            // SEAM(EcPredicates): `CriteriaTriggers.ITEM_USED_ON_BLOCK` when the result consumes the action
             return result;
         }
         InteractionResult::PASS
     }
-
     /// `ServerPlayerGameMode.tick()` minus the `gameTicks++` (done in `ServerPlayer::tick_server_player`): digging progress broadcast.
     pub fn tick_game_mode(&mut self, level: &mut ServerLevel) {
         let id = self.base_id();

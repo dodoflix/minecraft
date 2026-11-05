@@ -118,3 +118,29 @@ impl ServerLevel {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::server::level::level_data::{PrimaryServerLevelData, ServerLevelData, default_world_data};
+
+    /// The accessors read the shared server state at the point of use (vanilla: `/difficulty hard` is visible to the
+    /// damage code of the same tick), not a per-tick copy.
+    #[test]
+    fn difficulty_is_read_live() {
+        let world = default_world_data();
+        let data = PrimaryServerLevelData(world.clone());
+        world.lock().settings.difficulty_settings.difficulty = Difficulty::Hard;
+        assert_eq!(data.get_difficulty(), Difficulty::Hard);
+        world.lock().settings.difficulty_settings.difficulty = Difficulty::Peaceful;
+        assert_eq!(data.get_difficulty(), Difficulty::Peaceful);
+    }
+
+    #[test]
+    fn scoreboard_handle_is_shared() {
+        let a = SharedScoreboard::default();
+        let b = a.clone();
+        a.write().add_player_team("red");
+        assert_eq!(b.read().get_team_names().count(), 1);
+    }
+}
