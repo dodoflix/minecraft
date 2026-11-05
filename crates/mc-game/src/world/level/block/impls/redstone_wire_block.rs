@@ -1,9 +1,83 @@
 //! `net.minecraft.world.level.block.RedstoneWireBlock` (`redstone_wire`).
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::item::{BlockPlaceContext, InteractionResult};
+use crate::world::level::redstone::default_redstone_wire_evaluator::DefaultRedstoneWireEvaluator;
+use crate::world::level::redstone::experimental_redstone_wire_evaluator::ExperimentalRedstoneWireEvaluator;
+use crate::world::level::redstone::redstone_wire_evaluator::RedstoneWireEvaluator;
+use crate::world::level::redstone::{ExperimentalRedstoneUtils, Orientation};
+use crate::world::level::signal_getter::get_best_neighbor_signal;
 use mc_data::enums::RedstoneSide;
 use mc_data::props::EnumProperty;
+use mc_world::level_storage::FeatureFlagSet;
+use std::cell::Cell;
 
 pub struct RedstoneWireBlock;
+
+thread_local! {
+    /// `RedStoneWireBlock.shouldSignal` (a field of the singleton block; one game thread per level here).
+    static SHOULD_SIGNAL: Cell<bool> = const { Cell::new(true) };
+}
+
+fn should_signal() -> bool {
+    SHOULD_SIGNAL.get()
+}
+
+/// `RedStoneWireBlock.getBlockSignal(level, pos)`: the best signal of the neighbours other than wires.
+pub fn get_block_signal(level: &ServerLevel, pos: BlockPos) -> i32 {
+    SHOULD_SIGNAL.set(false);
+    let block_signal = get_best_neighbor_signal(level, pos);
+    SHOULD_SIGNAL.set(true);
+    block_signal
+}
+
+fn use_experimental_evaluator(level: &ServerLevel) -> bool {
+    level.enabled_features().contains_all(FeatureFlagSet::REDSTONE_EXPERIMENTS)
+}
+
+/// `RedStoneWireBlock.updatePowerStrength(level, pos, state, orientation, shapeUpdateWiresAroundInitialPosition)`.
+fn update_power_strength(level: &mut ServerLevel, pos: BlockPos, state: BlockState, orientation: Option<Orientation>, shape_update_wires_around_initial_position: bool) {
+    if use_experimental_evaluator(level) {
+        ExperimentalRedstoneWireEvaluator::new().update_power_strength(level, pos, state, orientation, shape_update_wires_around_initial_position);
+    } else {
+        DefaultRedstoneWireEvaluator.update_power_strength(level, pos, state, orientation, shape_update_wires_around_initial_position);
+    }
+}
+
+fn check_corner_change_at(level: &mut ServerLevel, pos: BlockPos) {
+    if BlockGetter::get_block_state(level, pos).is_block(Block::REDSTONE_WIRE) {
+        level.update_neighbors_at(pos, Block::REDSTONE_WIRE);
+        for direction in Direction::ALL {
+            level.update_neighbors_at(pos.relative(direction), Block::REDSTONE_WIRE);
+        }
+    }
+}
+
+fn update_neighbors_of_neighboring_wires(level: &mut ServerLevel, pos: BlockPos) {
+    for direction in Direction::HORIZONTAL {
+        check_corner_change_at(level, pos.relative(direction));
+    }
+    for direction in Direction::HORIZONTAL {
+        let target = pos.relative(direction);
+        if BlockGetter::get_block_state(level, target).is_redstone_conductor() {
+            check_corner_change_at(level, target.above());
+        } else {
+            check_corner_change_at(level, target.below());
+        }
+    }
+}
+
+fn updates_on_shape_change(level: &mut ServerLevel, pos: BlockPos, old_state: BlockState, new_state: BlockState) {
+    let orientation = ExperimentalRedstoneUtils::initial_orientation(level, None, Some(Direction::Up));
+    for direction in Direction::HORIZONTAL {
+        let relative_pos = pos.relative(direction);
+        if is_connected(old_state.get(side_property(direction))) != is_connected(new_state.get(side_property(direction)))
+            && BlockGetter::get_block_state(level, relative_pos).is_redstone_conductor()
+        {
+            level.update_neighbors_at_except_from_facing(relative_pos, new_state.block(), direction.get_opposite(), ExperimentalRedstoneUtils::with_front(orientation, direction));
+        }
+    }
+}
 
 fn side_property(direction: Direction) -> EnumProperty<RedstoneSide> {
     match direction {
@@ -104,6 +178,9 @@ fn get_connection_state(level: &dyn BlockGetter, mut state: BlockState, pos: Blo
 }
 
 impl BlockBehaviour for RedstoneWireBlock {
+    fn get_state_for_placement(&self, _block: Block, level: &mut ServerLevel, context: &BlockPlaceContext) -> Option<BlockState> {
+        Some(get_connection_state(&*level, cross_state(), context.get_clicked_pos()))
+    }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below = pos.below();
         can_survive_on(level, below, level.get_block_state(below))
@@ -141,6 +218,67 @@ impl BlockBehaviour for RedstoneWireBlock {
                 }
             }
         }
+    }
+    fn on_place(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_state: BlockState, _moved_by_piston: bool) {
+        if !old_state.is_block(state.block()) {
+            update_power_strength(level, pos, state, None, true);
+            for direction in Direction::VERTICAL {
+                level.update_neighbors_at(pos.relative(direction), Block::REDSTONE_WIRE);
+            }
+            update_neighbors_of_neighboring_wires(level, pos);
+        }
+    }
+    fn affect_neighbors_after_removal(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, moved_by_piston: bool) {
+        if !moved_by_piston {
+            for direction in Direction::ALL {
+                level.update_neighbors_at(pos.relative(direction), Block::REDSTONE_WIRE);
+            }
+            update_power_strength(level, pos, state, None, false);
+            update_neighbors_of_neighboring_wires(level, pos);
+        }
+    }
+    fn neighbor_changed(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, block: Block, orientation: Option<Orientation>, _moved_by_piston: bool) {
+        if block != Block::REDSTONE_WIRE || !use_experimental_evaluator(level) {
+            if state.can_survive(&*level, pos) {
+                update_power_strength(level, pos, state, orientation, false);
+            } else {
+                helpers::drop_resources(level, state, pos, None);
+                level.remove_block(pos, false);
+            }
+        }
+    }
+    fn get_direct_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
+        if !should_signal() { 0 } else { state.get_signal(level, pos, direction) }
+    }
+    fn get_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
+        if should_signal() && direction != Direction::Down {
+            let power = self.own_signal(state, level, pos);
+            if power == 0 {
+                0
+            } else if direction != Direction::Up && !is_connected(get_connection_state(level, state, pos).get(side_property(direction.get_opposite()))) {
+                0
+            } else {
+                power
+            }
+        } else {
+            0
+        }
+    }
+    fn use_without_item(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, player: &mut crate::world::entity::ServerPlayer, _hit: &mc_core::phys::BlockHitResult) -> InteractionResult {
+        if !player.player.abilities.may_build {
+            return InteractionResult::PASS;
+        }
+        if is_cross(state) || is_dot(state) {
+            let mut new_state = if is_cross(state) { Block::REDSTONE_WIRE.default_state() } else { cross_state() };
+            new_state = new_state.set(props::POWER, state.get(props::POWER));
+            new_state = get_connection_state(&*level, new_state, pos);
+            if new_state != state {
+                level.set_block_and_update(pos, new_state);
+                updates_on_shape_change(level, pos, state, new_state);
+                return InteractionResult::SUCCESS;
+            }
+        }
+        InteractionResult::PASS
     }
     fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
         state.get(props::POWER)

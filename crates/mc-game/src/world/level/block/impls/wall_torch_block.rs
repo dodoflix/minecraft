@@ -15,6 +15,19 @@ pub fn update_shape(state: BlockState, level: &dyn LevelReader, pos: BlockPos, d
 }
 
 impl BlockBehaviour for WallTorchBlock {
+    fn get_state_for_placement(&self, block: Block, level: &mut crate::server::level::ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let mut state = block.default_state();
+        let pos = context.get_clicked_pos();
+        for direction in context.get_nearest_looking_directions() {
+            if direction.get_axis().is_horizontal() {
+                state = state.set(props::HORIZONTAL_FACING, direction.get_opposite());
+                if state.can_survive(&*level, pos) {
+                    return Some(state);
+                }
+            }
+        }
+        None
+    }
     fn can_survive(&self, state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         can_survive(level, pos, state.get(props::HORIZONTAL_FACING))
     }
