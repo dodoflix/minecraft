@@ -391,6 +391,32 @@ impl Entity for Zombie {
         }
     }
 
+    fn perform_ranged_attack(&mut self, level: &mut ServerLevel, target: EntityId, power: f32) {
+        if let ZombieKind::Drowned(_) = self.kind {
+            drowned::perform_ranged_attack(self, level, target, power);
+        }
+    }
+
+    fn ranged_attack_uncertainty(&self, level: &ServerLevel) -> f32 {
+        match self.kind {
+            ZombieKind::Drowned(_) => drowned::ranged_attack_uncertainty(self, level),
+            _ => 14.0 - (level.difficulty().get_id() * 4) as f32,
+        }
+    }
+
+    fn after_ride_tick(&mut self, level: &ServerLevel) {
+        if let ZombieKind::Drowned(_) = self.kind {
+            if let Some(vehicle) = mob::navigation::controlled_vehicle(self, level).and_then(|v| level.get_entity(v)) {
+                if vehicle.mob().is_some_and(|m| m.kind.is_pathfinder()) {
+                    let body = vehicle.living().map(|l| l.y_body_rot);
+                    if let (Some(body), Some(l)) = (body, self.living_mut()) {
+                        l.y_body_rot = body;
+                    }
+                }
+            }
+        }
+    }
+
     fn custom_server_ai_step(&mut self, level: &mut ServerLevel) {
         if let ZombieKind::ZombifiedPiglin(_) = self.kind {
             zombified_piglin::custom_server_ai_step(self, level);

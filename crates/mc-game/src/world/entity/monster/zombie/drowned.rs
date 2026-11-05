@@ -365,3 +365,41 @@ fn _unused(zombie: &Zombie) {
     let _ = (data(zombie), l);
     let _ = data_mut;
 }
+
+/// `LivingEntity.startUsingItem(MAIN_HAND)` for a mob (the equipment packet and the use vibration are player-only).
+pub fn start_using_main_hand_item(mob: &mut dyn Entity) {
+    use crate::world::entity::living::LIVING_ENTITY_FLAG_IS_USING;
+    let stack = mob.get_item_by_slot(EquipmentSlot::MainHand);
+    let using = l(mob).get_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING);
+    if !stack.is_empty() && !using {
+        let duration = crate::world::item::behaviour(stack.item()).get_use_duration(&stack);
+        let living = crate::world::entity::living_entity::util::lm(mob);
+        living.use_item = stack;
+        living.use_item_remaining = duration;
+        living.set_living_entity_flag(LIVING_ENTITY_FLAG_IS_USING, true);
+        living.set_living_entity_flag(crate::world::entity::living::LIVING_ENTITY_FLAG_OFF_HAND, false);
+    }
+}
+
+/// `performRangedAttack(target, power)`: throws a trident.
+pub fn perform_ranged_attack(zombie: &mut Zombie, level: &mut ServerLevel, target: crate::world::entity::EntityId, _power: f32) {
+    use crate::world::entity::projectile::arrow::thrown_trident::ThrownTrident;
+    let main = zombie.get_item_by_slot(EquipmentSlot::MainHand);
+    let trident_stack = if main.is(Item::TRIDENT) { main } else { ItemStack::new(Item::TRIDENT) };
+    let trident = ThrownTrident::from_owner(level, zombie, trident_stack.clone());
+    let Some((tx, tz, ty_third)) = level.get_entity(target).map(|t| (t.base().x(), t.base().z(), t.base().get_y_progress(0.3333333333333333))) else { return };
+    let xd = tx - zombie.base().x();
+    let yd = ty_third - trident.base().y();
+    let zd = tz - zombie.base().z();
+    let distance_to_target = (xd * xd + zd * zd).sqrt();
+    let uncertainty = zombie.ranged_attack_uncertainty(level);
+    crate::world::entity::projectile::spawn::spawn_projectile_using_shoot(level, Box::new(trident), &trident_stack, xd, yd + distance_to_target * f64::from(0.2f32), zd, 1.6, uncertainty);
+    let pitch = 1.0 / (zombie.base_mut().random.next_float() * 0.4 + 0.8);
+    zombie.play_sound(level, mc_data::SoundEvent::ENTITY_DROWNED_SHOOT, 1.0, pitch);
+}
+
+/// `rangedAttackUncertainty(level)`.
+pub fn ranged_attack_uncertainty(zombie: &Zombie, level: &ServerLevel) -> f32 {
+    let u = data(zombie).ranged_attack_uncertainty;
+    if u < 0.0 { 14.0 - (level.difficulty().get_id() * 4) as f32 } else { u }
+}

@@ -24,7 +24,7 @@ pub trait RemoveBlockHooks: Send + Sync {
         1.0
     }
     /// `playDestroyProgressSound(level, pos)`.
-    fn play_destroy_progress_sound(&self, _level: &mut ServerLevel, _pos: BlockPos) {}
+    fn play_destroy_progress_sound(&self, _mob: &mut dyn Entity, _level: &mut ServerLevel, _pos: BlockPos) {}
     /// `playBreakSound(level, pos)`.
     fn play_break_sound(&self, _level: &mut ServerLevel, _pos: BlockPos) {}
 }
@@ -133,7 +133,7 @@ impl Goal for RemoveBlockGoal {
                 let movement = mob.base().delta_movement();
                 mob.base_mut().set_delta_movement(Vec3::new(movement.x, -0.3, movement.z));
                 if self.ticks_since_reached_goal % 6 == 0 {
-                    self.hooks.play_destroy_progress_sound(level, self.mtb.block_pos);
+                    self.hooks.play_destroy_progress_sound(mob, level, self.mtb.block_pos);
                 }
             }
             if self.ticks_since_reached_goal > 60 {

@@ -2,7 +2,7 @@
 
 use super::{AbstractSkeleton, SkeletonKind};
 use crate::server::level::ServerLevel;
-use crate::world::entity::ai::goal::{Goal, LookAtPlayerGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
+use crate::world::entity::ai::goal::{Goal, GoalFlags, LookAtPlayerGoal, MeleeAttackGoal, RandomLookAroundGoal, WaterAvoidingRandomStrollGoal};
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::mob;
 use crate::world::entity::projectile::arrow::Arrow;
@@ -23,17 +23,72 @@ pub fn item_is_in_tag(stack: &ItemStack, tag: &str) -> bool {
 
 /// `registerGoals()`.
 pub fn register_goals(skeleton: &mut AbstractSkeleton) {
+    use crate::world::entity::ai::goal::target::{HurtByTargetGoal, NearestAttackableTargetGoal, TargetType};
+    use crate::world::entity::ai::goal::{AvoidEntityGoal, FleeSunGoal, RestrictSunGoal};
+    use mc_data::EntityType;
+    use std::sync::Arc;
     if let SkeletonKind::WitherSkeleton = skeleton.kind {
         // `WitherSkeleton.registerGoals`: its piglin target goal comes first, then `super.registerGoals()`
+        let abstract_piglin = TargetType::Class(Arc::new(|e: &dyn Entity| matches!(e.get_type(), EntityType::PIGLIN | EntityType::PIGLIN_BRUTE)));
+        skeleton.mob.target_selector.add_goal(3, Box::new(NearestAttackableTargetGoal::new(abstract_piglin, true)));
     }
     let look_at = LookAtPlayerGoal::new_player(skeleton, 8.0);
-    skeleton.mob.goal_selector.add_goal(5, Box::new(WaterAvoidingRandomStrollGoal::new(1.0)));
-    skeleton.mob.goal_selector.add_goal(6, Box::new(look_at));
-    skeleton.mob.goal_selector.add_goal(6, Box::new(RandomLookAroundGoal::new()));
+    let sel = &mut skeleton.mob.goal_selector;
+    sel.add_goal(2, Box::new(RestrictSunGoal::new()));
+    sel.add_goal(3, Box::new(FleeSunGoal::new(1.0)));
+    sel.add_goal(3, Box::new(AvoidEntityGoal::new(Arc::new(|e: &dyn Entity| e.get_type() == EntityType::WOLF), 6.0, 1.0, 1.2)));
+    sel.add_goal(5, Box::new(WaterAvoidingRandomStrollGoal::new(1.0)));
+    sel.add_goal(6, Box::new(look_at));
+    sel.add_goal(6, Box::new(RandomLookAroundGoal::new()));
+    let t = &mut skeleton.mob.target_selector;
+    t.add_goal(1, Box::new(HurtByTargetGoal::new(Vec::new())));
+    t.add_goal(2, Box::new(NearestAttackableTargetGoal::new(TargetType::Player, true)));
+    t.add_goal(3, Box::new(NearestAttackableTargetGoal::new(TargetType::of_type(EntityType::IRON_GOLEM), true)));
+    let baby_on_land: crate::world::entity::ai::targeting::TargetSelector = Arc::new(|target: &dyn Entity, _level: &ServerLevel| target.is_baby() && !target.is_in_water());
+    t.add_goal(3, Box::new(NearestAttackableTargetGoal::build(TargetType::of_type(EntityType::TURTLE), 10, true, false, Some(baby_on_land))));
 }
 
-/// The `bowGoal` / `meleeGoal` field initializers.
-pub fn create_weapon_goals(_skeleton: &mut AbstractSkeleton) {}
+/// The `bowGoal` / `meleeGoal` field initializers. NOT YET: `bowGoal` (`RangedBowAttackGoal` is not on main).
+pub fn create_weapon_goals(skeleton: &mut AbstractSkeleton) {
+    skeleton.parked_melee_goal = Some(Box::new(SkeletonMeleeAttackGoal { melee: MeleeAttackGoal::new(1.2, false) }));
+}
+
+/// The anonymous `MeleeAttackGoal` subclass of `AbstractSkeleton` (aggressive flag on start/stop).
+struct SkeletonMeleeAttackGoal {
+    melee: MeleeAttackGoal,
+}
+
+impl Goal for SkeletonMeleeAttackGoal {
+    fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        self.melee.can_use_impl(mob, level)
+    }
+
+    fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        self.melee.can_continue_to_use_impl(mob, level)
+    }
+
+    fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
+        self.melee.start_impl(mob, level);
+        mob.mob_mut().expect("mob").set_aggressive(true);
+    }
+
+    fn stop(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
+        self.melee.stop_impl(mob, level);
+        mob.mob_mut().expect("mob").set_aggressive(false);
+    }
+
+    fn requires_update_every_tick(&self) -> bool {
+        true
+    }
+
+    fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
+        self.melee.tick_impl(mob, level);
+    }
+
+    fn flags(&self) -> GoalFlags {
+        self.melee.flags()
+    }
+}
 
 fn is_melee(goal: &dyn Goal) -> bool {
     goal.name() == "SkeletonMeleeAttackGoal"

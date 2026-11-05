@@ -77,6 +77,7 @@ pub fn item_is_in_tag(stack: &ItemStack, tag: &str) -> bool {
 /// `registerGoals()` + the virtual `addBehaviourGoals()`.
 pub fn register_goals(zombie: &mut Zombie) {
     // `ZombieAttackTurtleEggGoal` (priority 4) is added with the behaviour goals below, in vanilla's order
+    super::goals::add_egg_goal(zombie);
     let look_at = LookAtPlayerGoal::new_player(zombie, 8.0);
     zombie.mob.goal_selector.add_goal(8, Box::new(look_at));
     zombie.mob.goal_selector.add_goal(8, Box::new(RandomLookAroundGoal::new()));
