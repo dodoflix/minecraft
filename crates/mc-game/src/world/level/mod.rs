@@ -14,6 +14,7 @@ pub mod precipitation;
 pub mod redstone;
 pub mod saveddata;
 pub mod shapes;
+pub mod storage;
 pub mod ticket_storage;
 
 pub use level_access::{BlockGetter, LevelAccessor, LevelReader};
