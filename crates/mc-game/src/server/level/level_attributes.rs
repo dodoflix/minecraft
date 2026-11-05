@@ -50,6 +50,11 @@ impl ServerLevel {
         self.environment_value_at(attribute, pos).as_bool()
     }
 
+    /// `getValue(attribute, Vec3)` as a boolean.
+    pub fn attribute_bool_vec(&self, attribute: &str, pos: &Vec3) -> bool {
+        self.environment_value(attribute, pos).as_bool()
+    }
+
     pub fn dimension_bool(&self, attribute: &str) -> bool {
         self.environment_dimension_value(attribute).as_bool()
     }
@@ -83,6 +88,11 @@ impl ServerLevel {
             AttrValue::Activity(activity) => activity,
             other => panic!("{attribute} is not an activity: {other:?}"),
         }
+    }
+
+    /// `dimensionType().ambientLight()`.
+    pub fn ambient_light(&self) -> f32 {
+        self.tick_state.ambient_light
     }
 
     /// `Level.isBrightOutside()`.
