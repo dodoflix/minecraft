@@ -1,0 +1,106 @@
+# /clear, /give, /item, /loot on both servers (Bot at 0.5 -60 0.5, Bot0 at 2.5 -60 0.5)
+!packets ^$
+!ignore has made the advancement
+clear Bot
+give Bot minecraft:stick 5
+give Bot minecraft:apple 70
+give Bot minecraft:diamond_sword 3
+give Bot minecraft:stick 1000
+give Bot minecraft:stick 6400
+give Bot minecraft:stick 6401
+give @a minecraft:cobblestone 128
+clear Bot minecraft:stick 0
+clear Bot minecraft:stick 3
+clear Bot minecraft:stick 0
+clear Bot minecraft:stick
+clear Bot minecraft:stick
+clear Bot minecraft:nope
+clear Bot #minecraft:swords
+clear Bot *[count=64] 0
+clear Bot *[count=(1..64)] 2
+clear Bot minecraft:cobblestone[count=64|count=1]
+clear @a minecraft:apple 0
+clear @a
+clear @e[type=minecraft:cow]
+clear @a[name=nobody]
+@bot clear
+@bot0 clear
+give @a minecraft:stone 2
+item replace entity Bot weapon.mainhand with minecraft:diamond_sword
+item replace entity Bot weapon.offhand with minecraft:shield
+item replace entity Bot hotbar.0 with minecraft:apple 5
+item replace entity Bot container.3 with minecraft:stick 99
+item replace entity Bot armor.head with minecraft:stick
+item replace entity Bot armor.head with minecraft:iron_helmet
+item replace entity Bot armor.chest with minecraft:iron_chestplate
+item replace entity Bot armor.* with minecraft:air
+item replace entity Bot hotbar.* with minecraft:bread 3
+item replace entity Bot nope.0 with minecraft:stick
+item replace entity Bot container.99 with minecraft:stick
+item replace entity Bot enderchest.0 with minecraft:diamond 2
+item replace entity Bot player.cursor with minecraft:dirt 4
+item replace entity Bot player.crafting.0 with minecraft:oak_planks 4
+item replace entity Bot container.0 from entity Bot hotbar.0
+item replace entity Bot container.1 from entity Bot hotbar.*
+item replace entity Bot container.2 from entity Bot container.50
+item replace entity @a hotbar.1 with minecraft:carrot
+item fill entity Bot container.* with minecraft:stick 3
+item fill entity Bot hotbar.* from entity Bot weapon.mainhand
+item override entity Bot container.0 from entity Bot hotbar.*
+item replace entity @e[type=minecraft:cow] weapon.mainhand with minecraft:stick
+item replace entity Bot container.5 with minecraft:stick 100
+item replace entity Bot container.5 with minecraft:stick 0
+item replace entity Bot container.5 with minecraft:nope
+item modify entity Bot hotbar.0 minecraft:nope
+item modify entity Bot weapon.mainhand {"function":"minecraft:set_count","count":7}
+item modify entity Bot hotbar.* {"function":"minecraft:set_count","count":2,"add":true}
+item modify entity Bot hotbar.0 {"function":"minecraft:set_name","name":{"text":"Hi"},"target":"item_name"}
+item modify entity Bot container.20 {"function":"minecraft:set_count","count":2}
+item modify entity Bot hotbar.0 {"function":"minecraft:nope"}
+item modify entity Bot hotbar.0 {"function":"minecraft:set_count","count":"x"}
+setblock 0 -60 3 minecraft:dropper
+setblock 0 -60 5 minecraft:stone
+item replace block 0 -60 3 container.0 with minecraft:diamond 5
+item replace block 0 -60 3 container.1 from entity Bot hotbar.0
+item replace block 0 -60 3 container.8 with minecraft:emerald
+item replace block 0 -60 3 container.9 with minecraft:emerald
+item replace block 0 -60 3 container.* with minecraft:gold_ingot 2
+item modify block 0 -60 3 container.0 {"function":"minecraft:set_count","count":9}
+item modify block 0 -60 3 container.* {"function":"minecraft:set_count","count":3,"add":true}
+item replace block 0 -60 5 container.0 with minecraft:diamond
+item replace block 0 -60 5 container.0 from block 0 -60 3 container.0
+item replace entity Bot hotbar.2 from block 0 -60 3 container.0
+item replace entity Bot hotbar.2 from block 0 -60 5 container.0
+item replace block 0 -60 3 container.0 from block 0 -60 3 container.4
+item replace block 500 -60 3 container.0 with minecraft:stick
+loot give Bot loot minecraft:chests/simple_dungeon
+loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:diamond","functions":[{"function":"minecraft:set_count","count":3}]}]}]}
+loot give @a loot nope:table
+loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]},{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:stick"}]}]}
+loot give Bot loot {"pools":[]}
+loot spawn 0 -59 8 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+loot spawn 0 -59 8 mine 0 -60 5
+loot spawn 0 -59 8 mine 0 -60 5 minecraft:diamond_pickaxe
+loot spawn 0 -59 8 mine 0 -60 5 mainhand
+@bot loot spawn 0 -59 8 mine 0 -60 5 mainhand
+@bot loot spawn 0 -59 8 mine 0 -60 5 offhand
+loot spawn 0 -59 8 mine 0 -60 3
+loot insert 0 -60 3 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+loot insert 0 -60 5 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:apple"}]}]}
+loot replace block 0 -60 3 container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+loot replace block 0 -60 3 container.0 3 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+loot replace block 0 -60 3 container.30 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+loot replace block 0 -60 5 container.0 loot {"pools":[]}
+loot replace entity Bot hotbar.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+loot replace entity Bot hotbar.0 4 loot {"pools":[{"rolls":2,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+loot replace entity Bot armor.head loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:iron_helmet"}]}]}
+loot replace entity @e[type=minecraft:cow] weapon.mainhand loot {"pools":[]}
+loot spawn 0 -59 8 kill @e[type=minecraft:cow]
+loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0
+loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 minecraft:fishing_rod
+loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 mainhand
+@bot loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cod"}]}]} 0 -60 0 mainhand
+loot give Bot loot minecraft:chests/nope
+loot give Bot mine 0 -60 5 minecraft:stick
+loot give Bot
+loot nope
