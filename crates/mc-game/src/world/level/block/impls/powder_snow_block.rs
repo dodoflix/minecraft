@@ -15,6 +15,24 @@ fn random_between(random: &mut dyn RandomSource, min: f32, max: f32) -> f32 {
 }
 
 impl BlockBehaviour for PowderSnowBlock {
+    /// `getCollisionShape`: a falling entity (fall distance > 2.5) lands on a 0.9 high slab of the block, entities that can
+    /// walk on powder snow (leather boots, ...) and falling blocks stand on the full block, everything else sinks in.
+    fn get_collision_shape(&self, _state: BlockState, _level: &dyn BlockGetter, pos: BlockPos, context: &crate::world::level::collision::CollisionContext) -> mc_core::phys::shapes::VoxelShape {
+        use mc_core::phys::shapes::Shapes;
+        if !context.is_placement() && context.entity().is_some() {
+            if context.entity_fall_distance() > 2.5 {
+                return Shapes::box_(0.0, 0.0, 0.0, 1.0, f64::from(0.9f32), 1.0);
+            }
+            if context.entity_is_falling_block() || (context.entity_can_walk_on_powder_snow() && context.is_above(&Shapes::block(), pos, false) && !context.is_descending()) {
+                return Shapes::block();
+            }
+        }
+        Shapes::empty()
+    }
+    fn get_entity_inside_collision_shape(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, entity: &dyn Entity) -> mc_core::phys::shapes::VoxelShape {
+        let shape = self.get_collision_shape(state, level, pos, &crate::world::entity::movement::collision_context(entity));
+        if shape.is_empty() { mc_core::phys::shapes::Shapes::block() } else { shape }
+    }
     fn entity_inside(&self, state: BlockState, level: &mut ServerLevel, pos: BlockPos, entity: &mut dyn Entity, effect_applier: &mut dyn InsideBlockEffectApplier, _is_precise: bool) {
         if entity.living().is_none() || entity.get_in_block_state(level).is_block(state.block()) {
             entity.make_stuck_in_block(state, Vec3::new(f64::from(0.9f32), 1.5, f64::from(0.9f32)));

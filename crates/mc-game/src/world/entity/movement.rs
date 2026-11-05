@@ -40,7 +40,22 @@ pub trait MovementLevel: CollisionGetter + EntityCollisionQuery {
 
 /// `CollisionContext.of(entity)` (`EntityCollisionContext(entity, false, false)`).
 pub fn collision_context(entity: &dyn Entity) -> CollisionContext {
-    CollisionContext::of_entity(entity.id(), entity.is_descending(), entity.base().y(), entity.held_item_for_collision(), entity.can_stand_on_fluid_fn(), false)
+    CollisionContext::of_entity(entity.id(), entity.is_descending(), entity.base().y(), entity.held_item_for_collision(), entity.can_stand_on_fluid_fn(), false).with_entity_state(
+        entity.base().fall_distance,
+        entity.get_type() == mc_data::EntityType::FALLING_BLOCK,
+        can_entity_walk_on_powder_snow(entity),
+    )
+}
+
+/// `PowderSnowBlock.canEntityWalkOnPowderSnow(entity)`.
+pub fn can_entity_walk_on_powder_snow(entity: &dyn Entity) -> bool {
+    if mc_data::tags::get::<mc_data::EntityType>("powder_snow_walkable_mobs").is_some_and(|t| t.contains(entity.get_type())) {
+        return true;
+    }
+    entity.living().is_some() && {
+        let boots = entity.get_item_by_slot(super::equipment::EquipmentSlot::Feet);
+        !boots.is_empty() && boots.item() == mc_data::Item::LEATHER_BOOTS
+    }
 }
 
 fn collect_colliders_ignoring_world_border<L: MovementLevel>(

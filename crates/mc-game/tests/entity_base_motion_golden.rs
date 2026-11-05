@@ -29,10 +29,34 @@ fn fmt_vec(x: f64, y: f64, z: f64) -> String {
     format!("{x:?},{y:?},{z:?}")
 }
 
+fn registries() -> mc_game::registry::RegistryAccess {
+    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
+    ACCESS
+        .get_or_init(|| {
+            let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+            let dir = tempfile::tempdir().unwrap();
+            let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+            stem.registries.composite_access().clone()
+        })
+        .clone()
+}
+
 /// Replays `scenario` and returns the dump lines the Java driver prints (E lines restricted to the compared fields).
 fn replay(scenario: &str) -> Vec<String> {
     let text = std::fs::read_to_string(scenario_dir().join(format!("{scenario}.txt"))).unwrap();
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+    level.registries = registries();
+    // `level flat`: grass at y=-61 (bedrock and dirt below are irrelevant for these scenarios)
+    for x in -48..=64 {
+        for z in -16..=16 {
+            level.set_block(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state(), 3, 512);
+        }
+    }
+    for cx in -4..=4 {
+        for cz in -2..=2 {
+            level.entity_manager.update_chunk_status(mc_core::pos::ChunkPos::new(cx, cz), mc_game::world::level::entity::Visibility::Ticking);
+        }
+    }
     let mut refs: Vec<(String, EntityId)> = Vec::new();
     let mut out = Vec::new();
     let mut tick = 0;
