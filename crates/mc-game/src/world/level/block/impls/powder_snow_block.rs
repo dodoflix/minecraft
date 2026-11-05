@@ -73,6 +73,19 @@ impl BlockBehaviour for PowderSnowBlock {
         effect_applier.apply(InsideBlockEffectType::Extinguish);
     }
 
+    fn is_bucket_pickup(&self) -> bool {
+        true
+    }
+    /// `BucketPickup.pickupBlock`.
+    fn pickup_block(&self, _user: Option<&dyn Entity>, level: &mut dyn LevelAccessor, pos: BlockPos, state: BlockState) -> crate::world::item::ItemStack {
+        level.set_block_flags(pos, air(), 11);
+        level.level_event(None, 2001, pos, state.id() as i32);
+        crate::world::item::ItemStack::new(mc_data::Item::POWDER_SNOW_BUCKET)
+    }
+    fn get_pickup_sound(&self) -> Option<mc_data::SoundEvent> {
+        Some(mc_data::SoundEvent::ITEM_BUCKET_FILL_POWDER_SNOW)
+    }
+
     fn fall_on(&self, level: &mut ServerLevel, _state: BlockState, _pos: BlockPos, entity: &mut dyn Entity, fall_distance: f64) {
         if !(fall_distance < 4.0) && entity.living().is_some() {
             // `LivingEntity.getFallSounds()`: players have their own, mobs override per type (generic default here)

@@ -104,6 +104,7 @@ pub mod door_block;
 pub mod double_plant_block;
 pub mod dragon_egg_block;
 pub mod dried_ghast_block;
+pub mod drop_experience_block;
 pub mod dry_vegetation_block;
 pub mod end_portal_frame_block;
 pub mod ender_chest_block;

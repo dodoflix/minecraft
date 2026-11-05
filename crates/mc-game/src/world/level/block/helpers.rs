@@ -240,3 +240,13 @@ pub fn pop_experience(level: &mut crate::server::level::ServerLevel, pos: BlockP
         crate::world::entity::experience_orb::ExperienceOrb::award(level, &mc_core::phys::Vec3::at_center_of(&pos), amount);
     }
 }
+
+// ==== [Blocks:SpreadLeaves] ====
+/// `Block.tryDropExperience(level, pos, tool, xpRange)`.
+pub fn try_drop_experience(level: &mut crate::server::level::ServerLevel, pos: BlockPos, tool: &crate::world::item::ItemStack, xp_range: &crate::registry::typed::int_provider::IntProvider) {
+    let sampled = xp_range.sample(level.random()).expect("sampleable experience range");
+    let experience = crate::world::item::enchantment_helper::process_block_experience(level, tool, sampled);
+    if experience > 0 {
+        pop_experience(level, pos, experience);
+    }
+}

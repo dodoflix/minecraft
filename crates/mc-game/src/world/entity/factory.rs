@@ -37,6 +37,11 @@ pub struct EntitySpawnRequest {
     pub ignore_checks: bool,
 }
 
+/// Whether a concrete implementation (not the [`PlainEntity`] fallback) is registered for `ty`.
+pub fn has_factory(ty: EntityType) -> bool {
+    factories().contains_key(&ty)
+}
+
 /// `EntityType.create(level, request)`: `None` when the factory returns null (the player type) or the spawn checks fail.
 pub fn create(ty: EntityType, level: &ServerLevel, request: EntitySpawnRequest) -> Option<Box<dyn Entity>> {
     if ty == EntityType::PLAYER {
