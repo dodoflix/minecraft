@@ -19,6 +19,7 @@ mod stack_ext;
 pub mod throwable;
 mod use_item;
 pub mod tool;
+pub mod trading;
 
 pub use crate::world::inventory::ClickAction;
 pub use behaviour::*;
