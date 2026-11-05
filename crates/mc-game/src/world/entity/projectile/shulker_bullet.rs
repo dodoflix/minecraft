@@ -54,7 +54,7 @@ impl ShulkerBullet {
     }
 
     /// `ShulkerBullet(level, owner, target, invalidStartAxis)`.
-    pub fn from_owner(level: &mut ServerLevel, owner: &dyn Entity, target: &dyn Entity, invalid_start_axis: Axis) -> Self {
+    pub fn from_owner(level: &ServerLevel, owner: &dyn Entity, target: &dyn Entity, invalid_start_axis: Axis) -> Self {
         let mut bullet = Self::new(EntityType::SHULKER_BULLET, level.next_entity_id());
         bullet.set_owner(Some(owner));
         let position = owner.get_bounding_box().get_center();

@@ -32,6 +32,7 @@ impl ServerLevel {
     }
 
     fn start_riding_impl(&mut self, rider: &mut dyn Entity, vehicle_id: EntityId, mut held_vehicle: Option<&mut dyn Entity>, force: bool, send_event_and_triggers: bool) -> bool {
+        rider.before_start_riding();
         if rider.base().vehicle == Some(vehicle_id) {
             return false;
         }

@@ -11,6 +11,7 @@ pub mod ghast;
 pub mod giant;
 pub mod guardian;
 pub mod phantom;
+pub mod shulker;
 pub mod silverfish;
 pub mod skeleton;
 pub mod spider;

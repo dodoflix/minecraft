@@ -318,6 +318,9 @@ pub fn touching_unloaded_chunk<L: MovementLevel>(entity: &dyn Entity, level: &L)
 
 /// `Entity.move(moverType, delta)`.
 pub fn move_entity(entity: &mut dyn Entity, level: &mut ServerLevel, mover: MoverType, mut delta: Vec3) {
+    if mover == MoverType::ShulkerBox && entity.on_moved_by_shulker_box(level) {
+        return;
+    }
     if entity.base().no_physics {
         let p = entity.base().position();
         entity.set_pos(p.x + delta.x, p.y + delta.y, p.z + delta.z);

@@ -186,6 +186,9 @@ pub struct EntityData {
     pub in_block_state: Option<mc_data::block::BlockState>,
     /// `insideEffectCollector`.
     pub inside_effect_collector: super::inside_block_effects::StepBasedCollector,
+    // ==== [Monsters2] additions (EntityData field) ====
+    /// `Shulker` overrides `getDeltaMovement()` (always zero) and `setDeltaMovement(..)` (ignored).
+    pub delta_movement_frozen: bool,
     // ==== [Damage] additions (EntityData field) ====
     // ==== [Effects] additions (EntityData field) ====
     // ==== [Level] additions (EntityData field) ====
@@ -287,6 +290,8 @@ impl EntityData {
             last_crystal_sound_play_tick: 0,
             in_block_state: None,
             inside_effect_collector: Default::default(),
+            // ==== [Monsters2] additions (EntityData::new initializer) ====
+            delta_movement_frozen: false,
             // ==== [Damage] additions (EntityData::new initializer) ====
             // ==== [Effects] additions (EntityData::new initializer) ====
             // ==== [Level] additions (EntityData::new initializer) ====
@@ -344,7 +349,7 @@ impl EntityData {
         self.on_ground = on_ground;
     }
     pub fn delta_movement(&self) -> Vec3 {
-        self.delta_movement
+        if self.delta_movement_frozen { Vec3::ZERO } else { self.delta_movement }
     }
     pub fn removal_reason(&self) -> Option<RemovalReason> {
         self.removal_reason
@@ -355,7 +360,7 @@ impl EntityData {
 
     /// `setDeltaMovement(Vec3)`: ignored unless finite.
     pub fn set_delta_movement(&mut self, delta_movement: Vec3) {
-        if delta_movement.is_finite() {
+        if delta_movement.is_finite() && !self.delta_movement_frozen {
             self.delta_movement = delta_movement;
         }
     }
@@ -366,7 +371,7 @@ impl EntityData {
 
     pub fn add_delta_movement(&mut self, momentum: Vec3) {
         if momentum.is_finite() {
-            self.set_delta_movement(self.delta_movement.add(momentum));
+            self.set_delta_movement(self.delta_movement().add(momentum));
         }
     }
 
@@ -3540,6 +3545,12 @@ pub trait Entity: Any {
     /// `LivingEntity.getLiquidCollisionShape()` (`LiquidBlock.getCollisionShape` for mobs standing on fluid: `Strider`).
     fn get_liquid_collision_shape(&self) -> mc_core::phys::shapes::VoxelShape {
         mc_core::phys::shapes::Shapes::empty()
+    }
+    /// Start of `Entity.startRiding(..)` before any check (`Shulker` re-attaches to the floor).
+    fn before_start_riding(&mut self) {}
+    /// `Entity.move(MoverType.SHULKER_BOX, delta)` override: `true` = handled (`Shulker` teleports instead of moving).
+    fn on_moved_by_shulker_box(&mut self, _level: &mut ServerLevel) -> bool {
+        false
     }
     // ==== [Blocks:TechnicalA] additions (Entity trait methods) ====
     /// `this instanceof Bee`: the `Bee` methods `BeehiveBlockEntity` / `BeehiveBlock` call (implemented by the bee entity).
