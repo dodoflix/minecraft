@@ -71,6 +71,9 @@ pub struct ServerLevel {
     pub players: Vec<EntityId>,
     /// `chunkMap.entityMap`: which players see which entity (see `entity_tracker.rs`).
     pub entity_tracker: super::EntityTracker,
+    /// `registryAccess()`: the server's registries (damage types, enchantments, tags, ...). Empty until the level
+    /// factory installs them (`detached` levels stay empty).
+    pub registries: crate::registry::RegistryAccess,
     /// `MinecraftServer.isUnderSpawnProtection(level, pos, player)` (installed by the dedicated server).
     pub spawn_protection_hook: Option<fn(&ServerLevel, &crate::world::entity::ServerPlayer, BlockPos) -> bool>,
 
@@ -131,6 +134,7 @@ impl ServerLevel {
             entity_manager: PersistentEntitySectionManager::new(None),
             players: Vec::new(),
             entity_tracker: Default::default(),
+            registries: Default::default(),
             spawn_protection_hook: None,
             chunk_source,
             shared: params.shared,

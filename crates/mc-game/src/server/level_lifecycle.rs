@@ -240,6 +240,7 @@ impl MinecraftServer {
             is_debug,
             level_data,
         });
+        level.registries = self.registries.composite_access().clone();
         level.has_ceiling = dimension_type.has_ceiling;
         level.tick_state.tick_time = is_overworld;
         level.tick_state.can_have_weather = dimension_type.has_sky_light && !dimension_type.has_ceiling;
