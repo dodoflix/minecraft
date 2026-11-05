@@ -21,16 +21,14 @@
 use std::collections::HashMap;
 use std::sync::{Arc, LazyLock};
 
-use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
 use mc_game::server::level::world_gen::{GenChunk, WorldGenRegion};
 use mc_game::world::level::chunk::status::{ChunkStep, GENERATION_PYRAMID};
 use mc_game::world::level::levelgen::gen_level::GenLevel;
-use mc_game::world::level::levelgen::registries::{
-    BLOCK_STATE_PROVIDER_REGISTRY, FEATURE_REGISTRY, GenRegistries, PLACED_FEATURE_REGISTRY, TypedRegistry, load_vanilla_data,
-};
+use mc_game::world::level::levelgen::registries::GenRegistries;
+use mc_game::world::level::levelgen::structure::registries::{StartCache, StructureRegistries};
 use mc_game::world::level::levelgen::GenEnv;
 use mc_game::world::level::LevelAccessor;
 use mc_world::chunk::{LevelHeight, ProtoChunk};
@@ -40,7 +38,7 @@ use mc_world::status::{ChunkStatus, FINAL_HEIGHTMAPS};
 use mc_world::ticks::TickPriority;
 use mc_world::upgrade_data::UpgradeData;
 use mc_worldgen::biome::{BiomeRegistry, biome_source_from_json};
-use mc_worldgen::data::WorldgenRegistries;
+use mc_worldgen::data::{FsDataSource, WorldgenDataSource, WorldgenRegistries};
 use mc_worldgen::generator::NoiseBasedChunkGenerator;
 use mc_worldgen::random_state::RandomState;
 
@@ -166,6 +164,7 @@ pub struct FeatureWorld {
     pub worldgen: Arc<WorldgenRegistries>,
     pub biomes: Arc<BiomeRegistry>,
     pub registries: Arc<GenRegistries>,
+    pub structures: Arc<StructureRegistries>,
     pub generator: Arc<NoiseBasedChunkGenerator>,
     pub factory: PalettedContainerFactory,
     /// Whether the vanilla feature registries decoded completely (`false`: empty registries are used).
@@ -173,25 +172,29 @@ pub struct FeatureWorld {
 }
 
 pub static WORLD: LazyLock<FeatureWorld> = LazyLock::new(|| {
-    let (worldgen, biomes, registries) = load_vanilla_data();
-    let (registries, registries_loaded) = match registries {
-        Ok(r) => (r, true),
-        Err(e) => {
-            eprintln!("feature registries do not decode yet ({e}): using empty ones");
-            let empty = GenRegistries {
-                features: TypedRegistry::new(FEATURE_REGISTRY, IndexMap::new()),
-                placed_features: TypedRegistry::new(PLACED_FEATURE_REGISTRY, IndexMap::new()),
-                block_state_providers: TypedRegistry::new(BLOCK_STATE_PROVIDER_REGISTRY, IndexMap::new()),
-            };
-            (empty, false)
-        }
-    };
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ref/src/data");
+    let source: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(root.clone()));
+    let empty: Arc<dyn WorldgenDataSource> = Arc::new(FsDataSource::new(root.join("no_such_data_dir")));
+    let worldgen = Arc::new(WorldgenRegistries::new(source.clone()));
+    let biomes = Arc::new(BiomeRegistry::load(&worldgen).expect("vanilla biomes load"));
+    // Registries of types that are not ported yet fail to decode: those tests then run with empty ones.
+    let mut registries_loaded = true;
+    let registries = GenRegistries::load(source.clone(), &worldgen, &biomes).unwrap_or_else(|e| {
+        eprintln!("feature registries do not decode yet ({e}): using empty ones");
+        registries_loaded = false;
+        GenRegistries::load(empty.clone(), &worldgen, &biomes).expect("empty registries")
+    });
+    let structures = StructureRegistries::load(source, &worldgen, &biomes).unwrap_or_else(|e| {
+        eprintln!("structure registries do not decode yet ({e}): using empty ones");
+        registries_loaded = false;
+        StructureRegistries::load(empty, &worldgen, &biomes).expect("empty structure registries")
+    });
     let settings = worldgen.noise_settings(&Identifier::with_default_namespace("overworld").unwrap()).expect("overworld noise settings");
-    let source = biome_source_from_json(&serde_json::json!({"type": "minecraft:multi_noise", "preset": "minecraft:overworld"}), &worldgen, &biomes)
+    let generator_source = biome_source_from_json(&serde_json::json!({"type": "minecraft:multi_noise", "preset": "minecraft:overworld"}), &worldgen, &biomes)
         .expect("overworld biome source");
-    let generator = NoiseBasedChunkGenerator::new(source, Arc::new(settings), worldgen.clone(), biomes.clone()).expect("overworld generator");
+    let generator = NoiseBasedChunkGenerator::new(generator_source, Arc::new(settings), worldgen.clone(), biomes.clone()).expect("overworld generator");
     let factory = PalettedContainerFactory::create(mc_world::palette::BiomeRegistry::new(biomes.names())).expect("plains");
-    FeatureWorld { worldgen, biomes, registries: Arc::new(registries), generator: Arc::new(generator), factory, registries_loaded }
+    FeatureWorld { worldgen, biomes, registries: Arc::new(registries), structures: Arc::new(structures), generator: Arc::new(generator), factory, registries_loaded }
 });
 
 pub fn level_height() -> LevelHeight {
@@ -208,6 +211,8 @@ pub fn gen_env(seed: i64) -> Arc<GenEnv> {
         random_state: Arc::new(RandomState::create(w.worldgen.clone(), seed, w.generator.settings())),
         biomes: w.biomes.clone(),
         registries: w.registries.clone(),
+        structures: w.structures.clone(),
+        start_cache: StartCache::default(),
         generate_structures: true,
         level_height: level_height(),
     })
