@@ -220,22 +220,14 @@ fn set_game_rules(server: &mut MinecraftServer, map: &GameRuleMap) {
 
 /// `Functions.run(level, functionId)`.
 fn run_function(server: &mut MinecraftServer, level: &DimensionKey, id: &Identifier) {
-    match crate::commands::host::get_function(server, id) {
+    match server.functions().get(id) {
         Some(function) => {
             let source = server
                 .create_command_source_stack()
                 .with_permission(crate::server::permissions::LevelBasedPermissionSet::GAMEMASTER.into())
                 .with_suppressed_output()
                 .with_level(level.clone(), 1.0);
-            // `ServerFunctionManager.execute(function, source)`
-            let commands = server.commands.clone();
-            if let Ok(instantiated) = function.instantiate(None, commands.get_dispatcher()) {
-                crate::commands::server_access::enter_server(server, || {
-                    crate::commands::Commands::execute_command_in_context(&source, |context| {
-                        context.queue_initial_function_call(instantiated, source.clone(), crate::commands::CommandResultCallback::EMPTY);
-                    });
-                });
-            }
+            server.execute_function(&function, source);
         }
         None => log::error!("Test Batch failed for non-existent function {id}"),
     }
