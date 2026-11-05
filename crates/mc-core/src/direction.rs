@@ -15,7 +15,7 @@ use std::fmt;
 const DEG_TO_RAD_F32: f32 = (std::f64::consts::PI / 180.0) as f32;
 
 /// `Util.shuffle` applied to a copy (`Util.shuffledCopy`).
-pub(crate) fn shuffled_copy<T: Copy>(values: &[T], random: &mut dyn RandomSource) -> Vec<T> {
+pub fn shuffled_copy<T: Copy>(values: &[T], random: &mut dyn RandomSource) -> Vec<T> {
     let mut copy = values.to_vec();
     let mut i = copy.len();
     while i > 1 {

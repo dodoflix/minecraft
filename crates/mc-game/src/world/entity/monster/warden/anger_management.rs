@@ -14,7 +14,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::monster::warden::anger_level::AngerLevel;
 use crate::world::entity::{Entity, EntityId};
 use mc_core::math::mth;
-use mc_core::random::{self, RandomSource};
+use mc_core::random;
 use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use uuid::Uuid;

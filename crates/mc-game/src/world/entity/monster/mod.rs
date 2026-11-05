@@ -18,6 +18,9 @@ pub mod zombie;
 pub mod hoglin;
 pub mod piglin;
 pub mod zoglin;
+// [WardenMobs]
+pub mod creaking;
+pub mod warden;
 
 use crate::world::entity::Entity;
 

@@ -101,12 +101,12 @@ impl Warden {
         if let Some(navigation) = warden.mob.navigation.as_deref_mut() {
             navigation.set_can_float(true);
         }
-        warden.set_pathfinding_malus(PathType::UNPASSABLE_RAIL, 0.0);
-        warden.set_pathfinding_malus(PathType::DAMAGING, 8.0);
-        warden.set_pathfinding_malus(PathType::POWDER_SNOW, 8.0);
-        warden.set_pathfinding_malus(PathType::LAVA, 8.0);
-        warden.set_pathfinding_malus(PathType::FIRE, 0.0);
-        warden.set_pathfinding_malus(PathType::FIRE_IN_NEIGHBOR, 0.0);
+        warden.set_pathfinding_malus(PathType::UnpassableRail, 0.0);
+        warden.set_pathfinding_malus(PathType::Damaging, 8.0);
+        warden.set_pathfinding_malus(PathType::PowderSnow, 8.0);
+        warden.set_pathfinding_malus(PathType::Lava, 8.0);
+        warden.set_pathfinding_malus(PathType::Fire, 0.0);
+        warden.set_pathfinding_malus(PathType::FireInNeighbor, 0.0);
         warden
     }
 
@@ -159,7 +159,7 @@ impl Warden {
 
     /// `applyDarknessAround(level, position, source, darknessRadius)`.
     pub fn apply_darkness_around(level: &mut ServerLevel, position: Vec3, source: Option<&dyn Entity>, darkness_radius: i32) {
-        crate::world::block_entity::sculk_shrieker_block_entity::apply_darkness_around(level, position, source, darkness_radius);
+        crate::world::block_entity::apply_darkness_around(level, position, source, darkness_radius);
     }
 
     /// `playListeningSound()`.
@@ -300,7 +300,7 @@ impl Entity for Warden {
     }
 
     fn check_spawn_obstruction(&self, level: &dyn ServerLevelAccessor) -> bool {
-        mob::spawn::check_spawn_obstruction(self, level) && level.no_collision_aabb(&self.get_type().dimensions().make_bounding_box_vec(self.position()))
+        mob::spawn::check_spawn_obstruction(self, level) && level.no_collision_aabb(&EntityDimensions::of_type(self.get_type()).make_bounding_box_vec(self.position()))
     }
 
     fn get_walk_target_value(&self, _pos: BlockPos, _level: &dyn crate::world::level::LevelReader) -> f32 {
@@ -352,7 +352,7 @@ impl Entity for Warden {
         let pitch = self.get_voice_pitch();
         self.play_sound(level, SoundEvent::ENTITY_WARDEN_ATTACK_IMPACT, 10.0, pitch);
         SonicBoom::set_cooldown(self, 40);
-        mob::combat::mob_do_hurt_target(self, level, target)
+        crate::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {

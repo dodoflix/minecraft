@@ -99,11 +99,11 @@ impl Creaking {
     /// `setTransient(pos)`.
     pub fn set_transient(&mut self, pos: BlockPos) {
         self.set_home_pos(pos);
-        self.set_pathfinding_malus(PathType::DAMAGING, 8.0);
-        self.set_pathfinding_malus(PathType::POWDER_SNOW, 8.0);
-        self.set_pathfinding_malus(PathType::LAVA, 8.0);
-        self.set_pathfinding_malus(PathType::FIRE, 0.0);
-        self.set_pathfinding_malus(PathType::FIRE_IN_NEIGHBOR, 0.0);
+        self.set_pathfinding_malus(PathType::Damaging, 8.0);
+        self.set_pathfinding_malus(PathType::PowderSnow, 8.0);
+        self.set_pathfinding_malus(PathType::Lava, 8.0);
+        self.set_pathfinding_malus(PathType::Fire, 0.0);
+        self.set_pathfinding_malus(PathType::FireInNeighbor, 0.0);
     }
 
     /// `isHeartBound()`.
@@ -183,7 +183,7 @@ impl Creaking {
         level.send_particles(
             ParticleOptions::Block {
                 particle_type: ParticleType::BLOCK_CRUMBLE,
-                state: Block::CREAKING_HEART.default_state().set(crate::world::level::block::props::CREAKING_HEART_STATE, CreakingHeartState::Awake),
+                state: Block::CREAKING_HEART.default_state().set(mc_data::props::CREAKING_HEART_STATE, CreakingHeartState::Awake),
             },
             center.x,
             center.y,
@@ -216,7 +216,7 @@ impl Creaking {
         }
         let own_box = self.get_bounding_box();
         for player in players {
-            if level.get_entity(player.0).is_some_and(|p| own_box.contains(p.base().get_eye_position())) {
+            if level.get_entity(player.0).is_some_and(|p| own_box.contains_vec3(p.base().get_eye_position())) {
                 self.player_stuck_counter += 1;
                 return self.player_stuck_counter > MAX_PLAYER_STUCK_COUNTER;
             }
@@ -388,13 +388,13 @@ impl NodeEvaluator for HomeNodeEvaluator {
     }
 
     fn get_path_type(&mut self, env: &mut PathEnv<'_>, x: i32, y: i32, z: i32) -> PathType {
-        let home_pos = env.mob.entity().and_then(|e| e.base().entity_data.try_get(HOME_POS)).flatten();
+        let home_pos = env.mob.entity().and_then(|e| e.as_any().downcast_ref::<Creaking>().and_then(Creaking::get_home_pos));
         match home_pos {
             None => default_get_path_type(self, env, x, y, z),
             Some(home_pos) => {
-                let home_distance = home_pos.dist_sqr_xyz(x, y, z);
+                let home_distance = home_pos.dist_sqr(&BlockPos::new(x, y, z));
                 if home_distance > MAX_DISTANCE_TO_HOME_SQ && home_distance >= home_pos.dist_sqr(&env.context.mob_position()) {
-                    PathType::BLOCKED
+                    PathType::Blocked
                 } else {
                     default_get_path_type(self, env, x, y, z)
                 }
@@ -450,7 +450,7 @@ impl Entity for Creaking {
         }
         self.attack_animation_remaining_ticks = ATTACK_ANIMATION_DURATION;
         level.broadcast_entity_event(self.id(), 4);
-        mob::combat::mob_do_hurt_target(self, level, target)
+        crate::world::entity::living_entity::combat::mob_do_hurt_target(self, level, target)
     }
 
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage_amount: f32) -> bool {
@@ -531,7 +531,7 @@ impl Entity for Creaking {
         if let Some(home_pos) = self.get_home_pos() {
             let has_protection_from_creaking_heart = self.has_protection_from_creaking_heart(level, home_pos);
             if !has_protection_from_creaking_heart {
-                self.set_health(0.0);
+                self.mob.living.set_health(0.0);
             }
         }
         mob::tick::tick(self, level);

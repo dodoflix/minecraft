@@ -20,7 +20,6 @@ use mc_core::direction::Direction;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, TraversalNodeStatus};
-use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::{CreakingHeartState, EntitySpawnReason};
 use mc_data::{BlockEntityType, GameEvent, SoundEvent, props};
@@ -33,6 +32,7 @@ use uuid::Uuid;
 
 const PLAYER_DETECTION_RANGE: f64 = 32.0;
 /// `CREAKING_ROAMING_RADIUS`.
+#[allow(dead_code)]
 pub const CREAKING_ROAMING_RADIUS: i32 = 32;
 const DISTANCE_CREAKING_TOO_FAR: f64 = 34.0;
 const SPAWN_RANGE_XZ: i32 = 16;
@@ -335,7 +335,7 @@ impl CreakingHeartBlockEntity {
                 0.0,
                 0.0,
                 0.0,
-                crate::server::level::RandomizationType::Default,
+                mc_protocol::packets::play::RandomizationType::Default,
             );
         }
     }
@@ -350,7 +350,7 @@ impl CreakingHeartBlockEntity {
                         Some(source) => {
                             creaking.creaking_death_effects(level, source);
                             creaking.set_tearing_down();
-                            creaking.set_health(0.0);
+                            creaking.mob.living.set_health(0.0);
                         }
                     }
                 }

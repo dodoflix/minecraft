@@ -77,7 +77,7 @@ pub use piston_moving_block_entity::{MovingPistonInfo, PistonMovingBlockEntity, 
 pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
 pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
-pub use sculk_shrieker_block_entity::SculkShriekerBlockEntity;
+pub use sculk_shrieker_block_entity::{SculkShriekerBlockEntity, apply_darkness_around};
 pub use sign_block_entity::SignBlockEntity;
 pub use skull_block_entity::SkullBlockEntity;
 pub use test_block_entity::TestBlockEntity;

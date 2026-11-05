@@ -102,6 +102,7 @@ pub mod mount;
 pub mod dismount_or_skip_mounting;
 pub mod crossbow_attack;
 pub mod behaviors;
+pub mod warden; // [WardenMobs]
 pub mod croak;
 pub mod declarative;
 pub mod do_nothing;

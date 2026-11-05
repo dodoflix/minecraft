@@ -3,6 +3,7 @@ use super::prelude::*;
 use super::rotated_pillar_block::rotate_pillar;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::CreakingHeartBlockEntity;
+use crate::world::entity::Entity;
 use crate::world::item::BlockPlaceContext;
 use mc_data::enums::CreakingHeartState;
 
