@@ -65,6 +65,7 @@ import net.minecraft.world.phys.Vec3;
  * rand_value N                Level.randValue = N (the LCG getBlockRandomPos draws from; set it before random ticks)
  * tick_chunk CX CZ SPEED      ServerLevel.tickChunk(chunk, SPEED): random ticks of one chunk (use instead of gamerule random_tick_speed)
  * random_tick X Y Z           randomTick of that block (+ its fluid) as tickChunk's inner loop does for one chosen position
+ * bonemeal X Y Z            BoneMealItem.growCrop without a player; prints `BONEMEAL true|false` (true = the block was a valid target)
  * be_nbt X Y Z SNBT           merge SNBT into the block entity (`/data merge block`: saveWithFullMetadata.merge, loadWithComponents, setChanged)
  * -- entities --
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
@@ -97,9 +98,10 @@ import net.minecraft.world.phys.Vec3;
  * explode X Y Z RADIUS [fire] [none|block|mob|tnt|trigger] [source=REF]    Level.explode
  * -- time --
  * tick [N]                    N real server ticks (default 1); each prints the `watch` dumps after the tick
- * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF   (watch off clears)
+ * watch WHAT...               dump after every tick: player:REF entity:REF entities inventory:REF packets:REF[:type,..]   (watch off clears)
  * dump WHAT...                same WHATs immediately, plus blocks:X1,Y1,Z1,X2,Y2,Z2   (`dump` alone = everything)
  *                             block oracle extras: be:X,Y,Z -> `BE x y z SNBT` (saveWithFullMetadata, sorted keys; `-` = none),
+ *                             beu:X,Y,Z -> `BEU x y z TYPE SNBT` (getUpdatePacket tag; `-` = none),
  *                             ticks -> `TICK block|fluid x y z id delay=N prio=P` for every pending scheduled tick in execution order,
  *                             events -> the `EV ...` lines of level events / sounds / block events broadcast since the last dump (see
  *                             VanillaLevel.RecordingPlayerList; also valid in `watch`, printed after each tick)
@@ -300,6 +302,11 @@ public final class EntityOracleDriver {
             if (fs.isRandomlyTicking()) {
                fs.randomTick(v.level, pos, v.level.getRandom());
             }
+         }
+         case "bonemeal" -> {
+            world();
+            BlockPos pos = new BlockPos(Integer.parseInt(a.get(1)), Integer.parseInt(a.get(2)), Integer.parseInt(a.get(3)));
+            out.println("BONEMEAL " + net.minecraft.world.item.BoneMealItem.growCrop(new ItemStack(net.minecraft.world.item.Items.BONE_MEAL, 64), v.level, pos));
          }
          case "be_nbt" -> {
             world();
@@ -720,9 +727,14 @@ public final class EntityOracleDriver {
             }
             case "inventory" -> inventory(arg, (Player)ref(arg));
             case "packets" -> {
-               VanillaLevel.FakePlayer p = v.player(arg);
+               // packets:NAME[:type,type] -- the optional filter (bare type names, e.g. open_sign_editor) drops the other packets
+               String[] pa = arg.split(":", 2);
+               Set<String> only = pa.length > 1 ? new HashSet<>(Arrays.asList(pa[1].split(","))) : null;
+               VanillaLevel.FakePlayer p = v.player(pa[0]);
                for (VanillaLevel.Sent s : p.drain()) {
-                  out.println("PKT " + arg + " " + s.type() + " " + s.hex());
+                  if (only == null || only.contains(s.type().replace("minecraft:", ""))) {
+                     out.println("PKT " + pa[0] + " " + s.type() + " " + s.hex());
+                  }
                }
             }
             case "events" -> {
@@ -736,6 +748,12 @@ public final class EntityOracleDriver {
                BlockPos pos = new BlockPos(Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]));
                net.minecraft.world.level.block.entity.BlockEntity be = v.level.getBlockEntity(pos);
                out.println("BE " + c[0] + " " + c[1] + " " + c[2] + " " + (be == null ? "-" : be.saveWithFullMetadata(v.server.registryAccess()).toString()));
+            }
+            case "beu" -> {
+               String[] c = arg.split(",");
+               net.minecraft.world.level.block.entity.BlockEntity be = v.level.getBlockEntity(new BlockPos(Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2])));
+               var pk = be == null ? null : be.getUpdatePacket();
+               out.println("BEU " + c[0] + " " + c[1] + " " + c[2] + " " + (pk == null ? "-" : BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(pk.getType()) + " " + pk.getTag()));
             }
             case "ticks" -> {
                // every pending scheduled tick of the loaded chunks in execution order (trigger tick, priority, sub tick order)

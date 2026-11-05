@@ -13,8 +13,8 @@
 //!
 //! Supported commands (same text as the Java driver, see its header): `level flat|void`, `seed`, `difficulty`, `preload R`, `features NAME,..`,
 //! `note`, `gamerule NAME VALUE`, `time N`, `block X Y Z STATE`, `fill X1 Y1 Z1 X2 Y2 Z2 STATE`, `level_seed N`, `rand_value N`,
-//! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
-//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `ticks` (`TICK block|fluid x y z id
+//! `tick_chunk CX CZ SPEED`, `random_tick X Y Z`, `be_nbt X Y Z SNBT`, `bonemeal X Y Z` (`BONEMEAL true|false`), `tick [N]`, `watch WHAT..`, `dump WHAT..` with WHAT in
+//! `blocks:x1,y1,z1,x2,y2,z2` (non-air blocks as `B x y z state`), `be:x,y,z` (`BE x y z SNBT`), `beu:x,y,z` (`BEU x y z TYPE SNBT` = update packet tag), `ticks` (`TICK block|fluid x y z id
 //! delay=N prio=P`, execution order), `events` (`EV ...` lines of level events / sounds / block events broadcast since the last
 //! dump: [`ServerLevel`]'s `tick_state.broadcast_log` here, `VanillaLevel.RecordingPlayerList` in Java). Everything else panics
 //! with the line number, so a scenario never silently runs half.
@@ -22,7 +22,7 @@
 //! Notes: the level ticks like `ServerLevel::tick` (scheduled block/fluid ticks, block events, random ticks, block entity
 //! tickers; `random_tick_speed` defaults to 0 like the oracle), game time advances one per tick. Prefer `tick_chunk` + `rand_value` to
 //! `gamerule random_tick_speed`: whole-level random ticking depends on chunk iteration order, which the two servers do not share.
-//! Game rules other than the ones `LevelRules` models are accepted and ignored.
+//! `gamerule` goes through the real `GameRules` (all rules).
 #![allow(dead_code)]
 
 use super::entity_oracle::{Fixture, Options, compare, fixture_dir, scenario_dir};
@@ -36,6 +36,7 @@ use mc_game::server::level::{ServerLevel, ServerLevelParams};
 use mc_game::server::shared::ServerShared;
 use mc_game::world::entity::Entity;
 use mc_game::world::level::block::BlockStateExt;
+use mc_game::world::level::gamerules::{AnyGameRule, GameRules};
 use mc_game::world::level::material::FluidStateExt;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::{CompoundTag, Tag};
@@ -44,7 +45,7 @@ use mc_protocol::packet::Packet;
 use mc_protocol::packets::play::{ClientboundBlockEventPacket, ClientboundLevelEventPacket, ClientboundSoundPacket, SoundEventHolder, SoundSource};
 use mc_world::chunk::{LevelHeight, ProtoChunk, SectionsView};
 use mc_world::heightmap::{Heightmap, HeightmapType};
-use mc_world::level_storage::Difficulty;
+use mc_world::level_storage::{Difficulty, FeatureFlagSet};
 use mc_world::palette::{BiomeRegistry, PalettedContainerFactory};
 use parking_lot::Mutex;
 use std::sync::Arc;
@@ -178,7 +179,7 @@ impl ChunkGeneratorBackend for FlatGenerator {
 
 /// What `ServerLevel.tick` reads from the server.
 pub struct Env {
-    pub rules: LevelRules,
+    pub game_rules: GameRules,
     pub weather: WeatherState,
     pub difficulty: Difficulty,
     /// `time N`: the value every clock reads.
@@ -193,7 +194,7 @@ impl LevelTickEnv for Env {
         false
     }
     fn rules(&self) -> LevelRules {
-        self.rules
+        LevelRules::from_game_rules(&self.game_rules)
     }
     fn weather(&self) -> WeatherState {
         self.weather
@@ -239,10 +240,15 @@ pub struct Scenario {
 
 impl Scenario {
     pub fn new() -> Self {
-        let rules = LevelRules { players_sleeping_percentage: 100, advance_time: false, advance_weather: false, spawn_mobs: false, max_snow_accumulation_height: 1, random_tick_speed: 0 };
+        // VanillaLevel.boot: frozen, quiet world
+        let mut game_rules = GameRules::new(FeatureFlagSet::DEFAULT_FLAGS);
+        for rule in ["advance_time", "advance_weather", "spawn_mobs", "spawn_monsters", "spawn_patrols", "spawn_phantoms", "spawn_wandering_traders", "spawn_wardens", "raids"] {
+            set_rule(&mut game_rules, rule, "false");
+        }
+        set_rule(&mut game_rules, "random_tick_speed", "0");
         Scenario {
             level: None,
-            env: Env { rules, weather: WeatherState::default(), difficulty: Difficulty::Normal, clock: 0 },
+            env: Env { game_rules, weather: WeatherState::default(), difficulty: Difficulty::Normal, clock: 0 },
             out: Vec::new(),
             ticks: 0,
             watches: Vec::new(),
@@ -289,6 +295,7 @@ impl Scenario {
         });
         level.tick_state.tick_time = true;
         level.tick_state.enabled_features = self.opts.features;
+        level.tick_state.rules = self.env.rules();
         level.tick_state.broadcast_log = Some(self.log.clone());
         self.env.difficulty = self.opts.difficulty;
         let r = self.opts.preload;
@@ -398,6 +405,12 @@ impl Scenario {
                     }
                 }
             }
+            "bonemeal" => {
+                self.world();
+                let p = pos(a, 1);
+                let grown = self.bonemeal(p);
+                self.out.push(format!("BONEMEAL {grown}"));
+            }
             "tick_chunk" => {
                 self.world();
                 self.level().tick_chunk(ChunkPos::new(int(&a[1]), int(&a[2])), int(&a[3]));
@@ -433,18 +446,9 @@ impl Scenario {
     }
 
     fn gamerule(&mut self, name: &str, value: &str) {
-        let boolean = || value == "true";
-        let rules = &mut self.env.rules;
-        match name {
-            "random_tick_speed" => rules.random_tick_speed = int(value),
-            "advance_time" => rules.advance_time = boolean(),
-            "advance_weather" => rules.advance_weather = boolean(),
-            "spawn_mobs" => rules.spawn_mobs = boolean(),
-            "max_snow_accumulation_height" => rules.max_snow_accumulation_height = int(value),
-            "players_sleeping_percentage" => rules.players_sleeping_percentage = int(value),
-            // shortcut: rules ServerLevel does not expose yet are dropped; wire them here when blocks read them from the level
-            _ => {}
-        }
+        set_rule(&mut self.env.game_rules, name, value);
+        let rules = self.env.rules();
+        self.level().tick_state.rules = rules;
     }
 
     /// One real server tick; with `watch`es set the `T n` header and the dumps follow.
@@ -472,6 +476,21 @@ impl Scenario {
         if fluid.is_randomly_ticking() {
             fluid.random_tick(level, p);
         }
+    }
+
+    /// `BoneMealItem.growCrop` (the stack bookkeeping aside).
+    fn bonemeal(&mut self, p: BlockPos) -> bool {
+        use mc_game::world::level::block::bonemeal::BonemealSource::Interaction;
+        let level = self.level();
+        let state = level.get_block_state(p);
+        let b = mc_game::world::level::block::behaviour(state.block());
+        if !(b.is_bonemealable() && b.is_valid_bonemeal_target(&*level, p, state, Interaction)) {
+            return false;
+        }
+        if b.is_bonemeal_success(level, p, state, Interaction) {
+            b.perform_bonemeal(level, p, state, Interaction);
+        }
+        true
     }
 
     /// `/data merge block`.
@@ -517,6 +536,14 @@ impl Scenario {
                     };
                     self.out.push(format!("BE {} {} {} {text}", c[0], c[1], c[2]));
                 }
+                "beu" => {
+                    let c: Vec<i32> = arg.expect("beu:x,y,z").split(',').map(int).collect();
+                    let text = match self.level().get_block_entity(BlockPos::new(c[0], c[1], c[2])).and_then(|be| be.get_update_packet()) {
+                        Some(p) => format!("{} {}", p.r#type.name(), snbt(p.tag)),
+                        None => "-".to_string(),
+                    };
+                    self.out.push(format!("BEU {} {} {} {text}", c[0], c[1], c[2]));
+                }
                 "ticks" => self.dump_ticks(),
                 "events" => self.dump_events(),
                 other => panic!("dump {other} is not supported by tests/common/block_scenario.rs"),
@@ -555,6 +582,14 @@ impl Scenario {
             self.out.push(format_broadcast(&r));
         }
     }
+}
+
+/// `/gamerule NAME VALUE` (unknown rules and rules disabled by the feature flags are ignored like a rejected command).
+fn set_rule(rules: &mut GameRules, name: &str, value: &str) {
+    let id = Identifier::parse(&format!("minecraft:{name}")).unwrap_or_else(|_| panic!("gamerule {name}"));
+    let rule = AnyGameRule::by_identifier(&id).unwrap_or_else(|| panic!("unknown gamerule {name}"));
+    let parsed = rule.deserialize(value).unwrap_or_else(|_| panic!("gamerule {name}: bad value {value}"));
+    rules.try_set_value(rule, parsed);
 }
 
 /// `BlockStateParser.serialize`.
