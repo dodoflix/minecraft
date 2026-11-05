@@ -190,6 +190,29 @@ pub struct State {
     pub reconfigure_requested: bool,
     /// Non-fatal protocol problems noticed while handling packets (chunk decode errors, …).
     pub errors: Vec<String>,
+    /// See [`Observed`].
+    pub events: Vec<Observed>,
+    /// Own attribute snapshots from `update_attributes` (base, modifiers); see [`State::attribute_value`].
+    pub attributes: HashMap<mc_data::Attribute, (f64, Vec<AttributeModifier>)>,
+}
+
+/// Server events a scenario can wait for / compare (the log only grows; take `events.len()` as a mark before an action).
+#[derive(Debug, Clone, PartialEq)]
+pub enum Observed {
+    /// `player_combat_kill`: the player died; `message` is the plain death message.
+    Death { tick: u64, player_id: i32, message: String },
+    /// `damage_event` (entity took damage; ids `-1` = none, `source_type` = raw damage_type registry id).
+    Damage { tick: u64, entity_id: i32, source_type: i32, cause_id: i32, direct_id: i32 },
+    /// `explode`.
+    Explosion { tick: u64, center: Vec3, radius: f32, block_count: i32, knockback: Option<Vec3> },
+    /// `take_item_entity` (pickup animation: `collector_id` picked `amount` of entity `item_id`).
+    TakeItem { tick: u64, item_id: i32, collector_id: i32, amount: i32 },
+    /// `entity_event` (status byte), e.g. 2 hurt, 3 death, 9 use item finished.
+    EntityEvent { tick: u64, entity_id: i32, event_id: i8 },
+    /// `hurt_animation`.
+    HurtAnimation { tick: u64, entity_id: i32 },
+    /// `respawn` (after the death screen).
+    Respawn { tick: u64 },
 }
 
 /// `(min_y, height)` of a dimension type from the synced registry (or the vanilla data pack for entries sent
@@ -270,6 +293,16 @@ impl State {
             transfer: None,
             reconfigure_requested: false,
             errors: Vec::new(),
+            events: Vec::new(),
+            attributes: HashMap::new(),
+        }
+    }
+
+    /// Own air supply from the synched entity data (accessor 1 of `Entity`), if the server sent it.
+    pub fn air(&self) -> Option<i32> {
+        match self.entities.get(&self.entity_id)?.data.get(&1)? {
+            EntityDataValue::Int(v) => Some(*v),
+            _ => None,
         }
     }
 
@@ -353,6 +386,7 @@ impl State {
                 }
                 self.dead = false;
                 self.health = 20.0;
+                self.events.push(Observed::Respawn { tick: self.tick });
             }
             P::PlayerPosition(p) => self.on_player_position(p, out),
             P::PlayerRotation(p) => {
@@ -467,28 +501,60 @@ impl State {
         }));
     }
 
-    /// `BlockBehaviour.getDestroyProgress` per tick for the block at `pos` with a bare hand (or `tool`).
-    pub fn destroy_progress(&self, pos: BlockPos) -> f32 {
-        let Some(state) = self.world.block_state_at(pos) else { return 0.0 };
-        let hardness = state.data().destroy_speed;
-        if hardness == -1.0 {
-            return 0.0;
+    /// `AttributeInstance.getValue` of an own attribute known from `update_attributes` (`default` when never sent).
+    pub fn attribute_value(&self, attribute: mc_data::Attribute, default: f64) -> f64 {
+        let Some((base, mods)) = self.attributes.get(&attribute) else { return default };
+        let sum = |op: AttributeModifierOperation| mods.iter().filter(move |m| m.operation == op).map(|m| m.amount);
+        let base_total = base + sum(AttributeModifierOperation::AddValue).sum::<f64>();
+        let mut value = base_total * (1.0 + sum(AttributeModifierOperation::AddMultipliedBase).sum::<f64>());
+        for m in sum(AttributeModifierOperation::AddMultipliedTotal) {
+            value *= 1.0 + m;
         }
-        let tool = self.tool_for(state.block());
-        let mut speed = tool.speed;
-        if !self.body.on_ground {
-            speed /= 5.0;
+        value
+    }
+
+    fn effect_amp(&self, effect: mc_data::MobEffect) -> Option<i32> {
+        self.effects.iter().find(|(e, _)| *e == effect).map(|(_, amp)| *amp - 1)
+    }
+
+    /// `Player.getDestroySpeed` for the held stack (attributes and effects as the server told this client).
+    pub fn destroy_speed(&self, block: mc_data::Block) -> f32 {
+        use mc_data::{Attribute, MobEffect};
+        let mut speed = self.tool_for(block).speed;
+        if speed > 1.0 {
+            speed += self.attribute_value(Attribute::MINING_EFFICIENCY, 0.0) as f32;
         }
+        let dig = [self.effect_amp(MobEffect::HASTE), self.effect_amp(MobEffect::CONDUIT_POWER)].into_iter().flatten().max();
+        if let Some(amp) = dig {
+            speed *= 1.0 + (amp + 1) as f32 * 0.2;
+        }
+        if let Some(amp) = self.effect_amp(MobEffect::MINING_FATIGUE) {
+            speed *= 0.3f64.powi(amp + 1) as f32;
+        }
+        speed *= self.attribute_value(Attribute::BLOCK_BREAK_SPEED, 1.0) as f32;
         let eye = self.body.eye_position();
         let in_water = self
             .world
             .block_state(eye.x.floor() as i32, eye.y.floor() as i32, eye.z.floor() as i32)
             .is_some_and(|s| s.block() == mc_data::Block::WATER);
         if in_water {
+            speed *= self.attribute_value(Attribute::SUBMERGED_MINING_SPEED, 0.2) as f32;
+        }
+        if !self.body.on_ground {
             speed /= 5.0;
         }
-        let correct = !state.requires_correct_tool_for_drops() || tool.correct_for_drops;
-        speed / hardness / if correct { 30.0 } else { 100.0 }
+        speed
+    }
+
+    /// `BlockBehaviour.getDestroyProgress` per tick for the block at `pos` (`Player.getDestroySpeed / hardness / 30|100`).
+    pub fn destroy_progress(&self, pos: BlockPos) -> f32 {
+        let Some(state) = self.world.block_state_at(pos) else { return 0.0 };
+        let hardness = state.data().destroy_speed;
+        if hardness == -1.0 {
+            return 0.0;
+        }
+        let correct = !state.requires_correct_tool_for_drops() || self.tool_for(state.block()).correct_for_drops;
+        self.destroy_speed(state.block()) / hardness / if correct { 30.0 } else { 100.0 }
     }
 
     /// Mining speed / drop correctness of the held stack against `block` (`Tool` rules, else bare hand).

@@ -468,6 +468,35 @@ impl Bot {
         self.with_state(|s| s.held_item().clone())
     }
 
+    // ---- observation ---------------------------------------------------------------------------
+
+    pub fn health(&self) -> f32 {
+        self.with_state(|s| s.health)
+    }
+
+    pub fn food(&self) -> i32 {
+        self.with_state(|s| s.food)
+    }
+
+    /// Own air supply (synched entity data), `None` until the server sent it.
+    pub fn air(&self) -> Option<i32> {
+        self.with_state(|s| s.air())
+    }
+
+    /// Mark in the [`Observed`] log; pass it to [`Bot::events_since`] / [`Bot::wait_event`] after an action.
+    pub fn event_mark(&self) -> usize {
+        self.with_state(|s| s.events.len())
+    }
+
+    pub fn events_since(&self, mark: usize) -> Vec<crate::state::Observed> {
+        self.with_state(|s| s.events[mark.min(s.events.len())..].to_vec())
+    }
+
+    /// Wait for the first event after `mark` accepted by `f`.
+    pub async fn wait_event<T>(&self, mark: usize, timeout: Duration, mut f: impl FnMut(&crate::state::Observed) -> Option<T>) -> Result<T> {
+        self.wait_for(timeout, |s| s.events[mark.min(s.events.len())..].iter().find_map(&mut f)).await
+    }
+
     pub fn respawn(&self) {
         self.send(ServerboundPlayPacket::ClientCommand(ServerboundClientCommandPacket {
             action: ServerboundClientCommandAction::PerformRespawn,

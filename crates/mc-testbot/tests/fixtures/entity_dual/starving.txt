@@ -1,0 +1,1 @@
+starve food_reached_zero=true ticks_until_food_zero=~123±30 ticks_until_first_damage=~79±4 first_damage=1 ticks_between_damage=~80±4 second_damage=1

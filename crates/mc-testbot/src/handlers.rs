@@ -5,7 +5,7 @@ use mc_protocol::components::ItemStack;
 use mc_protocol::packets::play::*;
 
 use crate::inventory::{Menu, PLAYER_MENU};
-use crate::state::{ChatLine, Out, State};
+use crate::state::{ChatLine, Observed, Out, State};
 use crate::tracking::*;
 
 fn text(c: &mc_text::Component) -> String {
@@ -133,7 +133,37 @@ impl State {
                     self.effects.retain(|(e, _)| *e != p.effect);
                 }
             }
-            P::Animate(_) | P::SwingAnimation(_) | P::EntityEvent(_) | P::HurtAnimation(_) | P::DamageEvent(_) => {}
+            P::Animate(_) | P::SwingAnimation(_) => {}
+            P::UpdateAttributes(p) => {
+                if p.entity_id == self.entity_id {
+                    for snap in p.attributes {
+                        self.attributes.insert(snap.attribute, (snap.base, snap.modifiers));
+                    }
+                }
+            }
+            P::EntityEvent(p) => self.events.push(Observed::EntityEvent { tick: self.tick, entity_id: p.entity_id, event_id: p.event_id }),
+            P::HurtAnimation(p) => self.events.push(Observed::HurtAnimation { tick: self.tick, entity_id: p.id }),
+            P::DamageEvent(p) => self.events.push(Observed::Damage {
+                tick: self.tick,
+                entity_id: p.entity_id,
+                source_type: p.source_type,
+                cause_id: p.source_cause_id,
+                direct_id: p.source_direct_id,
+            }),
+            P::PlayerCombatKill(p) => {
+                if p.player_id == self.entity_id {
+                    self.dead = true;
+                }
+                self.events.push(Observed::Death { tick: self.tick, player_id: p.player_id, message: p.message.get_string() });
+            }
+            P::Explode(p) => self.events.push(Observed::Explosion {
+                tick: self.tick,
+                center: p.center,
+                radius: p.radius,
+                block_count: p.block_count,
+                knockback: p.player_knockback,
+            }),
+            P::TakeItemEntity(p) => self.events.push(Observed::TakeItem { tick: self.tick, item_id: p.item_id, collector_id: p.player_id, amount: p.amount }),
 
             // ---- vitals ----
             P::SetHealth(p) => {

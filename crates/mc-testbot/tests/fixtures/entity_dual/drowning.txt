@@ -1,0 +1,1 @@
+drown air_after_20_ticks=~279±25 ticks_until_first_damage=~297±25 damage_events_in_70_ticks_after=3 gap_between_damage_events=19 first_damage=2 air_at_first_damage=~-19±12

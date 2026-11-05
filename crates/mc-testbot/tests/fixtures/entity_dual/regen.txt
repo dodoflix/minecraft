@@ -1,0 +1,1 @@
+regen health_after_damage=10 first_heal_after_ticks=~8±8 gap1=~10±2 gap2=~10±2 gap3=~10±2 health_gain_240_ticks=~10±2 food_lost=~0±1 saturation_lost=~13±2

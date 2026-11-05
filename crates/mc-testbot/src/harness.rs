@@ -108,18 +108,44 @@ impl OurServer {
     }
 
     pub fn start(bin: &Path, seed: i64, gamemode: &str) -> std::io::Result<Self> {
+        Self::start_with_props(bin, seed, gamemode, &[])
+    }
+
+    /// Like [`Self::start`]; `props` are `key=value` entries replacing the defaults of the same key (e.g. `difficulty=normal`,
+    /// `level-type=minecraft:flat`).
+    pub fn start_with_props(bin: &Path, seed: i64, gamemode: &str, props: &[&str]) -> std::io::Result<Self> {
         let port = free_port();
         let dir = std::env::temp_dir().join(format!("mc-testbot-ours-{}-{port}", std::process::id()));
         std::fs::create_dir_all(&dir)?;
         std::fs::write(dir.join("eula.txt"), "eula=true\n")?;
-        std::fs::write(
-            dir.join("server.properties"),
-            format!(
-                "online-mode=false\nenforce-secure-profile=false\nwhite-list=false\nserver-port={port}\nserver-ip=127.0.0.1\n\
-                 generate-structures=false\nspawn-protection=0\nmax-tick-time=-1\nview-distance=4\nsimulation-distance=4\n\
-                 enable-rcon=false\nenable-query=false\nrate-limit=0\nlevel-seed={seed}\ngamemode={gamemode}\ndifficulty=peaceful\n"
-            ),
-        )?;
+        let mut entries: Vec<(String, String)> = [
+            ("online-mode", "false"),
+            ("enforce-secure-profile", "false"),
+            ("white-list", "false"),
+            ("server-ip", "127.0.0.1"),
+            ("generate-structures", "false"),
+            ("spawn-protection", "0"),
+            ("max-tick-time", "-1"),
+            ("view-distance", "4"),
+            ("simulation-distance", "4"),
+            ("enable-rcon", "false"),
+            ("enable-query", "false"),
+            ("rate-limit", "0"),
+            ("difficulty", "peaceful"),
+        ]
+        .iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+        entries.push(("server-port".into(), port.to_string()));
+        entries.push(("level-seed".into(), seed.to_string()));
+        entries.push(("gamemode".into(), gamemode.to_string()));
+        for p in props {
+            let (k, v) = p.split_once('=').expect("key=value");
+            entries.retain(|(ek, _)| ek != k);
+            entries.push((k.to_string(), v.to_string()));
+        }
+        let text: String = entries.iter().map(|(k, v)| format!("{k}={v}\n")).collect();
+        std::fs::write(dir.join("server.properties"), text)?;
         let (child, stdin, out) = Self::spawn(bin, &dir)?;
         let server = Self { port, dir, child, stdin: std::sync::Mutex::new(stdin), out };
         server.wait_log(r"Done \(", 240).ok_or_else(|| std::io::Error::other(format!("our server did not start:\n{}", server.log())))?;
