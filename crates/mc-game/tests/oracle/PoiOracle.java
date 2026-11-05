@@ -28,7 +28,7 @@ import net.minecraft.world.level.chunk.storage.RegionStorageInfo;
 import net.minecraft.world.level.chunk.storage.SimpleRegionStorage;
 
 /**
- * Golden generator for PoiManager (crates/mc-game/tests/poi_golden.rs):
+ * Golden generator for PoiManager (crates/mc-game/tests/golden/poi_golden.rs):
  *   scripts/vanilla-java.sh crates/mc-game/tests/oracle/PoiOracle.java > crates/mc-game/tests/fixtures/poi_oracle.txt
  * Output per scenario: "scenario N", then "<op> => <result>" lines (the Rust test replays the ops), "chunk cx cz <hex>" (uncompressed
  * NBT of every poi chunk after flushAll+close) and, after "post", queries against a fresh manager that loaded the written files.

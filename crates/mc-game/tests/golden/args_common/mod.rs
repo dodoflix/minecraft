@@ -3,8 +3,7 @@
 //! rendering, every parse exception, the execute error and the suggestions at the end of the input.
 #![allow(dead_code, reason = "each test target uses a subset of the shared helpers")]
 
-#[path = "../command_common/mod.rs"]
-mod command_common;
+use crate::command_common;
 
 use mc_brigadier::utf16::{java_hash, len16};
 use mc_brigadier::{ArgumentBuilder, ArgumentType, CommandDispatcher, ImmutableStringReader, LiteralArgumentBuilder, ParsedValue, RequiredArgumentBuilder};

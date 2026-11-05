@@ -15,7 +15,7 @@ import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
 /**
- * Oracle of crates/mc-game/tests/vegetation_features_golden.rs: every data-pack {@code worldgen/feature} entry of the
+ * Oracle of crates/mc-game/tests/golden/vegetation_features_golden.rs: every data-pack {@code worldgen/feature} entry of the
  * vegetation/misc feature classes below placed with the real vanilla class on the real WorldGenRegion over the synthetic terrain
  * of FeatureOracleBase, at origins of several kinds (surface, ocean floor, inside the ground, caves, random y, world bounds,
  * chunk borders) on terrain sprinkled with feature-agnostic base blocks, pillars and surface covers.

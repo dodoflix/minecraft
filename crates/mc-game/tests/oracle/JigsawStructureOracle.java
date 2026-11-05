@@ -33,7 +33,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.storage.LevelStorageSource;
 
 /**
- * Oracle of crates/mc-game/tests/jigsaw_structures_golden.rs: every vanilla {@code minecraft:jigsaw} structure (villages, pillager
+ * Oracle of crates/mc-game/tests/golden/jigsaw_structures_golden.rs: every vanilla {@code minecraft:jigsaw} structure (villages, pillager
  * outpost, bastion remnant, ancient city, trail ruins, trial chambers with its pool aliases, abandoned camps) generated with the
  * real {@code Structure.generate} for several seeds/chunks, then {@code placeInChunk} over the synthetic terrain.
  * Usage (repo root, FeatureOracleBase.java next to this file):

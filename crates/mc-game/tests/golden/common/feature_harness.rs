@@ -1,6 +1,6 @@
 //! Shared harness of the worldgen-feature golden tests (Java mirror: `tests/oracle/FeatureOracleBase.java`).
 //!
-//! How a feature test uses it (see `tests/gen_level_golden.rs`):
+//! How a feature test uses it (see `crates/mc-game-core/tests/golden/gen_level_golden.rs`):
 //! ```ignore
 //! mod common; use common::feature_harness::*;
 //! let mut synth = SynthRegion::new(seed, cx, cz, ChunkStatus::Features, 2);   // 5x5 synthetic chunks, FEATURES step

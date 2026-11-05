@@ -3,7 +3,7 @@
 //! `regen_oracle_fixtures` starts the vanilla server on three worlds (default, custom data packs, broken data pack),
 //! connects as a client that knows no packs (so `registry_data` carries every entry) and stores the raw configuration packets
 //! and the server log under `tests/fixtures/oracle/`.
-//! Regenerate: `cargo test -p mc-game --test oracle -- --ignored regen_oracle_fixtures --nocapture`.
+//! Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_oracle_fixtures --nocapture`.
 
 use crate::test_packs;
 
@@ -100,9 +100,9 @@ async fn capture_configuration(port: u16) -> Vec<Vec<u8>> {
     out
 }
 
-fn write_fixture(name: &str, captured: &Captured) {
-    let dir = fixture_dir();
-    std::fs::create_dir_all(&dir).unwrap();
+fn write_fixture(dir: &Path, name: &str, captured: &Captured, expect_packets: bool) {
+    assert!(!expect_packets || !captured.packets.is_empty(), "{name}: no configuration packets captured from vanilla");
+    std::fs::create_dir_all(dir).unwrap();
     let mut bin = Vec::new();
     for p in &captured.packets {
         bin.extend((p.len() as u32).to_be_bytes());
@@ -113,13 +113,17 @@ fn write_fixture(name: &str, captured: &Captured) {
     std::fs::write(dir.join(format!("{name}.server-log.txt")), captured.log.join("\n") + "\n").unwrap();
 }
 
+/// Records the three worlds. The committed fixtures are rewritten only with `MC_UPDATE_FIXTURES=1`; otherwise the
+/// recording goes to a scratch directory, so a plain `--ignored` run still proves the capture works and leaves the tree alone.
 #[test]
 #[ignore = "oracle: starts the vanilla server"]
 fn regen_oracle_fixtures() {
+    let scratch = tempfile::tempdir().unwrap();
+    let dir = if std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") { fixture_dir() } else { scratch.path().to_path_buf() };
     let rt = tokio::runtime::Builder::new_multi_thread().enable_all().build().unwrap();
     rt.block_on(async {
-        write_fixture("default", &run_vanilla(|_| {}, true).await);
-        write_fixture("custom", &run_vanilla(test_packs::write_custom_packs, true).await);
-        write_fixture("broken", &run_vanilla(test_packs::write_broken_packs, false).await);
+        write_fixture(&dir, "default", &run_vanilla(|_| {}, true).await, true);
+        write_fixture(&dir, "custom", &run_vanilla(test_packs::write_custom_packs, true).await, true);
+        write_fixture(&dir, "broken", &run_vanilla(test_packs::write_broken_packs, false).await, false);
     });
 }

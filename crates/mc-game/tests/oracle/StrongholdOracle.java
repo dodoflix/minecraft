@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 
 /**
- * Oracle of crates/mc-game/tests/stronghold_golden.rs: the real vanilla `minecraft:stronghold` structure (start generation incl. the
+ * Oracle of crates/mc-game/tests/golden/stronghold_golden.rs: the real vanilla `minecraft:stronghold` structure (start generation incl. the
  * retry loop until a portal room exists, and placeInChunk of every piece kind; output format: StructureGoldenBase.java).
  * Usage (repo root, FeatureOracleBase.java and StructureGoldenBase.java next to this file):
  * scripts/vanilla-java.sh crates/mc-game/tests/oracle/StrongholdOracle.java crates/mc-game/tests/fixtures/stronghold.txt

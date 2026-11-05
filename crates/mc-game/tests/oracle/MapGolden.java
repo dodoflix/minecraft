@@ -18,7 +18,7 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
  * ({@link VanillaLevel}, void world). Run with
  * <pre>  scripts/entity-oracle.sh crates/mc-game/tests/oracle/MapGolden.java > crates/mc-game/tests/fixtures/map_golden.txt</pre>
  * Each case builds the terrain of {@link #state} in the region [-48, 48)^2 (everything else stays void air), joins a player
- * holding a fresh map at the given position, ticks the server and prints (see tests/map_golden.rs for the reader):
+ * holding a fresh map at the given position, ticks the server and prints (see tests/golden/map_golden.rs for the reader):
  * <pre>
  * CASE i scale px py pz yaw ticks seed       the parameters
  * PLAYER i x y z yaw                         the joined player

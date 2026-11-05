@@ -25,7 +25,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 /**
- * Oracle of crates/mc-game/tests/levelgen_predicates_golden.rs: every {@code BlockPredicate} / {@code BlockStateProvider} JSON of
+ * Oracle of crates/mc-game/tests/golden/levelgen_predicates_golden.rs: every {@code BlockPredicate} / {@code BlockStateProvider} JSON of
  * the vanilla data pack (feature, placed_feature, block_state_provider) plus the hand-written accept/reject/evaluation cases of
  * tests/fixtures/levelgen/predicate_provider_edge_cases.txt, decoded with the vanilla codecs and evaluated at positions of the
  * synthetic world of FeatureOracleBase (a real WorldGenRegion).

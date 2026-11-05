@@ -18,7 +18,7 @@ import net.minecraft.world.item.alchemy.Potion;
 
 /**
  * Golden values of the effect / attribute data classes (no level needed):
- * <pre>scripts/golden-effects.sh</pre> regenerates crates/mc-game/tests/fixtures/effects_golden.txt (replayed by tests/effects_golden.rs).
+ * <pre>scripts/golden-effects.sh</pre> regenerates crates/mc-game/tests/fixtures/effects_golden.txt (replayed by crates/mc-game-core/tests/golden/effects_golden.rs).
  * Sections (tab separated): INTERVAL (shouldApplyEffectTickThisTick bitmaps), TEMPLATE (createModifiers), PARTICLE,
  * POTION (getColor), MEI (MobEffectInstance scripts: update/tick/scale/NBT), ATTR (AttributeInstance scripts).
  */

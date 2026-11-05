@@ -27,7 +27,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Oracle of crates/mc-game/tests/structure_template_golden.rs: the real {@code StructureTemplate.placeInWorld} (with the
+ * Oracle of crates/mc-game/tests/golden/structure_template_golden.rs: the real {@code StructureTemplate.placeInWorld} (with the
  * real processors) over the synthetic world of FeatureOracleBase for every template of the vanilla data pack, plus the
  * static transform math.
  * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/StructureTemplateOracle.java crates/mc-game/tests/fixtures/structure_template_place.txt [templateFilter] (then gzip -9 -f the fixture) [fullDumpScenarioId]

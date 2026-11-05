@@ -50,7 +50,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Portal golden generator (PortalShape / PortalForcer / BlockUtil / BaseFireBlock.onPlace) over a real vanilla server whose
  * overworld AND nether are void flat worlds (custom world preset in a temp data pack). Output (stdout) is a script with its
- * results: {@code > command} lines are the inputs (the Rust replay in {@code tests/portal_golden.rs} executes them in order),
+ * results: {@code > command} lines are the inputs (the Rust replay in {@code tests/golden/portal_golden.rs} executes them in order),
  * {@code < result} lines the vanilla results it must reproduce. Run: {@code scripts/entity-oracle.sh PortalOracle.java shapes|forcer|misc}.
  *
  * <pre>

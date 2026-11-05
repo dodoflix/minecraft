@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 
 /**
- * Oracle of crates/mc-game/tests/nether_fortress_golden.rs: the real vanilla `minecraft:fortress` structure (output format:
+ * Oracle of crates/mc-game/tests/golden/nether_fortress_golden.rs: the real vanilla `minecraft:fortress` structure (output format:
  * StructureGoldenBase.java). Usage (repo root, FeatureOracleBase.java and StructureGoldenBase.java next to this file):
  * scripts/vanilla-java.sh crates/mc-game/tests/oracle/NetherFortressOracle.java crates/mc-game/tests/fixtures/nether_fortress.txt
  */

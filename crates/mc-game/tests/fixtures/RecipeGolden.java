@@ -1,4 +1,4 @@
-// Golden generator for crates/mc-game/tests/recipe_golden.rs: the REAL vanilla RecipeManager over the vanilla data pack.
+// Golden generator for crates/mc-game/tests/golden/recipe_golden.rs: the REAL vanilla RecipeManager over the vanilla data pack.
 //   scripts/golden-recipes.sh   (runs this against the vanilla classpath and writes recipe_golden.txt)
 // Output (tab separated):
 //   RECIPE id type special group category notification placement          every recipe in registry order

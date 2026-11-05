@@ -26,7 +26,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 /**
- * Oracle of crates/mc-game/tests/structure_piece_golden.rs: scripts of the protected helpers of vanilla's StructurePiece
+ * Oracle of crates/mc-game/tests/golden/structure_piece_golden.rs: scripts of the protected helpers of vanilla's StructurePiece
  * (placeBlock/generateBox/generateMaybeBox/generateAirBox/sphere/fillColumnDown/createChest/createDispenser/BlockSelector,
  * ScatteredFeaturePiece ground height) on test subclasses over the synthetic terrain of FeatureOracleBase.
  * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/StructurePieceOracle.java crates/mc-game/tests/fixtures/structure_piece.txt

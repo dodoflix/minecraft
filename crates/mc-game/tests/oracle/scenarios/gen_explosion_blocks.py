@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generates explosion_blocks.txt (scenario of the entity oracle): random terrain boxes + Level.explode, dumps the blocks left.
 Run: python3 gen_explosion_blocks.py > explosion_blocks.txt ; scripts/entity-oracle.sh explosion_blocks.txt -o ../../fixtures/entity_oracle/explosion_blocks.txt
-Replayed by tests/explosion_golden.rs."""
+Replayed by tests/golden/explosion_golden.rs."""
 import math
 POOL = ["minecraft:stone"] * 6 + ["minecraft:dirt", "minecraft:obsidian", "minecraft:water[level=0]", "minecraft:lava[level=0]", "minecraft:glass",
         "minecraft:sand", "minecraft:oak_planks", "minecraft:gravel", "minecraft:bedrock", "minecraft:air", "minecraft:air", "minecraft:cobblestone",

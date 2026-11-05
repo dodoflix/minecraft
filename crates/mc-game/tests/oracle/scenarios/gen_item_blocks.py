@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generates item_blocks.txt (entity-oracle scenario): axes/hoes/shovels (block_transformer) and honeycomb on blocks, one
-`note CASE ...` header per case; replayed by tests/item_blocks_golden.rs.
+`note CASE ...` header per case; replayed by tests/golden/item_blocks_golden.rs.
 Run: python3 gen_item_blocks.py > item_blocks.txt ; scripts/entity-oracle.sh crates/mc-game/tests/oracle/scenarios/item_blocks.txt -o crates/mc-game/tests/fixtures/entity_oracle/item_blocks.txt"""
 import json, os
 D = os.path.join(os.path.dirname(__file__), "../../../../../ref/src/data/minecraft/block_transformer")

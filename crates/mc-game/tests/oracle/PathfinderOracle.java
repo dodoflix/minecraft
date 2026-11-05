@@ -19,7 +19,7 @@ import net.minecraft.world.level.pathfinder.PathfindingContext;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 /**
- * Pathfinder oracle: replays a scenario (tests/oracle/pathfinder/NAME.txt, also read by tests/pathfinder_golden.rs) against real
+ * Pathfinder oracle: replays a scenario (tests/oracle/pathfinder/NAME.txt, also read by tests/golden/pathfinder_golden.rs) against real
  * vanilla and prints the mob profiles, the paths of real {@code mob.getNavigation().createPath(..)} calls (every node with
  * g/h/f/type/walkedDistance/costMalus/closed), and the PathType of positions.
  * <pre>  scripts/entity-oracle.sh crates/mc-game/tests/oracle/PathfinderOracle.java crates/mc-game/tests/oracle/pathfinder/NAME.txt > crates/mc-game/tests/fixtures/pathfinder/NAME.txt</pre>

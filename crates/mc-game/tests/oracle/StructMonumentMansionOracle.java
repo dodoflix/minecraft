@@ -29,7 +29,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 
 /**
- * Oracle of crates/mc-game/tests/struct_monument_mansion_golden.rs: the real {@code Structure.generate} of the ocean monument
+ * Oracle of crates/mc-game/tests/golden/struct_monument_mansion_golden.rs: the real {@code Structure.generate} of the ocean monument
  * ({@code minecraft:monument}), the woodland mansion ({@code minecraft:mansion}) or the end city ({@code minecraft:end_city}) on the
  * real overworld generator for the potential start chunks of the structure set, and {@code StructureStart.placeInChunk} of every
  * chunk of a start over the synthetic world of FeatureOracleBase (a 3x3 FEATURES region per chunk, as the decoration step places).

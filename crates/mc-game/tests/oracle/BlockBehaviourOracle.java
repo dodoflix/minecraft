@@ -2,7 +2,7 @@
 // directions) / rotate (4) / mirror (3) / getPostProcessPos in K pseudo-random worlds over a stub LevelReader and prints
 // one 64-bit hash per block (or the detail per state with `verbose <block>`).
 //   scripts/golden-block-behaviour.sh   regenerates tests/fixtures/block_behaviour.txt
-// The world function, hashing and pools are mirrored 1:1 by crates/mc-game/tests/block_behaviour_golden.rs.
+// The world function, hashing and pools are mirrored 1:1 by crates/mc-game/tests/golden/block_behaviour_golden.rs.
 import java.lang.reflect.*;
 import java.nio.file.*;
 import java.util.*;

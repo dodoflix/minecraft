@@ -15,7 +15,7 @@ import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
 /**
- * Oracle of crates/mc-game/tests/feat_ores_golden.rs: every vanilla `worldgen/feature` entry of the types owned by FeatOres
+ * Oracle of crates/mc-game/tests/golden/feat_ores_golden.rs: every vanilla `worldgen/feature` entry of the types owned by FeatOres
  * (ore, scattered_ore, disk, block_blob, netherrack_replace_blobs, lake, spring_feature, iceberg, the four selectors,
  * single_block_pillar, stepped_column_cluster) plus a few inline features (JSON in {@link #INLINE}) placed at many origins/seeds
  * over the synthetic terrain of FeatureOracleBase, and the accept/reject outcome of codec edge cases.

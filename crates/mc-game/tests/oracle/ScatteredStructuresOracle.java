@@ -33,7 +33,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.storage.LevelStorageSource;
 
 /**
- * Oracle of crates/mc-game/tests/scattered_structures_golden.rs: a real vanilla structure (`Structure.generate`: every piece's
+ * Oracle of crates/mc-game/tests/golden/scattered_structures_golden.rs: a real vanilla structure (`Structure.generate`: every piece's
  * saved tag), then `StructureStart.placeInChunk` over the synthetic terrain of FeatureOracleBase for every chunk of the start's
  * bounding box (the way ChunkGenerator.applyBiomeDecoration does it) with the region dump incl. block entity NBT and entities.
  * Usage (repo root, FeatureOracleBase.java next to this file):

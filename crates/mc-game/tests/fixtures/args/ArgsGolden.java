@@ -7,7 +7,7 @@
 // brigadier dispatcher `t <arg>`; per input the generator records the reader cursor after the parse, the argument
 // value (type specific rendering), every parse exception (message + cursor), the execute() error and the
 // suggestions at the end of the input (range + texts + tooltips; lists longer than 40 entries are recorded as count + Java
-// String.hashCode of the whole list + the first 8). The Rust replays live in tests/args_<type>_golden.rs.
+// String.hashCode of the whole list + the first 8). The Rust replays live in tests/golden/args/mod.rs.
 //
 // Record format (all text escaped by `esc`: backslash, control chars and lone surrogates become a backslash pair and a u-XXXX escape):
 //   @ <variant> <input>

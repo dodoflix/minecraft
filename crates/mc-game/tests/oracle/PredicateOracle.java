@@ -31,7 +31,7 @@ import net.minecraft.world.phys.Vec3;
  * <p>Run: {@code scripts/entity-oracle.sh crates/mc-game/tests/oracle/PredicateOracle.java crates/mc-game/tests/oracle/scenarios/predicates/NAME.txt
  * > crates/mc-game/tests/fixtures/predicate_oracle/NAME.txt} (or {@code scripts/predicate-oracle.sh}). A scenario is an
  * {@code EntityOracleDriver} script (world/entities, see its header) extended by the commands below; the Rust test
- * {@code tests/advancement_predicates_golden.rs} replays the same script against our level and entities.
+ * {@code tests/golden/advancement_predicates_golden.rs} replays the same script against our level and entities.
  * <pre>
  * -- state setters (besides the driver commands) --
  * onground REF BOOL | pose REF POSE | sprint REF BOOL | swimming REF BOOL | fallflying REF BOOL | flying PLAYER BOOL

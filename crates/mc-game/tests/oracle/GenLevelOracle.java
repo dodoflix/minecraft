@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.ticks.TickPriority;
 
 /**
- * Oracle of crates/mc-game/tests/gen_level_golden.rs: random operation scripts (block placement/removal incl. block-entity
+ * Oracle of crates/mc-game-core/tests/golden/gen_level_golden.rs: random operation scripts (block placement/removal incl. block-entity
  * blocks, far/out-of-zone writes, heights, biomes, ticks, post-processing, block entity NBT, entities, region random) executed
  * on the real vanilla WorldGenRegion over the synthetic terrain of FeatureOracleBase, followed by FeatureOracleBase.dump.
  * Usage (repo root): scripts/vanilla-java.sh crates/mc-game/tests/oracle/GenLevelOracle.java crates/mc-game/tests/fixtures/gen_level.txt

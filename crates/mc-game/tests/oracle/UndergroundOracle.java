@@ -31,7 +31,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.ticks.WorldGenTickAccess;
 
 /**
- * Oracle of crates/mc-game/tests/feat_underground_golden.rs: the vanilla geode, speleothem, speleothem_cluster,
+ * Oracle of crates/mc-game/tests/golden/feat_underground_golden.rs: the vanilla geode, speleothem, speleothem_cluster,
  * large_dripstone, monster_room, spike, end_spike, end_gateway, end_island, end_podium, end_platform, fossil and template features run on the
  * real vanilla WorldGenRegion over the synthetic terrain of FeatureOracleBase (data-pack entries plus hand written
  * variants), after random terrain preparation (caverns, solid blocks, snow), followed by FeatureOracleBase.dump.

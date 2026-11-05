@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 /**
- * Oracle of crates/mc-game/tests/placement_golden.rs: for every placed feature of the data pack, the PLACEMENT chain only (the
+ * Oracle of crates/mc-game/tests/golden/placement_golden.rs: for every placed feature of the data pack, the PLACEMENT chain only (the
  * loop of vanilla's FeaturePlacer.place with biome check, minus the feature) over the shared synthetic world: the ordered final
  * positions (count + order-sensitive hash) and the next long of the random after the chain.
  * Plus the chains of tests/fixtures/placement_synthetic.json (modifier types and parameters the data pack never uses), id {@code synthetic:<name>}.

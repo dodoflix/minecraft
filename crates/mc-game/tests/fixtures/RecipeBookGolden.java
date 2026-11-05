@@ -33,7 +33,7 @@ import net.minecraft.tags.TagLoader;
 import net.minecraft.world.item.crafting.*;
 import java.util.concurrent.Executor;
 
-// Golden generator for crates/mc-game/tests/recipe_book_golden.rs: the REAL vanilla ServerRecipeBook (add/remove/seen/
+// Golden generator for crates/mc-game/tests/golden/recipe_book_golden.rs: the REAL vanilla ServerRecipeBook (add/remove/seen/
 // settings/initial packets, pack NBT) over the real RecipeManager.
 public class RecipeBookGolden {
    static final StringBuilder OUT = new StringBuilder();

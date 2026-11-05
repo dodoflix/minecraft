@@ -7,7 +7,7 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 
 /**
- * Oracle of the codec cases of crates/mc-game/tests/placement_golden.rs: whether vanilla's {@code PlacementModifier.CODEC}
+ * Oracle of the codec cases of crates/mc-game/tests/golden/placement_golden.rs: whether vanilla's {@code PlacementModifier.CODEC}
  * accepts each JSON. Usage (repo root):
  * scripts/vanilla-java.sh crates/mc-game/tests/oracle/PlacementCodecOracle.java crates/mc-game/tests/fixtures/placement_codec.txt
  * Output lines: {@code OK|ERR<TAB>json}.

@@ -25,7 +25,7 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
  * canonical NBT the codec re-encodes (inline dimension types, inline-biome flat settings, inline biomes in biome
  * sources, malformed variants of each) or ERR.
  *   java -cp tools/extractor/build:$(scripts/vanilla-cp.sh) crates/mc-game/tests/oracle/WorldDimensionsOracle.java <outdir>
- * Cases named `noenc:` are compared for acceptance only (see the test). Writes <outdir>/world_dimensions_stems.txt (tests/world_dimensions_golden.rs replays every `STEM` line).
+ * Cases named `noenc:` are compared for acceptance only (see the test). Writes <outdir>/world_dimensions_stems.txt (tests/golden/world_dimensions_golden.rs replays every `STEM` line).
  */
 public class WorldDimensionsOracle {
    static RegistryAccess.Frozen access;

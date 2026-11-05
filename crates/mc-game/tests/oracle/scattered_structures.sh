@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerates crates/mc-game/tests/fixtures/scattered/*.txt.gz (fixtures of tests/scattered_structures_golden.rs).
+# Regenerates crates/mc-game/tests/fixtures/scattered/*.txt.gz (fixtures of tests/golden/scattered_structures_golden.rs).
 # Usage (repo root): crates/mc-game/tests/oracle/scattered_structures.sh [structure ...]   (default: all)
 set -euo pipefail
 cd "$(dirname "$0")/../../../.."

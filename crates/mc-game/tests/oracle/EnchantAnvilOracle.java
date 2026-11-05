@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 /**
- * Golden generator for crates/mc-game/tests/enchant_anvil_golden.rs: scripted sessions through the REAL vanilla
+ * Golden generator for crates/mc-game/tests/golden/enchant_anvil_golden.rs: scripted sessions through the REAL vanilla
  * EnchantmentMenu / AnvilMenu / GrindstoneMenu of a real ServerPlayer on a real ServerLevel (VanillaLevel, void world).
  *   scripts/enchant-anvil-golden.sh
  * Output (stdout): one line per op ("OP ...", replayed by Rust) followed by "OUT ..." lines (state after the op):
