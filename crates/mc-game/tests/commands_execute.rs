@@ -48,9 +48,16 @@ fn execute_tree_matches_vanilla() {
         command_tree::commands_packet(&root).encode(&mut out);
         let ours = ClientboundCommandsPacket::decode(&mut out.as_slice()).unwrap();
         let theirs = ClientboundCommandsPacket::decode(&mut bytes.as_slice()).unwrap();
-        for (i, (a, b)) in ours.entries.iter().zip(&theirs.entries).enumerate() {
-            assert_eq!(a, b, "permission level {level}: node {i}");
-        }
+        let mismatches: Vec<String> = ours
+            .entries
+            .iter()
+            .zip(&theirs.entries)
+            .enumerate()
+            .filter(|(_, (a, b))| a != b)
+            .take(12)
+            .map(|(i, (a, b))| format!("node {i}:\n  ours   {a:?}\n  vanilla {b:?}"))
+            .collect();
+        assert!(mismatches.is_empty(), "permission level {level}: {} nodes (ours) vs {} (vanilla)\n{}", ours.entries.len(), theirs.entries.len(), mismatches.join("\n"));
         assert_eq!(ours.entries.len(), theirs.entries.len(), "permission level {level}: node count");
         assert_eq!(out, bytes, "permission level {level}");
         checked += 1;
