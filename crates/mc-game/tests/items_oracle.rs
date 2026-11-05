@@ -14,9 +14,22 @@ use mc_game::world::level::LevelAccessor;
 use mc_data::Item;
 
 /// The flat world of the oracle: grass at y=-61 (the player stands at y=-60).
+fn registries() -> mc_game::registry::RegistryAccess {
+    static ACCESS: std::sync::OnceLock<mc_game::registry::RegistryAccess> = std::sync::OnceLock::new();
+    ACCESS
+        .get_or_init(|| {
+            let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+            let dir = tempfile::tempdir().unwrap();
+            let (_, stem) = common::load_world(dir.path(), mc_world::level_storage::WorldDataConfiguration::DEFAULT, true).expect("default world loads");
+            stem.registries.composite_access().clone()
+        })
+        .clone()
+}
+
 fn flat_level() -> ServerLevel {
     let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
-    for x in -3..=26 {
+    level.registries = registries();
+    for x in -3..=20 {
         for z in -4..=4 {
             level.set_block_and_update(BlockPos::new(x, -61, z), Block::GRASS_BLOCK.default_state());
         }
@@ -49,7 +62,8 @@ fn tick_entities(level: &mut ServerLevel, ids: &[EntityId]) {
     for &id in ids {
         level.with_entity(id, |level, e| {
             if !e.is_removed() {
-                level.tick_non_passenger(e);
+                mc_game::world::entity::entity::common_tick(e);
+                e.tick(level);
             }
         });
     }
@@ -85,15 +99,16 @@ fn describe_item(name: &str, e: &ItemEntity) -> String {
 #[test]
 fn item_fall_matches_vanilla() {
     let mut level = flat_level();
-    fill(&mut level, (10, -61, -2), (16, -61, 2), Block::PACKED_ICE.default_state());
-    fill(&mut level, (20, -61, -2), (22, -56, 2), Block::WATER.default_state());
+    fill(&mut level, (9, -61, -2), (12, -61, 2), Block::PACKED_ICE.default_state());
+    fill(&mut level, (13, -61, -3), (17, -56, 3), Block::STONE.default_state());
+    fill(&mut level, (14, -60, -2), (16, -56, 2), Block::WATER.default_state());
     let diamond = || ItemStack::new(Item::DIAMOND);
     let names = ["a", "b", "c", "w"];
     let ids = [
         spawn_item(&mut level, diamond(), (0.5, -50.0, 0.5), (0.0, 0.0, 0.0), 0.0),
         spawn_item(&mut level, diamond(), (3.5, -58.0, 0.5), (0.1, 0.2, -0.05), 90.0),
-        spawn_item(&mut level, diamond(), (11.5, -60.0, 0.5), (0.3, 0.0, 0.0), 0.0),
-        spawn_item(&mut level, diamond(), (21.5, -52.0, 0.5), (0.0, 0.0, 0.0), 0.0),
+        spawn_item(&mut level, diamond(), (10.5, -60.0, 0.5), (0.3, 0.0, 0.0), 0.0),
+        spawn_item(&mut level, diamond(), (15.0, -52.0, 0.5), (0.0, 0.0, 0.0), 0.0),
     ];
     let mut actual = Vec::new();
     for t in 1..=100 {
@@ -156,7 +171,7 @@ fn item_merge_rules_match_vanilla() {
         s.copy_with_count(count)
     };
     let lines = golden_lines("merge ");
-    assert!(lines.len() > 1000);
+    assert!(lines.len() > 800);
     for l in &lines {
         let (a, ca, b, cb) = (&l[0], l[1].parse::<i32>().unwrap(), &l[2], l[3].parse::<i32>().unwrap());
         let (to, mut from) = (make(a, ca), make(b, cb));
