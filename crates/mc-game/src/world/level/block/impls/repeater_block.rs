@@ -1,59 +1,60 @@
 //! `net.minecraft.world.level.block.RepeaterBlock` (extends `DiodeBlock`).
-use super::diode_block::{self, is_diode};
+use super::diode_block::{self, Diode, diode_behaviour};
 use super::prelude::*;
+use crate::server::level::ServerLevel;
+use crate::world::item::InteractionResult;
 
 pub struct RepeaterBlock;
 
-/// `SignalGetter.getControlInputSignal(pos, direction, onlyDiodes = true)`.
-fn get_control_input_signal_diodes_only(level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
-    let block_state = level.get_block_state(pos);
-    if is_diode(block_state) { block_state.get_direct_signal(level, pos, direction) } else { 0 }
-}
-
-/// `RepeaterBlock.isLocked` (`getAlternateSignal(level, pos, state) > 0` with `sideInputDiodesOnly`).
-fn is_locked(level: &dyn BlockGetter, pos: BlockPos, state: BlockState) -> bool {
-    let direction = state.get(props::HORIZONTAL_FACING);
-    let clockwise = direction.get_clockwise();
-    let counter_clockwise = direction.get_counter_clockwise();
-    let alternate = get_control_input_signal_diodes_only(level, pos.relative(clockwise), clockwise)
-        .max(get_control_input_signal_diodes_only(level, pos.relative(counter_clockwise), counter_clockwise));
-    alternate > 0
+impl Diode for RepeaterBlock {
+    fn get_delay(&self, state: BlockState) -> i32 {
+        state.get(props::DELAY) * 2
+    }
+    /// `isLocked`: `getAlternateSignal(level, pos, state) > 0`.
+    fn is_locked(&self, level: &dyn BlockGetter, pos: BlockPos, state: BlockState) -> bool {
+        diode_block::get_alternate_signal(self, level, pos, state) > 0
+    }
+    fn side_input_diodes_only(&self) -> bool {
+        true
+    }
 }
 
 impl BlockBehaviour for RepeaterBlock {
-    fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
-        let below_pos = pos.below();
-        diode_block::can_survive_on(level, below_pos, level.get_block_state(below_pos))
+    diode_behaviour!();
+    fn use_without_item(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        player: &mut crate::world::entity::ServerPlayer,
+        _hit: &mc_core::phys::BlockHitResult,
+    ) -> InteractionResult {
+        if !player.player.abilities.may_build {
+            InteractionResult::PASS
+        } else {
+            level.set_block_and_update(pos, state.cycle(props::DELAY));
+            InteractionResult::SUCCESS
+        }
+    }
+    fn get_state_for_placement(&self, block: Block, level: &mut ServerLevel, context: &crate::world::item::BlockPlaceContext) -> Option<BlockState> {
+        let state = diode_block::get_state_for_placement(block, context);
+        Some(state.set(props::LOCKED, self.is_locked(&*level, context.get_clicked_pos(), state)))
     }
     update_shape!(|self, state, level, pos, direction, neighbour_pos, neighbour_state| {
         if direction == Direction::Down && !diode_block::can_survive_on(&*level, neighbour_pos, neighbour_state) {
             air()
         } else if direction.get_axis() != state.get(props::HORIZONTAL_FACING).get_axis() {
             // `!level.isClientSide()` is always true for the server levels
-            state.set(props::LOCKED, is_locked(&*level, pos, state))
+            state.set(props::LOCKED, self.is_locked(&*level, pos, state))
         } else {
             state
         }
     });
-    fn rotate(&self, state: BlockState, rotation: Rotation) -> BlockState {
-        helpers::rotate_facing(state, props::HORIZONTAL_FACING, rotation)
-    }
-    fn mirror(&self, state: BlockState, mirror: Mirror) -> BlockState {
-        helpers::mirror_facing(state, props::HORIZONTAL_FACING, mirror)
-    }
-    fn get_direct_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
-        state.get_signal(level, pos, direction)
-    }
-    fn get_signal(&self, state: BlockState, level: &dyn BlockGetter, pos: BlockPos, direction: Direction) -> i32 {
-        if state.get(props::HORIZONTAL_FACING) == direction { self.own_signal(state, level, pos) } else { 0 }
-    }
-    fn own_signal(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos) -> i32 {
-        if state.get(props::POWERED) { 15 } else { 0 }
-    }
     fn should_redstone_wire_connect_to(&self, state: BlockState, _level: &dyn BlockGetter, _pos: BlockPos, direction: Option<Direction>) -> bool {
         let repeater_direction = state.get(props::HORIZONTAL_FACING);
         Some(repeater_direction) == direction || Some(repeater_direction.get_opposite()) == direction
     }
 }
+
 
 register_block_class!("RepeaterBlock", |_| Box::new(RepeaterBlock));

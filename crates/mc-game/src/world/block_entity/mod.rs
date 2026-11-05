@@ -23,7 +23,9 @@ macro_rules! block_entity_base {
 
 pub mod base_container;
 mod calibrated_sculk_sensor_block_entity;
+mod comparator_block_entity;
 mod creaking_heart_block_entity;
+mod daylight_detector_block_entity;
 mod potent_sulfur_block_entity;
 mod sculk_catalyst_block_entity;
 mod sculk_sensor_block_entity;
@@ -31,7 +33,9 @@ mod sculk_shrieker_block_entity;
 mod the_end_gateway_block_entity;
 mod the_end_portal_block_entity;
 
+pub use comparator_block_entity::ComparatorBlockEntity;
 pub use creaking_heart_block_entity::CreakingHeartBlockEntity;
+pub use daylight_detector_block_entity::DaylightDetectorBlockEntity;
 pub use potent_sulfur_block_entity::PotentSulfurBlockEntity;
 pub use sculk_catalyst_block_entity::SculkCatalystBlockEntity;
 pub use sculk_sensor_block_entity::SculkSensorBlockEntity;
@@ -175,6 +179,12 @@ pub trait BlockEntity: Any {
     /// entity is removed from its chunk (`Level.removeBlockEntity`, replaced entry); the entity is out of the chunk.
     fn set_removed_in_level(&mut self, _level: &mut crate::server::level::ServerLevel) {
         self.set_removed();
+    }
+
+    // ==== [Blocks:RedstoneDevices] ====
+    /// `SkullBlockEntity.getNoteBlockSound()`: the sound a note block plays below this head (`None` for every other type).
+    fn get_note_block_sound(&self) -> Option<mc_core::ident::Identifier> {
+        None
     }
 }
 

@@ -112,6 +112,23 @@ impl ServerLevel {
         );
     }
 
+    /// `playSeededSound(except, x, y, z, Holder.direct(SoundEvent.createVariableRangeEvent(id)), source, volume, pitch, seed)`:
+    /// a sound that is not in the registry (note block custom head sounds) is sent inline.
+    #[allow(clippy::too_many_arguments)]
+    pub fn play_seeded_variable_range_sound(&self, except: Option<EntityId>, x: f64, y: f64, z: f64, id: mc_core::ident::Identifier, source: SoundSource, volume: f32, pitch: f32, seed: i64) {
+        use mc_protocol::packets::play::types::DirectSoundEvent;
+        let except = except.filter(|id| self.is_player_id(*id));
+        let range = if volume > 1.0 { f64::from(16.0 * volume) } else { 16.0 };
+        self.broadcast_nearby(
+            except,
+            x,
+            y,
+            z,
+            range,
+            &ClientboundSoundPacket::new(SoundEventHolder::Direct(DirectSoundEvent { location: id, fixed_range: None }), source, x, y, z, volume, pitch, seed),
+        );
+    }
+
     /// `playSound(except, x, y, z, sound, source, volume, pitch)`: draws the seed from `soundSeedGenerator`.
     #[allow(clippy::too_many_arguments)]
     pub fn play_sound_at(&mut self, except: Option<EntityId>, x: f64, y: f64, z: f64, sound: SoundEvent, source: SoundSource, volume: f32, pitch: f32) {
