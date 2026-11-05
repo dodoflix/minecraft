@@ -81,7 +81,7 @@ pub fn format_list<T>(values: impl IntoIterator<Item = T>, separator: &Component
 /// `ComponentUtils.formatList(Collection<String>)`: green, sorted.
 pub fn format_string_list(values: &[String]) -> Component {
     let mut sorted: Vec<&String> = values.iter().collect();
-    sorted.sort();
+    sorted.sort_by(|a, b| a.encode_utf16().cmp(b.encode_utf16())); // `String.compareTo`: UTF-16 code units
     match sorted.len() {
         0 => Component::empty(),
         1 => Component::literal(sorted[0].clone()).with_format(ChatFormatting::Green),

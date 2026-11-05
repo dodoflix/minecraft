@@ -29,28 +29,29 @@ pub enum Operation {
 }
 
 impl Operation {
-    /// `Operation.apply(a, b)`: the new values of `(a, b)`.
-    pub fn apply(self, a: i32, b: i32) -> Result<(i32, i32), CommandSyntaxException> {
+    /// `Operation.apply(a, b)`: the new value of `a`, and the new value of `b` when the operation writes it (only `><`;
+    /// the others never touch the source score).
+    pub fn apply(self, a: i32, b: i32) -> Result<(i32, Option<i32>), CommandSyntaxException> {
         Ok(match self {
-            Operation::Assign => (b, b),
-            Operation::Add => (a.wrapping_add(b), b),
-            Operation::Sub => (a.wrapping_sub(b), b),
-            Operation::Mul => (a.wrapping_mul(b), b),
+            Operation::Assign => (b, None),
+            Operation::Add => (a.wrapping_add(b), None),
+            Operation::Sub => (a.wrapping_sub(b), None),
+            Operation::Mul => (a.wrapping_mul(b), None),
             Operation::Div => {
                 if b == 0 {
                     return Err(ERROR_DIVIDE_BY_ZERO.create());
                 }
-                (floor_div_i32(a, b), b)
+                (floor_div_i32(a, b), None)
             }
             Operation::Mod => {
                 if b == 0 {
                     return Err(ERROR_DIVIDE_BY_ZERO.create());
                 }
-                (floor_mod_i32(a, b), b)
+                (floor_mod_i32(a, b), None)
             }
-            Operation::Min => (a.min(b), b),
-            Operation::Max => (a.max(b), b),
-            Operation::Swap => (b, a),
+            Operation::Min => (a.min(b), None),
+            Operation::Max => (a.max(b), None),
+            Operation::Swap => (b, Some(a)),
         })
     }
 

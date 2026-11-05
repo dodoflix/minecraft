@@ -346,76 +346,7 @@ impl ArgumentType<CommandSourceStack> for SwingAnimationArgument {
 
 // ---- TeamColorArgument ----
 
-/// `TeamColor` (the 16 colors a team can have).
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum TeamColor {
-    Black,
-    DarkBlue,
-    DarkGreen,
-    DarkAqua,
-    DarkRed,
-    DarkPurple,
-    Gold,
-    Gray,
-    DarkGray,
-    Blue,
-    Green,
-    Aqua,
-    Red,
-    LightPurple,
-    Yellow,
-    White,
-}
-
-impl TeamColor {
-    pub const VALUES: [TeamColor; 16] = [
-        Self::Black,
-        Self::DarkBlue,
-        Self::DarkGreen,
-        Self::DarkAqua,
-        Self::DarkRed,
-        Self::DarkPurple,
-        Self::Gold,
-        Self::Gray,
-        Self::DarkGray,
-        Self::Blue,
-        Self::Green,
-        Self::Aqua,
-        Self::Red,
-        Self::LightPurple,
-        Self::Yellow,
-        Self::White,
-    ];
-
-    pub fn id(self) -> i32 {
-        self as i32
-    }
-
-    pub fn get_serialized_name(self) -> &'static str {
-        match self {
-            Self::Black => "black",
-            Self::DarkBlue => "dark_blue",
-            Self::DarkGreen => "dark_green",
-            Self::DarkAqua => "dark_aqua",
-            Self::DarkRed => "dark_red",
-            Self::DarkPurple => "dark_purple",
-            Self::Gold => "gold",
-            Self::Gray => "gray",
-            Self::DarkGray => "dark_gray",
-            Self::Blue => "blue",
-            Self::Green => "green",
-            Self::Aqua => "aqua",
-            Self::Red => "red",
-            Self::LightPurple => "light_purple",
-            Self::Yellow => "yellow",
-            Self::White => "white",
-        }
-    }
-
-    pub fn by_name(name: &str) -> Option<TeamColor> {
-        Self::VALUES.into_iter().find(|c| c.get_serialized_name() == name)
-    }
-}
+pub use crate::world::scores::TeamColor;
 
 pub static ERROR_INVALID_TEAM_COLOR: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| dynamic_translatable("argument.color.invalid"));
 

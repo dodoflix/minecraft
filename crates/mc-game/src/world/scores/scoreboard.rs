@@ -7,7 +7,9 @@
 
 use std::collections::{BTreeMap, HashMap, HashSet};
 
-use indexmap::{IndexMap, IndexSet};
+use indexmap::IndexMap;
+use crate::util::object_open_hash_map::ObjectOpenHashMap;
+use crate::world::entity::tag_set::JavaStringSet;
 use mc_nbt::Tag;
 use mc_text::util::wrap_in_square_brackets;
 use mc_text::{Component, HoverEvent, Style};
@@ -99,10 +101,10 @@ impl Objective {
 }
 
 /// `PlayerTeam`.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub struct PlayerTeam {
     name: String,
-    players: IndexSet<String>,
+    players: JavaStringSet,
     display_name: Component,
     player_prefix: Component,
     player_suffix: Component,
@@ -122,7 +124,7 @@ impl PlayerTeam {
     fn new(name: &str) -> PlayerTeam {
         PlayerTeam {
             name: name.to_string(),
-            players: IndexSet::new(),
+            players: JavaStringSet::new(),
             display_name: Component::literal(name),
             player_prefix: Component::empty(),
             player_suffix: Component::empty(),
@@ -150,7 +152,7 @@ impl PlayerTeam {
             name_tag_visibility: self.name_tag_visibility,
             death_message_visibility: self.death_message_visibility,
             collision_rule: self.collision_rule,
-            players: self.players.iter().cloned().collect(),
+            players: self.players.iter_java_order().into_iter().map(str::to_owned).collect(),
         }
     }
 
@@ -166,7 +168,7 @@ impl PlayerTeam {
     pub fn get_player_suffix(&self) -> &Component {
         &self.player_suffix
     }
-    pub fn get_players(&self) -> &IndexSet<String> {
+    pub fn get_players(&self) -> &JavaStringSet {
         &self.players
     }
     pub fn is_allow_friendly_fire(&self) -> bool {
@@ -247,7 +249,7 @@ impl PlayerTeam {
             name: self.name.clone(),
             method: if create_new { 0 } else { 2 },
             parameters: Some(self.parameters()),
-            players: if create_new { self.players.iter().cloned().collect() } else { Vec::new() },
+            players: if create_new { self.players.iter_java_order().into_iter().map(str::to_owned).collect() } else { Vec::new() },
         }
     }
 
@@ -278,11 +280,11 @@ struct ServerState {
 /// `Scoreboard` / `ServerScoreboard`.
 #[derive(Debug, Default)]
 pub struct Scoreboard {
-    objectives_by_name: IndexMap<String, Objective>,
+    objectives_by_name: ObjectOpenHashMap<Objective>,
     objectives_by_criteria: HashMap<ObjectiveCriteria, Vec<String>>,
-    player_scores: IndexMap<String, PlayerScores>,
+    player_scores: ObjectOpenHashMap<PlayerScores>,
     display_objectives: BTreeMap<DisplaySlot, String>,
-    teams_by_name: IndexMap<String, PlayerTeam>,
+    teams_by_name: ObjectOpenHashMap<PlayerTeam>,
     teams_by_player: HashMap<String, String>,
     server: Option<ServerState>,
 }
@@ -426,7 +428,7 @@ impl Scoreboard {
             return;
         }
         self.broadcast(ScoreboardPacket::SetPlayerTeam(team.create_remove_packet()));
-        self.push_waypoints(team.players.iter().cloned().collect());
+        self.push_waypoints(team.players.iter_java_order().into_iter().map(str::to_owned).collect());
         self.set_dirty();
     }
 
@@ -437,7 +439,7 @@ impl Scoreboard {
     }
 
     fn update_team_waypoints(&mut self, team: &str) {
-        let players = self.teams_by_name[team].players.iter().cloned().collect();
+        let players = self.teams_by_name[team].players.iter_java_order().into_iter().map(str::to_owned).collect();
         self.push_waypoints(players);
     }
 
@@ -468,11 +470,11 @@ impl Scoreboard {
     }
 
     pub fn get_objectives(&self) -> impl Iterator<Item = &Objective> {
-        self.objectives_by_name.values()
+        self.objectives_by_name.iter().map(|(_, o)| o)
     }
 
     pub fn get_objective_names(&self) -> impl Iterator<Item = &str> {
-        self.objectives_by_name.keys().map(String::as_str)
+        self.objectives_by_name.iter().map(|(k, _)| k)
     }
 
     pub fn set_objective_display_name(&mut self, name: &str, display_name: Component) {
@@ -505,12 +507,15 @@ impl Scoreboard {
     }
 
     pub fn remove_objective(&mut self, name: &str) {
-        let Some(objective) = self.objectives_by_name.shift_remove(name) else { return };
+        // The display slots are cleared while the objective is still registered: `setDisplayObjective` has to find it
+        // to send the stop-tracking packets (vanilla holds the `Objective` instance itself).
+        let Some(objective) = self.objectives_by_name.get(name).cloned() else { return };
         for slot in DisplaySlot::VALUES {
             if self.get_display_objective(slot).is_some_and(|o| o.name == objective.name) {
                 self.set_display_objective(slot, None);
             }
         }
+        self.objectives_by_name.remove(name);
         if let Some(list) = self.objectives_by_criteria.get_mut(&objective.criteria) {
             list.retain(|n| *n != objective.name);
         }
@@ -542,7 +547,7 @@ impl Scoreboard {
         let can_modify = force_writable || !obj.criteria.is_read_only();
         let display_auto_update = obj.display_auto_update;
         let holder_name = holder.get_scoreboard_name();
-        let scores = &mut self.player_scores.entry(holder_name.clone()).or_default().scores;
+        let scores = &mut self.player_scores.get_or_insert_with(&holder_name, PlayerScores::default).scores;
         let mut requires_sync = false;
         if !scores.contains_key(objective) {
             scores.insert(objective.to_string(), Score::default());
@@ -556,13 +561,13 @@ impl Scoreboard {
         self.player_scores.get(&holder.get_scoreboard_name())?.scores.get(objective)
     }
 
-    /// `listPlayerScores(objective)`.
+    /// `listPlayerScores(objective)` (`playerScores.forEach`: fastutil iterator order).
     pub fn list_player_scores(&self, objective: &str) -> Vec<PlayerScoreEntry> {
         self.player_scores
             .iter()
             .filter_map(|(player, scores)| {
                 scores.scores.get(objective).map(|s| PlayerScoreEntry {
-                    owner: player.clone(),
+                    owner: player.to_owned(),
                     value: s.value,
                     display: s.display.clone(),
                     number_format_override: s.number_format.clone(),
@@ -579,14 +584,14 @@ impl Scoreboard {
             .unwrap_or_default()
     }
 
-    /// `getTrackedPlayers` (the holders' names).
+    /// `getTrackedPlayers` (the holders' names; `keySet().stream()` order).
     pub fn get_tracked_players(&self) -> Vec<String> {
-        self.player_scores.keys().cloned().collect()
+        self.player_scores.iter_stream().map(|(k, _)| k.to_owned()).collect()
     }
 
     pub fn reset_all_player_scores(&mut self, holder: &dyn ScoreHolder) {
         let name = holder.get_scoreboard_name();
-        if self.player_scores.shift_remove(&name).is_some() {
+        if self.player_scores.remove(&name).is_some() {
             self.on_player_removed(&name);
         }
     }
@@ -596,7 +601,7 @@ impl Scoreboard {
         let Some(scores) = self.player_scores.get_mut(&name) else { return };
         let has_removed = scores.scores.shift_remove(objective).is_some();
         if scores.scores.is_empty() {
-            if self.player_scores.shift_remove(&name).is_some() {
+            if self.player_scores.remove(&name).is_some() {
                 self.on_player_removed(&name);
             }
         } else if has_removed {
@@ -743,8 +748,8 @@ impl Scoreboard {
     }
 
     pub fn remove_player_team(&mut self, name: &str) {
-        let Some(team) = self.teams_by_name.shift_remove(name) else { return };
-        for player in &team.players {
+        let Some(team) = self.teams_by_name.remove(name) else { return };
+        for player in team.players.iter_java_order() {
             self.teams_by_player.remove(player);
         }
         self.on_team_removed(&team);
@@ -789,7 +794,7 @@ impl Scoreboard {
         }
         self.teams_by_player.remove(player);
         if let Some(t) = self.teams_by_name.get_mut(team) {
-            t.players.shift_remove(player);
+            t.players.remove(player);
         }
         if self.server.is_some() {
             if let Some(t) = self.teams_by_name.get(team) {
@@ -803,11 +808,11 @@ impl Scoreboard {
     }
 
     pub fn get_team_names(&self) -> impl Iterator<Item = &str> {
-        self.teams_by_name.keys().map(String::as_str)
+        self.teams_by_name.iter().map(|(k, _)| k)
     }
 
     pub fn get_player_teams(&self) -> impl Iterator<Item = &PlayerTeam> {
-        self.teams_by_name.values()
+        self.teams_by_name.iter().map(|(_, t)| t)
     }
 
     pub fn get_players_team(&self, name: &str) -> Option<&PlayerTeam> {
@@ -823,8 +828,8 @@ impl Scoreboard {
 
     fn pack_player_scores(&self) -> Vec<PackedScore> {
         self.player_scores
-            .iter()
-            .flat_map(|(player, ps)| ps.scores.iter().map(move |(objective, score)| PackedScore { owner: player.clone(), objective: objective.clone(), score: score.clone() }))
+            .iter_stream()
+            .flat_map(|(player, ps)| ps.scores.iter().map(move |(objective, score)| PackedScore { owner: player.to_owned(), objective: objective.clone(), score: score.clone() }))
             .collect()
     }
 
@@ -835,10 +840,10 @@ impl Scoreboard {
     /// `ServerScoreboard.store()`.
     pub fn store(&self) -> ScoreboardSaveDataPacked {
         ScoreboardSaveDataPacked {
-            objectives: self.objectives_by_name.values().map(Objective::pack).collect(),
+            objectives: self.objectives_by_name.iter_stream().map(|(_, o)| o.pack()).collect(),
             scores: self.pack_player_scores(),
             display_slots: self.pack_display_slots(),
-            teams: self.teams_by_name.values().map(PlayerTeam::pack).collect(),
+            teams: self.teams_by_name.iter_stream().map(|(_, t)| t.pack()).collect(),
         }
     }
 
@@ -853,7 +858,7 @@ impl Scoreboard {
         for s in &data.scores {
             match self.objectives_by_name.contains_key(&s.objective) {
                 true => {
-                    self.player_scores.entry(s.owner.clone()).or_default().scores.insert(s.objective.clone(), s.score.clone());
+                    self.player_scores.get_or_insert_with(&s.owner, PlayerScores::default).scores.insert(s.objective.clone(), s.score.clone());
                 }
                 false => log::error!("Unknown objective {} for name {}, ignoring", s.objective, s.owner),
             }
@@ -916,7 +921,7 @@ pub struct ScoreAccess<'a> {
 
 impl ScoreAccess<'_> {
     fn score(&self) -> &Score {
-        &self.scoreboard.player_scores[&self.holder].scores[&self.objective]
+        &self.scoreboard.player_scores[self.holder.as_str()].scores[&self.objective]
     }
 
     fn score_mut(&mut self) -> &mut Score {
@@ -1003,6 +1008,43 @@ impl ScoreAccess<'_> {
     pub fn number_format_override(&mut self, number_format: Option<NumberFormat>) {
         self.score_mut().number_format = number_format;
         self.send_score_to_players();
+    }
+}
+
+impl<'a> ScoreAccess<'a> {
+    /// Drops the scoreboard borrow (keeping the access' own state: `requiresSync`, writability, holder display) so
+    /// two accesses can be alive at once like vanilla's `operation` does.
+    pub fn detach(self) -> DetachedScoreAccess {
+        DetachedScoreAccess {
+            holder: self.holder,
+            holder_display: self.holder_display,
+            objective: self.objective,
+            can_modify: self.can_modify,
+            requires_sync: self.requires_sync,
+        }
+    }
+}
+
+/// A [`ScoreAccess`] that does not borrow the scoreboard; [`attach`](DetachedScoreAccess::attach) it for each use.
+#[derive(Debug, Clone)]
+pub struct DetachedScoreAccess {
+    holder: String,
+    holder_display: Option<Component>,
+    objective: String,
+    can_modify: bool,
+    requires_sync: bool,
+}
+
+impl DetachedScoreAccess {
+    pub fn attach(self, scoreboard: &mut Scoreboard) -> ScoreAccess<'_> {
+        ScoreAccess {
+            scoreboard,
+            holder: self.holder,
+            holder_display: self.holder_display,
+            objective: self.objective,
+            can_modify: self.can_modify,
+            requires_sync: self.requires_sync,
+        }
     }
 }
 
@@ -1158,6 +1200,28 @@ mod tests {
         let p = packets(&mut b);
         assert!(p.iter().any(|x| matches!(x, ScoreboardPacket::SetObjective(o) if o.objective_name == "p" && o.method == 1)));
         assert!(b.get_display_objective(DisplaySlot::Sidebar).is_none());
+    }
+
+    #[test]
+    fn detached_accesses_keep_their_sync_state() {
+        let mut b = board();
+        b.set_display_objective(DisplaySlot::Sidebar, Some("o"));
+        b.take_outputs();
+        let (x, y) = (for_name_only("x"), for_name_only("y"));
+        // two accesses alive at once (`/scoreboard players operation`): the first creates `x`'s score, the second `y`'s
+        let a = b.get_or_create_player_score(&x, "o").unwrap().detach();
+        let mut s = b.get_or_create_player_score(&y, "o").unwrap().detach();
+        assert!(packets(&mut b).is_empty(), "creating a score sends nothing");
+        let mut access = s.attach(&mut b);
+        access.set(0).unwrap();
+        s = access.detach();
+        // a new score is synced by its first `set` even when the value stays 0, a second `set` is not
+        assert_eq!(packets(&mut b).len(), 1);
+        s.attach(&mut b).set(0).unwrap();
+        assert!(packets(&mut b).is_empty());
+        a.attach(&mut b).set(5).unwrap();
+        assert_eq!(packets(&mut b).len(), 1);
+        assert_eq!(b.get_player_score_info(&x, "o").unwrap().value(), 5);
     }
 
     #[test]

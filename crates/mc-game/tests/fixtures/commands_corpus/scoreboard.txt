@@ -1,0 +1,451 @@
+# ScoreboardCommand / TeamCommand / TeamMsgCommand / TriggerCommand / TagCommand: every subcommand, success and error.
+# (the per-holder objective order of `players list <holder>` is an identity hash in vanilla: listed holders have one objective)
+!packets ^(set_objective|set_score|reset_score|set_display_objective|set_player_team)$
+
+# ---- objectives: list / add / errors ----
+scoreboard objectives list
+scoreboard objectives add kills dummy
+scoreboard objectives add kills dummy
+scoreboard objectives add deaths deathCount "Deaths"
+scoreboard objectives add hp health
+scoreboard objectives add trig trigger
+scoreboard objectives add food food
+scoreboard objectives add air air
+scoreboard objectives add armor armor
+scoreboard objectives add xp xp
+scoreboard objectives add lvl level
+scoreboard objectives add tk teamkill.red
+scoreboard objectives add kbt killedByTeam.dark_blue
+scoreboard objectives add mined minecraft.mined:minecraft.stone
+scoreboard objectives add crafted2 minecraft.crafted:minecraft.stick
+scoreboard objectives add custom1 minecraft.custom:minecraft.jump
+scoreboard objectives add bad_criteria bad.criteria
+scoreboard objectives add bad_stat minecraft.mined:minecraft.nothing
+scoreboard objectives add bad_stat2 minecraft.nope:minecraft.stone
+scoreboard objectives add fancy dummy {"text":"Fancy","color":"red","bold":true}
+scoreboard objectives add fancy2 dummy "plain"
+scoreboard objectives add with_sel dummy {"selector":"Bot"}
+scoreboard objectives add a-b.c+d_e dummy
+scoreboard objectives add bad!name dummy
+scoreboard objectives add
+scoreboard objectives add noc
+scoreboard objectives add toolong_toolong_toolong_toolong dummy
+scoreboard objectives add 日本 dummy
+scoreboard objectives list
+
+# ---- objectives: modify ----
+scoreboard objectives modify kills displayname {"text":"Kills","color":"gold"}
+scoreboard objectives modify kills displayname {"text":"Kills","color":"gold"}
+scoreboard objectives modify kills displayname "K"
+scoreboard objectives modify kills displayname
+scoreboard objectives modify nothing displayname "K"
+scoreboard objectives modify kills rendertype hearts
+scoreboard objectives modify kills rendertype hearts
+scoreboard objectives modify kills rendertype integer
+scoreboard objectives modify kills rendertype bad
+scoreboard objectives modify kills displayautoupdate true
+scoreboard objectives modify kills displayautoupdate true
+scoreboard objectives modify kills displayautoupdate false
+scoreboard objectives modify kills displayautoupdate maybe
+scoreboard objectives modify kills numberformat blank
+scoreboard objectives modify kills numberformat fixed {"text":"FIXED","color":"red"}
+scoreboard objectives modify kills numberformat styled {"color":"green","italic":true}
+scoreboard objectives modify kills numberformat styled {"color":"nothing"}
+scoreboard objectives modify kills numberformat
+scoreboard objectives modify kills numberformat other
+scoreboard objectives modify kills
+scoreboard objectives modify
+
+# ---- objectives: setdisplay ----
+scoreboard objectives setdisplay sidebar kills
+scoreboard objectives setdisplay sidebar kills
+scoreboard objectives setdisplay sidebar deaths
+scoreboard objectives setdisplay sidebar
+scoreboard objectives setdisplay sidebar
+scoreboard objectives setdisplay list kills
+scoreboard objectives setdisplay below_name deaths
+scoreboard objectives setdisplay sidebar.team.red kills
+scoreboard objectives setdisplay sidebar.team.dark_blue kills
+scoreboard objectives setdisplay sidebar.team.nothing kills
+scoreboard objectives setdisplay nothing kills
+scoreboard objectives setdisplay sidebar nothing
+scoreboard objectives setdisplay list
+scoreboard objectives setdisplay below_name
+scoreboard objectives setdisplay sidebar.team.red
+scoreboard objectives setdisplay sidebar.team.dark_blue
+
+# ---- players: set / get / add / remove ----
+scoreboard players list
+scoreboard players set Alice kills 5
+scoreboard players set Alice kills 5
+scoreboard players set Bob kills -7
+scoreboard players set Alice deaths 2147483647
+scoreboard players set Alice hp 3
+scoreboard players set Alice nothing 3
+scoreboard players set Alice kills 2147483648
+scoreboard players set Alice kills abc
+scoreboard players set Alice kills
+scoreboard players set Alice
+scoreboard players set
+scoreboard players get Alice kills
+scoreboard players get Bob kills
+scoreboard players get Carol kills
+scoreboard players get Alice hp
+scoreboard players get Alice nothing
+scoreboard players get * kills
+scoreboard players get @a kills
+scoreboard players add Alice kills 3
+scoreboard players add Alice kills 0
+scoreboard players add Alice kills -1
+scoreboard players add Alice deaths 1
+scoreboard players add Alice deaths 2147483647
+scoreboard players remove Alice kills 2
+scoreboard players remove Alice kills -2
+scoreboard players remove Alice deaths 2147483647
+scoreboard players remove Alice deaths 2147483647
+scoreboard players remove Alice deaths 2147483647
+scoreboard players remove Alice hp 1
+scoreboard players add * kills 1
+scoreboard players add * nothing 1
+scoreboard players add #hidden kills 4
+scoreboard players add 00000000-0000-0000-0000-000000000001 kills 6
+scoreboard players add 00000000-0000-0000-0000-000000000001 kills 6
+scoreboard players add @e[type=pig] kills 1
+scoreboard players add @e[type=minecraft:nope] kills 1
+scoreboard players add @s kills 1
+scoreboard players add @p kills 1
+scoreboard players add @a[limit=1] kills 1
+scoreboard players list
+scoreboard players list Alice
+scoreboard players list Bob
+scoreboard players list #hidden
+scoreboard players list Nobody
+scoreboard players list *
+scoreboard players list @e
+
+# ---- players: reset / enable ----
+scoreboard players reset Bob kills
+scoreboard players reset Bob kills
+scoreboard players reset Bob
+scoreboard players reset Bob
+scoreboard players reset * kills
+scoreboard players reset Alice hp
+scoreboard players reset Alice nothing
+scoreboard players reset *
+scoreboard players list
+scoreboard players enable Alice trig
+scoreboard players enable Alice trig
+scoreboard players enable Alice kills
+scoreboard players enable Alice nothing
+scoreboard players enable Alice trig
+scoreboard players set Alice trig 4
+scoreboard players enable Alice trig
+scoreboard players enable Alice Bob trig
+scoreboard players enable * trig
+scoreboard players enable Carol trig
+
+# ---- players: operation ----
+scoreboard players set Alice kills 10
+scoreboard players set Bob kills 3
+scoreboard players set Alice deaths 4
+scoreboard players operation Alice kills += Bob kills
+scoreboard players operation Alice kills -= Bob kills
+scoreboard players operation Alice kills *= Bob kills
+scoreboard players operation Alice kills /= Bob kills
+scoreboard players operation Alice kills %= Bob kills
+scoreboard players operation Alice kills < Bob kills
+scoreboard players operation Alice kills > Bob kills
+scoreboard players operation Alice kills = Bob kills
+scoreboard players operation Alice kills >< Bob kills
+scoreboard players set Alice kills 7
+scoreboard players set Bob kills -2
+scoreboard players operation Alice kills /= Bob kills
+scoreboard players operation Alice kills %= Bob kills
+scoreboard players set Alice kills -7
+scoreboard players set Bob kills 2
+scoreboard players operation Alice kills /= Bob kills
+scoreboard players set Alice kills -7
+scoreboard players operation Alice kills %= Bob kills
+scoreboard players set Alice kills -2147483648
+scoreboard players set Bob kills -1
+scoreboard players operation Alice kills /= Bob kills
+scoreboard players operation Alice kills *= Bob kills
+scoreboard players set Alice kills 2147483647
+scoreboard players set Bob kills 2
+scoreboard players operation Alice kills *= Bob kills
+scoreboard players operation Alice kills += Alice kills
+scoreboard players set Bob kills 0
+scoreboard players operation Alice kills /= Bob kills
+scoreboard players operation Alice kills %= Bob kills
+scoreboard players operation Alice kills += Carol kills
+scoreboard players operation Carol kills += Bob kills
+scoreboard players operation Alice kills >< Alice kills
+scoreboard players operation Alice kills >< Bob deaths
+scoreboard players operation Alice kills = Bob hp
+scoreboard players operation Alice kills >< Bob hp
+scoreboard players operation Alice hp = Bob kills
+scoreboard players operation Alice nothing = Bob kills
+scoreboard players operation Alice kills = Bob nothing
+scoreboard players operation * kills = Alice kills
+scoreboard players operation Alice kills = * deaths
+scoreboard players operation * kills += * deaths
+scoreboard players operation Alice kills ** Bob kills
+scoreboard players operation Alice kills
+scoreboard players operation Alice kills +=
+scoreboard players operation
+
+# ---- players: display ----
+scoreboard players display name Alice kills {"text":"Alice!","color":"aqua"}
+scoreboard players display name Alice kills
+scoreboard players display name * kills {"text":"all"}
+scoreboard players display name * kills
+scoreboard players display name Alice nothing {"text":"x"}
+scoreboard players display name Alice hp {"text":"hp name"}
+scoreboard players display numberformat Alice kills blank
+scoreboard players display numberformat Alice kills fixed {"text":"many"}
+scoreboard players display numberformat * kills styled {"color":"red"}
+scoreboard players display numberformat Alice kills
+scoreboard players display numberformat * kills
+scoreboard players display numberformat Alice hp fixed {"text":"h"}
+scoreboard players display numberformat Alice kills bogus
+scoreboard players display
+
+# ---- objectives: remove (scores and display slots go away) ----
+scoreboard objectives setdisplay sidebar kills
+scoreboard objectives setdisplay list kills
+scoreboard objectives setdisplay below_name deaths
+scoreboard players set Alice kills 99
+scoreboard objectives remove kills
+scoreboard objectives remove kills
+scoreboard objectives remove nothing
+scoreboard objectives remove
+scoreboard objectives list
+scoreboard players list Alice
+scoreboard
+scoreboard bogus
+scoreboard objectives bogus
+
+# ---- permissions / bot sources ----
+@bot0 scoreboard objectives list
+@bot0 scoreboard players list
+@bot0 team list
+@bot0 tag @s list
+@bot0 teammsg hi
+@bot scoreboard objectives add botkills dummy
+@bot scoreboard players set @s botkills 8
+@bot scoreboard players get @s botkills
+@bot scoreboard players add @s botkills 2
+@bot scoreboard players display name @s botkills {"text":"Me"}
+@bot scoreboard players list @s
+@bot scoreboard players list
+@bot scoreboard objectives setdisplay sidebar botkills
+@bot scoreboard players set @a botkills 1
+@bot scoreboard players operation @s botkills += @s botkills
+@bot scoreboard objectives add lvlb level
+@bot scoreboard players set @s lvlb 1
+@bot scoreboard players reset @s
+@bot scoreboard objectives remove botkills
+
+# ---- trigger ----
+scoreboard objectives add trig2 trigger
+scoreboard objectives add dum2 dummy
+@bot0 trigger trig2
+@bot scoreboard players enable Bot0 trig2
+@bot0 trigger trig2
+@bot0 trigger trig2
+@bot scoreboard players enable Bot0 trig2
+@bot0 trigger trig2 add 5
+@bot scoreboard players enable Bot0 trig2
+@bot0 trigger trig2 set 9
+@bot scoreboard players enable Bot0 trig2
+@bot0 trigger trig2 set -2147483648
+@bot scoreboard players enable Bot0 trig2
+@bot0 trigger trig2 add 2147483647
+@bot scoreboard players get Bot0 trig2
+@bot0 trigger dum2
+@bot0 trigger nothing
+@bot0 trigger trig2 add
+@bot0 trigger trig2 bogus
+@bot0 trigger
+trigger trig2
+@bot scoreboard players enable Bot trig2
+@bot trigger trig2
+@bot trigger trig2 add 3
+
+# ---- team: add / list / remove ----
+team list
+team add red
+team add red
+team add blue {"text":"Blue Team","color":"blue"}
+team add green "Green"
+team add bad!name
+team add
+team add toolong_toolong_toolong_toolong_toolong
+team add 日本
+team list
+team list red
+team list nothing
+team list blue
+team remove green
+team remove green
+team remove nothing
+team remove
+team list
+
+# ---- team: modify ----
+team modify red displayName {"text":"Reds","color":"red"}
+team modify red displayName {"text":"Reds","color":"red"}
+team modify red displayName "Red"
+team modify red color red
+team modify red color red
+team modify red color blue
+team modify red color reset
+team modify red color reset
+team modify red color nothing
+team modify red color dark_purple
+team modify red friendlyFire true
+team modify red friendlyFire false
+team modify red friendlyFire false
+team modify red friendlyFire true
+team modify red friendlyFire maybe
+team modify red seeFriendlyInvisibles true
+team modify red seeFriendlyInvisibles false
+team modify red seeFriendlyInvisibles false
+team modify red seeFriendlyInvisibles true
+team modify red nametagVisibility always
+team modify red nametagVisibility never
+team modify red nametagVisibility never
+team modify red nametagVisibility hideForOtherTeams
+team modify red nametagVisibility hideForOwnTeam
+team modify red nametagVisibility always
+team modify red nametagVisibility bogus
+team modify red deathMessageVisibility always
+team modify red deathMessageVisibility never
+team modify red deathMessageVisibility never
+team modify red deathMessageVisibility hideForOtherTeams
+team modify red deathMessageVisibility hideForOwnTeam
+team modify red deathMessageVisibility always
+team modify red collisionRule always
+team modify red collisionRule never
+team modify red collisionRule never
+team modify red collisionRule pushOtherTeams
+team modify red collisionRule pushOwnTeam
+team modify red collisionRule always
+team modify red collisionRule bogus
+team modify red prefix {"text":"[R] ","color":"red"}
+team modify red prefix "P"
+team modify red suffix {"text":" <-","color":"gray"}
+team modify red suffix ""
+team modify red prefix
+team modify red nothing
+team modify red
+team modify nothing color red
+team modify
+team modify blue color aqua
+team modify blue friendlyFire false
+
+# ---- team: join / leave / empty ----
+team join red Alice
+team join red Alice
+team join red Bob Carol
+team join blue Alice
+team join red *
+team join red @e[type=pig]
+team join nothing Alice
+team join red
+team join red Dave Eve Frank Grace Heidi Ivan Judy Mallory Niaj Olivia Peggy Rupert Sybil Trent Victor Walter
+team list red
+team join blue #hidden 00000000-0000-0000-0000-000000000002
+team list blue
+team leave Alice
+team leave Alice
+team leave Zed Yan
+team leave Dave Eve
+team leave *
+team leave
+team empty red
+team empty red
+team empty blue
+team empty nothing
+team empty
+team add yellow
+team join yellow Alice
+team remove yellow
+team list
+@bot team join red
+@bot team join red @s
+@bot team join blue @a
+team join red Bot
+@bot team leave @s
+team join red Bot
+team join red Bot
+team leave Bot
+
+# ---- teammsg ----
+@bot teammsg hello
+team join red Bot
+@bot teammsg hello team
+@bot tm hello via tm
+@bot teammsg
+@bot0 teammsg hello
+@bot team join red Bot0
+@bot0 teammsg hello from bot0
+@bot teammsg @s says hi
+team modify red color red
+team modify red prefix {"text":"[R] "}
+@bot teammsg styled
+team leave Bot Bot0
+team remove red
+team remove blue
+team list
+teammsg hello
+tm hello
+
+# ---- tag ----
+@bot tag @s add alpha
+@bot tag @s add alpha
+@bot tag @s add beta
+@bot tag @s add gamma_1
+@bot tag @s add with.dot-and+plus
+@bot tag @s list
+@bot tag @s remove alpha
+@bot tag @s remove alpha
+@bot tag @s remove nothing
+@bot tag @s add bad!tag
+@bot tag @s add "quoted tag"
+@bot tag @s add
+@bot tag @s remove
+@bot tag @s bogus
+@bot tag @s
+@bot tag
+@bot tag @a add shared
+@bot tag @a add shared
+@bot tag @a list
+@bot tag @e[type=pig] list
+@bot tag @e[type=pig] add x
+@bot tag @e[type=pig] remove x
+@bot tag @a[name=Nobody] add x
+@bot tag @a remove shared
+@bot tag @a list
+@bot tag @s list
+@bot tag Bot0 add zeta
+@bot tag @a list
+@bot tag @a add Zebra
+@bot tag @a add apple
+@bot tag @a add Äpfel
+@bot tag @a list
+@bot tag Bot list
+@bot0 tag @s add x
+tag Bot list
+tag @a add console_tag
+tag @a list
+tag @a remove console_tag
+tag @a remove console_tag
+tag @a remove beta
+tag @a remove gamma_1
+tag @a remove with.dot-and+plus
+tag @a remove zeta
+tag @a remove Zebra
+tag @a remove apple
+tag @a remove Äpfel
+tag @a list

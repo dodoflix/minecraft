@@ -122,6 +122,12 @@ impl ComponentArgument {
         let resolution = crate::commands::component_utils::ResolutionContext::with_entity_override(context.get_source(), player);
         crate::commands::component_utils::resolve(&resolution, context.get_argument::<Component>(name))
     }
+
+    /// `getResolvedComponent(context, name)`: `ComponentUtils.resolve(ResolutionContext.create(source), raw)`.
+    pub fn get_resolved_component_for_source(context: &CommandContext<CommandSourceStack>, name: &str) -> Result<Component, CommandSyntaxException> {
+        let resolution = crate::commands::component_utils::ResolutionContext::create(context.get_source());
+        crate::commands::component_utils::resolve(&resolution, context.get_argument::<Component>(name))
+    }
 }
 
 impl ArgumentType<CommandSourceStack> for ComponentArgument {

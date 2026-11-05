@@ -3,7 +3,7 @@
 
 use super::selector::entity_selector::{ERROR_NOT_SINGLE_ENTITY, NO_ENTITIES_FOUND};
 use super::selector::{EntityRef, EntitySelector, EntitySelectorParser};
-use super::simple_arguments::TeamColor;
+pub use crate::world::scores::{DisplaySlot, ObjectiveCriteria, RenderType};
 use crate::commands::host;
 use crate::commands::message::{dynamic_translatable, simple_translatable};
 use crate::commands::shared_suggestion_provider::suggest;
@@ -13,148 +13,23 @@ use mc_brigadier::{
     ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType, ImmutableStringReader, ParsedValue,
     SimpleCommandExceptionType, StringReader, SuggestionProvider, Suggestions, SuggestionsBuilder,
 };
-use mc_core::ident::Identifier;
+use crate::world::scores::objective_criteria::stat_type_registry;
 use mc_protocol::packets::play::ArgumentTypeTemplate;
 use mc_text::Component;
 use std::sync::{Arc, LazyLock};
 use uuid::Uuid;
 
-// ---- DisplaySlot ----
-
-/// `DisplaySlot`.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum DisplaySlot {
-    List,
-    Sidebar,
-    BelowName,
-    Team(TeamColor),
-}
-
-impl DisplaySlot {
-    pub fn all() -> Vec<DisplaySlot> {
-        let mut v = vec![DisplaySlot::List, DisplaySlot::Sidebar, DisplaySlot::BelowName];
-        v.extend(TeamColor::VALUES.map(DisplaySlot::Team));
-        v
-    }
-
-    pub fn id(self) -> i32 {
-        match self {
-            DisplaySlot::List => 0,
-            DisplaySlot::Sidebar => 1,
-            DisplaySlot::BelowName => 2,
-            DisplaySlot::Team(c) => 3 + c.id(),
+/// All criteria names offered by `ObjectiveCriteriaArgument.listSuggestions`: the custom ones, then every
+/// `<stat type>:<value>` (`Stat.buildName`).
+fn criteria_suggestion_names() -> Vec<String> {
+    let mut ids = ObjectiveCriteria::get_custom_criteria_names();
+    for stat_type in ["mined", "crafted", "used", "broken", "picked_up", "dropped", "killed", "killed_by", "custom"] {
+        let registry = mc_data::registry::by_name(stat_type_registry(stat_type).expect("known stat type")).expect("registry");
+        for entry in registry.entries() {
+            ids.push(format!("minecraft.{stat_type}:{}", entry.replace(':', ".")));
         }
     }
-
-    pub fn get_serialized_name(self) -> String {
-        match self {
-            DisplaySlot::List => "list".to_owned(),
-            DisplaySlot::Sidebar => "sidebar".to_owned(),
-            DisplaySlot::BelowName => "below_name".to_owned(),
-            DisplaySlot::Team(c) => format!("sidebar.team.{}", c.get_serialized_name()),
-        }
-    }
-
-    pub fn by_name(name: &str) -> Option<DisplaySlot> {
-        Self::all().into_iter().find(|s| s.get_serialized_name() == name)
-    }
-}
-
-// ---- ObjectiveCriteria ----
-
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum RenderType {
-    Integer,
-    Hearts,
-}
-
-/// `ObjectiveCriteria`.
-#[derive(Clone, PartialEq, Eq, Debug)]
-pub struct ObjectiveCriteria {
-    name: String,
-    read_only: bool,
-    render_type: RenderType,
-}
-
-/// `(name, read only, render type)` of `ObjectiveCriteria.CUSTOM_CRITERIA` in registration order.
-fn custom_criteria() -> Vec<ObjectiveCriteria> {
-    let mut v = Vec::new();
-    let mut add = |name: String, read_only: bool, render_type: RenderType| v.push(ObjectiveCriteria { name, read_only, render_type });
-    add("dummy".into(), false, RenderType::Integer);
-    add("trigger".into(), false, RenderType::Integer);
-    add("deathCount".into(), false, RenderType::Integer);
-    add("playerKillCount".into(), false, RenderType::Integer);
-    add("totalKillCount".into(), false, RenderType::Integer);
-    add("health".into(), true, RenderType::Hearts);
-    add("food".into(), true, RenderType::Integer);
-    add("air".into(), true, RenderType::Integer);
-    add("armor".into(), true, RenderType::Integer);
-    add("xp".into(), true, RenderType::Integer);
-    add("level".into(), true, RenderType::Integer);
-    for c in TeamColor::VALUES {
-        add(format!("teamkill.{}", c.get_serialized_name()), false, RenderType::Integer);
-    }
-    for c in TeamColor::VALUES {
-        add(format!("killedByTeam.{}", c.get_serialized_name()), false, RenderType::Integer);
-    }
-    v
-}
-
-/// The registry of the values of each `StatType` (`StatType.getRegistry()`).
-fn stat_type_registry(stat_type: &str) -> Option<&'static str> {
-    Some(match stat_type {
-        "mined" => "minecraft:block",
-        "crafted" | "used" | "broken" | "picked_up" | "dropped" => "minecraft:item",
-        "killed" | "killed_by" => "minecraft:entity_type",
-        "custom" => "minecraft:custom_stat",
-        _ => return None,
-    })
-}
-
-impl ObjectiveCriteria {
-    pub fn get_name(&self) -> &str {
-        &self.name
-    }
-
-    pub fn is_read_only(&self) -> bool {
-        self.read_only
-    }
-
-    pub fn get_default_render_type(&self) -> RenderType {
-        self.render_type
-    }
-
-    pub fn get_custom_criteria_names() -> Vec<String> {
-        custom_criteria().into_iter().map(|c| c.name).collect()
-    }
-
-    /// `byName(name)`.
-    pub fn by_name(name: &str) -> Option<ObjectiveCriteria> {
-        if let Some(c) = custom_criteria().into_iter().find(|c| c.name == name) {
-            return Some(c);
-        }
-        let colon = name.find(':')?;
-        let stat_type = Identifier::by_separator(&name[..colon], '.').ok()?;
-        let key = Identifier::by_separator(&name[colon + 1..], '.').ok()?;
-        if stat_type.namespace() != "minecraft" {
-            return None;
-        }
-        let registry = mc_data::registry::by_name(stat_type_registry(stat_type.path())?)?;
-        registry.id_of(&key.to_string())?;
-        Some(ObjectiveCriteria { name: name.to_owned(), read_only: false, render_type: RenderType::Integer })
-    }
-
-    /// All criteria names offered by `ObjectiveCriteriaArgument.listSuggestions`.
-    fn suggestion_names() -> Vec<String> {
-        let mut ids = Self::get_custom_criteria_names();
-        for stat_type in ["mined", "crafted", "used", "broken", "picked_up", "dropped", "killed", "killed_by", "custom"] {
-            let registry = mc_data::registry::by_name(stat_type_registry(stat_type).expect("known stat type")).expect("registry");
-            for entry in registry.entries() {
-                ids.push(format!("minecraft.{stat_type}:{}", entry.replace(':', ".")));
-            }
-        }
-        ids
-    }
+    ids
 }
 
 // ---- ScoreHolder ----
@@ -186,13 +61,28 @@ impl ScoreHolder {
         }
     }
 
-    fn of_entity(server: &crate::server::MinecraftServer, entity_ref: &EntityRef) -> Option<ScoreHolder> {
+    /// `Entity` as a score holder (`getScoreboardName`: the profile name of a player, else the UUID).
+    pub(crate) fn of_entity(server: &crate::server::MinecraftServer, entity_ref: &EntityRef) -> Option<ScoreHolder> {
         let entity = host::get_entity(server, entity_ref)?;
         let name = match host::player_name_and_id(entity) {
             Some(n) => n.name,
             None => entity.uuid().to_string(),
         };
         Some(ScoreHolder { scoreboard_name: name, display_name: Some(host::entity_display_name(server, entity)), entity: Some(entity_ref.clone()) })
+    }
+}
+
+impl crate::world::scores::ScoreHolder for ScoreHolder {
+    fn get_scoreboard_name(&self) -> String {
+        self.scoreboard_name.clone()
+    }
+
+    fn get_display_name(&self) -> Option<Component> {
+        self.display_name.clone()
+    }
+
+    fn get_feedback_display_name(&self) -> Component {
+        ScoreHolder::get_feedback_display_name(self)
     }
 }
 
@@ -279,7 +169,7 @@ impl ArgumentType<CommandSourceStack> for ObjectiveCriteriaArgument {
     }
 
     fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
-        suggest(ObjectiveCriteria::suggestion_names(), builder)
+        suggest(criteria_suggestion_names(), builder)
     }
 
     fn get_examples(&self) -> Vec<String> {
@@ -356,7 +246,7 @@ impl ArgumentType<CommandSourceStack> for ScoreboardSlotArgument {
     }
 
     fn list_suggestions(&self, _context: &CommandContext<CommandSourceStack>, builder: SuggestionsBuilder) -> Suggestions {
-        suggest(DisplaySlot::all().into_iter().map(DisplaySlot::get_serialized_name), builder)
+        suggest(DisplaySlot::VALUES.map(DisplaySlot::get_serialized_name), builder)
     }
 
     fn get_examples(&self) -> Vec<String> {

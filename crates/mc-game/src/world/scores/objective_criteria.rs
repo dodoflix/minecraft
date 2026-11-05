@@ -63,6 +63,24 @@ pub fn set_stat_criteria_resolver(resolver: StatCriteriaResolver) {
     let _ = STAT_RESOLVER.set(resolver);
 }
 
+/// `StatType.getRegistry()` of each stat type: the registry whose entries the stat is about.
+pub fn stat_type_registry(stat_type: &str) -> Option<&'static str> {
+    Some(match stat_type {
+        "mined" => "minecraft:block",
+        "crafted" | "used" | "broken" | "picked_up" | "dropped" => "minecraft:item",
+        "killed" | "killed_by" => "minecraft:entity_type",
+        "custom" => "minecraft:custom_stat",
+        _ => return None,
+    })
+}
+
+/// `statType.getRegistry().getOptional(value) != null` over the data registries; used until the stats slice installs
+/// its own resolver.
+fn registry_stat_exists(stat_type: &Identifier, value: &Identifier) -> bool {
+    stat_type.namespace() == "minecraft"
+        && stat_type_registry(stat_type.path()).and_then(mc_data::registry::by_name).is_some_and(|r| r.id_of(&value.to_string()).is_some())
+}
+
 impl ObjectiveCriteria {
     const fn custom(name: &'static str, read_only: bool, render_type: RenderType) -> ObjectiveCriteria {
         ObjectiveCriteria { name: Cow::Borrowed(name), read_only, render_type }
@@ -149,8 +167,9 @@ impl ObjectiveCriteria {
         let colon = name.find(':')?;
         let stat_type = Identifier::try_by_separator(&name[..colon], '.')?;
         let value = Identifier::try_by_separator(&name[colon + 1..], '.')?;
-        let resolver = STAT_RESOLVER.get()?;
-        resolver(&stat_type, &value).then(|| ObjectiveCriteria::stat(name.to_string()))
+        let resolver = STAT_RESOLVER.get().copied().unwrap_or(registry_stat_exists);
+        // `Stat.buildName`: both identifiers canonical, `:` written as `.`.
+        resolver(&stat_type, &value).then(|| ObjectiveCriteria::stat(format!("{}:{}", stat_type.to_string().replace(':', "."), value.to_string().replace(':', "."))))
     }
 }
 
