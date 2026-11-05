@@ -1,0 +1,14 @@
+# AreaEffectCloud: wait time, radius shrink per tick and per use, duration on use, reapplication delay, potion + custom effects, instant damage, creative/spectator-free victims.
+level flat
+difficulty normal
+spawn_player A survival 10.5 -60 0.5 0 0
+spawn_player B survival 12.5 -60 0.5 0 0
+spawn_player C survival 16.5 -60 0.5 0 0
+spawn_player D creative 11.5 -60 2.0 0 0
+spawn_player E survival 30.5 -60 0.5 0 0
+spawn_player F survival 31.5 -60 -1.0 0 0
+spawn c1 minecraft:area_effect_cloud 10.5 -60 0.5 0 0 {Duration:60,WaitTime:10,ReapplicationDelay:15,Radius:3.0f,RadiusPerTick:-0.01f,RadiusOnUse:-0.1f,DurationOnUse:-2,potion_contents:{potion:"minecraft:strong_poison"}}
+spawn c2 minecraft:area_effect_cloud 30.5 -60 0.5 0 0 {Duration:40,WaitTime:5,Radius:2.5f,potion_duration_scale:0.5f,potion_contents:{custom_effects:[{id:"minecraft:instant_damage",amplifier:0},{id:"minecraft:speed",duration:100,amplifier:1}]}}
+tick 1
+watch player:A player:B player:C player:D player:E player:F entity:c1 entity:c2
+tick 80
