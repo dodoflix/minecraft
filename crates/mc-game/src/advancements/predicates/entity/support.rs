@@ -9,7 +9,6 @@ use crate::world::container::Container;
 use crate::world::inventory::InventoryMenu;
 use crate::world::item::ItemStack;
 use mc_core::phys::Vec3;
-use mc_data::enums::Pose;
 use mc_protocol::components::{DataComponentMap, CUSTOM_DATA, CUSTOM_NAME};
 
 /// `LightningBolt` as seen by `LightningBoltPredicate`.
@@ -80,21 +79,6 @@ pub fn get_slot(entity: &dyn Entity, slot: i32) -> Option<ItemStack> {
     None
 }
 
-/// `Entity.isCrouching()`.
-pub fn is_crouching(entity: &dyn Entity) -> bool {
-    entity.base().get_pose() == Pose::Crouching
-}
-
-/// `Entity.isSprinting()`.
-pub fn is_sprinting(entity: &dyn Entity) -> bool {
-    entity.base().get_shared_flag(crate::world::entity::entity::FLAG_SPRINTING)
-}
-
-/// `Entity.isSwimming()`.
-pub fn is_swimming(entity: &dyn Entity) -> bool {
-    entity.base().get_shared_flag(crate::world::entity::entity::FLAG_SWIMMING)
-}
-
 /// `LivingEntity.isFallFlying()`; `false` for non-living entities.
 pub fn is_fall_flying(entity: &dyn Entity) -> bool {
     entity.living().is_some_and(|l| l.is_fall_flying())
@@ -106,8 +90,8 @@ pub fn get_vehicle<'a>(level: &'a ServerLevel, entity: &dyn Entity) -> Option<&'
 }
 
 /// `Entity.getKnownMovement()` (`ServerPlayer` overrides it with the last client movement).
-// shortcut: `AbstractMinecart.getKnownMovement` (minecart behavior) and a vehicle that is the entity currently being
-// ticked (taken out of the level) are not modelled; upgrade with the minecart/vehicle slices.
+// shortcut: a vehicle that is the entity currently being ticked (taken out of the level) is not found; upgrade when the
+// level can hand out the running entity.
 pub fn get_known_movement(level: &ServerLevel, entity: &dyn Entity) -> Vec3 {
     if let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() {
         return match get_vehicle(level, entity) {
@@ -115,10 +99,7 @@ pub fn get_known_movement(level: &ServerLevel, entity: &dyn Entity) -> Vec3 {
             _ => player.last_known_client_movement,
         };
     }
-    match entity.get_controlling_passenger().and_then(|id| level.get_entity(id)) {
-        Some(controller) if controller.is_player() && entity.is_alive() => get_known_movement(level, controller),
-        _ => entity.base().delta_movement(),
-    }
+    entity.get_known_movement(level)
 }
 
 /// `Entity.getOnPos()`.

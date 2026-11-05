@@ -27,9 +27,9 @@ impl EntityFlagsPredicate {
         let differs = |want: Option<bool>, actual: bool| want.is_some_and(|w| w != actual);
         if differs(self.is_on_ground, entity.base().on_ground())
             || differs(self.is_on_fire, entity.is_on_fire())
-            || differs(self.is_crouching, support::is_crouching(entity))
-            || differs(self.is_sprinting, support::is_sprinting(entity))
-            || differs(self.is_swimming, support::is_swimming(entity))
+            || differs(self.is_crouching, entity.is_crouching())
+            || differs(self.is_sprinting, entity.is_sprinting())
+            || differs(self.is_swimming, entity.is_swimming())
         {
             return false;
         }
@@ -39,7 +39,7 @@ impl EntityFlagsPredicate {
                 return false;
             }
         }
-        if differs(self.is_in_water, entity.base().was_touching_water) {
+        if differs(self.is_in_water, entity.is_in_water()) {
             return false;
         }
         if entity.living().is_some() && differs(self.is_fall_flying, support::is_fall_flying(entity)) {
