@@ -129,6 +129,17 @@ impl BlockBehaviour for CropBlock {
         }
         self.grow_randomly(state, level, pos);
     }
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        level: &mut ServerLevel,
+        pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        vegetation_block::ravager_destroys_crop(level, pos, &*entity);
+    }
     fn get_clone_item_stack(&self, _state: BlockState, _level: &ServerLevel, _pos: BlockPos, _include_data: bool) -> ItemStack {
         ItemStack::new(self.seed)
     }

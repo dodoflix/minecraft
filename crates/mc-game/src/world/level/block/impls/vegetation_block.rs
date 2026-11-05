@@ -90,3 +90,10 @@ impl MayPlaceOn for VegetationBlock {}
 vegetation_behaviour!(VegetationBlock);
 
 register_block_class!("VegetationBlock", |_| Box::new(VegetationBlock));
+
+/// The `entityInside` of `CropBlock` / `PitcherCropBlock`: a ravager destroys the crop (`mobGriefing`).
+pub fn ravager_destroys_crop(level: &mut crate::server::level::ServerLevel, pos: BlockPos, entity: &dyn crate::world::entity::Entity) {
+    if entity.get_type() == mc_data::EntityType::RAVAGER && level.mob_griefing() {
+        level.destroy_block(pos, true, Some(entity.id()), 512);
+    }
+}

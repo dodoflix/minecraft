@@ -106,6 +106,24 @@ impl BlockBehaviour for EyeblossomBlock {
             level.play_sound(None, pos, self.ty.transform().short_switch_sound(), SoundSource::Blocks, 1.0, 1.0);
         }
     }
+    fn entity_inside(
+        &self,
+        state: BlockState,
+        level: &mut ServerLevel,
+        _pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        use crate::server::level::level_data::ServerLevelData;
+        if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful
+            && entity.get_type() == mc_data::EntityType::BEE
+            && super::flower_block::attracts_bees(state)
+            && !entity.has_effect(MobEffect::POISON)
+        {
+            entity.add_effect(level, MobEffectInstance::new(MobEffect::POISON, 25, 0, false, true, true, None), None);
+        }
+    }
     fn get_suspicious_effects(&self) -> Option<SuspiciousStewEffects> {
         let (effect, seconds) = self.ty.effect();
         Some(super::flower_block::make_effect_list(effect, seconds))

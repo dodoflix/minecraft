@@ -19,6 +19,23 @@ impl BlockBehaviour for WitherRoseBlock {
     fn get_suspicious_effects(&self) -> Option<SuspiciousStewEffects> {
         self.0.get_suspicious_effects()
     }
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        level: &mut crate::server::level::ServerLevel,
+        _pos: BlockPos,
+        entity: &mut dyn crate::world::entity::Entity,
+        _effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        use crate::server::level::level_data::ServerLevelData;
+        if level.level_data.get_difficulty() != mc_world::level_storage::Difficulty::Peaceful && entity.living().is_some() {
+            let source = level.damage_sources().wither();
+            if !entity.is_invulnerable_to(level, &source) {
+                entity.add_effect(level, MobEffectInstance::new(MobEffect::WITHER, 40, 0, false, true, true, None), None);
+            }
+        }
+    }
     /// `getBeeInteractionEffect`: `new MobEffectInstance(MobEffects.WITHER, 40)`.
     fn get_bee_interaction_effect(&self) -> Option<MobEffectInstance> {
         Some(MobEffectInstance::new(MobEffect::WITHER, 40, 0, false, true, true, None))

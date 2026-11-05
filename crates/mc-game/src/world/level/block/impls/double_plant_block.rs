@@ -70,9 +70,22 @@ pub fn player_will_destroy(level: &mut ServerLevel, pos: BlockPos, state: BlockS
     if player.player.abilities.instabuild {
         prevent_drop_from_bottom_part(level, pos, state, player);
     } else {
-        helpers::drop_resources(level, state, pos, Some(player.base_id()));
+        let tool = player.get_item_in_hand(crate::world::item::InteractionHand::MainHand);
+        crate::world::level::storage::loot::block_drops::drop_resources_with_tool(level, state, pos, None, Some(&*player), &tool);
     }
-    state
+    crate::server::level::block_break::player_will_destroy(level, pos, state, player)
+}
+
+/// `DoublePlantBlock.playerDestroy`: `super.playerDestroy` with `Blocks.AIR` as the state (the drops were made in
+/// `playerWillDestroy`).
+pub fn player_destroy(
+    level: &mut ServerLevel,
+    player: &mut ServerPlayer,
+    pos: BlockPos,
+    block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
+    destroyed_with: &ItemStack,
+) {
+    crate::server::level::block_break::player_destroy(level, player, pos, helpers::air(), block_entity, destroyed_with);
 }
 
 /// `DoublePlantBlock.preventDropFromBottomPart`.
@@ -123,6 +136,17 @@ macro_rules! double_plant_behaviour_methods {
             player: &mut crate::world::entity::ServerPlayer,
         ) -> BlockState {
             super::double_plant_block::player_will_destroy(level, pos, state, player)
+        }
+        fn player_destroy(
+            &self,
+            level: &mut crate::server::level::ServerLevel,
+            player: &mut crate::world::entity::ServerPlayer,
+            pos: BlockPos,
+            _state: BlockState,
+            block_entity: Option<&dyn crate::world::block_entity::BlockEntity>,
+            destroyed_with: &crate::world::item::ItemStack,
+        ) {
+            super::double_plant_block::player_destroy(level, player, pos, block_entity, destroyed_with);
         }
         fn get_seed(&self, state: BlockState, pos: BlockPos) -> i64 {
             super::double_plant_block::get_seed(state, pos)

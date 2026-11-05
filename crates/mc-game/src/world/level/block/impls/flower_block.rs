@@ -31,6 +31,21 @@ fn effect_of(name: &str) -> (MobEffect, f32) {
     }
 }
 
+/// `Bee.attractsBees(state)`.
+pub fn attracts_bees(state: BlockState) -> bool {
+    if state.is_tag("bee_attractive") {
+        if state.try_get(props::WATERLOGGED).unwrap_or(false) {
+            false
+        } else if state.is_block(Block::SUNFLOWER) {
+            state.get(props::DOUBLE_BLOCK_HALF) == mc_data::enums::DoubleBlockHalf::Upper
+        } else {
+            true
+        }
+    } else {
+        false
+    }
+}
+
 impl FlowerBlock {
     pub fn new(block: Block) -> FlowerBlock {
         let (effect, seconds) = effect_of(block.data().name);

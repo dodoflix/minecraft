@@ -114,3 +114,34 @@ pub fn drop_from_loot_table<'a>(
     }
     true
 }
+
+/// `Block.dropFromBlockInteractLootTable(level, key, pos, state, blockEntity, tool, interactingEntity, consumer)`: the
+/// drops of `key` rolled with the `block_interact` parameter set (the caller pops them, in order).
+pub fn block_interact_drops(
+    level: &ServerLevel,
+    key: &str,
+    pos: BlockPos,
+    state: BlockState,
+    tool: Option<&ItemStack>,
+    interacting_entity: Option<&dyn Entity>,
+) -> Vec<ItemStack> {
+    let Some(id) = Identifier::try_parse(key) else { return Vec::new() };
+    let mut drops = Vec::new();
+    drop_from_loot_table(
+        level,
+        &id,
+        |builder| {
+            let mut builder = builder
+                .block_state(state)
+                .origin(Vec3::at_center_of(&pos))
+                .block_entity(level.get_block_entity(pos))
+                .interacting_entity(interacting_entity);
+            if let Some(tool) = tool {
+                builder = builder.tool(tool);
+            }
+            builder.create(&LootContextParamSets::BLOCK_INTERACT)
+        },
+        &mut |stack| drops.push(stack),
+    );
+    drops
+}
