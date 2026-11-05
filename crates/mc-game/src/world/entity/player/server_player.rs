@@ -328,6 +328,17 @@ impl Entity for ServerPlayer {
     fn tick(&mut self, level: &mut crate::server::level::ServerLevel) {
         self.tick_server_player(level);
     }
+    /// `ServerPlayer.removeVehicle()`: the effects of the old vehicle are removed client side, the passenger list resent.
+    fn on_vehicle_removed(&mut self, level: &mut crate::server::level::ServerLevel, old_vehicle: crate::world::entity::EntityId, held: Option<&dyn Entity>) {
+        let vehicle = held.or_else(|| level.entity_manager.get_any(old_vehicle));
+        let Some(vehicle) = vehicle else { return };
+        if let Some(living) = vehicle.living() {
+            for effect in living.active_effects.keys() {
+                self.send(&mc_protocol::packets::play::ClientboundRemoveMobEffectPacket { entity_id: old_vehicle, effect: *effect });
+            }
+        }
+        self.send(&mc_protocol::packets::play::ClientboundSetPassengersPacket { vehicle: old_vehicle, passengers: vehicle.base().passengers.clone() });
+    }
     /// `Player.isClientAuthoritative()`.
     fn is_client_authoritative(&self) -> bool {
         true

@@ -46,6 +46,17 @@ fn get_state_with_age(level: &dyn BlockGetter, pos: BlockPos, age: i32) -> Block
 }
 
 impl BlockBehaviour for FireBlock {
+    fn entity_inside(
+        &self,
+        _state: BlockState,
+        _level: &mut crate::server::level::ServerLevel,
+        _pos: BlockPos,
+        _entity: &mut dyn crate::world::entity::Entity,
+        effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier,
+        _is_precise: bool,
+    ) {
+        super::base_fire_block::entity_inside(effect_applier, 1.0);
+    }
     fn can_survive(&self, _state: BlockState, level: &dyn LevelReader, pos: BlockPos) -> bool {
         let below = pos.below();
         level.get_block_state(below).is_face_sturdy_at(level, below, Direction::Up) || is_valid_fire_location(level, pos)

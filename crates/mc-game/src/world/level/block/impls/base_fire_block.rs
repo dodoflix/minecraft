@@ -9,3 +9,17 @@ pub fn get_state(level: &dyn BlockGetter, pos: BlockPos) -> BlockState {
         super::fire_block::get_state_for_placement(level, pos)
     }
 }
+
+/// `BaseFireBlock.entityInside` (`fire_damage`: 1.0 for fire, 2.0 for soul fire).
+pub fn entity_inside(effect_applier: &mut dyn crate::world::entity::inside_block_effects::InsideBlockEffectApplier, fire_damage: f32) {
+    use crate::world::entity::inside_block_effects::InsideBlockEffectType;
+    effect_applier.apply(InsideBlockEffectType::ClearFreeze);
+    effect_applier.apply(InsideBlockEffectType::FireIgnite);
+    effect_applier.run_after(
+        InsideBlockEffectType::FireIgnite,
+        Box::new(move |entity, level| {
+            let source = level.damage_sources().in_fire();
+            entity.hurt_server(level, &source, fire_damage);
+        }),
+    );
+}
