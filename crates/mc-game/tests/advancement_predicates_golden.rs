@@ -40,7 +40,7 @@ struct TestMob {
     sheared: Option<bool>,
     cube_size: Option<i32>,
     /// `Raider.isPatrolLeader()`; a captain also needs the ominous banner on the head.
-    patrol_leader: Option<bool>,
+    raider: Option<mc_game::world::entity::raid::raider::RaiderData>,
     target: Option<EntityId>,
 }
 
@@ -81,8 +81,11 @@ impl Entity for TestMob {
     fn cube_mob_size(&self) -> Option<i32> {
         self.cube_size
     }
-    fn raider_state(&self) -> Option<(bool, bool)> {
-        self.patrol_leader.map(|leader| (false, leader && self.living.equipment.get(EquipmentSlot::Head).item() == mc_data::Item::WHITE_BANNER))
+    fn raider(&self) -> Option<&mc_game::world::entity::raid::raider::RaiderData> {
+        self.raider.as_ref()
+    }
+    fn raider_mut(&mut self) -> Option<&mut mc_game::world::entity::raid::raider::RaiderData> {
+        self.raider.as_mut()
     }
 }
 
@@ -221,12 +224,21 @@ impl World {
                 baby: age < 0 || nbt.get_boolean_or("IsBaby", false),
                 sheared: (ty == EntityType::SHEEP).then(|| nbt.get_boolean_or("Sheared", false)),
                 cube_size: (ty == EntityType::SLIME).then(|| nbt.get_int_or("Size", 1)),
-                patrol_leader: (ty == EntityType::PILLAGER).then(|| nbt.get_boolean_or("PatrolLeader", false)),
+                raider: (ty == EntityType::PILLAGER).then(|| {
+                    let mut data = mc_game::world::entity::raid::raider::RaiderData::default();
+                    data.patrol.patrol_leader = nbt.get_boolean_or("PatrolLeader", false);
+                    data
+                }),
                 target: None,
             })
         } else {
             Box::new(PlainEntity::new(ty, id_))
         };
+        if entity.raider().is_some_and(|r| r.patrol.patrol_leader) {
+            // `PatrollingMonster.finalizeSpawn`: a patrol leader wears the ominous banner
+            let banner = mc_game::world::entity::raid::raid::Raid::get_ominous_banner_instance(&self.level.registries);
+            entity.living_mut().expect("living").equipment.set(EquipmentSlot::Head, banner);
+        }
         entity.set_pos(num(&a[3]), num(&a[4]), num(&a[5]));
         if numeric > 7 {
             entity.set_rot(num(&a[6]) as f32, num(&a[7]) as f32);

@@ -76,12 +76,6 @@ pub struct ServerInit {
     pub level_load_listener: Box<dyn LevelLoadListener>,
 }
 
-/// Per-tick work owned by slices that have not landed (raids need the raid manager): they register a function here and `ServerLevel::tick` calls it at vanilla's position in the tick.
-#[derive(Default, Clone, Copy)]
-pub struct ServerTickHooks {
-    /// `raids.tick(level)`.
-    pub tick_raids: Option<fn(&mut MinecraftServer, &mut ServerLevel)>,
-}
 
 /// A level that is taken out of [`MinecraftServer::levels`] for its tick but reachable again through `level`/`level_mut`/
 /// `with_level` while it is lent. Only the game thread ever sets or reads it.
@@ -101,8 +95,6 @@ pub(super) struct TimeProfiler {
 
 pub struct MinecraftServer {
     pub shared: Arc<ServerShared>,
-    /// Seams for per-tick work of unlanded slices, see [`ServerTickHooks`].
-    pub tick_hooks: ServerTickHooks,
     tasks: TaskQueue,
     /// `levels` in vanilla iteration order. A level is `None` only while it is taken out for its own tick
     /// (see [`MinecraftServer::with_level`]).
@@ -244,7 +236,6 @@ impl MinecraftServer {
             shared.set_recipe_manager(recipes.clone());
         }
         let mut server = Self {
-            tick_hooks: ServerTickHooks::default(),
             shared,
             tasks: TaskQueue::new(tasks),
             levels: IndexMap::new(),

@@ -58,8 +58,6 @@ pub trait LevelTickEnv {
     /// `server.getScheduledEvents().tick(server, gameTime)`.
     /// `level` is the ticking level (taken out of the server): the events' functions act on it.
     fn tick_scheduled_events(&mut self, game_time: i64, level: &mut ServerLevel);
-    /// `raids.tick(level)`.
-    fn tick_raids(&mut self, level: &mut ServerLevel);
     /// `server.getCommands().performPrefixedCommand(source, command)` for a source located in `level` (the ticking level, lent
     /// back to the server while the command runs).
     fn perform_prefixed_command(&mut self, level: &mut ServerLevel, source: crate::commands::CommandSourceStack, command: &str);
@@ -713,7 +711,7 @@ impl ServerLevel {
         }
 
         if runs {
-            env.tick_raids(self);
+            crate::world::entity::raid::raids::tick_raids(self);
         }
 
         self.publish_spawn_environment(&*env);

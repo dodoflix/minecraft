@@ -219,7 +219,12 @@ impl ServerLevel {
     pub fn process_pending_entity_loads(&mut self) {
         for chunk in self.entity_manager.take_loaded_chunks() {
             let entities = crate::world::entity::factory::load_entities_recursive(chunk.get_entities(), self, mc_data::enums::EntitySpawnReason::Load);
+            let loaded_ids: Vec<EntityId> = entities.iter().filter(|e| e.raider().is_some()).map(|e| e.id()).collect();
             self.entity_manager.add_legacy_chunk_entities(entities);
+            // ==== [Raids] additions: `Raider.readAdditionalSaveData` joins the saved raid ====
+            for id in loaded_ids {
+                self.with_entity(id, |level, e| e.after_loaded_to_level(level));
+            }
             self.entity_manager.mark_chunk_entities_loaded(chunk.get_pos());
         }
         self.process_entity_events();

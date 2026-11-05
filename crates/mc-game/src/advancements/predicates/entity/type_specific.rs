@@ -97,8 +97,8 @@ impl EntitySubPredicateImpl for RaiderPredicate {
         C.clone()
     }
 
-    fn matches<'a>(&self, entity: &'a dyn Entity, _level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
-        entity.raider_state() == Some((self.has_raid, self.is_captain))
+    fn matches<'a>(&self, entity: &'a dyn Entity, level: &'a ServerLevel, _position: Option<Vec3>, _lent: &[&'a dyn Entity]) -> bool {
+        crate::world::entity::raid::raider::raider_state(entity, level) == Some((self.has_raid, self.is_captain))
     }
 }
 

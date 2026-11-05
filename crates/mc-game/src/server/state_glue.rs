@@ -209,7 +209,7 @@ impl MinecraftServer {
             border.set_absolute_max_size(max);
             border.take_events();
             // `this.raids = this.getDataStorage().computeIfAbsent(Raids.TYPE)` in the `ServerLevel` constructor
-            level.get_data_storage().compute_if_absent(&crate::world::level::saveddata::raids::Raids::type_());
+            level.install_raids();
         }
     }
 

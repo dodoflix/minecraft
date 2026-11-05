@@ -9,6 +9,8 @@ pub mod enderman;
 pub mod endermite;
 pub mod ghast;
 pub mod giant;
+pub mod illager;
+pub mod patrolling_monster;
 pub mod guardian;
 pub mod phantom;
 pub mod shulker;

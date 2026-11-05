@@ -69,15 +69,6 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         self.server.tick_scheduled_events(game_time, level);
     }
 
-    fn tick_raids(&mut self, level: &mut ServerLevel) {
-        use crate::world::level::saveddata::raids::Raids;
-        let enabled = self.server.game_rules_ref().get(GameRules::RAIDS);
-        level.get_data_storage().compute_if_absent(&Raids::type_()).tick(enabled);
-        if let Some(hook) = self.server.tick_hooks.tick_raids {
-            hook(self.server, level);
-        }
-    }
-
     fn broadcast_game_event_to_all(&mut self, packet: &ClientboundGameEventPacket) {
         self.server.player_list.broadcast_all(packet);
     }

@@ -32,7 +32,7 @@ pub fn has_line_of_sight_with(level: &ServerLevel, viewer: &dyn Entity, target: 
 /// `Entity.isAlliedTo(other)` (`this == other || considersEntityAsAlly(other) || other.considersEntityAsAlly(this)`), with
 /// `TamableAnimal.getTeam()/considersEntityAsAlly` (tamed pets share their root owner's team).
 pub fn is_allied_to(level: &ServerLevel, source: &dyn Entity, other: &dyn Entity) -> bool {
-    source.id() == other.id() || considers_entity_as_ally(level, source, other) || considers_entity_as_ally(level, other, source)
+    source.id() == other.id() || source.considers_entity_as_ally(level, other) || other.considers_entity_as_ally(level, source)
 }
 
 /// The scoreboard name of the team entity `e` plays for (`Entity.getTeam()`, tamed pets: their root owner's).
@@ -53,14 +53,14 @@ pub(super) fn team_member_name(level: &ServerLevel, e: &dyn Entity) -> Option<St
 
 /// `Entity.considersEntityAsAlly(other)`: `isAlliedTo(other.getTeam())`, tamed pets: the root owner is an ally and
 /// delegates to the owner's own rule.
-fn considers_entity_as_ally(level: &ServerLevel, e: &dyn Entity, other: &dyn Entity) -> bool {
+pub fn considers_entity_as_ally_default(level: &ServerLevel, e: &dyn Entity, other: &dyn Entity) -> bool {
     if e.mob().and_then(|m| m.tamable.as_ref()).is_some() && super::tamable::is_tame(e) {
         if let Some(owner_id) = super::tamable::get_root_owner(level, e) {
             if owner_id == other.id() {
                 return true;
             }
             if let Some(owner) = level.get_entity(owner_id) {
-                return considers_entity_as_ally(level, owner, other);
+                return owner.considers_entity_as_ally(level, other);
             }
         }
     }
@@ -434,4 +434,19 @@ pub fn player_not_wearing_disguise_item(entity: &dyn Entity) -> bool {
     } else {
         true
     }
+// ==== [Raids] additions ====
+
+/// `Entity::can_attack` default (`LivingEntity.canAttack` + `Mob`: not a ghast, `TamableAnimal`: not its owner): the `super`
+/// call of classes that override `canAttack`.
+pub fn can_attack_default(e: &dyn Entity, level: &ServerLevel, target: &dyn Entity) -> bool {
+    if e.mob().is_some() && target.get_type() == EntityType::GHAST {
+        return false;
+    }
+    if e.mob().is_some_and(|m| m.tamable.is_some()) && super::tamable::is_owned_by(e, level, target) {
+        return false;
+    }
+    if target.is_player() && level.difficulty() == mc_world::level_storage::Difficulty::Peaceful {
+        return false;
+    }
+    target.can_be_seen_as_enemy()
 }

@@ -171,11 +171,11 @@ pub struct CustomBossEvent {
     online_capacity: JavaHashCapacity,
 }
 
-fn wire_color(c: BossBarColor) -> wire::BossBarColor {
+pub(crate) fn wire_color(c: BossBarColor) -> wire::BossBarColor {
     [wire::BossBarColor::Pink, wire::BossBarColor::Blue, wire::BossBarColor::Red, wire::BossBarColor::Green, wire::BossBarColor::Yellow, wire::BossBarColor::Purple, wire::BossBarColor::White][c as usize]
 }
 
-fn wire_overlay(o: BossBarOverlay) -> wire::BossBarOverlay {
+pub(crate) fn wire_overlay(o: BossBarOverlay) -> wire::BossBarOverlay {
     [wire::BossBarOverlay::Progress, wire::BossBarOverlay::Notched6, wire::BossBarOverlay::Notched10, wire::BossBarOverlay::Notched12, wire::BossBarOverlay::Notched20][o as usize]
 }
 

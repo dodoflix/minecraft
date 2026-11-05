@@ -2853,10 +2853,6 @@ pub trait Entity: Any {
     /// The part of an overridden `remove(reason)` that runs before `super.remove(reason)` (`AbstractCubeMob` splits on death);
     /// called for `Killed` / `Discarded` removals by the code that removes an entity with the level at hand.
     fn before_remove(&mut self, _level: &mut ServerLevel, _reason: RemovalReason) {}
-    /// `(Raider.hasRaid(), Raider.isCaptain())`; `None` when the entity is not a `Raider`. SEAM(Raider).
-    fn raider_state(&self) -> Option<(bool, bool)> {
-        None
-    }
     /// `FishingHook.isOpenWaterFishing()`; `None` when the entity is not a `FishingHook`. SEAM(FishingHook).
     fn fishing_hook_open_water(&self) -> Option<bool> {
         None
@@ -3210,16 +3206,7 @@ pub trait Entity: Any {
     // ---- targeting / combat ----
     /// `canAttack(target)` (`LivingEntity`; `Mob`: not a ghast; `TamableAnimal`: not its owner).
     fn can_attack(&self, level: &ServerLevel, target: &dyn Entity) -> bool {
-        if self.mob().is_some() && target.get_type() == EntityType::GHAST {
-            return false;
-        }
-        if self.mob().is_some_and(|m| m.tamable.is_some()) && super::mob::tamable::is_owned_by(self.as_dyn(), level, target) {
-            return false;
-        }
-        if target.is_player() && level.difficulty() == mc_world::level_storage::Difficulty::Peaceful {
-            return false;
-        }
-        target.can_be_seen_as_enemy()
+        super::mob::ext::can_attack_default(self.as_dyn(), level, target)
     }
     /// `getVisibilityPercent(level, targetingEntity)`.
     fn get_visibility_percent(&self, _level: &ServerLevel, targeting_entity: Option<&dyn Entity>) -> f64 {
@@ -3735,6 +3722,41 @@ pub fn push_entity_base<E: Entity + ?Sized>(this: &mut E, level: &ServerLevel, o
         if !other.base().is_vehicle() && other.is_pushable(level) {
             other.push_xyz(xa, 0.0, za);
         }
+    // ==== [Raids] additions (Entity trait methods) ====
+    /// The `Raider` (`PatrollingMonster`) data of raiders (`this instanceof Raider`).
+    fn raider(&self) -> Option<&super::raid::raider::RaiderData> {
+        None
+    }
+    fn raider_mut(&mut self) -> Option<&mut super::raid::raider::RaiderData> {
+        None
+    }
+    /// `PatrollingMonster.canBeLeader()` (`Ravager`/`Witch`: false).
+    fn can_be_leader(&self) -> bool {
+        true
+    }
+    /// `PatrollingMonster.canJoinPatrol()` (`Raider`: no active raid).
+    fn can_join_patrol(&self, _level: &ServerLevel) -> bool {
+        true
+    }
+    /// `Raider.applyRaidBuffs(level, wave, isCaptain)`; `raid` is the raid the raider joins (vanilla reads `getCurrentRaid()`).
+    fn apply_raid_buffs(&mut self, _level: &mut ServerLevel, _wave: i32, _is_captain: bool, _raid: &super::raid::raid::Raid) {}
+    /// `Raider.getCelebrateSound()`.
+    fn get_celebrate_sound(&self) -> Option<mc_data::SoundEvent> {
+        None
+    }
+    /// The level-dependent part of `readAdditionalSaveData` for an entity that was just loaded into the level (`Raider` joins
+    /// its raid).
+    fn after_loaded_to_level(&mut self, _level: &mut ServerLevel) {}
+    /// `Entity.considersEntityAsAlly(other)` (team allies; tamed pets and illagers extend it).
+    fn considers_entity_as_ally(&self, level: &ServerLevel, other: &dyn Entity) -> bool {
+        super::mob::ext::considers_entity_as_ally_default(level, self.as_dyn(), other)
+    }
+    /// The `SpellcasterIllager` data of evokers and illusioners.
+    fn spellcaster(&self) -> Option<&super::monster::illager::spellcaster_illager::SpellcasterData> {
+        None
+    }
+    fn spellcaster_mut(&mut self) -> Option<&mut super::monster::illager::spellcaster_illager::SpellcasterData> {
+        None
     }
 }
 
