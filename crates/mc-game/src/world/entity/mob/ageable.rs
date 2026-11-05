@@ -143,7 +143,7 @@ pub fn finalize_spawn(
 ) -> Option<Box<dyn SpawnGroupData>> {
     let mut group_data = group_data.unwrap_or_else(|| Box::new(AgeableMobGroupData::with_baby(true)));
     {
-        let data = group_data.as_any_mut().downcast_mut::<AgeableMobGroupData>().expect("AgeableMobGroupData");
+        let data = group_data.as_ageable_mut().expect("AgeableMobGroupData");
         if data.is_should_spawn_baby() && data.get_group_size() > 0 && level.random().next_float() <= data.get_baby_spawn_chance() {
             let start = e.get_baby_start_age();
             set_age(e, start);

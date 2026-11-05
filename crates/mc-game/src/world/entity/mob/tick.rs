@@ -123,7 +123,7 @@ pub fn server_ai_step(e: &mut dyn Entity, level: &mut ServerLevel) {
         mm(e).look_control = Some(c);
     }
     if let Some(mut c) = mm(e).jump_control.take() {
-        c.tick(e);
+        c.tick(e, level);
         mm(e).jump_control = Some(c);
     }
 }

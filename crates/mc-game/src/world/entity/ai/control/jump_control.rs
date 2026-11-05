@@ -1,5 +1,6 @@
 //! `JumpControl`.
 
+use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use std::any::Any;
 
@@ -19,16 +20,14 @@ pub trait JumpControl: Any {
     }
 
     /// `tick()`.
-    fn tick(&mut self, mob: &mut dyn Entity) {
-        base_tick(self.base_mut(), mob);
+    fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
+        base_tick(self.base_mut(), mob, level);
     }
 }
 
 /// `JumpControl.tick()`.
-pub fn base_tick(base: &mut JumpControlBase, mob: &mut dyn Entity) {
-    if let Some(l) = mob.living_mut() {
-        l.jumping = base.jump;
-    }
+pub fn base_tick(base: &mut JumpControlBase, mob: &mut dyn Entity, level: &mut ServerLevel) {
+    mob.set_jumping(level, base.jump);
     base.jump = false;
 }
 

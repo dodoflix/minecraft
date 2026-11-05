@@ -2755,6 +2755,27 @@ pub trait Entity: Any {
     fn sheep_sheared(&self) -> Option<bool> {
         None
     }
+    // ==== [FarmAnimals] additions (Entity trait methods) ====
+    /// `this instanceof Shearable` (`Sheep`, `MushroomCow`, `SnowGolem`, `Bogged`).
+    fn is_shearable(&self) -> bool {
+        false
+    }
+    /// `Shearable.readyForShearing()`.
+    fn ready_for_shearing(&self) -> bool {
+        false
+    }
+    /// `Shearable.shear(level, soundSource, tool)`.
+    fn shear(&mut self, _level: &mut ServerLevel, _sound_source: mc_protocol::packets::play::SoundSource, _tool: &crate::world::item::ItemStack) {}
+    /// `Mob.ate()` (called by `EatBlockGoal`; `Sheep` regrows its wool).
+    fn ate(&mut self, level: &mut ServerLevel) {
+        self.game_event(level, mc_data::GameEvent::EAT);
+    }
+    /// `LivingEntity.setJumping(jump)` (`JumpControl.tick`; `Rabbit` plays the jump sound).
+    fn set_jumping(&mut self, _level: &mut ServerLevel, jump: bool) {
+        if let Some(l) = self.living_mut() {
+            l.jumping = jump;
+        }
+    }
     /// `AbstractCubeMob.getSize()`; `None` when the entity is not a cube mob. SEAM(AbstractCubeMob).
     fn cube_mob_size(&self) -> Option<i32> {
         None

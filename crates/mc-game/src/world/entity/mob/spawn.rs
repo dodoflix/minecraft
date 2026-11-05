@@ -59,7 +59,17 @@ impl AgeableMobGroupData {
     }
 }
 
-impl_spawn_group_data!(AgeableMobGroupData);
+impl SpawnGroupData for AgeableMobGroupData {
+    fn as_any(&self) -> &dyn std::any::Any {
+        self
+    }
+    fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
+        self
+    }
+    fn as_ageable_mut(&mut self) -> Option<&mut AgeableMobGroupData> {
+        Some(self)
+    }
+}
 
 /// `Mob.finalizeSpawn(level, difficulty, spawnReason, groupData)`, preceded by the `AgeableMob` group handling when `e`
 /// is an ageable mob: the `super.finalizeSpawn` of every concrete mob class.

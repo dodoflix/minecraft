@@ -86,6 +86,12 @@ pub trait MoveControl: Any {
         }
     }
 
+    /// `setWantedPosition` of a control whose override reads the mob (`Rabbit.RabbitMoveControl` checks `isInWater()`); the
+    /// control is taken out of the mob while this runs, see [`mob::set_wanted_position`].
+    fn set_wanted_position_for(&mut self, _mob: &dyn Entity, x: f64, y: f64, z: f64, speed_modifier: f64) {
+        self.set_wanted_position(x, y, z, speed_modifier);
+    }
+
     fn strafe(&mut self, forwards: f32, right: f32) {
         let b = self.base_mut();
         b.operation = Operation::Strafe;

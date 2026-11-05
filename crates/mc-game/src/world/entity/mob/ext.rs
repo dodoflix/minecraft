@@ -302,3 +302,36 @@ pub fn get_scale_times_age_scale(e: &dyn Entity) -> f32 {
     let scale = e.living().map_or(1.0, |l| l.get_attribute_value(mc_data::Attribute::SCALE) as f32);
     scale * if e.is_baby() { 0.5 } else { 1.0 }
 }
+
+// ==== [FarmAnimals] additions ====
+
+/// `Level.playSound(except, entity, sound, source, volume, pitch)`: the entity-bound sound packet with the level's sound seed.
+pub fn play_sound_from_entity(level: &mut ServerLevel, except: Option<EntityId>, entity: EntityId, sound: mc_data::SoundEvent, source: mc_protocol::packets::play::SoundSource, volume: f32, pitch: f32) {
+    use mc_core::random::RandomSource;
+    let seed = level.tick_state.sound_seed_generator.next_long();
+    level.play_seeded_sound_from_entity(except, entity, sound, source, volume, pitch, seed);
+}
+
+/// `LivingEntity.dropFromShearingLootTable(level, table, tool, consumer)`: the table's drops (`LootContextParamSets.SHEARING`)
+/// go to `consume`; returns whether there were any.
+pub fn drop_from_shearing_loot_table(
+    level: &mut ServerLevel,
+    entity: &mut dyn Entity,
+    table: &Identifier,
+    tool: &crate::world::item::ItemStack,
+    mut consume: impl FnMut(&mut ServerLevel, &mut dyn Entity, crate::world::item::ItemStack),
+) -> bool {
+    let loot = loading::get_loot_table(&level.registries, table);
+    let items = {
+        let this: &dyn Entity = &*entity;
+        let params = LootParams::builder(level).this_entity(this).origin(this.position()).tool(tool).create(&LootContextParamSets::SHEARING);
+        loot.get_random_items(&params)
+    };
+    if items.is_empty() {
+        return false;
+    }
+    for stack in items {
+        consume(level, entity, stack);
+    }
+    true
+}

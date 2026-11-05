@@ -6,6 +6,11 @@ use std::any::Any;
 pub trait SpawnGroupData: Any + Send {
     fn as_any(&self) -> &dyn Any;
     fn as_any_mut(&mut self) -> &mut dyn Any;
+    /// `groupData instanceof AgeableMob.AgeableMobGroupData`: the embedded base of every `AgeableMobGroupData` subclass
+    /// (`Rabbit.RabbitGroupData`, `Horse.HorseGroupData`, ...), `None` for other group data.
+    fn as_ageable_mut(&mut self) -> Option<&mut super::mob::spawn::AgeableMobGroupData> {
+        None
+    }
 }
 
 /// Implements [`SpawnGroupData`] for a concrete group data type.

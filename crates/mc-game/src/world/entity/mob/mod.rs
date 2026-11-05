@@ -410,10 +410,10 @@ pub fn set_pathfinding_malus(mob: &mut dyn Entity, ty: PathType, cost: f32) {
 /// `getMoveControl().setWantedPosition(x, y, z, speedModifier)` (own control; use [`navigation`] helpers for the vehicle
 /// redirect of `getMoveControl()`).
 pub fn set_wanted_position(mob: &mut dyn Entity, x: f64, y: f64, z: f64, speed_modifier: f64) {
+    let Some(mut control) = mob.mob_mut().and_then(|m| m.move_control.take()) else { return };
+    control.set_wanted_position_for(&*mob, x, y, z, speed_modifier);
     if let Some(m) = mob.mob_mut() {
-        if let Some(c) = m.move_control.as_deref_mut() {
-            c.set_wanted_position(x, y, z, speed_modifier);
-        }
+        m.move_control = Some(control);
     }
 }
 
