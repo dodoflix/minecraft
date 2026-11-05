@@ -349,6 +349,11 @@ pub trait BlockEntity: Any {
     /// Set by the block entity's `Container::set_item`/`set_changed`/`remove_item` when vanilla would touch the level
     /// there (`this.level`: recipe lookup, `setChanged()` -> `blockEntityChanged` + comparator update); the menu
     /// resolver then calls [`BlockEntity::container_accessed`] right after the container operation.
+    /// `blockEntity instanceof MenuProvider`: the provider that opens this block entity's menu (it addresses the block
+    /// entity by position, so it stays valid after the block entity is taken out).
+    fn menu_provider(&self) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+        None
+    }
     fn container_pending(&self) -> bool {
         false
     }

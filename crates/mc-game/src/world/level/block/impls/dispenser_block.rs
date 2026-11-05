@@ -62,6 +62,10 @@ impl BlockBehaviour for DispenserBlock {
         update_neighbours_after_destroy(state, level, pos);
     }
 
+    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+        BlockEntityMenuProvider::of(level, pos).map(|p| Box::new(p) as Box<dyn crate::world::inventory::MenuProvider>)
+    }
+
     fn get_analog_output_signal(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos, _direction: Direction) -> i32 {
         crate::world::container::get_redstone_signal_from_block_entity(level.get_block_entity(pos))
     }

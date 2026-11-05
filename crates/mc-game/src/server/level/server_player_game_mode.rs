@@ -400,9 +400,15 @@ impl ServerPlayer {
             return InteractionResult::FAIL;
         }
         if self.game_mode.game_mode_for_player == GameType::Spectator {
-            // SEAM(block menus): `state.getMenuProvider(level, pos)` -> `player.openMenu` (CONSUME) and the `Portal`
-            // spectator teleport (`teleportToPortalDestination`): block menu providers and portals are not ported.
-            return InteractionResult::PASS;
+            // SEAM(portals): the `Portal` spectator teleport (`teleportToPortalDestination`) is not ported.
+            let provider = block_behaviour(state.block()).get_menu_provider(state, level, pos);
+            return match provider {
+                Some(provider) => {
+                    self.open_menu(level, provider.as_ref());
+                    InteractionResult::CONSUME
+                }
+                None => InteractionResult::PASS,
+            };
         }
         let item_stack = self.get_item_in_hand(hand);
         let have_something = !self.player.inventory.get_selected_item().is_empty() || !self.player.inventory.equipment_get(EquipmentSlot::OffHand).is_empty();

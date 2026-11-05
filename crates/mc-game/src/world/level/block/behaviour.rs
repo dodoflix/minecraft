@@ -222,6 +222,13 @@ pub trait BlockBehaviour: Send + Sync + 'static {
     }
     /// `BlockBehaviour.onProjectileHit(level, state, blockHit, projectile)`.
     fn on_projectile_hit(&self, _level: &mut ServerLevel, _state: BlockState, _hit: &mc_core::phys::BlockHitResult, _projectile: &mut dyn crate::world::entity::projectile::Projectile) {}
+    /// `BlockBehaviour.getMenuProvider(state, level, pos)`: `BaseEntityBlock`'s default is the block entity when it is a
+    /// `MenuProvider` (`BlockEntity::menu_provider`); blocks with their own provider (double chest, lectern without a
+    /// book, ...) override.
+    fn get_menu_provider(&self, _state: BlockState, level: &ServerLevel, pos: BlockPos) -> Option<Box<dyn crate::world::inventory::MenuProvider>> {
+        use crate::world::level::BlockGetter;
+        level.get_block_entity(pos).and_then(|be| be.menu_provider())
+    }
     /// `BlockBehaviour.useItemOn(stack, state, level, pos, player, hand, hitResult)`: default `TRY_WITH_EMPTY_HAND`.
     fn use_item_on(
         &self,
