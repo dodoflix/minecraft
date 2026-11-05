@@ -48,16 +48,62 @@ pub fn usable_root(dispatcher_root: &Node, source: &CommandSourceStack) -> Node 
 static NO_PERMISSION_SOURCE: LazyLock<CommandSourceStack> =
     LazyLock::new(|| CommandSourceStack::compilation_context(PermissionSet::NoPermissions));
 
+/// Node ids keyed by Java `equals` (`Object2IntMap<CommandNode>`): structurally equal nodes (same name and argument type,
+/// same command instance, equal children; redirects, requirements and suggestions are not compared) share one id.
+#[derive(Default)]
+struct NodeIds {
+    buckets: HashMap<u64, Vec<(Node, i32)>>,
+    hashes: HashMap<usize, u64>,
+    count: i32,
+}
+
+impl NodeIds {
+    /// A hash consistent with `CommandNode.equals` (children are an unordered map there).
+    fn hash(&mut self, node: &Node) -> u64 {
+        if let Some(h) = self.hashes.get(&ptr(node)) {
+            return *h;
+        }
+        use std::hash::{Hash, Hasher};
+        let mut hasher = std::collections::hash_map::DefaultHasher::new();
+        match node.kind() {
+            NodeKind::Root => 0u8.hash(&mut hasher),
+            NodeKind::Literal { literal, .. } => (1u8, literal).hash(&mut hasher),
+            NodeKind::Argument { name, .. } => (2u8, name).hash(&mut hasher),
+        }
+        node.get_command().map(|c| Arc::as_ptr(&c) as *const () as usize).hash(&mut hasher);
+        let mut children = 0u64;
+        for child in node.get_children() {
+            children = children.wrapping_add(self.hash(&child));
+        }
+        children.hash(&mut hasher);
+        let h = hasher.finish();
+        self.hashes.insert(ptr(node), h);
+        h
+    }
+
+    fn get(&mut self, node: &Node) -> Option<i32> {
+        let h = self.hash(node);
+        self.buckets.get(&h)?.iter().find(|(n, _)| **n == **node).map(|(_, id)| *id)
+    }
+
+    /// `nodeToId.put(node, nodeToId.size())`.
+    fn insert(&mut self, node: &Node) {
+        let h = self.hash(node);
+        self.buckets.entry(h).or_default().push((node.clone(), self.count));
+        self.count += 1;
+    }
+}
+
 /// `new ClientboundCommandsPacket(root, COMMAND_NODE_INSPECTOR)`.
 pub fn commands_packet(root: &Node) -> ClientboundCommandsPacket {
-    // enumerateNodes: breadth first, children then redirect.
-    let mut node_to_id: HashMap<usize, i32> = HashMap::new();
+    // enumerateNodes: breadth first, children then redirect; equal nodes get one id.
+    let mut ids = NodeIds::default();
     let mut ordered: Vec<Node> = Vec::new();
     let mut queue: VecDeque<Node> = VecDeque::new();
     queue.push_back(root.clone());
     while let Some(node) = queue.pop_front() {
-        if !node_to_id.contains_key(&ptr(&node)) {
-            node_to_id.insert(ptr(&node), ordered.len() as i32);
+        if ids.get(&node).is_none() {
+            ids.insert(&node);
             ordered.push(node.clone());
             queue.extend(node.get_children());
             if let Some(redirect) = node.get_redirect() {
@@ -65,12 +111,12 @@ pub fn commands_packet(root: &Node) -> ClientboundCommandsPacket {
             }
         }
     }
-    let entries = ordered.iter().map(|node| create_entry(node, &node_to_id)).collect();
-    ClientboundCommandsPacket { entries, root_index: node_to_id[&ptr(root)] }
+    let entries = ordered.iter().map(|node| create_entry(node, &mut ids)).collect();
+    ClientboundCommandsPacket { entries, root_index: ids.get(root).expect("the root is enumerated") }
 }
 
-fn create_entry(node: &Node, ids: &HashMap<usize, i32>) -> ClientboundCommandsEntry {
-    let children: Vec<i32> = node.get_children().iter().map(|c| ids[&ptr(c)]).collect();
+fn create_entry(node: &Node, ids: &mut NodeIds) -> ClientboundCommandsEntry {
+    let children: Vec<i32> = node.get_children().iter().map(|c| ids.get(c).expect("children are enumerated")).collect();
     let mut entry = match node.kind() {
         NodeKind::Root => ClientboundCommandsEntry::root(children),
         NodeKind::Literal { literal, .. } => ClientboundCommandsEntry::literal(literal.clone(), children),
@@ -80,7 +126,7 @@ fn create_entry(node: &Node, ids: &HashMap<usize, i32>) -> ClientboundCommandsEn
         }
     };
     if let Some(redirect) = node.get_redirect() {
-        entry = entry.redirect_to(ids[&ptr(redirect)]);
+        entry = entry.redirect_to(ids.get(redirect).expect("redirects are enumerated"));
     }
     if node.get_command().is_some() {
         entry.flags |= COMMAND_NODE_EXECUTABLE;

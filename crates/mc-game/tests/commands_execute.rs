@@ -57,6 +57,12 @@ fn execute_tree_matches_vanilla() {
             .take(12)
             .map(|(i, (a, b))| format!("node {i}:\n  ours   {a:?}\n  vanilla {b:?}"))
             .collect();
+        if !mismatches.is_empty() {
+            let (ours_paths, theirs_paths) = (node_paths(&ours), node_paths(&theirs));
+            let only_ours: Vec<&String> = ours_paths.iter().filter(|p| !theirs_paths.contains(p)).take(20).collect();
+            let only_theirs: Vec<&String> = theirs_paths.iter().filter(|p| !ours_paths.contains(p)).take(20).collect();
+            eprintln!("paths only in ours: {only_ours:#?}\npaths only in vanilla: {only_theirs:#?}");
+        }
         assert!(mismatches.is_empty(), "permission level {level}: {} nodes (ours) vs {} (vanilla)\n{}", ours.entries.len(), theirs.entries.len(), mismatches.join("\n"));
         assert_eq!(ours.entries.len(), theirs.entries.len(), "permission level {level}: node count");
         assert_eq!(out, bytes, "permission level {level}");
@@ -242,4 +248,26 @@ fn fork_limit_reports_the_limit() {
     run(&mut server, &commands, "fan ret 1");
     assert_eq!(log.lock().unwrap().iter().filter(|l| *l == "ret 1").count(), 3);
     let _ = (Vec2::ZERO, Vec3::ZERO);
+}
+
+/// The path (`literal` / `<argument>` names from the root, redirects not followed) of every node.
+fn node_paths(packet: &mc_protocol::packets::play::ClientboundCommandsPacket) -> Vec<String> {
+    use mc_protocol::packets::play::ClientboundCommandsNodeStub as Stub;
+    let mut paths = vec![None; packet.entries.len()];
+    let mut queue = std::collections::VecDeque::from([(packet.root_index as usize, String::new())]);
+    while let Some((index, path)) = queue.pop_front() {
+        if paths[index].is_some() {
+            continue;
+        }
+        paths[index] = Some(path.clone());
+        for &child in &packet.entries[index].children {
+            let name = match &packet.entries[child as usize].stub {
+                Some(Stub::Literal(l)) => l.clone(),
+                Some(Stub::Argument { id, .. }) => format!("<{id}>"),
+                None => String::new(),
+            };
+            queue.push_back((child as usize, format!("{path} {name}")));
+        }
+    }
+    paths.into_iter().map(|p| p.unwrap_or_default()).collect()
 }

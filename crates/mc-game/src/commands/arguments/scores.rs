@@ -408,10 +408,6 @@ impl ArgumentType<CommandSourceStack> for ScoreHolderArgument {
         ["Player", "0123", "*", "@e"].map(String::from).to_vec()
     }
 
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<ScoreHolderArgument>().is_some_and(|o| o == self)
-    }
-
     fn describe(&self) -> String {
         "ScoreHolderArgument".to_owned()
     }

@@ -168,10 +168,6 @@ impl ArgumentType<CommandSourceStack> for ResourceArgument {
         ["foo", "foo:bar", "012"].map(String::from).to_vec()
     }
 
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<ResourceArgument>().is_some_and(|o| o == self)
-    }
-
     fn describe(&self) -> String {
         "ResourceArgument".to_owned()
     }
@@ -275,10 +271,6 @@ impl ArgumentType<CommandSourceStack> for ResourceKeyArgument {
         ["foo", "foo:bar", "012"].map(String::from).to_vec()
     }
 
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<ResourceKeyArgument>().is_some_and(|o| o == self)
-    }
-
     fn describe(&self) -> String {
         "ResourceKeyArgument".to_owned()
     }
@@ -370,10 +362,6 @@ impl ArgumentType<CommandSourceStack> for ResourceOrTagArgument {
         ["foo", "foo:bar", "012", "#skeletons", "#minecraft:skeletons"].map(String::from).to_vec()
     }
 
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<ResourceOrTagArgument>().is_some_and(|o| o == self)
-    }
-
     fn describe(&self) -> String {
         "ResourceOrTagArgument".to_owned()
     }
@@ -450,10 +438,6 @@ impl ArgumentType<CommandSourceStack> for ResourceOrTagKeyArgument {
 
     fn get_examples(&self) -> Vec<String> {
         ["foo", "foo:bar", "012", "#skeletons", "#minecraft:skeletons"].map(String::from).to_vec()
-    }
-
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<ResourceOrTagKeyArgument>().is_some_and(|o| o == self)
     }
 
     fn describe(&self) -> String {
@@ -595,10 +579,6 @@ impl ArgumentType<CommandSourceStack> for ResourceSelectorArgument {
 
     fn get_examples(&self) -> Vec<String> {
         ["minecraft:*", "*:asset", "*"].map(String::from).to_vec()
-    }
-
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<ResourceSelectorArgument>().is_some_and(|o| o == self)
     }
 
     fn describe(&self) -> String {

@@ -477,10 +477,6 @@ impl ArgumentType<CommandSourceStack> for TimeArgument {
         ["0d", "0s", "0t", "0"].map(String::from).to_vec()
     }
 
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<TimeArgument>().is_some_and(|o| o == self)
-    }
-
     fn describe(&self) -> String {
         "TimeArgument".to_owned()
     }

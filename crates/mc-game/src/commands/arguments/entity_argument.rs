@@ -123,10 +123,6 @@ impl ArgumentType<CommandSourceStack> for EntityArgument {
         ["Player", "0123", "@e", "@e[type=foo]", "dd12be42-52a9-4a91-a8a1-11c01849e498"].map(String::from).to_vec()
     }
 
-    fn equals(&self, other: &dyn ArgumentType<CommandSourceStack>) -> bool {
-        (other as &dyn std::any::Any).downcast_ref::<EntityArgument>().is_some_and(|o| o == self)
-    }
-
     fn describe(&self) -> String {
         "EntityArgument".to_owned()
     }
