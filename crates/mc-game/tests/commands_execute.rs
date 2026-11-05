@@ -105,11 +105,11 @@ fn run(server: &mut MinecraftServer, commands: &Commands, command: &str) -> Vec<
 }
 
 fn score(server: &MinecraftServer, holder: &str, objective: &str) -> Option<i32> {
-    server.scoreboard.get_player_score_info(&mc_game::world::scores::score::for_name_only(holder), objective).map(|s| s.value())
+    server.scoreboard.read().get_player_score_info(&mc_game::world::scores::score::for_name_only(holder), objective).map(|s| s.value())
 }
 
 fn with_objective(server: &mut MinecraftServer, name: &str) {
-    server.scoreboard.add_objective(name, ObjectiveCriteria::DUMMY, Component::literal(name), RenderType::Integer, false, None).expect("new objective");
+    server.scoreboard.write().add_objective(name, ObjectiveCriteria::DUMMY, Component::literal(name), RenderType::Integer, false, None).expect("new objective");
 }
 
 #[test]

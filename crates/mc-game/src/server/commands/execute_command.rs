@@ -29,12 +29,13 @@ use crate::{register_command, translatable};
 use mc_brigadier::arguments::{DoubleArgumentType, double_arg};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandNode, CommandSyntaxException, ContextChain, Dynamic2CommandExceptionType, DynamicCommandExceptionType,
-    LiteralArgumentBuilder, RedirectModifier, SimpleCommandExceptionType,
+    LiteralArgumentBuilder, SimpleCommandExceptionType,
 };
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
-use mc_core::pos::{BlockPos, BoundingBox};
-use mc_data::block::Blocks;
+use mc_core::bounding_box::BoundingBox;
+use mc_core::pos::BlockPos;
+use mc_data::block::Block;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
 use std::sync::{Arc, LazyLock, Mutex};
@@ -244,7 +245,7 @@ fn store_score(source: &CommandSourceStack, names: Vec<ScoreHolder>, objective: 
             callback_source.with_server(|server| {
                 for name in &names {
                     // `getOrCreatePlayerScore` + `set`: a read-only criterion is vanilla's `IllegalStateException`.
-                    if let Some(mut score) = server.scoreboard.get_or_create_player_score(name, &objective) {
+                    if let Some(mut score) = server.scoreboard.write().get_or_create_player_score(name, &objective) {
                         score.set(value).unwrap_or_else(|e| panic!("{e}"));
                     }
                 }
@@ -310,7 +311,7 @@ fn add_conditionals(
                 let source = c.get_source();
                 let pos = BlockPosArgument::get_loaded_block_pos(c, "pos")?;
                 let predicate = BlockPredicateArgument::get_block_predicate(c, "block");
-                Ok(source.with_server(|server| server.level(source.get_level()).is_some_and(|level| predicate.test(level, pos))))
+                Ok(source.with_server(|server| server.level(source.get_level()).is_some_and(|level| block_predicate_test(&predicate, level, pos))))
             },
         ))))
         .then(literal("biome").then(argument("pos", BlockPosArgument::block_pos()).then(add_conditional(
@@ -481,8 +482,9 @@ fn check_score(c: &CommandContext<CommandSourceStack>, operation: fn(i32, i32) -
     let source = ScoreHolderArgument::get_name(c, "source")?;
     let source_objective = ObjectiveArgument::get_objective(c, "sourceObjective")?;
     Ok(c.get_source().with_server(|server| {
-        let a = server.scoreboard.get_player_score_info(&target, &target_objective).map(|s| s.value());
-        let b = server.scoreboard.get_player_score_info(&source, &source_objective).map(|s| s.value());
+        let scoreboard = server.scoreboard.read();
+        let a = scoreboard.get_player_score_info(&target, &target_objective).map(|s| s.value());
+        let b = scoreboard.get_player_score_info(&source, &source_objective).map(|s| s.value());
         matches!((a, b), (Some(a), Some(b)) if operation(a, b))
     }))
 }
@@ -493,7 +495,7 @@ fn check_score_range(c: &CommandContext<CommandSourceStack>) -> Result<bool, Com
     let target_objective = ObjectiveArgument::get_objective(c, "targetObjective")?;
     let range = IntRangeArgument::get_range(c, "range");
     Ok(c.get_source().with_server(|server| {
-        server.scoreboard.get_player_score_info(&target, &target_objective).is_some_and(|score| range.matches(score.value()))
+        server.scoreboard.read().get_player_score_info(&target, &target_objective).is_some_and(|score| range.matches(score.value()))
     }))
 }
 
@@ -617,7 +619,7 @@ pub fn check_regions(
                 let source_pos = BlockPos::new(x, y, z);
                 let destination_pos = source_pos.offset_vec(&offset);
                 let source_block = level.get_block_state(source_pos);
-                if skip_air && source_block.block() == Blocks::AIR {
+                if skip_air && source_block.block() == Block::AIR {
                     continue;
                 }
                 if source_block != level.get_block_state(destination_pos) {
@@ -790,5 +792,16 @@ fn instantiation_failure(id: &mc_core::ident::Identifier, e: &FunctionInstantiat
     ERROR_FUNCTION_CONDITION_INSTANTATION_FAILURE.create(id.to_string(), e.message_component.clone())
 }
 
-#[allow(dead_code)]
-type _AssertRedirectModifier = RedirectModifier<CommandSourceStack>;
+/// `BlockPredicate.test(new BlockInWorld(level, pos, true))`: the state part, then (when the predicate carries NBT)
+/// the block entity at `pos` must exist and partially match `saveWithFullMetadata`.
+fn block_predicate_test(predicate: &crate::commands::arguments::blocks::BlockPredicate, level: &crate::server::level::ServerLevel, pos: BlockPos) -> bool {
+    use crate::world::block_entity::BlockEntity;
+    use crate::world::level::BlockGetter;
+    if !predicate.matches_state(level.get_block_state(pos)) {
+        return false;
+    }
+    let Some(nbt) = predicate.nbt() else { return true };
+    level
+        .get_block_entity(pos)
+        .is_some_and(|entity| mc_nbt::nbt_utils::compare_nbt(Some(&Tag::Compound(nbt.clone())), Some(&Tag::Compound(entity.save_with_full_metadata())), true))
+}
