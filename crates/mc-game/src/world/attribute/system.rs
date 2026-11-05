@@ -338,6 +338,15 @@ impl EnvironmentAttributeSystem {
         EnvironmentAttributeSystem { samplers, cache: Mutex::new(HashMap::new()) }
     }
 
+    /// Evaluates every sampler into the per-tick cache so later reads without a clock source (block code) see the
+    /// values of this tick (vanilla caches each attribute's value for the whole tick on first read).
+    pub fn prime(&self, env: &AttributeEnv<'_>) {
+        let mut cache = self.cache.lock();
+        for (name, sampler) in &self.samplers {
+            cache.insert(name, self.compute(name, sampler, env));
+        }
+    }
+
     /// `invalidateTickCache()` (start of `ServerLevel.tick`).
     pub fn invalidate_tick_cache(&self) {
         self.cache.lock().clear();

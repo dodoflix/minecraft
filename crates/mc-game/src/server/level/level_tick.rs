@@ -611,6 +611,11 @@ impl ServerLevel {
         crate::registry::typed::dimension_type::MOON_BRIGHTNESS_PER_PHASE[usize::from(self.environment_moon_phase(env))]
     }
 
+    /// Fills the attribute system's per-tick cache (see `EnvironmentAttributeSystem::prime`).
+    fn prime_environment_attributes(&self, env: &dyn LevelTickEnv) {
+        self.with_attribute_env(env, |system, attribute_env| system.prime(attribute_env));
+    }
+
     fn with_attribute_env<R>(&self, env: &dyn LevelTickEnv, f: impl FnOnce(&crate::world::attribute::EnvironmentAttributeSystem, &crate::world::attribute::AttributeEnv<'_>) -> R) -> R {
         let clock = |clock: &mc_core::ident::Identifier| env.clock_total_ticks(clock);
         let attribute_env = crate::world::attribute::AttributeEnv { clock_total_ticks: &clock, rain_level: self.get_rain_level(1.0), thunder_level: self.get_thunder_level(1.0) };
@@ -658,6 +663,7 @@ impl ServerLevel {
             }
         }
 
+        self.prime_environment_attributes(env);
         self.update_sky_brightness(env);
         if runs {
             self.tick_time(env);
